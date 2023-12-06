@@ -366,58 +366,16 @@ declare namespace React {
     interface ReactHTMLElement<T extends HTMLElement> extends DetailedReactHTMLElement<AllHTMLAttributes<T>, T> {}
 
     interface DetailedReactHTMLElement<P extends HTMLAttributes<T>, T extends HTMLElement> extends DOMElement<P, T> {
-        type: keyof ReactHTML;
+        type: HTMLElementType;
     }
 
     // ReactSVG for ReactSVGElement
     interface ReactSVGElement extends DOMElement<SVGAttributes<SVGElement>, SVGElement> {
-        type: keyof ReactSVG;
+        type: SVGElementType;
     }
 
     interface ReactPortal extends ReactElement {
         children: ReactNode;
-    }
-
-    //
-    // Factories
-    // ----------------------------------------------------------------------
-
-    type Factory<P> = (props?: Attributes & P, ...children: ReactNode[]) => ReactElement<P>;
-
-    /**
-     * @deprecated Please use `FunctionComponentFactory`
-     */
-    type SFCFactory<P> = FunctionComponentFactory<P>;
-
-    type FunctionComponentFactory<P> = (
-        props?: Attributes & P,
-        ...children: ReactNode[]
-    ) => FunctionComponentElement<P>;
-
-    type ComponentFactory<P, T extends Component<P, ComponentState>> = (
-        props?: ClassAttributes<T> & P,
-        ...children: ReactNode[]
-    ) => CElement<P, T>;
-
-    type CFactory<P, T extends Component<P, ComponentState>> = ComponentFactory<P, T>;
-    type ClassicFactory<P> = CFactory<P, ClassicComponent<P, ComponentState>>;
-
-    type DOMFactory<P extends DOMAttributes<T>, T extends Element> = (
-        props?: ClassAttributes<T> & P | null,
-        ...children: ReactNode[]
-    ) => DOMElement<P, T>;
-
-    interface HTMLFactory<T extends HTMLElement> extends DetailedHTMLFactory<AllHTMLAttributes<T>, T> {}
-
-    interface DetailedHTMLFactory<P extends HTMLAttributes<T>, T extends HTMLElement> extends DOMFactory<P, T> {
-        (props?: ClassAttributes<T> & P | null, ...children: ReactNode[]): DetailedReactHTMLElement<P, T>;
-    }
-
-    interface SVGFactory extends DOMFactory<SVGAttributes<SVGElement>, SVGElement> {
-        (
-            props?: ClassAttributes<SVGElement> & SVGAttributes<SVGElement> | null,
-            ...children: ReactNode[]
-        ): ReactSVGElement;
     }
 
     /**
@@ -474,30 +432,6 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     // DOM Elements
-    /** @deprecated */
-    function createFactory<T extends HTMLElement>(
-        type: keyof ReactHTML,
-    ): HTMLFactory<T>;
-    /** @deprecated */
-    function createFactory(
-        type: keyof ReactSVG,
-    ): SVGFactory;
-    /** @deprecated */
-    function createFactory<P extends DOMAttributes<T>, T extends Element>(
-        type: string,
-    ): DOMFactory<P, T>;
-
-    // Custom components
-    /** @deprecated */
-    function createFactory<P>(type: FunctionComponent<P>): FunctionComponentFactory<P>;
-    /** @deprecated */
-    function createFactory<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
-        type: ClassType<P, T, C>,
-    ): CFactory<P, T>;
-    /** @deprecated */
-    function createFactory<P>(type: ComponentClass<P>): Factory<P>;
-
-    // DOM Elements
     // TODO: generalize this to everything in `keyof ReactHTML`, not just "input"
     function createElement(
         type: "input",
@@ -505,12 +439,12 @@ declare namespace React {
         ...children: ReactNode[]
     ): DetailedReactHTMLElement<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
     function createElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
-        type: keyof ReactHTML,
+        type: HTMLElementType,
         props?: ClassAttributes<T> & P | null,
         ...children: ReactNode[]
     ): DetailedReactHTMLElement<P, T>;
     function createElement<P extends SVGAttributes<T>, T extends SVGElement>(
-        type: keyof ReactSVG,
+        type: SVGElementType,
         props?: ClassAttributes<T> & P | null,
         ...children: ReactNode[]
     ): ReactSVGElement;
@@ -3841,190 +3775,184 @@ declare namespace React {
         webpreferences?: string | undefined;
     }
 
-    //
-    // React.DOM
-    // ----------------------------------------------------------------------
+    // TODO: Move to react-dom
+    type HTMLElementType =
+        | "a"
+        | "abbr"
+        | "address"
+        | "area"
+        | "article"
+        | "aside"
+        | "audio"
+        | "b"
+        | "base"
+        | "bdi"
+        | "bdo"
+        | "big"
+        | "blockquote"
+        | "body"
+        | "br"
+        | "button"
+        | "canvas"
+        | "caption"
+        | "center"
+        | "cite"
+        | "code"
+        | "col"
+        | "colgroup"
+        | "data"
+        | "datalist"
+        | "dd"
+        | "del"
+        | "details"
+        | "dfn"
+        | "dialog"
+        | "div"
+        | "dl"
+        | "dt"
+        | "em"
+        | "embed"
+        | "fieldset"
+        | "figcaption"
+        | "figure"
+        | "footer"
+        | "form"
+        | "h1"
+        | "h2"
+        | "h3"
+        | "h4"
+        | "h5"
+        | "h6"
+        | "head"
+        | "header"
+        | "hgroup"
+        | "hr"
+        | "html"
+        | "i"
+        | "iframe"
+        | "img"
+        | "input"
+        | "ins"
+        | "kbd"
+        | "keygen"
+        | "label"
+        | "legend"
+        | "li"
+        | "link"
+        | "main"
+        | "map"
+        | "mark"
+        | "menu"
+        | "menuitem"
+        | "meta"
+        | "meter"
+        | "nav"
+        | "noscript"
+        | "object"
+        | "ol"
+        | "optgroup"
+        | "option"
+        | "output"
+        | "p"
+        | "param"
+        | "picture"
+        | "pre"
+        | "progress"
+        | "q"
+        | "rp"
+        | "rt"
+        | "ruby"
+        | "s"
+        | "samp"
+        | "search"
+        | "slot"
+        | "script"
+        | "section"
+        | "select"
+        | "small"
+        | "source"
+        | "span"
+        | "strong"
+        | "style"
+        | "sub"
+        | "summary"
+        | "sup"
+        | "table"
+        | "template"
+        | "tbody"
+        | "td"
+        | "textarea"
+        | "tfoot"
+        | "th"
+        | "thead"
+        | "time"
+        | "title"
+        | "tr"
+        | "track"
+        | "u"
+        | "ul"
+        | "var"
+        | "video"
+        | "wbr"
+        | "webview";
 
-    interface ReactHTML {
-        a: DetailedHTMLFactory<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
-        abbr: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        address: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        area: DetailedHTMLFactory<AreaHTMLAttributes<HTMLAreaElement>, HTMLAreaElement>;
-        article: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        aside: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        audio: DetailedHTMLFactory<AudioHTMLAttributes<HTMLAudioElement>, HTMLAudioElement>;
-        b: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        base: DetailedHTMLFactory<BaseHTMLAttributes<HTMLBaseElement>, HTMLBaseElement>;
-        bdi: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        bdo: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        big: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        blockquote: DetailedHTMLFactory<BlockquoteHTMLAttributes<HTMLQuoteElement>, HTMLQuoteElement>;
-        body: DetailedHTMLFactory<HTMLAttributes<HTMLBodyElement>, HTMLBodyElement>;
-        br: DetailedHTMLFactory<HTMLAttributes<HTMLBRElement>, HTMLBRElement>;
-        button: DetailedHTMLFactory<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
-        canvas: DetailedHTMLFactory<CanvasHTMLAttributes<HTMLCanvasElement>, HTMLCanvasElement>;
-        caption: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        center: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        cite: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        code: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        col: DetailedHTMLFactory<ColHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
-        colgroup: DetailedHTMLFactory<ColgroupHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
-        data: DetailedHTMLFactory<DataHTMLAttributes<HTMLDataElement>, HTMLDataElement>;
-        datalist: DetailedHTMLFactory<HTMLAttributes<HTMLDataListElement>, HTMLDataListElement>;
-        dd: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        del: DetailedHTMLFactory<DelHTMLAttributes<HTMLModElement>, HTMLModElement>;
-        details: DetailedHTMLFactory<DetailsHTMLAttributes<HTMLDetailsElement>, HTMLDetailsElement>;
-        dfn: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        dialog: DetailedHTMLFactory<DialogHTMLAttributes<HTMLDialogElement>, HTMLDialogElement>;
-        div: DetailedHTMLFactory<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
-        dl: DetailedHTMLFactory<HTMLAttributes<HTMLDListElement>, HTMLDListElement>;
-        dt: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        em: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        embed: DetailedHTMLFactory<EmbedHTMLAttributes<HTMLEmbedElement>, HTMLEmbedElement>;
-        fieldset: DetailedHTMLFactory<FieldsetHTMLAttributes<HTMLFieldSetElement>, HTMLFieldSetElement>;
-        figcaption: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        figure: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        footer: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        form: DetailedHTMLFactory<FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>;
-        h1: DetailedHTMLFactory<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
-        h2: DetailedHTMLFactory<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
-        h3: DetailedHTMLFactory<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
-        h4: DetailedHTMLFactory<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
-        h5: DetailedHTMLFactory<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
-        h6: DetailedHTMLFactory<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
-        head: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLHeadElement>;
-        header: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        hgroup: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        hr: DetailedHTMLFactory<HTMLAttributes<HTMLHRElement>, HTMLHRElement>;
-        html: DetailedHTMLFactory<HtmlHTMLAttributes<HTMLHtmlElement>, HTMLHtmlElement>;
-        i: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        iframe: DetailedHTMLFactory<IframeHTMLAttributes<HTMLIFrameElement>, HTMLIFrameElement>;
-        img: DetailedHTMLFactory<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>;
-        input: DetailedHTMLFactory<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
-        ins: DetailedHTMLFactory<InsHTMLAttributes<HTMLModElement>, HTMLModElement>;
-        kbd: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        keygen: DetailedHTMLFactory<KeygenHTMLAttributes<HTMLElement>, HTMLElement>;
-        label: DetailedHTMLFactory<LabelHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>;
-        legend: DetailedHTMLFactory<HTMLAttributes<HTMLLegendElement>, HTMLLegendElement>;
-        li: DetailedHTMLFactory<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>;
-        link: DetailedHTMLFactory<LinkHTMLAttributes<HTMLLinkElement>, HTMLLinkElement>;
-        main: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        map: DetailedHTMLFactory<MapHTMLAttributes<HTMLMapElement>, HTMLMapElement>;
-        mark: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        menu: DetailedHTMLFactory<MenuHTMLAttributes<HTMLElement>, HTMLElement>;
-        menuitem: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        meta: DetailedHTMLFactory<MetaHTMLAttributes<HTMLMetaElement>, HTMLMetaElement>;
-        meter: DetailedHTMLFactory<MeterHTMLAttributes<HTMLMeterElement>, HTMLMeterElement>;
-        nav: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        noscript: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        object: DetailedHTMLFactory<ObjectHTMLAttributes<HTMLObjectElement>, HTMLObjectElement>;
-        ol: DetailedHTMLFactory<OlHTMLAttributes<HTMLOListElement>, HTMLOListElement>;
-        optgroup: DetailedHTMLFactory<OptgroupHTMLAttributes<HTMLOptGroupElement>, HTMLOptGroupElement>;
-        option: DetailedHTMLFactory<OptionHTMLAttributes<HTMLOptionElement>, HTMLOptionElement>;
-        output: DetailedHTMLFactory<OutputHTMLAttributes<HTMLOutputElement>, HTMLOutputElement>;
-        p: DetailedHTMLFactory<HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement>;
-        param: DetailedHTMLFactory<ParamHTMLAttributes<HTMLParamElement>, HTMLParamElement>;
-        picture: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        pre: DetailedHTMLFactory<HTMLAttributes<HTMLPreElement>, HTMLPreElement>;
-        progress: DetailedHTMLFactory<ProgressHTMLAttributes<HTMLProgressElement>, HTMLProgressElement>;
-        q: DetailedHTMLFactory<QuoteHTMLAttributes<HTMLQuoteElement>, HTMLQuoteElement>;
-        rp: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        rt: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        ruby: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        s: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        samp: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        search: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        slot: DetailedHTMLFactory<SlotHTMLAttributes<HTMLSlotElement>, HTMLSlotElement>;
-        script: DetailedHTMLFactory<ScriptHTMLAttributes<HTMLScriptElement>, HTMLScriptElement>;
-        section: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        select: DetailedHTMLFactory<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>;
-        small: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        source: DetailedHTMLFactory<SourceHTMLAttributes<HTMLSourceElement>, HTMLSourceElement>;
-        span: DetailedHTMLFactory<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>;
-        strong: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        style: DetailedHTMLFactory<StyleHTMLAttributes<HTMLStyleElement>, HTMLStyleElement>;
-        sub: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        summary: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        sup: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        table: DetailedHTMLFactory<TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>;
-        template: DetailedHTMLFactory<HTMLAttributes<HTMLTemplateElement>, HTMLTemplateElement>;
-        tbody: DetailedHTMLFactory<HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
-        td: DetailedHTMLFactory<TdHTMLAttributes<HTMLTableDataCellElement>, HTMLTableDataCellElement>;
-        textarea: DetailedHTMLFactory<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>;
-        tfoot: DetailedHTMLFactory<HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
-        th: DetailedHTMLFactory<ThHTMLAttributes<HTMLTableHeaderCellElement>, HTMLTableHeaderCellElement>;
-        thead: DetailedHTMLFactory<HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>;
-        time: DetailedHTMLFactory<TimeHTMLAttributes<HTMLTimeElement>, HTMLTimeElement>;
-        title: DetailedHTMLFactory<HTMLAttributes<HTMLTitleElement>, HTMLTitleElement>;
-        tr: DetailedHTMLFactory<HTMLAttributes<HTMLTableRowElement>, HTMLTableRowElement>;
-        track: DetailedHTMLFactory<TrackHTMLAttributes<HTMLTrackElement>, HTMLTrackElement>;
-        u: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        ul: DetailedHTMLFactory<HTMLAttributes<HTMLUListElement>, HTMLUListElement>;
-        "var": DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        video: DetailedHTMLFactory<VideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement>;
-        wbr: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
-        webview: DetailedHTMLFactory<WebViewHTMLAttributes<HTMLWebViewElement>, HTMLWebViewElement>;
-    }
-
-    interface ReactSVG {
-        animate: SVGFactory;
-        circle: SVGFactory;
-        clipPath: SVGFactory;
-        defs: SVGFactory;
-        desc: SVGFactory;
-        ellipse: SVGFactory;
-        feBlend: SVGFactory;
-        feColorMatrix: SVGFactory;
-        feComponentTransfer: SVGFactory;
-        feComposite: SVGFactory;
-        feConvolveMatrix: SVGFactory;
-        feDiffuseLighting: SVGFactory;
-        feDisplacementMap: SVGFactory;
-        feDistantLight: SVGFactory;
-        feDropShadow: SVGFactory;
-        feFlood: SVGFactory;
-        feFuncA: SVGFactory;
-        feFuncB: SVGFactory;
-        feFuncG: SVGFactory;
-        feFuncR: SVGFactory;
-        feGaussianBlur: SVGFactory;
-        feImage: SVGFactory;
-        feMerge: SVGFactory;
-        feMergeNode: SVGFactory;
-        feMorphology: SVGFactory;
-        feOffset: SVGFactory;
-        fePointLight: SVGFactory;
-        feSpecularLighting: SVGFactory;
-        feSpotLight: SVGFactory;
-        feTile: SVGFactory;
-        feTurbulence: SVGFactory;
-        filter: SVGFactory;
-        foreignObject: SVGFactory;
-        g: SVGFactory;
-        image: SVGFactory;
-        line: SVGFactory;
-        linearGradient: SVGFactory;
-        marker: SVGFactory;
-        mask: SVGFactory;
-        metadata: SVGFactory;
-        path: SVGFactory;
-        pattern: SVGFactory;
-        polygon: SVGFactory;
-        polyline: SVGFactory;
-        radialGradient: SVGFactory;
-        rect: SVGFactory;
-        stop: SVGFactory;
-        svg: SVGFactory;
-        switch: SVGFactory;
-        symbol: SVGFactory;
-        text: SVGFactory;
-        textPath: SVGFactory;
-        tspan: SVGFactory;
-        use: SVGFactory;
-        view: SVGFactory;
-    }
-
-    interface ReactDOM extends ReactHTML, ReactSVG {}
+    // TODO: Move to react-dom
+    type SVGElementType =
+        | "animate"
+        | "circle"
+        | "clipPath"
+        | "defs"
+        | "desc"
+        | "ellipse"
+        | "feBlend"
+        | "feColorMatrix"
+        | "feComponentTransfer"
+        | "feComposite"
+        | "feConvolveMatrix"
+        | "feDiffuseLighting"
+        | "feDisplacementMap"
+        | "feDistantLight"
+        | "feDropShadow"
+        | "feFlood"
+        | "feFuncA"
+        | "feFuncB"
+        | "feFuncG"
+        | "feFuncR"
+        | "feGaussianBlur"
+        | "feImage"
+        | "feMerge"
+        | "feMergeNode"
+        | "feMorphology"
+        | "feOffset"
+        | "fePointLight"
+        | "feSpecularLighting"
+        | "feSpotLight"
+        | "feTile"
+        | "feTurbulence"
+        | "filter"
+        | "foreignObject"
+        | "g"
+        | "image"
+        | "line"
+        | "linearGradient"
+        | "marker"
+        | "mask"
+        | "metadata"
+        | "path"
+        | "pattern"
+        | "polygon"
+        | "polyline"
+        | "radialGradient"
+        | "rect"
+        | "stop"
+        | "svg"
+        | "switch"
+        | "symbol"
+        | "text"
+        | "textPath"
+        | "tspan"
+        | "use"
+        | "view";
 
     //
     // React.PropTypes

@@ -237,18 +237,6 @@ const FunctionComponent4: React.FunctionComponent = props => null;
 
 const FunctionComponent5: React.FunctionComponent = () => false;
 
-// React.createFactory
-const factory: React.CFactory<Props, ModernComponent> = React.createFactory(ModernComponent);
-const factoryElement: React.CElement<Props, ModernComponent> = factory(props);
-
-const functionComponentFactory: React.FunctionComponentFactory<SCProps> = React.createFactory(FunctionComponent);
-const functionComponentFactoryElement: React.FunctionComponentElement<SCProps> = functionComponentFactory(props);
-
-const legacyStatelessComponentFactory: React.SFCFactory<SCProps> = React.createFactory(FunctionComponent);
-
-const domFactory: React.DOMFactory<React.DOMAttributes<{}>, Element> = React.createFactory("div");
-const domFactoryElement: React.DOMElement<React.DOMAttributes<{}>, Element> = domFactory();
-
 // React.createElement
 const element: React.CElement<Props, ModernComponent> = React.createElement(ModernComponent, props);
 const elementNoState: React.CElement<Props, ModernComponentNoState> = React.createElement(
@@ -386,7 +374,9 @@ myComponent.reset();
 interface RCProps {}
 
 class RefComponent extends React.Component<RCProps> {
-    static create = React.createFactory(RefComponent);
+    static create(props: React.ClassAttributes<RefComponent>) {
+        return React.createElement(RefComponent);
+    }
     refMethod() {
     }
 }
