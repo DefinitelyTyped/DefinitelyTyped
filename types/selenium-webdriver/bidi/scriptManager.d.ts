@@ -85,9 +85,9 @@ declare class ScriptManager {
         sandbox: boolean | null,
         functionDeclaration: FUNC,
         awaitPromise: boolean,
-        argumentValueList: ReferenceValue[] | null,
-        thisParameter: any,
-        resultOwnership: any,
+        argumentValueList?: ReferenceValue[] | null,
+        thisParameter?: any,
+        resultOwnership?: any,
     ): {
         target: { context?: string; realm?: string; sandbox?: boolean };
         functionDeclaration: FUNC;
