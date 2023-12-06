@@ -1,5 +1,5 @@
-import type { StackHeaderLeftButtonProps } from "../../types";
 import { JSX } from "react";
+import type { StackHeaderLeftButtonProps } from "../../types";
 // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 declare type Props = StackHeaderLeftButtonProps;
 export default function HeaderBackButton(
