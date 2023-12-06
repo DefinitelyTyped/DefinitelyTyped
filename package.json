@@ -23,8 +23,8 @@
         "test-all": "node --enable-source-maps node_modules/@definitelytyped/dtslint-runner/ --path .",
         "clean": "node scripts/remove-empty.js",
         "clean-node-modules": "node scripts/clean-node-modules.js",
-        "test": "node --enable-source-maps node_modules/@definitelytyped/dtslint/ types/relationship.js",
-        "lint": "node --enable-source-maps node_modules/@definitelytyped/dtslint/ types/relationship.js",
+        "test": "node --enable-source-maps node_modules/@definitelytyped/dtslint/ types",
+        "lint": "node --enable-source-maps node_modules/@definitelytyped/dtslint/ types",
         "prettier": "prettier"
     },
     "devDependencies": {
