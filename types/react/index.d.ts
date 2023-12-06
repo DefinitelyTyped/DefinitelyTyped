@@ -1897,8 +1897,7 @@ declare namespace React {
      * @see {@link https://react.dev/reference/react/useRef}
      */
     function useRef<T>(initialValue: T | null): RefObject<T | null>;
-    // convenience overload for potentially undefined initialValue / call with 0 arguments
-    // has a default to stop it from defaulting to {} instead
+    // convenience overload for undefined initialValue
     /**
      * `useRef` returns a mutable ref object whose `.current` property is initialized to the passed argument
      * (`initialValue`). The returned object will persist for the full lifetime of the component.
@@ -1909,7 +1908,7 @@ declare namespace React {
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useRef}
      */
-    function useRef<T = undefined>(): RefObject<T | undefined>;
+    function useRef<T>(initialValue: T | undefined): RefObject<T | undefined>;
     /**
      * The signature is identical to `useEffect`, but it fires synchronously after all DOM mutations.
      * Use this to read layout from the DOM and synchronously re-render. Updates scheduled inside

@@ -40,8 +40,8 @@ const customTheme = { ...theme, box: { color: "grey" } };
 
 const Container = (): React.JSX.Element => {
     const [colorMode, setColorMode] = useColorMode();
-    const refUnknown = useRef<unknown>();
-    const refAny = useRef<any>();
+    const refUnknown = useRef<unknown>(undefined);
+    const refAny = useRef<any>(undefined);
     setColorMode("light");
     useColorStyle({ colorMode });
     const portal = usePortalManager();
@@ -136,7 +136,7 @@ setColorMode("blue");
 
 const PortalApp = () => {
     const portal = usePortalManager();
-    const ref = useRef();
+    const ref = useRef(undefined);
     const openModal = useCallback(() => {
         portal((close) => <div onClick={close} />, { containerRef: ref });
     }, [portal]);
