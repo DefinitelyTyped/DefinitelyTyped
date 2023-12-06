@@ -73,7 +73,7 @@ declare class ScriptManager {
 
     addPreloadScript(
         functionDeclaration: (...args: any) => any,
-        argumentValueList: ReferenceValue[] | null,
+        argumentValueList?: ReferenceValue[] | null,
         sandbox?: boolean | null,
     ): Promise<any>;
 
