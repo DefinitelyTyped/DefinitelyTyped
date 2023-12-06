@@ -1,7 +1,9 @@
-declare type EvaluateResultType = {
+interface IEvaluateResultType = {
     SUCCESS: "success";
     EXCEPTION: "exception";
-};
+}
+
+const EvaluateResultType: IEvaluateResultType;
 
 declare class EvaluateResultSuccess<T> {
     constructor(realmId: string, value: T);
