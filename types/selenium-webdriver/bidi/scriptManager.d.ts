@@ -67,7 +67,7 @@ declare class ScriptManager {
         browsingContextId: string,
         expression: string,
         awaitPromise: boolean,
-        resultOwnership: any,
+        resultOwnership?: any,
         sandbox?: boolean | null,
     ): Promise<EvaluateResultSuccess<RemoteValue<Awaited<ReturnType<FUNC>>>> | EvaluateResultException>;
 
