@@ -563,7 +563,7 @@ declare namespace jest {
         /**
          * Sketch out which tests to write in the future.
          */
-        todo: It;
+        todo: (name: string) => void;
         /**
          * Experimental and should be avoided.
          */
