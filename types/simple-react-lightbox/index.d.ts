@@ -1,4 +1,4 @@
-import { ReactNode, JSX } from "react";
+import { JSX, ReactNode } from "react";
 
 /**
  * The object that lightbox uses for the elements array
