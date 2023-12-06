@@ -251,7 +251,7 @@ shippo.setPort("port");
 shippo.setTimeout(1000);
 
 // $ExpectType void
-shippo.setTImeout(null);
+shippo.setTimeout(null);
 
 // $ExpectType void
 shippo.set("key", "value");
