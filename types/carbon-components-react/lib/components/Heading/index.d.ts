@@ -13,9 +13,11 @@ export type SectionDefaultProps = ReactAttr & {
     as?: undefined;
 };
 
-export type SectionIntrinsicProps<K extends keyof React.JSX.IntrinsicElements> = SafeProps<JSXIntrinsicElementProps<K>> & {
-    as: K;
-};
+export type SectionIntrinsicProps<K extends keyof React.JSX.IntrinsicElements> =
+    & SafeProps<JSXIntrinsicElementProps<K>>
+    & {
+        as: K;
+    };
 
 export type SectionCustomComponentProps<
     C extends ReactComponentConstructor<never>,
