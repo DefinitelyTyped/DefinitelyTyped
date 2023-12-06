@@ -3,7 +3,7 @@
 // documentation taken from http://allenfang.github.io/react-bootstrap-table/docs.html
 
 import { EventEmitter } from "events";
-import { ComponentClass, ReactElement, JSX } from "react";
+import { ComponentClass, JSX, ReactElement } from "react";
 
 /**
  * Interface spec for sepcifying functionality to handle remotely
