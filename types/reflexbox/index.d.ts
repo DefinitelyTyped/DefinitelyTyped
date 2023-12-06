@@ -14,8 +14,8 @@ export interface BoxProps
 }
 
 export type BoxType = StyledComponent<
-    JSX.IntrinsicElements["div"],
-    Omit<JSX.IntrinsicElements["div"] & BoxProps, keyof React.ClassAttributes<any>>
+    React.JSX.IntrinsicElements["div"],
+    Omit<React.JSX.IntrinsicElements["div"] & BoxProps, keyof React.ClassAttributes<any>>
 >;
 
 export const Box: BoxType;
