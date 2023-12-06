@@ -28,7 +28,7 @@ export interface RangeSliderProps {
     tooltipStyle?: CSSProperties | undefined;
     tooltipProps?: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> | undefined;
     className?: string | undefined;
-    ref?: ((instance: HTMLInputElement | null) => void) | RefObject<HTMLInputElement> | null | undefined;
+    ref?: ((instance: HTMLInputElement | null) => void) | RefObject<HTMLInputElement | null> | null | undefined;
     bsPrefix?: string | undefined;
 }
 

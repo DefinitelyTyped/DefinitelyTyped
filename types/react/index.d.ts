@@ -151,7 +151,7 @@ declare namespace React {
         /**
          * The current value of the ref.
          */
-        readonly current: T | null;
+        current: T;
     }
 
     interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES {
@@ -186,7 +186,7 @@ declare namespace React {
      * @see {@link RefObject}
      */
 
-    type Ref<T> = RefCallback<T> | RefObject<T> | null;
+    type Ref<T> = RefCallback<T> | RefObject<T | null> | null;
     /**
      * A legacy implementation of refs where you can pass a string to a ref prop.
      *
@@ -1167,7 +1167,9 @@ declare namespace React {
      *
      * @see {@link ForwardRefRenderFunction}
      */
-    type ForwardedRef<T> = ((instance: T | null) => void) | MutableRefObject<T | null> | null;
+    // Making T nullable is assuming the refs will be managed by React or the component impl will write it somewhere else.
+    // But this isn't necessarily true. We haven't heard complains about it yet and hopefully `forwardRef` is removed from React before we do.
+    type ForwardedRef<T> = ((instance: T | null) => void) | RefObject<T | null> | null;
 
     /**
      * The type of the function passed to {@link forwardRef}. This is considered different
@@ -1498,7 +1500,7 @@ declare namespace React {
         [propertyName: string]: any;
     }
 
-    function createRef<T>(): RefObject<T>;
+    function createRef<T>(): RefObject<T | null>;
 
     /**
      * The type of the component returned from {@link forwardRef}.
@@ -1794,6 +1796,9 @@ declare namespace React {
     // NOTE: callbacks are _only_ allowed to return either void, or a destructor.
     type EffectCallback = () => void | Destructor;
 
+    /**
+     * @deprecated Use `RefObject` instead.
+     */
     interface MutableRefObject<T> {
         current: T;
     }
@@ -1875,7 +1880,7 @@ declare namespace React {
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useRef}
      */
-    function useRef<T>(initialValue: T): MutableRefObject<T>;
+    function useRef<T>(initialValue: T): RefObject<T>;
     // convenience overload for refs given as a ref prop as they typically start with a null value
     /**
      * `useRef` returns a mutable ref object whose `.current` property is initialized to the passed argument
@@ -1884,13 +1889,10 @@ declare namespace React {
      * Note that `useRef()` is useful for more than the `ref` attribute. It’s handy for keeping any mutable
      * value around similar to how you’d use instance fields in classes.
      *
-     * Usage note: if you need the result of useRef to be directly mutable, include `| null` in the type
-     * of the generic argument.
-     *
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useRef}
      */
-    function useRef<T>(initialValue: T | null): RefObject<T>;
+    function useRef<T>(initialValue: T | null): RefObject<T | null>;
     // convenience overload for potentially undefined initialValue / call with 0 arguments
     // has a default to stop it from defaulting to {} instead
     /**
@@ -1903,7 +1905,7 @@ declare namespace React {
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useRef}
      */
-    function useRef<T = undefined>(): MutableRefObject<T | undefined>;
+    function useRef<T = undefined>(): RefObject<T | undefined>;
     /**
      * The signature is identical to `useEffect`, but it fires synchronously after all DOM mutations.
      * Use this to read layout from the DOM and synchronously re-render. Updates scheduled inside

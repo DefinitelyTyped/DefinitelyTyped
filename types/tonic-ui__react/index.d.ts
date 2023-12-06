@@ -420,8 +420,8 @@ export interface DrawerProps extends Omit<TonicProps, "children"> {
     closeOnEsc?: boolean;
     closeOnOutsideClick?: boolean;
     ensureFocus?: boolean;
-    finalFocusRef?: RefObject<HTMLElement>;
-    initialFocusRef?: RefObject<HTMLElement>;
+    finalFocusRef?: RefObject<HTMLElement | null>;
+    initialFocusRef?: RefObject<HTMLElement | null>;
     isClosable?: boolean;
     isOpen?: boolean;
     onClose?: () => void;
@@ -478,7 +478,7 @@ export interface InputControlProps extends TonicHTMLInputProps {
     endAdornment?: ReactNode;
     inputComponent?: ComponentType;
     inputProps?: InputProps;
-    inputRef?: RefObject<HTMLElement>;
+    inputRef?: RefObject<HTMLElement | null>;
     size?: "sm" | "md" | "lg" | number;
     variant?: "outline" | "filled" | "unstyled";
     startAdornment?: ReactNode;
@@ -573,8 +573,8 @@ export interface ModalProps extends Omit<TonicProps, "children"> {
     closeOnEsc?: boolean;
     closeOnOutsideClick?: boolean;
     ensureFocus?: boolean;
-    finalFocusRef?: RefObject<HTMLElement>;
-    initialFocusRef?: RefObject<HTMLElement>;
+    finalFocusRef?: RefObject<HTMLElement | null>;
+    initialFocusRef?: RefObject<HTMLElement | null>;
     isClosable?: boolean;
     isOpen?: boolean;
     onClose?: MouseEventHandler;
@@ -669,7 +669,7 @@ export interface PopoverProps extends Omit<TonicProps, "children"> {
     enterDelay?: number;
     followCursor?: boolean;
     id?: string;
-    initialFocusRef?: RefObject<HTMLElement>;
+    initialFocusRef?: RefObject<HTMLElement | null>;
     isOpen?: boolean;
     leaveDelay?: number;
     nextToCursor?: boolean;
@@ -715,7 +715,7 @@ export interface PopoverArrowProps extends TonicProps {
 
 export interface PortalProps {
     appendToParentPortal?: boolean;
-    containerRef?: RefObject<HTMLElement>;
+    containerRef?: RefObject<HTMLElement | null>;
 }
 
 export interface RadioGroupProps<T extends string | number | undefined>
