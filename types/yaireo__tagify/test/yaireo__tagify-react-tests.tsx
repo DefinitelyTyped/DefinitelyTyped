@@ -230,7 +230,7 @@ export function TestTagsShowDropdown(): React.ReactElement {
 
 // Tests that a reference to the tagify instance can be obtained via the tagifyRef prop
 export function TestTagsTagifyRef(): React.ReactElement {
-    const ref = React.useRef<Tagify>();
+    const ref = React.useRef<Tagify>(undefined);
     return (
         <div>
             <Tags tagifyRef={ref} />
@@ -586,7 +586,7 @@ export function TestMixedTagsShowDropdown(): React.ReactElement {
 
 // Tests that a reference to the tagify instance can be obtained via the tagifyRef prop
 export function TestMixedTagsTagifyRef(): React.ReactElement {
-    const ref = React.useRef<Tagify>();
+    const ref = React.useRef<Tagify>(undefined);
     return (
         <div>
             <MixedTags tagifyRef={ref} />
@@ -777,7 +777,7 @@ declare function getWhitelistFromServer(duration: number): Promise<string>;
 declare function getValue(duration: number): Promise<string>;
 
 export const CrazyTags = () => {
-    const tagifyRef = React.useRef<Tagify>();
+    const tagifyRef = React.useRef<Tagify>(undefined);
     // just a name I made up for allowing dynamic changes for tagify settings on this component
     const [tagifySettings, setTagifySettings] = React.useState<TagifySettings>({});
     const [tagifyProps, setTagifyProps] = React.useState<TagifyTagsReactProps>({});
