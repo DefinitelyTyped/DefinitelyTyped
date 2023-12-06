@@ -43,8 +43,10 @@ export interface SelectProps<T extends string = string> {
     ref?: React.Ref<HTMLDivElement> | undefined;
 }
 
-declare const Select: (<T extends string = string>(props: SelectProps<T> & { selectedKey?: T }) => React.JSX.Element) & {
-    displayName: "Select";
-};
+declare const Select:
+    & (<T extends string = string>(props: SelectProps<T> & { selectedKey?: T }) => React.JSX.Element)
+    & {
+        displayName: "Select";
+    };
 
 export default Select;
