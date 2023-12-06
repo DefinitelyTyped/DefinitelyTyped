@@ -1,4 +1,4 @@
-import { Component, ReactNode } from "react";
+import { Component, ReactNode, JSX } from "react";
 import { Animated, StyleProp, ViewProps } from "react-native";
 export interface OverlayState {
     fadeAnim: Animated.Value;
