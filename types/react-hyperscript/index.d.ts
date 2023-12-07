@@ -1,6 +1,6 @@
 import type * as React from "react";
 
-import type { ReactElement, ReactHTML, ReactNode, ReactSVG, ReactSVGElement } from "react";
+import type { ReactElement, ReactNode, ReactSVGElement } from "react";
 
 export = $;
 
@@ -126,6 +126,63 @@ type HTMLElementType =
     | "wbr"
     | "webview";
 
+type SVGElementType =
+    | "animate"
+    | "circle"
+    | "clipPath"
+    | "defs"
+    | "desc"
+    | "ellipse"
+    | "feBlend"
+    | "feColorMatrix"
+    | "feComponentTransfer"
+    | "feComposite"
+    | "feConvolveMatrix"
+    | "feDiffuseLighting"
+    | "feDisplacementMap"
+    | "feDistantLight"
+    | "feDropShadow"
+    | "feFlood"
+    | "feFuncA"
+    | "feFuncB"
+    | "feFuncG"
+    | "feFuncR"
+    | "feGaussianBlur"
+    | "feImage"
+    | "feMerge"
+    | "feMergeNode"
+    | "feMorphology"
+    | "feOffset"
+    | "fePointLight"
+    | "feSpecularLighting"
+    | "feSpotLight"
+    | "feTile"
+    | "feTurbulence"
+    | "filter"
+    | "foreignObject"
+    | "g"
+    | "image"
+    | "line"
+    | "linearGradient"
+    | "marker"
+    | "mask"
+    | "metadata"
+    | "path"
+    | "pattern"
+    | "polygon"
+    | "polyline"
+    | "radialGradient"
+    | "rect"
+    | "stop"
+    | "svg"
+    | "switch"
+    | "symbol"
+    | "text"
+    | "textPath"
+    | "tspan"
+    | "use"
+    | "view";
+
 declare function $(
     children?: Children,
 ): ReactElement;
@@ -143,7 +200,7 @@ declare function $<T extends HTMLElement>(
 ): React.DetailedReactHTMLElement<React.HTMLAttributes<T>, T>;
 
 declare function $(
-    tag: keyof ReactSVG,
+    tag: SVGElementType,
     children?: Children,
 ): ReactSVGElement;
 
@@ -167,7 +224,7 @@ declare function $<T extends HTMLElement, P extends React.HTMLAttributes<T>>(
 ): React.DetailedReactHTMLElement<P, T>;
 
 declare function $<T extends SVGElement>(
-    tag: keyof ReactSVG,
+    tag: SVGElementType,
     attributes?: React.ClassAttributes<T> & React.SVGAttributes<T>,
     children?: Children,
 ): ReactSVGElement;
