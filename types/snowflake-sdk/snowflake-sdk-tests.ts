@@ -115,7 +115,6 @@ snowflake.createConnection({
 
 snowflake.createConnection({
     account: "",
-    username: "",
     authenticator: "",
     token: "",
 });
