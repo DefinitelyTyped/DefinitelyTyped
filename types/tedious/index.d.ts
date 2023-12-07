@@ -373,6 +373,11 @@ export interface ConnectionAuthenticationOptions {
     clientId?: string | undefined;
 
     /**
+     * Client secret for the service principal identity
+     */
+    clientSecret?: string | undefined;
+
+    /**
      * Optional parameter for specific Azure tenant ID
      */
     tenantId?: string | undefined;
