@@ -28,10 +28,6 @@ export const version: string;
 /**
  * @deprecated See https://react.dev/blog/2022/03/08/react-18-upgrade-guide#updates-to-client-rendering-apis
  */
-export const render: Renderer;
-/**
- * @deprecated See https://react.dev/blog/2022/03/08/react-18-upgrade-guide#updates-to-client-rendering-apis
- */
 export const hydrate: Renderer;
 
 export function flushSync<R>(fn: () => R): R;
