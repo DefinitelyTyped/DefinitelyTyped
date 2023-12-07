@@ -303,6 +303,14 @@ braintree.client.create(
 
             console.log(paymentRequest);
             // { total: { }, countryCode: 'US', currencyCode: 'USD', merchantCapabilities: [ ], supportedNetworks: [ ] }
+
+            // $ExpectType Promise<void>
+            applePayInstance.teardown();
+
+            // $ExpectType void
+            applePayInstance.teardown(() => {
+                // teardown with callback
+            });
         });
 
         braintree.applePay.create({ client: clientInstance }, (createErr, applePayInstance) => {
