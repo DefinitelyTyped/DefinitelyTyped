@@ -21,16 +21,6 @@ describe("ReactDOM", () => {
         ReactDOM.hydrate(React.createElement("div"), document);
     });
 
-    it("unmounts", () => {
-        const rootElement = document.createElement("div");
-        ReactDOM.unmountComponentAtNode(rootElement);
-    });
-
-    it("works with document fragments", () => {
-        const fragment = document.createDocumentFragment();
-        const unmounted: boolean = ReactDOM.unmountComponentAtNode(fragment);
-    });
-
     it("createPortal", () => {
         const rootElement = document.createElement("div");
         const portalTarget = document.createElement("div");

@@ -17,8 +17,6 @@ import {
     ReactPortal,
 } from "react";
 
-export function unmountComponentAtNode(container: Element | DocumentFragment): boolean;
-
 export function createPortal(
     children: ReactNode,
     container: Element | DocumentFragment,
