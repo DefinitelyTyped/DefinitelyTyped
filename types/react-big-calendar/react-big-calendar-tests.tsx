@@ -185,11 +185,12 @@ class CalendarResource {
         localizer: DateLocalizer;
     }
     interface DragAndDropEvent {
-        isAllDay: boolean;
+        isAllDay?: boolean;
+        resourceId: string | number;
     }
     const DragAndDropCalendar = withDragAndDrop<CalendarEvent, CalendarResource>(MyCalendar);
-    const handleEventMove = ({ isAllDay }: DragAndDropEvent) => {
-        console.log(isAllDay);
+    const handleEventMove = ({ isAllDay, resourceId }: DragAndDropEvent) => {
+        console.log(isAllDay, resourceId);
     };
     const DnD = ({ localizer }: Props) => (
         <DragAndDropCalendar
