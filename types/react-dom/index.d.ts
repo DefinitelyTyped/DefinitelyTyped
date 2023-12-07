@@ -12,18 +12,10 @@ import {
     DOMElement,
     FunctionComponentElement,
     ReactElement,
-    ReactInstance,
     ReactNode,
     ReactPortal,
 } from "react";
 
-/**
- * @deprecated See https://react.dev/reference/react-dom/findDOMNode#alternatives
- */
-export function findDOMNode(instance: ReactInstance | null | undefined): Element | null | Text;
-/**
- * @deprecated See https://react.dev/blog/2022/03/08/react-18-upgrade-guide#updates-to-client-rendering-apis
- */
 export function unmountComponentAtNode(container: Element | DocumentFragment): boolean;
 
 export function createPortal(
