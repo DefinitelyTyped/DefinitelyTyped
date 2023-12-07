@@ -40,7 +40,7 @@ function simplified_stream_ctor_test() {
         destroy(error, cb) {
             // $ExpectType Error | null
             error;
-            // $ExpectType (error: Error | null) => void
+            // $ExpectType (error?: Error | null | undefined) => void
             cb;
         },
         signal: new AbortSignal(),
@@ -75,7 +75,7 @@ function simplified_stream_ctor_test() {
             this;
             // $ExpectType Error | null
             error;
-            // $ExpectType (error: Error | null) => void
+            // $ExpectType (error?: Error | null | undefined) => void
             cb;
         },
         final(cb) {
@@ -123,7 +123,7 @@ function simplified_stream_ctor_test() {
             this;
             // $ExpectType Error | null
             error;
-            // $ExpectType (error: Error | null) => void
+            // $ExpectType (error?: Error | null | undefined) => void
             cb;
         },
         final(cb) {
@@ -173,7 +173,7 @@ function simplified_stream_ctor_test() {
             this;
             // $ExpectType Error | null
             error;
-            // $ExpectType (error: Error | null) => void
+            // $ExpectType (error?: Error | null | undefined) => void
             cb;
         },
         final(cb) {

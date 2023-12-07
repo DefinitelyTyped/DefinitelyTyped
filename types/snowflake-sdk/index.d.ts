@@ -175,7 +175,7 @@ export interface ConnectionOptions {
     /**
      * Snowflake user login name to connect with.
      */
-    username: string;
+    username?: string;
 
     /**
      * Password for the user. Set this option if you set the authenticator option to SNOWFLAKE or the Okta URL endpoint for your
