@@ -17,6 +17,7 @@ var config: tedious.ConnectionConfig = {
             userName: "rogier",
             password: "rogiers password",
             clientId: "00000000-0000-0000-0000-000000000000",
+            clientSecret: "XXXXXXXXXXX",
             tenantId: "00000000-0000-0000-0000-000000000000",
         },
     },
