@@ -186,7 +186,7 @@ class CalendarResource {
     }
     interface DragAndDropEvent {
         isAllDay?: boolean;
-        resourceId: string | number;
+        resourceId?: string | number;
     }
     const DragAndDropCalendar = withDragAndDrop<CalendarEvent, CalendarResource>(MyCalendar);
     const handleEventMove = ({ isAllDay, resourceId }: DragAndDropEvent) => {
