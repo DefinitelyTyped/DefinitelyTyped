@@ -10,7 +10,7 @@ export interface EventInteractionArgs<TEvent> {
     start: stringOrDate;
     end: stringOrDate;
     isAllDay?: boolean;
-    resourceId: string;
+    resourceId: string | number;
 }
 
 export interface OnDragStartArgs<TEvent> {
