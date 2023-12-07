@@ -5,7 +5,7 @@ import format = require("./format");
 
 export interface Url {
     protocol: string;
-    slashes: string;
+    slashes: boolean;
     auth: string;
     port: string;
     hostname: string;
