@@ -1678,12 +1678,12 @@ declare module 'vscode' {
 		 * @returns Returns a new disposable which, upon dispose, will
 		 * dispose all provided disposables.
 		 */
-		static from(...disposableLikes: {
+		static from(...disposableLikes: Array<{
 			/**
 			 * Function to clean up resources.
 			 */
 			dispose: () => any;
-		}[]): Disposable;
+		}>): Disposable;
 
 		/**
 		 * Creates a new disposable that calls the provided function
@@ -2695,7 +2695,7 @@ declare module 'vscode' {
 		 * We also support returning `Command` for legacy reasons, however all new extensions should return
 		 * `CodeAction` object instead.
 		 */
-		provideCodeActions(document: TextDocument, range: Range | Selection, context: CodeActionContext, token: CancellationToken): ProviderResult<(Command | T)[]>;
+		provideCodeActions(document: TextDocument, range: Range | Selection, context: CodeActionContext, token: CancellationToken): ProviderResult<Array<(Command | T)>>;
 
 		/**
 		 * Given a code action fill in its {@linkcode CodeAction.edit edit}-property. Changes to
@@ -4055,7 +4055,7 @@ declare module 'vscode' {
 		 *
 		 * @returns A shallow copy of `[Uri, TextEdit[]]`-tuples.
 		 */
-		entries(): [Uri, TextEdit[]][];
+		entries(): Array<[Uri, TextEdit[]]>;
 	}
 
 	/**
@@ -5947,7 +5947,7 @@ declare module 'vscode' {
 		/**
 		 * Tags for this item.
 		 */
-		tags?: ReadonlyArray<SymbolTag>;
+		tags?: readonly SymbolTag[];
 
 		/**
 		 * More detail for this item, e.g. the signature of a function.
@@ -6344,7 +6344,7 @@ declare module 'vscode' {
 			/**
 			 * @deprecated
 			 */
-			autoClosingPairs: {
+			autoClosingPairs: Array<{
 				/**
 				 * @deprecated
 				 */
@@ -6357,7 +6357,7 @@ declare module 'vscode' {
 				 * @deprecated
 				 */
 				notIn?: string[];
-			}[];
+			}>;
 		};
 	}
 
@@ -7703,12 +7703,12 @@ declare module 'vscode' {
 		 *
 		 * *Note* that asynchronous dispose-functions aren't awaited.
 		 */
-		readonly subscriptions: {
+		readonly subscriptions: Array<{
 			/**
 			 * Function to clean up resources.
 			 */
 			dispose(): any;
-		}[];
+		}>;
 
 		/**
 		 * A memento object that stores state in the context
@@ -8324,7 +8324,7 @@ declare module 'vscode' {
 		 * @param args The command arguments.
 		 * @param options Optional options for the started the shell.
 		 */
-		constructor(command: string | ShellQuotedString, args: (string | ShellQuotedString)[], options?: ShellExecutionOptions);
+		constructor(command: string | ShellQuotedString, args: Array<string | ShellQuotedString>, options?: ShellExecutionOptions);
 
 		/**
 		 * The shell command line. Is `undefined` if created with a command and arguments.
@@ -8339,7 +8339,7 @@ declare module 'vscode' {
 		/**
 		 * The shell args. Is `undefined` if created with a full command line.
 		 */
-		args: (string | ShellQuotedString)[];
+		args: Array<string | ShellQuotedString>;
 
 		/**
 		 * The shell options used when the command line is executed in a shell.
@@ -8932,7 +8932,7 @@ declare module 'vscode' {
 		 * @returns An array of name/type-tuples or a thenable that resolves to such.
 		 * @throws {@linkcode FileSystemError.FileNotFound FileNotFound} when `uri` doesn't exist.
 		 */
-		readDirectory(uri: Uri): [string, FileType][] | Thenable<[string, FileType][]>;
+		readDirectory(uri: Uri): Array<[string, FileType]> | Thenable<Array<[string, FileType]>>;
 
 		/**
 		 * Create a new directory (Note, that new files are created via `write`-calls).
