@@ -14,13 +14,6 @@ class TestComponent extends React.Component<{ x: string }> {
 }
 
 describe("ReactDOM", () => {
-    it("hydrate", () => {
-        const rootElement = document.createElement("div");
-        ReactDOM.hydrate(React.createElement("div"), rootElement);
-        ReactDOM.hydrate(React.createElement("div"), document.createDocumentFragment());
-        ReactDOM.hydrate(React.createElement("div"), document);
-    });
-
     it("createPortal", () => {
         const rootElement = document.createElement("div");
         const portalTarget = document.createElement("div");

@@ -10,7 +10,6 @@ import {
     ComponentState,
     DOMAttributes,
     DOMElement,
-    FunctionComponentElement,
     ReactElement,
     ReactNode,
     ReactPortal,
@@ -23,7 +22,6 @@ export function createPortal(
 ): ReactPortal;
 
 export const version: string;
-export const hydrate: Renderer;
 
 export function flushSync<R>(fn: () => R): R;
 export function flushSync<A, R>(fn: (a: A) => R, a: A): R;
@@ -50,54 +48,3 @@ export function unstable_renderSubtreeIntoContainer<P>(
     callback?: (component?: Component<P, ComponentState> | Element) => any,
     // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ): Component<P, ComponentState> | Element | void;
-
-export type Container = Element | Document | DocumentFragment;
-
-export interface Renderer {
-    // Deprecated(render): The return value is deprecated.
-    // In future releases the render function's return type will be void.
-
-    <T extends Element>(
-        element: DOMElement<DOMAttributes<T>, T>,
-        container: Container | null,
-        callback?: () => void,
-    ): T;
-
-    (
-        element: Array<DOMElement<DOMAttributes<any>, any>>,
-        container: Container | null,
-        callback?: () => void,
-    ): Element;
-
-    (
-        element: FunctionComponentElement<any> | Array<FunctionComponentElement<any>>,
-        container: Container | null,
-        callback?: () => void,
-    ): void;
-
-    <P, T extends Component<P, ComponentState>>(
-        element: CElement<P, T>,
-        container: Container | null,
-        callback?: () => void,
-    ): T;
-
-    (
-        element: Array<CElement<any, Component<any, ComponentState>>>,
-        container: Container | null,
-        callback?: () => void,
-    ): Component<any, ComponentState>;
-
-    <P>(
-        element: ReactElement<P>,
-        container: Container | null,
-        callback?: () => void,
-        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    ): Component<P, ComponentState> | Element | void;
-
-    (
-        element: ReactElement[],
-        container: Container | null,
-        callback?: () => void,
-        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    ): Component<any, ComponentState> | Element | void;
-}
