@@ -2695,7 +2695,7 @@ declare module 'vscode' {
 		 * We also support returning `Command` for legacy reasons, however all new extensions should return
 		 * `CodeAction` object instead.
 		 */
-		provideCodeActions(document: TextDocument, range: Range | Selection, context: CodeActionContext, token: CancellationToken): ProviderResult<Array<(Command | T)>>;
+		provideCodeActions(document: TextDocument, range: Range | Selection, context: CodeActionContext, token: CancellationToken): ProviderResult<Array<Command | T>>;
 
 		/**
 		 * Given a code action fill in its {@linkcode CodeAction.edit edit}-property. Changes to
@@ -9052,7 +9052,7 @@ declare module 'vscode' {
 		 * @param uri The uri of the folder.
 		 * @returns An array of name/type-tuples or a thenable that resolves to such.
 		 */
-		readDirectory(uri: Uri): Thenable<[string, FileType][]>;
+		readDirectory(uri: Uri): Thenable<Array<[string, FileType]>>;
 
 		/**
 		 * Create a new directory (Note, that new files are created via `write`-calls).
@@ -11682,7 +11682,7 @@ declare module 'vscode' {
 		 * Ranges in the label to highlight. A range is defined as a tuple of two number where the
 		 * first is the inclusive start index and the second the exclusive end index
 		 */
-		highlights?: [number, number][];
+		highlights?: Array<[number, number]>;
 	}
 
 	/**
@@ -13139,7 +13139,7 @@ declare module 'vscode' {
 		 * @returns true if the operation was successfully started and false otherwise if arguments were used that would result
 		 * in invalid workspace folder state (e.g. 2 folders with the same URI).
 		 */
-		export function updateWorkspaceFolders(start: number, deleteCount: number | undefined | null, ...workspaceFoldersToAdd: {
+		export function updateWorkspaceFolders(start: number, deleteCount: number | undefined | null, ...workspaceFoldersToAdd: Array<{
 			/**
 			 * The uri of a workspace folder that's to be added.
 			 */
@@ -13148,7 +13148,7 @@ declare module 'vscode' {
 			 * The name of a workspace folder that's to be added.
 			 */
 			readonly name?: string;
-		}[]): boolean;
+		}>): boolean;
 
 		/**
 		 * Creates a file system watcher that is notified on file events (create, change, delete)
@@ -13804,7 +13804,7 @@ declare module 'vscode' {
 		 *
 		 * @returns An array of uri-diagnostics tuples or an empty array.
 		 */
-		export function getDiagnostics(): [Uri, Diagnostic[]][];
+		export function getDiagnostics(): Array<[Uri, Diagnostic[]]>;
 
 		/**
 		 * Create a diagnostics collection.
@@ -16350,7 +16350,7 @@ declare module 'vscode' {
 		/**
 		 * All extensions currently known to the system.
 		 */
-		export const all: readonly Extension<any>[];
+		export const all: ReadonlyArray<Extension<any>>;
 
 		/**
 		 * An event which fires when `extensions.all` changes. This can happen when extensions are
