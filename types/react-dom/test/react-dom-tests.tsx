@@ -56,19 +56,6 @@ describe("ReactDOM", () => {
         const unmounted: boolean = ReactDOM.unmountComponentAtNode(fragment);
     });
 
-    it("find dom node", () => {
-        const rootElement = document.createElement("div");
-        ReactDOM.render(React.createElement("div"), rootElement);
-        ReactDOM.findDOMNode(rootElement);
-        ReactDOM.findDOMNode(null);
-        ReactDOM.findDOMNode(undefined);
-
-        const element = React.createElement(TestComponent, { x: "test" });
-        const component: TestComponent = ReactDOM.render(element, document.createElement("div"));
-        let domNode = ReactDOM.findDOMNode(component);
-        domNode = ReactDOM.findDOMNode(domNode as Element);
-    });
-
     it("createPortal", () => {
         const rootElement = document.createElement("div");
         const portalTarget = document.createElement("div");
@@ -123,7 +110,6 @@ describe("React dom test utils", () => {
     it("Simulate", () => {
         const element = document.createElement("div");
         const dom = ReactDOM.render(React.createElement("input", { type: "text" }), element) as Element;
-        const node = ReactDOM.findDOMNode(dom) as HTMLInputElement;
 
         node.value = "giraffe";
         ReactTestUtils.Simulate.change(node);
@@ -136,7 +122,7 @@ describe("React dom test utils", () => {
             React.createElement("input", { type: "text" }),
             element,
         ) as Element;
-        const node = ReactDOM.findDOMNode(dom) as HTMLInputElement;
+        const node: Node = null as any;
         // @see: https://github.com/facebook/react/blob/v18.2.0/packages/react-dom/src/test-utils/ReactTestUtils.js#L620
         const simulatedEventTypes = [
             "blur",

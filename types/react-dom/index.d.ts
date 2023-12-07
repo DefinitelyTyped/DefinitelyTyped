@@ -12,12 +12,10 @@ import {
     DOMElement,
     FunctionComponentElement,
     ReactElement,
-    ReactInstance,
     ReactNode,
     ReactPortal,
 } from "react";
 
-export function findDOMNode(instance: ReactInstance | null | undefined): Element | null | Text;
 export function unmountComponentAtNode(container: Element | DocumentFragment): boolean;
 
 export function createPortal(
