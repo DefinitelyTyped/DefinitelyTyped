@@ -105,7 +105,7 @@ const symbolIconMarker = new naver.maps.Marker({
 });
 
 htmlMarker.getElement();
-htmlMarker.setOptions('visible', false);
+htmlMarker.setOptions("visible", false);
 htmlMarker.setAnimation(null);
 const getAnimation = htmlMarker.getAnimation();
 
