@@ -25,7 +25,6 @@ export function createPortal(
 ): ReactPortal;
 
 export const version: string;
-export const render: Renderer;
 export const hydrate: Renderer;
 
 export function flushSync<R>(fn: () => R): R;

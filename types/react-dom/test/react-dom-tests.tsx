@@ -14,29 +14,6 @@ class TestComponent extends React.Component<{ x: string }> {
 }
 
 describe("ReactDOM", () => {
-    it("render", () => {
-        const container = document.createElement("div");
-        ReactDOM.render(React.createElement("div"), container);
-        ReactDOM.render(React.createElement("div"), document.createDocumentFragment());
-        ReactDOM.render(React.createElement("div"), document);
-
-        const instance = ReactDOM.render(React.createElement(TestComponent), container);
-        instance.someInstanceMethod();
-
-        const element = React.createElement(TestComponent, { x: "test" });
-        const component: TestComponent = ReactDOM.render(element, container);
-        const componentNullContainer: TestComponent = ReactDOM.render(element, null);
-        const componentElementOrNull: TestComponent = ReactDOM.render(element, container);
-        class ModernComponentNoState extends React.Component<{ x: string }> {}
-        const elementNoState: React.CElement<{ x: string }, ModernComponentNoState> = React.createElement(
-            ModernComponentNoState,
-            { x: "test" },
-        );
-        const componentNoState: ModernComponentNoState = ReactDOM.render(elementNoState, container);
-        const componentNoStateElementOrNull: ModernComponentNoState = ReactDOM.render(elementNoState, container);
-        const domComponent: Element = ReactDOM.render(React.createElement("div"), container);
-    });
-
     it("hydrate", () => {
         const rootElement = document.createElement("div");
         ReactDOM.hydrate(React.createElement("div"), rootElement);
@@ -46,13 +23,11 @@ describe("ReactDOM", () => {
 
     it("unmounts", () => {
         const rootElement = document.createElement("div");
-        ReactDOM.render(React.createElement("div"), rootElement);
         ReactDOM.unmountComponentAtNode(rootElement);
     });
 
     it("works with document fragments", () => {
         const fragment = document.createDocumentFragment();
-        ReactDOM.render(React.createElement("div"), fragment);
         const unmounted: boolean = ReactDOM.unmountComponentAtNode(fragment);
     });
 
@@ -74,8 +49,6 @@ describe("ReactDOM", () => {
         ReactDOM.createPortal(React.createElement("div"), document.createElement("div"), null);
         ReactDOM.createPortal(React.createElement("div"), document.createElement("div"), "key");
         ReactDOM.createPortal(React.createElement("div"), document.createDocumentFragment());
-
-        ReactDOM.render(<ClassComponent />, rootElement);
     });
 
     it("flushSync", () => {
@@ -108,21 +81,14 @@ describe("ReactDOMServer", () => {
 
 describe("React dom test utils", () => {
     it("Simulate", () => {
-        const element = document.createElement("div");
-        const dom = ReactDOM.render(React.createElement("input", { type: "text" }), element) as Element;
+        const node = document.createElement("div");
 
-        node.value = "giraffe";
         ReactTestUtils.Simulate.change(node);
         ReactTestUtils.Simulate.keyDown(node, { key: "Enter", keyCode: 13, which: 13 });
     });
 
     it("Simulate all event types", () => {
-        const element = document.createElement("div");
-        const dom = ReactDOM.render(
-            React.createElement("input", { type: "text" }),
-            element,
-        ) as Element;
-        const node: Node = null as any;
+        const node = document.createElement("div");
         // @see: https://github.com/facebook/react/blob/v18.2.0/packages/react-dom/src/test-utils/ReactTestUtils.js#L620
         const simulatedEventTypes = [
             "blur",
