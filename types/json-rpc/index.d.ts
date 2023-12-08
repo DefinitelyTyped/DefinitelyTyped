@@ -5,7 +5,7 @@ export interface JSONRPCRequest {
     id?: string | number | null;
 }
 
-export type JSONRPCResponse<T = unknown, E= unknown> = JSONRPCSuccessResponse<T> | JSONRPCErrorResponse<E>
+export type JSONRPCResponse<T = unknown, E = unknown> = JSONRPCSuccessResponse<T> | JSONRPCErrorResponse<E>;
 export interface JSONRPCSuccessResponse<T = unknown> {
     jsonrpc: "2.0";
     result: T;
