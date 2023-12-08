@@ -253,7 +253,7 @@ export interface EventProps<TEvent extends object = Event> {
     title: string;
     continuesPrior: boolean;
     continuesAfter: boolean;
-    isAllDay: boolean;
+    isAllDay?: boolean;
     localizer: DateLocalizer;
     slotStart: Date;
     slotEnd: Date;
