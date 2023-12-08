@@ -4577,7 +4577,7 @@
         },
         "rdf-loader-code": {
             "libraryName": "rdf-loader-code",
-            "asOfVersion": "2.1.0"
+            "asOfVersion": "2.1.1"
         },
         "rdf-loaders-registry": {
             "libraryName": "rdf-loaders-registry",
