@@ -119,7 +119,7 @@ isAsync.errback((err, condition) => {
 });
 
 gensync(function*() {
-    // $ExpectType [number, string]
+    // $ExpectType [number, string, string]
     yield* gensync.all([addNumbers(1, 2), readContents("foo")]);
 
     // $ExpectType string | number
@@ -155,7 +155,6 @@ function* someOtherGenerator() {
     return 1234;
 }
 
-// @ts-expect-error
 gensync(function*() {
     // This generator was not produced by gensync; error.
     // It"d be better to have an error on the next line rather than above,
