@@ -4575,6 +4575,14 @@
             "libraryName": "rdf-js",
             "asOfVersion": "4.0.2"
         },
+        "rdf-loader-code": {
+            "libraryName": "rdf-loader-code",
+            "asOfVersion": "2.1.1"
+        },
+        "rdf-loaders-registry": {
+            "libraryName": "rdf-loaders-registry",
+            "asOfVersion": "1.0.0"
+        },
         "rdflib": {
             "libraryName": "rdflib",
             "asOfVersion": "1.2.0"
