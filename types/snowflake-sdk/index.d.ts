@@ -570,6 +570,12 @@ export type Connection = NodeJS.EventEmitter & {
          */
         fetchAsString?: Array<"String" | "Boolean" | "Number" | "Date" | "JSON" | "Buffer"> | undefined;
         complete?: (err: SnowflakeError | undefined, stmt: Statement, rows: any[] | undefined) => void;
+
+        /**
+        * ### Related Docs
+        * - {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-execute#executing-a-batch-of-sql-statements-multi-statement-support}
+        */
+        parameters?: Record<string, any> & { MULTI_STATEMENT_COUNT: number } ;
     }): Statement;
 
     /**
