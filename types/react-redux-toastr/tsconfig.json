@@ -17,6 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-redux-toastr-tests.ts"
+        "react-redux-toastr-tests.tsx"
     ]
 }
