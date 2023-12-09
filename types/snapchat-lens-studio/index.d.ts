@@ -4271,6 +4271,6 @@ declare namespace SnapchatLensStudio {
         "Component.SpriteVisual": Component.SpriteVisual;
     }
 
-    interface ScriptInputs {} // tslint:disable-line no-empty-interface
-    interface ScriptApi {} // tslint:disable-line no-empty-interface
+    interface ScriptInputs {} // eslint-disable-line @typescript-eslint/no-empty-interface
+    interface ScriptApi {} // eslint-disable-line @typescript-eslint/no-empty-interface
 }

@@ -13,10 +13,10 @@ declare namespace QRCode {
         QRCodeOptions,
     };
 }
-declare var ECC_LOW: string;
-declare var ECC_MEDIUM: string;
-declare var ECC_QUARTILE: string;
-declare var ECC_HIGH: string;
+declare let ECC_LOW: string;
+declare let ECC_MEDIUM: string;
+declare let ECC_QUARTILE: string;
+declare let ECC_HIGH: string;
 declare function toUint8Array(
     content: string | ArrayBuffer | Uint8Array,
     options?: QRCodeOptions

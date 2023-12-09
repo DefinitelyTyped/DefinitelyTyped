@@ -2,8 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "jsdoc-format": false,
-        "no-duplicate-imports": false,
-        "no-redundant-jsdoc-2": false,
-        "no-reference-import": false
+        "no-redundant-jsdoc-2": false
     }
 }

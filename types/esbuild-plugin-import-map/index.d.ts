@@ -3,7 +3,7 @@ export interface ImportsMapping {
 }
 export type ImportMap = string | ImportsMapping;
 
-export function load(importMaps: ImportMap | ReadonlyArray<ImportMap>): Promise<void>;
+export function load(importMaps: ImportMap | readonly ImportMap[]): Promise<void>;
 export function clear(): void;
 export function plugin(): {
     name: string;

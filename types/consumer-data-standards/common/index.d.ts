@@ -86,148 +86,150 @@ export interface CommonOrganisationDetailV2 extends CommonOrganisation {
     /**
      * Array is mandatory but may be empty if no valid addresses are held. One and only one address may have the purpose of REGISTERED. Zero or one, and no more than one, record may have the purpose of MAIL. If zero then the REGISTERED address is to be used for mail
      */
-    physicalAddresses: ({
-        /**
-         * The type of address object present
-         */
-        addressUType: "paf" | "simple";
-        /**
-         * Australian address formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf)
-         */
-        paf?: {
+    physicalAddresses: Array<
+        {
             /**
-             * Building/Property name 1
+             * The type of address object present
              */
-            buildingName1?: string | null;
+            addressUType: "paf" | "simple";
             /**
-             * Building/Property name 2
+             * Australian address formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf)
              */
-            buildingName2?: string | null;
-            /**
-             * Unique identifier for an address as defined by Australia Post.  Also known as Delivery Point Identifier
-             */
-            dpid?: string | null;
-            /**
-             * Unit number (including suffix, if applicable)
-             */
-            flatUnitNumber?: string | null;
-            /**
-             * Type of flat or unit for the address
-             */
-            flatUnitType?: string | null;
-            /**
-             * Floor or level number (including alpha characters)
-             */
-            floorLevelNumber?: string | null;
-            /**
-             * Type of floor or level for the address
-             */
-            floorLevelType?: string | null;
-            /**
-             * Full name of locality
-             */
-            localityName: string;
-            /**
-             * Allotment number for the address
-             */
-            lotNumber?: string | null;
-            /**
-             * Postal delivery number if the address is a postal delivery type
-             */
-            postalDeliveryNumber?: number | null;
-            /**
-             * Postal delivery number prefix related to the postal delivery number
-             */
-            postalDeliveryNumberPrefix?: string | null;
-            /**
-             * Postal delivery number suffix related to the postal delivery number
-             */
-            postalDeliveryNumberSuffix?: string | null;
-            /**
-             * Postal delivery type. (eg. PO BOX). Valid enumeration defined by Australia Post PAF code file
-             */
-            postalDeliveryType?: string | null;
-            /**
-             * Postcode for the locality
-             */
-            postcode: string;
-            /**
-             * State in which the address belongs. Valid enumeration defined by Australia Post PAF code file [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). NSW, QLD, VIC, NT, WA, SA, TAS, ACT, AAT
-             */
-            state: string;
-            /**
-             * The name of the street
-             */
-            streetName?: string | null;
-            /**
-             * The street type suffix. Valid enumeration defined by Australia Post PAF code file
-             */
-            streetSuffix?: string | null;
-            /**
-             * The street type. Valid enumeration defined by Australia Post PAF code file
-             */
-            streetType?: string | null;
-            /**
-             * Thoroughfare number for a property (first number in a property ranged address)
-             */
-            thoroughfareNumber1?: number | null;
-            /**
-             * Suffix for the thoroughfare number. Only relevant is thoroughfareNumber1 is populated
-             */
-            thoroughfareNumber1Suffix?: string | null;
-            /**
-             * Second thoroughfare number (only used if the property has a ranged address eg 23-25)
-             */
-            thoroughfareNumber2?: number | null;
-            /**
-             * Suffix for the second thoroughfare number. Only relevant is thoroughfareNumber2 is populated
-             */
-            thoroughfareNumber2Suffix?: string | null;
+            paf?: {
+                /**
+                 * Building/Property name 1
+                 */
+                buildingName1?: string | null;
+                /**
+                 * Building/Property name 2
+                 */
+                buildingName2?: string | null;
+                /**
+                 * Unique identifier for an address as defined by Australia Post.  Also known as Delivery Point Identifier
+                 */
+                dpid?: string | null;
+                /**
+                 * Unit number (including suffix, if applicable)
+                 */
+                flatUnitNumber?: string | null;
+                /**
+                 * Type of flat or unit for the address
+                 */
+                flatUnitType?: string | null;
+                /**
+                 * Floor or level number (including alpha characters)
+                 */
+                floorLevelNumber?: string | null;
+                /**
+                 * Type of floor or level for the address
+                 */
+                floorLevelType?: string | null;
+                /**
+                 * Full name of locality
+                 */
+                localityName: string;
+                /**
+                 * Allotment number for the address
+                 */
+                lotNumber?: string | null;
+                /**
+                 * Postal delivery number if the address is a postal delivery type
+                 */
+                postalDeliveryNumber?: number | null;
+                /**
+                 * Postal delivery number prefix related to the postal delivery number
+                 */
+                postalDeliveryNumberPrefix?: string | null;
+                /**
+                 * Postal delivery number suffix related to the postal delivery number
+                 */
+                postalDeliveryNumberSuffix?: string | null;
+                /**
+                 * Postal delivery type. (eg. PO BOX). Valid enumeration defined by Australia Post PAF code file
+                 */
+                postalDeliveryType?: string | null;
+                /**
+                 * Postcode for the locality
+                 */
+                postcode: string;
+                /**
+                 * State in which the address belongs. Valid enumeration defined by Australia Post PAF code file [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). NSW, QLD, VIC, NT, WA, SA, TAS, ACT, AAT
+                 */
+                state: string;
+                /**
+                 * The name of the street
+                 */
+                streetName?: string | null;
+                /**
+                 * The street type suffix. Valid enumeration defined by Australia Post PAF code file
+                 */
+                streetSuffix?: string | null;
+                /**
+                 * The street type. Valid enumeration defined by Australia Post PAF code file
+                 */
+                streetType?: string | null;
+                /**
+                 * Thoroughfare number for a property (first number in a property ranged address)
+                 */
+                thoroughfareNumber1?: number | null;
+                /**
+                 * Suffix for the thoroughfare number. Only relevant is thoroughfareNumber1 is populated
+                 */
+                thoroughfareNumber1Suffix?: string | null;
+                /**
+                 * Second thoroughfare number (only used if the property has a ranged address eg 23-25)
+                 */
+                thoroughfareNumber2?: number | null;
+                /**
+                 * Suffix for the second thoroughfare number. Only relevant is thoroughfareNumber2 is populated
+                 */
+                thoroughfareNumber2Suffix?: string | null;
+                [k: string]: unknown;
+            };
+            simple?: {
+                /**
+                 * First line of the standard address object
+                 */
+                addressLine1: string;
+                /**
+                 * Second line of the standard address object
+                 */
+                addressLine2?: string | null;
+                /**
+                 * Third line of the standard address object
+                 */
+                addressLine3?: string | null;
+                /**
+                 * Name of the city or locality
+                 */
+                city: string;
+                /**
+                 * A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code. Australia (AUS) is assumed if country is not present.
+                 */
+                country?: string | null;
+                /**
+                 * Name of the individual or business formatted for inclusion in an address used for physical mail
+                 */
+                mailingName?: string | null;
+                /**
+                 * Mandatory for Australian addresses
+                 */
+                postcode?: string | null;
+                /**
+                 * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. NSW, QLD, VIC, NT, WA, SA, TAS, ACT, AAT
+                 */
+                state: string;
+                [k: string]: unknown;
+            };
             [k: string]: unknown;
-        };
-        simple?: {
+        } & {
             /**
-             * First line of the standard address object
+             * Enumeration of values indicating the purpose of the physical address
              */
-            addressLine1: string;
-            /**
-             * Second line of the standard address object
-             */
-            addressLine2?: string | null;
-            /**
-             * Third line of the standard address object
-             */
-            addressLine3?: string | null;
-            /**
-             * Name of the city or locality
-             */
-            city: string;
-            /**
-             * A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code. Australia (AUS) is assumed if country is not present.
-             */
-            country?: string | null;
-            /**
-             * Name of the individual or business formatted for inclusion in an address used for physical mail
-             */
-            mailingName?: string | null;
-            /**
-             * Mandatory for Australian addresses
-             */
-            postcode?: string | null;
-            /**
-             * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. NSW, QLD, VIC, NT, WA, SA, TAS, ACT, AAT
-             */
-            state: string;
+            purpose: "MAIL" | "OTHER" | "PHYSICAL" | "REGISTERED" | "WORK";
             [k: string]: unknown;
-        };
-        [k: string]: unknown;
-    } & {
-        /**
-         * Enumeration of values indicating the purpose of the physical address
-         */
-        purpose: "MAIL" | "OTHER" | "PHYSICAL" | "REGISTERED" | "WORK";
-        [k: string]: unknown;
-    })[];
+        }
+    >;
     [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
@@ -376,7 +378,7 @@ export interface CommonPersonDetailV2 extends CommonPerson {
     /**
      * Array is mandatory but may be empty if no phone numbers are held
      */
-    phoneNumbers: {
+    phoneNumbers: Array<{
         /**
          * Required for non Mobile Phones, if field is present and refers to Australian code - the leading 0 should be omitted.
          */
@@ -406,11 +408,11 @@ export interface CommonPersonDetailV2 extends CommonPerson {
          */
         purpose: "HOME" | "INTERNATIONAL" | "MOBILE" | "OTHER" | "UNSPECIFIED" | "WORK";
         [k: string]: unknown;
-    }[];
+    }>;
     /**
      * May be empty
      */
-    emailAddresses: {
+    emailAddresses: Array<{
         /**
          * A correctly formatted email address, as defined by the addr-spec format in **[[RFC5322]](#nref-RFC5322)**
          */
@@ -424,152 +426,154 @@ export interface CommonPersonDetailV2 extends CommonPerson {
          */
         purpose: "HOME" | "OTHER" | "UNSPECIFIED" | "WORK";
         [k: string]: unknown;
-    }[];
+    }>;
     /**
      * Array is mandatory but may be empty if no valid addresses are held. One and only one address may have the purpose of REGISTERED. Zero or one, and no more than one, record may have the purpose of MAIL. If zero then the REGISTERED address is to be used for mail
      */
-    physicalAddresses: ({
-        /**
-         * The type of address object present
-         */
-        addressUType: "paf" | "simple";
-        /**
-         * Australian address formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf)
-         */
-        paf?: {
+    physicalAddresses: Array<
+        {
             /**
-             * Building/Property name 1
+             * The type of address object present
              */
-            buildingName1?: string | null;
+            addressUType: "paf" | "simple";
             /**
-             * Building/Property name 2
+             * Australian address formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf)
              */
-            buildingName2?: string | null;
-            /**
-             * Unique identifier for an address as defined by Australia Post.  Also known as Delivery Point Identifier
-             */
-            dpid?: string | null;
-            /**
-             * Unit number (including suffix, if applicable)
-             */
-            flatUnitNumber?: string | null;
-            /**
-             * Type of flat or unit for the address
-             */
-            flatUnitType?: string | null;
-            /**
-             * Floor or level number (including alpha characters)
-             */
-            floorLevelNumber?: string | null;
-            /**
-             * Type of floor or level for the address
-             */
-            floorLevelType?: string | null;
-            /**
-             * Full name of locality
-             */
-            localityName: string;
-            /**
-             * Allotment number for the address
-             */
-            lotNumber?: string | null;
-            /**
-             * Postal delivery number if the address is a postal delivery type
-             */
-            postalDeliveryNumber?: number | null;
-            /**
-             * Postal delivery number prefix related to the postal delivery number
-             */
-            postalDeliveryNumberPrefix?: string | null;
-            /**
-             * Postal delivery number suffix related to the postal delivery number
-             */
-            postalDeliveryNumberSuffix?: string | null;
-            /**
-             * Postal delivery type. (eg. PO BOX). Valid enumeration defined by Australia Post PAF code file
-             */
-            postalDeliveryType?: string | null;
-            /**
-             * Postcode for the locality
-             */
-            postcode: string;
-            /**
-             * State in which the address belongs. Valid enumeration defined by Australia Post PAF code file [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). NSW, QLD, VIC, NT, WA, SA, TAS, ACT, AAT
-             */
-            state: string;
-            /**
-             * The name of the street
-             */
-            streetName?: string | null;
-            /**
-             * The street type suffix. Valid enumeration defined by Australia Post PAF code file
-             */
-            streetSuffix?: string | null;
-            /**
-             * The street type. Valid enumeration defined by Australia Post PAF code file
-             */
-            streetType?: string | null;
-            /**
-             * Thoroughfare number for a property (first number in a property ranged address)
-             */
-            thoroughfareNumber1?: number | null;
-            /**
-             * Suffix for the thoroughfare number. Only relevant is thoroughfareNumber1 is populated
-             */
-            thoroughfareNumber1Suffix?: string | null;
-            /**
-             * Second thoroughfare number (only used if the property has a ranged address eg 23-25)
-             */
-            thoroughfareNumber2?: number | null;
-            /**
-             * Suffix for the second thoroughfare number. Only relevant is thoroughfareNumber2 is populated
-             */
-            thoroughfareNumber2Suffix?: string | null;
+            paf?: {
+                /**
+                 * Building/Property name 1
+                 */
+                buildingName1?: string | null;
+                /**
+                 * Building/Property name 2
+                 */
+                buildingName2?: string | null;
+                /**
+                 * Unique identifier for an address as defined by Australia Post.  Also known as Delivery Point Identifier
+                 */
+                dpid?: string | null;
+                /**
+                 * Unit number (including suffix, if applicable)
+                 */
+                flatUnitNumber?: string | null;
+                /**
+                 * Type of flat or unit for the address
+                 */
+                flatUnitType?: string | null;
+                /**
+                 * Floor or level number (including alpha characters)
+                 */
+                floorLevelNumber?: string | null;
+                /**
+                 * Type of floor or level for the address
+                 */
+                floorLevelType?: string | null;
+                /**
+                 * Full name of locality
+                 */
+                localityName: string;
+                /**
+                 * Allotment number for the address
+                 */
+                lotNumber?: string | null;
+                /**
+                 * Postal delivery number if the address is a postal delivery type
+                 */
+                postalDeliveryNumber?: number | null;
+                /**
+                 * Postal delivery number prefix related to the postal delivery number
+                 */
+                postalDeliveryNumberPrefix?: string | null;
+                /**
+                 * Postal delivery number suffix related to the postal delivery number
+                 */
+                postalDeliveryNumberSuffix?: string | null;
+                /**
+                 * Postal delivery type. (eg. PO BOX). Valid enumeration defined by Australia Post PAF code file
+                 */
+                postalDeliveryType?: string | null;
+                /**
+                 * Postcode for the locality
+                 */
+                postcode: string;
+                /**
+                 * State in which the address belongs. Valid enumeration defined by Australia Post PAF code file [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). NSW, QLD, VIC, NT, WA, SA, TAS, ACT, AAT
+                 */
+                state: string;
+                /**
+                 * The name of the street
+                 */
+                streetName?: string | null;
+                /**
+                 * The street type suffix. Valid enumeration defined by Australia Post PAF code file
+                 */
+                streetSuffix?: string | null;
+                /**
+                 * The street type. Valid enumeration defined by Australia Post PAF code file
+                 */
+                streetType?: string | null;
+                /**
+                 * Thoroughfare number for a property (first number in a property ranged address)
+                 */
+                thoroughfareNumber1?: number | null;
+                /**
+                 * Suffix for the thoroughfare number. Only relevant is thoroughfareNumber1 is populated
+                 */
+                thoroughfareNumber1Suffix?: string | null;
+                /**
+                 * Second thoroughfare number (only used if the property has a ranged address eg 23-25)
+                 */
+                thoroughfareNumber2?: number | null;
+                /**
+                 * Suffix for the second thoroughfare number. Only relevant is thoroughfareNumber2 is populated
+                 */
+                thoroughfareNumber2Suffix?: string | null;
+                [k: string]: unknown;
+            };
+            simple?: {
+                /**
+                 * First line of the standard address object
+                 */
+                addressLine1: string;
+                /**
+                 * Second line of the standard address object
+                 */
+                addressLine2?: string | null;
+                /**
+                 * Third line of the standard address object
+                 */
+                addressLine3?: string | null;
+                /**
+                 * Name of the city or locality
+                 */
+                city: string;
+                /**
+                 * A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code. Australia (AUS) is assumed if country is not present.
+                 */
+                country?: string | null;
+                /**
+                 * Name of the individual or business formatted for inclusion in an address used for physical mail
+                 */
+                mailingName?: string | null;
+                /**
+                 * Mandatory for Australian addresses
+                 */
+                postcode?: string | null;
+                /**
+                 * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. NSW, QLD, VIC, NT, WA, SA, TAS, ACT, AAT
+                 */
+                state: string;
+                [k: string]: unknown;
+            };
             [k: string]: unknown;
-        };
-        simple?: {
+        } & {
             /**
-             * First line of the standard address object
+             * Enumeration of values indicating the purpose of the physical address
              */
-            addressLine1: string;
-            /**
-             * Second line of the standard address object
-             */
-            addressLine2?: string | null;
-            /**
-             * Third line of the standard address object
-             */
-            addressLine3?: string | null;
-            /**
-             * Name of the city or locality
-             */
-            city: string;
-            /**
-             * A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code. Australia (AUS) is assumed if country is not present.
-             */
-            country?: string | null;
-            /**
-             * Name of the individual or business formatted for inclusion in an address used for physical mail
-             */
-            mailingName?: string | null;
-            /**
-             * Mandatory for Australian addresses
-             */
-            postcode?: string | null;
-            /**
-             * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. NSW, QLD, VIC, NT, WA, SA, TAS, ACT, AAT
-             */
-            state: string;
+            purpose: "MAIL" | "OTHER" | "PHYSICAL" | "REGISTERED" | "WORK";
             [k: string]: unknown;
-        };
-        [k: string]: unknown;
-    } & {
-        /**
-         * Enumeration of values indicating the purpose of the physical address
-         */
-        purpose: "MAIL" | "OTHER" | "PHYSICAL" | "REGISTERED" | "WORK";
-        [k: string]: unknown;
-    })[];
+        }
+    >;
     [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
@@ -1037,148 +1041,150 @@ export interface ResponseCommonCustomerDetailV2 {
             /**
              * Array is mandatory but may be empty if no valid addresses are held. One and only one address may have the purpose of REGISTERED. Zero or one, and no more than one, record may have the purpose of MAIL. If zero then the REGISTERED address is to be used for mail
              */
-            physicalAddresses: ({
-                /**
-                 * The type of address object present
-                 */
-                addressUType: "paf" | "simple";
-                /**
-                 * Australian address formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf)
-                 */
-                paf?: {
+            physicalAddresses: Array<
+                {
                     /**
-                     * Building/Property name 1
+                     * The type of address object present
                      */
-                    buildingName1?: string | null;
+                    addressUType: "paf" | "simple";
                     /**
-                     * Building/Property name 2
+                     * Australian address formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf)
                      */
-                    buildingName2?: string | null;
-                    /**
-                     * Unique identifier for an address as defined by Australia Post.  Also known as Delivery Point Identifier
-                     */
-                    dpid?: string | null;
-                    /**
-                     * Unit number (including suffix, if applicable)
-                     */
-                    flatUnitNumber?: string | null;
-                    /**
-                     * Type of flat or unit for the address
-                     */
-                    flatUnitType?: string | null;
-                    /**
-                     * Floor or level number (including alpha characters)
-                     */
-                    floorLevelNumber?: string | null;
-                    /**
-                     * Type of floor or level for the address
-                     */
-                    floorLevelType?: string | null;
-                    /**
-                     * Full name of locality
-                     */
-                    localityName: string;
-                    /**
-                     * Allotment number for the address
-                     */
-                    lotNumber?: string | null;
-                    /**
-                     * Postal delivery number if the address is a postal delivery type
-                     */
-                    postalDeliveryNumber?: number | null;
-                    /**
-                     * Postal delivery number prefix related to the postal delivery number
-                     */
-                    postalDeliveryNumberPrefix?: string | null;
-                    /**
-                     * Postal delivery number suffix related to the postal delivery number
-                     */
-                    postalDeliveryNumberSuffix?: string | null;
-                    /**
-                     * Postal delivery type. (eg. PO BOX). Valid enumeration defined by Australia Post PAF code file
-                     */
-                    postalDeliveryType?: string | null;
-                    /**
-                     * Postcode for the locality
-                     */
-                    postcode: string;
-                    /**
-                     * State in which the address belongs. Valid enumeration defined by Australia Post PAF code file [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). NSW, QLD, VIC, NT, WA, SA, TAS, ACT, AAT
-                     */
-                    state: string;
-                    /**
-                     * The name of the street
-                     */
-                    streetName?: string | null;
-                    /**
-                     * The street type suffix. Valid enumeration defined by Australia Post PAF code file
-                     */
-                    streetSuffix?: string | null;
-                    /**
-                     * The street type. Valid enumeration defined by Australia Post PAF code file
-                     */
-                    streetType?: string | null;
-                    /**
-                     * Thoroughfare number for a property (first number in a property ranged address)
-                     */
-                    thoroughfareNumber1?: number | null;
-                    /**
-                     * Suffix for the thoroughfare number. Only relevant is thoroughfareNumber1 is populated
-                     */
-                    thoroughfareNumber1Suffix?: string | null;
-                    /**
-                     * Second thoroughfare number (only used if the property has a ranged address eg 23-25)
-                     */
-                    thoroughfareNumber2?: number | null;
-                    /**
-                     * Suffix for the second thoroughfare number. Only relevant is thoroughfareNumber2 is populated
-                     */
-                    thoroughfareNumber2Suffix?: string | null;
+                    paf?: {
+                        /**
+                         * Building/Property name 1
+                         */
+                        buildingName1?: string | null;
+                        /**
+                         * Building/Property name 2
+                         */
+                        buildingName2?: string | null;
+                        /**
+                         * Unique identifier for an address as defined by Australia Post.  Also known as Delivery Point Identifier
+                         */
+                        dpid?: string | null;
+                        /**
+                         * Unit number (including suffix, if applicable)
+                         */
+                        flatUnitNumber?: string | null;
+                        /**
+                         * Type of flat or unit for the address
+                         */
+                        flatUnitType?: string | null;
+                        /**
+                         * Floor or level number (including alpha characters)
+                         */
+                        floorLevelNumber?: string | null;
+                        /**
+                         * Type of floor or level for the address
+                         */
+                        floorLevelType?: string | null;
+                        /**
+                         * Full name of locality
+                         */
+                        localityName: string;
+                        /**
+                         * Allotment number for the address
+                         */
+                        lotNumber?: string | null;
+                        /**
+                         * Postal delivery number if the address is a postal delivery type
+                         */
+                        postalDeliveryNumber?: number | null;
+                        /**
+                         * Postal delivery number prefix related to the postal delivery number
+                         */
+                        postalDeliveryNumberPrefix?: string | null;
+                        /**
+                         * Postal delivery number suffix related to the postal delivery number
+                         */
+                        postalDeliveryNumberSuffix?: string | null;
+                        /**
+                         * Postal delivery type. (eg. PO BOX). Valid enumeration defined by Australia Post PAF code file
+                         */
+                        postalDeliveryType?: string | null;
+                        /**
+                         * Postcode for the locality
+                         */
+                        postcode: string;
+                        /**
+                         * State in which the address belongs. Valid enumeration defined by Australia Post PAF code file [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). NSW, QLD, VIC, NT, WA, SA, TAS, ACT, AAT
+                         */
+                        state: string;
+                        /**
+                         * The name of the street
+                         */
+                        streetName?: string | null;
+                        /**
+                         * The street type suffix. Valid enumeration defined by Australia Post PAF code file
+                         */
+                        streetSuffix?: string | null;
+                        /**
+                         * The street type. Valid enumeration defined by Australia Post PAF code file
+                         */
+                        streetType?: string | null;
+                        /**
+                         * Thoroughfare number for a property (first number in a property ranged address)
+                         */
+                        thoroughfareNumber1?: number | null;
+                        /**
+                         * Suffix for the thoroughfare number. Only relevant is thoroughfareNumber1 is populated
+                         */
+                        thoroughfareNumber1Suffix?: string | null;
+                        /**
+                         * Second thoroughfare number (only used if the property has a ranged address eg 23-25)
+                         */
+                        thoroughfareNumber2?: number | null;
+                        /**
+                         * Suffix for the second thoroughfare number. Only relevant is thoroughfareNumber2 is populated
+                         */
+                        thoroughfareNumber2Suffix?: string | null;
+                        [k: string]: unknown;
+                    };
+                    simple?: {
+                        /**
+                         * First line of the standard address object
+                         */
+                        addressLine1: string;
+                        /**
+                         * Second line of the standard address object
+                         */
+                        addressLine2?: string | null;
+                        /**
+                         * Third line of the standard address object
+                         */
+                        addressLine3?: string | null;
+                        /**
+                         * Name of the city or locality
+                         */
+                        city: string;
+                        /**
+                         * A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code. Australia (AUS) is assumed if country is not present.
+                         */
+                        country?: string | null;
+                        /**
+                         * Name of the individual or business formatted for inclusion in an address used for physical mail
+                         */
+                        mailingName?: string | null;
+                        /**
+                         * Mandatory for Australian addresses
+                         */
+                        postcode?: string | null;
+                        /**
+                         * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. NSW, QLD, VIC, NT, WA, SA, TAS, ACT, AAT
+                         */
+                        state: string;
+                        [k: string]: unknown;
+                    };
                     [k: string]: unknown;
-                };
-                simple?: {
+                } & {
                     /**
-                     * First line of the standard address object
+                     * Enumeration of values indicating the purpose of the physical address
                      */
-                    addressLine1: string;
-                    /**
-                     * Second line of the standard address object
-                     */
-                    addressLine2?: string | null;
-                    /**
-                     * Third line of the standard address object
-                     */
-                    addressLine3?: string | null;
-                    /**
-                     * Name of the city or locality
-                     */
-                    city: string;
-                    /**
-                     * A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code. Australia (AUS) is assumed if country is not present.
-                     */
-                    country?: string | null;
-                    /**
-                     * Name of the individual or business formatted for inclusion in an address used for physical mail
-                     */
-                    mailingName?: string | null;
-                    /**
-                     * Mandatory for Australian addresses
-                     */
-                    postcode?: string | null;
-                    /**
-                     * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. NSW, QLD, VIC, NT, WA, SA, TAS, ACT, AAT
-                     */
-                    state: string;
+                    purpose: "MAIL" | "OTHER" | "PHYSICAL" | "REGISTERED" | "WORK";
                     [k: string]: unknown;
-                };
-                [k: string]: unknown;
-            } & {
-                /**
-                 * Enumeration of values indicating the purpose of the physical address
-                 */
-                purpose: "MAIL" | "OTHER" | "PHYSICAL" | "REGISTERED" | "WORK";
-                [k: string]: unknown;
-            })[];
+                }
+            >;
             [k: string]: unknown;
         };
         person?: {
@@ -1226,7 +1232,7 @@ export interface ResponseCommonCustomerDetailV2 {
             /**
              * Array is mandatory but may be empty if no phone numbers are held
              */
-            phoneNumbers: {
+            phoneNumbers: Array<{
                 /**
                  * Required for non Mobile Phones, if field is present and refers to Australian code - the leading 0 should be omitted.
                  */
@@ -1256,11 +1262,11 @@ export interface ResponseCommonCustomerDetailV2 {
                  */
                 purpose: "HOME" | "INTERNATIONAL" | "MOBILE" | "OTHER" | "UNSPECIFIED" | "WORK";
                 [k: string]: unknown;
-            }[];
+            }>;
             /**
              * May be empty
              */
-            emailAddresses: {
+            emailAddresses: Array<{
                 /**
                  * A correctly formatted email address, as defined by the addr-spec format in **[[RFC5322]](#nref-RFC5322)**
                  */
@@ -1274,152 +1280,154 @@ export interface ResponseCommonCustomerDetailV2 {
                  */
                 purpose: "HOME" | "OTHER" | "UNSPECIFIED" | "WORK";
                 [k: string]: unknown;
-            }[];
+            }>;
             /**
              * Array is mandatory but may be empty if no valid addresses are held. One and only one address may have the purpose of REGISTERED. Zero or one, and no more than one, record may have the purpose of MAIL. If zero then the REGISTERED address is to be used for mail
              */
-            physicalAddresses: ({
-                /**
-                 * The type of address object present
-                 */
-                addressUType: "paf" | "simple";
-                /**
-                 * Australian address formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf)
-                 */
-                paf?: {
+            physicalAddresses: Array<
+                {
                     /**
-                     * Building/Property name 1
+                     * The type of address object present
                      */
-                    buildingName1?: string | null;
+                    addressUType: "paf" | "simple";
                     /**
-                     * Building/Property name 2
+                     * Australian address formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf)
                      */
-                    buildingName2?: string | null;
-                    /**
-                     * Unique identifier for an address as defined by Australia Post.  Also known as Delivery Point Identifier
-                     */
-                    dpid?: string | null;
-                    /**
-                     * Unit number (including suffix, if applicable)
-                     */
-                    flatUnitNumber?: string | null;
-                    /**
-                     * Type of flat or unit for the address
-                     */
-                    flatUnitType?: string | null;
-                    /**
-                     * Floor or level number (including alpha characters)
-                     */
-                    floorLevelNumber?: string | null;
-                    /**
-                     * Type of floor or level for the address
-                     */
-                    floorLevelType?: string | null;
-                    /**
-                     * Full name of locality
-                     */
-                    localityName: string;
-                    /**
-                     * Allotment number for the address
-                     */
-                    lotNumber?: string | null;
-                    /**
-                     * Postal delivery number if the address is a postal delivery type
-                     */
-                    postalDeliveryNumber?: number | null;
-                    /**
-                     * Postal delivery number prefix related to the postal delivery number
-                     */
-                    postalDeliveryNumberPrefix?: string | null;
-                    /**
-                     * Postal delivery number suffix related to the postal delivery number
-                     */
-                    postalDeliveryNumberSuffix?: string | null;
-                    /**
-                     * Postal delivery type. (eg. PO BOX). Valid enumeration defined by Australia Post PAF code file
-                     */
-                    postalDeliveryType?: string | null;
-                    /**
-                     * Postcode for the locality
-                     */
-                    postcode: string;
-                    /**
-                     * State in which the address belongs. Valid enumeration defined by Australia Post PAF code file [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). NSW, QLD, VIC, NT, WA, SA, TAS, ACT, AAT
-                     */
-                    state: string;
-                    /**
-                     * The name of the street
-                     */
-                    streetName?: string | null;
-                    /**
-                     * The street type suffix. Valid enumeration defined by Australia Post PAF code file
-                     */
-                    streetSuffix?: string | null;
-                    /**
-                     * The street type. Valid enumeration defined by Australia Post PAF code file
-                     */
-                    streetType?: string | null;
-                    /**
-                     * Thoroughfare number for a property (first number in a property ranged address)
-                     */
-                    thoroughfareNumber1?: number | null;
-                    /**
-                     * Suffix for the thoroughfare number. Only relevant is thoroughfareNumber1 is populated
-                     */
-                    thoroughfareNumber1Suffix?: string | null;
-                    /**
-                     * Second thoroughfare number (only used if the property has a ranged address eg 23-25)
-                     */
-                    thoroughfareNumber2?: number | null;
-                    /**
-                     * Suffix for the second thoroughfare number. Only relevant is thoroughfareNumber2 is populated
-                     */
-                    thoroughfareNumber2Suffix?: string | null;
+                    paf?: {
+                        /**
+                         * Building/Property name 1
+                         */
+                        buildingName1?: string | null;
+                        /**
+                         * Building/Property name 2
+                         */
+                        buildingName2?: string | null;
+                        /**
+                         * Unique identifier for an address as defined by Australia Post.  Also known as Delivery Point Identifier
+                         */
+                        dpid?: string | null;
+                        /**
+                         * Unit number (including suffix, if applicable)
+                         */
+                        flatUnitNumber?: string | null;
+                        /**
+                         * Type of flat or unit for the address
+                         */
+                        flatUnitType?: string | null;
+                        /**
+                         * Floor or level number (including alpha characters)
+                         */
+                        floorLevelNumber?: string | null;
+                        /**
+                         * Type of floor or level for the address
+                         */
+                        floorLevelType?: string | null;
+                        /**
+                         * Full name of locality
+                         */
+                        localityName: string;
+                        /**
+                         * Allotment number for the address
+                         */
+                        lotNumber?: string | null;
+                        /**
+                         * Postal delivery number if the address is a postal delivery type
+                         */
+                        postalDeliveryNumber?: number | null;
+                        /**
+                         * Postal delivery number prefix related to the postal delivery number
+                         */
+                        postalDeliveryNumberPrefix?: string | null;
+                        /**
+                         * Postal delivery number suffix related to the postal delivery number
+                         */
+                        postalDeliveryNumberSuffix?: string | null;
+                        /**
+                         * Postal delivery type. (eg. PO BOX). Valid enumeration defined by Australia Post PAF code file
+                         */
+                        postalDeliveryType?: string | null;
+                        /**
+                         * Postcode for the locality
+                         */
+                        postcode: string;
+                        /**
+                         * State in which the address belongs. Valid enumeration defined by Australia Post PAF code file [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). NSW, QLD, VIC, NT, WA, SA, TAS, ACT, AAT
+                         */
+                        state: string;
+                        /**
+                         * The name of the street
+                         */
+                        streetName?: string | null;
+                        /**
+                         * The street type suffix. Valid enumeration defined by Australia Post PAF code file
+                         */
+                        streetSuffix?: string | null;
+                        /**
+                         * The street type. Valid enumeration defined by Australia Post PAF code file
+                         */
+                        streetType?: string | null;
+                        /**
+                         * Thoroughfare number for a property (first number in a property ranged address)
+                         */
+                        thoroughfareNumber1?: number | null;
+                        /**
+                         * Suffix for the thoroughfare number. Only relevant is thoroughfareNumber1 is populated
+                         */
+                        thoroughfareNumber1Suffix?: string | null;
+                        /**
+                         * Second thoroughfare number (only used if the property has a ranged address eg 23-25)
+                         */
+                        thoroughfareNumber2?: number | null;
+                        /**
+                         * Suffix for the second thoroughfare number. Only relevant is thoroughfareNumber2 is populated
+                         */
+                        thoroughfareNumber2Suffix?: string | null;
+                        [k: string]: unknown;
+                    };
+                    simple?: {
+                        /**
+                         * First line of the standard address object
+                         */
+                        addressLine1: string;
+                        /**
+                         * Second line of the standard address object
+                         */
+                        addressLine2?: string | null;
+                        /**
+                         * Third line of the standard address object
+                         */
+                        addressLine3?: string | null;
+                        /**
+                         * Name of the city or locality
+                         */
+                        city: string;
+                        /**
+                         * A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code. Australia (AUS) is assumed if country is not present.
+                         */
+                        country?: string | null;
+                        /**
+                         * Name of the individual or business formatted for inclusion in an address used for physical mail
+                         */
+                        mailingName?: string | null;
+                        /**
+                         * Mandatory for Australian addresses
+                         */
+                        postcode?: string | null;
+                        /**
+                         * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. NSW, QLD, VIC, NT, WA, SA, TAS, ACT, AAT
+                         */
+                        state: string;
+                        [k: string]: unknown;
+                    };
                     [k: string]: unknown;
-                };
-                simple?: {
+                } & {
                     /**
-                     * First line of the standard address object
+                     * Enumeration of values indicating the purpose of the physical address
                      */
-                    addressLine1: string;
-                    /**
-                     * Second line of the standard address object
-                     */
-                    addressLine2?: string | null;
-                    /**
-                     * Third line of the standard address object
-                     */
-                    addressLine3?: string | null;
-                    /**
-                     * Name of the city or locality
-                     */
-                    city: string;
-                    /**
-                     * A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code. Australia (AUS) is assumed if country is not present.
-                     */
-                    country?: string | null;
-                    /**
-                     * Name of the individual or business formatted for inclusion in an address used for physical mail
-                     */
-                    mailingName?: string | null;
-                    /**
-                     * Mandatory for Australian addresses
-                     */
-                    postcode?: string | null;
-                    /**
-                     * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. NSW, QLD, VIC, NT, WA, SA, TAS, ACT, AAT
-                     */
-                    state: string;
+                    purpose: "MAIL" | "OTHER" | "PHYSICAL" | "REGISTERED" | "WORK";
                     [k: string]: unknown;
-                };
-                [k: string]: unknown;
-            } & {
-                /**
-                 * Enumeration of values indicating the purpose of the physical address
-                 */
-                purpose: "MAIL" | "OTHER" | "PHYSICAL" | "REGISTERED" | "WORK";
-                [k: string]: unknown;
-            })[];
+                }
+            >;
             [k: string]: unknown;
         };
         [k: string]: unknown;
@@ -1481,7 +1489,7 @@ export interface ResponseDiscoveryOutagesList {
         /**
          * List of scheduled outages. Property is mandatory but may contain and empty list if no outages are scheduled
          */
-        outages: {
+        outages: Array<{
             /**
              * Planned duration of the outage. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
              */
@@ -1499,7 +1507,7 @@ export interface ResponseDiscoveryOutagesList {
              */
             outageTime: string;
             [k: string]: unknown;
-        }[];
+        }>;
         [k: string]: unknown;
     };
     links: {
@@ -1517,7 +1525,7 @@ export interface ResponseDiscoveryOutagesList {
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
 
 export interface ResponseErrorListV2 {
-    errors: {
+    errors: Array<{
         /**
          * The code of the error encountered. Where the error is specific to the respondent, an application-specific error code, expressed as a string value. If the error is application-specific, the URN code that the specific error extends must be provided in the meta object. Otherwise, the value is the error code URN.
          */
@@ -1541,6 +1549,6 @@ export interface ResponseErrorListV2 {
          */
         title: string;
         [k: string]: unknown;
-    }[];
+    }>;
     [k: string]: unknown;
 }

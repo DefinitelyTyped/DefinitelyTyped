@@ -9,7 +9,7 @@ declare const registry: registry.RegistryModule;
 export = registry;
 
 declare namespace registry {
-    interface RegistryModule {} // tslint:disable-line:no-empty-interface
+    interface RegistryModule {} // eslint-disable-line @typescript-eslint/no-empty-interface
 
     interface NodeConstructor<TNode extends Node<TCred>, TNodeDef extends NodeDef, TCred extends {}> {
         (this: TNode, nodeDef: TNodeDef): void;

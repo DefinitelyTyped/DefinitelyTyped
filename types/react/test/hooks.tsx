@@ -119,6 +119,16 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
     // inline object, to (manually) check if autocomplete works
     React.useReducer(reducer, { age: 42, name: "The Answer" });
 
+    // Missing deps are most likely an error and would also trigger react-hooks/exhaustive-deps
+    // @ts-expect-error
+    React.useCallback(() => {});
+
+    React.useCallback(
+        () => {},
+        // @ts-expect-error -- Go beyond what ESLint can do and also "missing deps" at the type-level
+        undefined,
+    );
+
     // Implicit any
     // @ts-expect-error
     const anyCallback = React.useCallback(value => {
@@ -229,11 +239,15 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
     React.useDebugValue(id, value => value.toFixed());
     React.useDebugValue(id);
 
-    // allow passing an explicit undefined
-    React.useMemo(() => {}, undefined);
-    // but don't allow it to be missing
+    // Missing deps are most likely an error and would also trigger react-hooks/exhaustive-deps
     // @ts-expect-error
     React.useMemo(() => {});
+
+    React.useMemo(
+        () => {},
+        // @ts-expect-error -- Go beyond what ESLint can do and also "missing deps" at the type-level
+        undefined,
+    );
 
     // useState convenience overload
     // default to undefined only (not that useful, but type-safe -- no {} or unknown!)

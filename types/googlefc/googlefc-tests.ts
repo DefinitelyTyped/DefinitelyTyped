@@ -22,6 +22,7 @@ googlefc.callbackQueue.push({
 googlefc.ccpa.overrideDnsLink = true;
 
 googlefc.callbackQueue.push({ CONSENT_DATA_READY: () => googlefc.showRevocationMessage() });
+googlefc.callbackQueue.push({ CONSENT_API_READY: () => {} });
 
 // Queue the callback on the callbackQueue.
 googlefc.callbackQueue.push({

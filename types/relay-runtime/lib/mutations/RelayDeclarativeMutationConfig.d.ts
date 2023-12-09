@@ -38,8 +38,8 @@ export interface RangeDeleteConfig {
         }>
         | undefined;
     connectionName?: string | undefined;
-    deletedIDFieldName: string | ReadonlyArray<string>;
-    pathToConnection: ReadonlyArray<string>;
+    deletedIDFieldName: string | readonly string[];
+    pathToConnection: readonly string[];
 }
 
 export interface NodeDeleteConfig {

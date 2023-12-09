@@ -1,4 +1,4 @@
-import { IfInvalid } from "./_util";
+import { CanBeInvalid, DefaultValidity, IfValid } from "./_util";
 
 export interface ZoneOffsetOptions {
     /**
@@ -17,11 +17,13 @@ export interface ZoneOffsetOptions {
  */
 export type ZoneOffsetFormat = "narrow" | "short" | "techie";
 
-export abstract class Zone {
+export type ZoneMaybeValid = CanBeInvalid extends true ? Zone<true> | Zone<false> : Zone;
+
+export abstract class Zone<IsValid extends boolean = DefaultValidity> {
     /**
      * The type of zone
      */
-    get type(): string | IfInvalid<"invalid">;
+    get type(): IfValid<string, "invalid", IsValid>;
 
     /**
      * The name of this zone.
@@ -31,7 +33,7 @@ export abstract class Zone {
     /**
      * Returns whether the offset is known to be fixed for the whole year.
      */
-    get isUniversal(): boolean | IfInvalid<false>;
+    get isUniversal(): IfValid<boolean, false, IsValid>;
 
     /**
      * Returns the offset's common name (such as EST) at the specified timestamp
@@ -41,7 +43,7 @@ export abstract class Zone {
      * @param options.format - What style of offset to return.
      * @param options.locale - What locale to return the offset name in.
      */
-    offsetName(ts: number, options: ZoneOffsetOptions): string | IfInvalid<null>;
+    offsetName(ts: number, options: ZoneOffsetOptions): IfValid<string, null, IsValid>;
 
     /**
      * Returns the offset's value as a string
@@ -50,36 +52,36 @@ export abstract class Zone {
      * @param format - What style of offset to return.
      *                 Accepts 'narrow', 'short', or 'techie'. Returning '+6', '+06:00', or '+0600' respectively
      */
-    formatOffset(ts: number, format: ZoneOffsetFormat): string | IfInvalid<"">;
+    formatOffset(ts: number, format: ZoneOffsetFormat): IfValid<string, "", IsValid>;
 
     /**
      * Return the offset in minutes for this zone at the specified timestamp.
      *
      * @param ts - Epoch milliseconds for which to compute the offset
      */
-    offset(ts: number): number | IfInvalid<typeof NaN>;
+    offset(ts: number): IfValid<number, typeof NaN, IsValid>;
 
     /**
      * Return whether this Zone is equal to another zone
      *
      * @param other - the zone to compare
      */
-    equals(other: Zone): boolean | IfInvalid<false>;
+    equals(other: Zone): IfValid<boolean, false, IsValid>;
 
     /**
      * Return whether this Zone is valid.
      */
-    get isValid(): boolean | IfInvalid<false>;
+    get isValid(): IfValid<true, false, IsValid>;
 }
 
 /**
  * A zone identified by an IANA identifier, like America/New_York
  */
-export class IANAZone extends Zone {
+export class IANAZone<IsValid extends boolean = DefaultValidity> extends Zone<IsValid> {
     /**
      * Same as constructor but has caching.
      */
-    static create(name: string): IANAZone;
+    static create(name: string): CanBeInvalid extends true ? (IANAZone<true> | IANAZone<false>) : IANAZone;
 
     /**
      * Reset local caches. Should only be necessary in testing scenarios.
@@ -117,14 +119,12 @@ export class IANAZone extends Zone {
     static isValidZone(zone: string): boolean;
 
     constructor(name: string);
-
-    get isValid(): true;
 }
 
 /**
  * A zone with a fixed offset (meaning no DST)
  */
-export class FixedOffsetZone extends Zone {
+export class FixedOffsetZone extends Zone<true> {
     /**
      * Get a singleton instance of UTC
      */
@@ -150,28 +150,23 @@ export class FixedOffsetZone extends Zone {
      * FixedOffsetZone.parseSpecifier("UTC-6:00")
      */
     static parseSpecifier(s: string): FixedOffsetZone;
-
-    get isValid(): true;
 }
 
 /**
  * A zone that failed to parse. You should never need to instantiate this.
  */
-export class InvalidZone extends Zone {
+export class InvalidZone extends Zone<false> {
     get type(): "invalid";
     get isUniversal(): false;
     get offsetFormat(): "";
-    get isValid(): false;
 }
 
 /**
  * Represents the system zone for this JavaScript environment.
  */
-export class SystemZone extends Zone {
+export class SystemZone extends Zone<true> {
     /**
      * Get a singleton instance of the system zone
      */
     static get instance(): SystemZone;
-
-    get isValid(): true;
 }

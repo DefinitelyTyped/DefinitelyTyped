@@ -58,5 +58,5 @@ declare namespace Classes {
     export { getInstance, Database };
 }
 import DataSet = require('../dataset/DataSet.js');
-type Database = import('./Database');
 declare function getInstance(): Classes;
+type Database = import('./Database');

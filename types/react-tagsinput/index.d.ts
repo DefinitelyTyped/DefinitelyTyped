@@ -32,6 +32,7 @@ declare namespace TagsInput {
         readonly getTagDisplayValue: (tag: Tag) => string;
         readonly onRemove: (tagIndex: number) => void;
         readonly tag: Tag;
+        readonly key: number;
     }
 
     type RenderLayout = (tagElements: React.ReactElement[], inputElement: React.ReactElement) => React.ReactChild;

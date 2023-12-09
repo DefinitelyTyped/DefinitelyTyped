@@ -16,6 +16,7 @@ export type JQueryAjaxSettingsBase = Pick<JQueryAjaxSettings, Sub<keyof JQueryAj
 /**
  * Same as jQuery v3 `JQuery.EventHandlerBase`.
  */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export type JQueryEventHandlerBase<TContext, T> = (this: TContext, t: T, ...args: any[]) => void | false;
 
 /**
@@ -252,8 +253,8 @@ export interface Select2Plugin<TElement = HTMLElement> {
     };
 
     (): JQuery<TElement>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     <Result = DataFormat | GroupedDataFormat, RemoteResult = any>(
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         options: Options<Result, RemoteResult>,
     ): JQuery<TElement>;
 

@@ -21538,7 +21538,7 @@ export interface EnvelopeDocumentTabs {
      * A Number tab enables the recipient to enter numbers and decimal points (.). This value can be set.
      * [number]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/number
      */
-    // tslint:disable-next-line: ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     numberTabs?: Number[] | undefined;
     /**
      * This type of tab enables the recipient to strike through document text. This value can't be set.
@@ -22568,7 +22568,7 @@ export interface EnvelopeRecipientTabs {
      * A Number tab enables the recipient to enter numbers and decimal points (.). This value can be set.
      * [number]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/number
      */
-    // tslint:disable-next-line: ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     numberTabs?: Number[] | undefined;
     /**
      * This type of tab enables the recipient to strike through document text. This value can't be set.
@@ -39770,7 +39770,7 @@ export interface Tabs {
      * A Number tab enables the recipient to enter numbers and decimal points (.). This value can be set.
      * [number]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/number
      */
-    numberTabs?: // tslint:disable-next-line: ban-types
+    numberTabs?: // eslint-disable-next-line @typescript-eslint/ban-types
         Number[] | undefined;
     /**
      * This type of tab enables the recipient to strike through document text. This value can't be set.
@@ -40355,7 +40355,7 @@ export interface TemplateDocumentTabs {
      * A Number tab enables the recipient to enter numbers and decimal points (.). This value can be set.
      * [number]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/number
      */
-    // tslint:disable-next-line: ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     numberTabs?: Number[] | undefined;
     /**
      * This type of tab enables the recipient to strike through document text. This value can't be set.
@@ -40779,7 +40779,7 @@ export interface TemplateRecipientTabs {
      * A Number tab enables the recipient to enter numbers and decimal points (.). This value can be set.
      * [number]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/number
      */
-    // tslint:disable-next-line: ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     numberTabs?: Number[] | undefined;
     /**
      * This type of tab enables the recipient to strike through document text. This value can't be set.
@@ -41328,7 +41328,7 @@ export interface TemplateTabs {
      * A Number tab enables the recipient to enter numbers and decimal points (.). This value can be set.
      * [number]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/number
      */
-    // tslint:disable-next-line: ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     numberTabs?: Number[] | undefined;
     /**
      * This type of tab enables the recipient to strike through document text. This value can't be set.

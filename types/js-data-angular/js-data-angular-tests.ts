@@ -6,9 +6,9 @@ interface IUser {
 }
 
 interface CustomScope extends ng.IScope {
-    comments: Array<any>;
+    comments: any[];
     user: IUser;
-    users: Array<IUser>;
+    users: IUser[];
 }
 
 angular.module("myApp")

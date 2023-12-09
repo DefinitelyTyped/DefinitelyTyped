@@ -191,7 +191,7 @@ export namespace ojSunburst {
         }>
     {
     }
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type DataContext = {
         color: string;
         label: string;
@@ -199,12 +199,12 @@ export namespace ojSunburst {
         size: number;
         tooltip: string;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type NodeContext = {
         subId: string;
         indexPath: number[];
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type RootNodeContext<K, D> = {
         outerBounds: {
             x: number;
@@ -223,7 +223,7 @@ export namespace ojSunburst {
         itemData: D;
         componentElement: Element;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type TooltipContext<K, D> = {
         parentElement: Element;
         id: K;

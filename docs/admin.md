@@ -9,7 +9,7 @@ different sections inside the [Projects board](https://github.com/DefinitelyType
 You should scan from left to right through the boards, and ideally try to start at the oldest PR in a section and work
 your way through to the newest. There is a tool: [`focus-dt`](https://github.com/DefinitelyTyped/focus-dt) which can help with this.
 
-Our goals are to provide a stable, high quality ecosystem of type definitions and that requires the compiler team
+Our goals are to provide a stable, high-quality ecosystem of type definitions and that requires the compiler team
 making sure that a PR does not break the ecosystem. This work isn't a code review in the usual sense, but an assessment
 of how well the changes fit the rest of the type definitions and if it could break builds for our users or our systems.
 With the impact understood, your job is to delegate to the people who actually know how to review the code: users
@@ -23,7 +23,7 @@ For a [quick TLDR overview, you can read these slides](https://docs.google.com/p
 Some key concepts:
 
 - Popular packages can break more installs, and will need more time and focus
-- There are a handful of authors who have shipped a lot of high quality contributions who you can happily delegate to
+- There are a handful of authors who have shipped a lot of high-quality contributions who you can happily delegate to
 
 
 ##### Project board columns
@@ -45,7 +45,7 @@ You can control the life-cycle of PRs via "blessings", which are implicit operat
 > * To undo either of these, move them to any other column.
 
 * If a PR requires a *maintainer review*, you can fulfill this requirement by a "review-blessing": you do that by moving the PR to the `Waiting for Code Reviews` column (using the drop-down in the "Projects" section on the right).
-  This is especially relevant in cases where a maintainer review is needed because of a technical requirement like no tests, suspicious config edits etc: in such cases you can review-bless the PR in case the config edit is fine, the change is small or doesn't modify types etc.
+  This is especially relevant in cases where a maintainer review is needed because of a technical requirement like no tests, suspicious config edits etc.: in such cases you can review-bless the PR in case the config edit is fine, the change is small or doesn't modify types etc.
   Note that it only dismisses the maintainer review requirement, so the PR will continue the usual flow, and will wait for approvals as needed.
 
 * If a PR requires a *maintainer action*, you can move it to the `Waiting for Author to Merge` column to "merge-bless" it: make the bot offer the author to self-merge.

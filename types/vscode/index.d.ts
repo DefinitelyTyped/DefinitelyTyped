@@ -5,7 +5,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Visual Studio Code 1.83 Extension API
+ * Type Definition for Visual Studio Code 1.85 Extension API
  * See https://code.visualstudio.com/api for more information
  */
 
@@ -894,14 +894,14 @@ declare module 'vscode' {
 	}
 
 	/**
-	 * A reference to one of the workbench colors as defined in https://code.visualstudio.com/docs/getstarted/theme-color-reference.
+	 * A reference to one of the workbench colors as defined in https://code.visualstudio.com/api/references/theme-color.
 	 * Using a theme color is preferred over a custom color as it gives theme authors and users the possibility to change the color.
 	 */
 	export class ThemeColor {
 
 		/**
 		 * Creates a reference to a theme color.
-		 * @param id of the color. The available colors are listed in https://code.visualstudio.com/docs/getstarted/theme-color-reference.
+		 * @param id of the color. The available colors are listed in https://code.visualstudio.com/api/references/theme-color.
 		 */
 		constructor(id: string);
 	}
@@ -1558,7 +1558,7 @@ declare module 'vscode' {
 		 */
 		with(change: {
 			/**
-			 * The new scheme, defauls to this Uri's scheme.
+			 * The new scheme, defaults to this Uri's scheme.
 			 */
 			scheme?: string;
 			/**
@@ -1678,12 +1678,12 @@ declare module 'vscode' {
 		 * @returns Returns a new disposable which, upon dispose, will
 		 * dispose all provided disposables.
 		 */
-		static from(...disposableLikes: {
+		static from(...disposableLikes: Array<{
 			/**
 			 * Function to clean up resources.
 			 */
 			dispose: () => any;
-		}[]): Disposable;
+		}>): Disposable;
 
 		/**
 		 * Creates a new disposable that calls the provided function
@@ -2695,7 +2695,7 @@ declare module 'vscode' {
 		 * We also support returning `Command` for legacy reasons, however all new extensions should return
 		 * `CodeAction` object instead.
 		 */
-		provideCodeActions(document: TextDocument, range: Range | Selection, context: CodeActionContext, token: CancellationToken): ProviderResult<(Command | T)[]>;
+		provideCodeActions(document: TextDocument, range: Range | Selection, context: CodeActionContext, token: CancellationToken): ProviderResult<Array<Command | T>>;
 
 		/**
 		 * Given a code action fill in its {@linkcode CodeAction.edit edit}-property. Changes to
@@ -4055,7 +4055,7 @@ declare module 'vscode' {
 		 *
 		 * @returns A shallow copy of `[Uri, TextEdit[]]`-tuples.
 		 */
-		entries(): [Uri, TextEdit[]][];
+		entries(): Array<[Uri, TextEdit[]]>;
 	}
 
 	/**
@@ -4066,7 +4066,7 @@ declare module 'vscode' {
 	 * and `${3:foo}`. `$0` defines the final tab stop, it defaults to
 	 * the end of the snippet. Variables are defined with `$name` and
 	 * `${name:default value}`. Also see
-	 * [the full snippet syntax](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_creating-your-own-snippets).
+	 * [the full snippet syntax](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_create-your-own-snippets).
 	 */
 	export class SnippetString {
 
@@ -5947,7 +5947,7 @@ declare module 'vscode' {
 		/**
 		 * Tags for this item.
 		 */
-		tags?: ReadonlyArray<SymbolTag>;
+		tags?: readonly SymbolTag[];
 
 		/**
 		 * More detail for this item, e.g. the signature of a function.
@@ -6344,7 +6344,7 @@ declare module 'vscode' {
 			/**
 			 * @deprecated
 			 */
-			autoClosingPairs: {
+			autoClosingPairs: Array<{
 				/**
 				 * @deprecated
 				 */
@@ -6357,7 +6357,7 @@ declare module 'vscode' {
 				 * @deprecated
 				 */
 				notIn?: string[];
-			}[];
+			}>;
 		};
 	}
 
@@ -7336,11 +7336,10 @@ declare module 'vscode' {
 		 * (shell) of the terminal.
 		 *
 		 * @param text The text to send.
-		 * @param addNewLine Whether to add a new line to the text being sent, this is normally
-		 * required to run a command in the terminal. The character(s) added are \n or \r\n
-		 * depending on the platform. This defaults to `true`.
+		 * @param shouldExecute Indicates that the text being sent should be executed rather than just inserted in the terminal.
+		 * The character(s) added are \n or \r\n, depending on the platform. This defaults to `true`.
 		 */
-		sendText(text: string, addNewLine?: boolean): void;
+		sendText(text: string, shouldExecute?: boolean): void;
 
 		/**
 		 * Show the terminal panel and reveal this terminal in the UI.
@@ -7704,12 +7703,12 @@ declare module 'vscode' {
 		 *
 		 * *Note* that asynchronous dispose-functions aren't awaited.
 		 */
-		readonly subscriptions: {
+		readonly subscriptions: Array<{
 			/**
 			 * Function to clean up resources.
 			 */
 			dispose(): any;
-		}[];
+		}>;
 
 		/**
 		 * A memento object that stores state in the context
@@ -8325,7 +8324,7 @@ declare module 'vscode' {
 		 * @param args The command arguments.
 		 * @param options Optional options for the started the shell.
 		 */
-		constructor(command: string | ShellQuotedString, args: (string | ShellQuotedString)[], options?: ShellExecutionOptions);
+		constructor(command: string | ShellQuotedString, args: Array<string | ShellQuotedString>, options?: ShellExecutionOptions);
 
 		/**
 		 * The shell command line. Is `undefined` if created with a command and arguments.
@@ -8340,7 +8339,7 @@ declare module 'vscode' {
 		/**
 		 * The shell args. Is `undefined` if created with a full command line.
 		 */
-		args: (string | ShellQuotedString)[];
+		args: Array<string | ShellQuotedString>;
 
 		/**
 		 * The shell options used when the command line is executed in a shell.
@@ -8933,7 +8932,7 @@ declare module 'vscode' {
 		 * @returns An array of name/type-tuples or a thenable that resolves to such.
 		 * @throws {@linkcode FileSystemError.FileNotFound FileNotFound} when `uri` doesn't exist.
 		 */
-		readDirectory(uri: Uri): [string, FileType][] | Thenable<[string, FileType][]>;
+		readDirectory(uri: Uri): Array<[string, FileType]> | Thenable<Array<[string, FileType]>>;
 
 		/**
 		 * Create a new directory (Note, that new files are created via `write`-calls).
@@ -9053,7 +9052,7 @@ declare module 'vscode' {
 		 * @param uri The uri of the folder.
 		 * @returns An array of name/type-tuples or a thenable that resolves to such.
 		 */
-		readDirectory(uri: Uri): Thenable<[string, FileType][]>;
+		readDirectory(uri: Uri): Thenable<Array<[string, FileType]>>;
 
 		/**
 		 * Create a new directory (Note, that new files are created via `write`-calls).
@@ -10209,7 +10208,7 @@ declare module 'vscode' {
 	 * * palette - Use the `commands`-section in `package.json` to make a command show in
 	 * the [command palette](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette).
 	 * * keybinding - Use the `keybindings`-section in `package.json` to enable
-	 * [keybindings](https://code.visualstudio.com/docs/getstarted/keybindings#_customizing-shortcuts)
+	 * [keybindings](https://code.visualstudio.com/docs/getstarted/keybindings#_advanced-customization)
 	 * for your extension.
 	 *
 	 * Commands from other extensions and from the editor itself are accessible to an extension. However,
@@ -11326,7 +11325,7 @@ declare module 'vscode' {
 		 * tree objects in a data transfer. See the documentation for `DataTransferItem` for how best to take advantage of this.
 		 *
 		 * To add a data transfer item that can be dragged into the editor, use the application specific mime type "text/uri-list".
-		 * The data for "text/uri-list" should be a string with `toString()`ed Uris separated by newlines. To specify a cursor position in the file,
+		 * The data for "text/uri-list" should be a string with `toString()`ed Uris separated by `\r\n`. To specify a cursor position in the file,
 		 * set the Uri's fragment to `L3,5`, where 3 is the line number and 5 is the column number.
 		 *
 		 * @param source The source items for the drag and drop operation.
@@ -11683,7 +11682,7 @@ declare module 'vscode' {
 		 * Ranges in the label to highlight. A range is defined as a tuple of two number where the
 		 * first is the inclusive start index and the second the exclusive end index
 		 */
-		highlights?: [number, number][];
+		highlights?: Array<[number, number]>;
 	}
 
 	/**
@@ -13140,7 +13139,7 @@ declare module 'vscode' {
 		 * @returns true if the operation was successfully started and false otherwise if arguments were used that would result
 		 * in invalid workspace folder state (e.g. 2 folders with the same URI).
 		 */
-		export function updateWorkspaceFolders(start: number, deleteCount: number | undefined | null, ...workspaceFoldersToAdd: {
+		export function updateWorkspaceFolders(start: number, deleteCount: number | undefined | null, ...workspaceFoldersToAdd: Array<{
 			/**
 			 * The uri of a workspace folder that's to be added.
 			 */
@@ -13149,7 +13148,7 @@ declare module 'vscode' {
 			 * The name of a workspace folder that's to be added.
 			 */
 			readonly name?: string;
-		}[]): boolean;
+		}>): boolean;
 
 		/**
 		 * Creates a file system watcher that is notified on file events (create, change, delete)
@@ -13348,13 +13347,13 @@ declare module 'vscode' {
 		export function openTextDocument(uri: Uri): Thenable<TextDocument>;
 
 		/**
-		 * A short-hand for `openTextDocument(Uri.file(fileName))`.
+		 * A short-hand for `openTextDocument(Uri.file(path))`.
 		 *
 		 * @see {@link workspace.openTextDocument}
-		 * @param fileName A name of a file on disk.
+		 * @param path A path of a file on disk.
 		 * @returns A promise that resolves to a {@link TextDocument document}.
 		 */
-		export function openTextDocument(fileName: string): Thenable<TextDocument>;
+		export function openTextDocument(path: string): Thenable<TextDocument>;
 
 		/**
 		 * Opens an untitled text document. The editor will prompt the user for a file
@@ -13805,7 +13804,7 @@ declare module 'vscode' {
 		 *
 		 * @returns An array of uri-diagnostics tuples or an empty array.
 		 */
-		export function getDiagnostics(): [Uri, Diagnostic[]][];
+		export function getDiagnostics(): Array<[Uri, Diagnostic[]]>;
 
 		/**
 		 * Create a diagnostics collection.
@@ -16351,7 +16350,7 @@ declare module 'vscode' {
 		/**
 		 * All extensions currently known to the system.
 		 */
-		export const all: readonly Extension<any>[];
+		export const all: ReadonlyArray<Extension<any>>;
 
 		/**
 		 * An event which fires when `extensions.all` changes. This can happen when extensions are
@@ -17615,6 +17614,37 @@ declare module 'vscode' {
 		 * Associated file location.
 		 */
 		location?: Location;
+
+		/**
+		 * Context value of the test item. This can be used to contribute message-
+		 * specific actions to the test peek view. The value set here can be found
+		 * in the `testMessage` property of the following `menus` contribution points:
+		 *
+		 * - `testing/message/context` - context menu for the message in the results tree
+		 * - `testing/message/content` - a prominent button overlaying editor content where
+		 *    the message is displayed.
+		 *
+		 * For example:
+		 *
+		 * ```json
+		 * "contributes": {
+		 *   "menus": {
+		 *     "testing/message/content": [
+		 *       {
+		 *         "command": "extension.deleteCommentThread",
+		 *         "when": "testMessage == canApplyRichDiff"
+		 *       }
+		 *     ]
+		 *   }
+		 * }
+		 * ```
+		 *
+		 * The command will be called with an object containing:
+		 * - `test`: the {@link TestItem} the message is associated with, *if* it
+		 *    is still present in the {@link TestController.items} collection.
+		 * - `message`: the {@link TestMessage} instance.
+		 */
+		contextValue?: string;
 
 		/**
 		 * Creates a new TestMessage that will present as a diff in the editor.

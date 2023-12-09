@@ -55,7 +55,7 @@ declare module "angular" {
             /**
              * Pre-defined server error interceptor.
              */
-            serverMessagesInterceptor: (string | IHttpInterceptorFactory)[];
+            serverMessagesInterceptor: Array<string | IHttpInterceptorFactory>;
 
             /**
              * Set default TTL settings.

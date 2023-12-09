@@ -28,7 +28,7 @@ interface JsonRpcClient {
      */
     call(
         method: string,
-        params: Object | Array<any>,
+        params: Object | any[],
         successCb: (result: any) => void,
         errorCb: (result: any) => void,
     ): JQueryDeferred<JQueryXHR>;
@@ -44,7 +44,7 @@ interface JsonRpcClient {
      *
      * @return {object} Returns the deferred object that $.ajax returns or {null} for websockets
      */
-    notify(method: string, params: Object | Array<any>): JQueryDeferred<JQueryXHR>;
+    notify(method: string, params: Object | any[]): JQueryDeferred<JQueryXHR>;
 
     /**
      * Make a batch-call by using a callback.

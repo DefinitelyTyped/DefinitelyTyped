@@ -1,4 +1,4 @@
-// For Library Version: 1.119.0
+// For Library Version: 1.120.0
 
 declare module "sap/ui/support/library" {
   /**
@@ -148,6 +148,12 @@ declare module "sap/ui/support/library" {
      * The accessibility preset.
      */
     Accessibility = "undefined",
+    /**
+     * @experimental (since 1.120)
+     *
+     * Preset to find usages of deprecated controls, properties, aggregations and others.
+     */
+    Deprecations = "undefined",
   }
 }
 

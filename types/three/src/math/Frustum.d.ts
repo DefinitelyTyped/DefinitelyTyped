@@ -1,7 +1,7 @@
 import { Plane } from './Plane.js';
 import { Matrix4 } from './Matrix4.js';
-import { Object3D } from './../core/Object3D.js';
-import { Sprite } from './../objects/Sprite.js';
+import { Object3D } from '../core/Object3D.js';
+import { Sprite } from '../objects/Sprite.js';
 import { Sphere } from './Sphere.js';
 import { Box3 } from './Box3.js';
 import { Vector3 } from './Vector3.js';

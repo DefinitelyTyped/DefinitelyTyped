@@ -250,4 +250,4 @@ export namespace dynamicApi {
     function value(nameSpacedFlagName: string, defaultValue: string, context?: unknown): string;
 }
 
-export const flags: ReadonlyArray<Flag>;
+export const flags: readonly Flag[];

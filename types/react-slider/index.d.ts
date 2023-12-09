@@ -1,10 +1,10 @@
-import { Component, HTMLProps, RefCallback } from "react";
+import { Component, HTMLProps, JSX, RefCallback } from "react";
 
 interface HTMLPropsWithRefCallback<T> extends HTMLProps<T> {
     ref: RefCallback<T>;
 }
 
-export interface ReactSliderProps<T extends number | ReadonlyArray<number> = number> {
+export interface ReactSliderProps<T extends number | readonly number[] = number> {
     // Disallow children
     children?: never | undefined;
 
@@ -14,7 +14,7 @@ export interface ReactSliderProps<T extends number | ReadonlyArray<number> = num
      * Use an array for more than one thumb.
      * The length of the array must match the number of thumbs in the `value` array.
      */
-    ariaLabel?: T extends number ? string : ReadonlyArray<string> | undefined;
+    ariaLabel?: T extends number ? string : readonly string[] | undefined;
 
     /**
      * aria-labelledby for screen-readers to apply to the thumbs.
@@ -22,7 +22,7 @@ export interface ReactSliderProps<T extends number | ReadonlyArray<number> = num
      * Use an array for more than one thumb.
      * The length of the array must match the number of thumbs in the value array.
      */
-    ariaLabelledby?: T extends number ? string : ReadonlyArray<string> | undefined;
+    ariaLabelledby?: T extends number ? string : readonly string[] | undefined;
 
     /**
      * `aria-valuetext` for screen-readers.
@@ -89,7 +89,7 @@ export interface ReactSliderProps<T extends number | ReadonlyArray<number> = num
      *
      * @default []
      */
-    marks?: boolean | number | ReadonlyArray<number> | undefined;
+    marks?: boolean | number | readonly number[] | undefined;
 
     /**
      * The maximum value of the slider.
@@ -273,7 +273,7 @@ export interface ReactSliderProps<T extends number | ReadonlyArray<number> = num
     withTracks?: boolean | undefined;
 }
 
-declare class ReactSlider<T extends number | ReadonlyArray<number> = number> extends Component<ReactSliderProps<T>> {
+declare class ReactSlider<T extends number | readonly number[] = number> extends Component<ReactSliderProps<T>> {
     /**
      * Tell the slider to resize, for example if the parent container has resized
      * independently of the window.

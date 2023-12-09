@@ -3842,486 +3842,1105 @@ declare namespace echarts {
              * []
              * @see https://echarts.apache.org/en/option.html#series-sunburst.levels
              */
-            levels?: {
-                /**
-                 * `label` sets the text style for every sectors.
-                 *
-                 * **Priority:
-                 * [series.data.label](https://echarts.apache.org/en/option.html#series-sunburst.data.label)
-                 * >
-                 * [series.levels.label](https://echarts.apache.org/en/option.html#series-sunburst.levels.label)
-                 * >
-                 * [series.label](https://echarts.apache.org/en/option.html#series-sunburst.label)
-                 * .**
-                 *
-                 * Text label of , to explain some data information about graphic
-                 * item like value, name and so on.
-                 * `label` is placed under `itemStyle` in ECharts 2.x.
-                 * In ECharts 3, to make the configuration structure flatter,
-                 * `label`is taken to be at the same level with `itemStyle`,
-                 * and has `emphasis` as `itemStyle` does.
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label
-                 */
-                label?: {
+            levels?:
+                | Array<{
                     /**
-                     * If it is `number` type, then is stands for rotation,
-                     * from -90 degrees to 90 degrees, and positive values stand
-                     * for counterclockwise.
+                     * `label` sets the text style for every sectors.
                      *
-                     * Besides, it can be string `'radial'`, standing for radial
-                     * rotation; or `'tangential'`, standing for tangential
-                     * rotation.
+                     * **Priority:
+                     * [series.data.label](https://echarts.apache.org/en/option.html#series-sunburst.data.label)
+                     * >
+                     * [series.levels.label](https://echarts.apache.org/en/option.html#series-sunburst.levels.label)
+                     * >
+                     * [series.label](https://echarts.apache.org/en/option.html#series-sunburst.label)
+                     * .**
                      *
-                     * By default, it is `'radial'`.
-                     * If no rotation is wanted, it can be set to `0`.
+                     * Text label of , to explain some data information about graphic
+                     * item like value, name and so on.
+                     * `label` is placed under `itemStyle` in ECharts 2.x.
+                     * In ECharts 3, to make the configuration structure flatter,
+                     * `label`is taken to be at the same level with `itemStyle`,
+                     * and has `emphasis` as `itemStyle` does.
                      *
-                     * The following example shows different `rotate` settings:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label)
-                     *
-                     * @default
-                     * "radial"
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rotate
+                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label
                      */
-                    rotate?: number | string | undefined;
-
-                    /**
-                     * Align of text, which can be `'left'`, `'center'`, or
-                     * `'right'`.
-                     * Note that `'left'` stands for inner side, and `'right'`
-                     * stands for outer side.
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label)
-                     *
-                     * @default
-                     * "center"
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.align
-                     */
-                    align?: string | undefined;
-
-                    /**
-                     * If angle of data piece is smaller than this value (in
-                     * degrees), then text is not displayed.
-                     * This is used for hiding text for small piece of data.
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.minAngle
-                     */
-                    minAngle?: number | undefined;
-
-                    /**
-                     * Whether to show label.
-                     *
-                     * @default
-                     * "true"
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.show
-                     */
-                    show?: boolean | undefined;
-
-                    /**
-                     * Label position.
-                     *
-                     * **Followings are the options:**
-                     *
-                     * + \[x, y\]
-                     *
-                     * Use relative percentage, or absolute pixel values to
-                     * represent position of label relative to top-left corner
-                     * of bounding box. For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label)
-                     *
-                     * + 'top'
-                     *
-                     * + 'left'
-                     * + 'right'
-                     * + 'bottom'
-                     * + 'inside'
-                     * + 'insideLeft'
-                     * + 'insideRight'
-                     * + 'insideTop'
-                     * + 'insideBottom'
-                     * + 'insideTopLeft'
-                     * + 'insideBottomLeft'
-                     * + 'insideTopRight'
-                     * + 'insideBottomRight'
-                     *
-                     * See:
-                     * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
-                     * .
-                     *
-                     * @default
-                     * "inside"
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.position
-                     */
-                    position?: any[] | string | undefined;
-
-                    /**
-                     * Distance to the host graphic element.
-                     * Works when position is string value (like `'top'`、`'insideRight'`).
-                     *
-                     * See:
-                     * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
-                     * .
-                     *
-                     * @default
-                     * 5
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.distance
-                     */
-                    distance?: number | undefined;
-
-                    /**
-                     * Whether to move text slightly.
-                     * For example: `[30, 40]` means move `30` horizontally
-                     * and move `40` vertically.
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.offset
-                     */
-                    offset?: any[] | undefined;
-
-                    /**
-                     * Data label formatter, which supports string template
-                     * and callback function.
-                     * In either form, `\n` is supported to represent a new
-                     * line.
-                     *
-                     * **String template**
-                     *
-                     * Model variation includes:
-                     *
-                     * + `{a}`: series name.
-                     * + `{b}`: the name of a data item.
-                     * + `{c}`: the value of a data item.
-                     * + `{@xxx}: the value of a dimension named`'xxx'`, for
-                     * example,`{@product}`refers the value of`'product'\` dimension。
-                     * + `{@[n]}: the value of a dimension at the index of`n`,
-                     * for example,`{@\[3\]}\` refers the value at dimensions\[3\].
-                     *
-                     * **example:**
-                     *
-                     * ```
-                     * formatter: '{b}: {@score}'
-                     *
-                     * ```
-                     *
-                     * **Callback function**
-                     *
-                     * Callback function is in form of:
-                     *
-                     * ```
-                     * (params: Object|Array) => string
-                     *
-                     * ```
-                     *
-                     * where `params` is the single dataset needed by formatter,
-                     * which is formed as:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label)
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.formatter
-                     */
-                    formatter?: Function | string | undefined;
-
-                    /**
-                     * text color.
-                     *
-                     * If set as `'auto'`, the color will assigned as visual
-                     * color, such as series color.
-                     *
-                     * @default
-                     * ""#fff""
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.color
-                     */
-                    color?: string | undefined;
-
-                    /**
-                     * font style
-                     *
-                     * Options are:
-                     *
-                     * + `'normal'`
-                     * + `'italic'`
-                     * + `'oblique'`
-                     *
-                     * @default
-                     * "normal"
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.fontStyle
-                     */
-                    fontStyle?: string | undefined;
-
-                    /**
-                     * font thick weight
-                     *
-                     * Options are:
-                     *
-                     * + `'normal'`
-                     * + `'bold'`
-                     * + `'bolder'`
-                     * + `'lighter'`
-                     * + 100 | 200 | 300 | 400...
-                     *
-                     * @default
-                     * "normal"
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.fontWeight
-                     */
-                    fontWeight?: string | number | undefined;
-
-                    /**
-                     * font family
-                     *
-                     * Can also be 'serif' , 'monospace', ...
-                     *
-                     * @default
-                     * "sans-serif"
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.fontFamily
-                     */
-                    fontFamily?: string | undefined;
-
-                    /**
-                     * font size
-                     *
-                     * @default
-                     * 12
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.fontSize
-                     */
-                    fontSize?: number | undefined;
-
-                    /**
-                     * Vertical alignment of text, automatic by default.
-                     *
-                     * Options are:
-                     *
-                     * + `'top'`
-                     * + `'middle'`
-                     * + `'bottom'`
-                     *
-                     * If `verticalAlign` is not set in `rich`, `verticalAlign`
-                     * in parent level will be used. For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label)
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.verticalAlign
-                     */
-                    verticalAlign?: string | undefined;
-
-                    /**
-                     * Line height of the text fregment.
-                     *
-                     * If `lineHeight` is not set in `rich`, `lineHeight` in
-                     * parent level will be used. For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label)
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.lineHeight
-                     */
-                    lineHeight?: number | undefined;
-
-                    /**
-                     * Background color of the text fregment.
-                     *
-                     * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
-                     *
-                     * Or image can be used, for example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label)
-                     *
-                     * `width` or `height` can be specified when using background
-                     * image, or auto adapted by default.
-                     *
-                     * If set as `'auto'`, the color will assigned as visual
-                     * color, such as series color.
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.backgroundColor
-                     */
-                    backgroundColor?: object | string | undefined;
-
-                    /**
-                     * Border color of the text fregment.
-                     *
-                     * If set as `'auto'`, the color will assigned as visual
-                     * color, such as series color.
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.borderColor
-                     */
-                    borderColor?: string | undefined;
-
-                    /**
-                     * Border width of the text fregment.
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.borderWidth
-                     */
-                    borderWidth?: number | undefined;
-
-                    /**
-                     * Border radius of the text fregment.
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.borderRadius
-                     */
-                    borderRadius?: number | undefined;
-
-                    /**
-                     * Padding of the text fregment, for example:
-                     *
-                     * + `padding: [3, 4, 5, 6]`: represents padding of `[top,
-                     * right, bottom, left]`.
-                     * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
-                     * + `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.padding
-                     */
-                    padding?: any[] | number | undefined;
-
-                    /**
-                     * Shadow color of the text block.
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.shadowColor
-                     */
-                    shadowColor?: string | undefined;
-
-                    /**
-                     * Show blur of the text block.
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.shadowBlur
-                     */
-                    shadowBlur?: number | undefined;
-
-                    /**
-                     * Shadow X offset of the text block.
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.shadowOffsetX
-                     */
-                    shadowOffsetX?: number | undefined;
-
-                    /**
-                     * Shadow Y offset of the text block.
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.shadowOffsetY
-                     */
-                    shadowOffsetY?: number | undefined;
-
-                    /**
-                     * Width of the text block.
-                     * It is the width of the text by default.
-                     * In most cases, there is no need to specify it.
-                     * You may want to use it in some cases like make simple
-                     * table or using background image (see `backgroundColor`).
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     * `width` can also be percent string, like `'100%'`, which
-                     * represents the percent of `contentWidth` (that is, the
-                     * width without `padding`) of its container box.
-                     * It is based on `contentWidth` because that each text
-                     * fregment is layout based on the `content box`, where
-                     * it makes no sense that calculating width based on `outerWith`
-                     * in prectice.
-                     *
-                     * Notice, `width` and `height` only work when `rich` specified.
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.width
-                     */
-                    width?: number | string | undefined;
-
-                    /**
-                     * Height of the text block.
-                     * It is the width of the text by default.
-                     * You may want to use it in some cases like using background
-                     * image (see `backgroundColor`).
-                     *
-                     * Notice, `width` and `height` specifies the width and
-                     * height of the content, without `padding`.
-                     *
-                     * Notice, `width` and `height` only work when `rich` specified.
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.height
-                     */
-                    height?: number | string | undefined;
-
-                    /**
-                     * Storke color of the text.
-                     *
-                     * If set as `'auto'`, the color will assigned as visual
-                     * color, such as series color.
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.textBorderColor
-                     */
-                    textBorderColor?: string | undefined;
-
-                    /**
-                     * Storke line width of the text.
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.textBorderWidth
-                     */
-                    textBorderWidth?: number | undefined;
-
-                    /**
-                     * Shadow color of the text itself.
-                     *
-                     * @default
-                     * "transparent"
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.textShadowColor
-                     */
-                    textShadowColor?: string | undefined;
-
-                    /**
-                     * Shadow blue of the text itself.
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.textShadowBlur
-                     */
-                    textShadowBlur?: number | undefined;
-
-                    /**
-                     * Shadow X offset of the text itself.
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.textShadowOffsetX
-                     */
-                    textShadowOffsetX?: number | undefined;
-
-                    /**
-                     * Shadow Y offset of the text itself.
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.textShadowOffsetY
-                     */
-                    textShadowOffsetY?: number | undefined;
-
-                    /**
-                     * "Rich text styles" can be defined in this `rich` property.
-                     * For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label)
-                     *
-                     * For more details, see
-                     * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
-                     * please.
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich
-                     */
-                    rich?: {
+                    label?: {
                         /**
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E
+                         * If it is `number` type, then is stands for rotation,
+                         * from -90 degrees to 90 degrees, and positive values stand
+                         * for counterclockwise.
+                         *
+                         * Besides, it can be string `'radial'`, standing for radial
+                         * rotation; or `'tangential'`, standing for tangential
+                         * rotation.
+                         *
+                         * By default, it is `'radial'`.
+                         * If no rotation is wanted, it can be set to `0`.
+                         *
+                         * The following example shows different `rotate` settings:
+                         *
+                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label)
+                         *
+                         * @default
+                         * "radial"
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rotate
                          */
-                        [userStyle: string]: {
+                        rotate?: number | string | undefined;
+
+                        /**
+                         * Align of text, which can be `'left'`, `'center'`, or
+                         * `'right'`.
+                         * Note that `'left'` stands for inner side, and `'right'`
+                         * stands for outer side.
+                         *
+                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label)
+                         *
+                         * @default
+                         * "center"
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.align
+                         */
+                        align?: string | undefined;
+
+                        /**
+                         * If angle of data piece is smaller than this value (in
+                         * degrees), then text is not displayed.
+                         * This is used for hiding text for small piece of data.
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.minAngle
+                         */
+                        minAngle?: number | undefined;
+
+                        /**
+                         * Whether to show label.
+                         *
+                         * @default
+                         * "true"
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.show
+                         */
+                        show?: boolean | undefined;
+
+                        /**
+                         * Label position.
+                         *
+                         * **Followings are the options:**
+                         *
+                         * + \[x, y\]
+                         *
+                         * Use relative percentage, or absolute pixel values to
+                         * represent position of label relative to top-left corner
+                         * of bounding box. For example:
+                         *
+                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label)
+                         *
+                         * + 'top'
+                         *
+                         * + 'left'
+                         * + 'right'
+                         * + 'bottom'
+                         * + 'inside'
+                         * + 'insideLeft'
+                         * + 'insideRight'
+                         * + 'insideTop'
+                         * + 'insideBottom'
+                         * + 'insideTopLeft'
+                         * + 'insideBottomLeft'
+                         * + 'insideTopRight'
+                         * + 'insideBottomRight'
+                         *
+                         * See:
+                         * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
+                         * .
+                         *
+                         * @default
+                         * "inside"
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.position
+                         */
+                        position?: any[] | string | undefined;
+
+                        /**
+                         * Distance to the host graphic element.
+                         * Works when position is string value (like `'top'`、`'insideRight'`).
+                         *
+                         * See:
+                         * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
+                         * .
+                         *
+                         * @default
+                         * 5
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.distance
+                         */
+                        distance?: number | undefined;
+
+                        /**
+                         * Whether to move text slightly.
+                         * For example: `[30, 40]` means move `30` horizontally
+                         * and move `40` vertically.
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.offset
+                         */
+                        offset?: any[] | undefined;
+
+                        /**
+                         * Data label formatter, which supports string template
+                         * and callback function.
+                         * In either form, `\n` is supported to represent a new
+                         * line.
+                         *
+                         * **String template**
+                         *
+                         * Model variation includes:
+                         *
+                         * + `{a}`: series name.
+                         * + `{b}`: the name of a data item.
+                         * + `{c}`: the value of a data item.
+                         * + `{@xxx}: the value of a dimension named`'xxx'`, for
+                         * example,`{@product}`refers the value of`'product'\` dimension。
+                         * + `{@[n]}: the value of a dimension at the index of`n`,
+                         * for example,`{@\[3\]}\` refers the value at dimensions\[3\].
+                         *
+                         * **example:**
+                         *
+                         * ```
+                         * formatter: '{b}: {@score}'
+                         *
+                         * ```
+                         *
+                         * **Callback function**
+                         *
+                         * Callback function is in form of:
+                         *
+                         * ```
+                         * (params: Object|Array) => string
+                         *
+                         * ```
+                         *
+                         * where `params` is the single dataset needed by formatter,
+                         * which is formed as:
+                         *
+                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label)
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.formatter
+                         */
+                        formatter?: Function | string | undefined;
+
+                        /**
+                         * text color.
+                         *
+                         * If set as `'auto'`, the color will assigned as visual
+                         * color, such as series color.
+                         *
+                         * @default
+                         * ""#fff""
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.color
+                         */
+                        color?: string | undefined;
+
+                        /**
+                         * font style
+                         *
+                         * Options are:
+                         *
+                         * + `'normal'`
+                         * + `'italic'`
+                         * + `'oblique'`
+                         *
+                         * @default
+                         * "normal"
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.fontStyle
+                         */
+                        fontStyle?: string | undefined;
+
+                        /**
+                         * font thick weight
+                         *
+                         * Options are:
+                         *
+                         * + `'normal'`
+                         * + `'bold'`
+                         * + `'bolder'`
+                         * + `'lighter'`
+                         * + 100 | 200 | 300 | 400...
+                         *
+                         * @default
+                         * "normal"
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.fontWeight
+                         */
+                        fontWeight?: string | number | undefined;
+
+                        /**
+                         * font family
+                         *
+                         * Can also be 'serif' , 'monospace', ...
+                         *
+                         * @default
+                         * "sans-serif"
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.fontFamily
+                         */
+                        fontFamily?: string | undefined;
+
+                        /**
+                         * font size
+                         *
+                         * @default
+                         * 12
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.fontSize
+                         */
+                        fontSize?: number | undefined;
+
+                        /**
+                         * Vertical alignment of text, automatic by default.
+                         *
+                         * Options are:
+                         *
+                         * + `'top'`
+                         * + `'middle'`
+                         * + `'bottom'`
+                         *
+                         * If `verticalAlign` is not set in `rich`, `verticalAlign`
+                         * in parent level will be used. For example:
+                         *
+                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label)
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.verticalAlign
+                         */
+                        verticalAlign?: string | undefined;
+
+                        /**
+                         * Line height of the text fregment.
+                         *
+                         * If `lineHeight` is not set in `rich`, `lineHeight` in
+                         * parent level will be used. For example:
+                         *
+                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label)
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.lineHeight
+                         */
+                        lineHeight?: number | undefined;
+
+                        /**
+                         * Background color of the text fregment.
+                         *
+                         * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
+                         *
+                         * Or image can be used, for example:
+                         *
+                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label)
+                         *
+                         * `width` or `height` can be specified when using background
+                         * image, or auto adapted by default.
+                         *
+                         * If set as `'auto'`, the color will assigned as visual
+                         * color, such as series color.
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.backgroundColor
+                         */
+                        backgroundColor?: object | string | undefined;
+
+                        /**
+                         * Border color of the text fregment.
+                         *
+                         * If set as `'auto'`, the color will assigned as visual
+                         * color, such as series color.
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.borderColor
+                         */
+                        borderColor?: string | undefined;
+
+                        /**
+                         * Border width of the text fregment.
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.borderWidth
+                         */
+                        borderWidth?: number | undefined;
+
+                        /**
+                         * Border radius of the text fregment.
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.borderRadius
+                         */
+                        borderRadius?: number | undefined;
+
+                        /**
+                         * Padding of the text fregment, for example:
+                         *
+                         * + `padding: [3, 4, 5, 6]`: represents padding of `[top,
+                         * right, bottom, left]`.
+                         * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
+                         * + `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.
+                         *
+                         * Notice, `width` and `height` specifies the width and
+                         * height of the content, without `padding`.
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.padding
+                         */
+                        padding?: any[] | number | undefined;
+
+                        /**
+                         * Shadow color of the text block.
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.shadowColor
+                         */
+                        shadowColor?: string | undefined;
+
+                        /**
+                         * Show blur of the text block.
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.shadowBlur
+                         */
+                        shadowBlur?: number | undefined;
+
+                        /**
+                         * Shadow X offset of the text block.
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.shadowOffsetX
+                         */
+                        shadowOffsetX?: number | undefined;
+
+                        /**
+                         * Shadow Y offset of the text block.
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.shadowOffsetY
+                         */
+                        shadowOffsetY?: number | undefined;
+
+                        /**
+                         * Width of the text block.
+                         * It is the width of the text by default.
+                         * In most cases, there is no need to specify it.
+                         * You may want to use it in some cases like make simple
+                         * table or using background image (see `backgroundColor`).
+                         *
+                         * Notice, `width` and `height` specifies the width and
+                         * height of the content, without `padding`.
+                         *
+                         * `width` can also be percent string, like `'100%'`, which
+                         * represents the percent of `contentWidth` (that is, the
+                         * width without `padding`) of its container box.
+                         * It is based on `contentWidth` because that each text
+                         * fregment is layout based on the `content box`, where
+                         * it makes no sense that calculating width based on `outerWith`
+                         * in prectice.
+                         *
+                         * Notice, `width` and `height` only work when `rich` specified.
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.width
+                         */
+                        width?: number | string | undefined;
+
+                        /**
+                         * Height of the text block.
+                         * It is the width of the text by default.
+                         * You may want to use it in some cases like using background
+                         * image (see `backgroundColor`).
+                         *
+                         * Notice, `width` and `height` specifies the width and
+                         * height of the content, without `padding`.
+                         *
+                         * Notice, `width` and `height` only work when `rich` specified.
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.height
+                         */
+                        height?: number | string | undefined;
+
+                        /**
+                         * Storke color of the text.
+                         *
+                         * If set as `'auto'`, the color will assigned as visual
+                         * color, such as series color.
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.textBorderColor
+                         */
+                        textBorderColor?: string | undefined;
+
+                        /**
+                         * Storke line width of the text.
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.textBorderWidth
+                         */
+                        textBorderWidth?: number | undefined;
+
+                        /**
+                         * Shadow color of the text itself.
+                         *
+                         * @default
+                         * "transparent"
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.textShadowColor
+                         */
+                        textShadowColor?: string | undefined;
+
+                        /**
+                         * Shadow blue of the text itself.
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.textShadowBlur
+                         */
+                        textShadowBlur?: number | undefined;
+
+                        /**
+                         * Shadow X offset of the text itself.
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.textShadowOffsetX
+                         */
+                        textShadowOffsetX?: number | undefined;
+
+                        /**
+                         * Shadow Y offset of the text itself.
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.textShadowOffsetY
+                         */
+                        textShadowOffsetY?: number | undefined;
+
+                        /**
+                         * "Rich text styles" can be defined in this `rich` property.
+                         * For example:
+                         *
+                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label)
+                         *
+                         * For more details, see
+                         * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
+                         * please.
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich
+                         */
+                        rich?: {
+                            /**
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E
+                             */
+                            [userStyle: string]: {
+                                /**
+                                 * text color.
+                                 *
+                                 * If set as `'auto'`, the color will assigned as
+                                 * visual color, such as series color.
+                                 *
+                                 * @default
+                                 * ""#fff""
+                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                                 */
+                                color?: string | undefined;
+
+                                /**
+                                 * font style
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'normal'`
+                                 * + `'italic'`
+                                 * + `'oblique'`
+                                 *
+                                 * @default
+                                 * "normal"
+                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                 */
+                                fontStyle?: string | undefined;
+
+                                /**
+                                 * font thick weight
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'normal'`
+                                 * + `'bold'`
+                                 * + `'bolder'`
+                                 * + `'lighter'`
+                                 * + 100 | 200 | 300 | 400...
+                                 *
+                                 * @default
+                                 * "normal"
+                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                 */
+                                fontWeight?: string | number | undefined;
+
+                                /**
+                                 * font family
+                                 *
+                                 * Can also be 'serif' , 'monospace', ...
+                                 *
+                                 * @default
+                                 * "sans-serif"
+                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                 */
+                                fontFamily?: string | undefined;
+
+                                /**
+                                 * font size
+                                 *
+                                 * @default
+                                 * 12
+                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                 */
+                                fontSize?: number | undefined;
+
+                                /**
+                                 * Horizontal alignment of text, automatic by default.
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'left'`
+                                 * + `'center'`
+                                 * + `'right'`
+                                 *
+                                 * If `align` is not set in `rich`, `align` in parent
+                                 * level will be used. For example:
+                                 *
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                                 */
+                                align?: string | undefined;
+
+                                /**
+                                 * Vertical alignment of text, automatic by default.
+                                 *
+                                 * Options are:
+                                 *
+                                 * + `'top'`
+                                 * + `'middle'`
+                                 * + `'bottom'`
+                                 *
+                                 * If `verticalAlign` is not set in `rich`, `verticalAlign`
+                                 * in parent level will be used. For example:
+                                 *
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                 */
+                                verticalAlign?: string | undefined;
+
+                                /**
+                                 * Line height of the text fregment.
+                                 *
+                                 * If `lineHeight` is not set in `rich`, `lineHeight`
+                                 * in parent level will be used. For example:
+                                 *
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                 */
+                                lineHeight?: number | undefined;
+
+                                /**
+                                 * Background color of the text fregment.
+                                 *
+                                 * Can be color string, like `'#123234'`, `'red'`,
+                                 * `rgba(0,23,11,0.3)'`.
+                                 *
+                                 * Or image can be used, for example:
+                                 *
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 *
+                                 * `width` or `height` can be specified when using
+                                 * background image, or auto adapted by default.
+                                 *
+                                 * If set as `'auto'`, the color will assigned as
+                                 * visual color, such as series color.
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                 */
+                                backgroundColor?: object | string | undefined;
+
+                                /**
+                                 * Border color of the text fregment.
+                                 *
+                                 * If set as `'auto'`, the color will assigned as
+                                 * visual color, such as series color.
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                 */
+                                borderColor?: string | undefined;
+
+                                /**
+                                 * Border width of the text fregment.
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                 */
+                                borderWidth?: number | undefined;
+
+                                /**
+                                 * Border radius of the text fregment.
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                 */
+                                borderRadius?: number | undefined;
+
+                                /**
+                                 * Padding of the text fregment, for example:
+                                 *
+                                 * + `padding: [3, 4, 5, 6]`: represents padding
+                                 * of `[top, right, bottom, left]`.
+                                 * + `padding: 4`: represents `padding: [4, 4, 4,
+                                 * 4]`.
+                                 * + `padding: [3, 4]`: represents `padding: [3,
+                                 * 4, 3, 4]`.
+                                 *
+                                 * Notice, `width` and `height` specifies the width
+                                 * and height of the content, without `padding`.
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                 */
+                                padding?: any[] | number | undefined;
+
+                                /**
+                                 * Shadow color of the text block.
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                 */
+                                shadowColor?: string | undefined;
+
+                                /**
+                                 * Show blur of the text block.
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                 */
+                                shadowBlur?: number | undefined;
+
+                                /**
+                                 * Shadow X offset of the text block.
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                 */
+                                shadowOffsetX?: number | undefined;
+
+                                /**
+                                 * Shadow Y offset of the text block.
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                 */
+                                shadowOffsetY?: number | undefined;
+
+                                /**
+                                 * Width of the text block.
+                                 * It is the width of the text by default.
+                                 * In most cases, there is no need to specify it.
+                                 * You may want to use it in some cases like make
+                                 * simple table or using background image (see `backgroundColor`).
+                                 *
+                                 * Notice, `width` and `height` specifies the width
+                                 * and height of the content, without `padding`.
+                                 *
+                                 * `width` can also be percent string, like `'100%'`,
+                                 * which represents the percent of `contentWidth`
+                                 * (that is, the width without `padding`) of its
+                                 * container box.
+                                 * It is based on `contentWidth` because that each
+                                 * text fregment is layout based on the `content
+                                 * box`, where it makes no sense that calculating
+                                 * width based on `outerWith` in prectice.
+                                 *
+                                 * Notice, `width` and `height` only work when `rich`
+                                 * specified.
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                                 */
+                                width?: number | string | undefined;
+
+                                /**
+                                 * Height of the text block.
+                                 * It is the width of the text by default.
+                                 * You may want to use it in some cases like using
+                                 * background image (see `backgroundColor`).
+                                 *
+                                 * Notice, `width` and `height` specifies the width
+                                 * and height of the content, without `padding`.
+                                 *
+                                 * Notice, `width` and `height` only work when `rich`
+                                 * specified.
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                                 */
+                                height?: number | string | undefined;
+
+                                /**
+                                 * Storke color of the text.
+                                 *
+                                 * If set as `'auto'`, the color will assigned as
+                                 * visual color, such as series color.
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                 */
+                                textBorderColor?: string | undefined;
+
+                                /**
+                                 * Storke line width of the text.
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                 */
+                                textBorderWidth?: number | undefined;
+
+                                /**
+                                 * Shadow color of the text itself.
+                                 *
+                                 * @default
+                                 * "transparent"
+                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                 */
+                                textShadowColor?: string | undefined;
+
+                                /**
+                                 * Shadow blue of the text itself.
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                 */
+                                textShadowBlur?: number | undefined;
+
+                                /**
+                                 * Shadow X offset of the text itself.
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                 */
+                                textShadowOffsetX?: number | undefined;
+
+                                /**
+                                 * Shadow Y offset of the text itself.
+                                 *
+                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                 */
+                                textShadowOffsetY?: number | undefined;
+                            };
+                        } | undefined;
+                    } | undefined;
+
+                    /**
+                     * Style of Sunburst sectors.
+                     *
+                     * Style can be set in
+                     * [series.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.itemStyle)
+                     * for sectors of this series, or
+                     * [series.levels.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle)
+                     * for the whole level, or
+                     * [series.data.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle)
+                     * for single sector. If
+                     * [series.data.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle)
+                     * is defined, it will cover the setting of
+                     * [series.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.itemStyle)
+                     * and
+                     * [series.levels.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle)
+                     * .
+                     *
+                     * **Priority:
+                     * [series.data.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle)
+                     * >
+                     * [series.levels.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle)
+                     * >
+                     * [series.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.itemStyle)
+                     * .**
+                     *
+                     * In ECharts, _emphasis_ is for styles when mouse hovers.
+                     * For Sunburst charts, there are two extra states: _highlight_
+                     * for highlighting items that relates to the emphasized one,
+                     * and _downplay_ for others when emphasizing an item. See
+                     * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
+                     * .
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle
+                     */
+                    itemStyle?: {
+                        /**
+                         * color. Color is taken from
+                         * [option.color Palette](https://echarts.apache.org/en/option.html#color)
+                         * by default.
+                         *
+                         * > Color can be represented in RGB, for example `'rgb(128,
+                         * 128, 128)'`.
+                         * RGBA can be used when you need alpha channel, for example
+                         * `'rgba(128, 128, 128, 0.5)'`.
+                         * You may also use hexadecimal format, for example `'#ccc'`.
+                         * Gradient color and texture are also supported besides
+                         * single colors.
+                         * >
+                         * > [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.itemStyle)
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle.color
+                         */
+                        color?: EChartOption.Color | undefined;
+
+                        /**
+                         * border color, whose format is similar to that of `color`.
+                         *
+                         * @default
+                         * "white"
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle.borderColor
+                         */
+                        borderColor?: EChartOption.Color | undefined;
+
+                        /**
+                         * border width. No border when it is set to be 0.
+                         *
+                         * @default
+                         * 1
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle.borderWidth
+                         */
+                        borderWidth?: number | undefined;
+
+                        /**
+                         * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
+                         * `'solid'` by default.
+                         *
+                         * @default
+                         * "solid"
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle.borderType
+                         */
+                        borderType?: string | undefined;
+
+                        /**
+                         * Size of shadow blur.
+                         * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
+                         * `shadowOffsetY` to set shadow to component.
+                         *
+                         * For example:
+                         *
+                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.itemStyle)
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle.shadowBlur
+                         */
+                        shadowBlur?: number | undefined;
+
+                        /**
+                         * Shadow color. Support same format as `color`.
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle.shadowColor
+                         */
+                        shadowColor?: EChartOption.Color | undefined;
+
+                        /**
+                         * Offset distance on the horizontal direction of shadow.
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle.shadowOffsetX
+                         */
+                        shadowOffsetX?: number | undefined;
+
+                        /**
+                         * Offset distance on the vertical direction of shadow.
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle.shadowOffsetY
+                         */
+                        shadowOffsetY?: number | undefined;
+
+                        /**
+                         * Opacity of the component.
+                         * Supports value from 0 to 1, and the component will not
+                         * be drawn when set to 0.
+                         *
+                         * @default
+                         * 1
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle.opacity
+                         */
+                        opacity?: number | undefined;
+                    } | undefined;
+
+                    /**
+                     * Item style when mouse is hovering. See
+                     * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
+                     * .
+                     *
+                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis
+                     */
+                    emphasis?: {
+                        /**
+                         * `label` sets the text style for every sectors.
+                         *
+                         * **Priority:
+                         * [series.data.label](https://echarts.apache.org/en/option.html#series-sunburst.data.label)
+                         * >
+                         * [series.levels.label](https://echarts.apache.org/en/option.html#series-sunburst.levels.label)
+                         * >
+                         * [series.label](https://echarts.apache.org/en/option.html#series-sunburst.label)
+                         * .**
+                         *
+                         * Text label of , to explain some data information about
+                         * graphic item like value, name and so on.
+                         * `label` is placed under `itemStyle` in ECharts 2.x.
+                         * In ECharts 3, to make the configuration structure flatter,
+                         * `label`is taken to be at the same level with `itemStyle`,
+                         * and has `emphasis` as `itemStyle` does.
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label
+                         */
+                        label?: {
+                            /**
+                             * If it is `number` type, then is stands for rotation,
+                             * from -90 degrees to 90 degrees, and positive values
+                             * stand for counterclockwise.
+                             *
+                             * Besides, it can be string `'radial'`, standing for
+                             * radial rotation; or `'tangential'`, standing for
+                             * tangential rotation.
+                             *
+                             * By default, it is `'radial'`.
+                             * If no rotation is wanted, it can be set to `0`.
+                             *
+                             * The following example shows different `rotate` settings:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label)
+                             *
+                             * @default
+                             * "radial"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rotate
+                             */
+                            rotate?: number | string | undefined;
+
+                            /**
+                             * Align of text, which can be `'left'`, `'center'`,
+                             * or `'right'`.
+                             * Note that `'left'` stands for inner side, and `'right'`
+                             * stands for outer side.
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label)
+                             *
+                             * @default
+                             * "center"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.align
+                             */
+                            align?: string | undefined;
+
+                            /**
+                             * If angle of data piece is smaller than this value
+                             * (in degrees), then text is not displayed.
+                             * This is used for hiding text for small piece of data.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.minAngle
+                             */
+                            minAngle?: number | undefined;
+
+                            /**
+                             * Whether to show label.
+                             *
+                             * @default
+                             * "true"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.show
+                             */
+                            show?: boolean | undefined;
+
+                            /**
+                             * Label position.
+                             *
+                             * **Followings are the options:**
+                             *
+                             * + \[x, y\]
+                             *
+                             * Use relative percentage, or absolute pixel values
+                             * to represent position of label relative to top-left
+                             * corner of bounding box. For example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label)
+                             *
+                             * + 'top'
+                             *
+                             * + 'left'
+                             * + 'right'
+                             * + 'bottom'
+                             * + 'inside'
+                             * + 'insideLeft'
+                             * + 'insideRight'
+                             * + 'insideTop'
+                             * + 'insideBottom'
+                             * + 'insideTopLeft'
+                             * + 'insideBottomLeft'
+                             * + 'insideTopRight'
+                             * + 'insideBottomRight'
+                             *
+                             * See:
+                             * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
+                             * .
+                             *
+                             * @default
+                             * "inside"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.position
+                             */
+                            position?: any[] | string | undefined;
+
+                            /**
+                             * Distance to the host graphic element.
+                             * Works when position is string value (like `'top'`、`'insideRight'`).
+                             *
+                             * See:
+                             * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
+                             * .
+                             *
+                             * @default
+                             * 5
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.distance
+                             */
+                            distance?: number | undefined;
+
+                            /**
+                             * Whether to move text slightly.
+                             * For example: `[30, 40]` means move `30` horizontally
+                             * and move `40` vertically.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.offset
+                             */
+                            offset?: any[] | undefined;
+
+                            /**
+                             * Data label formatter, which supports string template
+                             * and callback function.
+                             * In either form, `\n` is supported to represent a
+                             * new line.
+                             *
+                             * **String template**
+                             *
+                             * Model variation includes:
+                             *
+                             * + `{a}`: series name.
+                             * + `{b}`: the name of a data item.
+                             * + `{c}`: the value of a data item.
+                             * + `{@xxx}: the value of a dimension named`'xxx'`,
+                             * for example,`{@product}`refers the value of`'product'\`
+                             * dimension。
+                             * + `{@[n]}: the value of a dimension at the index
+                             * of`n`, for example,`{@\[3\]}\` refers the value at
+                             * dimensions\[3\].
+                             *
+                             * **example:**
+                             *
+                             * ```
+                             * formatter: '{b}: {@score}'
+                             *
+                             * ```
+                             *
+                             * **Callback function**
+                             *
+                             * Callback function is in form of:
+                             *
+                             * ```
+                             * (params: Object|Array) => string
+                             *
+                             * ```
+                             *
+                             * where `params` is the single dataset needed by formatter,
+                             * which is formed as:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label)
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.formatter
+                             */
+                            formatter?: Function | string | undefined;
+
                             /**
                              * text color.
                              *
-                             * If set as `'auto'`, the color will assigned as
-                             * visual color, such as series color.
+                             * If set as `'auto'`, the color will assigned as visual
+                             * color, such as series color.
                              *
                              * @default
                              * ""#fff""
-                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.color
                              */
                             color?: string | undefined;
 
@@ -4336,7 +4955,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.fontStyle
                              */
                             fontStyle?: string | undefined;
 
@@ -4353,7 +4972,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.fontWeight
                              */
                             fontWeight?: string | number | undefined;
 
@@ -4364,7 +4983,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "sans-serif"
-                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.fontFamily
                              */
                             fontFamily?: string | undefined;
 
@@ -4373,27 +4992,9 @@ declare namespace echarts {
                              *
                              * @default
                              * 12
-                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.fontSize
                              */
                             fontSize?: number | undefined;
-
-                            /**
-                             * Horizontal alignment of text, automatic by default.
-                             *
-                             * Options are:
-                             *
-                             * + `'left'`
-                             * + `'center'`
-                             * + `'right'`
-                             *
-                             * If `align` is not set in `rich`, `align` in parent
-                             * level will be used. For example:
-                             *
-                             * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
-                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.align
-                             */
-                            align?: string | undefined;
 
                             /**
                              * Vertical alignment of text, automatic by default.
@@ -4407,9 +5008,9 @@ declare namespace echarts {
                              * If `verticalAlign` is not set in `rich`, `verticalAlign`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label)
                              *
-                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.verticalAlign
                              */
                             verticalAlign?: string | undefined;
 
@@ -4419,74 +5020,72 @@ declare namespace echarts {
                              * If `lineHeight` is not set in `rich`, `lineHeight`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label)
                              *
-                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.lineHeight
                              */
                             lineHeight?: number | undefined;
 
                             /**
                              * Background color of the text fregment.
                              *
-                             * Can be color string, like `'#123234'`, `'red'`,
-                             * `rgba(0,23,11,0.3)'`.
+                             * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
                              *
                              * Or image can be used, for example:
                              *
-                             * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label)
                              *
-                             * `width` or `height` can be specified when using
-                             * background image, or auto adapted by default.
+                             * `width` or `height` can be specified when using background
+                             * image, or auto adapted by default.
                              *
-                             * If set as `'auto'`, the color will assigned as
-                             * visual color, such as series color.
+                             * If set as `'auto'`, the color will assigned as visual
+                             * color, such as series color.
                              *
                              * @default
                              * "transparent"
-                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.backgroundColor
                              */
                             backgroundColor?: object | string | undefined;
 
                             /**
                              * Border color of the text fregment.
                              *
-                             * If set as `'auto'`, the color will assigned as
-                             * visual color, such as series color.
+                             * If set as `'auto'`, the color will assigned as visual
+                             * color, such as series color.
                              *
                              * @default
                              * "transparent"
-                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.borderColor
                              */
                             borderColor?: string | undefined;
 
                             /**
                              * Border width of the text fregment.
                              *
-                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.borderWidth
                              */
                             borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
                              *
-                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.borderRadius
                              */
                             borderRadius?: number | undefined;
 
                             /**
                              * Padding of the text fregment, for example:
                              *
-                             * + `padding: [3, 4, 5, 6]`: represents padding
-                             * of `[top, right, bottom, left]`.
-                             * + `padding: 4`: represents `padding: [4, 4, 4,
-                             * 4]`.
-                             * + `padding: [3, 4]`: represents `padding: [3,
-                             * 4, 3, 4]`.
+                             * + `padding: [3, 4, 5, 6]`: represents padding of
+                             * `[top, right, bottom, left]`.
+                             * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
+                             * + `padding: [3, 4]`: represents `padding: [3, 4,
+                             * 3, 4]`.
                              *
                              * Notice, `width` and `height` specifies the width
                              * and height of the content, without `padding`.
                              *
-                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.padding
                              */
                             padding?: any[] | number | undefined;
 
@@ -4495,28 +5094,28 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.shadowColor
                              */
                             shadowColor?: string | undefined;
 
                             /**
                              * Show blur of the text block.
                              *
-                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.shadowBlur
                              */
                             shadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text block.
                              *
-                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.shadowOffsetX
                              */
                             shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
                              *
-                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.shadowOffsetY
                              */
                             shadowOffsetY?: number | undefined;
 
@@ -4524,33 +5123,33 @@ declare namespace echarts {
                              * Width of the text block.
                              * It is the width of the text by default.
                              * In most cases, there is no need to specify it.
-                             * You may want to use it in some cases like make
-                             * simple table or using background image (see `backgroundColor`).
+                             * You may want to use it in some cases like make simple
+                             * table or using background image (see `backgroundColor`).
                              *
                              * Notice, `width` and `height` specifies the width
                              * and height of the content, without `padding`.
                              *
                              * `width` can also be percent string, like `'100%'`,
-                             * which represents the percent of `contentWidth`
-                             * (that is, the width without `padding`) of its
-                             * container box.
-                             * It is based on `contentWidth` because that each
-                             * text fregment is layout based on the `content
-                             * box`, where it makes no sense that calculating
-                             * width based on `outerWith` in prectice.
+                             * which represents the percent of `contentWidth` (that
+                             * is, the width without `padding`) of its container
+                             * box.
+                             * It is based on `contentWidth` because that each text
+                             * fregment is layout based on the `content box`, where
+                             * it makes no sense that calculating width based on
+                             * `outerWith` in prectice.
                              *
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.width
                              */
                             width?: number | string | undefined;
 
                             /**
                              * Height of the text block.
                              * It is the width of the text by default.
-                             * You may want to use it in some cases like using
-                             * background image (see `backgroundColor`).
+                             * You may want to use it in some cases like using background
+                             * image (see `backgroundColor`).
                              *
                              * Notice, `width` and `height` specifies the width
                              * and height of the content, without `padding`.
@@ -4558,26 +5157,26 @@ declare namespace echarts {
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.height
                              */
                             height?: number | string | undefined;
 
                             /**
                              * Storke color of the text.
                              *
-                             * If set as `'auto'`, the color will assigned as
-                             * visual color, such as series color.
+                             * If set as `'auto'`, the color will assigned as visual
+                             * color, such as series color.
                              *
                              * @default
                              * "transparent"
-                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.textBorderColor
                              */
                             textBorderColor?: string | undefined;
 
                             /**
                              * Storke line width of the text.
                              *
-                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.textBorderWidth
                              */
                             textBorderWidth?: number | undefined;
 
@@ -4586,2949 +5185,2352 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.textShadowColor
                              */
                             textShadowColor?: string | undefined;
 
                             /**
                              * Shadow blue of the text itself.
                              *
-                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.textShadowBlur
                              */
                             textShadowBlur?: number | undefined;
 
                             /**
                              * Shadow X offset of the text itself.
                              *
-                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.textShadowOffsetX
                              */
                             textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
                              *
-                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.textShadowOffsetY
                              */
                             textShadowOffsetY?: number | undefined;
-                        };
-                    } | undefined;
-                } | undefined;
 
-                /**
-                 * Style of Sunburst sectors.
-                 *
-                 * Style can be set in
-                 * [series.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.itemStyle)
-                 * for sectors of this series, or
-                 * [series.levels.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle)
-                 * for the whole level, or
-                 * [series.data.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle)
-                 * for single sector. If
-                 * [series.data.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle)
-                 * is defined, it will cover the setting of
-                 * [series.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.itemStyle)
-                 * and
-                 * [series.levels.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle)
-                 * .
-                 *
-                 * **Priority:
-                 * [series.data.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle)
-                 * >
-                 * [series.levels.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle)
-                 * >
-                 * [series.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.itemStyle)
-                 * .**
-                 *
-                 * In ECharts, _emphasis_ is for styles when mouse hovers.
-                 * For Sunburst charts, there are two extra states: _highlight_
-                 * for highlighting items that relates to the emphasized one,
-                 * and _downplay_ for others when emphasizing an item. See
-                 * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
-                 * .
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle
-                 */
-                itemStyle?: {
-                    /**
-                     * color. Color is taken from
-                     * [option.color Palette](https://echarts.apache.org/en/option.html#color)
-                     * by default.
-                     *
-                     * > Color can be represented in RGB, for example `'rgb(128,
-                     * 128, 128)'`.
-                     * RGBA can be used when you need alpha channel, for example
-                     * `'rgba(128, 128, 128, 0.5)'`.
-                     * You may also use hexadecimal format, for example `'#ccc'`.
-                     * Gradient color and texture are also supported besides
-                     * single colors.
-                     * >
-                     * > [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.itemStyle)
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle.color
-                     */
-                    color?: EChartOption.Color | undefined;
-
-                    /**
-                     * border color, whose format is similar to that of `color`.
-                     *
-                     * @default
-                     * "white"
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle.borderColor
-                     */
-                    borderColor?: EChartOption.Color | undefined;
-
-                    /**
-                     * border width. No border when it is set to be 0.
-                     *
-                     * @default
-                     * 1
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle.borderWidth
-                     */
-                    borderWidth?: number | undefined;
-
-                    /**
-                     * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
-                     * `'solid'` by default.
-                     *
-                     * @default
-                     * "solid"
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle.borderType
-                     */
-                    borderType?: string | undefined;
-
-                    /**
-                     * Size of shadow blur.
-                     * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
-                     * `shadowOffsetY` to set shadow to component.
-                     *
-                     * For example:
-                     *
-                     * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.itemStyle)
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle.shadowBlur
-                     */
-                    shadowBlur?: number | undefined;
-
-                    /**
-                     * Shadow color. Support same format as `color`.
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle.shadowColor
-                     */
-                    shadowColor?: EChartOption.Color | undefined;
-
-                    /**
-                     * Offset distance on the horizontal direction of shadow.
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle.shadowOffsetX
-                     */
-                    shadowOffsetX?: number | undefined;
-
-                    /**
-                     * Offset distance on the vertical direction of shadow.
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle.shadowOffsetY
-                     */
-                    shadowOffsetY?: number | undefined;
-
-                    /**
-                     * Opacity of the component.
-                     * Supports value from 0 to 1, and the component will not
-                     * be drawn when set to 0.
-                     *
-                     * @default
-                     * 1
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle.opacity
-                     */
-                    opacity?: number | undefined;
-                } | undefined;
-
-                /**
-                 * Item style when mouse is hovering. See
-                 * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
-                 * .
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis
-                 */
-                emphasis?: {
-                    /**
-                     * `label` sets the text style for every sectors.
-                     *
-                     * **Priority:
-                     * [series.data.label](https://echarts.apache.org/en/option.html#series-sunburst.data.label)
-                     * >
-                     * [series.levels.label](https://echarts.apache.org/en/option.html#series-sunburst.levels.label)
-                     * >
-                     * [series.label](https://echarts.apache.org/en/option.html#series-sunburst.label)
-                     * .**
-                     *
-                     * Text label of , to explain some data information about
-                     * graphic item like value, name and so on.
-                     * `label` is placed under `itemStyle` in ECharts 2.x.
-                     * In ECharts 3, to make the configuration structure flatter,
-                     * `label`is taken to be at the same level with `itemStyle`,
-                     * and has `emphasis` as `itemStyle` does.
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label
-                     */
-                    label?: {
-                        /**
-                         * If it is `number` type, then is stands for rotation,
-                         * from -90 degrees to 90 degrees, and positive values
-                         * stand for counterclockwise.
-                         *
-                         * Besides, it can be string `'radial'`, standing for
-                         * radial rotation; or `'tangential'`, standing for
-                         * tangential rotation.
-                         *
-                         * By default, it is `'radial'`.
-                         * If no rotation is wanted, it can be set to `0`.
-                         *
-                         * The following example shows different `rotate` settings:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label)
-                         *
-                         * @default
-                         * "radial"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rotate
-                         */
-                        rotate?: number | string | undefined;
-
-                        /**
-                         * Align of text, which can be `'left'`, `'center'`,
-                         * or `'right'`.
-                         * Note that `'left'` stands for inner side, and `'right'`
-                         * stands for outer side.
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label)
-                         *
-                         * @default
-                         * "center"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.align
-                         */
-                        align?: string | undefined;
-
-                        /**
-                         * If angle of data piece is smaller than this value
-                         * (in degrees), then text is not displayed.
-                         * This is used for hiding text for small piece of data.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.minAngle
-                         */
-                        minAngle?: number | undefined;
-
-                        /**
-                         * Whether to show label.
-                         *
-                         * @default
-                         * "true"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.show
-                         */
-                        show?: boolean | undefined;
-
-                        /**
-                         * Label position.
-                         *
-                         * **Followings are the options:**
-                         *
-                         * + \[x, y\]
-                         *
-                         * Use relative percentage, or absolute pixel values
-                         * to represent position of label relative to top-left
-                         * corner of bounding box. For example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label)
-                         *
-                         * + 'top'
-                         *
-                         * + 'left'
-                         * + 'right'
-                         * + 'bottom'
-                         * + 'inside'
-                         * + 'insideLeft'
-                         * + 'insideRight'
-                         * + 'insideTop'
-                         * + 'insideBottom'
-                         * + 'insideTopLeft'
-                         * + 'insideBottomLeft'
-                         * + 'insideTopRight'
-                         * + 'insideBottomRight'
-                         *
-                         * See:
-                         * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
-                         * .
-                         *
-                         * @default
-                         * "inside"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.position
-                         */
-                        position?: any[] | string | undefined;
-
-                        /**
-                         * Distance to the host graphic element.
-                         * Works when position is string value (like `'top'`、`'insideRight'`).
-                         *
-                         * See:
-                         * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
-                         * .
-                         *
-                         * @default
-                         * 5
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.distance
-                         */
-                        distance?: number | undefined;
-
-                        /**
-                         * Whether to move text slightly.
-                         * For example: `[30, 40]` means move `30` horizontally
-                         * and move `40` vertically.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.offset
-                         */
-                        offset?: any[] | undefined;
-
-                        /**
-                         * Data label formatter, which supports string template
-                         * and callback function.
-                         * In either form, `\n` is supported to represent a
-                         * new line.
-                         *
-                         * **String template**
-                         *
-                         * Model variation includes:
-                         *
-                         * + `{a}`: series name.
-                         * + `{b}`: the name of a data item.
-                         * + `{c}`: the value of a data item.
-                         * + `{@xxx}: the value of a dimension named`'xxx'`,
-                         * for example,`{@product}`refers the value of`'product'\`
-                         * dimension。
-                         * + `{@[n]}: the value of a dimension at the index
-                         * of`n`, for example,`{@\[3\]}\` refers the value at
-                         * dimensions\[3\].
-                         *
-                         * **example:**
-                         *
-                         * ```
-                         * formatter: '{b}: {@score}'
-                         *
-                         * ```
-                         *
-                         * **Callback function**
-                         *
-                         * Callback function is in form of:
-                         *
-                         * ```
-                         * (params: Object|Array) => string
-                         *
-                         * ```
-                         *
-                         * where `params` is the single dataset needed by formatter,
-                         * which is formed as:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label)
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.formatter
-                         */
-                        formatter?: Function | string | undefined;
-
-                        /**
-                         * text color.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         * @default
-                         * ""#fff""
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.color
-                         */
-                        color?: string | undefined;
-
-                        /**
-                         * font style
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'italic'`
-                         * + `'oblique'`
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.fontStyle
-                         */
-                        fontStyle?: string | undefined;
-
-                        /**
-                         * font thick weight
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'bold'`
-                         * + `'bolder'`
-                         * + `'lighter'`
-                         * + 100 | 200 | 300 | 400...
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.fontWeight
-                         */
-                        fontWeight?: string | number | undefined;
-
-                        /**
-                         * font family
-                         *
-                         * Can also be 'serif' , 'monospace', ...
-                         *
-                         * @default
-                         * "sans-serif"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.fontFamily
-                         */
-                        fontFamily?: string | undefined;
-
-                        /**
-                         * font size
-                         *
-                         * @default
-                         * 12
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.fontSize
-                         */
-                        fontSize?: number | undefined;
-
-                        /**
-                         * Vertical alignment of text, automatic by default.
-                         *
-                         * Options are:
-                         *
-                         * + `'top'`
-                         * + `'middle'`
-                         * + `'bottom'`
-                         *
-                         * If `verticalAlign` is not set in `rich`, `verticalAlign`
-                         * in parent level will be used. For example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label)
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.verticalAlign
-                         */
-                        verticalAlign?: string | undefined;
-
-                        /**
-                         * Line height of the text fregment.
-                         *
-                         * If `lineHeight` is not set in `rich`, `lineHeight`
-                         * in parent level will be used. For example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label)
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.lineHeight
-                         */
-                        lineHeight?: number | undefined;
-
-                        /**
-                         * Background color of the text fregment.
-                         *
-                         * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
-                         *
-                         * Or image can be used, for example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label)
-                         *
-                         * `width` or `height` can be specified when using background
-                         * image, or auto adapted by default.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.backgroundColor
-                         */
-                        backgroundColor?: object | string | undefined;
-
-                        /**
-                         * Border color of the text fregment.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.borderColor
-                         */
-                        borderColor?: string | undefined;
-
-                        /**
-                         * Border width of the text fregment.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.borderWidth
-                         */
-                        borderWidth?: number | undefined;
-
-                        /**
-                         * Border radius of the text fregment.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.borderRadius
-                         */
-                        borderRadius?: number | undefined;
-
-                        /**
-                         * Padding of the text fregment, for example:
-                         *
-                         * + `padding: [3, 4, 5, 6]`: represents padding of
-                         * `[top, right, bottom, left]`.
-                         * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
-                         * + `padding: [3, 4]`: represents `padding: [3, 4,
-                         * 3, 4]`.
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.padding
-                         */
-                        padding?: any[] | number | undefined;
-
-                        /**
-                         * Shadow color of the text block.
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.shadowColor
-                         */
-                        shadowColor?: string | undefined;
-
-                        /**
-                         * Show blur of the text block.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.shadowBlur
-                         */
-                        shadowBlur?: number | undefined;
-
-                        /**
-                         * Shadow X offset of the text block.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.shadowOffsetX
-                         */
-                        shadowOffsetX?: number | undefined;
-
-                        /**
-                         * Shadow Y offset of the text block.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.shadowOffsetY
-                         */
-                        shadowOffsetY?: number | undefined;
-
-                        /**
-                         * Width of the text block.
-                         * It is the width of the text by default.
-                         * In most cases, there is no need to specify it.
-                         * You may want to use it in some cases like make simple
-                         * table or using background image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * `width` can also be percent string, like `'100%'`,
-                         * which represents the percent of `contentWidth` (that
-                         * is, the width without `padding`) of its container
-                         * box.
-                         * It is based on `contentWidth` because that each text
-                         * fregment is layout based on the `content box`, where
-                         * it makes no sense that calculating width based on
-                         * `outerWith` in prectice.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.width
-                         */
-                        width?: number | string | undefined;
-
-                        /**
-                         * Height of the text block.
-                         * It is the width of the text by default.
-                         * You may want to use it in some cases like using background
-                         * image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.height
-                         */
-                        height?: number | string | undefined;
-
-                        /**
-                         * Storke color of the text.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.textBorderColor
-                         */
-                        textBorderColor?: string | undefined;
-
-                        /**
-                         * Storke line width of the text.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.textBorderWidth
-                         */
-                        textBorderWidth?: number | undefined;
-
-                        /**
-                         * Shadow color of the text itself.
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.textShadowColor
-                         */
-                        textShadowColor?: string | undefined;
-
-                        /**
-                         * Shadow blue of the text itself.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.textShadowBlur
-                         */
-                        textShadowBlur?: number | undefined;
-
-                        /**
-                         * Shadow X offset of the text itself.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.textShadowOffsetX
-                         */
-                        textShadowOffsetX?: number | undefined;
-
-                        /**
-                         * Shadow Y offset of the text itself.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.textShadowOffsetY
-                         */
-                        textShadowOffsetY?: number | undefined;
-
-                        /**
-                         * "Rich text styles" can be defined in this `rich`
-                         * property. For example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label)
-                         *
-                         * For more details, see
-                         * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
-                         * please.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich
-                         */
-                        rich?: {
                             /**
-                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
+                             * "Rich text styles" can be defined in this `rich`
+                             * property. For example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label)
+                             *
+                             * For more details, see
+                             * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
+                             * please.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich
                              */
-                            [userStyle: string]: {
+                            rich?: {
                                 /**
-                                 * text color.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 * @default
-                                 * ""#fff""
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
-                                color?: string | undefined;
+                                [userStyle: string]: {
+                                    /**
+                                     * text color.
+                                     *
+                                     * If set as `'auto'`, the color will assigned
+                                     * as visual color, such as series color.
+                                     *
+                                     * @default
+                                     * ""#fff""
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                                     */
+                                    color?: string | undefined;
 
-                                /**
-                                 * font style
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'normal'`
-                                 * + `'italic'`
-                                 * + `'oblique'`
-                                 *
-                                 * @default
-                                 * "normal"
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
-                                 */
-                                fontStyle?: string | undefined;
+                                    /**
+                                     * font style
+                                     *
+                                     * Options are:
+                                     *
+                                     * + `'normal'`
+                                     * + `'italic'`
+                                     * + `'oblique'`
+                                     *
+                                     * @default
+                                     * "normal"
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                     */
+                                    fontStyle?: string | undefined;
 
-                                /**
-                                 * font thick weight
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'normal'`
-                                 * + `'bold'`
-                                 * + `'bolder'`
-                                 * + `'lighter'`
-                                 * + 100 | 200 | 300 | 400...
-                                 *
-                                 * @default
-                                 * "normal"
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
-                                 */
-                                fontWeight?: string | number | undefined;
+                                    /**
+                                     * font thick weight
+                                     *
+                                     * Options are:
+                                     *
+                                     * + `'normal'`
+                                     * + `'bold'`
+                                     * + `'bolder'`
+                                     * + `'lighter'`
+                                     * + 100 | 200 | 300 | 400...
+                                     *
+                                     * @default
+                                     * "normal"
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                     */
+                                    fontWeight?: string | number | undefined;
 
-                                /**
-                                 * font family
-                                 *
-                                 * Can also be 'serif' , 'monospace', ...
-                                 *
-                                 * @default
-                                 * "sans-serif"
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
-                                 */
-                                fontFamily?: string | undefined;
+                                    /**
+                                     * font family
+                                     *
+                                     * Can also be 'serif' , 'monospace', ...
+                                     *
+                                     * @default
+                                     * "sans-serif"
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                     */
+                                    fontFamily?: string | undefined;
 
-                                /**
-                                 * font size
-                                 *
-                                 * @default
-                                 * 12
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
-                                 */
-                                fontSize?: number | undefined;
+                                    /**
+                                     * font size
+                                     *
+                                     * @default
+                                     * 12
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                     */
+                                    fontSize?: number | undefined;
 
-                                /**
-                                 * Horizontal alignment of text, automatic by
-                                 * default.
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'left'`
-                                 * + `'center'`
-                                 * + `'right'`
-                                 *
-                                 * If `align` is not set in `rich`, `align`
-                                 * in parent level will be used.
-                                 * For example:
-                                 *
-                                 * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
-                                 */
-                                align?: string | undefined;
+                                    /**
+                                     * Horizontal alignment of text, automatic by
+                                     * default.
+                                     *
+                                     * Options are:
+                                     *
+                                     * + `'left'`
+                                     * + `'center'`
+                                     * + `'right'`
+                                     *
+                                     * If `align` is not set in `rich`, `align`
+                                     * in parent level will be used.
+                                     * For example:
+                                     *
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                                     */
+                                    align?: string | undefined;
 
-                                /**
-                                 * Vertical alignment of text, automatic by
-                                 * default.
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'top'`
-                                 * + `'middle'`
-                                 * + `'bottom'`
-                                 *
-                                 * If `verticalAlign` is not set in `rich`,
-                                 * `verticalAlign` in parent level will be used.
-                                 * For example:
-                                 *
-                                 * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
-                                 */
-                                verticalAlign?: string | undefined;
+                                    /**
+                                     * Vertical alignment of text, automatic by
+                                     * default.
+                                     *
+                                     * Options are:
+                                     *
+                                     * + `'top'`
+                                     * + `'middle'`
+                                     * + `'bottom'`
+                                     *
+                                     * If `verticalAlign` is not set in `rich`,
+                                     * `verticalAlign` in parent level will be used.
+                                     * For example:
+                                     *
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                     */
+                                    verticalAlign?: string | undefined;
 
-                                /**
-                                 * Line height of the text fregment.
-                                 *
-                                 * If `lineHeight` is not set in `rich`, `lineHeight`
-                                 * in parent level will be used.
-                                 * For example:
-                                 *
-                                 * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
-                                 */
-                                lineHeight?: number | undefined;
+                                    /**
+                                     * Line height of the text fregment.
+                                     *
+                                     * If `lineHeight` is not set in `rich`, `lineHeight`
+                                     * in parent level will be used.
+                                     * For example:
+                                     *
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                     */
+                                    lineHeight?: number | undefined;
 
-                                /**
-                                 * Background color of the text fregment.
-                                 *
-                                 * Can be color string, like `'#123234'`, `'red'`,
-                                 * `rgba(0,23,11,0.3)'`.
-                                 *
-                                 * Or image can be used, for example:
-                                 *
-                                 * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 * `width` or `height` can be specified when
-                                 * using background image, or auto adapted by
-                                 * default.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
-                                 */
-                                backgroundColor?: object | string | undefined;
+                                    /**
+                                     * Background color of the text fregment.
+                                     *
+                                     * Can be color string, like `'#123234'`, `'red'`,
+                                     * `rgba(0,23,11,0.3)'`.
+                                     *
+                                     * Or image can be used, for example:
+                                     *
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     *
+                                     * `width` or `height` can be specified when
+                                     * using background image, or auto adapted by
+                                     * default.
+                                     *
+                                     * If set as `'auto'`, the color will assigned
+                                     * as visual color, such as series color.
+                                     *
+                                     * @default
+                                     * "transparent"
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                     */
+                                    backgroundColor?: object | string | undefined;
 
-                                /**
-                                 * Border color of the text fregment.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
-                                 */
-                                borderColor?: string | undefined;
+                                    /**
+                                     * Border color of the text fregment.
+                                     *
+                                     * If set as `'auto'`, the color will assigned
+                                     * as visual color, such as series color.
+                                     *
+                                     * @default
+                                     * "transparent"
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                     */
+                                    borderColor?: string | undefined;
 
-                                /**
-                                 * Border width of the text fregment.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
-                                 */
-                                borderWidth?: number | undefined;
+                                    /**
+                                     * Border width of the text fregment.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                     */
+                                    borderWidth?: number | undefined;
 
-                                /**
-                                 * Border radius of the text fregment.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
-                                 */
-                                borderRadius?: number | undefined;
+                                    /**
+                                     * Border radius of the text fregment.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                     */
+                                    borderRadius?: number | undefined;
 
-                                /**
-                                 * Padding of the text fregment, for example:
-                                 *
-                                 * + `padding: [3, 4, 5, 6]`: represents padding
-                                 * of `[top, right, bottom, left]`.
-                                 * + `padding: 4`: represents `padding: [4,
-                                 * 4, 4, 4]`.
-                                 * + `padding: [3, 4]`: represents `padding:
-                                 * [3, 4, 3, 4]`.
-                                 *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
-                                 */
-                                padding?: any[] | number | undefined;
+                                    /**
+                                     * Padding of the text fregment, for example:
+                                     *
+                                     * + `padding: [3, 4, 5, 6]`: represents padding
+                                     * of `[top, right, bottom, left]`.
+                                     * + `padding: 4`: represents `padding: [4,
+                                     * 4, 4, 4]`.
+                                     * + `padding: [3, 4]`: represents `padding:
+                                     * [3, 4, 3, 4]`.
+                                     *
+                                     * Notice, `width` and `height` specifies the
+                                     * width and height of the content, without
+                                     * `padding`.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                     */
+                                    padding?: any[] | number | undefined;
 
-                                /**
-                                 * Shadow color of the text block.
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
-                                 */
-                                shadowColor?: string | undefined;
+                                    /**
+                                     * Shadow color of the text block.
+                                     *
+                                     * @default
+                                     * "transparent"
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                     */
+                                    shadowColor?: string | undefined;
 
-                                /**
-                                 * Show blur of the text block.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
-                                 */
-                                shadowBlur?: number | undefined;
+                                    /**
+                                     * Show blur of the text block.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                     */
+                                    shadowBlur?: number | undefined;
 
-                                /**
-                                 * Shadow X offset of the text block.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
-                                 */
-                                shadowOffsetX?: number | undefined;
+                                    /**
+                                     * Shadow X offset of the text block.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                     */
+                                    shadowOffsetX?: number | undefined;
 
-                                /**
-                                 * Shadow Y offset of the text block.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
-                                 */
-                                shadowOffsetY?: number | undefined;
+                                    /**
+                                     * Shadow Y offset of the text block.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                     */
+                                    shadowOffsetY?: number | undefined;
 
-                                /**
-                                 * Width of the text block.
-                                 * It is the width of the text by default.
-                                 * In most cases, there is no need to specify
-                                 * it.
-                                 * You may want to use it in some cases like
-                                 * make simple table or using background image
-                                 * (see `backgroundColor`).
-                                 *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
-                                 *
-                                 * `width` can also be percent string, like
-                                 * `'100%'`, which represents the percent of
-                                 * `contentWidth` (that is, the width without
-                                 * `padding`) of its container box.
-                                 * It is based on `contentWidth` because that
-                                 * each text fregment is layout based on the
-                                 * `content box`, where it makes no sense that
-                                 * calculating width based on `outerWith` in
-                                 * prectice.
-                                 *
-                                 * Notice, `width` and `height` only work when
-                                 * `rich` specified.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
-                                 */
-                                width?: number | string | undefined;
+                                    /**
+                                     * Width of the text block.
+                                     * It is the width of the text by default.
+                                     * In most cases, there is no need to specify
+                                     * it.
+                                     * You may want to use it in some cases like
+                                     * make simple table or using background image
+                                     * (see `backgroundColor`).
+                                     *
+                                     * Notice, `width` and `height` specifies the
+                                     * width and height of the content, without
+                                     * `padding`.
+                                     *
+                                     * `width` can also be percent string, like
+                                     * `'100%'`, which represents the percent of
+                                     * `contentWidth` (that is, the width without
+                                     * `padding`) of its container box.
+                                     * It is based on `contentWidth` because that
+                                     * each text fregment is layout based on the
+                                     * `content box`, where it makes no sense that
+                                     * calculating width based on `outerWith` in
+                                     * prectice.
+                                     *
+                                     * Notice, `width` and `height` only work when
+                                     * `rich` specified.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                                     */
+                                    width?: number | string | undefined;
 
-                                /**
-                                 * Height of the text block.
-                                 * It is the width of the text by default.
-                                 * You may want to use it in some cases like
-                                 * using background image (see `backgroundColor`).
-                                 *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
-                                 *
-                                 * Notice, `width` and `height` only work when
-                                 * `rich` specified.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
-                                 */
-                                height?: number | string | undefined;
+                                    /**
+                                     * Height of the text block.
+                                     * It is the width of the text by default.
+                                     * You may want to use it in some cases like
+                                     * using background image (see `backgroundColor`).
+                                     *
+                                     * Notice, `width` and `height` specifies the
+                                     * width and height of the content, without
+                                     * `padding`.
+                                     *
+                                     * Notice, `width` and `height` only work when
+                                     * `rich` specified.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                                     */
+                                    height?: number | string | undefined;
 
-                                /**
-                                 * Storke color of the text.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
-                                 */
-                                textBorderColor?: string | undefined;
+                                    /**
+                                     * Storke color of the text.
+                                     *
+                                     * If set as `'auto'`, the color will assigned
+                                     * as visual color, such as series color.
+                                     *
+                                     * @default
+                                     * "transparent"
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                     */
+                                    textBorderColor?: string | undefined;
 
-                                /**
-                                 * Storke line width of the text.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
-                                 */
-                                textBorderWidth?: number | undefined;
+                                    /**
+                                     * Storke line width of the text.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                     */
+                                    textBorderWidth?: number | undefined;
 
-                                /**
-                                 * Shadow color of the text itself.
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
-                                 */
-                                textShadowColor?: string | undefined;
+                                    /**
+                                     * Shadow color of the text itself.
+                                     *
+                                     * @default
+                                     * "transparent"
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                     */
+                                    textShadowColor?: string | undefined;
 
-                                /**
-                                 * Shadow blue of the text itself.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
-                                 */
-                                textShadowBlur?: number | undefined;
+                                    /**
+                                     * Shadow blue of the text itself.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                     */
+                                    textShadowBlur?: number | undefined;
 
-                                /**
-                                 * Shadow X offset of the text itself.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
-                                 */
-                                textShadowOffsetX?: number | undefined;
+                                    /**
+                                     * Shadow X offset of the text itself.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                     */
+                                    textShadowOffsetX?: number | undefined;
 
-                                /**
-                                 * Shadow Y offset of the text itself.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
-                                 */
-                                textShadowOffsetY?: number | undefined;
-                            };
+                                    /**
+                                     * Shadow Y offset of the text itself.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                     */
+                                    textShadowOffsetY?: number | undefined;
+                                };
+                            } | undefined;
+                        } | undefined;
+
+                        /**
+                         * Style of Sunburst sectors.
+                         *
+                         * Style can be set in
+                         * [series.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.itemStyle)
+                         * for sectors of this series, or
+                         * [series.levels.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle)
+                         * for the whole level, or
+                         * [series.data.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle)
+                         * for single sector. If
+                         * [series.data.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle)
+                         * is defined, it will cover the setting of
+                         * [series.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.itemStyle)
+                         * and
+                         * [series.levels.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle)
+                         * .
+                         *
+                         * **Priority:
+                         * [series.data.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle)
+                         * >
+                         * [series.levels.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle)
+                         * >
+                         * [series.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.itemStyle)
+                         * .**
+                         *
+                         * In ECharts, _emphasis_ is for styles when mouse hovers.
+                         * For Sunburst charts, there are two extra states: _highlight_
+                         * for highlighting items that relates to the emphasized
+                         * one, and _downplay_ for others when emphasizing an item.
+                         * See
+                         * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
+                         * .
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.itemStyle
+                         */
+                        itemStyle?: {
+                            /**
+                             * color. Color is taken from
+                             * [option.color Palette](https://echarts.apache.org/en/option.html#color)
+                             * by default.
+                             *
+                             * > Color can be represented in RGB, for example `'rgb(128,
+                             * 128, 128)'`.
+                             * RGBA can be used when you need alpha channel, for
+                             * example `'rgba(128, 128, 128, 0.5)'`.
+                             * You may also use hexadecimal format, for example
+                             * `'#ccc'`.
+                             * Gradient color and texture are also supported besides
+                             * single colors.
+                             * >
+                             * > [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.itemStyle)
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.itemStyle.color
+                             */
+                            color?: EChartOption.Color | undefined;
+
+                            /**
+                             * border color, whose format is similar to that of
+                             * `color`.
+                             *
+                             * @default
+                             * "white"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.itemStyle.borderColor
+                             */
+                            borderColor?: EChartOption.Color | undefined;
+
+                            /**
+                             * border width. No border when it is set to be 0.
+                             *
+                             * @default
+                             * 1
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.itemStyle.borderWidth
+                             */
+                            borderWidth?: number | undefined;
+
+                            /**
+                             * Border type, which can be `'solid'`, `'dashed'`,
+                             * or `'dotted'`. `'solid'` by default.
+                             *
+                             * @default
+                             * "solid"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.itemStyle.borderType
+                             */
+                            borderType?: string | undefined;
+
+                            /**
+                             * Size of shadow blur.
+                             * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
+                             * `shadowOffsetY` to set shadow to component.
+                             *
+                             * For example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.itemStyle)
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.itemStyle.shadowBlur
+                             */
+                            shadowBlur?: number | undefined;
+
+                            /**
+                             * Shadow color. Support same format as `color`.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.itemStyle.shadowColor
+                             */
+                            shadowColor?: EChartOption.Color | undefined;
+
+                            /**
+                             * Offset distance on the horizontal direction of shadow.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.itemStyle.shadowOffsetX
+                             */
+                            shadowOffsetX?: number | undefined;
+
+                            /**
+                             * Offset distance on the vertical direction of shadow.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.itemStyle.shadowOffsetY
+                             */
+                            shadowOffsetY?: number | undefined;
+
+                            /**
+                             * Opacity of the component.
+                             * Supports value from 0 to 1, and the component will
+                             * not be drawn when set to 0.
+                             *
+                             * @default
+                             * 1
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.itemStyle.opacity
+                             */
+                            opacity?: number | undefined;
                         } | undefined;
                     } | undefined;
 
                     /**
-                     * Style of Sunburst sectors.
-                     *
-                     * Style can be set in
-                     * [series.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.itemStyle)
-                     * for sectors of this series, or
-                     * [series.levels.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle)
-                     * for the whole level, or
-                     * [series.data.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle)
-                     * for single sector. If
-                     * [series.data.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle)
-                     * is defined, it will cover the setting of
-                     * [series.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.itemStyle)
-                     * and
-                     * [series.levels.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle)
-                     * .
-                     *
-                     * **Priority:
-                     * [series.data.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle)
-                     * >
-                     * [series.levels.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle)
-                     * >
-                     * [series.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.itemStyle)
-                     * .**
-                     *
-                     * In ECharts, _emphasis_ is for styles when mouse hovers.
-                     * For Sunburst charts, there are two extra states: _highlight_
-                     * for highlighting items that relates to the emphasized
-                     * one, and _downplay_ for others when emphasizing an item.
-                     * See
+                     * Item style when mouse is hovering related items. See
                      * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
                      * .
                      *
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.itemStyle
+                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight
                      */
-                    itemStyle?: {
+                    highlight?: {
                         /**
-                         * color. Color is taken from
-                         * [option.color Palette](https://echarts.apache.org/en/option.html#color)
-                         * by default.
+                         * `label` sets the text style for every sectors.
                          *
-                         * > Color can be represented in RGB, for example `'rgb(128,
-                         * 128, 128)'`.
-                         * RGBA can be used when you need alpha channel, for
-                         * example `'rgba(128, 128, 128, 0.5)'`.
-                         * You may also use hexadecimal format, for example
-                         * `'#ccc'`.
-                         * Gradient color and texture are also supported besides
-                         * single colors.
+                         * **Priority:
+                         * [series.data.label](https://echarts.apache.org/en/option.html#series-sunburst.data.label)
                          * >
-                         * > [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.itemStyle)
+                         * [series.levels.label](https://echarts.apache.org/en/option.html#series-sunburst.levels.label)
+                         * >
+                         * [series.label](https://echarts.apache.org/en/option.html#series-sunburst.label)
+                         * .**
                          *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.itemStyle.color
+                         * Text label of , to explain some data information about
+                         * graphic item like value, name and so on.
+                         * `label` is placed under `itemStyle` in ECharts 2.x.
+                         * In ECharts 3, to make the configuration structure flatter,
+                         * `label`is taken to be at the same level with `itemStyle`,
+                         * and has `emphasis` as `itemStyle` does.
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label
                          */
-                        color?: EChartOption.Color | undefined;
-
-                        /**
-                         * border color, whose format is similar to that of
-                         * `color`.
-                         *
-                         * @default
-                         * "white"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.itemStyle.borderColor
-                         */
-                        borderColor?: EChartOption.Color | undefined;
-
-                        /**
-                         * border width. No border when it is set to be 0.
-                         *
-                         * @default
-                         * 1
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.itemStyle.borderWidth
-                         */
-                        borderWidth?: number | undefined;
-
-                        /**
-                         * Border type, which can be `'solid'`, `'dashed'`,
-                         * or `'dotted'`. `'solid'` by default.
-                         *
-                         * @default
-                         * "solid"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.itemStyle.borderType
-                         */
-                        borderType?: string | undefined;
-
-                        /**
-                         * Size of shadow blur.
-                         * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
-                         * `shadowOffsetY` to set shadow to component.
-                         *
-                         * For example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.itemStyle)
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.itemStyle.shadowBlur
-                         */
-                        shadowBlur?: number | undefined;
-
-                        /**
-                         * Shadow color. Support same format as `color`.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.itemStyle.shadowColor
-                         */
-                        shadowColor?: EChartOption.Color | undefined;
-
-                        /**
-                         * Offset distance on the horizontal direction of shadow.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.itemStyle.shadowOffsetX
-                         */
-                        shadowOffsetX?: number | undefined;
-
-                        /**
-                         * Offset distance on the vertical direction of shadow.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.itemStyle.shadowOffsetY
-                         */
-                        shadowOffsetY?: number | undefined;
-
-                        /**
-                         * Opacity of the component.
-                         * Supports value from 0 to 1, and the component will
-                         * not be drawn when set to 0.
-                         *
-                         * @default
-                         * 1
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.itemStyle.opacity
-                         */
-                        opacity?: number | undefined;
-                    } | undefined;
-                } | undefined;
-
-                /**
-                 * Item style when mouse is hovering related items. See
-                 * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
-                 * .
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight
-                 */
-                highlight?: {
-                    /**
-                     * `label` sets the text style for every sectors.
-                     *
-                     * **Priority:
-                     * [series.data.label](https://echarts.apache.org/en/option.html#series-sunburst.data.label)
-                     * >
-                     * [series.levels.label](https://echarts.apache.org/en/option.html#series-sunburst.levels.label)
-                     * >
-                     * [series.label](https://echarts.apache.org/en/option.html#series-sunburst.label)
-                     * .**
-                     *
-                     * Text label of , to explain some data information about
-                     * graphic item like value, name and so on.
-                     * `label` is placed under `itemStyle` in ECharts 2.x.
-                     * In ECharts 3, to make the configuration structure flatter,
-                     * `label`is taken to be at the same level with `itemStyle`,
-                     * and has `emphasis` as `itemStyle` does.
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label
-                     */
-                    label?: {
-                        /**
-                         * If it is `number` type, then is stands for rotation,
-                         * from -90 degrees to 90 degrees, and positive values
-                         * stand for counterclockwise.
-                         *
-                         * Besides, it can be string `'radial'`, standing for
-                         * radial rotation; or `'tangential'`, standing for
-                         * tangential rotation.
-                         *
-                         * By default, it is `'radial'`.
-                         * If no rotation is wanted, it can be set to `0`.
-                         *
-                         * The following example shows different `rotate` settings:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label)
-                         *
-                         * @default
-                         * "radial"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rotate
-                         */
-                        rotate?: number | string | undefined;
-
-                        /**
-                         * Align of text, which can be `'left'`, `'center'`,
-                         * or `'right'`.
-                         * Note that `'left'` stands for inner side, and `'right'`
-                         * stands for outer side.
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label)
-                         *
-                         * @default
-                         * "center"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.align
-                         */
-                        align?: string | undefined;
-
-                        /**
-                         * If angle of data piece is smaller than this value
-                         * (in degrees), then text is not displayed.
-                         * This is used for hiding text for small piece of data.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.minAngle
-                         */
-                        minAngle?: number | undefined;
-
-                        /**
-                         * Whether to show label.
-                         *
-                         * @default
-                         * "true"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.show
-                         */
-                        show?: boolean | undefined;
-
-                        /**
-                         * Label position.
-                         *
-                         * **Followings are the options:**
-                         *
-                         * + \[x, y\]
-                         *
-                         * Use relative percentage, or absolute pixel values
-                         * to represent position of label relative to top-left
-                         * corner of bounding box. For example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label)
-                         *
-                         * + 'top'
-                         *
-                         * + 'left'
-                         * + 'right'
-                         * + 'bottom'
-                         * + 'inside'
-                         * + 'insideLeft'
-                         * + 'insideRight'
-                         * + 'insideTop'
-                         * + 'insideBottom'
-                         * + 'insideTopLeft'
-                         * + 'insideBottomLeft'
-                         * + 'insideTopRight'
-                         * + 'insideBottomRight'
-                         *
-                         * See:
-                         * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
-                         * .
-                         *
-                         * @default
-                         * "inside"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.position
-                         */
-                        position?: any[] | string | undefined;
-
-                        /**
-                         * Distance to the host graphic element.
-                         * Works when position is string value (like `'top'`、`'insideRight'`).
-                         *
-                         * See:
-                         * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
-                         * .
-                         *
-                         * @default
-                         * 5
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.distance
-                         */
-                        distance?: number | undefined;
-
-                        /**
-                         * Whether to move text slightly.
-                         * For example: `[30, 40]` means move `30` horizontally
-                         * and move `40` vertically.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.offset
-                         */
-                        offset?: any[] | undefined;
-
-                        /**
-                         * Data label formatter, which supports string template
-                         * and callback function.
-                         * In either form, `\n` is supported to represent a
-                         * new line.
-                         *
-                         * **String template**
-                         *
-                         * Model variation includes:
-                         *
-                         * + `{a}`: series name.
-                         * + `{b}`: the name of a data item.
-                         * + `{c}`: the value of a data item.
-                         * + `{@xxx}: the value of a dimension named`'xxx'`,
-                         * for example,`{@product}`refers the value of`'product'\`
-                         * dimension。
-                         * + `{@[n]}: the value of a dimension at the index
-                         * of`n`, for example,`{@\[3\]}\` refers the value at
-                         * dimensions\[3\].
-                         *
-                         * **example:**
-                         *
-                         * ```
-                         * formatter: '{b}: {@score}'
-                         *
-                         * ```
-                         *
-                         * **Callback function**
-                         *
-                         * Callback function is in form of:
-                         *
-                         * ```
-                         * (params: Object|Array) => string
-                         *
-                         * ```
-                         *
-                         * where `params` is the single dataset needed by formatter,
-                         * which is formed as:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label)
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.formatter
-                         */
-                        formatter?: Function | string | undefined;
-
-                        /**
-                         * text color.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         * @default
-                         * ""#fff""
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.color
-                         */
-                        color?: string | undefined;
-
-                        /**
-                         * font style
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'italic'`
-                         * + `'oblique'`
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.fontStyle
-                         */
-                        fontStyle?: string | undefined;
-
-                        /**
-                         * font thick weight
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'bold'`
-                         * + `'bolder'`
-                         * + `'lighter'`
-                         * + 100 | 200 | 300 | 400...
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.fontWeight
-                         */
-                        fontWeight?: string | number | undefined;
-
-                        /**
-                         * font family
-                         *
-                         * Can also be 'serif' , 'monospace', ...
-                         *
-                         * @default
-                         * "sans-serif"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.fontFamily
-                         */
-                        fontFamily?: string | undefined;
-
-                        /**
-                         * font size
-                         *
-                         * @default
-                         * 12
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.fontSize
-                         */
-                        fontSize?: number | undefined;
-
-                        /**
-                         * Vertical alignment of text, automatic by default.
-                         *
-                         * Options are:
-                         *
-                         * + `'top'`
-                         * + `'middle'`
-                         * + `'bottom'`
-                         *
-                         * If `verticalAlign` is not set in `rich`, `verticalAlign`
-                         * in parent level will be used. For example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label)
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.verticalAlign
-                         */
-                        verticalAlign?: string | undefined;
-
-                        /**
-                         * Line height of the text fregment.
-                         *
-                         * If `lineHeight` is not set in `rich`, `lineHeight`
-                         * in parent level will be used. For example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label)
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.lineHeight
-                         */
-                        lineHeight?: number | undefined;
-
-                        /**
-                         * Background color of the text fregment.
-                         *
-                         * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
-                         *
-                         * Or image can be used, for example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label)
-                         *
-                         * `width` or `height` can be specified when using background
-                         * image, or auto adapted by default.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.backgroundColor
-                         */
-                        backgroundColor?: object | string | undefined;
-
-                        /**
-                         * Border color of the text fregment.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.borderColor
-                         */
-                        borderColor?: string | undefined;
-
-                        /**
-                         * Border width of the text fregment.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.borderWidth
-                         */
-                        borderWidth?: number | undefined;
-
-                        /**
-                         * Border radius of the text fregment.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.borderRadius
-                         */
-                        borderRadius?: number | undefined;
-
-                        /**
-                         * Padding of the text fregment, for example:
-                         *
-                         * + `padding: [3, 4, 5, 6]`: represents padding of
-                         * `[top, right, bottom, left]`.
-                         * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
-                         * + `padding: [3, 4]`: represents `padding: [3, 4,
-                         * 3, 4]`.
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.padding
-                         */
-                        padding?: any[] | number | undefined;
-
-                        /**
-                         * Shadow color of the text block.
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.shadowColor
-                         */
-                        shadowColor?: string | undefined;
-
-                        /**
-                         * Show blur of the text block.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.shadowBlur
-                         */
-                        shadowBlur?: number | undefined;
-
-                        /**
-                         * Shadow X offset of the text block.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.shadowOffsetX
-                         */
-                        shadowOffsetX?: number | undefined;
-
-                        /**
-                         * Shadow Y offset of the text block.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.shadowOffsetY
-                         */
-                        shadowOffsetY?: number | undefined;
-
-                        /**
-                         * Width of the text block.
-                         * It is the width of the text by default.
-                         * In most cases, there is no need to specify it.
-                         * You may want to use it in some cases like make simple
-                         * table or using background image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * `width` can also be percent string, like `'100%'`,
-                         * which represents the percent of `contentWidth` (that
-                         * is, the width without `padding`) of its container
-                         * box.
-                         * It is based on `contentWidth` because that each text
-                         * fregment is layout based on the `content box`, where
-                         * it makes no sense that calculating width based on
-                         * `outerWith` in prectice.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.width
-                         */
-                        width?: number | string | undefined;
-
-                        /**
-                         * Height of the text block.
-                         * It is the width of the text by default.
-                         * You may want to use it in some cases like using background
-                         * image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.height
-                         */
-                        height?: number | string | undefined;
-
-                        /**
-                         * Storke color of the text.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.textBorderColor
-                         */
-                        textBorderColor?: string | undefined;
-
-                        /**
-                         * Storke line width of the text.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.textBorderWidth
-                         */
-                        textBorderWidth?: number | undefined;
-
-                        /**
-                         * Shadow color of the text itself.
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.textShadowColor
-                         */
-                        textShadowColor?: string | undefined;
-
-                        /**
-                         * Shadow blue of the text itself.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.textShadowBlur
-                         */
-                        textShadowBlur?: number | undefined;
-
-                        /**
-                         * Shadow X offset of the text itself.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.textShadowOffsetX
-                         */
-                        textShadowOffsetX?: number | undefined;
-
-                        /**
-                         * Shadow Y offset of the text itself.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.textShadowOffsetY
-                         */
-                        textShadowOffsetY?: number | undefined;
-
-                        /**
-                         * "Rich text styles" can be defined in this `rich`
-                         * property. For example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label)
-                         *
-                         * For more details, see
-                         * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
-                         * please.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich
-                         */
-                        rich?: {
+                        label?: {
                             /**
-                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E
+                             * If it is `number` type, then is stands for rotation,
+                             * from -90 degrees to 90 degrees, and positive values
+                             * stand for counterclockwise.
+                             *
+                             * Besides, it can be string `'radial'`, standing for
+                             * radial rotation; or `'tangential'`, standing for
+                             * tangential rotation.
+                             *
+                             * By default, it is `'radial'`.
+                             * If no rotation is wanted, it can be set to `0`.
+                             *
+                             * The following example shows different `rotate` settings:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label)
+                             *
+                             * @default
+                             * "radial"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rotate
                              */
-                            [userStyle: string]: {
-                                /**
-                                 * text color.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 * @default
-                                 * ""#fff""
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.color
-                                 */
-                                color?: string | undefined;
+                            rotate?: number | string | undefined;
 
-                                /**
-                                 * font style
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'normal'`
-                                 * + `'italic'`
-                                 * + `'oblique'`
-                                 *
-                                 * @default
-                                 * "normal"
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
-                                 */
-                                fontStyle?: string | undefined;
+                            /**
+                             * Align of text, which can be `'left'`, `'center'`,
+                             * or `'right'`.
+                             * Note that `'left'` stands for inner side, and `'right'`
+                             * stands for outer side.
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label)
+                             *
+                             * @default
+                             * "center"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.align
+                             */
+                            align?: string | undefined;
 
-                                /**
-                                 * font thick weight
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'normal'`
-                                 * + `'bold'`
-                                 * + `'bolder'`
-                                 * + `'lighter'`
-                                 * + 100 | 200 | 300 | 400...
-                                 *
-                                 * @default
-                                 * "normal"
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
-                                 */
-                                fontWeight?: string | number | undefined;
+                            /**
+                             * If angle of data piece is smaller than this value
+                             * (in degrees), then text is not displayed.
+                             * This is used for hiding text for small piece of data.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.minAngle
+                             */
+                            minAngle?: number | undefined;
 
-                                /**
-                                 * font family
-                                 *
-                                 * Can also be 'serif' , 'monospace', ...
-                                 *
-                                 * @default
-                                 * "sans-serif"
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
-                                 */
-                                fontFamily?: string | undefined;
+                            /**
+                             * Whether to show label.
+                             *
+                             * @default
+                             * "true"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.show
+                             */
+                            show?: boolean | undefined;
 
-                                /**
-                                 * font size
-                                 *
-                                 * @default
-                                 * 12
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
-                                 */
-                                fontSize?: number | undefined;
+                            /**
+                             * Label position.
+                             *
+                             * **Followings are the options:**
+                             *
+                             * + \[x, y\]
+                             *
+                             * Use relative percentage, or absolute pixel values
+                             * to represent position of label relative to top-left
+                             * corner of bounding box. For example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label)
+                             *
+                             * + 'top'
+                             *
+                             * + 'left'
+                             * + 'right'
+                             * + 'bottom'
+                             * + 'inside'
+                             * + 'insideLeft'
+                             * + 'insideRight'
+                             * + 'insideTop'
+                             * + 'insideBottom'
+                             * + 'insideTopLeft'
+                             * + 'insideBottomLeft'
+                             * + 'insideTopRight'
+                             * + 'insideBottomRight'
+                             *
+                             * See:
+                             * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
+                             * .
+                             *
+                             * @default
+                             * "inside"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.position
+                             */
+                            position?: any[] | string | undefined;
 
-                                /**
-                                 * Horizontal alignment of text, automatic by
-                                 * default.
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'left'`
-                                 * + `'center'`
-                                 * + `'right'`
-                                 *
-                                 * If `align` is not set in `rich`, `align`
-                                 * in parent level will be used.
-                                 * For example:
-                                 *
-                                 * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.align
-                                 */
-                                align?: string | undefined;
+                            /**
+                             * Distance to the host graphic element.
+                             * Works when position is string value (like `'top'`、`'insideRight'`).
+                             *
+                             * See:
+                             * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
+                             * .
+                             *
+                             * @default
+                             * 5
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.distance
+                             */
+                            distance?: number | undefined;
 
-                                /**
-                                 * Vertical alignment of text, automatic by
-                                 * default.
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'top'`
-                                 * + `'middle'`
-                                 * + `'bottom'`
-                                 *
-                                 * If `verticalAlign` is not set in `rich`,
-                                 * `verticalAlign` in parent level will be used.
-                                 * For example:
-                                 *
-                                 * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
-                                 */
-                                verticalAlign?: string | undefined;
+                            /**
+                             * Whether to move text slightly.
+                             * For example: `[30, 40]` means move `30` horizontally
+                             * and move `40` vertically.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.offset
+                             */
+                            offset?: any[] | undefined;
 
-                                /**
-                                 * Line height of the text fregment.
-                                 *
-                                 * If `lineHeight` is not set in `rich`, `lineHeight`
-                                 * in parent level will be used.
-                                 * For example:
-                                 *
-                                 * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
-                                 */
-                                lineHeight?: number | undefined;
+                            /**
+                             * Data label formatter, which supports string template
+                             * and callback function.
+                             * In either form, `\n` is supported to represent a
+                             * new line.
+                             *
+                             * **String template**
+                             *
+                             * Model variation includes:
+                             *
+                             * + `{a}`: series name.
+                             * + `{b}`: the name of a data item.
+                             * + `{c}`: the value of a data item.
+                             * + `{@xxx}: the value of a dimension named`'xxx'`,
+                             * for example,`{@product}`refers the value of`'product'\`
+                             * dimension。
+                             * + `{@[n]}: the value of a dimension at the index
+                             * of`n`, for example,`{@\[3\]}\` refers the value at
+                             * dimensions\[3\].
+                             *
+                             * **example:**
+                             *
+                             * ```
+                             * formatter: '{b}: {@score}'
+                             *
+                             * ```
+                             *
+                             * **Callback function**
+                             *
+                             * Callback function is in form of:
+                             *
+                             * ```
+                             * (params: Object|Array) => string
+                             *
+                             * ```
+                             *
+                             * where `params` is the single dataset needed by formatter,
+                             * which is formed as:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label)
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.formatter
+                             */
+                            formatter?: Function | string | undefined;
 
-                                /**
-                                 * Background color of the text fregment.
-                                 *
-                                 * Can be color string, like `'#123234'`, `'red'`,
-                                 * `rgba(0,23,11,0.3)'`.
-                                 *
-                                 * Or image can be used, for example:
-                                 *
-                                 * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 * `width` or `height` can be specified when
-                                 * using background image, or auto adapted by
-                                 * default.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
-                                 */
-                                backgroundColor?: object | string | undefined;
+                            /**
+                             * text color.
+                             *
+                             * If set as `'auto'`, the color will assigned as visual
+                             * color, such as series color.
+                             *
+                             * @default
+                             * ""#fff""
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.color
+                             */
+                            color?: string | undefined;
 
-                                /**
-                                 * Border color of the text fregment.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
-                                 */
-                                borderColor?: string | undefined;
+                            /**
+                             * font style
+                             *
+                             * Options are:
+                             *
+                             * + `'normal'`
+                             * + `'italic'`
+                             * + `'oblique'`
+                             *
+                             * @default
+                             * "normal"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.fontStyle
+                             */
+                            fontStyle?: string | undefined;
 
-                                /**
-                                 * Border width of the text fregment.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
-                                 */
-                                borderWidth?: number | undefined;
+                            /**
+                             * font thick weight
+                             *
+                             * Options are:
+                             *
+                             * + `'normal'`
+                             * + `'bold'`
+                             * + `'bolder'`
+                             * + `'lighter'`
+                             * + 100 | 200 | 300 | 400...
+                             *
+                             * @default
+                             * "normal"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.fontWeight
+                             */
+                            fontWeight?: string | number | undefined;
 
-                                /**
-                                 * Border radius of the text fregment.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
-                                 */
-                                borderRadius?: number | undefined;
+                            /**
+                             * font family
+                             *
+                             * Can also be 'serif' , 'monospace', ...
+                             *
+                             * @default
+                             * "sans-serif"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.fontFamily
+                             */
+                            fontFamily?: string | undefined;
 
-                                /**
-                                 * Padding of the text fregment, for example:
-                                 *
-                                 * + `padding: [3, 4, 5, 6]`: represents padding
-                                 * of `[top, right, bottom, left]`.
-                                 * + `padding: 4`: represents `padding: [4,
-                                 * 4, 4, 4]`.
-                                 * + `padding: [3, 4]`: represents `padding:
-                                 * [3, 4, 3, 4]`.
-                                 *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.padding
-                                 */
-                                padding?: any[] | number | undefined;
+                            /**
+                             * font size
+                             *
+                             * @default
+                             * 12
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.fontSize
+                             */
+                            fontSize?: number | undefined;
 
-                                /**
-                                 * Shadow color of the text block.
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
-                                 */
-                                shadowColor?: string | undefined;
+                            /**
+                             * Vertical alignment of text, automatic by default.
+                             *
+                             * Options are:
+                             *
+                             * + `'top'`
+                             * + `'middle'`
+                             * + `'bottom'`
+                             *
+                             * If `verticalAlign` is not set in `rich`, `verticalAlign`
+                             * in parent level will be used. For example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label)
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.verticalAlign
+                             */
+                            verticalAlign?: string | undefined;
 
-                                /**
-                                 * Show blur of the text block.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
-                                 */
-                                shadowBlur?: number | undefined;
+                            /**
+                             * Line height of the text fregment.
+                             *
+                             * If `lineHeight` is not set in `rich`, `lineHeight`
+                             * in parent level will be used. For example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label)
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.lineHeight
+                             */
+                            lineHeight?: number | undefined;
 
-                                /**
-                                 * Shadow X offset of the text block.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
-                                 */
-                                shadowOffsetX?: number | undefined;
+                            /**
+                             * Background color of the text fregment.
+                             *
+                             * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
+                             *
+                             * Or image can be used, for example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label)
+                             *
+                             * `width` or `height` can be specified when using background
+                             * image, or auto adapted by default.
+                             *
+                             * If set as `'auto'`, the color will assigned as visual
+                             * color, such as series color.
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.backgroundColor
+                             */
+                            backgroundColor?: object | string | undefined;
 
-                                /**
-                                 * Shadow Y offset of the text block.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
-                                 */
-                                shadowOffsetY?: number | undefined;
+                            /**
+                             * Border color of the text fregment.
+                             *
+                             * If set as `'auto'`, the color will assigned as visual
+                             * color, such as series color.
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.borderColor
+                             */
+                            borderColor?: string | undefined;
 
-                                /**
-                                 * Width of the text block.
-                                 * It is the width of the text by default.
-                                 * In most cases, there is no need to specify
-                                 * it.
-                                 * You may want to use it in some cases like
-                                 * make simple table or using background image
-                                 * (see `backgroundColor`).
-                                 *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
-                                 *
-                                 * `width` can also be percent string, like
-                                 * `'100%'`, which represents the percent of
-                                 * `contentWidth` (that is, the width without
-                                 * `padding`) of its container box.
-                                 * It is based on `contentWidth` because that
-                                 * each text fregment is layout based on the
-                                 * `content box`, where it makes no sense that
-                                 * calculating width based on `outerWith` in
-                                 * prectice.
-                                 *
-                                 * Notice, `width` and `height` only work when
-                                 * `rich` specified.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.width
-                                 */
-                                width?: number | string | undefined;
+                            /**
+                             * Border width of the text fregment.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.borderWidth
+                             */
+                            borderWidth?: number | undefined;
 
-                                /**
-                                 * Height of the text block.
-                                 * It is the width of the text by default.
-                                 * You may want to use it in some cases like
-                                 * using background image (see `backgroundColor`).
-                                 *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
-                                 *
-                                 * Notice, `width` and `height` only work when
-                                 * `rich` specified.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.height
-                                 */
-                                height?: number | string | undefined;
+                            /**
+                             * Border radius of the text fregment.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.borderRadius
+                             */
+                            borderRadius?: number | undefined;
 
-                                /**
-                                 * Storke color of the text.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
-                                 */
-                                textBorderColor?: string | undefined;
+                            /**
+                             * Padding of the text fregment, for example:
+                             *
+                             * + `padding: [3, 4, 5, 6]`: represents padding of
+                             * `[top, right, bottom, left]`.
+                             * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
+                             * + `padding: [3, 4]`: represents `padding: [3, 4,
+                             * 3, 4]`.
+                             *
+                             * Notice, `width` and `height` specifies the width
+                             * and height of the content, without `padding`.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.padding
+                             */
+                            padding?: any[] | number | undefined;
 
-                                /**
-                                 * Storke line width of the text.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
-                                 */
-                                textBorderWidth?: number | undefined;
+                            /**
+                             * Shadow color of the text block.
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.shadowColor
+                             */
+                            shadowColor?: string | undefined;
 
-                                /**
-                                 * Shadow color of the text itself.
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
-                                 */
-                                textShadowColor?: string | undefined;
+                            /**
+                             * Show blur of the text block.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.shadowBlur
+                             */
+                            shadowBlur?: number | undefined;
 
-                                /**
-                                 * Shadow blue of the text itself.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
-                                 */
-                                textShadowBlur?: number | undefined;
+                            /**
+                             * Shadow X offset of the text block.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.shadowOffsetX
+                             */
+                            shadowOffsetX?: number | undefined;
 
-                                /**
-                                 * Shadow X offset of the text itself.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
-                                 */
-                                textShadowOffsetX?: number | undefined;
+                            /**
+                             * Shadow Y offset of the text block.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.shadowOffsetY
+                             */
+                            shadowOffsetY?: number | undefined;
 
+                            /**
+                             * Width of the text block.
+                             * It is the width of the text by default.
+                             * In most cases, there is no need to specify it.
+                             * You may want to use it in some cases like make simple
+                             * table or using background image (see `backgroundColor`).
+                             *
+                             * Notice, `width` and `height` specifies the width
+                             * and height of the content, without `padding`.
+                             *
+                             * `width` can also be percent string, like `'100%'`,
+                             * which represents the percent of `contentWidth` (that
+                             * is, the width without `padding`) of its container
+                             * box.
+                             * It is based on `contentWidth` because that each text
+                             * fregment is layout based on the `content box`, where
+                             * it makes no sense that calculating width based on
+                             * `outerWith` in prectice.
+                             *
+                             * Notice, `width` and `height` only work when `rich`
+                             * specified.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.width
+                             */
+                            width?: number | string | undefined;
+
+                            /**
+                             * Height of the text block.
+                             * It is the width of the text by default.
+                             * You may want to use it in some cases like using background
+                             * image (see `backgroundColor`).
+                             *
+                             * Notice, `width` and `height` specifies the width
+                             * and height of the content, without `padding`.
+                             *
+                             * Notice, `width` and `height` only work when `rich`
+                             * specified.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.height
+                             */
+                            height?: number | string | undefined;
+
+                            /**
+                             * Storke color of the text.
+                             *
+                             * If set as `'auto'`, the color will assigned as visual
+                             * color, such as series color.
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.textBorderColor
+                             */
+                            textBorderColor?: string | undefined;
+
+                            /**
+                             * Storke line width of the text.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.textBorderWidth
+                             */
+                            textBorderWidth?: number | undefined;
+
+                            /**
+                             * Shadow color of the text itself.
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.textShadowColor
+                             */
+                            textShadowColor?: string | undefined;
+
+                            /**
+                             * Shadow blue of the text itself.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.textShadowBlur
+                             */
+                            textShadowBlur?: number | undefined;
+
+                            /**
+                             * Shadow X offset of the text itself.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.textShadowOffsetX
+                             */
+                            textShadowOffsetX?: number | undefined;
+
+                            /**
+                             * Shadow Y offset of the text itself.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.textShadowOffsetY
+                             */
+                            textShadowOffsetY?: number | undefined;
+
+                            /**
+                             * "Rich text styles" can be defined in this `rich`
+                             * property. For example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label)
+                             *
+                             * For more details, see
+                             * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
+                             * please.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich
+                             */
+                            rich?: {
                                 /**
-                                 * Shadow Y offset of the text itself.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
-                                textShadowOffsetY?: number | undefined;
-                            };
+                                [userStyle: string]: {
+                                    /**
+                                     * text color.
+                                     *
+                                     * If set as `'auto'`, the color will assigned
+                                     * as visual color, such as series color.
+                                     *
+                                     * @default
+                                     * ""#fff""
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                                     */
+                                    color?: string | undefined;
+
+                                    /**
+                                     * font style
+                                     *
+                                     * Options are:
+                                     *
+                                     * + `'normal'`
+                                     * + `'italic'`
+                                     * + `'oblique'`
+                                     *
+                                     * @default
+                                     * "normal"
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                     */
+                                    fontStyle?: string | undefined;
+
+                                    /**
+                                     * font thick weight
+                                     *
+                                     * Options are:
+                                     *
+                                     * + `'normal'`
+                                     * + `'bold'`
+                                     * + `'bolder'`
+                                     * + `'lighter'`
+                                     * + 100 | 200 | 300 | 400...
+                                     *
+                                     * @default
+                                     * "normal"
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                     */
+                                    fontWeight?: string | number | undefined;
+
+                                    /**
+                                     * font family
+                                     *
+                                     * Can also be 'serif' , 'monospace', ...
+                                     *
+                                     * @default
+                                     * "sans-serif"
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                     */
+                                    fontFamily?: string | undefined;
+
+                                    /**
+                                     * font size
+                                     *
+                                     * @default
+                                     * 12
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                     */
+                                    fontSize?: number | undefined;
+
+                                    /**
+                                     * Horizontal alignment of text, automatic by
+                                     * default.
+                                     *
+                                     * Options are:
+                                     *
+                                     * + `'left'`
+                                     * + `'center'`
+                                     * + `'right'`
+                                     *
+                                     * If `align` is not set in `rich`, `align`
+                                     * in parent level will be used.
+                                     * For example:
+                                     *
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                                     */
+                                    align?: string | undefined;
+
+                                    /**
+                                     * Vertical alignment of text, automatic by
+                                     * default.
+                                     *
+                                     * Options are:
+                                     *
+                                     * + `'top'`
+                                     * + `'middle'`
+                                     * + `'bottom'`
+                                     *
+                                     * If `verticalAlign` is not set in `rich`,
+                                     * `verticalAlign` in parent level will be used.
+                                     * For example:
+                                     *
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                     */
+                                    verticalAlign?: string | undefined;
+
+                                    /**
+                                     * Line height of the text fregment.
+                                     *
+                                     * If `lineHeight` is not set in `rich`, `lineHeight`
+                                     * in parent level will be used.
+                                     * For example:
+                                     *
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                     */
+                                    lineHeight?: number | undefined;
+
+                                    /**
+                                     * Background color of the text fregment.
+                                     *
+                                     * Can be color string, like `'#123234'`, `'red'`,
+                                     * `rgba(0,23,11,0.3)'`.
+                                     *
+                                     * Or image can be used, for example:
+                                     *
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     *
+                                     * `width` or `height` can be specified when
+                                     * using background image, or auto adapted by
+                                     * default.
+                                     *
+                                     * If set as `'auto'`, the color will assigned
+                                     * as visual color, such as series color.
+                                     *
+                                     * @default
+                                     * "transparent"
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                     */
+                                    backgroundColor?: object | string | undefined;
+
+                                    /**
+                                     * Border color of the text fregment.
+                                     *
+                                     * If set as `'auto'`, the color will assigned
+                                     * as visual color, such as series color.
+                                     *
+                                     * @default
+                                     * "transparent"
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                     */
+                                    borderColor?: string | undefined;
+
+                                    /**
+                                     * Border width of the text fregment.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                     */
+                                    borderWidth?: number | undefined;
+
+                                    /**
+                                     * Border radius of the text fregment.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                     */
+                                    borderRadius?: number | undefined;
+
+                                    /**
+                                     * Padding of the text fregment, for example:
+                                     *
+                                     * + `padding: [3, 4, 5, 6]`: represents padding
+                                     * of `[top, right, bottom, left]`.
+                                     * + `padding: 4`: represents `padding: [4,
+                                     * 4, 4, 4]`.
+                                     * + `padding: [3, 4]`: represents `padding:
+                                     * [3, 4, 3, 4]`.
+                                     *
+                                     * Notice, `width` and `height` specifies the
+                                     * width and height of the content, without
+                                     * `padding`.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                     */
+                                    padding?: any[] | number | undefined;
+
+                                    /**
+                                     * Shadow color of the text block.
+                                     *
+                                     * @default
+                                     * "transparent"
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                     */
+                                    shadowColor?: string | undefined;
+
+                                    /**
+                                     * Show blur of the text block.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                     */
+                                    shadowBlur?: number | undefined;
+
+                                    /**
+                                     * Shadow X offset of the text block.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                     */
+                                    shadowOffsetX?: number | undefined;
+
+                                    /**
+                                     * Shadow Y offset of the text block.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                     */
+                                    shadowOffsetY?: number | undefined;
+
+                                    /**
+                                     * Width of the text block.
+                                     * It is the width of the text by default.
+                                     * In most cases, there is no need to specify
+                                     * it.
+                                     * You may want to use it in some cases like
+                                     * make simple table or using background image
+                                     * (see `backgroundColor`).
+                                     *
+                                     * Notice, `width` and `height` specifies the
+                                     * width and height of the content, without
+                                     * `padding`.
+                                     *
+                                     * `width` can also be percent string, like
+                                     * `'100%'`, which represents the percent of
+                                     * `contentWidth` (that is, the width without
+                                     * `padding`) of its container box.
+                                     * It is based on `contentWidth` because that
+                                     * each text fregment is layout based on the
+                                     * `content box`, where it makes no sense that
+                                     * calculating width based on `outerWith` in
+                                     * prectice.
+                                     *
+                                     * Notice, `width` and `height` only work when
+                                     * `rich` specified.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                                     */
+                                    width?: number | string | undefined;
+
+                                    /**
+                                     * Height of the text block.
+                                     * It is the width of the text by default.
+                                     * You may want to use it in some cases like
+                                     * using background image (see `backgroundColor`).
+                                     *
+                                     * Notice, `width` and `height` specifies the
+                                     * width and height of the content, without
+                                     * `padding`.
+                                     *
+                                     * Notice, `width` and `height` only work when
+                                     * `rich` specified.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                                     */
+                                    height?: number | string | undefined;
+
+                                    /**
+                                     * Storke color of the text.
+                                     *
+                                     * If set as `'auto'`, the color will assigned
+                                     * as visual color, such as series color.
+                                     *
+                                     * @default
+                                     * "transparent"
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                     */
+                                    textBorderColor?: string | undefined;
+
+                                    /**
+                                     * Storke line width of the text.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                     */
+                                    textBorderWidth?: number | undefined;
+
+                                    /**
+                                     * Shadow color of the text itself.
+                                     *
+                                     * @default
+                                     * "transparent"
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                     */
+                                    textShadowColor?: string | undefined;
+
+                                    /**
+                                     * Shadow blue of the text itself.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                     */
+                                    textShadowBlur?: number | undefined;
+
+                                    /**
+                                     * Shadow X offset of the text itself.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                     */
+                                    textShadowOffsetX?: number | undefined;
+
+                                    /**
+                                     * Shadow Y offset of the text itself.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                     */
+                                    textShadowOffsetY?: number | undefined;
+                                };
+                            } | undefined;
+                        } | undefined;
+
+                        /**
+                         * Style of Sunburst sectors.
+                         *
+                         * Style can be set in
+                         * [series.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.itemStyle)
+                         * for sectors of this series, or
+                         * [series.levels.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle)
+                         * for the whole level, or
+                         * [series.data.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle)
+                         * for single sector. If
+                         * [series.data.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle)
+                         * is defined, it will cover the setting of
+                         * [series.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.itemStyle)
+                         * and
+                         * [series.levels.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle)
+                         * .
+                         *
+                         * **Priority:
+                         * [series.data.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle)
+                         * >
+                         * [series.levels.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle)
+                         * >
+                         * [series.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.itemStyle)
+                         * .**
+                         *
+                         * In ECharts, _emphasis_ is for styles when mouse hovers.
+                         * For Sunburst charts, there are two extra states: _highlight_
+                         * for highlighting items that relates to the emphasized
+                         * one, and _downplay_ for others when emphasizing an item.
+                         * See
+                         * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
+                         * .
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.itemStyle
+                         */
+                        itemStyle?: {
+                            /**
+                             * color. Color is taken from
+                             * [option.color Palette](https://echarts.apache.org/en/option.html#color)
+                             * by default.
+                             *
+                             * > Color can be represented in RGB, for example `'rgb(128,
+                             * 128, 128)'`.
+                             * RGBA can be used when you need alpha channel, for
+                             * example `'rgba(128, 128, 128, 0.5)'`.
+                             * You may also use hexadecimal format, for example
+                             * `'#ccc'`.
+                             * Gradient color and texture are also supported besides
+                             * single colors.
+                             * >
+                             * > [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.itemStyle)
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.itemStyle.color
+                             */
+                            color?: EChartOption.Color | undefined;
+
+                            /**
+                             * border color, whose format is similar to that of
+                             * `color`.
+                             *
+                             * @default
+                             * "white"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.itemStyle.borderColor
+                             */
+                            borderColor?: EChartOption.Color | undefined;
+
+                            /**
+                             * border width. No border when it is set to be 0.
+                             *
+                             * @default
+                             * 1
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.itemStyle.borderWidth
+                             */
+                            borderWidth?: number | undefined;
+
+                            /**
+                             * Border type, which can be `'solid'`, `'dashed'`,
+                             * or `'dotted'`. `'solid'` by default.
+                             *
+                             * @default
+                             * "solid"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.itemStyle.borderType
+                             */
+                            borderType?: string | undefined;
+
+                            /**
+                             * Size of shadow blur.
+                             * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
+                             * `shadowOffsetY` to set shadow to component.
+                             *
+                             * For example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.itemStyle)
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.itemStyle.shadowBlur
+                             */
+                            shadowBlur?: number | undefined;
+
+                            /**
+                             * Shadow color. Support same format as `color`.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.itemStyle.shadowColor
+                             */
+                            shadowColor?: EChartOption.Color | undefined;
+
+                            /**
+                             * Offset distance on the horizontal direction of shadow.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.itemStyle.shadowOffsetX
+                             */
+                            shadowOffsetX?: number | undefined;
+
+                            /**
+                             * Offset distance on the vertical direction of shadow.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.itemStyle.shadowOffsetY
+                             */
+                            shadowOffsetY?: number | undefined;
+
+                            /**
+                             * Opacity of the component.
+                             * Supports value from 0 to 1, and the component will
+                             * not be drawn when set to 0.
+                             *
+                             * @default
+                             * 1
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.itemStyle.opacity
+                             */
+                            opacity?: number | undefined;
                         } | undefined;
                     } | undefined;
 
                     /**
-                     * Style of Sunburst sectors.
-                     *
-                     * Style can be set in
-                     * [series.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.itemStyle)
-                     * for sectors of this series, or
-                     * [series.levels.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle)
-                     * for the whole level, or
-                     * [series.data.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle)
-                     * for single sector. If
-                     * [series.data.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle)
-                     * is defined, it will cover the setting of
-                     * [series.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.itemStyle)
-                     * and
-                     * [series.levels.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle)
-                     * .
-                     *
-                     * **Priority:
-                     * [series.data.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle)
-                     * >
-                     * [series.levels.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle)
-                     * >
-                     * [series.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.itemStyle)
-                     * .**
-                     *
-                     * In ECharts, _emphasis_ is for styles when mouse hovers.
-                     * For Sunburst charts, there are two extra states: _highlight_
-                     * for highlighting items that relates to the emphasized
-                     * one, and _downplay_ for others when emphasizing an item.
-                     * See
+                     * Item style when mouse is hovering unrelated items. See
                      * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
                      * .
                      *
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.itemStyle
+                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay
                      */
-                    itemStyle?: {
+                    downplay?: {
                         /**
-                         * color. Color is taken from
-                         * [option.color Palette](https://echarts.apache.org/en/option.html#color)
-                         * by default.
+                         * `label` sets the text style for every sectors.
                          *
-                         * > Color can be represented in RGB, for example `'rgb(128,
-                         * 128, 128)'`.
-                         * RGBA can be used when you need alpha channel, for
-                         * example `'rgba(128, 128, 128, 0.5)'`.
-                         * You may also use hexadecimal format, for example
-                         * `'#ccc'`.
-                         * Gradient color and texture are also supported besides
-                         * single colors.
+                         * **Priority:
+                         * [series.data.label](https://echarts.apache.org/en/option.html#series-sunburst.data.label)
                          * >
-                         * > [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.itemStyle)
+                         * [series.levels.label](https://echarts.apache.org/en/option.html#series-sunburst.levels.label)
+                         * >
+                         * [series.label](https://echarts.apache.org/en/option.html#series-sunburst.label)
+                         * .**
                          *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.itemStyle.color
+                         * Text label of , to explain some data information about
+                         * graphic item like value, name and so on.
+                         * `label` is placed under `itemStyle` in ECharts 2.x.
+                         * In ECharts 3, to make the configuration structure flatter,
+                         * `label`is taken to be at the same level with `itemStyle`,
+                         * and has `emphasis` as `itemStyle` does.
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label
                          */
-                        color?: EChartOption.Color | undefined;
-
-                        /**
-                         * border color, whose format is similar to that of
-                         * `color`.
-                         *
-                         * @default
-                         * "white"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.itemStyle.borderColor
-                         */
-                        borderColor?: EChartOption.Color | undefined;
-
-                        /**
-                         * border width. No border when it is set to be 0.
-                         *
-                         * @default
-                         * 1
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.itemStyle.borderWidth
-                         */
-                        borderWidth?: number | undefined;
-
-                        /**
-                         * Border type, which can be `'solid'`, `'dashed'`,
-                         * or `'dotted'`. `'solid'` by default.
-                         *
-                         * @default
-                         * "solid"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.itemStyle.borderType
-                         */
-                        borderType?: string | undefined;
-
-                        /**
-                         * Size of shadow blur.
-                         * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
-                         * `shadowOffsetY` to set shadow to component.
-                         *
-                         * For example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.itemStyle)
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.itemStyle.shadowBlur
-                         */
-                        shadowBlur?: number | undefined;
-
-                        /**
-                         * Shadow color. Support same format as `color`.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.itemStyle.shadowColor
-                         */
-                        shadowColor?: EChartOption.Color | undefined;
-
-                        /**
-                         * Offset distance on the horizontal direction of shadow.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.itemStyle.shadowOffsetX
-                         */
-                        shadowOffsetX?: number | undefined;
-
-                        /**
-                         * Offset distance on the vertical direction of shadow.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.itemStyle.shadowOffsetY
-                         */
-                        shadowOffsetY?: number | undefined;
-
-                        /**
-                         * Opacity of the component.
-                         * Supports value from 0 to 1, and the component will
-                         * not be drawn when set to 0.
-                         *
-                         * @default
-                         * 1
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.itemStyle.opacity
-                         */
-                        opacity?: number | undefined;
-                    } | undefined;
-                } | undefined;
-
-                /**
-                 * Item style when mouse is hovering unrelated items. See
-                 * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
-                 * .
-                 *
-                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay
-                 */
-                downplay?: {
-                    /**
-                     * `label` sets the text style for every sectors.
-                     *
-                     * **Priority:
-                     * [series.data.label](https://echarts.apache.org/en/option.html#series-sunburst.data.label)
-                     * >
-                     * [series.levels.label](https://echarts.apache.org/en/option.html#series-sunburst.levels.label)
-                     * >
-                     * [series.label](https://echarts.apache.org/en/option.html#series-sunburst.label)
-                     * .**
-                     *
-                     * Text label of , to explain some data information about
-                     * graphic item like value, name and so on.
-                     * `label` is placed under `itemStyle` in ECharts 2.x.
-                     * In ECharts 3, to make the configuration structure flatter,
-                     * `label`is taken to be at the same level with `itemStyle`,
-                     * and has `emphasis` as `itemStyle` does.
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label
-                     */
-                    label?: {
-                        /**
-                         * If it is `number` type, then is stands for rotation,
-                         * from -90 degrees to 90 degrees, and positive values
-                         * stand for counterclockwise.
-                         *
-                         * Besides, it can be string `'radial'`, standing for
-                         * radial rotation; or `'tangential'`, standing for
-                         * tangential rotation.
-                         *
-                         * By default, it is `'radial'`.
-                         * If no rotation is wanted, it can be set to `0`.
-                         *
-                         * The following example shows different `rotate` settings:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label)
-                         *
-                         * @default
-                         * "radial"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rotate
-                         */
-                        rotate?: number | string | undefined;
-
-                        /**
-                         * Align of text, which can be `'left'`, `'center'`,
-                         * or `'right'`.
-                         * Note that `'left'` stands for inner side, and `'right'`
-                         * stands for outer side.
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label)
-                         *
-                         * @default
-                         * "center"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.align
-                         */
-                        align?: string | undefined;
-
-                        /**
-                         * If angle of data piece is smaller than this value
-                         * (in degrees), then text is not displayed.
-                         * This is used for hiding text for small piece of data.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.minAngle
-                         */
-                        minAngle?: number | undefined;
-
-                        /**
-                         * Whether to show label.
-                         *
-                         * @default
-                         * "true"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.show
-                         */
-                        show?: boolean | undefined;
-
-                        /**
-                         * Label position.
-                         *
-                         * **Followings are the options:**
-                         *
-                         * + \[x, y\]
-                         *
-                         * Use relative percentage, or absolute pixel values
-                         * to represent position of label relative to top-left
-                         * corner of bounding box. For example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label)
-                         *
-                         * + 'top'
-                         *
-                         * + 'left'
-                         * + 'right'
-                         * + 'bottom'
-                         * + 'inside'
-                         * + 'insideLeft'
-                         * + 'insideRight'
-                         * + 'insideTop'
-                         * + 'insideBottom'
-                         * + 'insideTopLeft'
-                         * + 'insideBottomLeft'
-                         * + 'insideTopRight'
-                         * + 'insideBottomRight'
-                         *
-                         * See:
-                         * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
-                         * .
-                         *
-                         * @default
-                         * "inside"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.position
-                         */
-                        position?: any[] | string | undefined;
-
-                        /**
-                         * Distance to the host graphic element.
-                         * Works when position is string value (like `'top'`、`'insideRight'`).
-                         *
-                         * See:
-                         * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
-                         * .
-                         *
-                         * @default
-                         * 5
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.distance
-                         */
-                        distance?: number | undefined;
-
-                        /**
-                         * Whether to move text slightly.
-                         * For example: `[30, 40]` means move `30` horizontally
-                         * and move `40` vertically.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.offset
-                         */
-                        offset?: any[] | undefined;
-
-                        /**
-                         * Data label formatter, which supports string template
-                         * and callback function.
-                         * In either form, `\n` is supported to represent a
-                         * new line.
-                         *
-                         * **String template**
-                         *
-                         * Model variation includes:
-                         *
-                         * + `{a}`: series name.
-                         * + `{b}`: the name of a data item.
-                         * + `{c}`: the value of a data item.
-                         * + `{@xxx}: the value of a dimension named`'xxx'`,
-                         * for example,`{@product}`refers the value of`'product'\`
-                         * dimension。
-                         * + `{@[n]}: the value of a dimension at the index
-                         * of`n`, for example,`{@\[3\]}\` refers the value at
-                         * dimensions\[3\].
-                         *
-                         * **example:**
-                         *
-                         * ```
-                         * formatter: '{b}: {@score}'
-                         *
-                         * ```
-                         *
-                         * **Callback function**
-                         *
-                         * Callback function is in form of:
-                         *
-                         * ```
-                         * (params: Object|Array) => string
-                         *
-                         * ```
-                         *
-                         * where `params` is the single dataset needed by formatter,
-                         * which is formed as:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label)
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.formatter
-                         */
-                        formatter?: Function | string | undefined;
-
-                        /**
-                         * text color.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         * @default
-                         * ""#fff""
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.color
-                         */
-                        color?: string | undefined;
-
-                        /**
-                         * font style
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'italic'`
-                         * + `'oblique'`
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.fontStyle
-                         */
-                        fontStyle?: string | undefined;
-
-                        /**
-                         * font thick weight
-                         *
-                         * Options are:
-                         *
-                         * + `'normal'`
-                         * + `'bold'`
-                         * + `'bolder'`
-                         * + `'lighter'`
-                         * + 100 | 200 | 300 | 400...
-                         *
-                         * @default
-                         * "normal"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.fontWeight
-                         */
-                        fontWeight?: string | number | undefined;
-
-                        /**
-                         * font family
-                         *
-                         * Can also be 'serif' , 'monospace', ...
-                         *
-                         * @default
-                         * "sans-serif"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.fontFamily
-                         */
-                        fontFamily?: string | undefined;
-
-                        /**
-                         * font size
-                         *
-                         * @default
-                         * 12
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.fontSize
-                         */
-                        fontSize?: number | undefined;
-
-                        /**
-                         * Vertical alignment of text, automatic by default.
-                         *
-                         * Options are:
-                         *
-                         * + `'top'`
-                         * + `'middle'`
-                         * + `'bottom'`
-                         *
-                         * If `verticalAlign` is not set in `rich`, `verticalAlign`
-                         * in parent level will be used. For example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label)
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.verticalAlign
-                         */
-                        verticalAlign?: string | undefined;
-
-                        /**
-                         * Line height of the text fregment.
-                         *
-                         * If `lineHeight` is not set in `rich`, `lineHeight`
-                         * in parent level will be used. For example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label)
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.lineHeight
-                         */
-                        lineHeight?: number | undefined;
-
-                        /**
-                         * Background color of the text fregment.
-                         *
-                         * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
-                         *
-                         * Or image can be used, for example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label)
-                         *
-                         * `width` or `height` can be specified when using background
-                         * image, or auto adapted by default.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.backgroundColor
-                         */
-                        backgroundColor?: object | string | undefined;
-
-                        /**
-                         * Border color of the text fregment.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.borderColor
-                         */
-                        borderColor?: string | undefined;
-
-                        /**
-                         * Border width of the text fregment.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.borderWidth
-                         */
-                        borderWidth?: number | undefined;
-
-                        /**
-                         * Border radius of the text fregment.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.borderRadius
-                         */
-                        borderRadius?: number | undefined;
-
-                        /**
-                         * Padding of the text fregment, for example:
-                         *
-                         * + `padding: [3, 4, 5, 6]`: represents padding of
-                         * `[top, right, bottom, left]`.
-                         * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
-                         * + `padding: [3, 4]`: represents `padding: [3, 4,
-                         * 3, 4]`.
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.padding
-                         */
-                        padding?: any[] | number | undefined;
-
-                        /**
-                         * Shadow color of the text block.
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.shadowColor
-                         */
-                        shadowColor?: string | undefined;
-
-                        /**
-                         * Show blur of the text block.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.shadowBlur
-                         */
-                        shadowBlur?: number | undefined;
-
-                        /**
-                         * Shadow X offset of the text block.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.shadowOffsetX
-                         */
-                        shadowOffsetX?: number | undefined;
-
-                        /**
-                         * Shadow Y offset of the text block.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.shadowOffsetY
-                         */
-                        shadowOffsetY?: number | undefined;
-
-                        /**
-                         * Width of the text block.
-                         * It is the width of the text by default.
-                         * In most cases, there is no need to specify it.
-                         * You may want to use it in some cases like make simple
-                         * table or using background image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * `width` can also be percent string, like `'100%'`,
-                         * which represents the percent of `contentWidth` (that
-                         * is, the width without `padding`) of its container
-                         * box.
-                         * It is based on `contentWidth` because that each text
-                         * fregment is layout based on the `content box`, where
-                         * it makes no sense that calculating width based on
-                         * `outerWith` in prectice.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.width
-                         */
-                        width?: number | string | undefined;
-
-                        /**
-                         * Height of the text block.
-                         * It is the width of the text by default.
-                         * You may want to use it in some cases like using background
-                         * image (see `backgroundColor`).
-                         *
-                         * Notice, `width` and `height` specifies the width
-                         * and height of the content, without `padding`.
-                         *
-                         * Notice, `width` and `height` only work when `rich`
-                         * specified.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.height
-                         */
-                        height?: number | string | undefined;
-
-                        /**
-                         * Storke color of the text.
-                         *
-                         * If set as `'auto'`, the color will assigned as visual
-                         * color, such as series color.
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.textBorderColor
-                         */
-                        textBorderColor?: string | undefined;
-
-                        /**
-                         * Storke line width of the text.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.textBorderWidth
-                         */
-                        textBorderWidth?: number | undefined;
-
-                        /**
-                         * Shadow color of the text itself.
-                         *
-                         * @default
-                         * "transparent"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.textShadowColor
-                         */
-                        textShadowColor?: string | undefined;
-
-                        /**
-                         * Shadow blue of the text itself.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.textShadowBlur
-                         */
-                        textShadowBlur?: number | undefined;
-
-                        /**
-                         * Shadow X offset of the text itself.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.textShadowOffsetX
-                         */
-                        textShadowOffsetX?: number | undefined;
-
-                        /**
-                         * Shadow Y offset of the text itself.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.textShadowOffsetY
-                         */
-                        textShadowOffsetY?: number | undefined;
-
-                        /**
-                         * "Rich text styles" can be defined in this `rich`
-                         * property. For example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label)
-                         *
-                         * For more details, see
-                         * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
-                         * please.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich
-                         */
-                        rich?: {
+                        label?: {
                             /**
-                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E
+                             * If it is `number` type, then is stands for rotation,
+                             * from -90 degrees to 90 degrees, and positive values
+                             * stand for counterclockwise.
+                             *
+                             * Besides, it can be string `'radial'`, standing for
+                             * radial rotation; or `'tangential'`, standing for
+                             * tangential rotation.
+                             *
+                             * By default, it is `'radial'`.
+                             * If no rotation is wanted, it can be set to `0`.
+                             *
+                             * The following example shows different `rotate` settings:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label)
+                             *
+                             * @default
+                             * "radial"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rotate
                              */
-                            [userStyle: string]: {
-                                /**
-                                 * text color.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 * @default
-                                 * ""#fff""
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.color
-                                 */
-                                color?: string | undefined;
+                            rotate?: number | string | undefined;
 
-                                /**
-                                 * font style
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'normal'`
-                                 * + `'italic'`
-                                 * + `'oblique'`
-                                 *
-                                 * @default
-                                 * "normal"
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
-                                 */
-                                fontStyle?: string | undefined;
+                            /**
+                             * Align of text, which can be `'left'`, `'center'`,
+                             * or `'right'`.
+                             * Note that `'left'` stands for inner side, and `'right'`
+                             * stands for outer side.
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label)
+                             *
+                             * @default
+                             * "center"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.align
+                             */
+                            align?: string | undefined;
 
-                                /**
-                                 * font thick weight
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'normal'`
-                                 * + `'bold'`
-                                 * + `'bolder'`
-                                 * + `'lighter'`
-                                 * + 100 | 200 | 300 | 400...
-                                 *
-                                 * @default
-                                 * "normal"
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
-                                 */
-                                fontWeight?: string | number | undefined;
+                            /**
+                             * If angle of data piece is smaller than this value
+                             * (in degrees), then text is not displayed.
+                             * This is used for hiding text for small piece of data.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.minAngle
+                             */
+                            minAngle?: number | undefined;
 
-                                /**
-                                 * font family
-                                 *
-                                 * Can also be 'serif' , 'monospace', ...
-                                 *
-                                 * @default
-                                 * "sans-serif"
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
-                                 */
-                                fontFamily?: string | undefined;
+                            /**
+                             * Whether to show label.
+                             *
+                             * @default
+                             * "true"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.show
+                             */
+                            show?: boolean | undefined;
 
-                                /**
-                                 * font size
-                                 *
-                                 * @default
-                                 * 12
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
-                                 */
-                                fontSize?: number | undefined;
+                            /**
+                             * Label position.
+                             *
+                             * **Followings are the options:**
+                             *
+                             * + \[x, y\]
+                             *
+                             * Use relative percentage, or absolute pixel values
+                             * to represent position of label relative to top-left
+                             * corner of bounding box. For example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label)
+                             *
+                             * + 'top'
+                             *
+                             * + 'left'
+                             * + 'right'
+                             * + 'bottom'
+                             * + 'inside'
+                             * + 'insideLeft'
+                             * + 'insideRight'
+                             * + 'insideTop'
+                             * + 'insideBottom'
+                             * + 'insideTopLeft'
+                             * + 'insideBottomLeft'
+                             * + 'insideTopRight'
+                             * + 'insideBottomRight'
+                             *
+                             * See:
+                             * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
+                             * .
+                             *
+                             * @default
+                             * "inside"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.position
+                             */
+                            position?: any[] | string | undefined;
 
-                                /**
-                                 * Horizontal alignment of text, automatic by
-                                 * default.
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'left'`
-                                 * + `'center'`
-                                 * + `'right'`
-                                 *
-                                 * If `align` is not set in `rich`, `align`
-                                 * in parent level will be used.
-                                 * For example:
-                                 *
-                                 * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.align
-                                 */
-                                align?: string | undefined;
+                            /**
+                             * Distance to the host graphic element.
+                             * Works when position is string value (like `'top'`、`'insideRight'`).
+                             *
+                             * See:
+                             * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
+                             * .
+                             *
+                             * @default
+                             * 5
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.distance
+                             */
+                            distance?: number | undefined;
 
-                                /**
-                                 * Vertical alignment of text, automatic by
-                                 * default.
-                                 *
-                                 * Options are:
-                                 *
-                                 * + `'top'`
-                                 * + `'middle'`
-                                 * + `'bottom'`
-                                 *
-                                 * If `verticalAlign` is not set in `rich`,
-                                 * `verticalAlign` in parent level will be used.
-                                 * For example:
-                                 *
-                                 * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
-                                 */
-                                verticalAlign?: string | undefined;
+                            /**
+                             * Whether to move text slightly.
+                             * For example: `[30, 40]` means move `30` horizontally
+                             * and move `40` vertically.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.offset
+                             */
+                            offset?: any[] | undefined;
 
-                                /**
-                                 * Line height of the text fregment.
-                                 *
-                                 * If `lineHeight` is not set in `rich`, `lineHeight`
-                                 * in parent level will be used.
-                                 * For example:
-                                 *
-                                 * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
-                                 */
-                                lineHeight?: number | undefined;
+                            /**
+                             * Data label formatter, which supports string template
+                             * and callback function.
+                             * In either form, `\n` is supported to represent a
+                             * new line.
+                             *
+                             * **String template**
+                             *
+                             * Model variation includes:
+                             *
+                             * + `{a}`: series name.
+                             * + `{b}`: the name of a data item.
+                             * + `{c}`: the value of a data item.
+                             * + `{@xxx}: the value of a dimension named`'xxx'`,
+                             * for example,`{@product}`refers the value of`'product'\`
+                             * dimension。
+                             * + `{@[n]}: the value of a dimension at the index
+                             * of`n`, for example,`{@\[3\]}\` refers the value at
+                             * dimensions\[3\].
+                             *
+                             * **example:**
+                             *
+                             * ```
+                             * formatter: '{b}: {@score}'
+                             *
+                             * ```
+                             *
+                             * **Callback function**
+                             *
+                             * Callback function is in form of:
+                             *
+                             * ```
+                             * (params: Object|Array) => string
+                             *
+                             * ```
+                             *
+                             * where `params` is the single dataset needed by formatter,
+                             * which is formed as:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label)
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.formatter
+                             */
+                            formatter?: Function | string | undefined;
 
-                                /**
-                                 * Background color of the text fregment.
-                                 *
-                                 * Can be color string, like `'#123234'`, `'red'`,
-                                 * `rgba(0,23,11,0.3)'`.
-                                 *
-                                 * Or image can be used, for example:
-                                 *
-                                 * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
-                                 * `width` or `height` can be specified when
-                                 * using background image, or auto adapted by
-                                 * default.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
-                                 */
-                                backgroundColor?: object | string | undefined;
+                            /**
+                             * text color.
+                             *
+                             * If set as `'auto'`, the color will assigned as visual
+                             * color, such as series color.
+                             *
+                             * @default
+                             * ""#fff""
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.color
+                             */
+                            color?: string | undefined;
 
-                                /**
-                                 * Border color of the text fregment.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
-                                 */
-                                borderColor?: string | undefined;
+                            /**
+                             * font style
+                             *
+                             * Options are:
+                             *
+                             * + `'normal'`
+                             * + `'italic'`
+                             * + `'oblique'`
+                             *
+                             * @default
+                             * "normal"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.fontStyle
+                             */
+                            fontStyle?: string | undefined;
 
-                                /**
-                                 * Border width of the text fregment.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
-                                 */
-                                borderWidth?: number | undefined;
+                            /**
+                             * font thick weight
+                             *
+                             * Options are:
+                             *
+                             * + `'normal'`
+                             * + `'bold'`
+                             * + `'bolder'`
+                             * + `'lighter'`
+                             * + 100 | 200 | 300 | 400...
+                             *
+                             * @default
+                             * "normal"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.fontWeight
+                             */
+                            fontWeight?: string | number | undefined;
 
-                                /**
-                                 * Border radius of the text fregment.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
-                                 */
-                                borderRadius?: number | undefined;
+                            /**
+                             * font family
+                             *
+                             * Can also be 'serif' , 'monospace', ...
+                             *
+                             * @default
+                             * "sans-serif"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.fontFamily
+                             */
+                            fontFamily?: string | undefined;
 
-                                /**
-                                 * Padding of the text fregment, for example:
-                                 *
-                                 * + `padding: [3, 4, 5, 6]`: represents padding
-                                 * of `[top, right, bottom, left]`.
-                                 * + `padding: 4`: represents `padding: [4,
-                                 * 4, 4, 4]`.
-                                 * + `padding: [3, 4]`: represents `padding:
-                                 * [3, 4, 3, 4]`.
-                                 *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.padding
-                                 */
-                                padding?: any[] | number | undefined;
+                            /**
+                             * font size
+                             *
+                             * @default
+                             * 12
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.fontSize
+                             */
+                            fontSize?: number | undefined;
 
-                                /**
-                                 * Shadow color of the text block.
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
-                                 */
-                                shadowColor?: string | undefined;
+                            /**
+                             * Vertical alignment of text, automatic by default.
+                             *
+                             * Options are:
+                             *
+                             * + `'top'`
+                             * + `'middle'`
+                             * + `'bottom'`
+                             *
+                             * If `verticalAlign` is not set in `rich`, `verticalAlign`
+                             * in parent level will be used. For example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label)
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.verticalAlign
+                             */
+                            verticalAlign?: string | undefined;
 
-                                /**
-                                 * Show blur of the text block.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
-                                 */
-                                shadowBlur?: number | undefined;
+                            /**
+                             * Line height of the text fregment.
+                             *
+                             * If `lineHeight` is not set in `rich`, `lineHeight`
+                             * in parent level will be used. For example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label)
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.lineHeight
+                             */
+                            lineHeight?: number | undefined;
 
-                                /**
-                                 * Shadow X offset of the text block.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
-                                 */
-                                shadowOffsetX?: number | undefined;
+                            /**
+                             * Background color of the text fregment.
+                             *
+                             * Can be color string, like `'#123234'`, `'red'`, `rgba(0,23,11,0.3)'`.
+                             *
+                             * Or image can be used, for example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label)
+                             *
+                             * `width` or `height` can be specified when using background
+                             * image, or auto adapted by default.
+                             *
+                             * If set as `'auto'`, the color will assigned as visual
+                             * color, such as series color.
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.backgroundColor
+                             */
+                            backgroundColor?: object | string | undefined;
 
-                                /**
-                                 * Shadow Y offset of the text block.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
-                                 */
-                                shadowOffsetY?: number | undefined;
+                            /**
+                             * Border color of the text fregment.
+                             *
+                             * If set as `'auto'`, the color will assigned as visual
+                             * color, such as series color.
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.borderColor
+                             */
+                            borderColor?: string | undefined;
 
-                                /**
-                                 * Width of the text block.
-                                 * It is the width of the text by default.
-                                 * In most cases, there is no need to specify
-                                 * it.
-                                 * You may want to use it in some cases like
-                                 * make simple table or using background image
-                                 * (see `backgroundColor`).
-                                 *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
-                                 *
-                                 * `width` can also be percent string, like
-                                 * `'100%'`, which represents the percent of
-                                 * `contentWidth` (that is, the width without
-                                 * `padding`) of its container box.
-                                 * It is based on `contentWidth` because that
-                                 * each text fregment is layout based on the
-                                 * `content box`, where it makes no sense that
-                                 * calculating width based on `outerWith` in
-                                 * prectice.
-                                 *
-                                 * Notice, `width` and `height` only work when
-                                 * `rich` specified.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.width
-                                 */
-                                width?: number | string | undefined;
+                            /**
+                             * Border width of the text fregment.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.borderWidth
+                             */
+                            borderWidth?: number | undefined;
 
-                                /**
-                                 * Height of the text block.
-                                 * It is the width of the text by default.
-                                 * You may want to use it in some cases like
-                                 * using background image (see `backgroundColor`).
-                                 *
-                                 * Notice, `width` and `height` specifies the
-                                 * width and height of the content, without
-                                 * `padding`.
-                                 *
-                                 * Notice, `width` and `height` only work when
-                                 * `rich` specified.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.height
-                                 */
-                                height?: number | string | undefined;
+                            /**
+                             * Border radius of the text fregment.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.borderRadius
+                             */
+                            borderRadius?: number | undefined;
 
-                                /**
-                                 * Storke color of the text.
-                                 *
-                                 * If set as `'auto'`, the color will assigned
-                                 * as visual color, such as series color.
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
-                                 */
-                                textBorderColor?: string | undefined;
+                            /**
+                             * Padding of the text fregment, for example:
+                             *
+                             * + `padding: [3, 4, 5, 6]`: represents padding of
+                             * `[top, right, bottom, left]`.
+                             * + `padding: 4`: represents `padding: [4, 4, 4, 4]`.
+                             * + `padding: [3, 4]`: represents `padding: [3, 4,
+                             * 3, 4]`.
+                             *
+                             * Notice, `width` and `height` specifies the width
+                             * and height of the content, without `padding`.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.padding
+                             */
+                            padding?: any[] | number | undefined;
 
-                                /**
-                                 * Storke line width of the text.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
-                                 */
-                                textBorderWidth?: number | undefined;
+                            /**
+                             * Shadow color of the text block.
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.shadowColor
+                             */
+                            shadowColor?: string | undefined;
 
-                                /**
-                                 * Shadow color of the text itself.
-                                 *
-                                 * @default
-                                 * "transparent"
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
-                                 */
-                                textShadowColor?: string | undefined;
+                            /**
+                             * Show blur of the text block.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.shadowBlur
+                             */
+                            shadowBlur?: number | undefined;
 
-                                /**
-                                 * Shadow blue of the text itself.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
-                                 */
-                                textShadowBlur?: number | undefined;
+                            /**
+                             * Shadow X offset of the text block.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.shadowOffsetX
+                             */
+                            shadowOffsetX?: number | undefined;
 
-                                /**
-                                 * Shadow X offset of the text itself.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
-                                 */
-                                textShadowOffsetX?: number | undefined;
+                            /**
+                             * Shadow Y offset of the text block.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.shadowOffsetY
+                             */
+                            shadowOffsetY?: number | undefined;
 
+                            /**
+                             * Width of the text block.
+                             * It is the width of the text by default.
+                             * In most cases, there is no need to specify it.
+                             * You may want to use it in some cases like make simple
+                             * table or using background image (see `backgroundColor`).
+                             *
+                             * Notice, `width` and `height` specifies the width
+                             * and height of the content, without `padding`.
+                             *
+                             * `width` can also be percent string, like `'100%'`,
+                             * which represents the percent of `contentWidth` (that
+                             * is, the width without `padding`) of its container
+                             * box.
+                             * It is based on `contentWidth` because that each text
+                             * fregment is layout based on the `content box`, where
+                             * it makes no sense that calculating width based on
+                             * `outerWith` in prectice.
+                             *
+                             * Notice, `width` and `height` only work when `rich`
+                             * specified.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.width
+                             */
+                            width?: number | string | undefined;
+
+                            /**
+                             * Height of the text block.
+                             * It is the width of the text by default.
+                             * You may want to use it in some cases like using background
+                             * image (see `backgroundColor`).
+                             *
+                             * Notice, `width` and `height` specifies the width
+                             * and height of the content, without `padding`.
+                             *
+                             * Notice, `width` and `height` only work when `rich`
+                             * specified.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.height
+                             */
+                            height?: number | string | undefined;
+
+                            /**
+                             * Storke color of the text.
+                             *
+                             * If set as `'auto'`, the color will assigned as visual
+                             * color, such as series color.
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.textBorderColor
+                             */
+                            textBorderColor?: string | undefined;
+
+                            /**
+                             * Storke line width of the text.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.textBorderWidth
+                             */
+                            textBorderWidth?: number | undefined;
+
+                            /**
+                             * Shadow color of the text itself.
+                             *
+                             * @default
+                             * "transparent"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.textShadowColor
+                             */
+                            textShadowColor?: string | undefined;
+
+                            /**
+                             * Shadow blue of the text itself.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.textShadowBlur
+                             */
+                            textShadowBlur?: number | undefined;
+
+                            /**
+                             * Shadow X offset of the text itself.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.textShadowOffsetX
+                             */
+                            textShadowOffsetX?: number | undefined;
+
+                            /**
+                             * Shadow Y offset of the text itself.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.textShadowOffsetY
+                             */
+                            textShadowOffsetY?: number | undefined;
+
+                            /**
+                             * "Rich text styles" can be defined in this `rich`
+                             * property. For example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label)
+                             *
+                             * For more details, see
+                             * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
+                             * please.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich
+                             */
+                            rich?: {
                                 /**
-                                 * Shadow Y offset of the text itself.
-                                 *
-                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E
                                  */
-                                textShadowOffsetY?: number | undefined;
-                            };
+                                [userStyle: string]: {
+                                    /**
+                                     * text color.
+                                     *
+                                     * If set as `'auto'`, the color will assigned
+                                     * as visual color, such as series color.
+                                     *
+                                     * @default
+                                     * ""#fff""
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                                     */
+                                    color?: string | undefined;
+
+                                    /**
+                                     * font style
+                                     *
+                                     * Options are:
+                                     *
+                                     * + `'normal'`
+                                     * + `'italic'`
+                                     * + `'oblique'`
+                                     *
+                                     * @default
+                                     * "normal"
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                     */
+                                    fontStyle?: string | undefined;
+
+                                    /**
+                                     * font thick weight
+                                     *
+                                     * Options are:
+                                     *
+                                     * + `'normal'`
+                                     * + `'bold'`
+                                     * + `'bolder'`
+                                     * + `'lighter'`
+                                     * + 100 | 200 | 300 | 400...
+                                     *
+                                     * @default
+                                     * "normal"
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                     */
+                                    fontWeight?: string | number | undefined;
+
+                                    /**
+                                     * font family
+                                     *
+                                     * Can also be 'serif' , 'monospace', ...
+                                     *
+                                     * @default
+                                     * "sans-serif"
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                     */
+                                    fontFamily?: string | undefined;
+
+                                    /**
+                                     * font size
+                                     *
+                                     * @default
+                                     * 12
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                     */
+                                    fontSize?: number | undefined;
+
+                                    /**
+                                     * Horizontal alignment of text, automatic by
+                                     * default.
+                                     *
+                                     * Options are:
+                                     *
+                                     * + `'left'`
+                                     * + `'center'`
+                                     * + `'right'`
+                                     *
+                                     * If `align` is not set in `rich`, `align`
+                                     * in parent level will be used.
+                                     * For example:
+                                     *
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                                     */
+                                    align?: string | undefined;
+
+                                    /**
+                                     * Vertical alignment of text, automatic by
+                                     * default.
+                                     *
+                                     * Options are:
+                                     *
+                                     * + `'top'`
+                                     * + `'middle'`
+                                     * + `'bottom'`
+                                     *
+                                     * If `verticalAlign` is not set in `rich`,
+                                     * `verticalAlign` in parent level will be used.
+                                     * For example:
+                                     *
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                     */
+                                    verticalAlign?: string | undefined;
+
+                                    /**
+                                     * Line height of the text fregment.
+                                     *
+                                     * If `lineHeight` is not set in `rich`, `lineHeight`
+                                     * in parent level will be used.
+                                     * For example:
+                                     *
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                     */
+                                    lineHeight?: number | undefined;
+
+                                    /**
+                                     * Background color of the text fregment.
+                                     *
+                                     * Can be color string, like `'#123234'`, `'red'`,
+                                     * `rgba(0,23,11,0.3)'`.
+                                     *
+                                     * Or image can be used, for example:
+                                     *
+                                     * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                     *
+                                     * `width` or `height` can be specified when
+                                     * using background image, or auto adapted by
+                                     * default.
+                                     *
+                                     * If set as `'auto'`, the color will assigned
+                                     * as visual color, such as series color.
+                                     *
+                                     * @default
+                                     * "transparent"
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                     */
+                                    backgroundColor?: object | string | undefined;
+
+                                    /**
+                                     * Border color of the text fregment.
+                                     *
+                                     * If set as `'auto'`, the color will assigned
+                                     * as visual color, such as series color.
+                                     *
+                                     * @default
+                                     * "transparent"
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                     */
+                                    borderColor?: string | undefined;
+
+                                    /**
+                                     * Border width of the text fregment.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                     */
+                                    borderWidth?: number | undefined;
+
+                                    /**
+                                     * Border radius of the text fregment.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                     */
+                                    borderRadius?: number | undefined;
+
+                                    /**
+                                     * Padding of the text fregment, for example:
+                                     *
+                                     * + `padding: [3, 4, 5, 6]`: represents padding
+                                     * of `[top, right, bottom, left]`.
+                                     * + `padding: 4`: represents `padding: [4,
+                                     * 4, 4, 4]`.
+                                     * + `padding: [3, 4]`: represents `padding:
+                                     * [3, 4, 3, 4]`.
+                                     *
+                                     * Notice, `width` and `height` specifies the
+                                     * width and height of the content, without
+                                     * `padding`.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                     */
+                                    padding?: any[] | number | undefined;
+
+                                    /**
+                                     * Shadow color of the text block.
+                                     *
+                                     * @default
+                                     * "transparent"
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                     */
+                                    shadowColor?: string | undefined;
+
+                                    /**
+                                     * Show blur of the text block.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                     */
+                                    shadowBlur?: number | undefined;
+
+                                    /**
+                                     * Shadow X offset of the text block.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                     */
+                                    shadowOffsetX?: number | undefined;
+
+                                    /**
+                                     * Shadow Y offset of the text block.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                     */
+                                    shadowOffsetY?: number | undefined;
+
+                                    /**
+                                     * Width of the text block.
+                                     * It is the width of the text by default.
+                                     * In most cases, there is no need to specify
+                                     * it.
+                                     * You may want to use it in some cases like
+                                     * make simple table or using background image
+                                     * (see `backgroundColor`).
+                                     *
+                                     * Notice, `width` and `height` specifies the
+                                     * width and height of the content, without
+                                     * `padding`.
+                                     *
+                                     * `width` can also be percent string, like
+                                     * `'100%'`, which represents the percent of
+                                     * `contentWidth` (that is, the width without
+                                     * `padding`) of its container box.
+                                     * It is based on `contentWidth` because that
+                                     * each text fregment is layout based on the
+                                     * `content box`, where it makes no sense that
+                                     * calculating width based on `outerWith` in
+                                     * prectice.
+                                     *
+                                     * Notice, `width` and `height` only work when
+                                     * `rich` specified.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                                     */
+                                    width?: number | string | undefined;
+
+                                    /**
+                                     * Height of the text block.
+                                     * It is the width of the text by default.
+                                     * You may want to use it in some cases like
+                                     * using background image (see `backgroundColor`).
+                                     *
+                                     * Notice, `width` and `height` specifies the
+                                     * width and height of the content, without
+                                     * `padding`.
+                                     *
+                                     * Notice, `width` and `height` only work when
+                                     * `rich` specified.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                                     */
+                                    height?: number | string | undefined;
+
+                                    /**
+                                     * Storke color of the text.
+                                     *
+                                     * If set as `'auto'`, the color will assigned
+                                     * as visual color, such as series color.
+                                     *
+                                     * @default
+                                     * "transparent"
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                     */
+                                    textBorderColor?: string | undefined;
+
+                                    /**
+                                     * Storke line width of the text.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                     */
+                                    textBorderWidth?: number | undefined;
+
+                                    /**
+                                     * Shadow color of the text itself.
+                                     *
+                                     * @default
+                                     * "transparent"
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                     */
+                                    textShadowColor?: string | undefined;
+
+                                    /**
+                                     * Shadow blue of the text itself.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                     */
+                                    textShadowBlur?: number | undefined;
+
+                                    /**
+                                     * Shadow X offset of the text itself.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                     */
+                                    textShadowOffsetX?: number | undefined;
+
+                                    /**
+                                     * Shadow Y offset of the text itself.
+                                     *
+                                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                     */
+                                    textShadowOffsetY?: number | undefined;
+                                };
+                            } | undefined;
+                        } | undefined;
+
+                        /**
+                         * Style of Sunburst sectors.
+                         *
+                         * Style can be set in
+                         * [series.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.itemStyle)
+                         * for sectors of this series, or
+                         * [series.levels.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle)
+                         * for the whole level, or
+                         * [series.data.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle)
+                         * for single sector. If
+                         * [series.data.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle)
+                         * is defined, it will cover the setting of
+                         * [series.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.itemStyle)
+                         * and
+                         * [series.levels.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle)
+                         * .
+                         *
+                         * **Priority:
+                         * [series.data.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle)
+                         * >
+                         * [series.levels.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle)
+                         * >
+                         * [series.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.itemStyle)
+                         * .**
+                         *
+                         * In ECharts, _emphasis_ is for styles when mouse hovers.
+                         * For Sunburst charts, there are two extra states: _highlight_
+                         * for highlighting items that relates to the emphasized
+                         * one, and _downplay_ for others when emphasizing an item.
+                         * See
+                         * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
+                         * .
+                         *
+                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.itemStyle
+                         */
+                        itemStyle?: {
+                            /**
+                             * color. Color is taken from
+                             * [option.color Palette](https://echarts.apache.org/en/option.html#color)
+                             * by default.
+                             *
+                             * > Color can be represented in RGB, for example `'rgb(128,
+                             * 128, 128)'`.
+                             * RGBA can be used when you need alpha channel, for
+                             * example `'rgba(128, 128, 128, 0.5)'`.
+                             * You may also use hexadecimal format, for example
+                             * `'#ccc'`.
+                             * Gradient color and texture are also supported besides
+                             * single colors.
+                             * >
+                             * > [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.itemStyle)
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.itemStyle.color
+                             */
+                            color?: EChartOption.Color | undefined;
+
+                            /**
+                             * border color, whose format is similar to that of
+                             * `color`.
+                             *
+                             * @default
+                             * "white"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.itemStyle.borderColor
+                             */
+                            borderColor?: EChartOption.Color | undefined;
+
+                            /**
+                             * border width. No border when it is set to be 0.
+                             *
+                             * @default
+                             * 1
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.itemStyle.borderWidth
+                             */
+                            borderWidth?: number | undefined;
+
+                            /**
+                             * Border type, which can be `'solid'`, `'dashed'`,
+                             * or `'dotted'`. `'solid'` by default.
+                             *
+                             * @default
+                             * "solid"
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.itemStyle.borderType
+                             */
+                            borderType?: string | undefined;
+
+                            /**
+                             * Size of shadow blur.
+                             * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
+                             * `shadowOffsetY` to set shadow to component.
+                             *
+                             * For example:
+                             *
+                             * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.itemStyle)
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.itemStyle.shadowBlur
+                             */
+                            shadowBlur?: number | undefined;
+
+                            /**
+                             * Shadow color. Support same format as `color`.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.itemStyle.shadowColor
+                             */
+                            shadowColor?: EChartOption.Color | undefined;
+
+                            /**
+                             * Offset distance on the horizontal direction of shadow.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.itemStyle.shadowOffsetX
+                             */
+                            shadowOffsetX?: number | undefined;
+
+                            /**
+                             * Offset distance on the vertical direction of shadow.
+                             *
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.itemStyle.shadowOffsetY
+                             */
+                            shadowOffsetY?: number | undefined;
+
+                            /**
+                             * Opacity of the component.
+                             * Supports value from 0 to 1, and the component will
+                             * not be drawn when set to 0.
+                             *
+                             * @default
+                             * 1
+                             * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.itemStyle.opacity
+                             */
+                            opacity?: number | undefined;
                         } | undefined;
                     } | undefined;
-
-                    /**
-                     * Style of Sunburst sectors.
-                     *
-                     * Style can be set in
-                     * [series.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.itemStyle)
-                     * for sectors of this series, or
-                     * [series.levels.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle)
-                     * for the whole level, or
-                     * [series.data.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle)
-                     * for single sector. If
-                     * [series.data.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle)
-                     * is defined, it will cover the setting of
-                     * [series.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.itemStyle)
-                     * and
-                     * [series.levels.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle)
-                     * .
-                     *
-                     * **Priority:
-                     * [series.data.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle)
-                     * >
-                     * [series.levels.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle)
-                     * >
-                     * [series.itemStyle](https://echarts.apache.org/en/option.html#series-sunburst.itemStyle)
-                     * .**
-                     *
-                     * In ECharts, _emphasis_ is for styles when mouse hovers.
-                     * For Sunburst charts, there are two extra states: _highlight_
-                     * for highlighting items that relates to the emphasized
-                     * one, and _downplay_ for others when emphasizing an item.
-                     * See
-                     * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
-                     * .
-                     *
-                     * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.itemStyle
-                     */
-                    itemStyle?: {
-                        /**
-                         * color. Color is taken from
-                         * [option.color Palette](https://echarts.apache.org/en/option.html#color)
-                         * by default.
-                         *
-                         * > Color can be represented in RGB, for example `'rgb(128,
-                         * 128, 128)'`.
-                         * RGBA can be used when you need alpha channel, for
-                         * example `'rgba(128, 128, 128, 0.5)'`.
-                         * You may also use hexadecimal format, for example
-                         * `'#ccc'`.
-                         * Gradient color and texture are also supported besides
-                         * single colors.
-                         * >
-                         * > [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.itemStyle)
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.itemStyle.color
-                         */
-                        color?: EChartOption.Color | undefined;
-
-                        /**
-                         * border color, whose format is similar to that of
-                         * `color`.
-                         *
-                         * @default
-                         * "white"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.itemStyle.borderColor
-                         */
-                        borderColor?: EChartOption.Color | undefined;
-
-                        /**
-                         * border width. No border when it is set to be 0.
-                         *
-                         * @default
-                         * 1
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.itemStyle.borderWidth
-                         */
-                        borderWidth?: number | undefined;
-
-                        /**
-                         * Border type, which can be `'solid'`, `'dashed'`,
-                         * or `'dotted'`. `'solid'` by default.
-                         *
-                         * @default
-                         * "solid"
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.itemStyle.borderType
-                         */
-                        borderType?: string | undefined;
-
-                        /**
-                         * Size of shadow blur.
-                         * This attribute should be used along with `shadowColor`,`shadowOffsetX`,
-                         * `shadowOffsetY` to set shadow to component.
-                         *
-                         * For example:
-                         *
-                         * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.itemStyle)
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.itemStyle.shadowBlur
-                         */
-                        shadowBlur?: number | undefined;
-
-                        /**
-                         * Shadow color. Support same format as `color`.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.itemStyle.shadowColor
-                         */
-                        shadowColor?: EChartOption.Color | undefined;
-
-                        /**
-                         * Offset distance on the horizontal direction of shadow.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.itemStyle.shadowOffsetX
-                         */
-                        shadowOffsetX?: number | undefined;
-
-                        /**
-                         * Offset distance on the vertical direction of shadow.
-                         *
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.itemStyle.shadowOffsetY
-                         */
-                        shadowOffsetY?: number | undefined;
-
-                        /**
-                         * Opacity of the component.
-                         * Supports value from 0 to 1, and the component will
-                         * not be drawn when set to 0.
-                         *
-                         * @default
-                         * 1
-                         * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.itemStyle.opacity
-                         */
-                        opacity?: number | undefined;
-                    } | undefined;
-                } | undefined;
-            }[] | undefined;
+                }>
+                | undefined;
 
             /**
              * Whether to enable animation.

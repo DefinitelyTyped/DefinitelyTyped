@@ -6,7 +6,7 @@ declare class DataSourceFilter {
     private propertiesToAssign_;
     group: string;
     size: number;
-    rangeLimit: typeof Limit;
+    rangeLimit: LimitType;
     value: any;
     private normalizeValue_;
     newFiltersToRange(): DataSourceFilter[];
@@ -67,24 +67,24 @@ declare class DataSourceFilter {
     stringIfTrue: string;
 }
 declare namespace DataSourceFilter {
-    export { DATE_KEYWORDS, Event, Field, removeRangeSuffix, shouldCreateAuxiliaryRangeFilters };
+    export { DATE_KEYWORDS, Event, Field, LimitType, removeRangeSuffix, shouldCreateAuxiliaryRangeFilters };
 }
 type Event = import("@nginstack/engine/lib/event/Event");
-import Limit = require("@nginstack/engine/lib/range/Limit.js");
-type Field = import("@nginstack/engine/lib/classdef/Field");
+type LimitType = 1 | 2;
 declare namespace DATE_KEYWORDS {
-    const IM: boolean;
-    const FM: boolean;
-    const IB: boolean;
-    const FB: boolean;
-    const IT: boolean;
-    const FT: boolean;
-    const IQ: boolean;
-    const FQ: boolean;
-    const IS: boolean;
-    const FS: boolean;
-    const IA: boolean;
-    const FA: boolean;
+    let IM: boolean;
+    let FM: boolean;
+    let IB: boolean;
+    let FB: boolean;
+    let IT: boolean;
+    let FT: boolean;
+    let IQ: boolean;
+    let FQ: boolean;
+    let IS: boolean;
+    let FS: boolean;
+    let IA: boolean;
+    let FA: boolean;
 }
 declare function removeRangeSuffix(name: string): string;
 declare function shouldCreateAuxiliaryRangeFilters(filter: DataSourceFilter | Field): boolean;
+type Field = import("@nginstack/engine/lib/classdef/Field");

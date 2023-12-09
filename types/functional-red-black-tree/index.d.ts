@@ -102,6 +102,7 @@ declare namespace createRBTree {
          * @param key The key of the item to look up.
          * @returns The value of the first node associated with `key`.
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         get: (key: K) => V | void;
     }
 

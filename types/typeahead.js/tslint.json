@@ -4,10 +4,8 @@
         "array-type": false,
         "arrow-return-shorthand": false,
         "jsdoc-format": false,
-        "member-access": false,
         "no-redundant-jsdoc-2": false,
         "no-var-keyword": false,
-        "npm-naming": false,
         "prefer-const": false,
         "unified-signatures": false
     }

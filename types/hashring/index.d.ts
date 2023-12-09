@@ -49,7 +49,7 @@ declare namespace HashRing {
     }
     type Servers =
         | string
-        | ReadonlyArray<string>
+        | readonly string[]
         | Record<string, Partial<ServerConfig>>;
 }
 

@@ -60,7 +60,7 @@ const entry: Module.SourceMapping = smap.findEntry(1, 1);
 {
     const resolve: Module.ResolveHook = async (specifier, context, nextResolve) => {
         const { parentURL = null } = context;
-        console.log(context.importAssertions.type);
+        console.log(context.importAttributes.type);
 
         if (Math.random() > 0.5) {
             return {
@@ -106,5 +106,36 @@ const entry: Module.SourceMapping = smap.findEntry(1, 1);
             const require = createRequire(cwd() + '/<preload>');
             // [...]
         `;
+    };
+}
+
+// Initialize hook
+{
+    const specifier = "./myLoader.js";
+    const parentURL = "some-url"; // import.meta.url
+    Module.register(specifier);
+    Module.register(specifier, { parentURL });
+    Module.register(specifier, { parentURL: new URL("data:") });
+    Module.register(specifier, parentURL);
+    Module.register(specifier, new URL("data:"));
+
+    const someArrayBuffer = new ArrayBuffer(100);
+    Module.register(specifier, {
+        parentURL,
+        data: someArrayBuffer,
+        transferList: [someArrayBuffer],
+    });
+
+    interface TransferableData {
+        number: number;
+    }
+    Module.register<TransferableData>(specifier, {
+        parentURL,
+        data: { number: 1 },
+    });
+
+    type MyInitializeHook = Module.InitializeHook<TransferableData>;
+    const initializeHook: MyInitializeHook = async ({ number }) => {
+        number; // $ExpectType number
     };
 }

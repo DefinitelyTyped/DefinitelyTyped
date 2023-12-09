@@ -26,6 +26,7 @@ export function assertCompatible(
     ModelA: typeof Model,
     ModelB: typeof Model,
     message?: string,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ): void | Error;
 
 export const plugin: Plugin<RegistrationOptions>;

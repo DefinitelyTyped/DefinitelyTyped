@@ -3,7 +3,7 @@
     "name": "@types/debug",
     "version": "4.1.9999",
     "projects": [
-        "https://github.com/visionmedia/debug"
+        "https://github.com/debug-js/debug"
     ],
     "dependencies": {
         "@types/ms": "*"

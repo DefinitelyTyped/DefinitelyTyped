@@ -7,5 +7,39 @@ declare class PermissionClauseGenerator {
     private classDefManager_;
     private insertClassPermission_;
     addClassPermission(classKey: any, userKey: any): void;
-    generate(classFieldName: any): any;
+    generate(classFieldName: any):
+        | string
+        | Array<
+            | string
+            | {
+                field: any;
+                operator: string;
+                value: any;
+                disableGetChildren: boolean;
+            }
+        >
+        | {
+            field: any;
+            operator: string;
+            value: any[];
+            disableGetChildren: boolean;
+        }
+        | Array<
+            | string
+            | Array<
+                | string
+                | {
+                    field: any;
+                    operator: string;
+                    value: any;
+                    disableGetChildren: boolean;
+                }
+            >
+            | {
+                field: any;
+                operator: string;
+                value: any[];
+                disableGetChildren: boolean;
+            }
+        >;
 }

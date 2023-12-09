@@ -6,7 +6,7 @@ export const Fragment: JSX.IntrinsicElements["stack"];
 
 declare global {
     namespace JSX {
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface Element {}
 
         type Child = Element | Element[];

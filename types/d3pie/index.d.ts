@@ -54,11 +54,11 @@ declare namespace d3pie {
                 label?: string | undefined;
                 color?: string | undefined;
             } | undefined;
-            content: {
+            content: Array<{
                 label: string;
                 value: number;
                 color?: string | undefined;
-            }[];
+            }>;
         };
         labels?: {
             outer?: { pieDistance?: number | undefined } & ID3PieLabelsOptions | undefined;

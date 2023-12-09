@@ -190,7 +190,7 @@ export interface ReferenceOptions {
     functions?: boolean | undefined;
 }
 
-// tslint:disable-next-line:interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IPOptions {
     version?: string[] | undefined;
     cidr?: string | undefined;
@@ -870,7 +870,7 @@ export interface ObjectSchema extends AnySchema {
      * @param constructor - the constructor function that the object must be an instance of.
      * @param name - an alternate name to use in validation errors. This is useful when the constructor function does not have a name.
      */
-    // tslint:disable-next-line:ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     type(constructor: Function, name?: string): this;
 
     /**
@@ -1015,7 +1015,7 @@ export interface AlternativesSchema extends AnySchema {
     when(ref: Schema, options: WhenSchemaOptions): this;
 }
 
-// tslint:disable-next-line no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface LazySchema extends AnySchema {
 }
 
@@ -1042,6 +1042,7 @@ export type ExtensionBoundSchema = Schema & {
 export interface Rules<P extends object = any> {
     name: string;
     params?: ObjectSchema | { [key in keyof P]: SchemaLike } | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     setup?(this: ExtensionBoundSchema, params: P): Schema | void;
     validate?(this: ExtensionBoundSchema, params: P, value: any, state: State, options: ValidationOptions): any;
     description?: string | ((params: P) => string) | undefined;

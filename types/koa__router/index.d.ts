@@ -135,7 +135,7 @@ declare namespace Router {
         paramNames: ParamName[];
         stack: Middleware[];
         regexp: RegExp;
-        path: string;
+        path: string | RegExp;
 
         constructor(
             path: string | RegExp,

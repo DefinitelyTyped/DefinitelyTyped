@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "array-type": false,
-        "interface-name": false,
         "no-duplicate-variable": false,
         "no-var-keyword": false,
         "prefer-const": false,

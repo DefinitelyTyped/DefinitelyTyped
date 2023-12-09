@@ -62,6 +62,8 @@ var encrypted;
 var decrypted;
 encrypted = CryptoJS.AES.encrypt("Message", "Secret Passphrase");
 decrypted = CryptoJS.AES.decrypt(encrypted, "Secret Passphrase");
+encrypted = CryptoJS.Blowfish.encrypt("Message", "Secret Passphrase");
+decrypted = CryptoJS.Blowfish.decrypt(encrypted, "Secret Passphrase");
 encrypted = CryptoJS.DES.encrypt("Message", "Secret Passphrase");
 decrypted = CryptoJS.DES.decrypt(encrypted, "Secret Passphrase");
 encrypted = CryptoJS.TripleDES.encrypt("Message", "Secret Passphrase");

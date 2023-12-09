@@ -4,7 +4,6 @@
         "array-type": false,
         "jsdoc-format": false,
         "no-redundant-jsdoc-2": false,
-        "no-reference-import": false,
         "no-var-keyword": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false,

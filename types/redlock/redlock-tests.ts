@@ -60,9 +60,11 @@ redlock.acquire("resource", 30, (err: any, lock: Lock) => {});
 redlock.lock("resource", 30).then((lock: Lock) => {});
 redlock.lock("resource", 30, (err: any, lock: Lock) => {});
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 using<Lock, void>(redlock.disposer("locks:account:322456", 1000, err => console.error(err)), (lock) => {
     return Promise.resolve();
 });
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 using<Lock, void>(redlock.disposer("locks:account:322456", 1000, err => console.error(err)), (lock) => {
     return lock.extend(1000).then((extended: Lock) => {});
 });

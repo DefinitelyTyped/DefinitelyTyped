@@ -10,48 +10,12 @@
     },
     "owners": [
         {
-            "name": "Hyeonseok Yang",
-            "githubUsername": "FourwingsY"
-        },
-        {
-            "name": "Jonathan Siebern",
-            "githubUsername": "jsiebern"
-        },
-        {
-            "name": "Matt R. Wilson",
-            "githubUsername": "mastermatt"
-        },
-        {
-            "name": "Pietro Vismara",
-            "githubUsername": "pietrovismara"
-        },
-        {
-            "name": "Janeene Beeforth",
-            "githubUsername": "dawnmist"
-        },
-        {
-            "name": "Jason Yu",
-            "githubUsername": "ycmjason"
-        },
-        {
-            "name": "Aitor Pérez Rodal",
-            "githubUsername": "Aitor1995"
-        },
-        {
-            "name": "Piotr Błażejewicz",
-            "githubUsername": "peterblazejewicz"
-        },
-        {
             "name": "Carson Full",
             "githubUsername": "carsonf"
         },
         {
-            "name": "Hugo Silva",
-            "githubUsername": "hugofpsilva"
-        },
-        {
-            "name": "Martin Badin",
-            "githubUsername": "martin-badin"
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
         }
     ]
 }

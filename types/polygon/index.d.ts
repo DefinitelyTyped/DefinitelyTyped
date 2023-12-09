@@ -29,7 +29,7 @@ declare class Polygon {
      */
     readonly length: number;
 
-    constructor(points: Vec2[] | number[][] | { x: number; y: number }[]);
+    constructor(points: Vec2[] | number[][] | Array<{ x: number; y: number }>);
 
     /**
      * Something like Array.forEach on points

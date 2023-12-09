@@ -1239,6 +1239,7 @@ declare namespace naver.maps {
         getCursor(): string;
         getDraggable(): boolean;
         getDrawingRect(): Bounds;
+        getElement(): HTMLElement;
         getIcon(): ImageIcon | SymbolIcon | HtmlIcon;
         getOptions(key?: string): any; // if key is undefined, return MarkerOptions
         getPosition(): Coord;
@@ -1252,6 +1253,7 @@ declare namespace naver.maps {
         setDraggable(draggable: boolean): void;
         setIcon(icon: string | ImageIcon | SymbolIcon | HtmlIcon): void;
         setOptions(options: MarkerOptions): void;
+        setOptions(key: string, value: unknown): void;
         setPosition(position: Coord | CoordLiteral): void;
         setShape(shape: MarkerShape): void;
         setTitle(title: string): void;
@@ -1536,7 +1538,7 @@ declare namespace naver.maps {
 
         interface DrawingOptions {
             map?: Map;
-            drawingControl?: DrawingMode[];
+            drawingControl?: DrawingMode[] | null;
             drawingControlOptions?: DrawingControlOptions;
             drawingMode?: DrawingMode;
             controlPointOptions?: ControlPointOptions;

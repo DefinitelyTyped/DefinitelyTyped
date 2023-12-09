@@ -285,7 +285,7 @@ testApp.controller("ModalTestCtrl", (
     $scope: IModalTestCtrlScope,
     $log: ng.ILogService,
     $modalInstance: ng.ui.bootstrap.IModalServiceInstance,
-    items: Array<number>,
+    items: number[],
 ) => {
     items.forEach(item => {
         $log.log(item);

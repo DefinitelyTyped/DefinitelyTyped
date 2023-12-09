@@ -1,8 +1,6 @@
-import { Material } from './../materials/Material.js';
-import { Raycaster } from './../core/Raycaster.js';
-import { Object3D } from './../core/Object3D.js';
+import { Material } from '../materials/Material.js';
+import { Object3D } from '../core/Object3D.js';
 import { BufferGeometry } from '../core/BufferGeometry.js';
-import { Intersection } from '../core/Raycaster.js';
 
 /**
  * A continuous line.

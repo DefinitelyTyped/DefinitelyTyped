@@ -107,6 +107,12 @@ declare module "wasi" {
          * @default 2
          */
         stderr?: number | undefined;
+        /**
+         * The version of WASI requested.
+         * Currently the only supported versions are `'unstable'` and `'preview1'`.
+         * @since v20.0.0
+         */
+        version: string;
     }
     /**
      * The `WASI` class provides the WASI system call API and additional convenience
@@ -127,7 +133,7 @@ declare module "wasi" {
          * If `start()` is called more than once, an exception is thrown.
          * @since v13.3.0, v12.16.0
          */
-        start(instance: object): void; // TODO: avoid DOM dependency until WASM moved to own lib.
+        start(instance: object): number; // TODO: avoid DOM dependency until WASM moved to own lib.
         /**
          * Attempt to initialize `instance` as a WASI reactor by invoking its`_initialize()` export, if it is present. If `instance` contains a `_start()`export, then an exception is thrown.
          *

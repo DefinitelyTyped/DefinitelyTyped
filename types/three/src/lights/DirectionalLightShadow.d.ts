@@ -1,4 +1,4 @@
-import { OrthographicCamera } from './../cameras/OrthographicCamera.js';
+import { OrthographicCamera } from '../cameras/OrthographicCamera.js';
 import { LightShadow } from './LightShadow.js';
 
 /**

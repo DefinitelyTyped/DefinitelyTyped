@@ -30,7 +30,7 @@ export interface Options {
      * file will take precedence over the ones defined in any shareable
      * configuration.
      */
-    extends?: ReadonlyArray<string> | string | undefined;
+    extends?: readonly string[] | string | undefined;
 
     /**
      * The branches on which releases should happen. By default
@@ -64,7 +64,7 @@ export interface Options {
      * See [Workflow configuration](https://semantic-release.gitbook.io/semantic-release/usage/workflow-configuration#workflow-configuration)
      * for more details.
      */
-    branches?: ReadonlyArray<BranchSpec> | BranchSpec | undefined;
+    branches?: readonly BranchSpec[] | BranchSpec | undefined;
 
     /**
      * The git repository URL.
@@ -105,7 +105,7 @@ export interface Options {
      *     "@semantic-release/github"
      * ]`
      */
-    plugins?: ReadonlyArray<PluginSpec> | undefined;
+    plugins?: readonly PluginSpec[] | undefined;
 
     /**
      * Dry-run mode, skip publishing, print next version and release notes.
@@ -161,7 +161,7 @@ export interface GlobalConfig extends Options {
      * See [Workflow configuration](https://semantic-release.gitbook.io/semantic-release/usage/workflow-configuration#workflow-configuration)
      * for more details.
      */
-    branches: ReadonlyArray<BranchSpec> | BranchSpec;
+    branches: readonly BranchSpec[] | BranchSpec;
 
     /**
      * The git repository URL.
@@ -202,7 +202,7 @@ export interface GlobalConfig extends Options {
      *     "@semantic-release/github"
      * ]`
      */
-    plugins: ReadonlyArray<PluginSpec>;
+    plugins: readonly PluginSpec[];
 }
 
 export interface BranchObject {

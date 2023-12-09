@@ -54,7 +54,7 @@ interface Array<T> extends Enumerable<T> {
 }
 // Ember.Array rather than Array because the `array-type` lint rule doesn't realize the global is shadowed
 // tslint:disable-next-line:array-type
-declare const Array: Mixin<Array<unknown>>;
+declare const Array: Mixin<unknown[]>;
 export default Array;
 
 /**

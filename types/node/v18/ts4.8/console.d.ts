@@ -250,7 +250,7 @@ declare module "node:console" {
              * @since v10.0.0
              * @param properties Alternate properties for constructing the table.
              */
-            table(tabularData: any, properties?: ReadonlyArray<string>): void;
+            table(tabularData: any, properties?: readonly string[]): void;
             /**
              * Starts a timer that can be used to compute the duration of an operation. Timers
              * are identified by a unique `label`. Use the same `label` when calling {@link timeEnd} to stop the timer and output the elapsed time in

@@ -3,8 +3,6 @@
     "rules": {
         "array-type": false,
         "jsdoc-format": false,
-        "member-access": false,
-        "no-duplicate-imports": false,
         "no-var-keyword": false,
         "object-literal-shorthand": false,
         "one-variable-per-declaration": false,

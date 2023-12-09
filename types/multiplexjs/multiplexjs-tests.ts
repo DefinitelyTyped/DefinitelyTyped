@@ -952,7 +952,7 @@ namespace MxTests {
             return mx.range(0, 10).select(t => ({})).toArray();
         }
 
-        function CreateComplexObjectLiteralArray(): { name: string; inner: { index: number; val: Object } }[] {
+        function CreateComplexObjectLiteralArray(): Array<{ name: string; inner: { index: number; val: Object } }> {
             return mx.range(0, 10).select(t => ({
                 name: "n" + t,
                 inner: {

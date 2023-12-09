@@ -1,5 +1,5 @@
-import { Color } from '../math/Color.js';
-import { LineSegments } from './../objects/LineSegments.js';
+import { ColorRepresentation } from '../math/Color.js';
+import { LineSegments } from '../objects/LineSegments.js';
 
 /**
  * An axis object to visualize the 3 axes in a simple way.
@@ -39,7 +39,7 @@ export class AxesHelper extends LineSegments {
      * @param yAxisColor
      * @param zAxisColor
      */
-    setColors(xAxisColor: Color, yAxisColor: Color, zAxisColor: Color): this;
+    setColors(xAxisColor: ColorRepresentation, yAxisColor: ColorRepresentation, zAxisColor: ColorRepresentation): this;
 
     /**
      * Frees the GPU-related resources allocated by this instance

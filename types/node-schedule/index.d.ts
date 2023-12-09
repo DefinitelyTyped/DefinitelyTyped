@@ -3,6 +3,7 @@
 import { EventEmitter } from "events";
 
 /** The callback executed by a Job */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export type JobCallback = (fireDate: Date) => void | Promise<any>;
 
 /** Scheduler jobs. */
@@ -118,6 +119,7 @@ export class RecurrenceRule {
     );
 
     nextInvocationDate(base: Date): Date;
+    isValid(): boolean;
 }
 
 /**

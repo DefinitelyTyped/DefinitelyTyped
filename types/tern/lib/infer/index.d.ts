@@ -127,7 +127,7 @@ interface TypeConstructor {
 export const Type: TypeConstructor;
 export type Type = Obj | Prim;
 
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IType extends ANull {
     /** The origin file of the type. */
     origin: string;

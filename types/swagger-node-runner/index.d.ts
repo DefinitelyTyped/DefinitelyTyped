@@ -235,7 +235,7 @@ export interface ConnectMiddleware extends Middleware {
  *
  * _Alias for `ConnectMiddleware`_
  */
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ExpressMiddleware extends ConnectMiddleware {}
 
 /** Sails specific Middleware */

@@ -1,1 +1,1 @@
-export const DEVELOPMENT: number;
+export let DEVELOPMENT: number;

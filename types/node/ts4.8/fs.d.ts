@@ -2861,6 +2861,7 @@ declare module "fs" {
             & {
                 mode?: Mode | undefined;
                 flag?: string | undefined;
+                flush?: boolean | undefined;
             }
         )
         | BufferEncoding
@@ -3813,6 +3814,7 @@ declare module "fs" {
     }
     interface WriteStreamOptions extends StreamOptions {
         fs?: CreateWriteStreamFSImplementation | null | undefined;
+        flush?: boolean | undefined;
     }
     /**
      * Unlike the 16 KiB default `highWaterMark` for a `stream.Readable`, the stream
@@ -4029,12 +4031,12 @@ declare module "fs" {
      */
     export function writev(
         fd: number,
-        buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
+        buffers: readonly NodeJS.ArrayBufferView[],
         cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void,
     ): void;
     export function writev(
         fd: number,
-        buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
+        buffers: readonly NodeJS.ArrayBufferView[],
         position: number,
         cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void,
     ): void;
@@ -4045,7 +4047,7 @@ declare module "fs" {
     export namespace writev {
         function __promisify__(
             fd: number,
-            buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
+            buffers: readonly NodeJS.ArrayBufferView[],
             position?: number,
         ): Promise<WriteVResult>;
     }
@@ -4056,7 +4058,7 @@ declare module "fs" {
      * @param [position='null']
      * @return The number of bytes written.
      */
-    export function writevSync(fd: number, buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): number;
+    export function writevSync(fd: number, buffers: readonly NodeJS.ArrayBufferView[], position?: number): number;
     /**
      * Read from a file specified by `fd` and write to an array of `ArrayBufferView`s
      * using `readv()`.
@@ -4074,12 +4076,12 @@ declare module "fs" {
      */
     export function readv(
         fd: number,
-        buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
+        buffers: readonly NodeJS.ArrayBufferView[],
         cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => void,
     ): void;
     export function readv(
         fd: number,
-        buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
+        buffers: readonly NodeJS.ArrayBufferView[],
         position: number,
         cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => void,
     ): void;
@@ -4090,7 +4092,7 @@ declare module "fs" {
     export namespace readv {
         function __promisify__(
             fd: number,
-            buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
+            buffers: readonly NodeJS.ArrayBufferView[],
             position?: number,
         ): Promise<ReadVResult>;
     }
@@ -4101,7 +4103,7 @@ declare module "fs" {
      * @param [position='null']
      * @return The number of bytes read.
      */
-    export function readvSync(fd: number, buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): number;
+    export function readvSync(fd: number, buffers: readonly NodeJS.ArrayBufferView[], position?: number): number;
 
     export interface OpenAsBlobOptions {
         /**

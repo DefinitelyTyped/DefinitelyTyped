@@ -1,5 +1,5 @@
 export type exports = number;
-declare const DISABLED: number;
-declare const ONLY_FILTER_VALUES: number;
-declare const FULL: number;
+declare let DISABLED: number;
+declare let ONLY_FILTER_VALUES: number;
+declare let FULL: number;
 export {};

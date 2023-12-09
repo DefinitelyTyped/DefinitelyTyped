@@ -15,7 +15,7 @@ jobs:
           # Need this to be able to inquire about origin/master
           filter: blob:none # https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/
           fetch-depth: 0 # Default is 1; need to set to 0 to get the benefits of blob:none.
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: '16'
 
@@ -28,39 +28,23 @@ jobs:
           fi
 
       - uses: pnpm/action-setup@v2
-        name: Install pnpm
-        id: pnpm-install
+
+      - name: Get pnpm cache info
+        id: pnpm-cache
+        run: |
+          echo "store=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Restore pnpm cache
+        uses: actions/cache/restore@v3
         with:
-          version: latest
-          run_install: false
+          path: ${{ steps.pnpm-cache.outputs.store }}
+          key: ${{ runner.os }}-pnpm-store-cache-
+          restore-keys: ${{ runner.os }}-pnpm-store-cache-
 
-      # TODO(jakebailey): this won't work in PRs; we may need to once nightly
-      # refresh a new cache based on master, and then consume it here read-only in PRs.
-      # - name: Get pnpm cache info
-      #   id: pnpm-cache
-      #   shell: bash
-      #   run: |
-      #     echo "store=$(pnpm store path)" >> $GITHUB_OUTPUT
-      #     echo "date=$(/bin/date -u "+%Y-%m-%d")" >> $GITHUB_OUTPUT
-
-      # - uses: actions/cache@v3
-      #   name: Setup pnpm cache
-      #   with:
-      #     path: ${{ steps.pnpm-cache.outputs.store }}
-      #     key: ${{ runner.os }}-pnpm-store-cache-${{ steps.pnpm-cache.outputs.date }}
-
-      - run: |
-          # If we're deleting packages, pnpm won't know what other unrelated packages
-          # need to be reinstalled that may now be sourced from npm instead of the
-          # local repo. Just pay the cost of the full install.
-          # TODO: enable this; see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/67087#issuecomment-1767228131
-          # if git diff --diff-filter=DR --name-only origin/master | grep -q 'package.json'; then
-          #   pnpm install
-          # else
-          #   pnpm install --filter . --filter '...[origin/master]'
-          # fi
-          pnpm install
+      - run: ./scripts/pnpm-install.sh
         name: pnpm install
+
+      - run: pnpm ls
 
       # Run tests
       - run: pnpm run test-all
@@ -77,3 +61,20 @@ jobs:
           TOKEN='ghp_i5wtj1l2AbpFv3OU96w6R'
           TOKEN+='On3bHOkcV2AmVY6'
           DANGER_GITHUB_API_TOKEN=$TOKEN pnpm danger ci || $( exit 0 )
+
+  scripts:
+    runs-on: ubuntu-latest
+    if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '16'
+
+      - uses: pnpm/action-setup@v2
+        with:
+          run_install: |
+            - args: [--filter, ., --filter, '{./scripts}...']
+
+      - run: pnpm tsc -p ./scripts

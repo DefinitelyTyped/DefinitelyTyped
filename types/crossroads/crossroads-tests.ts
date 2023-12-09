@@ -175,7 +175,7 @@ route1.rules = {
      *  also a property `request_`.
      * @return {array} Array containing parameters.
      */
-    normalize_: function(request: any, vals: any): Array<any> {
+    normalize_: function(request: any, vals: any): any[] {
         // ignore "date" since it isn't important for the application
         return [vals.section, vals.id];
     },

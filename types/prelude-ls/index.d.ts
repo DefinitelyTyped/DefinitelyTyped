@@ -111,8 +111,8 @@ declare namespace PreludeLS {
     export function span<A>(p: (x: A) => boolean, xs: A[]): [A[], A[]];
     export function breakList<A>(p: (x: A) => boolean): (xs: A[]) => [A[], A[]];
     export function breakList<A>(p: (x: A) => boolean, xs: A[]): [A[], A[]];
-    export function zip<A, B>(xs: A[]): (ys: B[]) => [A, B][];
-    export function zip<A, B>(xs: A[], ys: B[]): [A, B][];
+    export function zip<A, B>(xs: A[]): (ys: B[]) => Array<[A, B]>;
+    export function zip<A, B>(xs: A[], ys: B[]): Array<[A, B]>;
     export function zipWith<A, B, C>(f: (x: A) => (y: B) => C): (xs: A[]) => (ys: B[]) => C[];
     export function zipWith<A, B, C>(f: (x: A) => (y: B) => C, xs: A[]): (ys: B[]) => C[];
     export function zipWith<A, B, C>(f: (x: A) => (y: B) => C, xs: A[], ys: B[]): C[];
@@ -135,10 +135,10 @@ declare namespace PreludeLS {
     export function keys<A>(object: { [key: number]: A }): number[];
     export function values<A>(object: { [key: string]: A }): A[];
     export function values<A>(object: { [key: number]: A }): A[];
-    export function pairsToObj<A>(object: [string, A][]): { [key: string]: A };
-    export function pairsToObj<A>(object: [number, A][]): { [key: number]: A };
-    export function objToPairs<A>(object: { [key: string]: A }): [string, A][];
-    export function objToPairs<A>(object: { [key: number]: A }): [number, A][];
+    export function pairsToObj<A>(object: Array<[string, A]>): { [key: string]: A };
+    export function pairsToObj<A>(object: Array<[number, A]>): { [key: number]: A };
+    export function objToPairs<A>(object: { [key: string]: A }): Array<[string, A]>;
+    export function objToPairs<A>(object: { [key: number]: A }): Array<[number, A]>;
     export function listsToObj<A>(keys: string[]): (values: A[]) => { [key: string]: A };
     export function listsToObj<A>(keys: string[], values: A[]): { [key: string]: A };
     export function listsToObj<A>(keys: number[]): (values: A[]) => { [key: number]: A };

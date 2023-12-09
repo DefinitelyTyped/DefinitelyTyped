@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/node",
-    "version": "18.18.9999",
+    "version": "18.19.9999",
     "nonNpm": true,
     "nonNpmDescription": "Node.js",
     "projects": [
@@ -14,6 +14,9 @@
                 "ts4.8/*"
             ]
         }
+    },
+    "dependencies": {
+        "undici-types": "~5.26.4"
     },
     "devDependencies": {
         "@types/node": "workspace:."

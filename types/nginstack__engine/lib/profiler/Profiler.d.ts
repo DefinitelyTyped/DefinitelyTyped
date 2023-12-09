@@ -7,7 +7,7 @@ declare class Profiler {
     getTxtStatistics(): string;
     forcedLog: boolean;
     enabled: boolean;
-    excludeFunction(func: (...arg0: any[]) => any): void;
+    excludeFunction(func: (...args: any[]) => any): void;
 }
 declare namespace Profiler {
     function getInstance(): Profiler;

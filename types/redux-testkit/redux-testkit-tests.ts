@@ -1,6 +1,6 @@
 import { Action, applyMiddleware, createStore, Dispatch } from "redux";
 import { FlushThunks, Reducer, Selector, Thunk } from "redux-testkit";
-import thunk from "redux-thunk";
+import { thunk } from "redux-thunk";
 
 interface SimpleState {
     currentState: string;

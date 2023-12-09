@@ -1,6 +1,3 @@
 {
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "void-return": false
-    }
+    "extends": "@definitelytyped/dtslint/dt.json"
 }

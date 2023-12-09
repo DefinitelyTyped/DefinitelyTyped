@@ -139,6 +139,7 @@ declare global {
     /** private hook table */
     var _hooks: { [event: string]: HookCallback[] };
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type HookCallback = (data: any) => boolean | void;
 
     interface EventPortalSelected {
@@ -175,7 +176,7 @@ declare global {
     interface EventMapDataEntityInject {
         callback: (ents: any) => void;
     } // TODO: ents = portalDetailLoaded.ent
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface EventMapDataRefreshEnd {}
     interface EventPortalAdded {
         portal: IITC.Portal;

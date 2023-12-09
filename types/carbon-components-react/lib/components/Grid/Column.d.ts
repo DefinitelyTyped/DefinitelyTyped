@@ -36,7 +36,7 @@ export type ColumnDefaultProps =
         as?: undefined;
     };
 
-export type ColumnIntrinsicProps<K extends keyof JSX.IntrinsicElements> =
+export type ColumnIntrinsicProps<K extends keyof React.JSX.IntrinsicElements> =
     & ColumnBaseProps
     & SafeProps<JSXIntrinsicElementProps<K>>
     & {
@@ -54,7 +54,7 @@ export type ColumnCustomComponentProps<
     : never;
 
 declare function Column(props: ColumnDefaultProps): FCReturn;
-declare function Column<T extends keyof JSX.IntrinsicElements>(props: ColumnIntrinsicProps<T>): FCReturn;
+declare function Column<T extends keyof React.JSX.IntrinsicElements>(props: ColumnIntrinsicProps<T>): FCReturn;
 declare function Column<T extends ReactComponentConstructor<never>>(props: ColumnCustomComponentProps<T>): FCReturn;
 
 export default Column;

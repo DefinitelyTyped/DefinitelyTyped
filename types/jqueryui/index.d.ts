@@ -1841,12 +1841,12 @@ interface JQuery {
     slider(methodName: "refresh"): void;
     slider(methodName: "value"): number;
     slider(methodName: "value", value: number): void;
-    slider(methodName: "values"): Array<number>;
+    slider(methodName: "values"): number[];
     slider(methodName: "values", index: number): number;
     slider(methodName: string, index: number, value: number): void;
     slider(methodName: "values", index: number, value: number): void;
-    slider(methodName: string, values: Array<number>): void;
-    slider(methodName: "values", values: Array<number>): void;
+    slider(methodName: string, values: number[]): void;
+    slider(methodName: "values", values: number[]): void;
     slider(methodName: "widget"): JQuery;
     slider(methodName: string): JQuery;
     slider(options: JQueryUI.SliderOptions): JQuery;

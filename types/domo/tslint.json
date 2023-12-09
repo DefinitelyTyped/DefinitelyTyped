@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "ban-types": false,
         "no-var-keyword": false,
         "prefer-template": false,
         "unified-signatures": false
