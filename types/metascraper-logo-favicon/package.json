@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/node": "*",
-        "metascraper": "^5.14.8"
+        "metascraper": ">=5.14.8 <=5.40.0"
     },
     "devDependencies": {
         "@types/metascraper-logo-favicon": "workspace:."

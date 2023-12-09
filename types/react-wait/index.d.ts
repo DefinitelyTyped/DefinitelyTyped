@@ -1,4 +1,4 @@
-import { ComponentType, FunctionComponent, ReactNode } from "react";
+import { ComponentType, FunctionComponent, JSX, ReactNode } from "react";
 
 export const Waiter: FunctionComponent<{ children?: ReactNode }>;
 

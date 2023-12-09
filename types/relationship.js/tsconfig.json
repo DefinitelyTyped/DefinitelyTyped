@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "Node16",
         "lib": [
             "es6"
         ],
@@ -14,6 +14,6 @@
     },
     "files": [
         "index.d.ts",
-        "rdf-loader-code-tests.ts"
+        "relationship.js-tests.ts"
     ]
 }
