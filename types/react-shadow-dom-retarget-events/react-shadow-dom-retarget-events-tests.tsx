@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import * as ReactDOMClient from "react-dom/client";
 import retargetEvents from "react-shadow-dom-retarget-events";
 
 class App extends React.Component {
@@ -14,7 +15,9 @@ class MyCustomElement extends HTMLElement {
         const mountPoint = document.createElement("span");
         const shadowRoot = this.attachShadow({ mode: "open" });
         shadowRoot.appendChild(mountPoint);
-        ReactDOM.render(<App />, mountPoint);
+        ReactDOM.flushSync(() => {
+            ReactDOMClient.createRoot(mountPoint).render(<App />);
+        });
         retargetEvents(shadowRoot);
     }
 }
