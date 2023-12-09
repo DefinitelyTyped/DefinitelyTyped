@@ -8,9 +8,7 @@
     "dependencies": {
         "@types/node": "*",
         "@types/ws": "*",
-        "node": "link:types/node",
-        "undici-types": "~5.26.4",
-        "ws": "link:types/ws"
+        "undici-types": "~5.26.4"
     },
     "devDependencies": {
         "@types/bun": "workspace:."
