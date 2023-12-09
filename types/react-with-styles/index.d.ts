@@ -39,7 +39,7 @@ type SFCProps<C> = C extends (props: infer P & { children?: React.ReactNode | un
 type ElementProps<C> = C extends React.ComponentClass<any> ? ComponentClassProps<C>
     : C extends React.FC<any> ? SFCProps<C>
     : any;
-type ElementConfig<C> = JSX.LibraryManagedAttributes<C, ElementProps<C>>;
+type ElementConfig<C> = React.JSX.LibraryManagedAttributes<C, ElementProps<C>>;
 
 declare function withStyles<T = Theme>(
     styleFn?: ((theme: T) => Styles) | null,

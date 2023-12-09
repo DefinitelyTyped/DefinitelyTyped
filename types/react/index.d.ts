@@ -1976,7 +1976,6 @@ declare namespace React {
         id?: string | undefined;
         lang?: string | undefined;
         nonce?: string | undefined;
-        placeholder?: string | undefined;
         slot?: string | undefined;
         spellCheck?: Booleanish | undefined;
         style?: CSSProperties | undefined;

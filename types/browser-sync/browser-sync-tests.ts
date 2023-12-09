@@ -271,6 +271,12 @@ browserSync({
 });
 
 browserSync({
+    watch: true,
+    server: "./app",
+    snippet: false,
+});
+
+browserSync({
     httpModule: "http2",
 });
 
