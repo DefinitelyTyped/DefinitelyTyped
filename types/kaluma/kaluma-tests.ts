@@ -8,7 +8,7 @@ import * as uartModule from "uart";
 // test globals
 
 // analog I/O
-() => {
+(() => {
     // $ExpectType number
     analogRead(0);
 
@@ -37,10 +37,10 @@ import * as uartModule from "uart";
 
     // $ExpectType void
     noTone(0);
-};
+});
 
 // digital I/O
-() => {
+(() => {
     // $ExpectType void
     pinMode(0);
     // $ExpectType void
@@ -90,20 +90,20 @@ import * as uartModule from "uart";
     // $ExpectType number[]
     pulseRead(0, 0, { trigger: { startState: 0 } });
     // $ExpectType number[]
-    pulseRead(0, 0, { trigger: { interval: [0]} });
+    pulseRead(0, 0, { trigger: { interval: [0] } });
 
     // $ExpectType number
     pulseWrite(0, 0, [0]);
-};
+});
 
 // globals
-() => {
+(() => {
     // $ExpectType void
     print();
     // $ExpectType void
     print("a");
     // $ExpectType void
-    print("a", 0);    
+    print("a", 0);
 
     // $ExpectType void
     seed(0);
@@ -111,7 +111,7 @@ import * as uartModule from "uart";
     // $ExpectType string
     btoa("0");
     // $ExpectType string
-    btoa(new Uint8Array(0));    
+    btoa(new Uint8Array(0));
 
     // $ExpectType Uint8Array
     atob("0");
@@ -143,19 +143,19 @@ import * as uartModule from "uart";
     td00.decode(new Uint8Array(0));
     // $ExpectType string
     td00.encoding;
-};
+});
 
 // errors
-() => {
+(() => {
     let sysError = new SystemError();
     // $ExpectType number
     sysError.errno;
     // $ExpectType string
     sysError.code;
-};
+});
 
 // timers
-() => {
+(() => {
     // $ExpectType void
     delay(0);
 
@@ -179,10 +179,10 @@ import * as uartModule from "uart";
 
     // $ExpectType void
     clearInterval(0);
-};
+});
 
 // events module
-() => {
+(() => {
     let ev00: eventsModule.EventEmitter = new eventsModule.EventEmitter();
     let ev01: eventsModule.EventEmitter = new eventsModule.EventEmitter<"foo">();
     let ev02: eventsModule.EventEmitter<"foo"> = new eventsModule.EventEmitter();
@@ -200,7 +200,7 @@ import * as uartModule from "uart";
     // $ExpectType void
     ev00.addListener("foo", (x) => {});
     // $ExpectType void
-    ev00.addListener("foo", (x,y) => {});
+    ev00.addListener("foo", (x, y) => {});
     // $ExpectType void
     ev02.addListener("foo", () => {});
     // @ts-expect-error
@@ -224,7 +224,7 @@ import * as uartModule from "uart";
     // $ExpectType void
     ev00.on("foo", (x) => {});
     // $ExpectType void
-    ev00.on("foo", (x,y) => {});
+    ev00.on("foo", (x, y) => {});
     // $ExpectType void
     ev02.on("foo", () => {});
     // @ts-expect-error
@@ -236,7 +236,7 @@ import * as uartModule from "uart";
     // $ExpectType void
     ev00.once("foo", (x) => {});
     // $ExpectType void
-    ev00.once("foo", (x,y) => {});
+    ev00.once("foo", (x, y) => {});
     // $ExpectType void
     ev02.once("foo", () => {});
     // @ts-expect-error
@@ -248,7 +248,7 @@ import * as uartModule from "uart";
     // $ExpectType void
     ev00.removeListener("foo", (x) => {});
     // $ExpectType void
-    ev00.removeListener("foo", (x,y) => {});
+    ev00.removeListener("foo", (x, y) => {});
     // $ExpectType void
     ev02.removeListener("foo", () => {});
     // @ts-expect-error
@@ -270,7 +270,7 @@ import * as uartModule from "uart";
     // $ExpectType void
     ev00.off("foo", (x) => {});
     // $ExpectType void
-    ev00.off("foo", (x,y) => {});
+    ev00.off("foo", (x, y) => {});
     // $ExpectType void
     ev02.off("foo", () => {});
     // @ts-expect-error
@@ -292,10 +292,10 @@ import * as uartModule from "uart";
     // @ts-expect-error
     // $ExpectType number
     ev04.listenerCount("foo");
-}
+});
 
 // gpio module
-() => {
+(() => {
     let gp00: gpioModule.GPIO = new gpioModule.GPIO(0);
     let gp01: gpioModule.GPIO = new gpioModule.GPIO(0, INPUT);
     // @ts-expect-error
@@ -331,16 +331,16 @@ import * as uartModule from "uart";
     // @ts-expect-error
     // $ExpectType void
     gp00.irq(() => {}, 0);
-};
+});
 
 // require
-() => {
+(() => {
     // $ExpectType any
     require("a");
-};
+});
 
 // global boardObject
-() => {
+(() => {
     // $ExpectType string
     board.name;
     // $ExpectType string
@@ -372,53 +372,53 @@ import * as uartModule from "uart";
     const r047: ISPI = board.spi(0, { sck: 0 });
     const r048: ISPI = board.spi(0, { mosi: 0 });
     const r049: ISPI = board.spi(0, { miso: 0 });
-    const r050: ISPI = board.spi(0);    
-};
+    const r050: ISPI = board.spi(0);
+});
 
 // global console object
-() => {
+(() => {
     // $ExpectType void
     console.log();
     // $ExpectType void
-    console.log('a');
+    console.log("a");
     // $ExpectType void
-    console.log(1, 'a');
+    console.log(1, "a");
 
     // $ExpectType void
     console.error();
     // $ExpectType void
-    console.error('a');
+    console.error("a");
     // $ExpectType void
-    console.error(1, 'a');
-};
+    console.error(1, "a");
+});
 
 // adc module
-() => {
+(() => {
     const adc00: adcModule.ADC = new adcModule.ADC(0);
     // $ExpectType number
     adc00.read();
     // $ExpectType number
     adc00.pin;
-    
+
     const adc01: IADC = new adcModule.ADC(0);
     // $ExpectType number
     adc00.read();
     // $ExpectType number
-    adc00.pin;    
-};
+    adc00.pin;
+});
 
 // at module
-() => {
-    const at00: atModule.ATCommand = new atModule.ATCommand(<uartModule.UART>{});
-    const at01: atModule.ATCommand = new atModule.ATCommand(<uartModule.UART>{}, {});
-    const at02: atModule.ATCommand = new atModule.ATCommand(<uartModule.UART>{}, { debug: true });
-    const at03: atModule.ATCommand = new atModule.ATCommand(<IUART>{});
-    const at04: atModule.ATCommand = new atModule.ATCommand(<IUART>{}, {});
-    const at05: atModule.ATCommand = new atModule.ATCommand(<IUART>{}, { debug: true });
-    const at06: IATCommand = new atModule.ATCommand(<uartModule.UART>{});
-    const at07: eventsModule.EventEmitter = new atModule.ATCommand(<uartModule.UART>{});
-    const at08: IEventEmitter = new atModule.ATCommand(<uartModule.UART>{});
-    
+(() => {
+    const at00: atModule.ATCommand = new atModule.ATCommand(<uartModule.UART> {});
+    const at01: atModule.ATCommand = new atModule.ATCommand(<uartModule.UART> {}, {});
+    const at02: atModule.ATCommand = new atModule.ATCommand(<uartModule.UART> {}, { debug: true });
+    const at03: atModule.ATCommand = new atModule.ATCommand(<IUART> {});
+    const at04: atModule.ATCommand = new atModule.ATCommand(<IUART> {}, {});
+    const at05: atModule.ATCommand = new atModule.ATCommand(<IUART> {}, { debug: true });
+    const at06: IATCommand = new atModule.ATCommand(<uartModule.UART> {});
+    const at07: eventsModule.EventEmitter = new atModule.ATCommand(<uartModule.UART> {});
+    const at08: IEventEmitter = new atModule.ATCommand(<uartModule.UART> {});
+
     // $ExpectType void
     at00.send("a");
     // $ExpectType void
@@ -430,22 +430,22 @@ import * as uartModule from "uart";
     // $ExpectType void
     at00.send("a", (r) => "", 0, {});
     // $ExpectType void
-    at00.send("a", (r) => "", 0, { timeout: 0});
+    at00.send("a", (r) => "", 0, { timeout: 0 });
     // $ExpectType void
     at00.send("a", (r) => "", 0, { sendAsData: true });
-    
+
     // $ExpectType void
     at00.addHandler("", (l, b) => {});
-    
+
     // $ExpectType void
     at00.removeHandler("");
-    
+
     // $ExpectType string
-    at00.buffer;    
-};
+    at00.buffer;
+});
 
 // button module
-() => {
+(() => {
     const bu00: buttonModule.Button = new buttonModule.Button(0);
     const bu01: buttonModule.Button = new buttonModule.Button(0, {});
     const bu02: buttonModule.Button = new buttonModule.Button(0, { mode: 0 });
@@ -454,7 +454,7 @@ import * as uartModule from "uart";
     const bu05: IButton = new buttonModule.Button(0);
     const bu06: IEventEmitter = new buttonModule.Button(0);
     const bu07: eventsModule.EventEmitter = new buttonModule.Button(0);
-    
+
     // $ExpectType number
     bu00.read();
 
@@ -462,8 +462,8 @@ import * as uartModule from "uart";
     bu00.close();
 
     // $ExpectType void
-    bu00.on('click', () => {});
+    bu00.on("click", () => {});
 
     // @ts-expect-error
-    bu00.on('error', () => {});    
-};
+    bu00.on("error", () => {});
+});

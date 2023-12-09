@@ -14,7 +14,6 @@ declare const FALLING: 4;
 declare const RISING: 8;
 declare const CHANGE: 12;
 
-
 // ### GLOBAL OBJECTS ###
 
 /**
@@ -42,28 +41,28 @@ declare function analogRead(pin: number): number;
  * @param duty The PWM duty cycle between `0.0` and `1.0`. **Default:** `0.5`
  * @param frequency The PWM frequency in Hz. **Default:** `490`Hz
  */
-declare function analogWrite(pin: number, duty?: number, frequency?: number): void
+declare function analogWrite(pin: number, duty?: number, frequency?: number): void;
 
 /**
  * Generate sound tone(PWM) on the PWM **`pin`** for **`duration`**. A **`frequency`** and **`duty`** can be set. A `RangeError` will be thrown if **`pin`** does not support PWM function.
  * @param pin The pin number which can support PWM function.
  * @param frequency The PWM frequency in Hz. Default: 261.626Hz (C Key)
- * @param options 
+ * @param options
  */
-declare function tone(pin: number, frequency?: number, options?: AnalogIOToneOptions): void
+declare function tone(pin: number, frequency?: number, options?: AnalogIOToneOptions): void;
 
 /**
  * Stop the tone one the PWM **`pin`**. A `RangeError` will be thrown if **`pin`** does not support PWM function.
  * @param pin The pin number which can support PWM function.
  */
-declare function noTone(pin: number): void
+declare function noTone(pin: number): void;
 
 /**
  * Set the mode of the GPIO pin to INPUT , OUTPUT, INPUT_PULLUP, or INPUT_PULLDOWN. A RangeError will be thrown if pin does not support GPIO function. Use INPUT_PULLUPwhen you want to enable internal pull-up for this pin and use INPUT_PULLDOWN when you want to enable internal pull-down.
  * @param pin The pin number (or array of pin numbers) which can support GPIO function.
  * @param mode The pin mode INPUT (0) or OUTPUT (1) or INPUT_PULLUP (2) or INPUT_PULLDOWN (3). Default: INPUT
  */
-declare function pinMode(pin: number|number[], mode?: number): void;
+declare function pinMode(pin: number | number[], mode?: number): void;
 
 /**
  * Read the digital input from the GPIO INPUT pin. A RangeError will be thrown if pin does not support GPIO function.
@@ -77,7 +76,7 @@ declare function digitalRead(pin: number): number;
  * @param pin The pin number (or array of pin numbers) which can support GPIO function.
  * @param value The value could be HIGH (1) or LOW (0). If an array of pin numbers are given a number (greater than 1) can be used. Default: LOW
  */
-declare function digitalWrite(pin: number|number[], value?: number): void;
+declare function digitalWrite(pin: number | number[], value?: number): void;
 
 /**
  * Set the GPIO OUTPUT pin to the reverse state of the current state. Set to HIGH if the current state is LOW. Set to LOW if the current state is HIGH. A RangeError will be thrown if pin does not support GPIO function.
@@ -104,7 +103,7 @@ declare function clearWatch(id: number): void;
  * Read the pin state change timing from startState. It returns the microseconds state changing timing if the state is changed count times or for timeout microseconds.
  * @param pin The pin number which can support GPIO function.
  * @param count The number of pulse to read.
- * @param options 
+ * @param options
  */
 declare function pulseRead(pin: number, count: number, options?: PulseReadOptions): number[];
 
@@ -133,7 +132,7 @@ declare function seed(seed: number): void;
  * @param data Binary data to encode.
  * @returns Base64 encoded string.
  */
-declare function btoa(data: string|Uint8Array): string;
+declare function btoa(data: string | Uint8Array): string;
 
 /**
  * Returns a decoded binary data from a base64 encoded string.
@@ -165,7 +164,7 @@ declare function require(module_name: string): any;
 
 /**
  * Waits for msec milliseconds.
- * 
+ *
  * **Warning:** This function would block all the process for msec milliseconds, so please use it carefully. It will block the entire console. setTimeout, setInterval is strongly recommended instead of this function.
  * @param msec The delay value in milliseconds.
  */
@@ -179,7 +178,7 @@ declare function millis(): number;
 
 /**
  * Waits for usec microseconds. It provides finer grained time delays than delay().
- * 
+ *
  * **Warning:** This function is not so time correct, so don't use it for time critical job.
  * @param usec The delay value in microseconds.
  */
@@ -187,7 +186,7 @@ declare function delayMicroseconds(usec: number): void;
 
 /**
  * Returns the number of microseconds elapsed since the system boot. Typically it will overflow after approximately 70 minutes.
- * 
+ *
  * **Warning:** This function is not so time correct, so don't use it for time critical job.
  * @returns The current timestamp in microseconds.
  */
@@ -242,12 +241,11 @@ declare class SystemError {
  * Converts a string into stream of bytes.
  */
 declare class TextEncoder {
-    
     /**
      * Creates a new instance of TextEncoder
      * @param label Encoding type. Default: 'utf-8'. Currently supported encoding types are 'ascii' and 'utf-8'.
      */
-    constructor(label?: 'ascii'|'utf-8');
+    constructor(label?: "ascii" | "utf-8");
 
     /**
      * Encodes the input string and returns the encoded buffer.
@@ -266,12 +264,11 @@ declare class TextEncoder {
  * Converts a stream of bytes into a string.
  */
 declare class TextDecoder {
-
     /**
      * Creates a new instance of TextDecoder
      * @param label Encoding type. Default: 'utf-8'. Currently supported encoding types are 'ascii' and 'utf-8'.
      */
-    constructor(label?: 'ascii'|'utf-8');
+    constructor(label?: "ascii" | "utf-8");
 
     /**
      * Decodes the input buffer and returns the decoded string.
@@ -325,14 +322,13 @@ interface PulseReadOptions {
          * Pulse timing in microseconds. Refer to pulseWrite.
          */
         interval?: number[];
-    }
+    };
 }
 
 /**
  * Options for the tone() function
  */
-interface AnalogIOToneOptions
-{
+interface AnalogIOToneOptions {
     /**
      * The duration in milliseconds if a duration is not 0, duration 0 is forever. **Default:** `0`
      */
@@ -354,7 +350,6 @@ interface AnalogIOToneOptions
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
 interface IADC {
-
     /**
      * This method returns the analog value read from the pin. A RangeError will be thrown if adc.pin does not support ADC function.
      * @returns The return value is ADC object.
@@ -367,24 +362,23 @@ interface IADC {
     pin: number;
 }
 
-
 interface ATCommandConstructorOptions {
     /**
      * rint all data received from UART if true.
      */
-    debug?: boolean
+    debug?: boolean;
 }
 
 interface ATCommandSendOptions {
     /**
      * Timeout for waiting response. Default: 10000 (10 sec). When timeout, callback is called with 'TIMEOUT' for the second parameter.
      */
-    timeout?: number,
+    timeout?: number;
 
     /**
      * If true, cmd is sent as data without appending '\r\n' in the end. Default: false.
      */
-    sendAsData?: boolean
+    sendAsData?: boolean;
 }
 
 /**
@@ -392,7 +386,6 @@ interface ATCommandSendOptions {
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
 interface IATCommand extends IEventEmitter {
-
     /**
      * Sends AT command and wait for expected response.
      * @param cmd AT command (or data) to send. If Uint8Array type is given, it send as data.
@@ -400,7 +393,12 @@ interface IATCommand extends IEventEmitter {
      * @param waitFor Indicates what is expected response of the AT command. If a number of given, waits for the given time in milliseconds. Default: ['OK', 'ERROR', 'FAIL']
      * @param options Options for sending an AT command
      */
-    send(cmd: string | Uint8Array, cb: (result: string) => string, waitFor?: number|string[], options?: ATCommandSendOptions): void;
+    send(
+        cmd: string | Uint8Array,
+        cb: (result: string) => string,
+        waitFor?: number | string[],
+        options?: ATCommandSendOptions,
+    ): void;
 
     /**
      * Add a handler. If there is a line starts with the match parameter in the response buffer, the handler function will be called. The data from start to the matched line are removed from the response buffer. If you want to keep the response buffer without any changes, then just return false.
@@ -422,7 +420,7 @@ interface IATCommand extends IEventEmitter {
 }
 
 /**
- * An interface representing the @see board object provide the board specific properties which you are currently using. 
+ * An interface representing the @see board object provide the board specific properties which you are currently using.
  */
 interface BoardObject {
     /**
@@ -445,7 +443,7 @@ interface BoardObject {
      * @param pin The pin number which can support GPIO function.
      * @param mode The pin mode INPUT (0) , OUTPUT (1) , INPUT_PULLUP (2) or INPUT_PULLDOWN (3) . Default: INPUT
      */
-    gpio(pin: number, mode?:number): IGPIO;
+    gpio(pin: number, mode?: number): IGPIO;
 
     /**
      * Creates an instances of LED represents a LED.
@@ -497,12 +495,12 @@ interface BoardObject {
 }
 
 interface ButtonOptions {
-    /** 
-     * The pin mode. Default: INPUT_PULLUP. 
+    /**
+     * The pin mode. Default: INPUT_PULLUP.
      */
     mode?: number;
 
-    /** 
+    /**
      * The the event of the pin. There are three events, FALLING (0), RISING (1), and CHANGE (2). Default: FALLING.
      */
     event?: number;
@@ -517,8 +515,7 @@ interface ButtonOptions {
  * An instances of Button represents a button object. This class is a subclass of EventEmitter.
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-interface IButton extends IEventEmitter<'click'> {
-    
+interface IButton extends IEventEmitter<"click"> {
     /**
      * Reads the current state of the button
      * @returns The return value is HIGH (1) or LOW (0)
@@ -528,14 +525,13 @@ interface IButton extends IEventEmitter<'click'> {
     /**
      * Closes the I/O watcher for the button.
      */
-    close(): void;   
+    close(): void;
 }
 
 type ListenerFn = (...args: any) => void;
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-interface IEventEmitter<T=string> {
-
+interface IEventEmitter<T = string> {
     /**
      * Add the listener function to the end of the listener array for the event named eventName.
      * @param eventName The name of event
@@ -556,40 +552,40 @@ interface IEventEmitter<T=string> {
      * @param listener The callback function
      */
     on(eventName: T, listener: ListenerFn): void;
-    
+
     /**
      * Add one-time listener for the event named eventName. When the event is triggered, the listener function is called and then removed from the listener array of the event.
      * @param eventName The name of event.
      * @param listener The callback function.
      */
     once(eventName: T, listener: ListenerFn): void;
-    
+
     /**
      * Remove the listener function from the listener array of the event name eventName.
      * @param eventName The name of event
      * @param listener The callback function
      */
     removeListener(eventName: T, listener: ListenerFn): void;
-    
+
     /**
      * Remove all listeners of the event named eventName.
      * @param eventName The name of event.
      */
     removeAllListeners(eventName?: T): void;
-    
+
     /**
      * Remove the listener function from the listener array of the event name eventName.
      * @param eventName The name of event
      * @param listener The callback function
      */
     off(eventName: T, listener: ListenerFn): void;
-    
+
     /**
      * Return all listeners of the given event.
      * @param eventName The name of event
      */
     listeners(eventName: T): ListenerFn[];
-    
+
     /**
      * Return the number of listeners of the given event.
      * @param eventName The name of event
@@ -615,7 +611,6 @@ type IrqCallbackFn = (pin: number, event: number) => void;
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 interface IGPIO {
-
     /**
      * Read the value from the GPIO pin.
      * @returns The return value is HIGH (1) or LOW (0)
@@ -626,39 +621,39 @@ interface IGPIO {
      * Writes a value to the GPIO pin.
      * @param value The value could be HIGH (1) or LOW (0).
      */
-    write(value: 0|1): void;
+    write(value: 0 | 1): void;
 
     /**
      * Toggles the output value of the GPIO pin.
      */
     toggle(): void;
-    
+
     /**
      * Set the GPIO pin to LOW.
      */
     low(): void;
-    
+
     /**
      * Set the GPIO pin to HIGH.
      */
     high(): void;
-    
+
     /**
      * Add interrupt on the GPIO pin. Run the callback function when the event is triggered on the pin. There are three events for the interrupts. The FALLING (4) event is triggered when the pin state is changed from HIGH to LOW. The RISING (8) event is triggered when the pin state is changed from LOW to HIGH. The CHANGE (12) event is triggered when the pin state is changed to any states, which means the CHANGE event is the same as the FALLING + RISING events.
      * @param callback The function is called when the event is triggered on the pin. the pin and event are the arguments of the callback function.
      * @param event set the event of the pin. There are three events,FALLING (4), RISING (8), and CHANGE (12). Default: CHANGE.
      */
-    irq(callback: IrqCallbackFn, event?: 4|8|12): void;
+    irq(callback: IrqCallbackFn, event?: 4 | 8 | 12): void;
 
     /**
      * Pin number of the GPIO object.
      */
     pin: number;
-    
+
     /**
      * Current mode of the GPIO pin. The value is INPUT (0) , OUTPUT (1) , INPUT_PULLUP (2) , or INPUT_PULLDOWN (3) .
      */
-    mode: 0|1|2|3;
+    mode: 0 | 1 | 2 | 3;
 }
 
 interface I2COptions {
@@ -685,17 +680,14 @@ interface I2COptions {
 
 // eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-empty-interface
 interface II2C {
-
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-empty-interface
 interface ILED {
-
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-empty-interface
 interface IPWM {
-
 }
 
 interface SPIOptions {
@@ -732,17 +724,14 @@ interface SPIOptions {
 
 // eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-empty-interface
 interface ISPI {
-
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface UARTOptions {
-        
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-empty-interface
 interface IUART {
-
 }
 
 // ### MODULES ###
@@ -755,7 +744,6 @@ declare module "adc" {
      * An instances of ADC represents a ADC object.
      */
     class ADC implements IADC {
-
         /**
          * Constructs a new instance of the ADC object
          * @param pin The pin number which can support ADC function.
@@ -774,7 +762,6 @@ declare module "at" {
      * An instances of ATCommand represents a AT command handler. This class is a subclass of EventEmitter.
      */
     class ATCommand extends EventEmitter implements IATCommand {
-
         /**
          * Create a AT command handler.
          * @param uart UART object where a device is connected which controlled by AT command.
@@ -783,7 +770,12 @@ declare module "at" {
         constructor(uart: UART, options?: ATCommandConstructorOptions);
 
         /** @inheritdoc */
-        send(cmd: string | Uint8Array, cb?: (result: string) => string, waitFor?: number|string[], options?: ATCommandSendOptions): void;
+        send(
+            cmd: string | Uint8Array,
+            cb?: (result: string) => string,
+            waitFor?: number | string[],
+            options?: ATCommandSendOptions,
+        ): void;
 
         /** @inheritdoc */
         addHandler(match: string, handler: (line: string, buffer: string) => void): void;
@@ -800,8 +792,7 @@ declare module "button" {
     // eslint-disable-next-line no-duplicate-imports
     import { EventEmitter } from "events";
 
-    class Button extends EventEmitter<'click'> implements IButton {
-
+    class Button extends EventEmitter<"click"> implements IButton {
         /**
          * Creates an instances of the Button class. Note that this class uses setWatch() function internally.
          * @param pin The pin number which can support button function.
@@ -818,12 +809,10 @@ declare module "button" {
 }
 
 declare module "events" {
-
     /**
      * An instance of EventEmitter class will emits events. If you need to define a class emitting events, you can defined a class by extending from EventEmitter.
      */
-    class EventEmitter<T=string> implements IEventEmitter<T> {
-
+    class EventEmitter<T = string> implements IEventEmitter<T> {
         /** @inheritdoc */
         addListener(eventName: T, listener: (...args: any[]) => void): void;
 
@@ -854,18 +843,16 @@ declare module "events" {
 }
 
 declare module "gpio" {
-
     /**
      * An instances of GPIO represents a GPIO pin.
      */
     class GPIO implements IGPIO {
-
         /**
          * Constructs a new instance of a GPIO
          * @param pin The pin number which can support GPIO function.
          * @param mode The pin mode INPUT (0) , OUTPUT (1) , INPUT_PULLUP (2) or INPUT_PULLDOWN (3) . Default: INPUT
          */
-        constructor(pin: number, mode?: 0|1|2|3);
+        constructor(pin: number, mode?: 0 | 1 | 2 | 3);
 
         /** @inheritdoc */
         read(): number;
@@ -883,47 +870,37 @@ declare module "gpio" {
         high(): void;
 
         /** @inheritdoc */
-        irq(callback: IrqCallbackFn, event?: 4|8|12): void;
+        irq(callback: IrqCallbackFn, event?: 4 | 8 | 12): void;
 
         /** @inheritdoc */
         pin: number;
 
         /** @inheritdoc */
-        mode: 0|1|2|3;        
+        mode: 0 | 1 | 2 | 3;
     }
 }
 
 declare module "i2c" {
-
     class I2C implements II2C {
-        
     }
 }
 
 declare module "led" {
-
     class LED implements ILED {
-        
     }
 }
 
 declare module "pwm" {
-
     class PWM implements IPWM {
-        
     }
 }
 
 declare module "spi" {
-
-
     class SPI implements ISPI {
-        
     }
 }
 
 declare module "uart" {
-
     class UART implements IUART {
     }
 }

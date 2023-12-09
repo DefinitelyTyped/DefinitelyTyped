@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [ "ES6" ],
+        "lib": ["ES6"],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
