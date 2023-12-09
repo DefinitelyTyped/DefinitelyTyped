@@ -4,14 +4,10 @@
         "strict": true,
         "target": "esnext",
         "module": "node16",
-
         "allowSyntheticDefaultImports": true,
-
         "forceConsistentCasingInFileNames": true,
         "types": [],
         "noUnusedLocals": true,
-
         "noEmit": true
-    },
-    "exclude": ["dist", "node_modules", "./node_modules", "./node_modules/*", "./node_modules/@types/node/index.d.ts"]
+    }
 }
