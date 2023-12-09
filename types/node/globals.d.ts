@@ -7,10 +7,8 @@ type _Request = typeof globalThis extends { onmessage: any } ? {} : import("undi
 type _Response = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").Response;
 type _FormData = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").FormData;
 type _Headers = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").Headers;
-type _RequestInit = typeof globalThis extends { onmessage: any } ? {}
-    : import("undici-types").RequestInit;
-type _ResponseInit = typeof globalThis extends { onmessage: any } ? {}
-    : import("undici-types").ResponseInit;
+type _RequestInit = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").RequestInit;
+type _ResponseInit = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").ResponseInit;
 type _File = typeof globalThis extends { onmessage: any } ? {} : import("node:buffer").File;
 // #endregion Fetch and friends
 
@@ -84,19 +82,21 @@ declare global {
         throwIfAborted(): void;
     }
 
-    var AbortController: typeof globalThis extends { onmessage: any; AbortController: infer T } ? T
+    var AbortController: typeof globalThis extends { onmessage: any; AbortController: infer T }
+        ? T
         : {
-            prototype: AbortController;
-            new(): AbortController;
-        };
+              prototype: AbortController;
+              new (): AbortController;
+          };
 
-    var AbortSignal: typeof globalThis extends { onmessage: any; AbortSignal: infer T } ? T
+    var AbortSignal: typeof globalThis extends { onmessage: any; AbortSignal: infer T }
+        ? T
         : {
-            prototype: AbortSignal;
-            new(): AbortSignal;
-            abort(reason?: any): AbortSignal;
-            timeout(milliseconds: number): AbortSignal;
-        };
+              prototype: AbortSignal;
+              new (): AbortSignal;
+              abort(reason?: any): AbortSignal;
+              timeout(milliseconds: number): AbortSignal;
+          };
     // #endregion borrowed
 
     // #region Disposable
@@ -153,14 +153,14 @@ declare global {
      */
     function structuredClone<T>(
         value: T,
-        transfer?: { transfer: ReadonlyArray<import("worker_threads").TransferListItem> },
+        transfer?: { transfer: ReadonlyArray<import("worker_threads").TransferListItem> }
     ): T;
 
     /*----------------------------------------------*
-    *                                               *
-    *               GLOBAL INTERFACES               *
-    *                                               *
-    *-----------------------------------------------*/
+     *                                               *
+     *               GLOBAL INTERFACES               *
+     *                                               *
+     *-----------------------------------------------*/
     namespace NodeJS {
         interface CallSite {
             /**
@@ -341,16 +341,14 @@ declare global {
 
     interface RequestInit extends _RequestInit {}
 
-    function fetch(
-        input: string | URL | globalThis.Request,
-        init?: RequestInit,
-    ): Promise<Response>;
+    function fetch(input: string | URL | globalThis.Request, init?: RequestInit): Promise<Response>;
 
     interface Request extends _Request {}
     var Request: typeof globalThis extends {
         onmessage: any;
         Request: infer T;
-    } ? T
+    }
+        ? T
         : typeof import("undici-types").Request;
 
     interface ResponseInit extends _ResponseInit {}
@@ -359,27 +357,31 @@ declare global {
     var Response: typeof globalThis extends {
         onmessage: any;
         Response: infer T;
-    } ? T
+    }
+        ? T
         : typeof import("undici-types").Response;
 
     interface FormData extends _FormData {}
     var FormData: typeof globalThis extends {
         onmessage: any;
         FormData: infer T;
-    } ? T
+    }
+        ? T
         : typeof import("undici-types").FormData;
 
     interface Headers extends _Headers {}
     var Headers: typeof globalThis extends {
         onmessage: any;
         Headers: infer T;
-    } ? T
+    }
+        ? T
         : typeof import("undici-types").Headers;
 
     interface File extends _File {}
     var File: typeof globalThis extends {
         onmessage: any;
         File: infer T;
-    } ? T
+    }
+        ? T
         : typeof import("node:buffer").File;
 }

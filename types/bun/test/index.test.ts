@@ -1,0 +1,1 @@
+Bun.spawn(["echo", '"hi"']);

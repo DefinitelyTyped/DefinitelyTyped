@@ -1,19 +1,17 @@
 {
-    "compilerOptions": {
-        "module": "commonjs",
-        "lib": [
-            "es6"
-        ],
-        "noImplicitAny": true,
-        "noImplicitThis": true,
-        "strictFunctionTypes": true,
-        "strictNullChecks": true,
-        "types": [],
-        "noEmit": true,
-        "forceConsistentCasingInFileNames": true
-    },
-    "files": [
-        "index.d.ts",
-        "bun-tests.ts"
-    ]
+  "compilerOptions": {
+    "lib": ["ESNext"],
+    "strict": true,
+    "target": "esnext",
+    "module": "node16",
+
+    "allowSyntheticDefaultImports": true,
+
+    "forceConsistentCasingInFileNames": true,
+    "types": [],
+    "noUnusedLocals": true,
+
+    "noEmit": true
+  },
+  "exclude": ["dist", "node_modules", "./node_modules", "./node_modules/*", "./node_modules/@types/node/index.d.ts"]
 }
