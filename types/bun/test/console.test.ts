@@ -4,7 +4,7 @@ import c1 from "node:console";
 c1.log();
 c2.log();
 
-async () => {
+(async () => {
     // tslint:disable-next-line:await-promise
     for await (const line of c1) {
         console.log("Received:", line);
@@ -20,4 +20,4 @@ async () => {
     }
 
     return null;
-};
+});

@@ -47,7 +47,6 @@ declare module "bun:jsc" {
      *
      * @param value A JavaScript value, usually an object or array, to be converted.
      * @returns A SharedArrayBuffer that can be sent to another Bun instance.
-     *
      */ function serialize(value: any, options?: { binaryType?: "arraybuffer" }): SharedArrayBuffer;
 
     /**
@@ -88,7 +87,7 @@ declare module "bun:jsc" {
      * - FTL means "Faster Than Light", which is the third JIT compilation tier. It has the most optimizations, but is the slowest to compile
      */ function profile(
         callback: CallableFunction,
-        sampleInterval?: number
+        sampleInterval?: number,
     ): {
         /**
          * A formatted summary of the top functions
@@ -130,7 +129,6 @@ declare module "bun:jsc" {
          * RegExp:                   15  (0.218723%)
          * C/C++:                     0  (0.000000%)
          * Unknown Executable:      148  (2.158064%)
-         *
          *
          * Hottest bytecodes as <numSamples   'functionName#hash:JITType:bytecodeIndex'>
          * 273    'visit#<nil>:DFG:bc#63'

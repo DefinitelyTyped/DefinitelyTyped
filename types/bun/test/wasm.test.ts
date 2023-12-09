@@ -1,4 +1,4 @@
-async () => {
+(async () => {
     // Fetch and compile a WebAssembly module
     const response = await fetch("module.wasm");
     const buffer = await response.arrayBuffer();
@@ -38,4 +38,4 @@ async () => {
     table.get(0)(); // Call a function stored in the table
 
     // Additional operations with instance, memory, and table can be performed here
-};
+});

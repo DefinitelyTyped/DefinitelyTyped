@@ -10,7 +10,6 @@ declare namespace NodeJS {
 }
 
 /**
- *
  * Bun.js runtime APIs
  *
  * @example
@@ -24,7 +23,6 @@ declare namespace NodeJS {
  * ```
  *
  * This module aliases `globalThis.Bun`.
- *
  */
 declare namespace BunJS {
     type ArrayBufferView = TypedArray | DataView;
@@ -45,7 +43,6 @@ declare module "bun" {
      * Defaults to `process.env` as it was when the current Bun process launched.
      *
      * Changes to `process.env` at runtime won't automatically be reflected in the default value. For that, you can pass `process.env` explicitly.
-     *
      */
     const env: NodeJS.ProcessEnv;
     /**
@@ -60,7 +57,6 @@ declare module "bun" {
      * @param {string} command The name of the executable or script
      * @param {string} options.PATH Overrides the PATH environment variable
      * @param {string} options.cwd Limits the search to a particular directory in which to searc
-     *
      */
     function which(command: string, options?: { PATH?: string; cwd?: string }): string | null;
 
@@ -71,7 +67,6 @@ declare module "bun" {
          * @param {string} command The name of the executable or script
          * @param {string} options.PATH Overrides the PATH environment variable
          * @param {string} options.cwd Limits the search to a particular directory in which to searc
-         *
          */
         parse(input: string): object;
     }
@@ -145,7 +140,6 @@ declare module "bun" {
     function resolve(moduleId: string, parent: string): Promise<string>;
 
     /**
-     *
      * Use the fastest syscalls available to copy from `input` into `destination`.
      *
      * If `destination` exists, it must be a regular file or symlink to a file.
@@ -161,11 +155,10 @@ declare module "bun" {
         options?: {
             /** If writing to a PathLike, set the permissions of the file. */
             mode?: number;
-        }
+        },
     ): Promise<number>;
 
     /**
-     *
      * Persist a {@link Response} body to disk.
      *
      * @param destination The file to write to. If the file doesn't exist,
@@ -178,7 +171,6 @@ declare module "bun" {
     function write(destination: BunFile, input: Response): Promise<number>;
 
     /**
-     *
      * Persist a {@link Response} body to disk.
      *
      * @param destinationPath The file path to write to. If the file doesn't
@@ -192,7 +184,6 @@ declare module "bun" {
     function write(destinationPath: PathLike, input: Response): Promise<number>;
 
     /**
-     *
      * Use the fastest syscalls available to copy from `input` into `destination`.
      *
      * If `destination` exists, it must be a regular file or symlink to a file.
@@ -214,7 +205,6 @@ declare module "bun" {
     function write(destination: BunFile, input: BunFile): Promise<number>;
 
     /**
-     *
      * Use the fastest syscalls available to copy from `input` into `destination`.
      *
      * If `destination` exists, it must be a regular file or symlink to a file.
@@ -287,7 +277,7 @@ declare module "bun" {
      * @returns A promise that resolves with the concatenated chunks or the concatenated chunks as an `ArrayBuffer`.
      */
     function readableStreamToArrayBuffer(
-        stream: ReadableStream<ArrayBufferView | ArrayBufferLike>
+        stream: ReadableStream<ArrayBufferView | ArrayBufferLike>,
     ): Promise<ArrayBuffer> | ArrayBuffer;
 
     /**
@@ -329,7 +319,7 @@ declare module "bun" {
      */
     function readableStreamToFormData(
         stream: ReadableStream<string | NodeJS.TypedArray | ArrayBufferView>,
-        multipartBoundaryExcludingDashes?: string | NodeJS.TypedArray | ArrayBufferView
+        multipartBoundaryExcludingDashes?: string | NodeJS.TypedArray | ArrayBufferView,
     ): Promise<FormData>;
 
     /**
@@ -357,7 +347,6 @@ declare module "bun" {
      *
      * @param stream The stream to consume
      * @returns A promise that resolves with the chunks as an array
-     *
      */
     function readableStreamToArray<T>(stream: ReadableStream<T>): Promise<T[]> | T[];
 
@@ -388,7 +377,7 @@ declare module "bun" {
      * ```js
      * const url = Bun.pathToFileURL("/foo/bar.txt");
      * console.log(url.href); // "file:///foo/bar.txt"
-     *```
+     * ```
      *
      * Internally, this function uses WebKit's URL API to
      * convert the path to a file:// URL.
@@ -538,10 +527,9 @@ declare module "bun" {
                  *
                  * On macOS, it shouldn't be necessary to use "`getaddrinfo`" because
                  * `"system"` uses the same API underneath (except non-blocking).
-                 *
                  */
                 backend?: "libc" | "c-ares" | "system" | "getaddrinfo";
-            }
+            },
         ): Promise<DNSLookup[]>;
     };
 
@@ -647,7 +635,6 @@ declare module "bun" {
      *   "Hello, world!"
      * );
      * ```
-     *
      */
     interface BunFile extends Blob {
         /**
@@ -663,9 +650,7 @@ declare module "bun" {
          */
         slice(begin?: number, end?: number, contentType?: string): BunFile;
 
-        /**
-         *
-         */
+        /** */
         /**
          * Offset any operation on the file starting at `begin`
          *
@@ -744,11 +729,12 @@ declare module "bun" {
      * @param data The data to hash.
      * @param seed The seed to use.
      */
-    const hash: ((
-        data: string | ArrayBufferView | ArrayBuffer | SharedArrayBuffer,
-        seed?: number | bigint
-    ) => number | bigint) &
-        Hash;
+    const hash:
+        & ((
+            data: string | ArrayBufferView | ArrayBuffer | SharedArrayBuffer,
+            seed?: number | bigint,
+        ) => number | bigint)
+        & Hash;
 
     interface Hash {
         wyhash: (data: string | ArrayBufferView | ArrayBuffer | SharedArrayBuffer, seed?: bigint) => bigint;
@@ -767,13 +753,12 @@ declare module "bun" {
      * Fast deep-equality check two objects.
      *
      * This also powers expect().toEqual in `bun:test`
-     *
      */
     function deepEquals(
         a: any,
         b: any,
         /** @default false */
-        strict?: boolean
+        strict?: boolean,
     ): boolean;
 
     /**
@@ -915,17 +900,16 @@ declare module "bun" {
      * const transpiler = new Bun.Transpiler();
      * transpiler.transformSync(`
      *   const App = () => <div>Hello World</div>;
-     *export default App;
+     * export default App;
      * `);
      * // This outputs:
      * const output = `
      * const App = () => jsx("div", {
      *   children: "Hello World"
      * }, undefined, false, undefined, this);
-     *export default App;
+     * export default App;
      * `
      * ```
-     *
      */
 
     class Transpiler {
@@ -941,7 +925,6 @@ declare module "bun" {
          * Transpile code from TypeScript or JSX into valid JavaScript.
          * This function does not resolve imports.
          * @param code The code to transpile
-         *
          */
         transformSync(code: StringOrBuffer, loader: JavaScriptLoader, ctx: object): string;
         /**
@@ -949,7 +932,6 @@ declare module "bun" {
          * This function does not resolve imports.
          * @param code The code to transpile
          * @param ctx An object to pass to macros
-         *
          */
         transformSync(code: StringOrBuffer, ctx: object): string;
 
@@ -957,7 +939,6 @@ declare module "bun" {
          * Transpile code from TypeScript or JSX into valid JavaScript.
          * This function does not resolve imports.
          * @param code The code to transpile
-         *
          */
         transformSync(code: StringOrBuffer, loader?: JavaScriptLoader): string;
 
@@ -1020,10 +1001,10 @@ declare module "bun" {
         naming?:
             | string
             | {
-                  chunk?: string;
-                  entry?: string;
-                  asset?: string;
-              }; // | string;
+                chunk?: string;
+                entry?: string;
+                asset?: string;
+            }; // | string;
         root?: string; // project root
         splitting?: boolean; // default true, enable code splitting
         plugins?: BunPlugin[];
@@ -1037,10 +1018,10 @@ declare module "bun" {
         minify?:
             | boolean
             | {
-                  whitespace?: boolean;
-                  syntax?: boolean;
-                  identifiers?: boolean;
-              };
+                whitespace?: boolean;
+                syntax?: boolean;
+                identifiers?: boolean;
+            };
         // treeshaking?: boolean;
 
         // jsx?:
@@ -1128,7 +1109,6 @@ declare module "bun" {
          * @throws If the algorithm is specified and does not match the hash
          * @throws If the algorithm is invalid
          * @throws if the hash is invalid
-         *
          */
         verify(
             /**
@@ -1148,7 +1128,7 @@ declare module "bun" {
              * If specified and the algorithm does not match the hash, this function
              * throws an error.
              */
-            algorithm?: Password.AlgorithmLabel
+            algorithm?: Password.AlgorithmLabel,
         ): Promise<boolean>;
         /**
          * Asynchronously hash a password using argon2 or bcrypt. The default is argon2.
@@ -1183,7 +1163,7 @@ declare module "bun" {
              *
              * When using bcrypt, passwords exceeding 72 characters will be SHA512'd before
              */
-            algorithm?: Password.AlgorithmLabel | Password.Argon2Algorithm | Password.BCryptAlgorithm
+            algorithm?: Password.AlgorithmLabel | Password.Argon2Algorithm | Password.BCryptAlgorithm,
         ): Promise<string>;
 
         /**
@@ -1222,7 +1202,7 @@ declare module "bun" {
             /**
              * If not specified, the algorithm will be inferred from the hash.
              */
-            algorithm?: Password.AlgorithmLabel
+            algorithm?: Password.AlgorithmLabel,
         ): boolean;
 
         /**
@@ -1268,7 +1248,7 @@ declare module "bun" {
              *
              * When using bcrypt, passwords exceeding 72 characters will be SHA256'd before
              */
-            algorithm?: Password.AlgorithmLabel | Password.Argon2Algorithm | Password.BCryptAlgorithm
+            algorithm?: Password.AlgorithmLabel | Password.Argon2Algorithm | Password.BCryptAlgorithm,
         ): string;
     };
 
@@ -1730,31 +1710,30 @@ declare module "bun" {
         perMessageDeflate?:
             | boolean
             | {
-                  /**
-                   * Sets the compression level.
-                   */
-                  compress?: WebSocketCompressor | boolean;
-                  /**
-                   * Sets the decompression level.
-                   */
-                  decompress?: WebSocketCompressor | boolean;
-              };
+                /**
+                 * Sets the compression level.
+                 */
+                compress?: WebSocketCompressor | boolean;
+                /**
+                 * Sets the decompression level.
+                 */
+                decompress?: WebSocketCompressor | boolean;
+            };
     }
 
     interface GenericServeOptions {
         /**
-         *
          * What URI should be used to make {@link Request.url} absolute?
          *
          * By default, looks at {@link hostname}, {@link port}, and whether or not SSL is enabled to generate one
          *
          * @example
-         *```js
+         * ```js
          * "http://my-app.com"
          * ```
          *
          * @example
-         *```js
+         * ```js
          * "https://wongmjane.com/"
          * ```
          *
@@ -1842,7 +1821,6 @@ declare module "bun" {
          * Handle HTTP requests
          *
          * Respond to {@link Request} objects with a {@link Response} object.
-         *
          */
         fetch(this: Server, request: Request, server: Server): Response | Promise<Response>;
     }
@@ -1895,8 +1873,8 @@ declare module "bun" {
          *
          * @example
          * ```js
-         *import { serve } from "bun";
-         *serve({
+         * import { serve } from "bun";
+         * serve({
          *  websocket: {
          *    open: (ws) => {
          *      console.log("Client connected");
@@ -1918,13 +1896,11 @@ declare module "bun" {
          *    }
          *    return new Response("Hello World");
          *  },
-         *});
-         *```
+         * });
+         * ```
          * Upgrade a {@link Request} to a {@link ServerWebSocket} via {@link Server.upgrade}
          *
          * Pass `data` in @{link Server.upgrade} to attach data to the {@link ServerWebSocket.data} property
-         *
-         *
          */
         websocket: WebSocketHandler<WebSocketDataType>;
 
@@ -1932,7 +1908,6 @@ declare module "bun" {
          * Handle HTTP requests or upgrade them to a {@link ServerWebSocket}
          *
          * Respond to {@link Request} objects with a {@link Response} object.
-         *
          */
         fetch(this: Server, request: Request, server: Server): Response | undefined | Promise<Response | undefined>;
     }
@@ -1951,8 +1926,8 @@ declare module "bun" {
          *
          * @example
          * ```js
-         *import { serve } from "bun";
-         *serve({
+         * import { serve } from "bun";
+         * serve({
          *  websocket: {
          *    open: (ws) => {
          *      console.log("Client connected");
@@ -1974,13 +1949,11 @@ declare module "bun" {
          *    }
          *    return new Response("Hello World");
          *  },
-         *});
-         *```
+         * });
+         * ```
          * Upgrade a {@link Request} to a {@link ServerWebSocket} via {@link Server.upgrade}
          *
          * Pass `data` in @{link Server.upgrade} to attach data to the {@link ServerWebSocket.data} property
-         *
-         *
          */
         websocket: WebSocketHandler<WebSocketDataType>;
 
@@ -1988,20 +1961,19 @@ declare module "bun" {
          * Handle HTTP requests or upgrade them to a {@link ServerWebSocket}
          *
          * Respond to {@link Request} objects with a {@link Response} object.
-         *
          */
         fetch(this: Server, request: Request, server: Server): Response | undefined | Promise<Response | undefined>;
     }
 
     interface TLSWebSocketServeOptions<WebSocketDataType = undefined>
-        extends WebSocketServeOptions<WebSocketDataType>,
-            TLSOptions {
+        extends WebSocketServeOptions<WebSocketDataType>, TLSOptions
+    {
         unix?: never;
         tls?: TLSOptions;
     }
     interface UnixTLSWebSocketServeOptions<WebSocketDataType = undefined>
-        extends UnixWebSocketServeOptions<WebSocketDataType>,
-            TLSOptions {
+        extends UnixWebSocketServeOptions<WebSocketDataType>, TLSOptions
+    {
         /**
          * If set, the HTTP server will listen on a unix socket instead of a port.
          * (Cannot be used with hostname+port)
@@ -2228,7 +2200,6 @@ declare module "bun" {
          *  });
          * ```
          *  What you pass to `data` is available on the {@link ServerWebSocket.data} property
-         *
          */
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         upgrade<T = undefined>(
@@ -2242,7 +2213,7 @@ declare module "bun" {
                  * This value is passed to the {@link ServerWebSocket.data} property
                  */
                 data?: T;
-            }
+            },
         ): boolean;
 
         /**
@@ -2278,7 +2249,7 @@ declare module "bun" {
         publish(
             topic: string,
             data: string | ArrayBufferView | ArrayBuffer | SharedArrayBuffer,
-            compress?: boolean
+            compress?: boolean,
         ): ServerWebSocketSendStatus;
 
         /**
@@ -2323,7 +2294,6 @@ declare module "bun" {
          * stack traces instead of a generic 500 error. This makes debugging easier,
          * but development mode shouldn't be used in production or you will risk
          * leaking sensitive information.
-         *
          */
         readonly development: boolean;
 
@@ -2360,7 +2330,6 @@ declare module "bun" {
      * );
      * ```
      * @param path The path to the file (lazily loaded)
-     *
      */
     // tslint:disable-next-line:unified-signatures
     function file(path: string | URL, options?: BlobPropertyBag): BunFile;
@@ -2458,7 +2427,6 @@ declare module "bun" {
      * ---
      *
      * To close the file, set the array to `null` and it will be garbage collected eventually.
-     *
      */
     function mmap(path: PathLike, opts?: MMapOptions): Uint8Array;
 
@@ -2496,7 +2464,6 @@ declare module "bun" {
          * **Only use this for ASCII strings**. If there are non-ascii characters, your application may crash and/or very confusing bugs will happen such as `"foo" !== "foo"`.
          *
          * **The input buffer must not be garbage collected**. That means you will need to hold on to it for the duration of the string's lifetime.
-         *
          */
         arrayBufferToString(buffer: Uint8Array | ArrayBufferLike): string;
 
@@ -2506,7 +2473,6 @@ declare module "bun" {
          * **The input must be a UTF-16 encoded string**. This API does no validation whatsoever.
          *
          * **The input buffer must not be garbage collected**. That means you will need to hold on to it for the duration of the string's lifetime.
-         *
          */
         // tslint:disable-next-line:unified-signatures
         arrayBufferToString(buffer: Uint16Array): string;
@@ -2680,7 +2646,6 @@ declare module "bun" {
     class CryptoHasher {
         /**
          * The algorithm chosen to hash the data
-         *
          */
         readonly algorithm: SupportedCryptoAlgorithms;
 
@@ -2732,7 +2697,7 @@ declare module "bun" {
         static hash(
             algorithm: SupportedCryptoAlgorithms,
             input: StringOrBuffer,
-            hashInto?: NodeJS.TypedArray
+            hashInto?: NodeJS.TypedArray,
         ): NodeJS.TypedArray;
 
         /**
@@ -2796,7 +2761,6 @@ declare module "bun" {
     function sleepSync(ms: number): void;
 
     /**
-     *
      * Hash `input` using [SHA-2 512/256](https://en.wikipedia.org/wiki/SHA-2#Comparison_of_SHA_functions)
      *
      * @param input `string`, `Uint8Array`, or `ArrayBuffer` to hash. `Uint8Array` or `ArrayBuffer` will be faster
@@ -2811,12 +2775,11 @@ declare module "bun" {
      * ```bash
      * # You will need OpenSSL 3 or later
      * openssl sha512-256 /path/to/file
-     *```
+     * ```
      */
     function sha(input: StringOrBuffer, hashInto?: NodeJS.TypedArray): NodeJS.TypedArray;
 
     /**
-     *
      * Hash `input` using [SHA-2 512/256](https://en.wikipedia.org/wiki/SHA-2#Comparison_of_SHA_functions)
      *
      * @param input `string`, `Uint8Array`, or `ArrayBuffer` to hash. `Uint8Array` or `ArrayBuffer` will be faster
@@ -2831,7 +2794,7 @@ declare module "bun" {
      * ```bash
      * # You will need OpenSSL 3 or later
      * openssl sha512-256 /path/to/file
-     *```
+     * ```
      */
     function sha(input: StringOrBuffer, encoding: DigestEncoding): string;
 
@@ -3158,7 +3121,7 @@ declare module "bun" {
     }
 
     type OnResolveCallback = (
-        args: OnResolveArgs
+        args: OnResolveArgs,
     ) => OnResolveResult | Promise<OnResolveResult | undefined | null> | undefined | null;
 
     interface PluginBuilder {
@@ -3263,7 +3226,7 @@ declare module "bun" {
              * }));
              * ```
              */
-            build: PluginBuilder
+            build: PluginBuilder,
         ): void | Promise<void>;
     }
 
@@ -3285,18 +3248,17 @@ declare module "bun" {
      * application. A future version of Bun may also support specifying plugins
      * via `bunfig.toml`.
      *
-     *
      * @example
      * A YAML loader plugin
      *
      * ```js
-     *Bun.plugin({
+     * Bun.plugin({
      *  setup(builder) {
      *   builder.onLoad({ filter: /\.yaml$/ }, ({path}) => ({
      *     loader: "object",
      *     exports: require("js-yaml").load(fs.readFileSync(path, "utf8"))
      *   }));
-     *});
+     * });
      *
      * // You can use require()
      * const {foo} = require("./file.yaml");
@@ -3507,7 +3469,6 @@ declare module "bun" {
          * Bun originally defaulted to `Uint8Array` but when dealing with network
          * data, it's more useful to be able to directly read from the bytes which
          * `Buffer` allows.
-         *
          */
         binaryType?: BinaryType;
     }
@@ -3538,7 +3499,6 @@ declare module "bun" {
     }
 
     /**
-     *
      * Create a TCP client that connects to a server
      *
      * @param options The options to use when creating the client
@@ -3548,13 +3508,11 @@ declare module "bun" {
      * @param options.port The port to connect to
      * @param options.tls The TLS configuration object
      * @param options.unix The unix socket to connect to
-     *
      */
     function connect<Data = undefined>(options: TCPSocketConnectOptions<Data>): Promise<Socket<Data>>;
     function connect<Data = undefined>(options: UnixSocketOptions<Data>): Promise<Socket<Data>>;
 
     /**
-     *
      * Create a TCP server that listens on a port
      *
      * @param options The options to use when creating the server
@@ -3564,7 +3522,6 @@ declare module "bun" {
      * @param options.port The port to connect to
      * @param options.tls The TLS configuration object
      * @param options.unix The unix socket to connect to
-     *
      */
     function listen<Data = undefined>(options: TCPSocketListenOptions<Data>): TCPSocketListener<Data>;
     function listen<Data = undefined>(options: UnixSocketOptions<Data>): UnixSocketListener<Data>;
@@ -3603,7 +3560,7 @@ declare module "bun" {
         interface OptionsObject<
             In extends Writable = Writable,
             Out extends Readable = Readable,
-            Err extends Readable = Readable
+            Err extends Readable = Readable,
         > {
             /**
              * The current working directory of the process
@@ -3618,7 +3575,6 @@ declare module "bun" {
              * Defaults to `process.env` as it was when the current Bun process launched.
              *
              * Changes to `process.env` at runtime won't automatically be reflected in the default value. For that, you can pass `process.env` explicitly.
-             *
              */
             env?: Record<string, string | undefined>;
 
@@ -3711,7 +3667,7 @@ declare module "bun" {
                 /**
                  * If an error occurred in the call to waitpid2, this will be the error.
                  */
-                error?: Errorlike
+                error?: Errorlike,
             ): void | Promise<void>;
 
             /**
@@ -3729,7 +3685,7 @@ declare module "bun" {
                 /**
                  * The {@link Subprocess} that sent the message
                  */
-                subprocess: Subprocess<In, Out, Err>
+                subprocess: Subprocess<In, Out, Err>,
             ): void;
         }
 
@@ -3737,14 +3693,13 @@ declare module "bun" {
             infer In,
             infer Out,
             infer Err
-        >
-            ? Subprocess<
-                  // "Writable extends In" means "if In === Writable",
-                  // aka if true that means the user didn't specify anything
-                  Writable extends In ? "ignore" : In,
-                  Readable extends Out ? "pipe" : Out,
-                  Readable extends Err ? "inherit" : Err
-              >
+        > ? Subprocess<
+                // "Writable extends In" means "if In === Writable",
+                // aka if true that means the user didn't specify anything
+                Writable extends In ? "ignore" : In,
+                Readable extends Out ? "pipe" : Out,
+                Readable extends Err ? "inherit" : Err
+            >
             : Subprocess<Writable, Readable, Readable>;
 
         type OptionsToSyncSubprocess<Opts extends OptionsObject> = Opts extends OptionsObject<any, infer Out, infer Err>
@@ -3753,20 +3708,16 @@ declare module "bun" {
 
         type ReadableIO = ReadableStream<Uint8Array> | number | undefined;
 
-        type ReadableToIO<X extends Readable> = X extends "pipe" | undefined
-            ? ReadableStream<Uint8Array>
-            : X extends BunFile | ArrayBufferView | number
-            ? number
+        type ReadableToIO<X extends Readable> = X extends "pipe" | undefined ? ReadableStream<Uint8Array>
+            : X extends BunFile | ArrayBufferView | number ? number
             : undefined;
 
         type ReadableToSyncIO<X extends Readable> = X extends "pipe" | undefined ? Buffer : undefined;
 
         type WritableIO = FileSink | number | undefined;
 
-        type WritableToIO<X extends Writable> = X extends "pipe"
-            ? FileSink
-            : X extends BunFile | ArrayBufferView | Blob | Request | Response | number
-            ? number
+        type WritableToIO<X extends Writable> = X extends "pipe" ? FileSink
+            : X extends BunFile | ArrayBufferView | Blob | Request | Response | number ? number
             : undefined;
     }
 
@@ -3782,7 +3733,7 @@ declare module "bun" {
     interface Subprocess<
         In extends SpawnOptions.Writable = SpawnOptions.Writable,
         Out extends SpawnOptions.Readable = SpawnOptions.Readable,
-        Err extends SpawnOptions.Readable = SpawnOptions.Readable
+        Err extends SpawnOptions.Readable = SpawnOptions.Readable,
     > {
         readonly stdin: SpawnOptions.WritableToIO<In>;
         readonly stdout: SpawnOptions.ReadableToIO<Out>;
@@ -3880,7 +3831,7 @@ declare module "bun" {
      */
     interface SyncSubprocess<
         Out extends SpawnOptions.Readable = SpawnOptions.Readable,
-        Err extends SpawnOptions.Readable = SpawnOptions.Readable
+        Err extends SpawnOptions.Readable = SpawnOptions.Readable,
     > {
         stdout: SpawnOptions.ReadableToSyncIO<Out>;
         stderr: SpawnOptions.ReadableToSyncIO<Err>;
@@ -3919,7 +3870,7 @@ declare module "bun" {
              * ```
              */
             cmd: string[]; // to support dynamically constructed commands
-        }
+        },
     ): SpawnOptions.OptionsToSubprocess<Opts>;
 
     /**
@@ -3949,7 +3900,7 @@ declare module "bun" {
          * ```
          */
         cmds: string[],
-        options?: Opts
+        options?: Opts,
     ): SpawnOptions.OptionsToSubprocess<Opts>;
 
     /**
@@ -3981,7 +3932,7 @@ declare module "bun" {
              * ```
              */
             cmd: string[];
-        }
+        },
     ): SpawnOptions.OptionsToSyncSubprocess<Opts>;
 
     /**
@@ -4010,7 +3961,7 @@ declare module "bun" {
          * ```
          */
         cmds: string[],
-        options?: Opts
+        options?: Opts,
     ): SpawnOptions.OptionsToSyncSubprocess<Opts>;
 
     /** Utility type for any process from {@link Bun.spawn()} with both stdout and stderr set to `"pipe"` */
@@ -4039,10 +3990,10 @@ declare module "bun" {
          *
          * @example
          * ```ts
-         *const router = new FileSystemRouter({
+         * const router = new FileSystemRouter({
          *   dir: process.cwd() + "/pages",
          *   style: "nextjs",
-         *});
+         * });
          *
          * const {params} = router.match("/blog/2020/01/01/hello-world");
          * console.log(params); // {year: "2020", month: "01", day: "01", slug: "hello-world"}

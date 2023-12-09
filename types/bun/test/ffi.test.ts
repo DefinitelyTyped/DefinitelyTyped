@@ -59,7 +59,7 @@ const lib = dlopen(
             ],
             returns: FFIType.void,
         },
-    }
+    },
 );
 
 tsd.expectType<CString>(lib.symbols.sqlite3_libversion());
@@ -101,7 +101,7 @@ function _arg(
         void,
         CString,
         number | bigint,
-        number | bigint
+        number | bigint,
     ]
 ) {
     console.log("asdf");

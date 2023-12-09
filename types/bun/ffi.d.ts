@@ -13,7 +13,6 @@
  * that convert JavaScript types to C types and back. Internally,
  * bun uses [tinycc](https://github.com/TinyCC/tinycc), so a big thanks
  * goes to Fabrice Bellard and TinyCC maintainers for making this possible.
- *
  */
 declare module "bun:ffi" {
     enum FFIType {
@@ -174,7 +173,6 @@ declare module "bun:ffi" {
 
         /**
          * 32-bit signed integer
-         *
          */
         int32_t = 5,
 
@@ -270,8 +268,6 @@ declare module "bun:ffi" {
          * bool
          * _Bool
          * ```
-         *
-         *
          */
         bool = 11,
 
@@ -309,7 +305,6 @@ declare module "bun:ffi" {
          * ```c
          * void
          * ```
-         *
          */
         void = 13,
 
@@ -317,7 +312,6 @@ declare module "bun:ffi" {
          * When used as a `returns`, this will automatically become a {@link CString}.
          *
          * When used in `args` it is equivalent to {@link FFIType.pointer}
-         *
          */
         cstring = 14,
 
@@ -329,7 +323,6 @@ declare module "bun:ffi" {
          *
          * In JavaScript, this could be number or it could be BigInt, depending on what
          * value is passed in.
-         *
          */
         i64_fast = 15,
 
@@ -341,7 +334,6 @@ declare module "bun:ffi" {
          *
          * In JavaScript, this could be number or it could be BigInt, depending on what
          * value is passed in.
-         *
          */
         u64_fast = 16,
         function = 17,
@@ -560,10 +552,8 @@ declare module "bun:ffi" {
         close(): void;
     }
 
-    type ToFFIType<T extends FFITypeOrString> = T extends FFIType
-        ? T
-        : T extends string
-        ? FFITypeStringToType[T]
+    type ToFFIType<T extends FFITypeOrString> = T extends FFIType ? T
+        : T extends string ? FFITypeStringToType[T]
         : never;
 
     // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
@@ -583,13 +573,11 @@ declare module "bun:ffi" {
         [K in keyof Fns]: (
             ...args: Fns[K]["args"] extends infer A extends readonly FFITypeOrString[]
                 ? { [L in keyof A]: FFITypeToArgsType[ToFFIType<A[L]>] }
-                : // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
-                [unknown] extends [Fns[K]["args"]]
-                ? []
+                // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+                : [unknown] extends [Fns[K]["args"]] ? []
                 : never
         ) => // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
-        [unknown] extends [Fns[K]["returns"]]
-            ? undefined
+        [unknown] extends [Fns[K]["returns"]] ? undefined
             : FFITypeToReturnsType[ToFFIType<NonNullable<Fns[K]["returns"]>>];
     };
 
@@ -618,7 +606,6 @@ declare module "bun:ffi" {
      * that convert JavaScript types to C types and back. Internally,
      * bun uses [tinycc](https://github.com/TinyCC/tinycc), so a big thanks
      * goes to Fabrice Bellard and TinyCC maintainers for making this possible.
-     *
      */
     function dlopen<Fns extends Record<string, Narrow<FFIFunction>>>(name: string, symbols: Fns): Library<Fns>;
 
@@ -647,7 +634,6 @@ declare module "bun:ffi" {
      * that convert JavaScript types to C types and back. Internally,
      * bun uses [tinycc](https://github.com/TinyCC/tinycc), so a big thanks
      * goes to Fabrice Bellard and TinyCC maintainers for making this possible.
-     *
      */
     function CFunction(fn: FFIFunction & { ptr: Pointer }): CallableFunction & {
         /**
@@ -706,7 +692,6 @@ declare module "bun:ffi" {
      * that convert JavaScript types to C types and back. Internally,
      * bun uses [tinycc](https://github.com/TinyCC/tinycc), so a big thanks
      * goes to Fabrice Bellard and TinyCC maintainers for making this possible.
-     *
      */
     function linkSymbols<Fns extends Record<string, Narrow<FFIFunction>>>(symbols: Fns): Library<Fns>;
 
@@ -723,7 +708,6 @@ declare module "bun:ffi" {
      * thing to do safely. Passing an invalid pointer can crash the program and
      * reading beyond the bounds of the pointer will crash the program or cause
      * undefined behavior. Use with care!
-     *
      */
     function toBuffer(ptr: Pointer, byteOffset?: number, byteLength?: number): Buffer;
 
@@ -927,7 +911,6 @@ declare module "bun:ffi" {
      *  // Do something with rawPtr
      * }
      * ```
-     *
      */
     function ptr(view: NodeJS.TypedArray | ArrayBufferLike | DataView, byteOffset?: number): Pointer;
 
@@ -962,7 +945,6 @@ declare module "bun:ffi" {
          * @param ptr The pointer to the C string
          * @param byteOffset bytes to skip before reading
          * @param byteLength bytes to read
-         *
          *
          * @example
          * ```js
