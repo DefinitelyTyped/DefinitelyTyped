@@ -750,7 +750,18 @@ linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: "latest" 
 linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 6 } }], "test.js");
 linterWithFlatConfig.verify(
     SOURCE,
-    [{ languageOptions: { ecmaVersion: 6 } }],
+    [{
+        languageOptions: {
+            ecmaVersion: 6,
+            globals: {
+                true: true,
+                false: false,
+                foo: 'readonly',
+                bar: 'writable',
+                baz: 'off',
+            },
+        },
+    }],
     "test.js",
 );
 
