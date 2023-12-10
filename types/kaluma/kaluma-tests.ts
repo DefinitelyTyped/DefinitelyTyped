@@ -3,6 +3,7 @@ import * as atModule from "at";
 import * as buttonModule from "button";
 import * as eventsModule from "events";
 import * as gpioModule from "gpio";
+import * as i2cModule from "i2c";
 import * as uartModule from "uart";
 
 // test globals
@@ -331,6 +332,58 @@ import * as uartModule from "uart";
     // @ts-expect-error
     // $ExpectType void
     gp00.irq(() => {}, 0);
+});
+
+// i2c module
+(() => {
+    let ic00: i2cModule.I2C = new i2cModule.I2C(0);
+    let ic01: i2cModule.I2C = new i2cModule.I2C(0, {});
+    let ic02: i2cModule.I2C = new i2cModule.I2C(0, { mode: 0 });
+    let ic03: i2cModule.I2C = new i2cModule.I2C(0, { baudrate: 0 });
+    let ic04: i2cModule.I2C = new i2cModule.I2C(0, { scl: 0 });
+    let ic05: i2cModule.I2C = new i2cModule.I2C(0, { sda: 0 });
+    let ic06: II2C = new i2cModule.I2C(0);
+
+    // $ExpectType 0
+    i2cModule.I2C.MASTER;
+
+    // $ExpectType 1
+    i2cModule.I2C.SLAVE;
+
+    // $ExpectType number
+    ic00.write("0", 0);
+    // $ExpectType number
+    ic00.write(new Uint8Array(0), 0);
+    // $ExpectType number
+    ic00.write("0", 0, 0);
+    // $ExpectType number
+    ic00.write("0", 0, 0, 0);
+
+    // $ExpectType Uint8Array
+    ic00.read(0, 0);
+    // $ExpectType Uint8Array
+    ic00.read(0, 0, 0);
+
+    // $ExpectType number
+    ic00.memWrite("0", 0, 0);
+    // $ExpectType number
+    ic00.memWrite(new Uint8Array(0), 0, 0);
+    // $ExpectType number
+    ic00.memWrite("0", 0, 0, 0);
+    // $ExpectType number
+    ic00.memWrite("0", 0, 0, 0, 0);
+    // $ExpectType number
+    ic00.memWrite("0", 0, 0, 0, 0, 0);
+
+    // $ExpectType Uint8Array
+    ic00.memRead(0, 0, 0);
+    // $ExpectType Uint8Array
+    ic00.memRead(0, 0, 0, 0);
+    // $ExpectType Uint8Array
+    ic00.memRead(0, 0, 0, 0, 0);
+
+    // $ExpectType void
+    ic00.close();
 });
 
 // require

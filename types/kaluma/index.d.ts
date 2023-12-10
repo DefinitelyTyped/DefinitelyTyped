@@ -680,6 +680,59 @@ interface I2COptions {
 
 // eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-empty-interface
 interface II2C {
+    /**
+     * This method writes data to the specified address (slave device) and returns the number of bytes written. This method can be called only in master mode.
+     * @param data Data to write.
+     * @param address I2C slave address. (7bit)
+     * @param timeout Timeout in milliseconds. Default: 5000.
+     * @param count Indicates how many times to write data. Default: 1
+     * @returns The number of bytes written, -1 if it failed to write or timeout.
+     */
+    write(data: Uint8Array | string, address: number, timeout?: number, count?: number): number;
+
+    /**
+     * This method read data from the specified address (slave device) and returns an array buffer object. This method can be called only in master mode.
+     * @param length Data length to read.
+     * @param address I2C slave address. (7bit)
+     * @param timeout Timeout in milliseconds. Default: 5000.
+     * @returns An array buffer having data read, null if failed to read.
+     */
+    read(length: number, address: number, timeout?: number): Uint8Array;
+
+    /**
+     * This method writes data to the memory address in the specified slave device and returns the number of bytes written. This method can be called only in master mode.
+     * @param data Data to write.
+     * @param address I2C slave address. (7bit)
+     * @param memAddress Memory address to write.
+     * @param memAddressSize Size of memAddress. Set 16 when memAddress is 16-bit address, or set 8 if memAddress is 8-bit address. Default: 8.
+     * @param timeout Timeout in milliseconds. Default: 5000.
+     * @param count Indicates how many times to write data. Default: 1
+     * @returns The number of bytes written, -1 if failed to write or timeout.
+     */
+    memWrite(
+        data: Uint8Array | string,
+        address: number,
+        memAddress: number,
+        memAddressSize?: number,
+        timeout?: number,
+        count?: number,
+    ): number;
+
+    /**
+     * This method read data at memory address from the specified slave device and returns an array buffer object. This method can be called only in master mode.
+     * @param length Data length to read.
+     * @param address I2C slave address. (7bit)
+     * @param memAddress Memory address to read.
+     * @param memAddressSize Size of memAddress. Set 16 when memAddress is 16-bit address, or set 8 when memAddress is 8-bit address. Default: 8.
+     * @param timeout Timeout in milliseconds. Default: 5000
+     * @returns A buffer having data read, null if failed to read.
+     */
+    memRead(length: number, address: number, memAddress: number, memAddressSize?: number, timeout?: number): Uint8Array;
+
+    /**
+     * This method closes the I2C bus.
+     */
+    close(): void;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-empty-interface
@@ -882,6 +935,47 @@ declare module "gpio" {
 
 declare module "i2c" {
     class I2C implements II2C {
+        static MASTER: 0;
+
+        /**
+         * Not supported
+         */
+        static SLAVE: 1;
+
+        /**
+         * Creates an instances of I2C represents a I2C bus.
+         * @param bus I2C bus number.
+         * @param options Options for constructing a I2C
+         */
+        constructor(bus: number, options?: I2COptions);
+
+        /** @inheritdoc */
+        write(data: string | Uint8Array, address: number, timeout?: number, count?: number): number;
+
+        /** @inheritdoc */
+        read(length: number, address: number, timeout?: number): Uint8Array;
+
+        /** @inheritdoc */
+        memWrite(
+            data: string | Uint8Array,
+            address: number,
+            memAddress: number,
+            memAddressSize?: number,
+            timeout?: number,
+            count?: number,
+        ): number;
+
+        /** @inheritdoc */
+        memRead(
+            length: number,
+            address: number,
+            memAddress: number,
+            memAddressSize?: number,
+            timeout?: number,
+        ): Uint8Array;
+
+        /** @inheritdoc */
+        close(): void;
     }
 }
 
