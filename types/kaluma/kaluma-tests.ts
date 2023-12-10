@@ -156,6 +156,27 @@ import * as uartModule from "uart";
     sysError.code;
 });
 
+// interrupts
+(() => {
+    // $ExpectType void
+    attachInterrupt(0, (p: number, m: number) => {});
+
+    // $ExpectType void
+    attachInterrupt(0, () => {}, 4);
+
+    // @ts-expect-error
+    attachInterrupt(0, () => {}, 0);
+
+    // $ExpectType void
+    detachInterrupt(0);
+
+    // $ExpectType void
+    enableInterrupts();
+
+    // $ExpectType void
+    disableInterrupts();
+});
+
 // timers
 (() => {
     // $ExpectType void

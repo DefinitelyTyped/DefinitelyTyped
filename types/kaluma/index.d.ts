@@ -162,6 +162,33 @@ declare function decodeURIComponent(data: string): string;
  */
 declare function require(module_name: string): any;
 
+type InterruptEvent = 4 | 8 | 12;
+type InterruptCallback = (pin: number, event: InterruptEvent) => void;
+
+/**
+ * Run the callback function when the events is triggered on the pin. There are three events for the interrupts. The FALLING (4) event is triggered when the pin state is changed from HIGH to LOW. The RISING (8) event is triggered when the pin state is changed from LOW to HIGH. The CHANGE (12) event is triggered when the pin state is changed to any states, which means the CHANGE event is the same as the FALLING + RISING events.
+ * @param pin The pin number which can support GPIO function.
+ * @param callback The function is called when the event is triggered on the pin. the pin and event are the arguments of the callback function.
+ * @param events Set the events of the pin. There are three events,FALLING (4), RISING (8), and CHANGE (12). Default: CHANGE.
+ */
+declare function attachInterrupt(pin: number, callback: InterruptCallback, events?: InterruptEvent): void;
+
+/**
+ * Remove the interrupts on the pin which is added by @see attachInterrupt function.
+ * @param pin The pin number which can support GPIO function.
+ */
+declare function detachInterrupt(pin: number): void;
+
+/**
+ * Enable all the interrupts which is attached by @see attachInterrupt function. The interrupts are automatically enabled when @see attachedInterrupts is called so it is not needed to use this function if you didn't call @see disableInterrupts function.
+ */
+declare function enableInterrupts(): void;
+
+/**
+ * Disable all the interrupts which is attached by @see attachInterrupt function. The interrupts will be enabled when @see enableInterrupts is called.
+ */
+declare function disableInterrupts(): void;
+
 /**
  * Waits for msec milliseconds.
  *
@@ -643,7 +670,7 @@ interface IGPIO {
      * @param callback The function is called when the event is triggered on the pin. the pin and event are the arguments of the callback function.
      * @param event set the event of the pin. There are three events,FALLING (4), RISING (8), and CHANGE (12). Default: CHANGE.
      */
-    irq(callback: IrqCallbackFn, event?: 4 | 8 | 12): void;
+    irq(callback: IrqCallbackFn, event?: InterruptEvent): void;
 
     /**
      * Pin number of the GPIO object.
