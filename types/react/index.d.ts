@@ -2245,6 +2245,7 @@ declare namespace React {
     interface DetailsHTMLAttributes<T> extends HTMLAttributes<T> {
         open?: boolean | undefined;
         onToggle?: ReactEventHandler<T> | undefined;
+        name?: string | undefined;
     }
 
     interface DelHTMLAttributes<T> extends HTMLAttributes<T> {
