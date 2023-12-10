@@ -4,6 +4,7 @@ import * as buttonModule from "button";
 import * as eventsModule from "events";
 import * as gpioModule from "gpio";
 import * as i2cModule from "i2c";
+import * as ledModule from "led";
 import * as uartModule from "uart";
 
 // test globals
@@ -384,6 +385,27 @@ import * as uartModule from "uart";
 
     // $ExpectType void
     ic00.close();
+});
+
+// led module
+(() => {
+    let led00: ledModule.LED = new ledModule.LED(0);
+    let led01: ILED = new ledModule.LED(0);
+
+    // $ExpectType void
+    led00.on();
+
+    // $ExpectType void
+    led00.off();
+
+    // $ExpectType void
+    led00.toggle();
+
+    // $ExpectType number
+    led00.read();
+
+    // $ExpectType number
+    led00.pin;
 });
 
 // require

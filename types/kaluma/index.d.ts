@@ -737,6 +737,31 @@ interface II2C {
 
 // eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-empty-interface
 interface ILED {
+    /**
+     * Turns on the LED.
+     */
+    on(): void;
+
+    /**
+     * Turns off the LED.
+     */
+    off(): void;
+
+    /**
+     * This method toggles the LED.
+     */
+    toggle(): void;
+
+    /**
+     * Read the state of the LED.
+     * @returns State of the LED. 1 means LED ON and 0 means LED OFF state.
+     */
+    read(): number;
+
+    /**
+     * Pin number of the LED.
+     */
+    pin: number;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-empty-interface
@@ -981,6 +1006,26 @@ declare module "i2c" {
 
 declare module "led" {
     class LED implements ILED {
+        /**
+         * Creates an instances of LED represents a LED.
+         * @param pin Pin number where LED connected.
+         */
+        constructor(pin: number);
+
+        /** @inheritdoc */
+        on(): void;
+
+        /** @inheritdoc */
+        off(): void;
+
+        /** @inheritdoc */
+        toggle(): void;
+
+        /** @inheritdoc */
+        read(): number;
+
+        /** @inheritdoc */
+        pin: number;
     }
 }
 
