@@ -756,9 +756,9 @@ linterWithFlatConfig.verify(
             globals: {
                 true: true,
                 false: false,
-                foo: 'readonly',
-                bar: 'writable',
-                baz: 'off',
+                foo: "readonly",
+                bar: "writable",
+                baz: "off",
             },
         },
     }],
