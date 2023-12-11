@@ -1,11 +1,13 @@
-import vosk from 'vosk';
+import vosk from "vosk";
 
-main().catch(function (error) { throw error; });
+main().catch(function(error) {
+    throw error;
+});
 
 async function main(): Promise<void> {
     const result: unknown[] = [];
-    const model = new vosk.Model('../models/vosk');
-    const recognizer = new vosk.Recognizer({model: model, sampleRate: 16000});
+    const model = new vosk.Model("../models/vosk");
+    const recognizer = new vosk.Recognizer({ model: model, sampleRate: 16000 });
 
     const chunk = new ArrayBuffer(0);
 
@@ -17,4 +19,3 @@ async function main(): Promise<void> {
 
     console.log(recognizer.finalResult());
 }
-

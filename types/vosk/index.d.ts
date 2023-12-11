@@ -58,7 +58,8 @@ export interface SpeakerRecognizerParam {
      */
     speakerModel: SpeakerModel;
 }
-export type Result<T extends XOR<SpeakerRecognizerParam, Partial<GrammarRecognizerParam>>> = T extends SpeakerRecognizerParam ? SpeakerResults & RecognitionResults : RecognitionResults;
+export type Result<T extends XOR<SpeakerRecognizerParam, Partial<GrammarRecognizerParam>>> = T extends
+    SpeakerRecognizerParam ? SpeakerResults & RecognitionResults : RecognitionResults;
 export interface PartialResults {
     /**
      * The partial sentence that have been detected until now
@@ -69,7 +70,7 @@ export interface PartialResults {
  * The list of strings to be recognized
  */
 export type Grammar = string[];
-export type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never; };
+export type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
 export type XOR<T, U> = (T | U) extends object ? (Without<T, U> & U) | (Without<U, T> & T) : T | U;
 /**
  * Set log level for Kaldi messages
@@ -279,7 +280,7 @@ export class Recognizer<T extends XOR<SpeakerRecognizerParam, Partial<GrammarRec
      *   "text" : "what zero zero zero one"
      *  }
      * </pre>
-     * 
+     *
      * @returns {string}
      */
     resultString(): string;
@@ -304,7 +305,6 @@ export class Recognizer<T extends XOR<SpeakerRecognizerParam, Partial<GrammarRec
      */
     finalResult(): Result<T>;
     /**
-     *
      * Resets current results so the recognition can continue from scratch
      */
     reset(): void;
