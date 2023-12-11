@@ -155,6 +155,12 @@ export interface Client extends EventEmitter {
         callback: CompareCallback,
     ): void;
 
+
+    /**
+     * Initiate LDAP connection.
+     */
+    connect(): void;
+    
     /**
      * Deletes an entry from the LDAP server.
      *
