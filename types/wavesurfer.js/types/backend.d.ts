@@ -6,7 +6,7 @@ import { WaveSurferParams } from "./params";
 
 export type WaveSurferBackend = WebAudio | MediaElement | MediaElementWebAudio;
 
-export type Peaks = ReadonlyArray<number> | ReadonlyArray<ReadonlyArray<number>>;
+export type Peaks = readonly number[] | ReadonlyArray<readonly number[]>;
 
 export abstract class WebAudioBackend extends Observer {
     constructor(params: WaveSurferParams);

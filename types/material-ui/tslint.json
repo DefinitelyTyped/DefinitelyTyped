@@ -1,9 +1,3 @@
 {
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "ban-types": false,
-        "no-duplicate-imports": false,
-        "no-empty-interface": false,
-        "no-mergeable-namespace": false
-    }
+    "extends": "@definitelytyped/dtslint/dt.json"
 }

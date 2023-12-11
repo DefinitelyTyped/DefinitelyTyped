@@ -1155,7 +1155,7 @@ declare namespace mapboxgl {
          * @param {string[]} tiles An array of one or more tile source URLs, as in the TileJSON spec.
          * @returns {VectorTileSource} this
          */
-        setTiles(tiles: ReadonlyArray<string>): VectorSourceImpl;
+        setTiles(tiles: readonly string[]): VectorSourceImpl;
 
         /**
          * Sets the source `url` property and re-renders the map.
@@ -1198,14 +1198,14 @@ declare namespace mapboxgl {
 
         getClusterChildren(
             clusterId: number,
-            callback: (error: any, features: GeoJSON.Feature<GeoJSON.Geometry>[]) => void,
+            callback: (error: any, features: Array<GeoJSON.Feature<GeoJSON.Geometry>>) => void,
         ): this;
 
         getClusterLeaves(
             cluserId: number,
             limit: number,
             offset: number,
-            callback: (error: any, features: GeoJSON.Feature<GeoJSON.Geometry>[]) => void,
+            callback: (error: any, features: Array<GeoJSON.Feature<GeoJSON.Geometry>>) => void,
         ): this;
     }
 
@@ -2230,7 +2230,7 @@ declare namespace mapboxgl {
         "text-optional"?: boolean | undefined;
         "text-radial-offset"?: number | Expression | undefined;
         "text-variable-anchor"?: Anchor[] | undefined;
-        "text-writing-mode"?: ("horizontal" | "vertical")[] | undefined;
+        "text-writing-mode"?: Array<"horizontal" | "vertical"> | undefined;
         "symbol-sort-key"?: number | Expression | undefined;
     }
 

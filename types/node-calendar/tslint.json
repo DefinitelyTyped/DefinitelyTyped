@@ -1,13 +1,3 @@
 {
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "array-type": false,
-        "interface-name": false,
-        "member-access": false,
-        "new-parens": false,
-        "no-redundant-jsdoc-2": false,
-        "no-var-keyword": false,
-        "prefer-const": false,
-        "triple-equals": false
-    }
+    "extends": "@definitelytyped/dtslint/dt.json"
 }

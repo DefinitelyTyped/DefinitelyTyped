@@ -1077,7 +1077,7 @@ namespace TestLastIndexOf {
 namespace TestObject {
     let arrayOfKeys: string[];
     let arrayOfValues: number[];
-    let arrayOfKeyValuePairs: (string|number)[][]
+    let arrayOfKeyValuePairs: Array<Array<string|number>>
 
     let listOfKeys: _.List<string>;
     let listOfValues: _.List<number>;
@@ -2206,21 +2206,21 @@ namespace TestUnzip {
     };
 
     {
-        let result: (string|number|boolean)[][];
+        let result: Array<Array<string|number|boolean>>;
 
         result = _.unzip<string|number|boolean>(array);
         result = _.unzip<string|number|boolean>(list);
     }
 
     {
-        let result: _.LoDashImplicitArrayWrapper<(string|number|boolean)[]>;
+        let result: _.LoDashImplicitArrayWrapper<Array<string|number|boolean>>;
 
         result = _(array).unzip<string|number|boolean>();
         result = _(list).unzip<string|number|boolean>();
     }
 
     {
-        let result: _.LoDashExplicitArrayWrapper<(string|number|boolean)[]>;
+        let result: _.LoDashExplicitArrayWrapper<Array<string|number|boolean>>;
 
         result = _(array).chain().unzip<string|number|boolean>();
         result = _(list).chain().unzip<string|number|boolean>();
@@ -2229,7 +2229,7 @@ namespace TestUnzip {
 
 // _.unzipWith
 {
-    let testUnzipWithArray: (number[]|_.List<number>)[];
+    let testUnzipWithArray: Array<number[]|_.List<number>>;
     let testUnzipWithList: _.List<number[]|_.List<number>>;
     let testUnzipWithIterator: {(prev: TResult, curr: number, index?: number, list?: number[]): TResult};
     let result: TResult[];
@@ -2378,7 +2378,7 @@ namespace TestZip {
 namespace TestZipObject {
     let arrayOfKeys: string[];
     let arrayOfValues: number[];
-    let arrayOfKeyValuePairs: (string|number)[][]
+    let arrayOfKeyValuePairs: Array<Array<string|number>>
 
     let listOfKeys: _.List<string>;
     let listOfValues: _.List<number>;
@@ -4752,32 +4752,32 @@ result = <string[][]>_.partition<string>(['a', 'b', 'c', 'd'], (n) => n < 'c');
 result = <number[][]>_.partition<number>([1, 2, 3, 4], (n) => n < 3);
 result = <number[][]>_.partition<number>({0: 1, 1: 2, 2: 3, 3: 4, length: 4}, (n) => n < 3);
 result = <number[][]>_.partition<number>({a: 1, b: 2, c: 3, d: 4}, (n) => n < 3);
-result = <{a: number}[][]>_.partition<{a: number}, {a: number}>([{a: 1}, {a: 2}], {a: 2});
-result = <{a: number}[][]>_.partition<{a: number}, {a: number}>({0: {a: 1}, 1: {a: 2}, length: 2}, {a: 2});
-result = <{a: number}[][]>_.partition<{a: number}, {a: number}>({0: {a: 1}, 1: {a: 2}}, {a: 2});
-result = <{a: number}[][]>_.partition<{a: number}>([{a: 1}, {a: 2}], 'a');
-result = <{a: number}[][]>_.partition<{a: number}>([{a: 1}, {a: 2}], 'a', 2);
-result = <{a: number}[][]>_.partition<{a: number}>({0: {a: 1}, 1: {a: 2}, length: 2}, 'a');
-result = <{a: number}[][]>_.partition<{a: number}>({0: {a: 1}, 1: {a: 2}, length: 2}, 'a', 2);
-result = <{a: number}[][]>_.partition<{a: number}>({0: {a: 1}, 1: {a: 2}}, 'a');
-result = <{a: number}[][]>_.partition<{a: number}>({0: {a: 1}, 1: {a: 2}}, 'a', 2);
+result = <Array<Array<{a: number}>>>_.partition<{a: number}, {a: number}>([{a: 1}, {a: 2}], {a: 2});
+result = <Array<Array<{a: number}>>>_.partition<{a: number}, {a: number}>({0: {a: 1}, 1: {a: 2}, length: 2}, {a: 2});
+result = <Array<Array<{a: number}>>>_.partition<{a: number}, {a: number}>({0: {a: 1}, 1: {a: 2}}, {a: 2});
+result = <Array<Array<{a: number}>>>_.partition<{a: number}>([{a: 1}, {a: 2}], 'a');
+result = <Array<Array<{a: number}>>>_.partition<{a: number}>([{a: 1}, {a: 2}], 'a', 2);
+result = <Array<Array<{a: number}>>>_.partition<{a: number}>({0: {a: 1}, 1: {a: 2}, length: 2}, 'a');
+result = <Array<Array<{a: number}>>>_.partition<{a: number}>({0: {a: 1}, 1: {a: 2}, length: 2}, 'a', 2);
+result = <Array<Array<{a: number}>>>_.partition<{a: number}>({0: {a: 1}, 1: {a: 2}}, 'a');
+result = <Array<Array<{a: number}>>>_.partition<{a: number}>({0: {a: 1}, 1: {a: 2}}, 'a', 2);
 result = <string[][]>_('abcd').partition((n) => n < 'c').value();
 result = <string[][]>_(['a', 'b', 'c', 'd']).partition((n) => n < 'c').value();
 result = <number[][]>_([1, 2, 3, 4]).partition((n) => n < 3).value();
 result = <number[][]>_({0: 1, 1: 2, 2: 3, 3: 4, length: 4}).partition<number>((n) => n < 3).value();
 result = <number[][]>_({a: 1, b: 2, c: 3, d: 4}).partition<number>((n) => n < 3).value();
-result = <{a: number}[][]>_([{a: 1}, {a: 2}]).partition<{a: number}>({a: 2}).value();
-result = <{a: number}[][]>_({0: {a: 1}, 1: {a: 2}, length: 2}).partition<{a: number}, {a: number}>({a: 2}).value();
-result = <{a: number}[][]>_({0: {a: 1}, 1: {a: 2}}).partition<{a: number}, {a: number}>({a: 2}).value();
-result = <{a: number}[][]>_([{a: 1}, {a: 2}]).partition('a').value();
-result = <{a: number}[][]>_([{a: 1}, {a: 2}]).partition('a', 2).value();
-result = <{a: number}[][]>_({0: {a: 1}, 1: {a: 2}}).partition<{a: number}>('a').value();
-result = <{a: number}[][]>_({0: {a: 1}, 1: {a: 2}}).partition<{a: number}>('a', 2).value();
+result = <Array<Array<{a: number}>>>_([{a: 1}, {a: 2}]).partition<{a: number}>({a: 2}).value();
+result = <Array<Array<{a: number}>>>_({0: {a: 1}, 1: {a: 2}, length: 2}).partition<{a: number}, {a: number}>({a: 2}).value();
+result = <Array<Array<{a: number}>>>_({0: {a: 1}, 1: {a: 2}}).partition<{a: number}, {a: number}>({a: 2}).value();
+result = <Array<Array<{a: number}>>>_([{a: 1}, {a: 2}]).partition('a').value();
+result = <Array<Array<{a: number}>>>_([{a: 1}, {a: 2}]).partition('a', 2).value();
+result = <Array<Array<{a: number}>>>_({0: {a: 1}, 1: {a: 2}}).partition<{a: number}>('a').value();
+result = <Array<Array<{a: number}>>>_({0: {a: 1}, 1: {a: 2}}).partition<{a: number}>('a', 2).value();
 
 // _.pluck
 namespace TestPluck {
     interface SampleObject {
-        d: {b: TResult}[];
+        d: Array<{b: TResult}>;
     }
 
     let array: SampleObject[];
@@ -5451,10 +5451,10 @@ namespace TestSortByOrder {
     let list: _.List<SampleObject>;
     let numericDictionary: _.NumericDictionary<SampleObject>;
     let dictionary: _.Dictionary<SampleObject>;
-    let orders: boolean|string|(boolean|string)[];
+    let orders: boolean|string|Array<boolean|string>;
 
     {
-        let iteratees: (value: string) => any|((value: string) => any)[];
+        let iteratees: (value: string) => any|Array<(value: string) => any>;
         let result: string[];
 
         result = _.sortByOrder<string>('acbd', iteratees);
@@ -5462,7 +5462,7 @@ namespace TestSortByOrder {
     }
 
     {
-        let iteratees: (value: SampleObject) => any|string|{a: number}|((value: SampleObject) => any|string|{a: number})[];
+        let iteratees: (value: SampleObject) => any|string|{a: number}|Array<(value: SampleObject) => any|string|{a: number}>;
         let result: SampleObject[];
 
         result = _.sortByOrder<{a: number}, SampleObject>(array, iteratees);
@@ -5487,7 +5487,7 @@ namespace TestSortByOrder {
     }
 
     {
-        let iteratees: (value: SampleObject) => any|string|{a: number}|((value: SampleObject) => any|string|{a: number})[];
+        let iteratees: (value: SampleObject) => any|string|{a: number}|Array<(value: SampleObject) => any|string|{a: number}>;
         let result: _.LoDashImplicitArrayWrapper<SampleObject>;
 
         result = _(array).sortByOrder<{a: number}>(iteratees);
@@ -5510,7 +5510,7 @@ namespace TestSortByOrder {
     }
 
     {
-        let iteratees: (value: SampleObject) => any|string|{a: number}|((value: SampleObject) => any|string|{a: number})[];
+        let iteratees: (value: SampleObject) => any|string|{a: number}|Array<(value: SampleObject) => any|string|{a: number}>;
         let result: _.LoDashExplicitArrayWrapper<SampleObject>;
 
         result = _(array).chain().sortByOrder<{a: number}>(iteratees);
@@ -6357,7 +6357,7 @@ namespace TestRestParam {
 
 //_.spread
 namespace TestSpread {
-    type SampleFunc = (args: (number|string)[]) => boolean;
+    type SampleFunc = (args: Array<number|string>) => boolean;
     type SampleResult = (a: number, b: string) => boolean;
 
     let func: SampleFunc;
@@ -7722,7 +7722,7 @@ namespace TestRound {
 // _.sum
 namespace TestSum {
     let array: number[];
-    let objectArray: { 'age': number }[];
+    let objectArray: Array<{ 'age': number }>;
 
     let list: _.List<number>;
     let objectList: _.List<{ 'age': number }>;
@@ -10187,7 +10187,7 @@ namespace TestMatches {
 
 // _.matchesProperty
 namespace TestMatches {
-    let path: {toString(): string;}|{toString(): string;}[];
+    let path: {toString(): string;}|Array<{toString(): string;}>;
     let source: TResult;
 
     {
@@ -10316,7 +10316,7 @@ namespace TestMethod {
 
 // _.methodOf
 namespace TestMethodOf {
-    type SampleObject = {a: {b: () => TResult}[]};
+    type SampleObject = {a: Array<{b: () => TResult}>};
     type ResultFn = (path: _.StringRepresentable|_.StringRepresentable[]) => TResult;
 
     let object: SampleObject;
@@ -10410,7 +10410,7 @@ namespace TestNoConflict {
 // _.noop
 namespace TestNoop {
     {
-        let result: void; // tslint:disable-line:void-return
+        let result: void; // eslint-disable-line @typescript-eslint/no-invalid-void-type
 
         result = _.noop();
         result = _.noop(1);

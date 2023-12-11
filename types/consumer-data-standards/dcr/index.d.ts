@@ -50,7 +50,7 @@ export type ClientRegistration = {
     /**
      * Array of OAuth 2.0 grant type strings that the client can use at the token endpoint
      */
-    grant_types: ("client_credentials" | "authorization_code" | "refresh_token")[];
+    grant_types: Array<"client_credentials" | "authorization_code" | "refresh_token">;
     /**
      * JWE `alg` algorithm with which an id_token is to be encrypted. Required if OIDC Hybrid Flow (response type `code id_token`) is registered.
      */
@@ -106,7 +106,7 @@ export type ClientRegistration = {
     /**
      * Array of the OAuth 2.0 response type strings that the client can use at the authorization endpoint.
      */
-    response_types: "code id_token"[];
+    response_types: Array<"code id_token">;
     /**
      * URI string that references the location of the Software Product consent revocation endpoint
      */
@@ -210,7 +210,7 @@ export interface RegistrationProperties {
     /**
      * Array of OAuth 2.0 grant type strings that the client can use at the token endpoint
      */
-    grant_types: ("client_credentials" | "authorization_code" | "refresh_token")[];
+    grant_types: Array<"client_credentials" | "authorization_code" | "refresh_token">;
     /**
      * JWE `alg` algorithm with which an id_token is to be encrypted. Required if OIDC Hybrid Flow (response type `code id_token`) is registered.
      */
@@ -266,7 +266,7 @@ export interface RegistrationProperties {
     /**
      * Array of the OAuth 2.0 response type strings that the client can use at the authorization endpoint.<br><br>Response type value `code` is required for Authorization Code Flow. Response type value `code id_token` is required for OIDC Hybrid Flow.
      */
-    response_types: ("code" | "code id_token")[];
+    response_types: Array<"code" | "code id_token">;
     /**
      * URI string that references the location of the Software Product consent revocation endpoint
      */

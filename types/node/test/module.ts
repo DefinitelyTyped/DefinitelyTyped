@@ -55,6 +55,7 @@ const entry: Module.SourceMapping = smap.findEntry(1, 1);
     importmeta.url; // $ExpectType string
     importmeta.resolve("local"); // $ExpectType string
     importmeta.resolve("local", "/parent"); // $ExpectType string
+    importmeta.resolve("local", undefined); // $ExpectType string
     importmeta.resolve("local", new URL("https://parent.module")); // $ExpectType string
 }
 
@@ -62,7 +63,7 @@ const entry: Module.SourceMapping = smap.findEntry(1, 1);
 {
     const resolve: Module.ResolveHook = async (specifier, context, nextResolve) => {
         const { parentURL = null } = context;
-        console.log(context.importAssertions.type);
+        console.log(context.importAttributes.type);
 
         if (Math.random() > 0.5) {
             return {

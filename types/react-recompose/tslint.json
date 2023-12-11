@@ -2,10 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "array-type": false,
-        "ban-types": false,
-        "interface-over-type-literal": false,
-        "no-duplicate-imports": false,
-        "no-empty-interface": false,
         "prefer-const": false,
         "unified-signatures": false
     }

@@ -59,7 +59,7 @@ export interface CognitoAuthOptions {
     /**
      * Optional: The token scopes
      */
-    TokenScopesArray?: ReadonlyArray<string> | undefined;
+    TokenScopesArray?: readonly string[] | undefined;
 
     /**
      * Required: Required: The redirect Uri, which will be launched after authentication as signed in.
@@ -237,7 +237,7 @@ export class CognitoTokenScopes {
      * Constructs a new CognitoTokenScopes object
      * @param TokenScopesArray The token scopes
      */
-    constructor(TokenScopesArray: ReadonlyArray<string>);
+    constructor(TokenScopesArray: readonly string[]);
 
     /**
      * @returns the token scopes.
@@ -248,7 +248,7 @@ export class CognitoTokenScopes {
      * Sets new value for token scopes.
      * @param tokenScopes The token scopes
      */
-    setTokenScopes(tokenScopes: ReadonlyArray<string>): void;
+    setTokenScopes(tokenScopes: readonly string[]): void;
 }
 
 export class CognitoAuthSession {

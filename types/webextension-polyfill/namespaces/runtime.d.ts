@@ -448,6 +448,7 @@ export namespace Runtime {
          * will keep the message channel open to the other end until <code>sendResponse</code> is called).
          */
         onMessage: Events.Event<
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             (message: any, sender: MessageSender, sendResponse: () => void) => Promise<any> | true | void
         >;
 
@@ -463,6 +464,7 @@ export namespace Runtime {
          * will keep the message channel open to the other end until <code>sendResponse</code> is called).
          */
         onMessageExternal: Events.Event<
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             (message: any, sender: MessageSender, sendResponse: () => void) => Promise<any> | true | void
         >;
 

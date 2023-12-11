@@ -3,9 +3,7 @@
     "rules": {
         "array-type": false,
         "jsdoc-format": false,
-        "member-access": false,
         "no-duplicate-variable": false,
-        "no-internal-module": false,
         "no-unnecessary-class": false,
         "no-var-keyword": false,
         "only-arrow-functions": false,

@@ -7,13 +7,13 @@ import express = require("express");
 import koa = require("koa");
 
 interface IStrategyOptions {
-    scope?: string | Array<string> | undefined;
+    scope?: string | string[] | undefined;
     realm?: string | undefined;
     passReqToCallback?: boolean | undefined;
 }
 interface IVerifyOptions {
     message?: string | undefined;
-    scope: string | Array<string>;
+    scope: string | string[];
 }
 
 interface VerifyFunction {

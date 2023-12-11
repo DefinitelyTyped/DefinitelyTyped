@@ -4,7 +4,7 @@ declare class Listener {
     constructor(handler: (arg0: Event) => any);
     handler: (arg0: Event) => any;
     handleEvent(evt: any): boolean;
-    toString(): any;
+    toString(): string;
 }
 declare namespace Listener {
     export { Event };

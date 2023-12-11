@@ -1,8 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "ban-types": false,
-        "interface-name": false,
         "jsdoc-format": false,
         "new-parens": false,
         "no-duplicate-variable": false,
@@ -18,7 +16,6 @@
         "prefer-for-of": false,
         "prefer-template": false,
         "triple-equals": false,
-        "unified-signatures": false,
-        "void-return": false
+        "unified-signatures": false
     }
 }

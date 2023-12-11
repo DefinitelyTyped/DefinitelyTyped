@@ -5,8 +5,10 @@
     "projects": [
         "https://github.com/yeutech-lab/react-cookiebot/"
     ],
+    "dependencies": {
+        "@types/react": "*"
+    },
     "devDependencies": {
-        "@types/react": "*",
         "@types/react-cookiebot": "workspace:."
     },
     "owners": [

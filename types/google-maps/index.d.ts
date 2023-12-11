@@ -10,7 +10,7 @@ declare namespace GoogleMapsLoader {
 
     export var KEY: string;
     export var URL: string;
-    export var LIBRARIES: Array<string>;
+    export var LIBRARIES: string[];
     export var CLIENT: string;
     export var CHANNEL: string;
     export var LANGUAGE: string;

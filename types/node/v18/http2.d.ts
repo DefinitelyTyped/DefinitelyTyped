@@ -55,6 +55,7 @@ declare module "http2" {
         length: number;
     }
     export interface ServerStreamFileResponseOptions {
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         statCheck?(stats: fs.Stats, headers: OutgoingHttpHeaders, statOptions: StatOptions): void | boolean;
         waitForTrailers?: boolean | undefined;
         offset?: number | undefined;
@@ -850,7 +851,7 @@ declare module "http2" {
         ): this;
         addListener(
             event: "goaway",
-            listener: (errorCode: number, lastStreamID: number, opaqueData: Buffer) => void,
+            listener: (errorCode: number, lastStreamID: number, opaqueData?: Buffer) => void,
         ): this;
         addListener(event: "localSettings", listener: (settings: Settings) => void): this;
         addListener(event: "ping", listener: () => void): this;
@@ -860,7 +861,7 @@ declare module "http2" {
         emit(event: "close"): boolean;
         emit(event: "error", err: Error): boolean;
         emit(event: "frameError", frameType: number, errorCode: number, streamID: number): boolean;
-        emit(event: "goaway", errorCode: number, lastStreamID: number, opaqueData: Buffer): boolean;
+        emit(event: "goaway", errorCode: number, lastStreamID: number, opaqueData?: Buffer): boolean;
         emit(event: "localSettings", settings: Settings): boolean;
         emit(event: "ping"): boolean;
         emit(event: "remoteSettings", settings: Settings): boolean;
@@ -869,7 +870,7 @@ declare module "http2" {
         on(event: "close", listener: () => void): this;
         on(event: "error", listener: (err: Error) => void): this;
         on(event: "frameError", listener: (frameType: number, errorCode: number, streamID: number) => void): this;
-        on(event: "goaway", listener: (errorCode: number, lastStreamID: number, opaqueData: Buffer) => void): this;
+        on(event: "goaway", listener: (errorCode: number, lastStreamID: number, opaqueData?: Buffer) => void): this;
         on(event: "localSettings", listener: (settings: Settings) => void): this;
         on(event: "ping", listener: () => void): this;
         on(event: "remoteSettings", listener: (settings: Settings) => void): this;
@@ -878,7 +879,7 @@ declare module "http2" {
         once(event: "close", listener: () => void): this;
         once(event: "error", listener: (err: Error) => void): this;
         once(event: "frameError", listener: (frameType: number, errorCode: number, streamID: number) => void): this;
-        once(event: "goaway", listener: (errorCode: number, lastStreamID: number, opaqueData: Buffer) => void): this;
+        once(event: "goaway", listener: (errorCode: number, lastStreamID: number, opaqueData?: Buffer) => void): this;
         once(event: "localSettings", listener: (settings: Settings) => void): this;
         once(event: "ping", listener: () => void): this;
         once(event: "remoteSettings", listener: (settings: Settings) => void): this;
@@ -892,7 +893,7 @@ declare module "http2" {
         ): this;
         prependListener(
             event: "goaway",
-            listener: (errorCode: number, lastStreamID: number, opaqueData: Buffer) => void,
+            listener: (errorCode: number, lastStreamID: number, opaqueData?: Buffer) => void,
         ): this;
         prependListener(event: "localSettings", listener: (settings: Settings) => void): this;
         prependListener(event: "ping", listener: () => void): this;
@@ -907,7 +908,7 @@ declare module "http2" {
         ): this;
         prependOnceListener(
             event: "goaway",
-            listener: (errorCode: number, lastStreamID: number, opaqueData: Buffer) => void,
+            listener: (errorCode: number, lastStreamID: number, opaqueData?: Buffer) => void,
         ): this;
         prependOnceListener(event: "localSettings", listener: (settings: Settings) => void): this;
         prependOnceListener(event: "ping", listener: () => void): this;
@@ -978,7 +979,7 @@ declare module "http2" {
         ): this;
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
         emit(event: "altsvc", alt: string, origin: string, stream: number): boolean;
-        emit(event: "origin", origins: ReadonlyArray<string>): boolean;
+        emit(event: "origin", origins: readonly string[]): boolean;
         emit(event: "connect", session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket): boolean;
         emit(
             event: "stream",
@@ -1416,7 +1417,7 @@ declare module "http2" {
             stream: ServerHttp2Stream,
             headers: IncomingHttpHeaders,
             options: stream.ReadableOptions,
-            rawHeaders: ReadonlyArray<string>,
+            rawHeaders: readonly string[],
         );
         /**
          * The `request.aborted` property will be `true` if the request has
@@ -1857,7 +1858,7 @@ declare module "http2" {
          * ```
          * @since v8.4.0
          */
-        setHeader(name: string, value: number | string | ReadonlyArray<string>): void;
+        setHeader(name: string, value: number | string | readonly string[]): void;
         /**
          * Sets the `Http2Stream`'s timeout value to `msecs`. If a callback is
          * provided, then it is added as a listener on the `'timeout'` event on

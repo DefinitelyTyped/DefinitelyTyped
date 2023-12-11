@@ -66,7 +66,7 @@ declare namespace SimpleModal {
         overlayClose?: boolean | undefined;
 
         /** Position of container [top, left]. Can be number of pixels or percentage. Default: null. */
-        position?: Array<any> | undefined;
+        position?: any[] | undefined;
 
         /** Persist the data across modal calls? Only used for existing DOM elements. If true, the data will be maintained across modal calls, if false, the data will be reverted to its original state. Default: true. */
         persist?: boolean | undefined;

@@ -3,7 +3,6 @@
     "rules": {
         "array-type": false,
         "jsdoc-format": false,
-        "no-empty-interface": false,
         "no-var-keyword": false,
         "no-var-requires": false,
         "only-arrow-functions": false,

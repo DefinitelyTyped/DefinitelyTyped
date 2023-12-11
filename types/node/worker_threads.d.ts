@@ -173,7 +173,7 @@ declare module "worker_threads" {
          * behind this API, see the `serialization API of the node:v8 module`.
          * @since v10.5.0
          */
-        postMessage(value: any, transferList?: ReadonlyArray<TransferListItem>): void;
+        postMessage(value: any, transferList?: readonly TransferListItem[]): void;
         /**
          * Opposite of `unref()`. Calling `ref()` on a previously `unref()`ed port does _not_ let the program exit if it's the only active handle left (the default
          * behavior). If the port is `ref()`ed, calling `ref()` again has no effect.
@@ -405,7 +405,7 @@ declare module "worker_threads" {
          * See `port.postMessage()` for more details.
          * @since v10.5.0
          */
-        postMessage(value: any, transferList?: ReadonlyArray<TransferListItem>): void;
+        postMessage(value: any, transferList?: readonly TransferListItem[]): void;
         /**
          * Opposite of `unref()`, calling `ref()` on a previously `unref()`ed worker does _not_ let the program exit if it's the only active handle left (the default
          * behavior). If the worker is `ref()`ed, calling `ref()` again has

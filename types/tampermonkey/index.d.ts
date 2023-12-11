@@ -793,8 +793,8 @@ declare function GM_unregisterMenuCommand(menuCommandId: number): void;
  * @param details An object containing the details of the request to be sent
  *                and the callback functions to be called when the response is received.
  */
-declare function GM_xmlhttpRequest<TContext = any>(
-    details: Tampermonkey.Request<TContext>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
+declare function GM_xmlhttpRequest<TContext = any>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
+    details: Tampermonkey.Request<TContext>,
 ): Tampermonkey.AbortHandle<void>;
 
 /**

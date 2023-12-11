@@ -6,6 +6,10 @@ const __filename = url.fileURLToPath(new URL(import.meta.url));
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..");
 
+/**
+ * @param {string} p
+ * @returns {Iterable<string>}
+ */
 function* iterateNodeModules(p) {
     const dirents = fs.readdirSync(p, { withFileTypes: true });
     for (const dirent of dirents) {
@@ -20,6 +24,9 @@ function* iterateNodeModules(p) {
     }
 }
 
+/**
+ * @param {string} p
+ */
 function rimraf(p) {
     // The rimraf package uses maxRetries=10 on Windows, but Node's fs.rm does not have that special case.
     return fs.rmSync(p, { recursive: true, force: true, maxRetries: process.platform === "win32" ? 10 : 0 });

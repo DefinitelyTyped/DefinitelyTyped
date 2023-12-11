@@ -1,9 +1,7 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "interface-name": false,
         "jsdoc-format": false,
-        "member-access": false,
         "no-boolean-literal-compare": false,
         "no-irregular-whitespace": false,
         "no-var-keyword": false,

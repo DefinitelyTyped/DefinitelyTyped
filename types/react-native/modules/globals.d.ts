@@ -89,8 +89,8 @@ type FormDataPart =
 
 declare class FormData {
     append(name: string, value: any): void;
-    getAll(): Array<FormDataValue>;
-    getParts(): Array<FormDataPart>;
+    getAll(): FormDataValue[];
+    getParts(): FormDataPart[];
 }
 
 declare interface Body {

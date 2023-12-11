@@ -4,21 +4,21 @@ interface OtherElementAttributes {
     [key: string]: string | number | boolean | null | undefined;
 }
 
-type HtmlProps = JSX.IntrinsicElements["html"] & OtherElementAttributes;
+type HtmlProps = React.JSX.IntrinsicElements["html"] & OtherElementAttributes;
 
-type BodyProps = JSX.IntrinsicElements["body"] & OtherElementAttributes;
+type BodyProps = React.JSX.IntrinsicElements["body"] & OtherElementAttributes;
 
-type LinkProps = JSX.IntrinsicElements["link"];
+type LinkProps = React.JSX.IntrinsicElements["link"];
 
-type MetaProps = JSX.IntrinsicElements["meta"];
+type MetaProps = React.JSX.IntrinsicElements["meta"];
 
 export interface HelmetTags {
-    baseTag: Array<any>;
-    linkTags: Array<HTMLLinkElement>;
-    metaTags: Array<HTMLMetaElement>;
-    noscriptTags: Array<any>;
-    scriptTags: Array<HTMLScriptElement>;
-    styleTags: Array<HTMLStyleElement>;
+    baseTag: any[];
+    linkTags: HTMLLinkElement[];
+    metaTags: HTMLMetaElement[];
+    noscriptTags: any[];
+    scriptTags: HTMLScriptElement[];
+    styleTags: HTMLStyleElement[];
 }
 
 export interface HelmetProps {
@@ -33,9 +33,9 @@ export interface HelmetProps {
     onChangeClientState?: ((newState: any, addedTags: HelmetTags, removedTags: HelmetTags) => void) | undefined;
     link?: LinkProps[] | undefined;
     meta?: MetaProps[] | undefined;
-    noscript?: Array<any> | undefined;
-    script?: Array<any> | undefined;
-    style?: Array<any> | undefined;
+    noscript?: any[] | undefined;
+    script?: any[] | undefined;
+    style?: any[] | undefined;
     title?: string | undefined;
     titleAttributes?: Object | undefined;
     titleTemplate?: string | undefined;

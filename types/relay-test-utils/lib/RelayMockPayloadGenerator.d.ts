@@ -4,7 +4,7 @@ export interface MockResolverContext {
     readonly parentType: string | null | undefined;
     readonly name: string | null | undefined;
     readonly alias: string | null | undefined;
-    readonly path: ReadonlyArray<string> | null | undefined;
+    readonly path: readonly string[] | null | undefined;
     readonly args: Record<string, unknown> | null | undefined;
 }
 

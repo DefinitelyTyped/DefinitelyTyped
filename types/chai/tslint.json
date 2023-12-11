@@ -1,9 +1,7 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "ban-types": false,
         "new-parens": false,
-        "no-empty-interface": false,
         "no-redundant-jsdoc-2": false
     }
 }

@@ -48,6 +48,6 @@ declare namespace ControlChannel {
             stackTrace?: string | string[];
             ticket?: string;
         },
-    ): any;
+    ): string;
     function getInstance(): ControlChannel;
 }

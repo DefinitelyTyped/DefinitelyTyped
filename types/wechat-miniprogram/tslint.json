@@ -1,11 +1,3 @@
 {
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "jsdoc-format": false,
-        "interface-name": false,
-        "interface-over-type-literal": false,
-        "void-return": false,
-        "no-empty-interface": false,
-        "no-unnecessary-class": false
-    }
+    "extends": "@definitelytyped/dtslint/dt.json"
 }

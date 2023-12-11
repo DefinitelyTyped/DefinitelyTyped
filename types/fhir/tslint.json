@@ -1,13 +1,3 @@
 {
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "array-type": [
-            true,
-            "array"
-        ],
-        "no-empty-interface": false,
-        "no-internal-module": false,
-        "no-invalid-template-strings": false,
-        "no-irregular-whitespace": false
-    }
+    "extends": "@definitelytyped/dtslint/dt.json"
 }

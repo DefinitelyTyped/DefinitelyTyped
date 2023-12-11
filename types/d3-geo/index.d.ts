@@ -892,6 +892,16 @@ export interface GeoPath<This = any, DatumObject extends GeoPermissibleObjects =
      * alternatively, you could d3.symbol and a projection for greater flexibility.
      */
     pointRadius(value: number | ((this: This, object: DatumObject, ...args: any[]) => number)): this;
+
+    /**
+     * Returns the current number of digits, which defaults to 3.
+     */
+    digits(): number;
+    /**
+     * Sets the number of fractional digits for coordinates generated in SVG path strings.
+     * @param digits New amount of digits
+     */
+    digits(digits: number): this;
 }
 
 /**
@@ -927,10 +937,10 @@ export function geoPath(projection?: GeoProjection | GeoStreamWrapper | null, co
  * @param context An (optional) rendering context to be used. If a context is provided, it must at least implement the interface described by GeoContext, a subset of the CanvasRenderingContext2D API.
  * Setting the context to "null" means that the path generator will return an SVG path string representing the to be rendered object. The default is "null".
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function geoPath<DatumObject extends GeoPermissibleObjects>(
     projection?: GeoProjection | GeoStreamWrapper | null,
     context?: GeoContext | null,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): GeoPath<any, DatumObject>;
 /**
  * Creates a new geographic path generator with the default settings.
@@ -952,10 +962,10 @@ export function geoPath<DatumObject extends GeoPermissibleObjects>(
  * @param context An (optional) rendering context to be used. If a context is provided, it must at least implement the interface described by GeoContext, a subset of the CanvasRenderingContext2D API.
  * Setting the context to "null" means that the path generator will return an SVG path string representing the to be rendered object. The default is "null".
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function geoPath<This, DatumObject extends GeoPermissibleObjects>(
     projection?: GeoProjection | GeoStreamWrapper | null,
     context?: GeoContext | null,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): GeoPath<This, DatumObject>;
 
 // geoProjection ==========================================================

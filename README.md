@@ -189,6 +189,7 @@ Your package should have this structure:
 | [`tslint.json`](#linter-tslintjson)   | Enables linting. |
 | [`.eslintrc.json`](#linter-eslintrcjson)   | (Rarely) Needed only to disable lint rules written for eslint. |
 | [`package.json`](#packagejson) | Contains metadata for the package, including its name, version and dependencies. |
+| [`.npmignore`](#npmignore) | Specifies which files are intended to be included in the package. |
 
 Generate these by running `npx dts-gen --dt --name <my-package> --template module`.
 See all options at [dts-gen](https://github.com/Microsoft/dts-gen).
@@ -335,7 +336,7 @@ This file is required and should follow this template:
 {
     "private": true,
     "name": "@types/PACKAGE-NAME",
-    "version": "1.2.99999",
+    "version": "1.2.9999",
     "projects": [
         "https://aframe.io/"
     ],
@@ -372,10 +373,34 @@ If the implementation package uses ESM and specifies `"type": "module"`, then yo
 
 This also applies if the implementation package has `exports` in its package.json.
 
-#### `OTHER_FILES.txt`
+#### `.npmignore`
 
-If a file is neither tested nor referenced in `index.d.ts`, add it to a file named `OTHER_FILES.txt`. This file is a list of other files that need to be included in the typings package, one file per line.
-This file must also be inspected by a maintainer to make sure that malicious files don't ship in `@types` packages.
+This file defines which files are to be included in each `@types` package. It must take a specific form. For packages with only one version in the repo:
+
+```ignore
+*
+!**/*.d.ts
+!**/*.d.cts
+!**/*.d.mts
+!**/*.d.*.ts
+```
+
+Which is to say "ignore all files, but don't ignore any declaration files". For packages that have more than one version in the repo, the "latest" version (at the top level) should contain something like:
+
+```ignore
+*
+!**/*.d.ts
+!**/*.d.cts
+!**/*.d.mts
+!**/*.d.*.ts
+/v15/
+/v16/
+/v17/
+```
+
+Which is the same as the previous `.npmignore` but ignoring each of the versioned child directories.
+
+CI will fail if this file contains the wrong contents and provide the intended value. No matter what this file contains, the publisher will only publish declaration files.
 
 #### Common mistakes
 
@@ -564,20 +589,20 @@ When it graduates draft mode, we may remove it from Definitely Typed and depreca
 *NOTE: The discussion in this section assumes familiarity with [Semantic versioning](https://semver.org/)*
 
 Each Definitely Typed package is versioned when published to npm.
-The [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) (the tool that publishes `@types` packages to npm) will set the declaration package's version by using the `major.minor.99999` version number listed in `package.json`.
+The [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) (the tool that publishes `@types` packages to npm) will set the declaration package's version by using the `major.minor.9999` version number listed in `package.json`.
 For example, here are the first few lines of Node's type declarations for version `20.8.x` at the time of writing:
 
 ```json
 {
     "private": true,
     "name": "@types/node",
-    "version": "20.8.99999",
+    "version": "20.8.9999",
 }
 ```
 
-Because the version is listed as `20.8.99999`, the npm version of the `@types/node` package will also be `20.8.x`.
-Note that the version in `package.json` should only contain `major.minor` version (e.g. `10.12`) followed by `.99999`.
-This is because only the major and minor release numbers are aligned between library packages and type declaration packages. (The `.99999` is to ensure that local `@types` packages are always newest during local development.)
+Because the version is listed as `20.8.9999`, the npm version of the `@types/node` package will also be `20.8.x`.
+Note that the version in `package.json` should only contain `major.minor` version (e.g. `10.12`) followed by `.9999`.
+This is because only the major and minor release numbers are aligned between library packages and type declaration packages. (The `.9999` is to ensure that local `@types` packages are always newest during local development.)
 The patch release number of the type declaration package (e.g. `.0` in `20.8.0`) is initialized to zero by Definitely Typed and is incremented each time a new `@types/node` package is published to npm for the same major/minor version of the corresponding library.
 
 Sometimes type declaration package versions and library package versions can get out of sync.
@@ -613,7 +638,7 @@ For example, if we are creating `types/history/v2`, its `package.json` would loo
 {
     "private": true,
     "name": "@types/history",
-    "version": "2.4.99999",
+    "version": "2.4.9999",
 }
 ```
 
@@ -623,7 +648,7 @@ Another package may select this version by specifying:
 {
     "private": true,
     "name": "@types/browser-sync",
-    "version": "2.26.99999",
+    "version": "2.26.9999",
     "dependencies": {
         "@types/history": "^2"
     }

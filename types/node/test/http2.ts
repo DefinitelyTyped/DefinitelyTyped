@@ -67,7 +67,7 @@ import { URL } from "node:url";
     http2Session.on("connect", (session: Http2Session, socket: Socket) => {});
     http2Session.on("error", (err: Error) => {});
     http2Session.on("frameError", (frameType: number, errorCode: number, streamID: number) => {});
-    http2Session.on("goaway", (errorCode: number, lastStreamID: number, opaqueData: Buffer) => {});
+    http2Session.on("goaway", (errorCode: number, lastStreamID: number, opaqueData?: Buffer) => {});
     http2Session.on("localSettings", (settings: Settings) => {});
     http2Session.on("remoteSettings", (settings: Settings) => {});
     http2Session.on("stream", (stream: Http2Stream, headers: IncomingHttpHeaders, flags: number) => {});
@@ -309,7 +309,7 @@ import { URL } from "node:url";
         response.removeHeader(":method");
         response.setHeader(":method", "GET");
         response.setHeader(":status", 200);
-        response.setHeader("some-list", ["", ""] as ReadonlyArray<string>);
+        response.setHeader("some-list", ["", ""] as readonly string[]);
         const headersSent: boolean = response.headersSent;
 
         response.setTimeout(0, () => {});

@@ -42,7 +42,7 @@ export interface ReactImageGalleryItem {
 
 export interface ReactImageGalleryProps {
     flickThreshold?: number | undefined;
-    items: ReadonlyArray<ReactImageGalleryItem>;
+    items: readonly ReactImageGalleryItem[];
     showNav?: boolean | undefined;
     autoPlay?: boolean | undefined;
     lazyLoad?: boolean | undefined;

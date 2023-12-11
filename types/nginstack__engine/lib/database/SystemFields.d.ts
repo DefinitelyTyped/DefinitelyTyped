@@ -1,3 +1,3 @@
-export const KEY_FIELD_NAMES: string[];
-export const VERSION_FIELD_NAMES: string[];
-export const CLASS_FIELD_NAMES: string[];
+export let KEY_FIELD_NAMES: string[];
+export let VERSION_FIELD_NAMES: string[];
+export let CLASS_FIELD_NAMES: string[];

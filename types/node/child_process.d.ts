@@ -833,50 +833,50 @@ declare module "child_process" {
     // overloads of spawn with 'args'
     function spawn(
         command: string,
-        args?: ReadonlyArray<string>,
+        args?: readonly string[],
         options?: SpawnOptionsWithoutStdio,
     ): ChildProcessWithoutNullStreams;
     function spawn(
         command: string,
-        args: ReadonlyArray<string>,
+        args: readonly string[],
         options: SpawnOptionsWithStdioTuple<StdioPipe, StdioPipe, StdioPipe>,
     ): ChildProcessByStdio<Writable, Readable, Readable>;
     function spawn(
         command: string,
-        args: ReadonlyArray<string>,
+        args: readonly string[],
         options: SpawnOptionsWithStdioTuple<StdioPipe, StdioPipe, StdioNull>,
     ): ChildProcessByStdio<Writable, Readable, null>;
     function spawn(
         command: string,
-        args: ReadonlyArray<string>,
+        args: readonly string[],
         options: SpawnOptionsWithStdioTuple<StdioPipe, StdioNull, StdioPipe>,
     ): ChildProcessByStdio<Writable, null, Readable>;
     function spawn(
         command: string,
-        args: ReadonlyArray<string>,
+        args: readonly string[],
         options: SpawnOptionsWithStdioTuple<StdioNull, StdioPipe, StdioPipe>,
     ): ChildProcessByStdio<null, Readable, Readable>;
     function spawn(
         command: string,
-        args: ReadonlyArray<string>,
+        args: readonly string[],
         options: SpawnOptionsWithStdioTuple<StdioPipe, StdioNull, StdioNull>,
     ): ChildProcessByStdio<Writable, null, null>;
     function spawn(
         command: string,
-        args: ReadonlyArray<string>,
+        args: readonly string[],
         options: SpawnOptionsWithStdioTuple<StdioNull, StdioPipe, StdioNull>,
     ): ChildProcessByStdio<null, Readable, null>;
     function spawn(
         command: string,
-        args: ReadonlyArray<string>,
+        args: readonly string[],
         options: SpawnOptionsWithStdioTuple<StdioNull, StdioNull, StdioPipe>,
     ): ChildProcessByStdio<null, null, Readable>;
     function spawn(
         command: string,
-        args: ReadonlyArray<string>,
+        args: readonly string[],
         options: SpawnOptionsWithStdioTuple<StdioNull, StdioNull, StdioNull>,
     ): ChildProcessByStdio<null, null, null>;
-    function spawn(command: string, args: ReadonlyArray<string>, options: SpawnOptions): ChildProcess;
+    function spawn(command: string, args: readonly string[], options: SpawnOptions): ChildProcess;
     interface ExecOptions extends CommonOptions {
         shell?: string | undefined;
         signal?: AbortSignal | undefined;
@@ -1150,10 +1150,10 @@ declare module "child_process" {
         file: string,
         options: (ObjectEncodingOptions & ExecFileOptions) | undefined | null,
     ): ChildProcess;
-    function execFile(file: string, args?: ReadonlyArray<string> | null): ChildProcess;
+    function execFile(file: string, args?: readonly string[] | null): ChildProcess;
     function execFile(
         file: string,
-        args: ReadonlyArray<string> | undefined | null,
+        args: readonly string[] | undefined | null,
         options: (ObjectEncodingOptions & ExecFileOptions) | undefined | null,
     ): ChildProcess;
     // no `options` definitely means stdout/stderr are `string`.
@@ -1163,7 +1163,7 @@ declare module "child_process" {
     ): ChildProcess;
     function execFile(
         file: string,
-        args: ReadonlyArray<string> | undefined | null,
+        args: readonly string[] | undefined | null,
         callback: (error: ExecFileException | null, stdout: string, stderr: string) => void,
     ): ChildProcess;
     // `options` with `"buffer"` or `null` for `encoding` means stdout/stderr are definitely `Buffer`.
@@ -1174,7 +1174,7 @@ declare module "child_process" {
     ): ChildProcess;
     function execFile(
         file: string,
-        args: ReadonlyArray<string> | undefined | null,
+        args: readonly string[] | undefined | null,
         options: ExecFileOptionsWithBufferEncoding,
         callback: (error: ExecFileException | null, stdout: Buffer, stderr: Buffer) => void,
     ): ChildProcess;
@@ -1186,7 +1186,7 @@ declare module "child_process" {
     ): ChildProcess;
     function execFile(
         file: string,
-        args: ReadonlyArray<string> | undefined | null,
+        args: readonly string[] | undefined | null,
         options: ExecFileOptionsWithStringEncoding,
         callback: (error: ExecFileException | null, stdout: string, stderr: string) => void,
     ): ChildProcess;
@@ -1199,7 +1199,7 @@ declare module "child_process" {
     ): ChildProcess;
     function execFile(
         file: string,
-        args: ReadonlyArray<string> | undefined | null,
+        args: readonly string[] | undefined | null,
         options: ExecFileOptionsWithOtherEncoding,
         callback: (error: ExecFileException | null, stdout: string | Buffer, stderr: string | Buffer) => void,
     ): ChildProcess;
@@ -1211,7 +1211,7 @@ declare module "child_process" {
     ): ChildProcess;
     function execFile(
         file: string,
-        args: ReadonlyArray<string> | undefined | null,
+        args: readonly string[] | undefined | null,
         options: ExecFileOptions,
         callback: (error: ExecFileException | null, stdout: string, stderr: string) => void,
     ): ChildProcess;
@@ -1226,7 +1226,7 @@ declare module "child_process" {
     ): ChildProcess;
     function execFile(
         file: string,
-        args: ReadonlyArray<string> | undefined | null,
+        args: readonly string[] | undefined | null,
         options: (ObjectEncodingOptions & ExecFileOptions) | undefined | null,
         callback:
             | ((error: ExecFileException | null, stdout: string | Buffer, stderr: string | Buffer) => void)
@@ -1240,7 +1240,7 @@ declare module "child_process" {
         }>;
         function __promisify__(
             file: string,
-            args: ReadonlyArray<string> | undefined | null,
+            args: readonly string[] | undefined | null,
         ): PromiseWithChild<{
             stdout: string;
             stderr: string;
@@ -1254,7 +1254,7 @@ declare module "child_process" {
         }>;
         function __promisify__(
             file: string,
-            args: ReadonlyArray<string> | undefined | null,
+            args: readonly string[] | undefined | null,
             options: ExecFileOptionsWithBufferEncoding,
         ): PromiseWithChild<{
             stdout: Buffer;
@@ -1269,7 +1269,7 @@ declare module "child_process" {
         }>;
         function __promisify__(
             file: string,
-            args: ReadonlyArray<string> | undefined | null,
+            args: readonly string[] | undefined | null,
             options: ExecFileOptionsWithStringEncoding,
         ): PromiseWithChild<{
             stdout: string;
@@ -1284,7 +1284,7 @@ declare module "child_process" {
         }>;
         function __promisify__(
             file: string,
-            args: ReadonlyArray<string> | undefined | null,
+            args: readonly string[] | undefined | null,
             options: ExecFileOptionsWithOtherEncoding,
         ): PromiseWithChild<{
             stdout: string | Buffer;
@@ -1299,7 +1299,7 @@ declare module "child_process" {
         }>;
         function __promisify__(
             file: string,
-            args: ReadonlyArray<string> | undefined | null,
+            args: readonly string[] | undefined | null,
             options: ExecFileOptions,
         ): PromiseWithChild<{
             stdout: string;
@@ -1314,7 +1314,7 @@ declare module "child_process" {
         }>;
         function __promisify__(
             file: string,
-            args: ReadonlyArray<string> | undefined | null,
+            args: readonly string[] | undefined | null,
             options: (ObjectEncodingOptions & ExecFileOptions) | undefined | null,
         ): PromiseWithChild<{
             stdout: string | Buffer;
@@ -1388,7 +1388,7 @@ declare module "child_process" {
      * @param args List of string arguments.
      */
     function fork(modulePath: string, options?: ForkOptions): ChildProcess;
-    function fork(modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions): ChildProcess;
+    function fork(modulePath: string, args?: readonly string[], options?: ForkOptions): ChildProcess;
     interface SpawnSyncOptions extends CommonSpawnOptions {
         input?: string | NodeJS.ArrayBufferView | undefined;
         maxBuffer?: number | undefined;
@@ -1428,20 +1428,20 @@ declare module "child_process" {
     function spawnSync(command: string, options: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
     function spawnSync(command: string, options: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
     function spawnSync(command: string, options?: SpawnSyncOptions): SpawnSyncReturns<string | Buffer>;
-    function spawnSync(command: string, args: ReadonlyArray<string>): SpawnSyncReturns<Buffer>;
+    function spawnSync(command: string, args: readonly string[]): SpawnSyncReturns<Buffer>;
     function spawnSync(
         command: string,
-        args: ReadonlyArray<string>,
+        args: readonly string[],
         options: SpawnSyncOptionsWithStringEncoding,
     ): SpawnSyncReturns<string>;
     function spawnSync(
         command: string,
-        args: ReadonlyArray<string>,
+        args: readonly string[],
         options: SpawnSyncOptionsWithBufferEncoding,
     ): SpawnSyncReturns<Buffer>;
     function spawnSync(
         command: string,
-        args?: ReadonlyArray<string>,
+        args?: readonly string[],
         options?: SpawnSyncOptions,
     ): SpawnSyncReturns<string | Buffer>;
     interface CommonExecOptions extends CommonOptions {
@@ -1522,18 +1522,18 @@ declare module "child_process" {
     function execFileSync(file: string, options: ExecFileSyncOptionsWithStringEncoding): string;
     function execFileSync(file: string, options: ExecFileSyncOptionsWithBufferEncoding): Buffer;
     function execFileSync(file: string, options?: ExecFileSyncOptions): string | Buffer;
-    function execFileSync(file: string, args: ReadonlyArray<string>): Buffer;
+    function execFileSync(file: string, args: readonly string[]): Buffer;
     function execFileSync(
         file: string,
-        args: ReadonlyArray<string>,
+        args: readonly string[],
         options: ExecFileSyncOptionsWithStringEncoding,
     ): string;
     function execFileSync(
         file: string,
-        args: ReadonlyArray<string>,
+        args: readonly string[],
         options: ExecFileSyncOptionsWithBufferEncoding,
     ): Buffer;
-    function execFileSync(file: string, args?: ReadonlyArray<string>, options?: ExecFileSyncOptions): string | Buffer;
+    function execFileSync(file: string, args?: readonly string[], options?: ExecFileSyncOptions): string | Buffer;
 }
 declare module "node:child_process" {
     export * from "child_process";

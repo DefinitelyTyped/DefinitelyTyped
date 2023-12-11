@@ -1,10 +1,7 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "ban-types": false,
         "jsdoc-format": false,
-        "member-access": false,
-        "no-duplicate-imports": false,
         "no-unnecessary-qualifier": false
     }
 }

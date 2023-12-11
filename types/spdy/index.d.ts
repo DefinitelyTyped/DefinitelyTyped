@@ -96,7 +96,7 @@ export namespace server {
 
 // lib/spdy/socket.js
 export namespace socket {
-    // tslint:disable-next-line no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Socket {} // net.Socket
 }
 

@@ -1,7 +1,3 @@
 {
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "ban-types": false,
-        "only-arrow-functions": false
-    }
+    "extends": "@definitelytyped/dtslint/dt.json"
 }

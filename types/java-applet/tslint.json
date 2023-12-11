@@ -1,9 +1,3 @@
 {
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "ban-types": false,
-        "no-var-keyword": false,
-        "prefer-const": false,
-        "no-empty-interface": false
-    }
+    "extends": "@definitelytyped/dtslint/dt.json"
 }

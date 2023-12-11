@@ -262,7 +262,7 @@ export namespace ojGantt {
         }>
     {
     }
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type Dependency<K1, K2> = {
         id: K1;
         predecessorTaskId: K2;
@@ -272,20 +272,20 @@ export namespace ojGantt {
         svgStyle?: object | undefined;
         type?: "startStart" | "startFinish" | "finishFinish" | "finishStart" | undefined;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ReferenceObject = {
         svgClassName?: string | undefined;
         svgStyle?: object | undefined;
         value?: string | undefined;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type Row<K2> = {
         id?: any;
         label?: string | undefined;
         labelStyle?: object | undefined;
         tasks?: Array<RowTask<K2>> | undefined;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type RowAxisLabelRendererContext<K2, D2> = {
         parentElement: Element;
         rowData: Row<K2>;
@@ -294,7 +294,7 @@ export namespace ojGantt {
         maxWidth: number;
         maxHeight: number;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type RowTask<K2> = {
         borderRadius?: string | undefined;
         end?: string | undefined;
@@ -324,7 +324,7 @@ export namespace ojGantt {
             svgStyle?: object | undefined;
         } | undefined;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type TooltipContext<K2, D2> = {
         parentElement: Element;
         data: RowTask<K2>;

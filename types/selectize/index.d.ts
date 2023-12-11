@@ -247,7 +247,7 @@ declare namespace Selectize {
          *
          * Default: "$order"
          */
-        sortField?: string | { field: string; direction?: "asc" | "desc" | undefined }[] | undefined;
+        sortField?: string | Array<{ field: string; direction?: "asc" | "desc" | undefined }> | undefined;
 
         /**
          * An array of property names to analyze when filtering options.

@@ -131,7 +131,7 @@ var counties = [
 
 var titles = ["Dr.", "Mr.", "Mrs.", "Miss", "Ms."];
 
-var columns: ReactDataGrid.Column<typeof counties>[] = [
+var columns: Array<ReactDataGrid.Column<typeof counties>> = [
     {
         key: "id",
         name: "ID",
@@ -316,13 +316,13 @@ class Example extends React.Component<any, any> {
     }
 
     onRowsSelected(rows: Array<ReactDataGrid.SelectionParams<typeof counties>>) {
-        var selectedIndexes = this.state.selectedIndexes as Array<number>;
+        var selectedIndexes = this.state.selectedIndexes as number[];
 
         this.setState({ selectedIndexes: selectedIndexes.concat(rows.map(r => r.rowIdx)) });
     }
     onRowsDeselected(rows: Array<ReactDataGrid.SelectionParams<typeof counties>>) {
         var rowIndexes = rows.map(r => r.rowIdx);
-        var selectedIndexes = this.state.selectedIndexes as Array<number>;
+        var selectedIndexes = this.state.selectedIndexes as number[];
         this.setState({ selectedIndexes: selectedIndexes.filter(i => rowIndexes.indexOf(i) === -1) });
     }
 

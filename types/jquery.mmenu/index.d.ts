@@ -52,7 +52,7 @@ declare namespace JQueryMmenu {
          * You'll need this option when using the extensions.
          * Default: []
          */
-        extensions?: Array<Object> | undefined;
+        extensions?: Object[] | undefined;
 
         /**
          * navbar options

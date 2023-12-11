@@ -11,7 +11,7 @@ declare namespace GulpMustache {
 
     interface Options {
         extension?: string | undefined;
-        tags?: ReadonlyArray<string> | undefined;
+        tags?: readonly string[] | undefined;
     }
 }
 

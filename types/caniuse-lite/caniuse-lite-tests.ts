@@ -28,6 +28,7 @@ const unpackedFeatures = Object.keys(features).map((id: string) => {
     const status: string = unpacked.status;
     const title: string = unpacked.title;
     const stats: StatsByAgentID = unpacked.stats;
+    const shown: boolean = unpacked.shown;
     Object.keys(stats).forEach((agentID: string) => {
         const byVersion: SupportStatusByVersion = stats[agentID];
         Object.keys(byVersion).forEach(version => {

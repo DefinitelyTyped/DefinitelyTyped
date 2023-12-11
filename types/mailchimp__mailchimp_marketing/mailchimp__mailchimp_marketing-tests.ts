@@ -78,6 +78,13 @@ const updateListMemberTagsBody: mailchimp.lists.MemberTagsBody = {
     ],
 };
 
+const listMemberTagsOptions: mailchimp.lists.ListMemberTagsOptions = {
+    fields: ["strings"],
+    excludeFields: ["strings"],
+    count: 0,
+    offset: 0,
+};
+
 const getAllListsBody: mailchimp.lists.ListOptions = {
     fields: ["strings"],
     excludeFields: ["strings"],
@@ -162,6 +169,9 @@ mailchimp.lists.deleteListMember("test", "test");
 
 // Promise<{} | ErrorResponse>
 mailchimp.lists.updateListMemberTags("test", "test", updateListMemberTagsBody);
+
+// Promise<ListMemberTagsResponse | ErrorResponse>
+mailchimp.lists.getListMemberTags("test", "test", listMemberTagsOptions);
 
 // Promise<ListsSuccessResponse | ErrorResponse>
 mailchimp.lists.getAllLists(getAllListsBody);

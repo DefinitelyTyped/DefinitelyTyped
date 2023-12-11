@@ -115,7 +115,7 @@ declare namespace Twitch.ext {
          *
          * @param callback The callback is called with an array of feature flags which were updated.
          */
-        function onChanged(callback: (changed: ReadonlyArray<ChangedKey>) => void): void;
+        function onChanged(callback: (changed: readonly ChangedKey[]) => void): void;
     }
 
     /**
@@ -131,7 +131,7 @@ declare namespace Twitch.ext {
          *
          * @see https://dev.twitch.tv/docs/extensions/bits/#getproducts
          */
-        function getProducts(): Promise<ReadonlyArray<BitsProduct>>;
+        function getProducts(): Promise<readonly BitsProduct[]>;
 
         /**
          * This function takes a callback that is fired whenever a transaction is cancelled.
@@ -322,7 +322,10 @@ declare namespace Twitch.ext {
          */
         displayName: string;
 
-        initiator: "CURRENT_USER" | "OTHER";
+        // The documentation says that the type of this field is `"CURRENT_USER" | "OTHER"`,
+        // but in reality it is lowercase.
+        // https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/67555
+        initiator: "current_user" | "other";
 
         /**
          * Full product object from getProducts call

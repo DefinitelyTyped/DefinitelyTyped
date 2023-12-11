@@ -1,3 +1,3 @@
 export = oneTime;
 
-declare function oneTime<TFn extends Function>(fn: TFn): TFn; // tslint:disable-line:ban-types
+declare function oneTime<TFn extends Function>(fn: TFn): TFn; // eslint-disable-line @typescript-eslint/ban-types

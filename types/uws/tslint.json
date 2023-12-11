@@ -1,11 +1,3 @@
 {
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "ban-types": false,
-        "import-spacing": false,
-        "interface-name": false,
-        "only-arrow-functions": false,
-        "triple-equals": false,
-        "unified-signatures": false
-    }
+    "extends": "@definitelytyped/dtslint/dt.json"
 }

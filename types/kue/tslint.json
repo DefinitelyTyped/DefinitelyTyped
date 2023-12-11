@@ -1,12 +1,3 @@
 {
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "ban-types": false,
-        "member-access": false,
-        "no-var-keyword": false,
-        "no-void-expression": false,
-        "only-arrow-functions": false,
-        "prefer-const": false,
-        "prefer-template": false
-    }
+    "extends": "@definitelytyped/dtslint/dt.json"
 }

@@ -1,8 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "interface-name": false,
-        "member-access": false,
         "no-object-literal-type-assertion": false,
         "no-redundant-jsdoc-2": false
     }

@@ -89,13 +89,13 @@ var voidStream: Highland.Stream<void>;
 
 var fooStreamStream: Highland.Stream<Highland.Stream<Foo>>;
 var barStreamStream: Highland.Stream<Highland.Stream<Bar>>;
-var barStreamArrStream: Highland.Stream<Highland.Stream<Bar>[]>;
+var barStreamArrStream: Highland.Stream<Array<Highland.Stream<Bar>>>;
 
 var fooArrStream: Highland.Stream<Foo[]>;
 var barArrStream: Highland.Stream<Bar[]>;
 
-var fooStreamArr: Highland.Stream<Foo>[];
-var barStreamArr: Highland.Stream<Bar>[];
+var fooStreamArr: Array<Highland.Stream<Foo>>;
+var barStreamArr: Array<Highland.Stream<Bar>>;
 
 var strFooArrMapStream: Highland.Stream<StrFooArrMap>;
 var strBarArrMapStream: Highland.Stream<StrBarArrMap>;
@@ -106,8 +106,8 @@ var barThen: PromiseLike<Bar>;
 var fooArrThen: PromiseLike<Foo[]>;
 var barArrThen: PromiseLike<Bar[]>;
 
-var fooThenArr: PromiseLike<Foo>[];
-var barThenArr: PromiseLike<Bar>[];
+var fooThenArr: Array<PromiseLike<Foo>>;
+var barThenArr: Array<PromiseLike<Bar>>;
 
 var fooStreamThen: PromiseLike<Highland.Stream<Foo>>;
 var barStreamThen: PromiseLike<Highland.Stream<Bar>>;

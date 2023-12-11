@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/math-toolbox",
+    "version": "1.12.9999",
+    "projects": [
+        "https://github.com/terkelg/math-toolbox#readme"
+    ],
+    "devDependencies": {
+        "@types/math-toolbox": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sikriti Dakua",
+            "githubUsername": "devloop01"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
 {
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "jsdoc-format": false,
-        "no-empty-interface": false,
-        "no-var-keyword": false
-    }
+    "extends": "@definitelytyped/dtslint/dt.json"
 }

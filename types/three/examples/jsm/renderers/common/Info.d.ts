@@ -1,9 +1,14 @@
 import { Object3D } from '../../../../src/Three.js';
 
 export default class Info {
-    autoRest: boolean;
+    autoReset: boolean;
 
-    render: { frame: number; drawCalls: number; triangles: number; points: number; lines: number };
+    frame: number;
+    calls: number;
+
+    render: { calls: number; drawCalls: number; triangles: number; points: number; lines: number };
+
+    compute: { calls: number };
 
     memory: { geometries: number; textures: number };
 

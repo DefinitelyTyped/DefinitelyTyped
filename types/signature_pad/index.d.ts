@@ -101,13 +101,13 @@ declare class SignaturePad {
     _ctx: CanvasRenderingContext2D;
     _data: Array<{
         color: string;
-        points: Array<SignaturePad.Point>;
+        points: SignaturePad.Point[];
     }>;
     _isEmpty: boolean;
     _lastVelocity: number;
     _lastWidth: number;
     _mouseButtonDown: boolean;
-    _points: Array<SignaturePad.Point>;
+    _points: SignaturePad.Point[];
     /**
      * Callback when stroke begin
      */
@@ -152,11 +152,11 @@ declare class SignaturePad {
     /**
      *   Draws signature image from array of signature point groups
      */
-    fromData: (pointGroups: Array<Array<SignaturePad.Point>>) => void;
+    fromData: (pointGroups: SignaturePad.Point[][]) => void;
     /**
      *   Returns array of signature point groups
      */
-    toData: () => Array<Array<SignaturePad.Point>>;
+    toData: () => SignaturePad.Point[][];
     /**
      * Privates
      */
@@ -184,7 +184,7 @@ declare class SignaturePad {
     _drawCurve: (_a: { color: string; curve: SignaturePad.Bezier }) => void;
     _drawDot: (_a: { color: string; point: SignaturePad.Point }) => void;
     _fromData: (
-        pointGroups: Array<Array<SignaturePad.Point>>,
+        pointGroups: SignaturePad.Point[][],
         drawCurve: (_a: { color: string; curve: SignaturePad.Bezier }) => void,
         drawDot: (_a: { color: string; point: SignaturePad.Point }) => void,
     ) => void;

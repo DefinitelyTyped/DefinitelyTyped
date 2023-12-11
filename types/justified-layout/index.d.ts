@@ -120,7 +120,7 @@ interface JustifiedLayoutResult {
 }
 
 declare function createJustifiedLayout(
-    items: ReadonlyArray<JustifiedLayoutItem>,
+    items: readonly JustifiedLayoutItem[],
     options?: JustifiedLayoutOptions,
 ): JustifiedLayoutResult;
 

@@ -89,6 +89,7 @@ export declare type LinkingOptions = {
      * }
      * ```
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     subscribe?: ((listener: (url: string) => void) => undefined | void | (() => void)) | undefined;
     /**
      * Custom function to parse the URL to a valid navigation state (advanced).

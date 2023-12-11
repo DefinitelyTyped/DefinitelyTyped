@@ -1,13 +1,3 @@
 {
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "adjacent-overload-signatures": false,
-        "ban-types": false,
-        "new-parens": false,
-        "no-unnecessary-qualifier": false,
-        "no-var-keyword": false,
-        "only-arrow-functions": false,
-        "triple-equals": false,
-        "unified-signatures": false
-    }
+    "extends": "@definitelytyped/dtslint/dt.json"
 }

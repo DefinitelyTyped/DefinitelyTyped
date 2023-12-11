@@ -6,6 +6,12 @@ const testCases = [
     <span autoFocus />,
     <span className="klass" />,
     <span contentEditable />,
+    <span
+        contentEditable
+        // @ts-expect-error -- Use data-placeholder instead.
+        placeholder="foo"
+    />,
+    <span contentEditable="plaintext-only" />,
     <span contextMenu="menuId" />,
     <span dir="rtl" />,
     <span draggable />,
@@ -31,7 +37,7 @@ const testCases = [
         <image crossOrigin="anonymous" />
     </svg>,
     <details open={true} onToggle={() => {}} />,
-    <input value={["one", "two"] as ReadonlyArray<string>} />,
+    <input value={["one", "two"] as readonly string[]} />,
     <input value={["one", "two"] as string[]} />,
     <input value={["one", "two"]} />,
     <input enterKeyHint="done" />,

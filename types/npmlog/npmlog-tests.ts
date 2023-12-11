@@ -14,7 +14,16 @@ npmlog.http(prefix, message);
 npmlog.warn(prefix, message);
 npmlog.error(prefix, message);
 
-// ES6 module does't support changing variable exported by `export let`
+// log with message object
+const messageObj = { message: "otherStr" };
+npmlog.silly(prefix, messageObj);
+npmlog.verbose(prefix, messageObj);
+npmlog.info(prefix, messageObj);
+npmlog.http(prefix, messageObj);
+npmlog.warn(prefix, messageObj);
+npmlog.error(prefix, messageObj);
+
+// ES6 module doesn't support changing variable exported by `export let`
 // npmlog.level = "silly";
 
 npmlog.enableColor();

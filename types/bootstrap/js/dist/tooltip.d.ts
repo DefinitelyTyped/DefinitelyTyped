@@ -129,7 +129,7 @@ declare namespace Tooltip {
 
     type PopoverPlacement = "auto" | "top" | "bottom" | "left" | "right";
 
-    type PopperConfigFunction = (defaultBsPopperConfig: Options) => Partial<Popper.Options>;
+    type PopperConfigFunction = (defaultBsPopperConfig: Popper.Options) => Partial<Popper.Options>;
 
     interface Options {
         /**
@@ -310,6 +310,7 @@ declare namespace Tooltip {
          *
          * @default null
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         sanitizeFn: () => void | null;
 
         /**

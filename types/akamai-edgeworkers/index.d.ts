@@ -1228,6 +1228,13 @@ declare module "encoding" {
          * @param outputFormat Optional argument for output format type.
          */
         decode(encodedData: string, outputFormat?: "String" | "Uint8Array"): DecodedValue;
+
+        /**
+         * @param dataToBeEncoded Input Uint8Array that needs to be encoded.
+         *
+         * @returns encoded base64 string.
+         */
+        encode(dataToBeEncoded: Uint8Array): string;
     }
 
     const base64: Base64;
@@ -1238,6 +1245,13 @@ declare module "encoding" {
          * @param outputFormat Optional argument for output format type.
          */
         decode(encodedData: string, outputFormat?: "String" | "Uint8Array"): DecodedValue;
+
+        /**
+         * @param dataToBeEncoded Input Uint8Array that needs to be encoded.
+         *
+         * @returns encoded base64url string.
+         */
+        encode(dataToBeEncoded: Uint8Array): string;
     }
 
     const base64url: Base64url;
@@ -1248,6 +1262,13 @@ declare module "encoding" {
          * @param outputFormat Optional argument for output format type.
          */
         decode(encodedData: string, outputFormat?: "String" | "Uint8Array"): DecodedValue;
+
+        /**
+         * @param dataToBeEncoded Input Uint8Array that needs to be encoded.
+         *
+         * @returns encoded base16 string.
+         */
+        encode(dataToBeEncoded: Uint8Array): string;
     }
 
     const base16: Base16;

@@ -2,6 +2,8 @@
     "rules": {
         "@definitelytyped/no-any-union": "off",
         "@definitelytyped/strict-export-declare-modifiers": "off",
-        "@definitelytyped/npm-naming": "off"
+        "@definitelytyped/npm-naming": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/prefer-namespace": "off"
     }
 }

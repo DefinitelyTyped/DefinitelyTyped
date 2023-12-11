@@ -3,6 +3,7 @@ import { WASI } from "node:wasi";
 
 {
     const wasi = new WASI({
+        version: "preview1",
         args: process.argv,
         env: process.env,
         preopens: {
@@ -18,6 +19,6 @@ import { WASI } from "node:wasi";
         // const instance = await WebAssembly.instantiate(wasm, importObject);
         const instance = {};
 
-        wasi.start(instance);
+        const exitCode: number = wasi.start(instance);
     })();
 }

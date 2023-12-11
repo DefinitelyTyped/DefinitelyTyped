@@ -14,6 +14,7 @@ autocannon({
     body: "ok",
     headers: { "accept-language": "en-US" },
     workers: 4,
+    debug: true,
     setupClient: client => {
         client.setHeaders({ "content-type": "application/json" });
         client.setBody(Buffer.from("ok"));
@@ -49,6 +50,14 @@ autocannon({
 
 const instance = autocannon({ url: "http://localhost:3000" }, (err, result) => {
     console.log(result.requests.average);
+
+    if (result.statusCodeStats) {
+        // Only numbers allowed as index
+        console.log(result.statusCodeStats["200"].count);
+        console.log(result.statusCodeStats["302"].count);
+        console.log(result.statusCodeStats["401"].count);
+        console.log(result.statusCodeStats["403"].count);
+    }
 });
 
 autocannon.track(instance, {
