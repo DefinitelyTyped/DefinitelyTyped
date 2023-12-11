@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import {
     Area,
     AreaChart,
@@ -348,5 +347,3 @@ class Component extends React.Component<{}, ComponentState> {
         );
     }
 }
-
-ReactDOM.render(<Component />, document.getElementById("app"));
