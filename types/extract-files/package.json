@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/extract-files",
-    "version": "8.1.9999",
+    "version": "13.0.9999",
     "projects": [
         "https://github.com/jaydenseric/extract-files#readme"
     ],
