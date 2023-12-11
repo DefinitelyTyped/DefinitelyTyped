@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import {
     Button,
     Checkbox,
@@ -155,4 +154,4 @@ export class App extends React.Component<AppProps, AppState> {
     }
 }
 
-ReactDOM.render(<App />, document.getElementById("react-body"));
+<App />;
