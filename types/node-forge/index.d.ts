@@ -555,7 +555,7 @@ declare module "node-forge" {
             md: md.MessageDigest | null;
             signatureParameters: any;
             certificationRequestInfo: asn1.Asn1 | null;
-        
+
             /**
              * Sets the subject of this csr.
              *
@@ -648,7 +648,11 @@ declare module "node-forge" {
 
         function certificationRequestToPem(csr: CertificateSigningRequest, maxline?: number): PEM;
 
-        function certificationRequestFromPem(pem: PEM, computeHash?: boolean, strict?: boolean): CertificateSigningRequest;
+        function certificationRequestFromPem(
+            pem: PEM,
+            computeHash?: boolean,
+            strict?: boolean,
+        ): CertificateSigningRequest;
 
         function createCertificationRequest(): CertificateSigningRequest;
 
