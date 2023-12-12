@@ -1,6 +1,7 @@
 {
     "rules": {
         "@definitelytyped/dt-header": "off",
+        "@definitelytyped/npm-naming": "off",
         "@typescript-eslint/adjacent-overload-signatures": "off"
     }
 }

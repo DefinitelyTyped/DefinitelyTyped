@@ -5,6 +5,7 @@
         "@definitelytyped/no-outside-dependencies": "off",
         "@definitelytyped/no-self-import": "off",
         "@definitelytyped/redundant-undefined": "off",
+        "@definitelytyped/npm-naming": "off",
         "@typescript-eslint/no-empty-interface": "off"
     }
 }

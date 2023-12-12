@@ -3,7 +3,6 @@
     "rules": {
         "no-unnecessary-type-assertion": false,
         "no-var-keyword": false,
-        "npm-naming": false,
         "one-variable-per-declaration": false,
         "only-arrow-functions": false,
         "prefer-const": false,
