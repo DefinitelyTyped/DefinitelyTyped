@@ -9,8 +9,7 @@
         "@types/react": "*"
     },
     "devDependencies": {
-        "@types/react-csv": "workspace:.",
-        "@types/react-dom": "*"
+        "@types/react-csv": "workspace:."
     },
     "owners": [
         {
