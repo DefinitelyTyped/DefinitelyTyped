@@ -5,7 +5,6 @@
         "jsdoc-format": false,
         "no-var-keyword": false,
         "no-var-requires": false,
-        "npm-naming": false,
         "only-arrow-functions": false,
         "prefer-const": false,
         "unified-signatures": false
