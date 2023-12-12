@@ -1,5 +1,6 @@
 {
     "rules": {
+        "@definitelytyped/npm-naming": "off",
         "@typescript-eslint/ban-types": "off"
     }
 }
