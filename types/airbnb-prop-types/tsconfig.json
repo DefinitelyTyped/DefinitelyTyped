@@ -11,7 +11,10 @@
         "strictFunctionTypes": true,
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "react": ["../react/v15/index.d.ts"]
+        }
     },
     "files": [
         "index.d.ts",
