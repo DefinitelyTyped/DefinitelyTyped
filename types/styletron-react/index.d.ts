@@ -63,13 +63,13 @@ export type StyletronComponent<P extends object> = React.FC<P & StyletronCompone
 };
 
 export interface StyledFn {
-    <C extends keyof JSX.IntrinsicElements | React.ComponentType<any>, P extends object>(
+    <C extends keyof React.JSX.IntrinsicElements | React.ComponentType<any>, P extends object>(
         component: C,
         style: (props: P) => StyleObject,
     ): StyletronComponent<
         Pick<React.ComponentProps<C>, Exclude<keyof React.ComponentProps<C>, { className: string }>> & P
     >;
-    <C extends keyof JSX.IntrinsicElements | React.ComponentType<any>>(
+    <C extends keyof React.JSX.IntrinsicElements | React.ComponentType<any>>(
         component: C,
         style: StyleObject,
     ): StyletronComponent<Pick<React.ComponentProps<C>, Exclude<keyof React.ComponentProps<C>, { className: string }>>>;
@@ -126,7 +126,7 @@ export const Provider: typeof DevProvider | React.Provider<StandardEngine>;
 
 export function DevConsumer(props: {
     children: (styletronEngine: StandardEngine, debugEngine: DebugEngine, hydrating: boolean) => React.ReactNode;
-}): JSX.Element;
+}): React.JSX.Element;
 
 /**
  * @param style the StyleObject

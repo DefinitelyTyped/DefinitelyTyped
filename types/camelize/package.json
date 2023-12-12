@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/camelize",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ljharb/camelize"
+    ],
+    "devDependencies": {
+        "@types/camelize": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tristan F.",
+            "githubUsername": "LeoDog896"
+        }
+    ]
+}
