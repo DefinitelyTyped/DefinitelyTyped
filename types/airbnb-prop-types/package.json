@@ -10,7 +10,7 @@
     },
     "devDependencies": {
         "@types/airbnb-prop-types": "workspace:.",
-        "@types/react": "*"
+        "@types/react": "^15"
     },
     "owners": [
         {
