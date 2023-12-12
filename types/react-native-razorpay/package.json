@@ -6,7 +6,7 @@
         "https://www.npmjs.com/package/react-native-razorpay"
     ],
     "devDependencies": {
-        "@types/react-native": "*",
+        "@types/react-native": "^0.72",
         "@types/react-native-razorpay": "workspace:."
     },
     "owners": [

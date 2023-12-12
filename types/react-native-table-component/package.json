@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/react": "*",
-        "@types/react-native": "*",
+        "@types/react-native": "^0.72",
         "csstype": "^3.0.3"
     },
     "devDependencies": {

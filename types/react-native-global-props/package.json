@@ -6,7 +6,7 @@
         "https://github.com/Ajackster/react-native-global-props#readme"
     ],
     "dependencies": {
-        "@types/react-native": "^0.70"
+        "@types/react-native": "^0.72"^0.70"
     },
     "devDependencies": {
         "@types/react": "*",

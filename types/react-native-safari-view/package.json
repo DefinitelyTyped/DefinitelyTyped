@@ -6,7 +6,7 @@
         "https://github.com/naoufal/react-native-safari-view"
     ],
     "dependencies": {
-        "@types/react-native": "*"
+        "@types/react-native": "^0.72"
     },
     "devDependencies": {
         "@types/react-native-safari-view": "workspace:."

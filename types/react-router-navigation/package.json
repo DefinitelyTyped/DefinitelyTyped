@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/react": "^17",
-        "@types/react-native": "*",
+        "@types/react-native": "^0.72",
         "@types/react-navigation": "3.0.8",
         "@types/react-router-navigation-core": "*"
     },

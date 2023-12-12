@@ -6,7 +6,7 @@
         "https://github.com/songxiaoliang/react-native-app-upgrade#readme"
     ],
     "dependencies": {
-        "@types/react-native": "*"
+        "@types/react-native": "^0.72"
     },
     "devDependencies": {
         "@types/rn-app-upgrade": "workspace:."
