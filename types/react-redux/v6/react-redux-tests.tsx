@@ -1,6 +1,5 @@
 import * as PropTypes from "prop-types";
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import { Connect, connect, createProvider, DispatchProp, MapStateToProps, Options, Provider } from "react-redux";
 import {
     ActionCreator,
@@ -517,15 +516,9 @@ class App extends React.Component<any, any> {
 
 const targetEl = document.getElementById("root");
 
-ReactDOM.render(
-    (
-        <Provider store={store}>
-            <App />
-        </Provider>
-    ),
-    targetEl,
-);
-
+<Provider store={store}>
+    <App />
+</Provider>;
 //
 // API
 // https://github.com/rackt/react-redux/blob/master/docs/api.md
@@ -552,12 +545,9 @@ declare var addTodo: () => { type: string };
 declare var todoActionCreators: { [type: string]: (...args: any[]) => any };
 declare var counterActionCreators: { [type: string]: (...args: any[]) => any };
 
-ReactDOM.render(
-    <Provider store={store}>
-        <MyRootComponent />
-    </Provider>,
-    document.body,
-);
+<Provider store={store}>
+    <MyRootComponent />
+</Provider>;
 
 // Inject just dispatch and don't listen to store
 
@@ -678,7 +668,7 @@ const HelloMessage: React.FunctionComponent<HelloMessageProps> = (props) => {
     return <div>Hello {props.name}</div>;
 };
 const ConnectedHelloMessage = connect()(HelloMessage);
-ReactDOM.render(<ConnectedHelloMessage name="Sebastian" />, document.getElementById("content"));
+<ConnectedHelloMessage name="Sebastian" />;
 
 // stateless functions that uses mapStateToProps and mapDispatchToProps
 function TestStatelessFunctionWithMapArguments() {
