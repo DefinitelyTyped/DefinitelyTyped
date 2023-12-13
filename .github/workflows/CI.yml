@@ -17,7 +17,7 @@ jobs:
           fetch-depth: 0 # Default is 1; need to set to 0 to get the benefits of blob:none.
       - uses: actions/setup-node@v4
         with:
-          node-version: lts/*
+          node-version: '20'
 
       # forbid symlinks
       - name: 'Pre-run validation'
@@ -70,7 +70,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: lts/*
+          node-version: '20'
 
       - uses: pnpm/action-setup@v2
         with:

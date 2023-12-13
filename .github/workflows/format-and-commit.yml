@@ -20,7 +20,7 @@ jobs:
           token: ${{ secrets.GH_DT_MERGEBOT_TOKEN }}
       - uses: actions/setup-node@v4
         with:
-          node-version: lts/*
+          node-version: '20'
 
       - uses: pnpm/action-setup@v2
         with:
