@@ -5,7 +5,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class RiScript {
-  constructor(options?: object);
-  static evaluate(script: string, context?: object, opts?: object): string;
-  evaluate(script: string, context?: object, opts?: object): string;
+  static VERSION: string;
+  static evaluate(script: string, context?: object, options?: object): string;
+  
+  constructor(opts?: {});
+  evaluate(script: string, context?: object, options?: object): string;
+  addTransform(name: string, def: any): RiScript;
+  getTransforms(): string[];
+  removeTransform(name: string): RiScript;
 }
