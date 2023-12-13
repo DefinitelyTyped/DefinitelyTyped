@@ -749,3 +749,19 @@ ConnectionInterface.inject({
     PAGE_INFO_TYPE: "PageInfo",
     START_CURSOR: "startCursor",
 });
+
+// ~~~~~~~~~~~~~~~~~~
+// Provided variables
+// ~~~~~~~~~~~~~~~~~~
+
+__internal.withProvidedVariables({
+    one: "value",
+}, {
+    two: {
+        get() {
+            return "value";
+        },
+    },
+});
+
+__internal.withProvidedVariables.tests_only_resetDebugCache?.();

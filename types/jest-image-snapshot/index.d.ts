@@ -10,6 +10,11 @@ export interface MatchImageSnapshotOptions {
      */
     allowSizeMismatch?: boolean | undefined;
     /**
+     * Sets the max number of bytes for stdout/stderr when running diff-snapshot in a child process.
+     * @default 10 * 1024 * 1024 (10,485,760)
+     */
+    maxChildProcessBufferSizeInBytes?: number | undefined;
+    /**
      * Custom config passed to 'pixelmatch' or 'ssim'
      */
     customDiffConfig?: PixelmatchOptions | Partial<SSIMOptions> | undefined;

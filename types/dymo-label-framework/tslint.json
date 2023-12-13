@@ -4,7 +4,6 @@
         "array-type": false,
         "jsdoc-format": false,
         "no-var-keyword": false,
-        "npm-naming": false,
         "triple-equals": false
     }
 }

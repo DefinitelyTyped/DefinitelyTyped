@@ -864,6 +864,7 @@ declare namespace vhtml {
         interface DetailsHTMLAttributes extends HTMLAttributes {
             open?: boolean | undefined;
             ontoggle?: string | undefined;
+            name?: string | undefined;
         }
         interface DelHTMLAttributes extends HTMLAttributes {
             cite?: string | undefined;

@@ -4,7 +4,6 @@
         "eofline": false,
         "jsdoc-format": false,
         "no-var-keyword": false,
-        "npm-naming": false,
         "only-arrow-functions": false,
         "prefer-const": false,
         "unified-signatures": false
