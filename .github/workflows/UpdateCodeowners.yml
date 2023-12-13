@@ -26,6 +26,8 @@ jobs:
           fetch-depth: 0
 
       - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
       - uses: pnpm/action-setup@v2
         with:
           run_install: |

@@ -26,6 +26,8 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
 
       - uses: pnpm/action-setup@v2
         with:
