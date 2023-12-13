@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 let script = "[#name=[Jane | Bill]] was from [#place=[New York | Berlin]]."
   + " $name finds $place cold and wet in winter.";
 
