@@ -247,12 +247,13 @@ import Alpine, {
     // $ExpectType interceptor
     Alpine.interceptor;
 
-    Alpine.data("user", () => ({
+    Alpine.data("user", (arg: number) => ({
         intercepted: Alpine.interceptor((initialValue: "foo") => initialValue)("foo"),
         init() {
             // $ExpectType "foo"
             this.intercepted;
         },
+        arg
     }));
 
     let alias: string;

@@ -473,9 +473,9 @@ export interface Alpine {
      * @param name Component name
      * @param callback Data context constructor function
      */
-    data: <T_12 extends { [key in keyof T_12]: T_12[key] }>(
+    data: <T extends { [key in keyof T]: T[key] }, A extends unknown[]>(
         name: string,
-        callback: (...args: unknown[]) => AlpineComponent<T_12>, // Needed generic to properly autotype objects
+        callback: (...args: A) => AlpineComponent<T>, // Needed generic to properly autotype objects
     ) => void;
     bind: (name: string | ElementWithXAttributes, bindings: Bindings | ((...args: unknown[]) => Bindings)) => void;
 }
