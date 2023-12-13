@@ -6,7 +6,7 @@
         "https://github.com/csath/react-native-config-reader#readme"
     ],
     "devDependencies": {
-        "@types/react-native": "^0.72",
+        "react-native": "*",
         "@types/react-native-config-reader": "workspace:."
     },
     "owners": [

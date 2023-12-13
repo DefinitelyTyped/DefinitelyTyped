@@ -10,7 +10,7 @@
     },
     "devDependencies": {
         "@types/react": "*",
-        "@types/react-native": "^0.72",
+        "react-native": "*",
         "@types/react-native-doc-viewer": "workspace:."
     },
     "owners": [

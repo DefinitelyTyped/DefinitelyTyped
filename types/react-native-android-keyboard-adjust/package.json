@@ -7,7 +7,7 @@
     ],
     "devDependencies": {
         "@types/react": "*",
-        "@types/react-native": "^0.72",
+        "react-native": "*",
         "@types/react-native-android-keyboard-adjust": "workspace:."
     },
     "owners": [

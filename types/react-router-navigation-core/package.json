@@ -8,7 +8,7 @@
     "dependencies": {
         "@types/history": "^4.7.11",
         "@types/react": "^17",
-        "@types/react-native": "^0.72",
+        "react-native": "*",
         "@types/react-native-tab-view": "^1.0.6",
         "@types/react-router": "^5.1.0"
     },

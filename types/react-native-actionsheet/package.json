@@ -9,7 +9,7 @@
         "@types/react": "*"
     },
     "devDependencies": {
-        "@types/react-native": "^0.72",
+        "react-native": "*",
         "@types/react-native-actionsheet": "workspace:."
     },
     "owners": [
