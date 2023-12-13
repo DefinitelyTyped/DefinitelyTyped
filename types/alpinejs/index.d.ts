@@ -473,6 +473,7 @@ export interface Alpine {
      * @param name Component name
      * @param callback Data context constructor function
      */
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     data: <T extends { [key in keyof T]: T[key] }, A extends unknown[]>(
         name: string,
         callback: (...args: A) => AlpineComponent<T>, // Needed generic to properly autotype objects

@@ -12,6 +12,7 @@ import Alpine, {
     DirectiveData,
     DirectiveUtilities,
     ElementWithXAttributes,
+    InterceptorObject,
 } from "alpinejs";
 
 {
@@ -247,13 +248,18 @@ import Alpine, {
     // $ExpectType interceptor
     Alpine.interceptor;
 
-    Alpine.data("user", (arg: number) => ({
+    // This uses the generics as older versions of TypeScript don't properly infer the argument types
+    Alpine.data<{
+    intercepted: InterceptorObject<"foo">;
+    init(): void;
+    hello: "world";
+}, [hello: "world"]>("user", (hello: 'world') => ({ // checks argument support
         intercepted: Alpine.interceptor((initialValue: "foo") => initialValue)("foo"),
         init() {
             // $ExpectType "foo"
             this.intercepted;
         },
-        arg
+        hello
     }));
 
     let alias: string;
