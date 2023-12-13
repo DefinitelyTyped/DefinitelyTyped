@@ -5,7 +5,6 @@
         "no-redundant-jsdoc-2": false,
         "no-string-throw": false,
         "no-var-keyword": false,
-        "npm-naming": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
         "prefer-const": false,

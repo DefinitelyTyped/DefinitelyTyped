@@ -1,7 +1,3 @@
 {
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "array-type": false,
-        "unified-signatures": false
-    }
+    "extends": "@definitelytyped/dtslint/dt.json"
 }

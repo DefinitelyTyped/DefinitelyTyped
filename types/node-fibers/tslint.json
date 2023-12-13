@@ -4,7 +4,6 @@
         "new-parens": false,
         "no-duplicate-variable": false,
         "no-var-keyword": false,
-        "npm-naming": false,
         "one-variable-per-declaration": false,
         "only-arrow-functions": false,
         "prefer-const": false,

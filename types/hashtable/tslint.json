@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "no-var-keyword": false,
-        "npm-naming": false,
         "prefer-const": false,
         "prefer-template": false,
         "unified-signatures": false

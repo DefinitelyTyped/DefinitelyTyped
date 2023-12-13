@@ -1,9 +1,3 @@
 {
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "file-name-casing": [
-            true,
-            "kebab-case"
-        ]
-    }
+    "extends": "@definitelytyped/dtslint/dt.json"
 }

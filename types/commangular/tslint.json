@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "no-unnecessary-qualifier": false,
-        "npm-naming": false,
         "unified-signatures": false
     }
 }

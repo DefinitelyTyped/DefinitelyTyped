@@ -9,7 +9,6 @@
         "no-unnecessary-class": false,
         "no-unnecessary-qualifier": false,
         "no-unnecessary-type-assertion": false,
-        "npm-naming": false,
         "prefer-template": false
     }
 }
