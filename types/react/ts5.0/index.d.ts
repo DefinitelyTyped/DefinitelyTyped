@@ -1652,7 +1652,7 @@ declare namespace React {
         onTransitionEndCapture?: TransitionEventHandler<T> | undefined;
     }
 
-    export interface CSSProperties extends CSS.Properties<string | number> {
+    export interface CSSProperties extends CSS.Properties<(string & {}) | number> {
         /**
          * The index signature was removed to enable closed typing for style
          * using CSSType. You're able to use type assertion or module augmentation
@@ -2246,6 +2246,7 @@ declare namespace React {
     interface DetailsHTMLAttributes<T> extends HTMLAttributes<T> {
         open?: boolean | undefined;
         onToggle?: ReactEventHandler<T> | undefined;
+        name?: string | undefined;
     }
 
     interface DelHTMLAttributes<T> extends HTMLAttributes<T> {

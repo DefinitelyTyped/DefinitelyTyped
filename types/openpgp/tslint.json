@@ -1,21 +1,3 @@
 {
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "array-type": false,
-        "no-var-keyword": false,
-        "npm-naming": [
-            true,
-            {
-                "errors": [
-                    [
-                        "NeedsExportEquals",
-                        false
-                    ]
-                ],
-                "mode": "code"
-            }
-        ],
-        "only-arrow-functions": false,
-        "prefer-const": false
-    }
+    "extends": "@definitelytyped/dtslint/dt.json"
 }

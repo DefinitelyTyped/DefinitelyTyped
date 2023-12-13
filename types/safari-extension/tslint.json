@@ -4,7 +4,6 @@
         "array-type": false,
         "no-duplicate-variable": false,
         "no-var-keyword": false,
-        "npm-naming": false,
         "prefer-const": false,
         "prefer-for-of": false,
         "triple-equals": false,

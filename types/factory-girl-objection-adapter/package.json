@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/factory-girl-objection-adapter",
-    "version": "5.0.9999",
+    "version": "1.0.9999",
     "projects": [
         "https://github.com/smooth-code/factory-girl-objection-adapter"
     ],

@@ -1,7 +1,3 @@
 {
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "npm-naming": false,
-        "no-unnecessary-class": false
-    }
+    "extends": "@definitelytyped/dtslint/dt.json"
 }
