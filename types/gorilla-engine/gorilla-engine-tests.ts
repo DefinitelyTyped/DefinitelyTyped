@@ -10,4 +10,4 @@ const scrollView = new GorillaEngine.UI.ScrollView({ id: "myScrollView" });
 
 const knob = new GorillaEngine.UI.Knob({ id: "myknob" });
 
-const label = new GorillaEngine.UI.Label({ margin: 5 })
+const label = new GorillaEngine.UI.Label({ margin: 5 });
