@@ -250,16 +250,16 @@ import Alpine, {
 
     // This uses the generics as older versions of TypeScript don't properly infer the argument types
     Alpine.data<{
-    intercepted: InterceptorObject<"foo">;
-    init(): void;
-    hello: "world";
-}, [hello: "world"]>("user", (hello: 'world') => ({ // checks argument support
+        intercepted: InterceptorObject<"foo">;
+        init(): void;
+        hello: "world";
+    }, [hello: "world"]>("user", (hello: "world") => ({ // checks argument support
         intercepted: Alpine.interceptor((initialValue: "foo") => initialValue)("foo"),
         init() {
             // $ExpectType "foo"
             this.intercepted;
         },
-        hello
+        hello,
     }));
 
     let alias: string;

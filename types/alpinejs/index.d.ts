@@ -102,13 +102,11 @@ export interface InterceptorObject<T> {
     initialize: (data: Record<string, unknown>, path: string, key: string) => T;
 }
 
-type InferInterceptor<T> = T extends InterceptorObject<infer U>
-    ? U
-    : keyof T extends never
-    ? T
+type InferInterceptor<T> = T extends InterceptorObject<infer U> ? U
+    : keyof T extends never ? T
     : {
-          [K in keyof T]: InferInterceptor<T[K]>;
-      };
+        [K in keyof T]: InferInterceptor<T[K]>;
+    };
 
 export type InferInterceptors<T> = {
     [K in keyof T]: InferInterceptor<T[K]>;
@@ -330,13 +328,13 @@ export interface Alpine {
         el: ElementWithXAttributes,
         setFunction:
             | ((
-                  el: ElementWithXAttributes,
-                  value:
-                      | string
-                      | boolean
-                      | Record<string, boolean>
-                      | (() => string | boolean | Record<string, boolean>),
-              ) => () => void)
+                el: ElementWithXAttributes,
+                value:
+                    | string
+                    | boolean
+                    | Record<string, boolean>
+                    | (() => string | boolean | Record<string, boolean>),
+            ) => () => void)
             | ((el: ElementWithXAttributes, value: string | Partial<CSSStyleDeclaration>) => () => void),
         {
             during,
