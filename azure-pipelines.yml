@@ -8,10 +8,10 @@ jobs:
     timeoutInMinutes: 360
 
     steps:
-      - task: NodeTool@0
-        displayName: Use Node 16
+      - task: UseNode@1
+        displayName: Use Node 20
         inputs:
-          versionSpec: 16.x
+          version: 20.x
           checkLatest: true
 
       - script: |
