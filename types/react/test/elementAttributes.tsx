@@ -36,7 +36,7 @@ const testCases = [
     <svg>
         <image crossOrigin="anonymous" />
     </svg>,
-    <details open={true} onToggle={() => {}} />,
+    <details open={true} onToggle={() => {}} name='foo'/>,
     <input value={["one", "two"] as readonly string[]} />,
     <input value={["one", "two"] as string[]} />,
     <input value={["one", "two"]} />,
