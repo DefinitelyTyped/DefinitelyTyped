@@ -1,4 +1,4 @@
-import { JSX, ReactChild, ReactElement } from "react";
+import { JSX, ReactElement } from "react";
 
 import children from "./children";
 
@@ -50,7 +50,7 @@ declare namespace node {
      *
      * @deprecated since 11.17.0. Use the html source instead.
      */
-    function toHTML(node: ReactChild): string;
+    function toHTML(node: ReactElement | number | string): string;
 }
 
 export default node;
