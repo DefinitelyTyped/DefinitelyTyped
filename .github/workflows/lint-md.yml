@@ -11,8 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      - uses: pnpm/action-setup@d882d12c64e032187b2edb46d3a0d003b7a43598 # v2.4.0
         with:
           run_install: |
             - args: [--filter, ., --filter, '{./scripts}...']
