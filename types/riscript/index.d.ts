@@ -1,4 +1,3 @@
-// Type definitions for riscript 1.0
 // Project: https://github.com/dhowe/riscript
 // Definitions by: Daniel C Howe <https://github.com/dhowe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
