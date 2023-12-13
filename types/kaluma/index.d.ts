@@ -1,4 +1,3 @@
-// Kaluma.d.ts
 
 // ### GLOBAL CONSTANTS ###
 
