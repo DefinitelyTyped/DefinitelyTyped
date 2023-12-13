@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/riscript",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/dhowe/riscript"
+    ],
+    "devDependencies": {
+        "@types/riscript": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "dhowe",
+            "githubUsername": "dhowe"
+        }
+    ]
+}
