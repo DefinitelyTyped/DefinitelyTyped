@@ -13,3 +13,7 @@ postcss().use(
         { filter: "cdn/**/*", url: asset => `https://cdn.url/${asset.url}` },
     ]),
 );
+
+postcss().use(url({ url: (asset) => asset.url }));
+
+postcss().use(url({ url: async (asset) => asset.url }));
