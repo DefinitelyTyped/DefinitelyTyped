@@ -1,14 +1,15 @@
-import { IUniform, Matrix4, Vector2 } from '../../../src/Three.js';
+import { DataTexture, IUniform, Matrix4, Vector2, Vector3 } from '../../../src/Three.js';
 
-export const HBAOShader: {
+export const GTAOShader: {
     name: string;
     defines: {
         PERSPECTIVE_CAMERA: number;
         SAMPLES: number;
-        SAMPLE_VECTORS: string;
         NORMAL_VECTOR_TYPE: number;
-        DEPTH_VALUE_SOURCE: number;
-        SAMPLING_FROM_NOISE: number;
+        DEPTH_SWIZZLING: string;
+        SCREEN_SPACE_RADIUS: number;
+        SCREEN_SPACE_RADIUS_SCALE: number;
+        SCENE_CLIP_BOX: number;
     };
     uniforms: {
         tNormal: IUniform;
@@ -22,12 +23,15 @@ export const HBAOShader: {
         radius: IUniform<number>;
         distanceExponent: IUniform<number>;
         bias: IUniform<number>;
+        scale: IUniform<number>;
+        sceneBoxMin: IUniform<Vector3>;
+        sceneBoxMax: IUniform<Vector3>;
     };
     vertexShader: string;
     fragmentShader: string;
 };
 
-export const HBAODepthShader: {
+export const GTAODepthShader: {
     name: string;
     defines: {
         PERSPECTIVE_CAMERA: number;
@@ -41,4 +45,14 @@ export const HBAODepthShader: {
     fragmentShader: string;
 };
 
-export function generateHaboSampleKernelInitializer(samples: number): string;
+export const GTAOBlendShader: {
+    name: string;
+    uniforms: {
+        tDiffuse: IUniform;
+        intensity: IUniform<number>;
+    };
+    vertexShader: string;
+    fragmentShader: string;
+};
+
+export function generateMagicSquareNoise(samples?: number): DataTexture;
