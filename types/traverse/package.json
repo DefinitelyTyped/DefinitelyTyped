@@ -3,7 +3,7 @@
     "name": "@types/traverse",
     "version": "0.6.9999",
     "projects": [
-        "https://github.com/substack/js-traverse"
+        "https://github.com/ljharb/js-traverse"
     ],
     "devDependencies": {
         "@types/traverse": "workspace:."
@@ -20,6 +20,10 @@
         {
             "name": "Guten Ye",
             "url": "https://guten.me"
+        },
+        {
+            "name": "Josh Mock",
+            "githubUsername": "joshmock"
         }
     ]
 }
