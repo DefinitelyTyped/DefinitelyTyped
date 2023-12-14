@@ -222,7 +222,7 @@ f("one");
 
 Para más detalles, vea el [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint#write-tests) readme.
 
-#### Linter: `tslint.json`
+#### Linter: `.eslintrc.json`
 
 The linter configuration file, `tslint.json` should contain `{ "extends": "@definitelytyped/dtslint/dt.json" }`, and no additional rules.
 
