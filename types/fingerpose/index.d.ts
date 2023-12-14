@@ -25,31 +25,54 @@ export enum FingerDirection {
 
 export class GestureDescription {
     constructor(name: string);
-    curls: Record<Finger, FingerCurl[]>;
-    directions: Record<Finger, FingerDirection[]>;
-    addCurl(finger: Finger, curl: FingerCurl, weight?: number): void;
+
+    addCurl(finger: Finger, curl: FingerCurl, contrib?: number): void;
+
     addDirection(
         finger: Finger,
         direction: FingerDirection,
-        weight?: number,
+        contrib?: number,
     ): void;
-    matchAgainst(curls: FingerCurl[], directions: FingerDirection[]): number;
+
+    matchAgainst(
+        detectedCurls: FingerCurl[],
+        detectedDirections: FingerDirection[],
+    ): number;
 }
 
-export class GestureEstimator {
-    constructor(options?: {
-        HALF_CURL_START_LIMIT?: number;
-        NO_CURL_START_LIMIT?: number;
-        DISTANCE_VOTE_POWER?: number;
-        SINGLE_ANGLE_VOTE_POWER?: number;
-        TOTAL_ANGLE_VOTE_POWER?: number;
-    });
+interface GestureEstimate {
+    name: string;
+    score: number;
+};
 
-    estimate(points: number[][]): {
-        curls: FingerCurl[];
-        directions: FingerDirection[];
+interface Keypoint3D {
+    x: number;
+    y: number;
+    z: number;
+};
+
+export class GestureEstimator {
+    constructor(
+        knownGestures: GestureDescription[],
+        estimatorOptions?: {
+            HALF_CURL_START_LIMIT?: number;
+            NO_CURL_START_LIMIT?: number;
+            DISTANCE_VOTE_POWER?: number;
+            SINGLE_ANGLE_VOTE_POWER?: number;
+            TOTAL_ANGLE_VOTE_POWER?: number;
+        },
+    );
+
+    estimate(
+        keypoints3D: Keypoint3D[],
+        minScore: number,
+    ): {
+        poseData: GestureDescription[];
+        gestures: GestureEstimate[];
     };
 }
 
 export const VictoryGesture: GestureDescription;
 export const ThumbsUpGesture: GestureDescription;
+
+export {};
