@@ -114,7 +114,9 @@ export class GestureEstimator {
     };
 }
 
-export const VictoryGesture: GestureDescription;
-export const ThumbsUpGesture: GestureDescription;
+export const Gestures: {
+    VictoryGesture: GestureDescription;
+    ThumbsUpGesture: GestureDescription;
+};
 
 export { };
