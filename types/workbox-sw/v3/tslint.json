@@ -1,8 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "array-type": false,
-        "no-redundant-jsdoc-2": false,
-        "no-unnecessary-class": false
-    }
-}
