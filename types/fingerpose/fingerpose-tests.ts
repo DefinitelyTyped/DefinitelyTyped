@@ -22,18 +22,31 @@ const customDirections = [FingerDirection.HorizontalRight, FingerDirection.Verti
 const customMatchScore = customGesture.matchAgainst(customCurls, customDirections);
 assert(customMatchScore > 0.5, "Custom gesture matching failed");
 
-const estimator = new GestureEstimator();
+const estimator = new GestureEstimator([customGesture]);
 
 const points = [
-    [0, 0],
-    [1, 1],
-    [2, 2],
+    {
+        x: 0,
+        y: 0,
+        z: 0,
+    },
+    {
+        x: 1,
+        y: 1,
+        z: 1
+    },
+    {
+        x: 2,
+        y: 2,
+        z: 2
+    }
 ];
 
-const { curls, directions } = estimator.estimate(points);
+const {gestures, poseData}  = estimator.estimate(points, 7);
 
-assert(curls.length === 5, "Unexpected number of curls");
-assert(directions.length === 5, "Unexpected number of directions");
+assert(gestures.length === 1, "Estimator failed to detect custom gesture");
+assert(gestures[0].name === "CustomGesture", "Estimator failed to detect custom gesture");
+assert(poseData.length === 1, "Estimator failed to detect custom gesture");
 
 const victoryGesture = VictoryGesture;
 const thumbsUpGesture = ThumbsUpGesture;
