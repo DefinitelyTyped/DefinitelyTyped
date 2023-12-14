@@ -1,7 +1,7 @@
 import { S3Client } from "@aws-sdk/client-s3";
 import { Archiver, ArchiverOptions, EntryData, Format } from "archiver";
 
-export interface ArchiveOptions {
+interface ArchiveOptions {
     s3?: S3Client;
     region?: string;
     bucket: string;
@@ -27,4 +27,4 @@ interface S3Zip {
 
 declare const s3Zip: S3Zip;
 
-export default s3Zip;
+export = s3Zip;

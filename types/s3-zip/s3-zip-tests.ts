@@ -1,5 +1,5 @@
 import { S3Client } from "@aws-sdk/client-s3";
-import s3Zip from "s3-zip";
+import * as s3Zip from "s3-zip";
 
 const region = "bucket-region";
 const bucket = "name-of-s3-bucket";
