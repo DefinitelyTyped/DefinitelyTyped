@@ -4495,6 +4495,10 @@
             "libraryName": "random-obj-prop",
             "asOfVersion": "2.0.0"
         },
+        "random-words": {
+            "libraryName": "random-words",
+            "asOfVersion": "1.2.0"
+        },
         "randoma": {
             "libraryName": "randoma",
             "asOfVersion": "1.3.0"
