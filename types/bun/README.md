@@ -17,4 +17,4 @@ bun add -D @types/bun
 
 # Contributing
 
-The `@types/bun` package installs and loads the `bun-types` package, which lives in the [Bun repo](https://github.com/oven-sh/bun) under `packages/bun-types`.
+The `@types/bun` package is a wrapper over the `bun-types` package, which lives in the [Bun repo](https://github.com/oven-sh/bun) under `packages/bun-types`.
