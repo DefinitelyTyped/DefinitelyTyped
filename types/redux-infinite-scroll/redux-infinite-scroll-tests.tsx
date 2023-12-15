@@ -9,7 +9,7 @@ class App extends React.Component {
     };
 
     _createData(numOfItems = this.state.numOfItems) {
-        const data: JSX.Element[] = [];
+        const data: React.JSX.Element[] = [];
         for (let i = 0; i < numOfItems; i++) {
             data.push(
                 <div key={i} className="test-item">Item #{i}</div>,
