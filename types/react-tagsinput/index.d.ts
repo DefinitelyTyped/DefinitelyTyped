@@ -35,7 +35,10 @@ declare namespace TagsInput {
         readonly key: number;
     }
 
-    type RenderLayout = (tagElements: React.ReactElement[], inputElement: React.ReactElement) => React.ReactElement | number | string;
+    type RenderLayout = (
+        tagElements: React.ReactElement[],
+        inputElement: React.ReactElement,
+    ) => React.ReactElement | number | string;
 
     interface ReactTagsInputProps<Tag = any> {
         children?: React.ReactNode;
