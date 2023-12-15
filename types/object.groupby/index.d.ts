@@ -6,7 +6,7 @@
 declare function groupBy<T, K extends PropertyKey>(
     iterable: Iterable<T>,
     callbackfn: (value: T, index: number) => K,
-): Record<K, T[]>;
+): { [P in K]?: T[] };
 
 /**
  * Returns an object that groups the iterable of the iterable object into arrays, using the return value of the callback function as the key.
@@ -16,6 +16,6 @@ declare function groupBy<T, K extends PropertyKey>(
 declare function groupBy(
     iterable: Iterable<any>,
     callbackfn: (value: any, index: number) => PropertyKey,
-): Record<PropertyKey, any[]>;
+): { [P in PropertyKey]?: any[] };
 
 export = groupBy;
