@@ -6,7 +6,6 @@
         "https://github.com/themikenicholson/passport-jwt"
     ],
     "dependencies": {
-        "@types/express": "*",
         "@types/jsonwebtoken": "*",
         "@types/passport-strategy": "*"
     },

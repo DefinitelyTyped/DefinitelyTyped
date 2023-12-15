@@ -1,7 +1,6 @@
 /// <reference types="passport" />
 "use strict";
 
-import { Request } from "express";
 import * as passport from "passport";
 import { ExtractJwt, Strategy as JwtStrategy, StrategyOptions } from "passport-jwt";
 
@@ -40,7 +39,7 @@ opts.jwtFromRequest = ExtractJwt.fromExtractors([
 ]);
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.jwtFromRequest = (req: Request) => {
-    return req.query.token as string;
+    return req.headers.get('token') as string;
 };
 opts.secretOrKey = new Buffer("secret");
 opts.secretOrKeyProvider = (request, rawJwtToken, done) => done(null, new Buffer("secret"));
