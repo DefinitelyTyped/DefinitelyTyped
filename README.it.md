@@ -169,7 +169,6 @@ Il tuo package dovrebbe avere questa struttura:
 | `index.d.ts`  | Contiene le dichiarazioni dei tipi del package. |
 | [`<nome-package>-tests.ts`](#mio-package-teststs)  | Contiene codice di esempio con test delle dichiarazioni dei tipi. Se il codice *non* funziona anche se viene traspilato da tsc senza errori.
 | [`tsconfig.json`](#tsconfigjson) | Ti permette di eseguire `tsc` all'interno del package. |
-| [`tslint.json`](#linter-tslintjson)   | Abilita il linting. |
 
 Generali eseguento `npx dts-gen --dt --name <mio-package> --template module` se hai npm ≥ 5.2.0, altrimenti `npm install -g dts-gen` and `dts-gen --dt --name <my-package> --template module`.
 Leggi tutte le opzioni su [dts-gen](https://github.com/Microsoft/dts-gen).
@@ -266,17 +265,9 @@ f("one");
 
 Per maggiori dettagli, leggi il readme di [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint#write-tests).
 
-#### Linter: `tslint.json`
-
-Il file di configurazione del linter, `tslint.json`, dovrebbe contenere `{ "extends": "@definitelytyped/dtslint/dt.json" }` e nessun'altra regola.
-
-Se per qualche ragione qualche regola necessita di essere disabilitata, [disabilitala solo per la riga di codice in cui dovrebbe esserlo](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) usando `// tslint:disable-next-line:[ruleName]` e non disabilitandola per tutto il package, in modo tale che tu possa verificarne l'effetto. (CI sono alcune configurazioni lint legacy che hanno del contenuto aggiuntivo tuttavia non dovrebbe più accadere nei lavori futuri).
-
 ##### Linter: `.eslintrc.json`
 
-"Definitely Typed" sta migrando ad eslint per il linting.
-Al contrario di tslint qui non è necessario un file di configurazione per il linting.
-Proprio come tslint dovresti disabilitare le regole solo per determinate linee:
+Dovresti disabilitare le regole solo per determinate linee:
 
 ```ts
 // eslint-disable-next-line no-const-enum
