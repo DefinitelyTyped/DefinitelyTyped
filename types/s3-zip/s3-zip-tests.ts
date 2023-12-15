@@ -8,14 +8,25 @@ const file1 = "Image A.png";
 const file2 = "Image B.png";
 const file3 = "Image C.png";
 const file4 = "Image D.png";
+const s3Client = new S3Client();
 
 function testArchive(): void {
     s3Zip.archive({ region: region, bucket: bucket }, folder, [file1, file2, file3, file4]);
 }
 
-function testArchiveWithCustomS3Client(): void {
-    const s3Client = new S3Client();
+function testArchiveOptions(): void {
+    const opts: s3Zip.ArchiveOptions = {
+        s3: s3Client,
+        region: region,
+        bucket: bucket,
+        debug: true,
+        preserveFolderStructure: true,
+    };
 
+    s3Zip.archive(opts, folder, [file1, file2, file3, file4]);
+}
+
+function testArchiveWithCustomS3Client(): void {
     s3Zip.archive({ s3: s3Client, bucket: bucket }, folder, [file1, file2, file3, file4]);
 }
 
