@@ -13,8 +13,8 @@ let opts: StrategyOptions = {
 
 passport.use(
     JwtStrategy.name,
-    new JwtStrategy(opts, function (jwt_payload, done) {
-        findUser({ id: jwt_payload.sub }, function (err, user) {
+    new JwtStrategy(opts, function(jwt_payload, done) {
+        findUser({ id: jwt_payload.sub }, function(err, user) {
             if (err) {
                 return done(err, false);
             }
@@ -25,7 +25,7 @@ passport.use(
                 // or you could create a new account
             }
         });
-    })
+    }),
 );
 
 const jwtFromTokenInRequest: JwtFromRequestFunction<{ token: string }> = (req: { token: string }) => {
