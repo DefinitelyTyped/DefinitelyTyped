@@ -4217,7 +4217,7 @@ export interface BankingScheduledPaymentToV2 {
     crn?: string | null;
     [k: string]: unknown;
   };
-  digitalWallet: {
+  digitalWallet?: {
     /**
      * The identifier of the digital wallet (dependent on type)
      */
