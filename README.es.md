@@ -138,7 +138,6 @@ Tu paquete debería tener esta estructura:
 | `index.d.ts` | Este contiene los typings del paquete. |
 | [`<my-package>-tests.ts`](#my-package-teststs) | Este contiene una muestra del código con el que se realiza la prueba de escritura. Este código *no* es ejecutable, pero sí es type-checked. |
 | [`tsconfig.json`](#tsconfigjson) | Este permite ejecutar `tsc` dentro del paquete. |
-| [`tslint.json`](#linter-tslintjson) | Permite linting. |
 
 Generalas ejecutando `npm install -g dts-gen` y `dts-gen --dt --name <my-package> --template module`.
 Ve todas las opciones en [dts-gen](https://github.com/Microsoft/dts-gen).
@@ -222,7 +221,7 @@ f("one");
 
 Para más detalles, vea el [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint#write-tests) readme.
 
-#### Linter: `tslint.json`
+#### Linter: `.eslintrc.json`
 
 The linter configuration file, `tslint.json` should contain `{ "extends": "@definitelytyped/dtslint/dt.json" }`, and no additional rules.
 

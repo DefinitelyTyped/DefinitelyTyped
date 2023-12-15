@@ -1,7 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "parser": "@typescript-eslint/parser",
-    "rules": {
-        "no-redundant-jsdoc": false
-    }
-}

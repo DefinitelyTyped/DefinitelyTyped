@@ -1,8 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "no-unnecessary-type-assertion": false,
-        "only-arrow-functions": false,
-        "triple-equals": false
-    }
-}

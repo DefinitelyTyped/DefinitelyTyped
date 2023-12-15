@@ -1609,7 +1609,7 @@ declare class TelegramBot extends TelegramBotEventEmitter<TelegramBot.TelegramEv
         chatId: TelegramBot.ChatId,
         media: readonly TelegramBot.InputMedia[],
         options?: TelegramBot.SendMediaGroupOptions,
-    ): Promise<TelegramBot.Message>;
+    ): Promise<TelegramBot.Message[]>;
 
     sendPoll(
         chatId: TelegramBot.ChatId,

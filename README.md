@@ -186,7 +186,6 @@ Your package should have this structure:
 | `index.d.ts`  | This contains the typings for the package. |
 | [`<my-package>-tests.ts`](#my-package-teststs)  | This contains sample code which tests the typings. This code does *not* run, but it is type-checked. |
 | [`tsconfig.json`](#tsconfigjson) | This allows you to run `tsc` within the package. |
-| [`tslint.json`](#linter-tslintjson)   | Enables linting. |
 | [`.eslintrc.json`](#linter-eslintrcjson)   | (Rarely) Needed only to disable lint rules written for eslint. |
 | [`package.json`](#packagejson) | Contains metadata for the package, including its name, version and dependencies. |
 | [`.npmignore`](#npmignore) | Specifies which files are intended to be included in the package. |
@@ -276,18 +275,9 @@ f("one");
 
 For more details, see [dtslint](https://github.com/Microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint#write-tests) readme.
 
-#### Linter: `tslint.json`
-
-The linter configuration file, `tslint.json` should contain `{ "extends": "@definitelytyped/dtslint/dt.json" }` and no additional rules.
-
-If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
-
 ##### Linter: `.eslintrc.json`
 
-Definitely Typed is in the process of switching to eslint for linting.
-Unlike tslint, you don't need a config file to enable linting.
-Like tslint, you should disable specific rules only on specific lines:
-
+If for some reason a lint rule needs to be disabled, disable it for a specific line:
 
 ```ts
 // eslint-disable-next-line no-const-enum
@@ -296,6 +286,7 @@ const enum Enum { Two } // eslint-disable-line no-const-enum
 ```
 
 You can still disable rules with an .eslintrc.json, but should not in new packages.
+Disabling rules for the entire package makes it harder to review.
 
 #### `tsconfig.json`
 
@@ -488,7 +479,7 @@ npm packages should update within an hour. If it's been more than an hour, menti
 If the module you're referencing is a module (uses `export`), use an import.
 If the module you're referencing is an ambient module (uses `declare module`) or just declares globals, use `<reference types="" />`.
 
-#### Some packages have no `tslint.json` and some `tsconfig.json` are missing `"noImplicitAny": true`, `"noImplicitThis": true` or `"strictNullChecks": true`.
+#### Some packages have a `tsconfig.json` that is missing `"noImplicitAny": true`, `"noImplicitThis": true` or `"strictNullChecks": true`.
 
 Then they are wrong and we've not noticed yet. You can help by submitting a pull request to fix them.
 

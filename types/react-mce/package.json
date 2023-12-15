@@ -10,7 +10,6 @@
         "@types/tinymce": "*"
     },
     "devDependencies": {
-        "@types/react-dom": "*",
         "@types/react-mce": "workspace:."
     },
     "owners": [
