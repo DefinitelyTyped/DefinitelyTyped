@@ -5,7 +5,7 @@ import {
     MouseEvent,
     MouseEventHandler,
     PureComponent,
-    ReactChild,
+    ReactElement,
     ReactNode,
     TouchEventHandler,
     WheelEventHandler,
@@ -734,16 +734,14 @@ export const Voronoi: FC<VoronoiProps>;
 export interface DiscreteColorLegendProps {
     className?: string | undefined; // default: ''
     items: Array<
-        | {
+        {
             title: string;
             color?: string | undefined;
             disabled?: boolean | undefined;
             strokeDasharray?: string;
             strokeStyle?: string;
             strokeWidth?: number;
-        }
-        | string
-        | ReactChild
+        } | string | ReactElement | number | string
     >;
     onItemClick?: RVMouseEventHandler | undefined;
     onItemMouseEnter?: RVItemEventHandler | undefined;
@@ -757,13 +755,11 @@ export const DiscreteColorLegend: FC<DiscreteColorLegendProps>;
 export interface SearchableDiscreteColorLegendProps {
     className?: string | undefined; // default: ''
     items: Array<
-        | {
+        {
             title: string;
             color?: string | undefined;
             disabled?: boolean | undefined;
-        }
-        | string
-        | ReactChild
+        } | string | ReactElement | number | string
     >;
     onItemClick?: RVMouseEventHandler | undefined;
     onItemMouseEnter?: RVItemEventHandler | undefined;
