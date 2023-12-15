@@ -1,8 +1,3 @@
-// Type definitions for xtend 4.0
-// Project: https://github.com/Raynos/xtend
-// Definitions by: rhysd <https://github.com/rhysd>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Xtend {
     <T extends object, U extends object>(target: T, source: U): T & U;
     <T extends object, U extends object, V extends object>(target: T, source1: U, source2: V): T & U & V;

@@ -1,17 +1,3 @@
-// Type definitions for inquirer 8.2
-// Project: https://github.com/SBoudrias/Inquirer.js
-// Definitions by: Qubo <https://github.com/tkQubo>
-//                 Parvez <https://github.com/ppathan>
-//                 Jouderian <https://github.com/jouderianjr>
-//                 Qibang <https://github.com/bang88>
-//                 Jason Dreyzehner <https://github.com/bitjson>
-//                 Synarque <https://github.com/synarque>
-//                 Justin Rockwood <https://github.com/jrockwood>
-//                 Keith Kelly <https://github.com/kwkelly>
-//                 Richard Lea <https://github.com/chigix>
-//                 Manuel Thalmann <https://github.com/manuth>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.2
 import { Interface as ReadlineInterface } from "readline";
 import { Observable } from "rxjs";
 import { ThroughStream } from "through";

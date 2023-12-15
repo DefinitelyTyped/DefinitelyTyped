@@ -1,8 +1,3 @@
-// Type definitions for bluebird 1.0.0
-// Project: https://github.com/petkaantonov/bluebird
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // ES6 model with generics overload was sourced and trans-multiplied from es6-promises.d.ts
 // By: Campredon <https://github.com/fdecampredon/>
 
@@ -309,7 +304,7 @@ declare class Promise<T> implements Promise.Thenable<T> {
      * Same as calling `Promise.settle(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
      */
     // TODO type inference from array-resolving promise?
-    settle<U>(): Promise<Promise.Inspection<U>[]>;
+    settle<U>(): Promise<Array<Promise.Inspection<U>>>;
 
     /**
      * Same as calling `Promise.any(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
@@ -466,11 +461,11 @@ declare class Promise<T> implements Promise.Thenable<T> {
      */
     // TODO enable more overloads
     // promise of array with promises of value
-    static all<R>(values: Promise.Thenable<Promise.Thenable<R>[]>): Promise<R[]>;
+    static all<R>(values: Promise.Thenable<Array<Promise.Thenable<R>>>): Promise<R[]>;
     // promise of array with values
     static all<R>(values: Promise.Thenable<R[]>): Promise<R[]>;
     // array with promises of value
-    static all<R>(values: Promise.Thenable<R>[]): Promise<R[]>;
+    static all<R>(values: Array<Promise.Thenable<R>>): Promise<R[]>;
     // array with values
     static all<R>(values: R[]): Promise<R[]>;
 
@@ -493,23 +488,23 @@ declare class Promise<T> implements Promise.Thenable<T> {
      * *original: The array is not modified. The input array sparsity is retained in the resulting array.*
      */
     // promise of array with promises of value
-    static settle<R>(values: Promise.Thenable<Promise.Thenable<R>[]>): Promise<Promise.Inspection<R>[]>;
+    static settle<R>(values: Promise.Thenable<Array<Promise.Thenable<R>>>): Promise<Array<Promise.Inspection<R>>>;
     // promise of array with values
-    static settle<R>(values: Promise.Thenable<R[]>): Promise<Promise.Inspection<R>[]>;
+    static settle<R>(values: Promise.Thenable<R[]>): Promise<Array<Promise.Inspection<R>>>;
     // array with promises of value
-    static settle<R>(values: Promise.Thenable<R>[]): Promise<Promise.Inspection<R>[]>;
+    static settle<R>(values: Array<Promise.Thenable<R>>): Promise<Array<Promise.Inspection<R>>>;
     // array with values
-    static settle<R>(values: R[]): Promise<Promise.Inspection<R>[]>;
+    static settle<R>(values: R[]): Promise<Array<Promise.Inspection<R>>>;
 
     /**
      * Like `Promise.some()`, with 1 as `count`. However, if the promise fulfills, the fulfillment value is not an array of 1 but the value directly.
      */
     // promise of array with promises of value
-    static any<R>(values: Promise.Thenable<Promise.Thenable<R>[]>): Promise<R>;
+    static any<R>(values: Promise.Thenable<Array<Promise.Thenable<R>>>): Promise<R>;
     // promise of array with values
     static any<R>(values: Promise.Thenable<R[]>): Promise<R>;
     // array with promises of value
-    static any<R>(values: Promise.Thenable<R>[]): Promise<R>;
+    static any<R>(values: Array<Promise.Thenable<R>>): Promise<R>;
     // array with values
     static any<R>(values: R[]): Promise<R>;
 
@@ -519,11 +514,11 @@ declare class Promise<T> implements Promise.Thenable<T> {
      * **Note** If you pass empty array or a sparse array with no values, or a promise/thenable for such, it will be forever pending.
      */
     // promise of array with promises of value
-    static race<R>(values: Promise.Thenable<Promise.Thenable<R>[]>): Promise<R>;
+    static race<R>(values: Promise.Thenable<Array<Promise.Thenable<R>>>): Promise<R>;
     // promise of array with values
     static race<R>(values: Promise.Thenable<R[]>): Promise<R>;
     // array with promises of value
-    static race<R>(values: Promise.Thenable<R>[]): Promise<R>;
+    static race<R>(values: Array<Promise.Thenable<R>>): Promise<R>;
     // array with values
     static race<R>(values: R[]): Promise<R>;
 
@@ -535,11 +530,11 @@ declare class Promise<T> implements Promise.Thenable<T> {
      * *The original array is not modified.*
      */
     // promise of array with promises of value
-    static some<R>(values: Promise.Thenable<Promise.Thenable<R>[]>, count: number): Promise<R[]>;
+    static some<R>(values: Promise.Thenable<Array<Promise.Thenable<R>>>, count: number): Promise<R[]>;
     // promise of array with values
     static some<R>(values: Promise.Thenable<R[]>, count: number): Promise<R[]>;
     // array with promises of value
-    static some<R>(values: Promise.Thenable<R>[], count: number): Promise<R[]>;
+    static some<R>(values: Array<Promise.Thenable<R>>, count: number): Promise<R[]>;
     // array with values
     static some<R>(values: R[], count: number): Promise<R[]>;
 
@@ -547,7 +542,7 @@ declare class Promise<T> implements Promise.Thenable<T> {
      * Like `Promise.all()` but instead of having to pass an array, the array is generated from the passed variadic arguments.
      */
     // variadic array with promises of value
-    static join<R>(...values: Promise.Thenable<R>[]): Promise<R[]>;
+    static join<R>(...values: Array<Promise.Thenable<R>>): Promise<R[]>;
     // variadic array with values
     static join<R>(...values: R[]): Promise<R[]>;
 
@@ -560,11 +555,11 @@ declare class Promise<T> implements Promise.Thenable<T> {
      */
     // promise of array with promises of value
     static map<R, U>(
-        values: Promise.Thenable<Promise.Thenable<R>[]>,
+        values: Promise.Thenable<Array<Promise.Thenable<R>>>,
         mapper: (item: R, index: number, arrayLength: number) => Promise.Thenable<U>,
     ): Promise<U[]>;
     static map<R, U>(
-        values: Promise.Thenable<Promise.Thenable<R>[]>,
+        values: Promise.Thenable<Array<Promise.Thenable<R>>>,
         mapper: (item: R, index: number, arrayLength: number) => U,
     ): Promise<U[]>;
 
@@ -580,11 +575,11 @@ declare class Promise<T> implements Promise.Thenable<T> {
 
     // array with promises of value
     static map<R, U>(
-        values: Promise.Thenable<R>[],
+        values: Array<Promise.Thenable<R>>,
         mapper: (item: R, index: number, arrayLength: number) => Promise.Thenable<U>,
     ): Promise<U[]>;
     static map<R, U>(
-        values: Promise.Thenable<R>[],
+        values: Array<Promise.Thenable<R>>,
         mapper: (item: R, index: number, arrayLength: number) => U,
     ): Promise<U[]>;
 
@@ -604,12 +599,12 @@ declare class Promise<T> implements Promise.Thenable<T> {
      */
     // promise of array with promises of value
     static reduce<R, U>(
-        values: Promise.Thenable<Promise.Thenable<R>[]>,
+        values: Promise.Thenable<Array<Promise.Thenable<R>>>,
         reducer: (total: U, current: R, index: number, arrayLength: number) => Promise.Thenable<U>,
         initialValue?: U,
     ): Promise<U>;
     static reduce<R, U>(
-        values: Promise.Thenable<Promise.Thenable<R>[]>,
+        values: Promise.Thenable<Array<Promise.Thenable<R>>>,
         reducer: (total: U, current: R, index: number, arrayLength: number) => U,
         initialValue?: U,
     ): Promise<U>;
@@ -628,12 +623,12 @@ declare class Promise<T> implements Promise.Thenable<T> {
 
     // array with promises of value
     static reduce<R, U>(
-        values: Promise.Thenable<R>[],
+        values: Array<Promise.Thenable<R>>,
         reducer: (total: U, current: R, index: number, arrayLength: number) => Promise.Thenable<U>,
         initialValue?: U,
     ): Promise<U>;
     static reduce<R, U>(
-        values: Promise.Thenable<R>[],
+        values: Array<Promise.Thenable<R>>,
         reducer: (total: U, current: R, index: number, arrayLength: number) => U,
         initialValue?: U,
     ): Promise<U>;
@@ -659,11 +654,11 @@ declare class Promise<T> implements Promise.Thenable<T> {
      */
     // promise of array with promises of value
     static filter<R>(
-        values: Promise.Thenable<Promise.Thenable<R>[]>,
+        values: Promise.Thenable<Array<Promise.Thenable<R>>>,
         filterer: (item: R, index: number, arrayLength: number) => Promise.Thenable<boolean>,
     ): Promise<R[]>;
     static filter<R>(
-        values: Promise.Thenable<Promise.Thenable<R>[]>,
+        values: Promise.Thenable<Array<Promise.Thenable<R>>>,
         filterer: (item: R, index: number, arrayLength: number) => boolean,
     ): Promise<R[]>;
 
@@ -679,11 +674,11 @@ declare class Promise<T> implements Promise.Thenable<T> {
 
     // array with promises of value
     static filter<R>(
-        values: Promise.Thenable<R>[],
+        values: Array<Promise.Thenable<R>>,
         filterer: (item: R, index: number, arrayLength: number) => Promise.Thenable<boolean>,
     ): Promise<R[]>;
     static filter<R>(
-        values: Promise.Thenable<R>[],
+        values: Array<Promise.Thenable<R>>,
         filterer: (item: R, index: number, arrayLength: number) => boolean,
     ): Promise<R[]>;
 

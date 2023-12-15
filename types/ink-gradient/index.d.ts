@@ -1,8 +1,3 @@
-// Type definitions for ink-gradient 2.0
-// Project: https://github.com/sindresorhus/ink-gradient
-// Definitions by: aaronleopold <https://github.com/aaronleopold>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 // This needs to be updated when TypeScript enhances their support for mutual

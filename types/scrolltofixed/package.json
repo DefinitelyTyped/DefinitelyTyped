@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/scrolltofixed",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/bigspotteddog/ScrollToFixed"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/scrolltofixed": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ben Dixon",
+            "githubUsername": "bmdixon"
+        }
+    ]
+}

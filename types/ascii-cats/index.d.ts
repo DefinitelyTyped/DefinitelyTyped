@@ -1,8 +1,3 @@
-// Type definitions for ascii-cats 1.1
-// Project: https://github.com/bbihq/ascii-cats
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * @description Returns some ASCII cats.
  * You know, for spicing up your command line. With cats.

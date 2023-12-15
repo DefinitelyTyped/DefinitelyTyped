@@ -1,12 +1,3 @@
-// Type definitions for tmi.js 1.8
-// Project: https://github.com/tmijs/tmi.js
-// Definitions by: William Papsco <https://github.com/wpapsco>
-//                 Corbin Crutchley <https://github.com/crutchcorn>
-//                 Daniel Fischer <https://github.com/d-fischer>
-//                 Samil Deliogullari <https://github.com/samildeli>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
-
 // Twitch IRC docs: https://dev.twitch.tv/docs/irc/
 // Last updated: 2023/2/10
 

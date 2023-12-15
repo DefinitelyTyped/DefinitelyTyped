@@ -1,9 +1,3 @@
-// Type definitions for jest-json-schema 6.1
-// Project: https://github.com/americanexpress/jest-json-schema#readme
-// Definitions by: Matt Scheurich <https://github.com/lvl99>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.3
-
 /// <reference types="jest" />
 import * as ajv from "ajv";
 

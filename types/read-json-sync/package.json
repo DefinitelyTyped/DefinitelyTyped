@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/read-json-sync",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/shinnn/read-json-sync#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/read-json-sync": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Junxiao Shi",
+            "githubUsername": "yoursunny"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for tracery-grammar 2.7
-// Project: https://github.com/v21/tracery#readme
-// Definitions by: Sean S. LeBlanc <https://github.com/seleb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Settings {
     raw?: string | undefined;
     type?: number | undefined;

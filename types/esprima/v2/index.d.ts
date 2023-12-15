@@ -1,8 +1,3 @@
-// Type definitions for Esprima v2.1.0
-// Project: http://esprima.org
-// Definitions by: teppeis <https://github.com/teppeis>, RReverser <https://github.com/RReverser>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="estree" />
 
 export = esprima;
@@ -13,7 +8,7 @@ declare namespace esprima {
     const version: string;
 
     function parse(code: string, options?: Options, delegate?: (node: ESTree.Node, meta: any) => void): ESTree.Program;
-    function tokenize(code: string, options?: Options): Array<Token>;
+    function tokenize(code: string, options?: Options): Token[];
 
     interface Token {
         type: string;

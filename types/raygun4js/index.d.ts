@@ -1,11 +1,3 @@
-// Type definitions for raygun4js 2.13
-// Project: https://github.com/MindscapeHQ/raygun4js
-// Definitions by: Krishna Kapadia <https://github.com/krishnakapadia>,
-//                 Benjamin Harding <https://github.com/BenjaminHarding>,
-//                 Brian Surowiec <https://github.com/xt0rted>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 interface TracekitStackTrace {
     message: string;
     mode: string;
@@ -286,6 +278,7 @@ interface RaygunStatic {
             payload: RaygunPayload,
             stackTrace: TracekitStackTrace,
             options: any,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ) => string | void,
     ): RaygunStatic;
     onBeforeXHR(callback: (xhr: XMLHttpRequest) => void): RaygunStatic;
@@ -376,6 +369,7 @@ interface RaygunV2 {
             payload: RaygunPayload,
             stackTrace: TracekitStackTrace,
             options: any,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ) => string | void,
     ): void;
     (key: "trackEvent", value: { type: string; path: string } | { type: string; name: string; duration: number }): void;

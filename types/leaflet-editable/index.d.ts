@@ -1,9 +1,3 @@
-// Type definitions for Leaflet.Editable 1.2
-// Project: https://github.com/leaflet/leaflet.editable
-// Definitions by: Dominic Alie <https://github.com/dalie>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import * as Leaflet from "leaflet";
 
 declare module "leaflet" {
@@ -261,7 +255,7 @@ declare module "leaflet" {
     /**
      * Editor for Marker.
      */
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface MarkerEditor extends BaseEditor {}
 
     /**
@@ -347,13 +341,13 @@ declare module "leaflet" {
     /**
      * Editor for Rectangle.
      */
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface RectangleEditor extends PathEditor {}
 
     /**
      * Editor for Circle.
      */
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface CircleEditor extends PathEditor {}
 
     /**

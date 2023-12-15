@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/marvelapp__react-ab-test",
+    "version": "3.1.9999",
+    "projects": [
+        "https://github.com/marvelapp/react-ab-test#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/marvelapp__react-ab-test": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "mtayllan",
+            "githubUsername": "mtayllan"
+        }
+    ]
+}

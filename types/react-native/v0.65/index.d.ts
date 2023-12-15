@@ -1,49 +1,3 @@
-// Type definitions for react-native 0.65
-// Project: https://github.com/facebook/react-native
-// Definitions by: Eloy Durán <https://github.com/alloy>
-//                 HuHuanming <https://github.com/huhuanming>
-//                 Kyle Roach <https://github.com/iRoachie>
-//                 Tim Wang <https://github.com/timwangdev>
-//                 Kamal Mahyuddin <https://github.com/kamal>
-//                 Alex Dunne <https://github.com/alexdunne>
-//                 Manuel Alabor <https://github.com/swissmanu>
-//                 Michele Bombardi <https://github.com/bm-software>
-//                 Martin van Dam <https://github.com/mvdam>
-//                 Kacper Wiszczuk <https://github.com/esemesek>
-//                 Ryan Nickel <https://github.com/mrnickel>
-//                 Souvik Ghosh <https://github.com/souvik-ghosh>
-//                 Cheng Gibson <https://github.com/nossbigg>
-//                 Saransh Kataria <https://github.com/saranshkataria>
-//                 Wojciech Tyczynski <https://github.com/tykus160>
-//                 Jake Bloom <https://github.com/jakebloom>
-//                 Ceyhun Ozugur <https://github.com/ceyhun>
-//                 Mike Martin <https://github.com/mcmar>
-//                 Theo Henry de Villeneuve <https://github.com/theohdv>
-//                 Eli White <https://github.com/TheSavior>
-//                 Romain Faust <https://github.com/romain-faust>
-//                 Be Birchall <https://github.com/bebebebebe>
-//                 Jesse Katsumata <https://github.com/Naturalclar>
-//                 Xianming Zhong <https://github.com/chinesedfan>
-//                 Valentyn Tolochko <https://github.com/vtolochk>
-//                 Sergey Sychev <https://github.com/SychevSP>
-//                 Daiki Ihara <https://github.com/sasurau4>
-//                 Abe Dolinger <https://github.com/256hz>
-//                 Dominique Richard <https://github.com/doumart>
-//                 Mohamed Shaban <https://github.com/drmas>
-//                 Jérémy Barbet <https://github.com/jeremybarbet>
-//                 Christian Ost <https://github.com/ca057>
-//                 David Sheldrick <https://github.com/ds300>
-//                 Natsathorn Yuthakovit <https://github.com/natsathorn>
-//                 ConnectDotz <https://github.com/connectdotz>
-//                 Alexey Molchan <https://github.com/alexeymolchan>
-//                 Alex Brazier <https://github.com/alexbrazier>
-//                 Arafat Zahan <https://github.com/kuasha420>
-//                 Pedro Hernández <https://github.com/phvillegas>
-//                 Brett Lindsay <https://github.com/bdlindsay>
-//                 Sebastian Silbermann <https://github.com/eps1lon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // USING: these definitions are meant to be used with the TSC compiler target set to at least ES2015.
@@ -829,8 +783,7 @@ interface MatrixTransform {
 }
 
 export interface TransformsStyle {
-    transform?: (
-        | PerpectiveTransform
+    transform?: Array<| PerpectiveTransform
         | RotateTransform
         | RotateXTransform
         | RotateYTransform
@@ -842,12 +795,11 @@ export interface TransformsStyle {
         | TranslateYTransform
         | SkewXTransform
         | SkewYTransform
-        | MatrixTransform
-    )[] | undefined;
+        | MatrixTransform> | undefined;
     /**
      * @deprecated Use matrix in transform prop instead.
      */
-    transformMatrix?: Array<number> | undefined;
+    transformMatrix?: number[] | undefined;
     /**
      * @deprecated Use rotate in transform prop instead.
      */
@@ -2103,7 +2055,7 @@ export interface ViewPropsAndroid {
 }
 
 type Falsy = undefined | null | false;
-interface RecursiveArray<T> extends Array<T | ReadonlyArray<T> | RecursiveArray<T>> {}
+interface RecursiveArray<T> extends Array<T | readonly T[] | RecursiveArray<T>> {}
 /** Keep a brand of 'T' so that calls to `StyleSheet.flatten` can take `RegisteredStyle<T>` and return `T`. */
 type RegisteredStyle<T> = number & { __registeredStyleBrand: T };
 export type StyleProp<T> = T | RegisteredStyle<T> | RecursiveArray<T | RegisteredStyle<T> | Falsy> | Falsy;
@@ -2121,7 +2073,7 @@ export interface AccessibilityProps extends AccessibilityPropsAndroid, Accessibi
     /**
      * Provides an array of custom actions available for accessibility.
      */
-    accessibilityActions?: ReadonlyArray<AccessibilityActionInfo> | undefined;
+    accessibilityActions?: readonly AccessibilityActionInfo[] | undefined;
 
     /**
      * Overrides the text that's read by the screen reader when the user interacts with the element. By default, the
@@ -2997,7 +2949,7 @@ export interface DrawerLayoutAndroidProps extends ViewProps {
      * The navigation view that will be rendered to the side of the
      * screen and can be pulled in.
      */
-    renderNavigationView: () => JSX.Element;
+    renderNavigationView: () => React.JSX.Element;
 
     /**
      * Make the drawer take the entire screen and draw the background of
@@ -3379,7 +3331,7 @@ export class RecyclerViewBackedScrollView extends RecyclerViewBackedScrollViewBa
      * implement this method so that they can be composed while providing access
      * to the underlying scroll responder's methods.
      */
-    getScrollResponder(): JSX.Element;
+    getScrollResponder(): React.JSX.Element;
 }
 
 export interface SliderPropsAndroid extends ViewProps {
@@ -3983,7 +3935,7 @@ export interface ViewabilityConfig {
 
 export interface ViewabilityConfigCallbackPair {
     viewabilityConfig: ViewabilityConfig;
-    onViewableItemsChanged: ((info: { viewableItems: Array<ViewToken>; changed: Array<ViewToken> }) => void) | null;
+    onViewableItemsChanged: ((info: { viewableItems: ViewToken[]; changed: ViewToken[] }) => void) | null;
 }
 
 export type ViewabilityConfigCallbackPairs = ViewabilityConfigCallbackPair[];
@@ -4056,7 +4008,7 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
      * For simplicity, data is just a plain array. If you want to use something else,
      * like an immutable list, use the underlying VirtualizedList directly.
      */
-    data: ReadonlyArray<ItemT> | null | undefined;
+    data: readonly ItemT[] | null | undefined;
 
     /**
      * A marker property for telling the list to re-render (since it implements PureComponent).
@@ -4079,7 +4031,7 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
      */
     getItemLayout?:
         | ((
-            data: Array<ItemT> | null | undefined,
+            data: ItemT[] | null | undefined,
             index: number,
         ) => { length: number; offset: number; index: number })
         | undefined;
@@ -4140,7 +4092,7 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
      * Called when the viewability of rows changes, as defined by the `viewablePercentThreshold` prop.
      */
     onViewableItemsChanged?:
-        | ((info: { viewableItems: Array<ViewToken>; changed: Array<ViewToken> }) => void)
+        | ((info: { viewableItems: ViewToken[]; changed: ViewToken[] }) => void)
         | null
         | undefined;
 
@@ -4235,7 +4187,7 @@ export class FlatList<ItemT = any> extends React.Component<FlatListProps<ItemT>>
     /**
      * Provides a handle to the underlying scroll responder.
      */
-    getScrollResponder: () => JSX.Element | null | undefined;
+    getScrollResponder: () => React.JSX.Element | null | undefined;
 
     /**
      * Provides a reference to the underlying host component
@@ -4257,7 +4209,7 @@ type DefaultSectionT = {
 };
 
 export interface SectionBase<ItemT, SectionT = DefaultSectionT> {
-    data: ReadonlyArray<ItemT>;
+    data: readonly ItemT[];
 
     key?: string | undefined;
 
@@ -4329,7 +4281,7 @@ export interface SectionListProps<ItemT, SectionT = DefaultSectionT>
      */
     getItemLayout?:
         | ((
-            data: SectionListData<ItemT, SectionT>[] | null,
+            data: Array<SectionListData<ItemT, SectionT>> | null,
             index: number,
         ) => { length: number; offset: number; index: number })
         | undefined;
@@ -4655,7 +4607,7 @@ export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollView
      * `viewabilityConfig` prop.
      */
     onViewableItemsChanged?:
-        | ((info: { viewableItems: Array<ViewToken>; changed: Array<ViewToken> }) => void)
+        | ((info: { viewableItems: ViewToken[]; changed: ViewToken[] }) => void)
         | null
         | undefined;
 
@@ -5496,7 +5448,7 @@ export namespace StyleSheet {
      * their respective objects, merged as one and then returned. This also explains
      * the alternative use.
      */
-    export function flatten<T>(style?: StyleProp<T>): T extends (infer U)[] ? U : T;
+    export function flatten<T>(style?: StyleProp<T>): T extends Array<infer U> ? U : T;
 
     /**
      * Combines two styles such that style2 will override any styles in style1.
@@ -5613,7 +5565,7 @@ export interface SystraceStatic {
      *
      * @param methodNames Map from method names to method display names.
      */
-    measureMethods(object: any, objectName: string, methodNames: Array<string>): void;
+    measureMethods(object: any, objectName: string, methodNames: string[]): void;
 
     /**
      * Returns an profiled version of the input function. For example, you can:
@@ -5692,7 +5644,7 @@ export interface ListViewDataSource {
      * this function as the `dataBlob`.
      */
     cloneWithRows(
-        dataBlob: Array<any> | { [key: string]: any },
+        dataBlob: any[] | { [key: string]: any },
         rowIdentities?: Array<string | number>,
     ): ListViewDataSource;
 
@@ -5708,7 +5660,7 @@ export interface ListViewDataSource {
      * Note: this returns a new object!
      */
     cloneWithRowsAndSections(
-        dataBlob: Array<any> | { [key: string]: any },
+        dataBlob: any[] | { [key: string]: any },
         sectionIdentities?: Array<string | number>,
         rowIdentities?: Array<Array<string | number>>,
     ): ListViewDataSource;
@@ -5741,7 +5693,7 @@ export interface ListViewDataSource {
     /**
      * Returns an array containing the number of rows in each section
      */
-    getSectionLengths(): Array<number>;
+    getSectionLengths(): number[];
 
     /**
      * Returns if the section header is dirtied and needs to be rerendered
@@ -6994,8 +6946,8 @@ export class SnapshotViewIOS extends SnapshotViewIOSBase {}
 export interface SwipeableListViewDataSource {
     cloneWithRowsAndSections(
         dataBlob: any,
-        sectionIdentities?: Array<string>,
-        rowIdentities?: Array<Array<string>>,
+        sectionIdentities?: string[],
+        rowIdentities?: string[][],
     ): SwipeableListViewDataSource;
     getDataSource(): ListViewDataSource;
     getOpenRowID(): string;
@@ -7119,7 +7071,7 @@ export type ShareContent =
 
 export type ShareOptions = {
     dialogTitle?: string | undefined;
-    excludedActivityTypes?: Array<string> | undefined;
+    excludedActivityTypes?: string[] | undefined;
     tintColor?: ColorValue | undefined;
     subject?: string | undefined;
 };
@@ -7447,8 +7399,8 @@ export interface AsyncStorageStatic {
      */
     multiGet(
         keys: string[],
-        callback?: (errors?: Error[], result?: [string, string][]) => void,
-    ): Promise<[string, string][]>;
+        callback?: (errors?: Error[], result?: Array<[string, string]>) => void,
+    ): Promise<Array<[string, string]>>;
 
     /**
      * multiSet and multiMerge take arrays of key-value array pairs that match the output of multiGet,
@@ -7560,7 +7512,7 @@ export interface GetPhotosParamType {
 }
 
 export interface GetPhotosReturnType {
-    edges: {
+    edges: Array<{
         node: {
             type: string;
             group_name: string;
@@ -7580,7 +7532,7 @@ export interface GetPhotosReturnType {
                 speed: number;
             };
         };
-    }[];
+    }>;
 
     page_info: {
         has_next_page: boolean;
@@ -7745,7 +7697,7 @@ export interface LogBoxStatic {
     /**
      * Silence any logs that match the given strings or regexes.
      */
-    ignoreLogs(patterns: (string | RegExp)[]): void;
+    ignoreLogs(patterns: Array<string | RegExp>): void;
 
     /**
      * Toggle error and warning notifications
@@ -7969,7 +7921,7 @@ export interface PermissionsAndroidStatic {
      * returns an object with the permissions as keys and strings as values
      * indicating whether the user allowed or denied the request
      */
-    requestMultiple(permissions: Array<Permission>): Promise<{ [key in Permission]: PermissionStatus }>;
+    requestMultiple(permissions: Permission[]): Promise<{ [key in Permission]: PermissionStatus }>;
 }
 
 export interface PushNotificationPermissions {
@@ -8207,7 +8159,7 @@ export interface PushNotificationIOSStatic {
 export interface SettingsStatic {
     get(key: string): any;
     set(settings: Object): void;
-    watchKeys(keys: string | Array<string>, callback: () => void): number;
+    watchKeys(keys: string | string[], callback: () => void): number;
     clearWatch(watchId: number): void;
 }
 
@@ -8577,7 +8529,7 @@ export interface UIManagerStatic {
      * commandID - Id of the native method that should be called.
      * commandArgs - Args of the native method that we can pass from JS to native.
      */
-    dispatchViewManagerCommand: (reactTag: number | null, commandID: number | string, commandArgs?: Array<any>) => void;
+    dispatchViewManagerCommand: (reactTag: number | null, commandID: number | string, commandArgs?: any[]) => void;
 }
 
 export interface SwitchPropsIOS extends ViewProps {
@@ -9080,14 +9032,14 @@ export namespace Animated {
      * before starting the next.  If the current running animation is stopped, no
      * following animations will be started.
      */
-    export function sequence(animations: Array<CompositeAnimation>): CompositeAnimation;
+    export function sequence(animations: CompositeAnimation[]): CompositeAnimation;
 
     /**
      * Array of animations may run in parallel (overlap), but are started in
      * sequence with successive delays.  Nice for doing trailing effects.
      */
 
-    export function stagger(time: number, animations: Array<CompositeAnimation>): CompositeAnimation;
+    export function stagger(time: number, animations: CompositeAnimation[]): CompositeAnimation;
 
     /**
      * Loops a given animation continuously, so that each time it reaches the end,
@@ -9113,7 +9065,7 @@ export namespace Animated {
      * of the animations is stopped, they will all be stopped.  You can override
      * this with the `stopTogether` flag.
      */
-    export function parallel(animations: Array<CompositeAnimation>, config?: ParallelConfig): CompositeAnimation;
+    export function parallel(animations: CompositeAnimation[], config?: ParallelConfig): CompositeAnimation;
 
     type Mapping = { [key: string]: Mapping } | AnimatedValue;
     interface EventConfig<T> {
@@ -9202,7 +9154,7 @@ export namespace Animated {
     > {}
 }
 
-// tslint:disable-next-line:interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface I18nManagerStatic {
     getConstants: () => {
         isRTL: boolean;

@@ -1,9 +1,3 @@
-// Type definitions for datatables.net-fixedcolumns 3.3
-// Project: https://datatables.net
-// Definitions by: Konstantin Kuznetsov <https://github.com/Arik-neKrol>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.0
-
 /// <reference types="jquery" />
 /// <reference types="datatables.net"/>
 

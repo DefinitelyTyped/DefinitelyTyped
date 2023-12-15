@@ -1,6 +1,25 @@
 {
     "private": true,
+    "name": "@types/svgr__rollup",
+    "version": "4.3.9999",
+    "projects": [
+        "https://github.com/smooth-code/svgr/tree/master/packages/rollup"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "rollup": "^1.23.1"
-    }
+    },
+    "devDependencies": {
+        "@types/svgr__rollup": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nick",
+            "githubUsername": "fobdy"
+        },
+        {
+            "name": "Max Boguslavskiy",
+            "githubUsername": "maxbogus"
+        }
+    ]
 }

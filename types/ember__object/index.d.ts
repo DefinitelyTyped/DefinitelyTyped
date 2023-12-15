@@ -1,12 +1,3 @@
-// Type definitions for non-npm package @ember/object 4.0
-// Project: https://emberjs.com/api/ember/4.0/modules/@ember%2Fobject
-// Definitions by: Chris Krycho <https://github.com/chriskrycho>
-//                 Krystan HuffMenne <https://github.com/gitKrystan>
-//                 James C. Davis <https://github.com/jamescdavis>
-//                 Peter Wagenet <https://github.com/wagenet>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
 // eslint-disable-next-line @definitelytyped/no-self-import
 import CoreObject from "@ember/object/core";
 // eslint-disable-next-line @definitelytyped/no-self-import
@@ -28,7 +19,7 @@ import ComputedProperty from "@ember/object/computed";
  * see the documentation for each of these.
  */
 export default class EmberObject extends CoreObject {}
-// tslint:disable-next-line:no-empty-interface -- used for declaration merge
+// eslint-disable-next-line @typescript-eslint/no-empty-interface -- used for declaration merge
 export default interface EmberObject extends Observable {}
 
 /**

@@ -1,8 +1,3 @@
-// Type definitions for potrace 2.1
-// Project: https://github.com/tooolbox/node-potrace
-// Definitions by: Direnc Timur <https://github.com/proohit>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import Jimp = require("jimp");

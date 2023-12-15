@@ -1,10 +1,3 @@
-// Type definitions for oracledb 6.0
-// Project: https://github.com/oracle/node-oracledb
-// Definitions by: Connor Fitzgerald <https://github.com/connorjayfitzgerald>
-//                 Dan Beglin <https://github.com/dannyb648>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 /// <reference types="node" />
 
 import { Duplex, Readable } from "stream";
@@ -1298,10 +1291,12 @@ declare namespace OracleDB {
          */
         queueName?: string | undefined;
         /** Array of objects specifying the queries which were affected by the Query Change notification. */
-        queries?: {
-            /** Array of objects specifying the tables which were affected by the notification. */
-            tables?: SubscriptionTable[];
-        }[] | undefined;
+        queries?:
+            | Array<{
+                /** Array of objects specifying the tables which were affected by the notification. */
+                tables?: SubscriptionTable[];
+            }>
+            | undefined;
         /** Indicates whether the subscription is registered with the database. */
         registered: boolean;
 
@@ -1326,12 +1321,14 @@ declare namespace OracleDB {
          * quality of service used when creating the subscription indicated the desire for ROWIDs and no
          * summary grouping took place.
          */
-        rows?: {
-            /** One of the CQN_OPCODE_* constants. */
-            operation: number;
-            /** ROWID of the row that was affected. */
-            rowid: string;
-        }[] | undefined;
+        rows?:
+            | Array<{
+                /** One of the CQN_OPCODE_* constants. */
+                operation: number;
+                /** ROWID of the row that was affected. */
+                rowid: string;
+            }>
+            | undefined;
     }
 
     /**
@@ -1449,7 +1446,7 @@ declare namespace OracleDB {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#sharding
          * @since 4.1
          */
-        shardingKey?: (string | number | Date | Buffer)[] | undefined;
+        shardingKey?: Array<string | number | Date | Buffer> | undefined;
         /**
          * The number of statements to be cached in the statement cache of each connection.
          * This optional property may be used to override the oracledb.stmtCacheSize property.
@@ -1461,7 +1458,7 @@ declare namespace OracleDB {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#sharding
          * @since 4.1
          */
-        superShardingKey?: (string | number | Date | Buffer)[] | undefined;
+        superShardingKey?: Array<string | number | Date | Buffer> | undefined;
         /**
          * Used when getting a connection from a connection pool.
          * Indicates the tag that a connection returned from a connection pool should have.
@@ -2364,8 +2361,11 @@ declare namespace OracleDB {
          *
          * @param maxMessages Maximum number of messages to dequeue.
          */
-        deqMany(maxMessages: number): Promise<AdvancedQueueMessage<T>[]>;
-        deqMany(maxMessages: number, callback: (error: DBError, messages: AdvancedQueueMessage<T>[]) => void): void;
+        deqMany(maxMessages: number): Promise<Array<AdvancedQueueMessage<T>>>;
+        deqMany(
+            maxMessages: number,
+            callback: (error: DBError, messages: Array<AdvancedQueueMessage<T>>) => void,
+        ): void;
 
         /**
          * Dequeues a single message. Depending on the dequeue options, the message may also be returned as undefined if no message is available.
@@ -2382,8 +2382,8 @@ declare namespace OracleDB {
          *
          * @param messages Messages to enqueue.
          */
-        enqMany(messages: EnqueueMessage<T>[]): Promise<void>;
-        enqMany(messages: EnqueueMessage<T>[], callback: (error: DBError) => void): void;
+        enqMany(messages: Array<EnqueueMessage<T>>): Promise<void>;
+        enqMany(messages: Array<EnqueueMessage<T>>, callback: (error: DBError) => void): void;
 
         /**
          * Enqueues a single message.
@@ -2497,7 +2497,7 @@ declare namespace OracleDB {
         /**
          * Returns a JavaScript array containing the ‘index’ keys.
          */
-        getKeys(): T extends string | number ? number[] : (keyof T)[];
+        getKeys(): T extends string | number ? number[] : Array<keyof T>;
         /**
          * To obtain the last index for later use to obtain a value.
          */
@@ -2607,19 +2607,19 @@ declare namespace OracleDB {
     type QueryStream<T> = Readable & QueryStreamEvents<T>;
 
     interface QueryStreamEvents<T> {
-        addListener(event: "metadata", listener: (metadata: Metadata<T>[]) => void): this;
+        addListener(event: "metadata", listener: (metadata: Array<Metadata<T>>) => void): this;
 
-        emit(event: "metadata", metadata: Metadata<T>[]): boolean;
+        emit(event: "metadata", metadata: Array<Metadata<T>>): boolean;
 
-        on(event: "metadata", listener: (metadata: Metadata<T>[]) => void): this;
+        on(event: "metadata", listener: (metadata: Array<Metadata<T>>) => void): this;
 
-        once(event: "metadata", listener: (metadata: Metadata<T>[]) => void): this;
+        once(event: "metadata", listener: (metadata: Array<Metadata<T>>) => void): this;
 
-        prependListener(event: "metadata", listener: (metadata: Metadata<T>[]) => void): this;
+        prependListener(event: "metadata", listener: (metadata: Array<Metadata<T>>) => void): this;
 
-        prependOnceListener(event: "metadata", listener: (metadata: Metadata<T>[]) => void): this;
+        prependOnceListener(event: "metadata", listener: (metadata: Array<Metadata<T>>) => void): this;
 
-        removeListener(event: "metadata", listener: (metadata: Metadata<T>[]) => void): this;
+        removeListener(event: "metadata", listener: (metadata: Array<Metadata<T>>) => void): this;
     }
 
     /**
@@ -2633,7 +2633,7 @@ declare namespace OracleDB {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#implicitresults
          * @since 4.0
          */
-        implicitResults?: (T[] | ResultSet<T>)[] | undefined;
+        implicitResults?: Array<T[] | ResultSet<T>> | undefined;
         /**
          * ROWID of a row affected by an INSERT, UPDATE, DELETE or MERGE statement. For other statements,
          * or if no row was affected, it is not set. If more than one row was affected, only the ROWID of the last row is returned.
@@ -2647,7 +2647,7 @@ declare namespace OracleDB {
          *
          * Each column’s name is always given.
          */
-        metaData?: Metadata<T>[] | undefined;
+        metaData?: Array<Metadata<T>> | undefined;
         /**
          * This contains the output values of OUT and IN OUT binds. If bindParams is passed as an array,
          * then outBinds is returned as an array. If bindParams is passed as an object,
@@ -2738,7 +2738,7 @@ declare namespace OracleDB {
          *
          * Each column’s name is always given.
          */
-        readonly metaData: Metadata<T>[];
+        readonly metaData: Array<Metadata<T>>;
 
         /**
          * Closes a ResultSet. Applications should always call this at the end of fetch or when no more rows are needed.
@@ -3080,8 +3080,8 @@ declare namespace OracleDB {
          * @requires Oracle Client 18.5 or higher
          * @since 4.0
          */
-        insertMany(documents: (SodaDocument | Record<string, any>)[]): Promise<void>;
-        insertMany(documents: (SodaDocument | Record<string, any>)[], callback: (error: DBError) => void): void;
+        insertMany(documents: Array<SodaDocument | Record<string, any>>): Promise<void>;
+        insertMany(documents: Array<SodaDocument | Record<string, any>>, callback: (error: DBError) => void): void;
 
         /**
          * Similar to sodaCollection.insertMany() but also returns an array of the inserted documents so system managed properties,
@@ -3097,11 +3097,11 @@ declare namespace OracleDB {
          * @since 4.0
          */
         insertManyAndGet(
-            documents: (SodaDocument | Record<string, any>)[],
+            documents: Array<SodaDocument | Record<string, any>>,
             options?: { hint: string },
         ): Promise<SodaDocument[]>;
         insertManyAndGet(
-            documents: (SodaDocument | Record<string, any>)[],
+            documents: Array<SodaDocument | Record<string, any>>,
             callback: (error: DBError, documents: SodaDocument[]) => void,
             options?: { hint: string },
         ): void;

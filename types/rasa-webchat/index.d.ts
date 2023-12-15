@@ -1,8 +1,3 @@
-// Type definitions for rasa-webchat 1.0
-// Project: https://github.com/botfront/rasa-webchat
-// Definitions by: Weiqiu Zheng <https://github.com/nygmaaa>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 /**
@@ -228,7 +223,7 @@ export interface RasaWebchatProps {
      * @remarks This can only be used if you call the webchat from a React application
      * as you can't write a component in pure JavaScript.
      */
-    customComponent?: (messageData: any) => JSX.Element; // Assuming React JSX
+    customComponent?: (messageData: any) => React.JSX.Element; // Assuming React JSX
 
     /**
      * Call custom code on a specific widget event.

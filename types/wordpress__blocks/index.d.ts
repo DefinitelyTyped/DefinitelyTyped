@@ -1,14 +1,3 @@
-// Type definitions for @wordpress/blocks 12.5
-// Project: https://github.com/WordPress/gutenberg/tree/master/packages/blocks/README.md
-// Definitions by: Derek Sifford <https://github.com/dsifford>
-//                 Jon Surrell <https://github.com/sirreal>
-//                 Dennis Snell <https://github.com/dmsnell>
-//                 Tomasz Tunik <https://github.com/tomasztunik>
-//                 Lucio Giannotta <https://github.com/sunyatasattva>
-//                 Bas Tolen <https://github.com/bastolen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
-
 import { Dashicon } from "@wordpress/components";
 import { StoreDescriptor } from "@wordpress/data";
 import { ShortcodeMatch } from "@wordpress/shortcode";
@@ -156,7 +145,7 @@ type BlockExampleInnerBlock =
     & Partial<Block>
     & Pick<Block, "name" | "attributes">
     & {
-        innerBlocks?: ReadonlyArray<BlockExampleInnerBlock>;
+        innerBlocks?: readonly BlockExampleInnerBlock[];
     };
 
 export interface Block<T extends Record<string, any> = {}> {
@@ -208,7 +197,7 @@ export interface Block<T extends Record<string, any> = {}> {
      *
      * @see {@link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#example}
      */
-    readonly example?: Readonly<Partial<Block> & { innerBlocks?: ReadonlyArray<BlockExampleInnerBlock> }>;
+    readonly example?: Readonly<Partial<Block> & { innerBlocks?: readonly BlockExampleInnerBlock[] }>;
     /**
      * Icon for the block.
      */
@@ -643,6 +632,7 @@ export interface TransformRaw<T extends Record<string, any>> {
     selector?: string | undefined;
     schema?: TransformRawSchema | undefined;
     isMatch?(node: Node): boolean;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     transform?(node: Node): BlockInstance<Partial<T>> | void;
 }
 

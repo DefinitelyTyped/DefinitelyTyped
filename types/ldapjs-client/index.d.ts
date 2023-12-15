@@ -1,9 +1,3 @@
-// Type definitions for ldapjs-client 0.1
-// Project: https://github.com/zont/ldapjs-client#readme
-// Definitions by: Valerio Coltrè <https://github.com/colthreepv>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 declare namespace LdapClient {
     interface Change {
         operation: "add" | "delete" | "replace";

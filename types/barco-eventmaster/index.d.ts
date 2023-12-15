@@ -1,8 +1,3 @@
-// Type definitions for barco-eventmaster 8.0
-// Project: https://github.com/willosof/node-barco-eventmaster
-// Definitions by: Kyle Hensel <https://github.com/k-yle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace EventMaster {
     type Callback<T = unknown> = (err: true | null, data: T) => void;
 

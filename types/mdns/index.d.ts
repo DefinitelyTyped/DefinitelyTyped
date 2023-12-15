@@ -1,8 +1,3 @@
-// Type definitions for node_mdns
-// Project: https://github.com/agnat/node_mdns
-// Definitions by: Stefan Steinhart <https://github.com/reppners>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare namespace MDNS {
@@ -66,7 +61,7 @@ declare namespace MDNS {
     // --- Services ---
 
     interface Service {
-        addresses: Array<string>;
+        addresses: string[];
         flags: number;
         fullname: string;
         host: string;
@@ -83,25 +78,25 @@ declare namespace MDNS {
     interface ServiceType {
         new(serviceTypeIdentifier: string): ServiceType;
         new(name: string, protocol: string, ...subtypes: string[]): ServiceType;
-        new(serviceTypeIdentifier: Array<string>): ServiceType;
+        new(serviceTypeIdentifier: string[]): ServiceType;
         new(
-            serviceTypeIdentifier: { name: string; protocol: string; subtypes?: Array<string> | undefined },
+            serviceTypeIdentifier: { name: string; protocol: string; subtypes?: string[] | undefined },
         ): ServiceType;
         new(serviceType: ServiceType): ServiceType;
 
         fullyQualified: boolean;
         name: string;
         protocol: string;
-        subtypes: Array<string>;
+        subtypes: string[];
 
         toString(): string;
         fromString(serviceTypeIdentifier: string): ServiceType;
 
-        toArray(): Array<string>;
-        fromArray(serviceTypeIdentifier: Array<string>): ServiceType;
+        toArray(): string[];
+        fromArray(serviceTypeIdentifier: string[]): ServiceType;
 
         fromJSON(
-            serviceTypeIdentifier: { name: string; protocol: string; subtypes?: Array<string> | undefined },
+            serviceTypeIdentifier: { name: string; protocol: string; subtypes?: string[] | undefined },
         ): ServiceType;
         fromJSON(serviceType: ServiceType): ServiceType;
     }
@@ -115,7 +110,7 @@ declare namespace MDNS {
         DNSServiceGetAddrInfo(options?: any): (service: Service, next: () => void) => boolean;
         getaddrinfo(options?: any): (service: Service, next: () => void) => boolean;
         makeAddressesUnique(): (service: Service, next: () => void) => boolean;
-        filterAddresses(fn: (address: string, index?: number, addresses?: Array<string>) => boolean): void;
+        filterAddresses(fn: (address: string, index?: number, addresses?: string[]) => boolean): void;
         logService(): void;
     }
 
@@ -137,10 +132,10 @@ declare namespace MDNS {
 
     function makeServiceType(serviceTypeIdentifier: string): ServiceType;
 
-    function makeServiceType(serviceTypeIdentifier: Array<string>): ServiceType;
+    function makeServiceType(serviceTypeIdentifier: string[]): ServiceType;
 
     function makeServiceType(
-        serviceTypeIdentifier: { name: string; protocol: string; subtypes?: Array<string> | undefined },
+        serviceTypeIdentifier: { name: string; protocol: string; subtypes?: string[] | undefined },
     ): ServiceType;
 
     function makeServiceType(serviceType: ServiceType): ServiceType;

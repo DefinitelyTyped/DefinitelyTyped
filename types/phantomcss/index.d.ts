@@ -1,9 +1,3 @@
-// Type definitions for PhantomCSS 0.11.1
-// Project: https://github.com/Huddle/PhantomCSS
-// Definitions by: Amaury Bauzac <https://github.com/abauzac>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="resemblejs" />
 import { Casper } from "casperjs";
 
@@ -53,7 +47,7 @@ declare global {
             /**
              * Get a list of image diffs generated in this test run
              */
-            getCreatedDiffFiles(): Array<string>;
+            getCreatedDiffFiles(): string[];
         }
 
         interface PhantomCSSTest {

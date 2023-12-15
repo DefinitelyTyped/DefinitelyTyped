@@ -1,10 +1,3 @@
-// Type definitions for @google-cloud/kms 1.5
-// Project: https://github.com/googleapis/nodejs-kms
-// Definitions by: Ben Talbot <https://github.com/ben-tbotlabs>
-//                 Steven Collins <https://github.com/carboncollins>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 /// <reference types="node" />
 
 import * as google_protobuf_timestamp_pb from "google-protobuf/google/protobuf/timestamp_pb";

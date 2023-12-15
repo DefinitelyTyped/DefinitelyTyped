@@ -223,7 +223,7 @@ declare module "buffer" {
     import { Blob as NodeBlob } from "buffer";
     // This conditional type will be the existing global Blob in a browser, or
     // the copy below in a Node environment.
-    type __Blob = typeof globalThis extends { onmessage: any; Blob: infer T } ? T : NodeBlob;
+    type __Blob = typeof globalThis extends { onmessage: any; Blob: any } ? {} : NodeBlob;
     global {
         namespace NodeJS {
             export { BufferEncoding };
@@ -289,7 +289,7 @@ declare module "buffer" {
              * @param array The octets to store.
              * @deprecated since v10.0.0 - Use `Buffer.from(array)` instead.
              */
-            new(array: ReadonlyArray<any>): Buffer;
+            new(array: readonly any[]): Buffer;
             /**
              * Copies the passed {buffer} data onto a new {Buffer} instance.
              *
@@ -327,8 +327,8 @@ declare module "buffer" {
              * Creates a new Buffer using the passed {data}
              * @param data data to create a new Buffer
              */
-            from(data: Uint8Array | ReadonlyArray<number>): Buffer;
-            from(data: WithImplicitCoercion<Uint8Array | ReadonlyArray<number> | string>): Buffer;
+            from(data: Uint8Array | readonly number[]): Buffer;
+            from(data: WithImplicitCoercion<Uint8Array | readonly number[] | string>): Buffer;
             /**
              * Creates a new Buffer containing the given JavaScript string {str}.
              * If provided, the {encoding} parameter identifies the character encoding.
@@ -456,7 +456,7 @@ declare module "buffer" {
              * @param list List of `Buffer` or {@link Uint8Array} instances to concatenate.
              * @param totalLength Total length of the `Buffer` instances in `list` when concatenated.
              */
-            concat(list: ReadonlyArray<Uint8Array>, totalLength?: number): Buffer;
+            concat(list: readonly Uint8Array[], totalLength?: number): Buffer;
             /**
              * Copies the underlying memory of `view` into a new `Buffer`.
              *

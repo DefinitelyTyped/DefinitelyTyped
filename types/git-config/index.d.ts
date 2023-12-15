@@ -1,9 +1,3 @@
-// Type definitions for git-config 0.0
-// Project: https://github.com/eugeneware/git-config
-// Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * A simple way to extract out all the contents of a .gitconfig file and return as JSON
  */

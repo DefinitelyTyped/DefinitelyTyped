@@ -1,8 +1,3 @@
-// Type definitions for html-pdf-node 1.0
-// Project: https://github.com/mrafiqk/html-pdf-node#readme
-// Definitions by: bojovypstros <https://github.com/bojovypstros>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 export interface File {

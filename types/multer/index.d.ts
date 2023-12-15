@@ -1,14 +1,3 @@
-// Type definitions for multer 1.4
-// Project: https://github.com/expressjs/multer
-// Definitions by: jt000 <https://github.com/jt000>
-//                 vilicvane <https://github.com/vilic>
-//                 David Broder-Rodgers <https://github.com/DavidBR-SW>
-//                 Michael Ledin <https://github.com/mxl>
-//                 HyunSeob Lee <https://github.com/hyunseob>
-//                 Pierre Tchuente <https://github.com/PierreTchuente>
-//                 Oliver Emery <https://github.com/thrymgjol>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import { Request, RequestHandler } from "express";
 import { Readable } from "stream";
 
@@ -118,7 +107,7 @@ declare namespace multer {
          * @param fields Array of `Field` objects describing multipart form fields to process.
          * @throws `MulterError('LIMIT_UNEXPECTED_FILE')` if more than `maxCount` files are associated with `fieldName` for any field.
          */
-        fields(fields: ReadonlyArray<Field>): RequestHandler;
+        fields(fields: readonly Field[]): RequestHandler;
         /**
          * Returns middleware that processes all files contained in the multipart
          * request.

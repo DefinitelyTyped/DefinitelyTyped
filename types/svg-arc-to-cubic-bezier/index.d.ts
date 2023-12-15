@@ -1,8 +1,3 @@
-// Type definitions for svg-arc-to-cubic-bezier 3.2
-// Project: https://github.com/colinmeinke/svg-arc-to-cubic-bezier#readme
-// Definitions by: Fabien Caylus <https://github.com/fcaylus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Arc {
     px: number;
     py: number;

@@ -1,10 +1,3 @@
-// Type definitions for Dot-Object 2.1
-// Project: https://github.com/rhalff/dot-object
-// Definitions by: Niko Kovačič <https://github.com/nkovacic>
-//                 Rico Sandyca <https://github.com/ricosandyca>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 declare namespace DotObject {
     interface DotConstructor extends Dot {
         new(
@@ -38,7 +31,7 @@ declare namespace DotObject {
             target: string,
             obj1: any,
             obj2: any,
-            mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>,
+            mods?: ModifierFunctionWrapper | ModifierFunctionWrapper[],
             merge?: boolean,
         ): void;
         /**
@@ -117,7 +110,7 @@ declare namespace DotObject {
             source: string,
             target: string,
             obj: any,
-            mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>,
+            mods?: ModifierFunctionWrapper | ModifierFunctionWrapper[],
             merge?: boolean,
         ): void;
         /**
@@ -141,7 +134,7 @@ declare namespace DotObject {
          * @param {Object} obj
          * @param {Object} mods
          */
-        object(obj: object, mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>): object;
+        object(obj: object, mods?: ModifierFunctionWrapper | ModifierFunctionWrapper[]): object;
         /**
          * Pick a value from an object using dot notation.
          *
@@ -168,7 +161,7 @@ declare namespace DotObject {
          * @param {Object} obj object to be modified
          * @param {Function|Array} mods optional modifier
          */
-        str(path: string, v: any, obj: object, mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>): void;
+        str(path: string, v: any, obj: object, mods?: ModifierFunctionWrapper | ModifierFunctionWrapper[]): void;
         /**
          * Replace/merge an object to an existing object property
          *
@@ -196,7 +189,7 @@ declare namespace DotObject {
             target: string,
             obj1: any,
             obj2: any,
-            mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>,
+            mods?: ModifierFunctionWrapper | ModifierFunctionWrapper[],
             merge?: boolean,
         ): void;
         /**
@@ -222,7 +215,7 @@ declare namespace DotObject {
          * @param {Object} obj Object to be transformed
          * @param {Array} mods modifiers for the target
          */
-        transform(recipe: any, obj: any, mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>): void;
+        transform(recipe: any, obj: any, mods?: ModifierFunctionWrapper | ModifierFunctionWrapper[]): void;
     }
 }
 

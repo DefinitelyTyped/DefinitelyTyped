@@ -1,9 +1,3 @@
-// Type definitions for draco3d 1.4
-// Project: https://github.com/google/draco#readme
-// Definitions by: Don McCurdy <https://github.com/donmccurdy>
-//                 Horizon0514 <https://github.com/horizon0514>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type TypedArray = Float32Array | Uint32Array | Uint16Array | Uint8Array | Int16Array | Int8Array;
 
 export function createDecoderModule(object?: Record<string, unknown>): Promise<DecoderModule>;
@@ -142,19 +136,19 @@ export interface DracoArray {
     GetValue: (index: number) => number;
 }
 
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DracoFloat32Array extends DracoArray {}
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DracoInt8Array extends DracoArray {}
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DracoInt16Array extends DracoArray {}
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DracoInt32Array extends DracoArray {}
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DracoUInt8Array extends DracoArray {}
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DracoUInt16Array extends DracoArray {}
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DracoUInt32Array extends DracoArray {}
 
 export interface Status {
@@ -166,13 +160,13 @@ export interface Attribute {
     num_components: () => number;
 }
 
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export enum GeometryType {}
 
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export enum GeometryAttributeType {}
 
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export enum DataType {}
 
 export interface PointCloud {

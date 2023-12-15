@@ -1,9 +1,3 @@
-// Type definitions for agnostic-http-error-handler 1.0
-// Project: https://github.com/jkyberneees/http-error-handler#readme
-// Definitions by: Arian Meidow <https://github.com/sPaCeMoNk3yIam>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.7
-
 type Falsy = false | 0 | "" | null | undefined;
 
 interface Data<T> {

@@ -45,6 +45,12 @@ export class OrbitControls extends EventDispatcher<OrbitControlsEventMap> {
     center: Vector3;
 
     /**
+     * The focus point of the {@link .minTargetRadius} and {@link .maxTargetRadius} limits. It can be updated manually
+     * at any point to change the center of interest for the {@link .target}.
+     */
+    cursor: Vector3;
+
+    /**
      * How far you can dolly in ( PerspectiveCamera only ).
      * @default 0
      */
@@ -67,6 +73,18 @@ export class OrbitControls extends EventDispatcher<OrbitControlsEventMap> {
      * @default Infinity
      */
     maxZoom: number;
+
+    /**
+     * How close you can get the target to the 3D {@link .cursor}.
+     * @default 0
+     */
+    minTargetRadius: number;
+
+    /**
+     * How far you can move the target from the 3D {@link .cursor}.
+     * @default Infinity
+     */
+    maxTargetRadius: number;
 
     /**
      * How far you can orbit vertically, lower limit.
@@ -206,13 +224,17 @@ export class OrbitControls extends EventDispatcher<OrbitControlsEventMap> {
      * This object contains references to the mouse actions used
      * by the controls.
      */
-    mouseButtons: Partial<{ LEFT: MOUSE; MIDDLE: MOUSE; RIGHT: MOUSE }>;
+    mouseButtons: {
+        LEFT?: MOUSE | null | undefined;
+        MIDDLE?: MOUSE | null | undefined;
+        RIGHT?: MOUSE | null | undefined;
+    };
 
     /**
      * This object contains references to the touch actions used by
      * the controls.
      */
-    touches: Partial<{ ONE: TOUCH; TWO: TOUCH }>;
+    touches: { ONE?: TOUCH | null | undefined; TWO?: TOUCH | null | undefined };
 
     /**
      * Used internally by the .saveState and .reset methods.

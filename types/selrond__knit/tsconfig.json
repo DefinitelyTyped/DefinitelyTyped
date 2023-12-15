@@ -4,22 +4,13 @@
         "lib": [
             "es6"
         ],
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "@selrond/*": [
-                "selrond__*"
-            ]
-        }
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",

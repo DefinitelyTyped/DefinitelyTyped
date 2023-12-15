@@ -1,9 +1,3 @@
-// Type definitions for @root/asn1 1.0
-// Project: https://git.coolaj86.com/coolaj86/asn1.js
-// Definitions by: Junxiao Shi <https://github.com/yoursunny>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
-
 export {};
 
 interface Element<V extends string | Uint8Array> {

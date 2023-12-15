@@ -1,8 +1,3 @@
-// Type definitions for postcss-css-variables 0.18
-// Project: https://github.com/MadLittleMods/postcss-css-variables
-// Definitions by: Adam Thompson-Sharpe <https://github.com/MysteryBlokHed>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Declaration, PluginCreator } from "postcss";
 
 declare namespace cssvariables {

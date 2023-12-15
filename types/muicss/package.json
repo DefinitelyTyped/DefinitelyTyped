@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/muicss",
+    "version": "0.9.9999",
+    "projects": [
+        "https://www.muicss.com/"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/muicss": "workspace:.",
+        "@types/react-dom": "*"
+    },
+    "owners": [
+        {
+            "name": "Samuel Neff",
+            "githubUsername": "samuelneff"
+        }
+    ]
+}

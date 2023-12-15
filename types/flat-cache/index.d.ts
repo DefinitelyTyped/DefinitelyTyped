@@ -1,8 +1,3 @@
-// Type definitions for flat-cache 2.0
-// Project: https://github.com/royriojas/flat-cache#readme
-// Definitions by: Kevin Pollet <https://github.com/kevinpollet>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Cache {
     load(cacheId: string, cacheDir?: string): void;
     loadFile(pathToFile: string): void;

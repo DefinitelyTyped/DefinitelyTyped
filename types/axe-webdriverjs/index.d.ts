@@ -1,8 +1,3 @@
-// Type definitions for axe-webdriverjs 2.3
-// Project: https://github.com/dequelabs/axe-webdriverjs#readme
-// Definitions by: Tyler Krupicka <https://github.com/tylerkrupicka>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import { Result, RunOptions, Spec } from "axe-core";
 import { WebDriver } from "selenium-webdriver";
 

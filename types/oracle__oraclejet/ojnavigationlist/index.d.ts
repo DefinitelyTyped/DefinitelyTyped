@@ -138,7 +138,7 @@ export namespace ojNavigationList {
         }>
     {
     }
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ItemContext<K, D> = {
         componentElement: Element;
         datasource?: DataProvider<K, D> | undefined;
@@ -147,7 +147,7 @@ export namespace ojNavigationList {
         data: any;
         parentElement: Element;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type NodeContext<K> = {
         subId: string;
         index: number;
@@ -352,7 +352,7 @@ export namespace ojTabBar {
         }>
     {
     }
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ItemContext<K, D> = {
         componentElement: Element;
         datasource?: DataProvider<K, D> | undefined;
@@ -361,7 +361,7 @@ export namespace ojTabBar {
         data: D;
         parentElement: Element;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type NodeContext<K> = {
         subId: string;
         index: number;

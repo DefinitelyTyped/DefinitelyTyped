@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/google.maps",
+    "version": "3.54.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Google Maps JavaScript API",
+    "projects": [
+        "https://developers.google.com/maps/"
+    ],
+    "devDependencies": {
+        "@types/google.maps": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alex Muramoto",
+            "githubUsername": "amuramoto"
+        },
+        {
+            "name": "Angela Yu",
+            "githubUsername": "wangela"
+        }
+    ]
+}

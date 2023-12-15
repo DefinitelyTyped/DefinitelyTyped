@@ -1,9 +1,3 @@
-// Type definitions for mui-image 1.0
-// Project: https://github.com/benmneb/mui-image
-// Definitions by: benmneb <https://github.com/benmneb>
-// Definitions: https://github.com/DefinitelyTyped/mui-image
-// (With a little help from Natalia <https://github.com/CodeMeNatalie>)
-
 import * as React from "react";
 
 interface MuiImageProps {
@@ -18,7 +12,9 @@ interface MuiImageProps {
     height?: React.CSSProperties["height"] | number | undefined;
     iconWrapperClassName?: string | undefined;
     iconWrapperStyle?: React.CSSProperties | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onError?: (...args: any[]) => void | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onLoad?: (...args: any[]) => void | undefined;
     position?: React.CSSProperties["position"] | undefined;
     shift?: "left" | "right" | "top" | "bottom" | false | null | undefined;

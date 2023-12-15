@@ -1,9 +1,3 @@
-// Type definitions for react-form 1.3
-// Project: https://github.com/tannerlinsley/react-form#readme
-// Definitions by: Cameron McAteer <https://github.com/cameron-mcateer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export type FormValue = any;
@@ -15,7 +9,7 @@ export type FormValues = Nested<FormValue>;
 export type Touched = Nested<boolean>;
 export type FormErrors = { [key: string]: FormError } | [{ [key: string]: FormError }];
 export type NestedErrors = Nested<FormErrors>;
-export type RenderReturn = JSX.Element | false | null;
+export type RenderReturn = React.JSX.Element | false | null;
 
 export interface FormProps {
     loadState?(props: FormProps, self: Form): FormState | undefined;
@@ -171,7 +165,7 @@ export interface SelectAttrs extends React.SelectHTMLAttributes<HTMLSelectElemen
     onBlur?: any;
 }
 export interface SelectProps extends SelectAttrs {
-    options: ReadonlyArray<SelectOption>;
+    options: readonly SelectOption[];
     field?: FormInputProps["field"] | undefined;
     showErrors?: FormInputProps["showErrors"] | undefined;
     errorBefore?: FormInputProps["errorBefore"] | undefined;

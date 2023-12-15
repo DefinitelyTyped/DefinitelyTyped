@@ -1,0 +1,31 @@
+{
+    "private": true,
+    "name": "@types/jquery.validation",
+    "version": "1.16.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.validation",
+    "projects": [
+        "http://jqueryvalidation.org/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.form": "*",
+        "@types/jquery.validation": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "François de Campredon",
+            "githubUsername": "fdecampredon"
+        },
+        {
+            "name": "John Reilly",
+            "githubUsername": "johnnyreilly"
+        },
+        {
+            "name": "Anže Videnič",
+            "githubUsername": "avidenic"
+        }
+    ]
+}

@@ -1,11 +1,3 @@
-// Type definitions for Akumina 5.0
-// Project: https://github.com/akumina/AkuminaDev
-// Definitions by: Akumina <https://github.com/akumina>
-//                 Jason Arden <https://github.com/jasonarden>
-//                 Sean Glover <https://github.com/MarshHawk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="jquery" />
 
 import IGetListRequest from "./interfaces/IGetListRequest";
@@ -1681,7 +1673,7 @@ declare class Templates {
     GetFullViewPrefix(): string;
 }
 
-// tslint:disable-next-line interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 interface IConstants {
     LOADER_STEPS_ENABLE_AUTOCLEAR: boolean;
     LOADER_STEPS_ENABLE_FETCHCONFIGCONTEXT: boolean;

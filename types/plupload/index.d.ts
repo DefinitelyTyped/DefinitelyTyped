@@ -1,8 +1,3 @@
-// Type definitions for Plupload 2.0
-// Project: http://www.plupload.com/
-// Definitions by: Patrick Bußmann <https://github.com/patrickbussmann>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface plupload_settings {
     /** Required Options */
     browse_button: any;
@@ -169,7 +164,7 @@ declare namespace plupload {
          *
          * @see plupload.File
          */
-        files: Array<any>;
+        files: any[];
 
         /**
          * Object with name/value settings.
@@ -522,7 +517,7 @@ declare namespace plupload {
      * @param {Object} obj Object with length field.
      * @return {Array} Array object containing all items.
      */
-    function toArray(obj: any): Array<any>;
+    function toArray(obj: any): any[];
 
     /**
      * Find an element in array and return its index if present, otherwise return -1.
@@ -533,7 +528,7 @@ declare namespace plupload {
      * @param {Array} array
      * @return {Int} Index of the element, or -1 if not found
      */
-    function inArray(needle: any, array: Array<any>): number;
+    function inArray(needle: any, array: any[]): number;
 
     /**
     Recieve an array of functions (usually async) to call in sequence, each  function
@@ -546,7 +541,7 @@ declare namespace plupload {
     @param {Array} queue Array of functions to call in sequence
     @param {Function} cb Main callback that is called in the end, or in case of error
     */
-    function inSeries(queue: Array<any>, callback: Function): void;
+    function inSeries(queue: any[], callback: Function): void;
 
     /**
      * Extends the language pack object with new items.

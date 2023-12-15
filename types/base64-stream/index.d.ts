@@ -1,8 +1,3 @@
-// Type definitions for base64-stream 1.0
-// Project: https://github.com/mazira/base64-stream
-// Definitions by: Sean O'Brien <https://github.com/s73obrien>
-//                 Erik Weatherwax <https://github.com/erikjwaxx>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
 import { Transform, TransformOptions } from "stream";

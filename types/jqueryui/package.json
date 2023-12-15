@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/jqueryui",
+    "version": "1.12.9999",
+    "projects": [
+        "http://jqueryui.com/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jqueryui": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "John Reilly",
+            "githubUsername": "johnnyreilly"
+        },
+        {
+            "name": "Dieter Oberkofler",
+            "githubUsername": "doberkofler"
+        }
+    ]
+}

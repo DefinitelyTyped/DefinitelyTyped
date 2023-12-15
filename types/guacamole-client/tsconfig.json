@@ -1,15 +1,20 @@
 {
-  "compilerOptions": {
-    "baseUrl": "../",
-    "target": "es5",
-    "module": "commonjs",
-    "noEmit": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "esModuleInterop": true,
-    "lib": ["DOM", "ES6", "ES7"],
-    "typeRoots": ["../"],
-    "types": []
-  },
-  "files": ["index.d.ts", "test/guacamole-client.ts"]
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "esModuleInterop": true,
+        "lib": [
+            "DOM",
+            "ES6",
+            "ES7"
+        ],
+        "types": []
+    },
+    "files": [
+        "index.d.ts",
+        "test/guacamole-client.ts"
+    ]
 }

@@ -1,19 +1,3 @@
-// Type definitions for SuperAgent 4.1
-// Project: https://github.com/visionmedia/superagent
-// Definitions by: Nico Zelaya <https://github.com/NicoZelaya>
-//                 Michael Ledin <https://github.com/mxl>
-//                 Pap Lőrinc <https://github.com/paplorinc>
-//                 Shrey Jain <https://github.com/shreyjain1994>
-//                 Alec Zopf <https://github.com/zopf>
-//                 Adam Haglund <https://github.com/beeequeue>
-//                 Lukas Elmer <https://github.com/lukaselmer>
-//                 Jesse Rogers <https://github.com/theQuazz>
-//                 Chris Arnesen <https://github.com/carnesen>
-//                 Anders Kindberg <https://github.com/ghostganz>
-//                 LuckyWind_sck <https://github.com/LuckyWindsck>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="node" />
 
 import { Blob } from "buffer";
@@ -22,23 +6,23 @@ import * as fs from "fs";
 import * as http from "http";
 import * as stream from "stream";
 
-type CallbackHandler = (err: any, res: request.Response) => void;
-
-type Serializer = (obj: any) => string;
-
-type BrowserParser = (str: string) => any;
-
-type NodeParser = (res: request.Response, callback: (err: Error | null, body: any) => void) => void;
-
-type Parser = BrowserParser | NodeParser;
-
-type MultipartValueSingle = Blob | Buffer | fs.ReadStream | string | boolean | number;
-
-type MultipartValue = MultipartValueSingle | MultipartValueSingle[];
-
 declare const request: request.SuperAgentStatic;
 
 declare namespace request {
+    type CallbackHandler = (err: any, res: request.Response) => void;
+
+    type Serializer = (obj: any) => string;
+
+    type BrowserParser = (str: string) => any;
+
+    type NodeParser = (res: request.Response, callback: (err: Error | null, body: any) => void) => void;
+
+    type Parser = BrowserParser | NodeParser;
+
+    type MultipartValueSingle = Blob | Buffer | fs.ReadStream | string | boolean | number;
+
+    type MultipartValue = MultipartValueSingle | MultipartValueSingle[];
+
     interface SuperAgentRequest extends Request {
         agent(agent?: http.Agent): this;
 
@@ -46,6 +30,7 @@ declare namespace request {
         method: string;
         url: string;
     }
+
     interface SuperAgentStatic extends SuperAgent<SuperAgentRequest> {
         (url: string): SuperAgentRequest;
         // tslint:disable-next-line:unified-signatures
@@ -112,8 +97,8 @@ declare namespace request {
         forbidden: boolean;
         get(header: string): string;
         get(header: "Set-Cookie"): string[];
-        header: any;
-        headers: any;
+        header: { [index: string]: string };
+        headers: { [index: string]: string };
         info: boolean;
         links: Record<string, string>;
         noContent: boolean;

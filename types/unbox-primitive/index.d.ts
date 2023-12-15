@@ -1,8 +1,3 @@
-// Type definitions for unbox-primitive 1.0
-// Project: https://github.com/ljharb/unbox-primitive#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = unboxPrimitive;
 
 /**

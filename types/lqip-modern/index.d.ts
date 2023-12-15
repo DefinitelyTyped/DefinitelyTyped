@@ -1,9 +1,3 @@
-// Type definitions for lqip-modern 1.1
-// Project: https://github.com/transitive-bullshit/lqip-modern/
-// Definitions by: Yaroslav Kiliba <https://github.com/Dattaya>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.2
-
 /// <reference types="node" />
 
 import sharp = require("sharp");
@@ -27,7 +21,7 @@ declare namespace lqip {
 
     interface DefaultOptions {
         concurrency?: number | undefined;
-        resize?: number | ReadonlyArray<any> | undefined;
+        resize?: number | readonly any[] | undefined;
     }
 
     interface WebpOptions extends DefaultOptions {
@@ -46,7 +40,7 @@ declare namespace lqip {
 
 declare function lqip(input: string | Buffer, options?: lqip.LqipOptions): Promise<lqip.LqipResult>;
 declare function lqip(
-    input: ReadonlyArray<string> | ReadonlyArray<Buffer>,
+    input: readonly string[] | readonly Buffer[],
     options?: lqip.LqipOptions,
 ): Promise<lqip.LqipResult[]>;
 

@@ -1,8 +1,3 @@
-// Type definitions for atna-audit 1.0
-// Project: https://github.com/jembi/atna-audit
-// Definitions by: Alex Figl-Brick <https://github.com/bricka>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import type { ConnectionOptions } from "tls";

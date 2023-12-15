@@ -1,0 +1,39 @@
+{
+    "private": true,
+    "name": "@types/rx",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/Reactive-Extensions/RxJS"
+    ],
+    "dependencies": {
+        "@types/rx-core": "*",
+        "@types/rx-core-binding": "*",
+        "@types/rx-lite": "*",
+        "@types/rx-lite-aggregates": "*",
+        "@types/rx-lite-async": "*",
+        "@types/rx-lite-backpressure": "*",
+        "@types/rx-lite-coincidence": "*",
+        "@types/rx-lite-experimental": "*",
+        "@types/rx-lite-joinpatterns": "*",
+        "@types/rx-lite-testing": "*",
+        "@types/rx-lite-time": "*",
+        "@types/rx-lite-virtualtime": "*"
+    },
+    "devDependencies": {
+        "@types/rx": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Carl de Billy",
+            "url": "http://carl.debilly.net/"
+        },
+        {
+            "name": "gsino",
+            "url": "http://www.codeplex.com/site/users/view/gsino"
+        },
+        {
+            "name": "Igor Oleinikov",
+            "githubUsername": "Igorbek"
+        }
+    ]
+}

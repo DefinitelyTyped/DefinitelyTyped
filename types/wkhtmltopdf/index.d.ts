@@ -1,9 +1,3 @@
-// Type definitions for wkhtmltopdf 0.3
-// Project: https://github.com/devongovett/node-wkhtmltopdf
-// Definitions by: Jasper <https://github.com/digijap>
-//                 Rens de Wolf <https://github.com/rensdewolf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // This is based on wkhtmltopdf version 0.12.6
 // Source: https://wkhtmltopdf.org/usage/wkhtmltopdf.txt
 
@@ -159,13 +153,13 @@ interface Options {
      ****************/
 
     /** Allow the file or files from the specified folder to be loaded (repeatable) */
-    allow?: ReadonlyArray<string> | undefined;
+    allow?: readonly string[] | undefined;
     /** Do print background (default) */
     background?: boolean | undefined;
     /** Do not print background */
     noBackground?: boolean | undefined;
     /** Bypass proxy for host (repeatable) */
-    bypassProxyFor?: ReadonlyArray<string> | undefined;
+    bypassProxyFor?: readonly string[] | undefined;
     /** Web cache directory */
     cacheDir?: string | undefined;
     /** Use this SVG file when rendering checked checkboxes */
@@ -258,7 +252,7 @@ interface Options {
     /** Resolve relative external links into absolute links (default) */
     resolveRelativeLinks?: boolean | undefined;
     /** Run this additional javascript after the page is done loading (repeatable) */
-    runScript?: ReadonlyArray<string> | undefined;
+    runScript?: readonly string[] | undefined;
     /** Disable the intelligent shrinking strategy used by WebKit that makes the pixel/dpi ratio non-constant */
     disableSmartShrinking?: boolean | undefined;
     /** Enable the intelligent shrinking strategy used by WebKit that makes the pixel/dpi ratio non-constant (default) */

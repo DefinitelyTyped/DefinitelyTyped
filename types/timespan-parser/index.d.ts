@@ -1,8 +1,3 @@
-// Type definitions for timespan-parser 1.2
-// Project: https://github.com/gilly3/timespan-parser/
-// Definitions by: OpportunityLiu <https://github.com/OpportunityLiu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace timespan {
     type Unit =
         | "msec"

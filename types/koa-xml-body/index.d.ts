@@ -1,9 +1,3 @@
-// Type definitions for koa-xml-body 2.2
-// Project: https://github.com/creeperyang/koa-xml-body
-// Definitions by: Ulf Winkelvos <https://github.com/uwinkelvos>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 /* =================== USAGE ===================
 
     import Koa = require('koa');

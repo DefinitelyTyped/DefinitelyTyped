@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/xtend",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/Raynos/xtend"
+    ],
+    "devDependencies": {
+        "@types/xtend": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "rhysd",
+            "githubUsername": "rhysd"
+        }
+    ]
+}

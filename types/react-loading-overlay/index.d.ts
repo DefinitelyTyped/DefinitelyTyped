@@ -1,8 +1,3 @@
-// Type definitions for React-Loading-Overlay 1.0
-// Project: https://github.com/derrickpelletier/react-loading-overlay
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 export interface LoadingOverlayProps {
     /** default: ``true`` - whether the loader is visible. */

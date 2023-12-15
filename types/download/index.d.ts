@@ -1,9 +1,3 @@
-// Type definitions for download 8.0
-// Project: https://github.com/kevva/download
-// Definitions by: Nico Jansen <https://github.com/nicojs>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 import { DecompressOptions } from "decompress";
 import { GotEmitter, GotOptions } from "got";

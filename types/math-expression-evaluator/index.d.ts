@@ -1,9 +1,3 @@
-// Type definitions for math-expression-evaluator 1.3
-// Project: https://github.com/bugwheels94/math-expression-evaluator
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-//                 Adam Zerella <https://github.com/azerella>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Token {
     token: string;
     type: number;

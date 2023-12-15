@@ -1,7 +1,21 @@
 {
-  "private": true,
-  "dependencies": {
-    "@types/wonder-commonlib": "0.2.0",
-    "@types/wonder-frp": "0.2.0"
-  }
+    "private": true,
+    "name": "@types/wonder.js",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/yyc-git/Wonder.js"
+    ],
+    "dependencies": {
+        "@types/wonder-commonlib": "0.2.0",
+        "@types/wonder-frp": "0.2.0"
+    },
+    "devDependencies": {
+        "@types/wonder.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "YYC",
+            "githubUsername": "yyc-git"
+        }
+    ]
 }

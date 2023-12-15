@@ -1,6 +1,20 @@
 {
     "private": true,
+    "name": "@types/styled-system__core",
+    "version": "5.1.9999",
+    "projects": [
+        "https://github.com/styled-system/styled-system"
+    ],
     "dependencies": {
         "csstype": "^3.0.2"
-    }
+    },
+    "devDependencies": {
+        "@types/styled-system__core": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leo Toneff",
+            "githubUsername": "bragle"
+        }
+    ]
 }

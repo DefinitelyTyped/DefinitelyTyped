@@ -1,9 +1,3 @@
-// Type definitions for yog-log 0.1
-// Project: https://github.com/fex-team/yog-log
-// Definitions by: ssddi456 <https://github.com/ssddi456>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import { NextFunction, Request, Response } from "express";
 
 interface LEVELS {
@@ -65,16 +59,22 @@ declare namespace yog_log {
 
         extend(destination: {}, source: {}): {};
 
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         log(level: string, obj: string | {}): void | false;
 
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         notice(info: LogInput): void | false;
 
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         debug(info: LogInput): void | false;
 
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         fatal(info: LogInput): void | false;
 
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         trace(info: LogInput): void | false;
 
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         warning(info: LogInput): void | false;
 
         getCookie(name: string): string | false;
@@ -100,12 +100,14 @@ declare namespace yog_log {
         // 解析日志配置，生成相应的模板函数的字符串内容
         parseFormat(format: string): string;
 
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         parseReqParams(req: Request, res: Response): void | false;
 
         parseStackInfo(info: LogInfo | Error): void;
 
         setParams(name: string, value: any): void;
 
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         writeLog(intLevel: LevelInt, options: WriteLogConfig, log_format: string): void | false;
     }
 

@@ -1,22 +1,23 @@
 {
-  "compilerOptions": {
-    "target": "ES2016",
-    "module": "commonjs",
-    "lib": ["dom", "es6"],
-    "noEmit": true,
-    "forceConsistentCasingInFileNames": true,    
-    "baseUrl": "../",
-    "typeRoots": ["../"],
-    "types": [],
-    "esModuleInterop": true,
-    "noImplicitAny": true, 
-    "noImplicitThis" : true, 
-    "strictNullChecks": true, 
-    "strictFunctionTypes":true
-  },
-  "files": [
-    "index.d.ts",
-    "test/tizen-tv-webapis-tests.cjs.ts",
-    "test/tizen-tv-webapis-tests.global.ts"
-  ]
+    "compilerOptions": {
+        "target": "ES2016",
+        "module": "commonjs",
+        "lib": [
+            "dom",
+            "es6"
+        ],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "types": [],
+        "esModuleInterop": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/tizen-tv-webapis-tests.cjs.ts",
+        "test/tizen-tv-webapis-tests.global.ts"
+    ]
 }

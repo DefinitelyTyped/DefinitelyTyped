@@ -1,26 +1,19 @@
 {
-  "compilerOptions": {
-      "module": "commonjs",
-      "lib": [
-          "ES2017"
-      ],
-      "noImplicitAny": true,
-      "noImplicitThis": true,
-      "strictNullChecks": true,
-      "strictFunctionTypes": true,
-      "baseUrl": "../",
-      "typeRoots": [
-          "../"
-      ],
-      "types": [],
-      "noEmit": true,
-      "forceConsistentCasingInFileNames": true,
-      "paths": {
-          "@yarnpkg/*": ["yarnpkg__*"]
-      }
-  },
-  "files": [
-      "index.d.ts",
-      "yarnpkg__lockfile-tests.ts"
-  ]
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "ES2017"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "yarnpkg__lockfile-tests.ts"
+    ]
 }

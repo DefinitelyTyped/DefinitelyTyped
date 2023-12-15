@@ -1,9 +1,3 @@
-// Type definitions for gitignore-parser 0.0
-// Project: https://github.com/codemix/gitignore-parser
-// Definitions by: Alex Nuccio <https://github.com/anuccio1>
-//                 Matt Schwartz <https://github.com/microsoftly>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Compile the given `.gitignore` content (not filename!)
  * and return an object with `accepts`, `denies` and `maybe` methods.

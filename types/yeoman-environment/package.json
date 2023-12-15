@@ -1,9 +1,35 @@
 {
     "private": true,
+    "name": "@types/yeoman-environment",
+    "version": "2.10.9999",
+    "projects": [
+        "https://github.com/yeoman/environment",
+        "http://yeoman.io"
+    ],
     "dependencies": {
+        "@types/diff": "*",
+        "@types/inquirer": "^8",
+        "@types/mem-fs": "*",
+        "@types/node": "*",
+        "@types/text-table": "*",
+        "@types/vinyl": "*",
+        "@types/yeoman-generator": "*",
         "chalk": "^4.1.0",
         "commander": "^9.0.0",
         "execa": "^5.0.0",
         "rxjs": "^6.4.0"
-    }
+    },
+    "devDependencies": {
+        "@types/yeoman-environment": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "c4605",
+            "githubUsername": "bolasblack"
+        },
+        {
+            "name": "Manuel Thalmann",
+            "githubUsername": "manuth"
+        }
+    ]
 }

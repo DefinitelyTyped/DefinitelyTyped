@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/commercetools__enzyme-extensions",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/commercetools/enzyme-extensions"
+    ],
+    "dependencies": {
+        "@types/enzyme": "*"
+    },
+    "devDependencies": {
+        "@types/commercetools__enzyme-extensions": "workspace:.",
+        "@types/react": "^16"
+    },
+    "owners": [
+        {
+            "name": "Christian Rackerseder",
+            "githubUsername": "screendriver"
+        }
+    ]
+}

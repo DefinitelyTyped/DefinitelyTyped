@@ -1,8 +1,3 @@
-// Type definitions for stream-fork 1.0
-// Project: https://github.com/uhop/stream-fork#readme
-// Definitions by: Michael de Wit <https://github.com/mjwwit>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import stream = require("stream");
@@ -16,7 +11,7 @@ declare class Fork extends stream.Writable {
      * @param options options is an options object, which is used to create a Writable stream.
      * Read all about it in Implementing a Writable stream. If it is not specified or falsy, {objectMode: true} is assumed. This default is useful for creating object mode streams.
      */
-    constructor(outputs: ReadonlyArray<stream.Writable>, options?: Fork.ForkOptions);
+    constructor(outputs: readonly stream.Writable[], options?: Fork.ForkOptions);
 
     /**
      * It returns true if outputs property is empty, and false otherwise. If isEmpty() is true, it means that the stream do not duplicate data.
@@ -26,7 +21,7 @@ declare class Fork extends stream.Writable {
     /**
      * It is a factory function, which accepts the same arguments as the constructor, and returns a fully constructed Fork object.
      */
-    static fork(outputs: ReadonlyArray<stream.Writable>, options?: Fork.ForkOptions): Fork;
+    static fork(outputs: readonly stream.Writable[], options?: Fork.ForkOptions): Fork;
 }
 
 declare namespace Fork {

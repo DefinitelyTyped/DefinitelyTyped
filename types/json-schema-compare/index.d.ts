@@ -1,9 +1,3 @@
-// Type definitions for json-schema-compare 0.2
-// Project: https://github.com/mokkabonna/json-schema-compare#readme
-// Definitions by: Emily Marigold Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import { JSONSchema4, JSONSchema6, JSONSchema6Definition, JSONSchema7, JSONSchema7Definition } from "json-schema";
 
 export = compare;

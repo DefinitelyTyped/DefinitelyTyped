@@ -1,9 +1,3 @@
-// Type definitions for vcf 2.0
-// Project: https://github.com/jhermsmeier/node-vcf
-// Definitions by: mcpar-land <https://github.com/mcpar-land>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
 export = vCard;
@@ -77,7 +71,7 @@ declare class vCard {
     /** Returns an *array* of vCard objects from a multiple-card string. */
     static parse(value: string | Buffer): vCard[];
 
-    private static parseLines(lines: ReadonlyArray<string>): any;
+    private static parseLines(lines: readonly string[]): any;
 
     static versions: ["2.1", "3.0", "4.0"];
 }

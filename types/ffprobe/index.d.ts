@@ -1,8 +1,3 @@
-// Type definitions for ffprobe 1.1
-// Project: https://github.com/eugeneware/ffprobe
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace getInfo {
     type FFProbeBoolean = "0" | "1";
 

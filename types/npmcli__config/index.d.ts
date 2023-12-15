@@ -1,8 +1,3 @@
-// Type definitions for @npmcli/config 6.0
-// Project: https://github.com/npm/config#readme
-// Definitions by: Emily M Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Stream } from "stream";

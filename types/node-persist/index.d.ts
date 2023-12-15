@@ -1,11 +1,3 @@
-// Type definitions for node-persist 3.1
-// Project: https://github.com/simonlast/node-persist
-// Definitions by: Spencer Williams <https://github.com/spencerwi>,
-//                 Samuel Elliott <https://github.com/samuelthomas2774>,
-//                 Jack Hedaya <https://github.com/jackHedaya>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
 declare namespace NodePersist {
@@ -74,8 +66,11 @@ declare namespace NodePersist {
         get(key: string): Promise<any>;
         getItem(key: string): Promise<any>;
 
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         getDatum(key: string): Datum | void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         getRawDatum(key: string): string | void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         getDatumValue(key: string): Datum | void;
         getDatumPath(key: string): string;
 
@@ -128,8 +123,11 @@ declare namespace NodePersist {
     function get(key: string): Promise<any>;
     function getItem(key: string): Promise<any>;
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     function getDatum(key: string): Datum | void;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     function getRawDatum(key: string): string | void;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     function getDatumValue(key: string): Datum | void;
     function getDatumPath(key: string): string;
 

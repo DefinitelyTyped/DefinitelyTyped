@@ -1,8 +1,3 @@
-// Type definitions for non-npm package https://dadata.ru/api/ 0.0
-// Project: https://dadata.ru/api/
-// Definitions by: kTelyakov <https://github.com/kTelyakov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export namespace DaDataApi {
     type Nullable<T> = T | null;
     interface Suggestion<T> {

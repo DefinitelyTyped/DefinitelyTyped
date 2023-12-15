@@ -1,11 +1,3 @@
-// Type definitions for thrift 0.10
-// Project: http://thrift.apache.org
-// Definitions by: Kamek <https://github.com/kamek-pf>
-//                 Kevin Greene <https://github.com/kevin-greene-ck>
-//                 Jesse Zhang <https://github.com/jessezhang91>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
@@ -317,8 +309,8 @@ export function createServer<TProcessor, THandler>(
     options?: ServerOptions<TProcessor, THandler>,
 ): http.Server | tls.Server;
 
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function createWebServer<TProcessor, THandler>(
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     options: WebServerOptions<TProcessor, THandler>,
 ): http.Server | tls.Server;
 

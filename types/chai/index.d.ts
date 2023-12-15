@@ -1,18 +1,3 @@
-// Type definitions for chai 4.3
-// Project: http://chaijs.com/
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-//                 Andrew Brown <https://github.com/AGBrown>
-//                 Olivier Chevet <https://github.com/olivr70>
-//                 Matt Wistrand <https://github.com/mwistrand>
-//                 Shaun Luttin <https://github.com/shaunluttin>
-//                 Satana Charuwichitratana <https://github.com/micksatana>
-//                 Erik Schierboom <https://github.com/ErikSchierboom>
-//                 Bogdan Paranytsia <https://github.com/bparan>
-//                 CXuesong <https://github.com/CXuesong>
-//                 Joey Kilpatrick <https://github.com/joeykilpatrick>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 declare namespace Chai {
     type Message = string | (() => string);
     type ObjectProperty = string | symbol | number;
@@ -53,7 +38,7 @@ declare namespace Chai {
         addMethod(ctx: object, name: string, method: Function): void;
         addProperty(ctx: object, name: string, getter: () => any): void;
         overwriteMethod(ctx: object, name: string, method: Function): void;
-        overwriteProperty(ctx: object, name: string, getter: () => any): void;
+        overwriteProperty(ctx: object, name: string, getter: (this: AssertionStatic, _super: any) => any): void;
         compareByInspect(a: object, b: object): -1 | 1;
         expectTypes(obj: object, types: string[]): void;
         flag(obj: object, key: string, value?: any): any;
@@ -144,7 +129,7 @@ declare namespace Chai {
             method: (this: AssertionStatic, ...args: any[]) => void,
             chainingBehavior?: () => void,
         ): void;
-        overwriteProperty(name: string, getter: (this: AssertionStatic) => any): void;
+        overwriteProperty(name: string, getter: (this: AssertionStatic, _super: any) => any): void;
         overwriteMethod(name: string, method: (this: AssertionStatic, ...args: any[]) => any): void;
         overwriteChainableMethod(
             name: string,
@@ -365,7 +350,7 @@ declare namespace Chai {
     }
 
     interface OneOf {
-        (list: ReadonlyArray<unknown>, message?: string): Assertion;
+        (list: readonly unknown[], message?: string): Assertion;
     }
 
     interface Match {
@@ -374,7 +359,7 @@ declare namespace Chai {
 
     interface Keys {
         (...keys: string[]): Assertion;
-        (keys: ReadonlyArray<any> | Object): Assertion;
+        (keys: readonly any[] | Object): Assertion;
     }
 
     interface Throw {
@@ -391,7 +376,7 @@ declare namespace Chai {
     }
 
     interface Members {
-        (set: ReadonlyArray<any>, message?: string): Assertion;
+        (set: readonly any[], message?: string): Assertion;
     }
 
     interface PropertyChange {
@@ -858,7 +843,7 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         include<T>(
-            haystack: ReadonlyArray<T> | ReadonlySet<T> | ReadonlyMap<any, T>,
+            haystack: readonly T[] | ReadonlySet<T> | ReadonlyMap<any, T>,
             needle: T,
             message?: string,
         ): void;
@@ -901,7 +886,7 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         notInclude<T>(
-            haystack: ReadonlyArray<T> | ReadonlySet<T> | ReadonlyMap<any, T>,
+            haystack: readonly T[] | ReadonlySet<T> | ReadonlyMap<any, T>,
             needle: T,
             message?: string,
         ): void;
@@ -946,7 +931,7 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         deepInclude<T>(
-            haystack: ReadonlyArray<T> | ReadonlySet<T> | ReadonlyMap<any, T>,
+            haystack: readonly T[] | ReadonlySet<T> | ReadonlyMap<any, T>,
             needle: T,
             message?: string,
         ): void;
@@ -981,7 +966,7 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         notDeepInclude<T>(
-            haystack: ReadonlyArray<T> | ReadonlySet<T> | ReadonlyMap<any, T>,
+            haystack: readonly T[] | ReadonlySet<T> | ReadonlyMap<any, T>,
             needle: T,
             message?: string,
         ): void;
@@ -1210,7 +1195,11 @@ declare namespace Chai {
          * @param length   Potential expected length of object.
          * @param message   Message to display on error.
          */
-        lengthOf<T extends { readonly length?: number | undefined }>(object: T, length: number, message?: string): void;
+        lengthOf<T extends { readonly length?: number | undefined } | { readonly size?: number | undefined }>(
+            object: T,
+            length: number,
+            message?: string,
+        ): void;
 
         /**
          * Asserts that fn will throw an error.

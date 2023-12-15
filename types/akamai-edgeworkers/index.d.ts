@@ -1,11 +1,3 @@
-// Type definitions for non-npm package Akamai EdgeWorkers JavaScript API 1.1
-// Project: https://developer.akamai.com/akamai-edgeworkers-overview
-// Definitions by: Evan Hughes <https://github.com/evan-hughes>
-//                 Will Bain <https://github.com/wabain>
-//                 Swathi Bala <https://github.com/swathimr>
-//                 Aman Nanner <https://github.com/ananner>
-//                 Ben Matthews <https://github.com/bmatthew>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Modifyed by: Shige Fukushima <sfukushi@akamai.com>
 //
@@ -1236,6 +1228,13 @@ declare module "encoding" {
          * @param outputFormat Optional argument for output format type.
          */
         decode(encodedData: string, outputFormat?: "String" | "Uint8Array"): DecodedValue;
+
+        /**
+         * @param dataToBeEncoded Input Uint8Array that needs to be encoded.
+         *
+         * @returns encoded base64 string.
+         */
+        encode(dataToBeEncoded: Uint8Array): string;
     }
 
     const base64: Base64;
@@ -1246,6 +1245,13 @@ declare module "encoding" {
          * @param outputFormat Optional argument for output format type.
          */
         decode(encodedData: string, outputFormat?: "String" | "Uint8Array"): DecodedValue;
+
+        /**
+         * @param dataToBeEncoded Input Uint8Array that needs to be encoded.
+         *
+         * @returns encoded base64url string.
+         */
+        encode(dataToBeEncoded: Uint8Array): string;
     }
 
     const base64url: Base64url;
@@ -1256,6 +1262,13 @@ declare module "encoding" {
          * @param outputFormat Optional argument for output format type.
          */
         decode(encodedData: string, outputFormat?: "String" | "Uint8Array"): DecodedValue;
+
+        /**
+         * @param dataToBeEncoded Input Uint8Array that needs to be encoded.
+         *
+         * @returns encoded base16 string.
+         */
+        encode(dataToBeEncoded: Uint8Array): string;
     }
 
     const base16: Base16;

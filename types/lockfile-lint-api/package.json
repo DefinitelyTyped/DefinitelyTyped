@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/lockfile-lint-api",
+    "version": "5.1.9999",
+    "projects": [
+        "https://github.com/lirantal/lockfile-lint/tree/master/packages/lockfile-lint-api"
+    ],
+    "devDependencies": {
+        "@types/lockfile-lint-api": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Markus Lasermann",
+            "githubUsername": "snaptags"
+        }
+    ]
+}

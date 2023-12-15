@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/node-sass-tilde-importer",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/matthewdavidson/node-sass-tilde-importer#readme"
+    ],
+    "dependencies": {
+        "@types/node-sass": "*"
+    },
+    "devDependencies": {
+        "@types/node-sass-tilde-importer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

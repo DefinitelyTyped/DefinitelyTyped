@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/stream-chain",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/uhop/stream-chain#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/stream-chain": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Eugene Lazutkin",
+            "githubUsername": "uhop"
+        }
+    ]
+}

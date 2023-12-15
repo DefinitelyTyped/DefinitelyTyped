@@ -1,24 +1,20 @@
 {
-  "compilerOptions": {
-      "module": "commonjs",
-      "lib": [
-          "es6",
-          "dom"
-      ],
-      "noImplicitAny": true,
-      "noImplicitThis": true,
-      "strictFunctionTypes": true,
-      "strictNullChecks": true,
-      "baseUrl": "../",
-      "typeRoots": [
-          "../"
-      ],
-      "types": [],
-      "noEmit": true,
-      "forceConsistentCasingInFileNames": true
-  },
-  "files": [
-      "index.d.ts",
-      "dom-view-transitions-tests.ts"
-  ]
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "dom-view-transitions-tests.ts"
+    ]
 }

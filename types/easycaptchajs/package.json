@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/easycaptchajs",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/HichemTab-tech/EasyCaptchaJS#readme"
+    ],
+    "devDependencies": {
+        "@types/easycaptchajs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "HichemTab",
+            "githubUsername": "HichemTab-tech"
+        }
+    ]
+}

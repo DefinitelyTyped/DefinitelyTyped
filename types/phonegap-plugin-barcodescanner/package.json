@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/phonegap-plugin-barcodescanner",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/phonegap/phonegap-plugin-barcodescanner"
+    ],
+    "devDependencies": {
+        "@types/cordova": "*",
+        "@types/phonegap-plugin-barcodescanner": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nathan Ainslie",
+            "url": "https://www.github.com/nainslie"
+        },
+        {
+            "name": "Jeff Wu",
+            "url": "https://www.github.com/jeffwu85182"
+        }
+    ]
+}

@@ -1,9 +1,3 @@
-// Type definitions for telebot 1.2
-// Project: https://github.com/mullwar/telebot
-// Definitions by: Simone Mariotti <https://github.com/mariotsi>
-//                 Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 export = telebot;
 declare namespace telebot {

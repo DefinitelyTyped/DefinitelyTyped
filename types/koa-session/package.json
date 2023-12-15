@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/koa-session",
+    "version": "6.4.9999",
+    "projects": [
+        "https://github.com/koajs/session"
+    ],
+    "dependencies": {
+        "@types/cookies": "*",
+        "@types/koa": "*"
+    },
+    "devDependencies": {
+        "@types/koa-router": "*",
+        "@types/koa-session": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Yu Hsin Lu",
+            "githubUsername": "kerol2r20"
+        },
+        {
+            "name": "Tomek Łaziuk",
+            "githubUsername": "tlaziuk"
+        },
+        {
+            "name": "Hiroshi Ioka",
+            "githubUsername": "hirochachacha"
+        }
+    ]
+}

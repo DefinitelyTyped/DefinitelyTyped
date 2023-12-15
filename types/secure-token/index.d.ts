@@ -1,8 +1,3 @@
-// Type definitions for secure-token 1.1
-// Project: https://github.com/emilbayes/secure-token
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**

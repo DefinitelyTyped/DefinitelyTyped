@@ -1,10 +1,3 @@
-// Type definitions for death 1.1
-// Project: https://github.com/jprichardson/node-death
-// Definitions by: Cameron Knight <https://github.com/ckknight>
-//                 Pranay Prakash <https://github.com/pranaygp>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 type Signal = "SIGINT" | "SIGTERM" | "SIGQUIT";
 
 /**

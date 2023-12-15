@@ -1,8 +1,3 @@
-// Type definitions for jiff 0.7
-// Project: https://github.com/cujojs/jiff#readme
-// Definitions by: Daniel Kneip <https://github.com/daedal-knickerbockers>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace jiff {
     type JSONArray = JSONValue[];
     type JSONObject = object;
@@ -62,7 +57,7 @@ declare var jiff: {
      *  x is a value, the new value will be returned.
      */
     patch(changes: jiff.JSONPatch, x: jiff.JSONValue, options?: jiff.PatchOptions): jiff.JSONValue;
-    patchInPlace(patch: jiff.JSONPatch, a: jiff.JSONValue): void;
+    patchInPlace(patch: jiff.JSONPatch, a: jiff.JSONValue, options?: jiff.PatchOptions): void;
 };
 
 export = jiff;

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/rifat__miio",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/torifat/miio"
+    ],
+    "dependencies": {
+        "@types/abstract-things": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/rifat__miio": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tadeusz Wyrzykowski",
+            "githubUsername": "Shaquu"
+        }
+    ]
+}

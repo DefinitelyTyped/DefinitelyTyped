@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/vosk",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/alphacep/vosk-api/tree/master/nodejs"
+    ],
+    "devDependencies": {
+        "@types/vosk": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ifeanyi Echeruo",
+            "githubUsername": "ifeanyiecheruo"
+        }
+    ]
+}

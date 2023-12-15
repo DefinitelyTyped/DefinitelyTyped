@@ -1,9 +1,3 @@
-// Type definitions for swagger-ui-dist 3.30
-// Project: https://github.com/swagger-api/swagger-ui#readme
-// Definitions by: Haowen <https://github.com/haowen737>
-//                 Bryce <https://github.com/brycematheson1234>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import implementation = require("./absolute-path");
 
 export as namespace SwaggerUIDist;

@@ -1,11 +1,3 @@
-// Type definitions for fundamental-react 0.14
-// Project: https://sap.github.io/fundamental-react
-// Definitions by: Frank Feinbube <https://github.com/Feinbube>
-//                 Milan Proell <https://github.com/milanpro>
-//                 Auryn Engel <https://github.com/auryn31>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 export { default as ActionBar } from "./lib/ActionBar/ActionBar";
 export { default as Avatar } from "./lib/Avatar/Avatar";
 export { default as Breadcrumb } from "./lib/Breadcrumb/Breadcrumb";

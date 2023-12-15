@@ -1,8 +1,3 @@
-// Type definitions for db.js v0.14.0
-// Project: https://github.com/aaronpowell/db.js/
-// Definitions by: Chris Wrench <https://github.com/cgwrench>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace DbJs {
     interface ErrorListener {
         (err: Error): void;
@@ -146,15 +141,15 @@ declare namespace DbJs {
         add<TKey, TValue>(table: string, entity: KeyValuePair<TKey, TValue>): Promise<KeyValuePair<TKey, TValue>>;
         add<TKey, TValue>(
             table: string,
-            ...entities: KeyValuePair<TKey, TValue>[]
-        ): Promise<KeyValuePair<TKey, TValue>[]>;
+            ...entities: Array<KeyValuePair<TKey, TValue>>
+        ): Promise<Array<KeyValuePair<TKey, TValue>>>;
         update<T>(table: string, entity: T): Promise<T>;
         update<T>(table: string, ...entities: T[]): Promise<T[]>;
         update<TKey, TValue>(table: string, entity: KeyValuePair<TKey, TValue>): Promise<KeyValuePair<TKey, TValue>>;
         update<TKey, TValue>(
             table: string,
-            ...entities: KeyValuePair<TKey, TValue>[]
-        ): Promise<KeyValuePair<TKey, TValue>[]>;
+            ...entities: Array<KeyValuePair<TKey, TValue>>
+        ): Promise<Array<KeyValuePair<TKey, TValue>>>;
         remove<TKey>(table: string, key: TKey): Promise<TKey>;
         remove<TKey>(table: string, ...keys: TKey[]): Promise<TKey[]>;
         clear(table: string): Promise<void>;
@@ -177,11 +172,13 @@ declare namespace DbJs {
         add(entity: T): Promise<T>;
         add(...entities: T[]): Promise<T[]>;
         add<TKey, TValue>(entity: KeyValuePair<TKey, TValue>): Promise<KeyValuePair<TKey, TValue>>;
-        add<TKey, TValue>(...entities: KeyValuePair<TKey, TValue>[]): Promise<KeyValuePair<TKey, TValue>[]>;
+        add<TKey, TValue>(...entities: Array<KeyValuePair<TKey, TValue>>): Promise<Array<KeyValuePair<TKey, TValue>>>;
         update(entity: T): Promise<T>;
         update(...entities: T[]): Promise<T[]>;
         update<TKey, TValue>(entity: KeyValuePair<TKey, TValue>): Promise<KeyValuePair<TKey, TValue>>;
-        update<TKey, TValue>(...entities: KeyValuePair<TKey, TValue>[]): Promise<KeyValuePair<TKey, TValue>[]>;
+        update<TKey, TValue>(
+            ...entities: Array<KeyValuePair<TKey, TValue>>
+        ): Promise<Array<KeyValuePair<TKey, TValue>>>;
         remove<TKey>(key: TKey): Promise<TKey>;
         remove<TKey>(...keys: TKey[]): Promise<TKey[]>;
         clear(): Promise<void>;

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/webpack-blocks__uglify",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/andywer/webpack-blocks/tree/master/packages/uglify"
+    ],
+    "dependencies": {
+        "@types/uglify-js": "*",
+        "@types/webpack-blocks": "*"
+    },
+    "devDependencies": {
+        "@types/webpack-blocks__uglify": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Max Boguslavskiy",
+            "githubUsername": "maxbogus"
+        }
+    ]
+}

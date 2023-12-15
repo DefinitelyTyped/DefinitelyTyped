@@ -1,8 +1,3 @@
-// Type definitions for hyper-function-component 2.1
-// Project: https://hyper-function.com/ponent
-// Definitions by: terry-fei <https://github.com/terry-fei>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type HyperFunctionComponent =
     & ((
         container: Element,

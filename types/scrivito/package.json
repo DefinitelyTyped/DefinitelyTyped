@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/scrivito",
+    "version": "1.22.9999",
+    "projects": [
+        "https://www.scrivito.com/"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/scrivito": "workspace:."
+    },
+    "owners": [
+        {
+            "name": " Julian Krieger",
+            "githubUsername": "juliankrieger"
+        },
+        {
+            "name": "Eric Eifler",
+            "githubUsername": "eric-the-viking"
+        }
+    ]
+}

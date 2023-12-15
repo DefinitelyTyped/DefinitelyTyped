@@ -1,6 +1,22 @@
 {
-  "private": true,
-  "dependencies": {
-    "eris": "^0.15.1"
-  }
+    "private": true,
+    "name": "@types/eris-sharder",
+    "version": "1.10.9999",
+    "projects": [
+        "https://github.com/discordware/eris-sharder"
+    ],
+    "dependencies": {
+        "eris": "^0.15.1",
+        "@types/node": "*",
+        "@types/ws": "*"
+    },
+    "devDependencies": {
+        "@types/eris-sharder": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "MathleteDev",
+            "githubUsername": "mathletedev"
+        }
+    ]
 }

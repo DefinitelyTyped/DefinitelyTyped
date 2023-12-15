@@ -1,8 +1,3 @@
-// Type definitions for use-color-scheme 1.1
-// Project: https://github.com/mujo-code/use-color-scheme
-// Definitions by: Marton Lederer <https://github.com/martonlederer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type Preference = typeof PREFERENCES[keyof typeof PREFERENCES];
 
 export const PREFERENCES: {

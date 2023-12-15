@@ -1,8 +1,3 @@
-// Type definitions for ecore 0.12
-// Project: https://github.com/emfjson/ecore.js
-// Definitions by: Mike Tugushev <https://github.com/michael-whi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export function create(eClass: EClass): EObject;
 
 export let EClass: EClass;

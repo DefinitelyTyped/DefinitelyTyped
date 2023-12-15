@@ -8,19 +8,10 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "@adobe/*": [
-              "adobe__*"
-            ]
-          }
-          },
+        "forceConsistentCasingInFileNames": true
+    },
     "files": [
         "index.d.ts",
         "adobe__pdfservices-node-sdk-tests.ts"

@@ -1,18 +1,3 @@
-// Type definitions for react-redux 6.0
-// Project: https://github.com/reduxjs/react-redux
-// Definitions by: Qubo <https://github.com/tkqubo>
-//                 Curits Layne <https://github.com/clayne11>
-//                 Frank Tan <https://github.com/tansongyang>
-//                 Nicholas Boll <https://github.com/nicholasboll>
-//                 Dibyo Majumdar <https://github.com/mdibyo>
-//                 Prashant Deva <https://github.com/pdeva>
-//                 Valentin Descamps <https://github.com/val1984>
-//                 Johann Rakotoharisoa <https://github.com/jrakotoharisoa>
-//                 Anatoli Papirovski <https://github.com/apapirovski>
-//                 Boris Sergeyev <https://github.com/surgeboris>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 // Known Issue:
 // There is a known issue in TypeScript, which doesn't allow decorators to change the signature of the classes
 // they are decorating. Due to this, if you are using @connect() decorator in your code,
@@ -25,7 +10,7 @@
 // to update this type definitions for redux@4.x from redux@3.x.
 // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/25321
 
-import { Component, ComponentClass, ComponentType, FunctionComponent, ReactNode } from "react";
+import { Component, ComponentClass, ComponentType, FunctionComponent, JSX, ReactNode } from "react";
 
 import { Action, ActionCreator, AnyAction, Dispatch, Store } from "redux";
 
@@ -334,8 +319,8 @@ export interface Options<State = {}, TStateProps = {}, TOwnProps = {}, TMergedPr
  * @param connectOptions If specified, further customizes the behavior of the connector. Additionally, any extra
  *     options will be passed through to your <code>selectorFactory</code> in the <code>factoryOptions</code> argument.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function connectAdvanced<S, TProps, TOwnProps, TFactoryOptions = {}>(
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     selectorFactory: SelectorFactory<S, TProps, TOwnProps, TFactoryOptions>,
     connectOptions?: ConnectOptions & TFactoryOptions,
 ): AdvancedComponentDecorator<TProps, TOwnProps>;

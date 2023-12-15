@@ -1,25 +1,21 @@
 {
-  "compilerOptions": {
-      "module": "commonjs",
-      "lib": [
-          "dom",
-          "es6"
-      ],
-      "noImplicitAny": true,
-      "noImplicitThis": true,
-      "strictNullChecks": true,
-      "strictFunctionTypes": true,
-      "baseUrl": "../",
-      "typeRoots": [
-          "../"
-      ],
-      "esModuleInterop": true,
-      "types": [],
-      "noEmit": true,
-      "forceConsistentCasingInFileNames": true
-  },
-  "files": [
-      "index.d.ts",
-      "jsdom-screenshot-tests.ts"
-  ]
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "dom",
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "esModuleInterop": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "jsdom-screenshot-tests.ts"
+    ]
 }

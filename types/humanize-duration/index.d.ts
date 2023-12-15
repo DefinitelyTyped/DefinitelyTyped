@@ -1,9 +1,3 @@
-// Type definitions for humanize-duration 3.27
-// Project: https://github.com/EvanHahn/HumanizeDuration.js
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Evan Hahn <https://github.com/EvanHahn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace humanizeDuration;
 
 declare namespace humanizeDuration {

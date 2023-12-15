@@ -1,8 +1,3 @@
-// Type definitions for @hapipal/toys 3.0
-// Project: https://github.com/hapipal/toys#readme
-// Definitions by: Tim Costa <https://github.com/timcosta>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Boom } from "@hapi/boom";
 import {
     Lifecycle,

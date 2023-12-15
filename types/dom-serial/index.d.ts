@@ -1,8 +1,3 @@
-// Type definitions for non-npm package Web Serial API based on spec and Chromium implementation 1.0
-// Project: https://wicg.github.io/serial/
-// Definitions by: Maciej Mroziński <https://github.com/maciejmrozinski>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type EventHandler = (event: Event) => void;
 
 interface SerialPortInfoBase {

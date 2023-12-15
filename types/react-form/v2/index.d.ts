@@ -1,10 +1,3 @@
-// Type definitions for react-form 2.16
-// Project: https://github.com/react-tools/react-form
-// Definitions by: Cameron McAteer <https://github.com/cameron-mcateer>
-//                 Mathieu Masy <https://github.com/TiuSh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 // Helper Types
@@ -19,7 +12,7 @@ export interface FormErrors {
     [key: string]: FormError;
 }
 export type NestedErrors = Nested<FormErrors>;
-export type RenderReturn = JSX.Element | false | null | never[];
+export type RenderReturn = React.JSX.Element | false | null | never[];
 
 export interface FormState {
     values: FormValues;

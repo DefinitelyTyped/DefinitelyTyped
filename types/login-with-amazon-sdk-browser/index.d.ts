@@ -1,9 +1,3 @@
-// Type definitions for non-npm package login-with-amazon-sdk-browser 1.0
-// Project: https://developer.amazon.com/login-with-amazon
-// Definitions by: Jeff Held <https://github.com/solkaz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /**
  * Option form to request an access token.
  */

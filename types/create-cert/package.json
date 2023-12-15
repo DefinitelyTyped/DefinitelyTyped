@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/create-cert",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/lukechilds/create-cert"
+    ],
+    "dependencies": {
+        "@types/pem": "*"
+    },
+    "devDependencies": {
+        "@types/create-cert": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chris Midgley",
+            "githubUsername": "midgleyc"
+        }
+    ]
+}

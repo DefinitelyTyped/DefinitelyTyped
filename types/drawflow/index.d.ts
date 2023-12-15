@@ -1,13 +1,46 @@
-// Type definitions for drawflow 0.0
-// Project: https://github.com/jerosoler/Drawflow
-// Definitions by: Benjamin Maisonneuve <https://github.com/BobBDE>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Declare the workflow module to be able to used it in typescript
 // this file must be defined in the include in tsconfig.json
 
 export default class Drawflow {
     constructor(element: HTMLElement, render?: object, parent?: object);
+
+    /**
+     * @default {}
+     */
+    events: Record<string, { listeners: Array<(args: any) => void> }>;
+
+    /**
+     * @required
+     */
+    container: HTMLElement;
+
+    /**
+     * @default 1
+     */
+    nodeId: number;
+
+    /**
+     * @default null
+     */
+    ele_selected: HTMLElement | null;
+
+    /**
+     * @default null
+     */
+    node_selected: HTMLElement | null;
+
+    /**
+     * Drag nodes on click inputs
+     * @default false
+     */
+    drag: boolean;
+
+    /**
+     * @param eventName
+     * @param detail
+     */
+    dispatch: (eventName: string, detail: any) => void;
+
     /**
      * Active reroute
      * @default false
@@ -45,10 +78,40 @@ export default class Drawflow {
     reroute_width: number;
 
     /**
+     * flag for drawflow drag point
+     */
+    drag_point: boolean;
+
+    /**
+     * flag for drawflow editor canvas selected
+     */
+    editor_selected: boolean;
+
+    /**
+     * flag for drawflow connnection line
+     */
+    connection: boolean;
+
+    /**
+     * connection element
+     */
+    connection_ele: HTMLElement | null;
+
+    /**
+     *  selected connection
+     */
+    connection_selected: HTMLElement | null;
+
+    /**
      * Width of line
      * @default 5
      */
     line_path: number;
+
+    /**
+     * first clicked element
+     */
+    first_click: HTMLElement | null;
 
     /**
      * Force the first input to drop the connection on top of the node
@@ -109,6 +172,45 @@ export default class Drawflow {
     canvas_y: number;
 
     /**
+     * focused x coordinate
+     */
+    pos_x: number;
+
+    /**
+     * original x coordinate
+     */
+    pos_x_start: number;
+
+    /**
+     * focused x coordinate
+     */
+    pos_y: number;
+
+    /**
+     * original x coordinate
+     */
+    pos_y_start: number;
+
+    /**
+     * mouse x coordinate
+     */
+    mouse_x: number;
+    /**
+     * mouse y coordinate
+     */
+    mouse_y: number;
+
+    /**
+     * mobile event cache list
+     */
+    evCache: any[];
+
+    /**
+     * the diff between previous handlers and current
+     */
+    prevDiff: number;
+
+    /**
      * Graph data object
      */
     drawflow: DrawflowExport;
@@ -123,6 +225,26 @@ export default class Drawflow {
      * The drawflow "canvas" element
      */
     precanvas: HTMLElement;
+
+    /**
+     * The drawflow parent element
+     */
+    parent: object;
+
+    /**
+     * registered nodes for reuse.
+     */
+    noderegister: object;
+
+    /**
+     * user defined renderer, for example vue
+     */
+    render: object;
+
+    /**
+     * module name
+     */
+    module: string;
 
     start(): void;
 

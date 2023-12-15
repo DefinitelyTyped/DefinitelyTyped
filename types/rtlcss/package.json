@@ -1,6 +1,20 @@
 {
     "private": true,
+    "name": "@types/rtlcss",
+    "version": "3.5.9999",
+    "projects": [
+        "https://github.com/MohammadYounes/rtlcss"
+    ],
     "dependencies": {
         "postcss": "^8.2.x"
-    }
+    },
+    "devDependencies": {
+        "@types/rtlcss": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
 }

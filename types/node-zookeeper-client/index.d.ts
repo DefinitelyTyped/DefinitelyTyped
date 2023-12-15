@@ -1,10 +1,3 @@
-// Type definitions for node-zookeeper-client 0.2
-// Project: https://github.com/alexguan/node-zookeeper-client
-// Definitions by: York Yao <https://github.com/plantain-00>
-//                 Jesse Zhang <https://github.com/jessezhang91>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
@@ -31,17 +24,17 @@ export const Permission: {
 };
 
 export interface Stat {
-    czxid: number;
-    mzxid: number;
-    ctime: number;
-    mtime: number;
+    czxid: Buffer;
+    mzxid: Buffer;
+    ctime: Buffer;
+    mtime: Buffer;
     version: number;
     cversion: number;
     aversion: number;
-    ephemeralOwner: number;
+    ephemeralOwner: Buffer;
     dataLength: number;
     numChildren: number;
-    pzxid: number;
+    pzxid: Buffer;
 }
 
 export class State {
@@ -224,10 +217,10 @@ export class Exception {
     name: string;
     path?: string | undefined;
 
-    // tslint:disable-next-line ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     constructor(code: number, name: string, path: string, ctor: Function);
 
-    // tslint:disable-next-line ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     constructor(code: number, name: string, ctor: Function);
 
     toString(): string;

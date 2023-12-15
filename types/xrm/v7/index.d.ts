@@ -1,8 +1,3 @@
-// Type definitions for Microsoft Dynamics xRM API v7.1
-// Project: http://www.microsoft.com/en-us/download/details.aspx?id=44567
-// Definitions by: David Berry <https://github.com/6ix4our/>, Matt Ngan <https://github.com/mattngan/>, Markus Mauch <https://github.com/markusmauch/>, Daryl LaBar <https://github.com/daryllabar>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var Xrm: Xrm.XrmStatic;
 declare function GetGlobalContext(): Xrm.Context;
 

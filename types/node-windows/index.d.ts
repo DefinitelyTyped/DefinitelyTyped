@@ -1,9 +1,3 @@
-// Type definitions for node-windows 0.1
-// Project: https://github.com/coreybutler/node-windows
-// Definitions by: Ken Human <https://github.com/kenhuman>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="node" />
 
 import { ExecException } from "child_process";

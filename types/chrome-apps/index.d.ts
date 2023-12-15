@@ -1,17 +1,3 @@
-// Type definitions for Chrome packaged application development
-// Project: http://developer.chrome.com/apps/
-// Definitions by: Nikolai Ommundsen <https://github.com/niikoo>
-//                 Adam Lay <https://github.com/AdamLay>
-//                 MIZUSHIMA Junki <https://github.com/mzsm>
-//                 Ingconst Stepanyan <https://github.com/RReverser>
-//                 Adam Pyle <https://github.com/pyle>
-//                 Matthew Kimber <https://github.com/matthewkimber>
-//                 otiai10 <https://github.com/otiai10>
-//                 RReverser <https://github.com/rreverser>
-//                 sreimer15 <https://github.com/sreimer15>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types='filesystem'/>
 
 //
@@ -2372,7 +2358,7 @@ declare namespace chrome {
              * @default ['page'] - Defaults to ['page'] if not specified.
              * @see ContextType
              */
-            contexts?: ToStringLiteral<typeof ContextType>[] | undefined;
+            contexts?: Array<ToStringLiteral<typeof ContextType>> | undefined;
 
             /**
              * Whether the item is visible in the menu.
@@ -2416,7 +2402,7 @@ declare namespace chrome {
             title?: string | undefined;
             checked?: boolean | undefined;
             /** @see ContextType */
-            contexts?: ToStringLiteral<typeof ContextType>[] | undefined;
+            contexts?: Array<ToStringLiteral<typeof ContextType>> | undefined;
             /**
              * Whether the item is visible in the menu.
              * @since Chrome 62.
@@ -2494,7 +2480,7 @@ declare namespace chrome {
          * @return Request ID to be used by cancelChooseDesktopMedia
          */
         function chooseDesktopMedia(
-            sources: ToStringLiteral<typeof DesktopCaptureSourceType>[],
+            sources: Array<ToStringLiteral<typeof DesktopCaptureSourceType>>,
             callback: (streamId: string) => void,
         ): integer;
 
@@ -5501,7 +5487,7 @@ declare namespace chrome {
              * The currently available launch types.
              * @since Chrome 37.
              */
-            availableLaunchTypes?: ToStringLiteral<typeof LaunchType>[] | undefined;
+            availableLaunchTypes?: Array<ToStringLiteral<typeof LaunchType>> | undefined;
         }
 
         /** Information about an icon belonging to an extension, app, or theme. */
@@ -6969,7 +6955,7 @@ declare namespace chrome {
              * empty list, however, certificates of any type will be returned.
              * @see ClientCertificateType
              */
-            certificateTypes: ToStringLiteral<typeof ClientCertificateType>[];
+            certificateTypes: Array<ToStringLiteral<typeof ClientCertificateType>>;
 
             /**
              * List of distinguished names of certificate authorities allowed by the
@@ -7593,7 +7579,7 @@ declare namespace chrome {
             mediaGalleries: Array<"read" | "allAutoDetected">;
         }
         interface USBDevicesPermission {
-            usbDevices: { vendorId: integer; productId: integer }[];
+            usbDevices: Array<{ vendorId: integer; productId: integer }>;
         }
         interface FileSystemPermission {
             /**
@@ -7822,7 +7808,7 @@ declare namespace chrome {
              * @example
              * 'action_handlers': ['new_note']
              */
-            action_handlers?: ToStringLiteral<typeof app.runtime.ActionType>[] | undefined;
+            action_handlers?: Array<ToStringLiteral<typeof app.runtime.ActionType>> | undefined;
 
             /**
              * App author information
@@ -7900,20 +7886,26 @@ declare namespace chrome {
              * to read the page's content using **declarativeContent**.
              * @see https://developer.chrome.com/extensions/manifest/event_rules
              */
-            event_rules?: {
-                /** Event name */
-                event?: chrome.webViewRequest.DeclarativeWebRequestEventList | undefined;
-                actions?: {
-                    /** Action type */
-                    type: chrome.webViewRequest.DeclarativeWebRequestActionsList;
-                }[] | undefined;
-                conditions?: {
-                    /** Condition */
-                    type: chrome.webViewRequest.DeclarativeWebRequestConditionsList;
-                    /** Arguments, see original condition docs in chrome.webViewRequest */
-                    [key: string]: any | any[];
-                }[] | undefined;
-            }[] | undefined;
+            event_rules?:
+                | Array<{
+                    /** Event name */
+                    event?: chrome.webViewRequest.DeclarativeWebRequestEventList | undefined;
+                    actions?:
+                        | Array<{
+                            /** Action type */
+                            type: chrome.webViewRequest.DeclarativeWebRequestActionsList;
+                        }>
+                        | undefined;
+                    conditions?:
+                        | Array<{
+                            /** Condition */
+                            type: chrome.webViewRequest.DeclarativeWebRequestConditionsList;
+                            /** Arguments, see original condition docs in chrome.webViewRequest */
+                            [key: string]: any | any[];
+                        }>
+                        | undefined;
+                }>
+                | undefined;
 
             /**
              * Declares which extensions, apps, and web pages can connect
@@ -7944,20 +7936,22 @@ declare namespace chrome {
              * @requires Location': 'component'
              * You can specify locale-specific strings for the value of 'default_title'
              */
-            file_browser_handlers?: {
-                /** Handler id */
-                id: string;
-                /** What the button will display */
-                default_title: string;
-                /** Icon */
-                default_icon: string;
-                /**
-                 * To match all files, use 'filesystem:*.*'
-                 */
-                file_filters: string[];
-                /** ['read'] = read only mode */
-                file_access?: ["read"] | string[] | undefined;
-            }[] | undefined;
+            file_browser_handlers?:
+                | Array<{
+                    /** Handler id */
+                    id: string;
+                    /** What the button will display */
+                    default_title: string;
+                    /** Icon */
+                    default_icon: string;
+                    /**
+                     * To match all files, use 'filesystem:*.*'
+                     */
+                    file_filters: string[];
+                    /** ['read'] = read only mode */
+                    file_access?: ["read"] | string[] | undefined;
+                }>
+                | undefined;
 
             /**
              * Triggers a launch of the app when one of these files are handled.
@@ -7997,9 +7991,11 @@ declare namespace chrome {
              * Import resources from another extension / app.
              * @see https://developer.chrome.com/apps/shared_modules
              */
-            import?: {
-                id: string;
-            }[] | undefined;
+            import?:
+                | Array<{
+                    id: string;
+                }>
+                | undefined;
 
             /** This value can be used to control the unique ID of an app when it is loaded during development. */
             key?: string | undefined;
@@ -8012,12 +8008,14 @@ declare namespace chrome {
             minimum_chrome_version?: string | undefined;
 
             /** One or more mappings from MIME types to the Native Client module that handles each type. */
-            nacl_modules?: {
-                /** The location of a Native Client manifest (a .nmf file) within the app's directory. */
-                path: string;
-                /** The MIME type for which the Native Client module will be registered as content handler. */
-                mime_type: string;
-            }[] | undefined;
+            nacl_modules?:
+                | Array<{
+                    /** The location of a Native Client manifest (a .nmf file) within the app's directory. */
+                    path: string;
+                    /** The MIME type for which the Native Client module will be registered as content handler. */
+                    mime_type: string;
+                }>
+                | undefined;
 
             /**
              * Use the Chrome Identity API to authenticate users:
@@ -8060,10 +8058,12 @@ declare namespace chrome {
              * @see https://github.com/crosswalk-project/chromium-crosswalk/blob/af36cc3ce3f5fcb8033f16236725718f8012abfe/native_client_sdk/src/doc/devguide/distributing.rst
              * @see https://github.com/crosswalk-project/chromium-crosswalk/blob/af36cc3ce3f5fcb8033f16236725718f8012abfe/native_client_sdk/src/tools/fix_manifest.py
              */
-            platforms?: {
-                nacl_arch: ToStringLiteral<typeof chrome.runtime.PlatformNaclArch>;
-                sub_package_path: string;
-            }[] | undefined;
+            platforms?:
+                | Array<{
+                    nacl_arch: ToStringLiteral<typeof chrome.runtime.PlatformNaclArch>;
+                    sub_package_path: string;
+                }>
+                | undefined;
 
             /**
              * Technologies required by the app. Hosting sites such

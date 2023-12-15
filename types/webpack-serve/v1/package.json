@@ -1,6 +1,28 @@
 {
     "private": true,
+    "name": "@types/webpack-serve",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/webpack-contrib/webpack-serve"
+    ],
     "dependencies": {
-        "@types/webpack-dev-middleware": "3"
-    }
+        "@types/koa": "*",
+        "@types/node": "*",
+        "@types/webpack": "^4",
+        "@types/webpack-dev-middleware": "3",
+        "@types/webpack-hot-client": "*"
+    },
+    "devDependencies": {
+        "@types/webpack-serve": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jokcy",
+            "githubUsername": "Jokcy"
+        },
+        {
+            "name": "ZSkycat",
+            "githubUsername": "ZSkycat"
+        }
+    ]
 }

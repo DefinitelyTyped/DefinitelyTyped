@@ -1,15 +1,3 @@
-// Type definitions for newrelic 9.14
-// Project: https://github.com/newrelic/node-newrelic
-// Definitions by: Matt R. Wilson <https://github.com/mastermatt>
-//                 Brooks Patton <https://github.com/brookspatton>
-//                 Michael Bond <https://github.com/MichaelRBond>
-//                 Kyle Scully <https://github.com/zieka>
-//                 Kenneth Aasan <https://github.com/kennethaasan>
-//                 Jon Flaishans <https://github.com/funkswing>
-//                 Dylan Smith <https://github.com/dylansmith>
-//                 BlueJeans by Verizon <https://github.com/bluejeans>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // https://docs.newrelic.com/docs/agents/nodejs-agent/api-guides/nodejs-agent-api
 
 /**

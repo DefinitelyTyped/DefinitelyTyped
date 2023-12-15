@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/express-useragent",
+    "version": "1.0.9999",
+    "projects": [
+        "https://www.npmjs.org/package/express-useragent"
+    ],
+    "dependencies": {
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/express-useragent": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Isman Usoh",
+            "githubUsername": "isman-usoh"
+        },
+        {
+            "name": "Ciarán Ingle",
+            "githubUsername": "inglec-arista"
+        }
+    ]
+}

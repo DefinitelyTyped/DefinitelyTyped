@@ -1,9 +1,3 @@
-// Type definitions for ping 0.4
-// Project: https://github.com/danielzzz/node-ping
-// Definitions by: Richard Honor <https://github.com/RMHonor>
-//                 BendingBender <https://github.com/bendingbender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface PingConfig {
     /**
      * Map IP address to hostname or not.

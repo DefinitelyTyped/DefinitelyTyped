@@ -1,8 +1,8 @@
-import { Vector3 } from './../math/Vector3.js';
+import { Vector3 } from '../math/Vector3.js';
 import { Object3D } from './Object3D.js';
-import { Vector2 } from './../math/Vector2.js';
-import { Ray } from './../math/Ray.js';
-import { Camera } from './../cameras/Camera.js';
+import { Vector2 } from '../math/Vector2.js';
+import { Ray } from '../math/Ray.js';
+import { Camera } from '../cameras/Camera.js';
 import { Layers } from './Layers.js';
 
 export interface Face {
@@ -31,15 +31,17 @@ export interface Intersection<TIntersected extends Object3D = Object3D> {
     normal?: Vector3;
     /** The index number of the instance where the ray intersects the {@link THREE.InstancedMesh | InstancedMesh } */
     instanceId?: number | undefined;
+    pointOnLine?: Vector3;
+    batchId?: number;
 }
 
 export interface RaycasterParameters {
-    Mesh?: any;
-    Line?: { threshold: number } | undefined;
-    Line2?: { threshold: number } | undefined;
-    LOD?: any;
-    Points?: { threshold: number } | undefined;
-    Sprite?: any;
+    Mesh: any;
+    Line: { threshold: number };
+    Line2?: { threshold: number };
+    LOD: any;
+    Points: { threshold: number };
+    Sprite: any;
 }
 
 /**

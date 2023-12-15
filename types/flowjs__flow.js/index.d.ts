@@ -1,8 +1,3 @@
-// Type definitions for @flowjs/flow.js 2.13
-// Project: https://github.com/flowjs/flow.js
-// Definitions by: gentoo90 <https://github.com/gentoo90>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import flowjs = require("flowjs");
 
 declare class Flow extends flowjs.Flow {}

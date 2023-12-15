@@ -1,9 +1,3 @@
-// Type definitions for flat 5.0.0
-// Project: https://github.com/hughsk/flat
-// Definitions by:  Ilya Mochalov <https://github.com/chrootsu>
-//                  Oz Weiss <https://github.com/thewizarodofoz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var flatten: FlatTypes.Flatten;
 
 export = flatten;

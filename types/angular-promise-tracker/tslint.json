@@ -1,9 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "interface-name": false,
-        "no-object-literal-type-assertion": false,
-        "no-reference-import": false,
-        "no-unnecessary-qualifier": false
-    }
-}

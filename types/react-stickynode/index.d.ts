@@ -1,12 +1,3 @@
-// Type definitions for react-stickynode 4.0
-// Project: https://github.com/yahoo/react-stickynode
-// Definitions by: Tim Stirrat <https://github.com/tstirrat>
-//                 Kamil Socha <https://github.com/ksocha>
-//                 Mirek Ciastek <https://github.com/mciastek>
-//                 Yanick Dickbauer <https://github.com/yanickdi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export = Sticky;

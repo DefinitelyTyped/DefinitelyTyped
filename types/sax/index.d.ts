@@ -1,10 +1,3 @@
-// Type definitions for sax-js 1.2
-// Project: https://github.com/isaacs/sax-js
-// Definitions by: Vincent Siao (Asana, Inc.) <https://github.com/vsiao>
-//                 Evert Pot <https://github.com/evert>
-//                 Daniel Cassidy <https://github.com/djcsdy>
-//                 Fabian van der Veen <https://github.com/fvanderveen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
 export const EVENTS: string[];

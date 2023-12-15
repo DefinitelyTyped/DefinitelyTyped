@@ -10,7 +10,7 @@ function resizeObserverCreates(): void {
     resizeObserver.disconnect();
 }
 
-function resizeObserverCallback(entries: ReadonlyArray<ResizeObserverEntry>): void {
+function resizeObserverCallback(entries: readonly ResizeObserverEntry[]): void {
     for (const entry of entries) {
         const rect = entry.contentRect;
         console.log(`Content Rect is ${rect.width}, ${rect.height}`);

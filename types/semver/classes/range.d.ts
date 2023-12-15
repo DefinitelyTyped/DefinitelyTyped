@@ -13,8 +13,8 @@ declare class Range {
     format(): string;
     inspect(): string;
 
-    set: ReadonlyArray<ReadonlyArray<Comparator>>;
-    parseRange(range: string): ReadonlyArray<Comparator>;
+    set: ReadonlyArray<readonly Comparator[]>;
+    parseRange(range: string): readonly Comparator[];
     test(version: string | SemVer): boolean;
     intersects(range: Range, optionsOrLoose?: boolean | semver.Options): boolean;
 }

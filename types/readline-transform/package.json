@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/readline-transform",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/tilfin/readline-transform"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/readline-transform": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Roszatycki",
+            "githubUsername": "dex4er"
+        }
+    ]
+}

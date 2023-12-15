@@ -1,8 +1,3 @@
-// Type definitions for @genyus/country-code 1.0
-// Project: https://github.com/lwhiteley/cc#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Country Code utility Library
  */

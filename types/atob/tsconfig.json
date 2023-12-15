@@ -5,11 +5,9 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
+        "lib": [
+            "es6"
         ],
-        "lib": ["es6"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

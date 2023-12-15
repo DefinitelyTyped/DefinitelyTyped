@@ -1,7 +1,3 @@
-// Type definitions for pdf-thumbnail 1.0
-// Project: https://github.com/nicoFuccella/pdf-thumbnail#readme
-// Definitions by: Kirill Koshil <https://github.com/koshilki>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
 declare namespace pdf {

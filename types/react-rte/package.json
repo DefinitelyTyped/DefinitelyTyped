@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/react-rte",
+    "version": "0.16.9999",
+    "projects": [
+        "https://github.com/sstur/react-rte"
+    ],
+    "dependencies": {
+        "@types/draft-js": "*",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-rte": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "jclyons52",
+            "githubUsername": "jclyons52"
+        },
+        {
+            "name": "Munif Tanjim",
+            "githubUsername": "MunifTanjim"
+        }
+    ]
+}

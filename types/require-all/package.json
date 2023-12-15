@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/require-all",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/felixge/node-require-all#readme"
+    ],
+    "devDependencies": {
+        "@types/require-all": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ivan Sadykov",
+            "githubUsername": "Sonahit"
+        }
+    ]
+}

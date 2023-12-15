@@ -1,8 +1,3 @@
-// Type definitions for findandreplacedomtext 0.4
-// Project: https://github.com/padolsey/findAndReplaceDOMText
-// Definitions by: BART! <https://github.com/bartholomej>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Options {
     /**
      * Something to search for. A string will perform a global search by default (looking for all matches), but a RegExp will only do so if you include the global (/.../g) flag.

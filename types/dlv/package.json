@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/dlv",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/developit/dlv#readme"
+    ],
+    "devDependencies": {
+        "@types/dlv": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ryan Sonshine",
+            "githubUsername": "ryansonshine"
+        }
+    ]
+}

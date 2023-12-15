@@ -176,7 +176,7 @@ map.on("load", function() {
         },
     });
 
-    var layers: [number, string][] = [
+    var layers: Array<[number, string]> = [
         [150, "#f28cb1"],
         [20, "#f1f075"],
         [0, "#51bbd6"],
@@ -325,6 +325,16 @@ map.flyTo({
         return t;
     },
     maxDuration: 1,
+});
+
+// RotateTo
+map.rotateTo(45, {
+    duration: 2000,
+    animate: true,
+    easing: (t) => t,
+    center: [-122.3085, 47.5505],
+    zoom: 10,
+    pitch: 60,
 });
 
 // QueryRenderedFeatures

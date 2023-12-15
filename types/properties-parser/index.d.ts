@@ -1,8 +1,3 @@
-// Type definitions for properties-parser 0.3
-// Project: https://github.com/xavi-/node-properties-parser
-// Definitions by: Segev Finer <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import type * as fs from "fs";

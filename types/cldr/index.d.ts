@@ -1,8 +1,3 @@
-// Type definitions for cldr 7.1
-// Project: https://github.com/papandreou/node-cldr
-// Definitions by: Chris Wilkinson <https://github.com/thewilkybarkid>
-//                 Jesse Plymale <https://github.com/jesseplymale>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference lib="dom" />
 
 export interface WindowsZone {

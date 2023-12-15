@@ -1,15 +1,3 @@
-// Type definitions for Koa 2.13.1
-// Project: http://koajs.com
-// Definitions by: jKey Lu <https://github.com/jkeylu>
-//                 Brice Bernard <https://github.com/brikou>
-//                 harryparkdotio <https://github.com/harryparkdotio>
-//                 Wooram Jun <https://github.com/chatoo2412>
-//                 Christian Vaagland Tellnes <https://github.com/tellnes>
-//                 Piotr Kuczynski <https://github.com/pkuczynski>
-//                 vnoder <https://github.com/vnoder>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /* =================== USAGE ===================
 
     import * as Koa from "koa"
@@ -447,7 +435,7 @@ declare class Application<
     proxy: boolean;
     proxyIpHeader: string;
     maxIpsCount: number;
-    middleware: Application.Middleware<StateT, ContextT>[];
+    middleware: Array<Application.Middleware<StateT, ContextT>>;
     subdomainOffset: number;
     env: string;
     context: Application.BaseContext & ContextT;

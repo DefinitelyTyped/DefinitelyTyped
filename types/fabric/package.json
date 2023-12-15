@@ -1,0 +1,65 @@
+{
+    "private": true,
+    "name": "@types/fabric",
+    "version": "5.3.9999",
+    "projects": [
+        "http://fabricjs.com/"
+    ],
+    "devDependencies": {
+        "@types/fabric": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Oliver Klemencic",
+            "githubUsername": "oklemencic"
+        },
+        {
+            "name": "Joseph Livecchi",
+            "githubUsername": "joewashear007"
+        },
+        {
+            "name": "Michael Randolph",
+            "githubUsername": "mrand01"
+        },
+        {
+            "name": "Tiger Oakes",
+            "githubUsername": "NotWoods"
+        },
+        {
+            "name": "Brian Martinson",
+            "githubUsername": "bmartinson"
+        },
+        {
+            "name": "Rogerio Teixeira",
+            "githubUsername": "RogerioTeixeira"
+        },
+        {
+            "name": "Bradley Hill",
+            "githubUsername": "BradleyHill"
+        },
+        {
+            "name": "Bryan Krol",
+            "githubUsername": "bmkrol823"
+        },
+        {
+            "name": "Glenn Gartner",
+            "githubUsername": "glenngartner"
+        },
+        {
+            "name": "Codertx",
+            "githubUsername": "codertx"
+        },
+        {
+            "name": "Mike Moore",
+            "githubUsername": "mike667"
+        },
+        {
+            "name": "Natalie Marleny",
+            "githubUsername": "nataliemarleny"
+        },
+        {
+            "name": "Cody Brooks",
+            "githubUsername": "buzzyboy"
+        }
+    ]
+}

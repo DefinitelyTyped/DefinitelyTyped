@@ -1,8 +1,3 @@
-// Type definitions for system-task 1.0
-// Project: https://github.com/leocwlam/system-task
-// Definitions by: Leo Lam <https://github.com/leocwlam>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class SystemTask {
     type: string;
 

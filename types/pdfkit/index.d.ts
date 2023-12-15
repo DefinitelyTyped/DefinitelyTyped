@@ -1,15 +1,3 @@
-// Type definitions for Pdfkit v0.12.3
-// Project: http://pdfkit.org
-// Definitions by: Eric Hillah <https://github.com/erichillah>
-//                 Erik Berreßem <https://github.com/she11sh0cked>
-//                 Jeroen Vervaeke <https://github.com/jeroenvervaeke/>
-//                 Thales Agapito <https://github.com/thalesagapito/>
-//                 Evgeny Baram <https://github.com/r4tz52/>
-//                 Benjamin Just <https://github.com/BamButz/>
-//                 Joanna Gabis <https://github.com/jg-mms/>
-//                 Robin Guinant <https://github.com/Foohx>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare namespace PDFKit {
@@ -52,12 +40,12 @@ declare namespace PDFKit.Mixins {
     interface AnnotationOption {
         Type?: string | undefined;
         Rect?: any;
-        Border?: Array<number> | undefined;
+        Border?: number[] | undefined;
         SubType?: string | undefined;
         Contents?: string | undefined;
         Name?: string | undefined;
         color?: string | undefined;
-        QuadPoints?: Array<number> | undefined;
+        QuadPoints?: number[] | undefined;
 
         A?: any;
         B?: any;
@@ -374,8 +362,16 @@ declare namespace PDFKit.Mixins {
         font(src: PDFFontSource, family: string, size?: number): this;
         fontSize(size: number): this;
         currentLineHeight(includeGap?: boolean): number;
-        registerFont(name: string, src?: PDFFontSource, family?: string): this;
+        /** Helpful method to give a font an alias, eg: `registerFont('bold', './Roboto.ttf')` */
+        registerFont(
+            name: string,
+            src?: PDFFontSource,
+            /** Only specify family if the font type is `TTC` or `DFont` */
+            family?: string,
+        ): this;
     }
+
+    type ImageSrc = Buffer | ArrayBuffer | string;
 
     interface ImageOption {
         width?: number | undefined;
@@ -395,9 +391,11 @@ declare namespace PDFKit.Mixins {
     interface PDFImage {
         /**
          * Draw an image in PDFKit document.
+         *
+         * Warning: If string 'src' is provided, the file will be loaded synchronously using `fs.readFileSync(src)`!
          */
-        image(src: any, x?: number, y?: number, options?: ImageOption): this;
-        image(src: any, options?: ImageOption): this;
+        image(src: ImageSrc, x?: number, y?: number, options?: ImageOption): this;
+        image(src: ImageSrc, options?: ImageOption): this;
     }
 
     interface TextOptions {
@@ -438,8 +436,7 @@ declare namespace PDFKit.Mixins {
         /** Whether to slant the text (angle in degrees or true) */
         oblique?: boolean | number | undefined;
         /** The alignment of the text (center, justify, left, right) */
-        // TODO check this
-        align?: "center" | "justify" | "left" | "right" | string | undefined;
+        align?: "center" | "justify" | "left" | "right" | undefined;
         /** The vertical alignment of the text with respect to its insertion point */
         baseline?:
             | number
@@ -532,10 +529,10 @@ declare namespace PDFKit.Mixins {
 
         /**
          * Creates and adds a form field to the document. Form fields are intermediate
-         * nodes in a PDF form that are used to specify form name heirarchy and form
+         * nodes in a PDF form that are used to specify form name hierarchy and form
          * value defaults.
          * @param name - field name (T attribute in field dictionary)
-         * @param options  - other attributes to include in field dictionary
+         * @param options - other attributes to include in the field dictionary
          */
         formField(name: string, options?: Record<string, any>): PDFKitReference;
 
@@ -593,6 +590,21 @@ declare namespace PDFKit.Mixins {
         tag: string;
         structContent?: PDFStructureContent;
         options?: MarkingOptions;
+    }
+
+    interface PDFMetadata {
+        /** Called automatically */
+        initMetadata(): void;
+        appendXML(XMLxml: string, newLine?: boolean): void;
+        /** Called automatically */
+        endMetadata(): void;
+    }
+
+    type PDFSubsets = `PDF/A-1${"" | "a" | "b"}` | `PDF/A-2${"" | "a" | "b"}` | `PDF/A-3${"" | "a" | "b"}`;
+    interface PDFSubset {
+        // TODO: Add more types if needed. I do not understand this enought...
+        initSubset(options: { subset: PDFSubsets }): void;
+        endSubset(): void;
     }
 }
 
@@ -675,11 +687,13 @@ declare namespace PDFKit {
         tagged?: boolean;
         lang?: string;
         displayTitle?: boolean;
+        subset?: Mixins.PDFSubsets;
     }
 
     interface PDFDocument
         extends
             NodeJS.ReadableStream,
+            Mixins.PDFMetadata,
             Mixins.PDFAnnotation,
             Mixins.PDFColor,
             Mixins.PDFImage,
@@ -688,14 +702,16 @@ declare namespace PDFKit {
             Mixins.PDFFont,
             Mixins.PDFAcroForm,
             Mixins.PDFMarking,
-            Mixins.PDFAttachment
+            Mixins.PDFAttachment,
+            Mixins.PDFMetadata,
+            Mixins.PDFSubset
     {
         /**
          * PDF Version
          */
         version: number;
         /**
-         * Wheter streams should be compressed
+         * Whenever streams should be compressed
          */
         compress: boolean;
         /**
@@ -772,7 +788,7 @@ declare namespace PDFKit {
         content: PDFKitReference;
 
         /**
-         * The page dictionnary
+         * The page dictionary
          */
         dictionary: PDFKitReference;
 
@@ -795,7 +811,7 @@ declare module "pdfkit/js/page" {
 }
 
 declare namespace PDFKit {
-    /** PDFReference - represents a reference to another object in the PDF object heirarchy */
+    /** PDFReference - represents a reference to another object in the PDF object hierarchy */
     class PDFKitReference {
         id: number;
         gen: number;

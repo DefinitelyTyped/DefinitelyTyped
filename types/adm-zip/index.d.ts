@@ -1,12 +1,3 @@
-// Type definitions for adm-zip 0.5
-// Project: https://github.com/cthackers/adm-zip
-// Definitions by: John Vilk <https://github.com/jvilk>
-//                 Abner Oliveira <https://github.com/abner>
-//                 BendingBender <https://github.com/BendingBender>
-//                 Matthew Sainsbury <https://github.com/mattsains>
-//                 Lei Nelissen <https://github.com/LeiNelissen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as FS from "fs";
@@ -263,7 +254,7 @@ declare namespace AdmZip {
      * data and creates the headers required to write in the zip file.
      */
     // disable warning about the I-prefix in interface name to prevent breaking stuff for users without a major bump
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IZipEntry {
         /**
          * Represents the full name and path of the file

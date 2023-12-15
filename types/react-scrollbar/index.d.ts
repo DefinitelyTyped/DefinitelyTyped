@@ -1,9 +1,3 @@
-// Type definitions for react-scrollbar 0.5.6
-// Project: https://github.com/souhe/reactScrollbar
-// Definitions by: Stephen Jelfs <https://github.com/stephenjelfs>, Hugo Capocci <https://github.com/HugoCapocci>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="react" />
 
 interface ScrollAreaProps {

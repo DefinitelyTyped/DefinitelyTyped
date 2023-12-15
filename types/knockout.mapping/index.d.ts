@@ -1,11 +1,3 @@
-// Type definitions for Knockout.Mapping 2.0
-// Project: https://github.com/SteveSanderson/knockout.mapping
-// Definitions by: Boris Yankov <https://github.com/borisyankov>
-//                 Mathias Lorenzen <https://github.com/ffMathy>
-//                 Leonardo Lombardi <https://github.com/ltlombardi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="knockout" />
 
 export as namespace mapping;
@@ -23,7 +15,7 @@ declare global {
     type KnockoutObservableType<T> = {
         [P in keyof T]: T[P] extends Primitives ? KnockoutObservable<T[P]>
             : T[P] extends any[] ? KnockoutObservableArrayType<T[P][number]>
-            : T[P] extends ReadonlyArray<any> ? KnockoutReadonlyObservableArrayType<T[P][number]>
+            : T[P] extends readonly any[] ? KnockoutReadonlyObservableArrayType<T[P][number]>
             : MappedType<T[P]>;
     };
 
@@ -99,8 +91,8 @@ declare global {
          * @param target View model object previosly mapped to be updated.
          */
         fromJS<T>(
-            source: ReadonlyArray<T>,
-            options?: KnockoutMappingOptions<ReadonlyArray<T>>,
+            source: readonly T[],
+            options?: KnockoutMappingOptions<readonly T[]>,
             target?: KnockoutReadonlyObservableArrayType<T>,
         ): KnockoutReadonlyObservableArrayType<T>;
         /**
@@ -109,7 +101,7 @@ declare global {
          * @param target View model object previosly mapped to be updated.
          */
         fromJS<T>(
-            source: ReadonlyArray<T>,
+            source: readonly T[],
             target: KnockoutReadonlyObservableArrayType<T>,
         ): KnockoutReadonlyObservableArrayType<T>;
         /**

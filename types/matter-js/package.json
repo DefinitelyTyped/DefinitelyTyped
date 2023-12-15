@@ -1,0 +1,37 @@
+{
+    "private": true,
+    "name": "@types/matter-js",
+    "version": "0.19.9999",
+    "projects": [
+        "https://github.com/liabru/matter-js"
+    ],
+    "devDependencies": {
+        "@types/matter-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ivane Gegia",
+            "url": "https://twitter.com/ivanegegia"
+        },
+        {
+            "name": "David Asmuth",
+            "githubUsername": "piranha771"
+        },
+        {
+            "name": "Piotr Pietrzak",
+            "githubUsername": "hasparus"
+        },
+        {
+            "name": "Dale Whinham",
+            "githubUsername": "dwhinham"
+        },
+        {
+            "name": "slikts",
+            "githubUsername": "slikts"
+        },
+        {
+            "name": "Steven Snoeijen",
+            "githubUsername": "stevensnoeijen"
+        }
+    ]
+}

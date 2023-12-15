@@ -1,8 +1,3 @@
-// Type definitions for moment-hijri 2.1
-// Project: https://github.com/xsoh/moment-hijri
-// Definitions by: Alaa Masoud <https://github.com/alaatm>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import moment = require("moment");
 
 export = moment;

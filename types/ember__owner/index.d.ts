@@ -1,12 +1,3 @@
-// Type definitions for non-npm package @ember/owner 4.0
-// Project: https://emberjs.com/api/ember/4.0/
-// Definitions by: Chris Krycho <https://github.com/chriskrycho>
-//                 Krystan HuffMenne <https://github.com/gitKrystan>
-//                 James C. Davis <https://github.com/jamescdavis>
-//                 Peter Wagenet <https://github.com/wagenet>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
 /**
  * The name for a factory consists of a namespace and the name of a specific
  * type within that namespace, like `'service:session'`.

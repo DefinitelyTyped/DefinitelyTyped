@@ -1,8 +1,3 @@
-// Type definitions for line-by-line 0.1
-// Project: https://github.com/Osterjour/line-by-line
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

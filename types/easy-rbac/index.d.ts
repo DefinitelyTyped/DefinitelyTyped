@@ -1,8 +1,3 @@
-// Type definitions for easy-rbac 3.1
-// Project: https://github.com/DeadAlready/easy-rbac
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface RoleObject {
     name: string;
     when: (params: object) => Promise<boolean>;

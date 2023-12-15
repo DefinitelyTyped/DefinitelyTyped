@@ -5,6 +5,13 @@ import { Duplex } from "stream";
 import * as WebSocket from "ws";
 import Agent = require("sharedb/lib/agent");
 
+const { Connection, Doc, Query, types, logger } = ShareDBClient;
+Connection.prototype;
+Doc.prototype;
+Query.prototype;
+types.register({} as any);
+logger.info();
+
 // Adapted from https://github.com/avital/websocket-json-stream
 class WebSocketJSONStream extends Duplex {
     constructor(private readonly ws: WebSocket) {
@@ -355,6 +362,9 @@ function startClient(callback) {
         bar: "abc",
     });
 
+    // @ts-expect-error :: invalid payload
+    typedDoc.create({ bad: true });
+
     typedDoc.ingestSnapshot({
         v: 10,
         type: "json0",
@@ -418,6 +428,12 @@ function startClient(callback) {
     doc.on("error", (error: ShareDB.Error) => {});
     doc.on("destroy", () => {});
 
+    doc.del();
+    doc.del({ source: true });
+    doc.del((error) => {
+        console.log(error);
+    });
+
     connection.fetchSnapshot("examples", "foo", 123, (error, snapshot: ShareDBClient.Snapshot) => {
         if (error) throw error;
         console.log(snapshot.data);
@@ -480,3 +496,7 @@ class SocketLike {
 
 const socketLike = new SocketLike();
 new ShareDBClient.Connection(socketLike);
+
+const handWrittenMessage = {
+    a: ShareDB.MESSAGE_ACTIONS.bulkFetch,
+};

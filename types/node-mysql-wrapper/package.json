@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/node-mysql-wrapper",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/nodets/node-mysql-wrapper"
+    ],
+    "dependencies": {
+        "@types/bluebird": "*",
+        "@types/mysql": "*"
+    },
+    "devDependencies": {
+        "@types/node-mysql-wrapper": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Makis Maropoulos",
+            "githubUsername": "kataras"
+        }
+    ]
+}

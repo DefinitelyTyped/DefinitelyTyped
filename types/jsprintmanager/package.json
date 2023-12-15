@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jsprintmanager",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/neodynamic/JSPrintManager#readme"
+    ],
+    "devDependencies": {
+        "@types/jsprintmanager": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Philippe Auriou",
+            "githubUsername": "auriou"
+        }
+    ]
+}

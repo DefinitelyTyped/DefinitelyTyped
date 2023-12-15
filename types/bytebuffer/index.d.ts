@@ -1,10 +1,3 @@
-// Type definitions for bytebuffer.js 5.0.0
-// Project: https://github.com/dcodeIO/bytebuffer.js
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Definitions by: SINTEF-9012 <https://github.com/SINTEF-9012>
-// Definitions by: Marek Urbanowicz <https://github.com/murbanowicz>
-
 /// <reference types="node" />
 import Long = require("long");
 
@@ -519,7 +512,7 @@ declare class ByteBuffer {
      *  ] : markedOffset and limit,
      *  ! : offset, markedOffset and limit
      */
-    toDebug(columns?: boolean): string | Array<string>;
+    toDebug(columns?: boolean): string | string[];
 
     /**
      * Encodes this ByteBuffer's contents to a hex encoded string.

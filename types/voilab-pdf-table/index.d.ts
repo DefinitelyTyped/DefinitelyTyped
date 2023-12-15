@@ -1,8 +1,3 @@
-// Type definitions for voilab-pdf-table 0.5
-// Project: https://github.com/voilab/voilab-pdf-table
-// Definitions by: Daniel Sousa <https://github.com/danielb7390>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import "pdfkit";
 
 export = VoilabPdfTable;
@@ -12,7 +7,7 @@ interface VoilabPdfTableDefaultType {
 }
 
 declare class VoilabPdfTable<T = VoilabPdfTableDefaultType> {
-    // tslint:disable-next-line:no-misused-new
+    // eslint-disable-next-line @typescript-eslint/no-misused-new
     constructor(pdf: PDFKit.PDFDocument, conf?: VoilabPdfTable.VoilabPdfTableConfig<T>);
 
     /** Add action before data rows are added */

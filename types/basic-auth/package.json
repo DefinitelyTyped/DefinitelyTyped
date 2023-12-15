@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/basic-auth",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/jshttp/basic-auth"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/basic-auth": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Clément Bourgeois",
+            "githubUsername": "moonpyk"
+        },
+        {
+            "name": "Vesa Poikajärvi",
+            "githubUsername": "vesse"
+        },
+        {
+            "name": "Ryo Ota",
+            "githubUsername": "nwtgck"
+        }
+    ]
+}

@@ -1,31 +1,9 @@
-// Type definitions for react-redux 7.1
-// Project: https://github.com/reduxjs/react-redux
-// Definitions by: Qubo <https://github.com/tkqubo>
-//                 Curits Layne <https://github.com/clayne11>
-//                 Frank Tan <https://github.com/tansongyang>
-//                 Nicholas Boll <https://github.com/nicholasboll>
-//                 Dibyo Majumdar <https://github.com/mdibyo>
-//                 Valentin Descamps <https://github.com/val1984>
-//                 Johann Rakotoharisoa <https://github.com/jrakotoharisoa>
-//                 Anatoli Papirovski <https://github.com/apapirovski>
-//                 Boris Sergeyev <https://github.com/surgeboris>
-//                 Søren Bruus Frank <https://github.com/soerenbf>
-//                 Jonathan Ziller <https://github.com/mrwolfz>
-//                 Dylan Vann <https://github.com/dylanvann>
-//                 Yuki Ito <https://github.com/Lazyuki>
-//                 Kazuma Ebina <https://github.com/kazuma1989>
-//                 Michael Lebedev <https://github.com/megazazik>
-//                 jun-sheaf <https://github.com/jun-sheaf>
-//                 Lenz Weber <https://github.com/phryneas>
-//                 Mark Erikson <https://github.com/markerikson>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import {
     ClassAttributes,
     Component,
     ComponentClass,
     Context,
+    JSX,
     JSXElementConstructor,
     NamedExoticComponent,
     ReactNode,
@@ -41,7 +19,7 @@ import hoistNonReactStatics = require("hoist-non-react-statics");
  * Use module augmentation to append your own type definition in a your_custom_type.d.ts file.
  * https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
  */
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DefaultRootState {}
 
 export type AnyIfEmpty<T extends object> = keyof T extends never ? any : T;
@@ -150,7 +128,7 @@ export type ResolveThunks<TDispatchProps> = TDispatchProps extends { [key: strin
 
 // the conditional type is to support TypeScript 3.0, which does not support mapping over tuples and arrays;
 // once the typings are updated to at least TypeScript 3.1, a simple mapped type can replace this mess
-export type ResolveArrayThunks<TDispatchProps extends ReadonlyArray<any>> = TDispatchProps extends
+export type ResolveArrayThunks<TDispatchProps extends readonly any[]> = TDispatchProps extends
     [infer A1, infer A2, infer A3, infer A4, infer A5, infer A6, infer A7, infer A8, infer A9] ? [
         HandleThunkActionCreator<A1>,
         HandleThunkActionCreator<A2>,
@@ -445,8 +423,8 @@ export interface Options<State = DefaultRootState, TStateProps = {}, TOwnProps =
  * @param connectOptions If specified, further customizes the behavior of the connector. Additionally, any extra
  *     options will be passed through to your <code>selectorFactory</code> in the <code>factoryOptions</code> argument.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function connectAdvanced<S, TProps, TOwnProps, TFactoryOptions = {}>(
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     selectorFactory: SelectorFactory<S, TProps, TOwnProps, TFactoryOptions>,
     connectOptions?: ConnectOptions & TFactoryOptions,
 ): AdvancedComponentDecorator<TProps, TOwnProps>;

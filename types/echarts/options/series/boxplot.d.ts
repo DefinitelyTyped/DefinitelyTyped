@@ -456,7 +456,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-boxplot.data
              */
-            data?: (number | SeriesBoxplot.DataObject)[][] | undefined;
+            data?: Array<Array<number | SeriesBoxplot.DataObject>> | undefined;
 
             /**
              * Mark point in a chart.

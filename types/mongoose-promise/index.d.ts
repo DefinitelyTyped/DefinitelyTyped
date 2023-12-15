@@ -1,9 +1,3 @@
-// Type definitions for Mongoose-Promise 4.5.4
-// Project: http://mongoosejs.com/
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.2
-
 /// <reference types="mongoose" />
 /// <reference types="mpromise" />
 
@@ -56,6 +50,7 @@ declare module "mongoose" {
         addErrback(listener: (err: any) => void): this;
 
         /** ES6-style .catch() shorthand */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         catch<TRes>(onReject?: (err: any) => void | TRes | PromiseLike<TRes>): MongoosePromise<TRes>;
 
         /**
@@ -116,7 +111,9 @@ declare module "mongoose" {
         /** ES6-style promise constructor wrapper around mpromise. */
         static ES6<TRes>(
             resolver: (
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 complete: (...args: TRes[]) => void | TRes | PromiseLike<TRes>,
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 error: (e: any) => void | TRes | PromiseLike<TRes>,
             ) => void,
         ): MongoosePromise<TRes>;

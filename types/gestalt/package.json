@@ -1,0 +1,57 @@
+{
+    "private": true,
+    "name": "@types/gestalt",
+    "version": "101.0.9999",
+    "projects": [
+        "https://github.com/pinterest/gestalt",
+        "https://pinterest.github.io/gestalt"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/gestalt": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nicolás Serrano Arévalo",
+            "githubUsername": "serranoarevalo"
+        },
+        {
+            "name": "Josh Gachnang",
+            "githubUsername": "joshgachnang"
+        },
+        {
+            "name": "Calvin Chhour",
+            "githubUsername": "calvinchhour"
+        },
+        {
+            "name": "Muhammed Hafiz",
+            "githubUsername": "zifahm"
+        },
+        {
+            "name": "Kyle Hensel",
+            "githubUsername": "k-yle"
+        },
+        {
+            "name": "Francisco Jimenez",
+            "githubUsername": "jimenezff"
+        },
+        {
+            "name": "Charlie Gu",
+            "githubUsername": "czgu"
+        },
+        {
+            "name": "Jay Kim",
+            "githubUsername": "keyworks"
+        },
+        {
+            "name": "Vaibhav Sharma",
+            "githubUsername": "v4iv"
+        },
+        {
+            "name": "Juan Alvarez",
+            "githubUsername": "juanjalvarez"
+        }
+    ]
+}

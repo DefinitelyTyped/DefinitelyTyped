@@ -1,8 +1,3 @@
-// Type definitions for reddit 1.2
-// Project: https://github.com/feross/reddit
-// Definitions by: Noah Frederick <https://github.com/nfrederick023>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Reddit;
 
 /**

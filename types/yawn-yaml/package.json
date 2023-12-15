@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/yawn-yaml",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/mohsen1/yawn-yaml#readme"
+    ],
+    "devDependencies": {
+        "@types/yawn-yaml": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jamie Magee",
+            "githubUsername": "JamieMagee"
+        }
+    ]
+}

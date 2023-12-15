@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/snapchat-lens-studio",
+    "version": "3.2.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "snapchat-lens-studio",
+    "projects": [
+        "https://lensstudio.snapchat.com/api/"
+    ],
+    "devDependencies": {
+        "@types/snapchat-lens-studio": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Olen Davis",
+            "githubUsername": "OlenDavis"
+        },
+        {
+            "name": "Matt Winkler",
+            "githubUsername": "mhwinkler"
+        },
+        {
+            "name": "Julien Chaumond",
+            "githubUsername": "julien-c"
+        }
+    ]
+}

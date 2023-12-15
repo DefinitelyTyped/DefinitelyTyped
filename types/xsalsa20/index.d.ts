@@ -1,8 +1,3 @@
-// Type definitions for xsalsa20 1.1
-// Project: https://github.com/mafintosh/xsalsa20
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export = XSalsa20;

@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/steam-tradeoffer-manager",
+    "version": "2.10.9999",
+    "projects": [
+        "https://github.com/DoctorMcKay/node-steam-tradeoffer-manager"
+    ],
+    "dependencies": {
+        "@types/file-manager": "*",
+        "@types/steam": "*",
+        "@types/steam-user": "*",
+        "@types/steamcommunity": "*",
+        "@types/steamid": "*"
+    },
+    "devDependencies": {
+        "@types/steam-tradeoffer-manager": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "kldzj",
+            "githubUsername": "kldzj"
+        },
+        {
+            "name": "Kyle Smith",
+            "githubUsername": "kjsmita6"
+        }
+    ]
+}

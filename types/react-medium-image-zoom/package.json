@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-medium-image-zoom",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/rpearce/react-medium-image-zoom#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-medium-image-zoom": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "James Bellamy",
+            "githubUsername": "james-ff"
+        }
+    ]
+}

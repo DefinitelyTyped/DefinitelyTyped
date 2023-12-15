@@ -1141,6 +1141,23 @@ function use() {
             );
         });
 
+        Assertion.overwriteProperty("ok", function(_super: any) {
+            return function checkModel(this: Chai.Assertion & Chai.AssertionStatic) {
+                const obj = this._obj;
+                if (obj && obj instanceof FakeArgs) {
+                    const negate = utils.flag(this, "negate") as boolean;
+                    if (negate && !("length" in obj)) {
+                        return;
+                    }
+                    const assertLength = new Assertion(obj.length, "FakeArgs exists");
+                    utils.transferFlags(this, assertLength, false);
+                    assertLength.is.a("number");
+                } else {
+                    _super.call(this);
+                }
+            };
+        });
+
         function compare(expected: Object, actual: Object): boolean {
             if (expected === actual) {
                 return true;
@@ -1809,6 +1826,8 @@ suite("assert", () => {
         assert.lengthOf("foobar", 6);
         assert.lengthOf("foobar", 5);
         assert.lengthOf({ length: 1 }, 5);
+        assert.lengthOf(new Set([1, 2, 3]), 3);
+        assert.lengthOf(new Map([["a", 1], ["b", 2], ["c", 3]]), 3);
     });
 
     test("match", () => {

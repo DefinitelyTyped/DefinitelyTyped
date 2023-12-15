@@ -1,8 +1,3 @@
-// Type definitions for node-webcam 0.8
-// Project: https://github.com/chuckfairy/node-webcam
-// Definitions by: Ricardo Azzi Silva <https://github.com/lordazzi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Minimum TypeScript Version: 4.3
 /// <reference types="node" />
 export const NodeWebcam: {

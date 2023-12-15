@@ -9,20 +9,13 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
-        "paths": {
-            "d3-geo": [
-                "d3-geo/v2"
-            ],
-            "d3-zoom": [
-                "d3-zoom/v2"
-            ]
-        },
         "jsx": "react",
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "react-simple-maps-tests.tsx"]
+    "files": [
+        "index.d.ts",
+        "react-simple-maps-tests.tsx"
+    ]
 }

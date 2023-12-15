@@ -1,9 +1,3 @@
-// Type definitions for staticmaps 1.12
-// Project: https://github.com/StephanGeorg/staticmaps#readme
-// Definitions by: Olivier Kamers <https://github.com/olivierkamers>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { FitEnum, JpegOptions, OutputOptions, PngOptions, WebpOptions } from "sharp";
 
 declare class StaticMaps {
@@ -15,7 +9,7 @@ declare class StaticMaps {
     addMarker: (options: StaticMaps.AddMarkerOptions) => void;
     addText: (options: StaticMaps.AddTextOptions) => void;
     addCircle: (options: StaticMaps.AddCircleOptions) => void;
-    render: (center?: ReadonlyArray<number>, zoom?: number) => Promise<void>;
+    render: (center?: readonly number[], zoom?: number) => Promise<void>;
     image: StaticMapsImage;
 }
 

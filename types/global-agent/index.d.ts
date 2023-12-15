@@ -1,8 +1,3 @@
-// Type definitions for global-agent 2.1
-// Project: https://github.com/gajus/global-agent#readme
-// Definitions by: Jamie Magee <https://github.com/JamieMagee>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface ProxyAgentConfigurationInputType {
     environmentVariableNamespace?: string | undefined;
     forceGlobalAgent?: boolean | undefined;

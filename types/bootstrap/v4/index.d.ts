@@ -1,10 +1,3 @@
-// Type definitions for Bootstrap 4.6
-// Project: https://github.com/twbs/bootstrap/, https://getbootstrap.com
-// Definitions by: denisname <https://github.com/denisname>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 import * as Popper from "popper.js";
@@ -358,7 +351,7 @@ export interface TooltipOption {
      *
      * @default "flip"
      */
-    fallbackPlacement?: Popper.Behavior | ReadonlyArray<Popper.Behavior> | undefined;
+    fallbackPlacement?: Popper.Behavior | readonly Popper.Behavior[] | undefined;
 
     /**
      * Add classes to the tooltip when it is shown. Note that these classes will be added in addition to any classes specified in the template.

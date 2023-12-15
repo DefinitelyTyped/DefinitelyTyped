@@ -1,10 +1,3 @@
-// Type definitions for json-logic-js 2.0
-// Project: https://github.com/jwadhams/json-logic-js#readme
-// Definitions by: Trevan <https://github.com/Trevan>
-//                 Jake Boone <https://github.com/jakeboone02>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.5
-
 export as namespace jsonFactory;
 
 // Disable auto-export
@@ -22,7 +15,7 @@ type MAXIMUM_ALLOWED_BOUNDARY = 80;
 type Mapped<
     Tuple extends unknown[],
     Result extends unknown[] = [],
-    Count extends ReadonlyArray<number> = [],
+    Count extends readonly number[] = [],
 > = Count["length"] extends MAXIMUM_ALLOWED_BOUNDARY ? Result
     : Tuple extends [] ? []
     : Result extends [] ? Mapped<Tuple, Tuple, [...Count, 1]>

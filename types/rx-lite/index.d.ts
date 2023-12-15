@@ -1,8 +1,3 @@
-// Type definitions for rx-lite 4.0
-// Project: https://github.com/Reactive-Extensions/RxJS
-// Definitions by: gsino <http://www.codeplex.com/site/users/view/gsino>, Igor Oleinikov <https://github.com/Igorbek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="rx-core" />
 /// <reference types="rx-core-binding" />
 
@@ -314,7 +309,7 @@ declare namespace Rx {
             resultSelector: (v1: T, v2: T2, v3: T3, v4: T4, v5: T5) => TResult,
         ): Observable<TResult>;
         combineLatest<TOther, TResult>(
-            souces: (Observable<TOther> | IPromise<TOther>)[],
+            souces: Array<Observable<TOther> | IPromise<TOther>>,
             resultSelector: (firstValue: T, ...otherValues: TOther[]) => TResult,
         ): Observable<TResult>;
         withLatestFrom<T2>(second: Observable<T2> | IPromise<T2>): Observable<[T, T2]>;
@@ -356,11 +351,11 @@ declare namespace Rx {
             resultSelector: (v1: T, v2: T2, v3: T3, v4: T4, v5: T5) => TResult,
         ): Observable<TResult>;
         withLatestFrom<TOther, TResult>(
-            souces: (Observable<TOther> | IPromise<TOther>)[],
+            souces: Array<Observable<TOther> | IPromise<TOther>>,
             resultSelector: (firstValue: T, ...otherValues: TOther[]) => TResult,
         ): Observable<TResult>;
-        concat(...sources: (Observable<T> | IPromise<T>)[]): Observable<T>;
-        concat(sources: (Observable<T> | IPromise<T>)[]): Observable<T>;
+        concat(...sources: Array<Observable<T> | IPromise<T>>): Observable<T>;
+        concat(sources: Array<Observable<T> | IPromise<T>>): Observable<T>;
         concatAll(): T;
         concatObservable(): Observable<T>; // alias for concatAll
         concatMap<T2, R>(
@@ -426,7 +421,7 @@ declare namespace Rx {
             resultSelector: (v1: T, v2: T2, v3: T3, v4: T4, v5: T5) => TResult,
         ): Observable<TResult>;
         zip<TOther, TResult>(
-            second: (Observable<TOther> | IPromise<TOther>)[],
+            second: Array<Observable<TOther> | IPromise<TOther>>,
             resultSelector: (left: T, ...right: TOther[]) => TResult,
         ): Observable<TResult>;
 
@@ -793,15 +788,15 @@ declare namespace Rx {
         throwException<T>(exception: Error, scheduler?: IScheduler): Observable<T>; // alias for throw
         throwError<T>(error: Error, scheduler?: IScheduler): Observable<T>; // alias for throw
 
-        catch<T>(sources: IPromise<T>[] | Observable<T>[]): Observable<T>;
-        catch<T>(...sources: Observable<T>[]): Observable<T>;
-        catch<T>(...sources: IPromise<T>[]): Observable<T>;
-        catchException<T>(sources: IPromise<T>[] | Observable<T>[]): Observable<T>; // alias for catch
-        catchException<T>(...sources: Observable<T>[]): Observable<T>; // alias for catch
-        catchException<T>(...sources: IPromise<T>[]): Observable<T>; // alias for catch
-        catchError<T>(sources: IPromise<T>[] | Observable<T>[]): Observable<T>; // alias for catch
-        catchError<T>(...sources: Observable<T>[]): Observable<T>; // alias for catch
-        catchError<T>(...sources: IPromise<T>[]): Observable<T>; // alias for catch
+        catch<T>(sources: Array<IPromise<T>> | Array<Observable<T>>): Observable<T>;
+        catch<T>(...sources: Array<Observable<T>>): Observable<T>;
+        catch<T>(...sources: Array<IPromise<T>>): Observable<T>;
+        catchException<T>(sources: Array<IPromise<T>> | Array<Observable<T>>): Observable<T>; // alias for catch
+        catchException<T>(...sources: Array<Observable<T>>): Observable<T>; // alias for catch
+        catchException<T>(...sources: Array<IPromise<T>>): Observable<T>; // alias for catch
+        catchError<T>(sources: Array<IPromise<T>> | Array<Observable<T>>): Observable<T>; // alias for catch
+        catchError<T>(...sources: Array<Observable<T>>): Observable<T>; // alias for catch
+        catchError<T>(...sources: Array<IPromise<T>>): Observable<T>; // alias for catch
 
         combineLatest<T, T2>(
             first: Observable<T> | IPromise<T>,
@@ -851,9 +846,9 @@ declare namespace Rx {
             fifth: Observable<T5> | IPromise<T5>,
             resultSelector: (v1: T, v2: T2, v3: T3, v4: T4, v5: T5) => TResult,
         ): Observable<TResult>;
-        combineLatest<T>(sources: (Observable<T> | IPromise<T>)[]): Observable<T[]>;
+        combineLatest<T>(sources: Array<Observable<T> | IPromise<T>>): Observable<T[]>;
         combineLatest<TOther, TResult>(
-            sources: (Observable<TOther> | IPromise<TOther>)[],
+            sources: Array<Observable<TOther> | IPromise<TOther>>,
             resultSelector: (...otherValues: TOther[]) => TResult,
         ): Observable<TResult>;
 
@@ -906,29 +901,29 @@ declare namespace Rx {
             resultSelector: (v1: T, v2: T2, v3: T3, v4: T4, v5: T5) => TResult,
         ): Observable<TResult>;
         withLatestFrom<TOther, TResult>(
-            souces: (Observable<TOther> | IPromise<TOther>)[],
+            souces: Array<Observable<TOther> | IPromise<TOther>>,
             resultSelector: (...otherValues: TOther[]) => TResult,
         ): Observable<TResult>;
 
-        concat<T>(...sources: Observable<T>[]): Observable<T>;
-        concat<T>(...sources: IPromise<T>[]): Observable<T>;
-        concat<T>(sources: IPromise<T>[] | Observable<T>[]): Observable<T>;
-        merge<T>(...sources: Observable<T>[]): Observable<T>;
-        merge<T>(...sources: IPromise<T>[]): Observable<T>;
-        merge<T>(sources: IPromise<T>[] | Observable<T>[]): Observable<T>;
-        merge<T>(scheduler: IScheduler, ...sources: Observable<T>[]): Observable<T>;
-        merge<T>(scheduler: IScheduler, ...sources: IPromise<T>[]): Observable<T>;
-        merge<T>(scheduler: IScheduler, sources: IPromise<T>[] | Observable<T>[]): Observable<T>;
+        concat<T>(...sources: Array<Observable<T>>): Observable<T>;
+        concat<T>(...sources: Array<IPromise<T>>): Observable<T>;
+        concat<T>(sources: Array<IPromise<T>> | Array<Observable<T>>): Observable<T>;
+        merge<T>(...sources: Array<Observable<T>>): Observable<T>;
+        merge<T>(...sources: Array<IPromise<T>>): Observable<T>;
+        merge<T>(sources: Array<IPromise<T>> | Array<Observable<T>>): Observable<T>;
+        merge<T>(scheduler: IScheduler, ...sources: Array<Observable<T>>): Observable<T>;
+        merge<T>(scheduler: IScheduler, ...sources: Array<IPromise<T>>): Observable<T>;
+        merge<T>(scheduler: IScheduler, sources: Array<IPromise<T>> | Array<Observable<T>>): Observable<T>;
 
         pairs<T>(obj: { [key: string]: T }, scheduler?: IScheduler): Observable<[string, T]>;
 
         zip<T1, T2>(
             first: Observable<T1> | IPromise<T1>,
-            sources: Observable<T2> | IPromise<T2> | (Observable<T2> | IPromise<T2>)[],
+            sources: Observable<T2> | IPromise<T2> | Array<Observable<T2> | IPromise<T2>>,
         ): Observable<[T1, T2]>;
         zip<T1, T2, TResult>(
             first: Observable<T1> | IPromise<T1>,
-            sources: (Observable<T2> | IPromise<T2>)[],
+            sources: Array<Observable<T2> | IPromise<T2>>,
             resultSelector: (item1: T1, ...right: T2[]) => TResult,
         ): Observable<TResult>;
         zip<T1, T2, TResult>(
@@ -975,8 +970,8 @@ declare namespace Rx {
             source5: Observable<T5> | IPromise<T5>,
             resultSelector: (item1: T1, item2: T2, item3: T3, item4: T4, item5: T5) => TResult,
         ): Observable<TResult>;
-        zipArray<T>(...sources: (Observable<T> | IPromise<T>)[]): Observable<T[]>;
-        zipArray<T>(sources: (Observable<T> | IPromise<T>)[]): Observable<T[]>;
+        zipArray<T>(...sources: Array<Observable<T> | IPromise<T>>): Observable<T[]>;
+        zipArray<T>(sources: Array<Observable<T> | IPromise<T>>): Observable<T[]>;
 
         /**
          * Converts a Promise to an Observable sequence

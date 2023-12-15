@@ -1,12 +1,3 @@
-// Type definitions for jest-image-snapshot 6.2
-// Project: https://github.com/americanexpress/jest-image-snapshot#readme
-// Definitions by: Janeene Beeforth <https://github.com/dawnmist>
-//                 erbridge <https://github.com/erbridge>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Ayc0 <https://github.com/Ayc0>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.3
-
 /// <reference types="jest" />
 
 import { PixelmatchOptions } from "pixelmatch";
@@ -18,6 +9,11 @@ export interface MatchImageSnapshotOptions {
      * @default false
      */
     allowSizeMismatch?: boolean | undefined;
+    /**
+     * Sets the max number of bytes for stdout/stderr when running diff-snapshot in a child process.
+     * @default 10 * 1024 * 1024 (10,485,760)
+     */
+    maxChildProcessBufferSizeInBytes?: number | undefined;
     /**
      * Custom config passed to 'pixelmatch' or 'ssim'
      */
@@ -77,6 +73,13 @@ export interface MatchImageSnapshotOptions {
      * @default false
      */
     onlyDiff?: boolean | undefined;
+    /**
+     * This needs to be set to a existing file, like `require.resolve('./runtimeHooksPath.cjs')`.
+     * This file can expose a few hooks:
+     * - `onBeforeWriteToDisc`: before saving any image to the disc, this function will be called (can be used to write EXIF data to images for instance)
+     * - `onBeforeWriteToDisc: (arguments: { buffer: Buffer; destination: string; testPath: string; currentTestName: string }) => Buffer`
+     */
+    runtimeHooksPath?: string | undefined;
     /**
      * Will output base64 string of a diff image to console in case of failed tests (in addition to creating a diff image).
      * This string can be copy-pasted to a browser address string to preview the diff for a failed test.

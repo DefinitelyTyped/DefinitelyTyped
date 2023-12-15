@@ -1,8 +1,3 @@
-// Type definitions for typopo 2.5
-// Project: https://github.com/surfinzap/typopo#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Correct typos
  * @param string - input text for correction

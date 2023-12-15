@@ -1,8 +1,3 @@
-// Type definitions for preview-email 3.0
-// Project: https://github.com/niftylettuce/preview-email
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import type { SimpleParserOptions } from "mailparser";

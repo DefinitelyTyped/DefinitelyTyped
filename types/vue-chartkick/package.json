@@ -1,6 +1,21 @@
 {
-  "private": true,
-  "dependencies": {
-    "vue": "^2.0.0"
-  }
+    "private": true,
+    "name": "@types/vue-chartkick",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/ankane/vue-chartkick#readme"
+    ],
+    "dependencies": {
+        "vue": "^2.0.0"
+    },
+    "devDependencies": {
+        "@types/chart.js": "*",
+        "@types/vue-chartkick": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "CNS Media",
+            "githubUsername": "cnsmedia"
+        }
+    ]
 }

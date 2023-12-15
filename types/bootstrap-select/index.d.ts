@@ -1,11 +1,3 @@
-// Type definitions for bootstrap-select 1.13
-// Project: https://silviomoreto.github.io/bootstrap-select/
-// Definitions by: Karol Janyst <https://github.com/LKay>
-//                 Alex Truba <https://github.com/AlexTruba>
-//                 Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 interface BootstrapSelectOptions {

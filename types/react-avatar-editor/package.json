@@ -1,0 +1,40 @@
+{
+    "private": true,
+    "name": "@types/react-avatar-editor",
+    "version": "13.0.9999",
+    "projects": [
+        "https://github.com/mosch/react-avatar-editor"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-avatar-editor": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Diogo Corrêa",
+            "githubUsername": "diogocorrea"
+        },
+        {
+            "name": "Gabriel Prates",
+            "githubUsername": "gabsprates"
+        },
+        {
+            "name": "Laurent Senta",
+            "githubUsername": "lsenta"
+        },
+        {
+            "name": "David Spiess",
+            "githubUsername": "davidspiess"
+        },
+        {
+            "name": "John Grisham",
+            "githubUsername": "JohnGrisham"
+        },
+        {
+            "name": "Joshua Hintze",
+            "githubUsername": "GimpMaster"
+        }
+    ]
+}

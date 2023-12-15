@@ -1,9 +1,3 @@
-// Type definitions for gestalt-datepicker 55.2
-// Project: https://github.com/pinterest/gestalt/tree/master/packages/gestalt-datepicker, https://gestalt.netlify.app/DatePicker
-// Definitions by: cgu <https://github.com/czgu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.4
-
 import * as React from "react";
 
 export interface Locale {
@@ -48,10 +42,10 @@ export interface DatePickerProps {
     onChange: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: Date }) => void;
     disabled?: boolean | undefined;
     errorMessage?: string | undefined;
-    excludeDates?: ReadonlyArray<Date> | undefined;
+    excludeDates?: readonly Date[] | undefined;
     helperText?: string | undefined;
     idealDirection?: "up" | "right" | "down" | "left" | undefined;
-    includeDates?: ReadonlyArray<Date> | undefined;
+    includeDates?: readonly Date[] | undefined;
     label?: string | undefined;
     localeData?: Locale | undefined;
     maxDate?: Date | undefined;

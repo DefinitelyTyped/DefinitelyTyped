@@ -1,11 +1,6 @@
-// Type definitions for JavaScript software for implementing an OAuth consumer
-// Project: https://code.google.com/p/oauth/
-// Definitions by: NOBUOKA Yu <https://github.com/nobuoka>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace OAuth {
     /** An Array of name-value pairs [[name, value], [name2, value2]]. */
-    type ParameterList = [string, string][];
+    type ParameterList = Array<[string, string]>;
 
     /** A map {name: value, name2: value2}. */
     type ParameterMap = { [name: string]: string };

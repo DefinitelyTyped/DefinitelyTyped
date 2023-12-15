@@ -1,10 +1,3 @@
-// Type definitions for alpinejs 3.13
-// Project: https://github.com/alpinejs/alpine
-// Definitions by: Thomas Wirth <https://github.com/wtho>
-//                 Eric Kwoka <https://github.com/ekwoka>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.6
-
 export type ElementWithXAttributes<T extends Element = HTMLElement> = withXAttributes<T>;
 
 export type withXAttributes<T extends Element> = T & Partial<XAttributes>;
@@ -369,9 +362,9 @@ export interface Alpine {
     bound: (el: ElementWithXAttributes, name: string, fallback?: unknown) => unknown;
     $data: (node: ElementWithXAttributes) => {};
     walk: (el: ElementWithXAttributes, callback: WalkerCallback) => any;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     data: <T_12 extends Record<string | symbol, unknown>>(
         name: string,
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         callback: (...args: unknown[]) => AlpineComponent<T_12>, // Needed generic to properly autotype objects
     ) => void;
     bind: (name: string | ElementWithXAttributes, bindings: Bindings | ((...args: unknown[]) => Bindings)) => void;

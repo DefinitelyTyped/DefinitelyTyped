@@ -1,25 +1,3 @@
-// Type definitions for node-forge 1.3
-// Project: https://github.com/digitalbazaar/forge
-// Definitions by: Seth Westphal       <https://github.com/westy92>
-//                 Kay Schecker        <https://github.com/flynetworks>
-//                 Aakash Goenka       <https://github.com/a-k-g>
-//                 Rafal2228           <https://github.com/rafal2228>
-//                 Beeno Tung          <https://github.com/beenotung>
-//                 Joe Flateau         <https://github.com/joeflateau>
-//                 timhwang21          <https://github.com/timhwang21>
-//                 Anders Kaseorg      <https://github.com/andersk>
-//                 Sascha Zarhuber     <https://github.com/saschazar21>
-//                 Rogier Schouten     <https://github.com/rogierschouten>
-//                 Ivan Aseev          <https://github.com/aseevia>
-//                 Wiktor Kwapisiewicz <https://github.com/wiktor-k>
-//                 Ligia Frangello     <https://github.com/frangello>
-//                 Dmitry Avezov       <https://github.com/avezov>
-//                 Jose Fuentes        <https://github.com/j-fuentes>
-//                 Anya Reyes          <https://github.com/darkade>
-//                 BendingBender       <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
-
 /// <reference types="node" />
 
 declare module "node-forge" {
@@ -941,10 +919,10 @@ declare module "node-forge" {
 
         interface Pkcs12Pfx {
             version: string;
-            safeContents: {
+            safeContents: Array<{
                 encrypted: boolean;
                 safeBags: Bag[];
-            }[];
+            }>;
             getBags: (filter: BagsFilter) => {
                 [key: string]: Bag[] | undefined;
                 localKeyId?: Bag[] | undefined;
@@ -994,7 +972,7 @@ declare module "node-forge" {
                 key: pki.rsa.PrivateKey | string;
                 certificate: pki.Certificate | string;
                 digestAlgorithm: string;
-                authenticatedAttributes?: { type: string; value?: string | undefined }[] | undefined;
+                authenticatedAttributes?: Array<{ type: string; value?: string | undefined }> | undefined;
             }): void;
             sign(options?: { detached?: boolean | undefined }): void;
             toAsn1(): asn1.Asn1;
@@ -1456,7 +1434,7 @@ declare module "node-forge" {
             verifyClient: boolean;
             verify(conn: Connection, verified: Verified, depth: number, certs: pki.Certificate[]): Verified;
             getCertificate:
-                | ((conn: Connection, hint: CertificateRequest | string[]) => pki.PEM | ReadonlyArray<pki.PEM>)
+                | ((conn: Connection, hint: CertificateRequest | string[]) => pki.PEM | readonly pki.PEM[])
                 | null;
             getPrivateKey: ((conn: Connection, certificate: pki.Certificate) => pki.PEM) | null;
             getSignature:
@@ -1538,14 +1516,14 @@ declare module "node-forge" {
         function createConnection(options: {
             server?: boolean | undefined;
             sessionId?: Bytes | null | undefined;
-            caStore?: pki.CAStore | ReadonlyArray<pki.Certificate> | undefined;
+            caStore?: pki.CAStore | readonly pki.Certificate[] | undefined;
             sessionCache?: SessionCache | { [key: string]: Session } | undefined;
             cipherSuites?: CipherSuite[] | undefined;
             connected(conn: Connection): void;
             virtualHost?: string | undefined;
             verifyClient?: boolean | undefined;
             verify?(conn: Connection, verified: Verified, depth: number, certs: pki.Certificate[]): Verified;
-            getCertificate?(conn: Connection, hint: CertificateRequest | string[]): pki.PEM | ReadonlyArray<pki.PEM>;
+            getCertificate?(conn: Connection, hint: CertificateRequest | string[]): pki.PEM | readonly pki.PEM[];
             getPrivateKey?(conn: Connection, certificate: pki.Certificate): pki.PEM;
             getSignature?(conn: Connection, bytes: Bytes, callback: (conn: Connection, bytes: Bytes) => void): void;
             tlsDataReady(conn: Connection): void;
@@ -1560,7 +1538,7 @@ declare module "node-forge" {
         function prf_tls1(secret: string, label: string, seed: string, length: number): util.ByteBuffer;
 
         function hmac_sha1(
-            key: string | ReadonlyArray<Byte> | util.ByteBuffer,
+            key: string | readonly Byte[] | util.ByteBuffer,
             seqNum: [number, number],
             record: Record,
         ): Bytes;

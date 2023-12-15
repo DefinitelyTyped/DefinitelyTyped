@@ -1,10 +1,3 @@
-// Type definitions for clownface 2.0
-// Project: https://github.com/rdf-ext/clownface
-// Definitions by: tpluscode <https://github.com/tpluscode>
-//                 BenjaminHofstetter <https://github.com/BenjaminHofstetter>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 import { BlankNode, DatasetCore, DatasetCoreFactory, Literal, NamedNode, Quad_Graph, Term } from "rdf-js";
 import Context from "./lib/Context.js";
 
@@ -91,7 +84,7 @@ export interface AnyPointer<T extends AnyContext = AnyContext, D extends Dataset
 
     node(value: null, options?: NodeOptions): AnyPointer<BlankNode, D>;
 
-    node(values: Array<null> | Iterable<BlankNode>, options?: NodeOptions): AnyPointer<BlankNode[], D>;
+    node(values: null[] | Iterable<BlankNode>, options?: NodeOptions): AnyPointer<BlankNode[], D>;
 
     node(
         values: Array<boolean | string | number | Term | null> | Iterable<Term>,

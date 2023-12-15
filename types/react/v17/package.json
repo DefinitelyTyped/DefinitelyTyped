@@ -1,23 +1,152 @@
 {
-  "private": true,
-  "dependencies": {
-    "csstype": "^3.0.2"
-  },
-  "exports": {
-    ".": {
-      "types": {
-        "default": "./index.d.ts"
-      }
+    "private": true,
+    "name": "@types/react",
+    "version": "17.0.9999",
+    "projects": [
+        "https://react.dev/"
+    ],
+    "exports": {
+        ".": {
+            "types": {
+                "default": "./index.d.ts"
+            }
+        },
+        "./jsx-runtime": {
+            "types": {
+                "default": "./jsx-runtime.d.ts"
+            }
+        },
+        "./jsx-dev-runtime": {
+            "types": {
+                "default": "./jsx-dev-runtime.d.ts"
+            }
+        }
     },
-    "./jsx-runtime": {
-      "types": {
-        "default": "./jsx-runtime.d.ts"
-      }
+    "dependencies": {
+        "@types/prop-types": "*",
+        "@types/scheduler": "*",
+        "csstype": "^3.0.2"
     },
-    "./jsx-dev-runtime": {
-      "types": {
-        "default": "./jsx-dev-runtime.d.ts"
-      }
-    }
-  }
+    "devDependencies": {
+        "@types/create-react-class": "*",
+        "@types/react": "workspace:.",
+        "@types/react-addons-create-fragment": "*",
+        "@types/react-addons-linked-state-mixin": "*",
+        "@types/react-addons-pure-render-mixin": "*",
+        "@types/react-addons-shallow-compare": "*",
+        "@types/react-addons-update": "*",
+        "@types/react-dom": "^17",
+        "@types/react-dom-factories": "*",
+        "@types/trusted-types": "*"
+    },
+    "owners": [
+        {
+            "name": "Asana",
+            "url": "https://asana.com"
+        },
+        {
+            "name": "AssureSign",
+            "url": "http://www.assuresign.com"
+        },
+        {
+            "name": "Microsoft",
+            "url": "https://microsoft.com"
+        },
+        {
+            "name": "John Reilly",
+            "githubUsername": "johnnyreilly"
+        },
+        {
+            "name": "Benoit Benezech",
+            "githubUsername": "bbenezech"
+        },
+        {
+            "name": "Patricio Zavolinsky",
+            "githubUsername": "pzavolinsky"
+        },
+        {
+            "name": "Eric Anderson",
+            "githubUsername": "ericanderson"
+        },
+        {
+            "name": "Dovydas Navickas",
+            "githubUsername": "DovydasNavickas"
+        },
+        {
+            "name": "Josh Rutherford",
+            "githubUsername": "theruther4d"
+        },
+        {
+            "name": "Guilherme Hübner",
+            "githubUsername": "guilhermehubner"
+        },
+        {
+            "name": "Ferdy Budhidharma",
+            "githubUsername": "ferdaber"
+        },
+        {
+            "name": "Johann Rakotoharisoa",
+            "githubUsername": "jrakotoharisoa"
+        },
+        {
+            "name": "Olivier Pascal",
+            "githubUsername": "pascaloliv"
+        },
+        {
+            "name": "Martin Hochel",
+            "githubUsername": "hotell"
+        },
+        {
+            "name": "Frank Li",
+            "githubUsername": "franklixuefei"
+        },
+        {
+            "name": "Jessica Franco",
+            "githubUsername": "Jessidhia"
+        },
+        {
+            "name": "Saransh Kataria",
+            "githubUsername": "saranshkataria"
+        },
+        {
+            "name": "Kanitkorn Sujautra",
+            "githubUsername": "lukyth"
+        },
+        {
+            "name": "Sebastian Silbermann",
+            "githubUsername": "eps1lon"
+        },
+        {
+            "name": "Kyle Scully",
+            "githubUsername": "zieka"
+        },
+        {
+            "name": "Cong Zhang",
+            "githubUsername": "dancerphil"
+        },
+        {
+            "name": "Dimitri Mitropoulos",
+            "githubUsername": "dimitropoulos"
+        },
+        {
+            "name": "JongChan Choi",
+            "githubUsername": "disjukr"
+        },
+        {
+            "name": "Victor Magalhães",
+            "githubUsername": "vhfmag"
+        },
+        {
+            "name": "Dale Tan",
+            "githubUsername": "hellatan"
+        },
+        {
+            "name": "Priyanshu Rav",
+            "githubUsername": "priyanshurav"
+        },
+        {
+            "name": "Costa Alexoglou",
+            "githubUsername": "konsalex"
+        }
+    ]
 }

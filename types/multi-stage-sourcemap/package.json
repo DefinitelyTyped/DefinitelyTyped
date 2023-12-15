@@ -1,6 +1,20 @@
 {
-  "private": true,
-  "dependencies": {
-    "source-map": "^0.7.4"
-  }
+    "private": true,
+    "name": "@types/multi-stage-sourcemap",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/azu/multi-stage-sourcemap/"
+    ],
+    "dependencies": {
+        "source-map": "^0.7.4"
+    },
+    "devDependencies": {
+        "@types/multi-stage-sourcemap": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "David Reed",
+            "githubUsername": "e9x"
+        }
+    ]
 }

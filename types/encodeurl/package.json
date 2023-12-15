@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/encodeurl",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/pillarjs/encodeurl#readme"
+    ],
+    "devDependencies": {
+        "@types/encodeurl": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

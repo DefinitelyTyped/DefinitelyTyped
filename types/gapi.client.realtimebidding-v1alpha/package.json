@@ -1,6 +1,30 @@
 {
-  "private": true,
-  "dependencies": {
-    "@maxim_mazurok/gapi.client.realtimebidding-v1alpha": "latest"
-  }
+    "private": true,
+    "name": "@types/gapi.client.realtimebidding-v1alpha",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Real-time Bidding API v1alpha",
+    "projects": [
+        "https://developers.google.com/authorized-buyers/apis/realtimebidding/reference/rest/"
+    ],
+    "dependencies": {
+        "@maxim_mazurok/gapi.client.realtimebidding-v1alpha": "latest"
+    },
+    "devDependencies": {
+        "@types/gapi.client.realtimebidding-v1alpha": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxim Mazurok",
+            "githubUsername": "Maxim-Mazurok"
+        },
+        {
+            "name": "Nick Amoscato",
+            "githubUsername": "namoscato"
+        },
+        {
+            "name": "Declan Vong",
+            "githubUsername": "declanvong"
+        }
+    ]
 }

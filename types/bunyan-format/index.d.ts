@@ -1,10 +1,3 @@
-// Type definitions for bunyan-format 0.2
-// Project: https://github.com/thlorenz/bunyan-format
-// Definitions by: Piotr Roszatycki <https://github.com/dex4er>
-//                 Ashley Abbott <https://github.com/ashpabb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
 import { Writable } from "stream";
@@ -25,7 +18,7 @@ declare namespace BunyanFormatWritable {
 
 /** Creates a writable stream that formats bunyan records written to it. */
 interface BunyanFormatWritable extends Writable {
-    // tslint:disable-next-line no-misused-new
+    // eslint-disable-next-line @typescript-eslint/no-misused-new
     new(options: BunyanFormatWritable.Options, output?: Writable): BunyanFormatWritable;
     (options: BunyanFormatWritable.Options, output?: Writable): BunyanFormatWritable;
 }

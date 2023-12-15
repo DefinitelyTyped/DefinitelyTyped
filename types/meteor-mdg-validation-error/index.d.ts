@@ -1,9 +1,3 @@
-// Type definitions for non-npm package Atmosphere package mdg:validation-error 0.5
-// Project: https://github.com/meteor/validation-error
-// Definitions by: ToastHawaii <https://github.com/ToastHawaii>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 /// <reference types="meteor"/>
 
 // eslint-disable-next-line @definitelytyped/no-single-declare-module

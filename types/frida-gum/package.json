@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/frida-gum",
+    "version": "18.5.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "frida-gum",
+    "projects": [
+        "https://github.com/frida/frida"
+    ],
+    "devDependencies": {
+        "@types/frida-gum": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ole André Vadla Ravnås",
+            "githubUsername": "oleavr"
+        },
+        {
+            "name": "Francesco Tamagni",
+            "githubUsername": "mrmacete"
+        }
+    ]
+}

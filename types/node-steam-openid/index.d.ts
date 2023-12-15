@@ -1,8 +1,3 @@
-// Type definitions for node-steam-openid 1.0
-// Project: https://github.com/LeeviHalme/node-steam-openid
-// Definitions by: joshuajeschek <https://github.com/joshuajeschek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Request } from "express";
 
 export = SteamAuth;

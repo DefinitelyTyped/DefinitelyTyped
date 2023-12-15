@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/color-namer",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/zeke/color-namer"
+    ],
+    "devDependencies": {
+        "@types/color-namer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dmitriy Serdtsev",
+            "githubUsername": "in19farkt"
+        }
+    ]
+}

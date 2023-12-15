@@ -2,17 +2,20 @@
     "compilerOptions": {
         "esModuleInterop": true,
         "module": "commonjs",
-        "lib": ["es6"],
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react"
     },
-    "files": ["index.d.ts", "styled-theming-tests.tsx"]
+    "files": [
+        "index.d.ts",
+        "styled-theming-tests.tsx"
+    ]
 }

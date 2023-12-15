@@ -1,10 +1,3 @@
-// Type definitions for intro.js 5.1
-// Project: https://github.com/usablica/intro.js
-// Definitions by: Maxime Fabre <https://github.com/anahkiasen>
-//                 Leon Montealegre <https://github.com/LeonMontealegre>
-//                 Veniamin Krol <https://github.com/vkrol>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function introJs(): introJs.IntroJs;
 declare function introJs(element: HTMLElement): introJs.IntroJs;
 declare function introJs(querySelector: string): introJs.IntroJs;
@@ -84,6 +77,7 @@ declare namespace introJs {
         setOptions(options: Options): IntroJs;
 
         onexit(callback: Function): IntroJs;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         onbeforeexit(callback: () => boolean | void): IntroJs;
         onbeforechange(callback: (element: HTMLElement) => any): IntroJs;
         onafterchange(callback: (element: HTMLElement) => any): IntroJs;

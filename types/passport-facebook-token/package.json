@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/passport-facebook-token",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/drudge/passport-facebook-token"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/passport": "*"
+    },
+    "devDependencies": {
+        "@types/passport-facebook-token": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ray Martone",
+            "githubUsername": "rmartone"
+        },
+        {
+            "name": "Michael Randolph",
+            "githubUsername": "mrand01"
+        }
+    ]
+}

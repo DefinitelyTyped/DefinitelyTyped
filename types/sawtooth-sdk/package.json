@@ -1,6 +1,27 @@
 {
     "private": true,
+    "name": "@types/sawtooth-sdk",
+    "version": "1.1.9999",
+    "projects": [
+        "https://www.hyperledger.org/projects/sawtooth",
+        "https://github.com/hyperledger/sawtooth-core"
+    ],
     "dependencies": {
+        "@types/long": "^4",
+        "@types/node": "*",
         "protobufjs": "^6.8.8"
-    }
+    },
+    "devDependencies": {
+        "@types/sawtooth-sdk": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Patrick Erichsen",
+            "githubUsername": "Patrick-Erichsen"
+        },
+        {
+            "name": "Trevor McDonald ",
+            "githubUsername": "trevormcdonald"
+        }
+    ]
 }

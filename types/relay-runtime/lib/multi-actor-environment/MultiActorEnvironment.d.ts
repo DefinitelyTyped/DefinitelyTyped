@@ -37,7 +37,7 @@ export type MultiActorEnvironmentConfig = Readonly<{
     handlerProvider?: HandlerProvider;
     isServer?: boolean | null;
     logFn?: LogFunction | null;
-    missingFieldHandlers?: ReadonlyArray<MissingFieldHandler> | null;
+    missingFieldHandlers?: readonly MissingFieldHandler[] | null;
     operationLoader?: OperationLoader | null;
     requiredFieldLogger?: RequiredFieldLogger | null;
     scheduler?: TaskScheduler | null;

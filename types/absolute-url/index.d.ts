@@ -1,8 +1,3 @@
-// Type definitions for absolute-url 1.2
-// Project: https://github.com/zazukoians/absolute-url
-// Definitions by: tpluscode <https://github.com/tpluscode>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Request, RequestHandler } from "express";
 
 declare module "express-serve-static-core" {
@@ -11,11 +6,6 @@ declare module "express-serve-static-core" {
     }
 }
 
-interface AbsoluteUrl {
-    (): RequestHandler;
-    attach(req: Request): void;
-}
+export default function(req: Request): string;
 
-declare const middleware: AbsoluteUrl;
-
-export = middleware;
+export function middleware(): RequestHandler;

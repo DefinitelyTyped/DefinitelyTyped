@@ -1,14 +1,3 @@
-// Type definitions for react-avatar-editor 13.0
-// Project: https://github.com/mosch/react-avatar-editor
-// Definitions by: Diogo Corrêa <https://github.com/diogocorrea>
-//                 Gabriel Prates <https://github.com/gabsprates>
-//                 Laurent Senta <https://github.com/lsenta>
-//                 David Spiess <https://github.com/davidspiess>
-//                 John Grisham <https://github.com/JohnGrisham>
-//                 Joshua Hintze <https://github.com/GimpMaster>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export interface Position {

@@ -25,12 +25,12 @@ export class TestMethods<T extends HTMLElement> {
     /**
      * A set of sort-definitions for testing.
      */
-    protected sorting: ReadonlyArray<SortDefinition> = [[0, 1], [1, 0]];
+    protected sorting: readonly SortDefinition[] = [[0, 1], [1, 0]];
 
     /**
      * A set of relative sort-definitions for testing.
      */
-    protected relativeSorting: ReadonlyArray<RelativeSortDefinition> = [[0, "o"], [1, "s"]];
+    protected relativeSorting: readonly RelativeSortDefinition[] = [[0, "o"], [1, "s"]];
 
     /**
      * A set of mixed sort-definitions for testing.

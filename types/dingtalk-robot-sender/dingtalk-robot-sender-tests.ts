@@ -3,6 +3,7 @@ import ChatBot = require("dingtalk-robot-sender");
 const bot = new ChatBot({
     baseUrl: "https://oapi.dingtalk.com/robot/send",
     accessToken: "some token",
+    secret: "foo",
 });
 
 bot.send({

@@ -1,8 +1,3 @@
-// Type definitions for easy-speech 1.2
-// Project: https://github.com/jankapunkt/easy-speech#readme
-// Definitions by: Robbie <https://github.com/RJWadley>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference lib="dom" />
 
 export interface Handlers {

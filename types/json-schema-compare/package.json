@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/json-schema-compare",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/mokkabonna/json-schema-compare#readme"
+    ],
+    "dependencies": {
+        "@types/json-schema": "*"
+    },
+    "devDependencies": {
+        "@types/json-schema-compare": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Emily Marigold Klassen",
+            "githubUsername": "forivall"
+        }
+    ]
+}

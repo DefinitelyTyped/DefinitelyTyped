@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/passport-discord",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/nicholastay/passport-discord#readme"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/passport": "*",
+        "@types/passport-oauth2": "*"
+    },
+    "devDependencies": {
+        "@types/passport-discord": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gonthier Renaud",
+            "githubUsername": "kzay"
+        }
+    ]
+}

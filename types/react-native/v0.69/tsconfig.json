@@ -1,24 +1,14 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6"],
-        "paths": {
-            "react-native": [
-                "react-native/v0.69"
-            ],
-            "react-native/*": [
-                "react-native/v0.69/*"
-            ]
-        },
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
         "jsx": "react",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

@@ -1,8 +1,3 @@
-// Type definitions for country-telephone-data 0.6
-// Project: https://github.com/mukeshsoni/country-telephone-data#readme
-// Definitions by: Kyle Hensel <https://github.com/k-yle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Country {
     name: string;
     /** The {@link https://w.wiki/4kP |ISO 3166-1 alpha-2} country code (in **lowercase**) */

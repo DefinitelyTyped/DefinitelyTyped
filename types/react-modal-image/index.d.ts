@@ -1,7 +1,3 @@
-// Type definitions for react-modal-image 2.6
-// Project: https://github.com/aautio/react-modal-image#readme
-// Definitions by: Steel <https://github.com/CodeSteel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import * as React from "react";
 
 export interface ModalImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {

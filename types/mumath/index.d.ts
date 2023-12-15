@@ -1,8 +1,3 @@
-// Type definitions for mumath 3.3
-// Project: https://github.com/dfcreative/mumath
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import clamp = require("./clamp");
 import closest = require("./closest");
 import isMultiple = require("./isMultiple");

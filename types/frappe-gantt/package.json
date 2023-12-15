@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/frappe-gantt",
+    "version": "0.6.9999",
+    "projects": [
+        "https://github.com/frappe/gantt"
+    ],
+    "devDependencies": {
+        "@types/frappe-gantt": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sam Alexander",
+            "githubUsername": "samalexander"
+        },
+        {
+            "name": "Elijah Lucian",
+            "githubUsername": "eli7vh"
+        }
+    ]
+}

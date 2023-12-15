@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/facebook-nodejs-business-sdk",
+    "version": "18.0.9999",
+    "projects": [
+        "https://github.com/facebook/facebook-nodejs-business-sdk"
+    ],
+    "devDependencies": {
+        "@types/facebook-nodejs-business-sdk": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Aisel Sherfedinova",
+            "githubUsername": "aisel01"
+        }
+    ],
+    "minimumTypeScriptVersion": "5.1"
+}

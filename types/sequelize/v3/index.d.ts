@@ -1,13 +1,3 @@
-// Type definitions for Sequelize 3.30.4
-// Project: http://sequelizejs.com, https://github.com/sequelize/sequelize
-// Definitions by: samuelneff <https://github.com/samuelneff>
-//                 Peter Harris <https://github.com/codeanimal>
-//                 Ivan Drinchev <https://github.com/drinchev>
-//                 Nick Mueller <https://github.com/morpheusxaut>
-//                 James D. Callahan III <https://github.com/torhal>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
 import * as Promise from "bluebird";
@@ -1758,7 +1748,7 @@ declare namespace sequelize {
          * Accepts subtype any of the DataTypes
          * Array of required attributes that are available on the model
          */
-        new(subtype: DataTypeAbstract, requireAttributes?: Array<string>): DataTypeVirtual;
+        new(subtype: DataTypeAbstract, requireAttributes?: string[]): DataTypeVirtual;
     }
 
     interface DataTypeEnum extends DataTypeAbstract {
@@ -2779,7 +2769,7 @@ declare namespace sequelize {
         /**
          * Check if this is eqaul to one of `others` by calling equals
          */
-        equalsOneOf(others: Instance<any>[]): boolean;
+        equalsOneOf(others: Array<Instance<any>>): boolean;
 
         /**
          * Convert the instance to a JSON representation. Proxies to calling `get` with no keys. This means get all
@@ -3064,7 +3054,7 @@ declare namespace sequelize {
          */
         attributes?: FindOptionsAttributesArray | {
             include?: FindOptionsAttributesArray | undefined;
-            exclude?: Array<string> | undefined;
+            exclude?: string[] | undefined;
         } | undefined;
 
         /**
@@ -5030,13 +5020,15 @@ declare namespace sequelize {
      * @see Options
      */
     interface ReplicationOptions {
-        read?: {
-            host?: string | undefined;
-            port?: string | number | undefined;
-            username?: string | undefined;
-            password?: string | undefined;
-            database?: string | undefined;
-        }[] | undefined;
+        read?:
+            | Array<{
+                host?: string | undefined;
+                port?: string | number | undefined;
+                username?: string | undefined;
+                password?: string | undefined;
+                database?: string | undefined;
+            }>
+            | undefined;
 
         write?: {
             host?: string | undefined;

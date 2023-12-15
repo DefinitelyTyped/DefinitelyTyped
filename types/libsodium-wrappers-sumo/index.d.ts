@@ -1,9 +1,3 @@
-// Type definitions for libsodium-wrappers-sumo 0.7
-// Project: https://github.com/jedisct1/libsodium.js
-// Definitions by: Florian Imdahl <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 export * from "libsodium-wrappers";
 
 import { KeyPair, StateAddress, StringKeyPair, StringOutputFormat, Uint8ArrayOutputFormat } from "libsodium-wrappers";

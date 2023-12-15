@@ -1,9 +1,3 @@
-// Type definitions for oc.LazyLoad 1.0.2
-// Project: https://github.com/ocombe/ocLazyLoad
-// Definitions by: Roland Zwaga <https://github.com/rolandzwaga>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="angular" />
 /// <reference path="./oclazyload.d.ts" />
 
@@ -21,6 +15,6 @@ declare module "angular" {
          * @param requires The names of modules this module depends on, and/or ocLazyLoad module configurations. If specified then new module is being created. If unspecified then the module is being retrieved for further configuration.
          * @param configFn Optional configuration function for the module.
          */
-        module(name: string, requires?: (string | oc.IModuleConfig)[], configFn?: Function): IModule;
+        module(name: string, requires?: Array<string | oc.IModuleConfig>, configFn?: Function): IModule;
     }
 }

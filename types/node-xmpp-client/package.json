@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/node-xmpp-client",
+    "version": "3.1.9999",
+    "projects": [
+        "https://github.com/node-xmpp/node-xmpp"
+    ],
+    "devDependencies": {
+        "@types/node-xmpp-client": "workspace:."
+    },
+    "owners": []
+}

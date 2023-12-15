@@ -1,9 +1,3 @@
-// Type definitions for sparkpost v1.3
-// Project: https://github.com/SparkPost/node-sparkpost
-// Definitions by: Joshua DeVinney <https://github.com/geoffreak>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node"/>
 
 import * as Http from "http";
@@ -399,12 +393,14 @@ declare class SparkPost {
          */
         getBatchStatus(
             options: { id: string; limit?: number | undefined },
-            callback: SparkPost.ResultsCallback<{
-                batch_id: string;
-                ts: string;
-                attempts: number;
-                response_code: number;
-            }[]>,
+            callback: SparkPost.ResultsCallback<
+                Array<{
+                    batch_id: string;
+                    ts: string;
+                    attempts: number;
+                    response_code: number;
+                }>
+            >,
         ): void;
         /**
          * Lists descriptions of the events, event types, and event fields that could be included in a Webhooks post to your target URL.
@@ -1153,11 +1149,11 @@ declare namespace SparkPost {
     }
 
     export interface WebhookLinks {
-        links: {
+        links: Array<{
             href: string;
             rel: string;
             method: string[];
-        }[];
+        }>;
     }
 }
 

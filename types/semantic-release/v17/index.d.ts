@@ -1,10 +1,3 @@
-// Type definitions for semantic-release 17.2
-// Project: https://github.com/semantic-release/semantic-release#readme
-// Definitions by: Leonardo Gatica <https://github.com/lgaticaq>
-//                 Daniel Cassidy <https://github.com/djcsdy>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare namespace SemanticRelease {
@@ -36,7 +29,7 @@ declare namespace SemanticRelease {
          * file will take precedence over the ones defined in any shareable
          * configuration.
          */
-        extends?: ReadonlyArray<string> | string | undefined;
+        extends?: readonly string[] | string | undefined;
 
         /**
          * The branches on which releases should happen. By default
@@ -70,7 +63,7 @@ declare namespace SemanticRelease {
          * See [Workflow configuration](https://semantic-release.gitbook.io/semantic-release/usage/workflow-configuration#workflow-configuration)
          * for more details.
          */
-        branches?: ReadonlyArray<BranchSpec> | BranchSpec | undefined;
+        branches?: readonly BranchSpec[] | BranchSpec | undefined;
 
         /**
          * The git repository URL.
@@ -111,7 +104,7 @@ declare namespace SemanticRelease {
          *     "@semantic-release/github"
          * ]`
          */
-        plugins?: ReadonlyArray<PluginSpec> | undefined;
+        plugins?: readonly PluginSpec[] | undefined;
 
         /**
          * Dry-run mode, skip publishing, print next version and release notes.
@@ -167,7 +160,7 @@ declare namespace SemanticRelease {
          * See [Workflow configuration](https://semantic-release.gitbook.io/semantic-release/usage/workflow-configuration#workflow-configuration)
          * for more details.
          */
-        branches: ReadonlyArray<BranchSpec> | BranchSpec;
+        branches: readonly BranchSpec[] | BranchSpec;
 
         /**
          * The git repository URL.
@@ -208,7 +201,7 @@ declare namespace SemanticRelease {
          *     "@semantic-release/github"
          * ]`
          */
-        plugins: ReadonlyArray<PluginSpec>;
+        plugins: readonly PluginSpec[];
     }
 
     interface BranchObject {

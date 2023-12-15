@@ -1,9 +1,3 @@
-// Type definitions for subleveldown 4.1
-// Project: https://github.com/level/subleveldown
-// Definitions by: Carson Farmer <https://github.com/carsonfarmer>
-//                 Dmitry Demensky <https://github.com/demensky>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { AbstractIterator, AbstractLevelDOWN, ErrorCallback } from "abstract-leveldown";
 import { CodecOptions } from "level-codec";
 import { LevelUp } from "levelup";

@@ -1,8 +1,3 @@
-// Type definitions for sc-broker-cluster 6.1
-// Project: https://github.com/SocketCluster/sc-broker-cluster
-// Definitions by: Daniel Rose <https://github.com/DanielRose>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { AsyncResultArrayCallback } from "async";
 import { EventEmitter } from "events";
 import { Keys } from "expirymanager";

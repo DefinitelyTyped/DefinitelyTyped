@@ -1,9 +1,3 @@
-// Type definitions for maptalks 0.49
-// Project: https://github.com/maptalks/maptalks.js
-// Definitions by: Yu Yan <https://github.com/yanyu510>
-//                 aheadweb <https://github.com/aheadweb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export const INTERNAL_LAYER_PREFIX: string;
 /**
  * Symbol properties containing external resources

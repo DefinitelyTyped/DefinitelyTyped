@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/sw-precache-webpack-plugin",
+    "version": "0.11.9999",
+    "projects": [
+        "https://github.com/goldhand/sw-precache-webpack-plugin#readme"
+    ],
+    "dependencies": {
+        "@types/sw-precache": "*",
+        "@types/webpack": "^4"
+    },
+    "devDependencies": {
+        "@types/sw-precache-webpack-plugin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "JounQin",
+            "githubUsername": "JounQin"
+        }
+    ]
+}

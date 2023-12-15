@@ -135,10 +135,16 @@ declare namespace DatabaseSchema {
     };
 }
 type Database = import('../database/Database');
+declare function registerObserver(observer: import('./DatabaseSchemaObserver')): void;
+declare function deregisterObserver(observer: import('./DatabaseSchemaObserver')): void;
 interface TableInfo {
     name: string;
     primaryKey: string[];
     tablespace: string;
+}
+interface ViewInfo {
+    name: string;
+    definition: string;
 }
 interface ColumnInfo {
     name: string;
@@ -171,10 +177,6 @@ interface TriggerInfo {
     actionStatement: string;
     enabled: boolean;
 }
-interface ViewInfo {
-    name: string;
-    definition: string;
-}
 interface ColumnDef {
     name: string;
     dataType: string;
@@ -195,5 +197,3 @@ interface IndexDef {
     tablespace?: string;
     compressed?: boolean;
 }
-declare function registerObserver(observer: import('./DatabaseSchemaObserver')): void;
-declare function deregisterObserver(observer: import('./DatabaseSchemaObserver')): void;

@@ -1,8 +1,3 @@
-// Type definitions for filestack-react 4.0
-// Project: https://github.com/filestack/filestack-react
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { ClientOptions, PickerFileMetadata, PickerOptions } from "filestack-js";
 import * as React from "react";
 

@@ -98,6 +98,9 @@ function assertNever(value: never) {
                 const viewport: XRViewport | undefined = layer.getViewport(view);
                 // draw to the device eyes
             }
+
+            const angularVelocity: DOMPointReadOnly | undefined = pose.angularVelocity;
+            const linearVelocity: DOMPointReadOnly | undefined = pose.linearVelocity;
         }
     };
 

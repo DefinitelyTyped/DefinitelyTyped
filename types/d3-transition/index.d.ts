@@ -1,12 +1,3 @@
-// Type definitions for D3JS d3-transition module 3.0
-// Project: https://github.com/d3/d3-transition/, https://d3js.org/d3-transition
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
-//                 Alex Ford <https://github.com/gustavderdrache>
-//                 Boris Yankov <https://github.com/borisyankov>
-//                 Robert Moura <https://github.com/robertmoura>
-//                 Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Last module patch version validated against: 3.0.1
 
 import { ArrayLike, BaseType, Selection, ValueFn } from "d3-selection";
@@ -72,10 +63,10 @@ declare module "d3-selection" {
  * @param node Element for which the active transition should be returned.
  * @param name Name of the transition.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function active<GElement extends BaseType, Datum, PElement extends BaseType, PDatum>(
     node: GElement,
     name?: string,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): Transition<GElement, Datum, PElement, PDatum> | null;
 
 /**
@@ -136,9 +127,9 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      *
      * @param selector CSS selector string
      */
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     selectAll<DescElement extends BaseType, OldDatum>(
         selector: string,
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     ): Transition<DescElement, OldDatum, GElement, Datum>;
     /**
      * For each selected element, select all descendant elements returned by the selector function, if any,
@@ -152,9 +143,9 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]). It must return an array of elements
      * (or a pseudo-array, such as a NodeList), or the empty array if there are no matching elements.
      */
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     selectAll<DescElement extends BaseType, OldDatum>(
         selector: ValueFn<GElement, Datum, DescElement[] | ArrayLike<DescElement>>,
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     ): Transition<DescElement, OldDatum, GElement, Datum>;
 
     /**
@@ -167,9 +158,9 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      * This method is equivalent to deriving the selection for this transition via transition.selection,
      * creating a subselection via selection.selectChild, and then creating a new transition via selection.transition.
      */
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     selectChild<DescElement extends BaseType, OldDatum>(
         selector?: string | ValueFn<GElement, Datum, DescElement>,
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     ): Transition<DescElement, OldDatum, GElement, Datum>;
 
     /**
@@ -182,9 +173,9 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      * This method is equivalent to deriving the selection for this transition via transition.selection,
      * creating a subselection via selection.selectChildren, and then creating a new transition via selection.transition.
      */
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     selectChildren<DescElement extends BaseType, OldDatum>(
         selector?: string | ValueFn<GElement, Datum, DescElement>,
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     ): Transition<DescElement, OldDatum, GElement, Datum>;
 
     /**
@@ -472,9 +463,9 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
      * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]). The filter function returns a boolean indicating,
      * whether the selected element matches.
      */
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     filter<FilteredElement extends BaseType>(
         filter: ValueFn<GElement, Datum, boolean>,
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     ): Transition<FilteredElement, Datum, PElement, PDatum>;
 
     // Event Handling -------------------
@@ -667,7 +658,7 @@ export function transition<OldDatum>(name?: string): Transition<BaseType, OldDat
  *
  * @param transition A transition instance.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function transition<OldDatum>(
     transition: Transition<BaseType, any, BaseType, any>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): Transition<BaseType, OldDatum, null, undefined>;

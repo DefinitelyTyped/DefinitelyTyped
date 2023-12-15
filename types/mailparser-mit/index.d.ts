@@ -1,8 +1,3 @@
-// Type definitions for mailparser-mit 1.0
-// Project: https://github.com/mazira/mailparser-mit#readme
-// Definitions by: atlowChemi <https://github.com/atlowChemi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Stream } from "node:stream";

@@ -1,8 +1,3 @@
-// Type definitions for buffer-json-encoding 1.0
-// Project: https://github.com/lachenmayer/buffer-json-encoding
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**

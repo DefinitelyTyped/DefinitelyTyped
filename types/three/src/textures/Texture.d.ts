@@ -17,7 +17,7 @@ import {
 } from '../constants.js';
 
 /** Shim for OffscreenCanvas. */
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface OffscreenCanvas extends EventTarget {}
 
 /**
@@ -201,8 +201,8 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
 
     /**
      * These define how elements of a 2D texture, or texels, are read by shaders.
-     * @remarks All {@link Texture} types except {@link THREE.DeepTexture} and {@link THREE.CompressedPixelFormat} expect the _values_ be {@link THREE.PixelFormat}
-     * @remarks {@link DeepTexture} expect the _values_ be {@link THREE.CubeTextureMapping}
+     * @remarks All {@link Texture} types except {@link THREE.DepthTexture} and {@link THREE.CompressedPixelFormat} expect the _values_ be {@link THREE.PixelFormat}
+     * @remarks {@link DepthTexture} expect the _values_ be {@link THREE.CubeTextureMapping}
      * @remarks {@link CompressedPixelFormat} expect the _values_ be {@link THREE.CubeTextureMapping}
      * @see {@link https://threejs.org/docs/index.html#api/en/constants/Textures | Texture Constants}
      * @see {@link THREE.PixelFormat}
@@ -366,7 +366,7 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
      * @remarks It should not hold references to functions as these will not be cloned.
      * @defaultValue `{}`
      */
-    userData: any;
+    userData: Record<string, any>;
 
     /**
      * This starts at `0` and counts how many times {@link needsUpdate | .needsUpdate} is set to `true`.

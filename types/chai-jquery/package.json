@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/chai-jquery",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/chaijs/chai-jquery"
+    ],
+    "dependencies": {
+        "@types/chai": "*",
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/chai-jquery": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kazi Manzur Rashid",
+            "githubUsername": "kazimanzurrashid"
+        }
+    ]
+}

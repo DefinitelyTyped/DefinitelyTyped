@@ -51,16 +51,13 @@ npm 의 "foo" 패키지에 대응되는 자료형 패키지는 "@types/foo" 입�
 이 경우 주로 `package.json` 파일의 `"types"` 나 `"typings"` 필드(Field)를 통해 제공되지만,
 `/// <reference path="" />` 같은 주석을 사용하여 패키지 안의 ".d.ts" 파일들을 직접 가져와야 할 수도 있습니다.
 
-#### 이전 버전 TypeScript (4.0 또는 그 이전)
-
-Definitely Typed는 2년이 지나지 않은 TypeScript 버전만을 대상으로 패키지를 테스트합니다.
-현재 버전 4.1 및 그 이상만을 테스트하고 있습니다.
-TypeScript 2.0에서 4.0 버전을 사용하는 경우, 그래도 `@types` 패키지를 한번 설치해 보셔도 무방합니다. 최신 TypeScript 기능을 사용하는 패키지는 그리 많지 않으니까요.
-그러나 작동 여부를 보장하지는 못합니다.
-지원 기간은 다음과 같습니다:
+### Support window
 
 <img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
 <img src="docs/support-window.svg#gh-dark-mode-only" style="width:100%">
+
+<details>
+<summary>이전 버전 TypeScript</summary>
 
 `@types` 패키지 안에는 패키지가 확실하게 지원하는 TypeScript 버전이 태그로 쓰여 있으므로, 2년 지원 기간이 지난 오래된 패키지도 보통 찾아보실 수 있습니다.
 예를 들어, `npm dist-tags @types/react` 명령어를 입력하면 TypeScript 2.5는 react@16.0용 타입을, TypeScript 2.6 및 2.7은 react@16.4용 타입을 사용할 수 있는 것을 확인하실 수 있습니다:
@@ -83,6 +80,7 @@ TypeScript 2.0에서 4.0 버전을 사용하는 경우, 그래도 `@types` 패�
 
 위 방법을 사용할 경우 수동으로 [참조(Reference)](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html)를 추가해주어야 할 수 있습니다.
 
+</details>
 
 ## 어떻게 기여하나요?
 
@@ -173,7 +171,7 @@ Definitely Typed 의 관리자들이 주기적으로 새로운 풀 리퀘스트(
 
 패키지가 스스로의 형(Type)을 [포함](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)하게 되면, Definitely Typed 에 있는 자료형(Typing) 패키지를 삭제하는 것이 좋습니다.
 
-`npm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]` 명령어를 사용하여 자료형(Typing) 패키지를 삭제할 수 있습니다.
+`pnpm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]` 명령어를 사용하여 자료형(Typing) 패키지를 삭제할 수 있습니다.
 - `<typingsPackageName>` 는 삭제할 디렉토리의 이름입니다.
 - `<asOfVersion>`  는 새 스텁(Stub) 용 `@types/<typingsPackageName>` 를 퍼블리시(Publish)할 버전입니다. 이 버전은 현재 npm 에 올라간 버전보다 더 높은 버전이어야 합니다.
 - `<libraryName>` 는 패키지의 이름을 읽기 쉽게 쓴 것입니다. 즉, "angular2" 대신에 "Angular 2" 와 같이 쓰는 것이 좋습니다. (생략했을 경우에는 `<typingsPackageName>` 와 같은 것으로 취급됩니다.)

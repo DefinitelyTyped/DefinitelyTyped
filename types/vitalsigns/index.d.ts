@@ -1,9 +1,3 @@
-// Type definitions for vitalsigns 0.4.3
-// Project: https://github.com/TomFrost/node-vitalsigns
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="express"/>
 
 declare module "vitalsigns" {
@@ -148,7 +142,7 @@ declare module "vitalsigns" {
          * Retrieves an array of human-readable messages that define the specific health constraints that failed when running the last health check.
          * @returns {Array<string>} An array of failure messages.
          */
-        getFailed(): Array<string>;
+        getFailed(): string[];
 
         /**
          * Gets a report of all monitors, their fields, and the values of those fields, compiled into Javascript object form.  Additionally, a 'healthy' field is

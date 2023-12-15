@@ -1,16 +1,20 @@
 {
-    "files": ["index.d.ts", "react-no-ssr-tests.tsx"],
+    "files": [
+        "index.d.ts",
+        "react-no-ssr-tests.tsx"
+    ],
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6", "dom"],
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
         "jsx": "react",
         "experimentalDecorators": true,
-        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

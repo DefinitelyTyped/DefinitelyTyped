@@ -1,9 +1,3 @@
-// Type definitions for DevExpress ASP.NET 181.7
-// Project: http://devexpress.com/
-// Definitions by: DevExpress Inc. <http://devexpress.com/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="knockout"/>
 /// <reference types="jquery"/>
 

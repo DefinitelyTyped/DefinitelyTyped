@@ -1,6 +1,30 @@
 {
-  "private": true,
-  "dependencies": {
-    "@maxim_mazurok/gapi.client.analyticsadmin-v1alpha": "latest"
-  }
+    "private": true,
+    "name": "@types/gapi.client.analyticsadmin-v1alpha",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Google Analytics Admin API v1alpha",
+    "projects": [
+        "http://code.google.com/apis/analytics/docs/mgmt/home.html"
+    ],
+    "dependencies": {
+        "@maxim_mazurok/gapi.client.analyticsadmin-v1alpha": "latest"
+    },
+    "devDependencies": {
+        "@types/gapi.client.analyticsadmin-v1alpha": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxim Mazurok",
+            "githubUsername": "Maxim-Mazurok"
+        },
+        {
+            "name": "Nick Amoscato",
+            "githubUsername": "namoscato"
+        },
+        {
+            "name": "Declan Vong",
+            "githubUsername": "declanvong"
+        }
+    ]
 }

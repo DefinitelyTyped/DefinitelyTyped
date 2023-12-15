@@ -2,17 +2,14 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6", "dom"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": false,
         "allowSyntheticDefaultImports": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

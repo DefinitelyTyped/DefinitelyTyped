@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/math-expression-evaluator",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/bugwheels94/math-expression-evaluator"
+    ],
+    "devDependencies": {
+        "@types/math-expression-evaluator": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Zerella",
+            "githubUsername": "azerella"
+        }
+    ]
+}

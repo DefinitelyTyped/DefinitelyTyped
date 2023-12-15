@@ -1,9 +1,3 @@
-// Type definitions for check-error 1.0
-// Project: https://github.com/chaijs/check-error#readme
-// Definitions by: Porama Ignoi Ruengrairatanaroj <https://github.com/Seally>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 export type ErrorInstanceOrConstructor =
     | Error
     | {

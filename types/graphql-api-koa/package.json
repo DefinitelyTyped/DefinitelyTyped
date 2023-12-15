@@ -1,6 +1,21 @@
 {
-  "private": true,
-  "dependencies": {
-    "graphql": "^14.5.3"
-  }
+    "private": true,
+    "name": "@types/graphql-api-koa",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/jaydenseric/graphql-api-koa#readme"
+    ],
+    "dependencies": {
+        "@types/koa": "*",
+        "graphql": "^14.5.3"
+    },
+    "devDependencies": {
+        "@types/graphql-api-koa": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mike Marcacci",
+            "githubUsername": "mike-marcacci"
+        }
+    ]
 }

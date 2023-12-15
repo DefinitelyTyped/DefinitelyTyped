@@ -1,24 +1,38 @@
 {
     "private": true,
-    "dependencies": {
-      "csstype": "^3.0.2"
-    },
+    "name": "@types/react-refresh",
+    "version": "0.14.9999",
+    "projects": [
+        "https://github.com/facebook/react/tree/main/packages/react-refresh"
+    ],
     "exports": {
-      ".": {
-        "types": {
-          "default": "./runtime.d.ts"
+        ".": {
+            "types": {
+                "default": "./runtime.d.ts"
+            }
+        },
+        "./runtime": {
+            "types": {
+                "default": "./runtime.d.ts"
+            }
+        },
+        "./babel": {
+            "types": {
+                "default": "./babel.d.ts"
+            }
         }
-      },
-      "./runtime": {
-        "types": {
-          "default": "./runtime.d.ts"
+    },
+    "dependencies": {
+        "@types/babel__core": "*",
+        "csstype": "^3.0.2"
+    },
+    "devDependencies": {
+        "@types/react-refresh": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Yarden Porat",
+            "githubUsername": "yardenporat"
         }
-      },
-      "./babel": {
-        "types": {
-          "default": "./babel.d.ts"
-        }
-      }
-    }
-  }
-  
+    ]
+}

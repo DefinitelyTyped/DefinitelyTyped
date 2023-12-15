@@ -1,8 +1,3 @@
-// Type definitions for github-label-sync 2.3
-// Project: https://github.com/Financial-Times/github-label-sync
-// Definitions by: Federico Grandi <https://github.com/EndBug>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface BasicLabel {
     name: string;
     color: string;

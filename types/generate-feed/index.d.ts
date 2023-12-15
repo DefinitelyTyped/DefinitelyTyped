@@ -1,8 +1,3 @@
-// Type definitions for generate-feed 1.1
-// Project: https://github.com/bcomnes/generate-feed#readme
-// Definitions by: Florian Imdahl <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace processFiles {
     interface Config {
         avatar?: string;

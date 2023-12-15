@@ -1,9 +1,3 @@
-// Type definitions for poi 12.5
-// Project: https://github.com/egoist/poi/
-// Definitions by: c4605 <https://github.com/bolasblack>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
-
 import CAC from "cac/types/CAC";
 import { Options as HtmlWebpackPluginOptions } from "html-webpack-plugin";
 import { Configuration as WebpackConfig, ICompiler } from "webpack";
@@ -45,7 +39,7 @@ declare class PoiCore {
     getCacheConfig(
         dir: string,
         keys: { [k: string]: string },
-        files: ReadonlyArray<string>,
+        files: readonly string[],
     ): {
         cacheDirectory: string;
         cacheIdentifier: string;
@@ -185,6 +179,7 @@ declare namespace PoiCore {
 
         type ConfigureWebpack =
             | WebpackConfig
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             | ((config: WebpackConfig, opts: Opts) => void | WebpackConfig);
 
         type PublicFolder = string | boolean;
@@ -213,14 +208,14 @@ declare namespace PoiCore {
 
     interface ConfigLoader {
         resolve(
-            files?: ReadonlyArray<string>,
+            files?: readonly string[],
             cwd?: string,
             stopDir?: string,
         ): string | null;
         resolve(options?: ConfigLoader.Options): string | null;
 
         load(
-            files?: ReadonlyArray<string>,
+            files?: readonly string[],
             cwd?: string,
             stopDir?: string,
         ): any;

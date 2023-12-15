@@ -1,8 +1,3 @@
-// Type definitions for phoenix_live_view 0.18
-// Project: https://github.com/phoenixframework/phoenix_live_view
-// Definitions by: Peter Zingg <https://github.com/pzingg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Version 0.15.4 added options and interfaces for LiveView uploads
 // See: https://hexdocs.pm/phoenix_live_view/uploads.html
 
@@ -298,6 +293,7 @@ export namespace Browser {
 
 export namespace DOM {
     function all(node: Node, query: string, callback: (el: HTMLElement) => HTMLElement): HTMLElement[];
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     function byId(id: string): HTMLElement | void;
     function childNodeLength(html: string): number;
     function cleanChildNodes(container: Node, phxUpdate: string): void;
@@ -320,6 +316,7 @@ export namespace DOM {
     function findParentCIDs(node: Node, cids: number[]): Set<number>;
     function findPhxChildren(el: HTMLElement, parentId: string): HTMLElement[];
     function findPhxChildrenInFragment(html: string, parentId: string): HTMLElement[];
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     function findUploadInputs(node: Node): void | any[];
     function hasSelectionRange(el: HTMLElement): boolean;
     function incCycle(el: HTMLElement, key: string, trigger?: any): number;

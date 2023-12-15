@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-combine-reducers",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ankita1010/react-combine-reducers#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-combine-reducers": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Raphaël Léger",
+            "githubUsername": "raphael-leger"
+        }
+    ]
+}

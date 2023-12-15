@@ -1,0 +1,61 @@
+{
+    "private": true,
+    "name": "@types/codemirror",
+    "version": "5.60.9999",
+    "projects": [
+        "https://github.com/codemirror/CodeMirror"
+    ],
+    "minimumTypeScriptVersion": "5.0",
+    "dependencies": {
+        "@types/tern": "*"
+    },
+    "devDependencies": {
+        "@types/codemirror": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "mihailik",
+            "githubUsername": "mihailik"
+        },
+        {
+            "name": "nrbernard",
+            "githubUsername": "nrbernard"
+        },
+        {
+            "name": "Pr1st0n",
+            "githubUsername": "Pr1st0n"
+        },
+        {
+            "name": "rileymiller",
+            "githubUsername": "rileymiller"
+        },
+        {
+            "name": "toddself",
+            "githubUsername": "toddself"
+        },
+        {
+            "name": "ysulyma",
+            "githubUsername": "ysulyma"
+        },
+        {
+            "name": "azoson",
+            "githubUsername": "azoson"
+        },
+        {
+            "name": "kylesferrazza",
+            "githubUsername": "kylesferrazza"
+        },
+        {
+            "name": "fityocsaba96",
+            "githubUsername": "fityocsaba96"
+        },
+        {
+            "name": "koddsson",
+            "githubUsername": "koddsson"
+        },
+        {
+            "name": "ficristo",
+            "githubUsername": "ficristo"
+        }
+    ]
+}

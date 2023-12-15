@@ -1,13 +1,3 @@
-// Type definitions for flexmonster 2.7
-// Project: https://flexmonster.com/
-// Definitions by:  Dima Zvazhii <https://github.com/Uaman>
-//                  Ian Sadovy <https://github.com/iansadovy>
-//                  Flexmonster Team (Admin) <https://github.com/flexmonsterowner>
-//                  Flexmonster Team <https://github.com/flexmonsterteam>
-//                  Iryna Kulchytska <https://github.com/irakulchytska>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 export as namespace Flexmonster;
 
 declare const Flexmonster: FlexmonsterConstructor;

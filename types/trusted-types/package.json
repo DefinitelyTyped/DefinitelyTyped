@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/trusted-types",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/WICG/trusted-types"
+    ],
+    "devDependencies": {
+        "@types/trusted-types": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jakub Vrana",
+            "githubUsername": "vrana"
+        },
+        {
+            "name": "Damien Engels",
+            "githubUsername": "engelsdamien"
+        },
+        {
+            "name": "Emanuel Tesar",
+            "githubUsername": "siegrift"
+        },
+        {
+            "name": "Bjarki",
+            "githubUsername": "bjarkler"
+        },
+        {
+            "name": "Sebastian Silbermann",
+            "githubUsername": "eps1lon"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for @onflow/flow-js-testing 0.3
-// Project: https://github.com/onflow/flow-js-testing
-// Definitions by: adbario <https://github.com/adbario>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export * from "./src/account";

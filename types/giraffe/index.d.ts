@@ -1,9 +1,3 @@
-// Type definitions for Giraffe
-// Project: https://github.com/barc/backbone.giraffe
-// Definitions by: Julian Gonggrijp <https://github.com/jgonggrijp>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="backbone" />
 /// <reference types="jquery" />
 
@@ -90,7 +84,7 @@ declare namespace Giraffe {
     class View<TModel extends Model> extends Backbone.View<TModel> implements GiraffeObject {
         app: App;
         appEvents: StringMap;
-        children: View<TModel>[];
+        children: Array<View<TModel>>;
         dataEvents: StringMap;
         defaultOptions: DefaultOptions;
         documentTitle: string;
@@ -111,7 +105,7 @@ declare namespace Giraffe {
         setParent(parent: View<TModel>): View<TModel>;
 
         addChild(child: View<TModel>): View<TModel>;
-        addChildren(children: View<TModel>[]): View<TModel>;
+        addChildren(children: Array<View<TModel>>): View<TModel>;
         removeChild(child: View<TModel>, preserve?: boolean): View<TModel>;
         removeChildren(preserve?: boolean): View<TModel>;
 

@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/cls-hooked",
+    "version": "4.3.9999",
+    "projects": [
+        "https://github.com/jeff-lewis/cls-hooked"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/cls-hooked": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leo Liang",
+            "githubUsername": "aleung"
+        },
+        {
+            "name": "Lucian Buzzo",
+            "githubUsername": "LucianBuzzo"
+        }
+    ]
+}

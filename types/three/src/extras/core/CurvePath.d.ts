@@ -1,5 +1,5 @@
 import { Curve } from './Curve.js';
-import { Vector } from './../../math/Vector2.js';
+import { Vector } from '../../math/Vector2.js';
 
 /**
  * Curved Path - a curve path is simply a array of connected curves, but retains the api of a curve.
@@ -41,7 +41,7 @@ export class CurvePath<T extends Vector> extends Curve<T> {
     /**
      * Adds a {@link LineCurve | lineCurve} to close the path.
      */
-    closePath(): void;
+    closePath(): this;
 
     getPoint(t: number, optionalTarget?: T): T;
 

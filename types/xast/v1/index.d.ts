@@ -1,12 +1,3 @@
-// Type definitions for non-npm package xast 1.0
-// Project: https://github.com/syntax-tree/xast
-// Definitions by: stefanprobst <https://github.com/stefanprobst>
-//                 Titus Wormer <https://github.com/wooorm>
-//                 Christian Murphy <https://github.com/ChristianMurphy>
-//                 Junyoung Choi <https://github.com/rokt33r>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import { Literal as UnistLiteral, Node as UnistNode, Parent as UnistParent } from "unist";
 
 export { UnistNode as Node };

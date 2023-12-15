@@ -1,10 +1,3 @@
-// Type definitions for refresh-fetch 0.6
-// Project: https://github.com/vlki/refresh-fetch
-// Definitions by: Alex Lisenkov <https://github.com/AlexLisenkov>
-//                 Pieter Braam <https://github.com/ppbraam>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 export function configureRefreshFetch<T>(
     configuration: {
         fetch: T;
@@ -13,8 +6,8 @@ export function configureRefreshFetch<T>(
     },
 ): T;
 
+/* eslint-disable-next-line @definitelytyped/no-unnecessary-generics */
 export function fetchJSON<ResponseBody>(url: string | Request | URL, options?: RequestInit): Promise<{
-    /* eslint-disable-next-line @definitelytyped/no-unnecessary-generics */
     body: ResponseBody;
     response: Response;
 }>;

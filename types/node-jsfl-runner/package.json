@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/node-jsfl-runner",
+    "version": "0.2.9999",
+    "projects": [
+        "https://www.npmjs.com/package/node-jsfl-runner"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/node-jsfl-runner": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michael Randolph",
+            "githubUsername": "mrand01"
+        }
+    ]
+}

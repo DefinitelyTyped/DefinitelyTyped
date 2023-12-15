@@ -1,8 +1,3 @@
-// Type definitions for base32-encoding 1.0
-// Project: https://github.com/emilbayes/base32-encoding#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**

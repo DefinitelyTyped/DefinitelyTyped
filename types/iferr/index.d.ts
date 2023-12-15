@@ -1,8 +1,3 @@
-// Type definitions for iferr 1.0
-// Project: https://github.com/shesek/iferr
-// Definitions by: segayuu <https://github.com/segayuu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type nodeCallback<T> = (err: Error | null, ...a: T[]) => any;
 
 // Delegates to `succ` on sucecss or to `fail` on error

@@ -1,9 +1,3 @@
-// Type definitions for writable-consumable-stream 1.1
-// Project: https://github.com/SocketCluster/writable-consumable-stream
-// Definitions by: Daniel Rose <https://github.com/DanielRose>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
-
 import ConsumableStream = require("consumable-stream");
 
 import Consumer = require("./consumer");

@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/tinajs__tina",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/tinajs/tina",
+        "https://tina.js.org"
+    ],
+    "devDependencies": {
+        "@types/tinajs__tina": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jiayu Liu",
+            "githubUsername": "Jimexist"
+        },
+        {
+            "name": "Strange Fish",
+            "githubUsername": "strange-fish"
+        }
+    ]
+}

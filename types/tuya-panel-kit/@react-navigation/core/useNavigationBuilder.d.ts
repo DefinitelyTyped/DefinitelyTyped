@@ -10,8 +10,10 @@ import { DefaultNavigatorOptions, PrivateValueStore } from "./types";
 export default function useNavigationBuilder<
     State extends NavigationState,
     RouterOptions extends DefaultRouterOptions,
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     ActionHelpers extends Record<string, () => void>,
     ScreenOptions extends {},
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     EventMap extends Record<string, any>,
 >(
     createRouter: RouterFactory<State, any, RouterOptions>,
@@ -39,7 +41,7 @@ export default function useNavigationBuilder<
                             // tslint:disable-next-line no-redundant-undefined
                             history?: unknown[] | undefined;
                             // tslint:disable-next-line array-type
-                            routes: (
+                            routes: Array<
                                 & Readonly<{
                                     key: string;
                                     name: string;
@@ -52,7 +54,7 @@ export default function useNavigationBuilder<
                                     // tslint:disable-next-line no-redundant-undefined
                                     state?: Readonly<any> | PartialState<Readonly<any>> | undefined;
                                 }
-                            )[];
+                            >;
                             type: string;
                             stale: false;
                         }>,
@@ -67,13 +69,13 @@ export default function useNavigationBuilder<
                     }>),
             ): void;
             navigate<RouteName extends string>(...args: [RouteName] | [RouteName, object | undefined]): void;
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
             navigate<RouteName_1 extends string>(
                 route: {
                     key: string;
                     // tslint:disable-next-line no-redundant-undefined
                     params?: object | undefined;
                 } | {
-                    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
                     name: RouteName_1;
                     // tslint:disable-next-line no-redundant-undefined
                     key?: string | undefined;
@@ -89,7 +91,7 @@ export default function useNavigationBuilder<
                         // tslint:disable-next-line no-redundant-undefined
                         history?: unknown[] | undefined;
                         // tslint:disable-next-line array-type
-                        routes: (
+                        routes: Array<
                             & Readonly<{
                                 key: string;
                                 name: string;
@@ -102,7 +104,7 @@ export default function useNavigationBuilder<
                                 // tslint:disable-next-line no-redundant-undefined
                                 state?: Readonly<any> | PartialState<Readonly<any>> | undefined;
                             }
-                        )[];
+                        >;
                         type: string;
                         stale: false;
                     }>
@@ -114,7 +116,7 @@ export default function useNavigationBuilder<
                             // tslint:disable-next-line no-redundant-undefined
                             history?: unknown[] | undefined;
                             // tslint:disable-next-line array-type
-                            routes: (
+                            routes: Array<
                                 & Readonly<{
                                     key: string;
                                     name: string;
@@ -127,7 +129,7 @@ export default function useNavigationBuilder<
                                     // tslint:disable-next-line no-redundant-undefined
                                     state?: Readonly<any> | PartialState<Readonly<any>> | undefined;
                                 }
-                            )[];
+                            >;
                             type: string;
                             stale: false;
                         }>
@@ -137,6 +139,7 @@ export default function useNavigationBuilder<
             isFocused(): boolean;
             canGoBack(): boolean;
             dangerouslyGetParent<
+                // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
                 T =
                     | import("./types").NavigationProp<
                         Record<string, object | undefined>,
@@ -148,7 +151,7 @@ export default function useNavigationBuilder<
                             // tslint:disable-next-line no-redundant-undefined
                             history?: unknown[] | undefined;
                             // tslint:disable-next-line array-type
-                            routes: (
+                            routes: Array<
                                 & Readonly<{
                                     key: string;
                                     name: string;
@@ -161,7 +164,7 @@ export default function useNavigationBuilder<
                                     // tslint:disable-next-line no-redundant-undefined
                                     state?: Readonly<any> | PartialState<Readonly<any>> | undefined;
                                 }
-                            )[];
+                            >;
                             type: string;
                             stale: false;
                         }>,
@@ -169,8 +172,7 @@ export default function useNavigationBuilder<
                         {}
                     >
                     | undefined,
-            > // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-            (): T;
+            >(): T;
             dangerouslyGetState(): Readonly<{
                 key: string;
                 index: number;
@@ -178,7 +180,7 @@ export default function useNavigationBuilder<
                 // tslint:disable-next-line no-redundant-undefined
                 history?: unknown[] | undefined;
                 // tslint:disable-next-line array-type
-                routes: (
+                routes: Array<
                     & Readonly<{
                         key: string;
                         name: string;
@@ -191,7 +193,7 @@ export default function useNavigationBuilder<
                         // tslint:disable-next-line no-redundant-undefined
                         state?: Readonly<any> | PartialState<Readonly<any>> | undefined;
                     }
-                )[];
+                >;
                 type: string;
                 stale: false;
             }>;
@@ -226,13 +228,13 @@ export default function useNavigationBuilder<
                     }>),
             ): void;
             navigate<RouteName_3 extends string>(...args: [RouteName_3] | [RouteName_3, object | undefined]): void;
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
             navigate<RouteName_4 extends string>(
                 route: {
                     key: string;
                     // tslint:disable-next-line no-redundant-undefined
                     params?: object | undefined;
                 } | {
-                    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
                     name: RouteName_4;
                     // tslint:disable-next-line no-redundant-undefined
                     key?: string | undefined;
@@ -244,6 +246,7 @@ export default function useNavigationBuilder<
             isFocused(): boolean;
             canGoBack(): boolean;
             dangerouslyGetParent<
+                // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
                 T_1 =
                     | import("./types").NavigationProp<
                         Record<string, object | undefined>,
@@ -255,7 +258,7 @@ export default function useNavigationBuilder<
                             // tslint:disable-next-line no-redundant-undefined
                             history?: unknown[] | undefined;
                             // tslint:disable-next-line array-type
-                            routes: (
+                            routes: Array<
                                 & Readonly<{
                                     key: string;
                                     name: string;
@@ -268,7 +271,7 @@ export default function useNavigationBuilder<
                                     // tslint:disable-next-line no-redundant-undefined
                                     state?: Readonly<any> | PartialState<Readonly<any>> | undefined;
                                 }
-                            )[];
+                            >;
                             type: string;
                             stale: false;
                         }>,
@@ -276,8 +279,7 @@ export default function useNavigationBuilder<
                         {}
                     >
                     | undefined,
-            > // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-            (): T_1;
+            >(): T_1;
             dangerouslyGetState(): any;
         }
         & {

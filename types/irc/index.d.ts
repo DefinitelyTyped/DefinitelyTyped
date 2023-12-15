@@ -1,8 +1,3 @@
-// Type definitions for irc v0.5.2
-// Project: https://github.com/martynsmith/node-irc
-// Definitions by: phillips1012 <https://github.com/phillips1012>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /** This library provides IRC client functionality. */

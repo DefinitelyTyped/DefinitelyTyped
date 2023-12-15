@@ -1,8 +1,3 @@
-// Type definitions for jquery.bbq 1.2
-// Project: http://benalman.com/projects/jquery-bbq-plugin/
-// Definitions by: Ryan Cavanaugh <https://github.com/RyanCavanaugh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import $ = require("jquery");
 
 declare global {

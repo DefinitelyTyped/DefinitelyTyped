@@ -1,14 +1,9 @@
-// Type definitions for add 2.0
-// Project: https://github.com/ben-ng/add
-// Definitions by: Tristan F. <https://github.com/LeoDog896>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-declare function accSum(numbers: ReadonlyArray<number>): number;
+declare function accSum(numbers: readonly number[]): number;
 
 export = accSum;
 
 declare namespace accSum {
-    function dumbSum(numbers: ReadonlyArray<number>): number;
+    function dumbSum(numbers: readonly number[]): number;
     function fastTwoSum(a: number, b: number): [number, number, null];
 
     /**

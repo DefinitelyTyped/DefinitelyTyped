@@ -1,8 +1,3 @@
-// Type definitions for apigee-access
-// Project: https://www.npmjs.com/package/apigee-access
-// Definitions by: Casper Skydt <https://github.com/CasperSkydt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace ApigeeAccess {
     function getVariable(request: any, name: string): string | number | boolean;
     function setVariable(request: any, name: string, value: string | number | boolean): void;

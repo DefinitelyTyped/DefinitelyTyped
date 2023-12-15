@@ -1,8 +1,3 @@
-// Type definitions for fm-websync 3.0
-// Project: https://github.com/baz/foo
-// Definitions by: Markus Mauch <https://github.com/markusmauch>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace fm {
     namespace websync {
         interface initializeConfig {

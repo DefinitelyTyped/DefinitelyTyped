@@ -1,7 +1,21 @@
 {
     "private": true,
+    "name": "@types/gsheetdb",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/zdettwiler/gsheetdb"
+    ],
     "dependencies": {
-        "@types/node": "^17.0.25",
+        "@types/node": "*",
         "google-auth-library": "^7.14.1"
-    }
+    },
+    "devDependencies": {
+        "@types/gsheetdb": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Federico Grandi",
+            "githubUsername": "EndBug"
+        }
+    ]
 }

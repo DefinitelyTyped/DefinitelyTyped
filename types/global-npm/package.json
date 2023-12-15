@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/global-npm",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/dracupid/global-npm"
+    ],
+    "dependencies": {
+        "@types/npm": "*"
+    },
+    "devDependencies": {
+        "@types/global-npm": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Waseem Dahman",
+            "githubUsername": "wsmd"
+        }
+    ]
+}

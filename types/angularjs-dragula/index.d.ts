@@ -1,8 +1,3 @@
-// Type definitions for angularjs-dragula 2.0
-// Project: https://github.com/bevacqua/angularjs-dragula
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import angular = require("angular");
 import d = require("dragula");
 

@@ -1,8 +1,3 @@
-// Type definitions for azure-function-log-intercept 1.0
-// Project: https://github.com/BrianRosamilia/azure-function-log-intercept
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Context } from "@azure/functions";
 
 /**

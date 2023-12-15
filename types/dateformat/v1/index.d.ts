@@ -1,8 +1,3 @@
-// Type definitions for dateformat 1.0
-// Project: https://github.com/felixge/node-dateformat
-// Definitions by: Kombu <https://github.com/aicest>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * dateFormat.masks
  *

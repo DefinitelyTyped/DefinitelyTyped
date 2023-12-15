@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/request-promise-native",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/request/request-promise-native"
+    ],
+    "dependencies": {
+        "@types/request": "*"
+    },
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/request-promise-native": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gustavo Henke",
+            "githubUsername": "gustavohenke"
+        },
+        {
+            "name": "Matt R. Wilson",
+            "githubUsername": "mastermatt"
+        },
+        {
+            "name": "Cory Reed",
+            "githubUsername": "swashcap"
+        }
+    ]
+}

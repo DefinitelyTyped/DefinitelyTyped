@@ -1,11 +1,3 @@
-// Type definitions for tedious 4.0.0
-// Project: http://tediousjs.github.io/tedious/
-// Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-//                 Chris Thompson <https://github.com/cjthompson>
-//                 Guilherme Amorim <https://github.com/guiampm>
-//                 Simon Childs <https://github.com/csharpsi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import events = require("events");

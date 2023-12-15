@@ -1,6 +1,21 @@
 {
-  "private": true,
-  "dependencies": {
-    "csstype": "^3.0.2"
-  }
+    "private": true,
+    "name": "@types/react-flag-icon-css",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/matteocng/react-flag-icon-css#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "csstype": "^3.0.2"
+    },
+    "devDependencies": {
+        "@types/react-flag-icon-css": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jon Freedman",
+            "githubUsername": "jonfreedman"
+        }
+    ]
 }

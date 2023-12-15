@@ -1,8 +1,3 @@
-// Type definitions for avocat 2.0
-// Project: https://github.com/hapipal/avocat#readme
-// Definitions by: Tim Costa <https://github.com/timcosta>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Boom } from "@hapi/boom";
 import { ResponseObject } from "@hapi/hapi";
 

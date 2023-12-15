@@ -1,5 +1,6 @@
-import assert = require("assert");
 import rangeCheck = require("range_check");
+
+declare function assert(value: unknown): void;
 
 // isIP (same function as validIp and valid_ip)
 assert(rangeCheck.isIP("10.0.1.5")); // True

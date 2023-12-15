@@ -1,8 +1,3 @@
-// Type definitions for country-list 1.1
-// Project: https://github.com/fannarsh/country-list
-// Definitions by: Kyle Roach <https://github.com/iRoachie>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export default function Countries(): {
     /**
      * Expects a two-digit country code. Returns the name for that country. If not found, it returns undefined.

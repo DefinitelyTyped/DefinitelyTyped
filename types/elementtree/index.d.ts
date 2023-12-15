@@ -1,8 +1,3 @@
-// Type definitions for elementtree 0.1
-// Project: https://github.com/racker/node-elementtree
-// Definitions by: Daniel Imhoff <https://github.com/dwieeb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface ElementTreeWriteOptions {
     default_namespace?: string | undefined;
     encoding?: string | undefined; // default is 'utf-8'
@@ -46,11 +41,11 @@ export interface Element {
     setItem(index: number, element: Element): void;
     delItem(index: number): void;
     getSlice(start: number, stop: number): Element[];
-    setSlice(start: number, stop: number, elements: ReadonlyArray<Element>): void;
+    setSlice(start: number, stop: number, elements: readonly Element[]): void;
     delSlice(start: number, stop: number): void;
 
     append(element: Element): void;
-    extend(elements: ReadonlyArray<Element>): void;
+    extend(elements: readonly Element[]): void;
     insert(index: number, element: Element): void;
     remove(element: Element): void;
     getchildren(): Element[];

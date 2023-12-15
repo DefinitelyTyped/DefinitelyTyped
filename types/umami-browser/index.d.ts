@@ -1,8 +1,3 @@
-// Type definitions for non-npm package umami-browser 2.3
-// Project: https://github.com/umami-software/umami
-// Definitions by: Christian Rackerseder <https://github.com/screendriver>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var umami: umami.umami;
 
 declare namespace umami {

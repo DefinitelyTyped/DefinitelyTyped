@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/legal-eagle",
+    "version": "0.15.9999",
+    "projects": [
+        "https://github.com/atom/legal-eagle"
+    ],
+    "devDependencies": {
+        "@types/legal-eagle": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Jed Fox",
+            "githubUsername": "j-f1"
+        }
+    ]
+}

@@ -1,9 +1,4 @@
-// Type definitions for fromjs 2.1
-// Project: https://github.com/suckgamony/fromjs
-// Definitions by: Glenn Dierckx <https://github.com/glenndierckx>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-declare function from<T>(results: Array<T>): FromJS.IQueryable<T>;
+declare function from<T>(results: T[]): FromJS.IQueryable<T>;
 declare function from<T>(results: any): FromJS.IQueryable<any>;
 
 declare namespace FromJS {
@@ -17,7 +12,7 @@ declare namespace FromJS {
         select<TResult>(item: (item: T) => TResult): IQueryable<TResult>;
         orderByDesc<TResult>(item: (item: T) => TResult): IOrderedQueryable<T>;
         orderBy<TResult>(item: (item: T) => TResult): IOrderedQueryable<T>;
-        selectMany<TResult>(item: (item: T) => Array<TResult>): IQueryable<TResult>;
+        selectMany<TResult>(item: (item: T) => TResult[]): IQueryable<TResult>;
         skip<TResult>(count: Number): IQueryable<TResult>;
         take<TResult>(count: Number): IQueryable<TResult>;
         single(): T;
@@ -34,8 +29,8 @@ declare namespace FromJS {
         firstOrDefault(): T;
         each<TKey>(action: (value: T, key: TKey) => void): void;
         each(action: (item: T) => void, a?: boolean): void;
-        toArray(): Array<T>;
-        concat(second: Array<T>): IQueryable<T>;
+        toArray(): T[];
+        concat(second: T[]): IQueryable<T>;
         sum(): T;
         any(): boolean;
         any(predicate: (item: T) => boolean): boolean;

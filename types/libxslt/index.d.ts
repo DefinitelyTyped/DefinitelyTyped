@@ -1,10 +1,3 @@
-// Type definitions for node-libxslt 0.9
-// Project: https://github.com/albanm/node-libxslt
-// Definitions by: Alejandro Sánchez <https://github.com/alejo90>
-//                 Daniel Pedersen <https://github.com/daniel-pedersen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 import * as xmljs from "libxmljs";
 
 import { ApplyCallback, ApplyDocumentCallback, ApplyStringCallback, ParseCallback } from "./internal-types";

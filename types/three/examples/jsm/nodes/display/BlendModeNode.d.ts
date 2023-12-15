@@ -28,5 +28,5 @@ export default class BlendModeNode extends TempNode {
 
     constructor(blendMode: BlendMode, baseNode: Node, blendNode: Node);
 
-    construct(): Node;
+    setup(): Node;
 }

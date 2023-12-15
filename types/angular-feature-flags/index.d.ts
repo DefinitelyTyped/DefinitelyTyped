@@ -1,9 +1,3 @@
-// Type definitions for angular-feature-flags 1.4.0
-// Project: https://github.com/mjt01/angular-feature-flags
-// Definitions by: Borislav Zhivkov <https://github.com/borislavjivkov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="angular" />
 
 import * as ng from "angular";
@@ -34,14 +28,14 @@ declare module "angular" {
         }
 
         export interface FeatureFlagsProvider {
-            setInitialFlags(flags: ReadonlyArray<FlagData>): void;
+            setInitialFlags(flags: readonly FlagData[]): void;
         }
 
         export interface FeatureFlagsService {
             set(
                 flagsPromise:
-                    | ng.IPromise<ReadonlyArray<FlagData>>
-                    | ng.IHttpPromise<ReadonlyArray<FlagData>>,
+                    | ng.IPromise<readonly FlagData[]>
+                    | ng.IHttpPromise<readonly FlagData[]>,
             ): void;
         }
     }

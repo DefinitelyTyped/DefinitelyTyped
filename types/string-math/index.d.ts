@@ -1,8 +1,3 @@
-// Type definitions for string-math 1.0
-// Project: https://github.com/devrafalko/string-math
-// Definitions by: Rouzwelt <https://github.com/rouzwelt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Resolves arithmetical equation
  * @param eq - Equation to resolve

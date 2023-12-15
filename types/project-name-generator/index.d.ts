@@ -1,8 +1,3 @@
-// Type definitions for project-name-generator 2.1
-// Project: https://github.com/aceakash/project-name-generator#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Generate quirky names like spiffy-waterfall, sassy-bread, mature-dew-8239 to use wherever you need a random but memorable name.
  */

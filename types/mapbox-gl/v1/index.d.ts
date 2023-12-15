@@ -1,16 +1,3 @@
-// Type definitions for Mapbox GL JS 1.13
-// Project: https://github.com/mapbox/mapbox-gl-js
-// Definitions by: Dominik Bruderer <https://github.com/dobrud>
-//                 Karl-Aksel Puulmann <https://github.com/macobo>
-//                 Dmytro Gokun <https://github.com/dmytro-gokun>
-//                 Liam Clarke <https://github.com/LiamAttClarke>
-//                 Vladimir Dashukevich <https://github.com/life777>
-//                 Marko Klopets <https://github.com/mklopets>
-//                 André Fonseca <https://github.com/amxfonseca>
-//                 Olivier Pascal <https://github.com/pascaloliv>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="geojson" />
 
 export = mapboxgl;
@@ -1168,7 +1155,7 @@ declare namespace mapboxgl {
          * @param {string[]} tiles An array of one or more tile source URLs, as in the TileJSON spec.
          * @returns {VectorTileSource} this
          */
-        setTiles(tiles: ReadonlyArray<string>): VectorSourceImpl;
+        setTiles(tiles: readonly string[]): VectorSourceImpl;
 
         /**
          * Sets the source `url` property and re-renders the map.
@@ -1211,14 +1198,14 @@ declare namespace mapboxgl {
 
         getClusterChildren(
             clusterId: number,
-            callback: (error: any, features: GeoJSON.Feature<GeoJSON.Geometry>[]) => void,
+            callback: (error: any, features: Array<GeoJSON.Feature<GeoJSON.Geometry>>) => void,
         ): this;
 
         getClusterLeaves(
             cluserId: number,
             limit: number,
             offset: number,
-            callback: (error: any, features: GeoJSON.Feature<GeoJSON.Geometry>[]) => void,
+            callback: (error: any, features: Array<GeoJSON.Feature<GeoJSON.Geometry>>) => void,
         ): this;
     }
 
@@ -2243,7 +2230,7 @@ declare namespace mapboxgl {
         "text-optional"?: boolean | undefined;
         "text-radial-offset"?: number | Expression | undefined;
         "text-variable-anchor"?: Anchor[] | undefined;
-        "text-writing-mode"?: ("horizontal" | "vertical")[] | undefined;
+        "text-writing-mode"?: Array<"horizontal" | "vertical"> | undefined;
         "symbol-sort-key"?: number | Expression | undefined;
     }
 

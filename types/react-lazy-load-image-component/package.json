@@ -1,6 +1,33 @@
 {
     "private": true,
+    "name": "@types/react-lazy-load-image-component",
+    "version": "1.6.9999",
+    "projects": [
+        "https://github.com/Aljullu/react-lazy-load-image-component#readme"
+    ],
     "dependencies": {
+        "@types/react": "*",
         "csstype": "^3.0.2"
-    }
+    },
+    "devDependencies": {
+        "@types/react-lazy-load-image-component": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dan Vanderkam",
+            "githubUsername": "danvk"
+        },
+        {
+            "name": "Diego Chavez",
+            "githubUsername": "diegochavez"
+        },
+        {
+            "name": "Truong Hoang Dung",
+            "githubUsername": "revskill10"
+        },
+        {
+            "name": "Kodai Suzuki",
+            "githubUsername": "kodai3"
+        }
+    ]
 }

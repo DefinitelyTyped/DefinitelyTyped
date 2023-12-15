@@ -8,26 +8,18 @@ const asOfVersion = process.argv[3];
 const libraryName = process.argv[4] || typingsPackageName;
 
 if (process.argv.length !== 4 && process.argv.length !== 5) {
-    console.log("Usage: npm run not-needed -- typingsPackageName asOfVersion [libraryName]");
+    console.log("Usage: pnpm run not-needed typingsPackageName asOfVersion [libraryName]");
     process.exit(1);
 }
 
-rmdirRecursive(path.join("types", typingsPackageName));
+fs.rmSync(path.join("types", typingsPackageName), {
+    recursive: true,
+    force: true,
+    maxRetries: process.platform === "win32" ? 10 : 0,
+});
 
 /**  @type  {{packages: Record<string, { libraryName: string; asOfVersion: string; }> }} */
 const notNeededPackages = JSON.parse(fs.readFileSync("notNeededPackages.json", "utf-8"));
 notNeededPackages.packages[typingsPackageName] = { libraryName, asOfVersion };
 notNeededPackages.packages = Object.fromEntries(Object.entries(notNeededPackages.packages).sort());
 fs.writeFileSync("notNeededPackages.json", JSON.stringify(notNeededPackages, undefined, 4) + "\n", "utf-8");
-
-/**
- * @param {string} dir
- */
-function rmdirRecursive(dir) {
-    for (let entry of fs.readdirSync(dir)) {
-        entry = path.join(dir, entry);
-        if (fs.statSync(entry).isDirectory()) rmdirRecursive(entry);
-        else fs.unlinkSync(entry);
-    }
-    fs.rmdirSync(dir);
-}

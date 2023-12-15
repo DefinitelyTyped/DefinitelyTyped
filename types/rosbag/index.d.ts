@@ -1,8 +1,3 @@
-// Type definitions for rosbag 2.6
-// Project: https://github.com/cruise-automation/rosbag.js#readme
-// Definitions by: Itthipol Lateh <https://github.com/Rovula>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types='node'/>
 
 /**

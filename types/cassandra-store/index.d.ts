@@ -1,9 +1,3 @@
-// Type definitions for cassandra-store 5.0
-// Project: https://github.com/webcc/cassandra-store
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 /// <reference types="express" />
 
 import { Client, ClientOptions, EmptyCallback } from "cassandra-driver";

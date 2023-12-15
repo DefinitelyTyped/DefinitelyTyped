@@ -1,8 +1,3 @@
-// Type definitions for @ungap/structured-clone 0.3
-// Project: https://www.npmjs.com/package/@ungap/structured-clone#:~:text=github.com/ungap/structured%2Dclone%23readme
-// Definitions by: Flavian Hautbois <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace structuredClone;
 
 /**
@@ -18,7 +13,7 @@ export = structuredClone;
 
 declare namespace structuredClone {
     type SerializedRecordIndex = [number, any] | SerializedRecordIndex[];
-    type SerializedRecord = [SerializedRecordIndex[], ...[number, any][]];
+    type SerializedRecord = [SerializedRecordIndex[], ...Array<[number, any]>];
 
     /**
      * Serialize the input.

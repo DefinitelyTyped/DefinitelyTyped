@@ -1,9 +1,3 @@
-// Type definitions for are.na 0.1
-// Project: https://github.com/ivangreene/arena-js
-// Definitions by: Hunter Caron <https://github.com/huntercaron>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
-
 /**
  * Timestamp in ISO 8601 format, eg. "2020-06-20T15:59:04.796Z"
  */

@@ -1,8 +1,3 @@
-// Type definitions for Twitch-Browser 1.0
-// Project: https://dev.twitch.tv/docs/embed/video-and-clips/
-// Definitions by: Ignacio Degregori <https://github.com/idegre>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * @see https://dev.twitch.tv/docs/embed/video-and-clips/
  */

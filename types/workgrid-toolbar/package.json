@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/workgrid-toolbar",
+    "version": "1.3.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "workgrid-toolbar",
+    "projects": [
+        "https://github.com/jguardino-workgrid/workgrid-toolbar"
+    ],
+    "devDependencies": {
+        "@types/workgrid-toolbar": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "J Guardino",
+            "githubUsername": "jguardino-workgrid"
+        }
+    ]
+}

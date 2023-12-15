@@ -1,8 +1,3 @@
-// Type definitions for crc32-stream 4.0
-// Project: https://github.com/archiverjs/node-crc32-stream
-// Definitions by: nadhifikbarw <https://github.com/nadhifikbarw>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 import { Transform } from "stream";
 

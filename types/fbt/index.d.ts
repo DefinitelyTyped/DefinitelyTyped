@@ -1,9 +1,3 @@
-// Type definitions for fbt 1.0
-// Project: https://github.com/facebook/fbt
-// Definitions by: Davyd <https://github.com/retyui>
-//                 Alexander Nanberg <https://github.com/alexandernanberg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
 import * as React from "react";
 
 export interface ParamOptions {
@@ -275,7 +269,7 @@ export interface FbtProps extends FbtOptions {
     desc: string;
 }
 
-declare global {
+declare module "react" {
     namespace JSX {
         type PropsWithChildren<P> = P & { children?: React.ReactNode | undefined };
         type PropsWithStringChild<P> = P & { children?: string | string[] | undefined };

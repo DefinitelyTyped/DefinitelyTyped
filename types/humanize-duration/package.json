@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/humanize-duration",
+    "version": "3.27.9999",
+    "projects": [
+        "https://github.com/EvanHahn/HumanizeDuration.js"
+    ],
+    "devDependencies": {
+        "@types/humanize-duration": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        },
+        {
+            "name": "Evan Hahn",
+            "githubUsername": "EvanHahn"
+        }
+    ]
+}

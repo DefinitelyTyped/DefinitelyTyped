@@ -1,7 +1,3 @@
-// Type definitions for minizlib 2.1
-// Project: https://github.com/isaacs/minizlib
-// Definitions by: Sebastian Malton <https://github.com/nokel81>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
 // Import from dependencies

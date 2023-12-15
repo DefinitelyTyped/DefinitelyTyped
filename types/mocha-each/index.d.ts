@@ -1,10 +1,3 @@
-// Type definitions for mocha-each 2.0
-// Project: https://github.com/ryym/mocha-each#readme
-// Definitions by: Tom Harley <https://github.com/magnostherobot>
-//                 Noah May <https://github.com/nmay231>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 import { Context, Suite, SuiteFunction, Test, TestFunction } from "mocha";
 
 /**
@@ -13,7 +6,7 @@ import { Context, Suite, SuiteFunction, Test, TestFunction } from "mocha";
  * Mocha.
  */
 declare function forEach(
-    parameters: ReadonlyArray<any>,
+    parameters: readonly any[],
     dIt?: TestFunction,
     dDescribe?: SuiteFunction,
 ): { it: ForEachTestFunction; describe: ForEachDescribeDefinition };

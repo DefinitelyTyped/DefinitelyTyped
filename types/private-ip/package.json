@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/private-ip",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/frenchbread/private-ip#readme"
+    ],
+    "devDependencies": {
+        "@types/private-ip": "workspace:."
+    },
+    "owners": []
+}

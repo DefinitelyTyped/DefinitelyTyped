@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/ipp",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/williamkapke/ipp"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/ipp": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Filip Stenbacka",
+            "githubUsername": "filiptypjeu"
+        }
+    ]
+}

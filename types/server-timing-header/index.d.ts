@@ -1,7 +1,3 @@
-// Type definitions for server-timing-header 1.9
-// Project: https://github.com/SilentImp/express-middleware-headers-server-timing#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import { RequestHandler } from "express";
 
 /**

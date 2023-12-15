@@ -1,8 +1,3 @@
-// Type definitions for tti-polyfill 0.2
-// Project: https://github.com/GoogleChrome/tti-polyfill#readme
-// Definitions by: Patrick Weygand <https://github.com/derduher>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /*~ If this module is a UMD module that exposes a global variable 'myLib' when
  *~ loaded outside a module loader environment, declare that global here.
  *~ Otherwise, delete this declaration.

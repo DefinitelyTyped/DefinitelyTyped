@@ -1,9 +1,3 @@
-// Type definitions for pretty-time 1.1
-// Project: https://github.com/jonschlinkert/pretty-time
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
-
 type Increment =
     | "ns"
     | "nano"

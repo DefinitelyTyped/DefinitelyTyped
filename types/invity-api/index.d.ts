@@ -1,8 +1,3 @@
-// Type definitions for non-npm package invity-api 1.0
-// Project: https://github.com/satoshilabs/invity-api (not public repo)
-// Definitions by: Martin Boehm <https://github.com/martinboehm>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // common types
 export interface StringMap {
     [key: string]: string;

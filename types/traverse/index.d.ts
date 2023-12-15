@@ -1,8 +1,3 @@
-// Type definitions for traverse 0.6.7
-// Project: https://github.com/substack/js-traverse
-// Definitions by: Bazyli Brzóska <https://invent.life>, newclear <https://github.com/newclear>, Guten Ye <https://guten.me>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function traverse<T>(obj: T): traverse.Traverse<T>;
 
 declare namespace traverse {
@@ -196,7 +191,7 @@ declare namespace traverse {
         /**
          * Call this function before each of the children are traversed.
          */
-        pre(callback: (this: TraverseContext, child: any) => void): void;
+        pre(callback: (this: TraverseContext, child: any, key: any) => void): void;
 
         /**
          * Call this function after each of the children are traversed.

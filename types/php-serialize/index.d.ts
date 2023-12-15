@@ -1,9 +1,3 @@
-// Type definitions for php-serialize 3.0
-// Project: https://github.com/steelbrain/php-serialize
-// Definitions by: Changhui Lee <https://github.com/blurfx>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 /// <reference types="node" />
 
 export interface SerializeOptions {

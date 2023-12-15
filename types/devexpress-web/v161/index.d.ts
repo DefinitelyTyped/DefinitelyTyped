@@ -1,8 +1,3 @@
-// Type definitions for DevExpress ASP.NET v161.12
-// Project: http://devexpress.com/
-// Definitions by: DevExpress Inc. <http://devexpress.com/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * A client-side counterpart of the DashboardViewer extension.
  */

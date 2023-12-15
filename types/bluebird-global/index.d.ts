@@ -1,9 +1,3 @@
-// Type definitions for bluebird 3.5
-// Project: https://github.com/kaatt/bluebird-global
-// Definitions by: d-ph <https://github.com/d-ph>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 /*
  * 1. Why use `bluebird-global` instead of `bluebird`?
  *
@@ -206,17 +200,20 @@ declare global {
          */
         catch(
             predicate: (error: any) => boolean,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onReject: (error: any) => T | PromiseLike<T> | void | PromiseLike<void>,
         ): Bluebird<T>;
         catch<U>(predicate: (error: any) => boolean, onReject: (error: any) => U | PromiseLike<U>): Bluebird<U | T>;
         catch<E extends Error>(
             ErrorClass: new(...args: any[]) => E,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onReject: (error: E) => T | PromiseLike<T> | void | PromiseLike<void>,
         ): Bluebird<T>;
         catch<E extends Error, U>(
             ErrorClass: new(...args: any[]) => E,
             onReject: (error: E) => U | PromiseLike<U>,
         ): Bluebird<U | T>;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         catch(predicate: Object, onReject: (error: any) => T | PromiseLike<T> | void | PromiseLike<void>): Bluebird<T>;
         catch<U>(predicate: Object, onReject: (error: any) => U | PromiseLike<U>): Bluebird<U | T>;
 
@@ -356,7 +353,7 @@ declare global {
             values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>, T3 | PromiseLike<T3>],
         ): Promise<[T1, T2, T3]>;
         all<T1, T2>(values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>]): Promise<[T1, T2]>;
-        all<T>(values: (T | PromiseLike<T>)[]): Promise<T[]>;
+        all<T>(values: Array<T | PromiseLike<T>>): Promise<T[]>;
         race<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
             values: [
                 T1 | PromiseLike<T1>,
@@ -433,7 +430,7 @@ declare global {
             values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>, T3 | PromiseLike<T3>],
         ): Promise<T1 | T2 | T3>;
         race<T1, T2>(values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>]): Promise<T1 | T2>;
-        race<T>(values: (T | PromiseLike<T>)[]): Promise<T>;
+        race<T>(values: Array<T | PromiseLike<T>>): Promise<T>;
         reject(reason: any): Promise<never>;
         reject<T>(reason: any): Promise<T>;
         resolve<T>(value: T | PromiseLike<T>): Promise<T>;

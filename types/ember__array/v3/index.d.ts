@@ -1,12 +1,3 @@
-// Type definitions for non-npm package @ember/array 3.16
-// Project: https://emberjs.com/api/ember/3.16/modules/@ember%2Farray
-// Definitions by: Mike North <https://github.com/mike-north>
-//                 Chris Krycho <https://github.com/chriskrycho>
-//                 Krystan HuffMenne <https://github.com/gitKrystan>
-//                 James C. Davis <https://github.com/jamescdavis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import Enumerable from "@ember/array/-private/enumerable";
 import NativeArray from "@ember/array/-private/native-array";
 import ComputedProperty from "@ember/object/computed";
@@ -30,7 +21,7 @@ interface Array<T> extends Enumerable<T> {
      * This returns the objects at the specified indexes, using `objectAt`.
      */
     // tslint:disable-next-line:array-type
-    objectsAt(indexes: number[]): Array<T>;
+    objectsAt(indexes: number[]): T[];
     /**
      * Returns a new array that is a slice of the receiver. This implementation
      * uses the observable array methods to retrieve the objects for the new
@@ -91,7 +82,7 @@ interface Array<T> extends Enumerable<T> {
 }
 // Ember.Array rather than Array because the `array-type` lint rule doesn't realize the global is shadowed
 // tslint:disable-next-line:array-type
-declare const Array: Mixin<Array<any>>;
+declare const Array: Mixin<any[]>;
 export default Array;
 
 /**

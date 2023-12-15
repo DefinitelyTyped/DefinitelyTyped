@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/element-closest",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/jonathantneal/closest#readme"
+    ],
+    "devDependencies": {
+        "@types/element-closest": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "hikiko4ern",
+            "githubUsername": "hikiko4ern"
+        }
+    ]
+}

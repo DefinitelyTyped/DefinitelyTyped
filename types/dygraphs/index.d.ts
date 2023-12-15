@@ -1,10 +1,3 @@
-// Type definitions for dygraphs 2.1
-// Project: http://dygraphs.com
-// Definitions by: Dan Vanderkam <https://github.com/danvk>
-//                 Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
-
 /// <reference types="google.visualization" />
 
 export namespace dygraphs {
@@ -472,7 +465,7 @@ export namespace dygraphs {
          * A function to call when the canvas is clicked.
          * @default null
          */
-        clickCallback?: ((event: MouseEvent, xval: number, points: ReadonlyArray<Point>) => void) | null | undefined;
+        clickCallback?: ((event: MouseEvent, xval: number, points: readonly Point[]) => void) | null | undefined;
 
         /**
          * If colors is not specified, saturation of the automatically-generated
@@ -655,7 +648,7 @@ export namespace dygraphs {
          * @default null
          */
         highlightCallback?:
-            | ((event: MouseEvent, xval: number, points: ReadonlyArray<Point>, row: number, seriesName: string) => void)
+            | ((event: MouseEvent, xval: number, points: readonly Point[], row: number, seriesName: string) => void)
             | null
             | undefined;
 
@@ -1039,7 +1032,7 @@ export namespace dygraphs {
          * form "#AABBCC" or "rgb(255,100,200)" or "yellow".
          * @default black
          */
-        rangeSelectorForegroundStrokeColor?: number | null | undefined;
+        rangeSelectorForegroundStrokeColor?: string | null | undefined;
 
         /**
          * The top color for the range selector mini plot fill color gradient. This can be of the form

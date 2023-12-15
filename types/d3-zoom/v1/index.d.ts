@@ -1,13 +1,3 @@
-// Type definitions for d3JS d3-zoom module 1.8
-// Project: https://github.com/d3/d3-zoom/, https://d3js.org/d3-zoom
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
-//                 Alex Ford <https://github.com/gustavderdrache>
-//                 Boris Yankov <https://github.com/borisyankov>
-//                 denisname <https://github.com/denisname>
-//                 Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 // Last module patch version validated against: 1.8.3
 
 import { ZoomInterpolator, ZoomView } from "d3-interpolate";

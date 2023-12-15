@@ -1,10 +1,3 @@
-// Type definitions for siema 1.4
-// Project: https://github.com/pawelgrzybek/siema
-// Definitions by: Pavel Puchkov <https://github.com/0x6368656174>
-//                 Sam Nau <https://github.com/samnau>
-//                 Jonathan Loss <https://github.com/barroudjo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export default class Siema {
     currentSlide: number;
     perPage: number;

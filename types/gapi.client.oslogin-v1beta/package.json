@@ -1,6 +1,30 @@
 {
-  "private": true,
-  "dependencies": {
-    "@maxim_mazurok/gapi.client.oslogin-v1beta": "latest"
-  }
+    "private": true,
+    "name": "@types/gapi.client.oslogin-v1beta",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Cloud OS Login API v1beta",
+    "projects": [
+        "https://cloud.google.com/compute/docs/oslogin/"
+    ],
+    "dependencies": {
+        "@maxim_mazurok/gapi.client.oslogin-v1beta": "latest"
+    },
+    "devDependencies": {
+        "@types/gapi.client.oslogin-v1beta": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxim Mazurok",
+            "githubUsername": "Maxim-Mazurok"
+        },
+        {
+            "name": "Nick Amoscato",
+            "githubUsername": "namoscato"
+        },
+        {
+            "name": "Declan Vong",
+            "githubUsername": "declanvong"
+        }
+    ]
 }

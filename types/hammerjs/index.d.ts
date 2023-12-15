@@ -1,8 +1,3 @@
-// Type definitions for Hammer.js 2.0.8
-// Project: http://hammerjs.github.io/
-// Definitions by: Han Lin Yap <https://github.com/codler>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var Hammer: HammerStatic;
 
 declare module "hammerjs" {
@@ -71,7 +66,7 @@ type RecognizerTuple =
     | [RecognizerStatic]
     | [RecognizerStatic, RecognizerOptions]
     | [RecognizerStatic, RecognizerOptions, string | string[]]
-    | [RecognizerStatic, RecognizerOptions, string | string[], (string | Recognizer) | (string | Recognizer)[]];
+    | [RecognizerStatic, RecognizerOptions, string | string[], (string | Recognizer) | Array<string | Recognizer>];
 
 interface HammerDefaults extends HammerOptions {
     domEvents: boolean;

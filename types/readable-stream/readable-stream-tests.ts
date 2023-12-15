@@ -1,6 +1,7 @@
 import stream = require("stream");
 import RStream = require("readable-stream");
 import { dot, spec, tap } from "node:test/reporters";
+import ErrnoException = NodeJS.ErrnoException;
 
 function testTypes() {
     const ANY: any = undefined;
@@ -147,6 +148,32 @@ function test() {
         writableObjectMode: false,
         write(chunk: any, enc: string, cb: (err?: Error | null) => void) {},
     };
+}
+
+function callback(err: ErrnoException | undefined | null) {
+}
+
+function testFinished() {
+    const _readable: stream.Readable = <any> {};
+    RStream.finished(_readable, callback);
+
+    const _writable: stream.Writable = <any> {};
+    RStream.finished(_writable, callback);
+
+    const _transform: stream.Transform = <any> {};
+    RStream.finished(_transform, callback);
+
+    const _duplex: stream.Duplex = <any> {};
+    RStream.finished(_duplex, callback);
+}
+
+function testPipeline() {
+    const _readable: stream.Readable = <any> {};
+    const _transform: stream.Transform = <any> {};
+    const _writable: stream.Writable = <any> {};
+
+    RStream.pipeline([_readable], callback);
+    RStream.pipeline([_readable], _transform, _writable, callback);
 }
 
 function assertType<T>(value: T, msg?: string): T {

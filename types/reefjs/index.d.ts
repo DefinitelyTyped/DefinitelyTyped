@@ -1,8 +1,3 @@
-// Type definitions for reefjs 7.6
-// Project: https://github.com/cferdinandi/reef#readme
-// Definitions by: shockdevv <https://github.com/shockdevv>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Reef;
 
 declare class Reef {

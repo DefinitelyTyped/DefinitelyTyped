@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/node-slack",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/xoxco/node-slack"
+    ],
+    "dependencies": {
+        "@types/request": "*"
+    },
+    "devDependencies": {
+        "@types/express": "*",
+        "@types/node-slack": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Qubo",
+            "githubUsername": "tkQubo"
+        }
+    ]
+}

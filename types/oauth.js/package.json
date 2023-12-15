@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/oauth.js",
+    "version": "0.0.9999",
+    "projects": [
+        "https://code.google.com/p/oauth/"
+    ],
+    "devDependencies": {
+        "@types/oauth.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "NOBUOKA Yu",
+            "githubUsername": "nobuoka"
+        }
+    ]
+}

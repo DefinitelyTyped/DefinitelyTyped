@@ -1,22 +1,10 @@
-// Type definitions for Passport 1.0
-// Project: http://passportjs.org
-// Definitions by: Horiuchi_H <https://github.com/horiuchi>
-//                 Eric Naeseth <https://github.com/enaeseth>
-//                 Igor Belagorudsky <https://github.com/theigor>
-//                 Tomek Łaziuk <https://github.com/tlaziuk>
-//                 Daniel Perez Alvarez <https://github.com/unindented>
-//                 Kevin Stiehl <https://github.com/kstiehl>
-//                 Oleg Vaskevich <https://github.com/vaskevich>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import { IncomingMessage } from "http";
 
 declare global {
     namespace Express {
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface AuthInfo {}
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface User {}
 
         interface Request {

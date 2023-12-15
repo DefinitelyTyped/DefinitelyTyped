@@ -1,8 +1,3 @@
-// Type definitions for find-unused-sass-variables 4.1
-// Project: https://github.com/XhmikosR/find-unused-sass-variables#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare const _default: {
     /**
      * Returns an object with `unused` and `total`.

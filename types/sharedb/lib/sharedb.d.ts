@@ -174,11 +174,12 @@ export class Doc<T = any> extends TypedEmitter<DocEventMap<T>> {
 
     ingestSnapshot(snapshot: Pick<Snapshot<T>, "v" | "type" | "data">, callback?: Callback): void;
     destroy(callback?: Callback): void;
-    create(data: any, callback?: Callback): void;
-    create(data: any, type?: string, callback?: Callback): void;
-    create(data: any, type?: string, options?: ShareDBSourceOptions, callback?: Callback): void;
+    create(data: T, callback?: Callback): void;
+    create(data: T, type?: string, callback?: Callback): void;
+    create(data: T, type?: string, options?: ShareDBSourceOptions, callback?: Callback): void;
     submitOp(data: any, options?: ShareDBSourceOptions, callback?: Callback): void;
-    del(options: ShareDBSourceOptions, callback?: (err: Error) => void): void;
+    del(callback?: Callback): void;
+    del(options?: ShareDBSourceOptions, callback?: Callback): void;
     whenNothingPending(callback: () => void): void;
     hasPending(): boolean;
     hasWritePending(): boolean;
@@ -276,7 +277,31 @@ export interface LocalPresenceEventMap {
     "error": (error: Error) => void;
 }
 
-export type RequestAction = "qf" | "qs" | "qu" | "bf" | "bs" | "bu" | "f" | "s" | "u" | "op" | "nf" | "nt";
+export interface RequestActions {
+    initLegacy: "init";
+    handshake: "hs";
+    queryFetch: "qf";
+    querySubscribe: "qs";
+    queryUnsubscribe: "qu";
+    queryUpdate: "q";
+    bulkFetch: "bf";
+    bulkSubscribe: "bs";
+    bulkUnsubscribe: "bu";
+    fetch: "f";
+    fixup: "fixup";
+    subscribe: "s";
+    unsubscribe: "u";
+    op: "op";
+    snapshotFetch: "nf";
+    snapshotFetchByTimestamp: "nt";
+    pingPong: "pp";
+    presence: "p";
+    presenceSubscribe: "ps";
+    presenceUnsubscribe: "pu";
+    presenceRequest: "pr";
+}
+
+export type RequestAction = RequestActions[keyof RequestActions];
 
 export interface ClientRequest {
     /** Short name of the request's action */

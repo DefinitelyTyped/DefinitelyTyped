@@ -1,11 +1,3 @@
-// Type definitions for react-native-scrollable-tab-view 0.10
-// Project: https://github.com/brentvatne/react-native-scrollable-tab-view
-// Definitions by: CaiHuan <https://github.com/CaiHuan>
-//                 Egor Shulga <https://github.com/egorshulga>
-//                 ydostyle <https://github.com/ydostyle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 import { Animated, LayoutChangeEvent, ScrollViewProps, StyleProp, TextStyle, ViewStyle } from "react-native";
 
@@ -18,7 +10,7 @@ export interface ScrollableTabViewProperties {
      * and should implement setAnimationValue to be able to animate itself along with the tab content.
      * You can manually pass the props to the TabBar component.
      */
-    renderTabBar?: ((props: TabBarProps) => JSX.Element) | false | undefined;
+    renderTabBar?: ((props: TabBarProps) => React.JSX.Element) | false | undefined;
 
     /**
      * Defaults to "top".
@@ -107,7 +99,7 @@ export interface ScrollableTabViewProperties {
 
 export type TabBarProps<T = {}> = T & {
     goToPage?: ((pageNumber: number) => void) | undefined;
-    tabs?: JSX.Element[] | undefined;
+    tabs?: React.JSX.Element[] | undefined;
     activeTab?: number | undefined;
     scrollValue?: Animated.Value | undefined;
     containerWidth?: number | undefined;
@@ -117,7 +109,7 @@ export interface ChangeTabProperties {
     // currentPage
     i: number;
     // currentPage object
-    ref: JSX.Element;
+    ref: React.JSX.Element;
     // previousPage
     from: number;
 }
@@ -148,7 +140,7 @@ export type RenderTabProperties = (
     isTabActive: boolean,
     onPressHandler: (pageNumber: number) => void,
     onLayoutHandler?: (event: LayoutChangeEvent) => void,
-) => JSX.Element;
+) => React.JSX.Element;
 
 export class DefaultTabBar extends React.Component<TabBarProps<DefaultTabBarProps>> {
 }

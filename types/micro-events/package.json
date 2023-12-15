@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/micro-events",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/alexanderGugel/micro-events"
+    ],
+    "devDependencies": {
+        "@types/micro-events": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alexander Sychev",
+            "githubUsername": "AlexanderSychev"
+        }
+    ]
+}

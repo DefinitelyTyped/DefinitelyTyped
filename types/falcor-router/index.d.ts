@@ -1,11 +1,3 @@
-// Type definitions for falcor-router 0.8
-// Project: https://github.com/Netflix/falcor-router
-// Definitions by: Quramy <https://github.com/Quramy>
-//                 cdhgee <https://github.com/cdhgee>
-//                 LukeRielley <https://github.com/lukerielley>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="falcor" />
 import * as FalcorModel from "falcor";
 import * as FalcorJsonGraph from "falcor-json-graph";
@@ -13,7 +5,7 @@ import DataSource = FalcorModel.DataSource;
 import { Observable } from "rx";
 
 declare class FalcorRouter extends DataSource {
-    constructor(routes: Array<FalcorRouter.RouteDefinition>, options?: FalcorRouter.RouterOptions);
+    constructor(routes: FalcorRouter.RouteDefinition[], options?: FalcorRouter.RouterOptions);
 
     /**
      * When a route misses on a call, get, or set the unhandledDataSource will
@@ -21,7 +13,7 @@ declare class FalcorRouter extends DataSource {
      */
     routeUnhandledPathsTo(dataSource: DataSource): void;
 
-    static createClass(routes?: Array<FalcorRouter.RouteDefinition>): typeof FalcorRouter.CreatedRouter;
+    static createClass(routes?: FalcorRouter.RouteDefinition[]): typeof FalcorRouter.CreatedRouter;
 }
 
 declare namespace FalcorRouter {
@@ -38,7 +30,7 @@ declare namespace FalcorRouter {
     interface CallRoute extends Route {
         call(
             callPath: RoutePathSet,
-            args: Array<any>,
+            args: any[],
         ): CallRouteResult | Promise<CallRouteResult> | Observable<CallRouteResult>;
     }
 
@@ -51,7 +43,7 @@ declare namespace FalcorRouter {
     }
 
     type RouteDefinition = GetRoute | SetRoute | CallRoute;
-    type RouteResult = FalcorJsonGraph.PathValue | Array<FalcorJsonGraph.PathValue> | FalcorJsonGraph.JSONEnvelope<any>;
+    type RouteResult = FalcorJsonGraph.PathValue | FalcorJsonGraph.PathValue[] | FalcorJsonGraph.JSONEnvelope<any>;
     type CallRouteResult =
         | FalcorJsonGraph.PathValue
         | FalcorJsonGraph.InvalidPath

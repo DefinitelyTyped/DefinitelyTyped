@@ -1,10 +1,3 @@
-// Type definitions for esquery 1.5
-// Project: https://github.com/jrfeenst/esquery
-// Definitions by: cherryblossom000 <https://github.com/cherryblossom000>
-//                 Brad Zacher <https://github.com/bradzacher>
-//                 Brett Zamir <https://github.com/brettz9>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Node } from "estree";
 
 export as namespace esquery;

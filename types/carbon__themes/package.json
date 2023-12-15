@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/carbon__themes",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/IBM/carbon-elements/tree/master/packages/themes"
+    ],
+    "devDependencies": {
+        "@types/carbon__themes": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Vince Picone",
+            "githubUsername": "vpicone"
+        }
+    ]
+}

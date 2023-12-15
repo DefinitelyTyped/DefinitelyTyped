@@ -1,13 +1,3 @@
-// Type definitions for react-native-push-notification 8.1
-// Project: https://github.com/zo0r/react-native-push-notification#readme
-// Definitions by: Paito Anderson <https://github.com/PaitoAnderson>
-//                 Tom Sawkins <https://github.com/tomSawkins>
-//                 Andrew Li <https://github.com/Li357>
-//                 Clément Rucheton <https://github.com/rucheton>
-//                 alternacrow <https://github.com/alternacrow>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 export interface PushNotificationPermissions {
     alert?: boolean | undefined;
     badge?: boolean | undefined;

@@ -1,8 +1,3 @@
-// Type definitions for accounts-phone 0.0.21
-// Project: https://github.com/okland/accounts-phone
-// Definitions by: Eytan Manor <https://github.com/DAB0mB>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace SMS {
     var twilio: {
         FROM?: string | undefined;
@@ -36,8 +31,8 @@ declare namespace Accounts {
         verificationWaitTime?: number | undefined;
         sendPhoneVerificationCodeOnCreation?: boolean | undefined;
         forbidClientAccountCreation?: boolean | undefined;
-        phoneVerificationMasterCode?: Array<string> | undefined;
-        adminPhoneNumbers?: Array<string> | undefined;
+        phoneVerificationMasterCode?: string[] | undefined;
+        adminPhoneNumbers?: string[] | undefined;
     };
 
     function createUserWithPhone(options: Object, callback?: Function): void;
@@ -56,8 +51,8 @@ declare module "meteor/accounts-base" {
             verificationWaitTime?: number | undefined;
             sendPhoneVerificationCodeOnCreation?: boolean | undefined;
             forbidClientAccountCreation?: boolean | undefined;
-            phoneVerificationMasterCode?: Array<string> | undefined;
-            adminPhoneNumbers?: Array<string> | undefined;
+            phoneVerificationMasterCode?: string[] | undefined;
+            adminPhoneNumbers?: string[] | undefined;
         };
 
         function createUserWithPhone(options: Object, callback?: Function): void;

@@ -1,9 +1,3 @@
-// Type definitions for wampy.js v6.x.x
-// Project: https://github.com/KSDaemon/wampy.js
-// Definitions by: Konstantin Burkalev <https://github.com/KSDaemon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 declare namespace wampy {
     type Dict = { [key: string]: any };
 
@@ -15,6 +9,7 @@ declare namespace wampy {
 
     type SuccessCallback = (args: DataArgs) => void;
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type RPCCallback = (args: DataArgs) => RPCResult | void;
 
     type ChallengeCallback = (auth_method: string, extra: Dict) => string;

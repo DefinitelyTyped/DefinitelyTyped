@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/d3-voronoi",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/d3/d3-voronoi/",
+        "https://d3js.org/d3-voronoi"
+    ],
+    "devDependencies": {
+        "@types/d3-voronoi": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tom Wanzek",
+            "githubUsername": "tomwanzek"
+        },
+        {
+            "name": "Alex Ford",
+            "githubUsername": "gustavderdrache"
+        },
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "denisname",
+            "githubUsername": "denisname"
+        }
+    ]
+}

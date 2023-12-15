@@ -1,11 +1,3 @@
-// Type definitions for carbon-components-react 7.55
-// Project: https://github.com/carbon-design-system/carbon/tree/master/packages/react
-// Definitions by: Kyle Albert <https://github.com/kalbert312>
-//                 Sebastien Gregoire <https://github.com/sgregoire>
-//                 Mathias Schilling <https://github.com/matchilling>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 export as namespace CarbonReact;
 
 //

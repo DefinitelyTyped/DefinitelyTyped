@@ -1,8 +1,3 @@
-// Type definitions for crypto-pouch 4.0
-// Project: https://github.com/calvinmetcalf/crypto-pouch
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import PouchDB = require("pouchdb");
 
 declare global {

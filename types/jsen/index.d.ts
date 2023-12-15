@@ -1,8 +1,3 @@
-// Type definitions for jsen (JSON Sentinel)
-// Project: https://github.com/bugventure/jsen
-// Definitions by: Vladimir Đokić <https://github.com/vladeck>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Jsen {
     export interface JsenFormats {
         [key: string]: string | RegExp | Function;

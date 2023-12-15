@@ -8,13 +8,6 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
-        "paths": {
-            "@ember/ordered-set": ["ember__ordered-set/v3"]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

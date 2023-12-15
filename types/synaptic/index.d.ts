@@ -1,9 +1,3 @@
-// Type definitions for synaptic 1.0.9
-// Project: https://github.com/cazala/synaptic
-// Definitions by: Markus Peloso <https://github.com/ToastHawaii>
-//                 Austin Cummings <https://github.com/austincummings>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as Synaptic from "synaptic"; // Need this to refer to Synaptic from within the `declare global`
 
 declare global {
@@ -391,6 +385,7 @@ export class Network {
     /**
      * Restores all the values from the optimized network the their respective objects in order to manipulate the network.
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     restore(): any | void;
 
     /**
@@ -538,6 +533,7 @@ export namespace Trainer {
 
     interface TrainingScheduleOptions {
         every: number;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         do: (data: TrainingScheduleDoData) => boolean | void;
     }
 

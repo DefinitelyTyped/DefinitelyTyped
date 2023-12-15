@@ -1,9 +1,3 @@
-// Type definitions for rrc 0.10
-// Project: https://github.com/pshrmn/rrc#readme
-// Definitions by: Deividas Bakanas <https://github.com/DeividasBakanas>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as H from "history";
 import * as React from "react";
 import { match as MatchObject, RouteComponentProps, RouteProps } from "react-router-dom";

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/x-ray-crawler",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/lapwinglabs/x-ray-crawler#readme"
+    ],
+    "dependencies": {
+        "@types/http-context": "*"
+    },
+    "devDependencies": {
+        "@types/x-ray-crawler": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matt Traynham",
+            "githubUsername": "mtraynham"
+        }
+    ]
+}

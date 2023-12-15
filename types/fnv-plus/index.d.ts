@@ -1,8 +1,3 @@
-// Type definitions for fnv-plus 1.3
-// Project: https://github.com/tjwebb/fnv-plus
-// Definitions by: Mihnea Stoian <https://github.com/mihnea-s>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace fnv;
 
 export interface FnvHash {

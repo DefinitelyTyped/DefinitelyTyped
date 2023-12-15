@@ -1,7 +1,3 @@
-// Type definitions for gif-encoder 0.7
-// Project: https://github.com/twolfson/gif-encoder
-// Definitions by: aetheryx <https://github.com/aetheryx>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
 import { Readable } from "stream";

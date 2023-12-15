@@ -1,8 +1,3 @@
-// Type definitions for videojs-hotkeys 0.2
-// Project: https://github.com/ctd1500/videojs-hotkeys
-// Definitions by: James Cote <https://github.com/Coteh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { VideoJsPlayer } from "video.js";
 
 declare module "video.js" {

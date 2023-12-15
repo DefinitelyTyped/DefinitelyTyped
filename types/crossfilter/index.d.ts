@@ -1,8 +1,3 @@
-// Type definitions for CrossFilter
-// Project: https://github.com/square/crossfilter
-// Definitions by: Schmulik Raskin <https://github.com/schmuli>, Izaak Baker <https://github.com/iebaker>, Einar Norðfjörð <https://github.com/nordfjord>, Tijmen Wildervanck <https://github.com/TijmenW>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace CrossFilter {
     export interface Selector<T> {
         (value: T): any;
@@ -75,7 +70,7 @@ declare namespace CrossFilter {
     }
 
     export interface Group<T, TKey, TValue> {
-        top(k: number): Grouping<TKey, TValue>[];
+        top(k: number): Array<Grouping<TKey, TValue>>;
         all(): ReadonlyArray<Grouping<TKey, TValue>>;
         reduce<TGroup>(
             add: (p: TGroup, v: T) => TGroup,

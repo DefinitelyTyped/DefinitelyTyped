@@ -1,9 +1,3 @@
-// Type definitions for connect-azuretables 1.0
-// Project: https://github.com/mike-goodwin/connect-azuretables
-// Definitions by: Mikael Brevik <https://github.com/mikaelbr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import * as express from "express";
 import * as session from "express-session";
 

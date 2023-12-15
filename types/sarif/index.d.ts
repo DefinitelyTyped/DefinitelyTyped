@@ -1,9 +1,3 @@
-// Type definitions for non-npm package Sarif 2.1
-// Project: https://github.com/Microsoft/sarif-sdk
-// Definitions by: Jeff King <https://github.com/jeffersonking>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /**
  * Static Analysis Results Format (SARIF) Version 2.1.0-rtm.5 JSON Schema: a standard format for the output of static
  * analysis tools.

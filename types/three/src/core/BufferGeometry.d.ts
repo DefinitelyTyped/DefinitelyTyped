@@ -188,7 +188,7 @@ export class BufferGeometry<
      * An object that can be used to store custom data about the BufferGeometry. It should not hold references to functions as these will not be cloned.
      * @defaultValue `{}`
      */
-    userData: { [key: string]: any };
+    userData: Record<string, any>;
 
     /**
      * Read-only flag to check if a given object is of type {@link BufferGeometry}.

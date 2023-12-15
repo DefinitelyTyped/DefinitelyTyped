@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/clamscan",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/kylefarris/clamscan"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "axios": "^0.24.0"
-    }
+    },
+    "devDependencies": {
+        "@types/clamscan": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Viktoriia Hrechukha",
+            "githubUsername": "vhrechukha"
+        }
+    ]
 }

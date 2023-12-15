@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/mobile-messaging-cordova",
+    "version": "1.7.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "mobile-messaging-cordova-plugin",
+    "projects": [
+        "https://github.com/infobip/mobile-messaging-cordova-plugin"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/mobile-messaging-cordova": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "kostap13",
+            "githubUsername": "kostap13"
+        },
+        {
+            "name": "tjuric",
+            "githubUsername": "tjuric"
+        }
+    ]
+}

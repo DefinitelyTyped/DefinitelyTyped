@@ -1,10 +1,3 @@
-// Type definitions for react-timeago 4.1
-// Project: https://github.com/nmn/react-timeago
-// Definitions by: Konstantin Lebedev <https://github.com/koss-lebedev>
-//                 Mike Martin <https://github.com/mcmar>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 import * as React from "react";
 
 declare namespace ReactTimeago {

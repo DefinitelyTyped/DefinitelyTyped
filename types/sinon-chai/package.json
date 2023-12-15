@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/sinon-chai",
+    "version": "3.2.9999",
+    "projects": [
+        "https://github.com/domenic/sinon-chai"
+    ],
+    "dependencies": {
+        "@types/chai": "*",
+        "@types/sinon": "*"
+    },
+    "devDependencies": {
+        "@types/sinon-chai": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kazi Manzur Rashid",
+            "githubUsername": "kazimanzurrashid"
+        }
+    ]
+}

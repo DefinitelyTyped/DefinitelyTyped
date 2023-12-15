@@ -1,9 +1,3 @@
-// Type definitions for toastify-js 1.12
-// Project: https://github.com/apvarun/toastify-js#readme
-// Definitions by: adblanc <https://github.com/adblanc>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace StartToastifyInstance {
     function reposition(): void;
     interface Offset {

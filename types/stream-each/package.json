@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/stream-each",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/mafintosh/stream-each"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/stream-each": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Cassidy",
+            "githubUsername": "djcsdy"
+        }
+    ]
+}

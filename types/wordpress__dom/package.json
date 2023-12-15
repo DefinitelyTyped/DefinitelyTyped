@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/wordpress__dom",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/WordPress/gutenberg/tree/master/packages/dom/README.md"
+    ],
+    "devDependencies": {
+        "@types/wordpress__dom": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Derek Sifford",
+            "githubUsername": "dsifford"
+        }
+    ]
+}

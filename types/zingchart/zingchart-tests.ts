@@ -204,7 +204,7 @@ const chartConfig: zc.graphset[] = [
                 alpha: 0,
             },
             {
-                backgroundColor: "red",
+                backgroundColor: "blue",
             },
         ],
     },

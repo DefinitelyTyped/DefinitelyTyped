@@ -1,8 +1,3 @@
-// Type definitions for node-wav 0.0
-// Project: https://github.com/andreasgal/node-wav
-// Definitions by: jameswilddev <https://github.com/jameswilddev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**
@@ -21,7 +16,7 @@ export function decode(buffer: Buffer): {
      * When mono, this will be a single {@link Float32Array}.
      * When stereo, this will be two {@link Float32Array}s of equal length.
      */
-    readonly channelData: ReadonlyArray<Float32Array>;
+    readonly channelData: readonly Float32Array[];
 };
 
 /**
@@ -31,7 +26,7 @@ export function decode(buffer: Buffer): {
  * @return The encoded {@link Buffer}.
  */
 export function encode(
-    channelData: ReadonlyArray<ArrayBuffer>,
+    channelData: readonly ArrayBuffer[],
     opts: {
         /**
          * The sample rate of the given {@link channelData}.

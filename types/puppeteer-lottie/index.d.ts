@@ -1,7 +1,3 @@
-// Type definitions for puppeteer-lottie 1.1
-// Project: https://github.com/transitive-bullshit/puppeteer-lottie
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import { CanvasRendererConfig, HTMLRendererConfig, SVGRendererConfig } from "lottie-web";
 import { Browser, LaunchOptions } from "puppeteer";
 

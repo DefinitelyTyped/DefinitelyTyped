@@ -1,9 +1,3 @@
-// Type definitions for websequencediagrams 1.0
-// Project: https://github.com/hildjj/node-websequencediagrams
-// Definitions by: Florian Imdahl <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
-
 /// <reference types="node" />
 
 declare namespace WSD {

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/insight",
+    "version": "0.8.9999",
+    "projects": [
+        "https://github.com/yeoman/insight"
+    ],
+    "devDependencies": {
+        "@types/insight": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "vvakame",
+            "githubUsername": "vvakame"
+        }
+    ]
+}

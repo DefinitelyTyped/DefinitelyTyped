@@ -1,9 +1,3 @@
-// Type definitions for vinyl-file 3.0
-// Project: https://github.com/sindresorhus/vinyl-file
-// Definitions by: cleanchedFist <https://github.com/cleanchedFist>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
-
 /// <reference types="node" />
 import File = require("vinyl");
 
@@ -55,7 +49,7 @@ export interface VinylFile extends File {
     path: string;
 
     /** Array of file.path values the Vinyl object has had */
-    readonly history: ReadonlyArray<string>;
+    readonly history: readonly string[];
 
     /** Gets the result of path.relative(file.base, file.path) */
     relative: string;

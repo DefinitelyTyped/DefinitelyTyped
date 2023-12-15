@@ -1,10 +1,3 @@
-// Type definitions for forest-express-mongoose 7.5
-// Project: http://www.forestadmin.com
-// Definitions by: Steve Bunlon <https://github.com/SteveBunlon>
-//                 Guillaume Gautreau <https://github.com/ghusse>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 import { Application, NextFunction, Request, RequestHandler, Response } from "express";
 import * as mongoose from "mongoose";
 

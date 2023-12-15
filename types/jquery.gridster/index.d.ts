@@ -1,9 +1,3 @@
-// Type definitions for jQuery.gridster 0.5.6
-// Project: https://github.com/jbaldwin/gridster
-// Definitions by: Josh Baldwin <https://github.com/jbaldwin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /*
 gridster-0.1.0.d.ts may be freely distributed under the MIT license.
 
@@ -103,7 +97,7 @@ interface GridsterOptions {
      * Base widget dimensions in pixels.  The first index for the width and the second for the height.
      * Default = [400, 225]
      */
-    widget_base_dimensions?: ("auto" | number)[] | undefined;
+    widget_base_dimensions?: Array<"auto" | number> | undefined;
 
     /**
      * Add more columns in addition to those that have been calculated.

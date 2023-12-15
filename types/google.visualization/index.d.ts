@@ -1,16 +1,3 @@
-// Type definitions for Google Visualisation Apis
-// Project: https://developers.google.com/chart/
-// Definitions by: Dan Ludwig <https://github.com/danludwig>,
-//                 Gregory Moore <https://github.com/gmoore-sjcorg>,
-//                 Dan Manastireanu <https://github.com/danmana>,
-//                 Michael Cheng <https://github.com/mlcheng>,
-//                 Ivan Bisultanov <https://github.com/IvanBisultanov>,
-//                 Gleb Mazovetskiy <https://github.com/glebm>,
-//                 Shrujal Shah <https://github.com/shrujalshah28>,
-//                 David <https://github.com/dckorben>
-//                 Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace google {
     /** Legacy https://developers.google.com/chart/interactive/docs/basic_load_libs#updateloader */
     function load(visualization: "visualization", version: string | number, options: LoadOptions): void;
@@ -121,20 +108,20 @@ declare namespace google {
             function month(value: Date): number;
 
             // https://developers.google.com/chart/interactive/docs/reference#group
-            function sum(values: ReadonlyArray<number>): number;
-            function avg(values: ReadonlyArray<number>): number;
+            function sum(values: readonly number[]): number;
+            function avg(values: readonly number[]): number;
             function min(
-                values: ReadonlyArray<number> | ReadonlyArray<string> | ReadonlyArray<Date>,
+                values: readonly number[] | readonly string[] | readonly Date[],
             ): number | string | Date | null;
             function max(
-                values: ReadonlyArray<number> | ReadonlyArray<string> | ReadonlyArray<Date>,
+                values: readonly number[] | readonly string[] | readonly Date[],
             ): number | string | Date | null;
-            function count(values: ReadonlyArray<any>): number;
+            function count(values: readonly any[]): number;
 
             function group(
                 data: DataTable | DataView,
                 keys: ReadonlyArray<number | GroupKeyOptions>,
-                columns?: ReadonlyArray<GroupColumnOptions>,
+                columns?: readonly GroupColumnOptions[],
             ): DataTable;
 
             // https://developers.google.com/chart/interactive/docs/reference#join

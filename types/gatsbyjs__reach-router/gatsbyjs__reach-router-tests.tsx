@@ -96,4 +96,4 @@ const refObject: React.RefObject<HTMLAnchorElement> = { current: null };
 render(<Link innerRef={refObject} to="./foo"></Link>, document.getElementById("app-root"));
 render(<Link ref={refObject} to="./foo"></Link>, document.getElementById("app-root"));
 
-const elem: JSX.Element = <Link<number> state={5} to="./foo">Click me!</Link>;
+const elem: React.JSX.Element = <Link<number> state={5} to="./foo">Click me!</Link>;

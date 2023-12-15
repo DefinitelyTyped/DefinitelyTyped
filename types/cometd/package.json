@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/cometd",
+    "version": "4.0.9999",
+    "projects": [
+        "https://cometd.org"
+    ],
+    "devDependencies": {
+        "@types/cometd": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Derek Cicerone",
+            "githubUsername": "derekcicerone"
+        },
+        {
+            "name": "Daniel Perez Alvarez",
+            "githubUsername": "unindented"
+        },
+        {
+            "name": "Alex Henry",
+            "githubUsername": "alxHenry"
+        },
+        {
+            "name": "Harald Gliebe",
+            "githubUsername": "hagl"
+        },
+        {
+            "name": "P.J. Swesey",
+            "githubUsername": "swese44"
+        }
+    ]
+}

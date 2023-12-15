@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/extract-files",
+    "version": "8.1.9999",
+    "projects": [
+        "https://github.com/jaydenseric/extract-files#readme"
+    ],
+    "devDependencies": {
+        "@types/extract-files": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Edward Sammut Alessi",
+            "githubUsername": "Slessi"
+        },
+        {
+            "name": "Alex K",
+            "githubUsername": "lynxtaa"
+        }
+    ]
+}

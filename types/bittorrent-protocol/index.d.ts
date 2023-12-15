@@ -1,10 +1,3 @@
-// Type definitions for bittorrent-protocol 3.1
-// Project: https://github.com/webtorrent/bittorrent-protocol
-// Definitions by: Feross Aboukhadijeh <https://github.com/feross>,
-//                 Tomasz Łaziuk <https://github.com/tlaziuk>,
-//                 H1b9b <https://github.com/h1b9b>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as stream from "stream";
@@ -74,6 +67,7 @@ declare namespace BittorrentProtocol {
         // TODO: bitfield can be also a bitfield instance
         bitfield(bitfield: Buffer | any): void;
 
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         request<T extends any>(index: number, offset: number, length: number, cb?: (err: Error) => T): T | void;
 
         piece(index: number, offset: number, buffer: Buffer): void;

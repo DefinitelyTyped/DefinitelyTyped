@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/jquery-monthpicker",
+    "version": "3.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery-monthPicker",
+    "projects": [
+        "<https://github.com/KidSysco/jquery-ui-month-picker>"
+    ],
+    "dependencies": {
+        "@types/jquery": "*",
+        "@types/jqueryui": "*"
+    },
+    "devDependencies": {
+        "@types/jquery-monthpicker": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "doberkofler",
+            "githubUsername": "doberkofler"
+        }
+    ]
+}

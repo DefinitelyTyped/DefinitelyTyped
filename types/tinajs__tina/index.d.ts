@@ -1,10 +1,3 @@
-// Type definitions for @tinajs/tina 1.4
-// Project: https://github.com/tinajs/tina, https://tina.js.org
-// Definitions by: Jiayu Liu <https://github.com/Jimexist>
-//                 Strange Fish <https://github.com/strange-fish>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export function use(plugin: any): void;
 
 export interface ComponentProperties {

@@ -1,13 +1,3 @@
-// Type definitions for howler.js 2.2
-// Project: https://github.com/goldfire/howler.js
-// Definitions by: Pedro Casaubon <https://github.com/xperiments>
-//                 Alexander Leon <https://github.com/alien35>
-//                 Nicholas Higgins <https://github.com/nicholashza>
-//                 Carlos Urango <https://github.com/cjurango>
-//                 R.J. <https://github.com/jun-sheaf>
-//                 Hagen <https://github.com/MrGriefs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type HowlCallback = (soundId: number) => void;
 export type HowlErrorCallback = (soundId: number, error: unknown) => void;
 export type SpatialOrientation = [number, number, number];

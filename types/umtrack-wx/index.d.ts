@@ -1,8 +1,3 @@
-// Type definitions for umtrack-wx  2.3
-// Project: https://github.com/umeng/mp-demos
-// Definitions by: Wen Yishan <https://github.com/azzgo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace UMA {
     interface InitParams {
         /**

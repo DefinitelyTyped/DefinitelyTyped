@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/react-shadow-dom-retarget-events",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/weltn24/react-shadow-dom-retarget-events#readme"
+    ],
+    "devDependencies": {
+        "@types/react": "*",
+        "@types/react-dom": "*",
+        "@types/react-shadow-dom-retarget-events": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Remco Haszing",
+            "githubUsername": "remcohaszing"
+        }
+    ]
+}

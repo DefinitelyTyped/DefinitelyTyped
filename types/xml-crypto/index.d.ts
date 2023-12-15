@@ -1,9 +1,3 @@
-// Type definitions for xml-crypto 1.4
-// Project: https://github.com/yaronn/xml-crypto#readme
-// Definitions by: Eric Heikes <https://github.com/eheikes>
-//                 Max Chehab <https://github.com/maxchehab>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { SelectedValue } from "xpath";
@@ -15,7 +9,7 @@ export class HashAlgorithm {
 
 export interface Reference {
     xpath: string;
-    transforms?: ReadonlyArray<string> | undefined;
+    transforms?: readonly string[] | undefined;
     digestAlgorithm?: string | undefined;
     uri?: string | undefined;
     digestValue?: string | undefined;
@@ -46,12 +40,12 @@ export class SignedXml {
     constructor(idMode?: string | null, options?: {
         canonicalizationAlgorithm?: string | undefined;
         idAttribute?: string | undefined;
-        implicitTransforms?: ReadonlyArray<string> | undefined;
+        implicitTransforms?: readonly string[] | undefined;
         signatureAlgorithm?: string | undefined;
     });
     addReference(
         xpath: string,
-        transforms?: ReadonlyArray<string>,
+        transforms?: readonly string[],
         digestAlgorithm?: string,
         uri?: string,
         digestValue?: string,

@@ -1,9 +1,3 @@
-// Type definitions for react-native-modal-dropdown 1.0
-// Project: https://github.com/siemiatj/react-native-modal-dropdown
-// Definitions by: Carlos Li <https://github.com/echoulen>, Stefan Schweiger <https://github.com/stefan-schweiger>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.0
-
 import * as React from "react";
 import { Constructor, NativeMethodsMixin, StyleProp, TextStyle, ViewProps, ViewStyle } from "react-native";
 
@@ -52,8 +46,11 @@ export interface ModalDropdownProps<T = any> extends ViewProps {
     renderButtonComponent?: React.ComponentClass | React.FC | undefined;
     renderRightComponent?: React.ComponentClass | React.FC | undefined;
     renderButtonProps?: any;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onDropdownWillShow?: (() => void | boolean) | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onDropdownWillHide?: (() => void | boolean) | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onSelect?: ((index: string, option: T) => void | boolean) | undefined;
     numberOfLines?: number | undefined;
 }

@@ -1,8 +1,3 @@
-// Type definitions for react-native-bcrypt 2.4
-// Project: https://github.com/emiraydin/react-native-bcrypt/#readme
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /*~ If this module is a UMD module that exposes a global variable 'myLib' when
  *~ loaded outside a module loader environment, declare that global here.
  *~ Otherwise, delete this declaration.

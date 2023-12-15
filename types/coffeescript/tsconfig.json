@@ -4,28 +4,10 @@
         "lib": [
             "es6"
         ],
-        "paths": {
-            "@babel/core": [
-                "babel__core"
-            ],
-            "@babel/generator": [
-                "babel__generator"
-            ],
-            "@babel/template": [
-                "babel__template"
-            ],
-            "@babel/traverse": [
-                "babel__traverse"
-            ]
-        },
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

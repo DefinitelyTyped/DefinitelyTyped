@@ -1,8 +1,3 @@
-// Type definitions for Player Framework (MMPPF)
-// Project: https://playerframework.codeplex.com/
-// Definitions by: Ricardo Sabino <https://github.com/ricardosabino>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="winrt"/>
 
 declare namespace PlayerFramework {
@@ -268,7 +263,7 @@ declare namespace PlayerFramework {
 
     interface PlaylistItem {
         src: string;
-        tracks?: Array<any> | undefined; // TODO
+        tracks?: any[] | undefined; // TODO
     }
 
     class PluginBase {
@@ -285,7 +280,7 @@ declare namespace PlayerFramework {
 
     namespace Plugins {
         class TrackingPluginBase extends PluginBase {
-            trackingEvents: Array<any>;
+            trackingEvents: any[];
         }
 
         class BufferingPlugin extends PluginBase {
@@ -320,7 +315,7 @@ declare namespace PlayerFramework {
             /** */
             currentPlaylistItemIndex: number;
             /** */
-            playlist: Array<PlaylistItem>;
+            playlist: PlaylistItem[];
             /** */
             startupPlaylistItemIndex: number;
             /** */
@@ -996,7 +991,7 @@ declare namespace PlayerFramework {
         /**
          * TODO
          */
-        visualMarkers: Array<any>;
+        visualMarkers: any[];
         /**
          * TODO
          */
@@ -1060,7 +1055,7 @@ declare namespace PlayerFramework {
         /**
          * Gets the audio tracks for the current media source.
          */
-        audioTracks: Array<any>;
+        audioTracks: any[];
 
         /**
          * Gets or sets a value that indicates whether to automatically start buffering the current media source.
@@ -1089,11 +1084,11 @@ declare namespace PlayerFramework {
         /**
          * Gets the buffered time ranges for the current media source.
          */
-        buffered: Array<any>; // TODO: (type: TimeRanges, read - only)
+        buffered: any[]; // TODO: (type: TimeRanges, read - only)
         /**
          * Gets the caption and subtitle tracks for the current media source.
          */
-        captionTracks: Array<any>;
+        captionTracks: any[];
         /**
          * Gets or sets a value that specifies whether to display the native controls for the current media source.
          */
@@ -1553,7 +1548,7 @@ declare namespace PlayerFramework {
         /**
          * Gets the played time ranges for the current media source.
          */
-        played: Array<any>; // TODO: (type: TimeRanges, read - only)
+        played: any[]; // TODO: (type: TimeRanges, read - only)
         /**
          * Gets the playlist plugin.
          */
@@ -1565,7 +1560,7 @@ declare namespace PlayerFramework {
         /*
          * Gets the plugins associated with the player.
          */
-        plugins: Array<any>; // TODO: (type: ?, read - only)
+        plugins: any[]; // TODO: (type: ?, read - only)
         /*
          * Gets or sets the URL of an image to display while the current media source is loading.
          */
@@ -1617,7 +1612,7 @@ declare namespace PlayerFramework {
         /**
          * Gets or sets the media sources to be considered.
          */
-        sources: Array<any>; // TODO: (type: Array, read / write)
+        sources: any[]; // TODO: (type: Array, read / write)
         /**
          * Gets or sets the URL of the current media source to be considered.
          */
@@ -1641,7 +1636,7 @@ declare namespace PlayerFramework {
         /**
          * Gets or sets the tracks for the player.
          */
-        tracks: Array<any>; // TODO: (type: Array, read / write)
+        tracks: any[]; // TODO: (type: Array, read / write)
         /**
          * Gets the intrinsic height of the current video (in pixels).
          */
@@ -1894,7 +1889,7 @@ declare namespace PlayerFramework {
             vertical: boolean;
             disabled: boolean;
             hidden: boolean;
-            markers: Array<any>;
+            markers: any[];
             thumbnailImageSrc: string;
             isThumbnailVisible: boolean;
         }

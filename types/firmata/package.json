@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/firmata",
+    "version": "0.19.9999",
+    "projects": [
+        "http://www.github.com/firmata/firmata.js"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/serialport": "^4"
+    },
+    "devDependencies": {
+        "@types/firmata": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Troy W.",
+            "githubUsername": "troywweber7"
+        }
+    ]
+}

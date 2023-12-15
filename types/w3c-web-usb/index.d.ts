@@ -1,11 +1,3 @@
-// Type definitions for non-npm package W3C Web USB API 1.0
-// Project: https://wicg.github.io/webusb/
-// Definitions by: Lars Knudsen <https://github.com/larsgk>
-//                 Rob Moran <https://github.com/thegecko>
-//                 Simon Chan <https://github.com/yume-chan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 type USBDirection = "in" | "out";
 type USBEndpointType = "bulk" | "interrupt" | "isochronous";
 type USBRequestType = "standard" | "class" | "vendor";

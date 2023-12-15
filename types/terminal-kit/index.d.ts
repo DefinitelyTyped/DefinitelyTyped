@@ -1,10 +1,3 @@
-// Type definitions for terminal-kit 2.5
-// Project: https://github.com/cronvel/terminal-kit#readme
-// Definitions by: katsanva <https://github.com/katsanva>
-//                Totto16 <https://github.com/Totto16/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.9
-
 import Rect = require("./Rect");
 import ScreenBuffer = require("./ScreenBuffer");
 import ScreenBufferHD = require("./ScreenBufferHD");
@@ -28,7 +21,7 @@ export function getDetectedTerminal(
 ): void;
 
 export function autoComplete(
-    array: ReadonlyArray<string>,
+    array: readonly string[],
     startString: string,
     returnAlternatives?: boolean,
     prefix?: string,

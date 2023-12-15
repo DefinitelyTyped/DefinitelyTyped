@@ -1,9 +1,3 @@
-// Type definitions for non-npm package Mithril 2.2
-// Project: https://mithril.js.org/
-// Definitions by: Mike Linkovich <https://github.com/spacejack>
-//                 Claudia Meadows <https://github.com/dead-claudia>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Global Mithril types
 
 /// <reference types="mithril" />

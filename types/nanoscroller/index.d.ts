@@ -1,9 +1,3 @@
-// Type definitions for nanoScroller 0.8
-// Project: http://jamesflorentino.github.io/nanoScrollerJS/, https://github.com/jamesflorentino/nanoscrollerjs
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 declare namespace JQueryNanoScroller {

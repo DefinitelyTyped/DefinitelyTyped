@@ -1,8 +1,3 @@
-// Type definitions for @xmpp/stream-management 0.13
-// Project: https://github.com/xmppjs/xmpp.js/tree/main/packages/stream-management
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Entity, Middleware } from "@xmpp/middleware";
 import { StreamFeatures } from "@xmpp/stream-features";
 

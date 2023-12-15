@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/vertx3-eventbus-client",
+    "version": "3.5.9999",
+    "projects": [
+        "http://vertx.io"
+    ],
+    "devDependencies": {
+        "@types/vertx3-eventbus-client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Odd Eirik Nes",
+            "githubUsername": "oddeirik"
+        }
+    ]
+}

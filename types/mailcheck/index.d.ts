@@ -1,9 +1,3 @@
-// Type definitions for Mailcheck 1.1
-// Project: https://github.com/mailcheck/mailcheck
-// Definitions by: Paulo Cesar <https://github.com/pocesar>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
-
 /// <reference types="jquery" />
 
 declare var Mailcheck: MailcheckModule.Static;
@@ -84,6 +78,7 @@ declare namespace MailcheckModule {
 
 interface JQuery {
     mailcheck(opts: MailcheckModule.IAsynchronousOptions): void;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     mailcheck(opts: MailcheckModule.ISynchronousOptions): MailcheckModule.ISuggestion | void;
 }
 

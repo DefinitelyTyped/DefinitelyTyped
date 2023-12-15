@@ -1,8 +1,3 @@
-// Type definitions for react-leaflet-pixi-overlay 3.0
-// Project: hhttps://github.com/knapcio/react-leaflet-pixi-overlay
-// Definitions by: Guilherme Vier <https://github.com/Guilherm456>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 export interface MarkerPropsPixiOverlay {

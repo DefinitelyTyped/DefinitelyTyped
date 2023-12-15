@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/ngprogress",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/victorb/ngProgress"
+    ],
+    "devDependencies": {
+        "@types/ngprogress": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Martin McWhorter",
+            "githubUsername": "martinmcwhorter"
+        }
+    ]
+}

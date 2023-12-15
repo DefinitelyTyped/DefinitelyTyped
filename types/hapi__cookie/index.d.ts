@@ -1,9 +1,3 @@
-// Type definitions for @hapi/cookie 12.0
-// Project: https://github.com/hapijs/cookie
-// Definitions by: Silas Rech <https://github.com/lenovouser>
-//                 Simon Schick <https://github.com/SimonSchick>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { AuthCredentials, Plugin, Request, ServerStateCookieOptions } from "@hapi/hapi";
 
 declare module "@hapi/hapi" {

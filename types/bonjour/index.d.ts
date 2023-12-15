@@ -1,8 +1,3 @@
-// Type definitions for bonjour 3.5
-// Project: https://github.com/watson/bonjour
-// Definitions by: Quentin Lampin <https://github.com/quentin-ol>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { RemoteInfo } from "dgram";

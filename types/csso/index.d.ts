@@ -1,9 +1,3 @@
-// Type definitions for csso 5.0
-// Project: https://github.com/css/csso
-// Definitions by: Christian Rackerseder <https://github.com/screendriver>
-//                 Erik Källén <https://github.com/erik-kallen>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import * as csstree from "css-tree";
 
 export as namespace csso;

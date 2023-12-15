@@ -1,20 +1,21 @@
 {
-  "compilerOptions": {
-    "baseUrl": "../",
-    "forceConsistentCasingInFileNames": true,
-    "lib": ["DOM", "ES6"],
-    "jsx": "react",
-    "module": "commonjs",
-    "noEmit": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "typeRoots": ["../"],
-    "types": []
-  },
-  "files": [
-    "index.d.ts",
-    "test/TerraActionHeaderTests.tsx"
-  ]
+    "compilerOptions": {
+        "forceConsistentCasingInFileNames": true,
+        "lib": [
+            "DOM",
+            "ES6"
+        ],
+        "jsx": "react",
+        "module": "commonjs",
+        "noEmit": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "types": []
+    },
+    "files": [
+        "index.d.ts",
+        "test/TerraActionHeaderTests.tsx"
+    ]
 }

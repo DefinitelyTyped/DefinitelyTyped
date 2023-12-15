@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/csprng",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/jcoglan/node-csprng"
+    ],
+    "devDependencies": {
+        "@types/csprng": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Wink Saville",
+            "githubUsername": "winksaville"
+        }
+    ]
+}

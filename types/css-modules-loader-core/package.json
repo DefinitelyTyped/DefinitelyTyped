@@ -1,6 +1,21 @@
 {
-  "private": true,
-  "dependencies": {
-    "postcss": "7.x.x"
-  }
+    "private": true,
+    "name": "@types/css-modules-loader-core",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/css-modules/css-modules-loader-core"
+    ],
+    "dependencies": {
+        "postcss": "7.x.x"
+    },
+    "devDependencies": {
+        "@types/css-modules-loader-core": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Spencer Miskoviak",
+            "githubUsername": "skovy"
+        }
+    ]
 }

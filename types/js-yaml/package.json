@@ -1,5 +1,10 @@
 {
     "private": true,
+    "name": "@types/js-yaml",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/nodeca/js-yaml"
+    ],
     "exports": {
         ".": {
             "types": {
@@ -7,5 +12,30 @@
                 "default": "./index.d.ts"
             }
         }
-    }
+    },
+    "devDependencies": {
+        "@types/js-yaml": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bart van der Schoor",
+            "githubUsername": "Bartvds"
+        },
+        {
+            "name": "Sebastian Clausen",
+            "githubUsername": "sclausen"
+        },
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        },
+        {
+            "name": "Armaan Tobaccowalla",
+            "githubUsername": "ArmaanT"
+        },
+        {
+            "name": "Linus Unnebäck",
+            "githubUsername": "LinusU"
+        }
+    ]
 }

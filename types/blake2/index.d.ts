@@ -1,8 +1,3 @@
-// Type definitions for blake2 4.0
-// Project: https://github.com/vrza/node-blake2
-// Definitions by: Antoine Beauvais-Lacasse <https://github.com/beaulac>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 import { BinaryToTextEncoding } from "crypto";
 import { Transform, TransformOptions } from "stream";

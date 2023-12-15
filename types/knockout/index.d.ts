@@ -1,16 +1,3 @@
-// Type definitions for Knockout v3.4.0
-// Project: http://knockoutjs.com
-// Definitions by: Boris Yankov <https://github.com/borisyankov>,
-//                 Igor Oleinikov <https://github.com/Igorbek>,
-//                 Clément Bourgeois <https://github.com/moonpyk>,
-//                 Matt Brooks <https://github.com/EnableSoftware>,
-//                 Benjamin Eckardt <https://github.com/BenjaminEckardt>,
-//                 Mathias Lorenzen <https://github.com/ffMathy>,
-//                 Leonardo Lombardi <https://github.com/ltlombardi>
-//                 Retsam <https://github.com/Retsam>
-//                 Rey Pena <https://github.com/ReyPena>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface KnockoutSubscribableFunctions<T> {
     /**
      * Notify subscribers of knockout "change" event. This doesn't actually change the observable value.
@@ -260,11 +247,11 @@ interface KnockoutObservableArrayStatic {
  * casting an observable array to this type expresses the intention that it shouldn't be mutated.
  */
 interface KnockoutReadonlyObservableArray<T>
-    extends KnockoutReadonlyObservable<ReadonlyArray<T>>, KnockoutReadonlyObservableArrayFunctions<T>
+    extends KnockoutReadonlyObservable<readonly T[]>, KnockoutReadonlyObservableArrayFunctions<T>
 {
     // NOTE: Keep in sync with KnockoutObservableArray<T>, see note on KnockoutObservableArray<T>
     subscribe(
-        callback: (newValue: KnockoutArrayChange<T>[]) => void,
+        callback: (newValue: Array<KnockoutArrayChange<T>>) => void,
         target: any,
         event: "arrayChange",
     ): KnockoutSubscription;
@@ -280,7 +267,7 @@ interface KnockoutReadonlyObservableArray<T>
 */
 interface KnockoutObservableArray<T> extends KnockoutObservable<T[]>, KnockoutObservableArrayFunctions<T> {
     subscribe(
-        callback: (newValue: KnockoutArrayChange<T>[]) => void,
+        callback: (newValue: Array<KnockoutArrayChange<T>>) => void,
         target: any,
         event: "arrayChange",
     ): KnockoutSubscription;
@@ -403,7 +390,7 @@ interface KnockoutAllBindingsAccessor {
 }
 
 interface KnockoutBindingHandler<E extends Node = any, V = any, VM = any> {
-    after?: Array<string> | undefined;
+    after?: string[] | undefined;
     init?:
         | ((
             element: E,
@@ -411,6 +398,7 @@ interface KnockoutBindingHandler<E extends Node = any, V = any, VM = any> {
             allBindingsAccessor: KnockoutAllBindingsAccessor,
             viewModel: VM,
             bindingContext: KnockoutBindingContext,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ) => void | { controlsDescendantBindings: boolean })
         | undefined;
     update?:

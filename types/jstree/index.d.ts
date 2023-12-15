@@ -1,9 +1,3 @@
-// Type definitions for jstree 3.3
-// Project: http://jstree.com/
-// Definitions by: Adam Pluciński <https://github.com/adaskothebeast>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 interface JQueryStatic {

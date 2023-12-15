@@ -1,8 +1,3 @@
-// Type definitions for cvss 1.0
-// Project: https://github.com/aaronmccall/cvss
-// Definitions by: Dave Lunny <https://github.com/himynameisdave>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface CVSSOptions {
     //  If validation returns an error, throw the error
     throw?: boolean;

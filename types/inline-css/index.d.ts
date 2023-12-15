@@ -1,9 +1,3 @@
-// Type definitions for inline-css 3.0
-// Project: https://github.com/jonkemp/inline-css
-// Definitions by: Philip Spain <https://github.com/philipisapain>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import cheerio = require("cheerio");
 
 export = InlineCss;

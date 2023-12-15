@@ -1,8 +1,3 @@
-// Type definitions for non-npm package Apple TV ATVLegacyContentKit for TV Experience 7.7
-// Project: n/a (there is no publically available website for the SDK)
-// Definitions by: Shea Smith <https://github.com/SheaSmith>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // The rule of thumb is that everything within the atv namespace is accessible by vanilla JavaScript running on the device. Everything else is a utility class which eases development, or in some
 // cases (especially in the StoreKit stuff) are identitical to the classes the Apple TV uses internally.
 
@@ -2843,7 +2838,7 @@ declare interface Console {
      * @since v10.0.0
      * @param properties Alternate properties for constructing the table.
      */
-    table(tabularData: any, properties?: ReadonlyArray<string>): void;
+    table(tabularData: any, properties?: readonly string[]): void;
 
     /**
      * Starts a timer that can be used to compute the duration of an operation. Timers

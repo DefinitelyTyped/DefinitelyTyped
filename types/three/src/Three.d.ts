@@ -105,8 +105,6 @@ export * from './lights/DirectionalLight.js';
 export * from './lights/AmbientLight.js';
 export * from './lights/LightShadow.js';
 export * from './lights/Light.js';
-export * from './lights/AmbientLightProbe.js';
-export * from './lights/HemisphereLightProbe.js';
 export * from './lights/LightProbe.js';
 /**
  * Loaders
@@ -158,7 +156,7 @@ export * from './math/Vector2.js';
 export * from './math/Quaternion.js';
 export * from './math/Color.js';
 export * from './math/SphericalHarmonics3.js';
-export { ColorManagement } from './math/ColorManagement.js';
+export { ColorManagement, WorkingColorSpace, DefinedColorSpace } from './math/ColorManagement.js';
 import * as MathUtils from './math/MathUtils.js';
 export { MathUtils };
 /**
@@ -167,6 +165,7 @@ export { MathUtils };
 export * from './objects/Sprite.js';
 export * from './objects/LOD.js';
 export * from './objects/InstancedMesh.js';
+export * from './objects/BatchedMesh.js';
 export * from './objects/SkinnedMesh.js';
 export * from './objects/Skeleton.js';
 export * from './objects/Bone.js';

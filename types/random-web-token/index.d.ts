@@ -1,8 +1,3 @@
-// Type definitions for random-web-token 2.0
-// Project: https://github.com/schrudolf/random-web-token#readme
-// Definitions by: Rudolf <https://github.com/schrudolf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type Types = "normal" | "normal+" | "medium" | "medium+" | "extra" | "onlyNumbers";
 export { asyncValidator, genAsync, genSync, syncValidator, withMyOwnCharacters };
 /*

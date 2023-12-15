@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/quick-format-unescaped",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/davidmarkclements/quick-format-unescaped#readme"
+    ],
+    "devDependencies": {
+        "@types/quick-format-unescaped": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Vigneaux",
+            "githubUsername": "AdamVig"
+        }
+    ]
+}

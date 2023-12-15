@@ -1,11 +1,3 @@
-// Type definitions for non-npm package webxr 0.5
-// Project: https://www.w3.org/TR/webxr/
-// Definitions by: Rob Rohan <https://github.com/robrohan>
-//                 Raanan Weber <https://github.com/RaananW>
-//                 Sean T. McBeth <https://github.com/capnmidnight>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
 // Most of this was hand written and... more or less copied from the following
 // sites:
 //  https://www.w3.org/TR/webxr/
@@ -157,7 +149,7 @@ declare abstract class XRViewport implements XRViewport {}
  *
  * ref: https://immersive-web.github.io/webxr/#xrspace-interface
  */
-// tslint:disable-next-line no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface XRSpace extends EventTarget {}
 
 declare abstract class XRSpace implements XRSpace {}
@@ -301,6 +293,8 @@ declare abstract class XRInputSourceArray implements XRInputSourceArray {}
  */
 interface XRPose {
     readonly transform: XRRigidTransform;
+    readonly linearVelocity?: DOMPointReadOnly | undefined;
+    readonly angularVelocity?: DOMPointReadOnly | undefined;
     readonly emulatedPosition: boolean;
 }
 
@@ -512,7 +506,7 @@ declare abstract class XRSession implements XRSession {}
  * ref: https://immersive-web.github.io/webxr/#xrviewerpose-interface
  */
 interface XRViewerPose extends XRPose {
-    readonly views: ReadonlyArray<XRView>;
+    readonly views: readonly XRView[];
 }
 
 declare abstract class XRViewerPose implements XRViewerPose {}
@@ -553,8 +547,8 @@ declare abstract class XRView implements XRView {}
  * ref: https://immersive-web.github.io/webxr/#xrinputsourceschangeevent-interface
  */
 interface XRInputSourceChangeEvent extends XRSessionEvent {
-    readonly removed: ReadonlyArray<XRInputSource>;
-    readonly added: ReadonlyArray<XRInputSource>;
+    readonly removed: readonly XRInputSource[];
+    readonly added: readonly XRInputSource[];
 }
 
 interface XRInputSourceChangeEventHandler {
@@ -591,7 +585,7 @@ type XRHitTestTrackableType = "point" | "plane" | "mesh";
 
 interface XRTransientInputHitTestResult {
     readonly inputSource: XRInputSource;
-    readonly results: ReadonlyArray<XRHitTestResult>;
+    readonly results: readonly XRHitTestResult[];
 }
 
 declare class XRTransientInputHitTestResult {
@@ -681,6 +675,7 @@ interface XRSession {
     // Legacy
     updateWorldTrackingState?: (options: {
         planeDetectionState?: { enabled: boolean } | undefined;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     }) => void | undefined;
 }
 
@@ -777,7 +772,7 @@ interface XRFrame {
  * The base class for XRWebGLLayer and other layer types introduced by future extensions.
  * ref: https://immersive-web.github.io/webxr/#xrlayer-interface
  */
-// tslint:disable-next-line no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface XRLayer extends EventTarget {}
 
 declare abstract class XRLayer implements XRLayer {}

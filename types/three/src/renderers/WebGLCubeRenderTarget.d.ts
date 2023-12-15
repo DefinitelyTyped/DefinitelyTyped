@@ -1,7 +1,7 @@
 import { WebGLRenderTargetOptions, WebGLRenderTarget } from './WebGLRenderTarget.js';
 import { WebGLRenderer } from './WebGLRenderer.js';
-import { Texture } from './../textures/Texture.js';
-import { CubeTexture } from './../textures/CubeTexture.js';
+import { Texture } from '../textures/Texture.js';
+import { CubeTexture } from '../textures/CubeTexture.js';
 
 export class WebGLCubeRenderTarget extends WebGLRenderTarget {
     constructor(size?: number, options?: WebGLRenderTargetOptions);

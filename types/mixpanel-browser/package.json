@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/mixpanel-browser",
+    "version": "2.47.9999",
+    "projects": [
+        "https://github.com/mixpanel/mixpanel-js"
+    ],
+    "devDependencies": {
+        "@types/mixpanel-browser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Carlos López",
+            "githubUsername": "karlos1337"
+        },
+        {
+            "name": "Ricardo Rodrigues",
+            "githubUsername": "RicardoRodrigues"
+        },
+        {
+            "name": "Kristian Randall",
+            "githubUsername": "randak"
+        },
+        {
+            "name": "Dan Wilt",
+            "githubUsername": "dwilt"
+        },
+        {
+            "name": "Justin Helmer",
+            "githubUsername": "justinhelmer"
+        }
+    ]
+}

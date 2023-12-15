@@ -79,11 +79,11 @@ const variables = {};
  * Test of fetchQuery
  */
 const dispose = fetchQuery(environment, query, variables).subscribe({
-    start: subsctiption => {},
-    next: payload => {},
+    start: (subsctiption) => {},
+    next: (payload) => {},
     error: (error: Error) => {},
     complete: () => {},
-    unsubscribe: subscription => {},
+    unsubscribe: (subscription) => {},
 });
 
 dispose.unsubscribe();
@@ -93,9 +93,12 @@ interface AppQueryVariables {
 }
 
 interface AppQueryResponse {
-    readonly user: {
-        readonly name: string;
-    } | null;
+    readonly user:
+        | {
+            readonly name: string;
+        }
+        | null
+        | undefined;
 }
 
 interface AppQuery {
@@ -243,11 +246,11 @@ function NonNullableFragment() {
 
 function NullableFragment() {
     interface Props {
-        user: UserComponent_user$key | null;
+        user: UserComponent_user$key | null | undefined;
     }
 
     return function UserComponent(props: Props) {
-        // $ExpectType UserComponent_user | null
+        // $ExpectType UserComponent_user | null | undefined
         useFragment(
             graphql`
                 fragment UserComponent_user on User {
@@ -295,7 +298,7 @@ function NonNullableArrayFragment() {
             props.users,
         );
 
-        return data.map(d => (
+        return data.map((d) => (
             <>
                 <h1>{d.name}</h1>
                 <div>
@@ -308,7 +311,7 @@ function NonNullableArrayFragment() {
 
 function NullableArrayFragment() {
     interface Props {
-        users: UserComponent_users$key | null;
+        users: UserComponent_users$key | null | undefined;
     }
 
     return function UserComponent(props: Props) {
@@ -324,7 +327,7 @@ function NullableArrayFragment() {
             props.users,
         );
 
-        return data!.map(d => (
+        return data!.map((d) => (
             <>
                 <h1>{d.name}</h1>
                 <div>
@@ -337,7 +340,7 @@ function NullableArrayFragment() {
 
 function ArrayOfNullableFragment() {
     interface Props {
-        users: ReadonlyArray<UserComponent_users$key[0] | null>;
+        users: ReadonlyArray<UserComponent_users$key[0] | null | undefined>;
     }
 
     return function UserComponent(props: Props) {
@@ -353,7 +356,7 @@ function ArrayOfNullableFragment() {
             props.users,
         );
 
-        return data.map(d => (
+        return data.map((d) => (
             <>
                 <h1>{d.name}</h1>
                 <div>
@@ -375,9 +378,12 @@ function RefetchableFragment() {
     }
 
     interface CommentBodyRefetchQueryResponse {
-        readonly node: {
-            readonly " $fragmentSpreads": FragmentRefs<"CommentBody_comment">;
-        } | null;
+        readonly node:
+            | {
+                readonly " $fragmentSpreads": FragmentRefs<"CommentBody_comment">;
+            }
+            | null
+            | undefined;
     }
 
     interface CommentBodyRefetchQuery {
@@ -386,10 +392,13 @@ function RefetchableFragment() {
     }
 
     interface CommentBody_comment {
-        readonly body: {
-            readonly text: string;
-        } | null;
-        readonly id: string | null;
+        readonly body:
+            | {
+                readonly text: string;
+            }
+            | null
+            | undefined;
+        readonly id: string | null | undefined;
         readonly " $fragmentType": "CommentBody_comment";
     }
 
@@ -402,7 +411,7 @@ function RefetchableFragment() {
 
     interface Props {
         comment: CommentBody_comment$key;
-        commentNullable: CommentBody_comment$key | null;
+        commentNullable: CommentBody_comment$key | null | undefined;
     }
 
     return function CommentBody(props: Props) {
@@ -483,7 +492,7 @@ function PaginationFragment() {
     }
 
     interface Props {
-        user: FriendsListComponent_user$key | null;
+        user: FriendsListComponent_user$key | null | undefined;
     }
 
     return function FriendsList(props: Props) {
@@ -621,23 +630,29 @@ function PaginationFragment_WithNonNullUserProp() {
  */
 function Mutation() {
     interface FeedbackLikeMutationRawResponse {
-        readonly feedback_like: {
-            readonly feedback: {
-                readonly id: string;
-                readonly viewer_does_like?: boolean | null | undefined;
-                readonly like_count?: number | null | undefined;
-            };
-        } | null;
+        readonly feedback_like:
+            | {
+                readonly feedback: {
+                    readonly id: string;
+                    readonly viewer_does_like?: boolean | null | undefined;
+                    readonly like_count?: number | null | undefined;
+                };
+            }
+            | null
+            | undefined;
     }
 
     interface FeedbackLikeMutationResponse {
-        readonly feedback_like: {
-            readonly feedback: {
-                readonly id: string;
-                readonly viewer_does_like?: boolean | null | undefined;
-                readonly like_count?: number | null | undefined;
-            };
-        } | null;
+        readonly feedback_like:
+            | {
+                readonly feedback: {
+                    readonly id: string;
+                    readonly viewer_does_like?: boolean | null | undefined;
+                    readonly like_count?: number | null | undefined;
+                };
+            }
+            | null
+            | undefined;
     }
 
     interface FeedbackLikeMutationVariables {

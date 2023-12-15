@@ -1,8 +1,3 @@
-// Type definitions for @salesforce/canvas-js-sdk 1.41
-// Project: https://github.com/forcedotcom/SalesforceCanvasJavascriptSDK#readme
-// Definitions by: Zach Szafran <https://github.com/zms-dev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Sfdc {
     function canvas(callback: () => void): void;
 

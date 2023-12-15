@@ -1,16 +1,3 @@
-// Type definitions for react-autosuggest 10.1
-// Project: http://react-autosuggest.js.org/, https://github.com/moroshko/react-autosuggest
-// Definitions by: Nicolas Schmitt <https://github.com/nicolas-schmitt>
-//                 Philip Ottesen <https://github.com/pjo256>
-//                 Robert Essig <https://github.com/robessog>
-//                 Terry Bayne <https://github.com/tbayne>
-//                 Christopher Deutsch <https://github.com/cdeutsch>
-//                 Thomas den Hollander <https://github.com/ThomasdenH>
-//                 ulrichb <https://github.com/ulrichb>
-//                 Arthur Fücher <https://github.com/afucher>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 import * as React from "react";
 
 declare class Autosuggest<T = any, T2 = any> extends React.Component<
@@ -228,7 +215,7 @@ declare namespace Autosuggest {
         /**
          * These are the suggestions that will be displayed. Items can take an arbitrary shape.
          */
-        suggestions: ReadonlyArray<TSuggestion>;
+        suggestions: readonly TSuggestion[];
     }
 
     interface AutosuggestPropsMultiSection<TSuggestion, TSection> extends AutosuggestPropsBase<TSuggestion> {
@@ -239,7 +226,7 @@ declare namespace Autosuggest {
         /**
          * These are the suggestions that will be displayed. Items can take an arbitrary shape.
          */
-        suggestions: ReadonlyArray<TSection>;
+        suggestions: readonly TSection[];
         /**
          * Implement it to teach Autosuggest where to find the suggestions for every section.
          */

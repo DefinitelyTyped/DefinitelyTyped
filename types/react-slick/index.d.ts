@@ -1,11 +1,3 @@
-// Type definitions for react-slick 0.23
-// Project: https://github.com/akiran/react-slick
-// Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
-//                 Andrew Makarov <https://github.com/r3nya>
-//                 Shannor Trotty <https://github.com/Shannor>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 type ComponentConstructor<TProps> =

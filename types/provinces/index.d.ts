@@ -1,8 +1,3 @@
-// Type definitions for provinces 1.11
-// Project: https://github.com/substack/provinces
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare global {
     /**
      * @see {@link https://github.com/substack/provinces#data-format}

@@ -9,16 +9,13 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react"
     },
     "files": [
-        "index.d.ts", "react-circular-tests.tsx"
+        "index.d.ts",
+        "react-circular-tests.tsx"
     ]
 }

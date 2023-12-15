@@ -1,8 +1,3 @@
-// Type definitions for preq 0.5
-// Project: https://github.com/wikimedia/preq
-// Definitions by: diskdance <https://github.com/diskdance>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = preq;
 
 import request = require("request");

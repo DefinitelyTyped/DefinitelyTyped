@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/node-schedule",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/node-schedule/node-schedule"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/node-schedule": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Cyril Schumacher",
+            "githubUsername": "cyrilschumacher"
+        },
+        {
+            "name": "Florian Plattner",
+            "githubUsername": "flowpl"
+        },
+        {
+            "name": "Tieu Philippe Khim",
+            "githubUsername": "spike008t"
+        },
+        {
+            "name": "Seohyun Yoon",
+            "githubUsername": "seohyun0120"
+        }
+    ]
+}

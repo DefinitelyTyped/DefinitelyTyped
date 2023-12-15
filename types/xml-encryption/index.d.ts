@@ -1,7 +1,3 @@
-// Type definitions for xml-encryption 1.2
-// Project: https://github.com/auth0/node-xml-encryption#readme
-// Definitions by: Chris Midgley <https://github.com/midgleyc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
 export type Utf8AsciiBinaryEncoding = "utf8" | "ascii" | "binary";

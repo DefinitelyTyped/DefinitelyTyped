@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/laravel-vapor",
+    "version": "0.6.9999",
+    "projects": [
+        "https://github.com/laravel/vapor-js"
+    ],
+    "devDependencies": {
+        "@types/laravel-vapor": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "saibotk",
+            "githubUsername": "saibotk"
+        }
+    ]
+}

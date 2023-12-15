@@ -1,8 +1,3 @@
-// Type definitions for charset-detector 0.0
-// Project: https://github.com/btd/node-charset-detector
-// Definitions by: OpportunityLiu <https://github.com/OpportunityLiu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace detect {
     /**
      * charset detect match result
@@ -35,11 +30,11 @@ declare namespace detect {
         /**
          * count of bytes, eg. `byteStats[32] === 17` means there are 17 bytes with value of `32` in the input
          */
-        readonly byteStats: ReadonlyArray<number>;
+        readonly byteStats: readonly number[];
     }
     type CharsetMatcher = (input: ArrayLike<number>, stats: InputStats) => CharsetMatch | null;
-    const DEFAULT_CS_RECOGNIZERS: ReadonlyArray<CharsetMatcher>;
-    const ALL_CS_RECOGNIZERS: ReadonlyArray<CharsetMatcher>;
+    const DEFAULT_CS_RECOGNIZERS: readonly CharsetMatcher[];
+    const ALL_CS_RECOGNIZERS: readonly CharsetMatcher[];
 }
 
 /**
@@ -53,7 +48,7 @@ declare namespace detect {
  */
 declare function detect(
     input: ArrayLike<number>,
-    matchers?: ReadonlyArray<detect.CharsetMatcher>,
+    matchers?: readonly detect.CharsetMatcher[],
 ): detect.CharsetMatch[];
 
 export = detect;

@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/scc-broker-client",
+    "version": "8.0.9999",
+    "projects": [
+        "https://github.com/SocketCluster/scc-broker-client"
+    ],
+    "dependencies": {
+        "@types/ag-channel": "*",
+        "@types/ag-simple-broker": "*",
+        "@types/async-stream-emitter": "*",
+        "@types/consumable-stream": "*",
+        "@types/jsonwebtoken": "*",
+        "@types/sc-broker": "*",
+        "@types/socketcluster-client": "*"
+    },
+    "devDependencies": {
+        "@types/scc-broker-client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Rose",
+            "githubUsername": "DanielRose"
+        },
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

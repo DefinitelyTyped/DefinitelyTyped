@@ -1,9 +1,3 @@
-// Type definitions for empty-dir 2.0
-// Project: https://github.com/gulpjs/empty-dir
-// Definitions by: BendingBender <https://github.com/BendingBender>
-//                 Daniel Cassidy <https://github.com/djcsdy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export = emptyDir;

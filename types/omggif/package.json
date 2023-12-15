@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/omggif",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/deanm/omggif"
+    ],
+    "devDependencies": {
+        "@types/omggif": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Imdahl",
+            "githubUsername": "ffflorian"
+        }
+    ]
+}

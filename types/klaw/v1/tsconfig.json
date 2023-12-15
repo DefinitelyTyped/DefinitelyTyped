@@ -4,19 +4,10 @@
         "lib": [
             "es6"
         ],
-        "paths": {
-            "klaw": [
-                "klaw/v1"
-            ]
-        },
         "noImplicitAny": true,
         "noImplicitThis": false,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

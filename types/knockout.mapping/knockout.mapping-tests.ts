@@ -22,7 +22,7 @@ interface MappedAddress {
 
 interface Car {
     name: string;
-    maintenance: ReadonlyArray<number>;
+    maintenance: readonly number[];
     drivers: User[];
 }
 
@@ -114,8 +114,8 @@ mapping.fromJS(numberArrayInput, mappedNumberArrayViewModel); // $ExpectType Kno
 
 ////////////////////////////////
 // fromJS function with JS ReadonlyArray
-let userReadonlyArrayInput: ReadonlyArray<User>;
-let numberReadonlyArray: ReadonlyArray<number>;
+let userReadonlyArrayInput: readonly User[];
+let numberReadonlyArray: readonly number[];
 
 mapping.fromJS(userReadonlyArrayInput); // $ExpectType KnockoutReadonlyObservableArray<KnockoutObservableType<User>>
 mapping.fromJS(userReadonlyArrayInput, {}); // $ExpectType KnockoutReadonlyObservableArray<KnockoutObservableType<User>>

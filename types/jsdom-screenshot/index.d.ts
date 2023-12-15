@@ -1,14 +1,9 @@
-// Type definitions for jsdom-screenshot 3.2
-// Project: https://github.com/dferber90/jsdom-screenshot
-// Definitions by: Adam Golan <https://github.com/Tismas>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { LaunchOptions, Page, ScreenshotOptions, Viewport } from "puppeteer";
 
 export interface GenerateImageOptions {
     launch?: LaunchOptions | undefined;
     screenshot?: ScreenshotOptions | undefined;
-    serve?: ReadonlyArray<string> | undefined;
+    serve?: readonly string[] | undefined;
     debug?: boolean | undefined;
     waitUntilNetworkIdle?: boolean | undefined;
     viewport?: Viewport | undefined;

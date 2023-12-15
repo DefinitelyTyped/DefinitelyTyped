@@ -1,8 +1,3 @@
-// Type definitions for 3box 1.22
-// Project: https://github.com/3box/3box-js#readme
-// Definitions by: Shikanime Deva <https://github.com/shikanime>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Box;
 export as namespace Box;
 

@@ -308,6 +308,14 @@ declare module "dns/promises" {
      */
     function reverse(ip: string): Promise<string[]>;
     /**
+     * Get the default value for `verbatim` in {@link lookup} and `dnsPromises.lookup()`. The value could be:
+     *
+     * * `ipv4first`: for `verbatim` defaulting to `false`.
+     * * `verbatim`: for `verbatim` defaulting to `true`.
+     * @since v20.1.0
+     */
+    function getDefaultResultOrder(): "ipv4first" | "verbatim";
+    /**
      * Sets the IP address and port of servers to be used when performing DNS
      * resolution. The `servers` argument is an array of [RFC 5952](https://tools.ietf.org/html/rfc5952#section-6) formatted
      * addresses. If the port is the IANA default DNS port (53) it can be omitted.
@@ -333,7 +341,7 @@ declare module "dns/promises" {
      * @since v10.6.0
      * @param servers array of `RFC 5952` formatted addresses
      */
-    function setServers(servers: ReadonlyArray<string>): void;
+    function setServers(servers: readonly string[]): void;
     /**
      * Set the default value of `verbatim` in `dns.lookup()` and `dnsPromises.lookup()`. The value could be:
      *

@@ -11,6 +11,6 @@ abbrev([{}, "foo"]); // $ExpectType { [abbreviation: string]: string; }
 abbrev.monkeyPatch();
 
 abbrs = [].abbrev();
-const roArr: ReadonlyArray<string> = [];
+const roArr: readonly string[] = [];
 abbrs = roArr.abbrev();
 abbrs = ({}).abbrev();

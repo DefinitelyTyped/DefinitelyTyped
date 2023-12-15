@@ -1,12 +1,3 @@
-// Type definitions for passport-saml 1.1
-// Project: https://github.com/bergie/passport-saml
-// Definitions by: Chris Barth <https://github.com/cjbarth>
-//                 Damian Assennato <https://github.com/dassennato>
-//                 Karol Samborski <https://github.com/ksamborski>
-//                 Jose Colella <https://github.com/josecolella>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import passport = require("passport");
 import express = require("express");
 
@@ -16,8 +7,11 @@ export interface CacheItem {
 }
 
 export interface CacheProvider {
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     save(key: string | null, value: any, callback: (err: Error | null, cacheItem: CacheItem) => void | null): void;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     get(key: string, callback: (err: Error | null, value: any) => void | null): void;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     remove(key: string, callback: (err: Error | null, key: string) => void | null): void;
 }
 

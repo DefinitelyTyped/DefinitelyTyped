@@ -29,6 +29,11 @@ export interface ConnectParams {
     reflect?: boolean;
 
     /**
+     * Metadata to send with reflection request.
+     */
+    reflectMetadata?: object;
+
+    /**
      * Connection timeout to use.
      */
     timeout?: string | number;
@@ -92,12 +97,12 @@ export interface GrpcError {
 
 /**
  * This module provides classes for Remote Procedure Calls over HTTP/2.
- * https://k6.io/docs/javascript-api/k6-experimental/grpc/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-experimental/grpc/
  */
 declare namespace grpc {
     /**
      * gRPC client to interact with a gRPC server.
-     * https://k6.io/docs/javascript-api/k6-experimental/grpc/client/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-experimental/grpc/client/
      */
     class Client {
         protected __brand: never;

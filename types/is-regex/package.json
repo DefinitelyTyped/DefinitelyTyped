@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/is-regex",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ljharb/is-regex"
+    ],
+    "devDependencies": {
+        "@types/is-regex": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        },
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        }
+    ]
+}

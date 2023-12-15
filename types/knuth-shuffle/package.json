@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/knuth-shuffle",
+    "version": "1.0.9999",
+    "projects": [
+        "https://git.coolaj86.com/coolaj86/knuth-shuffle.js"
+    ],
+    "devDependencies": {
+        "@types/knuth-shuffle": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chris Atkin",
+            "githubUsername": "atkinchris"
+        }
+    ]
+}

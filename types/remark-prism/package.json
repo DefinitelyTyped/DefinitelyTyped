@@ -1,7 +1,26 @@
 {
     "private": true,
+    "name": "@types/remark-prism",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/sergioramos/remark-prism#readme"
+    ],
     "dependencies": {
+        "@types/mdast": "*",
         "remark": "^14.0.2",
         "unified": "^10.0.0"
-    }
+    },
+    "devDependencies": {
+        "@types/remark-prism": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Hojun Bun",
+            "githubUsername": "bunhojun"
+        },
+        {
+            "name": "Stephen Weiss",
+            "githubUsername": "stephencweiss"
+        }
+    ]
 }

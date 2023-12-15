@@ -1,10 +1,3 @@
-// Type definitions for non-npm package DevExpress ASP.NET 181.3
-// Project: http://devexpress.com/
-// Definitions by: DevExpress Inc. <https://github.com/devexpress>
-//                 Andrey Skubarenko <https://github.com/skubarenko>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 declare namespace DevExpress.AspNetCore {
     enum BootstrapSchedulerGroupType {
         Date = "Date",
@@ -100,7 +93,7 @@ declare namespace DevExpress.AspNetCore {
         readonly control: Control;
     }
 
-    interface EndCallbackEventArgs extends EventArgs { // tslint:disable-line:no-empty-interface
+    interface EndCallbackEventArgs extends EventArgs { // eslint-disable-line @typescript-eslint/no-empty-interface
     }
 
     interface GlobalEndCallbackEventArgs extends EndCallbackEventArgs {
@@ -1114,7 +1107,7 @@ declare namespace DevExpress.AspNetCore {
             callback?: (this: BootstrapFormLayout, args?: BootstrapFormLayoutEventMap[K]) => void,
         ): this;
     }
-    interface BootstrapFormLayoutEventMap extends ControlEventMap { // tslint:disable-line:no-empty-interface
+    interface BootstrapFormLayoutEventMap extends ControlEventMap { // eslint-disable-line @typescript-eslint/no-empty-interface
     }
 
     class BootstrapFormLayoutItem {
@@ -1631,7 +1624,7 @@ declare namespace DevExpress.AspNetCore {
             callback?: (this: BootstrapCheckBoxList, args?: BootstrapCheckBoxListEventMap[K]) => void,
         ): this;
     }
-    interface BootstrapCheckBoxListEventMap extends BootstrapListBoxEventMap { // tslint:disable-line:no-empty-interface
+    interface BootstrapCheckBoxListEventMap extends BootstrapListBoxEventMap { // eslint-disable-line @typescript-eslint/no-empty-interface
     }
 
     class BootstrapRadioButtonList extends BootstrapListBox {
@@ -1650,14 +1643,14 @@ declare namespace DevExpress.AspNetCore {
             callback?: (this: BootstrapRadioButtonList, args?: BootstrapRadioButtonListEventMap[K]) => void,
         ): this;
     }
-    interface BootstrapRadioButtonListEventMap extends BootstrapListBoxEventMap { // tslint:disable-line:no-empty-interface
+    interface BootstrapRadioButtonListEventMap extends BootstrapListBoxEventMap { // eslint-disable-line @typescript-eslint/no-empty-interface
     }
 
     interface MenuItemEventArgs extends EventArgs {
         readonly item: BootstrapMenuItem;
     }
 
-    interface MenuItemMouseEventArgs extends MenuItemEventArgs { // tslint:disable-line:no-empty-interface
+    interface MenuItemMouseEventArgs extends MenuItemEventArgs { // eslint-disable-line @typescript-eslint/no-empty-interface
     }
 
     interface MenuItemClickEventArgs extends ProcessingModeEventArgs {
@@ -1924,7 +1917,7 @@ declare namespace DevExpress.AspNetCore {
             callback?: (this: BootstrapPopupMenu, args?: BootstrapPopupMenuEventMap[K]) => void,
         ): this;
     }
-    interface BootstrapPopupMenuEventMap extends BootstrapMenuEventMap { // tslint:disable-line:no-empty-interface
+    interface BootstrapPopupMenuEventMap extends BootstrapMenuEventMap { // eslint-disable-line @typescript-eslint/no-empty-interface
     }
 
     class BootstrapProgressBar extends Control {
@@ -1957,7 +1950,7 @@ declare namespace DevExpress.AspNetCore {
             callback?: (this: BootstrapProgressBar, args?: BootstrapProgressBarEventMap[K]) => void,
         ): this;
     }
-    interface BootstrapProgressBarEventMap extends ControlEventMap { // tslint:disable-line:no-empty-interface
+    interface BootstrapProgressBarEventMap extends ControlEventMap { // eslint-disable-line @typescript-eslint/no-empty-interface
     }
 
     interface ActiveViewChangingEventArgs extends EventArgs {
@@ -2439,7 +2432,7 @@ declare namespace DevExpress.AspNetCore {
             callback?: (this: BootstrapPageControl, args?: BootstrapPageControlEventMap[K]) => void,
         ): this;
     }
-    interface BootstrapPageControlEventMap extends BootstrapTabControlEventMap { // tslint:disable-line:no-empty-interface
+    interface BootstrapPageControlEventMap extends BootstrapTabControlEventMap { // eslint-disable-line @typescript-eslint/no-empty-interface
     }
 
     class BootstrapTagBox extends BootstrapClientEdit {
@@ -2644,7 +2637,7 @@ declare namespace DevExpress.AspNetCore {
             callback?: (this: BootstrapToolbar, args?: BootstrapToolbarEventMap[K]) => void,
         ): this;
     }
-    interface BootstrapToolbarEventMap extends BootstrapMenuEventMap { // tslint:disable-line:no-empty-interface
+    interface BootstrapToolbarEventMap extends BootstrapMenuEventMap { // eslint-disable-line @typescript-eslint/no-empty-interface
     }
 
     interface TreeViewNodeProcessingModeEventArgs extends ProcessingModeEventArgs {
@@ -2741,7 +2734,7 @@ declare namespace DevExpress.AspNetCore {
             callback?: (this: BootstrapTreeViewNode, args?: BootstrapTreeViewNodeEventMap[K]) => void,
         ): this;
     }
-    interface BootstrapTreeViewNodeEventMap extends ControlEventMap { // tslint:disable-line:no-empty-interface
+    interface BootstrapTreeViewNodeEventMap extends ControlEventMap { // eslint-disable-line @typescript-eslint/no-empty-interface
     }
 
     interface UploadControlFilesUploadStartEventArgs extends EventArgs {
@@ -2851,7 +2844,7 @@ declare namespace DevExpress.AspNetCore {
             callback?: (this: BootstrapUploadControlFile, args?: BootstrapUploadControlFileEventMap[K]) => void,
         ): this;
     }
-    interface BootstrapUploadControlFileEventMap extends ControlEventMap { // tslint:disable-line:no-empty-interface
+    interface BootstrapUploadControlFileEventMap extends ControlEventMap { // eslint-disable-line @typescript-eslint/no-empty-interface
     }
 
     class BootstrapUploadControlInvalidFileInfo extends Control {
@@ -2879,7 +2872,7 @@ declare namespace DevExpress.AspNetCore {
             ) => void,
         ): this;
     }
-    interface BootstrapUploadControlInvalidFileInfoEventMap extends ControlEventMap { // tslint:disable-line:no-empty-interface
+    interface BootstrapUploadControlInvalidFileInfoEventMap extends ControlEventMap { // eslint-disable-line @typescript-eslint/no-empty-interface
     }
 
     class BootstrapUploadControlValidationSettings extends Control {
@@ -2909,6 +2902,6 @@ declare namespace DevExpress.AspNetCore {
             ) => void,
         ): this;
     }
-    interface BootstrapUploadControlValidationSettingsEventMap extends ControlEventMap { // tslint:disable-line:no-empty-interface
+    interface BootstrapUploadControlValidationSettingsEventMap extends ControlEventMap { // eslint-disable-line @typescript-eslint/no-empty-interface
     }
 }

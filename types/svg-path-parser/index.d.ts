@@ -1,9 +1,3 @@
-// Type definitions for svg-path-parser 1.1
-// Project: https://github.com/hughsk/svg-path-parser#readme
-// Definitions by: tyru <https://github.com/tyru>
-//                 sozysozbot <https://github.com/sozysozbot>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export function parseSVG(input: string): Command[];
 
 // This function modifies the `commands` in place and returns it.

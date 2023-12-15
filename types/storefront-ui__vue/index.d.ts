@@ -1,9 +1,3 @@
-// Type definitions for @storefront-ui 0.7
-// Project: https://github.com/vuestorefront/storefront-ui
-// Definitions by:  Luïs De Zutter <https://github.com/ImLuze>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.5
-
 import { VueConstructor } from "vue";
 import { Location } from "vue-router";
 import Glide = require("@glidejs/glide");

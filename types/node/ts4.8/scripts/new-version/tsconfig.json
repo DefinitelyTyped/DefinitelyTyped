@@ -7,7 +7,6 @@
         "module": "commonjs",
         "esModuleInterop": true,
         "target": "ES2021",
-        "typeRoots": ["../.."],
         "types": ["node"]
     },
     "files": ["new-version.ts"]

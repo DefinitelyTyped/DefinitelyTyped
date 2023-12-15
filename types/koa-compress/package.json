@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/koa-compress",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/koajs/compress"
+    ],
+    "dependencies": {
+        "@types/koa": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/koa-compress": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jerry Chin",
+            "githubUsername": "hellopao"
+        },
+        {
+            "name": "Joel Gallant",
+            "githubUsername": "joelgallant"
+        }
+    ]
+}

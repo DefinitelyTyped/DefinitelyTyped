@@ -1,15 +1,3 @@
-// Type definitions for non-npm package Google Pay API 0.7
-// Project: https://developers.google.com/pay/api/web/
-// Definitions by: Florian Luccioni <https://github.com/Fluccioni>
-//                 Radu Raicea <https://github.com/Radu-Raicea>
-//                 Filip Stanis <https://github.com/fstanis>
-//                 Sergi Ferriz <https://github.com/mumpo>
-//                 Soc Sieng <https://github.com/socsieng>
-//                 Jose L Ugia <https://github.com/JlUgia>
-//                 Dominik Mengelt <https://github.com/dmengelt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
-
 /**
  * Spec for the Google Pay APIs.
  */
@@ -404,7 +392,7 @@ declare namespace google.payments.api {
          * If omitted, a shipping address from any supported country may be
          * returned.
          */
-        allowedCountryCodes: string[];
+        allowedCountryCodes?: string[];
 
         /**
          * Whether a phone number is additionally required from the buyer for

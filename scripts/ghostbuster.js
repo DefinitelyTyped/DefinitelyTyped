@@ -1,50 +1,49 @@
-import hp from "@definitelytyped/header-parser";
-import { flatMap, mapDefined } from "@definitelytyped/utils";
 import { Octokit } from "@octokit/core";
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 
+/** @type {<T, U>(array: readonly T[] | undefined, mapfn: (x: T, i: number) => readonly U[]) => readonly U[]} */
+function flatMap(array, mapfn) {
+    const result = [];
+    if (array) {
+        for (let i = 0; i < array.length; i++) {
+            result.push(...mapfn(array[i], i));
+        }
+    }
+    return result;
+}
+
+/** @type {<T, U>(arr: Iterable<T>, mapper: (t: T) => U | undefined) => U[]} */
+function mapDefined(arr, mapper) {
+    const out = [];
+    for (const a of arr) {
+        const res = mapper(a);
+        if (res !== undefined) {
+            out.push(res);
+        }
+    }
+    return out;
+}
+
 /**
- * @param {string} indexPath
- * @param {hp.Header & { raw: string }} header
+ * @typedef {{ githubUsername?: string }} Owner
+ * @typedef {{ owners: Owner[]; raw: string; }} PackageInfo
+ */
+void 0;
+
+/**
+ * @param {string} packageJsonPath
+ * @param {PackageInfo} info
  * @param {Set<string>} ghosts
  */
-function bust(indexPath, header, ghosts) {
-    /** @param {hp.Author} c */
+function bust(packageJsonPath, info, ghosts) {
+    /** @param {Owner} c */
     const isGhost = c => c.githubUsername && ghosts.has(c.githubUsername.toLowerCase());
-    if (header.contributors.some(isGhost)) {
-        console.log(`Found one or more deleted accounts in ${indexPath}. Patching...`);
-        const indexContent = header.raw;
-        let newContent = indexContent;
-        if (header.contributors.length === 1) {
-            const prevContent = newContent;
-            newContent = newContent.replace(
-                /^\/\/ Definitions by:.*$/mi,
-                "// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>",
-            );
-            if (prevContent === newContent) throw new Error("Patch failed.");
-        } else {
-            const newOwnerList = header.contributors.filter(c => !isGhost(c));
-            if (newOwnerList.length === header.contributors.length) throw new Error("Didn't remove anyone??");
-            let newDefinitionsBy = `// Definitions by: ${newOwnerList[0].name} <https://github.com/${
-                newOwnerList[0].githubUsername
-            }>\n`;
-            for (let i = 1; i < newOwnerList.length; i++) {
-                newDefinitionsBy = newDefinitionsBy
-                    + `//                 ${newOwnerList[i].name} <https://github.com/${
-                        newOwnerList[i].githubUsername
-                    }>\n`;
-            }
-            const patchStart = newContent.indexOf("// Definitions by:");
-            const patchEnd = newContent.indexOf("// Definitions:");
-            if (patchStart === -1) throw new Error("No Definitions by:");
-            if (patchEnd === -1) throw new Error("No Definitions:");
-            if (patchEnd < patchStart) throw new Error("Definition header not in expected order");
-            newContent = newContent.substring(0, patchStart) + newDefinitionsBy + newContent.substring(patchEnd);
-        }
-
-        if (newContent !== indexContent) {
-            writeFileSync(indexPath, newContent, "utf-8");
-        }
+    if (info.owners.some(isGhost)) {
+        console.log(`Found one or more deleted accounts in ${packageJsonPath}. Patching...`);
+        const parsed = JSON.parse(info.raw);
+        parsed.owners = info.owners.filter(c => !isGhost(c));
+        const newContent = JSON.stringify(parsed, undefined, 4);
+        writeFileSync(packageJsonPath, newContent + "\n", "utf-8");
     }
 }
 
@@ -63,20 +62,20 @@ function recurse(dir, fn) {
     }
 }
 
-function getAllHeaders() {
-    /** @type {Record<string, hp.Header & { raw: string }>} */
+function getAllPackageJsons() {
+    /** @type {Record<string, PackageInfo>} */
     const headers = {};
     console.log("Reading headers...");
     recurse(new URL("../types/", import.meta.url), subpath => {
-        const index = new URL("index.d.ts", subpath);
+        const index = new URL("package.json", subpath);
         if (existsSync(index)) {
             const indexContent = readFileSync(index, "utf-8");
             let parsed;
             try {
-                parsed = hp.parseHeaderOrFail(indexContent);
+                parsed = JSON.parse(indexContent);
             } catch (e) {}
-            if (parsed) {
-                headers[index.pathname] = { ...parsed, raw: indexContent };
+            if (parsed && parsed.owners && Array.isArray(parsed.owners)) {
+                headers[index.pathname] = { owners: parsed.owners, raw: indexContent };
             }
         }
     });
@@ -149,9 +148,9 @@ process.on("unhandledRejection", err => {
         throw new Error("GITHUB_TOKEN environment variable is not set");
     }
 
-    const headers = getAllHeaders();
+    const packageJsons = getAllPackageJsons();
     const users = new Set(
-        flatMap(Object.values(headers), h => mapDefined(h.contributors, c => c.githubUsername?.toLowerCase())),
+        flatMap(Object.values(packageJsons), h => mapDefined(h.owners, c => c.githubUsername?.toLowerCase())),
     );
     const ghosts = await fetchGhosts(users);
     if (!ghosts.size) {
@@ -159,7 +158,7 @@ process.on("unhandledRejection", err => {
         return;
     }
 
-    for (const indexPath in headers) {
-        bust(indexPath, headers[indexPath], ghosts);
+    for (const indexPath in packageJsons) {
+        bust(indexPath, packageJsons[indexPath], ghosts);
     }
 })();

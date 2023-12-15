@@ -1,8 +1,3 @@
-// Type definitions for @xmpp/events 0.13
-// Project: https://github.com/xmppjs/xmpp.js/tree/main/packages/events
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as events from "events";

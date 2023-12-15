@@ -1,0 +1,16 @@
+{
+    "private": true,
+    "name": "@types/gulp-pug-linter",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/ilyakam/gulp-pug-linter"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-pug-linter": "workspace:."
+    },
+    "owners": []
+}

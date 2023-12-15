@@ -1,8 +1,3 @@
-// Type definitions for non-npm package ChannelIO SDK 0.0
-// Project: https://developers.channel.io/docs/js-sdk-reference
-// Definitions by: Ryota Kameoka <https://github.com/ryota-ka>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace ChannelIO {
     interface APIError {
         errors: ErrorReason[];

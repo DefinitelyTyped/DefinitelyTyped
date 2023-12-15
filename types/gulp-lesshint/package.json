@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gulp-lesshint",
+    "version": "6.1.9999",
+    "projects": [
+        "https://github.com/lesshint/gulp-lesshint"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-lesshint": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Martin Badin",
+            "githubUsername": "martin-badin"
+        }
+    ]
+}

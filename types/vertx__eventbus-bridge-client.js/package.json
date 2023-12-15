@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/vertx__eventbus-bridge-client.js",
+    "version": "1.0.9999",
+    "projects": [
+        "http://vertx.io"
+    ],
+    "devDependencies": {
+        "@types/vertx__eventbus-bridge-client.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chiramet Phong Penglerd",
+            "githubUsername": "Phong6698"
+        }
+    ]
+}

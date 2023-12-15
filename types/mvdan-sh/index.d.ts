@@ -1,9 +1,3 @@
-// Type definitions for mvdan-sh 0.10
-// Project: https://github.com/mvdan/sh/tree/master/_js
-// Definitions by: JounQin <https://github.com/JounQin>
-//                 Rossil2012 <https://github.com/Rossil2012>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 // eslint-disable-next-line @definitelytyped/no-const-enum

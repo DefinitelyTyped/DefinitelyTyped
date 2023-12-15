@@ -1,8 +1,32 @@
 {
     "private": true,
+    "name": "@types/hapi__vision",
+    "version": "5.5.9999",
+    "projects": [
+        "https://github.com/hapijs/vision"
+    ],
+    "minimumTypeScriptVersion": "4.9",
     "dependencies": {
         "@hapi/hapi": "^21.1.0",
+        "@types/node": "*",
         "handlebars": "^4.1",
         "joi": "^17.7.0"
-    }
+    },
+    "devDependencies": {
+        "@types/hapi__vision": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jason Swearingen",
+            "githubUsername": "jasonswearingen"
+        },
+        {
+            "name": "Alexander James Phillips",
+            "githubUsername": "AJamesPhillips"
+        },
+        {
+            "name": "Silas Rech",
+            "githubUsername": "lenovouser"
+        }
+    ]
 }

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/typpy",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/IonicaBizau/typpy"
+    ],
+    "devDependencies": {
+        "@types/typpy": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

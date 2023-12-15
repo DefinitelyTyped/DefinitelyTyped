@@ -1,21 +1,14 @@
-// Type definitions for which 3.0
-// Project: https://github.com/isaacs/node-which
-// Definitions by: vvakame <https://github.com/vvakame>
-//                 cspotcode <https://github.com/cspotcode>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /** Finds all instances of a specified executable in the PATH environment variable */
 declare function which(cmd: string, options: which.Options & which.AsyncOptions & which.OptionsAll): Promise<string[]>;
 declare function which(cmd: string, options?: which.Options & which.AsyncOptions & which.OptionsFirst): Promise<string>;
 
 declare namespace which {
     /** Finds all instances of a specified executable in the PATH environment variable */
-    function sync(cmd: string, options: Options & OptionsAll & OptionsNoThrow): ReadonlyArray<string> | null;
+    function sync(cmd: string, options: Options & OptionsAll & OptionsNoThrow): readonly string[] | null;
     function sync(cmd: string, options: Options & OptionsFirst & OptionsNoThrow): string | null;
-    function sync(cmd: string, options: Options & OptionsAll & OptionsThrow): ReadonlyArray<string>;
+    function sync(cmd: string, options: Options & OptionsAll & OptionsThrow): readonly string[];
     function sync(cmd: string, options?: Options & OptionsFirst & OptionsThrow): string;
-    function sync(cmd: string, options: Options): string | ReadonlyArray<string> | null;
+    function sync(cmd: string, options: Options): string | readonly string[] | null;
 
     /** Options that ask for all matches. */
     interface OptionsAll extends AsyncOptions {

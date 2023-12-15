@@ -1,8 +1,3 @@
-// Type definitions for non-npm package web-locks-api-browser 0.0
-// Project: https://developer.mozilla.org/en-US/docs/Web/API/Web_Locks_API
-// Definitions by: Joël Charles <https://github.com/magne4000>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Lock {
     readonly mode: "exclusive" | "shared";
     readonly name: string;

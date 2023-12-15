@@ -1,6 +1,23 @@
 {
-  "dependencies": {
-    "@npm/types": "*"
-  },
-  "private": true
+    "private": true,
+    "name": "@types/npmcli__arborist",
+    "version": "5.6.9999",
+    "projects": [
+        "https://github.com/npm/cli/tree/latest/workspaces/arborist#readme"
+    ],
+    "dependencies": {
+        "@npm/types": "*",
+        "@types/cacache": "*",
+        "@types/npmcli__package-json": "*",
+        "@types/pacote": "*"
+    },
+    "devDependencies": {
+        "@types/npmcli__arborist": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Emily M Klassen",
+            "githubUsername": "forivall"
+        }
+    ]
 }

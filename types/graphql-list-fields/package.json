@@ -1,6 +1,20 @@
 {
-  "private": true,
-  "dependencies": {
-    "graphql": "^14.5.3"
-  }
+    "private": true,
+    "name": "@types/graphql-list-fields",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/jakepusateri/graphql-list-fields#readme"
+    ],
+    "dependencies": {
+        "graphql": "^14.5.3"
+    },
+    "devDependencies": {
+        "@types/graphql-list-fields": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chris Filipowski",
+            "githubUsername": "filipows"
+        }
+    ]
 }

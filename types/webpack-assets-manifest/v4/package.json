@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/webpack-assets-manifest",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/webdeveric/webpack-assets-manifest"
+    ],
+    "dependencies": {
+        "@types/tapable": "^1",
+        "@types/webpack": "^4"
+    },
+    "devDependencies": {
+        "@types/webpack-assets-manifest": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Franklin Tse",
+            "githubUsername": "FranklinWhale"
+        }
+    ]
+}

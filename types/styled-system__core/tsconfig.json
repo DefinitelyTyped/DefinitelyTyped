@@ -1,19 +1,19 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6"],
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
-        "paths": {
-            "@styled-system/*": ["styled-system__*"]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "styled-system__core-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "styled-system__core-tests.ts"
+    ]
 }

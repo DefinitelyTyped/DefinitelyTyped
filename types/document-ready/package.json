@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/document-ready",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/bendrucker/document-ready#readme"
+    ],
+    "devDependencies": {
+        "@types/document-ready": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jack Works",
+            "githubUsername": "Jack-Works"
+        }
+    ]
+}

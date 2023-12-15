@@ -1,8 +1,3 @@
-// Type definitions for ads-client 1.14
-// Project: https://github.com/jisotalo/ads-client
-// Definitions by: Christian Rishøj <https://github.com/crishoj>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import EventEmitter = require("events");
@@ -35,7 +30,7 @@ export interface Settings {
 export interface Metadata {
     deviceInfo: object;
     systemManagerState: object;
-    plcRuntimeState: object;
+    plcRuntimeState: PLCRuntimeState;
     uploadInfo: object;
     symbolVersion: number;
     allSymbolsCached: boolean;
@@ -43,6 +38,35 @@ export interface Metadata {
     allDataTypesCached: boolean;
     dataTypes: object;
     routerState: object;
+}
+
+export type ADSStateStr =
+    | "Invalid"
+    | "Idle"
+    | "Reset"
+    | "Initialize"
+    | "Start"
+    | "Run"
+    | "Stop"
+    | "SaveConfig"
+    | "LoadConfig"
+    | "PowerFailure"
+    | "PowerGood"
+    | "Error"
+    | "Shutdown"
+    | "Susped" // Upstream typo
+    | "Resume"
+    | "Config"
+    | "Reconfig"
+    | "Stopping"
+    | "Incompatible"
+    | "Exception"
+    | "UNKNOWN";
+
+export interface PLCRuntimeState {
+    adsState: number;
+    adsStateStr: ADSStateStr;
+    deviceState: number;
 }
 
 export interface Connection {
@@ -54,7 +78,12 @@ export interface Connection {
     targetAdsPort: number;
 }
 
-export type PLCValue = boolean | number | string | [] | object | Date;
+export interface PLCEnum {
+    name: string;
+    value: number;
+}
+
+export type PLCValue = boolean | number | string | [] | object | PLCEnum | Date;
 
 export interface SymbolData {
     symbol: object;
@@ -218,7 +247,7 @@ export class Client extends EventEmitter {
 
     readSystemManagerState(): Promise<object>;
 
-    readPlcRuntimeState(adsPort?: number): Promise<object>;
+    readPlcRuntimeState(adsPort?: number): Promise<PLCRuntimeState>;
 
     readSymbolVersion(): Promise<number>;
 

@@ -1,8 +1,3 @@
-// Type definitions for babel-plugin-react-docgen 4.2
-// Project: https://github.com/storybookjs/babel-plugin-react-docgen
-// Definitions by: Emily Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type BabelPluginObj = any;
 
 // from react-docgen parse.ts

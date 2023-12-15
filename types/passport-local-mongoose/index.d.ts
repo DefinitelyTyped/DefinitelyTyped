@@ -1,9 +1,3 @@
-// Type definitions for passport-local-mongoose 6.1
-// Project: https://github.com/saintedlama/passport-local-mongoose
-// Definitions by: Linus Brolin <https://github.com/linusbrolin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
-
 /// <reference types="mongoose" />
 /// <reference types="passport-local" />
 
@@ -69,7 +63,7 @@ declare module "mongoose" {
         usernameField?: string | undefined;
         usernameUnique?: boolean | undefined;
 
-        usernameQueryFields: Array<string>;
+        usernameQueryFields: string[];
 
         selectFields?: string | undefined;
         populateFields?: string | undefined;

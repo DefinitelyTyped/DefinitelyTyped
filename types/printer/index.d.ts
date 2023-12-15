@@ -1,8 +1,3 @@
-// Type definitions for printer 0.4
-// Project: https://github.com/tojocky/node-printer
-// Definitions by: Christos Panagiotakopoulos <https://github.com/chrispanag>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export function getPrinters(): PrinterDetails[];

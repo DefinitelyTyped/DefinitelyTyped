@@ -1,10 +1,3 @@
-// Type definitions for express-mysql-session 3.0
-// Project: https://github.com/chill117/express-mysql-session#readme
-// Definitions by: Akim95 <https://github.com/Akim95>
-//                 Sebastian Krüger <https://github.com/mathe42>
-//                 Ionaru <https://github.com/Ionaru>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as expressSession from "express-session";
 import { Connection, Pool, PoolOptions } from "mysql2";
 

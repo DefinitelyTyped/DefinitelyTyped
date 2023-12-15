@@ -1,8 +1,3 @@
-// Type definitions for binary-file 0.2
-// Project: https://github.com/marvinroger/node-binary-file
-// Definitions by: Zlatko Andonovski <https://github.com/Goldsmith42>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { OpenMode } from "fs";

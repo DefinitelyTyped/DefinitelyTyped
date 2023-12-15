@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/idyll-ast",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/idyll-lang/idyll/tree/master/packages/idyll-ast"
+    ],
+    "dependencies": {
+        "@types/idyll-compiler": "*"
+    },
+    "devDependencies": {
+        "@types/idyll-ast": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Thanh Ngo",
+            "githubUsername": "iocat"
+        }
+    ]
+}

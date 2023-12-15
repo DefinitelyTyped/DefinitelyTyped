@@ -1,9 +1,3 @@
-// Type definitions for jQuery mmenu v5.5.3
-// Project: http://mmenu.frebsite.nl/
-// Definitions by: John Gouigouix <https://github.com/Gouigouix>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 declare namespace JQueryMmenu {
@@ -58,7 +52,7 @@ declare namespace JQueryMmenu {
          * You'll need this option when using the extensions.
          * Default: []
          */
-        extensions?: Array<Object> | undefined;
+        extensions?: Object[] | undefined;
 
         /**
          * navbar options

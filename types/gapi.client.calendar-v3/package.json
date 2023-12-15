@@ -1,6 +1,30 @@
 {
-  "private": true,
-  "dependencies": {
-    "@maxim_mazurok/gapi.client.calendar-v3": "latest"
-  }
+    "private": true,
+    "name": "@types/gapi.client.calendar-v3",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Calendar API v3",
+    "projects": [
+        "https://developers.google.com/google-apps/calendar/firstapp"
+    ],
+    "dependencies": {
+        "@maxim_mazurok/gapi.client.calendar-v3": "latest"
+    },
+    "devDependencies": {
+        "@types/gapi.client.calendar-v3": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxim Mazurok",
+            "githubUsername": "Maxim-Mazurok"
+        },
+        {
+            "name": "Nick Amoscato",
+            "githubUsername": "namoscato"
+        },
+        {
+            "name": "Declan Vong",
+            "githubUsername": "declanvong"
+        }
+    ]
 }

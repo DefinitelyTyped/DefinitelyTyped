@@ -1,10 +1,3 @@
-// Type definitions for bytes 3.1
-// Project: https://github.com/visionmedia/bytes.js
-// Definitions by: Zhiyuan Wang <https://github.com/danny8002>
-//                 Rickard Laurin <https://github.com/believer>
-//                 Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Convert the given value in bytes into a string.
  */

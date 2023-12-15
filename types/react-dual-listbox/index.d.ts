@@ -1,9 +1,3 @@
-// Type definitions for react-dual-listbox 2.2
-// Project: https://github.com/jakezatecky/react-dual-listbox
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
-
 import * as React from "react";
 
 /**

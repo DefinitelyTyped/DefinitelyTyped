@@ -1,4 +1,29 @@
 {
     "private": true,
-    "type": "module"
+    "name": "@types/semantic-release",
+    "version": "20.0.9999",
+    "projects": [
+        "https://github.com/semantic-release/semantic-release#readme"
+    ],
+    "type": "module",
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/semantic-release": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leonardo Gatica",
+            "githubUsername": "lgaticaq"
+        },
+        {
+            "name": "Daniel Cassidy",
+            "githubUsername": "djcsdy"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
 }

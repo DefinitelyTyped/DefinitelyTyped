@@ -1,8 +1,3 @@
-// Type definitions for text-mask-core 5.1
-// Project: https://github.com/text-mask/text-mask/core/#readme
-// Definitions by: josh <https://github.com/huntjosh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type Mask = Array<string | RegExp>;
 
 export interface PipeAddResult {

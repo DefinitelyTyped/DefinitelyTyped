@@ -1,6 +1,33 @@
 {
     "private": true,
+    "name": "@types/snowflake-sdk",
+    "version": "1.6.9999",
+    "projects": [
+        "https://github.com/snowflakedb/snowflake-connector-nodejs#readme"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "generic-pool": "^3.9.0"
-    }
+    },
+    "devDependencies": {
+        "@types/snowflake-sdk": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Hunter Tunnicliff",
+            "githubUsername": "htunnicliff"
+        },
+        {
+            "name": "Mauricio Rojas",
+            "githubUsername": "orellabac"
+        },
+        {
+            "name": "Ron Jones",
+            "githubUsername": "boatilus"
+        },
+        {
+            "name": "Brian Gottfried",
+            "githubUsername": "briangottfried"
+        }
+    ]
 }

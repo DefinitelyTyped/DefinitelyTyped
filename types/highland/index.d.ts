@@ -1,13 +1,3 @@
-// Type definitions for Highland 2.12.0
-// Project: http://highlandjs.org/
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-//                 Hugo Wood <https://github.com/hgwood>
-//                 William Yu <https://github.com/iwllyu>
-//                 Alvis HT Tang <https://github.com/alvis>
-//                 Jack Wearden <https://github.com/notbobthebuilder>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="node" />
 
 // TODO export the top-level functions
@@ -22,7 +12,7 @@ type Flattened<R> = {
     value: R;
     stream: R extends Highland.Stream<infer U> ? Flattened<U> : never;
     array: R extends Array<infer U> ? Flattened<U> : never;
-}[R extends Array<any> ? "array" : R extends Highland.Stream<any> ? "stream" : "value"];
+}[R extends any[] ? "array" : R extends Highland.Stream<any> ? "stream" : "value"];
 
 // Describes a constructor for a particular promise library
 interface PConstructor<T, P extends PromiseLike<T>> {
@@ -1626,6 +1616,7 @@ declare namespace Highland {
         onDestroy?: Function | undefined;
         continueOnError?: boolean | undefined;
     }
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type OnFinished = (r: NodeJS.ReadableStream, cb: (...args: any[]) => void) => void | Function | CleanupObject;
 }
 

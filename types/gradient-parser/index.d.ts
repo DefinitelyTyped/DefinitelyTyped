@@ -1,8 +1,3 @@
-// Type definitions for gradient-parser 0.1
-// Project: https://github.com/rafaelcaricio/gradient-parser
-// Definitions by: Avi Vahl <https://github.com/AviVahl>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface LinearGradientNode {
     type: "linear-gradient";
     orientation?: DirectionalNode | AngularNode | undefined;

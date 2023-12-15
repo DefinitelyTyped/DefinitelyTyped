@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/node-targz",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/lafin/node-targz#readme"
+    ],
+    "dependencies": {
+        "@types/tar-fs": "*"
+    },
+    "devDependencies": {
+        "@types/node-targz": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mats Jun Larsen",
+            "githubUsername": "junlarsen"
+        }
+    ]
+}

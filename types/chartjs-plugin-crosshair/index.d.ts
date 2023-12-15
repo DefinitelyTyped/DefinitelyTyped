@@ -1,9 +1,3 @@
-// Type definitions for chartjs-plugin-crosshair 1.1
-// Project: https://chartjs-plugin-crosshair.netlify.com
-// Definitions by: Dan Manastireanu <https://github.com/danmana>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 import * as Chart from "chart.js";
 
 declare module "chart.js" {

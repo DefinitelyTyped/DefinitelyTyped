@@ -1,11 +1,3 @@
-// Type definitions for difflib 0.2
-// Project: https://github.com/qiao/difflib.js
-// Definitions by: majames <https://github.com/majames>
-//                 Hugues Le Gendre <https://github.com/hlegendre>
-//                 Antonio Min <https://github.com/antoniomin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 export class SequenceMatcher<T> {
     constructor(isjunk: (() => boolean) | null, left: T, right: T, autojunk?: boolean);
     setSeqs(left: T, right: T): ((char: string) => boolean) | undefined;
@@ -26,12 +18,12 @@ export class SequenceMatcher<T> {
 
 export class Differ {
     constructor(linejunk?: (s: string) => boolean, charjunk?: (s: string) => boolean);
-    compare(a: ReadonlyArray<string>, b: ReadonlyArray<string>): string[];
+    compare(a: readonly string[], b: readonly string[]): string[];
 }
 
 export function unifiedDiff(
-    from: ReadonlyArray<string>,
-    to: ReadonlyArray<string>,
+    from: readonly string[],
+    to: readonly string[],
     args: {
         fromfile?: string;
         tofile?: string;
@@ -42,8 +34,8 @@ export function unifiedDiff(
 ): string[];
 
 export function contextDiff(
-    from: ReadonlyArray<string>,
-    to: ReadonlyArray<string>,
+    from: readonly string[],
+    to: readonly string[],
     args: {
         fromfile?: string;
         tofile?: string;
@@ -54,8 +46,8 @@ export function contextDiff(
 ): string[];
 
 export function ndiff(
-    from: ReadonlyArray<string>,
-    to: ReadonlyArray<string>,
+    from: readonly string[],
+    to: readonly string[],
     linejunk?: (s: string) => boolean,
     charjunk?: (s: string) => boolean,
 ): string[];

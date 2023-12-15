@@ -9,15 +9,6 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": false,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
-        "paths": {
-            "ember-modal-dialog": ["ember-modal-dialog/v2"],
-            "ember-modal-dialog/*": ["ember-modal-dialog/v2/*"],
-            "ember": ["ember/v2"]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

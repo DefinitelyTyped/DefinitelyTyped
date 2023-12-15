@@ -8,16 +8,7 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
-        "paths": {
-            "@yaireo/relative-time": [
-                "yaireo__relative-time"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

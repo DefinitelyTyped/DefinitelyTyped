@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/angular-q-extras",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/niqdev/angular-q-extras"
+    ],
+    "dependencies": {
+        "@types/angular": "*"
+    },
+    "devDependencies": {
+        "@types/angular-q-extras": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Damien Sorel",
+            "githubUsername": "mistic100"
+        }
+    ]
+}

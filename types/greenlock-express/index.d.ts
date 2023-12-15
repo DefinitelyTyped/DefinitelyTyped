@@ -1,8 +1,3 @@
-// Type definitions for greenlock-express 4.0
-// Project: https://git.rootprojects.org/root/greenlock-express.js.git
-// Definitions by: Joseph Hendrix <https://github.com/hendrixjoseph>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { RequestListener } from "http";
 
 export interface Options {

@@ -1,6 +1,56 @@
 {
-  "private": true,
-  "dependencies": {
-    "htmlparser2": "^8.0.0"
-  }
+    "private": true,
+    "name": "@types/sanitize-html",
+    "version": "2.9.9999",
+    "projects": [
+        "https://github.com/punkave/sanitize-html"
+    ],
+    "dependencies": {
+        "htmlparser2": "^8.0.0"
+    },
+    "devDependencies": {
+        "@types/sanitize-html": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rogier Schouten",
+            "githubUsername": "rogierschouten"
+        },
+        {
+            "name": "Afshin Darian",
+            "githubUsername": "afshin"
+        },
+        {
+            "name": "Rinze de Laat",
+            "githubUsername": "biermeester"
+        },
+        {
+            "name": "Johan Davidsson",
+            "githubUsername": "johandavidson"
+        },
+        {
+            "name": "Jianrong Yu",
+            "githubUsername": "YuJianrong"
+        },
+        {
+            "name": "GP",
+            "githubUsername": "paambaati"
+        },
+        {
+            "name": "Dariusz Syncerek",
+            "githubUsername": "dsyncerek"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        },
+        {
+            "name": "Pirasis Leelatanon",
+            "githubUsername": "1pete"
+        },
+        {
+            "name": "Alex Rantos",
+            "githubUsername": "alex-rantos"
+        }
+    ]
 }

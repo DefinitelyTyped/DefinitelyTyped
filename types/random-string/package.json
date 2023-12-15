@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/random-string",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/valiton/node-random-string"
+    ],
+    "devDependencies": {
+        "@types/random-string": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sam Saint-Pettersen",
+            "githubUsername": "stpettersens"
+        }
+    ]
+}

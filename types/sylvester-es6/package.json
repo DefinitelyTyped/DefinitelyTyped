@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/sylvester-es6",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/pithumke/sylvester"
+    ],
+    "devDependencies": {
+        "@types/sylvester-es6": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "briwa",
+            "githubUsername": "briwa"
+        },
+        {
+            "name": "Stephane Alie",
+            "githubUsername": "StephaneAlie"
+        }
+    ]
+}

@@ -1,9 +1,3 @@
-// Type definitions for pacote 11.1
-// Project: https://github.com/npm/pacote#readme
-// Definitions by: Jack Bates <https://github.com/jablko>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="node" />
 
 import npmFetch = require("npm-registry-fetch");

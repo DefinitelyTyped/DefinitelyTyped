@@ -1,9 +1,3 @@
-// Type definitions for the WebAssembly Web API v1
-// Project: https://webassembly.org/
-// Definitions by: Johannes Henninger <https://github.com/jhenninger>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /**
  *  The WebAssembly Web API defines extensions to the JavaScript API made
  *  available specifically in web browsers. See [WebAssembly Web
@@ -11,9 +5,9 @@
  */
 declare namespace WebAssembly {
     /// Other WebAssembly declarations, for compatibility with older versions of Typescript
-    // tslint:disable-next-line no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Module {}
-    // tslint:disable-next-line no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Instance {}
     interface ResultObject {
         module: Module;

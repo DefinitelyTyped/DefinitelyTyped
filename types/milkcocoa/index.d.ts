@@ -1,9 +1,3 @@
-// Type definitions for Milkcocoa 0.2.8
-// Project: https://mlkcca.com/
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Api Reference : https://mlkcca.com/document/api-js.html
-
 declare namespace milkcocoa {
     class MilkCocoa {
         constructor(host: string, callback?: Function);

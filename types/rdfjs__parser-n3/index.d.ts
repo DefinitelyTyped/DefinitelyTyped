@@ -1,8 +1,3 @@
-// Type definitions for @rdfjs/parser-n3 2.0
-// Project: https://github.com/rdfjs-base/parser-n3
-// Definitions by: tpluscode <https://github.com/tpluscode>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { EventEmitter } from "events";
 import { BaseQuad, DataFactory, Quad, Sink, Stream } from "rdf-js";
 

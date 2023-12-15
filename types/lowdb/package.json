@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/lowdb",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/typicode/lowdb"
+    ],
+    "dependencies": {
+        "@types/lodash": "*"
+    },
+    "devDependencies": {
+        "@types/lowdb": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "typicode",
+            "githubUsername": "typicode"
+        },
+        {
+            "name": "Bazyli Brzóska",
+            "githubUsername": "niieani"
+        }
+    ]
+}

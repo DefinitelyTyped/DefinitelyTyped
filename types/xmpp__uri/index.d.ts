@@ -1,8 +1,3 @@
-// Type definitions for @xmpp/uri 0.13
-// Project: https://github.com/xmppjs/xmpp.js/tree/main/packages/uri
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 import { JID } from "@xmpp/jid";
 import { ParsedUrlQuery } from "querystring";

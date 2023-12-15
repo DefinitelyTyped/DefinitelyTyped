@@ -1,18 +1,3 @@
-// Type definitions for Ember.js 3.16
-// Project: https://emberjs.com/, https://github.com/emberjs/ember
-// Definitions by: bttf <https://github.com/bttf>
-//                 Derek Wickern <https://github.com/dwickern>
-//                 Chris Krycho <https://github.com/chriskrycho>
-//                 Theron Cross <https://github.com/theroncross>
-//                 Martin Feckie <https://github.com/mfeckie>
-//                 Alex LaFroscia <https://github.com/alexlafroscia>
-//                 Mike North <https://github.com/mike-north>
-//                 Bryan Crotaz <https://github.com/BryanCrotaz>
-//                 James C. Davis <https://github.com/jamescdavis>
-//                 Krystan HuffMenne <https://github.com/gitKrystan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 // Capitalization is intentional: this makes it much easier to re-export RSVP on
 // the Ember namespace.
 import Rsvp from "rsvp";
@@ -21,7 +6,7 @@ import { Registry as ControllerRegistry } from "@ember/controller";
 import * as EmberStringNs from "@ember/string";
 import * as EmberTemplateNs from "@ember/template";
 import * as EmberTemplateHandlebarsNs from "@ember/template/-private/handlebars";
-// tslint:disable-next-line:no-duplicate-imports
+// eslint-disable-next-line no-duplicate-imports
 import * as EmberObjectNs from "@ember/object";
 import * as EmberObjectComputedNs from "@ember/object/computed";
 import * as EmberObjectEventedNs from "@ember/object/evented";
@@ -48,9 +33,9 @@ import _RegistryProxyMixin from "@ember/engine/-private/registry-proxy-mixin";
 import * as EmberEngineInstanceNs from "@ember/engine/instance";
 import EmberCoreObject from "@ember/object/core";
 import * as EmberTestNs from "@ember/test";
-// tslint:disable-next-line:no-duplicate-imports
+// eslint-disable-next-line no-duplicate-imports
 import * as EmberControllerNs from "@ember/controller";
-// tslint:disable-next-line:no-duplicate-imports
+// eslint-disable-next-line no-duplicate-imports
 import EmberMixin from "@ember/object/mixin";
 import EmberObservable from "@ember/object/observable";
 // @ember/array

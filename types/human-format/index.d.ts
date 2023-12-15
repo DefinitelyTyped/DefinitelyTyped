@@ -1,8 +1,3 @@
-// Type definitions for human-format 1.0
-// Project: https://github.com/JsCommunity/human-format
-// Definitions by: liushuyu <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Options for formatting and parsing
  */

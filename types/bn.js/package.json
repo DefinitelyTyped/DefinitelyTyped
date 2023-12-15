@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/bn.js",
+    "version": "5.1.9999",
+    "projects": [
+        "https://github.com/indutny/bn.js"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/bn.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leonid Logvinov",
+            "githubUsername": "LogvinovLeon"
+        },
+        {
+            "name": "Henry Nguyen",
+            "githubUsername": "HenryNguyen5"
+        },
+        {
+            "name": "Gaylor Bosson",
+            "githubUsername": "Gilthoniel"
+        }
+    ]
+}

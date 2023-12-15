@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/typography-breakpoint-constants",
+    "version": "0.16.9999",
+    "projects": [
+        "https://github.com/KyleAMathews/typography.js"
+    ],
+    "devDependencies": {
+        "@types/typography-breakpoint-constants": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Luis Rodrigues",
+            "githubUsername": "goblindegook"
+        }
+    ]
+}

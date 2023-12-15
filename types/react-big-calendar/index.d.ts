@@ -1,23 +1,3 @@
-// Type definitions for react-big-calendar 1.6
-// Project: https://github.com/jquense/react-big-calendar
-// Definitions by: Piotr Witek <https://github.com/piotrwitek>
-//                 Austin Turner <https://github.com/paustint>
-//                 Krzysztof Bezrąk <https://github.com/pikpok>
-//                 Sebastian Silbermann <https://github.com/eps1lon>
-//                 Paul Potsides <https://github.com/strongpauly>
-//                 janb87 <https://github.com/janb87>
-//                 Panagiotis Rikarnto Siavelis <https://github.com/siavelis>
-//                 Lucas Silva Souza <https://github.com/lksilva>
-//                 Siarhey Belofost <https://github.com/SergeyBelofost>
-//                 Mark Nelissen <https://github.com/marknelissen>
-//                 Paito Anderson <https://github.com/PaitoAnderson>
-//                 Jan Michalak <https://github.com/michalak111>
-//                 Tom Price <https://github.com/tomtom5152>
-//                 Daniele Carrucciu <https://github.com/catruzz>
-//                 Chris Frewin <https://github.com/princefishthrower>
-//                 decimoseptimo <https://github.com/decimoseptimo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 import {
     add,
     endOf,
@@ -205,7 +185,7 @@ export interface ResourceHeaderProps<TResource extends object = object> {
 export interface DateCellWrapperProps {
     range: Date[];
     value: Date;
-    children: JSX.Element;
+    children: React.JSX.Element;
 }
 
 export interface Components<TEvent extends object = Event, TResource extends object = object> {
@@ -273,7 +253,7 @@ export interface EventProps<TEvent extends object = Event> {
     title: string;
     continuesPrior: boolean;
     continuesAfter: boolean;
-    isAllDay: boolean;
+    isAllDay?: boolean;
     localizer: DateLocalizer;
     slotStart: Date;
     slotEnd: Date;
@@ -461,6 +441,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     onSelectEvent?: ((event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void) | undefined;
     onKeyPressEvent?: ((event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void) | undefined;
     onSelecting?: (range: { start: Date; end: Date }) => boolean | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onRangeChange?: (range: Date[] | { start: Date; end: Date }, view?: View) => void | undefined;
     showAllEvents?: boolean | undefined;
     selected?: any;
@@ -485,6 +466,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     slotGroupPropGetter?: SlotGroupPropGetter | undefined;
     dayPropGetter?: DayPropGetter | undefined;
     showMultiDayTimes?: boolean | undefined;
+    allDayMaxRows?: number | undefined;
     min?: Date | undefined;
     max?: Date | undefined;
     scrollToTime?: Date | undefined;
@@ -495,7 +477,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     messages?: Messages | undefined;
     dayLayoutAlgorithm?: DayLayoutAlgorithm | DayLayoutFunction<TEvent> | undefined;
     titleAccessor?: keyof TEvent | ((event: TEvent) => string) | undefined;
-    tooltipAccessor?: keyof TEvent | ((event: TEvent) => string) | undefined;
+    tooltipAccessor?: keyof TEvent | ((event: TEvent) => string) | null | undefined;
     allDayAccessor?: keyof TEvent | ((event: TEvent) => boolean) | undefined;
     startAccessor?: keyof TEvent | ((event: TEvent) => Date) | undefined;
     endAccessor?: keyof TEvent | ((event: TEvent) => Date) | undefined;

@@ -1,8 +1,3 @@
-// Type definitions for dns-packet 5.6
-// Project: https://github.com/mafintosh/dns-packet
-// Definitions by: John Hurliman <https://github.com/jhurliman>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**
@@ -334,6 +329,18 @@ export interface Packet {
     authorities?: Answer[] | undefined;
 }
 
+// https://github.com/mafintosh/dns-packet/blob/7b6662025c49c0e31d2f0c5cbd726e4423805639/index.js#L181-L197
+export interface DecodedPacket extends Packet {
+    flag_qr: boolean;
+    flag_aa: boolean;
+    flag_tc: boolean;
+    flag_rd: boolean;
+    flag_ra: boolean;
+    flag_z: boolean;
+    flag_ad: boolean;
+    flag_cd: boolean;
+}
+
 export const AUTHORITATIVE_ANSWER: number;
 export const TRUNCATED_RESPONSE: number;
 export const RECURSION_DESIRED: number;
@@ -345,7 +352,7 @@ export function encode(package: Packet, buf?: Buffer, offset?: number): Buffer;
 export namespace encode {
     let bytes: number;
 }
-export function decode(buf: Buffer, offset?: number): Packet;
+export function decode(buf: Buffer, offset?: number): DecodedPacket;
 export namespace decode {
     let bytes: number;
 }

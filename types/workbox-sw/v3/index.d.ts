@@ -1,9 +1,3 @@
-// Type definitions for workbox-sw 3.2
-// Project: https://github.com/GoogleChrome/workbox
-// Definitions by: Frederik Wessberg <https://github.com/wessberg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /**
  * ===== BroadcastCacheUpdate =====
  */
@@ -537,12 +531,12 @@ interface IInstallResult {
     /**
      * List of entries supplied for precaching that were precached.
      */
-    updatedEntries: (string | IPrecacheEntry)[];
+    updatedEntries: Array<string | IPrecacheEntry>;
 
     /**
      * List of entries supplied for precaching that were already precached.
      */
-    notUpdatedEntries: (string | IPrecacheEntry)[];
+    notUpdatedEntries: Array<string | IPrecacheEntry>;
 }
 
 /**
@@ -560,7 +554,7 @@ declare class PrecacheController {
      * This method will add items to the precache list, removing duplicates and ensuring the information is valid.
      * @param {(string | IPrecacheEntry)[]} entries - Array of entries to precache.
      */
-    addToCacheList(entries: (string | IPrecacheEntry)[]): void;
+    addToCacheList(entries: Array<string | IPrecacheEntry>): void;
 
     /**
      * Returns an array of fully qualified URL's that will be precached.
@@ -906,7 +900,7 @@ declare class PrecachingNamespace {
      * If you have a single array of files to precache, you can just call precacheAndRoute().
      * @param {(string | IPrecacheEntry)[]} entries
      */
-    static precache(entries: (string | IPrecacheEntry)[]): void;
+    static precache(entries: Array<string | IPrecacheEntry>): void;
 
     /**
      * This method will add entries to the precache list and add a route to respond to fetch events.
@@ -914,7 +908,7 @@ declare class PrecachingNamespace {
      * @param {(string | IPrecacheEntry)[]} entries - Array of entries to precache.
      * @param {Partial<IRouteOptions>} [route] - see addRoute() options
      */
-    static precacheAndRoute(entries: (string | IPrecacheEntry)[], route?: Partial<IRouteOptions>): void;
+    static precacheAndRoute(entries: Array<string | IPrecacheEntry>, route?: Partial<IRouteOptions>): void;
 
     /**
      * Warnings will be logged if any of the precached assets are entered without a revision property.
@@ -1130,7 +1124,7 @@ declare class StreamsNamespace {
      * @param {Promise<StreamSource>[]} sourcePromises - Array of Promise containing StreamSource
      * @returns {IConcatenateResult}
      */
-    static concatenate(sourcePromises: Promise<StreamSource>[]): IConcatenateResult;
+    static concatenate(sourcePromises: Array<Promise<StreamSource>>): IConcatenateResult;
 
     /**
      * Takes multiple source Promises, each of which could resolve to a Response, a ReadableStream, or a BodyInit,along with a HeadersInit.
@@ -1141,7 +1135,7 @@ declare class StreamsNamespace {
      * @returns {IConcatenateToResponseResult}
      */
     static concatenateToResponse(
-        sourcePromises: Promise<StreamSource>[],
+        sourcePromises: Array<Promise<StreamSource>>,
         headersInit?: HeadersInit,
     ): IConcatenateToResponseResult;
 

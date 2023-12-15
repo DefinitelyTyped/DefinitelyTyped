@@ -7,6 +7,9 @@ const selector = "a[href=\"http://example.com\"]";
 // browser tests
 //
 
+// $ExpectType void
+browser.closeContext();
+
 // $ExpectType BrowserContext
 browser.context();
 
@@ -123,23 +126,32 @@ browserContext.addCookies();
 browserContext.addCookies([{
     name: "foo",
     value: "bar",
+    domain: "test.k6.io",
+    path: "/browser.php",
     url: "https://test.k6.io",
     expires: 60,
     httpOnly: false,
     secure: true,
-    sameSite: "Strict",
-}]);
-// $ExpectType void
-browserContext.addCookies([{
+    sameSite: "Lax",
+}, {
     name: "foo",
     value: "bar",
-    domain: "test.k6.io",
-    path: "/browser.php",
-    expires: 60,
-    httpOnly: false,
-    secure: true,
-    sameSite: "Lax",
+    sameSite: "Strict",
+}, {
+    name: "foo",
+    value: "bar",
+    sameSite: "None",
 }]);
+// @ts-expect-error
+browserContext.cookies()[0].sameSite = "NotAllowed";
+// @ts-expect-error
+browserContext.addCookies([{ /* without value */ name: "foo" }]);
+// @ts-expect-error
+browserContext.addCookies([{ /* without name */ value: "bar" }]);
+// $ExpectType Cookie[]
+browserContext.cookies();
+// $ExpectType Cookie[]
+browserContext.cookies("https://test.k6.io", "https://k6.io");
 // $ExpectType void
 browserContext.clearCookies();
 // $ExpectType void
@@ -164,8 +176,16 @@ browserContext.setDefaultTimeout(30000);
 browserContext.setGeolocation({ latitude: 0, longitude: 0, accuracy: 1 });
 // $ExpectType void
 browserContext.setOffline(true);
-// $ExpectType Page | null
-browserContext.waitForEvent("", { predicate: () => true, timeout: 30000 });
+// $ExpectType Promise<Page>
+browserContext.waitForEvent("page");
+// $ExpectType Promise<Page>
+browserContext.waitForEvent("page", () => true);
+// $ExpectType Promise<Page>
+browserContext.waitForEvent("page", { predicate: () => true });
+// $ExpectType Promise<Page>
+browserContext.waitForEvent("page", { predicate: () => true, timeout: 10000 });
+// $ExpectType Promise<Page>
+browserContext.waitForEvent("page", { timeout: 10000 });
 
 //
 // Create a page
@@ -510,6 +530,24 @@ page.mainFrame();
 // $ExpectType Mouse
 page.mouse;
 
+// @ts-expect-error
+page.on();
+// @ts-expect-error
+page.on("invalid");
+// @ts-expect-error
+page.on("console");
+// $ExpectType void
+page.on("console", msg => {
+    // $ExpectType JSHandle<any>[]
+    msg.args();
+    // $ExpectType Page | null
+    msg.page();
+    // $ExpectType string
+    msg.text();
+    // $ExpectType string
+    msg.type();
+});
+
 // $ExpectType Page | null
 page.opener();
 
@@ -628,6 +666,16 @@ page.tap(selector, { strict: true });
 page.tap(selector, { timeout: 10000 });
 // $ExpectType void
 page.tap(selector, { trial: true });
+
+// @ts-expect-error
+page.throttleCPU();
+// $ExpectType void
+page.throttleCPU({ rate: 2 });
+
+// @ts-expect-error
+page.throttleNetwork();
+// $ExpectType void
+page.throttleNetwork({ latency: 500, download: 200, upload: 100 });
 
 // @ts-expect-error
 page.textContent();

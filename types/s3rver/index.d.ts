@@ -1,11 +1,3 @@
-// Type definitions for S3rver 3.7
-// Project: https://github.com/jamhall/s3rver
-// Definitions by: David Broder-Rodgers <https://github.com/DavidBR-SW/>
-//                 F. Eugene Aumson <https://github.com/feuGeneA/>
-//                 Trygve Aaberge <https://github.com/trygveaa/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
 import { IncomingMessage, ServerResponse } from "http";
@@ -35,7 +27,7 @@ interface S3rverOptions {
     resetOnClose?: boolean | undefined;
     allowMismatchedSignatures?: boolean | undefined;
     vhostBuckets?: boolean | undefined;
-    configureBuckets?: ReadonlyArray<S3rverBucketConfig> | undefined;
+    configureBuckets?: readonly S3rverBucketConfig[] | undefined;
 }
 
 interface S3rverBucketConfig {

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/map-stream",
+    "version": "0.0.9999",
+    "projects": [
+        "http://github.com/dominictarr/map-stream"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/map-stream": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Konrad Perlicki",
+            "githubUsername": "KonradPerlicki"
+        }
+    ]
+}

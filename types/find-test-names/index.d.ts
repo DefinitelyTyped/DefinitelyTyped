@@ -1,8 +1,3 @@
-// Type definitions for find-test-names 1.24
-// Project: https://github.com/bahmutov/find-test-names
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { formatTestList } from "./format-test-list";
 export interface VisitCallback {
     (test: Test | Suite, parentSuite?: Suite): void;

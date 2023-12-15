@@ -1,22 +1,10 @@
-// Type definitions for Sinon 10.0
-// Project: https://sinonjs.org
-// Definitions by: William Sears <https://github.com/mrbigdog2u>
-//                 Nico Jansen <https://github.com/nicojs>
-//                 James Garbutt <https://github.com/43081j>
-//                 Greg Jednaszewski <https://github.com/gjednaszewski>
-//                 John Wood <https://github.com/johnjesse>
-//                 Alec Flett <https://github.com/alecf>
-//                 Simon Schick <https://github.com/SimonSchick>
-//                 Mathias Schreck <https://github.com/lo1tuma>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as FakeTimers from "@sinonjs/fake-timers";
 
 // sinon uses DOM dependencies which are absent in browser-less environment like node.js
 // to avoid compiler errors this monkey patch is used
 // see more details in https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11351
-interface Event {} // tslint:disable-line no-empty-interface
-interface Document {} // tslint:disable-line no-empty-interface
+interface Event {} // eslint-disable-line @typescript-eslint/no-empty-interface
+interface Document {} // eslint-disable-line @typescript-eslint/no-empty-interface
 
 declare namespace Sinon {
     type MatchPartialArguments<T> = {
@@ -1461,6 +1449,13 @@ declare namespace Sinon {
          * you might want to do:
          */
         useFakeServer: boolean | SinonFakeServer;
+        /**
+         * The assert options can help limit the amount of output produced by assert.fail
+         */
+        assertOptions: {
+            shouldLimitAssertionLogs?: boolean;
+            assertionLogLimit?: number;
+        };
     }
 
     /**
@@ -1539,6 +1534,24 @@ declare namespace Sinon {
         yieldsAsync<TArgs extends readonly any[] = any[], TReturnValue = any>(
             ...args: any[]
         ): SinonSpy<TArgs, TReturnValue>;
+    }
+
+    interface SandboxReplace {
+        /**
+         * Replaces property on object with replacement argument.
+         * Attempts to replace an already replaced value cause an exception.
+         * replacement can be any value, including spies, stubs and fakes.
+         * This method only works on non-accessor properties, for replacing accessors,
+         * use sandbox.replaceGetter() and sandbox.replaceSetter().
+         */
+        <T, TKey extends keyof T, R extends T[TKey] = T[TKey]>(obj: T, prop: TKey, replacement: R): R;
+
+        /**
+         * Assigns a value to a property on object with replacement argument.
+         * replacement can be any value, including spies, stubs and fakes.
+         * This method only works on accessor properties.
+         */
+        usingAccessor<T, TKey extends keyof T, R extends T[TKey] = T[TKey]>(obj: T, prop: TKey, replacement: R): R;
     }
 
     interface SinonSandbox {
@@ -1629,12 +1642,8 @@ declare namespace Sinon {
          */
         verifyAndRestore(): void;
 
-        /**
-         * Replaces property on object with replacement argument. Attempts to replace an already replaced value cause an exception.
-         * replacement can be any value, including spies, stubs and fakes.
-         * This method only works on non-accessor properties, for replacing accessors, use sandbox.replaceGetter() and sandbox.replaceSetter().
-         */
-        replace<T, TKey extends keyof T, R extends T[TKey] = T[TKey]>(obj: T, prop: TKey, replacement: R): R;
+        replace: SandboxReplace;
+
         /**
          * Replaces getter for property on object with replacement argument. Attempts to replace an already replaced getter cause an exception.
          * replacement must be a Function, and can be instances of spies, stubs and fakes.
@@ -1643,6 +1652,7 @@ declare namespace Sinon {
          * @param replacement
          */
         replaceGetter<T, TKey extends keyof T>(obj: T, prop: TKey, replacement: () => T[TKey]): () => T[TKey];
+
         /**
          * Replaces setter for property on object with replacement argument. Attempts to replace an already replaced setter cause an exception.
          * replacement must be a Function, and can be instances of spies, stubs and fakes.

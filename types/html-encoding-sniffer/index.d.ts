@@ -1,9 +1,3 @@
-// Type definitions for html-encoding-sniffer 3.0
-// Project: https://github.com/jsdom/html-encoding-sniffer#readme
-// Definitions by: ExE Boss <https://github.com/ExE-Boss>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Determine the Encoding of a HTML Byte Stream.
  *

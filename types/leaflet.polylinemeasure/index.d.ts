@@ -1,9 +1,3 @@
-// Type definitions for leaflet.polylinemeasure 1.0
-// Project: https://github.com/ppete2/Leaflet.PolylineMeasure#readme
-// Definitions by: Rinat Sultanov <https://github.com/RiON69>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import * as L from "leaflet";
 
 declare module "leaflet" {

@@ -1,17 +1,3 @@
-// Type definitions for sanitize-html 2.9
-// Project: https://github.com/punkave/sanitize-html
-// Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-//                 Afshin Darian <https://github.com/afshin>
-//                 Rinze de Laat <https://github.com/biermeester>
-//                 Johan Davidsson <https://github.com/johandavidson>
-//                 Jianrong Yu <https://github.com/YuJianrong>
-//                 GP <https://github.com/paambaati>
-//                 Dariusz Syncerek <https://github.com/dsyncerek>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Pirasis Leelatanon <https://github.com/1pete>
-//                 Alex Rantos <https://github.com/alex-rantos>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { ParserOptions } from "htmlparser2";
 
 export = sanitize;
@@ -35,7 +21,7 @@ declare namespace sanitize {
 
     type DisallowedTagsModes = "discard" | "escape" | "recursiveEscape";
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IDefaults {
         allowedAttributes: Record<string, AllowedAttribute[]>;
         allowedSchemes: string[];
@@ -48,7 +34,7 @@ declare namespace sanitize {
         selfClosing: string[];
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IFrame {
         tag: string;
         attribs: { [index: string]: string };
@@ -57,7 +43,7 @@ declare namespace sanitize {
         mediaChildren: string[];
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IOptions {
         allowedAttributes?: Record<string, AllowedAttribute[]> | false | undefined;
         allowedStyles?: { [index: string]: { [index: string]: RegExp[] } } | undefined;

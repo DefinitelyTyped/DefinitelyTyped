@@ -1,3 +1,4 @@
+import { Response } from "node-fetch";
 import defaultFetch, { fetchBuilder, FileSystemCache, MemoryCache } from "node-fetch-cache";
 
 function test_defaultFetch() {
@@ -25,7 +26,7 @@ async function test_MemoryCache() {
     // $ExpectType Promise<void>
     memoryCache.remove("key");
     // $ExpectType Promise<any>
-    memoryCache.set("value");
+    memoryCache.set("key", new Response().body, {});
 }
 
 async function test_FileSystemCache() {
@@ -35,5 +36,5 @@ async function test_FileSystemCache() {
     // $ExpectType Promise<void>
     fileSystemCache.remove("key");
     // $ExpectType Promise<any>
-    fileSystemCache.set("value");
+    fileSystemCache.set("key", new Response().body, {});
 }

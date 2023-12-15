@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/jquery-easy-loading",
+    "version": "1.2.9999",
+    "projects": [
+        "http://carlosbonetti.github.io/jquery-loading/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery-easy-loading": "workspace:."
+    },
+    "owners": []
+}

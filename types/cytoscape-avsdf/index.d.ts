@@ -1,8 +1,3 @@
-// Type definitions for cytoscape-avsdf 1.0
-// Project: https://github.com/iVis-at-Bilkent/cytoscape.js-avsdf
-// Definitions by: Roger Dubbs <https://github.com/rogerdubbs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import cytoscape = require("cytoscape");
 
 declare const cytoscapeAvsdf: cytoscape.Ext;

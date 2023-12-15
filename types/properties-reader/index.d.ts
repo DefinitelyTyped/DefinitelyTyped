@@ -1,8 +1,3 @@
-// Type definitions for properties-reader 2.1
-// Project: https://github.com/steveukx/properties
-// Definitions by: Zlatko Andonovski <https://github.com/Goldsmith42>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace PropertiesReader {
     type Value = string | number | boolean;
 

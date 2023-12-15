@@ -1,11 +1,3 @@
-// Type definitions for react-form 4.0
-// Project: https://github.com/tannerlinsley/react-form
-// Definitions by: Cameron McAteer <https://github.com/cameron-mcateer>
-//                 Mathieu Masy <https://github.com/TiuSh>
-//                 Anatolii Titov <https://github.com/Toliak>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
-
 import * as React from "react";
 
 // Hooks
@@ -54,6 +46,7 @@ export interface UseFormOptions<
     validate?(
         values: UseFormValues<ValueType>,
         instance: UseFormInstance<ValueType, ErrorType, EventType, FieldMetaType, FormMetaType>,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): Promise<ValidateResult> | ValidateResult | void;
 
     validatePristine?: boolean | undefined;
@@ -119,6 +112,7 @@ export interface UseFieldOptions<
     validate?(
         value: ValueType,
         instance: UseFieldInstance<ValueType, ErrorType, EventType, FieldMetaType, FormMetaType, InputPropsType>,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): Promise<ValidateResult> | ValidateResult | void;
 
     filterValue?(

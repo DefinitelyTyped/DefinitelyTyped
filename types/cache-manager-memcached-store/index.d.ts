@@ -1,8 +1,3 @@
-// Type definitions for cache-manager-memcached-store 3.0
-// Project: https://github.com/theogravity/node-cache-manager-memcached-store
-// Definitions by: James Wigley <https://github.com/jwigley>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Cache, CacheOptions, Store, StoreConfig } from "cache-manager";
 
 interface CacheManagerMemcachedStoreOptions {

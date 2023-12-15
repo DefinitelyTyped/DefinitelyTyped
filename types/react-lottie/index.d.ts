@@ -1,10 +1,3 @@
-// Type definitions for react-lottie 1.2
-// Project: https://github.com/chenqingspring/react-lottie#readme
-// Definitions by: Kana00 <https://github.com/Kana00>
-//                 Ricki-BumbleDev <https://github.com/Ricki-BumbleDev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export interface Options {
@@ -89,8 +82,8 @@ export interface LottieProps {
      * Array of objects containing eventName and a callback function that will be registered as eventListeners on the animation object.
      * Refer to Lottie documentation for a list of available events.
      */
-    eventListeners?: ReadonlyArray<EventListener> | undefined;
-    segments?: ReadonlyArray<number> | undefined;
+    eventListeners?: readonly EventListener[] | undefined;
+    segments?: readonly number[] | undefined;
     speed?: number | undefined;
     direction?: number | undefined;
     ariaRole?: string | "button" | undefined;

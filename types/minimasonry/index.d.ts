@@ -1,8 +1,3 @@
-// Type definitions for minimasonry 1.3
-// Project: https://spope.github.io/MiniMasonry.js/
-// Definitions by: Paul Ebose <https://github.com/plbstl>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyType
-
 export interface MiniMasonryOptions {
     /**
      * Target width of elements.
@@ -64,7 +59,7 @@ export interface MiniMasonryOptions {
  *     container: '.masonry_transition'
  * });
  */
-// tslint:disable-next-line:npm-naming
+// eslint-disable-next-line @definitelytyped/npm-naming
 export default class MiniMasonry {
     constructor(options: MiniMasonryOptions);
     /**
