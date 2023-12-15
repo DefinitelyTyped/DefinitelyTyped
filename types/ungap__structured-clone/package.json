@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/ungap__structured-clone",
-    "version": "0.3.9999",
+    "version": "1.2.0",
     "projects": [
         "https://www.npmjs.com/package/@ungap/structured-clone#:~:text=github.com/ungap/structured%2Dclone%23readme"
     ],
