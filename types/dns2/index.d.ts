@@ -64,6 +64,8 @@ declare namespace DNS {
 
     interface DnsQuestion {
         name: string;
+        type: number;
+        class: number;
     }
 
     interface DnsResponse {
