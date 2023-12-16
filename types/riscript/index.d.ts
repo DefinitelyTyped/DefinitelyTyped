@@ -1,7 +1,3 @@
-// Project: https://github.com/dhowe/riscript
-// Definitions by: Daniel C Howe <https://github.com/dhowe>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class RiScript {
     static VERSION: string;
     static evaluate(script: string, context?: object, options?: {
