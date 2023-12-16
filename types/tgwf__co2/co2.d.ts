@@ -1,5 +1,6 @@
-export default CO2;
-export interface CO2EstimateTraceResultPerByte {
+import OneByte from "./1byte.js";
+import SustainableWebDesign from "./sustainable-web-design.js";
+interface CO2EstimateTraceResultPerByte {
     /**
      * - The CO2 estimate in grams/kilowatt-hour
      */
@@ -13,7 +14,7 @@ export interface CO2EstimateTraceResultPerByte {
      */
     variables: TraceResultVariables;
 };
-export interface CO2EstimateTraceResultPerVisit {
+interface CO2EstimateTraceResultPerVisit {
     /**
      * - The CO2 estimate in grams/kilowatt-hour
      */
@@ -27,13 +28,13 @@ export interface CO2EstimateTraceResultPerVisit {
      */
     variables: TraceResultVariables;
 };
-export interface TraceResultVariablesPerByte {
+interface TraceResultVariablesPerByte {
     /**
      * - The grid intensity related variables
      */
     gridIntensity: GridIntensityVariables;
 };
-export interface TraceResultVariablesPerVisit {
+interface TraceResultVariablesPerVisit {
     /**
      * - The grid intensity related variables
      */
@@ -51,7 +52,7 @@ export interface TraceResultVariablesPerVisit {
      */
     returnVisitPercentage: number;
 };
-export interface GridIntensityVariables {
+interface GridIntensityVariables {
     /**
      * - The description of the variables
      */
@@ -73,7 +74,7 @@ export interface GridIntensityVariables {
      */
     production: number;
 };
-export class CO2 {
+declare class CO2 {
     constructor(options: any);
     model: OneByte | SustainableWebDesign;
     private _segment;
@@ -140,5 +141,5 @@ export class CO2 {
         thirdParty: number;
     };
 }
-import OneByte from "./1byte.js";
-import SustainableWebDesign from "./sustainable-web-design.js";
+
+export default CO2;
