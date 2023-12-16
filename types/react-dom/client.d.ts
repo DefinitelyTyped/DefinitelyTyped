@@ -22,7 +22,6 @@ export interface RootOptions {
 }
 
 export interface ErrorInfo {
-    digest?: string;
     componentStack?: string;
 }
 
