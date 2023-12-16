@@ -1,4 +1,3 @@
-
 // ### GLOBAL CONSTANTS ###
 
 declare const LOW: 0;
