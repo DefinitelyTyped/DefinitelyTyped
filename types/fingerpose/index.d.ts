@@ -119,4 +119,4 @@ export const Gestures: {
     ThumbsUpGesture: GestureDescription;
 };
 
-export { };
+export {};
