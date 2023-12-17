@@ -16,6 +16,7 @@
         "esModuleInterop": true
     },
     "files": [
+        "index.d.ts",
         "apollo-upload-client-tests.ts",
         "createUploadLink.d.mts",
         "formDataAppendFile.d.mts",
