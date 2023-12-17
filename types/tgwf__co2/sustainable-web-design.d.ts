@@ -65,7 +65,13 @@ declare class SustainableWebDesign {
      *
      * @return {object} Object containing the energy in kilowatt hours, keyed by system component
      */
-    energyPerVisitByComponent(bytes: number, options?: {}, firstView?: number, returnView?: number, dataReloadRatio?: number): object;
+    energyPerVisitByComponent(
+        bytes: number,
+        options?: {},
+        firstView?: number,
+        returnView?: number,
+        dataReloadRatio?: number,
+    ): object;
     /**
      * Accept a figure for bytes, and return the total figure for energy per visit
      * using the default caching assumptions for loading a single website

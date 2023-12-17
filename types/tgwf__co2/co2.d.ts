@@ -13,7 +13,7 @@ interface CO2EstimateTraceResultPerByte {
      * - The variables used to calculate the CO2 estimate
      */
     variables: TraceResultVariables;
-};
+}
 interface CO2EstimateTraceResultPerVisit {
     /**
      * - The CO2 estimate in grams/kilowatt-hour
@@ -27,13 +27,13 @@ interface CO2EstimateTraceResultPerVisit {
      * - The variables used to calculate the CO2 estimate
      */
     variables: TraceResultVariables;
-};
+}
 interface TraceResultVariablesPerByte {
     /**
      * - The grid intensity related variables
      */
     gridIntensity: GridIntensityVariables;
-};
+}
 interface TraceResultVariablesPerVisit {
     /**
      * - The grid intensity related variables
@@ -51,7 +51,7 @@ interface TraceResultVariablesPerVisit {
      * - What percentage of visits are loading this page for the second or more time
      */
     returnVisitPercentage: number;
-};
+}
 interface GridIntensityVariables {
     /**
      * - The description of the variables
@@ -73,7 +73,7 @@ interface GridIntensityVariables {
      * - The production grid intensity set by the user or the default
      */
     production: number;
-};
+}
 declare class CO2 {
     constructor(options: any);
     model: OneByte | SustainableWebDesign;

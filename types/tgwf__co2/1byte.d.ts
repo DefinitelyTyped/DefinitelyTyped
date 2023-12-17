@@ -1,4 +1,3 @@
-
 declare class OneByte {
     constructor(options: any);
     options: any;

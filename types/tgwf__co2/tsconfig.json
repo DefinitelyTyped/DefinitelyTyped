@@ -8,7 +8,7 @@
             "@tgwf/co2": [
                 "./index.d.ts"
             ]
-          },
+        },
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,

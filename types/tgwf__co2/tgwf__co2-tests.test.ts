@@ -1,4 +1,4 @@
-import { averageIntensity, marginalIntensity } from '@tgwf/co2';
+import { averageIntensity, marginalIntensity } from "@tgwf/co2";
 
 // Test the data object for average intensity
 const averageData: { [key: string]: number } = averageIntensity.data;
