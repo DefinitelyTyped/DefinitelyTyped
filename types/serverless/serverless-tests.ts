@@ -6,7 +6,7 @@ import { getHttp } from "serverless/plugins/aws/package/compile/events/apiGatewa
 
 const options: Serverless.Options = {
     noDeploy: false,
-    stage: null,
+    stage: "prod",
     region: "",
 };
 
@@ -56,8 +56,8 @@ class CustomPlugin implements Plugin {
 }
 
 // Test a plugin with missing 'hooks' property
+// @ts-expect-error
 class BadPlugin implements Plugin {
-    // @ts-expect-error
     hoooks: Plugin.Hooks; // emulate a bad 'hooks' definition with a typo
     constructor(badArg: number) {}
 }
