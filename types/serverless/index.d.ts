@@ -20,7 +20,7 @@ declare namespace Serverless {
         stage?: string | undefined;
         region?: string | undefined;
         noDeploy?: boolean | undefined;
-        [key: string]: boolean | string | undefined;
+        [key: string]: string | boolean | string[] | undefined;
     }
 
     interface Config {
