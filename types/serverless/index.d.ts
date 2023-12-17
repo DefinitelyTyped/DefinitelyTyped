@@ -11,7 +11,7 @@ declare namespace Serverless {
      * @example
      * // serverless --verbose --stage prod
      * { verbose: true, stage: 'prod' }
-     * */
+     */
     interface Options {
         function?: string | undefined;
         watch?: boolean | undefined;

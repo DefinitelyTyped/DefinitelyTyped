@@ -27,7 +27,7 @@ class CustomPlugin implements Plugin {
         },
     };
 
-    provider = 'aws';
+    provider = "aws";
 
     customProp = {};
 

@@ -93,11 +93,11 @@ interface Plugin {
      *       'after:deploy:deploy': () => this.afterDeploy(),
      *     };
      *   }
-     *   
+     *
      *   init() {
      *     console.log('Initialize lifecycle event fired!')
      *   }
-     * 
+     *
      *   // etc...
      * }
      * @see https://www.serverless.com/framework/docs/guides/plugins/creating-plugins#lifecycle-events
@@ -113,7 +113,7 @@ interface Plugin {
      * To bind to a specific provider, retrieve it and set the this.provider property in the plugin constructor.
      * @see https://www.serverless.com/framework/docs/guides/plugins/creating-plugins#provider-specific-plugins
      */
-    provider?: string | ReturnType<InstanceType<typeof Serverless>['getProvider']> | undefined;
+    provider?: string | ReturnType<InstanceType<typeof Serverless>["getProvider"]> | undefined;
 }
 
 export = Plugin;
