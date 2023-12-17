@@ -246,11 +246,11 @@ declare global {
             isPromiseAll(): boolean;
 
             /**
-             * returns the index of the promise element that was followed in 
-             * Promise.all() or Promise.any() for async stack traces, or null 
+             * returns the index of the promise element that was followed in
+             * Promise.all() or Promise.any() for async stack traces, or null
              * if the CallSite is not an async
              */
-            getPromiseIndex(): number | null;        
+            getPromiseIndex(): number | null;
 
             getScriptNameOrSourceURL(): string;
             getScriptHash(): string;
