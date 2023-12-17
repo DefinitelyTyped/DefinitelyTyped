@@ -6,7 +6,7 @@ import {
     GestureEstimator,
     ThumbsUpGesture,
     VictoryGesture,
-} from "fingerpose"; 
+} from "fingerpose";
 
 function assert(condition: boolean, message: string) {
     console.assert(condition, message);
@@ -33,16 +33,16 @@ const points = [
     {
         x: 1,
         y: 1,
-        z: 1
+        z: 1,
     },
     {
         x: 2,
         y: 2,
-        z: 2
-    }
+        z: 2,
+    },
 ];
 
-const {gestures, poseData}  = estimator.estimate(points, 7);
+const { gestures, poseData } = estimator.estimate(points, 7);
 
 assert(gestures.length === 1, "Estimator failed to detect custom gesture");
 assert(gestures[0].name === "CustomGesture", "Estimator failed to detect custom gesture");
