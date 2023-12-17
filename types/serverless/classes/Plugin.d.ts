@@ -10,11 +10,11 @@ declare namespace Plugin {
             usage?: string | undefined;
             lifecycleEvents?: string[] | undefined;
             /** @see https://www.serverless.com/framework/docs/guides/plugins/custom-commands */
-            commands?: 
+            commands?:
                 | {
                     [command: string]: {
-                        lifecycleEvents?: string[],
-                        usage?: string,
+                        lifecycleEvents?: string[];
+                        usage?: string;
                         options?: {
                             [option: string]: {
                                 usage?: string | undefined;
@@ -22,13 +22,13 @@ declare namespace Plugin {
                                 shortcut?: string | undefined;
                                 type:
                                     /** String, e.g. serverless cmd --option value */
-                                    | 'string'
+                                    | "string"
                                     /** Boolean, e.g. serverless cmd --option */
-                                    | 'boolean'
+                                    | "boolean"
                                     /** Multiple strings, e.g. serverless cmd --option value1 --option value2 */
-                                    | 'multiple'
-                            }
-                        }
+                                    | "multiple";
+                            };
+                        };
                     };
                 }
                 | undefined;
