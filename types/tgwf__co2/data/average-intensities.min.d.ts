@@ -1,8 +1,3 @@
-declare namespace _default {
-    export { data };
-    export { type };
-}
-export default _default;
 export const data: {
     AFG: number;
     AFRICA: number;

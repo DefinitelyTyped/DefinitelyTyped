@@ -1,4 +1,4 @@
-declare namespace _default {
+declare namespace co2js {
     export { co2 };
     export { hosting };
     export { averageIntensity };
@@ -11,4 +11,4 @@ import averageIntensity from "./data/average-intensities.min.d.ts";
 import marginalIntensity from "./data/marginal-intensities-2021.min.d.ts";
 export { co2, hosting, averageIntensity, marginalIntensity };
 
-export default _default;
+export default co2js;
