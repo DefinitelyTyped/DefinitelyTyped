@@ -4,10 +4,16 @@ on:
   schedule:
     - cron: '37 */6 * * *'
 
+permissions:
+  contents: read
+
 jobs:
   trigger_bot:
     runs-on: ubuntu-latest
     if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
+
+    permissions:
+      actions: write
 
     steps:
       - run: 'gh workflow run daily.yml -R DefinitelyTyped/dt-mergebot'

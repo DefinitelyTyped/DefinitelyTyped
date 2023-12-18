@@ -9,10 +9,17 @@ on:
       - master
   workflow_dispatch: ~
 
+permissions:
+  contents: read
+
 jobs:
   dprint-fmt:
     runs-on: ubuntu-latest
     if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
+
+    permissions:
+      contents: write
+
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
