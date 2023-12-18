@@ -504,8 +504,6 @@ page.isHidden();
 page.isHidden(selector);
 // $ExpectType boolean
 page.isHidden(selector, { strict: true });
-// $ExpectType boolean
-page.isHidden(selector, { timeout: 10000 });
 
 // @ts-expect-error
 page.isVisible();
@@ -996,10 +994,6 @@ locator.isVisible();
 
 // $ExpectType boolean
 locator.isHidden();
-// $ExpectType boolean
-locator.isHidden({ timeout: 10000 });
-// $ExpectType boolean
-locator.isHidden({ strict: true });
 
 // @ts-expect-error
 locator.fill();
@@ -1917,8 +1911,6 @@ frame.isEditable("input", { strict: true });
 frame.isHidden();
 // $ExpectType boolean
 frame.isHidden("input");
-// $ExpectType boolean
-frame.isHidden("input", { timeout: 10000 });
 // $ExpectType boolean
 frame.isHidden("input", { strict: true });
 

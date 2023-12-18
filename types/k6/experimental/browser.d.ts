@@ -1469,7 +1469,7 @@ export interface Frame {
      * @param options The options to use.
      * @returns `true` if the element is hidden, `false` otherwise.
      */
-    isHidden(selector: string, options?: TimeoutOptions & StrictnessOptions): boolean;
+    isHidden(selector: string, options?: StrictnessOptions): boolean;
 
     /**
      * Get whether the first element found that matches the selector is visible or not.
@@ -1685,10 +1685,9 @@ export interface Locator {
 
     /**
      * Checks if the element is `hidden`.
-     * @param options Options to use.
      * @returns `true` if the element is hidden, `false` otherwise.
      */
-    isHidden(options?: TimeoutOptions & StrictnessOptions): boolean;
+    isHidden(): boolean;
 
     /**
      * Fill an `input`, `textarea` or `contenteditable` element with the provided value.
@@ -2580,7 +2579,7 @@ export interface Page {
     ): boolean;
 
     /**
-     * **NOTE** Use locator-based locator.isHidden([options]) instead.
+     * **NOTE** Use locator-based locator.isHidden() instead.
      *
      * Returns whether the element is hidden.
      *
@@ -2588,26 +2587,7 @@ export interface Page {
      * elements satisfying the selector, the first will be used.
      * @param options
      */
-    isHidden(
-        selector: string,
-        options?: {
-            /**
-             * When `true`, the call requires selector to resolve to a single element.
-             * If given selector resolves to more than one element, the call throws
-             * an exception. Defaults to `false`.
-             */
-            strict?: boolean;
-
-            /**
-             * Maximum time in milliseconds. Defaults to `30` seconds. Default is
-             * overridden by the `setDefaultTimeout` option on `BrowserContext` or
-             * `page` methods.
-             *
-             * Setting the value to `0` will disable the timeout.
-             */
-            timeout?: number;
-        },
-    ): boolean;
+    isHidden(selector: string, options?: StrictnessOptions): boolean;
 
     /**
      * **NOTE** Use locator-based locator.isVisible() instead.
