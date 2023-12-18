@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/s3-zip",
-    "version": "3.2.9999",
+    "version": "3.3.9999",
     "projects": [
         "https://github.com/orangewise/s3-zip"
     ],
@@ -16,6 +16,6 @@
     ],
     "dependencies": {
         "@aws-sdk/client-s3": "^3.0.0",
-        "@types/archiver": "^6.0.9999"
+        "@types/archiver": "^6.0.2"
     }
 }
