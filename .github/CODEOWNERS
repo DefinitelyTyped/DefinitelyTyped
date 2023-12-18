@@ -703,6 +703,7 @@
 /types/bull-arena/                                        @levibostian @gtpan77
 /types/bumblebee-hotword/                                 @sheunglaili
 /types/bump-regex/                                        @silkentrance
+/types/bun/                                               @colinhacks @Jarred-Sumner @electroid @paperdave @robobun @dylan-conway
 /types/bundle-id/                                         @LeoDog896
 /types/bundle-name/                                       @LeoDog896
 /types/bunnymq/                                           @cyrilschumacher
@@ -2152,6 +2153,7 @@
 /types/findandreplacedomtext/                             @bartholomej
 /types/findup-sync/                                       @Bartvds @ngbrown @BendingBender @kotarella1110
 /types/fined/                                             @BendingBender
+/types/fingerpose/                                        @EthanL06
 /types/firebase-token-generator/                          @dotdotcommadot
 /types/firebird/                                          @karak
 /types/firefox/                                           @vvakame
@@ -6961,7 +6963,7 @@
 /types/rest/                                              @Nemo157
 /types/restangular/                                       @borisyankov
 /types/restful.js/                                        @tkqubo
-/types/restify/                                           @blittle @leanazulyoro @mgebundy @alcmoraes @quinnlangille @GaikwadPratik
+/types/restify/                                           @blittle @leanazulyoro @mgebundy @quinnlangille @GaikwadPratik
 /types/restify/v4/                                        @blittle
 /types/restify/v5/                                        @blittle @leanazulyoro
 /types/restify-cookies/                                   @weekens
@@ -7095,6 +7097,7 @@
 /types/s3-download-stream/                                @everettcaleb
 /types/s3-streams/                                        @azatoth
 /types/s3-upload-stream/                                  @geoffreak
+/types/s3-zip/                                            @janickvwcotiss
 /types/s3rver/                                            @DavidBR-SW @feuGeneA @trygveaa
 /types/sade/                                              @Epimodev @peterblazejewicz
 /types/safari-extension/                                  @luukd
@@ -8036,7 +8039,7 @@
 /types/transform-pouch/                                   @lucasrainett
 /types/transit-js/                                        @tgriesser
 /types/trashable/                                         @jlismore
-/types/traverse/                                          @newclear
+/types/traverse/                                          @newclear @joshmock
 /types/traverson/                                         @marcinporebski @jelovac
 /types/travis-fold/                                       @andy-ms
 /types/trayballoon/                                       @korve
@@ -8178,6 +8181,7 @@
 /types/unordered-array-remove/                            @BendingBender
 /types/unorm/                                             @chbrown
 /types/unpaginated/                                       @reediculous456
+/types/unquote/                                           @shift-yuta-katayama
 /types/untar.js/                                          @andrewbranch
 /types/until-promise/                                     @Miladiir
 /types/unused-files-webpack-plugin/                       @maxbogus
@@ -8355,6 +8359,7 @@
 /types/voronoi-diagram/                                   @michaelneu
 /types/vorpal/                                            @danwbyrne @sweethuman
 /types/vortex-web-client/                                 @Pro
+/types/vosk/                                              @ifeanyiecheruo
 /types/voucher-code-generator/                            @JWebCoder
 /types/voximplant-websdk/                                 @aylarov
 /types/vscode/                                            @microsoft
