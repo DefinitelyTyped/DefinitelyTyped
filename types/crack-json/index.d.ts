@@ -4,6 +4,6 @@ declare module "crack-json" {
         configuration?: {
             filter?: (input: string) => boolean;
             parser?: (input: string) => any;
-        }
+        },
     ): any;
 }
