@@ -15,7 +15,7 @@ declare namespace cors {
      */
     interface Options {
         /**
-         * origin `Access-Control-Allow-Origin`, default is '*'
+         * `Access-Control-Allow-Origin`, default is '*'
          *
          * @remarks
          * If `credentials` set and return `true`, the `origin` default value will set to the request `Origin` header
