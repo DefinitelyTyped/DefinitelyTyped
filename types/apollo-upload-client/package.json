@@ -5,6 +5,18 @@
     "projects": [
         "https://github.com/jaydenseric/apollo-upload-client#readme"
     ],
+    "exports": {
+        "./createUploadLink.mjs": {
+            "types": "./createUploadLink.d.mts"
+        },
+        "./formDataAppendFile.mjs": {
+            "types": "./formDataAppendFile.d.mts"
+        },
+        "./isExtractableFile.mjs": {
+            "types": "./isExtractableFile.d.mts"
+        },
+        "./package.json": "./package.json"
+    },
     "dependencies": {
         "@apollo/client": "^3.8.0",
         "@types/extract-files": "*",
