@@ -1477,7 +1477,7 @@ export interface Frame {
      * @param options The options to use.
      * @returns `true` if the element is visible, `false` otherwise.
      */
-    isVisible(selector: string, options?: TimeoutOptions & StrictnessOptions): boolean;
+    isVisible(selector: string, options?: StrictnessOptions): boolean;
 
     /**
      * Wait for the given function to return a truthy value.
@@ -1679,10 +1679,9 @@ export interface Locator {
 
     /**
      * Checks if the element is `visible`.
-     * @param options Options to use.
      * @returns `true` if the element is visible, `false` otherwise.
      */
-    isVisible(options?: TimeoutOptions & StrictnessOptions): boolean;
+    isVisible(): boolean;
 
     /**
      * Checks if the element is `hidden`.
@@ -2611,7 +2610,7 @@ export interface Page {
     ): boolean;
 
     /**
-     * **NOTE** Use locator-based locator.isVisible([options]) instead.
+     * **NOTE** Use locator-based locator.isVisible() instead.
      *
      * Returns whether the element is visible.
      *
@@ -2619,26 +2618,7 @@ export interface Page {
      * elements satisfying the selector, the first will be used.
      * @param options
      */
-    isVisible(
-        selector: string,
-        options?: {
-            /**
-             * When `true`, the call requires selector to resolve to a single element.
-             * If given selector resolves to more than one element, the call throws
-             * an exception. Defaults to `false`.
-             */
-            strict?: boolean;
-
-            /**
-             * Maximum time in milliseconds. Defaults to `30` seconds. Default is
-             * overridden by the `setDefaultTimeout` option on `BrowserContext` or
-             * `page` methods.
-             *
-             * Setting the value to `0` will disable the timeout.
-             */
-            timeout?: number;
-        },
-    ): boolean;
+    isVisible(selector: string, options?: StrictnessOptions): boolean;
 
     /**
      * Returns the keyboard instance to interact with a virtual keyboard on the

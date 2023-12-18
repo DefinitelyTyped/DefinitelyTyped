@@ -513,8 +513,6 @@ page.isVisible();
 page.isVisible(selector);
 // $ExpectType boolean
 page.isVisible(selector, { strict: true });
-// $ExpectType boolean
-page.isVisible(selector, { timeout: 10000 });
 
 // $ExpectType Keyboard
 page.keyboard;
@@ -995,10 +993,6 @@ locator.isDisabled({ strict: true });
 
 // $ExpectType boolean
 locator.isVisible();
-// $ExpectType boolean
-locator.isVisible({ timeout: 10000 });
-// $ExpectType boolean
-locator.isVisible({ strict: true });
 
 // $ExpectType boolean
 locator.isHidden();
@@ -1932,8 +1926,6 @@ frame.isHidden("input", { strict: true });
 frame.isVisible();
 // $ExpectType boolean
 frame.isVisible("input");
-// $ExpectType boolean
-frame.isVisible("input", { timeout: 10000 });
 // $ExpectType boolean
 frame.isVisible("input", { strict: true });
 
