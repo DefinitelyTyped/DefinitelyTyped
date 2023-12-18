@@ -54,7 +54,7 @@ const Component = (props: {}) => {
         { firstName: "riddle", lastName: "information", age: 2, visits: 63, progress: 3 },
     ];
     return (
-        <div>
+        (<div>
             <ReactTable
                 data={data}
                 loading={false}
@@ -168,7 +168,7 @@ const Component = (props: {}) => {
             >
                 {(
                     state: FinalState<Data>,
-                    makeTable: () => React.ReactChild,
+                    makeTable: () => React.ReactElement | number | string,
                     instance: Instance<Data>,
                 ) => {
                     return (
@@ -192,7 +192,7 @@ const Component = (props: {}) => {
                 }}
             </ReactTable>
             <br />
-        </div>
+        </div>)
     );
 };
 
