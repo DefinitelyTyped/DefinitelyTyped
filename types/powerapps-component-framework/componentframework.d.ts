@@ -98,264 +98,264 @@ declare namespace ComponentFramework {
     type BrandVariants = Record<Brands, string>;
 
     type ColorPaletteAnchor =
-        | 'colorPaletteAnchorBackground2'
-        | 'colorPaletteAnchorForeground2'
-        | 'colorPaletteAnchorBorderActive';
+        | "colorPaletteAnchorBackground2"
+        | "colorPaletteAnchorForeground2"
+        | "colorPaletteAnchorBorderActive";
 
     type ColorPaletteBeige =
-        | 'colorPaletteBeigeBackground2'
-        | 'colorPaletteBeigeForeground2'
-        | 'colorPaletteBeigeBorderActive';
+        | "colorPaletteBeigeBackground2"
+        | "colorPaletteBeigeForeground2"
+        | "colorPaletteBeigeBorderActive";
 
     type ColorPaletteBerry =
-        | 'colorPaletteBerryBackground1'
-        | 'colorPaletteBerryBackground2'
-        | 'colorPaletteBerryBackground3'
-        | 'colorPaletteBerryForeground1'
-        | 'colorPaletteBerryForeground2'
-        | 'colorPaletteBerryForeground3'
-        | 'colorPaletteBerryBorderActive'
-        | 'colorPaletteBerryBorder1'
-        | 'colorPaletteBerryBorder2';
+        | "colorPaletteBerryBackground1"
+        | "colorPaletteBerryBackground2"
+        | "colorPaletteBerryBackground3"
+        | "colorPaletteBerryForeground1"
+        | "colorPaletteBerryForeground2"
+        | "colorPaletteBerryForeground3"
+        | "colorPaletteBerryBorderActive"
+        | "colorPaletteBerryBorder1"
+        | "colorPaletteBerryBorder2";
 
     type ColorPaletteBlue =
-        | 'colorPaletteBlueBackground2'
-        | 'colorPaletteBlueForeground2'
-        | 'colorPaletteBlueBorderActive';
+        | "colorPaletteBlueBackground2"
+        | "colorPaletteBlueForeground2"
+        | "colorPaletteBlueBorderActive";
 
     type ColorPaletteBrass =
-        | 'colorPaletteBrassBackground2'
-        | 'colorPaletteBrassForeground2'
-        | 'colorPaletteBrassBorderActive';
+        | "colorPaletteBrassBackground2"
+        | "colorPaletteBrassForeground2"
+        | "colorPaletteBrassBorderActive";
 
     type ColorPaletteBrown =
-        | 'colorPaletteBrownBackground2'
-        | 'colorPaletteBrownForeground2'
-        | 'colorPaletteBrownBorderActive';
+        | "colorPaletteBrownBackground2"
+        | "colorPaletteBrownForeground2"
+        | "colorPaletteBrownBorderActive";
 
     type ColorPaletteCornflower =
-        | 'colorPaletteCornflowerBackground2'
-        | 'colorPaletteCornflowerForeground2'
-        | 'colorPaletteCornflowerBorderActive';
+        | "colorPaletteCornflowerBackground2"
+        | "colorPaletteCornflowerForeground2"
+        | "colorPaletteCornflowerBorderActive";
 
     type ColorPaletteCranberry =
-        | 'colorPaletteCranberryBackground2'
-        | 'colorPaletteCranberryForeground2'
-        | 'colorPaletteCranberryBorderActive';
+        | "colorPaletteCranberryBackground2"
+        | "colorPaletteCranberryForeground2"
+        | "colorPaletteCranberryBorderActive";
 
     type ColorPaletteDarkGreen =
-        | 'colorPaletteDarkGreenBackground2'
-        | 'colorPaletteDarkGreenForeground2'
-        | 'colorPaletteDarkGreenBorderActive';
+        | "colorPaletteDarkGreenBackground2"
+        | "colorPaletteDarkGreenForeground2"
+        | "colorPaletteDarkGreenBorderActive";
 
     type ColorPaletteDarkOrange =
-        | 'colorPaletteDarkOrangeBackground1'
-        | 'colorPaletteDarkOrangeBackground2'
-        | 'colorPaletteDarkOrangeBackground3'
-        | 'colorPaletteDarkOrangeForeground1'
-        | 'colorPaletteDarkOrangeForeground2'
-        | 'colorPaletteDarkOrangeForeground3'
-        | 'colorPaletteDarkOrangeBorderActive'
-        | 'colorPaletteDarkOrangeBorder1'
-        | 'colorPaletteDarkOrangeBorder2';
+        | "colorPaletteDarkOrangeBackground1"
+        | "colorPaletteDarkOrangeBackground2"
+        | "colorPaletteDarkOrangeBackground3"
+        | "colorPaletteDarkOrangeForeground1"
+        | "colorPaletteDarkOrangeForeground2"
+        | "colorPaletteDarkOrangeForeground3"
+        | "colorPaletteDarkOrangeBorderActive"
+        | "colorPaletteDarkOrangeBorder1"
+        | "colorPaletteDarkOrangeBorder2";
 
     type ColorPaletteDarkRed =
-        | 'colorPaletteDarkRedBackground2'
-        | 'colorPaletteDarkRedForeground2'
-        | 'colorPaletteDarkRedBorderActive';
+        | "colorPaletteDarkRedBackground2"
+        | "colorPaletteDarkRedForeground2"
+        | "colorPaletteDarkRedBorderActive";
 
     type ColorPaletteForest =
-        | 'colorPaletteForestBackground2'
-        | 'colorPaletteForestForeground2'
-        | 'colorPaletteForestBorderActive';
+        | "colorPaletteForestBackground2"
+        | "colorPaletteForestForeground2"
+        | "colorPaletteForestBorderActive";
 
     type ColorPaletteGold =
-        | 'colorPaletteGoldBackground2'
-        | 'colorPaletteGoldForeground2'
-        | 'colorPaletteGoldBorderActive';
+        | "colorPaletteGoldBackground2"
+        | "colorPaletteGoldForeground2"
+        | "colorPaletteGoldBorderActive";
 
     type ColorPaletteGrape =
-        | 'colorPaletteGrapeBackground2'
-        | 'colorPaletteGrapeForeground2'
-        | 'colorPaletteGrapeBorderActive';
+        | "colorPaletteGrapeBackground2"
+        | "colorPaletteGrapeForeground2"
+        | "colorPaletteGrapeBorderActive";
 
     type ColorPaletteGreen =
-        | 'colorPaletteGreenBackground1'
-        | 'colorPaletteGreenBackground2'
-        | 'colorPaletteGreenBackground3'
-        | 'colorPaletteGreenForeground1'
-        | 'colorPaletteGreenForeground2'
-        | 'colorPaletteGreenForeground3'
-        | 'colorPaletteGreenForegroundInverted'
-        | 'colorPaletteGreenBorderActive'
-        | 'colorPaletteGreenBorder1'
-        | 'colorPaletteGreenBorder2';
+        | "colorPaletteGreenBackground1"
+        | "colorPaletteGreenBackground2"
+        | "colorPaletteGreenBackground3"
+        | "colorPaletteGreenForeground1"
+        | "colorPaletteGreenForeground2"
+        | "colorPaletteGreenForeground3"
+        | "colorPaletteGreenForegroundInverted"
+        | "colorPaletteGreenBorderActive"
+        | "colorPaletteGreenBorder1"
+        | "colorPaletteGreenBorder2";
 
     type ColorPaletteLavender =
-        | 'colorPaletteLavenderBackground2'
-        | 'colorPaletteLavenderForeground2'
-        | 'colorPaletteLavenderBorderActive';
+        | "colorPaletteLavenderBackground2"
+        | "colorPaletteLavenderForeground2"
+        | "colorPaletteLavenderBorderActive";
 
     type ColorPaletteLightGreen =
-        | 'colorPaletteLightGreenBackground1'
-        | 'colorPaletteLightGreenBackground2'
-        | 'colorPaletteLightGreenBackground3'
-        | 'colorPaletteLightGreenForeground1'
-        | 'colorPaletteLightGreenForeground2'
-        | 'colorPaletteLightGreenForeground3'
-        | 'colorPaletteLightGreenBorderActive'
-        | 'colorPaletteLightGreenBorder1'
-        | 'colorPaletteLightGreenBorder2';
+        | "colorPaletteLightGreenBackground1"
+        | "colorPaletteLightGreenBackground2"
+        | "colorPaletteLightGreenBackground3"
+        | "colorPaletteLightGreenForeground1"
+        | "colorPaletteLightGreenForeground2"
+        | "colorPaletteLightGreenForeground3"
+        | "colorPaletteLightGreenBorderActive"
+        | "colorPaletteLightGreenBorder1"
+        | "colorPaletteLightGreenBorder2";
 
     type ColorPaletteLightTeal =
-        | 'colorPaletteLightTealBackground2'
-        | 'colorPaletteLightTealForeground2'
-        | 'colorPaletteLightTealBorderActive';
+        | "colorPaletteLightTealBackground2"
+        | "colorPaletteLightTealForeground2"
+        | "colorPaletteLightTealBorderActive";
 
     type ColorPaletteLilac =
-        | 'colorPaletteLilacBackground2'
-        | 'colorPaletteLilacForeground2'
-        | 'colorPaletteLilacBorderActive';
+        | "colorPaletteLilacBackground2"
+        | "colorPaletteLilacForeground2"
+        | "colorPaletteLilacBorderActive";
 
     type ColorPaletteMagenta =
-        | 'colorPaletteMagentaBackground2'
-        | 'colorPaletteMagentaForeground2'
-        | 'colorPaletteMagentaBorderActive';
+        | "colorPaletteMagentaBackground2"
+        | "colorPaletteMagentaForeground2"
+        | "colorPaletteMagentaBorderActive";
 
     type ColorPaletteMarigold =
-        | 'colorPaletteMarigoldBackground1'
-        | 'colorPaletteMarigoldBackground2'
-        | 'colorPaletteMarigoldBackground3'
-        | 'colorPaletteMarigoldForeground1'
-        | 'colorPaletteMarigoldForeground2'
-        | 'colorPaletteMarigoldForeground3'
-        | 'colorPaletteMarigoldBorderActive'
-        | 'colorPaletteMarigoldBorder1'
-        | 'colorPaletteMarigoldBorder2';
+        | "colorPaletteMarigoldBackground1"
+        | "colorPaletteMarigoldBackground2"
+        | "colorPaletteMarigoldBackground3"
+        | "colorPaletteMarigoldForeground1"
+        | "colorPaletteMarigoldForeground2"
+        | "colorPaletteMarigoldForeground3"
+        | "colorPaletteMarigoldBorderActive"
+        | "colorPaletteMarigoldBorder1"
+        | "colorPaletteMarigoldBorder2";
 
     type ColorPaletteMink =
-        | 'colorPaletteMinkBackground2'
-        | 'colorPaletteMinkForeground2'
-        | 'colorPaletteMinkBorderActive';
+        | "colorPaletteMinkBackground2"
+        | "colorPaletteMinkForeground2"
+        | "colorPaletteMinkBorderActive";
 
     type ColorPaletteNavy =
-        | 'colorPaletteNavyBackground2'
-        | 'colorPaletteNavyForeground2'
-        | 'colorPaletteNavyBorderActive';
+        | "colorPaletteNavyBackground2"
+        | "colorPaletteNavyForeground2"
+        | "colorPaletteNavyBorderActive";
 
     type ColorPalettePeach =
-        | 'colorPalettePeachBackground2'
-        | 'colorPalettePeachForeground2'
-        | 'colorPalettePeachBorderActive';
+        | "colorPalettePeachBackground2"
+        | "colorPalettePeachForeground2"
+        | "colorPalettePeachBorderActive";
 
     type ColorPalettePink =
-        | 'colorPalettePinkBackground2'
-        | 'colorPalettePinkForeground2'
-        | 'colorPalettePinkBorderActive';
+        | "colorPalettePinkBackground2"
+        | "colorPalettePinkForeground2"
+        | "colorPalettePinkBorderActive";
 
     type ColorPalettePlatinum =
-        | 'colorPalettePlatinumBackground2'
-        | 'colorPalettePlatinumForeground2'
-        | 'colorPalettePlatinumBorderActive';
+        | "colorPalettePlatinumBackground2"
+        | "colorPalettePlatinumForeground2"
+        | "colorPalettePlatinumBorderActive";
 
     type ColorPalettePlum =
-        | 'colorPalettePlumBackground2'
-        | 'colorPalettePlumForeground2'
-        | 'colorPalettePlumBorderActive';
+        | "colorPalettePlumBackground2"
+        | "colorPalettePlumForeground2"
+        | "colorPalettePlumBorderActive";
 
     type ColorPalettePumpkin =
-        | 'colorPalettePumpkinBackground2'
-        | 'colorPalettePumpkinForeground2'
-        | 'colorPalettePumpkinBorderActive';
+        | "colorPalettePumpkinBackground2"
+        | "colorPalettePumpkinForeground2"
+        | "colorPalettePumpkinBorderActive";
 
     type ColorPalettePurple =
-        | 'colorPalettePurpleBackground2'
-        | 'colorPalettePurpleForeground2'
-        | 'colorPalettePurpleBorderActive';
+        | "colorPalettePurpleBackground2"
+        | "colorPalettePurpleForeground2"
+        | "colorPalettePurpleBorderActive";
 
     type ColorPaletteRed =
-        | 'colorPaletteRedBackground1'
-        | 'colorPaletteRedBackground2'
-        | 'colorPaletteRedBackground3'
-        | 'colorPaletteRedForeground1'
-        | 'colorPaletteRedForeground2'
-        | 'colorPaletteRedForeground3'
-        | 'colorPaletteRedForegroundInverted'
-        | 'colorPaletteRedBorderActive'
-        | 'colorPaletteRedBorder1'
-        | 'colorPaletteRedBorder2';
+        | "colorPaletteRedBackground1"
+        | "colorPaletteRedBackground2"
+        | "colorPaletteRedBackground3"
+        | "colorPaletteRedForeground1"
+        | "colorPaletteRedForeground2"
+        | "colorPaletteRedForeground3"
+        | "colorPaletteRedForegroundInverted"
+        | "colorPaletteRedBorderActive"
+        | "colorPaletteRedBorder1"
+        | "colorPaletteRedBorder2";
 
     type ColorPaletteRoyalBlue =
-        | 'colorPaletteRoyalBlueBackground2'
-        | 'colorPaletteRoyalBlueForeground2'
-        | 'colorPaletteRoyalBlueBorderActive';
+        | "colorPaletteRoyalBlueBackground2"
+        | "colorPaletteRoyalBlueForeground2"
+        | "colorPaletteRoyalBlueBorderActive";
 
     type ColorPaletteSeafoam =
-        | 'colorPaletteSeafoamBackground2'
-        | 'colorPaletteSeafoamForeground2'
-        | 'colorPaletteSeafoamBorderActive';
+        | "colorPaletteSeafoamBackground2"
+        | "colorPaletteSeafoamForeground2"
+        | "colorPaletteSeafoamBorderActive";
 
     type ColorPaletteSteel =
-        | 'colorPaletteSteelBackground2'
-        | 'colorPaletteSteelForeground2'
-        | 'colorPaletteSteelBorderActive';
+        | "colorPaletteSteelBackground2"
+        | "colorPaletteSteelForeground2"
+        | "colorPaletteSteelBorderActive";
 
     type ColorPaletteTeal =
-        | 'colorPaletteTealBackground2'
-        | 'colorPaletteTealForeground2'
-        | 'colorPaletteTealBorderActive';
+        | "colorPaletteTealBackground2"
+        | "colorPaletteTealForeground2"
+        | "colorPaletteTealBorderActive";
 
     type ColorPaletteTokens = StatusColorPaletteTokens & PersonaColorPaletteTokens;
 
     type ColorPaletteYellow =
-        | 'colorPaletteYellowBackground1'
-        | 'colorPaletteYellowBackground2'
-        | 'colorPaletteYellowBackground3'
-        | 'colorPaletteYellowForeground1'
-        | 'colorPaletteYellowForeground2'
-        | 'colorPaletteYellowForeground3'
-        | 'colorPaletteYellowForegroundInverted'
-        | 'colorPaletteYellowBorderActive'
-        | 'colorPaletteYellowBorder1'
-        | 'colorPaletteYellowBorder2';
+        | "colorPaletteYellowBackground1"
+        | "colorPaletteYellowBackground2"
+        | "colorPaletteYellowBackground3"
+        | "colorPaletteYellowForeground1"
+        | "colorPaletteYellowForeground2"
+        | "colorPaletteYellowForeground3"
+        | "colorPaletteYellowForegroundInverted"
+        | "colorPaletteYellowBorderActive"
+        | "colorPaletteYellowBorder1"
+        | "colorPaletteYellowBorder2";
 
     type ColorStatusDanger =
-        | 'colorStatusDangerBackground1'
-        | 'colorStatusDangerBackground2'
-        | 'colorStatusDangerBackground3'
-        | 'colorStatusDangerForeground1'
-        | 'colorStatusDangerForeground2'
-        | 'colorStatusDangerForeground3'
-        | 'colorStatusDangerForegroundInverted'
-        | 'colorStatusDangerBorderActive'
-        | 'colorStatusDangerBorder1'
-        | 'colorStatusDangerBorder2';
+        | "colorStatusDangerBackground1"
+        | "colorStatusDangerBackground2"
+        | "colorStatusDangerBackground3"
+        | "colorStatusDangerForeground1"
+        | "colorStatusDangerForeground2"
+        | "colorStatusDangerForeground3"
+        | "colorStatusDangerForegroundInverted"
+        | "colorStatusDangerBorderActive"
+        | "colorStatusDangerBorder1"
+        | "colorStatusDangerBorder2";
 
     type ColorStatusSuccess =
-        | 'colorStatusSuccessBackground1'
-        | 'colorStatusSuccessBackground2'
-        | 'colorStatusSuccessBackground3'
-        | 'colorStatusSuccessForeground1'
-        | 'colorStatusSuccessForeground2'
-        | 'colorStatusSuccessForeground3'
-        | 'colorStatusSuccessForegroundInverted'
-        | 'colorStatusSuccessBorderActive'
-        | 'colorStatusSuccessBorder1'
-        | 'colorStatusSuccessBorder2';
+        | "colorStatusSuccessBackground1"
+        | "colorStatusSuccessBackground2"
+        | "colorStatusSuccessBackground3"
+        | "colorStatusSuccessForeground1"
+        | "colorStatusSuccessForeground2"
+        | "colorStatusSuccessForeground3"
+        | "colorStatusSuccessForegroundInverted"
+        | "colorStatusSuccessBorderActive"
+        | "colorStatusSuccessBorder1"
+        | "colorStatusSuccessBorder2";
 
     type ColorStatusTokens = Record<ColorStatusSuccess | ColorStatusWarning | ColorStatusDanger, string>;
 
     type ColorStatusWarning =
-        | 'colorStatusWarningBackground1'
-        | 'colorStatusWarningBackground2'
-        | 'colorStatusWarningBackground3'
-        | 'colorStatusWarningForeground1'
-        | 'colorStatusWarningForeground2'
-        | 'colorStatusWarningForeground3'
-        | 'colorStatusWarningForegroundInverted'
-        | 'colorStatusWarningBorderActive'
-        | 'colorStatusWarningBorder1'
-        | 'colorStatusWarningBorder2';
+        | "colorStatusWarningBackground1"
+        | "colorStatusWarningBackground2"
+        | "colorStatusWarningBackground3"
+        | "colorStatusWarningForeground1"
+        | "colorStatusWarningForeground2"
+        | "colorStatusWarningForeground3"
+        | "colorStatusWarningForegroundInverted"
+        | "colorStatusWarningBorderActive"
+        | "colorStatusWarningBorder1"
+        | "colorStatusWarningBorder2";
 
     /**
      * Design tokens for alias colors
@@ -697,22 +697,23 @@ declare namespace ComponentFramework {
         strokeWidthThickest: string;
     };
 
-    type Theme = FontSizeTokens &
-        LineHeightTokens &
-        BorderRadiusTokens &
-        StrokeWidthTokens &
-        HorizontalSpacingTokens &
-        VerticalSpacingTokens &
-        DurationTokens &
-        CurveTokens &
-        ShadowTokens &
-        ShadowBrandTokens &
-        FontFamilyTokens &
-        FontWeightTokens &
-        ColorPaletteTokens &
-        ColorStatusTokens &
-        ColorTokens &
-        any;
+    type Theme =
+        & FontSizeTokens
+        & LineHeightTokens
+        & BorderRadiusTokens
+        & StrokeWidthTokens
+        & HorizontalSpacingTokens
+        & VerticalSpacingTokens
+        & DurationTokens
+        & CurveTokens
+        & ShadowTokens
+        & ShadowBrandTokens
+        & FontFamilyTokens
+        & FontWeightTokens
+        & ColorPaletteTokens
+        & ColorStatusTokens
+        & ColorTokens
+        & any;
 
     // tslint:disable-next-line:interface-over-type-literal
     type TypographyStyle = {
