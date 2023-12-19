@@ -644,27 +644,27 @@ export interface EnergyAccountDetail extends EnergyAccountBase {
                      * The type of the eligibility restriction.<br/>The CONTINGENT_PLAN value indicates that the plan is contingent on the customer taking up an alternate fuel plan from the same retailer (for instance, if the fuelType is ELECTRICITY then a GAS plan from the same retailer must be taken up)
                      */
                     type:
-                    | "EXISTING_CUST"
-                    | "EXISTING_POOL"
-                    | "EXISTING_SOLAR"
-                    | "EXISTING_BATTERY"
-                    | "EXISTING_SMART_METER"
-                    | "EXISTING_BASIC_METER"
-                    | "SENIOR_CARD"
-                    | "SMALL_BUSINESS"
-                    | "NO_SOLAR_FIT"
-                    | "NEW_CUSTOMER"
-                    | "ONLINE_ONLY"
-                    | "REQ_EQUIP_SUPPLIER"
-                    | "THIRD_PARTY_ONLY"
-                    | "SPORT_CLUB_MEMBER"
-                    | "ORG_MEMBER"
-                    | "SPECIFIC_LOCATION"
-                    | "MINIMUM_USAGE"
-                    | "LOYALTY_MEMBER"
-                    | "GROUP_BUY_MEMBER"
-                    | "CONTINGENT_PLAN"
-                    | "OTHER";
+                        | "EXISTING_CUST"
+                        | "EXISTING_POOL"
+                        | "EXISTING_SOLAR"
+                        | "EXISTING_BATTERY"
+                        | "EXISTING_SMART_METER"
+                        | "EXISTING_BASIC_METER"
+                        | "SENIOR_CARD"
+                        | "SMALL_BUSINESS"
+                        | "NO_SOLAR_FIT"
+                        | "NEW_CUSTOMER"
+                        | "ONLINE_ONLY"
+                        | "REQ_EQUIP_SUPPLIER"
+                        | "THIRD_PARTY_ONLY"
+                        | "SPORT_CLUB_MEMBER"
+                        | "ORG_MEMBER"
+                        | "SPECIFIC_LOCATION"
+                        | "MINIMUM_USAGE"
+                        | "LOYALTY_MEMBER"
+                        | "GROUP_BUY_MEMBER"
+                        | "CONTINGENT_PLAN"
+                        | "OTHER";
                     [k: string]: unknown;
                 }>;
                 /**
@@ -687,39 +687,39 @@ export interface EnergyAccountDetail extends EnergyAccountBase {
                      * The term of the fee
                      */
                     term:
-                    | "FIXED"
-                    | "1_YEAR"
-                    | "2_YEAR"
-                    | "3_YEAR"
-                    | "4_YEAR"
-                    | "5_YEAR"
-                    | "PERCENT_OF_BILL"
-                    | "ANNUAL"
-                    | "DAILY"
-                    | "WEEKLY"
-                    | "MONTHLY"
-                    | "BIANNUAL"
-                    | "VARIABLE";
+                        | "FIXED"
+                        | "1_YEAR"
+                        | "2_YEAR"
+                        | "3_YEAR"
+                        | "4_YEAR"
+                        | "5_YEAR"
+                        | "PERCENT_OF_BILL"
+                        | "ANNUAL"
+                        | "DAILY"
+                        | "WEEKLY"
+                        | "MONTHLY"
+                        | "BIANNUAL"
+                        | "VARIABLE";
                     /**
                      * The type of the fee
                      */
                     type:
-                    | "EXIT"
-                    | "ESTABLISHMENT"
-                    | "LATE_PAYMENT"
-                    | "DISCONNECTION"
-                    | "DISCONNECT_MOVE_OUT"
-                    | "DISCONNECT_NON_PAY"
-                    | "RECONNECTION"
-                    | "CONNECTION"
-                    | "PAYMENT_PROCESSING"
-                    | "CC_PROCESSING"
-                    | "CHEQUE_DISHONOUR"
-                    | "DD_DISHONOUR"
-                    | "MEMBERSHIP"
-                    | "CONTRIBUTION"
-                    | "PAPER_BILL"
-                    | "OTHER";
+                        | "EXIT"
+                        | "ESTABLISHMENT"
+                        | "LATE_PAYMENT"
+                        | "DISCONNECTION"
+                        | "DISCONNECT_MOVE_OUT"
+                        | "DISCONNECT_NON_PAY"
+                        | "RECONNECTION"
+                        | "CONNECTION"
+                        | "PAYMENT_PROCESSING"
+                        | "CC_PROCESSING"
+                        | "CHEQUE_DISHONOUR"
+                        | "DD_DISHONOUR"
+                        | "MEMBERSHIP"
+                        | "CONTRIBUTION"
+                        | "PAPER_BILL"
+                        | "OTHER";
                     [k: string]: unknown;
                 }>;
                 /**
@@ -760,12 +760,12 @@ export interface EnergyAccountDetail extends EnergyAccountBase {
                      * The type of charge
                      */
                     type:
-                    | "FIXED_PER_DAY"
-                    | "FIXED_PER_WEEK"
-                    | "FIXED_PER_MONTH"
-                    | "FIXED_PER_UNIT"
-                    | "PERCENT_OF_USE"
-                    | "PERCENT_OF_BILL";
+                        | "FIXED_PER_DAY"
+                        | "FIXED_PER_WEEK"
+                        | "FIXED_PER_MONTH"
+                        | "FIXED_PER_UNIT"
+                        | "PERCENT_OF_USE"
+                        | "PERCENT_OF_BILL";
                     [k: string]: unknown;
                 }>;
                 /**
@@ -816,13 +816,13 @@ export interface EnergyAccountDetail extends EnergyAccountBase {
                  * The pricing model for the contract.  Contracts for gas must use SINGLE_RATE.  Note that the detail for the enumeration values are:<ul><li>**SINGLE_RATE** - all energy usage is charged at a single unit rate no matter when it is consumed. Multiple unit rates may exist that correspond to varying volumes of usage i.e. a ‘block’ or ‘step’ tariff (first 50kWh @ X cents, next 50kWh at Y cents etc.</li><li>**SINGLE_RATE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**TIME_OF_USE** - energy usage is charged at unit rates that vary dependent on time of day and day of week that the energy is consumed</li><li>**TIME_OF_USE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**FLEXIBLE** - energy usage is charged at unit rates that vary based on external factors</li><li>**FLEXIBLE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**QUOTA** - all energy usage is charged at a single fixed rate, up to a specified usage quota/allowance. All excess usage beyond the allowance is then charged at a single unit rate (may not be the best way to explain it but it is essentially a ‘subscription’ or telco style product i.e. $50/month for up to 150kWh included usage</li></ul>
                  */
                 pricingModel:
-                | "SINGLE_RATE"
-                | "SINGLE_RATE_CONT_LOAD"
-                | "TIME_OF_USE"
-                | "TIME_OF_USE_CONT_LOAD"
-                | "FLEXIBLE"
-                | "FLEXIBLE_CONT_LOAD"
-                | "QUOTA";
+                    | "SINGLE_RATE"
+                    | "SINGLE_RATE_CONT_LOAD"
+                    | "TIME_OF_USE"
+                    | "TIME_OF_USE_CONT_LOAD"
+                    | "FLEXIBLE"
+                    | "FLEXIBLE_CONT_LOAD"
+                    | "QUOTA";
                 /**
                  * Array of feed in tariffs for solar power
                  */
@@ -1301,27 +1301,27 @@ export interface EnergyAccountDetail extends EnergyAccountBase {
                      * The type of the eligibility restriction.<br/>The CONTINGENT_PLAN value indicates that the plan is contingent on the customer taking up an alternate fuel plan from the same retailer (for instance, if the fuelType is ELECTRICITY then a GAS plan from the same retailer must be taken up)
                      */
                     type:
-                    | "EXISTING_CUST"
-                    | "EXISTING_POOL"
-                    | "EXISTING_SOLAR"
-                    | "EXISTING_BATTERY"
-                    | "EXISTING_SMART_METER"
-                    | "EXISTING_BASIC_METER"
-                    | "SENIOR_CARD"
-                    | "SMALL_BUSINESS"
-                    | "NO_SOLAR_FIT"
-                    | "NEW_CUSTOMER"
-                    | "ONLINE_ONLY"
-                    | "REQ_EQUIP_SUPPLIER"
-                    | "THIRD_PARTY_ONLY"
-                    | "SPORT_CLUB_MEMBER"
-                    | "ORG_MEMBER"
-                    | "SPECIFIC_LOCATION"
-                    | "MINIMUM_USAGE"
-                    | "LOYALTY_MEMBER"
-                    | "GROUP_BUY_MEMBER"
-                    | "CONTINGENT_PLAN"
-                    | "OTHER";
+                        | "EXISTING_CUST"
+                        | "EXISTING_POOL"
+                        | "EXISTING_SOLAR"
+                        | "EXISTING_BATTERY"
+                        | "EXISTING_SMART_METER"
+                        | "EXISTING_BASIC_METER"
+                        | "SENIOR_CARD"
+                        | "SMALL_BUSINESS"
+                        | "NO_SOLAR_FIT"
+                        | "NEW_CUSTOMER"
+                        | "ONLINE_ONLY"
+                        | "REQ_EQUIP_SUPPLIER"
+                        | "THIRD_PARTY_ONLY"
+                        | "SPORT_CLUB_MEMBER"
+                        | "ORG_MEMBER"
+                        | "SPECIFIC_LOCATION"
+                        | "MINIMUM_USAGE"
+                        | "LOYALTY_MEMBER"
+                        | "GROUP_BUY_MEMBER"
+                        | "CONTINGENT_PLAN"
+                        | "OTHER";
                     [k: string]: unknown;
                 }>;
                 /**
@@ -1344,39 +1344,39 @@ export interface EnergyAccountDetail extends EnergyAccountBase {
                      * The term of the fee
                      */
                     term:
-                    | "FIXED"
-                    | "1_YEAR"
-                    | "2_YEAR"
-                    | "3_YEAR"
-                    | "4_YEAR"
-                    | "5_YEAR"
-                    | "PERCENT_OF_BILL"
-                    | "ANNUAL"
-                    | "DAILY"
-                    | "WEEKLY"
-                    | "MONTHLY"
-                    | "BIANNUAL"
-                    | "VARIABLE";
+                        | "FIXED"
+                        | "1_YEAR"
+                        | "2_YEAR"
+                        | "3_YEAR"
+                        | "4_YEAR"
+                        | "5_YEAR"
+                        | "PERCENT_OF_BILL"
+                        | "ANNUAL"
+                        | "DAILY"
+                        | "WEEKLY"
+                        | "MONTHLY"
+                        | "BIANNUAL"
+                        | "VARIABLE";
                     /**
                      * The type of the fee
                      */
                     type:
-                    | "EXIT"
-                    | "ESTABLISHMENT"
-                    | "LATE_PAYMENT"
-                    | "DISCONNECTION"
-                    | "DISCONNECT_MOVE_OUT"
-                    | "DISCONNECT_NON_PAY"
-                    | "RECONNECTION"
-                    | "CONNECTION"
-                    | "PAYMENT_PROCESSING"
-                    | "CC_PROCESSING"
-                    | "CHEQUE_DISHONOUR"
-                    | "DD_DISHONOUR"
-                    | "MEMBERSHIP"
-                    | "CONTRIBUTION"
-                    | "PAPER_BILL"
-                    | "OTHER";
+                        | "EXIT"
+                        | "ESTABLISHMENT"
+                        | "LATE_PAYMENT"
+                        | "DISCONNECTION"
+                        | "DISCONNECT_MOVE_OUT"
+                        | "DISCONNECT_NON_PAY"
+                        | "RECONNECTION"
+                        | "CONNECTION"
+                        | "PAYMENT_PROCESSING"
+                        | "CC_PROCESSING"
+                        | "CHEQUE_DISHONOUR"
+                        | "DD_DISHONOUR"
+                        | "MEMBERSHIP"
+                        | "CONTRIBUTION"
+                        | "PAPER_BILL"
+                        | "OTHER";
                     [k: string]: unknown;
                 }>;
                 /**
@@ -1417,12 +1417,12 @@ export interface EnergyAccountDetail extends EnergyAccountBase {
                      * The type of charge
                      */
                     type:
-                    | "FIXED_PER_DAY"
-                    | "FIXED_PER_WEEK"
-                    | "FIXED_PER_MONTH"
-                    | "FIXED_PER_UNIT"
-                    | "PERCENT_OF_USE"
-                    | "PERCENT_OF_BILL";
+                        | "FIXED_PER_DAY"
+                        | "FIXED_PER_WEEK"
+                        | "FIXED_PER_MONTH"
+                        | "FIXED_PER_UNIT"
+                        | "PERCENT_OF_USE"
+                        | "PERCENT_OF_BILL";
                     [k: string]: unknown;
                 }>;
                 /**
@@ -1473,13 +1473,13 @@ export interface EnergyAccountDetail extends EnergyAccountBase {
                  * The pricing model for the contract.  Contracts for gas must use SINGLE_RATE.  Note that the detail for the enumeration values are:<ul><li>**SINGLE_RATE** - all energy usage is charged at a single unit rate no matter when it is consumed. Multiple unit rates may exist that correspond to varying volumes of usage i.e. a ‘block’ or ‘step’ tariff (first 50kWh @ X cents, next 50kWh at Y cents etc.</li><li>**SINGLE_RATE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**TIME_OF_USE** - energy usage is charged at unit rates that vary dependent on time of day and day of week that the energy is consumed</li><li>**TIME_OF_USE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**FLEXIBLE** - energy usage is charged at unit rates that vary based on external factors</li><li>**FLEXIBLE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**QUOTA** - all energy usage is charged at a single fixed rate, up to a specified usage quota/allowance. All excess usage beyond the allowance is then charged at a single unit rate (may not be the best way to explain it but it is essentially a ‘subscription’ or telco style product i.e. $50/month for up to 150kWh included usage</li></ul>
                  */
                 pricingModel:
-                | "SINGLE_RATE"
-                | "SINGLE_RATE_CONT_LOAD"
-                | "TIME_OF_USE"
-                | "TIME_OF_USE_CONT_LOAD"
-                | "FLEXIBLE"
-                | "FLEXIBLE_CONT_LOAD"
-                | "QUOTA";
+                    | "SINGLE_RATE"
+                    | "SINGLE_RATE_CONT_LOAD"
+                    | "TIME_OF_USE"
+                    | "TIME_OF_USE_CONT_LOAD"
+                    | "FLEXIBLE"
+                    | "FLEXIBLE_CONT_LOAD"
+                    | "QUOTA";
                 /**
                  * Array of feed in tariffs for solar power
                  */
@@ -2077,27 +2077,27 @@ export interface EnergyAccountDetailResponse {
                          * The type of the eligibility restriction.<br/>The CONTINGENT_PLAN value indicates that the plan is contingent on the customer taking up an alternate fuel plan from the same retailer (for instance, if the fuelType is ELECTRICITY then a GAS plan from the same retailer must be taken up)
                          */
                         type:
-                        | "EXISTING_CUST"
-                        | "EXISTING_POOL"
-                        | "EXISTING_SOLAR"
-                        | "EXISTING_BATTERY"
-                        | "EXISTING_SMART_METER"
-                        | "EXISTING_BASIC_METER"
-                        | "SENIOR_CARD"
-                        | "SMALL_BUSINESS"
-                        | "NO_SOLAR_FIT"
-                        | "NEW_CUSTOMER"
-                        | "ONLINE_ONLY"
-                        | "REQ_EQUIP_SUPPLIER"
-                        | "THIRD_PARTY_ONLY"
-                        | "SPORT_CLUB_MEMBER"
-                        | "ORG_MEMBER"
-                        | "SPECIFIC_LOCATION"
-                        | "MINIMUM_USAGE"
-                        | "LOYALTY_MEMBER"
-                        | "GROUP_BUY_MEMBER"
-                        | "CONTINGENT_PLAN"
-                        | "OTHER";
+                            | "EXISTING_CUST"
+                            | "EXISTING_POOL"
+                            | "EXISTING_SOLAR"
+                            | "EXISTING_BATTERY"
+                            | "EXISTING_SMART_METER"
+                            | "EXISTING_BASIC_METER"
+                            | "SENIOR_CARD"
+                            | "SMALL_BUSINESS"
+                            | "NO_SOLAR_FIT"
+                            | "NEW_CUSTOMER"
+                            | "ONLINE_ONLY"
+                            | "REQ_EQUIP_SUPPLIER"
+                            | "THIRD_PARTY_ONLY"
+                            | "SPORT_CLUB_MEMBER"
+                            | "ORG_MEMBER"
+                            | "SPECIFIC_LOCATION"
+                            | "MINIMUM_USAGE"
+                            | "LOYALTY_MEMBER"
+                            | "GROUP_BUY_MEMBER"
+                            | "CONTINGENT_PLAN"
+                            | "OTHER";
                         [k: string]: unknown;
                     }>;
                     /**
@@ -2120,39 +2120,39 @@ export interface EnergyAccountDetailResponse {
                          * The term of the fee
                          */
                         term:
-                        | "FIXED"
-                        | "1_YEAR"
-                        | "2_YEAR"
-                        | "3_YEAR"
-                        | "4_YEAR"
-                        | "5_YEAR"
-                        | "PERCENT_OF_BILL"
-                        | "ANNUAL"
-                        | "DAILY"
-                        | "WEEKLY"
-                        | "MONTHLY"
-                        | "BIANNUAL"
-                        | "VARIABLE";
+                            | "FIXED"
+                            | "1_YEAR"
+                            | "2_YEAR"
+                            | "3_YEAR"
+                            | "4_YEAR"
+                            | "5_YEAR"
+                            | "PERCENT_OF_BILL"
+                            | "ANNUAL"
+                            | "DAILY"
+                            | "WEEKLY"
+                            | "MONTHLY"
+                            | "BIANNUAL"
+                            | "VARIABLE";
                         /**
                          * The type of the fee
                          */
                         type:
-                        | "EXIT"
-                        | "ESTABLISHMENT"
-                        | "LATE_PAYMENT"
-                        | "DISCONNECTION"
-                        | "DISCONNECT_MOVE_OUT"
-                        | "DISCONNECT_NON_PAY"
-                        | "RECONNECTION"
-                        | "CONNECTION"
-                        | "PAYMENT_PROCESSING"
-                        | "CC_PROCESSING"
-                        | "CHEQUE_DISHONOUR"
-                        | "DD_DISHONOUR"
-                        | "MEMBERSHIP"
-                        | "CONTRIBUTION"
-                        | "PAPER_BILL"
-                        | "OTHER";
+                            | "EXIT"
+                            | "ESTABLISHMENT"
+                            | "LATE_PAYMENT"
+                            | "DISCONNECTION"
+                            | "DISCONNECT_MOVE_OUT"
+                            | "DISCONNECT_NON_PAY"
+                            | "RECONNECTION"
+                            | "CONNECTION"
+                            | "PAYMENT_PROCESSING"
+                            | "CC_PROCESSING"
+                            | "CHEQUE_DISHONOUR"
+                            | "DD_DISHONOUR"
+                            | "MEMBERSHIP"
+                            | "CONTRIBUTION"
+                            | "PAPER_BILL"
+                            | "OTHER";
                         [k: string]: unknown;
                     }>;
                     /**
@@ -2193,12 +2193,12 @@ export interface EnergyAccountDetailResponse {
                          * The type of charge
                          */
                         type:
-                        | "FIXED_PER_DAY"
-                        | "FIXED_PER_WEEK"
-                        | "FIXED_PER_MONTH"
-                        | "FIXED_PER_UNIT"
-                        | "PERCENT_OF_USE"
-                        | "PERCENT_OF_BILL";
+                            | "FIXED_PER_DAY"
+                            | "FIXED_PER_WEEK"
+                            | "FIXED_PER_MONTH"
+                            | "FIXED_PER_UNIT"
+                            | "PERCENT_OF_USE"
+                            | "PERCENT_OF_BILL";
                         [k: string]: unknown;
                     }>;
                     /**
@@ -2249,13 +2249,13 @@ export interface EnergyAccountDetailResponse {
                      * The pricing model for the contract.  Contracts for gas must use SINGLE_RATE.  Note that the detail for the enumeration values are:<ul><li>**SINGLE_RATE** - all energy usage is charged at a single unit rate no matter when it is consumed. Multiple unit rates may exist that correspond to varying volumes of usage i.e. a ‘block’ or ‘step’ tariff (first 50kWh @ X cents, next 50kWh at Y cents etc.</li><li>**SINGLE_RATE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**TIME_OF_USE** - energy usage is charged at unit rates that vary dependent on time of day and day of week that the energy is consumed</li><li>**TIME_OF_USE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**FLEXIBLE** - energy usage is charged at unit rates that vary based on external factors</li><li>**FLEXIBLE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**QUOTA** - all energy usage is charged at a single fixed rate, up to a specified usage quota/allowance. All excess usage beyond the allowance is then charged at a single unit rate (may not be the best way to explain it but it is essentially a ‘subscription’ or telco style product i.e. $50/month for up to 150kWh included usage</li></ul>
                      */
                     pricingModel:
-                    | "SINGLE_RATE"
-                    | "SINGLE_RATE_CONT_LOAD"
-                    | "TIME_OF_USE"
-                    | "TIME_OF_USE_CONT_LOAD"
-                    | "FLEXIBLE"
-                    | "FLEXIBLE_CONT_LOAD"
-                    | "QUOTA";
+                        | "SINGLE_RATE"
+                        | "SINGLE_RATE_CONT_LOAD"
+                        | "TIME_OF_USE"
+                        | "TIME_OF_USE_CONT_LOAD"
+                        | "FLEXIBLE"
+                        | "FLEXIBLE_CONT_LOAD"
+                        | "QUOTA";
                     /**
                      * Array of feed in tariffs for solar power
                      */
@@ -2500,13 +2500,13 @@ export interface EnergyAccountDetailResponse {
                          * Type of charge. Assumed to be other if absent
                          */
                         type?:
-                        | "ENVIRONMENTAL"
-                        | "REGULATED"
-                        | "NETWORK"
-                        | "METERING"
-                        | "RETAIL_SERVICE"
-                        | "RCTI"
-                        | "OTHER";
+                            | "ENVIRONMENTAL"
+                            | "REGULATED"
+                            | "NETWORK"
+                            | "METERING"
+                            | "RETAIL_SERVICE"
+                            | "RCTI"
+                            | "OTHER";
                         [k: string]: unknown;
                     }>;
                     /**
@@ -2741,27 +2741,27 @@ export interface EnergyAccountDetailResponse {
                          * The type of the eligibility restriction.<br/>The CONTINGENT_PLAN value indicates that the plan is contingent on the customer taking up an alternate fuel plan from the same retailer (for instance, if the fuelType is ELECTRICITY then a GAS plan from the same retailer must be taken up)
                          */
                         type:
-                        | "EXISTING_CUST"
-                        | "EXISTING_POOL"
-                        | "EXISTING_SOLAR"
-                        | "EXISTING_BATTERY"
-                        | "EXISTING_SMART_METER"
-                        | "EXISTING_BASIC_METER"
-                        | "SENIOR_CARD"
-                        | "SMALL_BUSINESS"
-                        | "NO_SOLAR_FIT"
-                        | "NEW_CUSTOMER"
-                        | "ONLINE_ONLY"
-                        | "REQ_EQUIP_SUPPLIER"
-                        | "THIRD_PARTY_ONLY"
-                        | "SPORT_CLUB_MEMBER"
-                        | "ORG_MEMBER"
-                        | "SPECIFIC_LOCATION"
-                        | "MINIMUM_USAGE"
-                        | "LOYALTY_MEMBER"
-                        | "GROUP_BUY_MEMBER"
-                        | "CONTINGENT_PLAN"
-                        | "OTHER";
+                            | "EXISTING_CUST"
+                            | "EXISTING_POOL"
+                            | "EXISTING_SOLAR"
+                            | "EXISTING_BATTERY"
+                            | "EXISTING_SMART_METER"
+                            | "EXISTING_BASIC_METER"
+                            | "SENIOR_CARD"
+                            | "SMALL_BUSINESS"
+                            | "NO_SOLAR_FIT"
+                            | "NEW_CUSTOMER"
+                            | "ONLINE_ONLY"
+                            | "REQ_EQUIP_SUPPLIER"
+                            | "THIRD_PARTY_ONLY"
+                            | "SPORT_CLUB_MEMBER"
+                            | "ORG_MEMBER"
+                            | "SPECIFIC_LOCATION"
+                            | "MINIMUM_USAGE"
+                            | "LOYALTY_MEMBER"
+                            | "GROUP_BUY_MEMBER"
+                            | "CONTINGENT_PLAN"
+                            | "OTHER";
                         [k: string]: unknown;
                     }>;
                     /**
@@ -2784,39 +2784,39 @@ export interface EnergyAccountDetailResponse {
                          * The term of the fee
                          */
                         term:
-                        | "FIXED"
-                        | "1_YEAR"
-                        | "2_YEAR"
-                        | "3_YEAR"
-                        | "4_YEAR"
-                        | "5_YEAR"
-                        | "PERCENT_OF_BILL"
-                        | "ANNUAL"
-                        | "DAILY"
-                        | "WEEKLY"
-                        | "MONTHLY"
-                        | "BIANNUAL"
-                        | "VARIABLE";
+                            | "FIXED"
+                            | "1_YEAR"
+                            | "2_YEAR"
+                            | "3_YEAR"
+                            | "4_YEAR"
+                            | "5_YEAR"
+                            | "PERCENT_OF_BILL"
+                            | "ANNUAL"
+                            | "DAILY"
+                            | "WEEKLY"
+                            | "MONTHLY"
+                            | "BIANNUAL"
+                            | "VARIABLE";
                         /**
                          * The type of the fee
                          */
                         type:
-                        | "EXIT"
-                        | "ESTABLISHMENT"
-                        | "LATE_PAYMENT"
-                        | "DISCONNECTION"
-                        | "DISCONNECT_MOVE_OUT"
-                        | "DISCONNECT_NON_PAY"
-                        | "RECONNECTION"
-                        | "CONNECTION"
-                        | "PAYMENT_PROCESSING"
-                        | "CC_PROCESSING"
-                        | "CHEQUE_DISHONOUR"
-                        | "DD_DISHONOUR"
-                        | "MEMBERSHIP"
-                        | "CONTRIBUTION"
-                        | "PAPER_BILL"
-                        | "OTHER";
+                            | "EXIT"
+                            | "ESTABLISHMENT"
+                            | "LATE_PAYMENT"
+                            | "DISCONNECTION"
+                            | "DISCONNECT_MOVE_OUT"
+                            | "DISCONNECT_NON_PAY"
+                            | "RECONNECTION"
+                            | "CONNECTION"
+                            | "PAYMENT_PROCESSING"
+                            | "CC_PROCESSING"
+                            | "CHEQUE_DISHONOUR"
+                            | "DD_DISHONOUR"
+                            | "MEMBERSHIP"
+                            | "CONTRIBUTION"
+                            | "PAPER_BILL"
+                            | "OTHER";
                         [k: string]: unknown;
                     }>;
                     /**
@@ -2857,12 +2857,12 @@ export interface EnergyAccountDetailResponse {
                          * The type of charge
                          */
                         type:
-                        | "FIXED_PER_DAY"
-                        | "FIXED_PER_WEEK"
-                        | "FIXED_PER_MONTH"
-                        | "FIXED_PER_UNIT"
-                        | "PERCENT_OF_USE"
-                        | "PERCENT_OF_BILL";
+                            | "FIXED_PER_DAY"
+                            | "FIXED_PER_WEEK"
+                            | "FIXED_PER_MONTH"
+                            | "FIXED_PER_UNIT"
+                            | "PERCENT_OF_USE"
+                            | "PERCENT_OF_BILL";
                         [k: string]: unknown;
                     }>;
                     /**
@@ -2913,13 +2913,13 @@ export interface EnergyAccountDetailResponse {
                      * The pricing model for the contract.  Contracts for gas must use SINGLE_RATE.  Note that the detail for the enumeration values are:<ul><li>**SINGLE_RATE** - all energy usage is charged at a single unit rate no matter when it is consumed. Multiple unit rates may exist that correspond to varying volumes of usage i.e. a ‘block’ or ‘step’ tariff (first 50kWh @ X cents, next 50kWh at Y cents etc.</li><li>**SINGLE_RATE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**TIME_OF_USE** - energy usage is charged at unit rates that vary dependent on time of day and day of week that the energy is consumed</li><li>**TIME_OF_USE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**FLEXIBLE** - energy usage is charged at unit rates that vary based on external factors</li><li>**FLEXIBLE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**QUOTA** - all energy usage is charged at a single fixed rate, up to a specified usage quota/allowance. All excess usage beyond the allowance is then charged at a single unit rate (may not be the best way to explain it but it is essentially a ‘subscription’ or telco style product i.e. $50/month for up to 150kWh included usage</li></ul>
                      */
                     pricingModel:
-                    | "SINGLE_RATE"
-                    | "SINGLE_RATE_CONT_LOAD"
-                    | "TIME_OF_USE"
-                    | "TIME_OF_USE_CONT_LOAD"
-                    | "FLEXIBLE"
-                    | "FLEXIBLE_CONT_LOAD"
-                    | "QUOTA";
+                        | "SINGLE_RATE"
+                        | "SINGLE_RATE_CONT_LOAD"
+                        | "TIME_OF_USE"
+                        | "TIME_OF_USE_CONT_LOAD"
+                        | "FLEXIBLE"
+                        | "FLEXIBLE_CONT_LOAD"
+                        | "QUOTA";
                     /**
                      * Array of feed in tariffs for solar power
                      */
@@ -3164,13 +3164,13 @@ export interface EnergyAccountDetailResponse {
                          * Type of charge. Assumed to be other if absent
                          */
                         type?:
-                        | "ENVIRONMENTAL"
-                        | "REGULATED"
-                        | "NETWORK"
-                        | "METERING"
-                        | "RETAIL_SERVICE"
-                        | "RCTI"
-                        | "OTHER";
+                            | "ENVIRONMENTAL"
+                            | "REGULATED"
+                            | "NETWORK"
+                            | "METERING"
+                            | "RETAIL_SERVICE"
+                            | "RCTI"
+                            | "OTHER";
                         [k: string]: unknown;
                     }>;
                     /**
@@ -3535,27 +3535,27 @@ export interface EnergyAccountDetailV2 extends EnergyAccountBaseV2 {
                      * The type of the eligibility restriction.<br/>The CONTINGENT_PLAN value indicates that the plan is contingent on the customer taking up an alternate fuel plan from the same retailer (for instance, if the fuelType is ELECTRICITY then a GAS plan from the same retailer must be taken up)
                      */
                     type:
-                    | "EXISTING_CUST"
-                    | "EXISTING_POOL"
-                    | "EXISTING_SOLAR"
-                    | "EXISTING_BATTERY"
-                    | "EXISTING_SMART_METER"
-                    | "EXISTING_BASIC_METER"
-                    | "SENIOR_CARD"
-                    | "SMALL_BUSINESS"
-                    | "NO_SOLAR_FIT"
-                    | "NEW_CUSTOMER"
-                    | "ONLINE_ONLY"
-                    | "REQ_EQUIP_SUPPLIER"
-                    | "THIRD_PARTY_ONLY"
-                    | "SPORT_CLUB_MEMBER"
-                    | "ORG_MEMBER"
-                    | "SPECIFIC_LOCATION"
-                    | "MINIMUM_USAGE"
-                    | "LOYALTY_MEMBER"
-                    | "GROUP_BUY_MEMBER"
-                    | "CONTINGENT_PLAN"
-                    | "OTHER";
+                        | "EXISTING_CUST"
+                        | "EXISTING_POOL"
+                        | "EXISTING_SOLAR"
+                        | "EXISTING_BATTERY"
+                        | "EXISTING_SMART_METER"
+                        | "EXISTING_BASIC_METER"
+                        | "SENIOR_CARD"
+                        | "SMALL_BUSINESS"
+                        | "NO_SOLAR_FIT"
+                        | "NEW_CUSTOMER"
+                        | "ONLINE_ONLY"
+                        | "REQ_EQUIP_SUPPLIER"
+                        | "THIRD_PARTY_ONLY"
+                        | "SPORT_CLUB_MEMBER"
+                        | "ORG_MEMBER"
+                        | "SPECIFIC_LOCATION"
+                        | "MINIMUM_USAGE"
+                        | "LOYALTY_MEMBER"
+                        | "GROUP_BUY_MEMBER"
+                        | "CONTINGENT_PLAN"
+                        | "OTHER";
                     [k: string]: unknown;
                 }>;
                 /**
@@ -3578,39 +3578,39 @@ export interface EnergyAccountDetailV2 extends EnergyAccountBaseV2 {
                      * The term of the fee
                      */
                     term:
-                    | "FIXED"
-                    | "1_YEAR"
-                    | "2_YEAR"
-                    | "3_YEAR"
-                    | "4_YEAR"
-                    | "5_YEAR"
-                    | "PERCENT_OF_BILL"
-                    | "ANNUAL"
-                    | "DAILY"
-                    | "WEEKLY"
-                    | "MONTHLY"
-                    | "BIANNUAL"
-                    | "VARIABLE";
+                        | "FIXED"
+                        | "1_YEAR"
+                        | "2_YEAR"
+                        | "3_YEAR"
+                        | "4_YEAR"
+                        | "5_YEAR"
+                        | "PERCENT_OF_BILL"
+                        | "ANNUAL"
+                        | "DAILY"
+                        | "WEEKLY"
+                        | "MONTHLY"
+                        | "BIANNUAL"
+                        | "VARIABLE";
                     /**
                      * The type of the fee
                      */
                     type:
-                    | "EXIT"
-                    | "ESTABLISHMENT"
-                    | "LATE_PAYMENT"
-                    | "DISCONNECTION"
-                    | "DISCONNECT_MOVE_OUT"
-                    | "DISCONNECT_NON_PAY"
-                    | "RECONNECTION"
-                    | "CONNECTION"
-                    | "PAYMENT_PROCESSING"
-                    | "CC_PROCESSING"
-                    | "CHEQUE_DISHONOUR"
-                    | "DD_DISHONOUR"
-                    | "MEMBERSHIP"
-                    | "CONTRIBUTION"
-                    | "PAPER_BILL"
-                    | "OTHER";
+                        | "EXIT"
+                        | "ESTABLISHMENT"
+                        | "LATE_PAYMENT"
+                        | "DISCONNECTION"
+                        | "DISCONNECT_MOVE_OUT"
+                        | "DISCONNECT_NON_PAY"
+                        | "RECONNECTION"
+                        | "CONNECTION"
+                        | "PAYMENT_PROCESSING"
+                        | "CC_PROCESSING"
+                        | "CHEQUE_DISHONOUR"
+                        | "DD_DISHONOUR"
+                        | "MEMBERSHIP"
+                        | "CONTRIBUTION"
+                        | "PAPER_BILL"
+                        | "OTHER";
                     [k: string]: unknown;
                 }>;
                 /**
@@ -3651,12 +3651,12 @@ export interface EnergyAccountDetailV2 extends EnergyAccountBaseV2 {
                      * The type of charge
                      */
                     type:
-                    | "FIXED_PER_DAY"
-                    | "FIXED_PER_WEEK"
-                    | "FIXED_PER_MONTH"
-                    | "FIXED_PER_UNIT"
-                    | "PERCENT_OF_USE"
-                    | "PERCENT_OF_BILL";
+                        | "FIXED_PER_DAY"
+                        | "FIXED_PER_WEEK"
+                        | "FIXED_PER_MONTH"
+                        | "FIXED_PER_UNIT"
+                        | "PERCENT_OF_USE"
+                        | "PERCENT_OF_BILL";
                     [k: string]: unknown;
                 }>;
                 /**
@@ -3707,13 +3707,13 @@ export interface EnergyAccountDetailV2 extends EnergyAccountBaseV2 {
                  * The pricing model for the contract.  Contracts for gas must use SINGLE_RATE.  Note that the detail for the enumeration values are:<ul><li>**SINGLE_RATE** - all energy usage is charged at a single unit rate no matter when it is consumed. Multiple unit rates may exist that correspond to varying volumes of usage i.e. a ‘block’ or ‘step’ tariff (first 50kWh @ X cents, next 50kWh at Y cents etc.</li><li>**SINGLE_RATE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**TIME_OF_USE** - energy usage is charged at unit rates that vary dependent on time of day and day of week that the energy is consumed</li><li>**TIME_OF_USE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**FLEXIBLE** - energy usage is charged at unit rates that vary based on external factors</li><li>**FLEXIBLE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**QUOTA** - all energy usage is charged at a single fixed rate, up to a specified usage quota/allowance. All excess usage beyond the allowance is then charged at a single unit rate (may not be the best way to explain it but it is essentially a ‘subscription’ or telco style product i.e. $50/month for up to 150kWh included usage</li></ul>
                  */
                 pricingModel:
-                | "SINGLE_RATE"
-                | "SINGLE_RATE_CONT_LOAD"
-                | "TIME_OF_USE"
-                | "TIME_OF_USE_CONT_LOAD"
-                | "FLEXIBLE"
-                | "FLEXIBLE_CONT_LOAD"
-                | "QUOTA";
+                    | "SINGLE_RATE"
+                    | "SINGLE_RATE_CONT_LOAD"
+                    | "TIME_OF_USE"
+                    | "TIME_OF_USE_CONT_LOAD"
+                    | "FLEXIBLE"
+                    | "FLEXIBLE_CONT_LOAD"
+                    | "QUOTA";
                 /**
                  * Array of feed in tariffs for solar power
                  */
@@ -4192,27 +4192,27 @@ export interface EnergyAccountDetailV2 extends EnergyAccountBaseV2 {
                      * The type of the eligibility restriction.<br/>The CONTINGENT_PLAN value indicates that the plan is contingent on the customer taking up an alternate fuel plan from the same retailer (for instance, if the fuelType is ELECTRICITY then a GAS plan from the same retailer must be taken up)
                      */
                     type:
-                    | "EXISTING_CUST"
-                    | "EXISTING_POOL"
-                    | "EXISTING_SOLAR"
-                    | "EXISTING_BATTERY"
-                    | "EXISTING_SMART_METER"
-                    | "EXISTING_BASIC_METER"
-                    | "SENIOR_CARD"
-                    | "SMALL_BUSINESS"
-                    | "NO_SOLAR_FIT"
-                    | "NEW_CUSTOMER"
-                    | "ONLINE_ONLY"
-                    | "REQ_EQUIP_SUPPLIER"
-                    | "THIRD_PARTY_ONLY"
-                    | "SPORT_CLUB_MEMBER"
-                    | "ORG_MEMBER"
-                    | "SPECIFIC_LOCATION"
-                    | "MINIMUM_USAGE"
-                    | "LOYALTY_MEMBER"
-                    | "GROUP_BUY_MEMBER"
-                    | "CONTINGENT_PLAN"
-                    | "OTHER";
+                        | "EXISTING_CUST"
+                        | "EXISTING_POOL"
+                        | "EXISTING_SOLAR"
+                        | "EXISTING_BATTERY"
+                        | "EXISTING_SMART_METER"
+                        | "EXISTING_BASIC_METER"
+                        | "SENIOR_CARD"
+                        | "SMALL_BUSINESS"
+                        | "NO_SOLAR_FIT"
+                        | "NEW_CUSTOMER"
+                        | "ONLINE_ONLY"
+                        | "REQ_EQUIP_SUPPLIER"
+                        | "THIRD_PARTY_ONLY"
+                        | "SPORT_CLUB_MEMBER"
+                        | "ORG_MEMBER"
+                        | "SPECIFIC_LOCATION"
+                        | "MINIMUM_USAGE"
+                        | "LOYALTY_MEMBER"
+                        | "GROUP_BUY_MEMBER"
+                        | "CONTINGENT_PLAN"
+                        | "OTHER";
                     [k: string]: unknown;
                 }>;
                 /**
@@ -4235,39 +4235,39 @@ export interface EnergyAccountDetailV2 extends EnergyAccountBaseV2 {
                      * The term of the fee
                      */
                     term:
-                    | "FIXED"
-                    | "1_YEAR"
-                    | "2_YEAR"
-                    | "3_YEAR"
-                    | "4_YEAR"
-                    | "5_YEAR"
-                    | "PERCENT_OF_BILL"
-                    | "ANNUAL"
-                    | "DAILY"
-                    | "WEEKLY"
-                    | "MONTHLY"
-                    | "BIANNUAL"
-                    | "VARIABLE";
+                        | "FIXED"
+                        | "1_YEAR"
+                        | "2_YEAR"
+                        | "3_YEAR"
+                        | "4_YEAR"
+                        | "5_YEAR"
+                        | "PERCENT_OF_BILL"
+                        | "ANNUAL"
+                        | "DAILY"
+                        | "WEEKLY"
+                        | "MONTHLY"
+                        | "BIANNUAL"
+                        | "VARIABLE";
                     /**
                      * The type of the fee
                      */
                     type:
-                    | "EXIT"
-                    | "ESTABLISHMENT"
-                    | "LATE_PAYMENT"
-                    | "DISCONNECTION"
-                    | "DISCONNECT_MOVE_OUT"
-                    | "DISCONNECT_NON_PAY"
-                    | "RECONNECTION"
-                    | "CONNECTION"
-                    | "PAYMENT_PROCESSING"
-                    | "CC_PROCESSING"
-                    | "CHEQUE_DISHONOUR"
-                    | "DD_DISHONOUR"
-                    | "MEMBERSHIP"
-                    | "CONTRIBUTION"
-                    | "PAPER_BILL"
-                    | "OTHER";
+                        | "EXIT"
+                        | "ESTABLISHMENT"
+                        | "LATE_PAYMENT"
+                        | "DISCONNECTION"
+                        | "DISCONNECT_MOVE_OUT"
+                        | "DISCONNECT_NON_PAY"
+                        | "RECONNECTION"
+                        | "CONNECTION"
+                        | "PAYMENT_PROCESSING"
+                        | "CC_PROCESSING"
+                        | "CHEQUE_DISHONOUR"
+                        | "DD_DISHONOUR"
+                        | "MEMBERSHIP"
+                        | "CONTRIBUTION"
+                        | "PAPER_BILL"
+                        | "OTHER";
                     [k: string]: unknown;
                 }>;
                 /**
@@ -4308,12 +4308,12 @@ export interface EnergyAccountDetailV2 extends EnergyAccountBaseV2 {
                      * The type of charge
                      */
                     type:
-                    | "FIXED_PER_DAY"
-                    | "FIXED_PER_WEEK"
-                    | "FIXED_PER_MONTH"
-                    | "FIXED_PER_UNIT"
-                    | "PERCENT_OF_USE"
-                    | "PERCENT_OF_BILL";
+                        | "FIXED_PER_DAY"
+                        | "FIXED_PER_WEEK"
+                        | "FIXED_PER_MONTH"
+                        | "FIXED_PER_UNIT"
+                        | "PERCENT_OF_USE"
+                        | "PERCENT_OF_BILL";
                     [k: string]: unknown;
                 }>;
                 /**
@@ -4364,13 +4364,13 @@ export interface EnergyAccountDetailV2 extends EnergyAccountBaseV2 {
                  * The pricing model for the contract.  Contracts for gas must use SINGLE_RATE.  Note that the detail for the enumeration values are:<ul><li>**SINGLE_RATE** - all energy usage is charged at a single unit rate no matter when it is consumed. Multiple unit rates may exist that correspond to varying volumes of usage i.e. a ‘block’ or ‘step’ tariff (first 50kWh @ X cents, next 50kWh at Y cents etc.</li><li>**SINGLE_RATE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**TIME_OF_USE** - energy usage is charged at unit rates that vary dependent on time of day and day of week that the energy is consumed</li><li>**TIME_OF_USE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**FLEXIBLE** - energy usage is charged at unit rates that vary based on external factors</li><li>**FLEXIBLE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**QUOTA** - all energy usage is charged at a single fixed rate, up to a specified usage quota/allowance. All excess usage beyond the allowance is then charged at a single unit rate (may not be the best way to explain it but it is essentially a ‘subscription’ or telco style product i.e. $50/month for up to 150kWh included usage</li></ul>
                  */
                 pricingModel:
-                | "SINGLE_RATE"
-                | "SINGLE_RATE_CONT_LOAD"
-                | "TIME_OF_USE"
-                | "TIME_OF_USE_CONT_LOAD"
-                | "FLEXIBLE"
-                | "FLEXIBLE_CONT_LOAD"
-                | "QUOTA";
+                    | "SINGLE_RATE"
+                    | "SINGLE_RATE_CONT_LOAD"
+                    | "TIME_OF_USE"
+                    | "TIME_OF_USE_CONT_LOAD"
+                    | "FLEXIBLE"
+                    | "FLEXIBLE_CONT_LOAD"
+                    | "QUOTA";
                 /**
                  * Array of feed in tariffs for solar power
                  */
@@ -4956,18 +4956,18 @@ export interface EnergyBillingDemandTransaction {
      * Optional array of adjustments arising for this transaction
      */
     adjustments?:
-    | Array<{
-        /**
-         * The amount of the adjustment
-         */
-        amount: string;
-        /**
-         * A free text description of the adjustment
-         */
-        description: string;
-        [k: string]: unknown;
-    }>
-    | null;
+        | Array<{
+            /**
+             * The amount of the adjustment
+             */
+            amount: string;
+            /**
+             * A free text description of the adjustment
+             */
+            description: string;
+            [k: string]: unknown;
+        }>
+        | null;
     /**
      * The amount charged or credited for this transaction prior to any adjustments being applied.  A negative value indicates a credit
      */
@@ -4976,18 +4976,18 @@ export interface EnergyBillingDemandTransaction {
      * Additional calculation factors that inform the transaction
      */
     calculationFactors?:
-    | Array<{
-        /**
-         * The type of the calculation factor
-         */
-        type: "DLF" | "MLF";
-        /**
-         * The value of the calculation factor
-         */
-        value: number;
-        [k: string]: unknown;
-    }>
-    | null;
+        | Array<{
+            /**
+             * The type of the calculation factor
+             */
+            type: "DLF" | "MLF";
+            /**
+             * The value of the calculation factor
+             */
+            value: number;
+            [k: string]: unknown;
+        }>
+        | null;
     /**
      * Optional description of the transaction that can be used for display purposes
      */
@@ -5020,15 +5020,15 @@ export interface EnergyBillingDemandTransaction {
      * The time of use type that the transaction applies to
      */
     timeOfUseType:
-    | "PEAK"
-    | "OFF_PEAK"
-    | "OFF_PEAK_DEMAND_CHARGE"
-    | "SHOULDER"
-    | "SHOULDER1"
-    | "SHOULDER2"
-    | "CONTROLLED_LOAD"
-    | "SOLAR"
-    | "AGGREGATE";
+        | "PEAK"
+        | "OFF_PEAK"
+        | "OFF_PEAK_DEMAND_CHARGE"
+        | "SHOULDER"
+        | "SHOULDER1"
+        | "SHOULDER2"
+        | "CONTROLLED_LOAD"
+        | "SOLAR"
+        | "AGGREGATE";
     [k: string]: unknown;
 }
 
@@ -5039,18 +5039,18 @@ export interface EnergyBillingDemandTransactionV2 {
      * Optional array of adjustments arising for this transaction
      */
     adjustments?:
-    | Array<{
-        /**
-         * The amount of the adjustment
-         */
-        amount: string;
-        /**
-         * A free text description of the adjustment
-         */
-        description: string;
-        [k: string]: unknown;
-    }>
-    | null;
+        | Array<{
+            /**
+             * The amount of the adjustment
+             */
+            amount: string;
+            /**
+             * A free text description of the adjustment
+             */
+            description: string;
+            [k: string]: unknown;
+        }>
+        | null;
     /**
      * The amount charged or credited for this transaction prior to any adjustments being applied.  A negative value indicates a credit
      */
@@ -5059,18 +5059,18 @@ export interface EnergyBillingDemandTransactionV2 {
      * Additional calculation factors that inform the transaction
      */
     calculationFactors?:
-    | Array<{
-        /**
-         * The type of the calculation factor
-         */
-        type: "DLF" | "MLF";
-        /**
-         * The value of the calculation factor
-         */
-        value: number;
-        [k: string]: unknown;
-    }>
-    | null;
+        | Array<{
+            /**
+             * The type of the calculation factor
+             */
+            type: "DLF" | "MLF";
+            /**
+             * The value of the calculation factor
+             */
+            value: number;
+            [k: string]: unknown;
+        }>
+        | null;
     /**
      * Optional description of the transaction that can be used for display purposes
      */
@@ -5103,17 +5103,17 @@ export interface EnergyBillingDemandTransactionV2 {
      * The time of use type that the transaction applies to
      */
     timeOfUseType:
-    | "PEAK"
-    | "OFF_PEAK"
-    | "OFF_PEAK_DEMAND_CHARGE"
-    | "SHOULDER"
-    | "SHOULDER1"
-    | "SHOULDER2"
-    | "CONTROLLED_LOAD"
-    | "SOLAR"
-    | "AGGREGATE"
-    | "ALL_DAY"
-    | "EXCESS";
+        | "PEAK"
+        | "OFF_PEAK"
+        | "OFF_PEAK_DEMAND_CHARGE"
+        | "SHOULDER"
+        | "SHOULDER1"
+        | "SHOULDER2"
+        | "CONTROLLED_LOAD"
+        | "SOLAR"
+        | "AGGREGATE"
+        | "ALL_DAY"
+        | "EXCESS";
     [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
@@ -5171,18 +5171,18 @@ export interface EnergyBillingOtherTransaction {
      * Optional array of adjustments arising for this transaction
      */
     adjustments?:
-    | Array<{
-        /**
-         * The amount of the adjustment
-         */
-        amount: string;
-        /**
-         * A free text description of the adjustment
-         */
-        description: string;
-        [k: string]: unknown;
-    }>
-    | null;
+        | Array<{
+            /**
+             * The amount of the adjustment
+             */
+            amount: string;
+            /**
+             * A free text description of the adjustment
+             */
+            description: string;
+            [k: string]: unknown;
+        }>
+        | null;
     /**
      * The amount of the charge
      */
@@ -5191,18 +5191,18 @@ export interface EnergyBillingOtherTransaction {
      * Additional calculation factors that inform the transaction
      */
     calculationFactors?:
-    | Array<{
-        /**
-         * The type of the calculation factor
-         */
-        type: "DLF" | "MLF";
-        /**
-         * The value of the calculation factor
-         */
-        value: number;
-        [k: string]: unknown;
-    }>
-    | null;
+        | Array<{
+            /**
+             * The type of the calculation factor
+             */
+            type: "DLF" | "MLF";
+            /**
+             * The value of the calculation factor
+             */
+            value: number;
+            [k: string]: unknown;
+        }>
+        | null;
     /**
      * A free text description of the item
      */
@@ -5257,18 +5257,18 @@ export interface EnergyBillingTransaction {
          * Optional array of adjustments arising for this transaction
          */
         adjustments?:
-        | Array<{
-            /**
-             * The amount of the adjustment
-             */
-            amount: string;
-            /**
-             * A free text description of the adjustment
-             */
-            description: string;
-            [k: string]: unknown;
-        }>
-        | null;
+            | Array<{
+                /**
+                 * The amount of the adjustment
+                 */
+                amount: string;
+                /**
+                 * A free text description of the adjustment
+                 */
+                description: string;
+                [k: string]: unknown;
+            }>
+            | null;
         /**
          * The amount charged or credited for this transaction prior to any adjustments being applied.  A negative value indicates a credit
          */
@@ -5277,18 +5277,18 @@ export interface EnergyBillingTransaction {
          * Additional calculation factors that inform the transaction
          */
         calculationFactors?:
-        | Array<{
-            /**
-             * The type of the calculation factor
-             */
-            type: "DLF" | "MLF";
-            /**
-             * The value of the calculation factor
-             */
-            value: number;
-            [k: string]: unknown;
-        }>
-        | null;
+            | Array<{
+                /**
+                 * The type of the calculation factor
+                 */
+                type: "DLF" | "MLF";
+                /**
+                 * The value of the calculation factor
+                 */
+                value: number;
+                [k: string]: unknown;
+            }>
+            | null;
         /**
          * Optional description of the transaction that can be used for display purposes
          */
@@ -5321,15 +5321,15 @@ export interface EnergyBillingTransaction {
          * The time of use type that the transaction applies to
          */
         timeOfUseType:
-        | "PEAK"
-        | "OFF_PEAK"
-        | "OFF_PEAK_DEMAND_CHARGE"
-        | "SHOULDER"
-        | "SHOULDER1"
-        | "SHOULDER2"
-        | "CONTROLLED_LOAD"
-        | "SOLAR"
-        | "AGGREGATE";
+            | "PEAK"
+            | "OFF_PEAK"
+            | "OFF_PEAK_DEMAND_CHARGE"
+            | "SHOULDER"
+            | "SHOULDER1"
+            | "SHOULDER2"
+            | "CONTROLLED_LOAD"
+            | "SOLAR"
+            | "AGGREGATE";
         [k: string]: unknown;
     };
     /**
@@ -5370,18 +5370,18 @@ export interface EnergyBillingTransaction {
          * Optional array of adjustments arising for this transaction
          */
         adjustments?:
-        | Array<{
-            /**
-             * The amount of the adjustment
-             */
-            amount: string;
-            /**
-             * A free text description of the adjustment
-             */
-            description: string;
-            [k: string]: unknown;
-        }>
-        | null;
+            | Array<{
+                /**
+                 * The amount of the adjustment
+                 */
+                amount: string;
+                /**
+                 * A free text description of the adjustment
+                 */
+                description: string;
+                [k: string]: unknown;
+            }>
+            | null;
         /**
          * The amount of the charge
          */
@@ -5390,18 +5390,18 @@ export interface EnergyBillingTransaction {
          * Additional calculation factors that inform the transaction
          */
         calculationFactors?:
-        | Array<{
-            /**
-             * The type of the calculation factor
-             */
-            type: "DLF" | "MLF";
-            /**
-             * The value of the calculation factor
-             */
-            value: number;
-            [k: string]: unknown;
-        }>
-        | null;
+            | Array<{
+                /**
+                 * The type of the calculation factor
+                 */
+                type: "DLF" | "MLF";
+                /**
+                 * The value of the calculation factor
+                 */
+                value: number;
+                [k: string]: unknown;
+            }>
+            | null;
         /**
          * A free text description of the item
          */
@@ -5454,18 +5454,18 @@ export interface EnergyBillingTransaction {
          * Optional array of adjustments arising for this transaction
          */
         adjustments?:
-        | Array<{
-            /**
-             * The amount of the adjustment
-             */
-            amount: string;
-            /**
-             * A free text description of the adjustment
-             */
-            description: string;
-            [k: string]: unknown;
-        }>
-        | null;
+            | Array<{
+                /**
+                 * The amount of the adjustment
+                 */
+                amount: string;
+                /**
+                 * A free text description of the adjustment
+                 */
+                description: string;
+                [k: string]: unknown;
+            }>
+            | null;
         /**
          * The amount charged or credited for this transaction prior to any adjustments being applied.  A negative value indicates a credit
          */
@@ -5474,18 +5474,18 @@ export interface EnergyBillingTransaction {
          * Additional calculation factors that inform the transaction
          */
         calculationFactors?:
-        | Array<{
-            /**
-             * The type of the calculation factor
-             */
-            type: "DLF" | "MLF";
-            /**
-             * The value of the calculation factor
-             */
-            value: number;
-            [k: string]: unknown;
-        }>
-        | null;
+            | Array<{
+                /**
+                 * The type of the calculation factor
+                 */
+                type: "DLF" | "MLF";
+                /**
+                 * The value of the calculation factor
+                 */
+                value: number;
+                [k: string]: unknown;
+            }>
+            | null;
         /**
          * Optional description of the transaction that can be used for display purposes
          */
@@ -5518,15 +5518,15 @@ export interface EnergyBillingTransaction {
          * The time of use type that the transaction applies to
          */
         timeOfUseType:
-        | "PEAK"
-        | "OFF_PEAK"
-        | "OFF_PEAK_DEMAND_CHARGE"
-        | "SHOULDER"
-        | "SHOULDER1"
-        | "SHOULDER2"
-        | "CONTROLLED_LOAD"
-        | "SOLAR"
-        | "AGGREGATE";
+            | "PEAK"
+            | "OFF_PEAK"
+            | "OFF_PEAK_DEMAND_CHARGE"
+            | "SHOULDER"
+            | "SHOULDER1"
+            | "SHOULDER2"
+            | "CONTROLLED_LOAD"
+            | "SOLAR"
+            | "AGGREGATE";
         /**
          * The usage for the period in measure unit.  A negative value indicates power generated
          */
@@ -5551,18 +5551,18 @@ export interface EnergyBillingTransactionV2 {
          * Optional array of adjustments arising for this transaction
          */
         adjustments?:
-        | Array<{
-            /**
-             * The amount of the adjustment
-             */
-            amount: string;
-            /**
-             * A free text description of the adjustment
-             */
-            description: string;
-            [k: string]: unknown;
-        }>
-        | null;
+            | Array<{
+                /**
+                 * The amount of the adjustment
+                 */
+                amount: string;
+                /**
+                 * A free text description of the adjustment
+                 */
+                description: string;
+                [k: string]: unknown;
+            }>
+            | null;
         /**
          * The amount charged or credited for this transaction prior to any adjustments being applied.  A negative value indicates a credit
          */
@@ -5571,18 +5571,18 @@ export interface EnergyBillingTransactionV2 {
          * Additional calculation factors that inform the transaction
          */
         calculationFactors?:
-        | Array<{
-            /**
-             * The type of the calculation factor
-             */
-            type: "DLF" | "MLF";
-            /**
-             * The value of the calculation factor
-             */
-            value: number;
-            [k: string]: unknown;
-        }>
-        | null;
+            | Array<{
+                /**
+                 * The type of the calculation factor
+                 */
+                type: "DLF" | "MLF";
+                /**
+                 * The value of the calculation factor
+                 */
+                value: number;
+                [k: string]: unknown;
+            }>
+            | null;
         /**
          * Optional description of the transaction that can be used for display purposes
          */
@@ -5615,17 +5615,17 @@ export interface EnergyBillingTransactionV2 {
          * The time of use type that the transaction applies to
          */
         timeOfUseType:
-        | "PEAK"
-        | "OFF_PEAK"
-        | "OFF_PEAK_DEMAND_CHARGE"
-        | "SHOULDER"
-        | "SHOULDER1"
-        | "SHOULDER2"
-        | "CONTROLLED_LOAD"
-        | "SOLAR"
-        | "AGGREGATE"
-        | "ALL_DAY"
-        | "EXCESS";
+            | "PEAK"
+            | "OFF_PEAK"
+            | "OFF_PEAK_DEMAND_CHARGE"
+            | "SHOULDER"
+            | "SHOULDER1"
+            | "SHOULDER2"
+            | "CONTROLLED_LOAD"
+            | "SOLAR"
+            | "AGGREGATE"
+            | "ALL_DAY"
+            | "EXCESS";
         [k: string]: unknown;
     };
     /**
@@ -5666,18 +5666,18 @@ export interface EnergyBillingTransactionV2 {
          * Optional array of adjustments arising for this transaction
          */
         adjustments?:
-        | Array<{
-            /**
-             * The amount of the adjustment
-             */
-            amount: string;
-            /**
-             * A free text description of the adjustment
-             */
-            description: string;
-            [k: string]: unknown;
-        }>
-        | null;
+            | Array<{
+                /**
+                 * The amount of the adjustment
+                 */
+                amount: string;
+                /**
+                 * A free text description of the adjustment
+                 */
+                description: string;
+                [k: string]: unknown;
+            }>
+            | null;
         /**
          * The amount of the charge
          */
@@ -5686,18 +5686,18 @@ export interface EnergyBillingTransactionV2 {
          * Additional calculation factors that inform the transaction
          */
         calculationFactors?:
-        | Array<{
-            /**
-             * The type of the calculation factor
-             */
-            type: "DLF" | "MLF";
-            /**
-             * The value of the calculation factor
-             */
-            value: number;
-            [k: string]: unknown;
-        }>
-        | null;
+            | Array<{
+                /**
+                 * The type of the calculation factor
+                 */
+                type: "DLF" | "MLF";
+                /**
+                 * The value of the calculation factor
+                 */
+                value: number;
+                [k: string]: unknown;
+            }>
+            | null;
         /**
          * A free text description of the item
          */
@@ -5750,18 +5750,18 @@ export interface EnergyBillingTransactionV2 {
          * Optional array of adjustments arising for this transaction
          */
         adjustments?:
-        | Array<{
-            /**
-             * The amount of the adjustment
-             */
-            amount: string;
-            /**
-             * A free text description of the adjustment
-             */
-            description: string;
-            [k: string]: unknown;
-        }>
-        | null;
+            | Array<{
+                /**
+                 * The amount of the adjustment
+                 */
+                amount: string;
+                /**
+                 * A free text description of the adjustment
+                 */
+                description: string;
+                [k: string]: unknown;
+            }>
+            | null;
         /**
          * The amount charged or credited for this transaction prior to any adjustments being applied.  A negative value indicates a credit
          */
@@ -5770,18 +5770,18 @@ export interface EnergyBillingTransactionV2 {
          * Additional calculation factors that inform the transaction
          */
         calculationFactors?:
-        | Array<{
-            /**
-             * The type of the calculation factor
-             */
-            type: "DLF" | "MLF";
-            /**
-             * The value of the calculation factor
-             */
-            value: number;
-            [k: string]: unknown;
-        }>
-        | null;
+            | Array<{
+                /**
+                 * The type of the calculation factor
+                 */
+                type: "DLF" | "MLF";
+                /**
+                 * The value of the calculation factor
+                 */
+                value: number;
+                [k: string]: unknown;
+            }>
+            | null;
         /**
          * Optional description of the transaction that can be used for display purposes
          */
@@ -5814,16 +5814,16 @@ export interface EnergyBillingTransactionV2 {
          * The time of use type that the transaction applies to
          */
         timeOfUseType:
-        | "PEAK"
-        | "OFF_PEAK"
-        | "OFF_PEAK_DEMAND_CHARGE"
-        | "SHOULDER"
-        | "SHOULDER1"
-        | "SHOULDER2"
-        | "CONTROLLED_LOAD"
-        | "SOLAR"
-        | "AGGREGATE"
-        | "ALL_DAY";
+            | "PEAK"
+            | "OFF_PEAK"
+            | "OFF_PEAK_DEMAND_CHARGE"
+            | "SHOULDER"
+            | "SHOULDER1"
+            | "SHOULDER2"
+            | "CONTROLLED_LOAD"
+            | "SOLAR"
+            | "AGGREGATE"
+            | "ALL_DAY";
         /**
          * The usage for the period in measure unit.  A negative value indicates power generated
          */
@@ -5839,18 +5839,18 @@ export interface EnergyBillingUsageTransaction {
      * Optional array of adjustments arising for this transaction
      */
     adjustments?:
-    | Array<{
-        /**
-         * The amount of the adjustment
-         */
-        amount: string;
-        /**
-         * A free text description of the adjustment
-         */
-        description: string;
-        [k: string]: unknown;
-    }>
-    | null;
+        | Array<{
+            /**
+             * The amount of the adjustment
+             */
+            amount: string;
+            /**
+             * A free text description of the adjustment
+             */
+            description: string;
+            [k: string]: unknown;
+        }>
+        | null;
     /**
      * The amount charged or credited for this transaction prior to any adjustments being applied.  A negative value indicates a credit
      */
@@ -5859,18 +5859,18 @@ export interface EnergyBillingUsageTransaction {
      * Additional calculation factors that inform the transaction
      */
     calculationFactors?:
-    | Array<{
-        /**
-         * The type of the calculation factor
-         */
-        type: "DLF" | "MLF";
-        /**
-         * The value of the calculation factor
-         */
-        value: number;
-        [k: string]: unknown;
-    }>
-    | null;
+        | Array<{
+            /**
+             * The type of the calculation factor
+             */
+            type: "DLF" | "MLF";
+            /**
+             * The value of the calculation factor
+             */
+            value: number;
+            [k: string]: unknown;
+        }>
+        | null;
     /**
      * Optional description of the transaction that can be used for display purposes
      */
@@ -5903,15 +5903,15 @@ export interface EnergyBillingUsageTransaction {
      * The time of use type that the transaction applies to
      */
     timeOfUseType:
-    | "PEAK"
-    | "OFF_PEAK"
-    | "OFF_PEAK_DEMAND_CHARGE"
-    | "SHOULDER"
-    | "SHOULDER1"
-    | "SHOULDER2"
-    | "CONTROLLED_LOAD"
-    | "SOLAR"
-    | "AGGREGATE";
+        | "PEAK"
+        | "OFF_PEAK"
+        | "OFF_PEAK_DEMAND_CHARGE"
+        | "SHOULDER"
+        | "SHOULDER1"
+        | "SHOULDER2"
+        | "CONTROLLED_LOAD"
+        | "SOLAR"
+        | "AGGREGATE";
     /**
      * The usage for the period in measure unit.  A negative value indicates power generated
      */
@@ -5926,18 +5926,18 @@ export interface EnergyBillingUsageTransactionV2 {
      * Optional array of adjustments arising for this transaction
      */
     adjustments?:
-    | Array<{
-        /**
-         * The amount of the adjustment
-         */
-        amount: string;
-        /**
-         * A free text description of the adjustment
-         */
-        description: string;
-        [k: string]: unknown;
-    }>
-    | null;
+        | Array<{
+            /**
+             * The amount of the adjustment
+             */
+            amount: string;
+            /**
+             * A free text description of the adjustment
+             */
+            description: string;
+            [k: string]: unknown;
+        }>
+        | null;
     /**
      * The amount charged or credited for this transaction prior to any adjustments being applied.  A negative value indicates a credit
      */
@@ -5946,18 +5946,18 @@ export interface EnergyBillingUsageTransactionV2 {
      * Additional calculation factors that inform the transaction
      */
     calculationFactors?:
-    | Array<{
-        /**
-         * The type of the calculation factor
-         */
-        type: "DLF" | "MLF";
-        /**
-         * The value of the calculation factor
-         */
-        value: number;
-        [k: string]: unknown;
-    }>
-    | null;
+        | Array<{
+            /**
+             * The type of the calculation factor
+             */
+            type: "DLF" | "MLF";
+            /**
+             * The value of the calculation factor
+             */
+            value: number;
+            [k: string]: unknown;
+        }>
+        | null;
     /**
      * Optional description of the transaction that can be used for display purposes
      */
@@ -5990,16 +5990,16 @@ export interface EnergyBillingUsageTransactionV2 {
      * The time of use type that the transaction applies to
      */
     timeOfUseType:
-    | "PEAK"
-    | "OFF_PEAK"
-    | "OFF_PEAK_DEMAND_CHARGE"
-    | "SHOULDER"
-    | "SHOULDER1"
-    | "SHOULDER2"
-    | "CONTROLLED_LOAD"
-    | "SOLAR"
-    | "AGGREGATE"
-    | "ALL_DAY";
+        | "PEAK"
+        | "OFF_PEAK"
+        | "OFF_PEAK_DEMAND_CHARGE"
+        | "SHOULDER"
+        | "SHOULDER1"
+        | "SHOULDER2"
+        | "CONTROLLED_LOAD"
+        | "SOLAR"
+        | "AGGREGATE"
+        | "ALL_DAY";
     /**
      * The usage for the period in measure unit.  A negative value indicates power generated
      */
@@ -6300,22 +6300,22 @@ export interface EnergyInvoice {
          * Optional array of charges that may be part of the invoice (for e.g. environmental charges for C&I consumers) (exclusive of GST)
          */
         otherCharges?:
-        | Array<{
-            /**
-             * The aggregate total of charges for this item (exclusive of GST)
-             */
-            amount: string;
-            /**
-             * A free text description of the type of charge
-             */
-            description: string;
-            /**
-             * Type of charge. Assumed to be other if absent
-             */
-            type?: "ENVIRONMENTAL" | "REGULATED" | "NETWORK" | "METERING" | "RETAIL_SERVICE" | "RCTI" | "OTHER";
-            [k: string]: unknown;
-        }>
-        | null;
+            | Array<{
+                /**
+                 * The aggregate total of charges for this item (exclusive of GST)
+                 */
+                amount: string;
+                /**
+                 * A free text description of the type of charge
+                 */
+                description: string;
+                /**
+                 * Type of charge. Assumed to be other if absent
+                 */
+                type?: "ENVIRONMENTAL" | "REGULATED" | "NETWORK" | "METERING" | "RETAIL_SERVICE" | "RCTI" | "OTHER";
+                [k: string]: unknown;
+            }>
+            | null;
         /**
          * The aggregate total of generation credits for the period covered by the invoice (exclusive of GST)
          */
@@ -6346,22 +6346,22 @@ export interface EnergyInvoice {
          * Optional array of charges that may be part of the invoice (for e.g. environmental charges for C&I consumers) (exclusive of GST)
          */
         otherCharges?:
-        | Array<{
-            /**
-             * The aggregate total of charges for this item (exclusive of GST)
-             */
-            amount: string;
-            /**
-             * A free text description of the type of charge
-             */
-            description: string;
-            /**
-             * Type of charge. Assumed to be other if absent
-             */
-            type?: "ENVIRONMENTAL" | "REGULATED" | "NETWORK" | "METERING" | "RETAIL_SERVICE" | "RCTI" | "OTHER";
-            [k: string]: unknown;
-        }>
-        | null;
+            | Array<{
+                /**
+                 * The aggregate total of charges for this item (exclusive of GST)
+                 */
+                amount: string;
+                /**
+                 * A free text description of the type of charge
+                 */
+                description: string;
+                /**
+                 * Type of charge. Assumed to be other if absent
+                 */
+                type?: "ENVIRONMENTAL" | "REGULATED" | "NETWORK" | "METERING" | "RETAIL_SERVICE" | "RCTI" | "OTHER";
+                [k: string]: unknown;
+            }>
+            | null;
         /**
          * The aggregate total of generation credits for the period covered by the invoice (exclusive of GST)
          */
@@ -6469,22 +6469,22 @@ export interface EnergyInvoiceElectricityUsageCharges {
      * Optional array of charges that may be part of the invoice (for e.g. environmental charges for C&I consumers) (exclusive of GST)
      */
     otherCharges?:
-    | Array<{
-        /**
-         * The aggregate total of charges for this item (exclusive of GST)
-         */
-        amount: string;
-        /**
-         * A free text description of the type of charge
-         */
-        description: string;
-        /**
-         * Type of charge. Assumed to be other if absent
-         */
-        type?: "ENVIRONMENTAL" | "REGULATED" | "NETWORK" | "METERING" | "RETAIL_SERVICE" | "RCTI" | "OTHER";
-        [k: string]: unknown;
-    }>
-    | null;
+        | Array<{
+            /**
+             * The aggregate total of charges for this item (exclusive of GST)
+             */
+            amount: string;
+            /**
+             * A free text description of the type of charge
+             */
+            description: string;
+            /**
+             * Type of charge. Assumed to be other if absent
+             */
+            type?: "ENVIRONMENTAL" | "REGULATED" | "NETWORK" | "METERING" | "RETAIL_SERVICE" | "RCTI" | "OTHER";
+            [k: string]: unknown;
+        }>
+        | null;
     /**
      * The aggregate total of generation credits for the period covered by the invoice (exclusive of GST)
      */
@@ -6514,22 +6514,22 @@ export interface EnergyInvoiceGasUsageCharges {
      * Optional array of charges that may be part of the invoice (for e.g. environmental charges for C&I consumers) (exclusive of GST)
      */
     otherCharges?:
-    | Array<{
-        /**
-         * The aggregate total of charges for this item (exclusive of GST)
-         */
-        amount: string;
-        /**
-         * A free text description of the type of charge
-         */
-        description: string;
-        /**
-         * Type of charge. Assumed to be other if absent
-         */
-        type?: "ENVIRONMENTAL" | "REGULATED" | "NETWORK" | "METERING" | "RETAIL_SERVICE" | "RCTI" | "OTHER";
-        [k: string]: unknown;
-    }>
-    | null;
+        | Array<{
+            /**
+             * The aggregate total of charges for this item (exclusive of GST)
+             */
+            amount: string;
+            /**
+             * A free text description of the type of charge
+             */
+            description: string;
+            /**
+             * Type of charge. Assumed to be other if absent
+             */
+            type?: "ENVIRONMENTAL" | "REGULATED" | "NETWORK" | "METERING" | "RETAIL_SERVICE" | "RCTI" | "OTHER";
+            [k: string]: unknown;
+        }>
+        | null;
     /**
      * The aggregate total of generation credits for the period covered by the invoice (exclusive of GST)
      */
@@ -6830,13 +6830,13 @@ export interface EnergyPlanContract {
      * The pricing model for the contract.  Contracts for gas must use SINGLE_RATE.  Note that the detail for the enumeration values are:<ul><li>**SINGLE_RATE** - all energy usage is charged at a single unit rate no matter when it is consumed. Multiple unit rates may exist that correspond to varying volumes of usage i.e. a ‘block’ or ‘step’ tariff (first 50kWh @ X cents, next 50kWh at Y cents etc.</li><li>**SINGLE_RATE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**TIME_OF_USE** - energy usage is charged at unit rates that vary dependent on time of day and day of week that the energy is consumed</li><li>**TIME_OF_USE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**FLEXIBLE** - energy usage is charged at unit rates that vary based on external factors</li><li>**FLEXIBLE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**QUOTA** - all energy usage is charged at a single fixed rate, up to a specified usage quota/allowance. All excess usage beyond the allowance is then charged at a single unit rate (may not be the best way to explain it but it is essentially a ‘subscription’ or telco style product i.e. $50/month for up to 150kWh included usage</li></ul>
      */
     pricingModel:
-    | "SINGLE_RATE"
-    | "SINGLE_RATE_CONT_LOAD"
-    | "TIME_OF_USE"
-    | "TIME_OF_USE_CONT_LOAD"
-    | "FLEXIBLE"
-    | "FLEXIBLE_CONT_LOAD"
-    | "QUOTA";
+        | "SINGLE_RATE"
+        | "SINGLE_RATE_CONT_LOAD"
+        | "TIME_OF_USE"
+        | "TIME_OF_USE_CONT_LOAD"
+        | "FLEXIBLE"
+        | "FLEXIBLE_CONT_LOAD"
+        | "QUOTA";
     /**
      * Array of feed in tariffs for solar power
      */
@@ -6913,13 +6913,13 @@ export interface EnergyPlanContractV2 {
      * The pricing model for the contract.  Contracts for gas must use SINGLE_RATE.  Note that the detail for the enumeration values are:<ul><li>**SINGLE_RATE** - all energy usage is charged at a single unit rate no matter when it is consumed. Multiple unit rates may exist that correspond to varying volumes of usage i.e. a ‘block’ or ‘step’ tariff (first 50kWh @ X cents, next 50kWh at Y cents etc.</li><li>**SINGLE_RATE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**TIME_OF_USE** - energy usage is charged at unit rates that vary dependent on time of day and day of week that the energy is consumed</li><li>**TIME_OF_USE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**FLEXIBLE** - energy usage is charged at unit rates that vary based on external factors</li><li>**FLEXIBLE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**QUOTA** - all energy usage is charged at a single fixed rate, up to a specified usage quota/allowance. All excess usage beyond the allowance is then charged at a single unit rate (may not be the best way to explain it but it is essentially a ‘subscription’ or telco style product i.e. $50/month for up to 150kWh included usage</li></ul>
      */
     pricingModel:
-    | "SINGLE_RATE"
-    | "SINGLE_RATE_CONT_LOAD"
-    | "TIME_OF_USE"
-    | "TIME_OF_USE_CONT_LOAD"
-    | "FLEXIBLE"
-    | "FLEXIBLE_CONT_LOAD"
-    | "QUOTA";
+        | "SINGLE_RATE"
+        | "SINGLE_RATE_CONT_LOAD"
+        | "TIME_OF_USE"
+        | "TIME_OF_USE_CONT_LOAD"
+        | "FLEXIBLE"
+        | "FLEXIBLE_CONT_LOAD"
+        | "QUOTA";
     /**
      * Array of feed in tariffs for solar power
      */
@@ -7296,27 +7296,27 @@ export interface EnergyPlanEligibility {
      * The type of the eligibility restriction.<br/>The CONTINGENT_PLAN value indicates that the plan is contingent on the customer taking up an alternate fuel plan from the same retailer (for instance, if the fuelType is ELECTRICITY then a GAS plan from the same retailer must be taken up)
      */
     type:
-    | "EXISTING_CUST"
-    | "EXISTING_POOL"
-    | "EXISTING_SOLAR"
-    | "EXISTING_BATTERY"
-    | "EXISTING_SMART_METER"
-    | "EXISTING_BASIC_METER"
-    | "SENIOR_CARD"
-    | "SMALL_BUSINESS"
-    | "NO_SOLAR_FIT"
-    | "NEW_CUSTOMER"
-    | "ONLINE_ONLY"
-    | "REQ_EQUIP_SUPPLIER"
-    | "THIRD_PARTY_ONLY"
-    | "SPORT_CLUB_MEMBER"
-    | "ORG_MEMBER"
-    | "SPECIFIC_LOCATION"
-    | "MINIMUM_USAGE"
-    | "LOYALTY_MEMBER"
-    | "GROUP_BUY_MEMBER"
-    | "CONTINGENT_PLAN"
-    | "OTHER";
+        | "EXISTING_CUST"
+        | "EXISTING_POOL"
+        | "EXISTING_SOLAR"
+        | "EXISTING_BATTERY"
+        | "EXISTING_SMART_METER"
+        | "EXISTING_BASIC_METER"
+        | "SENIOR_CARD"
+        | "SMALL_BUSINESS"
+        | "NO_SOLAR_FIT"
+        | "NEW_CUSTOMER"
+        | "ONLINE_ONLY"
+        | "REQ_EQUIP_SUPPLIER"
+        | "THIRD_PARTY_ONLY"
+        | "SPORT_CLUB_MEMBER"
+        | "ORG_MEMBER"
+        | "SPECIFIC_LOCATION"
+        | "MINIMUM_USAGE"
+        | "LOYALTY_MEMBER"
+        | "GROUP_BUY_MEMBER"
+        | "CONTINGENT_PLAN"
+        | "OTHER";
     [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
@@ -7341,39 +7341,39 @@ export interface EnergyPlanFees {
      * The term of the fee
      */
     term:
-    | "FIXED"
-    | "1_YEAR"
-    | "2_YEAR"
-    | "3_YEAR"
-    | "4_YEAR"
-    | "5_YEAR"
-    | "PERCENT_OF_BILL"
-    | "ANNUAL"
-    | "DAILY"
-    | "WEEKLY"
-    | "MONTHLY"
-    | "BIANNUAL"
-    | "VARIABLE";
+        | "FIXED"
+        | "1_YEAR"
+        | "2_YEAR"
+        | "3_YEAR"
+        | "4_YEAR"
+        | "5_YEAR"
+        | "PERCENT_OF_BILL"
+        | "ANNUAL"
+        | "DAILY"
+        | "WEEKLY"
+        | "MONTHLY"
+        | "BIANNUAL"
+        | "VARIABLE";
     /**
      * The type of the fee
      */
     type:
-    | "EXIT"
-    | "ESTABLISHMENT"
-    | "LATE_PAYMENT"
-    | "DISCONNECTION"
-    | "DISCONNECT_MOVE_OUT"
-    | "DISCONNECT_NON_PAY"
-    | "RECONNECTION"
-    | "CONNECTION"
-    | "PAYMENT_PROCESSING"
-    | "CC_PROCESSING"
-    | "CHEQUE_DISHONOUR"
-    | "DD_DISHONOUR"
-    | "MEMBERSHIP"
-    | "CONTRIBUTION"
-    | "PAPER_BILL"
-    | "OTHER";
+        | "EXIT"
+        | "ESTABLISHMENT"
+        | "LATE_PAYMENT"
+        | "DISCONNECTION"
+        | "DISCONNECT_MOVE_OUT"
+        | "DISCONNECT_NON_PAY"
+        | "RECONNECTION"
+        | "CONNECTION"
+        | "PAYMENT_PROCESSING"
+        | "CC_PROCESSING"
+        | "CHEQUE_DISHONOUR"
+        | "DD_DISHONOUR"
+        | "MEMBERSHIP"
+        | "CONTRIBUTION"
+        | "PAPER_BILL"
+        | "OTHER";
     [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
@@ -7416,12 +7416,12 @@ export interface EnergyPlanGreenPowerCharges {
      * The type of charge
      */
     type:
-    | "FIXED_PER_DAY"
-    | "FIXED_PER_WEEK"
-    | "FIXED_PER_MONTH"
-    | "FIXED_PER_UNIT"
-    | "PERCENT_OF_USE"
-    | "PERCENT_OF_BILL";
+        | "FIXED_PER_DAY"
+        | "FIXED_PER_WEEK"
+        | "FIXED_PER_MONTH"
+        | "FIXED_PER_UNIT"
+        | "PERCENT_OF_USE"
+        | "PERCENT_OF_BILL";
     [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
@@ -7831,14 +7831,14 @@ export interface EnergyServicePoint {
      * The classification of the service point as defined in MSATS procedures
      */
     servicePointClassification:
-    | "EXTERNAL_PROFILE"
-    | "GENERATOR"
-    | "LARGE"
-    | "SMALL"
-    | "WHOLESALE"
-    | "NON_CONTEST_UNMETERED_LOAD"
-    | "NON_REGISTERED_EMBEDDED_GENERATOR"
-    | "DISTRIBUTION_WHOLESALE";
+        | "EXTERNAL_PROFILE"
+        | "GENERATOR"
+        | "LARGE"
+        | "SMALL"
+        | "WHOLESALE"
+        | "NON_CONTEST_UNMETERED_LOAD"
+        | "NON_REGISTERED_EMBEDDED_GENERATOR"
+        | "DISTRIBUTION_WHOLESALE";
     /**
      * Tokenised ID of the service point to be used for referring to the service point in the CDR API suite. To be created in accordance with CDR ID permanence requirements
      */
@@ -8040,120 +8040,120 @@ export interface EnergyServicePointDetail {
      * The meters associated with the service point. This may be empty where there are no meters physically installed at the service point
      */
     meters?:
-    | Array<{
-        /**
-         * The meter ID uniquely identifies a meter for a given service point.  It is unique in the context of the service point.  It is not globally unique
-         */
-        meterId: string;
-        /**
-         * Usage data registers available from the meter. This may be empty where there are no meters physically installed at the service point
-         */
-        registers?: Array<{
+        | Array<{
             /**
-             * The energy delivered through a connection point or metering point over an extended period normalised to a 'per day' basis (kWh). This value is calculated annually.
+             * The meter ID uniquely identifies a meter for a given service point.  It is unique in the context of the service point.  It is not globally unique
              */
-            averagedDailyLoad?: number;
+            meterId: string;
             /**
-             * Actual/Subtractive Indicator. Note the details of enumeration values below: <ul><li>**ACTUAL** implies volume of energy actually metered between two dates</li><li>**CUMULATIVE** indicates a meter reading for a specific date. A second Meter Reading is required to determine the consumption between those two Meter Reading dates</li></ul>
+             * Usage data registers available from the meter. This may be empty where there are no meters physically installed at the service point
              */
-            consumptionType?: "ACTUAL" | "CUMULATIVE";
+            registers?: Array<{
+                /**
+                 * The energy delivered through a connection point or metering point over an extended period normalised to a 'per day' basis (kWh). This value is calculated annually.
+                 */
+                averagedDailyLoad?: number;
+                /**
+                 * Actual/Subtractive Indicator. Note the details of enumeration values below: <ul><li>**ACTUAL** implies volume of energy actually metered between two dates</li><li>**CUMULATIVE** indicates a meter reading for a specific date. A second Meter Reading is required to determine the consumption between those two Meter Reading dates</li></ul>
+                 */
+                consumptionType?: "ACTUAL" | "CUMULATIVE";
+                /**
+                 * Indicates whether the energy recorded by this register is created under a Controlled Load regime
+                 */
+                controlledLoad?: boolean;
+                /**
+                 * Multiplier required to take a register value and turn it into a value representing billable energy
+                 */
+                multiplier?: number;
+                /**
+                 * The Network Tariff Code is a free text field containing a code supplied and published by the local network service provider
+                 */
+                networkTariffCode?: string;
+                /**
+                 * Indicates the consumption type of register
+                 */
+                registerConsumptionType:
+                    | "INTERVAL"
+                    | "BASIC"
+                    | "PROFILE_DATA"
+                    | "ACTIVE_IMPORT"
+                    | "ACTIVE"
+                    | "REACTIVE_IMPORT"
+                    | "REACTIVE";
+                /**
+                 * Unique identifier of the register within this service point.  Is not globally unique
+                 */
+                registerId: string;
+                /**
+                 * Register suffix of the meter register where the meter reads are obtained
+                 */
+                registerSuffix?: string;
+                /**
+                 * Code to identify the time validity of register contents
+                 */
+                timeOfDay?:
+                    | "ALLDAY"
+                    | "INTERVAL"
+                    | "PEAK"
+                    | "BUSINESS"
+                    | "SHOULDER"
+                    | "EVENING"
+                    | "OFFPEAK"
+                    | "CONTROLLED"
+                    | "DEMAND";
+                /**
+                 * The unit of measure for data held in this register
+                 */
+                unitOfMeasure?: string;
+                [k: string]: unknown;
+            }>;
             /**
-             * Indicates whether the energy recorded by this register is created under a Controlled Load regime
+             * Technical characteristics of the meter
              */
-            controlledLoad?: boolean;
-            /**
-             * Multiplier required to take a register value and turn it into a value representing billable energy
-             */
-            multiplier?: number;
-            /**
-             * The Network Tariff Code is a free text field containing a code supplied and published by the local network service provider
-             */
-            networkTariffCode?: string;
-            /**
-             * Indicates the consumption type of register
-             */
-            registerConsumptionType:
-            | "INTERVAL"
-            | "BASIC"
-            | "PROFILE_DATA"
-            | "ACTIVE_IMPORT"
-            | "ACTIVE"
-            | "REACTIVE_IMPORT"
-            | "REACTIVE";
-            /**
-             * Unique identifier of the register within this service point.  Is not globally unique
-             */
-            registerId: string;
-            /**
-             * Register suffix of the meter register where the meter reads are obtained
-             */
-            registerSuffix?: string;
-            /**
-             * Code to identify the time validity of register contents
-             */
-            timeOfDay?:
-            | "ALLDAY"
-            | "INTERVAL"
-            | "PEAK"
-            | "BUSINESS"
-            | "SHOULDER"
-            | "EVENING"
-            | "OFFPEAK"
-            | "CONTROLLED"
-            | "DEMAND";
-            /**
-             * The unit of measure for data held in this register
-             */
-            unitOfMeasure?: string;
+            specifications: {
+                /**
+                 * The metering Installation type code indicates whether the metering installation has to be manually read. Note the details of enumeration values below: <ul><li>**BASIC** - Accumulation Meter – Type 6</li><li>**COMMS1** - Interval Meter with communications – Type 1</li><li>**COMMS2** - Interval Meter with communications – Type 2</li><li>**COMMS3** - Interval Meter with communications – Type 3</li><li>**COMMS4** - Interval Meter with communications – Type 4</li><li>**COMMS4C** - CT connected metering installation that meets the minimum services specifications</li><li>**COMMS4D** - Whole current metering installation that meets the minimum services specifications</li><li>**MRAM** - Small customer metering installation – Type 4A</li><li>**MRIM** - Manually Read Interval Meter – Type 5</li><li>**UMCP** - Unmetered Supply – Type 7</li><li>**VICAMI** - A relevant metering installation as defined in clause 9.9C of the NER</li><li>**NCONUML** - Non-contestable unmeter load - Introduced as part of Global Settlement</li></ul>
+                 */
+                installationType:
+                    | "BASIC"
+                    | "COMMS1"
+                    | "COMMS2"
+                    | "COMMS3"
+                    | "COMMS4"
+                    | "COMMS4C"
+                    | "COMMS4D"
+                    | "MRAM"
+                    | "MRIM"
+                    | "PROF"
+                    | "SAMPLE"
+                    | "UMCP"
+                    | "VICAMI"
+                    | "NCOLNUML";
+                /**
+                 * Free text field to identify the manufacturer of the installed meter
+                 */
+                manufacturer?: string;
+                /**
+                 * Free text field to identify the meter manufacturer’s designation for the meter model
+                 */
+                model?: string;
+                /**
+                 * This date is the next scheduled meter read date (NSRD) if a manual Meter Reading is required
+                 */
+                nextScheduledReadDate?: string;
+                /**
+                 * Code to denote the method and frequency of Meter Reading. The value is formatted as follows: <ul><li>First Character = Remote (R) or Manual (M)</li><li>Second Character = Mode: T = telephone W = wireless P = powerline I = infra-red G = galvanic V = visual </li><li>Third Character = Frequency of Scheduled Meter Readings: 1 = Twelve times per year 2 = Six times per year 3 = Four times per year D = Daily or weekly</li><li>Optional Fourth Character = to identify what interval length the meter is capable of reading. This includes five, 15 and 30 minute granularity as the following: A – 5 minute B – 15 minute C – 30 minute D – Cannot convert to 5 minute (i.e. due to metering installation de-energised) M - Manually Read Accumulation Meter</li></ul> For example, <ul><li>MV3 = Manual, Visual, Quarterly</li> <li>MV3M = Manual, Visual, Quarterly, Manually Read Accumulation Meter</li> <li>RWDC = Remote, Wireless, Daily, 30 minutes interval</li></ul>
+                 */
+                readType?: string;
+                /**
+                 * A code to denote the status of the meter. Note the details of enumeration values below: <ul><li>**CURRENT** -Applies when a meter is current and not disconnected</li><li>**DISCONNECTED** - Applies when a meter is present but has been remotely disconnected</li></ul>
+                 */
+                status: "CURRENT" | "DISCONNECTED";
+                [k: string]: unknown;
+            };
             [k: string]: unknown;
-        }>;
-        /**
-         * Technical characteristics of the meter
-         */
-        specifications: {
-            /**
-             * The metering Installation type code indicates whether the metering installation has to be manually read. Note the details of enumeration values below: <ul><li>**BASIC** - Accumulation Meter – Type 6</li><li>**COMMS1** - Interval Meter with communications – Type 1</li><li>**COMMS2** - Interval Meter with communications – Type 2</li><li>**COMMS3** - Interval Meter with communications – Type 3</li><li>**COMMS4** - Interval Meter with communications – Type 4</li><li>**COMMS4C** - CT connected metering installation that meets the minimum services specifications</li><li>**COMMS4D** - Whole current metering installation that meets the minimum services specifications</li><li>**MRAM** - Small customer metering installation – Type 4A</li><li>**MRIM** - Manually Read Interval Meter – Type 5</li><li>**UMCP** - Unmetered Supply – Type 7</li><li>**VICAMI** - A relevant metering installation as defined in clause 9.9C of the NER</li><li>**NCONUML** - Non-contestable unmeter load - Introduced as part of Global Settlement</li></ul>
-             */
-            installationType:
-            | "BASIC"
-            | "COMMS1"
-            | "COMMS2"
-            | "COMMS3"
-            | "COMMS4"
-            | "COMMS4C"
-            | "COMMS4D"
-            | "MRAM"
-            | "MRIM"
-            | "PROF"
-            | "SAMPLE"
-            | "UMCP"
-            | "VICAMI"
-            | "NCOLNUML";
-            /**
-             * Free text field to identify the manufacturer of the installed meter
-             */
-            manufacturer?: string;
-            /**
-             * Free text field to identify the meter manufacturer’s designation for the meter model
-             */
-            model?: string;
-            /**
-             * This date is the next scheduled meter read date (NSRD) if a manual Meter Reading is required
-             */
-            nextScheduledReadDate?: string;
-            /**
-             * Code to denote the method and frequency of Meter Reading. The value is formatted as follows: <ul><li>First Character = Remote (R) or Manual (M)</li><li>Second Character = Mode: T = telephone W = wireless P = powerline I = infra-red G = galvanic V = visual </li><li>Third Character = Frequency of Scheduled Meter Readings: 1 = Twelve times per year 2 = Six times per year 3 = Four times per year D = Daily or weekly</li><li>Optional Fourth Character = to identify what interval length the meter is capable of reading. This includes five, 15 and 30 minute granularity as the following: A – 5 minute B – 15 minute C – 30 minute D – Cannot convert to 5 minute (i.e. due to metering installation de-energised) M - Manually Read Accumulation Meter</li></ul> For example, <ul><li>MV3 = Manual, Visual, Quarterly</li> <li>MV3M = Manual, Visual, Quarterly, Manually Read Accumulation Meter</li> <li>RWDC = Remote, Wireless, Daily, 30 minutes interval</li></ul>
-             */
-            readType?: string;
-            /**
-             * A code to denote the status of the meter. Note the details of enumeration values below: <ul><li>**CURRENT** -Applies when a meter is current and not disconnected</li><li>**DISCONNECTED** - Applies when a meter is present but has been remotely disconnected</li></ul>
-             */
-            status: "CURRENT" | "DISCONNECTED";
-            [k: string]: unknown;
-        };
-        [k: string]: unknown;
-    }>
-    | null;
+        }>
+        | null;
     /**
      * The independent ID of the service point, known in the industry as the NMI
      */
@@ -8173,14 +8173,14 @@ export interface EnergyServicePointDetail {
      * The classification of the service point as defined in MSATS procedures
      */
     servicePointClassification:
-    | "EXTERNAL_PROFILE"
-    | "GENERATOR"
-    | "LARGE"
-    | "SMALL"
-    | "WHOLESALE"
-    | "NON_CONTEST_UNMETERED_LOAD"
-    | "NON_REGISTERED_EMBEDDED_GENERATOR"
-    | "DISTRIBUTION_WHOLESALE";
+        | "EXTERNAL_PROFILE"
+        | "GENERATOR"
+        | "LARGE"
+        | "SMALL"
+        | "WHOLESALE"
+        | "NON_CONTEST_UNMETERED_LOAD"
+        | "NON_REGISTERED_EMBEDDED_GENERATOR"
+        | "DISTRIBUTION_WHOLESALE";
     /**
      * The tokenised ID of the service point for use in the CDR APIs.  Created according to the CDR rules for ID permanence
      */
@@ -8268,22 +8268,22 @@ export interface EnergyUsageRead {
          *  Specifies quality of reads that are not ACTUAL.  For read indices that are not specified, quality is assumed to be ACTUAL. If not present, all quality of all reads are assumed to be actual. Required when interval-reads query parameter equals FULL or MIN_30
          */
         readQualities?:
-        | Array<{
-            /**
-             * End interval for read quality flag
-             */
-            endInterval: number;
-            /**
-             * The quality of the read taken
-             */
-            quality: "SUBSTITUTE" | "FINAL_SUBSTITUTE";
-            /**
-             * Start interval for read quality flag. First read begins at 1
-             */
-            startInterval: number;
-            [k: string]: unknown;
-        }>
-        | null;
+            | Array<{
+                /**
+                 * End interval for read quality flag
+                 */
+                endInterval: number;
+                /**
+                 * The quality of the read taken
+                 */
+                quality: "SUBSTITUTE" | "FINAL_SUBSTITUTE";
+                /**
+                 * Start interval for read quality flag. First read begins at 1
+                 */
+                startInterval: number;
+                [k: string]: unknown;
+            }>
+            | null;
         [k: string]: unknown;
     } | null;
     /**
