@@ -513,6 +513,9 @@ function testGetManifest() {
 
     manifest.name; // $ExpectType string
     manifest.version; // $ExpectType string
+    if (manifest.author) {
+        manifest.author.email; // $ExpectType string
+    }
 
     if (manifest.manifest_version === 2) {
         manifest.browser_action; // $ExpectType ManifestAction | undefined
