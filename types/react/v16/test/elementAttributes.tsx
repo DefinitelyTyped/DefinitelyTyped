@@ -34,6 +34,9 @@ const testCases = [
     <input value={["one", "two"] as readonly string[]} />,
     <input value={["one", "two"] as string[]} />,
     <input value={["one", "two"]} />,
+    <input enterKeyHint="done" />,
+    // @ts-expect-error
+    <input enterKeyHint="don" />,
     <div role="alertdialog" />,
     <div role="none presentation" />,
     <svg role="treeitem" />,
