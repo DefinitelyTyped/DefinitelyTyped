@@ -339,7 +339,7 @@ export declare type Descriptor<
     /**
      * Render the component associated with this route.
      */
-    render(): JSX.Element;
+    render(): React.JSX.Element;
     /**
      * Options for the route.
      */

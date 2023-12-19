@@ -2,7 +2,7 @@ import { InkComponent, InkNode, StatelessComponent } from "ink";
 
 export interface TableProps {
     cell?: InkComponent | undefined;
-    data?: ReadonlyArray<object> | undefined;
+    data?: readonly object[] | undefined;
     header?: InkComponent | undefined;
     padding?: number | undefined;
     skeleton?: InkComponent | undefined;

@@ -2,6 +2,11 @@
     "rules": {
         "@definitelytyped/no-const-enum": "off",
         "@definitelytyped/no-any-union": "off",
-        "@definitelytyped/no-unnecessary-generics": "off"
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@definitelytyped/npm-naming": "off",
+        "@typescript-eslint/no-empty-interface": "off",
+        "@definitelytyped/no-duplicate-imports": "off",
+        "@typescript-eslint/naming-convention": "off",
+        "no-duplicate-imports": "off"
     }
 }

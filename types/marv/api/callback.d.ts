@@ -4,13 +4,13 @@ import type { Driver, EmptyObject, ErrorOnlyCallback, ParsedMigration, ScanOptio
 export function drop(driver: Driver, cb?: ErrorOnlyCallback): void;
 
 export function migrate(
-    migrations: ReadonlyArray<ParsedMigration>,
+    migrations: readonly ParsedMigration[],
     driver: Driver,
     options: { quiet?: boolean },
     cb: ErrorOnlyCallback,
 ): void;
 
-export function migrate(migrations: ReadonlyArray<ParsedMigration>, driver: Driver, cb: ErrorOnlyCallback): void;
+export function migrate(migrations: readonly ParsedMigration[], driver: Driver, cb: ErrorOnlyCallback): void;
 
 export function scan(
     directory: PathLike,

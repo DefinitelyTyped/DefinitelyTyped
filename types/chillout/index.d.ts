@@ -9,7 +9,7 @@ export const version: string;
  */
 export const StopIteration: unique symbol;
 
-// tslint:disable-next-line: void-return
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export type DefaultCallbackReturn = typeof StopIteration | void | Promise<unknown>;
 
 /**

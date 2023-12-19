@@ -14,7 +14,7 @@ declare namespace I18n {
     let missingTranslationPrefix: string;
 
     // eslint-disable-next-line @definitelytyped/prefer-declare-function
-    let getFullScope: (scope: string | ReadonlyArray<string>, options?: TranslateOptions) => string;
+    let getFullScope: (scope: string | readonly string[], options?: TranslateOptions) => string;
     // eslint-disable-next-line @definitelytyped/prefer-declare-function
     let missingTranslation: (scope: string, options?: TranslateOptions) => string | null | undefined;
     // eslint-disable-next-line @definitelytyped/prefer-declare-function

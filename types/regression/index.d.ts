@@ -33,7 +33,7 @@ export interface Result {
      * One could use this to directly evaluate the quality
      * of the fit.
      */
-    points: ReadonlyArray<DataPoint>;
+    points: readonly DataPoint[];
     /**
      * Function that takes an arbitrary value of x and
      * produces a coordinate representing the y-value of
@@ -69,22 +69,22 @@ export interface Result {
 
 export function _round(number: number, precision: number): number;
 export function linear(
-    data: ReadonlyArray<DataPoint>,
+    data: readonly DataPoint[],
     options?: Options,
 ): Result;
 export function exponential(
-    data: ReadonlyArray<DataPoint>,
+    data: readonly DataPoint[],
     options?: Options,
 ): Result;
 export function logarithmic(
-    data: ReadonlyArray<DataPoint>,
+    data: readonly DataPoint[],
     options?: Options,
 ): Result;
 export function power(
-    data: ReadonlyArray<DataPoint>,
+    data: readonly DataPoint[],
     options?: Options,
 ): Result;
 export function polynomial(
-    data: ReadonlyArray<DataPoint>,
+    data: readonly DataPoint[],
     options?: Options,
 ): Result;

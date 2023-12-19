@@ -191,7 +191,7 @@ function TestAnimatedAPI() {
             <Animated.FlatList
                 testID="expect-type-animated-flatlist"
                 style={{ opacity: v1 }}
-                data={[1] as ReadonlyArray<number>}
+                data={[1] as readonly number[]}
                 renderItem={info => {
                     info; // $ExpectType ListRenderItemInfo<number>
                     return <View testID={info.item.toFixed(1)} />;
@@ -201,10 +201,10 @@ function TestAnimatedAPI() {
             <Animated.SectionList
                 testID="expect-type-animated-sectionlist"
                 style={{ opacity: v1 }}
-                sections={[{ title: "test", data: [1] }] as SectionListData<
+                sections={[{ title: "test", data: [1] }] as Array<SectionListData<
                     number,
                     { title: string }
-                >[]}
+                >>}
                 renderItem={info => {
                     /*
                      * Original <SectionList> expects:

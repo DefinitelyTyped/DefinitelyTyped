@@ -451,7 +451,7 @@ export interface NumericMenuExposed {
     attribute: string;
     /** List of options. With a text label, and upper and lower bounds. */
     items: Array<{
-        label: string | JSX.Element;
+        label: string | React.JSX.Element;
         start?: number | undefined;
         end?: number | undefined;
     }>;
@@ -798,7 +798,7 @@ export interface DynamicWidgetsExposed {
      * on the result of facetOrdering. This means that any child needs
      * to have either the “attribute” or “attributes” prop.
      */
-    children?: React.ReactChild;
+    children?: React.ReactElement | number | string;
     /**
      * A function to transform the attributes to render,
      * or using a different source to determine the attributes to render.

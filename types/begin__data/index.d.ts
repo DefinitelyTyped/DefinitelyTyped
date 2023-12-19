@@ -11,14 +11,14 @@ export type ReadonlyBeginDataType =
     | string
     | boolean
     | null
-    | ReadonlyArray<ReadonlyBeginDataType>
+    | readonly ReadonlyBeginDataType[]
     | { readonly [key: string]: ReadonlyBeginDataType | undefined };
 
 export interface DataGetSingleParams {
     readonly table: string;
     readonly key: string;
 }
-export type DataGetMultipleParams = ReadonlyArray<DataGetSingleParams>;
+export type DataGetMultipleParams = readonly DataGetSingleParams[];
 export interface DataGetEntireTableParams {
     readonly table: string;
     readonly limit?: number;
@@ -65,7 +65,7 @@ export interface DataSetSingleParams {
     readonly ttl?: ReadonlyBeginDataType | undefined;
     readonly [others: string]: ReadonlyBeginDataType | undefined;
 }
-export type DataSetMultipleParams = ReadonlyArray<DataSetSingleParams>;
+export type DataSetMultipleParams = readonly DataSetSingleParams[];
 export interface DataSetSingleResult {
     table: string;
     key: string;
@@ -83,7 +83,7 @@ export interface DataDestroySingleParams {
     readonly table: string;
     readonly key: string;
 }
-export type DataDestroyMultipleParams = ReadonlyArray<DataDestroySingleParams>;
+export type DataDestroyMultipleParams = readonly DataDestroySingleParams[];
 export type DataDestroySingleCallback = (err: Error | null | undefined) => void;
 export type DataDestroyMultipleCallback = (err: Error | null | undefined) => void;
 

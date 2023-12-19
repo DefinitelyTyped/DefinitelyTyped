@@ -96,7 +96,7 @@ declare var Payment: {
     /**
      * Overrides the array of card types with a new array.
      */
-    setCardArray(cardTypes: ReadonlyArray<CardType>): void;
+    setCardArray(cardTypes: readonly CardType[]): void;
     /**
      * Add a new card type to the card array.
      */

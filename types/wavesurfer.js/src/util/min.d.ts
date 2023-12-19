@@ -1,1 +1,1 @@
-export default function min(values: ReadonlyArray<number>): number;
+export default function min(values: readonly number[]): number;

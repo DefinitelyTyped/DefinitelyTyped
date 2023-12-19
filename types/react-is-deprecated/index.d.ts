@@ -21,7 +21,7 @@ declare module "react-is-deprecated" {
         element: Requireable<any> & Deprecatable<any>;
         instanceOf(expectedClass: {}): Requireable<any> & Deprecatable<any>;
         oneOf(types: any[]): Requireable<any> & Deprecatable<any>;
-        oneOfType(types: Validator<any>[]): Requireable<any> & Deprecatable<any>;
+        oneOfType(types: Array<Validator<any>>): Requireable<any> & Deprecatable<any>;
         arrayOf(type: Validator<any>): Requireable<any> & Deprecatable<any>;
         objectOf(type: Validator<any>): Requireable<any> & Deprecatable<any>;
         shape(type: ValidationMap<any>): Requireable<any> & Deprecatable<any>;

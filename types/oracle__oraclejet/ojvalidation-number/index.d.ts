@@ -8,7 +8,7 @@ export class IntlNumberConverter extends NumberConverter {
     resolvedOptions(): IntlNumberConverter.ConverterOptions;
 }
 export namespace IntlNumberConverter {
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ConverterOptions = {
         style?: "decimal" | "currency" | "percent" | "unit" | undefined;
         currency?: string | undefined;
@@ -26,7 +26,7 @@ export namespace IntlNumberConverter {
         separators?: Separators | undefined;
         lenientParse?: "full" | "none" | undefined;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type Separators = {
         decimal?: string | undefined;
         group?: string | undefined;
@@ -45,7 +45,7 @@ export class NumberRangeValidator implements Validator<string | number> {
     validate(value: string | number): void;
 }
 export namespace NumberRangeValidator {
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ValidatorOptions = {
         converter?: NumberConverter | undefined;
         min?: number | undefined;

@@ -198,7 +198,7 @@ declare module "recompose" {
 
     // onlyUpdateForKeys: https://github.com/acdlite/recompose/blob/master/docs/API.md#onlyUpdateForKeys
     export function onlyUpdateForKeys(
-        propKeys: Array<string>,
+        propKeys: string[],
     ): InferableComponentEnhancer<{}>;
     export function onlyUpdateForKeys<T>(
         propKeys: Array<keyof T>,
@@ -388,7 +388,7 @@ declare module "recompose" {
 
     // nest: https://github.com/acdlite/recompose/blob/master/docs/API.md#nest
     export function nest(
-        ...Components: (string | Component<any>)[]
+        ...Components: Array<string | Component<any>>
     ): React.ComponentClass<any>; // ???
 
     // hoistStatics: https://github.com/acdlite/recompose/blob/master/docs/API.md#hoistStatics

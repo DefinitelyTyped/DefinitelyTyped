@@ -28,7 +28,7 @@ declare module "pug" {
         /** If set to true, the function source will be included in the compiled template for better error messages (sometimes useful in development). It is enabled by default unless used with Express in production mode. */
         compileDebug?: boolean | undefined;
         /** Add a list of global names to make accessible in templates. */
-        globals?: Array<string> | undefined;
+        globals?: string[] | undefined;
         /** If set to true, compiled functions are cached. filename must be set as the cache key. Only applies to render functions. Defaults to false. */
         cache?: boolean | undefined;
         /** Inline runtime functions instead of require-ing them from a shared version. For compileClient functions, the default is true so that one does not have to include the runtime. For all other compilation or rendering types, the default is false. */

@@ -32,7 +32,7 @@ export interface Props {
     /** Prevents user interaction with the button */
     disabled?: boolean | undefined;
     /** A @hig/icon element */
-    icon?: JSX.Element | undefined;
+    icon?: React.JSX.Element | undefined;
     /** Sets the link of a button */
     link?: string | undefined;
     /** Triggers when you click the button */

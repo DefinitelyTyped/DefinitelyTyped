@@ -1,6 +1,6 @@
-import { Curve } from './../extras/core/Curve.js';
-import { Vector3 } from './../math/Vector3.js';
-import { BufferGeometry } from './../core/BufferGeometry.js';
+import { Curve } from '../extras/core/Curve.js';
+import { Vector3 } from '../math/Vector3.js';
+import { BufferGeometry } from '../core/BufferGeometry.js';
 
 /**
  * Creates a tube that extrudes along a 3d curve.

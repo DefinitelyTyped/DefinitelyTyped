@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/react-native-shared-group-preferences": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Cambo",
-            "githubUsername": "indentedspace"
-        }
-    ]
+    "owners": []
 }

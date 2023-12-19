@@ -232,6 +232,7 @@ declare function pull<In, P1, P2, P3, P4, Out>(
 
 declare function pull(
     ...pullStreams: ReadonlyArray<pull.PossibleSource<any> | pull.PossibleSink<any> | pull.PossibleThrough<any, any>>
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ): pull.Source<any> | pull.Sink<any> | pull.Through<any, any> | void;
 
 export = pull;

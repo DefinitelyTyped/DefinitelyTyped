@@ -82,7 +82,7 @@ console.log(plistString1);
 const plistString2 = plist.build(plistValue2, { pretty: false });
 console.log(plistString2);
 
-function f(a: ReadonlyArray<string>) {
+function f(a: readonly string[]) {
     plist.build(a);
 }
 

@@ -85,10 +85,12 @@ describe("ReactDOM", () => {
 describe("ReactDOMServer", () => {
     it("renderToString", () => {
         const content: string = ReactDOMServer.renderToString(React.createElement("div"));
+        ReactDOMServer.renderToString(React.createElement("div"), { identifierPrefix: "react-18-app" });
     });
 
     it("renderToStaticMarkup", () => {
         const content: string = ReactDOMServer.renderToStaticMarkup(React.createElement("div"));
+        ReactDOMServer.renderToStaticMarkup(React.createElement("div"), { identifierPrefix: "react-18-app" });
     });
 });
 

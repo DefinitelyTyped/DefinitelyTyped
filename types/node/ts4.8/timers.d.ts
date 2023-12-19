@@ -155,7 +155,7 @@ declare module "timers" {
             ...args: TArgs
         ): NodeJS.Timeout;
         // util.promisify no rest args compability
-        // tslint:disable-next-line void-return
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         function setTimeout(callback: (args: void) => void, ms?: number): NodeJS.Timeout;
         namespace setTimeout {
             const __promisify__: typeof setTimeoutPromise;
@@ -187,7 +187,7 @@ declare module "timers" {
             ...args: TArgs
         ): NodeJS.Timeout;
         // util.promisify no rest args compability
-        // tslint:disable-next-line void-return
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         function setInterval(callback: (args: void) => void, ms?: number): NodeJS.Timeout;
         namespace setInterval {
             const __promisify__: typeof setIntervalPromise;
@@ -221,7 +221,7 @@ declare module "timers" {
             ...args: TArgs
         ): NodeJS.Immediate;
         // util.promisify no rest args compability
-        // tslint:disable-next-line void-return
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         function setImmediate(callback: (args: void) => void): NodeJS.Immediate;
         namespace setImmediate {
             const __promisify__: typeof setImmediatePromise;

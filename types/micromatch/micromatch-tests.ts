@@ -8,7 +8,7 @@ const micromatchOptions: mm.Options = {
 
 let strArrResult: string[];
 let boolResult: boolean;
-const readonlyStrArr: ReadonlyArray<string> = [];
+const readonlyStrArr: readonly string[] = [];
 
 // main function
 strArrResult = mm(["a.js", "a.txt"], "*.js", micromatchOptions);

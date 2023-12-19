@@ -1,6 +1,5 @@
 import * as PropTypes from "prop-types";
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import { Connect, connect, createProvider, DispatchProp, MapStateToProps, Options, Provider } from "react-redux";
 import {
     ActionCreator,
@@ -517,15 +516,9 @@ class App extends React.Component<any, any> {
 
 const targetEl = document.getElementById("root");
 
-ReactDOM.render(
-    (
-        <Provider store={store}>
-            <App />
-        </Provider>
-    ),
-    targetEl,
-);
-
+<Provider store={store}>
+    <App />
+</Provider>;
 //
 // API
 // https://github.com/rackt/react-redux/blob/master/docs/api.md
@@ -552,12 +545,9 @@ declare var addTodo: () => { type: string };
 declare var todoActionCreators: { [type: string]: (...args: any[]) => any };
 declare var counterActionCreators: { [type: string]: (...args: any[]) => any };
 
-ReactDOM.render(
-    <Provider store={store}>
-        <MyRootComponent />
-    </Provider>,
-    document.body,
-);
+<Provider store={store}>
+    <MyRootComponent />
+</Provider>;
 
 // Inject just dispatch and don't listen to store
 
@@ -678,7 +668,7 @@ const HelloMessage: React.FunctionComponent<HelloMessageProps> = (props) => {
     return <div>Hello {props.name}</div>;
 };
 const ConnectedHelloMessage = connect()(HelloMessage);
-ReactDOM.render(<ConnectedHelloMessage name="Sebastian" />, document.getElementById("content"));
+<ConnectedHelloMessage name="Sebastian" />;
 
 // stateless functions that uses mapStateToProps and mapDispatchToProps
 function TestStatelessFunctionWithMapArguments() {
@@ -737,6 +727,7 @@ function TestTOwnPropsInference() {
 
     const ConnectedWithoutOwnProps = connect(mapStateToPropsWithoutOwnProps)(OwnPropsComponent);
     const ConnectedWithOwnProps = connect(mapStateToPropsWithOwnProps)(OwnPropsComponent);
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     const ConnectedWithTypeHint = connect<StateProps, void, OwnProps>(mapStateToPropsWithoutOwnProps)(
         OwnPropsComponent,
     );
@@ -811,6 +802,7 @@ function TestMergedPropsInference() {
         return { dispatch: "string" };
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     const ConnectedWithOwnAndState: React.ComponentClass<OwnProps> = connect<StateProps, void, OwnProps, MergedProps>(
         mapStateToProps,
         undefined,
@@ -820,6 +812,7 @@ function TestMergedPropsInference() {
     )(MergedPropsComponent);
 
     const ConnectedWithOwnAndDispatch: React.ComponentClass<OwnProps> = connect<
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         void,
         DispatchProps,
         OwnProps,
@@ -832,6 +825,8 @@ function TestMergedPropsInference() {
         }),
     )(MergedPropsComponent);
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     const ConnectedWithOwn: React.ComponentClass<OwnProps> = connect<void, void, OwnProps, MergedProps>(
         undefined,
         undefined,
@@ -1098,9 +1093,11 @@ function TestWithoutTOwnPropsDecoratedInference() {
     // these decorations should compile, it is perfectly acceptable to receive props and ignore them
     const ConnectedWithOwnPropsClass = connect(mapStateToProps4)(WithoutOwnPropsComponentClass);
     const ConnectedWithOwnPropsStateless = connect(mapStateToProps4)(WithoutOwnPropsComponentStateless);
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     const ConnectedWithTypeHintClass = connect<StateProps, void, OwnProps>(mapStateToProps4)(
         WithoutOwnPropsComponentClass,
     );
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     const ConnectedWithTypeHintStateless = connect<StateProps, void, OwnProps>(mapStateToProps4)(
         WithoutOwnPropsComponentStateless,
     );
@@ -1330,6 +1327,7 @@ function TestLibraryManagedAttributes() {
     const ConnectedComponent = connect(mapStateToProps)(Component);
     <ConnectedComponent fn={() => {}} />;
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     const ConnectedComponent2 = connect<MapStateProps, void, ExternalOwnProps>(mapStateToProps)(Component);
     <ConnectedComponent2 fn={() => {}} />;
 }
@@ -1365,6 +1363,7 @@ function TestPropTypes() {
     const ConnectedComponent = connect(mapStateToProps)(Component);
     <ConnectedComponent fn={() => {}} bar={0} />;
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     const ConnectedComponent2 = connect<MapStateProps, void, OwnProps>(mapStateToProps)(Component);
     <ConnectedComponent2 fn={() => {}} bar={0} />;
 }

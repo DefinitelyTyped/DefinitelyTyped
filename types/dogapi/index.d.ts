@@ -9,7 +9,7 @@ interface event {
             date_happened?: number | undefined;
             priority?: "normal" | "low" | undefined;
             host?: string | undefined;
-            tags?: ReadonlyArray<string> | undefined;
+            tags?: readonly string[] | undefined;
             alert_type?: "error" | "warning" | "info" | "success" | undefined;
             aggregation_key?: string | undefined;
             source_type_name?:
@@ -42,7 +42,7 @@ interface metric {
             type?: "gauge" | "rate" | "count" | undefined;
             metric_type?: "gauge" | "count" | undefined;
             host?: string | undefined;
-            tags?: ReadonlyArray<string> | undefined;
+            tags?: readonly string[] | undefined;
         },
         callback: (err: Error | null, res: "ok") => void,
     ): void;
@@ -68,7 +68,7 @@ export interface EventCreateResponse {
         id: bigint;
         priority: "normal" | "low";
         related_event_id: number | null;
-        tags: ReadonlyArray<string>;
+        tags: readonly string[];
         text: string;
         title: string;
         url: string;

@@ -171,7 +171,7 @@ declare module "leaflet" {
         editTools: Editable;
     }
 
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Polyline extends EditableMixin {}
 
     namespace Map {
@@ -244,7 +244,7 @@ declare module "leaflet" {
     /**
      * Inherit from L.Editable.BaseEditor.
      */
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface MarkerEditor extends BaseEditor {}
 
     interface Marker extends EditableMixin, MarkerEditor {}

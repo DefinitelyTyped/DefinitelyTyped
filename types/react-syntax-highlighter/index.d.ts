@@ -3,7 +3,7 @@ type lineTagPropsFunction = (lineNumber: number) => React.HTMLProps<HTMLElement>
 interface rendererNode {
     type: "element" | "text";
     value?: string | number | undefined;
-    tagName?: keyof JSX.IntrinsicElements | React.ComponentType<any> | undefined;
+    tagName?: keyof React.JSX.IntrinsicElements | React.ComponentType<any> | undefined;
     properties?: { className: any[]; [key: string]: any };
     children?: rendererNode[];
 }
@@ -30,8 +30,8 @@ declare module "react-syntax-highlighter" {
         wrapLongLines?: boolean | undefined;
         lineProps?: lineTagPropsFunction | React.HTMLProps<HTMLElement> | undefined;
         renderer?: (props: rendererProps) => React.ReactNode;
-        PreTag?: keyof JSX.IntrinsicElements | React.ComponentType<any> | undefined;
-        CodeTag?: keyof JSX.IntrinsicElements | React.ComponentType<any> | undefined;
+        PreTag?: keyof React.JSX.IntrinsicElements | React.ComponentType<any> | undefined;
+        CodeTag?: keyof React.JSX.IntrinsicElements | React.ComponentType<any> | undefined;
         [spread: string]: any;
     }
 

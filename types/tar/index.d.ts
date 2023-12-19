@@ -3,6 +3,7 @@
 import stream = require("stream");
 import zlib = require("zlib");
 import MiniPass = require("minipass");
+import fs = require("fs");
 
 // #region Interfaces
 
@@ -229,7 +230,7 @@ export interface PackOptions {
      *
      * @default process.cwd()
      */
-    cwd?: string[];
+    cwd?: string;
     /**
      * A path portion to prefix onto the entries in the archive.
      */
@@ -243,7 +244,7 @@ export interface PackOptions {
      * A function that gets called with (path, stat) for each entry being added.
      * Return true to add the entry to the archive, or false to omit it.
      */
-    filter?(path: string, stat: FileStat): boolean;
+    filter?(path: string, stat: fs.Stats): boolean;
     /**
      * Omit metadata that is system-specific: ctime, atime, uid, gid, uname,
      * gname, dev, ino, and nlink. Note that mtime is still included, because
@@ -425,7 +426,7 @@ export interface CreateOptions {
      * A function that gets called with (path, stat) for each entry being
      * added. Return true to add the entry to the archive, or false to omit it.
      */
-    filter?(path: string, stat: FileStat): boolean;
+    filter?(path: string, stat: fs.Stats): boolean;
 
     /**
      * Omit metadata that is system-specific: ctime, atime, uid, gid, uname,
@@ -739,7 +740,7 @@ export interface ReplaceOptions {
      * A function that gets called with (path, stat) for each entry being
      * added. Return true to emit the entry from the archive, or false to skip it.
      */
-    filter?(path: string, stat: FileStat): boolean;
+    filter?(path: string, stat: fs.Stats): boolean;
 
     /**
      * Allow absolute paths. By default, / is stripped from absolute paths.
@@ -814,7 +815,7 @@ export type RequiredFileOptions = {
  */
 export function create(
     options: CreateOptions,
-    fileList: ReadonlyArray<string>,
+    fileList: readonly string[],
     callback?: (err?: Error) => void,
 ): stream.Readable;
 
@@ -824,11 +825,11 @@ export function create(
  * fileList that starts with an @ symbol is a tar archive whose entries will
  * be added. To add a file that starts with @, prepend it with `./`.
  */
-export function create(options: CreateOptions & FileOptions, fileList: ReadonlyArray<string>): Promise<void>;
-export function create(options: CreateOptions & FileOptions & { sync: true }, fileList: ReadonlyArray<string>): void;
+export function create(options: CreateOptions & FileOptions, fileList: readonly string[]): Promise<void>;
+export function create(options: CreateOptions & FileOptions & { sync: true }, fileList: readonly string[]): void;
 export function create(
     options: CreateOptions & FileOptions,
-    fileList: ReadonlyArray<string>,
+    fileList: readonly string[],
     callback: (err?: Error) => void,
 ): void;
 
@@ -851,7 +852,7 @@ export const c: typeof create;
  */
 export function extract(
     options: ExtractOptions,
-    fileList?: ReadonlyArray<string>,
+    fileList?: readonly string[],
     callback?: (err?: Error) => void,
 ): stream.Writable;
 
@@ -865,11 +866,11 @@ export function extract(
  * extraction errors will cause a warn event to be emitted. If the cwd is
  * missing, or not a directory, then the extraction will fail completely.
  */
-export function extract(options: ExtractOptions & FileOptions, fileList?: ReadonlyArray<string>): Promise<void>;
-export function extract(options: ExtractOptions & FileOptions & { sync: true }, fileList?: ReadonlyArray<string>): void;
+export function extract(options: ExtractOptions & FileOptions, fileList?: readonly string[]): Promise<void>;
+export function extract(options: ExtractOptions & FileOptions & { sync: true }, fileList?: readonly string[]): void;
 export function extract(
     options: ExtractOptions & FileOptions,
-    fileList: ReadonlyArray<string> | undefined,
+    fileList: readonly string[] | undefined,
     callback: (err?: Error) => void,
 ): void;
 
@@ -884,14 +885,14 @@ export const x: typeof extract;
  * are listed. If the archive is gzipped, then tar will detect this and unzip
  * it.
  */
-export function list(options: ListOptions & RequiredFileOptions, fileList?: ReadonlyArray<string>): Promise<void>;
+export function list(options: ListOptions & RequiredFileOptions, fileList?: readonly string[]): Promise<void>;
 export function list(
     options: ListOptions & RequiredFileOptions & { sync: true },
-    fileList?: ReadonlyArray<string>,
+    fileList?: readonly string[],
 ): void;
 export function list(callback?: (err?: Error) => void): Parse;
-export function list(optionsOrFileList: ListOptions | ReadonlyArray<string>, callback?: (err?: Error) => void): Parse;
-export function list(options: ListOptions, fileList: ReadonlyArray<string>, callback?: (err?: Error) => void): Parse;
+export function list(optionsOrFileList: ListOptions | readonly string[], callback?: (err?: Error) => void): Parse;
+export function list(options: ListOptions, fileList: readonly string[], callback?: (err?: Error) => void): Parse;
 
 /**
  * Alias for list
@@ -906,10 +907,10 @@ export const t: typeof list;
  * a tar archive whose entries will be added. To add a file that
  * starts with @, prepend it with ./.
  */
-export function replace(options: ReplaceOptions, fileList?: ReadonlyArray<string>): Promise<void>;
+export function replace(options: ReplaceOptions, fileList?: readonly string[]): Promise<void>;
 export function replace(
     options: ReplaceOptions,
-    fileList: ReadonlyArray<string> | undefined,
+    fileList: readonly string[] | undefined,
     callback: (err?: Error) => void,
 ): Promise<void>;
 
@@ -925,10 +926,10 @@ export const r: typeof replace;
  * that starts with an @ symbol is a tar archive whose entries will be added.
  * To add a file that starts with @, prepend it with ./.
  */
-export function update(options: ReplaceOptions, fileList?: ReadonlyArray<string>): Promise<void>;
+export function update(options: ReplaceOptions, fileList?: readonly string[]): Promise<void>;
 export function update(
     options: ReplaceOptions,
-    fileList: ReadonlyArray<string> | undefined,
+    fileList: readonly string[] | undefined,
     callback: (err?: Error) => void,
 ): Promise<void>;
 

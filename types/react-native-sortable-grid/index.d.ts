@@ -34,7 +34,7 @@ interface OrderedItem {
 }
 
 export interface ItemOrder {
-    itemOrder: ReadonlyArray<OrderedItem>;
+    itemOrder: readonly OrderedItem[];
 }
 
 interface SortableGridProps {
@@ -115,7 +115,7 @@ interface SortableGridProps {
     /**
      * Items to be rendered in the SortableGrid
      */
-    children?: ReadonlyArray<SortableGridItem> | undefined;
+    children?: readonly SortableGridItem[] | undefined;
 }
 
 interface SortableGridStatic extends React.ClassicComponentClass<SortableGridProps> {

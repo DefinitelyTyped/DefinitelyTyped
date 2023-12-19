@@ -27,7 +27,7 @@ interface S3rverOptions {
     resetOnClose?: boolean | undefined;
     allowMismatchedSignatures?: boolean | undefined;
     vhostBuckets?: boolean | undefined;
-    configureBuckets?: ReadonlyArray<S3rverBucketConfig> | undefined;
+    configureBuckets?: readonly S3rverBucketConfig[] | undefined;
 }
 
 interface S3rverBucketConfig {

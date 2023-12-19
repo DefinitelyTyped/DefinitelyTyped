@@ -299,7 +299,7 @@ export interface ElementDefinitionType extends Element {
   /**
    * If the type is a reference to another resource, how the resource is or can be aggregated - is it a contained resource, or a reference, and if the context is a bundle, is it included in the bundle.
    */
-  aggregation?: ('contained'|'referenced'|'bundled')[] | undefined;
+  aggregation?: Array<'contained'|'referenced'|'bundled'> | undefined;
   _aggregation?: Element[] | undefined;
   /**
    * Name of Data type or Resource that is a(or the) type used for this element.
@@ -2584,7 +2584,7 @@ export interface Bundle<BundleContentType = FhirResource> extends Resource {
   /**
    * An entry in a bundle resource - will either contain a resource, or information about a resource (transactions and history only).
    */
-  entry?: BundleEntry<BundleContentType>[] | undefined;
+  entry?: Array<BundleEntry<BundleContentType>> | undefined;
   /**
    * A series of links that provide context to this bundle.
    */
@@ -3882,7 +3882,7 @@ export interface CompositionAttester extends BackboneElement {
   /**
    * Indicates the level of authority of the attestation.
    */
-  mode: ('personal'|'professional'|'legal'|'official')[];
+  mode: Array<'personal'|'professional'|'legal'|'official'>;
   _mode?: Element[] | undefined;
   /**
    * Identifies who has taken on the responsibility for accuracy of the composition content.
@@ -4460,7 +4460,7 @@ export interface ConformanceRestResourceSearchParam extends BackboneElement {
   /**
    * A modifier supported for the search parameter.
    */
-  modifier?: ('missing'|'exact'|'contains'|'not'|'text'|'in'|'not-in'|'below'|'above'|'type')[] | undefined;
+  modifier?: Array<'missing'|'exact'|'contains'|'not'|'text'|'in'|'not-in'|'below'|'above'|'type'> | undefined;
   _modifier?: Element[] | undefined;
   /**
    * The name of the search parameter used in the interface.
@@ -7068,7 +7068,7 @@ export interface HealthcareServiceAvailableTime extends BackboneElement {
   /**
    * Indicates which days of the week are available between the start and end Times.
    */
-  daysOfWeek?: ('mon'|'tue'|'wed'|'thu'|'fri'|'sat'|'sun')[] | undefined;
+  daysOfWeek?: Array<'mon'|'tue'|'wed'|'thu'|'fri'|'sat'|'sun'> | undefined;
   _daysOfWeek?: Element[] | undefined;
 }
 /**

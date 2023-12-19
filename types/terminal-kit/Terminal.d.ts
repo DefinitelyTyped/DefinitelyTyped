@@ -184,17 +184,17 @@ declare namespace Terminal {
             r: number,
             g: number,
             b: number,
-            names?: ReadonlyArray<string>,
+            names?: readonly string[],
         ): void;
         setColor(
             register: number,
             rgb: { r: number; g: number; b: number },
-            names?: ReadonlyArray<string>,
+            names?: readonly string[],
         ): void;
         getPalette(register: number, callback?: Callback<Palette>): void;
         setPalette(palette: string | Palette): void;
 
-        table(tableCells: ReadonlyArray<ReadonlyArray<string>>, options?: TextTableOptions): void;
+        table(tableCells: ReadonlyArray<readonly string[]>, options?: TextTableOptions): void;
 
         spinner(options?: AnimatedTextOptions): Promise<AnimatedText>;
 
@@ -229,72 +229,72 @@ declare namespace Terminal {
         fileInput(options?: IFileInputOptions): Promise<string>;
 
         singleLineMenu(
-            menuItems: ReadonlyArray<string>,
+            menuItems: readonly string[],
             options: SingleLineMenuOptions,
             callback: Callback<SingleLineMenuResponse>,
         ): void;
 
         singleLineMenu(
-            menuItems: ReadonlyArray<string>,
+            menuItems: readonly string[],
             callback: Callback<SingleLineMenuResponse>,
         ): void;
 
         singleLineMenu(
-            menuItems: ReadonlyArray<string>,
+            menuItems: readonly string[],
             options?: SingleLineMenuOptions,
         ): {
             promise: Promise<SingleLineMenuResponse>;
         };
 
         singleRowMenu(
-            menuItems: ReadonlyArray<string>,
+            menuItems: readonly string[],
             options: SingleLineMenuOptions,
             callback: Callback<SingleLineMenuResponse>,
         ): void;
 
         singleRowMenu(
-            menuItems: ReadonlyArray<string>,
+            menuItems: readonly string[],
             callback: Callback<SingleLineMenuResponse>,
         ): void;
 
         singleRowMenu(
-            menuItems: ReadonlyArray<string>,
+            menuItems: readonly string[],
             options?: SingleLineMenuOptions,
         ): {
             promise: Promise<SingleLineMenuResponse>;
         };
 
         singleColumnMenu(
-            menuItems: ReadonlyArray<string>,
+            menuItems: readonly string[],
             options: SingleColumnMenuOptions,
             callback: Callback<SingleColumnMenuResponse>,
         ): void;
 
         singleColumnMenu(
-            menuItems: ReadonlyArray<string>,
+            menuItems: readonly string[],
             callback: Callback<SingleColumnMenuResponse>,
         ): void;
 
         singleColumnMenu(
-            menuItems: ReadonlyArray<string>,
+            menuItems: readonly string[],
             options?: SingleColumnMenuOptions,
         ): {
             promise: Promise<SingleColumnMenuResponse>;
         };
 
         gridMenu(
-            menuItems: ReadonlyArray<string>,
+            menuItems: readonly string[],
             options: GridMenuOptions,
             callback: Callback<GridMenuResponse>,
         ): void;
 
         gridMenu(
-            menuItems: ReadonlyArray<string>,
+            menuItems: readonly string[],
             callback: Callback<GridMenuResponse>,
         ): void;
 
         gridMenu(
-            menuItems: ReadonlyArray<string>,
+            menuItems: readonly string[],
             options?: GridMenuOptions,
         ): {
             promise: Promise<GridMenuResponse>;
@@ -366,12 +366,12 @@ declare namespace Terminal {
         r: number;
         g: number;
         b: number;
-        names: ReadonlyArray<string>;
+        names: readonly string[];
     }>;
 
     interface YesOrNoOptions {
-        yes: string | ReadonlyArray<string>;
-        no: string | ReadonlyArray<string>;
+        yes: string | readonly string[];
+        no: string | readonly string[];
         echoYes?: string | undefined;
         echoNo?: string | undefined;
     }
@@ -430,9 +430,10 @@ declare namespace Terminal {
             | ((
                 token: string,
                 isEndOfInput: boolean,
-                previousTokens: ReadonlyArray<string>,
+                previousTokens: readonly string[],
                 term: Terminal,
                 config: HookConfig,
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             ) => string | CTerminal | null | void)
             | undefined;
         tokenResetHook?:
@@ -555,7 +556,7 @@ declare namespace Terminal {
 
     interface TextTableOptions {
         width?: number;
-        cellContents?: ReadonlyArray<ReadonlyArray<string>>;
+        cellContents?: ReadonlyArray<readonly string[]>;
         contentHasMarkup?: boolean | string;
         textAttr?: object;
         voidAttr?: object;

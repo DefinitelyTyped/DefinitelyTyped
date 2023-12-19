@@ -1279,6 +1279,7 @@ interface JQueryStatic {
     each<T extends Object>(
         collection: T,
         // TODO: `(keyInObject: keyof T, valueOfElement: T[keyof T])`, when TypeScript 2.1 allowed in repository
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         callback: (keyInObject: string, valueOfElement: any) => boolean | void,
     ): T;
 
@@ -1336,7 +1337,7 @@ interface JQueryStatic {
      * @param obj Object to test whether or not it is an array.
      * @see {@link https://api.jquery.com/jQuery.isArray/}
      */
-    isArray(obj: any): obj is Array<any>;
+    isArray(obj: any): obj is any[];
     /**
      * Check to see if an object is empty (contains no enumerable properties).
      *

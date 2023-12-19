@@ -8,7 +8,7 @@ const str = "";
 let strOrNull: string | null = "";
 let num = 0;
 let numOrNull: number | null = 0;
-const roStrArray: ReadonlyArray<string> = [str];
+const roStrArray: readonly string[] = [str];
 
 const reader = new BerReader(buf);
 numOrNull = reader.peek();

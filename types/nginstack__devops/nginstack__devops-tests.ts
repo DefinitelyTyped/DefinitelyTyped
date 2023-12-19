@@ -15,8 +15,7 @@ script.finish("*", -1); // $ExpectType void
 script.fail(new Error("*")); // $ExpectType void
 script.copyChildrenViewPermissions(-1); // $ExpectType number
 
-function testMajorVersions(prior: number, current: number): boolean {
-    return current > prior;
+function getVersion(): string {
+    return "71.0.229";
 }
-
-testMajorVersions(70, 71); // $ExpectType boolean
+getVersion(); // $ExpectType string

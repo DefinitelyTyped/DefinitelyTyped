@@ -1,4 +1,4 @@
-import { ReactChild } from "react";
+import { JSX, ReactElement } from "react";
 
 import { Block, BlockInstance } from "../";
 
@@ -68,7 +68,7 @@ export type Source<T> =
 
 // prettier-ignore
 export type SourceReturnValue<T> = T extends Schema.Attribute & { type: "boolean" } ? boolean | undefined
-    : T extends Schema.Children ? ReactChild[]
+    : T extends Schema.Children ? ReactElement | number | string[]
     : T extends Schema.Node ? JSX.Element | null
     : T extends Schema.Tag ? keyof (HTMLElementTagNameMap & SVGElementTagNameMap) | undefined
     : T extends Schema.Query<infer U> ? {
@@ -94,7 +94,10 @@ export function parseWithAttributeSchema(
     innerHTML: string,
     schema: Schema.Attribute | Schema.HTML | Schema.Text,
 ): string | undefined;
-export function parseWithAttributeSchema(innerHTML: string, schema: Schema.Children): ReactChild[];
+export function parseWithAttributeSchema(
+    innerHTML: string,
+    schema: Schema.Children,
+): Array<ReactElement | number | string>;
 export function parseWithAttributeSchema(innerHTML: string, schema: Schema.Node): JSX.Element | null;
 export function parseWithAttributeSchema(
     innerHTML: string,

@@ -155,6 +155,12 @@ declare namespace core {
          * either here or through options.headers.
          */
         content_type?: string | undefined;
+        /**
+         * When false, needle will not use its default mechanism of picking up proxy configuration from environment variables.
+         *
+         * @default true
+         */
+        use_proxy_from_env_var?: boolean | undefined;
     }
 
     interface ResponseOptions {

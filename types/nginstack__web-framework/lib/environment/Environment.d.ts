@@ -2,6 +2,7 @@ export = Environment;
 declare function Environment(): void;
 declare class Environment {
     private _ctrlChannel;
+    sessionToken: string;
     exiting: boolean;
     alert(message: string): any;
     prompt(

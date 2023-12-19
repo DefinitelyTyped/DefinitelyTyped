@@ -24,7 +24,7 @@ interface ReportResult {
     "java": {
         "version": string;
     };
-    "lang": Array<string>;
+    "lang": string[];
     "os": {
         "name": string;
         "version": string;

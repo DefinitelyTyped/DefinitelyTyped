@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { Component, JSX } from "react";
 
 export interface ReactTypingEffectProps {
     text: string | string[];

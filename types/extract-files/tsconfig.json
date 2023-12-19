@@ -14,7 +14,8 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
+        "extractFiles.d.mts",
+        "isExtractableFile.d.mts",
         "extract-files-tests.ts"
     ]
 }
