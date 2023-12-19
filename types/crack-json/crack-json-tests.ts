@@ -1,22 +1,22 @@
-import crackJson = require("crack-json");
+import { extractJson } from "crack-json";
 
-crackJson.extractJson(""); // $ExpectType any
-crackJson.extractJson(`{"foo":"bar"}`); // $ExpectType any
-crackJson.extractJson(`...{"foo":"bar"}`); // $ExpectType any
+extractJson(""); // $ExpectType any
+extractJson(`{"foo":"bar"}`); // $ExpectType any
+extractJson(`...{"foo":"bar"}`); // $ExpectType any
 // $ExpectType any
-crackJson.extractJson(`{"foo":"bar"}`, {
+extractJson(`{"foo":"bar"}`, {
     filter: (input: string) => {
         return input.includes("foo");
     },
 });
 // $ExpectType any
-crackJson.extractJson(`{"foo":"bar"}`, {
+extractJson(`{"foo":"bar"}`, {
     parser: (input: string) => {
         return JSON.parse(input);
     },
 });
 // $ExpectType any
-crackJson.extractJson(`{"foo":"bar"}`, {
+extractJson(`{"foo":"bar"}`, {
     filter: (input: string) => {
         return input.includes("foo");
     },
