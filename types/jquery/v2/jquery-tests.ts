@@ -2739,12 +2739,12 @@ function test_fn_extend() {
     jQuery.fn.extend({
         check: function() {
             return this.each(function() {
-                $(this).prop('checked', true);
+                $(this).prop("checked", true);
             });
         },
         uncheck: function() {
             return this.each(function() {
-                $(this).prop('checked', false);
+                $(this).prop("checked", false);
             });
         },
     });
@@ -3570,7 +3570,7 @@ function test_promise_then_change_type() {
         var def = $.Deferred<any>();
         var promise = def.promise(null);
 
-        def.rejectWith($('input'), [new Error()]);
+        def.rejectWith($("input"), [new Error()]);
 
         return promise;
     }

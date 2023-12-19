@@ -13,7 +13,7 @@ See the Apache Version 2.0 License for specific language governing permissions
 and limitations under the License.
 ***************************************************************************** */
 
-type BoundFunction = (this: HTMLElement) => void
+type BoundFunction = (this: HTMLElement) => void;
 /**
  * Interface for the AJAX setting that will configure the AJAX request
  * @see {@link https://api.jquery.com/jQuery.ajax/#jQuery-ajax-settings}
@@ -1503,7 +1503,9 @@ interface JQuery {
      * @param handler The function to be invoked.
      * @see {@link https://api.jquery.com/ajaxComplete/}
      */
-    ajaxComplete(handler: (this: HTMLElement, event: JQueryEventObject, XMLHttpRequest: XMLHttpRequest, ajaxOptions: any) => any): JQuery;
+    ajaxComplete(
+        handler: (this: HTMLElement, event: JQueryEventObject, XMLHttpRequest: XMLHttpRequest, ajaxOptions: any) => any,
+    ): JQuery;
     /**
      * Register a handler to be called when Ajax requests complete with an error. This is an Ajax Event.
      *
@@ -1525,7 +1527,14 @@ interface JQuery {
      * @param handler The function to be invoked.
      * @see {@link https://api.jquery.com/ajaxSend/}
      */
-    ajaxSend(handler: (this: HTMLElement, event: JQueryEventObject, jqXHR: JQueryXHR, ajaxOptions: JQueryAjaxSettings) => any): JQuery;
+    ajaxSend(
+        handler: (
+            this: HTMLElement,
+            event: JQueryEventObject,
+            jqXHR: JQueryXHR,
+            ajaxOptions: JQueryAjaxSettings,
+        ) => any,
+    ): JQuery;
     /**
      * Register a handler to be called when the first Ajax request begins. This is an Ajax Event.
      *
@@ -1547,7 +1556,12 @@ interface JQuery {
      * @see {@link https://api.jquery.com/ajaxSuccess/}
      */
     ajaxSuccess(
-        handler: (this: HTMLElement, event: JQueryEventObject, XMLHttpRequest: XMLHttpRequest, ajaxOptions: JQueryAjaxSettings) => any,
+        handler: (
+            this: HTMLElement,
+            event: JQueryEventObject,
+            XMLHttpRequest: XMLHttpRequest,
+            ajaxOptions: JQueryAjaxSettings,
+        ) => any,
     ): JQuery;
 
     /**
@@ -2348,7 +2362,11 @@ interface JQuery {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/bind/#bind-eventType-eventData-handler}
      */
-    bind(eventType: string, eventData: any, handler: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
+    bind(
+        eventType: string,
+        eventData: any,
+        handler: (this: HTMLElement, eventObject: JQueryEventObject) => any,
+    ): JQuery;
     /**
      * Attach a handler to an event for the elements.
      *
@@ -2491,7 +2509,11 @@ interface JQuery {
      * Attach a handler to one or more events for all elements that match the selector, now or in the future, based on a specific set of root elements.
      * @see {@link https://api.jquery.com/delegate/#delegate-selector-eventType-handler}
      */
-    delegate(selector: any, eventType: string, handler: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
+    delegate(
+        selector: any,
+        eventType: string,
+        handler: (this: HTMLElement, eventObject: JQueryEventObject) => any,
+    ): JQuery;
     /**
      * Attach a handler to one or more events for all elements that match the selector, now or in the future, based on a specific set of root elements.
      * @see {@link https://api.jquery.com/delegate/#delegate-selector-eventType-eventData-handler}
@@ -2824,7 +2846,11 @@ interface JQuery {
      * @param handler A handler function previously attached for the event(s), or the special value false.
      * @see {@link https://api.jquery.com/off/#off-events-selector-handler}
      */
-    off(events: string, selector?: string, handler?: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
+    off(
+        events: string,
+        selector?: string,
+        handler?: (this: HTMLElement, eventObject: JQueryEventObject) => any,
+    ): JQuery;
     /**
      * Remove an event handler.
      *
@@ -2866,7 +2892,11 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
      * @see {@link https://api.jquery.com/on/#on-events-selector-data-handler}
      */
-    on(events: string, selector: string, handler: (this: HTMLElement, eventObject: JQueryEventObject, ...eventData: any[]) => any): JQuery;
+    on(
+        events: string,
+        selector: string,
+        handler: (this: HTMLElement, eventObject: JQueryEventObject, ...eventData: any[]) => any,
+    ): JQuery;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -2875,7 +2905,11 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
      * @see {@link https://api.jquery.com/on/#on-events-selector-data-handler}
      */
-    on(events: string, data: any, handler: (this: HTMLElement, eventObject: JQueryEventObject, ...args: any[]) => any): JQuery;
+    on(
+        events: string,
+        data: any,
+        handler: (this: HTMLElement, eventObject: JQueryEventObject, ...args: any[]) => any,
+    ): JQuery;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -2911,7 +2945,10 @@ interface JQuery {
      * @param data Data to be passed to the handler in event.data when an event occurs.
      * @see {@link https://api.jquery.com/on/#on-events-selector-data}
      */
-    on(events: { [key: string]: (this: HTMLElement, eventObject: JQueryEventObject, ...args: any[]) => any }, data?: any): JQuery;
+    on(
+        events: { [key: string]: (this: HTMLElement, eventObject: JQueryEventObject, ...args: any[]) => any },
+        data?: any,
+    ): JQuery;
 
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
@@ -2949,7 +2986,12 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
      * @see {@link https://api.jquery.com/one/#one-events-selector-data-handler}
      */
-    one(events: string, selector: string, data: any, handler: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
+    one(
+        events: string,
+        selector: string,
+        data: any,
+        handler: (this: HTMLElement, eventObject: JQueryEventObject) => any,
+    ): JQuery;
 
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
@@ -3134,7 +3176,11 @@ interface JQuery {
      * @param handler A function to execute at the time the event is triggered.
      * @see {@link https://api.jquery.com/undelegate/#undelegate-selector-eventType}
      */
-    undelegate(selector: string, eventType: string, handler?: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
+    undelegate(
+        selector: string,
+        eventType: string,
+        handler?: (this: HTMLElement, eventObject: JQueryEventObject) => any,
+    ): JQuery;
     /**
      * Remove a handler from the event for all elements which match the current selector, based upon a specific set of root elements.
      *
