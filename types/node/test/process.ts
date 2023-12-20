@@ -177,3 +177,9 @@ process.env.TZ = "test";
         process.getuid();
     }
 }
+
+{
+    if (!process.sourceMapsEnabled) {
+        process.setSourceMapsEnabled(true);
+    }
+}

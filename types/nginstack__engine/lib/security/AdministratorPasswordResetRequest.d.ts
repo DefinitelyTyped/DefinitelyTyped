@@ -20,5 +20,5 @@ declare class AdministratorPasswordResetRequest {
 declare namespace AdministratorPasswordResetRequest {
     export { fromString, RSACryptoPKey };
 }
-type RSACryptoPKey = import('../crypto/RSACryptoPKey');
 declare function fromString(data: string): AdministratorPasswordResetRequest;
+type RSACryptoPKey = import('../crypto/RSACryptoPKey');

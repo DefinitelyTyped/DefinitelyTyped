@@ -1811,7 +1811,7 @@ declare namespace sequelize {
          * Accepts subtype any of the DataTypes
          * Array of required attributes that are available on the model
          */
-        new(subtype: DataTypeAbstract, requireAttributes?: Array<string>): DataTypeVirtual;
+        new(subtype: DataTypeAbstract, requireAttributes?: string[]): DataTypeVirtual;
     }
 
     interface DataTypeEnum extends DataTypeAbstract {
@@ -2910,7 +2910,7 @@ declare namespace sequelize {
         /**
          * Check if this is eqaul to one of `others` by calling equals
          */
-        equalsOneOf(others: Instance<any>[]): boolean;
+        equalsOneOf(others: Array<Instance<any>>): boolean;
 
         /**
          * Convert the instance to a JSON representation. Proxies to calling `get` with no keys. This means get all
@@ -3083,7 +3083,7 @@ declare namespace sequelize {
     type WhereOptions<T> = {
         [P in keyof T]?:
             | Primitives
-            | Array<Primitives>
+            | Primitives[]
             | WhereLogic
             | (T[P] extends Primitives ? null : WhereOptions<T[P]>)
             | col
@@ -3099,7 +3099,7 @@ declare namespace sequelize {
      * A hash of attributes to describe your search, accepting any field names. See `WhereOptions` for details.
      */
     interface AnyWhereOptions {
-        [field: string]: WhereOptions<any>[] | Object | null;
+        [field: string]: Array<WhereOptions<any>> | Object | null;
     }
 
     /**
@@ -3158,7 +3158,7 @@ declare namespace sequelize {
          */
         attributes?: FindOptionsAttributesArray | {
             include?: FindOptionsAttributesArray | undefined;
-            exclude?: Array<string> | undefined;
+            exclude?: string[] | undefined;
         } | undefined;
 
         /**
@@ -3229,7 +3229,7 @@ declare namespace sequelize {
          */
         attributes?: FindOptionsAttributesArray | {
             include?: FindOptionsAttributesArray | undefined;
-            exclude?: Array<string> | undefined;
+            exclude?: string[] | undefined;
         } | undefined;
 
         /**
@@ -5448,13 +5448,15 @@ declare namespace sequelize {
      * @see Options
      */
     interface ReplicationOptions {
-        read?: {
-            host?: string | undefined;
-            port?: string | number | undefined;
-            username?: string | undefined;
-            password?: string | undefined;
-            database?: string | undefined;
-        }[] | undefined;
+        read?:
+            | Array<{
+                host?: string | undefined;
+                port?: string | number | undefined;
+                username?: string | undefined;
+                password?: string | undefined;
+                database?: string | undefined;
+            }>
+            | undefined;
 
         write?: {
             host?: string | undefined;
@@ -5474,7 +5476,7 @@ declare namespace sequelize {
         /**
          * Only retry a query if the error matches one of these strings.
          */
-        match?: (string | RegExp | Error)[] | undefined;
+        match?: Array<string | RegExp | Error> | undefined;
 
         /**
          * How many times a failing query is automatically retried. Set to 0 to disable retrying on SQL_BUSY error.

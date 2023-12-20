@@ -342,18 +342,18 @@ declare module "dgram" {
          * @param callback Called when the message has been sent.
          */
         send(
-            msg: string | Uint8Array | ReadonlyArray<any>,
+            msg: string | Uint8Array | readonly any[],
             port?: number,
             address?: string,
             callback?: (error: Error | null, bytes: number) => void,
         ): void;
         send(
-            msg: string | Uint8Array | ReadonlyArray<any>,
+            msg: string | Uint8Array | readonly any[],
             port?: number,
             callback?: (error: Error | null, bytes: number) => void,
         ): void;
         send(
-            msg: string | Uint8Array | ReadonlyArray<any>,
+            msg: string | Uint8Array | readonly any[],
             callback?: (error: Error | null, bytes: number) => void,
         ): void;
         send(
@@ -501,7 +501,7 @@ declare module "dgram" {
          * process active, allowing the process to exit even if the socket is still
          * listening.
          *
-         * Calling `socket.unref()` multiple times will have no addition effect.
+         * Calling `socket.unref()` multiple times will have no additional effect.
          *
          * The `socket.unref()` method returns a reference to the socket so calls can be
          * chained.

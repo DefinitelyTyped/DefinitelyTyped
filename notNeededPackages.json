@@ -508,6 +508,10 @@
             "libraryName": "canvaskit-wasm",
             "asOfVersion": "0.18.1"
         },
+        "carbon__icons-react": {
+            "libraryName": "@carbon/icons-react",
+            "asOfVersion": "11.29.0"
+        },
         "card-validator": {
             "libraryName": "card-validator",
             "asOfVersion": "7.0.1"
@@ -2733,6 +2737,26 @@
             "libraryName": "json-to-csv-export",
             "asOfVersion": "2.0.0"
         },
+        "json2csv__formatters": {
+            "libraryName": "@json2csv/formatters",
+            "asOfVersion": "7.0.0"
+        },
+        "json2csv__node": {
+            "libraryName": "@json2csv/node",
+            "asOfVersion": "7.0.0"
+        },
+        "json2csv__plainjs": {
+            "libraryName": "@json2csv/plainjs",
+            "asOfVersion": "7.0.0"
+        },
+        "json2csv__transforms": {
+            "libraryName": "@json2csv/transforms",
+            "asOfVersion": "7.0.0"
+        },
+        "json2csv__whatwg": {
+            "libraryName": "@json2csv/whatwg",
+            "asOfVersion": "7.0.0"
+        },
         "json5": {
             "libraryName": "json5",
             "asOfVersion": "2.2.0"
@@ -4551,6 +4575,14 @@
             "libraryName": "rdf-js",
             "asOfVersion": "4.0.2"
         },
+        "rdf-loader-code": {
+            "libraryName": "rdf-loader-code",
+            "asOfVersion": "2.1.1"
+        },
+        "rdf-loaders-registry": {
+            "libraryName": "rdf-loaders-registry",
+            "asOfVersion": "1.0.0"
+        },
         "rdflib": {
             "libraryName": "rdflib",
             "asOfVersion": "1.2.0"
@@ -5502,6 +5534,10 @@
         "slate-react": {
             "libraryName": "slate-react",
             "asOfVersion": "0.50.0"
+        },
+        "slice-ansi": {
+            "libraryName": "slice-ansi",
+            "asOfVersion": "7.1.0"
         },
         "smooth-scrollbar": {
             "libraryName": "smooth-scrollbar",
@@ -6534,6 +6570,10 @@
         "wouter": {
             "libraryName": "wouter",
             "asOfVersion": "2.2.0"
+        },
+        "wrap-ansi": {
+            "libraryName": "wrap-ansi",
+            "asOfVersion": "8.1.0"
         },
         "write-json-file": {
             "libraryName": "write-json-file",

@@ -72,7 +72,7 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
      * For simplicity, data is just a plain array. If you want to use something else,
      * like an immutable list, use the underlying VirtualizedList directly.
      */
-    data: ReadonlyArray<ItemT> | null | undefined;
+    data: readonly ItemT[] | null | undefined;
 
     /**
      * A marker property for telling the list to re-render (since it implements PureComponent).
@@ -95,7 +95,7 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
      */
     getItemLayout?:
         | ((
-            data: Array<ItemT> | null | undefined,
+            data: ItemT[] | null | undefined,
             index: number,
         ) => { length: number; offset: number; index: number })
         | undefined;
@@ -157,8 +157,8 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
      */
     onViewableItemsChanged?:
         | ((info: {
-            viewableItems: Array<ViewToken>;
-            changed: Array<ViewToken>;
+            viewableItems: ViewToken[];
+            changed: ViewToken[];
         }) => void)
         | null
         | undefined;
@@ -261,7 +261,7 @@ export class FlatList<ItemT = any> extends React.Component<
     /**
      * Provides a handle to the underlying scroll responder.
      */
-    getScrollResponder: () => JSX.Element | null | undefined;
+    getScrollResponder: () => React.JSX.Element | null | undefined;
 
     /**
      * Provides a reference to the underlying host component

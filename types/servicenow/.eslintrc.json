@@ -1,0 +1,6 @@
+{
+    "rules": {
+        "@definitelytyped/npm-naming": "off",
+        "@typescript-eslint/no-misused-new": "off"
+    }
+}

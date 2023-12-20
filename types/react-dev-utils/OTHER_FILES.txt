@@ -1,3 +1,0 @@
-errorOverlayMiddleware.d.ts
-ignoredFiles.d.ts
-webpackHotDevClient.d.ts

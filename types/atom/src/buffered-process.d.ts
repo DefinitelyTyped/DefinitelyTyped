@@ -32,7 +32,7 @@ export interface NodeProcessOptions {
     command: string;
 
     /** The array of arguments to pass to the command. */
-    args?: ReadonlyArray<string> | undefined;
+    args?: readonly string[] | undefined;
 
     /** The options object to pass to Node's ChildProcess.spawn method. */
     options?: SpawnProcessOptions | undefined;

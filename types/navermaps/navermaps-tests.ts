@@ -104,6 +104,8 @@ const symbolIconMarker = new naver.maps.Marker({
     },
 });
 
+htmlMarker.getElement();
+htmlMarker.setOptions("visible", false);
 htmlMarker.setAnimation(null);
 const getAnimation = htmlMarker.getAnimation();
 
@@ -371,6 +373,7 @@ drawingManager?.setOptions(drawingManagerOptions);
 // drawing control
 const drawingControl: naver.maps.drawing.DrawingMode[] = [];
 drawingManager?.setOptions("drawingControl", drawingControl);
+drawingManager?.setOptions("drawingControl", null);
 // drawint control options
 const drawingControlOptions: naver.maps.drawing.DrawingControlOptions = {
     position: naver.maps.Position.TOP_CENTER,

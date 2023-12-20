@@ -429,6 +429,50 @@ declare module "@mapbox/mapbox-sdk/services/directions" {
         voiceUnits?: DirectionsUnits | undefined;
     }
 
+    type DirectionsProfileInclusion = {
+        profile: "walking" | "cycling";
+    } | {
+        profile: "driving";
+        /**
+         * The desired arrival time, formatted as a timestamp in ISO-8601 format in the local time at the route destination. The travel time, returned in duration, is a prediction for travel time based on historical travel data. The route is calculated in a time-dependent manner. For example, a trip that takes two hours will consider changing historic traffic conditions across the two-hour window. The route takes timed turn restrictions and conditional access restrictions into account based on the requested arrival time.
+         */
+        arriveBy?: string;
+        /**
+         * The departure time, formatted as a timestamp in ISO-8601 format in the local time at the route origin. The travel time, returned in duration, is a prediction for travel time based on historical travel data. The route is calculated in a time-dependent manner. For example, a trip that takes two hours will consider changing historic traffic conditions across the two-hour window, instead of only at the specified depart_at time. The route takes timed turn restrictions and conditional access restrictions into account based on the requested departure time.
+         */
+        departAt?: string;
+        /**
+         * The max vehicle height, in meters. If this parameter is provided, the Directions API will compute a route that includes only roads with a height limit greater than or equal to the max vehicle height. max_height must be between 0 and 10 meters. The default value is 1.6 meters. Coverage for road height restriction may vary by region.
+         */
+        maxHeight?: number;
+        /**
+         * The max vehicle weight, in metric tons (1000 kg). If this parameter is provided, the Directions API will compute a route that includes only roads with a weight limit greater than or equal to the max vehicle weight. max_weight must be between 0 and 100 metric tons. The default value is 2.5 metric tons. Coverage for road weight restriction may vary by region.
+         */
+        maxWeight?: number;
+        /**
+         * The max vehicle width, in meters. If this parameter is provided, the Directions API will compute a route that includes only roads with a width limit greater than or equal to the max vehicle width. max_width must be between 0 and 10 meters. The default value is 1.9 meters. Coverage for road width restriction may vary by region.
+         */
+        maxWidth?: number;
+    } | {
+        profile: "driving-traffic";
+        /**
+         * The departure time, formatted as a timestamp in ISO-8601 format in the local time at the route origin. The travel time, returned in duration, is a prediction for travel time based on historical travel data and live traffic. Live traffic is gently mixed with historical data when depart_at is set close to current time. The route takes timed turn restrictions and conditional access restrictions into account based on the requested arrival time.
+         */
+        departAt?: string;
+        /**
+         * The max vehicle height, in meters. If this parameter is provided, the Directions API will compute a route that includes only roads with a height limit greater than or equal to the max vehicle height. max_height must be between 0 and 10 meters. The default value is 1.6 meters. Coverage for road height restriction may vary by region.
+         */
+        maxHeight?: number;
+        /**
+         * The max vehicle weight, in metric tons (1000 kg). If this parameter is provided, the Directions API will compute a route that includes only roads with a weight limit greater than or equal to the max vehicle weight. max_weight must be between 0 and 100 metric tons. The default value is 2.5 metric tons. Coverage for road weight restriction may vary by region.
+         */
+        maxWeight?: number;
+        /**
+         * The max vehicle width, in meters. If this parameter is provided, the Directions API will compute a route that includes only roads with a width limit greater than or equal to the max vehicle width. max_width must be between 0 and 10 meters. The default value is 1.9 meters. Coverage for road width restriction may vary by region.
+         */
+        maxWidth?: number;
+    };
+
     type DirectionsProfileExclusion =
         | {
             profile: "walking";
@@ -445,6 +489,7 @@ declare module "@mapbox/mapbox-sdk/services/directions" {
 
     type DirectionsRequest<T extends DirectionsGeometry = "polyline"> =
         & CommonDirectionsRequest<T>
+        & DirectionsProfileInclusion
         & DirectionsProfileExclusion;
 
     interface Waypoint {

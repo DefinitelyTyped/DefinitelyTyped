@@ -91,12 +91,12 @@ declare namespace util {
         file: string;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface I18nTFunction {
         (id: string, tplStrs?: Record<string, string | number>): string;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface I18n {
         /**
          * Perform a message catalog lookup.
@@ -318,7 +318,7 @@ declare namespace util {
     }
 
     // Used `boolean` in PromiseLike instead of `false` because it caused problems with `async` functions
-    type HandlerFunction<T> = (payload: T, callback: (err?: any) => void) => void | false | PromiseLike<void | boolean>; // tslint:disable-line:void-return
+    type HandlerFunction<T> = (payload: T, callback: (err?: any) => void) => void | false | PromiseLike<void | boolean>; // eslint-disable-line @typescript-eslint/no-invalid-void-type
 
     interface Hooks {
         /**

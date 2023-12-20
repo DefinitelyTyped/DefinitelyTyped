@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/frida-gum",
-    "version": "18.4.9999",
+    "version": "18.5.9999",
     "nonNpm": true,
     "nonNpmDescription": "frida-gum",
     "projects": [

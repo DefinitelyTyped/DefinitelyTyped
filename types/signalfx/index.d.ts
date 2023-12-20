@@ -60,6 +60,7 @@ export const CONSTANTS: {
 export interface SignalFlowOptions {
     signalflowEndpoint?: string | undefined;
     apiEndpoint?: string | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     webSocketErrorCallback?: (err: any) => void | undefined;
 }
 

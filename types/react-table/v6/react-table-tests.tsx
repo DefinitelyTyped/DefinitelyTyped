@@ -54,145 +54,147 @@ const Component = (props: {}) => {
         { firstName: "riddle", lastName: "information", age: 2, visits: 63, progress: 3 },
     ];
     return (
-        <div>
-            <ReactTable
-                data={data}
-                loading={false}
-                showPagination={true}
-                showPaginationTop={true}
-                showPaginationBottom={true}
-                showPageSizeOptions={true}
-                pageSizeOptions={[5, 10, 20, 25, 50, 100]}
-                defaultPageSize={20}
-                minRows={undefined}
-                showPageJump={true}
-                collapseOnSortingChange={true}
-                collapseOnPageChange={true}
-                collapseOnDataChange={true}
-                freezeWhenExpanded={false}
-                sortable={true}
-                multiSort={true}
-                resizable={true}
-                filterable={false}
-                defaultSortDesc={false}
-                defaultSorted={[]}
-                defaultFiltered={[]}
-                defaultResized={[]}
-                defaultExpanded={{}}
-                defaultFilterMethod={(filter, row, column) => {
-                    const id = filter.pivotId || filter.id;
-                    return row[id] !== undefined ? String(row[id]).startsWith(filter.value) : true;
-                }}
-                columns={columns}
-                defaultSortMethod={(a, b, desc) => {
-                    // force null and undefined to the bottom
-                    a = (a === null || a === undefined) ? -Infinity : a;
-                    b = (b === null || b === undefined) ? -Infinity : b;
-                    // force any string values to lowercase
-                    a = a === "string" ? a.toLowerCase() : a;
-                    b = b === "string" ? b.toLowerCase() : b;
-                    // Return either 1 or -1 to indicate a sort priority
-                    if (a > b) {
-                        return 1;
-                    }
-                    if (a < b) {
-                        return -1;
-                    }
-                    // returning 0, undefined or any falsey value will use subsequent sorts or the index as a tiebreaker
-                    return 0;
-                }}
-                PadRowComponent={() => <span>&nbsp;</span>}
-                page={undefined}
-                pageSize={undefined}
-                pages={undefined}
-                sorted={[]}
-                filtered={[]}
-                resized={[]}
-                expanded={{}}
-                pivotValKey="_pivotVal"
-                pivotIDKey="_pivotID"
-                subRowsKey="_subRows"
-                aggregatedKey="_aggregated"
-                nestingLevelKey="_nestingLevel"
-                originalKey="_original"
-                indexKey="_index"
-                groupedByPivotKey="_groupedByPivot"
-                className=""
-                onFetchData={(state, instance) => null}
-                style={{}}
-                column={{
-                    Cell: undefined,
-                    Header: undefined,
-                    Footer: undefined,
-                    Aggregated: undefined,
-                    Pivot: undefined,
-                    PivotValue: undefined,
-                    Expander: undefined,
-                    sortable: undefined,
-                    resizable: undefined,
-                    filterable: undefined,
-                    show: true,
-                    minWidth: 100,
-                    className: "",
-                    style: {},
-                    getProps: () => {},
-                    headerClassName: "",
-                    headerStyle: {},
-                    getHeaderProps: () => {},
-                    footerClassName: "",
-                    footerStyle: {},
-                    getFooterProps: () => {},
-                    filterAll: false,
-                    filterMethod: undefined,
-                    sortMethod: undefined,
-                    defaultSortDesc: undefined,
-                }}
-                expanderDefaults={{
-                    sortable: false,
-                    resizable: false,
-                    filterable: false,
-                }}
-                pivotDefaults={{}}
-                previousText="Previous"
-                nextText="Next"
-                loadingText="Loading..."
-                noDataText="No rows found"
-                pageText="Page"
-                ofText="of"
-                rowsText="rows"
-                onSortedChange={(newSorted, column, additive) => {
-                    if (newSorted) {
-                        console.log(newSorted);
-                    }
-                }}
-            >
-                {(
-                    state: FinalState<Data>,
-                    makeTable: () => React.ReactChild,
-                    instance: Instance<Data>,
-                ) => {
-                    return (
-                        <div
-                            style={{
-                                background: "#ffcf00",
-                                borderRadius: "5px",
-                                overflow: "hidden",
-                                padding: "5px",
-                            }}
-                        >
-                            <pre>
+        (
+            <div>
+                <ReactTable
+                    data={data}
+                    loading={false}
+                    showPagination={true}
+                    showPaginationTop={true}
+                    showPaginationBottom={true}
+                    showPageSizeOptions={true}
+                    pageSizeOptions={[5, 10, 20, 25, 50, 100]}
+                    defaultPageSize={20}
+                    minRows={undefined}
+                    showPageJump={true}
+                    collapseOnSortingChange={true}
+                    collapseOnPageChange={true}
+                    collapseOnDataChange={true}
+                    freezeWhenExpanded={false}
+                    sortable={true}
+                    multiSort={true}
+                    resizable={true}
+                    filterable={false}
+                    defaultSortDesc={false}
+                    defaultSorted={[]}
+                    defaultFiltered={[]}
+                    defaultResized={[]}
+                    defaultExpanded={{}}
+                    defaultFilterMethod={(filter, row, column) => {
+                        const id = filter.pivotId || filter.id;
+                        return row[id] !== undefined ? String(row[id]).startsWith(filter.value) : true;
+                    }}
+                    columns={columns}
+                    defaultSortMethod={(a, b, desc) => {
+                        // force null and undefined to the bottom
+                        a = (a === null || a === undefined) ? -Infinity : a;
+                        b = (b === null || b === undefined) ? -Infinity : b;
+                        // force any string values to lowercase
+                        a = a === "string" ? a.toLowerCase() : a;
+                        b = b === "string" ? b.toLowerCase() : b;
+                        // Return either 1 or -1 to indicate a sort priority
+                        if (a > b) {
+                            return 1;
+                        }
+                        if (a < b) {
+                            return -1;
+                        }
+                        // returning 0, undefined or any falsey value will use subsequent sorts or the index as a tiebreaker
+                        return 0;
+                    }}
+                    PadRowComponent={() => <span>&nbsp;</span>}
+                    page={undefined}
+                    pageSize={undefined}
+                    pages={undefined}
+                    sorted={[]}
+                    filtered={[]}
+                    resized={[]}
+                    expanded={{}}
+                    pivotValKey="_pivotVal"
+                    pivotIDKey="_pivotID"
+                    subRowsKey="_subRows"
+                    aggregatedKey="_aggregated"
+                    nestingLevelKey="_nestingLevel"
+                    originalKey="_original"
+                    indexKey="_index"
+                    groupedByPivotKey="_groupedByPivot"
+                    className=""
+                    onFetchData={(state, instance) => null}
+                    style={{}}
+                    column={{
+                        Cell: undefined,
+                        Header: undefined,
+                        Footer: undefined,
+                        Aggregated: undefined,
+                        Pivot: undefined,
+                        PivotValue: undefined,
+                        Expander: undefined,
+                        sortable: undefined,
+                        resizable: undefined,
+                        filterable: undefined,
+                        show: true,
+                        minWidth: 100,
+                        className: "",
+                        style: {},
+                        getProps: () => {},
+                        headerClassName: "",
+                        headerStyle: {},
+                        getHeaderProps: () => {},
+                        footerClassName: "",
+                        footerStyle: {},
+                        getFooterProps: () => {},
+                        filterAll: false,
+                        filterMethod: undefined,
+                        sortMethod: undefined,
+                        defaultSortDesc: undefined,
+                    }}
+                    expanderDefaults={{
+                        sortable: false,
+                        resizable: false,
+                        filterable: false,
+                    }}
+                    pivotDefaults={{}}
+                    previousText="Previous"
+                    nextText="Next"
+                    loadingText="Loading..."
+                    noDataText="No rows found"
+                    pageText="Page"
+                    ofText="of"
+                    rowsText="rows"
+                    onSortedChange={(newSorted, column, additive) => {
+                        if (newSorted) {
+                            console.log(newSorted);
+                        }
+                    }}
+                >
+                    {(
+                        state: FinalState<Data>,
+                        makeTable: () => React.ReactElement | number | string,
+                        instance: Instance<Data>,
+                    ) => {
+                        return (
+                            <div
+                                style={{
+                                    background: "#ffcf00",
+                                    borderRadius: "5px",
+                                    overflow: "hidden",
+                                    padding: "5px",
+                                }}
+                            >
+                                <pre>
                 <code>
                   state.allVisibleColumns ==={" "}
                   {JSON.stringify(state.allVisibleColumns, null, 4)}
                 </code>
-                            </pre>
-                            {makeTable()}
-                        </div>
-                    );
-                }}
-            </ReactTable>
-            <br />
-        </div>
+                                </pre>
+                                {makeTable()}
+                            </div>
+                        );
+                    }}
+                </ReactTable>
+                <br />
+            </div>
+        )
     );
 };
 

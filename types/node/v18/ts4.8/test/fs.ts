@@ -418,11 +418,11 @@ async function testPromisify() {
 {
     fs.writev(
         1,
-        [Buffer.from("123")] as ReadonlyArray<NodeJS.ArrayBufferView>,
+        [Buffer.from("123")] as readonly NodeJS.ArrayBufferView[],
         (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => {
         },
     );
-    const bytesWritten = fs.writevSync(1, [Buffer.from("123")] as ReadonlyArray<NodeJS.ArrayBufferView>);
+    const bytesWritten = fs.writevSync(1, [Buffer.from("123")] as readonly NodeJS.ArrayBufferView[]);
 }
 
 (async () => {
@@ -570,10 +570,10 @@ async function testPromisify() {
 }
 
 {
-    fs.readvSync(123, [Buffer.from("wut")] as ReadonlyArray<NodeJS.ArrayBufferView>);
+    fs.readvSync(123, [Buffer.from("wut")] as readonly NodeJS.ArrayBufferView[]);
     fs.readv(
         123,
-        [Buffer.from("wut")] as ReadonlyArray<NodeJS.ArrayBufferView>,
+        [Buffer.from("wut")] as readonly NodeJS.ArrayBufferView[],
         123,
         (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => {
         },

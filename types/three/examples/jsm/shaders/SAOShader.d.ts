@@ -1,6 +1,7 @@
 import { IUniform } from '../../../src/Three.js';
 
 export const SAOShader: {
+    name: string;
     defines: {
         NUM_SAMPLES: number;
         NUM_RINGS: number;

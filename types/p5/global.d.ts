@@ -629,6 +629,23 @@ declare global {
     function clear(r: number, g: number, b: number, a: number): p5;
 
     /**
+     *   Clears the pixels on the canvas. This function
+     *   makes every pixel 100% transparent. Calling
+     *   clear() doesn't clear objects created by createX()
+     *   functions such as createGraphics(), createVideo(),
+     *   and createImg(). These objects will remain
+     *   unchanged after calling clear() and can be
+     *   redrawn. In WebGL mode, this function can clear
+     *   the screen to a specific color. It interprets four
+     *   numeric parameters as normalized RGBA color
+     *   values. It also clears the depth buffer. If you
+     *   are not using the WebGL renderer, these parameters
+     *   will have no effect.
+     *   @chainable
+     */
+    function clear(): p5;
+
+    /**
      *   Changes the way p5.js interprets color data. By
      *   default, the numeric parameters for fill(),
      *   stroke(), background(), and color() are defined by
@@ -2129,7 +2146,7 @@ declare global {
      *   normal.
      *   @chainable
      */
-    function normal(vector: Vector): p5;
+    function normal(vector: p5.Vector): p5;
 
     /**
      *   Sets the 3d vertex normal to use for subsequent
@@ -2393,7 +2410,7 @@ declare global {
     const UNSIGNED_BYTE: p5.UNSIGNED_BYTE;
     const UNSIGNED_INT: p5.UNSIGNED_INT;
     const FLOAT: p5.FLOAT;
-    const FLOAT: p5.FLOAT;
+    const HALF_FLOAT: p5.HALF_FLOAT;
     const RGBA: p5.RGBA;
 
     /**
@@ -9166,7 +9183,7 @@ declare global {
      *   Sets the normal to use for subsequent vertices.
      *   @chainable
      */
-    function vertexNormal(x: number, y: number, z: number, v: Vector): p5;
+    function vertexNormal(x: number, y: number, z: number, v: p5.Vector): p5;
 
     /**
      *   Set attributes for the WebGL Drawing context. This
@@ -9423,7 +9440,7 @@ declare global {
         successCallback?: (...args: any[]) => any,
         errorCallback?: (...args: any[]) => any,
         whileLoading?: (...args: any[]) => any
-    ): SoundFile;
+    ): p5.SoundFile;
 
     /**
      *   Create a p5.Convolver. Accepts a path to a

@@ -204,11 +204,11 @@ interface PromiseConstructor {
      */
     // TODO enable more overloads
     // promise of array with promises of value
-    all<T>(values: PromiseLike<PromiseLike<T>[]>): Promise<T[]>;
+    all<T>(values: PromiseLike<Array<PromiseLike<T>>>): Promise<T[]>;
     // promise of array with values
     all<T>(values: PromiseLike<T[]>): Promise<T[]>;
     // array with promises of value
-    all<T>(values: PromiseLike<T>[]): Promise<T[]>;
+    all<T>(values: Array<PromiseLike<T>>): Promise<T[]>;
     // array with promises of different types
     all<T1, T2, T3, T4, T5>(
         values: [PromiseLike<T1>, PromiseLike<T2>, PromiseLike<T3>, PromiseLike<T4>, PromiseLike<T5>],
@@ -240,23 +240,23 @@ interface PromiseConstructor {
      * *original: The array is not modified. The input array sparsity is retained in the resulting array.*
      */
     // promise of array with promises of value
-    settle<T>(values: PromiseLike<PromiseLike<T>[]>): Promise<Promise.Inspection<T>[]>;
+    settle<T>(values: PromiseLike<Array<PromiseLike<T>>>): Promise<Array<Promise.Inspection<T>>>;
     // promise of array with values
-    settle<T>(values: PromiseLike<T[]>): Promise<Promise.Inspection<T>[]>;
+    settle<T>(values: PromiseLike<T[]>): Promise<Array<Promise.Inspection<T>>>;
     // array with promises of value
-    settle<T>(values: PromiseLike<T>[]): Promise<Promise.Inspection<T>[]>;
+    settle<T>(values: Array<PromiseLike<T>>): Promise<Array<Promise.Inspection<T>>>;
     // array with values
-    settle<T>(values: T[]): Promise<Promise.Inspection<T>[]>;
+    settle<T>(values: T[]): Promise<Array<Promise.Inspection<T>>>;
 
     /**
      * Like `Promise.some()`, with 1 as `count`. However, if the promise fulfills, the fulfillment value is not an array of 1 but the value directly.
      */
     // promise of array with promises of value
-    any<T>(values: PromiseLike<PromiseLike<T>[]>): Promise<T>;
+    any<T>(values: PromiseLike<Array<PromiseLike<T>>>): Promise<T>;
     // promise of array with values
     any<T>(values: PromiseLike<T[]>): Promise<T>;
     // array with promises of value
-    any<T>(values: PromiseLike<T>[]): Promise<T>;
+    any<T>(values: Array<PromiseLike<T>>): Promise<T>;
     // array with values
     any<T>(values: T[]): Promise<T>;
 
@@ -266,11 +266,11 @@ interface PromiseConstructor {
      * **Note** If you pass empty array or a sparse array with no values, or a promise/thenable for such, it will be forever pending.
      */
     // promise of array with promises of value
-    race<T>(values: PromiseLike<PromiseLike<T>[]>): Promise<T>;
+    race<T>(values: PromiseLike<Array<PromiseLike<T>>>): Promise<T>;
     // promise of array with values
     race<T>(values: PromiseLike<T[]>): Promise<T>;
     // array with promises of value
-    race<T>(values: PromiseLike<T>[]): Promise<T>;
+    race<T>(values: Array<PromiseLike<T>>): Promise<T>;
     // array with values
     race<T>(values: T[]): Promise<T>;
 
@@ -282,11 +282,11 @@ interface PromiseConstructor {
      * *The original array is not modified.*
      */
     // promise of array with promises of value
-    some<T>(values: PromiseLike<PromiseLike<T>[]>, count: number): Promise<T[]>;
+    some<T>(values: PromiseLike<Array<PromiseLike<T>>>, count: number): Promise<T[]>;
     // promise of array with values
     some<T>(values: PromiseLike<T[]>, count: number): Promise<T[]>;
     // array with promises of value
-    some<T>(values: PromiseLike<T>[], count: number): Promise<T[]>;
+    some<T>(values: Array<PromiseLike<T>>, count: number): Promise<T[]>;
     // array with values
     some<T>(values: T[], count: number): Promise<T[]>;
 
@@ -294,7 +294,7 @@ interface PromiseConstructor {
      * Like `Promise.all()` but instead of having to pass an array, the array is generated from the passed variadic arguments.
      */
     // variadic array with promises of value
-    join<T>(...values: PromiseLike<T>[]): Promise<T[]>;
+    join<T>(...values: Array<PromiseLike<T>>): Promise<T[]>;
     // variadic array with values
     join<T>(...values: T[]): Promise<T[]>;
 
@@ -307,7 +307,7 @@ interface PromiseConstructor {
      */
     // promise of array with promises of value
     map<T, U>(
-        values: PromiseLike<PromiseLike<T>[]>,
+        values: PromiseLike<Array<PromiseLike<T>>>,
         mapper: (item: T, index: number, arrayLength: number) => U | PromiseLike<U>,
         options?: Promise.ConcurrencyOption,
     ): Promise<U[]>;
@@ -321,7 +321,7 @@ interface PromiseConstructor {
 
     // array with promises of value
     map<T, U>(
-        values: PromiseLike<T>[],
+        values: Array<PromiseLike<T>>,
         mapper: (item: T, index: number, arrayLength: number) => U | PromiseLike<U>,
         options?: Promise.ConcurrencyOption,
     ): Promise<U[]>;
@@ -342,7 +342,7 @@ interface PromiseConstructor {
      */
     // promise of array with promises of value
     mapSeries<R, U>(
-        values: PromiseLike<PromiseLike<R>[]>,
+        values: PromiseLike<Array<PromiseLike<R>>>,
         mapper: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>,
     ): Promise<U[]>;
 
@@ -354,7 +354,7 @@ interface PromiseConstructor {
 
     // array with promises of value
     mapSeries<R, U>(
-        values: PromiseLike<R>[],
+        values: Array<PromiseLike<R>>,
         mapper: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>,
     ): Promise<U[]>;
 
@@ -373,7 +373,7 @@ interface PromiseConstructor {
      */
     // promise of array with promises of value
     reduce<T, U>(
-        values: PromiseLike<PromiseLike<T>[]>,
+        values: PromiseLike<Array<PromiseLike<T>>>,
         reducer: (total: U, current: T, index: number, arrayLength: number) => U | PromiseLike<U>,
         initialValue?: U,
     ): Promise<U>;
@@ -387,7 +387,7 @@ interface PromiseConstructor {
 
     // array with promises of value
     reduce<T, U>(
-        values: PromiseLike<T>[],
+        values: Array<PromiseLike<T>>,
         reducer: (total: U, current: T, index: number, arrayLength: number) => U | PromiseLike<U>,
         initialValue?: U,
     ): Promise<U>;
@@ -408,7 +408,7 @@ interface PromiseConstructor {
      */
     // promise of array with promises of value
     filter<T>(
-        values: PromiseLike<PromiseLike<T>[]>,
+        values: PromiseLike<Array<PromiseLike<T>>>,
         filterer: (item: T, index: number, arrayLength: number) => boolean | PromiseLike<boolean>,
         option?: Promise.ConcurrencyOption,
     ): Promise<T[]>;
@@ -422,7 +422,7 @@ interface PromiseConstructor {
 
     // array with promises of value
     filter<T>(
-        values: PromiseLike<T>[],
+        values: Array<PromiseLike<T>>,
         filterer: (item: T, index: number, arrayLength: number) => boolean | PromiseLike<boolean>,
         option?: Promise.ConcurrencyOption,
     ): Promise<T[]>;
@@ -441,12 +441,12 @@ interface PromiseConstructor {
      */
     // promise of array with promises of value
     each<T, U>(
-        values: PromiseLike<PromiseLike<T>[]>,
+        values: PromiseLike<Array<PromiseLike<T>>>,
         iterator: (item: T, index: number, arrayLength: number) => U | PromiseLike<U>,
     ): Promise<T[]>;
     // array with promises of value
     each<T, U>(
-        values: PromiseLike<T>[],
+        values: Array<PromiseLike<T>>,
         iterator: (item: T, index: number, arrayLength: number) => U | PromiseLike<U>,
     ): Promise<T[]>;
     // array with values OR promise of array with values
@@ -739,7 +739,7 @@ interface Promise<T> extends PromiseLike<T>, Promise.Inspection<T> {
      * Same as calling `Promise.settle(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
      */
     // TODO type inference from array-resolving promise?
-    settle<U>(): Promise<Promise.Inspection<U>[]>;
+    settle<U>(): Promise<Array<Promise.Inspection<U>>>;
 
     /**
      * Same as calling `Promise.any(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.

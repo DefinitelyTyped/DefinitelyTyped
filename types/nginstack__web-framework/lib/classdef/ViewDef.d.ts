@@ -39,6 +39,7 @@ declare class ViewDef {
     zoomImageOnHover: boolean;
     canNavigate: boolean;
     tooltip: string;
+    icon: string;
     field(name: string, type?: string, size?: number, ...args: any[]): Field;
     defineGrid(gridName: string, func: (arg0: any) => any): void;
     toString(): string;

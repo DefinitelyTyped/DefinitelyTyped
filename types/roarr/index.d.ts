@@ -7,7 +7,7 @@ export interface WriterType {
 
 export interface RoarrGlobalStateType extends WriterType {
     sequence: number;
-    versions: ReadonlyArray<string>;
+    versions: readonly string[];
 }
 
 export type SprintfArgumentType = string | number | boolean | null;

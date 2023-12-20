@@ -25,7 +25,7 @@ interface StringConstructor {
 }
 
 interface ArrayConstructor {
-    like(arr: Array<any>): ArrayConstructor;
+    like(arr: any[]): ArrayConstructor;
     of(pattern: any): ArrayConstructor;
     of(length: number, pattern: any): ArrayConstructor;
     of(minLength: number, maxLength: number, pattern: any): ArrayConstructor;

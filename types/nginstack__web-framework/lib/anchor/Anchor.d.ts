@@ -60,4 +60,4 @@ declare namespace Anchor {
 }
 import LegacyEvent = require("@nginstack/engine/lib/event/LegacyEvent.js");
 type Process = import("../process/Process");
-declare var createProcess: any;
+declare let createProcess: any;

@@ -46,6 +46,8 @@ webAuth.authorize({
     language: "en",
     login_hint: "email@email.com",
     prompt: "login",
+    organization: "org_123",
+    invitation: "invitation_abc",
 });
 
 webAuth.parseHash((err, authResult) => {

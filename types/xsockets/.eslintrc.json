@@ -1,5 +1,7 @@
 {
     "rules": {
-        "@definitelytyped/strict-export-declare-modifiers": "off"
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@definitelytyped/npm-naming": "off",
+        "@typescript-eslint/prefer-namespace": "off"
     }
 }

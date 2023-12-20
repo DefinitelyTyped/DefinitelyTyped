@@ -153,7 +153,6 @@ Definitely Typed работает только благодаря вкладу �
 | `index.d.ts`  | Содержит типизацию для пакета.                                                                       |
 | [`<my-package>-tests.ts`](#my-package-teststs)  | Содержит пример кода, который проверяет типизацию. Этот код _не_ запускается, но он проверен на тип. |
 | [`tsconfig.json`](#tsconfigjson) | Позволяет вам запускать `tsc` внутри пакета.                                      |
-| [`tslint.json`](#linter-tslintjson)   | Включает linting.                                                            |
 
 Создайте их, запустив `npx dts-gen --dt --name <my-package> --template module` если у вас npm ≥ 5.2.0, `npm install -g dts-gen` и `dts-gen --dt --name <my-package> --template module` в противном случае.
 Посмотреть все варианты на [dts-gen](https://github.com/Microsoft/dts-gen).
@@ -239,11 +238,18 @@ f('one');
 
 Для получения дополнительной информации см. [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint#write-tests) readme.
 
-#### Linter: `tslint.json`
+##### Linter: `.eslintrc.json`
 
-The linter configuration file, `tslint.json` should contain `{ "extends": "@definitelytyped/dtslint/dt.json" }`, and no additional rules.
+If for some reason a lint rule needs to be disabled, disable it for a specific line:
 
-If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
+```ts
+// eslint-disable-next-line no-const-enum
+const enum Const { One }
+const enum Enum { Two } // eslint-disable-line no-const-enum
+```
+
+You can still disable rules with an .eslintrc.json, but should not in new packages.
+Disabling rules for the entire package makes it harder to review.
 
 #### `tsconfig.json`
 

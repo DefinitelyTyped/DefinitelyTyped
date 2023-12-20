@@ -1,12 +1,9 @@
 /**
  * Get all git semver tags of your repository in reverse chronological order
  */
-declare function gitSemverTags(options: gitSemverTags.Options, callback: gitSemverTags.Callback): void;
-declare function gitSemverTags(callback: gitSemverTags.Callback): void;
+declare function gitSemverTags(options?: gitSemverTags.Options): Promise<string[]>;
 
 declare namespace gitSemverTags {
-    type Callback = (error: any, tags: string[]) => void;
-
     interface Options {
         /**
          * Extract lerna style tags (`foo-package@2.0.0`) from the git history, rather

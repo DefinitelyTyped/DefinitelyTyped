@@ -7,8 +7,7 @@
     ],
     "devDependencies": {
         "@types/react": "*",
-        "@types/react-css-collapse": "workspace:.",
-        "@types/react-dom": "*"
+        "@types/react-css-collapse": "workspace:."
     },
     "owners": [
         {

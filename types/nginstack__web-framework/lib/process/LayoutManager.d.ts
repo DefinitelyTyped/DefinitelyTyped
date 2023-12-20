@@ -21,5 +21,5 @@ declare class LayoutManager {
     write(): void;
 }
 declare namespace LayoutManager {
-    const INSTANCE_COUNT: number;
+    let INSTANCE_COUNT: number;
 }

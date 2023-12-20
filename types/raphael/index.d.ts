@@ -1871,6 +1871,7 @@ export interface RaphaelSet<
      * @return this set for chaining.
      */
     forEach<ThisContext = Window>(
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         callback: (this: ThisContext, element: RaphaelElement<TTechnology>) => boolean | void,
         thisArg?: ThisContext,
     ): this;
@@ -2141,6 +2142,7 @@ export interface RaphaelPaper<
      * @return this paper for chaining.
      */
     forEach<T = Window>(
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         callback: (this: T, element: RaphaelElement<TTechnology>) => boolean | void,
         thisContext?: T,
     ): this;
@@ -2228,7 +2230,7 @@ export interface RaphaelPaper<
      * @param pathString Path string in SVG format.
      * @return The newly created element representing the path.
      */
-    path(pathString?: string | RaphaelPathSegment | ReadonlyArray<RaphaelPathSegment>): RaphaelPath<TTechnology>;
+    path(pathString?: string | RaphaelPathSegment | readonly RaphaelPathSegment[]): RaphaelPath<TTechnology>;
 
     /**
      * Creates set of shapes to represent given font at given position with given size. Result of the method is set
@@ -2953,7 +2955,7 @@ export interface RaphaelStatic<
      * @param pathString Path string or array of segments (in the last case it will be returned straight away).
      * @return Array of path segments.
      */
-    parsePathString(pathString: string | RaphaelPathSegment | ReadonlyArray<RaphaelPathSegment>): RaphaelPathSegment[];
+    parsePathString(pathString: string | RaphaelPathSegment | readonly RaphaelPathSegment[]): RaphaelPathSegment[];
 
     /**
      * Utility method that parses given path string into an array of transformations.
@@ -2962,7 +2964,7 @@ export interface RaphaelStatic<
      * @return Array of transformations.
      */
     parseTransformString(
-        transformString: string | RaphaelTransformSegment | ReadonlyArray<RaphaelTransformSegment>,
+        transformString: string | RaphaelTransformSegment | readonly RaphaelTransformSegment[],
     ): RaphaelTransformSegment[];
 
     /**
@@ -2970,14 +2972,14 @@ export interface RaphaelStatic<
      * @param pathString A path string or array of segments.
      * @return Array of path segments.
      */
-    path2curve(pathString: string | RaphaelPathSegment | ReadonlyArray<RaphaelPathSegment>): RaphaelPathSegment[];
+    path2curve(pathString: string | RaphaelPathSegment | readonly RaphaelPathSegment[]): RaphaelPathSegment[];
 
     /**
      * Utility method that converts a path to its relative form.
      * @param pathString A path string or array of segments.
      * @return Array of path segments.
      */
-    pathToRelative(pathString: string | RaphaelPathSegment | ReadonlyArray<RaphaelPathSegment>): RaphaelPathSegment[];
+    pathToRelative(pathString: string | RaphaelPathSegment | readonly RaphaelPathSegment[]): RaphaelPathSegment[];
 
     /**
      * Transform angle from degrees to radians.
@@ -3037,7 +3039,7 @@ export interface RaphaelStatic<
      * @param tolerance Tolerance for snapping. Default is `10`.
      * @return The adjusted value.
      */
-    snapTo(values: number | ReadonlyArray<number>, value: number, tolerance?: number): number;
+    snapTo(values: number | readonly number[], value: number, tolerance?: number): number;
 
     /**
      * Returns `true` if given point is inside the bounding box.

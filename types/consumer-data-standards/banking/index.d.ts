@@ -70,7 +70,7 @@ export interface BankingAccountDetailV2 extends BankingAccount {
      * The type of structure to present account specific fields.
      */
     specificAccountUType?: "creditCard" | "loan" | "termDeposit";
-    termDeposit?: {
+    termDeposit?: Array<{
         /**
          * The lodgement date of the original deposit
          */
@@ -92,7 +92,7 @@ export interface BankingAccountDetailV2 extends BankingAccount {
          */
         maturityInstructions: "HOLD_ON_MATURITY" | "PAID_OUT_AT_MATURITY" | "ROLLED_OVER";
         [k: string]: unknown;
-    }[];
+    }>;
     creditCard?: {
         /**
          * The minimum payment amount due for the next card payment
@@ -186,7 +186,7 @@ export interface BankingAccountDetailV2 extends BankingAccount {
     /**
      * Fully described deposit rates for this account based on the equivalent structure in Product Reference
      */
-    depositRates?: {
+    depositRates?: Array<{
         /**
          * Display text providing more information on the rate
          */
@@ -226,7 +226,7 @@ export interface BankingAccountDetailV2 extends BankingAccount {
          * Rate tiers applicable for this rate
          */
         tiers?:
-            | {
+            | Array<{
                 /**
                  * Display text providing more information on the rate tier.
                  */
@@ -270,14 +270,14 @@ export interface BankingAccountDetailV2 extends BankingAccount {
                  */
                 unitOfMeasure: "DAY" | "DOLLAR" | "MONTH" | "PERCENT";
                 [k: string]: unknown;
-            }[]
+            }>
             | null;
         [k: string]: unknown;
-    }[];
+    }>;
     /**
      * Fully described deposit rates for this account based on the equivalent structure in Product Reference
      */
-    lendingRates?: {
+    lendingRates?: Array<{
         /**
          * Display text providing more information on the rate.
          */
@@ -337,7 +337,7 @@ export interface BankingAccountDetailV2 extends BankingAccount {
          * Rate tiers applicable for this rate
          */
         tiers?:
-            | {
+            | Array<{
                 /**
                  * Display text providing more information on the rate tier.
                  */
@@ -381,71 +381,73 @@ export interface BankingAccountDetailV2 extends BankingAccount {
                  */
                 unitOfMeasure: "DAY" | "DOLLAR" | "MONTH" | "PERCENT";
                 [k: string]: unknown;
-            }[]
+            }>
             | null;
         [k: string]: unknown;
-    }[];
+    }>;
     /**
      * Array of features of the account based on the equivalent structure in Product Reference with the following additional field
      */
-    features?: ({
-        /**
-         * Display text providing more information on the feature. Mandatory if the [feature type](#tocSproductfeaturetypedoc) is set to OTHER
-         */
-        additionalInfo?: string | null;
-        /**
-         * Link to a web page with more information on this feature
-         */
-        additionalInfoUri?: string | null;
-        /**
-         * Generic field containing additional information relevant to the [featureType](#tocSproductfeaturetypedoc) specified. Whether mandatory or not is dependent on the value of the [featureType.](#tocSproductfeaturetypedoc)
-         */
-        additionalValue?: string | null;
-        /**
-         * The type of feature described
-         */
-        featureType:
-            | "ADDITIONAL_CARDS"
-            | "BALANCE_TRANSFERS"
-            | "BILL_PAYMENT"
-            | "BONUS_REWARDS"
-            | "CARD_ACCESS"
-            | "CASHBACK_OFFER"
-            | "COMPLEMENTARY_PRODUCT_DISCOUNTS"
-            | "DIGITAL_BANKING"
-            | "DIGITAL_WALLET"
-            | "DONATE_INTEREST"
-            | "EXTRA_REPAYMENTS"
-            | "FRAUD_PROTECTION"
-            | "FREE_TXNS"
-            | "FREE_TXNS_ALLOWANCE"
-            | "GUARANTOR"
-            | "INSURANCE"
-            | "INSTALMENT_PLAN"
-            | "INTEREST_FREE"
-            | "INTEREST_FREE_TRANSFERS"
-            | "LOYALTY_PROGRAM"
-            | "NOTIFICATIONS"
-            | "NPP_ENABLED"
-            | "NPP_PAYID"
-            | "OFFSET"
-            | "OTHER"
-            | "OVERDRAFT"
-            | "REDRAW"
-            | "RELATIONSHIP_MANAGEMENT"
-            | "UNLIMITED_TXNS";
-        [k: string]: unknown;
-    } & {
-        /**
-         * True if the feature is already activated and false if the feature is available for activation. Defaults to true if absent. (note this is an additional field appended to the feature object defined in the Product Reference payload)
-         */
-        isActivated?: boolean;
-        [k: string]: unknown;
-    })[];
+    features?: Array<
+        {
+            /**
+             * Display text providing more information on the feature. Mandatory if the [feature type](#tocSproductfeaturetypedoc) is set to OTHER
+             */
+            additionalInfo?: string | null;
+            /**
+             * Link to a web page with more information on this feature
+             */
+            additionalInfoUri?: string | null;
+            /**
+             * Generic field containing additional information relevant to the [featureType](#tocSproductfeaturetypedoc) specified. Whether mandatory or not is dependent on the value of the [featureType.](#tocSproductfeaturetypedoc)
+             */
+            additionalValue?: string | null;
+            /**
+             * The type of feature described
+             */
+            featureType:
+                | "ADDITIONAL_CARDS"
+                | "BALANCE_TRANSFERS"
+                | "BILL_PAYMENT"
+                | "BONUS_REWARDS"
+                | "CARD_ACCESS"
+                | "CASHBACK_OFFER"
+                | "COMPLEMENTARY_PRODUCT_DISCOUNTS"
+                | "DIGITAL_BANKING"
+                | "DIGITAL_WALLET"
+                | "DONATE_INTEREST"
+                | "EXTRA_REPAYMENTS"
+                | "FRAUD_PROTECTION"
+                | "FREE_TXNS"
+                | "FREE_TXNS_ALLOWANCE"
+                | "GUARANTOR"
+                | "INSURANCE"
+                | "INSTALMENT_PLAN"
+                | "INTEREST_FREE"
+                | "INTEREST_FREE_TRANSFERS"
+                | "LOYALTY_PROGRAM"
+                | "NOTIFICATIONS"
+                | "NPP_ENABLED"
+                | "NPP_PAYID"
+                | "OFFSET"
+                | "OTHER"
+                | "OVERDRAFT"
+                | "REDRAW"
+                | "RELATIONSHIP_MANAGEMENT"
+                | "UNLIMITED_TXNS";
+            [k: string]: unknown;
+        } & {
+            /**
+             * True if the feature is already activated and false if the feature is available for activation. Defaults to true if absent. (note this is an additional field appended to the feature object defined in the Product Reference payload)
+             */
+            isActivated?: boolean;
+            [k: string]: unknown;
+        }
+    >;
     /**
      * Fees and charges applicable to the account based on the equivalent structure in Product Reference
      */
-    fees?: {
+    fees?: Array<{
         /**
          * The indicative frequency with which the fee is calculated on the account. Only applies if balanceRate or accruedRate is also present. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
          */
@@ -482,7 +484,7 @@ export interface BankingAccountDetailV2 extends BankingAccount {
          * An optional list of discounts to this fee that may be available
          */
         discounts?:
-            | {
+            | Array<{
                 /**
                  * A discount rate calculated based on a proportion of the calculated interest accrued on the account. Note that the currency of the fee discount is expected to be the same as the currency of the fee itself. One of amount, balanceRate, transactionRate, accruedRate and feeRate is mandatory. Unless noted in additionalInfo, assumes the application and calculation frequency are the same as the corresponding fee
                  */
@@ -519,7 +521,7 @@ export interface BankingAccountDetailV2 extends BankingAccount {
                  * Eligibility constraints that apply to this discount. Mandatory if ``discountType`` is ``ELIGIBILITY_ONLY``.
                  */
                 eligibility?:
-                    | {
+                    | Array<{
                         /**
                          * Display text providing more information on this eligibility constraint. Whether mandatory or not is dependent on the value of [discountEligibilityType](#tocSproductdiscounteligibilitydoc)
                          */
@@ -550,7 +552,7 @@ export interface BankingAccountDetailV2 extends BankingAccount {
                             | "STAFF"
                             | "STUDENT";
                         [k: string]: unknown;
-                    }[]
+                    }>
                     | null;
                 /**
                  * A discount rate calculated based on a proportion of the fee to which this discount is attached. Note that the currency of the fee discount is expected to be the same as the currency of the fee itself. One of amount, balanceRate, transactionRate, accruedRate and feeRate is mandatory. Unless noted in additionalInfo, assumes the application and calculation frequency are the same as the corresponding fee
@@ -561,7 +563,7 @@ export interface BankingAccountDetailV2 extends BankingAccount {
                  */
                 transactionRate?: string | null;
                 [k: string]: unknown;
-            }[]
+            }>
             | null;
         /**
          * The type of fee
@@ -586,11 +588,11 @@ export interface BankingAccountDetailV2 extends BankingAccount {
          */
         transactionRate?: string | null;
         [k: string]: unknown;
-    }[];
+    }>;
     /**
      * The addresses for the account to be used for correspondence
      */
-    addresses?: {
+    addresses?: Array<{
         /**
          * The type of address object present
          */
@@ -725,7 +727,7 @@ export interface BankingAccountDetailV2 extends BankingAccount {
             [k: string]: unknown;
         };
         [k: string]: unknown;
-    }[];
+    }>;
     [k: string]: unknown;
 }
 
@@ -899,7 +901,7 @@ export interface BankingBalance {
      * Optional array of balances for the account in other currencies. Included to support accounts that support multi-currency purses such as Travel Cards
      */
     purses?:
-        | {
+        | Array<{
             /**
              * The balance available for this additional currency purse
              */
@@ -909,7 +911,7 @@ export interface BankingBalance {
              */
             currency?: string | null;
             [k: string]: unknown;
-        }[]
+        }>
         | null;
     [k: string]: unknown;
 }
@@ -1431,7 +1433,7 @@ export interface BankingProductAdditionalInformationV2 {
      * An array of additional bundles for the product, if applicable. To be treated as secondary documents to the `bundleUri`. Only to be used if there is a primary `bundleUri`.
      */
     additionalBundleUris?:
-        | {
+        | Array<{
             /**
              * The URI describing the additional information
              */
@@ -1441,13 +1443,13 @@ export interface BankingProductAdditionalInformationV2 {
              */
             description?: string | null;
             [k: string]: unknown;
-        }[]
+        }>
         | null;
     /**
      * An array of additional eligibility rules and criteria for the product, if applicable. To be treated as secondary documents to the `eligibilityUri`. Only to be used if there is a primary `eligibilityUri`.
      */
     additionalEligibilityUris?:
-        | {
+        | Array<{
             /**
              * The URI describing the additional information
              */
@@ -1457,13 +1459,13 @@ export interface BankingProductAdditionalInformationV2 {
              */
             description?: string | null;
             [k: string]: unknown;
-        }[]
+        }>
         | null;
     /**
      * An array of additional fees, pricing, discounts, exemptions and bonuses for the product, if applicable. To be treated as secondary documents to the `feesAndPricingUri`. Only to be used if there is a primary `feesAndPricingUri`.
      */
     additionalFeesAndPricingUris?:
-        | {
+        | Array<{
             /**
              * The URI describing the additional information
              */
@@ -1473,13 +1475,13 @@ export interface BankingProductAdditionalInformationV2 {
              */
             description?: string | null;
             [k: string]: unknown;
-        }[]
+        }>
         | null;
     /**
      * An array of additional general overviews for the product or features of the product, if applicable. To be treated as secondary documents to the `overviewUri`. Only to be used if there is a primary `overviewUri`.
      */
     additionalOverviewUris?:
-        | {
+        | Array<{
             /**
              * The URI describing the additional information
              */
@@ -1489,13 +1491,13 @@ export interface BankingProductAdditionalInformationV2 {
              */
             description?: string | null;
             [k: string]: unknown;
-        }[]
+        }>
         | null;
     /**
      * An array of additional terms and conditions for the product, if applicable. To be treated as secondary documents to the `termsUri`. Only to be used if there is a primary `termsUri`.
      */
     additionalTermsUris?:
-        | {
+        | Array<{
             /**
              * The URI describing the additional information
              */
@@ -1505,7 +1507,7 @@ export interface BankingProductAdditionalInformationV2 {
              */
             description?: string | null;
             [k: string]: unknown;
-        }[]
+        }>
         | null;
     /**
      * Description of a bundle that this product can be part of. Mandatory if `additionalBundleUris` includes one or more supporting documents.
@@ -1641,7 +1643,7 @@ export interface BankingProductDepositRate {
      * Rate tiers applicable for this rate
      */
     tiers?:
-        | {
+        | Array<{
             /**
              * Display text providing more information on the rate tier.
              */
@@ -1685,7 +1687,7 @@ export interface BankingProductDepositRate {
              */
             unitOfMeasure: "DAY" | "DOLLAR" | "MONTH" | "PERCENT";
             [k: string]: unknown;
-        }[]
+        }>
         | null;
     [k: string]: unknown;
 }
@@ -1695,7 +1697,7 @@ export interface BankingProductDetailV4 extends BankingProductV4 {
     /**
      * An array of bundles that this product participates in.  Each bundle is described by free form information but also by a list of product IDs of the other products that are included in the bundle.  It is assumed that the current product is included in the bundle also
      */
-    bundles?: {
+    bundles?: Array<{
         /**
          * Display text providing more information on the bundle
          */
@@ -1717,11 +1719,11 @@ export interface BankingProductDetailV4 extends BankingProductV4 {
          */
         productIds?: string[] | null;
         [k: string]: unknown;
-    }[];
+    }>;
     /**
      * Array of features available for the product
      */
-    features?: {
+    features?: Array<{
         /**
          * Display text providing more information on the feature. Mandatory if the [feature type](#tocSproductfeaturetypedoc) is set to OTHER
          */
@@ -1768,11 +1770,11 @@ export interface BankingProductDetailV4 extends BankingProductV4 {
             | "RELATIONSHIP_MANAGEMENT"
             | "UNLIMITED_TXNS";
         [k: string]: unknown;
-    }[];
+    }>;
     /**
      * Constraints on the application for or operation of the product such as minimum balances or limit thresholds
      */
-    constraints?: {
+    constraints?: Array<{
         /**
          * Display text providing more information the constraint
          */
@@ -1790,11 +1792,11 @@ export interface BankingProductDetailV4 extends BankingProductV4 {
          */
         constraintType: "MAX_BALANCE" | "MAX_LIMIT" | "MIN_BALANCE" | "MIN_LIMIT" | "OPENING_BALANCE";
         [k: string]: unknown;
-    }[];
+    }>;
     /**
      * Eligibility criteria for the product
      */
-    eligibility?: {
+    eligibility?: Array<{
         /**
          * Display text providing more information on the [eligibility](#tocSproducteligibilitytypedoc) criteria. Mandatory if the field is set to OTHER
          */
@@ -1824,11 +1826,11 @@ export interface BankingProductDetailV4 extends BankingProductV4 {
             | "STAFF"
             | "STUDENT";
         [k: string]: unknown;
-    }[];
+    }>;
     /**
      * Fees applicable for the product
      */
-    fees?: {
+    fees?: Array<{
         /**
          * The indicative frequency with which the fee is calculated on the account. Only applies if balanceRate or accruedRate is also present. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
          */
@@ -1865,7 +1867,7 @@ export interface BankingProductDetailV4 extends BankingProductV4 {
          * An optional list of discounts to this fee that may be available
          */
         discounts?:
-            | {
+            | Array<{
                 /**
                  * A discount rate calculated based on a proportion of the calculated interest accrued on the account. Note that the currency of the fee discount is expected to be the same as the currency of the fee itself. One of amount, balanceRate, transactionRate, accruedRate and feeRate is mandatory. Unless noted in additionalInfo, assumes the application and calculation frequency are the same as the corresponding fee
                  */
@@ -1902,7 +1904,7 @@ export interface BankingProductDetailV4 extends BankingProductV4 {
                  * Eligibility constraints that apply to this discount. Mandatory if ``discountType`` is ``ELIGIBILITY_ONLY``.
                  */
                 eligibility?:
-                    | {
+                    | Array<{
                         /**
                          * Display text providing more information on this eligibility constraint. Whether mandatory or not is dependent on the value of [discountEligibilityType](#tocSproductdiscounteligibilitydoc)
                          */
@@ -1933,7 +1935,7 @@ export interface BankingProductDetailV4 extends BankingProductV4 {
                             | "STAFF"
                             | "STUDENT";
                         [k: string]: unknown;
-                    }[]
+                    }>
                     | null;
                 /**
                  * A discount rate calculated based on a proportion of the fee to which this discount is attached. Note that the currency of the fee discount is expected to be the same as the currency of the fee itself. One of amount, balanceRate, transactionRate, accruedRate and feeRate is mandatory. Unless noted in additionalInfo, assumes the application and calculation frequency are the same as the corresponding fee
@@ -1944,7 +1946,7 @@ export interface BankingProductDetailV4 extends BankingProductV4 {
                  */
                 transactionRate?: string | null;
                 [k: string]: unknown;
-            }[]
+            }>
             | null;
         /**
          * The type of fee
@@ -1969,11 +1971,11 @@ export interface BankingProductDetailV4 extends BankingProductV4 {
          */
         transactionRate?: string | null;
         [k: string]: unknown;
-    }[];
+    }>;
     /**
      * Interest rates available for deposits
      */
-    depositRates?: {
+    depositRates?: Array<{
         /**
          * Display text providing more information on the rate
          */
@@ -2013,7 +2015,7 @@ export interface BankingProductDetailV4 extends BankingProductV4 {
          * Rate tiers applicable for this rate
          */
         tiers?:
-            | {
+            | Array<{
                 /**
                  * Display text providing more information on the rate tier.
                  */
@@ -2057,14 +2059,14 @@ export interface BankingProductDetailV4 extends BankingProductV4 {
                  */
                 unitOfMeasure: "DAY" | "DOLLAR" | "MONTH" | "PERCENT";
                 [k: string]: unknown;
-            }[]
+            }>
             | null;
         [k: string]: unknown;
-    }[];
+    }>;
     /**
      * Interest rates charged against lending balances
      */
-    lendingRates?: {
+    lendingRates?: Array<{
         /**
          * Display text providing more information on the rate.
          */
@@ -2124,7 +2126,7 @@ export interface BankingProductDetailV4 extends BankingProductV4 {
          * Rate tiers applicable for this rate
          */
         tiers?:
-            | {
+            | Array<{
                 /**
                  * Display text providing more information on the rate tier.
                  */
@@ -2168,10 +2170,10 @@ export interface BankingProductDetailV4 extends BankingProductV4 {
                  */
                 unitOfMeasure: "DAY" | "DOLLAR" | "MONTH" | "PERCENT";
                 [k: string]: unknown;
-            }[]
+            }>
             | null;
         [k: string]: unknown;
-    }[];
+    }>;
     [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
@@ -2213,7 +2215,7 @@ export interface BankingProductDiscount {
      * Eligibility constraints that apply to this discount. Mandatory if ``discountType`` is ``ELIGIBILITY_ONLY``.
      */
     eligibility?:
-        | {
+        | Array<{
             /**
              * Display text providing more information on this eligibility constraint. Whether mandatory or not is dependent on the value of [discountEligibilityType](#tocSproductdiscounteligibilitydoc)
              */
@@ -2244,7 +2246,7 @@ export interface BankingProductDiscount {
                 | "STAFF"
                 | "STUDENT";
             [k: string]: unknown;
-        }[]
+        }>
         | null;
     /**
      * A discount rate calculated based on a proportion of the fee to which this discount is attached. Note that the currency of the fee discount is expected to be the same as the currency of the fee itself. One of amount, balanceRate, transactionRate, accruedRate and feeRate is mandatory. Unless noted in additionalInfo, assumes the application and calculation frequency are the same as the corresponding fee
@@ -2412,7 +2414,7 @@ export interface BankingProductFee {
      * An optional list of discounts to this fee that may be available
      */
     discounts?:
-        | {
+        | Array<{
             /**
              * A discount rate calculated based on a proportion of the calculated interest accrued on the account. Note that the currency of the fee discount is expected to be the same as the currency of the fee itself. One of amount, balanceRate, transactionRate, accruedRate and feeRate is mandatory. Unless noted in additionalInfo, assumes the application and calculation frequency are the same as the corresponding fee
              */
@@ -2449,7 +2451,7 @@ export interface BankingProductFee {
              * Eligibility constraints that apply to this discount. Mandatory if ``discountType`` is ``ELIGIBILITY_ONLY``.
              */
             eligibility?:
-                | {
+                | Array<{
                     /**
                      * Display text providing more information on this eligibility constraint. Whether mandatory or not is dependent on the value of [discountEligibilityType](#tocSproductdiscounteligibilitydoc)
                      */
@@ -2480,7 +2482,7 @@ export interface BankingProductFee {
                         | "STAFF"
                         | "STUDENT";
                     [k: string]: unknown;
-                }[]
+                }>
                 | null;
             /**
              * A discount rate calculated based on a proportion of the fee to which this discount is attached. Note that the currency of the fee discount is expected to be the same as the currency of the fee itself. One of amount, balanceRate, transactionRate, accruedRate and feeRate is mandatory. Unless noted in additionalInfo, assumes the application and calculation frequency are the same as the corresponding fee
@@ -2491,7 +2493,7 @@ export interface BankingProductFee {
              */
             transactionRate?: string | null;
             [k: string]: unknown;
-        }[]
+        }>
         | null;
     /**
      * The type of fee
@@ -2579,7 +2581,7 @@ export interface BankingProductLendingRateV2 {
      * Rate tiers applicable for this rate
      */
     tiers?:
-        | {
+        | Array<{
             /**
              * Display text providing more information on the rate tier.
              */
@@ -2623,7 +2625,7 @@ export interface BankingProductLendingRateV2 {
              */
             unitOfMeasure: "DAY" | "DOLLAR" | "MONTH" | "PERCENT";
             [k: string]: unknown;
-        }[]
+        }>
         | null;
     [k: string]: unknown;
 }
@@ -2704,7 +2706,7 @@ export interface BankingProductV4 {
          * An array of additional bundles for the product, if applicable. To be treated as secondary documents to the `bundleUri`. Only to be used if there is a primary `bundleUri`.
          */
         additionalBundleUris?:
-            | {
+            | Array<{
                 /**
                  * The URI describing the additional information
                  */
@@ -2714,13 +2716,13 @@ export interface BankingProductV4 {
                  */
                 description?: string | null;
                 [k: string]: unknown;
-            }[]
+            }>
             | null;
         /**
          * An array of additional eligibility rules and criteria for the product, if applicable. To be treated as secondary documents to the `eligibilityUri`. Only to be used if there is a primary `eligibilityUri`.
          */
         additionalEligibilityUris?:
-            | {
+            | Array<{
                 /**
                  * The URI describing the additional information
                  */
@@ -2730,13 +2732,13 @@ export interface BankingProductV4 {
                  */
                 description?: string | null;
                 [k: string]: unknown;
-            }[]
+            }>
             | null;
         /**
          * An array of additional fees, pricing, discounts, exemptions and bonuses for the product, if applicable. To be treated as secondary documents to the `feesAndPricingUri`. Only to be used if there is a primary `feesAndPricingUri`.
          */
         additionalFeesAndPricingUris?:
-            | {
+            | Array<{
                 /**
                  * The URI describing the additional information
                  */
@@ -2746,13 +2748,13 @@ export interface BankingProductV4 {
                  */
                 description?: string | null;
                 [k: string]: unknown;
-            }[]
+            }>
             | null;
         /**
          * An array of additional general overviews for the product or features of the product, if applicable. To be treated as secondary documents to the `overviewUri`. Only to be used if there is a primary `overviewUri`.
          */
         additionalOverviewUris?:
-            | {
+            | Array<{
                 /**
                  * The URI describing the additional information
                  */
@@ -2762,13 +2764,13 @@ export interface BankingProductV4 {
                  */
                 description?: string | null;
                 [k: string]: unknown;
-            }[]
+            }>
             | null;
         /**
          * An array of additional terms and conditions for the product, if applicable. To be treated as secondary documents to the `termsUri`. Only to be used if there is a primary `termsUri`.
          */
         additionalTermsUris?:
-            | {
+            | Array<{
                 /**
                  * The URI describing the additional information
                  */
@@ -2778,7 +2780,7 @@ export interface BankingProductV4 {
                  */
                 description?: string | null;
                 [k: string]: unknown;
-            }[]
+            }>
             | null;
         /**
          * Description of a bundle that this product can be part of. Mandatory if `additionalBundleUris` includes one or more supporting documents.
@@ -2818,7 +2820,7 @@ export interface BankingProductV4 {
      * An array of card art images
      */
     cardArt?:
-        | {
+        | Array<{
             /**
              * URI reference to a PNG, JPG or GIF image with proportions defined by ISO 7810 ID-1 and width no greater than 512 pixels. The URI reference may be a link or url-encoded data URI according to **[[RFC2397]](#nref-RFC2397)**
              */
@@ -2828,7 +2830,7 @@ export interface BankingProductV4 {
              */
             title?: string;
             [k: string]: unknown;
-        }[]
+        }>
         | null;
     /**
      * A description of the product
@@ -2901,7 +2903,7 @@ export interface BankingScheduledPayment {
      * The reference for the transaction that will be used by the originating institution for the purposes of constructing a statement narrative on the payer’s account. Empty string if no data provided
      */
     payerReference: string;
-    paymentSet: {
+    paymentSet: Array<{
         /**
          * The amount of the next payment if known. Mandatory unless the isAmountCalculated field is set to true. Must be zero or positive if present
          */
@@ -3064,7 +3066,7 @@ export interface BankingScheduledPayment {
             [k: string]: unknown;
         };
         [k: string]: unknown;
-    }[];
+    }>;
     /**
      * Object containing the detail of the schedule for the payment
      */
@@ -3090,7 +3092,7 @@ export interface BankingScheduledPayment {
             /**
              * An array of interval objects defining the payment schedule.  Each entry in the array is additive, in that it adds payments to the overall payment schedule.  If multiple intervals result in a payment on the same day then only one payment will be made. Must have at least one entry
              */
-            intervals: {
+            intervals: Array<{
                 /**
                  * Uses an interval to define the ordinal day within the interval defined by the interval field on which the payment occurs. If the resulting duration is 0 days in length or larger than the number of days in the interval then the payment will occur on the last day of the interval. A duration of 1 day indicates the first day of the interval. If absent the assumed value is P1D. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax) with components less than a day in length ignored. The first day of a week is considered to be Monday.
                  */
@@ -3100,7 +3102,7 @@ export interface BankingScheduledPayment {
                  */
                 interval: string;
                 [k: string]: unknown;
-            }[];
+            }>;
             /**
              * Enumerated field giving the treatment where a scheduled payment date is not a business day. If absent assumed to be ON.<br/>**AFTER** - If a scheduled payment date is a non-business day the payment will be made on the first business day after the scheduled payment date.<br/>**BEFORE** - If a scheduled payment date is a non-business day the payment will be made on the first business day before the scheduled payment date.<br/>**ON** - If a scheduled payment date is a non-business day the payment will be made on that day regardless.<br/>**ONLY** - Payments only occur on business days. If a scheduled payment date is a non-business day the payment will be ignored
              */
@@ -3192,7 +3194,7 @@ export interface BankingScheduledPaymentV2 {
      * The reference for the transaction that will be used by the originating institution for the purposes of constructing a statement narrative on the payer’s account. Empty string if no data provided
      */
     payerReference: string;
-    paymentSet: {
+    paymentSet: Array<{
         /**
          * The amount of the next payment if known. Mandatory unless the isAmountCalculated field is set to true. Must be zero or positive if present
          */
@@ -3374,7 +3376,7 @@ export interface BankingScheduledPaymentV2 {
             [k: string]: unknown;
         };
         [k: string]: unknown;
-    }[];
+    }>;
     /**
      * Object containing the detail of the schedule for the payment
      */
@@ -3400,7 +3402,7 @@ export interface BankingScheduledPaymentV2 {
             /**
              * An array of interval objects defining the payment schedule.  Each entry in the array is additive, in that it adds payments to the overall payment schedule.  If multiple intervals result in a payment on the same day then only one payment will be made. Must have at least one entry
              */
-            intervals: {
+            intervals: Array<{
                 /**
                  * Uses an interval to define the ordinal day within the interval defined by the interval field on which the payment occurs. If the resulting duration is 0 days in length or larger than the number of days in the interval then the payment will occur on the last day of the interval. A duration of 1 day indicates the first day of the interval. If absent the assumed value is P1D. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax) with components less than a day in length ignored. The first day of a week is considered to be Monday.
                  */
@@ -3410,7 +3412,7 @@ export interface BankingScheduledPaymentV2 {
                  */
                 interval: string;
                 [k: string]: unknown;
-            }[];
+            }>;
             /**
              * Enumerated field giving the treatment where a scheduled payment date is not a business day. If absent assumed to be ON.<br/>**AFTER** - If a scheduled payment date is a non-business day the payment will be made on the first business day after the scheduled payment date.<br/>**BEFORE** - If a scheduled payment date is a non-business day the payment will be made on the first business day before the scheduled payment date.<br/>**ON** - If a scheduled payment date is a non-business day the payment will be made on that day regardless.<br/>**ONLY** - Payments only occur on business days. If a scheduled payment date is a non-business day the payment will be ignored
              */
@@ -3530,7 +3532,7 @@ export interface BankingScheduledPaymentRecurrence {
         /**
          * An array of interval objects defining the payment schedule.  Each entry in the array is additive, in that it adds payments to the overall payment schedule.  If multiple intervals result in a payment on the same day then only one payment will be made. Must have at least one entry
          */
-        intervals: {
+        intervals: Array<{
             /**
              * Uses an interval to define the ordinal day within the interval defined by the interval field on which the payment occurs. If the resulting duration is 0 days in length or larger than the number of days in the interval then the payment will occur on the last day of the interval. A duration of 1 day indicates the first day of the interval. If absent the assumed value is P1D. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax) with components less than a day in length ignored. The first day of a week is considered to be Monday.
              */
@@ -3540,7 +3542,7 @@ export interface BankingScheduledPaymentRecurrence {
              */
             interval: string;
             [k: string]: unknown;
-        }[];
+        }>;
         /**
          * Enumerated field giving the treatment where a scheduled payment date is not a business day. If absent assumed to be ON.<br/>**AFTER** - If a scheduled payment date is a non-business day the payment will be made on the first business day after the scheduled payment date.<br/>**BEFORE** - If a scheduled payment date is a non-business day the payment will be made on the first business day before the scheduled payment date.<br/>**ON** - If a scheduled payment date is a non-business day the payment will be made on that day regardless.<br/>**ONLY** - Payments only occur on business days. If a scheduled payment date is a non-business day the payment will be ignored
          */
@@ -3622,7 +3624,7 @@ export interface BankingScheduledPaymentRecurrenceIntervalSchedule {
     /**
      * An array of interval objects defining the payment schedule.  Each entry in the array is additive, in that it adds payments to the overall payment schedule.  If multiple intervals result in a payment on the same day then only one payment will be made. Must have at least one entry
      */
-    intervals: {
+    intervals: Array<{
         /**
          * Uses an interval to define the ordinal day within the interval defined by the interval field on which the payment occurs. If the resulting duration is 0 days in length or larger than the number of days in the interval then the payment will occur on the last day of the interval. A duration of 1 day indicates the first day of the interval. If absent the assumed value is P1D. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax) with components less than a day in length ignored. The first day of a week is considered to be Monday.
          */
@@ -3632,7 +3634,7 @@ export interface BankingScheduledPaymentRecurrenceIntervalSchedule {
          */
         interval: string;
         [k: string]: unknown;
-    }[];
+    }>;
     /**
      * Enumerated field giving the treatment where a scheduled payment date is not a business day. If absent assumed to be ON.<br/>**AFTER** - If a scheduled payment date is a non-business day the payment will be made on the first business day after the scheduled payment date.<br/>**BEFORE** - If a scheduled payment date is a non-business day the payment will be made on the first business day before the scheduled payment date.<br/>**ON** - If a scheduled payment date is a non-business day the payment will be made on that day regardless.<br/>**ONLY** - Payments only occur on business days. If a scheduled payment date is a non-business day the payment will be ignored
      */
@@ -4926,7 +4928,7 @@ export interface ResponseBankingAccountByIdV2 {
          * The type of structure to present account specific fields.
          */
         specificAccountUType?: "creditCard" | "loan" | "termDeposit";
-        termDeposit?: {
+        termDeposit?: Array<{
             /**
              * The lodgement date of the original deposit
              */
@@ -4948,7 +4950,7 @@ export interface ResponseBankingAccountByIdV2 {
              */
             maturityInstructions: "HOLD_ON_MATURITY" | "PAID_OUT_AT_MATURITY" | "ROLLED_OVER";
             [k: string]: unknown;
-        }[];
+        }>;
         creditCard?: {
             /**
              * The minimum payment amount due for the next card payment
@@ -5042,7 +5044,7 @@ export interface ResponseBankingAccountByIdV2 {
         /**
          * Fully described deposit rates for this account based on the equivalent structure in Product Reference
          */
-        depositRates?: {
+        depositRates?: Array<{
             /**
              * Display text providing more information on the rate
              */
@@ -5082,7 +5084,7 @@ export interface ResponseBankingAccountByIdV2 {
              * Rate tiers applicable for this rate
              */
             tiers?:
-                | {
+                | Array<{
                     /**
                      * Display text providing more information on the rate tier.
                      */
@@ -5126,14 +5128,14 @@ export interface ResponseBankingAccountByIdV2 {
                      */
                     unitOfMeasure: "DAY" | "DOLLAR" | "MONTH" | "PERCENT";
                     [k: string]: unknown;
-                }[]
+                }>
                 | null;
             [k: string]: unknown;
-        }[];
+        }>;
         /**
          * Fully described deposit rates for this account based on the equivalent structure in Product Reference
          */
-        lendingRates?: {
+        lendingRates?: Array<{
             /**
              * Display text providing more information on the rate.
              */
@@ -5193,7 +5195,7 @@ export interface ResponseBankingAccountByIdV2 {
              * Rate tiers applicable for this rate
              */
             tiers?:
-                | {
+                | Array<{
                     /**
                      * Display text providing more information on the rate tier.
                      */
@@ -5237,71 +5239,73 @@ export interface ResponseBankingAccountByIdV2 {
                      */
                     unitOfMeasure: "DAY" | "DOLLAR" | "MONTH" | "PERCENT";
                     [k: string]: unknown;
-                }[]
+                }>
                 | null;
             [k: string]: unknown;
-        }[];
+        }>;
         /**
          * Array of features of the account based on the equivalent structure in Product Reference with the following additional field
          */
-        features?: ({
-            /**
-             * Display text providing more information on the feature. Mandatory if the [feature type](#tocSproductfeaturetypedoc) is set to OTHER
-             */
-            additionalInfo?: string | null;
-            /**
-             * Link to a web page with more information on this feature
-             */
-            additionalInfoUri?: string | null;
-            /**
-             * Generic field containing additional information relevant to the [featureType](#tocSproductfeaturetypedoc) specified. Whether mandatory or not is dependent on the value of the [featureType.](#tocSproductfeaturetypedoc)
-             */
-            additionalValue?: string | null;
-            /**
-             * The type of feature described
-             */
-            featureType:
-                | "ADDITIONAL_CARDS"
-                | "BALANCE_TRANSFERS"
-                | "BILL_PAYMENT"
-                | "BONUS_REWARDS"
-                | "CARD_ACCESS"
-                | "CASHBACK_OFFER"
-                | "COMPLEMENTARY_PRODUCT_DISCOUNTS"
-                | "DIGITAL_BANKING"
-                | "DIGITAL_WALLET"
-                | "DONATE_INTEREST"
-                | "EXTRA_REPAYMENTS"
-                | "FRAUD_PROTECTION"
-                | "FREE_TXNS"
-                | "FREE_TXNS_ALLOWANCE"
-                | "GUARANTOR"
-                | "INSURANCE"
-                | "INSTALMENT_PLAN"
-                | "INTEREST_FREE"
-                | "INTEREST_FREE_TRANSFERS"
-                | "LOYALTY_PROGRAM"
-                | "NOTIFICATIONS"
-                | "NPP_ENABLED"
-                | "NPP_PAYID"
-                | "OFFSET"
-                | "OTHER"
-                | "OVERDRAFT"
-                | "REDRAW"
-                | "RELATIONSHIP_MANAGEMENT"
-                | "UNLIMITED_TXNS";
-            [k: string]: unknown;
-        } & {
-            /**
-             * True if the feature is already activated and false if the feature is available for activation. Defaults to true if absent. (note this is an additional field appended to the feature object defined in the Product Reference payload)
-             */
-            isActivated?: boolean;
-            [k: string]: unknown;
-        })[];
+        features?: Array<
+            {
+                /**
+                 * Display text providing more information on the feature. Mandatory if the [feature type](#tocSproductfeaturetypedoc) is set to OTHER
+                 */
+                additionalInfo?: string | null;
+                /**
+                 * Link to a web page with more information on this feature
+                 */
+                additionalInfoUri?: string | null;
+                /**
+                 * Generic field containing additional information relevant to the [featureType](#tocSproductfeaturetypedoc) specified. Whether mandatory or not is dependent on the value of the [featureType.](#tocSproductfeaturetypedoc)
+                 */
+                additionalValue?: string | null;
+                /**
+                 * The type of feature described
+                 */
+                featureType:
+                    | "ADDITIONAL_CARDS"
+                    | "BALANCE_TRANSFERS"
+                    | "BILL_PAYMENT"
+                    | "BONUS_REWARDS"
+                    | "CARD_ACCESS"
+                    | "CASHBACK_OFFER"
+                    | "COMPLEMENTARY_PRODUCT_DISCOUNTS"
+                    | "DIGITAL_BANKING"
+                    | "DIGITAL_WALLET"
+                    | "DONATE_INTEREST"
+                    | "EXTRA_REPAYMENTS"
+                    | "FRAUD_PROTECTION"
+                    | "FREE_TXNS"
+                    | "FREE_TXNS_ALLOWANCE"
+                    | "GUARANTOR"
+                    | "INSURANCE"
+                    | "INSTALMENT_PLAN"
+                    | "INTEREST_FREE"
+                    | "INTEREST_FREE_TRANSFERS"
+                    | "LOYALTY_PROGRAM"
+                    | "NOTIFICATIONS"
+                    | "NPP_ENABLED"
+                    | "NPP_PAYID"
+                    | "OFFSET"
+                    | "OTHER"
+                    | "OVERDRAFT"
+                    | "REDRAW"
+                    | "RELATIONSHIP_MANAGEMENT"
+                    | "UNLIMITED_TXNS";
+                [k: string]: unknown;
+            } & {
+                /**
+                 * True if the feature is already activated and false if the feature is available for activation. Defaults to true if absent. (note this is an additional field appended to the feature object defined in the Product Reference payload)
+                 */
+                isActivated?: boolean;
+                [k: string]: unknown;
+            }
+        >;
         /**
          * Fees and charges applicable to the account based on the equivalent structure in Product Reference
          */
-        fees?: {
+        fees?: Array<{
             /**
              * The indicative frequency with which the fee is calculated on the account. Only applies if balanceRate or accruedRate is also present. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
              */
@@ -5338,7 +5342,7 @@ export interface ResponseBankingAccountByIdV2 {
              * An optional list of discounts to this fee that may be available
              */
             discounts?:
-                | {
+                | Array<{
                     /**
                      * A discount rate calculated based on a proportion of the calculated interest accrued on the account. Note that the currency of the fee discount is expected to be the same as the currency of the fee itself. One of amount, balanceRate, transactionRate, accruedRate and feeRate is mandatory. Unless noted in additionalInfo, assumes the application and calculation frequency are the same as the corresponding fee
                      */
@@ -5375,7 +5379,7 @@ export interface ResponseBankingAccountByIdV2 {
                      * Eligibility constraints that apply to this discount. Mandatory if ``discountType`` is ``ELIGIBILITY_ONLY``.
                      */
                     eligibility?:
-                        | {
+                        | Array<{
                             /**
                              * Display text providing more information on this eligibility constraint. Whether mandatory or not is dependent on the value of [discountEligibilityType](#tocSproductdiscounteligibilitydoc)
                              */
@@ -5406,7 +5410,7 @@ export interface ResponseBankingAccountByIdV2 {
                                 | "STAFF"
                                 | "STUDENT";
                             [k: string]: unknown;
-                        }[]
+                        }>
                         | null;
                     /**
                      * A discount rate calculated based on a proportion of the fee to which this discount is attached. Note that the currency of the fee discount is expected to be the same as the currency of the fee itself. One of amount, balanceRate, transactionRate, accruedRate and feeRate is mandatory. Unless noted in additionalInfo, assumes the application and calculation frequency are the same as the corresponding fee
@@ -5417,7 +5421,7 @@ export interface ResponseBankingAccountByIdV2 {
                      */
                     transactionRate?: string | null;
                     [k: string]: unknown;
-                }[]
+                }>
                 | null;
             /**
              * The type of fee
@@ -5442,11 +5446,11 @@ export interface ResponseBankingAccountByIdV2 {
              */
             transactionRate?: string | null;
             [k: string]: unknown;
-        }[];
+        }>;
         /**
          * The addresses for the account to be used for correspondence
          */
-        addresses?: {
+        addresses?: Array<{
             /**
              * The type of address object present
              */
@@ -5581,7 +5585,7 @@ export interface ResponseBankingAccountByIdV2 {
                 [k: string]: unknown;
             };
             [k: string]: unknown;
-        }[];
+        }>;
         [k: string]: unknown;
     };
     links: {
@@ -5603,7 +5607,7 @@ export interface ResponseBankingAccountList {
         /**
          * The list of accounts returned. If the filter results in an empty set then this array may have no records
          */
-        accounts: {
+        accounts: Array<{
             /**
              * A unique ID of the account adhering to the standards for ID permanence
              */
@@ -5653,7 +5657,7 @@ export interface ResponseBankingAccountList {
              */
             productName: string;
             [k: string]: unknown;
-        }[];
+        }>;
         [k: string]: unknown;
     };
     links: {
@@ -5772,7 +5776,7 @@ export interface ResponseBankingAccountListV2 {
         /**
          * The list of accounts returned. If the filter results in an empty set then this array may have no records
          */
-        accounts: {
+        accounts: Array<{
             /**
              * A unique ID of the account adhering to the standards for ID permanence
              */
@@ -5826,7 +5830,7 @@ export interface ResponseBankingAccountListV2 {
              */
             productName: string;
             [k: string]: unknown;
-        }[];
+        }>;
         [k: string]: unknown;
     };
     links: {
@@ -5898,7 +5902,7 @@ export interface ResponseBankingAccountsBalanceById {
          * Optional array of balances for the account in other currencies. Included to support accounts that support multi-currency purses such as Travel Cards
          */
         purses?:
-            | {
+            | Array<{
                 /**
                  * The balance available for this additional currency purse
                  */
@@ -5908,7 +5912,7 @@ export interface ResponseBankingAccountsBalanceById {
                  */
                 currency?: string | null;
                 [k: string]: unknown;
-            }[]
+            }>
             | null;
         [k: string]: unknown;
     };
@@ -5931,7 +5935,7 @@ export interface ResponseBankingAccountsBalanceList {
         /**
          * The list of balances returned
          */
-        balances: {
+        balances: Array<{
             /**
              * A unique ID of the account adhering to the standards for ID permanence
              */
@@ -5960,7 +5964,7 @@ export interface ResponseBankingAccountsBalanceList {
              * Optional array of balances for the account in other currencies. Included to support accounts that support multi-currency purses such as Travel Cards
              */
             purses?:
-                | {
+                | Array<{
                     /**
                      * The balance available for this additional currency purse
                      */
@@ -5970,10 +5974,10 @@ export interface ResponseBankingAccountsBalanceList {
                      */
                     currency?: string | null;
                     [k: string]: unknown;
-                }[]
+                }>
                 | null;
             [k: string]: unknown;
-        }[];
+        }>;
         [k: string]: unknown;
     };
     links: {
@@ -6019,7 +6023,7 @@ export interface ResponseBankingDirectDebitAuthorisationList {
         /**
          * The list of authorisations returned
          */
-        directDebitAuthorisations: {
+        directDebitAuthorisations: Array<{
             /**
              * A unique ID of the account adhering to the standards for ID permanence.
              */
@@ -6056,7 +6060,7 @@ export interface ResponseBankingDirectDebitAuthorisationList {
              */
             lastDebitDateTime?: string | null;
             [k: string]: unknown;
-        }[];
+        }>;
         [k: string]: unknown;
     };
     links: {
@@ -6288,7 +6292,7 @@ export interface ResponseBankingPayeeListV2 {
         /**
          * The list of payees returned
          */
-        payees: {
+        payees: Array<{
             /**
              * The date the payee was created by the customer
              */
@@ -6310,7 +6314,7 @@ export interface ResponseBankingPayeeListV2 {
              */
             type: "BILLER" | "DIGITAL_WALLET" | "DOMESTIC" | "INTERNATIONAL";
             [k: string]: unknown;
-        }[];
+        }>;
         [k: string]: unknown;
     };
     links: {
@@ -6361,7 +6365,7 @@ export interface ResponseBankingProductByIdV4 {
              * An array of additional bundles for the product, if applicable. To be treated as secondary documents to the `bundleUri`. Only to be used if there is a primary `bundleUri`.
              */
             additionalBundleUris?:
-                | {
+                | Array<{
                     /**
                      * The URI describing the additional information
                      */
@@ -6371,13 +6375,13 @@ export interface ResponseBankingProductByIdV4 {
                      */
                     description?: string | null;
                     [k: string]: unknown;
-                }[]
+                }>
                 | null;
             /**
              * An array of additional eligibility rules and criteria for the product, if applicable. To be treated as secondary documents to the `eligibilityUri`. Only to be used if there is a primary `eligibilityUri`.
              */
             additionalEligibilityUris?:
-                | {
+                | Array<{
                     /**
                      * The URI describing the additional information
                      */
@@ -6387,13 +6391,13 @@ export interface ResponseBankingProductByIdV4 {
                      */
                     description?: string | null;
                     [k: string]: unknown;
-                }[]
+                }>
                 | null;
             /**
              * An array of additional fees, pricing, discounts, exemptions and bonuses for the product, if applicable. To be treated as secondary documents to the `feesAndPricingUri`. Only to be used if there is a primary `feesAndPricingUri`.
              */
             additionalFeesAndPricingUris?:
-                | {
+                | Array<{
                     /**
                      * The URI describing the additional information
                      */
@@ -6403,13 +6407,13 @@ export interface ResponseBankingProductByIdV4 {
                      */
                     description?: string | null;
                     [k: string]: unknown;
-                }[]
+                }>
                 | null;
             /**
              * An array of additional general overviews for the product or features of the product, if applicable. To be treated as secondary documents to the `overviewUri`. Only to be used if there is a primary `overviewUri`.
              */
             additionalOverviewUris?:
-                | {
+                | Array<{
                     /**
                      * The URI describing the additional information
                      */
@@ -6419,13 +6423,13 @@ export interface ResponseBankingProductByIdV4 {
                      */
                     description?: string | null;
                     [k: string]: unknown;
-                }[]
+                }>
                 | null;
             /**
              * An array of additional terms and conditions for the product, if applicable. To be treated as secondary documents to the `termsUri`. Only to be used if there is a primary `termsUri`.
              */
             additionalTermsUris?:
-                | {
+                | Array<{
                     /**
                      * The URI describing the additional information
                      */
@@ -6435,7 +6439,7 @@ export interface ResponseBankingProductByIdV4 {
                      */
                     description?: string | null;
                     [k: string]: unknown;
-                }[]
+                }>
                 | null;
             /**
              * Description of a bundle that this product can be part of. Mandatory if `additionalBundleUris` includes one or more supporting documents.
@@ -6475,7 +6479,7 @@ export interface ResponseBankingProductByIdV4 {
          * An array of card art images
          */
         cardArt?:
-            | {
+            | Array<{
                 /**
                  * URI reference to a PNG, JPG or GIF image with proportions defined by ISO 7810 ID-1 and width no greater than 512 pixels. The URI reference may be a link or url-encoded data URI according to **[[RFC2397]](#nref-RFC2397)**
                  */
@@ -6485,7 +6489,7 @@ export interface ResponseBankingProductByIdV4 {
                  */
                 title?: string;
                 [k: string]: unknown;
-            }[]
+            }>
             | null;
         /**
          * A description of the product
@@ -6536,7 +6540,7 @@ export interface ResponseBankingProductByIdV4 {
         /**
          * An array of bundles that this product participates in.  Each bundle is described by free form information but also by a list of product IDs of the other products that are included in the bundle.  It is assumed that the current product is included in the bundle also
          */
-        bundles?: {
+        bundles?: Array<{
             /**
              * Display text providing more information on the bundle
              */
@@ -6558,11 +6562,11 @@ export interface ResponseBankingProductByIdV4 {
              */
             productIds?: string[] | null;
             [k: string]: unknown;
-        }[];
+        }>;
         /**
          * Array of features available for the product
          */
-        features?: {
+        features?: Array<{
             /**
              * Display text providing more information on the feature. Mandatory if the [feature type](#tocSproductfeaturetypedoc) is set to OTHER
              */
@@ -6609,11 +6613,11 @@ export interface ResponseBankingProductByIdV4 {
                 | "RELATIONSHIP_MANAGEMENT"
                 | "UNLIMITED_TXNS";
             [k: string]: unknown;
-        }[];
+        }>;
         /**
          * Constraints on the application for or operation of the product such as minimum balances or limit thresholds
          */
-        constraints?: {
+        constraints?: Array<{
             /**
              * Display text providing more information the constraint
              */
@@ -6631,11 +6635,11 @@ export interface ResponseBankingProductByIdV4 {
              */
             constraintType: "MAX_BALANCE" | "MAX_LIMIT" | "MIN_BALANCE" | "MIN_LIMIT" | "OPENING_BALANCE";
             [k: string]: unknown;
-        }[];
+        }>;
         /**
          * Eligibility criteria for the product
          */
-        eligibility?: {
+        eligibility?: Array<{
             /**
              * Display text providing more information on the [eligibility](#tocSproducteligibilitytypedoc) criteria. Mandatory if the field is set to OTHER
              */
@@ -6665,11 +6669,11 @@ export interface ResponseBankingProductByIdV4 {
                 | "STAFF"
                 | "STUDENT";
             [k: string]: unknown;
-        }[];
+        }>;
         /**
          * Fees applicable for the product
          */
-        fees?: {
+        fees?: Array<{
             /**
              * The indicative frequency with which the fee is calculated on the account. Only applies if balanceRate or accruedRate is also present. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
              */
@@ -6706,7 +6710,7 @@ export interface ResponseBankingProductByIdV4 {
              * An optional list of discounts to this fee that may be available
              */
             discounts?:
-                | {
+                | Array<{
                     /**
                      * A discount rate calculated based on a proportion of the calculated interest accrued on the account. Note that the currency of the fee discount is expected to be the same as the currency of the fee itself. One of amount, balanceRate, transactionRate, accruedRate and feeRate is mandatory. Unless noted in additionalInfo, assumes the application and calculation frequency are the same as the corresponding fee
                      */
@@ -6743,7 +6747,7 @@ export interface ResponseBankingProductByIdV4 {
                      * Eligibility constraints that apply to this discount. Mandatory if ``discountType`` is ``ELIGIBILITY_ONLY``.
                      */
                     eligibility?:
-                        | {
+                        | Array<{
                             /**
                              * Display text providing more information on this eligibility constraint. Whether mandatory or not is dependent on the value of [discountEligibilityType](#tocSproductdiscounteligibilitydoc)
                              */
@@ -6774,7 +6778,7 @@ export interface ResponseBankingProductByIdV4 {
                                 | "STAFF"
                                 | "STUDENT";
                             [k: string]: unknown;
-                        }[]
+                        }>
                         | null;
                     /**
                      * A discount rate calculated based on a proportion of the fee to which this discount is attached. Note that the currency of the fee discount is expected to be the same as the currency of the fee itself. One of amount, balanceRate, transactionRate, accruedRate and feeRate is mandatory. Unless noted in additionalInfo, assumes the application and calculation frequency are the same as the corresponding fee
@@ -6785,7 +6789,7 @@ export interface ResponseBankingProductByIdV4 {
                      */
                     transactionRate?: string | null;
                     [k: string]: unknown;
-                }[]
+                }>
                 | null;
             /**
              * The type of fee
@@ -6810,11 +6814,11 @@ export interface ResponseBankingProductByIdV4 {
              */
             transactionRate?: string | null;
             [k: string]: unknown;
-        }[];
+        }>;
         /**
          * Interest rates available for deposits
          */
-        depositRates?: {
+        depositRates?: Array<{
             /**
              * Display text providing more information on the rate
              */
@@ -6854,7 +6858,7 @@ export interface ResponseBankingProductByIdV4 {
              * Rate tiers applicable for this rate
              */
             tiers?:
-                | {
+                | Array<{
                     /**
                      * Display text providing more information on the rate tier.
                      */
@@ -6898,14 +6902,14 @@ export interface ResponseBankingProductByIdV4 {
                      */
                     unitOfMeasure: "DAY" | "DOLLAR" | "MONTH" | "PERCENT";
                     [k: string]: unknown;
-                }[]
+                }>
                 | null;
             [k: string]: unknown;
-        }[];
+        }>;
         /**
          * Interest rates charged against lending balances
          */
-        lendingRates?: {
+        lendingRates?: Array<{
             /**
              * Display text providing more information on the rate.
              */
@@ -6965,7 +6969,7 @@ export interface ResponseBankingProductByIdV4 {
              * Rate tiers applicable for this rate
              */
             tiers?:
-                | {
+                | Array<{
                     /**
                      * Display text providing more information on the rate tier.
                      */
@@ -7009,10 +7013,10 @@ export interface ResponseBankingProductByIdV4 {
                      */
                     unitOfMeasure: "DAY" | "DOLLAR" | "MONTH" | "PERCENT";
                     [k: string]: unknown;
-                }[]
+                }>
                 | null;
             [k: string]: unknown;
-        }[];
+        }>;
         [k: string]: unknown;
     };
     links: {
@@ -7034,7 +7038,7 @@ export interface ResponseBankingProductListV2 {
         /**
          * The list of products returned.  If the filter results in an empty set then this array may have no records
          */
-        products: {
+        products: Array<{
             /**
              * Object that contains links to additional information on specific topics
              */
@@ -7043,7 +7047,7 @@ export interface ResponseBankingProductListV2 {
                  * An array of additional bundles for the product, if applicable. To be treated as secondary documents to the `bundleUri`. Only to be used if there is a primary `bundleUri`.
                  */
                 additionalBundleUris?:
-                    | {
+                    | Array<{
                         /**
                          * The URI describing the additional information
                          */
@@ -7053,13 +7057,13 @@ export interface ResponseBankingProductListV2 {
                          */
                         description?: string | null;
                         [k: string]: unknown;
-                    }[]
+                    }>
                     | null;
                 /**
                  * An array of additional eligibility rules and criteria for the product, if applicable. To be treated as secondary documents to the `eligibilityUri`. Only to be used if there is a primary `eligibilityUri`.
                  */
                 additionalEligibilityUris?:
-                    | {
+                    | Array<{
                         /**
                          * The URI describing the additional information
                          */
@@ -7069,13 +7073,13 @@ export interface ResponseBankingProductListV2 {
                          */
                         description?: string | null;
                         [k: string]: unknown;
-                    }[]
+                    }>
                     | null;
                 /**
                  * An array of additional fees, pricing, discounts, exemptions and bonuses for the product, if applicable. To be treated as secondary documents to the `feesAndPricingUri`. Only to be used if there is a primary `feesAndPricingUri`.
                  */
                 additionalFeesAndPricingUris?:
-                    | {
+                    | Array<{
                         /**
                          * The URI describing the additional information
                          */
@@ -7085,13 +7089,13 @@ export interface ResponseBankingProductListV2 {
                          */
                         description?: string | null;
                         [k: string]: unknown;
-                    }[]
+                    }>
                     | null;
                 /**
                  * An array of additional general overviews for the product or features of the product, if applicable. To be treated as secondary documents to the `overviewUri`. Only to be used if there is a primary `overviewUri`.
                  */
                 additionalOverviewUris?:
-                    | {
+                    | Array<{
                         /**
                          * The URI describing the additional information
                          */
@@ -7101,13 +7105,13 @@ export interface ResponseBankingProductListV2 {
                          */
                         description?: string | null;
                         [k: string]: unknown;
-                    }[]
+                    }>
                     | null;
                 /**
                  * An array of additional terms and conditions for the product, if applicable. To be treated as secondary documents to the `termsUri`. Only to be used if there is a primary `termsUri`.
                  */
                 additionalTermsUris?:
-                    | {
+                    | Array<{
                         /**
                          * The URI describing the additional information
                          */
@@ -7117,7 +7121,7 @@ export interface ResponseBankingProductListV2 {
                          */
                         description?: string | null;
                         [k: string]: unknown;
-                    }[]
+                    }>
                     | null;
                 /**
                  * Description of a bundle that this product can be part of. Mandatory if `additionalBundleUris` includes one or more supporting documents.
@@ -7157,7 +7161,7 @@ export interface ResponseBankingProductListV2 {
              * An array of card art images
              */
             cardArt?:
-                | {
+                | Array<{
                     /**
                      * URI reference to a PNG, JPG or GIF image with proportions defined by ISO 7810 ID-1 and width no greater than 512 pixels. The URI reference may be a link or url-encoded data URI according to **[[RFC2397]](#nref-RFC2397)**
                      */
@@ -7167,7 +7171,7 @@ export interface ResponseBankingProductListV2 {
                      */
                     title?: string;
                     [k: string]: unknown;
-                }[]
+                }>
                 | null;
             /**
              * A description of the product
@@ -7214,7 +7218,7 @@ export interface ResponseBankingProductListV2 {
              */
             productId: string;
             [k: string]: unknown;
-        }[];
+        }>;
         [k: string]: unknown;
     };
     links: {
@@ -7260,7 +7264,7 @@ export interface ResponseBankingScheduledPaymentsListV2 {
         /**
          * The list of scheduled payments to return
          */
-        scheduledPayments: {
+        scheduledPayments: Array<{
             /**
              * Object containing details of the source of the payment. Currently only specifies an account ID but provided as an object to facilitate future extensibility and consistency with the to object
              */
@@ -7283,7 +7287,7 @@ export interface ResponseBankingScheduledPaymentsListV2 {
              * The reference for the transaction that will be used by the originating institution for the purposes of constructing a statement narrative on the payer’s account. Empty string if no data provided
              */
             payerReference: string;
-            paymentSet: {
+            paymentSet: Array<{
                 /**
                  * The amount of the next payment if known. Mandatory unless the isAmountCalculated field is set to true. Must be zero or positive if present
                  */
@@ -7465,7 +7469,7 @@ export interface ResponseBankingScheduledPaymentsListV2 {
                     [k: string]: unknown;
                 };
                 [k: string]: unknown;
-            }[];
+            }>;
             /**
              * Object containing the detail of the schedule for the payment
              */
@@ -7491,7 +7495,7 @@ export interface ResponseBankingScheduledPaymentsListV2 {
                     /**
                      * An array of interval objects defining the payment schedule.  Each entry in the array is additive, in that it adds payments to the overall payment schedule.  If multiple intervals result in a payment on the same day then only one payment will be made. Must have at least one entry
                      */
-                    intervals: {
+                    intervals: Array<{
                         /**
                          * Uses an interval to define the ordinal day within the interval defined by the interval field on which the payment occurs. If the resulting duration is 0 days in length or larger than the number of days in the interval then the payment will occur on the last day of the interval. A duration of 1 day indicates the first day of the interval. If absent the assumed value is P1D. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax) with components less than a day in length ignored. The first day of a week is considered to be Monday.
                          */
@@ -7501,7 +7505,7 @@ export interface ResponseBankingScheduledPaymentsListV2 {
                          */
                         interval: string;
                         [k: string]: unknown;
-                    }[];
+                    }>;
                     /**
                      * Enumerated field giving the treatment where a scheduled payment date is not a business day. If absent assumed to be ON.<br/>**AFTER** - If a scheduled payment date is a non-business day the payment will be made on the first business day after the scheduled payment date.<br/>**BEFORE** - If a scheduled payment date is a non-business day the payment will be made on the first business day before the scheduled payment date.<br/>**ON** - If a scheduled payment date is a non-business day the payment will be made on that day regardless.<br/>**ONLY** - Payments only occur on business days. If a scheduled payment date is a non-business day the payment will be ignored
                      */
@@ -7567,7 +7571,7 @@ export interface ResponseBankingScheduledPaymentsListV2 {
              */
             status: "ACTIVE" | "INACTIVE" | "SKIP";
             [k: string]: unknown;
-        }[];
+        }>;
         [k: string]: unknown;
     };
     links: {
@@ -7614,7 +7618,7 @@ export interface ResponseBankingScheduledPaymentsList {
         /**
          * The list of scheduled payments to return
          */
-        scheduledPayments: {
+        scheduledPayments: Array<{
             /**
              * Object containing details of the source of the payment. Currently only specifies an account ID but provided as an object to facilitate future extensibility and consistency with the to object
              */
@@ -7637,7 +7641,7 @@ export interface ResponseBankingScheduledPaymentsList {
              * The reference for the transaction that will be used by the originating institution for the purposes of constructing a statement narrative on the payer’s account. Empty string if no data provided
              */
             payerReference: string;
-            paymentSet: {
+            paymentSet: Array<{
                 /**
                  * The amount of the next payment if known. Mandatory unless the isAmountCalculated field is set to true. Must be zero or positive if present
                  */
@@ -7800,7 +7804,7 @@ export interface ResponseBankingScheduledPaymentsList {
                     [k: string]: unknown;
                 };
                 [k: string]: unknown;
-            }[];
+            }>;
             /**
              * Object containing the detail of the schedule for the payment
              */
@@ -7826,7 +7830,7 @@ export interface ResponseBankingScheduledPaymentsList {
                     /**
                      * An array of interval objects defining the payment schedule.  Each entry in the array is additive, in that it adds payments to the overall payment schedule.  If multiple intervals result in a payment on the same day then only one payment will be made. Must have at least one entry
                      */
-                    intervals: {
+                    intervals: Array<{
                         /**
                          * Uses an interval to define the ordinal day within the interval defined by the interval field on which the payment occurs. If the resulting duration is 0 days in length or larger than the number of days in the interval then the payment will occur on the last day of the interval. A duration of 1 day indicates the first day of the interval. If absent the assumed value is P1D. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax) with components less than a day in length ignored. The first day of a week is considered to be Monday.
                          */
@@ -7836,7 +7840,7 @@ export interface ResponseBankingScheduledPaymentsList {
                          */
                         interval: string;
                         [k: string]: unknown;
-                    }[];
+                    }>;
                     /**
                      * Enumerated field giving the treatment where a scheduled payment date is not a business day. If absent assumed to be ON.<br/>**AFTER** - If a scheduled payment date is a non-business day the payment will be made on the first business day after the scheduled payment date.<br/>**BEFORE** - If a scheduled payment date is a non-business day the payment will be made on the first business day before the scheduled payment date.<br/>**ON** - If a scheduled payment date is a non-business day the payment will be made on that day regardless.<br/>**ONLY** - Payments only occur on business days. If a scheduled payment date is a non-business day the payment will be ignored
                      */
@@ -7902,7 +7906,7 @@ export interface ResponseBankingScheduledPaymentsList {
              */
             status: "ACTIVE" | "INACTIVE" | "SKIP";
             [k: string]: unknown;
-        }[];
+        }>;
         [k: string]: unknown;
     };
     links: {
@@ -8079,7 +8083,7 @@ export interface ResponseBankingTransactionById {
 
 export interface ResponseBankingTransactionList {
     data: {
-        transactions: {
+        transactions: Array<{
             /**
              * ID of the account for which transactions are provided
              */
@@ -8161,7 +8165,7 @@ export interface ResponseBankingTransactionList {
              */
             valueDateTime?: string | null;
             [k: string]: unknown;
-        }[];
+        }>;
         [k: string]: unknown;
     };
     links: {
@@ -8203,7 +8207,7 @@ export interface ResponseBankingTransactionList {
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
 export interface ResponseErrorListV2 {
-    errors: {
+    errors: Array<{
         /**
          * The code of the error encountered. Where the error is specific to the respondent, an application-specific error code, expressed as a string value. If the error is application-specific, the URN code that the specific error extends must be provided in the meta object. Otherwise, the value is the error code URN.
          */
@@ -8227,6 +8231,6 @@ export interface ResponseErrorListV2 {
          */
         title: string;
         [k: string]: unknown;
-    }[];
+    }>;
     [k: string]: unknown;
 }

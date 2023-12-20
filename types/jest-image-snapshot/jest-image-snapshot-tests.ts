@@ -33,6 +33,7 @@ it("Should be able to use configuration directly in toMatchImageSnapshot", () =>
 
     const options: MatchImageSnapshotOptions = {
         allowSizeMismatch: false,
+        maxChildProcessBufferSizeInBytes: 100 * 1024 * 1024,
         noColors: true,
         customDiffConfig: {
             threshold: 5,
@@ -44,6 +45,7 @@ it("Should be able to use configuration directly in toMatchImageSnapshot", () =>
         customReceivedPostfix: "-new",
         diffDirection: "vertical",
         onlyDiff: false,
+        runtimeHooksPath: require.resolve("./stubs/runtimeHooksPath.js"),
         dumpInlineDiffToConsole: true,
         updatePassedSnapshot: true,
         failureThreshold: 10,

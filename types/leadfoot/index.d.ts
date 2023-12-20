@@ -2348,7 +2348,7 @@ declare module "leadfoot/Server" {
          *
          * @returns {Promise.<Object[]>}
          */
-        getSessions(): Promise<{}[]>;
+        getSessions(): Promise<Array<{}>>;
 
         /**
          * Gets information on the capabilities of a given session from the server. The list of capabilities returned

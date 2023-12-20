@@ -150,7 +150,7 @@ export interface RetrievedDocument extends NewDocument, AbstractMeta {
 }
 
 /** Represents the meta data for a database. */
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DatabaseMeta extends AbstractMeta {
 }
 
@@ -164,7 +164,7 @@ export interface ProcedureMeta extends AbstractMeta {
 }
 
 /** Represents the meta data for a user-defined function. */
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface UserDefinedFunctionMeta extends AbstractMeta {
 }
 
@@ -199,7 +199,7 @@ export interface AuthOptions {
 }
 
 /** Represents a DocumentDB stored procecedure. */
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Procedure extends UserScriptable {
 }
 

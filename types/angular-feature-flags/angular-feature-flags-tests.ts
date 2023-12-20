@@ -2,7 +2,7 @@ import * as ng from "angular";
 
 const myApp = ng.module("myApp", ["feature-flags"]);
 
-const flagsData: Array<ng.featureflags.FlagData> = [
+const flagsData: ng.featureflags.FlagData[] = [
     {
         key: "1",
         active: true,
@@ -28,5 +28,5 @@ myApp.run(function(
 ) {
     featureFlags.set($q.resolve(flagsData));
     featureFlags.set($http.get("/data/flags.json"));
-    featureFlags.set($http.get<Array<ng.featureflags.FlagData>>("/data/flags.json"));
+    featureFlags.set($http.get<ng.featureflags.FlagData[]>("/data/flags.json"));
 });

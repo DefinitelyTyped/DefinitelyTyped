@@ -17,7 +17,7 @@ declare namespace OverlayScrollbars {
 
     type Position = number | string;
 
-    type Extensions = string | ReadonlyArray<string> | { [extensionName: string]: {} };
+    type Extensions = string | readonly string[] | { [extensionName: string]: {} };
 
     type BasicEventCallback = (this: OverlayScrollbars) => void;
 
@@ -100,7 +100,7 @@ declare namespace OverlayScrollbars {
         paddingAbsolute?: boolean | undefined;
         autoUpdate?: boolean | null | undefined;
         autoUpdateInterval?: number | undefined;
-        updateOnLoad?: string | ReadonlyArray<string> | null | undefined;
+        updateOnLoad?: string | readonly string[] | null | undefined;
         nativeScrollbarsOverlaid?: {
             showNativeScrollbars?: boolean | undefined;
             initialize?: boolean | undefined;
@@ -121,7 +121,7 @@ declare namespace OverlayScrollbars {
         textarea?: {
             dynWidth?: boolean | undefined;
             dynHeight?: boolean | undefined;
-            inheritedAttrs?: string | ReadonlyArray<string> | null | undefined;
+            inheritedAttrs?: string | readonly string[] | null | undefined;
         } | undefined;
         callbacks?: {
             onInitialized?: BasicEventCallback | null | undefined;
@@ -366,12 +366,12 @@ interface OverlayScrollbarsStatic {
     ): OverlayScrollbars | undefined;
 
     (
-        elements: NodeListOf<Element> | ReadonlyArray<Element> | JQuery,
+        elements: NodeListOf<Element> | readonly Element[] | JQuery,
         options: OverlayScrollbars.Options,
         extensions?: OverlayScrollbars.Extensions,
     ): OverlayScrollbars | OverlayScrollbars[] | undefined;
     (
-        elements: NodeListOf<Element> | ReadonlyArray<Element> | JQuery,
+        elements: NodeListOf<Element> | readonly Element[] | JQuery,
         filter?: string | ((element: Element, instance: OverlayScrollbars) => boolean),
     ): OverlayScrollbars | OverlayScrollbars[] | undefined;
 

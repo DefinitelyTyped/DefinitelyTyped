@@ -45,6 +45,8 @@ interface OpenIdClientConstructorOptions {
     introspectionEndpoint?: string;
     revocationEndpoint?: string;
 }
+type CryptoPKey = import('../crypto/CryptoPKey');
+type TokenIntrospectionResponse = import('../oauth2/OAuth2Client').TokenIntrospectionResponse;
 interface AuthorizationRequestOptions {
     redirectUri: string;
     scopes?: string | string[];
@@ -59,5 +61,3 @@ interface AuthorizationRequestOptions {
     prompt?: string | string[];
     extraParams?: Record<string, string>;
 }
-type TokenIntrospectionResponse = import('../oauth2/OAuth2Client').TokenIntrospectionResponse;
-type CryptoPKey = import('../crypto/CryptoPKey');

@@ -12,7 +12,7 @@ export type ShareContent =
 
 export type ShareOptions = {
     dialogTitle?: string | undefined;
-    excludedActivityTypes?: Array<string> | undefined;
+    excludedActivityTypes?: string[] | undefined;
     tintColor?: ColorValue | undefined;
     subject?: string | undefined;
     anchor?: number | undefined;

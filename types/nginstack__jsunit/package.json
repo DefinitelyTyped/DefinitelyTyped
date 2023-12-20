@@ -5,6 +5,9 @@
     "projects": [
         "https://dev.azure.com/nginstack/nginstack"
     ],
+    "dependencies": {
+        "@types/nginstack__engine": "*"
+    },
     "devDependencies": {
         "@types/nginstack__jsunit": "workspace:."
     },

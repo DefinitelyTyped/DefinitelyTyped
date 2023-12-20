@@ -16,9 +16,10 @@ export interface MutationConfig<TOperation extends MutationParameters> {
     mutation: GraphQLTaggedNode;
     onError?: ((error: Error) => void) | null | undefined;
     onCompleted?:
-        | ((response: TOperation["response"], errors: ReadonlyArray<PayloadError> | null | undefined) => void)
+        | ((response: TOperation["response"], errors: readonly PayloadError[] | null | undefined) => void)
         | null
         | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onUnsubscribe?: (() => void | null | undefined) | undefined;
     /**
      * An object whose type matches the raw response type of the mutation. Make sure you decorate
@@ -35,8 +36,8 @@ export interface MutationConfig<TOperation extends MutationParameters> {
  * Higher-level helper function to execute a mutation against a specific
  * environment.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function commitMutation<TOperation extends MutationParameters = MutationParameters>(
     environment: Environment,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     config: MutationConfig<TOperation>,
 ): Disposable;

@@ -361,6 +361,7 @@ declare namespace Rax {
             container: Element | DocumentFragment | null,
             options?: RenderOption,
             callback?: () => void,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ): Component<P, ComponentState> | Element | void;
 
         (
@@ -368,6 +369,7 @@ declare namespace Rax {
             container: Element | DocumentFragment | null,
             options?: RenderOption,
             callback?: () => void,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ): Component<any, ComponentState> | Element | void;
     }
 
@@ -670,10 +672,12 @@ declare namespace Rax {
     type ReducerAction<R extends Reducer<any, any>> = R extends Reducer<any, infer A> ? A : never;
     // The identity check is done with the SameValue algorithm (Object.is), which is stricter than ===
     // TODO (TypeScript 3.0): ReadonlyArray<unknown>
-    type DependencyList = ReadonlyArray<any>;
+    type DependencyList = readonly any[];
 
     // NOTE: callbacks are _only_ allowed to return either void, or a destructor.
     // The destructor is itself only allowed to return void.
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type EffectCallback = () => void | (() => void | undefined);
 
     interface MutableRefObject<T> {
@@ -1669,6 +1673,7 @@ declare namespace Rax {
 
     interface DetailsHTMLAttributes<T> extends HTMLAttributes<T> {
         open?: boolean | undefined;
+        name?: string | undefined;
     }
 
     interface DelHTMLAttributes<T> extends HTMLAttributes<T> {

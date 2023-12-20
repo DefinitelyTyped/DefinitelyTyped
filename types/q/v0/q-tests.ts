@@ -65,7 +65,7 @@ Q.fcall(function() {})
     }).done();
 
 Q.allResolved([])
-    .then(function(promises: Q.Promise<any>[]) {
+    .then(function(promises: Array<Q.Promise<any>>) {
         promises.forEach(function(promise) {
             if (promise.isFulfilled()) {
                 var value = promise.valueOf();
@@ -103,7 +103,7 @@ jPromise.then(returnsNumPromise);
 // watch the typing flow through from jQueryPromise to Q.Promise
 Q(jPromise).then(str => str.split(","));
 
-declare var promiseArray: Q.IPromise<number>[];
+declare var promiseArray: Array<Q.IPromise<number>>;
 var qPromiseArray = promiseArray.map(p => Q<number>(p));
 var myNums: any[] = [2, 3, Q(4), 5, Q(6), Q(7)];
 

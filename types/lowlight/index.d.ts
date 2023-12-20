@@ -29,7 +29,7 @@ declare namespace lowlight {
             interface Location {
                 start: Position;
                 end: Position;
-                indent?: Array<number> | undefined;
+                indent?: number[] | undefined;
             }
 
             export interface Node {
@@ -39,7 +39,7 @@ declare namespace lowlight {
             }
 
             export interface Parent extends Node {
-                children: Array<Node>;
+                children: Node[];
             }
 
             export interface Text extends Node {
@@ -84,13 +84,13 @@ declare namespace lowlight {
     }
 
     interface HighlightAutoOptions extends HighlightOptions {
-        subset?: Array<string> | undefined;
+        subset?: string[] | undefined;
     }
 
     interface HighlightResult {
         relevance: number;
         language: string;
-        value: Array<HastNode>;
+        value: HastNode[];
     }
 
     interface HighlightAutoResult extends HighlightResult {

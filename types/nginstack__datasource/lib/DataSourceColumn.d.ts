@@ -31,7 +31,7 @@ declare class DataSourceColumn {
     private getBackDepth;
     private setBackDepth;
     private getSource_;
-    formatDimension(value: any): any;
+    formatDimension(value: any): string;
     private updateDimensionDataType_;
     private updatePrefix_;
     private prefix_;
@@ -62,16 +62,16 @@ declare namespace DataSourceColumn {
         SORT_NONE,
     };
 }
-declare var AGGREGATE_NONE: string;
-declare var AGGREGATE_SUM: string;
-declare var AGGREGATE_COUNT: string;
-declare var AGGREGATE_AVG: string;
-declare var AGGREGATE_MAX: string;
-declare var AGGREGATE_MIN: string;
-declare var SORT_NONE: string;
-declare var SORT_ASC: string;
-declare var SORT_DESC: string;
-declare var DIMENSION_SEP: string;
+declare let AGGREGATE_NONE: string;
+declare let AGGREGATE_SUM: string;
+declare let AGGREGATE_COUNT: string;
+declare let AGGREGATE_AVG: string;
+declare let AGGREGATE_MAX: string;
+declare let AGGREGATE_MIN: string;
+declare let SORT_NONE: string;
+declare let SORT_ASC: string;
+declare let SORT_DESC: string;
+declare let DIMENSION_SEP: string;
 declare function colNameFromField(fld: Field, prefix: string): string;
 declare function fromField(fld: Field, prefix: string): DataSourceColumn;
 declare function getRootFromLeafNode(leafNode: number, opt_suggestedRoot: number): number;

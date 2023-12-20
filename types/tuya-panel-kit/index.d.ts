@@ -1802,7 +1802,7 @@ export interface DialogCancelProps {
      */
     onCancel?: (() => void) | undefined;
 }
-// tslint:disable-next-line no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DialogAlertProps extends DialogProps {}
 export interface DialogCheckbox extends TYFlatListData {
     value?: string | number | undefined;
@@ -10668,7 +10668,7 @@ export let Utils: {
 };
 
 export let defaultTheme: GlobalTheme;
-// tslint:disable-next-line interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface I18NLanMap {
     en: Record<string, string>;
     zh: Record<string, string>;
@@ -10931,16 +10931,16 @@ export interface NavigationOptions {
     /**
      * 自定义渲染头部栏
      */
-    renderTopBar?: (() => JSX.Element) | undefined;
+    renderTopBar?: (() => React.JSX.Element) | undefined;
     /**
      * 自定义渲染状态栏
      */
-    renderStatusBar?: (() => JSX.Element) | undefined;
+    renderStatusBar?: (() => React.JSX.Element) | undefined;
 }
 
 export class NavigatorLayout<P = {}, S = {}> extends React.Component<P, { modalVisible: boolean } & S> {
     hookRoute(route: DeprecatedNavigatorRoute): NavigationOptions;
-    renderScene(route: DeprecatedNavigatorRoute, navigator: DeprecatedNavigator): JSX.Element | undefined;
+    renderScene(route: DeprecatedNavigatorRoute, navigator: DeprecatedNavigator): React.JSX.Element | undefined;
 }
 
 export interface NavigationRoute {

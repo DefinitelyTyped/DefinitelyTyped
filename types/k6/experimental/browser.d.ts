@@ -20,6 +20,40 @@ export type Unboxed<Arg> = Arg extends [infer A0, infer A1] ? [Unboxed<A0>, Unbo
     : Arg extends object ? { [Key in keyof Arg]: Unboxed<Arg[Key]> }
     : Arg;
 
+/*
+ * CPUProfile is the mandatory input to be passed into {@link Page}'s
+ * `throttleCPU` method.
+ */
+export interface CPUProfile {
+    /*
+     * rate as a slowdown factor (1 is no throttle, 2 is 2x slowdown, etc).
+     */
+    rate: number;
+}
+
+/*
+ * NetworkProfile is the mandatory input to be passed into {@link Page}'s
+ * `throttleNetwork` method.
+ */
+export interface NetworkProfile {
+    /*
+     * Minimum latency from request sent to response headers received (ms).
+     */
+    latency: number;
+
+    /*
+     * Maximal aggregated download throughput (bytes/sec). -1 disables download
+     * throttling.
+     */
+    download: number;
+
+    /*
+     * Maximal aggregated upload throughput (bytes/sec). -1 disables upload
+     * throttling.
+     */
+    upload: number;
+}
+
 export interface SelectOptionsObject {
     /**
      * Matches by `option.value`.
@@ -546,6 +580,12 @@ export const browser: Browser;
  */
 export interface Browser {
     /**
+     * Closes the current `BrowserContext`. If there is no active
+     * `BrowserContext`, this method will throw an error.
+     */
+    closeContext(): void;
+
+    /**
      * Returns the current `BrowserContext`. There is a 1-to-1 mapping between
      * `Browser` and `BrowserContext`. If no `BrowserContext` has been
      * initialized, it will return null.
@@ -650,7 +690,10 @@ export interface BrowserContext {
     cookies(...urls: string[]): Cookie[];
 
     /**
-     * Clears all permission overrides for the `BrowserContext`.
+     * Clears all permission overrides for the {@link BrowserContext}.
+     * ```js
+     * context.clearPermissions();
+     * ```
      */
     clearPermissions(): void;
 
@@ -660,7 +703,10 @@ export interface BrowserContext {
     close(): void;
 
     /**
-     * Grants specified permissions to the `BrowserContext`.
+     * Grants specified permissions to the {@link BrowserContext}.
+     * ```js
+     * context.grantPermissions(['geolocation']);
+     * ```
      */
     grantPermissions(
         /**
@@ -741,40 +787,55 @@ export interface BrowserContext {
 
     /**
      * Waits for the event to fire and passes its value into the predicate
-     * function.
+     * function. Currently the only supported event is 'page' which when used will
+     * return the new {@link Page} that was created after `waitForEvent` was called.
+     *
+     * @example
+     * ```js
+     * // Call waitForEvent with a predicate which will return true once at least
+     * // one page has been created.
+     * const promise = context.waitForEvent("page", { predicate: page => {
+     *   if (++counter >= 1) {
+     *     return true
+     *   }
+     *   return false
+     * } })
+     *
+     * // Now we create a page.
+     * const page = context.newPage()
+     *
+     * // Wait for the predicate to pass.
+     * await promise
+     * ```
      */
     waitForEvent(
         /**
-         * Name of event to wait for.
-         *
-         * NOTE: Currently this argument is disregarded, and waitForEvent will
-         * always wait for 'close' or 'page' events.
+         * Name of event to wait for. The only supported event is 'page'. If any
+         * other value is used an error will be thrown.
          */
-        event: string,
+        event: "page",
         /**
-         * The `Page` or null event data will be passed to it and it must
-         * return true to continue.
+         * This is an optional argument. It can either be a predicate function or
+         * an options object.
          */
-        optionsOrPredicate: {
+        optionsOrPredicate?: {
             /**
-             * Function that will be called when the 'Page' event is emitted.
-             * The event data will be passed to it and it must return true
+             * Optional function that will be called when the {@link Page} event is
+             * emitted. The event data will be passed to it and it must return true
              * to continue.
              *
-             * If `Page` is passed to predicate, this signals that a new page
+             * If {@link Page} is passed to predicate, this signals that a new page
              * has been created.
-             * If null is passed to predicate, this signals that the page is
-             * closing.
              */
-            predicate: (page: Page | null) => boolean;
+            predicate?: (page: Page) => boolean;
 
             /**
-             * Maximum time to wait in milliseconds. Pass 0 to disable timeout.
-             * Defaults to 30000 milliseconds.
+             * Maximum time to wait in milliseconds. Defaults to 30000 milliseconds or
+             * the timeout set by setDefaultTimeout on the {@link BrowserContext}.
              */
             timeout?: number;
-        },
-    ): Page | null;
+        } | ((page: Page) => boolean),
+    ): Promise<Page>;
 }
 
 /**
@@ -2991,6 +3052,55 @@ export interface Page {
             timeout?: number;
         },
     ): string;
+
+    /**
+     * Throttles the CPU in Chrome/Chromium to slow it down by the specified
+     * `rate` in {@link CPUProfile}. {@link CPUProfile} is a mandatory
+     * input argument. The default `rate` is `1`.
+     *
+     * **Usage**
+     *
+     * ```js
+     * page.throttleCPU({ rate: 4 });
+     * ```
+     */
+    throttleCPU(profile: CPUProfile): void;
+
+    /**
+     * Throttles the network in Chrome/Chromium to slow it down by the specified
+     * fields in {@link NetworkProfile}. {@link NetworkProfile} is a mandatory
+     * input argument.
+     *
+     * **Usage**
+     *
+     * ```js
+     * page.throttleNetwork({
+     *   latency: 750,
+     *   download: 250,
+     *   upload: 250,
+     * });
+     * ```
+     *
+     * To work with the most commonly tested network profiles, import `networkProfiles`
+     * from the browser module. There are three profiles available:
+     * - `'No Throttling'` (default)
+     * - `'Fast 3G'`
+     * - `'Slow 3G'`
+     *
+     * **Usage**
+     *
+     * ```js
+     * import { browser, networkProfiles } from 'k6/experimental/browser';
+     * ... // redacted
+     *   const context = browser.newContext();
+     *   const page = context.newPage();
+     *
+     *   try {
+     *     page.throttleNetwork(networkProfiles['Slow 3G']);
+     * ... // redacted
+     * ```
+     */
+    throttleNetwork(profile: NetworkProfile): void;
 
     /**
      * Returns the page's title.

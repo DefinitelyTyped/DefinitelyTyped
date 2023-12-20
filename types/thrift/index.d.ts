@@ -309,8 +309,8 @@ export function createServer<TProcessor, THandler>(
     options?: ServerOptions<TProcessor, THandler>,
 ): http.Server | tls.Server;
 
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function createWebServer<TProcessor, THandler>(
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     options: WebServerOptions<TProcessor, THandler>,
 ): http.Server | tls.Server;
 

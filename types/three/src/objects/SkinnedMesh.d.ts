@@ -1,11 +1,12 @@
-import { Material } from './../materials/Material.js';
+import { Material } from '../materials/Material.js';
 import { Box3 } from '../math/Box3.js';
-import { Matrix4 } from './../math/Matrix4.js';
-import { Vector3 } from './../math/Vector3.js';
+import { Matrix4 } from '../math/Matrix4.js';
+import { Vector3 } from '../math/Vector3.js';
 import { Skeleton } from './Skeleton.js';
 import { Mesh } from './Mesh.js';
 import { BufferGeometry } from '../core/BufferGeometry.js';
 import { Sphere } from '../math/Sphere.js';
+import { BindMode } from '../constants.js';
 
 /**
  * A mesh that has a {@link THREE.Skeleton | Skeleton} with {@link Bone | bones} that can then be used to animate the vertices of the geometry.
@@ -72,12 +73,12 @@ export class SkinnedMesh<
     override readonly type: string | 'SkinnedMesh';
 
     /**
-     * Either `attached` or `detached`.
-     *  - `attached` uses the {@link THREE.SkinnedMesh.matrixWorld | SkinnedMesh.matrixWorld} property for the base transform matrix of the bones.
-     *  - `detached` uses the {@link THREE.SkinnedMesh.bindMatrix | SkinnedMesh.bindMatrix}.
-     * @defaultValue `attached`.
+     * Either {@link AttachedBindMode} or {@link DetachedBindMode}. {@link AttachedBindMode} means the skinned mesh
+     * shares the same world space as the skeleton. This is not true when using {@link DetachedBindMode} which is useful
+     * when sharing a skeleton across multiple skinned meshes.
+     * @defaultValue `AttachedBindMode`
      */
-    bindMode: 'attached' | 'detached';
+    bindMode: BindMode;
 
     /**
      * The base matrix that is used for the bound bone transforms.

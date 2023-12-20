@@ -14,7 +14,7 @@ gulpJasmine({
     config: {},
 });
 gulpJasmine({ reporter: [dummyReporter, dummyReporter] });
-const readonlyDummyReporters: ReadonlyArray<jasmine.CustomReporter> = [
+const readonlyDummyReporters: readonly jasmine.CustomReporter[] = [
     dummyReporter,
     dummyReporter,
 ];

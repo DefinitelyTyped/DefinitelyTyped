@@ -145,7 +145,7 @@ declare namespace React {
     }
 
     // ReactHTML for ReactHTMLElement
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface ReactHTMLElement<T extends HTMLElement> extends DetailedReactHTMLElement<AllHTMLAttributes<T>, T> {}
 
     interface DetailedReactHTMLElement<P extends HTMLAttributes<T>, T extends HTMLElement> extends DOMElement<P, T> {
@@ -190,7 +190,7 @@ declare namespace React {
         ...children: ReactNode[]
     ) => DOMElement<P, T>;
 
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface HTMLFactory<T extends HTMLElement> extends DetailedHTMLFactory<AllHTMLAttributes<T>, T> {}
 
     interface DetailedHTMLFactory<P extends HTMLAttributes<T>, T extends HTMLElement> extends DOMFactory<P, T> {
@@ -428,7 +428,7 @@ declare namespace React {
     type ReactInstance = Component<any> | Element;
 
     // Base component for plain JS classes
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Component<P = {}, S = {}, SS = any> extends ComponentLifecycle<P, S, SS> {}
     class Component<P, S> {
         // tslint won't let me format the sample code in a way that vscode likes it :(
@@ -893,7 +893,7 @@ declare namespace React {
     type ReducerStateWithoutAction<R extends ReducerWithoutAction<any>> = R extends ReducerWithoutAction<infer S> ? S
         : never;
     // TODO (TypeScript 3.0): ReadonlyArray<unknown>
-    type DependencyList = ReadonlyArray<any>;
+    type DependencyList = readonly any[];
 
     // NOTE: callbacks are _only_ allowed to return either void, or a destructor.
     type EffectCallback = () => void | Destructor;
@@ -1187,7 +1187,7 @@ declare namespace React {
         target: EventTarget & Target;
     }
 
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface FormEvent<T = Element> extends SyntheticEvent<T> {
     }
 
@@ -1558,7 +1558,7 @@ declare namespace React {
         onTransitionEndCapture?: TransitionEventHandler<T> | undefined;
     }
 
-    export interface CSSProperties extends CSS.Properties<string | number> {
+    export interface CSSProperties extends CSS.Properties<(string & {}) | number> {
         /**
          * The index signature was removed to enable closed typing for style
          * using CSSType. You're able to use type assertion or module augmentation
@@ -1844,7 +1844,7 @@ declare namespace React {
     interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
         // React-specific Attributes
         defaultChecked?: boolean | undefined;
-        defaultValue?: string | number | ReadonlyArray<string> | undefined;
+        defaultValue?: string | number | readonly string[] | undefined;
         suppressContentEditableWarning?: boolean | undefined;
         suppressHydrationWarning?: boolean | undefined;
 
@@ -2014,7 +2014,7 @@ declare namespace React {
         target?: string | undefined;
         type?: string | undefined;
         useMap?: string | undefined;
-        value?: string | ReadonlyArray<string> | number | undefined;
+        value?: string | readonly string[] | number | undefined;
         width?: number | string | undefined;
         wmode?: string | undefined;
         wrap?: string | undefined;
@@ -2049,7 +2049,7 @@ declare namespace React {
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
     }
 
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface AudioHTMLAttributes<T> extends MediaHTMLAttributes<T> {}
 
     interface AreaHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2083,7 +2083,7 @@ declare namespace React {
         formTarget?: string | undefined;
         name?: string | undefined;
         type?: "submit" | "reset" | "button" | undefined;
-        value?: string | ReadonlyArray<string> | number | undefined;
+        value?: string | readonly string[] | number | undefined;
     }
 
     interface CanvasHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2101,12 +2101,13 @@ declare namespace React {
     }
 
     interface DataHTMLAttributes<T> extends HTMLAttributes<T> {
-        value?: string | ReadonlyArray<string> | number | undefined;
+        value?: string | readonly string[] | number | undefined;
     }
 
     interface DetailsHTMLAttributes<T> extends HTMLAttributes<T> {
         open?: boolean | undefined;
         onToggle?: ReactEventHandler<T> | undefined;
+        name?: string | undefined;
     }
 
     interface DelHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2244,7 +2245,7 @@ declare namespace React {
         src?: string | undefined;
         step?: number | string | undefined;
         type?: HTMLInputTypeAttribute | undefined;
-        value?: string | ReadonlyArray<string> | number | undefined;
+        value?: string | readonly string[] | number | undefined;
         width?: number | string | undefined;
 
         onChange?: ChangeEventHandler<T> | undefined;
@@ -2265,7 +2266,7 @@ declare namespace React {
     }
 
     interface LiHTMLAttributes<T> extends HTMLAttributes<T> {
-        value?: string | ReadonlyArray<string> | number | undefined;
+        value?: string | readonly string[] | number | undefined;
     }
 
     interface LinkHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2318,7 +2319,7 @@ declare namespace React {
         max?: number | string | undefined;
         min?: number | string | undefined;
         optimum?: number | undefined;
-        value?: string | ReadonlyArray<string> | number | undefined;
+        value?: string | readonly string[] | number | undefined;
     }
 
     interface QuoteHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2352,7 +2353,7 @@ declare namespace React {
         disabled?: boolean | undefined;
         label?: string | undefined;
         selected?: boolean | undefined;
-        value?: string | ReadonlyArray<string> | number | undefined;
+        value?: string | readonly string[] | number | undefined;
     }
 
     interface OutputHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2363,12 +2364,12 @@ declare namespace React {
 
     interface ParamHTMLAttributes<T> extends HTMLAttributes<T> {
         name?: string | undefined;
-        value?: string | ReadonlyArray<string> | number | undefined;
+        value?: string | readonly string[] | number | undefined;
     }
 
     interface ProgressHTMLAttributes<T> extends HTMLAttributes<T> {
         max?: number | string | undefined;
-        value?: string | ReadonlyArray<string> | number | undefined;
+        value?: string | readonly string[] | number | undefined;
     }
 
     interface SlotHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2396,7 +2397,7 @@ declare namespace React {
         name?: string | undefined;
         required?: boolean | undefined;
         size?: number | undefined;
-        value?: string | ReadonlyArray<string> | number | undefined;
+        value?: string | readonly string[] | number | undefined;
         onChange?: ChangeEventHandler<T> | undefined;
     }
 
@@ -2436,7 +2437,7 @@ declare namespace React {
         readOnly?: boolean | undefined;
         required?: boolean | undefined;
         rows?: number | undefined;
-        value?: string | ReadonlyArray<string> | number | undefined;
+        value?: string | readonly string[] | number | undefined;
         wrap?: string | undefined;
 
         onChange?: ChangeEventHandler<T> | undefined;
@@ -3125,7 +3126,7 @@ declare global {
      * @deprecated Use `React.JSX` instead of the global `JSX` namespace.
      */
     namespace JSX {
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface Element extends React.ReactElement<any, any> {}
         interface ElementClass extends React.Component<any> {
             render(): React.ReactNode;
@@ -3146,9 +3147,9 @@ declare global {
             : ReactManagedAttributes<T, P>
             : ReactManagedAttributes<C, P>;
 
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface IntrinsicAttributes extends React.Attributes {}
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> {}
 
         interface IntrinsicElements {

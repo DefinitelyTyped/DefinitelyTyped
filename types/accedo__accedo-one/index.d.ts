@@ -260,7 +260,7 @@ declare class AccedoClient {
      * @returns A promise of the success of the operation
      */
 
-    sendLogs(logs: ReadonlyArray<AccedoLog.Logobject>): Promise<boolean>;
+    sendLogs(logs: readonly AccedoLog.Logobject[]): Promise<boolean>;
 }
 
 declare namespace AccedoLog {

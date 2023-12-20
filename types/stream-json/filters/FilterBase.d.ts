@@ -23,7 +23,7 @@ declare namespace FilterBase {
         pathSeparator?: string | undefined;
         streamValues?: boolean | undefined;
         streamKeys?: boolean | undefined;
-        replacement?: ReadonlyArray<Token> | ReplacementFunction | undefined;
+        replacement?: readonly Token[] | ReplacementFunction | undefined;
         allowEmptyReplacement?: boolean | undefined;
     }
 }

@@ -347,7 +347,7 @@ export function mapValues<T, R, E = Error, C = unknown>(
         value: T,
         key: string,
         callback: C extends undefined ? never : AsyncResultCallback<R, E>,
-        // tslint:disable-next-line:void-return
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ) => C extends undefined ? Promise<R> : void,
 ): Promise<Dictionary<R>>;
 export const mapValuesSeries: typeof mapValues;

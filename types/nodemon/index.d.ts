@@ -107,11 +107,11 @@ declare namespace nodemon {
         } | undefined;
         events?: { [key: string]: string } | undefined;
         restartable?: string | undefined;
-        args?: ReadonlyArray<string> | undefined;
+        args?: readonly string[] | undefined;
         /**
          * Arguments to pass to node if exec is "node"
          */
-        nodeArgs?: ReadonlyArray<string> | undefined;
+        nodeArgs?: readonly string[] | undefined;
         scriptPosition?: number | undefined;
         /**
          * Set to false to disable color output
