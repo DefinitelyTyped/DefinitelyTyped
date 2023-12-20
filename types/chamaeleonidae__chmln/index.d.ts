@@ -18,7 +18,7 @@ declare module "@chamaeleonidae/chmln" {
     }
 
     type ChameleonIdentifyOptions = {
-        email: string; // RECOMMENDED Used to connect data coming from various integrations
+        email?: string; // RECOMMENDED Used to connect data coming from various integrations
 
         // SUGGESTED - User properties:
         created?: string; // Send dates in ISO or unix timestamp format (e.g. "2017-07-01T03:21:10Z" or 1431432000)
