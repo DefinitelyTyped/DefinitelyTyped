@@ -340,7 +340,8 @@ async function batchTests() {
     }, 1);
 }
 
-function createRoot() {
+// Test createRoot from the client module.
+function createRootClient() {
     const root = ReactDOMClient.createRoot(document.documentElement);
 
     root.render(<div>initial render</div>);
@@ -351,7 +352,20 @@ function createRoot() {
     ReactDOMClient.createRoot(document);
 }
 
-function hydrateRoot() {
+// Test createRoot from the index module.
+function createRootIndex() {
+    const root = ReactDOM.createRoot(document.documentElement);
+
+    root.render(<div>initial render</div>);
+    root.render(false);
+
+    // only makes sense for `hydrateRoot`
+    // @ts-expect-error
+    ReactDOM.createRoot(document);
+}
+
+// Test hydrateRoot from the client module.
+function hydrateRootClient() {
     const hydrateable = ReactDOMClient.hydrateRoot(document, <div>initial render</div>, {
         identifierPrefix: "react-18-app",
         onRecoverableError: (error, errorInfo) => {
@@ -367,6 +381,25 @@ function hydrateRoot() {
     });
 
     ReactDOMClient.hydrateRoot(document.getElementById("root")!, false);
+}
+
+// Test hydrateRoot from the index module.
+function hydrateRootIndex() {
+    const hydrateable = ReactDOM.hydrateRoot(document, <div>initial render</div>, {
+        identifierPrefix: "react-18-app",
+        onRecoverableError: (error, errorInfo) => {
+            console.error(error);
+            console.info(errorInfo.componentStack);
+        },
+    });
+    hydrateable.render(<div>render update</div>);
+    ReactDOM.hydrateRoot(document, {
+        // Forgot `initialChildren`
+        // @ts-expect-error
+        identifierPrefix: "react-18-app",
+    });
+
+    ReactDOM.hydrateRoot(document.getElementById("root")!, false);
 }
 
 /**

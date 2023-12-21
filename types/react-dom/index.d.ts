@@ -106,3 +106,8 @@ export interface Renderer {
         // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): Component<any, ComponentState> | Element | void;
 }
+
+export {
+    createRoot,
+    hydrateRoot,
+} from './client';
