@@ -21,6 +21,7 @@ declare module "leaflet" {
             geocoder?: any; // IGeocorder is from other library;
             fitSelectedRoutes?: "smart" | boolean | undefined;
             lineOptions?: LineOptions | undefined;
+            createMarker?: ((waypointIndex: number, waypoint: Waypoint, numberOfWaypoints: number) => Marker) | undefined;
             routeLine?: ((route: IRoute, options: LineOptions) => Line) | undefined;
             autoRoute?: boolean | undefined;
             routeWhileDragging?: boolean | undefined;
