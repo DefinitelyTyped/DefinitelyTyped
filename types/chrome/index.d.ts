@@ -5394,6 +5394,53 @@ declare namespace chrome.input.ime {
     export var onReset: InputResetEvent;
 }
 
+/**
+ * Use chrome.instanceID to access the Instance ID service.
+ * Permissions: "gcm"
+ * @since Chrome 44.
+ */
+declare namespace chrome.instanceID {
+    /**
+     * Resets the app instance identifier and revokes all tokens associated with it.
+     *
+     * The `deleteID()` method doesn't return any value, but can be used with a callback or asynchronously,
+     * with a Promise (MV3 only).
+     */
+    export function deleteID(): Promise<void>;
+    export function deleteID(callback: () => void): void;
+
+    /**
+     * Revoked a granted token.
+     * @param deleteTokenParams.authorizedEntity The authorized entity that is used to obtain the token.
+     * @param deleteTokenParams.scope The scope that is used to obtain the token.
+     *
+     * The `deleteToken()` method doesn't return any value, but can be used with a callback or
+     * asynchronously, with a Promise (MV3 only).
+     */
+    export function deleteToken(deleteTokenParams: { authorizedEntity: string; scope: string }): Promise<void>;
+    export function deleteToken(
+        deleteTokenParams: { authorizedEntity: string; scope: string },
+        callback: () => void,
+    ): void;
+
+    /**
+     * Retrieves the time when the InstanceID has been generated.
+     * @return The time when the Instance ID has been generated, represented in milliseconds since the epoch.
+     * It can return via a callback or asynchronously, with a Promise (MV3 only).
+     */
+    export function getCreationTime(): Promise<number>;
+    export function getCreationTime(callback: (creationTime: number) => void): void;
+
+    /**
+     * Retrieves an identifier for the app instance.
+     * The same ID will be returned as long as the application identity has not been revoked or expired.
+     *
+     * @return An Instance ID assigned to the app instance. Can be returned by a callback or a Promise (MV3 only).
+     */
+    export function getID(): Promise<string>;
+    export function getID(callback: (instanceID: string) => void): void;
+}
+
 ////////////////////
 // LoginState
 ////////////////////
