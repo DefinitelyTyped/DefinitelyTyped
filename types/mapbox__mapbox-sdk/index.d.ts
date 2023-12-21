@@ -868,7 +868,7 @@ declare module "@mapbox/mapbox-sdk/services/directions" {
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "@mapbox/mapbox-sdk/services/geocoding-v6" {
     // eslint-disable-next-line @definitelytyped/no-self-import
-    import { Coordinates, MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
+    import { Coordinates as MapiRequestCoordinates, MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
     // eslint-disable-next-line @definitelytyped/no-self-import
     import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
 
@@ -876,9 +876,9 @@ declare module "@mapbox/mapbox-sdk/services/geocoding-v6" {
      * Geocoder Types for v6 API
      *********************************************************************************************************************/
 
-    export default function Geocoding(config: SdkConfig | MapiClient): GeocodeServiceV6;
+    export default function GeocodingV6(config: SdkConfig | MapiClient): GeocodeService;
 
-    interface GeocodeServiceV6 {
+    interface GeocodeService {
         forwardGeocode(request: ForwardGeocodeRequest): MapiRequest<GeocodeResponse>;
         reverseGeocode(request: ReverseGeocodeRequest): MapiRequest<GeocodeResponse>;
     }
@@ -898,7 +898,7 @@ declare module "@mapbox/mapbox-sdk/services/geocoding-v6" {
         | 'region'
         | 'street';
 
-    interface GeocodeRequest {
+    interface GeocodeV6Request {
         /**
          * Either `standard` for common forward geocoding, or `structured` for
          * increasing the accuracy of results. To use Structured Input, the
@@ -954,14 +954,14 @@ declare module "@mapbox/mapbox-sdk/services/geocoding-v6" {
         permanent?: boolean,
     }
 
-    interface BaseForwardGeocodeRequest extends GeocodeRequest {
+    interface BaseForwardGeocodeRequest extends GeocodeV6Request {
         /**
          * Limit results to a bounding box.
          */
         bbox?: BoundingBox;
     }
 
-    interface ReverseGeocodeRequest extends GeocodeRequest {
+    interface ReverseGeocodeRequest extends GeocodeV6Request {
         /**
         * longitude coordinate at which features will be searched.
         */
@@ -1007,12 +1007,12 @@ declare module "@mapbox/mapbox-sdk/services/geocoding-v6" {
          * United States or provinces in Canada or China. (Structured Input
          * specific field)
          */
-        region: string;
+        region?: string;
         /**
          * Colloquial sub-city features often referred to in local parlance
          * (Structured Input specific field)
          */
-        neighborhood: string;
+        neighborhood?: string;
         /**
          * Postal codes used in country-specific national addressing systems.
          * (Structured Input specific field)
@@ -1080,7 +1080,7 @@ declare module "@mapbox/mapbox-sdk/services/geocoding-v6" {
          * An array in the format [longitude,latitude] at the center of the
          * specified bbox.
          */
-        coordinates: number[];
+        coordinates: MapiRequestCoordinates;
       }
       
       interface Properties extends NamedLocation {
@@ -1226,7 +1226,6 @@ declare module "@mapbox/mapbox-sdk/services/geocoding-v6" {
          */
         place_formatted?: string;
       }
-
 }
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
