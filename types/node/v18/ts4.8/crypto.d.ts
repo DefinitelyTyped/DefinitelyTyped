@@ -2502,7 +2502,7 @@ declare module "crypto" {
         /**
          * Must be `'named'` or `'explicit'`. Default: `'named'`.
          */
-        paramEncoding?: "explicit" | "named";
+        paramEncoding?: "explicit" | "named" | undefined;
     }
     interface RSAKeyPairKeyObjectOptions {
         /**
