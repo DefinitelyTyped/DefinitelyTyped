@@ -1,4 +1,4 @@
-import { Camera, AnimationClip, FileLoader, Loader, LoadingManager, SkinnedMesh } from '../../../src/Three.js';
+import { Camera, AnimationClip, FileLoader, Loader, LoadingManager, SkinnedMesh, ShaderMaterial, Color, Texture } from '../../../src/Three.js';
 
 export interface MMDLoaderAnimationObject {
     animation: AnimationClip;
@@ -54,3 +54,55 @@ export class MMDLoader extends Loader<SkinnedMesh> {
     ): void;
     setAnimationPath(animationPath: string): this;
 }
+
+export type MMDToonMaterial = {
+    isMMDToonMaterial: boolean;
+    type: "MMDToonMaterial";
+    
+    // emissiveIntensity is used to control the intensity or strength of emissive light emitted by a material
+    emissiveIntensity: number;
+    wireframeLinecap: string;
+    wireframeLinejoin: string;
+    flatShading: boolean;
+    lights: boolean;
+
+    normalMapType: number;
+    matcapCombine: number;
+    combine: number;
+
+    specular: Color;
+	opacity: number;
+	diffuse: Color;
+
+	map: Texture;
+	matcap: Texture;
+	gradientMap: Texture;
+
+	lightMap: Texture;
+	lightMapIntensity: number;
+
+	aoMap: Texture;
+	aoMapIntensity: number;
+
+	emissive: Color;
+	emissiveMap: Texture;
+
+	bumpMap: Texture;
+    bumpScale: number;
+
+	normalMap: Texture;
+	normalScale: number;
+
+	displacemantBias: number;
+	displacemantMap: Texture;
+	displacemantScale: number;
+
+	specularMap: Texture;
+	alphaMap: Texture;
+
+	reflectivity: number;
+	refractionRatio: number;
+    
+    shininess: number;
+    color: Color;
+};
