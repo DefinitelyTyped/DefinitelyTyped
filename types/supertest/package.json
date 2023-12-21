@@ -1,11 +1,13 @@
 {
     "private": true,
     "name": "@types/supertest",
-    "version": "2.0.9999",
+    "version": "6.0.9999",
     "projects": [
         "https://github.com/visionmedia/supertest"
     ],
     "dependencies": {
+        "@types/cookiejar": "*",
+        "@types/methods": "*",
         "@types/superagent": "*"
     },
     "devDependencies": {
