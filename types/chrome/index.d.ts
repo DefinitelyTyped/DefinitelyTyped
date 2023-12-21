@@ -5400,6 +5400,8 @@ declare namespace chrome.input.ime {
  * @since Chrome 44.
  */
 declare namespace chrome.instanceID {
+    export interface TokenRefreshEvent extends chrome.events.Event<() => void> {}
+
     /**
      * Resets the app instance identifier and revokes all tokens associated with it.
      *
@@ -5409,6 +5411,12 @@ declare namespace chrome.instanceID {
     export function deleteID(): Promise<void>;
     export function deleteID(callback: () => void): void;
 
+    interface DeleteTokenParams {
+        /** The authorized entity that is used to obtain the token. */
+        authorizedEntity: string;
+        /** The scope that is used to obtain the token. */
+        scope: string;
+    }
     /**
      * Revoked a granted token.
      * @param deleteTokenParams.authorizedEntity The authorized entity that is used to obtain the token.
@@ -5417,9 +5425,9 @@ declare namespace chrome.instanceID {
      * The `deleteToken()` method doesn't return any value, but can be used with a callback or
      * asynchronously, with a Promise (MV3 only).
      */
-    export function deleteToken(deleteTokenParams: { authorizedEntity: string; scope: string }): Promise<void>;
+    export function deleteToken(deleteTokenParams: DeleteTokenParams): Promise<void>;
     export function deleteToken(
-        deleteTokenParams: { authorizedEntity: string; scope: string },
+        deleteTokenParams: DeleteTokenParams,
         callback: () => void,
     ): void;
 
@@ -5439,6 +5447,36 @@ declare namespace chrome.instanceID {
      */
     export function getID(): Promise<string>;
     export function getID(callback: (instanceID: string) => void): void;
+
+    // TODO: can i make this an extension on DeleteTokenParams?
+    interface GetTokenParams {
+        /**
+         * Identifies the entity that is authorized to access resources associated with this Instance ID.
+         * It can be a project ID from Google developer console.
+         */
+        authorizedEntity: string;
+        /**
+         * Allows including a small number of string key/value pairs that will be associated with the token
+         * and may be used in processing the request.
+         *
+         * @deprecated Since Chrome 89. `options` are deprecated and will be ignored.
+         */
+        options?: { [key: string]: string };
+        /**
+         * Identifies authorized actions that the authorized entity can take.
+         * E.g. for sending GCM messages, GCM scope should be used.
+         */
+        scope: string;
+    }
+    /**
+     * Return a token that allows the authorized entity to access the service defined by scope.
+     *
+     * @return A token assigned by the requested service. Can be returned by a callback or a Promise (MV3 only).
+     */
+    export function getToken(getTokenParams: GetTokenParams): Promise<string>;
+    export function getToken(getTokenParams: GetTokenParams, callback: (token: string) => void);
+
+    export var onTokenRefresh: TokenRefreshEvent;
 }
 
 ////////////////////
