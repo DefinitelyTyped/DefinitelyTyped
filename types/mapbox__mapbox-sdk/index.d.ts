@@ -888,15 +888,15 @@ declare module "@mapbox/mapbox-sdk/services/geocoding-v6" {
     type GeocodeMode = "standard" | "structured";
 
     type GeocodeQueryType =
-        | 'address'
-        | 'country'
-        | 'district'
-        | 'locality'
-        | 'neighborhood'
-        | 'place'
-        | 'postcode'
-        | 'region'
-        | 'street';
+        | "address"
+        | "country"
+        | "district"
+        | "locality"
+        | "neighborhood"
+        | "place"
+        | "postcode"
+        | "region"
+        | "street";
 
     interface GeocodeV6Request {
         /**
@@ -916,7 +916,7 @@ declare module "@mapbox/mapbox-sdk/services/geocoding-v6" {
          * Bias local results based on a provided coordinate location or a
          * user's IP address.
          */
-        proximity?: Coordinates | 'ip';
+        proximity?: Coordinates | "ip";
         /**
          * Filter results by feature types.
          */
@@ -925,7 +925,7 @@ declare module "@mapbox/mapbox-sdk/services/geocoding-v6" {
          * Specify the desired response format of results (geojson, default) or
          * for backwards compatibility (v5).
          */
-        format?: 'geojson' | 'v5';
+        format?: "geojson" | "v5";
         /**
          * Specify the language to use for response text and, for forward
          * geocoding, query result weighting.
@@ -940,18 +940,18 @@ declare module "@mapbox/mapbox-sdk/services/geocoding-v6" {
          * defined differently by audiences belonging to various regional,
          * cultural, or political groups. Defaults to "us".
          */
-        worldview?: string,
+        worldview?: string;
         /**
          * Return autocomplete results or not. Defaults to true.
          */
-        autocomplete?: boolean,
+        autocomplete?: boolean;
         /**
          * Specify whether you intend to store the results of the query (true)
          * or not (false, default). Temporary results are not allowed to be
          * cached, while Permanent results are allowed to be cached and stored
          * indefinitely. Defaults to false.
          */
-        permanent?: boolean,
+        permanent?: boolean;
     }
 
     interface BaseForwardGeocodeRequest extends GeocodeV6Request {
@@ -963,13 +963,13 @@ declare module "@mapbox/mapbox-sdk/services/geocoding-v6" {
 
     interface ReverseGeocodeRequest extends GeocodeV6Request {
         /**
-        * longitude coordinate at which features will be searched.
-        */
-        longitude: number,
+         * longitude coordinate at which features will be searched.
+         */
+        longitude: number;
         /**
-        * latitude coordinate at which features will be searched.
-        */
-        latitude: number,
+         * latitude coordinate at which features will be searched.
+         */
+        latitude: number;
         countries?: string[];
     }
 
@@ -992,12 +992,12 @@ declare module "@mapbox/mapbox-sdk/services/geocoding-v6" {
          * field)
          */
         street?: string;
-        /** 
+        /**
          * In some countries like Japan, the block is a component in the address
          * (Structured Input specific field)
          */
         block?: string;
-        /** 
+        /**
          * Typically these are cities, villages, municipalities, etc.
          * (Structured Input specific field)
          */
@@ -1018,7 +1018,7 @@ declare module "@mapbox/mapbox-sdk/services/geocoding-v6" {
          * (Structured Input specific field)
          */
         postcode?: string;
-        /** 
+        /**
          * Official sub-city features (Structured Input specific field)
          */
         locality?: string;
@@ -1048,9 +1048,9 @@ declare module "@mapbox/mapbox-sdk/services/geocoding-v6" {
          * Attributes the results of the Mapbox Geocoding API to Mapbox.
          */
         attribution: string;
-      }
-      
-      interface Feature {
+    }
+
+    interface Feature {
         /**
          * Feature id. This property is named "id" to conform to the GeoJSON
          * specification, but is the same id referred to as mapbox_id elsewhere
@@ -1069,9 +1069,9 @@ declare module "@mapbox/mapbox-sdk/services/geocoding-v6" {
          * An object containing the resulting feature's details.
          */
         properties: Properties;
-      }
-      
-      interface Geometry {
+    }
+
+    interface Geometry {
         /**
          * "Point", a GeoJSON type from the GeoJSON specification.
          */
@@ -1081,9 +1081,9 @@ declare module "@mapbox/mapbox-sdk/services/geocoding-v6" {
          * specified bbox.
          */
         coordinates: MapiRequestCoordinates;
-      }
-      
-      interface Properties extends NamedLocation {
+    }
+
+    interface Properties extends NamedLocation {
         /**
          * A string describing the type of the feature. Options are country,
          * region, postcode, district, place, locality, neighborhood, street,
@@ -1109,14 +1109,14 @@ declare module "@mapbox/mapbox-sdk/services/geocoding-v6" {
          * This may include a sub-object for any of the following properties:
          * country, region, postcode, district, place, locality, neighborhood,
          * street.
-         * 
+         *
          * Which sub-objects are included is dependent upon the data coverage
          * available and applicable to a given country or area.
          */
         context: Context;
-      }
-      
-      interface Coordinates {
+    }
+
+    interface Coordinates {
         /**
          * The longitude coordinate.
          */
@@ -1130,9 +1130,9 @@ declare module "@mapbox/mapbox-sdk/services/geocoding-v6" {
          * accuracy for address features" below.
          */
         accuracy?: string;
-      }
-      
-      interface Context {
+    }
+
+    interface Context {
         /**
          * The region information of the context.
          */
@@ -1157,9 +1157,9 @@ declare module "@mapbox/mapbox-sdk/services/geocoding-v6" {
          * The postcode information of the context.
          */
         postcode?: Postcode;
-      }
-      
-      interface Region extends NamedLocation {
+    }
+
+    interface Region extends NamedLocation {
         /**
          * The full region code of the region.
          */
@@ -1168,9 +1168,9 @@ declare module "@mapbox/mapbox-sdk/services/geocoding-v6" {
          * The region code of the region.
          */
         region_code?: string;
-      }
-      
-      interface Country extends NamedLocation {
+    }
+
+    interface Country extends NamedLocation {
         /**
          * The country code of the country.
          */
@@ -1179,30 +1179,29 @@ declare module "@mapbox/mapbox-sdk/services/geocoding-v6" {
          * The alpha-3 country code of the country.
          */
         country_code_alpha_3?: string;
-      }
-      
-      interface Place extends IdentifiableLocation {
+    }
+
+    interface Place extends IdentifiableLocation {
         /**
          * The short code of the place.
          */
         short_code?: string;
-      }
-      
-      type Locality = IdentifiableLocation
-      
-      type District = IdentifiableLocation
-      
-      
-      interface IdentifiableLocation extends NamedLocation {
+    }
+
+    type Locality = IdentifiableLocation;
+
+    type District = IdentifiableLocation;
+
+    interface IdentifiableLocation extends NamedLocation {
         /**
          * The Wikidata ID of the identifiable location.
          */
         wikidata_id: string;
-      }
-      
-      type Postcode = NamedLocation
-      
-      interface NamedLocation {
+    }
+
+    type Postcode = NamedLocation;
+
+    interface NamedLocation {
         /**
          * Feature id. The mapbox_id uniquely identifies a place in the Mapbox
          * search database. Mapbox ID’s are accepted in requests to the
@@ -1225,7 +1224,7 @@ declare module "@mapbox/mapbox-sdk/services/geocoding-v6" {
          *  The part of the result which comes after name.
          */
         place_formatted?: string;
-      }
+    }
 }
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
