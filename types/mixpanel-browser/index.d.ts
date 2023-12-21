@@ -44,6 +44,11 @@ export interface RegisterOptions {
 
 export interface Config {
     api_host: string;
+    api_routes: {
+        track?: string;
+        engage?: string;
+        groups?: string;
+    };
     api_method: string;
     api_transport: string;
     app_host: string;
