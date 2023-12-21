@@ -353,9 +353,9 @@ qs.parse("a=b&c=d", { delimiter: "&" });
 });
 
 (() => {
-    var sparseArray = qs.parse('a[1]=2&a[3]=5', { allowSparse: true });
-    assert.deepEqual(sparseArray, { a: [, '2', , '5'] });
-})
+    var sparseArray = qs.parse("a[1]=2&a[3]=5", { allowSparse: true });
+    assert.deepEqual(sparseArray, { a: [, "2", , "5"] });
+});
 
 declare const myQuery: { a: string; b?: string | undefined };
 const myQueryCopy: qs.ParsedQs = myQuery;
