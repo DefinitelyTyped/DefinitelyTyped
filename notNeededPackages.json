@@ -5799,6 +5799,10 @@
             "libraryName": "strip-bom",
             "asOfVersion": "4.0.0"
         },
+        "strip-final-newline": {
+            "libraryName": "strip-final-newline",
+            "asOfVersion": "4.0.0"
+        },
         "strip-indent": {
             "libraryName": "strip-indent",
             "asOfVersion": "3.0.0"
