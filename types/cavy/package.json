@@ -10,7 +10,7 @@
     },
     "devDependencies": {
         "@types/cavy": "workspace:.",
-        "@types/react-native": "*"
+        "react-native": "*"
     },
     "owners": [
         {
