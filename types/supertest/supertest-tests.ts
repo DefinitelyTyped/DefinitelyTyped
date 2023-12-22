@@ -5,6 +5,7 @@ const app = express();
 const request = supertest(app);
 
 request.get("/user")
+    .set('Accept', '*/*')
     .expect("Content-Type", /json/)
     .expect("Content-Length", "20")
     .expect(201)
