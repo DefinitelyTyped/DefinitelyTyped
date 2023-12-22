@@ -3,7 +3,7 @@
 // Definitions by: Mustafa Salaheldin <https://github.com/mustafasalahuldin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
-// Adding support to bootstrap 4
+// Adding support to bootstrap 5
 /// <reference types="jquery"/>
 
 interface Templates {
