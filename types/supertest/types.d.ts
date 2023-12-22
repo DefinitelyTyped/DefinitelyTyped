@@ -1,8 +1,8 @@
 import { AgentOptions as SAgentOptions } from "superagent";
 import methods = require("methods");
-import { Server } from 'net';
 import { IncomingMessage, RequestListener, ServerResponse } from "http";
 import { Http2ServerRequest, Http2ServerResponse } from "http2";
+import { Server } from "net";
 
 export type App =
     | Server

@@ -1,9 +1,9 @@
 import supertest = require("supertest");
 import express = require("express");
 
-import { Server as HttpServer } from 'http';
-import { Server as HttpsServer } from 'https';
-import { Http2Server, Http2SecureServer } from 'http2';
+import { Server as HttpServer } from "http";
+import { Http2SecureServer, Http2Server } from "http2";
+import { Server as HttpsServer } from "https";
 
 const app = express();
 const request = supertest(app);
