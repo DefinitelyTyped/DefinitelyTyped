@@ -25,6 +25,13 @@ export class MeshMatcapMaterial extends Material {
     constructor(parameters?: MeshMatcapMaterialParameters);
 
     /**
+     * Read-only flag to check if a given object is of type {@link MeshMatcapMaterial}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isMeshMatcapMaterial: true;
+
+    /**
      * @default 'MeshMatcapMaterial'
      */
     type: string;

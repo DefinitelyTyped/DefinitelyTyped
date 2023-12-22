@@ -223,6 +223,7 @@ export * from './scenes/Scene.js';
  */
 export * from './textures/VideoTexture.js';
 export * from './textures/CompressedArrayTexture.js';
+export * from './textures/CompressedCubeTexture.js';
 export * from './textures/DataTexture.js';
 export * from './textures/CompressedTexture.js';
 export * from './textures/CubeTexture.js';

@@ -94,40 +94,40 @@ export class Matrix4 implements Matrix {
         n42: number,
         n43: number,
         n44: number,
-    ): Matrix4;
+    ): this;
 
     /**
      * Resets this matrix to identity.
      */
-    identity(): Matrix4;
+    identity(): this;
     clone(): Matrix4;
     copy(m: Matrix4): this;
-    copyPosition(m: Matrix4): Matrix4;
-    extractBasis(xAxis: Vector3, yAxis: Vector3, zAxis: Vector3): Matrix4;
-    makeBasis(xAxis: Vector3, yAxis: Vector3, zAxis: Vector3): Matrix4;
+    copyPosition(m: Matrix4): this;
+    extractBasis(xAxis: Vector3, yAxis: Vector3, zAxis: Vector3): this;
+    makeBasis(xAxis: Vector3, yAxis: Vector3, zAxis: Vector3): this;
 
     /**
      * Copies the rotation component of the supplied matrix m into this matrix rotation component.
      */
-    extractRotation(m: Matrix4): Matrix4;
-    makeRotationFromEuler(euler: Euler): Matrix4;
-    makeRotationFromQuaternion(q: Quaternion): Matrix4;
+    extractRotation(m: Matrix4): this;
+    makeRotationFromEuler(euler: Euler): this;
+    makeRotationFromQuaternion(q: Quaternion): this;
     /**
      * Constructs a rotation matrix, looking from eye towards center with defined up vector.
      */
-    lookAt(eye: Vector3, target: Vector3, up: Vector3): Matrix4;
+    lookAt(eye: Vector3, target: Vector3, up: Vector3): this;
 
     /**
      * Multiplies this matrix by m.
      */
-    multiply(m: Matrix4): Matrix4;
+    multiply(m: Matrix4): this;
 
-    premultiply(m: Matrix4): Matrix4;
+    premultiply(m: Matrix4): this;
 
     /**
      * Sets this matrix to a x b.
      */
-    multiplyMatrices(a: Matrix4, b: Matrix4): Matrix4;
+    multiplyMatrices(a: Matrix4, b: Matrix4): this;
 
     /**
      * Sets this matrix to a x b and stores the result into the flat array r.
@@ -140,7 +140,7 @@ export class Matrix4 implements Matrix {
     /**
      * Multiplies this matrix by s.
      */
-    multiplyScalar(s: number): Matrix4;
+    multiplyScalar(s: number): this;
 
     /**
      * Computes determinant of this matrix.
@@ -151,23 +151,23 @@ export class Matrix4 implements Matrix {
     /**
      * Transposes this matrix.
      */
-    transpose(): Matrix4;
+    transpose(): this;
 
     /**
      * Sets the position component for this matrix from vector v.
      */
-    setPosition(v: Vector3): Matrix4;
-    setPosition(x: number, y: number, z: number): Matrix4;
+    setPosition(v: Vector3): this;
+    setPosition(x: number, y: number, z: number): this;
 
     /**
      * Inverts this matrix.
      */
-    invert(): Matrix4;
+    invert(): this;
 
     /**
      * Multiplies the columns of this matrix by vector v.
      */
-    scale(v: Vector3): Matrix4;
+    scale(v: Vector3): this;
 
     getMaxScaleOnAxis(): number;
     /**
@@ -181,21 +181,21 @@ export class Matrix4 implements Matrix {
      *
      * @param theta Rotation angle in radians.
      */
-    makeRotationX(theta: number): Matrix4;
+    makeRotationX(theta: number): this;
 
     /**
      * Sets this matrix as rotation transform around y axis by theta radians.
      *
      * @param theta Rotation angle in radians.
      */
-    makeRotationY(theta: number): Matrix4;
+    makeRotationY(theta: number): this;
 
     /**
      * Sets this matrix as rotation transform around z axis by theta radians.
      *
      * @param theta Rotation angle in radians.
      */
-    makeRotationZ(theta: number): Matrix4;
+    makeRotationZ(theta: number): this;
 
     /**
      * Sets this matrix as rotation transform around axis by angle radians.
@@ -204,27 +204,27 @@ export class Matrix4 implements Matrix {
      * @param axis Rotation axis.
      * @param theta Rotation angle in radians.
      */
-    makeRotationAxis(axis: Vector3, angle: number): Matrix4;
+    makeRotationAxis(axis: Vector3, angle: number): this;
 
     /**
      * Sets this matrix as scale transform.
      */
-    makeScale(x: number, y: number, z: number): Matrix4;
+    makeScale(x: number, y: number, z: number): this;
 
     /**
      * Sets this matrix as shear transform.
      */
-    makeShear(xy: number, xz: number, yx: number, yz: number, zx: number, zy: number): Matrix4;
+    makeShear(xy: number, xz: number, yx: number, yz: number, zx: number, zy: number): this;
 
     /**
      * Sets this matrix to the transformation composed of translation, rotation and scale.
      */
-    compose(translation: Vector3, rotation: Quaternion, scale: Vector3): Matrix4;
+    compose(translation: Vector3, rotation: Quaternion, scale: Vector3): this;
 
     /**
      * Decomposes this matrix into it's position, quaternion and scale components.
      */
-    decompose(translation: Vector3, rotation: Quaternion, scale: Vector3): Matrix4;
+    decompose(translation: Vector3, rotation: Quaternion, scale: Vector3): this;
 
     /**
      * Creates a perspective projection matrix.
@@ -237,7 +237,7 @@ export class Matrix4 implements Matrix {
         near: number,
         far: number,
         coordinateSystem?: CoordinateSystem,
-    ): Matrix4;
+    ): this;
 
     /**
      * Creates an orthographic projection matrix.
@@ -250,7 +250,7 @@ export class Matrix4 implements Matrix {
         near: number,
         far: number,
         coordinateSystem?: CoordinateSystem,
-    ): Matrix4;
+    ): this;
     equals(matrix: Matrix4): boolean;
 
     /**
@@ -258,7 +258,7 @@ export class Matrix4 implements Matrix {
      * @param array the source array or array-like.
      * @param offset (optional) offset into the array-like. Default is 0.
      */
-    fromArray(array: number[] | ArrayLike<number>, offset?: number): Matrix4;
+    fromArray(array: number[] | ArrayLike<number>, offset?: number): this;
 
     /**
      * Returns an array with the values of this matrix, or copies them into the provided array.
@@ -280,7 +280,7 @@ export class Matrix4 implements Matrix {
     /**
      * Set the upper 3x3 elements of this matrix to the values of the Matrix3 m.
      */
-    setFromMatrix3(m: Matrix3): Matrix4;
+    setFromMatrix3(m: Matrix3): this;
 
     /**
      * @deprecated Use {@link Matrix4#copyPosition .copyPosition()} instead.

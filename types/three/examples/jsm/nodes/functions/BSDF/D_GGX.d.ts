@@ -1,4 +1,4 @@
-import { ShaderNode } from '../../shadernode/ShaderNodeBaseElements.js';
+import { ShaderNode } from '../../shadernode/ShaderNode.js';
 import Node from '../../core/Node.js';
 
 // Microfacet Models for Refraction through Rough Surfaces - equation (33)

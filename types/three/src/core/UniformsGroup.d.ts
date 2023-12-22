@@ -15,11 +15,11 @@ export class UniformsGroup extends EventDispatcher<{ dispose: {} }> {
 
     usage: Usage;
 
-    uniforms: Uniform[];
+    uniforms: Array<Uniform | Uniform[]>;
 
-    add(uniform: Uniform): this;
+    add(uniform: Uniform | Uniform[]): this;
 
-    remove(uniform: Uniform): this;
+    remove(uniform: Uniform | Uniform[]): this;
 
     setName(name: string): this;
 
