@@ -1,5 +1,6 @@
 import TempNode from '../core/TempNode.js';
-import { Node } from '../Nodes.js';
+import MathNode from '../math/MathNode.js';
+import { NodeRepresentation, ShaderNodeObject } from '../shadernode/ShaderNode.js';
 
 export type ColorAdjustmentMethod =
     | typeof ColorAdjustmentNode.SATURATION
@@ -18,3 +19,19 @@ export default class ColorAdjustmentNode extends TempNode {
 
     constructor(method: ColorAdjustmentMethod, colorNode: Node, adjustmentNode?: Node);
 }
+
+export const saturation: (
+    colorNode: NodeRepresentation,
+    adjustmentNode?: NodeRepresentation,
+) => ShaderNodeObject<ColorAdjustmentNode>;
+export const vibrance: (
+    colorNode: NodeRepresentation,
+    adjustmentNode?: NodeRepresentation,
+) => ShaderNodeObject<ColorAdjustmentNode>;
+export const hue: (
+    colorNode: NodeRepresentation,
+    adjustmentNode?: NodeRepresentation,
+) => ShaderNodeObject<ColorAdjustmentNode>;
+
+export const lumaCoeffs: ShaderNodeObject<MathNode>;
+export const luminance: (a: NodeRepresentation, b: NodeRepresentation) => ShaderNodeObject<MathNode>;

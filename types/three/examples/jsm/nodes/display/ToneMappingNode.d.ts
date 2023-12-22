@@ -1,6 +1,7 @@
+import { ToneMapping } from '../../../../src/Three.js';
 import TempNode from '../core/TempNode.js';
 import Node from '../core/Node.js';
-import { ToneMapping } from '../../../../src/Three.js';
+import { NodeRepresentation, ShaderNodeObject } from '../shadernode/ShaderNode.js';
 
 // exposure only
 export const LinearToneMappingNode: Node;
@@ -12,3 +13,9 @@ export default class ToneMappingNode extends TempNode {
 
     constructor(toneMapping: ToneMapping, exposureNode?: Node, colorNode?: Node | null);
 }
+
+export const toneMapping: (
+    mapping: ToneMapping,
+    exposure: NodeRepresentation,
+    color?: NodeRepresentation,
+) => ShaderNodeObject<ToneMappingNode>;

@@ -1,4 +1,5 @@
 import {
+    Box3,
     Camera,
     Color,
     ColorRepresentation,
@@ -14,23 +15,26 @@ import {
 
 import { FullScreenQuad, Pass } from './Pass.js';
 
-export class HBAOPass extends Pass {
+export class GTAOPass extends Pass {
     width: number;
     height: number;
     clear: boolean;
     camera: Camera;
     scene: Scene;
     output: number;
+    blendIntensity: number;
 
-    rings: number;
-    samples: number;
+    pdRings: number;
+    pdRadiusExponent: number;
+    pdSamples: number;
 
-    noiseTexture: DataTexture;
+    gtaoNoiseTexture: DataTexture;
+    pdNoiseTexture: DataTexture;
 
-    hbaoRenderTarget: WebGLRenderTarget;
+    gtaoRenderTarget: WebGLRenderTarget;
     pdRenderTarget: WebGLRenderTarget;
 
-    hbaoMaterial: ShaderMaterial;
+    gtaoMaterial: ShaderMaterial;
 
     normalMaterial: MeshNormalMaterial;
 
@@ -39,6 +43,8 @@ export class HBAOPass extends Pass {
     depthRenderMaterial: ShaderMaterial;
 
     copyMaterial: ShaderMaterial;
+
+    blendMaterial: ShaderMaterial;
 
     fsQuad: FullScreenQuad;
 
@@ -55,13 +61,18 @@ export class HBAOPass extends Pass {
         parameters?: { depthTexture?: DepthTexture | undefined; normalTexture?: Texture | undefined } | undefined,
     );
 
-    setTextures(depthTexture?: DepthTexture | undefined, normalTexture?: Texture | undefined): void;
+    setGBuffer(depthTexture?: DepthTexture | undefined, normalTexture?: Texture | undefined): void;
 
-    updateHbaoMaterial(parameters: {
+    setSceneClipBox(box: Box3): void;
+
+    updateGtaoMaterial(parameters: {
         radius?: number | undefined;
         distanceExponent?: number | undefined;
-        bias?: number | undefined;
+        thickness?: number | undefined;
+        distanceFallOff?: number | undefined;
+        scale?: number | undefined;
         samples?: number | undefined;
+        screenSpaceRadius?: boolean | undefined;
     }): void;
 
     updatePdMaterial(parameters: {
@@ -69,6 +80,7 @@ export class HBAOPass extends Pass {
         depthPhi?: number | undefined;
         normalPhi?: number | undefined;
         radius?: number | undefined;
+        radiusExponent?: number | undefined;
         rings?: number | undefined;
         samples?: number | undefined;
     }): void;
@@ -100,7 +112,7 @@ export class HBAOPass extends Pass {
         Diffuse: 1;
         Depth: 2;
         Normal: 3;
-        HBAO: 4;
+        AO: 4;
         Denoise: 5;
     };
 }
