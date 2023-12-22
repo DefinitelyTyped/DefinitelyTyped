@@ -1,6 +1,6 @@
 import { AgentOptions as SAgentOptions } from "superagent";
-import { Server } from "tls";
 import methods = require("methods");
+import { Server } from 'net';
 import { IncomingMessage, RequestListener, ServerResponse } from "http";
 import { Http2ServerRequest, Http2ServerResponse } from "http2";
 
