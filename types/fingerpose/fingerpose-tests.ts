@@ -48,6 +48,11 @@ assert(gestures.length === 1, "Estimator failed to detect custom gesture");
 assert(gestures[0].name === "CustomGesture", "Estimator failed to detect custom gesture");
 assert(poseData.length === 1, "Estimator failed to detect custom gesture");
 
+// Add tests for poseData
+assert(poseData[0][0] === "Thumb", "Incorrect finger name in poseData");
+assert(poseData[0][1] === "No Curl", "Incorrect finger curl in poseData");
+assert(poseData[0][2] === "Vertical Up", "Incorrect finger direction in poseData");
+
 const victoryGesture = VictoryGesture;
 const thumbsUpGesture = ThumbsUpGesture;
 

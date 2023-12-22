@@ -109,7 +109,7 @@ export class GestureEstimator {
         keypoints3D: Keypoint3D[],
         minScore: number,
     ): {
-        poseData: GestureDescription[];
+        poseData: Array<[string, string, string]>;
         gestures: GestureEstimate[];
     };
 }
