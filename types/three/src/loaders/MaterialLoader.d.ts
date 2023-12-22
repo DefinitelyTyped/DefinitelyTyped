@@ -4,13 +4,16 @@ import { Texture } from '../textures/Texture.js';
 import { Material } from '../materials/Material.js';
 
 export class MaterialLoader extends Loader<Material> {
-    constructor(manager?: LoadingManager);
-
     /**
      * @default {}
      */
     textures: { [key: string]: Texture };
 
-    setTextures(textures: { [key: string]: Texture }): this;
+    constructor(manager?: LoadingManager);
+
     parse(json: unknown): Material;
+
+    setTextures(textures: { [key: string]: Texture }): this;
+
+    static createMaterialFromType(type: string): Material;
 }

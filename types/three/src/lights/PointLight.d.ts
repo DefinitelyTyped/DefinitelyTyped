@@ -30,6 +30,13 @@ export class PointLight extends Light<PointLightShadow> {
     constructor(color?: ColorRepresentation, intensity?: number, distance?: number, decay?: number);
 
     /**
+     * Read-only flag to check if a given object is of type {@link PointLight}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isPointLight: true;
+
+    /**
      * @default 'PointLight'
      */
     type: string;

@@ -22,6 +22,13 @@ export class MeshNormalMaterial extends Material {
     constructor(parameters?: MeshNormalMaterialParameters);
 
     /**
+     * Read-only flag to check if a given object is of type {@link MeshNormalMaterial}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isMeshNormalMaterial: true;
+
+    /**
      * @default 'MeshNormalMaterial'
      */
     type: string;

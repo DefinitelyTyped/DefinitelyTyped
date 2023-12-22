@@ -10,6 +10,13 @@ export class ShadowMaterial extends Material {
     constructor(parameters?: ShadowMaterialParameters);
 
     /**
+     * Read-only flag to check if a given object is of type {@link ShadowMaterial}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isShadowMaterial: true;
+
+    /**
      * @default 'ShadowMaterial'
      */
     type: string;

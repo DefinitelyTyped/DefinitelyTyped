@@ -25,4 +25,4 @@ export const PoissonDenoiseShader: {
     fragmentShader: string;
 };
 
-export function generatePdSamplePointInitializer(samples: number, rings: number): string;
+export function generatePdSamplePointInitializer(samples: number, rings: number, radiusExponent: number): string;

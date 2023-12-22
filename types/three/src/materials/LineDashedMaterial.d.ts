@@ -10,6 +10,13 @@ export class LineDashedMaterial extends LineBasicMaterial {
     constructor(parameters?: LineDashedMaterialParameters);
 
     /**
+     * Read-only flag to check if a given object is of type {@link LineDashedMaterial}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isLineDashedMaterial: true;
+
+    /**
      * @default 'LineDashedMaterial'
      */
     type: string;
@@ -28,7 +35,6 @@ export class LineDashedMaterial extends LineBasicMaterial {
      * @default 1
      */
     gapSize: number;
-    readonly isLineDashedMaterial: true;
 
     setValues(parameters: LineDashedMaterialParameters): void;
 }
