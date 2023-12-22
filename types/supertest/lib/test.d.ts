@@ -1,12 +1,12 @@
 import { CallbackHandler, Request, Response } from "superagent";
-import { Server } from "tls";
+import { App } from "../types";
 
 declare class Test extends Request {
-    constructor(app: Server, method: string, path: string);
-    app: Server;
+    constructor(app: App, method: string, path: string);
+    app: App;
     url: string;
 
-    serverAddress(app: Server, path: string): string;
+    serverAddress(app: App, path: string): string;
 
     expect(status: number, callback?: CallbackHandler): this;
     expect(status: number, body: any, callback?: CallbackHandler): this;

@@ -6,9 +6,8 @@
         "https://github.com/visionmedia/supertest"
     ],
     "dependencies": {
-        "@types/cookiejar": "*",
-        "@types/methods": "*",
-        "@types/superagent": "*"
+        "@types/methods": "^1.1.4",
+        "@types/superagent": "^8.1.0"
     },
     "devDependencies": {
         "@types/express": "*",
@@ -22,6 +21,10 @@
         {
             "name": "Petteri Parkkila",
             "githubUsername": "pietu"
+        },
+        {
+            "name": "David Tanner",
+            "githubUsername": "DavidTanner"
         }
     ]
 }

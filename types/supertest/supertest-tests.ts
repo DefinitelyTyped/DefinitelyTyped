@@ -1,10 +1,22 @@
 import supertest = require("supertest");
 import express = require("express");
 
+import { Server as HttpServer } from 'http';
+import { Server as HttpsServer } from 'https';
+import { Http2Server, Http2SecureServer } from 'http2';
+
 const app = express();
 const request = supertest(app);
 
+// Should accept different servers as the app
+supertest("http://some.server").get("/user").expect(200);
+supertest({} as HttpServer).get("/user").expect(200);
+supertest({} as HttpsServer).get("/user").expect(200);
+supertest({} as Http2Server).get("/user").expect(200);
+supertest({} as Http2SecureServer).get("/user").expect(200);
+
 request.get("/user")
+    .set("Accept", "*/*")
     .expect("Content-Type", /json/)
     .expect("Content-Length", "20")
     .expect(201)

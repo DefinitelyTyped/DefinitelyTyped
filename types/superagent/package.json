@@ -6,9 +6,9 @@
         "https://github.com/visionmedia/superagent"
     ],
     "dependencies": {
-        "@types/cookiejar": "*",
+        "@types/cookiejar": "^2.1.5",
         "@types/node": "*",
-        "@types/methods": "*"
+        "@types/methods": "^1.1.4"
     },
     "devDependencies": {
         "@types/superagent": "workspace:."
