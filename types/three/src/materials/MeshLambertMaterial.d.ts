@@ -39,6 +39,13 @@ export class MeshLambertMaterial extends Material {
     constructor(parameters?: MeshLambertMaterialParameters);
 
     /**
+     * Read-only flag to check if a given object is of type {@link MeshLambertMaterial}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isMeshLambertMaterial: true;
+
+    /**
      * @default 'MeshLambertMaterial'
      */
     type: string;

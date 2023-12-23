@@ -234,6 +234,32 @@ declare global {
              * Is this a constructor call?
              */
             isConstructor(): boolean;
+
+            /**
+             * is this an async call (i.e. await, Promise.all(), or Promise.any())?
+             */
+            isAsync(): boolean;
+
+            /**
+             * is this an async call to Promise.all()?
+             */
+            isPromiseAll(): boolean;
+
+            /**
+             * returns the index of the promise element that was followed in
+             * Promise.all() or Promise.any() for async stack traces, or null
+             * if the CallSite is not an async
+             */
+            getPromiseIndex(): number | null;
+
+            getScriptNameOrSourceURL(): string;
+            getScriptHash(): string;
+
+            getEnclosingColumnNumber(): number;
+            getEnclosingLineNumber(): number;
+            getPosition(): number;
+
+            toString(): string;
         }
 
         interface ErrnoException extends Error {

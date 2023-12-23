@@ -1,6 +1,5 @@
 // Example from https://github.com/tajo/react-portal
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import { Portal, PortalWithState } from "react-portal";
 
 interface AppState {
@@ -77,4 +76,4 @@ export default class App extends React.Component<{}, AppState> {
     }
 }
 
-ReactDOM.render(<App />, document.getElementById("root"));
+<App />;

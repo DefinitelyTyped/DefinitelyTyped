@@ -28,7 +28,7 @@ export interface ThemeProps<T> {
 
 export type ThemedStyledProps<P, T> = P & ThemeProps<T>;
 export type StyledProps<P> = ThemedStyledProps<P, AnyIfEmpty<DefaultTheme>>;
-export type IntrinsicElementsKeys = keyof JSX.IntrinsicElements;
+export type IntrinsicElementsKeys = keyof React.JSX.IntrinsicElements;
 
 // Any prop that has a default prop becomes optional, but its type is unchanged
 // Undeclared default props are augmented into the resulting allowable attributes
@@ -124,7 +124,7 @@ type ReactDefaultProps<C> = C extends { defaultProps: infer D } ? D : never;
 export type AnyStyledComponent = StyledComponent<any, any, any, any> | StyledComponent<any, any, any>;
 
 export type StyledComponent<
-    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
+    C extends keyof React.JSX.IntrinsicElements | React.ComponentType<any>,
     T extends object,
     O extends object = {},
     A extends keyof any = never,
@@ -158,13 +158,13 @@ export interface StyledComponentBase<
         O & StyledComponentInnerOtherProps<WithC>,
         A | StyledComponentInnerAttrs<WithC>
     >;
-    withComponent<WithC extends keyof JSX.IntrinsicElements | React.ComponentType<any>>(
+    withComponent<WithC extends keyof React.JSX.IntrinsicElements | React.ComponentType<any>>(
         component: WithC,
     ): StyledComponent<WithC, T, O, A>;
 }
 
 export interface ThemedStyledFunctionBase<
-    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
+    C extends keyof React.JSX.IntrinsicElements | React.ComponentType<any>,
     T extends object,
     O extends object = {},
     A extends keyof any = never,
@@ -187,7 +187,7 @@ export interface ThemedStyledFunctionBase<
 }
 
 export interface ThemedStyledFunction<
-    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
+    C extends keyof React.JSX.IntrinsicElements | React.ComponentType<any>,
     T extends object,
     O extends object = {},
     A extends keyof any = never,
@@ -208,13 +208,14 @@ export interface ThemedStyledFunction<
     ) => ThemedStyledFunction<C, T, Props, A>;
 }
 
-export type StyledFunction<C extends keyof JSX.IntrinsicElements | React.ComponentType<any>> = ThemedStyledFunction<
-    C,
-    any
->;
+export type StyledFunction<C extends keyof React.JSX.IntrinsicElements | React.ComponentType<any>> =
+    ThemedStyledFunction<
+        C,
+        any
+    >;
 
 type ThemedStyledComponentFactories<T extends object> = {
-    [TTag in keyof JSX.IntrinsicElements]: ThemedStyledFunction<TTag, T>;
+    [TTag in keyof React.JSX.IntrinsicElements]: ThemedStyledFunction<TTag, T>;
 };
 
 export type StyledComponentInnerComponent<C extends React.ComponentType<any>> = C extends StyledComponent<
@@ -226,7 +227,7 @@ export type StyledComponentInnerComponent<C extends React.ComponentType<any>> = 
     : C extends StyledComponent<infer I, any, any> ? I
     : C;
 export type StyledComponentPropsWithRef<
-    C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
+    C extends keyof React.JSX.IntrinsicElements | React.ComponentType<any>,
 > = C extends AnyStyledComponent ? React.ComponentPropsWithRef<StyledComponentInnerComponent<C>>
     : React.ComponentPropsWithRef<C>;
 export type StyledComponentInnerOtherProps<C extends AnyStyledComponent> = C extends StyledComponent<
@@ -248,7 +249,7 @@ export interface ThemedBaseStyledInterface<T extends object> extends ThemedStyle
         StyledComponentInnerOtherProps<C>,
         StyledComponentInnerAttrs<C>
     >;
-    <C extends keyof JSX.IntrinsicElements | React.ComponentType<any>>(
+    <C extends keyof React.JSX.IntrinsicElements | React.ComponentType<any>>(
         // unfortunately using a conditional type to validate that it can receive a `theme?: Theme`
         // causes tests to fail in TS 3.1
         component: C,
@@ -316,7 +317,7 @@ export type BaseWithThemeFnInterface<T extends object> = <C extends React.Compon
     // not allow any component that accepts _more_ than theme as a prop
     component: React.ComponentProps<C> extends { theme?: T | undefined } ? C : never,
 ) => React.ForwardRefExoticComponent<
-    WithOptionalTheme<JSX.LibraryManagedAttributes<C, React.ComponentPropsWithRef<C>>, T>
+    WithOptionalTheme<React.JSX.LibraryManagedAttributes<C, React.ComponentPropsWithRef<C>>, T>
 >;
 export type WithThemeFnInterface<T extends object> = BaseWithThemeFnInterface<AnyIfEmpty<T>>;
 export const withTheme: WithThemeFnInterface<DefaultTheme>;

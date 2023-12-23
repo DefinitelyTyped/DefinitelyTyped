@@ -347,10 +347,12 @@
 /types/async-lock/                                        @afharo @rhymmor @humulus @BendingBender
 /types/async-polling/                                     @Goldsmith42
 /types/async-redis/                                       @philipp-sapronov @dyc3
+/types/async-rerun/                                       @fahidarif
 /types/async-retry/                                       @albertywu @MeLlamoPablo @rafsawicki @BendingBender
 /types/async-stream-emitter/                              @DanielRose @Methuselah96
 /types/async-stream-emitter/v3/                           @DanielRose
 /types/async.nexttick/                                    @pyrho
+/types/at-least-node/                                     @LeoDog896
 /types/athenajs/                                          @warpdesign
 /types/atlaskit__layer/                                   @lstanden
 /types/atlaskit__single-select/                           @lstanden
@@ -701,6 +703,9 @@
 /types/bull-arena/                                        @levibostian @gtpan77
 /types/bumblebee-hotword/                                 @sheunglaili
 /types/bump-regex/                                        @silkentrance
+/types/bun/                                               @colinhacks @Jarred-Sumner @electroid @paperdave @robobun @dylan-conway
+/types/bundle-id/                                         @LeoDog896
+/types/bundle-name/                                       @LeoDog896
 /types/bunnymq/                                           @cyrilschumacher
 /types/bunyan/                                            @amikhalev
 /types/bunyan-blackhole/                                  @olivr70
@@ -741,6 +746,7 @@
 /types/calq/                                              @eirikhm
 /types/camelcase-css/                                     @peterblazejewicz
 /types/camelcase-keys-deep/                               @englund0110
+/types/camelize/                                          @LeoDog896
 /types/camo/                                              @lucasmciruzzi
 /types/camouflage-rewrite/                                @tpluscode
 /types/camunda-external-task-client-js/                   @MacRusher @hados99
@@ -1441,6 +1447,7 @@
 /types/deep-freeze-strict/                                @mhegazy
 /types/deepai/                                            @NicolasNewman
 /types/deezer-sdk/                                        @marco-eckstein
+/types/default-browser-id/                                @LeoDog896
 /types/default-gateway/                                   @BendingBender @ArcaneDiver @yoursunny
 /types/default-user-agent/                                @BendingBender
 /types/defaults/                                          @IbtihelCHNAB
@@ -1474,6 +1481,7 @@
 /types/destroy-on-hwm/                                    @BendingBender
 /types/detect-character-encoding/                         @BendingBender
 /types/detect-emoji-support/                              @adam-hanna
+/types/detect-file/                                       @LeoDog896
 /types/detect-hover/                                      @thomastilkema
 /types/detect-inapp/                                      @moelleer
 /types/detect-libc/                                       @JamieMagee
@@ -2145,6 +2153,7 @@
 /types/findandreplacedomtext/                             @bartholomej
 /types/findup-sync/                                       @Bartvds @ngbrown @BendingBender @kotarella1110
 /types/fined/                                             @BendingBender
+/types/fingerpose/                                        @EthanL06
 /types/firebase-token-generator/                          @dotdotcommadot
 /types/firebird/                                          @karak
 /types/firefox/                                           @vvakame
@@ -3466,6 +3475,7 @@
 /types/is-empty-object/                                   @Richienb
 /types/is-even/                                           @shawnkoon
 /types/is-expression/                                     @LeoDog896
+/types/is-extglob/                                        @LeoDog896
 /types/is-file-esm/                                       @leonzalion
 /types/is-finite/                                         @mhegazy
 /types/is-firefox/                                        @e9x
@@ -3486,6 +3496,7 @@
 /types/is-lambda/                                         @BendingBender
 /types/is-map/                                            @Ankan002 @LeoDog896
 /types/is-negated-glob/                                   @ajafff
+/types/is-negative-zero/                                  @LeoDog896
 /types/is-number/                                         @jedster1111
 /types/is-number-like/                                    @ffflorian
 /types/is-object/                                         @wbhob @ljharb @phuctm97
@@ -3514,6 +3525,7 @@
 /types/is-valid-glob/                                     @BendingBender
 /types/is-valid-path/                                     @Goldsmith42
 /types/is-valid-zipcode/                                  @dmmulroy
+/types/is-weakref/                                        @LeoDog896
 /types/is-windows/                                        @mizunashi-mana @ExE-Boss
 /types/isaac/                                             @mo
 /types/isarray/                                           @claasahl
@@ -3938,7 +3950,7 @@
 /types/jwt-then/                                          @phenomax
 /types/jxon/                                              @maxbogus
 /types/k-bucket/                                          @tomonari-t
-/types/k6/                                                @MStoykov @codebien @oleiade @olegbespalov @ppcano @nicolevanderhoeven @ankur22 @inancgumus @ka3de
+/types/k6/                                                @MStoykov @codebien @oleiade @olegbespalov @ppcano @nicolevanderhoeven @ankur22 @inancgumus @ka3de @joanlopez
 /types/kafka-node-avro/                                   @alfamegaxq
 /types/kahoot.js-updated/                                 @MysteryBlokHed
 /types/kakao-js-sdk/                                      @wooogi123
@@ -5102,7 +5114,7 @@
 /types/natural-sort/                                      @a-morales @fluggo
 /types/naughty-words/                                     @bendingbender
 /types/naver-whale/                                       @tbvjaos510
-/types/navermaps/                                         @ckboyjiy @DongKyuuuu @fclemonschool @suhwancha @hig4342 @kkokkojeong
+/types/navermaps/                                         @ckboyjiy @DongKyuuuu @fclemonschool @suhwancha @hig4342 @kkokkojeong @gseok
 /types/navigator-languages-parser/                        @mlc
 /types/nbayes/                                            @BendingBender
 /types/ncom/                                              @DanielRose
@@ -5644,18 +5656,20 @@
 /types/passport-oauth2-refresh/                           @daphnesmit @btorresgil
 /types/passport-openidconnect/                            @liorm @seng-siong
 /types/passport-orcid/                                    @thewilkybarkid
+/types/passport-qq/                                       @bangbang93
 /types/passport-remember-me/                              @gristow
 /types/passport-remember-me-extended/                     @AylaJK
 /types/passport-saml/                                     @cjbarth @dassennato @ksamborski @josecolella
 /types/passport-saml-metadata/                            @carboneater
 /types/passport-spotify/                                  @rishikodali
-/types/passport-steam/                                    @kzay
+/types/passport-steam/                                    @nordowl
 /types/passport-strategy/                                 @liorm
 /types/passport-twitch-latest/                            @claabs
 /types/passport-twitter/                                  @staticfunction
 /types/passport-twitter-token/                            @podplatnikm
 /types/passport-unique-token/                             @SomaticIT
 /types/passport-vkontakte/                                @soulthreads
+/types/passport-weibo/                                    @bangbang93
 /types/passport-windowsauth/                              @forivall
 /types/passport.socketio/                                 @Scotsoo
 /types/passthrough-encoding/                              @BendingBender
@@ -6132,8 +6146,6 @@
 /types/rdf-dataset-ext/                                   @thewilkybarkid
 /types/rdf-dataset-indexed/                               @thewilkybarkid
 /types/rdf-ext/                                           @tpluscode @jeswr
-/types/rdf-loader-code/                                   @tpluscode
-/types/rdf-loaders-registry/                              @tpluscode
 /types/rdf-store-fs/                                      @tpluscode
 /types/rdf-transform-triple-to-quad/                      @tpluscode
 /types/rdf-utils-dataset/                                 @thewilkybarkid
@@ -6326,7 +6338,7 @@
 /types/react-hammerjs/                                    @jsonunger @cecchi
 /types/react-hammerjs/v0/                                 @jsonunger
 /types/react-headroom/                                    @zerocho @rafaelderolez
-/types/react-helmet/                                      @evanbb @isman-usoh @yuit @ykzts @wKovacs64 @Andriy2 @peterblazejewicz
+/types/react-helmet/                                      @evanbb @isman-usoh @yuit @ykzts @Andriy2 @peterblazejewicz
 /types/react-helmet/v4/                                   @evanbb @isman-usoh
 /types/react-helmet/v5/                                   @evanbb @isman-usoh @yuit @ykzts @wKovacs64
 /types/react-helmet-with-visor/                           @kokushkin
@@ -6893,6 +6905,7 @@
 /types/registry-auth-token/                               @mauricedb @LiangZugeng @peterblazejewicz
 /types/regression/                                        @MattiasMartens
 /types/relateurl/                                         @tkrotoff
+/types/relationship.js/                                   @whinc
 /types/relaxed-json/                                      @18steps
 /types/relay-compiler/                                    @n1ru4l @alloy @maraisr @levibuzolic
 /types/relay-runtime/                                     @alloy @maraisr @morrys @levibuzolic
@@ -6950,7 +6963,7 @@
 /types/rest/                                              @Nemo157
 /types/restangular/                                       @borisyankov
 /types/restful.js/                                        @tkqubo
-/types/restify/                                           @blittle @leanazulyoro @mgebundy @alcmoraes @quinnlangille @GaikwadPratik
+/types/restify/                                           @blittle @leanazulyoro @mgebundy @quinnlangille @GaikwadPratik
 /types/restify/v4/                                        @blittle
 /types/restify/v5/                                        @blittle @leanazulyoro
 /types/restify-cookies/                                   @weekens
@@ -7084,6 +7097,7 @@
 /types/s3-download-stream/                                @everettcaleb
 /types/s3-streams/                                        @azatoth
 /types/s3-upload-stream/                                  @geoffreak
+/types/s3-zip/                                            @janickvwcotiss
 /types/s3rver/                                            @DavidBR-SW @feuGeneA @trygveaa
 /types/sade/                                              @Epimodev @peterblazejewicz
 /types/safari-extension/                                  @luukd
@@ -7978,6 +7992,7 @@
 /types/to-ico/                                            @remcohaszing
 /types/to-json-schema/                                    @forivall
 /types/to-markdown/                                       @SuperPaintman
+/types/to-object-path/                                    @LeoDog896
 /types/to-px/                                             @vindhya
 /types/to-regex/                                          @RauliL @xapdkop
 /types/to-regex-range/                                    @Richienb
@@ -8024,7 +8039,7 @@
 /types/transform-pouch/                                   @lucasrainett
 /types/transit-js/                                        @tgriesser
 /types/trashable/                                         @jlismore
-/types/traverse/                                          @newclear
+/types/traverse/                                          @newclear @joshmock
 /types/traverson/                                         @marcinporebski @jelovac
 /types/travis-fold/                                       @andy-ms
 /types/trayballoon/                                       @korve
@@ -8154,6 +8169,7 @@
 /types/uniqid/                                            @idchlife @onomatopoetry
 /types/unique-hash-stream/                                @BendingBender
 /types/unique-push-id/                                    @namick
+/types/unique-slug/                                       @LeoDog896
 /types/unist/                                             @bizen241 @lujun2 @hrajchert @wooorm @rokt33r @GuiltyDolphin @JounQin @remcohaszing
 /types/unist/v2/                                          @bizen241 @lujun2 @hrajchert @wooorm @rokt33r @GuiltyDolphin @JounQin
 /types/unity-webapi/                                      @jmvrbanac
@@ -8165,6 +8181,7 @@
 /types/unordered-array-remove/                            @BendingBender
 /types/unorm/                                             @chbrown
 /types/unpaginated/                                       @reediculous456
+/types/unquote/                                           @shift-yuta-katayama
 /types/untar.js/                                          @andrewbranch
 /types/until-promise/                                     @Miladiir
 /types/unused-files-webpack-plugin/                       @maxbogus
@@ -8342,6 +8359,7 @@
 /types/voronoi-diagram/                                   @michaelneu
 /types/vorpal/                                            @danwbyrne @sweethuman
 /types/vortex-web-client/                                 @Pro
+/types/vosk/                                              @ifeanyiecheruo
 /types/voucher-code-generator/                            @JWebCoder
 /types/voximplant-websdk/                                 @aylarov
 /types/vscode/                                            @microsoft

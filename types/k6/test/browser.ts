@@ -7,6 +7,9 @@ const selector = "a[href=\"http://example.com\"]";
 // browser tests
 //
 
+// $ExpectType void
+browser.closeContext();
+
 // $ExpectType BrowserContext
 browser.context();
 
@@ -173,8 +176,16 @@ browserContext.setDefaultTimeout(30000);
 browserContext.setGeolocation({ latitude: 0, longitude: 0, accuracy: 1 });
 // $ExpectType void
 browserContext.setOffline(true);
-// $ExpectType Page | null
-browserContext.waitForEvent("", { predicate: () => true, timeout: 30000 });
+// $ExpectType Promise<Page>
+browserContext.waitForEvent("page");
+// $ExpectType Promise<Page>
+browserContext.waitForEvent("page", () => true);
+// $ExpectType Promise<Page>
+browserContext.waitForEvent("page", { predicate: () => true });
+// $ExpectType Promise<Page>
+browserContext.waitForEvent("page", { predicate: () => true, timeout: 10000 });
+// $ExpectType Promise<Page>
+browserContext.waitForEvent("page", { timeout: 10000 });
 
 //
 // Create a page
@@ -655,6 +666,16 @@ page.tap(selector, { strict: true });
 page.tap(selector, { timeout: 10000 });
 // $ExpectType void
 page.tap(selector, { trial: true });
+
+// @ts-expect-error
+page.throttleCPU();
+// $ExpectType void
+page.throttleCPU({ rate: 2 });
+
+// @ts-expect-error
+page.throttleNetwork();
+// $ExpectType void
+page.throttleNetwork({ latency: 500, download: 200, upload: 100 });
 
 // @ts-expect-error
 page.textContent();

@@ -1,4 +1,4 @@
-import { Component, ComponentType, ReactElement } from "react";
+import { Component, ComponentType, JSX, ReactElement } from "react";
 
 export type ChunkExtractorOptions =
     & {

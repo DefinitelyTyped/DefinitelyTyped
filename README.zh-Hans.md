@@ -170,7 +170,6 @@ declare module "libname" {
 | `index.d.ts` | 此文件包含软件包的类型声明。 |
 | [`<my-package>-tests.ts`](#my-package-teststs) | 此文件包含测试类型声明的示例代码，其**不会**运行，但是它会通过类型检查。 |
 | [`tsconfig.json`](#tsconfigjson) | 此文件允许你在软件包中运行 `tsc`。 |
-| [`tslint.json`](#linter-tslintjson) | 启用 Lint。 |
 | [`.eslintrc.json`](#linter-eslintrcjson)   | （极少使用）仅在需要禁用 ESLint 规则时使用。 |
 
 如果你的 npm 版本高于 5.2.0，请运行 `npx dts-gen --dt --name <my-package> --template module` 来生成这些文件，否则请运行 `npm install -g dts-gen` 和 `dts-gen --dt --name <my-package> --template module`。
@@ -272,15 +271,9 @@ f("one");
 
 更多详细信息，请参见 [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint#write-tests) 的 README 文件。
 
-#### Linter: `tslint.json`
-
-Linter 的配置文件 `tslint.json` 只应包含 `{ "extends": "@definitelytyped/dtslint/dt.json" }`，并且不含其他规则。
-
-若出于某些原因，需要禁用规则，请使用 `// tslint:disable-next-line:[ruleName]` [在需要禁用规则的那一行禁用它](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line)，而不是在整个软件包内禁用，因此代码审核者可以审核禁用规则的代码。（一些陈旧的 Linter 配置文件可能包含额外内容，但这些内容不应该出现在新项目中。）
-
 ##### Linter: `.eslintrc.json`
 
-Definitely Typed 正在从 TSLint 迁移至 ESLint。与 TSLint 不同，ESLint 无需配置文件即可启用。你仅应在需要禁用规则的那一行处禁用规则，与 TSLint 相同：
+你仅应在需要禁用规则的那一行处禁用规则，与 TSLint 相同：
 
 ```ts
 // eslint-disable-next-line no-const-enum

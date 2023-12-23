@@ -211,6 +211,17 @@ export class Icon extends SvelteComponentTyped<
     getIcon(): L.Icon;
 }
 
+export class DivIcon extends SvelteComponentTyped<
+    {
+        options?: L.DivIconOptions;
+        getDivIcon?(): L.DivIcon;
+    },
+    never,
+    never
+> {
+    getDivIcon(): L.DivIcon;
+}
+
 export class ImageOverlay extends SvelteComponentTyped<
     {
         imageUrl: string;
