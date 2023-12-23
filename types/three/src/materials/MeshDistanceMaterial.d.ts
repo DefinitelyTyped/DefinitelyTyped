@@ -17,6 +17,13 @@ export class MeshDistanceMaterial extends Material {
     constructor(parameters?: MeshDistanceMaterialParameters);
 
     /**
+     * Read-only flag to check if a given object is of type {@link MeshDistanceMaterial}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isMeshDistanceMaterial: true;
+
+    /**
      * @default 'MeshDistanceMaterial'
      */
     type: string;

@@ -140,13 +140,15 @@ export const ReinhardToneMapping: 2;
 export const CineonToneMapping: 3;
 export const ACESFilmicToneMapping: 4;
 export const CustomToneMapping: 5;
+export const AgXToneMapping: 6;
 export type ToneMapping =
     | typeof NoToneMapping
     | typeof LinearToneMapping
     | typeof ReinhardToneMapping
     | typeof CineonToneMapping
     | typeof ACESFilmicToneMapping
-    | typeof CustomToneMapping;
+    | typeof CustomToneMapping
+    | typeof AgXToneMapping;
 
 // Bind modes
 export const AttachedBindMode: 'attached';

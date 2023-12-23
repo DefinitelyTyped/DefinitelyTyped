@@ -53,3 +53,14 @@ const ReactTimeagoCustomComponent: JSX.Element = (
         allowFontScaling
     />
 );
+
+const CustomJSXElement = ({ myProp }: { myProp: string }) => <div>{myProp}</div>;
+
+const ReactTimeagoCustomJSXElement: JSX.Element = (
+    <ReactTimeago
+        date={new Date()}
+        component={CustomJSXElement}
+        // props passed down to Text
+        myProp="myProp"
+    />
+);
