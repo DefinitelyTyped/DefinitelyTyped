@@ -5474,7 +5474,7 @@ declare namespace chrome.instanceID {
      * @return A token assigned by the requested service. Can be returned by a callback or a Promise (MV3 only).
      */
     export function getToken(getTokenParams: GetTokenParams): Promise<string>;
-    export function getToken(getTokenParams: GetTokenParams, callback: (token: string) => void);
+    export function getToken(getTokenParams: GetTokenParams, callback: (token: string) => void): void;
 
     export var onTokenRefresh: TokenRefreshEvent;
 }
