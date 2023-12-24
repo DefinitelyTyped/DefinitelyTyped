@@ -4,7 +4,16 @@ import Shippo = require("shippo");
 new Shippo("SHIPPO_API_KEY");
 
 // $ExpectType Shippo
-export const shippo = Shippo("SHIPPO_API_KEY");
+new Shippo();
+
+// $ExpectType Shippo
+new Shippo({ shippoToken: 'SHIPPO_API_KEY' });
+
+// @ts-expect-error
+new Shippo(1234);
+
+// $ExpectType Shippo
+export const shippo = Shippo('SHIPPO_API_KEY');
 
 // $ExpectType Promise<Address>
 shippo.address.create({
@@ -219,3 +228,33 @@ shippo.track.create({
 
 // $ExpectType Promise<Track>
 shippo.track.get_status("usps", "9400110200888800000000");
+
+// $ExpectType void
+shippo.setAuthScheme(Shippo.AUTH_SCHEME_OAUTH);
+
+// $ExpectType void
+shippo.setToken("SHIPPO_API_KEY");
+
+// $ExpectType void
+shippo.setToken({ oauthToken: "OAUTH_TOKEN" });
+
+// $ExpectType void
+shippo.setHost("host", "port", "protocol");
+
+// $ExpectType void
+shippo.setProtocol("protocol");
+
+// $ExpectType void
+shippo.setPort("port");
+
+// $ExpectType void
+shippo.setTimeout(1000);
+
+// $ExpectType void
+shippo.setTimeout(null);
+
+// $ExpectType void
+shippo.set("key", "value");
+
+// $ExpectType string | number | boolean | undefined
+shippo.get("key");
