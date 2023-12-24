@@ -7,13 +7,13 @@ new Shippo("SHIPPO_API_KEY");
 new Shippo();
 
 // $ExpectType Shippo
-new Shippo({ shippoToken: 'SHIPPO_API_KEY' });
+new Shippo({ shippoToken: "SHIPPO_API_KEY" });
 
 // @ts-expect-error
 new Shippo(1234);
 
 // $ExpectType Shippo
-export const shippo = Shippo('SHIPPO_API_KEY');
+export const shippo = Shippo("SHIPPO_API_KEY");
 
 // $ExpectType Promise<Address>
 shippo.address.create({
