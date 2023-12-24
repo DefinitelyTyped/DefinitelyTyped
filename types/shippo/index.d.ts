@@ -1035,7 +1035,7 @@ declare namespace Shippo {
 
 interface ShippoStatic {
     (token?: Shippo.Token): Shippo.Shippo;
-    new (token?: Shippo.Token): Shippo.Shippo;
+    new(token?: Shippo.Token): Shippo.Shippo;
     // static constants
     AUTH_SCHEME_SHIPPO: string;
     AUTH_SCHEME_OAUTH: string;
