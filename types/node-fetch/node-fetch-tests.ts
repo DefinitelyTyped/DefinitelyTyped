@@ -235,33 +235,20 @@ function test_ResponseInit() {
             statusText: response.statusText,
             headers: response.headers,
             timeout: response.timeout,
+            counter: 5,
         });
     });
 }
 
 function test_ResponseInitRawHeaders() {
     fetch("http://test.com", {}).then(response => {
-        const responseWithRawHeaders = new Response(response.body, {
+        new Response(response.body, {
             url: response.url,
             size: response.size,
             status: response.status,
             statusText: response.statusText,
             headers: response.headers.raw(),
             timeout: response.timeout,
-        });
-    });
-}
-
-function test_ResponseInitCounter() {
-    fetch("http://test.com", {}).then(response => {
-        const redirectedResponse = new Response(response.body, {
-            url: response.url,
-            size: response.size,
-            status: response.status,
-            statusText: response.statusText,
-            headers: response.headers,
-            timeout: response.timeout,
-            counter: 5,
         });
     });
 }
