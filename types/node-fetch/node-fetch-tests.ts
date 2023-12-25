@@ -266,7 +266,6 @@ function test_ResponseInitCounter() {
     });
 }
 
-
 async function test_BlobText() {
     const someString = await new Blob(["Hello world"]).text(); // $ExpectType string
 }
