@@ -197,6 +197,7 @@ function test_headers() {
     [...headers.entries()]; // $ExpectType [string, string][]
     [...headers.keys()]; // $ExpectType string[]
     [...headers.values()]; // $ExpectType string[]
+    headers.raw(); // $ExpectType { [k: string]: string[]; }
 }
 
 function test_isRedirect() {
@@ -237,6 +238,34 @@ function test_ResponseInit() {
         });
     });
 }
+
+function test_ResponseInitRawHeaders() {
+    fetch("http://test.com", {}).then(response => {
+        const responseWithRawHeaders = new Response(response.body, {
+            url: response.url,
+            size: response.size,
+            status: response.status,
+            statusText: response.statusText,
+            headers: response.headers.raw(),
+            timeout: response.timeout,
+        });
+    });
+}
+
+function test_ResponseInitCounter() {
+    fetch("http://test.com", {}).then(response => {
+        const redirectedResponse = new Response(response.body, {
+            url: response.url,
+            size: response.size,
+            status: response.status,
+            statusText: response.statusText,
+            headers: response.headers,
+            timeout: response.timeout,
+            counter: 5,
+        });
+    });
+}
+
 
 async function test_BlobText() {
     const someString = await new Blob(["Hello world"]).text(); // $ExpectType string
