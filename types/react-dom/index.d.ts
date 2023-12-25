@@ -107,7 +107,4 @@ export interface Renderer {
     ): Component<any, ComponentState> | Element | void;
 }
 
-export {
-    createRoot,
-    hydrateRoot,
-} from './client';
+export { createRoot, ErrorInfo, hydrateRoot, HydrationOptions, ReactFormState, Root, RootOptions } from "./client";
