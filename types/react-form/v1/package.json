@@ -6,7 +6,7 @@
         "https://github.com/tannerlinsley/react-form#readme"
     ],
     "dependencies": {
-        "@types/react": "*"
+        "@types/react": "^15"
     },
     "devDependencies": {
         "@types/react-form": "workspace:."
