@@ -20,14 +20,12 @@ declare class WritableConsumableStream<T> extends ConsumableStream<T> {
     hasConsumer(consumerId: number): boolean;
 
     setConsumer(consumerId: number, consumer: Consumer<T>): void;
-    removeConsumer(consumerId: number): boolean;
+    removeConsumer(consumerId: number): void;
 
     getConsumerStats(consumerId: number): Consumer.ConsumerStats;
     getConsumerStatsList(): Consumer.ConsumerStats[];
 
     createConsumer(timeout?: number): Consumer<T>;
-
-    getConsumerCount(): number;
 }
 
 export = WritableConsumableStream;
