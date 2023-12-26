@@ -1,7 +1,6 @@
 import Consumer = require("writable-consumable-stream/consumer");
 
 import DemuxedConsumableStream = require("./demuxed-consumable-stream");
-import StreamConsumer = require("./stream-consumer");
 
 declare class StreamDemux<T> {
     write(streamName: string, value: T): void;
@@ -29,9 +28,9 @@ declare class StreamDemux<T> {
     getConsumerCount(streamName: string): number;
     getConsumerCountAll(): number;
 
-    createConsumer(streamName: string, timeout?: number, usabilityMode?: unknown): StreamConsumer<T>;
+    createConsumer(streamName: string, timeout?: number): Consumer<T>;
 
-    stream(streamName: string, usabilityMode?: unknown): DemuxedConsumableStream<T>;
+    stream(streamName: string): DemuxedConsumableStream<T>;
 }
 
 export = StreamDemux;
