@@ -28,10 +28,10 @@ const ReactTimeagoAllOptions: React.JSX.Element = (
 
 const ReactTimeagoDefaultComponentProps: React.JSX.Element = (
     // Note that the default component is <time/>, which has a style prop.
-    (<ReactTimeago
+    <ReactTimeago
         date={new Date()}
         style={{ marginTop: 42 }}
-    />)
+    />
 );
 
 // inspired by react-native
