@@ -113,11 +113,11 @@ brickBuilder.isInitialized();
             onClickEditShippingData: () => {
                 console.log("edit shipping clicked");
             },
-            onRenderNextStep: currentStep => {
-              console.log("next step rendered", currentStep);
-          },
-          onRenderPreviousStep: currentStep => {
-              console.log("previous step rendered", currentStep);
+            onRenderNextStep: (currentStep) => {
+                console.log("next step rendered", currentStep);
+            },
+            onRenderPreviousStep: (currentStep) => {
+                console.log("previous step rendered", currentStep);
             },
         },
     });

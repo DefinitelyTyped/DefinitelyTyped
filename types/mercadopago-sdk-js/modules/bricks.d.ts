@@ -8,7 +8,7 @@ declare namespace bricks {
     interface Submit<BrickType> {
         onSubmit: (
             formData: FormData<BrickType>,
-            additionalData?: AdditionalData<BrickType>,
+            additionalData?: AdditionalData<BrickType>
         ) => BrickType extends "wallet" ? Promise<string> : Promise<void>;
     }
 
@@ -333,12 +333,16 @@ declare namespace bricks {
         id: string;
     }
 
-    type FormData<BrickType> = BrickType extends "cardPayment" ? CardFormData
-        : BrickType extends "payment" ? PaymentFormData
+    type FormData<BrickType> = BrickType extends "cardPayment"
+        ? CardFormData
+        : BrickType extends "payment"
+        ? PaymentFormData
         : null;
 
-    type AdditionalData<BrickType> = BrickType extends "cardPayment" ? AdditionalCardFormData
-        : BrickType extends "payment" ? AdditionalPaymentFormData
+    type AdditionalData<BrickType> = BrickType extends "cardPayment"
+        ? AdditionalCardFormData
+        : BrickType extends "payment"
+        ? AdditionalPaymentFormData
         : null;
 
     interface CardFormData {
