@@ -54,6 +54,7 @@ declare class AGClientSocket extends AsyncStreamEmitter<any> implements AGChanne
     pingTimeoutDisabled: boolean;
 
     channelPrefix: string | null;
+    disconnectOnUnload: boolean;
 
     connectAttempts: number;
 
@@ -147,8 +148,6 @@ declare class AGClientSocket extends AsyncStreamEmitter<any> implements AGChanne
 
     /* AGChannel.Client end */
 
-    uri(): string;
-
     getBackpressure(): number;
 
     getState(): AGClientSocket.States;
@@ -156,7 +155,7 @@ declare class AGClientSocket extends AsyncStreamEmitter<any> implements AGChanne
 
     deauthenticate(): Promise<void>;
 
-    connect(socketOptions?: AGClientSocket.ClientOptions): void;
+    connect(): void;
     disconnect(code?: number, reason?: string): void;
     reconnect(code?: number, reason?: string): void;
 
