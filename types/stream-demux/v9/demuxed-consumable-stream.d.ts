@@ -4,8 +4,9 @@ import StreamDemux = require(".");
 
 declare class DemuxedConsumableStream<T> extends ConsumableStream<T> {
     name: string;
+    usabilityMode: boolean;
 
-    constructor(streamDemux: StreamDemux<T>, name: string);
+    constructor(streamDemux: StreamDemux<T>, name: string, usabilityMode?: unknown);
 
     createConsumer(timeout?: number): ConsumableStream.Consumer<T>;
 }
