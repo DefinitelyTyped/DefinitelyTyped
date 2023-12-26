@@ -10,7 +10,7 @@
         "@types/jsonwebtoken": "*",
         "@types/sc-auth": "*",
         "@types/sc-broker-cluster": "^6",
-        "@types/ws": "*"
+        "@types/ws": "^7"
     },
     "devDependencies": {
         "@types/express": "*",

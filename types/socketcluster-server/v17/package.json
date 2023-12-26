@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/socketcluster-server",
-    "version": "16.2.9999",
+    "version": "17.4.9999",
     "projects": [
         "https://github.com/SocketCluster/socketcluster-server"
     ],
@@ -14,7 +14,7 @@
         "@types/sc-errors": "*",
         "@types/stream-demux": "^8",
         "@types/writable-consumable-stream": "^3",
-        "@types/ws": "^7"
+        "@types/ws": "*"
     },
     "devDependencies": {
         "@types/socketcluster-server": "workspace:."

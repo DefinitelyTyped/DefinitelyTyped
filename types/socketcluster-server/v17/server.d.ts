@@ -274,8 +274,6 @@ declare namespace AGServer {
         codecEngine?: CodecEngine;
         cloneData?: boolean;
 
-        usabilityMode?: unknown;
-
         [additionalOptions: string]: any;
     }
 
