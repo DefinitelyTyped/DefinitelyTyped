@@ -1,4 +1,3 @@
-
 import * as PureRenderMixin from "react-addons-pure-render-mixin";
 import createReactClass = require("create-react-class");
 import * as DOM from "react-dom-factories";

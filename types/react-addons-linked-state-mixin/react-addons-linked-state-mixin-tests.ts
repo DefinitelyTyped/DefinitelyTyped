@@ -1,5 +1,5 @@
-import * as DOM from "react-dom-factories";
 import * as LinkedStateMixin from "react-addons-linked-state-mixin";
+import * as DOM from "react-dom-factories";
 import createReactClass = require("create-react-class");
 
 createReactClass({

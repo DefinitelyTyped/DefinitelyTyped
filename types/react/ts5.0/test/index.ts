@@ -1,8 +1,8 @@
 import * as PropTypes from "prop-types";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import * as ReactDOMServer from "react-dom/server";
 import * as DOM from "react-dom-factories";
+import * as ReactDOMServer from "react-dom/server";
 import "trusted-types";
 
 // NOTE: forward declarations for tests
