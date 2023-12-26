@@ -1,13 +1,23 @@
 import ConsumableStream = require("consumable-stream");
 import Consumer = require("writable-consumable-stream/consumer");
 
+declare namespace AsyncStreamEmitter {
+    interface Options {
+        usabilityMode?: unknown;
+    }
+}
+
 declare class AsyncStreamEmitter<T> {
+    usabilityMode: boolean;
+
+    constructor(options?: AsyncStreamEmitter.Options);
+
     emit(eventName: string, data: T): void;
 
     listener(eventName: string): ConsumableStream<T>;
+
     closeListener(eventName: string): void;
     closeAllListeners(): void;
-    removeListener(eventName: string): void;
 
     getListenerConsumerStats(consumerId: number): Consumer.ConsumerStats;
     getListenerConsumerStatsList(eventName: string): Consumer.ConsumerStats[];
