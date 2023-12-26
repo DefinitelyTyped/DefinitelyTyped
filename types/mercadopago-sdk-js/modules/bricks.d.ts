@@ -30,8 +30,11 @@ declare namespace bricks {
     interface WalletBrickCallbacks<BrickType> extends BrickCallbacks, Submit<BrickType> {}
     interface CardPaymentBrickCallbacks<BrickType> extends BrickCallbacks, Submit<BrickType>, BinChange {}
     interface PaymentBrickCallbacks<BrickType>
-        extends BrickCallbacks, Submit<BrickType>, BinChange, ReviewStepsCallbacks
-    {}
+        extends BrickCallbacks,
+            Submit<BrickType>,
+            BinChange,
+            ReviewStepsCallbacks {}
+    interface BrandBrickCallbacks extends BrickCallbacks {}
 
     interface DefaultAddress {
         streetName: string;
@@ -234,9 +237,14 @@ declare namespace bricks {
 
     interface BrickSettings<BrickType> {
         // For a more detailed view of each Brick`s supported settings, please check the documentation at: https://github.com/mercadopago/sdk-js/blob/main/API/bricks/index.md
-        callbacks: BrickType extends "wallet" ? WalletBrickCallbacks<BrickType>
-            : BrickType extends "cardPayment" ? CardPaymentBrickCallbacks<BrickType>
-            : BrickType extends "payment" ? PaymentBrickCallbacks<BrickType>
+        callbacks: BrickType extends "wallet"
+            ? WalletBrickCallbacks<BrickType>
+            : BrickType extends "cardPayment"
+            ? CardPaymentBrickCallbacks<BrickType>
+            : BrickType extends "payment"
+            ? PaymentBrickCallbacks<BrickType>
+            : BrickType extends "brand"
+            ? Partial<BrandBrickCallbacks>
             : BrickCallbacks;
         initialization?: BrickInitialization;
         customization?: BrickCustomization;
@@ -429,6 +437,115 @@ declare namespace bricks {
         additionalData?: AdditionalSavedCardFormData | AdditionalCardFormData | null;
     }
 
+    interface AdsBrickCustomization {
+        text?: AdsBrickTextCustomization;
+        visual?: AdsBrickVisualCustomization;
+        paymentMethods?: AdsBrickPaymentMethodCustomization;
+    }
+
+    interface AdsBrickCallbacks {
+        onReady?: () => void;
+    }
+
+    interface AdsBrickTextCustomization {
+        valueProp?: AdsBrickValueProps;
+        useCustomFont?: boolean;
+        size?: AdsBrickTextSizes;
+        fontWeight?: AdsBrickFontWeight;
+        color?: AdsBrickTextColor;
+        align?: AdsBrickAlignment;
+    }
+
+    enum AdsBrickValueProps {
+        INSTALLMENTS = "installments",
+        PAYMENT_METHODS = "payment_methods",
+        SECURITY = "security",
+        PAYMENT_METHODS_LOGOS = "payment_methods_logos",
+        CREDITS = "credits",
+    }
+
+    enum AdsBrickTextSizes {
+        EXTRA_SMALL = "extra_small",
+        SMALL = "small",
+        MEDIUM = "medium",
+        LARGE = "large",
+    }
+
+    enum AdsBrickFontWeight {
+        REGULAR = "regular",
+        SEMIBOLD = "semibold",
+    }
+
+    enum AdsBrickTextColor {
+        PRIMARY = "primary",
+        SECONDARY = "secondary",
+        INVERTED = "inverted",
+    }
+
+    enum AdsBrickAlignment {
+        LEFT = "left",
+        CENTER = "center",
+        RIGHT = "right",
+    }
+
+    interface AdsBrickVisualCustomization {
+        hideMercadoPagoLogo?: boolean;
+        contentAlign?: AdsBrickAlignment;
+        backgroundColor?: AdsBrickBackgroundColor;
+        border?: boolean;
+        borderColor?: AdsBrickBorderColor;
+        borderWidth?: string;
+        borderRadius?: string;
+        verticalPadding?: string;
+        horizontalPadding?: string;
+    }
+
+    enum AdsBrickBackgroundColor {
+        WHITE = "white",
+        MERCADO_PAGO_PRIMARY = "mercado_pago_primary",
+        MERCADO_PAGO_SECONDARY = "mercado_pago_secondary",
+        BLACK = "black",
+        TRANSPARENT = "transparent",
+    }
+
+    enum AdsBrickBorderColor {
+        DARK = "dark",
+        LIGHT = "light",
+    }
+
+    interface AdsBrickPaymentMethodCustomization {
+        excludedPaymentMethods?: AdsBrickPaymentMethods[];
+        excludedPaymentTypes?: AdsBrickPaymentTypes[];
+        maxInstallments?: number;
+        interestFreeInstallments?: boolean;
+    }
+
+    enum AdsBrickPaymentMethods {
+        MASTER = "master",
+        VISA = "visa",
+        AMEX = "amex",
+        NARANJA = "naranja",
+        MAESTRO = "maestro",
+        CABAL = "cabal",
+        CENCOSUD = "cencosud",
+        CORDOBESA = "cordobesa",
+        ARGENCARD = "argencard",
+        DINERS = "diners",
+        TARSHOP = "tarshop",
+        CMR = "cmr",
+        RAPIPAGO = "rapipago",
+        PAGOFACIL = "pagofacil",
+        MERCADOPAGO = "mercadopago",
+    }
+
+    enum AdsBrickPaymentTypes {
+        CREDIT_CARD = "credit_card",
+        DEBIT_CARD = "debit_card",
+        TICKET = "ticket",
+        ACCOUNT_MONEY = "account_money",
+        MERCADO_CREDITO = "mercado_credito",
+    }
+
     interface CardPaymentController {
         unmount: () => void;
         getFormData: () => Promise<CardFormData>;
@@ -452,18 +569,27 @@ declare namespace bricks {
         unmount: () => void;
     }
 
-    type BrickTypes = "cardPayment" | "payment" | "statusScreen" | "wallet";
+    interface BrandController {
+        unmount: () => void;
+    }
+
+    type BrickTypes = "cardPayment" | "payment" | "statusScreen" | "wallet" | "brand";
 
     interface Bricks {
         isInitialized(): boolean;
         create<BrickType extends BrickTypes>(
             brick: BrickType,
             containerId: string,
-            settings: BrickSettings<BrickType>,
+            settings?: BrickSettings<BrickType>
         ): Promise<
-            BrickType extends "cardPayment" ? CardPaymentController
-                : BrickType extends "payment" ? PaymentController
-                : BrickType extends "statusScreen" ? StatusScreenController
+            BrickType extends "cardPayment"
+                ? CardPaymentController
+                : BrickType extends "payment"
+                ? PaymentController
+                : BrickType extends "statusScreen"
+                ? StatusScreenController
+                : BrickType extends "brand"
+                ? BrandController
                 : WalletController
         >;
     }
