@@ -438,26 +438,26 @@ declare namespace bricks {
         additionalData?: AdditionalSavedCardFormData | AdditionalCardFormData | null;
     }
 
-    interface AdsBrickCustomization {
-        text?: AdsBrickTextCustomization;
-        visual?: AdsBrickVisualCustomization;
-        paymentMethods?: AdsBrickPaymentMethodCustomization;
+    interface BrandBrickCustomization {
+        text?: BrandBrickTextCustomization;
+        visual?: BrandBrickVisualCustomization;
+        paymentMethods?: BrandBrickPaymentMethodCustomization;
     }
 
-    interface AdsBrickCallbacks {
+    interface BrandBrickCallbacks {
         onReady?: () => void;
     }
 
-    interface AdsBrickTextCustomization {
-        valueProp?: AdsBrickValueProps;
+    interface BrandBrickTextCustomization {
+        valueProp?: BrandBrickValueProps;
         useCustomFont?: boolean;
-        size?: AdsBrickTextSizes;
-        fontWeight?: AdsBrickFontWeight;
-        color?: AdsBrickTextColor;
-        align?: AdsBrickAlignment;
+        size?: BrandBrickTextSizes;
+        fontWeight?: BrandBrickFontWeight;
+        color?: BrandBrickTextColor;
+        align?: BrandBrickAlignment;
     }
 
-    enum AdsBrickValueProps {
+    enum BrandBrickValueProps {
         INSTALLMENTS = "installments",
         PAYMENT_METHODS = "payment_methods",
         SECURITY = "security",
@@ -465,43 +465,43 @@ declare namespace bricks {
         CREDITS = "credits",
     }
 
-    enum AdsBrickTextSizes {
+    enum BrandBrickTextSizes {
         EXTRA_SMALL = "extra_small",
         SMALL = "small",
         MEDIUM = "medium",
         LARGE = "large",
     }
 
-    enum AdsBrickFontWeight {
+    enum BrandBrickFontWeight {
         REGULAR = "regular",
         SEMIBOLD = "semibold",
     }
 
-    enum AdsBrickTextColor {
+    enum BrandBrickTextColor {
         PRIMARY = "primary",
         SECONDARY = "secondary",
         INVERTED = "inverted",
     }
 
-    enum AdsBrickAlignment {
+    enum BrandBrickAlignment {
         LEFT = "left",
         CENTER = "center",
         RIGHT = "right",
     }
 
-    interface AdsBrickVisualCustomization {
+    interface BrandBrickVisualCustomization {
         hideMercadoPagoLogo?: boolean;
-        contentAlign?: AdsBrickAlignment;
-        backgroundColor?: AdsBrickBackgroundColor;
+        contentAlign?: BrandBrickAlignment;
+        backgroundColor?: BrandBrickBackgroundColor;
         border?: boolean;
-        borderColor?: AdsBrickBorderColor;
+        borderColor?: BrandBrickBorderColor;
         borderWidth?: string;
         borderRadius?: string;
         verticalPadding?: string;
         horizontalPadding?: string;
     }
 
-    enum AdsBrickBackgroundColor {
+    enum BrandBrickBackgroundColor {
         WHITE = "white",
         MERCADO_PAGO_PRIMARY = "mercado_pago_primary",
         MERCADO_PAGO_SECONDARY = "mercado_pago_secondary",
@@ -509,19 +509,19 @@ declare namespace bricks {
         TRANSPARENT = "transparent",
     }
 
-    enum AdsBrickBorderColor {
+    enum BrandBrickBorderColor {
         DARK = "dark",
         LIGHT = "light",
     }
 
-    interface AdsBrickPaymentMethodCustomization {
-        excludedPaymentMethods?: AdsBrickPaymentMethods[];
-        excludedPaymentTypes?: AdsBrickPaymentTypes[];
+    interface BrandBrickPaymentMethodCustomization {
+        excludedPaymentMethods?: BrandBrickPaymentMethods[];
+        excludedPaymentTypes?: BrandBrickPaymentTypes[];
         maxInstallments?: number;
         interestFreeInstallments?: boolean;
     }
 
-    enum AdsBrickPaymentMethods {
+    enum BrandBrickPaymentMethods {
         MASTER = "master",
         VISA = "visa",
         AMEX = "amex",
@@ -539,7 +539,7 @@ declare namespace bricks {
         MERCADOPAGO = "mercadopago",
     }
 
-    enum AdsBrickPaymentTypes {
+    enum BrandBrickPaymentTypes {
         CREDIT_CARD = "credit_card",
         DEBIT_CARD = "debit_card",
         TICKET = "ticket",
