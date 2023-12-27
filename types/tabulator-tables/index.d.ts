@@ -2224,7 +2224,7 @@ export interface CellComponent {
     getColumn: () => ColumnComponent;
 
     /** The getData function returns the data for the row that contains the cell. */
-    getData: (transformType?: "data" | "download" | "clipboard") => {};
+    getData: (transformType?: "data" | "download" | "clipboard") => any;
 
     /** The getField function returns the field name for the column that contains the cell. */
     getField: () => string;
