@@ -5412,15 +5412,20 @@ declare namespace chrome.instanceID {
     export function deleteID(callback: () => void): void;
 
     interface DeleteTokenParams {
-        /** The authorized entity that is used to obtain the token. */
+        /**
+         * Identifies the entity that is authorized to access resources associated with this Instance ID.
+         * It can be a project ID from Google developer console.
+         */
         authorizedEntity: string;
-        /** The scope that is used to obtain the token. */
+        /**
+         * Identifies authorized actions that the authorized entity can take.
+         * In other words, the scope that is used to obtain the token.
+         * E.g. for sending GCM messages, `GCM` scope should be used.
+         */
         scope: string;
     }
     /**
      * Revoked a granted token.
-     * @param deleteTokenParams.authorizedEntity The authorized entity that is used to obtain the token.
-     * @param deleteTokenParams.scope The scope that is used to obtain the token.
      *
      * The `deleteToken()` method doesn't return any value, but can be used with a callback or
      * asynchronously, with a Promise (MV3 only).
@@ -5433,6 +5438,7 @@ declare namespace chrome.instanceID {
 
     /**
      * Retrieves the time when the InstanceID has been generated.
+     * 
      * @return The time when the Instance ID has been generated, represented in milliseconds since the epoch.
      * It can return via a callback or asynchronously, with a Promise (MV3 only).
      */
@@ -5448,13 +5454,7 @@ declare namespace chrome.instanceID {
     export function getID(): Promise<string>;
     export function getID(callback: (instanceID: string) => void): void;
 
-    // TODO: can i make this an extension on DeleteTokenParams?
-    interface GetTokenParams {
-        /**
-         * Identifies the entity that is authorized to access resources associated with this Instance ID.
-         * It can be a project ID from Google developer console.
-         */
-        authorizedEntity: string;
+    interface GetTokenParams extends DeleteTokenParams {
         /**
          * Allows including a small number of string key/value pairs that will be associated with the token
          * and may be used in processing the request.
@@ -5462,11 +5462,6 @@ declare namespace chrome.instanceID {
          * @deprecated Since Chrome 89. `options` are deprecated and will be ignored.
          */
         options?: { [key: string]: string };
-        /**
-         * Identifies authorized actions that the authorized entity can take.
-         * E.g. for sending GCM messages, GCM scope should be used.
-         */
-        scope: string;
     }
     /**
      * Return a token that allows the authorized entity to access the service defined by scope.
