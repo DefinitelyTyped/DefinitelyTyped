@@ -34,7 +34,6 @@ declare namespace bricks {
             Submit<BrickType>,
             BinChange,
             ReviewStepsCallbacks {}
-    interface BrandBrickCallbacks extends BrickCallbacks {}
 
     interface DefaultAddress {
         streetName: string;
@@ -243,8 +242,6 @@ declare namespace bricks {
             ? CardPaymentBrickCallbacks<BrickType>
             : BrickType extends "payment"
             ? PaymentBrickCallbacks<BrickType>
-            : BrickType extends "brand"
-            ? Partial<BrandBrickCallbacks>
             : BrickCallbacks;
         initialization?: BrickInitialization;
         customization?: BrickCustomization;
