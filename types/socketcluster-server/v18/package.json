@@ -1,18 +1,18 @@
 {
     "private": true,
     "name": "@types/socketcluster-server",
-    "version": "19.0.9999",
+    "version": "18.2.9999",
     "projects": [
         "https://github.com/SocketCluster/socketcluster-server"
     ],
     "dependencies": {
         "@types/ag-auth": "*",
-        "@types/ag-simple-broker": "*",
-        "@types/async-stream-emitter": "*",
+        "@types/ag-simple-broker": "^5",
+        "@types/async-stream-emitter": "^6",
         "@types/consumable-stream": "*",
         "@types/jsonwebtoken": "*",
         "@types/sc-errors": "*",
-        "@types/stream-demux": "*",
+        "@types/stream-demux": "^9",
         "@types/writable-consumable-stream": "*",
         "@types/ws": "*"
     },

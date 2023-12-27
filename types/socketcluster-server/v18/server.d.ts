@@ -277,6 +277,8 @@ declare namespace AGServer {
 
         requestCreator?: (socket: this, id: unknown, procedureName: string, data: unknown) => AGRequest;
 
+        usabilityMode?: unknown;
+
         [additionalOptions: string]: any;
     }
 

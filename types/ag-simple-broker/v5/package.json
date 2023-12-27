@@ -1,15 +1,15 @@
 {
     "private": true,
     "name": "@types/ag-simple-broker",
-    "version": "6.0.9999",
+    "version": "5.0.9999",
     "projects": [
         "https://github.com/SocketCluster/ag-simple-broker"
     ],
     "dependencies": {
         "@types/ag-channel": "*",
-        "@types/async-stream-emitter": "*",
+        "@types/async-stream-emitter": "^6",
         "@types/consumable-stream": "*",
-        "@types/socketcluster-server": "*",
+        "@types/socketcluster-server": "^18",
         "@types/writable-consumable-stream": "*"
     },
     "devDependencies": {

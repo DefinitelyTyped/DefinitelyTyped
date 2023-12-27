@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/ag-auth": "*",
-        "@types/ag-simple-broker": "*",
+        "@types/ag-simple-broker": "^5",
         "@types/async-stream-emitter": "^4",
         "@types/consumable-stream": "^2",
         "@types/jsonwebtoken": "*",
