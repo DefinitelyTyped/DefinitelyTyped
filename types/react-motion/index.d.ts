@@ -1,4 +1,4 @@
-import { Component, ReactElement, JSX } from "react";
+import { Component, JSX, ReactElement } from "react";
 
 // your typical style object given in props. Maps to a number or a spring config
 export type Style = { [key: string]: number | OpaqueConfig };
