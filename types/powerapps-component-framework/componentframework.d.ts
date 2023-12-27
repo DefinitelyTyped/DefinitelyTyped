@@ -83,7 +83,7 @@ declare namespace ComponentFramework {
         isDarkTheme?: boolean;
     }
 
-    // tslint:disable-next-line:interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type BorderRadiusTokens = {
         borderRadiusNone: string;
         borderRadiusSmall: string;
@@ -360,7 +360,7 @@ declare namespace ComponentFramework {
     /**
      * Design tokens for alias colors
      */
-    // tslint:disable-next-line:interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ColorTokens = {
         colorNeutralForeground1: string;
         colorNeutralForeground1Hover: string;
@@ -523,7 +523,7 @@ declare namespace ComponentFramework {
         colorBrandShadowKey: string;
     };
 
-    // tslint:disable-next-line:interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type CurveTokens = {
         curveAccelerateMax: string;
         curveAccelerateMid: string;
@@ -536,7 +536,7 @@ declare namespace ComponentFramework {
         curveLinear: string;
     };
 
-    // tslint:disable-next-line:interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type DurationTokens = {
         durationUltraFast: string;
         durationFaster: string;
@@ -548,14 +548,14 @@ declare namespace ComponentFramework {
         durationUltraSlow: string;
     };
 
-    // tslint:disable-next-line:interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type FontFamilyTokens = {
         fontFamilyBase: string;
         fontFamilyMonospace: string;
         fontFamilyNumeric: string;
     };
 
-    // tslint:disable-next-line:interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type FontSizeTokens = {
         fontSizeBase100: string;
         fontSizeBase200: string;
@@ -569,7 +569,7 @@ declare namespace ComponentFramework {
         fontSizeHero1000: string;
     };
 
-    // tslint:disable-next-line:interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type FontWeightTokens = {
         fontWeightRegular: number;
         fontWeightMedium: number;
@@ -577,7 +577,7 @@ declare namespace ComponentFramework {
         fontWeightBold: number;
     };
 
-    // tslint:disable-next-line:interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type HorizontalSpacingTokens = {
         spacingHorizontalNone: string;
         spacingHorizontalXXS: string;
@@ -592,7 +592,7 @@ declare namespace ComponentFramework {
         spacingHorizontalXXXL: string;
     };
 
-    // tslint:disable-next-line:interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type LineHeightTokens = {
         lineHeightBase100: string;
         lineHeightBase200: string;
@@ -640,7 +640,7 @@ declare namespace ComponentFramework {
         string
     >;
 
-    // tslint:disable-next-line:interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ShadowBrandTokens = {
         shadow2Brand: string;
         shadow4Brand: string;
@@ -653,7 +653,7 @@ declare namespace ComponentFramework {
     /**
      * Design tokens for shadow levels
      */
-    // tslint:disable-next-line:interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ShadowTokens = {
         shadow2: string;
         shadow4: string;
@@ -663,7 +663,7 @@ declare namespace ComponentFramework {
         shadow64: string;
     };
 
-    // tslint:disable-next-line:interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type SpacingTokens = {
         none: string;
         xxs: string;
@@ -689,7 +689,7 @@ declare namespace ComponentFramework {
         string
     >;
 
-    // tslint:disable-next-line:interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type StrokeWidthTokens = {
         strokeWidthThin: string;
         strokeWidthThick: string;
@@ -715,7 +715,7 @@ declare namespace ComponentFramework {
         & ColorTokens
         & any;
 
-    // tslint:disable-next-line:interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type TypographyStyle = {
         fontFamily: string;
         fontSize: string;
@@ -723,7 +723,7 @@ declare namespace ComponentFramework {
         lineHeight: string;
     };
 
-    // tslint:disable-next-line:interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type TypographyStyles = {
         body1: TypographyStyle;
         body1Strong: TypographyStyle;
@@ -749,7 +749,7 @@ declare namespace ComponentFramework {
      */
     const typographyStyles: TypographyStyles;
 
-    // tslint:disable-next-line:interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type VerticalSpacingTokens = {
         spacingVerticalNone: string;
         spacingVerticalXXS: string;
