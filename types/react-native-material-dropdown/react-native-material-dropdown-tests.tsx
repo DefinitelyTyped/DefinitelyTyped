@@ -11,7 +11,7 @@ class DropdownTest extends React.Component<DropdownTestProps> {
     private isFocused: boolean;
     private curText: string;
 
-    render(): JSX.Element {
+    render(): React.JSX.Element {
         const dropdownData: DropDownData[] = [
             {
                 label: "Apple",
