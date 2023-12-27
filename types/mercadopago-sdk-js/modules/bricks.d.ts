@@ -8,7 +8,7 @@ declare namespace bricks {
     interface Submit<BrickType> {
         onSubmit: (
             formData: FormData<BrickType>,
-            additionalData?: AdditionalData<BrickType>
+            additionalData?: AdditionalData<BrickType>,
         ) => BrickType extends "wallet" ? Promise<string> : Promise<void>;
     }
 
@@ -30,10 +30,8 @@ declare namespace bricks {
     interface WalletBrickCallbacks<BrickType> extends BrickCallbacks, Submit<BrickType> {}
     interface CardPaymentBrickCallbacks<BrickType> extends BrickCallbacks, Submit<BrickType>, BinChange {}
     interface PaymentBrickCallbacks<BrickType>
-        extends BrickCallbacks,
-            Submit<BrickType>,
-            BinChange,
-            ReviewStepsCallbacks {}
+        extends BrickCallbacks, Submit<BrickType>, BinChange, ReviewStepsCallbacks
+    {}
 
     interface DefaultAddress {
         streetName: string;
@@ -236,12 +234,9 @@ declare namespace bricks {
 
     interface BrickSettings<BrickType> {
         // For a more detailed view of each Brick`s supported settings, please check the documentation at: https://github.com/mercadopago/sdk-js/blob/main/API/bricks/index.md
-        callbacks: BrickType extends "wallet"
-            ? WalletBrickCallbacks<BrickType>
-            : BrickType extends "cardPayment"
-            ? CardPaymentBrickCallbacks<BrickType>
-            : BrickType extends "payment"
-            ? PaymentBrickCallbacks<BrickType>
+        callbacks: BrickType extends "wallet" ? WalletBrickCallbacks<BrickType>
+            : BrickType extends "cardPayment" ? CardPaymentBrickCallbacks<BrickType>
+            : BrickType extends "payment" ? PaymentBrickCallbacks<BrickType>
             : BrickCallbacks;
         initialization?: BrickInitialization;
         customization?: BrickCustomization;
@@ -330,16 +325,12 @@ declare namespace bricks {
         id: string;
     }
 
-    type FormData<BrickType> = BrickType extends "cardPayment"
-        ? CardFormData
-        : BrickType extends "payment"
-        ? PaymentFormData
+    type FormData<BrickType> = BrickType extends "cardPayment" ? CardFormData
+        : BrickType extends "payment" ? PaymentFormData
         : null;
 
-    type AdditionalData<BrickType> = BrickType extends "cardPayment"
-        ? AdditionalCardFormData
-        : BrickType extends "payment"
-        ? AdditionalPaymentFormData
+    type AdditionalData<BrickType> = BrickType extends "cardPayment" ? AdditionalCardFormData
+        : BrickType extends "payment" ? AdditionalPaymentFormData
         : null;
 
     interface CardFormData {
@@ -581,16 +572,12 @@ declare namespace bricks {
         create<BrickType extends BrickTypes>(
             brick: BrickType,
             containerId: string,
-            settings?: BrickSettings<BrickType>
+            settings?: BrickSettings<BrickType>,
         ): Promise<
-            BrickType extends "cardPayment"
-                ? CardPaymentController
-                : BrickType extends "payment"
-                ? PaymentController
-                : BrickType extends "statusScreen"
-                ? StatusScreenController
-                : BrickType extends "brand"
-                ? BrandController
+            BrickType extends "cardPayment" ? CardPaymentController
+                : BrickType extends "payment" ? PaymentController
+                : BrickType extends "statusScreen" ? StatusScreenController
+                : BrickType extends "brand" ? BrandController
                 : WalletController
         >;
     }
