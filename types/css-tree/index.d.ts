@@ -536,6 +536,18 @@ export interface WalkContext {
     block: Block | null;
     declaration: Declaration | null;
     function: FunctionNode | PseudoClassSelector | PseudoElementSelector | null;
+    /**
+     * Stops traversal. No visitor function will be invoked once this value is
+     * returned by a visitor.
+     */
+    break: symbol;
+    /**
+     * Prevent the current node from being iterated. No visitor function will be
+     * invoked for its properties or children nodes; note that this value only
+     * has an effect for enter visitor as leave visitor invokes after iterating
+     * over all node's properties and children.
+     */
+    skip: symbol;
 }
 
 export type EnterOrLeaveFn<NodeType = CssNode> = (
@@ -602,6 +614,16 @@ export type WalkOptions =
     | WalkOptionsNoVisit;
 
 export function walk(ast: CssNode, options: EnterOrLeaveFn | WalkOptions): void;
+
+export namespace walk {
+    /**
+     * Prevent the current node from being iterated. No visitor function will be
+     * invoked for its properties or children nodes; note that this value only
+     * has an effect for enter visitor as leave visitor invokes after iterating
+     * over all node's properties and children.
+     */
+    const skip: symbol;
+}
 
 export type FindFn = (this: WalkContext, node: CssNode, item: ListItem<CssNode>, list: List<CssNode>) => boolean;
 

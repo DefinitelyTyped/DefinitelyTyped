@@ -22,6 +22,8 @@ csstree.walk(ast, {
         item; // $ExpectType ListItem<CssNode>
         list; // $ExpectType List<CssNode>
         this.atrule; // $ExpectType Atrule | null
+        this.break; // $ExpectType symbol
+        this.skip; // $ExpectType symbol
     },
     leave(node, item, list) {
         this.root; // $ExpectType CssNode
@@ -30,10 +32,14 @@ csstree.walk(ast, {
         item; // $ExpectType ListItem<CssNode>
         list; // $ExpectType List<CssNode>
         this.atrule; // $ExpectType Atrule | null
+        this.break; // $ExpectType symbol
+        this.skip; // $ExpectType symbol
     },
     visit: "ClassSelector",
     reverse: false,
 });
+
+csstree.walk.skip; // $ExpectType symbol
 
 const findResult = csstree.find(ast, (node, item, list) => {
     node; // $ExpectType CssNode
