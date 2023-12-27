@@ -10,12 +10,3 @@ export function getSync(path: string): Attrs;
 
 export function set(path: string, attrs: Partial<Attrs>, callback: (error: Error | null) => void): void;
 export function setSync(path: string, attrs: Partial<Attrs>): void;
-
-declare const winattr: {
-    get: typeof get;
-    set: typeof set;
-    getSync: typeof getSync;
-    setSync: typeof setSync;
-};
-
-export default winattr;

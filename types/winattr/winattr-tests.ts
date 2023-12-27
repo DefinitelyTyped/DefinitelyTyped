@@ -1,4 +1,4 @@
-import winattr from "winattr";
+import winattr = require("winattr");
 
 function get() {
     winattr.get("/home/test", (error, attrs) => {
