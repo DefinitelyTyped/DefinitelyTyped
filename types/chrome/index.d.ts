@@ -5438,7 +5438,7 @@ declare namespace chrome.instanceID {
 
     /**
      * Retrieves the time when the InstanceID has been generated.
-     * 
+     *
      * @return The time when the Instance ID has been generated, represented in milliseconds since the epoch.
      * It can return via a callback or asynchronously, with a Promise (MV3 only).
      */
