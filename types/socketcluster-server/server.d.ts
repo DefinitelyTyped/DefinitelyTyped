@@ -6,6 +6,7 @@ import WritableConsumableStream = require("writable-consumable-stream");
 import ConsumableStream = require("consumable-stream");
 import AGSimpleBroker = require("ag-simple-broker");
 import AuthEngine = require("ag-auth");
+import AGRequest = require("ag-request");
 
 import AGServerSocket = require("./serversocket");
 import AGAction = require("./action");
@@ -273,6 +274,8 @@ declare namespace AGServer {
         authEngine?: AuthEngineType;
         codecEngine?: CodecEngine;
         cloneData?: boolean;
+
+        requestCreator?: (socket: this, id: unknown, procedureName: string, data: unknown) => AGRequest;
 
         usabilityMode?: unknown;
 

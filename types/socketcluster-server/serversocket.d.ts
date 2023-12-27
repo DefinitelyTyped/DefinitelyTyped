@@ -8,6 +8,7 @@ import DemuxedConsumableStream = require("stream-demux/demuxed-consumable-stream
 import Consumer = require("writable-consumable-stream/consumer");
 import ConsumableStream = require("consumable-stream");
 import AGSimpleBroker = require("ag-simple-broker");
+import AGRequest = require("ag-request");
 
 import AGServer = require("./server");
 
@@ -34,6 +35,7 @@ declare class AGServerSocket extends AsyncStreamEmitter<any> {
     outboundPreparedMessageCount: number;
     outboundSentMessageCount: number;
 
+    createRequest: (socket: this, id: unknown, procedureName: string, data: unknown) => AGRequest;
     cloneData: boolean;
 
     inboundMessageStream: WritableConsumableStream<any>;
