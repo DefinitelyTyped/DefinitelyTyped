@@ -11,11 +11,14 @@ declare function cors(options?: cors.Options): Koa.Middleware;
 
 declare namespace cors {
     /**
-     * Middleware configration options.
+     * Middleware configuration options.
      */
     interface Options {
         /**
-         * `Access-Control-Allow-Origin`, default is request Origin header.
+         * `Access-Control-Allow-Origin`, default is '*'
+         *
+         * @remarks
+         * If `credentials` set and return `true`, the `origin` default value will set to the request `Origin` header
          *
          * @remarks
          * If a function is provided, it will be called for each request with
@@ -65,14 +68,14 @@ declare namespace cors {
         keepHeadersOnError?: boolean | undefined;
 
         /**
-         * Add `Cross-Origin-Opener-Policy` & `Cross-Origin-Embedder-Policy` to response headers
+         * Add `Cross-Origin-Opener-Policy` & `Cross-Origin-Embedder-Policy` to response headers, default is `false`
          *
          * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer/Planned_changes
          */
         secureContext?: boolean | undefined;
 
         /**
-         * Handle `Access-Control-Request-Private-Network` request by return `Access-Control-Allow-Private-Network`
+         * Handle `Access-Control-Request-Private-Network` request by return `Access-Control-Allow-Private-Network`, default is `false`
          *
          * @see https://wicg.github.io/private-network-access/
          */
