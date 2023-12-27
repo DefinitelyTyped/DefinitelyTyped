@@ -25,7 +25,7 @@ request.get("/user")
     });
 
 // cookie scenario
-const agent = new supertest.agent();
+const agent = supertest.agent();
 request.post("/login")
     .send("hello world")
     .end((err: any, res: supertest.Response) => {
@@ -38,7 +38,7 @@ request.post("/login")
     });
 
 // cookie scenario, new version
-const client = new supertest.agent(app);
+const client = supertest.agent(app);
 client.post("/login").end((err: any, res: supertest.Response) => {
     if (err) throw err;
 
@@ -53,20 +53,20 @@ supertest(app, {
 });
 
 // allow passing http2 as option to TestAgent
-new supertest.agent(app, {
+supertest.agent(app, {
     http2: true,
 });
 
 // allow passing trusted CA as option to TestAgent
-new supertest.agent(app, {
+supertest.agent(app, {
     ca: "test ca",
 });
 
 // agent has request methods
-new supertest.agent(app).set({ host: "google.com" });
+supertest.agent(app).set({ host: "google.com" });
 
 // agent has host methods
-new supertest.agent(app).host("something.test").get("/"); // $ExpectType Test
+supertest.agent(app).host("something.test").get("/"); // $ExpectType Test
 
 // functional expect
 request.get("/")

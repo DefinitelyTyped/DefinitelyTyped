@@ -31,7 +31,7 @@ declare namespace supertest {
     interface SuperTestStatic {
         (app: App, options?: STAgentOptions): stAgent;
         Test: typeof STest;
-        agent: typeof stAgent;
+        agent: typeof stAgent & ((app?: App, options?: STAgentOptions) => InstanceType<typeof stAgent>);
     }
 }
 
