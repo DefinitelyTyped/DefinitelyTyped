@@ -914,9 +914,9 @@ declare module "@mapbox/mapbox-sdk/services/geocoding" {
          */
         countries?: string[] | undefined;
         /**
-         * Bias local results based on a provided location. Options are  longitude,latitude coordinates.
+         * Bias local results based on a provided location. Options are longitude,latitude coordinates or the user's ip.
          */
-        proximity?: Coordinates | undefined;
+        proximity?: Coordinates | "ip" | undefined;
         /**
          * Filter results by one or more feature types
          */
