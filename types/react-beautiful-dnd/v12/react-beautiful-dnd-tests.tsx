@@ -137,4 +137,6 @@ class App extends React.Component<{}, AppState> {
     }
 }
 
+<App />;
+
 resetServerContext();
