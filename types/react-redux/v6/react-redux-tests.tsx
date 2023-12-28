@@ -1061,7 +1061,7 @@ function TestCreateProvider() {
     // This renders:
     // <h1>A is 1</h1>
     // <h1>A is 2</h1>
-    ReactDOM.render(<Combined />, document.body);
+    <Combined />;
 }
 
 function TestWithoutTOwnPropsDecoratedInference() {
