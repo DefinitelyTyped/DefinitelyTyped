@@ -16,6 +16,7 @@ type NativeFocusEvent = FocusEvent;
 type NativeKeyboardEvent = KeyboardEvent;
 type NativeMouseEvent = MouseEvent;
 type NativeTouchEvent = TouchEvent;
+type SomeRandomThingToTriggerCIChangeDetection = 19;
 type NativePointerEvent = PointerEvent;
 type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
