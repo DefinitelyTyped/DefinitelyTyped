@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/ag-request",
-    "version": "1.0.0.9999",
+    "version": "1.0.9999",
     "projects": [
         "https://github.com/SocketCluster/ag-request#readme"
     ],
