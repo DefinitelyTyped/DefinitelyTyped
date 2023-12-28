@@ -10,7 +10,13 @@ declare class StreamConsumer<T> implements ConsumableStream.Consumer<T> {
     streamName: string;
     usabilityMode: boolean;
 
-    constructor(mainStream: WritableConsumableStream<T>, id: number, startNode: Consumer.Node<T>, timeout?: number, usabilityMode?: unknown);
+    constructor(
+        mainStream: WritableConsumableStream<T>,
+        id: number,
+        startNode: Consumer.Node<T>,
+        timeout?: number,
+        usabilityMode?: unknown,
+    );
 
     getStats(): Consumer.ConsumerStats;
 

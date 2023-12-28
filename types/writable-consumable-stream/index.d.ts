@@ -15,7 +15,7 @@ declare class WritableConsumableStream<T> extends ConsumableStream<T> {
 
     tailNode: Consumer.Node<T>;
 
-    constructor(options?: WritableConsumableStream.Options)
+    constructor(options?: WritableConsumableStream.Options);
 
     clearActiveTimeout(): void;
 
