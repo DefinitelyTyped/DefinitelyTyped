@@ -14,7 +14,7 @@
         "@types/socketcluster-server": "^15",
         "@types/stream-demux": "^7",
         "@types/writable-consumable-stream": "^1",
-        "@types/ws": "^7"
+        "@types/ws": "*"
     },
     "devDependencies": {
         "@types/socketcluster-client": "workspace:."
