@@ -1265,7 +1265,8 @@ interface JQueryStatic {
      */
     each<T>(
         collection: T[],
-        callback: (this: T, indexInArray: number, valueOfElement: T) => boolean | undefined,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        callback: (this: T, indexInArray: number, valueOfElement: T) => boolean | void,
     ): T[];
 
     /**
@@ -3489,7 +3490,8 @@ interface JQuery {
      * @param func A function to execute for each matched element. Can stop the loop by returning false.
      * @see {@link https://api.jquery.com/each/}
      */
-    each(func: (this: HTMLElement, index: number, elem: Element) => boolean | undefined): JQuery;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    each(func: (this: HTMLElement, index: number, elem: Element) => boolean | void): JQuery;
 
     /**
      * Retrieve one of the elements matched by the jQuery object.
