@@ -1,3 +1,3 @@
-import ExtractFiles = require("extract-files");
+import isExtractableFile from "extract-files/isExtractableFile.mjs";
 
-export = ExtractFiles.isExtractableFile;
+export = isExtractableFile;
