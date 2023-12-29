@@ -291,7 +291,7 @@ export interface StatusObject {
     path: string;
     messages?: number;
     recent?: number;
-    uid?: number;
+    uidNext?: number;
     uidValidity?: bigint;
     unseen?: number;
     highestModseq?: bigint;
