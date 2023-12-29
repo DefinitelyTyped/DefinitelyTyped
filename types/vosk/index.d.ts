@@ -1,3 +1,4 @@
+/// <reference types="node" />
 export interface WordResult {
     /**
      * The confidence rate in the detection. 0 For unlikely, and 1 for totally accurate.

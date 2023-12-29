@@ -1,4 +1,5 @@
-import vosk from "vosk";
+/// <reference types="node" />
+import vosk = require("vosk");
 
 main().catch(function(error) {
     throw error;
@@ -9,7 +10,7 @@ async function main(): Promise<void> {
     const model = new vosk.Model("../models/vosk");
     const recognizer = new vosk.Recognizer({ model: model, sampleRate: 16000 });
 
-    const chunk = new ArrayBuffer(0);
+    const chunk = new Buffer(0);
 
     if (recognizer.acceptWaveform(chunk)) {
         console.log(recognizer.result());
