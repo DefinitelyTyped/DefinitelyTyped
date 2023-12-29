@@ -2,7 +2,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 
 import { Provider } from "react-redux";
-import { applyMiddleware, combineReducers, createStore, Reducer } from "redux";
+import { applyMiddleware, combineReducers, createStore } from "redux";
 
 import createHistory from "history/createBrowserHistory";
 import { Route } from "react-router";
@@ -27,7 +27,7 @@ interface State {
 }
 
 // For testing, assume the router reducer is the only sub-reducer:
-const reducers: Reducer<State> = combineReducers<State>({ router: routerReducer });
+const reducers = combineReducers({ router: routerReducer });
 
 // Add the reducer to your store on the `router` key
 // Also apply our middleware for navigating
