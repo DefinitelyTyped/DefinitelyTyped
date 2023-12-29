@@ -1,7 +1,7 @@
 import { History, Location, LocationDescriptor, LocationState, Path } from "history";
 import * as React from "react";
 import { match } from "react-router";
-import { Dispatch, Middleware, Reducer, Store } from "redux";
+import { Action, Dispatch, Middleware, Reducer, Store } from "redux";
 
 export interface ConnectedRouterProps<State> {
     children?: React.ReactNode;
@@ -16,7 +16,7 @@ export interface RouterState {
     location: Location | null;
 }
 
-export const routerReducer: Reducer<RouterState>;
+export const routerReducer: Reducer<RouterState, Action>;
 
 export const CALL_HISTORY_METHOD = "@@router/CALL_HISTORY_METHOD";
 
