@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/alphacep/vosk-api/tree/master/nodejs"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/vosk": "workspace:."
     },
