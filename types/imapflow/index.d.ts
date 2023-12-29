@@ -122,7 +122,7 @@ export class ImapFlow extends EventEmitter {
     fetch(
         range: SequenceString | number[] | SearchObject,
         query: FetchQueryObject,
-        options?: { uid?: boolean; changedSince: bigint },
+        options?: { uid?: boolean; changedSince?: bigint; binary?: boolean },
     ): AsyncGenerator<FetchMessageObject, never, void>;
 }
 
