@@ -13,6 +13,18 @@
     "devDependencies": {
         "@types/apollo-upload-client": "workspace:."
     },
+    "exports": {
+        "./createUploadLink.mjs": {
+            "types": "./createUploadLink.d.mts"
+        },
+        "./formDataAppendFile.mjs": {
+            "types": "./createUploadLink.d.mts"
+        },
+        "./isExtractableFile.mjs": {
+            "types": "./isExtractableFile.d.mts"
+        },
+        "./package.json": "./package.json"
+    },
     "owners": [
         {
             "name": "Edward Sammut Alessi",
