@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/tailwind-shades",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jxxe/tailwind-shades#readme"
+    ],
+    "devDependencies": {
+        "@types/tailwind-shades": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Vadzim Tsupryk",
+            "githubUsername": "meecrobe"
+        }
+    ]
+}
