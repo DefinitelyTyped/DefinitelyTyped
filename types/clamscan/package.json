@@ -6,8 +6,7 @@
         "https://github.com/kylefarris/clamscan"
     ],
     "dependencies": {
-        "@types/node": "*",
-        "axios": "^1.6.0"
+        "@types/node": "*"
     },
     "devDependencies": {
         "@types/clamscan": "workspace:."
