@@ -1,7 +1,7 @@
 import * as NodeClam from "clamscan";
-import { PassThrough, Readable, Writable } from "stream";
-import * as https from "https";
 import * as http from "http";
+import * as https from "https";
+import { PassThrough, Readable, Writable } from "stream";
 
 const fakeVirusUrl = "https://secure.eicar.org/eicar.com.txt";
 
