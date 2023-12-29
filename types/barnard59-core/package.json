@@ -9,7 +9,7 @@
     "dependencies": {
         "@types/clownface": "*",
         "@types/node": "*",
-        "@types/rdf-loaders-registry": "*",
+        "@types/rdf-loaders-registry": "^0.3.0",
         "@types/readable-stream": "*",
         "rdf-js": "^4.0.2",
         "winston": "^3.3.3"
