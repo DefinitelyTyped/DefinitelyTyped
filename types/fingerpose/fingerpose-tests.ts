@@ -1,11 +1,4 @@
-import {
-    Finger,
-    FingerCurl,
-    FingerDirection,
-    GestureDescription,
-    GestureEstimator,
-    Gestures,
-} from "fingerpose";
+import { Finger, FingerCurl, FingerDirection, GestureDescription, GestureEstimator, Gestures } from "fingerpose";
 
 function assert(condition: boolean, message: string) {
 }
