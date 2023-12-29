@@ -196,7 +196,7 @@ export interface FetchMessageObject {
     source: Buffer;
     modseq: BigInt;
     emailId: string;
-    threadId: string;
+    threadId?: string;
     labels: Set<string>;
     size: number;
     flags: Set<string>;
