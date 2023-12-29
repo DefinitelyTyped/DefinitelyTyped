@@ -1,5 +1,5 @@
-import shadesOf from 'tailwind-shades';
+import shadesOf from "tailwind-shades";
 
-shadesOf('#bada55');
+shadesOf("#bada55");
 
-shadesOf('#bada55', true);
+shadesOf("#bada55", true);

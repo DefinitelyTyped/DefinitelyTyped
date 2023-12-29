@@ -5,6 +5,6 @@
  * @returns {{[key: number]: string}}
  */
 export default function shadesOf(
-  hex: string,
-  halfShades?: boolean,
+    hex: string,
+    halfShades?: boolean,
 ): { [key: number]: string };
