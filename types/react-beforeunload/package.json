@@ -9,8 +9,7 @@
         "@types/react": "*"
     },
     "devDependencies": {
-        "@types/react-beforeunload": "workspace:.",
-        "@types/react-dom": "*"
+        "@types/react-beforeunload": "workspace:."
     },
     "owners": [
         {
