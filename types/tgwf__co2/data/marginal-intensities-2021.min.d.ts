@@ -234,3 +234,5 @@ export const data: {
 };
 export const type: "marginal";
 export const year: "2021";
+
+export as namespace marginalIntensity;

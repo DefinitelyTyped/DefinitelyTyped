@@ -223,3 +223,5 @@ export const data: {
     ZWE: number;
 };
 export const type: "average";
+
+export as namespace averageIntensity;
