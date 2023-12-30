@@ -141,3 +141,5 @@ export class CO2 {
         thirdParty: number;
     };
 }
+
+export = CO2;
