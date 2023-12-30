@@ -1,8 +1,8 @@
 export namespace co2js {
-    const co2: typeof import("./co2.d.ts");
-    const hosting: typeof import("./hosting.d.ts");
-    const averageIntensity: typeof import("./data/averageIntensity.d.ts");
-    const marginalIntensity: typeof import("./data/marginalIntensity.d.ts");
+    const co2: typeof import("./co2");
+    const hosting: typeof import("./hosting");
+    const averageIntensity: typeof import("./data/averageIntensity");
+    const marginalIntensity: typeof import("./data/marginalIntensity");
 }
 
 export = co2js;
