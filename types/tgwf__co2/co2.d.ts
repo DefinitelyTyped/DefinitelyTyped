@@ -12,7 +12,7 @@ interface CO2EstimateTraceResultPerByte {
     /**
      * - The variables used to calculate the CO2 estimate
      */
-    variables: TraceResultVariables;
+    variables: TraceResultVariablesPerByte;
 }
 interface CO2EstimateTraceResultPerVisit {
     /**
@@ -26,7 +26,7 @@ interface CO2EstimateTraceResultPerVisit {
     /**
      * - The variables used to calculate the CO2 estimate
      */
-    variables: TraceResultVariables;
+    variables: TraceResultVariablesPerVisit;
 }
 interface TraceResultVariablesPerByte {
     /**
