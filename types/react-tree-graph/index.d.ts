@@ -1,4 +1,4 @@
-import type { FC, ReactNode, HTMLProps } from 'react';
+import type { FC, HTMLProps, ReactNode } from "react";
 
 export interface Data {
   name: string;
@@ -8,7 +8,7 @@ export interface Data {
 export interface TreeProps {
   data: Data;
   children?: ReactNode;
-  direction?: 'ltr' | 'rtl';
+  direction?: "ltr" | "rtl";
   getChildren?: (node: Data) => Data[];
   height: number;
   width: number;
@@ -21,7 +21,7 @@ export interface TreeProps {
     top: number;
   };
   pathFunc?: (x1: number, y1: number, x2: number, y2: number) => string;
-  nodeShape?: 'circle' | 'image' | 'polygon' | 'rect';
+  nodeShape?: "circle" | "image" | "polygon" | "rect";
   nodeProps?:
   | HTMLProps<SVGCircleElement>
   | HTMLProps<SVGRectElement>
