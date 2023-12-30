@@ -1,5 +1,5 @@
-import OneByte from "./1byte.js";
-import SustainableWebDesign from "./sustainable-web-design.js";
+import OneByte = require("./1byte.js");
+import SustainableWebDesign = require("./sustainable-web-design.js");
 interface CO2EstimateTraceResultPerByte {
     /**
      * - The CO2 estimate in grams/kilowatt-hour
