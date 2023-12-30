@@ -1,14 +1,8 @@
-declare namespace co2js {
-    export { co2 };
-    export { hosting };
-    export { averageIntensity };
-    export { marginalIntensity };
+export namespace co2js {
+    const co2: typeof import("./co2.d.ts");
+    const hosting: typeof import("./hosting.d.ts");
+    const averageIntensity: typeof import("./averageIntensity.d.ts");
+    const marginalIntensity: typeof import("./marginalIntensity.d.ts");
 }
-
-import co2 from "./co2.d.ts";
-import averageIntensity from "./data/average-intensities.min.d.ts";
-import marginalIntensity from "./data/marginal-intensities-2021.min.d.ts";
-import hosting from "./hosting.d.ts";
-export { averageIntensity, co2, hosting, marginalIntensity };
 
 export = co2js;
