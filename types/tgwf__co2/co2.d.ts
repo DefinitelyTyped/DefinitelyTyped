@@ -74,7 +74,7 @@ interface GridIntensityVariables {
      */
     production: number;
 }
-export class CO2 {
+declare class CO2 {
     constructor(options: any);
     model: OneByte | SustainableWebDesign;
     private _segment;
