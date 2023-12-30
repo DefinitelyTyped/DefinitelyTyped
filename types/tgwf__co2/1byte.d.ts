@@ -11,4 +11,4 @@ declare class OneByte {
     perByte(bytes: number, green: boolean): number;
 }
 
-export default OneByte;
+export = OneByte;

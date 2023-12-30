@@ -142,4 +142,4 @@ declare class CO2 {
     };
 }
 
-export default CO2;
+export = CO2;

@@ -11,4 +11,4 @@ import marginalIntensity from "./data/marginal-intensities-2021.min.d.ts";
 import hosting from "./hosting.d.ts";
 export { averageIntensity, co2, hosting, marginalIntensity };
 
-export default co2js;
+export = co2js;

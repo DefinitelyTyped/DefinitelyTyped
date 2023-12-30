@@ -91,4 +91,4 @@ declare class SustainableWebDesign {
     };
 }
 
-export default SustainableWebDesign;
+export = SustainableWebDesign;
