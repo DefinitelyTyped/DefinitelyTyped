@@ -1,6 +1,13 @@
+
+import co2 = require("./co2.d.ts");
+import averageIntensity from "./data/average-intensities.min.d.ts";
+import marginalIntensity from "./data/marginal-intensities-2021.min.d.ts";
+import hosting from "./hosting.d.ts";
+export { averageIntensity, co2, hosting, marginalIntensity };
+
 export namespace co2js {
-    const co2: typeof import("./co2");
-    const hosting: typeof import("./hosting");
-    const averageIntensity: typeof import("./data/average-intensities.min");
-    const marginalIntensity: typeof import("./data/marginal-intensities-2021.min");
+    export { co2 };
+    export { hosting };
+    export { averageIntensity };
+    export { marginalIntensity };
 }
