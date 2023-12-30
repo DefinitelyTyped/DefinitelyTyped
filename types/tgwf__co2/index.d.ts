@@ -1,9 +1,8 @@
 
-import co2 = require("./co2.d.ts");
-import averageIntensity from "./data/average-intensities.min.d.ts";
-import marginalIntensity from "./data/marginal-intensities-2021.min.d.ts";
-import hosting from "./hosting.d.ts";
-export { averageIntensity, co2, hosting, marginalIntensity };
+import co2 = require("./co2");
+import averageIntensity = require("./data/average-intensities.min");
+import marginalIntensity = require("./data/marginal-intensities-2021.min");
+import hosting = require("./hosting");
 
 export namespace co2js {
     export { co2 };
