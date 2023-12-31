@@ -86,39 +86,36 @@ const options: SRLWrapperOptions = {
     },
 };
 
-render(
-    <React.StrictMode>
-        <SimpleReactLightbox>
-            <SRLWrapper options={options}>
-                <a href="/product01.jpg" className="element_with_overlay">
-                    <div className="overlay">
-                        <h1>Funny cap</h1>
-                        <p>£30.00</p>
-                    </div>
-                    <img src="product/01.jpg" alt="Funny cap" />
-                </a>
-                <a href="/product02.jpg" className="element_with_overlay">
-                    <div className="overlay">
-                        <h1>Sunglasses</h1>
-                        <p>£90.00</p>
-                    </div>
-                    <img src="product/02.jpg" alt="Sunglasses" />
-                </a>
-                <div className="element_with_overlay">
-                    <div className="overlay">
-                        <h1>Funny cap</h1>
-                        <p>£30.00</p>
-                    </div>
-                    <img src="/product03.jpg" alt="Cool backpack" />
+<React.StrictMode>
+    <SimpleReactLightbox>
+        <SRLWrapper options={options}>
+            <a href="/product01.jpg" className="element_with_overlay">
+                <div className="overlay">
+                    <h1>Funny cap</h1>
+                    <p>£30.00</p>
                 </div>
-            </SRLWrapper>
-            <SimpleReactLightbox>
-                <SRLWrapper elements={elements} options={options} />
-            </SimpleReactLightbox>
+                <img src="product/01.jpg" alt="Funny cap" />
+            </a>
+            <a href="/product02.jpg" className="element_with_overlay">
+                <div className="overlay">
+                    <h1>Sunglasses</h1>
+                    <p>£90.00</p>
+                </div>
+                <img src="product/02.jpg" alt="Sunglasses" />
+            </a>
+            <div className="element_with_overlay">
+                <div className="overlay">
+                    <h1>Funny cap</h1>
+                    <p>£30.00</p>
+                </div>
+                <img src="/product03.jpg" alt="Cool backpack" />
+            </div>
+        </SRLWrapper>
+        <SimpleReactLightbox>
+            <SRLWrapper elements={elements} options={options} />
         </SimpleReactLightbox>
-    </React.StrictMode>,
-    document.getElementById("root"),
-);
+    </SimpleReactLightbox>
+</React.StrictMode>;
 
 const { openLightbox, closeLightbox } = useLightbox();
 
