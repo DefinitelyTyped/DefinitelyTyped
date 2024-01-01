@@ -4,13 +4,6 @@ import Limiter = require("concurrency-limiter");
 new Limiter();
 new Limiter(2);
 
-// @ts-expect-error
-new Limiter(2)._limit;
-// @ts-expect-error
-new Limiter(2)._length;
-// @ts-expect-error
-new Limiter(2)._queue;
-
 new Limiter(2).enter();
 new Limiter(2).exit();
 // @ts-expect-error

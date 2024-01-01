@@ -7,10 +7,6 @@
 declare class Limiter {
     constructor(limit: number);
 
-    private _limit: number;
-    private _length: number;
-    private _queue: Array<() => void>;
-
     /**
 	Request a slot for concurrent execution. The returned promise is only
 	resolved when a slot becomes available. The promise is never rejected.
@@ -37,6 +33,7 @@ declare class Limiter {
 	and release the slot when the function completes, returning its result.
 	The limiter is exited even in the case the function raises an exception.
 
+	@async
 	@param func A function to be awaited when an async slot is available.
 	@returns The result returned by awaiting the provided function.
 	*/
