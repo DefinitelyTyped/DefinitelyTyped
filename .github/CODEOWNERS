@@ -6,6 +6,7 @@
 /types/1line-aa/                                          @Ry0taK
 /types/3box/                                              @shikanime
 /types/7zip-min/                                          @Tanandara
+/types/a-star/                                            @printfn
 /types/a2hs.js/                                           @peterblazejewicz
 /types/abbrev/                                            @BendingBender
 /types/abs/                                               @AyaMorisawa
@@ -84,8 +85,10 @@
 /types/ag-auth/                                           @DanielRose
 /types/ag-channel/                                        @DanielRose @Methuselah96
 /types/ag-channel/v4/                                     @DanielRose
+/types/ag-request/                                        @Methuselah96
 /types/ag-simple-broker/                                  @DanielRose @Methuselah96
 /types/ag-simple-broker/v4/                               @DanielRose
+/types/ag-simple-broker/v5/                               @DanielRose @Methuselah96
 /types/agadoo/                                            @ArtemKlyuev
 /types/agent-base/                                        @Shinigami92
 /types/agiledigital__mule-preview/                        @NoxHarmonium
@@ -249,6 +252,7 @@
 /types/ansi-align/                                        @leondreamed
 /types/ansi-diff-stream/                                  @BendingBender
 /types/ansi-escape-sequences/                             @aomarks
+/types/ansi-html/                                         @sherlockdoyle
 /types/antlr4/                                            @mcchatman8009 @tarilabs @jgellin-sf @codex-
 /types/antlr4-autosuggest/                                @jonfreedman
 /types/any-base/                                          @yutak23
@@ -351,6 +355,9 @@
 /types/async-retry/                                       @albertywu @MeLlamoPablo @rafsawicki @BendingBender
 /types/async-stream-emitter/                              @DanielRose @Methuselah96
 /types/async-stream-emitter/v3/                           @DanielRose
+/types/async-stream-emitter/v4/                           @DanielRose @Methuselah96
+/types/async-stream-emitter/v5/                           @DanielRose @Methuselah96
+/types/async-stream-emitter/v6/                           @DanielRose @Methuselah96
 /types/async.nexttick/                                    @pyrho
 /types/at-least-node/                                     @LeoDog896
 /types/athenajs/                                          @warpdesign
@@ -1065,6 +1072,7 @@
 /types/consul/                                            @chrootsu @vadim-v @smoke
 /types/consumable-stream/                                 @DanielRose @Methuselah96
 /types/consumable-stream/v1/                              @DanielRose
+/types/consumable-stream/v2/                              @DanielRose @Methuselah96
 /types/consumer-data-standards/                           @tom-schier
 /types/contains-path/                                     @BendingBender
 /types/content-disposition/                               @bomret @peterblazejewicz
@@ -2170,7 +2178,7 @@
 /types/fitvids/                                           @peterblazejewicz
 /types/fixed-data-table/                                  @pepaar @stephenjelfs
 /types/flagged-respawn/                                   @BendingBender
-/types/flashpoint-launcher/                               @colin969 @XXLuigiMario
+/types/flashpoint-launcher/                               @colin969
 /types/flat/                                              @chrootsu @thewizarodofoz
 /types/flat-cache/                                        @kevinpollet
 /types/flat-tree/                                         @martinheidegger
@@ -7480,10 +7488,15 @@
 /types/socketcluster-client/                              @DanielRose @Methuselah96
 /types/socketcluster-client/v13/                          @DanielRose
 /types/socketcluster-client/v15/                          @DanielRose
+/types/socketcluster-client/v16/                          @DanielRose @Methuselah96
+/types/socketcluster-client/v17/                          @DanielRose @Methuselah96
+/types/socketcluster-client/v18/                          @DanielRose @Methuselah96
 /types/socketcluster-server/                              @DanielRose @Methuselah96
 /types/socketcluster-server/v14/                          @DanielRose
 /types/socketcluster-server/v15/                          @DanielRose
 /types/socketcluster-server/v16/                          @DanielRose @Methuselah96
+/types/socketcluster-server/v17/                          @DanielRose @Methuselah96
+/types/socketcluster-server/v18/                          @DanielRose @Methuselah96
 /types/socketio-jwt-auth/                                 @codeanimal
 /types/socketio-wildcard/                                 @BendingBender
 /types/socketty/                                          @Nax
@@ -7636,6 +7649,8 @@
 /types/stream-csv-as-json/                                @uhop
 /types/stream-demux/                                      @DanielRose @Methuselah96
 /types/stream-demux/v7/                                   @DanielRose
+/types/stream-demux/v8/                                   @DanielRose @Methuselah96
+/types/stream-demux/v9/                                   @DanielRose @Methuselah96
 /types/stream-each/                                       @djcsdy
 /types/stream-fork/                                       @mjwwit
 /types/stream-json/                                       @uhop
@@ -8543,6 +8558,7 @@
 /types/wildstring/                                        @inglec-arista
 /types/win-ca/                                            @BendingBender
 /types/win-version-info/                                  @Goldsmith42
+/types/winattr/                                           @anmiles
 /types/winbox/                                            @peterblazejewicz
 /types/window-or-global/                                  @vvakame @JasonHK @ExE-Boss
 /types/window-size/                                       @juergenie
@@ -8619,6 +8635,8 @@
 /types/wrench/                                            @soywiz
 /types/writable-consumable-stream/                        @DanielRose @Methuselah96
 /types/writable-consumable-stream/v1/                     @DanielRose
+/types/writable-consumable-stream/v2/                     @DanielRose @Methuselah96
+/types/writable-consumable-stream/v3/                     @DanielRose @Methuselah96
 /types/write/                                             @yoursunny
 /types/write-file-atomic/                                 @BendingBender @peterblazejewicz
 /types/write-file-atomically/                             @Aankhen
