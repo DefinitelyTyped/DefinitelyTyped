@@ -364,6 +364,9 @@ export interface PossibleErrors extends Linter.RulesRecord {
     "no-promise-executor-return": Linter.RuleEntry<
         [
             Partial<{
+                /**
+                 * @default false
+                 */
                 allowVoid: boolean;
             }>,
         ]
