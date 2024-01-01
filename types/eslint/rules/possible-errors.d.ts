@@ -367,7 +367,7 @@ export interface PossibleErrors extends Linter.RulesRecord {
              * @default false
              */
             allowVoid?: boolean;
-        }
+        },
     ]>;
 
     /**
