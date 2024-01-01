@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/node": "*",
-        "@types/tedious": "*",
+        "@types/tedious": "^4",
         "tarn": "^3.0.1"
     },
     "devDependencies": {

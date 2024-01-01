@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/node": "*",
-        "@types/tedious": "*"
+        "@types/tedious": "^4"
     },
     "devDependencies": {
         "@types/tedious-connection-pool": "workspace:."
