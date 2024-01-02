@@ -20,7 +20,6 @@ import {
     TwitterPicker,
 } from "react-color";
 import { Alpha, Checkboard, EditableInput, Hue, Saturation } from "react-color/lib/components/common";
-import { render } from "react-dom";
 
 interface CustomProps extends InjectedColorProps {
     color?: Color | undefined;
@@ -46,27 +45,20 @@ const Custom = CustomPicker(CustomComponent);
 const colors = ["#000", "#333"];
 const colorsAsObject = [{ title: "foo", color: "#000" }, { title: "foo", color: "#333" }];
 
-render(<AlphaPicker className="custom-cn" height="100px" width="100px" />, document.getElementById("main"));
-render(<BlockPicker className="custom-cn" colors={colors} width="100px" />, document.getElementById("main"));
-render(
-    <ChromePicker className="custom-cn" disableAlpha styles={{ default: { picker: { width: 200 } } }} />,
-    document.getElementById("main"),
-);
-render(<CirclePicker className="custom-cn" colors={colors} width="100px" />, document.getElementById("main"));
-render(<CompactPicker className="custom-cn" colors={colors} />, document.getElementById("main"));
-render(<GithubPicker className="custom-cn" colors={colors} width="100px" />, document.getElementById("main"));
-render(<HuePicker className="custom-cn" height="100px" width="100px" />, document.getElementById("main"));
-render(<MaterialPicker className="custom-cn" />, document.getElementById("main"));
-render(<PhotoshopPicker className="custom-cn" header="Test" />, document.getElementById("main"));
-render(<SketchPicker className="custom-cn" disableAlpha presetColors={colors} />, document.getElementById("main"));
-render(
-    <SketchPicker className="custom-cn" disableAlpha presetColors={colorsAsObject} />,
-    document.getElementById("main"),
-);
-render(<SliderPicker className="custom-cn" />, document.getElementById("main"));
-render(
-    <SwatchesPicker className="custom-cn" colors={[colors]} height={100} width={100} />,
-    document.getElementById("main"),
-);
-render(<TwitterPicker className="custom-cn" />, document.getElementById("main"));
-render(<Custom />, document.getElementById("main"));
+<AlphaPicker className="custom-cn" height="100px" width="100px" />;
+<BlockPicker className="custom-cn" colors={colors} width="100px" />;
+<ChromePicker className="custom-cn" disableAlpha styles={{ default: { picker: { width: 200 } } }} />;
+<CirclePicker className="custom-cn" colors={colors} width="100px" />;
+<CompactPicker className="custom-cn" colors={colors} />;
+<GithubPicker className="custom-cn" colors={colors} width="100px" />;
+<HuePicker className="custom-cn" height="100px" width="100px" />;
+<MaterialPicker className="custom-cn" />;
+<PhotoshopPicker className="custom-cn" header="Test" />;
+<SketchPicker className="custom-cn" disableAlpha presetColors={colors} />;
+
+<SketchPicker className="custom-cn" disableAlpha presetColors={colorsAsObject} />;
+<SliderPicker className="custom-cn" />;
+
+<SwatchesPicker className="custom-cn" colors={[colors]} height={100} width={100} />;
+<TwitterPicker className="custom-cn" />;
+<Custom />;
