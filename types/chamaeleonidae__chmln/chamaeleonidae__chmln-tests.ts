@@ -43,6 +43,9 @@ chmln.identify(1, {
 // @ts-expect-error
 chmln.identify("id", 42);
 
+// @ts-expect-error
+chmln.identify("id", ["foo", "bar"]);
+
 // $ExpectType void
 chmln.track("event");
 

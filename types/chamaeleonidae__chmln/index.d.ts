@@ -49,7 +49,7 @@ export function init(token: string, options?: { fastUrl?: string; forceOverride?
  *   }
  * });
  */
-export function identify(userId: string | number, options?: object): void;
+export function identify(userId: string | number, options?: Record<string, unknown>): void;
 
 /**
  * Track a user event
