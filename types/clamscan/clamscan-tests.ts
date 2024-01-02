@@ -1,4 +1,4 @@
-import * as NodeClam from "clamscan";
+import NodeClam = require("clamscan");
 import * as http from "http";
 import * as https from "https";
 import { PassThrough, Readable, Writable } from "stream";
