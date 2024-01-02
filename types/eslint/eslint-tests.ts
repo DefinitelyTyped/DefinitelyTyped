@@ -952,6 +952,7 @@ let eslintConfig: Linter.Config<ESLintRules>;
 eslintConfig = {
     rules: {
         "capitalized-comments": [2, "always", { ignorePattern: "const|let" }],
+        "no-promise-executor-return": [2, { allowVoid: true }],
         "sort-keys": [2, "asc", { allowLineSeparatedGroups: true }],
     },
     overrides: [{
