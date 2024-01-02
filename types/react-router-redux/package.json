@@ -12,7 +12,6 @@
         "redux": ">= 3.7.2"
     },
     "devDependencies": {
-        "@types/react-dom": "*",
         "@types/react-redux": "*",
         "@types/react-router-redux": "workspace:."
     },
