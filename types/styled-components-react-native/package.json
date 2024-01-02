@@ -6,7 +6,7 @@
         "https://github.com/styled-components/styled-components"
     ],
     "dependencies": {
-        "@types/react": "*",
+        "@types/react": "^17.0.0",
         "@types/react-native": "^0.70",
         "@types/styled-components": "*"
     },

@@ -6,7 +6,7 @@
         "https://github.com/rebassjs/rebass"
     ],
     "dependencies": {
-        "@types/react": "*",
+        "@types/react": "^18",
         "@types/styled-components": "*",
         "@types/styled-system": "*",
         "@types/styled-system__css": "*"
