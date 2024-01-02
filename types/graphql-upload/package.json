@@ -29,7 +29,7 @@
         "@types/koa": "*",
         "@types/node": "*",
         "fs-capacitor": "^8.0.0",
-        "graphql": "0.13.1 - 16"
+        "graphql": "^16.3.0"
     },
     "devDependencies": {
         "@types/graphql-upload": "workspace:."
