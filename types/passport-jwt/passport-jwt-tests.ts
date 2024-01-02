@@ -1,9 +1,8 @@
 /// <reference types="passport" />
 "use strict";
 
-import { Request } from "express";
 import * as passport from "passport";
-import { ExtractJwt, Strategy as JwtStrategy, StrategyOptions } from "passport-jwt";
+import { ExtractJwt, JwtFromRequestFunction, Strategy as JwtStrategy, StrategyOptions } from "passport-jwt";
 
 let opts: StrategyOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeader(),
@@ -29,6 +28,10 @@ passport.use(
     }),
 );
 
+const jwtFromTokenInRequest: JwtFromRequestFunction<{ token: string }> = (req: { token: string }) => {
+    return req.token;
+};
+
 opts.jwtFromRequest = ExtractJwt.fromHeader("x-api-key");
 opts.jwtFromRequest = ExtractJwt.fromBodyField("field_name");
 opts.jwtFromRequest = ExtractJwt.fromUrlQueryParameter("param_name");
@@ -37,10 +40,11 @@ opts.jwtFromRequest = ExtractJwt.fromExtractors([
     ExtractJwt.fromHeader("x-api-key"),
     ExtractJwt.fromBodyField("field_name"),
     ExtractJwt.fromUrlQueryParameter("param_name"),
+    jwtFromTokenInRequest,
 ]);
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.jwtFromRequest = (req: Request) => {
-    return req.query.token as string;
+    return req.headers.get("token") as string;
 };
 opts.secretOrKey = new Buffer("secret");
 opts.secretOrKeyProvider = (request, rawJwtToken, done) => done(null, new Buffer("secret"));
