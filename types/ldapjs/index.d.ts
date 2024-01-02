@@ -157,7 +157,7 @@ export interface Client extends EventEmitter {
 
 
     /**
-     * Initiate LDAP connection.
+     * Initiate LDAP connection if lost. The constructor will call this method so there's no need to call it the first time.
      */
     connect(): void;
     
