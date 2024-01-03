@@ -39,6 +39,13 @@ export class MeshStandardMaterial extends Material {
     constructor(parameters?: MeshStandardMaterialParameters);
 
     /**
+     * Read-only flag to check if a given object is of type {@link MeshStandardMaterial}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isMeshStandardMaterial: true;
+
+    /**
      * @default 'MeshStandardMaterial'
      */
     type: string;
@@ -199,8 +206,6 @@ export class MeshStandardMaterial extends Material {
      * @default fog
      */
     fog: boolean;
-
-    isMeshStandardMaterial: boolean;
 
     setValues(parameters: MeshStandardMaterialParameters): void;
 }

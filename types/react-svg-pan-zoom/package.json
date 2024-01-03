@@ -10,7 +10,6 @@
         "@types/react": "*"
     },
     "devDependencies": {
-        "@types/react-dom": "*",
         "@types/react-svg-pan-zoom": "workspace:."
     },
     "owners": [

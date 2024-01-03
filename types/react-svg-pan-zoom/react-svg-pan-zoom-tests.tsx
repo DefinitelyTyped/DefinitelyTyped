@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import {
     fitToViewer,
     MODE_PANNING,
@@ -135,8 +134,3 @@ class MyViewer extends React.Component {
         );
     }
 }
-
-ReactDOM.render(
-    <Example1 />,
-    document.getElementById("app"),
-);

@@ -18,6 +18,11 @@ interface HighlightDates {
     [className: string]: Date[];
 }
 
+interface Holiday {
+    date: string;
+    holidayName: string;
+}
+
 export interface ReactDatePickerCustomHeaderProps {
     monthDate: Date;
     date: Date;
@@ -81,6 +86,7 @@ export interface ReactDatePickerProps<
     formatWeekDay?(day: string): React.ReactNode;
     formatWeekNumber?(date: Date): string | number;
     highlightDates?: Array<HighlightDates | Date> | undefined;
+    holidays?: Holiday[] | undefined;
     icon?: string | React.ReactElement;
     id?: string | undefined;
     includeDates?: Date[] | undefined;
@@ -164,6 +170,7 @@ export interface ReactDatePickerProps<
     showTwoColumnMonthYearPicker?: boolean | undefined;
     showFourColumnMonthYearPicker?: boolean | undefined;
     showWeekNumbers?: boolean | undefined;
+    showWeekPicker?: boolean | undefined;
     showYearDropdown?: boolean | undefined;
     showYearPicker?: boolean | undefined;
     showIcon?: boolean | undefined;

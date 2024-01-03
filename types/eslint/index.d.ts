@@ -1270,10 +1270,10 @@ export namespace Linter {
             noInlineConfig?: boolean;
 
             /**
-             * A boolean value indicating if unused disable directives should be
+             * A severity value indicating if and how unused disable directives should be
              * tracked and reported.
              */
-            reportUnusedDisableDirectives?: boolean;
+            reportUnusedDisableDirectives?: Severity | StringSeverity | boolean;
         };
 
         /**
@@ -1335,8 +1335,12 @@ export class ESLint {
 export namespace ESLint {
     type ConfigData<Rules extends Linter.RulesRecord = Linter.RulesRecord> = Omit<Linter.Config<Rules>, "$schema">;
 
+    interface Globals {
+        [name: string]: boolean | "writable" | "readonly" | "off";
+    }
+
     interface Environment {
-        globals?: { [name: string]: boolean } | undefined;
+        globals?: Globals | undefined;
         parserOptions?: Linter.ParserOptions | undefined;
     }
 

@@ -17,19 +17,20 @@ import {
     ConstNode,
 } from 'three/examples/jsm/nodes/Nodes';
 
-import { ConvertType, Swizzable } from 'three/examples/jsm/nodes/shadernode/ShaderNode';
+import { ConvertType, Swizzable, ShaderNodeObject } from 'three/examples/jsm/nodes/shadernode/ShaderNode';
+import SplitNode from 'three/examples/jsm/nodes/utils/SplitNode';
 
 // just to type check
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 function assertSwizzable<T extends Node>(_s: Swizzable<T>) {}
 
-export const color = new ConvertType('color');
+declare const color: ConvertType;
 const s = color(1);
 s.xyz;
 
 const aa = nodeArray([1, 2, 'hello']);
-aa[0].xy = s;
-aa[1].w = s;
+aa[0].xy = s as ShaderNodeObject<SplitNode>;
+aa[1].w = s as ShaderNodeObject<SplitNode>;
 aa[2] = 'hello';
 
 export const rotateUV = nodeProxy(RotateUVNode);

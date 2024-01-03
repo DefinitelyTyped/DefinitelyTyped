@@ -51,7 +51,7 @@ declare namespace url {
              */
             file?: string | undefined;
         },
-    ) => string;
+    ) => string | Promise<string>;
     type CustomHashFunction = (file: Buffer) => string;
     type CustomFilterFunction = (file: string) => boolean;
 

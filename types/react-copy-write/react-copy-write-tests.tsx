@@ -1,6 +1,5 @@
 import * as React from "react";
 import createStore from "react-copy-write";
-import { render } from "react-dom";
 
 const { Provider, Consumer, mutate } = createStore({
     letter: "a",
@@ -29,5 +28,3 @@ const App = () => (
         </div>
     </Provider>
 );
-
-render(<App />, document.body);

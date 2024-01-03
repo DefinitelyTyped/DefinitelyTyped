@@ -34,7 +34,44 @@ forge.pki.certificateFromAsn1(forge.pki.certificateToAsn1(cert));
 let certPem = forge.pki.certificateToPem(cert);
 let csr = forge.pki.createCertificationRequest();
 csr.publicKey = keypair.publicKey;
+csr.setAttributes([
+    {
+        name: "unstructuredName",
+        value: "My Company, Inc.",
+    },
+    {
+        name: "extensionRequest",
+        extensions: [
+            {
+                name: "subjectAltName",
+                altNames: [
+                    {
+                        // 2 is DNS type
+                        type: 2,
+                        value: "localhost",
+                    },
+                    {
+                        type: 2,
+                        value: "127.0.0.1",
+                    },
+                    {
+                        type: 2,
+                        value: "www.domain.net",
+                    },
+                ],
+            },
+        ],
+    },
+]);
+csr.addAttribute({
+    name: "challengePassword",
+    value: "password",
+});
 csr.sign(keypair.privateKey);
+csr.verify();
+csr.getAttribute({ name: "challengePassword" });
+csr.getAttribute({ name: "extensionRequest" }).extensions;
+forge.pki.certificationRequestFromPem(forge.pki.certificationRequestToPem(csr));
 forge.pki.certificationRequestFromAsn1(forge.pki.certificationRequestToAsn1(csr));
 
 // From https://github.com/digitalbazaar/forge#rsakem

@@ -4495,6 +4495,10 @@
             "libraryName": "random-obj-prop",
             "asOfVersion": "2.0.0"
         },
+        "random-words": {
+            "libraryName": "random-words",
+            "asOfVersion": "1.2.0"
+        },
         "randoma": {
             "libraryName": "randoma",
             "asOfVersion": "1.3.0"
@@ -4842,6 +4846,10 @@
         "react-monaco-editor": {
             "libraryName": "react-monaco-editor",
             "asOfVersion": "0.16.0"
+        },
+        "react-native": {
+            "libraryName": "react-native",
+            "asOfVersion": "0.73.0"
         },
         "react-native-app-intro-slider": {
             "libraryName": "react-native-app-intro-slider",
@@ -5789,6 +5797,10 @@
         },
         "strip-bom": {
             "libraryName": "strip-bom",
+            "asOfVersion": "4.0.0"
+        },
+        "strip-final-newline": {
+            "libraryName": "strip-final-newline",
             "asOfVersion": "4.0.0"
         },
         "strip-indent": {

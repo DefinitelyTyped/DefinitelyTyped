@@ -379,11 +379,13 @@ declare namespace GorillaEngine {
      * @returns The name of the host
      */
     function getHostDescription(): string;
-    function showNativeMessageBox(options: {
+    interface MessageBoxOptions {
         title: string;
         message: string;
-        iconType: "info" | "question" | "warning";
-    }): Promise<any>;
+        iconType: "info" | "question" | "warning" | "error";
+    }
+    function showNativeMessageBoxSync(options: MessageBoxOptions): void;
+    function showNativeMessageBox(options: MessageBoxOptions): Promise<void>;
     function calculateTextWidth(text: string, font: string, fontSize: number, fontKerning: number): Promise<number>;
     function checkLicense(): boolean;
     function checkBeatportRTO(): string;
