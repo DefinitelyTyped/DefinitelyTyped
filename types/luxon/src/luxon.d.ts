@@ -6,5 +6,5 @@ export * from "./info";
 export * from "./interval";
 export * from "./misc";
 export * from "./settings";
-export * from "./zone";
 export * from "./weekSettings";
+export * from "./zone";
