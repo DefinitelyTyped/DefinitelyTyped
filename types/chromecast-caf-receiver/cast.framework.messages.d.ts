@@ -436,7 +436,7 @@ export enum UserActionContext {
  * Note as of July 2021: Docs don't mention this extending RequestData.
  * @see https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages.LoadByEntityRequestData
  */
-export class RefreshCredentialsRequestData extends RequestData {}
+export class RefreshCredentialsRequestData extends RequestData { }
 
 /**
  * Media event SET_VOLUME request data.
@@ -598,6 +598,11 @@ export class Track {
     constructor(trackId: number, trackType: TrackType);
 
     /**
+     * Audio-specific information about the track. Defined only for Track#type === 'AUDIO' tracks.
+     */
+    audioTrackInfo?: AudioTrackInfo
+
+    /**
      * Custom data set by the receiver application.
      */
     customData?: any;
@@ -616,6 +621,14 @@ export class Track {
      * A descriptive; human readable name for the track. For example "Spanish".
      */
     name?: string | undefined;
+
+    /**
+     * For role(s) of the track; The following values for each media type are recognized, with value explanations described in ISO/IEC 23009-1, labeled "DASH role scheme":
+     * VIDEO: caption, subtitle, main, alternate, supplementary, sign, emergency
+     * AUDIO: main, alternate, supplementary, commentary, dub, emergency
+     * TEXT: main, alternate, subtitle, supplementary, commentary, dub, description, forced_subtitle
+     */
+    roles?: string[] | undefined;
 
     /**
      * For text tracks; the type of text track.
@@ -648,14 +661,26 @@ export class Track {
      * The type of track.
      */
     type: TrackType;
+}
+
+/**
+ * Describes audio track information for an audio track.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.AudioTrackInfo
+ */
+export class AudioTrackInfo {
+    /**
+     * This represents the codec of the audio track.
+     */
+    audioCodec?: string;
+    /**
+     * The number of audio track channels.
+     */
+    numAudioChannels?: number;
 
     /**
-     * For role(s) of the track; The following values for each media type are recognized, with value explanations described in ISO/IEC 23009-1, labeled "DASH role scheme":
-     * VIDEO: caption, subtitle, main, alternate, supplementary, sign, emergency
-     * AUDIO: main, alternate, supplementary, commentary, dub, emergency
-     * TEXT: main, alternate, subtitle, supplementary, commentary, dub, description, forced_subtitle
+     * True indicates this track content has spatial audio. Determined by signals from the manifest.
      */
-    roles?: string[] | undefined;
+    spatialAudio?: boolean;
 }
 
 /**
@@ -2320,7 +2345,7 @@ export class CustomCommandRequestData extends RequestData {
  * `MEDIA_STATUS`, not `CLOUD_STATUS`.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.CloudMediaStatus
  */
-export class CloudMediaStatus extends MediaStatus {}
+export class CloudMediaStatus extends MediaStatus { }
 
 /**
  * Represents current status of break.
