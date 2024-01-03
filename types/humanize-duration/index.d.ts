@@ -143,7 +143,7 @@ declare namespace humanizeDuration {
         /**
          * Array of ten strings to which will replace the numerals 0-9.
          */
-        digitReplacements?: string[] | undefined;
+        digitReplacements?: [string, string, string, string, string, string, string, string, string, string] | undefined;
     }
 
     interface HumanizerOptions extends Options {
