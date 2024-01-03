@@ -600,7 +600,7 @@ export class Track {
     /**
      * Audio-specific information about the track. Defined only for Track#type === 'AUDIO' tracks.
      */
-    audioTrackInfo?: AudioTrackInfo
+    audioTrackInfo?: AudioTrackInfo;
 
     /**
      * Custom data set by the receiver application.
