@@ -10,7 +10,6 @@ import {
     useParams,
 } from "@gatsbyjs/reach-router";
 import * as React from "react";
-import { render } from "react-dom";
 
 interface DashParams {
     id: string;
@@ -49,7 +48,6 @@ const UseParamsCheck = (props: RouteComponentProps) => {
     return <div>{params.value}</div>;
 };
 
-render(
     <Router className="my-class">
         <Router component="div">
             <Home path="/" />
@@ -81,19 +79,17 @@ render(
                 </>
             )}
         </LocationProvider>
-    </Router>,
-    document.getElementById("app-root"),
-);
+    </Router>;
 
 const handleRef = (el: HTMLAnchorElement) => {
     el.focus();
 };
 
-render(<Link innerRef={handleRef} to="./foo"></Link>, document.getElementById("app-root"));
-render(<Link ref={handleRef} to="./foo"></Link>, document.getElementById("app-root"));
+<Link innerRef={handleRef} to="./foo"></Link>;
+<Link ref={handleRef} to="./foo"></Link>;
 
 const refObject: React.RefObject<HTMLAnchorElement> = { current: null };
-render(<Link innerRef={refObject} to="./foo"></Link>, document.getElementById("app-root"));
-render(<Link ref={refObject} to="./foo"></Link>, document.getElementById("app-root"));
+<Link innerRef={refObject} to="./foo"></Link>;
+<Link ref={refObject} to="./foo"></Link>;
 
 const elem: React.JSX.Element = <Link<number> state={5} to="./foo">Click me!</Link>;
