@@ -11,7 +11,6 @@ import {
     Zone,
     ZoneOffsetFormat,
     ZoneOffsetOptions,
-    WeekSettings
 } from "luxon";
 
 /* VERSION */
