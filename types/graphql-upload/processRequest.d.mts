@@ -1,4 +1,4 @@
-import { ReadStreamOptions, WriteStream } from "fs-capacitor";
+import { ReadStreamOptions } from "fs-capacitor";
 import { GraphQLScalarType } from "graphql";
 import { IncomingMessage, ServerResponse } from "node:http";
 import { Readable } from "node:stream";
@@ -38,7 +38,7 @@ export interface FileUpload {
     filename: string;
     mimetype: string;
     encoding: string;
-    capacitor: WriteStream;
+    // We omit the capacitor property because it's a private implementation detail that shouldn't be used outside.
     createReadStream: FileUploadCreateReadStream;
 }
 
