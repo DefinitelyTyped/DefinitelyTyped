@@ -591,11 +591,39 @@ export class TvShowMediaMetadata {
     title?: string | undefined;
 }
 /**
+ * Describes audio track information for an audio track.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.AudioTrackInfo
+ */
+export class AudioTrackInfo {
+    constructor();
+
+    /**
+     * This represents the codec of the audio track.
+     */
+    audioCodec?: string | undefined;
+
+    /**
+     * The number of audio track channels.
+     */
+    numAudioChannels?: number | undefined;
+
+    /**
+     * True indicates this track content has spatial audio. Determined by signals from the manifest.
+     */
+    spatialAudio?: boolean | undefined;
+
+}
+/**
  * Describes track metadata information.
  * @see https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages.Track
  */
 export class Track {
     constructor(trackId: number, trackType: TrackType);
+
+    /**
+     * Audio-specific information about the track. Defined only for Track#type === 'AUDIO' tracks.
+     */
+    audioTrackInfo?: AudioTrackInfo | undefined
 
     /**
      * Custom data set by the receiver application.
