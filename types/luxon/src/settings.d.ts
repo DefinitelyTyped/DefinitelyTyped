@@ -1,4 +1,5 @@
 import { Zone, ZoneMaybeValid } from "./zone";
+import { WeekSettings } from "./weekSettings";
 
 /**
  * `Settings` contains static getters and setters that control Luxon's overall behavior.
@@ -65,6 +66,15 @@ export class Settings {
      * Reset Luxon's global caches. Should only be necessary in testing scenarios.
      */
     static resetCaches(): void;
+
+    static get defaultWeekSettings(): WeekSettings | null;
+
+    /**
+     * Allows overriding the default locale week settings, i.e. the start of the week, the weekend and
+     * how many days are required in the first week of a year.
+     * Does not affect existing instances.
+    */
+    static set defaultWeekSettings(weekSettings: WeekSettings | null);
 }
 
 /**
