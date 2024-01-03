@@ -73,14 +73,12 @@ export class Settings {
      */
     static resetCaches(): void;
 
-    static get defaultWeekSettings(): WeekSettings | null;
-
     /**
      * Allows overriding the default locale week settings, i.e. the start of the week, the weekend and
      * how many days are required in the first week of a year.
      * Does not affect existing instances.
      */
-    static set defaultWeekSettings(weekSettings: WeekSettings | null);
+    static defaultWeekSettings: WeekSettings | null;
 }
 
 /**
