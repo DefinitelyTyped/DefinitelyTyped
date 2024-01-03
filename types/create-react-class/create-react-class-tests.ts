@@ -89,35 +89,6 @@ const ClassicComponentNoState: createReactClass.ClassicComponentClass<{ text: st
     },
 });
 
-// React.createFactory
-const classicFactory: React.ClassicFactory<Props> = React.createFactory(ClassicComponent);
-const classicFactoryElement: React.ComponentElement<Props, InstanceType<typeof ClassicComponent>> = classicFactory(
-    props,
-);
-
-// React.createElement
-const classicElement: React.ComponentElement<Props, InstanceType<typeof ClassicComponent>> = React.createElement(
-    ClassicComponent,
-    props,
-);
-const classicElementNullProps: React.ComponentElement<{}, InstanceType<typeof ClassicComponentNoProps>> = React
-    .createElement(
-        ClassicComponentNoProps,
-        null,
-    );
-
-// React.cloneElement
-const clonedClassicElement: React.ComponentElement<Props, InstanceType<typeof ClassicComponent>> = React.cloneElement(
-    classicElement,
-    props,
-);
-
-// ReactDOM.render
-const classicComponent: InstanceType<typeof ClassicComponent> = ReactDOM.render(
-    classicElement,
-    container,
-);
-
 //
 // React Components
 // --------------------------------------------------------------------------
@@ -129,6 +100,8 @@ const propTypes: React.ValidationMap<Props> | undefined = ClassicComponent.propT
 //
 // Component API
 // --------------------------------------------------------------------------
+
+const classicComponent = new ClassicComponent({ foo: "bar" });
 
 // classic
 const isMounted: boolean = classicComponent.isMounted();
