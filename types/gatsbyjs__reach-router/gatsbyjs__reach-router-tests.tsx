@@ -48,38 +48,38 @@ const UseParamsCheck = (props: RouteComponentProps) => {
     return <div>{params.value}</div>;
 };
 
-    <Router className="my-class">
-        <Router component="div">
-            <Home path="/" />
-        </Router>
-        <Router component={Home}>
-            <Home path="/" />
-        </Router>
+<Router className="my-class">
+    <Router component="div">
         <Home path="/" />
-        <Dash path="/default/:id" />
-        <UseMatchCheck path="/params/*" />
-        <UseLocationCheck path="/another-path" />
-        <UseParamsCheck path="/current/:value" />
-        <NotFound default />
+    </Router>
+    <Router component={Home}>
+        <Home path="/" />
+    </Router>
+    <Home path="/" />
+    <Dash path="/default/:id" />
+    <UseMatchCheck path="/params/*" />
+    <UseLocationCheck path="/another-path" />
+    <UseParamsCheck path="/current/:value" />
+    <NotFound default />
 
-        <Link to="/somepath" rel="noopener noreferrer" target="_blank" />
-        <Redirect to="/somepath" replace={false} state={{ from: "/" }} />
+    <Link to="/somepath" rel="noopener noreferrer" target="_blank" />
+    <Redirect to="/somepath" replace={false} state={{ from: "/" }} />
 
-        <Location>
-            {context => (
-                <>
-                    <div>hostname is {context.location.hostname}</div>
-                </>
-            )}
-        </Location>
-        <LocationProvider>
-            {context => (
-                <>
-                    <div>hostname is {context.location.hostname}</div>
-                </>
-            )}
-        </LocationProvider>
-    </Router>;
+    <Location>
+        {context => (
+            <>
+                <div>hostname is {context.location.hostname}</div>
+            </>
+        )}
+    </Location>
+    <LocationProvider>
+        {context => (
+            <>
+                <div>hostname is {context.location.hostname}</div>
+            </>
+        )}
+    </LocationProvider>
+</Router>;
 
 const handleRef = (el: HTMLAnchorElement) => {
     el.focus();
