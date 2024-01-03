@@ -436,7 +436,7 @@ export enum UserActionContext {
  * Note as of July 2021: Docs don't mention this extending RequestData.
  * @see https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages.LoadByEntityRequestData
  */
-export class RefreshCredentialsRequestData extends RequestData { }
+export class RefreshCredentialsRequestData extends RequestData {}
 
 /**
  * Media event SET_VOLUME request data.
@@ -2345,7 +2345,7 @@ export class CustomCommandRequestData extends RequestData {
  * `MEDIA_STATUS`, not `CLOUD_STATUS`.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.CloudMediaStatus
  */
-export class CloudMediaStatus extends MediaStatus { }
+export class CloudMediaStatus extends MediaStatus {}
 
 /**
  * Represents current status of break.
