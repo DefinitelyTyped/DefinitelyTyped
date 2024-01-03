@@ -1,5 +1,11 @@
-import { WeekSettings } from "./weekSettings";
+import { WeekdayNumbers } from "./datetime";
 import { Zone, ZoneMaybeValid } from "./zone";
+
+export interface WeekSettings {
+    firstDay: WeekdayNumbers;
+    minimalDays: WeekdayNumbers;
+    weekend: WeekdayNumbers[];
+}
 
 /**
  * `Settings` contains static getters and setters that control Luxon's overall behavior.
