@@ -611,7 +611,6 @@ export class AudioTrackInfo {
      * True indicates this track content has spatial audio. Determined by signals from the manifest.
      */
     spatialAudio?: boolean | undefined;
-
 }
 /**
  * Describes track metadata information.
@@ -623,7 +622,7 @@ export class Track {
     /**
      * Audio-specific information about the track. Defined only for Track#type === 'AUDIO' tracks.
      */
-    audioTrackInfo?: AudioTrackInfo | undefined
+    audioTrackInfo?: AudioTrackInfo | undefined;
 
     /**
      * Custom data set by the receiver application.
