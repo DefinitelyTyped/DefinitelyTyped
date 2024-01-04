@@ -508,6 +508,8 @@ fooStream.toPromise<Promise<Foo>>(MyPromise);
 // UTILS
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+fooStream = _.fromError(new Error());
+
 bool = _.isNil(x);
 
 bool = _.isStream(x);

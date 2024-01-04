@@ -141,6 +141,22 @@ interface HighlandStatic {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     /**
+     * Creates a stream that sends a single error then ends.
+     *
+     * @id fromError
+     * @section Utils
+     * @name _.fromError(err)
+     * @param error - the error to send
+     * @returns Stream
+     * @api public
+     *
+     * _.fromError(new Error('Single Error')).toCallback(function (err, result) {
+     *     // err contains Error('Single Error') object
+     * }
+     */
+    fromError<R>(error: unknown): Highland.Stream<R>;
+
+    /**
      * Returns true if `x` is the end of stream marker.
      *
      * @id isNil
