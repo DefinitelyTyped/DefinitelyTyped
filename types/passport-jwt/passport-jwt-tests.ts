@@ -8,7 +8,7 @@ import { ExtractJwt, JwtFromRequestFunction, Strategy as JwtStrategy, StrategyOp
 
 // valid case without request in callback
 let opts: StrategyOptions = {
-    jwtFromRequest: ExtractJwt.fromAuthHeader(),
+    jwtFromRequest: ExtractJwt.fromBodyField('jwt'),
     secretOrKey: "secret",
     issuer: "accounts.example.com",
     audience: "example.org",
@@ -66,7 +66,7 @@ declare function findUser(condition: { id: string }, callback: (error: any, user
 
 // Invalid algorithm
 let invalidOptsAlg: StrategyOptions = {
-    jwtFromRequest: ExtractJwt.fromAuthHeader(),
+    jwtFromRequest: ExtractJwt. fromAuthHeaderAsBearerToken(),
     secretOrKey: 'test',
     // @ts-expect-error
     algorithms: ['invalid']
@@ -86,7 +86,7 @@ opts.secretOrKeyProvider = (request, rawJwtToken, done) => done(null, new Buffer
 
 // valid case with request in callback
 let opts2: StrategyOptions = {
-    jwtFromRequest: ExtractJwt.fromAuthHeader(),
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: "secret",
     passReqToCallback: true
 }
@@ -103,7 +103,7 @@ passport.use(
 
 // using request in verify callback, without setting it in opts
 let opts3: StrategyOptions = {
-    jwtFromRequest: ExtractJwt.fromAuthHeader(),
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: "secret",
 }
 passport.use(
@@ -128,6 +128,6 @@ let invalid: StrategyOptions = {
 // https://github.com/mikenicholson/passport-jwt/blob/fed94fa005c5b2dcb7e6d5d5372e3b20cae898f1/lib/strategy.js#L44
 // @ts-expect-error
 let invalid: StrategyOptions = {
-    jwtFromRequest: ExtractJwt.fromAuthHeader(),
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 }
 
