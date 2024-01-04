@@ -6243,7 +6243,8 @@ declare namespace chrome.pageCapture {
      */
     export function saveAsMHTML(details: SaveDetails, callback: (mhtmlData?: Blob) => void): void;
     /**
-     * Promises are supported in Manifest V3 and later, but callbacks are provided for backward compatibility. You cannot use both on the same function call. The promise resolves with the same type that is passed to the callback.
+     * Saves the content of the tab with given id as MHTML.
+     * @since Chrome 116 MV3
      */
     export function saveAsMHTML(details: SaveDetails): Promise<Blob | undefined>;
 }
