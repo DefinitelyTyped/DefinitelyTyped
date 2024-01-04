@@ -601,7 +601,7 @@ declare namespace Highland {
          * @name Stream.compact()
          * @api public
          */
-        compact(): Stream<R>;
+        compact(): Stream<NonNullable<R>>;
 
         /**
          * Consumes values from a Stream (once resumed) and returns a new Stream for
