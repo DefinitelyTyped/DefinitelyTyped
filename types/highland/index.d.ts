@@ -207,6 +207,20 @@ interface HighlandStatic {
     nil: Highland.Nil;
 
     /**
+     * Creates a stream that sends a single value then ends.
+     *
+     * @id of
+     * @section Utils
+     * @name _.of(x)
+     * @param x - the value to send
+     * @returns Stream
+     * @api public
+     *
+     * _.of(1).toArray(_.log); // => [1]
+     */
+    of<R>(x: R): Highland.Stream<R>;
+
+    /**
      * Wraps a node-style async function which accepts a callback, transforming
      * it to a function which accepts the same arguments minus the callback and
      * returns a Highland Stream instead. The wrapped function keeps its context,

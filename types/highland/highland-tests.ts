@@ -526,6 +526,8 @@ _.log(str, num, foo);
 
 obj = _.nil;
 
+fooStream = _.of(foo);
+
 f = _.wrapCallback(func);
 f = _.wrapCallback(func, num);
 f = _.wrapCallback(func, strArr);
