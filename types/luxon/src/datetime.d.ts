@@ -366,6 +366,15 @@ export interface DiffOptions {
     conversionAccuracy?: ConversionAccuracy | undefined;
 }
 
+export interface BaseComparisonOptions {
+    /** If true, use weeks based on the locale, i.e. use the locale-dependent start of the week */
+    useLocaleWeeks?: boolean;
+}
+
+export type HasSameOptions = BaseComparisonOptions;
+export type StartOfOptions = BaseComparisonOptions;
+export type EndOfOptions = BaseComparisonOptions;
+
 export interface ExplainedFormat {
     input: string;
     tokens: Array<{ literal: boolean; val: string }>;
@@ -1145,6 +1154,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * "Set" this DateTime to the beginning of the given unit.
      *
      * @param unit - The unit to go to the beginning of. Can be 'year', 'quarter', 'month', 'week', 'day', 'hour', 'minute', 'second', or 'millisecond'.
+     * @param opts - options
      *
      * @example
      * DateTime.local(2014, 3, 3).startOf('month').toISODate(); //=> '2014-03-01'
@@ -1157,12 +1167,13 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * @example
      * DateTime.local(2014, 3, 3, 5, 30).startOf('hour').toISOTime(); //=> '05:00:00.000-05:00'
      */
-    startOf(unit: DateTimeUnit): this;
+    startOf(unit: DateTimeUnit, opts?: StartOfOptions): this;
 
     /**
      * "Set" this DateTime to the end (meaning the last millisecond) of a unit of time
      *
      * @param unit - The unit to go to the end of. Can be 'year', 'quarter', 'month', 'week', 'day', 'hour', 'minute', 'second', or 'millisecond'.
+     * @param opts - options
      *
      * @example
      * DateTime.local(2014, 3, 3).endOf('month').toISO(); //=> '2014-03-31T23:59:59.999-05:00'
@@ -1175,7 +1186,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * @example
      * DateTime.local(2014, 3, 3, 5, 30).endOf('hour').toISO(); //=> '2014-03-03T05:59:59.999-05:00'
      */
-    endOf(unit: DateTimeUnit): this;
+    endOf(unit: DateTimeUnit, opts?: EndOfOptions): this;
 
     // OUTPUT
 
@@ -1470,7 +1481,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * @example
      * DateTime.now().hasSame(otherDT, 'day'); //~> true if otherDT is in the same current calendar day
      */
-    hasSame(otherDateTime: DateTime, unit: DateTimeUnit): IfValid<boolean, false, IsValid>;
+    hasSame(otherDateTime: DateTime, unit: DateTimeUnit, opts?: HasSameOptions): IfValid<boolean, false, IsValid>;
 
     /**
      * An equality check.

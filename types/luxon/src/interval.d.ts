@@ -11,6 +11,11 @@ export type DateInput = DateTime | DateObjectUnits | Date;
 
 export type IntervalMaybeValid = CanBeInvalid extends true ? (Interval<Valid> | Interval<Invalid>) : Interval;
 
+export interface CountOptions {
+    /** If true, use weeks based on the locale, i.e. use the locale-dependent start of the week */
+    useLocaleWeeks?: boolean;
+}
+
 /**
  * An Interval object represents a half-open interval of time, where each endpoint is a {@link DateTime}.
  * Conceptually, it is a container for those two endpoints, accompanied by methods for
@@ -119,7 +124,7 @@ export class Interval<IsValid extends boolean = DefaultValidity> {
      *
      * @param unit - the unit of time to count. Defaults to 'milliseconds'.
      */
-    count(unit?: DurationUnit): IfValid<number, typeof NaN, IsValid>;
+    count(unit?: DurationUnit, opts?: CountOptions): IfValid<number, typeof NaN, IsValid>;
 
     /**
      * Returns whether this Interval's start and end are both in the same unit of time

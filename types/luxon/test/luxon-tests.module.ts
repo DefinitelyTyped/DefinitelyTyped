@@ -199,6 +199,9 @@ dt.toRelativeCalendar({
 dt.plus({ hours: 3, minutes: 2 });
 dt.minus({ days: 7 });
 dt.startOf("day");
+dt.startOf("day", { useLocaleWeeks: true });
+// @ts-expect-error
+dt.startOf("day", { nonExistentProp: true });
 dt.endOf("hour");
 dt.zone;
 dt.zoneName; // $ExpectType string | null
