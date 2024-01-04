@@ -1854,8 +1854,9 @@ async function testI18nForPromise() {
     await chrome.i18n.detectLanguage("dummy-id");
 }
 
-function testPageCapture() {
+async function testPageCapture() {
     chrome.pageCapture.saveAsMHTML({ tabId: 0 }, (data: Blob | undefined) => {});
+    await chrome.pageCapture.saveAsMHTML({ tabId: 0 });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/downloads
