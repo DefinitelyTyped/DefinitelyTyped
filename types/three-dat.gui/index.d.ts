@@ -15,7 +15,11 @@ declare module "dat.gui" {
             stepRotation?: number | undefined;
             stepScale?: number | undefined;
         }): GUI;
-        addVector(name: string, vector: THREE.Vector2 | THREE.Vector3 | THREE.Vector4 | THREE.Euler, options?: { step?: number | undefined }): GUI;
+        addVector(
+            name: string,
+            vector: THREE.Vector2 | THREE.Vector3 | THREE.Vector4 | THREE.Euler,
+            options?: { step?: number | undefined },
+        ): GUI;
     }
 }
 
