@@ -52,7 +52,7 @@ async function streamingClient() {
         user,
         storeUrl,
         updateUrl,
-        maxQuadsPerRequest: 1,
+        maxQuadsPerRequest: 10,
     });
 
     let endpoint: Endpoint = fullOptions.query.endpoint;
