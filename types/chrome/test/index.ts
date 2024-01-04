@@ -1855,8 +1855,8 @@ async function testI18nForPromise() {
 }
 
 async function testPageCapture() {
-    chrome.pageCapture.saveAsMHTML({ tabId: 0 }, (data: Blob | undefined) => {});
-    await chrome.pageCapture.saveAsMHTML({ tabId: 0 });
+    chrome.pageCapture.saveAsMHTML({ tabId: 0 }, (data: Blob | undefined) => {}); // $ExpectType void
+    await chrome.pageCapture.saveAsMHTML({ tabId: 0 }); // $ExpectType Blob | undefined
 }
 
 // https://developer.chrome.com/docs/extensions/reference/downloads
