@@ -6242,6 +6242,10 @@ declare namespace chrome.pageCapture {
      * Parameter mhtmlData: The MHTML data as a Blob.
      */
     export function saveAsMHTML(details: SaveDetails, callback: (mhtmlData?: Blob) => void): void;
+    /**
+     * Promises are supported in Manifest V3 and later, but callbacks are provided for backward compatibility. You cannot use both on the same function call. The promise resolves with the same type that is passed to the callback.
+     */
+    export function saveAsMHTML(details: SaveDetails): Promise<Blob | undefined>;
 }
 
 ////////////////////
