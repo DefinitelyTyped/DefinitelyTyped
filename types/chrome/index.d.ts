@@ -7235,7 +7235,9 @@ declare namespace chrome.runtime {
         icons?: ManifestIcons | undefined;
 
         // Optional
-        author?: string | undefined;
+        author?: {
+            email: string;
+        } | undefined;
         background_page?: string | undefined;
         chrome_settings_overrides?: {
             homepage?: string | undefined;
