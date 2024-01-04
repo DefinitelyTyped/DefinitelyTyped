@@ -6,10 +6,9 @@
         "http://facebook.github.io/react/"
     ],
     "dependencies": {
-        "@types/react": "*"
+        "@types/create-react-class": "*"
     },
     "devDependencies": {
-        "@types/create-react-class": "*",
         "@types/react-dom-factories": "*",
         "@types/react-addons-pure-render-mixin": "workspace:."
     },
