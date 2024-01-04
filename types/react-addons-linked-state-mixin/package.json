@@ -6,6 +6,7 @@
         "http://facebook.github.io/react/"
     ],
     "dependencies": {
+        "@types/react": "*",
         "@types/create-react-class": "*"
     },
     "devDependencies": {
