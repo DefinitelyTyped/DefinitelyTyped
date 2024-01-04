@@ -1,7 +1,6 @@
 import { Algorithm, VerifyOptions } from "jsonwebtoken";
 import { Strategy as PassportStrategy } from "passport-strategy";
 
-
 export declare class Strategy extends PassportStrategy {
     /**
      * Strategy constructor
@@ -65,19 +64,21 @@ interface WithSecretOrKeyProvider extends BaseStrategyOptions {
 interface WithSecretOrKey extends BaseStrategyOptions {
     secretOrKey: string | Buffer;
 }
-type StrategyOptionsWithSecret = Omit<WithSecretOrKey, 'secretOrKeyProvider'> | Omit<WithSecretOrKeyProvider, 'secretOrKey'>;
+type StrategyOptionsWithSecret =
+    | Omit<WithSecretOrKey, "secretOrKeyProvider">
+    | Omit<WithSecretOrKeyProvider, "secretOrKey">;
 type StrategyOptionsWithRequest = StrategyOptionsWithSecret & {
     /**
      * If true, the verify callback will be called with args (request, jwt_payload, done_callback).
      */
     passReqToCallback: true;
-}
+};
 type StrategyOptionsWithoutRequest = StrategyOptionsWithSecret & {
     /**
      * If true, the verify callback will be called with args (request, jwt_payload, done_callback).
      */
     passReqToCallback?: false;
-}
+};
 
 /**
  * Union type for all possible Strategy options.
@@ -88,7 +89,6 @@ export type StrategyOptions = StrategyOptionsWithRequest | StrategyOptionsWithou
  * Callback used to verify the JWT payload.
  */
 export type VerifyCallback = (payload: any, done: VerifiedCallback) => void;
-
 
 /**
  * Callback used to verify the JWT payload with request.
@@ -111,44 +111,44 @@ export interface JwtFromRequestFunction<T = any> {
 
 export declare namespace ExtractJwt {
     /**
- * Creates an extractor function to retrieve a token from the request header.
- *
- * @param {string} header_name - The name of the header to extract the token from.
- * @returns {JwtFromRequestFunction} A function that takes a request object and returns the extracted token.
- */
+     * Creates an extractor function to retrieve a token from the request header.
+     *
+     * @param {string} header_name - The name of the header to extract the token from.
+     * @returns {JwtFromRequestFunction} A function that takes a request object and returns the extracted token.
+     */
     export function fromHeader(header_name: string): JwtFromRequestFunction;
     /**
- * Creates an extractor function to retrieve a token from a field in the request body.
- *
- * @param {string} field_name - The name of the field to extract the token from.
- * @returns {JwtFromRequestFunction} A function that takes a request object and returns the extracted token.
- */
+     * Creates an extractor function to retrieve a token from a field in the request body.
+     *
+     * @param {string} field_name - The name of the field to extract the token from.
+     * @returns {JwtFromRequestFunction} A function that takes a request object and returns the extracted token.
+     */
     export function fromBodyField(field_name: string): JwtFromRequestFunction;
     /**
- * Creates an extractor function to retrieve a token from a query parameter in the URL.
- *
- * @param {string} param_name - The name of the query parameter to extract the token from.
- * @returns {JwtFromRequestFunction} A function that takes a request object and returns the extracted token.
- */
+     * Creates an extractor function to retrieve a token from a query parameter in the URL.
+     *
+     * @param {string} param_name - The name of the query parameter to extract the token from.
+     * @returns {JwtFromRequestFunction} A function that takes a request object and returns the extracted token.
+     */
     export function fromUrlQueryParameter(param_name: string): JwtFromRequestFunction;
     /**
- * Creates an extractor function to retrieve a token from the authorization header with a specific scheme.
- *
- * @param {string} auth_scheme - The authorization scheme (e.g., 'Bearer').
- * @returns {JwtFromRequestFunction} A function that takes a request object and returns the extracted token.
- */
+     * Creates an extractor function to retrieve a token from the authorization header with a specific scheme.
+     *
+     * @param {string} auth_scheme - The authorization scheme (e.g., 'Bearer').
+     * @returns {JwtFromRequestFunction} A function that takes a request object and returns the extracted token.
+     */
     export function fromAuthHeaderWithScheme(auth_scheme: string): JwtFromRequestFunction;
     /**
- * Creates an extractor function that combines multiple extractor functions.
- *
- * @param {JwtFromRequestFunction[]} extractors - An array of extractor functions.
- * @returns {JwtFromRequestFunction} A function that takes a request object and returns the extracted token.
- */
+     * Creates an extractor function that combines multiple extractor functions.
+     *
+     * @param {JwtFromRequestFunction[]} extractors - An array of extractor functions.
+     * @returns {JwtFromRequestFunction} A function that takes a request object and returns the extracted token.
+     */
     export function fromExtractors<T = any>(extractors: Array<JwtFromRequestFunction<T>>): JwtFromRequestFunction<T>;
     /**
- * Creates an extractor function to retrieve a token from the authorization header as a Bearer token.
- *
- * @returns {JwtFromRequestFunction} A function that takes a request object and returns the extracted token.
- */
+     * Creates an extractor function to retrieve a token from the authorization header as a Bearer token.
+     *
+     * @returns {JwtFromRequestFunction} A function that takes a request object and returns the extracted token.
+     */
     export function fromAuthHeaderAsBearerToken(): JwtFromRequestFunction;
 }
