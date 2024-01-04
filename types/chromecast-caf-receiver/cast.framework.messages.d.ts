@@ -595,8 +595,6 @@ export class TvShowMediaMetadata {
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.AudioTrackInfo
  */
 export class AudioTrackInfo {
-    constructor();
-
     /**
      * This represents the codec of the audio track.
      */
