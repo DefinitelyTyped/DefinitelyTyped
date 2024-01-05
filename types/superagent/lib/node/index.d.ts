@@ -11,7 +11,7 @@ import { ReadStream } from "fs";
 import { LookupFunction } from "net";
 import RequestBase = require("../request-base");
 import ResponseBase = require("./response");
-import {AgentOptions, AgentOptions as SAgentOptions, CBHandler} from "../../types";
+import { AgentOptions, AgentOptions as SAgentOptions, CBHandler } from "../../types";
 
 type HttpMethod<Req extends request.Request> =
     | ((url: string, callback?: CBHandler) => Req)
