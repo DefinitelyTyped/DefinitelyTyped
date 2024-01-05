@@ -366,14 +366,14 @@ export interface DiffOptions {
     conversionAccuracy?: ConversionAccuracy | undefined;
 }
 
-export interface BaseComparisonOptions {
-    /** If true, use weeks based on the locale, i.e. use the locale-dependent start of the week */
+export interface _UseLocaleWeekOption {
+    /** If true, use weeks based on the locale, i.e., use the locale-dependent start of the week */
     useLocaleWeeks?: boolean;
 }
 
-export type HasSameOptions = BaseComparisonOptions;
-export type StartOfOptions = BaseComparisonOptions;
-export type EndOfOptions = BaseComparisonOptions;
+export type HasSameOptions = _UseLocaleWeekOption;
+export type StartOfOptions = _UseLocaleWeekOption;
+export type EndOfOptions = _UseLocaleWeekOption;
 
 export interface ExplainedFormat {
     input: string;

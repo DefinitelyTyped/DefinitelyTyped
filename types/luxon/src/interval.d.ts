@@ -1,5 +1,13 @@
 import { CanBeInvalid, DefaultValidity, IfValid, Invalid, Valid } from "./_util";
-import { DateObjectUnits, DateTime, DateTimeOptions, DiffOptions, LocaleOptions, ToISOTimeOptions } from "./datetime";
+import {
+    _UseLocaleWeekOption,
+    DateObjectUnits,
+    DateTime,
+    DateTimeOptions,
+    DiffOptions,
+    LocaleOptions,
+    ToISOTimeOptions,
+} from "./datetime";
 import { Duration, DurationLike, DurationMaybeValid, DurationUnit } from "./duration";
 
 export interface IntervalObject {
@@ -11,10 +19,7 @@ export type DateInput = DateTime | DateObjectUnits | Date;
 
 export type IntervalMaybeValid = CanBeInvalid extends true ? (Interval<Valid> | Interval<Invalid>) : Interval;
 
-export interface CountOptions {
-    /** If true, use weeks based on the locale, i.e. use the locale-dependent start of the week */
-    useLocaleWeeks?: boolean;
-}
+export type CountOptions = _UseLocaleWeekOption;
 
 /**
  * An Interval object represents a half-open interval of time, where each endpoint is a {@link DateTime}.
