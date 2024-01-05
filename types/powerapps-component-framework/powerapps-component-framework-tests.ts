@@ -664,5 +664,5 @@ const fluentDesignLanguage: ComponentFramework.FluentDesignState = {
 };
 
 const lookupOptionsTest: ComponentFramework.UtilityApi.LookupOptions = {
-    entityTypes: []
-}
+    entityTypes: [],
+};
