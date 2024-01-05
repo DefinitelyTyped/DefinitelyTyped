@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/pg",
-    "version": "8.10.9999",
+    "version": "8.10.10000",
     "projects": [
         "https://github.com/brianc/node-postgres"
     ],
