@@ -322,6 +322,13 @@ Info.features().intlTokens;
 // @ts-expect-error
 Info.features().zones;
 Info.features().relative; // $ExpectType boolean
+Info.features().localeWeek; // $ExpectType boolean
+
+Info.getStartOfWeek(); // $ExpectType WeekdayNumbers
+Info.getStartOfWeek({ locale: "en-US" }); // $ExpectType WeekdayNumbers
+Info.getStartOfWeek({ locObj: {} }); // $ExpectType WeekdayNumbers
+Info.getMinimumDaysInFirstWeek(); // $ExpectType WeekdayNumbers
+Info.getWeekendWeekdays(); // $ExpectType WeekdayNumbers[]
 
 /* Settings */
 Settings.defaultLocale;
