@@ -1,17 +1,19 @@
 {
+  "private": true,
   "name": "@types/qtypings-browser-global",
   "version": "1.0.2",
   "description": "this is an npm package of qiushaocloud typings browser global dts file",
-  "author": "qiushaocloud",
-  "license": "MIT",
   "types": "qdts-main.d.ts",
-  "typings": "qdts-main.d.ts",
-  "main": "",
-  "keywords": ["https://www.qiushaocloud.top", "qiushaocloud", "@types/qtypings-browser-global", "qtypings-browser-global"],
-  "scripts": {
-    "inner-publish-npmjs": "npm publish --registry https://registry.npmjs.org/ --access=public --token=$NPM_QIUSHAOCLOUD_PUBLISH_TOKEN",
-    "inner-publish-qiushaocloud-npmjs": "npm publish --registry https://npm.qiushaocloud.top:4873/ --access=public --token=$QIUSHAOCLOUD_SELF_NPMJS_PUBLISH_TOKEN"
+  "projects": [
+    "https://github.com/qiushaocloud/npmjs-dts-types-projects"
+  ],
+  "devDependencies": {
+    "@types/qtypings-browser-global": "workspace:."
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "owners": [
+    {
+      "name": "Qiushaocloud",
+      "githubUsername": "qiushaocloud"
+    }
+  ]
 }
