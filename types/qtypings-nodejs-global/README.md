@@ -1,6 +1,14 @@
 NodeJS 环境定义一些全局接口、类型等
 
-### nodejs.d.ts
+### 项目源码
+* 自建 gitlab 地址: https://gitlab.qiushaocloud.top/qiushaocloud/npmjs-dts-types-projects
+* github 地址: https://github.com/qiushaocloud/npmjs-dts-types-projects
+
+### npm 包
+* 安装 npm 包: `npm install --save-dev @types/qtypings-nodejs-global`
+
+###  TS 定义
+#### nodejs.d.ts
 ```typescript
 declare namespace NodeJS {
     interface Global {
@@ -9,8 +17,7 @@ declare namespace NodeJS {
 }
 ```
 
-
-### object.d.ts
+#### object.d.ts
 ```typescript
 declare type IQJson = Record<string, any>;
 
@@ -21,8 +28,7 @@ declare type IQJsonNumber = Record<number, any>
 declare type IQJsonNumberT<T> = Record<number, T>;
 ```
 
-
-### fn.d.ts
+#### fn.d.ts
 ```typescript
 /** 任意回调参数的回调函数 */
 export interface IQFnAnyArgs{
