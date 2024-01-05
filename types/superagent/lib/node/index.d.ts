@@ -11,7 +11,7 @@ import { ReadStream } from "fs";
 import { LookupFunction } from "net";
 import RequestBase = require("../request-base");
 import ResponseBase = require("./response");
-import { AgentOptions, AgentOptions as SAgentOptions, CBHandler } from "../../types";
+import { AgentOptions as SAgentOptions, CBHandler } from "../../types";
 
 type HttpMethod<Req extends request.Request> =
     | ((url: string, callback?: CBHandler) => Req)
@@ -145,7 +145,7 @@ declare namespace request {
 
         Request: typeof SARequest;
         Response: typeof ResponseBase;
-        agent: typeof SAgent & ((options?: AgentOptions) => InstanceType<typeof SAgent>);
+        agent: typeof SAgent & ((options?: SAgentOptions) => InstanceType<typeof SAgent>);
         protocols: {
             "http:": typeof http;
             "https:": typeof https;
