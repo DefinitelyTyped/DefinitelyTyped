@@ -1,9 +1,7 @@
 {
   "private": true,
   "name": "@types/qtypings-nodejs-global",
-  "version": "1.0.9999",
-  "description": "this is an npm package of qiushaocloud typings nodejs global dts file",
-  "types": "qdts-main.d.ts",
+  "version": "1.1.9999",
   "projects": [
     "https://github.com/qiushaocloud/npmjs-dts-types-projects"
   ],
