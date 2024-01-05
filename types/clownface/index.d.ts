@@ -1,4 +1,5 @@
-import { BlankNode, DatasetCore, DatasetCoreFactory, Literal, NamedNode, Quad_Graph, Term } from "rdf-js";
+import { BlankNode, DataFactory, DatasetCore, DatasetCoreFactory, Literal, NamedNode, Quad_Graph, Term } from "rdf-js";
+import { Environment } from "@rdfjs/environment/Environment.js";
 import Context from "./lib/Context.js";
 
 export type AnyContext = Term | Term[] | undefined;
@@ -20,7 +21,7 @@ interface NodeOptions {
 }
 
 export type ClownfaceInit<D extends DatasetCore = DatasetCore> = Partial<
-    Pick<AnyPointer<AnyContext, D>, "dataset" | "_context"> & { graph: Quad_Graph }
+    Pick<AnyPointer<AnyContext, D>, "dataset" | "_context"> & { graph: Quad_Graph; factory: Environment<DatasetCoreFactory | DataFactory> }
 >;
 
 type Iteratee<T extends AnyContext = undefined, D extends DatasetCore = DatasetCore> = T extends undefined ? never

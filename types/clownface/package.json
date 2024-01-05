@@ -7,12 +7,13 @@
     ],
     "type": "module",
     "dependencies": {
-        "rdf-js": "^4.0.2"
+        "rdf-js": "^4.0.2",
+        "@types/rdfjs__environment": "*"
     },
     "devDependencies": {
         "@types/clownface": "workspace:.",
         "@types/rdfjs__dataset": "*",
-        "@types/rdfjs__environment": "*"
+        "@types/rdfjs__data-model": "*"
     },
     "owners": [
         {
