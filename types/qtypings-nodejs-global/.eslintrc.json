@@ -1,5 +1,8 @@
 {
     "rules": {
-      "@typescript-eslint/naming-convention": "off"
+      "@typescript-eslint/naming-convention": "off",
+      "@definitelytyped/no-any-union": "off",
+      "@typescript-eslint/no-invalid-void-type": "off",
+      "@definitelytyped/strict-export-declare-modifiers": "off"
     }
   }
