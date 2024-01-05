@@ -577,13 +577,13 @@ export class Hygrometer {
     on(event: "data", cb: (data: unknown) => void): this;
 }
 
-// tslint:disable-next-line:interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IMUGeneralOption {
     controller?: string | undefined;
     freq?: number | undefined;
 }
 
-// tslint:disable-next-line:interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IMUMPU6050Option extends IMUGeneralOption {
     address: number;
 }
@@ -931,11 +931,13 @@ export class Piezo {
     readonly mode: number;
     readonly isPlaying: boolean;
 
-    frequency(frequency: number, duration: number): void;
-    play(tune: PiezoTune, cb?: () => void): void;
-    tone(tone: number, duration: number): void;
-    noTone(): void;
-    off(): void;
+    frequency(frequency: number, duration: number): this;
+    note(note: string, duration: number): this;
+    play(tune: PiezoTune, cb?: () => void): this;
+    tone(tone: number, duration: number): this;
+    noTone(): this;
+    off(): this;
+    stop(): this;
 }
 
 export interface PinOption {
@@ -1036,7 +1038,7 @@ export class Proximity {
 
 export interface RelayOption {
     pin: number | string;
-    board?: Board;
+    board?: Board | undefined;
     /**
      * @default 'NO'
      */
@@ -1140,7 +1142,7 @@ export class Sensor {
 
 export interface ServoGeneralOption {
     pin: number | string;
-    board?: Board;
+    board?: Board | undefined;
     range?: number[];
     type?: string;
     startAt?: number;

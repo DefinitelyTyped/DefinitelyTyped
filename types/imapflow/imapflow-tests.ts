@@ -38,3 +38,6 @@ client.list();
 
 // $Expect Promise<MailboxDeleteResponse>
 client.mailboxDelete("INBOX.example");
+
+// $Expect Promise<StatusObject>
+client.status("INBOX", { uidNext: true });

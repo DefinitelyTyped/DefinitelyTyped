@@ -1,7 +1,6 @@
 // From https://github.com/jpuri/react-draft-wysiwyg/blob/master/stories/
 
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import { Editor, RawDraftContentState } from "react-draft-wysiwyg";
 
 class BasicContentState extends React.Component<{}, { contentState: RawDraftContentState }> {
@@ -41,5 +40,3 @@ class BasicContentState extends React.Component<{}, { contentState: RawDraftCont
         );
     }
 }
-
-ReactDOM.render(<BasicContentState />, document.getElementById("target"));

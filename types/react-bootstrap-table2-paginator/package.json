@@ -10,8 +10,7 @@
     },
     "devDependencies": {
         "@types/react": "*",
-        "@types/react-bootstrap-table2-paginator": "workspace:.",
-        "@types/react-dom": "*"
+        "@types/react-bootstrap-table2-paginator": "workspace:."
     },
     "owners": [
         {

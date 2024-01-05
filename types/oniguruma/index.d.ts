@@ -107,7 +107,7 @@ export class OnigScanner {
      * Create a new scanner with the given patterns.
      * @param patterns An array of string patterns.
      */
-    constructor(patterns: ReadonlyArray<string>);
+    constructor(patterns: readonly string[]);
 
     /**
      * Find the next match from a given position

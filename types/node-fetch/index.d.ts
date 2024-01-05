@@ -184,13 +184,14 @@ export interface ResponseInit {
     statusText?: string | undefined;
     timeout?: number | undefined;
     url?: string | undefined;
+    counter?: number | undefined;
 }
 
 interface URLLike {
     href: string;
 }
 
-export type HeadersInit = Headers | string[][] | { [key: string]: string };
+export type HeadersInit = Headers | string[][] | { [key: string]: string | string[] };
 // HeaderInit is exported to support backwards compatibility. See PR #34382
 export type HeaderInit = HeadersInit;
 export type BodyInit =

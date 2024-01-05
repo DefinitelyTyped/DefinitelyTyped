@@ -1556,7 +1556,7 @@ declare namespace Joi {
          * @param constructor - the constructor function that the object must be an instance of.
          * @param name - an alternate name to use in validation errors. This is useful when the constructor function does not have a name.
          */
-        // tslint:disable-next-line:ban-types
+        // eslint-disable-next-line @typescript-eslint/ban-types
         instance(constructor: Function, name?: string): this;
 
         /**

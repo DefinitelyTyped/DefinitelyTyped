@@ -392,7 +392,7 @@ declare namespace google.payments.api {
          * If omitted, a shipping address from any supported country may be
          * returned.
          */
-        allowedCountryCodes: string[];
+        allowedCountryCodes?: string[];
 
         /**
          * Whether a phone number is additionally required from the buyer for

@@ -9,7 +9,7 @@ declare namespace factory {
         [P in keyof T]: Definition<T[P]>;
     };
 
-    type MaybeReadonlyArray<T> = T | ReadonlyArray<T>;
+    type MaybeReadonlyArray<T> = T | readonly T[];
 
     type BuildOptions = Record<string, any>;
 
@@ -59,7 +59,7 @@ declare namespace factory {
             name: string,
             num: number,
             attrs?: MaybeReadonlyArray<Attributes<Partial<T>>>,
-            buildOptions?: BuildOptions | ReadonlyArray<BuildOptions>,
+            buildOptions?: BuildOptions | readonly BuildOptions[],
         ): Promise<T[]>;
 
         /**

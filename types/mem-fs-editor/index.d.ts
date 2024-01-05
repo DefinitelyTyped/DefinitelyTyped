@@ -48,7 +48,7 @@ export interface Editor {
     exists(filepath: string): boolean;
 
     commit(callback: CommitCallback): void;
-    commit(filters: ReadonlyArray<Transform>, callback: CommitCallback): void;
+    commit(filters: readonly Transform[], callback: CommitCallback): void;
 }
 
 export interface WithGlobOptions {

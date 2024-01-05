@@ -5,7 +5,7 @@ export type GetDataID = (fieldValue: { [key: string]: any }, typeName: string) =
 
 export interface NormalizationOptions {
     getDataID: GetDataID;
-    path?: ReadonlyArray<string> | undefined;
+    path?: readonly string[] | undefined;
     request: RequestDescriptor;
 }
 

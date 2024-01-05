@@ -1,7 +1,7 @@
 export const stdout: TestStream;
 export const stderr: TestStream;
 
-export type Output = ReadonlyArray<string>;
+export type Output = readonly string[];
 export type OutputCallback = (output: Output) => void;
 export type AsyncOutputCallback = (output: Output) => Promise<void>;
 export type NoOutputCallback = () => void;

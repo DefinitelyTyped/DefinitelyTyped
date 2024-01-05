@@ -8,10 +8,10 @@ jobs:
     timeoutInMinutes: 360
 
     steps:
-      - task: NodeTool@0
-        displayName: Use Node 16
+      - task: UseNode@1
+        displayName: Use Node 20
         inputs:
-          versionSpec: 16.x
+          version: 20.x
           checkLatest: true
 
       - script: |
@@ -21,6 +21,9 @@ jobs:
 
       - script: ./scripts/pnpm-install.sh
         displayName: 'pnpm install'
+
+      - script: pnpm ls
+        displayName: 'pnpm ls'
 
       - script: |
           if [[ $BUILD_REASON == "Schedule" ]]; then git config --global user.email "types@microsoft.com" && git config --global user.name "TypeScript Bot" && pnpm run update-codeowners; fi

@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import PDFViewer = require("pdf-viewer-reactjs");
 
 const sources = {
@@ -189,5 +188,3 @@ class Example extends React.Component {
         );
     }
 }
-
-ReactDOM.render(<Example />, document.getElementById("root"));

@@ -17,7 +17,7 @@ import {
 } from '../constants.js';
 
 /** Shim for OffscreenCanvas. */
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface OffscreenCanvas extends EventTarget {}
 
 /**
@@ -366,7 +366,7 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
      * @remarks It should not hold references to functions as these will not be cloned.
      * @defaultValue `{}`
      */
-    userData: any;
+    userData: Record<string, any>;
 
     /**
      * This starts at `0` and counts how many times {@link needsUpdate | .needsUpdate} is set to `true`.

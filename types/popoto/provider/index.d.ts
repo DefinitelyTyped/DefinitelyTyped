@@ -515,7 +515,7 @@ export interface Provider {
      * Default color scale generator.
      * Used in getColor link and node providers.
      */
-    colorScale: d3.ScaleOrdinal<string, ReadonlyArray<string>>;
+    colorScale: d3.ScaleOrdinal<string, readonly string[]>;
 
     colorLuminance: (hex: string, lum: number) => string;
 

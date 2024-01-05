@@ -4,6 +4,10 @@
         "@definitelytyped/no-any-union": "off",
         "@definitelytyped/no-declare-current-package": "off",
         "@definitelytyped/strict-export-declare-modifiers": "off",
-        "@definitelytyped/no-single-declare-module": "off"
+        "@definitelytyped/no-single-declare-module": "off",
+        "@definitelytyped/npm-naming": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/no-empty-interface": "off",
+        "@typescript-eslint/no-invalid-void-type": "off"
     }
 }

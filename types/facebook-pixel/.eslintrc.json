@@ -1,5 +1,7 @@
 {
     "rules": {
-        "@definitelytyped/dt-header": "off"
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/npm-naming": "off",
+        "@typescript-eslint/prefer-namespace": "off"
     }
 }

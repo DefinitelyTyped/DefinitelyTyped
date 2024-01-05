@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/browser-sync",
-    "version": "2.27.9999",
+    "version": "2.29.9999",
     "projects": [
         "http://www.browsersync.io/"
     ],

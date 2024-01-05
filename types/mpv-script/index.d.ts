@@ -37,7 +37,7 @@ declare namespace mp {
 
     function command(command: string): true | undefined;
 
-    function commandv(...args: ReadonlyArray<string>): true | undefined;
+    function commandv(...args: readonly string[]): true | undefined;
 
     function command_native(table: unknown, def?: unknown): unknown;
 

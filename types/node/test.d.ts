@@ -18,7 +18,7 @@
  *
  * 1. A synchronous function that is considered failing if it throws an exception,
  * and is considered passing otherwise.
- * 2. A function that returns a `Promise` that is considered failing if the`Promise` rejects, and is considered passing if the `Promise` resolves.
+ * 2. A function that returns a `Promise` that is considered failing if the`Promise` rejects, and is considered passing if the `Promise` fulfills.
  * 3. A function that receives a callback function. If the callback receives any
  * truthy value as its first argument, the test is considered failing. If a
  * falsy value is passed as the first argument to the callback, the test is
@@ -40,7 +40,7 @@
  *
  * test('asynchronous passing test', async (t) => {
  *   // This test passes because the Promise returned by the async
- *   // function is not rejected.
+ *   // function is settled and not rejected.
  *   assert.strictEqual(1, 1);
  * });
  *
@@ -104,8 +104,8 @@ declare module "node:test" {
      * actions related to the current test. Examples include skipping the test, adding
      * additional diagnostic information, or creating subtests.
      *
-     * `test()` returns a `Promise` that resolves once the test completes.
-     * if `test()` is called within a `describe()` block, it resolve immediately.
+     * `test()` returns a `Promise` that fulfills once the test completes.
+     * if `test()` is called within a `describe()` block, it fulfills immediately.
      * The return value can usually be discarded for top level tests.
      * However, the return value from subtests should be used to prevent the parent
      * test from finishing first and cancelling the subtest
@@ -132,7 +132,7 @@ declare module "node:test" {
      * @param options Configuration options for the test. The following properties are supported:
      * @param [fn='A no-op function'] The function under test. The first argument to this function is a {@link TestContext} object. If the test uses callbacks, the callback function is passed as the
      * second argument.
-     * @return Resolved with `undefined` once the test completes, or immediately if the test runs within {@link describe}.
+     * @return Fulfilled with `undefined` once the test completes, or immediately if the test runs within {@link describe}.
      */
     function test(name?: string, fn?: TestFn): Promise<void>;
     function test(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;

@@ -216,7 +216,7 @@ declare namespace Knockback {
         key: string;
         read?: (() => any) | undefined;
         write?: ((value: any) => void) | undefined;
-        args?: KnockoutObservable<any>[] | undefined;
+        args?: Array<KnockoutObservable<any>> | undefined;
         localizer?: LocalizedObservable | undefined;
         default?: any;
         path?: string | undefined;

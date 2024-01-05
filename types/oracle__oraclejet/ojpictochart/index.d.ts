@@ -107,7 +107,7 @@ export namespace ojPictoChart {
         }>
     {
     }
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ItemContext<K> = {
         color: string;
         count: number;
@@ -116,12 +116,12 @@ export namespace ojPictoChart {
         selected: boolean;
         tooltip: string;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type NodeContext = {
         subId: string;
         index: number;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type TooltipContext<K> = {
         parentElement: Element;
         id: K;

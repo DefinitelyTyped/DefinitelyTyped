@@ -32,6 +32,7 @@ export interface Intersection<TIntersected extends Object3D = Object3D> {
     /** The index number of the instance where the ray intersects the {@link THREE.InstancedMesh | InstancedMesh } */
     instanceId?: number | undefined;
     pointOnLine?: Vector3;
+    batchId?: number;
 }
 
 export interface RaycasterParameters {

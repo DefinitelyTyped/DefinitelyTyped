@@ -1,5 +1,5 @@
-import { Color, ColorRepresentation } from './../math/Color.js';
-import { Texture } from './../textures/Texture.js';
+import { Color, ColorRepresentation } from '../math/Color.js';
+import { Texture } from '../textures/Texture.js';
 import { MaterialParameters, Material } from './Material.js';
 import { Combine, NormalMapTypes } from '../constants.js';
 import { Vector2 } from '../Three.js';
@@ -37,6 +37,13 @@ export interface MeshLambertMaterialParameters extends MaterialParameters {
 
 export class MeshLambertMaterial extends Material {
     constructor(parameters?: MeshLambertMaterialParameters);
+
+    /**
+     * Read-only flag to check if a given object is of type {@link MeshLambertMaterial}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isMeshLambertMaterial: true;
 
     /**
      * @default 'MeshLambertMaterial'

@@ -1,4 +1,4 @@
-import { PerspectiveCamera } from './../cameras/PerspectiveCamera.js';
+import { PerspectiveCamera } from '../cameras/PerspectiveCamera.js';
 import { LightShadow } from './LightShadow.js';
 
 /**

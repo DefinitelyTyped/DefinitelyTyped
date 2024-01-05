@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 type WalkerCallback = (node: Child, index: number, nodes: Child[]) => boolean | void;
 
 export interface Node {

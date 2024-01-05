@@ -9,8 +9,7 @@
         "@types/react": "*"
     },
     "devDependencies": {
-        "@types/muicss": "workspace:.",
-        "@types/react-dom": "*"
+        "@types/muicss": "workspace:."
     },
     "owners": [
         {

@@ -1,5 +1,5 @@
-import { Camera } from './../../cameras/Camera.js';
-import { Material } from './../../materials/Material.js';
+import { Camera } from '../../cameras/Camera.js';
+import { Material } from '../../materials/Material.js';
 import { Plane } from '../../math/Plane.js';
 import { WebGLProperties } from './WebGLProperties.js';
 

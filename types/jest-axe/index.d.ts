@@ -74,3 +74,9 @@ declare global {
     // axe-core depends on a global Node
     interface Node {}
 }
+
+declare module "@jest/expect" {
+    interface Matchers<R extends void | Promise<void>> {
+        toHaveNoViolations(): R;
+    }
+}

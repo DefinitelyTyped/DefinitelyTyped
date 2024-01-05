@@ -53,7 +53,7 @@ declare class CPK {
     getOwnerAccount(): Promise<string>;
     get address(): string;
     execTransactions(
-        transactions: ReadonlyArray<CPK.Transaction>,
+        transactions: readonly CPK.Transaction[],
         options?: CPK.TransactionOptions,
     ): Promise<CPK.TransactionResult>;
 }

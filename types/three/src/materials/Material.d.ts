@@ -1,7 +1,7 @@
 import { Plane } from '../math/Plane.js';
 import { EventDispatcher } from '../core/EventDispatcher.js';
+import { WebGLProgramParametersWithUniforms } from '../renderers/webgl/WebGLPrograms.js';
 import { WebGLRenderer } from '../renderers/WebGLRenderer.js';
-import { Shader } from '../renderers/shaders/ShaderLib.js';
 import {
     BlendingDstFactor,
     BlendingEquation,
@@ -60,7 +60,7 @@ export interface MaterialParameters {
     stencilFail?: StencilOp | undefined;
     stencilZFail?: StencilOp | undefined;
     stencilZPass?: StencilOp | undefined;
-    userData?: any;
+    userData?: Record<string, any> | undefined;
 }
 
 /**
@@ -68,6 +68,13 @@ export interface MaterialParameters {
  */
 export class Material extends EventDispatcher<{ dispose: {} }> {
     constructor();
+
+    /**
+     * Read-only flag to check if a given object is of type {@link Material}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isMaterial: true;
 
     /**
      * Enables alpha hashed transparency, an alternative to {@link .transparent} or {@link .alphaTest}. The material
@@ -257,12 +264,6 @@ export class Material extends EventDispatcher<{ dispose: {} }> {
     stencilZPass: StencilOp;
 
     /**
-     * Used to check whether this or derived classes are materials. Default is true.
-     * You should not change this, as it used internally for optimisation.
-     */
-    readonly isMaterial: true;
-
-    /**
      * Material name. Default is an empty string.
      * @default ''
      */
@@ -338,8 +339,8 @@ export class Material extends EventDispatcher<{ dispose: {} }> {
     shadowSide: Side | null;
 
     /**
-     * Defines whether this material is tone mapped according to the renderer's toneMapping setting.
-     * Default is true.
+     * Defines whether this material is tone mapped according to the renderer's
+     * {@link WebGLRenderer.toneMapping toneMapping} setting. It is ignored when rendering to a render target.
      * @default true
      */
     toneMapped: boolean;
@@ -347,7 +348,6 @@ export class Material extends EventDispatcher<{ dispose: {} }> {
     /**
      * Defines whether this material is transparent. This has an effect on rendering as transparent objects need special treatment and are rendered after non-transparent objects.
      * When set to true, the extent to which the material is transparent is controlled by setting it's .opacity property.
-     * Default is false.
      * @default false
      */
     transparent: boolean;
@@ -379,7 +379,7 @@ export class Material extends EventDispatcher<{ dispose: {} }> {
      * An object that can be used to store custom data about the Material. It should not hold references to functions as these will not be cloned.
      * @default {}
      */
-    userData: any;
+    userData: Record<string, any>;
 
     /**
      * This starts at 0 and counts how many times .needsUpdate is set to true.
@@ -405,12 +405,12 @@ export class Material extends EventDispatcher<{ dispose: {} }> {
 
     /**
      * An optional callback that is executed immediately before the shader program is compiled.
-     * This function is called with the shader source code as a parameter.
+     * This function is called with the associated WebGL program parameters and renderer.
      * Useful for the modification of built-in materials.
-     * @param shader Source code of the shader
-     * @param renderer WebGLRenderer Context that is initializing the material
+     * @param parameters WebGL program parameters
+     * @param renderer WebGLRenderer context that is initializing the material
      */
-    onBeforeCompile(shader: Shader, renderer: WebGLRenderer): void;
+    onBeforeCompile(parameters: WebGLProgramParametersWithUniforms, renderer: WebGLRenderer): void;
 
     /**
      * In case onBeforeCompile is used, this callback can be used to identify values of settings used in onBeforeCompile, so three.js can reuse a cached shader or recompile the shader as needed.

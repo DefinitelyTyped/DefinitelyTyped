@@ -64,7 +64,7 @@ function testMapConstructor() {
     var numberArrayMap: d3.Map<number> = d3.map<number>(numberArray);
 
     // Array with keyFn constructor
-    var objectArray: { key: string }[] = [{ key: "v1" }, { key: "v2" }, { key: "v3" }];
+    var objectArray: Array<{ key: string }> = [{ key: "v1" }, { key: "v2" }, { key: "v3" }];
     var indexes: number[] = [];
     // keyFn with index
     var objectArrayMap1: d3.Map<{ key: string }> = d3.map<{ key: string }>(
@@ -121,7 +121,7 @@ function groupedBarChart() {
 
     d3.csv(
         "data.csv",
-        <any> function(error: any, data: Array<GroupedData>) {
+        <any> function(error: any, data: GroupedData[]) {
             var ageNames = d3.keys(data[0]).filter(function(key) {
                 return key !== "State";
             });
@@ -990,7 +990,7 @@ function populationPyramid() {
 
     d3.csv(
         "population.csv",
-        <any> function(error: any, rows: Array<PyramidData>) {
+        <any> function(error: any, rows: PyramidData[]) {
             // Convert strings to numbers.
             rows.forEach(function(d) {
                 d.people = +d.people;
@@ -1148,7 +1148,7 @@ namespace forcedBasedLabelPlacemant {
 
     var nodes: Node[] = [];
     var labelAnchors: LabelAnchor[] = [];
-    var labelAnchorLinks: { source: number; target: number; weight: number }[] = [];
+    var labelAnchorLinks: Array<{ source: number; target: number; weight: number }> = [];
     var links: typeof labelAnchorLinks = [];
 
     for (var i = 0; i < 30; i++) {
@@ -1762,7 +1762,7 @@ function quadtree() {
         });
 
     var point = svg.selectAll(".point")
-        .data(<{ scanned?: boolean | undefined; selected?: boolean | undefined; 0: number; 1: number }[]> data)
+        .data(<Array<{ scanned?: boolean | undefined; selected?: boolean | undefined; 0: number; 1: number }>> data)
         .enter().append("circle")
         .attr("class", "point")
         .attr("cx", function(d) {
@@ -1983,7 +1983,7 @@ namespace hierarchicalEdgeBundling {
         // Return a list of imports for the given array of nodes.
         imports: function(nodes: any[]) {
             var map: { [key: string]: Result } = {},
-                imports: d3.layout.cluster.Link<Result>[] = [];
+                imports: Array<d3.layout.cluster.Link<Result>> = [];
 
             // Compute a map from name to node.
             nodes.forEach(function(d) {
@@ -3500,7 +3500,7 @@ interface NodeWithText extends d3.layout.partition.Node {
     t: string;
     children?: NodeWithText[] | undefined;
 }
-function testPartition(data: Array<NodeWithText>) {
+function testPartition(data: NodeWithText[]) {
     var width = 1000;
     var height = 1000;
 

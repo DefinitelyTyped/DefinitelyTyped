@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/react-svg-pan-zoom-loader",
-    "version": "1.4.9999",
+    "version": "1.5.9999",
     "projects": [
         "https://github.com/chrvadala/react-svg-pan-zoom-loader#readme"
     ],

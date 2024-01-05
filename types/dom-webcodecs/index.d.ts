@@ -15,7 +15,7 @@
 // and modified to expand the types to include VideoFrame.
 
 /** Shim for OffscreenCanvas, which was removed in TS 4.4 */
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface OffscreenCanvas extends EventTarget {
 }
 

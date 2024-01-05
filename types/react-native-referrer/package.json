@@ -7,7 +7,7 @@
     ],
     "devDependencies": {
         "@types/react": "*",
-        "@types/react-native": "*",
+        "react-native": "*",
         "@types/react-native-referrer": "workspace:."
     },
     "owners": [

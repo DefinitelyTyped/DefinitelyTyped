@@ -26,7 +26,7 @@ declare namespace renderMathInElement {
          *   {left: "\\[", right: "\\]", display: true}
          * ]
          */
-        delimiters?: ReadonlyArray<RenderMathInElementSpecificOptionsDelimiters> | undefined;
+        delimiters?: readonly RenderMathInElementSpecificOptionsDelimiters[] | undefined;
         /**
          * A list of DOM node types to ignore when recursing through
          *

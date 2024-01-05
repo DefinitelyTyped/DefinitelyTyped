@@ -122,7 +122,7 @@ export class ImapFlow extends EventEmitter {
     fetch(
         range: SequenceString | number[] | SearchObject,
         query: FetchQueryObject,
-        options?: { uid?: boolean; changedSince: bigint },
+        options?: { uid?: boolean; changedSince?: bigint; binary?: boolean },
     ): AsyncGenerator<FetchMessageObject, never, void>;
 }
 
@@ -196,7 +196,7 @@ export interface FetchMessageObject {
     source: Buffer;
     modseq: BigInt;
     emailId: string;
-    threadId: string;
+    threadId?: string;
     labels: Set<string>;
     size: number;
     flags: Set<string>;
@@ -291,7 +291,7 @@ export interface StatusObject {
     path: string;
     messages?: number;
     recent?: number;
-    uid?: number;
+    uidNext?: number;
     uidValidity?: bigint;
     unseen?: number;
     highestModseq?: bigint;

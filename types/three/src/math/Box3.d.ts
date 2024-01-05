@@ -1,6 +1,6 @@
-import { BufferAttribute } from './../core/BufferAttribute.js';
+import { BufferAttribute } from '../core/BufferAttribute.js';
 import { Vector3 } from './Vector3.js';
-import { Object3D } from './../core/Object3D.js';
+import { Object3D } from '../core/Object3D.js';
 import { Sphere } from './Sphere.js';
 import { Plane } from './Plane.js';
 import { Matrix4 } from './Matrix4.js';

@@ -753,7 +753,7 @@ declare namespace multiplex {
          * @param arrayIndex The zero-based index in array at which copying begins.
          */
         copyTo(array: TKey[], arrayIndex: number): void;
-        copyTo(array: KeyValuePair<TKey, TValue>[], arrayIndex: number): void;
+        copyTo(array: Array<KeyValuePair<TKey, TValue>>, arrayIndex: number): void;
 
         /**
          * Gets a Collection containing the keys of the Dictionary.

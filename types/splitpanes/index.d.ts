@@ -102,6 +102,7 @@ export interface SplitPaneMethods {
     onMouseMove: (event: Event) => void;
     onMouseUp: () => void;
     onSplitterClick: (event: Event, splitterIndex: number) => void;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onSplitterDblClick: (event: Event, splitterIndex: number) => Pane | void;
     onPaneClick: (event: Event, splitterIndex: number) => void;
     getCurrentMouseDrag: (event: Event) => CoordinateType;

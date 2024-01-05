@@ -15,7 +15,7 @@ type MAXIMUM_ALLOWED_BOUNDARY = 80;
 type Mapped<
     Tuple extends unknown[],
     Result extends unknown[] = [],
-    Count extends ReadonlyArray<number> = [],
+    Count extends readonly number[] = [],
 > = Count["length"] extends MAXIMUM_ALLOWED_BOUNDARY ? Result
     : Tuple extends [] ? []
     : Result extends [] ? Mapped<Tuple, Tuple, [...Count, 1]>

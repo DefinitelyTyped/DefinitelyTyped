@@ -568,7 +568,7 @@ nodes.maxIndegree(loops);
 nodes.minOutdegree(loops);
 nodes.maxOutdegree(loops);
 
-// tslint:disable-next-line:ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 const getsetPos = <T extends Function>(func: T): T => {
     func("x", func("x"));
     func(func());

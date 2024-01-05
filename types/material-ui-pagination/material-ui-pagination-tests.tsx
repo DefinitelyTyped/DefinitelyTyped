@@ -1,10 +1,7 @@
 import * as ui from "material-ui";
 import Pagination from "material-ui-pagination";
 import { MuiThemeProvider } from "material-ui/styles";
-import * as PropTypes from "prop-types";
 import * as React from "react";
-import { Component } from "react";
-import * as ReactDOM from "react-dom";
 import injectTapEventPlugin = require("react-tap-event-plugin");
 
 // Needed for onTouchTap
@@ -29,7 +26,7 @@ class Pager extends React.Component<{}, PagerState> {
         const perPage = 10;
         const totalPage = Math.floor(length / perPage);
 
-        const list: JSX.Element[] = [];
+        const list: React.JSX.Element[] = [];
         for (let i = pageIndex * perPage; i < (pageIndex * perPage + perPage); i++) {
             list.push(<p key={`${i}`}>{`No.${i}`}</p>);
         }
@@ -65,5 +62,3 @@ const Index = () => (
         <Pager />
     </MuiThemeProvider>
 );
-
-ReactDOM.render(<Index />, document.getElementById("root") as HTMLElement);

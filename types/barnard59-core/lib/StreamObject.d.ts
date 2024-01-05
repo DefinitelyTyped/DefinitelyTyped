@@ -5,7 +5,7 @@ import { Logger } from "winston";
 import { CreatePipelineArgs } from "./factory/pipeline.js";
 import Pipeline from "./Pipeline.js";
 
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Variables {}
 
 type Keys = keyof Variables extends never ? string : keyof Variables;

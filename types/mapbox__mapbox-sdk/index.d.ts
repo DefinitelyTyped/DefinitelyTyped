@@ -429,6 +429,50 @@ declare module "@mapbox/mapbox-sdk/services/directions" {
         voiceUnits?: DirectionsUnits | undefined;
     }
 
+    type DirectionsProfileInclusion = {
+        profile: "walking" | "cycling";
+    } | {
+        profile: "driving";
+        /**
+         * The desired arrival time, formatted as a timestamp in ISO-8601 format in the local time at the route destination. The travel time, returned in duration, is a prediction for travel time based on historical travel data. The route is calculated in a time-dependent manner. For example, a trip that takes two hours will consider changing historic traffic conditions across the two-hour window. The route takes timed turn restrictions and conditional access restrictions into account based on the requested arrival time.
+         */
+        arriveBy?: string;
+        /**
+         * The departure time, formatted as a timestamp in ISO-8601 format in the local time at the route origin. The travel time, returned in duration, is a prediction for travel time based on historical travel data. The route is calculated in a time-dependent manner. For example, a trip that takes two hours will consider changing historic traffic conditions across the two-hour window, instead of only at the specified depart_at time. The route takes timed turn restrictions and conditional access restrictions into account based on the requested departure time.
+         */
+        departAt?: string;
+        /**
+         * The max vehicle height, in meters. If this parameter is provided, the Directions API will compute a route that includes only roads with a height limit greater than or equal to the max vehicle height. max_height must be between 0 and 10 meters. The default value is 1.6 meters. Coverage for road height restriction may vary by region.
+         */
+        maxHeight?: number;
+        /**
+         * The max vehicle weight, in metric tons (1000 kg). If this parameter is provided, the Directions API will compute a route that includes only roads with a weight limit greater than or equal to the max vehicle weight. max_weight must be between 0 and 100 metric tons. The default value is 2.5 metric tons. Coverage for road weight restriction may vary by region.
+         */
+        maxWeight?: number;
+        /**
+         * The max vehicle width, in meters. If this parameter is provided, the Directions API will compute a route that includes only roads with a width limit greater than or equal to the max vehicle width. max_width must be between 0 and 10 meters. The default value is 1.9 meters. Coverage for road width restriction may vary by region.
+         */
+        maxWidth?: number;
+    } | {
+        profile: "driving-traffic";
+        /**
+         * The departure time, formatted as a timestamp in ISO-8601 format in the local time at the route origin. The travel time, returned in duration, is a prediction for travel time based on historical travel data and live traffic. Live traffic is gently mixed with historical data when depart_at is set close to current time. The route takes timed turn restrictions and conditional access restrictions into account based on the requested arrival time.
+         */
+        departAt?: string;
+        /**
+         * The max vehicle height, in meters. If this parameter is provided, the Directions API will compute a route that includes only roads with a height limit greater than or equal to the max vehicle height. max_height must be between 0 and 10 meters. The default value is 1.6 meters. Coverage for road height restriction may vary by region.
+         */
+        maxHeight?: number;
+        /**
+         * The max vehicle weight, in metric tons (1000 kg). If this parameter is provided, the Directions API will compute a route that includes only roads with a weight limit greater than or equal to the max vehicle weight. max_weight must be between 0 and 100 metric tons. The default value is 2.5 metric tons. Coverage for road weight restriction may vary by region.
+         */
+        maxWeight?: number;
+        /**
+         * The max vehicle width, in meters. If this parameter is provided, the Directions API will compute a route that includes only roads with a width limit greater than or equal to the max vehicle width. max_width must be between 0 and 10 meters. The default value is 1.9 meters. Coverage for road width restriction may vary by region.
+         */
+        maxWidth?: number;
+    };
+
     type DirectionsProfileExclusion =
         | {
             profile: "walking";
@@ -445,6 +489,7 @@ declare module "@mapbox/mapbox-sdk/services/directions" {
 
     type DirectionsRequest<T extends DirectionsGeometry = "polyline"> =
         & CommonDirectionsRequest<T>
+        & DirectionsProfileInclusion
         & DirectionsProfileExclusion;
 
     interface Waypoint {
@@ -821,6 +866,368 @@ declare module "@mapbox/mapbox-sdk/services/directions" {
 }
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@mapbox/mapbox-sdk/services/geocoding-v6" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import { Coordinates as MapiRequestCoordinates, MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
+
+    /*********************************************************************************************************************
+     * Geocoder Types for v6 API
+     *********************************************************************************************************************/
+
+    export default function GeocodingV6(config: SdkConfig | MapiClient): GeocodeService;
+
+    interface GeocodeService {
+        forwardGeocode(request: ForwardGeocodeRequest): MapiRequest<GeocodeResponse>;
+        reverseGeocode(request: ReverseGeocodeRequest): MapiRequest<GeocodeResponse>;
+    }
+
+    type BoundingBox = [number, number, number, number];
+
+    type GeocodeMode = "standard" | "structured";
+
+    type GeocodeQueryType =
+        | "address"
+        | "country"
+        | "district"
+        | "locality"
+        | "neighborhood"
+        | "place"
+        | "postcode"
+        | "region"
+        | "street";
+
+    interface GeocodeV6Request {
+        /**
+         * Either `standard` for common forward geocoding, or `structured` for
+         * increasing the accuracy of results. To use Structured Input, the
+         * query parameter must be dropped in favor of a separate parameter for
+         * individual feature components. Defaults to `standard`.
+         */
+        mode?: GeocodeMode;
+        /**
+         * Limits results to the specified countries. Each item in the array
+         * should be an ISO 3166 alpha 2 country code. [OR] if used with input
+         * mode="structured" denotes single country in free form.
+         */
+        countries?: string[] | string;
+        /**
+         * Bias local results based on a provided coordinate location or a
+         * user's IP address.
+         */
+        proximity?: Coordinates | "ip";
+        /**
+         * Filter results by feature types.
+         */
+        types?: GeocodeQueryType[];
+        /**
+         * Specify the desired response format of results (geojson, default) or
+         * for backwards compatibility (v5).
+         */
+        format?: "geojson" | "v5";
+        /**
+         * Specify the language to use for response text and, for forward
+         * geocoding, query result weighting.
+         */
+        language?: string;
+        /**
+         * Limit the number of results returned. The default is 5 for forward
+         */
+        limit?: number;
+        /**
+         * Filter results to geographic features whose characteristics are
+         * defined differently by audiences belonging to various regional,
+         * cultural, or political groups. Defaults to "us".
+         */
+        worldview?: string;
+        /**
+         * Return autocomplete results or not. Defaults to true.
+         */
+        autocomplete?: boolean;
+        /**
+         * Specify whether you intend to store the results of the query (true)
+         * or not (false, default). Temporary results are not allowed to be
+         * cached, while Permanent results are allowed to be cached and stored
+         * indefinitely. Defaults to false.
+         */
+        permanent?: boolean;
+    }
+
+    interface BaseForwardGeocodeRequest extends GeocodeV6Request {
+        /**
+         * Limit results to a bounding box.
+         */
+        bbox?: BoundingBox;
+    }
+
+    interface ReverseGeocodeRequest extends GeocodeV6Request {
+        /**
+         * longitude coordinate at which features will be searched.
+         */
+        longitude: number;
+        /**
+         * latitude coordinate at which features will be searched.
+         */
+        latitude: number;
+        countries?: string[];
+    }
+
+    interface StructuredGeocodeRequest extends BaseForwardGeocodeRequest {
+        mode: Extract<GeocodeMode, "structured">;
+        countries?: string;
+        /**
+         * A string including address_number and street. These values can
+         * alternatively be provided as separate parameters. (Structured Input
+         * specific field)
+         */
+        address_line1?: string;
+        /**
+         * The number associated with the house (Structured Input specific
+         * field)
+         */
+        address_number?: string;
+        /**
+         * The name of the street in the address (Structured Input specific
+         * field)
+         */
+        street?: string;
+        /**
+         * In some countries like Japan, the block is a component in the address
+         * (Structured Input specific field)
+         */
+        block?: string;
+        /**
+         * Typically these are cities, villages, municipalities, etc.
+         * (Structured Input specific field)
+         */
+        place?: string;
+        /**
+         * Top-level sub-national administrative features, such as states in the
+         * United States or provinces in Canada or China. (Structured Input
+         * specific field)
+         */
+        region?: string;
+        /**
+         * Colloquial sub-city features often referred to in local parlance
+         * (Structured Input specific field)
+         */
+        neighborhood?: string;
+        /**
+         * Postal codes used in country-specific national addressing systems.
+         * (Structured Input specific field)
+         */
+        postcode?: string;
+        /**
+         * Official sub-city features (Structured Input specific field)
+         */
+        locality?: string;
+    }
+
+    interface StandardGeocodeRequest extends BaseForwardGeocodeRequest {
+        /**
+         * A place name.
+         */
+        query: string;
+        mode?: Extract<GeocodeMode, "standard">;
+        countries?: string[];
+    }
+
+    type ForwardGeocodeRequest = StructuredGeocodeRequest | StandardGeocodeRequest;
+
+    interface GeocodeResponse {
+        /**
+         * "FeatureCollection", a GeoJSON type from the GeoJSON specification.
+         */
+        type: string;
+        /**
+         * An array of feature objects.
+         */
+        features: Feature[];
+        /**
+         * Attributes the results of the Mapbox Geocoding API to Mapbox.
+         */
+        attribution: string;
+    }
+
+    interface Feature {
+        /**
+         * Feature id. This property is named "id" to conform to the GeoJSON
+         * specification, but is the same id referred to as mapbox_id elsewhere
+         * in the response.
+         */
+        id: string;
+        /**
+         * "Feature", a GeoJSON type from the GeoJSON specification.
+         */
+        type: string;
+        /**
+         * An object describing the spatial geometry of the returned feature.
+         */
+        geometry: Geometry;
+        /**
+         * An object containing the resulting feature's details.
+         */
+        properties: Properties;
+    }
+
+    interface Geometry {
+        /**
+         * "Point", a GeoJSON type from the GeoJSON specification.
+         */
+        type: string;
+        /**
+         * An array in the format [longitude,latitude] at the center of the
+         * specified bbox.
+         */
+        coordinates: MapiRequestCoordinates;
+    }
+
+    interface Properties extends NamedLocation {
+        /**
+         * A string describing the type of the feature. Options are country,
+         * region, postcode, district, place, locality, neighborhood, street,
+         * address. Formerly place_type in v5.
+         */
+        feature_type: string;
+        /**
+         * The coordinates of the properties.
+         */
+        coordinates: Coordinates;
+        /**
+         * An array of additional feature types.
+         */
+        additional_feature_types: string[];
+        /**
+         * The bounding box of the feature in minLon,minLat,maxLon,maxLat order.
+         * This property is only provided with features of type country, region,
+         * postcode, district, place, locality, or neighborhood.
+         */
+        bbox: number[];
+        /**
+         * An object representing the hierarchy of encompassing parent features.
+         * This may include a sub-object for any of the following properties:
+         * country, region, postcode, district, place, locality, neighborhood,
+         * street.
+         *
+         * Which sub-objects are included is dependent upon the data coverage
+         * available and applicable to a given country or area.
+         */
+        context: Context;
+    }
+
+    interface Coordinates {
+        /**
+         * The longitude coordinate.
+         */
+        longitude: number;
+        /**
+         * The latitude coordinate.
+         */
+        latitude: number;
+        /**
+         * Accuracy metric for a returned address-type result. See "Point
+         * accuracy for address features" below.
+         */
+        accuracy?: string;
+    }
+
+    interface Context {
+        /**
+         * The region information of the context.
+         */
+        region?: Region;
+        /**
+         * The country information of the context.
+         */
+        country?: Country;
+        /**
+         * The place information of the context.
+         */
+        place?: Place;
+        /**
+         * The locality information of the context.
+         */
+        locality?: Locality;
+        /**
+         * The district information of the context.
+         */
+        district?: District;
+        /**
+         * The postcode information of the context.
+         */
+        postcode?: Postcode;
+    }
+
+    interface Region extends NamedLocation {
+        /**
+         * The full region code of the region.
+         */
+        region_code_full?: string;
+        /**
+         * The region code of the region.
+         */
+        region_code?: string;
+    }
+
+    interface Country extends NamedLocation {
+        /**
+         * The country code of the country.
+         */
+        country_code?: string;
+        /**
+         * The alpha-3 country code of the country.
+         */
+        country_code_alpha_3?: string;
+    }
+
+    interface Place extends IdentifiableLocation {
+        /**
+         * The short code of the place.
+         */
+        short_code?: string;
+    }
+
+    type Locality = IdentifiableLocation;
+
+    type District = IdentifiableLocation;
+
+    interface IdentifiableLocation extends NamedLocation {
+        /**
+         * The Wikidata ID of the identifiable location.
+         */
+        wikidata_id: string;
+    }
+
+    type Postcode = NamedLocation;
+
+    interface NamedLocation {
+        /**
+         * Feature id. The mapbox_id uniquely identifies a place in the Mapbox
+         * search database. Mapbox ID’s are accepted in requests to the
+         * Geocoding API as a forward search, and will return the feature
+         * corresponding to that id.
+         */
+        mapbox_id: string;
+        /**
+         * Formatted string of address_number and street.
+         */
+        name: string;
+        /**
+         *  Present when there is a canonical or otherwise more common alias for
+         *  the feature name. For example, searching for "America" will return
+         *  "America" as the name, and "United States" as name_preferred.
+         */
+        name_preferred?: string;
+        /**
+         *  Formatted string of result context: place region country postcode.
+         *  The part of the result which comes after name.
+         */
+        place_formatted?: string;
+    }
+}
+
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "@mapbox/mapbox-sdk/services/geocoding" {
     import { LngLatLike } from "mapbox-gl";
     // eslint-disable-next-line @definitelytyped/no-self-import
@@ -869,9 +1276,9 @@ declare module "@mapbox/mapbox-sdk/services/geocoding" {
          */
         countries?: string[] | undefined;
         /**
-         * Bias local results based on a provided location. Options are  longitude,latitude coordinates.
+         * Bias local results based on a provided location. Options are longitude,latitude coordinates or the user's ip.
          */
-        proximity?: Coordinates | undefined;
+        proximity?: Coordinates | "ip" | undefined;
         /**
          * Filter results by one or more feature types
          */

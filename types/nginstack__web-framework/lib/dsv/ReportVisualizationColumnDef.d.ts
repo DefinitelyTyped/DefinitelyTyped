@@ -40,5 +40,5 @@ interface ColumnLinkDef {
     target: string;
     params: any;
 }
-declare var mergeDuplicatedValues: boolean;
+declare let mergeDuplicatedValues: boolean;
 type DBKey = import("@nginstack/engine/lib/dbkey/DBKey");

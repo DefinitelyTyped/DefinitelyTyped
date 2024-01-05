@@ -1,5 +1,5 @@
 import { Matrix3 } from './Matrix3.js';
-import { BufferAttribute } from './../core/BufferAttribute.js';
+import { BufferAttribute } from '../core/BufferAttribute.js';
 
 export type Vector2Tuple = [number, number];
 

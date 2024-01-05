@@ -60,7 +60,7 @@ export interface TestResult {
 }
 
 export interface TestReport {
-    results: ReadonlyArray<TestResult>;
+    results: readonly TestResult[];
     errorCount: number;
     duration: number;
 }

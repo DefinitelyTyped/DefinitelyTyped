@@ -10,7 +10,6 @@ import {
     useParams,
 } from "@reach/router";
 import * as React from "react";
-import { render } from "react-dom";
 
 interface DashParams {
     id: string;
@@ -49,45 +48,42 @@ const UseParamsCheck = (props: RouteComponentProps) => {
     return <div>{params.value}</div>;
 };
 
-render(
-    <Router className="my-class">
-        <Router component="div">
-            <Home path="/" />
-        </Router>
-        <Router component={Home}>
-            <Home path="/" />
-        </Router>
+<Router className="my-class">
+    <Router component="div">
         <Home path="/" />
-        <Dash path="/default/:id" />
-        <UseMatchCheck path="/params/*" />
-        <UseLocationCheck path="/another-path" />
-        <UseParamsCheck path="/current/:value" />
-        <NotFound default />
+    </Router>
+    <Router component={Home}>
+        <Home path="/" />
+    </Router>
+    <Home path="/" />
+    <Dash path="/default/:id" />
+    <UseMatchCheck path="/params/*" />
+    <UseLocationCheck path="/another-path" />
+    <UseParamsCheck path="/current/:value" />
+    <NotFound default />
 
-        <Link to="/somepath" rel="noopener noreferrer" target="_blank" />
-        <Redirect to="/somepath" replace={false} state={{ from: "/" }} />
+    <Link to="/somepath" rel="noopener noreferrer" target="_blank" />
+    <Redirect to="/somepath" replace={false} state={{ from: "/" }} />
 
-        <Location>
-            {context => (
-                <>
-                    <div>hostname is {context.location.hostname}</div>
-                    <button onClick={(): Promise<void> => context.navigate("/")}>Go Home</button>
-                    <button onClick={(): Promise<void> => context.navigate(-1)}>Go Back</button>
-                </>
-            )}
-        </Location>
-        <LocationProvider>
-            {context => (
-                <>
-                    <div>hostname is {context.location.hostname}</div>
-                    <button onClick={(): Promise<void> => context.navigate("/")}>Go Home</button>
-                    <button onClick={(): Promise<void> => context.navigate(-1)}>Go Back</button>
-                </>
-            )}
-        </LocationProvider>
-    </Router>,
-    document.getElementById("app-root"),
-);
+    <Location>
+        {context => (
+            <>
+                <div>hostname is {context.location.hostname}</div>
+                <button onClick={(): Promise<void> => context.navigate("/")}>Go Home</button>
+                <button onClick={(): Promise<void> => context.navigate(-1)}>Go Back</button>
+            </>
+        )}
+    </Location>
+    <LocationProvider>
+        {context => (
+            <>
+                <div>hostname is {context.location.hostname}</div>
+                <button onClick={(): Promise<void> => context.navigate("/")}>Go Home</button>
+                <button onClick={(): Promise<void> => context.navigate(-1)}>Go Back</button>
+            </>
+        )}
+    </LocationProvider>
+</Router>;
 
 const handleRef = (el: HTMLAnchorElement | null) => {
     if (el !== null) {
@@ -95,12 +91,12 @@ const handleRef = (el: HTMLAnchorElement | null) => {
     }
 };
 
-render(<Link innerRef={handleRef} to="./foo"></Link>, document.getElementById("app-root"));
-render(<Link ref={handleRef} to="./foo"></Link>, document.getElementById("app-root"));
+<Link innerRef={handleRef} to="./foo"></Link>;
+<Link ref={handleRef} to="./foo"></Link>;
 
 const refObject: React.RefObject<HTMLAnchorElement> = { current: null };
-render(<Link innerRef={refObject} to="./foo"></Link>, document.getElementById("app-root"));
-render(<Link ref={refObject} to="./foo"></Link>, document.getElementById("app-root"));
+<Link innerRef={refObject} to="./foo"></Link>;
+<Link ref={refObject} to="./foo"></Link>;
 
 // Link can be used as a generic.
 // TODO: When TS >= 3.1 is supported, use more modern syntax:

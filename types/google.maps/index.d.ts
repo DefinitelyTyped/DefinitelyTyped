@@ -1,7 +1,8 @@
 // To report an issue with these types, please open a support ticket at:
 // https://issuetracker.google.com/savedsearches/558438
 
-// Google Maps JS API Version: 3.54
+// g3-format-clang
+// Google Maps JS API Version: 3.55
 // tslint:disable:enforce-name-casing
 // tslint:disable:no-any
 // tslint:disable:interface-over-type-literal
@@ -1351,8 +1352,8 @@ declare namespace google.maps {
      * or <code>Place</code> objects, to which to calculate distance and time.
      * Required.
      */
-    destinations: (string|google.maps.LatLng|google.maps.LatLngLiteral|
-                   google.maps.Place)[];
+    destinations: Array<string|google.maps.LatLng|google.maps.LatLngLiteral|
+                   google.maps.Place>;
     /**
      * Settings that apply only to requests where <code>travelMode</code> is
      * <code>DRIVING</code>. This object will have no effect for other travel
@@ -1371,8 +1372,8 @@ declare namespace google.maps {
      * <code>Place</code> objects, from which to calculate distance and time.
      * Required.
      */
-    origins: (string|google.maps.LatLng|google.maps.LatLngLiteral|
-              google.maps.Place)[];
+    origins: Array<string|google.maps.LatLng|google.maps.LatLngLiteral|
+              google.maps.Place>;
     /**
      * Region code used as a bias for geocoding requests. The region code
      * accepts a <a
@@ -3150,7 +3151,7 @@ declare namespace google.maps {
     /**
      * The discrete locations for which to retrieve elevations.
      */
-    locations?: (google.maps.LatLng|google.maps.LatLngLiteral)[]|null;
+    locations?: Array<google.maps.LatLng|google.maps.LatLngLiteral>|null;
   }
   /**
    * An elevation response returned by the {@link google.maps.ElevationService}
@@ -3293,7 +3294,7 @@ declare namespace google.maps {
      * <code>MVCArray</code> corresponding to the <code>ControlPosition</code>
      * where it should be rendered.
      */
-    controls: google.maps.MVCArray<HTMLElement>[];
+    controls: Array<google.maps.MVCArray<HTMLElement>>;
     /**
      * An instance of <code>Data</code>, bound to the map. Add features to this
      * <code>Data</code> object to conveniently display them on this map.
@@ -3849,23 +3850,13 @@ declare namespace google.maps {
      */
     noClear?: boolean|null;
     /**
-     * The enabled/disabled state of the Pan control. <p> Note: The Pan control
-     * is not available in the new set of controls introduced in v3.22 of the
-     * Google Maps JavaScript API. While using v3.22 and v3.23, you can choose
-     * to use the earlier set of controls rather than the new controls, thus
-     * making the Pan control available as part of the old control set. See <a
-     * href="https://developers.google.com/maps/articles/v322-controls-diff">What&#39;s
-     * New in the v3.22 Map Controls</a>.
+     * The enabled/disabled state of the Pan control. <p>
+     * @deprecated The Pan control is deprecated as of September 2015.
      */
     panControl?: boolean|null;
     /**
-     * The display options for the Pan control. <p> Note: The Pan control is not
-     * available in the new set of controls introduced in v3.22 of the Google
-     * Maps JavaScript API. While using v3.22 and v3.23, you can choose to use
-     * the earlier set of controls rather than the new controls, thus making the
-     * Pan control available as part of the old control set. See <a
-     * href="https://developers.google.com/maps/articles/v322-controls-diff">What&#39;s
-     * New in the v3.22 Map Controls</a>.
+     * The display options for the Pan control. <p>
+     * @deprecated The Pan control is deprecated as of September 2015.
      */
     panControlOptions?: google.maps.PanControlOptions|null;
     /**
@@ -4222,6 +4213,7 @@ declare namespace google.maps {
     TrafficLayer: typeof google.maps.TrafficLayer;
     TransitLayer: typeof google.maps.TransitLayer;
     WebGLOverlayView: typeof google.maps.WebGLOverlayView;
+    ZoomChangeEvent: typeof google.maps.ZoomChangeEvent;
   }
   /**
    * Base class for managing network errors in Maps.
@@ -4928,7 +4920,7 @@ declare namespace google.maps {
     /**
      * The path along which to collect elevation values.
      */
-    path?: (google.maps.LatLng|google.maps.LatLngLiteral)[]|null;
+    path?: Array<google.maps.LatLng|google.maps.LatLngLiteral>|null;
     /**
      * Required. The number of equidistant points along the given path for which
      * to retrieve elevation data, including the endpoints. The number of
@@ -5167,7 +5159,7 @@ declare namespace google.maps {
      * href="#PolygonOptions">PolygonOptions</a></code></em> for more details.
      */
     setPath(path: google.maps.MVCArray<google.maps.LatLng>|
-            (google.maps.LatLng|google.maps.LatLngLiteral)[]): void;
+            Array<google.maps.LatLng|google.maps.LatLngLiteral>): void;
     /**
      * Sets the path for this polygon.
      */
@@ -5319,7 +5311,7 @@ declare namespace google.maps {
      * href="#PolylineOptions">PolylineOptions</a></code></em> for more details.
      */
     setPath(path: google.maps.MVCArray<google.maps.LatLng>|
-            (google.maps.LatLng|google.maps.LatLngLiteral)[]): void;
+            Array<google.maps.LatLng|google.maps.LatLngLiteral>): void;
     /**
      * Hides this poly if set to <code>false</code>.
      */
@@ -5373,7 +5365,7 @@ declare namespace google.maps {
      * update the polyline on the map.
      */
     path?: google.maps.MVCArray<google.maps.LatLng>|
-        (google.maps.LatLng|google.maps.LatLngLiteral)[]|null;
+        Array<google.maps.LatLng|google.maps.LatLngLiteral>|null;
     /**
      * The stroke color. All CSS3 colors are supported except for extended named
      * colors.
@@ -5846,7 +5838,7 @@ declare namespace google.maps {
      * <code>MVCArray</code> corresponding to the {@link
      * google.maps.ControlPosition} where it should be rendered.
      */
-    controls: google.maps.MVCArray<HTMLElement>[];
+    controls: Array<google.maps.MVCArray<HTMLElement>>;
     /**
      * Sets focus on this <code>StreetViewPanorama</code>. You may wish to
      * consider using this method along with a <code>visible_changed</code>
@@ -5858,7 +5850,7 @@ declare namespace google.maps {
     /**
      * Returns the set of navigation links for the Street View panorama.
      */
-    getLinks(): (google.maps.StreetViewLink|null)[]|null;
+    getLinks(): Array<google.maps.StreetViewLink|null>|null;
     /**
      * Returns the StreetViewLocation of the current panorama.
      */
@@ -5916,7 +5908,7 @@ declare namespace google.maps {
     /**
      * Sets the set of navigation links for the Street View panorama.
      */
-    setLinks(links: (google.maps.StreetViewLink|null)[]|null): void;
+    setLinks(links: Array<google.maps.StreetViewLink|null>|null): void;
     /**
      * Sets the state of motion tracker. If <code>true</code> when the user
      * physically moves the device and the browser supports it, the Street View
@@ -6312,7 +6304,7 @@ declare namespace google.maps {
      * https://developers.google.com/maps/documentation/javascript/libraries.
      */
     constructor(
-        styles: (google.maps.MapTypeStyle|null)[]|null,
+        styles: Array<google.maps.MapTypeStyle|null>|null,
         options?: google.maps.StyledMapTypeOptions|null);
     alt: string;
     /**
@@ -6661,7 +6653,7 @@ declare namespace google.maps {
     /**
      * The transit agency that operates this transit line.
      */
-    agencies: (google.maps.TransitAgency|null)[]|null;
+    agencies: Array<google.maps.TransitAgency|null>|null;
     /**
      * The color commonly used in signage for this transit line, represented as
      * a hex string.
@@ -7071,6 +7063,27 @@ declare namespace google.maps {
     gl: WebGLRenderingContext;
   }
   /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   *
+   * This event is created from monitoring zoom change.
+   *
+   * Access by calling `const {ZoomChangeEvent} = await
+   * google.maps.importLibrary("maps")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class ZoomChangeEvent extends Event {
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     *
+     * This event is created from monitoring zoom change.
+     *
+     * Access by calling `const {ZoomChangeEvent} = await
+     * google.maps.importLibrary("maps")`. See
+     * https://developers.google.com/maps/documentation/javascript/libraries.
+     */
+    constructor();
+  }
+  /**
    * Options for the rendering of the zoom control.
    */
   export interface ZoomControlOptions {
@@ -7361,8 +7374,8 @@ declare namespace google.maps.Data {
      * google.maps.importLibrary("maps")`. See
      * https://developers.google.com/maps/documentation/javascript/libraries.
      */
-    constructor(elements: (google.maps.Data.Geometry|google.maps.LatLng|
-                           google.maps.LatLngLiteral)[]);
+    constructor(elements: Array<google.maps.Data.Geometry|google.maps.LatLng|
+                           google.maps.LatLngLiteral>);
     forEachLatLng(callback: (a: google.maps.LatLng) => void): void;
     /**
      * Returns an array of the contained geometry objects. A new array is
@@ -7396,7 +7409,7 @@ declare namespace google.maps.Data {
      * google.maps.importLibrary("maps")`. See
      * https://developers.google.com/maps/documentation/javascript/libraries.
      */
-    constructor(elements: (google.maps.LatLng|google.maps.LatLngLiteral)[]);
+    constructor(elements: Array<google.maps.LatLng|google.maps.LatLngLiteral>);
     forEachLatLng(callback: (a: google.maps.LatLng) => void): void;
     /**
      * Returns an array of the contained <code>LatLngs</code>. A new array is
@@ -7436,7 +7449,7 @@ declare namespace google.maps.Data {
      * google.maps.importLibrary("maps")`. See
      * https://developers.google.com/maps/documentation/javascript/libraries.
      */
-    constructor(elements: (google.maps.LatLng|google.maps.LatLngLiteral)[]);
+    constructor(elements: Array<google.maps.LatLng|google.maps.LatLngLiteral>);
     forEachLatLng(callback: (a: google.maps.LatLng) => void): void;
     /**
      * Returns an array of the contained <code>LatLng</code>s. A new array is
@@ -7480,8 +7493,8 @@ declare namespace google.maps.Data {
      * google.maps.importLibrary("maps")`. See
      * https://developers.google.com/maps/documentation/javascript/libraries.
      */
-    constructor(elements: (google.maps.Data.LineString|
-                           (google.maps.LatLng|google.maps.LatLngLiteral)[])[]);
+    constructor(elements: Array<google.maps.Data.LineString|
+                           Array<google.maps.LatLng|google.maps.LatLngLiteral>>);
     forEachLatLng(callback: (a: google.maps.LatLng) => void): void;
     /**
      * Returns an array of the contained <code>Data.LineString</code>s. A new
@@ -7515,7 +7528,7 @@ declare namespace google.maps.Data {
      * google.maps.importLibrary("maps")`. See
      * https://developers.google.com/maps/documentation/javascript/libraries.
      */
-    constructor(elements: (google.maps.LatLng|google.maps.LatLngLiteral)[]);
+    constructor(elements: Array<google.maps.LatLng|google.maps.LatLngLiteral>);
     forEachLatLng(callback: (a: google.maps.LatLng) => void): void;
     /**
      * Returns an array of the contained <code>LatLng</code>s. A new array is
@@ -7550,9 +7563,9 @@ declare namespace google.maps.Data {
      * https://developers.google.com/maps/documentation/javascript/libraries.
      */
     constructor(elements:
-                    (google.maps.Data.Polygon|
-                     (google.maps.Data.LinearRing|
-                      (google.maps.LatLng|google.maps.LatLngLiteral)[])[])[]);
+                    Array<google.maps.Data.Polygon|
+                     Array<google.maps.Data.LinearRing|
+                      Array<google.maps.LatLng|google.maps.LatLngLiteral>>>);
     forEachLatLng(callback: (a: google.maps.LatLng) => void): void;
     /**
      * Returns an array of the contained <code>Data.Polygon</code>s. A new array
@@ -7620,8 +7633,8 @@ declare namespace google.maps.Data {
      * google.maps.importLibrary("maps")`. See
      * https://developers.google.com/maps/documentation/javascript/libraries.
      */
-    constructor(elements: (google.maps.Data.LinearRing|
-                           (google.maps.LatLng|google.maps.LatLngLiteral)[])[]);
+    constructor(elements: Array<google.maps.Data.LinearRing|
+                           Array<google.maps.LatLng|google.maps.LatLngLiteral>>);
     forEachLatLng(callback: (a: google.maps.LatLng) => void): void;
     /**
      * Returns an array of the contained <code>Data.LinearRing</code>s. A new
@@ -8010,7 +8023,7 @@ declare namespace google.maps.geometry.encoding {
    * Encodes a sequence of LatLngs into an encoded path string.
    */
   export function encodePath(
-      path: (google.maps.LatLng|google.maps.LatLngLiteral)[]|
+      path: Array<google.maps.LatLng|google.maps.LatLngLiteral>|
       google.maps.MVCArray<google.maps.LatLng|google.maps.LatLngLiteral>):
       string;
 }
@@ -8045,7 +8058,7 @@ declare namespace google.maps.geometry.spherical {
    * more north than the northern LatLng.
    */
   export function computeArea(
-      path: (google.maps.LatLng|google.maps.LatLngLiteral)[]|
+      path: Array<google.maps.LatLng|google.maps.LatLngLiteral>|
       google.maps.MVCArray<google.maps.LatLng|google.maps.LatLngLiteral>|
       google.maps.Circle|google.maps.CircleLiteral|
       google.maps.LatLngBounds|google.maps.LatLngBoundsLiteral,
@@ -8069,7 +8082,7 @@ declare namespace google.maps.geometry.spherical {
    * Returns the length of the given path.
    */
   export function computeLength(
-      path: (google.maps.LatLng|google.maps.LatLngLiteral)[]|
+      path: Array<google.maps.LatLng|google.maps.LatLngLiteral>|
       google.maps.MVCArray<google.maps.LatLng|google.maps.LatLngLiteral>,
       radius?: number): number;
   /**
@@ -8104,7 +8117,7 @@ declare namespace google.maps.geometry.spherical {
    * spans 180 degrees.
    */
   export function computeSignedArea(
-      loop: (google.maps.LatLng|google.maps.LatLngLiteral)[]|
+      loop: Array<google.maps.LatLng|google.maps.LatLngLiteral>|
       google.maps.MVCArray<google.maps.LatLng|google.maps.LatLngLiteral>,
       radius?: number): number;
   /**
@@ -12164,6 +12177,13 @@ declare namespace google.maps.places {
     static findPlaceFromQuery(
         this: any, request: google.maps.places.FindPlaceFromQueryRequest):
         Promise<{places: google.maps.places.Place[]}>;
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * Text query based place search.
+     */
+    static searchByText(
+        this: any, request: google.maps.places.SearchByTextRequest):
+        Promise<{places: google.maps.places.Place[]}>;
   }
   /**
    * Defines information about an aspect of the place that users have reviewed.
@@ -12185,34 +12205,38 @@ declare namespace google.maps.places {
   /**
    * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
    *
-   * Implementation of AutocompleteView for Places API
+   * <ul>
+   * <li>PlaceAutocompleteElement is an <code>HTMLElement</code> subclass which
+   * provides a UI component for the Places Autocomplete API. After loading the
+   * <code>places</code> library, an input with autocomplete functionality can
+   * be created in HTML. For example: <pre><code>&lt;gmp-placeautocomplete
+   * &gt;&lt;/gmp-placeautocomplete&gt;</code></pre></li>
+   * </ul>
    *
    * Access by calling `const {PlaceAutocompleteElement} = await
    * google.maps.importLibrary("places")`. See
    * https://developers.google.com/maps/documentation/javascript/libraries.
    */
-  export class PlaceAutocompleteElement implements
+  export class PlaceAutocompleteElement extends HTMLElement implements
       google.maps.places.PlaceAutocompleteElementOptions {
     /**
      * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
      *
-     * Implementation of AutocompleteView for Places API
+     * <ul>
+     * <li>PlaceAutocompleteElement is an <code>HTMLElement</code> subclass
+     * which provides a UI component for the Places Autocomplete API. After
+     * loading the <code>places</code> library, an input with autocomplete
+     * functionality can be created in HTML. For example:
+     * <pre><code>&lt;gmp-placeautocomplete
+     * &gt;&lt;/gmp-placeautocomplete&gt;</code></pre></li>
+     * </ul>
      *
      * Access by calling `const {PlaceAutocompleteElement} = await
      * google.maps.importLibrary("places")`. See
      * https://developers.google.com/maps/documentation/javascript/libraries.
      */
     constructor(options: google.maps.places.PlaceAutocompleteElementOptions);
-    /**
-     * Adds the given listener function to the given event name.
-     */
-    addListener(eventName: string, handler: Function):
-        google.maps.MapsEventListener;
     componentRestrictions?: google.maps.places.ComponentRestrictions|null;
-    /**
-     * This Field is read-only. The DOM Element backing the view.
-     */
-    element?: HTMLElement|SVGElement|null;
     /**
      * The input element to show autocompletions for.
      */
@@ -12238,10 +12262,6 @@ declare namespace google.maps.places {
      * country.
      */
     componentRestrictions?: google.maps.places.ComponentRestrictions|null;
-    /**
-     * This Field is read-only. The DOM Element backing the view.
-     */
-    element?: HTMLElement|SVGElement|null;
     /**
      * The input element to show autocompletions for.
      */
@@ -12285,6 +12305,52 @@ declare namespace google.maps.places {
      * returned.
      */
     types?: string[]|null;
+  }
+  /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   *
+   * This event is created after the user selects a place with the Place
+   * Autocomplete Element. Access the selection with <code>event.place</code>.
+   *
+   * Access by calling `const {PlaceAutocompletePlaceSelectEvent} = await
+   * google.maps.importLibrary("places")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class PlaceAutocompletePlaceSelectEvent extends Event {
+    /**
+     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     *
+     * This event is created after the user selects a place with the Place
+     * Autocomplete Element. Access the selection with <code>event.place</code>.
+     *
+     * Access by calling `const {PlaceAutocompletePlaceSelectEvent} = await
+     * google.maps.importLibrary("places")`. See
+     * https://developers.google.com/maps/documentation/javascript/libraries.
+     */
+    constructor();
+  }
+  /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   *
+   * This event is emitted by the PlaceAutocompleteElement when there is an
+   * issue with the network request.
+   *
+   * Access by calling `const {PlaceAutocompleteRequestErrorEvent} = await
+   * google.maps.importLibrary("places")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class PlaceAutocompleteRequestErrorEvent extends Event {
+    /**
+     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     *
+     * This event is emitted by the PlaceAutocompleteElement when there is an
+     * issue with the network request.
+     *
+     * Access by calling `const {PlaceAutocompleteRequestErrorEvent} = await
+     * google.maps.importLibrary("places")`. See
+     * https://developers.google.com/maps/documentation/javascript/libraries.
+     */
+    constructor();
   }
   /**
    * A Place details query to be sent to the <code>PlacesService</code>.
@@ -13218,6 +13284,124 @@ declare namespace google.maps.places {
     bounds?: google.maps.LatLngBounds|null|google.maps.LatLngBoundsLiteral;
   }
   /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   *
+   * RankBy enum for SearchByTextRequest.
+   *
+   * Access by calling `const {SearchByTextRankBy} = await
+   * google.maps.importLibrary("places")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export enum SearchByTextRankBy {
+    /**
+     * Ranks results by distance.
+     */
+    DISTANCE = 'DISTANCE',
+    /**
+     * Ranks results by relevance.
+     */
+    RELEVANCE = 'RELEVANCE',
+  }
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   *
+   * Request interface for {@link google.maps.places.Place.searchByText}.
+   */
+  export interface SearchByTextRequest {
+    /**
+     * Fields to be included in the response, <a
+     * href="https://developers.google.com/maps/billing/understanding-cost-of-use#places-product">which
+     * will be billed for</a>. If <code>[&#39;ALL&#39;]</code> is passed in, all
+     * available fields will be returned and billed for (this is not recommended
+     * for production deployments). For a list of fields see {@link
+     * google.maps.places.PlaceResult}. Nested fields can be specified with
+     * dot-paths (for example, <code>"geometry.location"</code>).
+     */
+    fields: string[];
+    /**
+     * The requested place type. Full list of types supported: <a
+     * href="https://developers.google.com/maps/documentation/places/web-service/place-types">https://developers.google.com/maps/documentation/places/web-service/place-types</a>.
+     * Only one included type is supported. See {@link
+     * google.maps.places.SearchByTextRequest.useStrictTypeFiltering}
+     */
+    includedType?: string;
+    /**
+     * Used to restrict the search to places that are currently open.
+     * @defaultValue <code>false</code>
+     */
+    isOpenNow?: boolean;
+    /**
+     * Place details will be displayed with the preferred language if available.
+     * Will default to the browser&#39;s language preference. Current list of
+     * supported languages: <a
+     * href="https://developers.google.com/maps/faq#languagesupport">https://developers.google.com/maps/faq#languagesupport</a>.
+     */
+    language?: string;
+    /**
+     * The region to search. This location serves as a bias which means results
+     * around given location might be returned. Cannot be set along with
+     * locationRestriction.
+     */
+    locationBias?: google.maps.LatLng|google.maps.LatLngLiteral|
+        google.maps.LatLngBounds|google.maps.LatLngBoundsLiteral|
+        google.maps.CircleLiteral|google.maps.Circle;
+    /**
+     * The region to search. This location serves as a restriction which means
+     * results outside given location will not be returned. Cannot be set along
+     * with locationBias.
+     */
+    locationRestriction?: google.maps.LatLngBounds|
+        google.maps.LatLngBoundsLiteral;
+    /**
+     * Maximum number of results to return. It must be between 1 and 20,
+     * inclusively.
+     */
+    maxResultCount?: number;
+    /**
+     * Filter out results whose average user rating is strictly less than this
+     * limit. A valid value must be an float between 0 and 5 (inclusively) at a
+     * 0.5 cadence i.e. [0, 0.5, 1.0, ... , 5.0] inclusively. The input rating
+     * will be rounded up to the nearest 0.5(ceiling). For instance, a rating of
+     * 0.6 will eliminate all results with a less than 1.0 rating.
+     */
+    minRating?: number;
+    /**
+     * Used to restrict the search to places that are marked as certain price
+     * levels. Any combinations of price levels can be chosen. Defaults to all
+     * price levels.
+     */
+    priceLevels?: google.maps.places.PriceLevel[];
+    /**
+     * @deprecated Please use textQuery instead
+     */
+    query?: string;
+    /**
+     * How results will be ranked in the response.
+     * @defaultValue <code>SearchByTextRankBy.DISTANCE</code>
+     */
+    rankBy?: google.maps.places.SearchByTextRankBy;
+    /**
+     * The Unicode country/region code (CLDR) of the location where the request
+     * is coming from. This parameter is used to display the place details, like
+     * region-specific place name, if available. The parameter can affect
+     * results based on applicable law. For more information, see <a
+     * href="https://www.unicode.org/cldr/charts/latest/supplemental/territory_language_information.html">https://www.unicode.org/cldr/charts/latest/supplemental/territory_language_information.html</a>.
+     * Note that 3-digit region codes are not currently supported.
+     */
+    region?: string;
+    /**
+     * Required. The text query for textual search.
+     */
+    textQuery?: string;
+    /**
+     * Used to set strict type filtering for {@link
+     * google.maps.places.SearchByTextRequest.includedType}. If set to true,
+     * only results of the same type will be returned.
+     * @defaultValue <code>false</code>
+     */
+    useStrictTypeFiltering?: boolean;
+  }
+  /**
    * Contains structured information about the place&#39;s description, divided
    * into a main text and a secondary text, including an array of matched
    * substrings from the autocomplete input, identified by an offset and a
@@ -13330,7 +13514,7 @@ declare namespace google.maps.visualization {
      */
     setData(data: google.maps.MVCArray<
             google.maps.LatLng|google.maps.visualization.WeightedLocation>|
-            (google.maps.LatLng|google.maps.visualization.WeightedLocation)[]):
+            Array<google.maps.LatLng|google.maps.visualization.WeightedLocation>):
         void;
     /**
      * Renders the heatmap on the specified map. If map is set to
@@ -13350,7 +13534,7 @@ declare namespace google.maps.visualization {
      */
     data?: google.maps.MVCArray<google.maps.LatLng|
                                 google.maps.visualization.WeightedLocation>|
-        null|(google.maps.LatLng|google.maps.visualization.WeightedLocation)[];
+        null|Array<google.maps.LatLng|google.maps.visualization.WeightedLocation>;
     /**
      * Specifies whether heatmaps dissipate on zoom. By default, the radius of
      * influence of a data point is specified by the radius option only. When

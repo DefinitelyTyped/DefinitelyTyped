@@ -20,7 +20,7 @@ interface AugmentedList extends _.List<StringRecord> {
     notAListProperty: boolean;
 }
 
-// tslint:disable-next-line:interface-over-type-literal
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type AugmentedListLiteral = {
     [index: number]: StringRecord;
     length: number;
@@ -33,7 +33,7 @@ interface ExplicitDictionary extends _.Dictionary<StringRecord> {
     c: StringRecord;
 }
 
-// tslint:disable-next-line:interface-over-type-literal
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type ExplicitDictionaryLiteral = {
     a: StringRecord;
     b: StringRecord;
@@ -69,12 +69,12 @@ declare const recordListStringReducer: (
 ) => string;
 
 declare const recordListUnion: StringRecord[] | _.List<StringRecord>;
-declare const recordListArray: _.List<StringRecord>[];
+declare const recordListArray: Array<_.List<StringRecord>>;
 declare const level2RecordList: _.List<_.List<StringRecord>>;
 declare const level3RecordList: _.List<_.List<_.List<StringRecord>>>;
 declare const level4RecordList: _.List<_.List<_.List<_.List<StringRecord>>>>;
-declare const maxLevel2RecordArray: (StringRecord | StringRecord[])[];
-declare const maxLevel3RecordArray: (StringRecord | StringRecord[] | StringRecord[][])[];
+declare const maxLevel2RecordArray: Array<StringRecord | StringRecord[]>;
+declare const maxLevel3RecordArray: Array<StringRecord | StringRecord[] | StringRecord[][]>;
 
 declare const explicitDictionary: ExplicitDictionary;
 declare const explicitDictionaryIterator: (element: StringRecord, key: string, dictionary: ExplicitDictionary) => void;
@@ -387,7 +387,7 @@ knownShallowPropertyResult; // $ExpectType string | StringRecord
 declare const unknownShallowPropertyResult: _.IterateeResult<typeof shallowProperty, NonIntersecting>;
 unknownShallowPropertyResult; // $ExpectType any
 
-declare const deepPropertyResult: _.IterateeResult<(string | number)[], StringRecord>;
+declare const deepPropertyResult: _.IterateeResult<Array<string | number>, StringRecord>;
 deepPropertyResult; // $ExpectType any
 
 declare const nullResult: _.IterateeResult<null, StringRecord>;
@@ -2630,7 +2630,7 @@ _.zip(["moe", "larry", "curly"], [30, 40, 50], [true, false, false]); // $Expect
 _.object(["moe", "larry", "curly"], [30, 40, 50]); // $ExpectType Dictionary<number | undefined>
 
 // creating an object from a set of key-value pairs
-_.object([["moe", 30], ["larry", 40], ["curly", 50]] as [string, number][]); // $ExpectType Dictionary<number>
+_.object([["moe", 30], ["larry", 40], ["curly", 50]] as Array<[string, number]>); // $ExpectType Dictionary<number>
 
 {
     // key and value lists
@@ -3806,7 +3806,7 @@ _.chain(overlappingTypeUnion)
     .findWhere({ same: "no" })
     .value();
 
-declare const nestedObjectList: { a: { b: boolean; c: string } }[];
+declare const nestedObjectList: Array<{ a: { b: boolean; c: string } }>;
 
 // $ExpectType [{ a: { b: boolean; c: string; }; }[], { a: { b: boolean; c: string; }; }[]]
 _.chain(nestedObjectList)

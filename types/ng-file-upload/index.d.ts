@@ -101,7 +101,7 @@ declare module "angular" {
              * @param  {Array<File>}
              * @return {angular.IPromise}
              */
-            base64DataUrl(files: File | Array<File>): angular.IPromise<Array<string> | string>;
+            base64DataUrl(files: File | File[]): angular.IPromise<string[] | string>;
             /**
              * Convert the file to blob url object or base64 data url based on boolean disallowObjectUrl value
              *

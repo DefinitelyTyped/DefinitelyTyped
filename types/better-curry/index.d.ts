@@ -41,7 +41,7 @@ declare namespace BetterCurryModule {
             len?: number,
             checkArguments?: boolean,
         ) => OriginalFunctionReminder<T>;
-        flatten: (...args: Array<Array<any> | any>) => any[];
+        flatten: (...args: Array<any[] | any>) => any[];
         delegate: <T>(proto: T, target: string) => Delegate<T>;
         MAX_OPTIMIZED: number;
     }

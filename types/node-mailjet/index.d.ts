@@ -137,9 +137,9 @@ export namespace Email {
     interface PostResponseDataMessage {
         readonly Status: string;
         readonly CustomID: string;
-        readonly To: ReadonlyArray<PostResponseDataTo>;
-        readonly Cc: ReadonlyArray<PostResponseDataTo>;
-        readonly Bcc: ReadonlyArray<PostResponseDataTo>;
+        readonly To: readonly PostResponseDataTo[];
+        readonly Cc: readonly PostResponseDataTo[];
+        readonly Bcc: readonly PostResponseDataTo[];
     }
 
     interface PostResponseDataTo {
@@ -151,17 +151,17 @@ export namespace Email {
 
     interface GetResponseData {
         readonly Count: number;
-        readonly Data: ReadonlyArray<object>;
+        readonly Data: readonly object[];
         readonly Total: number;
     }
 
     interface PostResponseData {
-        readonly Messages: ReadonlyArray<PostResponseDataMessage>;
+        readonly Messages: readonly PostResponseDataMessage[];
     }
 
     interface PutResponseData {
         readonly Count: number;
-        readonly Data: ReadonlyArray<object>;
+        readonly Data: readonly object[];
         readonly Total: number;
     }
 }
@@ -264,7 +264,7 @@ export namespace SMS {
     }
 
     interface GetResponseData {
-        readonly Data: ReadonlyArray<GetResponseDataData>;
+        readonly Data: readonly GetResponseDataData[];
     }
 
     interface PostResponseData {

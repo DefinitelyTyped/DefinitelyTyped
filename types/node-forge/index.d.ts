@@ -525,7 +525,21 @@ declare module "node-forge" {
             verifySubjectKeyIdentifier(): boolean;
         }
 
-        interface CertificateRequest extends Certificate {
+        interface CertificateSigningRequest {
+            version: number;
+            signatureOid: string | null;
+            signature: any;
+            siginfo: {
+                algorithmOid: string | null;
+            };
+            subject: {
+                getField(sn: string | CertificateFieldOptions): any;
+                addField(attr: CertificateField): void;
+                attributes: CertificateField[];
+                hash: any;
+            };
+            publicKey: PublicKey | null;
+            attributes: CertificateField[];
             /**
              * Gets an issuer or subject attribute from its name, type, or short name.
              *
@@ -536,7 +550,34 @@ declare module "node-forge" {
              *
              * @return the attribute.
              */
-            getAttribute(opts: string | GetAttributeOpts): Attribute | null;
+            getAttribute(sn: string | GetAttributeOpts): Attribute | null;
+            addAttribute(attr: CertificateField): void;
+            md: md.MessageDigest | null;
+            signatureParameters: any;
+            certificationRequestInfo: asn1.Asn1 | null;
+
+            /**
+             * Sets the subject of this csr.
+             *
+             * @param attrs the array of subject attributes to use.
+             * @param uniqueId an optional a unique ID to use.
+             */
+            setSubject(attrs: CertificateField[]): void;
+            setAttributes(attrs: CertificateField[]): void;
+            /**
+             * Signs this csr using the given private key.
+             *
+             * @param key the private key to sign with.
+             * @param md the message digest object to use (defaults to forge.md.sha1).
+             */
+            sign(key: pki.PrivateKey, md?: md.MessageDigest): void;
+            /**
+             * Attempts verify the signature on this csr using this
+             * csr's public key.
+             *
+             * @return true if verified, false if not.
+             */
+            verify(): boolean;
         }
 
         /**
@@ -595,21 +636,25 @@ declare module "node-forge" {
 
         function certificateFromAsn1(obj: asn1.Asn1, computeHash?: boolean): Certificate;
 
-        function certificationRequestFromAsn1(obj: asn1.Asn1, computeHash?: boolean): Certificate;
+        function certificationRequestFromAsn1(obj: asn1.Asn1, computeHash?: boolean): CertificateSigningRequest;
 
         function certificateToAsn1(cert: Certificate): asn1.Asn1;
 
-        function certificationRequestToAsn1(cert: Certificate): asn1.Asn1;
+        function certificationRequestToAsn1(cert: CertificateSigningRequest): asn1.Asn1;
 
         function decryptRsaPrivateKey(pem: PEM, passphrase?: string): rsa.PrivateKey;
 
         function createCertificate(): Certificate;
 
-        function certificationRequestToPem(cert: Certificate, maxline?: number): PEM;
+        function certificationRequestToPem(csr: CertificateSigningRequest, maxline?: number): PEM;
 
-        function certificationRequestFromPem(pem: PEM, computeHash?: boolean, strict?: boolean): Certificate;
+        function certificationRequestFromPem(
+            pem: PEM,
+            computeHash?: boolean,
+            strict?: boolean,
+        ): CertificateSigningRequest;
 
-        function createCertificationRequest(): CertificateRequest;
+        function createCertificationRequest(): CertificateSigningRequest;
 
         function certificateToPem(cert: Certificate, maxline?: number): PEM;
 
@@ -919,10 +964,10 @@ declare module "node-forge" {
 
         interface Pkcs12Pfx {
             version: string;
-            safeContents: {
+            safeContents: Array<{
                 encrypted: boolean;
                 safeBags: Bag[];
-            }[];
+            }>;
             getBags: (filter: BagsFilter) => {
                 [key: string]: Bag[] | undefined;
                 localKeyId?: Bag[] | undefined;
@@ -972,7 +1017,7 @@ declare module "node-forge" {
                 key: pki.rsa.PrivateKey | string;
                 certificate: pki.Certificate | string;
                 digestAlgorithm: string;
-                authenticatedAttributes?: { type: string; value?: string | undefined }[] | undefined;
+                authenticatedAttributes?: Array<{ type: string; value?: string | undefined }> | undefined;
             }): void;
             sign(options?: { detached?: boolean | undefined }): void;
             toAsn1(): asn1.Asn1;
@@ -1434,7 +1479,7 @@ declare module "node-forge" {
             verifyClient: boolean;
             verify(conn: Connection, verified: Verified, depth: number, certs: pki.Certificate[]): Verified;
             getCertificate:
-                | ((conn: Connection, hint: CertificateRequest | string[]) => pki.PEM | ReadonlyArray<pki.PEM>)
+                | ((conn: Connection, hint: CertificateRequest | string[]) => pki.PEM | readonly pki.PEM[])
                 | null;
             getPrivateKey: ((conn: Connection, certificate: pki.Certificate) => pki.PEM) | null;
             getSignature:
@@ -1516,14 +1561,14 @@ declare module "node-forge" {
         function createConnection(options: {
             server?: boolean | undefined;
             sessionId?: Bytes | null | undefined;
-            caStore?: pki.CAStore | ReadonlyArray<pki.Certificate> | undefined;
+            caStore?: pki.CAStore | readonly pki.Certificate[] | undefined;
             sessionCache?: SessionCache | { [key: string]: Session } | undefined;
             cipherSuites?: CipherSuite[] | undefined;
             connected(conn: Connection): void;
             virtualHost?: string | undefined;
             verifyClient?: boolean | undefined;
             verify?(conn: Connection, verified: Verified, depth: number, certs: pki.Certificate[]): Verified;
-            getCertificate?(conn: Connection, hint: CertificateRequest | string[]): pki.PEM | ReadonlyArray<pki.PEM>;
+            getCertificate?(conn: Connection, hint: CertificateRequest | string[]): pki.PEM | readonly pki.PEM[];
             getPrivateKey?(conn: Connection, certificate: pki.Certificate): pki.PEM;
             getSignature?(conn: Connection, bytes: Bytes, callback: (conn: Connection, bytes: Bytes) => void): void;
             tlsDataReady(conn: Connection): void;
@@ -1538,7 +1583,7 @@ declare module "node-forge" {
         function prf_tls1(secret: string, label: string, seed: string, length: number): util.ByteBuffer;
 
         function hmac_sha1(
-            key: string | ReadonlyArray<Byte> | util.ByteBuffer,
+            key: string | readonly Byte[] | util.ByteBuffer,
             seqNum: [number, number],
             record: Record,
         ): Bytes;
