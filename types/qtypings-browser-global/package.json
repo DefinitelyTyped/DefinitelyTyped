@@ -5,6 +5,8 @@
   "projects": [
     "https://github.com/qiushaocloud/npmjs-dts-types-projects"
   ],
+  "nonNpm": true,
+  "nonNpmDescription": "this is an npm package of qiushaocloud typings browser global dts file",
   "devDependencies": {
     "@types/qtypings-browser-global": "workspace:."
   },
