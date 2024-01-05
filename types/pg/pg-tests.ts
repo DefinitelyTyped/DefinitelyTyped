@@ -1,6 +1,6 @@
 import { connect } from "net";
+import * as pg from 'pg';
 import { Client, Connection, CustomTypesConfig, DatabaseError, defaults, Pool, QueryArrayConfig, types } from "pg";
-import * as pg from 'pg'
 import TypeOverrides = require("pg/lib/type-overrides");
 import { NoticeMessage } from "pg-protocol/dist/messages";
 
