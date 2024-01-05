@@ -207,3 +207,7 @@ const pagingTest: ComponentFramework.PropertyHelper.DataSetApi.Paging = {
     setPageSize: (pageSize: number) => {},
     loadExactPage: (pageNumber: number) => {},
 };
+
+const lookupOptionsTest: ComponentFramework.UtilityApi.LookupOptions = {
+    entityTypes: []
+}
