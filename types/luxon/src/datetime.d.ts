@@ -323,6 +323,9 @@ export interface DateTimeOptions extends LocaleOptions {
 
 export type DateTimeJSOptions = Omit<DateTimeOptions, "setZone">;
 
+/**
+ * Note that ISO weekday and local weekday fields are mutually exclusive
+ */
 export interface DateObjectUnits {
     // a year, such as 1987
     year?: number | undefined;
@@ -334,10 +337,16 @@ export interface DateObjectUnits {
     ordinal?: number | undefined;
     // an ISO week year
     weekYear?: number | undefined;
+    // a week year, according to the locale
+    localWeekYear?: number | undefined;
     // an ISO week number, between 1 and 52 or 53, depending on the year
     weekNumber?: number | undefined;
+    // a week number, between 1 and 52 or 53, depending on the year, according to the locale
+    localWeekNumber?: number | undefined;
     // an ISO weekday, 1-7, where 1 is Monday and 7 is Sunday
-    weekday?: number | undefined;
+    weekday?: WeekdayNumbers | undefined;
+    // a weekday, 1-7, where 1 is the first day of the week, and 7 is the last, according to the locale
+    localWeekday?: WeekdayNumbers | undefined;
     // hour of the day, 0-23
     hour?: number | undefined;
     // minute of the hour, 0-59
@@ -617,15 +626,17 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * @example
      * DateTime.fromObject({ year: 1982 }).toISODate() //=> '1982-01-01'
      * @example
-     * DateTime.fromObject({ hour: 10, minute: 26, second: 6 }) //~> today at 10:26:06
+     * DateTime.fromObject({ hour: 10, minute: 26, second: 6 }) //=> today at 10:26:06
      * @example
-     * DateTime.fromObject({ hour: 10, minute: 26, second: 6 }, { zone: 'utc' }),
+     * DateTime.fromObject({ hour: 10, minute: 26, second: 6 }, { zone: 'utc' })
      * @example
      * DateTime.fromObject({ hour: 10, minute: 26, second: 6 }, { zone: 'local' })
      * @example
-     * DateTime.fromObject({ hour: 10, minute: 26, second: 6 }, { }zone: 'America/New_York' })
+     * DateTime.fromObject({ hour: 10, minute: 26, second: 6 }, { zone: 'America/New_York' })
      * @example
      * DateTime.fromObject({ weekYear: 2016, weekNumber: 2, weekday: 3 }).toISODate() //=> '2016-01-13'
+     * @example
+     * DateTime.fromObject({ localWeekYear: 2022, localWeekNumber: 1, localWeekday: 1 }, { locale: 'en-US' }).toISODate() //=> '2021-12-26'
      */
     static fromObject(obj: DateObjectUnits, opts?: DateTimeJSOptions): DateTimeMaybeValid;
 
@@ -930,6 +941,32 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
     get weekday(): IfValid<WeekdayNumbers, typeof NaN, IsValid>;
 
     /**
+     * Returns true if this date is on a weekend, according to the locale, false otherwise
+     */
+    get isWeekend(): IfValid<boolean, false, IsValid>;
+
+    /**
+     * Get the day of the week, according to the locale.
+     * 1 is the first day of the week, and 7 is the last day of the week.
+     * If the locale assigns Sunday as the first day of the week, then a date which is a Sunday will return 1.
+     */
+    get localWeekday(): IfValid<WeekdayNumbers, typeof NaN, IsValid>;
+
+    /**
+     * Get the week number of the week year, according to the locale.
+     * Different locales assign week numbers differently.
+     * The week can start on different days of the week (see {@link localWeekday}),
+     * and because a different number of days is required for a week to count as the first week of a year.
+     */
+    get localWeekNumber(): IfValid<number, typeof NaN, IsValid>;
+
+    /**
+     * Get the week year, according to the locale.
+     * Different locales assign week numbers (and therefore week years) differently, see {@link localWeekNumber}.
+     */
+    get localWeekYear(): IfValid<number, typeof NaN, IsValid>;
+
+    /**
      * Get the ordinal (meaning the day of the year)
      *
      * @example
@@ -1047,6 +1084,16 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
     get weeksInWeekYear(): IfValid<PossibleWeeksInYear, typeof NaN, IsValid>;
 
     /**
+     * Returns the number of weeks in this DateTime's local week year
+     *
+     * @example
+     * DateTime.local(2020, 6, {locale: 'en-US'}).weeksInLocalWeekYear //=> 52
+     * @example
+     * DateTime.local(2020, 6, {locale: 'de-DE'}).weeksInLocalWeekYear //=> 53
+     */
+    get weeksInLocalWeekYear(): IfValid<PossibleWeeksInYear, typeof NaN, IsValid>;
+
+    /**
      * Returns the resolved Intl options for this DateTime.
      * This is useful in understanding the behavior of formatting methods
      *
@@ -1109,7 +1156,8 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * "Set" the values of specified units. Returns a newly-constructed DateTime.
      * You can only set units with this method; for "setting" metadata, see {@link DateTime.reconfigure} and {@link DateTime.setZone}.
      *
-     * @param values - a mapping of units to numbers
+     * This method also supports setting locale-based week units, i.e. `localWeekday`, `localWeekNumber` and `localWeekYear`.
+     * They cannot be mixed with ISO-week units like `weekday`.
      *
      * @example
      * dt.set({ year: 2017 })

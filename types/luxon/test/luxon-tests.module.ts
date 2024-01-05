@@ -104,6 +104,11 @@ getters.daysInYear; // $ExpectType PossibleDaysInYear
 getters.weeksInWeekYear; // $ExpectType PossibleWeeksInYear
 getters.ordinal; // $ExpectType number
 getters.isInLeapYear; // $ExpectType boolean
+getters.isWeekend; // $ExpectType boolean
+getters.localWeekday; // $ExpectType WeekdayNumbers
+getters.localWeekNumber; // $ExpectType number
+getters.localWeekYear; // $ExpectType number
+getters.weeksInLocalWeekYear; // $ExpectType PossibleWeeksInYear
 
 dt.toBSON(); // $ExpectType Date
 dt.toHTTP(); // $ExpectType string | null
@@ -435,6 +440,7 @@ DateTime.fromISO("2014-08-06T13:07:04.054").toFormat("yyyy LLL dd"); // $ExpectT
 // @ts-expect-error
 DateTime.fromObject();
 DateTime.fromObject({}, { zone: "America/Los_Angeles" }); // $ExpectType DateTime<true> | DateTime<false>
+DateTime.fromObject({ localWeekYear: 2022, localWeekNumber: 1, localWeekday: 1 }, { locale: "en-US" }); // $ExpectType DateTime<true> | DateTime<false>
 // @ts-expect-error
 DateTime.fromISO();
 DateTime.fromISO("2016-05-25"); // $ExpectType DateTime<true> | DateTime<false>
