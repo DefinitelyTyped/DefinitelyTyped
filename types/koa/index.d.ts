@@ -444,7 +444,7 @@ declare class Application<
     response: Application.BaseResponse;
     silent: boolean;
     keys: Keygrip | string[];
-    ctxStorage: AsyncLocalStorage<Application.BaseContext & ContextT> | undefined;
+    ctxStorage: AsyncLocalStorage<Application.Context> | undefined;
 
     /**
      * @param {object} [options] Application options
@@ -528,7 +528,7 @@ declare class Application<
     /**
      * return currnect contenxt from async local storage
      */
-    readonly currentContext: Application.BaseContext & ContextT | undefined;
+    readonly currentContext: Application.Context | undefined;
 }
 
 declare namespace Application {
