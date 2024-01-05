@@ -1,5 +1,5 @@
-import DatasetFactory from "@rdfjs/dataset/Factory.js";
 import DataFactory from "@rdfjs/data-model/Factory.js";
+import DatasetFactory from "@rdfjs/dataset/Factory.js";
 import Environment from "@rdfjs/environment/Environment.js";
 import clownface, { AnyContext, AnyPointer, GraphPointer, MultiPointer } from "clownface";
 import ClownfaceFactory from "clownface/Factory.js";
@@ -200,12 +200,12 @@ function testFactory() {
 
     const factory = new Environment([
         DatasetFactory,
-        DataFactory
+        DataFactory,
     ]);
     const withFactory = clownface({ dataset, factory });
 
     const incompatibleFactory = new Environment([
-        DataFactory
+        DataFactory,
     ]);
     // @ts-expect-error
     const withIncompatibleFactory = clownface({ dataset, factory: incompatibleFactory });
