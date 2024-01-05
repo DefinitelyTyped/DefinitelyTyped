@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@types/qtypings-browser-global",
-  "version": "1.0.2",
+  "version": "1.0.9999",
   "description": "this is an npm package of qiushaocloud typings browser global dts file",
   "types": "qdts-main.d.ts",
   "projects": [
