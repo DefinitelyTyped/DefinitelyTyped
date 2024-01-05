@@ -513,6 +513,9 @@ function testGetManifest() {
 
     manifest.name; // $ExpectType string
     manifest.version; // $ExpectType string
+    if (manifest.author) {
+        manifest.author.email; // $ExpectType string
+    }
 
     if (manifest.manifest_version === 2) {
         manifest.browser_action; // $ExpectType ManifestAction | undefined
@@ -1854,8 +1857,9 @@ async function testI18nForPromise() {
     await chrome.i18n.detectLanguage("dummy-id");
 }
 
-function testPageCapture() {
-    chrome.pageCapture.saveAsMHTML({ tabId: 0 }, (data: Blob | undefined) => {});
+async function testPageCapture() {
+    chrome.pageCapture.saveAsMHTML({ tabId: 0 }, (data: Blob | undefined) => {}); // $ExpectType void
+    await chrome.pageCapture.saveAsMHTML({ tabId: 0 }); // $ExpectType Blob | undefined
 }
 
 // https://developer.chrome.com/docs/extensions/reference/downloads

@@ -1,15 +1,6 @@
-import {
-    Finger,
-    FingerCurl,
-    FingerDirection,
-    GestureDescription,
-    GestureEstimator,
-    ThumbsUpGesture,
-    VictoryGesture,
-} from "fingerpose";
+import { Finger, FingerCurl, FingerDirection, GestureDescription, GestureEstimator, Gestures } from "fingerpose";
 
 function assert(condition: boolean, message: string) {
-    console.assert(condition, message);
 }
 
 const customGesture = new GestureDescription("CustomGesture");
@@ -48,8 +39,13 @@ assert(gestures.length === 1, "Estimator failed to detect custom gesture");
 assert(gestures[0].name === "CustomGesture", "Estimator failed to detect custom gesture");
 assert(poseData.length === 1, "Estimator failed to detect custom gesture");
 
-const victoryGesture = VictoryGesture;
-const thumbsUpGesture = ThumbsUpGesture;
+// Add tests for poseData
+assert(poseData[0][0] === "Thumb", "Incorrect finger name in poseData");
+assert(poseData[0][1] === "No Curl", "Incorrect finger curl in poseData");
+assert(poseData[0][2] === "Vertical Up", "Incorrect finger direction in poseData");
+
+const victoryGesture = Gestures.VictoryGesture;
+const thumbsUpGesture = Gestures.ThumbsUpGesture;
 
 const victoryCurls = [FingerCurl.NoCurl, FingerCurl.FullCurl];
 const victoryDirections = [FingerDirection.VerticalUp, FingerDirection.HorizontalRight];

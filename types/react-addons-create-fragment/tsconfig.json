@@ -1,6 +1,7 @@
 {
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "react-addons-create-fragment-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

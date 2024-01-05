@@ -176,6 +176,7 @@ const topLogger: Modifier<"topLogger"> = {
     showTwoColumnMonthYearPicker
     showFourColumnMonthYearPicker
     showWeekNumbers
+    showWeekPicker
     showYearDropdown
     showYearPicker
     startDate={new Date()}

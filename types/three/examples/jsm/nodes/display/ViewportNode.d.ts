@@ -1,4 +1,5 @@
 import Node from '../core/Node.js';
+import { ShaderNodeObject } from '../shadernode/ShaderNode.js';
 
 export type ViewportNodeScope =
     | typeof ViewportNode.COORDINATE
@@ -21,3 +22,10 @@ export default class ViewportNode extends Node {
 
     constructor(scope: ViewportNodeScope);
 }
+
+export const viewportCoordinate: ShaderNodeObject<ViewportNode>;
+export const viewportResolution: ShaderNodeObject<ViewportNode>;
+export const viewportTopLeft: ShaderNodeObject<ViewportNode>;
+export const viewportBottomLeft: ShaderNodeObject<ViewportNode>;
+export const viewportTopRight: ShaderNodeObject<ViewportNode>;
+export const viewportBottomRight: ShaderNodeObject<ViewportNode>;

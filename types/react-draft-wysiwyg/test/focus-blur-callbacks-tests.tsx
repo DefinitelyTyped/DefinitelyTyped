@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import { Editor } from "react-draft-wysiwyg";
 
 class FocusBlurCallbacks extends React.Component<any, any> {
@@ -40,5 +39,3 @@ class FocusBlurCallbacks extends React.Component<any, any> {
         );
     }
 }
-
-ReactDOM.render(<FocusBlurCallbacks />, document.getElementById("target"));

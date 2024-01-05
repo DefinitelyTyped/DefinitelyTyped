@@ -3,14 +3,12 @@ import {
     Material,
     Object3D,
     Renderer,
-    Scene,
     Texture,
     TextureEncoding,
     WebGLRenderTarget,
 } from '../../../../src/Three.js';
 import FogNode from '../fog/FogNode.js';
 import LightsNode from '../lighting/LightsNode.js';
-import { nodeObject } from '../Nodes.js';
 import { AnyObject, NodeShaderStageOption, NodeTypeOption } from './constants.js';
 import Node from './Node.js';
 import NodeAttribute from './NodeAttribute.js';
@@ -106,7 +104,12 @@ export default abstract class NodeBuilder {
     getVectorFromMatrix(type: NodeTypeOption): NodeTypeOption;
     getDataFromNode(node: Node, shaderStage?: NodeShaderStageOption): NodeData;
     getNodeProperties(node: Node, shaderStage?: NodeShaderStageOption): AnyObject;
-    getUniformFromNode(node: Node, type: NodeTypeOption, shaderStage?: NodeShaderStageOption): NodeUniform;
+    getUniformFromNode(
+        node: Node,
+        type: NodeTypeOption,
+        shaderStage?: NodeShaderStageOption,
+        name?: string | null,
+    ): NodeUniform<string>;
     getVarFromNode(node: Node, type: NodeTypeOption, shaderStage?: NodeShaderStageOption): NodeVar;
     getVaryFromNode(node: Node, type: NodeTypeOption): NodeVarying;
     getCodeFromNode(node: Node, type: NodeTypeOption, shaderStage?: NodeShaderStageOption): string;

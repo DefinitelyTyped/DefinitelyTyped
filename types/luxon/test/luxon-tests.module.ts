@@ -340,6 +340,20 @@ Settings.twoDigitCutoffYear = 42;
 // @ts-expect-error
 Settings.twoDigitCutoffYear = "123";
 
+Settings.defaultWeekSettings = null;
+Settings.defaultWeekSettings; // $ExpectType null
+Settings.defaultWeekSettings = { firstDay: 1, minimalDays: 4, weekend: [6, 7] };
+Settings.defaultWeekSettings; // $ExpectType WeekSettings
+// @ts-expect-error
+Settings.defaultWeekSettings = { firstDay: 8, minimalDays: 4, weekend: [6, 7] };
+Settings.defaultWeekSettings; // $ExpectType WeekSettings | null
+// @ts-expect-error
+Settings.defaultWeekSettings = { firstDay: 1, minimalDays: 0, weekend: [6, 7] };
+Settings.defaultWeekSettings; // $ExpectType WeekSettings | null
+// @ts-expect-error
+Settings.defaultWeekSettings = { firstDay: 1, minimalDays: 4, weekend: [0, 8] };
+Settings.defaultWeekSettings; // $ExpectType WeekSettings | null
+
 // The following tests were coped from the docs
 // http://moment.github.io/luxon/docs/manual/
 

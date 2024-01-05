@@ -6242,6 +6242,11 @@ declare namespace chrome.pageCapture {
      * Parameter mhtmlData: The MHTML data as a Blob.
      */
     export function saveAsMHTML(details: SaveDetails, callback: (mhtmlData?: Blob) => void): void;
+    /**
+     * Saves the content of the tab with given id as MHTML.
+     * @since Chrome 116 MV3
+     */
+    export function saveAsMHTML(details: SaveDetails): Promise<Blob | undefined>;
 }
 
 ////////////////////
@@ -7235,7 +7240,9 @@ declare namespace chrome.runtime {
         icons?: ManifestIcons | undefined;
 
         // Optional
-        author?: string | undefined;
+        author?: {
+            email: string;
+        } | undefined;
         background_page?: string | undefined;
         chrome_settings_overrides?: {
             homepage?: string | undefined;

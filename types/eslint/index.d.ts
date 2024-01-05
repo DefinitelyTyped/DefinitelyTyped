@@ -1270,10 +1270,10 @@ export namespace Linter {
             noInlineConfig?: boolean;
 
             /**
-             * A boolean value indicating if unused disable directives should be
+             * A severity value indicating if and how unused disable directives should be
              * tracked and reported.
              */
-            reportUnusedDisableDirectives?: boolean;
+            reportUnusedDisableDirectives?: Severity | StringSeverity | boolean;
         };
 
         /**
