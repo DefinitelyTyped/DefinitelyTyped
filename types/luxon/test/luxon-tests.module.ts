@@ -104,6 +104,11 @@ getters.daysInYear; // $ExpectType PossibleDaysInYear
 getters.weeksInWeekYear; // $ExpectType PossibleWeeksInYear
 getters.ordinal; // $ExpectType number
 getters.isInLeapYear; // $ExpectType boolean
+getters.isWeekend; // $ExpectType boolean
+getters.localWeekday; // $ExpectType WeekdayNumbers
+getters.localWeekNumber; // $ExpectType number
+getters.localWeekYear; // $ExpectType number
+getters.weeksInLocalWeekYear; // $ExpectType PossibleWeeksInYear
 
 dt.toBSON(); // $ExpectType Date
 dt.toHTTP(); // $ExpectType string | null
@@ -199,6 +204,9 @@ dt.toRelativeCalendar({
 dt.plus({ hours: 3, minutes: 2 });
 dt.minus({ days: 7 });
 dt.startOf("day");
+dt.startOf("day", { useLocaleWeeks: true });
+// @ts-expect-error
+dt.startOf("day", { nonExistentProp: true });
 dt.endOf("hour");
 dt.zone;
 dt.zoneName; // $ExpectType string | null
@@ -319,6 +327,13 @@ Info.features().intlTokens;
 // @ts-expect-error
 Info.features().zones;
 Info.features().relative; // $ExpectType boolean
+Info.features().localeWeek; // $ExpectType boolean
+
+Info.getStartOfWeek(); // $ExpectType WeekdayNumbers
+Info.getStartOfWeek({ locale: "en-US" }); // $ExpectType WeekdayNumbers
+Info.getStartOfWeek({ locObj: {} }); // $ExpectType WeekdayNumbers
+Info.getMinimumDaysInFirstWeek(); // $ExpectType WeekdayNumbers
+Info.getWeekendWeekdays(); // $ExpectType WeekdayNumbers[]
 
 /* Settings */
 Settings.defaultLocale;
@@ -425,6 +440,7 @@ DateTime.fromISO("2014-08-06T13:07:04.054").toFormat("yyyy LLL dd"); // $ExpectT
 // @ts-expect-error
 DateTime.fromObject();
 DateTime.fromObject({}, { zone: "America/Los_Angeles" }); // $ExpectType DateTime<true> | DateTime<false>
+DateTime.fromObject({ localWeekYear: 2022, localWeekNumber: 1, localWeekday: 1 }, { locale: "en-US" }); // $ExpectType DateTime<true> | DateTime<false>
 // @ts-expect-error
 DateTime.fromISO();
 DateTime.fromISO("2016-05-25"); // $ExpectType DateTime<true> | DateTime<false>
