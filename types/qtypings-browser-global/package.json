@@ -5,6 +5,7 @@
   "projects": [
     "https://github.com/qiushaocloud/npmjs-dts-types-projects"
   ],
+  "nonNpm": true,
   "devDependencies": {
     "@types/qtypings-browser-global": "workspace:."
   },
