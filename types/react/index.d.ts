@@ -148,6 +148,9 @@ declare namespace React {
         ref?: LegacyRef<T> | undefined;
     }
 
+    /**
+     * @deprecated Use `ComponentElement<P, ClassicComponent<P, any>>` instead.
+     */
     type ClassicElement<P> = CElement<P, ClassicComponent<P, ComponentState>>;
 
     // string fallback for custom web-components
@@ -269,9 +272,6 @@ declare namespace React {
 
     // Custom components
     function createFactory<P>(type: FunctionComponent<P>): FunctionComponentFactory<P>;
-    function createFactory<P>(
-        type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>,
-    ): CFactory<P, ClassicComponent<P, ComponentState>>;
     function createFactory<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
         type: ClassType<P, T, C>,
     ): CFactory<P, T>;
@@ -307,11 +307,6 @@ declare namespace React {
         props?: Attributes & P | null,
         ...children: ReactNode[]
     ): FunctionComponentElement<P>;
-    function createElement<P extends {}>(
-        type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>,
-        props?: ClassAttributes<ClassicComponent<P, ComponentState>> & P | null,
-        ...children: ReactNode[]
-    ): CElement<P, ClassicComponent<P, ComponentState>>;
     function createElement<P extends {}, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
         type: ClassType<P, T, C>,
         props?: ClassAttributes<T> & P | null,
@@ -545,6 +540,9 @@ declare namespace React {
 
     class PureComponent<P = {}, S = {}, SS = any> extends Component<P, S, SS> {}
 
+    /**
+     * @deprecated Use `ClassicComponent` from `create-react-class`
+     */
     interface ClassicComponent<P = {}, S = {}> extends Component<P, S> {
         replaceState(nextState: S, callback?: () => void): void;
         isMounted(): boolean;
@@ -612,6 +610,9 @@ declare namespace React {
         displayName?: string | undefined;
     }
 
+    /**
+     * @deprecated Use `ClassicComponentClass` from `create-react-class`
+     */
     interface ClassicComponentClass<P = {}> extends ComponentClass<P> {
         new(props: P, context?: any): ClassicComponent<P, ComponentState>;
         getDefaultProps?(): P;
