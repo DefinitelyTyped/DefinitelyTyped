@@ -57,6 +57,10 @@ newrelic.setPageViewName("/login", "https://www.myapp.com");
 newrelic.setCurrentRouteName("/users/:id");
 newrelic.setCurrentRouteName(null);
 
+// setUserId()
+newrelic.setUserId("123");
+newrelic.setUserId(null);
+
 // --- NewRelic.BrowserInteraction methods -----------------------------------
 
 // actionText()
