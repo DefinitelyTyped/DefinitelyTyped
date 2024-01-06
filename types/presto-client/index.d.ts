@@ -120,7 +120,7 @@ export interface ClientOptions {
      * results, defaults to 60 seconds. Set to null or 0 to disable.
      * @default 60
      */
-    timeout?: number;
+    timeout?: null | number;
 }
 
 // Query is a REST call to v1/statements, the `columns` returned is set as the `columns` callback
@@ -269,7 +269,7 @@ export interface QueryOptions {
      * Aditional headers to be included in the request
      */
     headers?: Record<string, string>;
-    timeout?: number;
+    timeout?: null | number;
     /**
      * Client stops fetch of query results if this callback returns `true`
      */
