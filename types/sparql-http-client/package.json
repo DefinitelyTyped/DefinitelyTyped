@@ -3,7 +3,7 @@
     "name": "@types/sparql-http-client",
     "version": "2.2.9999",
     "projects": [
-        "https://github.com/zazuko/sparql-http-client"
+        "https://github.com/bergos/sparql-http-client"
     ],
     "dependencies": {
         "rdf-js": "^4.0.2"
