@@ -1395,5 +1395,5 @@ declare namespace validator {
     export { _default as default }
 }
 
-export default validator;
+export = validator;
 
