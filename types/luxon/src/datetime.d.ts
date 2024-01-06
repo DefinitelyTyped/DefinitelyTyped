@@ -1307,7 +1307,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * @example
      * DateTime.invalid('').toLocaleParts(); //=> []
      */
-    toLocaleParts(opts?: DateTimeFormatOptions): Intl.DateTimeFormatPart[];
+    toLocaleParts(opts?: DateTimeFormatOptions): Intl.DateTimeFormat[];
 
     /**
      * Returns an ISO 8601-compliant string representation of this DateTime
