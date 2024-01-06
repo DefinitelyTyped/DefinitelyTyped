@@ -19,7 +19,7 @@ export interface Item {
 }
 
 export type PublishStatus =
-    "OK"
+    | "OK"
     | "NOT_AUTHORIZED"
     | "INVALID_DEVELOPER"
     | "DEVELOPER_NO_OWNERSHIP"

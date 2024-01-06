@@ -14,4 +14,3 @@ const store = chromeWebstoreUpload({
     const publishResponse = await store.publish("trustedTesters");
     const item = await store.get();
 })();
-
