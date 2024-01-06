@@ -1392,7 +1392,7 @@ declare namespace validator {
 
     const _default: validator;
 
-    export { _default as default }
+    export { _default as default };
 }
 
 export = validator;
