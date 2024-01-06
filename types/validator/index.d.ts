@@ -8,8 +8,10 @@ import * as _isISO6391 from "./lib/isISO6391";
 import * as _isTaxID from "./lib/isTaxID";
 import * as _isURL from "./lib/isURL";
 
+declare interface validator {}
+
 declare namespace validator {
-    const version: string;
+    export const version: string;
 
     /******************
      *** Validators ***
@@ -31,21 +33,21 @@ declare namespace validator {
      *
      * @param seed - Seed
      */
-    function contains(str: string, seed: any, options?: ContainsOptions): boolean;
+    export function contains(str: string, seed: any, options?: ContainsOptions): boolean;
 
     /**
      * Check if the string matches the comparison.
      *
      * @param comparison - String to compare
      */
-    function equals(str: string, comparison: string): boolean;
+    export function equals(str: string, comparison: string): boolean;
 
     /**
      * Check if the string is a date that's after the specified date.
      *
      * @param [date] - Date string (defaults to now)
      */
-    function isAfter(str: string, date?: string): boolean;
+    export function isAfter(str: string, date?: string): boolean;
 
     type AlphaLocale =
         | "en-US"
@@ -103,7 +105,7 @@ declare namespace validator {
         | "pt-BR"
         | "pl-Pl";
 
-    const isAlphaLocales: AlphaLocale[];
+    export const isAlphaLocales: AlphaLocale[];
 
     interface IsAlphaOptions {
         /**
@@ -118,7 +120,7 @@ declare namespace validator {
      * @param [locale] - AlphaLocale
      * @param [options] - IsAlphaOptions
      */
-    function isAlpha(str: string, locale?: AlphaLocale, options?: IsAlphaOptions): boolean;
+    export function isAlpha(str: string, locale?: AlphaLocale, options?: IsAlphaOptions): boolean;
 
     type AlphanumericLocale =
         | "en-US"
@@ -176,7 +178,7 @@ declare namespace validator {
         | "pt-BR"
         | "pl-Pl";
 
-    const isAlphanumericLocales: AlphanumericLocale[];
+    export const isAlphanumericLocales: AlphanumericLocale[];
 
     interface IsAlphanumericOptions {
         /**
@@ -191,21 +193,21 @@ declare namespace validator {
      * @param [locale] - AlphanumericLocale
      * @param [options] - IsAlphanumericOptions
      */
-    function isAlphanumeric(str: string, locale?: AlphanumericLocale, options?: IsAlphanumericOptions): boolean;
+    export function isAlphanumeric(str: string, locale?: AlphanumericLocale, options?: IsAlphanumericOptions): boolean;
 
     /**
      * Check if the string contains ASCII chars only.
      */
-    function isAscii(str: string): boolean;
+    export function isAscii(str: string): boolean;
 
     /**
      * Check if a string is base32 encoded.
      */
-    function isBase32(str: string): boolean;
+    export function isBase32(str: string): boolean;
     /**
      * check if a string is base58 encoded
      */
-    function isBase58(str: string): boolean;
+    export function isBase58(str: string): boolean;
 
     interface IsBase64Options {
         /**
@@ -219,24 +221,24 @@ declare namespace validator {
      *
      * @param [options] - Options
      */
-    function isBase64(str: string, options?: IsBase64Options): boolean;
+    export function isBase64(str: string, options?: IsBase64Options): boolean;
 
     /**
      * Check if the string is a date that's before the specified date.
      *
      * @param [date] - Date string (defaults to now)
      */
-    function isBefore(str: string, date?: string): boolean;
+    export function isBefore(str: string, date?: string): boolean;
 
-    const isIBAN: typeof _isIBAN.default;
-    const ibanLocales: typeof _isIBAN.locales;
+    export const isIBAN: typeof _isIBAN.default;
+    export const ibanLocales: typeof _isIBAN.locales;
 
     /**
      * Check if a string is a BIC (Bank Identification Code) or SWIFT code.
      */
-    function isBIC(str: string): boolean;
+    export function isBIC(str: string): boolean;
 
-    const isBoolean: typeof _isBoolean.default;
+    export const isBoolean: typeof _isBoolean.default;
 
     interface IsByteLengthOptions {
         /**
@@ -254,7 +256,7 @@ declare namespace validator {
      *
      * @param [options] - Options
      */
-    function isByteLength(str: string, options?: IsByteLengthOptions): boolean;
+    export function isByteLength(str: string, options?: IsByteLengthOptions): boolean;
 
     interface IsCreditCardOptions {
         /**
@@ -266,7 +268,7 @@ declare namespace validator {
     /**
      * Check if the string is a credit card.
      */
-    function isCreditCard(str: string, options?: IsCreditCardOptions): boolean;
+    export function isCreditCard(str: string, options?: IsCreditCardOptions): boolean;
 
     interface IsCurrencyOptions {
         /**
@@ -338,22 +340,22 @@ declare namespace validator {
      *
      * @param [options] - Options
      */
-    function isCurrency(str: string, options?: IsCurrencyOptions): boolean;
+    export function isCurrency(str: string, options?: IsCurrencyOptions): boolean;
 
     /**
      * Check if the string is an [Ethereum](https://ethereum.org/) address using basic regex. Does not validate address checksums.
      */
-    function isEthereumAddress(str: string): boolean;
+    export function isEthereumAddress(str: string): boolean;
 
     /**
      * Check if the string is a valid BTC address.
      */
-    function isBtcAddress(str: string): boolean;
+    export function isBtcAddress(str: string): boolean;
 
     /**
      * Check if the string is a [data uri format](https://developer.mozilla.org/en-US/docs/Web/HTTP/data_URIs).
      */
-    function isDataURI(str: string): boolean;
+    export function isDataURI(str: string): boolean;
 
     interface IsDateOptions {
         /**
@@ -378,7 +380,7 @@ declare namespace validator {
     /**
      * Check if the string is a valid date.
      */
-    function isDate(str: string, options?: IsDateOptions): boolean;
+    export function isDate(str: string, options?: IsDateOptions): boolean;
 
     type DecimalLocale = FloatLocale;
 
@@ -408,24 +410,24 @@ declare namespace validator {
      *
      * @param [options] - Options
      */
-    function isDecimal(str: string, options?: IsDecimalOptions): boolean;
+    export function isDecimal(str: string, options?: IsDecimalOptions): boolean;
 
     /**
      * Check if the string is a number that's divisible by another.
      *
      * @param number - Divider number
      */
-    function isDivisibleBy(str: string, number: number): boolean;
+    export function isDivisibleBy(str: string, number: number): boolean;
 
     type IsEmailOptions = _isEmail.IsEmailOptions;
-    const isEmail: typeof _isEmail.default;
+    export const isEmail: typeof _isEmail.default;
 
     /**
      *  check if the string is a [Magnet URI format][Mailto URI Format].<br/><br/>`options` is an object of validating emails inside the URI (check `isEmail`s options for details).
      * @param str
      * @param [options]
      */
-    function isMailtoURI(str: string, options?: IsEmailOptions): boolean;
+    export function isMailtoURI(str: string, options?: IsEmailOptions): boolean;
 
     interface IsEmptyOptions {
         /**
@@ -439,7 +441,7 @@ declare namespace validator {
      *
      * @param [options] - Options
      */
-    function isEmpty(str: string, options?: IsEmptyOptions): boolean;
+    export function isEmpty(str: string, options?: IsEmptyOptions): boolean;
 
     type FloatLocale =
         | "en-US"
@@ -493,7 +495,7 @@ declare namespace validator {
         | "pt-BR"
         | "pl-Pl";
 
-    const isFloatLocales: FloatLocale[];
+    export const isFloatLocales: FloatLocale[];
 
     interface IsFloatOptions {
         /**
@@ -523,20 +525,20 @@ declare namespace validator {
      *
      * @param [options] - Options
      */
-    function isFloat(str: string, options?: IsFloatOptions): boolean;
+    export function isFloat(str: string, options?: IsFloatOptions): boolean;
 
     type IsFQDNOptions = _isFQDN.IsFQDNOptions;
-    const isFQDN: typeof _isFQDN.default;
+    export const isFQDN: typeof _isFQDN.default;
 
     /**
      * Check if the string contains any full-width chars.
      */
-    function isFullWidth(str: string): boolean;
+    export function isFullWidth(str: string): boolean;
 
     /**
      * Check if the string contains any half-width chars.
      */
-    function isHalfWidth(str: string): boolean;
+    export function isHalfWidth(str: string): boolean;
 
     type HashAlgorithm =
         | "md4"
@@ -558,30 +560,30 @@ declare namespace validator {
      *
      * @param algorithm - HashAlgorithm
      */
-    function isHash(str: string, algorithm: HashAlgorithm): boolean;
+    export function isHash(str: string, algorithm: HashAlgorithm): boolean;
 
     /**
      * Check if the string is a hexadecimal number.
      */
-    function isHexadecimal(str: string): boolean;
+    export function isHexadecimal(str: string): boolean;
 
     /**
      * Check if the string is a hexadecimal color.
      */
-    function isHexColor(str: string): boolean;
+    export function isHexColor(str: string): boolean;
 
     /**
      * Check if the string is an HSL (hue, saturation, lightness, optional alpha) color based on CSS Colors Level 4 specification.
      * Comma-separated format supported. Space-separated format supported with the exception of a few edge cases (ex: hsl(200grad+.1%62%/1)).
      */
-    function isHSL(str: string): boolean;
+    export function isHSL(str: string): boolean;
 
     /**
      * Check if the string is a rgb or rgba color.
      *
      * @param [includePercentValues=true] - If you don't want to allow to set rgb or rgba values with percents, like rgb(5%,5%,5%), or rgba(90%,90%,90%,.3), then set it to false. (defaults to true)
      */
-    function isRgbColor(str: string, includePercentValues?: boolean): boolean;
+    export function isRgbColor(str: string, includePercentValues?: boolean): boolean;
 
     type IdentityCardLocale =
         | "ar-LY"
@@ -605,7 +607,7 @@ declare namespace validator {
      *
      * @param [locale="any"] - IdentityCardLocale
      */
-    function isIdentityCard(str: string, locale?: "any" | IdentityCardLocale): boolean;
+    export function isIdentityCard(str: string, locale?: "any" | IdentityCardLocale): boolean;
 
     interface IsIMEIOptions {
         /**
@@ -621,14 +623,14 @@ declare namespace validator {
      *
      * @param [options] - Options
      */
-    function isIMEI(str: string, options?: IsIMEIOptions): boolean;
+    export function isIMEI(str: string, options?: IsIMEIOptions): boolean;
 
     /**
      * Check if the string is in a array of allowed values.
      *
      * @param values - Allowed values.
      */
-    function isIn(str: string, values: any[]): boolean;
+    export function isIn(str: string, values: any[]): boolean;
 
     interface IsIntOptions {
         /**
@@ -659,7 +661,7 @@ declare namespace validator {
      *
      * @param [options] - Options
      */
-    function isInt(str: string, options?: IsIntOptions): boolean;
+    export function isInt(str: string, options?: IsIntOptions): boolean;
 
     type IPVersion = "4" | "6" | 4 | 6;
 
@@ -668,12 +670,12 @@ declare namespace validator {
      *
      * @param [version] - IP Version
      */
-    function isIP(str: string, version?: IPVersion): boolean;
+    export function isIP(str: string, version?: IPVersion): boolean;
 
     /**
      * Check if the string is an IP Range (version 4 or 6).
      */
-    function isIPRange(str: string, version?: IPVersion): boolean;
+    export function isIPRange(str: string, version?: IPVersion): boolean;
 
     type ISBNVersion = "10" | "13" | 10 | 13;
 
@@ -682,40 +684,40 @@ declare namespace validator {
      *
      * @param [version] - ISBN Version
      */
-    function isISBN(str: string, version?: ISBNVersion): boolean;
+    export function isISBN(str: string, version?: ISBNVersion): boolean;
 
     /**
      * Check if the string is an EAN (European Article Number).
      */
-    function isEAN(str: string): boolean;
+    export function isEAN(str: string): boolean;
 
     /**
      * Check if the string is an [ISIN](https://en.wikipedia.org/wiki/International_Securities_Identification_Number) (stock/security identifier).
      */
-    function isISIN(str: string): boolean;
+    export function isISIN(str: string): boolean;
 
-    const isISO31661Alpha2: typeof _isISO31661Alpha2.default;
+    export const isISO31661Alpha2: typeof _isISO31661Alpha2.default;
 
     /**
      * Check if the string is a valid [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) officially assigned country code.
      */
-    function isISO31661Alpha3(str: string): boolean;
+    export function isISO31661Alpha3(str: string): boolean;
 
     /**
      * check if the string is a valid [ISO 6346](https://en.wikipedia.org/wiki/ISO_6346) shipping container identification.
      * @param str
      */
-    function isISO6346(str: string): boolean;
+    export function isISO6346(str: string): boolean;
 
     /**
      * alias for `isISO6346`, check if the string is a valid [ISO 6346](https://en.wikipedia.org/wiki/ISO_6346) shipping container identification.
      */
-    const isFreightContainerID: typeof isISO6346;
+    export const isFreightContainerID: typeof isISO6346;
 
     /**
      * Check if the string is a valid [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) officially assigned language code.
      */
-    const isISO6391: typeof _isISO6391.default;
+    export const isISO6391: typeof _isISO6391.default;
 
     interface IsISO8601Options {
         /**
@@ -737,7 +739,7 @@ declare namespace validator {
      *
      * @param [options] - Options
      */
-    function isISO8601(str: string, options?: IsISO8601Options): boolean;
+    export function isISO8601(str: string, options?: IsISO8601Options): boolean;
 
     interface IsISSNOptions {
         /**
@@ -757,36 +759,36 @@ declare namespace validator {
      *
      * @param [options] - Options
      */
-    function isISSN(str: string, options?: IsISSNOptions): boolean;
+    export function isISSN(str: string, options?: IsISSNOptions): boolean;
 
-    const isISO4217: typeof _isISO4217.default;
+    export const isISO4217: typeof _isISO4217.default;
 
     /**
      * Check if the string is a [ISRC](https://en.wikipedia.org/wiki/International_Standard_Recording_Code).
      */
-    function isISRC(str: string): boolean;
+    export function isISRC(str: string): boolean;
 
     /**
      * Check if the string is a valid [RFC 3339](https://tools.ietf.org/html/rfc3339) date.
      */
-    function isRFC3339(str: string): boolean;
+    export function isRFC3339(str: string): boolean;
 
     /**
      * Check if the string is valid JSON (note: uses `JSON.parse`).
      */
-    function isJSON(str: string): boolean;
+    export function isJSON(str: string): boolean;
 
     /**
      * Check if the string is valid JWT token.
      */
-    function isJWT(str: string): boolean;
+    export function isJWT(str: string): boolean;
 
     /**
      * Check if the string is a valid latitude-longitude coordinate in the format:
      *
      * `lat,long` or `lat, long`.
      */
-    function isLatLong(str: string): boolean;
+    export function isLatLong(str: string): boolean;
 
     interface IsLengthOptions {
         /**
@@ -802,21 +804,21 @@ declare namespace validator {
     /**
      * Check if the string's length falls in a range.
      *
-     * Note: this function takes into account surrogate pairs.
+     * Note: this export function takes into account surrogate pairs.
      *
      * @param [options] - Options
      */
-    function isLength(str: string, options?: IsLengthOptions): boolean;
+    export function isLength(str: string, options?: IsLengthOptions): boolean;
 
     /**
      * Check if the string is a locale.
      */
-    function isLocale(str: string): boolean;
+    export function isLocale(str: string): boolean;
 
     /**
      * Check if the string is lowercase.
      */
-    function isLowercase(str: string): boolean;
+    export function isLowercase(str: string): boolean;
 
     interface IsMACAddressOptions {
         /**
@@ -835,22 +837,22 @@ declare namespace validator {
      *
      * @param [options] - Options
      */
-    function isMACAddress(str: string, options?: IsMACAddressOptions): boolean;
+    export function isMACAddress(str: string, options?: IsMACAddressOptions): boolean;
 
     /**
      * Check if the string is a [magnet uri format](https://en.wikipedia.org/wiki/Magnet_URI_scheme).
      */
-    function isMagnetURI(str: string): boolean;
+    export function isMagnetURI(str: string): boolean;
 
     /**
      * Check if the string is a MD5 hash.
      */
-    function isMD5(str: string): boolean;
+    export function isMD5(str: string): boolean;
 
     /**
      * Check if the string matches to a valid [MIME type](https://en.wikipedia.org/wiki/Media_type) format.
      */
-    function isMimeType(str: string): boolean;
+    export function isMimeType(str: string): boolean;
 
     type MobilePhoneLocale = PhoneLocale | PhoneLocaleAlias;
     type PhoneLocale =
@@ -971,7 +973,7 @@ declare namespace validator {
         | "zh-TW";
     type PhoneLocaleAlias = "en-CA" | "fr-CA" | "fr-BE" | "zh-HK" | "zh-MO" | "ga-IE" | "fr-CH" | "it-CH";
 
-    const isMobilePhoneLocales: MobilePhoneLocale[];
+    export const isMobilePhoneLocales: MobilePhoneLocale[];
 
     interface IsMobilePhoneOptions {
         /**
@@ -988,7 +990,7 @@ declare namespace validator {
      * @param [locale] - MobilePhoneLocale(s)
      * @param [options] - Options
      */
-    function isMobilePhone(
+    export function isMobilePhone(
         str: string,
         locale?: "any" | MobilePhoneLocale | MobilePhoneLocale[],
         options?: IsMobilePhoneOptions,
@@ -997,12 +999,12 @@ declare namespace validator {
     /**
      * Check if the string is a valid hex-encoded representation of a [MongoDB ObjectId](http://docs.mongodb.org/manual/reference/object-id/).
      */
-    function isMongoId(str: string): boolean;
+    export function isMongoId(str: string): boolean;
 
     /**
      * Check if the string contains one or more multibyte chars.
      */
-    function isMultibyte(str: string): boolean;
+    export function isMultibyte(str: string): boolean;
 
     interface IsNumericOptions {
         /**
@@ -1019,24 +1021,24 @@ declare namespace validator {
      *
      * @param [options] - Options
      */
-    function isNumeric(str: string, options?: IsNumericOptions): boolean;
+    export function isNumeric(str: string, options?: IsNumericOptions): boolean;
 
     /**
      * Check if the string is a valid octal number.
      */
-    function isOctal(str: string): boolean;
+    export function isOctal(str: string): boolean;
 
     /**
      * Check if the string is a valid passport number relative to a specific country code.
      *
      * @param [countryCode] - Country code
      */
-    function isPassportNumber(str: string, countryCode?: string): boolean;
+    export function isPassportNumber(str: string, countryCode?: string): boolean;
 
     /**
      * Check if the string is a valid port number.
      */
-    function isPort(str: string): boolean;
+    export function isPort(str: string): boolean;
 
     type PostalCodeLocale =
         | "AD"
@@ -1095,19 +1097,19 @@ declare namespace validator {
         | "ZA"
         | "ZM";
 
-    const isPostalCodeLocales: PostalCodeLocale[];
+    export const isPostalCodeLocales: PostalCodeLocale[];
 
     /**
      * Check if the string is a postal code
      *
      * @param locale - PostalCodeLocale
      */
-    function isPostalCode(str: string, locale: "any" | PostalCodeLocale): boolean;
+    export function isPostalCode(str: string, locale: "any" | PostalCodeLocale): boolean;
 
     /**
      * Check if the string is a Semantic Versioning Specification (SemVer).
      */
-    function isSemVer(str: string): boolean;
+    export function isSemVer(str: string): boolean;
 
     /**
      * Check if string is considered a strong password. Allows options to be added
@@ -1128,16 +1130,16 @@ declare namespace validator {
         pointsForContainingSymbol?: number | undefined;
     }
 
-    function isStrongPassword(
+    export function isStrongPassword(
         str: string,
         options?: StrongPasswordOptions & { returnScore?: false | undefined },
     ): boolean;
-    function isStrongPassword(str: string, options: StrongPasswordOptions & { returnScore: true }): number;
+    export function isStrongPassword(str: string, options: StrongPasswordOptions & { returnScore: true }): number;
 
     /**
      * Check if the string contains any surrogate pairs chars.
      */
-    function isSurrogatePair(str: string): boolean;
+    export function isSurrogatePair(str: string): boolean;
 
     interface IsTimeOptions {
         /**
@@ -1156,17 +1158,17 @@ declare namespace validator {
     /**
      * Check if the string is a valid time.
      */
-    function isTime(str: string, options?: IsTimeOptions): boolean;
+    export function isTime(str: string, options?: IsTimeOptions): boolean;
 
-    const isURL: typeof _isURL.default;
+    export const isURL: typeof _isURL.default;
     type IsURLOptions = _isURL.IsURLOptions;
 
-    const isTaxID: typeof _isTaxID.default;
+    export const isTaxID: typeof _isTaxID.default;
 
     /**
      * Check if the string is uppercase.
      */
-    function isUppercase(str: string): boolean;
+    export function isUppercase(str: string): boolean;
 
     type UUIDVersion = "1" | "2" | "3" | "4" | "5" | "all" | 1 | 2 | 3 | 4 | 5;
     /**
@@ -1174,43 +1176,43 @@ declare namespace validator {
      *
      * @param [version="all"] - UUID version
      */
-    function isUUID(str: string, version?: UUIDVersion): boolean;
+    export function isUUID(str: string, version?: UUIDVersion): boolean;
 
     /**
      * Check if the string contains a mixture of full and half-width chars.
      */
-    function isVariableWidth(str: string): boolean;
+    export function isVariableWidth(str: string): boolean;
 
     /**
      * Checks that the string is a [valid VAT number
      */
-    function isVAT(str: string, countryCode: string): boolean;
+    export function isVAT(str: string, countryCode: string): boolean;
 
     /**
      * Checks characters if they appear in the whitelist.
      *
      * @param chars - whitelist
      */
-    function isWhitelisted(str: string, chars: string | string[]): boolean;
+    export function isWhitelisted(str: string, chars: string | string[]): boolean;
 
     /**
      * Check if string matches the pattern.
      *
      * @param pattern - `/foo/i`
      */
-    function matches(str: string, pattern: RegExp): boolean;
+    export function matches(str: string, pattern: RegExp): boolean;
     /**
      * Check if string matches the pattern.
      *
      * @param pattern - `'foo'`
      * @param [modifiers] - `'i'`
      */
-    function matches(str: string, pattern: string, modifiers?: string): boolean;
+    export function matches(str: string, pattern: string, modifiers?: string): boolean;
 
     /**
      * Check if the string is of type slug.
      */
-    function isSlug(str: string): boolean;
+    export function isSlug(str: string): boolean;
 
     /******************
      *** Sanitizers ***
@@ -1221,24 +1223,24 @@ declare namespace validator {
      *
      * @param chars - The characters are used in a `RegExp` and so you will need to escape some chars, e.g. `blacklist(input, '\\[\\]')`.
      */
-    function blacklist(input: string, chars: string): string;
+    export function blacklist(input: string, chars: string): string;
 
     /**
      * Replace `<`, `>`, `&`, `'`, `"` and `/` with HTML entities.
      */
-    function escape(input: string): string;
+    export function escape(input: string): string;
 
     /**
      * Replaces HTML encoded entities with `<`, `>`, `&`, `'`, `"` and `/`.
      */
-    function unescape(input: string): string;
+    export function unescape(input: string): string;
 
     /**
      * Trim characters from the left-side of the input.
      *
      * @param [chars] - characters (defaults to whitespace)
      */
-    function ltrim(input: string, chars?: string): string;
+    export function ltrim(input: string, chars?: string): string;
 
     interface NormalizeEmailOptions {
         /**
@@ -1327,14 +1329,14 @@ declare namespace validator {
      *
      * @param [options] - Options
      */
-    function normalizeEmail(email: string, options?: NormalizeEmailOptions): string | false;
+    export function normalizeEmail(email: string, options?: NormalizeEmailOptions): string | false;
 
     /**
      * Trim characters from the right-side of the input.
      *
      * @param [chars] - characters (defaults to whitespace)
      */
-    function rtrim(input: string, chars?: string): string;
+    export function rtrim(input: string, chars?: string): string;
 
     /**
      * Remove characters with a numerical value < `32` and `127`, mostly control characters.
@@ -1342,7 +1344,7 @@ declare namespace validator {
      *
      * @param [keep_new_lines=false] - if `true`, newline characters are preserved (`\n` and `\r`, hex `0xA` and `0xD`).
      */
-    function stripLow(input: string, keep_new_lines?: boolean): string;
+    export function stripLow(input: string, keep_new_lines?: boolean): string;
 
     /**
      * Convert the input string to a boolean.
@@ -1350,44 +1352,48 @@ declare namespace validator {
      *
      * @param [strict=false] - in `strict` mode, only `'1'` and `'true'` return `true`.
      */
-    function toBoolean(input: string, strict?: boolean): boolean;
+    export function toBoolean(input: string, strict?: boolean): boolean;
 
     /**
      * Convert the input string to a `Date`, or `null` if the input is not a date.
      */
-    function toDate(input: string): Date | null;
+    export function toDate(input: string): Date | null;
 
     /**
      * Convert the input string to a float, or `NaN` if the input is not a float.
      */
-    function toFloat(input: string): number;
+    export function toFloat(input: string): number;
 
     /**
      * Convert the input string to an integer, or `NaN` if the input is not an integer.
      *
      * @param [radix=10] - radix or base (defaults to 10)
      */
-    function toInt(input: string, radix?: number): number;
+    export function toInt(input: string, radix?: number): number;
 
     /**
      * Trim characters from both sides of the input.
      *
      * @param [chars] - characters (defaults to whitespace)
      */
-    function trim(input: string, chars?: string): string;
+    export function trim(input: string, chars?: string): string;
 
     /**
      * Remove characters that do not appear in the whitelist.
      *
      * @param chars - The characters are used in a `RegExp` and so you will need to escape some chars, e.g. `whitelist(input, '\\[\\]')`.
      */
-    function whitelist(input: string, chars: string): string;
+    export function whitelist(input: string, chars: string): string;
 
     /**
      * Converts to string.
      */
-    function toString(input: any): string;
+    export function toString(input: any): string;
+
+    const _default: validator;
+
+    export { _default as default }
 }
+
 export default validator;
 
-export as namespace validator;
