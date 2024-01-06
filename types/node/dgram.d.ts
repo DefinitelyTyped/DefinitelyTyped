@@ -53,10 +53,10 @@ declare module "dgram" {
         sendBufferSize?: number | undefined;
         lookup?:
             | ((
-                  hostname: string,
-                  options: dns.LookupOneOptions,
-                  callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void,
-              ) => void)
+                hostname: string,
+                options: dns.LookupOneOptions,
+                callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void,
+            ) => void)
             | undefined;
     }
     /**
