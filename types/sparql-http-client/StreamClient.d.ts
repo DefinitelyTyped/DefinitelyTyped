@@ -53,7 +53,7 @@ declare namespace StreamClient {
         factory?: DataFactory<Q> | undefined;
         Query?: Constructor<TQuery, Q> | undefined;
         Store?: Constructor<TStore, Q> | undefined;
-        maxQuadsPerRequest?: number;
+        maxQuadsPerRequest?: number | undefined;
     }
 
     type StreamClientOptions<Q extends BaseQuad = Quad> =
