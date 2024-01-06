@@ -4,5 +4,5 @@ declare var PureRenderMixin: PureRenderMixin;
 export = PureRenderMixin;
 
 interface PureRenderMixin {
-    shouldComponentUpdate: NonNullable<ComponentLifecycle<any, any>['shouldComponentUpdate']>
+    shouldComponentUpdate: NonNullable<ComponentLifecycle<any, any>["shouldComponentUpdate"]>;
 }
