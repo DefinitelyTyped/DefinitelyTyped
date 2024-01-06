@@ -209,7 +209,11 @@ declare namespace fetch {
         | FormData;
     export type RequestInfo = string | URLLike | Request;
 
-    function isRedirect(code: number): boolean;
+    export function isRedirect(code: number): boolean;
+
+    const _default: typeof fetch;
+
+    export { _default as default };
 }
 
 export = fetch;
