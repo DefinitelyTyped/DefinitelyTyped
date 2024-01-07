@@ -1,5 +1,5 @@
-import { IGammaFilter } from "fabric/fabric-impl";
 import { fabric } from "fabric";
+import { IGammaFilter } from "fabric/fabric-impl";
 
 function sample1() {
     const canvas = new fabric.Canvas("c", {
@@ -165,28 +165,31 @@ function sample3() {
     });
     image.setSrc("../assets/printio.png");
 
-    $('gamma').onclick = function (this: HTMLInputElement) {
-        var v1 = parseFloat((<HTMLInputElement> $('gamma-red')).value);
-        var v2 = parseFloat((<HTMLInputElement> $('gamma-green')).value);
-        var v3 = parseFloat((<HTMLInputElement> $('gamma-blue')).value);
-        applyFilter(17, this.checked && new f.Gamma({
-            gamma: [v1, v2, v3]
-        }));
+    $("gamma").onclick = function(this: HTMLInputElement) {
+        var v1 = parseFloat((<HTMLInputElement> $("gamma-red")).value);
+        var v2 = parseFloat((<HTMLInputElement> $("gamma-green")).value);
+        var v3 = parseFloat((<HTMLInputElement> $("gamma-blue")).value);
+        applyFilter(
+            17,
+            this.checked && new f.Gamma({
+                gamma: [v1, v2, v3],
+            }),
+        );
     };
-    $('gamma-red').oninput = function(this: HTMLInputElement) {
+    $("gamma-red").oninput = function(this: HTMLInputElement) {
         var current = (<IGammaFilter> getFilter(17)).gamma;
         current[0] = parseFloat(this.value);
-        applyFilterValue(17, 'gamma', current);
+        applyFilterValue(17, "gamma", current);
     };
-    $('gamma-green').oninput = function(this: HTMLInputElement) {
+    $("gamma-green").oninput = function(this: HTMLInputElement) {
         var current = (<IGammaFilter> getFilter(17)).gamma;
         current[1] = parseFloat(this.value);
-        applyFilterValue(17, 'gamma', current);
+        applyFilterValue(17, "gamma", current);
     };
-    $('gamma-blue').oninput = function(this: HTMLInputElement) {
+    $("gamma-blue").oninput = function(this: HTMLInputElement) {
         var current = (<IGammaFilter> getFilter(17)).gamma;
         current[2] = parseFloat(this.value);
-        applyFilterValue(17, 'gamma', current);
+        applyFilterValue(17, "gamma", current);
     };
 
     $("grayscale").onclick = function(this: HTMLInputElement) {
@@ -227,13 +230,16 @@ function sample3() {
     $("brightness-value").onchange = function(this: HTMLInputElement) {
         applyFilterValue(5, "brightness", parseInt(this.value, 10));
     };
-    $('vibrance').onclick = function (this: HTMLInputElement) {
-        applyFilter(8, this.checked && new f.Vibrance({
-            vibrance: parseFloat((<HTMLInputElement> $('vibrance-value')).value)
-        }));
+    $("vibrance").onclick = function(this: HTMLInputElement) {
+        applyFilter(
+            8,
+            this.checked && new f.Vibrance({
+                vibrance: parseFloat((<HTMLInputElement> $("vibrance-value")).value),
+            }),
+        );
     };
-    $('vibrance-value').oninput = function(this: HTMLInputElement) {
-        applyFilterValue(8, 'vibrance', parseFloat(this.value));
+    $("vibrance-value").oninput = function(this: HTMLInputElement) {
+        applyFilterValue(8, "vibrance", parseFloat(this.value));
     };
     $("noise").onclick = function(this: HTMLInputElement) {
         applyFilter(

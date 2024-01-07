@@ -4248,16 +4248,16 @@ export class Text extends Object {
      */
     __charBounds?:
         | Array<
-        Array<
-            {
-                width: number;
-                left: number;
-                height?: number | undefined;
-                kernedWidth?: number | undefined;
-                deltaY?: number | undefined;
-            }
+            Array<
+                {
+                    width: number;
+                    left: number;
+                    height?: number | undefined;
+                    kernedWidth?: number | undefined;
+                    deltaY?: number | undefined;
+                }
+            >
         >
-    >
         | undefined;
     /**
      * Text Line proportion to font Size (in pixels)
@@ -5516,7 +5516,6 @@ interface IAllFilters {
          */
         fromObject(object: any): IVibranceFilter;
     };
-
 }
 interface IBaseFilter {
     /**
@@ -5714,7 +5713,7 @@ interface IGammaFilter extends IBaseFilter {
     /**
      * Gamma array value
      */
-    gamma: [number, number, number]
+    gamma: [number, number, number];
 
     /**
      * Applies filter to canvas element
