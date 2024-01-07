@@ -1,6 +1,6 @@
 /// <reference types="node" />
+// Minimum TypeScript Version: 4.7
 
-import FormData = require("form-data");
 import { RequestOptions } from "http";
 import { URL, URLSearchParams } from "url";
 import { AbortSignal } from "./externals";
@@ -205,8 +205,7 @@ declare namespace fetch {
         | ArrayBufferView
         | NodeJS.ReadableStream
         | string
-        | URLSearchParams
-        | FormData;
+        | URLSearchParams;
     export type RequestInfo = string | URLLike | Request;
 
     export function isRedirect(code: number): boolean;

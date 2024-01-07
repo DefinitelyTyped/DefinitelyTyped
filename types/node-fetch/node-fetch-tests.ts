@@ -1,6 +1,7 @@
 import { Agent } from "http";
 import fetch, { AbortError, Blob, FetchError, Headers, Request, RequestInit, Response } from "node-fetch";
 import { URL } from "url";
+import FormData from "form-data";
 
 function test_AbortError() {
     const e = new AbortError("message");
@@ -100,6 +101,10 @@ function test_fetchUrlWithRequestObject() {
 
 function test_fetchUrlObject() {
     handlePromise(fetch(new URL("https://example.org")));
+}
+
+async function test_formData() {
+    await fetch(new URL("https://example.org"), { body: new FormData() });
 }
 
 async function test_responseReturnTypes() {

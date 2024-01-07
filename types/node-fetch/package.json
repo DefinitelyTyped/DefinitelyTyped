@@ -6,12 +6,13 @@
         "https://github.com/bitinn/node-fetch"
     ],
     "dependencies": {
-        "@types/node": "*",
-        "form-data": "^4.0.0"
+        "@types/node": "*"
     },
     "devDependencies": {
-        "@types/node-fetch": "workspace:."
+        "@types/node-fetch": "workspace:.",
+        "form-data": "^4.0.0"
     },
+    "minimumTypeScriptVersion": "4.7",
     "owners": [
         {
             "name": "Torsten Werner",
