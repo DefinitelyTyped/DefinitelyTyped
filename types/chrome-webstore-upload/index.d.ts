@@ -36,12 +36,18 @@ export interface PublishResponse {
     statusDetail: string[];
 }
 
-export default function chromeWebstoreUpload(options: Options): {
+export interface APIClient {
+    /** @async */
     uploadExisting(readStream: NodeJS.ReadableStream, token?: string): Promise<Item>;
 
+    /** @async */
     publish(target?: string, token?: string): Promise<PublishResponse>;
 
+    /** @async */
     get(projection?: string, token?: string): Promise<Item>;
 
+    /** @async */
     fetchToken(): Promise<string>;
-};
+}
+
+export default function chromeWebstoreUpload(options: Options): APIClient;
