@@ -1,20 +1,21 @@
 import * as React from "react";
 import { BlockProperties, Leaf, Mark, Node as SlateNode, Value, ValueJSON } from "slate";
 
-export interface Rule {
+interface Rule {
     deserialize?:
         | ((el: Element, next: (elements: Element[] | NodeList | Array<Node & ChildNode>) => any) => any)
         | undefined;
     serialize?: ((obj: any, children: string) => React.ReactNode) | undefined;
 }
 
-export interface HtmlOptions {
+interface HtmlOptions {
     rules?: Rule[] | undefined;
     defaultBlock?: BlockProperties | string | undefined;
     parseHtml?: ((html: string) => HTMLElement) | undefined;
 }
 
-export default class Html {
+declare class Html {
+    static default: typeof Html;
     constructor(options?: HtmlOptions);
 
     deserialize(html: string, options: { toJSON: true }): ValueJSON;
@@ -35,3 +36,9 @@ export default class Html {
     protected serializeLeaf: (leaf: Leaf) => string;
     protected serializeString: (string: string) => string;
 }
+
+declare namespace Html {
+    export { Rule, HtmlOptions };
+}
+
+export = Html;
