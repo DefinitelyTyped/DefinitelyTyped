@@ -1,5 +1,5 @@
-import { EventEmitter } from "events";
 import { BaseQuad, DataFactory, Quad, Sink, Stream } from "@rdfjs/types";
+import { EventEmitter } from "events";
 
 export interface ParserOptions {
     baseIRI?: string | undefined;

@@ -1,6 +1,6 @@
+import { BaseQuad, DataFactory, Quad, Sink, Stream } from "@rdfjs/types";
 import { EventEmitter } from "events";
 import { Context } from "jsonld/jsonld-spec.js";
-import { BaseQuad, DataFactory, Quad, Sink, Stream } from "@rdfjs/types";
 
 export interface ParserOptions {
     baseIRI?: string | undefined;

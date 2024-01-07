@@ -1,7 +1,7 @@
 import Parser from "@rdfjs/parser-jsonld";
+import { BaseQuad, DataFactory, Sink, Stream } from "@rdfjs/types";
 import { EventEmitter } from "events";
 import { Context } from "jsonld/jsonld-spec";
-import { BaseQuad, DataFactory, Sink, Stream } from "@rdfjs/types";
 
 const baseIRI = "";
 const context: Context = {} as any;

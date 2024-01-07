@@ -1,7 +1,7 @@
 import { SinkMap } from "@rdfjs/sink-map";
+import { DatasetCore, DatasetCoreFactory, Stream } from "@rdfjs/types";
 import { EventEmitter } from "events";
 import { Request, RequestHandler, Response } from "express";
-import { DatasetCore, DatasetCoreFactory, Stream } from "@rdfjs/types";
 
 declare module "express-serve-static-core" {
     interface Request {
