@@ -4587,6 +4587,10 @@
             "libraryName": "rdf-loaders-registry",
             "asOfVersion": "1.0.0"
         },
+        "rdf-validate-datatype": {
+            "libraryName": "rdf-validate-datatype",
+            "asOfVersion": "0.2.0"
+        },
         "rdflib": {
             "libraryName": "rdflib",
             "asOfVersion": "1.2.0"
