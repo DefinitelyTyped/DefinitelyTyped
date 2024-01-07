@@ -4248,16 +4248,16 @@ export class Text extends Object {
      */
     __charBounds?:
         | Array<
-            Array<
-                {
-                    width: number;
-                    left: number;
-                    height?: number | undefined;
-                    kernedWidth?: number | undefined;
-                    deltaY?: number | undefined;
-                }
-            >
+        Array<
+            {
+                width: number;
+                left: number;
+                height?: number | undefined;
+                kernedWidth?: number | undefined;
+                deltaY?: number | undefined;
+            }
         >
+    >
         | undefined;
     /**
      * Text Line proportion to font Size (in pixels)
@@ -5492,6 +5492,31 @@ interface IAllFilters {
          */
         fromObject(object: any): ITintFilter;
     };
+    Gamma: {
+        /**
+         * Constructor
+         * @param [options] Options object
+         */
+        new(options?: { gamma?: [number, number, number] | undefined }): IGammaFilter;
+        /**
+         * Returns filter instance from an object representation
+         * @param object Object to create an instance from
+         */
+        fromObject(object: any): IGammaFilter;
+    };
+    Vibrance: {
+        /**
+         * Constructor
+         * @param [options] Options object
+         */
+        new(options?: { vibrance?: number | undefined }): IVibranceFilter;
+        /**
+         * Returns filter instance from an object representation
+         * @param object Object to create an instance from
+         */
+        fromObject(object: any): IVibranceFilter;
+    };
+
 }
 interface IBaseFilter {
     /**
@@ -5679,6 +5704,26 @@ interface ISepia2Filter extends IBaseFilter {
     applyTo(canvasEl: HTMLCanvasElement): void;
 }
 interface ITintFilter extends IBaseFilter {
+    /**
+     * Applies filter to canvas element
+     * @param canvasEl Canvas element to apply filter to
+     */
+    applyTo(canvasEl: HTMLCanvasElement): void;
+}
+interface IGammaFilter extends IBaseFilter {
+    /**
+     * Gamma array value
+     */
+    gamma: [number, number, number]
+
+    /**
+     * Applies filter to canvas element
+     * @param canvasEl Canvas element to apply filter to
+     */
+    applyTo(canvasEl: HTMLCanvasElement): void;
+}
+
+interface IVibranceFilter extends IBaseFilter {
     /**
      * Applies filter to canvas element
      * @param canvasEl Canvas element to apply filter to
