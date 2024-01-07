@@ -1,4 +1,4 @@
-import { BaseQuad, DataFactory, Quad, Term } from "rdf-js";
+import { BaseQuad, DataFactory, Quad, Term } from "@rdfjs/types";
 import { Duplex } from "stream";
 
 declare namespace ResultParser {

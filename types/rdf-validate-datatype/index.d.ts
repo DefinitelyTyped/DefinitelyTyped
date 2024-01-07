@@ -1,4 +1,4 @@
-import { NamedNode, Quad, Term } from "rdf-js";
+import { NamedNode, Quad, Term } from "@rdfjs/types";
 
 interface ValidatorFunc {
     (value: string): boolean;

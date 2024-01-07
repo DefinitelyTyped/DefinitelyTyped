@@ -1,5 +1,5 @@
 import * as DataFactory from "rdf-data-model";
-import * as RDF from "rdf-js";
+import * as RDF from "@rdfjs/types";
 
 function test_datafactory() {
     const namedNode: RDF.NamedNode = DataFactory.namedNode("http://example.org");

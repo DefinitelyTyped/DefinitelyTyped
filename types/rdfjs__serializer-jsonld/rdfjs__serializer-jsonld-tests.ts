@@ -1,6 +1,6 @@
 import Serializer from "@rdfjs/serializer-jsonld";
 import { EventEmitter } from "events";
-import { Sink, Stream } from "rdf-js";
+import { Sink, Stream } from "@rdfjs/types";
 
 const stream: Stream = {} as any;
 

@@ -6,7 +6,7 @@
         "https://github.com/zazuko/rdf-validate-datatype#readme"
     ],
     "dependencies": {
-        "rdf-js": "^4.0.2"
+        "@rdfjs/types": ">=1.0.0"
     },
     "devDependencies": {
         "@types/rdf-validate-datatype": "workspace:."

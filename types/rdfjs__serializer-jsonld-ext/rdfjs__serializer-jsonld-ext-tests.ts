@@ -1,7 +1,7 @@
 import Serializer = require("@rdfjs/serializer-jsonld-ext");
 import { EventEmitter } from "events";
 import { Context } from "jsonld/jsonld-spec";
-import { Sink, Stream } from "rdf-js";
+import { Sink, Stream } from "@rdfjs/types";
 
 const context: Context = {} as any;
 const stream: Stream = {} as any;

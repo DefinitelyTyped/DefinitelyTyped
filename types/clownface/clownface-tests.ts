@@ -4,7 +4,7 @@ import clownface, { AnyContext, AnyPointer, GraphPointer, MultiPointer } from "c
 import ClownfaceFactory from "clownface/Factory.js";
 import filters from "clownface/filter.js";
 import Context from "clownface/lib/Context.js";
-import { BlankNode, Dataset, DatasetCore, Literal, NamedNode, Quad_Graph, Term, Variable } from "rdf-js";
+import { BlankNode, Dataset, DatasetCore, Literal, NamedNode, Quad_Graph, Term, Variable } from "@rdfjs/types";
 
 const node: NamedNode = <any> {};
 const blankNode: BlankNode = <any> {};

@@ -1,6 +1,6 @@
 import Serializer from "@rdfjs/serializer-rdfjs";
 import { EventEmitter } from "events";
-import { DatasetCore, Quad, Stream } from "rdf-js";
+import { DatasetCore, Quad, Stream } from "@rdfjs/types";
 
 const dataset: DatasetCore = <any> {};
 const quads: Quad[] = <any> {};

@@ -1,4 +1,4 @@
-import { BlankNode, DatasetCore, DatasetCoreFactory, Literal, NamedNode, Quad_Graph, Term } from "rdf-js";
+import { BlankNode, DatasetCore, DatasetCoreFactory, Literal, NamedNode, Quad_Graph, Term } from "@rdfjs/types";
 import Context from "./lib/Context.js";
 
 export type AnyContext = Term | Term[] | undefined;

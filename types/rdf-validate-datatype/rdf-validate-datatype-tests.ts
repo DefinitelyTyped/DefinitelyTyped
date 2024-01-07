@@ -1,4 +1,4 @@
-import { NamedNode, Quad, Term } from "rdf-js";
+import { NamedNode, Quad, Term } from "@rdfjs/types";
 import validateDatatype = require("rdf-validate-datatype");
 
 const { validateTerm, validateQuad, validators } = validateDatatype;

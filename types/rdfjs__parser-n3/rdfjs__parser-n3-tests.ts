@@ -1,6 +1,6 @@
 import ParserN3 from "@rdfjs/parser-n3";
 import { EventEmitter } from "events";
-import { BaseQuad, DataFactory, Sink, Stream } from "rdf-js";
+import { BaseQuad, DataFactory, Sink, Stream } from "@rdfjs/types";
 
 const factory: DataFactory = <any> {};
 const baseIRI = "";

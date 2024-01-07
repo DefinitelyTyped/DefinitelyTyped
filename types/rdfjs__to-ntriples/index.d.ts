@@ -1,4 +1,4 @@
-import { DatasetCore, Term } from "rdf-js";
+import { DatasetCore, Term } from "@rdfjs/types";
 
 declare function toNT(term: Term | DatasetCore): string;
 
