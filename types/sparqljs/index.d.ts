@@ -1,4 +1,4 @@
-import * as RdfJs from "rdf-js";
+import * as RdfJs from "@rdfjs/types";
 
 export const Parser: {
     new(options?: ParserOptions): SparqlParser;

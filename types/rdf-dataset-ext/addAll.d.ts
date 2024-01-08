@@ -1,4 +1,4 @@
-import { BaseQuad, DatasetCore, Quad } from "rdf-js";
+import { BaseQuad, DatasetCore, Quad } from "@rdfjs/types";
 
 /**
  * Iterates over iterable and adds all quads to dataset by calling `.add` for each quad.
