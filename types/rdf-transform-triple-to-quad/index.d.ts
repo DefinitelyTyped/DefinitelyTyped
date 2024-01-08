@@ -1,4 +1,4 @@
-import { BaseQuad, DataFactory, Quad, Quad_Graph, Stream } from "rdf-js";
+import { BaseQuad, DataFactory, Quad, Quad_Graph, Stream } from "@rdfjs/types";
 import { Transform } from "readable-stream";
 
 export interface TripleToQuadTransformOptions {

@@ -1,10 +1,10 @@
 import DatasetFactory from "@rdfjs/dataset/Factory.js";
 import Environment from "@rdfjs/environment/Environment.js";
+import { BlankNode, Dataset, DatasetCore, Literal, NamedNode, Quad_Graph, Term, Variable } from "@rdfjs/types";
 import clownface, { AnyContext, AnyPointer, GraphPointer, MultiPointer } from "clownface";
 import ClownfaceFactory from "clownface/Factory.js";
 import filters from "clownface/filter.js";
 import Context from "clownface/lib/Context.js";
-import { BlankNode, Dataset, DatasetCore, Literal, NamedNode, Quad_Graph, Term, Variable } from "rdf-js";
 
 const node: NamedNode = <any> {};
 const blankNode: BlankNode = <any> {};

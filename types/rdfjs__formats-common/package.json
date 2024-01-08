@@ -13,7 +13,7 @@
         "@types/rdfjs__serializer-jsonld": "*",
         "@types/rdfjs__serializer-ntriples": "*",
         "@types/rdfjs__sink-map": "*",
-        "rdf-js": "^4.0.2",
+        "@rdfjs/types": ">=1.0.0",
         "rdfxml-streaming-parser": ">=2"
     },
     "devDependencies": {
