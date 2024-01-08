@@ -1,5 +1,5 @@
 import { Agent } from "http";
-import fetch, { AbortError, Blob, FetchError, Headers, Request, RequestInit, Response } from "node-fetch";
+import fetch, { AbortError, Blob, FetchError, Headers, Request, RequestInit, Response, HeaderInit, HeadersInit } from "node-fetch";
 import { URL } from "url";
 import FormData from "form-data";
 
@@ -32,6 +32,11 @@ function test_fetchUrlWithOptions() {
     handlePromise(
         fetch("http://www.andlabs.net/html5/uCOR.php", requestOptions),
     );
+}
+
+function test_headerInit() {
+    const h1: HeaderInit = [["Content-Type", "applicaion/json"]];
+    const h2: HeadersInit = h1;
 }
 
 function test_fetchUrlWithHeadersObject() {
