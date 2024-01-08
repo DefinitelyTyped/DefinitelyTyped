@@ -836,6 +836,7 @@
 /types/chai-uuid/                                         @harm-less
 /types/chai-xml/                                          @jedigo
 /types/chalk-animation/                                   @BendingBender
+/types/chamaeleonidae__chmln/                             @chamaeleonidae
 /types/chance/                                            @cbowdon @brikou @cafesanu @colbywhite @NewDark90 @jacobez @peterblazejewicz
 /types/change-case-object/                                @jameschao
 /types/change-emitter/                                    @iskandersierra
@@ -1037,6 +1038,7 @@
 /types/concat-stream/                                     @jmarianer
 /types/concatjson/                                        @dh-sa
 /types/concaveman/                                        @DenisCarriere
+/types/concurrency-limiter/                               @E0SelmY4V
 /types/conditional/                                       @rzhw
 /types/conductor-animate/                                 @TaeKimJR
 /types/confidence/                                        @jppellerin
@@ -1530,7 +1532,6 @@
 /types/dinero.js/                                         @BendingBender @juandaco @peterblazejewicz
 /types/dingtalk-robot-sender/                             @bangbang93
 /types/dir-glob/                                          @BendingBender
-/types/dir-resolve/                                       @andy-ms
 /types/dir-walker-gen/                                    @aynurin
 /types/director/                                          @pastelmind
 /types/dirname-regex/                                     @BendingBender
@@ -6159,7 +6160,6 @@
 /types/rdf-transform-triple-to-quad/                      @tpluscode
 /types/rdf-utils-dataset/                                 @thewilkybarkid
 /types/rdf-utils-fs/                                      @tpluscode
-/types/rdf-validate-datatype/                             @tpluscode
 /types/rdf-validate-shacl/                                @tpluscode @cristianvasquez
 /types/rdfjs__data-model/                                 @jeswr @rubensworks @tpluscode
 /types/rdfjs__dataset/                                    @tpluscode @jeswr
@@ -6784,6 +6784,7 @@
 /types/read-package-tree/                                 @mgroenhoff
 /types/read-time-estimate/                                @rubek-joshi
 /types/readable-stream/                                   @TeamworkGuy2 @markdreyer
+/types/readable-to-readable/                              @tpluscode @ludovicm67
 /types/readdir-glob/                                      @dolanmiu
 /types/readdir-stream/                                    @Bartvds
 /types/readline-sync/                                     @jonestristand
@@ -7922,6 +7923,7 @@
 /types/textversionjs/                                     @aaronosher
 /types/texzilla/                                          @m93a
 /types/tgfancy/                                           @Dabolus
+/types/tgwf__co2/                                         @fershad @mrchrisadams
 /types/then-eos/                                          @seangenabe
 /types/theo/                                              @petekp @laitine
 /types/thepiratebay/                                      @jsorrell
@@ -8045,7 +8047,6 @@
 /types/trashable/                                         @jlismore
 /types/traverse/                                          @newclear @joshmock
 /types/traverson/                                         @marcinporebski @jelovac
-/types/travis-fold/                                       @andy-ms
 /types/trayballoon/                                       @korve
 /types/treeify/                                           @mike-north
 /types/treeverse/                                         @HugoMendes98
