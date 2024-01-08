@@ -8,8 +8,6 @@ import * as _isISO6391 from "./lib/isISO6391";
 import * as _isTaxID from "./lib/isTaxID";
 import * as _isURL from "./lib/isURL";
 
-declare interface validator {}
-
 declare namespace validator {
     export const version: string;
 
@@ -17,7 +15,7 @@ declare namespace validator {
      *** Validators ***
      ******************/
 
-    interface ContainsOptions {
+    export interface ContainsOptions {
         /**
          * @default false
          */
@@ -49,7 +47,7 @@ declare namespace validator {
      */
     export function isAfter(str: string, date?: string): boolean;
 
-    type AlphaLocale =
+    export type AlphaLocale =
         | "en-US"
         | "bg-BG"
         | "cs-CZ"
@@ -107,7 +105,7 @@ declare namespace validator {
 
     export const isAlphaLocales: AlphaLocale[];
 
-    interface IsAlphaOptions {
+    export interface IsAlphaOptions {
         /**
          * @default undefined
          */
@@ -122,7 +120,7 @@ declare namespace validator {
      */
     export function isAlpha(str: string, locale?: AlphaLocale, options?: IsAlphaOptions): boolean;
 
-    type AlphanumericLocale =
+    export type AlphanumericLocale =
         | "en-US"
         | "bg-BG"
         | "cs-CZ"
@@ -180,7 +178,7 @@ declare namespace validator {
 
     export const isAlphanumericLocales: AlphanumericLocale[];
 
-    interface IsAlphanumericOptions {
+    export interface IsAlphanumericOptions {
         /**
          * @default undefined
          */
@@ -209,7 +207,7 @@ declare namespace validator {
      */
     export function isBase58(str: string): boolean;
 
-    interface IsBase64Options {
+    export interface IsBase64Options {
         /**
          * @default false
          */
@@ -240,7 +238,7 @@ declare namespace validator {
 
     export const isBoolean: typeof _isBoolean.default;
 
-    interface IsByteLengthOptions {
+    export interface IsByteLengthOptions {
         /**
          * @default 0
          */
@@ -258,7 +256,7 @@ declare namespace validator {
      */
     export function isByteLength(str: string, options?: IsByteLengthOptions): boolean;
 
-    interface IsCreditCardOptions {
+    export interface IsCreditCardOptions {
         /**
          * @default undefined
          */
@@ -270,7 +268,7 @@ declare namespace validator {
      */
     export function isCreditCard(str: string, options?: IsCreditCardOptions): boolean;
 
-    interface IsCurrencyOptions {
+    export interface IsCurrencyOptions {
         /**
          * @default '$'
          */
@@ -357,7 +355,7 @@ declare namespace validator {
      */
     export function isDataURI(str: string): boolean;
 
-    interface IsDateOptions {
+    export interface IsDateOptions {
         /**
          * @default false
          */
@@ -382,9 +380,9 @@ declare namespace validator {
      */
     export function isDate(str: string, options?: IsDateOptions): boolean;
 
-    type DecimalLocale = FloatLocale;
+    export type DecimalLocale = FloatLocale;
 
-    interface IsDecimalOptions {
+    export interface IsDecimalOptions {
         /**
          * @default false
          */
@@ -419,7 +417,7 @@ declare namespace validator {
      */
     export function isDivisibleBy(str: string, number: number): boolean;
 
-    type IsEmailOptions = _isEmail.IsEmailOptions;
+    export type IsEmailOptions = _isEmail.IsEmailOptions;
     export const isEmail: typeof _isEmail.default;
 
     /**
@@ -429,7 +427,7 @@ declare namespace validator {
      */
     export function isMailtoURI(str: string, options?: IsEmailOptions): boolean;
 
-    interface IsEmptyOptions {
+    export interface IsEmptyOptions {
         /**
          * @default false
          */
@@ -443,7 +441,7 @@ declare namespace validator {
      */
     export function isEmpty(str: string, options?: IsEmptyOptions): boolean;
 
-    type FloatLocale =
+    export type FloatLocale =
         | "en-US"
         | "ar"
         | "en-AU"
@@ -497,7 +495,7 @@ declare namespace validator {
 
     export const isFloatLocales: FloatLocale[];
 
-    interface IsFloatOptions {
+    export interface IsFloatOptions {
         /**
          * less or equal
          */
@@ -527,7 +525,7 @@ declare namespace validator {
      */
     export function isFloat(str: string, options?: IsFloatOptions): boolean;
 
-    type IsFQDNOptions = _isFQDN.IsFQDNOptions;
+    export type IsFQDNOptions = _isFQDN.IsFQDNOptions;
     export const isFQDN: typeof _isFQDN.default;
 
     /**
@@ -540,7 +538,7 @@ declare namespace validator {
      */
     export function isHalfWidth(str: string): boolean;
 
-    type HashAlgorithm =
+    export type HashAlgorithm =
         | "md4"
         | "md5"
         | "sha1"
@@ -556,7 +554,7 @@ declare namespace validator {
         | "crc32b";
 
     /**
-     * Check if the string is a hash of type algorithm.
+     * Check if the string is a hash of export type algorithm.
      *
      * @param algorithm - HashAlgorithm
      */
@@ -585,7 +583,7 @@ declare namespace validator {
      */
     export function isRgbColor(str: string, includePercentValues?: boolean): boolean;
 
-    type IdentityCardLocale =
+    export type IdentityCardLocale =
         | "ar-LY"
         | "ar-TN"
         | "ES"
@@ -609,7 +607,7 @@ declare namespace validator {
      */
     export function isIdentityCard(str: string, locale?: "any" | IdentityCardLocale): boolean;
 
-    interface IsIMEIOptions {
+    export interface IsIMEIOptions {
         /**
          * This value is `false` by default. Set to `true` to allow IMEI with hyphens.
          */
@@ -632,7 +630,7 @@ declare namespace validator {
      */
     export function isIn(str: string, values: any[]): boolean;
 
-    interface IsIntOptions {
+    export interface IsIntOptions {
         /**
          * to check the integer min boundary
          */
@@ -663,7 +661,7 @@ declare namespace validator {
      */
     export function isInt(str: string, options?: IsIntOptions): boolean;
 
-    type IPVersion = "4" | "6" | 4 | 6;
+    export type IPVersion = "4" | "6" | 4 | 6;
 
     /**
      * Check if the string is an IP (version 4 or 6).
@@ -677,7 +675,7 @@ declare namespace validator {
      */
     export function isIPRange(str: string, version?: IPVersion): boolean;
 
-    type ISBNVersion = "10" | "13" | 10 | 13;
+    export type ISBNVersion = "10" | "13" | 10 | 13;
 
     /**
      * Check if the string is an ISBN (version 10 or 13).
@@ -719,7 +717,7 @@ declare namespace validator {
      */
     export const isISO6391: typeof _isISO6391.default;
 
-    interface IsISO8601Options {
+    export interface IsISO8601Options {
         /**
          * If `strict` is `true`, performs additional checks for valid dates,
          * e.g. invalidates dates like `2009-02-29`.
@@ -741,7 +739,7 @@ declare namespace validator {
      */
     export function isISO8601(str: string, options?: IsISO8601Options): boolean;
 
-    interface IsISSNOptions {
+    export interface IsISSNOptions {
         /**
          * If `case_sensitive` is `true`, ISSNs with a lowercase `x` as the check digit are rejected.
          *
@@ -790,7 +788,7 @@ declare namespace validator {
      */
     export function isLatLong(str: string): boolean;
 
-    interface IsLengthOptions {
+    export interface IsLengthOptions {
         /**
          * @default 0
          */
@@ -820,7 +818,7 @@ declare namespace validator {
      */
     export function isLowercase(str: string): boolean;
 
-    interface IsMACAddressOptions {
+    export interface IsMACAddressOptions {
         /**
          * If `no_colons` is `true`, the validator will allow MAC addresses without the colons.
          * Also, it allows the use of hyphens or spaces.
@@ -850,12 +848,12 @@ declare namespace validator {
     export function isMD5(str: string): boolean;
 
     /**
-     * Check if the string matches to a valid [MIME type](https://en.wikipedia.org/wiki/Media_type) format.
+     * Check if the string matches to a valid [MIME export type](https://en.wikipedia.org/wiki/Media_export type) format.
      */
-    export function isMimeType(str: string): boolean;
+    export function isMimetype(str: string): boolean;
 
-    type MobilePhoneLocale = PhoneLocale | PhoneLocaleAlias;
-    type PhoneLocale =
+    export type MobilePhoneLocale = PhoneLocale | PhoneLocaleAlias;
+    export type PhoneLocale =
         | "am-AM"
         | "ar-AE"
         | "ar-BH"
@@ -971,11 +969,11 @@ declare namespace validator {
         | "vi-VN"
         | "zh-CN"
         | "zh-TW";
-    type PhoneLocaleAlias = "en-CA" | "fr-CA" | "fr-BE" | "zh-HK" | "zh-MO" | "ga-IE" | "fr-CH" | "it-CH";
+    export type PhoneLocaleAlias = "en-CA" | "fr-CA" | "fr-BE" | "zh-HK" | "zh-MO" | "ga-IE" | "fr-CH" | "it-CH";
 
     export const isMobilePhoneLocales: MobilePhoneLocale[];
 
-    interface IsMobilePhoneOptions {
+    export interface IsMobilePhoneOptions {
         /**
          * If this is set to `true`, the mobile phone number must be supplied with the country code and therefore must start with `+`.
          *
@@ -1006,7 +1004,7 @@ declare namespace validator {
      */
     export function isMultibyte(str: string): boolean;
 
-    interface IsNumericOptions {
+    export interface IsNumericOptions {
         /**
          * If `no_symbols` is true, the validator will reject numeric strings that feature a symbol (e.g. `+`, `-`, or `.`).
          *
@@ -1040,7 +1038,7 @@ declare namespace validator {
      */
     export function isPort(str: string): boolean;
 
-    type PostalCodeLocale =
+    export type PostalCodeLocale =
         | "AD"
         | "AT"
         | "AU"
@@ -1115,7 +1113,7 @@ declare namespace validator {
      * Check if string is considered a strong password. Allows options to be added
      */
 
-    interface StrongPasswordOptions {
+    export interface StrongPasswordOptions {
         minLength?: number | undefined;
         minLowercase?: number | undefined;
         minUppercase?: number | undefined;
@@ -1141,7 +1139,7 @@ declare namespace validator {
      */
     export function isSurrogatePair(str: string): boolean;
 
-    interface IsTimeOptions {
+    export interface IsTimeOptions {
         /**
          * 'hour24' will validate hours in 24 format and 'hour12' will validate hours in 12 format.
          * @default 'hour24'
@@ -1161,7 +1159,7 @@ declare namespace validator {
     export function isTime(str: string, options?: IsTimeOptions): boolean;
 
     export const isURL: typeof _isURL.default;
-    type IsURLOptions = _isURL.IsURLOptions;
+    export type IsURLOptions = _isURL.IsURLOptions;
 
     export const isTaxID: typeof _isTaxID.default;
 
@@ -1170,7 +1168,7 @@ declare namespace validator {
      */
     export function isUppercase(str: string): boolean;
 
-    type UUIDVersion = "1" | "2" | "3" | "4" | "5" | "all" | 1 | 2 | 3 | 4 | 5;
+    export type UUIDVersion = "1" | "2" | "3" | "4" | "5" | "all" | 1 | 2 | 3 | 4 | 5;
     /**
      * Check if the string is a UUID (version 1, 2, 3, 4 or 5).
      *
@@ -1210,7 +1208,7 @@ declare namespace validator {
     export function matches(str: string, pattern: string, modifiers?: string): boolean;
 
     /**
-     * Check if the string is of type slug.
+     * Check if the string is of export type slug.
      */
     export function isSlug(str: string): boolean;
 
@@ -1242,7 +1240,7 @@ declare namespace validator {
      */
     export function ltrim(input: string, chars?: string): string;
 
-    interface NormalizeEmailOptions {
+    export interface NormalizeEmailOptions {
         /**
          * Transforms the local part (before the @ symbol) of all email addresses to lowercase.
          * Please note that this may violate RFC 5321, which gives providers the possibility
@@ -1390,10 +1388,12 @@ declare namespace validator {
      */
     export function toString(input: any): string;
 
-    const _default: validator;
+    export const _default: validator;
 
     export { _default as default };
 }
 
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = validator;
 
+export as namespace validator;
