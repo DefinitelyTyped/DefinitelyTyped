@@ -323,7 +323,7 @@ const awsServerless: Aws.Serverless = {
             useProviderTags: true,
             metrics: true,
             disableDefaultEndpoint: true,
-            shouldStartNameWithService: true
+            shouldStartNameWithService: true,
         },
         usagePlan: {
             quota: {
