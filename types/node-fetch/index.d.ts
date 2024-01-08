@@ -1,5 +1,4 @@
 /// <reference types="node" />
-// Minimum TypeScript Version: 4.7
 
 import { RequestOptions } from "http";
 import { URL, URLSearchParams } from "url";
