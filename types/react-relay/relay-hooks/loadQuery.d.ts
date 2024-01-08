@@ -1,8 +1,7 @@
-import { GraphQLTaggedNode, IEnvironment, OperationType, VariablesOf } from "relay-runtime";
+import { GraphQLTaggedNode, IEnvironment, OperationType, PreloadableConcreteRequest, VariablesOf } from "relay-runtime";
 import {
     EnvironmentProviderOptions,
     LoadQueryOptions,
-    PreloadableConcreteRequest,
     PreloadedQuery,
 } from "./EntryPointTypes";
 
