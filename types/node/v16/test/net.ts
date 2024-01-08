@@ -368,4 +368,5 @@ import * as net from "node:net";
     bl.addSubnet("127.0.0.1", 26, "ipv4");
     bl.addSubnet(sockAddr, 12);
     const res: boolean = bl.check("127.0.0.1", "ipv4") || bl.check(sockAddr);
+    bl.rules // $ExpectType string[]
 }
