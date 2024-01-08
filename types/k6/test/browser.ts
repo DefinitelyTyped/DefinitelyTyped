@@ -888,6 +888,11 @@ mouse.up({ clickCount: 2 });
 //
 const locator = page.locator(selector);
 
+// $ExpectType void
+locator.clear();
+// $ExpectType void
+locator.clear({ noWaitAfter: true, timeout: 10000 });
+
 // $ExpectType Promise<void>
 locator.click();
 // $ExpectType Promise<void>

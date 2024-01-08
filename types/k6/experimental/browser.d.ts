@@ -1625,6 +1625,21 @@ export interface Keyboard {
  */
 export interface Locator {
     /**
+     * Clears text boxes and input fields of any existing values after navigating
+     * to a page or or values that were entered earlier in the test.
+     *
+     * **Usage**
+     *
+     * ```js
+     * // Clears the input field matching the selector.
+     * page.locator('input[name="login"]').clear();
+     * ```
+     *
+     * @param options Options to use.
+     */
+    clear(options?: ElementHandleOptions): void;
+
+    /**
      * Mouse click on the chosen element.
      * @param options Options to use.
      * @returns Promise which resolves when the element is successfully clicked.
