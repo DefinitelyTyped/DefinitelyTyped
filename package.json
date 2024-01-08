@@ -37,7 +37,7 @@
         "@definitelytyped/typescript-versions": "latest",
         "@definitelytyped/utils": "latest",
         "danger": "^11.2.3",
-        "dprint": "^0.42.3",
+        "dprint": "^0.45.0",
         "eslint-plugin-jsdoc": "^44.2.7",
         "remark-cli": "^11.0.0",
         "remark-gfm": "^3.0.0",
