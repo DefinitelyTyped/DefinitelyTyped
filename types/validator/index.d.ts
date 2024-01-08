@@ -850,7 +850,7 @@ declare namespace validator {
     /**
      * Check if the string matches to a valid [MIME export type](https://en.wikipedia.org/wiki/Media_export type) format.
      */
-    export function isMimetype(str: string): boolean;
+    export function isMimeType(str: string): boolean;
 
     export type MobilePhoneLocale = PhoneLocale | PhoneLocaleAlias;
     export type PhoneLocale =
