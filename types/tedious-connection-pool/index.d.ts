@@ -66,7 +66,7 @@ declare class tcp extends events.EventEmitter {
      * @param poolConfig the pool configuration
      * @param connectionConfig the connection configuration
      */
-    constructor(poolConfig: tcp.PoolConfig, connectionConfig: tedious.ConnectionConfig);
+    constructor(poolConfig: tcp.PoolConfig, connectionConfig: tedious.ConnectionConfiguration);
 
     /**
      * acquires a connection from the pool

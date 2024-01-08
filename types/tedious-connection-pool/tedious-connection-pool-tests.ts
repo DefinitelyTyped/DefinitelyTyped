@@ -1,7 +1,7 @@
 import ConnectionPool = require("tedious-connection-pool");
 import tedious = require("tedious");
 
-const config: tedious.ConnectionConfig = {
+const config: tedious.ConnectionConfiguration = {
     server: "127.0.0.1",
     options: {
         database: "somedb",
