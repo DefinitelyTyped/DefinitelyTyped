@@ -1388,7 +1388,7 @@ declare namespace validator {
      */
     export function toString(input: any): string;
 
-    export const _default: validator;
+    export const _default: typeof validator;
 
     export { _default as default };
 }
