@@ -11,12 +11,7 @@
         "jsx": "preserve",
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "react": [
-                "../../react/v16/index.d.ts"
-            ]
-        }
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
