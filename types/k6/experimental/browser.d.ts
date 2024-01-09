@@ -1625,8 +1625,7 @@ export interface Keyboard {
  */
 export interface Locator {
     /**
-     * Clears text boxes and input fields of any existing values after navigating
-     * to a page or or values that were entered earlier in the test.
+     * Clears text boxes and input fields of any existing values.
      *
      * **Usage**
      *
