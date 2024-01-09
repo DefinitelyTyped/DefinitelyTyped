@@ -1,4 +1,4 @@
-import { BaseQuad, DatasetCore } from "rdf-js";
+import { BaseQuad, DatasetCore } from "@rdfjs/types";
 import { EventEmitter } from "stream";
 
 /**

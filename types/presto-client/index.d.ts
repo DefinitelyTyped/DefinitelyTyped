@@ -115,6 +115,12 @@ export interface ClientOptions {
      * @default "presto"
      */
     engine?: string;
+    /**
+     * The seconds that a query is allowed to run before it starts returning
+     * results, defaults to 60 seconds. Set to null or 0 to disable.
+     * @default 60
+     */
+    timeout?: null | number;
 }
 
 // Query is a REST call to v1/statements, the `columns` returned is set as the `columns` callback
@@ -263,6 +269,7 @@ export interface QueryOptions {
      * Aditional headers to be included in the request
      */
     headers?: Record<string, string>;
+    timeout?: null | number;
     /**
      * Client stops fetch of query results if this callback returns `true`
      */
@@ -280,6 +287,11 @@ export interface QueryOptions {
      */
     data?: (error: null, data: any[][], columns: Column[], stats: RuntimeStats) => void;
     /**
+     * Called if a request was retried due to server returning `502`, `503`, or
+     * `504`
+     */
+    retry?: () => void;
+    /**
      * Called once when all results are fetched
      */
     success?: (error: null, stats: RuntimeStats, info: any) => void;
@@ -288,8 +300,9 @@ export interface QueryOptions {
      */
     error?: (error: PrestoError) => void;
     /**
-     * Callback for query completion (both of success and fail). One of
-     * `callback` or `success` must be specified.
+     * Callback for query completion (both of success and fail).
+     * One of `callback` or `success` must be specified.
+     * One of `callback` or `error` must be specified.
      */
     callback?: (error: PrestoError | null, stats: RuntimeStats) => void;
 }

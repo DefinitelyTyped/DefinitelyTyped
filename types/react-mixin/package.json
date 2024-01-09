@@ -6,7 +6,8 @@
         "https://github.com/brigand/react-mixin"
     ],
     "dependencies": {
-        "@types/react": "*"
+        "@types/react": "*",
+        "@types/create-react-class": "*"
     },
     "devDependencies": {
         "@types/react-mixin": "workspace:."

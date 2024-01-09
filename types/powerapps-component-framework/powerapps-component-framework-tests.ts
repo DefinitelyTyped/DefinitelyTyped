@@ -662,3 +662,7 @@ const fluentDesignLanguage: ComponentFramework.FluentDesignState = {
     typographyTokens: ComponentFramework.typographyStyles,
     isDarkTheme: false,
 };
+
+const lookupOptionsTest: ComponentFramework.UtilityApi.LookupOptions = {
+    entityTypes: [],
+};

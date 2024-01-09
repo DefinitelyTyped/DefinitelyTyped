@@ -1,4 +1,4 @@
-import { DatasetCore, DatasetCoreFactory, Literal, Term } from "rdf-js";
+import { DatasetCore, DatasetCoreFactory, Literal, Term } from "@rdfjs/types";
 import {
     AnyContext,
     AnyPointer,
