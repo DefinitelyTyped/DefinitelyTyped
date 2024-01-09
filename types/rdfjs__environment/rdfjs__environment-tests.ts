@@ -1,10 +1,11 @@
 import Environment from "@rdfjs/environment";
-import DataFactory from "@rdfjs/environment/DataFactory.js";
-import DatasetFactory from "@rdfjs/environment/DatasetFactory.js";
+import DataFactory from "@rdfjs/data-model/Factory.js";
+import DatasetFactory from "@rdfjs/dataset/Factory.js";
 import { FactoryConstructor } from "@rdfjs/environment/Environment.js";
-import FormatsFactory from "@rdfjs/environment/FormatsFactory.js";
-import NamespaceFactory from "@rdfjs/environment/NamespaceFactory.js";
-import TermMapSetFactory from "@rdfjs/environment/TermMapSetFactory.js";
+import FormatsFactory from "@rdfjs/formats/Factory.js";
+import NamespaceFactory from "@rdfjs/namespace/Factory.js";
+import TermMapFactory from "@rdfjs/term-map/Factory.js";
+import TermSetFactory from "@rdfjs/term-set/Factory.js";
 import formatsCommon from "@rdfjs/formats-common";
 import { SinkMap } from "@rdfjs/sink-map";
 import { NamedNode, Stream } from "@rdfjs/types";
@@ -52,7 +53,10 @@ const envWithDefaults = new Environment([
 
 const { formats, namespace } = envWithDefaults;
 
-const env = new Environment([TermMapSetFactory]);
+const env = new Environment([
+    TermSetFactory,
+    TermMapFactory,
+]);
 
 const node: NamedNode = <any> {};
 const termMap = env.termMap([ // $ExpectType TermMap<NamedNode<string>, string>
