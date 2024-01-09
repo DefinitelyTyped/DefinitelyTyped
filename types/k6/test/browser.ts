@@ -915,8 +915,6 @@ locator.click({ position: { x: 0, y: 0 } });
 locator.click({ timeout: 10000 });
 // $ExpectType Promise<void>
 locator.click({ trial: true });
-// $ExpectType Promise<void>
-locator.click({ strict: true });
 
 // $ExpectType void
 locator.dblclick();
@@ -940,8 +938,6 @@ locator.dblclick({ position: { x: 0, y: 0 } });
 locator.dblclick({ timeout: 10000 });
 // $ExpectType void
 locator.dblclick({ trial: true });
-// $ExpectType void
-locator.dblclick({ strict: true });
 
 // $ExpectType void
 locator.check();
@@ -955,8 +951,6 @@ locator.check({ position: { x: 0, y: 0 } });
 locator.check({ timeout: 10000 });
 // $ExpectType void
 locator.check({ trial: true });
-// $ExpectType void
-locator.check({ strict: true });
 
 // $ExpectType void
 locator.uncheck();
@@ -970,29 +964,21 @@ locator.uncheck({ position: { x: 0, y: 0 } });
 locator.uncheck({ timeout: 10000 });
 // $ExpectType void
 locator.uncheck({ trial: true });
-// $ExpectType void
-locator.uncheck({ strict: true });
 
 // $ExpectType boolean
 locator.isChecked();
 // $ExpectType boolean
 locator.isChecked({ timeout: 10000 });
-// $ExpectType boolean
-locator.isChecked({ strict: true });
 
 // $ExpectType boolean
 locator.isEnabled();
 // $ExpectType boolean
 locator.isEnabled({ timeout: 10000 });
-// $ExpectType boolean
-locator.isEnabled({ strict: true });
 
 // $ExpectType boolean
 locator.isDisabled();
 // $ExpectType boolean
 locator.isDisabled({ timeout: 10000 });
-// $ExpectType boolean
-locator.isDisabled({ strict: true });
 
 // $ExpectType boolean
 locator.isVisible();
@@ -1010,15 +996,11 @@ locator.fill("text", { force: true });
 locator.fill("text", { noWaitAfter: true });
 // $ExpectType void
 locator.fill("text", { timeout: 10000 });
-// $ExpectType void
-locator.fill("text", { strict: true });
 
 // $ExpectType void
 locator.focus();
 // $ExpectType void
 locator.focus({ timeout: 10000 });
-// $ExpectType void
-locator.focus({ strict: true });
 
 // @ts-expect-error
 locator.getAttribute();
@@ -1026,36 +1008,26 @@ locator.getAttribute();
 locator.getAttribute("attr");
 // $ExpectType string | null
 locator.getAttribute("attr", { timeout: 10000 });
-// $ExpectType string | null
-locator.getAttribute("attr", { strict: true });
 
 // $ExpectType string
 locator.innerHTML();
 // $ExpectType string
 locator.innerHTML({ timeout: 10000 });
-// $ExpectType string
-locator.innerHTML({ strict: true });
 
 // $ExpectType string
 locator.innerText();
 // $ExpectType string
 locator.innerText({ timeout: 10000 });
-// $ExpectType string
-locator.innerText({ strict: true });
 
 // $ExpectType string
 locator.textContent();
 // $ExpectType string
 locator.textContent({ timeout: 10000 });
-// $ExpectType string
-locator.textContent({ strict: true });
 
 // $ExpectType string
 locator.inputValue();
 // $ExpectType string
 locator.inputValue({ timeout: 10000 });
-// $ExpectType string
-locator.inputValue({ strict: true });
 
 // @ts-expect-error
 locator.selectOption();
@@ -1077,8 +1049,6 @@ locator.selectOption("value", { force: true });
 locator.selectOption("value", { noWaitAfter: true });
 // $ExpectType string[]
 locator.selectOption("value", { timeout: 10000 });
-// $ExpectType string[]
-locator.selectOption("value", { strict: true });
 
 // @ts-expect-error
 locator.type();
@@ -1107,8 +1077,6 @@ locator.hover({ position: { x: 0, y: 0 } });
 locator.hover({ timeout: 10000 });
 // $ExpectType void
 locator.hover({ trial: true });
-// $ExpectType void
-locator.hover({ strict: true });
 
 // $ExpectType void
 locator.tap();
@@ -1122,8 +1090,6 @@ locator.tap({ position: { x: 0, y: 0 } });
 locator.tap({ timeout: 10000 });
 // $ExpectType void
 locator.tap({ trial: true });
-// $ExpectType void
-locator.tap({ strict: true });
 
 // @ts-expect-error
 locator.dispatchEvent();
@@ -1134,7 +1100,7 @@ locator.dispatchEvent("click", { buttons: 2 & 4 });
 // $ExpectType void
 locator.dispatchEvent("click", { buttons: 2 & 4 }, { timeout: 10000 });
 // $ExpectType void
-locator.dispatchEvent("click", { buttons: 2 & 4 }, { strict: true });
+locator.dispatchEvent("click", { buttons: 2 & 4 });
 
 // $ExpectType void
 locator.waitFor();
@@ -1144,8 +1110,6 @@ for (const state of ["attached", "detached", "visible", "hidden"]) {
 }
 // $ExpectType void
 locator.waitFor({ timeout: 10000 });
-// $ExpectType void
-locator.waitFor({ strict: true });
 
 //
 // JSHandle
