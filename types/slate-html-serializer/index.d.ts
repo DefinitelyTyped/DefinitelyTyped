@@ -38,7 +38,7 @@ declare class Html {
 }
 
 declare namespace Html {
-    export { Rule, HtmlOptions };
+    export { HtmlOptions, Rule };
 }
 
 export = Html;
