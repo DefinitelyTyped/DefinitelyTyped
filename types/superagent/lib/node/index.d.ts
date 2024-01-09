@@ -145,7 +145,7 @@ declare namespace request {
 
         Request: typeof SARequest;
         Response: typeof ResponseBase;
-        agent: typeof SAgent & {
+        agent: typeof SAgent & { // support both constructor and function calling
             (): SAgent;
         };
         protocols: {

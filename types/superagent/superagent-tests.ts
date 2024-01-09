@@ -24,8 +24,22 @@ request
         }
     });
 
-const agent = request.agent();
+const agent = new request.agent();
 agent
+    .post("/api/pet")
+    .send({ name: "Manny", species: "cat" })
+    .set("X-API-Key", "foobar")
+    .set("Accept", "application/json")
+    .end((err, res) => {
+        if (res.error) {
+            console.log("oh no " + res.error.message);
+        } else {
+            console.log(`got ${res.status} response`);
+        }
+    });
+
+const agent2 = request.agent();
+agent2
     .post("/api/pet")
     .send({ name: "Manny", species: "cat" })
     .set("X-API-Key", "foobar")
