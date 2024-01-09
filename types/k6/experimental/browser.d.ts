@@ -1643,32 +1643,32 @@ export interface Locator {
      * @param options Options to use.
      * @returns Promise which resolves when the element is successfully clicked.
      */
-    click(options?: MouseMoveOptions & MouseMultiClickOptions & StrictnessOptions): Promise<void>;
+    click(options?: MouseMoveOptions & MouseMultiClickOptions): Promise<void>;
 
     /**
      * Mouse double click on the chosen element.
      * @param options Options to use.
      */
-    dblclick(options?: MouseMoveOptions & MouseMultiClickOptions & StrictnessOptions): void;
+    dblclick(options?: MouseMoveOptions & MouseMultiClickOptions): void;
 
     /**
      * Use this method to select an `input type="checkbox"`.
      * @param options Options to use.
      */
-    check(options?: ElementClickOptions & StrictnessOptions): void;
+    check(options?: ElementClickOptions): void;
 
     /**
      * Use this method to unselect an `input type="checkbox"`.
      * @param options Options to use.
      */
-    uncheck(options?: ElementClickOptions & StrictnessOptions): void;
+    uncheck(options?: ElementClickOptions): void;
 
     /**
      * Checks to see if the `input type="checkbox"` is selected or not.
      * @param options Options to use.
      * @returns `true` if the element is checked, `false` otherwise.
      */
-    isChecked(options?: TimeoutOptions & StrictnessOptions): boolean;
+    isChecked(options?: TimeoutOptions): boolean;
 
     /**
      * Checks if the element is editable.
@@ -1682,14 +1682,14 @@ export interface Locator {
      * @param options Options to use.
      * @returns `true` if the element is enabled, `false` otherwise.
      */
-    isEnabled(options?: TimeoutOptions & StrictnessOptions): boolean;
+    isEnabled(options?: TimeoutOptions): boolean;
 
     /**
      * Checks if the element is `disabled`.
      * @param options Options to use.
      * @returns `true` if the element is disabled, `false` otherwise.
      */
-    isDisabled(options?: TimeoutOptions & StrictnessOptions): boolean;
+    isDisabled(options?: TimeoutOptions): boolean;
 
     /**
      * Checks if the element is `visible`.
@@ -1708,13 +1708,13 @@ export interface Locator {
      * @param value Value to fill for the `input` or `textarea` element.
      * @param options Options to use.
      */
-    fill(value: string, options?: ElementHandleOptions & StrictnessOptions): void;
+    fill(value: string, options?: ElementHandleOptions): void;
 
     /**
      * Focuses the element using locator's selector.
      * @param options Options to use.
      */
-    focus(options?: TimeoutOptions & StrictnessOptions): void;
+    focus(options?: TimeoutOptions): void;
 
     /**
      * Returns the element attribute value for the given attribute name.
@@ -1722,35 +1722,35 @@ export interface Locator {
      * @param options Options to use.
      * @returns Attribute value.
      */
-    getAttribute(name: string, options?: TimeoutOptions & StrictnessOptions): string | null;
+    getAttribute(name: string, options?: TimeoutOptions): string | null;
 
     /**
      * Returns the `element.innerHTML`.
      * @param options Options to use.
      * @returns Element's innerHTML.
      */
-    innerHTML(options?: TimeoutOptions & StrictnessOptions): string;
+    innerHTML(options?: TimeoutOptions): string;
 
     /**
      * Returns the `element.innerText`.
      * @param options Options to use.
      * @returns Element's innerText.
      */
-    innerText(options?: TimeoutOptions & StrictnessOptions): string;
+    innerText(options?: TimeoutOptions): string;
 
     /**
      * Returns the `element.textContent`.
      * @param options Options to use.
      * @returns Element's textContent.
      */
-    textContent(options?: TimeoutOptions & StrictnessOptions): string;
+    textContent(options?: TimeoutOptions): string;
 
     /**
      * Returns `input.value` for the selected `input`, `textarea` or `select` element.
      * @param options Options to use.
      * @returns The input value of the element.
      */
-    inputValue(options?: TimeoutOptions & StrictnessOptions): string;
+    inputValue(options?: TimeoutOptions): string;
 
     /**
      * Select one or more options which match the values. If the select has the multiple attribute, all matching options are selected,
@@ -1761,7 +1761,7 @@ export interface Locator {
      */
     selectOption(
         values: string | string[] | { value?: string; label?: string; index?: number },
-        options?: ElementHandleOptions & StrictnessOptions,
+        options?: ElementHandleOptions,
     ): string[];
 
     /**
@@ -1783,13 +1783,13 @@ export interface Locator {
      * Hover over the element.
      * @param options Options to use.
      */
-    hover(options?: MouseMoveOptions & StrictnessOptions): void;
+    hover(options?: MouseMoveOptions): void;
 
     /**
      * Tap on the chosen element.
      * @param options Options to use.
      */
-    tap(options?: MouseMoveOptions & StrictnessOptions): void;
+    tap(options?: MouseMoveOptions): void;
 
     /**
      * Dispatches HTML DOM event types e.g. `click`.
@@ -1797,13 +1797,13 @@ export interface Locator {
      * @param eventInit Event-specific properties.
      * @param options Options to use.
      */
-    dispatchEvent(type: string, eventInit?: EvaluationArgument, options?: TimeoutOptions & StrictnessOptions): void;
+    dispatchEvent(type: string, eventInit?: EvaluationArgument, options?: TimeoutOptions): void;
 
     /**
      * Wait for the element to be in a particular state e.g. `visible`.
      * @param options Wait options.
      */
-    waitFor(options?: { state?: ElementState } & TimeoutOptions & StrictnessOptions): void;
+    waitFor(options?: { state?: ElementState } & TimeoutOptions): void;
 }
 
 /**
