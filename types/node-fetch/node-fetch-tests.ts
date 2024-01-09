@@ -1,7 +1,7 @@
 import { Agent } from "http";
 import fetch, { AbortError, Blob, FetchError, Headers, Request, RequestInit, Response, HeaderInit, HeadersInit } from "node-fetch";
 import { URL } from "url";
-import FormData from "form-data";
+import FormData = require("form-data");
 
 function test_AbortError() {
     const e = new AbortError("message");

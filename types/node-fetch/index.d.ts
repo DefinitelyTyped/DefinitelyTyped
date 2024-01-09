@@ -1,5 +1,6 @@
 /// <reference types="node" />
 
+import FormData = require("form-data");
 import { RequestOptions } from "http";
 import { URL, URLSearchParams } from "url";
 import { AbortSignal } from "./externals";
@@ -196,7 +197,8 @@ type BodyInit =
     | ArrayBufferView
     | NodeJS.ReadableStream
     | string
-    | URLSearchParams;
+    | URLSearchParams
+    | FormData;
 type RequestInfo = string | URLLike | Request;
 
 declare function fetch(
