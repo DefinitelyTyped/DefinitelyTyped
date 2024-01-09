@@ -226,7 +226,7 @@ declare namespace fetch {
         Response,
         ResponseInit,
         ResponseType,
-    }
+    };
     export function isRedirect(code: number): boolean;
 
     const _default: typeof fetch;
