@@ -18,7 +18,6 @@ new whatwgUrl.URL("foo", "http://example.com");
 
 // $ExpectType URLRecord | null
 const urlRecord = whatwgUrl.parseURL("http://example.com");
-whatwgUrl.parseURL("http://example.com", { baseURL: "foo" });
 
 if (urlRecord !== null) {
     urlRecord.scheme; // $ExpectType string
@@ -30,7 +29,7 @@ if (urlRecord !== null) {
     urlRecord.query; // $ExpectType string | null
     urlRecord.fragment; // $ExpectType string | null
     whatwgUrl.basicURLParse("http://example.com", { url: urlRecord }); // $ExpectType URLRecord | null
-    whatwgUrl.basicURLParse("http://example.com", { baseURL: "foo" }); // $ExpectType URLRecord | null
+    whatwgUrl.basicURLParse("/relative/path", { baseURL: urlRecord }); // $ExpectType URLRecord | null
     (
         [
             "scheme start",
