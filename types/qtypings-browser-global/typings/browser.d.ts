@@ -1,4 +1,3 @@
-// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 global {
     interface Window {
         [propName: string]: unknown;
