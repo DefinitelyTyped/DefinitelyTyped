@@ -65,7 +65,13 @@ const complexAnimatedTree = () => (
         direction="ltr"
         getChildren={(node) => node.children}
         textProps={{ color: "red" }}
-        gProps={{ autoFocus: true }}
+        gProps={{
+            autoFocus: true,
+            onClick: (event, nodeId) => {
+                // $ExpectType string
+                nodeId;
+            },
+        }}
         nodeProps={{ disabled: true }}
     />
 );
