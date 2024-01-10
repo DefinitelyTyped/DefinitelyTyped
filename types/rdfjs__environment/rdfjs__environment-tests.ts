@@ -1,13 +1,13 @@
-import Environment from "@rdfjs/environment";
 import DataFactory from "@rdfjs/data-model/Factory.js";
 import DatasetFactory from "@rdfjs/dataset/Factory.js";
+import Environment from "@rdfjs/environment";
 import { FactoryConstructor } from "@rdfjs/environment/Environment.js";
+import formatsCommon from "@rdfjs/formats";
 import FormatsFactory from "@rdfjs/formats/Factory.js";
 import NamespaceFactory from "@rdfjs/namespace/Factory.js";
+import { SinkMap } from "@rdfjs/sink-map";
 import TermMapFactory from "@rdfjs/term-map/Factory.js";
 import TermSetFactory from "@rdfjs/term-set/Factory.js";
-import formatsCommon from "@rdfjs/formats";
-import { SinkMap } from "@rdfjs/sink-map";
 import { NamedNode, Stream } from "@rdfjs/types";
 import { EventEmitter } from "events";
 

@@ -1,6 +1,6 @@
 import { BaseQuad, Quad, Sink, Stream } from "@rdfjs/types";
-import {EventEmitter} from "events";
-import {Context} from "jsonld/jsonld-spec";
+import { EventEmitter } from "events";
+import { Context } from "jsonld/jsonld-spec";
 
 export interface SerializerOptions {
     baseIRI?: string | undefined;

@@ -1,6 +1,6 @@
-import {EventEmitter} from 'events';
-import {BaseQuad, Quad, Sink, Stream} from "@rdfjs/types";
-import PrefixMap from '@rdfjs/prefix-map/PrefixMap.js';
+import PrefixMap from "@rdfjs/prefix-map/PrefixMap.js";
+import { BaseQuad, Quad, Sink, Stream } from "@rdfjs/types";
+import { EventEmitter } from "events";
 
 export interface SerializerOptions {
     baseIRI?: string | undefined;
@@ -13,5 +13,5 @@ export default class Serializer<Q extends BaseQuad = Quad> implements Sink<Strea
 
     import(stream: Stream<Q>, options?: SerializerOptions): EventEmitter;
 
-    transform(quads: Iterable<Q>): string
+    transform(quads: Iterable<Q>): string;
 }
