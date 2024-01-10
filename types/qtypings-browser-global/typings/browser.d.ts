@@ -1,4 +1,4 @@
-global {
+declare global {
     interface Window {
         [propName: string]: unknown;
     }
