@@ -1,5 +1,5 @@
 import { PathLike } from "fs";
-import { Stream } from "rdf-js";
+import { Stream } from "@rdfjs/types";
 import defaults = require("./defaults");
 
 type Options = Record<string, any> & {
