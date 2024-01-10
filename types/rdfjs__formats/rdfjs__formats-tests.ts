@@ -1,7 +1,8 @@
-import formats, * as formatsNamed from "@rdfjs/formats-common";
+import formats, * as formatsNamed from "@rdfjs/formats";
+import prettyFormats from "@rdfjs/formats/pretty.js";
 import { SinkMap } from "@rdfjs/sink-map";
 import { EventEmitter } from "events";
-import { Sink, Stream } from "rdf-js";
+import { Sink, Stream } from "@rdfjs/types";
 
 let parsers: SinkMap<EventEmitter, Stream> = formats.parsers;
 let serializers: SinkMap<Stream, EventEmitter> = formats.serializers;
@@ -18,3 +19,5 @@ type Serializer = Sink<Stream, EventEmitter>;
 
 const jsonLdSerializer: Serializer = new formatsNamed.JsonLdSerializer();
 const nTriplesSerializer: Serializer = new formatsNamed.NTriplesSerializer();
+
+formats.import(prettyFormats);

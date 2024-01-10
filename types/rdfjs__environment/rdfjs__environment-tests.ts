@@ -6,7 +6,7 @@ import FormatsFactory from "@rdfjs/formats/Factory.js";
 import NamespaceFactory from "@rdfjs/namespace/Factory.js";
 import TermMapFactory from "@rdfjs/term-map/Factory.js";
 import TermSetFactory from "@rdfjs/term-set/Factory.js";
-import formatsCommon from "@rdfjs/formats-common";
+import formatsCommon from "@rdfjs/formats";
 import { SinkMap } from "@rdfjs/sink-map";
 import { NamedNode, Stream } from "@rdfjs/types";
 import { EventEmitter } from "events";

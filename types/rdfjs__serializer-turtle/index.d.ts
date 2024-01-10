@@ -1,20 +1,17 @@
-import {EventEmitter} from "events";
-import {Context} from "jsonld/jsonld-spec";
+import {EventEmitter} from 'events';
 import {BaseQuad, Quad, Sink, Stream} from "@rdfjs/types";
+import PrefixMap from '@rdfjs/prefix-map/PrefixMap.js';
 
 export interface SerializerOptions {
     baseIRI?: string | undefined;
-    context?: Context | undefined;
-    compact?: boolean | undefined;
-    encoding?: "string" | "object" | undefined;
-    flatten?: boolean | undefined;
-    frame?: boolean | undefined;
-    skipContext?: boolean | undefined;
-    prettyPrint?: boolean | undefined;
+    output?: string[] | undefined;
+    prefixes?: PrefixMap | undefined;
 }
 
 export default class Serializer<Q extends BaseQuad = Quad> implements Sink<Stream<Q>, EventEmitter> {
     constructor(options?: SerializerOptions);
 
     import(stream: Stream<Q>, options?: SerializerOptions): EventEmitter;
+
+    transform(quads: Iterable<Q>): string
 }
