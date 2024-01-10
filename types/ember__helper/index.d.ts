@@ -103,7 +103,6 @@ export const hash: HashHelper;
   @param {String} managerApiVersion The version of capabilities that are being used
   @param options The capabilities values
   @return {Capabilities} The capabilities object instance
-  @public
 */
 export const capabilities: typeof helperCapabilities;
 /**
@@ -296,7 +295,6 @@ export const capabilities: typeof helperCapabilities;
   @param {Function} factory A factory function which receives an optional owner, and returns a helper manager
   @param {object} definition The definition to associate the manager factory with
   @return {object} The definition passed into setHelperManager
-  @public
 */
 export const setHelperManager: typeof glimmerSetHelperManager;
 /**
@@ -360,6 +358,5 @@ export const setHelperManager: typeof glimmerSetHelperManager;
   @param {object} definition The helper definition
   @param {Function} computeArgs An optional function that produces args
   @returns
-  @public
 */
 export const invokeHelper: typeof glimmerInvokeHelper;
