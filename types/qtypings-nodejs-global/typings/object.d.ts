@@ -1,11 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/naming-convention @definitelytyped/strict-export-declare-modifiers @definitelytyped/no-any-union
-declare type IQJson = Record<string, any>;
+type QJson = Record<string, any>;
 
 // eslint-disable-next-line @typescript-eslint/naming-convention @definitelytyped/strict-export-declare-modifiers
-declare type IQJsonT<T> = Record<string, T>;
+type QJsonT<T> = Record<string, T>;
 
 // eslint-disable-next-line @typescript-eslint/naming-convention @definitelytyped/strict-export-declare-modifiers @definitelytyped/no-any-union
-declare type IQJsonNumber = Record<number, any>
+type QJsonNumber = Record<number, any>
 
 // eslint-disable-next-line @typescript-eslint/naming-convention @definitelytyped/strict-export-declare-modifiers
-declare type IQJsonNumberT<T> = Record<number, T>;
+type QJsonNumberT<T> = Record<number, T>;
