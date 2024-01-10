@@ -3,7 +3,7 @@
 import * as Promise from "bluebird";
 import * as _ from "lodash";
 
-import ValidatorJS from "validator";
+import * as ValidatorJS from "validator";
 
 declare namespace sequelize {
     //

@@ -10,6 +10,7 @@
         "@types/bluebird": "*",
         "@types/continuation-local-storage": "*",
         "@types/lodash": "*",
+        "@types/node": "*",
         "@types/validator": "*"
     },
     "devDependencies": {
