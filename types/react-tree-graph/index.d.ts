@@ -1,7 +1,6 @@
 import type { FC, HTMLProps, ReactNode } from "react";
 
-type EventListenerWithNodeId<T> = T extends
-    ((this: infer ListenerThis, ev: infer Event) => infer ListenerReturnType)
+type EventListenerWithNodeId<T> = T extends ((this: infer ListenerThis, ev: infer Event) => infer ListenerReturnType)
     ? (this: ListenerThis, ev: Event, nodeId: string) => ListenerReturnType
     : T;
 
@@ -14,10 +13,10 @@ interface NodeProps {
     labelProp?: string;
     shape?: "circle" | "image" | "polygon" | "rect";
     nodeProps?:
-    | AddNodeIdToElementEvents<HTMLProps<SVGCircleElement>>
-    | AddNodeIdToElementEvents<HTMLProps<SVGRectElement>>
-    | AddNodeIdToElementEvents<HTMLProps<SVGImageElement>>
-    | AddNodeIdToElementEvents<HTMLProps<SVGPolygonElement>>;
+        | AddNodeIdToElementEvents<HTMLProps<SVGCircleElement>>
+        | AddNodeIdToElementEvents<HTMLProps<SVGRectElement>>
+        | AddNodeIdToElementEvents<HTMLProps<SVGImageElement>>
+        | AddNodeIdToElementEvents<HTMLProps<SVGPolygonElement>>;
     gProps?: AddNodeIdToElementEvents<HTMLProps<SVGGElement>>;
     pathProps?: AddNodeIdToElementEvents<HTMLProps<SVGPathElement>>;
     textProps?: AddNodeIdToElementEvents<HTMLProps<SVGTextElement>>;
