@@ -4,6 +4,14 @@ type EventListenerWithNodeId<T> = T extends ((this: infer ListenerThis, ev: infe
     ? (this: ListenerThis, ev: Event, nodeId: string) => ListenerReturnType
     : T;
 
+type EventListenerWithPathsId<T> = T extends ((this: infer ListenerThis, ev: infer Event) => infer ListenerReturnType)
+    ? (this: ListenerThis, ev: Event, sourceNodeId: string, targetNodeId: string) => ListenerReturnType
+    : T;
+
+type AddPathsIdToElementEvents<T> = {
+    [K in keyof T]: K extends `on${string}` ? EventListenerWithPathsId<T[K]> : T[K];
+};
+
 type AddNodeIdToElementEvents<T> = {
     [K in keyof T]: K extends `on${string}` ? EventListenerWithNodeId<T[K]> : T[K];
 };
@@ -18,7 +26,7 @@ interface NodeProps {
         | AddNodeIdToElementEvents<HTMLProps<SVGImageElement>>
         | AddNodeIdToElementEvents<HTMLProps<SVGPolygonElement>>;
     gProps?: AddNodeIdToElementEvents<HTMLProps<SVGGElement>>;
-    pathProps?: AddNodeIdToElementEvents<HTMLProps<SVGPathElement>>;
+    pathProps?: AddPathsIdToElementEvents<HTMLProps<SVGPathElement>>;
     textProps?: AddNodeIdToElementEvents<HTMLProps<SVGTextElement>>;
 }
 

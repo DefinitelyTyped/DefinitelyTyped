@@ -36,6 +36,14 @@ const complexTree = () => (
         labelProp="name"
         keyProp="id"
         margins={{ top: 5, bottom: 5, right: 2, left: 2 }}
+        pathProps={{
+            onFocus: (event, sourceNodeId, targetNodeId) => {
+                // $ExpectType string
+                sourceNodeId;
+                // $ExpectType string
+                targetNodeId;
+            },
+        }}
         textProps={{ color: "red" }}
         gProps={{ autoFocus: true }}
         nodeProps={{ disabled: true }}
