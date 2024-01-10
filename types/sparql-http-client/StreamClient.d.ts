@@ -1,4 +1,4 @@
-import { BaseQuad, DataFactory, Quad, Stream } from "rdf-js";
+import { BaseQuad, DataFactory, Quad, Stream } from "@rdfjs/types";
 import BaseClient = require("./BaseClient");
 import StreamQuery = require("./StreamQuery");
 import StreamStore = require("./StreamStore");

@@ -1,6 +1,6 @@
 import { SinkMap } from "@rdfjs/sink-map";
-import { EventEmitter } from "events";
 import { Stream } from "@rdfjs/types";
+import { EventEmitter } from "events";
 import Formats from './lib/Formats.js';
 
 export {default as Formats} from './lib/Formats.js';

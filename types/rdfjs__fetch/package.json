@@ -9,7 +9,7 @@
     "dependencies": {
         "@types/node": "*",
         "@types/rdfjs__fetch-lite": "*",
-        "rdf-js": "^4.0.2"
+        "@rdfjs/types": ">=1.0.0"
     },
     "devDependencies": {
         "@types/rdfjs__fetch": "workspace:.",

@@ -1,8 +1,9 @@
+import { Mixin } from "create-react-class";
 import reactMixin = require("react-mixin");
 import * as React from "react";
 
-var someMixin: React.Mixin<any, any>;
-var someOtherMixin: React.Mixin<any, any>;
+var someMixin: Mixin<any, any>;
+var someOtherMixin: Mixin<any, any>;
 
 class Foo extends React.Component {
     render(): React.JSX.Element {
@@ -13,7 +14,7 @@ class Foo extends React.Component {
 reactMixin(Foo.prototype, someMixin);
 reactMixin(Foo.prototype, someOtherMixin);
 
-var mixin: React.Mixin<any, any> = {
+var mixin: Mixin<any, any> = {
     getDefaultProps: function(): any {
         return { b: 2 };
     },
@@ -35,7 +36,7 @@ reactMixin.onClass(Foo2, mixin);
 class Foo3 extends React.Component {
 }
 
-function autobind(methodNames: string[]): React.Mixin<any, any> {
+function autobind(methodNames: string[]): Mixin<any, any> {
     return {
         componentWillMount: function(): void {
             methodNames.forEach((name) => {

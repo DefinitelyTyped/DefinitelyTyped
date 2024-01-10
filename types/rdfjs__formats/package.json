@@ -16,8 +16,8 @@
         "@types/rdfjs__serializer-turtle": "*",
         "@types/rdfjs__sink-map": "*",
         "@rdfjs/data-model": ">=1.0.0",
-        "rdfxml-streaming-parser": ">=2",
-        "@rdfjs/types": ">=1.0.0"
+        "@rdfjs/types": ">=1.0.0",
+        "rdfxml-streaming-parser": ">=2"
     },
     "devDependencies": {
         "@types/rdfjs__formats": "workspace:."

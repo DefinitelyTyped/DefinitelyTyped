@@ -228,6 +228,16 @@ declare module "dgram" {
          */
         getSendBufferSize(): number;
         /**
+         * @since v18.8.0,v16.19.0
+         * @return the number of bytes queued for sending.
+         */
+        getSendQueueSize(): number;
+        /**
+         * @since v18.8.0,v16.19.0
+         * @return the number of send requests currently in the queue awaiting to be processed.
+         */
+        getSendQueueCount(): number;
+        /**
          * By default, binding a socket will cause it to block the Node.js process from
          * exiting as long as the socket is open. The `socket.unref()` method can be used
          * to exclude the socket from the reference counting that keeps the Node.js
