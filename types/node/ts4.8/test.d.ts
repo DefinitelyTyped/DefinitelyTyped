@@ -82,6 +82,11 @@ declare module "node:test" {
     import { Readable } from "node:stream";
     import { AsyncResource } from "node:async_hooks";
     /**
+     * **Note:**`shard` is used to horizontally parallelize test running across
+     * machines or processes, ideal for large-scale executions across varied
+     * environments. It's incompatible with `watch` mode, tailored for rapid
+     * code iteration by automatically rerunning tests on file changes.
+     *
      * ```js
      * import { tap } from 'node:test/reporters';
      * import { run } from 'node:test';
@@ -1013,6 +1018,8 @@ declare module "node:test" {
      * control the behavior of timers, such as `setInterval` and `setTimeout`,
      * without actually waiting for the specified time intervals.
      *
+     * MockTimers is also able to mock the `Date` object.
+     *
      * The `MockTracker` provides a top-level `timers` export
      * which is a `MockTimers` instance.
      * @since v20.4.0
@@ -1025,21 +1032,38 @@ declare module "node:test" {
          * **Note:** When you enable mocking for a specific timer, its associated
          * clear function will also be implicitly mocked.
          *
-         * Example usage:
+         * **Note:** Mocking `Date` will affect the behavior of the mocked timers
+         * as they use the same internal clock.
+         *
+         * Example usage without setting initial time:
          *
          * ```js
          * import { mock } from 'node:test';
-         * mock.timers.enable(['setInterval']);
+         * mock.timers.enable({ apis: ['setInterval'] });
          * ```
          *
          * The above example enables mocking for the `setInterval` timer and
          * implicitly mocks the `clearInterval` function. Only the `setInterval`and `clearInterval` functions from `node:timers`,`node:timers/promises`, and`globalThis` will be mocked.
          *
+         * Example usage with initial time set
+         *
+         * ```js
+         * import { mock } from 'node:test';
+         * mock.timers.enable({ apis: ['Date'], now: 1000 });
+         * ```
+         *
+         * Example usage with initial Date object as time set
+         *
+         * ```js
+         * import { mock } from 'node:test';
+         * mock.timers.enable({ apis: ['Date'], now: new Date() });
+         * ```
+         *
          * Alternatively, if you call `mock.timers.enable()` without any parameters:
          *
          * All timers (`'setInterval'`, `'clearInterval'`, `'setTimeout'`, and `'clearTimeout'`)
          * will be mocked. The `setInterval`, `clearInterval`, `setTimeout`, and `clearTimeout`functions from `node:timers`, `node:timers/promises`,
-         * and `globalThis` will be mocked.
+         * and `globalThis` will be mocked. As well as the global `Date` object.
          * @since v20.4.0
          */
         enable(timers?: Timer[]): void;
@@ -1076,7 +1100,7 @@ declare module "node:test" {
          * test('mocks setTimeout to be executed synchronously without having to actually wait for it', (context) => {
          *   const fn = context.mock.fn();
          *
-         *   context.mock.timers.enable(['setTimeout']);
+         *   context.mock.timers.enable({ apis: ['setTimeout'] });
          *
          *   setTimeout(fn, 9999);
          *
@@ -1097,7 +1121,7 @@ declare module "node:test" {
          *
          * test('mocks setTimeout to be executed synchronously without having to actually wait for it', (context) => {
          *   const fn = context.mock.fn();
-         *   context.mock.timers.enable(['setTimeout']);
+         *   context.mock.timers.enable({ apis: ['setTimeout'] });
          *   const nineSecs = 9000;
          *   setTimeout(fn, nineSecs);
          *
@@ -1109,11 +1133,35 @@ declare module "node:test" {
          *   assert.strictEqual(fn.mock.callCount(), 1);
          * });
          * ```
+         *
+         * Advancing time using `.tick` will also advance the time for any `Date` object
+         * created after the mock was enabled (if `Date` was also set to be mocked).
+         *
+         * ```js
+         * import assert from 'node:assert';
+         * import { test } from 'node:test';
+         *
+         * test('mocks setTimeout to be executed synchronously without having to actually wait for it', (context) => {
+         *   const fn = context.mock.fn();
+         *
+         *   context.mock.timers.enable({ apis: ['setTimeout', 'Date'] });
+         *   setTimeout(fn, 9999);
+         *
+         *   assert.strictEqual(fn.mock.callCount(), 0);
+         *   assert.strictEqual(Date.now(), 0);
+         *
+         *   // Advance in time
+         *   context.mock.timers.tick(9999);
+         *   assert.strictEqual(fn.mock.callCount(), 1);
+         *   assert.strictEqual(Date.now(), 9999);
+         * });
+         * ```
          * @since v20.4.0
          */
         tick(milliseconds: number): void;
         /**
-         * Triggers all pending mocked timers immediately.
+         * Triggers all pending mocked timers immediately. If the `Date` object is also
+         * mocked, it will also advance the `Date` object to the furthest timer's time.
          *
          * The example below triggers all pending timers immediately,
          * causing them to execute without any delay.
@@ -1123,7 +1171,7 @@ declare module "node:test" {
          * import { test } from 'node:test';
          *
          * test('runAll functions following the given order', (context) => {
-         *   context.mock.timers.enable(['setTimeout']);
+         *   context.mock.timers.enable({ apis: ['setTimeout', 'Date'] });
          *   const results = [];
          *   setTimeout(() => results.push(1), 9999);
          *
@@ -1135,8 +1183,9 @@ declare module "node:test" {
          *   assert.deepStrictEqual(results, []);
          *
          *   context.mock.timers.runAll();
-         *
          *   assert.deepStrictEqual(results, [3, 2, 1]);
+         *   // The Date object is also advanced to the furthest timer's time
+         *   assert.strictEqual(Date.now(), 9999);
          * });
          * ```
          *
@@ -1343,7 +1392,7 @@ interface TestDequeue extends TestLocationInfo {
  * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/test/reporters.js)
  */
 declare module "node:test/reporters" {
-    import { Transform } from "node:stream";
+    import { Transform, TransformOptions } from "node:stream";
 
     type TestEvent =
         | { type: "test:diagnostic"; data: DiagnosticData }
@@ -1378,5 +1427,8 @@ declare module "node:test/reporters" {
      * The `junit` reporter outputs test results in a jUnit XML format
      */
     function junit(source: TestEventGenerator): AsyncGenerator<string, void>;
-    export { dot, junit, Spec as spec, tap, TestEvent };
+    class Lcov extends Transform {
+        constructor(opts?: TransformOptions);
+    }
+    export { dot, junit, Lcov as lcov, Spec as spec, tap, TestEvent };
 }
