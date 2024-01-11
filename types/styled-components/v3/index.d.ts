@@ -37,9 +37,9 @@ type Attrs<P, A extends Partial<P>, T> = {
 export interface StyledComponentClass<P, T, O = P> extends React.ComponentClass<ThemedOuterStyledProps<O, T>> {
     extend: ThemedStyledFunction<P, T, O>;
 
-    withComponent<K extends keyof JSX.IntrinsicElements>(
+    withComponent<K extends keyof React.JSX.IntrinsicElements>(
         tag: K,
-    ): StyledComponentClass<JSX.IntrinsicElements[K], T, JSX.IntrinsicElements[K] & O>;
+    ): StyledComponentClass<React.JSX.IntrinsicElements[K], T, React.JSX.IntrinsicElements[K] & O>;
     withComponent<U = {}>(element: React.ComponentType<U>): StyledComponentClass<U, T, U & O>;
 }
 
@@ -60,14 +60,14 @@ export interface ThemedStyledFunction<P, T, O = P> {
 export type StyledFunction<P> = ThemedStyledFunction<P, any>;
 
 type ThemedStyledComponentFactories<T> = {
-    [TTag in keyof JSX.IntrinsicElements]: ThemedStyledFunction<JSX.IntrinsicElements[TTag], T>;
+    [TTag in keyof React.JSX.IntrinsicElements]: ThemedStyledFunction<React.JSX.IntrinsicElements[TTag], T>;
 };
 
 export interface ThemedBaseStyledInterface<T> extends ThemedStyledComponentFactories<T> {
-    <P, TTag extends keyof JSX.IntrinsicElements>(tag: TTag): ThemedStyledFunction<
+    <P, TTag extends keyof React.JSX.IntrinsicElements>(tag: TTag): ThemedStyledFunction<
         P,
         T,
-        P & JSX.IntrinsicElements[TTag]
+        P & React.JSX.IntrinsicElements[TTag]
     >;
     <P, O>(component: StyledComponentClass<P, T, O>): ThemedStyledFunction<P, T, O>;
     <P extends { [prop: string]: any; theme?: T | undefined }>(component: React.ComponentType<P>): ThemedStyledFunction<

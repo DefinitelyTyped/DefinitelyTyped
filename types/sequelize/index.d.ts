@@ -9,7 +9,7 @@ import * as _ from "lodash";
 import Promise = require("bluebird");
 import * as cls from "continuation-local-storage";
 
-import ValidatorJS from "validator";
+import ValidatorJS = require("validator");
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 

@@ -58,7 +58,7 @@ export type RendererFunction = (
     tag: Tag,
     size: number,
     color: string,
-) => JSX.Element;
+) => React.JSX.Element;
 
 export interface ColorOptions {
     /**

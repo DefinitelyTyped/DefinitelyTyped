@@ -9,8 +9,7 @@
         "@types/react": "*"
     },
     "devDependencies": {
-        "@types/react-custom-scrollbars": "workspace:.",
-        "@types/react-dom": "*"
+        "@types/react-custom-scrollbars": "workspace:."
     },
     "owners": []
 }

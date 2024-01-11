@@ -9,8 +9,7 @@
         "@types/react": "*"
     },
     "devDependencies": {
-        "@types/react-aria-live": "workspace:.",
-        "@types/react-dom": "*"
+        "@types/react-aria-live": "workspace:."
     },
     "owners": [
         {

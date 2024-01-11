@@ -185,7 +185,7 @@ export interface ResourceHeaderProps<TResource extends object = object> {
 export interface DateCellWrapperProps {
     range: Date[];
     value: Date;
-    children: JSX.Element;
+    children: React.JSX.Element;
 }
 
 export interface Components<TEvent extends object = Event, TResource extends object = object> {
@@ -253,7 +253,7 @@ export interface EventProps<TEvent extends object = Event> {
     title: string;
     continuesPrior: boolean;
     continuesAfter: boolean;
-    isAllDay: boolean;
+    isAllDay?: boolean;
     localizer: DateLocalizer;
     slotStart: Date;
     slotEnd: Date;

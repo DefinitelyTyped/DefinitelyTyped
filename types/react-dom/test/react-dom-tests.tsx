@@ -7,7 +7,11 @@ import * as ReactTestUtils from "react-dom/test-utils";
 declare function describe(desc: string, f: () => void): void;
 declare function it(desc: string, f: () => void): void;
 
-class TestComponent extends React.Component<{ x: string }> {}
+class TestComponent extends React.Component<{ x: string }> {
+    someInstanceMethod() {
+        return 42;
+    }
+}
 
 describe("ReactDOM", () => {
     it("render", () => {
@@ -15,6 +19,9 @@ describe("ReactDOM", () => {
         ReactDOM.render(React.createElement("div"), rootElement);
         ReactDOM.render(React.createElement("div"), document.createDocumentFragment());
         ReactDOM.render(React.createElement("div"), document);
+
+        const instance = ReactDOM.render(React.createElement(TestComponent), rootElement);
+        instance.someInstanceMethod();
     });
 
     it("hydrate", () => {
@@ -85,10 +92,12 @@ describe("ReactDOM", () => {
 describe("ReactDOMServer", () => {
     it("renderToString", () => {
         const content: string = ReactDOMServer.renderToString(React.createElement("div"));
+        ReactDOMServer.renderToString(React.createElement("div"), { identifierPrefix: "react-18-app" });
     });
 
     it("renderToStaticMarkup", () => {
         const content: string = ReactDOMServer.renderToStaticMarkup(React.createElement("div"));
+        ReactDOMServer.renderToStaticMarkup(React.createElement("div"), { identifierPrefix: "react-18-app" });
     });
 });
 

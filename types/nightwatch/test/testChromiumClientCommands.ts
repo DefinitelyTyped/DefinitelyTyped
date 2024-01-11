@@ -69,7 +69,7 @@ describe("capture network requests", function() {
             this.requestCount = 1;
             browser
                 .captureNetworkRequests((requestParams) => {
-                    console.log("Request Number:", this.requestCount!++);
+                    console.log("Request Number:", (this.requestCount as number)++);
                     console.log("Request URL:", requestParams.request.url);
                     console.log("Request method:", requestParams.request.method);
                     console.log("Request headers:", requestParams.request.headers);

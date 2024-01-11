@@ -9,8 +9,7 @@
         "@types/react": "*"
     },
     "devDependencies": {
-        "@types/react-aria-menubutton": "workspace:.",
-        "@types/react-dom": "*"
+        "@types/react-aria-menubutton": "workspace:."
     },
     "owners": [
         {

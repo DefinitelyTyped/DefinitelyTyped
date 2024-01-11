@@ -1,8 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "no-redundant-jsdoc-2": false,
-        "npm-naming": false,
-        "unified-signatures": false
-    }
-}

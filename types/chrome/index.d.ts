@@ -6242,6 +6242,11 @@ declare namespace chrome.pageCapture {
      * Parameter mhtmlData: The MHTML data as a Blob.
      */
     export function saveAsMHTML(details: SaveDetails, callback: (mhtmlData?: Blob) => void): void;
+    /**
+     * Saves the content of the tab with given id as MHTML.
+     * @since Chrome 116 MV3
+     */
+    export function saveAsMHTML(details: SaveDetails): Promise<Blob | undefined>;
 }
 
 ////////////////////
@@ -7235,7 +7240,9 @@ declare namespace chrome.runtime {
         icons?: ManifestIcons | undefined;
 
         // Optional
-        author?: string | undefined;
+        author?: {
+            email: string;
+        } | undefined;
         background_page?: string | undefined;
         chrome_settings_overrides?: {
             homepage?: string | undefined;
@@ -12357,6 +12364,17 @@ declare namespace chrome.declarativeNetRequest {
         removeRuleIds?: number[] | undefined;
     }
 
+    export interface UpdateStaticRulesOptions {
+        /** Set of ids corresponding to rules in the Ruleset to disable. */
+        disableRuleIds?: number[];
+
+        /** Set of ids corresponding to rules in the Ruleset to enable. */
+        enableRuleIds?: number[];
+
+        /** The id corresponding to a static Ruleset. */
+        rulesetId: string;
+    }
+
     export interface UpdateRulesetOptions {
         /** The set of ids corresponding to a static Ruleset that should be disabled. */
         disableRulesetIds?: string[] | undefined;
@@ -12572,6 +12590,15 @@ declare namespace chrome.declarativeNetRequest {
      * This can happen for multiple reasons, such as invalid rule format, duplicate rule ID, rule count limit exceeded, and others.
      */
     export function updateSessionRules(options: UpdateRuleOptions): Promise<void>;
+
+    /** Disables and enables individual static rules in a Ruleset.
+     * Changes to rules belonging to a disabled Ruleset will take effect the next time that it becomes enabled.
+     *
+     * @return The `updateStaticRules` method either calls a provided callback if its finished or returns as a `Promise` (MV3 only).
+     * @since Chrome 111
+     */
+    export function updateStaticRules(options: UpdateStaticRulesOptions): Promise<void>;
+    export function updateStaticRules(options: UpdateStaticRulesOptions, callback?: () => void): void;
 
     /** The rule that has been matched along with information about the associated request. */
     export interface RuleMatchedDebugEvent extends chrome.events.Event<(info: MatchedRuleInfoDebug) => void> {}

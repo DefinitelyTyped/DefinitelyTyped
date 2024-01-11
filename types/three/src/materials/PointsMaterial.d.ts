@@ -15,6 +15,13 @@ export class PointsMaterial extends Material {
     constructor(parameters?: PointsMaterialParameters);
 
     /**
+     * Read-only flag to check if a given object is of type {@link PointsMaterial}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isPointsMaterial: true;
+
+    /**
      * @default 'PointsMaterial'
      */
     type: string;

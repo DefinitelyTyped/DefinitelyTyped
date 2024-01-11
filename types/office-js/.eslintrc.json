@@ -3,6 +3,7 @@
         "@definitelytyped/no-any-union": "off",
         "@definitelytyped/no-unnecessary-generics": "off",
         "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@definitelytyped/npm-naming": "off",
         "@typescript-eslint/ban-types": "off",
         "@typescript-eslint/prefer-namespace": "off",
         "@typescript-eslint/no-empty-interface": "off",

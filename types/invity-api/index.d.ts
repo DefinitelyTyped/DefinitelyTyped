@@ -22,6 +22,223 @@ export interface FormResponse {
     error?: string | undefined;
 }
 
+export const cryptoSymbols: readonly [
+    "TEST",
+    "BTC",
+    "ETH",
+    "LTC",
+    "SOL",
+    "ADA",
+    "BCH",
+    "DASH",
+    "DGB",
+    "DOGE",
+    "XLM",
+    "XMR",
+    "XRP",
+    "XTZ",
+    "AE",
+    "ALGO",
+    "AMB",
+    "ARDR",
+    "ARN",
+    "BCD",
+    "BKX",
+    "BNB",
+    "BSV",
+    "BTG",
+    "CHX",
+    "CHZ",
+    "DCR",
+    "EDO",
+    "EOS",
+    "ERD",
+    "ETC",
+    "GAS",
+    "GRS",
+    "ICX",
+    "INS",
+    "IOST",
+    "IOTX",
+    "KMD",
+    "LBC",
+    "LSK",
+    "MATIC",
+    "NANO",
+    "NEO",
+    "NXT",
+    "ONG",
+    "ONT",
+    "PIVX",
+    "QTUM",
+    "R",
+    "RVN",
+    "SC",
+    "SKY",
+    "STEEM",
+    "STORM",
+    "STRAT",
+    "SYS",
+    "TRX",
+    "VEN",
+    "VET",
+    "WAVES",
+    "XEM",
+    "XVG",
+    "ZCL",
+    "ZEC",
+    "ZEN",
+    "ZIL",
+    "USDC@ETH",
+    "USDT@ETH",
+    "TUSD@ETH",
+    "PAX@ETH",
+    "BUSD@ETH",
+    "GUSD@ETH",
+    "ABT@ETH",
+    "ABYSS@ETH",
+    "ADT@ETH",
+    "ADX@ETH",
+    "AGI@ETH",
+    "ANKR@ETH",
+    "ANT@ETH",
+    "APPC@ETH",
+    "ATL@ETH",
+    "ATOM@ETH",
+    "AXPR@ETH",
+    "BAND@ETH",
+    "BCPT@ETH",
+    "BDG@ETH",
+    "BETR@ETH",
+    "BKX@ETH",
+    "BLZ@ETH",
+    "BNT@ETH",
+    "BRD@ETH",
+    "BTT@ETH",
+    "CBC@ETH",
+    "CDT@ETH",
+    "CELR@ETH",
+    "CND@ETH",
+    "CRO@ETH",
+    "CRPT@ETH",
+    "CVC@ETH",
+    "DAI@ETH",
+    "DAN@ETH",
+    "DATA@ETH",
+    "DCN@ETH",
+    "DENT@ETH",
+    "DGD@ETH",
+    "DGTX@ETH",
+    "DLT@ETH",
+    "DNT@ETH",
+    "DOCK@ETH",
+    "DUSK@ETH",
+    "EDG@ETH",
+    "ELEC@ETH",
+    "ELF@ETH",
+    "ENG@ETH",
+    "ENJ@ETH",
+    "EURS@ETH",
+    "EVX@ETH",
+    "EXP@ETH",
+    "FCT@ETH",
+    "FOTA@ETH",
+    "FTM@ETH",
+    "FUEL@ETH",
+    "GAME@ETH",
+    "GNO@ETH",
+    "GNT@ETH",
+    "GTO@ETH",
+    "GUP@ETH",
+    "GVT@ETH",
+    "HMQ@ETH",
+    "HOT@ETH",
+    "HT@ETH",
+    "KCASH@ETH",
+    "KNC@ETH",
+    "LEND@ETH",
+    "LET@ETH",
+    "LIFE@ETH",
+    "LINK@ETH",
+    "LOOM@ETH",
+    "LRC@ETH",
+    "LUN@ETH",
+    "MANA@ETH",
+    "MATIC@ETH",
+    "MCO@ETH",
+    "MDA@ETH",
+    "MDT@ETH",
+    "MFT@ETH",
+    "MITH@ETH",
+    "MKR@ETH",
+    "MLN@ETH",
+    "MOF@ETH",
+    "MTH@ETH",
+    "MTL@ETH",
+    "MYST@ETH",
+    "NCASH@ETH",
+    "NEXO@ETH",
+    "NGC@ETH",
+    "NMR@ETH",
+    "NPXS@ETH",
+    "OAX@ETH",
+    "OMG@ETH",
+    "OST@ETH",
+    "PAY@ETH",
+    "PLR@ETH",
+    "PMA@ETH",
+    "POE@ETH",
+    "POLY@ETH",
+    "POWR@ETH",
+    "PPC@ETH",
+    "PPT@ETH",
+    "PRE@ETH",
+    "PTOY@ETH",
+    "QSP@ETH",
+    "RCN@ETH",
+    "RDN@ETH",
+    "REN@ETH",
+    "REP@ETH",
+    "REQ@ETH",
+    "RFR@ETH",
+    "RLC@ETH",
+    "SALT@ETH",
+    "SNC@ETH",
+    "SNGLS@ETH",
+    "SNM@ETH",
+    "SNT@ETH",
+    "SOC@ETH",
+    "SRN@ETH",
+    "STORJ@ETH",
+    "STX@ETH",
+    "SUB@ETH",
+    "SWT@ETH",
+    "TAU@ETH",
+    "TEL@ETH",
+    "TIME@ETH",
+    "TKN@ETH",
+    "TNB@ETH",
+    "TNT@ETH",
+    "TRST@ETH",
+    "UNI@ETH",
+    "UTK@ETH",
+    "VEE@ETH",
+    "VIB@ETH",
+    "VIBE@ETH",
+    "WABI@ETH",
+    "WINGS@ETH",
+    "WPR@ETH",
+    "WTC@ETH",
+    "XBP@ETH",
+    "XUC@ETH",
+    "ZAP@ETH",
+    "ZRX@ETH",
+    "USDT@MATIC",
+    "USDC@MATIC",
+];
+
+export type CryptoSymbol = typeof cryptoSymbols[number];
+
 // buy types
 
 export type BuyTradeFinalStatus =
@@ -69,14 +286,14 @@ export interface BuyProviderInfo {
     logo: string; // simplex-icon.jpg
     isActive: boolean;
     isDisabled?: boolean;
-    tradedCoins: string[]; // ['BTC', 'BCH', 'LTC', 'XRP', 'ETH']
+    tradedCoins: CryptoSymbol[]; // ['BTC', 'BCH', 'LTC', 'XRP', 'ETH']
     tradedFiatCurrencies: string[]; // ['EUR', 'USD']
     disabledCurrencies?: string[];
     supportedCountries: string[]; // ['BTC', 'USD']
     disabledCountries?: string[];
     paymentMethods: BuyCryptoPaymentMethod[];
-    statusUrl: string; // https://payment-status.simplex.com/api/v1/user/payments?uuid={{paymentId}}
-    supportUrl: string; // https://www.simplex.com/support/
+    statusUrl?: string; // https://payment-status.simplex.com/api/v1/user/payments?uuid={{paymentId}}
+    supportUrl?: string; // https://www.simplex.com/support/
     pendingTimeoutSeconds?: number; // Time until a SUBMITTED transaction automatically changes to APPROVAL_PENDING. Null means it does not change.
 }
 
@@ -93,7 +310,7 @@ export interface BuyTradeQuoteRequest {
     cryptoAmount?: number | undefined; // 0.3 - requested amount in crypto currency - DEPRECATED, used only for TREZOR
     cryptoStringAmount?: string | undefined; // 0.3 - requested amount in crypto currency
     fiatCurrency: string; // USD
-    receiveCurrency: string; // BTC
+    receiveCurrency: CryptoSymbol; // BTC
     country?: string | undefined;
     paymentMethod?: BuyCryptoPaymentMethod | undefined;
 }
@@ -104,7 +321,7 @@ export interface BuyTrade {
     fiatAmount?: number | undefined; // 1000 - DEPRECATED, used only for TREZOR
     fiatStringAmount?: string | undefined; // 1000 - will pay fiat amount
     fiatCurrency?: string | undefined; // EUR
-    receiveCurrency?: string | undefined; // BTC
+    receiveCurrency?: CryptoSymbol | undefined; // BTC
     receiveAmount?: number | undefined; // 0.12345 - DEPRECATED, used only for TREZOR
     receiveStringAmount?: string | undefined; // 0.12345
     receiveAddress?: string | undefined; // users address for receive tx
@@ -366,7 +583,7 @@ export interface SellProviderInfo {
     logo: string; // simplex-icon.jpg
     type: SellProviderType;
     isActive: boolean;
-    tradedCoins: string[]; // ['BTC', 'BCH', 'LTC', 'XRP', 'ETH']
+    tradedCoins: CryptoSymbol[]; // ['BTC', 'BCH', 'LTC', 'XRP', 'ETH']
     tradedFiatCurrencies?: string[] | undefined; // ['EUR', 'USD']
     supportedCountries: string[]; // ['AT', 'BE']
     statusUrl?: string | undefined; // https://payment-status.simplex.com/api/v1/user/payments?uuid={{paymentId}}
@@ -393,7 +610,7 @@ export interface SellFiatTradeQuoteRequest {
     fiatStringAmount?: string | undefined; // 1000 - will pay fiat amount
     fiatCurrency: string; // USD
     cryptoStringAmount?: string | undefined; // 0.3 - requested amount in crypto currency
-    cryptoCurrency: string; // BTC
+    cryptoCurrency: CryptoSymbol; // BTC
     country?: string | undefined;
     paymentMethod?: SellCryptoPaymentMethod | undefined;
     flows?: SellFiatFlowType[] | undefined;
@@ -405,7 +622,7 @@ export interface SellFiatTrade {
     amountInCrypto?: boolean | undefined; // true for cryptoAmount, false for fiatAmount
     fiatStringAmount?: string | undefined; // 1000
     fiatCurrency?: string | undefined; // EUR
-    cryptoCurrency?: string | undefined; // BTC
+    cryptoCurrency?: CryptoSymbol | undefined; // BTC
     cryptoStringAmount?: string | undefined; // 0.12345
     rate?: number | undefined; // 100
     quoteId?: string | undefined; // ID of the quote assigned by exchange
@@ -442,7 +659,7 @@ export interface SellFiatTrade {
 }
 
 export interface SellVoucherTradeQuoteRequest {
-    cryptoCurrency?: string | undefined; // BTC
+    cryptoCurrency?: CryptoSymbol | undefined; // BTC
     language?: string | undefined; // en
     country?: string | undefined; // cz
     refundAddress?: string | undefined; // crypto address to which sent crypto currency to sell
@@ -453,7 +670,7 @@ export interface SellVoucherTrade {
     error?: string | undefined; // something went wrong
     exchange?: string | undefined; // which exchange this trade belongs to, used for discrimination in ExchangeService
     status?: SellTradeStatus | undefined; // state of trade after request trade
-    cryptoCurrency?: string | undefined; // BTC
+    cryptoCurrency?: CryptoSymbol | undefined; // BTC
     cryptoAmount?: number | undefined; // 0.12345
     destinationAddress?: string | undefined; // crypto address to which sent crypto currency to sell
     paymentId?: string | undefined; // ID of the order assigned by us
@@ -461,7 +678,7 @@ export interface SellVoucherTrade {
 
 export interface SellVoucherTradeRequest {
     exchange: string; // which exchange this trade belongs to, used for discrimination in ExchangeService
-    cryptoCurrency: string;
+    cryptoCurrency: CryptoSymbol;
     data: any; // data returned by post message
 }
 

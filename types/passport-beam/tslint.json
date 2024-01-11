@@ -1,9 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "import-spacing": false,
-        "no-var-keyword": false,
-        "no-void-expression": false,
-        "prefer-const": false
-    }
-}

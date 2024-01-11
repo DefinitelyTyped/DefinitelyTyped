@@ -26,4 +26,4 @@ export interface OAuth2LoginProps {
     extraParams?: Record<string, any>;
 }
 
-export default function OAuth2Login(props: OAuth2LoginProps): JSX.Element;
+export default function OAuth2Login(props: OAuth2LoginProps): React.JSX.Element;

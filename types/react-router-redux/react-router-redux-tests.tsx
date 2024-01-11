@@ -1,8 +1,7 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 
 import { Provider } from "react-redux";
-import { applyMiddleware, combineReducers, createStore, Reducer } from "redux";
+import { applyMiddleware, combineReducers, createStore } from "redux";
 
 import createHistory from "history/createBrowserHistory";
 import { Route } from "react-router";
@@ -27,7 +26,7 @@ interface State {
 }
 
 // For testing, assume the router reducer is the only sub-reducer:
-const reducers: Reducer<State> = combineReducers<State>({ router: routerReducer });
+const reducers = combineReducers({ router: routerReducer });
 
 // Add the reducer to your store on the `router` key
 // Also apply our middleware for navigating
@@ -37,17 +36,15 @@ const store = createStore(
 );
 
 const Home = () => <div>Home</div>;
-ReactDOM.render(
-    <Provider store={store}>
-        {/* ConnectedRouter will use the store from Provider automatically */}
-        <ConnectedRouter history={history}>
-            <div>
-                <Route exact path="/" component={Home} />
-            </div>
-        </ConnectedRouter>
-    </Provider>,
-    document.getElementById("root"),
-);
+
+<Provider store={store}>
+    {/* ConnectedRouter will use the store from Provider automatically */}
+    <ConnectedRouter history={history}>
+        <div>
+            <Route exact path="/" component={Home} />
+        </div>
+    </ConnectedRouter>
+</Provider>;
 
 // Now you can dispatch navigation actions from anywhere!
 store.dispatch(push("/foo"));

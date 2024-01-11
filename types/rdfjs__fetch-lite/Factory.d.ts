@@ -11,7 +11,7 @@ interface RdfFetchResponse<
 }
 
 interface Fetch {
-    (url: string, options?: FormatsInit): Promise<RdfFetchResponse<DatasetCore>>;
+    (url: Parameters<typeof fetch>[0], options?: FormatsInit): Promise<RdfFetchResponse<DatasetCore>>;
     config(key: string, value: unknown): void;
     Headers: Headers;
 }
