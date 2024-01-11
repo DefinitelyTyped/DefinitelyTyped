@@ -753,7 +753,8 @@ export namespace Rule {
         id: string;
         options: any[];
         settings: { [name: string]: any };
-        parserPath: string;
+        parserPath: string | undefined;
+        languageOptions: Linter.FlatConfig["languageOptions"];
         parserOptions: Linter.ParserOptions;
         parserServices: SourceCode.ParserServices;
         cwd: string;
