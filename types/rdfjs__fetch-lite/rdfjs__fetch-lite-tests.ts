@@ -11,6 +11,17 @@ async function fetchString(): Promise<string> {
     return response.text();
 }
 
+async function fetchURL(): Promise<string> {
+    const response = await fetch(new URL("http://example.com"), { formats });
+    return response.text();
+}
+
+async function fetchRequestInfo(): Promise<string> {
+    const req: Request = <any> {};
+    const response = await fetch(req, { formats });
+    return response.text();
+}
+
 async function fetchQuadStream(): Promise<Stream> {
     const response = await fetch("http://example.com", { formats });
     return response.quadStream();
