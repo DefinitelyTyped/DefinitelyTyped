@@ -55,7 +55,8 @@ async function environmentRawFetch(): Promise<Stream> {
     // $ExpectType Headers
     const headers = environmentTest.fetch.Headers;
 
-    const res = await environmentTest.fetch("foo", { formats });
+    let res = await environmentTest.fetch("foo", { formats });
+    res = await environmentTest.fetch(new URL("foo"), { formats });
     return res.quadStream();
 }
 
