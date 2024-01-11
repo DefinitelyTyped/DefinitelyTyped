@@ -1,16 +1,16 @@
 import { VerifyOptions } from "jsonwebtoken";
 import { Strategy as PassportStrategy } from "passport-strategy";
 
-export declare class Strategy extends PassportStrategy {
-    constructor(opt: StrategyOptions, verify: VerifyCallback);
-    constructor(opt: StrategyOptions, verify: VerifyCallbackWithRequest);
+export declare class Strategy<T> extends PassportStrategy {
+    constructor(opt: StrategyOptions<T>, verify: VerifyCallback);
+    constructor(opt: StrategyOptions<T>, verify: VerifyCallbackWithRequest);
     name: string;
 }
 
-export interface StrategyOptions {
+export interface StrategyOptions<T> {
     secretOrKey?: string | Buffer | undefined;
     secretOrKeyProvider?: SecretOrKeyProvider | undefined;
-    jwtFromRequest: JwtFromRequestFunction;
+    jwtFromRequest: JwtFromRequestFunction<T>;
     issuer?: string | string[] | undefined;
     audience?: string | string[] | undefined;
     algorithms?: string[] | undefined;
@@ -40,11 +40,17 @@ export interface SecretOrKeyProvider {
 }
 
 export declare namespace ExtractJwt {
-    export function fromHeader(header_name: string): JwtFromRequestFunction;
-    export function fromBodyField(field_name: string): JwtFromRequestFunction;
-    export function fromUrlQueryParameter(param_name: string): JwtFromRequestFunction;
-    export function fromAuthHeaderWithScheme(auth_scheme: string): JwtFromRequestFunction;
-    export function fromAuthHeader(): JwtFromRequestFunction;
-    export function fromExtractors(extractors: Array<JwtFromRequestFunction<any>>): JwtFromRequestFunction;
-    export function fromAuthHeaderAsBearerToken(): JwtFromRequestFunction;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    export function fromHeader<T = Request>(header_name: string): JwtFromRequestFunction<T>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    export function fromBodyField<T = Request>(field_name: string): JwtFromRequestFunction<T>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    export function fromUrlQueryParameter<T = Request>(param_name: string): JwtFromRequestFunction<T>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    export function fromAuthHeaderWithScheme<T = Request>(auth_scheme: string): JwtFromRequestFunction<T>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    export function fromAuthHeader<T = Request>(): JwtFromRequestFunction<T>;
+    export function fromExtractors<T = Request>(extractors: Array<JwtFromRequestFunction<T>>): JwtFromRequestFunction<T>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    export function fromAuthHeaderAsBearerToken<T = Request>(): JwtFromRequestFunction<T>;
 }
