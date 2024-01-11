@@ -98,11 +98,15 @@ export interface GrpcError {
 /**
  * This module provides classes for Remote Procedure Calls over HTTP/2.
  * https://grafana.com/docs/k6/latest/javascript-api/k6-experimental/grpc/
+ *
+ * @deprecated Use the `k6/net/grpc` module instead.
  */
 declare namespace grpc {
     /**
      * gRPC client to interact with a gRPC server.
      * https://grafana.com/docs/k6/latest/javascript-api/k6-experimental/grpc/client/
+     *
+     * @deprecated Use the `k6/net/grpc` module instead.
      */
     class Client {
         protected __brand: never;
@@ -145,6 +149,8 @@ declare namespace grpc {
 
     /**
      * Stream allows you to use streaming RPCs.
+     *
+     * @deprecated Use the `k6/net/grpc` module instead.
      */
     class Stream {
         /**
