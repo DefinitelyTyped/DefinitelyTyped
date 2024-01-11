@@ -25,8 +25,7 @@ interface QFnIsSuccessAnyArgs{
 
 /** 错误则无result，有result则无错误 */
 interface QFnErrorOrResult{
-    // eslint-disable-next-line @definitelytyped/no-any-union
-    (err: Error | any | undefined, result?: any, ...args: any[]): void;
+    (err: Error | string | undefined, result?: any, ...args: any[]): void;
 }
 
 /** 错误描述回调 */
