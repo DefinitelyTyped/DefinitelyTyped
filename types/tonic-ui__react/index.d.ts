@@ -179,7 +179,6 @@ export const useTabs: any;
 export const useTheme: any;
 export const useToast: any;
 export function useToastManager(): UseToastManagerHook["notify"] & UseToastManagerHook;
-export function VisuallyHidden(props: PropsWithChildren<TonicProps>): JSX.Element;
 
 export type Breakpoints = "sm" | "md" | "lg" | "xl" | "2xl" | "_";
 type ThemeColorModes = "light" | "dark";
