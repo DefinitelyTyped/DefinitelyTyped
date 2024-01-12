@@ -288,12 +288,6 @@ const enum Enum { Two } // eslint-disable-line no-const-enum
 You can still disable rules with an .eslintrc.json, but should not in new packages.
 Disabling rules for the entire package makes it harder to review.
 
-##### Formatting with git hooks
-
-Strict formatting is not enforced by default, but you may wish to enable a git hook which will format your code automatically. Run `pnpm run setup-hooks`. Then, when you commit, `dprint fmt` command will be executed on changed files.
-
-If you take advantage of [partial clone](#partial-clone), make sure to call `git sparse-checkout add .husky` to check out the git hooks.
-
 #### `tsconfig.json`
 
 `tsconfig.json` should have `noImplicitAny`, `noImplicitThis`, `strictNullChecks` and `strictFunctionTypes` set to `true`.
@@ -493,6 +487,8 @@ Then they are wrong and we've not noticed yet. You can help by submitting a pull
 
 Yes, using [dprint](https://dprint.dev).
 We recommend using a [dprint extension for your editor](https://dprint.dev/install/#editor-extensions).
+
+Alternatively, you can enable a git hook which will format your code automatically. Run `pnpm run setup-hooks`. Then, when you commit, `dprint fmt` command will be executed on changed files.  If you take advantage of [partial clone](#partial-clone), make sure to call `git sparse-checkout add .husky` to check out the git hooks before running the `setup-hooks` script.
 
 Pull requests do not require correct formatting to be merged.
 Any unformatted code will be automatically reformatted after being merged.
