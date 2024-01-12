@@ -95,6 +95,7 @@ export function ModalHeader(props: TonicProps): JSX.Element;
 export function ModalOverlay(props: ModalOverlayProps): JSX.Element;
 export function Option(props: OptionHTMLAttributes<HTMLOptionElement>): JSX.Element;
 export function OptionGroup(props: TonicProps): JSX.Element;
+export function OverflowTooltip(props: OverflowTooltipProps): JSX.Element;
 export function Pagination(props: PaginationProps): JSX.Element;
 export function PaginationItem(props: PaginationItemProps): JSX.Element;
 export function Popover(props: PopoverProps): JSX.Element;
@@ -178,6 +179,7 @@ export const useTabs: any;
 export const useTheme: any;
 export const useToast: any;
 export function useToastManager(): UseToastManagerHook["notify"] & UseToastManagerHook;
+export function VisuallyHidden(props: PropsWithChildren<TonicProps>): JSX.Element;
 
 export type Breakpoints = "sm" | "md" | "lg" | "xl" | "2xl" | "_";
 type ThemeColorModes = "light" | "dark";
@@ -460,6 +462,45 @@ export interface ModalOverlayProps extends TonicProps {
     TransitionProps?: { appear: boolean };
 }
 
+export interface OverflowTooltipProps extends Omit<TonicProps, "children"> {
+    PopperComponent?: ComponentType;
+    PopperProps?: Record<string, unknown>;
+    TooltipArrowComponent?: ComponentType;
+    TooltipArrowProps?: Record<string, unknown>;
+    TransitionComponent?: ComponentType;
+    TransitionProps?: { appear: boolean };
+    arrow?: boolean;
+    children: ReactNode | ((context: unknown) => ReactNode);
+    closeOnClick?: boolean;
+    closeOnEsc?: boolean;
+    closeOnPointerDown?: boolean;
+    defaultIsOpen?: boolean;
+    disabled?: boolean;
+    enterDelay?: number;
+    followCursor?: boolean;
+    isOpen?: boolean;
+    label?: string | ReactNode;
+    leaveDelay?: number;
+    nextToCursor?: boolean;
+    offset?: [number, number];
+    onClose?: () => void;
+    onOpen?: () => void;
+    placement?:
+        | "top"
+        | "bottom"
+        | "right"
+        | "left"
+        | "top-start"
+        | "top-end"
+        | "bottom-start"
+        | "bottom-end"
+        | "right-start"
+        | "right-end"
+        | "left-start"
+        | "left-end";
+    shouldWrapChildren?: boolean;
+}
+
 export interface PaginationProps extends Omit<TonicProps, "onChange" | "page"> {
     boundaryCount?: number;
     count?: number;
@@ -718,20 +759,26 @@ export interface TooltipProps extends Omit<TonicProps, "children"> {
     TransitionProps?: { appear?: boolean };
     TooltipArrowComponent?: ComponentType;
     TooltipArrowProps?: object;
-    arrowAt?: "left" | "right" | "top" | "bottom";
-    children: ReactNode | ((context: { getTooltipTriggerProps: () => TonicProps }) => ReactNode);
+    arrow?: boolean;
+    // arrowAt?: "left" | "right" | "top" | "bottom"; // deprecated
+    children: ReactNode | ((context: unknown) => ReactNode);
     closeOnClick?: boolean;
     closeOnEsc?: boolean;
-    closeOnMouseDown?: boolean;
+    // closeOnMouseDown?: boolean; // deprecated
+    closeOnPointerDown?: boolean;
     defaultIsOpen?: boolean;
     disabled?: boolean;
     enterDelay?: number;
-    hideArrow?: boolean;
+    followCursor?: boolean;
+    // hideArrow?: boolean; // deprecated
     isOpen?: boolean;
     label?: ReactNode;
     leaveDelay?: number;
+    nextToCursor?: boolean;
+    offset?: [skidding: number, distance: number];
     onClose?: () => void;
     onOpen?: () => void;
+    openOnFocus?: boolean;
     placement?:
         | "top"
         | "bottom"
@@ -746,12 +793,6 @@ export interface TooltipProps extends Omit<TonicProps, "children"> {
         | "left-start"
         | "left-end";
     shouldWrapChildren?: boolean;
-    arrow?: boolean;
-    closeOnPointerDown?: boolean;
-    followCursor?: boolean;
-    nextToCursor?: boolean;
-    offset?: [skidding: number, distance: number];
-    openOnFocus?: boolean;
 }
 
 export interface TransitionProps extends Omit<TonicProps, "children"> {
