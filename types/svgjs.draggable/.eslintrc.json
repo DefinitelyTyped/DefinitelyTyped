@@ -1,8 +1,9 @@
 {
     "rules": {
         "@definitelytyped/dt-header": "off",
-        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@definitelytyped/no-type-only-packages": "off",
         "@definitelytyped/npm-naming": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off",
         "@typescript-eslint/ban-types": "off",
         "@typescript-eslint/prefer-namespace": "off"
     }
