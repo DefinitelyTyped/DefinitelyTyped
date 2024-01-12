@@ -1,4 +1,4 @@
-import { DatasetResponse, FactoryInit, FormatsInit, RdfFetchResponse, default as fetch } from "@rdfjs/fetch-lite";
+import { DatasetResponse, default as fetch, FactoryInit, FormatsInit, RdfFetchResponse } from "@rdfjs/fetch-lite";
 import { BaseQuad, DatasetCore, Quad } from "@rdfjs/types";
 
 export { Headers } from "@rdfjs/fetch-lite";
