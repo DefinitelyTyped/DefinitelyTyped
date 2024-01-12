@@ -290,7 +290,9 @@ Disabling rules for the entire package makes it harder to review.
 
 ##### Formatting with git hooks
 
-Strict formatting is not enforced by default, but you may wish to  enable a git hook which will format your code automatically. Run `pnpm run setup-hooks`. Then, when you commit, `dprint fmt` command will be executed on changed declaration files.
+Strict formatting is not enforced by default, but you may wish to enable a git hook which will format your code automatically. Run `pnpm run setup-hooks`. Then, when you commit, `dprint fmt` command will be executed on changed declaration files.
+
+If you take advantage of [partial clone](#partial-clone), make sure to call `git sparse-checkout add .husky` to check out the git hooks.
 
 #### `tsconfig.json`
 

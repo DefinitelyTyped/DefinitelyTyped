@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-lint-staged --config .lintstagedrc.json
+pnpm lint-staged --config .lintstagedrc.json --allow-empty
