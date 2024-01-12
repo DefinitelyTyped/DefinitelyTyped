@@ -488,6 +488,8 @@ Then they are wrong and we've not noticed yet. You can help by submitting a pull
 Yes, using [dprint](https://dprint.dev).
 We recommend using a [dprint extension for your editor](https://dprint.dev/install/#editor-extensions).
 
+Alternatively, you can enable a git hook which will format your code automatically. Run `pnpm run setup-hooks`. Then, when you commit, `dprint fmt` command will be executed on changed files.  If you take advantage of [partial clone](#partial-clone), make sure to call `git sparse-checkout add .husky` to check out the git hooks before running the `setup-hooks` script.
+
 Pull requests do not require correct formatting to be merged.
 Any unformatted code will be automatically reformatted after being merged.
 
