@@ -4457,6 +4457,12 @@ declare module "crypto" {
             ): Promise<ArrayBuffer>;
         }
     }
+
+    global {
+        namespace NodeJS {
+            const crypto: webcrypto.Crypto;
+        }
+    }
 }
 declare module "node:crypto" {
     export * from "crypto";
