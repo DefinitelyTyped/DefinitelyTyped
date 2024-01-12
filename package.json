@@ -47,8 +47,5 @@
         "remark-validate-links": "^12.0.0",
         "typescript": "next"
     },
-    "type": "module",
-    "lint-staged": {
-        "*.ts": "pnpm dprint fmt"
-    }
+    "type": "module"
 }
