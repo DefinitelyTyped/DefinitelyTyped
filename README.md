@@ -650,12 +650,10 @@ Also, `/// <reference types=".." />` will not work with path mapping, so depende
 
 #### How do breaking type changes work if type declaration packages closely track the library package's version?
 
-Contributors should make an effort to not ship breaking type changes that break with [semantic versioning](https://semver.org/) guidelines. However, changes to TypeScript can lead to _rare_ exceptions. Here are some examples:
+`@types` packages always type packages of the same version, so `@types/foo@5.4.x` are for `foo@5.4.x`.
+As a consequence, all changes, breaking or not, are published as patch revisions, unless paired with a major/minor bump to change the package version being targeted (coincidentally or not).
 
-* The type declaration package is updated to use new TypeScript features, breaking support for old versions of TypeScript in accordance with this repository's [TypeScript support window](https://github.com/DefinitelyTyped/DefinitelyTyped/#support-window).
-* Support is improved for modern module systems, which results in new (and otherwise unfillable) support gaps for older module systems.
-
-When such rare cases happen, these updates will be released without a major version update, since updating the type declaration's major version would make its version out of step with its library package.
+When it comes to breaking changes, DT maintainers consider the popularity of the package, the upsides of the proposed breaking change, the effort that will be required for users to fix their code, and whether the change could reasonably be delayed until it can be synced with a major bump of the upstream library.
 
 #### How do I write definitions for packages that can be used globally and as a module?
 
