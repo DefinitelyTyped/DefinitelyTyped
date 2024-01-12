@@ -440,6 +440,12 @@ rule = {
 
         context.getScope();
 
+        if (typeof context.parserPath === "string") {
+            context.parserPath;
+        } else {
+            context.languageOptions?.parser;
+        }
+
         context.markVariableAsUsed("foo");
 
         context.report({ message: "foo", node: AST });

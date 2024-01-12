@@ -228,13 +228,13 @@ declare module "dgram" {
          */
         getSendBufferSize(): number;
         /**
-         * @since v18.8.0,v16.19.0
-         * @return the number of bytes queued for sending.
+         * @since v18.8.0, v16.19.0
+         * @return Number of bytes queued for sending.
          */
         getSendQueueSize(): number;
         /**
-         * @since v18.8.0,v16.19.0
-         * @return the number of send requests currently in the queue awaiting to be processed.
+         * @since v18.8.0, v16.19.0
+         * @return Number of send requests currently in the queue awaiting to be processed.
          */
         getSendQueueCount(): number;
         /**
