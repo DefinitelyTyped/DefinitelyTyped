@@ -1,11 +1,7 @@
 import { Opaque } from "ember/-private/type-utils";
 
-import {
-    setHelperManager as glimmerSetHelperManager,
-    helperCapabilities,
-} from '@glimmer/manager';
-import { invokeHelper as glimmerInvokeHelper } from '@glimmer/runtime';
-
+import { helperCapabilities, setHelperManager as glimmerSetHelperManager } from "@glimmer/manager";
+import { invokeHelper as glimmerInvokeHelper } from "@glimmer/runtime";
 
 // In normal TypeScript, these helpers are essentially opaque tokens
 // that just need to be importable. Declaring them with unique interfaces
