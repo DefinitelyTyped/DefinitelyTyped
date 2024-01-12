@@ -36,7 +36,6 @@
         "@definitelytyped/header-parser": "latest",
         "@definitelytyped/typescript-versions": "latest",
         "@definitelytyped/utils": "latest",
-        "@types/node": "^20.11.0",
         "danger": "^11.2.3",
         "dprint": "^0.45.0",
         "eslint-plugin-jsdoc": "^44.2.7",
