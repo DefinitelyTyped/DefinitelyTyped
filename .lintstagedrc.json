@@ -1,0 +1,3 @@
+{
+    "*.ts": "pnpm dprint fmt"
+}
