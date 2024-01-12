@@ -24,6 +24,10 @@ declare class Pubnub {
 
     static generateUUID(): string;
 
+    static LinearRetryPolicy: typeof Pubnub.RetryPolicy.LinearRetryPolicy;
+
+    static ExponentialRetryPolicy: typeof Pubnub.RetryPolicy.ExponentialRetryPolicy;
+
     static notificationPayload(title: string, body: string): Pubnub.NotificationsPayload;
 
     channelGroups: Pubnub.ChannelGroups;
@@ -354,7 +358,7 @@ declare namespace Pubnub {
         useRandomIVs?: boolean | undefined;
         dedupeOnSubscribe?: boolean | undefined;
         cryptoModule?: CryptoModule | undefined;
-        retryConfiguration?: RetryConfiguration | undefined;
+        retryConfiguration?: RetryPolicyConfiguration | undefined;
         enableEventEngine?: boolean | undefined;
         maintainPresenceState?: boolean | undefined;
     };
@@ -1457,17 +1461,41 @@ declare namespace Pubnub {
         PNGetMessageActionsOperation: string;
     }
 
-    type RetryConfiguration = LinearRetryPolicyConfiguration | ExponentialRetryPolicyConfiguration;
+    type RetryPolicyConfiguration = LinearRetryPolicyConfiguration | ExponentialRetryPolicyConfiguration;
 
     interface LinearRetryPolicyConfiguration {
         delay: number;
         maximumRetry: number;
     }
-
     interface ExponentialRetryPolicyConfiguration {
         minimumDelay: number;
         maximumDelay: number;
         maximumRetry: number;
+    }
+
+    class RetryPolicy {
+        static excludedErrorCodes: number[];
+        static LinearRetryPolicy(configuration: LinearRetryPolicyConfiguration): {
+            delay: number;
+            maximumRetry: number;
+            shouldRetry(error: any, attempt: number): boolean;
+            getDelay(_: number): number;
+            getGiveupReason(
+                error: any,
+                attempt: number,
+            ): string;
+        };
+        static ExponentialRetryPolicy(configuration: ExponentialRetryPolicyConfiguration): {
+            minimumDelay: number;
+            maximumDelay: number;
+            maximumRetry: number;
+            shouldRetry(error: any, attempt: number): boolean;
+            getDelay(attempt: number): number;
+            getGiveupReason(
+                error: any,
+                attempt: number,
+            ): string;
+        };
     }
 }
 

@@ -30,7 +30,7 @@ const pnconfig: Pubnub.PubnubConfig = {
     userId: "myUniqueUserId",
     enableEventEngine: true,
     maintainPresenceState: false,
-    retryConfiguration: Pubnub.LinearRetryPolicyConfiguration({ delay: 2, maximumRetry: 3 }),
+    retryConfiguration: Pubnub.LinearRetryPolicy({ delay: 2, maximumRetry: 3 }),
 };
 
 const pubnub = new Pubnub(config);
