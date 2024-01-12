@@ -1,5 +1,3 @@
-/// <reference path="./index.d.ts" />
-
 const testJsonFromNodeJS: QJson = {
     a: 1,
     b: 2

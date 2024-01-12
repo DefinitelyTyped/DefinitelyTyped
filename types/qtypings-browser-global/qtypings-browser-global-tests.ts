@@ -1,5 +1,3 @@
-/// <reference path="./index.d.ts" />
-
 const testJsonFromBrowser: QJson = {
     a: 1,
     b: 2
