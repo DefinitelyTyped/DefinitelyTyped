@@ -638,9 +638,10 @@ declare module "crypto" {
         export(options?: KeyExportOptions<"der">): Buffer;
         export(options?: JwkKeyExportOptions): JsonWebKey;
         /**
-         * Returns `true` or `false` depending on whether the keys have exactly the same type, value, and parameters.
-         * This method is not [constant time](https://en.wikipedia.org/wiki/Timing_attack).
-         * @since v16.15.0
+         * Returns `true` or `false` depending on whether the keys have exactly the same
+         * type, value, and parameters. This method is not [constant time](https://en.wikipedia.org/wiki/Timing_attack).
+         * @since v17.7.0, v16.15.0
+         * @param otherKeyObject A `KeyObject` with which to compare `keyObject`.
          */
         equals(otherKeyObject: KeyObject): boolean;
         /**
