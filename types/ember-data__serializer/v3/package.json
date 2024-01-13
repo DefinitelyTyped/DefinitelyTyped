@@ -16,10 +16,6 @@
     },
     "owners": [
         {
-            "name": "Chris Krycho",
-            "githubUsername": "chriskrycho"
-        },
-        {
             "name": "Krystan HuffMenne",
             "githubUsername": "gitKrystan"
         },
@@ -28,8 +24,8 @@
             "githubUsername": "jamescdavis"
         },
         {
-            "name": "Mike North",
-            "githubUsername": "mike-north"
+            "name": "Peter Wagenet",
+            "githubUsername": "wagenet"
         }
     ]
 }
