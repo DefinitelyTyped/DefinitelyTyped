@@ -29,8 +29,8 @@ export interface CalendarPickerProps {
     selectedDisabledDatesTextStyle?: StyleProp<TextStyle> | undefined;
     disabledDates?: Date[] | DisabledDatesFunc | undefined;
     disabledDatesTextStyle?: StyleProp<TextStyle> | undefined;
-    selectedStartDate?: Date | undefined;
-    selectedEndDate?: Date | undefined;
+    selectedStartDate?: DateParsable | undefined;
+    selectedEndDate?: DateParsable | undefined;
     minRangeDuration?: number | MinDurationArrayItem[] | undefined;
     maxRangeDuration?: number | MaxDurationArrayItem[] | undefined;
     todayBackgroundColor?: string | undefined;
@@ -38,8 +38,8 @@ export interface CalendarPickerProps {
     textStyle?: StyleProp<TextStyle> | undefined;
     customDatesStyles?: CustomDateStyle[] | CustomDatesStylesFunc | undefined;
     scaleFactor?: number | undefined;
-    minDate?: Date | undefined;
-    maxDate?: Date | undefined;
+    minDate?: DateParsable | undefined;
+    maxDate?: DateParsable | undefined;
     initialDate?: Date | undefined;
     width?: number | undefined;
     height?: number | undefined;
