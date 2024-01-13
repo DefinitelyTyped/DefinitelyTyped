@@ -1,4 +1,3 @@
-import { Moment, MomentInput } from "moment";
 import * as React from "react";
 import { StyleProp, TextStyle, ViewStyle } from "react-native";
 
@@ -71,11 +70,9 @@ export type DayOfWeekStyle = {
     [key in "0" | "1" | "2" | "3" | "4" | "5" | "6"]?: TextStyle;
 };
 
-export type DisabledDatesFunc = (date: Moment) => boolean;
+export type DisabledDatesFunc = (date: Date) => boolean;
 
-export type CustomDatesStylesFunc = (
-    date: Moment,
-) => {
+export type CustomDatesStylesFunc = (date: Date) => {
     containerStyle?: ViewStyle | undefined;
     style?: ViewStyle | undefined;
     textStyle?: TextStyle | undefined;
@@ -87,27 +84,25 @@ export interface CustomDayHeaderStylesFuncDateArg {
     year: number;
 }
 
-export type CustomDayHeaderStylesFunc = (
-    date: CustomDayHeaderStylesFuncDateArg,
-) => {
+export type CustomDayHeaderStylesFunc = (date: CustomDayHeaderStylesFuncDateArg) => {
     textStyle?: TextStyle | undefined;
     style?: ViewStyle | undefined;
 };
 
-export type MomentParsable = MomentInput;
+export type DateParsable = Date | number | string;
 
 export interface MinDurationArrayItem {
-    date: MomentParsable;
+    date: DateParsable;
     minDuration: number;
 }
 
 export interface MaxDurationArrayItem {
-    date: MomentParsable;
+    date: DateParsable;
     maxDuration: number;
 }
 
 export interface CustomDateStyle {
-    date: MomentParsable;
+    date: DateParsable;
     containerStyle?: ViewStyle | undefined;
     style?: ViewStyle | undefined;
     textStyle?: TextStyle | undefined;
@@ -119,6 +114,8 @@ export interface HandleOnPressDayArg {
     year: number;
 }
 
-export type DateChangedCallback = (date: Moment, type: "START_DATE" | "END_DATE") => void;
+export type ChangedDate = "START_DATE" | "END_DATE";
 
-export type MonthChangedCallback = (date: Moment) => void;
+export type DateChangedCallback = (date: Date, type: ChangedDate) => void;
+
+export type MonthChangedCallback = (date: Date) => void;
