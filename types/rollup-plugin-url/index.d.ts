@@ -1,7 +1,3 @@
-// Type definitions for rollup-plugin-url 3.0
-// Project: https://github.com/Swatinem/rollup-plugin-url#readme
-// Definitions by: Jeroen Claassens <https://github.com/me>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 import { Plugin } from "rollup";
 

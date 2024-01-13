@@ -1,6 +1,25 @@
 {
     "private": true,
+    "name": "@types/koa-route",
+    "version": "3.2.9999",
+    "projects": [
+        "https://github.com/koajs/route#readme"
+    ],
     "dependencies": {
+        "@types/koa": "*",
         "path-to-regexp": "^1.7.0"
-    }
+    },
+    "devDependencies": {
+        "@types/koa-route": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mike Cook",
+            "githubUsername": "migstopheles"
+        },
+        {
+            "name": "Jaco Greeff",
+            "githubUsername": "jacogr"
+        }
+    ]
 }

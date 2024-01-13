@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/cytoscape-edgehandles",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/cytoscape/cytoscape.js-edgehandles"
+    ],
+    "dependencies": {
+        "@types/cytoscape": "*"
+    },
+    "devDependencies": {
+        "@types/cytoscape-edgehandles": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "o-su",
+            "githubUsername": "o-su"
+        },
+        {
+            "name": "Felix Barczewicz",
+            "githubUsername": "DieserFelix"
+        }
+    ]
+}

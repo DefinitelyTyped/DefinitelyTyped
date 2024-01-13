@@ -1,12 +1,3 @@
-// Type definitions for hapi 18.0
-// Project: https://github.com/hapijs/hapi, https://hapijs.com
-// Definitions by: Rafael Souza Fijalkowski <https://github.com/rafaelsouzaf>
-//                 Justin Simms <https://github.com/jhsimms>
-//                 Simon Schick <https://github.com/SimonSchick>
-//                 Rodrigo Saboya <https://github.com/saboya>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
  +                                                                           +
  +                                                                           +
@@ -67,7 +58,7 @@ export type Dependencies = string | string[] | {
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverregistrations)
  */
 
-/* tslint:disable-next-line:no-empty-interface */
+/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 export interface PluginsListRegistered {
 }
 
@@ -96,11 +87,11 @@ export interface PluginRegistered {
     options: object;
 }
 
-/* tslint:disable-next-line:no-empty-interface */
+/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 export interface PluginsStates {
 }
 
-/* tslint:disable-next-line:no-empty-interface */
+/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 export interface PluginSpecificConfiguration {
 }
 
@@ -177,14 +168,14 @@ export type Plugin<T> = PluginBase<T> & (PluginNameVersion | PluginPackage);
 /**
  * User extensible types user credentials.
  */
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface UserCredentials {
 }
 
 /**
  * User extensible types app credentials.
  */
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface AppCredentials {
 }
 
@@ -1746,7 +1737,7 @@ export type RouteCompressionEncoderSettings = object;
 /**
  * Empty interface to allow for user-defined augmentations.
  */
-/* tslint:disable-next-line:no-empty-interface */
+/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 export interface RouteOptionsApp {
 }
 
@@ -2028,7 +2019,7 @@ export type ServerAuthSchemeOptions = object;
  */
 export type ServerAuthScheme = (server: Server, options?: ServerAuthSchemeOptions) => ServerAuthSchemeObject;
 
-/* tslint:disable-next-line:no-empty-interface */
+/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 export interface ServerAuthSchemeObjectApi {
 }
 
@@ -2097,7 +2088,7 @@ export interface ServerAuthSchemeObject {
  * An authentication configuration object using the same format as the route auth handler options.
  * For reference [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverauthdefaultoptions)
  */
-/* tslint:disable-next-line:no-empty-interface */
+/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 export interface ServerAuthConfig extends RouteOptionsAccess {
 }
 
@@ -2855,7 +2846,7 @@ export interface ServerOptionsCompression {
 /**
  * Empty interface to allow for custom augmentation.
  */
-/* tslint:disable-next-line:no-empty-interface */
+/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 export interface ServerOptionsApp {
 }
 
@@ -3182,7 +3173,7 @@ export interface ServerRegisterPluginObjectArray<T, U, V, W, X, Y, Z> extends
     6?: ServerRegisterPluginObject<Z> | undefined;
 }
 
-/* tslint:disable-next-line:no-empty-interface */
+/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 export interface HandlerDecorations {
 }
 
@@ -3387,7 +3378,7 @@ export type DecorationMethod<T> = (this: T, ...args: any[]) => any;
 /**
  * An empty interface to allow typings of custom plugin properties.
  */
-/* tslint:disable-next-line:no-empty-interface */
+/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 export interface PluginProperties {
 }
 
@@ -4033,7 +4024,7 @@ export class Server {
 /**
  *  User-extensible type for application specific state.
  */
-/* tslint:disable-next-line:no-empty-interface */
+/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 export interface ApplicationState {
 }
 

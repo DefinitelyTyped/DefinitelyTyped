@@ -1,8 +1,3 @@
-// Type definitions for react-twemoji 0.4
-// Project: https://github.com/zxmys/react-twemoji
-// Definitions by: smallpence <https://github.com/smallpence>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 export interface TwemojiProps {

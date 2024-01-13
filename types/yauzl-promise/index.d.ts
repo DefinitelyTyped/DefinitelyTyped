@@ -1,8 +1,3 @@
-// Type definitions for yauzl-promise 2.1
-// Project: https://github.com/overlookmotel/yauzl-promise
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // TypeScript Version: 2.1
 
 /// <reference types="node" />

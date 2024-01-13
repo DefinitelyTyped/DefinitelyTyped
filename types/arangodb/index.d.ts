@@ -1,9 +1,3 @@
-// Type definitions for non-npm package ArangoDB 3.5
-// Project: https://github.com/arangodb/arangodb
-// Definitions by: Alan Plum <https://github.com/pluma>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-
 /// <reference types="node" />
 
 declare namespace ArangoDB {
@@ -1060,6 +1054,7 @@ declare namespace Foxx {
         mount: string;
         indexFile: string;
         swaggerRoot: string;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         before: (req: Request, res: Response) => void | false;
     }
 

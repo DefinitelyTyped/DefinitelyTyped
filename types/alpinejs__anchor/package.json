@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/alpinejs__anchor",
+    "version": "3.13.9999",
+    "projects": [
+        "https://alpinejs.dev/plugins/anchor"
+    ],
+    "minimumTypeScriptVersion": "4.6",
+    "dependencies": {
+        "@types/alpinejs": "*"
+    },
+    "devDependencies": {
+        "@types/alpinejs__anchor": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Eric Kwoka",
+            "githubUsername": "ekwoka"
+        }
+    ]
+}

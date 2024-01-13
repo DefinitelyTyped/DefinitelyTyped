@@ -1,10 +1,3 @@
-// Type definitions for amCharts 3.21
-// Project: https://amcharts.com
-// Definitions by: ldrick <https://github.com/ldrick>
-//                 Mark Grothe <https://github.com/grothem>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 import _AmAngularGauge from "./AmAngularGauge";
 import _AmBalloon from "./AmBalloon";
 import _AmChart from "./AmChart";

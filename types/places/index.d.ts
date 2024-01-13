@@ -1,7 +1,3 @@
-// Type definitions for algolia places 1.16
-// Project: https://github.com/algolia/places
-// Definitions by: Ghizlane LOTFI <https://github.com/ghizlanelotfi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

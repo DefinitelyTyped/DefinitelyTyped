@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/boom",
+    "version": "4.3.9999",
+    "projects": [
+        "https://github.com/hapijs/boom"
+    ],
+    "devDependencies": {
+        "@types/boom": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "AJP",
+            "githubUsername": "AJamesPhillips"
+        },
+        {
+            "name": "Jinesh Shah",
+            "githubUsername": "jineshshah36"
+        },
+        {
+            "name": "Daniel Machado",
+            "githubUsername": "danielmachado"
+        }
+    ]
+}

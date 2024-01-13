@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gulp-tsd",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/moznion/gulp-tsd"
+    ],
+    "dependencies": {
+        "@types/gulp": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp-tsd": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Keita Kagurazaka",
+            "githubUsername": "k-kagurazaka"
+        }
+    ]
+}

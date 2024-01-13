@@ -1,9 +1,3 @@
-// Type definitions for steamapi 2.2
-// Project: https://github.com/xDimGG/node-steamapi
-// Definitions by: Joshua Jeschek <https://github.com/joshuajeschek>
-//                 Charlie Laabs <https://github.com/claabs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class SteamAPI {
     /**
      * Sets Steam key for future use.

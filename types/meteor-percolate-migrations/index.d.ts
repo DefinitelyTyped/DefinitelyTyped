@@ -1,8 +1,3 @@
-// Type definitions for non-npm package Atmosphere package percolate:migrations 1.0
-// Project: https://github.com/percolatestudio/meteor-migrations/
-// Definitions by: Stepan Yurtsiv <https://github.com/yurtsiv>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // eslint-disable-next-line @definitelytyped/no-single-declare-module
 declare module "meteor/percolate:migrations" {
     interface MigrationSpec {

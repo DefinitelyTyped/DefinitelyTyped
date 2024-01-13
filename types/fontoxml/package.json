@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/fontoxml",
+    "version": "0.0.9999",
+    "projects": [
+        "http://www.fontoxml.com/"
+    ],
+    "devDependencies": {
+        "@types/fontoxml": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Roland Zwaga",
+            "githubUsername": "rolandzwaga"
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/react-bytesize-icons",
+    "version": "0.12.9999",
+    "projects": [
+        "https://github.com/Kilian/react-bytesize-icons"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-bytesize-icons": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "rhysd",
+            "url": "https://rhysd.github.io"
+        },
+        {
+            "name": "Vladimir Liutov",
+            "githubUsername": "vslutov"
+        }
+    ]
+}

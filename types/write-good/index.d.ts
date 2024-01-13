@@ -1,8 +1,3 @@
-// Type definitions for write-good 1.0
-// Project: https://github.com/btford/write-good#readme
-// Definitions by: Kyle Hensel <https://github.com/k-yle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace WriteGood {
     interface Problem {
         /** The position of the match in the input text */

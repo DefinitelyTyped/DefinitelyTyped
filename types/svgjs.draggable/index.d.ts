@@ -1,8 +1,3 @@
-// Type definitions for svgjs.draggable
-// Project: http://www.svgjs.com/
-// Definitions by: Luigi Trabacchin <https://github.com/LiFeleSs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace svgjs {
     export namespace draggable {
         export interface DragDelta {

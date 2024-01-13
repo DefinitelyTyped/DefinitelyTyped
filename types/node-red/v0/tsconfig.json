@@ -8,16 +8,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
-        "paths": {
-            "node-red": [
-                "node-red/v0"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

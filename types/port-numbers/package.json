@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/port-numbers",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/silverwind/port-numbers#readme"
+    ],
+    "devDependencies": {
+        "@types/port-numbers": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alex Bradley",
+            "githubUsername": "abradley"
+        }
+    ]
+}

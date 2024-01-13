@@ -1,8 +1,3 @@
-// Type definitions for firmata.js 0.19
-// Project: http://www.github.com/firmata/firmata.js
-// Definitions by: Troy W. <https://github.com/troywweber7>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as SerialPort from "serialport";
@@ -206,7 +201,7 @@ declare namespace Board {
         DIRECTION: { CCW: STEPPER_DIRECTION; CW: STEPPER_DIRECTION };
     }
 
-    // tslint:disable-next-line interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface I2cModes {
         WRITE: I2C_MODE;
         READ: I2C_MODE;

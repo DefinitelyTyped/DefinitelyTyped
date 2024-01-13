@@ -1,12 +1,3 @@
-// Type definitions for non-npm package @ember/controller 3.16
-// Project: https://emberjs.com/api/ember/3.16/modules/@ember%2Fcontroller
-// Definitions by: Mike North <https://github.com/mike-north>
-//                 Chris Krycho <https://github.com/chriskrycho>
-//                 Krystan HuffMenne <https://github.com/gitKrystan>
-//                 James C. Davis <https://github.com/jamescdavis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import EmberObject from "@ember/object";
 import ActionHandler from "@ember/object/-private/action-handler";
 import ComputedProperty from "@ember/object/computed";
@@ -49,5 +40,5 @@ export function inject(target: object, propertyKey: string | symbol): void;
 
 // A type registry for Ember `Controller`s. Meant to be declaration-merged
 // so string lookups resolve to the correct type.
-// tslint:disable-next-line no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Registry {}

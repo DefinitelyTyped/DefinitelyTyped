@@ -267,6 +267,18 @@ const Memoized2 = React.memo(
 );
 <Memoized2 bar="string" />;
 
+// This declaration should do nothing, but removing it causes some versions of
+// TypeScript to report "Expression produces a union type that is too complex to represent"
+// on Memoized3 below. This code is taken from elementAttributes.tsx from
+// react/v17, which does not fail.
+//
+// The message no longer appears as of https://github.com/microsoft/TypeScript/pull/56515 (5.4).
+declare global {
+    interface HTMLModElement {
+        cite: string;
+    }
+}
+
 const Memoized3 = React.memo(class Test extends React.Component<{ x?: string | undefined }> {});
 <Memoized3
     ref={ref => {

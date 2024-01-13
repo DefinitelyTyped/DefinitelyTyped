@@ -1,9 +1,3 @@
-// Type definitions for zinggrid 1.2
-// Project: https://github.com/ZingGrid/zinggrid
-// Definitions by: Jeanette Phung <https://github.com/jeanettephung>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.3
-
 type Upper =
     | "A"
     | "B"

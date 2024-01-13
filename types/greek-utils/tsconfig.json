@@ -7,9 +7,9 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "module": "commonjs",
-        "lib": ["es5"],
-        "baseUrl": "../",
-        "typeRoots": ["../"],
+        "lib": [
+            "es5"
+        ],
         "types": []
     },
     "files": [

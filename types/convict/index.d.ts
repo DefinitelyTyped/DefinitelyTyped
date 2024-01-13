@@ -1,14 +1,3 @@
-// Type definitions for convict 6.1
-// Project: https://github.com/mozilla/node-convict
-// Definitions by: Wim Looman <https://github.com/Nemo157>
-//                 Vesa Poikajärvi <https://github.com/vesse>
-//                 Eli Young <https://github.com/elyscape>
-//                 Suntharesan Mohan <https://github.com/msuntharesan>
-//                 Igor Strebezhev <https://github.com/xamgore>
-//                 Peter Somogyvari <https://github.com/petermetz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
-
 /// <reference types="node" />
 
 declare namespace convict {

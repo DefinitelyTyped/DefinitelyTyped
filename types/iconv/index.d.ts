@@ -1,8 +1,3 @@
-// Type definitions for iconv 3.0
-// Project: https://github.com/bnoordhuis/node-iconv
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Stream } from "stream";

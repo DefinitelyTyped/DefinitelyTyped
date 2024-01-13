@@ -1,20 +1,20 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6"],
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "allowSyntheticDefaultImports": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "@tinajs/*": ["tinajs__*"]
-        }
+        "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "tinajs__tina-redux-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "tinajs__tina-redux-tests.ts"
+    ]
 }

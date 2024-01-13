@@ -1,12 +1,3 @@
-// Type definitions for react-places-autocomplete 7.2
-// Project: https://github.com/hibiken/react-places-autocomplete/, https://github.com/kenny-hibino/react-places-autocomplete
-// Definitions by: Guilherme Hübner <https://github.com/guilhermehubner>
-//                 Andrew Makarov <https://github.com/r3nya>
-//                 Nokky Goren <https://github.com/ApeNox>
-//                 Aziz Khambati <https://github.com/azizhk>
-//                 Mark Nelissen <https://github.com/marknelissen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
 //
 /// <reference types="google.maps" />
 import * as React from "react";
@@ -50,7 +41,7 @@ export interface PropTypes {
     children: (
         opts: Readonly<{
             loading: boolean;
-            suggestions: ReadonlyArray<Suggestion>;
+            suggestions: readonly Suggestion[];
             getInputProps: <InputProps extends {}>(options?: InputProps) => {
                 type: "text";
                 autoComplete: "off";

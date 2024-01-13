@@ -1,9 +1,3 @@
-// Type definitions for avue 3.0
-// Project: https://github.com/nmxiaowei/avue
-// Definitions by: Lyoko <https://github.com/SoulLyoko>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
 /// <reference lib="dom" />
 /// <reference path="./async-validator.d.ts" />
 /// <reference path="./element-plus.d.ts" />

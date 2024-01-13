@@ -1,6 +1,6 @@
 import { WebGLCapabilities } from './WebGLCapabilities.js';
-import { Scene } from './../../scenes/Scene.js';
-import { Camera } from './../../cameras/Camera.js';
+import { Scene } from '../../scenes/Scene.js';
+import { Camera } from '../../cameras/Camera.js';
 import { WebGLRenderer } from '../WebGLRenderer.js';
 import { ShadowMapType } from '../../constants.js';
 import { WebGLObjects } from './WebGLObjects.js';

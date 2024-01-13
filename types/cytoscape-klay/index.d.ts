@@ -1,8 +1,3 @@
-// Type definitions for cytoscape-klay 3.1
-// Project: https://github.com/cytoscape/cytoscape.js-klay
-// Definitions by: Roger Dubbs <https://github.com/rogerdubbs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import cytoscape = require("cytoscape");
 
 declare const cytoscapeKlay: cytoscape.Ext;

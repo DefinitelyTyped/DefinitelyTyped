@@ -1,9 +1,48 @@
 {
     "private": true,
+    "name": "@types/mui-datatables",
+    "version": "4.3.9999",
+    "projects": [
+        "https://github.com/gregnb/mui-datatables"
+    ],
     "dependencies": {
         "@emotion/react": "^11.10.5",
         "@emotion/styled": "^11.10.5",
         "@mui/material": "^5.11.4",
-        "csstype": "^3.1.1"
-    }
+        "@types/react": "*",
+        "csstype": "3.1.1 || 3.1.2"
+    },
+    "devDependencies": {
+        "@types/mui-datatables": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jeroen \"Favna\" Claassens",
+            "githubUsername": "favna"
+        },
+        {
+            "name": "Ankith Konda",
+            "githubUsername": "ankithkonda"
+        },
+        {
+            "name": "Herman \"Von\" Waters IV",
+            "githubUsername": "hwatersiv"
+        },
+        {
+            "name": "souppower",
+            "githubUsername": "souppower"
+        },
+        {
+            "name": "Byron \"Byrekt\" Mitchell",
+            "githubUsername": "byrekt"
+        },
+        {
+            "name": "Bohdan Yavorskyi",
+            "githubUsername": "BohdanYavorskyi"
+        },
+        {
+            "name": "Patrick Erichsen",
+            "githubUsername": "Patrick-Erichsen"
+        }
+    ]
 }

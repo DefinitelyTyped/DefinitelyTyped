@@ -1,8 +1,3 @@
-// Type definitions for non-npm package Yandex.Metrika Tag API 2.0
-// Project: https://yandex.ru/support/metrica/code/counter-initialize.html
-// Definitions by: hikiko4ern <https://github.com/hikiko4ern>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var ym: ym.Event;
 
 declare namespace ym {

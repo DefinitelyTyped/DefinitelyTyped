@@ -1,10 +1,3 @@
-// Type definitions for Consul v0.40.0
-// Project: https://github.com/silas/node-consul
-// Definitions by: Ilya Mochalov <https://github.com/chrootsu>
-//                 Vadym Vakhovskiy <https://github.com/vadim-v>
-//                 Radoslav Kirilov <https://github.com/smoke>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { IncomingMessage as HttpIncomingMessage } from "http";

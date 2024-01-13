@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/koa-proxy",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/edorivai/koa-proxy#readme"
+    ],
+    "dependencies": {
+        "@types/koa": "*"
+    },
+    "devDependencies": {
+        "@types/koa-proxy": "workspace:."
+    },
+    "owners": []
+}

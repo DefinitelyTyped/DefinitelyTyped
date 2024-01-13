@@ -1,18 +1,3 @@
-// Type definitions for Jasmine 2.8
-// Project: https://jasmine.github.io/
-// Definitions by: Boris Yankov <https://github.com/borisyankov>
-//                 Theodore Brown <https://github.com/theodorejb>
-//                 David Pärsson <https://github.com/davidparsson>
-//                 Gabe Moothart <https://github.com/gmoothart>
-//                 Lukas Zech <https://github.com/lukas-zech-software>
-//                 Boris Breuer <https://github.com/Engineer2B>
-//                 Chris Yungmann <https://github.com/cyungmann>
-//                 Yaroslav Admin <https://github.com/devoto13>
-//                 Domas Trijonis <https://github.com/fdim>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-// For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
-
 type ImplementationCallback = (() => Promise<any>) | ((done: DoneFn) => void);
 
 /**
@@ -139,8 +124,7 @@ declare function waits(timeout?: number): void;
 
 declare namespace jasmine {
     type Expected<T> = T | ObjectContaining<T> | Any | Spy;
-    type SpyObjMethodNames<T = undefined> = T extends undefined
-        ? (ReadonlyArray<string> | { [methodName: string]: any })
+    type SpyObjMethodNames<T = undefined> = T extends undefined ? (readonly string[] | { [methodName: string]: any })
         : (ReadonlyArray<keyof T> | { [P in keyof T]?: ReturnType<T[P] extends (...args: any[]) => any ? T[P] : any> });
 
     var clock: () => Clock;

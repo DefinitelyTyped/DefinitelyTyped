@@ -1,9 +1,3 @@
-// Type definitions for azure-sb
-// Project: https://github.com/Azure/azure-sdk-for-node/tree/master/lib/services/serviceBus
-// Definitions by: Microsoft Azure <https://github.com/Azure>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 export import ServiceBusService = require("./lib/servicebusservice");
 export import NotificationHubService = require("./lib/notificationhubservice");
 export import WrapService = require("./lib/wrapservice");
@@ -157,19 +151,19 @@ export namespace Azure.ServiceBus {
         platform: "apns" | "wns" | "mpns" | "adm" | "gcm";
         pushChannel: string;
         readonly expiredPushChannel?: string | undefined;
-        tags?: Array<string> | undefined;
+        tags?: string[] | undefined;
         templates?: {
             [name: string]: {
                 body: string;
                 headers?: any;
                 expiry?: string | undefined;
-                tags?: Array<string> | undefined;
+                tags?: string[] | undefined;
             };
         } | undefined;
         secondaryTile?: {
             [titleId: string]: {
                 pushChannel: string;
-                tags?: Array<string> | undefined;
+                tags?: string[] | undefined;
                 templates?: any;
             };
         } | undefined;

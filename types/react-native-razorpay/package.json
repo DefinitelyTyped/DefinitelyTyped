@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/react-native-razorpay",
+    "version": "2.2.9999",
+    "projects": [
+        "https://www.npmjs.com/package/react-native-razorpay"
+    ],
+    "devDependencies": {
+        "react-native": "*",
+        "@types/react-native-razorpay": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ankan Bhattacharya",
+            "githubUsername": "Ankan002"
+        }
+    ]
+}

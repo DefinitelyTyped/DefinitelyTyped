@@ -1,8 +1,3 @@
-// Type definitions for readdir-glob 1.1
-// Project: https://github.com/Yqnn/node-readdir-glob
-// Definitions by: Dolan Miu <https://github.com/dolanmiu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
@@ -85,8 +80,8 @@ declare namespace readdirGlob {
     }
 
     class ReaddirGlob extends EventEmitter {
-        constructor(cwd: string, cb: (error: Error | null, matches?: ReadonlyArray<Match>) => void);
-        constructor(cwd: string, options: Options, cb: (error: Error | null, matches?: ReadonlyArray<Match>) => void);
+        constructor(cwd: string, cb: (error: Error | null, matches?: readonly Match[]) => void);
+        constructor(cwd: string, options: Options, cb: (error: Error | null, matches?: readonly Match[]) => void);
         /**
          * Every time a match is found, this is emitted with the specific thing that matched.
          */
@@ -98,7 +93,7 @@ declare namespace readdirGlob {
         /**
          * Emitted when an unexpected error is encountered.
          */
-        on(event: "end", callback: (matches: ReadonlyArray<Match>) => void): this;
+        on(event: "end", callback: (matches: readonly Match[]) => void): this;
         /**
          * Temporarily stop the search
          */

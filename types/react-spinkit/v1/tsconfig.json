@@ -9,20 +9,8 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
         "jsx": "react",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
-        "paths": {
-            "react-spinkit": [
-                "react-spinkit/v1"
-            ],
-            "react-spinkit/*": [
-                "react-spinkit/v1/*"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

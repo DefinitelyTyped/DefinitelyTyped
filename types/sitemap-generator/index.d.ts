@@ -1,8 +1,3 @@
-// Type definitions for sitemap-generator 8.5
-// Project: https://github.com/lgraubner/sitemap-generator
-// Definitions by: grgr-dkrk <https://github.com/grgr-dkrk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import Crawler = require("simplecrawler");
 
 type PriorityValues = 0.0 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1.0;

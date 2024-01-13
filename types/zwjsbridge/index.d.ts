@@ -1,9 +1,3 @@
-// Type definitions for non-npm package ZWJSBridge API - zwjsbridge.js 1.1
-// Project: https://assets.zjzwfw.gov.cn/assets/ZWJSBridge/1.1.0/zwjsbridge.js
-// Definitions by: Yuxiang Ren <https://github.com/shlyren>, Jungzl <https://github.com/jungzl>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.2
-
 /**
  * “浙里办”政务中台 JSBridge API
  * This API just for [浙里办](https://apps.apple.com/us/app/zhe-jiang-zheng-wu-fu-wu/id910260096)

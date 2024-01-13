@@ -1,8 +1,3 @@
-// Type definitions for cose-js 0.8
-// Project: https://github.com/erdtman/COSE-JS
-// Definitions by: Kyle Hensel <https://github.com/k-yle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Readable } from "stream";

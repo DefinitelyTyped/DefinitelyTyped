@@ -6,14 +6,7 @@
             "dom"
         ],
         "strict": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
-        "paths": {
-            "@ember/*": ["ember__*"]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

@@ -1,9 +1,3 @@
-// Type definitions for distributions-poisson-quantile 0.0
-// Project: https://github.com/distributions-io/poisson-quantile#readme
-// Definitions by: Daniel McNally <https://github.com/sangaman>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 declare function quantile(p: number, options?: Options): number;
 declare function quantile(p: number[], options?: Options & { dtype?: undefined }): number[];
 declare function quantile(p: Data, options?: Options & { dtype?: "float64" | undefined }): Float64Array;

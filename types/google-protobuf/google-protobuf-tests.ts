@@ -501,7 +501,7 @@ class MySimple extends jspb.Message {
         return jspb.Message.getField(this, 3) as string[];
     }
 
-    setSomeLabelsList(value: Array<string>) {
+    setSomeLabelsList(value: string[]) {
         jspb.Message.setField(this, 3, value || []);
     }
 

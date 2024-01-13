@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/swagger-express-mw",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/apigee-127/swagger-express#readme"
+    ],
+    "dependencies": {
+        "@types/swagger-node-runner": "*"
+    },
+    "devDependencies": {
+        "@types/express": "*",
+        "@types/swagger-express-mw": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michael Mrowetz",
+            "githubUsername": "micmro"
+        }
+    ]
+}

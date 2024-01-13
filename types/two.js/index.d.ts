@@ -1,11 +1,3 @@
-// Type definitions for js 0.7
-// Project: https://two.js.org
-// Definitions by: Carlos Precioso <https://github.com/cprecioso>
-//                 Konstantin <https://github.com/demkonst>
-//                 Levente <https://github.com/leventefabry>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 type _Object = Two.Object;
 
 declare class Two {
@@ -26,9 +18,9 @@ declare class Two {
     update(): this;
     render(): this;
     add(...objects: Two.Object[]): this;
-    add(objects: ReadonlyArray<Two.Object>): this;
+    add(objects: readonly Two.Object[]): this;
     remove(...objects: Two.Object[]): this;
-    remove(objects: ReadonlyArray<Two.Object>): this;
+    remove(objects: readonly Two.Object[]): this;
     clear(): this;
     makeLine(x1: number, y1: number, x2: number, y2: number): Two.Line;
     makeRectangle(
@@ -74,10 +66,10 @@ declare class Two {
         res?: number,
     ): Two.ArcSegment;
     makeCurve(...coords: Array<number | boolean>): Two.Path;
-    makeCurve(points: ReadonlyArray<Two.Vector>, open?: boolean): Two.Path;
+    makeCurve(points: readonly Two.Vector[], open?: boolean): Two.Path;
     makePath(...coords: Array<number | boolean>): Two.Path;
-    makePath(points: ReadonlyArray<Two.Vector>, open?: boolean): Two.Path;
-    makeGroup(objects: ReadonlyArray<Two.Object>): Two.Group;
+    makePath(points: readonly Two.Vector[], open?: boolean): Two.Path;
+    makeGroup(objects: readonly Two.Object[]): Two.Group;
     makeGroup(...objects: Two.Object[]): Two.Group;
     makeText(message: string, x: number, y: number, styles: any): Two.Text;
     interpret(svgNode: SVGElement): Two.Group;
@@ -147,7 +139,7 @@ declare namespace Two {
 
     class Path {
         constructor(
-            vertices: ReadonlyArray<Vector>,
+            vertices: readonly Vector[],
             closed: boolean,
             curved: boolean,
             manual?: boolean,
@@ -261,9 +253,9 @@ declare namespace Two {
         center(): this;
         addTo(group: Group): this;
         add(...objects: _Object[]): this;
-        add(objects: ReadonlyArray<_Object>): this;
+        add(objects: readonly _Object[]): this;
         remove(...objects: _Object[]): this;
-        remove(objects: ReadonlyArray<_Object>): this;
+        remove(objects: readonly _Object[]): this;
         getBoundingClientRect(shallow?: boolean): BoundingClientRect;
         noFill(): this;
         noStroke(): this;
@@ -348,7 +340,7 @@ declare namespace Two {
             y1: number,
             x2: number,
             y2: number,
-            stops: ReadonlyArray<Stop>,
+            stops: readonly Stop[],
         );
 
         left: Vector;
@@ -364,7 +356,7 @@ declare namespace Two {
             x: number,
             y: number,
             radius: number,
-            stops: ReadonlyArray<Stop>,
+            stops: readonly Stop[],
             fx?: number,
             fy?: number,
         );

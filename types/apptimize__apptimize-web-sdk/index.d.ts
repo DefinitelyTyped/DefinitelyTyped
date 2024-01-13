@@ -1,10 +1,3 @@
-// Type definitions for @apptimize/apptimize-web-sdk 1.2
-// Project: https://www.npmjs.com/package/@apptimize/apptimize-web-sdk
-// Definitions by: Vivint Team Innovation <https://github.com/innovation-team>
-//                 Robert Baxter <https://github.com/rlbaxter>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 interface Dictionary<T> {
     [key: string]: T;
 }

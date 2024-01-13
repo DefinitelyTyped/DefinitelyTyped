@@ -1,12 +1,3 @@
-// Type definitions for @babel/generator 7.6
-// Project: https://github.com/babel/babel/tree/master/packages/babel-generator, https://babeljs.io
-// Definitions by: Troy Gerwien <https://github.com/yortus>
-//                 Melvin Groenhoff <https://github.com/mgroenhoff>
-//                 Cameron Yan <https://github.com/khell>
-//                 Lyanbin <https://github.com/Lyanbin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 import * as t from "@babel/types";
 
 export interface GeneratorOptions {
@@ -90,6 +81,12 @@ export interface GeneratorOptions {
      * Defaults to `false`.
      */
     decoratorsBeforeExport?: boolean | undefined;
+
+    /**
+     * The import attributes/assertions syntax to use.
+     * When not specified, @babel/generator will try to match the style in the input code based on the AST shape.
+     */
+    importAttributesKeyword?: "with" | "assert" | "with-legacy";
 
     /**
      * Options for outputting jsesc representation.

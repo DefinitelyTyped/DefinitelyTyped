@@ -1,10 +1,3 @@
-// Type definitions for supports-color 8.1
-// Project: https://github.com/chalk/supports-color
-// Definitions by: Melvin Groenhoff <https://github.com/mgroenhoff>
-//                 Matt Traynham <https://github.com/mtraynham>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export namespace supportsColor {
     interface Level {
         level: number;

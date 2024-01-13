@@ -1,8 +1,3 @@
-// Type definitions for totp-generator 0.0
-// Project: https://github.com/bellstrand/totp-generator
-// Definitions by: haykam821 <https://github.com/haykam821>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Possible SHA variants taken from [jsSHA](https://github.com/Caligatio/jsSHA).
  */

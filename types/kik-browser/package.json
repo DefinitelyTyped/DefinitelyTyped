@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/kik-browser",
+    "version": "2.3.9999",
+    "projects": [
+        "https://dev.kik.com"
+    ],
+    "devDependencies": {
+        "@types/kik-browser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Joel Day",
+            "githubUsername": "joelday"
+        }
+    ]
+}

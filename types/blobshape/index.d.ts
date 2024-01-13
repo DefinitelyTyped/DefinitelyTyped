@@ -1,8 +1,3 @@
-// Type definitions for blobshape 1.0
-// Project: https://github.com/lokesh-coder/blobshape#readme
-// Definitions by: OyewoleOyedeji <https://github.com/OyewoleOyedeji>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface BlobshapeParameters {
     size?: number;
     growth?: number;

@@ -1,10 +1,3 @@
-// Type definitions for bn.js 5.1
-// Project: https://github.com/indutny/bn.js
-// Definitions by: Leonid Logvinov <https://github.com/LogvinovLeon>
-//                 Henry Nguyen <https://github.com/HenryNguyen5>
-//                 Gaylor Bosson <https://github.com/Gilthoniel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 declare namespace BN {
@@ -426,9 +419,9 @@ declare class BN {
     iuxor(b: BN): BN;
 
     /**
-     * @description set specified bit to 1
+     * @description set specified bit to value
      */
-    setn(b: number): BN;
+    setn(b: number, value: boolean | 0 | 1): BN;
 
     /**
      * @description shift left

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/recharts-scale",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/recharts/recharts-scale"
+    ],
+    "devDependencies": {
+        "@types/recharts-scale": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "John Reilly",
+            "githubUsername": "johnnyreilly"
+        }
+    ]
+}

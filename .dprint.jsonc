@@ -26,28 +26,36 @@
         "./types/openui5",
         "./types/p5",
         "./types/react-native",
+        "./types/recurly__recurly-js",
         "./types/sawtooth-sdk",
         "./types/three",
         "./types/webextension-polyfill",
         "./types/winrt-uwp",
         "./types/vscode",
 
-        // These files will be formatted soon, but are failing in CI for now.
-        "./types/i18next-ko",
-        "./types/i18next-node-fs-backend",
-        "./types/i18next-sprintf-postprocessor",
-        "./types/react-blessed",
-
         // Machine-generated files.
         "./docs/support-window.json",
         "./notNeededPackages.json",
         "**/package-lock.json"
     ],
+    "prettier": {
+        "associations": [
+            "**/*.{yaml,yml}"
+        ],
+        "yml.tabWidth": 2,
+        "yaml.tabWidth": 2,
+        "yml.singleQuote": true,
+        "yaml.singleQuote": true
+    },
     // NOTE: if extending this list, also update settings.template.json.
     "plugins": [
-        "https://plugins.dprint.dev/typescript-0.88.1.wasm",
-        "https://plugins.dprint.dev/json-0.17.4.wasm"
+        "https://plugins.dprint.dev/typescript-0.88.8.wasm",
+        "https://plugins.dprint.dev/json-0.19.1.wasm",
+        "https://plugins.dprint.dev/prettier-0.32.1.json@19aa403ef0862ba8c41164e3dc6f84c0b7a66c2b11e42726b23dd25e6302ada9"
     ],
     "indentWidth": 4,
-    "lineWidth": 120
+    "lineWidth": 120,
+    "json": {
+        "trailingCommas": "never" // Our tsconfig files must be parsable by JSON.parse.
+    }
 }

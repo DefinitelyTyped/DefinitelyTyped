@@ -1,0 +1,72 @@
+{
+    "private": true,
+    "name": "@types/material-ui",
+    "version": "0.21.9999",
+    "projects": [
+        "https://github.com/callemall/material-ui",
+        "http://material-ui.com"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "@types/react-addons-linked-state-mixin": "*"
+    },
+    "devDependencies": {
+        "@types/material-ui": "workspace:.",
+        "@types/prop-types": "*",
+        "@types/react-tap-event-plugin": "*"
+    },
+    "owners": [
+        {
+            "name": "Nathan Brown",
+            "githubUsername": "ngbrown"
+        },
+        {
+            "name": "Igor Beagorudsky",
+            "githubUsername": "theigor"
+        },
+        {
+            "name": "Ali Taheri Moghaddar",
+            "githubUsername": "alitaheri"
+        },
+        {
+            "name": "Oliver Herrmann",
+            "githubUsername": "herrmanno"
+        },
+        {
+            "name": "Daniel Roth",
+            "githubUsername": "DaIgeb"
+        },
+        {
+            "name": "Aurelién Allienne",
+            "githubUsername": "allienna"
+        },
+        {
+            "name": "Matthias Schlesinger",
+            "githubUsername": "schlesingermatthias"
+        },
+        {
+            "name": "Jonathon Kelly",
+            "githubUsername": "InsidersByte"
+        },
+        {
+            "name": "Artyom Stukans",
+            "githubUsername": "artyomsv"
+        },
+        {
+            "name": "Dan Jones",
+            "githubUsername": "dan-j"
+        },
+        {
+            "name": "Daisuke Mino",
+            "githubUsername": "minodisk"
+        },
+        {
+            "name": "Sam Walsh",
+            "githubUsername": "samwalshnz"
+        },
+        {
+            "name": "Tim de Koning",
+            "githubUsername": "reggino"
+        }
+    ]
+}

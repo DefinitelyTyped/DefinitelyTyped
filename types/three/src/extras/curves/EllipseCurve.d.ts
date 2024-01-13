@@ -1,4 +1,4 @@
-import { Curve } from './../core/Curve.js';
+import { Curve } from '../core/Curve.js';
 import { Vector2 } from '../../math/Vector2.js';
 
 /**

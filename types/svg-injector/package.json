@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/svg-injector",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/iconic/SVGInjector"
+    ],
+    "devDependencies": {
+        "@types/svg-injector": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Patrick Westerhoff",
+            "githubUsername": "poke"
+        }
+    ]
+}

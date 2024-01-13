@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-charts-wrapper",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/wuxudong/react-native-charts-wrapper"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-charts-wrapper": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Connor Love",
+            "githubUsername": "dotconnor"
+        }
+    ]
+}

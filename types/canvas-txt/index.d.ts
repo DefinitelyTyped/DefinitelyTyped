@@ -1,8 +1,3 @@
-// Type definitions for canvas-txt 3.0
-// Project: https://canvas-txt.geongeorge.com
-// Definitions by: Niels Kersic <https://github.com/nielskersic>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Draws text on a 2D canvas context
  * @param ctx 2D canvas context

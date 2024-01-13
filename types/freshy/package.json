@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/freshy",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/krakenjs/freshy#readme",
+        "https://github.com/totherik/freshy"
+    ],
+    "devDependencies": {
+        "@types/freshy": "workspace:.",
+        "@types/minimist": "*"
+    },
+    "owners": [
+        {
+            "name": "Nikita Volodin",
+            "githubUsername": "qlonik"
+        }
+    ]
+}

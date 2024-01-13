@@ -1,8 +1,3 @@
-// Type definitions for tiny-human-time 1.2
-// Project: https://github.com/danasilver/tiny-human-time#readme
-// Definitions by: Jimmy Cuadra <https://github.com/jimmycuadra>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = tinyHumanTime;
 
 declare function tinyHumanTime(

@@ -1,8 +1,3 @@
-// Type definitions for secure-weighted-sample 1.0
-// Project: https://github.com/emilbayes/secure-weighted-sample
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = sample;
 
 /**

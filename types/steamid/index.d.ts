@@ -1,10 +1,3 @@
-// Type definitions for steamid 2.0
-// Project: https://github.com/DoctorMcKay/node-steamid
-// Definitions by: Edward Sammut Alessi <https://github.com/Slessi>
-//                 joshuajeschek <https://github.com/joshuajeschek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
-
 /**
  * Renders the ID in Steam2 format (e.g. "STEAM_0:0:23071901")
  * @param newerFormat [newerFormat=false] - true if you want to use 1 in place of the leading 0 for the public universe

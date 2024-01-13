@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/d3-sankey",
+    "version": "0.12.9999",
+    "projects": [
+        "https://github.com/d3/d3-sankey/"
+    ],
+    "dependencies": {
+        "@types/d3-shape": "^1"
+    },
+    "devDependencies": {
+        "@types/d3-sankey": "workspace:.",
+        "@types/d3-selection": "*"
+    },
+    "owners": [
+        {
+            "name": "Tom Wanzek",
+            "githubUsername": "tomwanzek"
+        },
+        {
+            "name": "Alex Ford",
+            "githubUsername": "gustavderdrache"
+        }
+    ]
+}

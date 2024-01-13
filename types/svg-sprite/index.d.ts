@@ -1,9 +1,3 @@
-// Type definitions for svg-sprite
-// Project: https://github.com/jkphl/svg-sprite
-// Definitions by: Qubo <https://github.com/tkqubo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
 import File = require("vinyl");
 import { Logger } from "winston";
@@ -144,7 +138,7 @@ declare namespace sprite {
         /**
          * List of transformations / optimizations
          */
-        transform?: (string | CustomConfigurationTransform | CustomCallbackTransform)[] | undefined;
+        transform?: Array<string | CustomConfigurationTransform | CustomCallbackTransform> | undefined;
         /**
          * Path to YAML file with meta / accessibility data
          */
@@ -164,7 +158,7 @@ declare namespace sprite {
      */
     interface CustomConfigurationTransform {
         [transformationName: string]: {
-            plugins?: { [transformationName: string]: boolean }[] | undefined;
+            plugins?: Array<{ [transformationName: string]: boolean }> | undefined;
         };
     }
 

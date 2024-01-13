@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/valdr",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/netceteragroup/valdr"
+    ],
+    "devDependencies": {
+        "@types/valdr": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kai Ilbertz",
+            "githubUsername": "ilbertz"
+        }
+    ]
+}

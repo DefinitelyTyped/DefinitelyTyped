@@ -1,8 +1,3 @@
-// Type definitions for eslint-scope 3.7
-// Project: https://github.com/eslint/eslint-scope
-// Definitions by: Toru Nagashima <https://github.com/mysticatea>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
 import * as eslint from "eslint";
 import * as estree from "estree";
 

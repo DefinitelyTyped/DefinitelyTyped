@@ -1,8 +1,3 @@
-// Type definitions for @yodasws/gulp-pattern-replace 1.1
-// Project: https://github.com/YodasWs/gulp-pattern-replace
-// Definitions by: Christophe Coevoet <https://github.com/stof>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 import replacestream = require("replacestream");

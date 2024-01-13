@@ -1,8 +1,3 @@
-// Type definitions for non-npm package dom-navigation-browser 1.0
-// Project: https://wicg.github.io/navigation-api
-// Definitions by: Thomas Wilkinson <https://github.com/tbondwilkinson>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Window {
     readonly navigation: Navigation;
 }

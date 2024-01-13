@@ -5,7 +5,7 @@ import { ButtonAnchorProps, ButtonCustomComponentProps, ButtonDefaultProps, Butt
 declare function SecondaryButton(props: FCProps<ButtonDefaultProps>): FCReturn;
 // tslint:disable:unified-signatures breaks certain usages
 declare function SecondaryButton(props: FCProps<ButtonAnchorProps>): FCReturn;
-declare function SecondaryButton<T extends keyof JSX.IntrinsicElements>(
+declare function SecondaryButton<T extends keyof React.JSX.IntrinsicElements>(
     props: FCProps<ButtonIntrinsicProps<T>>,
 ): FCReturn;
 declare function SecondaryButton<T extends ReactComponentConstructor<never>>(

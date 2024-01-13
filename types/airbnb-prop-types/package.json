@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/airbnb-prop-types",
+    "version": "2.13.9999",
+    "projects": [
+        "https://github.com/airbnb/prop-types"
+    ],
+    "dependencies": {
+        "@types/prop-types": "*"
+    },
+    "devDependencies": {
+        "@types/airbnb-prop-types": "workspace:.",
+        "@types/react": "^16"
+    },
+    "owners": [
+        {
+            "name": "Miles Johnson",
+            "githubUsername": "milesj"
+        }
+    ]
+}

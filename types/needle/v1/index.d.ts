@@ -1,8 +1,3 @@
-// Type definitions for needle 1.4
-// Project: https://github.com/tomas/needle
-// Definitions by: San Chen <https://github.com/bigsan>, Niklas Mollenhauer <https://github.com/nikeee>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package

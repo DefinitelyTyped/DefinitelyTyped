@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/promise-abortable",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/dondevi/promise-abortable"
+    ],
+    "devDependencies": {
+        "@types/promise-abortable": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Junxiao Shi",
+            "githubUsername": "yoursunny"
+        }
+    ]
+}

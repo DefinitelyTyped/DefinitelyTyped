@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/pure-render-decorator",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/felixgirault/pure-render-decorator"
+    ],
+    "devDependencies": {
+        "@types/pure-render-decorator": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sean Kelley",
+            "githubUsername": "seansfkelley"
+        }
+    ]
+}

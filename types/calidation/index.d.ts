@@ -1,10 +1,3 @@
-// Type definitions for calidation 1.16
-// Project: https://github.com/selbekk/calidation#readme
-// Definitions by: Ray Knight <https://github.com/ArrayKnight>
-//                 Lisa Tassone <https://github.com/lisatassone>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 import * as React from "react";
 
 export type Dirty<T extends object> = Record<keyof T, boolean>;

@@ -1,9 +1,3 @@
-// Type definitions for async-eventemitter 0.2
-// Project: https://www.npmjs.com/package/async-eventemitter
-// Definitions by: patarapolw <https://github.com/patarapolw>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 import { EventEmitter } from "events";
 
 /**

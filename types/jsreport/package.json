@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/jsreport",
+    "version": "2.9.9999",
+    "projects": [
+        "https://github.com/jsreport/jsreport"
+    ],
+    "dependencies": {
+        "@types/jsreport-assets": "*",
+        "@types/jsreport-chrome-pdf": "*",
+        "@types/jsreport-core": "*",
+        "@types/jsreport-docx": "*",
+        "@types/jsreport-handlebars": "*",
+        "@types/jsreport-html-to-xlsx": "*",
+        "@types/jsreport-jsrender": "*",
+        "@types/jsreport-pdf-utils": "*",
+        "@types/jsreport-reports": "*",
+        "@types/jsreport-scripts": "*",
+        "@types/jsreport-templates": "*",
+        "@types/jsreport-xlsx": "*"
+    },
+    "devDependencies": {
+        "@types/jsreport": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "pofider",
+            "githubUsername": "pofider"
+        }
+    ]
+}

@@ -1,12 +1,3 @@
-// Type definitions for RethinkDB 2.3
-// Project: http://rethinkdb.com/
-// Definitions by: Alex Gorbatchev <https://github.com/alexgorbatchev>
-//                 Adrian Farmadin <https://github.com/AdrianFarmadin>
-//                 Pusztai Tibor <https://github.com/kondi>
-//                 Keiichiro Amemiya <https://github.com/hoishin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 // Reference: https://rethinkdb.com/api/javascript/
 //
 // Notes:
@@ -455,8 +446,8 @@ declare module "rethinkdb" {
 
     type IndexFunction<U> =
         | Expression<U>
-        | Expression<U>[]
-        | ((doc: Expression<any>) => Expression<U> | Expression<U>[]);
+        | Array<Expression<U>>
+        | ((doc: Expression<any>) => Expression<U> | Array<Expression<U>>);
 
     interface ExpressionFunction<U> {
         (doc: Expression<any>): Expression<U>;

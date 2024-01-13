@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/netconf",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/darylturner/node-netconf"
+    ],
+    "devDependencies": {
+        "@types/netconf": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leodinas Hao",
+            "githubUsername": "leodinas-hao"
+        }
+    ]
+}

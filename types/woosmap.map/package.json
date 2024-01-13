@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/woosmap.map",
+    "version": "1.4.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Woosmap Map JS API",
+    "projects": [
+        "https://developers.woosmap.com/products/map-api/get-started/"
+    ],
+    "dependencies": {
+        "@types/mapbox__mapbox-gl-draw": "*"
+    },
+    "devDependencies": {
+        "@types/woosmap.map": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Emmanuel Peralta",
+            "githubUsername": "manz"
+        },
+        {
+            "name": "Samuel Mendes",
+            "githubUsername": "smendes"
+        },
+        {
+            "name": "Gael Simon",
+            "githubUsername": "gaelsimon"
+        }
+    ]
+}

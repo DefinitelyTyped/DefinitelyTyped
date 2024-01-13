@@ -1,0 +1,44 @@
+{
+    "private": true,
+    "name": "@types/react-table",
+    "version": "6.8.9999",
+    "projects": [
+        "https://github.com/tannerlinsley/react-table/tree/v6"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-table": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Roy Xue",
+            "githubUsername": "royxue"
+        },
+        {
+            "name": "Pavel Sakalo",
+            "githubUsername": "psakalo"
+        },
+        {
+            "name": "Krzysztof Porębski",
+            "githubUsername": "Havret"
+        },
+        {
+            "name": "Andy S",
+            "githubUsername": "andys8"
+        },
+        {
+            "name": "Grzegorz Rozdzialik",
+            "githubUsername": "Gelio"
+        },
+        {
+            "name": "Cam Pepin",
+            "githubUsername": "cpepin"
+        },
+        {
+            "name": "Andrew Luca",
+            "githubUsername": "iamandrewluca"
+        }
+    ]
+}

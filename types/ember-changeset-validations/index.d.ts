@@ -1,9 +1,3 @@
-// Type definitions for ember-changeset-validations 4.1
-// Project: https://github.com/poteto/ember-changeset-validations
-// Definitions by: golovkoe <https://github.com/elenagolovko>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
 // ember-changeset/types
 
 export type ValidationOk = boolean | [boolean];

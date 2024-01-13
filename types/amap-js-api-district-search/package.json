@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/amap-js-api-district-search",
+    "version": "1.4.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "amap-js-api-district-search",
+    "projects": [
+        "https://lbs.amap.com/api/javascript-api/reference/search#m_AMap.DistrictSearch"
+    ],
+    "dependencies": {
+        "@types/amap-js-api": "*"
+    },
+    "devDependencies": {
+        "@types/amap-js-api-district-search": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "breeze9527",
+            "githubUsername": "breeze9527"
+        }
+    ]
+}

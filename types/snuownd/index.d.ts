@@ -1,8 +1,3 @@
-// Type definitions for snuownd 1.1
-// Project: http//github.com/gamefreak/snuownd
-// Definitions by: eritbh <https://github.com/eritbh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace SnuOwnd;
 
 // These definitions use some utility classes which shouldn't be exported

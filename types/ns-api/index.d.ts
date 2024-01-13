@@ -1,8 +1,3 @@
-// Type definitions for ns-api 2.0
-// Project: https://github.com/fvdm/nodejs-ns-api#readme
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = nsApi;
 declare function nsApi(conf: nsApi.Configuration): nsApi;
 

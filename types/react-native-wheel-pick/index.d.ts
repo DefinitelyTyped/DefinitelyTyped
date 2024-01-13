@@ -1,8 +1,3 @@
-// Type definitions for react-native-wheel-pick 1.1
-// Project: https://github.com/TronNatthakorn/react-native-wheel-pick#readme
-// Definitions by: seongjoojin <https://github.com/seongjoojin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 import { StyleProp, ViewProps, ViewStyle } from "react-native";
 

@@ -653,6 +653,10 @@ const any: any = null;
         host_blacklist: ["domain"],
     };
 
+    const isEmailOptionsWithWhitelistedHosts: validator.IsEmailOptions = {
+        host_whitelist: ["domain"],
+    };
+
     const isEmailOptionsWithBlacklistedCharacters: validator.IsEmailOptions = {
         blacklisted_chars: "sample",
     };
@@ -660,6 +664,7 @@ const any: any = null;
     result = validator.isEmail("sample");
     result = validator.isEmail("sample", isEmailOptions);
     result = validator.isEmail("sample", isEmailOptionsWithBlacklistedCharacters);
+    result = validator.isEmail("sample", isEmailOptionsWithWhitelistedHosts);
 
     const isEmptyOptions: validator.IsEmptyOptions = {};
     result = validator.isEmpty("sample");
@@ -701,6 +706,22 @@ const any: any = null;
     result = validator.isRgbColor("sample", true);
 
     result = validator.isHexadecimal("sample");
+
+    result = validator.isIdentityCard("sample", "ar-LY");
+    result = validator.isIdentityCard("sample", "ar-TN");
+    result = validator.isIdentityCard("sample", "ES");
+    result = validator.isIdentityCard("sample", "FI");
+    result = validator.isIdentityCard("sample", "he-IL");
+    result = validator.isIdentityCard("sample", "IN");
+    result = validator.isIdentityCard("sample", "IR");
+    result = validator.isIdentityCard("sample", "IT");
+    result = validator.isIdentityCard("sample", "LK");
+    result = validator.isIdentityCard("sample", "NO");
+    result = validator.isIdentityCard("sample", "PL");
+    result = validator.isIdentityCard("sample", "TH");
+    result = validator.isIdentityCard("sample", "zh-CN");
+    result = validator.isIdentityCard("sample", "zh-HK");
+    result = validator.isIdentityCard("sample", "zh-TW");
 
     result = validator.isIP("sample");
     result = validator.isIP("sample", "6");

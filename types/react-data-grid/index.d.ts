@@ -1,9 +1,3 @@
-// Type definitions for react-data-grid 4.0
-// Project: https://github.com/adazzle/react-data-grid.git
-// Definitions by: Simon Gellis <https://github.com/SupernaviX>, Kieran Peat <https://github.com/KieranPeat>, Martin Novak <https://github.com/martinnov92>, Sebastijan Grabar <https://github.com/baso53>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="react" />
 
 declare namespace AdazzleReactDataGrid {
@@ -37,7 +31,7 @@ declare namespace AdazzleReactDataGrid {
          * Gets the data to render in each row. Required.
          * Can be an array or a function that takes an index and returns an object.
          */
-        rowGetter: Array<T> | ((rowIdx: number) => T);
+        rowGetter: T[] | ((rowIdx: number) => T);
         /**
          * The total number of rows to render. Required.
          */
@@ -200,7 +194,7 @@ declare namespace AdazzleReactDataGrid {
          * Called when a row is selected.
          * @param rows The (complete) current selection of rows.
          */
-        onRowSelect?: ((rows: Array<T>) => void) | undefined;
+        onRowSelect?: ((rows: T[]) => void) | undefined;
         /**
          * A property that's unique to every row.
          * This property is required to enable row selection.
@@ -245,8 +239,8 @@ declare namespace AdazzleReactDataGrid {
             onRowsSelected?: ((rows: Array<SelectionParams<T>>) => void) | undefined;
             onRowsDeselected?: ((rows: Array<SelectionParams<T>>) => void) | undefined;
             selectBy?: {
-                indexes?: Array<number> | undefined;
-                keys?: { rowKey: string; values: Array<any> } | undefined;
+                indexes?: number[] | undefined;
+                keys?: { rowKey: string; values: any[] } | undefined;
                 isSelectedKey?: string | undefined;
             } | undefined;
         } | undefined;
@@ -280,9 +274,9 @@ declare namespace AdazzleReactDataGrid {
          * displays a list of options.
          * @param columnKey the column key that we are looking to pull values from
          */
-        getValidFilterValues?: ((columnKey: string) => Array<any>) | undefined;
+        getValidFilterValues?: ((columnKey: string) => any[]) | undefined;
 
-        getCellActions?: ((column: Column<T>, row: T) => (ActionButton | ActionMenu)[]) | undefined;
+        getCellActions?: ((column: Column<T>, row: T) => Array<ActionButton | ActionMenu>) | undefined;
     }
 
     type ActionButton = {
@@ -292,11 +286,11 @@ declare namespace AdazzleReactDataGrid {
 
     type ActionMenu = {
         icon: string;
-        actions: {
+        actions: Array<{
             icon: string;
             text: string;
             callback: () => void;
-        }[];
+        }>;
     };
 
     /**

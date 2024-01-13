@@ -1,14 +1,3 @@
-// Type definitions for c3 0.7
-// Project: http://c3js.org/, https://github.com/c3js/c3
-// Definitions by: Marc Climent <https://github.com/mcliment>
-//                 Gerin Jacob <https://github.com/gerinjacob>
-//                 Bernd Hacker <https://github.com/denyo>
-//                 Dzmitry Shyndzin <https://github.com/dmitryshindin>
-//                 Tim Niemueller <https://github.com/timn>
-//                 Ian Sanders <https://github.com/iansan5653>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import * as d3 from "d3";
 
 export as namespace c3;

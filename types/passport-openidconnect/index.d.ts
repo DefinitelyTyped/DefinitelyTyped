@@ -1,9 +1,3 @@
-// Type definitions for passport-openidconnect 0.1
-// Project: https://github.com/jaredhanson/passport-openidconnect#readme
-// Definitions by: Lior Mualem <https://github.com/liorm>
-//                 Seng-Siong Lim <https://github.com/seng-siong>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Request } from "express";
 import { Agent, OutgoingHttpHeaders } from "http";
 import { OAuth2 } from "oauth";

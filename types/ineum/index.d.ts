@@ -1,11 +1,3 @@
-// Type definitions for non-npm package ineum-browser 216.0
-// Project: https://docs.instana.io/products/website_monitoring/api/
-// Definitions by: Enzo Volkmann <https://github.com/evolkmann>
-//                 Benjamin Blackmore <https://github.com/bripkens>
-//                 David Taylor <https://github.com/dtaylor84>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 // Website Monitoring API from Instana (status: 2022-01-11)
 
 declare function ineum(command: "key" | "page" | "reportingUrl" | "traceId", value: string): void;

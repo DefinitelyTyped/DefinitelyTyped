@@ -2,7 +2,6 @@ import fs = require("fs");
 import os = require("os");
 import path = require("path");
 import cp = require("child_process");
-import stripAnsi = require("strip-ansi");
 import { danger, fail, markdown } from "danger";
 const suggestionsDir = [os.homedir(), ".dts", "suggestions"].join("/");
 const lines: string[] = [];
@@ -73,11 +72,11 @@ if (danger.git.created_files.some(f => path.basename(f) === ".editorconfig")) {
 }
 
 // Tell people that they've added @me to their lib and not themselves
-const newDTSFiles = danger.git.created_files.filter(f => f.endsWith(".d.ts"));
-newDTSFiles.forEach(dts => {
-    const file = fs.readFileSync(dts, "utf8");
-    if (file.includes("<https://github.com/me>")) {
-        fail("This line should have your github username in it, not /me", dts, 3);
+const newPackageJsonFiles = danger.git.created_files.filter(f => f.endsWith("package.json"));
+newPackageJsonFiles.forEach(p => {
+    const file = fs.readFileSync(p, "utf8");
+    if (/"githubUsername":\s*"me"/.test(file)) {
+        fail("package.json should have your github username in it, not \"me\".", p);
     }
 });
 
@@ -90,25 +89,52 @@ function chunked<T>(arr: T[], size: number): T[][] {
 }
 
 const unformatted = [];
+const dprintErrors = [];
 const allFiles = [...danger.git.created_files, ...danger.git.modified_files];
 // We batch this in chunks to avoid hitting max arg length issues.
 for (const files of chunked(allFiles, 50)) {
     const result = cp.spawnSync(
         process.execPath,
-        ["node_modules/dprint/bin.js", "check", ...files],
+        ["node_modules/dprint/bin.js", "check", "--list-different", ...files],
         { encoding: "utf8", maxBuffer: 100 * 1024 * 1024 },
     );
-    if (result.status !== 0) {
-        for (const line of result.stdout.split(/\r?\n/)) {
-            const match = stripAnsi(line).match(/^from (.*):$/);
-            if (match) {
-                unformatted.push(path.relative(process.cwd(), match[1]));
+    // https://dprint.dev/cli/#exit-codes
+    switch (result.status) {
+        case 0:
+        case 14:
+            // No change or no files matched
+            break;
+        case 20:
+            for (const line of result.stdout.split(/\r?\n/)) {
+                if (line) {
+                    unformatted.push(path.relative(process.cwd(), line));
+                }
             }
-        }
+            break;
+        default:
+            dprintErrors.push(result.stderr.trim());
+            break;
     }
 }
 
-if (unformatted.length > 0) {
+if (dprintErrors.length > 0) {
+    fail("dprint failed to execute");
+
+    // Try and make sure no reasonable error could ever close the code block.
+    // You can open a code block with as many backticks as you want, so long as
+    // you close it with the same string. Inside of the code block, any lower
+    // number of backticks cannot close the block.
+    const codeBlock = "``````````";
+    const message = [
+        "## Formatting errors",
+        "",
+        codeBlock,
+        ...dprintErrors.join("\n\n"),
+        codeBlock,
+    ];
+
+    markdown(message.join("\n"));
+} else if (unformatted.length > 0) {
     const message = [
         "## Formatting",
         "",
@@ -128,7 +154,7 @@ if (unformatted.length > 0) {
 `);
     }
 
-    message.push("Consider running `npx dprint fmt` on these files to make review easier.");
+    message.push("\nConsider running `pnpm dprint fmt` on these files to make review easier.");
 
     markdown(message.join("\n"));
 }

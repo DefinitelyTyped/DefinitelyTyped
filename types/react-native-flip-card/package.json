@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-flip-card",
+    "version": "3.5.9999",
+    "projects": [
+        "https://github.com/moschan/react-native-flip-card"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-flip-card": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jake Chapman",
+            "githubUsername": "imjakechapman"
+        }
+    ]
+}

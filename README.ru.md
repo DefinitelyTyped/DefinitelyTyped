@@ -49,16 +49,13 @@ npm install --save-dev @types/node
 Если вы все еще не можете найти его, проверьте [включает](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) ли пакет собственную типизацию.
 Обычно это отражается в поле `"types"` или `"typings"` файла `package.json`, или просто ищите любые файлы «.d.ts» в пакете и вручную включайте их с помощью `/// <reference path="" />`.
 
-#### TypeScript 4.0 и старее
-
-Начиная с ноября 2019 года, Definitely Typed тестирует пакеты только на версиях Typescript, которым меньше двух лет.
-Если вы используете Typescript от 2.0 до 4.0, вы все равно можете попробовать установить пакеты `@types` - большинство пакетов не используют новые функции Typescript.
-Но нет гарантии, что они будут работать.
-
-График обновлений:
+### Support window
 
 <img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
 <img src="docs/support-window.svg#gh-dark-mode-only" style="width:100%">
+
+<details>
+<summary>Older versions of TypeScript</summary>
 
 Пакеты, которые существовали до ноября 2019 года, могут иметь более старые версии, которые явно помечены как совместимые с более старыми версиями Typescript; используйте тег "ts2.6" для Typescript 2.6, например.
 
@@ -79,6 +76,8 @@ npm install --save-dev @types/node
 -   Вручную загрузите из ветки `master` этого репозитория
 
 Возможно, вам придется добавить ручные [ссылки (references)](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html).
+
+</details>
 
 ## Как я могу внести свой вклад?
 
@@ -154,7 +153,6 @@ Definitely Typed работает только благодаря вкладу �
 | `index.d.ts`  | Содержит типизацию для пакета.                                                                       |
 | [`<my-package>-tests.ts`](#my-package-teststs)  | Содержит пример кода, который проверяет типизацию. Этот код _не_ запускается, но он проверен на тип. |
 | [`tsconfig.json`](#tsconfigjson) | Позволяет вам запускать `tsc` внутри пакета.                                      |
-| [`tslint.json`](#linter-tslintjson)   | Включает linting.                                                            |
 
 Создайте их, запустив `npx dts-gen --dt --name <my-package> --template module` если у вас npm ≥ 5.2.0, `npm install -g dts-gen` и `dts-gen --dt --name <my-package> --template module` в противном случае.
 Посмотреть все варианты на [dts-gen](https://github.com/Microsoft/dts-gen).
@@ -167,7 +165,7 @@ Definitely Typed работает только благодаря вкладу �
 
 Когда пакет [объединяет](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) свои собственные типы, типы должны быть удалены из Definitely Typed чтобы избежать путаницы.
 
-Вы можете удалить его, запустив `npm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]`.
+Вы можете удалить его, запустив `pnpm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]`.
 
 -   `<typingsPackageName>`: название директории, который нужно удалить.
 -   `<asOfVersion>`: заглушка будет опубликована в `@types/<typingsPackageName>` с этой версией. Должна быть выше, чем любая опубликованная на данный момент версия
@@ -240,11 +238,18 @@ f('one');
 
 Для получения дополнительной информации см. [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint#write-tests) readme.
 
-#### Linter: `tslint.json`
+##### Linter: `.eslintrc.json`
 
-The linter configuration file, `tslint.json` should contain `{ "extends": "@definitelytyped/dtslint/dt.json" }`, and no additional rules.
+If for some reason a lint rule needs to be disabled, disable it for a specific line:
 
-If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
+```ts
+// eslint-disable-next-line no-const-enum
+const enum Const { One }
+const enum Enum { Two } // eslint-disable-line no-const-enum
+```
+
+You can still disable rules with an .eslintrc.json, but should not in new packages.
+Disabling rules for the entire package makes it harder to review.
 
 #### `tsconfig.json`
 

@@ -1,10 +1,3 @@
-// Type definitions for dragula 3.7
-// Project: http://bevacqua.github.io/dragula/
-// Definitions by: Paul Welter <https://github.com/pwelter34>
-//                 Yang He <https://github.com/abruzzihraig>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare const dragula: dragula.Dragula;
 
 export = dragula;

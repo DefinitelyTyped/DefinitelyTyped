@@ -1,8 +1,3 @@
-// Type definitions for non-npm package PexRTC 26.0
-// Project: https://docs.pexip.com/api_client/api_pexrtc.htm
-// Definitions by: 10Clouds <https://github.com/10clouds>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class PexRTC {
     constructor();
     /**

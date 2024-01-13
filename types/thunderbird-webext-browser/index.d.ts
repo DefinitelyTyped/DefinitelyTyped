@@ -1,10 +1,3 @@
-// Type definitions for non-npm package WebExtension Development in Thunderbird 109.0
-// Project: https://webextension-api.thunderbird.net/en/stable/
-// Definitions by: Jim Danner <https://github.com/JimDanner>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Generated using script at github.com/JimDanner/definitelytyped-thunderbird-webext-browser
-// derived from github.com/jsmnbom/definitelytyped-firefox-webext-browser by Jasmin Bom
-
 interface WebExtEvent<TCallback extends (...args: any[]) => any> {
     addListener(cb: TCallback): void;
     removeListener(cb: TCallback): void;
@@ -4435,6 +4428,7 @@ declare namespace messenger {
              *
              * @param tab The details of the tab where the click took place.
              */
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onclick?: (info: OnClickData, tab: tabs.Tab) => void | undefined;
             /**
              * The ID of a parent menu item; this makes the item a child of a
@@ -4482,6 +4476,7 @@ declare namespace messenger {
              * @param tab The details of the tab where the click took place.
              * **Note:** this parameter only present for extensions.
              */
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onclick?: (info: OnClickData, tab: tabs.Tab) => void | undefined;
             /**
              * **Note:** You cannot change an item to be a child of one of its own
@@ -4574,6 +4569,7 @@ declare namespace messenger {
          * available as `info.targetElementId` in the {@link menus.onShown} and
          * {@link menus.onClicked} events.
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         export function getTargetElement(targetElementId: number): Element | void;
 
         /* menus events */
@@ -7741,6 +7737,7 @@ declare namespace messenger {
          * inside the current extension. Returns null if the extension has no
          * background page.
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         export function getBackgroundPage(): Window | void;
 
         /**
@@ -9399,6 +9396,7 @@ declare namespace messenger {
                 message: any,
                 sender: MessageSender,
                 sendResponse: (response?: any) => void,
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             ) => boolean | Promise<any> | void
         >;
 
@@ -9425,6 +9423,7 @@ declare namespace messenger {
                 message: any,
                 sender: MessageSender,
                 sendResponse: (response?: any) => void,
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             ) => boolean | Promise<any> | void
         >;
 
@@ -10714,6 +10713,7 @@ declare namespace messenger {
         }
 
         export interface _WebRequestOnBeforeRequestEvent<
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             TCallback = (details: _OnBeforeRequestDetails) => BlockingResponse | Promise<BlockingResponse> | void,
         > {
             addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnBeforeRequestOptions[]): void;
@@ -10780,6 +10780,7 @@ declare namespace messenger {
         }
 
         export interface _WebRequestOnBeforeSendHeadersEvent<
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             TCallback = (details: _OnBeforeSendHeadersDetails) => BlockingResponse | Promise<BlockingResponse> | void,
         > {
             addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnBeforeSendHeadersOptions[]): void;
@@ -10911,6 +10912,7 @@ declare namespace messenger {
         }
 
         export interface _WebRequestOnHeadersReceivedEvent<
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             TCallback = (details: _OnHeadersReceivedDetails) => BlockingResponse | Promise<BlockingResponse> | void,
         > {
             addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnHeadersReceivedOptions[]): void;
@@ -10996,6 +10998,7 @@ declare namespace messenger {
         }
 
         export interface _WebRequestOnAuthRequiredEvent<
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             TCallback = (details: _OnAuthRequiredDetails) => BlockingResponse | Promise<BlockingResponse> | void,
         > {
             addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnAuthRequiredOptions[]): void;
@@ -15827,6 +15830,7 @@ declare namespace browser {
              *
              * @param tab The details of the tab where the click took place.
              */
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onclick?: (info: OnClickData, tab: tabs.Tab) => void | undefined;
             /**
              * The ID of a parent menu item; this makes the item a child of a
@@ -15874,6 +15878,7 @@ declare namespace browser {
              * @param tab The details of the tab where the click took place.
              * **Note:** this parameter only present for extensions.
              */
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onclick?: (info: OnClickData, tab: tabs.Tab) => void | undefined;
             /**
              * **Note:** You cannot change an item to be a child of one of its own
@@ -15966,6 +15971,7 @@ declare namespace browser {
          * available as `info.targetElementId` in the {@link menus.onShown} and
          * {@link menus.onClicked} events.
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         export function getTargetElement(targetElementId: number): Element | void;
 
         /* menus events */
@@ -19133,6 +19139,7 @@ declare namespace browser {
          * inside the current extension. Returns null if the extension has no
          * background page.
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         export function getBackgroundPage(): Window | void;
 
         /**
@@ -20791,6 +20798,7 @@ declare namespace browser {
                 message: any,
                 sender: MessageSender,
                 sendResponse: (response?: any) => void,
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             ) => boolean | Promise<any> | void
         >;
 
@@ -20817,6 +20825,7 @@ declare namespace browser {
                 message: any,
                 sender: MessageSender,
                 sendResponse: (response?: any) => void,
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             ) => boolean | Promise<any> | void
         >;
 
@@ -22106,6 +22115,7 @@ declare namespace browser {
         }
 
         export interface _WebRequestOnBeforeRequestEvent<
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             TCallback = (details: _OnBeforeRequestDetails) => BlockingResponse | Promise<BlockingResponse> | void,
         > {
             addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnBeforeRequestOptions[]): void;
@@ -22172,6 +22182,7 @@ declare namespace browser {
         }
 
         export interface _WebRequestOnBeforeSendHeadersEvent<
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             TCallback = (details: _OnBeforeSendHeadersDetails) => BlockingResponse | Promise<BlockingResponse> | void,
         > {
             addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnBeforeSendHeadersOptions[]): void;
@@ -22303,6 +22314,7 @@ declare namespace browser {
         }
 
         export interface _WebRequestOnHeadersReceivedEvent<
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             TCallback = (details: _OnHeadersReceivedDetails) => BlockingResponse | Promise<BlockingResponse> | void,
         > {
             addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnHeadersReceivedOptions[]): void;
@@ -22388,6 +22400,7 @@ declare namespace browser {
         }
 
         export interface _WebRequestOnAuthRequiredEvent<
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             TCallback = (details: _OnAuthRequiredDetails) => BlockingResponse | Promise<BlockingResponse> | void,
         > {
             addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnAuthRequiredOptions[]): void;

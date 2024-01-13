@@ -130,7 +130,7 @@ declare class SimpleLayout {
         opt_treeNodeId?: number,
         opt_parentTreeNodeId?: number,
         opt_patterns?: string[],
-    ): boolean | void;
+    ): boolean;
     private start;
     private mailMessage_;
     private _layoutId;
@@ -216,9 +216,9 @@ import DataSet = require("@nginstack/engine/lib/dataset/DataSet.js");
 type Grid = import("../grid/Grid");
 import Link = require("../anchor/Link.js");
 import Column = require("./Column.js");
+declare let LAYOUT_COUNT: number;
+declare let columnsTotalByGroupId: any;
+declare let defaults: {};
 interface SimpleLayoutStats {
     bufferLength: any;
 }
-declare var LAYOUT_COUNT: number;
-declare var columnsTotalByGroupId: any;
-declare var defaults: {};

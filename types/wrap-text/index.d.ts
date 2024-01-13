@@ -1,8 +1,3 @@
-// Type definitions for wrap-text 1.0
-// Project: https://github.com/IonicaBizau/wrap-text#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = wrapText;
 
 /**

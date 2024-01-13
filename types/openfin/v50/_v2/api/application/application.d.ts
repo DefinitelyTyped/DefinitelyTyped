@@ -154,7 +154,7 @@ export default class ApplicationModule extends Base {
      * @tutorial Application.startManyManifests
      * @experimental
      */
-    startManyManifests(applications: Array<ManifestInfo>): Promise<void>;
+    startManyManifests(applications: ManifestInfo[]): Promise<void>;
     /**
      * Asynchronously returns an Application object that represents the current application
      * @return {Promise.<Application>}
@@ -291,14 +291,14 @@ export declare class Application extends EmitterBase<ApplicationEvents> {
      * @return {Promise.Array.<_Window>}
      * @tutorial Application.getChildWindows
      */
-    getChildWindows(): Promise<Array<_Window>>;
+    getChildWindows(): Promise<_Window[]>;
     /**
      * Retrieves an array of active window groups for all of the application's windows. Each group is
      * represented as an array of wrapped fin.Windows.
      * @return {Promise.Array.Array.<_Window>}
      * @tutorial Application.getGroups
      */
-    getGroups(): Promise<Array<Array<_Window>>>;
+    getGroups(): Promise<_Window[][]>;
     /**
      * Retrieves the JSON manifest that was used to create the application. Invokes the error callback
      * if the application was not created from a manifest.
@@ -325,7 +325,7 @@ export declare class Application extends EmitterBase<ApplicationEvents> {
      * @return {Promise.Array.<View>}
      * @tutorial Application.getViews
      */
-    getViews(): Promise<Array<View>>;
+    getViews(): Promise<View[]>;
     /**
      * Returns the current zoom level of the application.
      * @return {Promise.<number>}

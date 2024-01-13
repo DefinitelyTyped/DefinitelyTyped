@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/wx-js-sdk-browser",
+    "version": "1.2.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "wx-js-sdk 1.6, this is the lts version for types/wx-js-sdk-dt, which is related to wx-js-sdk",
+    "projects": [
+        "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html"
+    ],
+    "devDependencies": {
+        "@types/wx-js-sdk-browser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Xu Anhai",
+            "githubUsername": "adndyxu"
+        }
+    ]
+}

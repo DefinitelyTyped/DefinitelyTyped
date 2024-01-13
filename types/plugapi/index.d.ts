@@ -1,7 +1,3 @@
-// Type definitions for plugapi 4.2
-// Project: https://github.com/plugcubed/plugapi
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare namespace PlugAPI {
     interface PlugLogin {
         email: string;
@@ -356,6 +352,7 @@ declare namespace PlugAPI {
 }
 
 declare class PlugAPI {
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     constructor(login: PlugAPI.PlugLogin, callback?: (error: Error, bot: PlugAPI) => void | ((bot: PlugAPI) => void));
     deleteAllChat: boolean;
     multiLine: boolean;

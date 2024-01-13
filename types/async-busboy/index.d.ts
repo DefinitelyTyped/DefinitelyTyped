@@ -1,9 +1,3 @@
-// Type definitions for async-busboy 1.1
-// Project: https://github.com/m4nuC/async-busboy#readme
-// Definitions by: Hiroshi Ioka <https://github.com/hirochachacha>
-//                 BendingBender <https://github.com/bendingbender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as fs from "fs";
 import * as http from "http";
 import busboy = require("busboy");

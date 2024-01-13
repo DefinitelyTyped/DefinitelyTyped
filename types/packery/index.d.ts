@@ -1,10 +1,3 @@
-// Type definitions for Packery v1.4.1
-// Project: http://packery.metafizzy.co
-// Definitions by:  Piraveen Kamalathas from Kilix <https://github.com/piraveen>
-//                  Juliën Hanssens <https://github.com/hanssens>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 declare module "packery" {
@@ -94,7 +87,7 @@ declare module "packery" {
          * [addItems Add item elements to the Packery instance]
          * @param {Array<Element>} elements [description]
          */
-        addItems(elements: Array<Element>): void;
+        addItems(elements: Element[]): void;
 
         /**
          * [appended Add and lay out newly appended item elements]
@@ -112,7 +105,7 @@ declare module "packery" {
          * [appended Add and lay out newly appended item elements]
          * @param {Array<Element>} elements [description]
          */
-        appended(elements: Array<Element>): void;
+        appended(elements: Element[]): void;
 
         /**
          * [bindDraggabillyEvents Bind Draggabilly events, so that the Packery instance will layout around the dragged element]
@@ -155,7 +148,7 @@ declare module "packery" {
          * [getItemElements Get an array of elements used as the Packery instance's items.]
          * @return {Array<Element>}      [description]
          */
-        getItemElements(): Array<Element>;
+        getItemElements(): Element[];
 
         /**
          * [getItem Get a Packery.Item from an element]
@@ -173,7 +166,7 @@ declare module "packery" {
          * [layoutItems Lay out specified items]
          * @param {Array<Packery.items>} items [description]
          */
-        layoutItems(items: Array<any>): void;
+        layoutItems(items: any[]): void;
 
         /**
          * [off Remove an event listener]
@@ -214,7 +207,7 @@ declare module "packery" {
          * [prepended Add and lay out newly prepended item elements at the beginning of layout]
          * @param {Array<Element>} elements [description]
          */
-        prepended(elements: Array<Element>): void;
+        prepended(elements: Element[]): void;
 
         /**
          * [reloadItems Recollect all item elements]
@@ -237,7 +230,7 @@ declare module "packery" {
          * [remove Remove elements from the Packery instance, then from the DOM]
          * @param {Array<Element>} elements [description]
          */
-        remove(elements: Array<Element>): void;
+        remove(elements: Element[]): void;
 
         /**
          * [stamp Stamp the elements in the layout. Packery will lay out item elements around stamped element]
@@ -255,7 +248,7 @@ declare module "packery" {
          * [stamp Stamp the elements in the layout. Packery will lay out item elements around stamped element]
          * @param {Array<Element>} elements [description]
          */
-        stamp(elements: Array<Element>): void;
+        stamp(elements: Element[]): void;
 
         /**
          * [unbindResize Un-bind layout to window resize event]
@@ -278,6 +271,6 @@ declare module "packery" {
          * [unstamp Un-stamp the elements, so that Packery will no longer layout item elements around them]
          * @param {Array<Element>} element [description]
          */
-        unstamp(element: Array<Element>): void;
+        unstamp(element: Element[]): void;
     }
 }

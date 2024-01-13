@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-read-more-text",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/expo/react-native-read-more-text"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "react-native": "*",
+        "@types/react-native-read-more-text": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jeff Held",
+            "githubUsername": "solkaz"
+        }
+    ]
+}

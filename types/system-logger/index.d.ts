@@ -1,9 +1,3 @@
-// Type definitions for system-logger 2.1
-// Project: https://github.com/leocwlam/system-logger
-// Definitions by: Leo Lam <https://github.com/leocwlam>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
-
 export enum level {
     error = 0,
     warn = 1,

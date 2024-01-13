@@ -1,8 +1,3 @@
-// Type definitions for jwa 2.0
-// Project: https://github.com/auth0/node-jwa#readme
-// Definitions by: Daniel Hritzkiv <https://github.com/dhritzkiv>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type Algorithm =
     | "HS256"
     | "HS384"

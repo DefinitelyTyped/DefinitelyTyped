@@ -1,14 +1,3 @@
-// Type definitions for mui-datatables 4.3
-// Project: https://github.com/gregnb/mui-datatables
-// Definitions by: Jeroen "Favna" Claassens <https://github.com/favna>
-//                 Ankith Konda <https://github.com/ankithkonda>
-//                 Herman "Von" Waters IV <https://github.com/hwatersiv>
-//                 souppower <https://github.com/souppower>
-//                 Byron "Byrekt" Mitchell <https://github.com/byrekt>
-//                 Bohdan Yavorskyi <https://github.com/BohdanYavorskyi>
-//                 Patrick Erichsen <https://github.com/Patrick-Erichsen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
 import { ComponentsOverrides, ComponentsProps, ComponentsVariants } from "@mui/material";
 
 import * as React from "react";
@@ -441,7 +430,7 @@ export type MUIDataTableOptions = Partial<{
         handleSearch: (text: string) => void,
         hideSearch: () => void,
         options: any,
-    ) => React.Component | JSX.Element;
+    ) => React.Component | React.JSX.Element;
     /**
      * Override default sorting with custom function.
      * If you just need to override the sorting for a particular column, see the sortCompare method in the Column options.
@@ -653,6 +642,7 @@ export type MUIDataTableOptions = Partial<{
             data: Array<{ index: number; dataIndex: number }>;
         },
         newTableData: any[],
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ) => void | false;
     /** Callback function that triggers when row(s) are selected/deselected. */
     onRowSelectionChange: (currentRowsSelected: any[], allRowsSelected: any[], rowsSelected?: any[]) => void;
@@ -789,7 +779,7 @@ export type MUIDataTableOptions = Partial<{
      *
      * [Example](https://github.com/gregnb/mui-datatables/blob/master/examples/customize-filter/index.js)
      */
-    setFilterChipProps: (colIndex: number, colName: string, data: ReadonlyArray<any[]>) => MUIDataTableChip;
+    setFilterChipProps: (colIndex: number, colName: string, data: readonly any[][]) => MUIDataTableChip;
     /**
      * Is called for each row and allows you to return custom props for this row based on its data.
      *

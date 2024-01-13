@@ -1,9 +1,3 @@
-// Type definitions for bent 7.3
-// Project: https://github.com/mikeal/bent#readme
-// Definitions by: Ovyerus <https://github.com/Ovyerus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="node" />
 /// <reference lib="dom" />
 
@@ -29,12 +23,12 @@ declare function bent(
     type: "buffer",
     ...args: bent.Options[]
 ): bent.RequestFunction<Buffer | ArrayBuffer>;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 declare function bent<T extends bent.Json = any>(
     baseUrl: string,
     type: "json",
     ...args: bent.Options[]
-): // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-bent.RequestFunction<T>;
+): bent.RequestFunction<T>;
 declare function bent(baseUrl: string, ...args: bent.Options[]): bent.RequestFunction<bent.ValidResponse>;
 
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics

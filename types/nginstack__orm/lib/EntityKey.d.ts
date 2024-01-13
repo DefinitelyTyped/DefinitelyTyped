@@ -6,6 +6,6 @@ declare class EntityKey {
     private value_;
     value: number | null;
     classKey: number;
-    toJSONString(): any;
+    toJSONString(): string;
     toJSONSchema(): any;
 }

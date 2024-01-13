@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/atob",
+    "version": "2.1.9999",
+    "projects": [
+        "https://git.coolaj86.com/coolaj86/atob.js.git"
+    ],
+    "devDependencies": {
+        "@types/atob": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "John Wright",
+            "githubUsername": "johngeorgewright"
+        }
+    ]
+}

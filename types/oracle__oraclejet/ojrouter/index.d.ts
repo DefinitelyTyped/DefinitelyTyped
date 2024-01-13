@@ -51,7 +51,7 @@ declare class Router {
     store(data: object): undefined;
 }
 declare namespace Router {
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ModuleConfigType = {
         name: KnockoutObservable<string>;
         params: {
@@ -90,7 +90,7 @@ declare namespace Router {
         isCurrent(): boolean;
     }
     namespace RouterState {
-        // tslint:disable-next-line interface-over-type-literal
+        // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
         type ConfigOptions = {
             label?: string | undefined;
             value?: any;
@@ -120,7 +120,7 @@ declare class RouterState {
     isCurrent(): boolean;
 }
 declare namespace RouterState {
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ConfigOptions = {
         label?: string | undefined;
         value?: any;

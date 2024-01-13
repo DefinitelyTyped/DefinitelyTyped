@@ -1,9 +1,3 @@
-// Type definitions for megajs 0.14
-// Project: https://github.com/qgustavor/mega
-// Definitions by: Daniel Byrne <https://github.com/danwbyrne>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
@@ -74,7 +68,7 @@ export class File extends EventEmitter {
     nodeId: string;
     downloadId: string;
     directory: boolean;
-    children: ReadonlyArray<MutableFile>;
+    children: readonly MutableFile[];
     loadAttributes(cb?: any): Readable;
     download(options?: DownloadOptions, cb?: any): Readable;
 }
@@ -89,7 +83,7 @@ export class Storage extends EventEmitter {
     root: MutableFile;
     trash: MutableFile;
     inbox: MutableFile;
-    mounts: ReadonlyArray<File>;
+    mounts: readonly File[];
     upload(options: UploadOptions | string, buffer?: Buffer, cb?: any): Writable;
     mkdir(options: MakeDirectoryOptions | string, cb: (err: Error | undefined, file: MutableFile) => void): Readable;
     reload(cb: any): Readable;

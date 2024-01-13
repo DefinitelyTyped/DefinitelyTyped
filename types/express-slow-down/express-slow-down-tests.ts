@@ -13,7 +13,7 @@ const slowerWithOptions = slowDown({
 });
 
 const slowerWithCallbacks = slowDown({
-    keyGenerator: (req, res) => req.ip,
+    keyGenerator: (req, res) => req.ip ?? "0.0.0.0",
     skip: (req, res) => false,
     onLimitReached: (req, res, opts) => {
         console.log(req.slowDown.current);

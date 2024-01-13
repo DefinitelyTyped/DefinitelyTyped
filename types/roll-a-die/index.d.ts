@@ -1,8 +1,3 @@
-// Type definitions for roll-a-die 1.5
-// Project: https://github.com/chukwumaijem/roll-a-die
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Options {
     /** The element to render die animation on. */
     element: HTMLElement;

@@ -1,8 +1,3 @@
-// Type definitions for jsonpath 0.2.11
-// Project: https://www.npmjs.org/package/jsonpath
-// Definitions by: Hiroki Horiuchi <https://github.com/horiuchi>, Ika <https://github.com/ikatyang>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type PathComponent = string | number;
 
 /**
@@ -30,7 +25,7 @@ export declare function nodes(
     obj: any,
     pathExpression: string,
     count?: number,
-): { path: PathComponent[]; value: any }[];
+): Array<{ path: PathComponent[]; value: any }>;
 
 /**
  * Returns the value of the first element matching `pathExpression`. If `newValue` is
@@ -54,7 +49,7 @@ export declare function apply(
     obj: any,
     pathExpression: string,
     fn: (x: any) => any,
-): { path: PathComponent[]; value: any }[];
+): Array<{ path: PathComponent[]; value: any }>;
 
 /**
  * Parse the provided JSONPath expression into path components and their associated

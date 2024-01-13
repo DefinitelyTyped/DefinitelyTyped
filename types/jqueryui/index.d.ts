@@ -1,9 +1,3 @@
-// Type definitions for jQueryUI 1.12
-// Project: http://jqueryui.com/
-// Definitions by: Boris Yankov <https://github.com/borisyankov>, John Reilly <https://github.com/johnnyreilly>, Dieter Oberkofler <https://github.com/doberkofler>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 declare namespace JQueryUI {
@@ -1847,12 +1841,12 @@ interface JQuery {
     slider(methodName: "refresh"): void;
     slider(methodName: "value"): number;
     slider(methodName: "value", value: number): void;
-    slider(methodName: "values"): Array<number>;
+    slider(methodName: "values"): number[];
     slider(methodName: "values", index: number): number;
     slider(methodName: string, index: number, value: number): void;
     slider(methodName: "values", index: number, value: number): void;
-    slider(methodName: string, values: Array<number>): void;
-    slider(methodName: "values", values: Array<number>): void;
+    slider(methodName: string, values: number[]): void;
+    slider(methodName: "values", values: number[]): void;
     slider(methodName: "widget"): JQuery;
     slider(methodName: string): JQuery;
     slider(options: JQueryUI.SliderOptions): JQuery;

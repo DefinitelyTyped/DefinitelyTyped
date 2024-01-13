@@ -9,22 +9,22 @@ interface ReadonlyArray<T> {
      */
     flat<U>(
         this:
-            | ReadonlyArray<U[][][][]>
-            | ReadonlyArray<ReadonlyArray<U[][][]>>
-            | ReadonlyArray<Array<ReadonlyArray<U[][]>>>
-            | ReadonlyArray<Array<Array<ReadonlyArray<U[]>>>>
-            | ReadonlyArray<Array<Array<Array<ReadonlyArray<U>>>>>
-            | ReadonlyArray<ReadonlyArray<ReadonlyArray<U[][]>>>
-            | ReadonlyArray<ReadonlyArray<Array<Array<ReadonlyArray<U>>>>>
-            | ReadonlyArray<ReadonlyArray<Array<Array<ReadonlyArray<U>>>>>
-            | ReadonlyArray<ReadonlyArray<Array<Array<ReadonlyArray<U>>>>>
-            | ReadonlyArray<ReadonlyArray<Array<ReadonlyArray<U[]>>>>
-            | ReadonlyArray<ReadonlyArray<Array<ReadonlyArray<U[]>>>>
-            | ReadonlyArray<ReadonlyArray<ReadonlyArray<ReadonlyArray<U[]>>>>
-            | ReadonlyArray<ReadonlyArray<ReadonlyArray<Array<ReadonlyArray<U>>>>>
-            | ReadonlyArray<ReadonlyArray<ReadonlyArray<Array<ReadonlyArray<U>>>>>
-            | ReadonlyArray<Array<ReadonlyArray<ReadonlyArray<ReadonlyArray<U>>>>>
-            | ReadonlyArray<ReadonlyArray<ReadonlyArray<ReadonlyArray<ReadonlyArray<U>>>>>,
+            | readonly U[][][][][]
+            | ReadonlyArray<readonly U[][][][]>
+            | ReadonlyArray<Array<readonly U[][][]>>
+            | ReadonlyArray<Array<Array<readonly U[][]>>>
+            | ReadonlyArray<Array<Array<Array<readonly U[]>>>>
+            | ReadonlyArray<ReadonlyArray<readonly U[][][]>>
+            | ReadonlyArray<ReadonlyArray<Array<Array<readonly U[]>>>>
+            | ReadonlyArray<ReadonlyArray<Array<Array<readonly U[]>>>>
+            | ReadonlyArray<ReadonlyArray<Array<Array<readonly U[]>>>>
+            | ReadonlyArray<ReadonlyArray<Array<readonly U[][]>>>
+            | ReadonlyArray<ReadonlyArray<Array<readonly U[][]>>>
+            | ReadonlyArray<ReadonlyArray<ReadonlyArray<readonly U[][]>>>
+            | ReadonlyArray<ReadonlyArray<ReadonlyArray<Array<readonly U[]>>>>
+            | ReadonlyArray<ReadonlyArray<ReadonlyArray<Array<readonly U[]>>>>
+            | ReadonlyArray<Array<ReadonlyArray<ReadonlyArray<readonly U[]>>>>
+            | ReadonlyArray<ReadonlyArray<ReadonlyArray<ReadonlyArray<readonly U[]>>>>,
         depth: 4,
     ): U[];
 
@@ -36,14 +36,14 @@ interface ReadonlyArray<T> {
      */
     flat<U>(
         this:
-            | ReadonlyArray<U[][][]>
-            | ReadonlyArray<Array<Array<ReadonlyArray<U>>>>
-            | ReadonlyArray<Array<ReadonlyArray<U[]>>>
-            | ReadonlyArray<ReadonlyArray<U[][]>>
-            | ReadonlyArray<ReadonlyArray<ReadonlyArray<U[]>>>
-            | ReadonlyArray<ReadonlyArray<Array<ReadonlyArray<U>>>>
-            | ReadonlyArray<ReadonlyArray<Array<ReadonlyArray<U>>>>
-            | ReadonlyArray<ReadonlyArray<ReadonlyArray<ReadonlyArray<U>>>>,
+            | readonly U[][][][]
+            | ReadonlyArray<Array<Array<readonly U[]>>>
+            | ReadonlyArray<Array<readonly U[][]>>
+            | ReadonlyArray<readonly U[][][]>
+            | ReadonlyArray<ReadonlyArray<readonly U[][]>>
+            | ReadonlyArray<ReadonlyArray<Array<readonly U[]>>>
+            | ReadonlyArray<ReadonlyArray<Array<readonly U[]>>>
+            | ReadonlyArray<ReadonlyArray<ReadonlyArray<readonly U[]>>>,
         depth: 3,
     ): U[];
 
@@ -55,10 +55,10 @@ interface ReadonlyArray<T> {
      */
     flat<U>(
         this:
-            | ReadonlyArray<U[][]>
-            | ReadonlyArray<ReadonlyArray<U[]>>
-            | ReadonlyArray<Array<ReadonlyArray<U>>>
-            | ReadonlyArray<ReadonlyArray<ReadonlyArray<U>>>,
+            | readonly U[][][]
+            | ReadonlyArray<readonly U[][]>
+            | ReadonlyArray<Array<readonly U[]>>
+            | ReadonlyArray<ReadonlyArray<readonly U[]>>,
         depth: 2,
     ): U[];
 
@@ -68,7 +68,7 @@ interface ReadonlyArray<T> {
      *
      * @param depth The maximum recursion depth
      */
-    flat<U>(this: ReadonlyArray<U[]> | ReadonlyArray<ReadonlyArray<U>>, depth?: 1): U[];
+    flat<U>(this: readonly U[][] | ReadonlyArray<readonly U[]>, depth?: 1): U[];
 
     /**
      * Returns a new array with all sub-array elements concatenated into it recursively up to the
@@ -76,7 +76,7 @@ interface ReadonlyArray<T> {
      *
      * @param depth The maximum recursion depth
      */
-    flat<U>(this: ReadonlyArray<U>, depth: 0): U[];
+    flat<U>(this: readonly U[], depth: 0): U[];
 
     /**
      * Returns a new array with all sub-array elements concatenated into it recursively up to the

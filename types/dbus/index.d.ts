@@ -1,19 +1,13 @@
-// Type definitions for dbus 1.0
-// Project: https://github.com/Shouqun/node-dbus#readme
-// Definitions by: Luca Lindhorst <https://github.com/lal12>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.4
-
 declare namespace DBus {
     type busType = "session" | "system";
     function getBus(type: busType): DBusConnection;
     function registerService(busName: busType, serviceName?: string): DBusService;
     interface DBusConnection {
+        /* eslint-disable-next-line @definitelytyped/no-unnecessary-generics */
         getInterface<T = AnyInterfaceMethod>(
             serviceName: string,
             objectPath: string,
             interfaceName: string,
-            /* eslint-disable-next-line @definitelytyped/no-unnecessary-generics */
             callback: (err: Error | null, iface: DBusInterface<T>) => void,
         ): void;
         disconnect(): void;

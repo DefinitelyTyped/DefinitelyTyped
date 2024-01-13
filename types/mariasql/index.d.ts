@@ -1,8 +1,3 @@
-// Type definitions for mariasql v0.1.23
-// Project: https://github.com/mscdex/node-mariasql
-// Definitions by: MichaelBennett <https://github.com/bennett000>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var mariasql: mariasql.Client;
 
 export = mariasql;
@@ -18,7 +13,7 @@ declare namespace mariasql {
     }
 
     export interface MariaCallBackRow {
-        (result: Array<any>): void;
+        (result: any[]): void;
     }
 
     export interface MariaCallBackBoolean {
@@ -49,7 +44,7 @@ declare namespace mariasql {
 
     export interface MariaPreparedQuery {
         (values: Dictionary): string;
-        (values: Array<any>): string;
+        (values: any[]): string;
     }
 
     export interface ClientConfig {
@@ -95,7 +90,7 @@ declare namespace mariasql {
         destroy(): void;
         escape(query: string): string;
         query(q: string, placeHolders?: Dictionary, useArray?: boolean): MariaQuery;
-        query(q: string, placeHolders?: Array<any>, useArray?: boolean): MariaQuery;
+        query(q: string, placeHolders?: any[], useArray?: boolean): MariaQuery;
         query(q: string, useArray?: boolean): MariaQuery;
         prepare(query: string): MariaPreparedQuery;
         isMariaDB(): boolean;

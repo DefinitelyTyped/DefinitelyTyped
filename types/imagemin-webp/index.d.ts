@@ -1,9 +1,3 @@
-// Type definitions for imagemin-webp 7.0
-// Project: https://github.com/imagemin/imagemin-webp#readme
-// Definitions by: Brett M <https://github.com/brettm12345>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Plugin } from "imagemin";
 
 /**

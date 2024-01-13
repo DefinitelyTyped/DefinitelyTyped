@@ -177,7 +177,7 @@ export interface AvailabilityAvailableTime extends Element {
   /**
    * mon | tue | wed | thu | fri | sat | sun.
    */
-  daysOfWeek?: ('mon'|'tue'|'wed'|'thu'|'fri'|'sat'|'sun')[] | undefined;
+  daysOfWeek?: Array<'mon'|'tue'|'wed'|'thu'|'fri'|'sat'|'sun'> | undefined;
   _daysOfWeek?: Element[] | undefined;
 }
 /**
@@ -695,7 +695,7 @@ export interface ElementDefinitionType extends Element {
   /**
    * See [Aggregation Rules](elementdefinition.html#aggregation) for further clarification.
    */
-  aggregation?: ('contained'|'referenced'|'bundled')[] | undefined;
+  aggregation?: Array<'contained'|'referenced'|'bundled'> | undefined;
   _aggregation?: Element[] | undefined;
   /**
    * If the element is a reference to another resource, this element contains "Reference", and the targetProfile element defines what resources can be referenced. The targetProfile may be a reference to the general definition of a resource (e.g. http://hl7.org/fhir/StructureDefinition/Patient).
@@ -2044,7 +2044,7 @@ export interface ElementDefinition extends BackboneType {
   /**
    * In resources, this is rarely used except for special cases where the representation deviates from the normal, and can only be done in the base standard (and profiles must reproduce what the base standard does). This element is used quite commonly in Logical models when the logical models represent a specific serialization format (e.g. CDA, v2 etc.).
    */
-  representation?: ('xmlAttr'|'xmlText'|'typeAttr'|'cdaText'|'xhtml')[] | undefined;
+  representation?: Array<'xmlAttr'|'xmlText'|'typeAttr'|'cdaText'|'xhtml'> | undefined;
   _representation?: Element[] | undefined;
   /**
    * This element does not describe the usage of the element (that's done in comments), rather it's for traceability of *why* the element is either needed or why the constraints exist as they do.  This may be used to point to source materials or specifications that drove the structure of this data element.
@@ -2909,7 +2909,7 @@ export interface TimingRepeat extends Element {
   /**
    * If no days are specified, the action is assumed to happen every day as otherwise specified.
    */
-  dayOfWeek?: ('mon'|'tue'|'wed'|'thu'|'fri'|'sat'|'sun')[] | undefined;
+  dayOfWeek?: Array<'mon'|'tue'|'wed'|'thu'|'fri'|'sat'|'sun'> | undefined;
   _dayOfWeek?: Element[] | undefined;
   /**
    * For some events the duration is part of the definition of the event (e.g. IV infusions, where the duration is implicit in the specified quantity and rate). For others, it's part of the timing specification (e.g. exercise).
@@ -4184,7 +4184,7 @@ export interface AllergyIntolerance extends DomainResource {
   /**
    * This data element has been included because it is currently being captured in some clinical systems. This data can be derived from the substance where coding systems are used, and is effectively redundant in that situation.  When searching on category, consider the implications of AllergyIntolerance resources without a category.  For example, when searching on category = medication, medication allergies that don't have a category valued will not be returned.  Refer to [search](search.html) for more information on how to search category with a :missing modifier to get allergies that don't have a category.  Additionally, category should be used with caution because category can be subjective based on the sender.
    */
-  category?: ('food'|'medication'|'environment'|'biologic')[] | undefined;
+  category?: Array<'food'|'medication'|'environment'|'biologic'> | undefined;
   _category?: Element[] | undefined;
   /**
    * AllergyIntolerance.clinicalStatus should be present if verificationStatus is not entered-in-error and the AllergyIntolerance.code isn't negated (No Known Allergy, No Drug Allergy, No Food Allergy, No Latex Allergy).
@@ -5506,7 +5506,7 @@ export interface Bundle<BundleContentType = FhirResource> extends Resource {
   /**
    * An entry in a bundle resource - will either contain a resource or information about a resource (transactions and history only).
    */
-  entry?: BundleEntry<BundleContentType>[] | undefined;
+  entry?: Array<BundleEntry<BundleContentType>> | undefined;
   /**
    * Persistent identity generally only matters for batches of type Document, Message, and Collection. It would not normally be populated for search and history results and servers ignore Bundle.identifier when processing batches and transactions. For Documents  the .identifier SHALL be populated such that the .identifier is globally unique.
    */
@@ -5821,7 +5821,7 @@ export interface CapabilityStatementRestResource extends BackboneElement {
   /**
    * A set of flags that defines how references are supported.
    */
-  referencePolicy?: ('literal'|'logical'|'resolves'|'enforced'|'local')[] | undefined;
+  referencePolicy?: Array<'literal'|'logical'|'resolves'|'enforced'|'local'> | undefined;
   _referencePolicy?: Element[] | undefined;
   /**
    * Documenting [`_include`](http://hl7.org/fhir/R5/search.html#revinclude) support helps set conformance expectations for the desired system. Still, it is a level of detail that might not be exposed by production servers or clients when using CapabilityStatement to describe an actual implementation. If this list is empty, the server does not support includes. Support for *iterative* (a.k.a., recursive) `_include` is communicated by listing the iterative includes values supported by the server in the `searchInclude` element of the "root" resource type. For example, to support the following search:
@@ -8918,7 +8918,7 @@ export interface CodeSystemFilter extends BackboneElement {
   /**
    * A list of operators that can be used with the filter.
    */
-  operator: ('='|'is-a'|'descendent-of'|'is-not-a'|'regex'|'in'|'not-in'|'generalizes'|'child-of'|'descendent-leaf'|'exists')[];
+  operator: Array<'='|'is-a'|'descendent-of'|'is-not-a'|'regex'|'in'|'not-in'|'generalizes'|'child-of'|'descendent-leaf'|'exists'>;
   _operator?: Element[] | undefined;
   /**
    * A description of what the value for the filter should be.
@@ -11858,7 +11858,7 @@ export interface CoverageEligibilityRequest extends DomainResource {
   /**
    * Code to specify whether requesting: prior authorization requirements for some service categories or billing codes; benefits for coverages specified or discovered; discovery and return of coverages for the patient; and/or validation that the specified coverage is in-force at the date/period specified or 'now' if not specified.
    */
-  purpose: ('auth-requirements'|'benefits'|'discovery'|'validation')[];
+  purpose: Array<'auth-requirements'|'benefits'|'discovery'|'validation'>;
   _purpose?: Element[] | undefined;
   /**
    * The date or dates when the enclosed suite of services were performed or completed.
@@ -12091,7 +12091,7 @@ export interface CoverageEligibilityResponse extends DomainResource {
   /**
    * Code to specify whether requesting: prior authorization requirements for some service categories or billing codes; benefits for coverages specified or discovered; discovery and return of coverages for the patient; and/or validation that the specified coverage is in-force at the date/period specified or 'now' if not specified.
    */
-  purpose: ('auth-requirements'|'benefits'|'discovery'|'validation')[];
+  purpose: Array<'auth-requirements'|'benefits'|'discovery'|'validation'>;
   _purpose?: Element[] | undefined;
   /**
    * Reference to the original request resource.
@@ -12989,7 +12989,7 @@ export interface DeviceDefinition extends DomainResource {
   /**
    * Indicates the production identifier(s) that are expected to appear in the UDI carrier on the device label.
    */
-  productionIdentifierInUDI?: ('lot-number'|'manufactured-date'|'serial-number'|'expiration-date'|'biological-source'|'software-version')[] | undefined;
+  productionIdentifierInUDI?: Array<'lot-number'|'manufactured-date'|'serial-number'|'expiration-date'|'biological-source'|'software-version'> | undefined;
   _productionIdentifierInUDI?: Element[] | undefined;
   /**
    * Dynamic or current properties, such as settings, of an individual device are described using a Device instance-specific DeviceMetric and recorded using Observation.  Static characteristics of an individual device could also be documented in a [Device] instance. The Device instance's properties, and their values, could be, but need not be, the same as in the associated DeviceDefinition.
@@ -24733,7 +24733,7 @@ export interface ObservationDefinitionComponent extends BackboneElement {
   /**
    * The data types allowed for the value element of the instance of this component observations.
    */
-  permittedDataType?: ('Quantity'|'CodeableConcept'|'string'|'boolean'|'integer'|'Range'|'Ratio'|'SampledData'|'time'|'dateTime'|'Period')[] | undefined;
+  permittedDataType?: Array<'Quantity'|'CodeableConcept'|'string'|'boolean'|'integer'|'Range'|'Ratio'|'SampledData'|'time'|'dateTime'|'Period'> | undefined;
   _permittedDataType?: Element[] | undefined;
   /**
    * Units allowed for the valueQuantity element in the instance observations conforming to this ObservationDefinition.
@@ -24864,7 +24864,7 @@ export interface ObservationDefinition extends DomainResource {
   /**
    * The data types allowed for the value element of the instance observations conforming to this ObservationDefinition.
    */
-  permittedDataType?: ('Quantity'|'CodeableConcept'|'string'|'boolean'|'integer'|'Range'|'Ratio'|'SampledData'|'time'|'dateTime'|'Period')[] | undefined;
+  permittedDataType?: Array<'Quantity'|'CodeableConcept'|'string'|'boolean'|'integer'|'Range'|'Ratio'|'SampledData'|'time'|'dateTime'|'Period'> | undefined;
   _permittedDataType?: Element[] | undefined;
   /**
    * Units allowed for the valueQuantity element in the instance observations conforming to this ObservationDefinition.
@@ -25006,7 +25006,7 @@ export interface OperationDefinitionParameter extends BackboneElement {
   /**
    * If present, indicates that the parameter applies when the operation is being invoked at the specified level.
    */
-  scope?: ('instance'|'type'|'system')[] | undefined;
+  scope?: Array<'instance'|'type'|'system'> | undefined;
   _scope?: Element[] | undefined;
   /**
    * Parameters that are search parameter usually - but not always - are also defined for use with general searches, and function in the operation to filter the set of resources in scope for the operation just like the do when searching. The searchType describes how the server processes the value. For an example, see the [Evaluate Measure Operation](measure-operation-evaluate-measure.html)
@@ -28620,7 +28620,7 @@ export interface RequirementsStatement extends BackboneElement {
   /**
    * The conformance code is extracted from the requirement to make indexing and display easier. The requirement needs to express the conformance verbs directly in the markdown content. It's not unusual to mix verbs in a single sentence (e.g. System SHALL do X and SHOULD do Y)
    */
-  conformance?: ('SHALL'|'SHOULD'|'MAY'|'SHOULD-NOT')[] | undefined;
+  conformance?: Array<'SHALL'|'SHOULD'|'MAY'|'SHOULD-NOT'> | undefined;
   _conformance?: Element[] | undefined;
   /**
    * This can be just a key, if there is only one matching statement in the requirements statements referenced in Requirements.derivedFrom. If there is more than one, it should be in the format ```url#key```
@@ -29386,7 +29386,7 @@ export interface SearchParameter extends DomainResource {
   /**
    * If no comparators are listed, clients should not expect servers to support any comparators.
    */
-  comparator?: ('eq'|'ne'|'gt'|'lt'|'ge'|'le'|'sa'|'eb'|'ap')[] | undefined;
+  comparator?: Array<'eq'|'ne'|'gt'|'lt'|'ge'|'le'|'sa'|'eb'|'ap'> | undefined;
   _comparator?: Element[] | undefined;
   /**
    * Used to define the parts of a composite search parameter.
@@ -29450,7 +29450,7 @@ export interface SearchParameter extends DomainResource {
   /**
    * A modifier supported for the search parameter.
    */
-  modifier?: ('missing'|'exact'|'contains'|'not'|'text'|'in'|'not-in'|'below'|'above'|'type'|'identifier'|'of-type'|'code-text'|'text-advanced'|'iterate')[] | undefined;
+  modifier?: Array<'missing'|'exact'|'contains'|'not'|'text'|'in'|'not-in'|'below'|'above'|'type'|'identifier'|'of-type'|'code-text'|'text-advanced'|'iterate'> | undefined;
   _modifier?: Element[] | undefined;
   /**
    * Whether multiple parameters are allowed - e.g. more than one parameter with the same name. The search matches if all the parameters match.
@@ -30683,7 +30683,7 @@ export interface StructureMapGroupRuleTarget extends BackboneElement {
   /**
    * If field is a list, how to manage the list.
    */
-  listMode?: ('first'|'share'|'last'|'single')[] | undefined;
+  listMode?: Array<'first'|'share'|'last'|'single'> | undefined;
   _listMode?: Element[] | undefined;
   /**
    * Internal rule reference for shared list items.
@@ -31147,7 +31147,7 @@ export interface SubscriptionTopicResourceTrigger extends BackboneElement {
   /**
    * The FHIR RESTful interaction which can be used to trigger a notification for the SubscriptionTopic. Multiple values are considered OR joined (e.g., CREATE or UPDATE). If not present, all supported interactions are assumed.
    */
-  supportedInteraction?: ('create'|'update'|'delete')[] | undefined;
+  supportedInteraction?: Array<'create'|'update'|'delete'> | undefined;
   _supportedInteraction?: Element[] | undefined;
 }
 /**
@@ -31176,7 +31176,7 @@ export interface SubscriptionTopicCanFilterBy extends BackboneElement {
   /**
    * If no comparators are listed, clients should not expect servers to support any comparators.
    */
-  comparator?: ('eq'|'ne'|'gt'|'lt'|'ge'|'le'|'sa'|'eb'|'ap')[] | undefined;
+  comparator?: Array<'eq'|'ne'|'gt'|'lt'|'ge'|'le'|'sa'|'eb'|'ap'> | undefined;
   _comparator?: Element[] | undefined;
   /**
    * Description of how this filtering parameter is intended to be used.
@@ -31196,7 +31196,7 @@ export interface SubscriptionTopicCanFilterBy extends BackboneElement {
   /**
    * If no modifiers are listed, clients should not expect servers to support any modifiers.
    */
-  modifier?: ('missing'|'exact'|'contains'|'not'|'text'|'in'|'not-in'|'below'|'above'|'type'|'identifier'|'of-type'|'code-text'|'text-advanced'|'iterate')[] | undefined;
+  modifier?: Array<'missing'|'exact'|'contains'|'not'|'text'|'in'|'not-in'|'below'|'above'|'type'|'identifier'|'of-type'|'code-text'|'text-advanced'|'iterate'> | undefined;
   _modifier?: Element[] | undefined;
   /**
    * URL of the Resource that is the type used in this filter. Relative URLs are relative to the StructureDefinition root of the implemented FHIR version (e.g., http://hl7.org/fhir/StructureDefinition). For example, "Patient" maps to http://hl7.org/fhir/StructureDefinition/Patient. For more information, see <a href="elementdefinition-definitions.html#ElementDefinition.type.code">ElementDefinition.type.code</a>.

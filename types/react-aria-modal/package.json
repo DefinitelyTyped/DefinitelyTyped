@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/react-aria-modal",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/davidtheclark/react-aria-modal#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-aria-modal": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "gabycperezdias",
+            "githubUsername": "gabycperezdias"
+        },
+        {
+            "name": "forabi",
+            "githubUsername": "forabi"
+        },
+        {
+            "name": "dkrk",
+            "githubUsername": "grgr-dkrk"
+        },
+        {
+            "name": "Corbin Crutchley",
+            "githubUsername": "crutchcorn"
+        }
+    ]
+}

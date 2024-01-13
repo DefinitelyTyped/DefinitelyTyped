@@ -1,9 +1,3 @@
-// Type definitions for @rdfjs/fetch-lite 3.0
-// Project: https://github.com/rdfjs-base/fetch-lite
-// Definitions by: tpluscode <https://github.com/tpluscode>
-//                 Jesse Wright <https://github.com/jeswr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Formats } from "@rdfjs/formats-common";
 import { BaseQuad, DatasetCore, DatasetCoreFactory, Quad, Stream } from "@rdfjs/types";
 
@@ -32,13 +26,15 @@ export interface DatasetResponse<
     dataset(): Promise<D>;
 }
 
-declare function rdfFetch(url: string, options: FormatsInit): Promise<RdfFetchResponse>;
+type FetchUrl = Parameters<typeof fetch>[0];
+
+declare function rdfFetch(url: FetchUrl, options: FormatsInit): Promise<RdfFetchResponse>;
 declare function rdfFetch<
     D extends DatasetCore<OutQuad, InQuad>,
     OutQuad extends BaseQuad = Quad,
     InQuad extends BaseQuad = OutQuad,
 >(
-    url: string,
+    url: FetchUrl,
     options: FactoryInit<D, OutQuad, InQuad>,
 ): Promise<DatasetResponse<D, OutQuad, InQuad>>;
 

@@ -1,9 +1,3 @@
-// Type definitions for react-native-calendar-picker 7.0
-// Project: https://github.com/stephy/CalendarPicker
-// Definitions by: Tobias Hann <https://github.com/automatensalat>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import { Moment, MomentInput } from "moment";
 import * as React from "react";
 import { StyleProp, TextStyle, ViewStyle } from "react-native";

@@ -1,8 +1,3 @@
-// Type definitions for sendcloud 1.6
-// Project: https://github.com/shanelau/sendcloud
-// Definitions by: bangbang93 <https://github.com/bangbang93>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
 /// <reference types="node" />
 
 import { SentMessageInfo } from "nodemailer";

@@ -7,13 +7,6 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
-        "paths": {
-            "rox-react-native": ["rox-react-native/v4"]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/markdown-it-footnote",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/markdown-it/markdown-it-footnote"
+    ],
+    "dependencies": {
+        "@types/markdown-it": "*"
+    },
+    "devDependencies": {
+        "@types/markdown-it-footnote": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leon Si",
+            "githubUsername": "leondreamed"
+        }
+    ]
+}

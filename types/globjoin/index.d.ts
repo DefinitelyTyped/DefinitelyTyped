@@ -1,8 +1,3 @@
-// Type definitions for globjoin 0.1
-// Project: https://github.com/amobiz/globjoin
-// Definitions by: Gareth Jones <https://github.com/g-rath>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Joins paths and globs.
  *

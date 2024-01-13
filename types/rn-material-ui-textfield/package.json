@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/rn-material-ui-textfield",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/gabrieldonadel/rn-material-ui-textfield#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/rn-material-ui-textfield": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Craig Duckett",
+            "githubUsername": "craigwduckett"
+        },
+        {
+            "name": "Gabriel Donadel Dall'Agnol",
+            "githubUsername": "gabrieldonadel"
+        }
+    ]
+}

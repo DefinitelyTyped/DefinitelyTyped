@@ -1,12 +1,3 @@
-// Type definitions for redux-api-middleware 3.2
-// Project: https://github.com/agraboso/redux-api-middleware
-// Definitions by:  Andrew Luca <https://github.com/iamandrewluca>
-//                  Craig S <https://github.com/Mrman>
-//                  Arturs Vonda <https://github.com/artursvonda>
-//                  Matthew M <https://github.com/magoogli>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import { Dispatch, Middleware, MiddlewareAPI } from "redux";
 
 type TypeOrResolver<Arg, Type> = Type | ((arg: Arg) => Type | Promise<Type>);

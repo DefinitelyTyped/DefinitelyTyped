@@ -1,9 +1,3 @@
-// Type definitions for express-jsonschema 1.1
-// Project: https://github.com/trainiac/express-jsonschema#readme
-// Definitions by: Arne Schubert <https://github.com/atd-schubert>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import { NextFunction, Request, Response } from "express";
 import { JSONSchema4 } from "json-schema";
 
@@ -30,6 +24,7 @@ export class JsonSchemaValidation {
  */
 export function addSchemaProperties(
     newProperties: {
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         [attribute: string]: (instance: any, schema: JSONSchema4, options: any, ctx: any) => void | string;
     },
 ): void;

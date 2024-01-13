@@ -6,19 +6,10 @@
             "es6"
         ],
         "strict": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "jsx": "react",
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "@nulogy/*": [
-                "nulogy__*"
-            ]
-        }
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",

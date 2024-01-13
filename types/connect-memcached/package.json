@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/connect-memcached",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/balor/connect-memcached#readme"
+    ],
+    "dependencies": {
+        "@types/express-session": "*",
+        "@types/memcached": "*"
+    },
+    "devDependencies": {
+        "@types/connect-memcached": "workspace:.",
+        "@types/express": "*"
+    },
+    "owners": [
+        {
+            "name": "Daniel Sousa",
+            "githubUsername": "danielb7390"
+        }
+    ]
+}

@@ -1,11 +1,3 @@
-// Type definitions for @brainhubeu/react-carousel 2.0
-// Project: https://github.com/brainhubeu/react-carousel
-// Definitions by: Jack Allen <https://github.com/jackall3n>
-//                 Jeff Wen <https://github.com/sinchang>
-//                 Robert Hebel <https://github.com/roberthebel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 export type ImgProps = React.ReactComponentElement<"img">;
 
@@ -32,8 +24,8 @@ export type CarouselPluginFunc = ({
     refs: Record<string, React.RefObject<HTMLElement>>;
 }) => {
     plugin?: (() => void) | undefined;
-    beforeCarouselItems?: (() => JSX.Element) | undefined;
-    afterCarouselItems?: (() => JSX.Element) | undefined;
+    beforeCarouselItems?: (() => React.JSX.Element) | undefined;
+    afterCarouselItems?: (() => React.JSX.Element) | undefined;
     carouselCustomProps?: (() => Record<string, () => any>) | undefined;
     trackCustomProps?: (() => Record<string, () => any>) | undefined;
     slideCustomProps?: (() => Record<string, () => any>) | undefined;
@@ -56,7 +48,7 @@ export interface CarouselProps {
     itemWidth?: number | undefined;
     value?: number | undefined;
     onChange?(value: number): void;
-    slides?: JSX.Element[] | undefined;
+    slides?: React.JSX.Element[] | undefined;
     offset?: number | undefined;
     draggable?: boolean | undefined;
     animationSpeed?: number | undefined;

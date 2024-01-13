@@ -1,16 +1,20 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6", "esnext.asynciterable"],
+        "lib": [
+            "es6",
+            "esnext.asynciterable"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "strictFunctionTypes": true
     },
-    "files": ["index.d.ts", "graphql-errors-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "graphql-errors-tests.ts"
+    ]
 }

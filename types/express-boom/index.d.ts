@@ -1,9 +1,3 @@
-// Type definitions for express-boom 3.0
-// Project: https://github.com/scottcorgan/express-boom
-// Definitions by: Aurelien Gaston <https://github.com/Nox-404>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /**
  * Type definition for the middleware itself
  */

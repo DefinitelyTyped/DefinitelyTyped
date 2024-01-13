@@ -1,11 +1,3 @@
-// Type definitions for react-aria-menubutton 6.2
-// Project: https://github.com/davidtheclark/react-aria-menubutton
-// Definitions by: Muhammad Fawwaz Orabi <https://github.com/forabi>
-//                 Chris Rohlfs <https://github.com/crohlfs>
-//                 Mats Roshauw <https://github.com/karmats>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export interface WrapperState {
@@ -82,7 +74,7 @@ export interface MenuProps<T extends HTMLElement> extends Omit<React.HTMLProps<T
      * The HTML tag for this element. Default: 'div'.
      */
     tag?: T["tagName"] | undefined;
-    children: JSX.Element | (({ isOpen }: { isOpen: boolean }) => JSX.Element);
+    children: React.JSX.Element | (({ isOpen }: { isOpen: boolean }) => React.JSX.Element);
 }
 
 /**

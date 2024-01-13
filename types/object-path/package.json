@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/object-path",
+    "version": "0.11.9999",
+    "projects": [
+        "https://github.com/mariocasciaro/object-path"
+    ],
+    "devDependencies": {
+        "@types/object-path": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Paulo Cesar",
+            "githubUsername": "pocesar"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

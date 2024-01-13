@@ -1,12 +1,3 @@
-// Type definitions for jsoneditor 9.9
-// Project: https://github.com/josdejong/jsoneditor
-// Definitions by: Alejandro Sánchez <https://github.com/alejo90>
-//                 Errietta Kostala <https://github.com/errietta>
-//                 Adam Vigneaux <https://github.com/adamvig>
-//                 Joep Kockelkorn <https://github.com/joepkockelkorn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="ace" />
 
 import { Ajv, ErrorObject } from "ajv";
@@ -52,7 +43,7 @@ export interface Node extends BaseNode {
     previousValue: NodeValue;
     visibleChilds: number;
     schema?: object | undefined;
-    enum?: null | ReadonlyArray<string> | undefined;
+    enum?: null | readonly string[] | undefined;
     id?: string | undefined;
     valueFieldHTML?: string | undefined;
     error?: ErrorObject | undefined;
@@ -170,14 +161,14 @@ export type MenuItemNodeType = "single" | "multiple" | "append";
 
 export interface MenuItemNode {
     type: MenuItemNodeType;
-    path: ReadonlyArray<string>;
-    paths: ReadonlyArray<ReadonlyArray<string>>;
+    path: readonly string[];
+    paths: ReadonlyArray<readonly string[]>;
 }
 
 export interface TimestampNode {
     field: string;
     value: string;
-    path: ReadonlyArray<string>;
+    path: readonly string[];
 }
 
 export interface QueryFilter {
@@ -202,19 +193,19 @@ export interface QueryOptions {
 }
 
 export interface OnClassNameParams {
-    path: ReadonlyArray<string>;
+    path: readonly string[];
     field: string;
     value: string;
 }
 
 export interface ExpandOptions {
-    path: ReadonlyArray<string>;
+    path: readonly string[];
     isExpand: boolean;
     recursive: boolean;
 }
 
 export interface OnNodeNameParams {
-    path: ReadonlyArray<string>;
+    path: readonly string[];
     type: NodeType;
     size: number;
     value: any;
@@ -360,6 +351,7 @@ export interface JSONEditorOptions {
      * Set a callback function to be invoked when a node is expanded/collapsed (not programtically via APIs).
      * Only applicable when option mode is `tree`, `form`, or `view`.
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onExpand?: (expandParams: ExpandOptions) => void | undefined;
     /**
      * Set a callback function to determine whether individual nodes are editable or readonly.
@@ -532,10 +524,12 @@ export interface JSONEditorOptions {
     /**
      * Callback method, triggered when the editor comes into focus
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onFocus?: (event: Event) => void | undefined;
     /**
      * Callback method, triggered when the editor goes out of focus
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onBlur?: (event: Event) => void | undefined;
     /**
      * When true, values containing a color name or color code will have a color picker rendered on their left side.

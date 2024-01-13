@@ -1,8 +1,3 @@
-// Type definitions for DragSelect 1.13
-// Project: https://ThibaultJanBeyer.com/
-// Definitions by: IceCreamYou <https://github.com/IceCreamYou>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class DragSelect {
     // These properties store the options passed to the constructor, or the
     // defaults if the relevant options aren't passed. See the docs below.

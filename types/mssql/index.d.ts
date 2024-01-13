@@ -1,14 +1,3 @@
-// Type definitions for mssql 9.1
-// Project: https://www.npmjs.com/package/mssql
-// Definitions by: Jørgen Elgaard Larsen <https://github.com/elhaard>
-//                 Peter Keuter <https://github.com/pkeuter>
-//                 Jeff Wooden <https://github.com/woodenconsulting>
-//                 Cahil Foley <https://github.com/cahilfoley>
-//                 Rifa Achrinza <https://github.com/achrinza>
-//                 Daniel Hensby <https://github.com/dhensby>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.0
-
 // @credit COLSA Corporation <http://www.colsa.com/>
 
 /// <reference types="node" />
@@ -159,8 +148,8 @@ export interface IColumnMetadata {
     };
 }
 export interface IResult<T> {
-    recordsets: T extends Array<any> ? { [P in keyof T]: IRecordSet<T[P]> } : IRecordSet<T>[];
-    recordset: IRecordSet<T extends Array<any> ? T[0] : T>;
+    recordsets: T extends any[] ? { [P in keyof T]: IRecordSet<T[P]> } : Array<IRecordSet<T>>;
+    recordset: IRecordSet<T extends any[] ? T[0] : T>;
     rowsAffected: number[];
     output: { [key: string]: any };
 }
@@ -285,7 +274,7 @@ declare class columns extends Array<IColumn> {
     public add(name: string, type: (() => ISqlType) | ISqlType, options?: IColumnOptions): number;
 }
 
-type IRow = (string | number | boolean | Date | Buffer | undefined | null)[];
+type IRow = Array<string | number | boolean | Date | Buffer | undefined | null>;
 
 declare class rows extends Array<IRow> {
     public add(...row: IRow): number;

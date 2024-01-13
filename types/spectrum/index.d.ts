@@ -1,9 +1,3 @@
-// Type definitions for spectrum 1.8
-// Project: https://github.com/bgrins/spectrum/
-// Definitions by: Mordechai Zuber <https://github.com/M-Zuber>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 /// <reference types="jquery"/>
 /// <reference types="tinycolor2"/>
 
@@ -476,7 +470,7 @@ declare namespace Spectrum {
          * ]]
          * ```
          */
-        palette?: ReadonlyArray<ReadonlyArray<string>> | undefined;
+        palette?: ReadonlyArray<readonly string[]> | undefined;
 
         /**
          * Spectrum can show a palette below the color picker to make it
@@ -802,7 +796,7 @@ declare namespace Spectrum {
          * });
          * ```
          */
-        selectionPalette?: ReadonlyArray<string> | undefined;
+        selectionPalette?: readonly string[] | undefined;
 
         /**
          * Additional offset to apply as a CSS unit to the container.
@@ -900,6 +894,7 @@ declare namespace Spectrum {
          * @param color The currently selected color of the color picker.
          * @return `false` to prevent the color picker from showing up.
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         beforeShow?: ((color: tinycolor.Instance) => boolean | void) | undefined;
     }
 

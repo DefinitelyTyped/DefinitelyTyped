@@ -117,6 +117,7 @@ GM_registerMenuCommand(
         accessKey: "a",
         autoClose: true,
         title: "Tooltip text",
+        id: 5,
     },
 );
 
@@ -357,8 +358,10 @@ openTabObject.close();
 const textNotification: Tampermonkey.NotificationDetails = {
     text: "Notification text",
     title: "Notification title",
+    tag: "notification-1",
     image: "https://tampermonkey.net/favicon.ico",
     timeout: 5000,
+    url: "https://example.com",
     silent: true,
     onclick() {
         GM_log(`Notification with id ${this.id} is clicked`);

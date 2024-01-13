@@ -1,10 +1,3 @@
-// Type definitions for pica 9.0
-// Project: https://github.com/nodeca/pica
-// Definitions by: Hamit YILMAZ <https://github.com/hmtylmz>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 sapphi-red <https://github.com/sapphi-red>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace pica {
     interface PicaOptions {
         /**

@@ -1,9 +1,3 @@
-// Type definitions for dynamodb 1.3
-// Project: https://github.com/baseprime/dynamodb#readme
-// Definitions by: katsanva <https://github.com/katsanva>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 import * as bunyan from "bunyan";
 import { AnySchema, ArraySchema, SchemaMap, StringSchema } from "joi";
 
@@ -44,7 +38,7 @@ export const log: bunyan;
 export function dynamoDriver(driver?: DynamoDB): DynamoDB;
 export function documentClient(docClient?: DocumentClient): DocumentClient;
 export function reset(): void;
-export function Set(data: ReadonlyArray<any>, type: string): DynamoDbSet;
+export function Set(data: readonly any[], type: string): DynamoDbSet;
 
 export function define<T>(name: string, config: DefineConfig<T>): Model<T>;
 export function define(name: string, config: DefineConfig<any>): Model<any>;

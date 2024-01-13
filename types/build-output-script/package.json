@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/build-output-script",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/lukechilds/build-output-script#readme"
+    ],
+    "devDependencies": {
+        "@types/build-output-script": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

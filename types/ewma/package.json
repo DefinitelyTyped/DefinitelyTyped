@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/ewma",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/ReactiveSocket/ewma#readme"
+    ],
+    "devDependencies": {
+        "@types/ewma": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "LeoDog896",
+            "githubUsername": "LeoDog896"
+        }
+    ]
+}

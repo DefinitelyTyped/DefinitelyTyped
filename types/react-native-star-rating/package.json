@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-star-rating",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/djchie/react-native-star-rating"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-star-rating": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "iRoachie",
+            "githubUsername": "iRoachie"
+        }
+    ]
+}

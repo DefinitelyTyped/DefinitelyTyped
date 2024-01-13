@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/dot-prop-immutable",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/debitoor/dot-prop-immutable"
+    ],
+    "devDependencies": {
+        "@types/dot-prop-immutable": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Paul Brussee",
+            "githubUsername": "brussee"
+        },
+        {
+            "name": "Linus Unnebäck",
+            "githubUsername": "LinusU"
+        }
+    ]
+}

@@ -1,9 +1,3 @@
-// Type definitions for @wordpress/wordcount 2.4
-// Project: https://github.com/WordPress/gutenberg/tree/master/packages/wordcount/README.md
-// Definitions by: Derek Sifford <https://github.com/dsifford>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 export type CountType = "words" | "characters_excluding_spaces" | "characters_including_spaces";
 
 export interface Settings {

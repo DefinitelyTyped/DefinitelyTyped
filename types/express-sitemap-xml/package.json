@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/express-sitemap-xml",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/feross/express-sitemap-xml"
+    ],
+    "dependencies": {
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/express-sitemap-xml": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Imdahl",
+            "githubUsername": "ffflorian"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

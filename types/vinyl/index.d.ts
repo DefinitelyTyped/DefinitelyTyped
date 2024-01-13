@@ -1,9 +1,3 @@
-// Type definitions for vinyl 2.0
-// Project: https://github.com/gulpjs/vinyl
-// Definitions by: vvakame <https://github.com/vvakame>
-//                 Georgii Dolzhykov <https://github.com/thorn0>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as fs from "fs";
@@ -127,7 +121,7 @@ interface File {
      * through `file.history[file.history.length - 1]` (current). `file.history` and its elements
      * should normally be treated as read-only and only altered indirectly by setting `file.path`.
      */
-    readonly history: ReadonlyArray<string>;
+    readonly history: readonly string[];
 
     /**
      * Gets the result of `path.relative(file.base, file.path)`.

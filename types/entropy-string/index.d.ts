@@ -1,8 +1,3 @@
-// Type definitions for entropy-string 4.2
-// Project: https://github.com/EntropyString/JavaScript
-// Definitions by: aaronleopold <https://github.com/aaronleopold>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 type RequireAtLeastOne<T, Keys extends keyof T = keyof T> =

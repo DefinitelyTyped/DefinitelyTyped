@@ -1,8 +1,3 @@
-// Type definitions for react-mic 12.4
-// Project: https://hackingbeauty.github.io/react-mic
-// Definitions by: mikaello <https://github.com/mikaello>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 /**

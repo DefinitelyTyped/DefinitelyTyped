@@ -1,9 +1,3 @@
-// Type definitions for phone 2.4
-// Project: https://github.com/aftership/phone
-// Definitions by: Hagai Cohen <https://github.com/DxCx>
-//                 Tim Brown <https://github.com/brimtown>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * used to normalize mobile phone numbers into E.164 format
  */

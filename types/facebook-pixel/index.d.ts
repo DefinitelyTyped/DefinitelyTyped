@@ -1,9 +1,3 @@
-// Type definitions for the Facebook Pixel Tag API
-// Project: https://developers.facebook.com/docs/ads-for-websites/tag-api/
-// Definitions by: Noctis Hsu <https://github.com/noctishsu>
-//                 Victor Hom <https://github.com/VictorHom>
-//                 BC Choi <https://github.com/ninpeng>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare var fbq: facebook.Pixel.Event;
 
 declare namespace facebook.Pixel {

@@ -1,11 +1,3 @@
-// Type definitions for ActionCable 5.2
-// Project: https://github.com/rails/rails/tree/master/actioncable/app/assets/javascripts
-// Definitions by: Vincent Zhu <https://github.com/zhu1230>
-//                 Jared Szechy <https://github.com/szechyjs>
-//                 David Mejorado <https://github.com/davidmh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 declare namespace ActionCable {
     interface Channel {
         unsubscribe(): void;

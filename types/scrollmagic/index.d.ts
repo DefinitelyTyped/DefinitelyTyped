@@ -1,8 +1,3 @@
-// Type definitions for scrollmagic 2.0
-// Project: https://scrollmagic.io/
-// Definitions by: Tim Weise <https://github.com/switchnollie>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /* Scrollmagic is a UMD module that exposes a global variable ScrollMagic
 when loaded outside a module loader */
 export as namespace ScrollMagic;
@@ -100,6 +95,7 @@ export interface IndicatorOptions {
     colorTrigger?: string | undefined;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export type ScrollTarget = (newScrollPos: number, ...args: any[]) => void | number | ElementOrSelector | object;
 
 export interface ControllerInfo {

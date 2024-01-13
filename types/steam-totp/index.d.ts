@@ -1,10 +1,3 @@
-// Type definitions for steam-totp 2.1
-// Project: https://github.com/DoctorMcKay/node-steam-totp
-// Definitions by: Max Uetrecht <https://github.com/phenomax>
-//                 Dariusz Syncerek <https://github.com/dsyncerek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
 
 export type TimeOffsetFunction = () => number;

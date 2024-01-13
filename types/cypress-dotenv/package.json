@@ -1,6 +1,25 @@
 {
     "private": true,
+    "name": "@types/cypress-dotenv",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/morficus/cypress-dotenv"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "dotenv": "^8.2.0"
-    }
+    },
+    "devDependencies": {
+        "@types/cypress-dotenv": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daiki Ojima",
+            "githubUsername": "daikiojm"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
 }

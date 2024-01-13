@@ -1,8 +1,3 @@
-// Type definitions for react-canvas-draw 1.2
-// Project: https://embiem.github.io/react-canvas-draw/
-// Definitions by: Kamil Socha <https://github.com/ksocha>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 export interface CanvasDrawProps {

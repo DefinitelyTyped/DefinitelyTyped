@@ -1,14 +1,3 @@
-// Type definitions for express-http-proxy 1.6
-// Project: https://github.com/villadora/express-http-proxy#readme
-// Definitions by:  ulrichb <https://github.com/ulrichb>
-//                  Daniel Schopf <https://github.com/Danscho>
-//                  Gabriel Fournier <https://github.com/carboneater>
-//                  Niek van Bennekom <https://github.com/niekvb>
-//                  John L. Singleton <https://github.com/jsinglet>
-//                  Lindsay Wardell <https://github.com/lindsaykwardell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import { NextFunction, Request, RequestHandler, Response } from "express";
 import { ClientRequest, IncomingHttpHeaders, IncomingMessage, OutgoingHttpHeaders, RequestOptions } from "http";
 

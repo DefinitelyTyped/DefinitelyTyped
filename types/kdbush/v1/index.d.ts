@@ -1,8 +1,3 @@
-// Type definitions for kdbush 1.0
-// Project: https://github.com/mourner/kdbush
-// Definitions by: DenisCarriere <https://github.com/DenisCarriere>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type Points = number[][];
 type Get<T> = (point: T) => number;
 type ArrayType =

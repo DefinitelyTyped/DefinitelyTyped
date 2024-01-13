@@ -1,9 +1,3 @@
-// Type definitions for migrate-mongo 10.0
-// Project: https://github.com/seppevs/migrate-mongo#readme
-// Definitions by: Amit Beckenstein <https://github.com/amitbeck>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 import * as mongo from "mongodb";
 
 export function init(): Promise<void>;

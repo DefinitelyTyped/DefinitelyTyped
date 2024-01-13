@@ -1,8 +1,3 @@
-// Type definitions for broccoli-funnel 3.0
-// Project: https://github.com/broccolijs/broccoli-funnel#readme
-// Definitions by: Konrad Perlicki <https://github.com/KonradPerlicki>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import Plugin = require("broccoli-plugin");
 import { InputNode } from "broccoli-node-api";
 

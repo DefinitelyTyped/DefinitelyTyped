@@ -1,8 +1,3 @@
-// Type definitions for Multiplex.js 0.9
-// Project: https://github.com/multiplex/multiplex.js
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var multiplex: multiplex.MultiplexStatic;
 
 // Support AMD require
@@ -758,7 +753,7 @@ declare namespace multiplex {
          * @param arrayIndex The zero-based index in array at which copying begins.
          */
         copyTo(array: TKey[], arrayIndex: number): void;
-        copyTo(array: KeyValuePair<TKey, TValue>[], arrayIndex: number): void;
+        copyTo(array: Array<KeyValuePair<TKey, TValue>>, arrayIndex: number): void;
 
         /**
          * Gets a Collection containing the keys of the Dictionary.

@@ -1,8 +1,3 @@
-// Type definitions for token-introspection 3.0
-// Project: https://github.com/schibsted/node-token-introspection
-// Definitions by: Daniel Rose <https://github.com/DanielRose>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { JwtPayload } from "jsonwebtoken";
 import { RequestInit, Response } from "node-fetch";
 import { RSA_JWK } from "pem-jwk";

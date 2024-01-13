@@ -1,9 +1,3 @@
-// Type definitions for graphql-resolve-batch 1.1
-// Project: https://github.com/calebmer/graphql-resolve-batch#readme
-// Definitions by: Rutger Hendrickx <https://github.com/nayni>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
-
 import { GraphQLResolveInfo } from "graphql";
 
 /**
@@ -46,7 +40,7 @@ export type ResolverFunction<TSource, TArgs, TContext, TReturn> = (
  * A batch function to resolve all fields for the given sources in a single batch.
  */
 export type BatchResolveFunction<TSource, TArgs, TContext, TReturn> = (
-    sources: ReadonlyArray<TSource>,
+    sources: readonly TSource[],
     args: TArgs,
     context: TContext,
     info: GraphQLResolveInfo,

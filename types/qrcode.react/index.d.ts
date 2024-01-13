@@ -1,11 +1,3 @@
-// Type definitions for qrcode.react 1.0
-// Project: https://github.com/zpao/qrcode.react, http://zpao.github.io/qrcode.react
-// Definitions by: Mleko <https://github.com/mleko>,
-//                 Yonas <https://github.com/yonasadiel>,
-//                 Bjoluc <https://github.com/bjoluc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="react" />
 
 declare namespace qrcode {

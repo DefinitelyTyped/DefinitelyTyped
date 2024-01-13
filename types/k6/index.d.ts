@@ -1,20 +1,6 @@
-// Type definitions for k6 0.47
-// Project: https://k6.io/docs/
-// Definitions by: Mihail Stoykov <https://github.com/MStoykov>
-//                 Ivan <https://github.com/codebien>
-//                 Théo Crevon <https://github.com/oleiade>
-//                 Oleg Bespalov <https://github.com/olegbespalov>
-//                 Pepe Cano <https://github.com/ppcano>
-//                 Nicole van der Hoeven <https://github.com/nicolevanderhoeven>
-//                 Ankur Agarwal <https://github.com/ankur22>
-//                 İnanç Gümüş <https://github.com/inancgumus>
-//                 Daniel Jiménez <https://github.com/ka3de>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.9
-
 /**
  * k6 JavaScript API.
- * https://k6.io/docs/
+ * https://grafana.com/docs/k6/latest/
  *
  * @privateRemarks
  * Uses a branding pattern throughout to reflect the custom classes exposed by
@@ -43,6 +29,7 @@ import "./http";
 import "./metrics";
 import "./options";
 import "./experimental/browser";
+import "./experimental/fs";
 import "./experimental/redis";
 import "./experimental/timers";
 import "./experimental/tracing";
@@ -57,7 +44,7 @@ import "./net/grpc";
 
 /**
  * Run checks on a value.
- * https://k6.io/docs/javascript-api/k6/check-val-sets-tags/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6/check/
  * @template VT - Value type.
  * @param val - Value to test.
  * @param sets - Tests (checks) to run on the value.
@@ -73,7 +60,7 @@ export function check<VT>(val: VT, sets: Checkers<VT>, tags?: object): boolean;
 
 /**
  * Immediately throw an error, aborting the current script iteration.
- * https://k6.io/docs/javascript-api/k6/fail-err/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6/fail/
  * @param err - Error message that gets printed to stderr.
  * @example
  * fail("abort current iteration");
@@ -82,7 +69,7 @@ export function fail(err?: string): never;
 
 /**
  * Run code inside a group.
- * https://k6.io/docs/javascript-api/k6/group-name-fn/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6/group/
  * @template RT - Return type.
  * @param name - Name of the group.
  * @param fn - Group body. Code to be executed in the group context.
@@ -96,16 +83,16 @@ export function group<RT>(name: string, fn: () => RT): RT;
 
 /**
  * Set seed to get a reproducible pseudo-random number using Math.random.
- * https://k6.io/docs/javascript-api/k6/randomseed/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6/randomseed/
  * @param int - The seed value.
  * @example
  * randomSeed(123456789);
  */
-export function randomseed(int: number): void;
+export function randomSeed(int: number): void;
 
 /**
  * Suspend VU execution for the specified duration.
- * https://k6.io/docs/javascript-api/k6/sleep-t/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6/sleep/
  * @param t - Duration, in seconds.
  * @example
  * sleep(3);

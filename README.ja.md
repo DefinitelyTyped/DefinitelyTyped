@@ -47,16 +47,13 @@ npm install --save-dev @types/node
 大抵は `package.json` の `"types"` フィールドや `"typings"`  フィールドに指定されています。
 もしくは、パッケージ内の各 ".d.ts" ファイルを確認し、 `/// <reference path="" />` を使って手動でインクルードしてください。
 
-#### 古いバージョンの TypeScript （4.0 以前）
-
-Definitely Typed では、リリースから2年以内のバージョンの TypeScript 上でのみパッケージのテストを実施しています。
-現時点ではバージョン 4.1 以上でテストされています。
-TypeScript 2.0 ～ 4.0 を使用している場合、引き続き `@types` パッケージをインストールすることは可能です &mdash; これは TypeScript の最新機能を使用しているパッケージがそんなに多くないためです。
-ただし、正常に動作する保証もありません。
-サポート期間については下記のとおりです。
+### Support window
 
 <img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
 <img src="docs/support-window.svg#gh-dark-mode-only" style="width:100%">
+
+<details>
+<summary>古いバージョンの TypeScript</summary>
 
 `@types` パッケージには、サポートする TypeScript のバージョンを明示的に指定するタグがあるため、多くの場合はサポート期間外のバージョン用のパッケージでも入手できます。
 たとえば、 `npm dist-tags @types/react` を実行すると、 TypeScript 2.5 なら react@16.0 の、 TypeScript 2.6 や 2.7 なら react@16.4 の型定義がそれぞれ利用できることが確認できます。
@@ -78,6 +75,8 @@ TypeScript 2.0 ～ 4.0 を使用している場合、引き続き `@types` パ�
 * ~~[NuGet](https://nuget.org/packages?q=DefinitelyTyped)~~ （NuGet 上の DefinitelyTyped の公開は終了したので、他の方式を使用すること）
 
 手動で[リファレンス](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html)を追加する必要があります。
+
+</details>
 
 ## コントリビュート（貢献）する方法
 
@@ -169,7 +168,6 @@ npm 上にないパッケージの型定義を追加したい場合は、その�
 | `index.d.ts` | 型定義が含まれる。 |
 | [`<パッケージ名>-tests.ts`](#パッケージ名-teststs)  | 型定義をテストするサンプルコードが含まれる。このコードは実行は**されません**が、型チェックはされます。 |
 | [`tsconfig.json`](#tsconfigjson) | パッケージ内で `tsc` を実行するのに必要。 |
-| [`tslint.json`](#linter-tslintjson) | Lint を有効にする。 |
 
 これらのファイルを生成するには、 npm 5.2.0 以上では `npx dts-gen --dt --name <パッケージ名> --template module` 、それより古い環境では `npm install -g dts-gen` と `dts-gen --dt --name <パッケージ名> --template module` を実行してください。
 dts-gen の全オプションは[こちら](https://github.com/Microsoft/dts-gen)で確認できます。
@@ -184,13 +182,13 @@ Definitely Typed のメンバーは常に新しい PR をチェックしてい�
 
 パッケージに型定義が[バンドル](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)されている場合、混乱を避けるために Definitely Typed 側の型定義は削除します。
 
-`npm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]` を実行するとパッケージを削除できます。.
+`pnpm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]` を実行するとパッケージを削除できます。.
 * `<typingsPackageName>`: 削除したいディレクトリ名。
 * `<asOfVersion>`: `@types/<typingsPackageName>` に対してスタブ（stub）を公開したいバージョン。現在公開中のバージョンより新しく、かつ npm 上の `<libraryName>` のバージョンとあわせる必要があります。
 * `<libraryName>`: Definitely Typed 側の型定義の代わりとなる npm のパッケージ名。基本的に `<typingsPackageName>` と一致し、その場合は省略できます。
 
 削除されたパッケージを参照していた、他の Definitely Typed 上のパッケージは全て、ライブラリにバンドルされている型定義を参照するように更新する必要があります。
-`npm run test-all` を実行した際のエラーを参照することで、更新が必要なライブラリのリストが確認できます。
+`pnpm run test-all` を実行した際のエラーを参照することで、更新が必要なライブラリのリストが確認できます。
 エラーを修正するには、 [`package.json`](#packagejson) を追加し、 `"dependencies": { "<libraryName>": "x.y.z" }` と記述します。
 たとえば下記のようになります:
 
@@ -271,17 +269,9 @@ f("one");
 
 詳しくは、 [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint#write-tests) の README を参照してください。
 
-#### Linter: `tslint.json`
-
-リンターの設定ファイルである `tslint.json` は `{ "extends": "@definitelytyped/dtslint/dt.json" }` を含むべきであり、追加のルールは含まれていてはいけません。
-
-何らかの理由で特定のルールを無効にする必要がある場合は、[その特定の行に対して無効にしてください](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line)。ルール全体を無効にしないでください。無効にすることが確認可能であるようにするためです。（いくつかの既存のリント設定には追加の内容が含まれていることがあるが、新しい作業ではこれらは発生しないべきです。）
-
 ##### Linter: `.eslintrc.json`
 
-Definitely Typed はリントに eslint を使用するよう切り替えています。
-tslint とは異なり、リンティングを有効にするための設定ファイルは不要です。
-tslint と同様に、特定のルールは特定の行に対してのみ無効にするべきです：
+特定のルールは特定の行に対してのみ無効にするべきです：
 
 ```ts
 // eslint-disable-next-line no-const-enum
@@ -354,7 +344,7 @@ DefinitelyTypedのパッケージパブリッシャーは、Definitely Typedの�
 #### よくある間違い
 
 * まず、[ハンドブック](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html)のアドバイスに従ってください。
-* フォーマット: 4つのスペースを使用してください。このリポジトリではPrettierが設定されているため、`npm run prettier -- --write 'path/to/package/**/*.ts'`を実行してフォーマットを適用できます。[アサーションを使用する場合](https://github.com/SamVerschueren/tsd#assertions)、フォーマットから除外するために `// prettier-ignore` を追加して、フォーマットの対象外としてマークすることができます：
+* フォーマット: 4つのスペースを使用してください。このリポジトリではPrettierが設定されているため、`pnpm run prettier -- --write 'path/to/package/**/*.ts'`を実行してフォーマットを適用できます。[アサーションを使用する場合](https://github.com/SamVerschueren/tsd#assertions)、フォーマットから除外するために `// prettier-ignore` を追加して、フォーマットの対象外としてマークすることができます：
   ```tsx
   // prettier-ignore
   // @ts-expect-error

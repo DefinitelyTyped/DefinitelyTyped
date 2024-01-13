@@ -1,6 +1,25 @@
 {
     "private": true,
+    "name": "@types/express-status-monitor",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/RafalWilinski/express-status-monitor#readme"
+    ],
     "dependencies": {
+        "@types/express": "*",
         "@types/socket.io": "2.1.13"
-    }
+    },
+    "devDependencies": {
+        "@types/express-status-monitor": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alex Anderson",
+            "githubUsername": "alexanderson1993"
+        },
+        {
+            "name": "Prashant Sharma",
+            "githubUsername": "tecxar-prashant"
+        }
+    ]
 }

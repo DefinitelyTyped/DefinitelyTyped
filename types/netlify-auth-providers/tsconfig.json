@@ -1,7 +1,10 @@
 {
     "compilerOptions": {
         "target": "es6",
-        "lib": ["es6", "dom"],
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "module": "commonjs",
         "noEmit": true,
         "noImplicitAny": true,
@@ -9,8 +12,6 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "forceConsistentCasingInFileNames": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": []
     },
     "files": [

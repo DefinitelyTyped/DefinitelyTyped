@@ -1,8 +1,3 @@
-// Type definitions for webpack-merge-and-include-globally 2.1
-// Project: https://github.com/markshapiro/webpack-merge-and-include-globally#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Compiler, Plugin } from "webpack";
 
 declare namespace MergeIntoFile {

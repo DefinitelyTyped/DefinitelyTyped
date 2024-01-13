@@ -1,8 +1,3 @@
-// Type definitions for is-piped 0.1
-// Project: https://github.com/Qix-/node-is-piped
-// Definitions by: BendingBender <https://github.com/bendingbender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = isPiped;
 
 declare const isPiped: isPiped;

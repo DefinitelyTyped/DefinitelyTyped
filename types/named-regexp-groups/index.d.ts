@@ -1,9 +1,3 @@
-// Type definitions for named-regexp-groups 1.0
-// Project: https://github.com/commenthol/named-regexp-groups/
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 interface NamedRegExpExecArray extends RegExpExecArray {
     groups: { [propName: string]: string };
 }

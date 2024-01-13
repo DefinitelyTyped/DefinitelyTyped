@@ -1,15 +1,3 @@
-// Type definitions for express-session 1.17
-// Project: https://github.com/expressjs/session
-// Definitions by: Hiroki Horiuchi <https://github.com/horiuchi>
-//                 Jacob Bogers <https://github.com/jacobbogers>
-//                 Naoto Yokoyama <https://github.com/builtinnya>
-//                 Ryan Cannon <https://github.com/ry7n>
-//                 Tom Spencer <https://github.com/fiznool>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Ravi van Rooijen <https://github.com/HoldYourWaffle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import express = require("express");
 import { EventEmitter } from "events";
 

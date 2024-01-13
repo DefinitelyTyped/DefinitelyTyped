@@ -1,8 +1,8 @@
 import fetch from "@rdfjs/fetch";
 import { RdfFetchResponse } from "@rdfjs/fetch-lite";
 import { SinkMap } from "@rdfjs/sink-map";
+import { Dataset, DatasetCoreFactory, Quad, Stream } from "@rdfjs/types";
 import { EventEmitter } from "events";
-import { Dataset, DatasetCoreFactory, Quad, Stream } from "rdf-js";
 
 const formats: {
     parsers: SinkMap<EventEmitter, Stream>;

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/express-healthcheck",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/lennym/express-healthcheck"
+    ],
+    "minimumTypeScriptVersion": "4.7",
+    "dependencies": {
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/express-healthcheck": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Arian Meidow",
+            "githubUsername": "sPaCeMoNk3yIam"
+        }
+    ]
+}

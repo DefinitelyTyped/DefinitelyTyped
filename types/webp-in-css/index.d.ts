@@ -1,8 +1,3 @@
-// Type definitions for webp-in-css 0.7
-// Project: https://www.npmjs.com/package/webp-in-css
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package

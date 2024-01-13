@@ -1,8 +1,3 @@
-// Type definitions for PinkySwear v2.2.2
-// Project: https://github.com/timjansen/PinkySwear.js
-// Definitions by: Chance Snow <https://github.com/chances>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /*
  * PinkySwear.js 2.2.2 - Minimalistic implementation of the Promises/A+ spec
  *
@@ -36,6 +31,7 @@ declare namespace PinkySwear {
          * @returns PinkySwear.Promise
          */
         then(
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onFulfilled?: (...values: any[]) => Promise | void | any,
             onRejected?: (...values: any[]) => void,
         ): Promise;

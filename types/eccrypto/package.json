@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/eccrypto",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/bitchan/eccrypto"
+    ],
     "dependencies": {
-        "@types/expect": "^1.20.4"
-    }
+        "@types/expect": "^1.20.4",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/eccrypto": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Random Nerd",
+            "githubUsername": "randomnerd"
+        }
+    ]
 }

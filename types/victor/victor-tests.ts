@@ -23,7 +23,8 @@ vector1.subtract(vector2).subtractX(vector2).subtractY(vector2)
     .rotateBy(10)
     .rotateByDeg(10)
     .randomize(new Victor(10, 10), new Victor(100, 100)).randomizeY(new Victor(10, 10), new Victor(100, 100))
-    .randomizeX(new Victor(10, 10), new Victor(100, 100)).randomizeAny(new Victor(10, 10), new Victor(100, 100));
+    .randomizeX(new Victor(10, 10), new Victor(100, 100)).randomizeAny(new Victor(10, 10), new Victor(100, 100))
+    .toFixed(2);
 
 vector2.dot(vector1);
 vector2.cross(vector1);

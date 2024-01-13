@@ -1,9 +1,3 @@
-// Type definitions for bristol 0.4
-// Project: https://github.com/TomFrost/Bristol
-// Definitions by: Eric Heikes <https://github.com/eheikes>
-//                 Elliott Campbell <https://github.com/ElliottCampbellJHA>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Caveat: Currently, .d.ts files are unable to handle this package fully
 //         as it requires both class and namespace be exported.
 

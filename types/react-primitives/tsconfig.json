@@ -6,15 +6,15 @@
     "compilerOptions": {
         "forceConsistentCasingInFileNames": true,
         "module": "commonjs",
-        "lib": ["es6"],
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "noEmit": true,
         "jsx": "react",
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": []
     }
 }

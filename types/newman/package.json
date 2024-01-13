@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/newman",
+    "version": "5.3.9999",
+    "projects": [
+        "https://github.com/postmanlabs/newman"
+    ],
+    "dependencies": {
+        "@types/postman-collection": "*",
+        "@types/tough-cookie": "*"
+    },
+    "devDependencies": {
+        "@types/newman": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leonid Logvinov",
+            "githubUsername": "LogvinovLeon"
+        }
+    ]
+}

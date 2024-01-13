@@ -1,9 +1,3 @@
-// Type definitions for hapi-decorators v0.4.3
-// Project: https://github.com/knownasilya/hapi-decorators
-// Definitions by: Ken Howard <https://github.com/kenhowardpdx>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.9
-
 import * as hapi from "hapi";
 import * as Joi from "joi";
 interface ControllerStatic {

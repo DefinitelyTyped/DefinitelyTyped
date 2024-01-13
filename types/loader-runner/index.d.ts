@@ -1,8 +1,3 @@
-// Type definitions for loader-runner v2.2.0
-// Project: https://github.com/webpack/loader-runner.git
-// Definitions by: e-cloud <https://github.com/e-cloud>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export interface Loader {
@@ -29,7 +24,7 @@ export interface RunLoaderOption {
 }
 
 export interface RunLoaderResult {
-    result?: (Buffer | null)[] | undefined;
+    result?: Array<Buffer | null> | undefined;
     resourceBuffer?: Buffer | null | undefined;
     cacheable: boolean;
     fileDependencies: string[];

@@ -1,20 +1,20 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6"],
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "jsx": "react",
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "@hig/*": ["hig__*"]
-        }
+        "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "hig__button-tests.tsx"]
+    "files": [
+        "index.d.ts",
+        "hig__button-tests.tsx"
+    ]
 }

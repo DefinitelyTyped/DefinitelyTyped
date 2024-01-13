@@ -1,9 +1,3 @@
-// Type definitions for SignalR 2.4.3
-// Project: http://www.asp.net/signalr
-// Definitions by: Boris Yankov <https://github.com/borisyankov>, T. Michael Keesey <https://github.com/keesey>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>, Jason Heard <https://github.com/101100>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 declare namespace SignalR {
@@ -161,7 +155,7 @@ declare namespace SignalR {
     }
 
     interface ConnectionOptions {
-        transport?: string | Array<string> | Transport | undefined;
+        transport?: string | string[] | Transport | undefined;
         callback?: Function | undefined;
         waitForPageLoad?: boolean | undefined;
         jsonp?: boolean | undefined;

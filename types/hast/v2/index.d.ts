@@ -1,11 +1,3 @@
-// Type definitions for non-npm package Hast 2.3
-// Project: https://github.com/syntax-tree/hast
-// Definitions by: lukeggchapman <https://github.com/lukeggchapman>
-//                 Junyoung Choi <https://github.com/rokt33r>
-//                 Christian Murphy <https://github.com/ChristianMurphy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import { Literal as UnistLiteral, Node as UnistNode, Parent as UnistParent } from "unist";
 
 export { UnistNode as Node };
@@ -77,7 +69,7 @@ export interface Literal extends UnistLiteral {
 
 /**
  * Root represents a document.
- * Can be used as the rood of a tree, or as a value of the
+ * Can be used as the root of a tree, or as a value of the
  * content field on a 'template' Element, never as a child.
  */
 export interface Root extends Parent {

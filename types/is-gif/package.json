@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/is-gif",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/sindresorhus/is-gif#readme"
+    ],
+    "devDependencies": {
+        "@types/is-gif": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

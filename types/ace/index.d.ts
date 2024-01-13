@@ -1,9 +1,3 @@
-// Type definitions for Ace Ajax.org Cloud9 Editor
-// Project: https://ace.c9.io/
-// Definitions by: Diullei Gomes <https://github.com/Diullei>
-//                 wafuwafu13 <https://github.com/wafuwafu13>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace AceAjax {
     export interface Delta {
         action: "insert" | "remove";
@@ -64,6 +58,7 @@ declare namespace AceAjax {
             hashId: number,
             keyString: string,
             keyCode: string | number,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ): void | { command: string };
         getStatusText(editor: Editor, data: {}): string;
         platform: string;

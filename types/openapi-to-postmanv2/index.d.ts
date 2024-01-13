@@ -1,8 +1,3 @@
-// Type definitions for openapi-to-postman 3.2
-// Project: https://github.com/postmanlabs/openapi-to-postman/
-// Definitions by: detachhead <https://github.com/detachhead>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export {};
 
 import { CollectionDefinition } from "postman-collection";
@@ -106,7 +101,7 @@ export interface Options {
      *
      * default: []
      */
-    validationPropertiesToIgnore?: ReadonlyArray<string> | undefined;
+    validationPropertiesToIgnore?: readonly string[] | undefined;
 
     /**
      * MISSING_IN_SCHEMA indicates that an extra parameter was included in the request. For most use cases, this need
@@ -218,7 +213,7 @@ interface OptionsTypes {
     enum: string;
     string: string;
     integer: number;
-    array: ReadonlyArray<unknown>;
+    array: readonly unknown[];
 }
 
 export interface OptionsDocument<T extends keyof OptionsTypes = keyof OptionsTypes> extends OptionsBase {

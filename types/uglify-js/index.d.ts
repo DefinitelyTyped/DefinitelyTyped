@@ -1,11 +1,3 @@
-// Type definitions for UglifyJS 3.17
-// Project: https://github.com/mishoo/UglifyJS
-// Definitions by: Alan Agius <https://github.com/alan-agius4>
-//                 Tanguy Krotoff <https://github.com/tkrotoff>
-//                 John Reilly <https://github.com/johnnyreilly>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { RawSourceMap } from "source-map";
 export interface ParseOptions {
     /**

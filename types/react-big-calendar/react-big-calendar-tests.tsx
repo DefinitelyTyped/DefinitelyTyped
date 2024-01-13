@@ -28,7 +28,6 @@ import {
     Week,
 } from "react-big-calendar";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
-import * as ReactDOM from "react-dom";
 
 // Don't want to add this as a dependency, because it is only used for tests.
 declare const globalize: any;
@@ -89,7 +88,7 @@ class CalendarResource {
 
     const localizer = momentLocalizer(moment);
 
-    ReactDOM.render(<Basic localizer={localizer} />, document.body);
+    <Basic localizer={localizer} />;
 }
 
 // date-fns Example Test
@@ -110,7 +109,7 @@ class CalendarResource {
 
     const localizer = dateFnsLocalizer(dateFnsConfig);
 
-    ReactDOM.render(<Basic localizer={localizer} />, document.body);
+    <Basic localizer={localizer} />;
 }
 
 // handle-drag-start Example Test
@@ -132,7 +131,7 @@ class CalendarResource {
 
     const localizer = dateFnsLocalizer(dateFnsConfig);
 
-    ReactDOM.render(<HandleDragStart localizer={localizer} />, document.body);
+    <HandleDragStart localizer={localizer} />;
 }
 
 // luxon Example Test
@@ -153,7 +152,7 @@ class CalendarResource {
 
     const localizer = luxonLocalizer(luxonConfig, { firstDayOfWeek: 0 });
 
-    ReactDOM.render(<Basic localizer={localizer} />, document.body);
+    <Basic localizer={localizer} />;
 }
 
 // dayjs Example Test
@@ -174,7 +173,7 @@ class CalendarResource {
 
     const localizer = dayjsLocalizer(dayjs);
 
-    ReactDOM.render(<Basic localizer={localizer} />, document.body);
+    <Basic localizer={localizer} />;
 }
 
 // Drag and Drop Example Test
@@ -185,11 +184,12 @@ class CalendarResource {
         localizer: DateLocalizer;
     }
     interface DragAndDropEvent {
-        isAllDay: boolean;
+        isAllDay?: boolean;
+        resourceId?: string | number;
     }
     const DragAndDropCalendar = withDragAndDrop<CalendarEvent, CalendarResource>(MyCalendar);
-    const handleEventMove = ({ isAllDay }: DragAndDropEvent) => {
-        console.log(isAllDay);
+    const handleEventMove = ({ isAllDay, resourceId }: DragAndDropEvent) => {
+        console.log(isAllDay, resourceId);
     };
     const DnD = ({ localizer }: Props) => (
         <DragAndDropCalendar
@@ -224,7 +224,7 @@ class CalendarResource {
 
     const localizer = momentLocalizer(moment);
 
-    ReactDOM.render(<DnD localizer={localizer} />, document.body);
+    <DnD localizer={localizer} />;
 }
 
 // overriding 'views' props, with custom day view
@@ -243,16 +243,13 @@ class CalendarResource {
     }
     // supplying object to 'views' prop with only some of the supported views.
     // A view can be a boolean or implement title() and navigate()
-    ReactDOM.render(
-        <Calendar
-            localizer={momentLocalizer(moment)}
-            views={{
-                day: DayComponent,
-                work_week: true,
-            }}
-        />,
-        document.body,
-    );
+    <Calendar
+        localizer={momentLocalizer(moment)}
+        views={{
+            day: DayComponent,
+            work_week: true,
+        }}
+    />;
 }
 
 // overriding 'views' props, with custom day view using ViewProps interface
@@ -268,21 +265,18 @@ class CalendarResource {
     }
     // supplying object to 'views' prop with only some of the supported views.
     // A view can be a boolean or implement title() and navigate()
-    ReactDOM.render(
-        <Calendar
-            localizer={momentLocalizer(moment)}
-            views={{
-                day: DayComponent,
-                work_week: true,
-            }}
-        />,
-        document.body,
-    );
+    <Calendar
+        localizer={momentLocalizer(moment)}
+        views={{
+            day: DayComponent,
+            work_week: true,
+        }}
+    />;
 }
 
 // optional 'localizer' prop
 {
-    ReactDOM.render(<Calendar localizer={momentLocalizer(moment)} />, document.body);
+    <Calendar localizer={momentLocalizer(moment)} />;
 }
 
 {
@@ -389,7 +383,7 @@ class CalendarResource {
     }
 
     const localizer = globalizeLocalizer(globalize);
-    ReactDOM.render(<FullAPIExample localizer={localizer} />, document.body);
+    <FullAPIExample localizer={localizer} />;
 }
 
 // Test fixtures
@@ -579,7 +573,7 @@ class Toolbar extends React.Component<ToolbarProps<CalendarEvent, CalendarResour
         <Calendar events={[]} localizer={localizer} components={{ month: { header, dateHeader, event } }} />
     );
 
-    ReactDOM.render(<Basic localizer={localizer} />, document.body);
+    <Basic localizer={localizer} />;
 }
 
 // test OnRangeChange return types
@@ -603,7 +597,7 @@ class Toolbar extends React.Component<ToolbarProps<CalendarEvent, CalendarResour
 
     const localizer = momentLocalizer(moment);
 
-    ReactDOM.render(<Basic localizer={localizer} />, document.body);
+    <Basic localizer={localizer} />;
 }
 
 // Test Week and TimeGrid types
@@ -667,7 +661,7 @@ class MyDay extends Day {
 
 // Using backgroundEvents
 {
-    ReactDOM.render(<Calendar backgroundEvents={getEvents()} localizer={momentLocalizer(moment)} />, document.body);
+    <Calendar backgroundEvents={getEvents()} localizer={momentLocalizer(moment)} />;
 }
 
 // defaultView initializer

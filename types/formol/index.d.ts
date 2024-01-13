@@ -1,9 +1,3 @@
-// Type definitions for formol 2.7
-// Project: https://github.com/Kozea/formol
-// Definitions by: today- <https://github.com/today->
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export const ConditionalContext: {
@@ -19,7 +13,7 @@ export const FormolContext: {
 interface FormolProps<V = any> {
     children?: React.ReactNode;
     item?: V | undefined;
-    types?: ReadonlyArray<string> | undefined;
+    types?: readonly string[] | undefined;
     i18n?: any;
     className?: string | undefined;
     readOnly?: boolean | undefined;
@@ -46,7 +40,7 @@ interface FieldSetProps<V = any> {
     type?: string | undefined;
     isChecked?: boolean | undefined;
     value?: V | undefined;
-    choices?: ReadonlyArray<any> | undefined;
+    choices?: readonly any[] | undefined;
     elementRef?: React.Ref<any> | undefined;
     dangerousRawHTMLLabels?: boolean | undefined;
     onChange?: (() => void) | undefined;
@@ -102,7 +96,7 @@ interface FieldProps<V = any> {
     TypeField?: React.ComponentType | undefined;
     i18n?: any;
     error?: React.ReactNode | undefined;
-    choices?: ReadonlyArray<any> | undefined;
+    choices?: readonly any[] | undefined;
     size?: number | undefined;
     max?: number | undefined;
     required?: boolean | undefined;
@@ -121,9 +115,9 @@ export function memoizedChoices(WrappedComponent: React.Component<any>): React.C
 
 export function multipleAdapter(WrappedComponent: React.Component<any>): React.Component<any>;
 
-export function copy(o: any, names: ReadonlyArray<string>): any;
+export function copy(o: any, names: readonly string[]): any;
 
-export function diff(newItem: any, oldItem: any, names: ReadonlyArray<string>): any;
+export function diff(newItem: any, oldItem: any, names: readonly string[]): any;
 
 export function emptyStringToNull(v: string): string | null;
 
@@ -131,9 +125,9 @@ export function fieldPropsAdapter(v: any): any;
 
 export function get(data: any, key: string): any;
 
-export function insert(transientItem: any, name: string, value: any, names: ReadonlyArray<string>): any;
+export function insert(transientItem: any, name: string, value: any, names: readonly string[]): any;
 
-export function isModified(newItem: any, oldItem: any, names: ReadonlyArray<string>): boolean;
+export function isModified(newItem: any, oldItem: any, names: readonly string[]): boolean;
 
 export function nullishToEmptyString(v?: string): string;
 

@@ -1,8 +1,3 @@
-// Type definitions for FPSmeter v0.3.0
-// Project: http://darsa.in/fpsmeter/
-// Definitions by: Aaron Lampros <https://github.com/alampros>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface FPSMeterOptions {
     interval?: number | undefined; // Update interval in milliseconds.
     smoothing?: number | undefined; // Spike smoothing strength. 1 means no smoothing.

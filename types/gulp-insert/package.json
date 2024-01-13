@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/gulp-insert",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/rschmukler/gulp-insert"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/vinyl": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-insert": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Shant Marouti",
+            "githubUsername": "shantmarouti"
+        }
+    ]
+}

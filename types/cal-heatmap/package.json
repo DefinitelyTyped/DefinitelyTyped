@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/cal-heatmap",
+    "version": "3.5.9999",
+    "projects": [
+        "https://github.com/wa0x6e/cal-heatmap"
+    ],
+    "dependencies": {
+        "@types/d3": "^3"
+    },
+    "devDependencies": {
+        "@types/cal-heatmap": "workspace:.",
+        "@types/jquery": "*"
+    },
+    "owners": [
+        {
+            "name": "Chris Baker",
+            "githubUsername": "RetroChrisB"
+        }
+    ]
+}

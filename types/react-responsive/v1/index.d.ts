@@ -1,9 +1,3 @@
-// Type definitions for react-responsive 1.1
-// Project: https://github.com/contra/react-responsive
-// Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 declare namespace MediaQuery {

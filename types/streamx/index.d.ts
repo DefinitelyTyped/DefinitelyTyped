@@ -1,8 +1,3 @@
-// Type definitions for streamx 2.9
-// Project: https://github.com/streamxorg/streamx
-// Definitions by: Martin Heidegger <https://github.com/martinheidegger>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
@@ -36,7 +31,7 @@ export interface StreamOptions<TStream extends Stream<TByteType>, TByteType = an
     signal?: AbortSignalLike | undefined;
 }
 
-/* tslint:disable-next-line interface-over-type-literal - cause: https://github.com/microsoft/TypeScript/issues/15300 */
+/* eslint-disable-next-line @typescript-eslint/consistent-type-definitions -- cause: https://github.com/microsoft/TypeScript/issues/15300 */
 export type StreamEvents = {
     open: () => void;
     close: () => void;

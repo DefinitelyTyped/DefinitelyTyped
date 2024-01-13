@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/node-fetch-cache",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/mistval/node-fetch-cache#readme"
+    ],
+    "dependencies": {
+        "@types/node-fetch": "*"
+    },
+    "devDependencies": {
+        "@types/node-fetch-cache": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Yusuke Fujiki",
+            "githubUsername": "fujikky"
+        }
+    ]
+}

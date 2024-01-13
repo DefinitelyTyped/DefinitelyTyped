@@ -1,15 +1,14 @@
 {
     "compilerOptions": {
-        "lib": ["es5", "dom"],
+        "lib": [
+            "es5",
+            "dom"
+        ],
         "module": "commonjs",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

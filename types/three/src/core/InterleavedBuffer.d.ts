@@ -43,6 +43,7 @@ export class InterleavedBuffer {
     /**
      * Object containing offset and count.
      * @defaultValue `{ offset: number = 0; count: number = -1 }`
+     * @deprecated Will be removed in r169. Use "addUpdateRange()" instead.
      */
     updateRange: {
         /** @defaultValue `0` */
@@ -50,6 +51,21 @@ export class InterleavedBuffer {
         /** @defaultValue `-1` */
         count: number;
     };
+
+    /**
+     * This can be used to only update some components of stored data. Use the {@link .addUpdateRange} function to add
+     * ranges to this array.
+     */
+    updateRanges: Array<{
+        /**
+         * Position at which to start update.
+         */
+        start: number;
+        /**
+         * The number of components to update.
+         */
+        count: number;
+    }>;
 
     /**
      * A version number, incremented every time the {@link BufferAttribute.needsUpdate | needsUpdate} property is set to true.
@@ -98,6 +114,17 @@ export class InterleavedBuffer {
      * {@link https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/bufferData | WebGLRenderingContext.bufferData}.
      */
     setUsage(value: Usage): this;
+
+    /**
+     * Adds a range of data in the data array to be updated on the GPU. Adds an object describing the range to the
+     * {@link .updateRanges} array.
+     */
+    addUpdateRange(start: number, count: number): void;
+
+    /**
+     * Clears the {@link .updateRanges} array.
+     */
+    clearUpdateRanges(): void;
 
     /**
      * Copies another {@link InterleavedBuffer} to this {@link InterleavedBuffer} instance.

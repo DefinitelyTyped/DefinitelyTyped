@@ -1,10 +1,3 @@
-// Type definitions for bootstrap-fileinput 5.2
-// Project: https://github.com/kartik-v/bootstrap-fileinput
-// Definitions by: Ché Coxshall <https://github.com/CheCoxshall>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Zach Hall <https://github.com/zshall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="jquery" />
 
 // tslint:disable:unified-signatures self-documenting code and JSDoc require non-unified signatures

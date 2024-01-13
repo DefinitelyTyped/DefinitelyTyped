@@ -1,8 +1,3 @@
-// Type definitions for path-complete-extname 1.0
-// Project: https://github.com/ruyadorno/path-complete-extname
-// Definitions by: Marcin C <https://github.com/melangue>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = pathCompleteExtname;
 /**
  * Takes a file path and returns the complete file extension (multiple dots, like .tar.gz)

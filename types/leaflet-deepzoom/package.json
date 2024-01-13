@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/leaflet-deepzoom",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/alfarisi/leaflet-deepzoom/"
+    ],
+    "dependencies": {
+        "@types/leaflet": "*"
+    },
+    "devDependencies": {
+        "@types/leaflet-deepzoom": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Håkon Løvdal",
+            "githubUsername": "hlovdal"
+        }
+    ]
+}

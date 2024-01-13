@@ -1,8 +1,3 @@
-// Type definitions for material-design-lite v1.1.3
-// Project: https://getmdl.io
-// Definitions by: Brad Zacher <https://github.com/bradzacher>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace MaterialDesignLite {
     interface ComponentHandler {
         /**
@@ -57,7 +52,7 @@ declare namespace MaterialDesignLite {
          * @param {!Array<!Element>} elements
          * The elements we wish to upgrade.
          */
-        upgradeElements(elements: Array<HTMLElement>): void;
+        upgradeElements(elements: HTMLElement[]): void;
         /**
          * Upgrades a specific list of elements rather than all in the DOM.
          *
@@ -109,7 +104,7 @@ declare namespace MaterialDesignLite {
          *
          * @param {!Array<!Node>} nodes The list of nodes.
          */
-        downgradeElements(nodes: Array<Node>): void;
+        downgradeElements(nodes: Node[]): void;
         /**
          * Downgrade either a given node, an array of nodes, or a NodeList.
          *

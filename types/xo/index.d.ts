@@ -1,9 +1,3 @@
-// Type definitions for xo 0.39
-// Project: https://github.com/xojs/xo#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Chuah Chee Shian (shian15810) <https://github.com/shian15810>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import eslint = require("eslint");
 
 // eslint.CLIEngine.getErrorResults without modification

@@ -1,9 +1,3 @@
-// Type definitions for quicksettings 3.0
-// Project: https://github.com/bit101/quicksettings
-// Definitions by: janizde <https://github.com/janizde>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 export type ChangeHandler<T> = (value: T) => void;
 export type AnyModel = Record<string, any>;
 
@@ -199,12 +193,12 @@ interface QuickSettings {
      * @param       parent      title of panel (default "QuickSettings")
      * @returns                 New QuickSettings Panel
      */
-    create<M = AnyModel, S = string>(
+    create<M = AnyModel, S = string>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
         x?: number,
         y?: number,
         panelTitle?: string,
         parent?: HTMLElement,
-    ): QuickSettingsPanel<M, S>; // eslint-disable-line @definitelytyped/no-unnecessary-generics
+    ): QuickSettingsPanel<M, S>;
     useExtStyleSheet(): void;
 }
 

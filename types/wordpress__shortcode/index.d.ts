@@ -1,9 +1,3 @@
-// Type definitions for @wordpress/shortcode 2.3
-// Project: https://github.com/WordPress/gutenberg/tree/master/packages/shortcode/README.md
-// Definitions by: Derek Sifford <https://github.com/dsifford>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 export interface ShortcodeAttrs {
     named: Record<string, string | undefined>;
     numeric: string[];

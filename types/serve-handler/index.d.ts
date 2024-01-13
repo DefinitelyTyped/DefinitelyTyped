@@ -1,8 +1,3 @@
-// Type definitions for serve-handler 6.1
-// Project: https://github.com/zeit/serve-handler#readme
-// Definitions by: simonhaenisch <https://github.com/simonhaenisch>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { createReadStream, lstat, readdir, realpath } from "fs";

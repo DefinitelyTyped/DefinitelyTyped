@@ -1,10 +1,3 @@
-// Type definitions for yeoman-environment 2.10
-// Project: https://github.com/yeoman/environment, http://yeoman.io
-// Definitions by: c4605 <https://github.com/bolasblack>
-//                 Manuel Thalmann <https://github.com/manuth>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.2
-
 import { Command } from "commander";
 import { EventEmitter } from "events";
 import { ExecaChildProcess, ExecaSyncReturnValue, Options, SyncOptions } from "execa";

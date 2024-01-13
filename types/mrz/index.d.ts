@@ -1,9 +1,3 @@
-// Type definitions for mrz 3.1
-// Project: https://github.com/cheminfo-js/mrz#readme
-// Definitions by: Emily Marigold Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 export interface Result {
     /**
      * String identifying the format of the parsed MRZ. Supported formats are:
@@ -93,14 +87,14 @@ export interface Range {
  * in the MRZ. Instead, the `result.valid` value will be `false` and
  * details about the invalid fields can be found in `result.details`.
  */
-export function parse(lines: string | ReadonlyArray<string>): Result;
+export function parse(lines: string | readonly string[]): Result;
 
 export namespace parse {
-    function FRENCH_NATIONAL_ID(lines: string | ReadonlyArray<string>): Result;
-    function SWISS_DRIVING_LICENSE(lines: string | ReadonlyArray<string>): Result;
-    function TD1(lines: string | ReadonlyArray<string>): Result;
-    function TD2(lines: string | ReadonlyArray<string>): Result;
-    function TD3(lines: string | ReadonlyArray<string>): Result;
+    function FRENCH_NATIONAL_ID(lines: string | readonly string[]): Result;
+    function SWISS_DRIVING_LICENSE(lines: string | readonly string[]): Result;
+    function TD1(lines: string | readonly string[]): Result;
+    function TD2(lines: string | readonly string[]): Result;
+    function TD3(lines: string | readonly string[]): Result;
 }
 
 export const formats: {

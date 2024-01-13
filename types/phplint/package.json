@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/phplint",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/wayneashleyberry/phplint"
+    ],
+    "dependencies": {
+        "@types/grunt": "*"
+    },
+    "devDependencies": {
+        "@types/phplint": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Thompson-Sharpe",
+            "githubUsername": "MysteryBlokHed"
+        }
+    ]
+}

@@ -1,10 +1,3 @@
-// Type definitions for KeyboardJS 2.5
-// Project: https://github.com/RobertWHurst/KeyboardJS
-// Definitions by: Vincent Bortone <https://github.com/vbortone>,
-//                 David Asmuth <https://github.com/piranha771>,
-//                 Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace keyboardjs {
     /**
      * Information and functions in the current callback.

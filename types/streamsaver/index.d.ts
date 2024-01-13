@@ -1,9 +1,3 @@
-// Type definitions for streamsaver 2.0
-// Project: https://github.com/jimmywarting/StreamSaver.js
-// Definitions by: Enn Michael <https://github.com/ennmichael/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.2
-
 export as namespace streamSaver;
 
 /**

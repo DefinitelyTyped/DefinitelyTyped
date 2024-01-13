@@ -1,9 +1,3 @@
-// Type definitions for git-raw-commits 2.0
-// Project: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/git-raw-commits#readme
-// Definitions by: Jason Kwok <https://github.com/JasonHK>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 /// <reference types="node" />
 
 import * as Stream from "stream";

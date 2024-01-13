@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/fixed-data-table",
+    "version": "0.6.9999",
+    "projects": [
+        "https://github.com/facebook/fixed-data-table"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/fixed-data-table": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Petar Paar",
+            "githubUsername": "pepaar"
+        },
+        {
+            "name": "Stephen Jelfs",
+            "githubUsername": "stephenjelfs"
+        }
+    ]
+}

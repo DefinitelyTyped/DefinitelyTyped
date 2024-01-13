@@ -1,9 +1,3 @@
-// Type definitions for chartjs-plugin-annotation 0.5
-// Project: https://github.com/chartjs/chartjs-plugin-annotation#readme
-// Definitions by: Dan Manastireanu <https://github.com/danmana>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 import * as Chart from "chart.js";
 import { Moment } from "moment";
 

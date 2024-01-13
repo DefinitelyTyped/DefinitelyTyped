@@ -1,9 +1,3 @@
-// Type definitions for solid-auth-client 2.4
-// Project: https://github.com/solid/solid-auth-client#readme
-// Definitions by: Vincent <https://github.com/Vinnl>
-//                 James <https://github.com/durandj>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 import { EventEmitter } from "events";
 
 export interface Session {

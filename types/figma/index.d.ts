@@ -1,7 +1,3 @@
-// Type definitions for Figma API 1.0
-// Project: https://www.figma.com/plugin-docs/intro
-// Definitions by: Rudi Chen <https://github.com/rudi-c>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Talk to the Figma team regarding changes to the typings.
 //   rudi@figma.com, jonas@figma.com
@@ -81,21 +77,21 @@ declare global {
         createImage(data: Uint8Array): Image;
         getImageByHash(hash: string): Image;
 
-        group(nodes: ReadonlyArray<BaseNode>, parent: BaseNode & ChildrenMixin, index?: number): GroupNode;
-        flatten(nodes: ReadonlyArray<BaseNode>, parent?: BaseNode & ChildrenMixin, index?: number): VectorNode;
+        group(nodes: readonly BaseNode[], parent: BaseNode & ChildrenMixin, index?: number): GroupNode;
+        flatten(nodes: readonly BaseNode[], parent?: BaseNode & ChildrenMixin, index?: number): VectorNode;
 
-        union(nodes: ReadonlyArray<BaseNode>, parent: BaseNode & ChildrenMixin, index?: number): BooleanOperationNode;
+        union(nodes: readonly BaseNode[], parent: BaseNode & ChildrenMixin, index?: number): BooleanOperationNode;
         subtract(
-            nodes: ReadonlyArray<BaseNode>,
+            nodes: readonly BaseNode[],
             parent: BaseNode & ChildrenMixin,
             index?: number,
         ): BooleanOperationNode;
         intersect(
-            nodes: ReadonlyArray<BaseNode>,
+            nodes: readonly BaseNode[],
             parent: BaseNode & ChildrenMixin,
             index?: number,
         ): BooleanOperationNode;
-        exclude(nodes: ReadonlyArray<BaseNode>, parent: BaseNode & ChildrenMixin, index?: number): BooleanOperationNode;
+        exclude(nodes: readonly BaseNode[], parent: BaseNode & ChildrenMixin, index?: number): BooleanOperationNode;
     }
 
     interface ClientStorageAPI {
@@ -143,7 +139,7 @@ declare global {
     interface ViewportAPI {
         center: Vector;
         zoom: number;
-        scrollAndZoomIntoView(nodes: ReadonlyArray<BaseNode>): void;
+        scrollAndZoomIntoView(nodes: readonly BaseNode[]): void;
         readonly bounds: Rect;
     }
 
@@ -243,7 +239,7 @@ declare global {
     interface GradientPaint {
         readonly type: "GRADIENT_LINEAR" | "GRADIENT_RADIAL" | "GRADIENT_ANGULAR" | "GRADIENT_DIAMOND";
         readonly gradientTransform: Transform;
-        readonly gradientStops: ReadonlyArray<ColorStop>;
+        readonly gradientStops: readonly ColorStop[];
 
         readonly visible?: boolean | undefined;
         readonly opacity?: number | undefined;
@@ -342,13 +338,13 @@ declare global {
 
     interface VectorRegion {
         readonly windingRule: WindingRule;
-        readonly loops: ReadonlyArray<ReadonlyArray<number>>;
+        readonly loops: ReadonlyArray<readonly number[]>;
     }
 
     interface VectorNetwork {
-        readonly vertices: ReadonlyArray<VectorVertex>;
-        readonly segments: ReadonlyArray<VectorSegment>;
-        readonly regions?: ReadonlyArray<VectorRegion> | undefined; // Defaults to []
+        readonly vertices: readonly VectorVertex[];
+        readonly segments: readonly VectorSegment[];
+        readonly regions?: readonly VectorRegion[] | undefined; // Defaults to []
     }
 
     interface VectorPath {
@@ -356,7 +352,7 @@ declare global {
         readonly data: string;
     }
 
-    type VectorPaths = ReadonlyArray<VectorPath>;
+    type VectorPaths = readonly VectorPath[];
 
     interface LetterSpacing {
         readonly value: number;
@@ -488,7 +484,7 @@ declare global {
     }
 
     interface ChildrenMixin {
-        readonly children: ReadonlyArray<SceneNode>;
+        readonly children: readonly SceneNode[];
 
         appendChild(child: SceneNode): void;
         insertChild(index: number, child: SceneNode): void;
@@ -534,13 +530,13 @@ declare global {
         opacity: number;
         blendMode: BlendMode;
         isMask: boolean;
-        effects: ReadonlyArray<Effect>;
+        effects: readonly Effect[];
         effectStyleId: string;
     }
 
     interface ContainerMixin {
         expanded: boolean;
-        backgrounds: ReadonlyArray<Paint>; // DEPRECATED: use 'fills' instead
+        backgrounds: readonly Paint[]; // DEPRECATED: use 'fills' instead
         backgroundStyleId: string; // DEPRECATED: use 'fillStyleId' instead
     }
 
@@ -549,14 +545,14 @@ declare global {
     type HandleMirroring = "NONE" | "ANGLE" | "ANGLE_AND_LENGTH";
 
     interface GeometryMixin {
-        fills: ReadonlyArray<Paint> | PluginAPI["mixed"];
-        strokes: ReadonlyArray<Paint>;
+        fills: readonly Paint[] | PluginAPI["mixed"];
+        strokes: readonly Paint[];
         strokeWeight: number;
         strokeMiterLimit: number;
         strokeAlign: "CENTER" | "INSIDE" | "OUTSIDE";
         strokeCap: StrokeCap | PluginAPI["mixed"];
         strokeJoin: StrokeJoin | PluginAPI["mixed"];
-        dashPattern: ReadonlyArray<number>;
+        dashPattern: readonly number[];
         fillStyleId: string | PluginAPI["mixed"];
         strokeStyleId: string;
         outlineStroke(): VectorNode | null;
@@ -575,12 +571,12 @@ declare global {
     }
 
     interface ExportMixin {
-        exportSettings: ReadonlyArray<ExportSettings>;
+        exportSettings: readonly ExportSettings[];
         exportAsync(settings?: ExportSettings): Promise<Uint8Array>; // Defaults to PNG format
     }
 
     interface ReactionMixin {
-        readonly reactions: ReadonlyArray<Reaction>;
+        readonly reactions: readonly Reaction[];
     }
 
     interface DefaultShapeMixin
@@ -608,10 +604,10 @@ declare global {
         verticalPadding: number; // applicable only if layoutMode != "NONE"
         itemSpacing: number; // applicable only if layoutMode != "NONE"
 
-        layoutGrids: ReadonlyArray<LayoutGrid>;
+        layoutGrids: readonly LayoutGrid[];
         gridStyleId: string;
         clipsContent: boolean;
-        guides: ReadonlyArray<Guide>;
+        guides: readonly Guide[];
 
         overflowDirection: OverflowDirection;
         numberOfFixedChildren: number;
@@ -627,7 +623,7 @@ declare global {
     interface DocumentNode extends BaseNodeMixin {
         readonly type: "DOCUMENT";
 
-        readonly children: ReadonlyArray<PageNode>;
+        readonly children: readonly PageNode[];
 
         appendChild(child: PageNode): void;
         insertChild(index: number, child: PageNode): void;
@@ -651,11 +647,11 @@ declare global {
         readonly type: "PAGE";
         clone(): PageNode;
 
-        guides: ReadonlyArray<Guide>;
-        selection: ReadonlyArray<SceneNode>;
+        guides: readonly Guide[];
+        selection: readonly SceneNode[];
         selectedTextRange: { node: TextNode; start: number; end: number } | null;
 
-        backgrounds: ReadonlyArray<Paint>;
+        backgrounds: readonly Paint[];
 
         readonly prototypeStartNode: FrameNode | GroupNode | ComponentNode | InstanceNode | null;
     }
@@ -840,7 +836,7 @@ declare global {
 
     interface PaintStyle extends BaseStyle {
         type: "PAINT";
-        paints: ReadonlyArray<Paint>;
+        paints: readonly Paint[];
     }
 
     interface TextStyle extends BaseStyle {
@@ -857,12 +853,12 @@ declare global {
 
     interface EffectStyle extends BaseStyle {
         type: "EFFECT";
-        effects: ReadonlyArray<Effect>;
+        effects: readonly Effect[];
     }
 
     interface GridStyle extends BaseStyle {
         type: "GRID";
-        layoutGrids: ReadonlyArray<LayoutGrid>;
+        layoutGrids: readonly LayoutGrid[];
     }
 
     ////////////////////////////////////////////////////////////////////////////////

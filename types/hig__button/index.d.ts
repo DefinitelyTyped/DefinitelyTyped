@@ -1,9 +1,3 @@
-// Type definitions for @hig/button 1.4
-// Project: https://github.com/Autodesk/hig/tree/development/packages/button
-// Definitions by: Matthew Bryant <https://github.com/matthewbryant95>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 // Turn off automatic exporting
 export {};
 
@@ -38,7 +32,7 @@ export interface Props {
     /** Prevents user interaction with the button */
     disabled?: boolean | undefined;
     /** A @hig/icon element */
-    icon?: JSX.Element | undefined;
+    icon?: React.JSX.Element | undefined;
     /** Sets the link of a button */
     link?: string | undefined;
     /** Triggers when you click the button */

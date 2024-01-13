@@ -1,12 +1,3 @@
-// Type definitions for the Facebook Javascript SDK 3.3
-// Project: https://developers.facebook.com/docs/javascript
-// Definitions by:  Amrit Kahlon    <https://github.com/amritk>
-//                  Mahmoud Zohdi   <https://github.com/mahmoudzohdi>
-//                  Marc Knaup      <https://github.com/fluidsonic>
-//                  Ben Grynhaus    <https://github.com/bengry>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 declare function fbAsyncInit(): void;
 
 import fb = facebook;
@@ -339,6 +330,9 @@ declare namespace facebook {
         return_scopes?: boolean | undefined;
         enable_profile_selector?: boolean | undefined;
         profile_selector_ids?: string | undefined;
+        config_id?: string | undefined;
+        response_type?: string | undefined;
+        override_default_response_type?: boolean | undefined;
     }
 
     ////////////////////////
@@ -476,13 +470,14 @@ declare namespace facebook {
     //
     ////////////////////////
     interface AuthResponse {
-        accessToken: string;
-        data_access_expiration_time: number;
+        accessToken?: string | undefined;
+        data_access_expiration_time?: number | undefined;
         expiresIn: number;
-        signedRequest: string;
+        signedRequest?: string | undefined;
         userID: string;
         grantedScopes?: string | undefined;
         reauthorize_required_in?: number | undefined;
+        code?: string | undefined;
     }
 
     interface StatusResponse {

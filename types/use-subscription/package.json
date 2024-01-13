@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/use-subscription",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/facebook/react/"
+    ],
+    "devDependencies": {
+        "@types/react": "*",
+        "@types/use-subscription": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sebastian Silbermann",
+            "githubUsername": "eps1lon"
+        }
+    ]
+}

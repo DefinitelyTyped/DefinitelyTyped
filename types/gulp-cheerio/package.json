@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/gulp-cheerio",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/KenPowers/gulp-cheerio"
+    ],
+    "dependencies": {
+        "@types/cheerio": "*",
+        "@types/node": "*",
+        "@types/vinyl": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-cheerio": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Qubo",
+            "githubUsername": "tkQubo"
+        }
+    ]
+}

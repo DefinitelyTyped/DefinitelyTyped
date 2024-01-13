@@ -1,9 +1,3 @@
-// Type definitions for blip-sdk 7.3
-// Project: https://github.com/takenet/blip-sdk-js#readme
-// Definitions by: Henrique Torquato <https://github.com/henriquetorquato>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export namespace BlipSdk.Extensions {
     interface ArtificialIntelligence {
         // Analysis

@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/make-fetch-happen",
+    "version": "10.0.9999",
+    "projects": [
+        "https://github.com/npm/make-fetch-happen"
+    ],
+    "dependencies": {
+        "@types/node-fetch": "*",
+        "@types/retry": "*",
+        "@types/ssri": "*"
+    },
+    "devDependencies": {
+        "@types/make-fetch-happen": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jesse Rosenberger",
+            "githubUsername": "abernix"
+        },
+        {
+            "name": "Trevor Scheer",
+            "githubUsername": "trevor-scheer"
+        }
+    ]
+}

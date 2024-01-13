@@ -1,9 +1,3 @@
-// Type definitions for datatables.net-rowgroup 1.1
-// Project: https://datatables.net/extensions/rowgroup/, https://datatables.net
-// Definitions by: Matthieu Tabuteau <https://github.com/maixiu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="jquery" />
 /// <reference types="datatables.net"/>
 

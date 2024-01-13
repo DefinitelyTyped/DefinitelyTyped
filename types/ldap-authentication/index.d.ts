@@ -1,8 +1,3 @@
-// Type definitions for ldap-authentication 2.2
-// Project: https://github.com/shaozi/ldap-authentication#readme
-// Definitions by: Simone Corsi <https://github.com/simonecorsi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { ClientOptions } from "ldapjs";
 
 export interface AuthenticationOptions {

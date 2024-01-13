@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/ttf2woff2",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/nfroidure/ttf2woff2"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/ttf2woff2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Thomas den Hollander",
+            "githubUsername": "ThomasdenH"
+        }
+    ]
+}

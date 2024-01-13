@@ -1,12 +1,3 @@
-// Type definitions for node-asana 0.18.14
-// Project: https://github.com/Asana/node-asana
-// Definitions by: Qubo <https://github.com/tkqubo>
-//                 Tasyp <https://github.com/tasyp>
-//                 Filippo Sarzana <https://github.com/filipposarzana>
-//                 Lorant Szakacs <https://github.com/szlori>
-//                 Vince Broz <https://github.com/apiology>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
 import * as Promise from "bluebird";
 
 declare namespace asana {
@@ -952,11 +943,11 @@ declare namespace asana {
             }
 
             interface FollowersParams {
-                followers: (number | string)[];
+                followers: Array<number | string>;
             }
 
             interface MembersParams {
-                members: (number | string)[];
+                members: Array<number | string>;
             }
 
             interface Status {
@@ -1306,16 +1297,16 @@ declare namespace asana {
                 duplicated_from: Resource;
                 follower: Resource;
                 hearted: boolean; // deprecated
-                hearts: {
+                hearts: Array<{
                     gid: string;
                     user: Resource;
-                }[]; // deprecated
+                }>; // deprecated
                 is_edited: boolean;
                 liked: boolean;
-                likes: {
+                likes: Array<{
                     gid: string;
                     user: Resource;
-                }[];
+                }>;
                 new_approval_status: string;
                 new_dates: {
                     due_at: string | null;
@@ -1328,10 +1319,10 @@ declare namespace asana {
                 };
                 new_multi_enum_values:
                     & Resource
-                    & {
+                    & Array<{
                         color: string;
                         enabled: boolean;
-                    }[];
+                    }>;
                 new_name: string;
                 new_number_value: number;
                 new_resource_subtype: string;
@@ -1351,16 +1342,16 @@ declare namespace asana {
                 };
                 old_multi_enum_values:
                     & Resource
-                    & {
+                    & Array<{
                         color: string;
                         enabled: boolean;
-                    }[];
+                    }>;
                 old_name: string;
                 old_number_value: number;
                 old_resource_subtype: string;
                 old_section: Resource;
                 old_text_value: string;
-                previews: {
+                previews: Array<{
                     fallback: string;
                     footer: string;
                     header: string;
@@ -1369,7 +1360,7 @@ declare namespace asana {
                     text: string;
                     title: string;
                     title_link: string;
-                }[];
+                }>;
                 project: Resource;
                 source: string;
                 story: ShortType;
@@ -1660,10 +1651,10 @@ declare namespace asana {
                 num_likes: number;
                 num_subtasks: number; // opt in
                 liked: boolean;
-                likes: {
+                likes: Array<{
                     gid: string;
                     user: Resource;
-                }[];
+                }>;
                 tags: Resource[];
                 projects: Resource[];
                 memberships: Membership[];
@@ -1703,10 +1694,10 @@ declare namespace asana {
                 tags?: string[] | undefined; // create-only
                 workspace?: string | undefined;
                 memberships?:
-                    | {
+                    | Array<{
                         project: string;
                         section: string;
-                    }[]
+                    }>
                     | undefined;
             }
 
@@ -1736,7 +1727,7 @@ declare namespace asana {
             }
 
             interface FollowersParams {
-                followers: (number | string)[];
+                followers: Array<number | string>;
             }
 
             interface AddProjectParams {

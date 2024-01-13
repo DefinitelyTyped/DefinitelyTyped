@@ -1,8 +1,3 @@
-// Type definitions for HashMap 1.1.0
-// Project: https://github.com/flesler/hashmap
-// Definitions by: Rafał Wrzeszcz <http://wrzasq.pl>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class HashMap<KeyType, ValueType> {
     /**
      * Return value from hashmap.

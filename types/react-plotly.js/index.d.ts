@@ -1,11 +1,3 @@
-// Type definitions for react-plotly.js 2.6
-// Project: https://github.com/plotly/react-plotly.js#readme
-// Definitions by: Jon Freedman <https://github.com/jonfreedman>
-//                 Mitchell Grice <https://github.com/gricey432>
-//                 Patrick Huebner <https://github.com/phuebner>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as Plotly from "plotly.js";
 import * as React from "react";
 

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/jquery.fullscreen",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/private-face/jquery.fullscreen"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.fullscreen": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piraveen Kamalathas",
+            "githubUsername": "piraveen"
+        }
+    ]
+}

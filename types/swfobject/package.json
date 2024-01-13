@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/swfobject",
+    "version": "2.2.9999",
+    "projects": [
+        "https://code.google.com/p/swfobject/"
+    ],
+    "devDependencies": {
+        "@types/swfobject": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "rou",
+            "githubUsername": "rou"
+        }
+    ]
+}

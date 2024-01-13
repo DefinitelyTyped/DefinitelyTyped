@@ -1,6 +1,20 @@
 {
     "private": true,
+    "name": "@types/redis-mock",
+    "version": "0.17.9999",
+    "projects": [
+        "https://github.com/yeahoffline/redis-mock#readme"
+    ],
     "dependencies": {
         "@types/redis": "^2.8.0"
-    }
+    },
+    "devDependencies": {
+        "@types/redis-mock": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
 }

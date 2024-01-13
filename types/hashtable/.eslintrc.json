@@ -2,6 +2,8 @@
     "rules": {
         "@definitelytyped/no-unnecessary-generics": "off",
         "@definitelytyped/no-declare-current-package": "off",
-        "@definitelytyped/no-single-declare-module": "off"
+        "@definitelytyped/no-single-declare-module": "off",
+        "@definitelytyped/npm-naming": "off",
+        "@typescript-eslint/naming-convention": "off"
     }
 }

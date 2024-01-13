@@ -638,6 +638,13 @@ declare module "crypto" {
         export(options?: KeyExportOptions<"der">): Buffer;
         export(options?: JwkKeyExportOptions): JsonWebKey;
         /**
+         * Returns `true` or `false` depending on whether the keys have exactly the same
+         * type, value, and parameters. This method is not [constant time](https://en.wikipedia.org/wiki/Timing_attack).
+         * @since v17.7.0, v16.15.0
+         * @param otherKeyObject A `KeyObject` with which to compare `keyObject`.
+         */
+        equals(otherKeyObject: KeyObject): boolean;
+        /**
          * For secret keys, this property represents the size of the key in bytes. This
          * property is `undefined` for asymmetric keys.
          * @since v11.6.0
@@ -2475,6 +2482,10 @@ declare module "crypto" {
          * Name of the curve to use
          */
         namedCurve: string;
+        /**
+         * Must be `'named'` or `'explicit'`. Default: `'named'`.
+         */
+        paramEncoding?: "explicit" | "named" | undefined;
     }
     interface RSAKeyPairKeyObjectOptions {
         /**
@@ -2585,11 +2596,7 @@ declare module "crypto" {
             type: "pkcs8";
         };
     }
-    interface ECKeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> {
-        /**
-         * Name of the curve to use.
-         */
-        namedCurve: string;
+    interface ECKeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> extends ECKeyPairKeyObjectOptions {
         publicKeyEncoding: {
             type: "pkcs1" | "spki";
             format: PubF;
@@ -4208,7 +4215,7 @@ declare module "crypto" {
                     | HkdfParams
                     | Pbkdf2Params,
                 extractable: boolean,
-                keyUsages: ReadonlyArray<KeyUsage>,
+                keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKey>;
             /**
              * Using the method identified by `algorithm`, `subtle.digest()` attempts to generate a digest of `data`.
@@ -4288,12 +4295,12 @@ declare module "crypto" {
             generateKey(
                 algorithm: RsaHashedKeyGenParams | EcKeyGenParams,
                 extractable: boolean,
-                keyUsages: ReadonlyArray<KeyUsage>,
+                keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKeyPair>;
             generateKey(
                 algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params,
                 extractable: boolean,
-                keyUsages: ReadonlyArray<KeyUsage>,
+                keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKey>;
             generateKey(
                 algorithm: AlgorithmIdentifier,
@@ -4320,7 +4327,7 @@ declare module "crypto" {
                     | HmacImportParams
                     | AesKeyAlgorithm,
                 extractable: boolean,
-                keyUsages: ReadonlyArray<KeyUsage>,
+                keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKey>;
             importKey(
                 format: Exclude<KeyFormat, "jwk">,

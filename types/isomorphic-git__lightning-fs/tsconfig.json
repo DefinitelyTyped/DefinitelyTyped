@@ -10,15 +10,6 @@
         "strictFunctionTypes": true,
         "strictNullChecks": true,
         "esModuleInterop": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
-        "paths": {
-            "@isomorphic-git/lightning-fs": [
-                "isomorphic-git__lightning-fs"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

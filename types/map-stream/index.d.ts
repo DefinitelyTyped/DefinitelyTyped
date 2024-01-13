@@ -1,8 +1,3 @@
-// Type definitions for map-stream 0.0
-// Project: http://github.com/dominictarr/map-stream
-// Definitions by: Konrad Perlicki <https://github.com/KonradPerlicki>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 import { Stream } from "stream";

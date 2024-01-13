@@ -1,0 +1,82 @@
+{
+    "private": true,
+    "name": "@types/react-big-calendar",
+    "version": "1.8.9999",
+    "projects": [
+        "https://github.com/jquense/react-big-calendar"
+    ],
+    "dependencies": {
+        "@types/date-arithmetic": "*",
+        "@types/prop-types": "*",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-big-calendar": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Witek",
+            "githubUsername": "piotrwitek"
+        },
+        {
+            "name": "Austin Turner",
+            "githubUsername": "paustint"
+        },
+        {
+            "name": "Krzysztof Bezrąk",
+            "githubUsername": "pikpok"
+        },
+        {
+            "name": "Sebastian Silbermann",
+            "githubUsername": "eps1lon"
+        },
+        {
+            "name": "Paul Potsides",
+            "githubUsername": "strongpauly"
+        },
+        {
+            "name": "janb87",
+            "githubUsername": "janb87"
+        },
+        {
+            "name": "Panagiotis Rikarnto Siavelis",
+            "githubUsername": "siavelis"
+        },
+        {
+            "name": "Lucas Silva Souza",
+            "githubUsername": "lksilva"
+        },
+        {
+            "name": "Siarhey Belofost",
+            "githubUsername": "SergeyBelofost"
+        },
+        {
+            "name": "Mark Nelissen",
+            "githubUsername": "marknelissen"
+        },
+        {
+            "name": "Paito Anderson",
+            "githubUsername": "PaitoAnderson"
+        },
+        {
+            "name": "Jan Michalak",
+            "githubUsername": "michalak111"
+        },
+        {
+            "name": "Tom Price",
+            "githubUsername": "tomtom5152"
+        },
+        {
+            "name": "Daniele Carrucciu",
+            "githubUsername": "catruzz"
+        },
+        {
+            "name": "Chris Frewin",
+            "githubUsername": "princefishthrower"
+        },
+        {
+            "name": "decimoseptimo",
+            "githubUsername": "decimoseptimo"
+        }
+    ]
+}

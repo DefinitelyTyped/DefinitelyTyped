@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/globrex",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/terkelg/globrex#readme"
+    ],
+    "devDependencies": {
+        "@types/globrex": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

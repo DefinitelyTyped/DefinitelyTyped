@@ -1,23 +1,3 @@
-// Type definitions for Chrome extension development
-// Project: http://developer.chrome.com/extensions/
-// Definitions by: Matthew Kimber <https://github.com/matthewkimber>
-//                 otiai10 <https://github.com/otiai10>
-//                 sreimer15 <https://github.com/sreimer15>
-//                 MatCarlson <https://github.com/MatCarlson>
-//                 ekinsol <https://github.com/ekinsol>
-//                 Brian Wilson <https://github.com/echoabstract>
-//                 Sebastiaan Pasma <https://github.com/spasma>
-//                 bdbai <https://github.com/bdbai>
-//                 pokutuna <https://github.com/pokutuna>
-//                 Jason Xian <https://github.com/JasonXian>
-//                 userTim <https://github.com/usertim>
-//                 Idan Zeierman <https://github.com/idan315>
-//                 Nicolas Rodriguez <https://github.com/nicolas377>
-//                 Ido Salomon <https://github.com/idosal>
-//                 Federico Brigante <https://github.com/fregante>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="filesystem" />
 /// <reference path="./har-format/index.d.ts" />
 /// <reference path="./chrome-cast/index.d.ts" />
@@ -2186,7 +2166,7 @@ declare namespace chrome.declarativeContent {
         /** Optional. Matches if the scheme of the URL is equal to any of the schemes specified in the array.  */
         schemes?: string[] | undefined;
         /** Optional. Matches if the port of the URL is contained in any of the specified port lists. For example [80, 443, [1000, 1200]] matches all requests on port 80, 443 and in the range 1000-1200.  */
-        ports?: (number | number[])[] | undefined;
+        ports?: Array<number | number[]> | undefined;
     }
 
     export class PageStateMatcherProperties {
@@ -2779,6 +2759,22 @@ declare namespace chrome.documentScan {
      * @param callback Called with the result and data from the scan.
      */
     export function scan(options: DocumentScanOptions, callback: (result: DocumentScanCallbackArg) => void): void;
+}
+
+////////////////////
+// DOM
+////////////////////
+/**
+ * Use the chrome.dom API to programmatically access shadow root in an HTMLElement.
+ * Availability: Since Chrome 88+.
+ */
+declare namespace chrome.dom {
+    /**
+     * Since Chrome 88+.
+     * Requests chrome to return the open/closed shadow roots else return null.
+     * @param element reference of HTMLElement.
+     */
+    export function openOrClosedShadowRoot(element: HTMLElement): ShadowRoot;
 }
 
 ////////////////////
@@ -3415,7 +3411,7 @@ declare namespace chrome.events {
         /** Optional. Matches if the URL (without fragment identifier) ends with a specified string. Port numbers are stripped from the URL if they match the default port number.  */
         urlSuffix?: string | undefined;
         /** Optional. Matches if the port of the URL is contained in any of the specified port lists. For example [80, 443, [1000, 1200]] matches all requests on port 80, 443 and in the range 1000-1200.  */
-        ports?: (number | number[])[] | undefined;
+        ports?: Array<number | number[]> | undefined;
         /**
          * Optional.
          * Since Chrome 28.
@@ -3916,7 +3912,10 @@ declare namespace chrome.fileSystemProvider {
         length: number;
     }
 
-    export interface DirectoryPathRecursiveRequestedEventOptions extends DirectoryPathRequestedEventOptions {
+    export interface CreateDirectoryRequestedEventOptions extends RequestedEventOptions {
+        /** The path of the directory to be created. */
+        directoryPath: string;
+
         /** Whether the operation is recursive (for directories only). */
         recursive: boolean;
     }
@@ -4006,10 +4005,10 @@ declare namespace chrome.fileSystemProvider {
         >
     {}
 
-    export interface DirectoryPathRecursiveRequestedEvent extends
+    export interface CreateDirectoryRequestedEvent extends
         chrome.events.Event<
             (
-                options: DirectoryPathRecursiveRequestedEventOptions,
+                options: CreateDirectoryRequestedEventOptions,
                 successCallback: Function,
                 errorCallback: (error: string) => void,
             ) => void
@@ -4148,7 +4147,7 @@ declare namespace chrome.fileSystemProvider {
     /** Raised when reading contents of a file opened previously with openRequestId is requested. The results must be returned in chunks by calling successCallback several times. In case of an error, errorCallback must be called. */
     export var onReadFileRequested: OpenedFileOffsetRequestedEvent;
     /** Raised when creating a directory is requested. The operation must fail with the EXISTS error if the target directory already exists. If recursive is true, then all of the missing directories on the directory path must be created. */
-    export var onCreateDirectoryRequested: DirectoryPathRecursiveRequestedEvent;
+    export var onCreateDirectoryRequested: CreateDirectoryRequestedEvent;
     /** Raised when deleting an entry is requested. If recursive is true, and the entry is a directory, then all of the entries inside must be recursively deleted as well. */
     export var onDeleteEntryRequested: EntryPathRecursiveRequestedEvent;
     /** Raised when creating a file is requested. If the file already exists, then errorCallback must be called with the "EXISTS" error code. */
@@ -6243,6 +6242,11 @@ declare namespace chrome.pageCapture {
      * Parameter mhtmlData: The MHTML data as a Blob.
      */
     export function saveAsMHTML(details: SaveDetails, callback: (mhtmlData?: Blob) => void): void;
+    /**
+     * Saves the content of the tab with given id as MHTML.
+     * @since Chrome 116 MV3
+     */
+    export function saveAsMHTML(details: SaveDetails): Promise<Blob | undefined>;
 }
 
 ////////////////////
@@ -7236,7 +7240,9 @@ declare namespace chrome.runtime {
         icons?: ManifestIcons | undefined;
 
         // Optional
-        author?: string | undefined;
+        author?: {
+            email: string;
+        } | undefined;
         background_page?: string | undefined;
         chrome_settings_overrides?: {
             homepage?: string | undefined;
@@ -7271,37 +7277,45 @@ declare namespace chrome.runtime {
             matches?: string[] | undefined;
             permissions?: string[] | undefined;
         } | undefined;
-        content_scripts?: {
-            matches?: string[] | undefined;
-            exclude_matches?: string[] | undefined;
-            css?: string[] | undefined;
-            js?: string[] | undefined;
-            run_at?: string | undefined;
-            all_frames?: boolean | undefined;
-            match_about_blank?: boolean | undefined;
-            include_globs?: string[] | undefined;
-            exclude_globs?: string[] | undefined;
-        }[] | undefined;
+        content_scripts?:
+            | Array<{
+                matches?: string[] | undefined;
+                exclude_matches?: string[] | undefined;
+                css?: string[] | undefined;
+                js?: string[] | undefined;
+                run_at?: string | undefined;
+                all_frames?: boolean | undefined;
+                match_about_blank?: boolean | undefined;
+                include_globs?: string[] | undefined;
+                exclude_globs?: string[] | undefined;
+            }>
+            | undefined;
         converted_from_user_script?: boolean | undefined;
         current_locale?: string | undefined;
         devtools_page?: string | undefined;
-        event_rules?: {
-            event?: string | undefined;
-            actions?: {
-                type: string;
-            }[] | undefined;
-            conditions?: chrome.declarativeContent.PageStateMatcherProperties[] | undefined;
-        }[] | undefined;
+        event_rules?:
+            | Array<{
+                event?: string | undefined;
+                actions?:
+                    | Array<{
+                        type: string;
+                    }>
+                    | undefined;
+                conditions?: chrome.declarativeContent.PageStateMatcherProperties[] | undefined;
+            }>
+            | undefined;
         externally_connectable?: {
             ids?: string[] | undefined;
             matches?: string[] | undefined;
             accepts_tls_channel_id?: boolean | undefined;
         } | undefined;
-        file_browser_handlers?: {
-            id?: string | undefined;
-            default_title?: string | undefined;
-            file_filters?: string[] | undefined;
-        }[] | undefined;
+        file_browser_handlers?:
+            | Array<{
+                id?: string | undefined;
+                default_title?: string | undefined;
+                file_filters?: string[] | undefined;
+            }>
+            | undefined;
         file_system_provider_capabilities?: {
             configurable?: boolean | undefined;
             watchable?: boolean | undefined;
@@ -7309,29 +7323,35 @@ declare namespace chrome.runtime {
             source?: string | undefined;
         } | undefined;
         homepage_url?: string | undefined;
-        import?: {
-            id: string;
-            minimum_version?: string | undefined;
-        }[] | undefined;
+        import?:
+            | Array<{
+                id: string;
+                minimum_version?: string | undefined;
+            }>
+            | undefined;
         export?: {
             whitelist?: string[] | undefined;
         } | undefined;
         incognito?: string | undefined;
-        input_components?: {
-            name?: string | undefined;
-            type?: string | undefined;
-            id?: string | undefined;
-            description?: string | undefined;
-            language?: string[] | string | undefined;
-            layouts?: string[] | undefined;
-            indicator?: string | undefined;
-        }[] | undefined;
+        input_components?:
+            | Array<{
+                name?: string | undefined;
+                type?: string | undefined;
+                id?: string | undefined;
+                description?: string | undefined;
+                language?: string[] | string | undefined;
+                layouts?: string[] | undefined;
+                indicator?: string | undefined;
+            }>
+            | undefined;
         key?: string | undefined;
         minimum_chrome_version?: string | undefined;
-        nacl_modules?: {
-            path: string;
-            mime_type: string;
-        }[] | undefined;
+        nacl_modules?:
+            | Array<{
+                path: string;
+                mime_type: string;
+            }>
+            | undefined;
         oauth2?: {
             client_id: string;
             scopes?: string[] | undefined;
@@ -7346,13 +7366,17 @@ declare namespace chrome.runtime {
             chrome_style?: boolean | undefined;
             open_in_tab?: boolean | undefined;
         } | undefined;
-        platforms?: {
-            nacl_arch?: string | undefined;
-            sub_package_path: string;
-        }[] | undefined;
-        plugins?: {
-            path: string;
-        }[] | undefined;
+        platforms?:
+            | Array<{
+                nacl_arch?: string | undefined;
+                sub_package_path: string;
+            }>
+            | undefined;
+        plugins?:
+            | Array<{
+                path: string;
+            }>
+            | undefined;
         requirements?: {
             "3D"?: {
                 features?: string[] | undefined;
@@ -7376,12 +7400,12 @@ declare namespace chrome.runtime {
             managed_schema: string;
         } | undefined;
         tts_engine?: {
-            voices: {
+            voices: Array<{
                 voice_name: string;
                 lang?: string | undefined;
                 gender?: string | undefined;
                 event_types?: string[] | undefined;
-            }[];
+            }>;
         } | undefined;
         update_url?: string | undefined;
         version_name?: string | undefined;
@@ -7422,18 +7446,20 @@ declare namespace chrome.runtime {
                 type?: "module"; // If the service worker uses ES modules
             }
             | undefined;
-        content_scripts?: {
-            matches?: string[] | undefined;
-            exclude_matches?: string[] | undefined;
-            css?: string[] | undefined;
-            js?: string[] | undefined;
-            run_at?: string | undefined;
-            all_frames?: boolean | undefined;
-            match_about_blank?: boolean | undefined;
-            include_globs?: string[] | undefined;
-            exclude_globs?: string[] | undefined;
-            world?: "ISOLATED" | "MAIN" | undefined;
-        }[] | undefined;
+        content_scripts?:
+            | Array<{
+                matches?: string[] | undefined;
+                exclude_matches?: string[] | undefined;
+                css?: string[] | undefined;
+                js?: string[] | undefined;
+                run_at?: string | undefined;
+                all_frames?: boolean | undefined;
+                match_about_blank?: boolean | undefined;
+                include_globs?: string[] | undefined;
+                exclude_globs?: string[] | undefined;
+                world?: "ISOLATED" | "MAIN" | undefined;
+            }>
+            | undefined;
         content_security_policy?: {
             extension_pages?: string;
             sandbox?: string;
@@ -7441,7 +7467,7 @@ declare namespace chrome.runtime {
         host_permissions?: string[] | undefined;
         optional_permissions?: ManifestPermissions[] | undefined;
         permissions?: ManifestPermissions[] | undefined;
-        web_accessible_resources?: { resources: string[]; matches: string[] }[] | undefined;
+        web_accessible_resources?: Array<{ resources: string[]; matches: string[] }> | undefined;
     }
 
     export type Manifest = ManifestV2 | ManifestV3;
@@ -7782,7 +7808,7 @@ declare namespace chrome.scripting {
      */
     export function executeScript<Args extends any[], Result>(
         injection: ScriptInjection<Args, Result>,
-    ): Promise<InjectionResult<Awaited<Result>>[]>;
+    ): Promise<Array<InjectionResult<Awaited<Result>>>>;
 
     /**
      * Injects a script into a target context. The script will be run at document_end.
@@ -7793,7 +7819,7 @@ declare namespace chrome.scripting {
      */
     export function executeScript<Args extends any[], Result>(
         injection: ScriptInjection<Args, Result>,
-        callback: (results: InjectionResult<Awaited<Result>>[]) => void,
+        callback: (results: Array<InjectionResult<Awaited<Result>>>) => void,
     ): void;
 
     /**
@@ -11269,10 +11295,12 @@ declare namespace chrome.webRequest {
 
     export interface WebRequestBodyEvent extends
         chrome.events.EventWithRequiredFilterInAddListener<
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             (details: WebRequestBodyDetails) => BlockingResponse | void
         >
     {
         addListener(
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             callback: (details: WebRequestBodyDetails) => BlockingResponse | void,
             filter: RequestFilter,
             opt_extraInfoSpec?: string[],
@@ -11281,10 +11309,12 @@ declare namespace chrome.webRequest {
 
     export interface WebRequestHeadersSynchronousEvent extends
         chrome.events.EventWithRequiredFilterInAddListener<
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             (details: WebRequestHeadersDetails) => BlockingResponse | void
         >
     {
         addListener(
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             callback: (details: WebRequestHeadersDetails) => BlockingResponse | void,
             filter: RequestFilter,
             opt_extraInfoSpec?: string[],
@@ -11309,10 +11339,12 @@ declare namespace chrome.webRequest {
 
     export interface WebResponseHeadersEvent extends
         chrome.events.EventWithRequiredFilterInAddListener<
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             (details: WebResponseHeadersDetails) => BlockingResponse | void
         >
     {
         addListener(
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             callback: (details: WebResponseHeadersDetails) => BlockingResponse | void,
             filter: RequestFilter,
             opt_extraInfoSpec?: string[],
@@ -12332,6 +12364,17 @@ declare namespace chrome.declarativeNetRequest {
         removeRuleIds?: number[] | undefined;
     }
 
+    export interface UpdateStaticRulesOptions {
+        /** Set of ids corresponding to rules in the Ruleset to disable. */
+        disableRuleIds?: number[];
+
+        /** Set of ids corresponding to rules in the Ruleset to enable. */
+        enableRuleIds?: number[];
+
+        /** The id corresponding to a static Ruleset. */
+        rulesetId: string;
+    }
+
     export interface UpdateRulesetOptions {
         /** The set of ids corresponding to a static Ruleset that should be disabled. */
         disableRulesetIds?: string[] | undefined;
@@ -12548,6 +12591,15 @@ declare namespace chrome.declarativeNetRequest {
      */
     export function updateSessionRules(options: UpdateRuleOptions): Promise<void>;
 
+    /** Disables and enables individual static rules in a Ruleset.
+     * Changes to rules belonging to a disabled Ruleset will take effect the next time that it becomes enabled.
+     *
+     * @return The `updateStaticRules` method either calls a provided callback if its finished or returns as a `Promise` (MV3 only).
+     * @since Chrome 111
+     */
+    export function updateStaticRules(options: UpdateStaticRulesOptions): Promise<void>;
+    export function updateStaticRules(options: UpdateStaticRulesOptions, callback?: () => void): void;
+
     /** The rule that has been matched along with information about the associated request. */
     export interface RuleMatchedDebugEvent extends chrome.events.Event<(info: MatchedRuleInfoDebug) => void> {}
 
@@ -12566,31 +12618,139 @@ declare namespace chrome.declarativeNetRequest {
  */
 declare namespace chrome.sidePanel {
     export interface GetPanelOptions {
+        /**
+         * If specified, the side panel options for the given tab will be returned.
+         * Otherwise, returns the default side panel options (used for any tab that doesn't have specific settings).
+         */
         tabId?: number;
     }
 
+    /**
+     * @since Chrome 116
+     */
+    export type OpenOptions =
+        & {
+            /** The tab in which to open the side panel.
+             * If the corresponding tab has a tab-specific side panel, the panel will only be open for that tab.
+             * If there is not a tab-specific panel, the global panel will be open in the specified tab and any other tabs without a currently-open tab- specific panel.
+             * This will override any currently-active side panel (global or tab-specific) in the corresponding tab.
+             * At least one of this and windowId must be provided. */
+            tabId?: number;
+            /**
+             * The window in which to open the side panel.
+             * This is only applicable if the extension has a global (non-tab-specific) side panel or tabId is also specified.
+             * This will override any currently-active global side panel the user has open in the given window.
+             * At least one of this and tabId must be provided.
+             */
+            windowId?: number;
+        }
+        & ({
+            tabId: number;
+        } | {
+            windowId: number;
+        });
+
     export interface PanelBehavior {
+        /** Whether clicking the extension's icon will toggle showing the extension's entry in the side panel. Defaults to false. */
         openPanelOnActionClick?: boolean;
     }
 
     export interface PanelOptions {
+        /** Whether the side panel should be enabled. This is optional. The default value is true. */
         enabled?: boolean;
+        /** The path to the side panel HTML file to use. This must be a local resource within the extension package. */
         path?: string;
+        /**
+         * If specified, the side panel options will only apply to the tab with this id.
+         * If omitted, these options set the default behavior (used for any tab that doesn't have specific settings).
+         * Note: if the same path is set for this tabId and the default tabId, then the panel for this tabId will be a different instance than the panel for the default tabId.
+         */
         tabId?: number;
     }
 
     export interface SidePanel {
+        /** Developer specified path for side panel display. */
         default_path: string;
     }
 
+    /**
+     * Returns the active panel configuration.
+     * Promises are supported in Manifest V3 and later, but callbacks are provided for backward compatibility.
+     * You cannot use both on the same function call.
+     * The promise resolves with the same type that is passed to the callback.
+     */
     export function getOptions(
+        /** Specifies the context to return the configuration for. */
         options: GetPanelOptions,
-        callback?: (options: PanelOptions) => void,
+        callback: (options: PanelOptions) => void,
+    ): void;
+
+    export function getOptions(
+        /** Specifies the context to return the configuration for. */
+        options: GetPanelOptions,
     ): Promise<PanelOptions>;
 
-    export function getPanelBehavior(callback?: (behavior: PanelBehavior) => void): Promise<PanelBehavior>;
+    /**
+     * Returns the extension's current side panel behavior.
+     * Promises are supported in Manifest V3 and later, but callbacks are provided for backward compatibility.
+     * You cannot use both on the same function call.
+     * The promise resolves with the same type that is passed to the callback.
+     */
+    export function getPanelBehavior(
+        callback: (behavior: PanelBehavior) => void,
+    ): void;
 
-    export function setOptions(options: PanelOptions, callback?: () => void): Promise<void>;
+    export function getPanelBehavior(): Promise<PanelBehavior>;
 
-    export function setPanelBehavior(behavior: PanelBehavior, callback?: () => void): Promise<void>;
+    /**
+     * @since Chrome 116
+     * Opens the side panel for the extension. This may only be called in response to a user action.
+     * Promises are supported in Manifest V3 and later, but callbacks are provided for backward compatibility.
+     * You cannot use both on the same function call.
+     * The promise resolves with the same type that is passed to the callback.
+     */
+    export function open(
+        /** Specifies the context in which to open the side panel. */
+        options: OpenOptions,
+        callback: () => void,
+    ): void;
+
+    export function open(
+        /** Specifies the context in which to open the side panel. */
+        options: OpenOptions,
+    ): Promise<void>;
+
+    /**
+     * Configures the side panel.
+     * Promises are supported in Manifest V3 and later, but callbacks are provided for backward compatibility.
+     * You cannot use both on the same function call.
+     * The promise resolves with the same type that is passed to the callback.
+     */
+    export function setOptions(
+        /** The configuration options to apply to the panel. */
+        options: PanelOptions,
+        callback: () => void,
+    ): void;
+
+    export function setOptions(
+        /** The configuration options to apply to the panel. */
+        options: PanelOptions,
+    ): Promise<void>;
+
+    /**
+     * Configures the extension's side panel behavior. This is an upsert operation.
+     * Promises are supported in Manifest V3 and later, but callbacks are provided for backward compatibility.
+     * You cannot use both on the same function call.
+     * The promise resolves with the same type that is passed to the callback.
+     */
+    export function setPanelBehavior(
+        /** The new behavior to be set. */
+        behavior: PanelBehavior,
+        callback: () => void,
+    ): void;
+
+    export function setPanelBehavior(
+        /** The new behavior to be set. */
+        behavior: PanelBehavior,
+    ): Promise<void>;
 }

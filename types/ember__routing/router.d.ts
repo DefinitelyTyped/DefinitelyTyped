@@ -39,7 +39,7 @@ export default class Router extends EmberObject {
     transitionTo(name: string, options: {}): Transition;
 }
 
-// tslint:disable-next-line:no-empty-interface -- used for declaration merge
+// eslint-disable-next-line @typescript-eslint/no-empty-interface -- used for declaration merge
 export default interface Router extends Evented {}
 
 declare module "@ember/service" {

@@ -11,8 +11,6 @@
         "forceConsistentCasingInFileNames": true,
         "strictFunctionTypes": true,
         "noEmit": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": []
     },
     "files": [

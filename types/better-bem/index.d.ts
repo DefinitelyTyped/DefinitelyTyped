@@ -1,9 +1,3 @@
-// Type definitions for better-bem 1.1
-// Project: https://github.com/LuudJacobs/better-bem#readme
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
-
 // Definition taken from:
 // https://github.com/LuudJacobs/better-bem#classname-parameter-usage
 type Parameter = string | Record<string, any>;

@@ -76,7 +76,7 @@ const createWorkingLocationEvent = (): void => {
     start.setHours(10);
     end.setHours(11);
     let event: GoogleAppsScript.Calendar.Schema.Event = {
-        creator: { "self": true, "email": "alice@example.com" },
+        creator: { self: true, email: "alice@example.com" },
         workingLocationProperties: {
             officeLocation: {
                 buildingId: "The-Office",
@@ -89,9 +89,9 @@ const createWorkingLocationEvent = (): void => {
         visibility: "public",
         transparency: "transparent",
         created: "2023-05-30T14:47:58.000Z",
-        originalStartTime: { "date": "2023-09-25" },
+        originalStartTime: { date: "2023-09-25" },
         eventType: "workingLocation",
-        organizer: { "email": "bob@example.com", "self": true },
+        organizer: { email: "bob@example.com", self: true },
         start: {
             date: "2023-09-25",
         },
@@ -380,7 +380,7 @@ const handleCalendarAction = (e: GoogleAppsScript.Addons.EventObject) => {
     const ev = cal.getEventById(recurringEventId);
 
     // $ExpectType string[]
-    const attends: typeof attendees[number]["displayName"][] = ev.getGuestList().map(guest => guest.getName());
+    const attends: Array<(typeof attendees)[number]["displayName"]> = ev.getGuestList().map((guest) => guest.getName());
 
     console.log({ attends });
 
@@ -552,7 +552,7 @@ const handleCommonAction = (e: GoogleAppsScript.Addons.EventObject) => {
         const formattedDate = Utilities.formatDate(now, timeZone.id, "MM/dd/yyyy");
         const formattedTime = Utilities.formatDate(now, timeZone.id, "hh:mm a");
 
-        Object.keys(formInputs).forEach(id => {
+        Object.keys(formInputs).forEach((id) => {
             const {
                 // V8
                 dateInput,
@@ -682,7 +682,7 @@ const makeGridItem = ({ id, subtitle, title, ...options }: GridItemOptions) => {
 const makeGrid = ({ items, ...options }: GridOptions) => {
     // $ExpectType Grid
     const grid = CardService.newGrid();
-    items.forEach(item => grid.addItem(item));
+    items.forEach((item) => grid.addItem(item));
 
     const action = CardService.newAction();
     action.setFunctionName("somefunc");
@@ -765,9 +765,7 @@ const formAppParagraphTextValidation = FormApp.createParagraphTextValidation()
     .setHelpText("Hey! You put a string in your string!")
     .build();
 
-const mimeTypes: string[] = [
-    MimeType.GOOGLE_APPS_SCRIPT,
-];
+const mimeTypes: string[] = [MimeType.GOOGLE_APPS_SCRIPT];
 
 // analytics reporting test
 const analyticsReporting = () => {
@@ -903,4 +901,25 @@ const sheetDataSource = () => {
     dss.setColumnWidths(["column1"], 100);
     dss.setSortSpec("column1", true);
     dss.waitForCompletion(10);
+};
+
+// Drive Activity (Advanced service)
+const driveActivity = () => {
+    const response = DriveActivity.Activity.query({ pageSize: 10, filter: "time > 1452409200000" });
+    for (const activity of response.activities) {
+        const originalObject = activity.primaryActionDetail.create?.copy?.originalObject;
+        if (originalObject) {
+            console.log(originalObject.driveItem.file); // DriveFileReference.file is deprecated
+            console.log(originalObject.driveItem.driveFile);
+            console.log(originalObject.driveItem.folder); // DriveFileReference.folder is deprecated
+            console.log(originalObject.driveItem.driveFolder);
+        }
+        for (const target of activity.targets) {
+            const driveItem = target.driveItem;
+            console.log(driveItem.file); // DriveFile.file is deprecated
+            console.log(driveItem.driveFile);
+            console.log(driveItem.folder); // DriveFile.folder is deprecated
+            console.log(driveItem.driveFolder);
+        }
+    }
 };

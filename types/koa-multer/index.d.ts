@@ -1,9 +1,3 @@
-// Type definitions for koa-multer 1.0
-// Project: https://github.com/koa-modules/multer
-// Definitions by: benstevens48 <https://github.com/benstevens48>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-
 /**
  * @file
  * These definitions are based on the type definitions for multer - https://github.com/expressjs/multer - found on DefinitelyTyped.

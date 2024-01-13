@@ -9,36 +9,6 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
-        "paths": {
-            "ag-channel": [
-                "ag-channel/v4"
-            ],
-            "async-stream-emitter": [
-                "async-stream-emitter/v3"
-            ],
-            "consumable-stream": [
-                "consumable-stream/v1"
-            ],
-            "socketcluster-client": [
-                "socketcluster-client/v15"
-            ],
-            "socketcluster-client/*": [
-                "socketcluster-client/v15/*"
-            ],
-            "socketcluster-server": [
-                "socketcluster-server/v15"
-            ],
-            "stream-demux": [
-                "stream-demux/v7"
-            ],
-            "writable-consumable-stream": [
-                "writable-consumable-stream/v1"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

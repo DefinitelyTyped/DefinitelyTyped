@@ -1,9 +1,3 @@
-// Type definitions for axon 2.0
-// Project: https://github.com/visionmedia/axon#readme
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

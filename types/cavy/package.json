@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/cavy",
+    "version": "3.2.9999",
+    "projects": [
+        "https://github.com/pixielabs/cavy"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/cavy": "workspace:.",
+        "react-native": "*"
+    },
+    "owners": [
+        {
+            "name": "Tyler Hoffman",
+            "githubUsername": "tyler-hoffman"
+        },
+        {
+            "name": "Abigail McPhillips",
+            "githubUsername": "AbigailMcP"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for bluebird 3.5
-// Project: https://github.com/petkaantonov/bluebird
-// Definitions by: Leonard Hecker <https://github.com/lhecker>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /*!
  * The code following this comment originates from:
  *   https://github.com/types/npm-bluebird

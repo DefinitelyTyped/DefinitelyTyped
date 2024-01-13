@@ -10,7 +10,7 @@ interface MyData extends Slick.SlickData {
 }
 
 var grid: Slick.Grid<MyData>;
-var columns: Slick.Column<MyData>[] = [
+var columns: Array<Slick.Column<MyData>> = [
     { id: "title", name: "Title", field: "title" },
     { id: "duration", name: "Duration", field: "duration" },
     { id: "%", name: "% Complete", field: "percentComplete" },

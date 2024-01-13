@@ -1,7 +1,3 @@
-// Type definitions for kahoot.js-updated 2.4
-// Project: https://github.com/theusaf/kahoot.js-updated
-// Definitions by: Adam Thompson-Sharpe <https://github.com/MysteryBlokHed>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
 import EventEmitter = require("events");
@@ -54,6 +50,7 @@ declare namespace Kahoot {
             }
             | undefined;
 
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         proxy?: ((options: RequestOptions) => void | RequestOptions) | undefined;
         wsproxy?: ((url: string) => WsProxyReturn) | undefined;
     }

@@ -1,13 +1,3 @@
-// Type definitions for node-red 1.3
-// Project: https://github.com/node-red/node-red/tree/master/packages/node_modules/node-red, https://nodered.org/
-// Definitions by: Anders E. Andersen <https://github.com/andersea>
-//                 Thomas B. Mørch <https://github.com/tbowmo>
-//                 Bernardo Belchior <https://github.com/bernardobelchior>
-//                 Alex Kaul <https://github.com/alexk111>
-//                 Tadeusz Wyrzykowski <https://github.com/Shaquu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.7
-
 // tslint:disable:no-empty-interface
 
 import { EventEmitter } from "events";

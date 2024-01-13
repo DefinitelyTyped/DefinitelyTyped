@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/node-barion",
+    "version": "3.1.9999",
+    "projects": [
+        "https://github.com/aron123/node-barion"
+    ],
+    "devDependencies": {
+        "@types/node-barion": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Áron Kiss",
+            "githubUsername": "aron123"
+        }
+    ]
+}

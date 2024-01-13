@@ -1,5 +1,5 @@
-import { Vector } from './../../math/Vector2.js';
-import { Vector3 } from './../../math/Vector3.js';
+import { Vector } from '../../math/Vector2.js';
+import { Vector3 } from '../../math/Vector3.js';
 
 /**
  * An abstract base class for creating a {@link Curve} object that contains methods for interpolation
@@ -82,7 +82,7 @@ export abstract class Curve<T extends Vector> {
     getLengths(divisions?: number): number[];
 
     /**
-     * Update the cumlative segment distance cache
+     * Update the cumulative segment distance cache
      * @remarks
      * The method must be called every time {@link Curve} parameters are changed
      * If an updated {@link Curve} is part of a composed {@link Curve} like {@link THREE.CurvePath | CurvePath},

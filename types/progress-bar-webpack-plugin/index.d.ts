@@ -1,9 +1,3 @@
-// Type definitions for progress-bar-webpack-plugin 2.1
-// Project: https://github.com/clessg/progress-bar-webpack-plugin#readme
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import * as ProgressBar from "progress";
 import { Plugin } from "webpack";
 

@@ -1,9 +1,3 @@
-// Type definitions for cls-hooked 4.3
-// Project: https://github.com/jeff-lewis/cls-hooked
-// Definitions by: Leo Liang <https://github.com/aleung>
-//                 Lucian Buzzo <https://github.com/LucianBuzzo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

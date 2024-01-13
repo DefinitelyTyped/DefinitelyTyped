@@ -1,9 +1,3 @@
-// Type definitions for Gulp 3.8
-// Project: http://gulpjs.com
-// Definitions by: Drew Noakes <https://drewnoakes.com>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 /// <reference types="orchestrator" />
 /// <reference types="vinyl" />
@@ -79,7 +73,7 @@ declare namespace gulp {
          * @param glob a single glob or array of globs that indicate which files to watch for changes.
          * @param fn a callback or array of callbacks to be called on each change, or names of task(s) to run when a file changes, added with task().
          */
-        (glob: string | string[], fn: (WatchCallback | string)[]): NodeJS.EventEmitter;
+        (glob: string | string[], fn: Array<WatchCallback | string>): NodeJS.EventEmitter;
         /**
          * Watch files and do something when a file changes. This always returns an EventEmitter that emits change events.
          *
@@ -95,7 +89,7 @@ declare namespace gulp {
          * @param opt options, that are passed to the gaze library.
          * @param fn a callback or array of callbacks to be called on each change, or names of task(s) to run when a file changes, added with task().
          */
-        (glob: string | string[], opt: WatchOptions, fn: (WatchCallback | string)[]): NodeJS.EventEmitter;
+        (glob: string | string[], opt: WatchOptions, fn: Array<WatchCallback | string>): NodeJS.EventEmitter;
     }
 
     interface DestMethod {

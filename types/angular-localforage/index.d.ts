@@ -1,9 +1,3 @@
-// Type definitions for angular-localForage 1.2.2
-// Project: https://github.com/ocombe/angular-localForage
-// Definitions by: Stefan Steinhart <https://github.com/reppners>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="localforage" />
 /// <reference types="angular" />
 
@@ -29,15 +23,15 @@ declare module "angular" {
             setDriver(name: string | string[]): angular.IPromise<void>;
 
             setItem(key: string, value: any): angular.IPromise<void>;
-            setItem(keys: Array<string>, values: Array<any>): angular.IPromise<void>;
+            setItem(keys: string[], values: any[]): angular.IPromise<void>;
 
             getItem(key: string): angular.IPromise<any>;
-            getItem(keys: Array<string>): angular.IPromise<Array<any>>;
+            getItem(keys: string[]): angular.IPromise<any[]>;
 
-            removeItem(key: string | Array<string>): angular.IPromise<void>;
+            removeItem(key: string | string[]): angular.IPromise<void>;
 
             pull(key: string): angular.IPromise<any>;
-            pull(keys: Array<string>): angular.IPromise<Array<any>>;
+            pull(keys: string[]): angular.IPromise<any[]>;
 
             clear(): angular.IPromise<void>;
 

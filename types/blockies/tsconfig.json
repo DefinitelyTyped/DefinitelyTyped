@@ -9,11 +9,12 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "blockies-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "blockies-tests.ts"
+    ]
 }

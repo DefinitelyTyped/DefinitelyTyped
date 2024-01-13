@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-responsive-image",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/Dharmoslap/react-native-responsive-images#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-responsive-image": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "dimameshcharakou",
+            "githubUsername": "dimameshcharakou"
+        }
+    ]
+}

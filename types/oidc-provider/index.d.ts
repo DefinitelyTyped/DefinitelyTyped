@@ -1,8 +1,3 @@
-// Type definitions for oidc-provider 8.4
-// Project: https://github.com/panva/node-oidc-provider
-// Definitions by: Filip Skokan <https://github.com/panva>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as crypto from "node:crypto";
 import * as dns from "node:dns";
 import * as events from "node:events";
@@ -226,6 +221,7 @@ declare class Session extends BaseModel {
         }
         | undefined;
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     authTime(): string | void;
     past(age: number): boolean;
 
@@ -237,6 +233,7 @@ declare class Session extends BaseModel {
         loginTs?: number | undefined;
         transient?: boolean | undefined;
     }): void;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     authorizationFor(clientId: string): ClientAuthorizationState | void;
     sidFor(clientId: string): string;
     sidFor(clientId: string, value: string): void;
@@ -883,13 +880,13 @@ export interface AdapterPayload extends AllClientMetadata {
 }
 
 export interface Adapter {
-    upsert(id: string, payload: AdapterPayload, expiresIn: number): Promise<undefined | void>; // tslint:disable-line:void-return
-    find(id: string): Promise<AdapterPayload | undefined | void>; // tslint:disable-line:void-return
-    findByUserCode(userCode: string): Promise<AdapterPayload | undefined | void>; // tslint:disable-line:void-return
-    findByUid(uid: string): Promise<AdapterPayload | undefined | void>; // tslint:disable-line:void-return
-    consume(id: string): Promise<undefined | void>; // tslint:disable-line:void-return
-    destroy(id: string): Promise<undefined | void>; // tslint:disable-line:void-return
-    revokeByGrantId(grantId: string): Promise<undefined | void>; // tslint:disable-line:void-return
+    upsert(id: string, payload: AdapterPayload, expiresIn: number): Promise<undefined | void>; // eslint-disable-line @typescript-eslint/no-invalid-void-type
+    find(id: string): Promise<AdapterPayload | undefined | void>; // eslint-disable-line @typescript-eslint/no-invalid-void-type
+    findByUserCode(userCode: string): Promise<AdapterPayload | undefined | void>; // eslint-disable-line @typescript-eslint/no-invalid-void-type
+    findByUid(uid: string): Promise<AdapterPayload | undefined | void>; // eslint-disable-line @typescript-eslint/no-invalid-void-type
+    consume(id: string): Promise<undefined | void>; // eslint-disable-line @typescript-eslint/no-invalid-void-type
+    destroy(id: string): Promise<undefined | void>; // eslint-disable-line @typescript-eslint/no-invalid-void-type
+    revokeByGrantId(grantId: string): Promise<undefined | void>; // eslint-disable-line @typescript-eslint/no-invalid-void-type
 }
 
 export type AdapterFactory = (name: string) => Adapter;
@@ -1037,7 +1034,7 @@ export interface Configuration {
                             [key: string]: (
                                 ctx: KoaContextWithOIDC,
                                 metadata: ClientMetadata,
-                            ) => CanBePromise<undefined | void>; // tslint:disable-line:void-return
+                            ) => CanBePromise<undefined | void>; // eslint-disable-line @typescript-eslint/no-invalid-void-type
                         }
                         | undefined;
                     idFactory?: ((ctx: KoaContextWithOIDC) => string) | undefined;
@@ -1065,7 +1062,7 @@ export interface Configuration {
                             form: string,
                             out?: ErrorOut,
                             err?: errors.OIDCProviderError | Error,
-                        ) => CanBePromise<undefined | void>) // tslint:disable-line:void-return
+                        ) => CanBePromise<undefined | void>) // eslint-disable-line @typescript-eslint/no-invalid-void-type
                         | undefined;
                     userCodeConfirmSource?:
                         | ((
@@ -1074,9 +1071,9 @@ export interface Configuration {
                             client: Client,
                             deviceInfo: UnknownObject,
                             userCode: string,
-                        ) => CanBePromise<undefined | void>) // tslint:disable-line:void-return
+                        ) => CanBePromise<undefined | void>) // eslint-disable-line @typescript-eslint/no-invalid-void-type
                         | undefined;
-                    successSource?: ((ctx: KoaContextWithOIDC) => CanBePromise<undefined | void>) | undefined; // tslint:disable-line:void-return
+                    successSource?: ((ctx: KoaContextWithOIDC) => CanBePromise<undefined | void>) | undefined; // eslint-disable-line @typescript-eslint/no-invalid-void-type
                 }
                 | undefined;
 
@@ -1172,10 +1169,10 @@ export interface Configuration {
                 | {
                     enabled?: boolean | undefined;
                     postLogoutSuccessSource?:
-                        | ((ctx: KoaContextWithOIDC) => CanBePromise<undefined | void>) // tslint:disable-line:void-return
+                        | ((ctx: KoaContextWithOIDC) => CanBePromise<undefined | void>) // eslint-disable-line @typescript-eslint/no-invalid-void-type
                         | undefined;
                     logoutSource?:
-                        | ((ctx: KoaContextWithOIDC, form: string) => CanBePromise<undefined | void>) // tslint:disable-line:void-return
+                        | ((ctx: KoaContextWithOIDC, form: string) => CanBePromise<undefined | void>) // eslint-disable-line @typescript-eslint/no-invalid-void-type
                         | undefined;
                 }
                 | undefined;
@@ -1309,6 +1306,7 @@ export interface Configuration {
                     key: string,
                     value: unknown,
                     metadata: ClientMetadata,
+                    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 ) => void | undefined)
                 | undefined;
         }
@@ -1321,7 +1319,7 @@ export interface Configuration {
             ctx: KoaContextWithOIDC,
             out: ErrorOut,
             error: errors.OIDCProviderError | Error,
-        ) => CanBePromise<undefined | void>) // tslint:disable-line:void-return
+        ) => CanBePromise<undefined | void>) // eslint-disable-line @typescript-eslint/no-invalid-void-type
         | undefined;
 
     allowOmittingSingleRegisteredRedirectUri?: boolean | undefined;

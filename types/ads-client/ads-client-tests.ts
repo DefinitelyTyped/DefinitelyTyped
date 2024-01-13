@@ -13,6 +13,11 @@ async function usage() {
     const res = await client.readSymbol("GVL_Test.TestTimer");
     console.log("Value read:", res.value);
 
+    const res2 = await client.readSymbol("GVL_Test.ImaginaryEnum");
+    const plcEnum = res2.value as ads.PLCEnum;
+    console.log("Enum name:", plcEnum.name);
+    console.log("Enum value:", plcEnum.value);
+
     await client.writeSymbol("GVL_ReadingAndWriting.StructPackMode8", true);
     await client.writeSymbol("GVL_ReadingAndWriting.String", "ABC");
     await client.writeSymbol("GVL_ReadingAndWriting.Number", 10);
@@ -172,4 +177,7 @@ async function usage() {
     client.on("plcRuntimeStateChange", state => {
         console.log("State is now:", state);
     });
+
+    const state = await client.readPlcRuntimeState();
+    console.log(state.adsStateStr, state.adsState, state.deviceState);
 }

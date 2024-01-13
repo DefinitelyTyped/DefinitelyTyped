@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/handlebars-helpers",
+    "version": "0.5.9999",
+    "projects": [
+        "http://assemble.io/helpers/",
+        "https://github.com/helpers/handlebars-helpers"
+    ],
     "dependencies": {
         "handlebars": ">=4.1.0"
-    }
+    },
+    "devDependencies": {
+        "@types/handlebars-helpers": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Toilal",
+            "githubUsername": "Toilal"
+        }
+    ]
 }

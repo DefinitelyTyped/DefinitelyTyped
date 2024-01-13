@@ -1,0 +1,40 @@
+{
+    "private": true,
+    "name": "@types/express-http-proxy",
+    "version": "1.6.9999",
+    "projects": [
+        "https://github.com/villadora/express-http-proxy#readme"
+    ],
+    "dependencies": {
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/express-http-proxy": "workspace:."
+    },
+    "owners": [
+        {
+            "name": " ulrichb",
+            "githubUsername": "ulrichb"
+        },
+        {
+            "name": "Daniel Schopf",
+            "githubUsername": "Danscho"
+        },
+        {
+            "name": "Gabriel Fournier",
+            "githubUsername": "carboneater"
+        },
+        {
+            "name": "Niek van Bennekom",
+            "githubUsername": "niekvb"
+        },
+        {
+            "name": "John L. Singleton",
+            "githubUsername": "jsinglet"
+        },
+        {
+            "name": "Lindsay Wardell",
+            "githubUsername": "lindsaykwardell"
+        }
+    ]
+}

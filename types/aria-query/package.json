@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/aria-query",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/A11yance/aria-query#readme"
+    ],
+    "devDependencies": {
+        "@types/aria-query": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sebastian Silbermann",
+            "githubUsername": "eps1lon"
+        }
+    ]
+}

@@ -1,9 +1,3 @@
-// Type definitions for use-subscription 1.0
-// Project: https://github.com/facebook/react/
-// Definitions by: Sebastian Silbermann <https://github.com/eps1lon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 export type Unsubscribe = () => void;
 
 export interface Subscription<T> {

@@ -1,9 +1,3 @@
-// Type definitions for meteor-sjobs 4.0
-// Project: https://github.com/msavin/SteveJobs
-// Definitions by: Witold H <https://github.com/LinearMilk/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 /// <reference types="meteor" />
 
 // eslint-disable-next-line @definitelytyped/no-single-declare-module
@@ -139,6 +133,7 @@ declare module "meteor/msavin:sjobs" {
          * At the end, you can pass in a special configuration object. Otherwise, it will be scheduled to run as soon as possible.
          */
         static run: (jobname: string, ...args: any[]) => void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         static find: (...args: any[]) => false | void;
         /** Allows you to run a job ahead of its due date. It can only work on jobs that have not been resolved. */
         static execute: (docId: string) => void;

@@ -5,6 +5,6 @@ declare class ArgsError {
     private _name;
 }
 declare namespace ArgsError {
-    const REQUIRED_PARAMETER: number;
-    const INVALID_PARAMETER_TYPE: number;
+    let REQUIRED_PARAMETER: number;
+    let INVALID_PARAMETER_TYPE: number;
 }

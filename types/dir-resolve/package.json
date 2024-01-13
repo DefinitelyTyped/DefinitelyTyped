@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/dir-resolve",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/mwinche/dir-resolve"
+    ],
+    "devDependencies": {
+        "@types/dir-resolve": "workspace:."
+    },
+    "owners": []
+}

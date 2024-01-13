@@ -1,0 +1,39 @@
+{
+    "private": true,
+    "name": "@types/doubleclick-gpt",
+    "version": "2019111201.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Google Publisher Tag",
+    "projects": [
+        "https://developers.google.com/doubleclick-gpt/reference"
+    ],
+    "devDependencies": {
+        "@types/doubleclick-gpt": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "John Wright",
+            "githubUsername": "johngeorgewright"
+        },
+        {
+            "name": "Steven Joyce",
+            "githubUsername": "steven-joyce"
+        },
+        {
+            "name": "Joe Flateau",
+            "githubUsername": "joeflateau"
+        },
+        {
+            "name": "Vanessa Garcia",
+            "githubUsername": "vanessa-lyn"
+        },
+        {
+            "name": "Krishna Glick",
+            "githubUsername": "krishnaglick"
+        },
+        {
+            "name": "Linus Thiel",
+            "githubUsername": "linus"
+        }
+    ]
+}

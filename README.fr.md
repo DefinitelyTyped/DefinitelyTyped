@@ -52,15 +52,11 @@ Si vous ne trouvez toujours pas les typages, recherchez simplement les fichiers 
 
 Definitely Typed ne teste que les paquets sur des versions de TypeScript datant de moins de 2 ans.
 
-<details>
-<summary>Actuellement, les versions 4.1 et supérieures sont testées...</summary>
-
-Si vous utilisez TypeScript 2.0 à 4.0, vous pouvez toujours essayer d'installer les paquets `@types` &mdash ; la majorité des paquets n'utilisent pas les nouvelles fonctionnalités fantaisistes de TypeScript.
-Mais rien ne garantit qu'ils fonctionneront.
-Voici le support de version:
-
 <img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
 <img src="docs/support-window.svg#gh-dark-mode-only" style="width:100%">
+
+<details>
+<summary>Anciennes versions de TypeScript</summary>
 
 Les paquets `@types` ont des étiquettes pour les versions de TypeScript qu'ils supportent explicitement, de sorte que vous pouvez généralement obtenir des versions plus anciennes de paquets qui précèdent la fenêtre de 2 ans.
 Par exemple, si vous lancez `npm dist-tags @types/react`, vous verrez que TypeScript 2.5 peut utiliser les types pour react@16.0, alors que TypeScript 2.6 et 2.7 peuvent utiliser les types pour react@16.4 :
@@ -177,7 +173,6 @@ Votre paquet doit avoir cette structure :
 | `index.d.ts`  | Il contient les typages du paquet. |
 | [`<mon-paquet>-tests.ts`](#mon-paquet-teststs)  | Il contient un exemple de code qui teste les typages. Ce code *ne* s'exécute pas, mais il est vérifié. |
 | [`tsconfig.json`](#tsconfigjson) | Cela vous permet d'exécuter `tsc` à l'intérieur du paquet. |
-| [`tslint.json`](#linter-tslintjson)   | Activer le linting |
 | [`.eslintrc.json`](#linter-eslintrcjson)   | (Rarement) Nécessaire uniquement pour désactiver les règles de lint écrites pour eslint. |
 
 Vous pouvez les générer en lançant `npx dts-gen --dt --name <mon-paquet> --template module` si vous avez npm ≥ 5.2.0, `npm install -g dts-gen` et `dts-gen --dt --name <mon-paquet> --template module` dans le cas contraire.
@@ -281,17 +276,9 @@ f("one");
 
 Pour plus de détails, voir le readme de [dtslint](https://github.com/Microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint#write-tests).
 
-#### Linter: `tslint.json`
-
-Le fichier de configuration du linter, `tslint.json` doit contenir `{ "extends" : "@definitelytyped/dtslint/dt.json" }`, et aucune règle supplémentaire.
-
-Si, pour une raison quelconque, une règle doit être désactivée, [désactivez-la pour cette ligne spécifique](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Désactive%20les%20règles%20listées%20pour%20la%20prochaine%20ligne) en utilisant `// tslint:disable-next-line:[nomRègle]` - pas pour tout le paquet, afin que la désactivation puisse être examinée. (Il y a quelques anciennes configurations de lint qui ont des contenus additionnels, mais cela ne devrait pas se produire dans un nouveau travail).
-
 ##### Linter: `.eslintrc.json`
 
-Definitely Typed est en train de passer à eslint pour le linting.
-Contrairement à tslint, vous n'avez pas besoin d'un fichier de configuration pour activer le linting.
-Comme pour tslint, vous devez désactiver des règles spécifiques uniquement sur des lignes spécifiques :
+Vous devez désactiver des règles spécifiques uniquement sur des lignes spécifiques :
 
 
 ```ts

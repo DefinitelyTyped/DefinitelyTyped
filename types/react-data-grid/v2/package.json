@@ -1,6 +1,33 @@
 {
     "private": true,
+    "name": "@types/react-data-grid",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/adazzle/react-data-grid.git"
+    ],
     "dependencies": {
-        "@types/faker": "^5.5.9"
-    }
+        "@types/faker": "^5.5.9",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-data-grid": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Simon Gellis",
+            "githubUsername": "SupernaviX"
+        },
+        {
+            "name": "Kieran Peat",
+            "githubUsername": "KieranPeat"
+        },
+        {
+            "name": "Martin Novak",
+            "githubUsername": "martinnov92"
+        },
+        {
+            "name": "Raghuram Iyer 'Ragzzy-R'",
+            "githubUsername": "Ragzzy-R"
+        }
+    ]
 }

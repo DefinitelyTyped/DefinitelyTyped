@@ -1,8 +1,3 @@
-// Type definitions for @duosecurity/duo_web 1.0
-// Project: https://www.duosecurity.com/docs/duoweb
-// Definitions by: Low Heok Hong <https://github.com/lhhong>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export const ERR_USER: string;
 export const ERR_IKEY: string;
 export const ERR_SKEY: string;

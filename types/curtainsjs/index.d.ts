@@ -1,8 +1,3 @@
-// Type definitions for curtainsjs 8.1
-// Project: https://github.com/martinlaxenaire/curtainsjs
-// Definitions by: Blakeinstein <https://github.com/Blakeinstein>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // * Internal
 
 export interface CallbackQueueItem {

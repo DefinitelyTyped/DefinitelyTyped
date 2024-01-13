@@ -1,8 +1,3 @@
-// Type definitions for triangle-wasm 1.0
-// Project: https://github.com/brunoimbrizi/triangle-wasm
-// Definitions by: Daniel Berlanga <https://github.com/danikaze>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface TriangulateSwitches {
     pslg?: boolean;
     quality?: boolean | number;

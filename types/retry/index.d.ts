@@ -1,10 +1,3 @@
-// Type definitions for retry 0.12
-// Project: https://github.com/tim-kos/node-retry
-// Definitions by: Stan Goldmann <https://github.com/krenor>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export interface RetryOperation {
     /**
      * Returns an array of all errors that have been passed to `retryOperation.retry()` so far.

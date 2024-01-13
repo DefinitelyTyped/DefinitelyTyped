@@ -1,9 +1,3 @@
-// Type definitions for proxy-from-env 1.0
-// Project: https://github.com/Rob--W/proxy-from-env#readme
-// Definitions by: JasonHK <https://github.com/JasonHK>
-//                 FloPes <https://github.com/flopes89>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Url } from "url";

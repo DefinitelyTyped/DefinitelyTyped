@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/ink-spinner",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/vadimdemedes/ink-spinner#readme"
+    ],
+    "dependencies": {
+        "@types/cli-spinners": "*",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/ink-spinner": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Łukasz Ostrowski",
+            "githubUsername": "lukostry"
+        },
+        {
+            "name": "Justin Anastos",
+            "githubUsername": "justinanastos"
+        }
+    ]
+}

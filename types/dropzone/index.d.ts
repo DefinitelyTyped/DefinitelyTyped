@@ -1,19 +1,3 @@
-// Type definitions for Dropzone 5.7.2
-// Project: http://www.dropzonejs.com/
-// Definitions by: Natan Vivo <https://github.com/nvivo>
-//                 Andy Hawkins <https://github.com/a904guy/,http://a904guy.com/,http://www.bmbsqd.com>
-//                 Vasya Aksyonov <https://github.com/outring>
-//                 Simon Huber <https://github.com/renuo>
-//                 Sebastiaan de Rooij <https://github.com/Hikariii>
-//                 Ted Bicknell <https://github.com/tedbcsgpro>
-//                 Daniel Waxweiler <https://github.com/dwaxweiler>
-//                 PikachuEXE <https://github.com/PikachuEXE>
-//                 Arne Deruwe <https://github.com/arnederuwe>
-//                 Chris Macklin <https://github.com/macklin-10x>
-//                 Michał Lipiński <https://github.com/falsyvalues>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 declare namespace Dropzone {
@@ -62,8 +46,8 @@ declare namespace Dropzone {
     }
 
     export interface DropzoneOptions {
-        url?: ((files: ReadonlyArray<DropzoneFile>) => string) | string | undefined;
-        method?: ((files: ReadonlyArray<DropzoneFile>) => string) | string | undefined;
+        url?: ((files: readonly DropzoneFile[]) => string) | string | undefined;
+        method?: ((files: readonly DropzoneFile[]) => string) | string | undefined;
         withCredentials?: boolean | undefined;
         timeout?: number | undefined;
         parallelUploads?: number | undefined;
@@ -90,7 +74,7 @@ declare namespace Dropzone {
         maxFiles?: number | undefined;
         params?: {} | undefined;
         headers?: { [key: string]: string } | undefined;
-        clickable?: boolean | string | HTMLElement | (string | HTMLElement)[] | undefined;
+        clickable?: boolean | string | HTMLElement | Array<string | HTMLElement> | undefined;
         ignoreHiddenFiles?: boolean | undefined;
         acceptedFiles?: string | undefined;
         renameFilename?(name: string): string;

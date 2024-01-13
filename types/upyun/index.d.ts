@@ -1,8 +1,3 @@
-// Type definitions for upyun 3.4
-// Project: https://github.com/upyun/node-sdk/
-// Definitions by: Zero <https://github.com/groupguanfang>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import buffer = require("node:buffer");

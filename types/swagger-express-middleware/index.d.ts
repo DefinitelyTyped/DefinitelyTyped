@@ -1,10 +1,3 @@
-// Type definitions for swagger-express-middleware 1.x
-// Project: https://github.com/BigstickCarpet/swagger-express-middleware
-// Definitions by: Alexandre Roba <https://github.com/alexandreroba>
-//                 Tromgy <https://github.com/tromgy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /* =================== USAGE ===================
 import * as express from "express";
 import * as SwaggerExpressMiddleware from "swagger-express-middleware";
@@ -257,7 +250,7 @@ declare module "swagger-express-middleware" {
              * If a string is provided, this is used as the secret.
              * If an array is provided, an attempt will be made to unsign the cookie with each secret in order.
              */
-            secret?: string | Array<string> | undefined;
+            secret?: string | string[] | undefined;
             /**
              *  an object that is passed to cookie.parse as the second option
              */
@@ -511,7 +504,7 @@ declare module "swagger-express-middleware" {
             [index: string]: ParameterObject;
         }
 
-        type Parameters = (ParameterObject | ReferenceObject)[];
+        type Parameters = Array<ParameterObject | ReferenceObject>;
 
         export interface ParameterObject {
             name: string;

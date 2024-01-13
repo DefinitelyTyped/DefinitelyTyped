@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/to-boolean",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/rafaelrinaldi/to-boolean#readme"
+    ],
+    "devDependencies": {
+        "@types/to-boolean": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rajas Paranjpe",
+            "githubUsername": "ChocolateLoverRaj"
+        }
+    ]
+}

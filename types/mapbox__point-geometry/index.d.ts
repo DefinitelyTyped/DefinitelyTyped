@@ -1,9 +1,3 @@
-// Type definitions for @mapbox/point-geometry 0.1
-// Project: https://github.com/mapbox/point-geometry
-// Definitions by: Mathieu Maes <https://github.com/webberig>
-//                 Harel Mazor <https://github.com/HarelM>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class Point {
     x: number;
     y: number;

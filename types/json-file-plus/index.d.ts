@@ -1,10 +1,3 @@
-// Type definitions for json-file-plus 3.3
-// Project: https://github.com/ljharb/json-file-plus
-// Definitions by: Daniel Byrne <https://github.com/danwbyrne>
-//                 Jordan Harband <https://github.com/ljharb>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**

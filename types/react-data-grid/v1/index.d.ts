@@ -1,9 +1,3 @@
-// Type definitions for react-data-grid 1.0.4
-// Project: https://github.com/adazzle/react-data-grid.git
-// Definitions by: Simon Gellis <https://github.com/SupernaviX>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="react" />
 
 declare namespace AdazzleReactDataGrid {
@@ -17,7 +11,7 @@ declare namespace AdazzleReactDataGrid {
          * Gets the data to render in each row. Required.
          * Can be an array or a function that takes an index and returns an object.
          */
-        rowGetter: Array<Object> | ((rowIdx: number) => Object);
+        rowGetter: Object[] | ((rowIdx: number) => Object);
         /**
          * The total number of rows to render. Required.
          */
@@ -25,7 +19,7 @@ declare namespace AdazzleReactDataGrid {
         /**
          * The columns to render.
          */
-        columns?: Array<Column> | undefined;
+        columns?: Column[] | undefined;
 
         /**
          * Invoked when the user changes the value of a single cell.
@@ -147,7 +141,7 @@ declare namespace AdazzleReactDataGrid {
          * Called when a row is selected.
          * @param rows The (complete) current selection of rows.
          */
-        onRowSelect?: ((rows: Array<Object>) => void) | undefined;
+        onRowSelect?: ((rows: Object[]) => void) | undefined;
         /**
          * A property that's unique to every row.
          * This property is required to enable row selection.
@@ -182,11 +176,11 @@ declare namespace AdazzleReactDataGrid {
         rowSelection?: {
             showCheckbox?: boolean | undefined;
             enableShiftSelect?: boolean | undefined;
-            onRowsSelected?: ((rows: Array<SelectionParams>) => void) | undefined;
-            onRowsDeselected?: ((rows: Array<SelectionParams>) => void) | undefined;
+            onRowsSelected?: ((rows: SelectionParams[]) => void) | undefined;
+            onRowsDeselected?: ((rows: SelectionParams[]) => void) | undefined;
             selectBy?: {
-                indexes?: Array<number> | undefined;
-                keys?: { rowKey: string; values: Array<any> } | undefined;
+                indexes?: number[] | undefined;
+                keys?: { rowKey: string; values: any[] } | undefined;
                 isSelectedKey?: string | undefined;
             } | undefined;
         } | undefined;

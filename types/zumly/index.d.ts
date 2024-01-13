@@ -1,8 +1,3 @@
-// Type definitions for zumly 0.9
-// Project: https://zumly.org
-// Definitions by: edwinork <https://github.com/edwinork>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Zumly powers your apps with a zoomable user interface (ZUI) taste.
  */

@@ -1,9 +1,3 @@
-// Type definitions for Google+ Platform API 1.0
-// Project: https://developers.google.com/+/web/people/
-// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="gapi" />
 
 // See Google+ REST API Reference https://developers.google.com/+/web/api/rest/latest/
@@ -41,15 +35,15 @@ declare namespace gapi.client.plus {
             skills: string;
             birthday: string;
             gender: string;
-            emails: {
+            emails: Array<{
                 value: string;
                 type: string;
-            }[];
-            urls: {
+            }>;
+            urls: Array<{
                 value: string;
                 type: string;
                 label: string;
-            }[];
+            }>;
             objectType: string;
             id: string;
             displayName: string;
@@ -69,7 +63,7 @@ declare namespace gapi.client.plus {
             image: {
                 url: string;
             };
-            organizations: {
+            organizations: Array<{
                 name: string;
                 department: string;
                 title: string;
@@ -79,11 +73,11 @@ declare namespace gapi.client.plus {
                 location: string;
                 description: string;
                 primary: boolean;
-            }[];
-            placesLived: {
+            }>;
+            placesLived: Array<{
                 value: string;
                 primary: boolean;
-            }[];
+            }>;
             isPlusUser: boolean;
             language: string;
             ageRange: {

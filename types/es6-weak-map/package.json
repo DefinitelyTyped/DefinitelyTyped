@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/es6-weak-map",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/medikoo/es6-weak-map"
+    ],
+    "devDependencies": {
+        "@types/es6-weak-map": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Pine Mizune",
+            "githubUsername": "pine"
+        }
+    ]
+}

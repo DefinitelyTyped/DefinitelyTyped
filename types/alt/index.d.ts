@@ -1,9 +1,3 @@
-// Type definitions for Alt 0.16.10
-// Project: https://github.com/goatslacker/alt
-// Definitions by: Michael Shearer <https://github.com/Shearerbeard>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="react"/>
 
 declare namespace AltJS {
@@ -55,11 +49,11 @@ declare namespace AltJS {
     export interface SourceModel<S> {
         local?(state: any, ...args: any[]): any;
         remote(state: any, ...args: any[]): Promise<S>;
-        shouldFetch?(fetchFn: (...args: Array<any>) => boolean): void;
+        shouldFetch?(fetchFn: (...args: any[]) => boolean): void;
         loading?: ((args: any) => void) | undefined;
         success: (state: S) => void;
         error: (args: any) => void;
-        interceptResponse?(response: any, action: Action<any>, ...args: Array<any>): any;
+        interceptResponse?(response: any, action: Action<any>, ...args: any[]): any;
     }
 
     export interface AltStore<S> {
@@ -85,8 +79,8 @@ declare namespace AltJS {
     }
 
     export interface ActionsClass {
-        generateActions?(...action: Array<string>): void;
-        dispatch(...payload: Array<any>): void;
+        generateActions?(...action: string[]): void;
+        dispatch(...payload: any[]): void;
         actions?: Actions | undefined;
     }
 
@@ -96,15 +90,15 @@ declare namespace AltJS {
         dispatcher?: any;
         serialize?: ((serializeFn: (data: Object) => string) => void) | undefined;
         deserialize?: ((deserializeFn: (serialData: string) => Object) => void) | undefined;
-        storeTransforms?: Array<StateTransform> | undefined;
-        batchingFunction?: ((callback: (...data: Array<any>) => any) => void) | undefined;
+        storeTransforms?: StateTransform[] | undefined;
+        batchingFunction?: ((callback: (...data: any[]) => any) => void) | undefined;
     }
 
     class Alt {
         constructor(config?: AltConfig);
         actions: Actions;
         bootstrap(jsonData: string): void;
-        takeSnapshot(...storeNames: Array<string>): string;
+        takeSnapshot(...storeNames: string[]): string;
         flush(): Object;
         recycle(...stores: Array<AltJS.AltStore<any>>): void;
         rollback(): void;
@@ -113,8 +107,8 @@ declare namespace AltJS {
         // Actions methods
         addActions(actionsName: string, ActionsClass: ActionsClassConstructor): void;
         createActions<T>(ActionsClass: ActionsClassConstructor, exportObj?: Object): T;
-        createActions<T>(ActionsClass: ActionsClassConstructor, exportObj?: Object, ...constructorArgs: Array<any>): T;
-        generateActions<T>(...actions: Array<string>): T;
+        createActions<T>(ActionsClass: ActionsClassConstructor, exportObj?: Object, ...constructorArgs: any[]): T;
+        generateActions<T>(...actions: string[]): T;
         getActions(actionsName: string): AltJS.Actions;
 
         // Stores methods
@@ -129,8 +123,8 @@ declare namespace AltJS {
 
     type ActionsClassConstructor = new(alt: Alt) => AltJS.ActionsClass;
 
-    type ActionHandler = (...data: Array<any>) => any;
-    type ExportConfig = { [key: string]: (...args: Array<any>) => any };
+    type ActionHandler = (...data: any[]) => any;
+    type ExportConfig = { [key: string]: (...args: any[]) => any };
 }
 
 declare module "alt/utils/chromeDebug" {
@@ -146,7 +140,7 @@ declare module "alt/AltContainer" {
         stores?: Array<AltJS.AltStore<any>> | undefined;
         inject?: { [key: string]: any } | undefined;
         actions?: { [key: string]: Object } | undefined;
-        render?: ((...props: Array<any>) => React.ReactElement) | undefined;
+        render?: ((...props: any[]) => React.ReactElement) | undefined;
         flux?: AltJS.Alt | undefined;
         transform?: ((store: AltJS.AltStore<any>, actions: any) => any) | undefined;
         shouldComponentUpdate?: ((props: any) => boolean) | undefined;

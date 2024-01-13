@@ -1,9 +1,3 @@
-// Type definitions for co 4.6
-// Project: https://github.com/tj/co#readme
-// Definitions by: Doniyor Aliyev <https://github.com/doniyor2109>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
-
 // Since TS 3.6 the checker knows that the correct type of returned values and yielded values https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-6.html
 // Generator<T, TReturn, TNext> => TReturn
 // Function => ReturnType<Function>

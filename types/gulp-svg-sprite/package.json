@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/gulp-svg-sprite",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/jkphl/gulp-svg-sprite"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/svg-sprite": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-svg-sprite": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Qubo",
+            "githubUsername": "tkqubo"
+        }
+    ]
+}

@@ -1,10 +1,3 @@
-// Type definitions for cloneable-readable 2.0
-// Project: https://github.com/mcollina/cloneable-readable#readme
-// Definitions by: Nikita Volodin <https://github.com/qlonik>
-//                 Oleg Vaskevich <https://github.com/vaskevich>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node"/>
 
 import { Readable } from "stream";

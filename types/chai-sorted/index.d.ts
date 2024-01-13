@@ -1,8 +1,3 @@
-// Type definitions for chai-sorted 0.2
-// Project: https://github.com/johntimothybailey/chai-sorted#readme
-// Definitions by: Reinert Lemmens <https://github.com/reilem>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="chai" />
 
 declare global {

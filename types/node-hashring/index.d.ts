@@ -1,7 +1,3 @@
-// Type definitions for node-hashring 1.0
-// Project: https://github.com/sparkida/node-hashring#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 export = HashRing;
 
 /**

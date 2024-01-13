@@ -1,6 +1,19 @@
 import { Agent } from "http";
-import fetch, { Blob, FetchError, Headers, Request, RequestInit, Response } from "node-fetch";
+import fetch, { AbortError, Blob, FetchError, Headers, Request, RequestInit, Response } from "node-fetch";
 import { URL } from "url";
+
+function test_AbortError() {
+    const e = new AbortError("message");
+
+    // $ExpectType "aborted"
+    e.type;
+
+    // $ExpectType "AbortError"
+    e.name;
+
+    // $ExpectType string
+    e.message;
+}
 
 function test_fetchUrlWithOptions() {
     const headers = new Headers();
@@ -184,6 +197,7 @@ function test_headers() {
     [...headers.entries()]; // $ExpectType [string, string][]
     [...headers.keys()]; // $ExpectType string[]
     [...headers.values()]; // $ExpectType string[]
+    headers.raw(); // $ExpectType { [k: string]: string[]; }
 }
 
 function test_isRedirect() {
@@ -220,6 +234,20 @@ function test_ResponseInit() {
             status: response.status,
             statusText: response.statusText,
             headers: response.headers,
+            timeout: response.timeout,
+            counter: 5,
+        });
+    });
+}
+
+function test_ResponseInitRawHeaders() {
+    fetch("http://test.com", {}).then(response => {
+        new Response(response.body, {
+            url: response.url,
+            size: response.size,
+            status: response.status,
+            statusText: response.statusText,
+            headers: response.headers.raw(),
             timeout: response.timeout,
         });
     });

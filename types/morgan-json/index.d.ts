@@ -1,7 +1,3 @@
-// Type definitions for morgan-json 1.1
-// Project: https://github.com/indexzero/morgan-json#readme
-// Definitions by: Michal Grezel <https://github.com/dracomithril>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import morgan = require("morgan");
 
 interface Options {

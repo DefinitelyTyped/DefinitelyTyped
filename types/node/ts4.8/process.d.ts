@@ -903,6 +903,18 @@ declare module "process" {
                  */
                 readonly sourceMapsEnabled: boolean;
                 /**
+                 * This function enables or disables the [Source Map v3](https://sourcemaps.info/spec.html) support for
+                 * stack traces.
+                 *
+                 * It provides same features as launching Node.js process with commandline options`--enable-source-maps`.
+                 *
+                 * Only source maps in JavaScript files that are loaded after source maps has been
+                 * enabled will be parsed and loaded.
+                 * @since v16.6.0, v14.18.0
+                 * @experimental
+                 */
+                setSourceMapsEnabled(value: boolean): void;
+                /**
                  * The `process.version` property contains the Node.js version string.
                  *
                  * ```js
@@ -1075,7 +1087,7 @@ declare module "process" {
                 title: string;
                 /**
                  * The operating system CPU architecture for which the Node.js binary was compiled.
-                 * Possible values are: `'arm'`, `'arm64'`, `'ia32'`, `'mips'`,`'mipsel'`, `'ppc'`,`'ppc64'`, `'riscv64'`, `'s390'`, `'s390x'`, and `'x64'`.
+                 * Possible values are: `'arm'`, `'arm64'`, `'ia32'`, `'loong64'`, `'mips'`,`'mipsel'`, `'ppc'`, `'ppc64'`, `'riscv64'`, `'s390'`, `'s390x'`, and `'x64'`.
                  *
                  * ```js
                  * import { arch } from 'node:process';

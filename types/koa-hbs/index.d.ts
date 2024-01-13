@@ -1,9 +1,3 @@
-// Type definitions for koa-hbs v1.x
-// Project: https://github.com/gilt/koa-hbs
-// Definitions by: Jacob Malone <https://github.com/jcbmln>, Mudkip <https://github.com/mudkipme>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /* =================== USAGE ===================
 
     import * as Koa from "koa";
@@ -30,11 +24,11 @@ import * as Koa from "koa";
 
 declare namespace Hbs {
     export interface Middleware {
-        viewPath: Array<string> | string;
+        viewPath: string[] | string;
         handlebars?: Function | undefined;
         templateOptions?: {} | undefined;
         extname?: string | undefined;
-        partialsPath?: Array<string> | string | undefined;
+        partialsPath?: string[] | string | undefined;
         defaultLayout?: string | undefined;
         layoutsPath?: string | undefined;
         contentHelperName?: string | undefined;

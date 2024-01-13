@@ -9,18 +9,6 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "jsx": "react",
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
-        "paths": {
-            "react-transition-group": [
-                "react-transition-group/v1"
-            ],
-            "react-transition-group/*": [
-                "react-transition-group/v1/*"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

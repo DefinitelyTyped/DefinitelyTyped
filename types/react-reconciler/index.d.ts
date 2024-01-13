@@ -1,13 +1,6 @@
-// Type definitions for react-reconciler 0.28
-// Project: https://reactjs.org/
-// Definitions by: Nathan Bierema <https://github.com/Methuselah96>
-//                 Zhang Haocong <https://github.com/zhanghaocong>
-//                 Mathieu Dutour <https://github.com/mathieudutour>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import { Component, ReactNode } from "react";
 
+/* eslint-disable @definitelytyped/no-unnecessary-generics */
 declare function ReactReconciler<
     Type,
     Props,
@@ -23,8 +16,8 @@ declare function ReactReconciler<
     TimeoutHandle,
     NoTimeout,
 >(
+    /* eslint-enable @definitelytyped/no-unnecessary-generics */
     config: ReactReconciler.HostConfig<
-        /* eslint-disable @definitelytyped/no-unnecessary-generics */
         Type,
         Props,
         Container,
@@ -38,7 +31,7 @@ declare function ReactReconciler<
         ChildSet,
         TimeoutHandle,
         NoTimeout
-    >, /* eslint-enable @definitelytyped/no-unnecessary-generics */
+    >,
 ): ReactReconciler.Reconciler<Container, Instance, TextInstance, SuspenseInstance, PublicInstance>;
 
 declare namespace ReactReconciler {

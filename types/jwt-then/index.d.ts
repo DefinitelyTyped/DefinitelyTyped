@@ -1,9 +1,3 @@
-// Type definitions for jwt-then 1.0
-// Project: https://github.com/fl0w/jwt-then#readme
-// Definitions by: Definitions by: Max Uetrecht <https://github.com/phenomax>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
 
 export type Secret = string | Buffer | { key: string; passphrase: string };
@@ -24,9 +18,9 @@ export interface SignOptions {
      */
     algorithm?: string | undefined;
     keyid?: string | undefined;
-    /** expressed in seconds or a string describing a time span [zeit/ms](https://github.com/zeit/ms.js).  Eg: 60, "2 days", "10h", "7d" */
+    /** expressed in seconds or a string describing a time span [vercel/ms](https://github.com/vercel/ms).  Eg: 60, "2 days", "10h", "7d" */
     expiresIn?: string | number | undefined;
-    /** expressed in seconds or a string describing a time span [zeit/ms](https://github.com/zeit/ms.js).  Eg: 60, "2 days", "10h", "7d" */
+    /** expressed in seconds or a string describing a time span [vercel/ms](https://github.com/vercel/ms).  Eg: 60, "2 days", "10h", "7d" */
     notBefore?: string | number | undefined;
     audience?: string | string[] | undefined;
     subject?: string | undefined;

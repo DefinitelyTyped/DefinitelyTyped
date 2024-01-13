@@ -1,4 +1,4 @@
-import metascraper = require("metascraper");
+import metascraper from "metascraper";
 import metascraperLogoFavicon = require("metascraper-logo-favicon");
 
 const html = "example";

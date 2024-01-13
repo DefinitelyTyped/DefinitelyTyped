@@ -1,9 +1,3 @@
-// Type definitions for Window plugin for jQuery 5.0.4
-// Project: http://fstoke.me/jquery/window/
-// Definitions by: Ryan Graham <https://github.com/ryan-codingintrigue/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 declare namespace JQueryWindow {
@@ -165,7 +159,7 @@ declare namespace JQueryWindow {
         /**
         return all created windows instance
         **/
-        getAll(): Array<JQueryWindow.Window>;
+        getAll(): JQueryWindow.Window[];
         /**
         get the window instance by passed window id
         **/
@@ -341,7 +335,7 @@ declare namespace JQueryWindow {
         /**
         to describe the customized button display and callback function
         **/
-        custBtns?: Array<JQueryWindow.Button> | undefined;
+        custBtns?: JQueryWindow.Button[] | undefined;
         /**
         a callback function while container is added into body
         **/

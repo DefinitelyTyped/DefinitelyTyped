@@ -1,8 +1,3 @@
-// Type definitions for passport-deezer 0.2
-// Project: https://github.com/krachot/passport-deezer
-// Definitions by: anyo <https://github.com/nyo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import type { Request } from "express";
 import type { OutgoingHttpHeaders } from "http";
 

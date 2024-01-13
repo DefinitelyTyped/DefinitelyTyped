@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/woocommerce__woocommerce-rest-api",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/woocommerce/woocommerce-rest-api-js-lib"
+    ],
+    "devDependencies": {
+        "@types/woocommerce__woocommerce-rest-api": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "KaKa",
+            "githubUsername": "climba03003"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for html-tableify 0.0
-// Project: https://github.com/LingyuCoder/html-tableify#readme
-// Definitions by: Ciarán Ingle <https://github.com/inglec-arista>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Create a HTML table from JSON data.
  *

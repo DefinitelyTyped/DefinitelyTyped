@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/absolute-url",
+    "version": "2.0.9999",
+    "type": "module",
+    "projects": [
+        "https://github.com/bergos/absolute-url"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/express-serve-static-core": "^4.17.33"
+    },
+    "devDependencies": {
+        "@types/absolute-url": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "tpluscode",
+            "githubUsername": "tpluscode"
+        },
+        {
+            "name": "ludovicm67",
+            "githubUsername": "ludovicm67"
+        }
+    ]
+}

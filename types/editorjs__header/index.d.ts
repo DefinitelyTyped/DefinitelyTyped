@@ -1,9 +1,3 @@
-// Type definitions for @editorjs/header 2.6
-// Project: https://github.com/editor-js/header#readme (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
-// Definitions by: Maykon Oliveira <https://github.com/maykon-oliveira>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
-
 interface HeaderData {
     text: string;
     level: number;

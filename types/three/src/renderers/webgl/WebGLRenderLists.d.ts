@@ -1,9 +1,9 @@
-import { Object3D } from './../../core/Object3D.js';
-import { Material } from './../../materials/Material.js';
+import { Object3D } from '../../core/Object3D.js';
+import { Material } from '../../materials/Material.js';
 import { WebGLProgram } from './WebGLProgram.js';
-import { Group } from './../../objects/Group.js';
-import { Scene } from './../../scenes/Scene.js';
-import { Camera } from './../../cameras/Camera.js';
+import { Group } from '../../objects/Group.js';
+import { Scene } from '../../scenes/Scene.js';
+import { Camera } from '../../cameras/Camera.js';
 import { BufferGeometry } from '../../core/BufferGeometry.js';
 import { WebGLProperties } from './WebGLProperties.js';
 

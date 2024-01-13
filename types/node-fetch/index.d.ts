@@ -1,19 +1,3 @@
-// Type definitions for node-fetch 2.6
-// Project: https://github.com/bitinn/node-fetch
-// Definitions by: Torsten Werner <https://github.com/torstenwerner>
-//                 Niklas Lindgren <https://github.com/nikcorg>
-//                 Vinay Bedre <https://github.com/vinaybedre>
-//                 Antonio Román <https://github.com/kyranet>
-//                 Andrew Leedham <https://github.com/AndrewLeedham>
-//                 Jason Li <https://github.com/JasonLi914>
-//                 Steve Faulkner <https://github.com/southpolesteve>
-//                 ExE Boss <https://github.com/ExE-Boss>
-//                 Alex Savin <https://github.com/alexandrusavin>
-//                 Alexis Tyler <https://github.com/OmgImAlexis>
-//                 Jakub Kisielewski <https://github.com/kbkk>
-//                 David Glasser <https://github.com/glasser>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import FormData = require("form-data");
@@ -157,6 +141,12 @@ interface SystemError extends Error {
     code?: string | undefined;
 }
 
+export class AbortError extends Error {
+    readonly name: "AbortError";
+    constructor(message: string);
+    readonly type: "aborted";
+}
+
 export class FetchError extends Error {
     name: "FetchError";
     constructor(message: string, type: string, systemError?: SystemError);
@@ -194,13 +184,14 @@ export interface ResponseInit {
     statusText?: string | undefined;
     timeout?: number | undefined;
     url?: string | undefined;
+    counter?: number | undefined;
 }
 
 interface URLLike {
     href: string;
 }
 
-export type HeadersInit = Headers | string[][] | { [key: string]: string };
+export type HeadersInit = Headers | string[][] | { [key: string]: string | string[] };
 // HeaderInit is exported to support backwards compatibility. See PR #34382
 export type HeaderInit = HeadersInit;
 export type BodyInit =

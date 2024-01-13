@@ -1,8 +1,3 @@
-// Type definitions for react-animated-modal 1.1
-// Project: https://github.com/morfsys/react-animated-modal
-// Definitions by: Manish Kumar <https://github.com/manishprivet>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 export type AnimationTypes =

@@ -1,11 +1,3 @@
-// Type definitions for argon2-browser 1.18
-// Project: https://github.com/antelle/argon2-browser#readme
-// Definitions by: Ivan Gabriele <https://github.com/ivangabriele>
-//                 Brendan Early <https://github.com/mymindstorm>
-//                 Jeremy Forsythe <https://github.com/jdforsythe>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 export {};
 
 // Argon2Error is provided on promise rejection

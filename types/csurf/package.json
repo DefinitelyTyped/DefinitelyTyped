@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/csurf",
+    "version": "1.11.9999",
+    "projects": [
+        "https://www.npmjs.org/package/csurf"
+    ],
+    "dependencies": {
+        "@types/express-serve-static-core": "*"
+    },
+    "devDependencies": {
+        "@types/body-parser": "*",
+        "@types/cookie-parser": "*",
+        "@types/csurf": "workspace:.",
+        "@types/express": "*"
+    },
+    "owners": [
+        {
+            "name": "Hiroki Horiuchi",
+            "githubUsername": "horiuchi"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

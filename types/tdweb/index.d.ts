@@ -1,9 +1,3 @@
-// Type definitions for tdweb 1.4
-// Project: https://github.com/tdlib/td#readme
-// Definitions by: Alexander Krisko <https://github.com/esindger>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export interface TdObject {
     "@type": string;
     "@extra"?: string | undefined;

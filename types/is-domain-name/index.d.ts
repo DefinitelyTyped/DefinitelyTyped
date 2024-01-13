@@ -1,8 +1,3 @@
-// Type definitions for is-domain-name 1.0
-// Project: https://github.com/emilbayes/is-domain-name#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = isDomainName;
 
 /**

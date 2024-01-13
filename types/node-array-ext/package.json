@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/node-array-ext",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/Beng89/node-array-ext"
+    ],
+    "devDependencies": {
+        "@types/node-array-ext": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ben Goltz",
+            "githubUsername": "Beng89"
+        }
+    ]
+}

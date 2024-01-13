@@ -1,11 +1,3 @@
-// Type definitions for js-yaml 3.12
-// Project: https://github.com/nodeca/js-yaml
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-//                 Sebastian Clausen <https://github.com/sclausen>
-//                 ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export as namespace jsyaml;
 
 export function safeLoad(str: string, opts?: LoadOptions): string | object | undefined;

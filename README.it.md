@@ -49,16 +49,15 @@ Se ancora non riesci a trovarlo, vuol dire che sono [inclusi](https://www.typesc
 Di solito vengono specificati nel campo `"types"` o `"typings"` nel `package.json`;
 oppure prova a cercare per dei file ".d.ts" nel package ed includerli manualmente con `/// <reference path="" />`.
 
-#### Vecchie versioni di TypeScript (4.0 e precedenti)
+### Support window
 
 "Definitely Typed" testa packages solo su versioni di TypeScript che hanno meno di due anni.
-Attualmente vengono testate le versioni 4.1 e successive.
-Se stai usando una versione di TypeScript tra 2.0 e la 4.0, puoi ancora provare ad installare i package `@types`, in quanto la maggior parte di questi non usano le funzionalità più all'avanguardia di Typescript.
-Non c'è comunque nessuna garanzia che funzioneranno.
-Di seguito la finestra di supporto per ogni versione di TypeScript:
 
 <img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
 <img src="docs/support-window.svg#gh-dark-mode-only" style="width:100%">
+
+<details>
+<summary>Versioni precedenti di TypeScript</summary>
 
 I package `@types` hanno dei tag per indicare le specifiche versioni di TypeScript che supportano, quindi di solito puoi installare versioni precedenti di package seppur precedenti alla finestra dei due anni.
 Ad esempio se esegui `npm dist-tags @types/react`, vedrai che TypeScript 2.5 potrà usare i tipi per react@16.0, mentre TypeScript 2.6 e 2.7 potranno usare i tipi per react@16.4:
@@ -80,6 +79,8 @@ Ad esempio se esegui `npm dist-tags @types/react`, vedrai che TypeScript 2.5 pot
 * ~~[NuGet](https://nuget.org/packages?q=DefinitelyTyped)~~ (usa altre alternative, in quanto la pubblicazione di tipi su nuget DT non è più possibile)
 
 Potresti dover aggiungere manualmente le [reference](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html).
+
+</details>
 
 ## Come posso contribuire?
 
@@ -168,7 +169,6 @@ Il tuo package dovrebbe avere questa struttura:
 | `index.d.ts`  | Contiene le dichiarazioni dei tipi del package. |
 | [`<nome-package>-tests.ts`](#mio-package-teststs)  | Contiene codice di esempio con test delle dichiarazioni dei tipi. Se il codice *non* funziona anche se viene traspilato da tsc senza errori.
 | [`tsconfig.json`](#tsconfigjson) | Ti permette di eseguire `tsc` all'interno del package. |
-| [`tslint.json`](#linter-tslintjson)   | Abilita il linting. |
 
 Generali eseguento `npx dts-gen --dt --name <mio-package> --template module` se hai npm ≥ 5.2.0, altrimenti `npm install -g dts-gen` and `dts-gen --dt --name <my-package> --template module`.
 Leggi tutte le opzioni su [dts-gen](https://github.com/Microsoft/dts-gen).
@@ -183,13 +183,13 @@ Per l'esempio di un buon package, guarda [base64-js](https://github.com/Definite
 
 Quando un package [include](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) i suoi dichiarazioni, esse dovrebbero venire rimosse da Definitely Typed per evitare di far confusione.
 
-Puoi rimuoverli eseguendo `npm run not-needed -- <nome-package> <versione> [<nome-libreria>]`.
+Puoi rimuoverli eseguendo `pnpm run not-needed -- <nome-package> <versione> [<nome-libreria>]`.
 * `<nome-package>`: È il nome della cartella da rimuovere.
 * `<versione>`: Verrà pubblicato uno stab su `@types/<nome-package>` con questa versione. Dev'essere più alto della versione attualmente pubblicata e deve essere una versione di `<ome-libreria>` su npm.
 * `<nome-libreria>`: Nome del package npm che sostituisce il package DT. Solitamente è identioc a `<nome-package>` e puoi ometterlo.
 
 Qualunque altro package di Definitely Typed che si riferisce ad un altro package DT eliminato dovrebbe venir aggiornato facendolo riferire ai tipi inclusi nel package stesso.
-Puoi farlo controllando gli errori che escono eseguendo `npm run test-all`.
+Puoi farlo controllando gli errori che escono eseguendo `pnpm run test-all`.
 Per correggere gli errori, [aggiungi un `package.json`](#packagejson) con `"dependencies": { "<nome-libreria>": "x.y.z" }`.
 Ad esempio:
 
@@ -265,17 +265,9 @@ f("one");
 
 Per maggiori dettagli, leggi il readme di [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint#write-tests).
 
-#### Linter: `tslint.json`
-
-Il file di configurazione del linter, `tslint.json`, dovrebbe contenere `{ "extends": "@definitelytyped/dtslint/dt.json" }` e nessun'altra regola.
-
-Se per qualche ragione qualche regola necessita di essere disabilitata, [disabilitala solo per la riga di codice in cui dovrebbe esserlo](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) usando `// tslint:disable-next-line:[ruleName]` e non disabilitandola per tutto il package, in modo tale che tu possa verificarne l'effetto. (CI sono alcune configurazioni lint legacy che hanno del contenuto aggiuntivo tuttavia non dovrebbe più accadere nei lavori futuri).
-
 ##### Linter: `.eslintrc.json`
 
-"Definitely Typed" sta migrando ad eslint per il linting.
-Al contrario di tslint qui non è necessario un file di configurazione per il linting.
-Proprio come tslint dovresti disabilitare le regole solo per determinate linee:
+Dovresti disabilitare le regole solo per determinate linee:
 
 ```ts
 // eslint-disable-next-line no-const-enum
@@ -334,7 +326,7 @@ Se un file non è nè testato nè riferito nell'`index.d.ts`, aggiungilo in un f
 #### Errori comuni
 
 * Inanzitutto segui i consigli nel [manuale](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
-* Formattazione: Usa 4 spazi. Prettier è abilitato su questa repo, quindi puoi eseguire `npm run prettier -- --write 'path/to/package/**/*.ts'`. [Quando usi le assertion](https://github.com/SamVerschueren/tsd#assertions), aggiungi `// prettier-ignore` per marcare le linee di codice da escludere quando si fa la formattazione:
+* Formattazione: Usa 4 spazi. Prettier è abilitato su questa repo, quindi puoi eseguire `pnpm run prettier -- --write 'path/to/package/**/*.ts'`. [Quando usi le assertion](https://github.com/SamVerschueren/tsd#assertions), aggiungi `// prettier-ignore` per marcare le linee di codice da escludere quando si fa la formattazione:
 
   ```tsx
     // prettier-ignore

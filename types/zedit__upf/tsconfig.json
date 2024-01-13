@@ -9,14 +9,7 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
-        "paths": {
-            "@zedit/upf": ["zedit__upf"]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

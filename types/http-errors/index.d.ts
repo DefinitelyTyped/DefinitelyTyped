@@ -1,9 +1,3 @@
-// Type definitions for http-errors 2.0
-// Project: https://github.com/jshttp/http-errors
-// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = createHttpError;
 
 declare const createHttpError: createHttpError.CreateHttpError & createHttpError.NamedConstructors & {

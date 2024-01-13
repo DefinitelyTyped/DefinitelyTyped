@@ -1,8 +1,3 @@
-// Type definitions for non-npm package Paddle.js 2.0
-// Project: https://developer.paddle.com
-// Definitions by: Christopher Atlan <https://github.com/catlan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare global {
     interface Window {
         Paddle: Paddle;
@@ -92,8 +87,11 @@ export interface Paddle {
                     passthrough?: string;
                     referring_domain?: string;
                     success?: string;
+                    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                     successCallback?: (data: any) => void | string;
+                    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                     closeCallback?: (data: any) => void | string;
+                    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                     loadCallback?: (data: any) => void | string;
                     upsell?: number | string;
                     upsellTitle?: string;

@@ -1,9 +1,3 @@
-// Type definitions for non-npm package vscode-notebook-renderer 1.72
-// Project: https://github.com/microsoft/vscode-docs/blob/notebook/api/extension-guides/notebook.md
-// Definitions by: Connor Peet <https://github.com/connor4312>, Matt Bierner <https://github.com/mjbvz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.0
-
 import { VSCodeEvent } from "./events";
 
 /**

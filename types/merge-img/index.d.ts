@@ -1,8 +1,3 @@
-// Type definitions for merge-img 2.1
-// Project: https://github.com/preco21/merge-img#readme
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import Jimp = require("jimp");

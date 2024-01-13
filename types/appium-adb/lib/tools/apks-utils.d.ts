@@ -36,7 +36,7 @@ interface ApksUtils {
      * @throws If bundletool jar does not exist in PATH or there was an error while
      * executing it
      */
-    execBundletool(args: ReadonlyArray<string>, errorMsg: string): Promise<string>;
+    execBundletool(args: readonly string[], errorMsg: string): Promise<string>;
 
     /**
      * @param specLocation - The full path to the generated device spec location

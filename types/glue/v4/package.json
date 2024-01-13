@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/glue",
+    "version": "4.2.9999",
+    "projects": [
+        "https://github.com/hapijs/glue"
+    ],
+    "dependencies": {
+        "@types/hapi": "^16"
+    },
+    "devDependencies": {
+        "@types/glue": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Greg Jednaszewski",
+            "githubUsername": "gjednaszewski"
+        }
+    ]
+}

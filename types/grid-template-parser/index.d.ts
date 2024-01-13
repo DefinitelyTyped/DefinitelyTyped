@@ -1,9 +1,3 @@
-// Type definitions for grid-template-parser 0.3
-// Project: https://github.com/anthonydugois/grid-template-parser
-// Definitions by: Avi Vahl <https://github.com/AviVahl>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /**
  * Parses a grid template.
  *

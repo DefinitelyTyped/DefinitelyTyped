@@ -1,0 +1,66 @@
+{
+    "private": true,
+    "name": "@types/superagent",
+    "version": "8.1.9999",
+    "projects": [
+        "https://github.com/visionmedia/superagent"
+    ],
+    "dependencies": {
+        "@types/cookiejar": "^2.1.5",
+        "@types/node": "*",
+        "@types/methods": "^1.1.4"
+    },
+    "devDependencies": {
+        "@types/superagent": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nico Zelaya",
+            "githubUsername": "NicoZelaya"
+        },
+        {
+            "name": "Michael Ledin",
+            "githubUsername": "mxl"
+        },
+        {
+            "name": "Pap Lőrinc",
+            "githubUsername": "paplorinc"
+        },
+        {
+            "name": "Shrey Jain",
+            "githubUsername": "shreyjain1994"
+        },
+        {
+            "name": "Alec Zopf",
+            "githubUsername": "zopf"
+        },
+        {
+            "name": "Adam Haglund",
+            "githubUsername": "beeequeue"
+        },
+        {
+            "name": "Lukas Elmer",
+            "githubUsername": "lukaselmer"
+        },
+        {
+            "name": "Jesse Rogers",
+            "githubUsername": "theQuazz"
+        },
+        {
+            "name": "Chris Arnesen",
+            "githubUsername": "carnesen"
+        },
+        {
+            "name": "Anders Kindberg",
+            "githubUsername": "ghostganz"
+        },
+        {
+            "name": "LuckyWind_sck",
+            "githubUsername": "LuckyWindsck"
+        },
+        {
+            "name": "David Tanner",
+            "githubUsername": "DavidTanner"
+        }
+    ]
+}

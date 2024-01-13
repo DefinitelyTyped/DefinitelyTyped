@@ -1,10 +1,3 @@
-// Type definitions for Angular File Upload 12.2
-// Project: https://github.com/danialfarid/ng-file-upload
-// Definitions by: John Reilly <https://github.com/johnnyreilly>,
-//   Eduardo Garcia <https://github.com/thewarpaint>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="angular" />
 import * as angular from "angular";
 
@@ -108,7 +101,7 @@ declare module "angular" {
              * @param  {Array<File>}
              * @return {angular.IPromise}
              */
-            base64DataUrl(files: File | Array<File>): angular.IPromise<Array<string> | string>;
+            base64DataUrl(files: File | File[]): angular.IPromise<string[] | string>;
             /**
              * Convert the file to blob url object or base64 data url based on boolean disallowObjectUrl value
              *

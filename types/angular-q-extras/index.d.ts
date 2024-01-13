@@ -1,9 +1,3 @@
-// Type definitions for angular-q-extras 1.1
-// Project: https://github.com/niqdev/angular-q-extras
-// Definitions by: Damien Sorel <https://github.com/mistic100>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 declare var _: string;
 export = _;
 
@@ -18,7 +12,7 @@ declare module "angular" {
         reason?: any;
     }
 
-    // tslint:disable-next-line interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IQService {
         allSettled<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
             values: [

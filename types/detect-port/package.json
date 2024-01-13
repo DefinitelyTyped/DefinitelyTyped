@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/detect-port",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/node-modules/detect-port"
+    ],
+    "devDependencies": {
+        "@types/detect-port": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ivan Medina",
+            "githubUsername": "ivandevp"
+        }
+    ]
+}

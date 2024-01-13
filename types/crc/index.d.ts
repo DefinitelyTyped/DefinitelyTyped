@@ -1,9 +1,3 @@
-// Type definitions for crc 3.8
-// Project: https://github.com/alexgorbatchev/node-crc/
-// Definitions by: Jianrong Yu <https://github.com/YuJianrong>
-//                 ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export type CRCBufferSource =

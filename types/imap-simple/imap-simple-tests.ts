@@ -51,7 +51,7 @@ imaps.connect(config).then(function(connection) {
         // retrieve only the headers of the messages
         return connection.search(searchCriteria, fetchOptions);
     }).then(function(messages) {
-        let attachments: Promise<{ filename: string; data: any }>[] = [];
+        let attachments: Array<Promise<{ filename: string; data: any }>> = [];
 
         messages.forEach(function(message) {
             let parts = imaps.getParts(message.attributes.struct);
@@ -72,7 +72,7 @@ imaps.connect(config).then(function(connection) {
         });
 
         return Promise.all(attachments);
-    }).then(function(attachments: { filename: string; data: any }[]) {
+    }).then(function(attachments: Array<{ filename: string; data: any }>) {
         console.log(attachments);
         // =>
         //    [ { filename: "cats.jpg", data: Buffer() },

@@ -1,8 +1,26 @@
 {
     "private": true,
+    "name": "@types/hapi__hawk",
+    "version": "8.0.9999",
+    "projects": [
+        "https://github.com/hapijs/hawk/"
+    ],
     "dependencies": {
         "@hapi/boom": "^9.0.0",
         "@hapi/hapi": "^21.1.0",
+        "@types/crypto-js": "*",
+        "@types/hapi__sntp": "*",
+        "@types/node": "*",
+        "@types/request": "*",
         "joi": "^17.7.0"
-    }
+    },
+    "devDependencies": {
+        "@types/hapi__hawk": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Keller",
+            "githubUsername": "ffflorian"
+        }
+    ]
 }

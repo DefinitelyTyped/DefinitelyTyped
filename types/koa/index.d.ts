@@ -1,15 +1,3 @@
-// Type definitions for Koa 2.13.1
-// Project: http://koajs.com
-// Definitions by: jKey Lu <https://github.com/jkeylu>
-//                 Brice Bernard <https://github.com/brikou>
-//                 harryparkdotio <https://github.com/harryparkdotio>
-//                 Wooram Jun <https://github.com/chatoo2412>
-//                 Christian Vaagland Tellnes <https://github.com/tellnes>
-//                 Piotr Kuczynski <https://github.com/pkuczynski>
-//                 vnoder <https://github.com/vnoder>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /* =================== USAGE ===================
 
     import * as Koa from "koa"
@@ -22,6 +10,7 @@
  =============================================== */
 /// <reference types="node" />
 import * as accepts from "accepts";
+import { AsyncLocalStorage } from "async_hooks";
 import * as Cookies from "cookies";
 import { EventEmitter } from "events";
 import { IncomingHttpHeaders, IncomingMessage, OutgoingHttpHeaders, Server, ServerResponse } from "http";
@@ -447,7 +436,7 @@ declare class Application<
     proxy: boolean;
     proxyIpHeader: string;
     maxIpsCount: number;
-    middleware: Application.Middleware<StateT, ContextT>[];
+    middleware: Array<Application.Middleware<StateT, ContextT>>;
     subdomainOffset: number;
     env: string;
     context: Application.BaseContext & ContextT;
@@ -455,6 +444,7 @@ declare class Application<
     response: Application.BaseResponse;
     silent: boolean;
     keys: Keygrip | string[];
+    ctxStorage: AsyncLocalStorage<Application.Context> | undefined;
 
     /**
      * @param {object} [options] Application options
@@ -464,6 +454,7 @@ declare class Application<
      * @param {number} [options.subdomainOffset] Subdomain offset
      * @param {string} [options.proxyIpHeader] Proxy IP header, defaults to X-Forwarded-For
      * @param {number} [options.maxIpsCount] Max IPs read from proxy IP header, default to 0 (means infinity)
+     * @param {boolean} [options.asyncLocalStorage] Enable AsyncLocalStorage
      */
     constructor(options?: {
         env?: string | undefined;
@@ -472,6 +463,7 @@ declare class Application<
         subdomainOffset?: number | undefined;
         proxyIpHeader?: string | undefined;
         maxIpsCount?: number | undefined;
+        asyncLocalStorage?: boolean | undefined;
     });
 
     /**
@@ -532,6 +524,11 @@ declare class Application<
      * @api private
      */
     onerror(err: Error): void;
+
+    /**
+     * return currnect contenxt from async local storage
+     */
+    readonly currentContext: Application.Context | undefined;
 }
 
 declare namespace Application {

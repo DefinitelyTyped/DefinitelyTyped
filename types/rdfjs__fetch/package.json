@@ -1,7 +1,24 @@
 {
     "private": true,
+    "name": "@types/rdfjs__fetch",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/rdfjs-base/fetch"
+    ],
     "type": "module",
     "dependencies": {
-        "rdf-js": "^4.0.2"
-    }
+        "@types/node": "*",
+        "@types/rdfjs__fetch-lite": "*",
+        "@rdfjs/types": ">=1.0.0"
+    },
+    "devDependencies": {
+        "@types/rdfjs__fetch": "workspace:.",
+        "@types/rdfjs__sink-map": "*"
+    },
+    "owners": [
+        {
+            "name": "tpluscode",
+            "githubUsername": "tpluscode"
+        }
+    ]
 }

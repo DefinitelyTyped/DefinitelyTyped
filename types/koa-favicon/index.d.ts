@@ -1,9 +1,3 @@
-// Type definitions for koa-favicon 2.1
-// Project: https://github.com/koajs/favicon
-// Definitions by: Jerry Chin <https://github.com/hellopao>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /* =================== USAGE ===================
 
     import favicon = require("koa-favicon");

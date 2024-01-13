@@ -1,8 +1,3 @@
-// Type definitions for svg-to-pdfkit 0.1
-// Project: https://github.com/alafr/SVG-to-PDFKit
-// Definitions by: Philipp Katz <https://github.com/qqilihq>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import PDFDocument = require("pdfkit");
 
 declare function SVGtoPDF(

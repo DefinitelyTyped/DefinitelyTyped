@@ -1,8 +1,3 @@
-// Type definitions for streamsearch 1.1
-// Project: https://github.com/mscdex/streamsearch#readme
-// Definitions by: Abdelhadi Sabani <https://github.com/awbx>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**

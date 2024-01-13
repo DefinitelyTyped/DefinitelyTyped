@@ -1,15 +1,10 @@
-// Type definitions for ember-task-scheduler 2.3
-// Project: https://github.com/BBVAEngineering/ember-task-scheduler
-// Definitions by: golovkoe <https://github.com/elenagolovko>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
 import Service from "@ember/service";
 
 export function scheduleFrame(context: object, method: string): number;
 
 export function exec(
     target: object,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     method: () => void | string,
     args: unknown[],
     onError: (e: Error, stack: object) => void,

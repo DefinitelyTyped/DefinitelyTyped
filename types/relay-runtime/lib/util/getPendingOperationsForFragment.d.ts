@@ -7,5 +7,5 @@ export default function getPendingOperationsForFragment(
     fragmentOwner: RequestDescriptor,
 ): {
     promise: Promise<void>;
-    pendingOperations: ReadonlyArray<RequestDescriptor>;
+    pendingOperations: readonly RequestDescriptor[];
 } | null;

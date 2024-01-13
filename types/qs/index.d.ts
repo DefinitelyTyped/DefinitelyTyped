@@ -1,15 +1,3 @@
-// Type definitions for qs 6.9
-// Project: https://github.com/ljharb/qs
-// Definitions by: Roman Korneev <https://github.com/RWander>
-//                 Leon Yu <https://github.com/leonyu>
-//                 Belinda Teh <https://github.com/tehbelinda>
-//                 Melvin Lee <https://github.com/zyml>
-//                 Arturs Vonda <https://github.com/artursvonda>
-//                 Carlos Bonetti <https://github.com/CarlosBonetti>
-//                 Dan Smith <https://github.com/dpsmith3>
-//                 Hunter Perrin <https://github.com/hperrin>
-//                 Jordan Harband <https://github.com/ljharb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 export = QueryString;
 export as namespace qs;
 
@@ -50,6 +38,7 @@ declare namespace QueryString {
         allowDots?: boolean | undefined;
         plainObjects?: boolean | undefined;
         allowPrototypes?: boolean | undefined;
+        allowSparse?: boolean | undefined;
         parameterLimit?: number | undefined;
         strictNullHandling?: boolean | undefined;
         ignoreQueryPrefix?: boolean | undefined;

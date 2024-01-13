@@ -1,5 +1,5 @@
 export type exports = string;
-declare const IGNORE: string;
-declare const NEWLINE: string;
-declare const DONE: string;
+declare let IGNORE: string;
+declare let NEWLINE: string;
+declare let DONE: string;
 export {};

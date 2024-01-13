@@ -1,10 +1,5 @@
-// Type definitions for @rdfjs/fetch 3.0
-// Project: https://github.com/rdfjs-base/fetch
-// Definitions by: tpluscode <https://github.com/tpluscode>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { DatasetResponse, FactoryInit, FormatsInit, RdfFetchResponse } from "@rdfjs/fetch-lite";
-import { BaseQuad, DatasetCore, Quad } from "rdf-js";
+import { BaseQuad, DatasetCore, Quad } from "@rdfjs/types";
 
 export { Headers } from "@rdfjs/fetch-lite";
 

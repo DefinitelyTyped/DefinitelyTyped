@@ -1,10 +1,3 @@
-// Type definitions for watchpack 2.4
-// Project: https://github.com/webpack/watchpack
-// Definitions by: e-cloud <https://github.com/e-cloud>
-//                 Adam Jones <https://github.com/domdomegg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

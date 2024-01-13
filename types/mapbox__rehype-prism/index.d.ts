@@ -1,8 +1,3 @@
-// Type definitions for @mapbox/rehype-prism 0.8
-// Project: https://github.com/mapbox/rehype-prism
-// Definitions by: Remco Haszing <https://github.com/remcohaszing>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Root } from "hast";
 import { Plugin } from "unified";
 

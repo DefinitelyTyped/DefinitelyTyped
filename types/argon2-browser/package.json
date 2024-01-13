@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/argon2-browser",
+    "version": "1.18.9999",
+    "projects": [
+        "https://github.com/antelle/argon2-browser#readme"
+    ],
+    "devDependencies": {
+        "@types/argon2-browser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ivan Gabriele",
+            "githubUsername": "ivangabriele"
+        },
+        {
+            "name": "Brendan Early",
+            "githubUsername": "mymindstorm"
+        },
+        {
+            "name": "Jeremy Forsythe",
+            "githubUsername": "jdforsythe"
+        }
+    ]
+}

@@ -1,9 +1,3 @@
-// Type definitions for twitter-stream-channels 1.0.0
-// Project: https://github.com/topheman/twitter-stream-channels
-// Definitions by: Adrian Bardan <https://github.com/adrianbardan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 /// <reference types="twit" />
 
@@ -66,7 +60,7 @@ declare module "twitter-stream-channels" {
              * @returns {Array}
              * @see https://github.com/topheman/twitter-stream-channels/blob/master/lib/StreamChannels.js#L145
              */
-            getTrackedKeywords(): Array<string>;
+            getTrackedKeywords(): string[];
 
             /**
              * Returns an object key/value - key:your channels - value:the full text search RegExp for the keywords of this channel

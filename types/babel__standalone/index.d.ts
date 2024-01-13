@@ -1,9 +1,3 @@
-// Type definitions for @babel/standalone 7.1
-// Project: https://github.com/babel/babel/tree/master/packages/babel-standalone
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.4
-
 import { BabelFileResult, FileResultCallback, TransformOptions, types } from "@babel/core";
 
 export function transform(code: string, options: TransformOptions): BabelFileResult;

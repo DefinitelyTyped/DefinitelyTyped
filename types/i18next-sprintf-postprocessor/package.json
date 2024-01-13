@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/i18next-sprintf-postprocessor",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/i18next/i18next-sprintf-postProcessor"
+    ],
     "dependencies": {
         "i18next": ">=17.0.11"
-    }
+    },
+    "devDependencies": {
+        "@types/i18next-sprintf-postprocessor": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Cyril Schumacher",
+            "githubUsername": "cyrilschumacher"
+        }
+    ],
+    "minimumTypeScriptVersion": "5.0"
 }

@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/wkhtmltopdf",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/devongovett/node-wkhtmltopdf"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/wkhtmltopdf": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jasper",
+            "githubUsername": "digijap"
+        },
+        {
+            "name": "Rens de Wolf",
+            "githubUsername": "rensdewolf"
+        }
+    ]
+}

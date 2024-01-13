@@ -1,8 +1,3 @@
-// Type definitions for sic-list 0.5
-// Project: https://github.com/596050/sic
-// Definitions by: TP <https://github.com/596050>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Expects a two-digit sic code. Returns the description for that sic. If not found, it returns undefined.
  */

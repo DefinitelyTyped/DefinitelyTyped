@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/react-native-awesome-card-io",
+    "version": "0.8.9999",
+    "projects": [
+        "https://github.com/Kerumen/react-native-awesome-card-io"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-awesome-card-io": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Onur Var",
+            "githubUsername": "OnurVar"
+        },
+        {
+            "name": "Emlyn Bolton",
+            "githubUsername": "emlynmac"
+        }
+    ]
+}

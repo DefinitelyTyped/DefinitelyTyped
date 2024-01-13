@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/mapbox__mapbox-gl-geocoder",
+    "version": "4.7.9999",
+    "projects": [
+        "https://github.com/mapbox/mapbox-gl-geocoder"
+    ],
+    "dependencies": {
+        "@types/geojson": "*",
+        "@types/mapbox-gl": "*"
+    },
+    "devDependencies": {
+        "@types/mapbox__mapbox-gl-geocoder": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "makspetrov",
+            "githubUsername": "Nosfit"
+        },
+        {
+            "name": "Dmytro Gokun",
+            "githubUsername": "dmytro-gokun"
+        }
+    ]
+}

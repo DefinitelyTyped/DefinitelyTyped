@@ -1,9 +1,3 @@
-// Type definitions for React 16.9 when using babel-plugin-react-html-attrs 3.0
-// Project: https://github.com/insin/babel-plugin-react-html-attrs
-// Definitions by: Jonny Buchanan <https://github.com/insin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 // NOTE: Users of the `experimental` builds of React should add a reference
 // to 'babel-plugin-react-html-attrs/experimental' in their project. See
 // experimental.d.ts's top comment for reference and documentation on how
@@ -884,10 +878,12 @@ declare namespace React {
     type ReducerStateWithoutAction<R extends ReducerWithoutAction<any>> = R extends ReducerWithoutAction<infer S> ? S
         : never;
     // TODO (TypeScript 3.0): ReadonlyArray<unknown>
-    type DependencyList = ReadonlyArray<any>;
+    type DependencyList = readonly any[];
 
     // NOTE: callbacks are _only_ allowed to return either void, or a destructor.
     // The destructor is itself only allowed to return void.
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type EffectCallback = () => void | (() => void | undefined);
 
     interface MutableRefObject<T> {
@@ -2046,6 +2042,7 @@ declare namespace React {
 
     interface DetailsHTMLAttributes<T> extends HTMLAttributes<T> {
         open?: boolean | string | undefined;
+        name?: string | undefined;
     }
 
     interface DelHTMLAttributes<T> extends HTMLAttributes<T> {

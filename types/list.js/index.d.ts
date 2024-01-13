@@ -1,9 +1,3 @@
-// Type definitions for list.js 2.3
-// Project: http://listjs.com
-// Definitions by: Jeffrey Meng <https://github.com/jeffreymeng>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 declare class List {
     listContainer: HTMLElement;
     list: HTMLElement;

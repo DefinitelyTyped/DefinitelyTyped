@@ -9,24 +9,6 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
-        "paths": {
-            "ag-channel": [
-                "ag-channel/v4"
-            ],
-            "consumable-stream": [
-                "consumable-stream/v1"
-            ],
-            "stream-demux": [
-                "stream-demux/v7"
-            ],
-            "writable-consumable-stream": [
-                "writable-consumable-stream/v1"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

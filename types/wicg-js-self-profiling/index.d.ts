@@ -1,8 +1,3 @@
-// Type definitions for non-npm package JS Self-Profiling API API 2022.03
-// Project: https://github.com/WICG/js-self-profiling, https://wicg.github.io/js-self-profiling/
-// Definitions by: Tiger Oakes <https://github.com/NotWoods>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type ProfilerResource = string;
 
 interface ProfilerEventMap {

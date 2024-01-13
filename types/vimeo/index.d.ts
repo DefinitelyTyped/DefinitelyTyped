@@ -1,8 +1,3 @@
-// Type definitions for Vimeo 2.1
-// Project: https://github.com/vimeo/vimeo.js
-// Definitions by: Matthew Leffler <https://github.com/mattleff>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type CompleteCallback = (
     err: Error | null,
     result: any,

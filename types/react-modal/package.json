@@ -1,0 +1,56 @@
+{
+    "private": true,
+    "name": "@types/react-modal",
+    "version": "3.16.9999",
+    "projects": [
+        "https://github.com/reactjs/react-modal"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-modal": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rajab Shakirov",
+            "githubUsername": "radziksh"
+        },
+        {
+            "name": "Drew Noakes",
+            "githubUsername": "drewnoakes"
+        },
+        {
+            "name": "Thomas B Homburg",
+            "githubUsername": "homburg"
+        },
+        {
+            "name": "Tatu Tamminen",
+            "githubUsername": "ttamminen"
+        },
+        {
+            "name": "Uwe Wiemer",
+            "githubUsername": "hallowatcher"
+        },
+        {
+            "name": "Peter Blazejewicz",
+            "githubUsername": "peterblazejewicz"
+        },
+        {
+            "name": "Justin Powell",
+            "githubUsername": "jpowell"
+        },
+        {
+            "name": "Juwan Wheatley",
+            "githubUsername": "fiberjw"
+        },
+        {
+            "name": "Nitzan Mousan",
+            "githubUsername": "nitzanmo"
+        },
+        {
+            "name": "dkrk",
+            "githubUsername": "grgr-dkrk"
+        }
+    ]
+}

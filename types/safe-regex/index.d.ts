@@ -1,8 +1,3 @@
-// Type definitions for safe-regex 1.1
-// Project: https://github.com/davisjam/safe-regex
-// Definitions by: Rodry <https://github.com/ImRodry>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Checks if a regex is safe to use in order to prevent catastrophic backtracking.
  * @param re can be a RegExp object or just a string.

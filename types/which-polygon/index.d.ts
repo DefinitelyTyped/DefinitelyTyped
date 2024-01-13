@@ -1,9 +1,3 @@
-// Type definitions for which-polygon 2.2
-// Project: https://github.com/mapbox/which-polygon
-// Definitions by: Kyle Hensel <https://github.com/k-yle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.0
-
 import { FeatureCollection, GeoJsonProperties, Geometry } from "geojson";
 import RBush from "rbush";
 

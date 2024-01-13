@@ -1,12 +1,3 @@
-// Type definitions for rc-tooltip 3.7
-// Project: https://github.com/react-component/tooltip
-// Definitions by: rhysd <https://github.com/rhysd>
-//                 ahstro <https://github.com/ahstro>
-//                 vsaarinen <https://github.com/vsaarinen>
-//                 aigoncharov <https://github.com/aigoncharov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export as namespace RCTooltip;
@@ -44,7 +35,13 @@ declare namespace RCTooltip {
         placement?: Placement | Object | undefined;
         align?: Object | undefined;
         onPopupAlign?: ((popupDomNode: Element, align: Object) => void) | undefined;
-        overlay: (() => React.ReactChild) | React.ReactChild | React.ReactFragment | React.ReactPortal;
+        overlay:
+            | (() => React.ReactElement | number | string)
+            | React.ReactElement
+            | number
+            | string
+            | Iterable<React.ReactNode>
+            | React.ReactPortal;
         arrowContent?: React.ReactNode | undefined;
         getTooltipContainer?: (() => Element) | undefined;
         destroyTooltipOnHide?: boolean | undefined;

@@ -1,6 +1,24 @@
 {
     "private": true,
+    "name": "@types/react-native-svg-charts",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/JesperLekland/react-native-svg-charts"
+    ],
     "dependencies": {
+        "@types/d3-scale": "^1",
+        "@types/d3-shape": "^1",
+        "@types/react": "*",
+        "react-native": "*",
         "react-native-svg": "^6.2.1"
-    }
+    },
+    "devDependencies": {
+        "@types/react-native-svg-charts": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Krzysztof Miemiec",
+            "githubUsername": "krzysztof-miemiec"
+        }
+    ]
 }

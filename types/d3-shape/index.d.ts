@@ -1,19 +1,9 @@
-// Type definitions for D3JS d3-shape module 3.1
-// Project: https://github.com/d3/d3-shape/, https://d3js.org/d3-shape
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
-//                 Alex Ford <https://github.com/gustavderdrache>
-//                 Boris Yankov <https://github.com/borisyankov>
-//                 denisname <https://github.com/denisname>
-//                 Nathan Bierema <https://github.com/Methuselah96>
-//                 Fil <https://github.com/Fil>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Last module patch version validated against: 3.1.0
 
 import { Path } from "d3-path";
 
 declare global {
-    interface CanvasRenderingContext2D {} // tslint:disable-line no-empty-interface
+    interface CanvasRenderingContext2D {} // eslint-disable-line @typescript-eslint/no-empty-interface
 }
 
 // -----------------------------------------------------------------------------------

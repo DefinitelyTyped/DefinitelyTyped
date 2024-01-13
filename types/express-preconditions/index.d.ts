@@ -1,8 +1,3 @@
-// Type definitions for express-preconditions 1.0
-// Project: https://richardschneider.github/express-conditional-request
-// Definitions by: tpluscode <https://github.com/tpluscode>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import type { Request, RequestHandler, Response } from "express";
 
 declare namespace preconditions {

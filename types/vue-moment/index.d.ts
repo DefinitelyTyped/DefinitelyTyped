@@ -1,9 +1,3 @@
-// Type definitions for vue-moment 4.0
-// Project: https://github.com/brockpetrie/vue-moment
-// Definitions by: Dominik Schmidt <https://github.com/domschmidt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 import { Duration, DurationInputArg1, DurationInputArg2, Moment, MomentFormatSpecification, MomentInput } from "moment";
 import { PluginObject } from "vue";
 

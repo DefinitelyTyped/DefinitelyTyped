@@ -1,8 +1,10 @@
 {
     "compilerOptions": {
-        "baseUrl": "../",
         "forceConsistentCasingInFileNames": true,
-        "lib": ["DOM", "ES6"],
+        "lib": [
+            "DOM",
+            "ES6"
+        ],
         "jsx": "react",
         "module": "commonjs",
         "noEmit": true,
@@ -10,7 +12,6 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "typeRoots": ["../"],
         "types": []
     },
     "files": [

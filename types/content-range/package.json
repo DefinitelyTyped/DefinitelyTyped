@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/content-range",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/neoziro/content-range"
+    ],
+    "devDependencies": {
+        "@types/content-range": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alex Brick",
+            "githubUsername": "bricka"
+        }
+    ]
+}

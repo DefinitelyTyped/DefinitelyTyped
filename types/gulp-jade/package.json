@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gulp-jade",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/phated/gulp-jade"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-jade": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "berwyn",
+            "githubUsername": "berwyn"
+        }
+    ]
+}

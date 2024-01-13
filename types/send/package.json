@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/send",
+    "version": "0.17.9999",
+    "projects": [
+        "https://github.com/pillarjs/send"
+    ],
+    "dependencies": {
+        "@types/mime": "^1",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/express": "*",
+        "@types/send": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mike Jerred",
+            "githubUsername": "MikeJerred"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for cordova-sqlite-storage 1.5
-// Project: https://github.com/xpbrew/cordova-sqlite-storage
-// Definitions by: rafw87 <https://github.com/rafw87>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Window {
     sqlitePlugin: SQLitePlugin.SQLite;
 }
@@ -18,6 +13,7 @@ declare namespace SQLitePlugin {
     type TransactionStatementSuccessCallback = (tx: Transaction, results: Results) => void;
 
     type ErrorCallback = (err: Error) => void;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type TransactionStatementErrorCallback = (tx: Transaction, err: Error) => boolean | void;
 
     interface OpenArgs {

@@ -1,10 +1,3 @@
-// Type definitions for tinycon 0.6
-// Project: https://github.com/tommoor/tinycon
-// Definitions by: Daniel Waxweiler <https://github.com/dwaxweiler>
-//                 Julian Hundeloh <https://github.com/jaulz>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Tinycon {
     interface TinyconStatic {
         setBubble(label: number | string | null, color?: string): TinyconStatic;

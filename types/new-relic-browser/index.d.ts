@@ -1,9 +1,3 @@
-// Type definitions for non-npm package NewRelicBrowser 1.230
-// Project: https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api
-// Definitions by: Rene Hamburger <https://github.com/renehamburger>
-//                 Piotr Kubisa <https://github.com/piotrkubisa>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * The browser and Single Page Application (SPA) APIs
  * allow you to customize and extend your browser monitoring.
@@ -114,6 +108,16 @@ declare namespace newrelic {
      * @see https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api/spa-set-current-route-name
      */
     function setCurrentRouteName(name: string | null): void;
+
+    /**
+     * Adds a user-defined identifier string to subsequent events on the page.
+     *
+     * @param userId A string identifier for the end-user, useful for tying all browser events to specific users. The
+     * value parameter does not have to be unique. If IDs should be unique, the caller is responsible for that
+     * validation. Passing a null value unsets any existing user ID.
+     * @see https://docs.newrelic.com/docs/browser/new-relic-browser/browser-apis/setuserid/
+     */
+    function setUserId(userId: string | null): void;
 
     interface EventObject {
         /** Event name */

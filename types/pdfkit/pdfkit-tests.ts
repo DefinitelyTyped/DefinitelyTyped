@@ -165,6 +165,12 @@ doc.moveDown()
     .strike(20, doc.y, doc.widthOfString("STRIKE!"), height)
     .text("STRIKE!");
 
+doc.image(Buffer.from(""));
+doc.image(new ArrayBuffer(10));
+doc.image("images/test.jpeg");
+// @ts-expect-error
+doc.image(new File([], "image.jpg"));
+
 doc.image("images/test.jpeg", 0, 15, {
     width: 300,
 }).text("Proprotional to width", 0, 0);
@@ -194,9 +200,7 @@ doc.list([4, 5, 6], { listType: "numbered", textIndent: 2 });
 doc.list([7, 8, 9], { listType: "lettered" });
 
 doc.image(
-    {
-        /* something like a buffer */
-    },
+    Buffer.from(""),
     {
         scale: 0.25,
     },
@@ -217,6 +221,13 @@ doc.text("Text with destination", { destination: "test-anchor" });
 doc.text("Text with goTo", { goTo: "test-anchor" });
 
 doc.text("Text with null link", { link: null });
+
+doc.text("Text with null link", { align: "left" });
+doc.text("Text with null link", { align: "center" });
+doc.text("Text with null link", { align: "right" });
+doc.text("Text with null link", { align: "justify" });
+// @ts-expect-error
+doc.text("Text with null link", { align: "other" }); // Altought this is not an error in JS side, the inclusion of `string` did break type hints
 
 doc.image("path/to/image.png", {
     fit: [250, 300],

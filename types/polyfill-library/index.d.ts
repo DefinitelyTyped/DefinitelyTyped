@@ -1,8 +1,3 @@
-// Type definitions for polyfill-library 3.108
-// Project: https://github.com/financial-times/polyfill-library#readme
-// Definitions by: Qingrong Ke <https://github.com/keqingrong>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Readable } from "stream";

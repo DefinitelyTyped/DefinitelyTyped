@@ -1,9 +1,3 @@
-// Type definitions for jsmidgen 0.1
-// Project: https://github.com/dingram/jsmidgen#readme
-// Definitions by: Jimmy Cuadra <https://github.com/jimmycuadra>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.5
-
 export as namespace Midi;
 
 export type MidiEventType =

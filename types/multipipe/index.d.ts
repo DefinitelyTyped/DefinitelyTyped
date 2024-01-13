@@ -1,8 +1,3 @@
-// Type definitions for multipipe 3.0
-// Project: https://github.com/juliangruber/multipipe#readme
-// Definitions by: Michael de Wit <https://github.com/mjwwit>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import stream = require("stream");
@@ -20,11 +15,11 @@ declare function multipipe(callback?: (err?: Error) => any): stream.PassThrough;
 declare function multipipe(options?: stream.DuplexOptions, callback?: (err?: Error) => any): stream.PassThrough;
 
 declare function multipipe(
-    stream: NodeJS.ReadWriteStream | ReadonlyArray<stream.Stream>,
+    stream: NodeJS.ReadWriteStream | readonly stream.Stream[],
     callback?: (err?: Error) => any,
 ): NodeJS.ReadWriteStream;
 declare function multipipe(
-    stream: NodeJS.ReadWriteStream | ReadonlyArray<stream.Stream>,
+    stream: NodeJS.ReadWriteStream | readonly stream.Stream[],
     options?: stream.DuplexOptions,
     callback?: (err?: Error) => any,
 ): NodeJS.ReadWriteStream;

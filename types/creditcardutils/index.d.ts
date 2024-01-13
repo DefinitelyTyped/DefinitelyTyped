@@ -1,8 +1,3 @@
-// Type definitions for creditcardutils 1.0
-// Project: https://github.com/faaez/creditcardutils#readme
-// Definitions by: Steven Conaway <https://github.com/SConaway>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Validates a credit card number. Returns a boolean.
  */

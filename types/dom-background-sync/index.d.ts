@@ -1,11 +1,3 @@
-// Type definitions for non-npm package dom-background-sync-browser 0.0
-// Project: https://wicg.github.io/background-sync/spec/#api-description
-// Definitions by: Hana Joo <https://github.com/h-joo>
-//                 Jan Kuehle <https://github.com/frigus02>
-//                 Martin Probst <https://github.com/mprobst>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
 interface SyncEventInit extends ExtendableEventInit {
     lastChance?: boolean;
     tag: string;

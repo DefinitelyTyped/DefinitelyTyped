@@ -1,9 +1,3 @@
-// Type definitions for browser-update 3.3
-// Project: https://github.com/browser-update/browser-update
-// Definitions by: BendingBender <https://github.com/bendingbender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
 /// <reference lib="dom" />
 
 export = browserUpdate;

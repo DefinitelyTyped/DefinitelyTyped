@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/twitter-for-web",
+    "version": "0.0.9999",
+    "projects": [
+        "https://dev.twitter.com/web/"
+    ],
+    "devDependencies": {
+        "@types/twitter-for-web": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chitoku",
+            "githubUsername": "chitoku-k"
+        },
+        {
+            "name": "Lucretiel",
+            "githubUsername": "Lucretiel"
+        }
+    ]
+}

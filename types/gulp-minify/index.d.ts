@@ -1,8 +1,3 @@
-// Type definitions for gulp-minify 3.1
-// Project: https://github.com/hustxiaoc/gulp-minify
-// Definitions by: Elias Skogevall <https://github.com/tscpp>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 interface minify {

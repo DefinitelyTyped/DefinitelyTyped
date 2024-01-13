@@ -1,9 +1,3 @@
-// Type definitions for three-dat.gui 2.0
-// Project: https://github.com/SolalDR/three-dat.gui#readme
-// Definitions by: hkleungai <https://github.com/hkleungai>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
 import THREE = require("three");
 
 declare module "dat.gui" {
@@ -21,7 +15,11 @@ declare module "dat.gui" {
             stepRotation?: number | undefined;
             stepScale?: number | undefined;
         }): GUI;
-        addVector(name: string, vector: THREE.Vector | THREE.Euler, options?: { step?: number | undefined }): GUI;
+        addVector(
+            name: string,
+            vector: THREE.Vector2 | THREE.Vector3 | THREE.Vector4 | THREE.Euler,
+            options?: { step?: number | undefined },
+        ): GUI;
     }
 }
 

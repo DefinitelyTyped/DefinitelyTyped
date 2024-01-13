@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/react-native-text-input-mask",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/react-native-community/react-native-text-input-mask"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-text-input-mask": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rodrigo Weber",
+            "githubUsername": "RodrigoAWeber"
+        },
+        {
+            "name": "Tom Xu",
+            "githubUsername": "hengkx"
+        }
+    ]
+}

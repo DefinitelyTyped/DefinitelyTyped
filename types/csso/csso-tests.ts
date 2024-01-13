@@ -56,6 +56,8 @@ syntax.compress(
     },
 ).ast; // $ExpectType CssNode
 
-syntax.parse(".b {font-weight: bold}"); // $ExpectType CssNode
+const selector = syntax.parse(".b {font-weight: bold}"); // $ExpectType CssNode
+
+syntax.specificity(selector); // $ExpectType [a: number, b: number, c: number]
 
 version; // $ExpectType string

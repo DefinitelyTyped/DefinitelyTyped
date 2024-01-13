@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-ultimate-pagination",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/ultimate-pagination/react-ultimate-pagination"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-ultimate-pagination": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ben Lorantfy",
+            "githubUsername": "BenLorantfy"
+        }
+    ]
+}

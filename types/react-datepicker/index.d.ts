@@ -1,20 +1,3 @@
-// Type definitions for react-datepicker 4.15
-// Project: https://github.com/Hacker0x01/react-datepicker
-// Definitions by: Rajab Shakirov <https://github.com/radziksh>
-//                 Greg Smith <https://github.com/smrq>
-//                 Roy Xue <https://github.com/royxue>
-//                 Koala Human <https://github.com/KoalaHuman>
-//                 Justin Grant <https://github.com/justingrant>
-//                 Avi Klaiman <https://github.com/aviklai>
-//                 Naoki Sekiguchi <https://github.com/seckie>
-//                 Kerry Gougeon <https://github.com/kerry-g>
-//                 Shiftr Tech SAS <https://github.com/ShiftrTechSAS>
-//                 Pirasis Leelatanon <https://github.com/1pete>
-//                 Alexander Shipulin <https://github.com/y>
-//                 Rafik Ogandzhanian <https://github.com/inomn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
-
 import * as Popper from "@popperjs/core";
 import { Locale } from "date-fns";
 import * as React from "react";
@@ -33,6 +16,11 @@ export function CalendarContainer(props: CalendarContainerProps): React.ReactEle
 
 interface HighlightDates {
     [className: string]: Date[];
+}
+
+interface Holiday {
+    date: string;
+    holidayName: string;
 }
 
 export interface ReactDatePickerCustomHeaderProps {
@@ -66,6 +54,7 @@ export interface ReactDatePickerProps<
     autoFocus?: boolean | undefined;
     calendarClassName?: string | undefined;
     calendarContainer?(props: CalendarContainerProps): React.ReactNode;
+    calendarIconClassname?: string | undefined;
     calendarStartDay?: number | undefined;
     children?: React.ReactNode | undefined;
     chooseDayAriaLabelPrefix?: string | undefined;
@@ -97,6 +86,8 @@ export interface ReactDatePickerProps<
     formatWeekDay?(day: string): React.ReactNode;
     formatWeekNumber?(date: Date): string | number;
     highlightDates?: Array<HighlightDates | Date> | undefined;
+    holidays?: Holiday[] | undefined;
+    icon?: string | React.ReactElement;
     id?: string | undefined;
     includeDates?: Date[] | undefined;
     includeDateIntervals?: Array<{ start: Date; end: Date }> | undefined;
@@ -179,6 +170,7 @@ export interface ReactDatePickerProps<
     showTwoColumnMonthYearPicker?: boolean | undefined;
     showFourColumnMonthYearPicker?: boolean | undefined;
     showWeekNumbers?: boolean | undefined;
+    showWeekPicker?: boolean | undefined;
     showYearDropdown?: boolean | undefined;
     showYearPicker?: boolean | undefined;
     showIcon?: boolean | undefined;

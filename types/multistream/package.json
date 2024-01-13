@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/multistream",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/feross/multistream"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/multistream": "workspace:.",
+        "@types/through": "*",
+        "@types/through2": "*"
+    },
+    "owners": [
+        {
+            "name": "mrmlnc",
+            "githubUsername": "mrmlnc"
+        },
+        {
+            "name": "mpvharmelen",
+            "githubUsername": "mpvharmelen"
+        }
+    ]
+}

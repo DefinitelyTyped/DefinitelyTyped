@@ -1,9 +1,3 @@
-// Type definitions for beanstalkd 2.2
-// Project: https://github.com/burstable/node-beanstalkd-client
-// Definitions by: Maxime LUCE <https://github.com/SomaticIT>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="node" />
 
 import { Socket } from "net";

@@ -1,18 +1,24 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6", "dom"],
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "esModuleInterop": true
     },
-    "files": ["index.d.ts", "weixin-app-tests.ts"],
-    "exclude": [".prettierrc"]
+    "files": [
+        "index.d.ts",
+        "weixin-app-tests.ts"
+    ],
+    "exclude": [
+        ".prettierrc"
+    ]
 }

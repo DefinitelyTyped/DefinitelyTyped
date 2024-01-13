@@ -1,9 +1,3 @@
-// Type definitions for mergerino 0.4
-// Project: https://github.com/fuzetsu/mergerino#readme
-// Definitions by: Slawomir "Fivitti" Figiel <https://github.com/fivitti>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 // TypeScript in version below 3.4 doesn't correctly support FunctionPatch. Arguments have "any" type.
 
 /**
@@ -83,7 +77,7 @@ export type Merge<S extends object> = (source: S, ...patches: Array<MultipleTopL
  * You can pass multiple patches in a single merge call, array arguments will be flattened before processing.
  * Since falsy patches are ignored.
  */
-// tslint:disable-next-line:npm-naming
+// eslint-disable-next-line @definitelytyped/npm-naming
 export default function merge<S extends object>(source: S, ...patches: Array<MultipleTopLevelPatch<S>>): S;
 // Mergerino uses "default export", but no in minified version which is checked by dtslint.
 // This line supress error: The types for mergerino specify 'export default' but the source does not mention 'default' anywhere.

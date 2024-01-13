@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/dir-glob",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/kevva/dir-glob#readme"
+    ],
+    "devDependencies": {
+        "@types/dir-glob": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

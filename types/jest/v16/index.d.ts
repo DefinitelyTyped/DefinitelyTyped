@@ -1,11 +1,3 @@
-// Type definitions for Jest 16.0
-// Project: http://facebook.github.io/jest/
-// Definitions by: Asana (https://asana.com)
-//                 Ivo Stratev <https://github.com/NoHomey>
-//                 jwbay <https://github.com/jwbay>
-//                 ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var beforeAll: jest.Lifecycle;
 declare var beforeEach: jest.Lifecycle;
 declare var afterAll: jest.Lifecycle;
@@ -276,13 +268,13 @@ declare namespace jasmine {
     }
 
     interface CustomMatcherFactory {
-        (util: MatchersUtil, customEqualityTesters: Array<CustomEqualityTester>): CustomMatcher;
+        (util: MatchersUtil, customEqualityTesters: CustomEqualityTester[]): CustomMatcher;
     }
 
     interface MatchersUtil {
-        equals(a: any, b: any, customTesters?: Array<CustomEqualityTester>): boolean;
-        contains<T>(haystack: ArrayLike<T> | string, needle: any, customTesters?: Array<CustomEqualityTester>): boolean;
-        buildFailureMessage(matcherName: string, isNot: boolean, actual: any, ...expected: Array<any>): string;
+        equals(a: any, b: any, customTesters?: CustomEqualityTester[]): boolean;
+        contains<T>(haystack: ArrayLike<T> | string, needle: any, customTesters?: CustomEqualityTester[]): boolean;
+        buildFailureMessage(matcherName: string, isNot: boolean, actual: any, ...expected: any[]): string;
     }
 
     interface CustomEqualityTester {

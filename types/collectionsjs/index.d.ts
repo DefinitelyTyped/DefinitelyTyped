@@ -1,9 +1,3 @@
-// Type definitions for collectionsjs 0.3
-// Project: https://github.com/logaretm/collectionsjs#readme
-// Definitions by: Jaymeh <https://github.com/jaymeh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
 export default class Collection<T> {
     constructor(items?: T[]);
     add(item: T): Collection<T>;

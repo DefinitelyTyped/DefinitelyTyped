@@ -1,9 +1,3 @@
-// Type definitions for winston-syslog 2.4
-// Project: https://github.com/winstonjs/winston-syslog, https://github.com/indexzero/winston-syslog
-// Definitions by: Chris Barth <https://github.com/cjbarth>, Felix Hochgruber <https://github.com/felix-hoc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
 import * as dgram from "dgram";
 import * as glossy from "glossy";

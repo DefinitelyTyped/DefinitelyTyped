@@ -1,8 +1,3 @@
-// Type definitions for ref-napi 3.0
-// Project: https://github.com/node-ffi-napi/ref-napi
-// Definitions by: Keerthi Niranjan <https://github.com/keerthi16>, Kiran Niranjan <https://github.com/KiranNiranjan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export {};
@@ -41,7 +36,7 @@ export type NamedTypeLike = Type | NamedType;
  * }
  * ```
  */
-export interface UnderlyingTypeOverrideRegistry { // tslint:disable-line no-empty-interface
+export interface UnderlyingTypeOverrideRegistry { // eslint-disable-line @typescript-eslint/no-empty-interface
 }
 
 /**
@@ -59,7 +54,7 @@ export interface UnderlyingTypeOverrideRegistry { // tslint:disable-line no-empt
  * ```
  */
 export interface UnderlyingTypeDefaultRegistry {
-    "void": void; // tslint:disable-line void-return
+    "void": void; // eslint-disable-line @typescript-eslint/no-invalid-void-type
     "bool": boolean;
     "int8": number;
     "uint8": number;
@@ -414,7 +409,7 @@ export declare function _writeObject(buffer: Buffer, offset: number, object: Obj
  * }
  * ```
  */
-export interface TypesOverrideRegistry { // tslint:disable-line no-empty-interface
+export interface TypesOverrideRegistry { // eslint-disable-line @typescript-eslint/no-empty-interface
 }
 
 /**

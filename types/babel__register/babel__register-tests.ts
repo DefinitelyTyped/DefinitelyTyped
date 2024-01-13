@@ -1,6 +1,6 @@
 import register1 = require("@babel/register");
 import * as register2 from "@babel/register";
-// tslint:disable-next-line:no-duplicate-imports
+// eslint-disable-next-line no-duplicate-imports
 import register3, { RegisterOptions } from "@babel/register";
 
 // $ExpectType typeof register

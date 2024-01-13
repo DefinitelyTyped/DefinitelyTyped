@@ -1,6 +1,7 @@
 {
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "react-vertical-timeline-component-tests.tsx"
     ],
     "compilerOptions": {
         "module": "commonjs",
@@ -13,16 +14,8 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    },
-    "files": [
-        "index.d.ts",
-        "react-vertical-timeline-component-tests.tsx"
-    ]
+    }
 }

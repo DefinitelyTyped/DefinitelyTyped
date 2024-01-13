@@ -1,8 +1,3 @@
-// Type definitions for @project-osrm/osrm 5.27
-// Project: https://github.com/Project-OSRM/osrm-backend
-// Definitions by: Denis Carriere <https://github.com/DenisCarriere>, Ringo Leese <https://github.com/ringostarr80>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**

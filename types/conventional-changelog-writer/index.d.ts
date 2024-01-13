@@ -1,9 +1,3 @@
-// Type definitions for conventional-changelog-writer 4.0
-// Project: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-writer#readme
-// Definitions by: Jason Kwok <https://github.com/JasonHK>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 /// <reference types="node" />
 
 import * as Stream from "stream";
@@ -17,9 +11,9 @@ import { Commit } from "conventional-commits-parser";
  *                object contains, but not limits to the following fields.
  * @param options
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 declare function conventionalChangelogWriter<TCommit extends Commit = Commit, TContext extends Context = Context>(
     context?: Partial<TContext>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     options?: Options<TCommit, TContext>,
 ): Stream.Transform;
 
@@ -355,7 +349,7 @@ declare namespace conventionalChangelogWriter {
             export { FunctionType as Function };
         }
 
-        type Sort<T = any> = Sort.Function<T> | string | ReadonlyArray<string> | false;
+        type Sort<T = any> = Sort.Function<T> | string | readonly string[] | false;
 
         namespace Sort {
             type FunctionType<T = any> = (a: T, b: T) => number;

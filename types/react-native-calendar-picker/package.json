@@ -1,6 +1,22 @@
 {
     "private": true,
+    "name": "@types/react-native-calendar-picker",
+    "version": "7.0.9999",
+    "projects": [
+        "https://github.com/stephy/CalendarPicker"
+    ],
     "dependencies": {
+        "@types/react": "*",
+        "react-native": "*",
         "moment": ">=2.0.0"
-    }
+    },
+    "devDependencies": {
+        "@types/react-native-calendar-picker": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tobias Hann",
+            "githubUsername": "automatensalat"
+        }
+    ]
 }

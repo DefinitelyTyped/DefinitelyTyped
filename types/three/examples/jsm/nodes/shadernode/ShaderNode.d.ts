@@ -1,20 +1,37 @@
-import { ConstNode, Node, NodeBuilder, NodeTypeOption, SwizzleOption } from '../Nodes.js';
-// lot of private typescript magic here
-export {};
+import Node from '../core/Node.js';
+import { NodeTypeOption, SwizzleOption } from '../core/constants.js';
+import ConstNode from '../core/ConstNode.js';
+import NodeBuilder from '../core/NodeBuilder.js';
+import SplitNode from '../utils/SplitNode.js';
+
+export interface NodeElements {}
+
+export function addNodeElement(name: string, nodeElement: unknown): void;
+
 export type Swizzable<T extends Node = Node> = T & {
-    [key in SwizzleOption | number]: Swizzable;
+    [key in SwizzleOption | number]: ShaderNodeObject<SplitNode>;
 };
 
+export type ShaderNodeObject<T extends Node> = T & {
+    [Key in keyof NodeElements]: NodeElements[Key] extends (node: T, ...args: infer Args) => infer R
+        ? (...args: Args) => R
+        : never;
+} & Swizzable<T>;
+
 /** anything that can be passed to {@link nodeObject} and returns a proxy */
-export type NodeRepresentation<T extends Node = Node> = number | boolean | Node | Swizzable<T>;
+export type NodeRepresentation<T extends Node = Node> = number | boolean | Node | ShaderNodeObject<T>;
 
 /** anything that can be passed to {@link nodeObject} */
 export type NodeObjectOption = NodeRepresentation | string;
 
-// same logic as in ShaderNodeObject: number,boolean,node->swizzable, otherwise do nothing
-export type NodeObject<T> = T extends Node ? Swizzable<T> : T extends number | boolean ? Swizzable<ConstNode> : T;
+// same logic as in ShaderNodeObject: number,boolean,node->ShaderNodeObject, otherwise do nothing
+export type NodeObject<T> = T extends Node
+    ? ShaderNodeObject<T>
+    : T extends number | boolean
+    ? ShaderNodeObject<ConstNode<number | boolean>>
+    : T;
 
-// opposite of NodeObject: node -> node|swizzable|boolean|number, otherwise do nothing
+// opposite of NodeObject: node -> node|ShaderNodeObject|boolean|number, otherwise do nothing
 type Proxied<T> = T extends Node ? NodeRepresentation<T> : T;
 // https://github.com/microsoft/TypeScript/issues/42435#issuecomment-765557874
 export type ProxiedTuple<T extends readonly [...unknown[]]> = [...{ [index in keyof T]: Proxied<T[index]> }];
@@ -72,7 +89,7 @@ type AnyConstructors = Construtors<any, any, any, any>;
 /**
  * Returns all constructors where the first paramter is assignable to given "scope"
  */
-// tslint:disable-next-line:interface-over-type-literal
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type FilterConstructorsByScope<T extends AnyConstructors, S> = {
     a: S extends T['a'][0] ? T['a'] : undefined;
     b: S extends T['b'][0] ? T['b'] : undefined;
@@ -102,11 +119,7 @@ type GetConstructorsByScope<T, S> = ConstructorUnion<FilterConstructorsByScope<O
 type GetConstructors<T> = ConstructorUnion<OverloadedConstructorsOf<T>>;
 type GetPossibleScopes<T> = ExtractScopes<OverloadedConstructorsOf<T>>;
 
-export type ConvertType = (...params: unknown[]) => Swizzable;
-
-export const ConvertType: {
-    new (type: NodeTypeOption, cacheMap?: Map<unknown, ConstNode>): ConvertType;
-};
+export type ConvertType = (...params: unknown[]) => ShaderNodeObject<Node>;
 
 type NodeArray<T extends NodeObjectOption[]> = { [index in keyof T]: NodeObject<T[index]> };
 type NodeObjects<T> = { [key in keyof T]: T[key] extends NodeObjectOption ? NodeObject<T[key]> : T[key] };
@@ -114,7 +127,16 @@ type ConstructedNode<T> = T extends new (...args: any[]) => infer R ? (R extends
 
 export type NodeOrType = Node | NodeTypeOption;
 
-export function getConstNodeType(value: NodeOrType): NodeTypeOption | null;
+export const getConstNodeType: (value: NodeOrType) => NodeTypeOption | null;
+
+export class ShaderNode<T = {}, R extends Node = Node> {
+    constructor(jsFunc: (inputs: NodeObjects<T>, builder: NodeBuilder) => NodeRepresentation);
+    call: (
+        inputs: { [key in keyof T]: T[key] extends NodeRepresentation ? ShaderNodeObject<Node> | Node : T[key] },
+        builder?: NodeBuilder,
+    ) => ShaderNodeObject<R>;
+}
+
 export function nodeObject<T extends NodeObjectOption>(obj: T): NodeObject<T>;
 export function nodeObjects<T>(obj: T): NodeObjects<T>;
 
@@ -122,35 +144,55 @@ export function nodeArray<T extends NodeObjectOption[]>(obj: readonly [...T]): N
 
 export function nodeProxy<T>(
     nodeClass: T,
-): (...params: ProxiedTuple<GetConstructors<T>>) => Swizzable<ConstructedNode<T>>;
+): (...params: ProxiedTuple<GetConstructors<T>>) => ShaderNodeObject<ConstructedNode<T>>;
 
 export function nodeProxy<T, S extends GetPossibleScopes<T>>(
     nodeClass: T,
     scope: S,
-): (...params: ProxiedTuple<RemoveTail<GetConstructorsByScope<T, S>>>) => Swizzable<ConstructedNode<T>>;
+): (...params: ProxiedTuple<RemoveTail<GetConstructorsByScope<T, S>>>) => ShaderNodeObject<ConstructedNode<T>>;
 
 export function nodeProxy<T, S extends GetPossibleScopes<T>>(
     nodeClass: T,
     scope: S,
     factor: NodeObjectOption,
-): (...params: ProxiedTuple<RemoveHeadAndTail<GetConstructorsByScope<T, S>>>) => Swizzable<ConstructedNode<T>>;
+): (...params: ProxiedTuple<RemoveHeadAndTail<GetConstructorsByScope<T, S>>>) => ShaderNodeObject<ConstructedNode<T>>;
 
 export function nodeImmutable<T>(
     nodeClass: T,
     ...params: ProxiedTuple<GetConstructors<T>>
-): Swizzable<ConstructedNode<T>>;
+): ShaderNodeObject<ConstructedNode<T>>;
 
-export class ShaderNode<T = {}, R extends Node = Node> {
-    constructor(jsFunc: (inputs: NodeObjects<T>, builder: NodeBuilder) => NodeRepresentation);
-    call: (
-        inputs: { [key in keyof T]: T[key] extends NodeRepresentation ? Swizzable | Node : T[key] },
-        builder?: NodeBuilder,
-    ) => Swizzable<R>;
-}
+export const color: ConvertType;
 
-export const cacheMaps: {
-    bool: Map<boolean, ConstNode>;
-    uint: Map<number, ConstNode>;
-    int: Map<number, ConstNode>;
-    float: Map<number, ConstNode>;
-};
+export const float: ConvertType;
+export const int: ConvertType;
+export const uint: ConvertType;
+export const bool: ConvertType;
+
+export const vec2: ConvertType;
+export const ivec2: ConvertType;
+export const uvec2: ConvertType;
+export const bvec2: ConvertType;
+
+export const vec3: ConvertType;
+export const ivec3: ConvertType;
+export const uvec3: ConvertType;
+export const bvec3: ConvertType;
+
+export const vec4: ConvertType;
+export const ivec4: ConvertType;
+export const uvec4: ConvertType;
+export const bvec4: ConvertType;
+
+export const mat3: ConvertType;
+export const imat3: ConvertType;
+export const umat3: ConvertType;
+export const bmat3: ConvertType;
+
+export const mat4: ConvertType;
+export const imat4: ConvertType;
+export const umat4: ConvertType;
+export const bmat4: ConvertType;
+
+export const element: (node: NodeRepresentation, indexNode: NodeRepresentation) => ShaderNodeObject<Node>;
+export const convert: (node: NodeRepresentation, types: NodeTypeOption) => ShaderNodeObject<Node>;

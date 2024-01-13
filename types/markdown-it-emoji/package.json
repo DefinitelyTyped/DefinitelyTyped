@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/markdown-it-emoji",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/markdown-it/markdown-it-emoji"
+    ],
+    "dependencies": {
+        "@types/markdown-it": "*"
+    },
+    "devDependencies": {
+        "@types/markdown-it-emoji": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christopher Quadflieg",
+            "githubUsername": "Shinigami92"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

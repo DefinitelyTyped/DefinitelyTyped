@@ -1,9 +1,3 @@
-// Type definitions for connect-pg-simple 7.0
-// Project: https://github.com/voxpelli/node-connect-pg-simple#readme
-// Definitions by: Pasi Eronen <https://github.com/pasieronen>, Samar Mohan <https://github.com/samarmohan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 import { RequestHandler } from "express";
 import { SessionData, SessionOptions, Store } from "express-session";
 import { Pool, PoolConfig } from "pg";

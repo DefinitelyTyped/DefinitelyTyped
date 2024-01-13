@@ -1,8 +1,3 @@
-// Type definitions for sandboxed-module v2.0.3
-// Project: https://github.com/felixge/node-sandboxed-module
-// Definitions by: Sven Reglitzki <https://github.com/svi3c>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface SandboxOptions {
     /**
      * An object containing moduleIds and the values to inject for them when required by the sandboxed module.

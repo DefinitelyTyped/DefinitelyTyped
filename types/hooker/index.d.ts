@@ -1,9 +1,6 @@
-// Type definitions for JavaScript Hooker v0.2.3
-// Project: https://github.com/cowboy/javascript-hooker
-// Definitions by: Michael Zabka <https://github.com/misak113>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 declare type HookerPostHookFunction = (result: any, ...args: any[]) => IHookerPostHookResult | void;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 declare type HookerPreHookFunction = (...args: any[]) => IHookerPreHookResult | void;
 
 declare module "hooker" {

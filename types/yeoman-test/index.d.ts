@@ -1,10 +1,3 @@
-// Type definitions for yeoman-test 4.0
-// Project: https://github.com/yeoman/yeoman-test, http://yeoman.io/authoring/testing.html
-// Definitions by: Ika <https://github.com/ikatyang>
-//                 Manuel Thalmann <https://github.com/manuth>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.2
-
 import { EventEmitter } from "events";
 import Generator = require("yeoman-generator");
 import Environment = require("yeoman-environment");

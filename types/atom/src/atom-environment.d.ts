@@ -137,7 +137,7 @@ export interface AtomEnvironment {
     // Managing the Atom Window
     /** Open a new Atom window using the given options. */
     open(params?: {
-        pathsToOpen: ReadonlyArray<string>;
+        pathsToOpen: readonly string[];
         newWindow?: boolean | undefined;
         devMode?: boolean | undefined;
         safeMode?: boolean | undefined;
@@ -245,7 +245,7 @@ export interface AtomEnvironment {
      *  Returns the chosen button index number if the buttons option was an array.
      */
     confirm(
-        options: { message: string; detailedMessage?: string | undefined; buttons?: ReadonlyArray<string> | undefined },
+        options: { message: string; detailedMessage?: string | undefined; buttons?: readonly string[] | undefined },
     ): void;
 
     /**
@@ -298,7 +298,7 @@ export interface ConfirmationOptions {
     type?: "none" | "info" | "error" | "question" | "warning" | undefined;
 
     /** The text for the buttons. */
-    buttons?: ReadonlyArray<string> | undefined;
+    buttons?: readonly string[] | undefined;
 
     /** The index for the button to be selected by default in the prompt. */
     defaultId?: number | undefined;

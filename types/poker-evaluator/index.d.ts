@@ -1,8 +1,3 @@
-// Type definitions for poker-evaluator 0.3
-// Project: https://github.com/chenosaurus/poker-evaluator
-// Definitions by: Rory McGuinness <https://github.com/rorymcgit>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export const HANDTYPES: HandName[];

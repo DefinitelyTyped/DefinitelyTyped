@@ -1,8 +1,3 @@
-// Type definitions for node-radius
-// Project: https://github.com/retailnext/node-radius
-// Definitions by: Peter Harris <https://github.com/codeanimal>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**
@@ -95,5 +90,5 @@ interface RadiusPacket {
     identifier: number;
     length: number;
     attributes: any;
-    raw_attributes: Array<Array<any>>;
+    raw_attributes: any[][];
 }

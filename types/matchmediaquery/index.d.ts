@@ -1,8 +1,3 @@
-// Type definitions for matchmediaquery 0.3
-// Project: https://github.com/ncochard/matchmediaquery#readme
-// Definitions by: Nick Whitlock <https://github.com/eezstreet>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type MediaValues = Record<
     | "aspect-ratio"
     | "color-index"

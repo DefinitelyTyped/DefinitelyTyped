@@ -1,9 +1,3 @@
-// Type definitions for Sammy.js
-// Project: http://sammyjs.org/
-// Definitions by: Boris Yankov <https://github.com/borisyankov>, Oisin Grehan <https://github.com/oising>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 declare function Sammy(): Sammy.Application;
@@ -156,7 +150,7 @@ declare namespace Sammy {
         params: any;
         redirect(...params: any[]): void;
         render(location: string, data?: any, callback?: Function, partials?: any): RenderContext;
-        renderEach(location: any, data?: { name: string; data?: any }[], callback?: Function): RenderContext;
+        renderEach(location: any, data?: Array<{ name: string; data?: any }>, callback?: Function): RenderContext;
         send(...params: any[]): RenderContext;
         swap(contents: any, callback: Function): string;
         toString(): string;

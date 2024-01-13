@@ -1,8 +1,3 @@
-// Type definitions for readline-sync 1.4
-// Project: https://github.com/anseki/readline-sync
-// Definitions by: Tristan Jones <https://github.com/jonestristand>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type OptionType = string | number | RegExp | ((input: string) => boolean);
 
 export interface BasicOptions {
@@ -55,7 +50,9 @@ export function promptCL(
 export function promptLoop(inputHandler: (value: string) => boolean, options?: BasicOptions): void;
 export function promptCLLoop(
     commandHandler?:
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         | { [id: string]: (...args: string[]) => boolean | void }
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         | ((command: string, ...args: string[]) => boolean | void),
     options?: BasicOptions,
 ): void;

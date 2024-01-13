@@ -1,8 +1,3 @@
-// Type definitions for frecency 1.3
-// Project: https://github.com/mixmaxhq/frecency#readme
-// Definitions by: swyx <https://github.com/sw-yx>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // TypeScript Version: 2.3
 
 export type idAttrFn = (result: string) => string;

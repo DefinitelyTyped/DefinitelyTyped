@@ -11,53 +11,41 @@
     "bugs": {
         "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/issues"
     },
+    "packageManager": "pnpm@8.10.2",
     "engines": {
+        "pnpm": ">=8.9.2",
         "node": ">=7.8.0"
     },
     "scripts": {
+        "preinstall": "npx only-allow pnpm",
         "not-needed": "node scripts/not-needed.js",
         "update-codeowners": "node scripts/update-codeowners.js",
-        "test-all": "node --require source-map-support/register node_modules/@definitelytyped/dtslint-runner/ --path .",
+        "test-all": "node --enable-source-maps node_modules/@definitelytyped/dtslint-runner/ --path .",
         "clean": "node scripts/remove-empty.js",
-        "test": "node --require source-map-support/register node_modules/@definitelytyped/dtslint/ types",
-        "lint": "node --require source-map-support/register node_modules/@definitelytyped/dtslint/ types",
-        "prettier": "prettier"
+        "clean-node-modules": "node scripts/clean-node-modules.js",
+        "test": "node --enable-source-maps node_modules/@definitelytyped/dtslint/ types",
+        "lint": "node --enable-source-maps node_modules/@definitelytyped/dtslint/ types",
+        "prettier": "prettier",
+        "setup-hooks": "husky install"
     },
     "devDependencies": {
         "@definitelytyped/definitions-parser": "latest",
+        "@definitelytyped/dts-critic": "latest",
         "@definitelytyped/dtslint": "latest",
         "@definitelytyped/dtslint-runner": "latest",
         "@definitelytyped/eslint-plugin": "latest",
         "@definitelytyped/header-parser": "latest",
+        "@definitelytyped/typescript-versions": "latest",
         "@definitelytyped/utils": "latest",
-        "@octokit/core": "^3.5.1",
-        "@octokit/rest": "^16.0.0",
-        "comment-json": "^4.2.3",
-        "d3-array": "^3.0.2",
-        "d3-axis": "^3.0.0",
-        "d3-scale": "^4.0.0",
-        "d3-selection": "^3.0.0",
-        "d3-time": "^3.0.0",
-        "d3-time-format": "^4.0.0",
         "danger": "^11.2.3",
-        "dprint": "^0.41.0",
+        "dprint": "^0.45.0",
         "eslint-plugin-jsdoc": "^44.2.7",
-        "jsdom": "^17.0.0",
+        "husky": "^8.0.3",
+        "lint-staged": "^15.2.0",
         "remark-cli": "^11.0.0",
         "remark-gfm": "^3.0.0",
         "remark-validate-links": "^12.0.0",
-        "shelljs": "^0.8.5",
-        "source-map-support": "^0.5.21",
-        "strip-ansi": "^6.0.1",
-        "typescript": "next",
-        "w3c-xmlserializer": "^2.0.0",
-        "yargs": "^17.1.1"
+        "typescript": "next"
     },
-    "type": "module",
-    "husky": {
-        "hooks": {
-            "_comment": "This will remove husky from when we started migrating to use prettier",
-            "pre-commit": "npm uninstall husky"
-        }
-    }
+    "type": "module"
 }

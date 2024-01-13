@@ -1,5 +1,10 @@
 {
     "private": true,
+    "name": "@types/eslint",
+    "version": "8.56.9999",
+    "projects": [
+        "https://eslint.org"
+    ],
     "exports": {
         ".": {
             "types": "./index.d.ts"
@@ -10,5 +15,38 @@
         "./rules": {
             "types": "./rules/index.d.ts"
         }
-    }
+    },
+    "dependencies": {
+        "@types/estree": "*",
+        "@types/json-schema": "*"
+    },
+    "devDependencies": {
+        "@types/eslint": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Pierre-Marie Dartus",
+            "githubUsername": "pmdartus"
+        },
+        {
+            "name": "Jed Fox",
+            "githubUsername": "j-f1"
+        },
+        {
+            "name": "Saad Quadri",
+            "githubUsername": "saadq"
+        },
+        {
+            "name": "Jason Kwok",
+            "githubUsername": "JasonHK"
+        },
+        {
+            "name": "Brad Zacher",
+            "githubUsername": "bradzacher"
+        },
+        {
+            "name": "JounQin",
+            "githubUsername": "JounQin"
+        }
+    ]
 }

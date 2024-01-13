@@ -1,8 +1,3 @@
-// Type definitions for fs-minipass 2.1
-// Project: https://github.com/npm/fs-minipass#readme
-// Definitions by: JDB <https://github.com/legodude17>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import Minipass = require("minipass");

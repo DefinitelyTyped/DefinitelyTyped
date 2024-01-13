@@ -1,10 +1,3 @@
-// Type definitions for merge2 1.4
-// Project: https://github.com/teambition/merge2
-// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-//                 Chigozirim C. <https://github.com/smac89>
-//                 Winston01 <https://github.com/winston01>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { PassThrough } from "stream";

@@ -1,8 +1,3 @@
-// Type definitions for node-replicate 2.0
-// Project: https://github.com/oelin/node-replicate#readme
-// Definitions by: Ankan Bhattacharya <https://github.com/Ankan002>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Prediction {
     uuid: string;
     version_id: string;

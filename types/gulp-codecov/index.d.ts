@@ -1,8 +1,3 @@
-// Type definitions for gulp-codecov 3.0
-// Project: https://github.com/eddiemoore/gulp-codecov
-// Definitions by: Rodolfo Aguirre <https://github.com/roddolf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 import * as stream from "stream";

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/spotify-api",
+    "version": "0.0.9999",
+    "projects": [
+        "https://developer.spotify.com/web-api/"
+    ],
+    "devDependencies": {
+        "@types/spotify-api": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Niels Kristian Hansen Skovmand",
+            "githubUsername": "skovmand"
+        },
+        {
+            "name": "Magnar Ovedal Myrtveit",
+            "githubUsername": "Stadly"
+        },
+        {
+            "name": "Nils Måsén",
+            "githubUsername": "piksel"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/cronitor",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/cronitorio/cronitor-js#readme"
+    ],
+    "devDependencies": {
+        "@types/cronitor": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alexander Presthus",
+            "githubUsername": "alexpresthus"
+        }
+    ]
+}

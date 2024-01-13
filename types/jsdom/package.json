@@ -1,11 +1,35 @@
 {
     "private": true,
-    "dependencies": {
-        "parse5": "^7.0.0"
-    },
+    "name": "@types/jsdom",
+    "version": "21.1.9999",
+    "projects": [
+        "https://github.com/jsdom/jsdom"
+    ],
     "exports": {
         ".": {
             "types": "./index.d.ts"
         }
-    }
+    },
+    "dependencies": {
+        "@types/node": "*",
+        "@types/tough-cookie": "*",
+        "parse5": "^7.0.0"
+    },
+    "devDependencies": {
+        "@types/jsdom": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leonard Thieu",
+            "githubUsername": "leonard-thieu"
+        },
+        {
+            "name": "Johan Palmfjord",
+            "githubUsername": "palmfjord"
+        },
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        }
+    ]
 }

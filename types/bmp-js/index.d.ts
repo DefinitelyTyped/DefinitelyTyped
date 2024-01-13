@@ -1,8 +1,3 @@
-// Type definitions for bmp-js 0.1
-// Project: https://github.com/shaozilee/bmp-js
-// Definitions by: Robert Krahn <https://github.com/rksm>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export interface ImageData {

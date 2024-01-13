@@ -1,9 +1,3 @@
-// Type definitions for async-stream-emitter 3.0
-// Project: https://github.com/SocketCluster/async-stream-emitter
-// Definitions by: Daniel Rose <https://github.com/DanielRose>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
-
 import ConsumableStream = require("consumable-stream");
 import Consumer = require("writable-consumable-stream/consumer");
 

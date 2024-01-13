@@ -1,11 +1,3 @@
-// Type definitions for promise.allsettled 1.0
-// Project: https://github.com/ljharb/promise.allsettled#readme
-// Definitions by: Martin Jurča <https://github.com/jurca>
-//                 Elizabeth Lorenz <https://github.com/kisaraofpern>
-//                 Jordan Harband <https://github.com/ljharb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
 import implementation = require("./implementation");
 import getPolyfill = require("./polyfill");
 import shim = require("./shim");

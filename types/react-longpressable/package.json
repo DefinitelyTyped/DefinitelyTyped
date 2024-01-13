@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-longpressable",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/stardust66/react-longpressable#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-longpressable": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "VingeRay",
+            "githubUsername": "vingeraycn"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for evaluatex 2.2
-// Project: https://github.com/arthanzel/evaluatex
-// Definitions by: Fawaz Orabi <https://github.com/forabi-cosuno>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import _ from "./dist/evaluatex";
 
 declare namespace evaluatex {

@@ -1,9 +1,3 @@
-// Type definitions for non-npm package Kakao JavaScript SDK 1.39
-// Project: https://developers.kakao.com/docs/latest/ko/sdk-download/js
-// Definitions by: Lee Jaeuk <https://github.com/wooogi123>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.2
-
 /**
  * Kakao JavaScript SDK common namespace
  *

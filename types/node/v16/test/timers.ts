@@ -40,7 +40,8 @@ import { promisify } from "node:util";
         [promisify.custom](foo: any): Promise<string>;
     }) {
         const setTimeout = promisify(timers.setTimeout);
-        let v: void = await setTimeout(100); // tslint:disable-line no-void-expression void-return
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        let v: void = await setTimeout(100);
         let s: string = await setTimeout(100, "");
 
         const setImmediate = promisify(timers.setImmediate);

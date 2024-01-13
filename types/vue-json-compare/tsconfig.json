@@ -13,10 +13,6 @@
         "esModuleInterop": true,
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "experimentalDecorators": true
     },

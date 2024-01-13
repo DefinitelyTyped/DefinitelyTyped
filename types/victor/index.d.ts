@@ -1,8 +1,3 @@
-// Type definitions for Victor.js 1.1.0
-// Project: http://victorjs.org/
-// Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface VictorCoordinates {
     x: number;
     y: number;
@@ -23,7 +18,7 @@ declare class Victor {
      * Creates vector from array.
      * @param arr array An array that contains the X component in the first element and the Y component in the second
      */
-    static fromArray(arr: Array<number>): Victor;
+    static fromArray(arr: number[]): Victor;
 
     /**
      * Creates vector from object.
@@ -62,7 +57,7 @@ declare class Victor {
     /**
      * Returns an array representation of the X and Y components.
      */
-    toArray(): Array<number>;
+    toArray(): number[];
 
     /**
      * Returns an object representation of tha X and Y components.
@@ -337,8 +332,9 @@ declare class Victor {
 
     /**
      * Rounds both axis to a certain precision.
+     * @param precision (default: 8)
      */
-    toFixed(): Victor;
+    toFixed(precision: number): Victor;
 
     /**
      * Sets the vector to zero (0,0).

@@ -1,7 +1,3 @@
-// Type definitions for initrc 1.2
-// Project: https://github.com/Soldy/initrc
-// Definitions by: Soldy <https://github.com/Soldy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 export class Init {
     startAdd(fun: () => void, level: number, name: string): boolean;
     /** @async */

@@ -1,6 +1,27 @@
 {
     "private": true,
+    "name": "@types/connect-mongodb-session",
+    "version": "2.4.9999",
+    "projects": [
+        "https://github.com/mongodb-js/connect-mongodb-session#readme"
+    ],
     "dependencies": {
+        "@types/express-session": "*",
+        "@types/node": "*",
         "mongodb": "^4.5.0"
-    }
+    },
+    "devDependencies": {
+        "@types/connect-mongodb-session": "workspace:.",
+        "@types/express": "*"
+    },
+    "owners": [
+        {
+            "name": "Nattapong Sirilappanich",
+            "githubUsername": "NattapongSiri"
+        },
+        {
+            "name": "Ravi van Rooijen",
+            "githubUsername": "HoldYourWaffle"
+        }
+    ]
 }

@@ -1,13 +1,3 @@
-// Type definitions for non-npm package servicenow-london 1.0
-// Project: https://developer.servicenow.com/app.do#!/api_doc?v=london
-// Definitions by: John Caruso <https://github.com/johncaruso>
-//                 Bryce Godfrey <https://github.com/bryceg>
-//                 Garrett Griffin <https://github.com/grgisme>
-//                 Erik Myrold <https://github.com/emyrold>
-//                 Tim Woodruff <https://github.com/thisnameissoclever>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference path="Class.d.ts" />
 /// <reference path="GlideDate.d.ts" />
 /// <reference path="GlideDateTime.d.ts" />

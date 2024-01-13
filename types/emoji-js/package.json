@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/emoji-js",
+    "version": "3.5.9999",
+    "projects": [
+        "https://github.com/iamcal/js-emoji"
+    ],
+    "devDependencies": {
+        "@types/emoji-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jason Di Benedetto",
+            "githubUsername": "jasondibenedetto"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

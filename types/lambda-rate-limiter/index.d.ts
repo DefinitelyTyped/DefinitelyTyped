@@ -1,8 +1,3 @@
-// Type definitions for lambda-rate-limiter 3.0
-// Project: https://github.com/blackflux/lambda-rate-limiter
-// Definitions by: BendingBender <https://github.com/bendingbender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = rateLimiterFactory;
 
 /**

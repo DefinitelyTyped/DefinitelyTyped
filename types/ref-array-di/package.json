@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/ref-array-di",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/node-ffi-napi/ref-array-di"
+    ],
+    "dependencies": {
+        "@types/ref-napi": "*"
+    },
+    "devDependencies": {
+        "@types/ref-array-di": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Keerthi Niranjan",
+            "githubUsername": "keerthi16"
+        },
+        {
+            "name": "Kiran Niranjan",
+            "githubUsername": "KiranNiranjan"
+        }
+    ]
+}

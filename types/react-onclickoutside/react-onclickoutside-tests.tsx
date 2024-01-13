@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Component, FunctionComponent, MouseEvent } from "react";
-import { render } from "react-dom";
 import onClickOutside from "react-onclickoutside";
 
 interface TestStatelessProps {
@@ -22,27 +21,20 @@ const TestConfigObject = onClickOutside(TestStateless, {
     excludeScrollbar: true,
 });
 
-render(
-    <TestConfigObject nonClickOutsideProp="Test" />,
-    document.getElementById("main"),
-);
+<TestConfigObject nonClickOutsideProp="Test" />;
 
 const TestStatelessWrapped = onClickOutside(TestStateless);
 
-render(
-    <TestStatelessWrapped
-        nonClickOutsideProp="Test"
-        eventTypes="click"
-        disableOnClickOutside
-        preventDefault
-        stopPropagation
-        outsideClickIgnoreClass="ignore"
-        handleClickOutside={() => console.log("Stateless HandleClickOutside")}
-        excludeScrollbar
-    />,
-    document.getElementById("main"),
-);
-
+<TestStatelessWrapped
+    nonClickOutsideProp="Test"
+    eventTypes="click"
+    disableOnClickOutside
+    preventDefault
+    stopPropagation
+    outsideClickIgnoreClass="ignore"
+    handleClickOutside={() => console.log("Stateless HandleClickOutside")}
+    excludeScrollbar
+/>;
 class TestComponent extends React.Component<{ disableOnClickOutside(): void; enableOnClickOutside(): void }> {
     handleClickOutside = () => {
         console.log("this.handleClickOutside");
@@ -62,15 +54,12 @@ class TestComponent extends React.Component<{ disableOnClickOutside(): void; ena
 const WrappedComponent = onClickOutside(TestComponent);
 const wrappedComponentRef: React.RefObject<InstanceType<typeof WrappedComponent>> = React.createRef();
 
-render(
-    <WrappedComponent
-        ref={wrappedComponentRef}
-        eventTypes="whatever"
-        preventDefault
-        stopPropagation
-    />,
-    document.getElementById("main"),
-);
+<WrappedComponent
+    ref={wrappedComponentRef}
+    eventTypes="whatever"
+    preventDefault
+    stopPropagation
+/>;
 
 if (wrappedComponentRef.current) {
     wrappedComponentRef.current.getInstance().logProps();

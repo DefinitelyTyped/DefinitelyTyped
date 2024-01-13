@@ -1,12 +1,3 @@
-// Type definitions for ember-mocha 0.16
-// Project: https://github.com/emberjs/ember-mocha#readme
-// Definitions by: Simon Ihmig <https://github.com/simonihmig>
-//                 Dan Freeman <https://github.com/dfreeman>
-//                 Chris Krycho <https://github.com/chriskrycho>
-//                 James C. Davis <https://github.com/jamescdavis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
-
 import Ember from "ember";
 import { ModuleCallbacks, TestContext } from "ember-test-helpers";
 import { it as mochaIt, Suite } from "mocha";

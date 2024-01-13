@@ -1,9 +1,3 @@
-// Type definitions for koji-tools 0.5
-// Project: https://github.com/madewithkoji/koji-tools
-// Definitions by: Jeff Peterson <https://github.com/bdjeffyp>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /**
  * Server-side function that sets file watchers on all .koji customization
  * files and allows for hot reloading of these properties.

@@ -1,9 +1,3 @@
-// Type definitions for node-gcm 1.0.2
-// Project: https://www.npmjs.org/package/node-gcm
-// Definitions by: Hiroki Horiuchi <https://github.com/horiuchi>
-//                 BWYou <https://github.com/yousky/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface INotificationOptions {
     title: string;
     body?: string | undefined;
@@ -100,9 +94,11 @@ export interface IResponseBody {
     failure: number;
     canonical_ids: number;
     multicast_id?: number | undefined;
-    results?: {
-        message_id?: string | undefined;
-        registration_id?: string | undefined;
-        error?: string | undefined;
-    }[] | undefined;
+    results?:
+        | Array<{
+            message_id?: string | undefined;
+            registration_id?: string | undefined;
+            error?: string | undefined;
+        }>
+        | undefined;
 }

@@ -1,8 +1,3 @@
-// Type definitions for @stroncium/procfs 1.2
-// Project: https://github.com/stroncium/nodejs-procfs
-// Definitions by: pauhull <https://github.com/pauhull>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface ProcessMountinfo {
     devId: number;
     mountId: number;

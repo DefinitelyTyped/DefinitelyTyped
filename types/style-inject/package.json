@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/style-inject",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/egoist/style-inject"
+    ],
+    "devDependencies": {
+        "@types/style-inject": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leon Si",
+            "githubUsername": "leonzalion"
+        }
+    ]
+}

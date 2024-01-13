@@ -1,12 +1,3 @@
-// Type definitions for D3JS d3-geo module 3.0
-// Project: https://github.com/d3/d3-geo/, https://d3js.org/d3-geo
-// Definitions by: Hugues Stefanski <https://github.com/ledragon>
-//                 Tom Wanzek <https://github.com/tomwanzek>
-//                 Alex Ford <https://github.com/gustavderdrache>
-//                 Boris Yankov <https://github.com/borisyankov>
-//                 Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Last module patch version validated against: 3.0.1
 
 import * as GeoJSON from "geojson";
@@ -901,6 +892,16 @@ export interface GeoPath<This = any, DatumObject extends GeoPermissibleObjects =
      * alternatively, you could d3.symbol and a projection for greater flexibility.
      */
     pointRadius(value: number | ((this: This, object: DatumObject, ...args: any[]) => number)): this;
+
+    /**
+     * Returns the current number of digits, which defaults to 3.
+     */
+    digits(): number;
+    /**
+     * Sets the number of fractional digits for coordinates generated in SVG path strings.
+     * @param digits New amount of digits
+     */
+    digits(digits: number): this;
 }
 
 /**
@@ -936,10 +937,10 @@ export function geoPath(projection?: GeoProjection | GeoStreamWrapper | null, co
  * @param context An (optional) rendering context to be used. If a context is provided, it must at least implement the interface described by GeoContext, a subset of the CanvasRenderingContext2D API.
  * Setting the context to "null" means that the path generator will return an SVG path string representing the to be rendered object. The default is "null".
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function geoPath<DatumObject extends GeoPermissibleObjects>(
     projection?: GeoProjection | GeoStreamWrapper | null,
     context?: GeoContext | null,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): GeoPath<any, DatumObject>;
 /**
  * Creates a new geographic path generator with the default settings.
@@ -961,10 +962,10 @@ export function geoPath<DatumObject extends GeoPermissibleObjects>(
  * @param context An (optional) rendering context to be used. If a context is provided, it must at least implement the interface described by GeoContext, a subset of the CanvasRenderingContext2D API.
  * Setting the context to "null" means that the path generator will return an SVG path string representing the to be rendered object. The default is "null".
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function geoPath<This, DatumObject extends GeoPermissibleObjects>(
     projection?: GeoProjection | GeoStreamWrapper | null,
     context?: GeoContext | null,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): GeoPath<This, DatumObject>;
 
 // geoProjection ==========================================================

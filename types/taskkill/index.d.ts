@@ -1,8 +1,3 @@
-// Type definitions for taskkill 5.0
-// Project: https://github.com/sindresorhus/taskkill#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Kill asynchronously.
  * @async

@@ -1,9 +1,3 @@
-// Type definitions for Noteflight Client API 2.0
-// Project: Noteflight Client API 2.0 - <https://github.com/noteflight>
-// Definitions by: Nicholas Epps <https://github.com/nickslick03>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// visit https://www.noteflight.com/info/api/client_doc_v2 for more details.
-
 // IMPORTANT:
 //  <script src="https://www.noteflight.com/clientapi/2.0.0/nfclient.js"></script>
 // IS REQUIRED IN THE DOCUMENT HEAD
@@ -203,6 +197,7 @@ interface DocumentMethodPromise<Result> {
      * To wait for a method to complete or to obtain its return value if it has one,
      * call done() on the Promise object returned by the method and pass a callback that will receive the return value of the method (if any).
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     done: (callback: (result: Result) => void | Array<(result: Result) => void>) => DocumentMethodPromise<Result>;
     /**
      * Internal function that stores the callback functions as passed through the done() method.

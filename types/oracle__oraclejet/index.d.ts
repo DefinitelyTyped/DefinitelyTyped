@@ -1,9 +1,3 @@
-// Type definitions for oraclejet 6.1
-// Project: https://github.com/oracle/oraclejet
-// Definitions by: Naizam Olakara <https://github.com/nolakara>
-//                 Jing Wu <https://github.com/jingxwu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
 import { Collection, Model } from "./ojmodel";
 export namespace oj {
     let revision: string;
@@ -67,7 +61,7 @@ export interface JetElementCustomEvent<V> extends
 {
 }
 // This interfaces is empty but required to keep the component chain intact. Avoid lint-rule
-// tslint:disable-next-line no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface JetSettableProperties {
 }
 export type JetSetPropertyType<K, U extends JetSettableProperties> = K extends keyof U ? U[K] : any;

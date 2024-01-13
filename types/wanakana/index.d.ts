@@ -1,9 +1,3 @@
-// Type definitions for wanakana 4.0
-// Project: https://github.com/WaniKani/WanaKana
-// Definitions by: Ross Hendry <https://github.com/chooban>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace wanakana;
 
 export type IMEModes = true | false | "toHiragana" | "toKatakana";

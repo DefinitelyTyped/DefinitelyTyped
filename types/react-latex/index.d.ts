@@ -1,8 +1,3 @@
-// Type definitions for react-latex 2.0
-// Project: https://github.com/zzish/react-latex
-// Definitions by: Federico Grandi <https://github.com/EndBug>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 interface LatexProps {

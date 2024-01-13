@@ -26,8 +26,8 @@ console.log(Buffer.isBuffer(octetBuffer));
 console.log(Buffer.isEncoding("utf8"));
 console.log(Buffer.byteLength("xyz123"));
 console.log(Buffer.byteLength("xyz123", "ascii"));
-const result1 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8Array>);
-const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8Array>, 9999999);
+const result1 = Buffer.concat([utf8Buffer, base64Buffer] as readonly Uint8Array[]);
+const result2 = Buffer.concat([utf8Buffer, base64Buffer] as readonly Uint8Array[], 9999999);
 
 // Module constants
 {
@@ -60,7 +60,7 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8A
 // Class Method: Buffer.from(data)
 {
     // Array
-    const buf1: Buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72] as ReadonlyArray<number>);
+    const buf1: Buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72] as readonly number[]);
     // Buffer
     const buf2: Buffer = Buffer.from(buf1, 1, 2);
     // String
@@ -479,4 +479,12 @@ buff.writeDoubleBE(123.123, 0);
     const u16 = new Uint16Array([0xffff]);
     Buffer.copyBytesFrom(u16); // $ExpectType Buffer
     Buffer.copyBytesFrom(u16, 1, 5); // $ExpectType Buffer
+}
+
+{
+    const blobTest = new Blob([""]);
+    // @ts-expect-error
+    blobTest.arguments;
+    // @ts-expect-error
+    new blobTest();
 }

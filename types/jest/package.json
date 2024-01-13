@@ -1,12 +1,126 @@
 {
     "private": true,
-    "dependencies": {
-        "expect": "^29.0.0",
-        "pretty-format": "^29.0.0"
-    },
+    "name": "@types/jest",
+    "version": "29.5.9999",
+    "projects": [
+        "https://jestjs.io/"
+    ],
     "exports": {
         ".": {
             "types": "./index.d.ts"
         }
-    }
+    },
+    "dependencies": {
+        "expect": "^29.0.0",
+        "pretty-format": "^29.0.0"
+    },
+    "devDependencies": {
+        "@types/jest": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Asana (https://asana.com)\n//                 Ivo Stratev",
+            "githubUsername": "NoHomey"
+        },
+        {
+            "name": "jwbay",
+            "githubUsername": "jwbay"
+        },
+        {
+            "name": "Alexey Svetliakov",
+            "githubUsername": "asvetliakov"
+        },
+        {
+            "name": "Alex Jover Morales",
+            "githubUsername": "alexjoverm"
+        },
+        {
+            "name": "Allan Lukwago",
+            "githubUsername": "epicallan"
+        },
+        {
+            "name": "Ika",
+            "githubUsername": "ikatyang"
+        },
+        {
+            "name": "Waseem Dahman",
+            "githubUsername": "wsmd"
+        },
+        {
+            "name": "Jamie Mason",
+            "githubUsername": "JamieMason"
+        },
+        {
+            "name": "Douglas Duteil",
+            "githubUsername": "douglasduteil"
+        },
+        {
+            "name": "Ahn",
+            "githubUsername": "ahnpnl"
+        },
+        {
+            "name": "Jeff Lau",
+            "githubUsername": "UselessPickles"
+        },
+        {
+            "name": "Andrew Makarov",
+            "githubUsername": "r3nya"
+        },
+        {
+            "name": "Martin Hochel",
+            "githubUsername": "hotell"
+        },
+        {
+            "name": "Sebastian Sebald",
+            "githubUsername": "sebald"
+        },
+        {
+            "name": "Andy",
+            "githubUsername": "andys8"
+        },
+        {
+            "name": "Antoine Brault",
+            "githubUsername": "antoinebrault"
+        },
+        {
+            "name": "Gregor Stamać",
+            "githubUsername": "gstamac"
+        },
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        },
+        {
+            "name": "Alex Bolenok",
+            "githubUsername": "quassnoi"
+        },
+        {
+            "name": "Mario Beltrán Alarcón",
+            "githubUsername": "Belco90"
+        },
+        {
+            "name": "Tony Hallett",
+            "githubUsername": "tonyhallett"
+        },
+        {
+            "name": "Jason Yu",
+            "githubUsername": "ycmjason"
+        },
+        {
+            "name": "Pawel Fajfer",
+            "githubUsername": "pawfa"
+        },
+        {
+            "name": "Alexandre Germain",
+            "githubUsername": "gerkindev"
+        },
+        {
+            "name": "Adam Jones",
+            "githubUsername": "domdomegg"
+        },
+        {
+            "name": "Tom Mrazauskas",
+            "githubUsername": "mrazauskas"
+        }
+    ]
 }

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/disqusjs",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/SukkaW/DisqusJS#readme"
+    ],
+    "devDependencies": {
+        "@types/disqusjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "enpitsulin",
+            "githubUsername": "enpitsuLin"
+        }
+    ]
+}

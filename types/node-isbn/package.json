@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/node-isbn",
+    "version": "1.6.9999",
+    "projects": [
+        "https://github.com/palmerabollo/node-isbn#readme"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "axios": "^0.21.1"
-    }
+    },
+    "devDependencies": {
+        "@types/node-isbn": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
 }

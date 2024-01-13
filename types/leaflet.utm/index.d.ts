@@ -1,9 +1,3 @@
-// Type definitions for Leaflet.UTM 0.0
-// Project: https://github.com/jjimenezshaw/Leaflet.UTM
-// Definitions by: Andrew Lineyschikov <https://github.com/Elcaten>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import * as L from "leaflet";
 
 declare module "leaflet" {

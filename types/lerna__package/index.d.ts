@@ -1,8 +1,3 @@
-// Type definitions for @lerna/package 5.1
-// Project: https://github.com/lerna/lerna/tree/main/core/package
-// Definitions by: DonMahallem <https://github.com/donmahallem>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import type { Result } from "npm-package-arg";
 
 /**

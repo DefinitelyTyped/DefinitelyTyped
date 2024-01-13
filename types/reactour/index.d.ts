@@ -1,9 +1,3 @@
-// Type definitions for reactour 1.18
-// Project: https://github.com/elrumordelaluz/reactour#readme
-// Definitions by: Paweł Dąbrowski <https://github.com/paolostyle>, jzsplk <https://github.com/jzsplk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 // ---------------------

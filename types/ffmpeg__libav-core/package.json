@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/ffmpeg__libav-core",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/ffmpegwasm/libav.wasm"
+    ],
+    "devDependencies": {
+        "@types/ffmpeg__libav-core": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jerome Wu",
+            "githubUsername": "jeromewu"
+        }
+    ]
+}

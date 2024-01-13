@@ -1,8 +1,3 @@
-// Type definitions for react-world-flags 1.4
-// Project: https://github.com/smucode/react-world-flags#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 export interface FlagProps extends React.HTMLProps<HTMLImageElement> {

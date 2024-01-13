@@ -1,8 +1,3 @@
-// Type definitions for protoc-plugin 0.0
-// Project: https://github.com/konsumer/node-protoc-plugin/
-// Definitions by: Jonny Reeves <https://github.com/jonnyreeves>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import {
@@ -15,7 +10,7 @@ import Location = SourceCodeInfo.Location;
 
 type OutputFiles = pb_CodeGeneratorResponse.File.AsObject[];
 type SimplePluginCallback = (
-    filesToGenerate: ReadonlyArray<FileDescriptorProto.AsObject>,
+    filesToGenerate: readonly FileDescriptorProto.AsObject[],
 ) => OutputFiles | Promise<OutputFiles>;
 
 declare function simplePlugin(cb: SimplePluginCallback): Promise<void>;

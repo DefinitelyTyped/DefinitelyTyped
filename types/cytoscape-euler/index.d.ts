@@ -1,8 +1,3 @@
-// Type definitions for cytoscape-euler 1.2
-// Project: https://github.com/cytoscape/cytoscape.js-euler
-// Definitions by: Roger Dubbs <https://github.com/RogerDubbs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import cytoscape = require("cytoscape");
 
 declare const cytoscapeEuler: cytoscape.Ext;

@@ -1,10 +1,3 @@
-// Type definitions for chrome-remote-interface 0.31
-// Project: https://github.com/cyrus-and/chrome-remote-interface
-// Definitions by: Khairul Azhar Kasmiran <https://github.com/kazarmy>
-//                 Seth Westphal <https://github.com/westy92>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.0
-
 import type ProtocolMappingApi from "devtools-protocol/types/protocol-mapping";
 import type ProtocolProxyApi from "devtools-protocol/types/protocol-proxy-api";
 
@@ -160,7 +153,7 @@ declare namespace CDP {
         : never;
     type DoEventPromises<D extends string> = {
         [event in GetEvent<D>]:
-            // tslint:disable-next-line: void-return
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             () => Promise<GetReturnType<D, event> extends undefined ? void : GetReturnType<D, event>>;
     };
     type DoEventListeners<D extends string> = {

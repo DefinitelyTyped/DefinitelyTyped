@@ -1,9 +1,3 @@
-// Type definitions for @gatsbyjs/reach-router 2.0
-// Project: https://github.com/gatsbyjs/reach-router#readme
-// Definitions by: Adam Jones <https://github.com/domdomegg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.2
-
 import { WindowLocation } from "@reach/router";
 import * as React from "react";
 

@@ -1,9 +1,3 @@
-// Type definitions for extensible-duck 1.6
-// Project: https://github.com/investtools/extensible-duck
-// Definitions by: Cheng Gibson <https://github.com/nossbigg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
-
 // note: all need to share same generics args, since the library exposes an instance of itself
 // for .reducer(), .sagas(), .takes(), etc...
 export class Duck<

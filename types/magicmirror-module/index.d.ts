@@ -1,8 +1,3 @@
-// Type definitions for non-npm package magicmirror-module 2.16
-// Project: https://magicmirror.builders/
-// Definitions by: Jalibu <https://github.com/jalibu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Module {
     /* tslint:disable:no-unnecessary-generics */
     function register<T>(

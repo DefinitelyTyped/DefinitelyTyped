@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/spdy",
+    "version": "3.4.9999",
+    "projects": [
+        "https://github.com/indutny/node-spdy"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/spdy": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Anthony Trinh",
+            "githubUsername": "tony19"
+        }
+    ]
+}

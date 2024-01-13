@@ -1,9 +1,3 @@
-// Type definitions for @carbon/colors 10.31
-// Project: https://github.com/IBM/carbon-elements/tree/master/packages/colors
-// Definitions by: Vince Picone <https://github.com/vpicone>
-//                 Szabolcs Bihary <https://github.com/szbihary>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export const black: string;
 
 export const black100: string;

@@ -1,6 +1,22 @@
 {
     "private": true,
+    "name": "@types/token-introspection",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/schibsted/node-token-introspection"
+    ],
     "dependencies": {
-        "@types/node-fetch": "^2.5.12"
-    }
+        "@types/jsonwebtoken": "*",
+        "@types/node-fetch": "^2.5.12",
+        "@types/pem-jwk": "*"
+    },
+    "devDependencies": {
+        "@types/token-introspection": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Rose",
+            "githubUsername": "DanielRose"
+        }
+    ]
 }

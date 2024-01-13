@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/backbone.layoutmanager",
+    "version": "0.9.9999",
+    "projects": [
+        "http://layoutmanager.org/"
+    ],
+    "dependencies": {
+        "@types/backbone": "*",
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/backbone.layoutmanager": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "He Jiang",
+            "githubUsername": "hejiang2000"
+        }
+    ]
+}

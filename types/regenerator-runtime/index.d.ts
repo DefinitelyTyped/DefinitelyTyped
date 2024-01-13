@@ -1,9 +1,3 @@
-// Type definitions for regenerator-runtime 0.13
-// Project: https://github.com/facebook/regenerator
-// Definitions by: ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
-
 export as namespace regeneratorRuntime;
 declare global {
     var regeneratorRuntime: typeof import(".");
@@ -168,7 +162,7 @@ export interface Context<TYield = unknown, TReturn = unknown, TNext = unknown> {
 
 export function wrap<T = undefined, TYield = unknown, TReturn = unknown, TNext = unknown>(
     innerFn: InnerFunction<T, TYield, TReturn, TNext>,
-    // tslint:disable-next-line: ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     outerFn?: Function | null,
     self?: T,
     tryLocsList?: TryLocationsList,
@@ -209,7 +203,7 @@ export function async<T = undefined, TYield = unknown, TReturn = unknown>(
 >;
 export function async<T = undefined, TReturn = unknown>(
     innerFn: InnerFunction<T, unknown, TReturn>,
-    // tslint:disable-next-line: ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     outerFn?: Function | null,
     self?: T,
     tryLocsList?: TryLocationsList,
@@ -230,7 +224,7 @@ export function isGeneratorFunction(func: unknown): func is GeneratorFunction;
 
 export function keys(object: {}): () => IteratorResult<string, undefined>;
 
-// tslint:disable-next-line: ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function mark<F extends Function>(genFun: F): F & GeneratorFunction;
 
 export function values<I extends Iterator<unknown, unknown, unknown>>(iterable: { [Symbol.iterator](): I }): I;

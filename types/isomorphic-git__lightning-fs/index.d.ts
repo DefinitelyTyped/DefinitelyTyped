@@ -1,8 +1,3 @@
-// Type definitions for @isomorphic-git/lightning-fs 4.4
-// Project: https://github.com/isomorphic-git/lightning-fs#readme
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "@isomorphic-git/lightning-fs" {
     /**

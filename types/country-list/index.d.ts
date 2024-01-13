@@ -1,9 +1,3 @@
-// Type definitions for country-list 2.1
-// Project: https://github.com/fannarsh/country-list
-// Definitions by: Kyle Roach <https://github.com/iRoachie>
-//                 Adam Binford <https://github.com/Kimahriman>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Country {
     code: string;
     name: string;

@@ -1,10 +1,3 @@
-// Type definitions for non-npm package cookieclicker 2.052
-// Project: https://orteil.dashnet.org/cookieclicker/
-// Definitions by: Lubomir <https://github.com/TheGLander>
-//                 Static Variable James <https://github.com/staticvariablejames>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
-
 declare function AddEvent(htmlElement: HTMLElement, eventName: string, eventFunction: (e: Event) => void): void;
 declare function l(name: string): HTMLElement | null;
 declare function escapeRegExp(str: string): string;
@@ -379,6 +372,7 @@ declare function b64_to_utf8(str: string): string;
 declare function getAchievementName(name: string): string;
 
 declare function localStorageGet(key: string): Game.PseudoNull | null | string;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 declare function localStorageSet(key: string, str: string): Game.PseudoNull | void;
 
 declare function writeIcon(icon: Game.Icon): string;
@@ -951,6 +945,7 @@ declare namespace Game {
 
     export function refillLump(n: number, func: () => void): void;
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     export function spendLump(n: number, str: string, func: () => void, free?: boolean): () => void | false;
 
     export function doLumps(): void;
@@ -1823,6 +1818,7 @@ declare namespace Game {
         /**
          * Called when the spell succeeds, always called if no fail function
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         win: () => -1 | void;
         /**
          * The description of the negative effect of the spell, in HTML text
@@ -1831,6 +1827,7 @@ declare namespace Game {
         /**
          * Called when the spell fails
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         fail?: (() => -1 | void) | undefined;
         id: number;
         icon: Icon;
@@ -2312,6 +2309,7 @@ declare namespace Game {
          * Buys a building
          * @param amount Amount of buildings to buy, defaults to `Game.buyBulk`
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         buy(amount?: number): void | 0;
         /**
          * Buys a building for free, while increasing the price
@@ -2362,6 +2360,7 @@ declare namespace Game {
         /**
          * Redraws the art
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         draw(): void | false;
         /**
          * Resets `this.pics`, see `draw` for actual redrawing
@@ -2807,6 +2806,7 @@ declare namespace Game {
         getType(): "Upgrade";
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     export function storeBuyAll(): void | false;
 
     export let vault: number[];
@@ -3110,6 +3110,7 @@ declare namespace Game {
 
     export let BGsByChoice: Record<number, Background>;
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     export function loseShimmeringVeil(context: string): void | false;
 
     export interface Season {

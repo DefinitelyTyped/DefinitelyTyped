@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-tab-navigator",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/exponentjs/react-native-tab-navigator#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-tab-navigator": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kyle Roach",
+            "githubUsername": "iRoachie"
+        }
+    ]
+}

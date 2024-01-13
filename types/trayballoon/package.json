@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/trayballoon",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/sindresorhus/trayballoon"
+    ],
+    "devDependencies": {
+        "@types/trayballoon": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "André Eckardt",
+            "githubUsername": "korve"
+        }
+    ]
+}

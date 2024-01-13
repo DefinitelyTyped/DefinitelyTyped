@@ -1,9 +1,3 @@
-// Type definitions for Forge-apis 0.9
-// Project: https://github.com/Autodesk-Forge/forge-api-nodejs-client
-// Definitions by: Bryan Huang <https://github.com/dukedhx>, Jan Liska <https://github.com/liskaj>, Cyrille Fauvel <https://github.com/cyrillef>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 // Copyright (c) Autodesk, Inc. All rights reserved
 //
 // Permission to use, copy, modify, and distribute this software in
@@ -1360,7 +1354,9 @@ export class ObjectsApi {
             useCdn?: boolean | undefined;
             minutesExpiration?: number | undefined;
             chunkSize?: number | undefined;
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onDownloadProgress?: (progressEvent: any) => void | undefined;
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onRefreshToken?: () => void | undefined;
         },
         oauth2client: AuthClient,
@@ -1409,7 +1405,9 @@ export class ObjectsApi {
             maxBatches?: number | undefined;
             useAcceleration?: boolean | undefined;
             minutesExpiration?: number | undefined;
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onUploadProgress?: (progressEvent: any) => void | undefined;
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onRefreshToken?: () => void | undefined;
         },
         oauth2client: AuthClient,
@@ -1663,6 +1661,7 @@ export namespace WebhooksApi {
         filter?: string | undefined;
         hubId: string;
         projectId?: string | undefined;
+        hookExpiry?: string | undefined;
     }
 }
 

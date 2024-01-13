@@ -1,9 +1,3 @@
-// Type definitions for can-autoplay 3.0
-// Project: https://github.com/video-dev/can-autoplay
-// Definitions by: Viacheslav Borodulin <https://github.com/vborodulin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.6
-
 export interface Options {
     inline?: boolean | undefined;
     muted?: boolean | undefined;

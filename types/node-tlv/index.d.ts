@@ -1,8 +1,3 @@
-// Type definitions for node-tlv 1.5
-// Project: https://github.com/coolbong/node-tlv#readme
-// Definitions by: David-Tennant <https://github.com/David-Tennant>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare class TL {

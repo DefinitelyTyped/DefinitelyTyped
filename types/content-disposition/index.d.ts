@@ -1,9 +1,3 @@
-// Type definitions for content-disposition 0.5
-// Project: https://github.com/jshttp/content-disposition
-// Definitions by: Stefan Reichel <https://github.com/bomret>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace contentDisposition {
     /**
      * Class for parsed Content-Disposition header for v8 optimization

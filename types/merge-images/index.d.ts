@@ -1,10 +1,3 @@
-// Type definitions for merge-images 1.2
-// Project: https://github.com/lukechilds/merge-images
-// Definitions by: BendingBender <https://github.com/BendingBender>
-//                 Mateus Nardo <https://github.com/mdnm>
-//                 Kyle Hensel <https://github.com/k-yle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export as namespace mergeImages;

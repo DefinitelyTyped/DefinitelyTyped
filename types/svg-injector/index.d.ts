@@ -1,8 +1,3 @@
-// Type definitions for SVG Injector
-// Project: https://github.com/iconic/SVGInjector
-// Definitions by: Patrick Westerhoff <https://github.com/poke>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace SVGInjector {
     interface SVGInjector {
         /**
@@ -13,7 +8,7 @@ declare namespace SVGInjector {
          * @param done Callback that receives the injected element count as parameter.
          */
         (
-            elements: Node | NodeList | Array<Node>,
+            elements: Node | NodeList | Node[],
             options?: SVGInjectorOptions,
             done?: (elementCount: number) => void,
         ): void;

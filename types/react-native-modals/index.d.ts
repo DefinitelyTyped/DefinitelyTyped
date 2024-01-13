@@ -1,9 +1,3 @@
-// Type definitions for react-native-modals 0.22
-// Project: https://github.com/jacklam718/react-native-modals/blob/master/README.md
-// Definitions by: Paito Anderson <https://github.com/PaitoAnderson>
-//                 Jean-Baptiste Crestot <https://github.com/jbcrestot>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 import { StyleProp, TextStyle, ViewStyle } from "react-native";
 

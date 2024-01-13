@@ -13069,7 +13069,7 @@ declare namespace zingchart {
         /**
          * Sets the height of the object. 10 | "20px" | 0.3 | "30%" | ...
          */
-        height?: number;
+        height?: string | number;
         /**
          * Sets the line style of the object. "solid" | "dotted" | "dashed" | "dashdot"
          */
@@ -13082,7 +13082,7 @@ declare namespace zingchart {
         /**
          * Sets the width of the object. 10 | "20px" | 0.3 | "30%" | ...
          */
-        width?: number;
+        width?: string | number;
         "3d-aspect"?: {
             /**
              * Sets the view angle when using the isometric 3D engine. Value can be between 0 and 90, with the default viewing angle being 45°. 5

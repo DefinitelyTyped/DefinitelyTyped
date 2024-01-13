@@ -1,10 +1,3 @@
-// Type definitions for hummus-recipe 1.8
-// Project: https://github.com/chunyenHuang/hummusRecipe
-// Definitions by: Erik Berreßem <https://github.com/she11sh0cked>
-//                 Sebastian Martinez <https://github.com/sebastinez>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
 declare namespace Recipe {

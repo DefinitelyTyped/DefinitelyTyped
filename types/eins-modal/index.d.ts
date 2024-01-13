@@ -1,8 +1,3 @@
-// Type definitions for eins-modal 2.2
-// Project: https://www.einscms.com/modal
-// Definitions by: Timucin Ünal <https://github.com/Timu57>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="jquery" />
 
 type openTransition =

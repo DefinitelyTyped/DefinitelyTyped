@@ -10,16 +10,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
-        "paths": {
-            "akumina-core": [
-                "akumina-core/v4"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

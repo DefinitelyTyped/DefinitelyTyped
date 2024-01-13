@@ -1,8 +1,3 @@
-// Type definitions for denodeify 1.2.1
-// Project: https://github.com/matthew-andrews/denodeify
-// Definitions by: joaomoreno <https://github.com/joaomoreno>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function _<R>(fn: _.F0<R>, transformer?: _.M): () => Promise<R>;
 declare function _<A, R>(fn: _.F1<A, R>, transformer?: _.M): (a: A) => Promise<R>;
 declare function _<A, B, R>(fn: _.F2<A, B, R>, transformer?: _.M): (a: A, b: B) => Promise<R>;

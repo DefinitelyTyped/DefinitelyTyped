@@ -2,7 +2,11 @@
     "rules": {
         "@definitelytyped/dt-header": "off",
         "@definitelytyped/no-declare-current-package": "off",
+        "@definitelytyped/no-single-declare-module": "off",
+        "@definitelytyped/no-type-only-packages": "off",
+        "@definitelytyped/npm-naming": "off",
         "@definitelytyped/strict-export-declare-modifiers": "off",
-        "@definitelytyped/no-single-declare-module": "off"
+        "@typescript-eslint/explicit-member-accessibility": "off",
+        "@typescript-eslint/naming-convention": "off"
     }
 }

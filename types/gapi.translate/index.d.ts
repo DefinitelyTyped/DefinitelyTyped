@@ -1,9 +1,3 @@
-// Type definitions for Google Translate API
-// Project: https://developers.google.com/translate/
-// Definitions by: Frank M <https://github.com/sgtfrankieboy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="gapi" />
 
 declare namespace gapi.client.language {
@@ -78,27 +72,29 @@ declare namespace gapi.client.language {
 
 interface GoogleApiTranslateTranslationListResponse {
     data: {
-        translations: {
+        translations: Array<{
             translatedText: string;
             detectedSourceLanguage: string;
-        }[];
+        }>;
     };
 }
 
 interface GoogleApiTranslateLanguageListResponse {
     data: {
-        languages: {
+        languages: Array<{
             language: string;
             name: string;
-        }[];
+        }>;
     };
 }
 
 interface GoogleApiTranslateDetectionListResponse {
     data: {
-        detections: {
-            language: string;
-            confidence: number;
-        }[][];
+        detections: Array<
+            Array<{
+                language: string;
+                confidence: number;
+            }>
+        >;
     };
 }

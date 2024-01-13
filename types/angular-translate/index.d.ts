@@ -1,11 +1,3 @@
-// Type definitions for Angular Translate (pascalprecht.translate module) 2.19
-// Project: https://github.com/PascalPrecht/angular-translate
-// Definitions by: Michel Salib <https://github.com/michelsalib>,
-//                 Gabriel Gil <https://github.com/GabrielGil>,
-//                 Dmitry Gurovich <https://github.com/yrtimiD>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 declare var _: string;
 export = _;
 
@@ -39,7 +31,7 @@ declare module "angular" {
         }
 
         interface ITranslatePartialLoaderService extends IPartialLoader<ITranslatePartialLoaderService> {
-            getRegisteredParts(): Array<string>;
+            getRegisteredParts(): string[];
             isPartLoaded(name: string, lang: string): boolean;
         }
 

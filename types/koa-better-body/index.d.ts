@@ -1,8 +1,3 @@
-// Type definitions for koa-better-body 3.3
-// Project: https://github.com/tunnckoCore/opensource/tree/master/%40packages/koa-better-body
-// Definitions by: David Tanner <https://github.com/DavidTanner>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Options as FormidableOptions } from "formidable";
 import { DefaultContext, DefaultState, Next, ParameterizedContext } from "koa";
 

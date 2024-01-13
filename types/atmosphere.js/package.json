@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/atmosphere.js",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/Atmosphere/atmosphere-javascript"
+    ],
+    "devDependencies": {
+        "@types/atmosphere.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kai Toedter",
+            "githubUsername": "toedter"
+        },
+        {
+            "name": "Fedor Kirpichev",
+            "githubUsername": "Mory1879"
+        },
+        {
+            "name": "Jorge Beltran",
+            "githubUsername": "Scipion"
+        }
+    ]
+}

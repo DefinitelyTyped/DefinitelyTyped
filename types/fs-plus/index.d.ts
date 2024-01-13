@@ -1,9 +1,3 @@
-// Type definitions for fs-plus 3.0
-// Project: https://github.com/atom/fs-plus, http://atom.github.io/fs-plus
-// Definitions by: Daniel Perez Alvarez <https://github.com/unindented>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
 import { Stats } from "fs";
@@ -221,6 +215,7 @@ export function makeTree(
 export function traverseTreeSync(
     rootPath: string,
     onFile: (file: string) => void,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onDirectory: (dir: string) => boolean | void,
 ): void;
 
@@ -230,6 +225,7 @@ export function traverseTreeSync(
 export function traverseTree(
     rootPath: string,
     onFile: (file: string) => void,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onDirectory: (dir: string) => boolean | void,
     onDone: (err: any) => void,
 ): void;

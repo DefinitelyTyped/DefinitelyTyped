@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gulp-help-doc",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/Mikhus/gulp-help-doc"
+    ],
+    "dependencies": {
+        "@types/gulp": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp-help-doc": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mikhus",
+            "githubUsername": "Mikhus"
+        }
+    ]
+}

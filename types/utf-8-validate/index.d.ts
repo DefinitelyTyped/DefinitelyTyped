@@ -1,8 +1,3 @@
-// Type definitions for utf-8-validate 5.0
-// Project: https://github.com/websockets/utf-8-validate
-// Definitions by: OpportunityLiu <https://github.com/OpportunityLiu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**

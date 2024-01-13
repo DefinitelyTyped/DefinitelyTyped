@@ -1,8 +1,3 @@
-// Type definitions for html-entities-decoder 1.0
-// Project: https://github.com/xinglie/html-entities-decoder
-// Definitions by: Changhyun Baek <https://github.com/paikwiki>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Decode HTML entity string.
  *

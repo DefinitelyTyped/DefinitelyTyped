@@ -309,6 +309,7 @@ declare namespace SemanticUI {
             /**
              * Callback before popup is shown. Returning false from this callback will cancel the popup from showing.
              */
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onShow(this: JQuery, $module: JQuery): false | void;
             /**
              * Callback after popup is shown
@@ -317,6 +318,7 @@ declare namespace SemanticUI {
             /**
              * Callback before popup is hidden. Returning false from this callback will cancel the popup from hiding.
              */
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onHide(this: JQuery, $module: JQuery): false | void;
             /**
              * Callback after popup is hidden

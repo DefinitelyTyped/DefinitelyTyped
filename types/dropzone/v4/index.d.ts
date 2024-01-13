@@ -1,9 +1,3 @@
-// Type definitions for Dropzone 4.3.0
-// Project: http://www.dropzonejs.com/
-// Definitions by: Natan Vivo <https://github.com/nvivo>, Andy Hawkins <https://github.com/a904guy/,http://a904guy.com/,http://www.bmbsqd.com>, Vasya Aksyonov <https://github.com/outring>, Simon Huber <https://github.com/renuo>, Sebastiaan de Rooij <https://github.com/Hikariii>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 import * as $ from "jquery";
@@ -47,7 +41,7 @@ declare namespace Dropzone {
         maxFiles?: number | undefined;
         params?: {} | undefined;
         headers?: {} | undefined;
-        clickable?: boolean | string | HTMLElement | (string | HTMLElement)[] | undefined;
+        clickable?: boolean | string | HTMLElement | Array<string | HTMLElement> | undefined;
         ignoreHiddenFiles?: boolean | undefined;
         acceptedFiles?: string | undefined;
         renameFilename?(name: string): string;

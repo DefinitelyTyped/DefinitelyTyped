@@ -75,4 +75,6 @@ app.use(ctx => {
 
 app.listen(3000);
 
+app.currentContext;
+
 const server = app.listen();

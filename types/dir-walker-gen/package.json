@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/dir-walker-gen",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/vsoneji/dir-walker-gen"
+    ],
+    "devDependencies": {
+        "@types/dir-walker-gen": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Shavkat Aynurin",
+            "githubUsername": "aynurin"
+        }
+    ]
+}

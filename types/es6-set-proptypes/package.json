@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/es6-set-proptypes",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/andrewbranch/es6-set-proptypes#readme"
+    ],
+    "dependencies": {
+        "@types/prop-types": "*"
+    },
+    "devDependencies": {
+        "@types/es6-set-proptypes": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Cyrille",
+            "githubUsername": "zozoens31"
+        }
+    ]
+}

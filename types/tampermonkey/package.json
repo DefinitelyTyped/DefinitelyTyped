@@ -1,0 +1,31 @@
+{
+    "private": true,
+    "name": "@types/tampermonkey",
+    "version": "5.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Tampermonkey",
+    "projects": [
+        "https://tampermonkey.net"
+    ],
+    "devDependencies": {
+        "@types/tampermonkey": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Steven Wang",
+            "githubUsername": "silverwzw"
+        },
+        {
+            "name": "Nikolay Borzov",
+            "githubUsername": "nikolay-borzov"
+        },
+        {
+            "name": "taozhiyu",
+            "githubUsername": "taozhiyu"
+        },
+        {
+            "name": "double-beep",
+            "githubUsername": "double-beep"
+        }
+    ]
+}

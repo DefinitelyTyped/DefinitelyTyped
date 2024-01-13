@@ -1,8 +1,3 @@
-// Type definitions for use-analytics 0.0
-// Project: https://github.com/DavidWells/analytics/tree/master/packages/use-analytics
-// Definitions by: Harry Cruse <https://github.com/CruseCtrl>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { AnalyticsInstance } from "analytics";
 import * as React from "react";
 

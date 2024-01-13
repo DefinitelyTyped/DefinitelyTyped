@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/chai-json-schema",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/chaijs/chai-json-schema/",
+        "http://chaijs.com"
+    ],
+    "dependencies": {
+        "@types/chai": "*",
+        "@types/node": "*",
+        "@types/tv4": "*"
+    },
+    "devDependencies": {
+        "@types/chai-json-schema": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ulrich Heiniger",
+            "githubUsername": "ulrichheiniger"
+        }
+    ]
+}

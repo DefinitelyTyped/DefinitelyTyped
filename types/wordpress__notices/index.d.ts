@@ -1,12 +1,5 @@
-// Type definitions for @wordpress/notices 3.27
-// Project: https://github.com/WordPress/gutenberg/tree/master/packages/notices/README.md
-// Definitions by: Derek Sifford <https://github.com/dsifford>
-//                Chi-Hsuan Huang <https://github.com/chihsuan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
-
 import { StoreDescriptor } from "@wordpress/data";
-import { MouseEventHandler } from "react";
+import { JSX, MouseEventHandler } from "react";
 
 declare module "@wordpress/data" {
     function dispatch(key: "core/notices"): typeof import("./store/actions");

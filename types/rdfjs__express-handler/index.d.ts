@@ -1,12 +1,7 @@
-// Type definitions for @rdfjs/express-handler 2.0
-// Project: https://github.com/rdfjs-base/express-handler
-// Definitions by: tpluscode <https://github.com/tpluscode>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { SinkMap } from "@rdfjs/sink-map";
+import { DatasetCore, DatasetCoreFactory, Stream } from "@rdfjs/types";
 import { EventEmitter } from "events";
 import { Request, RequestHandler, Response } from "express";
-import { DatasetCore, DatasetCoreFactory, Stream } from "rdf-js";
 
 declare module "express-serve-static-core" {
     interface Request {

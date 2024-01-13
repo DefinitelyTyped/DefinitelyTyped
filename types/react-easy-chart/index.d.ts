@@ -1,9 +1,3 @@
-// Type definitions for react-easy-chart v0.1.12
-// Project: https://github.com/rma-consulting/react-easy-chart
-// Definitions by: Dave Leaver <https://github.com/danzel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="react" />
 
 declare module "react-easy-chart" {
@@ -27,7 +21,7 @@ declare module "react-easy-chart" {
         /** Whether to automatically color the bars */
         colorBars?: boolean | undefined;
 
-        data: Array<BarData>;
+        data: BarData[];
 
         /** A d3 time formatting pattern to be applied to format the x axis values */
         datePattern?: string | undefined;
@@ -41,7 +35,7 @@ declare module "react-easy-chart" {
         /** Interpolation method if you add a line to this chart (via lineData) */
         interpolate?: string | undefined;
 
-        lineData?: Array<LineData> | undefined;
+        lineData?: LineData[] | undefined;
 
         /** css margins */
         margin?: {
@@ -64,7 +58,7 @@ declare module "react-easy-chart" {
         width?: number | undefined;
 
         /** The range that the x axis should show (otherwise automatically calculated) */
-        xDomainRange?: Array<number> | Array<Date> | Array<string> | undefined;
+        xDomainRange?: number[] | Date[] | string[] | undefined;
 
         /** The amount of ticks to be shown on the x axis */
         xTickNumber?: number | undefined;
@@ -79,7 +73,7 @@ declare module "react-easy-chart" {
         yAxisOrientRight?: boolean | undefined;
 
         /** The range that the y axis should show (otherwise automatically calculated) */
-        yDomainRange?: Array<number> | undefined;
+        yDomainRange?: number[] | undefined;
 
         /** The amount of ticks to be shown on the y axis */
         yTickNumber?: number | undefined;
@@ -133,7 +127,7 @@ declare module "react-easy-chart" {
 
         clickHandler?: ((data: LineData, mouseEvent: MouseEvent) => any) | undefined;
 
-        data: Array<Array<LineData>>;
+        data: LineData[][];
 
         /** Whether to show circles on the data points */
         dataPoints?: boolean | undefined;
@@ -161,7 +155,7 @@ declare module "react-easy-chart" {
             | "monotone"
             | undefined;
 
-        lineColors?: Array<string> | undefined;
+        lineColors?: string[] | undefined;
 
         /** css margins */
         margin?: {
@@ -187,7 +181,7 @@ declare module "react-easy-chart" {
         width?: number | undefined;
 
         /** The range that the x axis should show (otherwise automatically calculated) */
-        xDomainRange?: Array<number> | Array<Date> | Array<string> | undefined;
+        xDomainRange?: number[] | Date[] | string[] | undefined;
 
         /** The amount of ticks to be shown on the x axis */
         xTicks?: number | undefined;
@@ -199,7 +193,7 @@ declare module "react-easy-chart" {
         yAxisOrientRight?: boolean | undefined;
 
         /** The range that the y axis should show (otherwise automatically calculated) */
-        yDomainRange?: Array<number> | Array<string> | undefined;
+        yDomainRange?: number[] | string[] | undefined;
 
         /** The amount of ticks to be shown on the y axis */
         yTicks?: number | undefined;
@@ -235,7 +229,7 @@ declare module "react-easy-chart" {
         /** Allows styling of individual types of points */
         config?: Array<{ type: string; color: string; stroke: string }> | undefined;
 
-        data: Array<ScatterplotData>;
+        data: ScatterplotData[];
 
         /** Radius of the dots on the chart */
         dotRadius?: number | undefined;
@@ -267,7 +261,7 @@ declare module "react-easy-chart" {
         width?: number | undefined;
 
         /** The range that the x axis should show (otherwise automatically calculated) */
-        xDomainRange?: Array<number> | Array<Date> | Array<string> | undefined;
+        xDomainRange?: number[] | Date[] | string[] | undefined;
 
         /** What data type the x axis is */
         xType?: "time" | "text" | "linear" | undefined;
@@ -276,7 +270,7 @@ declare module "react-easy-chart" {
         yAxisOrientRight?: boolean | undefined;
 
         /** The range that the y axis should show (otherwise automatically calculated) */
-        yDomainRange?: Array<number> | Array<Date> | Array<string> | undefined;
+        yDomainRange?: number[] | Date[] | string[] | undefined;
 
         /** What data type the x axis is */
         yType?: "time" | "text" | "linear" | undefined;
@@ -288,7 +282,7 @@ declare module "react-easy-chart" {
         /** Override the color of the items */
         config?: Array<{ color: string }> | undefined;
 
-        data: Array<any>;
+        data: any[];
 
         dataId: string;
 

@@ -1,8 +1,3 @@
-// Type definitions for @xmpp/xml 0.13
-// Project: https://github.com/xmppjs/xmpp.js/tree/main/packages/xml
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = xml;
 
 import * as ltx from "ltx";

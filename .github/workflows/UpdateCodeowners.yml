@@ -7,7 +7,7 @@ name: Update CODEOWNERs
 on:
   schedule:
     # https://crontab.guru/#5_8_*_*_1
-    - cron: "5 8 * * 1"
+    - cron: '5 8 * * 1'
   workflow_dispatch:
 
 permissions:
@@ -16,22 +16,31 @@ permissions:
 jobs:
   update:
     permissions:
-      contents: write  # for Git to git push
+      contents: write # for Git to git push
     runs-on: ubuntu-latest
     if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
-            fetch-depth: 0
+          fetch-depth: 0
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # v4.0.1
+        with:
+          node-version: '20'
+      - uses: pnpm/action-setup@d882d12c64e032187b2edb46d3a0d003b7a43598 # v2.4.0
+        with:
+          run_install: |
+            - args: [--filter, ., --filter, '{./scripts}...']
 
       - run: git config --global user.email "typescriptbot@microsoft.com"
       - run: git config --global user.name "TypeScript Bot"
 
-      - run: npm install
-      - run: npm run update-codeowners
-        env:
-            GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      - run: pnpm run update-codeowners
 
+      - uses: stefanzweifel/git-auto-commit-action@8756aa072ef5b4a080af5dc8fef36c5d586e521d # v5.0.0
+        with:
+          commit_author: 'TypeScript Bot <typescriptbot@microsoft.com>'
+          commit_message: '🤖 Update CODEOWNERS'
+          commit_user_email: 'typescriptbot@microsoft.com'
+          commit_user_name: 'TypeScript Bot'

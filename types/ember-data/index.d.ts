@@ -1,15 +1,3 @@
-// Type definitions for ember-data 4.4
-// Project: https://github.com/emberjs/data
-// Definitions by: Derek Wickern <https://github.com/dwickern>
-//                 Mike North <https://github.com/mike-north>
-//                 Chris Krycho <https://github.com/chriskrycho>
-//                 James C. Davis <https://github.com/jamescdavis>
-//                 Chris Thoburn <https://github.com/runspired>
-//                 Peter Wagenet <https://github.com/wagenet>
-//                 Krystan HuffMenne <https://github.com/gitKrystan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
 import EmberError from "@ember/error";
 import Evented from "@ember/object/evented";
 import PromiseProxyMixin from "@ember/object/promise-proxy-mixin";
@@ -874,7 +862,7 @@ export namespace DS {
      * A `ManyArray` is a `MutableArray` that represents the contents of a has-many
      * relationship.
      */
-    // tslint:disable-next-line:no-empty-interface -- used for declaration merge
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface -- used for declaration merge
     interface ManyArray<T> extends Ember.MutableArray<T>, Evented {}
     class ManyArray<T> extends Ember.Object {
         /**

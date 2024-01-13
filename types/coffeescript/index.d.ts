@@ -1,8 +1,3 @@
-// Type definitions for CoffeeScript 2.5
-// Project: https://github.com/jashkenas/coffeescript
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as Babel from "@babel/core";
 
 /**
@@ -584,6 +579,7 @@ export interface LineMap {
      * @param column Zero-indexed column number.
      * @returns `[sourceLine, sourceColumn]` if it exists in line map.
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     sourceLocation: (column: number) => SourceLocation | void;
 }
 
@@ -612,6 +608,7 @@ export interface SourceMap {
      * @param column Zero-indexed column number.
      * @returns `[sourceLine, sourceColumn]` if it exists in line map.
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     sourceLocation: (column: number) => SourceLocation | void;
     /**
      * Generates a V3 source map, returning the generated JSON as a string.

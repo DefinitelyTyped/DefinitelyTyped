@@ -873,6 +873,8 @@ const row_20 = dt.row("selector").node();
 const row_21 = dt.row("selector").remove();
 const row_22: string = dt.row("selector").id();
 const row_23: string = dt.row("selector").id(false);
+// $ExpectType Api
+const row_24: DataTables.Api = dt.row("selector").remove();
 
 const rows_1 = dt.rows();
 const rows_2 = dt.rows().remove();

@@ -1,6 +1,25 @@
 {
     "private": true,
+    "name": "@types/hookrouter",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/Paratron/hookrouter"
+    ],
     "dependencies": {
+        "@types/react": "*",
         "csstype": "^3.0.2"
-    }
+    },
+    "devDependencies": {
+        "@types/hookrouter": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mete Can Eris",
+            "githubUsername": "mcaneris"
+        },
+        {
+            "name": "Sam Calvert",
+            "githubUsername": "sam-outschool"
+        }
+    ]
 }

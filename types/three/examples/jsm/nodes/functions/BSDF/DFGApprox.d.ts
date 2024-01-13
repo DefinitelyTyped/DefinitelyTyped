@@ -1,4 +1,4 @@
-import { ShaderNode } from '../../shadernode/ShaderNodeElements.js';
+import { ShaderNode } from '../../shadernode/ShaderNode.js';
 import Node from '../../core/Node.js';
 
 // Analytical approximation of the DFG LUT, one half of the

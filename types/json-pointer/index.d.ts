@@ -1,10 +1,3 @@
-// Type definitions for json-pointer 1.0
-// Project: https://github.com/manuelstofer/json-pointer
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.0
-
 export = JsonPointer;
 
 declare const JsonPointer: JsonPointer.Wrapper & JsonPointer.Api;

@@ -1,9 +1,3 @@
-// Type definitions for gulp-sourcemaps
-// Project: https://github.com/gulp-sourcemaps/gulp-sourcemaps
-// Definitions by: Phips Peter <https://github.com/pspeter3>
-//                 Concision <https://github.com/concision>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 import File = require("vinyl");

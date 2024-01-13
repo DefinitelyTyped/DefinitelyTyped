@@ -342,3 +342,13 @@ b2.listKeys({
     axios: { someAxiosConfig: true },
     axiosOverride: { someOtherParam: "" },
 });
+
+(async () => {
+    const result = await b2.authorize({
+        axios: { someAxiosConfig: true },
+        axiosOverride: { someOtherParam: "" },
+    });
+
+    // $ExpectType number
+    const status = result.status;
+})();

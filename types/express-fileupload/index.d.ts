@@ -1,11 +1,3 @@
-// Type definitions for express-fileupload 1.4
-// Project: https://github.com/richardgirges/express-fileupload#readme
-// Definitions by: Sefa Ilkimen <https://github.com/silkimen>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Mark Oude Elberink <https://github.com/markxoe>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import type { BusboyConfig } from "busboy";
 import type { RequestHandler } from "express";
 

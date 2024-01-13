@@ -1,9 +1,3 @@
-// Type definitions for ReactCSS 1.2.0
-// Project: http://reactcss.com/
-// Definitions by: Chris Gervang <https://github.com/chrisgervang>, Karol Janyst <https://github.com/LKay>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 interface LoopableProps {
@@ -30,4 +24,4 @@ interface Classes<T> {
 export type CSS = React.CSSProperties;
 export function hover<A>(component: React.ComponentClass<A> | React.FunctionComponent<A>): React.ComponentClass<A>;
 export function loop(index: number, length: number): LoopableProps;
-export default function reactCSS<T>(classes: Classes<T>, ...activations: Array<any>): T;
+export default function reactCSS<T>(classes: Classes<T>, ...activations: any[]): T;

@@ -1,8 +1,3 @@
-// Type definitions for JSFL
-// Project: https://adobe.com
-// Definitions by: soywiz <https://github.com/soywiz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface FlashPoint {
     x: number;
     y: number;
@@ -1374,7 +1369,7 @@ interface FlashFL {
     findObjectInDocByName(
         instanceName: string,
         document: FlashDocument,
-    ): { keyframe: FlashFrame; layer: FlashLayer; timeline: FlashTimeline; parent }[];
+    ): Array<{ keyframe: FlashFrame; layer: FlashLayer; timeline: FlashTimeline; parent }>;
     /** elementType = "shape", "text", "instance", or "shapeObj". */
     findObjectInDocByType(elementType: string, document: FlashDocument): any[];
     getAppMemoryInfo(memType: number);

@@ -1,8 +1,3 @@
-// Type definitions for react-native-pdf-lib 0.2
-// Project: https://github.com/Hopding/react-native-pdf-lib#readme
-// Definitions by: Kevin Brown <https://github.com/thekevinbrown>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare let PDFLib: {
     getDocumentsDirectory(): string;
 };

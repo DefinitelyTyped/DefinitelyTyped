@@ -1,9 +1,3 @@
-// Type definitions for pidusage 2.0
-// Project: https://github.com/soyuka/pidusage
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 interface Stat {
     /**
      * percentage (from 0 to 100*vcore)

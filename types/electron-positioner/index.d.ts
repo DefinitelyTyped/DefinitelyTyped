@@ -1,8 +1,3 @@
-// Type definitions for electron-positioner 4.1
-// Project: https://github.com/jenslind/electron-positioner
-// Definitions by: ktmouk <https://github.com/ktmouk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { BrowserWindow, Rectangle } from "electron";
 
 declare namespace ElectronPositioner {

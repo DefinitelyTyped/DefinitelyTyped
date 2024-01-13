@@ -1,8 +1,3 @@
-// Type definitions for dxf 4.6
-// Project: https://github.com/bjnortier/dxf
-// Definitions by: Preston Smith <https://github.com/prestonii>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import config from "./config";
 import denormalise from "./denormalise";
 import groupEntitiesByLayer from "./groupEntitiesByLayer";

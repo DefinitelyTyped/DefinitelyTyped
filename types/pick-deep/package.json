@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/pick-deep",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/strikeentco/pick-deep#readme"
+    ],
+    "devDependencies": {
+        "@types/pick-deep": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Elliott Campbell",
+            "githubUsername": "ElliottCampbellJHA"
+        },
+        {
+            "name": "Eric Heikes",
+            "githubUsername": "eheikes"
+        }
+    ]
+}

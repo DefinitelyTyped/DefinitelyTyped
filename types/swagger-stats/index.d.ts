@@ -1,8 +1,3 @@
-// Type definitions for swagger-stats 0.95
-// Project: http://swaggerstats.io
-// Definitions by: Connor Fitzgerald <https://github.com/connorjayfitzgerald>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // TypeScript Version: 2.9
 
 /// <reference types="node" />

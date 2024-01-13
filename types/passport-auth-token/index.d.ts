@@ -1,8 +1,3 @@
-// Type definitions for passport-auth-token 1.0
-// Project: https://github.com/mbell8903/passport-auth-token.git
-// Definitions by: Ian Woongsoo Lee <https://github.com/yummyummyummy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="passport"/>
 
 import express = require("express");

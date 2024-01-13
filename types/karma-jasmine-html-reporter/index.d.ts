@@ -1,8 +1,3 @@
-// Type definitions for karma-jasmine-html-reporter 1.7
-// Project: https://github.com/dfederm/karma-jasmine-html-reporter#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import "karma";
 
 declare module "karma" {

@@ -1,8 +1,3 @@
-// Type definitions for jsum 0.1
-// Project: https://github.com/fraunhoferfokus/JSum#readme
-// Definitions by: David Uzumeri <https://github.com/daviduzumeri>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Creates hash of given JSON object.
  *

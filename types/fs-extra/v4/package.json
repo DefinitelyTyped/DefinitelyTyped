@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/fs-extra",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/jprichardson/node-fs-extra"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/fs-extra": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alan Agius",
+            "githubUsername": "alan-agius4"
+        },
+        {
+            "name": "midknight41",
+            "githubUsername": "midknight41"
+        },
+        {
+            "name": "Brendan Forster",
+            "githubUsername": "shiftkey"
+        },
+        {
+            "name": "Mees van Dijk",
+            "githubUsername": "mees-"
+        }
+    ]
+}

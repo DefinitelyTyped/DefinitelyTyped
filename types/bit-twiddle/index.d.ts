@@ -1,9 +1,3 @@
-// Type definitions for bit-twiddle 1.0
-// Project: https://github.com/mikolalysenko/bit-twiddle
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
-
 export const INT_BITS: number;
 export const INT_MAX: number;
 export const INT_MIN: number;

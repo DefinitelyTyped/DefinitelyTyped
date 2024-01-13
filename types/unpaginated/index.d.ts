@@ -1,8 +1,3 @@
-// Type definitions for unpaginated 3.0
-// Project: https://github.com/manuscriptmastr/unpaginated#readme
-// Definitions by: Wes Reed <https://github.com/reediculous456>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function unpaginated<T>(fn: (page: number) => Promise<T[] | { data: T[]; total: number }>): Promise<T[]>;
 
 declare namespace unpaginated {

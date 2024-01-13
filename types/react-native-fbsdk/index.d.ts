@@ -1,11 +1,3 @@
-// Type definitions for react-native-fbsdk 3.0
-// Project: https://github.com/facebook/react-native-fbsdk
-// Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
-//                 Thibault Malbranche <https://github.com/titozzz>
-//                 Stuart Forrest <https://github.com/stuartforrest-infinity>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import { Component, ComponentClass } from "react";
 import { ViewStyle } from "react-native";
 

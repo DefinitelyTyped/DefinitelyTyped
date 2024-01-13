@@ -1,7 +1,3 @@
-// Type definitions for onscan.js 1.5
-// Project: https://github.com/axenox/onscan.js/
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 export interface ScanOptions {
     /**
      * Callback after sccessful scan.
@@ -28,6 +24,7 @@ export interface ScanOptions {
      * @param keyCode Detected key code
      * @param event Complete event instance
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onKeyDetect?(keyCode: number, event: KeyboardEvent): void | boolean;
     /**
      * Callback after a key event was decoded and found to be part of a

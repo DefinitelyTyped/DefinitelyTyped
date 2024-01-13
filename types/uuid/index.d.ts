@@ -1,12 +1,3 @@
-// Type definitions for uuid 9.0
-// Project: https://github.com/uuidjs/uuid
-// Definitions by: Oliver Hoffmann <https://github.com/iamolivinius>
-//                 Felipe Ochoa <https://github.com/felipeochoa>
-//                 Chris Barth <https://github.com/cjbarth>
-//                 Linus Unnebäck <https://github.com/LinusU>
-//                 Christoph Tavan <https://github.com/ctavan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // disable automatic export
 export {};
 

@@ -1,12 +1,3 @@
-// Type definitions for react-bootstrap-table 4.3
-// Project: https://github.com/AllenFang/react-bootstrap-table
-// Definitions by: Frank Laub <https://github.com/flaub>
-//                 Aleksander Lode <https://github.com/alelode>
-//                 Janeene Beeforth <https://github.com/dawnmist>
-//                 Oscar Andersson <https://github.com/Ogglas>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 // documentation taken from http://allenfang.github.io/react-bootstrap-table/docs.html
 
 import { Component, CSSProperties, LegacyRef, ReactElement, ReactNode, SyntheticEvent } from "react";
@@ -495,6 +486,7 @@ export interface SelectRow<TRow extends object = any> {
      *   `rowIndex`: the index number for the row.
      * If the return value of this (function) is false, the select or deselect action will not be applied.
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onSelect?(row: TRow, isSelected: boolean, event: any, rowIndex: number): boolean | void;
     /**
      * Accept a custom callback function, if click select all checkbox, this function will be called. This callback
@@ -617,7 +609,7 @@ export interface Options<TRow extends object = any> {
      */
     onSortChange?:
         | ((sortName: keyof TRow, sortOrder: SortOrder) => void)
-        | ((sortName: ReadonlyArray<keyof TRow>, sortOrder: ReadonlyArray<SortOrder>) => void)
+        | ((sortName: ReadonlyArray<keyof TRow>, sortOrder: readonly SortOrder[]) => void)
         | undefined;
     /**
      * Change the text displayed on the table if data is empty.
@@ -659,7 +651,7 @@ export interface Options<TRow extends object = any> {
      *   `search`: The search text from the user.
      *   `result`: The results after searching (array of rows that matched the search).
      */
-    afterSearch?(search: string, result: ReadonlyArray<TRow>): void;
+    afterSearch?(search: string, result: readonly TRow[]): void;
     /**
      * Default is false, if true means you want to ignore any editable columns when creating the insert form.
      */
@@ -674,7 +666,7 @@ export interface Options<TRow extends object = any> {
      *   `rowKeys`: which means the row keys for the deleted rows
      *   `rows`: the array of row data that was deleted.
      */
-    afterDeleteRow?(rowKeys: ReadonlyArray<number | string>, rows: ReadonlyArray<TRow>): void;
+    afterDeleteRow?(rowKeys: ReadonlyArray<number | string>, rows: readonly TRow[]): void;
     /**
      * Assign a callback function which will be called after inserting a row.
      * This function takes one argument: row, which means the whole row data you added.
@@ -689,7 +681,7 @@ export interface Options<TRow extends object = any> {
      * This function only work when you enable columnFilter on <BootstrapTable> or define
      * a filter on <TableHeaderColumn>.
      */
-    afterColumnFilter?(filterConds: ReadonlyArray<FilterData>, result: ReadonlyArray<TRow>): void;
+    afterColumnFilter?(filterConds: readonly FilterData[], result: readonly TRow[]): void;
     /**
      * Assign a callback function which will be called when a row is added. This function
      * takes three arguments:
@@ -721,7 +713,7 @@ export interface Options<TRow extends object = any> {
      *   `rowKeys`: keys for the rows to be deleted.
      *   `rows`: row data for the rows to be deleted.
      */
-    onDeleteRow?(rowKeys: ReadonlyArray<number | string>, rows: ReadonlyArray<TRow>): void;
+    onDeleteRow?(rowKeys: ReadonlyArray<number | string>, rows: readonly TRow[]): void;
     /**
      * Assign a callback function which will be called after a row click.
      * This function takes four arguments:
@@ -887,6 +879,7 @@ export interface Options<TRow extends object = any> {
      * If you want the toastr popup, you should return true always.
      * Inputs match the EditValidatorObject.notification field types.
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     beforeShowError?(type: EditValidatorType, msg: string, title: string): boolean | void;
     /**
      * Default is true. If false, during printing the toolbar is hidden.
@@ -1043,6 +1036,7 @@ export interface Options<TRow extends object = any> {
      * If the key fails validation, return a string error message.
      * If the key is ok, return void.
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     isValidKey?(key: number | string): string | void;
     /**
      * Ability to disable the BOM in the exported CSV file.

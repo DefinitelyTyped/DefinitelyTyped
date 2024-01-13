@@ -1,8 +1,3 @@
-// Type definitions for netlify-identity-widget 1.9
-// Project: https://github.com/netlify/netlify-identity-widget, https://identity.netlify.com
-// Definitions by: Naveen Kumar Sangi <https://github.com/nkprince007>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface InitOptions {
     // The container to attach to. e.g.: '#some-query-selector'
     container?: string | undefined;

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/mock-raf",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/FormidableLabs/mock-raf"
+    ],
+    "devDependencies": {
+        "@types/mock-raf": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Pereira",
+            "githubUsername": "djpereira"
+        }
+    ]
+}

@@ -1,14 +1,3 @@
-// Type definitions for @vimeo/player 2.18
-// Project: https://github.com/vimeo/player.js
-// Definitions by: Denis Yılmaz <https://github.com/denisyilmaz>
-//                 Felix Albert <f.albert.work@icloud.com>
-//                 Tim Chen <https://github.com/timc13>
-//                 Terry Mun <https://github.com/terrymun>
-//                 Coskun Deniz <deniz@tassomai.com>
-//                 Kohei Watanabe <https://github.com/kou029w>
-//                 Michael Markey <https://github.com/mikeamarkey>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Vimeo {
     namespace Player {
         export type TrackKind = "captions" | "subtitles";

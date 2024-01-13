@@ -1,8 +1,3 @@
-// Type definitions for jsts 0.17.0
-// Project: https://github.com/bjornharrtell/jsts
-// Definitions by: Stephane Alie <https://github.com/StephaneAlie>, Jorge Rocha Gualtieri <https://github.com/jrocha>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="openlayers" />
 
 declare namespace jsts {
@@ -503,7 +498,7 @@ declare namespace jsts {
              *          null.
              * @return {LineString} A new LineString.
              */
-            createLineString(coordinates: Array<Coordinate>): LineString;
+            createLineString(coordinates: Coordinate[]): LineString;
             /**
              * Creates a LineString using the given CoordinateSequence.
              * A null or empty CoordinateSequence creates an empty LineString.
@@ -589,7 +584,7 @@ declare namespace jsts {
              * or null.
              * @return {LineString} A new LinearRing.
              */
-            createLinearRing(coordinates: Array<Coordinate>): LinearRing;
+            createLinearRing(coordinates: Coordinate[]): LinearRing;
             /**
              * Creates a LinearRing using the given CoordinateSequence.
              * A null or empty array creates an empty LinearRing.
@@ -608,7 +603,7 @@ declare namespace jsts {
              * @param {LinearRing} shell A LinearRing constructed by coordinates.
              * @return {Polygon} A new Polygon.
              */
-            createPolygon(shell: LinearRing, holes: Array<LinearRing>): Polygon;
+            createPolygon(shell: LinearRing, holes: LinearRing[]): Polygon;
             /**
              * Constructs a Polygon with the given exterior boundary.
              *
@@ -714,7 +709,7 @@ declare namespace jsts {
         }
 
         export class GeometryCollection extends jsts.geom.Geometry {
-            constructor(geometries?: Array<Geometry>, factory?: GeometryFactory);
+            constructor(geometries?: Geometry[], factory?: GeometryFactory);
         }
 
         /**
@@ -2376,7 +2371,7 @@ declare namespace jsts {
              * @return {number} the first non-zero <code>compareTo</code> result, if any;
              *         otherwise, zero.
              */
-            compare(a: Array<any>, b: Array<any>): number;
+            compare(a: any[], b: any[]): number;
 
             /**
              * @param {jsts.geom.Coordinate}
@@ -2474,7 +2469,7 @@ declare namespace jsts {
 
         export class LineString extends Geometry {
             /** */
-            constructor(points: Array<Coordinate>, factory?: any);
+            constructor(points: Coordinate[], factory?: any);
 
             /**
              * @return {jsts.geom.Coordinate} The n'th coordinate of this
@@ -2614,7 +2609,7 @@ declare namespace jsts {
          */
         export class Polygon extends Geometry {
             /** */
-            constructor(shell: LinearRing, holes?: Array<LinearRing>, factory?: any);
+            constructor(shell: LinearRing, holes?: LinearRing[], factory?: any);
 
             /**
              * Gets the exterior ring.
@@ -2653,7 +2648,7 @@ declare namespace jsts {
              * but not nulls. The polygons must conform to the assertions specified
              * in the OpenGIS Simple Features Specification for SQL.
              */
-            constructor(polygons: null | Array<Polygon>, factory: GeometryFactory);
+            constructor(polygons: null | Polygon[], factory: GeometryFactory);
         }
 
         namespace util {
@@ -3756,7 +3751,7 @@ declare namespace jsts {
                  *
                  * @param geomList {Array} a list of Geometrys with linework to be polygonized
                  */
-                add(geomList: Array<Geometry>): void;
+                add(geomList: Geometry[]): void;
 
                 /**
                  * Add a Geometry to the edges to be polygonized.
@@ -4098,7 +4093,7 @@ declare namespace java {
              * Returns an array containing all of the elements in this collection.
              * @return {Array}
              */
-            toArray(): Array<T>;
+            toArray(): T[];
             /**
              * Removes a single instance of the specified element from this collection if it
              * is present. (optional)

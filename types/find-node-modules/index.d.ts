@@ -1,8 +1,3 @@
-// Type definitions for find-node-modules 2.1
-// Project: https://github.com/callumacrae/find-node-modules
-// Definitions by: Artem Klyuev <https://github.com/ArtemKlyuev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace findNodeModules {
     interface Options {
         /**

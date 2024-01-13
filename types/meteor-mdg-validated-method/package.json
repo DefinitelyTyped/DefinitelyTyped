@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/meteor-mdg-validated-method",
+    "version": "1.2.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Atmosphere package mdg:validated-method",
+    "projects": [
+        "https://github.com/meteor/validated-method"
+    ],
+    "dependencies": {
+        "@types/meteor": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/meteor-mdg-validated-method": "workspace:.",
+        "@types/simpl-schema": "*"
+    },
+    "owners": [
+        {
+            "name": "Artemis Kearney",
+            "githubUsername": "artemiswkearney"
+        },
+        {
+            "name": "Nicusor Chiciuc",
+            "githubUsername": "nicu-chiciuc"
+        }
+    ]
+}

@@ -1,9 +1,3 @@
-// Type definitions for estraverse 5.1
-// Project: https://github.com/estools/estraverse
-// Definitions by: Sanex3339 <https://github.com/sanex3339>
-//                 Jason Kwok <https://github.com/JasonHK>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as ESTree from "estree";
 
 declare namespace ESTraverse {
@@ -158,10 +152,12 @@ declare namespace ESTraverse {
 
     interface Visitor {
         enter?:
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             | ((this: Controller, node: ESTree.Node, parent: ESTree.Node | null) => VisitorOption | ESTree.Node | void)
             | undefined;
 
         leave?:
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             | ((this: Controller, node: ESTree.Node, parent: ESTree.Node | null) => VisitorOption | ESTree.Node | void)
             | undefined;
 

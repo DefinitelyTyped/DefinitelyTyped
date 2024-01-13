@@ -1,0 +1,46 @@
+{
+    "private": true,
+    "name": "@types/newrelic",
+    "version": "9.14.9999",
+    "projects": [
+        "https://github.com/newrelic/node-newrelic"
+    ],
+    "devDependencies": {
+        "@types/newrelic": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Matt R. Wilson",
+            "githubUsername": "mastermatt"
+        },
+        {
+            "name": "Brooks Patton",
+            "githubUsername": "brookspatton"
+        },
+        {
+            "name": "Michael Bond",
+            "githubUsername": "MichaelRBond"
+        },
+        {
+            "name": "Kyle Scully",
+            "githubUsername": "zieka"
+        },
+        {
+            "name": "Kenneth Aasan",
+            "githubUsername": "kennethaasan"
+        },
+        {
+            "name": "Jon Flaishans",
+            "githubUsername": "funkswing"
+        },
+        {
+            "name": "Dylan Smith",
+            "githubUsername": "dylansmith"
+        },
+        {
+            "name": "BlueJeans by Verizon",
+            "githubUsername": "bluejeans"
+        }
+    ]
+}

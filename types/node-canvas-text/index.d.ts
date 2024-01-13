@@ -1,8 +1,3 @@
-// Type definitions for node-canvas-text 1.0
-// Project: https://github.com/kaivi/node-canvas-text#readme
-// Definitions by: Gabriel Fournier <https://github.com/carboneater>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Font } from "opentype.js";
 
 export interface DrawOptions {

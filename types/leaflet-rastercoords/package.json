@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/leaflet-rastercoords",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/commenthol/leaflet-rastercoords"
+    ],
+    "dependencies": {
+        "@types/leaflet": "*"
+    },
+    "devDependencies": {
+        "@types/leaflet-rastercoords": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kan Cheung",
+            "githubUsername": "chinkan"
+        }
+    ]
+}

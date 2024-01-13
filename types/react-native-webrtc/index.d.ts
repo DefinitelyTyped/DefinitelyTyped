@@ -1,8 +1,3 @@
-// Type definitions for react-native-webrtc 1.75
-// Project: https://github.com/react-native-webrtc/react-native-webrtc
-// Definitions by: Carlos Quiroga <https://github.com/KarlosQ>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 import { Component } from "react";
 import { ViewStyle } from "react-native";
 
@@ -48,9 +43,13 @@ export class MediaStreamTrack {
     readonly: boolean;
     readyState: MediaStreamTrackState;
     remote: boolean;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onended: () => void | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onmute: () => void | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onunmute: () => void | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     overconstrained: () => void | undefined;
 
     constructor();
@@ -69,9 +68,13 @@ export class MediaStreamTrack {
 export class MediaStream {
     id: string;
     active: boolean;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onactive: () => void | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     oninactive: () => void | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onaddtrack: () => void | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onremovetrack: () => void | undefined;
 
     private _tracks: MediaStreamTrack[];
@@ -134,15 +137,24 @@ export class RTCPeerConnection {
     private privateiceGatheringState: RTCIceGatheringState;
     private privateiceConnectionState: RTCIceConnectionState;
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onconnectionstatechange: (event: Event) => void | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onicecandidate: (event: EventOnCandidate) => void | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onicecandidateerror: (error: Error) => void | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     oniceconnectionstatechange: (event: EventOnConnectionStateChange) => void | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onicegatheringstatechange: () => void | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onnegotiationneeded: () => void | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onsignalingstatechange: () => void | undefined;
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onaddstream: (event: EventOnAddStream) => void | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onremovestream: () => void | undefined;
 
     private _peerConnectionId: number;
@@ -231,6 +243,7 @@ export interface MediaStreamConstraints {
 }
 
 export class mediaDevices {
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ondevicechange: () => void | undefined;
 
     static enumerateDevices(): Promise<any>;

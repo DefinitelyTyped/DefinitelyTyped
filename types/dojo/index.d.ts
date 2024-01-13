@@ -1,8 +1,3 @@
-// Type definitions for Dojo v1.9
-// Project: http://dojotoolkit.org
-// Definitions by: Michael Van Sickle <https://github.com/vansimke>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace dojox.dtl {
     interface __StringArgs { }
     interface __ObjectArgs { }
@@ -16063,7 +16058,7 @@ declare namespace dojo {
          *
          * @param objectOrArray       OptionalThe promise will be fulfilled with a list of results if invoked with anarray, or an object of results when passed an object (using the samekeys). If passed neither an object or array it is resolved with anundefined value.
          */
-        interface all{<T>(value: Promise<T>[]): Promise<T[]>}
+        interface all{<T>(value: Array<Promise<T>>): Promise<T[]>}
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/promise/all.html
          *

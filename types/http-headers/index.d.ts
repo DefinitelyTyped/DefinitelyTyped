@@ -1,8 +1,3 @@
-// Type definitions for http-headers 3.0
-// Project: https://github.com/watson/http-headers
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { ServerResponse } from "http";

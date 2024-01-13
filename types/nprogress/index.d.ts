@@ -1,9 +1,3 @@
-// Type definitions for NProgress 0.2
-// Project: https://github.com/rstacruz/nprogress
-// Definitions by: Judah Gabriel Himango <https://github.com/JudahGabriel>, Ovyerus <https://github.com/Ovyerus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 declare namespace nProgress {
     interface NProgressOptions {
         minimum: number;

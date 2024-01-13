@@ -1,8 +1,3 @@
-// Type definitions for color-rgba 2.1
-// Project: https://github.com/colorjs/color-rgba#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TS Minimum Version: 3.6
 /**
  * Returns channels values as they are in the input color string argument.
  * `alpha` is always from 0..1 range.

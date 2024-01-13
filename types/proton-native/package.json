@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/proton-native",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/kusti8/proton-native",
+        "https://proton-native.js.org"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/proton-native": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nguyen Xuan Khanh",
+            "githubUsername": "khanhas"
+        },
+        {
+            "name": "Lukas Tetzlaff",
+            "githubUsername": "ltetzlaff"
+        }
+    ]
+}

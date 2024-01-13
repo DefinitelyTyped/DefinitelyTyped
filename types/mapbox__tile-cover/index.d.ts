@@ -1,9 +1,3 @@
-// Type definitions for @mapbox/tile-cover 3.0
-// Project: https://github.com/mapbox/tile-cover
-// Definitions by: Jeff Dye <https://github.com/jeffbdye>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import * as GeoJSON from "geojson";
 
 /**

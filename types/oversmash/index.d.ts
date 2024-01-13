@@ -1,9 +1,3 @@
-// Type definitions for oversmash 1.6
-// Project: https://github.com/filp/oversmash
-// Definitions by: Pedro Campos <https://github.com/cdias900>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.9
-
 export enum NormalizeNamesAs {
     snake = "snake",
     camel = "camel",
