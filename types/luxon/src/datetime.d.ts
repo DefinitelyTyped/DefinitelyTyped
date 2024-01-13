@@ -809,15 +809,12 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * @example
      * DateTime.local(2017, 7, 4).get('day'); //=> 4
      */
-    /**
-     *
-     */
     get(unit: keyof DateTime): number;
 
     /**
      *
      */
-    get getPossibleOffsets(): DateTime[];
+    getPossibleOffsets(): DateTime[];
 
     /**
      * Returns whether the DateTime is valid. Invalid DateTimes occur when:
