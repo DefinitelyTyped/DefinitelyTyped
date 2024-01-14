@@ -6957,6 +6957,14 @@ declare namespace chrome.runtime {
     export type PlatformArch = "arm" | "arm64" | "x86-32" | "x86-64" | "mips" | "mips64";
     /** https://developer.chrome.com/docs/extensions/reference/runtime/#type-PlatformNaclArch */
     export type PlatformNaclArch = "arm" | "x86-32" | "x86-64" | "mips" | "mips64";
+    /** https://developer.chrome.com/docs/extensions/reference/api/runtime#type-ContextFilter */
+    export enum ContextType {
+        TAB = "TAB",
+        POPUP = "POPUP",
+        BACKGROUND = "BACKGROUND",
+        OFFSCREEN_DOCUMENT = "OFFSCREEN_DOCUMENT",
+        SIDE_PANEL = "SIDE_PANEL",
+    }
     /** https://developer.chrome.com/docs/extensions/reference/runtime/#type-OnInstalledReason */
     export enum OnInstalledReason {
         INSTALL = "install",
@@ -6968,6 +6976,22 @@ declare namespace chrome.runtime {
     export interface LastError {
         /** Optional. Details about the error which occurred.  */
         message?: string | undefined;
+    }
+
+    /**
+     * A filter to match against certain extension contexts. Matching contexts must match all specified filters; any filter that is not specified matches all available contexts. Thus, a filter of `{}` will match all available contexts.
+     * @since Chrome 114.
+     */
+    export interface ContextFilter {
+        contextIds?: string[] | undefined;
+        contextTypes?: ContextType[] | undefined;
+        documentIds?: string[] | undefined;
+        documentOrigins?: string[] | undefined;
+        documentUrls?: string[] | undefined;
+        frameIds?: number[] | undefined;
+        incognito?: boolean | undefined;
+        tabIds?: number[] | undefined;
+        windowIds?: number[] | undefined;
     }
 
     export interface ConnectInfo {
@@ -6991,6 +7015,40 @@ declare namespace chrome.runtime {
          * @since Chrome 29.
          */
         id?: string | undefined;
+    }
+
+    /**
+     * A context hosting extension content.
+     * @since Chrome 114.
+     */
+    export interface ExtensionContext {
+        /** A unique identifier for this context */
+        contextId: string;
+        /** The type of context this corresponds to. */
+        contextType: ContextType;
+        /**
+         * Optional.
+         * A UUID for the document associated with this context, or undefined if this context is hosted not in a document.
+         */
+        documentId?: string | undefined;
+        /**
+         * Optional.
+         * The origin of the document associated with this context, or undefined if the context is not hosted in a document.
+         */
+        documentOrigin?: string | undefined;
+        /**
+         * Optional.
+         * The URL of the document associated with this context, or undefined if the context is not hosted in a document.
+         */
+        documentUrl?: string | undefined;
+        /** The ID of the frame for this context, or -1 if this context is not hosted in a frame. */
+        frameId: number;
+        /** Whether the context is associated with an incognito profile. */
+        incognito: boolean;
+        /** The ID of the tab for this context, or -1 if this context is not hosted in a tab. */
+        tabId: number;
+        /** The ID of the window for this context, or -1 if this context is not hosted in a window. */
+        windowId: number;
     }
 
     export interface MessageOptions {
@@ -7492,6 +7550,21 @@ declare namespace chrome.runtime {
     export function connectNative(application: string): Port;
     /** Retrieves the JavaScript 'window' object for the background page running inside the current extension/app. If the background page is an event page, the system will ensure it is loaded before calling the callback. If there is no background page, an error is set. */
     export function getBackgroundPage(callback: (backgroundPage?: Window) => void): void;
+    /**
+     * Fetches information about active contexts associated with this extension
+     * @since Chrome 116 MV3.
+     * @return Provides the matching context, if any via callback or returned as a `Promise` (MV3 only).
+     * @param filter A filter to find matching contexts. A context matches if it matches all specified fields in the filter. Any unspecified field in the filter matches all contexts.
+     */
+    export function getContexts(filter: ContextFilter): Promise<ExtensionContext[]>;
+    /**
+     * Fetches information about active contexts associated with this extension
+     * @since Chrome 116 MV3.
+     * @return Provides the matching context, if any via callback or returned as a `Promise` (MV3 only).
+     * @param filter A filter to find matching contexts. A context matches if it matches all specified fields in the filter. Any unspecified field in the filter matches all contexts.
+     * @param callback Called with results
+     */
+    export function getContexts(filter: ContextFilter, callback: (contexts: ExtensionContext[]) => void): void;
     /**
      * Returns details about the app or extension from the manifest. The object returned is a serialization of the full manifest file.
      * @return The manifest details.
