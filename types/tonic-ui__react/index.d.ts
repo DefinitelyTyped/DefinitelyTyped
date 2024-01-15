@@ -154,6 +154,11 @@ export function ToastProvider(props: ToastProviderProps): JSX.Element;
 export function ToastTransition(props: ToastTransitionProps): JSX.Element;
 export function TonicProvider(props: PropsWithChildren<TonicProviderProps>): JSX.Element;
 export function Tooltip(props: TooltipProps): JSX.Element;
+export function Tree(props: TreeProps): JSX.Element;
+export function TreeItem(props: TreeItemProps): JSX.Element;
+export function TreeItemContent(props: TonicProps): JSX.Element;
+export function TreeItemToggle(props: TonicProps): JSX.Element;
+export function TreeItemToggleIcon(props: TonicProps): JSX.Element;
 export function Truncate(prop: TonicProps): JSX.Element;
 export function VisuallyHidden(props: TonicProps): JSX.Element;
 export function Zoom(props: TransitionProps): JSX.Element;
@@ -179,6 +184,8 @@ export const useTabs: any;
 export const useTheme: any;
 export const useToast: any;
 export function useToastManager(): UseToastManagerHook["notify"] & UseToastManagerHook;
+export const useTree: any;
+export const useTreeItem: any;
 
 export type Breakpoints = "sm" | "md" | "lg" | "xl" | "2xl" | "_";
 type ThemeColorModes = "light" | "dark";
@@ -793,6 +800,40 @@ export interface TooltipProps extends Omit<TonicProps, "children"> {
         | "left-start"
         | "left-end";
     shouldWrapChildren?: boolean;
+}
+
+export interface TreeProps extends TonicProps {
+    defaultExpanded?: string[];
+    defaultSelected?: string[];
+    expanded?: string[];
+    id?: string;
+    isSelectable?: boolean;
+    isUnselectable?: boolean;
+    multiSelect?: boolean;
+    onNodeFocus?: (nodeId: string) => void;
+    onNodeSelect?: (nodeIds: string[]) => void;
+    onNodeToggle?: (nodeIds: string[]) => void;
+    selected?: string[];
+}
+
+export interface TreeItemProps extends TonicProps {
+    TransitionComponent?: ComponentType<any>;
+    TransitionProps?: Record<string, unknown>;
+    disabled?: boolean;
+    nodeId: string;
+    render: (context: {
+        nodeDepth: number;
+        nodeId: string;
+        isDisabled: boolean;
+        isExpandable: boolean;
+        isExpanded: boolean;
+        isFocused: boolean;
+        isSelected: boolean;
+        select: () => void;
+        selectRange: () => void;
+        toggleExpansion: () => void;
+        toggleSelection: () => void;
+    }) => ReactNode;
 }
 
 export interface TransitionProps extends Omit<TonicProps, "children"> {

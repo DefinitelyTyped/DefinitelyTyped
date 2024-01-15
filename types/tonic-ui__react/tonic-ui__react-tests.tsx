@@ -18,6 +18,11 @@ import {
     theme,
     Toast,
     TonicProvider,
+    Tree,
+    TreeItem,
+    TreeItemContent,
+    TreeItemToggle,
+    TreeItemToggleIcon,
     useColorMode,
     useColorStyle,
     usePortalManager,
@@ -186,5 +191,42 @@ const TabsApp = () => {
                 <TabPanel index="tab2">Tab Panel 2</TabPanel>
             </TabPanels>
         </Tabs>
+    );
+};
+
+const TreeApp = () => {
+    return (
+        <Tree defaultExpanded={["1"]}>
+            <TreeItem
+                nodeId="1"
+                render={({ isExpandable }) => (
+                    <TreeItemContent>
+                        {isExpandable && (
+                            <TreeItemToggle>
+                                <TreeItemToggleIcon />
+                            </TreeItemToggle>
+                        )}
+                        <Text>Node 1</Text>
+                    </TreeItemContent>
+                )}
+            >
+                <TreeItem
+                    nodeId="1.1"
+                    render={() => (
+                        <TreeItemContent>
+                            <Text>Node 1.1</Text>
+                        </TreeItemContent>
+                    )}
+                />
+            </TreeItem>
+            <TreeItem
+                nodeId="2"
+                render={() => (
+                    <TreeItemContent>
+                        <Text>Node 2</Text>
+                    </TreeItemContent>
+                )}
+            />
+        </Tree>
     );
 };
