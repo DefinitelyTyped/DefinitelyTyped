@@ -697,6 +697,7 @@ export interface TextProps extends TonicProps {
 
 export interface TextLabelProps extends TonicProps<HTMLLabelElement> {
     size?: "4xl" | "3xl" | "2xl" | "xl" | "lg" | "md" | "sm" | "xs" | number;
+    htmlFor?: string;
 }
 
 export interface ToastProps extends Omit<TonicProps, "appearance"> {
