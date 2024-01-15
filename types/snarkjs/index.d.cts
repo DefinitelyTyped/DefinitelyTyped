@@ -97,7 +97,7 @@ export namespace groth16 {
         _input: CircuitSignals,
         wasmFile: ZKArtifact,
         zkeyFileName: ZKArtifact,
-        logger?: any
+        logger?: any,
     ): Promise<{
         proof: Groth16Proof;
         publicSignals: PublicSignals;
@@ -105,7 +105,7 @@ export namespace groth16 {
     function prove(
         zkeyFileName: ZKArtifact,
         witnessFileName: ZKArtifact,
-        logger?: any
+        logger?: any,
     ): Promise<{
         proof: Groth16Proof;
         publicSignals: PublicSignals;
@@ -114,7 +114,7 @@ export namespace groth16 {
         _vk_verifier: any,
         _publicSignals: PublicSignals,
         _proof: Groth16Proof,
-        logger?: any
+        logger?: any,
     ): Promise<boolean>;
 }
 
@@ -125,7 +125,7 @@ export namespace fflonk {
         _input: CircuitSignals,
         wasmFilename: ZKArtifact,
         zkeyFilename: ZKArtifact,
-        logger?: any
+        logger?: any,
     ): Promise<{
         proof: FflonkProof;
         publicSignals: PublicSignals;
@@ -133,7 +133,7 @@ export namespace fflonk {
     function prove(
         zkeyFileName: ZKArtifact,
         witnessFileName: ZKArtifact,
-        logger?: any
+        logger?: any,
     ): Promise<{
         proof: FflonkProof;
         publicSignals: PublicSignals;
@@ -143,7 +143,7 @@ export namespace fflonk {
         _vk_verifier: any,
         _publicSignals: PublicSignals,
         _proof: FflonkProof,
-        logger?: any
+        logger?: any,
     ): Promise<boolean>;
 }
 
@@ -153,7 +153,7 @@ export namespace plonk {
         _input: CircuitSignals,
         wasmFile: ZKArtifact,
         zkeyFileName: ZKArtifact,
-        logger?: any
+        logger?: any,
     ): Promise<{
         proof: PlonkProof;
         publicSignals: PublicSignals;
@@ -161,7 +161,7 @@ export namespace plonk {
     function prove(
         zkeyFileName: ZKArtifact,
         witnessFileName: ZKArtifact,
-        logger?: any
+        logger?: any,
     ): Promise<{
         proof: PlonkProof;
         publicSignals: PublicSignals;
@@ -171,7 +171,7 @@ export namespace plonk {
         _vk_verifier: any,
         _publicSignals: PublicSignals,
         _proof: PlonkProof,
-        logger?: any
+        logger?: any,
     ): Promise<boolean>;
 }
 
@@ -182,21 +182,21 @@ export namespace powersOfTau {
         name: string,
         beaconHashStr: string,
         numIterationsExp: number | string,
-        logger?: any
+        logger?: any,
     ): Promise<any>;
     function challengeContribute(
         curve: any,
         challengeFilename: any,
         responesFileName: any,
         entropy: any,
-        logger?: any
+        logger?: any,
     ): Promise<void>;
     function contribute(
         oldPtauFilename: any,
         newPTauFilename: any,
         name: string,
         entropy: any,
-        logger?: any
+        logger?: any,
     ): Promise<any>;
     function convert(oldPtauFilename: any, newPTauFilename: any, logger?: any): Promise<void>;
     function exportChallenge(pTauFilename: any, challengeFilename: any, logger?: any): Promise<any>;
@@ -207,7 +207,7 @@ export namespace powersOfTau {
         newPTauFilename: any,
         name?: string,
         importPoints?: any,
-        logger?: any
+        logger?: any,
     ): Promise<any>;
     function newAccumulator(curve: any, power: number, fileName: any, logger?: any): Promise<any>;
     function preparePhase2(oldPtauFilename: any, newPTauFilename: any, logger?: any): Promise<void>;
@@ -230,7 +230,7 @@ export namespace wtns {
         wtnsFileName: any,
         symName: any,
         options: any,
-        logger?: any
+        logger?: any,
     ): Promise<void>;
     function exportJson(wtnsFileName: string): Promise<object>;
 }
@@ -242,14 +242,14 @@ export namespace zKey {
         name: string,
         beaconHashStr: string,
         numIterationsExp: number | string,
-        logger?: any
+        logger?: any,
     ): Promise<any>;
     function bellmanContribute(
         curve: any,
         challengeFilename: any,
         responesFileName: any,
         entropy: any,
-        logger?: any
+        logger?: any,
     ): Promise<any>;
     function contribute(zkeyNameOld: any, zkeyNameNew: any, name: string, entropy: any, logger?: any): Promise<any>;
     function exportBellman(zkeyName: any, mpcparamsName: any, logger?: any): Promise<void>;
@@ -261,7 +261,7 @@ export namespace zKey {
         mpcparamsName: any,
         zkeyNameNew: any,
         name?: string,
-        logger?: any
+        logger?: any,
     ): Promise<any>;
     function newZKey(r1csName: any, ptauName: any, zkeyName: any, logger?: any): Promise<any>;
     function verifyFromInit(initFileName: any, pTauFileName: any, zkeyFileName: any, logger?: any): Promise<boolean>;
