@@ -1,5 +1,5 @@
-declare namespace NodeJS {
-    interface Global {
-        [propName: string]: unknown;
-    }
-}
+// declare namespace NodeJS {
+//     interface Global {
+//         [propName: string]: unknown;
+//     }
+// }
