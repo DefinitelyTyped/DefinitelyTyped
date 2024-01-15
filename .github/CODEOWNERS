@@ -478,11 +478,6 @@
 /types/barco-eventmaster/                                 @k-yle
 /types/barcode/                                           @pvomhoff
 /types/baretest/                                          @roryokane
-/types/barnard59/                                         @tpluscode @BenjaminHofstetter
-/types/barnard59-base/                                    @tpluscode @BenjaminHofstetter
-/types/barnard59-core/                                    @tpluscode @BenjaminHofstetter
-/types/barnard59-graph-store/                             @tpluscode @BenjaminHofstetter
-/types/barnard59-validate-shacl/                          @tpluscode @cristianvasquez @BenjaminHofstetter
 /types/base-64/                                           @dolanmiu
 /types/base16/                                            @alechill @Methuselah96
 /types/base32-encoding/                                   @BendingBender
@@ -883,6 +878,7 @@
 /types/chrome-apps/                                       @niikoo @AdamLay @mzsm @RReverser @pyle @matthewkimber @otiai10 @rreverser @sreimer15
 /types/chrome-location/                                   @IngyuTae
 /types/chrome-remote-interface/                           @kazarmy @westy92
+/types/chrome-webstore-upload/                            @Granga
 /types/chromecast-api/                                    @SteffoSpieler @daniel0611
 /types/chromecast-caf-receiver/                           @Serabe @brandonrisell @marcoreni
 /types/chromecast-caf-sender/                             @samuelmaddock
@@ -2800,6 +2796,7 @@
 /types/get-installed-path/                                @JamieMagee
 /types/get-intrinsic/                                     @ljharb @ExE-Boss
 /types/get-node-dimensions/                               @vincekovacs
+/types/get-package-type/                                  @coreyfarrell @ljharb
 /types/get-params/                                        @Methuselah96
 /types/get-pixels/                                        @donmccurdy
 /types/get-res/                                           @satyarohith
@@ -4233,6 +4230,7 @@
 /types/leaflet.wms/                                       @antoniovlx
 /types/leakage/                                           @atd-schubert
 /types/leapmotionts/                                      @logotype
+/types/leb128/                                            @remcohaszing
 /types/ledgerhq__hw-app-btc/                              @gregdhill
 /types/ledgerhq__hw-transport/                            @danwbyrne
 /types/ledgerhq__hw-transport-node-hid/                   @danwbyrne
@@ -6167,6 +6165,7 @@
 /types/rdfjs__express-handler/                            @tpluscode
 /types/rdfjs__fetch/                                      @tpluscode
 /types/rdfjs__fetch-lite/                                 @tpluscode @jeswr
+/types/rdfjs__formats/                                    @tpluscode
 /types/rdfjs__formats-common/                             @tpluscode
 /types/rdfjs__namespace/                                  @thewilkybarkid @jeswr @tpluscode
 /types/rdfjs__parser-jsonld/                              @thewilkybarkid @tpluscode
@@ -6177,6 +6176,7 @@
 /types/rdfjs__serializer-jsonld-ext/                      @thewilkybarkid
 /types/rdfjs__serializer-ntriples/                        @tpluscode
 /types/rdfjs__serializer-rdfjs/                           @tpluscode @BenjaminHofstetter
+/types/rdfjs__serializer-turtle/                          @tpluscode
 /types/rdfjs__sink-map/                                   @tpluscode @jeswr
 /types/rdfjs__term-map/                                   @tpluscode @jeswr
 /types/rdfjs__term-set/                                   @tpluscode @jeswr
@@ -6464,7 +6464,7 @@
 /types/react-native-base64/                               @seongjoojin @markyao6275
 /types/react-native-bluetooth-serial/                     @RodrigoAWeber
 /types/react-native-button/                               @mkchung
-/types/react-native-calendar-picker/                      @automatensalat
+/types/react-native-calendar-picker/                      @automatensalat @tranjog
 /types/react-native-calendars/                            @Tyler-Zhang @DavidNorena @FabianMeul
 /types/react-native-canvas/                               @hmajid2301
 /types/react-native-channel-plugin/                       @hahnlee
@@ -6738,6 +6738,7 @@
 /types/react-tracking/                                    @alloy @damassi @chenasraf
 /types/react-transition-group/                            @LKay @Epskampie @ybiquitous @bengry
 /types/react-transition-group/v1/                         @LKay
+/types/react-tree-graph/                                  @PCOffline
 /types/react-treeview/                                    @janslow
 /types/react-truncate/                                    @mattvperry
 /types/react-twemoji/                                     @smallpence
@@ -7691,6 +7692,7 @@
 /types/string-similarity/v1/                              @ragtime
 /types/string-template/                                   @TonyPythoneer
 /types/string.prototype.matchall/                         @peterblazejewicz
+/types/string.prototype.trim/                             @ljharb
 /types/string_score/                                      @marcinporebski
 /types/stringify-author/                                  @manuth
 /types/stringify-object/                                  @peterblazejewicz
@@ -7942,6 +7944,7 @@
 /types/through2/v0/                                       @Bartvds
 /types/through2-concurrent/                               @Alorel
 /types/through2-map/                                      @LucasHill
+/types/throw-empty/                                       @ChocolateLoverRaj
 /types/thumbsupply/                                       @MagiCzOOz
 /types/thunderbird-webext-browser/                        @JimDanner
 /types/thunky/                                            @BendingBender
