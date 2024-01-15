@@ -363,7 +363,7 @@ declare module "crypto" {
          * @since v13.1.0
          * @param options `stream.transform` options
          */
-        copy(options?: stream.TransformOptions): Hash;
+        copy(options?: HashOptions): Hash;
         /**
          * Updates the hash content with the given `data`, the encoding of which
          * is given in `inputEncoding`.
