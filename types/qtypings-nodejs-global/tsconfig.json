@@ -13,7 +13,6 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
-        // "qtypings-nodejs-global-tests.ts"
+        "index.d.ts"
     ]
 }
