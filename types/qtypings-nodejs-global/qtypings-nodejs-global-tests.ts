@@ -1,9 +1,9 @@
-const testJsonFromNodeJS: QJson = {
+const testJsonFromNodeJS = {
     a: 1,
     b: 2
 };
 
-const testJsonTFromNodeJS: QJsonT<string> = {
+const testJsonTFromNodeJS = {
     a: '1',
     b: '2'
 };
