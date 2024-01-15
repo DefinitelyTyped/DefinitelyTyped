@@ -4459,9 +4459,10 @@ declare module "crypto" {
     }
 
     global {
-        namespace NodeJS {
-            const crypto: webcrypto.Crypto;
-        }
+        var crypto: typeof globalThis extends {
+            crypto: infer T;
+        } ? T
+            : webcrypto.Crypto;
     }
 }
 declare module "node:crypto" {
