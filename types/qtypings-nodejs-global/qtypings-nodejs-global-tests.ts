@@ -10,3 +10,4 @@
 
 // console.log('testJsonFromNodeJS:', testJsonFromNodeJS);
 // console.log('testJsonTFromNodeJS:', testJsonTFromNodeJS);
+console.log('this is nodejs test');

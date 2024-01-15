@@ -10,3 +10,4 @@
 
 // console.log('testJsonFromBrowser:', testJsonFromBrowser);
 // console.log('testJsonTFromBrowser:', testJsonTFromBrowser);
+console.log('this is browser test');
