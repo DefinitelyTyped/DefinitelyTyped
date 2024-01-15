@@ -4859,7 +4859,7 @@ declare namespace browser.storage {
          * Gets one or more items from storage.
          * @param [keys] A single key to get, list of keys to get, or a dictionary specifying default values (see description of the object). An empty list or object will return an empty result object. Pass in `null` to get the entire contents of storage.
          */
-        get(keys?: string | string[] | { [key: string]: any }): Promise<{ [key: string]: any }>;
+        get(keys?: null | string | string[] | { [key: string]: any }): Promise<{ [key: string]: any }>;
         /**
          * Gets the amount of space (in bytes) being used by one or more items.
          * @param [keys] A single key or list of keys to get the total usage for. An empty list will return 0\. Pass in `null` to get the total usage of all of storage.
