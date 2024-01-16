@@ -520,9 +520,9 @@ options.clipboardPasteParser = clipboard => {
     return []; // return array
 };
 
-table.on('cellEdited', (cell) => {
+table.on("cellEdited", (cell) => {
     console.log(cell);
-})
+});
 
 // 4.3 updates
 table = new Tabulator("#test", {
@@ -699,8 +699,8 @@ table.download("xlsx", "data.xlsx", {
 
 table = new Tabulator("#example-table", {});
 
-table.on('scrollVertical', () => {});
-table.on('scrollHorizontal', () => {});
+table.on("scrollVertical", () => {});
+table.on("scrollHorizontal", () => {});
 
 // 4.6 updates
 const rowContextMenu: Array<MenuObject<RowComponent> | MenuSeparator> = [
@@ -842,7 +842,7 @@ table = new Tabulator("#example-table", {
         },
     ],
 });
-table.on('movableRowsElementDrop', (e, element, row) => {});
+table.on("movableRowsElementDrop", (e, element, row) => {});
 table.clearCellEdited();
 cell.clearEdited();
 table.getEditedCells();
@@ -925,9 +925,9 @@ table = new Tabulator("#example-table", {
     groupUpdateOnCellEdit: true,
 });
 
-table.on('dataChanged', (data) => {
+table.on("dataChanged", (data) => {
     console.log(data);
-})
+});
 
 table.setGroupValues([["male", "female", "smizmar"]]);
 table.getData("all");
