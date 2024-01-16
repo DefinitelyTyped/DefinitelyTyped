@@ -100,6 +100,8 @@ declare module "crypto" {
         const OPENSSL_VERSION_NUMBER: number;
         /** Applies multiple bug workarounds within OpenSSL. See https://www.openssl.org/docs/man1.0.2/ssl/SSL_CTX_set_options.html for detail. */
         const SSL_OP_ALL: number;
+        /** Instructs OpenSSL to allow a non-[EC]DHE-based key exchange mode for TLS v1.3 */
+        const SSL_OP_ALLOW_NO_DHE_KEX: number;
         /** Allows legacy insecure renegotiation between OpenSSL and unpatched clients or servers. See https://www.openssl.org/docs/man1.0.2/ssl/SSL_CTX_set_options.html. */
         const SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION: number;
         /** Attempts to use the server's preferences instead of the client's when selecting a cipher. See https://www.openssl.org/docs/man1.0.2/ssl/SSL_CTX_set_options.html. */
@@ -116,15 +118,29 @@ declare module "crypto" {
         const SSL_OP_LEGACY_SERVER_CONNECT: number;
         /** Instructs OpenSSL to disable support for SSL/TLS compression. */
         const SSL_OP_NO_COMPRESSION: number;
+        /** Instructs OpenSSL to disable encrypt-then-MAC. */
+        const SSL_OP_NO_ENCRYPT_THEN_MAC: number;
         const SSL_OP_NO_QUERY_MTU: number;
+        /** Instructs OpenSSL to disable renegotiation. */
+        const SSL_OP_NO_RENEGOTIATION: number;
         /** Instructs OpenSSL to always start a new session when performing renegotiation. */
         const SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION: number;
+        /** Instructs OpenSSL to turn off SSL v2 */
         const SSL_OP_NO_SSLv2: number;
+        /** Instructs OpenSSL to turn off SSL v3 */
         const SSL_OP_NO_SSLv3: number;
+        /** Instructs OpenSSL to disable use of RFC4507bis tickets. */
         const SSL_OP_NO_TICKET: number;
+        /** Instructs OpenSSL to turn off TLS v1 */
         const SSL_OP_NO_TLSv1: number;
+        /** Instructs OpenSSL to turn off TLS v1.1 */
         const SSL_OP_NO_TLSv1_1: number;
+        /** Instructs OpenSSL to turn off TLS v1.2 */
         const SSL_OP_NO_TLSv1_2: number;
+        /** Instructs OpenSSL to turn off TLS v1.3 */
+        const SSL_OP_NO_TLSv1_3: number;
+        /** Instructs OpenSSL server to prioritize ChaCha20-Poly1305 when the client does. This option has no effect if `SSL_OP_CIPHER_SERVER_PREFERENCE` is not enabled. */
+        const SSL_OP_PRIORITIZE_CHACHA: number;
         /** Instructs OpenSSL to disable version rollback attack detection. */
         const SSL_OP_TLS_ROLLBACK_BUG: number;
         const ENGINE_METHOD_RSA: number;
