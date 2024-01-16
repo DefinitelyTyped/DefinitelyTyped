@@ -245,7 +245,7 @@ export const yiq: ConvertFn<"yiq">;
 /* Types */
 
 export type { A98 } from "./src/a98/types";
-export { Color, Mode } from "./src/common";
+export { Color, Gamut, Mode, RgbGamut } from "./src/common";
 export type { Cubehelix } from "./src/cubehelix/types";
 export type { Dlab } from "./src/dlab/types";
 export type { Dlch } from "./src/dlch/types";
