@@ -15,6 +15,7 @@
     },
     "files": [
         "index.d.ts",
-        "slate-html-serializer-tests.ts"
+        "slate-html-serializer-tests.ts",
+        "slate-html-serializer-tests.mts"
     ]
 }
