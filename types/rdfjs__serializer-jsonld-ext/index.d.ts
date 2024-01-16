@@ -1,6 +1,6 @@
 import { BaseQuad, Quad, Sink, Stream } from "@rdfjs/types";
 import { EventEmitter } from "events";
-import { Context } from "jsonld/jsonld-spec";
+import { Context } from "jsonld/jsonld-spec.js";
 
 declare namespace Serializer {
     interface SerializerOptions {
