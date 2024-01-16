@@ -1,5 +1,15 @@
 import { Agent } from "http";
-import fetch, { AbortError, Blob, FetchError, Headers, Request, RequestInit, Response, HeaderInit, HeadersInit } from "node-fetch";
+import fetch, {
+    AbortError,
+    Blob,
+    FetchError,
+    HeaderInit,
+    Headers,
+    HeadersInit,
+    Request,
+    RequestInit,
+    Response,
+} from "node-fetch";
 import { URL } from "url";
 // eslint-disable-next-line no-duplicate-imports -- test namespace import where import name differs
 import Fetch from "node-fetch";
