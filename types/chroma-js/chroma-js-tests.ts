@@ -187,6 +187,7 @@ function test_scale() {
     chroma.scale("Spectral");
     chroma.scale("Spectral").domain([1, 0]);
     chroma.brewer.OrRd;
+    chroma.brewer.Viridis;
     chroma.scale(["yellow", "008ae5"]).mode("lch");
 
     chroma.scale(["yellow", "008ae5"]).mode("lch").correctLightness();

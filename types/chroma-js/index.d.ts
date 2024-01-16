@@ -170,6 +170,7 @@ declare namespace chroma {
             PuRd: string[];
             Blues: string[];
             PuBuGn: string[];
+            Viridis: string[];
             Spectral: string[];
             RdYlGn: string[];
             RdBu: string[];
