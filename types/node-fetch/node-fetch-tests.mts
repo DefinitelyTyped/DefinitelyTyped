@@ -1,14 +1,7 @@
 import { Agent } from "http";
 import fetch, { AbortError, Blob, FetchError, Headers, Request, RequestInit, Response, HeaderInit, HeadersInit } from "node-fetch";
 import { URL } from "url";
-// eslint-disable-next-line no-duplicate-imports -- test namespace import where import name differs
-import Fetch from "node-fetch";
 import FormData = require("form-data");
-
-function test_FetchNamespace() {
-    // without `import _default = fetch;`, Fetch.HeaderInit errors with "Cannot find namespace 'Fetch'"
-    const h1: Fetch.HeaderInit = [["Content-Type", "applicaion/json"]];
-}
 
 function test_AbortError() {
     const e = new AbortError("message");
