@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "Node16",
+        "module": "node16",
         "lib": [
             "es6",
             "dom"
