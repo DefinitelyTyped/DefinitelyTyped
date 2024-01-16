@@ -15,7 +15,7 @@ declare namespace Plain {
     export function deserialize(string: string, options?: DeserializeOptions): Value;
     export function serialize(value: Value, options?: SerializeOptions): string;
 
-    const _default: typeof Plain;
+    import _default = Plain;
     export { _default as default, DeserializeOptions, SerializeOptions };
 }
 
