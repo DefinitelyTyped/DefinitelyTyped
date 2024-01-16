@@ -15,6 +15,7 @@
     },
     "files": [
         "index.d.ts",
-        "node-fetch-tests.ts"
+        "node-fetch-tests.ts",
+        "node-fetch-tests.mts"
     ]
 }
