@@ -34,14 +34,24 @@ void 0;
  * @param {string} packageJsonPath
  * @param {PackageInfo} info
  * @param {Set<string>} ghosts
+ * @param {Map<string, string>} renames
  */
-function bust(packageJsonPath, info, ghosts) {
-    /** @param {Owner} c */
-    const isGhost = c => c.githubUsername && ghosts.has(c.githubUsername.toLowerCase());
+function bust(packageJsonPath, info, ghosts, renames) {
+    /** @type {(c: Owner) => c is Owner & { githubUsername: string }} */
+    const isGhost = c => !!c.githubUsername && ghosts.has(c.githubUsername.toLowerCase());
     if (info.owners.some(isGhost)) {
         console.log(`Found one or more deleted accounts in ${packageJsonPath}. Patching...`);
         const parsed = JSON.parse(info.raw);
-        parsed.owners = info.owners.filter(c => !isGhost(c));
+        parsed.owners = info.owners.map(c => {
+            if (isGhost(c)) {
+                const newName = renames.get(c.githubUsername.toLowerCase());
+                if (!newName) {
+                    return undefined;
+                }
+                c.githubUsername = newName;
+            }
+            return c;
+        }).filter(c => c);
         const newContent = JSON.stringify(parsed, undefined, 4);
         writeFileSync(packageJsonPath, newContent + "\n", "utf-8");
     }
@@ -158,7 +168,22 @@ process.on("unhandledRejection", err => {
         return;
     }
 
+    /** @type {Map<string, string>} */
+    const renames = new Map();
+    for (const oldName of ghosts) {
+        try {
+            const result = await fetch(`https://github.com/${oldName}/DefinitelyTyped`, { method: "HEAD" });
+            const url = new URL(result.url);
+            const newName = url.pathname.split("/")[1].toLowerCase();
+            if (newName !== oldName) {
+                renames.set(oldName, newName);
+            }
+        } catch {
+            // ignore
+        }
+    }
+
     for (const indexPath in packageJsons) {
-        bust(indexPath, packageJsons[indexPath], ghosts);
+        bust(indexPath, packageJsons[indexPath], ghosts, renames);
     }
 })();
