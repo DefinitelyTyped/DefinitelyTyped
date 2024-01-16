@@ -1955,7 +1955,7 @@ export interface KeyBinding {
 // Components-------------------------------------------------------------------
 export interface CalculationComponent {
     /** The getData function returns the data object for the row. */
-    getData: () => any;
+    getData: () => { [key: string]: any };
 
     /** The getElement function returns the DOM node for the row. */
     getElement: () => HTMLElement;
@@ -2224,7 +2224,7 @@ export interface CellComponent {
     getColumn: () => ColumnComponent;
 
     /** The getData function returns the data for the row that contains the cell. */
-    getData: (transformType?: "data" | "download" | "clipboard") => {};
+    getData: (transformType?: "data" | "download" | "clipboard") => { [key: string]: any };
 
     /** The getField function returns the field name for the column that contains the cell. */
     getField: () => string;
