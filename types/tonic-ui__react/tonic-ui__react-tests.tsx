@@ -36,6 +36,8 @@ const customTheme = { ...theme, box: { color: "grey" } };
 
 const Container = (): React.JSX.Element => {
     const [colorMode, setColorMode] = useColorMode();
+    const refUnknown = useRef<unknown>();
+    const refAny = useRef<any>();
     setColorMode("light");
     useColorStyle({ colorMode });
     const portal = usePortalManager();
@@ -45,8 +47,8 @@ const Container = (): React.JSX.Element => {
     return (
         <TonicProvider colorMode={{ defaultValue: "light", value: "dark" }} theme={customTheme} useCSSBaseline={true}>
             <DarkMode>
-                <Modal autoFocus={true} size="md">
-                    <ModalContent>
+                <Modal ref={refUnknown} autoFocus={true} size="md">
+                    <ModalContent ref={refAny}>
                         <ModalHeader
                             // Generic prop
                             css={{

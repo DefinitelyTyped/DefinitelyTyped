@@ -263,7 +263,7 @@ export interface ButtonLinkProps extends ButtonProps {
     href?: string;
 }
 
-export interface CheckboxProps extends TonicHTMLInputProps<HTMLInputElement> {
+export interface CheckboxProps extends TonicHTMLInputProps {
     children?: ReactNode;
     variantColor?: string;
     indeterminate?: boolean;
@@ -355,13 +355,13 @@ export interface IconProps extends TonicProps {
     spin?: boolean | "cw" | "ccw";
 }
 
-export interface InputProps extends TonicHTMLInputProps<HTMLInputElement> {
+export interface InputProps extends TonicHTMLInputProps {
     inputProps?: InputProps;
     error?: boolean;
     variant?: "outline" | "filled" | "unstyled";
 }
 
-export interface InputControlProps extends TonicHTMLInputProps<HTMLInputElement> {
+export interface InputControlProps extends TonicHTMLInputProps {
     error?: boolean;
     endAdornment?: ReactNode;
     inputComponent?: ComponentType;
@@ -577,7 +577,7 @@ export interface PortalProps {
 }
 
 export interface RadioGroupProps<T extends string | number | undefined>
-    extends Omit<TonicHTMLInputProps<HTMLInputElement>, "onChange" | "children">
+    extends Omit<TonicHTMLInputProps, "onChange" | "children">
 {
     children: ReactNode | ((context: unknown) => ReactNode);
     defaultValue?: T;
@@ -964,8 +964,8 @@ type _ResponsiveCSSProperties = {
 };
 
 /** Helper type that contains all CSS related props that can be augmented with remaining React props like ref/children/etc  */
-type _CSSPropsWithHTML<Element, Attributes> =
-    & RefAttributes<Element>
+type _CSSPropsWithHTML<Attributes> =
+    & RefAttributes<any>
     & Attributes
     & _ResponsiveCSSProperties
     & {
@@ -1017,21 +1017,18 @@ type _CSSPropsWithHTML<Element, Attributes> =
 
 export interface ImageProps extends
     _CSSPropsWithHTML<
-        HTMLImageElement,
         Omit<ImgHTMLAttributes<HTMLImageElement>, "color" | "translate" | "slot" | "defaultValue" | "height" | "width">
     >
 {}
 
 interface TonicHTMLAnchorProps extends
     _CSSPropsWithHTML<
-        HTMLAnchorElement,
         Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "tabIndex" | "color" | "translate">
     >
 {}
 
 interface TonicHTMLSelectProps extends
     _CSSPropsWithHTML<
-        HTMLSelectElement,
         Omit<SelectHTMLAttributes<HTMLSelectElement>, "tabIndex" | "color" | "translate" | "size">
     >
 {
@@ -1040,16 +1037,14 @@ interface TonicHTMLSelectProps extends
 
 export interface TextareaProps extends
     _CSSPropsWithHTML<
-        HTMLTextAreaElement,
         Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "tabIndex" | "color" | "translate">
     >
 {
     size?: "sm" | "md" | "lg" | number;
 }
 
-interface TonicHTMLInputProps<Element> extends
+interface TonicHTMLInputProps extends
     _CSSPropsWithHTML<
-        Element,
         Omit<
             InputHTMLAttributes<Element>,
             "children" | "color" | "defaultValue" | "height" | "size" | "slot" | "tabIndex" | "translate" | "width"
@@ -1062,14 +1057,12 @@ interface TonicHTMLInputProps<Element> extends
 
 interface TonicHTMLButtonProps extends
     _CSSPropsWithHTML<
-        HTMLButtonElement,
         Omit<ButtonHTMLAttributes<HTMLButtonElement>, "color" | "tabIndex" | "translate" | "slot" | "defaultValue">
     >
 {}
 
 export interface TonicProps<Element = HTMLDivElement> extends
     _CSSPropsWithHTML<
-        Element,
         Omit<HTMLAttributes<Element>, "color" | "tabIndex" | "translate" | "slot" | "defaultValue">
     >
 {}
