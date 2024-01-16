@@ -1,4 +1,4 @@
-import { Color, RgbGamut, Mode } from "./common";
+import { Color, Mode, RgbGamut } from "./common";
 
 export function clampRgb(color: string): Color | undefined;
 export function clampRgb<C extends Color>(color: C): C;

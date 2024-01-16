@@ -1,4 +1,4 @@
-import { clampRgb, clampChroma, Color, Mode, RgbGamut } from "culori/fn";
+import { clampChroma, clampRgb, Color, Mode, RgbGamut } from "culori/fn";
 
 declare const color: unknown;
 declare const mode: unknown;
