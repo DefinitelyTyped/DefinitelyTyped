@@ -520,9 +520,9 @@ options.clipboardPasteParser = clipboard => {
     return []; // return array
 };
 
-options.cellEditing = cell => {
+table.on('cellEdited', (cell) => {
     console.log(cell);
-};
+})
 
 // 4.3 updates
 table = new Tabulator("#test", {
@@ -697,10 +697,10 @@ table.download("xlsx", "data.xlsx", {
     },
 });
 
-table = new Tabulator("#example-table", {
-    scrollVertical: () => {},
-    scrollHorizontal: () => {},
-});
+table = new Tabulator("#example-table", {});
+
+table.on('scrollVertical', () => {});
+table.on('scrollHorizontal', () => {});
 
 // 4.6 updates
 const rowContextMenu: Array<MenuObject<RowComponent> | MenuSeparator> = [
@@ -809,7 +809,6 @@ columns.forEach(col => col.getDefinition());
 // 4.7 updates
 
 table = new Tabulator("#example-table", {
-    movableRowsElementDrop: (e, element, row) => {},
     downloadRowRange: "selected",
     layout: "fitDataTable",
     validationMode: "highlight",
@@ -843,6 +842,7 @@ table = new Tabulator("#example-table", {
         },
     ],
 });
+table.on('movableRowsElementDrop', (e, element, row) => {});
 table.clearCellEdited();
 cell.clearEdited();
 table.getEditedCells();
@@ -923,8 +923,11 @@ table = new Tabulator("#example-table", {
     dataTreeFilter: false,
     dataTreeSort: false,
     groupUpdateOnCellEdit: true,
-    dataChanged: data => {},
 });
+
+table.on('dataChanged', (data) => {
+    console.log(data);
+})
 
 table.setGroupValues([["male", "female", "smizmar"]]);
 table.getData("all");
@@ -1069,11 +1072,7 @@ class CustomModule extends Module {
 CustomModule.moduleName = "custom";
 Tabulator.registerModule([CustomModule, DataTreeModule]);
 
-const sortHandler = {} as (sorters: SorterFromTable[]) => void;
-table = new Tabulator("#test", {
-    dataSorting: sortHandler,
-    dataSorted: sortHandler,
-});
+table = new Tabulator("#test", {});
 table.on("dataSorting", ([sorter]) => sorter.field);
 table.on("dataSorted", ([sorter]) => sorter.field);
 
