@@ -90,6 +90,40 @@ const Container = (): React.JSX.Element => {
     );
 };
 
+const InferredTests = () => {
+    const inferredTypes = {
+        _active: "none",
+        _checked: "none",
+        _selected: "none",
+        _disabled: "none",
+        _empty: "none",
+        _enabled: "none",
+        _fullscreen: "none",
+        _focus: "none",
+        _focusActive: "none",
+        _focusHover: "none",
+        _focusWithin: { background: "red", flexAlign: "start" },
+        _focusSelected: { background: "red", flexAlign: "start" },
+        _hover: { background: "red", flexAlign: "start" },
+        _indeterminate: { background: "red", flexAlign: "start" },
+        _valid: { background: "red", flexAlign: "start" },
+        _invalid: { background: "red", flexAlign: "start" },
+        _readOnly: { background: "red", flexAlign: "start" },
+        _visited: { background: "red", flexAlign: "start" },
+        _firstChild: { background: "red", flexAlign: "start" },
+        _firstOfType: { background: "red", flexAlign: "start" },
+        _notFirstOfType: { background: "red", flexAlign: "start" },
+        _lastChild: { background: "red", flexAlign: "start" },
+        _lastOfType: { background: "red", flexAlign: "start" },
+        _nthOfType: "none",
+        background: { sm: "red", lg: "blue" },
+        m: "2x",
+    };
+
+    // Check we can handle untyped CSS properties
+    return <Box {...inferredTypes} />;
+};
+
 const [_, setColorMode] = useColorMode();
 // @ts-expect-error
 setColorMode("blue");
