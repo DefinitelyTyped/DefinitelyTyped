@@ -1561,6 +1561,13 @@ function testStorageForPromise() {
     );
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/runtime#method-getContexts
+function testRunTimeGetContexts() {
+    const options = { incognito: true, tabIds: [1, 2, 3] };
+
+    chrome.runtime.getContexts(options);
+}
+
 // https://developer.chrome.com/docs/extensions/reference/runtime/#method-sendMessage
 function testRuntimeSendMessage() {
     const options = { includeTlsChannelId: true };
