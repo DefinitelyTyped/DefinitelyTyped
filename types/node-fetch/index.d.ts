@@ -231,7 +231,7 @@ declare namespace fetch {
     };
     export function isRedirect(code: number): boolean;
 
-    const _default: typeof fetch;
+    import _default = fetch;
     export { _default as default };
 }
 
