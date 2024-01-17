@@ -34,7 +34,7 @@ jobs:
           run_install: |
             - args: [--filter, ., --filter, '{./scripts}...']
 
-      - run: node ./scripts/ghostbuster.js
+      - run: node ./scripts/ghostbuster.js > comment.md
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN_API_READ }}
 
@@ -61,7 +61,4 @@ jobs:
           branch-suffix: short-commit-hash
           delete-branch: true
           title: Remove contributors with deleted accounts
-          body: |
-            Generated from [.github/workflows/ghostbuster.yml](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/.github/workflows/ghostbuster.yml)
-
-            Some of these users may have simply changed their usernames; you may want do a bit of searching and ping them to see if they still want to be owners.
+          body-path: comment.md
