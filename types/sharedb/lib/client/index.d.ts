@@ -1,6 +1,6 @@
-/// <reference path="sharedb.d.ts" />
-import * as ShareDB from "./sharedb";
-import Agent = require("./agent");
+/// <reference path="../sharedb.d.ts" />
+import * as ShareDB from "../sharedb";
+import Agent = require("../agent");
 
 export class Connection extends ShareDB.TypedEmitter<ShareDB.ConnectionEventMap> {
     constructor(ws: ShareDB.Socket);
@@ -99,7 +99,7 @@ export {
     StringDeleteOp,
     StringInsertOp,
     SubtypeOp,
-} from "./sharedb";
+} from "../sharedb";
 
 export const types: ShareDB.Types;
 export const logger: ShareDB.Logger;
