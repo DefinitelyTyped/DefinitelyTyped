@@ -1012,13 +1012,19 @@ declare module "node:test" {
          */
         restore(): void;
     }
-    type Timer = "setInterval" | "clearInterval" | "setTimeout" | "clearTimeout";
+    type Timer = "setInterval" | "setTimeout" | "setImmediate" | "Date";
+
+    interface MockTimersOptions {
+        apis: Timer[];
+        now?: number | Date;
+    }
     /**
      * Mocking timers is a technique commonly used in software testing to simulate and
      * control the behavior of timers, such as `setInterval` and `setTimeout`,
      * without actually waiting for the specified time intervals.
      *
-     * MockTimers is also able to mock the `Date` object.
+     * The MockTimers API also allows for mocking of the `Date` constructor and
+     * `setImmediate`/`clearImmediate` functions.
      *
      * The `MockTracker` provides a top-level `timers` export
      * which is a `MockTimers` instance.
@@ -1039,11 +1045,12 @@ declare module "node:test" {
          *
          * ```js
          * import { mock } from 'node:test';
-         * mock.timers.enable({ apis: ['setInterval'] });
+         * mock.timers.enable({ apis: ['setInterval', 'Date'], now: 1234 });
          * ```
          *
-         * The above example enables mocking for the `setInterval` timer and
-         * implicitly mocks the `clearInterval` function. Only the `setInterval`and `clearInterval` functions from `node:timers`,`node:timers/promises`, and`globalThis` will be mocked.
+         * The above example enables mocking for the `Date` constructor, `setInterval` timer and
+         * implicitly mocks the `clearInterval` function. Only the `Date` constructor from `globalThis`,
+         * `setInterval` and `clearInterval` functions from `node:timers`,`node:timers/promises`, and `globalThis` will be mocked.
          *
          * Example usage with initial time set
          *
@@ -1061,12 +1068,36 @@ declare module "node:test" {
          *
          * Alternatively, if you call `mock.timers.enable()` without any parameters:
          *
-         * All timers (`'setInterval'`, `'clearInterval'`, `'setTimeout'`, and `'clearTimeout'`)
-         * will be mocked. The `setInterval`, `clearInterval`, `setTimeout`, and `clearTimeout`functions from `node:timers`, `node:timers/promises`,
-         * and `globalThis` will be mocked. As well as the global `Date` object.
+         * All timers (`'setInterval'`, `'clearInterval'`, `'Date'`, `'setImmediate'`, `'clearImmediate'`, `'setTimeout'`, and `'clearTimeout'`)
+         * will be mocked.
+         *
+         * The `setInterval`, `clearInterval`, `setTimeout`, and `clearTimeout` functions from `node:timers`, `node:timers/promises`,
+         * and `globalThis` will be mocked.
+         * The `Date` constructor from `globalThis` will be mocked.
+         *
+         * If there is no initial epoch set, the initial date will be based on 0 in the Unix epoch. This is `January 1st, 1970, 00:00:00 UTC`. You can set an initial date by passing a now property to the `.enable()` method. This value will be used as the initial date for the mocked Date object. It can either be a positive integer, or another Date object.
          * @since v20.4.0
          */
-        enable(timers?: Timer[]): void;
+        enable(options?: MockTimersOptions): void;
+        /**
+         * You can use the `.setTime()` method to manually move the mocked date to another time. This method only accepts a positive integer.
+         * Note: This method will execute any mocked timers that are in the past from the new time.
+         * In the below example we are setting a new time for the mocked date.
+         * ```js
+         * import assert from 'node:assert';
+         * import { test } from 'node:test';
+         * test('sets the time of a date object', (context) => {
+         *   // Optionally choose what to mock
+         *   context.mock.timers.enable({ apis: ['Date'], now: 100 });
+         *   assert.strictEqual(Date.now(), 100);
+         *   // Advance in time will also advance the date
+         *   context.mock.timers.setTime(1000);
+         *   context.mock.timers.tick(200);
+         *   assert.strictEqual(Date.now(), 1200);
+         * });
+         * ```
+         */
+        setTime(time: number): void;
         /**
          * This function restores the default behavior of all mocks that were previously
          * created by this `MockTimers` instance and disassociates the mocks
