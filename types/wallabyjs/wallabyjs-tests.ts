@@ -1,13 +1,15 @@
 import * as wallabyjs from "wallabyjs";
 
 export class WallabyConfig implements wallabyjs.IWallabyConfig {
-    public files: string[] = [
+    public files: Array<string | wallabyjs.IWallabyFilePattern> = [
         "src/**/*.ts",
         "!src/**/*.spec.ts",
+        { pattern: "src/**/*.css", instrument: false },
     ];
 
-    public tests: string[] = [
+    public tests: Array<string | wallabyjs.IWallabyFilePattern> = [
         "src/**/*.spec.ts",
+        { pattern: "src/**/*.css", instrument: false },
     ];
 
     public compilers: wallabyjs.IWallabyCompilers = <wallabyjs.IWallabyCompilers> {
