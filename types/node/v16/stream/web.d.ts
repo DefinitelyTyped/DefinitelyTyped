@@ -384,7 +384,7 @@ declare module "stream/web" {
 
     const TextDecoderStream: {
         prototype: TextDecoderStream;
-        new(label?: string, options?: TextDecoderOptions): TextDecoderStream;
+        new(encoding?: string, options?: TextDecoderOptions): TextDecoderStream;
     };
 }
 declare module "node:stream/web" {
