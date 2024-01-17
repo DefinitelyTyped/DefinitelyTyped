@@ -1,6 +1,5 @@
 import { Component, ReactElement } from "react";
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import { Connect, connect, createProvider, DispatchProp, MapStateToProps, Options, Provider } from "react-redux";
 import { ActionCreator, ActionCreatorsMapObject, bindActionCreators, createStore, Dispatch, Store } from "redux";
 import objectAssign = require("object-assign");
@@ -409,22 +408,15 @@ connect<ICounterStateProps, ICounterDispatchProps, {}, ICounterStateProps & ICou
 )(Counter);
 
 class App extends Component<any, any> {
-    render(): JSX.Element {
+    render(): React.JSX.Element {
         // ...
         return null;
     }
 }
 
-const targetEl = document.getElementById("root");
-
-ReactDOM.render(
-    (
-        <Provider store={store}>
-            <App />
-        </Provider>
-    ),
-    targetEl,
-);
+<Provider store={store}>
+    <App />
+</Provider>;
 
 //
 // API
@@ -452,27 +444,21 @@ declare var addTodo: () => { type: string };
 declare var todoActionCreators: { [type: string]: (...args: any[]) => any };
 declare var counterActionCreators: { [type: string]: (...args: any[]) => any };
 
-ReactDOM.render(
-    <Provider store={store}>
-        <MyRootComponent />
-    </Provider>,
-    document.body,
-);
+<Provider store={store}>
+    <MyRootComponent />
+</Provider>;
 
 // TODO: for React Router 0.13
 //// TODO: error TS2339: Property 'run' does not exist on type 'typeof "react-router"'.
 //// TODO: error TS2339: Property 'HistoryLocation' does not exist on type 'typeof "react-router"'.
 // declare var routes: any;
 // Router.run(routes, Router.HistoryLocation, (Handler, routerState) => { // note "routerState" here
-//    ReactDOM.render(
 //        <Provider store={store}>
 //            {/*
 //             //TODO: error TS2339: Property 'routerState' does not exist on type 'RouteProp'.
 //             {() => <Handler routerState={routerState} />} // note "routerState" here: important to pass it down
 //            */}
-//        </Provider>,
-//        document.getElementById('root')
-//    );
+//        </Provider>;
 // });
 
 // Inject just dispatch and don't listen to store
@@ -631,7 +617,7 @@ const HelloMessage: React.FunctionComponent<HelloMessageProps> = (props) => {
     return <div>Hello {props.name}</div>;
 };
 let ConnectedHelloMessage = connect()(HelloMessage);
-ReactDOM.render(<ConnectedHelloMessage name="Sebastian" />, document.getElementById("content"));
+<ConnectedHelloMessage name="Sebastian" />;
 
 // stateless functions that uses mapStateToProps and mapDispatchToProps
 namespace TestStatelessFunctionWithMapArguments {
@@ -977,7 +963,7 @@ namespace TestCreateProvider {
     // This renders:
     // <h1>A is 1</h1>
     // <h1>A is 2</h1>
-    ReactDOM.render(<Combined />, document.body);
+    <Combined />;
 }
 
 namespace TestTypeInference {
@@ -991,17 +977,17 @@ namespace TestTypeInference {
     interface State {
         a: number;
     }
-    ReactDOM.render(<OnlyState b={1} />, document.body);
+    <OnlyState b={1} />;
 
     const OnlyDispatch = connect(
         undefined,
         (dispatch, props: { b: number }) => ({ action: () => dispatch({ type: "action", b: props.b }) }),
     )(props => <span onClick={props.action}>{props.b}</span>);
-    ReactDOM.render(<OnlyDispatch b={1} />, document.body);
+    <OnlyDispatch b={1} />;
 
     const StateAndDispatch = connect(
         (state: { a: number }, props: { b: number }) => ({ a: state.a, c: state.a + props.b }),
         (dispatch, props: { b: number }) => ({ action: () => dispatch({ type: "action", b: props.b }) }),
     )(props => <span>{props.a} + {props.b} = {props.c}</span>);
-    ReactDOM.render(<StateAndDispatch b={1} />, document.body);
+    <StateAndDispatch b={1} />;
 }

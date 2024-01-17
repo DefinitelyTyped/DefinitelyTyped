@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import {
     Cell,
     CellProps,
@@ -887,8 +886,6 @@ const Component = (props: {}) => {
         </>
     );
 };
-
-ReactDOM.render(<Component />, document.getElementById("root"));
 
 declare function checkDefaultSortType(sortType: DefaultSortTypes): void;
 

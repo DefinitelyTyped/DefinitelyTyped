@@ -1,6 +1,6 @@
-import { PointLight } from './../lights/PointLight.js';
-import { Matrix4 } from './../math/Matrix4.js';
-import { Object3D } from './../core/Object3D.js';
+import { PointLight } from '../lights/PointLight.js';
+import { Matrix4 } from '../math/Matrix4.js';
+import { Object3D } from '../core/Object3D.js';
 import { ColorRepresentation } from '../math/Color.js';
 
 /**

@@ -1,8 +1,8 @@
 import { SkinnedMesh } from '../Three.js';
-import { Object3D } from './../core/Object3D.js';
-import { Matrix4 } from './../math/Matrix4.js';
-import { Bone } from './../objects/Bone.js';
-import { LineSegments } from './../objects/LineSegments.js';
+import { Object3D } from '../core/Object3D.js';
+import { Matrix4 } from '../math/Matrix4.js';
+import { Bone } from '../objects/Bone.js';
+import { LineSegments } from '../objects/LineSegments.js';
 
 /**
  * A helper object to assist with visualizing a {@link Skeleton | Skeleton}

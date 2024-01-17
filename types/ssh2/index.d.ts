@@ -1364,7 +1364,7 @@ export interface Stats extends Attributes {
 export interface FileEntry {
     filename: string;
     longname: string;
-    attrs: Attributes;
+    attrs: Stats;
 }
 
 export interface SFTPWrapper extends EventEmitter {

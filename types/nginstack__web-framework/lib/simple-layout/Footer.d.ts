@@ -34,6 +34,6 @@ declare class Footer {
 declare namespace Footer {
     export { Email, SimpleLayout, Visualization };
 }
-type Visualization = import("../dsv/Visualization");
-type SimpleLayout = import("./SimpleLayout");
 type Email = import("@nginstack/engine/lib/email/Email");
+type SimpleLayout = import("./SimpleLayout");
+type Visualization = import("../dsv/Visualization");

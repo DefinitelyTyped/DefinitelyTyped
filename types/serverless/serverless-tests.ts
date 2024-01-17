@@ -6,7 +6,7 @@ import { getHttp } from "serverless/plugins/aws/package/compile/events/apiGatewa
 
 const options: Serverless.Options = {
     noDeploy: false,
-    stage: null,
+    stage: "prod",
     region: "",
 };
 
@@ -26,6 +26,8 @@ class CustomPlugin implements Plugin {
             },
         },
     };
+
+    provider = "aws";
 
     customProp = {};
 
@@ -54,11 +56,25 @@ class CustomPlugin implements Plugin {
 }
 
 // Test a plugin with missing 'hooks' property
-// prettier-ignore
 // @ts-expect-error
 class BadPlugin implements Plugin {
     hoooks: Plugin.Hooks; // emulate a bad 'hooks' definition with a typo
     constructor(badArg: number) {}
+}
+
+// Test a plugin that throws an user error exception
+class ThrowUserErrorPlugin implements Plugin {
+    hooks: Plugin.Hooks;
+    constructor(serverless: Serverless, options: Serverless.Options, logging: Plugin.Logging) {
+        this.hooks = {
+            "command:start": () => {},
+        };
+        // $ExpectType ServerlessError
+        const errorWithoutMessage = new serverless.classes.Error();
+        // $ExpectType ServerlessError
+        const errorWithMessage = new serverless.classes.Error("an error message");
+        throw new serverless.classes.Error("Invalid configuration in X");
+    }
 }
 
 const manager = new PluginManager(serverless);
@@ -67,6 +83,8 @@ manager.addPlugin(CustomPlugin);
 // prettier-ignore
 // @ts-expect-error
 manager.addPlugin(BadPlugin);
+// Test adding a plugin that throws an user error exception
+manager.addPlugin(ThrowUserErrorPlugin);
 
 // Test a plugin with bad arguments for a variable resolver
 class BadVariablePlugin1 implements Plugin {

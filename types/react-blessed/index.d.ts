@@ -7,8 +7,8 @@ export {};
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export type Callback = () => void | null | undefined;
-export type renderer = (c: JSX.Element, s: Blessed.Widgets.Screen, callback?: Callback) => React.Component | null;
-export function render(c: JSX.Element, s: Blessed.Widgets.Screen, callback?: Callback): React.Component | null;
+export type renderer = (c: React.JSX.Element, s: Blessed.Widgets.Screen, callback?: Callback) => React.Component | null;
+export function render(c: React.JSX.Element, s: Blessed.Widgets.Screen, callback?: Callback): React.Component | null;
 
 export function createBlessedRenderer(bls: any): renderer;
 

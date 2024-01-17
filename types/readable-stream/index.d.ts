@@ -534,7 +534,7 @@ declare namespace _Readable {
             chunk: ArrayLike<{ chunk: any; encoding: BufferEncoding | string }>,
             callback: (error?: Error | null) => void,
         ): void;
-        destroy?(this: _IWritable, error: Error | null, callback: (error: Error | null) => void): void;
+        destroy?(this: _IWritable, error: Error | null, callback: (error?: Error | null) => void): void;
         final?(this: _IWritable, callback: (error?: Error | null) => void): void;
     };
 

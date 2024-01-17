@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/a-star",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/andrewrk/node-astar"
+    ],
+    "devDependencies": {
+        "@types/a-star": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "printfn",
+            "githubUsername": "printfn"
+        }
+    ]
+}

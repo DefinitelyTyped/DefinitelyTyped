@@ -1,4 +1,4 @@
-import { BaseQuad, DataFactory, Quad, Stream, Term } from "rdf-js";
+import { BaseQuad, DataFactory, Quad, Stream, Term } from "@rdfjs/types";
 import { Store } from "./";
 import Endpoint = require("./Endpoint");
 

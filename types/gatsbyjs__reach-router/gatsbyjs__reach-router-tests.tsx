@@ -10,7 +10,6 @@ import {
     useParams,
 } from "@gatsbyjs/reach-router";
 import * as React from "react";
-import { render } from "react-dom";
 
 interface DashParams {
     id: string;
@@ -49,51 +48,48 @@ const UseParamsCheck = (props: RouteComponentProps) => {
     return <div>{params.value}</div>;
 };
 
-render(
-    <Router className="my-class">
-        <Router component="div">
-            <Home path="/" />
-        </Router>
-        <Router component={Home}>
-            <Home path="/" />
-        </Router>
+<Router className="my-class">
+    <Router component="div">
         <Home path="/" />
-        <Dash path="/default/:id" />
-        <UseMatchCheck path="/params/*" />
-        <UseLocationCheck path="/another-path" />
-        <UseParamsCheck path="/current/:value" />
-        <NotFound default />
+    </Router>
+    <Router component={Home}>
+        <Home path="/" />
+    </Router>
+    <Home path="/" />
+    <Dash path="/default/:id" />
+    <UseMatchCheck path="/params/*" />
+    <UseLocationCheck path="/another-path" />
+    <UseParamsCheck path="/current/:value" />
+    <NotFound default />
 
-        <Link to="/somepath" rel="noopener noreferrer" target="_blank" />
-        <Redirect to="/somepath" replace={false} state={{ from: "/" }} />
+    <Link to="/somepath" rel="noopener noreferrer" target="_blank" />
+    <Redirect to="/somepath" replace={false} state={{ from: "/" }} />
 
-        <Location>
-            {context => (
-                <>
-                    <div>hostname is {context.location.hostname}</div>
-                </>
-            )}
-        </Location>
-        <LocationProvider>
-            {context => (
-                <>
-                    <div>hostname is {context.location.hostname}</div>
-                </>
-            )}
-        </LocationProvider>
-    </Router>,
-    document.getElementById("app-root"),
-);
+    <Location>
+        {context => (
+            <>
+                <div>hostname is {context.location.hostname}</div>
+            </>
+        )}
+    </Location>
+    <LocationProvider>
+        {context => (
+            <>
+                <div>hostname is {context.location.hostname}</div>
+            </>
+        )}
+    </LocationProvider>
+</Router>;
 
 const handleRef = (el: HTMLAnchorElement) => {
     el.focus();
 };
 
-render(<Link innerRef={handleRef} to="./foo"></Link>, document.getElementById("app-root"));
-render(<Link ref={handleRef} to="./foo"></Link>, document.getElementById("app-root"));
+<Link innerRef={handleRef} to="./foo"></Link>;
+<Link ref={handleRef} to="./foo"></Link>;
 
 const refObject: React.RefObject<HTMLAnchorElement> = { current: null };
-render(<Link innerRef={refObject} to="./foo"></Link>, document.getElementById("app-root"));
-render(<Link ref={refObject} to="./foo"></Link>, document.getElementById("app-root"));
+<Link innerRef={refObject} to="./foo"></Link>;
+<Link ref={refObject} to="./foo"></Link>;
 
-const elem: JSX.Element = <Link<number> state={5} to="./foo">Click me!</Link>;
+const elem: React.JSX.Element = <Link<number> state={5} to="./foo">Click me!</Link>;

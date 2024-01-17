@@ -39,7 +39,7 @@ function bust(packageJsonPath, info, ghosts) {
     /** @param {Owner} c */
     const isGhost = c => c.githubUsername && ghosts.has(c.githubUsername.toLowerCase());
     if (info.owners.some(isGhost)) {
-        console.log(`Found one or more deleted accounts in ${packageJsonPath}. Patching...`);
+        console.error(`Found one or more deleted accounts in ${packageJsonPath}. Patching...`);
         const parsed = JSON.parse(info.raw);
         parsed.owners = info.owners.filter(c => !isGhost(c));
         const newContent = JSON.stringify(parsed, undefined, 4);
@@ -65,7 +65,7 @@ function recurse(dir, fn) {
 function getAllPackageJsons() {
     /** @type {Record<string, PackageInfo>} */
     const headers = {};
-    console.log("Reading headers...");
+    console.error("Reading headers...");
     recurse(new URL("../types/", import.meta.url), subpath => {
         const index = new URL("package.json", subpath);
         if (existsSync(index)) {
@@ -86,9 +86,9 @@ function getAllPackageJsons() {
  * @param {Set<string>} users
  */
 async function fetchGhosts(users) {
-    console.log("Checking for deleted accounts...");
+    console.error("Checking for deleted accounts...");
     const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
-    const maxPageSize = 2000;
+    const maxPageSize = 500;
     const pages = Math.ceil(users.size / maxPageSize);
     const userArray = Array.from(users);
     /** @type string[] */
@@ -154,11 +154,42 @@ process.on("unhandledRejection", err => {
     );
     const ghosts = await fetchGhosts(users);
     if (!ghosts.size) {
-        console.log("No ghosts found");
+        console.error("No ghosts found");
         return;
+    }
+
+    const renames = [];
+    for (const oldName of ghosts) {
+        try {
+            const result = await fetch(`https://github.com/${oldName}/DefinitelyTyped`, { method: "HEAD" });
+            const url = new URL(result.url);
+            const newName = url.pathname.split("/")[1].toLowerCase();
+            if (newName !== oldName) {
+                renames.push(`@${newName}`);
+            }
+        } catch {
+            // ignore
+        }
     }
 
     for (const indexPath in packageJsons) {
         bust(indexPath, packageJsons[indexPath], ghosts);
+    }
+
+    console.log(
+        "Generated from [.github/workflows/ghostbuster.yml](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/.github/workflows/ghostbuster.yml)",
+    );
+    console.log();
+    console.log(
+        "Some of these users may have simply changed their usernames; you may want do a bit of searching and ping them to see if they still want to be owners.",
+    );
+
+    if (renames.length) {
+        console.log();
+        console.log(
+            `Hey ${
+                renames.join(", ")
+            }, if you'd still like to be an owner for these types, please feel free (but no pressure) to add your new account name back to \`package.json\`. Thanks!`,
+        );
     }
 })();

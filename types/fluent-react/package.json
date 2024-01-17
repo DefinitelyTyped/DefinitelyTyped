@@ -11,8 +11,7 @@
         "csstype": "^3.0.2"
     },
     "devDependencies": {
-        "@types/fluent-react": "workspace:.",
-        "@types/react-dom": "*"
+        "@types/fluent-react": "workspace:."
     },
     "owners": [
         {

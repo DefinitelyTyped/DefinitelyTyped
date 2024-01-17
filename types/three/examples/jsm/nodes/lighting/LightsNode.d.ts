@@ -1,6 +1,7 @@
 import { Light } from '../../../../src/Three.js';
 import Node from '../core/Node.js';
 import LightingNode from './LightingNode.js';
+import { ShaderNodeObject } from '../shadernode/ShaderNode.js';
 
 export default class LightsNode extends Node {
     lightNodes: LightingNode[];
@@ -17,3 +18,5 @@ export default class LightsNode extends Node {
         lightNodeClass: { new (light: T): LightingNode },
     ): void;
 }
+
+export const lights: (lights: Light[]) => ShaderNodeObject<LightsNode>;

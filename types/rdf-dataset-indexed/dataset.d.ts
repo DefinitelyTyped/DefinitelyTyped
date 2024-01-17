@@ -1,4 +1,4 @@
-import { BaseQuad, DataFactory, DatasetCore, DatasetFactory, Quad, Stream, Term } from "rdf-js";
+import { BaseQuad, DataFactory, DatasetCore, DatasetFactory, Quad, Stream, Term } from "@rdfjs/types";
 import { Readable } from "stream";
 
 declare namespace DatasetIndexed {

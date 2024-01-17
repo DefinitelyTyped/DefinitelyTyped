@@ -6,5 +6,5 @@ declare type Props = {
     value: Theme;
     children: React.ReactNode;
 };
-export default function ThemeProvider({ value, children }: Props): JSX.Element;
+export default function ThemeProvider({ value, children }: Props): React.JSX.Element;
 export {};

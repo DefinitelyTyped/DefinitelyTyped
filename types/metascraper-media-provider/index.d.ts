@@ -32,6 +32,6 @@ declare namespace getData {
     }
 }
 
-declare function getData(options?: getData.Options): metascraper.RuleSet;
+declare function getData(options?: getData.Options): metascraper.Rules;
 
 export = getData;

@@ -1,8 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "no-invalid-template-strings": false,
-        "no-irregular-whitespace": false,
-        "npm-naming": false
-    }
-}

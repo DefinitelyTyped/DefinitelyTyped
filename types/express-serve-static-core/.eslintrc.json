@@ -1,6 +1,8 @@
 {
     "rules": {
-        "@typescript-eslint/no-empty-interface": "off",
-        "@typescript-eslint/naming-convention": "off"
+        "@definitelytyped/no-type-only-packages": "off",
+        "@definitelytyped/npm-naming": "off",
+        "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/no-empty-interface": "off"
     }
 }

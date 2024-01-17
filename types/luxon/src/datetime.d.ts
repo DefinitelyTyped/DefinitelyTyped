@@ -7,7 +7,7 @@ import {
     ToISOTimeDurationOptions,
     ZoneOptions,
 } from "../index";
-import { CanBeInvalid, IfInvalid } from "./_util";
+import { CanBeInvalid, DefaultValidity, IfValid, Invalid, Valid } from "./_util";
 import { Duration, DurationLike, DurationUnits } from "./duration";
 import { Interval } from "./interval";
 import { Zone } from "./zone";
@@ -202,13 +202,18 @@ export type PossibleDaysInMonth = 28 | 29 | 30 | 31;
 export type PossibleDaysInYear = 365 | 366;
 export type PossibleWeeksInYear = 52 | 53;
 
-export type ToObjectOutput<IncludeConfig extends boolean | undefined = undefined> = CanBeInvalid extends true
-    ? Partial<_ToObjectOutput<IncludeConfig>>
-    : _ToObjectOutput<IncludeConfig>;
+export type ToObjectOutput<
+    IncludeConfig extends boolean | undefined = undefined,
+    IsValid extends boolean | undefined = undefined,
+> = IsValid extends true ? _ToObjectOutput<IncludeConfig>
+    : CanBeInvalid extends false ? _ToObjectOutput<IncludeConfig>
+    : Partial<_ToObjectOutput<IncludeConfig>>;
 /** @internal */
 export type _ToObjectOutput<IncludeConfig extends boolean | undefined = undefined> =
-    & Record<Exclude<DateTimeUnit, "quarter" | "week">, number>
+    & Record<_ToObjectUnit, number>
     & (IncludeConfig extends true ? LocaleOptions : unknown);
+/** @internal */
+export type _ToObjectUnit = Exclude<DateTimeUnit, "quarter" | "week">;
 
 export interface ToRelativeOptions extends Omit<ToRelativeCalendarOptions, "unit"> {
     /**
@@ -318,6 +323,9 @@ export interface DateTimeOptions extends LocaleOptions {
 
 export type DateTimeJSOptions = Omit<DateTimeOptions, "setZone">;
 
+/**
+ * Note that ISO weekday and local weekday fields are mutually exclusive
+ */
 export interface DateObjectUnits {
     // a year, such as 1987
     year?: number | undefined;
@@ -329,10 +337,16 @@ export interface DateObjectUnits {
     ordinal?: number | undefined;
     // an ISO week year
     weekYear?: number | undefined;
+    // a week year, according to the locale
+    localWeekYear?: number | undefined;
     // an ISO week number, between 1 and 52 or 53, depending on the year
     weekNumber?: number | undefined;
+    // a week number, between 1 and 52 or 53, depending on the year, according to the locale
+    localWeekNumber?: number | undefined;
     // an ISO weekday, 1-7, where 1 is Monday and 7 is Sunday
-    weekday?: number | undefined;
+    weekday?: WeekdayNumbers | undefined;
+    // a weekday, 1-7, where 1 is the first day of the week, and 7 is the last, according to the locale
+    localWeekday?: WeekdayNumbers | undefined;
     // hour of the day, 0-23
     hour?: number | undefined;
     // minute of the hour, 0-59
@@ -361,6 +375,15 @@ export interface DiffOptions {
     conversionAccuracy?: ConversionAccuracy | undefined;
 }
 
+export interface _UseLocaleWeekOption {
+    /** If true, use weeks based on the locale, i.e., use the locale-dependent start of the week */
+    useLocaleWeeks?: boolean;
+}
+
+export type HasSameOptions = _UseLocaleWeekOption;
+export type StartOfOptions = _UseLocaleWeekOption;
+export type EndOfOptions = _UseLocaleWeekOption;
+
 export interface ExplainedFormat {
     input: string;
     tokens: Array<{ literal: boolean; val: string }>;
@@ -371,6 +394,8 @@ export interface ExplainedFormat {
     zone?: Zone | null | undefined;
     invalidReason?: string | undefined;
 }
+
+export type DateTimeMaybeValid = CanBeInvalid extends true ? (DateTime<Valid> | DateTime<Invalid>) : DateTime;
 
 /**
  * A DateTime is an immutable data structure representing a specific date and time and accompanying methods.
@@ -399,7 +424,7 @@ export interface ExplainedFormat {
  * There's plenty others documented below. In addition, for more information on subtler topics
  * like internationalization, time zones, alternative calendars, validity, and so on, see the external documentation.
  */
-export class DateTime {
+export class DateTime<IsValid extends boolean = DefaultValidity> {
     /**
      * Create a DateTime for the current instant, in the system's time zone.
      *
@@ -407,7 +432,7 @@ export class DateTime {
      * @example
      * DateTime.now().toISO() //~> now in the ISO format
      */
-    static now(): DateTime;
+    static now(): DateTime<Valid>;
 
     /**
      * Create a local DateTime
@@ -451,7 +476,7 @@ export class DateTime {
         second: number,
         millisecond: number,
         opts?: DateTimeJSOptions,
-    ): DateTime;
+    ): DateTimeMaybeValid;
     static local(
         year: number,
         month: number,
@@ -460,7 +485,7 @@ export class DateTime {
         minute: number,
         second: number,
         opts?: DateTimeJSOptions,
-    ): DateTime;
+    ): DateTimeMaybeValid;
     static local(
         year: number,
         month: number,
@@ -468,12 +493,12 @@ export class DateTime {
         hour: number,
         minute: number,
         opts?: DateTimeJSOptions,
-    ): DateTime;
-    static local(year: number, month: number, day: number, hour: number, opts?: DateTimeJSOptions): DateTime;
-    static local(year: number, month: number, day: number, opts?: DateTimeJSOptions): DateTime;
-    static local(year: number, month: number, opts?: DateTimeJSOptions): DateTime;
-    static local(year: number, opts?: DateTimeJSOptions): DateTime;
-    static local(opts?: DateTimeJSOptions): DateTime;
+    ): DateTimeMaybeValid;
+    static local(year: number, month: number, day: number, hour: number, opts?: DateTimeJSOptions): DateTimeMaybeValid;
+    static local(year: number, month: number, day: number, opts?: DateTimeJSOptions): DateTimeMaybeValid;
+    static local(year: number, month: number, opts?: DateTimeJSOptions): DateTimeMaybeValid;
+    static local(year: number, opts?: DateTimeJSOptions): DateTimeMaybeValid;
+    static local(opts?: DateTimeJSOptions): DateTime<Valid>;
 
     /**
      * Create a DateTime in UTC
@@ -518,7 +543,7 @@ export class DateTime {
         second: number,
         millisecond: number,
         options?: LocaleOptions,
-    ): DateTime;
+    ): DateTimeMaybeValid;
     static utc(
         year: number,
         month: number,
@@ -527,7 +552,7 @@ export class DateTime {
         minute: number,
         second: number,
         options?: LocaleOptions,
-    ): DateTime;
+    ): DateTimeMaybeValid;
     static utc(
         year: number,
         month: number,
@@ -535,12 +560,12 @@ export class DateTime {
         hour: number,
         minute: number,
         options?: LocaleOptions,
-    ): DateTime;
-    static utc(year: number, month: number, day: number, hour: number, options?: LocaleOptions): DateTime;
-    static utc(year: number, month: number, day: number, options?: LocaleOptions): DateTime;
-    static utc(year: number, month: number, options?: LocaleOptions): DateTime;
-    static utc(year: number, options?: LocaleOptions): DateTime;
-    static utc(options?: LocaleOptions): DateTime;
+    ): DateTimeMaybeValid;
+    static utc(year: number, month: number, day: number, hour: number, options?: LocaleOptions): DateTimeMaybeValid;
+    static utc(year: number, month: number, day: number, options?: LocaleOptions): DateTimeMaybeValid;
+    static utc(year: number, month: number, options?: LocaleOptions): DateTimeMaybeValid;
+    static utc(year: number, options?: LocaleOptions): DateTimeMaybeValid;
+    static utc(options?: LocaleOptions): DateTime<Valid>;
 
     /**
      * Create a DateTime from a JavaScript Date object. Uses the default zone.
@@ -549,7 +574,7 @@ export class DateTime {
      * @param options - configuration options for the DateTime
      * @param options.zone - the zone to place the DateTime into
      */
-    static fromJSDate(date: Date, options?: { zone?: string | Zone }): DateTime;
+    static fromJSDate(date: Date, options?: { zone?: string | Zone }): DateTimeMaybeValid;
 
     /**
      * Create a DateTime from a number of milliseconds since the epoch (meaning since 1 January 1970 00:00:00 UTC). Uses the default zone.
@@ -561,7 +586,7 @@ export class DateTime {
      * @param options.outputCalendar - the output calendar to set on the resulting DateTime instance
      * @param options.numberingSystem - the numbering system to set on the resulting DateTime instance
      */
-    static fromMillis(milliseconds: number, options?: DateTimeJSOptions): DateTime;
+    static fromMillis(milliseconds: number, options?: DateTimeJSOptions): DateTimeMaybeValid;
 
     /**
      * Create a DateTime from a number of seconds since the epoch (meaning since 1 January 1970 00:00:00 UTC). Uses the default zone.
@@ -573,7 +598,7 @@ export class DateTime {
      * @param options.outputCalendar - the output calendar to set on the resulting DateTime instance
      * @param options.numberingSystem - the numbering system to set on the resulting DateTime instance
      */
-    static fromSeconds(seconds: number, options?: DateTimeJSOptions): DateTime;
+    static fromSeconds(seconds: number, options?: DateTimeJSOptions): DateTime<Valid>;
 
     /**
      * Create a DateTime from a JavaScript object with keys like 'year' and 'hour' with reasonable defaults.
@@ -601,17 +626,19 @@ export class DateTime {
      * @example
      * DateTime.fromObject({ year: 1982 }).toISODate() //=> '1982-01-01'
      * @example
-     * DateTime.fromObject({ hour: 10, minute: 26, second: 6 }) //~> today at 10:26:06
+     * DateTime.fromObject({ hour: 10, minute: 26, second: 6 }) //=> today at 10:26:06
      * @example
-     * DateTime.fromObject({ hour: 10, minute: 26, second: 6 }, { zone: 'utc' }),
+     * DateTime.fromObject({ hour: 10, minute: 26, second: 6 }, { zone: 'utc' })
      * @example
      * DateTime.fromObject({ hour: 10, minute: 26, second: 6 }, { zone: 'local' })
      * @example
-     * DateTime.fromObject({ hour: 10, minute: 26, second: 6 }, { }zone: 'America/New_York' })
+     * DateTime.fromObject({ hour: 10, minute: 26, second: 6 }, { zone: 'America/New_York' })
      * @example
      * DateTime.fromObject({ weekYear: 2016, weekNumber: 2, weekday: 3 }).toISODate() //=> '2016-01-13'
+     * @example
+     * DateTime.fromObject({ localWeekYear: 2022, localWeekNumber: 1, localWeekday: 1 }, { locale: 'en-US' }).toISODate() //=> '2021-12-26'
      */
-    static fromObject(obj: DateObjectUnits, opts?: DateTimeJSOptions): DateTime;
+    static fromObject(obj: DateObjectUnits, opts?: DateTimeJSOptions): DateTimeMaybeValid;
 
     /**
      * Create a DateTime from an ISO 8601 string
@@ -635,7 +662,7 @@ export class DateTime {
      * @example
      * DateTime.fromISO('2016-W05-4')
      */
-    static fromISO(text: string, opts?: DateTimeOptions): DateTime;
+    static fromISO(text: string, opts?: DateTimeOptions): DateTimeMaybeValid;
 
     /**
      * Create a DateTime from an RFC 2822 string
@@ -656,7 +683,7 @@ export class DateTime {
      * @example
      * DateTime.fromRFC2822('25 Nov 2016 13:23 Z')
      */
-    static fromRFC2822(text: string, opts?: DateTimeOptions): DateTime;
+    static fromRFC2822(text: string, opts?: DateTimeOptions): DateTimeMaybeValid;
 
     /**
      * Create a DateTime from an HTTP header date
@@ -680,7 +707,7 @@ export class DateTime {
      * @example
      * DateTime.fromHTTP('Sun Nov  6 08:49:37 1994')
      */
-    static fromHTTP(text: string, opts?: DateTimeOptions): DateTime;
+    static fromHTTP(text: string, opts?: DateTimeOptions): DateTimeMaybeValid;
 
     /**
      * Create a DateTime from an input string and format string.
@@ -696,12 +723,12 @@ export class DateTime {
      * @param opts.numberingSystem - the numbering system to use when parsing. Will also set the resulting DateTime to this numbering system
      * @param opts.outputCalendar - the output calendar to set on the resulting DateTime instance
      */
-    static fromFormat(text: string, fmt: string, opts?: DateTimeOptions): DateTime;
+    static fromFormat(text: string, fmt: string, opts?: DateTimeOptions): DateTimeMaybeValid;
 
     /**
      * @deprecated use fromFormat instead
      */
-    static fromString(text: string, format: string, options?: DateTimeOptions): DateTime;
+    static fromString(text: string, format: string, options?: DateTimeOptions): DateTimeMaybeValid;
 
     /**
      * Create a DateTime from a SQL date, time, or datetime
@@ -732,7 +759,7 @@ export class DateTime {
      * @example
      * DateTime.fromSQL('09:12:34.342')
      */
-    static fromSQL(text: string, opts?: DateTimeOptions): DateTime;
+    static fromSQL(text: string, opts?: DateTimeOptions): DateTimeMaybeValid;
 
     /**
      * Create an invalid DateTime.
@@ -740,14 +767,14 @@ export class DateTime {
      * @param reason - simple string of why this DateTime is invalid. Should not contain parameters or anything else data-dependent
      * @param explanation - longer explanation, may include parameters and other useful debugging information. Defaults to null.
      */
-    static invalid(reason: string, explanation?: string): DateTime;
+    static invalid(reason: string, explanation?: string): DateTime<Invalid>;
 
     /**
      * Check if an object is a DateTime. Works across context boundaries
      *
      * @param o
      */
-    static isDateTime(o: unknown): o is DateTime;
+    static isDateTime(o: unknown): o is DateTimeMaybeValid;
 
     /**
      * Produce the format string for a set of options
@@ -785,81 +812,88 @@ export class DateTime {
     get(unit: keyof DateTime): number;
 
     /**
+     * Get those DateTimes which have the same local time as this DateTime, but a different offset from UTC in this DateTime's zone.
+     * During DST changes local time can be ambiguous, for example 2023-10-29T02:30:00 in Europe/Berlin can have offset +01:00 or +02:00.
+     * This method will return both possible DateTimes if this DateTime's local time is ambiguous.
+     */
+    getPossibleOffsets(): this[];
+
+    /**
      * Returns whether the DateTime is valid. Invalid DateTimes occur when:
      * * The DateTime was created from invalid calendar information, such as the 13th month or February 30
      * * The DateTime was created by an operation on another invalid date
      */
-    get isValid(): boolean;
+    get isValid(): IfValid<true, false, IsValid>;
 
     /**
      * Returns an error code if this DateTime is invalid, or null if the DateTime is valid
      */
-    get invalidReason(): string | null;
+    get invalidReason(): IfValid<null, string, IsValid>;
 
     /**
      * Returns an explanation of why this DateTime became invalid, or null if the DateTime is valid
      */
-    get invalidExplanation(): string | null;
+    get invalidExplanation(): IfValid<null, string | null, IsValid>;
 
     /**
      * Get the locale of a DateTime, such as 'en-GB'. The locale is used when formatting the DateTime
      */
-    get locale(): string | IfInvalid<null>;
+    get locale(): IfValid<string, null, IsValid>;
 
     /**
      * Get the numbering system of a DateTime, such as 'beng'. The numbering system is used when formatting the DateTime
      */
-    get numberingSystem(): string | IfInvalid<null>;
+    get numberingSystem(): IfValid<string, null, IsValid>;
 
     /**
      * Get the output calendar of a DateTime, such as 'islamic'. The output calendar is used when formatting the DateTime
      */
-    get outputCalendar(): string | IfInvalid<null>;
+    get outputCalendar(): IfValid<string, null, IsValid>;
 
     /**
      * Get the time zone associated with this DateTime.
      */
-    get zone(): Zone;
+    get zone(): Zone<IsValid>;
 
     /**
      * Get the name of the time zone.
      */
-    get zoneName(): string | IfInvalid<null>;
+    get zoneName(): IfValid<string, null, IsValid>;
 
     /**
      * Get the year
      *
      * @example DateTime.local(2017, 5, 25).year //=> 2017
      */
-    get year(): number | IfInvalid<typeof NaN>;
+    get year(): IfValid<number, typeof NaN, IsValid>;
 
     /**
      * Get the quarter
      *
      * @example DateTime.local(2017, 5, 25).quarter //=> 2
      */
-    get quarter(): QuarterNumbers | IfInvalid<typeof NaN>;
+    get quarter(): IfValid<QuarterNumbers, typeof NaN, IsValid>;
 
     /**
      * Get the month (1-12).
      *
      * @example DateTime.local(2017, 5, 25).month //=> 5
      */
-    get month(): MonthNumbers | IfInvalid<typeof NaN>;
+    get month(): IfValid<MonthNumbers, typeof NaN, IsValid>;
 
     /**
      * Get the day of the month (1-30ish).
      *
      * @example DateTime.local(2017, 5, 25).day //=> 25
      */
-    get day(): DayNumbers | IfInvalid<typeof NaN>;
+    get day(): IfValid<DayNumbers, typeof NaN, IsValid>;
 
     /**
      * Get the hour of the day (0-23).
      *
      * @example DateTime.local(2017, 5, 25, 9).hour //=> 9
      */
-    get hour(): HourNumbers | IfInvalid<typeof NaN>;
+    get hour(): IfValid<HourNumbers, typeof NaN, IsValid>;
 
     /**
      * Get the minute of the hour (0-59).
@@ -867,7 +901,7 @@ export class DateTime {
      * @example
      * DateTime.local(2017, 5, 25, 9, 30).minute //=> 30
      */
-    get minute(): MinuteNumbers | IfInvalid<typeof NaN>;
+    get minute(): IfValid<MinuteNumbers, typeof NaN, IsValid>;
 
     /**
      * Get the second of the minute (0-59).
@@ -875,7 +909,7 @@ export class DateTime {
      * @example
      * DateTime.local(2017, 5, 25, 9, 30, 52).second //=> 52
      */
-    get second(): SecondNumbers | IfInvalid<typeof NaN>;
+    get second(): IfValid<SecondNumbers, typeof NaN, IsValid>;
 
     /**
      * Get the millisecond of the second (0-999).
@@ -883,7 +917,7 @@ export class DateTime {
      * @example
      * DateTime.local(2017, 5, 25, 9, 30, 52, 654).millisecond //=> 654
      */
-    get millisecond(): number | IfInvalid<typeof NaN>;
+    get millisecond(): IfValid<number, typeof NaN, IsValid>;
 
     /**
      * Get the week year
@@ -892,7 +926,7 @@ export class DateTime {
      * @example
      * DateTime.local(2014, 12, 31).weekYear //=> 2015
      */
-    get weekYear(): number | IfInvalid<typeof NaN>;
+    get weekYear(): IfValid<number, typeof NaN, IsValid>;
 
     /**
      * Get the week number of the week year (1-52ish).
@@ -901,7 +935,7 @@ export class DateTime {
      * @example
      * DateTime.local(2017, 5, 25).weekNumber //=> 21
      */
-    get weekNumber(): WeekNumbers | IfInvalid<typeof NaN>;
+    get weekNumber(): IfValid<WeekNumbers, typeof NaN, IsValid>;
 
     /**
      * Get the day of the week.
@@ -911,7 +945,33 @@ export class DateTime {
      * @example
      * DateTime.local(2014, 11, 31).weekday //=> 4
      */
-    get weekday(): WeekdayNumbers | IfInvalid<typeof NaN>;
+    get weekday(): IfValid<WeekdayNumbers, typeof NaN, IsValid>;
+
+    /**
+     * Returns true if this date is on a weekend, according to the locale, false otherwise
+     */
+    get isWeekend(): IfValid<boolean, false, IsValid>;
+
+    /**
+     * Get the day of the week, according to the locale.
+     * 1 is the first day of the week, and 7 is the last day of the week.
+     * If the locale assigns Sunday as the first day of the week, then a date which is a Sunday will return 1.
+     */
+    get localWeekday(): IfValid<WeekdayNumbers, typeof NaN, IsValid>;
+
+    /**
+     * Get the week number of the week year, according to the locale.
+     * Different locales assign week numbers differently.
+     * The week can start on different days of the week (see {@link localWeekday}),
+     * and because a different number of days is required for a week to count as the first week of a year.
+     */
+    get localWeekNumber(): IfValid<number, typeof NaN, IsValid>;
+
+    /**
+     * Get the week year, according to the locale.
+     * Different locales assign week numbers (and therefore week years) differently, see {@link localWeekNumber}.
+     */
+    get localWeekYear(): IfValid<number, typeof NaN, IsValid>;
 
     /**
      * Get the ordinal (meaning the day of the year)
@@ -919,7 +979,7 @@ export class DateTime {
      * @example
      * DateTime.local(2017, 5, 25).ordinal //=> 145
      */
-    get ordinal(): number | IfInvalid<typeof NaN>;
+    get ordinal(): IfValid<number, typeof NaN, IsValid>;
 
     /**
      * Get the human readable short month name, such as 'Oct'.
@@ -928,7 +988,7 @@ export class DateTime {
      * @example
      * DateTime.local(2017, 10, 30).monthShort //=> Oct
      */
-    get monthShort(): string | IfInvalid<null>;
+    get monthShort(): IfValid<string, null, IsValid>;
 
     /**
      * Get the human readable long month name, such as 'October'.
@@ -937,7 +997,7 @@ export class DateTime {
      * @example
      * DateTime.local(2017, 10, 30).monthLong //=> October
      */
-    get monthLong(): string | IfInvalid<null>;
+    get monthLong(): IfValid<string, null, IsValid>;
 
     /**
      * Get the human readable short weekday, such as 'Mon'.
@@ -946,7 +1006,7 @@ export class DateTime {
      * @example
      * DateTime.local(2017, 10, 30).weekdayShort //=> Mon
      */
-    get weekdayShort(): string | IfInvalid<null>;
+    get weekdayShort(): IfValid<string, null, IsValid>;
 
     /**
      * Get the human readable long weekday, such as 'Monday'.
@@ -955,7 +1015,7 @@ export class DateTime {
      * @example
      * DateTime.local(2017, 10, 30).weekdayLong //=> Monday
      */
-    get weekdayLong(): string | IfInvalid<null>;
+    get weekdayLong(): IfValid<string, null, IsValid>;
 
     /**
      * Get the UTC offset of this DateTime in minutes
@@ -965,29 +1025,29 @@ export class DateTime {
      * @example
      * DateTime.utc().offset //=> 0
      */
-    get offset(): number | IfInvalid<typeof NaN>;
+    get offset(): IfValid<number, typeof NaN, IsValid>;
 
     /**
      * Get the short human name for the zone's current offset, for example "EST" or "EDT".
      * Defaults to the system's locale if no locale has been specified
      */
-    get offsetNameShort(): string | IfInvalid<null>;
+    get offsetNameShort(): IfValid<string, null, IsValid>;
 
     /**
      * Get the long human name for the zone's current offset, for example "Eastern Standard Time" or "Eastern Daylight Time".
      * Defaults to the system's locale if no locale has been specified
      */
-    get offsetNameLong(): string | IfInvalid<null>;
+    get offsetNameLong(): IfValid<string, null, IsValid>;
 
     /**
      * Get whether this zone's offset ever changes, as in a DST.
      */
-    get isOffsetFixed(): boolean | IfInvalid<null>;
+    get isOffsetFixed(): IfValid<boolean, null, IsValid>;
 
     /**
      * Get whether the DateTime is in a DST.
      */
-    get isInDST(): boolean | IfInvalid<false>;
+    get isInDST(): IfValid<boolean, false, IsValid>;
 
     /**
      * Returns true if this DateTime is in a leap year, false otherwise
@@ -1007,7 +1067,7 @@ export class DateTime {
      * @example
      * DateTime.local(2016, 3).daysInMonth //=> 31
      */
-    get daysInMonth(): PossibleDaysInMonth | IfInvalid<undefined>;
+    get daysInMonth(): IfValid<PossibleDaysInMonth, undefined, IsValid>;
 
     /**
      * Returns the number of days in this DateTime's year
@@ -1017,7 +1077,7 @@ export class DateTime {
      * @example
      * DateTime.local(2013).daysInYear //=> 365
      */
-    get daysInYear(): PossibleDaysInYear | IfInvalid<typeof NaN>;
+    get daysInYear(): IfValid<PossibleDaysInYear, typeof NaN, IsValid>;
 
     /**
      * Returns the number of weeks in this DateTime's year
@@ -1028,7 +1088,17 @@ export class DateTime {
      * @example
      * DateTime.local(2013).weeksInWeekYear //=> 52
      */
-    get weeksInWeekYear(): PossibleWeeksInYear | IfInvalid<typeof NaN>;
+    get weeksInWeekYear(): IfValid<PossibleWeeksInYear, typeof NaN, IsValid>;
+
+    /**
+     * Returns the number of weeks in this DateTime's local week year
+     *
+     * @example
+     * DateTime.local(2020, 6, {locale: 'en-US'}).weeksInLocalWeekYear //=> 52
+     * @example
+     * DateTime.local(2020, 6, {locale: 'de-DE'}).weeksInLocalWeekYear //=> 53
+     */
+    get weeksInLocalWeekYear(): IfValid<PossibleWeeksInYear, typeof NaN, IsValid>;
 
     /**
      * Returns the resolved Intl options for this DateTime.
@@ -1048,14 +1118,14 @@ export class DateTime {
      * @param offset - optionally, an offset from UTC in minutes. Defaults to 0.
      * @param opts - options to pass to `setZone()`. Defaults to {}.
      */
-    toUTC(offset?: number, opts?: ZoneOptions): DateTime;
+    toUTC(offset?: number, opts?: ZoneOptions): this;
 
     /**
      * "Set" the DateTime's zone to the host's local zone. Returns a newly-constructed DateTime.
      *
      * Equivalent to `setZone('local')`
      */
-    toLocal(): DateTime;
+    toLocal(): this;
 
     /**
      * "Set" the DateTime's zone to specified zone. Returns a newly-constructed DateTime.
@@ -1068,7 +1138,7 @@ export class DateTime {
      * @param opts - options
      * @param opts.keepLocalTime - If true, adjust the underlying time so that the local time stays the same, but in the target zone. You should rarely need this. Defaults to false.
      */
-    setZone(zone?: string | Zone, opts?: ZoneOptions): DateTime;
+    setZone(zone?: string | Zone, opts?: ZoneOptions): DateTimeMaybeValid;
 
     /**
      * "Set" the locale, numberingSystem, or outputCalendar. Returns a newly-constructed DateTime.
@@ -1078,7 +1148,7 @@ export class DateTime {
      * @example
      * DateTime.local(2017, 5, 25).reconfigure({ locale: 'en-GB' })
      */
-    reconfigure(properties: LocaleOptions): DateTime;
+    reconfigure(properties: LocaleOptions): this;
 
     /**
      * "Set" the locale. Returns a newly-constructed DateTime.
@@ -1087,13 +1157,14 @@ export class DateTime {
      * @example
      * DateTime.local(2017, 5, 25).setLocale('en-GB')
      */
-    setLocale(locale: string): DateTime;
+    setLocale(locale: string): this;
 
     /**
      * "Set" the values of specified units. Returns a newly-constructed DateTime.
      * You can only set units with this method; for "setting" metadata, see {@link DateTime.reconfigure} and {@link DateTime.setZone}.
      *
-     * @param values - a mapping of units to numbers
+     * This method also supports setting locale-based week units, i.e. `localWeekday`, `localWeekNumber` and `localWeekYear`.
+     * They cannot be mixed with ISO-week units like `weekday`.
      *
      * @example
      * dt.set({ year: 2017 })
@@ -1104,7 +1175,7 @@ export class DateTime {
      * @example
      * dt.set({ year: 2005, ordinal: 234 })
      */
-    set(values: DateObjectUnits): DateTime;
+    set(values: DateObjectUnits): this;
 
     /**
      * Adding hours, minutes, seconds, or milliseconds increases the timestamp by the right number of milliseconds. Adding days, months, or years shifts the calendar,
@@ -1125,19 +1196,20 @@ export class DateTime {
      * @example
      * DateTime.now().plus(Duration.fromObject({ hours: 3, minutes: 13 })) //~> in 3 hr, 13 min
      */
-    plus(duration: DurationLike): DateTime;
+    plus(duration: DurationLike): this;
 
     /**
      * See {@link DateTime.plus}
      *
      * @param duration - The amount to subtract. Either a Luxon Duration, a number of milliseconds, the object argument to Duration.fromObject()
      */
-    minus(duration: DurationLike): DateTime;
+    minus(duration: DurationLike): this;
 
     /**
      * "Set" this DateTime to the beginning of the given unit.
      *
      * @param unit - The unit to go to the beginning of. Can be 'year', 'quarter', 'month', 'week', 'day', 'hour', 'minute', 'second', or 'millisecond'.
+     * @param opts - options
      *
      * @example
      * DateTime.local(2014, 3, 3).startOf('month').toISODate(); //=> '2014-03-01'
@@ -1150,12 +1222,13 @@ export class DateTime {
      * @example
      * DateTime.local(2014, 3, 3, 5, 30).startOf('hour').toISOTime(); //=> '05:00:00.000-05:00'
      */
-    startOf(unit: DateTimeUnit): DateTime;
+    startOf(unit: DateTimeUnit, opts?: StartOfOptions): this;
 
     /**
      * "Set" this DateTime to the end (meaning the last millisecond) of a unit of time
      *
      * @param unit - The unit to go to the end of. Can be 'year', 'quarter', 'month', 'week', 'day', 'hour', 'minute', 'second', or 'millisecond'.
+     * @param opts - options
      *
      * @example
      * DateTime.local(2014, 3, 3).endOf('month').toISO(); //=> '2014-03-31T23:59:59.999-05:00'
@@ -1168,7 +1241,7 @@ export class DateTime {
      * @example
      * DateTime.local(2014, 3, 3, 5, 30).endOf('hour').toISO(); //=> '2014-03-03T05:59:59.999-05:00'
      */
-    endOf(unit: DateTimeUnit): DateTime;
+    endOf(unit: DateTimeUnit, opts?: EndOfOptions): this;
 
     // OUTPUT
 
@@ -1190,7 +1263,7 @@ export class DateTime {
      * @example
      * DateTime.now().toFormat("HH 'hours and' mm 'minutes'") //=> '20 hours and 55 minutes'
      */
-    toFormat(fmt: string, opts?: LocaleOptions): string | IfInvalid<"Invalid DateTime">;
+    toFormat(fmt: string, opts?: LocaleOptions): IfValid<string, "Invalid DateTime", IsValid>;
 
     /**
      * Returns a localized string representing this date. Accepts the same options as the Intl.DateTimeFormat constructor and any presets defined by Luxon,
@@ -1220,7 +1293,10 @@ export class DateTime {
      * @example
      * DateTime.now().toLocaleString({ hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }); //=> '11:32'
      */
-    toLocaleString(formatOpts?: DateTimeFormatOptions, opts?: LocaleOptions): string | IfInvalid<"Invalid DateTime">;
+    toLocaleString(
+        formatOpts?: DateTimeFormatOptions,
+        opts?: LocaleOptions,
+    ): IfValid<string, "Invalid DateTime", IsValid>;
 
     /**
      * Returns an array of format "parts", meaning individual tokens along with metadata. This is allows callers to post-process individual sections of the formatted output.
@@ -1235,8 +1311,10 @@ export class DateTime {
      *                                 //=>   { type: 'literal', value: '/' },
      *                                 //=>   { type: 'year', value: '1982' }
      *                                 //=> ]
+     * @example
+     * DateTime.invalid('').toLocaleParts(); //=> []
      */
-    toLocaleParts(opts?: DateTimeFormatOptions): Intl.DateTimeFormatPart[] | IfInvalid<[]>;
+    toLocaleParts(opts?: DateTimeFormatOptions): Intl.DateTimeFormatPart[];
 
     /**
      * Returns an ISO 8601-compliant string representation of this DateTime
@@ -1250,7 +1328,7 @@ export class DateTime {
      * @example
      * DateTime.now().toISO({ format: 'basic' }) //=> '20170422T204705.335-0400'
      */
-    toISO(opts?: ToISOTimeOptions): string | IfInvalid<null>;
+    toISO(opts?: ToISOTimeOptions): IfValid<string, null, IsValid>;
 
     /**
      * Returns an ISO 8601-compliant string representation of this DateTime's date component
@@ -1263,7 +1341,7 @@ export class DateTime {
      * @example
      * DateTime.utc(1982, 5, 25).toISODate({ format: 'basic' }) //=> '19820525'
      */
-    toISODate(opts?: ToISODateOptions): string | IfInvalid<null>;
+    toISODate(opts?: ToISODateOptions): IfValid<string, null, IsValid>;
 
     /**
      * Returns an ISO 8601-compliant string representation of this DateTime's week date
@@ -1271,7 +1349,7 @@ export class DateTime {
      * @example
      * DateTime.utc(1982, 5, 25).toISOWeekDate() //=> '1982-W21-2'
      */
-    toISOWeekDate(): string | IfInvalid<null>;
+    toISOWeekDate(): IfValid<string, null, IsValid>;
 
     /**
      * Returns an ISO 8601-compliant string representation of this DateTime's time component
@@ -1292,7 +1370,7 @@ export class DateTime {
      * @example
      * DateTime.utc().set({ hour: 7, minute: 34 }).toISOTime({ includePrefix: true }) //=> 'T07:34:19.361Z'
      */
-    toISOTime(opts?: ToISOTimeOptions): string | IfInvalid<null>;
+    toISOTime(opts?: ToISOTimeOptions): IfValid<string, null, IsValid>;
 
     /**
      * Returns an RFC 2822-compatible string representation of this DateTime, always in UTC
@@ -1302,7 +1380,7 @@ export class DateTime {
      * @example
      * DateTime.local(2014, 7, 13).toRFC2822() //=> 'Sun, 13 Jul 2014 00:00:00 -0400'
      */
-    toRFC2822(): string | IfInvalid<null>;
+    toRFC2822(): IfValid<string, null, IsValid>;
 
     /**
      * Returns a string representation of this DateTime appropriate for use in HTTP headers.
@@ -1314,7 +1392,7 @@ export class DateTime {
      * @example
      * DateTime.utc(2014, 7, 13, 19).toHTTP() //=> 'Sun, 13 Jul 2014 19:00:00 GMT'
      */
-    toHTTP(): string | IfInvalid<null>;
+    toHTTP(): IfValid<string, null, IsValid>;
 
     /**
      * Returns a string representation of this DateTime appropriate for use in SQL Date
@@ -1322,7 +1400,7 @@ export class DateTime {
      * @example
      * DateTime.utc(2014, 7, 13).toSQLDate() //=> '2014-07-13'
      */
-    toSQLDate(): string | IfInvalid<null>;
+    toSQLDate(): IfValid<string, null, IsValid>;
 
     /**
      * Returns a string representation of this DateTime appropriate for use in SQL Time
@@ -1336,7 +1414,7 @@ export class DateTime {
      * @example
      * DateTime.now().toSQL({ includeZone: false }) //=> '05:15:16.345 America/New_York'
      */
-    toSQLTime(opts?: ToSQLOptions): string | IfInvalid<null>;
+    toSQLTime(opts?: ToSQLOptions): IfValid<string, null, IsValid>;
 
     /**
      * Returns a string representation of this DateTime for use in SQL DateTime
@@ -1350,37 +1428,37 @@ export class DateTime {
      * @example
      * DateTime.local(2014, 7, 13).toSQL({ includeZone: true }) //=> '2014-07-13 00:00:00.000 America/New_York'
      */
-    toSQL(opts?: ToSQLOptions): string | IfInvalid<null>;
+    toSQL(opts?: ToSQLOptions): IfValid<string, null, IsValid>;
 
     /**
      * Returns a string representation of this DateTime appropriate for debugging
      */
-    toString(): string | IfInvalid<"Invalid DateTime">;
+    toString(): IfValid<string, "Invalid DateTime", IsValid>;
 
     /**
      * Returns the epoch milliseconds of this DateTime. Alias of {@link DateTime.toMillis}
      */
-    valueOf(): number | IfInvalid<typeof NaN>;
+    valueOf(): IfValid<number, typeof NaN, IsValid>;
 
     /**
      * Returns the epoch milliseconds of this DateTime.
      */
-    toMillis(): number | IfInvalid<typeof NaN>;
+    toMillis(): IfValid<number, typeof NaN, IsValid>;
 
     /**
      * Returns the epoch seconds of this DateTime.
      */
-    toSeconds(): number | IfInvalid<typeof NaN>;
+    toSeconds(): IfValid<number, typeof NaN, IsValid>;
 
     /**
      * Returns the epoch seconds (as a whole number) of this DateTime.
      */
-    toUnixInteger(): number | IfInvalid<typeof NaN>;
+    toUnixInteger(): IfValid<number, typeof NaN, IsValid>;
 
     /**
      * Returns an ISO 8601 representation of this DateTime appropriate for use in JSON.
      */
-    toJSON(): string | IfInvalid<null>;
+    toJSON(): IfValid<string, null, IsValid>;
 
     /**
      * Returns a BSON-serializable equivalent to this DateTime.
@@ -1402,7 +1480,7 @@ export class DateTime {
          * @defaultValue false
          */
         includeConfig?: IncludeConfig;
-    }): ToObjectOutput<IncludeConfig>;
+    }): ToObjectOutput<IncludeConfig, IsValid>;
 
     /**
      * Returns a JavaScript Date equivalent to this DateTime.
@@ -1429,7 +1507,7 @@ export class DateTime {
      * i2.diff(i1, ['months', 'days']).toObject() //=> { months: 16, days: 19.03125 }
      * i2.diff(i1, ['months', 'days', 'hours']).toObject() //=> { months: 16, days: 19, hours: 0.75 }
      */
-    diff(otherDateTime: DateTime, unit?: DurationUnits, opts?: DiffOptions): Duration;
+    diff(otherDateTime: DateTime, unit?: DurationUnits, opts?: DiffOptions): Duration<IsValid>;
 
     /**
      * Return the difference between this DateTime and right now.
@@ -1439,14 +1517,14 @@ export class DateTime {
      * @param opts - options that affect the creation of the Duration
      * @param opts.conversionAccuracy - the conversion system to use. Defaults to 'casual'.
      */
-    diffNow(unit?: DurationUnits, opts?: DiffOptions): Duration;
+    diffNow(unit?: DurationUnits, opts?: DiffOptions): Duration<Valid>;
 
     /**
      * Return an Interval spanning between this DateTime and another DateTime
      *
      * @param otherDateTime - the other end point of the Interval
      */
-    until(otherDateTime: DateTime): Interval;
+    until(otherDateTime: DateTime): IfValid<Interval<Valid>, DateTime<Invalid>, IsValid>;
 
     /**
      * Return whether this DateTime is in the same unit of time as another DateTime.
@@ -1458,7 +1536,7 @@ export class DateTime {
      * @example
      * DateTime.now().hasSame(otherDT, 'day'); //~> true if otherDT is in the same current calendar day
      */
-    hasSame(otherDateTime: DateTime, unit: DateTimeUnit): boolean | IfInvalid<false>;
+    hasSame(otherDateTime: DateTime, unit: DateTimeUnit, opts?: HasSameOptions): IfValid<boolean, false, IsValid>;
 
     /**
      * An equality check.
@@ -1467,7 +1545,7 @@ export class DateTime {
      *
      * @param other - the other DateTime
      */
-    equals(other: DateTime): boolean | IfInvalid<false>;
+    equals(other: DateTime): IfValid<boolean, false, IsValid>;
 
     /**
      * Returns a string representation of this time relative to now, such as "in two days".
@@ -1487,7 +1565,7 @@ export class DateTime {
      * @example
      * DateTime.now().minus({ hours: 36 }).toRelative({ round: false }) //=> "1.5 days ago"
      */
-    toRelative(options?: ToRelativeOptions): string | IfInvalid<null>;
+    toRelative(options?: ToRelativeOptions): IfValid<string, null, IsValid>;
 
     /**
      * Returns a string representation of this date relative to today, such as "yesterday" or "next month".
@@ -1502,21 +1580,25 @@ export class DateTime {
      * @example
      * DateTime.now().minus({ days: 2 }).toRelativeCalendar() //=> "2 days ago"
      */
-    toRelativeCalendar(options?: ToRelativeCalendarOptions): string | IfInvalid<null>;
+    toRelativeCalendar(options?: ToRelativeCalendarOptions): IfValid<string, null, IsValid>;
 
     /**
      * Return the min of several date times
      *
      * @param dateTimes - the DateTimes from which to choose the minimum
      */
-    static min(...dateTimes: DateTime[]): DateTime;
+    static min<AllValid extends boolean>(
+        ...dateTimes: Array<DateTime<AllValid>>
+    ): (AllValid extends true ? DateTime<Valid> : never) | (AllValid extends false ? DateTime<Invalid> : never);
 
     /**
      * Return the max of several date times
      *
      * @param dateTimes - the DateTimes from which to choose the maximum
      */
-    static max(...dateTimes: DateTime[]): DateTime;
+    static max<AllValid extends boolean>(
+        ...dateTimes: Array<DateTime<AllValid>>
+    ): (AllValid extends true ? DateTime<Valid> : never) | (AllValid extends false ? DateTime<Invalid> : never);
 
     // MISC
 

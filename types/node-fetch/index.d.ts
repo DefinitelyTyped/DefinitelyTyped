@@ -5,7 +5,7 @@ import { RequestOptions } from "http";
 import { URL, URLSearchParams } from "url";
 import { AbortSignal } from "./externals";
 
-export class Request extends Body {
+declare class Request extends Body {
     constructor(input: RequestInfo, init?: RequestInit);
     clone(): Request;
     context: RequestContext;
@@ -27,7 +27,7 @@ export class Request extends Body {
     timeout: number;
 }
 
-export interface RequestInit {
+interface RequestInit {
     // whatwg/fetch standard options
     body?: BodyInit | undefined;
     headers?: HeadersInit | undefined;
@@ -45,7 +45,7 @@ export interface RequestInit {
     // node-fetch does not support mode, cache or credentials options
 }
 
-export type RequestContext =
+type RequestContext =
     | "audio"
     | "beacon"
     | "cspreport"
@@ -79,11 +79,11 @@ export type RequestContext =
     | "worker"
     | "xmlhttprequest"
     | "xslt";
-export type RequestMode = "cors" | "no-cors" | "same-origin";
-export type RequestRedirect = "error" | "follow" | "manual";
-export type RequestCredentials = "omit" | "include" | "same-origin";
+type RequestMode = "cors" | "no-cors" | "same-origin";
+type RequestRedirect = "error" | "follow" | "manual";
+type RequestCredentials = "omit" | "include" | "same-origin";
 
-export type RequestCache =
+type RequestCache =
     | "default"
     | "force-cache"
     | "no-cache"
@@ -91,7 +91,7 @@ export type RequestCache =
     | "only-if-cached"
     | "reload";
 
-export class Headers implements Iterable<[string, string]> {
+declare class Headers implements Iterable<[string, string]> {
     constructor(init?: HeadersInit);
     forEach(callback: (value: string, name: string) => void): void;
     append(name: string, value: string): void;
@@ -115,7 +115,7 @@ interface BlobOptions {
     endings?: "transparent" | "native" | undefined;
 }
 
-export class Blob {
+declare class Blob {
     constructor(blobParts?: BlobPart[], options?: BlobOptions);
     readonly type: string;
     readonly size: number;
@@ -123,7 +123,7 @@ export class Blob {
     text(): Promise<string>;
 }
 
-export class Body {
+declare class Body {
     constructor(body?: any, opts?: { size?: number | undefined; timeout?: number | undefined });
     arrayBuffer(): Promise<ArrayBuffer>;
     blob(): Promise<Blob>;
@@ -141,13 +141,13 @@ interface SystemError extends Error {
     code?: string | undefined;
 }
 
-export class AbortError extends Error {
+declare class AbortError extends Error {
     readonly name: "AbortError";
     constructor(message: string);
     readonly type: "aborted";
 }
 
-export class FetchError extends Error {
+declare class FetchError extends Error {
     name: "FetchError";
     constructor(message: string, type: string, systemError?: SystemError);
     type: string;
@@ -155,7 +155,7 @@ export class FetchError extends Error {
     errno?: string | undefined;
 }
 
-export class Response extends Body {
+declare class Response extends Body {
     constructor(body?: BodyInit, init?: ResponseInit);
     static error(): Response;
     static redirect(url: string, status: number): Response;
@@ -169,7 +169,7 @@ export class Response extends Body {
     url: string;
 }
 
-export type ResponseType =
+type ResponseType =
     | "basic"
     | "cors"
     | "default"
@@ -177,30 +177,29 @@ export type ResponseType =
     | "opaque"
     | "opaqueredirect";
 
-export interface ResponseInit {
+interface ResponseInit {
     headers?: HeadersInit | undefined;
     size?: number | undefined;
     status?: number | undefined;
     statusText?: string | undefined;
     timeout?: number | undefined;
     url?: string | undefined;
+    counter?: number | undefined;
 }
 
 interface URLLike {
     href: string;
 }
 
-export type HeadersInit = Headers | string[][] | { [key: string]: string };
-// HeaderInit is exported to support backwards compatibility. See PR #34382
-export type HeaderInit = HeadersInit;
-export type BodyInit =
+type HeadersInit = Headers | string[][] | { [key: string]: string | string[] };
+type BodyInit =
     | ArrayBuffer
     | ArrayBufferView
     | NodeJS.ReadableStream
     | string
     | URLSearchParams
     | FormData;
-export type RequestInfo = string | URLLike | Request;
+type RequestInfo = string | URLLike | Request;
 
 declare function fetch(
     url: RequestInfo,
@@ -208,7 +207,32 @@ declare function fetch(
 ): Promise<Response>;
 
 declare namespace fetch {
-    function isRedirect(code: number): boolean;
+    export {
+        AbortError,
+        Blob,
+        Body,
+        BodyInit,
+        FetchError,
+        Headers,
+        HeadersInit,
+        // HeaderInit is exported to support backwards compatibility. See PR #34382
+        HeadersInit as HeaderInit,
+        Request,
+        RequestCache,
+        RequestContext,
+        RequestCredentials,
+        RequestInfo,
+        RequestInit,
+        RequestMode,
+        RequestRedirect,
+        Response,
+        ResponseInit,
+        ResponseType,
+    };
+    export function isRedirect(code: number): boolean;
+
+    import _default = fetch;
+    export { _default as default };
 }
 
-export default fetch;
+export = fetch;

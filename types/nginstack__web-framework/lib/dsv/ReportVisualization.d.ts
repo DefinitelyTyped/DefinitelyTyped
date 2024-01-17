@@ -64,9 +64,9 @@ declare namespace ReportVisualization {
     export { DataExporter, DataSet, Process, registerExportFormat, SimpleLayoutExporter };
 }
 import ReportVisualizationColumns = require("./ReportVisualizationColumns.js");
-type DataExporter = import("../export/DataExporter");
 import ReportVisualizationColumn = require("./ReportVisualizationColumn.js");
 declare function registerExportFormat(name: string, processKey: number): void;
-declare var Process: any;
+declare let Process: any;
 type SimpleLayoutExporter = import("../simple-layout/SimpleLayoutExporter");
 type DataSet = import("@nginstack/engine/lib/dataset/DataSet");
+type DataExporter = import("../export/DataExporter");

@@ -6,7 +6,7 @@
         "https://github.com/kennetpostigo/react-google-login-component"
     ],
     "dependencies": {
-        "@types/react": "*"
+        "@types/react": "^16"
     },
     "devDependencies": {
         "@types/react-google-login-component": "workspace:."

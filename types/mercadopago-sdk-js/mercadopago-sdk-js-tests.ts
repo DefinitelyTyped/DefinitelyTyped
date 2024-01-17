@@ -113,10 +113,10 @@ brickBuilder.isInitialized();
             onClickEditShippingData: () => {
                 console.log("edit shipping clicked");
             },
-            onRenderNextStep: currentStep => {
+            onRenderNextStep: (currentStep) => {
                 console.log("next step rendered", currentStep);
             },
-            onRenderPreviousStep: currentStep => {
+            onRenderPreviousStep: (currentStep) => {
                 console.log("previous step rendered", currentStep);
             },
         },
@@ -160,6 +160,8 @@ brickBuilder.create("wallet", "containerWallet", {
         },
     },
 });
+
+brickBuilder.create("brand", "containerBrand");
 
 const fieldInstance = mpInstance.fields.create("cardNumber", {});
 fieldInstance.mount("containerId");

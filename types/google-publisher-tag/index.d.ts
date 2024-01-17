@@ -1699,6 +1699,10 @@ declare namespace googletag {
             INTERSTITIAL,
             /** Rewarded format. */
             REWARDED,
+            /** Left side rail format. */
+            LEFT_SIDE_RAIL,
+            /** Right side rail format. */
+            RIGHT_SIDE_RAIL,
         }
 
         /**

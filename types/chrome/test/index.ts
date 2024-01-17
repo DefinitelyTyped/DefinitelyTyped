@@ -513,6 +513,9 @@ function testGetManifest() {
 
     manifest.name; // $ExpectType string
     manifest.version; // $ExpectType string
+    if (manifest.author) {
+        manifest.author.email; // $ExpectType string
+    }
 
     if (manifest.manifest_version === 2) {
         manifest.browser_action; // $ExpectType ManifestAction | undefined
@@ -1558,6 +1561,13 @@ function testStorageForPromise() {
     );
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/runtime#method-getContexts
+function testRunTimeGetContexts() {
+    const options = { incognito: true, tabIds: [1, 2, 3] };
+
+    chrome.runtime.getContexts(options);
+}
+
 // https://developer.chrome.com/docs/extensions/reference/runtime/#method-sendMessage
 function testRuntimeSendMessage() {
     const options = { includeTlsChannelId: true };
@@ -1854,8 +1864,9 @@ async function testI18nForPromise() {
     await chrome.i18n.detectLanguage("dummy-id");
 }
 
-function testPageCapture() {
-    chrome.pageCapture.saveAsMHTML({ tabId: 0 }, (data: Blob | undefined) => {});
+async function testPageCapture() {
+    chrome.pageCapture.saveAsMHTML({ tabId: 0 }, (data: Blob | undefined) => {}); // $ExpectType void
+    await chrome.pageCapture.saveAsMHTML({ tabId: 0 }); // $ExpectType Blob | undefined
 }
 
 // https://developer.chrome.com/docs/extensions/reference/downloads
@@ -2204,4 +2215,24 @@ function testSidePanelAPI() {
     chrome.sidePanel.setPanelBehavior(setPanelBehavior).then(() => {
         console.log("Behavior set successfully using promise.");
     });
+}
+
+function testInstanceID() {
+    chrome.instanceID.deleteID(); // $ExpectType Promise<void>
+    chrome.instanceID.deleteID(() => void 0); // $ExpectType void
+
+    const deleteTokenParams = { authorizedEntity: "", scope: "" };
+    chrome.instanceID.deleteToken(deleteTokenParams); // $ExpectType Promise<void>
+    chrome.instanceID.deleteToken(deleteTokenParams, () => void 0); // $ExpectType void
+
+    chrome.instanceID.getCreationTime(); // $ExpectType Promise<number>
+    chrome.instanceID.getCreationTime((creationTime: number) => void 0); // $ExpectType void
+
+    chrome.instanceID.getID(); // $ExpectType Promise<string>
+    chrome.instanceID.getID((id: string) => void 0); // $ExpectType void
+
+    chrome.instanceID.getToken({ authorizedEntity: "", scope: "" }); // $ExpectType Promise<string>
+    chrome.instanceID.getToken({ authorizedEntity: "", scope: "" }, (token: string) => void 0); // $ExpectType void
+
+    chrome.instanceID.onTokenRefresh.addListener(() => void 0);
 }

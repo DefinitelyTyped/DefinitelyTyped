@@ -15,8 +15,6 @@ export interface Options
         OptionsPersistentConfiguration,
         OptionsClipboard,
         OptionsDataTree,
-        OptionsCell,
-        OptionsCells,
         OptionsDebug,
         OptionsHTML
 {}
@@ -37,13 +35,6 @@ export interface OptionsDebug {
 
     /** Disable deprecation warnings */
     debugDeprecation?: boolean;
-}
-
-export interface OptionsCells extends CellCallbacks {
-    /** The validationFailed event is triggered when the value entered into a cell during an edit fails to pass validation. */
-    validationFailed?:
-        | ((cell: CellComponent, value: any, validators: Validator[] | StandardValidatorType[]) => void)
-        | undefined;
 }
 
 export interface OptionsDataTree {
@@ -140,15 +131,6 @@ export interface OptionsClipboard {
      * You can choose to remove column headers groups, row groups or column calculations from the output data by setting the values in the clipboardCopyConfig option in the table definition:
      */
     clipboardCopyConfig?: AdditionalExportOptions | boolean | undefined;
-
-    /** The clipboardCopied event is triggered whenever data is copied to the clipboard. */
-    clipboardCopied?: (() => void) | undefined;
-
-    /** The clipboardPasted event is triggered whenever data is successfully pasted into the table. */
-    clipboardPasted?: (() => void) | undefined;
-
-    /** The clipboardPasteError event is triggered whenever an attempt to paste data into the table has failed because it was rejected by the paste parser. */
-    clipboardPasteError?: (() => void) | undefined;
 
     /** When copying to clipboard you may want to apply a different group header from the one usually used in the table. You can now do this using the groupHeaderClipboard table option, which takes the same inputs as the standard groupHeader property. */
     groupHeaderClipboard?:
@@ -350,36 +332,6 @@ export interface OptionsRowGrouping {
     /** show/hide column calculations when group is closed. */
     groupClosedShowCalcs?: boolean | undefined;
 
-    /** The dataGrouping callback is triggered whenever a data grouping event occurs, before grouping happens. */
-    dataGrouping?: (() => void) | undefined;
-
-    /** The dataGrouping callback is triggered whenever a data grouping event occurs, after grouping happens. */
-    dataGrouped?: (() => void) | undefined;
-
-    /** The groupVisibilityChanged callback is triggered whenever a group changes between hidden and visible states. */
-    groupVisibilityChanged?: ((group: GroupComponent, visible: boolean) => void) | undefined;
-
-    /** The groupClick callback is triggered when a user clicks on a group header. */
-    groupClick?: GroupEventCallback | undefined;
-
-    /** The groupDblClick callback is triggered when a user double clicks on a group header. */
-    groupDblClick?: GroupEventCallback | undefined;
-
-    /**
-     * The groupContext callback is triggered when a user right clicks on a group header.
-     *
-     * If you want to prevent the browsers context menu being triggered in this event you will need to include the preventDefault() function in your callback.
-     */
-    groupContext?: GroupEventCallback | undefined;
-
-    /** The groupTap callback is triggered when a user taps on a group header on a touch display. */
-    groupTap?: GroupEventCallback | undefined;
-
-    /** The groupDblTap callback is triggered when a user taps on a group header on a touch display twice in under 300ms. */
-    groupDblTap?: GroupEventCallback | undefined;
-
-    /** The groupTapHold callback is triggered when a user taps on a group header on a touch display and holds their finger down for over 1 second. */
-    groupTapHold?: GroupEventCallback | undefined;
     groupUpdateOnCellEdit?: boolean | undefined;
 }
 
@@ -400,12 +352,6 @@ export interface OptionsFiltering {
 
     /** array of initial values for header filters. */
     initialHeaderFilter?: Array<Pick<Filter, "field" | "value">> | undefined;
-
-    /** The dataFiltering callback is triggered whenever a filter event occurs, before the filter happens. */
-    dataFiltering?: ((filters: Filter[]) => void) | undefined;
-
-    /** The dataFiltered callback is triggered after the table dataset is filtered. */
-    dataFiltered?: ((filters: Filter[], rows: RowComponent[]) => void) | undefined;
 
     /** When using real time header filtering, Tabulator will wait 300 milliseconds after a keystroke before triggering the filter. You can customize this delay by using the headerFilterLiveFilterDelay table setup option. */
     headerFilterLiveFilterDelay?: number | undefined;
@@ -512,8 +458,6 @@ export interface OptionsData {
     /** The ajaxResponse callback is triggered when a successful ajax request has been made. This callback can also be used to modify the received data before it is parsed by the table. If you use this callback it must return the data to be parsed by Tabulator, otherwise no data will be rendered. */
     ajaxResponse?: ((url: string, params: any, response: any) => any) | undefined;
 
-    /** The ajaxError callback is triggered there is an error response to an ajax request. */
-    ajaxError?: ((xhr: any, textStatus: any, errorThrown: any) => void) | undefined;
     dataLoader?: boolean;
     dataLoaderLoading?: string | HTMLElement;
     dataLoaderError?: string;
@@ -620,9 +564,6 @@ export interface OptionsRows {
         | undefined;
     movableRowsConnectedElements?: string | HTMLElement | undefined;
 
-    /** When a row is dropped on element from from the movableRowsConnectedElements option the movableRowsElementDrop callback will be triggered. You can use this callback to trigger any changes as a result of the drop */
-    movableRowsElementDrop?: ((e: MouseEvent, element: HTMLElement, row: RowComponent) => any) | undefined;
-
     /** You can allow the user to manually resize rows by dragging the top or bottom border of a row. To enable this functionality, set the resizableRows property to true. */
     resizableRows?: boolean | undefined;
 
@@ -643,98 +584,6 @@ export interface OptionsRows {
      * false - scroll to row, unless it is currently visible, then don't move
      */
     scrollToRowIfVisible?: boolean | undefined;
-
-    /** The dataTreeRowExpanded callback is triggered when a row with child rows is expanded to reveal the children. */
-    dataTreeRowExpanded?: ((row: RowComponent, level: number) => void) | undefined;
-
-    /** The dataTreeRowCollapsed callback is triggered when a row with child rows is collapsed to hide its children. */
-    dataTreeRowCollapsed?: ((row: RowComponent, level: number) => void) | undefined;
-
-    /** The movableRowsSendingStart callback is triggered on the sending table when a row is picked up from a sending table. */
-    movableRowsSendingStart?: ((toTables: any[]) => void) | undefined;
-
-    /** The movableRowsSent callback is triggered on the sending table when a row has been successfully received by a receiving table. */
-    movableRowsSent?: ((fromRow: RowComponent, toRow: RowComponent, toTable: Tabulator) => void) | undefined;
-
-    /** The movableRowsSentFailed callback is triggered on the sending table when a row has failed to be received by the receiving table. */
-    movableRowsSentFailed?: ((fromRow: RowComponent, toRow: RowComponent, toTable: Tabulator) => void) | undefined;
-
-    /** The movableRowsSendingStop callback is triggered on the sending table after a row has been dropped and any senders and receivers have been handled. */
-    movableRowsSendingStop?: ((toTables: any[]) => void) | undefined;
-
-    /** The movableRowsReceivingStart callback is triggered on a receiving table when a connection is established with a sending table. */
-    movableRowsReceivingStart?: ((fromRow: RowComponent, toTable: Tabulator) => void) | undefined;
-
-    /** The movableRowsReceived callback is triggered on a receiving table when a row has been successfully received. */
-    movableRowsReceived?: ((fromRow: RowComponent, toRow: RowComponent, fromTable: Tabulator) => void) | undefined;
-
-    /** The movableRowsReceivedFailed callback is triggered on a receiving table when a row receiver has returned false. */
-    movableRowsReceivedFailed?:
-        | ((fromRow: RowComponent, toRow: RowComponent, fromTable: Tabulator) => void)
-        | undefined;
-
-    /** The movableRowsReceivingStop callback is triggered on a receiving table after a row has been dropped and any senders and receivers have been handled. */
-    movableRowsReceivingStop?: ((fromTable: Tabulator) => void) | undefined;
-
-    /** The rowClick callback is triggered when a user clicks on a row. */
-    rowClick?: RowEventCallback | undefined;
-
-    /** The rowDblClick callback is triggered when a user double clicks on a row. */
-    rowDblClick?: RowEventCallback | undefined;
-
-    /**
-     * The rowContext callback is triggered when a user right clicks on a row.
-     * If you want to prevent the browsers context menu being triggered in this event you will need to include the preventDefault() function in your callback.
-     */
-    rowContext?: RowEventCallback | undefined;
-
-    /** The rowTap callback is triggered when a user taps on a row on a touch display. */
-    rowTap?: RowEventCallback | undefined;
-
-    /** The rowDblTap callback is triggered when a user taps on a row on a touch display twice in under 300ms. */
-    rowDblTap?: RowEventCallback | undefined;
-
-    /** The rowTapHold callback is triggered when a user taps on a row on a touch display and holds their finger down for over 1 second. */
-    rowTapHold?: RowEventCallback | undefined;
-
-    /** The rowMouseEnter callback is triggered when the mouse pointer enters a row. */
-    rowMouseEnter?: RowEventCallback | undefined;
-
-    /** The rowMouseLeave callback is triggered when the mouse pointer leaves a row. */
-    rowMouseLeave?: RowEventCallback | undefined;
-
-    /** The rowMouseOver callback is triggered when the mouse pointer enters a row or any of its child elements. */
-    rowMouseOver?: RowEventCallback | undefined;
-
-    /** The rowMouseOut callback is triggered when the mouse pointer leaves a row or any of its child elements. */
-    rowMouseOut?: RowEventCallback | undefined;
-
-    /** The rowMouseMove callback is triggered when the mouse pointer moves over a row. */
-    rowMouseMove?: RowEventCallback | undefined;
-
-    /** The rowAdded callback is triggered when a row is added to the table by the addRow and updateOrAddRow functions. */
-    rowAdded?: RowChangedCallback | undefined;
-
-    /** The rowUpdated callback is triggered when a row is updated by the updateRow, updateOrAddRow, updateData or updateOrAddData, functions. */
-    rowUpdated?: RowChangedCallback | undefined;
-
-    /** The rowDeleted callback is triggered when a row is deleted from the table by the deleteRow function. */
-    rowDeleted?: RowChangedCallback | undefined;
-
-    /** The rowMoved callback will be triggered when a row has been successfully moved. */
-    rowMoved?: RowChangedCallback | undefined;
-
-    /** The rowResized callback will be triggered when a row has been resized by the user. */
-    rowResized?: RowChangedCallback | undefined;
-
-    /** Whenever the number of selected rows changes, through selection or deselection, the rowSelectionChanged event is triggered. This passes an array of the data objects for each row in the order they were selected as the first argument, and an array of row components for each of the rows in order of selection as the second argument. */
-    rowSelectionChanged?: ((data: any[], rows: RowComponent[]) => void) | undefined;
-
-    /** The rowSelected event is triggered when a row is selected, either by the user or programmatically. */
-    rowSelected?: RowChangedCallback | undefined;
-
-    /** The rowDeselected event is triggered when a row is deselected, either by the user or programmatically. */
-    rowDeselected?: RowChangedCallback | undefined;
 
     /** Allows you to specify the behavior when the user tabs from the last editable cell on the last row of the table. */
     tabEndNewRow?: boolean | JSONRecord | ((row: RowComponent) => any) | undefined;
@@ -847,16 +696,6 @@ export interface OptionsColumns {
     /** multiple or single column sorting */
     columnHeaderSortMulti?: boolean | undefined;
 
-    /** The columnMoved callback will be triggered when a column has been successfully moved. */
-    columnMoved?: ((column: ColumnComponent, columns: any[]) => void) | undefined;
-    columnResized?: ((column: ColumnComponent) => void) | undefined;
-
-    /** The columnVisibilityChanged callback is triggered whenever a column changes between hidden and visible states. */
-    columnVisibilityChanged?: ((column: ColumnComponent, visible: boolean) => void) | undefined;
-
-    /** The columnTitleChanged callback is triggered whenever a user edits a column title when the editableTitle parameter has been enabled in the column definition array. */
-    columnTitleChanged?: ((column: ColumnComponent) => void) | undefined;
-
     /** By setting the headerVisible option to false you can hide the column headers and present the table as a simple list if needed. */
     headerVisible?: boolean | undefined;
 
@@ -866,24 +705,6 @@ export interface OptionsColumns {
     columnDefaults?: Partial<ColumnDefinition>;
     /** If the resizableColumnFit table definition option is set to true, then when you resize a column its neighbouring column has the opposite resize applied to keep to total width of columns the same. */
     resizableColumnFit?: boolean | undefined;
-}
-
-export interface OptionsCell {
-    /** The cellClick callback is triggered when a user left clicks on a cell, it can be set on a per column basis using the option in the columns definition object. */
-    cellClick?: CellEventCallback | undefined;
-    cellDblClick?: CellEventCallback | undefined;
-    cellContext?: CellEventCallback | undefined;
-    cellTap?: CellEventCallback | undefined;
-    cellDblTap?: CellEventCallback | undefined;
-    cellTapHold?: CellEventCallback | undefined;
-    cellMouseEnter?: CellEventCallback | undefined;
-    cellMouseLeave?: CellEventCallback | undefined;
-    cellMouseOver?: CellEventCallback | undefined;
-    cellMouseOut?: CellEventCallback | undefined;
-    cellMouseMove?: CellEventCallback | undefined;
-    cellEditing?: CellEditEventCallback | undefined;
-    cellEdited?: CellEditEventCallback | undefined;
-    cellEditCancelled?: CellEditEventCallback | undefined;
 }
 
 export interface OptionsGeneral {
@@ -927,53 +748,8 @@ export interface OptionsGeneral {
     /** Tabulator will automatically attempt to redraw the data contained in the table if the containing element for the table is resized. To disable this functionality, set the autoResize property to false. */
     autoResize?: boolean | undefined;
 
-    /** When a the tabulator constructor is called, the tableBuilding callback will triggered. */
-    tableBuilding?: (() => void) | undefined;
-
-    /** When a the tabulator constructor is called and the table has finished being rendered, the tableBuilt callback will triggered: */
-    tableBuilt?: (() => void) | undefined;
-
-    /**
-     * The renderStarted callback is triggered whenever all the rows in the table are about to be rendered. This can include:
-     * - Data is loaded into the table when setData is called
-     * - A page is loaded through any form of pagination
-     * - Rows are added to the table during progressive rendering
-     * - Columns are changed by setColumns
-     * - The data is filtered
-     * - The data is sorted
-     * - The redraw function is called
-     */
-    renderStarted?: (() => void) | undefined;
-
-    /** The renderComplete callback is triggered after the table has been rendered. */
-    renderComplete?: (() => void) | undefined;
-
-    /** The htmlImporting callback is triggered when Tabulator starts importing data from an HTML table. */
-    htmlImporting?: EmptyCallback | undefined;
-
-    /** The htmlImported callback is triggered when Tabulator finishes importing data from an HTML table. */
-    htmlImported?: EmptyCallback | undefined;
-
-    /** The dataChanged callback is triggered whenever the table data is changed by the user. Triggers for this include editing any cell in the table, adding a row and deleting a row. */
-    dataChanged?: ((data: any) => void) | undefined;
-
-    /** Whenever a page has been loaded, the pageLoaded callback is called, passing the current page number as an argument. */
-    pageLoaded?: ((pageno: number) => void) | undefined;
-
-    /** The dataSorting callback is triggered whenever a sort event occurs, before sorting happens. */
-    dataSorting?: ((sorters: SorterFromTable[]) => void) | undefined;
-
-    /** The dataSorted callback is triggered after the table dataset is sorted. */
-    dataSorted?: ((sorters: SorterFromTable[], rows: RowComponent[]) => void) | undefined;
-
     /** Setting the invalidOptionWarnings option to false will disable console warning messages for invalid properties in the table constructor and column definition object. */
     invalidOptionWarnings?: boolean | undefined;
-
-    /** Callback is triggered when the table is vertically scrolled. */
-    scrollVertical?: ((top: any) => void) | undefined;
-
-    /** Callback is triggered when the table is horizontally scrolled. */
-    scrollHorizontal?: ((left: any) => void) | undefined;
 
     /**
      * There are now three different validation modes available to customize the validation experience:
@@ -1074,9 +850,6 @@ export interface OptionsDownload {
      */
     downloadEncoder?: ((fileContents: any, mimeType: string) => Blob | false) | undefined;
 
-    /** The downloadComplete callback is triggered when the user has been prompted to download the file. */
-    downloadComplete?: (() => void) | undefined;
-
     /**
      * By default Tabulator includes column headers, row groups and column calculations in the download output.
      *
@@ -1155,9 +928,6 @@ export interface OptionsLocale {
      * If you wish you can also localize column titles by adding a columns property to your language object. You should store a property of the field name of the column you wish to change, with a value of its title. Any fields that match this will use this title instead of the one provided by the column definition array.
      */
     langs?: any;
-
-    /** When a localization event has occurred , the localized callback will triggered, passing the current locale code and language object: */
-    localized?: ((locale: string, lang: any) => void) | undefined;
 }
 
 type HistoryAction = "cellEdit" | "rowAdd" | "rowDelete" | "rowMoved";
@@ -1165,12 +935,6 @@ type HistoryAction = "cellEdit" | "rowAdd" | "rowDelete" | "rowMoved";
 export interface OptionsHistory {
     /** Enable user interaction history functionality */
     history?: boolean | undefined;
-
-    /** The historyUndo event is triggered when the undo action is triggered. */
-    historyUndo?: ((action: HistoryAction, component: CellComponent | RowComponent, data: any) => void) | undefined;
-
-    /** The historyRedo event is triggered when the redo action is triggered. */
-    historyRedo?: ((action: HistoryAction, component: CellComponent | RowComponent, data: any) => void) | undefined;
 }
 
 export interface ColumnLayout {
@@ -1955,7 +1719,7 @@ export interface KeyBinding {
 // Components-------------------------------------------------------------------
 export interface CalculationComponent {
     /** The getData function returns the data object for the row. */
-    getData: () => any;
+    getData: () => { [key: string]: any };
 
     /** The getElement function returns the DOM node for the row. */
     getElement: () => HTMLElement;
@@ -2224,7 +1988,7 @@ export interface CellComponent {
     getColumn: () => ColumnComponent;
 
     /** The getData function returns the data for the row that contains the cell. */
-    getData: (transformType?: "data" | "download" | "clipboard") => {};
+    getData: (transformType?: "data" | "download" | "clipboard") => { [key: string]: any };
 
     /** The getField function returns the field name for the column that contains the cell. */
     getField: () => string;

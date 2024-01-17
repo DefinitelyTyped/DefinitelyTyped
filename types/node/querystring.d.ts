@@ -74,10 +74,10 @@ declare module "querystring" {
      *
      * For example, the query string `'foo=bar&#x26;abc=xyz&#x26;abc=123'` is parsed into:
      *
-     * ```js
+     * ```json
      * {
-     *   foo: 'bar',
-     *   abc: ['xyz', '123']
+     *   "foo": "bar",
+     *   "abc": ["xyz", "123"]
      * }
      * ```
      *

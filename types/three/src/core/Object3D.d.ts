@@ -208,7 +208,7 @@ export class Object3D<TEventMap extends Object3DEventMap = Object3DEventMap> ext
      * @remarks It should not hold references to _functions_ as these **will not** be cloned.
      * @default `{}`
      */
-    userData: { [key: string]: any }; // TODO Replace this to a Record?
+    userData: Record<string, any>;
 
     /**
      * Custom depth material to be used when rendering to the depth map.
@@ -226,14 +226,48 @@ export class Object3D<TEventMap extends Object3DEventMap = Object3DEventMap> ext
     customDistanceMaterial?: Material | undefined;
 
     /**
+     * An optional callback that is executed immediately before a 3D object is rendered to a shadow map.
+     * @remarks This function is called with the following parameters: renderer, scene, camera, shadowCamera, geometry,
+     * depthMaterial, group.
+     * @remarks Please notice that this callback is only executed for `renderable` 3D objects. Meaning 3D objects which
+     * define their visual appearance with geometries and materials like instances of {@link Mesh}, {@link Line},
+     * {@link Points} or {@link Sprite}. Instances of {@link Object3D}, {@link Group} or {@link Bone} are not renderable
+     * and thus this callback is not executed for such objects.
+     */
+    onBeforeShadow(
+        renderer: WebGLRenderer,
+        scene: Scene,
+        shadowCamera: Camera,
+        geometry: BufferGeometry,
+        depthMaterial: Material,
+        group: Group,
+    ): void;
+
+    /**
+     * An optional callback that is executed immediately after a 3D object is rendered to a shadow map.
+     * @remarks This function is called with the following parameters: renderer, scene, camera, shadowCamera, geometry,
+     * depthMaterial, group.
+     * @remarks Please notice that this callback is only executed for `renderable` 3D objects. Meaning 3D objects which
+     * define their visual appearance with geometries and materials like instances of {@link Mesh}, {@link Line},
+     * {@link Points} or {@link Sprite}. Instances of {@link Object3D}, {@link Group} or {@link Bone} are not renderable
+     * and thus this callback is not executed for such objects.
+     */
+    onAfterShadow(
+        renderer: WebGLRenderer,
+        scene: Scene,
+        shadowCamera: Camera,
+        geometry: BufferGeometry,
+        depthMaterial: Material,
+        group: Group,
+    ): void;
+
+    /**
      * An optional callback that is executed immediately before a 3D object is rendered.
      * @remarks This function is called with the following parameters: renderer, scene, camera, geometry, material, group.
-     * @remarks Please notice that this callback is only executed for `renderable` 3D objects.
-     * Meaning 3D objects which define their visual appearance with geometries and materials like
-     * instances of {@link THREE.Object3DMesh | Mesh}, {@link THREE.Object3DLine | Line}, {@link THREE.Object3DPoints | Points} or {@link THREE.Object3DSprite | Sprite}.
-     * Instances of {@link THREE.Object3DObject3D | Object3D}, {@link THREE.Object3DGroup | Group} or {@link THREE.Object3DBone | Bone}
-     * are not renderable and thus this callback is not executed for such objects.
-     * @defaultValue `() => {}`
+     * @remarks Please notice that this callback is only executed for `renderable` 3D objects. Meaning 3D objects which
+     * define their visual appearance with geometries and materials like instances of {@link Mesh}, {@link Line},
+     * {@link Points} or {@link Sprite}. Instances of {@link Object3D}, {@link Group} or {@link Bone} are not renderable
+     * and thus this callback is not executed for such objects.
      */
     onBeforeRender(
         renderer: WebGLRenderer,
@@ -247,12 +281,10 @@ export class Object3D<TEventMap extends Object3DEventMap = Object3DEventMap> ext
     /**
      * An optional callback that is executed immediately after a 3D object is rendered.
      * @remarks This function is called with the following parameters: renderer, scene, camera, geometry, material, group.
-     * @remarks Please notice that this callback is only executed for `renderable` 3D objects.
-     * Meaning 3D objects which define their visual appearance with geometries and materials like
-     * instances of {@link THREE.Object3DMesh | Mesh}, {@link THREE.Object3DLine | Line}, {@link THREE.Object3DPoints | Points} or {@link THREE.Object3DSprite | Sprite}.
-     * Instances of {@link THREE.Object3DObject3D | Object3D}, {@link THREE.Object3DGroup | Group} or {@link THREE.Object3DBone | Bone}
-     * are not renderable and thus this callback is not executed for such objects.
-     * @defaultValue `() => {}`
+     * @remarks Please notice that this callback is only executed for `renderable` 3D objects. Meaning 3D objects which
+     * define their visual appearance with geometries and materials like instances of {@link Mesh}, {@link Line},
+     * {@link Points} or {@link Sprite}. Instances of {@link Object3D}, {@link Group} or {@link Bone} are not renderable
+     * and thus this callback is not executed for such objects.
      */
     onAfterRender(
         renderer: WebGLRenderer,
@@ -474,8 +506,10 @@ export class Object3D<TEventMap extends Object3DEventMap = Object3DEventMap> ext
      * and returns the first with a property that matches the value given.
      * @param name The property name to search for.
      * @param value Value of the given property.
+     * @param optionalTarget target to set the result. Otherwise a new Array is instantiated. If set, you must clear
+     * this array prior to each call (i.e., array.length = 0;).
      */
-    getObjectsByProperty(name: string, value: any): Object3D[];
+    getObjectsByProperty(name: string, value: any, optionalTarget?: Object3D[]): Object3D[];
 
     /**
      * Returns a vector representing the position of the object in world space.

@@ -165,6 +165,7 @@ export { MathUtils };
 export * from './objects/Sprite.js';
 export * from './objects/LOD.js';
 export * from './objects/InstancedMesh.js';
+export * from './objects/BatchedMesh.js';
 export * from './objects/SkinnedMesh.js';
 export * from './objects/Skeleton.js';
 export * from './objects/Bone.js';
@@ -222,6 +223,7 @@ export * from './scenes/Scene.js';
  */
 export * from './textures/VideoTexture.js';
 export * from './textures/CompressedArrayTexture.js';
+export * from './textures/CompressedCubeTexture.js';
 export * from './textures/DataTexture.js';
 export * from './textures/CompressedTexture.js';
 export * from './textures/CubeTexture.js';

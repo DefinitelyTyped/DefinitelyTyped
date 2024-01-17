@@ -11,8 +11,7 @@
         "@types/reactcss": "*"
     },
     "devDependencies": {
-        "@types/react-color": "workspace:.",
-        "@types/react-dom": "*"
+        "@types/react-color": "workspace:."
     },
     "owners": [
         {

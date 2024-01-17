@@ -1,7 +1,7 @@
-import { Vector3 } from './../math/Vector3.js';
-import { Line } from './../objects/Line.js';
-import { Mesh } from './../objects/Mesh.js';
-import { Object3D } from './../core/Object3D.js';
+import { Vector3 } from '../math/Vector3.js';
+import { Line } from '../objects/Line.js';
+import { Mesh } from '../objects/Mesh.js';
+import { Object3D } from '../core/Object3D.js';
 import { ColorRepresentation } from '../math/Color.js';
 
 /**
