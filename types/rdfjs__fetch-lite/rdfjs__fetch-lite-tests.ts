@@ -1,7 +1,7 @@
 import Environment from "@rdfjs/environment/Environment";
 import fetch from "@rdfjs/fetch-lite";
 import FetchFactory from "@rdfjs/fetch-lite/Factory";
-import { Formats } from "@rdfjs/formats-common";
+import { Formats } from "@rdfjs/formats";
 import { Dataset, DatasetCore, DatasetCoreFactory, Quad, Stream } from "@rdfjs/types";
 
 const formats: Formats = <any> {};
