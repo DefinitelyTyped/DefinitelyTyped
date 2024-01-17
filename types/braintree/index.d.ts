@@ -197,7 +197,7 @@ declare namespace braintree {
         paymentMethodNonce: T extends PaymentMethodNonce ? PaymentMethodNonce : never;
         settlementBatchSumary: T extends SettlementBatchSummary ? SettlementBatchSummary : never;
         subscription: T extends Subscription ? Subscription : never;
-        transaction: T extends Transaction ? Transaction : never;
+        transaction?: T extends Transaction ? Transaction : never;
         clientToken: T extends ClientToken ? string : never;
         credentials: T extends OAuthToken ? OAuthToken : never;
     }

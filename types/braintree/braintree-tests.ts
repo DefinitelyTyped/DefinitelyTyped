@@ -119,7 +119,7 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
         amount: "128.00",
     };
     const response = await gateway.transaction.sale(transactionRequest).catch(console.error);
-    if (!response) return;
+    if (!response || !response.transaction) return;
     const {
         additionalProcessorResponse,
         amount,
