@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/adobe__ccweb-add-on-sdk",
+    "version": "1.2.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "adobe__ccweb-add-on-sdk",
+    "projects": [
+        "https://github.com/adobe/create-ccweb-add-on#readme"
+    ],
+    "dependencies": {
+        "@adobe/ccweb-add-on-sdk-types": "^1.2.1"
+    },
+    "devDependencies": {
+        "@types/adobe__ccweb-add-on-sdk": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Vamshi Chiluka",
+            "githubUsername": "vamshich13"
+        },
+        {
+            "name": "Abhishek Das",
+            "githubUsername": "xerxovksi"
+        }
+    ]
+}
