@@ -297,8 +297,8 @@ i.set({ end: DateTime.local(2020) }); // $ExpectType Interval<true> | Interval<f
 i.mapEndpoints(d => d); // $ExpectType Interval<true> | Interval<false>
 i.intersection(i); // $ExpectType Interval<boolean> | null
 
-i.invalidReason; // $ExpectType string | null
-i.invalidExplanation; // $ExpectType string | null
+i.invalidReason; // $ExpectType null
+i.invalidExplanation; // $ExpectType null
 
 i.toISO(); // $ExpectType string
 i.toISODate(); // $ExpectType string
@@ -526,8 +526,8 @@ dur.reconfigure({ conversionAccuracy: "longterm" }); // $ExpectType Duration<tru
 start.until(end); // $ExpectType Interval<true> | DateTime<false> || DateTime<false> | Interval<true>
 i.toDuration(["years", "months", "days"]); // $ExpectType Duration<true> | Duration<false>
 
-dur.invalidReason; // $ExpectType string
-dur.invalidExplanation; // $ExpectType string | null
+dur.invalidReason; // $ExpectType null
+dur.invalidExplanation; // $ExpectType null
 
 /* Sample Zone Implementation */
 class SampleZone extends Zone {
