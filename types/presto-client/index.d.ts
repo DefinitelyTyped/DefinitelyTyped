@@ -200,6 +200,7 @@ export interface RuntimeStats {
     wallTimeMillis: number;
     cpuTimeMillis: number;
     userTimeMillis: number;
+    // https://github.com/prestodb/presto/blob/496e98ca25fb243ab25731d188c2fd56eba3b3e9/presto-main/src/main/java/com/facebook/presto/execution/QueryState.java
     state:
         | "WAITING_FOR_PREREQUISITES"
         | "QUEUED"
