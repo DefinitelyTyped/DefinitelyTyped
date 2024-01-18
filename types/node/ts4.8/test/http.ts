@@ -646,6 +646,11 @@ import * as url from "node:url";
             cb(null, [{ address: "", family: 1 }]);
         },
     });
+    http.request({
+        lookup: (hostname, options, cb) => {
+            cb(null, "", 1);
+        },
+    });
 }
 
 {
