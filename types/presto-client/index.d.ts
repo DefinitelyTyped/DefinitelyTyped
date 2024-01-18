@@ -200,7 +200,18 @@ export interface RuntimeStats {
     wallTimeMillis: number;
     cpuTimeMillis: number;
     userTimeMillis: number;
-    state: "WAITING_FOR_PREREQUISITES" | "QUEUED" | "WAITING_FOR_RESOURCES" | "DISPATCHING" | "PLANNING" | "STARTING" | "RUNNING" | "FINISHING" | "FINISHED" | "CANCELED" | "FAILED";
+    state:
+        | "WAITING_FOR_PREREQUISITES"
+        | "QUEUED"
+        | "WAITING_FOR_RESOURCES"
+        | "DISPATCHING"
+        | "PLANNING"
+        | "STARTING"
+        | "RUNNING"
+        | "FINISHING"
+        | "FINISHED"
+        | "CANCELED"
+        | "FAILED";
     scheduled: boolean;
     nodes: number;
     totalSplits: number;
