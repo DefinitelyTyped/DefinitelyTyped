@@ -75,4 +75,10 @@ export interface ReCAPTCHAProps {
      * @default "bottomright"
      */
     badge?: Badge | undefined;
+    /**
+     * Optional. For plugin owners to not interfere with existing reCAPTCHA installations on a page.
+     * If true, this reCAPTCHA instance will be part of a separate ID space.
+     * @default false
+     */
+    isolated?: boolean | undefined;
 }
