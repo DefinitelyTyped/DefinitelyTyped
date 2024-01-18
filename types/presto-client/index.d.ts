@@ -211,7 +211,7 @@ export interface RuntimeStats {
         | "RUNNING"
         | "FINISHING"
         | "FINISHED"
-        | "CANCELED"
+        | "CANCELED" // legacy value, see https://github.com/prestodb/presto/commit/4bf8df1484935a000619377dab6ed35778fff2ad#diff-0e3098a2bd5426fc1a01f56708912cedcdf7ce5d2e0f7adcdb70b93080c8733a
         | "FAILED";
     scheduled: boolean;
     nodes: number;
