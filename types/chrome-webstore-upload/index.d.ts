@@ -15,7 +15,7 @@ export interface Item {
     itemError: {
         error_code: string;
         error_detail: string;
-    };
+    }[];
 }
 
 export type PublishStatus =
