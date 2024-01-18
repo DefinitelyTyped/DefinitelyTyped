@@ -22,11 +22,11 @@ declare module "wallabyjs" {
         compilers?: IWallabyCompilers | undefined;
         debug?: boolean | undefined;
         env?: IWallabyEnvironment | undefined;
-        files: string[] | IWallabyFilePattern[];
+        files: Array<string | IWallabyFilePattern>;
         postprocessor?: IWallabyProcessor | undefined;
         preprocessors?: IWallabyProcessor | undefined;
         testFramework?: string | undefined;
-        tests: string[] | IWallabyFilePattern[];
+        tests: Array<string | IWallabyFilePattern>;
         workers?: IWallabyWorkers | undefined;
     }
 

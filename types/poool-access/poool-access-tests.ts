@@ -117,7 +117,7 @@ audit.config(
     true,
 );
 
-// $ExpectType Audit
+// $ExpectType Promise<boolean>
 audit.sendEvent("page-view", { type: "premium" }, { key: "value" });
 
 // $ExpectType Audit
