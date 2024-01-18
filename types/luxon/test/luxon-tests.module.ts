@@ -297,8 +297,8 @@ i.set({ end: DateTime.local(2020) }); // $ExpectType Interval<true> | Interval<f
 i.mapEndpoints(d => d); // $ExpectType Interval<true> | Interval<false>
 i.intersection(i); // $ExpectType Interval<boolean> | null
 
-i.invalidReason; // $ExpectType null
-i.invalidExplanation; // $ExpectType null
+i.invalidReason; // $ExpectType string | null
+i.invalidExplanation; // $ExpectType string | null
 
 i.toISO(); // $ExpectType string
 i.toISODate(); // $ExpectType string
