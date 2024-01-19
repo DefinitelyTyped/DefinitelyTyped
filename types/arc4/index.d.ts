@@ -1,25 +1,25 @@
 /// <reference types="node" />
 
-export type Algorithm = "arc4" | "rc4+" | "rc4a" | "vmpc";
+export type ArcAlgorithm = "arc4" | "rc4+" | "rc4a" | "vmpc";
 
-type AlgoToClass<T extends Algorithm> = T extends "arc4" ? Arc4
+type AlgoToClass<T extends ArcAlgorithm> = T extends "arc4" ? Arc4
     : T extends "rc4+" ? Rc4p
     : T extends "rc4a" ? Rc4a
     : T extends "vmpc" ? Vmpc
     : never;
 
-export default function arc4<const T extends Algorithm>(
+export default function arc4<T extends ArcAlgorithm>(
     algorithm: T,
     password: string | any[] | Buffer,
     lodash?: boolean,
 ): AlgoToClass<T>;
 
-declare function normal<const T extends Algorithm>(
+declare function normal<T extends ArcAlgorithm>(
     algorithm: T,
     password: string | any[] | Buffer,
 ): AlgoToClass<T>;
 
-declare function lodash<const T extends Algorithm>(
+declare function lodash<T extends ArcAlgorithm>(
     algorithm: T,
     password: string | any[] | Buffer,
 ): AlgoToClass<T>;
