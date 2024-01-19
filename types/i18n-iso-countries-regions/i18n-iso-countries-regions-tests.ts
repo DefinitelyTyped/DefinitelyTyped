@@ -20,11 +20,11 @@ getAllCountriesName("en");
   { iso: 'AE', name: 'United Arab Emirates' },
   { iso: 'AF', name: 'Afghanistan' },
   { iso: 'AG', name: 'Antigua and Barbuda' },
-  // ... 
+  // ...
 ]
 
-/** Function: getAllCountriesCallingCode(language) 
- *  Returns: an array of all countries with their ISO codes, localized names, and calling codes. 
+/** Function: getAllCountriesCallingCode(language)
+ *  Returns: an array of all countries with their ISO codes, localized names, and calling codes.
  */
 
 getAllCountriesCallingCode("fr");
@@ -47,7 +47,7 @@ getCallingCodeByCountryCode("US");
 /* Output: "1" (for United States)
 
 /** Function: getCallingCodeByCountryName(countryName)
- *  Returns: the calling code for a given country name. 
+ *  Returns: the calling code for a given country name.
  */
 
 getCallingCodeByCountryName("United States");
@@ -55,7 +55,7 @@ getCallingCodeByCountryName("United States");
 /* Output: "1"
 
 /** Function: getRegionsByCountryCode(language, countryCode)
- *  Returns: an array of regions for a given ISO country code, with their ISO codes and localized names. 
+ *  Returns: an array of regions for a given ISO country code, with their ISO codes and localized names.
  */
 
 getRegionsByCountryCode("fr", "TN");
@@ -70,7 +70,7 @@ getRegionsByCountryCode("fr", "TN");
   ]
 
 /** Function: getRegionsByCountryName(language, countryName)
- *  Returns: an array of regions for a given country name, with their ISO codes and localized names. 
+ *  Returns: an array of regions for a given country name, with their ISO codes and localized names.
  */
 
 getRegionsByCountryName("fr", "Andorre");
@@ -85,8 +85,8 @@ getRegionsByCountryName("fr", "Andorre");
   { iso: '08', name: 'Escaldes-Engordany' }
 ]
 
-/** 
- * Use the provided functions to retrieve country and region information: 
+/**
+ * Use the provided functions to retrieve country and region information:
  */
 
 /** Function: getCountryInfoByCountryCode(language, countryCode)
