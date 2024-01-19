@@ -650,6 +650,13 @@ Another package may select this version by specifying:
 
 Also, `/// <reference types=".." />` will not work with path mapping, so dependencies must use `import`.
 
+#### How do breaking type changes work if type declaration packages closely track the library package's version?
+
+`@types` packages always type packages of the same version, so `@types/foo@5.4.x` are for `foo@5.4.x`.
+As a consequence, all changes, breaking or not, are published as patch revisions, unless paired with a major/minor bump to change the package version being targeted (coincidentally or not).
+
+When it comes to breaking changes, DT maintainers consider the popularity of the package, the upsides of the proposed breaking change, the effort that will be required for users to fix their code, and whether the change could reasonably be delayed until it can be synced with a major bump of the upstream library.
+
 #### How do I write definitions for packages that can be used globally and as a module?
 
 The TypeScript handbook contains excellent [general information about writing definitions](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html) and also [this example definition file](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html) which shows how to create a definition using ES6-style module syntax, while also specifying objects made available to the global scope.  This technique is demonstrated practically in the [definition for `big.js`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts), which is a library that can be loaded globally via script tag on a web page or imported via require or ES6-style imports.
