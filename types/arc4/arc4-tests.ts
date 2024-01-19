@@ -1,4 +1,4 @@
-import arc4, { normal, lodash } from "arc4";
+import arc4, { lodash, normal } from "arc4";
 
 const cipher = arc4("arc4", "secret_key");
 const d = cipher.encodeString("ciao");
@@ -16,9 +16,9 @@ cipher.encodeBuffer(Buffer.from("ciao"));
 
 cipher.decodeString("string", "utf8", "base64");
 
-cipher.decodeArray([49,50,51]);
+cipher.decodeArray([49, 50, 51]);
 
 cipher.decodeBuffer(Buffer.from("ciao"));
 
 const cipher2 = normal("rc4+", [1, 2, 3]);
-const cipher3 = lodash("vmpc", Buffer.from("hello"))
+const cipher3 = lodash("vmpc", Buffer.from("hello"));
