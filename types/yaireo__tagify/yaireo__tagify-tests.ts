@@ -41,7 +41,7 @@ const settings: TagifySettings = {
     whitelist: ["good-word"],
     blacklist: ["bad-word"],
     addTagOnBlur: false,
-    addTagOn: ['enter', 'tab'],
+    addTagOn: ["enter", "tab"],
     onChangeAfterBlur: true,
     pasteAsTags: false,
     callbacks: {
@@ -412,7 +412,7 @@ const settings: TagifySettings = {
         beforeKeyDown: (event, data) => {
             const instance = data.tagify;
             return Promise.resolve();
-        }
+        },
     },
 };
 
