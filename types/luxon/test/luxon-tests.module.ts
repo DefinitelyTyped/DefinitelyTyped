@@ -241,6 +241,10 @@ if (DateTime.isDateTime(anything)) {
 
 const { input, result, zone } = DateTime.fromFormatExplain("Aug 6 1982", "MMMM d yyyy");
 
+const invalidDateTime = DateTime.invalid("some reason", "some explanation");
+invalidDateTime.invalidReason; // $ExpectType string
+invalidDateTime.invalidExplanation; // $ExpectType string | null
+
 /* Duration */
 const dur = Duration.fromObject({ hours: 2, minutes: 7 }); // $ExpectType Duration<true>
 Duration.fromObject({ hour: 2, minute: 7 }); // $ExpectType Duration<true>
@@ -278,7 +282,9 @@ if (Duration.isDuration(anything)) {
 }
 // @ts-expect-error
 Duration.invalid();
-Duration.invalid("code", "because I said so"); // $ExpectType Duration<false>
+const invalidDuration = Duration.invalid("code", "because I said so"); // $ExpectType Duration<false>
+invalidDuration.invalidReason; // $ExpectType string
+invalidDuration.invalidExplanation; // $ExpectType string | null
 Duration.isDuration(0 as unknown); // $ExpectType boolean
 
 /* Interval */
@@ -312,7 +318,9 @@ if (Interval.isInterval(anything)) {
 new Interval(now, later);
 // @ts-expect-error
 Interval.invalid();
-Interval.invalid("code", "because I said so"); // $ExpectType Interval<false>
+const invalidInterval = Interval.invalid("code", "because I said so"); // $ExpectType Interval<false>
+invalidInterval.invalidReason; // $ExpectType string
+invalidInterval.invalidExplanation; // $ExpectType string | null
 Interval.isInterval(0 as unknown); // $ExpectType boolean
 
 /* Info */
@@ -518,8 +526,8 @@ dur.reconfigure({ conversionAccuracy: "longterm" }); // $ExpectType Duration<tru
 start.until(end); // $ExpectType Interval<true> | DateTime<false> || DateTime<false> | Interval<true>
 i.toDuration(["years", "months", "days"]); // $ExpectType Duration<true> | Duration<false>
 
-dur.invalidReason; // $ExpectType string
-dur.invalidExplanation; // $ExpectType string | null
+dur.invalidReason; // $ExpectType null
+dur.invalidExplanation; // $ExpectType null
 
 /* Sample Zone Implementation */
 class SampleZone extends Zone {
