@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-export type ArcAlgorithm = "arc4" | "rc4+" | "rc4a" | "vmpc";
+type ArcAlgorithm = "arc4" | "rc4+" | "rc4a" | "vmpc";
 
 type AlgoToClass<T extends ArcAlgorithm> = T extends "arc4" ? Arc4
     : T extends "rc4+" ? Rc4p
@@ -8,20 +8,10 @@ type AlgoToClass<T extends ArcAlgorithm> = T extends "arc4" ? Arc4
     : T extends "vmpc" ? Vmpc
     : never;
 
-export default function arc4<T extends ArcAlgorithm>(
+declare function arc4<T extends ArcAlgorithm>(
     algorithm: T,
     password: string | any[] | Buffer,
     lodash?: boolean,
-): AlgoToClass<T>;
-
-declare function normal<T extends ArcAlgorithm>(
-    algorithm: T,
-    password: string | any[] | Buffer,
-): AlgoToClass<T>;
-
-declare function lodash<T extends ArcAlgorithm>(
-    algorithm: T,
-    password: string | any[] | Buffer,
 ): AlgoToClass<T>;
 
 declare class Arc4 {
@@ -112,4 +102,16 @@ declare class Vmpc {
     ): string | any[] | Buffer;
 }
 
-export { lodash, normal };
+declare namespace arc4 {
+    function normal<T extends ArcAlgorithm>(
+        algorithm: T,
+        password: string | any[] | Buffer,
+    ): AlgoToClass<T>;
+
+    function lodash<T extends ArcAlgorithm>(
+        algorithm: T,
+        password: string | any[] | Buffer,
+    ): AlgoToClass<T>;
+}
+
+export = arc4;
