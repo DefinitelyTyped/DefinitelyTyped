@@ -45,3 +45,14 @@ async function fetchTypedStream(): Promise<Stream<QuadExt>> {
     const response = await fetch("http://example.com", { formats, factory });
     return response.quadStream();
 }
+
+async function fetchURL() {
+    // $ExpectType RdfFetchResponse<Quad>
+    const response = await fetch(new URL("http://example.com"));
+}
+
+async function fetchRequestInfo() {
+    const req: Request = <any> {};
+    // $ExpectType RdfFetchResponse<Quad>
+    const response = await fetch(req);
+}
