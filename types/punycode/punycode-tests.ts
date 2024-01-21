@@ -10,7 +10,6 @@ const ucs2result2: string = punycode.ucs2.encode([1, 2, 3]);
 
 const version: string = punycode.version;
 
-
 import punycodeDirect = require("punycode/punycode.js");
 const result1Direct: string = punycode.decode("x");
 const result2Direct: string = punycode.encode("x");
