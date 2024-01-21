@@ -1,4 +1,5 @@
-import arc4, { lodash, normal } from "arc4";
+const arc4 = require("arc4");
+import { lodash, normal } from "arc4";
 
 const cipher = arc4("arc4", "secret_key");
 const d = cipher.encodeString("ciao");
