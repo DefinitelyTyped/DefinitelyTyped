@@ -348,6 +348,7 @@ deck.initialize({
 
     // markdown
     markdown: {
+        animateLists: false,
         async: true,
         baseUrl: "localhost",
         breaks: true,

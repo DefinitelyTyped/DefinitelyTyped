@@ -1538,6 +1538,7 @@ declare namespace Reveal {
         verticalSeparator?: string;
         notesSeparator?: string;
         attributes?: string;
+        animateLists?: boolean;
     }
 
     /**
