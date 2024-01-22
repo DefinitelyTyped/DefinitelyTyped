@@ -633,7 +633,9 @@ declare global {
                  *     var wordArray = CryptoJS.lib.WordArray.create([0x00010203, 0x04050607]);
                  *     var wordArray = CryptoJS.lib.WordArray.create([0x00010203, 0x04050607], 6);
                  */
-                create(words?: number[] 
+                create(
+                    words?:
+                        | number[]
                         | ArrayBuffer
                         | Uint8Array
                         | Int8Array
@@ -643,8 +645,9 @@ declare global {
                         | Int32Array
                         | Uint32Array
                         | Float32Array
-                        | Float64Array
-                    , sigBytes?: number): WordArray;
+                        | Float64Array,
+                    sigBytes?: number,
+                ): WordArray;
                 /**
                  * Creates a word array filled with random bytes.
                  *
