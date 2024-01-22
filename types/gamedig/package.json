@@ -1,9 +1,9 @@
 {
     "private": true,
     "name": "@types/gamedig",
-    "version": "4.0.9999",
+    "version": "5.0.0",
     "projects": [
-        "https://github.com/sonicsnes/node-gamedig"
+        "https://github.com/gamedig/node-gamedig"
     ],
     "devDependencies": {
         "@types/gamedig": "workspace:."
