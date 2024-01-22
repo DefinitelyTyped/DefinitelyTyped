@@ -1,4 +1,4 @@
-declare namespace GameDig {
+export namespace GameDig {
     class GameDig {
         constructor(runnerOpts?: { listenUdpPort?: number });
         query(options: GameDig.QueryOptions): Promise<GameDig.QueryResult>;
