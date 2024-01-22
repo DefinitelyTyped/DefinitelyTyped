@@ -198,6 +198,7 @@ export interface ReactDatePickerProps<
     excludeScrollbar?: boolean | undefined;
     enableTabLoop?: boolean | undefined;
     yearItemNumber?: number | undefined;
+    toggleCalendarOnIconClick?: boolean | undefined;
 }
 
 export class ReactDatePicker<

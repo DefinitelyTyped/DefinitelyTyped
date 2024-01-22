@@ -188,6 +188,7 @@ const topLogger: Modifier<"topLogger"> = {
     timeIntervals={1}
     title=""
     showIcon
+    toggleCalendarOnIconClick
     todayButton={<div />}
     useShortMonthInDropdown
     useWeekdaysShort
