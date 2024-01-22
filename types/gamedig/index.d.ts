@@ -18,10 +18,10 @@ export interface games {
             query_port?: number;
             port_query?: number;
             port_query_offset?: number;
-        },
+        };
         extra?: {
             doc_notes?: string;
-        }
+        };
     };
 }
 

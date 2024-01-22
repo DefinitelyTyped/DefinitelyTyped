@@ -15,7 +15,7 @@ gamedig.GameDig.query(
         debug: false,
         requestRules: true,
         requestRulesRequired: true,
-        requestPlayersRequired: true
+        requestPlayersRequired: true,
     },
     (error: any, state: gamedig.QueryResult) => {
         if (error) throw error;
@@ -40,7 +40,7 @@ gd.query(
         debug: false,
         requestRules: true,
         requestRulesRequired: true,
-        requestPlayersRequired: true
+        requestPlayersRequired: true,
     },
     (error: any, state: gamedig.QueryResult) => {
         if (error) throw error;
@@ -50,11 +50,11 @@ gd.query(
 );
 
 // get the list of games
-for(const type in gamedig.games) {
+for (const type in gamedig.games) {
     const name = `${gamedig.games[type].name} (${gamedig.games[type].release_year})`;
 }
 
 // get the list of protocols
-for(const type in gamedig.protocols) {
+for (const type in gamedig.protocols) {
     const name = `protocol-${type}`;
 }
