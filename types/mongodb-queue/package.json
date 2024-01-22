@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/node": "*",
-        "mongodb": "^4.5.0"
+        "mongodb": "*"
     },
     "devDependencies": {
         "@types/mongodb-queue": "workspace:."
