@@ -36,10 +36,12 @@ const settings: TagifySettings = {
     autoComplete: {
         enabled: true,
         rightKey: true,
+        tabKey: true,
     },
     whitelist: ["good-word"],
     blacklist: ["bad-word"],
     addTagOnBlur: false,
+    addTagOn: ["enter", "tab"],
     onChangeAfterBlur: true,
     pasteAsTags: false,
     callbacks: {
@@ -362,9 +364,12 @@ const settings: TagifySettings = {
         maxItems: 5,
         classname: "form-control",
         fuzzySearch: false,
+        sortby: "startsWith",
         accentedSearch: false,
         includeSelectedTags: true,
+        escapeHTML: true,
         position: "text",
+        RTL: false,
         highlightFirst: true,
         closeOnSelect: true,
         clearOnSelect: false,
@@ -404,6 +409,10 @@ const settings: TagifySettings = {
         },
         beforePaste: (e, data) => {
             return Promise.resolve(data.pastedText.replace("foo", "bar"));
+        },
+        beforeKeyDown: (event, data) => {
+            const instance = data.tagify;
+            return Promise.resolve();
         },
     },
 };
@@ -475,6 +484,9 @@ settings.dropdown = {
     enabled: false,
     position: "input",
     mapValueTo: (data) => "To:" + data.email,
+    sortby: (items: TagData[], query: string) => {
+        return items.filter((tag) => tag.value === query);
+    },
 };
 
 typedSettings.dropdown = {
