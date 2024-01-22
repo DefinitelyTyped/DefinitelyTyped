@@ -7,7 +7,8 @@
     ],
     "dependencies": {
         "@types/express": "*",
-        "@types/scoped-http-client": "*"
+        "@types/scoped-http-client": "*",
+        "@types/node": "*"
     },
     "devDependencies": {
         "@types/hubot": "workspace:."
@@ -28,6 +29,10 @@
         {
             "name": "Jon Phenow",
             "githubUsername": "jphenow"
+        },
+        {
+            "name": "Matt O'Keefe",
+            "githubUsername": "o-mutt"
         }
     ]
 }
