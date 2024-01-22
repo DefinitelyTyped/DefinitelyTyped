@@ -50,6 +50,6 @@ gamedig.query(
 );
 
 // get the list of games
-for(const game of gd.games) {
-    const name = `${game.name} (${game.release_year})`;
+for(const type in gd.games) {
+    const name = `${gd.games[type].name} (${gd.games[type].release_year})`;
 }
