@@ -20,15 +20,7 @@ const invisibleRecaptcha: React.FC = () => {
     );
 };
 
-const basicRecapchta2 = (
-    <ReCAPTCHA2
-        ref={handleRef}
-        sitekey="xxx"
-        onChange={a => a}
-        className="mockclass"
-        isolated={true}
-    />
-);
+const basicRecapchta2 = <ReCAPTCHA2 ref={handleRef} sitekey="xxx" onChange={a => a} className="mockclass" />;
 const invisibleRecaptcha2: React.FC = () => {
     const recaptchaRef = React.createRef<ReCAPTCHA2>();
 
