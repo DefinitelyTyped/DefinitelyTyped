@@ -15,7 +15,6 @@ export interface games {
         options: {
             protocol: string;
             port?: number;
-            query_port?: number;
             port_query?: number;
             port_query_offset?: number;
         };
