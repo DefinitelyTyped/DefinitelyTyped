@@ -1,0 +1,14 @@
+{
+    "name": "@types/validate-form",
+    "version": "0.1.0",
+    "description": "types",
+    "main": "index.d.ts",
+    "scripts": {
+      "test": "test-validate-type"
+    },
+    "author": "jon1",
+    "license": "SEE LICENSE IN LICENSE.MIT",
+    "dependencies": {
+      "packages": "^0.0.8"
+    }
+  }
