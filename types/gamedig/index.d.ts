@@ -82,5 +82,3 @@ declare namespace GameDig {
         raw?: object;
     }
 }
-
-export = GameDig;
