@@ -40,7 +40,7 @@ declare class SARequest extends Stream implements RequestBase {
     agent(): SAgent | http.Agent | https.Agent;
     agent(agent: SAgent | http.Agent | https.Agent): this;
     auth(token: string, options: { type: "bearer" }): this;
-    auth(user: string, pass: string, options?: { type: "basic" | "auto" }): this;
+    auth(user: string, pass: string, options?: { type: "basic" | "auto"; encoder?: (str: string) => string }): this;
     buffer(val?: boolean): this;
     ca(cert: string | string[] | Buffer | Buffer[]): this;
     catch<TResult = never>(
