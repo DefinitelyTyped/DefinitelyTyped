@@ -708,3 +708,313 @@ const communicationsGuestIdentity: MicrosoftGraph.CommunicationsGuestIdentity = 
 const communicationsIdentitySet: MicrosoftGraph.CommunicationsIdentitySet = {};
 
 const virtualEventRegistrationQuestionAnswer: MicrosoftGraph.VirtualEventRegistrationQuestionAnswer = {};
+
+const deviceManagement: MicrosoftGraph.DeviceManagement = {};
+
+const domainDnsRecord: MicrosoftGraph.DomainDnsRecord = {};
+
+const organization: MicrosoftGraph.Organization = {};
+
+const peopleAdminSettings: MicrosoftGraph.PeopleAdminSettings = {};
+
+const browserSharedCookie: MicrosoftGraph.BrowserSharedCookie = {};
+
+const browserSiteList: MicrosoftGraph.BrowserSiteList = {};
+
+const workbookChartAreaFormat: MicrosoftGraph.WorkbookChartAreaFormat = {};
+
+const workbookChartLegend: MicrosoftGraph.WorkbookChartLegend = {};
+
+const workbookChartSeries: MicrosoftGraph.WorkbookChartSeries = {};
+
+const workbookChartTitle: MicrosoftGraph.WorkbookChartTitle = {};
+
+const workbookChartFill: MicrosoftGraph.WorkbookChartFill = {};
+
+const workbookChartFont: MicrosoftGraph.WorkbookChartFont = {};
+
+const workbookChartAxisFormat: MicrosoftGraph.WorkbookChartAxisFormat = {};
+
+const workbookChartGridlines: MicrosoftGraph.WorkbookChartGridlines = {};
+
+const workbookChartAxisTitle: MicrosoftGraph.WorkbookChartAxisTitle = {};
+
+const workbookChartLineFormat: MicrosoftGraph.WorkbookChartLineFormat = {};
+
+const workbookChartAxisTitleFormat: MicrosoftGraph.WorkbookChartAxisTitleFormat = {};
+
+const workbookChartDataLabelFormat: MicrosoftGraph.WorkbookChartDataLabelFormat = {};
+
+const workbookChartGridlinesFormat: MicrosoftGraph.WorkbookChartGridlinesFormat = {};
+
+const workbookChartLegendFormat: MicrosoftGraph.WorkbookChartLegendFormat = {};
+
+const workbookChartPoint: MicrosoftGraph.WorkbookChartPoint = {};
+
+const workbookChartPointFormat: MicrosoftGraph.WorkbookChartPointFormat = {};
+
+const workbookChartSeriesFormat: MicrosoftGraph.WorkbookChartSeriesFormat = {};
+
+const workbookChartTitleFormat: MicrosoftGraph.WorkbookChartTitleFormat = {};
+
+const workbookCommentReply: MicrosoftGraph.WorkbookCommentReply = {};
+
+const workbookFilter: MicrosoftGraph.WorkbookFilter = {};
+
+const itemActivity: MicrosoftGraph.ItemActivity = {};
+
+const itemActivityStat: MicrosoftGraph.ItemActivityStat = {};
+
+const sharedDriveItem: MicrosoftGraph.SharedDriveItem = {};
+
+const cloudCommunications: MicrosoftGraph.CloudCommunications = {};
+
+const call: MicrosoftGraph.Call = {};
+
+const accessReviewHistoryDefinition: MicrosoftGraph.AccessReviewHistoryDefinition = {};
+
+const accessReviewReviewer: MicrosoftGraph.AccessReviewReviewer = {};
+
+const accessReviewInstanceDecisionItem: MicrosoftGraph.AccessReviewInstanceDecisionItem = {};
+
+const accessReviewStage: MicrosoftGraph.AccessReviewStage = {};
+
+const accessReviewScheduleDefinition: MicrosoftGraph.AccessReviewScheduleDefinition = {};
+
+const appConsentRequest: MicrosoftGraph.AppConsentRequest = {};
+
+const userConsentRequest: MicrosoftGraph.UserConsentRequest = {};
+
+const approval: MicrosoftGraph.Approval = {};
+
+const approvalStage: MicrosoftGraph.ApprovalStage = {};
+
+const accessPackage: MicrosoftGraph.AccessPackage = {};
+
+const accessPackageAssignmentPolicy: MicrosoftGraph.AccessPackageAssignmentPolicy = {};
+
+const accessPackageAssignmentRequest: MicrosoftGraph.AccessPackageAssignmentRequest = {};
+
+const accessPackageAssignment: MicrosoftGraph.AccessPackageAssignment = {};
+
+const accessPackageCatalog: MicrosoftGraph.AccessPackageCatalog = {};
+
+const accessPackageResourceRoleScope: MicrosoftGraph.AccessPackageResourceRoleScope = {};
+
+const accessPackageResource: MicrosoftGraph.AccessPackageResource = {};
+
+const privilegedAccessGroup: MicrosoftGraph.PrivilegedAccessGroup = {};
+
+const userSignInInsight: MicrosoftGraph.UserSignInInsight = {};
+
+const agreement: MicrosoftGraph.Agreement = {};
+
+const agreementFileProperties: MicrosoftGraph.AgreementFileProperties = {};
+
+const agreementFile: MicrosoftGraph.AgreementFile = {};
+
+const identityProtectionRoot: MicrosoftGraph.IdentityProtectionRoot = {};
+
+const riskDetection: MicrosoftGraph.RiskDetection = {};
+
+const riskyServicePrincipal: MicrosoftGraph.RiskyServicePrincipal = {};
+
+const riskyUser: MicrosoftGraph.RiskyUser = {};
+
+const servicePrincipalRiskDetection: MicrosoftGraph.ServicePrincipalRiskDetection = {};
+
+const riskyUserHistoryItem: MicrosoftGraph.RiskyUserHistoryItem = {};
+
+const riskyServicePrincipalHistoryItem: MicrosoftGraph.RiskyServicePrincipalHistoryItem = {};
+
+const accessPackageQuestion: MicrosoftGraph.AccessPackageQuestion = {};
+
+const accessPackageSubject: MicrosoftGraph.AccessPackageSubject = {};
+
+const customExtensionStageSetting: MicrosoftGraph.CustomExtensionStageSetting = {};
+
+const accessPackageAssignmentRequestWorkflowExtension: MicrosoftGraph.AccessPackageAssignmentRequestWorkflowExtension = {};
+
+const accessPackageAssignmentWorkflowExtension: MicrosoftGraph.AccessPackageAssignmentWorkflowExtension = {};
+
+const accessPackageResourceRole: MicrosoftGraph.AccessPackageResourceRole = {};
+
+const accessPackageResourceScope: MicrosoftGraph.AccessPackageResourceScope = {};
+
+const accessPackageMultipleChoiceQuestion: MicrosoftGraph.AccessPackageMultipleChoiceQuestion = {};
+
+const accessPackageTextInputQuestion: MicrosoftGraph.AccessPackageTextInputQuestion = {};
+
+const mobileApp: MicrosoftGraph.MobileApp = {};
+
+const mobileLobApp: MicrosoftGraph.MobileLobApp = {};
+
+const androidLobApp: MicrosoftGraph.AndroidLobApp = {};
+
+const androidStoreApp: MicrosoftGraph.AndroidStoreApp = {};
+
+const deviceAppManagement: MicrosoftGraph.DeviceAppManagement = {};
+
+const managedEBook: MicrosoftGraph.ManagedEBook = {};
+
+const mobileAppCategory: MicrosoftGraph.MobileAppCategory = {};
+
+const managedDeviceMobileAppConfiguration: MicrosoftGraph.ManagedDeviceMobileAppConfiguration = {};
+
+const mobileAppAssignment: MicrosoftGraph.MobileAppAssignment = {};
+
+const vppToken: MicrosoftGraph.VppToken = {};
+
+const managedAppPolicy: MicrosoftGraph.ManagedAppPolicy = {};
+
+const managedAppProtection: MicrosoftGraph.ManagedAppProtection = {};
+
+const targetedManagedAppProtection: MicrosoftGraph.TargetedManagedAppProtection = {};
+
+const androidManagedAppProtection: MicrosoftGraph.AndroidManagedAppProtection = {};
+
+const defaultManagedAppProtection: MicrosoftGraph.DefaultManagedAppProtection = {};
+
+const iosManagedAppProtection: MicrosoftGraph.IosManagedAppProtection = {};
+
+const managedAppStatus: MicrosoftGraph.ManagedAppStatus = {};
+
+const windowsInformationProtection: MicrosoftGraph.WindowsInformationProtection = {};
+
+const mdmWindowsInformationProtectionPolicy: MicrosoftGraph.MdmWindowsInformationProtectionPolicy = {};
+
+const managedAppConfiguration: MicrosoftGraph.ManagedAppConfiguration = {};
+
+const targetedManagedAppConfiguration: MicrosoftGraph.TargetedManagedAppConfiguration = {};
+
+const windowsInformationProtectionPolicy: MicrosoftGraph.WindowsInformationProtectionPolicy = {};
+
+const enterpriseCodeSigningCertificate: MicrosoftGraph.EnterpriseCodeSigningCertificate = {};
+
+const iosiPadOSWebClip: MicrosoftGraph.IosiPadOSWebClip = {};
+
+const iosLobApp: MicrosoftGraph.IosLobApp = {};
+
+const iosStoreApp: MicrosoftGraph.IosStoreApp = {};
+
+const iosLobAppProvisioningConfigurationAssignment: MicrosoftGraph.IosLobAppProvisioningConfigurationAssignment = {};
+
+const iosMobileAppConfiguration: MicrosoftGraph.IosMobileAppConfiguration = {};
+
+const iosVppApp: MicrosoftGraph.IosVppApp = {};
+
+const macOSLobApp: MicrosoftGraph.MacOSLobApp = {};
+
+const macOSOfficeSuiteApp: MicrosoftGraph.MacOSOfficeSuiteApp = {};
+
+const macOSMicrosoftDefenderApp: MicrosoftGraph.MacOSMicrosoftDefenderApp = {};
+
+const macOSMicrosoftEdgeApp: MicrosoftGraph.MacOSMicrosoftEdgeApp = {};
+
+const managedApp: MicrosoftGraph.ManagedApp = {};
+
+const managedMobileLobApp: MicrosoftGraph.ManagedMobileLobApp = {};
+
+const managedAndroidLobApp: MicrosoftGraph.ManagedAndroidLobApp = {};
+
+const managedAndroidStoreApp: MicrosoftGraph.ManagedAndroidStoreApp = {};
+
+const managedDeviceMobileAppConfigurationAssignment: MicrosoftGraph.ManagedDeviceMobileAppConfigurationAssignment = {};
+
+const managedDeviceMobileAppConfigurationDeviceStatus: MicrosoftGraph.ManagedDeviceMobileAppConfigurationDeviceStatus = {};
+
+const managedDeviceMobileAppConfigurationDeviceSummary: MicrosoftGraph.ManagedDeviceMobileAppConfigurationDeviceSummary = {};
+
+const managedDeviceMobileAppConfigurationUserStatus: MicrosoftGraph.ManagedDeviceMobileAppConfigurationUserStatus = {};
+
+const managedDeviceMobileAppConfigurationUserSummary: MicrosoftGraph.ManagedDeviceMobileAppConfigurationUserSummary = {};
+
+const managedIOSLobApp: MicrosoftGraph.ManagedIOSLobApp = {};
+
+const managedIOSStoreApp: MicrosoftGraph.ManagedIOSStoreApp = {};
+
+const mobileAppContent: MicrosoftGraph.MobileAppContent = {};
+
+const microsoftStoreForBusinessApp: MicrosoftGraph.MicrosoftStoreForBusinessApp = {};
+
+const mobileContainedApp: MicrosoftGraph.MobileContainedApp = {};
+
+const mobileAppContentFile: MicrosoftGraph.MobileAppContentFile = {};
+
+const webApp: MicrosoftGraph.WebApp = {};
+
+const win32LobApp: MicrosoftGraph.Win32LobApp = {};
+
+const windowsAppX: MicrosoftGraph.WindowsAppX = {};
+
+const windowsMicrosoftEdgeApp: MicrosoftGraph.WindowsMicrosoftEdgeApp = {};
+
+const windowsMobileMSI: MicrosoftGraph.WindowsMobileMSI = {};
+
+const windowsUniversalAppX: MicrosoftGraph.WindowsUniversalAppX = {};
+
+const windowsUniversalAppXContainedApp: MicrosoftGraph.WindowsUniversalAppXContainedApp = {};
+
+const windowsWebApp: MicrosoftGraph.WindowsWebApp = {};
+
+const pronounsSettings: MicrosoftGraph.PronounsSettings = {};
+
+const unifiedRoleManagementPolicyRule: MicrosoftGraph.UnifiedRoleManagementPolicyRule = {};
+
+const deltaParticipants: MicrosoftGraph.DeltaParticipants = {};
+
+const sendDtmfTonesOperation: MicrosoftGraph.SendDtmfTonesOperation = {};
+
+const updateRecordingStatusOperation: MicrosoftGraph.UpdateRecordingStatusOperation = {};
+
+const teamsAppSettings: MicrosoftGraph.TeamsAppSettings = {};
+
+const deviceManagementSettings: MicrosoftGraph.DeviceManagementSettings = {};
+
+const intuneBrand: MicrosoftGraph.IntuneBrand = {};
+
+const deviceProtectionOverview: MicrosoftGraph.DeviceProtectionOverview = {};
+
+const userExperienceAnalyticsSettings: MicrosoftGraph.UserExperienceAnalyticsSettings = {};
+
+const windowsMalwareOverview: MicrosoftGraph.WindowsMalwareOverview = {};
+
+const accessPackageResourceAttribute: MicrosoftGraph.AccessPackageResourceAttribute = {};
+
+const accessPackageResourceAttributeDestination: MicrosoftGraph.AccessPackageResourceAttributeDestination = {};
+
+const accessPackageResourceAttributeSource: MicrosoftGraph.AccessPackageResourceAttributeSource = {};
+
+const accessPackageResourceAttributeQuestion: MicrosoftGraph.AccessPackageResourceAttributeQuestion = {};
+
+const accessPackageUserDirectoryAttributeStore: MicrosoftGraph.AccessPackageUserDirectoryAttributeStore = {};
+
+const socialIdentitySource: MicrosoftGraph.SocialIdentitySource = {};
+
+const gitHubOrganizationEvidence: MicrosoftGraph.SecurityNamespace.GitHubOrganizationEvidence = {};
+
+const gitHubRepoEvidence: MicrosoftGraph.SecurityNamespace.GitHubRepoEvidence = {};
+
+const gitHubUserEvidence: MicrosoftGraph.SecurityNamespace.GitHubUserEvidence = {};
+
+const hostLogonSessionEvidence: MicrosoftGraph.SecurityNamespace.HostLogonSessionEvidence = {};
+
+const userEvidence: MicrosoftGraph.SecurityNamespace.UserEvidence = {};
+
+const ioTDeviceEvidence: MicrosoftGraph.SecurityNamespace.IoTDeviceEvidence = {};
+
+const nicEvidence: MicrosoftGraph.SecurityNamespace.NicEvidence = {};
+
+const urlEvidence: MicrosoftGraph.SecurityNamespace.UrlEvidence = {};
+
+const malwareEvidence: MicrosoftGraph.SecurityNamespace.MalwareEvidence = {};
+
+const networkConnectionEvidence: MicrosoftGraph.SecurityNamespace.NetworkConnectionEvidence = {};
+
+const oauthApplicationEvidence: MicrosoftGraph.SecurityNamespace.OauthApplicationEvidence = {};
+
+const sasTokenEvidence: MicrosoftGraph.SecurityNamespace.SasTokenEvidence = {};
+
+const servicePrincipalEvidence: MicrosoftGraph.SecurityNamespace.ServicePrincipalEvidence = {};
+
+const submissionMailEvidence: MicrosoftGraph.SecurityNamespace.SubmissionMailEvidence = {};
