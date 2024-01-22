@@ -959,6 +959,84 @@ declare namespace Shippo {
 
     type Token = string | TokenOptions;
 
+    namespace Order {
+        type Status = "UNKNOWN" | "AWAITPAY" | "PAID" | "REFUNDED" | "PARTIALLY_FULFILLED" | "SHIPPED";
+
+        type ShopApp =
+            | "Amazon"
+            | "Bigcommerce"
+            | "CSV_Import"
+            | "eBay"
+            | "ePages"
+            | "Etsy"
+            | "Godaddy"
+            | "Magento"
+            | "Shippo"
+            | "Shopify"
+            | "Spreecommerce"
+            | "StripeRelay"
+            | "Weebly"
+            | "WooCommerce";
+
+        interface LineItem {
+            currency: string;
+            description?: string | null;
+            manufacture_country: string | null;
+            max_delivery_time?: string | null;
+            max_ship_time?: string | null;
+            quantity: number;
+            sku: string;
+            title: string;
+            total_price: string;
+            variant_title: string;
+            weight: string;
+            weight_unit: MassUnit;
+            object_id?: string;
+        }
+    }
+
+    interface CreateOrderRequest {
+        currency?: string;
+        notes?: string;
+        order_number?: string;
+        order_status?: Order.Status;
+        placed_at: string;
+        shipping_cost?: string;
+        shipping_cost_currency?: string;
+        shipping_method?: string;
+        subtotal_price?: string;
+        total_price?: string;
+        total_tax?: string;
+        weight?: string;
+        weight_unit?: MassUnit;
+        from_address: CreateAddressRequest;
+        to_address: CreateAddressRequest;
+        line_items: Order.LineItem[];
+    }
+
+    interface Order {
+        currency?: string;
+        notes?: string | null;
+        order_number?: string;
+        order_status?: Order.Status;
+        placed_at: string;
+        shipping_cost?: string;
+        shipping_cost_currency?: string;
+        shipping_method?: string;
+        subtotal_price?: string;
+        total_price?: string;
+        total_tax?: string;
+        weight?: string;
+        weight_unit?: MassUnit;
+        from_address: Address | null;
+        to_address: Address;
+        line_items: Order.LineItem[];
+        object_id: string;
+        object_owner: string;
+        shop_app: Order.ShopApp;
+        transactions: string[] | undefined;
+    }
+
     interface ShippoBase {
         setAuthScheme: (auth: string) => void;
         setHost: (host: string, port?: string, protocol?: string) => void;
@@ -1029,6 +1107,9 @@ declare namespace Shippo {
         track: {
             create: (request: RegisterTrackRequest) => Promise<Track>;
             get_status: (carrier: Carriers, trackingNumber: string) => Promise<Track>;
+        };
+        order: {
+            create: (request: CreateOrderRequest) => Promise<Order>;
         };
     }
 }

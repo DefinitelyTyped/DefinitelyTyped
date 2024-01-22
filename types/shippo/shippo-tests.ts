@@ -258,3 +258,41 @@ shippo.set("key", "value");
 
 // $ExpectType string | number | boolean | undefined
 shippo.get("key");
+
+// $ExpectType Promise<Order>
+shippo.order.create({
+    from_address: {
+        name: "Mrs Hippo",
+        street1: "1092 Indian Summer Ct",
+        city: "San Jose",
+        state: "CA",
+        zip: "95122",
+        country: "US",
+        phone: "4159876543",
+    },
+    to_address: {
+        name: "Mrs Hippo",
+        street1: "1092 Indian Summer Ct",
+        city: "San Jose",
+        state: "CA",
+        zip: "95122",
+        country: "US",
+        phone: "4159876543",
+    },
+    line_items: [
+        {
+            currency: "USD",
+            manufacture_country: "US",
+            quantity: 1,
+            sku: "SKU_123",
+            title: "Product 123",
+            variant_title: "Blue",
+            total_price: "16.99",
+            weight: "1.2",
+            weight_unit: "lb",
+        },
+    ],
+    placed_at: new Date().toISOString(),
+    order_number: "ORDER_123",
+    order_status: "PAID",
+});
