@@ -1,5 +1,5 @@
 import { BlockIconNormalized } from "@wordpress/blocks";
-import { dispatch, select } from "@wordpress/data";
+import { dispatch, select, StoreDescriptor } from "@wordpress/data";
 
 export * from "./components";
 export * from "./hooks";
@@ -12,7 +12,11 @@ declare module "@wordpress/data" {
     function select(key: "core/block-editor"): typeof import("./store/selectors");
 }
 
-export const store: any;
+export interface BlockEditorStoreDescriptor extends StoreDescriptor {
+  name: "core/block-editor";
+}
+
+export const store: BlockEditorStoreDescriptor;
 
 export type EditorBlockMode = "html" | "visual";
 export type EditorMode = "text" | "visual";
