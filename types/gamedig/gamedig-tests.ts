@@ -1,8 +1,7 @@
-import { GameDig, games, QueryResult } from "gamedig";
+import gd = require("gamedig");
 
-// TODO: refactor based on gamedig official example
 // direct usage from import
-GameDig.query(
+gd.GameDig.query(
     {
         type: "tf2",
         host: "127.0.0.1",
@@ -15,7 +14,7 @@ GameDig.query(
         debug: false,
         requestRules: true,
     },
-    (error: any, state: QueryResult) => {
+    (error: any, state: gd.QueryResult) => {
         if (error) throw error;
 
         const { name, map, password, maxplayers, players, bots, connect, ping, queryPort, numplayers } = state;
@@ -23,7 +22,7 @@ GameDig.query(
 );
 
 // usage from instance
-const gamedig = new GameDig();
+const gamedig = new gd.GameDig();
 gamedig.query(
     {
         type: "tf2",
@@ -40,7 +39,7 @@ gamedig.query(
         requestRulesRequired: true,
         requestPlayersRequired: true
     },
-    (error: any, state: QueryResult) => {
+    (error: any, state: gd.QueryResult) => {
         if (error) throw error;
 
         const { name, map, password, maxplayers, players, bots, connect, ping, queryPort, numplayers } = state;
@@ -48,6 +47,6 @@ gamedig.query(
 );
 
 // get the list of games
-for(const game of games) {
+for(const game of gd.games) {
     const name = `${game.name} (${game.release_year})`;
 }

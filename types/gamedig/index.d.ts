@@ -1,11 +1,11 @@
-export namespace GameDig {
+export namespace gamedig {
     class GameDig {
         constructor(runnerOpts?: { listenUdpPort?: number });
-        query(options: GameDig.QueryOptions): Promise<GameDig.QueryResult>;
-        query(options: GameDig.QueryOptions, callback: (error: Error, state: GameDig.QueryResult) => void): void;
+        query(options: gamedig.QueryOptions): Promise<gamedig.QueryResult>;
+        query(options: gamedig.QueryOptions, callback: (error: Error, state: gamedig.QueryResult) => void): void;
     
-        static query(options: GameDig.QueryOptions): Promise<GameDig.QueryResult>;
-        static query(options: GameDig.QueryOptions, callback: (error: Error, state: GameDig.QueryResult) => void): void;
+        static query(options: gamedig.QueryOptions): Promise<gamedig.QueryResult>;
+        static query(options: gamedig.QueryOptions, callback: (error: Error, state: gamedig.QueryResult) => void): void;
         static getInstance(): GameDig;
     }
 
