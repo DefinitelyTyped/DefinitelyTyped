@@ -27,34 +27,32 @@ declare namespace GameDig {
     }
 
     interface protocols {
-        [key: string]: any;
+        [key: string]: object;
     }
-
-    type Type = string;
 
     interface Player {
         name?: string;
+        raw?: object;
         ping?: number;
         score?: number;
         team?: string;
         address?: string;
-        raw?: object;
     }
 
     interface QueryOptions {
-        type: Type;
+        type: string;
         host: string;
-        port?: number;
         address?: string;
+        port?: number;
         maxRetries?: number;
         socketTimeout?: number;
         attemptTimeout?: number;
         givenPortOnly?: boolean;
+        ipFamily?: 0 | 4 | 6;
+        debug?: boolean;
         portCache?: boolean;
         stripColors?: boolean;
         noBreadthOrder?: boolean;
-        ipFamily?: 0 | 4 | 6;
-        debug?: boolean;
         // Valve
         requestRules?: boolean;
         requestRulesRequired?: boolean;
@@ -74,14 +72,14 @@ declare namespace GameDig {
         name: string;
         map: string;
         password: boolean;
+        numplayers: number;
         maxplayers: number;
         players: Player[];
         bots: Player[];
         connect: string;
         ping: number;
-        raw?: object;
         queryPort: number;
-        numplayers: number;
+        raw?: object;
     }
 }
 
