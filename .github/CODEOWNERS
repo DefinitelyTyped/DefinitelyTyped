@@ -289,6 +289,7 @@
 /types/apptimize__apptimize-web-sdk/                      @innovation-team @rlbaxter
 /types/arangodb/                                          @pluma
 /types/arbiter/                                           @arash16
+/types/arc4/                                              @hofmmaxi
 /types/arcgis-rest-api/                                   @JeffJacobson
 /types/arcgis-to-geojson-utils/                           @JeffJacobson
 /types/architect/                                         @greuze
@@ -320,6 +321,7 @@
 /types/array-sort/                                        @DanielMSchmidt
 /types/array-unique/                                      @CSLTech
 /types/array.from/                                        @ExE-Boss
+/types/array.prototype.every/                             @ljharb
 /types/array.prototype.flat/                              @kylejlin @ljharb
 /types/array.prototype.flatmap/                           @hallettj @ljharb
 /types/arrayify-stream/                                   @joachimvh
@@ -1745,72 +1747,72 @@
 /types/email-templates/                                   @cyrilschumacher @gurisko @blankstar85 @vesse @qqilihq @peterblazejewicz @ksewo
 /types/emailjs-mime-codec/                                @nicu-chiciuc
 /types/emartech__cls-adapter/                             @lexwebb
-/types/ember/                                             @chriskrycho @jamescdavis @wagenet @gitKrystan
-/types/ember/v2/                                          @bttf @dwickern @chriskrycho @theroncross @mfeckie @alexlafroscia @mike-north
-/types/ember/v3/                                          @bttf @dwickern @chriskrycho @theroncross @mfeckie @alexlafroscia @mike-north @BryanCrotaz @jamescdavis @gitKrystan
+/types/ember/                                             @jamescdavis @wagenet @gitKrystan
+/types/ember/v2/                                          @gitKrystan @jamescdavis @wagenet
+/types/ember/v3/                                          @gitKrystan @jamescdavis @wagenet
 /types/ember-changeset-validations/                       @elenagolovko
-/types/ember-cli-fastboot/                                @hmajoros @dfreeman @chriskrycho @jamescdavis
-/types/ember-data/                                        @dwickern @mike-north @chriskrycho @jamescdavis @runspired @wagenet @gitKrystan
-/types/ember-data/v2/                                     @dwickern @mike-north @chriskrycho
-/types/ember-data/v3/                                     @dwickern @mike-north @chriskrycho @jamescdavis @gitKrystan
-/types/ember-data__adapter/                               @chriskrycho @gitKrystan @jamescdavis @runspired @wagenet
-/types/ember-data__adapter/v3/                            @mike-north @chriskrycho @gitKrystan @jamescdavis
-/types/ember-data__model/                                 @jamescdavis @chriskrycho @gitKrystan
-/types/ember-data__model/v3/                              @mike-north @chriskrycho @gitKrystan @jamescdavis
-/types/ember-data__serializer/                            @chriskrycho @gitKrystan @jamescdavis @runspired @wagenet
-/types/ember-data__serializer/v3/                         @chriskrycho @gitKrystan @jamescdavis @mike-north
-/types/ember-data__store/                                 @chriskrycho @gitKrystan @jamescdavis @runspired @wagenet
-/types/ember-data__store/v3/                              @chriskrycho @gitKrystan @jamescdavis @mike-north
-/types/ember-feature-flags/                               @dfreeman @chriskrycho @jamescdavis
-/types/ember-feature-flags/v3/                            @tansongyang @mike-north @chriskrycho @jamescdavis @dfreeman
-/types/ember-mocha/                                       @simonihmig @dfreeman @chriskrycho @jamescdavis
-/types/ember-modal-dialog/                                @dfreeman @chriskrycho @jamescdavis
+/types/ember-cli-fastboot/                                @hmajoros @gitKrystan @jamescdavis @wagenet
+/types/ember-data/                                        @runspired @gitKrystan @jamescdavis @wagenet
+/types/ember-data/v2/                                     @gitKrystan @jamescdavis @wagenet
+/types/ember-data/v3/                                     @gitKrystan @jamescdavis @wagenet
+/types/ember-data__adapter/                               @gitKrystan @jamescdavis @wagenet
+/types/ember-data__adapter/v3/                            @gitKrystan @jamescdavis @wagenet
+/types/ember-data__model/                                 @gitKrystan @jamescdavis @wagenet
+/types/ember-data__model/v3/                              @gitKrystan @jamescdavis @wagenet
+/types/ember-data__serializer/                            @gitKrystan @jamescdavis @runspired @wagenet
+/types/ember-data__serializer/v3/                         @gitKrystan @jamescdavis @wagenet
+/types/ember-data__store/                                 @gitKrystan @jamescdavis @runspired @wagenet
+/types/ember-data__store/v3/                              @gitKrystan @jamescdavis @wagenet
+/types/ember-feature-flags/                               @gitKrystan @jamescdavis @wagenet
+/types/ember-feature-flags/v3/                            @tansongyang @gitKrystan @jamescdavis @wagenet
+/types/ember-mocha/                                       @simonihmig @gitKrystan @jamescdavis @wagenet
+/types/ember-modal-dialog/                                @gitKrystan @jamescdavis @wagenet
 /types/ember-modal-dialog/v2/                             @tansongyang @mike-north
 /types/ember-modal-service/                               @elenagolovko
 /types/ember-task-scheduler/                              @elenagolovko
-/types/ember-test-helpers/                                @dwickern @mike-north @chriskrycho @jamescdavis @gitKrystan
+/types/ember-test-helpers/                                @gitKrystan @jamescdavis @wagenet
 /types/ember-test-helpers/v0/                             @dwickern @mike-north
-/types/ember-testing-helpers/                             @chriskrycho @jamescdavis @dfreeman @mike-north
+/types/ember-testing-helpers/                             @gitKrystan @jamescdavis @wagenet
 /types/ember-useragent/                                   @camerondubas
-/types/ember__application/                                @chriskrycho @gitKrystan @jamescdavis @wagenet
-/types/ember__application/v3/                             @mike-north @chriskrycho @gitKrystan @jamescdavis
-/types/ember__array/                                      @chriskrycho @gitKrystan @jamescdavis @wagenet
-/types/ember__array/v3/                                   @mike-north @chriskrycho @gitKrystan @jamescdavis
-/types/ember__component/                                  @chriskrycho @gitKrystan @jamescdavis @wagenet
-/types/ember__component/v3/                               @mike-north @chriskrycho @gitKrystan @jamescdavis
-/types/ember__controller/                                 @chriskrycho @gitKrystan @jamescdavis @wagenet
-/types/ember__controller/v3/                              @mike-north @chriskrycho @gitKrystan @jamescdavis
-/types/ember__debug/                                      @chriskrycho @gitKrystan @jamescdavis @wagenet
-/types/ember__debug/v3/                                   @mike-north @chriskrycho @gitKrystan @jamescdavis
-/types/ember__destroyable/                                @chriskrycho @gitKrystan @jamescdavis @wagenet
-/types/ember__destroyable/v3/                             @mike-north @chriskrycho @gitKrystan @jamescdavis
-/types/ember__engine/                                     @chriskrycho @gitKrystan @jamescdavis @wagenet
-/types/ember__engine/v3/                                  @mike-north @chriskrycho @gitKrystan @jamescdavis
-/types/ember__error/                                      @chriskrycho @gitKrystan @jamescdavis @wagenet
-/types/ember__error/v3/                                   @mike-north @chriskrycho @gitKrystan @jamescdavis
-/types/ember__helper/                                     @chriskrycho @gitKrystan @jamescdavis @wagenet
-/types/ember__modifier/                                   @chriskrycho @gitKrystan @jamescdavis @wagenet
-/types/ember__object/                                     @chriskrycho @gitKrystan @jamescdavis @wagenet
-/types/ember__object/v3/                                  @mike-north @chriskrycho @gitKrystan @jamescdavis
-/types/ember__ordered-set/                                @chriskrycho @gitKrystan @jamescdavis @wagenet
-/types/ember__ordered-set/v3/                             @chriskrycho @mike-north @gitKrystan @jamescdavis
-/types/ember__owner/                                      @chriskrycho @gitKrystan @jamescdavis @wagenet
-/types/ember__polyfills/                                  @chriskrycho @gitKrystan @jamescdavis @wagenet
-/types/ember__polyfills/v3/                               @mike-north @chriskrycho @gitKrystan @jamescdavis
-/types/ember__routing/                                    @chriskrycho @gitKrystan @jamescdavis @wagenet
-/types/ember__routing/v3/                                 @mike-north @chriskrycho @gitKrystan @jamescdavis
-/types/ember__runloop/                                    @chriskrycho @gitKrystan @jamescdavis @wagenet
-/types/ember__runloop/v3/                                 @mike-north @scalvert @chriskrycho @gitKrystan @jamescdavis
-/types/ember__service/                                    @chriskrycho @gitKrystan @jamescdavis @wagenet
-/types/ember__service/v3/                                 @mike-north @chriskrycho @gitKrystan @jamescdavis
-/types/ember__string/                                     @chriskrycho @gitKrystan @jamescdavis @wagenet
-/types/ember__string/v2/                                  @mike-north @chriskrycho @gitKrystan @jamescdavis
-/types/ember__template/                                   @chriskrycho @gitKrystan @jamescdavis @wagenet
-/types/ember__template/v3/                                @mike-north @chriskrycho @gitKrystan @jamescdavis
-/types/ember__test/                                       @chriskrycho @gitKrystan @jamescdavis @wagenet
-/types/ember__test/v3/                                    @mike-north @chriskrycho @gitKrystan @jamescdavis
-/types/ember__utils/                                      @chriskrycho @gitKrystan @jamescdavis @wagenet
-/types/ember__utils/v3/                                   @mike-north @chriskrycho @gitKrystan @jamescdavis
+/types/ember__application/                                @gitKrystan @jamescdavis @wagenet
+/types/ember__application/v3/                             @gitKrystan @jamescdavis @wagenet
+/types/ember__array/                                      @gitKrystan @jamescdavis @wagenet
+/types/ember__array/v3/                                   @gitKrystan @jamescdavis @wagenet
+/types/ember__component/                                  @gitKrystan @jamescdavis @wagenet
+/types/ember__component/v3/                               @gitKrystan @jamescdavis @wagenet
+/types/ember__controller/                                 @gitKrystan @jamescdavis @wagenet
+/types/ember__controller/v3/                              @gitKrystan @jamescdavis @wagenet
+/types/ember__debug/                                      @gitKrystan @jamescdavis @wagenet
+/types/ember__debug/v3/                                   @gitKrystan @jamescdavis @wagenet
+/types/ember__destroyable/                                @gitKrystan @jamescdavis @wagenet
+/types/ember__destroyable/v3/                             @gitKrystan @jamescdavis @wagenet
+/types/ember__engine/                                     @gitKrystan @jamescdavis @wagenet
+/types/ember__engine/v3/                                  @gitKrystan @jamescdavis @wagenet
+/types/ember__error/                                      @gitKrystan @jamescdavis @wagenet
+/types/ember__error/v3/                                   @gitKrystan @jamescdavis @wagenet
+/types/ember__helper/                                     @gitKrystan @jamescdavis @wagenet
+/types/ember__modifier/                                   @gitKrystan @jamescdavis @wagenet
+/types/ember__object/                                     @gitKrystan @jamescdavis @wagenet
+/types/ember__object/v3/                                  @gitKrystan @jamescdavis @wagenet
+/types/ember__ordered-set/                                @gitKrystan @jamescdavis @wagenet
+/types/ember__ordered-set/v3/                             @gitKrystan @jamescdavis @wagenet
+/types/ember__owner/                                      @gitKrystan @jamescdavis @wagenet
+/types/ember__polyfills/                                  @gitKrystan @jamescdavis @wagenet
+/types/ember__polyfills/v3/                               @gitKrystan @jamescdavis @wagenet
+/types/ember__routing/                                    @gitKrystan @jamescdavis @wagenet
+/types/ember__routing/v3/                                 @gitKrystan @jamescdavis @wagenet
+/types/ember__runloop/                                    @gitKrystan @jamescdavis @wagenet
+/types/ember__runloop/v3/                                 @gitKrystan @jamescdavis @wagenet
+/types/ember__service/                                    @gitKrystan @jamescdavis @wagenet
+/types/ember__service/v3/                                 @gitKrystan @jamescdavis @wagenet
+/types/ember__string/                                     @gitKrystan @jamescdavis @wagenet
+/types/ember__string/v2/                                  @gitKrystan @jamescdavis @wagenet
+/types/ember__template/                                   @gitKrystan @jamescdavis @wagenet
+/types/ember__template/v3/                                @gitKrystan @jamescdavis @wagenet
+/types/ember__test/                                       @gitKrystan @jamescdavis @wagenet
+/types/ember__test/v3/                                    @gitKrystan @jamescdavis @wagenet
+/types/ember__utils/                                      @gitKrystan @jamescdavis @wagenet
+/types/ember__utils/v3/                                   @gitKrystan @jamescdavis @wagenet
 /types/emilbayes__capped-array/                           @BendingBender
 /types/emissary/                                          @vvakame
 /types/emmetio__implicit-tag/                             @rfverbruggen
@@ -3255,7 +3257,7 @@
 /types/html5-to-pdf/                                      @samalexander
 /types/html5plus/                                         @dcloudio
 /types/html_codesniffer/                                  @peterblazejewicz
-/types/htmlbars-inline-precompile/                        @dfreeman @jamescdavis @chriskrycho
+/types/htmlbars-inline-precompile/                        @gitKrystan @jamescdavis @wagenet
 /types/htmlhint/                                          @alan-agius4 @martin-badin
 /types/htmlparser2/                                       @staticfunction @LinusU @johandavidson @paambaati
 /types/htmltojsx/                                         @basarat
@@ -3306,6 +3308,7 @@
 /types/hystrixjs/                                         @igorsechyn
 /types/i18n/                                              @SomaticIT @FindQ @martin-badin
 /types/i18n-abide/                                        @smbell
+/types/i18n-iso-countries-regions/                        @haykelmahfoudhi
 /types/i18n-js/                                           @ypresto
 /types/i18next-fs-backend/                                @quantumlyy @favna
 /types/i18next-ko/                                        @dwaxweiler
@@ -5106,6 +5109,7 @@
 /types/nano-equal/                                        @1cheese
 /types/nanoajax/                                          @nathancahill
 /types/nanoassert/                                        @yoursunny @BendingBender
+/types/nanobench/                                         @EvanHahn
 /types/nanographql/                                       @cdaringe
 /types/nanoid-dictionary/                                 @kenelm007 @kripod
 /types/nanomsg/                                           @toebeann @titan
@@ -5443,6 +5447,7 @@
 /types/object-merge/                                      @OpenByteDev
 /types/object-path/                                       @pocesar @BendingBender
 /types/object-refs/                                       @3fd
+/types/object.entries/                                    @ljharb
 /types/object.fromentries/                                @ariofrio
 /types/object.getownpropertydescriptors/                  @VitorLuizC @ljharb @ExE-Boss
 /types/object.groupby/                                    @chilldriven @ljharb
@@ -6086,7 +6091,7 @@
 /types/quicksettings/                                     @janizde
 /types/quill/                                             @sumitkm @guillaume-ro-fr @43081j @AnielloFalcone @mhamri @TheLand @AmeerHamoodi
 /types/quixote/                                           @greybax
-/types/qunit/                                             @waratuman @mike-north @sechel @chriskrycho @gitKrystan @jamescdavis @Krinkle
+/types/qunit/                                             @waratuman @sechel @gitKrystan @jamescdavis @wagenet @Krinkle
 /types/qunit/v1/                                          @diullei
 /types/quoted-printable/                                  @pushplay
 /types/quotesy/                                           @natesilva
@@ -6141,7 +6146,7 @@
 /types/raven/                                             @scttcper @1999 @shreyjain1994
 /types/raven-for-redux/                                   @chiubaka
 /types/rax/                                               @solojiang @chenjun1011 @imsobear
-/types/raygun4js/                                         @krishnakapadia @BenjaminHarding @xt0rted
+/types/raygun4js/                                         @Hamish-taylor
 /types/rbac-a/                                            @tlaziuk
 /types/rbush/                                             @danvk @cmslewis
 /types/rc/                                                @DanielRosenwasser @BendingBender @kusyka911 @pulsovi
@@ -7064,7 +7069,7 @@
 /types/rsocket-websocket-client/                          @adrianhopebailie @olegdokuka @brycematheson1234
 /types/rsocket-websocket-server/                          @adrianhopebailie @olegdokuka
 /types/rss/                                               @secondwtq
-/types/rsvp/                                              @chriskrycho @mike-north
+/types/rsvp/                                              @gitKrystan @jamescdavis @wagenet
 /types/rsync/                                             @philippstucki
 /types/rtl-detect/                                        @imprevo
 /types/rtlcss/                                            @peterblazejewicz
@@ -7292,7 +7297,7 @@
 /types/server/                                            @sant123 @iddan @DazSanchez
 /types/server-destroy/                                    @gyszalai @xapdkop
 /types/server-timing-header/                              @peterblazejewicz
-/types/serverless/                                        @hassankhan @JonathanWilbur @a-pavlenko @fredericbarthelet @bryan-hunter @thomasaribart @G-Rath @AbdullahAli @fargito @bacarybruno
+/types/serverless/                                        @hassankhan @JonathanWilbur @a-pavlenko @fredericbarthelet @bryan-hunter @thomasaribart @G-Rath @AbdullahAli @fargito @bacarybruno @domazet93
 /types/serverless-jest-plugin/                            @Gaelan
 /types/serverless-step-functions/                         @zirkelc @ebisbe
 /types/serverless-tencent-scf/                            @yaozulv
@@ -8623,6 +8628,7 @@
 /types/wordpress__wordcount/                              @dsifford
 /types/words-to-time-converter/                           @peterblazejewicz
 /types/wordwrap/                                          @ark120202
+/types/wordwrapjs/                                        @stoyan-karev
 /types/workbox-sw/                                        @wessberg @JasonHK
 /types/workbox-sw/v3/                                     @wessberg
 /types/worker-plugin/                                     @arturovt @peterblazejewicz
