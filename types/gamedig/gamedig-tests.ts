@@ -1,7 +1,7 @@
-import gd = require("gamedig");
+import gamedig = require("gamedig");
 
 // direct usage from import
-gd.GameDig.query(
+gamedig.GameDig.query(
     {
         type: "tf2",
         host: "127.0.0.1",
@@ -17,7 +17,7 @@ gd.GameDig.query(
         requestRulesRequired: true,
         requestPlayersRequired: true
     },
-    (error: any, state: gd.QueryResult) => {
+    (error: any, state: gamedig.QueryResult) => {
         if (error) throw error;
 
         const { name, map, password, maxplayers, players, bots, connect, ping, queryPort, numplayers } = state;
@@ -25,8 +25,8 @@ gd.GameDig.query(
 );
 
 // usage from instance
-const gamedig = new gd.GameDig();
-gamedig.query(
+const gd = new gamedig.GameDig();
+gd.query(
     {
         type: "tf2",
         host: "127.0.0.1",
@@ -42,7 +42,7 @@ gamedig.query(
         requestRulesRequired: true,
         requestPlayersRequired: true
     },
-    (error: any, state: gd.QueryResult) => {
+    (error: any, state: gamedig.QueryResult) => {
         if (error) throw error;
 
         const { name, map, password, maxplayers, players, bots, connect, ping, queryPort, numplayers } = state;
@@ -50,6 +50,11 @@ gamedig.query(
 );
 
 // get the list of games
-for(const type in gd.games) {
-    const name = `${gd.games[type].name} (${gd.games[type].release_year})`;
+for(const type in gamedig.games) {
+    const name = `${gamedig.games[type].name} (${gamedig.games[type].release_year})`;
+}
+
+// get the list of protocols
+for(const type in gamedig.protocols) {
+    const name = `protocol-${type}`;
 }
