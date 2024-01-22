@@ -3241,6 +3241,11 @@ declare namespace cytoscape {
          * edges from source to target (default false).
          */
         directed: boolean;
+        /**
+         * Indicating whether the algorithm should find and return
+         * negative weight cycles (default true).
+         */
+        findNegativeWeightCycles?: boolean;
     }
     /**
      * http://js.cytoscape.org/#eles.bellmanFord
@@ -3260,6 +3265,12 @@ declare namespace cytoscape {
 
         /* true/false. If true, pathTo and distanceTo will be undefined */
         hasNegativeWeightCycle: boolean;
+
+        /**
+         * array of collections corresponding to the negative weight cycles found
+         * (only populated if the findNegativeWeightCycles option is set to true)
+         */
+        negativeWeightCycles: CollectionReturnValue[];
     }
 
     /**
