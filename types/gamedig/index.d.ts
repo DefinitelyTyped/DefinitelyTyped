@@ -21,6 +21,7 @@ export interface games {
         };
         extra?: {
             doc_notes?: string;
+            old_id?: string;
         };
     };
 }
@@ -52,6 +53,7 @@ export interface QueryOptions {
     portCache?: boolean;
     stripColors?: boolean;
     noBreadthOrder?: boolean;
+    skipOldIDs?: boolean;
     // Valve
     requestRules?: boolean;
     requestRulesRequired?: boolean;
