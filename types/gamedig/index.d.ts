@@ -1,35 +1,73 @@
-declare class Gamedig {
-    constructor(runnerOpts?: { listenUdpPort?: number | undefined });
-    query(options: Gamedig.QueryOptions): Promise<Gamedig.QueryResult>;
-    query(options: Gamedig.QueryOptions, callback: (error: Error, state: Gamedig.QueryResult) => void): void;
+declare namespace GameDig {
+    class GameDig {
+        constructor(runnerOpts?: { listenUdpPort?: number });
+        query(options: GameDig.QueryOptions): Promise<GameDig.QueryResult>;
+        query(options: GameDig.QueryOptions, callback: (error: Error, state: GameDig.QueryResult) => void): void;
+    
+        static query(options: GameDig.QueryOptions): Promise<GameDig.QueryResult>;
+        static query(options: GameDig.QueryOptions, callback: (error: Error, state: GameDig.QueryResult) => void): void;
+        static getInstance(): GameDig;
+    }
 
-    static query(options: Gamedig.QueryOptions): Promise<Gamedig.QueryResult>;
-    static query(options: Gamedig.QueryOptions, callback: (error: Error, state: Gamedig.QueryResult) => void): void;
-    static getInstance(): Gamedig;
-}
-declare namespace Gamedig {
+    interface games {
+        [key: string]: {
+            name: string;
+            release_year: number;
+            options: {
+                protocol: string;
+                port?: number;
+                query_port?: number;
+                port_query?: number;
+                port_query_offset?: number;
+            },
+            extra?: {
+                doc_notes?: string;
+            }
+        };
+    }
+
+    interface protocols {
+        [key: string]: any;
+    }
+
     type Type = string;
 
     interface Player {
-        name?: string | undefined;
-        ping?: number | undefined;
-        score?: number | undefined;
-        team?: string | undefined;
-        address?: string | undefined;
-        raw?: object | undefined;
+        name?: string;
+        ping?: number;
+        score?: number;
+        team?: string;
+        address?: string;
+        raw?: object;
     }
 
     interface QueryOptions {
         type: Type;
         host: string;
-        port?: number | undefined;
-        maxAttempts?: number | undefined;
-        socketTimeout?: number | undefined;
-        attemptTimeout?: number | undefined;
-        givenPortOnly?: boolean | undefined;
-        ipFamily?: 0 | 4 | 6 | undefined;
-        debug?: boolean | undefined;
-        requestRules?: boolean | undefined;
+        port?: number;
+        address?: string;
+        maxRetries?: number;
+        socketTimeout?: number;
+        attemptTimeout?: number;
+        givenPortOnly?: boolean;
+        portCache?: boolean;
+        stripColors?: boolean;
+        noBreadthOrder?: boolean;
+        ipFamily?: 0 | 4 | 6;
+        debug?: boolean;
+        // Valve
+        requestRules?: boolean;
+        requestRulesRequired?: boolean;
+        requestPlayersRequired?: boolean;
+        // Discord
+        guildId?: string;
+        // Nadeo
+        login?: string;
+        password?: string;
+        // Teamspeak 3
+        teamspeakQueryPort?: number;
+        // Terraria
+        token?: string;
     }
 
     interface QueryResult {
@@ -41,7 +79,10 @@ declare namespace Gamedig {
         bots: Player[];
         connect: string;
         ping: number;
-        raw?: object | undefined;
+        raw?: object;
+        queryPort: number;
+        numplayers: number;
     }
 }
-export = Gamedig;
+
+export = GameDig;
