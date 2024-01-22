@@ -90,6 +90,17 @@ declare namespace Tagify {
         fuzzySearch: boolean;
 
         /**
+         * If set to `startsWith`, the suggestions list will be sorted with matched items
+         * which starts with the query shown first, and exact matches shown before all.
+         *
+         * If this setting is defined as a function, it receives the filtered items and
+         * the query, and it must return the sorted items.
+         *
+         * (default sorting order is same as the whitelist's)
+         */
+        sortby: "startsWith" | ((items: T[], query: string) => T[]);
+
+        /**
          * Enable searching for accented items in the whitelist without typing exact match.
          * @default true
          */

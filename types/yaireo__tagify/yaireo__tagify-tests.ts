@@ -364,6 +364,7 @@ const settings: TagifySettings = {
         maxItems: 5,
         classname: "form-control",
         fuzzySearch: false,
+        sortby: "startsWith",
         accentedSearch: false,
         includeSelectedTags: true,
         escapeHTML: true,
@@ -483,6 +484,9 @@ settings.dropdown = {
     enabled: false,
     position: "input",
     mapValueTo: (data) => "To:" + data.email,
+    sortby: (items: TagData[], query: string) => {
+        return items.filter((tag) => tag.value === query);
+    },
 };
 
 typedSettings.dropdown = {
