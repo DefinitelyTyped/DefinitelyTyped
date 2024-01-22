@@ -13,7 +13,7 @@ declare module "@wordpress/data" {
 }
 
 export interface BlockEditorStoreDescriptor extends StoreDescriptor {
-  name: "core/block-editor";
+    name: "core/block-editor";
 }
 
 export const store: BlockEditorStoreDescriptor;
