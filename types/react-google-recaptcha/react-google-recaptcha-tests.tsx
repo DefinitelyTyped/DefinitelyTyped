@@ -42,5 +42,14 @@ const isolatedReacaptcha2: React.FC = () => {
         }
     };
 
-    return <ReCAPTCHA2 ref={recaptchaRef} sitekey="xxx" size="normal" grecaptcha={{}} className="mockclass" isolated={true}/>;
+    return (
+        <ReCAPTCHA2
+            ref={recaptchaRef}
+            sitekey="xxx"
+            size="normal"
+            grecaptcha={{}}
+            className="mockclass"
+            isolated={true}
+        />
+    );
 };
