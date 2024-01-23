@@ -109,7 +109,6 @@ declare namespace Hubot {
     }
 
     interface Envelope {
-        id: string;
         room: string;
         user: User;
         message: Message;
