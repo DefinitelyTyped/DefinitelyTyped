@@ -11,4 +11,11 @@ declare module 'hubot' {
         presenceChange(matcher: (message: Message) => boolean, callback: ListenerCallback<SlackBot>): void;
         fileShared(matcher: (message: Message) => boolean, callback: ListenerCallback<SlackBot>): void;
     }
+    
+    interface Envelope {
+        id: string;
+        room: string;
+        user: User;
+        message: Message;
+    }
 }
