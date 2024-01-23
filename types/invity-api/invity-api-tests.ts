@@ -13,7 +13,10 @@ const bt: BuyTrade = {
     paymentMethodName: "Test",
 };
 
-const et: ExchangeTrade = {};
+const et: ExchangeTrade = {
+    send: 'BTC',
+    receive: 'USDT@ETH',
+};
 
 const sft: SellFiatTrade = {
     paymentMethodName: "Test",
