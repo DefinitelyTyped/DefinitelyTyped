@@ -14,8 +14,8 @@ const bt: BuyTrade = {
 };
 
 const et: ExchangeTrade = {
-    send: 'BTC',
-    receive: 'USDT@ETH',
+    send: "BTC",
+    receive: "USDT@ETH",
 };
 
 const sft: SellFiatTrade = {
