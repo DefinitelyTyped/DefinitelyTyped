@@ -1,8 +1,10 @@
+export as namespace Validate;
+
 export function useValidate(): {
     validateSingleSync: <T extends string>(input: ValidateInputType<T, T>, inputs?: any) => ValidateInputType<T, T>;
-    validateSingle: <T_1 extends string>(input: ValidateInputType<T_1, T_1>, inputs?: any) => Promise<ValidateInputType<T_1, T_1>>;
-    validateManySync: <T_2 extends string>(inputs: InputsToValidateType<T_2>) => boolean;
-    validateMany: <T_3 extends string>(inputs: InputsToValidateType<T_3>) => Promise<boolean>;
+    validateSingle: <T extends string>(input: ValidateInputType<T, T>, inputs?: any) => Promise<ValidateInputType<T, T>>;
+    validateManySync: (inputs: InputsToValidateType<string>) => boolean;
+    validateMany: (inputs: InputsToValidateType<string>) => Promise<boolean>;
 };
 
 export type InputsToValidateType<T extends string> = {
@@ -38,5 +40,4 @@ export interface Validation {
     conditional: boolean | RegExpMatchArray | null | Promise<boolean | string>;
     message: string;
 }
-
 

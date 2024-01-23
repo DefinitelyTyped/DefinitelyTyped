@@ -1,9 +1,8 @@
-import { InputsToValidateType, ValidateInputType } from ".";
+import { InputsToValidateType, ValidateInputType } from "validate-hook";
 
-/** This is a description of the foo function. */
 export function useValidate() {
-    function validateManySync<T extends string>(
-        inputs: InputsToValidateType<T>,
+    function validateManySync(
+        inputs: InputsToValidateType<string>,
     ) {
         let isValid = onCheckManyRequired(inputs);
         if (!isValid) return isValid;
@@ -14,8 +13,8 @@ export function useValidate() {
         return isValid;
     }
 
-    async function validateMany<T extends string>(
-        inputs: InputsToValidateType<T>,
+    async function validateMany(
+        inputs: InputsToValidateType<string>,
     ) {
         let isValid = onCheckManyRequired(inputs);
         if (!isValid) return isValid;
@@ -48,7 +47,7 @@ export function useValidate() {
     ) {
         validateSync(input, inputs);
         crossfieldValidate(input, inputs);
-        if (input.errors.length > 0) return input; //IF INPUT HAS ERRORS IT DOESN'T JUMP TO THE NEXT STEP
+        if (input.errors.length > 0) return input;
         await validate(input, inputs);
         return input;
     }
@@ -101,7 +100,7 @@ export function useValidate() {
         const { attributes, required } = input;
         if (!attributes.value && required?.value) {
             if (!required.message) {
-                input.errors.push(''); //PUTTING AN EMPTY STRING TO IDENTIFY THE INPUT AS REQUIRED
+                input.errors.push('');
                 return true;
             }
             input.errors.push(required.message);
@@ -110,8 +109,8 @@ export function useValidate() {
         return false;
     }
 
-    function onCheckManyRequired<T extends string>(
-        inputs: InputsToValidateType<T>,
+    function onCheckManyRequired(
+        inputs: InputsToValidateType<string>,
     ) {
         let isValid = true;
         for (const i in inputs) {
