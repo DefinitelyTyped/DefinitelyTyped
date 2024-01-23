@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/marked-terminal",
-    "version": "6.0.9999",
+    "version": "6.1.9999",
     "projects": [
         "https://github.com/mikaelbr/marked-terminal"
     ],
@@ -17,7 +17,7 @@
         "@types/cardinal": "^2.1",
         "@types/node": "*",
         "chalk": "^5.3.0",
-        "marked": ">=6.0.0 <10"
+        "marked": ">=6.0.0 <12"
     },
     "devDependencies": {
         "@types/marked-terminal": "workspace:."
