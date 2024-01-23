@@ -117,7 +117,7 @@ declare namespace Hubot {
     class Response<
         A extends Adapter = Adapter,
         M extends Message = Message,
-        R extends RegExpMatchArray | { [key: string]: string } = RegExpMatchArray
+        R extends RegExpMatchArray | { [key: string]: string } = RegExpMatchArray,
     > {
         robot: Robot<A>;
         match: R;
@@ -137,7 +137,7 @@ declare namespace Hubot {
     }
 
     type ListenerCallback<A extends Adapter = Adapter, M extends Message = Message> = (
-        response: Response<A, M>
+        response: Response<A, M>,
     ) => void;
     type DoneFunction = () => void;
     type NextFunction = (done: DoneFunction) => void;
@@ -148,7 +148,7 @@ declare namespace Hubot {
     type MiddlewareHandler<T extends Adapter = Adapter> = (
         context: MiddlewareContext<T>,
         next: NextFunction,
-        done: DoneFunction
+        done: DoneFunction,
     ) => void;
 
     interface LogLevel {

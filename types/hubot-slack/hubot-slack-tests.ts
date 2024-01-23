@@ -1,5 +1,5 @@
+import { Brain, Message, Robot, User } from "hubot";
 import { SlackBot } from "hubot-slack";
-import { Robot, User, Message, Brain } from 'hubot';
 
 const user = new User("123");
 const message = new Message(user);
@@ -38,7 +38,7 @@ robot.receiveMiddleware((context, next, done) => {
 // $ExpectType void
 robot.reply(
     {
-        id: '123',
+        id: "123",
         message,
         user,
         room: "general",
@@ -55,7 +55,7 @@ robot.run(); // $ExpectType void
 // $ExpectType void
 robot.send(
     {
-        id: '123',
+        id: "123",
         message,
         user,
         room: "general",
