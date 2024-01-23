@@ -7342,6 +7342,7 @@ declare namespace chrome.runtime {
         | "tts"
         | "ttsEngine"
         | "unlimitedStorage"
+        | "userScripts"
         | "vpnProvider"
         | "wallpaper"
         | "webNavigation"
