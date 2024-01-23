@@ -310,6 +310,6 @@ declare module "module" {
     export = Module;
 }
 declare module "node:module" {
-    import module = require("module");
+    import type module = require("module");
     export = module;
 }

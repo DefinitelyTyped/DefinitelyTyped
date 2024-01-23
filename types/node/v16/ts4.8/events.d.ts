@@ -644,6 +644,6 @@ declare module "events" {
     export = EventEmitter;
 }
 declare module "node:events" {
-    import events = require("events");
+    import type events = require("events");
     export = events;
 }

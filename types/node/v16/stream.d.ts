@@ -1489,6 +1489,6 @@ declare module "stream" {
     export = internal;
 }
 declare module "node:stream" {
-    import stream = require("stream");
+    import type stream = require("stream");
     export = stream;
 }
