@@ -1,10 +1,16 @@
 {
     "name": "validate-form",
     "version": "0.1.0",
-    "description": "types",
-    "main": "index.d.ts",
-    "author": "jon1",
-    "dependencies": {
-      "packages": "^0.0.1"
-    }
+    "projects": [
+        "https://github.com/jon1Santos-JS/validate-form"
+    ],
+    "devDependencies": {
+        "@types/validate-hook": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "João Paulo",
+            "githubUsername": "jon1Santos"
+        }
+    ]
 }
