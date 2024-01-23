@@ -1,6 +1,6 @@
 import { contextDiff, Differ, SequenceMatcher, unifiedDiff } from "difflib";
 
-const isJunk = (x: string) => false; 
+const isJunk = (x: string) => false;
 const sequenceMatcher = new SequenceMatcher(isJunk, ["first", "second"], ["third", "fourth"]);
 // $ExpectType ((char: string) => boolean) | undefined
 const setSeqs = sequenceMatcher.setSeqs(["five", "six"], ["seven", "eight"]);
