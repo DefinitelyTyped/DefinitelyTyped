@@ -1,6 +1,6 @@
 {
     "private": true,
-    "name": "validate-form",
+    "name": "@types/validate-hook",
     "version": "0.1.0",
     "projects": [
         "https://github.com/jon1Santos-JS/validate-form"
