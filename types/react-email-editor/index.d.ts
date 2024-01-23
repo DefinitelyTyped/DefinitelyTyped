@@ -6,12 +6,12 @@ export interface AppearanceConfig {
     readonly theme?: ThemeColor | undefined;
     readonly panels?:
         | {
-            readonly tools?:
-                | {
-                    readonly dock: DockPosition;
-                }
-                | undefined;
-        }
+              readonly tools?:
+                  | {
+                        readonly dock: DockPosition;
+                    }
+                  | undefined;
+          }
         | undefined;
 }
 
@@ -131,6 +131,15 @@ export interface UnlayerOptions {
     readonly features?: Features | undefined;
     readonly translations?: Translations | undefined;
     readonly displayConditions?: DisplayCondition[] | undefined;
+    readonly tabs?: {
+        [tabName: string]: {
+            enabled?: boolean;
+            type?: string;
+            position?: number;
+            icon?: string;
+            active?: boolean;
+        };
+    };
 }
 
 export interface EmailEditorProps {
@@ -184,7 +193,7 @@ export type FileUploadDoneCallback = (data: FileUploadDoneData) => void;
 export type DisplayConditionDoneCallback = (data: DisplayCondition | null) => void;
 export type DisplayConditionCallback = (
     data: DisplayCondition | EmptyDisplayCondition,
-    done: DisplayConditionDoneCallback,
+    done: DisplayConditionDoneCallback
 ) => void;
 
 export default class Component extends ReactComponent<EmailEditorProps> {
