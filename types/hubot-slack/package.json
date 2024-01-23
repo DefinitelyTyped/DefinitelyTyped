@@ -15,9 +15,5 @@
         "@types/hubot-slack": "workspace:."
     },
     "owners": [
-        {
-            "name": "Matt O'Keefe",
-            "githubUsername": "o-mutt"
-        }
     ]
 }
