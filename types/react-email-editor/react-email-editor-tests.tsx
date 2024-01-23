@@ -98,11 +98,10 @@ class App extends React.Component {
                 done({
                     progress: 100,
                     url: `http://example.com/${file.attachments[0].name}`,
-                })
-            );
+                }));
             this.editorRef.current.registerCallback(
                 "displayCondition",
-                (data: DisplayCondition | EmptyDisplayCondition, done: DisplayConditionDoneCallback) => done(null)
+                (data: DisplayCondition | EmptyDisplayCondition, done: DisplayConditionDoneCallback) => done(null),
             );
             this.editorRef.current.registerCallback(
                 "displayCondition",
@@ -113,7 +112,7 @@ class App extends React.Component {
                         description: "description",
                         before: "before",
                         after: "after",
-                    })
+                    }),
             );
             this.editorRef.current.setMergeTags([simpleMergeTag, groupedMergeTag, conditionalMergeTag]);
         }
@@ -130,7 +129,7 @@ class App extends React.Component {
                 {
                     cleanup: true,
                     minify: true,
-                }
+                },
             );
         }
     };
