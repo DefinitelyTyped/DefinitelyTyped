@@ -3,6 +3,7 @@ import { Adyen } from './adyen';
 import { BankRedirect } from './bank-redirect';
 import { AlternativePaymentMethods } from './alternative-payment-methods';
 import { ApplePay } from './apple-pay/index';
+import { AmazonPay } from './amazon-pay';
 import { BankAccount } from './bank-account';
 import { Configure } from './configure';
 import { Elements } from './elements';
@@ -88,6 +89,13 @@ export interface Recurly extends Emitter<RecurlyEvent> {
    * @see {@link https://developers.recurly.com/reference/recurly-js/index.html#paypal|PayPal}
    */
   PayPal: PayPal;
+
+  /**
+   * Use Recurly to process Amazon Pay v2 transactions
+   *
+   * @see {@link https://recurly.com/developers/reference/recurly-js/index.html#amazon-pay-v2|AmazonPay}
+   */
+  AmazonPay: AmazonPay;
 
   /**
    * Recurly automates complicated subscriptions, with many factors influencing the total price at checkout. With this
