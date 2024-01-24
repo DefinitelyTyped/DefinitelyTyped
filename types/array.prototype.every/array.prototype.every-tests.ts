@@ -16,6 +16,13 @@ getPolyfill() === Array.prototype.every; // $ExpectType boolean
 // `shim` installs an implementation in `Array` prototype and returns it
 shim() === Array.prototype.every; // $ExpectType boolean
 
+(function(...args: unknown[]): void {
+    // $ExpectType boolean
+    every(arguments, function() {
+        return true;
+    });
+})(1, 2, "3");
+
 //  `getPolyfill`, `implementation`, and `shim` are properties of the `every` function.
 const _getPolyfill: typeof getPolyfill = every.getPolyfill;
 const _implementation: typeof implementation = every.implementation;
