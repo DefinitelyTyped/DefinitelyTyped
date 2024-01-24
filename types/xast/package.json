@@ -2,7 +2,7 @@
     "private": true,
     "name": "@types/xast",
     "version": "2.0.9999",
-    "nonNpm": true,
+    "nonNpm": "conflict",
     "nonNpmDescription": "xast",
     "projects": [
         "https://github.com/syntax-tree/xast"
