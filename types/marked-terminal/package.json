@@ -7,11 +7,13 @@
     ],
     "type": "module",
     "exports": {
-        "node": {
-            "import": "./index.d.ts",
-            "require": "./index.d.cts"
+        ".": {
+            "types": {
+                "import": "./index.d.ts",
+                "default": "./index.d.cts"
+            }
         },
-        "default": "./index.d.ts"
+        "./package.json": "./package.json"
     },
     "dependencies": {
         "@types/cardinal": "^2.1",
