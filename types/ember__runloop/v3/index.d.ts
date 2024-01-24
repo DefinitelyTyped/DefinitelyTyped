@@ -266,3 +266,5 @@ export const once: typeof run.once;
 export const schedule: typeof run.schedule;
 export const scheduleOnce: typeof run.scheduleOnce;
 export const throttle: typeof run.throttle;
+
+export type Timer = string | number;
