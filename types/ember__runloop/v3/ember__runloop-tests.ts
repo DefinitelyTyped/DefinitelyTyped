@@ -1,12 +1,10 @@
 import EmberObject from "@ember/object";
-import { run, Timer } from "@ember/runloop";
+import { run } from "@ember/runloop";
 import { Backburner, DebugInfo, DeferredActionQueues, QueueItem } from "@ember/runloop/-private/backburner";
 
 run; // $ExpectType RunNamespace
 run.queues; // $ExpectType EmberRunQueues[]
 const queues: string[] = run.queues;
-
-Timer; // $ExpectType string | number
 
 // It will be the responsibility of each consuming package that needs access to the backburner property
 // to merge the private types in the public API.

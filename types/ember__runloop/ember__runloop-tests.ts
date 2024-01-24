@@ -15,8 +15,11 @@ import {
     schedule,
     scheduleOnce,
     throttle,
+    Timer,
 } from "@ember/runloop";
 import { Backburner, DebugInfo, DeferredActionQueues, QueueItem } from "@ember/runloop/-private/backburner";
+
+Timer; // $ExpectType string | number
 
 // It will be the responsibility of each consuming package that needs access to the backburner property
 // to merge the private types in the public API.
