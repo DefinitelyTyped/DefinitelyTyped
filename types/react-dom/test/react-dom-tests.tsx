@@ -423,6 +423,52 @@ function pipeableStreamDocumentedExample() {
 }
 
 /**
+ * source: https://react.dev/reference/react-dom/server/renderToPipeableStream
+ */
+function pipeableStreamDocumentedStringExample() {
+    function App() {
+        return null;
+    }
+
+    interface Response extends NodeJS.WritableStream {
+        send(content: string): void;
+        setHeader(key: string, value: unknown): void;
+        statusCode: number;
+    }
+
+    let didError = false;
+    const response: Response = {} as any;
+    const { pipe, abort } = ReactDOMServer.renderToPipeableStream("app", {
+        bootstrapScripts: ["/main.js"],
+        onShellReady() {
+            response.statusCode = didError ? 500 : 200;
+            response.setHeader("content-type", "text/html");
+            pipe(response);
+        },
+        onShellError(error) {
+            response.statusCode = 500;
+            response.setHeader("content-type", "text/html");
+            response.send("<h1>Something went wrong</h1>");
+        },
+        onAllReady() {},
+        onError(err) {
+            didError = true;
+            console.error(err);
+        },
+    });
+
+    setTimeout(() => {
+        // $ExpectType void
+        abort();
+    }, 1000);
+
+    setTimeout(() => {
+        // $ExpectType void
+        abort("timeout");
+    }, 1000);
+}
+
+/**
  * source: https://reactjs.org/docs/react-dom-server.html#rendertoreadablestream
  */
 async function readableStreamDocumentedExample() {
@@ -433,6 +479,38 @@ async function readableStreamDocumentedExample() {
             <html>
                 <body>Success</body>
             </html>,
+            {
+                signal: controller.signal,
+                onError(error) {
+                    didError = true;
+                    console.error(error);
+                },
+            },
+        );
+
+        await stream.allReady;
+
+        return new Response(stream, {
+            status: didError ? 500 : 200,
+            headers: { "Content-Type": "text/html" },
+        });
+    } catch (error) {
+        return new Response("<!doctype html><p>Loading...</p><script src=\"clientrender.js\"></script>", {
+            status: 500,
+            headers: { "Content-Type": "text/html" },
+        });
+    }
+}
+
+/**
+ * source: https://reactjs.org/docs/react-dom-server.html#rendertoreadablestream
+ */
+async function readableStreamDocumentedStringExample() {
+    const controller = new AbortController();
+    let didError = false;
+    try {
+        const stream = await ReactDOMServer.renderToReadableStream(
+            "app",
             {
                 signal: controller.signal,
                 onError(error) {
