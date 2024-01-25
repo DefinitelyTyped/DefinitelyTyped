@@ -1442,24 +1442,7 @@ export interface ISubscriptionExistingCustomer {
     initialize(data: ISubscriptionExistingCustomerInitializeRequestData, callback: (err: Error, result: ISubscriptionExistingCustomerInitializeResult) => void): void;
 }
 
-
-export namespace Iyzipay {
-    const LOCALE: ILOCALE;
-    const PAYMENT_GROUP: IPAYMENT_GROUP;
-    const BASKET_ITEM_TYPE: IBASKET_ITEM_TYPE;
-    const PAYMENT_CHANNEL: IPAYMENT_CHANNEL;
-    const SUB_MERCHANT_TYPE: ISUB_MERCHANT_TYPE;
-    const CURRENCY: ICURRENCY;
-    const APM_TYPE: IAPM_TYPE;
-    const REFUND_REASON: IREFUND_REASON;
-    const PLAN_PAYMENT_TYPE: IPLAN_PAYMENT_TYPE;
-    const SUBSCRIPTION_PRICING_PLAN_INTERVAL: ISUBSCRIPTION_PRICING_PLAN_INTERVAL;
-    const SUBSCRIPTION_UPGRADE_PERIOD: ISUBSCRIPTION_UPGRADE_PERIOD;
-    const SUBSCRIPTION_STATUS: ISUBSCRIPTION_STATUS;
-    const SUBSCRIPTION_INITIAL_STATUS: ISUBSCRIPTION_INITIAL_STATUS;
-}
-
-export declare class Iyzipay {
+export class Iyzipay {
     constructor(options?: IConfigOptions);
     apiTest: IApiTest;
     approval: IApproval;
@@ -1496,3 +1479,22 @@ export declare class Iyzipay {
     subscriptionCheckoutForm: ISubscriptionCheckoutForm;
     subscriptionExistingCustomer: ISubscriptionExistingCustomer;
 }
+
+export namespace Iyzipay {
+    const LOCALE: ILOCALE;
+    const PAYMENT_GROUP: IPAYMENT_GROUP;
+    const BASKET_ITEM_TYPE: IBASKET_ITEM_TYPE;
+    const PAYMENT_CHANNEL: IPAYMENT_CHANNEL;
+    const SUB_MERCHANT_TYPE: ISUB_MERCHANT_TYPE;
+    const CURRENCY: ICURRENCY;
+    const APM_TYPE: IAPM_TYPE;
+    const REFUND_REASON: IREFUND_REASON;
+    const PLAN_PAYMENT_TYPE: IPLAN_PAYMENT_TYPE;
+    const SUBSCRIPTION_PRICING_PLAN_INTERVAL: ISUBSCRIPTION_PRICING_PLAN_INTERVAL;
+    const SUBSCRIPTION_UPGRADE_PERIOD: ISUBSCRIPTION_UPGRADE_PERIOD;
+    const SUBSCRIPTION_STATUS: ISUBSCRIPTION_STATUS;
+    const SUBSCRIPTION_INITIAL_STATUS: ISUBSCRIPTION_INITIAL_STATUS;
+}
+
+
+export default Iyzipay;
