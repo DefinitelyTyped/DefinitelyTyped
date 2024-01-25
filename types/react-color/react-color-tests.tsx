@@ -26,6 +26,10 @@ interface CustomProps extends InjectedColorProps {
 }
 
 const CustomComponent: FunctionComponent<CustomProps> = (props: CustomProps) => {
+
+    function customPointer({ direction }: { direction?: "vertical" } = {}) {
+        return <div className={`custom-cn ${direction === 'vertical' ? 'custom-cn' : 'custom-cn'}`} />;
+    }
     function onChange(color: ColorResult, event: React.ChangeEvent<HTMLInputElement>) {
         console.log(color, event);
     }
@@ -35,7 +39,7 @@ const CustomComponent: FunctionComponent<CustomProps> = (props: CustomProps) => 
             <Alpha color={props.color} onChange={onChange} />
             <Checkboard size={10} white="transparent" grey="#333" />
             <EditableInput value={props.color} label="Test" onChange={onChange} />
-            <Hue color={props.color} direction="horizontal" onChange={onChange} />
+            <Hue color={props.color} direction="horizontal" onChange={onChange} pointer={customPointer} />
             <Saturation color={props.color} onChange={onChange} />
         </div>
     );
