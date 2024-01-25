@@ -1,10 +1,6 @@
 {
   "name": "@types/iyzipay",
   "version": "2.0.48",
-  "main": "index.d.ts",
-  "types": "index.d.ts",
-  "author": "Can Gökçeaslan <cangokceaslan@hotmail.com> (https://www.cangokceaslan.com/)",
-  "license": "MIT",
   "repository": "https://www.github.com/cangokceaslan/iyzipay-types",
   "scripts": {},
   "dependencies": {},
