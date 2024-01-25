@@ -1,7 +1,6 @@
 {
   "name": "@types/iyzipay",
   "version": "2.0.48",
-  "description": "TypeScript definitions for npm iyzipay package",
   "main": "index.d.ts",
   "types": "index.d.ts",
   "author": "Can Gökçeaslan <cangokceaslan@hotmail.com> (https://www.cangokceaslan.com/)",
