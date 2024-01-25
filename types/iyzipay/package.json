@@ -1,10 +1,4 @@
 {
   "name": "@types/iyzipay",
-  "version": "2.0.48",
-  "repository": "https://www.github.com/cangokceaslan/iyzipay-types",
-  "scripts": {},
-  "dependencies": {},
-  "peerDependencies": {
-    "typescript": "^5.3.3"
-  }
+  "version": "2.0.48"
 }
