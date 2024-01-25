@@ -10,50 +10,50 @@
 
 
 /* ENUMARATIONS */
-type LOCALE = 'tr' | 'en';
+export type LOCALE = 'tr' | 'en';
 
-type PAYMENT_GROUP = 'PRODUCT' | 'LISTING' | 'SUBSCRIPTION';
+export type PAYMENT_GROUP = 'PRODUCT' | 'LISTING' | 'SUBSCRIPTION';
 
-type BASKET_ITEM_TYPE = 'PHYSICAL' | 'VIRTUAL';
+export type BASKET_ITEM_TYPE = 'PHYSICAL' | 'VIRTUAL';
 
-type PAYMENT_CHANNEL = 'MOBILE' | 'WEB' | 'MOBILE_WEB' | 'MOBILE_IOS' | 'MOBILE_ANDROID' | 'MOBILE_WINDOWS' | 'MOBILE_TABLET' | 'MOBILE_PHONE';
+export type PAYMENT_CHANNEL = 'MOBILE' | 'WEB' | 'MOBILE_WEB' | 'MOBILE_IOS' | 'MOBILE_ANDROID' | 'MOBILE_WINDOWS' | 'MOBILE_TABLET' | 'MOBILE_PHONE';
 
-type SUB_MERCHANT_TYPE = 'PERSONAL' | 'PRIVATE_COMPANY' | 'LIMITED_OR_JOINT_STOCK_COMPANY';
+export type SUB_MERCHANT_TYPE = 'PERSONAL' | 'PRIVATE_COMPANY' | 'LIMITED_OR_JOINT_STOCK_COMPANY';
 
-type CURRENCY = 'TRY' | 'EUR' | 'USD' | 'IRR' | 'GBP' | 'NOK' | 'RUB' | 'CHF';
+export type CURRENCY = 'TRY' | 'EUR' | 'USD' | 'IRR' | 'GBP' | 'NOK' | 'RUB' | 'CHF';
 
-type APM_TYPE = 'SOFORT' | 'IDEAL' | 'QIWI' | 'GIROPAY';
+export type APM_TYPE = 'SOFORT' | 'IDEAL' | 'QIWI' | 'GIROPAY';
 
-type REFUND_REASON = 'double_payment' | 'buyer_request' | 'fraud' | 'other';
+export type REFUND_REASON = 'double_payment' | 'buyer_request' | 'fraud' | 'other';
 
-type PLAN_PAYMENT_TYPE = "RECURRING";
+export type PLAN_PAYMENT_TYPE = "RECURRING";
 
-type SUBSCRIPTION_PRICING_PLAN_INTERVAL = 'DAILY' | 'WEEKLY' | 'MONTHLY' | 'YEARLY';
+export type SUBSCRIPTION_PRICING_PLAN_INTERVAL = 'DAILY' | 'WEEKLY' | 'MONTHLY' | 'YEARLY';
 
-type SUBSCRIPTION_UPGRADE_PERIOD = 'NOW';
+export type SUBSCRIPTION_UPGRADE_PERIOD = 'NOW';
 
-type SUBSCRIPTION_STATUS = 'EXPIRED' | 'UNPAID' | 'CANCELED' | 'ACTIVE' | 'PENDING' | 'UPGRADED';
+export type SUBSCRIPTION_STATUS = 'EXPIRED' | 'UNPAID' | 'CANCELED' | 'ACTIVE' | 'PENDING' | 'UPGRADED';
 
-type SUBSCRIPTION_INITIAL_STATUS = 'ACTIVE' | 'PENDING';
+export type SUBSCRIPTION_INITIAL_STATUS = 'ACTIVE' | 'PENDING';
 
 /* INTERFACES */
-interface ILOCALE {
+export interface ILOCALE {
     TR: 'tr',
     EN: 'en'
 }
 
-interface IPAYMENT_GROUP {
+export interface IPAYMENT_GROUP {
     PRODUCT: 'PRODUCT',
     LISTING: 'LISTING',
     SUBSCRIPTION: 'SUBSCRIPTION'
 }
 
-interface IBASKET_ITEM_TYPE {
+export interface IBASKET_ITEM_TYPE {
     PHYSICAL: 'PHYSICAL',
     VIRTUAL: 'VIRTUAL'
 }
 
-interface IPAYMENT_CHANNEL {
+export interface IPAYMENT_CHANNEL {
     MOBILE: 'MOBILE',
     WEB: 'WEB',
     MOBILE_WEB: 'MOBILE_WEB',
@@ -64,13 +64,13 @@ interface IPAYMENT_CHANNEL {
     MOBILE_PHONE: 'MOBILE_PHONE'
 }
 
-interface ISUB_MERCHANT_TYPE {
+export interface ISUB_MERCHANT_TYPE {
     PERSONAL: 'PERSONAL',
     PRIVATE_COMPANY: 'PRIVATE_COMPANY',
     LIMITED_OR_JOINT_STOCK_COMPANY: 'LIMITED_OR_JOINT_STOCK_COMPANY'
 }
 
-interface ICURRENCY {
+export interface ICURRENCY {
     TRY: 'TRY',
     EUR: 'EUR',
     USD: 'USD',
@@ -81,36 +81,36 @@ interface ICURRENCY {
     CHF: 'CHF'
 }
 
-interface IAPM_TYPE {
+export interface IAPM_TYPE {
     SOFORT: 'SOFORT',
     IDEAL: 'IDEAL',
     QIWI: 'QIWI',
     GIROPAY: 'GIROPAY'
 }
 
-interface IREFUND_REASON {
+export interface IREFUND_REASON {
     DOUBLE_PAYMENT: 'double_payment',
     BUYER_REQUEST: 'buyer_request',
     FRAUD: 'fraud',
     OTHER: 'other'
 }
 
-interface IPLAN_PAYMENT_TYPE {
+export interface IPLAN_PAYMENT_TYPE {
     RECURRING: "RECURRING"
 }
 
-interface ISUBSCRIPTION_PRICING_PLAN_INTERVAL {
+export interface ISUBSCRIPTION_PRICING_PLAN_INTERVAL {
     DAILY: 'DAILY',
     WEEKLY: 'WEEKLY',
     MONTHLY: 'MONTHLY',
     YEARLY: 'YEARLY'
 }
 
-interface ISUBSCRIPTION_UPGRADE_PERIOD {
+export interface ISUBSCRIPTION_UPGRADE_PERIOD {
     NOW: 'NOW'
 }
 
-interface ISUBSCRIPTION_STATUS {
+export interface ISUBSCRIPTION_STATUS {
     EXPIRED: 'EXPIRED',
     UNPAID: 'UNPAID',
     CANCELED: 'CANCELED',
@@ -119,7 +119,7 @@ interface ISUBSCRIPTION_STATUS {
     UPGRADED: 'UPGRADED'
 }
 
-interface ISUBSCRIPTION_INITIAL_STATUS {
+export interface ISUBSCRIPTION_INITIAL_STATUS {
     ACTIVE: 'ACTIVE',
     PENDING: 'PENDING'
 }
@@ -352,7 +352,7 @@ export interface ISavePaymentCardResult {
     cardBankName: string;
 }
 
-export interface ICheckoutFormInitializeRequestData extends IThreeDSInitializePaymentRequestData { }
+//export interface ICheckoutFormInitializeRequestData extends IThreeDSInitializePaymentRequestData { }
 
 export interface ICheckoutFormInitialResult {
     status: string;
@@ -414,7 +414,7 @@ export interface IInstallmentInfoRequestData {
     binNumber: string;
 }
 
-interface IInstallmentDetail {
+export interface IInstallmentDetail {
     installmentNumber: number;
     totalPrice: number | string;
     installmentPrice: number | string;
@@ -485,7 +485,7 @@ export interface IPaymentRetrieveRequestData {
     paymentConversationId?: string;
 }
 
-export interface IPaymentRetrieveResult extends IPaymentResult { }
+//export interface IPaymentRetrieveResult extends IPaymentResult { }
 
 export interface IPaymentItemRequestData {
     paymentTransactionId: string;
@@ -616,16 +616,16 @@ export interface IPayoutCompletedTransactionListRetrieveRequestData {
     count?: number;
 }
 
-interface IPayoutCompletedTransaction extends IPaymentResult {
+/* export interface IPayoutCompletedTransaction extends IPaymentResult {
 
-}
+} */
 
 export interface IPayoutCompletedTransactionListRetrieveResult {
     status: string;
     locale?: LOCALE;
     systemTime: number;
     conversationId?: string;
-    payoutCompletedTransactionList: IPayoutCompletedTransaction[];
+    payoutCompletedTransactionList: IPaymentResult[];
 }
 
 export interface ISubMerchantCreateRequestData {
@@ -737,16 +737,16 @@ export interface IBouncedBackTransactionListRetrieveRequestData {
     count?: number;
 }
 
-interface IBouncedBackTransaction extends IPaymentResult {
+/* export interface IBouncedBackTransaction extends IPaymentResult {
 
-}
+} */
 
 export interface IBouncedBackTransactionListRetrieveResult {
     status: string;
     locale?: LOCALE;
     systemTime: number;
     conversationId?: string;
-    bouncedBackTransactionList: IBouncedBackTransaction[];
+    bouncedBackTransactionList: IPaymentResult[];
 }
 
 
@@ -769,7 +769,7 @@ export interface IThreeDSPaymentCompleteRequestData {
     conversationData?: string;
 }
 
-export interface IThreeDSPaymentCompleteResult extends IPaymentResult { }
+//export interface IThreeDSPaymentCompleteResult extends IPaymentResult { }
 
 export interface ISettlementToBalanceRequestData {
     locale?: LOCALE;
@@ -848,7 +848,7 @@ export interface ISubscriptionProductRetrieveListRequestData {
     count?: number;
 }
 
-interface ISubscriptionProductItem {
+export interface ISubscriptionProductItem {
     productReferenceCode: string;
     name: string;
     description: string;
@@ -946,7 +946,7 @@ export interface ISubscriptionPricingPlanRetrieveListRequestData {
     count?: number;
 }
 
-interface ISubscriptionPricingPlanItem {
+export interface ISubscriptionPricingPlanItem {
     pricingPlanReferenceCode: string;
     name: string;
     price: number | string;
@@ -1048,7 +1048,7 @@ export interface ISubscriptionCustomerRetrieveListRequestData {
     count?: number;
 }
 
-interface ISubscriptionCustomerItem {
+export interface ISubscriptionCustomerItem {
     customerReferenceCode: string;
     name: string;
     surname: string;
@@ -1113,7 +1113,7 @@ export interface ISubscriptionPaymentRetryResult {
     referenceCode: string;
 }
 
-interface ISubscriptionCancelRequestData {
+export interface ISubscriptionCancelRequestData {
     locale?: LOCALE;
     conversationId?: string;
     subscriptionReferenceCode: string;
@@ -1328,7 +1328,7 @@ export interface ICardList {
 }
 
 export interface ICheckOutFormInitialize {
-    create(data: ICheckoutFormInitializeRequestData, callback: (err: Error, result: ICheckoutFormInitialResult) => void): void;
+    create(data: IThreeDSInitializePaymentRequestData, callback: (err: Error, result: ICheckoutFormInitialResult) => void): void;
 }
 
 export interface ICheckOutForm {
@@ -1345,7 +1345,7 @@ export interface IInstallmentInfo {
 
 export interface IPayment {
     create(data: IPaymentRequestData, callback: (err: Error, result: IPaymentResult) => void): void;
-    retrieve(data: IPaymentRetrieveRequestData, callback: (err: Error, result: IPaymentRetrieveResult) => void): void;
+    retrieve(data: IPaymentRetrieveRequestData, callback: (err: Error, result: IPaymentResult) => void): void;
 }
 
 export interface IPaymentItem {
@@ -1387,7 +1387,7 @@ export interface IThreeDSInitialize {
 }
 
 export interface IThreedsPayment {
-    create(data: IThreeDSPaymentCompleteRequestData, callback: (err: Error, result: IThreeDSPaymentCompleteResult) => void): void;
+    create(data: IThreeDSPaymentCompleteRequestData, callback: (err: Error, result: IPaymentResult) => void): void;
 }
 
 export interface ISettlementToBalance {
@@ -1442,63 +1442,57 @@ export interface ISubscriptionExistingCustomer {
     initialize(data: ISubscriptionExistingCustomerInitializeRequestData, callback: (err: Error, result: ISubscriptionExistingCustomerInitializeResult) => void): void;
 }
 
-/* MODULE */
-declare module "iyzipay" {
 
-    namespace Iyzipay {
-        const LOCALE: ILOCALE;
-        const PAYMENT_GROUP: IPAYMENT_GROUP;
-        const BASKET_ITEM_TYPE: IBASKET_ITEM_TYPE;
-        const PAYMENT_CHANNEL: IPAYMENT_CHANNEL;
-        const SUB_MERCHANT_TYPE: ISUB_MERCHANT_TYPE;
-        const CURRENCY: ICURRENCY;
-        const APM_TYPE: IAPM_TYPE;
-        const REFUND_REASON: IREFUND_REASON;
-        const PLAN_PAYMENT_TYPE: IPLAN_PAYMENT_TYPE;
-        const SUBSCRIPTION_PRICING_PLAN_INTERVAL: ISUBSCRIPTION_PRICING_PLAN_INTERVAL;
-        const SUBSCRIPTION_UPGRADE_PERIOD: ISUBSCRIPTION_UPGRADE_PERIOD;
-        const SUBSCRIPTION_STATUS: ISUBSCRIPTION_STATUS;
-        const SUBSCRIPTION_INITIAL_STATUS: ISUBSCRIPTION_INITIAL_STATUS;
-    }
+export namespace Iyzipay {
+    const LOCALE: ILOCALE;
+    const PAYMENT_GROUP: IPAYMENT_GROUP;
+    const BASKET_ITEM_TYPE: IBASKET_ITEM_TYPE;
+    const PAYMENT_CHANNEL: IPAYMENT_CHANNEL;
+    const SUB_MERCHANT_TYPE: ISUB_MERCHANT_TYPE;
+    const CURRENCY: ICURRENCY;
+    const APM_TYPE: IAPM_TYPE;
+    const REFUND_REASON: IREFUND_REASON;
+    const PLAN_PAYMENT_TYPE: IPLAN_PAYMENT_TYPE;
+    const SUBSCRIPTION_PRICING_PLAN_INTERVAL: ISUBSCRIPTION_PRICING_PLAN_INTERVAL;
+    const SUBSCRIPTION_UPGRADE_PERIOD: ISUBSCRIPTION_UPGRADE_PERIOD;
+    const SUBSCRIPTION_STATUS: ISUBSCRIPTION_STATUS;
+    const SUBSCRIPTION_INITIAL_STATUS: ISUBSCRIPTION_INITIAL_STATUS;
+}
 
-    class Iyzipay {
-        constructor(options?: IConfigOptions);
-        apiTest: IApiTest;
-        approval: IApproval;
-        disapproval: IDisapproval;
-        bkmInitialize: IBKMInitialize;
-        bkm: IBKM;
-        cancel: ICancel;
-        card: ICard;
-        cardList: ICardList;
-        checkoutFormInitialize: ICheckOutFormInitialize;
-        checkoutForm: ICheckOutForm;
-        universalCardStorageInitialize: IUniversalCardStorageInitialize;
-        installmentInfo: IInstallmentInfo;
-        payment: IPayment;
-        paymentItem: IPaymentItem;
-        peccoInitialize: IPeccoInitialize;
-        peccoPayment: IPeccoPayment;
-        refund: IRefund;
-        refundToBalance: IRefundToBalance;
-        payoutCompletedTransactionListRetrieve: IPayoutCompletedTransactionListRetrieve;
-        bouncedBackTransactionListRetrieve: IBouncedBackTransactionListRetrieve;
-        subMerchant: ISubMerchant;
-        threedsInitialize: IThreeDSInitialize;
-        threedsPayment: IThreedsPayment;
+export declare class Iyzipay {
+    constructor(options?: IConfigOptions);
+    apiTest: IApiTest;
+    approval: IApproval;
+    disapproval: IDisapproval;
+    bkmInitialize: IBKMInitialize;
+    bkm: IBKM;
+    cancel: ICancel;
+    card: ICard;
+    cardList: ICardList;
+    checkoutFormInitialize: ICheckOutFormInitialize;
+    checkoutForm: ICheckOutForm;
+    universalCardStorageInitialize: IUniversalCardStorageInitialize;
+    installmentInfo: IInstallmentInfo;
+    payment: IPayment;
+    paymentItem: IPaymentItem;
+    peccoInitialize: IPeccoInitialize;
+    peccoPayment: IPeccoPayment;
+    refund: IRefund;
+    refundToBalance: IRefundToBalance;
+    payoutCompletedTransactionListRetrieve: IPayoutCompletedTransactionListRetrieve;
+    bouncedBackTransactionListRetrieve: IBouncedBackTransactionListRetrieve;
+    subMerchant: ISubMerchant;
+    threedsInitialize: IThreeDSInitialize;
+    threedsPayment: IThreedsPayment;
 
-        settlementToBalance: ISettlementToBalance;
-        /* SUBSCRIPTION */
-        subscriptionProduct: ISubscriptionProduct;
-        subscriptionPricingPlan: ISubscriptionPricingPlan;
-        subscriptionCustomer: ISubscriptionCustomer;
-        subscriptionCard: ISubscriptionCard;
-        subscriptionPayment: ISubscriptionPayment;
-        subscription: ISubscription;
-        subscriptionCheckoutForm: ISubscriptionCheckoutForm;
-        subscriptionExistingCustomer: ISubscriptionExistingCustomer;
-
-    }
-
-    export default Iyzipay;
+    settlementToBalance: ISettlementToBalance;
+    /* SUBSCRIPTION */
+    subscriptionProduct: ISubscriptionProduct;
+    subscriptionPricingPlan: ISubscriptionPricingPlan;
+    subscriptionCustomer: ISubscriptionCustomer;
+    subscriptionCard: ISubscriptionCard;
+    subscriptionPayment: ISubscriptionPayment;
+    subscription: ISubscription;
+    subscriptionCheckoutForm: ISubscriptionCheckoutForm;
+    subscriptionExistingCustomer: ISubscriptionExistingCustomer;
 }
