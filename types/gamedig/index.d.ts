@@ -16,7 +16,7 @@ export interface games {
             protocol: string;
             port?: number;
             port_query?: number;
-            port_query_offset?: number;
+            port_query_offset?: number | number[];
         };
         extra?: {
             doc_notes?: string;
