@@ -34,7 +34,7 @@ jobs:
           run_install: |
             - args: [--filter, ., --filter, '{./scripts}...']
 
-      - run: node ./scripts/ghostbuster.js > comment.md
+      - run: node ./scripts/ghostbuster.js > ${{ runner.temp }}/comment.md
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN_API_READ }}
 
@@ -61,4 +61,4 @@ jobs:
           branch-suffix: short-commit-hash
           delete-branch: true
           title: Remove contributors with deleted accounts
-          body-path: comment.md
+          body-path: ${{ runner.temp }}/comment.md
