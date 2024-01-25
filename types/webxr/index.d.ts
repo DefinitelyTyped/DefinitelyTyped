@@ -687,7 +687,12 @@ interface XRFrame {
         | undefined;
 }
 
-// Hand Tracking
+/**
+ * The XRHand interface is pair iterator (an ordered map) with the key being the hand
+ * joints ({@link XRHandJoint}) and the value being an {@link XRJointSpace}.
+ *
+ * @see https://immersive-web.github.io/webxr-hand-input/#xrhand-interface
+ */
 type XRHandJoint =
     | "wrist"
     | "thumb-metacarpal"
@@ -715,6 +720,12 @@ type XRHandJoint =
     | "pinky-finger-phalanx-distal"
     | "pinky-finger-tip";
 
+/**
+ * The XRJointSpace interface is an {@link XRSpace} and represents the position and
+ * orientation of an {@link XRHand} joint.
+ *
+ * @see https://immersive-web.github.io/webxr-hand-input/#xrjointspace-interface
+ */
 interface XRJointSpace extends XRSpace {
     readonly jointName: XRHandJoint;
 }
@@ -727,6 +738,12 @@ interface XRJointPose extends XRPose {
 
 declare abstract class XRJointPose implements XRJointPose {}
 
+/**
+ * The XRHand interface is pair iterator (an ordered map) with the key being the hand
+ * joints ({@link XRHandJoint}) and the value being an {@link XRJointSpace}.
+ *
+ * @see https://immersive-web.github.io/webxr-hand-input/#xrhand-interface
+ */
 interface XRHand extends Map<XRHandJoint, XRJointSpace> {
     readonly WRIST: number;
 
