@@ -1,9 +1,20 @@
 {
     "compilerOptions": {
-        "declaration": true,
-        "noEmit": true
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
     },
-    "include": [
+    "files": [
         "index.d.ts"
     ]
 }
