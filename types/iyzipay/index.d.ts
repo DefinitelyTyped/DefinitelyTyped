@@ -1,4 +1,5 @@
-/* eslint-disable */
+/* eslint-disable @typescript-eslint/naming-convention */
+
 /**
  * author: Can Gökçeaslan
  * description: This peace of code is a typescript definition file for iyzipay nodejs sdk.
