@@ -1,6 +1,7 @@
 // documentation taken from https://react-bootstrap-table.github.io/react-bootstrap-table2/docs/table-props.html
 
 import { Component, CSSProperties, JSX, ReactElement, SyntheticEvent } from "react";
+import React = require("react");
 
 export const ROW_SELECT_SINGLE = "radio";
 export const ROW_SELECT_MULTIPLE = "checkbox";
@@ -550,7 +551,7 @@ export interface BootstrapTableProps<T extends object = any, K = number> {
     search?: SearchProps<T> | boolean | undefined;
 }
 
-declare class BootstrapTable<T extends object = any, K = number> extends Component<BootstrapTableProps<T, K>> {}
+declare class BootstrapTable<T extends object = any, K = number> extends React.Component<BootstrapTableProps<T, K>> {}
 export default BootstrapTable;
 
 /**
