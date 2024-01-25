@@ -1,4 +1,4 @@
-import { ClassAttributes, ReactNode } from "react";
+import { ClassAttributes, ComponentType } from "react";
 import { Classes } from "reactcss";
 
 export interface HSLColor {
@@ -35,7 +35,7 @@ export interface ColorPickerProps<A> extends ClassAttributes<A> {
 
 export interface CustomPickerProps<A> extends ClassAttributes<A> {
     color?: Color | undefined;
-    pointer?: ReactNode | undefined;
+    pointer?: ComponentType<{ direction?: 'vertical' }> | undefined;
     className?: string | undefined;
     styles?: Partial<Classes<any>> | undefined;
     onChange: ColorChangeHandler;
