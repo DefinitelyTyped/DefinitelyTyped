@@ -1,4 +1,17 @@
 {
+  "private": true,
   "name": "@types/iyzipay",
-  "version": "2.0.48"
+  "version": "2.0.48",
+  "projects": [
+    "https://github.com/iyzico/iyzipay-node"
+  ],
+  "devDependencies": {
+    "@types/iyzipay": "workspace:."
+  },
+  "owners": [
+    {
+      "name": "Can Gökçeaslan",
+      "githubUsername": "cangokceaslan"
+    }
+  ]
 }
