@@ -33,6 +33,7 @@ const topLogger: Modifier<"topLogger"> = {
     autoFocus
     calendarClassName=""
     calendarContainer={props => <div />}
+    calendarIconClassname=""
     calendarStartDay={0}
     className=""
     clearButtonClassName=""
@@ -64,6 +65,7 @@ const topLogger: Modifier<"topLogger"> = {
     formatWeekDay={(day) => day[0]}
     formatWeekNumber={date => 0}
     highlightDates={[{ someClassName: [new Date()] }]}
+    holidays={[{ date: "", holidayName: "" }]}
     icon=""
     id=""
     includeDates={[new Date()]}
@@ -174,6 +176,7 @@ const topLogger: Modifier<"topLogger"> = {
     showTwoColumnMonthYearPicker
     showFourColumnMonthYearPicker
     showWeekNumbers
+    showWeekPicker
     showYearDropdown
     showYearPicker
     startDate={new Date()}

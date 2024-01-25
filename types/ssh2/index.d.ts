@@ -964,7 +964,7 @@ export interface KeyboardAuthContext extends AuthContextBase {
      * @param prompts The prompts to send to the client.
      * @param callback A callback to call with the responses from the client.
      */
-    prompt(prompts: string | Prompt | (string | Prompt)[], callback: KeyboardInteractiveCallback): void;
+    prompt(prompts: string | Prompt | Array<string | Prompt>, callback: KeyboardInteractiveCallback): void;
 
     /**
      * Send prompts to the client.
@@ -972,7 +972,11 @@ export interface KeyboardAuthContext extends AuthContextBase {
      * @param title The title for the prompt.
      * @param callback A callback to call with the responses from the client.
      */
-    prompt(prompts: string | Prompt | (string | Prompt)[], title: string, callback: KeyboardInteractiveCallback): void;
+    prompt(
+        prompts: string | Prompt | Array<string | Prompt>,
+        title: string,
+        callback: KeyboardInteractiveCallback,
+    ): void;
 
     /**
      * Send prompts to the client.
@@ -982,7 +986,7 @@ export interface KeyboardAuthContext extends AuthContextBase {
      * @param callback A callback to call with the responses from the client.
      */
     prompt(
-        prompts: string | Prompt | (string | Prompt)[],
+        prompts: string | Prompt | Array<string | Prompt>,
         title: string,
         instructions: string,
         callback: KeyboardInteractiveCallback,
@@ -1363,6 +1367,10 @@ export interface FileEntry {
     attrs: Attributes;
 }
 
+export interface FileEntryWithStats extends Omit<FileEntry, "attrs"> {
+    attrs: Stats;
+}
+
 export interface SFTPWrapper extends EventEmitter {
     /**
      * (Client-only)
@@ -1544,7 +1552,7 @@ export interface SFTPWrapper extends EventEmitter {
      * (Client-only)
      * Retrieves a directory listing.
      */
-    readdir(location: string | Buffer, callback: (err: Error | undefined, list: FileEntry[]) => void): void;
+    readdir(location: string | Buffer, callback: (err: Error | undefined, list: FileEntryWithStats[]) => void): void;
 
     /**
      * (Client-only)
@@ -1766,12 +1774,12 @@ export interface PublicKeyEntry {
         };
 }
 
-export type KnownPublicKeys<T extends string | Buffer | ParsedKey = string | Buffer | ParsedKey> = (
+export type KnownPublicKeys<T extends string | Buffer | ParsedKey = string | Buffer | ParsedKey> = Array<
     | T
     | PublicKeyEntry
-)[];
+>;
 
-export type PrivateKeys = (Buffer | ParsedKey | EncryptedPrivateKey | string)[];
+export type PrivateKeys = Array<Buffer | ParsedKey | EncryptedPrivateKey | string>;
 
 export type Callback = (err?: Error | null) => void;
 

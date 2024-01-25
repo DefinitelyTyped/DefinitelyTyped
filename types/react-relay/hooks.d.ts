@@ -6,7 +6,6 @@ export {
     IEnvironmentProvider,
     JSResourceReference,
     LoadQueryOptions,
-    PreloadableConcreteRequest,
     PreloadedEntryPoint,
     PreloadedQuery,
     PreloadFetchPolicy,

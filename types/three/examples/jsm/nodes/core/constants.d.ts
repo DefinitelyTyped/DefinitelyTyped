@@ -1,5 +1,3 @@
-import { Color, Matrix3, Matrix4, Vector2, Vector3, Vector4 } from '../../../../src/Three.js';
-
 // disable automatic export, we have some private declarations
 export const NodeShaderStage: {
     VERTEX: 'vertex';
@@ -13,7 +11,6 @@ export const NodeUpdateType: {
     OBJECT: 'object';
 };
 
-export type NodeValueOption = Color | Vector2 | Vector3 | Vector4 | Matrix3 | Matrix4 | boolean | number;
 export type NodeUpdateTypeOption = 'none' | 'frame' | 'object';
 export type NodeShaderStageOption = 'vertex' | 'fragment' | 'compute';
 export type NodeTypeOption =
@@ -50,13 +47,18 @@ export type NodeTypeOption =
     | 'umat4'
     | 'bmat4';
 
-// can be defined with string template type in Typescript 4.1
-export type SwizzleOption = string;
+export type SwizzleCharacter = 'x' | 'y' | 'z' | 'w' | 'r' | 'g' | 'b' | 'a' | 's' | 't' | 'p' | 'q';
+
+export type SwizzleOption = Exclude<
+    | `${SwizzleCharacter}`
+    | `${SwizzleCharacter}${SwizzleCharacter}`
+    | `${SwizzleCharacter}${SwizzleCharacter}${SwizzleCharacter}`
+    | `${SwizzleCharacter}${SwizzleCharacter}${SwizzleCharacter}${SwizzleCharacter}`,
+    'abs' | 'sqrt'
+>;
 
 /** Should be the same type as Object3D.userData */
-export interface NodeUserData {
-    [key: string]: any;
-}
+export type NodeUserData = Record<string, any>;
 
 /** generic key value type,curretly used by nodes  */
 export interface AnyObject {

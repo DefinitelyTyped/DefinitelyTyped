@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/three",
-    "version": "0.157.9999",
+    "version": "0.160.9999",
     "projects": [
         "https://threejs.org/"
     ],
@@ -13,6 +13,7 @@
         },
         "./examples/fonts/*": "./examples/fonts/*",
         "./examples/jsm/*": "./examples/jsm/*",
+        "./addons": "./examples/jsm/Addons.js",
         "./addons/*": "./examples/jsm/*",
         "./src/*": "./src/*",
         "./nodes": "./examples/jsm/nodes/Nodes.js"

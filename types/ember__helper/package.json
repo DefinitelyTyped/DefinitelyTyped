@@ -8,16 +8,14 @@
         "https://github.com/emberjs/ember.js"
     ],
     "dependencies": {
+        "@glimmer/manager": ">= 0.83.0",
+        "@glimmer/runtime": ">= 0.83.0",
         "@types/ember": "*"
     },
     "devDependencies": {
         "@types/ember__helper": "workspace:."
     },
     "owners": [
-        {
-            "name": "Chris Krycho",
-            "githubUsername": "chriskrycho"
-        },
         {
             "name": "Krystan HuffMenne",
             "githubUsername": "gitKrystan"

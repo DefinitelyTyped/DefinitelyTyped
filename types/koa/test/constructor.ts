@@ -7,6 +7,7 @@ const app = new Koa({
     subdomainOffset: 2,
     proxyIpHeader: "XYZ-Forwarded-For",
     maxIpsCount: 2,
+    asyncLocalStorage: true,
 });
 
 app.use(ctx => {

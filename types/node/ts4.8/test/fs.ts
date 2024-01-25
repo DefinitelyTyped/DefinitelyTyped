@@ -213,7 +213,7 @@ async function testPromisify() {
         console.log(event, filename);
     });
 
-    fs.watch("/tmp/foo-", {
+    const fsWatcher = fs.watch("/tmp/foo-", {
         recursive: true,
         persistent: true,
         encoding: "utf8",
@@ -221,6 +221,8 @@ async function testPromisify() {
     }, (event, filename) => {
         console.log(event, filename);
     });
+
+    fsWatcher.unref().ref().close();
 }
 
 {
@@ -418,11 +420,11 @@ async function testPromisify() {
 {
     fs.writev(
         1,
-        [Buffer.from("123")] as ReadonlyArray<NodeJS.ArrayBufferView>,
+        [Buffer.from("123")] as readonly NodeJS.ArrayBufferView[],
         (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => {
         },
     );
-    const bytesWritten = fs.writevSync(1, [Buffer.from("123")] as ReadonlyArray<NodeJS.ArrayBufferView>);
+    const bytesWritten = fs.writevSync(1, [Buffer.from("123")] as readonly NodeJS.ArrayBufferView[]);
 }
 
 (async () => {
@@ -557,6 +559,7 @@ async function testPromisify() {
     fs.createWriteStream("./index.d.ts", { encoding: "utf8" });
     // @ts-expect-error
     fs.createWriteStream("./index.d.ts", { encoding: "invalid encoding" });
+    fs.createWriteStream("./index.d.ts", { fs: { write: fs.write }, signal: new AbortSignal() });
 
     fs.createReadStream("./index.d.ts");
     fs.createReadStream("./index.d.ts", "utf8");
@@ -565,6 +568,7 @@ async function testPromisify() {
     fs.createReadStream("./index.d.ts", { encoding: "utf8" });
     // @ts-expect-error
     fs.createReadStream("./index.d.ts", { encoding: "invalid encoding" });
+    fs.createReadStream("./index.d.ts", { fs: { read: fs.read }, signal: new AbortSignal() });
 }
 
 (async () => {
@@ -589,10 +593,10 @@ async function testPromisify() {
 }
 
 {
-    fs.readvSync(123, [Buffer.from("wut")] as ReadonlyArray<NodeJS.ArrayBufferView>);
+    fs.readvSync(123, [Buffer.from("wut")] as readonly NodeJS.ArrayBufferView[]);
     fs.readv(
         123,
-        [Buffer.from("wut")] as ReadonlyArray<NodeJS.ArrayBufferView>,
+        [Buffer.from("wut")] as readonly NodeJS.ArrayBufferView[],
         123,
         (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => {
         },

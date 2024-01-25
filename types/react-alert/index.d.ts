@@ -132,11 +132,13 @@ export interface AlertCustomOptions extends AlertOptions {
     /**
      * Callback that will be executed after this alert open.
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onOpen?: () => void | undefined;
 
     /**
      * Callback that will be executed after this alert is removed.
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onClose?: () => void | undefined;
 }
 

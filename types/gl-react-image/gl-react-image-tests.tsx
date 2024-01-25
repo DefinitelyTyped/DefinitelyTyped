@@ -1,6 +1,5 @@
 import GLImage from "gl-react-image";
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 
 const App = () => (
     <div>
@@ -15,4 +14,3 @@ const App = () => (
 
 const element = document.createElement("div");
 document.body.appendChild(element);
-ReactDOM.render(<App />, element);

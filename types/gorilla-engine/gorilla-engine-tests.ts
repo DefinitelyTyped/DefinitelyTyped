@@ -8,4 +8,6 @@ const pad = new GorillaEngine.UI.XYPad({ id: "myXYPad" });
 
 const scrollView = new GorillaEngine.UI.ScrollView({ id: "myScrollView" });
 
-const knob = new GorillaEngine.UI.Knob({ id: "myKnob" });
+const knob = new GorillaEngine.UI.Knob({ id: "myknob" });
+
+const label = new GorillaEngine.UI.Label({ margin: 5 });

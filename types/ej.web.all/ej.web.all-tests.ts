@@ -14548,7 +14548,7 @@ namespace SpreadsheetComponent {
     });
 }
 
-var default_data: Array<Object> = [
+var default_data: Object[] = [
     { Category: "Employees", Country: "USA", JobDescription: "Sales", JobGroup: "Executive", EmployeesCount: 50 },
     { Category: "Employees", Country: "USA", JobDescription: "Sales", JobGroup: "Analyst", EmployeesCount: 40 },
     { Category: "Employees", Country: "USA", JobDescription: "Marketing", EmployeesCount: 40 },
@@ -14992,7 +14992,7 @@ namespace TreeGridComponent {
     });
 }
 
-var population_data: Array<Object> = [
+var population_data: Object[] = [
     { Continent: "Asia", Country: "Indonesia", Growth: 3, Population: 237641326 },
     { Continent: "Asia", Country: "Russia", Growth: 2, Population: 152518015 },
     { Continent: "Asia", Country: "Malaysia", Growth: 1, Population: 29672000 },

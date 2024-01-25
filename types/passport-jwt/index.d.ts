@@ -1,4 +1,3 @@
-import * as express from "express";
 import { VerifyOptions } from "jsonwebtoken";
 import { Strategy as PassportStrategy } from "passport-strategy";
 
@@ -25,19 +24,19 @@ export interface VerifyCallback {
 }
 
 export interface VerifyCallbackWithRequest {
-    (req: express.Request, payload: any, done: VerifiedCallback): void;
+    (req: Request, payload: any, done: VerifiedCallback): void;
 }
 
 export interface VerifiedCallback {
     (error: any, user?: Express.User | false, info?: any): void;
 }
 
-export interface JwtFromRequestFunction {
-    (req: express.Request): string | null;
+export interface JwtFromRequestFunction<T = Request> {
+    (req: T): string | null;
 }
 
 export interface SecretOrKeyProvider {
-    (request: express.Request, rawJwtToken: any, done: (err: any, secretOrKey?: string | Buffer) => void): void;
+    (request: Request, rawJwtToken: any, done: (err: any, secretOrKey?: string | Buffer) => void): void;
 }
 
 export declare namespace ExtractJwt {
@@ -46,6 +45,6 @@ export declare namespace ExtractJwt {
     export function fromUrlQueryParameter(param_name: string): JwtFromRequestFunction;
     export function fromAuthHeaderWithScheme(auth_scheme: string): JwtFromRequestFunction;
     export function fromAuthHeader(): JwtFromRequestFunction;
-    export function fromExtractors(extractors: JwtFromRequestFunction[]): JwtFromRequestFunction;
+    export function fromExtractors(extractors: Array<JwtFromRequestFunction<any>>): JwtFromRequestFunction;
     export function fromAuthHeaderAsBearerToken(): JwtFromRequestFunction;
 }

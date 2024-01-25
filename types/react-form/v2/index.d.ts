@@ -12,7 +12,7 @@ export interface FormErrors {
     [key: string]: FormError;
 }
 export type NestedErrors = Nested<FormErrors>;
-export type RenderReturn = JSX.Element | false | null | never[];
+export type RenderReturn = React.JSX.Element | false | null | never[];
 
 export interface FormState {
     values: FormValues;

@@ -15,7 +15,7 @@ type EbayAuthTokenOptions =
 
 declare class EbayAuthToken {
     constructor(options: Readonly<EbayAuthTokenOptions>);
-    getApplicationToken(environment: EbayEnvironment, scopes?: ReadonlyArray<string> | string): Promise<string>;
+    getApplicationToken(environment: EbayEnvironment, scopes?: readonly string[] | string): Promise<string>;
     generateUserAuthorizationUrl(
         environment: EbayEnvironment,
         scopes: string[] | string,
@@ -28,7 +28,7 @@ declare class EbayAuthToken {
     getAccessToken(
         environment: EbayEnvironment,
         refreshToken: string,
-        scopes: ReadonlyArray<string> | string,
+        scopes: readonly string[] | string,
     ): Promise<string>;
     setRefreshToken(refreshToken: string): void;
     getRefreshToken(): string;

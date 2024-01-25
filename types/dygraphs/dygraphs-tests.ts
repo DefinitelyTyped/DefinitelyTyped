@@ -68,6 +68,7 @@ const d = new Dygraph(new HTMLDivElement(), "data", {
     labelsKMB: true,
     labelsSeparateLines: true,
     legend: "always",
+    rangeSelectorForegroundStrokeColor: "white",
     rollPeriod: 14,
     series: {
         y: {

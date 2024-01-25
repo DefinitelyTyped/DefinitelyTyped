@@ -37,10 +37,8 @@ declare namespace React {
     // React Elements
     // ----------------------------------------------------------------------
 
-    type ElementType<P = any> =
-        | {
-            [K in keyof JSX.IntrinsicElements]: P extends JSX.IntrinsicElements[K] ? K : never;
-        }[keyof JSX.IntrinsicElements]
+    type ElementType<P = any, Tag extends keyof JSX.IntrinsicElements = keyof JSX.IntrinsicElements> =
+        | { [K in Tag]: P extends JSX.IntrinsicElements[K] ? K : never }[Tag]
         | ComponentType<P>;
     type ComponentType<P = {}> = ComponentClass<P> | FunctionComponent<P>;
 
@@ -150,6 +148,9 @@ declare namespace React {
         ref?: LegacyRef<T> | undefined;
     }
 
+    /**
+     * @deprecated Use `ComponentElement<P, ClassicComponent<P, any>>` instead.
+     */
     type ClassicElement<P> = CElement<P, ClassicComponent<P, ComponentState>>;
 
     // string fallback for custom web-components
@@ -271,9 +272,6 @@ declare namespace React {
 
     // Custom components
     function createFactory<P>(type: FunctionComponent<P>): FunctionComponentFactory<P>;
-    function createFactory<P>(
-        type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>,
-    ): CFactory<P, ClassicComponent<P, ComponentState>>;
     function createFactory<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
         type: ClassType<P, T, C>,
     ): CFactory<P, T>;
@@ -309,11 +307,6 @@ declare namespace React {
         props?: Attributes & P | null,
         ...children: ReactNode[]
     ): FunctionComponentElement<P>;
-    function createElement<P extends {}>(
-        type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>,
-        props?: ClassAttributes<ClassicComponent<P, ComponentState>> & P | null,
-        ...children: ReactNode[]
-    ): CElement<P, ClassicComponent<P, ComponentState>>;
     function createElement<P extends {}, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
         type: ClassType<P, T, C>,
         props?: ClassAttributes<T> & P | null,
@@ -426,10 +419,10 @@ declare namespace React {
     // Sync with `ReactChildren` until `ReactChildren` is removed.
     const Children: {
         map<T, C>(
-            children: C | ReadonlyArray<C>,
+            children: C | readonly C[],
             fn: (child: C, index: number) => T,
         ): C extends null | undefined ? C : Array<Exclude<T, boolean | null | undefined>>;
-        forEach<C>(children: C | ReadonlyArray<C>, fn: (child: C, index: number) => void): void;
+        forEach<C>(children: C | readonly C[], fn: (child: C, index: number) => void): void;
         count(children: any): number;
         only<C>(children: C): C extends any[] ? never : C;
         toArray(children: ReactNode | ReactNode[]): Array<Exclude<ReactNode, boolean | null | undefined>>;
@@ -452,7 +445,7 @@ declare namespace React {
      */
     type ProfilerOnRenderCallback = (
         id: string,
-        phase: "mount" | "update",
+        phase: "mount" | "update" | "nested-update",
         actualDuration: number,
         baseDuration: number,
         startTime: number,
@@ -547,6 +540,9 @@ declare namespace React {
 
     class PureComponent<P = {}, S = {}, SS = any> extends Component<P, S, SS> {}
 
+    /**
+     * @deprecated Use `ClassicComponent` from `create-react-class`
+     */
     interface ClassicComponent<P = {}, S = {}> extends Component<P, S> {
         replaceState(nextState: S, callback?: () => void): void;
         isMounted(): boolean;
@@ -614,6 +610,9 @@ declare namespace React {
         displayName?: string | undefined;
     }
 
+    /**
+     * @deprecated Use `ClassicComponentClass` from `create-react-class`
+     */
     interface ClassicComponentClass<P = {}> extends ComponentClass<P> {
         new(props: P, context?: any): ClassicComponent<P, ComponentState>;
         getDefaultProps?(): P;
@@ -794,6 +793,9 @@ declare namespace React {
         UNSAFE_componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): void;
     }
 
+    /**
+     * @deprecated https://legacy.reactjs.org/blog/2016/07/13/mixins-considered-harmful.html
+     */
     interface Mixin<P, S> extends ComponentLifecycle<P, S> {
         mixins?: Array<Mixin<P, S>> | undefined;
         statics?: {
@@ -809,6 +811,9 @@ declare namespace React {
         getInitialState?(): S;
     }
 
+    /**
+     * @deprecated https://legacy.reactjs.org/blog/2016/07/13/mixins-considered-harmful.html
+     */
     interface ComponentSpec<P, S> extends Mixin<P, S> {
         render(): ReactNode;
 
@@ -854,9 +859,21 @@ declare namespace React {
         JSXElementConstructor<infer P> ? P
         : T extends keyof JSX.IntrinsicElements ? JSX.IntrinsicElements[T]
         : {};
+    /**
+     * Get the props of a component that supports the `ref` prop.
+     *
+     * WARNING: Use `CustomComponentPropsWithRef` if you know that `T` is not a host component for better type-checking performance.
+     */
     type ComponentPropsWithRef<T extends ElementType> = T extends (new(props: infer P) => Component<any, any>)
         ? PropsWithoutRef<P> & RefAttributes<InstanceType<T>>
         : PropsWithRef<ComponentProps<T>>;
+    /**
+     * Like `ComponentPropsWithRef` but without support for host components (i.e. just "custom components") to improve type-checking performance.
+     */
+    type CustomComponentPropsWithRef<T extends ComponentType> = T extends (new(props: infer P) => Component<any, any>)
+        ? (PropsWithoutRef<P> & RefAttributes<InstanceType<T>>)
+        : T extends ((props: infer P, legacyContext?: any) => ReactNode) ? PropsWithRef<P>
+        : never;
     type ComponentPropsWithoutRef<T extends ElementType> = PropsWithoutRef<ComponentProps<T>>;
 
     type ComponentRef<T extends ElementType> = T extends NamedExoticComponent<
@@ -867,7 +884,7 @@ declare namespace React {
 
     // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
     // but can be given its own specific name
-    type MemoExoticComponent<T extends ComponentType<any>> = NamedExoticComponent<ComponentPropsWithRef<T>> & {
+    type MemoExoticComponent<T extends ComponentType<any>> = NamedExoticComponent<CustomComponentPropsWithRef<T>> & {
         readonly type: T;
     };
 
@@ -880,7 +897,7 @@ declare namespace React {
         propsAreEqual?: (prevProps: Readonly<ComponentProps<T>>, nextProps: Readonly<ComponentProps<T>>) => boolean,
     ): MemoExoticComponent<T>;
 
-    type LazyExoticComponent<T extends ComponentType<any>> = ExoticComponent<ComponentPropsWithRef<T>> & {
+    type LazyExoticComponent<T extends ComponentType<any>> = ExoticComponent<CustomComponentPropsWithRef<T>> & {
         readonly _result: T;
     };
 
@@ -912,7 +929,7 @@ declare namespace React {
     // The identity check is done with the SameValue algorithm (Object.is), which is stricter than ===
     type ReducerStateWithoutAction<R extends ReducerWithoutAction<any>> = R extends ReducerWithoutAction<infer S> ? S
         : never;
-    type DependencyList = ReadonlyArray<unknown>;
+    type DependencyList = readonly unknown[];
 
     // NOTE: callbacks are _only_ allowed to return either void, or a destructor.
     type EffectCallback = () => void | Destructor;
@@ -1121,7 +1138,7 @@ declare namespace React {
      */
     // A specific function type would not trigger implicit any.
     // See https://github.com/DefinitelyTyped/DefinitelyTyped/issues/52873#issuecomment-845806435 for a comparison between `Function` and more specific types.
-    // tslint:disable-next-line ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     function useCallback<T extends Function>(callback: T, deps: DependencyList): T;
     /**
      * `useMemo` will only recompute the memoized value when one of the `deps` has changed.
@@ -1130,7 +1147,7 @@ declare namespace React {
      * @see https://react.dev/reference/react/useMemo
      */
     // allow undefined, but don't make it optional as that is very likely a mistake
-    function useMemo<T>(factory: () => T, deps: DependencyList | undefined): T;
+    function useMemo<T>(factory: () => T, deps: DependencyList): T;
     /**
      * `useDebugValue` can be used to display a label for custom hooks in React DevTools.
      *
@@ -1183,7 +1200,7 @@ declare namespace React {
      * The first is a boolean, React’s way of informing us whether we’re waiting for the transition to finish.
      * The second is a function that takes a callback. We can use it to tell React which state we want to defer.
      *
-     * **If some state update causes a component to suspend, that state update should be wrapped in a transition.**`
+     * **If some state update causes a component to suspend, that state update should be wrapped in a transition.**
      *
      * @see https://react.dev/reference/react/useTransition
      */
@@ -1944,7 +1961,7 @@ declare namespace React {
     interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
         // React-specific Attributes
         defaultChecked?: boolean | undefined;
-        defaultValue?: string | number | ReadonlyArray<string> | undefined;
+        defaultValue?: string | number | readonly string[] | undefined;
         suppressContentEditableWarning?: boolean | undefined;
         suppressHydrationWarning?: boolean | undefined;
 
@@ -1952,7 +1969,7 @@ declare namespace React {
         accessKey?: string | undefined;
         autoFocus?: boolean | undefined;
         className?: string | undefined;
-        contentEditable?: Booleanish | "inherit" | undefined;
+        contentEditable?: Booleanish | "inherit" | "plaintext-only" | undefined;
         contextMenu?: string | undefined;
         dir?: string | undefined;
         draggable?: Booleanish | undefined;
@@ -1960,7 +1977,6 @@ declare namespace React {
         id?: string | undefined;
         lang?: string | undefined;
         nonce?: string | undefined;
-        placeholder?: string | undefined;
         slot?: string | undefined;
         spellCheck?: Booleanish | undefined;
         style?: CSSProperties | undefined;
@@ -2131,7 +2147,7 @@ declare namespace React {
         target?: string | undefined;
         type?: string | undefined;
         useMap?: string | undefined;
-        value?: string | ReadonlyArray<string> | number | undefined;
+        value?: string | readonly string[] | number | undefined;
         width?: number | string | undefined;
         wmode?: string | undefined;
         wrap?: string | undefined;
@@ -2204,7 +2220,7 @@ declare namespace React {
         formTarget?: string | undefined;
         name?: string | undefined;
         type?: "submit" | "reset" | "button" | undefined;
-        value?: string | ReadonlyArray<string> | number | undefined;
+        value?: string | readonly string[] | number | undefined;
     }
 
     interface CanvasHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2222,12 +2238,13 @@ declare namespace React {
     }
 
     interface DataHTMLAttributes<T> extends HTMLAttributes<T> {
-        value?: string | ReadonlyArray<string> | number | undefined;
+        value?: string | readonly string[] | number | undefined;
     }
 
     interface DetailsHTMLAttributes<T> extends HTMLAttributes<T> {
         open?: boolean | undefined;
         onToggle?: ReactEventHandler<T> | undefined;
+        name?: string | undefined;
     }
 
     interface DelHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2376,7 +2393,7 @@ declare namespace React {
         src?: string | undefined;
         step?: number | string | undefined;
         type?: HTMLInputTypeAttribute | undefined;
-        value?: string | ReadonlyArray<string> | number | undefined;
+        value?: string | readonly string[] | number | undefined;
         width?: number | string | undefined;
 
         onChange?: ChangeEventHandler<T> | undefined;
@@ -2397,7 +2414,7 @@ declare namespace React {
     }
 
     interface LiHTMLAttributes<T> extends HTMLAttributes<T> {
-        value?: string | ReadonlyArray<string> | number | undefined;
+        value?: string | readonly string[] | number | undefined;
     }
 
     interface LinkHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2439,10 +2456,10 @@ declare namespace React {
 
     interface MetaHTMLAttributes<T> extends HTMLAttributes<T> {
         charSet?: string | undefined;
-        httpEquiv?: string | undefined;
-        name?: string | undefined;
-        media?: string | undefined;
         content?: string | undefined;
+        httpEquiv?: string | undefined;
+        media?: string | undefined;
+        name?: string | undefined;
     }
 
     interface MeterHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2452,7 +2469,7 @@ declare namespace React {
         max?: number | string | undefined;
         min?: number | string | undefined;
         optimum?: number | undefined;
-        value?: string | ReadonlyArray<string> | number | undefined;
+        value?: string | readonly string[] | number | undefined;
     }
 
     interface QuoteHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2486,7 +2503,7 @@ declare namespace React {
         disabled?: boolean | undefined;
         label?: string | undefined;
         selected?: boolean | undefined;
-        value?: string | ReadonlyArray<string> | number | undefined;
+        value?: string | readonly string[] | number | undefined;
     }
 
     interface OutputHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2497,12 +2514,12 @@ declare namespace React {
 
     interface ParamHTMLAttributes<T> extends HTMLAttributes<T> {
         name?: string | undefined;
-        value?: string | ReadonlyArray<string> | number | undefined;
+        value?: string | readonly string[] | number | undefined;
     }
 
     interface ProgressHTMLAttributes<T> extends HTMLAttributes<T> {
         max?: number | string | undefined;
-        value?: string | ReadonlyArray<string> | number | undefined;
+        value?: string | readonly string[] | number | undefined;
     }
 
     interface SlotHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2530,7 +2547,7 @@ declare namespace React {
         name?: string | undefined;
         required?: boolean | undefined;
         size?: number | undefined;
-        value?: string | ReadonlyArray<string> | number | undefined;
+        value?: string | readonly string[] | number | undefined;
         onChange?: ChangeEventHandler<T> | undefined;
     }
 
@@ -2575,7 +2592,7 @@ declare namespace React {
         readOnly?: boolean | undefined;
         required?: boolean | undefined;
         rows?: number | undefined;
-        value?: string | ReadonlyArray<string> | number | undefined;
+        value?: string | readonly string[] | number | undefined;
         wrap?: string | undefined;
 
         onChange?: ChangeEventHandler<T> | undefined;
@@ -3165,10 +3182,10 @@ declare namespace React {
     // Sync with type of `const Children`.
     interface ReactChildren {
         map<T, C>(
-            children: C | ReadonlyArray<C>,
+            children: C | readonly C[],
             fn: (child: C, index: number) => T,
         ): C extends null | undefined ? C : Array<Exclude<T, boolean | null | undefined>>;
-        forEach<C>(children: C | ReadonlyArray<C>, fn: (child: C, index: number) => void): void;
+        forEach<C>(children: C | readonly C[], fn: (child: C, index: number) => void): void;
         count(children: any): number;
         only<C>(children: C): C extends any[] ? never : C;
         toArray(children: ReactNode | ReactNode[]): Array<Exclude<ReactNode, boolean | null | undefined>>;

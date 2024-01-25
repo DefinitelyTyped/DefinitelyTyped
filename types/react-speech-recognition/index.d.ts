@@ -27,7 +27,7 @@ interface SpeechRecognition {
 export interface SpeechRecognitionOptions {
     transcribing?: boolean | undefined;
     clearTranscriptOnListen?: boolean | undefined;
-    commands?: ReadonlyArray<Command> | undefined;
+    commands?: readonly Command[] | undefined;
 }
 
 export function useSpeechRecognition(options?: SpeechRecognitionOptions): {

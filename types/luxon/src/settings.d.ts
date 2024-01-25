@@ -1,4 +1,11 @@
-import { Zone } from "./zone";
+import { WeekdayNumbers } from "./datetime";
+import { Zone, ZoneMaybeValid } from "./zone";
+
+export interface WeekSettings {
+    firstDay: WeekdayNumbers;
+    minimalDays: WeekdayNumbers;
+    weekend: WeekdayNumbers[];
+}
 
 /**
  * `Settings` contains static getters and setters that control Luxon's overall behavior.
@@ -24,7 +31,7 @@ export class Settings {
      * The default time zone object currently used to create DateTimes. Does not affect existing instances.
      * The default value is the system's time zone (the one set on the machine that runs this code).
      */
-    static get defaultZone(): Zone;
+    static get defaultZone(): ZoneMaybeValid;
     static set defaultZone(zone: Zone | string);
 
     /**
@@ -65,6 +72,13 @@ export class Settings {
      * Reset Luxon's global caches. Should only be necessary in testing scenarios.
      */
     static resetCaches(): void;
+
+    /**
+     * Allows overriding the default locale week settings, i.e. the start of the week, the weekend and
+     * how many days are required in the first week of a year.
+     * Does not affect existing instances.
+     */
+    static defaultWeekSettings: WeekSettings | null;
 }
 
 /**
@@ -72,5 +86,5 @@ export class Settings {
  *
  * @see Settings.throwOnInvalid
  */
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface TSSettings {}

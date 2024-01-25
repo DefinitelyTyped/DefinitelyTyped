@@ -439,7 +439,7 @@ export interface RNFetchBlobReadStream {
 
 type Encoding = "utf8" | "ascii" | "base64";
 
-/* tslint:disable-next-line interface-name*/
+/* eslint-disable-next-line @typescript-eslint/naming-convention*/
 export interface IOSApi {
     /**
      * Open a file in {@link https://developer.apple.com/reference/uikit/uidocumentinteractioncontroller UIDocumentInteractionController},

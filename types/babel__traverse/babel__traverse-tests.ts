@@ -468,3 +468,7 @@ const outerIdentifierPathTrue = newPath.getOuterBindingIdentifierPaths(true);
 outerIdentifierPathTrue; // $ExpectType Record<string, NodePath<Identifier>[]>
 const outerIdentifierPathBoolean = newPath.getOuterBindingIdentifierPaths(booleanVar);
 outerIdentifierPathBoolean; // $ExpectType Record<string, NodePath<Identifier> | NodePath<Identifier>[]>
+
+newPath.traverse({
+    denylist: ["TypeAnnotation"],
+});

@@ -17,5 +17,5 @@ declare class PasswordResetService {
 declare namespace PasswordResetService {
     export { DBKey, AdministratorPasswordResetRequest };
 }
-type AdministratorPasswordResetRequest = import('./AdministratorPasswordResetRequest');
 type DBKey = import('../dbkey/DBKey');
+type AdministratorPasswordResetRequest = import('./AdministratorPasswordResetRequest');

@@ -74,7 +74,7 @@ export type ReaderSelector = SingularReaderSelector | PluralReaderSelector;
 
 export interface PluralReaderSelector {
     readonly kind: string;
-    readonly selectors: ReadonlyArray<SingularReaderSelector>;
+    readonly selectors: readonly SingularReaderSelector[];
 }
 
 export interface RequestDescriptor {
@@ -209,7 +209,7 @@ export interface MutableRecordSource extends RecordSource {
 
 export interface CheckOptions {
     target: MutableRecordSource;
-    handlers: ReadonlyArray<MissingFieldHandler>;
+    handlers: readonly MissingFieldHandler[];
 }
 
 export type OperationAvailability =
@@ -253,7 +253,7 @@ export interface Store {
      *
      * This method should return an array of the affected fragment owners
      */
-    notify(sourceOperation?: OperationDescriptor, invalidateStore?: boolean): ReadonlyArray<RequestDescriptor>;
+    notify(sourceOperation?: OperationDescriptor, invalidateStore?: boolean): readonly RequestDescriptor[];
 
     /**
      * Publish new information (e.g. from the network) to the store, updating its
@@ -298,7 +298,7 @@ export interface Store {
      * Will return an opaque snapshot of the current invalidation state of
      * the data ids that were provided.
      */
-    lookupInvalidationState(dataIDs: ReadonlyArray<DataID>): InvalidationState;
+    lookupInvalidationState(dataIDs: readonly DataID[]): InvalidationState;
 
     /**
      * Given the previous invalidation state for those
@@ -435,7 +435,7 @@ export type LogEvent =
         isRelayHooks: boolean;
         isMissingData: boolean;
         isPromiseCached: boolean;
-        pendingOperations: ReadonlyArray<RequestDescriptor>;
+        pendingOperations: readonly RequestDescriptor[];
     }>
     | Readonly<{
         name: "suspense.query";
@@ -804,7 +804,7 @@ export interface ModuleImportPayload {
     readonly data: PayloadData;
     readonly dataID: DataID;
     readonly operationReference: any;
-    readonly path: ReadonlyArray<string>;
+    readonly path: readonly string[];
     readonly typeName: string;
     readonly variables: Variables;
 }
@@ -818,14 +818,14 @@ export interface DeferPlaceholder {
     readonly kind: "defer";
     readonly data: PayloadData;
     readonly label: string;
-    readonly path: ReadonlyArray<string>;
+    readonly path: readonly string[];
     readonly selector: NormalizationSelector;
     readonly typeName: string;
 }
 export interface StreamPlaceholder {
     readonly kind: "stream";
     readonly label: string;
-    readonly path: ReadonlyArray<string>;
+    readonly path: readonly string[];
     readonly parentID: DataID;
     readonly node: NormalizationSelectableNode;
     readonly variables: Variables;
@@ -864,9 +864,7 @@ export type StoreUpdater = (store: RecordSourceProxy) => void;
  */
 export type SelectorStoreUpdater<T = object> = (
     store: RecordSourceSelectorProxy<T>,
-    // Actually SelectorData, but mixed is inconvenient to access deeply in
-    // product code.
-    data: T,
+    data: T | null | undefined,
 ) => void;
 
 /**
@@ -1015,7 +1013,7 @@ export interface PublishQueue {
     /**
      * Execute all queued up operations from the other public methods.
      */
-    run(): ReadonlyArray<RequestDescriptor>;
+    run(): readonly RequestDescriptor[];
 }
 
 /**

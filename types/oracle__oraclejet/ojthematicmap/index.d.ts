@@ -376,19 +376,19 @@ export interface ojThematicMapSettablePropertiesLenient<K1, K2, K3, D1, D2, D3>
     [key: string]: any;
 }
 export namespace ojThematicMap {
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type DataContext = {
         color: string;
         label: string;
         selected: boolean;
         tooltip: string;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type NodeContext = {
         subId: string;
         index: number;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type RendererContext<K1, K2, K3, D1, D2, D3> = {
         color: string;
         componentElement: Element;
@@ -415,7 +415,7 @@ export namespace ojThematicMap {
         x: number | null;
         y: number | null;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type TooltipContext<K1, K2, K3, D1, D2, D3> = {
         color: string | null;
         componentElement: Element;

@@ -7,6 +7,11 @@ export class Sphere {
     constructor(center?: Vector3, radius?: number);
 
     /**
+     * Read-only flag to check if a given object is of type {@link Sphere}.
+     */
+    readonly isSphere: true;
+
+    /**
      * @default new Vector3()
      */
     center: Vector3;

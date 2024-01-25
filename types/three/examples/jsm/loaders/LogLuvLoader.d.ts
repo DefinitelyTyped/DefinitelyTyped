@@ -11,7 +11,7 @@ export interface LogLuv {
 
 export class LogLuvLoader extends DataTextureLoader {
     type: TextureDataType;
-    constructor(manager: LoadingManager);
+    constructor(manager?: LoadingManager);
 
     parse(buffer: Iterable<number>): LogLuv;
 

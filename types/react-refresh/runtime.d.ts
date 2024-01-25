@@ -21,7 +21,9 @@ export function setSignature(type: unknown, key: string, forceReset?: boolean, g
  */
 export function collectCustomHooksForSignature(type: unknown): void;
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export function getFamilyByID(id: string): Family | void;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export function getFamilyByType(type: unknown): Family | void;
 
 export type Instance = unknown;

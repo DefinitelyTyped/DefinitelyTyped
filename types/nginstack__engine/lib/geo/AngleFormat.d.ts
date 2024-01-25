@@ -1,4 +1,4 @@
 export type exports = number;
-declare const DDD: number;
-declare const DDD_DD: number;
+declare let DDD: number;
+declare let DDD_DD: number;
 export {};

@@ -2,6 +2,7 @@ import {
     __internal,
     CacheConfig,
     commitLocalUpdate,
+    commitMutation,
     ConcreteRequest,
     ConnectionHandler,
     ConnectionInterface,
@@ -15,6 +16,7 @@ import {
     graphql,
     isPromise,
     Network,
+    PreloadableConcreteRequest,
     QueryResponseCache,
     ReaderFragment,
     ReaderInlineDataFragment,
@@ -182,6 +184,24 @@ interface UserQuery {
     variables: {};
 }
 
+commitMutation<{
+    response: { setUsername?: { name?: string | null } | null };
+    variables: { name: string };
+}>(environment, {
+    mutation: graphql`
+        mutation setUserName($name: String!) {
+            setUsername(name: $name) {
+                name
+            }
+        }
+    `,
+    variables: { name: "" },
+    updater(store, data) {
+        const newName = data?.setUsername?.name;
+        newName && store.get("userid")?.setValue(newName, "name");
+    },
+});
+
 function storeUpdater(store: RecordSourceSelectorProxy, dataRef: UserFragment_updatable$key) {
     store.invalidateStore();
     const mutationPayload = store.getRootField("sendConversationMessage");
@@ -278,6 +298,33 @@ commitLocalUpdate(environment, store => {
     const root = store.get(ROOT_ID);
     root!.setValue("foo", "localKey");
 });
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~
+// PreloadableConcreteRequest
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+type FooQuery$variables = Record<PropertyKey, never>;
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type FooQuery$data = {
+    readonly foo: string | null | undefined;
+};
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type FooQuery = {
+    response: FooQuery$data;
+    variables: FooQuery$variables;
+};
+
+const preloadableNode: PreloadableConcreteRequest<FooQuery> = {
+    kind: "PreloadableConcreteRequest",
+    params: {
+        operationKind: "query",
+        name: "FooQuery",
+        id: null,
+        cacheID: "2e5967148a8303de3c58059c0eaa87c6",
+        text: "query FooQuery {\n  foo\n}\n",
+        metadata: {},
+    },
+};
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // ConcreteRequest
@@ -749,3 +796,19 @@ ConnectionInterface.inject({
     PAGE_INFO_TYPE: "PageInfo",
     START_CURSOR: "startCursor",
 });
+
+// ~~~~~~~~~~~~~~~~~~
+// Provided variables
+// ~~~~~~~~~~~~~~~~~~
+
+__internal.withProvidedVariables({
+    one: "value",
+}, {
+    two: {
+        get() {
+            return "value";
+        },
+    },
+});
+
+__internal.withProvidedVariables.tests_only_resetDebugCache?.();

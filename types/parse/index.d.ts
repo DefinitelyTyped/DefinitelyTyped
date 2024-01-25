@@ -1547,8 +1547,8 @@ declare global {
             interface AfterSaveRequest<T = Object> extends TriggerRequest<T> {
                 context: Record<string, unknown>;
             }
-            interface AfterDeleteRequest<T = Object> extends TriggerRequest<T> {} // tslint:disable-line no-empty-interface
-            interface BeforeDeleteRequest<T = Object> extends TriggerRequest<T> {} // tslint:disable-line no-empty-interface
+            interface AfterDeleteRequest<T = Object> extends TriggerRequest<T> {} // eslint-disable-line @typescript-eslint/no-empty-interface
+            interface BeforeDeleteRequest<T = Object> extends TriggerRequest<T> {} // eslint-disable-line @typescript-eslint/no-empty-interface
             interface BeforeSaveRequest<T = Object> extends TriggerRequest<T> {
                 context: Record<string, unknown>;
             }
@@ -1601,6 +1601,7 @@ declare global {
             ): void;
             function beforeFind<T extends Object = Object>(
                 arg1: { new(): T } | string,
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 func?: (request: BeforeFindRequest<T>) => Promise<Query<T>> | Promise<void> | Query<T> | void,
                 validator?: Validator | ((request: FunctionRequest) => any),
             ): void;
@@ -1621,6 +1622,7 @@ declare global {
             ): void;
 
             function beforeSaveFile(
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 func?: (request: FileTriggerRequest) => PromiseLike<File> | void,
                 validator?: Validator | ((request: FunctionRequest) => any),
             ): void;

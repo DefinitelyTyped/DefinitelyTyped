@@ -20,7 +20,7 @@ interface EmberArrayLike<T> {
  * behave as expected. [`Ember.A`](https://api.emberjs.com/ember/release/functions/@ember%2Farray/A)
  * may be used in this case.
  */
-// tslint:disable-next-line:no-empty-interface -- used for declaration merge
+// eslint-disable-next-line @typescript-eslint/no-empty-interface -- used for declaration merge
 interface ArrayProxy<T> extends MutableArray<T> {}
 declare class ArrayProxy<T> extends EmberObject {
     content: T[] | EmberArrayLike<T>;

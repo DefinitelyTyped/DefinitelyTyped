@@ -11,7 +11,8 @@ export class WebGLBufferRenderer {
         capabilities: WebGLCapabilities,
     );
 
-    setMode(value: any): void;
-    render(start: any, count: number): void;
-    renderInstances(start: any, count: number, primcount: number): void;
+    setMode: (value: any) => void;
+    render: (start: any, count: number) => void;
+    renderInstances: (start: any, count: number, primcount: number) => void;
+    renderMultiDraw: (starts: Int32Array, counts: Int32Array, drawCount: number) => void;
 }

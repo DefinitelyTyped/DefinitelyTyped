@@ -10,7 +10,7 @@ import * as R from "ramda";
         return [n, n] as const;
     }
 
-    function duplicateReadonly(n: number): ReadonlyArray<number> {
+    function duplicateReadonly(n: number): readonly number[] {
         return [n, n];
     }
 

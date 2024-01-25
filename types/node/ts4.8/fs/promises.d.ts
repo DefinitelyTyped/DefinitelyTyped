@@ -82,6 +82,7 @@ declare module "fs/promises" {
         emitClose?: boolean | undefined;
         start?: number | undefined;
         highWaterMark?: number | undefined;
+        flush?: boolean | undefined;
     }
     interface ReadableWebStreamOptions {
         /**
@@ -107,7 +108,10 @@ declare module "fs/promises" {
          */
         appendFile(
             data: string | Uint8Array,
-            options?: (ObjectEncodingOptions & FlagAndOpenMode) | BufferEncoding | null,
+            options?:
+                | (ObjectEncodingOptions & FlagAndOpenMode & { flush?: boolean | undefined })
+                | BufferEncoding
+                | null,
         ): Promise<void>;
         /**
          * Changes the ownership of the file. A wrapper for [`chown(2)`](http://man7.org/linux/man-pages/man2/chown.2.html).
@@ -366,7 +370,7 @@ declare module "fs/promises" {
          */
         truncate(len?: number): Promise<void>;
         /**
-         * Change the file system timestamps of the object referenced by the `FileHandle` then resolves the promise with no arguments upon success.
+         * Change the file system timestamps of the object referenced by the `FileHandle` then fulfills the promise with no arguments upon success.
          * @since v10.0.0
          */
         utimes(atime: TimeLike, mtime: TimeLike): Promise<void>;
@@ -374,14 +378,14 @@ declare module "fs/promises" {
          * Asynchronously writes data to a file, replacing the file if it already exists.`data` can be a string, a buffer, an
          * [AsyncIterable](https://tc39.github.io/ecma262/#sec-asynciterable-interface), or an
          * [Iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol) object.
-         * The promise is resolved with no arguments upon success.
+         * The promise is fulfilled with no arguments upon success.
          *
          * If `options` is a string, then it specifies the `encoding`.
          *
          * The `FileHandle` has to support writing.
          *
          * It is unsafe to use `filehandle.writeFile()` multiple times on the same file
-         * without waiting for the promise to be resolved (or rejected).
+         * without waiting for the promise to be fulfilled (or rejected).
          *
          * If one or more `filehandle.write()` calls are made on a file handle and then a`filehandle.writeFile()` call is made, the data will be written from the
          * current position till the end of the file. It doesn't always write from the
@@ -390,15 +394,18 @@ declare module "fs/promises" {
          */
         writeFile(
             data: string | Uint8Array,
-            options?: (ObjectEncodingOptions & FlagAndOpenMode & Abortable) | BufferEncoding | null,
+            options?:
+                | (ObjectEncodingOptions & FlagAndOpenMode & Abortable & { flush?: boolean | undefined })
+                | BufferEncoding
+                | null,
         ): Promise<void>;
         /**
          * Write `buffer` to the file.
          *
-         * The promise is resolved with an object containing two properties:
+         * The promise is fulfilled with an object containing two properties:
          *
          * It is unsafe to use `filehandle.write()` multiple times on the same file
-         * without waiting for the promise to be resolved (or rejected). For this
+         * without waiting for the promise to be fulfilled (or rejected). For this
          * scenario, use `filehandle.createWriteStream()`.
          *
          * On Linux, positional writes do not work when the file is opened in append mode.
@@ -430,10 +437,10 @@ declare module "fs/promises" {
         /**
          * Write an array of [ArrayBufferView](https://developer.mozilla.org/en-US/docs/Web/API/ArrayBufferView) s to the file.
          *
-         * The promise is resolved with an object containing a two properties:
+         * The promise is fulfilled with an object containing a two properties:
          *
          * It is unsafe to call `writev()` multiple times on the same file without waiting
-         * for the promise to be resolved (or rejected).
+         * for the promise to be fulfilled (or rejected).
          *
          * On Linux, positional writes don't work when the file is opened in append mode.
          * The kernel ignores the position argument and always appends the data to
@@ -442,14 +449,14 @@ declare module "fs/promises" {
          * @param [position='null'] The offset from the beginning of the file where the data from `buffers` should be written. If `position` is not a `number`, the data will be written at the current
          * position.
          */
-        writev(buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): Promise<WriteVResult>;
+        writev(buffers: readonly NodeJS.ArrayBufferView[], position?: number): Promise<WriteVResult>;
         /**
          * Read from a file and write to an array of [ArrayBufferView](https://developer.mozilla.org/en-US/docs/Web/API/ArrayBufferView) s
          * @since v13.13.0, v12.17.0
          * @param [position='null'] The offset from the beginning of the file where the data should be read from. If `position` is not a `number`, the data will be read from the current position.
          * @return Fulfills upon success an object containing two properties:
          */
-        readv(buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): Promise<ReadVResult>;
+        readv(buffers: readonly NodeJS.ArrayBufferView[], position?: number): Promise<ReadVResult>;
         /**
          * Closes the file handle after waiting for any pending operation on the handle to
          * complete.
@@ -482,7 +489,7 @@ declare module "fs/promises" {
      * (e.g.`fs.constants.W_OK | fs.constants.R_OK`). Check `File access constants` for
      * possible values of `mode`.
      *
-     * If the accessibility check is successful, the promise is resolved with no
+     * If the accessibility check is successful, the promise is fulfilled with no
      * value. If any of the accessibility checks fail, the promise is rejected
      * with an [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) object. The following example checks if the file`/etc/passwd` can be read and
      * written by the current process.
@@ -645,7 +652,7 @@ declare module "fs/promises" {
      * the filenames. If the `encoding` is set to `'buffer'`, the filenames returned
      * will be passed as `Buffer` objects.
      *
-     * If `options.withFileTypes` is set to `true`, the resolved array will contain `fs.Dirent` objects.
+     * If `options.withFileTypes` is set to `true`, the returned array will contain `fs.Dirent` objects.
      *
      * ```js
      * import { readdir } from 'node:fs/promises';
@@ -715,7 +722,7 @@ declare module "fs/promises" {
     ): Promise<Dirent[]>;
     /**
      * Reads the contents of the symbolic link referred to by `path`. See the POSIX [`readlink(2)`](http://man7.org/linux/man-pages/man2/readlink.2.html) documentation for more detail. The promise is
-     * resolved with the`linkString` upon success.
+     * fulfilled with the`linkString` upon success.
      *
      * The optional `options` argument can be a string specifying an encoding, or an
      * object with an `encoding` property specifying the character encoding to use for
@@ -1022,7 +1029,7 @@ declare module "fs/promises" {
     function appendFile(
         path: PathLike | FileHandle,
         data: string | Uint8Array,
-        options?: (ObjectEncodingOptions & FlagAndOpenMode) | BufferEncoding | null,
+        options?: (ObjectEncodingOptions & FlagAndOpenMode & { flush?: boolean | undefined }) | BufferEncoding | null,
     ): Promise<void>;
     /**
      * Asynchronously reads the entire contents of a file.

@@ -21,6 +21,7 @@ export interface StrategyOption extends passport.AuthenticateOptions {
     customHeaders?: OutgoingHttpHeaders | undefined;
     userProfileURL?: string | undefined;
     userEmailURL?: string | undefined;
+    allRawEmails?: boolean | undefined;
 }
 
 export type OAuth2StrategyOptionsWithoutRequiredURLs = Pick<
@@ -43,6 +44,7 @@ export interface _StrategyOptionsBase extends OAuth2StrategyOptionsWithoutRequir
     customHeaders?: OutgoingHttpHeaders | undefined;
     userProfileURL?: string | undefined;
     userEmailURL?: string | undefined;
+    allRawEmails?: boolean | undefined;
 }
 
 export interface StrategyOptions extends _StrategyOptionsBase {

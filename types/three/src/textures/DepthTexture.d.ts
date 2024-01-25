@@ -3,7 +3,7 @@ import {
     Mapping,
     Wrapping,
     TextureDataType,
-    DeepTexturePixelFormat,
+    DepthTexturePixelFormat,
     MagnificationTextureFilter,
     MinificationTextureFilter,
     TextureComparisonFunction,
@@ -42,7 +42,7 @@ export class DepthTexture extends Texture {
         magFilter?: MagnificationTextureFilter,
         minFilter?: MinificationTextureFilter,
         anisotropy?: number,
-        format?: DeepTexturePixelFormat,
+        format?: DepthTexturePixelFormat,
     );
 
     /**
@@ -88,7 +88,7 @@ export class DepthTexture extends Texture {
      * @see {@link Texture.format | Texture.format}
      * @defaultValue {@link THREE.DepthFormat}.
      */
-    format: DeepTexturePixelFormat;
+    format: DepthTexturePixelFormat;
 
     /**
      * @override

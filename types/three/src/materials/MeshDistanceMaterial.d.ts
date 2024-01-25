@@ -1,6 +1,6 @@
 import { MaterialParameters, Material } from './Material.js';
-import { Vector3 } from './../math/Vector3.js';
-import { Texture } from './../textures/Texture.js';
+import { Vector3 } from '../math/Vector3.js';
+import { Texture } from '../textures/Texture.js';
 
 export interface MeshDistanceMaterialParameters extends MaterialParameters {
     map?: Texture | null | undefined;
@@ -15,6 +15,13 @@ export interface MeshDistanceMaterialParameters extends MaterialParameters {
 
 export class MeshDistanceMaterial extends Material {
     constructor(parameters?: MeshDistanceMaterialParameters);
+
+    /**
+     * Read-only flag to check if a given object is of type {@link MeshDistanceMaterial}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isMeshDistanceMaterial: true;
 
     /**
      * @default 'MeshDistanceMaterial'

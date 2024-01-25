@@ -95,6 +95,7 @@ declare namespace JQuery {
             /**
              * A pre-request callback function that can be used to modify the jqXHR (in jQuery 1.4.x, XMLHTTPRequest) object before it is sent. Use this to set custom headers, etc. The jqXHR and settings objects are passed as arguments. This is an Ajax Event. Returning false in the beforeSend function will cancel the request. As of jQuery 1.5, the beforeSend option will be called regardless of the type of request.
              */
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             beforeSend?(this: TContext, jqXHR: jqXHR, settings: this): false | void;
             /**
              * If set to false, it will force requested pages not to be cached by the browser. Note: Setting cache to false will only work correctly with HEAD and GET requests. It works by appending "_={timestamp}" to the GET parameters. The parameter is not needed for other types of requests, except in IE8 when a POST is made to a URL that has already been requested by a GET.
@@ -758,12 +759,12 @@ declare namespace JQuery {
          * @since 1.7
          */
         /* eslint-disable @definitelytyped/no-unnecessary-generics */
-        // tslint:disable-next-line:ban-types
+        // eslint-disable-next-line @typescript-eslint/ban-types
         <T extends Function>(flags?: string): Callbacks<T>;
         /* eslint-enable @definitelytyped/no-unnecessary-generics */
     }
 
-    // tslint:disable-next-line:ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     interface Callbacks<T extends Function = Function> {
         /**
          * Add a callback or a collection of callbacks to a callback list.
@@ -4241,6 +4242,7 @@ $.get( "test.php" )
                 element: TElement,
                 props: PlainObject,
                 opts: EffectsOptions<TElement>,
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             ) => Animation<TElement> | _Falsy | void,
             prepend?: boolean,
         ): void;
@@ -7187,6 +7189,7 @@ $( "#checkMetaKey" ).click(function( event ) {
          * This hook can perform whatever processing it desires, including attaching its own event handlers to the element or to other elements and recording setup information on the element using the `jQuery.data()` method. If the setup hook wants jQuery to add a browser event (via `addEventListener` or `attachEvent`, depending on browser) it should return `false`. In all other cases, jQuery will not add the browser event, but will continue all its other bookkeeping for the event. This would be appropriate, for example, if the event was never fired by the browser but invoked by `.trigger()`. To attach the jQuery event handler in the setup hook, use the `eventHandle` argument.
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#setup-function-data-object-namespaces-eventhandle-function }\`
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         setup(this: TTarget, data: TData, namespaces: string, eventHandle: EventHandler<TTarget, TData>): void | false;
     } | {
         /**
@@ -7195,6 +7198,7 @@ $( "#checkMetaKey" ).click(function( event ) {
          * If the setup hook attached event handlers or added data to an element through a mechanism such as `jQuery.data()`, the teardown hook should reverse the process and remove them. jQuery will generally remove the data and events when an element is totally removed from the document, but failing to remove data or events on teardown will cause a memory leak if the element stays in the document.
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#teardown-function }\`
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         teardown(this: TTarget): void | false;
     } | {
         /**
@@ -7215,12 +7219,14 @@ $( "#checkMetaKey" ).click(function( event ) {
          * The trigger hook is called early in the process of triggering an event, just after the `jQuery.Event` object is constructed and before any handlers have been called. It can process the triggered event in any way, for example by calling `event.stopPropagation()` or `event.preventDefault()` before returning. If the hook returns `false`, jQuery does not perform any further event triggering actions and returns immediately. Otherwise, it performs the normal trigger processing, calling any event handlers for the element and bubbling the event (unless propagation is stopped in advance or `noBubble` was specified for the special event) to call event handlers attached to parent elements.
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#trigger-function-event-jquery-event-data-object }\`
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         trigger(this: TTarget, event: Event, data: TData): void | false;
     } | {
         /**
          * When the `.trigger()` method finishes running all the event handlers for an event, it also looks for and runs any method on the target object by the same name unless of the handlers called `event.preventDefault()`. So, `.trigger( "submit" )` will execute the `submit()` method on the element if one exists. When a `_default` hook is specified, the hook is called just prior to checking for and executing the element's default method. If this hook returns the value `false` the element's default method will be called; otherwise it is not.
          * @see \`{@link https://learn.jquery.com/events/event-extensions/#_default-function-event-jquery-event-data-object }\`
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         _default(event: TriggeredEvent<TTarget, TData>, data: TData): void | false;
     } | {
         /**
@@ -7235,6 +7241,7 @@ $( "#checkMetaKey" ).click(function( event ) {
             ...data: TData[]
         ): void;
     } | {
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         preDispatch(this: TTarget, event: Event): false | void;
     } | {
         postDispatch(this: TTarget, event: Event): void;
@@ -7341,7 +7348,7 @@ type _FocusEvent = FocusEvent;
 // #region ES5 compatibility
 
 // Forward declaration of `Iterable<T>`.
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Iterable<T> {}
 
 interface SymbolConstructor {

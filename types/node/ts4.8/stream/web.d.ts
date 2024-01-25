@@ -342,7 +342,23 @@ declare module "stream/web" {
     }
     const TextDecoderStream: {
         prototype: TextDecoderStream;
-        new(label?: string, options?: TextDecoderOptions): TextDecoderStream;
+        new(encoding?: string, options?: TextDecoderOptions): TextDecoderStream;
+    };
+    interface CompressionStream<R = any, W = any> {
+        readonly readable: ReadableStream<R>;
+        readonly writable: WritableStream<W>;
+    }
+    const CompressionStream: {
+        prototype: CompressionStream;
+        new<R = any, W = any>(format: string): CompressionStream<R, W>;
+    };
+    interface DecompressionStream<R = any, W = any> {
+        readonly readable: ReadableStream<R>;
+        readonly writable: WritableStream<W>;
+    }
+    const DecompressionStream: {
+        prototype: DecompressionStream;
+        new<R = any, W = any>(format: string): DecompressionStream<R, W>;
     };
 }
 declare module "node:stream/web" {

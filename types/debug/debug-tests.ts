@@ -1,5 +1,5 @@
 import * as debug1 from "debug";
-/*tslint:disable-next-line:no-duplicate-imports*/
+/*eslint-disable-next-line no-duplicate-imports*/
 import debug2 from "debug";
 
 const log2: debug1.Debugger = debug2("DefinitelyTyped:log");

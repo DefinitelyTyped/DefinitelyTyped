@@ -1,4 +1,4 @@
-import { BufferGeometry } from './../core/BufferGeometry.js';
+import { BufferGeometry } from '../core/BufferGeometry.js';
 
 /**
  * A polyhedron is a solid in three dimensions with flat faces

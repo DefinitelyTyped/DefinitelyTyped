@@ -1507,7 +1507,7 @@ describe("jasmine.arrayContaining", () => {
     });
 
     it("matches read-only array", () => {
-        const bar: ReadonlyArray<number> = [1, 2, 3, 4];
+        const bar: readonly number[] = [1, 2, 3, 4];
 
         expect(bar).toEqual(jasmine.arrayContaining([3, 1]));
         expect(bar).not.toEqual(jasmine.arrayContaining([6]));
@@ -1794,6 +1794,7 @@ describe("Fail", () => {
 
 // test based on http://jasmine.github.io/2.2/custom_equality.html
 describe("custom equality", () => {
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     const myCustomEquality: jasmine.CustomEqualityTester = (first: any, second: any): boolean | void => {
         if (typeof first === "string" && typeof second === "string") {
             return first[0] === second[1];

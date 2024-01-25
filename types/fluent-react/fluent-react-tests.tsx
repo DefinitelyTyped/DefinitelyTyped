@@ -1,6 +1,5 @@
 import { FluentBundle, ftl } from "fluent";
 import { GetString, LocalizationProvider, Localized, withLocalization } from "fluent-react";
-import * as ReactDOM from "react-dom";
 
 // Localized examples:
 const Test = () => (
@@ -18,12 +17,9 @@ function* generateBundles(currentLocales: string[]) {
     }
 }
 
-ReactDOM.render(
-    <LocalizationProvider bundles={generateBundles(["en-US"])}>
-        <div />
-    </LocalizationProvider>,
-    document.getElementById("root"),
-);
+<LocalizationProvider bundles={generateBundles(["en-US"])}>
+    <div />
+</LocalizationProvider>;
 
 // withLocalization examples:
 interface Props {

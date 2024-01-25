@@ -69,7 +69,11 @@ declare namespace GorillaEngine.UI {
         overlayColorRight?: string;
         enforceValueOnConstraintViolation?: boolean;
         valueOffsetOnConstraintViolation?: number;
-        styles?: SliceStyle[];
+        styles?: {
+            normal: SliceStyle;
+            hover: SliceStyle;
+            selected: SliceStyle;
+        };
     }
 
     interface Slice {

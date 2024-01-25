@@ -8648,7 +8648,7 @@ declare namespace Excel {
         UseStandardWidth: boolean | null;
         readonly Validation: Validation;
 
-        // tslint:disable-next-line: ban-types
+        // eslint-disable-next-line @typescript-eslint/ban-types
         Value: Exclude<any, Function> & ((RangeValueDataType?: XlRangeValueDataType) => any);
         Value2: any;
         VerticalAlignment: VerticalAlignments;

@@ -42,6 +42,7 @@ export class ActivityManager {
         activity: Record<string, any>,
         options?: Record<string, any>,
         callback?: (payload: Record<string, any>) => void,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): boolean | void;
 
     create(spec: string | Record<string, any>, callback: (payload: any) => void): void;

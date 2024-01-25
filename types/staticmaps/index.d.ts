@@ -9,7 +9,7 @@ declare class StaticMaps {
     addMarker: (options: StaticMaps.AddMarkerOptions) => void;
     addText: (options: StaticMaps.AddTextOptions) => void;
     addCircle: (options: StaticMaps.AddCircleOptions) => void;
-    render: (center?: ReadonlyArray<number>, zoom?: number) => Promise<void>;
+    render: (center?: readonly number[], zoom?: number) => Promise<void>;
     image: StaticMapsImage;
 }
 

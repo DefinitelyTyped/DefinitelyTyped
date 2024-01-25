@@ -1,1 +1,0 @@
-jquery/index.d.ts

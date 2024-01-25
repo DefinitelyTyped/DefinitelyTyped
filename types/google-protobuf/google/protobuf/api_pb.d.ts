@@ -10,13 +10,13 @@ export class Api extends jspb.Message {
     setName(value: string): Api;
 
     clearMethodsList(): Api;
-    getMethodsList(): Array<Method>;
-    setMethodsList(value: Array<Method>): Api;
+    getMethodsList(): Method[];
+    setMethodsList(value: Method[]): Api;
     addMethods(value?: Method, index?: number): Method;
 
     clearOptionsList(): Api;
-    getOptionsList(): Array<google_protobuf_type_pb.Option>;
-    setOptionsList(value: Array<google_protobuf_type_pb.Option>): Api;
+    getOptionsList(): google_protobuf_type_pb.Option[];
+    setOptionsList(value: google_protobuf_type_pb.Option[]): Api;
     addOptions(value?: google_protobuf_type_pb.Option, index?: number): google_protobuf_type_pb.Option;
 
     getVersion(): string;
@@ -28,8 +28,8 @@ export class Api extends jspb.Message {
     setSourceContext(value?: google_protobuf_source_context_pb.SourceContext): Api;
 
     clearMixinsList(): Api;
-    getMixinsList(): Array<Mixin>;
-    setMixinsList(value: Array<Mixin>): Api;
+    getMixinsList(): Mixin[];
+    setMixinsList(value: Mixin[]): Api;
     addMixins(value?: Mixin, index?: number): Mixin;
 
     getSyntax(): google_protobuf_type_pb.Syntax;
@@ -48,11 +48,11 @@ export class Api extends jspb.Message {
 export namespace Api {
     export type AsObject = {
         name: string;
-        methodsList: Array<Method.AsObject>;
-        optionsList: Array<google_protobuf_type_pb.Option.AsObject>;
+        methodsList: Method.AsObject[];
+        optionsList: google_protobuf_type_pb.Option.AsObject[];
         version: string;
         sourceContext?: google_protobuf_source_context_pb.SourceContext.AsObject | undefined;
-        mixinsList: Array<Mixin.AsObject>;
+        mixinsList: Mixin.AsObject[];
         syntax: google_protobuf_type_pb.Syntax;
     };
 }
@@ -74,8 +74,8 @@ export class Method extends jspb.Message {
     setResponseStreaming(value: boolean): Method;
 
     clearOptionsList(): Method;
-    getOptionsList(): Array<google_protobuf_type_pb.Option>;
-    setOptionsList(value: Array<google_protobuf_type_pb.Option>): Method;
+    getOptionsList(): google_protobuf_type_pb.Option[];
+    setOptionsList(value: google_protobuf_type_pb.Option[]): Method;
     addOptions(value?: google_protobuf_type_pb.Option, index?: number): google_protobuf_type_pb.Option;
 
     getSyntax(): google_protobuf_type_pb.Syntax;
@@ -98,7 +98,7 @@ export namespace Method {
         requestStreaming: boolean;
         responseTypeUrl: string;
         responseStreaming: boolean;
-        optionsList: Array<google_protobuf_type_pb.Option.AsObject>;
+        optionsList: google_protobuf_type_pb.Option.AsObject[];
         syntax: google_protobuf_type_pb.Syntax;
     };
 }

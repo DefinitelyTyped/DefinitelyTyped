@@ -48,7 +48,7 @@ interface WinregStatic {
     /**
      * Collection of available registry hive keys.
      */
-    HIVES: Array<string>;
+    HIVES: string[];
 
     /**
      * Registry value type STRING.
@@ -102,7 +102,7 @@ interface WinregStatic {
     /**
      * Collection of available registry value types.
      */
-    REG_TYPES: Array<string>;
+    REG_TYPES: string[];
 
     /**
      * The name of the default value. May be used instead of the empty string literal for better readability.
@@ -174,7 +174,7 @@ declare namespace Winreg {
          * @param {array=} cb.items - an array of {@link RegistryItem} objects
          * @returns {Registry} this registry key object
          */
-        values(cb: (err: Error, result: Array<Winreg.RegistryItem>) => void): Registry;
+        values(cb: (err: Error, result: Winreg.RegistryItem[]) => void): Registry;
 
         /**
          * Retrieve all subkeys from this registry key.
@@ -183,7 +183,7 @@ declare namespace Winreg {
          * @param {array=} cb.items - an array of {@link Registry} objects
          * @returns {Registry} this registry key object
          */
-        keys(cb: (err: Error, result: Array<Registry>) => void): Registry;
+        keys(cb: (err: Error, result: Registry[]) => void): Registry;
 
         /**
          * Gets a named value from this registry key.

@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import { JSX } from "react";
 
 export interface NotificationsContextType {
     showNotification(payload?: NotificationPayload): void;
@@ -10,7 +10,7 @@ export interface NotificationsContextType {
  * this types package should use declaration merging to add their own standard
  * properties to this interface, since the library leaves it up to the user.
  */
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface NotificationPayload {}
 
 export const NotificationsContext: React.Context<NotificationsContextType>;

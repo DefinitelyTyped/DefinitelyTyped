@@ -108,20 +108,20 @@ declare namespace google {
             function month(value: Date): number;
 
             // https://developers.google.com/chart/interactive/docs/reference#group
-            function sum(values: ReadonlyArray<number>): number;
-            function avg(values: ReadonlyArray<number>): number;
+            function sum(values: readonly number[]): number;
+            function avg(values: readonly number[]): number;
             function min(
-                values: ReadonlyArray<number> | ReadonlyArray<string> | ReadonlyArray<Date>,
+                values: readonly number[] | readonly string[] | readonly Date[],
             ): number | string | Date | null;
             function max(
-                values: ReadonlyArray<number> | ReadonlyArray<string> | ReadonlyArray<Date>,
+                values: readonly number[] | readonly string[] | readonly Date[],
             ): number | string | Date | null;
-            function count(values: ReadonlyArray<any>): number;
+            function count(values: readonly any[]): number;
 
             function group(
                 data: DataTable | DataView,
                 keys: ReadonlyArray<number | GroupKeyOptions>,
-                columns?: ReadonlyArray<GroupColumnOptions>,
+                columns?: readonly GroupColumnOptions[],
             ): DataTable;
 
             // https://developers.google.com/chart/interactive/docs/reference#join

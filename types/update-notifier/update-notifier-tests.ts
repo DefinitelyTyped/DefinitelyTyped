@@ -47,8 +47,8 @@ if (notifier.update) {
     update.latest; // $ExpectType string
     update.name; // $ExpectType string
     update.type; // $ExpectType "latest" | "major" | "minor" | "patch" | "prerelease" | "build"
-    notifier.config.set("lastUpdateCheck", Date.now());
+    notifier.config?.set("lastUpdateCheck", Date.now());
     if (update.type && update.type !== "latest") {
-        notifier.config.set("update", update);
+        notifier.config?.set("update", update);
     }
 })();

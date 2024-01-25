@@ -3687,10 +3687,10 @@ declare namespace ymaps {
         state: IDataManager;
 
         getAddressLine(): string;
-        getAdministrativeAreas(): ReadonlyArray<string>;
+        getAdministrativeAreas(): readonly string[];
         getCountry(): string | null;
         getCountryCode(): string | null;
-        getLocalities(): ReadonlyArray<string>;
+        getLocalities(): readonly string[];
         getMap(): Map;
         getOverlay(): Promise<IOverlay | null>;
         getOverlaySync(): IOverlay | null;
@@ -4099,13 +4099,13 @@ declare namespace ymaps {
      * @param request The address for which coordinates need to be obtained (forward geocoding), or the coordinates for which the address needs to be determined (reverse geocoding).
      * @param options Options.
      */
-    function geocode(request: string | ReadonlyArray<number>, options?: IGeocodeOptions): Promise<IGeocodeResult>;
+    function geocode(request: string | readonly number[], options?: IGeocodeOptions): Promise<IGeocodeResult>;
 
     interface IGeocodeOptions {
         /**
          * A rectangular area on the map, where the object being searched for is presumably located.
          */
-        boundedBy?: ReadonlyArray<ReadonlyArray<number>>;
+        boundedBy?: ReadonlyArray<readonly number[]>;
 
         /**
          * If true, JSON is passed to the handler function. Otherwise, the handler function is passed an object containing the geoObjects field with the geocoding results as GeoObjectCollection.
@@ -4438,7 +4438,7 @@ declare namespace ymaps {
 
     interface IContainerPane extends IPane, IPositioningContext {}
 
-    interface IControl extends IChildOnMap { // tslint:disable-line no-empty-interface
+    interface IControl extends IChildOnMap { // eslint-disable-line @typescript-eslint/no-empty-interface
         // new (options?: object);
     }
 
@@ -4454,7 +4454,7 @@ declare namespace ymaps {
         solveInverseProblem(startPoint: number[], endPoint: number[], reverseDirection?: boolean): object;
     }
 
-    interface ICopyrightsAccessor extends ICopyrightsProvider { // tslint:disable-line no-empty-interface
+    interface ICopyrightsAccessor extends ICopyrightsProvider { // eslint-disable-line @typescript-eslint/no-empty-interface
     }
 
     interface ICopyrightsProvider extends IEventEmitter {
@@ -4473,7 +4473,7 @@ declare namespace ymaps {
         get(path: string, defaultValue: object): object;
     }
 
-    interface IDomEventEmitter extends IEventEmitter { // tslint:disable-line no-empty-interface
+    interface IDomEventEmitter extends IEventEmitter { // eslint-disable-line @typescript-eslint/no-empty-interface
     }
 
     interface IEvent<OriginalEvent = {}, TargetGeometry = {}> {
@@ -4593,7 +4593,7 @@ declare namespace ymaps {
         onBeforeEventFiring?(events: IEventManager, type: string, event?: IEvent): void;
     }
 
-    interface IExpandableControlLayout extends ILayout { // tslint:disable-line no-empty-interface
+    interface IExpandableControlLayout extends ILayout { // eslint-disable-line @typescript-eslint/no-empty-interface
     }
 
     interface IFreezable {
@@ -4659,7 +4659,7 @@ declare namespace ymaps {
         getPixels(): number[];
     }
 
-    interface IGeometryEditorRootModel extends IGeometryEditorModel { // tslint:disable-line no-empty-interface
+    interface IGeometryEditorRootModel extends IGeometryEditorModel { // eslint-disable-line @typescript-eslint/no-empty-interface
     }
 
     interface IGeometryJson {
@@ -5150,7 +5150,7 @@ declare namespace ymaps {
         switchPoints(): void;
     }
 
-    interface ISearchControlLayout extends IExpandableControlLayout { // tslint:disable-line no-empty-interface
+    interface ISearchControlLayout extends IExpandableControlLayout { // eslint-disable-line @typescript-eslint/no-empty-interface
     }
 
     interface ISelectableControl extends IControl {
@@ -5167,7 +5167,7 @@ declare namespace ymaps {
         select(): void;
     }
 
-    interface ISelectableControlLayout extends ILayout { // tslint:disable-line no-empty-interface
+    interface ISelectableControlLayout extends ILayout { // eslint-disable-line @typescript-eslint/no-empty-interface
     }
 
     interface IShape {

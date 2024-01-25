@@ -1,8 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "linterOptions": {
-        "exclude": [
-            "test/cyclonedx_v*-tests.ts"
-        ]
-    }
-}

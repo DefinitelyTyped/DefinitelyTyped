@@ -68,7 +68,7 @@ declare namespace React {
     type Key = string | number;
     type Ref<T> = string | { bivarianceHack(instance: T | null): any }["bivarianceHack"];
 
-    // tslint:disable-next-line:interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ComponentState = {};
 
     interface Attributes {
@@ -2900,6 +2900,7 @@ declare namespace React {
 
     interface DetailsHTMLAttributes<T> extends HTMLAttributes<T> {
         open?: boolean | undefined;
+        name?: string | undefined;
     }
 
     interface DelHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -3055,9 +3056,10 @@ declare namespace React {
 
     interface MetaHTMLAttributes<T> extends HTMLAttributes<T> {
         charSet?: string | undefined;
+        content?: string | undefined;
         httpEquiv?: string | undefined;
-        name?: string | undefined;
         media?: string | undefined;
+        name?: string | undefined;
     }
 
     interface MeterHTMLAttributes<T> extends HTMLAttributes<T> {

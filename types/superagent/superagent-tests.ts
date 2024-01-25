@@ -204,21 +204,6 @@ request.get("http://example.com/search").retry(2, callback).end(callback);
     req.pipe(stream);
 })();
 
-// Multipart requests
-(() => {
-    const req = request.post("/upload");
-
-    req.part()
-        .set("Content-Type", "image/png")
-        .set("Content-Disposition", "attachment; filename=\"myimage.png\"")
-        .write("some image data");
-    req.write("some more image data");
-
-    req.part().set("Content-Disposition", "form-data; name=\"name\"").set("Content-Type", "text/plain").write("tobi");
-
-    req.end(callback);
-})();
-
 // Attaching files
 const blob = new Blob([]);
 request
@@ -364,7 +349,7 @@ request.get("/echo").use(echoPlugin).end();
 
 async function testDefaultOptions() {
     // Default options for multiple requests
-    const agentWithDefaultOptions = request
+    const agentWithDefaultOptions = new request
         .agent()
         .use(() => null)
         .auth("digest", "secret", { type: "auto" });
@@ -376,6 +361,5 @@ async function testDefaultOptions() {
 request.get("/").http2().end(callback);
 request("POST", "/").http2().end(callback);
 agent.get("/").http2().end(callback);
-agent("/").http2().end(callback);
 
-testDefaultOptions();
+void testDefaultOptions();

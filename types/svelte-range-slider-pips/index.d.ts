@@ -78,6 +78,10 @@ declare namespace RangeSlider {
          * (only disables interactions, and events)
          */
         disabled?: boolean;
+        /**
+         * An array of strings to use for the aria-label attribute on the handles
+         */
+        ariaLabels?: string[];
 
         // range pips / values props
         /**

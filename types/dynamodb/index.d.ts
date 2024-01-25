@@ -38,7 +38,7 @@ export const log: bunyan;
 export function dynamoDriver(driver?: DynamoDB): DynamoDB;
 export function documentClient(docClient?: DocumentClient): DocumentClient;
 export function reset(): void;
-export function Set(data: ReadonlyArray<any>, type: string): DynamoDbSet;
+export function Set(data: readonly any[], type: string): DynamoDbSet;
 
 export function define<T>(name: string, config: DefineConfig<T>): Model<T>;
 export function define(name: string, config: DefineConfig<any>): Model<any>;

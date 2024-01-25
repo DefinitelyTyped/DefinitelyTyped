@@ -289,7 +289,7 @@ declare module "buffer" {
              * @param array The octets to store.
              * @deprecated since v10.0.0 - Use `Buffer.from(array)` instead.
              */
-            new(array: ReadonlyArray<any>): Buffer;
+            new(array: readonly any[]): Buffer;
             /**
              * Copies the passed {buffer} data onto a new {Buffer} instance.
              *
@@ -327,8 +327,8 @@ declare module "buffer" {
              * Creates a new Buffer using the passed {data}
              * @param data data to create a new Buffer
              */
-            from(data: Uint8Array | ReadonlyArray<number>): Buffer;
-            from(data: WithImplicitCoercion<Uint8Array | ReadonlyArray<number> | string>): Buffer;
+            from(data: Uint8Array | readonly number[]): Buffer;
+            from(data: WithImplicitCoercion<Uint8Array | readonly number[] | string>): Buffer;
             /**
              * Creates a new Buffer containing the given JavaScript string {str}.
              * If provided, the {encoding} parameter identifies the character encoding.
@@ -456,7 +456,7 @@ declare module "buffer" {
              * @param list List of `Buffer` or {@link Uint8Array} instances to concatenate.
              * @param totalLength Total length of the `Buffer` instances in `list` when concatenated.
              */
-            concat(list: ReadonlyArray<Uint8Array>, totalLength?: number): Buffer;
+            concat(list: readonly Uint8Array[], totalLength?: number): Buffer;
             /**
              * Copies the underlying memory of `view` into a new `Buffer`.
              *
@@ -564,7 +564,7 @@ declare module "buffer" {
              *
              * The `Buffer` module pre-allocates an internal `Buffer` instance of
              * size `Buffer.poolSize` that is used as a pool for the fast allocation of new`Buffer` instances created using `Buffer.allocUnsafe()`, `Buffer.from(array)`,
-             * and `Buffer.concat()` only when `size` is less than or equal to`Buffer.poolSize >> 1` (floor of `Buffer.poolSize` divided by two).
+             * and `Buffer.concat()` only when `size` is less than`Buffer.poolSize >>> 1` (floor of `Buffer.poolSize` divided by two).
              *
              * Use of this pre-allocated internal memory pool is a key difference between
              * calling `Buffer.alloc(size, fill)` vs. `Buffer.allocUnsafe(size).fill(fill)`.

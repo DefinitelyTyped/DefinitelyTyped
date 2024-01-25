@@ -1,10 +1,22 @@
 import supertest = require("supertest");
 import express = require("express");
 
-const app = express();
-const request: supertest.SuperTest<supertest.Test> = supertest(app);
+import { Server as HttpServer } from "http";
+import { Http2SecureServer, Http2Server } from "http2";
+import { Server as HttpsServer } from "https";
 
-(request.get("/user") as supertest.Test)
+const app = express();
+const request = supertest(app);
+
+// Should accept different servers as the app
+supertest("http://some.server").get("/user").expect(200);
+supertest({} as HttpServer).get("/user").expect(200);
+supertest({} as HttpsServer).get("/user").expect(200);
+supertest({} as Http2Server).get("/user").expect(200);
+supertest({} as Http2SecureServer).get("/user").expect(200);
+
+request.get("/user")
+    .set("Accept", "*/*")
     .expect("Content-Type", /json/)
     .expect("Content-Length", "20")
     .expect(201)
@@ -14,23 +26,23 @@ const request: supertest.SuperTest<supertest.Test> = supertest(app);
 
 // cookie scenario
 const agent = supertest.agent();
-request.post("/login").end((err: any, res: supertest.Response) => {
-    if (err) throw err;
-    agent.saveCookies(res);
-
-    const req = request.get("/admin") as supertest.Test;
-    agent.attachCookies(req);
-    req.expect(200, (err: any, res: supertest.Response) => {
+request.post("/login")
+    .send("hello world")
+    .end((err: any, res: supertest.Response) => {
         if (err) throw err;
+
+        const req = request.get("/admin");
+        req.expect(200, (err: any, res: supertest.Response) => {
+            if (err) throw err;
+        });
     });
-});
 
 // cookie scenario, new version
 const client = supertest.agent(app);
 client.post("/login").end((err: any, res: supertest.Response) => {
     if (err) throw err;
 
-    (client.get("/admin") as supertest.Test).expect(200, (err: any, res: supertest.Response) => {
+    client.get("/admin").expect(200, (err: any, res: supertest.Response) => {
         if (err) throw err;
     });
 });
@@ -57,9 +69,11 @@ supertest.agent(app).set({ host: "google.com" });
 supertest.agent(app).host("something.test").get("/"); // $ExpectType Test
 
 // functional expect
-(request.get("/") as supertest.Test).expect(hasPreviousAndNextKeys).end((err: any, res: supertest.Response) => {
-    if (err) throw err;
-});
+request.get("/")
+    .expect(hasPreviousAndNextKeys)
+    .end((err: any, res: supertest.Response) => {
+        if (err) throw err;
+    });
 
 function hasPreviousAndNextKeys(res: supertest.Response) {
     if (!("next" in res.body)) return "missing next key";
@@ -67,7 +81,7 @@ function hasPreviousAndNextKeys(res: supertest.Response) {
 }
 
 // functional expect without response type
-(request.get("/") as supertest.Test)
+request.get("/")
     .expect(res => {
         if (!("next" in res.body)) return "missing next key";
         if (!("prev" in res.body)) throw new Error("missing prev key");
@@ -77,6 +91,8 @@ function hasPreviousAndNextKeys(res: supertest.Response) {
     });
 
 // object expect
-(request.get("/") as supertest.Test).expect(200, { foo: "bar" }).end((err: any, res: supertest.Response) => {
-    if (err) throw err;
-});
+request.get("/")
+    .expect(200, { foo: "bar" })
+    .end((err: any, res: supertest.Response) => {
+        if (err) throw err;
+    });

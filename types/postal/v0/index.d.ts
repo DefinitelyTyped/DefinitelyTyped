@@ -12,7 +12,7 @@ interface ISubscriptionDefinition {
     distinctUntilChanged(): ISubscriptionDefinition;
     once(): ISubscriptionDefinition;
     withConstraint(predicate: Function): ISubscriptionDefinition;
-    withConstraints(predicates: Array<Function>): ISubscriptionDefinition;
+    withConstraints(predicates: Function[]): ISubscriptionDefinition;
 
     withContext(context: any): ISubscriptionDefinition;
     withDebounce(milliseconds: number, immediate: boolean): ISubscriptionDefinition;

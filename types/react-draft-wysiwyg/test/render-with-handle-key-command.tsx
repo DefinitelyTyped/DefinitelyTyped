@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import { Editor, EditorProps } from "react-draft-wysiwyg";
 
 const RenderWithHandleKeyCommand = () => {
@@ -13,5 +12,3 @@ const RenderWithHandleKeyCommand = () => {
 
     return <Editor handleKeyCommand={handleKeyCommand} />;
 };
-
-ReactDOM.render(<RenderWithHandleKeyCommand />, document.getElementById("target"));

@@ -1,7 +1,7 @@
 declare namespace GoogleAdsScripts {
     // TODO: Add doc comments
     namespace AdsApp {
-        // tslint:disable-next-line: no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface AccountPhoneNumber extends PhoneNumber {}
 
         interface AccountPhoneNumberIterator extends Base.Iterator<AccountPhoneNumber> {}

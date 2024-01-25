@@ -513,6 +513,9 @@ function testGetManifest() {
 
     manifest.name; // $ExpectType string
     manifest.version; // $ExpectType string
+    if (manifest.author) {
+        manifest.author.email; // $ExpectType string
+    }
 
     if (manifest.manifest_version === 2) {
         manifest.browser_action; // $ExpectType ManifestAction | undefined
@@ -1558,6 +1561,13 @@ function testStorageForPromise() {
     );
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/runtime#method-getContexts
+function testRunTimeGetContexts() {
+    const options = { incognito: true, tabIds: [1, 2, 3] };
+
+    chrome.runtime.getContexts(options);
+}
+
 // https://developer.chrome.com/docs/extensions/reference/runtime/#method-sendMessage
 function testRuntimeSendMessage() {
     const options = { includeTlsChannelId: true };
@@ -1854,8 +1864,9 @@ async function testI18nForPromise() {
     await chrome.i18n.detectLanguage("dummy-id");
 }
 
-function testPageCapture() {
-    chrome.pageCapture.saveAsMHTML({ tabId: 0 }, (data: Blob | undefined) => {});
+async function testPageCapture() {
+    chrome.pageCapture.saveAsMHTML({ tabId: 0 }, (data: Blob | undefined) => {}); // $ExpectType void
+    await chrome.pageCapture.saveAsMHTML({ tabId: 0 }); // $ExpectType Blob | undefined
 }
 
 // https://developer.chrome.com/docs/extensions/reference/downloads
@@ -2077,6 +2088,14 @@ function testFileSystemProvider() {
             errorCallback: (error: string) => void,
         ) => {},
     );
+
+    chrome.fileSystemProvider.onCreateDirectoryRequested.addListener(
+        (
+            options: chrome.fileSystemProvider.CreateDirectoryRequestedEventOptions,
+            successCallback: Function,
+            errorCallback: (error: string) => void,
+        ) => {},
+    );
 }
 
 // https://developer.chrome.com/docs/extensions/reference/sessions/
@@ -2113,13 +2132,62 @@ function testSidePanelAPI() {
     };
 
     chrome.sidePanel.getOptions(getPanelOptions, (options: chrome.sidePanel.PanelOptions) => {
+        console.log("Using callback:");
+        console.log(options.enabled);
+        console.log(options.path);
+        console.log(options.tabId);
+    });
+
+    chrome.sidePanel.getOptions(getPanelOptions).then((options: chrome.sidePanel.PanelOptions) => {
+        console.log("Using promise:");
         console.log(options.enabled);
         console.log(options.path);
         console.log(options.tabId);
     });
 
     chrome.sidePanel.getPanelBehavior((behavior: chrome.sidePanel.PanelBehavior) => {
-        console.log(behavior.openPanelOnActionClick);
+        console.log("Using callback:", behavior.openPanelOnActionClick);
+    });
+
+    chrome.sidePanel.getPanelBehavior().then((behavior) => {
+        console.log("Using promise:", behavior.openPanelOnActionClick);
+    });
+
+    let openOptionsTab: chrome.sidePanel.OpenOptions = {
+        tabId: 1234567890,
+    };
+
+    let openOptionsWindow: chrome.sidePanel.OpenOptions = {
+        windowId: 9876543210,
+    };
+
+    let openOptionsTabAndWindow: chrome.sidePanel.OpenOptions = {
+        tabId: 1234567890,
+        windowId: 9876543210,
+    };
+
+    chrome.sidePanel.open(openOptionsTab, () => {
+        console.log("Side panel opened in tab using callback");
+    });
+
+    chrome.sidePanel.open(openOptionsTab).then(() => {
+        console.log("Side panel opened in tab using promise");
+    });
+
+    chrome.sidePanel.open(openOptionsWindow, () => {
+        console.log("Side panel opened in window using callback");
+    });
+
+    chrome.sidePanel.open(openOptionsWindow).then(() => {
+        console.log("Side panel opened in window using promise");
+    });
+
+    chrome.sidePanel.open(openOptionsTabAndWindow, () => {
+        console.log("Side panel opened in tab in window using callback");
+    });
+
+    chrome.sidePanel.open(openOptionsTabAndWindow).then(() => {
+        console.log("Side panel opened in tab in window using promise");
     });
 
     let setPanelOptions: chrome.sidePanel.PanelOptions = {
@@ -2129,7 +2197,11 @@ function testSidePanelAPI() {
     };
 
     chrome.sidePanel.setOptions(setPanelOptions, () => {
-        console.log("Options set successfully.");
+        console.log("Options set successfully using callback.");
+    });
+
+    chrome.sidePanel.setOptions(setPanelOptions).then(() => {
+        console.log("Options set successfully using promise.");
     });
 
     let setPanelBehavior: chrome.sidePanel.PanelBehavior = {
@@ -2137,6 +2209,30 @@ function testSidePanelAPI() {
     };
 
     chrome.sidePanel.setPanelBehavior(setPanelBehavior, () => {
-        console.log("Behavior set successfully.");
+        console.log("Behavior set successfully using callback.");
     });
+
+    chrome.sidePanel.setPanelBehavior(setPanelBehavior).then(() => {
+        console.log("Behavior set successfully using promise.");
+    });
+}
+
+function testInstanceID() {
+    chrome.instanceID.deleteID(); // $ExpectType Promise<void>
+    chrome.instanceID.deleteID(() => void 0); // $ExpectType void
+
+    const deleteTokenParams = { authorizedEntity: "", scope: "" };
+    chrome.instanceID.deleteToken(deleteTokenParams); // $ExpectType Promise<void>
+    chrome.instanceID.deleteToken(deleteTokenParams, () => void 0); // $ExpectType void
+
+    chrome.instanceID.getCreationTime(); // $ExpectType Promise<number>
+    chrome.instanceID.getCreationTime((creationTime: number) => void 0); // $ExpectType void
+
+    chrome.instanceID.getID(); // $ExpectType Promise<string>
+    chrome.instanceID.getID((id: string) => void 0); // $ExpectType void
+
+    chrome.instanceID.getToken({ authorizedEntity: "", scope: "" }); // $ExpectType Promise<string>
+    chrome.instanceID.getToken({ authorizedEntity: "", scope: "" }, (token: string) => void 0); // $ExpectType void
+
+    chrome.instanceID.onTokenRefresh.addListener(() => void 0);
 }

@@ -14,7 +14,7 @@ declare namespace RelateUrl {
          *
          * Extend the list with any resources you need. Works with options.removeDirectoryIndexes.
          */
-        directoryIndexes?: Array<string> | undefined;
+        directoryIndexes?: string[] | undefined;
 
         /**
          * Type: Boolean
@@ -43,7 +43,7 @@ declare namespace RelateUrl {
          *
          * Extend the list with any additional schemes. Example: javascript:something will not be modified.
          */
-        rejectedSchemes?: Array<string> | undefined;
+        rejectedSchemes?: string[] | undefined;
 
         /**
          * Type: Boolean
