@@ -6,122 +6,129 @@
  * website: https://www.cangokceaslan.com
  * github: https://www.github.com/cangokceaslan
  * npm: https://www.npmjs.com/package/@types/iyzipay
-*/
-
+ */
 
 /* ENUMARATIONS */
-export type LOCALE = 'tr' | 'en';
+export type LOCALE = "tr" | "en";
 
-export type PAYMENT_GROUP = 'PRODUCT' | 'LISTING' | 'SUBSCRIPTION';
+export type PAYMENT_GROUP = "PRODUCT" | "LISTING" | "SUBSCRIPTION";
 
-export type BASKET_ITEM_TYPE = 'PHYSICAL' | 'VIRTUAL';
+export type BASKET_ITEM_TYPE = "PHYSICAL" | "VIRTUAL";
 
-export type PAYMENT_CHANNEL = 'MOBILE' | 'WEB' | 'MOBILE_WEB' | 'MOBILE_IOS' | 'MOBILE_ANDROID' | 'MOBILE_WINDOWS' | 'MOBILE_TABLET' | 'MOBILE_PHONE';
+export type PAYMENT_CHANNEL =
+    | "MOBILE"
+    | "WEB"
+    | "MOBILE_WEB"
+    | "MOBILE_IOS"
+    | "MOBILE_ANDROID"
+    | "MOBILE_WINDOWS"
+    | "MOBILE_TABLET"
+    | "MOBILE_PHONE";
 
-export type SUB_MERCHANT_TYPE = 'PERSONAL' | 'PRIVATE_COMPANY' | 'LIMITED_OR_JOINT_STOCK_COMPANY';
+export type SUB_MERCHANT_TYPE = "PERSONAL" | "PRIVATE_COMPANY" | "LIMITED_OR_JOINT_STOCK_COMPANY";
 
-export type CURRENCY = 'TRY' | 'EUR' | 'USD' | 'IRR' | 'GBP' | 'NOK' | 'RUB' | 'CHF';
+export type CURRENCY = "TRY" | "EUR" | "USD" | "IRR" | "GBP" | "NOK" | "RUB" | "CHF";
 
-export type APM_TYPE = 'SOFORT' | 'IDEAL' | 'QIWI' | 'GIROPAY';
+export type APM_TYPE = "SOFORT" | "IDEAL" | "QIWI" | "GIROPAY";
 
-export type REFUND_REASON = 'double_payment' | 'buyer_request' | 'fraud' | 'other';
+export type REFUND_REASON = "double_payment" | "buyer_request" | "fraud" | "other";
 
 export type PLAN_PAYMENT_TYPE = "RECURRING";
 
-export type SUBSCRIPTION_PRICING_PLAN_INTERVAL = 'DAILY' | 'WEEKLY' | 'MONTHLY' | 'YEARLY';
+export type SUBSCRIPTION_PRICING_PLAN_INTERVAL = "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY";
 
-export type SUBSCRIPTION_UPGRADE_PERIOD = 'NOW';
+export type SUBSCRIPTION_UPGRADE_PERIOD = "NOW";
 
-export type SUBSCRIPTION_STATUS = 'EXPIRED' | 'UNPAID' | 'CANCELED' | 'ACTIVE' | 'PENDING' | 'UPGRADED';
+export type SUBSCRIPTION_STATUS = "EXPIRED" | "UNPAID" | "CANCELED" | "ACTIVE" | "PENDING" | "UPGRADED";
 
-export type SUBSCRIPTION_INITIAL_STATUS = 'ACTIVE' | 'PENDING';
+export type SUBSCRIPTION_INITIAL_STATUS = "ACTIVE" | "PENDING";
 
 /* INTERFACES */
 export interface ILOCALE {
-    TR: 'tr',
-    EN: 'en'
+    TR: "tr";
+    EN: "en";
 }
 
 export interface IPAYMENT_GROUP {
-    PRODUCT: 'PRODUCT',
-    LISTING: 'LISTING',
-    SUBSCRIPTION: 'SUBSCRIPTION'
+    PRODUCT: "PRODUCT";
+    LISTING: "LISTING";
+    SUBSCRIPTION: "SUBSCRIPTION";
 }
 
 export interface IBASKET_ITEM_TYPE {
-    PHYSICAL: 'PHYSICAL',
-    VIRTUAL: 'VIRTUAL'
+    PHYSICAL: "PHYSICAL";
+    VIRTUAL: "VIRTUAL";
 }
 
 export interface IPAYMENT_CHANNEL {
-    MOBILE: 'MOBILE',
-    WEB: 'WEB',
-    MOBILE_WEB: 'MOBILE_WEB',
-    MOBILE_IOS: 'MOBILE_IOS',
-    MOBILE_ANDROID: 'MOBILE_ANDROID',
-    MOBILE_WINDOWS: 'MOBILE_WINDOWS',
-    MOBILE_TABLET: 'MOBILE_TABLET',
-    MOBILE_PHONE: 'MOBILE_PHONE'
+    MOBILE: "MOBILE";
+    WEB: "WEB";
+    MOBILE_WEB: "MOBILE_WEB";
+    MOBILE_IOS: "MOBILE_IOS";
+    MOBILE_ANDROID: "MOBILE_ANDROID";
+    MOBILE_WINDOWS: "MOBILE_WINDOWS";
+    MOBILE_TABLET: "MOBILE_TABLET";
+    MOBILE_PHONE: "MOBILE_PHONE";
 }
 
 export interface ISUB_MERCHANT_TYPE {
-    PERSONAL: 'PERSONAL',
-    PRIVATE_COMPANY: 'PRIVATE_COMPANY',
-    LIMITED_OR_JOINT_STOCK_COMPANY: 'LIMITED_OR_JOINT_STOCK_COMPANY'
+    PERSONAL: "PERSONAL";
+    PRIVATE_COMPANY: "PRIVATE_COMPANY";
+    LIMITED_OR_JOINT_STOCK_COMPANY: "LIMITED_OR_JOINT_STOCK_COMPANY";
 }
 
 export interface ICURRENCY {
-    TRY: 'TRY',
-    EUR: 'EUR',
-    USD: 'USD',
-    IRR: 'IRR',
-    GBP: 'GBP',
-    NOK: 'NOK',
-    RUB: 'RUB',
-    CHF: 'CHF'
+    TRY: "TRY";
+    EUR: "EUR";
+    USD: "USD";
+    IRR: "IRR";
+    GBP: "GBP";
+    NOK: "NOK";
+    RUB: "RUB";
+    CHF: "CHF";
 }
 
 export interface IAPM_TYPE {
-    SOFORT: 'SOFORT',
-    IDEAL: 'IDEAL',
-    QIWI: 'QIWI',
-    GIROPAY: 'GIROPAY'
+    SOFORT: "SOFORT";
+    IDEAL: "IDEAL";
+    QIWI: "QIWI";
+    GIROPAY: "GIROPAY";
 }
 
 export interface IREFUND_REASON {
-    DOUBLE_PAYMENT: 'double_payment',
-    BUYER_REQUEST: 'buyer_request',
-    FRAUD: 'fraud',
-    OTHER: 'other'
+    DOUBLE_PAYMENT: "double_payment";
+    BUYER_REQUEST: "buyer_request";
+    FRAUD: "fraud";
+    OTHER: "other";
 }
 
 export interface IPLAN_PAYMENT_TYPE {
-    RECURRING: "RECURRING"
+    RECURRING: "RECURRING";
 }
 
 export interface ISUBSCRIPTION_PRICING_PLAN_INTERVAL {
-    DAILY: 'DAILY',
-    WEEKLY: 'WEEKLY',
-    MONTHLY: 'MONTHLY',
-    YEARLY: 'YEARLY'
+    DAILY: "DAILY";
+    WEEKLY: "WEEKLY";
+    MONTHLY: "MONTHLY";
+    YEARLY: "YEARLY";
 }
 
 export interface ISUBSCRIPTION_UPGRADE_PERIOD {
-    NOW: 'NOW'
+    NOW: "NOW";
 }
 
 export interface ISUBSCRIPTION_STATUS {
-    EXPIRED: 'EXPIRED',
-    UNPAID: 'UNPAID',
-    CANCELED: 'CANCELED',
-    ACTIVE: 'ACTIVE',
-    PENDING: 'PENDING',
-    UPGRADED: 'UPGRADED'
+    EXPIRED: "EXPIRED";
+    UNPAID: "UNPAID";
+    CANCELED: "CANCELED";
+    ACTIVE: "ACTIVE";
+    PENDING: "PENDING";
+    UPGRADED: "UPGRADED";
 }
 
 export interface ISUBSCRIPTION_INITIAL_STATUS {
-    ACTIVE: 'ACTIVE',
-    PENDING: 'PENDING'
+    ACTIVE: "ACTIVE";
+    PENDING: "PENDING";
 }
 
 /* GENERIC INTERFACES */
@@ -231,7 +238,6 @@ export interface IItemTransaction {
     convertedPayout: IConvertedPayout;
 }
 
-
 /* REQUEST - RESULT INTERFACES */
 export interface IApprovalPaymentRequestData {
     locale?: LOCALE;
@@ -317,7 +323,6 @@ export interface IDeleteUserCardRequestData {
     cardToken: string;
 }
 
-
 export interface IListUserCardsResult {
     status: string;
     locale?: LOCALE;
@@ -352,7 +357,7 @@ export interface ISavePaymentCardResult {
     cardBankName: string;
 }
 
-//export interface ICheckoutFormInitializeRequestData extends IThreeDSInitializePaymentRequestData { }
+// export interface ICheckoutFormInitializeRequestData extends IThreeDSInitializePaymentRequestData { }
 
 export interface ICheckoutFormInitialResult {
     status: string;
@@ -485,7 +490,7 @@ export interface IPaymentRetrieveRequestData {
     paymentConversationId?: string;
 }
 
-//export interface IPaymentRetrieveResult extends IPaymentResult { }
+// export interface IPaymentRetrieveResult extends IPaymentResult { }
 
 export interface IPaymentItemRequestData {
     paymentTransactionId: string;
@@ -749,7 +754,6 @@ export interface IBouncedBackTransactionListRetrieveResult {
     bouncedBackTransactionList: IPaymentResult[];
 }
 
-
 export interface IThreeDSInitializePaymentRequestData extends IPaymentRequestData {
     callbackUrl: string;
 }
@@ -769,7 +773,7 @@ export interface IThreeDSPaymentCompleteRequestData {
     conversationData?: string;
 }
 
-//export interface IThreeDSPaymentCompleteResult extends IPaymentResult { }
+// export interface IThreeDSPaymentCompleteResult extends IPaymentResult { }
 
 export interface ISettlementToBalanceRequestData {
     locale?: LOCALE;
@@ -861,7 +865,6 @@ export interface ISubscriptionProductRetrieveListResult {
     conversationId?: string;
     items: ISubscriptionProductItem[];
 }
-
 
 export interface ISubscriptionPricingPlanCreateRequestData {
     locale?: LOCALE;
@@ -976,7 +979,6 @@ export interface ISubscriptionCustomerCreateRequestData {
     billingAddress?: IAddressDetails;
     shippingAddress?: IAddressDetails;
 }
-
 
 export interface ISubscriptionCustomerCreateResult {
     status: string;
@@ -1231,7 +1233,6 @@ export interface ISubscriptionInitializeRequestData {
     paymentCard?: ISavedPaymentCard | IPaymentCard;
 }
 
-
 export interface ISubscriptionCheckoutFormInitializeRequestData {
     locale?: LOCALE;
     conversationId?: string;
@@ -1306,17 +1307,22 @@ export interface IDisapproval {
 }
 
 export interface IBKMInitialize {
-    create(data: IThreeDSInitializePaymentRequestData, callback: (err: Error, result: IThreeDSInitializePaymentResult) => void): void;
+    create(
+        data: IThreeDSInitializePaymentRequestData,
+        callback: (err: Error, result: IThreeDSInitializePaymentResult) => void,
+    ): void;
 }
 
 export interface IBKM {
-    retrieve(data: IThreeDSPaymentCompleteRequestData, callback: (err: Error, result: IThreeDSPaymentCompleteRequestData) => void): void;
+    retrieve(
+        data: IThreeDSPaymentCompleteRequestData,
+        callback: (err: Error, result: IThreeDSPaymentCompleteRequestData) => void,
+    ): void;
 }
 
 export interface ICancel {
     create(data: ICancelPaymentRequestData, callback: (err: Error, result: ICancelPaymentResult) => void): void;
 }
-
 
 export interface ICard {
     create(data: ISavePaymentCardRequestData, callback: (err: Error, result: ISavePaymentCardResult) => void): void;
@@ -1328,15 +1334,24 @@ export interface ICardList {
 }
 
 export interface ICheckOutFormInitialize {
-    create(data: IThreeDSInitializePaymentRequestData, callback: (err: Error, result: ICheckoutFormInitialResult) => void): void;
+    create(
+        data: IThreeDSInitializePaymentRequestData,
+        callback: (err: Error, result: ICheckoutFormInitialResult) => void,
+    ): void;
 }
 
 export interface ICheckOutForm {
-    retrieve(data: ICheckoutFormRetrieveRequestData, callback: (err: Error, result: ICheckoutFormRetrieveResult) => void): void;
+    retrieve(
+        data: ICheckoutFormRetrieveRequestData,
+        callback: (err: Error, result: ICheckoutFormRetrieveResult) => void,
+    ): void;
 }
 
 export interface IUniversalCardStorageInitialize {
-    retrieve(data: IUniversalCardStorageInitializeRequestData, callback: (err: Error, result: IUniversalCardStorageInitializeResult) => void): void;
+    retrieve(
+        data: IUniversalCardStorageInitializeRequestData,
+        callback: (err: Error, result: IUniversalCardStorageInitializeResult) => void,
+    ): void;
 }
 
 export interface IInstallmentInfo {
@@ -1369,21 +1384,33 @@ export interface IRefundToBalance {
 }
 
 export interface IPayoutCompletedTransactionListRetrieve {
-    retrieve(data: IPayoutCompletedTransactionListRetrieveRequestData, callback: (err: Error, result: IPayoutCompletedTransactionListRetrieveResult) => void): void;
+    retrieve(
+        data: IPayoutCompletedTransactionListRetrieveRequestData,
+        callback: (err: Error, result: IPayoutCompletedTransactionListRetrieveResult) => void,
+    ): void;
 }
 
 export interface IBouncedBackTransactionListRetrieve {
-    retrieve(data: IBouncedBackTransactionListRetrieveRequestData, callback: (err: Error, result: IBouncedBackTransactionListRetrieveResult) => void): void;
+    retrieve(
+        data: IBouncedBackTransactionListRetrieveRequestData,
+        callback: (err: Error, result: IBouncedBackTransactionListRetrieveResult) => void,
+    ): void;
 }
 
 export interface ISubMerchant {
     create(data: ISubMerchantCreateRequestData, callback: (err: Error, result: ISubMerchantCreateResult) => void): void;
     update(data: ISubMerchantUpdateRequestData, callback: (err: Error, result: ISubMerchantUpdateResult) => void): void;
-    retrieve(data: ISubMerchantRetrieveRequestData, callback: (err: Error, result: ISubMerchantRetrieveResult) => void): void;
+    retrieve(
+        data: ISubMerchantRetrieveRequestData,
+        callback: (err: Error, result: ISubMerchantRetrieveResult) => void,
+    ): void;
 }
 
 export interface IThreeDSInitialize {
-    create(data: IThreeDSInitializePaymentRequestData, callback: (err: Error, result: IThreeDSInitializePaymentResult) => void): void;
+    create(
+        data: IThreeDSInitializePaymentRequestData,
+        callback: (err: Error, result: IThreeDSInitializePaymentResult) => void,
+    ): void;
 }
 
 export interface IThreedsPayment {
@@ -1391,55 +1418,130 @@ export interface IThreedsPayment {
 }
 
 export interface ISettlementToBalance {
-    create(data: ISettlementToBalanceRequestData, callback: (err: Error, result: ISettlementToBalanceResult) => void): void;
+    create(
+        data: ISettlementToBalanceRequestData,
+        callback: (err: Error, result: ISettlementToBalanceResult) => void,
+    ): void;
 }
 
 export interface ISubscriptionProduct {
-    create(data: ISubscriptionProductCreateRequestData, callback: (err: Error, result: ISubscriptionProductCreateResult) => void): void;
-    update(data: ISubscriptionProductUpdateRequestData, callback: (err: Error, result: ISubscriptionProductUpdateResult) => void): void;
-    retrieve(data: ISubscriptionProductRetrieveRequestData, callback: (err: Error, result: ISubscriptionProductRetrieveResult) => void): void;
-    retrieveList(data: ISubscriptionProductRetrieveListRequestData, callback: (err: Error, result: ISubscriptionProductRetrieveListResult) => void): void;
+    create(
+        data: ISubscriptionProductCreateRequestData,
+        callback: (err: Error, result: ISubscriptionProductCreateResult) => void,
+    ): void;
+    update(
+        data: ISubscriptionProductUpdateRequestData,
+        callback: (err: Error, result: ISubscriptionProductUpdateResult) => void,
+    ): void;
+    retrieve(
+        data: ISubscriptionProductRetrieveRequestData,
+        callback: (err: Error, result: ISubscriptionProductRetrieveResult) => void,
+    ): void;
+    retrieveList(
+        data: ISubscriptionProductRetrieveListRequestData,
+        callback: (err: Error, result: ISubscriptionProductRetrieveListResult) => void,
+    ): void;
 }
 
 export interface ISubscriptionPricingPlan {
-    create(data: ISubscriptionPricingPlanCreateRequestData, callback: (err: Error, result: ISubscriptionPricingPlanCreateResult) => void): void;
-    update(data: ISubscriptionPricingPlanUpdateRequestData, callback: (err: Error, result: ISubscriptionPricingPlanUpdateResult) => void): void;
-    retrieve(data: ISubscriptionPricingPlanRetrieveRequestData, callback: (err: Error, result: ISubscriptionPricingPlanRetrieveResult) => void): void;
-    retrieveList(data: ISubscriptionPricingPlanRetrieveListRequestData, callback: (err: Error, result: ISubscriptionPricingPlanRetrieveListResult) => void): void;
+    create(
+        data: ISubscriptionPricingPlanCreateRequestData,
+        callback: (err: Error, result: ISubscriptionPricingPlanCreateResult) => void,
+    ): void;
+    update(
+        data: ISubscriptionPricingPlanUpdateRequestData,
+        callback: (err: Error, result: ISubscriptionPricingPlanUpdateResult) => void,
+    ): void;
+    retrieve(
+        data: ISubscriptionPricingPlanRetrieveRequestData,
+        callback: (err: Error, result: ISubscriptionPricingPlanRetrieveResult) => void,
+    ): void;
+    retrieveList(
+        data: ISubscriptionPricingPlanRetrieveListRequestData,
+        callback: (err: Error, result: ISubscriptionPricingPlanRetrieveListResult) => void,
+    ): void;
 }
 
 export interface ISubscriptionCustomer {
-    create(data: ISubscriptionCustomerCreateRequestData, callback: (err: Error, result: ISubscriptionCustomerCreateResult) => void): void;
-    update(data: ISubscriptionCustomerUpdateRequestData, callback: (err: Error, result: ISubscriptionCustomerUpdateResult) => void): void;
-    retrieve(data: ISubscriptionCustomerRetrieveRequestData, callback: (err: Error, result: ISubscriptionCustomerRetrieveResult) => void): void;
-    retrieveList(data: ISubscriptionCustomerRetrieveListRequestData, callback: (err: Error, result: ISubscriptionCustomerRetrieveListResult) => void): void;
+    create(
+        data: ISubscriptionCustomerCreateRequestData,
+        callback: (err: Error, result: ISubscriptionCustomerCreateResult) => void,
+    ): void;
+    update(
+        data: ISubscriptionCustomerUpdateRequestData,
+        callback: (err: Error, result: ISubscriptionCustomerUpdateResult) => void,
+    ): void;
+    retrieve(
+        data: ISubscriptionCustomerRetrieveRequestData,
+        callback: (err: Error, result: ISubscriptionCustomerRetrieveResult) => void,
+    ): void;
+    retrieveList(
+        data: ISubscriptionCustomerRetrieveListRequestData,
+        callback: (err: Error, result: ISubscriptionCustomerRetrieveListResult) => void,
+    ): void;
 }
 
 export interface ISubscriptionCard {
-    update(data: ISubscriptionCardUpdateRequestData, callback: (err: Error, result: ISubscriptionCardUpdateResult) => void): void;
-    updateWithSubscriptionReferenceCode(data: ISubscriptionCardUpdateWithSubscriptionReferenceCodeRequestData, callback: (err: Error, result: ISubscriptionCardUpdateWithSubscriptionReferenceCodeResult) => void): void;
+    update(
+        data: ISubscriptionCardUpdateRequestData,
+        callback: (err: Error, result: ISubscriptionCardUpdateResult) => void,
+    ): void;
+    updateWithSubscriptionReferenceCode(
+        data: ISubscriptionCardUpdateWithSubscriptionReferenceCodeRequestData,
+        callback: (err: Error, result: ISubscriptionCardUpdateWithSubscriptionReferenceCodeResult) => void,
+    ): void;
 }
 
 export interface ISubscriptionPayment {
-    retry(data: ISubscriptionPaymentRetryRequestData, callback: (err: Error, result: ISubscriptionPaymentRetryResult) => void): void;
+    retry(
+        data: ISubscriptionPaymentRetryRequestData,
+        callback: (err: Error, result: ISubscriptionPaymentRetryResult) => void,
+    ): void;
 }
 
 export interface ISubscription {
-    cancel(data: ISubscriptionCancelRequestData, callback: (err: Error, result: ISubscriptionCancelResult) => void): void;
-    activate(data: ISubscriptionActivateRequestData, callback: (err: Error, result: ISubscriptionActivateResult) => void): void;
-    upgrade(data: ISubscriptionUpgradeRequestData, callback: (err: Error, result: ISubscriptionUpgradeResult) => void): void;
-    retrieve(data: ISubscriptionRetrieveRequestData, callback: (err: Error, result: ISubscriptionRetrieveResult) => void): void;
-    search(data: ISubscriptionSearchRequestData, callback: (err: Error, result: ISubscriptionSearchResult) => void): void;
-    initialize(data: ISubscriptionInitializeRequestData, callback: (err: Error, result: ISubscriptionCheckoutFormInitializeResult) => void): void;
+    cancel(
+        data: ISubscriptionCancelRequestData,
+        callback: (err: Error, result: ISubscriptionCancelResult) => void,
+    ): void;
+    activate(
+        data: ISubscriptionActivateRequestData,
+        callback: (err: Error, result: ISubscriptionActivateResult) => void,
+    ): void;
+    upgrade(
+        data: ISubscriptionUpgradeRequestData,
+        callback: (err: Error, result: ISubscriptionUpgradeResult) => void,
+    ): void;
+    retrieve(
+        data: ISubscriptionRetrieveRequestData,
+        callback: (err: Error, result: ISubscriptionRetrieveResult) => void,
+    ): void;
+    search(
+        data: ISubscriptionSearchRequestData,
+        callback: (err: Error, result: ISubscriptionSearchResult) => void,
+    ): void;
+    initialize(
+        data: ISubscriptionInitializeRequestData,
+        callback: (err: Error, result: ISubscriptionCheckoutFormInitializeResult) => void,
+    ): void;
 }
 
 export interface ISubscriptionCheckoutForm {
-    initialize(data: ISubscriptionCheckoutFormInitializeRequestData, callback: (err: Error, result: ISubscriptionCheckoutFormInitializeResult) => void): void;
-    retrieve(data: ISubscriptionCheckoutFormRetrieveRequestData, callback: (err: Error, result: ISubscriptionCheckoutFormRetrieveResult) => void): void;
+    initialize(
+        data: ISubscriptionCheckoutFormInitializeRequestData,
+        callback: (err: Error, result: ISubscriptionCheckoutFormInitializeResult) => void,
+    ): void;
+    retrieve(
+        data: ISubscriptionCheckoutFormRetrieveRequestData,
+        callback: (err: Error, result: ISubscriptionCheckoutFormRetrieveResult) => void,
+    ): void;
 }
 
 export interface ISubscriptionExistingCustomer {
-    initialize(data: ISubscriptionExistingCustomerInitializeRequestData, callback: (err: Error, result: ISubscriptionExistingCustomerInitializeResult) => void): void;
+    initialize(
+        data: ISubscriptionExistingCustomerInitializeRequestData,
+        callback: (err: Error, result: ISubscriptionExistingCustomerInitializeResult) => void,
+    ): void;
 }
 
 export class Iyzipay {
@@ -1495,6 +1597,5 @@ export namespace Iyzipay {
     const SUBSCRIPTION_STATUS: ISUBSCRIPTION_STATUS;
     const SUBSCRIPTION_INITIAL_STATUS: ISUBSCRIPTION_INITIAL_STATUS;
 }
-
 
 export default Iyzipay;
