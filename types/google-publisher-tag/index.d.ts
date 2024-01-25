@@ -1682,46 +1682,31 @@ declare namespace googletag {
     type SizeMappingArray = SizeMapping[];
 
     /**
-     * This is the namespace that GPT uses for enum types.
-     */
-    namespace enums {
-        /**
-         * Out-of-page formats supported by GPT.
-         *
-         * @see {@link defineOutOfPageSlot}
-         */
-        enum OutOfPageFormat {
-            /** Anchor format where slot sticks to the top of the viewport. */
-            TOP_ANCHOR,
-            /** Anchor format where slot sticks to the bottom of the viewport. */
-            BOTTOM_ANCHOR,
-            /** Web interstitial creative format. */
-            INTERSTITIAL,
-            /** Rewarded format. */
-            REWARDED,
-        }
-
-        /**
-         * [Traffic sources](https://support.google.com/admanager/answer/11233407)
-         * supported by GPT.
-         *
-         * @see {@link PrivacySettingsConfig.trafficSource}
-         */
-        enum TrafficSource {
-            /**
-             * Traffic redirected from properties other than owned (acquired or otherwise
-             * incentivized activity).
-             */
-            PURCHASED,
-            /** Direct URL entry, site search, or app download. */
-            ORGANIC,
-        }
-    }
-
-    /**
      * Main configuration interface for page-level settings.
      */
     namespace config {
+        /**
+         * Settings to control ad expansion.
+         *
+         * @example
+         *   // Enable ad slot expansion across the entire page.
+         *   googletag.setConfig({
+         *     adExpansion: {enabled: true}
+         *   });
+         */
+        interface AdExpansionConfig {
+            /**
+             * Whether ad expansion is enabled or disabled.
+             *
+             * Setting this value overrides the default configured in
+             * Google Ad Manager.
+             *
+             * @see [Expand ads on desktop and tablet](https://support.google.com/admanager/answer/9384852)
+             * @see [Expand ads on mobile web (partial screen)](https://support.google.com/admanager/answer/9117822)
+             */
+            enabled?: boolean;
+        }
+
         /**
          * Main configuration interface for page-level settings.
          *
@@ -1785,6 +1770,11 @@ declare namespace googletag {
              * Settings to control publisher privacy treatments.
              */
             privacyTreatments?: PrivacyTreatmentsConfig | null;
+
+            /**
+             * Settings to control ad expansion.
+             */
+            adExpansion?: AdExpansionConfig | null;
         }
 
         /**
@@ -1934,6 +1924,47 @@ declare namespace googletag {
          * Supported interstitial ad triggers.
          */
         type InterstitialTrigger = "unhideWindow";
+    }
+
+    /**
+     * This is the namespace that GPT uses for enum types.
+     */
+    namespace enums {
+        /**
+         * Out-of-page formats supported by GPT.
+         *
+         * @see {@link defineOutOfPageSlot}
+         */
+        enum OutOfPageFormat {
+            /** Anchor format where slot sticks to the top of the viewport. */
+            TOP_ANCHOR,
+            /** Anchor format where slot sticks to the bottom of the viewport. */
+            BOTTOM_ANCHOR,
+            /** Web interstitial creative format. */
+            INTERSTITIAL,
+            /** Rewarded format. */
+            REWARDED,
+            /** Left side rail format. */
+            LEFT_SIDE_RAIL,
+            /** Right side rail format. */
+            RIGHT_SIDE_RAIL,
+        }
+
+        /**
+         * [Traffic sources](https://support.google.com/admanager/answer/11233407)
+         * supported by GPT.
+         *
+         * @see {@link PrivacySettingsConfig.trafficSource}
+         */
+        enum TrafficSource {
+            /**
+             * Traffic redirected from properties other than owned (acquired or otherwise
+             * incentivized activity).
+             */
+            PURCHASED,
+            /** Direct URL entry, site search, or app download. */
+            ORGANIC,
+        }
     }
 
     /**

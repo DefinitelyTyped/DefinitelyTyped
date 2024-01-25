@@ -1,6 +1,5 @@
 import * as React from "react";
 import { ApplyFilterParameter, BootstrapTable, Filter, TableHeaderColumn } from "react-bootstrap-table";
-import { render } from "react-dom";
 
 const products = [{
     id: 1,
@@ -17,16 +16,13 @@ function priceFormatter(cell: any, row: any) {
     return "<i class=\"glyphicon glyphicon-usd\"></i> " + cell;
 }
 
-render(
-    <BootstrapTable data={products} striped={true} hover={true} ignoreSinglePage>
-        <TableHeaderColumn dataField="id" isKey={true} dataAlign="center" dataSort={true}>Product ID</TableHeaderColumn>
-        <TableHeaderColumn dataField="name" dataSort={true} editable={{ type: "textarea", rows: 10 }}>
-            Product Name
-        </TableHeaderColumn>
-        <TableHeaderColumn dataField="price" dataFormat={priceFormatter}>Product Price</TableHeaderColumn>
-    </BootstrapTable>,
-    document.getElementById("app"),
-);
+<BootstrapTable data={products} striped={true} hover={true} ignoreSinglePage>
+    <TableHeaderColumn dataField="id" isKey={true} dataAlign="center" dataSort={true}>Product ID</TableHeaderColumn>
+    <TableHeaderColumn dataField="name" dataSort={true} editable={{ type: "textarea", rows: 10 }}>
+        Product Name
+    </TableHeaderColumn>
+    <TableHeaderColumn dataField="price" dataFormat={priceFormatter}>Product Price</TableHeaderColumn>
+</BootstrapTable>;
 
 const qualityType = {
     0: "good",

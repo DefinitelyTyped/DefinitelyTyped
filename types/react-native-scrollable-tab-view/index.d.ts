@@ -120,7 +120,7 @@ export default class ScrollableTabView extends React.Component<ScrollableTabView
 // Each top-level child component should have a tabLabel prop
 // that can be used by the tab bar component to render out the labels.
 export type TabProps<T = {}> = T & {
-    tabLabel: React.ReactChild;
+    tabLabel: React.ReactElement | number | string;
 };
 
 export interface DefaultTabBarProps {

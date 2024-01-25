@@ -1,8 +1,8 @@
 import fetch from "@rdfjs/fetch";
 import { RdfFetchResponse } from "@rdfjs/fetch-lite";
 import { SinkMap } from "@rdfjs/sink-map";
+import { Dataset, DatasetCoreFactory, Quad, Stream } from "@rdfjs/types";
 import { EventEmitter } from "events";
-import { Dataset, DatasetCoreFactory, Quad, Stream } from "rdf-js";
 
 const formats: {
     parsers: SinkMap<EventEmitter, Stream>;
@@ -44,4 +44,15 @@ async function fetchDataset(): Promise<DatasetX> {
 async function fetchTypedStream(): Promise<Stream<QuadExt>> {
     const response = await fetch("http://example.com", { formats, factory });
     return response.quadStream();
+}
+
+async function fetchURL() {
+    // $ExpectType RdfFetchResponse<Quad>
+    const response = await fetch(new URL("http://example.com"));
+}
+
+async function fetchRequestInfo() {
+    const req: Request = <any> {};
+    // $ExpectType RdfFetchResponse<Quad>
+    const response = await fetch(req);
 }

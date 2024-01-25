@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/stylis": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Gen Hames",
-            "githubUsername": "heyheyhello"
-        }
-    ]
+    "owners": []
 }

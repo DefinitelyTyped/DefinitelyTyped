@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 
 import ReactTable, { Column } from "react-table";
 import selectTableHOC, {
@@ -46,12 +45,9 @@ const columns: Column[] = [
     { Header: "Name", accessor: "name" },
 ];
 
-ReactDOM.render(
-    <SelectTable
-        {...selectTableAdditionalProps}
-        data={data}
-        columns={columns}
-        ref={React.createRef()}
-    />,
-    document.getElementById("root"),
-);
+<SelectTable
+    {...selectTableAdditionalProps}
+    data={data}
+    columns={columns}
+    ref={React.createRef()}
+/>;

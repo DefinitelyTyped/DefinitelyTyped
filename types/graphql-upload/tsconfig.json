@@ -15,6 +15,11 @@
     },
     "files": [
         "index.d.ts",
-        "graphql-upload-tests.ts"
+        "graphql-upload-tests.ts",
+        "GraphQLUpload.d.mts",
+        "graphqlUploadExpress.d.mts",
+        "graphqlUploadKoa.d.mts",
+        "processRequest.d.mts",
+        "Upload.d.mts"
     ]
 }

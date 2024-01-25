@@ -9,12 +9,12 @@
  *
  * HTTP message headers are represented by an object like this:
  *
- * ```js
- * { 'content-length': '123',
- *   'content-type': 'text/plain',
- *   'connection': 'keep-alive',
- *   'host': 'example.com',
- *   'accept': '*' }
+ * ```json
+ * { "content-length": "123",
+ *   "content-type": "text/plain",
+ *   "connection": "keep-alive",
+ *   "host": "example.com",
+ *   "accept": "*" }
  * ```
  *
  * Keys are lowercased. Values are not modified.
@@ -1814,7 +1814,6 @@ declare module "http" {
      *
      * It is not necessary to use this method before passing headers to an HTTP request
      * or response. The HTTP module will automatically validate such headers.
-     * Examples:
      *
      * Example:
      *

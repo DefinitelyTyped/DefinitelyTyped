@@ -18,20 +18,12 @@
     },
     "owners": [
         {
-            "name": "Chris Krycho",
-            "githubUsername": "chriskrycho"
-        },
-        {
             "name": "Krystan HuffMenne",
             "githubUsername": "gitKrystan"
         },
         {
             "name": "James C. Davis",
             "githubUsername": "jamescdavis"
-        },
-        {
-            "name": "Chris Thoburn",
-            "githubUsername": "runspired"
         },
         {
             "name": "Peter Wagenet",

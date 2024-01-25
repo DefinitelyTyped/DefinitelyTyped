@@ -83,6 +83,12 @@ export interface GeneratorOptions {
     decoratorsBeforeExport?: boolean | undefined;
 
     /**
+     * The import attributes/assertions syntax to use.
+     * When not specified, @babel/generator will try to match the style in the input code based on the AST shape.
+     */
+    importAttributesKeyword?: "with" | "assert" | "with-legacy";
+
+    /**
      * Options for outputting jsesc representation.
      */
     jsescOption?: {

@@ -1,6 +1,6 @@
 import TempNode from '../core/TempNode.js';
-import { ShaderNode } from '../shadernode/ShaderNodeBaseElements.js';
-import { Node } from '../Nodes.js';
+import Node from '../core/Node.js';
+import { NodeRepresentation, ShaderNode, ShaderNodeObject } from '../shadernode/ShaderNode.js';
 
 export const BurnNode: ShaderNode<{ base: Node; blendNode: Node }>;
 
@@ -30,3 +30,8 @@ export default class BlendModeNode extends TempNode {
 
     setup(): Node;
 }
+
+export const burn: (baseNode: NodeRepresentation, blendNode?: NodeRepresentation) => ShaderNodeObject<BlendModeNode>;
+export const dodge: (baseNode: NodeRepresentation, blendNode?: NodeRepresentation) => ShaderNodeObject<BlendModeNode>;
+export const overlay: (baseNode: NodeRepresentation, blendNode?: NodeRepresentation) => ShaderNodeObject<BlendModeNode>;
+export const screen: (baseNode: NodeRepresentation, blendNode?: NodeRepresentation) => ShaderNodeObject<BlendModeNode>;

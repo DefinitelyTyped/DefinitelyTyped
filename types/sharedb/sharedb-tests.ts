@@ -4,6 +4,9 @@ import * as ShareDBClient from "sharedb/lib/client";
 import { Duplex } from "stream";
 import * as WebSocket from "ws";
 import Agent = require("sharedb/lib/agent");
+import * as ClientESM from "sharedb/lib/client/index.js";
+
+ClientESM.Connection;
 
 const { Connection, Doc, Query, types, logger } = ShareDBClient;
 Connection.prototype;

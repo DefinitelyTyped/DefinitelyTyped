@@ -11,8 +11,7 @@
         "@types/react": "*"
     },
     "devDependencies": {
-        "@types/react-big-calendar": "workspace:.",
-        "@types/react-dom": "*"
+        "@types/react-big-calendar": "workspace:."
     },
     "owners": [
         {

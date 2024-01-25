@@ -306,7 +306,8 @@ const directionsRequest = expectType({
 
 let directionsService;
 directionsService = new woosmap.map.DirectionsService();
-directionsService.route(directionsRequest, (result, status) => {});
+directionsService.route(directionsRequest, (result, status) => {
+});
 
 /**
  * InfoWindow
@@ -341,9 +342,11 @@ map.flyTo(flyToOptions);
  * woosmap.map.event
  */
 // $ExpectType MapEventListener
-const listener = woosmap.map.event.addListener(map, "click", () => {});
+const listener = woosmap.map.event.addListener(map, "click", () => {
+});
 // $ExpectType MapEventListener
-woosmap.map.event.addListenerOnce(map, "click", () => {});
+woosmap.map.event.addListenerOnce(map, "click", () => {
+});
 woosmap.map.event.removeListener(listener); // $ExpectType void
 listener.remove(); // $ExpectType void
 
@@ -365,19 +368,26 @@ draw.add({
     features: [],
 });
 // $ExpectType void
-draw.addListener("draw.create", e => {});
+draw.addListener("draw.create", e => {
+});
 // $ExpectType void
-draw.addListener("draw.create", e => {});
+draw.addListener("draw.create", e => {
+});
 // $ExpectType void
-draw.addListener("draw.delete", e => {});
+draw.addListener("draw.delete", e => {
+});
 // $ExpectType void
-draw.addListener("draw.modechange", e => {});
+draw.addListener("draw.modechange", e => {
+});
 // $ExpectType void
-draw.addListener("draw.selectionchange", e => {});
+draw.addListener("draw.selectionchange", e => {
+});
 // $ExpectType void
-draw.addListener("draw.update", e => {});
+draw.addListener("draw.update", e => {
+});
 // @ts-expect-error
-draw.addListener("draw.unknown_event", e => {});
+draw.addListener("draw.unknown_event", e => {
+});
 // $ExpectType Drawing
 draw.delete("1");
 // $ExpectType Drawing
@@ -398,6 +408,94 @@ draw.changeMode("draw_point", {});
 draw.changeMode("custom_mode");
 // $ExpectType void
 draw.removeControl();
+
+/**
+ * Distance Service
+ */
+const distanceMatrixRequest = expectType({
+    origins: [{ lat: 48.86288, lng: 2.34946 }, { lat: 48.86288, lng: 2.34946 }],
+    destinations: [{ lat: 52.52457, lng: 13.42347 }, { lat: 52.52457, lng: 13.42347 }],
+    travelMode: woosmap.map.TravelMode.DRIVING,
+    unitSystem: woosmap.map.UnitSystem.IMPERIAL,
+    method: "time",
+    elements: "duration_distance",
+    departureTime: new Date(),
+    language: "EN",
+    avoidHighways: false,
+    avoidTolls: false,
+    avoidFerries: false,
+    avoidZones: [[{ lat: 48.86288, lng: 2.34946 }, { lat: 48.86288, lng: 2.34946 }, { lat: 52.52457, lng: 13.42347 }]],
+}) as woosmap.map.distance.DistanceMatrixRequest;
+
+let distanceService;
+distanceService = new woosmap.map.DistanceService();
+const promiseDistanceMatrix = distanceService.getDistanceMatrix(distanceMatrixRequest);
+promiseDistanceMatrix.then((result) => {
+    // $ExpectType DistanceMatrixResponse
+    result;
+});
+
+const distanceIsochroneRequest = expectType({
+    origin: { lat: 48.86288, lng: 2.34946 },
+    travelMode: woosmap.map.TravelMode.DRIVING,
+    unitSystem: woosmap.map.UnitSystem.IMPERIAL,
+    method: "time",
+    elements: "duration_distance",
+    language: "EN",
+    avoidHighways: false,
+    avoidTolls: false,
+    avoidFerries: false,
+    avoidZones: [[{ lat: 48.86288, lng: 2.34946 }, { lat: 48.86288, lng: 2.34946 }, { lat: 52.52457, lng: 13.42347 }]],
+    value: 10,
+}) as woosmap.map.distance.DistanceIsochroneRequest;
+
+const promiseDistanceIsochrone = distanceService.getDistanceIsochrone(distanceIsochroneRequest);
+promiseDistanceIsochrone.then((result) => {
+    // $ExpectType DistanceIsochroneResponse
+    result;
+});
+
+/**
+ * Localities Service
+ */
+const localitiesAutocompleteRequest = expectType({
+    input: "10 downing street",
+    types: ["locality", "address"],
+    language: "EN",
+    components: { country: ["GB"] },
+    customDescription: "name,admin_1,admin_0",
+    radius: 500000,
+    location: { lat: 51.5007, lng: -0.1246 },
+}) as woosmap.map.localities.LocalitiesAutocompleteRequest;
+
+let localitiesService;
+localitiesService = new woosmap.map.LocalitiesService();
+const promiseLocalitiesAutocomplete = localitiesService.autocomplete(localitiesAutocompleteRequest);
+promiseLocalitiesAutocomplete.then((result) => {
+    // $ExpectType LocalitiesAutocompleteResponse
+    result;
+});
+
+/**
+ * Stores Service
+ */
+const storesSearchRequest = expectType({
+    latLng: { lat: 51.5007, lng: -0.1246 },
+    page: 2,
+    polyline: "OFKL#@@JB##1KZR",
+    query: "type:\"click_and_collect\"",
+    radius: 100000,
+    storesByPage: 5,
+    zone: true,
+}) as woosmap.map.stores.StoresSearchRequest;
+
+let storesService;
+storesService = new woosmap.map.StoresService();
+const promiseStoresSearch = storesService.search(storesSearchRequest);
+promiseStoresSearch.then((result) => {
+    // $ExpectType StoresSearchResponse
+    result;
+});
 
 /**
  * helper functions for testing purpose

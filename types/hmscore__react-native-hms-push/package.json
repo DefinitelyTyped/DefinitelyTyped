@@ -6,7 +6,7 @@
         "https://github.com/HMS-Core/hms-react-native-plugin/tree/master/react-native-hms-push"
     ],
     "dependencies": {
-        "@types/react-native": "*"
+        "react-native": "*"
     },
     "devDependencies": {
         "@types/hmscore__react-native-hms-push": "workspace:.",

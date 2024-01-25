@@ -37,10 +37,8 @@ declare namespace React {
     // React Elements
     // ----------------------------------------------------------------------
 
-    type ElementType<P = any> =
-        | {
-            [K in keyof JSX.IntrinsicElements]: P extends JSX.IntrinsicElements[K] ? K : never;
-        }[keyof JSX.IntrinsicElements]
+    type ElementType<P = any, Tag extends keyof JSX.IntrinsicElements = keyof JSX.IntrinsicElements> =
+        | { [K in Tag]: P extends JSX.IntrinsicElements[K] ? K : never }[Tag]
         | ComponentType<P>;
     type ComponentType<P = {}> = ComponentClass<P> | FunctionComponent<P>;
 
@@ -150,6 +148,9 @@ declare namespace React {
         ref?: LegacyRef<T> | undefined;
     }
 
+    /**
+     * @deprecated Use `ComponentElement<P, ClassicComponent<P, any>>` instead.
+     */
     type ClassicElement<P> = CElement<P, ClassicComponent<P, ComponentState>>;
 
     // string fallback for custom web-components
@@ -271,9 +272,6 @@ declare namespace React {
 
     // Custom components
     function createFactory<P>(type: FunctionComponent<P>): FunctionComponentFactory<P>;
-    function createFactory<P>(
-        type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>,
-    ): CFactory<P, ClassicComponent<P, ComponentState>>;
     function createFactory<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
         type: ClassType<P, T, C>,
     ): CFactory<P, T>;
@@ -309,11 +307,6 @@ declare namespace React {
         props?: Attributes & P | null,
         ...children: ReactNode[]
     ): FunctionComponentElement<P>;
-    function createElement<P extends {}>(
-        type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>,
-        props?: ClassAttributes<ClassicComponent<P, ComponentState>> & P | null,
-        ...children: ReactNode[]
-    ): CElement<P, ClassicComponent<P, ComponentState>>;
     function createElement<P extends {}, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
         type: ClassType<P, T, C>,
         props?: ClassAttributes<T> & P | null,
@@ -547,6 +540,9 @@ declare namespace React {
 
     class PureComponent<P = {}, S = {}, SS = any> extends Component<P, S, SS> {}
 
+    /**
+     * @deprecated Use `ClassicComponent` from `create-react-class`
+     */
     interface ClassicComponent<P = {}, S = {}> extends Component<P, S> {
         replaceState(nextState: S, callback?: () => void): void;
         isMounted(): boolean;
@@ -614,6 +610,9 @@ declare namespace React {
         displayName?: string | undefined;
     }
 
+    /**
+     * @deprecated Use `ClassicComponentClass` from `create-react-class`
+     */
     interface ClassicComponentClass<P = {}> extends ComponentClass<P> {
         new(props: P, context?: any): ClassicComponent<P, ComponentState>;
         getDefaultProps?(): P;
@@ -2245,6 +2244,7 @@ declare namespace React {
     interface DetailsHTMLAttributes<T> extends HTMLAttributes<T> {
         open?: boolean | undefined;
         onToggle?: ReactEventHandler<T> | undefined;
+        name?: string | undefined;
     }
 
     interface DelHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2456,10 +2456,10 @@ declare namespace React {
 
     interface MetaHTMLAttributes<T> extends HTMLAttributes<T> {
         charSet?: string | undefined;
-        httpEquiv?: string | undefined;
-        name?: string | undefined;
-        media?: string | undefined;
         content?: string | undefined;
+        httpEquiv?: string | undefined;
+        media?: string | undefined;
+        name?: string | undefined;
     }
 
     interface MeterHTMLAttributes<T> extends HTMLAttributes<T> {

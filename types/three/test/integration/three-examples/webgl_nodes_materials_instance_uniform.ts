@@ -12,7 +12,7 @@ import { nodeFrame } from 'three/examples/jsm/renderers/webgl/nodes/WebGLNodes';
 import { WebGLNodeBuilder } from 'three/examples/jsm/renderers/webgl/nodes/WebGLNodeBuilder';
 const { add, mul } = Nodes;
 class InstanceUniformNode extends Nodes.Node {
-    uniformNode: Nodes.UniformNode;
+    uniformNode: Nodes.UniformNode<unknown>;
     constructor() {
         super('vec3');
         this.updateType = Nodes.NodeUpdateType.OBJECT;

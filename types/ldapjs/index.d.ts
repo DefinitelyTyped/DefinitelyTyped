@@ -156,6 +156,11 @@ export interface Client extends EventEmitter {
     ): void;
 
     /**
+     * Initiate LDAP connection if lost. The constructor will call this method so there's no need to call it the first time.
+     */
+    connect(): void;
+
+    /**
      * Deletes an entry from the LDAP server.
      *
      * @param name the DN of the entry to delete.

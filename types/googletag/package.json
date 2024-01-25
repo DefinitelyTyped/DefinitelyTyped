@@ -1,9 +1,9 @@
 {
     "private": true,
     "name": "@types/googletag",
-    "version": "3.0.9999",
+    "version": "3.1.9999",
     "nonNpm": true,
-    "nonNpmDescription": "Google Publisher Tag (DoubleClick GPT 2023-02-08)",
+    "nonNpmDescription": "Google Publisher Tag (DoubleClick GPT 2024-01-23)",
     "projects": [
         "https://developers.google.com/publisher-tag/reference"
     ],

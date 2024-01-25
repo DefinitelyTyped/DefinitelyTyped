@@ -37,6 +37,10 @@ export default interface Transition<T = unknown> extends Partial<Promise<T>> {
      */
     readonly to: RouteInfo | RouteInfoWithAttributes;
     /**
+     * The targetName is the route name of the destination route.
+     */
+    readonly targetName: string | null | undefined;
+    /**
      * Aborts the Transition. Note you can also implicitly abort a transition
      * by initiating another transition while a previous one is underway.
      */

@@ -1051,7 +1051,7 @@ declare namespace woosmap.map {
         setRouteIndex(routeIndex: number): void;
     }
 }
-declare namespace woosmap.map.distance {
+declare namespace woosmap.map {
     /**
      * A service for computing distances and durations between multiple origins and
      * destinations and retrieving isochrone destinations.
@@ -1080,7 +1080,7 @@ declare namespace woosmap.map.distance {
         ): Promise<woosmap.map.distance.DistanceIsochroneResponse>;
     }
 }
-declare namespace woosmap.map.stores {
+declare namespace woosmap.map {
     /**
      * Contains methods related to retrieving stores and stores' bounds.
      */
@@ -1114,7 +1114,7 @@ declare namespace woosmap.map.stores {
         getBounds(request: woosmap.map.stores.StoresBoundsRequest): Promise<woosmap.map.stores.StoresBoundsResponse>;
     }
 }
-declare namespace woosmap.map.localities {
+declare namespace woosmap.map {
     /**
      * Contains methods related to retrieving autocomplete predictions, geocoding for localities and retrieving details
      */
@@ -2709,6 +2709,10 @@ declare namespace woosmap.map.localities {
          * The latLng parameter is used for reverse geocoding, it’s required if the `address` parameter is missing.
          */
         latLng?: woosmap.map.LatLng | woosmap.map.LatLngLiteral;
+        /**
+         * When latlng parameter is used for reverse geocoding, setting list_sub_building=true allows to retrieve all addresses at the same location for a common street number or building.
+         */
+        list_sub_buildings?: boolean;
     }
 }
 declare namespace woosmap.map.localities {
@@ -2761,9 +2765,19 @@ declare namespace woosmap.map.localities {
 }
 declare namespace woosmap.map.localities {
     /**
-     * Defines information about a Locality.
+     * A Localities Details response returned by the call to
+     * `LocalitiesService.getDetails` containing a
+     * `LocalitiesDetailsResult`.
      */
     interface LocalitiesDetailsResponse {
+        result: woosmap.map.localities.LocalitiesDetailsResult;
+    }
+}
+declare namespace woosmap.map.localities {
+    /**
+     * Defines information about a Locality.
+     */
+    interface LocalitiesDetailsResult {
         /**
          * An array containing Address Components with additional information
          */
@@ -2812,6 +2826,15 @@ declare namespace woosmap.map.localities {
         accuracy: woosmap.map.localities.LocalitiesDetailsAccuracy;
         location: woosmap.map.LatLngLiteral;
         viewport: woosmap.map.LatLngBoundsLiteral;
+    }
+}
+declare namespace woosmap.map.localities {
+    /**
+     * Human readable description of an address and the unique public_id of the address
+     */
+    interface LocalitiesDetailsSummary {
+        description: string;
+        public_id: string;
     }
 }
 declare namespace woosmap.map.localities {
@@ -2872,6 +2895,10 @@ declare namespace woosmap.map.localities {
          * This optional field is only available for UK addresses referenced as not yey built.
          */
         status?: "not_yet_built";
+        /**
+         * When reverse geocoding with list_sub_buildings=true, this field will contain a list of precise addresses that can be found at that location, i.e. all flats within a building.
+         */
+        sub_buildings?: woosmap.map.localities.LocalitiesDetailsSummary[];
         /**
          * available localities types
          */
@@ -3155,6 +3182,11 @@ declare namespace woosmap.map {
          * Adds a listener for eventName.
          */
         addListener(eventName: string, handler: any): MapEventListener;
+
+        /**
+         * Triggers the given event. All arguments after eventName are passed as arguments to the listeners.
+         */
+        trigger(instance: object, eventName: string, eventArgs?: any[] | null): void;
     }
 }
 declare namespace woosmap.map {

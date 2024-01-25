@@ -133,6 +133,7 @@ declare namespace TelegramBot {
         certificate?: string | Stream | undefined;
         max_connections?: number | undefined;
         allowed_updates?: string[] | undefined;
+        secret_token?: string | undefined;
     }
 
     interface GetUpdatesOptions {
@@ -1609,7 +1610,7 @@ declare class TelegramBot extends TelegramBotEventEmitter<TelegramBot.TelegramEv
         chatId: TelegramBot.ChatId,
         media: readonly TelegramBot.InputMedia[],
         options?: TelegramBot.SendMediaGroupOptions,
-    ): Promise<TelegramBot.Message>;
+    ): Promise<TelegramBot.Message[]>;
 
     sendPoll(
         chatId: TelegramBot.ChatId,

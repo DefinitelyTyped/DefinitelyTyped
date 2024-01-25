@@ -109,6 +109,16 @@ declare namespace newrelic {
      */
     function setCurrentRouteName(name: string | null): void;
 
+    /**
+     * Adds a user-defined identifier string to subsequent events on the page.
+     *
+     * @param userId A string identifier for the end-user, useful for tying all browser events to specific users. The
+     * value parameter does not have to be unique. If IDs should be unique, the caller is responsible for that
+     * validation. Passing a null value unsets any existing user ID.
+     * @see https://docs.newrelic.com/docs/browser/new-relic-browser/browser-apis/setuserid/
+     */
+    function setUserId(userId: string | null): void;
+
     interface EventObject {
         /** Event name */
         name: string;

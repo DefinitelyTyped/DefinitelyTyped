@@ -1,4 +1,5 @@
 import Node from '../core/Node.js';
+import { ShaderNodeObject } from '../shadernode/ShaderNode.js';
 
 export type PositionNodeScope =
     | typeof PositionNode.GEOMETRY
@@ -19,3 +20,10 @@ export default class PositionNode extends Node {
 
     constructor(scope?: PositionNodeScope);
 }
+
+export const positionGeometry: ShaderNodeObject<PositionNode>;
+export const positionLocal: ShaderNodeObject<PositionNode>;
+export const positionWorld: ShaderNodeObject<PositionNode>;
+export const positionWorldDirection: ShaderNodeObject<PositionNode>;
+export const positionView: ShaderNodeObject<PositionNode>;
+export const positionViewDirection: ShaderNodeObject<PositionNode>;

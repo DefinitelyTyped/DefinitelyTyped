@@ -1,4 +1,4 @@
-import * as RdfJs from "rdf-js";
+import * as RdfJs from "@rdfjs/types";
 import * as SparqlJs from "sparqljs";
 
 // Declare RDF/JS factory implementation to create terms (IRIs, literals, variables, etc)

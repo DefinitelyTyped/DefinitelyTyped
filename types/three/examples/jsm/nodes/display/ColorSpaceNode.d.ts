@@ -1,5 +1,7 @@
+import { TextureEncoding } from '../../../../src/Three.js';
 import TempNode from '../core/TempNode.js';
 import Node from '../core/Node.js';
+import { NodeRepresentation, ShaderNodeObject } from '../shadernode/ShaderNode.js';
 
 export type ColorSpaceNodeMethod =
     | typeof ColorSpaceNode.LINEAR_TO_LINEAR
@@ -16,3 +18,5 @@ export default class ColorSpaceNode extends TempNode {
 
     constructor(method: ColorSpaceNodeMethod | null, node: Node);
 }
+
+export const colorSpace: (node: NodeRepresentation, encoding: TextureEncoding) => ShaderNodeObject<ColorSpaceNode>;

@@ -170,6 +170,7 @@ export interface ReactDatePickerProps<
     showTwoColumnMonthYearPicker?: boolean | undefined;
     showFourColumnMonthYearPicker?: boolean | undefined;
     showWeekNumbers?: boolean | undefined;
+    showWeekPicker?: boolean | undefined;
     showYearDropdown?: boolean | undefined;
     showYearPicker?: boolean | undefined;
     showIcon?: boolean | undefined;

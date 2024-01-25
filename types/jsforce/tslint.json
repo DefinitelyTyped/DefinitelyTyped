@@ -1,9 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "array-type": false,
-        "await-promise": false,
-        "eofline": false,
-        "no-unnecessary-class": false
-    }
-}

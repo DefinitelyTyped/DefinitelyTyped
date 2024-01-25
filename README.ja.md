@@ -168,7 +168,6 @@ npm 上にないパッケージの型定義を追加したい場合は、その�
 | `index.d.ts` | 型定義が含まれる。 |
 | [`<パッケージ名>-tests.ts`](#パッケージ名-teststs)  | 型定義をテストするサンプルコードが含まれる。このコードは実行は**されません**が、型チェックはされます。 |
 | [`tsconfig.json`](#tsconfigjson) | パッケージ内で `tsc` を実行するのに必要。 |
-| [`tslint.json`](#linter-tslintjson) | Lint を有効にする。 |
 
 これらのファイルを生成するには、 npm 5.2.0 以上では `npx dts-gen --dt --name <パッケージ名> --template module` 、それより古い環境では `npm install -g dts-gen` と `dts-gen --dt --name <パッケージ名> --template module` を実行してください。
 dts-gen の全オプションは[こちら](https://github.com/Microsoft/dts-gen)で確認できます。
@@ -270,17 +269,9 @@ f("one");
 
 詳しくは、 [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint#write-tests) の README を参照してください。
 
-#### Linter: `tslint.json`
-
-リンターの設定ファイルである `tslint.json` は `{ "extends": "@definitelytyped/dtslint/dt.json" }` を含むべきであり、追加のルールは含まれていてはいけません。
-
-何らかの理由で特定のルールを無効にする必要がある場合は、[その特定の行に対して無効にしてください](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line)。ルール全体を無効にしないでください。無効にすることが確認可能であるようにするためです。（いくつかの既存のリント設定には追加の内容が含まれていることがあるが、新しい作業ではこれらは発生しないべきです。）
-
 ##### Linter: `.eslintrc.json`
 
-Definitely Typed はリントに eslint を使用するよう切り替えています。
-tslint とは異なり、リンティングを有効にするための設定ファイルは不要です。
-tslint と同様に、特定のルールは特定の行に対してのみ無効にするべきです：
+特定のルールは特定の行に対してのみ無効にするべきです：
 
 ```ts
 // eslint-disable-next-line no-const-enum

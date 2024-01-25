@@ -6,16 +6,14 @@
  *
  * For a brief overview of GPT, including it's benefits, basic functionality and features, visit the [Ad Manager help center](https://support.google.com/admanager/answer/181073).
  *
- * **Note**: Firstly, [load GPT from the official source](https://developers.google.com/publisher-tag/guides/general-best-practices#load_from_an_official_source) and initialize `googletag`.
+ * **Note:** Firstly, [load GPT from the official source](https://developers.google.com/publisher-tag/guides/general-best-practices#load_from_an_official_source) and initialize `googletag`.
  *
  * @example
- *   <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
- *   <script>window.googletag = window.googletag || { cmd: [] };</script>
- *   <script>
- *     googletag.cmd.push(function() {
- *       // GPT API can be called safely.
- *     });
- *   </script>
+ *   // <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+ *   window.googletag = window.googletag || { cmd: [] };
+ *   googletag.cmd.push(() => {
+ *     // GPT API can be called safely.
+ *   });
  */
 declare namespace googletag {
     /**
@@ -67,11 +65,9 @@ declare namespace googletag {
      * These callbacks do not have to check googletag.apiReady as they are guaranteed to execute once the API is set up.
      *
      * @example
-     *   <script>
-     *     if (window.googletag && googletag.apiReady) {
-     *       // GPT API can be called safely.
-     *     }
-     *   </script>
+     *   if (window.googletag && googletag.apiReady) {
+     *     // GPT API can be called safely.
+     *   }
      */
     const apiReady: boolean | undefined;
 
@@ -85,8 +81,8 @@ declare namespace googletag {
      * This mechanism allows GPT to reduce perceived latency by fetching the JavaScript asynchronously while allowing the browser to continue rendering the page.
      *
      * @example
-     *   googletag.cmd.push(function() {
-     *     googletag.defineSlot('/1234567/sports', [160, 600])
+     *   googletag.cmd.push(() => {
+     *     googletag.defineSlot('/1234567/sports', [160, 600])!
      *              .addService(googletag.pubads());
      *   });
      */
@@ -96,7 +92,7 @@ declare namespace googletag {
      * Flag indicating that {@link PubAdsService} is enabled, loaded and fully operational.
      * This property will be simply `undefined` until {@link googletag.enableServices()} is called and {@link PubAdsService} is loaded and initialized.
      *
-     * **Note**: Checking {@link googletag.pubadsReady} is discouraged. Please use {@link googletag.cmd.push} instead.
+     * **Note:** Checking {@link googletag.pubadsReady} is discouraged. Please use {@link googletag.cmd.push} instead.
      */
     const pubadsReady: boolean | undefined;
 
@@ -107,11 +103,11 @@ declare namespace googletag {
      * It is intended to replace a standard array that is used to enqueue signal-generating functions to be invoked once GPT is loaded.
      *
      * @example
-     * window.googletag = window.googletag || { cmd: [], secureSignalProviders: [] };
-     * window.googletag.secureSignalProviders.push({
-     *   id: 'collector123',
-     *   collectorFunction: () => { return Promise.resolve('signal'); }
-     * });
+     *   window.googletag = window.googletag || { cmd: [], secureSignalProviders: [] };
+     *   window.googletag.secureSignalProviders.push({
+     *     id: 'collector123',
+     *     collectorFunction: () => { return Promise.resolve('signal'); }
+     *   });
      *
      * @see [Share secure signals with bidders](https://support.google.com/admanager/answer/10488752)
      */
@@ -134,7 +130,7 @@ declare namespace googletag {
      *
      * @example
      *   // Define a custom out-of-page ad slot.
-     *   googletag.defineOutOfPageSlot('/1234567/sports', 'div-1');
+     *   googletag.defineOutOfPageSlot('/1234567/sports', 'div');
      *   // Define a GPT managed web interstitial ad slot.
      *   googletag.defineOutOfPageSlot('/1234567/sports',
      *                                 googletag.enums.OutOfPageFormat.INTERSTITIAL);
@@ -147,14 +143,13 @@ declare namespace googletag {
      * @param div ID of the div that will contain this ad unit or OutOfPageFormat.
      * @returns The newly created slot, or `null` if a slot cannot be created.
      */
-    function defineOutOfPageSlot(adUnitPath: string, div: string | enums.OutOfPageFormat): Slot | null;
-    function defineOutOfPageSlot(adUnitPath: string): Slot;
+    function defineOutOfPageSlot(adUnitPath: string, div?: string | enums.OutOfPageFormat): Slot | null;
 
     /**
      * Constructs an ad slot with a given ad unit path and size and associates it with the ID of a div element on the page that will contain the ad.
      *
      * @example
-     *   googletag.defineSlot('/1234567/sports', [728, 90], 'div-1');
+     *   googletag.defineSlot('/1234567/sports', [728, 90], 'div');
      *
      * @see [Get Started with Google Publisher Tags](https://developers.google.com/publisher-tag/guides/get-started)
      * @param adUnitPath Full [ad unit path](https://developers.google.com/publisher-tag/guides/get-started#ad-unit-path) with the network code and unit code.
@@ -163,10 +158,7 @@ declare namespace googletag {
      * @param div ID of the div that will contain this ad unit.
      * @returns The newly created slot, or `null` if a slot cannot be created.
      */
-    function defineSlot(adUnitPath: string, size: GeneralSize, div: string): Slot | null;
-    function defineSlot(adUnitPath: string, size: GeneralSize): Slot;
-    function defineUnit(adUnitPath: string, size: GeneralSize, div: string): Slot | null;
-    function defineUnit(adUnitPath: string, size: GeneralSize): Slot;
+    function defineSlot(adUnitPath: string, size: GeneralSize, div?: string): Slot | null;
 
     /**
      * Destroys the given slots, removing all related objects and references of those slots from GPT.
@@ -183,15 +175,10 @@ declare namespace googletag {
      *
      * @example
      *   // The calls to construct an ad and display contents.
-     *   var slot1 =
-     *       googletag.defineSlot('/1234567/sports', [728, 90], 'div-1');
+     *   const slot1 = googletag.defineSlot('/1234567/sports', [728, 90], 'div-1')!;
      *   googletag.display('div-1');
-     *   var slot2 =
-     *       googletag.defineSlot('/1234567/news', [160, 600], 'div-2');
+     *   const slot2 = googletag.defineSlot('/1234567/news', [160, 600], 'div-2')!;
      *   googletag.display('div-2');
-     *   var slot3 =
-     *       googletag.defineSlot('/1234567/weather', [160, 600], 'div-3');
-     *   googletag.display('div-3');
      *   // This call to destroy only slot1.
      *   googletag.destroySlots([slot1]);
      *   // This call to destroy both slot1 and slot2.
@@ -208,7 +195,7 @@ declare namespace googletag {
      * Disables the Google Publisher Console.
      *
      * @see [Google Publisher Console](https://developers.google.com/publisher-tag/guides/publisher-console)
-     *   **Note**: Can only be called after the document is loaded.
+     *   **Note:** Can only be called after the document is loaded.
      */
     function disablePublisherConsole(): void;
 
@@ -223,13 +210,10 @@ declare namespace googletag {
      * To force an ad slot not to display, the entire div must be removed.
      *
      * @example
-     *   <div id="div-1" style="width: 728px; height: 90px">
-     *     <script type="text/javascript">
-     *       googletag.cmd.push(function() {
-     *         googletag.display('div-1');
-     *       });
-     *     </script>
-     *   </div>
+     *   // <div id="div" style="width: 728px; height: 90px"></div>
+     *   googletag.cmd.push(() => {
+     *     googletag.display('div');
+     *   });
      *
      * @see [Get Started with Google Publisher Tags](https://developers.google.com/publisher-tag/guides/get-started)
      * @see [Display a test ad](https://developers.google.com/publisher-tag/samples/display-test-ad)
@@ -255,15 +239,15 @@ declare namespace googletag {
     /**
      * Opens the Google Publisher Console.
      *
-     * @see [Google Publisher Console](https://developers.google.com/publisher-tag/guides/publisher-console)
-     *   **Note**: Can only be called after the document is loaded.
+     * **Note:** Can only be called after the document is loaded.
      *
      * @example
      *   // Calling with div ID.
-     *   googletag.openConsole('div-1');
+     *   googletag.openConsole('div');
      *   // Calling without div ID.
      *   googletag.openConsole();
      *
+     * @see [Google Publisher Console](https://developers.google.com/publisher-tag/guides/publisher-console)
      * @param div An ad slot div ID. This value is optional. When provided, the Publisher Console will attempt to open with details of the specified ad slot in view.
      */
     function openConsole(div?: string): void;
@@ -285,6 +269,11 @@ declare namespace googletag {
     function setAdIframeTitle(title: string): void;
 
     /**
+     * Sets general configuration options for the page.
+     */
+    function setConfig(config: config.PageSettingsConfig): void;
+
+    /**
      * Creates a new {@link SizeMappingBuilder}.
      *
      * @see [Ad sizes: Responsive ads](https://developers.google.com/publisher-tag/guides/ad-sizes#responsive_ads)
@@ -300,8 +289,8 @@ declare namespace googletag {
          * Executes the sequence of functions specified in the arguments in order.
          *
          * @example
-         *   googletag.cmd.push(function() {
-         *     googletag.defineSlot('/1234567/sports', [160, 600])
+         *   googletag.cmd.push(() => {
+         *     googletag.defineSlot('/1234567/sports', [160, 600])!
          *              .addService(googletag.pubads());
          *   });
          *
@@ -402,6 +391,10 @@ declare namespace googletag {
          * so future requests will not be influenced by roadblocks or competitive exclusions involving this ad.
          *
          * @example
+         *   const slot1 = googletag.defineSlot('/1234567/sports', [728, 90], 'div-1')!;
+         *   googletag.display('div-1');
+         *   const slot2 = googletag.defineSlot('/1234567/news', [160, 600], 'div-2')!;
+         *   googletag.display('div-2');
          *   // This call to clear only slot1.
          *   googletag.pubads().clear([slot1]);
          *   // This call to clear both slot1 and slot2.
@@ -477,7 +470,7 @@ declare namespace googletag {
          * will only apply to subsequent `display()` or `refresh()` requests.
          *
          * @example
-         *   googletag.pubads().display('/1234567/sports', [728, 90], 'div-1');
+         *   googletag.pubads().display('/1234567/sports', [728, 90], 'div');
          *
          * @see [Display a test ad](https://developers.google.com/publisher-tag/samples/display-test-ad)
          * @see [Control ad loading and refresh](https://developers.google.com/publisher-tag/guides/control-ad-loading)
@@ -492,14 +485,16 @@ declare namespace googletag {
          * Enables lazy loading in GPT as defined by the config object.
          * For more detailed examples, see the [Lazy loading](https://developers.google.com/publisher-tag/samples/lazy-loading) sample.
          *
-         * **Note:**
-         * - Lazy fetching in SRA only works if all slots are outside the fetching margin.
+         * **Note:** Lazy fetching in SRA only works if all slots are outside the fetching margin.
          *
          * @example
          *   googletag.pubads().enableLazyLoad({
-         *     fetchMarginPercent: 500,  // Fetch slots within 5 viewports.
-         *     renderMarginPercent: 200,  // Render slots within 2 viewports.
-         *     mobileScaling: 2.0  // Double the above values on mobile.
+         *     // Fetch slots within 5 viewports.
+         *     fetchMarginPercent: 500,
+         *     // Render slots within 2 viewports.
+         *     renderMarginPercent: 200,
+         *     // Double the above values on mobile.
+         *     mobileScaling: 2.0
          *   });
          *
          * @see [Ads best practices: Prioritize "important" ad slots](https://developers.google.com/publisher-tag/guides/ad-best-practices#prioritize_important_ad_slots)
@@ -553,8 +548,8 @@ declare namespace googletag {
          *
          * @example
          *   googletag.pubads().set('adsense_background_color', '#FFFFFF');
-         *   var color = googletag.pubads().get('adsense_background_color');
-         *   // color == '#FFFFFF'.
+         *   googletag.pubads().get('adsense_background_color');
+         *   // Returns '#FFFFFF'
          *
          * @see [AdSense Attributes](https://developers.google.com/publisher-tag/adsense_attributes)
          * @param key Name of the attribute to look for.
@@ -568,8 +563,8 @@ declare namespace googletag {
          * @example
          *   googletag.pubads().set('adsense_background_color', '#FFFFFF');
          *   googletag.pubads().set('adsense_border_color', '#AABBCC');
-         *   var keys = googletag.pubads().getAttributeKeys();
-         *   // Keys are ['adsense_background_color', 'adsense_border_color'].
+         *   googletag.pubads().getAttributeKeys();
+         *   // Returns ['adsense_background_color', 'adsense_border_color']
          *
          * @returns Array of attribute keys set on this service. Ordering is undefined.
          */
@@ -587,10 +582,10 @@ declare namespace googletag {
          *
          * @example
          *   googletag.pubads().setTargeting('interests', 'sports');
-         *   var param = googletag.pubads().getTargeting('interests');
-         *   // param is ['sports']
-         *   var param = googletag.pubads().getTargeting('age');
-         *   // param is [] (empty array)
+         *   googletag.pubads().getTargeting('interests');
+         *   // Returns ['sports']
+         *   googletag.pubads().getTargeting('age');
+         *   // Returns [] (empty array)
          *
          * @param key The targeting key to look for.
          * @returns The values associated with this key, or an empty array if there is no such key.
@@ -603,8 +598,8 @@ declare namespace googletag {
          * @example
          *   googletag.pubads().setTargeting('interests', 'sports');
          *   googletag.pubads().setTargeting('colors', 'blue');
-         *   var keys = googletag.pubads().getTargetingKeys();
-         *   // keys are ['interests', 'colors'].
+         *   googletag.pubads().getTargetingKeys();
+         *   // Returns ['interests', 'colors']
          *
          * @returns Array of targeting keys. Ordering is undefined.
          */
@@ -633,6 +628,10 @@ declare namespace googletag {
          * so future requests will not be influenced by roadblocks or competitive exclusions involving that ad.
          *
          * @example
+         *   const slot1 = googletag.defineSlot('/1234567/sports', [728, 90], 'div-1')!;
+         *   googletag.display('div-1');
+         *   const slot2 = googletag.defineSlot('/1234567/news', [160, 600], 'div-2')!;
+         *   googletag.display('div-2');
          *   // This call to refresh fetches a new ad for slot1 only.
          *   googletag.pubads().refresh([slot1]);
          *   // This call to refresh fetches a new ad for both slot1 and slot2.
@@ -657,10 +656,10 @@ declare namespace googletag {
          *     Our ad servers maintain this correlator value briefly (currently for 30 seconds, but subject to change),
          *     such that requests with the same correlator received close together will be considered a single page view. By default a new correlator is generated for every refresh.
          *
-         *     >**Note**: this option has no effect on GPT's [long-lived pageview](https://support.google.com/admanager/answer/183281),
+         *     >**Note:** this option has no effect on GPT's [long-lived pageview](https://support.google.com/admanager/answer/183281),
          *     which automatically reflects the ads currently on the page and has no expiration time.
          */
-        refresh(slots?: Slot[], options?: { changeCorrelator: boolean }): void;
+        refresh(slots?: Slot[] | null, options?: { changeCorrelator: boolean }): void;
 
         /**
          * Sets values for AdSense attributes that apply to all ad slots under the Publisher Ads service.
@@ -718,11 +717,11 @@ declare namespace googletag {
          *   googletag.pubads().setForceSafeFrame(true);
          *   // The following slot will be opted-out of the page-level force
          *   // SafeFrame instruction.
-         *   googletag.defineSlot('/1234567/sports', [160, 600], 'div-1')
+         *   googletag.defineSlot('/1234567/sports', [160, 600], 'div-1')!
          *            .setForceSafeFrame(false)
          *            .addService(googletag.pubads());
          *   // The following slot will have SafeFrame forced.
-         *   googletag.defineSlot('/1234567/news', [160, 600], 'div-2')
+         *   googletag.defineSlot('/1234567/news', [160, 600], 'div-2')!
          *            .addService(googletag.pubads());
          *   googletag.display('div-1');
          *   googletag.display('div-2');
@@ -776,7 +775,7 @@ declare namespace googletag {
          * Sets the value for the publisher-provided ID.
          *
          * @example
-         *   googletag.pubads().setPublisherProvidedId('AB123456789');
+         *   googletag.pubads().setPublisherProvidedId('12JD92JD8078S8J29SDOAKC0EF230337');
          *
          * @see [About publisher provided identifiers](https://support.google.com/admanager/answer/2880055)
          * @param ppid An alphanumeric ID provided by the publisher. Must be between 32 and 150 characters.
@@ -793,20 +792,20 @@ declare namespace googletag {
          *
          * @example
          *   googletag.pubads().setForceSafeFrame(true);
-         *   var pageConfig = {
+         *   const pageConfig = {
          *     allowOverlayExpansion: true,
          *     allowPushExpansion: true,
          *     sandbox: true
          *   };
-         *   var slotConfig = {allowOverlayExpansion: false};
+         *   const slotConfig = {allowOverlayExpansion: false};
          *   googletag.pubads().setSafeFrameConfig(pageConfig);
          *   // The following slot will not allow for expansion by overlay.
-         *   googletag.defineSlot('/1234567/sports', [160, 600], 'div-1')
+         *   googletag.defineSlot('/1234567/sports', [160, 600], 'div-1')!
          *            .setSafeFrameConfig(slotConfig)
          *            .addService(googletag.pubads());
          *   // The following slot will inherit the page level settings, and hence
          *   // would allow for expansion by overlay.
-         *   googletag.defineSlot('/1234567/news', [160, 600], 'div-2')
+         *   googletag.defineSlot('/1234567/news', [160, 600], 'div-2')!
          *            .addService(googletag.pubads());
          *   googletag.display('div-1');
          *   googletag.display('div-2');
@@ -840,11 +839,32 @@ declare namespace googletag {
          * Video ads will be automatically enabled when this method is called.
          * For `videoContentId` and `videoCmsId`, use the values that are provided to the Google Ad Manager content ingestion service.
          *
-         * @see https://support.google.com/admanager/answer/1068325 VAST ad tag URL parameters}
+         * @see [VAST ad tag URL parameters](https://support.google.com/admanager/answer/1068325)
          * @param videoContentId The video content ID.
          * @param videoCmsId The video CMS ID.
          */
         setVideoContent(videoContentId: string, videoCmsId: string): void;
+
+        /**
+         * Changes the correlator that is sent with ad requests, effectively starting a new page view.
+         * The correlator is the same for all the ad requests coming from one page view, and unique across page views.
+         * Only applies to async mode.
+         *
+         * **Note:** this has no effect on GPT's [long-lived pageview](https://support.google.com/admanager/answer/183281),
+         * which automatically reflects the ads actually on the page and has no expiration time.
+         *
+         * @example
+         *   // Assume that the correlator is currently 12345. All ad requests made
+         *   // by this page will currently use that value.
+         *   // Replace the current correlator with a new correlator.
+         *   googletag.pubads().updateCorrelator();
+         *   // The correlator will now be a new randomly selected value, different
+         *   // from 12345. All subsequent ad requests made by this page will use
+         *   // the new value.
+         *
+         * @return The service object on which the function was called.
+         */
+        updateCorrelator(): PubAdsService;
     }
 
     /**
@@ -939,7 +959,7 @@ declare namespace googletag {
          *
          * @example
          *   // 1. Adding an event listener for the PubAdsService.
-         *   googletag.pubads().addEventListener('slotOnload', function(event) {
+         *   googletag.pubads().addEventListener('slotOnload', (event) => {
          *     console.log('Slot has been loaded:');
          *     console.log(event);
          *   });
@@ -948,8 +968,8 @@ declare namespace googletag {
          *   // a listener for an event for a specific slot only. You can, however,
          *   // programmatically filter a listener to respond only to a certain ad
          *   // slot, using this pattern:
-         *   var targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
-         *   googletag.pubads().addEventListener('slotOnload', function(event) {
+         *   const targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
+         *   googletag.pubads().addEventListener('slotOnload', (event) => {
          *     if (event.slot === targetSlot) {
          *       // Slot specific logic.
          *     }
@@ -985,15 +1005,15 @@ declare namespace googletag {
          * Removes a previously registered listener.
          *
          * @example
-         *   googletag.cmd.push(function() {
+         *   googletag.cmd.push(() => {
          *     // Define a new ad slot.
-         *     googletag.defineSlot('/6355419/Travel', [728, 90], 'div-for-slot')
+         *     googletag.defineSlot('/6355419/Travel', [728, 90], 'div-for-slot')!
          *              .addService(googletag.pubads());
          *     // Define a new function that removes itself via removeEventListener
          *     // after the impressionViewable event fires.
-         *     var onViewableListener = function(event) {
+         *     const onViewableListener = (event: googletag.events.ImpressionViewableEvent) => {
          *       googletag.pubads().removeEventListener('impressionViewable', onViewableListener);
-         *       setTimeout(function() {
+         *       setTimeout(() => {
          *         googletag.pubads().refresh([event.slot]);
          *       }, 30000);
          *     };
@@ -1029,21 +1049,21 @@ declare namespace googletag {
          * Adds a mapping from a single-size array (representing the viewport) to a single- or multi-size array representing the slot.
          *
          * @example
-         *   var mapping1 =
-         *       googletag.sizeMapping()
-         *                .addSize([1024, 768], [970, 250])
-         *                .addSize([980, 690], [728, 90])
-         *                .addSize([640, 480], 'fluid')
-         *                .addSize([0, 0], [88, 31]) // All viewports < 640x480
-         *                .build();
-         *   var mapping2 =
-         *       googletag.sizeMapping()
-         *                .addSize([1024, 768], [970, 250])
-         *                .addSize([980, 690], [])
-         *                .addSize([640, 480], [120, 60])
-         *                .addSize([0, 0], [])
-         *                .build();
-         *   // mapping2 will not show any ads for the following viewport sizes:
+         *   // Mapping 1
+         *   googletag.sizeMapping()
+         *            .addSize([1024, 768], [970, 250])
+         *            .addSize([980, 690], [728, 90])
+         *            .addSize([640, 480], 'fluid')
+         *            .addSize([0, 0], [88, 31]) // All viewports < 640x480
+         *            .build();
+         *   // Mapping 2
+         *   googletag.sizeMapping()
+         *            .addSize([1024, 768], [970, 250])
+         *            .addSize([980, 690], [])
+         *            .addSize([640, 480], [120, 60])
+         *            .addSize([0, 0], [])
+         *            .build();
+         *   // Mapping 2 will not show any ads for the following viewport sizes:
          *   // [1024, 768] > size >= [980, 690] and
          *   // [640, 480] > size >= [0, 0]
          *
@@ -1074,7 +1094,7 @@ declare namespace googletag {
          * Adds a {@link Service} to this slot.
          *
          * @example
-         *   googletag.defineSlot('/1234567/sports', [160, 600])
+         *   googletag.defineSlot('/1234567/sports', [160, 600])!
          *            .addService(googletag.pubads());
          *
          * @see [Get Started with Google Publisher Tags](https://developers.google.com/publisher-tag/guides/get-started)
@@ -1089,9 +1109,9 @@ declare namespace googletag {
          *
          * @example
          *   // Set category exclusion to exclude ads with 'AirlineAd' labels.
-         *   var slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div-1')
-         *                       .setCategoryExclusion('AirlineAd')
-         *                       .addService(googletag.pubads());
+         *   const slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div')!
+         *                         .setCategoryExclusion('AirlineAd')
+         *                         .addService(googletag.pubads());
          *   // Make an ad request. No ad with 'AirlineAd' label will be returned
          *   // for the slot.
          *   // Clear category exclusions so all ads can be returned.
@@ -1106,11 +1126,11 @@ declare namespace googletag {
          * Clears specific or all custom slot-level targeting parameters for this slot.
          *
          * @example
-         *   var slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div-1')
-         *                       .setTargeting('allow_expandable', 'true')
-         *                       .setTargeting('interests', ['sports', 'music'])
-         *                       .setTargeting('color', 'red')
-         *                       .addService(googletag.pubads());
+         *   const slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div')!
+         *                         .setTargeting('allow_expandable', 'true')
+         *                         .setTargeting('interests', ['sports', 'music'])
+         *                         .setTargeting('color', 'red')
+         *                         .addService(googletag.pubads());
          *   slot.clearTargeting('color');
          *   // Targeting 'allow_expandable' and 'interests' are still present,
          *   // while 'color' was cleared.
@@ -1127,12 +1147,12 @@ declare namespace googletag {
          * Sets an array of mappings from a minimum viewport size to slot size for this slot.
          *
          * @example
-         *   var slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div-1')
-         *                       .addService(googletag.pubads());
-         *   var mapping = googletag.sizeMapping()
-         *                          .addSize([100, 100], [88, 31])
-         *                          .addSize([320, 400], [[320, 50], [300, 50]])
-         *                          .build();
+         *   const slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div')!
+         *                         .addService(googletag.pubads());
+         *   const mapping = googletag.sizeMapping()
+         *                            .addSize([100, 100], [88, 31])
+         *                            .addSize([320, 400], [[320, 50], [300, 50]])
+         *                            .build();
          *   slot.defineSizeMapping(mapping);
          *
          * @see [Ad sizes: Responsive ads](https://developers.google.com/publisher-tag/guides/ad-sizes#responsive_ads)
@@ -1148,11 +1168,11 @@ declare namespace googletag {
          * To see service-level attributes inherited by this slot, use {@link PubAdsService.get googletag.pubads().get()}.
          *
          * @example
-         *   var slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div-1')
-         *                       .set('adsense_background_color', '#FFFFFF')
-         *                       .addService(googletag.pubads());
-         *   var color = slot.get('adsense_background_color');
-         *   // color == '#FFFFFF'.
+         *   const slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div')!
+         *                         .set('adsense_background_color', '#FFFFFF')
+         *                         .addService(googletag.pubads());
+         *   slot.get('adsense_background_color');
+         *   // Returns '#FFFFFF'
          *
          * @see [AdSense Attributes](https://developers.google.com/publisher-tag/adsense_attributes)
          * @param key Name of the attribute to look for.
@@ -1164,10 +1184,10 @@ declare namespace googletag {
          * Returns the full path of the ad unit, with the network code and ad unit path.
          *
          * @example
-         *   var slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div-1')
-         *                       .addService(googletag.pubads());
-         *   var path = slot.getAdUnitPath();
-         *   // path is '/1234567/sports'
+         *   const slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div')!
+         *                         .addService(googletag.pubads());
+         *   slot.getAdUnitPath();
+         *   // Returns '/1234567/sports'
          *
          * @returns Ad unit path.
          */
@@ -1178,12 +1198,12 @@ declare namespace googletag {
          * To see the keys of service-level attributes inherited by this slot, use {@link PubAdsService.getAttributeKeys googletag.pubads().getAttributeKeys()}.
          *
          * @example
-         *   var slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div-1')
-         *                       .set('adsense_background_color', '#FFFFFF')
-         *                       .set('adsense_border_color', '#AABBCC')
-         *                       .addService(googletag.pubads());
-         *   var keys = slot.getAttributeKeys();
-         *   // Keys are ['adsense_background_color', 'adsense_border_color'].
+         *   const slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div')!
+         *                         .set('adsense_background_color', '#FFFFFF')
+         *                         .set('adsense_border_color', '#AABBCC')
+         *                         .addService(googletag.pubads());
+         *   slot.getAttributeKeys();
+         *   // Returns ['adsense_background_color', 'adsense_border_color']
          *
          * @returns Array of attribute keys. Ordering is undefined.
          */
@@ -1193,12 +1213,12 @@ declare namespace googletag {
          * Returns the ad category exclusion labels for this slot.
          *
          * @example
-         *   var slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div-1')
-         *                       .setCategoryExclusion('AirlineAd')
-         *                       .setCategoryExclusion('TrainAd')
-         *                       .addService(googletag.pubads());
-         *   var exclusions = slot.getCategoryExclusions();
-         *   // exclusions are ['AirlineAd', 'TrainAd']
+         *   const slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div')!
+         *                         .setCategoryExclusion('AirlineAd')
+         *                         .setCategoryExclusion('TrainAd')
+         *                         .addService(googletag.pubads());
+         *   slot.getCategoryExclusions();
+         *   // Returns ['AirlineAd', 'TrainAd']
          *
          * @returns The ad category exclusion labels for this slot, or an empty array if none have been set.
          */
@@ -1217,10 +1237,13 @@ declare namespace googletag {
         getOutOfPage(): boolean;
 
         /**
-         * Returns the ad response information. This is based on the last ad response for the slot. If this is called when the slot has no ad, `null` will be returned.
+         * Returns the ad response information. This is based on the last ad response for the slot.
+         * If this is called when the slot has no ad, `null` will be returned.
+         *
          * @returns The latest ad response information, or `null` if the slot has no ad.
          */
         getResponseInformation(): ResponseInformation | null;
+
         getServices(): Service[];
         getSizes(): Array<Size | "fluid">;
 
@@ -1228,27 +1251,29 @@ declare namespace googletag {
          * Returns the ID of the slot `div` provided when the slot was defined.
          *
          * @example
-         *   var slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div-1')
-         *                       .addService(googletag.pubads());
-         *   var slotElementId = slot.getSlotElementId();
-         *   // slotElementId is 'div-1'
+         *   const slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div')!
+         *                         .addService(googletag.pubads());
+         *   slot.getSlotElementId();
+         *   // Returns 'div'
          *
-         * @returns Slot `div` ID.
+         * @return Slot `div` ID.
          */
         getSlotElementId(): string;
+
         getSlotId(): SlotId;
 
         /**
-         * Returns a specific custom targeting parameter set on this slot. Service-level targeting parameters are not included.
+         * Returns a specific custom targeting parameter set on this slot.
+         * Service-level targeting parameters are not included.
          *
          * @example
-         *   var slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div-1')
-         *                       .setTargeting('allow_expandable', 'true')
-         *                       .addService(googletag.pubads());
-         *   var param = slot.getTargeting('allow_expandable');
-         *   // param is ['true']
-         *   var param = slot.getTargeting('age');
-         *   // param is [] (empty array)
+         *   const slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div')!
+         *                         .setTargeting('allow_expandable', 'true')
+         *                         .addService(googletag.pubads());
+         *   slot.getTargeting('allow_expandable');
+         *   // Returns ['true']
+         *   slot.getTargeting('age');
+         *   // Returns [] (empty array)
          *
          * @param key The targeting key to look for.
          * @returns The values associated with this key, or an empty array if there is no such key.
@@ -1256,15 +1281,16 @@ declare namespace googletag {
         getTargeting(key: string): string[];
 
         /**
-         * Returns the list of all custom targeting keys set on this slot. Service-level targeting keys are not included.
+         * Returns the list of all custom targeting keys set on this slot.
+         * Service-level targeting keys are not included.
          *
          * @example
-         *   var slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div-1')
-         *                       .setTargeting('allow_expandable', 'true')
-         *                       .setTargeting('interests', ['sports', 'music'])
-         *                       .addService(googletag.pubads());
-         *   var keys = slot.getTargetingKeys();
-         *   // keys are ['interests', 'allow_expandable'].
+         *   const slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div')!
+         *                         .setTargeting('allow_expandable', 'true')
+         *                         .setTargeting('interests', ['sports', 'music'])
+         *                         .addService(googletag.pubads());
+         *   slot.getTargetingKeys();
+         *   // Returns ['interests', 'allow_expandable']
          *
          * @returns Array of targeting keys. Ordering is undefined.
          */
@@ -1281,7 +1307,7 @@ declare namespace googletag {
          *
          * @example
          *   // Setting an attribute on a single ad slot.
-         *   googletag.defineSlot('/1234567/sports', [160, 600], 'div-1')
+         *   googletag.defineSlot('/1234567/sports', [160, 600], 'div')!
          *            .set('adsense_background_color', '#FFFFFF')
          *            .addService(googletag.pubads());
          *
@@ -1297,7 +1323,7 @@ declare namespace googletag {
          *
          * @example
          *   // Label = AirlineAd
-         *   googletag.defineSlot('/1234567/sports', [160, 600], 'div-1')
+         *   googletag.defineSlot('/1234567/sports', [160, 600], 'div')!
          *            .setCategoryExclusion('AirlineAd')
          *            .addService(googletag.pubads());
          *
@@ -1314,7 +1340,7 @@ declare namespace googletag {
          * Subsequent calls overwrite the value. This works only for non-SRA requests.
          *
          * @example
-         *   googletag.defineSlot('/1234567/sports', [160, 600], 'div-1')
+         *   googletag.defineSlot('/1234567/sports', [160, 600], 'div')!
          *            .setClickUrl('http://www.example.com?original_click_url=')
          *            .addService(googletag.pubads());
          *
@@ -1327,12 +1353,12 @@ declare namespace googletag {
          * Sets whether the slot `div` should be hidden when there is no ad in the slot. This overrides the service-level settings.
          *
          * @example
-         *   googletag.defineSlot('/1234567/sports', [160, 600], 'div-1')
+         *   googletag.defineSlot('/1234567/sports', [160, 600], 'div')!
          *            .setCollapseEmptyDiv(true, true)
          *            .addService(googletag.pubads());
          *   // The above will cause the div for this slot to be collapsed
          *   // when the page is loaded, before ads are requested.
-         *   googletag.defineSlot('/1234567/sports', [160, 600], 'div-2')
+         *   googletag.defineSlot('/1234567/sports', [160, 600], 'div-2')!
          *            .setCollapseEmptyDiv(true)
          *            .addService(googletag.pubads());
          *   // The above will cause the div for this slot to be collapsed
@@ -1363,7 +1389,7 @@ declare namespace googletag {
          * - This API should be used with caution as it could impact the behaviour of creatives that attempt to break out of their iFrames or rely on them being rendered directly in a publishers page.
          *
          * @example
-         *   googletag.defineSlot('/1234567/sports', [160, 600], 'div-1')
+         *   googletag.defineSlot('/1234567/sports', [160, 600], 'div')!
          *            .setForceSafeFrame(true)
          *            .addService(googletag.pubads());
          *
@@ -1385,11 +1411,11 @@ declare namespace googletag {
          *   googletag.pubads().setForceSafeFrame(true);
          *   // The following slot will have a sandboxed safeframe that only
          *   // disallows top-level navigation.
-         *   googletag.defineSlot('/1234567/sports', [160, 600], 'div-1')
+         *   googletag.defineSlot('/1234567/sports', [160, 600], 'div-1')!
          *            .setSafeFrameConfig({sandbox: true})
          *            .addService(googletag.pubads());
          *   // The following slot will inherit page-level settings.
-         *   googletag.defineSlot('/1234567/news', [160, 600], 'div-2')
+         *   googletag.defineSlot('/1234567/news', [160, 600], 'div-2')!
          *            .addService(googletag.pubads());
          *   googletag.display('div-1');
          *   googletag.display('div-2');
@@ -1407,8 +1433,8 @@ declare namespace googletag {
          * These keys are defined in your Google Ad Manager account.
          *
          * @example
-         *   var slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div-1')
-         *                       .addService(googletag.pubads());
+         *   const slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div')!
+         *                         .addService(googletag.pubads());
          *   // Example with a single value for a key.
          *   slot.setTargeting('allow_expandable', 'true');
          *   // Example with multiple values for a key inside in an array.
@@ -1432,8 +1458,7 @@ declare namespace googletag {
          * - Values set here will overwrite targeting parameters set at the service-level.
          *
          * @example
-         *   var slot = googletag.defineSlot('/1234567/sports', [160, 600],
-         *                                   'div-1');
+         *   const slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div')!;
          *   slot.updateTargetingFromMap({
          *     'color': 'red',
          *     'interests': ['sports','music','movies']
@@ -1491,15 +1516,43 @@ declare namespace googletag {
     }
 
     /**
-     * Main configuration interface for slot-level settings.
+     * Main configuration interface for page-level settings.
      */
     namespace config {
         /**
+         * Supported interstitial ad triggers.
+         */
+        type InterstitialTrigger = "unhideWindow";
+
+        /**
+         * Supported publisher privacy treatments.
+         */
+        type PrivacyTreatment = "disablePersonalization";
+
+        /**
+         * Settings to control ad expansion.
+         */
+        interface AdExpansionConfig {
+            /**
+             * Whether ad expansion is enabled or disabled.
+             * Setting this value overrides the default configured in Google Ad Manager.
+             *
+             * @example
+             *   // Enable ad slot expansion across the entire page.
+             *   googletag.setConfig({
+             *     adExpansion: { enabled: true },
+             *   });
+             *
+             * @see [Expand ads on desktop and tablet](https://support.google.com/admanager/answer/9384852)
+             * @see [Expand ads on mobile web (partial screen)](https://support.google.com/admanager/answer/9117822)
+             */
+            enabled: boolean;
+        }
+
+        /**
          * An object representing a single component auction in a on-device ad auction.
          *
-         * **Experimental**: This feature may be changed or removed in a future release.
-         *
-         * @see [FLEDGE: Sellers Run On-Device Auctions](https://github.com/WICG/turtledove/blob/main/FLEDGE.md#2-sellers-run-on-device-auctions)
+         * @see [Protected Audience API Seller guide: run ad auctions](https://developer.chrome.com/docs/privacy-sandbox/fledge-api/ad-auction/)
          */
         interface ComponentAuctionConfig {
             /**
@@ -1508,9 +1561,9 @@ declare namespace googletag {
              * If this value is set to `null`, any existing configuration for the specified `configKey` will be deleted.
              *
              * @example
-             *   var componentAuctionConfig = {
-             *     seller: 'https://testSeller.com', // should be https and the same as
-             *                                       // decisionLogicUrl's origin
+             *   const componentAuctionConfig = {
+             *     // Seller URL should be https and the same as decisionLogicUrl's origin
+             *     seller: 'https://testSeller.com',
              *     decisionLogicUrl: 'https://testSeller.com/ssp/decision-logic.js',
              *     interestGroupBuyers: [
              *       'https://example-buyer.com',
@@ -1524,7 +1577,7 @@ declare namespace googletag {
              *       },
              *     },
              *   };
-             *   var auctionSlot = googletag.defineSlot('/1234567/example', [160, 600]);
+             *   const auctionSlot = googletag.defineSlot('/1234567/example', [160, 600])!;
              *   // To add configKey to the component auction:
              *   auctionSlot.setConfig({
              *     componentAuction: [{
@@ -1540,17 +1593,17 @@ declare namespace googletag {
              *     }]
              *   });
              *
-             * @see [FLEDGE: Initiating an On-Device Auction](https://github.com/WICG/turtledove/blob/main/FLEDGE.md#21-initiating-an-on-device-auction)
+             * @see [Protected Audience API: Initiating an On-Device Auction](https://github.com/WICG/turtledove/blob/main/FLEDGE.md#21-initiating-an-on-device-auction)
              */
             auctionConfig: {
                 auctionSignals?: unknown;
-                decisionLogicUrl?: string;
+                decisionLogicUrl: string;
                 interestGroupBuyers?: string[];
                 perBuyerExperimentGroupIds?: { [buyer: string]: number };
                 perBuyerGroupLimits?: { [buyer: string]: number };
                 perBuyerSignals?: { [buyer: string]: unknown };
                 perBuyerTimeouts?: { [buyer: string]: number };
-                seller?: string;
+                seller: string;
                 sellerExperimentGroupId?: number;
                 sellerSignals?: unknown;
                 sellerTimeout?: number;
@@ -1565,41 +1618,119 @@ declare namespace googletag {
              */
             configKey: string;
         }
+
+        /**
+         * An object which defines the behavior of a single interstitial ad slot.
+         */
+        interface InterstitialConfig {
+            /**
+             * The interstitial trigger configuration for this interstitial ad.
+             *
+             * Setting the value of an interstitial trigger to `true` will enable it and
+             * `false` will disable it. This will override the default values [configured
+             * in Google Ad Manager](https://support.google.com/admanager/answer/9840201).
+             *
+             * @example
+             *   // Define a GPT managed web interstitial ad slot.
+             *   const interstitialSlot = googletag.defineOutOfPageSlot("/1234567/sports",
+             *       googletag.enums.OutOfPageFormat.INTERSTITIAL)!;
+             *   // Enable optional interstitial triggers.
+             *   // Change this value to false to disable.
+             *   const enableTriggers = true;
+             *   interstitialSlot.setConfig({
+             *     interstitial: {
+             *       triggers: {
+             *         unhideWindow: enableTriggers
+             *       }
+             *     }
+             *   });
+             *
+             * @see [Display a web interstitial ad](https://developers.google.com/publisher-tag/samples/display-web-interstitial-ad)
+             */
+            triggers?: Partial<Record<InterstitialTrigger, boolean>>;
+        }
+
+        /**
+         * Main configuration interface for page-level settings.
+         *
+         * Allows setting multiple features with a single API call.
+         *
+         * All properties listed below are examples and do not reflect actual features that utilize setConfig.
+         * For the set of features, see fields within the {@link PageSettingsConfig} type below.
+         *
+         * Only features specified in the {@link googletag.setConfig()} call are modified.
+         */
+        interface PageSettingsConfig {
+            /**
+             * Settings to control ad expansion.
+             */
+            adExpansion?: AdExpansionConfig | null;
+
+            /**
+             * Settings to control publisher privacy treatments.
+             */
+            privacyTreatments?: PrivacyTreatmentsConfig | null;
+        }
+
+        /**
+         * Settings to control publisher privacy treatments.
+         */
+        interface PrivacyTreatmentsConfig {
+            /**
+             * An array of publisher privacy treatments to enable.
+             *
+             * @example
+             *   // Disable personalization across the entire page.
+             *   googletag.setConfig({
+             *     privacyTreatments: {treatments: ['disablePersonalization']}
+             *   });
+             */
+            treatments: PrivacyTreatment[];
+        }
+
         interface SlotSettingsConfig {
             /**
              * An array of component auctions to be included in an on-device ad auction.
-             *
-             * **Experimental**: This feature may be changed or removed in a future release.
              */
             componentAuction?: ComponentAuctionConfig[];
+
+            /**
+             * Settings that control interstitial ad slot behavior.
+             */
+            interstitial?: InterstitialConfig;
         }
     }
 
     /**
-     * This is the namespace that GPT uses for `enums`.
+     * This is the namespace that GPT uses for enum types.
      */
     namespace enums {
         /**
          * Out-of-page formats supported by GPT.
          *
-         * @see {@link googletag.defineOutOfPageSlot}
+         * @see {@link defineOutOfPageSlot}
          */
         enum OutOfPageFormat {
             /**
              * Anchor format where slot sticks to the bottom of the viewport.
              */
             BOTTOM_ANCHOR,
-
             /**
              * Web interstitial creative format.
              */
             INTERSTITIAL,
-
+            /**
+             * Left side rail format.
+             */
+            LEFT_SIDE_RAIL,
             /**
              * Rewarded format.
              */
             REWARDED,
-
+            /**
+             * Right side rail format.
+             */
+            RIGHT_SIDE_RAIL,
             /**
              * Anchor format where slot sticks to the top of the viewport.
              */
@@ -1652,47 +1783,47 @@ declare namespace googletag {
          */
         interface EventTypeMap {
             /**
-             * Alias for {@link googletag.events.ImpressionViewableEvent}
+             * Alias for {@link events.ImpressionViewableEvent}.
              */
             impressionViewable: ImpressionViewableEvent;
 
             /**
-             * Alias for {@link googletag.events.RewardedSlotClosedEvent}
+             * Alias for {@link events.RewardedSlotClosedEvent}.
              */
             rewardedSlotClosed: RewardedSlotClosedEvent;
 
             /**
-             * Alias for {@link googletag.events.RewardedSlotGrantedEvent}
+             * Alias for {@link events.RewardedSlotGrantedEvent}.
              */
             rewardedSlotGranted: RewardedSlotGrantedEvent;
 
             /**
-             * Alias for {@link googletag.events.RewardedSlotReadyEvent}
+             * Alias for {@link events.RewardedSlotReadyEvent}.
              */
             rewardedSlotReady: RewardedSlotReadyEvent;
 
             /**
-             * Alias for {@link googletag.events.SlotOnloadEvent}
+             * Alias for {@link events.SlotOnloadEvent}.
              */
             slotOnload: SlotOnloadEvent;
 
             /**
-             * Alias for {@link googletag.events.SlotRenderEndedEvent}
+             * Alias for {@link events.SlotRenderEndedEvent}.
              */
             slotRenderEnded: SlotRenderEndedEvent;
 
             /**
-             * Alias for {@link googletag.events.SlotRequestedEvent}
+             * Alias for {@link events.SlotRequestedEvent}.
              */
             slotRequested: SlotRequestedEvent;
 
             /**
-             * Alias for {@link googletag.events.SlotResponseReceived}
+             * Alias for {@link events.SlotResponseReceived}.
              */
             slotResponseReceived: SlotResponseReceived;
 
             /**
-             * Alias for {@link googletag.events.SlotVisibilityChangedEvent}
+             * Alias for {@link events.SlotVisibilityChangedEvent}.
              */
             slotVisibilityChanged: SlotVisibilityChangedEvent;
         }
@@ -1702,10 +1833,10 @@ declare namespace googletag {
          *
          * @example
          *   // This listener is called when an impression becomes viewable.
-         *   var targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
+         *   const targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
          *   googletag.pubads().addEventListener('impressionViewable',
-         *       function(event) {
-         *         var slot = event.slot;
+         *       (event) => {
+         *         const slot = event.slot;
          *         console.log('Impression for slot', slot.getSlotElementId(),
          *                     'became viewable.');
          *         if (slot === targetSlot) {
@@ -1722,14 +1853,14 @@ declare namespace googletag {
         /**
          * This event is fired when a rewarded ad slot is closed by the user.
          * It may fire either before or after a reward has been granted.
-         * To determine whether a reward has been granted, use {@link RewardedSlotGrantedEvent} instead.
+         * To determine whether a reward has been granted, use {@link events.RewardedSlotGrantedEvent} instead.
          *
          * @example
          *   // This listener is called when the user closes a rewarded ad slot.
-         *   var targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
+         *   const targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
          *   googletag.pubads().addEventListener('rewardedSlotClosed',
-         *       function(event) {
-         *         var slot = event.slot;
+         *       (event) => {
+         *         const slot = event.slot;
          *         console.log('Rewarded ad slot', slot.getSlotElementId(),
          *                     'has been closed.');
          *         if (slot === targetSlot) {
@@ -1750,15 +1881,15 @@ declare namespace googletag {
          *
          * @example
          *   // This listener is called whenever a reward is granted for a rewarded ad.
-         *   var targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
+         *   const targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
          *   googletag.pubads().addEventListener('rewardedSlotGranted',
-         *       function(event) {
-         *         var slot = event.slot;
+         *       (event) => {
+         *         const slot = event.slot;
          *         console.group(
          *             'Reward granted for slot', slot.getSlotElementId(), '.');
          *         // Log details of the reward.
-         *         console.log('Reward type:', event.payload.type);
-         *         console.log('Reward amount:', event.payload.amount);
+         *         console.log('Reward type:', event.payload?.type);
+         *         console.log('Reward amount:', event.payload?.amount);
          *         console.groupEnd();
          *         if (slot === targetSlot) {
          *           // Slot specific logic.
@@ -1781,16 +1912,16 @@ declare namespace googletag {
          * The publisher is responsible for presenting the user an option to view the ad before displaying it.
          *
          * @example
-         *   // This listener is called when a rewarded ad slot becomes ready to be
-         *   // displayed.
-         *   var targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
+         *   // This listener is called when a rewarded ad slot becomes ready to be displayed.
+         *   const targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
          *   googletag.pubads().addEventListener('rewardedSlotReady',
-         *       function(event) {
-         *         var slot = event.slot;
+         *       (event) => {
+         *         const slot = event.slot;
          *         console.log('Rewarded ad slot', slot.getSlotElementId(),
          *                     'is ready to be displayed.');
-         *         if('User consents to viewing the ad.') {
-         *           // Display the ad.
+         *         // Replace with custom logic.
+         *         const userHasConsented = true;
+         *         if(userHasConsented) {
          *           event.makeRewardedVisible();
          *         }
          *         if (slot === targetSlot) {
@@ -1814,9 +1945,9 @@ declare namespace googletag {
          *
          * @example
          *   // This listener is called when a creative iframe load event fires.
-         *   var targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
-         *   googletag.pubads().addEventListener('slotOnload', function(event) {
-         *     var slot = event.slot;
+         *   const targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
+         *   googletag.pubads().addEventListener('slotOnload', (event) => {
+         *     const slot = event.slot;
          *     console.log('Creative iframe for slot', slot.getSlotElementId(),
          *                 'has loaded.');
          *     if (slot === targetSlot) {
@@ -1832,14 +1963,14 @@ declare namespace googletag {
         /**
          * This event is fired when the creative code is injected into a slot.
          * This event will occur before the creative's resources are fetched, so the creative may not be visible yet.
-         * If you need to know when all creative resources for a slot have finished loading, consider the {@link SlotOnloadEvent} instead.
+         * If you need to know when all creative resources for a slot have finished loading, consider the {@link events.SlotOnloadEvent} instead.
          *
          * @example
          *   // This listener is called when a slot has finished rendering.
-         *   var targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
+         *   const targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
          *   googletag.pubads().addEventListener('slotRenderEnded',
-         *       function(event) {
-         *         var slot = event.slot;
+         *       (event) => {
+         *         const slot = event.slot;
          *         console.group(
          *             'Slot', slot.getSlotElementId(), 'finished rendering.');
          *         // Log details of the rendered ad.
@@ -1853,7 +1984,7 @@ declare namespace googletag {
          *         console.log('Label IDs:', event.labelIds);
          *         console.log('Line Item ID:', event.lineItemId);
          *         console.log('Size:', event.size);
-         *         console.log('Slot content changed?:', event.slotContentChanged);
+         *         console.log('Slot content changed?', event.slotContentChanged);
          *         console.log('Source Agnostic Creative ID:',
          *                     event.sourceAgnosticCreativeId);
          *         console.log('Source Agnostic Line Item ID:',
@@ -1881,6 +2012,7 @@ declare namespace googletag {
 
             /**
              * IDs of the companies that bid on the rendered backfill ad.
+             * Value is `null` for empty slots, reservation ads, and creatives rendered by services other than {@link PubAdsService}.
              */
             companyIds: number[] | null;
 
@@ -1937,7 +2069,8 @@ declare namespace googletag {
             sourceAgnosticLineItemId: number | null;
 
             /**
-             * IDs of the yield groups for the rendered backfill ad. Value is `null` for empty slots, reservation ads, and creatives rendered by services other than {@link PubAdsService}.
+             * IDs of the yield groups for the rendered backfill ad.
+             * Value is `null` for empty slots, reservation ads, and creatives rendered by services other than {@link PubAdsService}.
              */
             yieldGroupIds: number[] | null;
         }
@@ -1946,13 +2079,12 @@ declare namespace googletag {
          * This event is fired when an ad has been requested for a particular slot.
          *
          * @example
-         *   // This listener is called when the specified service issues an ad
-         *   // request for a slot. Each slot will fire this event, even though they
-         *   // may be batched together in a single request if single request
-         *   // architecture (SRA) is enabled.
-         *   var targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
-         *   googletag.pubads().addEventListener('slotRequested', function(event) {
-         *     var slot = event.slot;
+         *   // This listener is called when the specified service issues an ad request for a slot.
+         *   // Each slot will fire this event, even though they may be batched together in a single request
+         *   // if single request architecture (SRA) is enabled.
+         *   const targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
+         *   googletag.pubads().addEventListener('slotRequested', (event) => {
+         *     const slot = event.slot;
          *     console.log('Slot', slot.getSlotElementId(), 'has been requested.');
          *     if (slot === targetSlot) {
          *       // Slot specific logic.
@@ -1968,12 +2100,11 @@ declare namespace googletag {
          * This event is fired when an ad response has been received for a particular slot.
          *
          * @example
-         *   // This listener is called when an ad response has been received
-         *   // for a slot.
-         *   var targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
+         *   // This listener is called when an ad response has been received for a slot.
+         *   const targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
          *   googletag.pubads().addEventListener('slotResponseReceived',
-         *       function(event) {
-         *         var slot = event.slot;
+         *       (event) => {
+         *         const slot = event.slot;
          *         console.log('Ad response for slot', slot.getSlotElementId(),
          *                     'received.');
          *         if (slot === targetSlot) {
@@ -1993,14 +2124,14 @@ declare namespace googletag {
          * @example
          *   // This listener is called whenever the on-screen percentage of an
          *   // ad slot's area changes.
-         *   var targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
+         *   const targetSlot = googletag.defineSlot('/1234567/example', [160, 600]);
          *   googletag.pubads().addEventListener('slotVisibilityChanged',
-         *       function(event) {
-         *         var slot = event.slot;
+         *       (event) => {
+         *         const slot = event.slot;
          *         console.group(
          *             'Visibility of slot', slot.getSlotElementId(), 'changed.');
          *         // Log details of the event.
-         *         console.log('Visible area:', event.inViewPercentage + '%');
+         *         console.log('Visible area:', `${event.inViewPercentage}%`);
          *         console.groupEnd();
          *         if (slot === targetSlot) {
          *           // Slot specific logic.
@@ -2019,14 +2150,14 @@ declare namespace googletag {
     }
 
     /**
-     * This is the namespace that GPT uses for `secureSignals`.
+     * This is the namespace that GPT uses for managing secure signals.
      */
     namespace secureSignals {
         /**
          * Interface for returning a secure signal for a specific bidder or provider.
          * One of `id` or `networkCode` must be provided, but not both.
          */
-        type SecureSignalProvider = (BidderSignalProvider & { networkCode?: never }) | PublisherSignalProvider;
+        type SecureSignalProvider = BidderSignalProvider | PublisherSignalProvider;
 
         /**
          * Returns a secure signal for a specific bidder.
@@ -2108,8 +2239,8 @@ declare namespace googletag {
             clearAllCache(): void;
 
             /**
-             * Adds a new {@link SecureSignalProvider} to the signal provider array and begins the signal generation process.
-             * @param provider The {@link SecureSignalProvider} object to be added to the array.
+             * Adds a new {@link secureSignals.SecureSignalProvider} to the signal provider array and begins the signal generation process.
+             * @param provider The {@link secureSignals.SecureSignalProvider} object to be added to the array.
              */
             push(provider: SecureSignalProvider): void;
         }

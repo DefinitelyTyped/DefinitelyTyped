@@ -7,8 +7,7 @@
     ],
     "devDependencies": {
         "@types/react": "*",
-        "@types/react-click-outside-hook": "workspace:.",
-        "@types/react-dom": "*"
+        "@types/react-click-outside-hook": "workspace:."
     },
     "owners": [
         {

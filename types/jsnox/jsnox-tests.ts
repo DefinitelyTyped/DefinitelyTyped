@@ -14,8 +14,6 @@ class Person extends React.Component<PersonProps> {
     }
 }
 
-const PersonTag = React.createFactory(Person);
-
 declare const clickHandler: React.MouseEventHandler<{}>;
 
 // tests with spec string
@@ -54,5 +52,5 @@ function react_component(): void {
     result = $(Person, props); // no children
     result = $(Person, props, "hello"); // one string child
     result = $(Person, props, $("span", "world")); // one element child
-    result = $(Person, props, ["hello", PersonTag()]); // mixed array of children
+    result = $(Person, props, ["hello", React.createElement(Person)]); // mixed array of children
 }

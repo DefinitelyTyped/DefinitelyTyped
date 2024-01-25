@@ -390,7 +390,7 @@ interface RTCPeerConnection extends EventTarget {
     setConfiguration(configuration: RTCConfiguration): void;
     close(): void;
 
-    onicecandidateerror: PeerConnectionEventHandler<Event>;
+    onicecandidateerror: PeerConnectionEventHandler<RTCPeerConnectionIceErrorEvent>;
     onconnectionstatechange: PeerConnectionEventHandler<Event>;
 
     // Extension: https://www.w3.org/TR/webrtc/#h-rtcpeerconnection-interface-extensions

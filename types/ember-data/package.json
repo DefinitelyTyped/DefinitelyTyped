@@ -20,32 +20,20 @@
     },
     "owners": [
         {
-            "name": "Derek Wickern",
-            "githubUsername": "dwickern"
+            "name": "Chris Thoburn",
+            "githubUsername": "runspired"
         },
         {
-            "name": "Mike North",
-            "githubUsername": "mike-north"
-        },
-        {
-            "name": "Chris Krycho",
-            "githubUsername": "chriskrycho"
+            "name": "Krystan HuffMenne",
+            "githubUsername": "gitKrystan"
         },
         {
             "name": "James C. Davis",
             "githubUsername": "jamescdavis"
         },
         {
-            "name": "Chris Thoburn",
-            "githubUsername": "runspired"
-        },
-        {
             "name": "Peter Wagenet",
             "githubUsername": "wagenet"
-        },
-        {
-            "name": "Krystan HuffMenne",
-            "githubUsername": "gitKrystan"
         }
     ]
 }
