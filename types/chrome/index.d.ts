@@ -7878,16 +7878,29 @@ declare namespace chrome.scripting {
     /* The JavaScript world for a script to execute within. */
     export type ExecutionWorld = "ISOLATED" | "MAIN";
 
-    export interface InjectionResult<T> {
-        /* The frame associated with the injection. */
+    export interface InjectionResult<T extends any = any> {
+        /**
+         * The document associated with the injection.
+         * @since Chrome 106.
+         */
+        documentId: string;
+        /**
+         * The frame associated with the injection.
+         * @since Chrome 90.
+         */
         frameId: number;
         /* The result of the script execution. */
-        result: T;
+        result?: T | undefined;
     }
 
     export interface InjectionTarget {
         /* Whether the script should inject into all frames within the tab. Defaults to false. This must not be true if frameIds is specified. */
         allFrames?: boolean | undefined;
+        /**
+         * The IDs of specific documentIds to inject into. This must not be set if frameIds is set.
+         * @since Chrome 106.
+         */
+        documentIds?: string[] | undefined;
         /* The IDs of specific frames to inject into. */
         frameIds?: number[] | undefined;
         /* The ID of the tab into which to inject. */
