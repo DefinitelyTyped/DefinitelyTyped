@@ -249,7 +249,12 @@ docker.listContainers({ abortSignal: new AbortController().signal }).then(contai
     return containers.map(container => docker.getContainer(container.Id));
 });
 
-docker.listImages({ all: true, filters: "{\"dangling\":[\"true\"]}", digests: true, abortSignal: new AbortController().signal }).then(images => {
+docker.listImages({
+    all: true,
+    filters: "{\"dangling\":[\"true\"]}",
+    digests: true,
+    abortSignal: new AbortController().signal,
+}).then(images => {
     return images.map(image => docker.getImage(image.Id));
 });
 
@@ -340,7 +345,7 @@ docker.createVolume({ Name: "volumeName" }, (err, volume) => {
         // NOOP
     });
 
-    volume.remove({ abortSignal: new AbortController().signal },(err, data) => {
+    volume.remove({ abortSignal: new AbortController().signal }, (err, data) => {
         // NOOP
     });
 });
