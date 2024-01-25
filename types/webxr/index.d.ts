@@ -329,6 +329,15 @@ interface XRFrame {
      * @param referenceSpace
      */
     getViewerPose(referenceSpace: XRReferenceSpace): XRViewerPose | undefined;
+
+    /**
+     * XRFrame is extended to contain detectedMeshes attribute
+     * which contains all meshes that are still tracked in the frame.
+     *
+     * The set is initially empty and will be populated by the update meshes algorithm.
+     * If this attribute is accessed when the frame is not active, the user agent MUST throw InvalidStateError.
+     */
+    readonly detectedMeshes: XRMeshSet;
 }
 
 declare abstract class XRFrame implements XRFrame {}
