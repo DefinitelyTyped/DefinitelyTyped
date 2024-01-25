@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "declaration": true,
+        "noEmit": true
+    },
+    "include": [
+        "index.d.ts"
+    ]
+}
