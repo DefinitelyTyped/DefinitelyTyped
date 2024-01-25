@@ -682,6 +682,16 @@ function test_googletag_Slot_updateTargetingFromMap() {
 }
 
 /**
+ * Test for {@link googletag.config.AdExpansionConfig.enabled}
+ */
+function test_googletag_config_AdExpansionConfig_enabled() {
+    // Enable ad slot expansion across the entire page.
+    googletag.setConfig({
+        adExpansion: { enabled: true },
+    });
+}
+
+/**
  * Test for {@link googletag.config.ComponentAuctionConfig.auctionConfig}
  */
 function test_googletag_config_ComponentAuctionConfig_auctionConfig() {
