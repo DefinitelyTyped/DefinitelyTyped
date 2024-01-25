@@ -26,9 +26,8 @@ interface CustomProps extends InjectedColorProps {
 }
 
 const CustomComponent: FunctionComponent<CustomProps> = (props: CustomProps) => {
-
     function customPointer({ direction }: { direction?: "vertical" } = {}) {
-        return <div className={`custom-cn ${direction === 'vertical' ? 'custom-cn' : 'custom-cn'}`} />;
+        return <div className={`custom-cn ${direction === "vertical" ? "custom-cn" : "custom-cn"}`} />;
     }
     function onChange(color: ColorResult, event: React.ChangeEvent<HTMLInputElement>) {
         console.log(color, event);
