@@ -117,6 +117,8 @@ clevertap.getInboxMessageForId("1687446482_1687781900740");
 clevertap.deleteInboxMessage("1687446482_1687781900740");
 // Mark Message as Read. Message id should be a String
 clevertap.markReadInboxMessage("1687446482_1687781900740");
+// Mark Messages as read. The function takes an array of message ids. Message Ids should be a string
+clevertap.markReadInboxMessagesForIds(["1688382277_1706170861769"])
 // Mark all messages as read
 clevertap.markReadAllInboxMessage();
 

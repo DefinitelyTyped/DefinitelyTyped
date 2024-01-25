@@ -128,6 +128,7 @@ declare class CleverTap {
     notificationCallback: (arg: notificationCallbackData) => any;
     raiseNotificationClicked: () => void;
     markReadAllInboxMessage: () => void;
+    markReadInboxMessagesForIds: (messageIds: Array<string>) => void;
     markReadInboxMessage: (messageId: string) => void;
     deleteInboxMessage: (messageId: string) => void;
     getInboxMessageForId: (messageId: string) => void;
