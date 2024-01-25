@@ -664,8 +664,8 @@ type XRMeshSet = Set<XRMesh>;
 interface XRMesh {
     meshSpace: XRSpace;
     vertices: Float32Array;
-    indices: Float32Array;
-    lastChangedTime: number;
+    indices: Uint32Array;
+    lastChangedTime: DOMHighResTimeStamp;
     semanticLabel?: string;
 }
 
