@@ -11,9 +11,9 @@ declare namespace Dockerode {
         modem: any;
         id: string;
 
-        inspect(options: {}, callback: Callback<ContainerInspectInfo>): void;
+        inspect(options: ContainerInspectOptions, callback: Callback<ContainerInspectInfo>): void;
         inspect(callback: Callback<ContainerInspectInfo>): void;
-        inspect(options?: {}): Promise<ContainerInspectInfo>;
+        inspect(options?: ContainerInspectOptions): Promise<ContainerInspectInfo>;
 
         rename(options: {}, callback: Callback<any>): void;
         rename(options: {}): Promise<any>;
@@ -132,9 +132,9 @@ declare namespace Dockerode {
         push(callback: Callback<NodeJS.ReadableStream>): void;
         push(options?: ImagePushOptions): Promise<NodeJS.ReadableStream>;
 
-        tag(options: {}, callback: Callback<any>): void;
+        tag(options: ImageTagOptions, callback: Callback<any>): void;
         tag(callback: Callback<any>): void;
-        tag(options?: {}): Promise<any>;
+        tag(options?: ImageTagOptions): Promise<any>;
 
         remove(options: ImageRemoveOptions, callback: Callback<ImageRemoveInfo>): void;
         remove(callback: Callback<ImageRemoveInfo>): void;
@@ -155,9 +155,9 @@ declare namespace Dockerode {
         inspect(callback: Callback<VolumeInspectInfo>): void;
         inspect(options?: {}): Promise<VolumeInspectInfo>;
 
-        remove(options: {}, callback: Callback<any>): void;
+        remove(options: VolumeRemoveOptions, callback: Callback<any>): void;
         remove(callback: Callback<any>): void;
-        remove(options?: {}): Promise<any>;
+        remove(options?: VolumeRemoveOptions): Promise<any>;
     }
 
     class Service {
@@ -458,6 +458,11 @@ declare namespace Dockerode {
         Driver?: string | undefined;
         DriverOpts?: { [key: string]: string } | undefined;
         Labels?: { [label: string]: string } | undefined;
+        abortSignal?: AbortSignal;
+    }
+
+    interface VolumeRemoveOptions {
+        abortSignal?: AbortSignal;
     }
 
     interface VolumeCreateResponse {
@@ -629,6 +634,10 @@ declare namespace Dockerode {
                 }
                 | undefined;
         };
+    }
+
+    interface NetworkListOptions {
+        abortSignal?: AbortSignal;
     }
 
     interface NetworkStats {
@@ -941,6 +950,10 @@ declare namespace Dockerode {
         abortSignal?: AbortSignal;
     }
 
+    interface ImageTagOptions {
+        abortSignal?: AbortSignal;
+    }
+
     interface AuthConfig {
         username: string;
         password: string;
@@ -1143,6 +1156,10 @@ declare namespace Dockerode {
                 EndpointsConfig?: EndpointsConfig | undefined;
             }
             | undefined;
+        abortSignal?: AbortSignal;
+    }
+
+    interface ContainerInspectOptions {
         abortSignal?: AbortSignal;
     }
 
@@ -1480,6 +1497,10 @@ declare namespace Dockerode {
         abortSignal?: AbortSignal;
     }
 
+    interface ContainerListOptions {
+        abortSignal?: AbortSignal;
+    }
+
     interface ServiceListOptions {
         filters?:
             | {
@@ -1744,6 +1765,7 @@ declare namespace Dockerode {
         all?: boolean | undefined;
         filters?: string | undefined;
         digests?: boolean | undefined;
+        abortSignal?: AbortSignal;
     }
 
     interface ImageDistributionPlatformInfo {
@@ -1773,6 +1795,7 @@ declare namespace Dockerode {
     interface ImageRemoveOptions {
         force?: boolean | undefined;
         noprune?: boolean | undefined;
+        abortSignal?: AbortSignal;
     }
 
     interface PruneImagesInfo {
@@ -1925,9 +1948,9 @@ declare class Dockerode {
 
     getConfig(id: string): Dockerode.Config;
 
-    listContainers(options: {}, callback: Callback<Dockerode.ContainerInfo[]>): void;
+    listContainers(options: Dockerode.ContainerListOptions, callback: Callback<Dockerode.ContainerInfo[]>): void;
     listContainers(callback: Callback<Dockerode.ContainerInfo[]>): void;
-    listContainers(options?: {}): Promise<Dockerode.ContainerInfo[]>;
+    listContainers(options?: Dockerode.ContainerListOptions): Promise<Dockerode.ContainerInfo[]>;
 
     listImages(options: Dockerode.ListImagesOptions, callback: Callback<Dockerode.ImageInfo[]>): void;
     listImages(callback: Callback<Dockerode.ImageInfo[]>): void;
@@ -1971,9 +1994,9 @@ declare class Dockerode {
         Warnings: string[];
     }>;
 
-    listNetworks(options: {}, callback: Callback<Dockerode.NetworkInspectInfo[]>): void;
+    listNetworks(options: Dockerode.NetworkListOptions, callback: Callback<Dockerode.NetworkInspectInfo[]>): void;
     listNetworks(callback: Callback<Dockerode.NetworkInspectInfo[]>): void;
-    listNetworks(options?: {}): Promise<Dockerode.NetworkInspectInfo[]>;
+    listNetworks(options?: Dockerode.NetworkListOptions): Promise<Dockerode.NetworkInspectInfo[]>;
 
     listConfigs(options: {}, callback: Callback<Dockerode.ConfigInfo[]>): void;
     listConfigs(callback: Callback<Dockerode.ConfigInfo[]>): void;
