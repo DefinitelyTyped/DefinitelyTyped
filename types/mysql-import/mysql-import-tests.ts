@@ -12,6 +12,12 @@ new Importer({ database: 1111 });
 //@ts-expect-error
 new Importer({ host: 1111 });
 
+//@ts-expect-error
+new Importer({ port: 'port' });
+
+//@ts-expect-error
+new Importer({ ssl: 1111 });
+
 // $ExpectType Importer
 new Importer({});
 
@@ -28,11 +34,35 @@ new Importer({ database: 'database' });
 new Importer({ host: 'host' });
 
 // $ExpectType Importer
+new Importer({ port: 1111 });
+
+// $ExpectType Importer
+new Importer({ ssl: 'ssl' });
+
+// $ExpectType Importer
 const importer = new Importer({
   user: 'user',
   password: 'password',
   database: 'database',
   host: 'host',
+  port: 1111,
+  localAddress: 'localAddress',
+  socketPath: 'socketPath',
+  charset: 'utf_general_ci',
+  timezone: 'local',
+  connectTimeout: 1111,
+  stringifyObjects: false,
+  insecureAuth: false,
+  typeCast: true,
+  queryFormat: (query: string, values: Record<string, any>) => 'query',
+  supportBigNumbers: false,
+  bigNumberStrings: false,
+  dateStrings: false,
+  debug: false,
+  trace: true,
+  multipleStatements: false,
+  flags: ['flags', 'flags'],
+  ssl: 'ssl',
 });
 
 // $ExpectType { file: string; size: number; }[]
@@ -86,6 +116,8 @@ importer.import([1111, 1111]);
 importer.disconnect(true); // $ExpectType Promise<void>
 
 importer.disconnect(false); // $ExpectType Promise<void>
+
+importer.disconnect(); // $ExpectType Promise<void>
 
 //@ts-expect-error
 importer.disconnect('test');
