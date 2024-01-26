@@ -1,35 +1,13 @@
-export interface Settings {
-    /**
-     * The MySQL host to connect to.
-     */
-    host: string;
-    /**
-     * The MySQL port to connect to.
-     */
-    port?: number | undefined;
-    /**
-     * The MySQL user to connect with.
-     */
-    user: string;
-    /**
-     * The password for the user.
-     */
-    password: string;
-    /**
-     * The database to connect to.
-     */
-    database: string;
-    /**
-     * Function to handle errors. The function will receive the Error. If not provided the error will be thrown.
-     */
-    onerror?(error: any): void;
-}
+import { ConnectionOptions } from 'mysql2';
 
-export interface Importer {
-    /**
-     * Import an .sql file to the database.
-     */
-    import(filename: string): Promise<void>;
-}
+export default class Importer {
+    constructor(settings: Pick<ConnectionOptions, 'user' | 'password' | 'database' | 'host'>);
 
-export function config(settings: Settings): Importer;
+    getImported(): Array<{file: string, size: number}>;
+    setEncoding(encoding: 'utf8' | 'ucs2' | 'utf16le' | 'latin1' | 'ascii' | 'base64' | 'hex'): void;
+    use(database: string): Promise<void>;
+    onProgress(cb: (...args: any[]) => any): void;
+    onDumpComplete(cb: (...args: any[]) => any): void;
+    import(input: string | string[]): Promise<void>;
+    disconnect(graceful: boolean): Promise<void>;
+}
