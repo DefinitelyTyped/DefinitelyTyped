@@ -464,7 +464,7 @@ export interface Manifest {
      *
      * Example #2: ["catalog", "meta", "stream", "subtitles", "addon_catalog"]
      */
-    resources: (ShortManifestResource | FullManifestResource)[];
+    resources: Array<ShortManifestResource | FullManifestResource>;
     /**
      * Supported types.
      */
