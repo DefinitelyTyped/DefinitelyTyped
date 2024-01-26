@@ -1,4 +1,4 @@
-export { };
+export {};
 
 export type ShortManifestResource = "catalog" | "meta" | "stream" | "subtitles" | "addon_catalog";
 export type Extra = "search" | "genre" | "skip";
@@ -541,7 +541,7 @@ export interface Manifest {
     } | undefined;
 }
 
-export type ManifestConfigType = "text" | "number" | "password" | "checkbox" | "select"
+export type ManifestConfigType = "text" | "number" | "password" | "checkbox" | "select";
 
 /**
  * Addon setting.
