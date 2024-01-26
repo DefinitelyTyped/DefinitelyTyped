@@ -1,4 +1,4 @@
-import Iyzipay from "iyzipay";
+const iyzipay = require("iyzipay");
 
 const iyzipay = new Iyzipay({
     secretKey: "secretKey",
