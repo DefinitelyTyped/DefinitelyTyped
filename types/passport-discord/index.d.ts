@@ -84,12 +84,14 @@ declare namespace Strategy {
     interface Profile extends passport.Profile {
         provider: "discord";
         username: string;
+        global_name: string;
         locale: string;
         mfa_enabled: boolean;
         flags: number;
         banner: string | null;
         accent_color: number | null;
         avatar: string | null;
+        avatar_decoration_data: string | null;
         discriminator: string;
         verified: boolean;
         fetchedAt: string;
