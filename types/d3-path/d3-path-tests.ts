@@ -12,7 +12,7 @@ import * as d3Path from "d3-path";
 // Test create new path serializer
 // -----------------------------------------------------------------------------------------
 
-const context: d3Path.Path = d3Path.path();
+const context: d3Path.Path = d3Path.path() || d3Path.pathRound(3);
 
 // -----------------------------------------------------------------------------------------
 // Test path serializer methods
