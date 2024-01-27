@@ -57,7 +57,7 @@ class StateManagementChartComponent extends React.Component<{}, StateManagementC
  * This creates a minified Plotly Plot, if a minified version is
  * supplied to createPlotlyComponent for example plotly.js-basic-dist
  */
-const MinPlot = createPlotlyComponent(Plot);
+const MinPlot = createPlotlyComponent(Plotly);
 
 export class MinChartComponent extends React.PureComponent<any> {
     render() {
