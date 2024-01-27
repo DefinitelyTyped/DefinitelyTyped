@@ -3447,7 +3447,7 @@ interface PlusIoDirectoryEntry {
     getFile(
         path?: string,
         flag?: PlusIoFlags,
-        succesCB?: (result: PlusIoDirectoryEntry) => void,
+        succesCB?: (result: PlusIoFileEntry) => void,
         errorCB?: (result: any) => void,
     ): void;
     /**
@@ -3874,6 +3874,15 @@ interface PlusIoFileWriter {
      * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
      */
     write(data?: string): void;
+    /**
+     * 向文件中写入Base64数据
+     * 从文件当前定位的位置开始，写入数据到文件中。
+     *     如果文件中已经存在数据，新写入的数据将覆盖已有数据。
+     *
+     * 参考: [http://www.html5plus.org/doc/zh_cn/io.html](http://www.html5plus.org/doc/zh_cn/io.html)
+     * 参考: [image-tools插件源码的base64ToPath方法](https://ext.dcloud.net.cn/plugin?id=123)
+     */
+    writeAsBinary(data?: string): void;
 }
 
 /**
