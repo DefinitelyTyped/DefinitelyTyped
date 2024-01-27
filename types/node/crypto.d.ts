@@ -4473,6 +4473,13 @@ declare module "crypto" {
             ): Promise<ArrayBuffer>;
         }
     }
+
+    global {
+        var crypto: typeof globalThis extends {
+            crypto: infer T;
+        } ? T
+            : webcrypto.Crypto;
+    }
 }
 declare module "node:crypto" {
     export * from "crypto";
