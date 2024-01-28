@@ -80,6 +80,15 @@ declare const event5: "event5";
 }
 
 {
+    emitter.addListener(event1, () => undefined);
+    emitter.addListener(event1, (a: string) => undefined);
+    emitter.addListener(event1, (a: string, b?: number) => undefined);
+    emitter.addListener(event1, (a: string, b: number | boolean): number => 1);
+    // @ts-expect-error
+    emitter.addListener(event1, (a: string, b: boolean): number => 1);
+}
+
+{
     let result: number;
 
     result = events.EventEmitter.defaultMaxListeners;
