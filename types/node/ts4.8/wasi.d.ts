@@ -131,7 +131,7 @@ declare module "wasi" {
          * Return an import object that can be passed to `WebAssembly.instantiate()` if no other WASM imports are needed beyond those provided by WASI.
          *
          * If version `unstable` was passed into the constructor it will return:
-         * 
+         *
          * ```js
          * { wasi_unstable: wasi.wasiImport }
          * ```
