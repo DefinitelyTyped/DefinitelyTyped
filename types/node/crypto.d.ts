@@ -4477,6 +4477,7 @@ declare module "crypto" {
     global {
         var crypto: typeof globalThis extends {
             crypto: infer T;
+            onmessage: any;
         } ? T
             : webcrypto.Crypto;
     }
