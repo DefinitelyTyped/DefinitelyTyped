@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/tgwf__co2",
-    "version": "0.14.2",
+    "version": "0.14.9999",
     "projects": [
         "https://github.com/thegreenwebfoundation/co2.js"
     ],
