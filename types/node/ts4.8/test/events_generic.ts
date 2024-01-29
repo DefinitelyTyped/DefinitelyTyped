@@ -181,3 +181,53 @@ declare const event5: "event5";
     // @ts-expect-error
     emitter.emit("foo", 123);
 }
+
+{
+    const emitter = new events.EventEmitter<{ abc: [string, number] }>();
+
+    emitter.emit("abc", "hello", 123);
+    // @ts-expect-error
+    emitter.emit("abc", 123, false);
+    // @ts-expect-error
+    emitter.emit("def", "hello", 123);
+}
+
+{
+    const emitter = new events.EventEmitter<{ 123: [string, number] }>();
+
+    emitter.emit(123, "hello", 123);
+    // @ts-expect-error
+    emitter.emit(123, 123, false);
+    // @ts-expect-error
+    emitter.emit(456, "hello", 123);
+}
+
+{
+    const s1: unique symbol = Symbol();
+    const s2: unique symbol = Symbol();
+    const emitter = new events.EventEmitter<{ [s1]: [string, number] }>();
+
+    emitter.emit(s1, "hello", 123);
+    // @ts-expect-error
+    emitter.emit(s1, 123, false);
+    // @ts-expect-error
+    emitter.emit(s2, "hello", 123);
+}
+
+{
+    const s1: unique symbol = Symbol();
+    const s2: unique symbol = Symbol();
+    const emitter = new events.EventEmitter<{ 123: [string, number]; 456: any[]; abc: number[]; [s1]: boolean[] }>();
+
+    emitter.emit(123, "hello", 123);
+    emitter.emit(456, 123, false);
+    emitter.emit(s1, false);
+    // @ts-expect-error
+    emitter.emit("abc", 123, "false");
+    // @ts-expect-error
+    emitter.emit(789, 123, false);
+    // @ts-expect-error
+    emitter.emit(s1, "hello", false);
+    // @ts-expect-error
+    emitter.emit(s2, "hello", false);
+}
