@@ -1099,6 +1099,10 @@ declare namespace braintree {
         bin?: string | undefined;
         cardType?: string | undefined;
         lastTwo?: string | undefined;
+        lastFour?: string | undefined;
+        cardholderName?: string | undefined | null;
+        expirationYear?: string | undefined;
+        expirationMonth?: string | undefined;
     }
 
     export type PaymentMethodType =
