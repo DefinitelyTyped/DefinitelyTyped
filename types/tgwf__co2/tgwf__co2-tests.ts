@@ -24,5 +24,5 @@ const swdSegmentCO2PerByte = swdSegment.perByte(1000, true);
 const swdSegmentCO2PerVisit = swdSegment.perVisit(1000, true);
 
 // Test green hosting check using API
-const googleCheck = hosting.check("google.com");
+const googleCheck = hosting.check("google.com", "ATestApp");
 const arrayCheck = hosting.check(["google.com", "facebook.com"]);
