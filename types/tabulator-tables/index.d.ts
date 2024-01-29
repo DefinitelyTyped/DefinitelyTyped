@@ -1242,7 +1242,7 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
     columns?: ColumnDefinition[] | undefined;
 
     /** You can add a menu to any column by passing an array of menu items to the headerMenu option in that columns definition. */
-    headerMenu?: Array<MenuObject<ColumnComponent> | MenuSeparator> | (() => Array<MenuObject<ColumnComponent> | MenuSeparato>) | undefined;
+    headerMenu?: Array<MenuObject<ColumnComponent> | MenuSeparator> | (() => Array<MenuObject<ColumnComponent> | MenuSeparator>) | undefined;
 
     /** The headerMenuIcon option will accept one of three types of value. You can pass in a string for the HTML contents of the button. Or you can pass the DOM node for the button. Though be careful not to pass the same node to multple columns or you may run into issues. Or you can define a function that is called when the column header is rendered that should return either an HTML string or the contents of the element. This funtion is passed the column component as its first argument. */
     headerMenuIcon?: string | HTMLElement | ((component: ColumnComponent) => HTMLElement | string);
@@ -2712,13 +2712,13 @@ declare class Module {
      * @param propName Property name to add
      * @param defaultValue Default value of the property
      */
-    registerTableOption(propName: string, defaultValue: unknown);
+    registerTableOption(propName: string, defaultValue: unknown): void;
     /**
      * Make a function available on the table object
      * @param functionName Function to add
      * @param callback Function to be called when the method is invoked on the grid
      */
-    registerTableFunction(functionName: string, callback: (...args) => unknown);
+    registerTableFunction(functionName: string, callback: (...args: unknown[]) => unknown): void;
 
     /**
      * Subscribe to an event in the Tabulator Event bus.
@@ -2727,7 +2727,7 @@ declare class Module {
      * @param callback Function to call when subscribing
      * @param order The order for initialization. By default, it's 10000. See https://tabulator.info/docs/5.5/module-build#events-internal
      */
-    subscribe(eventName: string, callback: (...args: unknown[]) => unknown, order?: number);
+    subscribe(eventName: string, callback: (...args: unknown[]) => unknown, order?: number): void;
 
     /**
      * Unsubscribe to an event in the Tabulator Event bus.
@@ -2735,7 +2735,7 @@ declare class Module {
      * @param eventName Event to subscribe to
      * @param callback Function to call when subscribing
      */
-    unsubscribe(eventName: string, callback: (...args: unknown[]) => unknown);
+    unsubscribe(eventName: string, callback: (...args: unknown[]) => unknown): void;
 
     /**
      * Updates the configuration of the grid.
@@ -2744,7 +2744,7 @@ declare class Module {
      * @param key Key to update
      * @param value value to set
      */
-    setOption(key: keyof Options, value: unknown);
+    setOption(key: keyof Options, value: unknown): void;
 
     /**
      * Uses the data loader to reload the data in the grid
@@ -2766,6 +2766,7 @@ declare class Module {
      * Called by the table when it is ready for module integrations
      */
     initialize(): void;
+    
 }
 declare class AccessorModule {}
 declare class AjaxModule {}
