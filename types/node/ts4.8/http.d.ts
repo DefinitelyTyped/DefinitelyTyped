@@ -200,7 +200,7 @@ declare module "http" {
         auth?: string | null | undefined;
         // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L278
         createConnection?:
-            | ((options: ClientRequestArgs, oncreate: (err: Error, socket: Socket) => void) => Socket)
+            | ((options: ClientRequestArgs, oncreate: (err: Error | null, socket: stream.Duplex) => void) => stream.Duplex | null | undefined)
             | undefined;
         defaultPort?: number | string | undefined;
         family?: number | undefined;
