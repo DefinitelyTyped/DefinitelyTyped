@@ -232,6 +232,7 @@ app.get("setCookie", (req, res) => {
         domain: "example.com",
         sameSite: "lax",
         priority: "high",
+        partitioned: true,
     });
     res.cookie("key", "value", {
         // @ts-expect-error
