@@ -1,5 +1,5 @@
-import { Interface as ReadlineInterface, Key } from 'readline';
-import { Observable } from 'rxjs';
+import { Interface as ReadlineInterface, Key } from "readline";
+import { Observable } from "rxjs";
 
 /**
  * Provides a description about a key.
@@ -11,7 +11,7 @@ interface KeyDescriptor {
     value: string;
 
     /**
-     * Thedescription of the key.
+     * The description of the key.
      */
     key: Key;
 }
@@ -21,12 +21,12 @@ interface KeyDescriptor {
  */
 interface Events {
     /**
-     * The event-flow of the `line`-event of the readline-object.
+     * The event-flow of the `line`-event of the {@link ReadlineInterface `readline.Interface`}-object.
      */
     line: Observable<string>;
 
     /**
-     * The event-flow of the `keypress`-event of the readline-object.
+     * The event-flow of the `keypress`-event of the {@link ReadlineInterface `readline.Interface`}-object.
      */
     keypress: Observable<KeyDescriptor>;
 
@@ -62,11 +62,11 @@ interface Events {
 }
 
 /**
- * Observes a readline-object.
+ * Observes a {@link ReadlineInterface `readline.Interface`}-object.
  *
  * @param readline
  * The readline-object to observe.
  */
-declare function observe(readline: ReadlineInterface): Events;
+export default function(readline: ReadlineInterface): Events;
 
-export = observe;
+export {};

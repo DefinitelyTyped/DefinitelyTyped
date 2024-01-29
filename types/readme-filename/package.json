@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/readme-filename",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ngryman/readme-filename#readme"
+    ],
+    "devDependencies": {
+        "@types/readme-filename": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Manuel Thalmann",
+            "githubUsername": "manuth"
+        }
+    ]
+}

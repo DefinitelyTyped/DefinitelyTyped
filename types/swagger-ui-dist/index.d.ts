@@ -1,10 +1,4 @@
-// Type definitions for swagger-ui-dist 3.30
-// Project: https://github.com/swagger-api/swagger-ui#readme
-// Definitions by: Haowen <https://github.com/haowen737>
-//                 Bryce <https://github.com/brycematheson1234>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import implementation = require('./absolute-path');
+import implementation = require("./absolute-path");
 
 export as namespace SwaggerUIDist;
 
@@ -64,7 +58,7 @@ export interface SwaggerConfigs {
     /**
      * The URL pointing to API definition (normally swagger.json or swagger.yaml). Will be ignored if urls or spec is used.
      */
-    url?: Url['url'] | undefined;
+    url?: Url["url"] | undefined;
 
     /**
      * An array of API definition objects ([{url: "<url1>", name: "<name1>"},{url: "<url2>", name: "<name2>"}]) used by Topbar plugin. When used and Topbar plugin is enabled,
@@ -81,7 +75,7 @@ export interface SwaggerConfigs {
     /**
      * Controls the default expansion setting for the operations and tags. It can be 'list' (expands only the tags), 'full' (expands the tags and operations) or 'none' (expands nothing).
      */
-    docExpansion?: 'list' | 'full' | 'none' | undefined;
+    docExpansion?: "list" | "full" | "none" | undefined;
 
     /**
      * If set, limits the number of tagged operations displayed to at most this many. The default is to show all operations.

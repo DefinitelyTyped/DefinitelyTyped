@@ -2,7 +2,7 @@ import { ExpiryManager } from "expirymanager";
 
 const expiryManager = new ExpiryManager();
 
-const keys = ['1', '2'];
+const keys = ["1", "2"];
 
 expiryManager.expire(keys, 1);
 

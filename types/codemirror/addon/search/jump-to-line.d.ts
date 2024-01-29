@@ -1,7 +1,7 @@
-import '../..';
-import '../dialog/dialog';
+import "../..";
+import "../dialog/dialog";
 
-declare module '../../' {
+declare module "../../" {
     interface CommandActions {
         jumpToLine(cm: Editor): void;
     }

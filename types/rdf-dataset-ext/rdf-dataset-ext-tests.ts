@@ -1,12 +1,12 @@
-import { Readable, EventEmitter } from 'stream';
-import { BaseQuad, DatasetCore, Quad, Stream, Term } from 'rdf-js';
-import grouped = require('rdf-dataset-ext');
-import addAll = require('rdf-dataset-ext/addAll');
-import deleteMatch = require('rdf-dataset-ext/deleteMatch');
-import equals = require('rdf-dataset-ext/equals');
-import fromStream = require('rdf-dataset-ext/fromStream');
-import toCanonical = require('rdf-dataset-ext/toCanonical');
-import toStream = require('rdf-dataset-ext/toStream');
+import { BaseQuad, DatasetCore, Quad, Stream, Term } from "@rdfjs/types";
+import { EventEmitter, Readable } from "stream";
+import grouped = require("rdf-dataset-ext");
+import addAll = require("rdf-dataset-ext/addAll");
+import deleteMatch = require("rdf-dataset-ext/deleteMatch");
+import equals = require("rdf-dataset-ext/equals");
+import fromStream = require("rdf-dataset-ext/fromStream");
+import toCanonical = require("rdf-dataset-ext/toCanonical");
+import toStream = require("rdf-dataset-ext/toStream");
 
 const dataset1: DatasetCore = {} as any;
 const dataset2: DatasetCore<BaseQuad> = {} as any;
@@ -50,6 +50,9 @@ const dataset2deleteMatch9: DatasetCore<BaseQuad> = grouped.deleteMatch(dataset2
 const dataset2deleteMatch10: DatasetCore<BaseQuad> = grouped.deleteMatch(dataset2, term, term);
 const dataset2deleteMatch11: DatasetCore<BaseQuad> = grouped.deleteMatch(dataset2, term, term, term);
 const dataset2deleteMatch12: DatasetCore<BaseQuad> = grouped.deleteMatch(dataset2, term, term, term, term);
+
+const delete1MatchNulls: DatasetCore = grouped.deleteMatch(dataset1, null, null, null, null);
+const delete2MatchNulls: DatasetCore<BaseQuad> = grouped.deleteMatch(dataset2, null, null, null, null);
 
 // equals
 

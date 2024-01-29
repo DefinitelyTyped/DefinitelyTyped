@@ -1,3 +1,5 @@
+import 'webxr';
+
 import {
     BufferGeometry,
     Intersection,
@@ -5,15 +7,17 @@ import {
     MeshBasicMaterial,
     Object3D,
     Raycaster,
-    SphereBufferGeometry,
+    SphereGeometry,
     Texture,
     Vector3,
-} from '../../../src/Three';
+} from '../../../src/Three.js';
+
+import { XRHandMeshModel } from './XRHandMeshModel.js';
 
 export class OculusHandPointerModel extends Object3D {
     hand: Object3D;
     controller: Object3D;
-    motionController: Object3D | null;
+    motionController: XRHandMeshModel | null;
 
     envMap: Texture | null;
 
@@ -26,12 +30,12 @@ export class OculusHandPointerModel extends Object3D {
     pinched: boolean;
     attached: boolean;
 
-    cursorObject: Mesh<SphereBufferGeometry, MeshBasicMaterial> | null;
+    cursorObject: Mesh<SphereGeometry, MeshBasicMaterial> | null;
 
     raycaster: Raycaster;
 
     visible: boolean;
-    xrInputSource: unknown;
+    xrInputSource: XRInputSource;
 
     constructor(hand: Object3D, controller: Object3D);
 

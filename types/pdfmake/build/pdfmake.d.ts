@@ -1,5 +1,5 @@
 /// <reference lib="dom" />
-import { BufferOptions, CustomTableLayout, TDocumentDefinitions, TFontDictionary } from '../interfaces';
+import { BufferOptions, CustomTableLayout, TDocumentDefinitions, TFontDictionary } from "../interfaces";
 
 export let vfs: { [file: string]: string };
 export let fonts: TFontDictionary;

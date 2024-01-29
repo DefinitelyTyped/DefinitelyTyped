@@ -1,15 +1,22 @@
-// Type definitions for @wordpress/rich-text 3.4
-// Project: https://github.com/WordPress/gutenberg/tree/master/packages/rich-text/README.md
-// Definitions by: Derek Sifford <https://github.com/dsifford>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
+import { dispatch, select, StoreDescriptor } from "@wordpress/data";
+import { ComponentType } from "react";
+import { create, Format, Value } from "./create";
 
-import { ComponentType } from 'react';
-import { dispatch, select } from '@wordpress/data';
+export { create, Format, Value };
+export * from "./component";
 
-declare module '@wordpress/data' {
-    function dispatch(key: 'core/rich-text'): typeof import('./store/actions');
-    function select(key: 'core/rich-text'): typeof import('./store/selectors');
+declare module "@wordpress/data" {
+    function dispatch(key: "core/rich-text"): typeof import("./store/actions");
+    function select(key: "core/rich-text"): typeof import("./store/selectors");
+}
+
+export interface RichTextStoreDescriptor extends StoreDescriptor {
+    name: "core/rich-text";
+}
+
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@wordpress/rich-text" {
+    const store: RichTextStoreDescriptor;
 }
 
 export interface FormatProps {
@@ -38,22 +45,6 @@ export interface NamedFormatConfiguration extends FormatConfiguration {
     name: string;
 }
 
-export interface Format {
-    type: string;
-    attributes?: Record<string, string> | undefined;
-    unregisteredAttributes?: Record<string, string> | undefined;
-    object?: boolean | undefined;
-}
-
-export interface Value {
-    activeFormats?: readonly Format[] | undefined;
-    end?: number | undefined;
-    formats: ReadonlyArray<Format[] | undefined>;
-    replacements: ReadonlyArray<Format[] | undefined>;
-    start?: number | undefined;
-    text: string;
-}
-
 /**
  * Apply a format object to a Rich Text value from the given `startIndex` to the
  * given `endIndex`. Indices are retrieved from the selection if none are
@@ -79,46 +70,6 @@ export function applyFormat(value: Value, format: Format, startIndex?: number, e
 export function concat(...values: readonly Value[]): Value;
 
 /**
- * Create a `RichText` value from an `Element` tree (DOM), an HTML string or a
- * plain text string, with optionally a `Range` object to set the selection.
- *
- * @remarks
- * If called without any input, an empty value will be created.
- *
- * If `multilineTag` is provided, any content of direct children whose type matches
- * `multilineTag` will be separated by two newlines. The optional functions can
- * be used to filter out content.
- *
- * A value will have the following shape, which you are strongly encouraged not
- * to modify without the use of helper functions:
- *
- * ```js
- * {
- *   text: string,
- *   formats: Array,
- *   replacements: Array,
- *   ?start: number,
- *   ?end: number,
- * }
- * ```
- *
- * As you can see, text and formatting are separated. `text` holds the text,
- * including any replacement characters for objects and lines. `formats`,
- * `objects` and `lines` are all sparse arrays of the same length as `text`. It
- * holds information about the formatting at the relevant text indices. Finally
- * `start` and `end` state which text indices are selected. They are only
- * provided if a `Range` was given.
- */
-export function create(args?: { text: string }): Value;
-export function create(args?: { html: string }): Value; // tslint:disable-line:unified-signatures
-export function create(args?: {
-    element: Element;
-    multilineTag?: keyof HTMLElementTagNameMap | undefined;
-    multilineWrapperTags?: ReadonlyArray<keyof HTMLElementTagNameMap> | undefined;
-    range?: Range | undefined;
-}): Value; // tslint:disable-line:unified-signatures
-
-/**
  * Gets the format object by type at the start of the selection. This can be
  * used to get e.g. the URL of a link format at the current selection, but also
  * to check if a format is active at the selection.
@@ -129,6 +80,16 @@ export function create(args?: {
  * @returns Active format object of the specified type, or undefined.
  */
 export function getActiveFormat(value: Value, formatType: string): Format | undefined;
+
+/**
+ * Gets the all format objects at the start of the selection.
+ *
+ * @param value Value to inspect.
+ * @param EMPTY_ACTIVE_FORMATS Array to return if there are no active formats.
+ *
+ * @return Active format objects.
+ */
+export function getActiveFormats(value: Value, EMPTY_ACTIVE_FORMATS?: Format[]): Format[];
 
 /**
  * Gets the active object, if there is any.
@@ -265,7 +226,7 @@ export function removeFormat(value: Value, formatType: string, startIndex?: numb
 export function replace(
     value: Value,
     pattern: string | RegExp,
-    replacement: ((match: string, ...args: any[]) => string) | string
+    replacement: ((match: string, ...args: any[]) => string) | string,
 ): Value;
 
 /**

@@ -1,12 +1,13 @@
-import openid = require('openid');
+import openid = require("openid");
 
 const relyingParty = new openid.RelyingParty(
-  'http://example.com/verify',
-  null,
-  false,
-  false,
-  []);
+    "http://example.com/verify",
+    null,
+    false,
+    false,
+    [],
+);
 
-relyingParty.authenticate('...', false, (err, authUrl) => {});
+relyingParty.authenticate("...", false, (err, authUrl) => {});
 
-relyingParty.verifyAssertion('...', (err, result) => {});
+relyingParty.verifyAssertion("...", (err, result) => {});

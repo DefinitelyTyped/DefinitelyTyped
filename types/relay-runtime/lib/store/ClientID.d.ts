@@ -1,4 +1,4 @@
-import { DataID } from '../util/RelayRuntimeTypes';
+import { DataID } from "../util/RelayRuntimeTypes";
 
 export function generateClientID(id: DataID, storageKey: string, index?: number): DataID;
 

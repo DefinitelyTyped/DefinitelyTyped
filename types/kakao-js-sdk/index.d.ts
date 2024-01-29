@@ -1,9 +1,3 @@
-// Type definitions for non-npm package Kakao JavaScript SDK 1.39
-// Project: https://developers.kakao.com/docs/latest/ko/sdk-download/js
-// Definitions by: Lee Jaeuk <https://github.com/wooogi123>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.2
-
 /**
  * Kakao JavaScript SDK common namespace
  *
@@ -50,11 +44,11 @@ declare namespace Kakao {
     }
 
     namespace Auth {
-        type AuthLanguage = 'kr' | 'en';
-        type AuthButtonSize = 'small' | 'medium' | 'large';
+        type AuthLanguage = "kr" | "en";
+        type AuthButtonSize = "small" | "medium" | "large";
 
         interface AuthStatusObject {
-            status: 'connected' | 'not_connected';
+            status: "connected" | "not_connected";
             user?: {
                 [key: string]: any;
             } | undefined;
@@ -143,10 +137,10 @@ declare namespace Kakao {
     }
 
     namespace Channel {
-        type ButtonSize = 'small' | 'large';
-        type TitleText = 'consult' | 'question';
-        type Color = 'yellow' | 'black';
-        type Shape = 'pc' | 'mobile';
+        type ButtonSize = "small" | "large";
+        type TitleText = "consult" | "question";
+        type Color = "yellow" | "black";
+        type Shape = "pc" | "mobile";
 
         function addChannel(settings: { channelPublicId: string }): void;
 
@@ -205,35 +199,36 @@ declare namespace Kakao {
             callback?: LinkCallback | undefined;
             serverCallbackArgs?:
                 | {
-                      [key: string]: any;
-                  }
-                | string | undefined; // reference https://developers.kakao.com/docs/latest/ko/message/js#set-kakaolink-callback
+                    [key: string]: any;
+                }
+                | string
+                | undefined; // reference https://developers.kakao.com/docs/latest/ko/message/js#set-kakaolink-callback
         }
 
-        interface DefaultCommerceSettings extends BaseObject<'commerce'> {
+        interface DefaultCommerceSettings extends BaseObject<"commerce"> {
             content: ContentObject;
             commerce: CommerceObject;
         }
 
-        interface DefaultFeedSettings extends BaseObject<'feed'> {
+        interface DefaultFeedSettings extends BaseObject<"feed"> {
             content: ContentObject;
             social?: SocialObject | undefined;
         }
 
-        interface DefaultListSettings extends BaseObject<'list'> {
+        interface DefaultListSettings extends BaseObject<"list"> {
             headerTitle: string;
             headerLink: LinkObject;
             contents: ContentObject[];
         }
 
-        interface DefaultLocationSettings extends BaseObject<'location'> {
+        interface DefaultLocationSettings extends BaseObject<"location"> {
             content: ContentObject;
             address: string;
             addressTitle?: string | undefined;
             social?: SocialObject | undefined;
         }
 
-        interface DefaultTextSettings extends BaseObject<'text'> {
+        interface DefaultTextSettings extends BaseObject<"text"> {
             text: string;
             link: LinkObject;
         }
@@ -282,9 +277,10 @@ declare namespace Kakao {
             callback?: LinkCallback | undefined;
             serverCallbackArgs?:
                 | {
-                      [key: string]: any;
-                  }
-                | string | undefined; // reference https://developers.kakao.com/docs/latest/ko/message/js#set-kakaolink-callback
+                    [key: string]: any;
+                }
+                | string
+                | undefined; // reference https://developers.kakao.com/docs/latest/ko/message/js#set-kakaolink-callback
         }): void;
 
         function createDefaultButton(
@@ -304,9 +300,10 @@ declare namespace Kakao {
             callback?: LinkCallback | undefined;
             serverCallbackArgs?:
                 | {
-                      [key: string]: any;
-                  }
-                | string | undefined;
+                    [key: string]: any;
+                }
+                | string
+                | undefined;
         }): void;
 
         function deleteImage(settings: { imageUrl: string }): Promise<unknown>;
@@ -322,9 +319,10 @@ declare namespace Kakao {
             callback?: LinkCallback | undefined;
             serverCallbackArgs?:
                 | {
-                      [key: string]: any;
-                  }
-                | string | undefined;
+                    [key: string]: any;
+                }
+                | string
+                | undefined;
         }): void;
 
         function sendDefault(settings: DefaultSettings): void;
@@ -339,9 +337,10 @@ declare namespace Kakao {
             callback?: LinkCallback | undefined;
             serverCallbackArgs?:
                 | {
-                      [key: string]: any;
-                  }
-                | string | undefined;
+                    [key: string]: any;
+                }
+                | string
+                | undefined;
         }): void;
 
         function uploadImage(settings: { file: FileList }): Promise<ImageInfos>;

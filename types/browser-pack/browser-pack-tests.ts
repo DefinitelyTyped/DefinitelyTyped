@@ -8,7 +8,7 @@ function packIt(opts: browserPack.Options) {
         prelude: opts.prelude || undefined,
         preludePath: opts.preludePath || undefined,
         raw: opts.raw || false,
-        sourceMapPrefix: opts.sourceMapPrefix || '//#',
+        sourceMapPrefix: opts.sourceMapPrefix || "//#",
         sourceRoot: opts.sourceRoot || undefined,
         standalone: opts.standalone || undefined,
         standaloneModule: opts.standaloneModule || undefined,

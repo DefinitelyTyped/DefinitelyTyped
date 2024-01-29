@@ -1,4 +1,4 @@
-import { Decoration, DecorationOptions, DisplayMarker, Disposable } from '../index';
+import { Decoration, DecorationOptions, DisplayMarker, Disposable } from "../index";
 
 /** Represents a gutter within a TextEditor. */
 export interface Gutter {
@@ -53,7 +53,7 @@ export interface GutterOptions {
      * Gutter::decorateMarker.
      * 'line-number' gutters.
      */
-    type?: 'decorated' | 'line-number' | undefined;
+    type?: "decorated" | "line-number" | undefined;
 
     /** String added to the CSS classnames of the gutter's root DOM element. */
     class?: string | undefined;

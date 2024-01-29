@@ -1,14 +1,10 @@
-// Type definitions for cordova-plugin-native-keyboard 1.3
-// Project: https://github.com/EddyVerbruggen/cordova-plugin-native-keyboard#readme
-// Definitions by: Daniel Brolli <https://github.com/lobo87>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 interface NativeKeyboard {
     /**
      * Show the messenger, the bare minimum which has to be passed to the function is
      * the onSubmit callback
      */
     showMessenger(
-        options: NativeKeyboardShowOptions
+        options: NativeKeyboardShowOptions,
     ): void;
 
     /**
@@ -19,7 +15,7 @@ interface NativeKeyboard {
     hideMessenger(
         options?: NativeKeyboardHideOptions,
         onSuccess?: () => void,
-        onError?: (err: any) => void
+        onError?: (err: any) => void,
     ): void;
 
     /**
@@ -46,7 +42,7 @@ interface NativeKeyboard {
     updateMessenger(
         options: NativeKeyboardUpdateOptions,
         onSuccess?: () => void,
-        onError?: (err: any) => void
+        onError?: (err: any) => void,
     ): void;
 }
 

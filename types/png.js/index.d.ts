@@ -1,8 +1,3 @@
-// Type definitions for png.js 0.2
-// Project: https://github.com/arian/pngjs
-// Definitions by: Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type BitDepth = 2 | 4 | 8 | 16;
 type ColorType = 0 | 2 | 3 | 4 | 6;
 type ParseCallback = (err: Error | undefined, png: PNG) => void;

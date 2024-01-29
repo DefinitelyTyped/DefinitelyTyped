@@ -1,12 +1,12 @@
-import { MDXContent, MDXModule } from 'mdx/types';
-import MyMDXComponent from './MyComponent.mdx';
-import MyMDComponent from './MyComponent.md';
-import MyMarkdownComponent from './MyComponent.markdown';
-import MyMDownComponent from './MyComponent.mdown';
-import MyMKDNComponent from './MyComponent.mkdn';
-import MyMKDComponent from './MyComponent.mkd';
-import MyMKDownComponent from './MyComponent.mkdown';
-import MyRonComponent from './MyComponent.ron';
+import { MDXComponents, MDXContent, MDXModule } from "mdx/types";
+import MyMarkdownComponent from "./MyComponent.markdown";
+import MyMDComponent from "./MyComponent.md";
+import MyMDownComponent from "./MyComponent.mdown";
+import MyMDXComponent from "./MyComponent.mdx";
+import MyMKDComponent from "./MyComponent.mkd";
+import MyMKDNComponent from "./MyComponent.mkdn";
+import MyMKDownComponent from "./MyComponent.mkdown";
+import MyRonComponent from "./MyComponent.ron";
 
 // Test setup — A minimal JSX framework.
 
@@ -14,6 +14,10 @@ interface TestElementType {
     type: string;
     props: unknown;
     children: TestElementType[];
+}
+
+interface AnchorProps {
+    className?: string;
 }
 
 interface DivProps {
@@ -43,9 +47,23 @@ declare function jsx(): TestElementType;
 // A JSX test implementation type
 declare global {
     namespace JSX {
+        // Note: The below code  and variations on it need to be tested manually.
+        // It is not possible to run this test with multiple TypeScript configurations in DefinitelyTyped.
+        //
+        // type ElementType =
+        //     | 'a'
+        //     | 'div'
+        //     | 'h1'
+        //     | 'img'
+        //     | 'span'
+        //     | 'video'
+        //     | ((props: Record<string, any>) => Element | null)
+        //     | (new (props: Record<string, any>) => ElementClass);
+
         type Element = TestElementType;
 
         interface IntrinsicElements {
+            a: AnchorProps;
             div: DivProps;
             img: ImgProps;
             h1: H1Props;
@@ -72,8 +90,8 @@ class CustomImageComponent {
 // Tests — The `mdx` imports.
 
 function MyMDXPage(props: MDXModule) {
-    // dts type validation is inconsistent here.
-    const Content: MDXContent = props.default;
+    // $ExpectType MDXContent
+    const Content = props.default;
 
     // $ExpectType unknown
     props.title;
@@ -89,6 +107,11 @@ function MyMDXPage(props: MDXModule) {
 const MyComponentAlias: MDXContent = MyMDXComponent;
 const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
 
+// Ensure custom components are valid JSX components.
+declare const customComponents: MDXComponents;
+const Div = customComponents.div!;
+<Div />;
+
 // Tests — All mdx file exports.
 
 // $ExpectType TestElementType
@@ -97,17 +120,22 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
 // $ExpectType TestElementType
 <MyMDXComponent
     the="answer"
-    to={{ life: 'the' }}
-    universe={() => 'and'}
+    to={{ life: "the" }}
+    universe={() => "and"}
     everything={42}
     components={{
+        a(props) {
+            // $ExpectType AnchorProps
+            props;
+            return null;
+        },
         div(props) {
             // $ExpectType DivProps
             props;
             return <div {...props} />;
         },
         img: CustomImageComponent,
-        // $ExpectError
+        // @ts-expect-error
         video: CustomImageComponent,
         wrapper(props) {
             // $ExpectType any
@@ -115,38 +143,38 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
             return <div />;
         },
         nested: {
-            components: (props) => {
+            components: props => {
                 // $ExpectType any
                 props;
                 return <div />;
             },
             very: {
-                deeply: (props) => {
+                deeply: props => {
                     // $ExpectType any
                     props;
                     return <div />;
                 },
                 to: {
-                    infinity: (props) => {
+                    infinity: props => {
                         // $ExpectType any
                         props;
                         return <div />;
                     },
                     and: {
-                        beyond: (props) => {
+                        beyond: props => {
                             // $ExpectType any
                             props;
                             return <div />;
                         },
-                        span: 'div',
-                    }
-                }
+                        span: "div",
+                    },
+                },
             },
         },
-        // $ExpectError
-        invalid: 'Not just any type is allowed though',
+        // @ts-expect-error
+        invalid: "Not just any type is allowed though",
         // Aliasing is valid though
-        span: 'div',
+        span: "div",
     }}
 />;
 
@@ -156,17 +184,22 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
 // $ExpectType TestElementType
 <MyMDComponent
     the="answer"
-    to={{ life: 'the' }}
-    universe={() => 'and'}
+    to={{ life: "the" }}
+    universe={() => "and"}
     everything={42}
     components={{
+        a(props) {
+            // $ExpectType AnchorProps
+            props;
+            return null;
+        },
         div(props) {
             // $ExpectType DivProps
             props;
             return <div {...props} />;
         },
         img: CustomImageComponent,
-        // $ExpectError
+        // @ts-expect-error
         video: CustomImageComponent,
         wrapper(props) {
             // $ExpectType any
@@ -174,38 +207,38 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
             return <div />;
         },
         nested: {
-            components: (props) => {
+            components: props => {
                 // $ExpectType any
                 props;
                 return <div />;
             },
             very: {
-                deeply: (props) => {
+                deeply: props => {
                     // $ExpectType any
                     props;
                     return <div />;
                 },
                 to: {
-                    infinity: (props) => {
+                    infinity: props => {
                         // $ExpectType any
                         props;
                         return <div />;
                     },
                     and: {
-                        beyond: (props) => {
+                        beyond: props => {
                             // $ExpectType any
                             props;
                             return <div />;
                         },
-                        span: 'div',
-                    }
-                }
+                        span: "div",
+                    },
+                },
             },
         },
-        // $ExpectError
-        invalid: 'Not just any type is allowed though',
+        // @ts-expect-error
+        invalid: "Not just any type is allowed though",
         // Aliasing is valid though
-        span: 'div',
+        span: "div",
     }}
 />;
 
@@ -215,17 +248,22 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
 // $ExpectType TestElementType
 <MyMarkdownComponent
     the="answer"
-    to={{ life: 'the' }}
-    universe={() => 'and'}
+    to={{ life: "the" }}
+    universe={() => "and"}
     everything={42}
     components={{
+        a(props) {
+            // $ExpectType AnchorProps
+            props;
+            return null;
+        },
         div(props) {
             // $ExpectType DivProps
             props;
             return <div {...props} />;
         },
         img: CustomImageComponent,
-        // $ExpectError
+        // @ts-expect-error
         video: CustomImageComponent,
         wrapper(props) {
             // $ExpectType any
@@ -233,38 +271,38 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
             return <div />;
         },
         nested: {
-            components: (props) => {
+            components: props => {
                 // $ExpectType any
                 props;
                 return <div />;
             },
             very: {
-                deeply: (props) => {
+                deeply: props => {
                     // $ExpectType any
                     props;
                     return <div />;
                 },
                 to: {
-                    infinity: (props) => {
+                    infinity: props => {
                         // $ExpectType any
                         props;
                         return <div />;
                     },
                     and: {
-                        beyond: (props) => {
+                        beyond: props => {
                             // $ExpectType any
                             props;
                             return <div />;
                         },
-                        span: 'div',
-                    }
-                }
+                        span: "div",
+                    },
+                },
             },
         },
-        // $ExpectError
-        invalid: 'Not just any type is allowed though',
+        // @ts-expect-error
+        invalid: "Not just any type is allowed though",
         // Aliasing is valid though
-        span: 'div',
+        span: "div",
     }}
 />;
 
@@ -274,17 +312,22 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
 // $ExpectType TestElementType
 <MyMDownComponent
     the="answer"
-    to={{ life: 'the' }}
-    universe={() => 'and'}
+    to={{ life: "the" }}
+    universe={() => "and"}
     everything={42}
     components={{
+        a(props) {
+            // $ExpectType AnchorProps
+            props;
+            return null;
+        },
         div(props) {
             // $ExpectType DivProps
             props;
             return <div {...props} />;
         },
         img: CustomImageComponent,
-        // $ExpectError
+        // @ts-expect-error
         video: CustomImageComponent,
         wrapper(props) {
             // $ExpectType any
@@ -292,38 +335,38 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
             return <div />;
         },
         nested: {
-            components: (props) => {
+            components: props => {
                 // $ExpectType any
                 props;
                 return <div />;
             },
             very: {
-                deeply: (props) => {
+                deeply: props => {
                     // $ExpectType any
                     props;
                     return <div />;
                 },
                 to: {
-                    infinity: (props) => {
+                    infinity: props => {
                         // $ExpectType any
                         props;
                         return <div />;
                     },
                     and: {
-                        beyond: (props) => {
+                        beyond: props => {
                             // $ExpectType any
                             props;
                             return <div />;
                         },
-                        span: 'div',
-                    }
-                }
+                        span: "div",
+                    },
+                },
             },
         },
-        // $ExpectError
-        invalid: 'Not just any type is allowed though',
+        // @ts-expect-error
+        invalid: "Not just any type is allowed though",
         // Aliasing is valid though
-        span: 'div',
+        span: "div",
     }}
 />;
 
@@ -333,17 +376,22 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
 // $ExpectType TestElementType
 <MyMKDNComponent
     the="answer"
-    to={{ life: 'the' }}
-    universe={() => 'and'}
+    to={{ life: "the" }}
+    universe={() => "and"}
     everything={42}
     components={{
+        a(props) {
+            // $ExpectType AnchorProps
+            props;
+            return null;
+        },
         div(props) {
             // $ExpectType DivProps
             props;
             return <div {...props} />;
         },
         img: CustomImageComponent,
-        // $ExpectError
+        // @ts-expect-error
         video: CustomImageComponent,
         wrapper(props) {
             // $ExpectType any
@@ -351,38 +399,38 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
             return <div />;
         },
         nested: {
-            components: (props) => {
+            components: props => {
                 // $ExpectType any
                 props;
                 return <div />;
             },
             very: {
-                deeply: (props) => {
+                deeply: props => {
                     // $ExpectType any
                     props;
                     return <div />;
                 },
                 to: {
-                    infinity: (props) => {
+                    infinity: props => {
                         // $ExpectType any
                         props;
                         return <div />;
                     },
                     and: {
-                        beyond: (props) => {
+                        beyond: props => {
                             // $ExpectType any
                             props;
                             return <div />;
                         },
-                        span: 'div',
-                    }
-                }
+                        span: "div",
+                    },
+                },
             },
         },
-        // $ExpectError
-        invalid: 'Not just any type is allowed though',
+        // @ts-expect-error
+        invalid: "Not just any type is allowed though",
         // Aliasing is valid though
-        span: 'div',
+        span: "div",
     }}
 />;
 
@@ -392,17 +440,22 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
 // $ExpectType TestElementType
 <MyMKDComponent
     the="answer"
-    to={{ life: 'the' }}
-    universe={() => 'and'}
+    to={{ life: "the" }}
+    universe={() => "and"}
     everything={42}
     components={{
+        a(props) {
+            // $ExpectType AnchorProps
+            props;
+            return null;
+        },
         div(props) {
             // $ExpectType DivProps
             props;
             return <div {...props} />;
         },
         img: CustomImageComponent,
-        // $ExpectError
+        // @ts-expect-error
         video: CustomImageComponent,
         wrapper(props) {
             // $ExpectType any
@@ -410,38 +463,38 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
             return <div />;
         },
         nested: {
-            components: (props) => {
+            components: props => {
                 // $ExpectType any
                 props;
                 return <div />;
             },
             very: {
-                deeply: (props) => {
+                deeply: props => {
                     // $ExpectType any
                     props;
                     return <div />;
                 },
                 to: {
-                    infinity: (props) => {
+                    infinity: props => {
                         // $ExpectType any
                         props;
                         return <div />;
                     },
                     and: {
-                        beyond: (props) => {
+                        beyond: props => {
                             // $ExpectType any
                             props;
                             return <div />;
                         },
-                        span: 'div',
-                    }
-                }
+                        span: "div",
+                    },
+                },
             },
         },
-        // $ExpectError
-        invalid: 'Not just any type is allowed though',
+        // @ts-expect-error
+        invalid: "Not just any type is allowed though",
         // Aliasing is valid though
-        span: 'div',
+        span: "div",
     }}
 />;
 
@@ -451,17 +504,22 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
 // $ExpectType TestElementType
 <MyMKDownComponent
     the="answer"
-    to={{ life: 'the' }}
-    universe={() => 'and'}
+    to={{ life: "the" }}
+    universe={() => "and"}
     everything={42}
     components={{
+        a(props) {
+            // $ExpectType AnchorProps
+            props;
+            return null;
+        },
         div(props) {
             // $ExpectType DivProps
             props;
             return <div {...props} />;
         },
         img: CustomImageComponent,
-        // $ExpectError
+        // @ts-expect-error
         video: CustomImageComponent,
         wrapper(props) {
             // $ExpectType any
@@ -469,38 +527,38 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
             return <div />;
         },
         nested: {
-            components: (props) => {
+            components: props => {
                 // $ExpectType any
                 props;
                 return <div />;
             },
             very: {
-                deeply: (props) => {
+                deeply: props => {
                     // $ExpectType any
                     props;
                     return <div />;
                 },
                 to: {
-                    infinity: (props) => {
+                    infinity: props => {
                         // $ExpectType any
                         props;
                         return <div />;
                     },
                     and: {
-                        beyond: (props) => {
+                        beyond: props => {
                             // $ExpectType any
                             props;
                             return <div />;
                         },
-                        span: 'div',
-                    }
-                }
+                        span: "div",
+                    },
+                },
             },
         },
-        // $ExpectError
-        invalid: 'Not just any type is allowed though',
+        // @ts-expect-error
+        invalid: "Not just any type is allowed though",
         // Aliasing is valid though
-        span: 'div',
+        span: "div",
     }}
 />;
 
@@ -510,17 +568,22 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
 // $ExpectType TestElementType
 <MyRonComponent
     the="answer"
-    to={{ life: 'the' }}
-    universe={() => 'and'}
+    to={{ life: "the" }}
+    universe={() => "and"}
     everything={42}
     components={{
+        a(props) {
+            // $ExpectType AnchorProps
+            props;
+            return null;
+        },
         div(props) {
             // $ExpectType DivProps
             props;
             return <div {...props} />;
         },
         img: CustomImageComponent,
-        // $ExpectError
+        // @ts-expect-error
         video: CustomImageComponent,
         wrapper(props) {
             // $ExpectType any
@@ -528,37 +591,37 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
             return <div />;
         },
         nested: {
-            components: (props) => {
+            components: props => {
                 // $ExpectType any
                 props;
                 return <div />;
             },
             very: {
-                deeply: (props) => {
+                deeply: props => {
                     // $ExpectType any
                     props;
                     return <div />;
                 },
                 to: {
-                    infinity: (props) => {
+                    infinity: props => {
                         // $ExpectType any
                         props;
                         return <div />;
                     },
                     and: {
-                        beyond: (props) => {
+                        beyond: props => {
                             // $ExpectType any
                             props;
                             return <div />;
                         },
-                        span: 'div',
-                    }
-                }
+                        span: "div",
+                    },
+                },
             },
         },
-        // $ExpectError
-        invalid: 'Not just any type is allowed though',
+        // @ts-expect-error
+        invalid: "Not just any type is allowed though",
         // Aliasing is valid though
-        span: 'div',
+        span: "div",
     }}
 />;

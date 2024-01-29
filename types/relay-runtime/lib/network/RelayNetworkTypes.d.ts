@@ -1,6 +1,6 @@
-import { RequestParameters } from '../util/RelayConcreteNode';
-import { Variables, CacheConfig, Disposable } from '../util/RelayRuntimeTypes';
-import { ObservableFromValue, RelayObservable } from './RelayObservable';
+import { RequestParameters } from "../util/RelayConcreteNode";
+import { CacheConfig, Disposable, Variables } from "../util/RelayRuntimeTypes";
+import { ObservableFromValue, RelayObservable } from "./RelayObservable";
 
 /**
  * An interface for fetching the data for one or more (possibly interdependent)
@@ -17,11 +17,13 @@ export interface PayloadData {
 
 export interface PayloadError {
     message: string;
-    locations?: Array<{
-        line: number;
-        column: number;
-    }> | undefined;
-    severity?: 'CRITICAL' | 'ERROR' | 'WARNING' | undefined; // Not officially part of the spec, but used at Facebook
+    locations?:
+        | Array<{
+            line: number;
+            column: number;
+        }>
+        | undefined;
+    severity?: "CRITICAL" | "ERROR" | "WARNING" | undefined; // Not officially part of the spec, but used at Facebook
 }
 
 export interface PayloadExtensions {
@@ -64,7 +66,7 @@ export type GraphQLSingularResponse =
     | GraphQLResponseWithExtensionsOnly
     | GraphQLResponseWithoutData;
 
-export type GraphQLResponse = GraphQLSingularResponse | ReadonlyArray<GraphQLSingularResponse>;
+export type GraphQLResponse = GraphQLSingularResponse | readonly GraphQLSingularResponse[];
 
 /**
  * A function that returns an Observable representing the response of executing

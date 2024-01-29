@@ -1,15 +1,14 @@
-// Type definitions for Chosen 1.8
-// Project: https://harvesthq.github.io/chosen
-// Definitions by: Boris Yankov <https://github.com/borisyankov>, denisname <https://github.com/denisname>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 // Validated against Chosen version 1.8.7
 
 /// <reference types="jquery"/>
 
 declare namespace Chosen {
-    type OnEvent = "chosen:ready" | "chosen:maxselected" | "chosen:showing_dropdown" | "chosen:hiding_dropdown" | "chosen:no_results";
+    type OnEvent =
+        | "chosen:ready"
+        | "chosen:maxselected"
+        | "chosen:showing_dropdown"
+        | "chosen:hiding_dropdown"
+        | "chosen:no_results";
     type TriggerEvent = "chosen:updated" | "chosen:activate" | "chosen:open" | "chosen:close";
 
     interface Options {

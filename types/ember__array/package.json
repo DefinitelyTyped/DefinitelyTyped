@@ -1,0 +1,31 @@
+{
+    "private": true,
+    "name": "@types/ember__array",
+    "version": "4.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "@ember/array",
+    "projects": [
+        "https://emberjs.com/api/ember/4.0/modules/@ember%2Farray"
+    ],
+    "dependencies": {
+        "@types/ember": "*",
+        "@types/ember__object": "*"
+    },
+    "devDependencies": {
+        "@types/ember__array": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Krystan HuffMenne",
+            "githubUsername": "gitKrystan"
+        },
+        {
+            "name": "James C. Davis",
+            "githubUsername": "jamescdavis"
+        },
+        {
+            "name": "Peter Wagenet",
+            "githubUsername": "wagenet"
+        }
+    ]
+}

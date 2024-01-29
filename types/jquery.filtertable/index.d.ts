@@ -1,10 +1,4 @@
-// Type definitions for jquery.filterTable v1.5.7
-// Project: https://github.com/sunnywalker/jQuery.FilterTable
-// Definitions by: TotPeRo <https://github.com/totpero>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-///<reference types="jquery" />
+/// <reference types="jquery" />
 
 declare namespace FilterTable {
     interface FilterTableOptions {
@@ -14,13 +8,13 @@ declare namespace FilterTable {
          */
         autofocus?: boolean | undefined;
         /**
-        * Callback function after a filter is performed.
-        * Default: 'null'
-        * @param term filter term (string)
-        * @param table table being filtered (JQuery object)
-        * @returns {void} 
-        */
-        callback?: ((term:string, table:JQuery) => void) | undefined;
+         * Callback function after a filter is performed.
+         * Default: 'null'
+         * @param term filter term (string)
+         * @param table table being filtered (JQuery object)
+         * @returns {void}
+         */
+        callback?: ((term: string, table: JQuery) => void) | undefined;
         /**
          * Class applied to the main filter input container
          * Default: 'filter-table'
@@ -52,9 +46,9 @@ declare namespace FilterTable {
          */
         inputSelector?: string | undefined;
         /**
-        * Name attribute of the filter input field
-        * Default: 'filter-table'
-        */
+         * Name attribute of the filter input field
+         * Default: 'filter-table'
+         */
         inputName?: string | undefined;
         /**
          * Tag name of the filter input itself
@@ -62,59 +56,59 @@ declare namespace FilterTable {
          */
         inputType?: string | undefined;
         /**
-        * Text to precede the filter input
-        * Default: 'Filter:'
-        */
+         * Text to precede the filter input
+         * Default: 'Filter:'
+         */
         label?: string | undefined;
         /**
-        * Filter only when at least this number of characters are in the filter input field
-        * Default: '1'
-        */
+         * Filter only when at least this number of characters are in the filter input field
+         * Default: '1'
+         */
         minChars?: number | undefined;
         /**
-        * Only show the filter on tables with this number of rows or more
-        * Default: '8'
-        */
+         * Only show the filter on tables with this number of rows or more
+         * Default: '8'
+         */
         minRows?: number | undefined;
         /**
-        * HTML5 placeholder text for the filter input
-        * Default: 'search this table'
-        */
+         * HTML5 placeholder text for the filter input
+         * Default: 'search this table'
+         */
         placeholder?: string | undefined;
         /**
-        * Trap the return key in the filter input field to prevent form submission
-        * Default: 'true'
-        */
+         * Trap the return key in the filter input field to prevent form submission
+         * Default: 'true'
+         */
         preventReturnKey?: boolean | undefined;
         /**
-        * List of clickable phrases to quick fill the search
-        * Default: '[]'
-        */
+         * List of clickable phrases to quick fill the search
+         * Default: '[]'
+         */
         quickList?: string[] | undefined;
         /**
-        * Class of each quick list item
-        * Default: 'quick'
-        */
+         * Class of each quick list item
+         * Default: 'quick'
+         */
         quickListClass?: string | undefined;
         /**
-        * Label for the clear filtering quick list item (or none if blank)
-        * Default: ''
-        */
+         * Label for the clear filtering quick list item (or none if blank)
+         * Default: ''
+         */
         quickListClear?: string | undefined;
         /**
-        * Tag name surrounding quick list items (e.g., ul)
-        * Default: ''
-        */
+         * Tag name surrounding quick list items (e.g., ul)
+         * Default: ''
+         */
         quickListGroupTag?: string | undefined;
         /**
-        * Tag name of each quick list item (e.g., a or li)
-        * Default: 'a'
-        */
+         * Tag name of each quick list item (e.g., a or li)
+         * Default: 'a'
+         */
         quickListTag?: string | undefined; // "a" | "li"
         /**
-        * Class applied to visible rows
-        * Default: 'visible'
-        */
+         * Class applied to visible rows
+         * Default: 'visible'
+         */
         visibleClass?: string | undefined;
     }
 

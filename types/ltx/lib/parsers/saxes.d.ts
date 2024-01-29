@@ -1,3 +1,3 @@
-import SaxSaxesjs from '../../src/parsers/saxes';
+import SaxSaxesjs from "../../src/parsers/saxes";
 
 export = SaxSaxesjs;

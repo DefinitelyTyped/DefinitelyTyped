@@ -4,13 +4,13 @@
 
 // See https://github.com/facebook/react/blob/main/packages/react-dom/client.js to see how the exports are declared,
 
-import React = require('react');
+import React = require("react");
 export interface HydrationOptions {
     /**
      * Prefix for `useId`.
      */
     identifierPrefix?: string;
-    onRecoverableError?: (error: unknown) => void;
+    onRecoverableError?: (error: unknown, errorInfo: ErrorInfo) => void;
 }
 
 export interface RootOptions {
@@ -18,11 +18,16 @@ export interface RootOptions {
      * Prefix for `useId`.
      */
     identifierPrefix?: string;
-    onRecoverableError?: (error: unknown) => void;
+    onRecoverableError?: (error: unknown, errorInfo: ErrorInfo) => void;
+}
+
+export interface ErrorInfo {
+    digest?: string;
+    componentStack?: string;
 }
 
 export interface Root {
-    render(children: React.ReactChild | Iterable<React.ReactNode>): void;
+    render(children: React.ReactNode): void;
     unmount(): void;
 }
 
@@ -33,8 +38,21 @@ export interface Root {
  */
 export function createRoot(container: Element | DocumentFragment, options?: RootOptions): Root;
 
+/**
+ * Same as `createRoot()`, but is used to hydrate a container whose HTML contents were rendered by ReactDOMServer.
+ *
+ * React will attempt to attach event listeners to the existing markup.
+ *
+ * **Example Usage**
+ *
+ * ```jsx
+ * hydrateRoot(document.querySelector('#root'), <App />)
+ * ```
+ *
+ * @see https://reactjs.org/docs/react-dom-client.html#hydrateroot
+ */
 export function hydrateRoot(
     container: Element | Document,
-    initialChildren: React.ReactChild | Iterable<React.ReactNode>,
+    initialChildren: React.ReactNode,
     options?: HydrationOptions,
 ): Root;

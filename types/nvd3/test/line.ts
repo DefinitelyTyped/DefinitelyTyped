@@ -1,7 +1,6 @@
-
 namespace nvd3_test_line {
     nv.addGraph({
-        generate: function () {
+        generate: function() {
             var width = nv.utils.windowSize().width - 40,
                 height = nv.utils.windowSize().height - 40;
 
@@ -10,38 +9,40 @@ namespace nvd3_test_line {
                 .height(height)
                 .margin({ top: 20, right: 20, bottom: 20, left: 20 });
 
-            chart.dispatch.on('renderEnd', function () {
-                console.log('render complete');
+            chart.dispatch.on("renderEnd", function() {
+                console.log("render complete");
             });
 
-            d3.select('#test1')
-                .attr('width', width)
-                .attr('height', height)
+            d3.select("#test1")
+                .attr("width", width)
+                .attr("height", height)
                 .datum(sinAndCos())
                 .call(chart);
 
             return chart;
         },
-        callback: function (graph: any) {
-            window.onresize = function () {
+        callback: function(graph: any) {
+            window.onresize = function() {
                 var width = nv.utils.windowSize().width - 40,
                     height = nv.utils.windowSize().height - 40,
                     margin = graph.margin();
 
-                if (width < margin.left + margin.right + 20)
+                if (width < margin.left + margin.right + 20) {
                     width = margin.left + margin.right + 20;
+                }
 
-                if (height < margin.top + margin.bottom + 20)
+                if (height < margin.top + margin.bottom + 20) {
                     height = margin.top + margin.bottom + 20;
+                }
 
                 graph.width(width).height(height);
 
-                d3.select('#test1')
-                    .attr('width', width)
-                    .attr('height', height)
+                d3.select("#test1")
+                    .attr("width", width)
+                    .attr("height", height)
                     .call(graph);
             };
-        }
+        },
     });
 
     function sinAndCos() {
@@ -57,15 +58,14 @@ namespace nvd3_test_line {
             {
                 values: sin,
                 key: "Sine Wave",
-                color: "#ff7f0e"
+                color: "#ff7f0e",
             },
             {
                 values: cos,
                 key: "Cosine Wave",
                 color: "#2ca02c",
-                strokeWidth: 3
-            }
+                strokeWidth: 3,
+            },
         ];
     }
-
 }

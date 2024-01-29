@@ -1,47 +1,47 @@
-import appdmg = require('appdmg');
+import appdmg = require("appdmg");
 
 const proc = appdmg({
-    source: '/foo/bar.app',
-    target: '/foo/bar.dmg',
-    basepath: '/baz',
+    source: "/foo/bar.app",
+    target: "/foo/bar.dmg",
+    basepath: "/baz",
     specification: {
-        title: 'Happy',
-        icon: 'happy.icns',
-        background: 'happy.tiff',
-        format: 'UDBZ',
-        'icon-size': 98,
+        title: "Happy",
+        icon: "happy.icns",
+        background: "happy.tiff",
+        format: "UDBZ",
+        "icon-size": 98,
         contents: [
             {
                 x: 405,
                 y: 150,
-                type: 'link',
-                path: '/Applications',
+                type: "link",
+                path: "/Applications",
             },
             {
                 x: 127,
                 y: 150,
-                type: 'file',
-                path: '/foo/bar.app',
+                type: "file",
+                path: "/foo/bar.app",
             },
         ],
     },
 });
 
-proc.on('progress', info => {
-    if (info.type === 'step-begin') {
+proc.on("progress", info => {
+    if (info.type === "step-begin") {
         process.stdout.write(`${info.title}... `);
     }
 
-    if (info.type === 'step-end') {
+    if (info.type === "step-end") {
         process.stdout.write(`${info.status}\n`);
     }
 });
 
-proc.on('finish', () => {
-    console.log('Installer was created successfully!');
+proc.on("finish", () => {
+    console.log("Installer was created successfully!");
 });
 
-proc.on('error', err => {
-    console.error('Installer could not be created', err);
+proc.on("error", err => {
+    console.error("Installer could not be created", err);
     process.exit(1);
 });

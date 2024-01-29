@@ -1,8 +1,3 @@
-// Type definitions for trtc-calling-js 0.6
-// Project: https://github.com/tencentyun/TRTCSDK#readme
-// Definitions by: Wang KaiLing <https://github.com/wkl007>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace TRTCCalling;
 
 export = TRTCCalling;
@@ -115,9 +110,9 @@ declare class TRTCCalling {
 
     /** 通话类型 */
     static CALL_TYPE: {
-        0: 'UNKNOWN';
-        1: 'AUDIO_CALL';
-        2: 'VIDEO_CALL';
+        0: "UNKNOWN";
+        1: "AUDIO_CALL";
+        2: "VIDEO_CALL";
         UNKNOWN: 0;
         AUDIO_CALL: 1;
         VIDEO_CALL: 2;
@@ -126,31 +121,31 @@ declare class TRTCCalling {
     /** 监听事件类型 */
     static EVENT: {
         /** 错误 */
-        ERROR: 'onError';
+        ERROR: "onError";
         /** 被邀用户拒绝通话 */
-        REJECT: 'onReject';
+        REJECT: "onReject";
         /** 被邀用户超时无应答 */
-        NO_RESP: 'onNoResp';
+        NO_RESP: "onNoResp";
         /** 被邀用户正在通话中，忙线 */
-        LINE_BUSY: 'onLineBusy';
+        LINE_BUSY: "onLineBusy";
         /** 收到了邀请通知 */
-        INVITED: 'onInvited';
+        INVITED: "onInvited";
         /** 本次通话被取消了 */
-        CALLING_CANCEL: 'onCallingCancel';
+        CALLING_CANCEL: "onCallingCancel";
         /** 本次通话超时未应答 */
-        CALLING_TIMEOUT: 'onCallingTimeout';
+        CALLING_TIMEOUT: "onCallingTimeout";
         /** 用户进房 */
-        USER_ENTER: 'onUserEnter';
+        USER_ENTER: "onUserEnter";
         /** 用户退出房间 */
-        USER_LEAVE: 'onUserLeave';
+        USER_LEAVE: "onUserLeave";
         /** 本次通话结束 */
-        CALL_END: 'onCallEnd';
+        CALL_END: "onCallEnd";
         /** 重复登录，被踢出房间 */
-        KICKED_OUT: 'onKickedOut';
+        KICKED_OUT: "onKickedOut";
         /** 远端用户开启/关闭了摄像头 */
-        USER_VIDEO_AVAILABLE: 'onUserVideoAvailable';
+        USER_VIDEO_AVAILABLE: "onUserVideoAvailable";
         /** 远端用户开启/关闭了麦克风 */
-        USER_AUDIO_AVAILABLE: 'onUserAudioAvailable';
+        USER_AUDIO_AVAILABLE: "onUserAudioAvailable";
     };
 
     /**

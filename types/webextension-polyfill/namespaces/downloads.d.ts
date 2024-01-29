@@ -1,11 +1,14 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.downloads
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Permissions: "downloads"
  */
-import { ExtensionTypes } from "./extensionTypes";
 import { Events } from "./events";
+import { ExtensionTypes } from "./extensionTypes";
 
 export namespace Downloads {
     type FilenameConflictAction = "uniquify" | "overwrite" | "prompt";

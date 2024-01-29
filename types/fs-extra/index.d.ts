@@ -1,563 +1,996 @@
-// Type definitions for fs-extra 9.0
-// Project: https://github.com/jprichardson/node-fs-extra
-// Definitions by: Alan Agius <https://github.com/alan-agius4>,
-//                 midknight41 <https://github.com/midknight41>,
-//                 Brendan Forster <https://github.com/shiftkey>,
-//                 Mees van Dijk <https://github.com/mees->,
-//                 Justin Rockwood <https://github.com/jrockwood>,
-//                 Sang Dang <https://github.com/sangdth>,
-//                 Florian Keller <https://github.com/ffflorian>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Tiger Oakes <https://github.com/NotWoods>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
-
 /// <reference types="node" />
 
-import * as fs from 'fs';
-import Stats = fs.Stats;
-import PathLike = fs.PathLike;
+import * as fs from "fs";
+import * as jsonfile from "jsonfile";
+import { StringifyOptions } from "jsonfile/utils";
 
-export * from 'fs';
+export * from "fs";
 
+/**
+ * Copy a file or directory. The directory can have contents.
+ *
+ * @param src Note that if `src` is a directory it will copy everything inside of this directory,
+ * not the entire directory itself (see [issue #537](https://github.com/jprichardson/node-fs-extra/issues/537)).
+ * @param dest Note that if `src` is a file, `dest` cannot be a directory
+ * (see [issue #323](https://github.com/jprichardson/node-fs-extra/issues/323)).
+ *
+ * @example
+ * import * as fs from 'fs-extra'
+ *
+ * // With a callback:
+ * fs.copy('/tmp/myfile', '/tmp/mynewfile', err => {
+ *   if (err) return console.error(err)
+ *   console.log('success!')
+ * }) // copies file
+ *
+ * fs.copy('/tmp/mydir', '/tmp/mynewdir', err => {
+ *   if (err) return console.error(err)
+ *   console.log('success!')
+ * }) // copies directory, even if it has subdirectories or files
+ *
+ * // With Promises:
+ * fs.copy('/tmp/myfile', '/tmp/mynewfile')
+ *   .then(() => {
+ *     console.log('success!')
+ *   })
+ *   .catch(err => {
+ *     console.error(err)
+ *   })
+ *
+ * // With async/await:
+ * async function asyncAwait () {
+ *   try {
+ *     await fs.copy('/tmp/myfile', '/tmp/mynewfile')
+ *     console.log('success!')
+ *   } catch (err) {
+ *     console.error(err)
+ *   }
+ * }
+ *
+ * asyncAwait()
+ *
+ * // Using filter function
+ * fs.copy(
+ *   '/tmp/mydir',
+ *   '/tmp/mynewdir',
+ *   {
+ *     filter(src, dest) {
+ *       // your logic here
+ *       // it will be copied if return true
+ *     }
+ *   },
+ *   err => {
+ *     if (err) return console.error(err)
+ *     console.log('success!')
+ *   }
+ * )
+ */
 export function copy(src: string, dest: string, options?: CopyOptions): Promise<void>;
-export function copy(src: string, dest: string, callback: (err: Error) => void): void;
-export function copy(src: string, dest: string, options: CopyOptions, callback: (err: Error) => void): void;
+export function copy(src: string, dest: string, callback: NoParamCallbackWithUndefined): void;
+export function copy(src: string, dest: string, options: CopyOptions, callback: NoParamCallbackWithUndefined): void;
+/**
+ * Copy a file or directory. The directory can have contents.
+ *
+ * @param src Note that if `src` is a directory it will copy everything inside of this directory,
+ * not the entire directory itself (see [issue #537](https://github.com/jprichardson/node-fs-extra/issues/537)).
+ * @param dest Note that if `src` is a file, `dest` cannot be a directory
+ * (see [issue #323](https://github.com/jprichardson/node-fs-extra/issues/323)).
+ *
+ * @example
+ * import * as fs from 'fs-extra'
+ *
+ * // copy file
+ * fs.copySync('/tmp/myfile', '/tmp/mynewfile')
+ *
+ * // copy directory, even if it has subdirectories or files
+ * fs.copySync('/tmp/mydir', '/tmp/mynewdir')
+ *
+ * // Using filter function
+ * fs.copySync('/tmp/mydir', '/tmp/mynewdir', {
+ *   filter(src, dest) {
+ *     // your logic here
+ *     // it will be copied if return true
+ *   }
+ * })
+ */
 export function copySync(src: string, dest: string, options?: CopyOptionsSync): void;
 
-export function copyFile(src: string, dest: string, flags?: number): Promise<void>;
-export function copyFile(src: string, dest: string, callback: (err: Error) => void): void;
-export function copyFile(src: string, dest: string, flags: number, callback: (err: Error) => void): void;
-
+/**
+ * Moves a file or directory, even across devices.
+ *
+ * @param dest Note: When `src` is a file, `dest` must be a file and when `src` is a directory, `dest` must be a directory.
+ *
+ * @example
+ * import * as fs from 'fs-extra'
+ *
+ * const src = '/tmp/file.txt'
+ * const dest = '/tmp/this/path/does/not/exist/file.txt'
+ *
+ * // With a callback:
+ * fs.move(src, dest, err => {
+ *   if (err) return console.error(err)
+ *   console.log('success!')
+ * })
+ *
+ * // With Promises:
+ * fs.move(src, dest)
+ *   .then(() => {
+ *     console.log('success!')
+ *   })
+ *   .catch(err => {
+ *     console.error(err)
+ *   })
+ *
+ * // With async/await:
+ * async function asyncAwait () {
+ *   try {
+ *     await fs.move(src, dest)
+ *     console.log('success!')
+ *   } catch (err) {
+ *     console.error(err)
+ *   }
+ * }
+ *
+ * asyncAwait()
+ *
+ * // Using `overwrite` option
+ * fs.move('/tmp/somedir', '/tmp/may/already/exist/somedir', { overwrite: true }, err => {
+ *   if (err) return console.error(err)
+ *   console.log('success!')
+ * })
+ */
 export function move(src: string, dest: string, options?: MoveOptions): Promise<void>;
-export function move(src: string, dest: string, callback: (err: Error) => void): void;
-export function move(src: string, dest: string, options: MoveOptions, callback: (err: Error) => void): void;
+export function move(src: string, dest: string, callback: NoParamCallbackWithUndefined): void;
+export function move(src: string, dest: string, options: MoveOptions, callback: NoParamCallbackWithUndefined): void;
+/**
+ * Moves a file or directory, even across devices.
+ *
+ * @param dest Note: When `src` is a file, `dest` must be a file and when `src` is a directory, `dest` must be a directory.
+ *
+ * @example
+ * import * as fs from 'fs-extra'
+ *
+ * fs.moveSync('/tmp/somefile', '/tmp/does/not/exist/yet/somefile')
+ *
+ * // Using `overwrite` option
+ * fs.moveSync('/tmp/somedir', '/tmp/may/already/exist/somedir', { overwrite: true })
+ */
 export function moveSync(src: string, dest: string, options?: MoveOptions): void;
 
-export function createFile(file: string): Promise<void>;
-export function createFile(file: string, callback: (err: Error) => void): void;
-export function createFileSync(file: string): void;
+/**
+ * Ensures that the file exists. If the file that is requested to be created is in
+ * directories that do not exist, these directories are created. If the file already
+ * exists, it is **NOT MODIFIED**.
+ *
+ * @example
+ * import * as fs from 'fs-extra'
+ *
+ * const file = '/tmp/this/path/does/not/exist/file.txt'
+ *
+ * // With a callback:
+ * fs.ensureFile(file, err => {
+ *   console.log(err) // => null
+ *   // file has now been created, including the directory it is to be placed in
+ * })
+ *
+ * // With Promises:
+ * fs.ensureFile(file)
+ *  .then(() => {
+ *    console.log('success!')
+ *  })
+ *  .catch(err => {
+ *    console.error(err)
+ *  })
+ *
+ * // With async/await:
+ * async function asyncAwait () {
+ *   try {
+ *     await fs.ensureFile(file)
+ *     console.log('success!')
+ *   } catch (err) {
+ *     console.error(err)
+ *   }
+ * }
+ *
+ * asyncAwait()
+ */
+export function ensureFile(file: string): Promise<void>;
+export function ensureFile(file: string, callback: NoParamCallbackWithUndefined): void;
+/**
+ * @see ensureFile
+ */
+export const createFile: typeof ensureFile;
+/**
+ * Ensures that the file exists. If the file that is requested to be created is in
+ * directories that do not exist, these directories are created. If the file already
+ * exists, it is **NOT MODIFIED**.
+ *
+ * @example
+ * import * as fs from 'fs-extra'
+ *
+ * const file = '/tmp/this/path/does/not/exist/file.txt'
+ * fs.ensureFileSync(file)
+ * // file has now been created, including the directory it is to be placed in
+ */
+export function ensureFileSync(file: string): void;
+/**
+ * @see ensureFileSync
+ */
+export const createFileSync: typeof ensureFileSync;
 
-export function createSymlink(src: string, dest: string, type: SymlinkType): Promise<void>;
-export function createSymlink(src: string, dest: string, type: SymlinkType, callback?: (err: Error) => void): void;
-export function createSymlinkSync(src: string, dest: string, type: SymlinkType): void;
-
-export function ensureDir(path: string, options?: EnsureOptions | number): Promise<void>;
-export function ensureDir(path: string, callback?: (err: Error) => void): void;
-export function ensureDir(path: string, options?: EnsureOptions | number, callback?: (err: Error) => void): void;
-export function ensureDirSync(path: string, options?: EnsureOptions | number): void;
-
-export function mkdirs(dir: string): Promise<void>;
-export function mkdirs(dir: string, callback: (err: Error) => void): void;
-export function mkdirp(dir: string): Promise<void>;
-export function mkdirp(dir: string, callback: (err: Error) => void): void;
-export function mkdirsSync(dir: string): void;
-export function mkdirpSync(dir: string): void;
-
-export function outputFile(
-    file: string,
-    data: any,
-    options?: WriteFileOptions | BufferEncoding | string,
-): Promise<void>;
-export function outputFile(file: string, data: any, callback: (err: Error) => void): void;
-export function outputFile(
-    file: string,
-    data: any,
-    options: WriteFileOptions | string,
-    callback: (err: Error) => void,
-): void;
-export function outputFileSync(file: string, data: any, options?: WriteFileOptions | BufferEncoding | string): void;
-
-export function readJson(file: string, options?: ReadOptions | BufferEncoding | string): Promise<any>;
-export function readJson(file: string, callback: (err: Error, jsonObject: any) => void): void;
-export function readJson(
-    file: string,
-    options: ReadOptions | BufferEncoding | string,
-    callback: (err: Error, jsonObject: any) => void,
-): void;
-export function readJSON(file: string, options?: ReadOptions | BufferEncoding | string): Promise<any>;
-export function readJSON(file: string, callback: (err: Error, jsonObject: any) => void): void;
-export function readJSON(
-    file: string,
-    options: ReadOptions | BufferEncoding | string,
-    callback: (err: Error, jsonObject: any) => void,
-): void;
-
-export function readJsonSync(file: string, options?: ReadOptions | BufferEncoding | string): any;
-export function readJSONSync(file: string, options?: ReadOptions | BufferEncoding | string): any;
-
-export function remove(dir: string, callback: (err: Error) => void): void;
-export function remove(dir: string, callback?: (err: Error) => void): Promise<void>;
-export function removeSync(dir: string): void;
-
-export function outputJSON(file: string, data: any, options?: WriteOptions | BufferEncoding | string): Promise<void>;
-export function outputJSON(
-    file: string,
-    data: any,
-    options: WriteOptions | BufferEncoding | string,
-    callback: (err: Error) => void,
-): void;
-export function outputJSON(file: string, data: any, callback: (err: Error) => void): void;
-export function outputJson(file: string, data: any, options?: WriteOptions | BufferEncoding | string): Promise<void>;
-export function outputJson(
-    file: string,
-    data: any,
-    options: WriteOptions | BufferEncoding | string,
-    callback: (err: Error) => void,
-): void;
-export function outputJson(file: string, data: any, callback: (err: Error) => void): void;
-export function outputJsonSync(file: string, data: any, options?: WriteOptions | BufferEncoding | string): void;
-export function outputJSONSync(file: string, data: any, options?: WriteOptions | BufferEncoding | string): void;
-
-export function writeJSON(file: string, object: any, options?: WriteOptions | BufferEncoding | string): Promise<void>;
-export function writeJSON(file: string, object: any, callback: (err: Error) => void): void;
-export function writeJSON(
-    file: string,
-    object: any,
-    options: WriteOptions | BufferEncoding | string,
-    callback: (err: Error) => void,
-): void;
-export function writeJson(file: string, object: any, options?: WriteOptions | BufferEncoding | string): Promise<void>;
-export function writeJson(file: string, object: any, callback: (err: Error) => void): void;
-export function writeJson(
-    file: string,
-    object: any,
-    options: WriteOptions | BufferEncoding | string,
-    callback: (err: Error) => void,
-): void;
-
-export function writeJsonSync(file: string, object: any, options?: WriteOptions | BufferEncoding | string): void;
-export function writeJSONSync(file: string, object: any, options?: WriteOptions | BufferEncoding | string): void;
-
-export function ensureFile(path: string): Promise<void>;
-export function ensureFile(path: string, callback: (err: Error) => void): void;
-export function ensureFileSync(path: string): void;
-
+/**
+ * Ensures that the link exists. If the directory structure does not exist, it is created.
+ *
+ * @example
+ * import * as fs from 'fs-extra'
+ *
+ * const srcPath = '/tmp/file.txt'
+ * const destPath = '/tmp/this/path/does/not/exist/file.txt'
+ *
+ * // With a callback:
+ * fs.ensureLink(srcPath, destPath, err => {
+ *   console.log(err) // => null
+ *   // link has now been created, including the directory it is to be placed in
+ * })
+ *
+ * // With Promises:
+ * fs.ensureLink(srcPath, destPath)
+ *   .then(() => {
+ *     console.log('success!')
+ *   })
+ *   .catch(err => {
+ *     console.error(err)
+ *   })
+ *
+ * // With async/await:
+ * async function asyncAwait () {
+ *   try {
+ *     await fs.ensureLink(srcPath, destPath)
+ *     console.log('success!')
+ *   } catch (err) {
+ *     console.error(err)
+ *   }
+ * }
+ *
+ * asyncAwait()
+ */
 export function ensureLink(src: string, dest: string): Promise<void>;
-export function ensureLink(src: string, dest: string, callback: (err: Error) => void): void;
-// alias for ensureLink
+export function ensureLink(src: string, dest: string, callback: fs.NoParamCallback): void;
+/**
+ * @see ensureLink
+ */
 export const createLink: typeof ensureLink;
+/**
+ * Ensures that the link exists. If the directory structure does not exist, it is created.
+ *
+ * @example
+ * import * as fs from 'fs-extra'
+ *
+ * const srcPath = '/tmp/file.txt'
+ * const destPath = '/tmp/this/path/does/not/exist/file.txt'
+ * fs.ensureLinkSync(srcPath, destPath)
+ * // link has now been created, including the directory it is to be placed in
+ */
 export function ensureLinkSync(src: string, dest: string): void;
-// aliased as
+/**
+ * @see ensureLinkSync
+ */
 export const createLinkSync: typeof ensureLinkSync;
 
+/**
+ * Ensures that the symlink exists. If the directory structure does not exist, it is created.
+ *
+ * @param type It is only available on Windows and ignored on other platforms.
+ *
+ * @example
+ * import * as fs from 'fs-extra'
+ *
+ * const srcPath = '/tmp/file.txt'
+ * const destPath = '/tmp/this/path/does/not/exist/file.txt'
+ *
+ * // With a callback:
+ * fs.ensureSymlink(srcPath, destPath, err => {
+ *   console.log(err) // => null
+ *   // symlink has now been created, including the directory it is to be placed in
+ * })
+ *
+ * // With Promises:
+ * fs.ensureSymlink(srcPath, destPath)
+ *   .then(() => {
+ *     console.log('success!')
+ *   })
+ *   .catch(err => {
+ *     console.error(err)
+ *   })
+ *
+ * // With async/await:
+ * async function asyncAwait () {
+ *   try {
+ *     await fs.ensureSymlink(srcPath, destPath)
+ *     console.log('success!')
+ *   } catch (err) {
+ *     console.error(err)
+ *   }
+ * }
+ *
+ * asyncAwait()
+ */
 export function ensureSymlink(src: string, dest: string, type?: SymlinkType): Promise<void>;
-export function ensureSymlink(src: string, dest: string, type: SymlinkType, callback: (err: Error) => void): void;
-export function ensureSymlink(src: string, dest: string, callback: (err: Error) => void): void;
+export function ensureSymlink(src: string, dest: string, callback: fs.NoParamCallback): void;
+export function ensureSymlink(src: string, dest: string, type: SymlinkType, callback: fs.NoParamCallback): void;
+/**
+ * @see ensureSymlink
+ */
+export const createSymlink: typeof ensureSymlink;
+/**
+ * Ensures that the symlink exists. If the directory structure does not exist, it is created.
+ *
+ * @param type It is only available on Windows and ignored on other platforms.
+ *
+ * @example
+ * import * as fs from 'fs-extra'
+ *
+ * const srcPath = '/tmp/file.txt'
+ * const destPath = '/tmp/this/path/does/not/exist/file.txt'
+ * fs.ensureSymlinkSync(srcPath, destPath)
+ * // symlink has now been created, including the directory it is to be placed in
+ */
 export function ensureSymlinkSync(src: string, dest: string, type?: SymlinkType): void;
+/**
+ * @see ensureSymlinkSync
+ */
+export const createSymlinkSync: typeof ensureSymlinkSync;
 
+/**
+ * Ensures that the directory exists. If the directory structure does not exist, it is created.
+ *
+ * @example
+ * import * as fs from 'fs-extra'
+ *
+ * const dir = '/tmp/this/path/does/not/exist'
+ * const desiredMode = 0o2775
+ * const options = {
+ *   mode: 0o2775
+ * }
+ *
+ * // With a callback:
+ * fs.ensureDir(dir, err => {
+ *   console.log(err) // => null
+ *   // dir has now been created, including the directory it is to be placed in
+ * })
+ *
+ * // With a callback and a mode integer
+ * fs.ensureDir(dir, desiredMode, err => {
+ *   console.log(err) // => null
+ *   // dir has now been created with mode 0o2775, including the directory it is to be placed in
+ * })
+ *
+ * // With Promises:
+ * fs.ensureDir(dir)
+ *   .then(() => {
+ *     console.log('success!')
+ *   })
+ *   .catch(err => {
+ *     console.error(err)
+ *   })
+ *
+ * // With Promises and a mode integer:
+ * fs.ensureDir(dir, desiredMode)
+ *   .then(() => {
+ *     console.log('success!')
+ *   })
+ *   .catch(err => {
+ *     console.error(err)
+ *   })
+ *
+ * // With async/await:
+ * async function asyncAwait () {
+ *   try {
+ *     await fs.ensureDir(dir)
+ *     console.log('success!')
+ *   } catch (err) {
+ *     console.error(err)
+ *   }
+ * }
+ * asyncAwait()
+ *
+ * // With async/await and an options object, containing mode:
+ * async function asyncAwaitMode () {
+ *   try {
+ *     await fs.ensureDir(dir, options)
+ *     console.log('success!')
+ *   } catch (err) {
+ *     console.error(err)
+ *   }
+ * }
+ * asyncAwaitMode()
+ */
+export function ensureDir(path: string, options?: EnsureDirOptions | number): Promise<void>;
+export function ensureDir(path: string, callback: fs.NoParamCallback): void;
+export function ensureDir(path: string, options: EnsureDirOptions | number, callback: fs.NoParamCallback): void;
+/**
+ * Ensures that the directory exists. If the directory structure does not exist, it is created.
+ * If provided, options may specify the desired mode for the directory.
+ *
+ * @example
+ * import * as fs from 'fs-extra'
+ *
+ * const dir = '/tmp/this/path/does/not/exist'
+ *
+ * const desiredMode = 0o2775
+ * const options = {
+ *   mode: 0o2775
+ * }
+ *
+ * fs.ensureDirSync(dir)
+ * // dir has now been created, including the directory it is to be placed in
+ *
+ * fs.ensureDirSync(dir, desiredMode)
+ * // dir has now been created, including the directory it is to be placed in with permission 0o2775
+ *
+ * fs.ensureDirSync(dir, options)
+ * // dir has now been created, including the directory it is to be placed in with permission 0o2775
+ */
+export function ensureDirSync(path: string, options?: EnsureDirOptions | number): void;
+
+/**
+ * @see ensureDir
+ */
+export const mkdirs: typeof ensureDir;
+/**
+ * @see ensureDirSync
+ */
+export const mkdirsSync: typeof ensureDirSync;
+
+/**
+ * @see ensureDir
+ */
+export const mkdirp: typeof ensureDir;
+/**
+ * @see ensureDirSync
+ */
+export const mkdirpSync: typeof ensureDirSync;
+
+/**
+ * Almost the same as `writeFile` (i.e. it overwrites), except that if the parent directory
+ * does not exist, it's created.
+ *
+ * @example
+ * import * as fs from 'fs-extra'
+ *
+ * const file = '/tmp/this/path/does/not/exist/file.txt'
+ *
+ * // With a callback:
+ * fs.outputFile(file, 'hello!', err => {
+ *   console.log(err) // => null
+ *
+ *   fs.readFile(file, 'utf8', (err, data) => {
+ *     if (err) return console.error(err)
+ *     console.log(data) // => hello!
+ *   })
+ * })
+ *
+ * // With Promises:
+ * fs.outputFile(file, 'hello!')
+ *   .then(() => fs.readFile(file, 'utf8'))
+ *   .then(data => {
+ *     console.log(data) // => hello!
+ *   })
+ *   .catch(err => {
+ *     console.error(err)
+ *   })
+ *
+ * // With async/await:
+ * async function asyncAwait () {
+ *   try {
+ *     await fs.outputFile(file, 'hello!')
+ *
+ *     const data = await fs.readFile(file, 'utf8')
+ *
+ *     console.log(data) // => hello!
+ *   } catch (err) {
+ *     console.error(err)
+ *   }
+ * }
+ *
+ * asyncAwait()
+ */
+export function outputFile(
+    file: string,
+    data: string | NodeJS.ArrayBufferView,
+    options?: fs.WriteFileOptions,
+): Promise<void>;
+export function outputFile(file: string, data: string | NodeJS.ArrayBufferView, callback: fs.NoParamCallback): void;
+export function outputFile(
+    file: string,
+    data: string | NodeJS.ArrayBufferView,
+    options: fs.WriteFileOptions,
+    callback: fs.NoParamCallback,
+): void;
+/**
+ * Almost the same as `writeFileSync` (i.e. it overwrites), except that if the parent directory
+ * does not exist, it's created.
+ *
+ * @example
+ * import * as fs from 'fs-extra'
+ *
+ * const file = '/tmp/this/path/does/not/exist/file.txt'
+ * fs.outputFileSync(file, 'hello!')
+ *
+ * const data = fs.readFileSync(file, 'utf8')
+ * console.log(data) // => hello!
+ */
+export function outputFileSync(
+    file: string,
+    data: string | NodeJS.ArrayBufferView,
+    options?: fs.WriteFileOptions,
+): void;
+
+/**
+ * Reads a JSON file and then parses it into an object.
+ *
+ * @example
+ * import * as fs from 'fs-extra'
+ *
+ * // With a callback:
+ * fs.readJson('./package.json', (err, packageObj) => {
+ *   if (err) console.error(err)
+ *   console.log(packageObj.version) // => 0.1.3
+ * })
+ *
+ * // With Promises:
+ * fs.readJson('./package.json')
+ *   .then(packageObj => {
+ *     console.log(packageObj.version) // => 0.1.3
+ *   })
+ *   .catch(err => {
+ *     console.error(err)
+ *   })
+ *
+ * // With async/await:
+ * async function asyncAwait () {
+ *   try {
+ *     const packageObj = await fs.readJson('./package.json')
+ *     console.log(packageObj.version) // => 0.1.3
+ *   } catch (err) {
+ *     console.error(err)
+ *   }
+ * }
+ *
+ * asyncAwait()
+ *
+ * // `readJsonSync()` can take a `throws` option set to `false` and it won't throw if the JSON is invalid. Example:
+ * const file = '/tmp/some-invalid.json'
+ * const data = '{not valid JSON'
+ * fs.writeFileSync(file, data)
+ *
+ * // With a callback:
+ * fs.readJson(file, { throws: false }, (err, obj) => {
+ *   if (err) console.error(err)
+ *   console.log(obj) // => null
+ * })
+ *
+ * // With Promises:
+ * fs.readJson(file, { throws: false })
+ *   .then(obj => {
+ *     console.log(obj) // => null
+ *   })
+ *   .catch(err => {
+ *     console.error(err) // Not called
+ *   })
+ *
+ * // With async/await:
+ * async function asyncAwaitThrows () {
+ *   const obj = await fs.readJson(file, { throws: false })
+ *   console.log(obj) // => null
+ * }
+ *
+ * asyncAwaitThrows()
+ */
+export const readJson: typeof jsonfile.readFile;
+/**
+ * @see readJson
+ */
+export const readJSON: typeof jsonfile.readFile;
+/**
+ * Reads a JSON file and then parses it into an object.
+ *
+ * @example
+ * import * as fs from 'fs-extra'
+ *
+ * const packageObj = fs.readJsonSync('./package.json')
+ * console.log(packageObj.version) // => 2.0.0
+ *
+ * // `readJsonSync()` can take a `throws` option set to `false` and it won't throw if the JSON is invalid. Example:
+ * const file = '/tmp/some-invalid.json'
+ * const data = '{not valid JSON'
+ * fs.writeFileSync(file, data)
+ *
+ * const obj = fs.readJsonSync(file, { throws: false })
+ * console.log(obj) // => null
+ */
+export const readJsonSync: typeof jsonfile.readFileSync;
+/**
+ * @see readJsonSync
+ */
+export const readJSONSync: typeof jsonfile.readFileSync;
+
+/**
+ * Writes an object to a JSON file.
+ *
+ * @example
+ * import * as fs from 'fs-extra'
+ *
+ * // With a callback:
+ * fs.writeJson('./package.json', {name: 'fs-extra'}, err => {
+ *   if (err) return console.error(err)
+ *   console.log('success!')
+ * })
+ *
+ * // With Promises:
+ * fs.writeJson('./package.json', {name: 'fs-extra'})
+ *   .then(() => {
+ *     console.log('success!')
+ *   })
+ *   .catch(err => {
+ *     console.error(err)
+ *   })
+ *
+ * // With async/await:
+ * async function asyncAwait () {
+ *   try {
+ *     await fs.writeJson('./package.json', {name: 'fs-extra'})
+ *     console.log('success!')
+ *   } catch (err) {
+ *     console.error(err)
+ *   }
+ * }
+ *
+ * asyncAwait()
+ */
+export const writeJson: typeof jsonfile.writeFile;
+/**
+ * @see writeJson
+ */
+export const writeJSON: typeof jsonfile.writeFile;
+/**
+ * Writes an object to a JSON file.
+ *
+ * @example
+ * import * as fs from 'fs-extra'
+ *
+ * fs.writeJsonSync('./package.json', {name: 'fs-extra'})
+ */
+export const writeJsonSync: typeof jsonfile.writeFileSync;
+/**
+ * @see writeJsonSync
+ */
+export const writeJSONSync: typeof jsonfile.writeFileSync;
+
+/**
+ * Almost the same as `writeJson`, except that if the directory does not exist, it's created.
+ *
+ * @example
+ * import * as fs from 'fs-extra'
+ *
+ * const file = '/tmp/this/path/does/not/exist/file.json'
+ *
+ * // With a callback:
+ * fs.outputJson(file, {name: 'JP'}, err => {
+ *   console.log(err) // => null
+ *
+ *   fs.readJson(file, (err, data) => {
+ *     if (err) return console.error(err)
+ *     console.log(data.name) // => JP
+ *   })
+ * })
+ *
+ * // With Promises:
+ * fs.outputJson(file, {name: 'JP'})
+ *   .then(() => fs.readJson(file))
+ *   .then(data => {
+ *     console.log(data.name) // => JP
+ *   })
+ *   .catch(err => {
+ *     console.error(err)
+ *   })
+ *
+ * // With async/await:
+ * async function asyncAwait () {
+ *   try {
+ *     await fs.outputJson(file, {name: 'JP'})
+ *
+ *     const data = await fs.readJson(file)
+ *
+ *     console.log(data.name) // => JP
+ *   } catch (err) {
+ *     console.error(err)
+ *   }
+ * }
+ *
+ * asyncAwait()
+ */
+export function outputJson(file: string, data: any, options?: JsonOutputOptions): Promise<void>;
+export function outputJson(file: string, data: any, options: JsonOutputOptions, callback: fs.NoParamCallback): void;
+export function outputJson(file: string, data: any, callback: fs.NoParamCallback): void;
+/**
+ * @see outputJson
+ */
+export const outputJSON: typeof outputJson;
+/**
+ * Almost the same as `writeJsonSync`, except that if the directory does not exist, it's created.
+ *
+ * @example
+ * import * as fs from 'fs-extra'
+ *
+ * const file = '/tmp/this/path/does/not/exist/file.json'
+ * fs.outputJsonSync(file, {name: 'JP'})
+ *
+ * const data = fs.readJsonSync(file)
+ * console.log(data.name) // => JP
+ */
+export function outputJsonSync(file: string, data: any, options?: JsonOutputOptions): void;
+/**
+ * @see outputJsonSync
+ */
+export const outputJSONSync: typeof outputJsonSync;
+
+/**
+ * Removes a file or directory. The directory can have contents. If the path does not exist, silently does nothing.
+ *
+ * @example
+ * import * as fs from 'fs-extra'
+ *
+ * // remove file
+ * // With a callback:
+ * fs.remove('/tmp/myfile', err => {
+ *   if (err) return console.error(err)
+ *   console.log('success!')
+ * })
+ *
+ * fs.remove('/home/jprichardson', err => {
+ *   if (err) return console.error(err)
+ *   console.log('success!') // I just deleted my entire HOME directory.
+ * })
+ *
+ * // With Promises:
+ * fs.remove('/tmp/myfile')
+ *   .then(() => {
+ *     console.log('success!')
+ *   })
+ *   .catch(err => {
+ *     console.error(err)
+ *   })
+ *
+ * // With async/await:
+ * async function asyncAwait () {
+ *   try {
+ *     await fs.remove('/tmp/myfile')
+ *     console.log('success!')
+ *   } catch (err) {
+ *     console.error(err)
+ *   }
+ * }
+ *
+ * asyncAwait()
+ */
+export function remove(dir: string): Promise<void>;
+export function remove(dir: string, callback: fs.NoParamCallback): void;
+/**
+ * Removes a file or directory. The directory can have contents. If the path does not exist, silently does nothing.
+ *
+ * @example
+ * import * as fs from 'fs-extra'
+ *
+ * // remove file
+ * fs.removeSync('/tmp/myfile')
+ *
+ * fs.removeSync('/home/jprichardson') // I just deleted my entire HOME directory.
+ */
+export function removeSync(dir: string): void;
+
+/**
+ * Ensures that a directory is empty. Deletes directory contents if the directory is not empty.
+ * If the directory does not exist, it is created. The directory itself is not deleted.
+ *
+ * @example
+ * import * as fs from 'fs-extra'
+ *
+ * // assume this directory has a lot of files and folders
+ * // With a callback:
+ * fs.emptyDir('/tmp/some/dir', err => {
+ *   if (err) return console.error(err)
+ *   console.log('success!')
+ * })
+ *
+ * // With Promises:
+ * fs.emptyDir('/tmp/some/dir')
+ *   .then(() => {
+ *     console.log('success!')
+ *   })
+ *   .catch(err => {
+ *     console.error(err)
+ *   })
+ *
+ * // With async/await:
+ * async function asyncAwait () {
+ *   try {
+ *     await fs.emptyDir('/tmp/some/dir')
+ *     console.log('success!')
+ *   } catch (err) {
+ *     console.error(err)
+ *   }
+ * }
+ *
+ * asyncAwait()
+ */
 export function emptyDir(path: string): Promise<void>;
-export function emptyDir(path: string, callback: (err: Error) => void): void;
+export function emptyDir(path: string, callback: fs.NoParamCallback): void;
+/**
+ * @see emptyDir
+ */
 export const emptydir: typeof emptyDir;
-
+/**
+ * Ensures that a directory is empty. Deletes directory contents if the directory is not empty.
+ * If the directory does not exist, it is created. The directory itself is not deleted.
+ *
+ * @example
+ * import * as fs from 'fs-extra'
+ *
+ * // assume this directory has a lot of files and folders
+ * fs.emptyDirSync('/tmp/some/dir')
+ */
 export function emptyDirSync(path: string): void;
+/**
+ * @see emptyDirSync
+ */
 export const emptydirSync: typeof emptyDirSync;
 
+/**
+ * Test whether or not the given path exists by checking with the file system. Like
+ * [`fs.exists`](https://nodejs.org/api/fs.html#fs_fs_exists_path_callback), but with a normal
+ * callback signature (err, exists). Uses `fs.access` under the hood.
+ *
+ * @example
+ * import * as fs from 'fs-extra'
+ *
+ * const file = '/tmp/this/path/does/not/exist/file.txt'
+ *
+ * // With a callback:
+ * fs.pathExists(file, (err, exists) => {
+ *   console.log(err) // => null
+ *   console.log(exists) // => false
+ * })
+ *
+ * // Promise usage:
+ * fs.pathExists(file)
+ *   .then(exists => console.log(exists)) // => false
+ *
+ * // With async/await:
+ * async function asyncAwait () {
+ *   const exists = await fs.pathExists(file)
+ *
+ *   console.log(exists) // => false
+ * }
+ *
+ * asyncAwait()
+ */
 export function pathExists(path: string): Promise<boolean>;
-export function pathExists(path: string, callback: (err: Error, exists: boolean) => void): void;
+export function pathExists(path: string, callback: (err: NodeJS.ErrnoException | null, exists: boolean) => void): void;
+/**
+ * An alias for [`fs.existsSync`](https://nodejs.org/api/fs.html#fs_fs_existssync_path), created for
+ * consistency with `pathExists`.
+ */
 export function pathExistsSync(path: string): boolean;
 
-// fs async methods
-// copied from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/node/v6/index.d.ts
+export const access: typeof fs.access.__promisify__ & typeof fs.access;
+export const appendFile: typeof fs.appendFile.__promisify__ & typeof fs.appendFile;
+export const chmod: typeof fs.chmod.__promisify__ & typeof fs.chmod;
+export const chown: typeof fs.chown.__promisify__ & typeof fs.chown;
+export const close: typeof fs.close.__promisify__ & typeof fs.close;
+export const copyFile: typeof fs.copyFile.__promisify__ & typeof fs.copyFile;
+export const exists: typeof fs.exists.__promisify__ & typeof fs.exists;
+export const fchmod: typeof fs.fchmod.__promisify__ & typeof fs.fchmod;
+export const fchown: typeof fs.fchown.__promisify__ & typeof fs.fchown;
+export const fdatasync: typeof fs.fdatasync.__promisify__ & typeof fs.fdatasync;
+export const fstat: typeof fs.fstat.__promisify__ & typeof fs.fstat;
+export const fsync: typeof fs.fsync.__promisify__ & typeof fs.fsync;
+export const ftruncate: typeof fs.ftruncate.__promisify__ & typeof fs.ftruncate;
+export const futimes: typeof fs.futimes.__promisify__ & typeof fs.futimes;
+export const lchmod: typeof fs.lchmod.__promisify__ & typeof fs.lchmod;
+export const lchown: typeof fs.lchown.__promisify__ & typeof fs.lchown;
+export const link: typeof fs.link.__promisify__ & typeof fs.link;
+export const lstat: typeof fs.lstat.__promisify__ & typeof fs.lstat;
+export const mkdir: typeof fs.mkdir.__promisify__ & typeof fs.mkdir;
+export const mkdtemp: typeof fs.mkdtemp.__promisify__ & typeof fs.mkdtemp;
+export const open: typeof fs.open.__promisify__ & typeof fs.open;
+export const opendir: typeof fs.opendir.__promisify__ & typeof fs.opendir;
+export const read: typeof fs.read.__promisify__ & typeof fs.read;
+export const readv: typeof fs.readv.__promisify__ & typeof fs.readv;
+export const readdir: typeof fs.readdir.__promisify__ & typeof fs.readdir;
+export const readFile: typeof fs.readFile.__promisify__ & typeof fs.readFile;
+export const readlink: typeof fs.readlink.__promisify__ & typeof fs.readlink;
+export const realpath:
+    & typeof fs.realpath.__promisify__
+    & typeof fs.realpath
+    & {
+        native(path: fs.PathLike, options?: fs.EncodingOption): Promise<string>;
+        native(path: fs.PathLike, options: fs.BufferEncodingOption): Promise<Buffer>;
+    };
+export const rename: typeof fs.rename.__promisify__ & typeof fs.rename;
+export const rm: typeof fs.rm.__promisify__ & typeof fs.rm;
+export const rmdir: typeof fs.rmdir.__promisify__ & typeof fs.rmdir;
+export const stat: typeof fs.stat.__promisify__ & typeof fs.stat;
+export const symlink: typeof fs.symlink.__promisify__ & typeof fs.symlink;
+export const truncate: typeof fs.truncate.__promisify__ & typeof fs.truncate;
+export const unlink: typeof fs.unlink.__promisify__ & typeof fs.unlink;
+export const utimes: typeof fs.utimes.__promisify__ & typeof fs.utimes;
+export const write: typeof fs.write.__promisify__ & typeof fs.write;
+export const writev: typeof fs.writev.__promisify__ & typeof fs.writev;
+export const writeFile: typeof fs.writeFile.__promisify__ & typeof fs.writeFile;
 
-export function access(path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
-export function access(path: PathLike, mode: number, callback: (err: NodeJS.ErrnoException) => void): void;
-export function access(path: PathLike, mode?: number): Promise<void>;
+export type NoParamCallbackWithUndefined = (err: NodeJS.ErrnoException | null | undefined) => void;
 
-export function appendFile(
-    file: PathLike | number,
-    data: any,
-    options: {
-        encoding?: BufferEncoding | string | undefined;
-        mode?: number | string | undefined;
-        flag?: string | undefined;
-    },
-    callback: (err: NodeJS.ErrnoException) => void,
-): void;
-export function appendFile(file: PathLike | number, data: any, callback: (err: NodeJS.ErrnoException) => void): void;
-export function appendFile(
-    file: PathLike | number,
-    data: any,
-    options?:
-        | {
-              encoding?: BufferEncoding | string | undefined;
-              mode?: number | string | undefined;
-              flag?: string | undefined;
-          }
-        | BufferEncoding
-        | string,
-): Promise<void>;
-
-export function chmod(path: PathLike, mode: Mode, callback: (err: NodeJS.ErrnoException) => void): void;
-export function chmod(path: PathLike, mode: Mode): Promise<void>;
-
-export function chown(path: PathLike, uid: number, gid: number): Promise<void>;
-export function chown(path: PathLike, uid: number, gid: number, callback: (err: NodeJS.ErrnoException) => void): void;
-
-export function close(fd: number, callback: (err: NodeJS.ErrnoException) => void): void;
-export function close(fd: number): Promise<void>;
-
-export function fchmod(fd: number, mode: Mode, callback: (err: NodeJS.ErrnoException) => void): void;
-export function fchmod(fd: number, mode: Mode): Promise<void>;
-
-export function fchown(fd: number, uid: number, gid: number, callback: (err: NodeJS.ErrnoException) => void): void;
-export function fchown(fd: number, uid: number, gid: number): Promise<void>;
-
-export function fdatasync(fd: number, callback: () => void): void;
-export function fdatasync(fd: number): Promise<void>;
-
-export function fstat(fd: number, callback: (err: NodeJS.ErrnoException, stats: Stats) => any): void;
-export function fstat(fd: number): Promise<Stats>;
-
-export function fsync(fd: number, callback: (err: NodeJS.ErrnoException) => void): void;
-export function fsync(fd: number): Promise<void>;
-
-export function ftruncate(fd: number, callback: (err: NodeJS.ErrnoException) => void): void;
-export function ftruncate(fd: number, len: number, callback: (err: NodeJS.ErrnoException) => void): void;
-export function ftruncate(fd: number, len?: number): Promise<void>;
-
-export function futimes(fd: number, atime: number, mtime: number, callback: (err: NodeJS.ErrnoException) => void): void;
-export function futimes(fd: number, atime: Date, mtime: Date, callback: (err: NodeJS.ErrnoException) => void): void;
-export function futimes(fd: number, atime: number, mtime: number): Promise<void>;
-export function futimes(fd: number, atime: Date, mtime: Date): Promise<void>;
-
-export function lchown(path: PathLike, uid: number, gid: number, callback: (err: NodeJS.ErrnoException) => void): void;
-export function lchown(path: PathLike, uid: number, gid: number): Promise<void>;
-
-export function link(existingPath: PathLike, newPath: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
-export function link(existingPath: PathLike, newPath: PathLike): Promise<void>;
-
-export function lstat(path: PathLike, callback: (err: NodeJS.ErrnoException, stats: Stats) => any): void;
-export function lstat(path: PathLike): Promise<Stats>;
-
-/**
- * Asynchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
- *
- * @param callback No arguments other than a possible exception are given to the completion callback.
- */
-export function mkdir(path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
-/**
- * Asynchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
- *
- * @param callback No arguments other than a possible exception are given to the completion callback.
- */
-export function mkdir(
-    path: PathLike,
-    options: Mode | fs.MakeDirectoryOptions | null,
-    callback: (err: NodeJS.ErrnoException) => void,
-): void;
-export function mkdir(path: PathLike, options?: Mode | fs.MakeDirectoryOptions | null): Promise<void>;
-export function mkdirSync(path: PathLike, options?: Mode | fs.MakeDirectoryOptions | null): void;
-
-export function open(
-    path: PathLike,
-    flags: string | number,
-    callback: (err: NodeJS.ErrnoException, fd: number) => void,
-): void;
-export function open(
-    path: PathLike,
-    flags: string | number,
-    mode: Mode,
-    callback: (err: NodeJS.ErrnoException, fd: number) => void,
-): void;
-export function open(path: PathLike, flags: string | number, mode?: Mode | null): Promise<number>;
-
-export function opendir(path: string, cb: (err: NodeJS.ErrnoException | null, dir: fs.Dir) => void): void;
-export function opendir(
-    path: string,
-    options: fs.OpenDirOptions,
-    cb: (err: NodeJS.ErrnoException | null, dir: fs.Dir) => void,
-): void;
-export function opendir(path: string, options?: fs.OpenDirOptions): Promise<fs.Dir>;
-
-export function read<TBuffer extends ArrayBufferView>(
-    fd: number,
-    buffer: TBuffer,
-    offset: number,
-    length: number,
-    position: number | null,
-    callback: (err: NodeJS.ErrnoException, bytesRead: number, buffer: TBuffer) => void,
-): void;
-export function read<TBuffer extends ArrayBufferView>(
-    fd: number,
-    buffer: TBuffer,
-    offset: number,
-    length: number,
-    position: number | null,
-): Promise<{ bytesRead: number; buffer: TBuffer }>;
-
-export function readFile(file: PathLike | number, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
-export function readFile(
-    file: PathLike | number,
-    encoding: BufferEncoding | string,
-    callback: (err: NodeJS.ErrnoException, data: string) => void,
-): void;
-export function readFile(
-    file: PathLike | number,
-    options: { flag?: string | undefined } | { encoding: BufferEncoding | string; flag?: string | undefined },
-    callback: (err: NodeJS.ErrnoException, data: Buffer) => void,
-): void;
-export function readFile(
-    file: PathLike | number,
-    options: { flag?: string | undefined } | { encoding: BufferEncoding | string; flag?: string | undefined },
-): Promise<string>;
-// tslint:disable-next-line:unified-signatures
-export function readFile(file: PathLike | number, encoding: BufferEncoding | string): Promise<string>;
-export function readFile(file: PathLike | number): Promise<Buffer>;
-
-export function readdir(path: PathLike, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
-export function readdir(
-    path: PathLike,
-    options: 'buffer' | { encoding: 'buffer'; withFileTypes?: false | undefined },
-): Promise<Buffer[]>;
-export function readdir(
-    path: PathLike,
-    options?:
-        | { encoding: BufferEncoding | string | null; withFileTypes?: false | undefined }
-        | BufferEncoding
-        | string
-        | null,
-): Promise<string[]>;
-export function readdir(
-    path: PathLike,
-    options?: { encoding?: BufferEncoding | string | null | undefined; withFileTypes?: false | undefined },
-): Promise<string[] | Buffer[]>;
-export function readdir(
-    path: PathLike,
-    options: { encoding?: BufferEncoding | string | null | undefined; withFileTypes: true },
-): Promise<fs.Dirent[]>;
-
-export function readlink(path: PathLike, callback: (err: NodeJS.ErrnoException, linkString: string) => any): void;
-export function readlink(path: PathLike): Promise<string>;
-
-export function realpath(path: PathLike, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => any): void;
-export function realpath(
-    path: PathLike,
-    cache: { [path: string]: string },
-    callback: (err: NodeJS.ErrnoException, resolvedPath: string) => any,
-): void;
-export function realpath(path: PathLike, cache?: { [path: string]: string }): Promise<string>;
-
-/* tslint:disable:unified-signatures */
-export namespace realpath {
-    const native: {
-        (path: PathLike, options: { encoding: 'buffer' } | 'buffer'): Promise<Buffer>;
-        (
-            path: PathLike,
-            options: { encoding: BufferEncoding | string | null } | BufferEncoding | string | undefined | null,
-        ): Promise<string>;
-        (path: PathLike, options: { encoding: BufferEncoding | string | null } | string | undefined | null): Promise<
-            string | Buffer
-        >;
-        (path: PathLike): Promise<string>;
-    } & typeof fs.realpath.native;
-}
-/* tslint:enable:unified-signatures */
-
-export function rename(oldPath: PathLike, newPath: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
-export function rename(oldPath: PathLike, newPath: PathLike): Promise<void>;
-
-/**
- * Asynchronously removes files and directories (modeled on the standard POSIX
- * `rm` utility).
- *
- * Only available in node >= v14.14.0
- */
-export function rm(
-    path: PathLike,
-    options?: {
-        force?: boolean | undefined;
-        maxRetries?: number | undefined;
-        recursive?: boolean | undefined;
-        retryDelay?: number | undefined;
-    },
-): Promise<void>;
-
-/**
- * Asynchronous rmdir - removes the directory specified in {path}
- *
- * @param callback No arguments other than a possible exception are given to the completion callback.
- */
-export function rmdir(path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
-export function rmdir(path: PathLike, options?: fs.RmDirOptions): Promise<void>;
-
-export function stat(path: PathLike, callback: (err: NodeJS.ErrnoException, stats: Stats) => any): void;
-export function stat(path: PathLike): Promise<Stats>;
-
-export function symlink(
-    target: PathLike,
-    path: PathLike,
-    type: SymlinkType | undefined,
-    callback: (err: NodeJS.ErrnoException) => void,
-): void;
-export function symlink(target: PathLike, path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
-export function symlink(target: PathLike, path: PathLike, type?: SymlinkType): Promise<void>;
-
-export function truncate(path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
-export function truncate(path: PathLike, len: number, callback: (err: NodeJS.ErrnoException) => void): void;
-export function truncate(path: PathLike, len?: number): Promise<void>;
-
-/**
- * Asynchronous unlink - deletes the file specified in {path}
- *
- * @param callback No arguments other than a possible exception are given to the completion callback.
- */
-export function unlink(path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
-export function unlink(path: PathLike): Promise<void>;
-
-export function utimes(
-    path: PathLike,
-    atime: number,
-    mtime: number,
-    callback: (err: NodeJS.ErrnoException) => void,
-): void;
-export function utimes(path: PathLike, atime: Date, mtime: Date, callback: (err: NodeJS.ErrnoException) => void): void;
-export function utimes(path: PathLike, atime: number, mtime: number): Promise<void>;
-export function utimes(path: PathLike, atime: Date, mtime: Date): Promise<void>;
-
-export function write<TBuffer extends ArrayBufferView>(
-    fd: number,
-    buffer: TBuffer,
-    offset: number,
-    length: number,
-    position: number | null,
-    callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void,
-): void;
-export function write<TBuffer extends ArrayBufferView>(
-    fd: number,
-    buffer: TBuffer,
-    offset: number,
-    length: number,
-    callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void,
-): void;
-export function write(
-    fd: number,
-    data: any,
-    callback: (err: NodeJS.ErrnoException, written: number, str: string) => void,
-): void;
-export function write(
-    fd: number,
-    data: any,
-    offset: number,
-    callback: (err: NodeJS.ErrnoException, written: number, str: string) => void,
-): void;
-export function write(
-    fd: number,
-    data: any,
-    offset: number,
-    encoding: BufferEncoding | string,
-    callback: (err: NodeJS.ErrnoException, written: number, str: string) => void,
-): void;
-export function write<TBuffer extends ArrayBufferView>(
-    fd: number,
-    buffer: TBuffer,
-    offset?: number,
-    length?: number,
-    position?: number | null,
-): Promise<{ bytesWritten: number; buffer: TBuffer }>;
-export function write(
-    fd: number,
-    data: any,
-    offset?: number,
-    encoding?: BufferEncoding | string,
-): Promise<{ bytesWritten: number; buffer: string }>;
-
-export function writeFile(file: PathLike | number, data: any, callback: (err: NodeJS.ErrnoException) => void): void;
-export function writeFile(
-    file: PathLike | number,
-    data: any,
-    options?: WriteFileOptions | BufferEncoding | string,
-): Promise<void>;
-export function writeFile(
-    file: PathLike | number,
-    data: any,
-    options: WriteFileOptions | BufferEncoding | string,
-    callback: (err: NodeJS.ErrnoException) => void,
-): void;
-
-export function writev(
-    fd: number,
-    buffers: NodeJS.ArrayBufferView[],
-    position: number,
-    cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void,
-): void;
-export function writev(
-    fd: number,
-    buffers: NodeJS.ArrayBufferView[],
-    cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void,
-): void;
-export function writev(fd: number, buffers: NodeJS.ArrayBufferView[], position?: number): Promise<WritevResult>;
-
-/**
- * Asynchronous mkdtemp - Creates a unique temporary directory. Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
- *
- * @param callback The created folder path is passed as a string to the callback's second parameter.
- */
-export function mkdtemp(prefix: string): Promise<string>;
-export function mkdtemp(prefix: string, callback: (err: NodeJS.ErrnoException, folder: string) => void): void;
-
-export interface PathEntry {
-    path: string;
-    stats: Stats;
-}
-
-export interface PathEntryStream {
-    read(): PathEntry | null;
-}
+export type SymlinkType = fs.symlink.Type;
 
 export type CopyFilterSync = (src: string, dest: string) => boolean;
 export type CopyFilterAsync = (src: string, dest: string) => Promise<boolean>;
 
-export type SymlinkType = 'dir' | 'file' | 'junction';
-
-export type Mode = string | number;
-
-export type ArrayBufferView = NodeJS.TypedArray | DataView;
-
 export interface CopyOptions {
+    /**
+     * Dereference symlinks.
+     * @default false
+     */
     dereference?: boolean | undefined;
+    /**
+     * Overwrite existing file or directory.
+     * _Note that the copy operation will silently fail if you set this to `false` and the destination exists._
+     * Use the `errorOnExist` option to change this behavior.
+     * @default true
+     */
     overwrite?: boolean | undefined;
+    /**
+     * When `true`, will set last modification and access times to the ones of the original source files.
+     * When `false`, timestamp behavior is OS-dependent.
+     * @default false
+     */
     preserveTimestamps?: boolean | undefined;
+    /**
+     * When `overwrite` is `false` and the destination exists, throw an error.
+     * @default false
+     */
     errorOnExist?: boolean | undefined;
+    /**
+     * Function to filter copied files/directories. Return `true` to copy the item, `false` to ignore it.
+     * Can also return a `Promise` that resolves to `true` or `false` (or pass in an `async` function).
+     */
     filter?: CopyFilterSync | CopyFilterAsync | undefined;
-    recursive?: boolean | undefined;
 }
 
 export interface CopyOptionsSync extends CopyOptions {
+    /**
+     * Function to filter copied files/directories. Return `true` to copy the item, `false` to ignore it.
+     */
     filter?: CopyFilterSync | undefined;
 }
 
-export interface EnsureOptions {
+export interface EnsureDirOptions {
     mode?: number | undefined;
 }
 
 export interface MoveOptions {
+    /**
+     * Overwrite existing file or directory.
+     * @default false
+     */
     overwrite?: boolean | undefined;
-    limit?: number | undefined;
+    /**
+     * Dereference symlinks.
+     * @default false
+     */
+    dereference?: boolean | undefined;
 }
 
-export interface ReadOptions {
-    throws?: boolean | undefined;
-    fs?: object | undefined;
-    reviver?: any;
-    encoding?: BufferEncoding | string | undefined;
-    flag?: string | undefined;
-}
+export { JFReadOptions as JsonReadOptions, JFWriteOptions as JsonWriteOptions } from "jsonfile";
 
-export interface WriteFileOptions {
-    encoding?: BufferEncoding | string | null | undefined;
-    flag?: string | undefined;
-    mode?: number | undefined;
-}
-
-export interface WriteOptions extends WriteFileOptions {
-    fs?: object | undefined;
-    replacer?: any;
-    spaces?: number | string | undefined;
-    EOL?: string | undefined;
-}
-
-export interface WritevResult {
-    bytesWritten: number;
-    buffers: ArrayBufferView[];
-}
+export type JsonOutputOptions = fs.WriteFileOptions & StringifyOptions;

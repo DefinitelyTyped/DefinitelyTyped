@@ -24,12 +24,12 @@ declare module '../../index' {
          *   be between 0.0 and 1.0. The noise value can be
          *   animated by moving through the noise space as
          *   demonstrated in the example above. The 2nd and 3rd
-         *   dimension can also be interpreted as time.
+         *   dimensions can also be interpreted as time.
          *
          *   The actual noise is structured similar to an audio
          *   signal, in respect to the function's use of
          *   frequencies. Similar to the concept of harmonics
-         *   in physics, perlin noise is computed over several
+         *   in physics, Perlin noise is computed over several
          *   octaves which are added together for the final
          *   result.
          *
@@ -60,20 +60,21 @@ declare module '../../index' {
          *   octaves. Lower octaves contribute more to the
          *   output signal and as such define the overall
          *   intensity of the noise, whereas higher octaves
-         *   create finer grained details in the noise
+         *   create finer-grained details in the noise
          *   sequence. By default, noise is computed over 4
          *   octaves with each octave contributing exactly half
-         *   than its predecessor, starting at 50% strength for
-         *   the 1st octave. This falloff amount can be changed
-         *   by adding an additional function parameter. Eg. a
-         *   falloff factor of 0.75 means each octave will now
-         *   have 75% impact (25% less) of the previous lower
-         *   octave. Any value between 0.0 and 1.0 is valid,
-         *   however note that values greater than 0.5 might
-         *   result in greater than 1.0 values returned by
-         *   noise(). By changing these parameters, the signal
-         *   created by the noise() function can be adapted to
-         *   fit very specific needs and characteristics.
+         *   as much as its predecessor, starting at 50%
+         *   strength for the 1st octave. This falloff amount
+         *   can be changed by adding an additional function
+         *   parameter. Eg. a falloff factor of 0.75 means each
+         *   octave will now have 75% impact (25% less) of the
+         *   previous lower octave. Any value between 0.0 and
+         *   1.0 is valid, however, note that values greater
+         *   than 0.5 might result in greater than 1.0 values
+         *   returned by noise(). By changing these parameters,
+         *   the signal created by the noise() function can be
+         *   adapted to fit very specific needs and
+         *   characteristics.
          *   @param lod number of octaves to be used by the
          *   noise
          *   @param falloff falloff factor for each octave
@@ -83,7 +84,7 @@ declare module '../../index' {
         /**
          *   Sets the seed value for noise(). By default,
          *   noise() produces different results each time the
-         *   program is run. Set the value parameter to a
+         *   program is run. Set the seed parameter to a
          *   constant to return the same pseudo-random numbers
          *   each time the software is run.
          *   @param seed the seed value

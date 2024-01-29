@@ -1,14 +1,15 @@
 /// <reference lib="dom" />
+/// <reference lib="dom.iterable" />
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
-import { ElementLocation } from "parse5";
-import { Context } from "vm";
+import { Token } from "parse5";
 import * as tough from "tough-cookie";
+import { Context } from "vm";
 
 // Needed to allow adding properties to `DOMWindow` that are only supported
 // in newer TypeScript versions:
-// tslint:disable-next-line: no-declare-current-package no-single-declare-module
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "jsdom" {
     const toughCookie: typeof tough;
     class CookieJar extends tough.CookieJar {}
@@ -39,16 +40,14 @@ declare module "jsdom" {
          *
          * @throws {Error} If the JSDOM was not created with `includeNodeLocations`
          */
-        nodeLocation(node: Node): ElementLocation | null;
+        nodeLocation(node: Node): Token.Location | null | undefined;
 
         /**
          * The built-in `vm` module of Node.js is what underpins JSDOM's script-running magic.
          * Some advanced use cases, like pre-compiling a script and then running it multiple
          * times, benefit from using the `vm` module directly with a jsdom-created `Window`.
          *
-         * @throws {TypeError}
-         * Note that this method will throw an exception if the `JSDOM` instance was created
-         * without `runScripts` set, or if you are using JSDOM in a web browser.
+         * @throws {TypeError} If the `JSDOM` instance was created without `runScripts` set, or if you are using JSDOM in a web browser.
          */
         getInternalVMContext(): Context;
 
@@ -145,7 +144,7 @@ declare module "jsdom" {
          * contentType affects the value read from document.contentType, and how the document is parsed: as HTML or as XML.
          * Values that are not "text/html" or an XML mime type will throw. It defaults to "text/html".
          */
-        contentType?: string | undefined;
+        contentType?: SupportedContentTypes | undefined;
 
         /**
          * The maximum size in code units for the separate storage areas used by localStorage and sessionStorage.
@@ -156,6 +155,13 @@ declare module "jsdom" {
          */
         storageQuota?: number | undefined;
     }
+
+    type SupportedContentTypes =
+        | "text/html"
+        | "application/xhtml+xml"
+        | "application/xml"
+        | "text/xml"
+        | "image/svg+xml";
 
     interface VirtualConsoleSendToOptions {
         omitJSDOMErrors: boolean;
@@ -194,7 +200,7 @@ declare module "jsdom" {
         readonly ["NaN"]: number;
         readonly undefined: undefined;
 
-        eval(script: string): any;
+        eval(script: string): unknown;
         parseInt(s: string, radix?: number): number;
         parseFloat(string: string): number;
         isNaN(number: number): boolean;

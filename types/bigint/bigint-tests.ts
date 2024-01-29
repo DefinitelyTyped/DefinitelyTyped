@@ -1,11 +1,11 @@
-
-
 var bi: BigInt.BigInt;
 var num: number;
 var str: string;
 var b: boolean;
 
-BigInt.setRandom(() => { return 0; });
+BigInt.setRandom(() => {
+    return 0;
+});
 
 bi = BigInt.add(bi, bi);
 bi = BigInt.addInt(bi, num);

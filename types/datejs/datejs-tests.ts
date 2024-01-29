@@ -1,6 +1,3 @@
-
-
-
 function tests() {
     // What date is next thursday?
     Date.today().next().thursday();
@@ -15,7 +12,7 @@ function tests() {
 
     // Number fun
     (3).days().ago();
-    
+
     // 6 months from now
     var n = 6;
     n.months().fromNow();
@@ -28,11 +25,11 @@ function tests() {
     Date.today().add(1).day().is().saturday();
 
     // Convert text into Date
-    Date.parse('today');
-    Date.parse('t + 5 d'); // today + 5 days
-    Date.parse('next thursday');
-    Date.parse('February 20th 1973');
-    Date.parse('Thu, 1 July 2004 22:30:00');
+    Date.parse("today");
+    Date.parse("t + 5 d"); // today + 5 days
+    Date.parse("next thursday");
+    Date.parse("February 20th 1973");
+    Date.parse("Thu, 1 July 2004 22:30:00");
 
     var future: IDateJS = Date.today().add(2).months();
     var someDate: IDateJS = Date.today().next().april().add(2).days();

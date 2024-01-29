@@ -1,10 +1,4 @@
-// Type definitions for prelude.ls 1.1.1
-// Project: http://www.preludels.com
-// Definitions by: Aya Morisawa <https://github.com/AyaMorisawa>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Change [0]: 2015/06/14 - Marcelo Camargo <https://github.com/haskellcamargo>
-
 
 declare namespace PreludeLS {
     export function id<A>(x: A): A;
@@ -12,7 +6,6 @@ declare namespace PreludeLS {
     export function isType<A>(type: string, x: A): boolean;
     export function replicate<A>(n: number): (x: A) => A[];
     export function replicate<A>(n: number, x: A): A[];
-
 
     // List
 
@@ -53,8 +46,8 @@ declare namespace PreludeLS {
     export function foldr<A, B>(f: (x: A) => (y: B) => B, memo: B, xs: A[]): B;
     export function foldr1<A>(f: (x: A) => (y: A) => A): (xs: A[]) => A;
     export function foldr1<A>(f: (x: A) => (y: A) => A, xs: A[]): A;
-    export function unfoldr<A, B>(f: (x: B) => ([A, B] | void)): (x: B) => A[];
-    export function unfoldr<A, B>(f: (x: B) => ([A, B] | void), x: B): A[];
+    export function unfoldr<A, B>(f: (x: B) => [A, B] | void): (x: B) => A[];
+    export function unfoldr<A, B>(f: (x: B) => [A, B] | void, x: B): A[];
     export function concat<A>(xss: A[][]): A[];
     export function concatMap<A, B>(f: (x: A) => B[]): (xs: A[]) => B[];
     export function concatMap<A, B>(f: (x: A) => B[], xs: A[]): B[];
@@ -118,8 +111,8 @@ declare namespace PreludeLS {
     export function span<A>(p: (x: A) => boolean, xs: A[]): [A[], A[]];
     export function breakList<A>(p: (x: A) => boolean): (xs: A[]) => [A[], A[]];
     export function breakList<A>(p: (x: A) => boolean, xs: A[]): [A[], A[]];
-    export function zip<A, B>(xs: A[]): (ys: B[]) => [A, B][];
-    export function zip<A, B>(xs: A[], ys: B[]): [A, B][];
+    export function zip<A, B>(xs: A[]): (ys: B[]) => Array<[A, B]>;
+    export function zip<A, B>(xs: A[], ys: B[]): Array<[A, B]>;
     export function zipWith<A, B, C>(f: (x: A) => (y: B) => C): (xs: A[]) => (ys: B[]) => C[];
     export function zipWith<A, B, C>(f: (x: A) => (y: B) => C, xs: A[]): (ys: B[]) => C[];
     export function zipWith<A, B, C>(f: (x: A) => (y: B) => C, xs: A[], ys: B[]): C[];
@@ -136,17 +129,16 @@ declare namespace PreludeLS {
     export function findIndices<A>(f: (x: A) => boolean): (xs: A[]) => number[];
     export function findIndices<A>(f: (x: A) => boolean, xs: A[]): number[];
 
-
     // Obj
 
     export function keys<A>(object: { [key: string]: A }): string[];
     export function keys<A>(object: { [key: number]: A }): number[];
     export function values<A>(object: { [key: string]: A }): A[];
     export function values<A>(object: { [key: number]: A }): A[];
-    export function pairsToObj<A>(object: [string, A][]): { [key: string]: A };
-    export function pairsToObj<A>(object: [number, A][]): { [key: number]: A };
-    export function objToPairs<A>(object: { [key: string]: A }): [string, A][];
-    export function objToPairs<A>(object: { [key: number]: A }): [number, A][];
+    export function pairsToObj<A>(object: Array<[string, A]>): { [key: string]: A };
+    export function pairsToObj<A>(object: Array<[number, A]>): { [key: number]: A };
+    export function objToPairs<A>(object: { [key: string]: A }): Array<[string, A]>;
+    export function objToPairs<A>(object: { [key: number]: A }): Array<[number, A]>;
     export function listsToObj<A>(keys: string[]): (values: A[]) => { [key: string]: A };
     export function listsToObj<A>(keys: string[], values: A[]): { [key: string]: A };
     export function listsToObj<A>(keys: number[]): (values: A[]) => { [key: number]: A };
@@ -172,16 +164,26 @@ declare namespace PreludeLS {
     export function reject<A>(f: (x: A) => boolean, object: { [key: string]: A }): { [key: string]: A };
     export function reject<A>(f: (x: A) => boolean): (object: { [key: number]: A }) => { [key: number]: A };
     export function reject<A>(f: (x: A) => boolean, object: { [key: number]: A }): { [key: number]: A };
-    export function partition<A>(f: (x: A) => boolean): (object: { [key: string]: A }) => [{ [key: string]: A }, { [key: string]: A }];
-    export function partition<A>(f: (x: A) => boolean, object: { [key: string]: A }): [{ [key: string]: A }, { [key: string]: A }];
-    export function partition<A>(f: (x: A) => boolean): (object: { [key: number]: A }) => [{ [key: number]: A }, { [key: number]: A }];
-    export function partition<A>(f: (x: A) => boolean, object: { [key: number]: A }): [{ [key: number]: A }, { [key: number]: A }];
+    export function partition<A>(
+        f: (x: A) => boolean,
+    ): (object: { [key: string]: A }) => [{ [key: string]: A }, { [key: string]: A }];
+    export function partition<A>(
+        f: (x: A) => boolean,
+        object: { [key: string]: A },
+    ): [{ [key: string]: A }, { [key: string]: A }];
+    export function partition<A>(
+        f: (x: A) => boolean,
+    ): (object: { [key: number]: A }) => [{ [key: number]: A }, { [key: number]: A }];
+    export function partition<A>(
+        f: (x: A) => boolean,
+        object: { [key: number]: A },
+    ): [{ [key: number]: A }, { [key: number]: A }];
     export function find<A>(f: (x: A) => boolean): (object: { [key: string]: A }) => A;
     export function find<A>(f: (x: A) => boolean, object: { [key: string]: A }): A;
     export function find<A>(f: (x: A) => boolean): (object: { [key: number]: A }) => A;
     export function find<A>(f: (x: A) => boolean, object: { [key: number]: A }): A;
 
-    export module Obj {
+    export namespace Obj {
         export function empty<A>(object: any): boolean;
         export function each<A>(f: (x: A) => void): (object: { [key: string]: A }) => { [key: string]: A };
         export function each<A>(f: (x: A) => void, object: { [key: string]: A }): { [key: string]: A };
@@ -201,16 +203,25 @@ declare namespace PreludeLS {
         export function reject<A>(f: (x: A) => boolean, object: { [key: string]: A }): { [key: string]: A };
         export function reject<A>(f: (x: A) => boolean): (object: { [key: number]: A }) => { [key: number]: A };
         export function reject<A>(f: (x: A) => boolean, object: { [key: number]: A }): { [key: number]: A };
-        export function partition<A>(f: (x: A) => boolean): (object: { [key: string]: A }) => [{ [key: string]: A }, { [key: string]: A }];
-        export function partition<A>(f: (x: A) => boolean, object: { [key: string]: A }): [{ [key: string]: A }, { [key: string]: A }];
-        export function partition<A>(f: (x: A) => boolean): (object: { [key: number]: A }) => [{ [key: number]: A }, { [key: number]: A }];
-        export function partition<A>(f: (x: A) => boolean, object: { [key: number]: A }): [{ [key: number]: A }, { [key: number]: A }];
+        export function partition<A>(
+            f: (x: A) => boolean,
+        ): (object: { [key: string]: A }) => [{ [key: string]: A }, { [key: string]: A }];
+        export function partition<A>(
+            f: (x: A) => boolean,
+            object: { [key: string]: A },
+        ): [{ [key: string]: A }, { [key: string]: A }];
+        export function partition<A>(
+            f: (x: A) => boolean,
+        ): (object: { [key: number]: A }) => [{ [key: number]: A }, { [key: number]: A }];
+        export function partition<A>(
+            f: (x: A) => boolean,
+            object: { [key: number]: A },
+        ): [{ [key: number]: A }, { [key: number]: A }];
         export function find<A>(f: (x: A) => boolean): (object: { [key: string]: A }) => A;
         export function find<A>(f: (x: A) => boolean, object: { [key: string]: A }): A;
         export function find<A>(f: (x: A) => boolean): (object: { [key: number]: A }) => A;
         export function find<A>(f: (x: A) => boolean, object: { [key: number]: A }): A;
     }
-
 
     // Str
 
@@ -249,7 +260,7 @@ declare namespace PreludeLS {
     export function breakStr(f: (str: string) => boolean): (str: string) => [string, string];
     export function breakStr(f: (str: string) => boolean, str: string): [string, string];
 
-    export module Str {
+    export namespace Str {
         export function empty(str: string): boolean;
         export function reverse(str: string): string;
         export function slice(x: number): (y: number) => (str: string) => string;
@@ -271,7 +282,6 @@ declare namespace PreludeLS {
         export function breakStr(f: (str: string) => boolean, str: string): [string, string];
     }
 
-
     // Func
 
     export function apply<A, B>(f: (...args: A[]) => B): (args: A[]) => B;
@@ -288,7 +298,6 @@ declare namespace PreludeLS {
     export function over<A, B, C>(f: (x: B) => (y: B) => C, g: (x: A) => B): (x: A) => (y: A) => C;
     export function over<A, B, C>(f: (x: B, y: B) => C): (g: (x: A) => B) => (x: A, y: A) => C;
     export function over<A, B, C>(f: (x: B) => (y: B) => C): (g: (x: A) => B) => (x: A) => (y: A) => C;
-
 
     // Num
 

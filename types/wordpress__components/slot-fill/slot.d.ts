@@ -1,4 +1,4 @@
-import { ComponentType } from 'react';
+import { ComponentType, JSX } from "react";
 
 declare namespace Slot {
     interface Props {

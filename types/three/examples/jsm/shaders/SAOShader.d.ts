@@ -1,29 +1,28 @@
-import { Uniform } from '../../../src/Three';
+import { IUniform } from '../../../src/Three.js';
 
 export const SAOShader: {
+    name: string;
     defines: {
         NUM_SAMPLES: number;
         NUM_RINGS: number;
-        NORMAL_TEXTURE: number;
         DIFFUSE_TEXTURE: number;
-        DEPTH_PACKING: number;
         PERSPECTIVE_CAMERA: number;
     };
     uniforms: {
-        tDepth: Uniform;
-        tDiffuse: Uniform;
-        tNormal: Uniform;
-        size: Uniform;
-        cameraNear: Uniform;
-        cameraFar: Uniform;
-        cameraProjectionMatrix: Uniform;
-        cameraInverseProjectionMatrix: Uniform;
-        scale: Uniform;
-        intensity: Uniform;
-        bias: Uniform;
-        minResolution: Uniform;
-        kernelRadius: Uniform;
-        randomSeed: Uniform;
+        tDepth: IUniform;
+        tDiffuse: IUniform;
+        tNormal: IUniform;
+        size: IUniform;
+        cameraNear: IUniform;
+        cameraFar: IUniform;
+        cameraProjectionMatrix: IUniform;
+        cameraInverseProjectionMatrix: IUniform;
+        scale: IUniform;
+        intensity: IUniform;
+        bias: IUniform;
+        minResolution: IUniform;
+        kernelRadius: IUniform;
+        randomSeed: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

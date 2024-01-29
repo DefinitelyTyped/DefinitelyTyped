@@ -1,46 +1,71 @@
-// Type definitions for Netmask 1.0.5
-// Project: https://github.com/rs/node-netmask
-// Definitions by: Matt Frantz <https://github.com/mhfrantz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/**
+ * converts long to an ip address
+ */
+export function long2ip(long: number): string;
+/**
+ * converts ip address to long
+ */
+export function ip2long(ip: string): number;
 
-// netmask.d.ts
-
-
-
-export declare function long2ip(long: number): string;
-export declare function ip2long(ip: string): number;
-
-export declare class Netmask {
-    maskLong: number;
-    bitmask: number;
-    netLong: number;
-    // The number of IP address in the block (eg.: 254)
-    size: number;
-    // The address of the network block as a string (eg.: 216.240.32.0)
+export class Netmask {
+    /**
+     * The base address of the network block as a string (eg: 216.240.32.0). Base does not give an indication of the size of the network block.
+     */
     base: string;
-    // The netmask as a string (eg.: 255.255.255.0)
+    /**
+     * The netmask as a string (eg: 255.255.255.0).
+     */
     mask: string;
-    // The host mask, the opposite of the netmask (eg.: 0.0.0.255)
+    /**
+     * The netmask as a number of bits in the network portion of the address for this block (eg: 24).
+     */
+    bitmask: number;
+    /**
+     * The host mask which is the opposite of the netmask (eg: 0.0.0.255).
+     */
     hostmask: string;
-    // The first usable address of the block
-    first: string;
-    // The last  usable address of the block
-    last: string;
-    // The block's broadcast address: the last address of the block (eg.: 192.168.1.255)
+    /**
+     * The blocks broadcast address (eg: 192.168.1.0/24 => 192.168.1.255)
+     */
     broadcast: string;
+    /**
+     * The number of IP addresses in a block (eg: 256).
+     */
+    size: number;
+    /**
+     * First useable address
+     */
+    first: string;
+    /**
+     * Last useable address
+     */
+    last: string;
 
-    constructor(netmask: string);
-    constructor(net: string, mask: string);
+    maskLong: number;
+    netLong: number;
 
-    // Returns true if the given ip or netmask is contained in the block
-    contains(ip: string | Netmask | number): boolean;
-
-    // Returns the Netmask object for the block which follow this one
+    /**
+     * Returns a true if the IP number ip is part of the network. That is, a true value is returned if ip is between base and broadcast.
+     * If a Netmask object or a block is given, it returns true only of the given block fits inside the network.
+     */
+    contains(address: string | Netmask | number): boolean;
+    /**
+     * Similar to the Array prototype method. It loops through all the useable addresses, ie between first and last.
+     */
+    forEach(cb: (ip: string, long: number, index: number) => void): void;
+    /**
+     * Without a count, return the next block of the same size after the current one. With a count, return the Nth block after the current one.
+     * A count of -1 returns the previous block. Undef will be returned if out of legal address space.
+     */
     next(count?: number): Netmask;
-
-    // Evaluate a function on each IP address
-    forEach(fn: (ip: string, long: number, index: number) => void): void;
-
-    // Returns the complete netmask formatted as `base/bitmask`
+    /**
+     * The netmask in base/bitmask format (e.g., '216.240.32.0/24')
+     */
     toString(): string;
+
+    /**
+     * @param net A network - e.g 216.240.32.0/24
+     * @param mask - optional netmask if not provided in `net`
+     */
+    constructor(net: string, mask?: string | number);
 }

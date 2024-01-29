@@ -1,9 +1,3 @@
-// Type definitions for angularjs-google-maps v1.17.3
-// Project: https://github.com/allenhwkim/angularjs-google-maps
-// Definitions by: Niko Kovačič <https://github.com/nkovacic>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="angular" />
 /// <reference types="google.maps" />
 
@@ -39,24 +33,20 @@ declare namespace angular.map {
              * @default false
              */
             draggable?: boolean | undefined;
-           /**
+            /**
              * Icon for the foreground.
              * If a string is provided, it is treated as though it were an Icon with the string as url.
-             * @type {(string|Icon|Symbol)}
              */
-            icon?: string|google.maps.Icon|google.maps.Symbol | undefined;
+            icon?: string | google.maps.Icon | google.maps.Symbol | undefined;
             /**
              * Adds a label to the marker. The label can either be a string, or a MarkerLabel object.
              * Only the first character of the string will be displayed.
-             * @type {string}
              */
             label?: string | undefined;
             /**
              * Map on which to display Marker.
-             * @type {(Map|StreetViewPanorama)}
-             *
              */
-            map?: google.maps.Map|google.maps.StreetViewPanorama | undefined;
+            map?: google.maps.Map | google.maps.StreetViewPanorama | undefined;
             /** The marker's opacity between 0.0 and 1.0. */
             opacity?: number | undefined;
             /**
@@ -80,7 +70,7 @@ declare namespace angular.map {
              * with lower markers appearing in front of markers further up the screen.
              */
             zIndex?: number | undefined;
-        }
+        };
     }
 
     interface IObserveAndSetFunc {
@@ -105,13 +95,13 @@ declare namespace angular.map {
          * @param  {PositionOptions}                      options optional
          * @return {angular.IPromise<google.maps.LatLng>}         Latitude ang longitude of the address
          */
-        getGeoLocation(address: string, options?: PositionOptions): ng.IPromise<google.maps.LatLng>
+        getGeoLocation(address: string, options?: PositionOptions): ng.IPromise<google.maps.LatLng>;
         /**
          * Get map from the pool of all shown maps.
          * @param  {IGetMapOptions}                    options optional
          * @return {angular.IPromise<google.maps.Map>}         promise
          */
-        getMap(options?: IGetMapOptions): ng.IPromise<google.maps.Map>
+        getMap(options?: IGetMapOptions): ng.IPromise<google.maps.Map>;
         /**
          * Initialize map from mapId or the current first shown map
          * @param  {string}          mapId id of the map. default 0

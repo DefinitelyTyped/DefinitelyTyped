@@ -1,17 +1,12 @@
-// Type definitions for create-test-server 3.0
-// Project: https://github.com/lukechilds/create-test-server
-// Definitions by: Chris Midgley <https://github.com/midgleyc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
 /// <reference types="node" />
 
-import { Options as CreateCertOptions } from 'create-cert';
-import { OptionsJson, OptionsText, OptionsUrlencoded } from 'body-parser';
-import { Express } from 'express';
-import * as http from 'http';
-import * as https from 'https';
+import { OptionsJson, OptionsText, OptionsUrlencoded } from "body-parser";
+import { Options as CreateCertOptions } from "create-cert";
+import { Express } from "express";
+import * as http from "http";
+import * as https from "https";
 
-type Server = createTestServer.TestServer & Omit<Express, 'listen'> & {get: (url: string, response: string) => void};
+type Server = createTestServer.TestServer & Omit<Express, "listen"> & { get: (url: string, response: string) => void };
 
 /**
  * Returns a Promise which resolves to an (already listening) server.

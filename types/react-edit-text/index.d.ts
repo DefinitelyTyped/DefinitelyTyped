@@ -1,22 +1,17 @@
-// Type definitions for react-edit-text 4.4
-// Project: https://github.com/bymi15/react-edit-text#readme
-// Definitions by: Brian Min <https://github.com/bymi15>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as React from 'react';
+import * as React from "react";
 
 export type inputTextType =
-    | 'date'
-    | 'datetime-local'
-    | 'email'
-    | 'month'
-    | 'number'
-    | 'password'
-    | 'search'
-    | 'tel'
-    | 'text'
-    | 'url'
-    | 'week';
+    | "date"
+    | "datetime-local"
+    | "email"
+    | "month"
+    | "number"
+    | "password"
+    | "search"
+    | "tel"
+    | "text"
+    | "url"
+    | "week";
 
 export interface onSaveProps {
     name: string;
@@ -34,9 +29,13 @@ export interface SharedProps {
      */
     name?: string;
     /**
-     * className attribute set for both input and display element
+     * class attribute set for display element
      */
     className?: string;
+    /**
+     * class attribute set for input element
+     */
+    inputClassName?: string;
     /**
      * value sets the input value and text of display element
      */
@@ -64,7 +63,17 @@ export interface SharedProps {
      * onChange is called when the input value changes and
      * returns a string which corresponds to the new input value
      */
-    onChange?: (value: string) => void;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+    /**
+     * onEditMode is a callback function triggered when the display
+     * component is clicked and edit mode is toggled on
+     */
+    onEditMode?: () => void;
+    /**
+     * onBlur is a callback function triggered when the focus is blurred
+     * and edit mode is toggled off
+     */
+    onBlur?: () => void;
     /**
      * Sets the css styling for both input and div elements
      */

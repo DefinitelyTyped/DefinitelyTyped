@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/heic-decode",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/catdad-experiments/heic-decode"
+    ],
+    "devDependencies": {
+        "@types/heic-decode": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "hieyou1",
+            "githubUsername": "hieyou1"
+        }
+    ]
+}

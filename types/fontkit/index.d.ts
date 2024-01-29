@@ -1,8 +1,3 @@
-// Type definitions for fontkit 1.8
-// Project: https://github.com/foliojs/fontkit#readme
-// Definitions by: Teoxoy <https://github.com/Teoxoy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**
@@ -37,6 +32,10 @@ export interface Font {
     xHeight: number;
     /** the font’s bounding box, i.e. the box that encloses all glyphs in the font */
     bbox: BBOX;
+    /** the font metric table consisting of a set of metrics and other data required for OpenType fonts */
+    "OS/2": Os2Table;
+    /** the font's horizontal header table consisting of information needed to layout fonts with horizontal characters    */
+    hhea: HHEA;
 
     /** the number of glyphs in the font */
     numGlyphs: number;
@@ -82,8 +81,15 @@ export interface Font {
         features?: string[] | Record<string, boolean>,
         script?: string,
         language?: string,
-        direction?: string
+        direction?: string,
     ): GlyphRun;
+
+    /**
+     * Returns a glyph object for the given glyph id. You can pass the array of
+     * code points this glyph represents for your use later, and it will be
+     * stored in the glyph object.
+     */
+    getGlyph(glyphId: number, codePoints?: number[]): Glyph;
 }
 
 export interface GlyphRun {
@@ -197,6 +203,12 @@ export interface Glyph {
 
     /** is a ligature glyph (multiple character, spacing glyph) */
     isLigature: boolean;
+
+    /** Renders the glyph to the given graphics context, at the specified font size. */
+    render(ctx: CanvasRenderingContext2D, size: number): void;
+
+    /**  The glyph's name. Commonly the character, or 'space' or UTF**** */
+    name: string;
 }
 
 /**
@@ -245,7 +257,7 @@ export interface Path {
 }
 
 export interface PathCommand {
-    command: 'moveTo' | 'lineTo' | 'quadraticCurveTo' | 'bezierCurveTo' | 'closePath';
+    command: "moveTo" | "lineTo" | "quadraticCurveTo" | "bezierCurveTo" | "closePath";
     args: number[];
 }
 
@@ -254,30 +266,93 @@ export interface BBOX {
     minY: number;
     maxX: number;
     maxY: number;
+    width: number;
+    height: number;
 }
 
-interface Fontkit {
-    /**
-     * Opens a font file asynchronously, and calls the callback with a font object.
-     * For collection fonts (such as TrueType collection files),
-     * you can pass a postscriptName to get that font out of the collection instead of a collection object.
-     */
-    open(filename: string, postscriptName: string, callback: (err: Error | null, font: Font) => void): void;
-
-    /**
-     * Opens a font file synchronously, and returns a font object.
-     * For collection fonts (such as TrueType collection files),
-     * you can pass a postscriptName to get that font out of the collection instead of a collection object.
-     */
-    openSync(filename: string, postscriptName?: string): Font;
-
-    /**
-     * Returns a font object for the given buffer.
-     * For collection fonts (such as TrueType collection files),
-     * you can pass a postscriptName to get that font out of the collection instead of a collection object.
-     */
-    create(buffer: Buffer, postscriptName?: string): Font;
+export interface Os2Table {
+    breakChar: number;
+    capHeight: number;
+    codePageRange: number[];
+    defaultChar: number;
+    fsSelection: {
+        italic: boolean;
+        negative: boolean;
+        outlined: boolean;
+        strikeout: boolean;
+        underscore: boolean;
+        useTypoMetrics: boolean;
+        wws: boolean;
+    };
+    fsType: {
+        bitmapOnly: boolean;
+        editable: boolean;
+        noEmbedding: boolean;
+        noSubsetting: boolean;
+        viewOnly: boolean;
+    };
+    maxContent: number;
+    panose: number[];
+    sFamilyClass: number;
+    typoAscender: number;
+    typoDescender: number;
+    typoLineGap: number;
+    ulCharRange: number[];
+    usFirstCharIndex: number;
+    usLastCharIndex: number;
+    usWeightClass: number;
+    usWidthClass: number;
+    vendorID: string;
+    version: number;
+    winAscent: number;
+    winDescent: number;
+    xAvgCharWidth: number;
+    xHeight: number;
+    yStrikeoutPosition: number;
+    yStrikeoutSize: number;
+    ySubscriptXOffset: number;
+    ySubscriptXSize: number;
+    ySubscriptYOffset: number;
+    ySubscriptYSize: number;
+    ySuperscriptXOffset: number;
+    ySuperscriptXSize: number;
+    ySuperscriptYOffset: number;
+    ySuperscriptYSize: number;
 }
 
-declare const defExp: Fontkit;
-export default defExp;
+export interface HHEA {
+    version: number;
+    ascent: number;
+    descent: number;
+    lineGap: number;
+    advanceWidthMax: number;
+    minLeftSideBearing: number;
+    minRightSideBearing: number;
+    xMaxExtent: number;
+    caretSlopeRise: number;
+    caretSlopeRun: number;
+    caretOffset: number;
+    metricDataFormat: number;
+    numberOfMetrics: number;
+}
+
+/**
+ * Opens a font file asynchronously, returning a promise that resolves with a font object.
+ * For collection fonts (such as TrueType collection files),
+ * you can pass a postscriptName to get that font out of the collection instead of a collection object.
+ */
+export function open(filename: string, postscriptName?: string): Promise<Font>;
+
+/**
+ * Opens a font file synchronously, and returns a font object.
+ * For collection fonts (such as TrueType collection files),
+ * you can pass a postscriptName to get that font out of the collection instead of a collection object.
+ */
+export function openSync(filename: string, postscriptName?: string): Font;
+
+/**
+ * Returns a font object for the given buffer.
+ * For collection fonts (such as TrueType collection files),
+ * you can pass a postscriptName to get that font out of the collection instead of a collection object.
+ */
+export function create(buffer: Buffer, postscriptName?: string): Font;

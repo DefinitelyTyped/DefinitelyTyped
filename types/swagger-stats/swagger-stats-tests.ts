@@ -1,88 +1,88 @@
+import { Server } from "@hapi/hapi";
+import * as express from "express";
+import fastify from "fastify";
 import {
-  getHapiPlugin,
-  getFastifyPlugin,
-  getMiddleware,
-  getCoreStats,
-  getPromStats,
-  getPromClient,
-  stop,
-} from 'swagger-stats';
-import { Server } from '@hapi/hapi';
-import fastify from 'fastify';
-import * as express from 'express';
+    getCoreStats,
+    getFastifyPlugin,
+    getHapiPlugin,
+    getMiddleware,
+    getPromClient,
+    getPromStats,
+    stop,
+} from "swagger-stats";
 
 const isDefined = (input: any) => {
-  if (input === undefined) throw new Error('Expected value to be defined');
+    if (input === undefined) throw new Error("Expected value to be defined");
 
-  return;
+    return;
 };
 
 const testHapi = async () => {
-  isDefined(getHapiPlugin.name);
-  isDefined(getHapiPlugin.version);
+    isDefined(getHapiPlugin.name);
+    isDefined(getHapiPlugin.version);
 
-  const hapiServer = new Server();
+    const hapiServer = new Server();
 
-  await getHapiPlugin.register(hapiServer);
+    await getHapiPlugin.register(hapiServer);
 };
 
 // testHapi();
 
 const testFastify = () => {
-  isDefined(getFastifyPlugin);
-  getFastifyPlugin(fastify(), {}, () => console.log('Fastify loaded'));
+    isDefined(getFastifyPlugin);
+    getFastifyPlugin(fastify(), {}, () => console.log("Fastify loaded"));
 };
 
 // testFastify();
 
 const testExpress = () => {
-  isDefined(getMiddleware);
+    isDefined(getMiddleware);
 
-  const app = express();
+    const app = express();
 
-  let middleware = getMiddleware({ ip: '1.1.1.1' });
-  middleware = getMiddleware(); // Opts aren't required
+    let middleware = getMiddleware({ ip: "1.1.1.1" });
+    middleware = getMiddleware(); // Opts aren't required
 
-  app.use(middleware);
+    app.use(middleware);
 };
 
 // testExpress();
 
 const testCoreStats = () => {
-  isDefined(getCoreStats);
-  setTimeout(() => {
-    const stats = getCoreStats();
+    isDefined(getCoreStats);
+    setTimeout(() => {
+        const stats = getCoreStats();
 
-    console.log(stats);
-  }, 3000);
+        console.log(stats);
+    }, 3000);
 };
 
 testCoreStats();
 
 const testPromStats = () => {
-  isDefined(getPromStats);
-  setTimeout(() => {
-    const stats = getPromStats();
+    isDefined(getPromStats);
+    setTimeout(() => {
+        const stats = getPromStats();
 
-    console.log(stats);
-  }, 3000);
+        console.log(stats);
+    }, 3000);
 };
 
 testPromStats();
 
 const testPromClient = () => {
-  isDefined(getPromClient);
-  setTimeout(() => {
-    const client = getPromClient();
+    isDefined(getPromClient);
+    setTimeout(() => {
+        const client = getPromClient();
 
-    isDefined(client);
-    isDefined(client.Counter);
+        isDefined(client);
+        isDefined(client.Counter);
 
-    new client.Counter({
-      name: 'test',
-      help: 'test',
-    });
-  }, 3000);
+        new client.Counter({
+            name: "test",
+            help: "test",
+        });
+    }, 3000);
 };
 
 testPromClient();

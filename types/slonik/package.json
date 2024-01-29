@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/slonik",
+    "version": "22.1.9999",
+    "projects": [
+        "https://github.com/gajus/slonik#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/slonik": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sebastian Sebald",
+            "githubUsername": "sebald"
+        },
+        {
+            "name": "Misha Kaletsky",
+            "githubUsername": "mmkal"
+        }
+    ]
+}

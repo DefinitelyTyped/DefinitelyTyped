@@ -8,18 +8,15 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
-        "paths": {
-            "react-native-fbsdk": [ "react-native-fbsdk/v1" ],            
-            "react-native-fbsdk/*": [ "react-native-fbsdk/v1/*" ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "jsx": "react-native"
+        "jsx": "react-native",
+        "paths": {
+            "react-native": [
+                "../../react-native/index.d.ts"
+            ]
+        }
     },
     "files": [
         "index.d.ts",

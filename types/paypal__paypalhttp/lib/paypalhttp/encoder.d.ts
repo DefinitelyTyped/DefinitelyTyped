@@ -1,4 +1,4 @@
-import { HttpRequest, HttpHeaders } from './http_client';
+import { HttpHeaders, HttpRequest } from "./http_client";
 
 export class Encoder<T extends any[] = any[]> {
     constructor(encoders: T);

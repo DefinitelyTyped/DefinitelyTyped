@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/batch-stream",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/segmentio/batch-stream"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/batch-stream": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nicholas Penree",
+            "githubUsername": "drudge"
+        }
+    ]
+}

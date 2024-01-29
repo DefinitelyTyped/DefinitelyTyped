@@ -1,9 +1,3 @@
-// Type definitions for Knockstrap
-// Project: http://faulknercs.github.io/Knockstrap/
-// Definitions by: Adam Pluciński <https://github.com/adaskothebeast>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 /// <reference types="knockout" />
 
@@ -15,7 +9,7 @@ interface KnockoutUtils {
 interface KnockoutTemplateSources {
     stringTemplate: {
         prototype: KnockstrapStringTemplate;
-        new (template: string): KnockstrapStringTemplate;
+        new(template: string): KnockstrapStringTemplate;
     };
 }
 
@@ -26,9 +20,9 @@ interface KnockstrapStringTemplate extends KnockoutTemplateSourcesDomElement {
 interface KnockoutStatic {
     stringTemplateEngine: {
         prototype: KnockstrapStringTemplateEngine;
-        new (): KnockstrapStringTemplateEngine;
+        new(): KnockstrapStringTemplateEngine;
         instance: KnockstrapStringTemplateEngine;
-    }
+    };
 }
 
 interface KnockstrapStringTemplateEngine extends KnockoutNativeTemplateEngine {
@@ -57,19 +51,23 @@ interface KnockoutControlsDescendantBindings {
 }
 
 interface AlertKnockoutBindingHandler extends KnockoutBindingHandler {
-    init? (element: any,
+    init?(
+        element: any,
         valueAccessor: () => any,
         allBindingsAccessor: KnockoutAllBindingsAccessor,
         viewModel: any,
-        bindingContext: KnockoutBindingContext): KnockoutControlsDescendantBindings;
+        bindingContext: KnockoutBindingContext,
+    ): KnockoutControlsDescendantBindings;
 }
 
 interface CarouselKnockoutBindingHandler extends KnockoutBindingHandler {
-    init? (element: any,
+    init?(
+        element: any,
         valueAccessor: () => any,
         allBindingsAccessor: KnockoutAllBindingsAccessor,
         viewModel: any,
-        bindingContext: KnockoutBindingContext): KnockoutControlsDescendantBindings;
+        bindingContext: KnockoutBindingContext,
+    ): KnockoutControlsDescendantBindings;
     defaults: KnockstrapCarouselDefaults;
 }
 
@@ -87,7 +85,6 @@ interface KnockstrapDefaultsTemplateBase {
 
 interface KnockstrapCarouselDefaultsControlsTemplate extends KnockstrapDefaultsTemplateBase {
     dataConverter(value: any): KnockstrapCarouselDefaultsIdDataConverted;
-
 }
 
 interface KnockstrapCarouselDefaultsIdDataConverted {
@@ -107,11 +104,13 @@ interface KnockstrapCarouselDefaultsItemTemplate extends KnockstrapDefaultsTempl
 }
 
 interface ModalKnockoutBindingHandler extends KnockoutBindingHandler {
-    init? (element: any,
+    init?(
+        element: any,
         valueAccessor: () => any,
         allBindingsAccessor: KnockoutAllBindingsAccessor,
         viewModel: any,
-        bindingContext: KnockoutBindingContext): KnockoutControlsDescendantBindings;
+        bindingContext: KnockoutBindingContext,
+    ): KnockoutControlsDescendantBindings;
     defaults: KnockstrapModalDefaults;
 }
 
@@ -137,19 +136,23 @@ interface KnockstrapModalDefaultsFooterData {
 }
 
 interface PopoverKnockoutBindingHandler extends KnockoutBindingHandler {
-    init? (element: any,
+    init?(
+        element: any,
         valueAccessor: () => any,
         allBindingsAccessor: KnockoutAllBindingsAccessor,
         viewModel: any,
-        bindingContext: KnockoutBindingContext): KnockoutControlsDescendantBindings;
+        bindingContext: KnockoutBindingContext,
+    ): KnockoutControlsDescendantBindings;
 }
 
 interface ProgressKnockoutBindingHandler extends KnockoutBindingHandler {
-    init? (element: any,
+    init?(
+        element: any,
         valueAccessor: () => any,
         allBindingsAccessor: KnockoutAllBindingsAccessor,
         viewModel: any,
-        bindingContext: KnockoutBindingContext): KnockoutControlsDescendantBindings;
+        bindingContext: KnockoutBindingContext,
+    ): KnockoutControlsDescendantBindings;
     defaults: KnockstrapProgressDefaults;
 }
 

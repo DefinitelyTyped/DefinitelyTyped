@@ -12,5 +12,5 @@ export class Component extends MessageDispatcher {
     get gameObject(): GameObject;
     get parent(): any;
 }
-import { MessageDispatcher } from '../messages/MessageDispatcher';
-import { GameObject } from './GameObject';
+import { MessageDispatcher } from "../messages/MessageDispatcher";
+import { GameObject } from "./GameObject";

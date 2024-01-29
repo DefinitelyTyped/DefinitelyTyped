@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/hammerjs",
+    "version": "1.1.9999",
+    "projects": [
+        "http://eightmedia.github.com/hammer.js/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/hammerjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "Drew Noakes",
+            "url": "https://drewnoakes.com"
+        }
+    ]
+}

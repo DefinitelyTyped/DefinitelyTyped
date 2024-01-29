@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/plotly.js-basic-dist",
+    "version": "1.54.9999",
+    "projects": [
+        "https://github.com/plotly/plotly.js#readme"
+    ],
+    "dependencies": {
+        "@types/plotly.js": "*"
+    },
+    "devDependencies": {
+        "@types/plotly.js-basic-dist": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Dreier",
+            "githubUsername": "DreierF"
+        }
+    ]
+}

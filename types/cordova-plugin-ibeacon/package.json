@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/cordova-plugin-ibeacon",
+    "version": "3.3.9999",
+    "projects": [
+        "https://github.com/petermetz/cordova-plugin-ibeacon"
+    ],
+    "dependencies": {
+        "@types/q": "^0"
+    },
+    "devDependencies": {
+        "@types/cordova": "*",
+        "@types/cordova-plugin-ibeacon": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Markus Wagner",
+            "githubUsername": "Ritzlgrmft"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for layzr.js 2.2
-// Project: https://github.com/callmecavs/layzr.js
-// Definitions by: Rostislav Shermenyov <https://github.com/shermendev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Layzr {
     type LayzrEvents = "src:before" | "src:after";
 
@@ -35,7 +30,7 @@ declare namespace Layzr {
          */
         on(
             name: LayzrEvents,
-            handler: (element: HTMLElement) => void
+            handler: (element: HTMLElement) => void,
         ): LayzrInstance;
         /**
          * This event is emitted immediately before/after an image source is set. The image node is passed to the event handler. Fires once.
@@ -44,7 +39,7 @@ declare namespace Layzr {
          */
         once(
             name: LayzrEvents,
-            handler: (element: HTMLElement) => void
+            handler: (element: HTMLElement) => void,
         ): LayzrInstance;
         /**
          * Update the elements Layzr is checking.

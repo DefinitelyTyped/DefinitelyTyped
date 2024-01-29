@@ -1,10 +1,11 @@
-import { Uniform } from '../../../src/Three';
+import { IUniform } from '../../../src/Three.js';
 
 export const HueSaturationShader: {
+    name: string;
     uniforms: {
-        tDiffuse: Uniform;
-        hue: Uniform;
-        saturation: Uniform;
+        tDiffuse: IUniform;
+        hue: IUniform;
+        saturation: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

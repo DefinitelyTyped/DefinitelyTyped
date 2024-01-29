@@ -1,35 +1,42 @@
 /* tslint:disable:no-object-literal-type-assertion */
 
-import * as lambdaTester from 'lambda-tester';
 import {
-    Handler,
-    Context,
-    ClientContext,
-    APIGatewayProxyHandler,
     APIGatewayProxyEvent,
+    APIGatewayProxyHandler,
     APIGatewayProxyResult,
-} from 'aws-lambda';
-
-const handler: Handler = () => Promise.resolve();
-const context: Context = {} as any;
-const clientContext: ClientContext = {} as any;
+    ClientContext,
+    Context,
+    Handler,
+} from "aws-lambda";
+import * as lambdaTester from "lambda-tester";
 
 interface TResult {
     data: string;
 }
+
+const handler: Handler<any, TResult> = () => Promise.resolve({ data: "123" });
+const handlerReject: Handler<any, TResult> = () => Promise.reject({ data: "123" });
+
+const context: Context = {} as any;
+const clientContext: ClientContext = {} as any;
+
 interface TError {
     message: string;
 }
 
 function lambdaTesterInstance() {
-    return lambdaTester(handler).event({ test: '123' });
+    return lambdaTester(handler).event({ test: "123" });
+}
+
+function lambdaTesterInstanceReject() {
+    return lambdaTester(handlerReject).event({ test: "123" });
 }
 
 lambdaTesterInstance()
     .context(context)
     .clientContext(clientContext)
     .xray()
-    .identity('123', '123')
+    .identity("123", "123")
     .expectSucceed((result: TResult) => {
         const t: string = result.data;
     });
@@ -42,7 +49,7 @@ lambdaTesterInstance().expectResolve((result: TResult) => {
     const t: string = result.data;
 });
 
-lambdaTesterInstance().expectReject((error: TError) => {
+lambdaTesterInstanceReject().expectReject((error: TError) => {
     const t: string = error.message;
 });
 
@@ -50,7 +57,7 @@ lambdaTesterInstance().expectResult((result: TResult) => {
     const t: string = result.data;
 });
 
-lambdaTesterInstance().expectError((error: TError) => {
+lambdaTesterInstanceReject().expectError((error: TError) => {
     const t: string = error.message;
 });
 
@@ -62,7 +69,7 @@ s3Lambda
     .context(context)
     .clientContext(clientContext)
     .xray()
-    .identity('123', '123')
+    .identity("123", "123")
     .expectSucceed((result: APIGatewayProxyResult) => {});
 
 s3Lambda.expectResolve((result: APIGatewayProxyResult) => {});
@@ -70,3 +77,10 @@ s3Lambda.expectResolve((result: APIGatewayProxyResult) => {});
 s3Lambda.expectReject((error: TError) => {
     const t: string = error.message;
 });
+
+s3Lambda.expectResult();
+s3Lambda.expectResolve();
+s3Lambda.expectReject();
+s3Lambda.expectError();
+s3Lambda.expectFail();
+s3Lambda.expectSucceed();

@@ -1,4 +1,4 @@
-import * as DDB from 'aws-sdk/clients/dynamodb';
+import * as DDB from "aws-sdk/clients/dynamodb";
 
 export type Key = any;
 export type GenericCallback = (err: Error, data: any) => void;

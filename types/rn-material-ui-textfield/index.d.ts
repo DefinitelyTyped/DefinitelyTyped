@@ -1,20 +1,14 @@
-// Type definitions for rn-material-ui-textfield 1.0
-// Project: https://github.com/gabrieldonadel/rn-material-ui-textfield#readme
-// Definitions by: Craig Duckett <https://github.com/craigwduckett>
-//                 Gabriel Donadel Dall'Agnol <https://github.com/gabrieldonadel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as React from 'react';
+import * as React from "react";
 import {
-  StyleProp,
-  TextInputProps,
-  TextStyle,
-  ViewStyle,
-  NativeSyntheticEvent,
-  TextInputFocusEventData,
-  TextInputChangeEventData,
-  ColorValue
-} from 'react-native';
+    ColorValue,
+    NativeSyntheticEvent,
+    StyleProp,
+    TextInputChangeEventData,
+    TextInputFocusEventData,
+    TextInputProps,
+    TextStyle,
+    ViewStyle,
+} from "react-native";
 
 export interface ContentInset {
     top?: number | undefined;
@@ -44,7 +38,7 @@ export interface LabelOffset {
 }
 
 export interface TextFieldProps extends TextInputProps {
-    textColor?:	ColorValue | undefined;
+    textColor?: ColorValue | undefined;
     fontSize?: number | undefined;
     labelFontSize?: number | undefined;
     lineWidth?: number | undefined;
@@ -58,8 +52,8 @@ export interface TextFieldProps extends TextInputProps {
     suffix?: string | undefined;
     error?: string | undefined;
     errorColor?: ColorValue | undefined;
-    lineType?: 'solid' | 'dotted' | 'dashed' | 'none' | undefined;
-    disabledLineType?: 'solid' | 'dotted' | 'dashed' | 'none' | undefined;
+    lineType?: "solid" | "dotted" | "dashed" | "none" | undefined;
+    disabledLineType?: "solid" | "dotted" | "dashed" | "none" | undefined;
     animationDuration?: number | undefined;
     characterRestriction?: number | undefined;
     disabled?: boolean | undefined;
@@ -73,8 +67,8 @@ export interface TextFieldProps extends TextInputProps {
     titleTextStyle?: StyleProp<TextStyle> | undefined;
     affixTextStyle?: StyleProp<TextStyle> | undefined;
     formatText?(text: string): string;
-    renderLeftAccessory?(): JSX.Element;
-    renderRightAccessory?(): JSX.Element;
+    renderLeftAccessory?(): React.JSX.Element;
+    renderRightAccessory?(): React.JSX.Element;
     onChangeText?(text: string): void;
     onFocus?(event: NativeSyntheticEvent<TextInputFocusEventData>): void;
     onBlur?(event: NativeSyntheticEvent<TextInputChangeEventData>): void;

@@ -39,6 +39,6 @@ export class SoundInstance extends MessageDispatcher {
     get isPlaying(): boolean;
     get duration(): number;
 }
-import { MessageDispatcher } from '../messages/MessageDispatcher';
-import { StereoPanner } from './effects/StereoPanner';
-import { SoundClip } from './SoundClip';
+import { MessageDispatcher } from "../messages/MessageDispatcher";
+import { StereoPanner } from "./effects/StereoPanner";
+import { SoundClip } from "./SoundClip";

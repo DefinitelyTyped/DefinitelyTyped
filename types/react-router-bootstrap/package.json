@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/react-router-bootstrap",
+    "version": "0.26.9999",
+    "projects": [
+        "https://github.com/react-bootstrap/react-router-bootstrap"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-bootstrap": "*",
+        "@types/react-router-bootstrap": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Vincent Lesierse",
+            "githubUsername": "vlesierse"
+        },
+        {
+            "name": "Karol Janyst",
+            "githubUsername": "LKay"
+        },
+        {
+            "name": "Olmo del Corral",
+            "githubUsername": "olmobrutall"
+        },
+        {
+            "name": "Max Erenberg",
+            "githubUsername": "maxerenberg"
+        }
+    ]
+}

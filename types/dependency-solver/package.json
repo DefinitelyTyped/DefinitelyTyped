@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/dependency-solver",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/haavistu/dependency-solver#readme"
+    ],
+    "devDependencies": {
+        "@types/dependency-solver": "workspace:."
+    },
+    "owners": []
+}

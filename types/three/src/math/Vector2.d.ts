@@ -1,5 +1,5 @@
-import { Matrix3 } from './Matrix3';
-import { BufferAttribute } from './../core/BufferAttribute';
+import { Matrix3 } from './Matrix3.js';
+import { BufferAttribute } from '../core/BufferAttribute.js';
 
 export type Vector2Tuple = [number, number];
 
@@ -355,6 +355,11 @@ export class Vector2 implements Vector {
     angle(): number;
 
     /**
+     * Returns the angle between this vector and vector {@link Vector2 | v} in radians.
+     */
+    angleTo(v: Vector2): number;
+
+    /**
      * Computes distance of this vector to v.
      */
     distanceTo(v: Vector2): number;
@@ -443,4 +448,9 @@ export class Vector2 implements Vector {
      * Sets this vector's x and y from Math.random
      */
     random(): this;
+
+    /**
+     * Iterating through a Vector2 instance will yield its components (x, y) in the corresponding order.
+     */
+    [Symbol.iterator](): Iterator<number>;
 }

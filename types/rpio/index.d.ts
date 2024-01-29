@@ -1,35 +1,26 @@
-// Type definitions for node-rpio 2.4.1
-// Project: https://github.com/jperkin/node-rpio
-// Definitions by: Dominik Palo <https://github.com/DominikPalo>
-//                 Hannes Früchtenicht <https://github.com/Pencl>
-//                 Mark Hoffmeyer <https://github.com/mhoffmeyerDC>
-//                 Wayne Parrott <https://github.com/wayneparrott>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare var rpio: Rpio;
 
-declare module 'rpio' {
+declare module "rpio" {
     export = rpio;
 }
 
 interface Rpio {
-
     /**
      * Initialize the library. Called automatically by
      * open() using the default option values if not called explicitly.
-     * 
+     *
      * @param options - library init options
      */
     init(options?: RPIO.Options): void;
 
     /**
-     * Open a pin for input or output. 
-     * 
+     * Open a pin for input or output.
+     *
      * @param pin - pin number
      * @param mode - INPUT (readonly) | OUTPUT (readwrite) | PWM (configured for hardware PWM)
-     * @param option - For input pins, option can be used to configure the internal pullup 
+     * @param option - For input pins, option can be used to configure the internal pullup
      *                 or pulldown resistors using options as described in the pud() documentation:
      *                 PULL_OFF, PULL_DOWN or PULL_UP.
      *                 For output pins, option defines the initial state of the pin (LOW, HIGH),
@@ -52,10 +43,10 @@ interface Rpio {
      * Switch a pin that has already been opened in one mode to a different mode.
      * This is provided primarily for performance reasons, as it avoids some
      * of the setup work done by open().
-     * 
+     *
      * @param pin - pin number
      * @param mode - INPUT (readonly) | OUTPUT (readwrite) | PWM (configured for hardware PWM)
-     * @param option - For input pins, option can be used to configure the internal pullup 
+     * @param option - For input pins, option can be used to configure the internal pullup
      *                 or pulldown resistors using options as described in the pud() documentation:
      *                 PULL_OFF, PULL_DOWN or PULL_UP.
      *                 For output pins, option defines the initial state of the pin (LOW, HIGH),
@@ -68,12 +59,12 @@ interface Rpio {
 
     /**
      * Read the current value of pin, returning either 1 (high) or 0 (low).
-     * 
+     *
      * This can help with timing-critical code where the JavaScript function
      * call overhead of calling mode() first is enough to miss input data.
      * Altering the pullup state is not supported, as on many devices this
      * requires a delay to activate, defeating the point of this feature.
-     * 
+     *
      * @param pin - pin number
      * @param mode - default = 0, non-zero will perform a switch to input mode before reading
      * @returns current value of pin, HIGH or LOW
@@ -85,7 +76,7 @@ interface Rpio {
      * This is useful for devices which send out information faster than the
      * JavaScript function call overhead can handle, e.g. if you need
      * microsecond accuracy.
-     * 
+     *
      * @param pin - pin number
      * @param buffer - incoming data
      * @param length - number of bits to read, defaults to buffer.length
@@ -96,7 +87,7 @@ interface Rpio {
     /**
      * Set a pin to high or low, using either the HIGH/LOW constants,
      * or simply 1 or 0.
-     * 
+     *
      * @param pin - pin number
      * @param value - pin value: HIGH or LOW
      */
@@ -104,7 +95,7 @@ interface Rpio {
 
     /**
      * Write bits to pin from buffer as fast as possible.
-     * 
+     *
      * @param pin - pin number
      * @param buffer - bits
      * @param length - number of bits from buffer to write, defaults to buffer.length
@@ -135,7 +126,7 @@ interface Rpio {
      *
      * @note Note that the pad control registers are not available via /dev/gpiomem,
      * so you will need to use init({gpiomem: false}) and run as root.
-     * 
+     *
      * @param group - pad group: PAD_GROUP_0_27, PAD_GROUP_28_45 or PAD_GROUP_46_53
      * @returns The current state of the GPIO pad control for the specified
      * GPIO group
@@ -145,7 +136,7 @@ interface Rpio {
     /**
      * Write control settings to the pad control for group. Uses the same
      * defines as readpad().
-     * 
+     *
      * The value returned will be a bit mask of the following defines:
      * PAD_SLEW_UNLIMITED: 0x10. Slew rate unlimited if set.
      * PAD_HYSTERESIS: 0x08. Hysteresis is enabled if set.
@@ -162,7 +153,7 @@ interface Rpio {
      *
      * @note Note that the pad control registers are not available via /dev/gpiomem,
      * so you will need to use init({gpiomem: false}) and run as root.
-     * 
+     *
      * @param group - GPIO group to update: PAD_GROUP_0_27, PAD_GROUP_28_45 or PAD_GROUP_46_53
      * @param control - GPIO pad control state
      */
@@ -194,7 +185,7 @@ interface Rpio {
      *
      * To stop watching for pin changes, call poll() again, setting the
      * callback to null.
-     * 
+     *
      * @param pin - pin to poll
      * @param cb - callback with the pin that changed
      * @param direction - POLL_LOW | POLL_HIGH | POLL_BOTH, default = POLL_BOTH
@@ -204,14 +195,14 @@ interface Rpio {
     /**
      * Indicate that the pin will no longer be used, and clear any poll
      * events associated with it.
-     * 
+     *
      * The optional reset argument can be used to configure the state that
      * pin will be left in after close:
      *   rpio.PIN_RESET: return pin to rpio.INPUT and clear any pullup/pulldown resistors. This is the default.
      *   rpio.PIN_PRESERVE: leave pin in its currently configured state.
-     * 
+     *
      * @param pin - pin number to close
-     * @reset PIN_RESET | PIN_PRESERVE, default = PIN_RESET
+     * @param reset PIN_RESET | PIN_PRESERVE, default = PIN_RESET
      */
     close(pin: number, reset?: number): void;
 
@@ -219,7 +210,7 @@ interface Rpio {
 
     /**
      * Assign pins 3 and 5 to i²c use. Until i2cEnd() is called they won't
-     * be available for GPIO use. 
+     * be available for GPIO use.
      * Calls init() if it hasn't already been called, with gpiomem: false
      * set. Hardware i²c support requires /dev/mem access and therefore root.
      * The pin assignments are:
@@ -231,21 +222,21 @@ interface Rpio {
     /**
      * Configure the slave address. This is between 0 - 0x7f, and it can be helpful to
      * run the i2cdetect program to figure out where your devices are if you are unsure.
-     * 
+     *
      * @param address - between 0 - 0x7f
      */
     i2cSetSlaveAddress(address: number): void;
 
     /**
      * Set the baud rate - directly set the speed in hertz.
-     * 
+     *
      * @param baudRate - baudRate in hertz
      */
     i2cSetBaudRate(baudRate: number): void;
 
     /**
      * Read from the i²c slave.
-     * 
+     *
      * @param buffer - holds the read bits
      * @param length - number of bits to read, defaults to buffer.length
      * @returns a status code
@@ -254,7 +245,7 @@ interface Rpio {
 
     /**
      * Write to the i²c slave.
-     * 
+     *
      * @param buffer - bits to write
      * @param length - number of bits in buffer to transfer, default = buffer.length
      * @returns a status code
@@ -265,7 +256,7 @@ interface Rpio {
      * Read bytes from a register into a buffer after issuing a repeated start,
      * required by e.g. MPL3115A2 pressure and temperature sensor.
      * See the bcm2835 documentation for more information.
-     * 
+     *
      * @param register - register to read
      * @param buffer - store for read bits
      * @param length - the max number of bits to read, default = buffer.length
@@ -286,7 +277,7 @@ interface Rpio {
 
     /**
      * Set the baud rate.
-     * 
+     *
      * @param clockDivider - a divisor of the base 250MHz rate
      */
     i2cSetClockDivider(clockDivider: number): void;
@@ -300,16 +291,16 @@ interface Rpio {
 
     /**
      * Set the PWM refresh rate.
-     * 
+     *
      * @param clockDivider: power-of-two divisor of the base 19.2MHz rate,
      *                      with a maximum value of 4096 (4.6875kHz).
      */
     pwmSetClockDivider(clockDivider: number): void;
 
     /**
-     * Set the PWM range, i.e., resolution, for a pin. 
+     * Set the PWM range, i.e., resolution, for a pin.
      * This determines the maximum pulse width.
-     * 
+     *
      * @param pin
      * @param range - the resolution, maximum pulse width
      */
@@ -317,7 +308,7 @@ interface Rpio {
 
     /**
      * Set the PWM width for a pin.
-     * 
+     *
      * @param pin
      * @param data - set the PWM width on a pin. Must be less range.
      */
@@ -329,7 +320,7 @@ interface Rpio {
      * Switch pins 119, 21, 23, 24 and 25 (GPIO7-GPIO11) to SPI mode.
      * Once SPI is enabled, the SPI pins are unavailable for GPIO use until
      * spiEnd() is called.
-     * 
+     *
      * SPI requires gpiomem: false and root privileges. spiBegin() will call
      * init() with the appropriate values if you do not explicitly call it yourself.
      *
@@ -359,7 +350,7 @@ interface Rpio {
     /**
      * If your device's CE pin is active high, use spiSetCSPolarity() to change the polarity.
      * Commonly chip enable (CE) pins are active low, this is the default.
-     * 
+     *
      * @param cePin
      * @param polarity LOW | HIGH
      */
@@ -367,7 +358,7 @@ interface Rpio {
 
     /**
      * Set the SPI clock speed.
-     * 
+     *
      * @param clockDivider: an even divisor of the base 250MHz rate ranging between 0 and 65536.
      */
     spiSetClockDivider(clockDivider: number): void;
@@ -380,7 +371,7 @@ interface Rpio {
      *    1  |  0   |  1
      *    2  |  1   |  0
      *    3  |  1   |  1
-     * 
+     *
      * @param mode - spi data mode, 0 | 1 | 2 | 3, default = 0
      */
     spiSetDataMode(mode: number): void;
@@ -388,7 +379,7 @@ interface Rpio {
     /**
      * Transfer data. Data is sent and received in 8-bit chunks via buffers
      * which should be the same size.
-     * 
+     *
      * @param txBuffer - data to send
      * @param rxBuffer - data received
      * @param txLength - length of txBuffer, rxBuffer should be same length
@@ -397,7 +388,7 @@ interface Rpio {
 
     /**
      * Send data and do not care about the data coming back.
-     * 
+     *
      * @param txBuffer - data to send
      * @param txLength - length of data to send
      */
@@ -430,11 +421,11 @@ interface Rpio {
 
     /**
      * Callback for library warning messages.
-     * 
+     *
      * @param event - listen for 'warn' events
      * @param callback - callback function recieving the library warning message
      */
-    on(event: 'warn', callback: (msg: string) => void): unknown;
+    on(event: "warn", callback: (msg: string) => void): unknown;
 
     // Constants:
 
@@ -496,7 +487,6 @@ interface Rpio {
 }
 declare namespace RPIO {
     interface Options {
-
         /**
          * There are two device nodes for GPIO access. The default is /dev/gpiomem which, when configured with gpio group access, allows users in that group to read/write directly to that device. This removes the need to run as root, but is limited to GPIO functions.
          * For non-GPIO functions (i²c, PWM, SPI) the /dev/mem device is required for full access to the Broadcom peripheral address range and the program needs to be executed as the root user (e.g. via sudo). If you do not explicitly call .init() when using those functions, the library will do it for you with gpiomem: false.
@@ -523,14 +513,24 @@ declare namespace RPIO {
          * physical: use the physical P01-P40 header layout
          */
         mapping?: "gpio" | "physical" | undefined;
-        
+
         /**
          * Mock mode is a dry-run environment where everything except pin access is performed. This is useful for testing scripts, and can also be used on systems which do not support GPIO at all.
          * If rpio is executed on unsupported hardware it will automatically start up in mock mode, and a warn event is emitted. By default the warn event is handled by a simple logger to stdout, but this can be overridden by the user creating their own warn handler.
          * The user can also explicitly request mock mode, where the argument is the type of hardware they wish to emulate.
          */
-        mock?: "raspi-b-r1" | "raspi-a" | "raspi-b" | "raspi-a+" | "raspi-b+" | "raspi-2" | "raspi-3" | "raspi-zero" | "raspi-zero-w" | undefined;
-   
+        mock?:
+            | "raspi-b-r1"
+            | "raspi-a"
+            | "raspi-b"
+            | "raspi-a+"
+            | "raspi-b+"
+            | "raspi-2"
+            | "raspi-3"
+            | "raspi-zero"
+            | "raspi-zero-w"
+            | undefined;
+
         /**
          * Rpio automatically unmaps and clears all memory maps when the node process exits.
          */
@@ -551,9 +551,9 @@ declare namespace RPIO {
      * Return codes for I2C read and write operations.
      */
     enum I2cStatusCode {
-      OK   	     = 0x00,      /*!< Success */
-      ERROR_NACK = 0x01,      /*!< Received a NACK */
-      ERROR_CLKT = 0x02,      /*!< Received Clock Stretch Timeout */
-      ERROR_DATA = 0x04       /*!< Not all data is sent / received */
+        OK = 0x00, /*!< Success */
+        ERROR_NACK = 0x01, /*!< Received a NACK */
+        ERROR_CLKT = 0x02, /*!< Received Clock Stretch Timeout */
+        ERROR_DATA = 0x04, /*!< Not all data is sent / received */
     }
 }

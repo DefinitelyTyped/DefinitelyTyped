@@ -1,9 +1,3 @@
-// Type definitions for build-output-script 1.0
-// Project: https://github.com/lukechilds/build-output-script#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 export = buildOutputScript;
 
 /**
@@ -16,7 +10,7 @@ export = buildOutputScript;
  * @returns A (hex string) P2PKH transaction output script.
  */
 declare function buildOutputScript(
-    outputs: [buildOutputScript.Output, ...buildOutputScript.Output[]]
+    outputs: [buildOutputScript.Output, ...buildOutputScript.Output[]],
 ): string;
 
 declare namespace buildOutputScript {

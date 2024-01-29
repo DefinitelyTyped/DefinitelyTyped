@@ -1,10 +1,4 @@
-// Type definitions for html5-to-pdf 3.1
-// Project: https://github.com/peterdemartini/html5-to-pdf
-// Definitions by: Sam Alexander <https://github.com/samalexander>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { LaunchOptions, PDFOptions, Page } from "puppeteer";
+import { LaunchOptions, Page, PDFOptions } from "puppeteer";
 
 declare class HTML5ToPDF {
     constructor(options: HTML5ToPDF.Options);
@@ -114,5 +108,3 @@ declare namespace HTML5ToPDF {
 }
 
 export = HTML5ToPDF;
-
-export as namespace HTML5ToPDF;

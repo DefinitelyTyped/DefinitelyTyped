@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/amap-js-api-scale",
+    "version": "1.4.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "amap-js-api-scale",
+    "projects": [
+        "https://lbs.amap.com/api/javascript-api/reference/map-control#AMap.Scale"
+    ],
+    "dependencies": {
+        "@types/amap-js-api": "*"
+    },
+    "devDependencies": {
+        "@types/amap-js-api-scale": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "breeze9527",
+            "githubUsername": "breeze9527"
+        }
+    ]
+}

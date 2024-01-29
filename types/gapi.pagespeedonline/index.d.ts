@@ -1,15 +1,7 @@
-// Type definitions for Google Page Speed Online Api
-// Project: https://developers.google.com/speed/pagespeed/
-// Definitions by: Frank M <https://github.com/sgtfrankieboy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-///<reference types="gapi" />
+/// <reference types="gapi" />
 
 declare namespace gapi.client.pagespeedonline {
-
     export interface pagespeedapi {
-
         /**
          * Runs Page Speed analysis on the page at the specified URL, and returns a Page Speed score, a list of suggestions to make that page faster, and other information.
          */
@@ -40,7 +32,6 @@ declare namespace gapi.client.pagespeedonline {
             fields?: string | undefined;
         }): HttpRequest<GoogleApiPageSpeedOnlineResource>;
     }
-
 }
 
 interface GoogleApiPageSpeedOnlineResource {
@@ -67,8 +58,7 @@ interface GoogleApiPageSpeedOnlineResource {
     /**
      * Summary statistics for the page, such as number of JavaScript bytes, number of HTML bytes, etc.
      */
-    pageStats:
-    {
+    pageStats: {
         /**
          * Number of HTTP resources loaded by the page.
          */
@@ -121,7 +111,7 @@ interface GoogleApiPageSpeedOnlineResource {
          * Number of CSS resources referenced by the page.
          */
         numberCssResources: number;
-    }
+    };
     /**
      * Localized PageSpeed results. Contains a ruleResults entry for each PageSpeed rule instantiated and run by the server.
      */
@@ -162,8 +152,8 @@ interface GoogleApiPageSpeedOnlineResource {
             SpecifyCharsetEarly: GoogleApiPageSpeedOnlineRuleResource;
             SpecifyImageDimensions: GoogleApiPageSpeedOnlineRuleResource;
             SpriteImages: GoogleApiPageSpeedOnlineRuleResource;
-        }
-    }
+        };
+    };
     /**
      * The version of the PageSpeed SDK used to generate these results.
      */
@@ -176,7 +166,7 @@ interface GoogleApiPageSpeedOnlineResource {
          * The minor version number of the PageSpeed SDK used to generate these results.
          */
         minor: number;
-    }
+    };
     /**
      * List of rules that were specified in the request, but which the server did not know how to instantiate.
      */
@@ -199,7 +189,7 @@ interface GoogleApiPageSpeedOnlineRuleResource {
     /**
      * List of blocks of URLs. Each block may contain a heading and a list of URLs. Each URL may optionally include additional details.
      */
-    urlBlocks: {
+    urlBlocks: Array<{
         /**
          * Heading to be displayed with the list of URLs.
          */
@@ -211,7 +201,7 @@ interface GoogleApiPageSpeedOnlineRuleResource {
             /**
              * List of arguments for the format string.
              */
-            args: {
+            args: Array<{
                 /**
                  * Type of argument. One of URL, STRING_LITERAL, INT_LITERAL, BYTES, or DURATION.
                  */
@@ -220,12 +210,12 @@ interface GoogleApiPageSpeedOnlineRuleResource {
                  * Argument value, as a localized string.
                  */
                 value: string;
-            }[];
-        }
+            }>;
+        };
         /**
          * List of entries that provide information about URLs in the URL block. Optional.
          */
-        urls: {
+        urls: Array<{
             /**
              * A format string that gives information about the URL, and a list of arguments for that format string.
              */
@@ -237,7 +227,7 @@ interface GoogleApiPageSpeedOnlineRuleResource {
                 /**
                  * List of arguments for the format string.
                  */
-                args: {
+                args: Array<{
                     /**
                      * Type of argument. One of URL, STRING_LITERAL, INT_LITERAL, BYTES, or DURATION.
                      */
@@ -246,12 +236,12 @@ interface GoogleApiPageSpeedOnlineRuleResource {
                      * Argument value, as a localized string.
                      */
                     value: string;
-                }[];
-            }
+                }>;
+            };
             /**
              * List of entries that provide additional details about a single URL. Optional.
              */
-            details: {
+            details: Array<{
                 /**
                  * A localized format string with $N placeholders, where N is the 1-indexed argument number.
                  */
@@ -259,7 +249,7 @@ interface GoogleApiPageSpeedOnlineRuleResource {
                 /**
                  * List of arguments for the format string.
                  */
-                args: {
+                args: Array<{
                     /**
                      * Type of argument. One of URL, STRING_LITERAL, INT_LITERAL, BYTES, or DURATION.
                      */
@@ -268,13 +258,10 @@ interface GoogleApiPageSpeedOnlineRuleResource {
                      * Argument value, as a localized string.
                      */
                     value: string;
-                }[];
-            }[];
-        }[];
-    }[];
+                }>;
+            }>;
+        }>;
+    }>;
 }
 
-
-                    /**
-                     *
-                     */
+/** */

@@ -1,12 +1,12 @@
-import * as datadog from 'pino-datadog';
+import * as datadog from "pino-datadog";
 
 const options: datadog.Options = {
-    apiKey: 'api_key',
+    apiKey: "api_key",
     size: 10,
-    ddsource: 'source',
-    ddtags: 'tags',
-    service: 'service',
-    hostname: 'host',
+    ddsource: "source",
+    ddtags: "tags",
+    service: "service",
+    hostname: "host",
     keepMsg: true,
     eu: true,
 };
@@ -17,11 +17,11 @@ datadog.createWriteStream(options);
 // $ExpectType WritableStream
 datadog.createWriteStreamSync(options);
 
-// $ExpectError
+// @ts-expect-error
 datadog.createWriteStream();
 
-// $ExpectError
+// @ts-expect-error
 datadog.createWriteStreamSync({});
 
-// $ExpectError
+// @ts-expect-error
 datadog.createWriteStream(null);

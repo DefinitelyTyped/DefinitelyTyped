@@ -10,6 +10,7 @@ const test1 = () => {
             titlePadding={10}
             titleColor="white"
             dividerChar="-"
-            dividerColor="white" />
+            dividerColor="white"
+        />
     );
 };

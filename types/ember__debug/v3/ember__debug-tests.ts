@@ -1,51 +1,56 @@
 import {
+    assert,
+    debug,
+    deprecate,
+    registerDeprecationHandler,
+    registerWarnHandler,
     runInDebug,
     warn,
-    debug,
-    assert,
-    registerWarnHandler,
-    registerDeprecationHandler,
-    deprecate,
-} from '@ember/debug';
+} from "@ember/debug";
 
 /**
- * @ember/debug tests
+ * `@ember/debug` tests
  */
-runInDebug(); // $ExpectError
-runInDebug(() => console.log('Should not show up in prod')); // $ExpectType void
+// @ts-expect-error
+runInDebug();
+runInDebug(() => console.log("Should not show up in prod")); // $ExpectType void
 
 // Log a warning if we have more than 3 tomsters
 const tomsterCount = 2;
-warn('Too many tomsters!'); // $ExpectType void
-warn('Too many tomsters!', tomsterCount <= 3); // $ExpectType void
-warn('Too many tomsters!', tomsterCount <= 3, { // $ExpectType void
-    id: 'ember-debug.too-many-tomsters'
+warn("Too many tomsters!"); // $ExpectType void
+warn("Too many tomsters!", tomsterCount <= 3); // $ExpectType void
+warn("Too many tomsters!", tomsterCount <= 3, { // $ExpectType void
+    id: "ember-debug.too-many-tomsters",
 });
 
-debug(); // $ExpectError
-debug('Too many tomsters!'); // $ExpectType void
-debug('Too many tomsters!', 'foo'); // $ExpectError
+// @ts-expect-error
+debug();
+debug("Too many tomsters!"); // $ExpectType void
+// @ts-expect-error
+debug("Too many tomsters!", "foo");
 
 // Test for truthiness
-const str: unknown = 'hello';
-assert('Must pass a string', typeof str === 'string'); // $ExpectType void
+const str: unknown = "hello";
+assert("Must pass a string", typeof str === "string"); // $ExpectType void
 str; // $ExpectType string
 
 const anObject = {};
-assert('Must pass an object', anObject); // $ExpectType void
+assert("Must pass an object", anObject); // $ExpectType void
 
 // Test with null and undefined
-assert('Can handle falsiness', null); // $ExpectType void
-assert('Can handle falsiness', undefined); // $ExpectType void
+assert("Can handle falsiness", null); // $ExpectType void
+assert("Can handle falsiness", undefined); // $ExpectType void
 
 // Fail unconditionally
-assert('This code path should never be run'); // $ExpectType never
+assert("This code path should never be run"); // $ExpectType never
 
 // Require first argument
-assert(); // $ExpectError
+// @ts-expect-error
+assert();
 
 // next is not called, so no warnings get the default behavior
-registerWarnHandler(); // $ExpectError
+// @ts-expect-error
+registerWarnHandler();
 registerWarnHandler(() => {}); // $ExpectType void
 registerWarnHandler((message, options, next) => { // $ExpectType void
     message; // $ExpectType string
@@ -55,7 +60,8 @@ registerWarnHandler((message, options, next) => { // $ExpectType void
 registerWarnHandler((message, options, next) => { // $ExpectType void
     message; // $ExpectType string
     options; // $ExpectType { id: string; } | undefined
-    next(); // $ExpectError
+    // @ts-expect-error
+    next();
 });
 registerWarnHandler((message, options, next) => { // $ExpectType void
     message; // $ExpectType string
@@ -69,7 +75,8 @@ registerWarnHandler((message, options, next) => { // $ExpectType void
 });
 
 // next is not called, so no warnings get the default behavior
-registerDeprecationHandler(); // $ExpectError
+// @ts-expect-error
+registerDeprecationHandler();
 registerDeprecationHandler(() => {}); // $ExpectType void
 registerDeprecationHandler((message, options, next) => { // $ExpectType void
     message; // $ExpectType string
@@ -79,7 +86,8 @@ registerDeprecationHandler((message, options, next) => { // $ExpectType void
 registerDeprecationHandler((message, options, next) => { // $ExpectType void
     message; // $ExpectType string
     options; // $ExpectType { id: string; until: string; } | undefined
-    next(); // $ExpectError
+    // @ts-expect-error
+    next();
 });
 registerDeprecationHandler((message, options, next) => { // $ExpectType void
     message; // $ExpectType string
@@ -92,91 +100,103 @@ registerDeprecationHandler((message, options, next) => { // $ExpectType void
     next(message, options); // $ExpectType void
 });
 
-deprecate(); // $ExpectError
-deprecate('missing test and options'); // $ExpectError
-deprecate('missing options', true); // $ExpectError
-deprecate('missing options', false); // $ExpectError
-deprecate('missing options body', true, {}); // $ExpectError
-deprecate('missing options id', true, { until: 'v4.0.0' }); // $ExpectError
-deprecate('missing options until', true, { id: 'some.deprecation' }); // $ExpectError
-deprecate('a valid deprecation without `url`', true, { // $ExpectType void
-  id: 'some.deprecation',
-  until: 'v4.0.0',
-  for: 'some.namespace',
-  since: {
-    enabled: 'some.version',
-  },
+// @ts-expect-error
+deprecate();
+// @ts-expect-error
+deprecate("missing test and options");
+// @ts-expect-error
+deprecate("missing options", true);
+// @ts-expect-error
+deprecate("missing options", false);
+// @ts-expect-error
+deprecate("missing options body", true, {});
+// @ts-expect-error
+deprecate("missing options id", true, { until: "v4.0.0" });
+// @ts-expect-error
+deprecate("missing options until", true, { id: "some.deprecation" });
+deprecate("a valid deprecation without `url`", true, { // $ExpectType void
+    id: "some.deprecation",
+    until: "v4.0.0",
+    for: "some.namespace",
+    since: {
+        enabled: "some.version",
+    },
 });
-deprecate('incorrect options `url`', true, {
-  id: 'some.deprecation',
-  until: 'v4.0.0',
-  url: 123, // $ExpectError
-  for: 'some.namespace',
-  since: {
-    enabled: 'some.version',
-  },
+deprecate("incorrect options `url`", true, {
+    id: "some.deprecation",
+    until: "v4.0.0",
+    // @ts-expect-error
+    url: 123,
+    for: "some.namespace",
+    since: {
+        enabled: "some.version",
+    },
 });
-deprecate('a valid deprecation with `url`', true, { // $ExpectType void
-  id: 'some.deprecation',
-  until: 'v4.0.0',
-  url: 'https://example.com/ember-deprecations-yo',
-  for: 'some.namespace',
-  since: {
-    enabled: 'some.version',
-  },
+deprecate("a valid deprecation with `url`", true, { // $ExpectType void
+    id: "some.deprecation",
+    until: "v4.0.0",
+    url: "https://example.com/ember-deprecations-yo",
+    for: "some.namespace",
+    since: {
+        enabled: "some.version",
+    },
 });
-deprecate('a valid deprecation with `for`', true, { // $ExpectType void
-  id: 'some.deprecation',
-  until: 'v4.0.0',
-  for: 'some.namespace',
-  since: {
-    enabled: 'some.version',
-  },
+deprecate("a valid deprecation with `for`", true, { // $ExpectType void
+    id: "some.deprecation",
+    until: "v4.0.0",
+    for: "some.namespace",
+    since: {
+        enabled: "some.version",
+    },
 });
-deprecate('incorrect options `for`', true, {
-  id: 'some.deprecation',
-  until: 'v4.0.0',
-  for: 123, // $ExpectError
-  since: {
-    enabled: 'some.version',
-  },
+deprecate("incorrect options `for`", true, {
+    id: "some.deprecation",
+    until: "v4.0.0",
+    // @ts-expect-error
+    for: 123,
+    since: {
+        enabled: "some.version",
+    },
 });
-deprecate('a valid deprecation with `since`', true, { // $ExpectType void
-  id: 'some.deprecation',
-  until: 'v4.0.0',
-  for: 'some.namespace',
-  since: {
-    available: 'some.version',
-  },
+deprecate("a valid deprecation with `since`", true, { // $ExpectType void
+    id: "some.deprecation",
+    until: "v4.0.0",
+    for: "some.namespace",
+    since: {
+        available: "some.version",
+    },
 });
-deprecate('a valid deprecation with `since`', true, { // $ExpectType void
-  id: 'some.deprecation',
-  until: 'v4.0.0',
-  for: 'some.namespace',
-  since: {
-    available: 'some.version',
-    enabled: 'some.version',
-  },
+deprecate("a valid deprecation with `since`", true, { // $ExpectType void
+    id: "some.deprecation",
+    until: "v4.0.0",
+    for: "some.namespace",
+    since: {
+        available: "some.version",
+        enabled: "some.version",
+    },
 });
-deprecate('incorrect options `since`', true, {
-  id: 'some.deprecation',
-  until: 'v4.0.0',
-  for: 'some.namespace',
-  since: 123, // $ExpectError
+deprecate("incorrect options `since`", true, {
+    id: "some.deprecation",
+    until: "v4.0.0",
+    for: "some.namespace",
+    // @ts-expect-error
+    since: 123,
 });
-deprecate('incorrect options `since`', true, {
-  id: 'some.deprecation',
-  until: 'v4.0.0',
-  for: 'some.namespace',
-  since: {
-    wrongKey: 'some.version', // $ExpectError
-  },
+deprecate("incorrect options `since`", true, {
+    id: "some.deprecation",
+    until: "v4.0.0",
+    for: "some.namespace",
+    since: {
+        // @ts-expect-error
+        wrongKey: "some.version",
+    },
 });
-deprecate('incorrect options `since`', true, {
-  id: 'some.deprecation',
-  until: 'v4.0.0',
-  for: 'some.namespace',
-  since: {
-    available: 123, // $ExpectError
-  },
+deprecate("incorrect options `since`", true, {
+    id: "some.deprecation",
+    until: "v4.0.0",
+    for: "some.namespace",
+    since: {
+        // @ts-expect-error
+        available: 123,
+    },
 });

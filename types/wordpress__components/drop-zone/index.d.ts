@@ -1,4 +1,4 @@
-import { ComponentType, DragEvent } from 'react';
+import { ComponentType, DragEvent } from "react";
 
 declare namespace DropZone {
     interface Props {
@@ -38,8 +38,8 @@ declare namespace DropZone {
         onDrop?(event: DragEvent<HTMLDivElement>, position: HoverPosition): void;
     }
     type HoverPosition = {
-        x: 'left' | 'right';
-        y: 'top' | 'bottom';
+        x: "left" | "right";
+        y: "top" | "bottom";
     } | null;
 }
 declare const DropZone: ComponentType<DropZone.Props>;

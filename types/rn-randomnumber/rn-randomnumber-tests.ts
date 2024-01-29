@@ -1,9 +1,11 @@
-import random = require('rn-randomnumber');
+import random = require("rn-randomnumber");
 
 random(-100, 25); // $ExpectType number
 
 random(); // $ExpectType number
 
-random(8); // $ExpectError
+// @ts-expect-error
+random(8);
 
-random('1', '2'); // $ExpectError
+// @ts-expect-error
+random("1", "2");

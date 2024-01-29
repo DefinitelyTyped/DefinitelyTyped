@@ -3,7 +3,7 @@ let handler = StripeCheckout.configure({
     key: "my-secret-key",
     token: (token: stripe.Token) => {
         console.log(token.id);
-    }
+    },
 });
 
 handler.open();
@@ -35,7 +35,7 @@ const options: StripeCheckoutOptions = {
     alipayReusable: false,
     shippingAddress: false,
     opened: () => {},
-    closed: () => {}
+    closed: () => {},
 };
 
 handler = StripeCheckout.configure(options);

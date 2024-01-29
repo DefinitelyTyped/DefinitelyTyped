@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/to-regex",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/to-regex"
+    ],
+    "devDependencies": {
+        "@types/to-regex": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rauli Laine",
+            "githubUsername": "RauliL"
+        },
+        {
+            "name": "Anatoly Pitikin",
+            "githubUsername": "xapdkop"
+        }
+    ]
+}

@@ -1,6 +1,6 @@
-import '../../';
+import "../../";
 
-declare module '../../' {
+declare module "../../" {
     interface CommandActions {
         closeTag(cm: Editor): void;
     }
@@ -19,19 +19,19 @@ declare module '../../' {
         /**
          * An array of tag names that should not be autoclosed. (default is empty tags for HTML, none for XML)
          */
-        dontCloseTags?: ReadonlyArray<string> | undefined;
+        dontCloseTags?: readonly string[] | undefined;
 
         /**
          * An array of tag names that should, when opened, cause a
          * blank line to be added inside the tag, and the blank line and
          * closing line to be indented. (default is block tags for HTML, none for XML)
          */
-        indentTags?: ReadonlyArray<string> | undefined;
+        indentTags?: readonly string[] | undefined;
 
         /**
          * An array of XML tag names that should be autoclosed with '/>'. (default is none)
          */
-        emptyTags: ReadonlyArray<string>;
+        emptyTags: readonly string[];
     }
 
     interface EditorConfiguration {

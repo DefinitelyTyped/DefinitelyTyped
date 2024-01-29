@@ -1,26 +1,3 @@
-// Type definitions for jQuery 2.0
-// Project: http://jquery.com/
-// Definitions by: Boris Yankov <https://github.com/borisyankov>
-//                 Christian Hoffmeister <https://github.com/choffmeister>
-//                 Steve Fenton <https://github.com/Steve-Fenton>
-//                 Diullei Gomes <https://github.com/Diullei>
-//                 Tass Iliopoulos <https://github.com/tasoili>
-//                 Sean Hill <https://github.com/seanski>
-//                 Guus Goossens <https://github.com/Guuz>
-//                 Kelly Summerlin <https://github.com/ksummerlin>
-//                 Basarat Ali Syed <https://github.com/basarat>
-//                 Nicholas Wolverson <https://github.com/nwolverson>
-//                 Derek Cicerone <https://github.com/derekcicerone>
-//                 Andrew Gaspar <https://github.com/AndrewGaspar>
-//                 Seikichi Kondo <https://github.com/seikichi>
-//                 Benjamin Jackman <https://github.com/benjaminjackman>
-//                 Josh Strobl <https://github.com/JoshStrobl>
-//                 John Reilly <https://github.com/johnnyreilly>
-//                 Dick van den Brink <https://github.com/DickvdBrink>
-//                 Thomas Schulz <https://github.com/King2500>
-//                 Leonard Thieu <https://github.com/leonard-thieu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /* *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
@@ -36,12 +13,12 @@ See the Apache Version 2.0 License for specific language governing permissions
 and limitations under the License.
 ***************************************************************************** */
 
-
+type BoundFunction = (this: HTMLElement) => void;
 /**
  * Interface for the AJAX setting that will configure the AJAX request
  * @see {@link https://api.jquery.com/jQuery.ajax/#jQuery-ajax-settings}
  */
-interface JQueryAjaxSettings {
+interface JQueryBaseSettings<Context = any> {
     /**
      * The content type sent in the request header that tells the server what kind of response it will accept in return. If the accepts setting needs modification, it is recommended to do so once in the $.ajaxSetup() method.
      */
@@ -53,7 +30,7 @@ interface JQueryAjaxSettings {
     /**
      * A pre-request callback function that can be used to modify the jqXHR (in jQuery 1.4.x, XMLHTTPRequest) object before it is sent. Use this to set custom headers, etc. The jqXHR and settings objects are passed as arguments. This is an Ajax Event. Returning false in the beforeSend function will cancel the request. As of jQuery 1.5, the beforeSend option will be called regardless of the type of request.
      */
-    beforeSend? (jqXHR: JQueryXHR, settings: JQueryAjaxSettings): any;
+    beforeSend?(jqXHR: JQueryXHR<Context>, settings: JQueryAjaxSettings<Context>): any;
     /**
      * If set to false, it will force requested pages not to be cached by the browser. Note: Setting cache to false will only work correctly with HEAD and GET requests. It works by appending "_={timestamp}" to the GET parameters. The parameter is not needed for other types of requests, except in IE8 when a POST is made to a URL that has already been requested by a GET.
      */
@@ -61,25 +38,21 @@ interface JQueryAjaxSettings {
     /**
      * A function to be called when the request finishes (after success and error callbacks are executed). The function gets passed two arguments: The jqXHR (in jQuery 1.4.x, XMLHTTPRequest) object and a string categorizing the status of the request ("success", "notmodified", "error", "timeout", "abort", or "parsererror"). As of jQuery 1.5, the complete setting can accept an array of functions. Each function will be called in turn. This is an Ajax Event.
      */
-    complete? (jqXHR: JQueryXHR, textStatus: string): any;
+    complete?(jqXHR: JQueryXHR<Context>, textStatus: string): any;
     /**
      * An object of string/regular-expression pairs that determine how jQuery will parse the response, given its content type. (version added: 1.5)
      */
-    contents?: { [key: string]: any; } | undefined;
-    //According to jQuery.ajax source code, ajax's option actually allows contentType to set to "false"
+    contents?: { [key: string]: any } | undefined;
+    // According to jQuery.ajax source code, ajax's option actually allows contentType to set to "false"
     // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/742
     /**
      * When sending data to the server, use this content type. Default is "application/x-www-form-urlencoded; charset=UTF-8", which is fine for most cases. If you explicitly pass in a content-type to $.ajax(), then it is always sent to the server (even if no data is sent). The W3C XMLHttpRequest specification dictates that the charset is always UTF-8; specifying another charset will not force the browser to change the encoding.
      */
     contentType?: any;
     /**
-     * This object will be made the context of all Ajax-related callbacks. By default, the context is an object that represents the ajax settings used in the call ($.ajaxSettings merged with the settings passed to $.ajax).
-     */
-    context?: any;
-    /**
      * An object containing dataType-to-dataType converters. Each converter's value is a function that returns the transformed value of the response. (version added: 1.5)
      */
-    converters?: { [key: string]: any; } | undefined;
+    converters?: { [key: string]: any } | undefined;
     /**
      * If you wish to force a crossDomain request (such as JSONP) on the same domain, set the value of crossDomain to true. This allows, for example, server-side redirection to another domain. (version added: 1.5)
      */
@@ -91,7 +64,7 @@ interface JQueryAjaxSettings {
     /**
      * A function to be used to handle the raw response data of XMLHttpRequest.This is a pre-filtering function to sanitize the response. You should return the sanitized data. The function accepts two arguments: The raw data returned from the server and the 'dataType' parameter.
      */
-    dataFilter? (data: any, ty: any): any;
+    dataFilter?(data: any, ty: any): any;
     /**
      * The type of data that you're expecting back from the server. If none is specified, jQuery will try to infer it based on the MIME type of the response (an XML MIME type will yield XML, in 1.4 JSON will yield a JavaScript object, in 1.4 script will execute the script, and anything else will be returned as a string).
      */
@@ -99,7 +72,7 @@ interface JQueryAjaxSettings {
     /**
      * A function to be called if the request fails. The function receives three arguments: The jqXHR (in jQuery 1.4.x, XMLHttpRequest) object, a string describing the type of error that occurred and an optional exception object, if one occurred. Possible values for the second argument (besides null) are "timeout", "error", "abort", and "parsererror". When an HTTP error occurs, errorThrown receives the textual portion of the HTTP status, such as "Not Found" or "Internal Server Error." As of jQuery 1.5, the error setting can accept an array of functions. Each function will be called in turn. Note: This handler is not called for cross-domain script and cross-domain JSONP requests. This is an Ajax Event.
      */
-    error? (jqXHR: JQueryXHR, textStatus: string, errorThrown: string): any;
+    error?(jqXHR: JQueryXHR<Context>, textStatus: string, errorThrown: string): any;
     /**
      * Whether to trigger global Ajax event handlers for this request. The default is true. Set to false to prevent the global handlers like ajaxStart or ajaxStop from being triggered. This can be used to control various Ajax Events.
      */
@@ -107,7 +80,7 @@ interface JQueryAjaxSettings {
     /**
      * An object of additional header key/value pairs to send along with requests using the XMLHttpRequest transport. The header X-Requested-With: XMLHttpRequest is always added, but its default XMLHttpRequest value can be changed here. Values in the headers setting can also be overwritten from within the beforeSend function. (version added: 1.5)
      */
-    headers?: { [key: string]: any; } | undefined;
+    headers?: { [key: string]: any } | undefined;
     /**
      * Allow the request to be successful only if the response has changed since the last request. This is done by checking the Last-Modified header. Default value is false, ignoring the header. In jQuery 1.4 this technique also checks the 'etag' specified by the server to catch unmodified data.
      */
@@ -147,11 +120,11 @@ interface JQueryAjaxSettings {
     /**
      * An object of numeric HTTP codes and functions to be called when the response has the corresponding code. f the request is successful, the status code functions take the same parameters as the success callback; if it results in an error (including 3xx redirect), they take the same parameters as the error callback. (version added: 1.5)
      */
-    statusCode?: { [key: string]: any; } | undefined;
+    statusCode?: { [key: string]: any } | undefined;
     /**
      * A function to be called if the request succeeds. The function gets passed three arguments: The data returned from the server, formatted according to the dataType parameter; a string describing the status; and the jqXHR (in jQuery 1.4.x, XMLHttpRequest) object. As of jQuery 1.5, the success setting can accept an array of functions. Each function will be called in turn. This is an Ajax Event.
      */
-    success? (data: any, textStatus: string, jqXHR: JQueryXHR): any;
+    success?(data: any, textStatus: string, jqXHR: JQueryXHR<Context>): any;
     /**
      * Set a timeout (in milliseconds) for the request. This will override any global timeout set with $.ajaxSetup(). The timeout period starts at the point the $.ajax call is made; if several other requests are in progress and the browser has no connections available, it is possible for a request to time out before it can be sent. In jQuery 1.4.x and below, the XMLHttpRequest object will be in an invalid state if the request times out; accessing any object members may throw an exception. In Firefox 3.0+ only, script and JSONP requests cannot be cancelled by a timeout; the script will run even if it arrives after the timeout period.
      */
@@ -179,14 +152,21 @@ interface JQueryAjaxSettings {
     /**
      * An object of fieldName-fieldValue pairs to set on the native XHR object. For example, you can use it to set withCredentials to true for cross-domain requests if needed. In jQuery 1.5, the withCredentials property was not propagated to the native XHR and thus CORS requests requiring it would ignore this flag. For this reason, we recommend using jQuery 1.5.1+ should you require the use of it. (version added: 1.5.1)
      */
-    xhrFields?: { [key: string]: any; } | undefined;
+    xhrFields?: { [key: string]: any } | undefined;
+}
+
+interface JQueryAjaxSettings<Context = JQueryBaseSettings> extends JQueryBaseSettings<Context> {
+    /**
+     * This object will be made the context of all Ajax-related callbacks. By default, the context is an object that represents the ajax settings used in the call ($.ajaxSettings merged with the settings passed to $.ajax).
+     */
+    context?: Context;
 }
 
 /**
  * Interface for the jqXHR object
  * @see {@link https://api.jquery.com/jQuery.ajax/#jqXHR}
  */
-interface JQueryXHR extends XMLHttpRequest, JQueryPromise<any> {
+interface JQueryXHR<C = any> extends XMLHttpRequest, JQueryPromise<any, C> {
     /**
      * The .overrideMimeType() method may be used in the beforeSend() callback function, for example, to modify the response content-type header. As of jQuery 1.5.1, the jqXHR object also contains the overrideMimeType() method (it was available in jQuery 1.4.x, as well, but was temporarily removed in jQuery 1.5).
      */
@@ -200,7 +180,10 @@ interface JQueryXHR extends XMLHttpRequest, JQueryPromise<any> {
     /**
      * Incorporates the functionality of the .done() and .fail() methods, allowing (as of jQuery 1.8) the underlying Promise to be manipulated. Refer to deferred.then() for implementation details.
      */
-    then<R>(doneCallback: (data: any, textStatus: string, jqXHR: JQueryXHR) => R|JQueryPromise<R>, failCallback?: (jqXHR: JQueryXHR, textStatus: string, errorThrown: any) => void): JQueryPromise<R>;
+    then<R>(
+        doneCallback: (data: any, textStatus: string, jqXHR: JQueryXHR<C>) => R | JQueryPromise<R, C>,
+        failCallback?: (jqXHR: JQueryXHR<C>, textStatus: string, errorThrown: any) => void,
+    ): JQueryPromise<R, C>;
     /**
      * Property containing the parsed response if the response content type is json
      */
@@ -208,7 +191,7 @@ interface JQueryXHR extends XMLHttpRequest, JQueryPromise<any> {
     /**
      * A function to be called if the request fails.
      */
-    error(xhr: JQueryXHR, textStatus: string, errorThrown: string): void;
+    error(xhr: JQueryXHR<C>, textStatus: string, errorThrown: string): void;
 }
 
 /**
@@ -311,7 +294,7 @@ interface JQueryCallback {
 /**
  * Allows jQuery Promises to interop with non-jQuery promises
  */
-interface JQueryGenericPromise<T> {
+interface JQueryGenericPromise<T, C = any> {
     /**
      * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
      *
@@ -319,7 +302,11 @@ interface JQueryGenericPromise<T> {
      * @param failFilter An optional function that is called when the Deferred is rejected.
      * @see {@link https://api.jquery.com/deferred.then/#deferred-then-doneFilter-failFilter-progressFilter}
      */
-    then<U>(doneFilter: (value?: T, ...values: any[]) => U|JQueryPromise<U>, failFilter?: (...reasons: any[]) => any, progressFilter?: (...progression: any[]) => any): JQueryPromise<U>;
+    then<U>(
+        doneFilter: (value?: T, ...values: any[]) => U | JQueryPromise<U, C>,
+        failFilter?: (...reasons: any[]) => any,
+        progressFilter?: (...progression: any[]) => any,
+    ): JQueryPromise<U, C>;
 
     /**
      * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
@@ -328,25 +315,32 @@ interface JQueryGenericPromise<T> {
      * @param failFilter An optional function that is called when the Deferred is rejected.
      * @see {@link https://api.jquery.com/deferred.then/#deferred-then-doneFilter-failFilter-progressFilter}
      */
-    then(doneFilter: (value?: T, ...values: any[]) => void, failFilter?: (...reasons: any[]) => any, progressFilter?: (...progression: any[]) => any): JQueryPromise<void>;
+    then(
+        doneFilter: (value?: T, ...values: any[]) => void,
+        failFilter?: (...reasons: any[]) => any,
+        progressFilter?: (...progression: any[]) => any,
+    ): JQueryPromise<void, C>;
 }
 
 /**
  * Interface for the JQuery promise/deferred callbacks
  */
-interface JQueryPromiseCallback<T> {
-    (value?: T, ...args: any[]): void;
+interface JQueryPromiseCallback<T, C = any> {
+    (this: C, value?: T, ...args: any[]): void;
 }
 
-interface JQueryPromiseOperator<T, U> {
-    (callback1: JQueryPromiseCallback<T>|JQueryPromiseCallback<T>[], ...callbacksN: Array<JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[]>): JQueryPromise<U>;
+interface JQueryPromiseOperator<T, U, C = any> {
+    (
+        callback1: JQueryPromiseCallback<T, C> | Array<JQueryPromiseCallback<T, C>>,
+        ...callbacksN: Array<JQueryPromiseCallback<any, C> | Array<JQueryPromiseCallback<any, C>>>
+    ): JQueryPromise<U, C>;
 }
 
 /**
  * Interface for the JQuery promise, part of callbacks
  * @see {@link https://api.jquery.com/category/deferred-object/}
  */
-interface JQueryPromise<T> extends JQueryGenericPromise<T> {
+interface JQueryPromise<T, C = any> extends JQueryGenericPromise<T, C> {
     /**
      * Determine the current state of a Deferred object.
      * @see {@link https://api.jquery.com/deferred.state/}
@@ -359,7 +353,10 @@ interface JQueryPromise<T> extends JQueryGenericPromise<T> {
      * @param alwaysCallbackN Optional additional functions, or arrays of functions, that are called when the Deferred is resolved or rejected.
      * @see {@link https://api.jquery.com/deferred.always/}
      */
-    always(alwaysCallback1?: JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[], ...alwaysCallbackN: Array<JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[]>): JQueryPromise<T>;
+    always(
+        alwaysCallback1?: JQueryPromiseCallback<any, C> | Array<JQueryPromiseCallback<any, C>>,
+        ...alwaysCallbackN: Array<JQueryPromiseCallback<any> | Array<JQueryPromiseCallback<any>>>
+    ): JQueryPromise<T, C>;
     /**
      * Add handlers to be called when the Deferred object is resolved.
      *
@@ -367,7 +364,10 @@ interface JQueryPromise<T> extends JQueryGenericPromise<T> {
      * @param doneCallbackN Optional additional functions, or arrays of functions, that are called when the Deferred is resolved.
      * @see {@link https://api.jquery.com/deferred.done/}
      */
-    done(doneCallback1?: JQueryPromiseCallback<T>|JQueryPromiseCallback<T>[], ...doneCallbackN: Array<JQueryPromiseCallback<T>|JQueryPromiseCallback<T>[]>): JQueryPromise<T>;
+    done(
+        doneCallback1?: JQueryPromiseCallback<T, C> | Array<JQueryPromiseCallback<T, C>>,
+        ...doneCallbackN: Array<JQueryPromiseCallback<T, C> | Array<JQueryPromiseCallback<T, C>>>
+    ): JQueryPromise<T, C>;
     /**
      * Add handlers to be called when the Deferred object is rejected.
      *
@@ -375,7 +375,10 @@ interface JQueryPromise<T> extends JQueryGenericPromise<T> {
      * @param failCallbackN Optional additional functions, or arrays of functions, that are called when the Deferred is rejected.
      * @see {@link https://api.jquery.com/deferred.fail/}
      */
-    fail(failCallback1?: JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[], ...failCallbackN: Array<JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[]>): JQueryPromise<T>;
+    fail(
+        failCallback1?: JQueryPromiseCallback<any, C> | Array<JQueryPromiseCallback<any, C>>,
+        ...failCallbackN: Array<JQueryPromiseCallback<any, C> | Array<JQueryPromiseCallback<any, C>>>
+    ): JQueryPromise<T, C>;
     /**
      * Add handlers to be called when the Deferred object generates progress notifications.
      *
@@ -383,10 +386,17 @@ interface JQueryPromise<T> extends JQueryGenericPromise<T> {
      * @param progressCallbackN Optional additional functions, or arrays of functions, to be called when the Deferred generates progress notifications.
      * @see {@link https://api.jquery.com/deferred.progress/}
      */
-    progress(progressCallback1?: JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[], ...progressCallbackN: Array<JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[]>): JQueryPromise<T>;
+    progress(
+        progressCallback1?: JQueryPromiseCallback<any, C> | Array<JQueryPromiseCallback<any, C>>,
+        ...progressCallbackN: Array<JQueryPromiseCallback<any, C> | Array<JQueryPromiseCallback<any, C>>>
+    ): JQueryPromise<T, C>;
 
     // Deprecated - given no typings
-    pipe(doneFilter?: (x: any) => any, failFilter?: (x: any) => any, progressFilter?: (x: any) => any): JQueryPromise<any>;
+    pipe(
+        doneFilter?: (x: any) => any,
+        failFilter?: (x: any) => any,
+        progressFilter?: (x: any) => any,
+    ): JQueryPromise<any, C>;
 
     /**
      * Return a Deferred's Promise object.
@@ -394,14 +404,14 @@ interface JQueryPromise<T> extends JQueryGenericPromise<T> {
      * @param target Object onto which the promise methods have to be attached
      * @see {@link https://api.jquery.com/deferred.promise/}
      */
-    promise(target?: any): JQueryPromise<T>;
+    promise(target?: any): JQueryPromise<T, C>;
 }
 
 /**
  * Interface for the JQuery deferred, part of callbacks
  * @see {@link https://api.jquery.com/category/deferred-object/}
  */
-interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
+interface JQueryDeferred<T, C = any> extends JQueryGenericPromise<T, C> {
     /**
      * Determine the current state of a Deferred object.
      * @see {@link https://api.jquery.com/deferred.state/}
@@ -414,7 +424,10 @@ interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
      * @param alwaysCallbackN Optional additional functions, or arrays of functions, that are called when the Deferred is resolved or rejected.
      * @see {@link https://api.jquery.com/deferred.always/}
      */
-    always(alwaysCallback1?: JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[], ...alwaysCallbackN: Array<JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[]>): JQueryDeferred<T>;
+    always(
+        alwaysCallback1?: JQueryPromiseCallback<any, C> | Array<JQueryPromiseCallback<any, C>>,
+        ...alwaysCallbackN: Array<JQueryPromiseCallback<any, C> | Array<JQueryPromiseCallback<any, C>>>
+    ): JQueryDeferred<T, C>;
     /**
      * Add handlers to be called when the Deferred object is resolved.
      *
@@ -422,7 +435,10 @@ interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
      * @param doneCallbackN Optional additional functions, or arrays of functions, that are called when the Deferred is resolved.
      * @see {@link https://api.jquery.com/deferred.done/}
      */
-    done(doneCallback1?: JQueryPromiseCallback<T>|JQueryPromiseCallback<T>[], ...doneCallbackN: Array<JQueryPromiseCallback<T>|JQueryPromiseCallback<T>[]>): JQueryDeferred<T>;
+    done(
+        doneCallback1?: JQueryPromiseCallback<T, C> | Array<JQueryPromiseCallback<T, C>>,
+        ...doneCallbackN: Array<JQueryPromiseCallback<T, C> | Array<JQueryPromiseCallback<T, C>>>
+    ): JQueryDeferred<T, C>;
     /**
      * Add handlers to be called when the Deferred object is rejected.
      *
@@ -430,7 +446,10 @@ interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
      * @param failCallbackN Optional additional functions, or arrays of functions, that are called when the Deferred is rejected.
      * @see {@link https://api.jquery.com/deferred.fail/}
      */
-    fail(failCallback1?: JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[], ...failCallbackN: Array<JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[]>): JQueryDeferred<T>;
+    fail(
+        failCallback1?: JQueryPromiseCallback<any, C> | Array<JQueryPromiseCallback<any, C>>,
+        ...failCallbackN: Array<JQueryPromiseCallback<any, C> | Array<JQueryPromiseCallback<any, C>>>
+    ): JQueryDeferred<T, C>;
     /**
      * Add handlers to be called when the Deferred object generates progress notifications.
      *
@@ -438,7 +457,10 @@ interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
      * @param progressCallbackN Optional additional functions, or arrays of functions, to be called when the Deferred generates progress notifications.
      * @see {@link https://api.jquery.com/deferred.progress/}
      */
-    progress(progressCallback1?: JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[], ...progressCallbackN: Array<JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[]>): JQueryDeferred<T>;
+    progress(
+        progressCallback1?: JQueryPromiseCallback<any, C> | Array<JQueryPromiseCallback<any, C>>,
+        ...progressCallbackN: Array<JQueryPromiseCallback<any, C> | Array<JQueryPromiseCallback<any, C>>>
+    ): JQueryDeferred<T, C>;
 
     /**
      * Call the progressCallbacks on a Deferred object with the given args.
@@ -446,7 +468,7 @@ interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
      * @param args Optional arguments that are passed to the progressCallbacks.
      * @see {@link https://api.jquery.com/deferred.notify/}
      */
-    notify(value?: any, ...args: any[]): JQueryDeferred<T>;
+    notify(value?: any, ...args: any[]): JQueryDeferred<T, C>;
 
     /**
      * Call the progressCallbacks on a Deferred object with the given context and args.
@@ -455,7 +477,7 @@ interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
      * @param args Optional arguments that are passed to the progressCallbacks.
      * @see {@link https://api.jquery.com/deferred.notifyWith/}
      */
-    notifyWith(context: any, args?: any[]): JQueryDeferred<T>;
+    notifyWith<Context = any>(context: Context, args?: any[]): JQueryDeferred<T, Context>;
 
     /**
      * Reject a Deferred object and call any failCallbacks with the given args.
@@ -463,7 +485,7 @@ interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
      * @param args Optional arguments that are passed to the failCallbacks.
      * @see {@link https://api.jquery.com/deferred.reject/}
      */
-    reject(value?: any, ...args: any[]): JQueryDeferred<T>;
+    reject(value?: any, ...args: any[]): JQueryDeferred<T, C>;
     /**
      * Reject a Deferred object and call any failCallbacks with the given context and args.
      *
@@ -471,7 +493,7 @@ interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
      * @param args An optional array of arguments that are passed to the failCallbacks.
      * @see {@link https://api.jquery.com/deferred.rejectWith/}
      */
-    rejectWith(context: any, args?: any[]): JQueryDeferred<T>;
+    rejectWith<Context = any>(context: Context, args?: any[]): JQueryDeferred<T, Context>;
 
     /**
      * Resolve a Deferred object and call any doneCallbacks with the given args.
@@ -480,7 +502,7 @@ interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
      * @param args Optional subsequent arguments that are passed to the doneCallbacks.
      * @see {@link https://api.jquery.com/deferred.resolve/}
      */
-    resolve(value?: T, ...args: any[]): JQueryDeferred<T>;
+    resolve(value?: T, ...args: any[]): JQueryDeferred<T, C>;
 
     /**
      * Resolve a Deferred object and call any doneCallbacks with the given context and args.
@@ -489,7 +511,7 @@ interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
      * @param args An optional array of arguments that are passed to the doneCallbacks.
      * @see {@link https://api.jquery.com/deferred.resolveWith/}
      */
-    resolveWith(context: any, args?: T[]): JQueryDeferred<T>;
+    resolveWith<Context = any>(context: Context, args?: T[]): JQueryDeferred<T, Context>;
 
     /**
      * Return a Deferred's Promise object.
@@ -497,10 +519,14 @@ interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
      * @param target Object onto which the promise methods have to be attached
      * @see {@link https://api.jquery.com/deferred.promise/}
      */
-    promise(target?: any): JQueryPromise<T>;
+    promise(target?: any): JQueryPromise<T, C>;
 
     // Deprecated - given no typings
-    pipe(doneFilter?: (x: any) => any, failFilter?: (x: any) => any, progressFilter?: (x: any) => any): JQueryPromise<any>;
+    pipe(
+        doneFilter?: (x: any) => any,
+        failFilter?: (x: any) => any,
+        progressFilter?: (x: any) => any,
+    ): JQueryPromise<any, C>;
 }
 
 /**
@@ -639,7 +665,14 @@ interface JQueryKeyEventObject extends JQueryInputEventObject {
     keyCode: number;
 }
 
-interface JQueryEventObject extends BaseJQueryEventObject, JQueryCustomEventObject, JQueryInputEventObject, JQueryMouseEventObject, JQueryKeyEventObject {
+interface JQueryEventObject
+    extends
+        BaseJQueryEventObject,
+        JQueryCustomEventObject,
+        JQueryInputEventObject,
+        JQueryMouseEventObject,
+        JQueryKeyEventObject
+{
 }
 
 /**
@@ -668,7 +701,7 @@ interface JQuerySupport {
     opacity?: boolean | undefined;
     optDisabled?: boolean | undefined;
     optSelected?: boolean | undefined;
-    scriptEval? (): boolean;
+    scriptEval?(): boolean;
     style?: boolean | undefined;
     submitBubbles?: boolean | undefined;
     tbody?: boolean | undefined;
@@ -699,7 +732,7 @@ interface JQueryParam {
  */
 interface JQueryEventConstructor {
     (name: string, eventProperties?: any): JQueryEventObject;
-    new (name: string, eventProperties?: any): JQueryEventObject;
+    new(name: string, eventProperties?: any): JQueryEventObject;
 }
 
 /**
@@ -779,11 +812,11 @@ interface JQueryAnimationOptions {
 }
 
 interface JQueryEasingFunction {
-    ( percent: number ): number;
+    (percent: number): number;
 }
 
 interface JQueryEasingFunctions {
-    [ name: string ]: JQueryEasingFunction;
+    [name: string]: JQueryEasingFunction;
     linear: JQueryEasingFunction;
     swing: JQueryEasingFunction;
 }
@@ -794,14 +827,13 @@ interface JQueryEasingFunctions {
  * @see {@link https://api.jquery.com/Types/#jQuery}
  */
 interface JQueryStatic {
-
     /**
      * Perform an asynchronous HTTP (Ajax) request.
      *
      * @param settings A set of key/value pairs that configure the Ajax request. All settings are optional. A default can be set for any option with $.ajaxSetup().
      * @see {@link https://api.jquery.com/jQuery.ajax/#jQuery-ajax-settings}
      */
-    ajax(settings: JQueryAjaxSettings): JQueryXHR;
+    ajax<C>(settings: JQueryAjaxSettings<C>): JQueryXHR<C>;
     /**
      * Perform an asynchronous HTTP (Ajax) request.
      *
@@ -809,7 +841,7 @@ interface JQueryStatic {
      * @param settings A set of key/value pairs that configure the Ajax request. All settings are optional. A default can be set for any option with $.ajaxSetup().
      * @see {@link https://api.jquery.com/jQuery.ajax/#jQuery-ajax-url-settings}
      */
-    ajax(url: string, settings?: JQueryAjaxSettings): JQueryXHR;
+    ajax<C>(url: string, settings?: JQueryAjaxSettings<C>): JQueryXHR<C>;
 
     /**
      * Handle custom Ajax options or modify existing options before each request is sent and before they are processed by $.ajax().
@@ -818,7 +850,10 @@ interface JQueryStatic {
      * @param handler A handler to set default values for future Ajax requests.
      * @see {@link https://api.jquery.com/jQuery.ajaxPrefilter/}
      */
-    ajaxPrefilter(dataTypes: string, handler: (opts: any, originalOpts: JQueryAjaxSettings, jqXHR: JQueryXHR) => any): void;
+    ajaxPrefilter(
+        dataTypes: string,
+        handler: (opts: any, originalOpts: JQueryAjaxSettings, jqXHR: JQueryXHR) => any,
+    ): void;
     /**
      * Handle custom Ajax options or modify existing options before each request is sent and before they are processed by $.ajax().
      *
@@ -827,23 +862,26 @@ interface JQueryStatic {
      */
     ajaxPrefilter(handler: (opts: any, originalOpts: JQueryAjaxSettings, jqXHR: JQueryXHR) => any): void;
 
-     /**
+    /**
      * Creates an object that handles the actual transmission of Ajax data.
      *
      * @param dataType A string identifying the data type to use.
      * @param handler A handler to return the new transport object to use with the data type provided in the first argument.
      * @see {@link https://api.jquery.com/jQuery.ajaxTransport/}
      */
-    ajaxTransport(dataType: string, handler: (opts: any, originalOpts: JQueryAjaxSettings, jqXHR: JQueryXHR) => any): void;
+    ajaxTransport(
+        dataType: string,
+        handler: (opts: any, originalOpts: JQueryAjaxSettings, jqXHR: JQueryXHR) => any,
+    ): void;
 
     ajaxSettings: JQueryAjaxSettings;
 
-     /**
-      * Set default values for future Ajax requests. Its use is not recommended.
-      *
-      * @param options A set of key/value pairs that configure the default Ajax request. All options are optional.
-      * @see {@link https://api.jquery.com/jQuery.ajaxSetup/}
-      */
+    /**
+     * Set default values for future Ajax requests. Its use is not recommended.
+     *
+     * @param options A set of key/value pairs that configure the default Ajax request. All options are optional.
+     * @see {@link https://api.jquery.com/jQuery.ajaxSetup/}
+     */
     ajaxSetup(options: JQueryAjaxSettings): void;
 
     /**
@@ -864,14 +902,19 @@ interface JQueryStatic {
      * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, or html).
      * @see {@link https://api.jquery.com/jQuery.get/#jQuery-get-url-data-success-dataType}
      */
-    get(url: string, data?: Object|string, success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any, dataType?: string): JQueryXHR;
+    get(
+        url: string,
+        data?: Object | string,
+        success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any,
+        dataType?: string,
+    ): JQueryXHR;
     /**
      * Load data from the server using a HTTP GET request.
      *
      * @param settings The JQueryAjaxSettings to be used for the request
      * @see {@link https://api.jquery.com/jQuery.get/#jQuery-get-settings}
      */
-    get(settings : JQueryAjaxSettings): JQueryXHR;
+    get<C>(settings: JQueryAjaxSettings<C>): JQueryXHR<C>;
     /**
      * Load JSON-encoded data from the server using a GET HTTP request.
      *
@@ -888,7 +931,11 @@ interface JQueryStatic {
      * @param success A callback function that is executed if the request succeeds.
      * @see {@link https://api.jquery.com/jQuery.getJSON/}
      */
-    getJSON(url: string, data?: Object|string, success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any): JQueryXHR;
+    getJSON(
+        url: string,
+        data?: Object | string,
+        success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any,
+    ): JQueryXHR;
     /**
      * Load a JavaScript file from the server using a GET HTTP request, then execute it.
      *
@@ -923,14 +970,19 @@ interface JQueryStatic {
      * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
      * @see {@link https://api.jquery.com/jQuery.post/#jQuery-post-url-data-success-dataType}
      */
-    post(url: string, data?: Object|string, success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any, dataType?: string): JQueryXHR;
+    post(
+        url: string,
+        data?: Object | string,
+        success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any,
+        dataType?: string,
+    ): JQueryXHR;
     /**
      * Load data from the server using a HTTP POST request.
      *
      * @param settings The JQueryAjaxSettings to be used for the request
      * @see {@link https://api.jquery.com/jQuery.post/#jQuery-post-settings}
      */
-    post(settings : JQueryAjaxSettings): JQueryXHR;
+    post<C>(settings: JQueryAjaxSettings<C>): JQueryXHR<C>;
     /**
      * A multi-purpose callbacks list object that provides a powerful way to manage callback lists.
      *
@@ -954,7 +1006,7 @@ interface JQueryStatic {
      * @param context A DOM Element, Document, or jQuery to use as context
      * @see {@link https://api.jquery.com/jQuery/#jQuery-selector-context}
      */
-    (selector: string, context?: Element|JQuery): JQuery;
+    (selector: string, context?: Element | JQuery): JQuery;
 
     /**
      * Accepts a string containing a CSS selector which is then used to match a set of elements.
@@ -1034,13 +1086,13 @@ interface JQueryStatic {
      * @param deferreds One or more Deferred objects, or plain JavaScript objects.
      * @see {@link https://api.jquery.com/jQuery.when/}
      */
-    when<T>(...deferreds: Array<T|JQueryPromise<T>/* as JQueryDeferred<T> */>): JQueryPromise<T>;
+    when<T>(...deferreds: Array<T | JQueryPromise<T> /* as JQueryDeferred<T> */>): JQueryPromise<T>;
 
     /**
      * Hook directly into jQuery to override how particular CSS properties are retrieved or set, normalize CSS property naming, or create custom properties.
      * @see {@link https://api.jquery.com/jQuery.cssHooks/}
      */
-    cssHooks: { [key: string]: any; };
+    cssHooks: { [key: string]: any };
 
     /**
      * An object containing all CSS properties that may be used without a unit. The .css() method uses this object to see if it may append px to unitless values.
@@ -1106,7 +1158,7 @@ interface JQueryStatic {
      * @param newQueue An array of functions to replace the current queue contents.
      * @see {@link https://api.jquery.com/jQuery.queue/#jQuery-queue-element-queueName-newQueue}
      */
-    queue(element: Element, queueName: string, newQueue: Function[]): JQuery;
+    queue(element: Element, queueName: string, newQueue: BoundFunction[]): JQuery;
     /**
      * Manipulate the queue of functions to be executed on the matched element.
      *
@@ -1115,7 +1167,7 @@ interface JQueryStatic {
      * @param callback The new function to add to the queue.
      * @see {@link https://api.jquery.com/jQuery.queue/#jQuery-queue-element-queueName-callback}
      */
-    queue(element: Element, queueName: string, callback: Function): JQuery;
+    queue(element: Element, queueName: string, callback: BoundFunction): JQuery;
 
     /**
      * Remove a previously-stored piece of data.
@@ -1148,7 +1200,7 @@ interface JQueryStatic {
          */
         interval: number;
         stop: () => void;
-        speeds: { slow: number; fast: number; };
+        speeds: { slow: number; fast: number };
         /**
          * Globally disable all animations.
          * @see {@link https://api.jquery.com/jQuery.fx.off/}
@@ -1184,7 +1236,7 @@ interface JQueryStatic {
      * @param message The message to send out.
      * @see {@link https://api.jquery.com/jQuery.error/}
      */
-    error(message: any): JQuery;
+    error(message: any): any;
 
     expr: any;
     readonly fn: JQuery;
@@ -1213,8 +1265,9 @@ interface JQueryStatic {
      */
     each<T>(
         collection: T[],
-        callback: (indexInArray: number, valueOfElement: T) => boolean | void
-        ): T[];
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        callback: (this: T, indexInArray: number, valueOfElement: T) => boolean | void,
+    ): T[];
 
     /**
      * A generic iterator function, which can be used to seamlessly iterate over both objects and arrays. Arrays and array-like objects with a length property (such as a function's arguments object) are iterated by numeric index, from 0 to length-1. Other objects are iterated via their named properties.
@@ -1227,8 +1280,9 @@ interface JQueryStatic {
     each<T extends Object>(
         collection: T,
         // TODO: `(keyInObject: keyof T, valueOfElement: T[keyof T])`, when TypeScript 2.1 allowed in repository
-        callback: (keyInObject: string, valueOfElement: any) => boolean | void
-        ): T;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        callback: (keyInObject: string, valueOfElement: any) => boolean | void,
+    ): T;
 
     /**
      * Merge the contents of two or more objects together into the first object.
@@ -1284,7 +1338,7 @@ interface JQueryStatic {
      * @param obj Object to test whether or not it is an array.
      * @see {@link https://api.jquery.com/jQuery.isArray/}
      */
-    isArray(obj: any): obj is Array<any>;
+    isArray(obj: any): obj is any[];
     /**
      * Check to see if an object is empty (contains no enumerable properties).
      *
@@ -1404,7 +1458,21 @@ interface JQueryStatic {
      * @param obj Object to get the internal JavaScript [[Class]] of.
      * @see {@link https://api.jquery.com/jQuery.type/}
      */
-    type(obj: any): "array" | "boolean" | "date" | "error" | "function" | "null" | "number" | "object" | "regexp" | "string" | "symbol" | "undefined";
+    type(
+        obj: any,
+    ):
+        | "array"
+        | "boolean"
+        | "date"
+        | "error"
+        | "function"
+        | "null"
+        | "number"
+        | "object"
+        | "regexp"
+        | "string"
+        | "symbol"
+        | "undefined";
 
     /**
      * Sorts an array of DOM elements, in place, with the duplicates removed. Note that this only works on arrays of DOM elements, not strings or numbers.
@@ -1437,42 +1505,66 @@ interface JQuery {
      * @param handler The function to be invoked.
      * @see {@link https://api.jquery.com/ajaxComplete/}
      */
-    ajaxComplete(handler: (event: JQueryEventObject, XMLHttpRequest: XMLHttpRequest, ajaxOptions: any) => any): JQuery;
+    ajaxComplete(
+        handler: (this: HTMLElement, event: JQueryEventObject, XMLHttpRequest: XMLHttpRequest, ajaxOptions: any) => any,
+    ): JQuery;
     /**
      * Register a handler to be called when Ajax requests complete with an error. This is an Ajax Event.
      *
      * @param handler The function to be invoked.
      * @see {@link https://api.jquery.com/ajaxError/}
      */
-    ajaxError(handler: (event: JQueryEventObject, jqXHR: JQueryXHR, ajaxSettings: JQueryAjaxSettings, thrownError: any) => any): JQuery;
+    ajaxError(
+        handler: (
+            this: HTMLElement,
+            event: JQueryEventObject,
+            jqXHR: JQueryXHR,
+            ajaxSettings: JQueryAjaxSettings,
+            thrownError: any,
+        ) => any,
+    ): JQuery;
     /**
      * Attach a function to be executed before an Ajax request is sent. This is an Ajax Event.
      *
      * @param handler The function to be invoked.
      * @see {@link https://api.jquery.com/ajaxSend/}
      */
-    ajaxSend(handler: (event: JQueryEventObject, jqXHR: JQueryXHR, ajaxOptions: JQueryAjaxSettings) => any): JQuery;
+    ajaxSend(
+        handler: (
+            this: HTMLElement,
+            event: JQueryEventObject,
+            jqXHR: JQueryXHR,
+            ajaxOptions: JQueryAjaxSettings,
+        ) => any,
+    ): JQuery;
     /**
      * Register a handler to be called when the first Ajax request begins. This is an Ajax Event.
      *
      * @param handler The function to be invoked.
      * @see {@link https://api.jquery.com/ajaxStart/}
      */
-    ajaxStart(handler: () => any): JQuery;
+    ajaxStart(handler: (this: HTMLElement) => any): JQuery;
     /**
      * Register a handler to be called when all Ajax requests have completed. This is an Ajax Event.
      *
      * @param handler The function to be invoked.
      * @see {@link https://api.jquery.com/ajaxStop/}
      */
-    ajaxStop(handler: () => any): JQuery;
+    ajaxStop(handler: (this: HTMLElement) => any): JQuery;
     /**
      * Attach a function to be executed whenever an Ajax request completes successfully. This is an Ajax Event.
      *
      * @param handler The function to be invoked.
      * @see {@link https://api.jquery.com/ajaxSuccess/}
      */
-    ajaxSuccess(handler: (event: JQueryEventObject, XMLHttpRequest: XMLHttpRequest, ajaxOptions: JQueryAjaxSettings) => any): JQuery;
+    ajaxSuccess(
+        handler: (
+            this: HTMLElement,
+            event: JQueryEventObject,
+            XMLHttpRequest: XMLHttpRequest,
+            ajaxOptions: JQueryAjaxSettings,
+        ) => any,
+    ): JQuery;
 
     /**
      * Load data from the server and place the returned HTML into the matched element.
@@ -1482,7 +1574,11 @@ interface JQuery {
      * @param complete A callback function that is executed when the request completes.
      * @see {@link https://api.jquery.com/load/}
      */
-    load(url: string, data?: string|Object, complete?: (responseText: string, textStatus: string, XMLHttpRequest: XMLHttpRequest) => any): JQuery;
+    load(
+        url: string,
+        data?: string | Object,
+        complete?: (responseText: string, textStatus: string, XMLHttpRequest: XMLHttpRequest) => any,
+    ): JQuery;
 
     /**
      * Encode a set of form elements as a string for submission.
@@ -1530,7 +1626,7 @@ interface JQuery {
      * @param value A value to set for the attribute. If this is `null`, the attribute will be deleted.
      * @see {@link https://api.jquery.com/attr/#attr-attributeName-value}
      */
-    attr(attributeName: string, value: string|number|null): JQuery;
+    attr(attributeName: string, value: string | number | null): JQuery;
     /**
      * Set one or more attributes for the set of matched elements.
      *
@@ -1538,7 +1634,7 @@ interface JQuery {
      * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old attribute value as arguments.
      * @see {@link https://api.jquery.com/attr/#attr-attributeName-function}
      */
-    attr(attributeName: string, func: (index: number, attr: string) => string|number): JQuery;
+    attr(attributeName: string, func: (this: HTMLElement, index: number, attr: string) => string | number): JQuery;
     /**
      * Set one or more attributes for the set of matched elements.
      *
@@ -1589,7 +1685,7 @@ interface JQuery {
      * @param value A value to set for the property.
      * @see {@link https://api.jquery.com/prop/#prop-propertyName-value}
      */
-    prop(propertyName: string, value: string|number|boolean): JQuery;
+    prop(propertyName: string, value: string | number | boolean): JQuery;
     /**
      * Set one or more properties for the set of matched elements.
      *
@@ -1672,14 +1768,14 @@ interface JQuery {
      * @param value A string of text, an array of strings or number corresponding to the value of each matched element to set as selected/checked.
      * @see {@link https://api.jquery.com/val/#val-value}
      */
-    val(value: string|string[]|number): JQuery;
+    val(value: string | string[] | number): JQuery;
     /**
      * Set the value of each element in the set of matched elements.
      *
      * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
      * @see {@link https://api.jquery.com/val/#val-function}
      */
-    val(func: (index: number, value: string) => string): JQuery;
+    val(func: (this: HTMLElement, index: number, value: string) => string): JQuery;
 
     /**
      * Get the value of style properties for the first element in the set of matched elements.
@@ -1703,7 +1799,7 @@ interface JQuery {
      * @param value A value to set for the property.
      * @see {@link https://api.jquery.com/css/#css-propertyName-value}
      */
-    css(propertyName: string, value: string|number): JQuery;
+    css(propertyName: string, value: string | number): JQuery;
     /**
      * Set one or more CSS properties for the set of matched elements.
      *
@@ -1711,7 +1807,7 @@ interface JQuery {
      * @param value A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
      * @see {@link https://api.jquery.com/css/#css-propertyName-function}
      */
-    css(propertyName: string, value: (index: number, value: string) => string|number): JQuery;
+    css(propertyName: string, value: (index: number, value: string) => string | number): JQuery;
     /**
      * Set one or more CSS properties for the set of matched elements.
      *
@@ -1731,14 +1827,14 @@ interface JQuery {
      * @param value An integer representing the number of pixels, or an integer with an optional unit of measure appended (as a string).
      * @see {@link https://api.jquery.com/height/#height-value}
      */
-    height(value: number|string): JQuery;
+    height(value: number | string): JQuery;
     /**
      * Set the CSS height of every matched element.
      *
      * @param func A function returning the height to set. Receives the index position of the element in the set and the old height as arguments. Within the function, this refers to the current element in the set.
      * @see {@link https://api.jquery.com/height/#height-function}
      */
-    height(func: (index: number, height: number) => number|string): JQuery;
+    height(func: (index: number, height: number) => number | string): JQuery;
 
     /**
      * Get the current computed height for the first element in the set of matched elements, including padding but not border.
@@ -1752,7 +1848,7 @@ interface JQuery {
      * @param value An integer representing the number of pixels, or an integer along with an optional unit of measure appended (as a string).
      * @see {@link https://api.jquery.com/innerHeight/#innerHeight-value}
      */
-    innerHeight(value: number|string): JQuery;
+    innerHeight(value: number | string): JQuery;
 
     /**
      * Get the current computed width for the first element in the set of matched elements, including padding but not border.
@@ -1766,7 +1862,7 @@ interface JQuery {
      * @param value An integer representing the number of pixels, or an integer along with an optional unit of measure appended (as a string).
      * @see {@link https://api.jquery.com/innerWidth/#innerWidth-value}
      */
-    innerWidth(value: number|string): JQuery;
+    innerWidth(value: number | string): JQuery;
 
     /**
      * Get the current coordinates of the first element in the set of matched elements, relative to the document.
@@ -1802,7 +1898,7 @@ interface JQuery {
      * @param value An integer representing the number of pixels, or an integer along with an optional unit of measure appended (as a string).
      * @see {@link https://api.jquery.com/outerHeight/#outerHeight-value}
      */
-    outerHeight(value: number|string): JQuery;
+    outerHeight(value: number | string): JQuery;
 
     /**
      * Get the current computed width for the first element in the set of matched elements, including padding and border.
@@ -1818,7 +1914,7 @@ interface JQuery {
      * @param value An integer representing the number of pixels, or an integer along with an optional unit of measure appended (as a string).
      * @see {@link https://api.jquery.com/outerWidth/#outerWidth-value}
      */
-    outerWidth(value: number|string): JQuery;
+    outerWidth(value: number | string): JQuery;
 
     /**
      * Get the current coordinates of the first element in the set of matched elements, relative to the offset parent.
@@ -1863,14 +1959,14 @@ interface JQuery {
      * @param value An integer representing the number of pixels, or an integer along with an optional unit of measure appended (as a string).
      * @see {@link https://api.jquery.com/width/#width-value}
      */
-    width(value: number|string): JQuery;
+    width(value: number | string): JQuery;
     /**
      * Set the CSS width of each element in the set of matched elements.
      *
      * @param func A function returning the width to set. Receives the index position of the element in the set and the old width as arguments. Within the function, this refers to the current element in the set.
      * @see {@link https://api.jquery.com/width/#width-function}
      */
-    width(func: (index: number, width: number) => number|string): JQuery;
+    width(func: (index: number, width: number) => number | string): JQuery;
 
     /**
      * Remove from the queue all items that have not yet been run.
@@ -1901,7 +1997,7 @@ interface JQuery {
      * @param obj An object of key-value pairs of data to update.
      * @see {@link https://api.jquery.com/data/#data-obj}
      */
-    data(obj: { [key: string]: any; }): JQuery;
+    data(obj: { [key: string]: any }): JQuery;
     /**
      * Return the value at the named data store for the first element in the jQuery collection, as set by data(name, value) or by an HTML5 data-* attribute.
      * @see {@link https://api.jquery.com/data/#data}
@@ -1953,7 +2049,7 @@ interface JQuery {
      * @param complete A function to call once the animation is complete.
      * @see {@link https://api.jquery.com/animate/#animate-properties-duration-easing-complete}
      */
-    animate(properties: Object, duration?: string|number, complete?: Function): JQuery;
+    animate(properties: Object, duration?: string | number, complete?: BoundFunction): JQuery;
     /**
      * Perform a custom animation of a set of CSS properties.
      *
@@ -1963,7 +2059,7 @@ interface JQuery {
      * @param complete A function to call once the animation is complete.
      * @see {@link https://api.jquery.com/animate/#animate-properties-duration-easing-complete}
      */
-    animate(properties: Object, duration?: string|number, easing?: string, complete?: Function): JQuery;
+    animate(properties: Object, duration?: string | number, easing?: string, complete?: BoundFunction): JQuery;
     /**
      * Perform a custom animation of a set of CSS properties.
      *
@@ -1989,7 +2085,7 @@ interface JQuery {
      * @param complete A function to call once the animation is complete.
      * @see {@link https://api.jquery.com/fadeIn/#fadeIn-duration-complete}
      */
-    fadeIn(duration?: number|string, complete?: Function): JQuery;
+    fadeIn(duration?: number | string, complete?: BoundFunction): JQuery;
     /**
      * Display the matched elements by fading them to opaque.
      *
@@ -1998,7 +2094,7 @@ interface JQuery {
      * @param complete A function to call once the animation is complete.
      * @see {@link https://api.jquery.com/fadeIn/#fadeIn-duration-easing-complete}
      */
-    fadeIn(duration?: number|string, easing?: string, complete?: Function): JQuery;
+    fadeIn(duration?: number | string, easing?: string, complete?: BoundFunction): JQuery;
     /**
      * Display the matched elements by fading them to opaque.
      *
@@ -2014,7 +2110,7 @@ interface JQuery {
      * @param complete A function to call once the animation is complete.
      * @see {@link https://api.jquery.com/fadeOut/#fadeOut-duration-complete}
      */
-    fadeOut(duration?: number|string, complete?: Function): JQuery;
+    fadeOut(duration?: number | string, complete?: BoundFunction): JQuery;
     /**
      * Hide the matched elements by fading them to transparent.
      *
@@ -2023,7 +2119,7 @@ interface JQuery {
      * @param complete A function to call once the animation is complete.
      * @see {@link https://api.jquery.com/fadeOut/#fadeOut-duration-easing-complete}
      */
-    fadeOut(duration?: number|string, easing?: string, complete?: Function): JQuery;
+    fadeOut(duration?: number | string, easing?: string, complete?: BoundFunction): JQuery;
     /**
      * Hide the matched elements by fading them to transparent.
      *
@@ -2040,7 +2136,7 @@ interface JQuery {
      * @param complete A function to call once the animation is complete.
      * @see {@link https://api.jquery.com/fadeTo/#fadeTo-duration-opacity-complete}
      */
-    fadeTo(duration: string|number, opacity: number, complete?: Function): JQuery;
+    fadeTo(duration: string | number, opacity: number, complete?: BoundFunction): JQuery;
     /**
      * Adjust the opacity of the matched elements.
      *
@@ -2050,7 +2146,7 @@ interface JQuery {
      * @param complete A function to call once the animation is complete.
      * @see {@link https://api.jquery.com/fadeTo/#fadeTo-duration-opacity-easing-complete}
      */
-    fadeTo(duration: string|number, opacity: number, easing?: string, complete?: Function): JQuery;
+    fadeTo(duration: string | number, opacity: number, easing?: string, complete?: BoundFunction): JQuery;
 
     /**
      * Display or hide the matched elements by animating their opacity.
@@ -2059,7 +2155,7 @@ interface JQuery {
      * @param complete A function to call once the animation is complete.
      * @see {@link https://api.jquery.com/fadeToggle/#fadeToggle-duration-easing-complete}
      */
-    fadeToggle(duration?: number|string, complete?: Function): JQuery;
+    fadeToggle(duration?: number | string, complete?: BoundFunction): JQuery;
     /**
      * Display or hide the matched elements by animating their opacity.
      *
@@ -2068,7 +2164,7 @@ interface JQuery {
      * @param complete A function to call once the animation is complete.
      * @see {@link https://api.jquery.com/fadeToggle/#fadeToggle-duration-easing-complete}
      */
-    fadeToggle(duration?: number|string, easing?: string, complete?: Function): JQuery;
+    fadeToggle(duration?: number | string, easing?: string, complete?: BoundFunction): JQuery;
     /**
      * Display or hide the matched elements by animating their opacity.
      *
@@ -2092,7 +2188,7 @@ interface JQuery {
      * @param complete A function to call once the animation is complete.
      * @see {@link https://api.jquery.com/hide/#hide}
      */
-    hide(duration?: number|string, complete?: Function): JQuery;
+    hide(duration?: number | string, complete?: BoundFunction): JQuery;
     /**
      * Hide the matched elements.
      *
@@ -2101,7 +2197,7 @@ interface JQuery {
      * @param complete A function to call once the animation is complete.
      * @see {@link https://api.jquery.com/hide/#hide-duration-easing-complete}
      */
-    hide(duration?: number|string, easing?: string, complete?: Function): JQuery;
+    hide(duration?: number | string, easing?: string, complete?: BoundFunction): JQuery;
     /**
      * Hide the matched elements.
      *
@@ -2117,7 +2213,7 @@ interface JQuery {
      * @param complete A function to call once the animation is complete.
      * @see {@link https://api.jquery.com/show/#show}
      */
-    show(duration?: number|string, complete?: Function): JQuery;
+    show(duration?: number | string, complete?: BoundFunction): JQuery;
     /**
      * Display the matched elements.
      *
@@ -2126,7 +2222,7 @@ interface JQuery {
      * @param complete A function to call once the animation is complete.
      * @see {@link https://api.jquery.com/show/#show-duration-easing-complete}
      */
-    show(duration?: number|string, easing?: string, complete?: Function): JQuery;
+    show(duration?: number | string, easing?: string, complete?: BoundFunction): JQuery;
     /**
      * Display the matched elements.
      *
@@ -2142,7 +2238,7 @@ interface JQuery {
      * @param complete A function to call once the animation is complete.
      * @see {@link https://api.jquery.com/slideDown/#slideDown-duration-complete}
      */
-    slideDown(duration?: number|string, complete?: Function): JQuery;
+    slideDown(duration?: number | string, complete?: BoundFunction): JQuery;
     /**
      * Display the matched elements with a sliding motion.
      *
@@ -2151,7 +2247,7 @@ interface JQuery {
      * @param complete A function to call once the animation is complete.
      * @see {@link https://api.jquery.com/slideDown/#slideDown-duration-easing-complete}
      */
-    slideDown(duration?: number|string, easing?: string, complete?: Function): JQuery;
+    slideDown(duration?: number | string, easing?: string, complete?: BoundFunction): JQuery;
     /**
      * Display the matched elements with a sliding motion.
      *
@@ -2167,7 +2263,7 @@ interface JQuery {
      * @param complete A function to call once the animation is complete.
      * @see {@link https://api.jquery.com/slideToggle/#slideToggle-duration-complete}
      */
-    slideToggle(duration?: number|string, complete?: Function): JQuery;
+    slideToggle(duration?: number | string, complete?: BoundFunction): JQuery;
     /**
      * Display or hide the matched elements with a sliding motion.
      *
@@ -2176,7 +2272,7 @@ interface JQuery {
      * @param complete A function to call once the animation is complete.
      * @see {@link https://api.jquery.com/slideToggle/#slideToggle-duration-easing-complete}
      */
-    slideToggle(duration?: number|string, easing?: string, complete?: Function): JQuery;
+    slideToggle(duration?: number | string, easing?: string, complete?: BoundFunction): JQuery;
     /**
      * Display or hide the matched elements with a sliding motion.
      *
@@ -2192,7 +2288,7 @@ interface JQuery {
      * @param complete A function to call once the animation is complete.
      * @see {@link https://api.jquery.com/slideUp/#slideUp-duration-complete}
      */
-    slideUp(duration?: number|string, complete?: Function): JQuery;
+    slideUp(duration?: number | string, complete?: BoundFunction): JQuery;
     /**
      * Hide the matched elements with a sliding motion.
      *
@@ -2201,7 +2297,7 @@ interface JQuery {
      * @param complete A function to call once the animation is complete.
      * @see {@link https://api.jquery.com/slideUp/#slideUp-duration-easing-complete}
      */
-    slideUp(duration?: number|string, easing?: string, complete?: Function): JQuery;
+    slideUp(duration?: number | string, easing?: string, complete?: BoundFunction): JQuery;
     /**
      * Hide the matched elements with a sliding motion.
      *
@@ -2235,7 +2331,7 @@ interface JQuery {
      * @param complete A function to call once the animation is complete.
      * @see {@link https://api.jquery.com/toggle/#toggle-duration-complete}
      */
-    toggle(duration?: number|string, complete?: Function): JQuery;
+    toggle(duration?: number | string, complete?: BoundFunction): JQuery;
     /**
      * Display or hide the matched elements.
      *
@@ -2244,7 +2340,7 @@ interface JQuery {
      * @param complete A function to call once the animation is complete.
      * @see {@link https://api.jquery.com/toggle/#toggle-duration-easing-complete}
      */
-    toggle(duration?: number|string, easing?: string, complete?: Function): JQuery;
+    toggle(duration?: number | string, easing?: string, complete?: BoundFunction): JQuery;
     /**
      * Display or hide the matched elements.
      *
@@ -2268,7 +2364,11 @@ interface JQuery {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/bind/#bind-eventType-eventData-handler}
      */
-    bind(eventType: string, eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    bind(
+        eventType: string,
+        eventData: any,
+        handler: (this: HTMLElement, eventObject: JQueryEventObject) => any,
+    ): JQuery;
     /**
      * Attach a handler to an event for the elements.
      *
@@ -2276,7 +2376,7 @@ interface JQuery {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/bind/#bind-eventType-eventData-handler}
      */
-    bind(eventType: string, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    bind(eventType: string, handler: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
     /**
      * Attach a handler to an event for the elements.
      *
@@ -2313,7 +2413,7 @@ interface JQuery {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/blur/#blur-handler}
      */
-    blur(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    blur(handler: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
     /**
      * Bind an event handler to the "blur" JavaScript event
      *
@@ -2321,7 +2421,7 @@ interface JQuery {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/blur/#blur-eventData-handler}
      */
-    blur(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
+    blur(eventData?: any, handler?: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
 
     /**
      * Trigger the "change" event on an element.
@@ -2334,7 +2434,7 @@ interface JQuery {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/change/#change-handler}
      */
-    change(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    change(handler: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
     /**
      * Bind an event handler to the "change" JavaScript event
      *
@@ -2342,7 +2442,7 @@ interface JQuery {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/change/#change-eventData-handler}
      */
-    change(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
+    change(eventData?: any, handler?: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
 
     /**
      * Trigger the "click" event on an element.
@@ -2355,7 +2455,7 @@ interface JQuery {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/click/#click-handler}
      */
-    click(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    click(handler: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
     /**
      * Bind an event handler to the "click" JavaScript event
      *
@@ -2363,7 +2463,7 @@ interface JQuery {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/click/#click-eventData-handler}
      */
-    click(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
+    click(eventData?: any, handler?: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
 
     /**
      * Trigger the "contextmenu" event on an element.
@@ -2376,7 +2476,7 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered.
      * @see {@link https://api.jquery.com/contextmenu/#contextmenu-handler}
      */
-    contextmenu(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    contextmenu(handler: (this: HTMLElement, eventObject: JQueryMouseEventObject) => any): JQuery;
     /**
      * Bind an event handler to the "contextmenu" JavaScript event.
      *
@@ -2384,7 +2484,7 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered.
      * @see {@link https://api.jquery.com/contextmenu/#contextmenu-eventData-handler}
      */
-    contextmenu(eventData: Object, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    contextmenu(eventData: Object, handler: (this: HTMLElement, eventObject: JQueryMouseEventObject) => any): JQuery;
 
     /**
      * Trigger the "dblclick" event on an element.
@@ -2397,7 +2497,7 @@ interface JQuery {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/dblclick/#dblclick-handler}
      */
-    dblclick(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    dblclick(handler: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
     /**
      * Bind an event handler to the "dblclick" JavaScript event
      *
@@ -2405,18 +2505,27 @@ interface JQuery {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/dblclick/#dblclick-eventData-handler}
      */
-    dblclick(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
+    dblclick(eventData?: any, handler?: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
 
     /**
      * Attach a handler to one or more events for all elements that match the selector, now or in the future, based on a specific set of root elements.
      * @see {@link https://api.jquery.com/delegate/#delegate-selector-eventType-handler}
      */
-    delegate(selector: any, eventType: string, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    delegate(
+        selector: any,
+        eventType: string,
+        handler: (this: HTMLElement, eventObject: JQueryEventObject) => any,
+    ): JQuery;
     /**
      * Attach a handler to one or more events for all elements that match the selector, now or in the future, based on a specific set of root elements.
      * @see {@link https://api.jquery.com/delegate/#delegate-selector-eventType-eventData-handler}
      */
-    delegate(selector: any, eventType: string, eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    delegate(
+        selector: any,
+        eventType: string,
+        eventData: any,
+        handler: (this: HTMLElement, eventObject: JQueryEventObject) => any,
+    ): JQuery;
 
     /**
      * Trigger the "focus" event on an element.
@@ -2429,7 +2538,7 @@ interface JQuery {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/focus/#focus-handler}
      */
-    focus(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    focus(handler: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
     /**
      * Bind an event handler to the "focus" JavaScript event
      *
@@ -2437,7 +2546,7 @@ interface JQuery {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/focus/#focus-eventData-handler}
      */
-    focus(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
+    focus(eventData?: any, handler?: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
 
     /**
      * Trigger the "focusin" event on an element.
@@ -2450,7 +2559,7 @@ interface JQuery {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/focusin/#focusin-handler}
      */
-    focusin(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    focusin(handler: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
     /**
      * Bind an event handler to the "focusin" JavaScript event
      *
@@ -2458,7 +2567,7 @@ interface JQuery {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/focusin/#focusin-eventData-handler}
      */
-    focusin(eventData: Object, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    focusin(eventData: Object, handler: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
 
     /**
      * Trigger the "focusout" event on an element.
@@ -2471,7 +2580,7 @@ interface JQuery {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/focusout/#focusout-handler}
      */
-    focusout(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    focusout(handler: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
     /**
      * Bind an event handler to the "focusout" JavaScript event
      *
@@ -2479,7 +2588,7 @@ interface JQuery {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/focusout/#focusout-eventData-handler}
      */
-    focusout(eventData: Object, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    focusout(eventData: Object, handler: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
 
     /**
      * Bind two handlers to the matched elements, to be executed when the mouse pointer enters and leaves the elements.
@@ -2488,14 +2597,17 @@ interface JQuery {
      * @param handlerOut A function to execute when the mouse pointer leaves the element.
      * @see {@link https://api.jquery.com/hover/#hover-handlerIn-handlerOut}
      */
-    hover(handlerIn: (eventObject: JQueryEventObject) => any, handlerOut: (eventObject: JQueryEventObject) => any): JQuery;
+    hover(
+        handlerIn: (this: HTMLElement, eventObject: JQueryEventObject) => any,
+        handlerOut: (this: HTMLElement, eventObject: JQueryEventObject) => any,
+    ): JQuery;
     /**
      * Bind a single handler to the matched elements, to be executed when the mouse pointer enters or leaves the elements.
      *
      * @param handlerInOut A function to execute when the mouse pointer enters or leaves the element.
      * @see {@link https://api.jquery.com/hover/#hover-handlerInOut}
      */
-    hover(handlerInOut: (eventObject: JQueryEventObject) => any): JQuery;
+    hover(handlerInOut: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
 
     /**
      * Trigger the "keydown" event on an element.
@@ -2508,7 +2620,7 @@ interface JQuery {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/keydown/#keydown-handler}
      */
-    keydown(handler: (eventObject: JQueryKeyEventObject) => any): JQuery;
+    keydown(handler: (this: HTMLElement, eventObject: JQueryKeyEventObject) => any): JQuery;
     /**
      * Bind an event handler to the "keydown" JavaScript event
      *
@@ -2516,7 +2628,7 @@ interface JQuery {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/keydown/#keydown-eventData-handler}
      */
-    keydown(eventData?: any, handler?: (eventObject: JQueryKeyEventObject) => any): JQuery;
+    keydown(eventData?: any, handler?: (this: HTMLElement, eventObject: JQueryKeyEventObject) => any): JQuery;
 
     /**
      * Trigger the "keypress" event on an element.
@@ -2529,7 +2641,7 @@ interface JQuery {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/keypress/#keypress-handler}
      */
-    keypress(handler: (eventObject: JQueryKeyEventObject) => any): JQuery;
+    keypress(handler: (this: HTMLElement, eventObject: JQueryKeyEventObject) => any): JQuery;
     /**
      * Bind an event handler to the "keypress" JavaScript event
      *
@@ -2537,7 +2649,7 @@ interface JQuery {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/keypress/#keypress-eventData-handler}
      */
-    keypress(eventData?: any, handler?: (eventObject: JQueryKeyEventObject) => any): JQuery;
+    keypress(eventData?: any, handler?: (this: HTMLElement, eventObject: JQueryKeyEventObject) => any): JQuery;
 
     /**
      * Trigger the "keyup" event on an element.
@@ -2550,7 +2662,7 @@ interface JQuery {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/keyup/#keyup-handler}
      */
-    keyup(handler: (eventObject: JQueryKeyEventObject) => any): JQuery;
+    keyup(handler: (this: HTMLElement, eventObject: JQueryKeyEventObject) => any): JQuery;
     /**
      * Bind an event handler to the "keyup" JavaScript event
      *
@@ -2558,7 +2670,7 @@ interface JQuery {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/keyup/#keyup-eventData-handler}
      */
-    keyup(eventData?: any, handler?: (eventObject: JQueryKeyEventObject) => any): JQuery;
+    keyup(eventData?: any, handler?: (this: HTMLElement, eventObject: JQueryKeyEventObject) => any): JQuery;
 
     /**
      * Bind an event handler to the "load" JavaScript event.
@@ -2566,7 +2678,7 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered.
      * @see {@link https://api.jquery.com/load/}
      */
-    load(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    load(handler: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
     /**
      * Bind an event handler to the "load" JavaScript event.
      *
@@ -2574,7 +2686,7 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered.
      * @see {@link https://api.jquery.com/load/}
      */
-    load(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
+    load(eventData?: any, handler?: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
 
     /**
      * Trigger the "mousedown" event on an element.
@@ -2587,7 +2699,7 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered.
      * @see {@link https://api.jquery.com/mousedown/#mousedown-handler}
      */
-    mousedown(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mousedown(handler: (this: HTMLElement, eventObject: JQueryMouseEventObject) => any): JQuery;
     /**
      * Bind an event handler to the "mousedown" JavaScript event.
      *
@@ -2595,7 +2707,7 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered.
      * @see {@link https://api.jquery.com/mousedown/#mousedown-eventData-handler}
      */
-    mousedown(eventData: Object, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mousedown(eventData: Object, handler: (this: HTMLElement, eventObject: JQueryMouseEventObject) => any): JQuery;
 
     /**
      * Trigger the "mouseenter" event on an element.
@@ -2608,7 +2720,7 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered.
      * @see {@link https://api.jquery.com/mouseenter/#mouseenter-handler}
      */
-    mouseenter(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseenter(handler: (this: HTMLElement, eventObject: JQueryMouseEventObject) => any): JQuery;
     /**
      * Bind an event handler to be fired when the mouse enters an element.
      *
@@ -2616,7 +2728,7 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered.
      * @see {@link https://api.jquery.com/mouseenter/#mouseenter-eventData-handler}
      */
-    mouseenter(eventData: Object, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseenter(eventData: Object, handler: (this: HTMLElement, eventObject: JQueryMouseEventObject) => any): JQuery;
 
     /**
      * Trigger the "mouseleave" event on an element.
@@ -2629,7 +2741,7 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered.
      * @see {@link https://api.jquery.com/mouseleave/#mouseleave-handler}
      */
-    mouseleave(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseleave(handler: (this: HTMLElement, eventObject: JQueryMouseEventObject) => any): JQuery;
     /**
      * Bind an event handler to be fired when the mouse leaves an element.
      *
@@ -2637,7 +2749,7 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered.
      * @see {@link https://api.jquery.com/mouseleave/#mouseleave-eventData-handler}
      */
-    mouseleave(eventData: Object, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseleave(eventData: Object, handler: (this: HTMLElement, eventObject: JQueryMouseEventObject) => any): JQuery;
 
     /**
      * Trigger the "mousemove" event on an element.
@@ -2650,7 +2762,7 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered.
      * @see {@link https://api.jquery.com/mousemove/#mousemove-handler}
      */
-    mousemove(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mousemove(handler: (this: HTMLElement, eventObject: JQueryMouseEventObject) => any): JQuery;
     /**
      * Bind an event handler to the "mousemove" JavaScript event.
      *
@@ -2658,7 +2770,7 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered.
      * @see {@link https://api.jquery.com/mousemove/#mousemove-eventData-handler}
      */
-    mousemove(eventData: Object, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mousemove(eventData: Object, handler: (this: HTMLElement, eventObject: JQueryMouseEventObject) => any): JQuery;
 
     /**
      * Trigger the "mouseout" event on an element.
@@ -2671,7 +2783,7 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered.
      * @see {@link https://api.jquery.com/mouseout/#mouseout-handler}
      */
-    mouseout(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseout(handler: (this: HTMLElement, eventObject: JQueryMouseEventObject) => any): JQuery;
     /**
      * Bind an event handler to the "mouseout" JavaScript event.
      *
@@ -2679,7 +2791,7 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered.
      * @see {@link https://api.jquery.com/mouseout/#mouseout-eventData-handler}
      */
-    mouseout(eventData: Object, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseout(eventData: Object, handler: (this: HTMLElement, eventObject: JQueryMouseEventObject) => any): JQuery;
 
     /**
      * Trigger the "mouseover" event on an element.
@@ -2692,7 +2804,7 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered.
      * @see {@link https://api.jquery.com/mouseover/#mouseover-handler}
      */
-    mouseover(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseover(handler: (this: HTMLElement, eventObject: JQueryMouseEventObject) => any): JQuery;
     /**
      * Bind an event handler to the "mouseover" JavaScript event.
      *
@@ -2700,7 +2812,7 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered.
      * @see {@link https://api.jquery.com/mouseover/#mouseover-eventData-handler}
      */
-    mouseover(eventData: Object, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseover(eventData: Object, handler: (this: HTMLElement, eventObject: JQueryMouseEventObject) => any): JQuery;
 
     /**
      * Trigger the "mouseup" event on an element.
@@ -2713,7 +2825,7 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered.
      * @see {@link https://api.jquery.com/mouseup/#mouseup-handler}
      */
-    mouseup(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseup(handler: (this: HTMLElement, eventObject: JQueryMouseEventObject) => any): JQuery;
     /**
      * Bind an event handler to the "mouseup" JavaScript event.
      *
@@ -2721,7 +2833,7 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered.
      * @see {@link https://api.jquery.com/mouseup/#mouseup-eventData-handler}
      */
-    mouseup(eventData: Object, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseup(eventData: Object, handler: (this: HTMLElement, eventObject: JQueryMouseEventObject) => any): JQuery;
 
     /**
      * Remove an event handler.
@@ -2736,7 +2848,11 @@ interface JQuery {
      * @param handler A handler function previously attached for the event(s), or the special value false.
      * @see {@link https://api.jquery.com/off/#off-events-selector-handler}
      */
-    off(events: string, selector?: string, handler?: (eventObject: JQueryEventObject) => any): JQuery;
+    off(
+        events: string,
+        selector?: string,
+        handler?: (this: HTMLElement, eventObject: JQueryEventObject) => any,
+    ): JQuery;
     /**
      * Remove an event handler.
      *
@@ -2744,7 +2860,7 @@ interface JQuery {
      * @param handler A handler function previously attached for the event(s), or the special value false. Takes handler with extra args that can be attached with on().
      * @see {@link https://api.jquery.com/off/#off-events-selector-handler}
      */
-    off(events: string, handler: (eventObject: JQueryEventObject, ...args: any[]) => any): JQuery;
+    off(events: string, handler: (this: HTMLElement, eventObject: JQueryEventObject, ...args: any[]) => any): JQuery;
     /**
      * Remove an event handler.
      *
@@ -2752,7 +2868,7 @@ interface JQuery {
      * @param handler A handler function previously attached for the event(s), or the special value false.
      * @see {@link https://api.jquery.com/off/#off-events-selector-handler}
      */
-    off(events: string, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    off(events: string, handler: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
     /**
      * Remove an event handler.
      *
@@ -2760,7 +2876,7 @@ interface JQuery {
      * @param selector A selector which should match the one originally passed to .on() when attaching event handlers.
      * @see {@link https://api.jquery.com/off/#off-events-selector}
      */
-    off(events: { [key: string]: any; }, selector?: string): JQuery;
+    off(events: { [key: string]: any }, selector?: string): JQuery;
 
     /**
      * Attach an event handler function for one or more events to the selected elements.
@@ -2769,7 +2885,7 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false. Rest parameter args is for optional parameters passed to jQuery.trigger(). Note that the actual parameters on the event handler function must be marked as optional (? syntax).
      * @see {@link https://api.jquery.com/on/#on-events-selector-data-handler}
      */
-    on(events: string, handler: (eventObject: JQueryEventObject, ...args: any[]) => any): JQuery;
+    on(events: string, handler: (this: HTMLElement, eventObject: JQueryEventObject, ...args: any[]) => any): JQuery;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -2778,7 +2894,11 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
      * @see {@link https://api.jquery.com/on/#on-events-selector-data-handler}
      */
-    on(events: string, selector: string, handler: (eventObject: JQueryEventObject, ...eventData: any[]) => any): JQuery;
+    on(
+        events: string,
+        selector: string,
+        handler: (this: HTMLElement, eventObject: JQueryEventObject, ...eventData: any[]) => any,
+    ): JQuery;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -2786,8 +2906,12 @@ interface JQuery {
      * @param data Data to be passed to the handler in event.data when an event is triggered.
      * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
      * @see {@link https://api.jquery.com/on/#on-events-selector-data-handler}
-    */
-    on(events: string, data : any, handler: (eventObject: JQueryEventObject, ...args: any[]) => any): JQuery;
+     */
+    on(
+        events: string,
+        data: any,
+        handler: (this: HTMLElement, eventObject: JQueryEventObject, ...args: any[]) => any,
+    ): JQuery;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -2797,7 +2921,12 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
      * @see {@link https://api.jquery.com/on/#on-events-selector-data-handler}
      */
-    on(events: string, selector: string, data: any, handler: (eventObject: JQueryEventObject, ...eventData: any[]) => any): JQuery;
+    on(
+        events: string,
+        selector: string,
+        data: any,
+        handler: (this: HTMLElement, eventObject: JQueryEventObject, ...eventData: any[]) => any,
+    ): JQuery;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -2806,7 +2935,11 @@ interface JQuery {
      * @param data Data to be passed to the handler in event.data when an event occurs.
      * @see {@link https://api.jquery.com/on/#on-events-selector-data}
      */
-    on(events: { [key: string]: (eventObject: JQueryEventObject, ...args: any[]) => any; }, selector?: string, data?: any): JQuery;
+    on(
+        events: { [key: string]: (this: HTMLElement, eventObject: JQueryEventObject, ...args: any[]) => any },
+        selector?: string,
+        data?: any,
+    ): JQuery;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -2814,7 +2947,10 @@ interface JQuery {
      * @param data Data to be passed to the handler in event.data when an event occurs.
      * @see {@link https://api.jquery.com/on/#on-events-selector-data}
      */
-    on(events: { [key: string]: (eventObject: JQueryEventObject, ...args: any[]) => any; }, data?: any): JQuery;
+    on(
+        events: { [key: string]: (this: HTMLElement, eventObject: JQueryEventObject, ...args: any[]) => any },
+        data?: any,
+    ): JQuery;
 
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
@@ -2823,7 +2959,7 @@ interface JQuery {
      * @param handler A function to execute at the time the event is triggered.
      * @see {@link https://api.jquery.com/one/#one-events-data-handler}
      */
-    one(events: string, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    one(events: string, handler: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
      *
@@ -2832,7 +2968,7 @@ interface JQuery {
      * @param handler A function to execute at the time the event is triggered.
      * @see {@link https://api.jquery.com/one/#one-events-data-handler}
      */
-    one(events: string, data: Object, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    one(events: string, data: Object, handler: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
 
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
@@ -2842,7 +2978,7 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
      * @see {@link https://api.jquery.com/one/#one-events-selector-data-handler}
      */
-    one(events: string, selector: string, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    one(events: string, selector: string, handler: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
      *
@@ -2852,7 +2988,12 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
      * @see {@link https://api.jquery.com/one/#one-events-selector-data-handler}
      */
-    one(events: string, selector: string, data: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    one(
+        events: string,
+        selector: string,
+        data: any,
+        handler: (this: HTMLElement, eventObject: JQueryEventObject) => any,
+    ): JQuery;
 
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
@@ -2862,7 +3003,7 @@ interface JQuery {
      * @param data Data to be passed to the handler in event.data when an event occurs.
      * @see {@link https://api.jquery.com/one/#one-events-selector-data}
      */
-    one(events: { [key: string]: any; }, selector?: string, data?: any): JQuery;
+    one(events: { [key: string]: any }, selector?: string, data?: any): JQuery;
 
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
@@ -2871,8 +3012,7 @@ interface JQuery {
      * @param data Data to be passed to the handler in event.data when an event occurs.
      * @see {@link https://api.jquery.com/one/#one-events-selector-data}
      */
-    one(events: { [key: string]: any; }, data?: any): JQuery;
-
+    one(events: { [key: string]: any }, data?: any): JQuery;
 
     /**
      * Specify a function to execute when the DOM is fully loaded.
@@ -2893,7 +3033,7 @@ interface JQuery {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/resize/#resize-handler}
      */
-    resize(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    resize(handler: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
     /**
      * Bind an event handler to the "resize" JavaScript event.
      *
@@ -2901,7 +3041,7 @@ interface JQuery {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/resize/#resize-eventData-handler}
      */
-    resize(eventData: Object, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    resize(eventData: Object, handler: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
 
     /**
      * Trigger the "scroll" event on an element.
@@ -2914,7 +3054,7 @@ interface JQuery {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/scroll/#scroll-handler}
      */
-    scroll(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    scroll(handler: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
     /**
      * Bind an event handler to the "scroll" JavaScript event.
      *
@@ -2922,7 +3062,7 @@ interface JQuery {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/scroll/#scroll-eventData-handler}
      */
-    scroll(eventData: Object, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    scroll(eventData: Object, handler: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
 
     /**
      * Trigger the "select" event on an element.
@@ -2935,7 +3075,7 @@ interface JQuery {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/select/#select-handler}
      */
-    select(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    select(handler: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
     /**
      * Bind an event handler to the "select" JavaScript event.
      *
@@ -2943,7 +3083,7 @@ interface JQuery {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/select/#select-eventData-handler}
      */
-    select(eventData: Object, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    select(eventData: Object, handler: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
 
     /**
      * Trigger the "submit" event on an element.
@@ -2956,7 +3096,7 @@ interface JQuery {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/submit/#submit-handler}
      */
-    submit(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    submit(handler: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
     /**
      * Bind an event handler to the "submit" JavaScript event
      *
@@ -2964,7 +3104,7 @@ interface JQuery {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/submit/#submit-eventData-handler}
      */
-    submit(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
+    submit(eventData?: any, handler?: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
 
     /**
      * Execute all handlers and behaviors attached to the matched elements for the given event type.
@@ -2973,7 +3113,7 @@ interface JQuery {
      * @param extraParameters Additional parameters to pass along to the event handler.
      * @see {@link https://api.jquery.com/trigger/#trigger-eventType-extraParameters}
      */
-    trigger(eventType: string, extraParameters?: any[]|Object): JQuery;
+    trigger(eventType: string, extraParameters?: any[] | Object): JQuery;
     /**
      * Execute all handlers and behaviors attached to the matched elements for the given event type.
      *
@@ -2981,7 +3121,7 @@ interface JQuery {
      * @param extraParameters Additional parameters to pass along to the event handler.
      * @see {@link https://api.jquery.com/trigger/#trigger-event-extraParameters}
      */
-    trigger(event: JQueryEventObject, extraParameters?: any[]|Object): JQuery;
+    trigger(event: JQueryEventObject, extraParameters?: any[] | Object): JQuery;
 
     /**
      * Execute all handlers attached to an element for an event.
@@ -3008,7 +3148,7 @@ interface JQuery {
      * @param handler The function that is to be no longer executed.
      * @see {@link https://api.jquery.com/unbind/#unbind-eventType-handler}
      */
-    unbind(eventType?: string, handler?: (eventObject: JQueryEventObject) => any): JQuery;
+    unbind(eventType?: string, handler?: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
     /**
      * Remove a previously-attached event handler from the elements.
      *
@@ -3038,7 +3178,11 @@ interface JQuery {
      * @param handler A function to execute at the time the event is triggered.
      * @see {@link https://api.jquery.com/undelegate/#undelegate-selector-eventType}
      */
-    undelegate(selector: string, eventType: string, handler?: (eventObject: JQueryEventObject) => any): JQuery;
+    undelegate(
+        selector: string,
+        eventType: string,
+        handler?: (this: HTMLElement, eventObject: JQueryEventObject) => any,
+    ): JQuery;
     /**
      * Remove a handler from the event for all elements which match the current selector, based upon a specific set of root elements.
      *
@@ -3061,7 +3205,7 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered.
      * @see {@link https://api.jquery.com/unload/#unload-handler}
      */
-    unload(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    unload(handler: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
     /**
      * Bind an event handler to the "unload" JavaScript event. (DEPRECATED from v1.8)
      *
@@ -3069,7 +3213,7 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered.
      * @see {@link https://api.jquery.com/unload/#unload-eventData-handler}
      */
-    unload(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
+    unload(eventData?: any, handler?: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
 
     /**
      * The DOM node context originally passed to jQuery(); if none was passed then context will likely be the document. (DEPRECATED from v1.10)
@@ -3085,7 +3229,7 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered.
      * @see {@link https://api.jquery.com/error/#error-handler}
      */
-    error(handler: (eventObject: JQueryEventObject) => any): JQuery;
+    error(handler: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
     /**
      * Bind an event handler to the "error" JavaScript event. (DEPRECATED from v1.8)
      *
@@ -3093,7 +3237,7 @@ interface JQuery {
      * @param handler A function to execute when the event is triggered.
      * @see {@link https://api.jquery.com/error/#error-eventData-handler}
      */
-    error(eventData: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    error(eventData: any, handler: (this: HTMLElement, eventObject: JQueryEventObject) => any): JQuery;
 
     /**
      * Add a collection of DOM elements onto the jQuery stack.
@@ -3119,14 +3263,14 @@ interface JQuery {
      * @param content2 One or more additional DOM elements, arrays of elements, HTML strings, or jQuery objects to insert after each element in the set of matched elements.
      * @see {@link https://api.jquery.com/after/#after-content-content}
      */
-    after(content1: JQuery|any[]|Element|DocumentFragment|Text|string, ...content2: any[]): JQuery;
+    after(content1: JQuery | any[] | Element | DocumentFragment | Text | string, ...content2: any[]): JQuery;
     /**
      * Insert content, specified by the parameter, after each element in the set of matched elements.
      *
      * @param func A function that returns an HTML string, DOM element(s), or jQuery object to insert after each element in the set of matched elements. Receives the index position of the element in the set as an argument. Within the function, this refers to the current element in the set.
      * @see {@link https://api.jquery.com/after/#after-function}
      */
-    after(func: (index: number, html: string) => string|Element|JQuery): JQuery;
+    after(func: (this: HTMLElement, index: number, html: string) => string | Element | JQuery): JQuery;
 
     /**
      * Insert content, specified by the parameter, to the end of each element in the set of matched elements.
@@ -3135,14 +3279,14 @@ interface JQuery {
      * @param content2 One or more additional DOM elements, arrays of elements, HTML strings, or jQuery objects to insert at the end of each element in the set of matched elements.
      * @see {@link https://api.jquery.com/append/#append-content-content}
      */
-    append(content1: JQuery|any[]|Element|DocumentFragment|Text|string, ...content2: any[]): JQuery;
+    append(content1: JQuery | any[] | Element | DocumentFragment | Text | string, ...content2: any[]): JQuery;
     /**
      * Insert content, specified by the parameter, to the end of each element in the set of matched elements.
      *
      * @param func A function that returns an HTML string, DOM element(s), or jQuery object to insert at the end of each element in the set of matched elements. Receives the index position of the element in the set and the old HTML value of the element as arguments. Within the function, this refers to the current element in the set.
      * @see {@link https://api.jquery.com/append/#append-function}
      */
-    append(func: (index: number, html: string) => string|Element|JQuery): JQuery;
+    append(func: (index: number, html: string) => string | Element | JQuery): JQuery;
 
     /**
      * Insert every element in the set of matched elements to the end of the target.
@@ -3150,7 +3294,7 @@ interface JQuery {
      * @param target A selector, element, HTML string, array of elements, or jQuery object; the matched set of elements will be inserted at the end of the element(s) specified by this parameter.
      * @see {@link https://api.jquery.com/appendTo/}
      */
-    appendTo(target: JQuery|any[]|Element|string): JQuery;
+    appendTo(target: JQuery | any[] | Element | string): JQuery;
 
     /**
      * Insert content, specified by the parameter, before each element in the set of matched elements.
@@ -3159,14 +3303,14 @@ interface JQuery {
      * @param content2 One or more additional DOM elements, arrays of elements, HTML strings, or jQuery objects to insert before each element in the set of matched elements.
      * @see {@link https://api.jquery.com/before/#before-content-content}
      */
-    before(content1: JQuery|any[]|Element|DocumentFragment|Text|string, ...content2: any[]): JQuery;
+    before(content1: JQuery | any[] | Element | DocumentFragment | Text | string, ...content2: any[]): JQuery;
     /**
      * Insert content, specified by the parameter, before each element in the set of matched elements.
      *
      * @param func A function that returns an HTML string, DOM element(s), or jQuery object to insert before each element in the set of matched elements. Receives the index position of the element in the set as an argument. Within the function, this refers to the current element in the set.
      * @see {@link https://api.jquery.com/before/#before-function}
      */
-    before(func: (index: number, html: string) => string|Element|JQuery): JQuery;
+    before(func: (index: number, html: string) => string | Element | JQuery): JQuery;
 
     /**
      * Create a deep copy of the set of matched elements.
@@ -3197,7 +3341,7 @@ interface JQuery {
      * @param target A selector, element, array of elements, HTML string, or jQuery object; the matched set of elements will be inserted after the element(s) specified by this parameter.
      * @see {@link https://api.jquery.com/insertAfter/}
      */
-    insertAfter(target: JQuery|any[]|Element|Text|string): JQuery;
+    insertAfter(target: JQuery | any[] | Element | Text | string): JQuery;
 
     /**
      * Insert every element in the set of matched elements before the target.
@@ -3205,7 +3349,7 @@ interface JQuery {
      * @param target A selector, element, array of elements, HTML string, or jQuery object; the matched set of elements will be inserted before the element(s) specified by this parameter.
      * @see {@link https://api.jquery.com/insertBefore/}
      */
-    insertBefore(target: JQuery|any[]|Element|Text|string): JQuery;
+    insertBefore(target: JQuery | any[] | Element | Text | string): JQuery;
 
     /**
      * Insert content, specified by the parameter, to the beginning of each element in the set of matched elements.
@@ -3214,14 +3358,14 @@ interface JQuery {
      * @param content2 One or more additional DOM elements, arrays of elements, HTML strings, or jQuery objects to insert at the beginning of each element in the set of matched elements.
      * @see {@link https://api.jquery.com/prepend/#prepend-content-content}
      */
-    prepend(content1: JQuery|any[]|Element|DocumentFragment|Text|string, ...content2: any[]): JQuery;
+    prepend(content1: JQuery | any[] | Element | DocumentFragment | Text | string, ...content2: any[]): JQuery;
     /**
      * Insert content, specified by the parameter, to the beginning of each element in the set of matched elements.
      *
      * @param func A function that returns an HTML string, DOM element(s), or jQuery object to insert at the beginning of each element in the set of matched elements. Receives the index position of the element in the set and the old HTML value of the element as arguments. Within the function, this refers to the current element in the set.
      * @see {@link https://api.jquery.com/prepend/#prepend-function}
      */
-    prepend(func: (index: number, html: string) => string|Element|JQuery): JQuery;
+    prepend(func: (index: number, html: string) => string | Element | JQuery): JQuery;
 
     /**
      * Insert every element in the set of matched elements to the beginning of the target.
@@ -3229,7 +3373,7 @@ interface JQuery {
      * @param target A selector, element, HTML string, array of elements, or jQuery object; the matched set of elements will be inserted at the beginning of the element(s) specified by this parameter.
      * @see {@link https://api.jquery.com/prependTo/}
      */
-    prependTo(target: JQuery|any[]|Element|string): JQuery;
+    prependTo(target: JQuery | any[] | Element | string): JQuery;
 
     /**
      * Remove the set of matched elements from the DOM.
@@ -3245,7 +3389,7 @@ interface JQuery {
      * @param target A selector string, jQuery object, DOM element, or array of elements indicating which element(s) to replace.
      * @see {@link https://api.jquery.com/replaceAll/}
      */
-    replaceAll(target: JQuery|any[]|Element|string): JQuery;
+    replaceAll(target: JQuery | any[] | Element | string): JQuery;
 
     /**
      * Replace each element in the set of matched elements with the provided new content and return the set of elements that was removed.
@@ -3253,14 +3397,14 @@ interface JQuery {
      * @param newContent The content to insert. May be an HTML string, DOM element, array of DOM elements, or jQuery object.
      * @see {@link https://api.jquery.com/replaceWith/#replaceWith-newContent}
      */
-    replaceWith(newContent: JQuery|any[]|Element|Text|string): JQuery;
+    replaceWith(newContent: JQuery | any[] | Element | Text | string): JQuery;
     /**
      * Replace each element in the set of matched elements with the provided new content and return the set of elements that was removed.
      *
      * @param func A function that returns content with which to replace the set of matched elements.
      * @see {@link https://api.jquery.com/replaceWith/#replaceWith-function}
      */
-    replaceWith(func: () => Element|JQuery): JQuery;
+    replaceWith(func: (this: HTMLElement) => Element | JQuery): JQuery;
 
     /**
      * Get the combined text contents of each element in the set of matched elements, including their descendants.
@@ -3273,7 +3417,7 @@ interface JQuery {
      * @param text The text to set as the content of each matched element. When Number or Boolean is supplied, it will be converted to a String representation.
      * @see {@link https://api.jquery.com/text/#text-text}
      */
-    text(text: string|number|boolean): JQuery;
+    text(text: string | number | boolean): JQuery;
     /**
      * Set the content of each element in the set of matched elements to the specified text.
      *
@@ -3301,14 +3445,14 @@ interface JQuery {
      * @param wrappingElement A selector, element, HTML string, or jQuery object specifying the structure to wrap around the matched elements.
      * @see {@link https://api.jquery.com/wrap/#wrap-wrappingElement}
      */
-    wrap(wrappingElement: JQuery|Element|string): JQuery;
+    wrap(wrappingElement: JQuery | Element | string): JQuery;
     /**
      * Wrap an HTML structure around each element in the set of matched elements.
      *
      * @param func A callback function returning the HTML content or jQuery object to wrap around the matched elements. Receives the index position of the element in the set as an argument. Within the function, this refers to the current element in the set.
      * @see {@link https://api.jquery.com/wrap/#wrap-function}
      */
-    wrap(func: (index: number) => string|JQuery): JQuery;
+    wrap(func: (this: HTMLElement, index: number) => string | JQuery): JQuery;
 
     /**
      * Wrap an HTML structure around all elements in the set of matched elements.
@@ -3316,14 +3460,14 @@ interface JQuery {
      * @param wrappingElement A selector, element, HTML string, or jQuery object specifying the structure to wrap around the matched elements.
      * @see {@link https://api.jquery.com/wrapAll/#wrapAll-wrappingElement}
      */
-    wrapAll(wrappingElement: JQuery|Element|string): JQuery;
+    wrapAll(wrappingElement: JQuery | Element | string): JQuery;
     /**
      * Wrap an HTML structure around all elements in the set of matched elements.
      *
      * @param func A callback function returning the HTML content or jQuery object to wrap around all the matched elements. Within the function, this refers to the first element in the set.
      * @see {@link https://api.jquery.com/wrapAll/#wrapAll-function}
      */
-    wrapAll(func: (index: number) => string): JQuery;
+    wrapAll(func: (this: HTMLElement, index: number) => string): JQuery;
 
     /**
      * Wrap an HTML structure around the content of each element in the set of matched elements.
@@ -3331,14 +3475,14 @@ interface JQuery {
      * @param wrappingElement An HTML snippet, selector expression, jQuery object, or DOM element specifying the structure to wrap around the content of the matched elements.
      * @see {@link https://api.jquery.com/wrapInner/#wrapInner-wrappingElement}
      */
-    wrapInner(wrappingElement: JQuery|Element|string): JQuery;
+    wrapInner(wrappingElement: JQuery | Element | string): JQuery;
     /**
      * Wrap an HTML structure around the content of each element in the set of matched elements.
      *
      * @param func A callback function which generates a structure to wrap around the content of the matched elements. Receives the index position of the element in the set as an argument. Within the function, this refers to the current element in the set.
      * @see {@link https://api.jquery.com/wrapInner/#wrapInner-function}
      */
-    wrapInner(func: (index: number) => string): JQuery;
+    wrapInner(func: (this: HTMLElement, index: number) => string): JQuery;
 
     /**
      * Iterate over a jQuery object, executing a function for each matched element.
@@ -3346,7 +3490,8 @@ interface JQuery {
      * @param func A function to execute for each matched element. Can stop the loop by returning false.
      * @see {@link https://api.jquery.com/each/}
      */
-    each(func: (index: number, elem: Element) => boolean | void): JQuery;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    each(func: (this: HTMLElement, index: number, elem: Element) => boolean | void): JQuery;
 
     /**
      * Retrieve one of the elements matched by the jQuery object.
@@ -3373,7 +3518,7 @@ interface JQuery {
      * @param selector A selector representing a jQuery collection in which to look for an element.
      * @see {@link https://api.jquery.com/index/#index-selector}
      */
-    index(selector: string|JQuery|Element): number;
+    index(selector: string | JQuery | Element): number;
 
     /**
      * The number of elements in the jQuery object.
@@ -3498,7 +3643,7 @@ interface JQuery {
      * @param func A function used as a test for each element in the set. this is the current DOM element.
      * @see {@link https://api.jquery.com/filter/#filter-function}
      */
-    filter(func: (index: number, element: Element) => boolean): JQuery;
+    filter(func: (this: HTMLElement, index: number, element: Element) => boolean): JQuery;
     /**
      * Reduce the set of matched elements to those that match the selector or pass the function's test.
      *
@@ -3557,7 +3702,7 @@ interface JQuery {
      * @param func A function used as a test for the set of elements. It accepts one argument, index, which is the element's index in the jQuery collection.Within the function, this refers to the current DOM element.
      * @see {@link https://api.jquery.com/is/#is-function}
      */
-    is(func: (index: number, element: Element) => boolean): boolean;
+    is(func: (this: HTMLElement, index: number, element: Element) => boolean): boolean;
     /**
      * Check the current matched set of elements against a selector, element, or jQuery object and return true if at least one of these elements matches the given arguments.
      *
@@ -3585,7 +3730,7 @@ interface JQuery {
      * @param callback A function object that will be invoked for each element in the current set.
      * @see {@link https://api.jquery.com/map/}
      */
-    map(callback: (index: number, domElement: Element) => any): JQuery;
+    map(callback: (this: HTMLElement, index: number, domElement: Element) => any): JQuery;
 
     /**
      * Get the immediately following sibling of each element in the set of matched elements. If a selector is provided, it retrieves the next sibling only if it matches that selector.
@@ -3634,7 +3779,7 @@ interface JQuery {
      * @param selector A string containing a selector expression, or an array of elements to match against the set.
      * @see {@link https://api.jquery.com/not/#not-selector}
      */
-    not(selector: string|any[]): JQuery;
+    not(selector: string | any[]): JQuery;
     /**
      * Remove elements from the set of matched elements.
      *
@@ -3648,7 +3793,7 @@ interface JQuery {
      * @param elements One or more DOM elements to remove from the matched set.
      * @see {@link https://api.jquery.com/not/#not-selection}
      */
-    not(elements: Element|Element[]): JQuery;
+    not(elements: Element | Element[]): JQuery;
     /**
      * Remove elements from the set of matched elements.
      *
@@ -3775,14 +3920,14 @@ interface JQuery {
      * @param newQueue An array of functions to replace the current queue contents.
      * @see {@link https://api.jquery.com/queue/#queue-queueName-newQueue}
      */
-    queue(newQueue: Function[]): JQuery;
+    queue(newQueue: BoundFunction[]): JQuery;
     /**
      * Manipulate the queue of functions to be executed, once for each matched element.
      *
      * @param callback The new function to add to the queue, with a function to call that will dequeue the next item.
      * @see {@link https://api.jquery.com/queue/#queue-queueName-callback}
      */
-    queue(callback: Function): JQuery;
+    queue(callback: BoundFunction): JQuery;
     /**
      * Manipulate the queue of functions to be executed, once for each matched element.
      *
@@ -3790,7 +3935,7 @@ interface JQuery {
      * @param newQueue An array of functions to replace the current queue contents.
      * @see {@link https://api.jquery.com/queue/#queue-queueName-newQueue}
      */
-    queue(queueName: string, newQueue: Function[]): JQuery;
+    queue(queueName: string, newQueue: BoundFunction[]): JQuery;
     /**
      * Manipulate the queue of functions to be executed, once for each matched element.
      *
@@ -3798,7 +3943,7 @@ interface JQuery {
      * @param callback The new function to add to the queue, with a function to call that will dequeue the next item.
      * @see {@link https://api.jquery.com/queue/#queue-queueName-callback}
      */
-    queue(queueName: string, callback: Function): JQuery;
+    queue(queueName: string, callback: BoundFunction): JQuery;
 
     /**
      * Merge the contents of an object onto the jQuery prototype to provide new jQuery instance methods.
@@ -3806,8 +3951,9 @@ interface JQuery {
      * @param object An object to merge onto the jQuery prototype.
      * @see {@link https://api.jquery.com/jQuery.fn.extend/#jQuery-fn-extend-object}
      */
-    extend(object: { [method: string]: (...args: any[]) => any; }): JQuery;
+    extend(object: { [method: string]: (this: JQuery, ...args: any[]) => any }): JQuery;
 }
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "jquery" {
     export = $;
 }

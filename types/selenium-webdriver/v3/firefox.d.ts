@@ -1,6 +1,6 @@
-import * as webdriver from './index';
-import * as remote from './remote';
-import * as http from './http';
+import * as http from "./http";
+import * as webdriver from "./index";
+import * as remote from "./remote";
 
 /**
  * Manages a Firefox subprocess configured for use with WebDriver.
@@ -9,7 +9,6 @@ export class Binary {
     /**
      * @param {string=} opt_exe Path to the Firefox binary to use. If not
      *     specified, will attempt to locate Firefox on the current system.
-     * @constructor
      */
     constructor(opt_exe?: string);
 
@@ -46,7 +45,6 @@ export class Profile {
      * @param {string=} opt_dir Path to an existing Firefox profile directory to
      *     use a template for this profile. If not specified, a blank profile will
      *     be used.
-     * @constructor
      */
     constructor(opt_dir?: string);
 
@@ -166,15 +164,15 @@ export class Options {
     headless(): Options;
 
     /**
-    * Sets the initial window size when running in
-    * {@linkplain #headless headless} mode.
-    *
-    * @param {{width: number, height: number}} size The desired window size.
-    * @return {!Options} A self reference.
-    * @throws {TypeError} if width or height is unspecified, not a number, or
-    *     less than or equal to 0.
-    */
-    windowSize(size: { width: number, height: number }): Options;
+     * Sets the initial window size when running in
+     * {@linkplain #headless headless} mode.
+     *
+     * @param {{width: number, height: number}} size The desired window size.
+     * @return {!Options} A self reference.
+     * @throws {TypeError} if width or height is unspecified, not a number, or
+     *     less than or equal to 0.
+     */
+    windowSize(size: { width: number; height: number }): Options;
 
     /**
      * Add extensions that should be installed when starting Firefox.
@@ -291,7 +289,11 @@ export class Driver extends webdriver.WebDriver {
      *     configured to use the legacy FirefoxDriver from the Selenium project.
      * @return {!Driver} A new driver instance.
      */
-    static createSession(opt_config?: Options | webdriver.Capabilities, opt_executor?: http.Executor | remote.DriverService, opt_flow?: webdriver.promise.ControlFlow): Driver;
+    static createSession(
+        opt_config?: Options | webdriver.Capabilities,
+        opt_executor?: http.Executor | remote.DriverService,
+        opt_flow?: webdriver.promise.ControlFlow,
+    ): Driver;
 
     /**
      * This function is a no-op as file detectors are not supported by this

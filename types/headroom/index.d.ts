@@ -1,9 +1,3 @@
-// Type definitions for headroom.js v0.12.0
-// Project: http://wicky.nillia.ms/headroom.js/
-// Definitions by: Jakub Olek <https://github.com/hakubo>
-//                 Juninho Cruz <https://github.com/juninhocruzg3>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface HeadroomOptions {
     /** vertical offset in px before element is first unpinned */
     offset?: { up?: number | undefined; down?: number | undefined } | number | undefined;

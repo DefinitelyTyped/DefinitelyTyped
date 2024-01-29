@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/react-plotly.js",
+    "version": "2.6.9999",
+    "projects": [
+        "https://github.com/plotly/react-plotly.js#readme"
+    ],
+    "dependencies": {
+        "@types/plotly.js": "*",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-plotly.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jon Freedman",
+            "githubUsername": "jonfreedman"
+        },
+        {
+            "name": "Mitchell Grice",
+            "githubUsername": "gricey432"
+        },
+        {
+            "name": "Patrick Huebner",
+            "githubUsername": "phuebner"
+        }
+    ]
+}

@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/average.test.ts",
+        "test/blend.test.ts",
+        "test/colorsNamed.test.ts",
+        "test/common.test.ts",
+        "test/converter.test.ts",
+        "test/convertLrgbToRgb.test.ts",
+        "test/filterBrightness.test.ts",
+        "test/formatCss.test.ts",
+        "test/formatRgb.test.ts",
+        "test/mapper.test.ts",
+        "test/random.test.ts",
+        "test/useMode.test.ts"
+    ]
+}

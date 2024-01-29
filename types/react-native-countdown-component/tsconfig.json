@@ -8,10 +8,6 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
@@ -19,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-      "react-native-countdown-component-tests.tsx"
+        "react-native-countdown-component-tests.tsx"
     ]
 }

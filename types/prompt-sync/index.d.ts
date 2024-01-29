@@ -1,11 +1,5 @@
-// Type definitions for prompt-sync 4.1.4
-// Project: https://github.com/0x00A/prompt-sync
-// Definitions by: TANAKA Koichi <https://github.com/MugeSo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace PromptSync {
     export interface Prompt {
-
         (opts: Option): string;
         (ask: string): string;
         (ask: string, opts: Option): string;
@@ -14,7 +8,7 @@ declare namespace PromptSync {
          * prompt -- sync function for reading user input from stdin
          *  @param {String} ask opening question/statement to prompt for
          *  @param {String} value initial value for the prompt
-         *  @param   {Object} opts {
+         *  @param {Object} opts {
          *   echo: set to a character to be echoed, default is '*'. Use '' for no echo
          *   value: {String} initial value for the prompt
          *   ask: {String} opening question/statement to prompt for, does not override ask param
@@ -38,6 +32,7 @@ declare namespace PromptSync {
 
     export interface Config {
         sigint?: boolean | undefined;
+        eot?: boolean | undefined;
         autocomplete?: AutoCompleteFunction | undefined;
         history?: History | undefined;
     }
@@ -63,6 +58,7 @@ declare namespace PromptSync {
  * create -- sync function for reading user input from stdin
  * @param   {Object} config {
  *   sigint: {Boolean} exit on ^C
+ *   eot: {Boolean} exit on ^D
  *   autocomplete: {StringArray} function({String})
  *   history: {String} a history control object (see `prompt-sync-history`)
  * }

@@ -1,9 +1,3 @@
-// Type definitions for Twitter for Websites
-// Project: https://dev.twitter.com/web/
-// Definitions by: Chitoku <https://github.com/chitoku-k>
-//                 Lucretiel <https://github.com/Lucretiel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * The interface for Twitter for Websites, before with widgets.js script has
  * loaded. Users should use `ready` to await the script.
@@ -57,7 +51,7 @@ interface TwitterWidgets {
     createShareButton(
         url: string,
         target: HTMLElement,
-        options?: TwitterButtonWidgetOptions
+        options?: TwitterButtonWidgetOptions,
     ): Promise<HTMLElement>;
     /**
      * Create a follow button for a user.
@@ -69,7 +63,7 @@ interface TwitterWidgets {
     createFollowButton(
         screen_name: string,
         target: HTMLElement,
-        options?: TwitterButtonWidgetOptions
+        options?: TwitterButtonWidgetOptions,
     ): Promise<HTMLElement>;
     /**
      * Create a hashtag button for a hashtag.
@@ -81,7 +75,7 @@ interface TwitterWidgets {
     createHashtagButton(
         hashtag: string,
         target: HTMLElement,
-        options?: TwitterButtonWidgetOptions
+        options?: TwitterButtonWidgetOptions,
     ): Promise<HTMLElement>;
     /**
      * Create a mention button for a user.
@@ -93,7 +87,7 @@ interface TwitterWidgets {
     createMentionButton(
         screen_name: string,
         target: HTMLElement,
-        options?: TwitterButtonWidgetOptions
+        options?: TwitterButtonWidgetOptions,
     ): Promise<HTMLElement>;
     /**
      * Create a timeline widget.
@@ -105,7 +99,7 @@ interface TwitterWidgets {
     createTimeline(
         source: TwitterTimelineWidgetDataSource,
         target: HTMLElement,
-        options?: TwitterTimelineWidgetOptions
+        options?: TwitterTimelineWidgetOptions,
     ): Promise<HTMLElement>;
     /**
      * Create an embedded Tweet for a Tweet.
@@ -117,7 +111,7 @@ interface TwitterWidgets {
     createTweet(
         tweetId: string,
         target: HTMLElement,
-        options?: TwitterTweetWidgetOptions
+        options?: TwitterTweetWidgetOptions,
     ): Promise<HTMLElement>;
 }
 
@@ -238,21 +232,21 @@ interface TwitterTimelineWidgetUrlDataSource {
     url: string;
 }
 
-type TwitterTimelineWidgetDataSource = (
-    TwitterTimelineWidgetProfileDataSource |
-    TwitterTimelineWidgetLikesDataSource |
-    TwitterTimelineWidgetListDataSource |
-    TwitterTimelineWidgetCollectionDataSource |
-    TwitterTimelineWidgetUrlDataSource |
-    string
-);
+type TwitterTimelineWidgetDataSource =
+    | TwitterTimelineWidgetProfileDataSource
+    | TwitterTimelineWidgetLikesDataSource
+    | TwitterTimelineWidgetListDataSource
+    | TwitterTimelineWidgetCollectionDataSource
+    | TwitterTimelineWidgetUrlDataSource
+    | string;
 
 /**
  * Base type for TwitterTimelineWidgetOptions. TwitterTimelineWidgetOptions can
  * use all options of tweet widgets and button widgets
  */
-type TwitterTimelineWidgetBaseOptions = TwitterTweetWidgetOptions &
-    TwitterButtonWidgetOptions;
+type TwitterTimelineWidgetBaseOptions =
+    & TwitterTweetWidgetOptions
+    & TwitterButtonWidgetOptions;
 /**
  * The interface for additional options for embedded Timelines.
  */

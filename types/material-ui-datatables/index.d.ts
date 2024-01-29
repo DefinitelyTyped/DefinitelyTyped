@@ -1,10 +1,4 @@
-// Type definitions for material-ui-datatables 0.18
-// Project: https://github.com/hyojin/material-ui-datatables#readme
-// Definitions by: Ravi L. <https://github.com/coding2012>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
-
-import * as React from 'react';
+import * as React from "react";
 
 export interface Column {
     /** The element key */
@@ -116,4 +110,4 @@ export interface DataTableProps {
     onRowSelection: (selectedRows: any) => void;
 }
 
-export default class DataTable extends React.Component<Partial<DataTableProps>> { }
+export default class DataTable extends React.Component<Partial<DataTableProps>> {}

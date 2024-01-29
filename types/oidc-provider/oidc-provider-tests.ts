@@ -1,33 +1,33 @@
-import { Provider, interactionPolicy, errors, JWKS } from 'oidc-provider';
+import * as crypto from "node:crypto";
+
+import Provider, { errors, interactionPolicy, JWKS } from "oidc-provider";
 
 errors.AccessDenied.name;
 
-new Provider('https://op.example.com');
+new Provider("https://op.example.com");
 
-new Provider('https://op.example.com', {
+new Provider("https://op.example.com", {
     rotateRefreshToken: true,
     formats: {
         customizers: {
             async jwt(ctx, token, parts) {
                 ctx.oidc.issuer.substring(0);
                 token.iat.toFixed();
-                parts.header = { foo: 'bar' };
-                parts.payload.foo = 'bar';
-                return parts;
-            },
-            async paseto(ctx, token, parts) {
-                ctx.oidc.issuer.substring(0);
-                token.iat.toFixed();
-                parts.footer = { foo: 'bar' };
-                parts.payload.foo = 'bar';
-                parts.assertion = 'bar';
+                parts.header = { foo: "bar" };
+                parts.payload.foo = "bar";
                 return parts;
             },
         },
     },
 });
 
-new Provider('https://op.example.com', {
+new Provider("https://op.example.com", {
+    pkce: {
+        required: () => false,
+    },
+});
+
+new Provider("https://op.example.com", {
     adapter: class Adapter {
         name: string;
         constructor(name: string) {
@@ -41,7 +41,7 @@ new Provider('https://op.example.com', {
 
         async find(id: string) {
             return {
-                client_id: '...',
+                client_id: "...",
             };
         }
 
@@ -50,7 +50,7 @@ new Provider('https://op.example.com', {
     },
 });
 
-new Provider('https://op.example.com', {
+new Provider("https://op.example.com", {
     adapter: (name: string) => ({
         name,
         async upsert(id: string, payload: object, expiresIn: number) {},
@@ -60,7 +60,7 @@ new Provider('https://op.example.com', {
 
         async find(id: string) {
             return {
-                client_id: '...',
+                client_id: "...",
             };
         },
         async findByUserCode(userCode: string) {},
@@ -71,24 +71,54 @@ new Provider('https://op.example.com', {
 const jwks: JWKS = {
     keys: [
         {
-            kty: 'RSA',
-            d: 'foo',
-            n: 'foo',
-            e: 'AQAB',
+            kty: "RSA",
+            d: "foo",
+            n: "foo",
+            e: "AQAB",
         },
         {
-            kty: 'OKP',
-            x: 'foo',
-            d: 'foo',
-            crv: 'Ed25519',
+            kty: "OKP",
+            x: "foo",
+            d: "foo",
+            crv: "Ed25519",
         },
     ],
 };
 
-new Provider('https://op.example.com', { jwks });
+new Provider("https://op.example.com", { jwks });
 
-const provider = new Provider('https://op.example.com', {
-    acrValues: ['urn:example:bronze'],
+new Provider("https://op.example.com", {
+    features: {
+        mTLS: {
+            getCertificate() {
+                return undefined;
+            },
+        },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        mTLS: {
+            getCertificate() {
+                return "foo";
+            },
+        },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        mTLS: {
+            getCertificate() {
+                return new crypto.X509Certificate(Buffer.alloc(0));
+            },
+        },
+    },
+});
+
+const provider = new Provider("https://op.example.com", {
+    acrValues: ["urn:example:bronze"],
     adapter: class Adapter {
         name: string;
         constructor(name: string) {
@@ -119,7 +149,7 @@ const provider = new Provider('https://op.example.com', {
     claims: {
         acr: null,
         foo: null,
-        bar: ['bar'],
+        bar: ["bar"],
     },
     clientBasedCORS(ctx, origin, client) {
         ctx.oidc.issuer.substring(0);
@@ -129,67 +159,61 @@ const provider = new Provider('https://op.example.com', {
     },
     clients: [
         {
-            client_id: 'foo',
-            token_endpoint_auth_method: 'none',
-            redirect_uris: ['https://rp.example.com/cb'],
+            client_id: "foo",
+            token_endpoint_auth_method: "none",
+            redirect_uris: ["https://rp.example.com/cb"],
         },
     ],
     clientDefaults: {
-        foo: 'bar',
-        id_token_signed_response_alg: 'EdDSA',
-        token_endpoint_auth_signing_alg: 'ES384',
+        foo: "bar",
+        id_token_signed_response_alg: "EdDSA",
+        token_endpoint_auth_signing_alg: "ES384",
     },
     clockTolerance: 60,
     conformIdTokenClaims: true,
     cookies: {
         names: {
-            session: '_foo',
+            session: "_foo",
         },
         long: {
-            sameSite: 'none',
+            sameSite: "none",
             secure: true,
         },
         short: {
             httpOnly: true,
-            sameSite: 'lax',
+            sameSite: "lax",
         },
-        keys: ['foo', Buffer.from('bar')],
+        keys: ["foo", Buffer.from("bar")],
     },
     discovery: {
-        foo: 'bar',
+        foo: "bar",
         bar: [123],
         baz: {
-            foo: 'bar',
+            foo: "bar",
         },
     },
-    extraParams: ['foo', 'bar', 'baz'],
+    extraParams: ["foo", "bar", "baz"],
     async extraTokenClaims(ctx, token) {
         ctx.oidc.issuer.substring(0);
         token.jti.substring(0);
 
-        return { foo: 'bar' };
+        return { foo: "bar" };
     },
     formats: {
         customizers: {
             jwt(ctx, token, parts) {
                 ctx.oidc.issuer.substring(0);
                 token.iat.toFixed();
-                parts.header = { foo: 'bar' };
-                parts.payload.foo = 'bar';
-                return parts;
-            },
-            paseto(ctx, token, parts) {
-                ctx.oidc.issuer.substring(0);
-                token.iat.toFixed();
-                parts.footer = { foo: 'bar' };
-                parts.payload.foo = 'bar';
+                parts.header = { foo: "bar" };
+                parts.payload.foo = "bar";
                 return parts;
             },
         },
     },
     httpOptions(url) {
         url.searchParams.keys();
-        return { timeout: 5000 };
+        const c = new AbortController();
+        return { signal: c.signal, "user-agent": "foo" };
     },
     async expiresWithSession(ctx, token) {
         ctx.oidc.issuer.substring(0);
@@ -205,22 +229,22 @@ const provider = new Provider('https://op.example.com', {
     jwks: {
         keys: [
             {
-                kty: 'RSA',
-                d: 'foo',
-                n: 'foo',
-                e: 'AQAB',
+                kty: "RSA",
+                d: "foo",
+                n: "foo",
+                e: "AQAB",
             },
             {
-                kty: 'OKP',
-                x: 'foo',
-                d: 'foo',
-                crv: 'Ed25519',
+                kty: "OKP",
+                x: "foo",
+                d: "foo",
+                crv: "Ed25519",
             },
         ],
     },
-    responseTypes: ['code', 'code id_token', 'none'],
+    responseTypes: ["code", "code id_token", "none"],
     pkce: {
-        methods: ['plain', 'S256'],
+        methods: ["plain", "S256"],
         required(ctx, client) {
             ctx.oidc.issuer.substring(0);
             client.clientId.substring(0);
@@ -228,22 +252,22 @@ const provider = new Provider('https://op.example.com', {
         },
     },
     routes: {
-        authorization: '/auth',
-        code_verification: '/device',
-        device_authorization: '/device/auth',
-        end_session: '/session/end',
-        introspection: '/token/introspection',
-        jwks: '/jwks',
-        registration: '/reg',
-        revocation: '/token/revocation',
-        token: '/token',
-        userinfo: '/me',
-        pushed_authorization_request: '/request',
-        backchannel_authentication: '/backchannel',
+        authorization: "/auth",
+        code_verification: "/device",
+        device_authorization: "/device/auth",
+        end_session: "/session/end",
+        introspection: "/token/introspection",
+        jwks: "/jwks",
+        registration: "/reg",
+        revocation: "/token/revocation",
+        token: "/token",
+        userinfo: "/me",
+        pushed_authorization_request: "/request",
+        backchannel_authentication: "/backchannel",
     },
-    scopes: ['foo', 'bar'],
-    subjectTypes: ['public', 'pairwise'],
-    tokenEndpointAuthMethods: ['self_signed_tls_client_auth'],
+    scopes: ["foo", "bar"],
+    subjectTypes: ["public", "pairwise"],
+    clientAuthMethods: ["self_signed_tls_client_auth"],
     ttl: {
         CustomToken: 23,
         AccessToken(ctx, accessToken) {
@@ -269,46 +293,47 @@ const provider = new Provider('https://op.example.com', {
         BackchannelAuthenticationRequest: 3,
     },
     extraClientMetadata: {
-        properties: ['foo', 'bar'],
+        properties: ["foo", "bar"],
         validator(ctx, key, value, metadata) {
             ctx.oidc.issuer.substring(0);
             metadata.client_id.substring(0);
             key.substring(0);
-            metadata.foo = 'bar';
+            metadata.foo = "bar";
         },
     },
     interactions: {
         async url(ctx, interaction) {
             ctx.oidc.issuer.substring(0);
+            interaction.cid.substring(0);
             interaction.iat.toFixed();
             interaction.returnTo.substring(0);
             JSON.stringify(interaction.params.foo);
             JSON.stringify(interaction.prompt.name);
             interaction.grantId;
-            return 'foo';
+            return "foo";
         },
         policy: [
             new interactionPolicy.Prompt(
-                { name: 'foo', requestable: true },
-                new interactionPolicy.Check('foo', 'bar', 'baz', ctx => false),
+                { name: "foo", requestable: true },
+                new interactionPolicy.Check("foo", "bar", "baz", ctx => false),
                 new interactionPolicy.Check(
-                    'foo',
-                    'bar',
-                    'baz',
+                    "foo",
+                    "bar",
+                    "baz",
                     async ctx => true,
-                    async ctx => ({ foo: 'bar' }),
+                    async ctx => ({ foo: "bar" }),
                 ),
             ),
             new interactionPolicy.Prompt(
-                { name: 'foo', requestable: true },
-                ctx => ({ foo: 'bar' }),
-                new interactionPolicy.Check('foo', 'bar', 'baz', ctx => false),
+                { name: "foo", requestable: true },
+                ctx => ({ foo: "bar" }),
+                new interactionPolicy.Check("foo", "bar", "baz", ctx => false),
                 new interactionPolicy.Check(
-                    'foo',
-                    'bar',
-                    'baz',
+                    "foo",
+                    "bar",
+                    "baz",
                     async ctx => true,
-                    async ctx => ({ foo: 'bar' }),
+                    async ctx => ({ foo: "bar" }),
                 ),
             ),
         ],
@@ -326,7 +351,7 @@ const provider = new Provider('https://op.example.com', {
                 async claims() {
                     return {
                         sub,
-                        foo: 'bar',
+                        foo: "bar",
                     };
                 },
             };
@@ -345,7 +370,7 @@ const provider = new Provider('https://op.example.com', {
         ctx.oidc.issuer.substring(0);
         accountId.substring(0);
         client.clientId.substring(0);
-        return 'foo';
+        return "foo";
     },
     features: {
         rpInitiatedLogout: {
@@ -371,10 +396,10 @@ const provider = new Provider('https://op.example.com', {
         },
         userinfo: { enabled: false },
         jwtUserinfo: { enabled: false },
-        webMessageResponseMode: { enabled: false, ack: 'draft' },
+        webMessageResponseMode: { enabled: false, ack: "draft" },
         revocation: { enabled: false },
-        jwtIntrospection: { enabled: false, ack: 'draft' },
-        jwtResponseModes: { enabled: false, ack: 'draft' },
+        jwtIntrospection: { enabled: false, ack: "draft" },
+        jwtResponseModes: { enabled: false },
         pushedAuthorizationRequests: { enabled: false },
         registration: {
             enabled: true,
@@ -386,10 +411,10 @@ const provider = new Provider('https://op.example.com', {
                 },
             },
             idFactory() {
-                return 'foo';
+                return "foo";
             },
             secretFactory() {
-                return 'foo';
+                return "foo";
             },
         },
         registrationManagement: {
@@ -406,7 +431,7 @@ const provider = new Provider('https://op.example.com', {
                 resourceIndicator.substring(0);
                 client.clientId.substring(0);
                 return {
-                    scope: 'api:read',
+                    scope: "api:read",
                 };
             },
         },
@@ -414,13 +439,13 @@ const provider = new Provider('https://op.example.com', {
             request: false,
             requestUri: false,
             requireUriRegistration: false,
-            mode: 'lax',
+            mode: "lax",
         },
         encryption: { enabled: false },
-        fapi: { enabled: false, profile: '1.0 Final' },
+        fapi: { enabled: false, profile: "1.0 Final" },
         ciba: {
             enabled: false,
-            deliveryModes: ['ping'],
+            deliveryModes: ["ping"],
             async triggerAuthenticationDevice(ctx, request, account, client) {
                 ctx.oidc.issuer.substring(0);
                 request.jti.substring(0);
@@ -429,15 +454,15 @@ const provider = new Provider('https://op.example.com', {
                 client.backchannelClientNotificationEndpoint;
                 client.backchannelTokenDeliveryMode;
                 client.backchannelUserCodeParameter;
-            }
+            },
         },
         clientCredentials: { enabled: false },
-        backchannelLogout: { enabled: false, ack: 'draft' },
-        dPoP: { enabled: false, ack: 'draft', iatTolerance: 120 },
+        backchannelLogout: { enabled: false },
+        dPoP: { enabled: false },
         deviceFlow: {
             enabled: false,
-            charset: 'digits',
-            mask: '*** *** ***',
+            charset: "digits",
+            mask: "*** *** ***",
             deviceInfo(ctx) {
                 ctx.oidc.issuer.substring(0);
                 return {};
@@ -470,7 +495,7 @@ const provider = new Provider('https://op.example.com', {
             tlsClientAuth: true,
             getCertificate(ctx) {
                 ctx.oidc.issuer.substring(0);
-                return 'foo';
+                return "foo";
             },
             certificateAuthorized(ctx) {
                 ctx.oidc.issuer.substring(0);
@@ -485,71 +510,71 @@ const provider = new Provider('https://op.example.com', {
         },
     },
     enabledJWA: {
-        tokenEndpointAuthSigningAlgValues: ['HS256', 'RS256', 'PS256', 'ES256', 'EdDSA'],
-        idTokenSigningAlgValues: ['HS256', 'RS256', 'PS256', 'ES256', 'EdDSA', 'none'],
-        requestObjectSigningAlgValues: ['HS256', 'RS256', 'PS256', 'ES256', 'EdDSA', 'none'],
-        userinfoSigningAlgValues: ['HS256', 'RS256', 'PS256', 'ES256', 'EdDSA', 'none'],
-        introspectionSigningAlgValues: ['HS256', 'RS256', 'PS256', 'ES256', 'EdDSA', 'none'],
-        authorizationSigningAlgValues: ['HS256', 'RS256', 'PS256', 'ES256', 'EdDSA'],
-        idTokenEncryptionAlgValues: ['A128KW', 'A256KW', 'ECDH-ES', 'ECDH-ES+A128KW', 'ECDH-ES+A256KW', 'RSA-OAEP'],
+        clientAuthSigningAlgValues: ["HS256", "RS256", "PS256", "ES256", "EdDSA"],
+        idTokenSigningAlgValues: ["HS256", "RS256", "PS256", "ES256", "EdDSA"],
+        requestObjectSigningAlgValues: ["HS256", "RS256", "PS256", "ES256", "EdDSA"],
+        userinfoSigningAlgValues: ["HS256", "RS256", "PS256", "ES256", "EdDSA"],
+        introspectionSigningAlgValues: ["HS256", "RS256", "PS256", "ES256", "EdDSA"],
+        authorizationSigningAlgValues: ["HS256", "RS256", "PS256", "ES256", "EdDSA"],
+        idTokenEncryptionAlgValues: ["A128KW", "A256KW", "ECDH-ES", "ECDH-ES+A128KW", "ECDH-ES+A256KW", "RSA-OAEP"],
         requestObjectEncryptionAlgValues: [
-            'A128KW',
-            'A256KW',
-            'ECDH-ES',
-            'ECDH-ES+A128KW',
-            'ECDH-ES+A256KW',
-            'RSA-OAEP',
+            "A128KW",
+            "A256KW",
+            "ECDH-ES",
+            "ECDH-ES+A128KW",
+            "ECDH-ES+A256KW",
+            "RSA-OAEP",
         ],
-        userinfoEncryptionAlgValues: ['A128KW', 'A256KW', 'ECDH-ES', 'ECDH-ES+A128KW', 'ECDH-ES+A256KW', 'RSA-OAEP'],
+        userinfoEncryptionAlgValues: ["A128KW", "A256KW", "ECDH-ES", "ECDH-ES+A128KW", "ECDH-ES+A256KW", "RSA-OAEP"],
         introspectionEncryptionAlgValues: [
-            'A128KW',
-            'A256KW',
-            'ECDH-ES',
-            'ECDH-ES+A128KW',
-            'ECDH-ES+A256KW',
-            'RSA-OAEP',
+            "A128KW",
+            "A256KW",
+            "ECDH-ES",
+            "ECDH-ES+A128KW",
+            "ECDH-ES+A256KW",
+            "RSA-OAEP",
         ],
         authorizationEncryptionAlgValues: [
-            'A128KW',
-            'A256KW',
-            'ECDH-ES',
-            'ECDH-ES+A128KW',
-            'ECDH-ES+A256KW',
-            'RSA-OAEP',
+            "A128KW",
+            "A256KW",
+            "ECDH-ES",
+            "ECDH-ES+A128KW",
+            "ECDH-ES+A256KW",
+            "RSA-OAEP",
         ],
-        idTokenEncryptionEncValues: ['A128CBC-HS256', 'A128GCM', 'A256CBC-HS512', 'A256GCM'],
-        requestObjectEncryptionEncValues: ['A128CBC-HS256', 'A128GCM', 'A256CBC-HS512', 'A256GCM'],
-        userinfoEncryptionEncValues: ['A128CBC-HS256', 'A128GCM', 'A256CBC-HS512', 'A256GCM'],
-        introspectionEncryptionEncValues: ['A128CBC-HS256', 'A128GCM', 'A256CBC-HS512', 'A256GCM'],
-        authorizationEncryptionEncValues: ['A128CBC-HS256', 'A128GCM', 'A256CBC-HS512', 'A256GCM'],
-        dPoPSigningAlgValues: ['RS256', 'PS256', 'ES256', 'EdDSA'],
+        idTokenEncryptionEncValues: ["A128CBC-HS256", "A128GCM", "A256CBC-HS512", "A256GCM"],
+        requestObjectEncryptionEncValues: ["A128CBC-HS256", "A128GCM", "A256CBC-HS512", "A256GCM"],
+        userinfoEncryptionEncValues: ["A128CBC-HS256", "A128GCM", "A256CBC-HS512", "A256GCM"],
+        introspectionEncryptionEncValues: ["A128CBC-HS256", "A128GCM", "A256CBC-HS512", "A256GCM"],
+        authorizationEncryptionEncValues: ["A128CBC-HS256", "A128GCM", "A256CBC-HS512", "A256GCM"],
+        dPoPSigningAlgValues: ["RS256", "PS256", "ES256", "EdDSA"],
     },
 });
 
-provider.on('access_token.saved', accessToken => {
+provider.on("access_token.saved", accessToken => {
     accessToken.jti.substring(0);
 });
 
 provider.registerGrantType(
-    'urn:example',
+    "urn:example",
     async (ctx, next) => {
         ctx.oidc.route.substring(0);
         return next();
     },
-    ['foo', 'bar'],
-    ['foo'],
+    ["foo", "bar"],
+    ["foo"],
 );
 
-provider.on('authorization.accepted', ctx => {
-    const value = ctx.oidc.cookies.get('key');
+provider.on("authorization.accepted", ctx => {
+    const value = ctx.oidc.cookies.get("key");
     if (value !== undefined) {
         value.substring(0);
     }
 
-    ctx.oidc.cookies.set('key', 'value', { signed: true, sameSite: 'strict' });
+    ctx.oidc.cookies.set("key", "value", { signed: true, sameSite: "strict" });
 });
 
-provider.on('interaction.started', (ctx, prompt) => {
+provider.on("interaction.started", (ctx, prompt) => {
     ctx.oidc.route.substring(0);
     prompt.name.substring(0);
     prompt.reasons.pop();
@@ -566,36 +591,37 @@ provider.use(async (ctx, next) => {
     //
 });
 
-provider.backchannelResult('foo', 'bar').then(console.log);
-provider.backchannelResult(new provider.BackchannelAuthenticationRequest({ accountId: 'foo', clientId: 'bar' }), 'bar').then(console.log);
-provider.backchannelResult('foo', new provider.Grant({ clientId: 'foo', accountId: 'bar' })).then(console.log);
-provider.backchannelResult('foo', new errors.AccessDenied()).then(console.log);
+provider.backchannelResult("foo", "bar").then(console.log);
+provider.backchannelResult(new provider.BackchannelAuthenticationRequest({ accountId: "foo", clientId: "bar" }), "bar")
+    .then(console.log);
+provider.backchannelResult("foo", new provider.Grant({ clientId: "foo", accountId: "bar" })).then(console.log);
+provider.backchannelResult("foo", new errors.AccessDenied()).then(console.log);
 
 const _clientJwtAuthExpectedAudience = provider.OIDCContext.prototype.clientJwtAuthExpectedAudience;
 provider.OIDCContext.prototype.clientJwtAuthExpectedAudience = function clientJwtAuthExpectedAudience() {
     const acceptedAudiences = _clientJwtAuthExpectedAudience.call(this);
-    acceptedAudiences.add('https://as.example.com/token');
+    acceptedAudiences.add("https://as.example.com/token");
     return acceptedAudiences;
 };
 
 (async () => {
-    const client = await provider.Client.find('foo');
+    const client = await provider.Client.find("foo");
     if (client !== undefined) {
         client.clientId.substring(0);
-        client.backchannelPing(new provider.BackchannelAuthenticationRequest({ accountId: 'foo', clientId: 'bar' }));
+        client.backchannelPing(new provider.BackchannelAuthenticationRequest({ accountId: "foo", clientId: "bar" }));
     }
-    const accessToken = await provider.AccessToken.find('foo');
+    const accessToken = await provider.AccessToken.find("foo");
     if (accessToken !== undefined) {
         accessToken.jti.substring(0);
     }
 
     try {
         await Promise.all([
-            provider.AccessToken.revokeByGrantId('grantId'),
-            provider.AuthorizationCode.revokeByGrantId('grantId'),
-            provider.DeviceCode.revokeByGrantId('grantId'),
-            provider.RefreshToken.revokeByGrantId('grantId'),
-            provider.BackchannelAuthenticationRequest.revokeByGrantId('grantId'),
+            provider.AccessToken.revokeByGrantId("grantId"),
+            provider.AuthorizationCode.revokeByGrantId("grantId"),
+            provider.DeviceCode.revokeByGrantId("grantId"),
+            provider.RefreshToken.revokeByGrantId("grantId"),
+            provider.BackchannelAuthenticationRequest.revokeByGrantId("grantId"),
         ]);
     } catch (e) {}
 })();

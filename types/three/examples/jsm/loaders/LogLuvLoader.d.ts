@@ -1,4 +1,4 @@
-import { DataTextureLoader, TextureDataType, LoadingManager, PixelFormat } from '../../../src/Three';
+import { DataTextureLoader, TextureDataType, LoadingManager, PixelFormat } from '../../../src/Three.js';
 
 export interface LogLuv {
     width: number;
@@ -11,7 +11,7 @@ export interface LogLuv {
 
 export class LogLuvLoader extends DataTextureLoader {
     type: TextureDataType;
-    constructor(manager: LoadingManager);
+    constructor(manager?: LoadingManager);
 
     parse(buffer: Iterable<number>): LogLuv;
 

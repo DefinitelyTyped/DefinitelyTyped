@@ -1,5 +1,3 @@
-export = ivbProfile;
+import { Profile } from "../../index";
 
-import createClient = require('../../index');
-
-declare const ivbProfile: createClient.Profile;
+export const profile: Profile;

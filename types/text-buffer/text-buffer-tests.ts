@@ -80,7 +80,7 @@ range.start;
 range.end;
 
 // Construction
-range = TextBuffer.Range.fromObject({ start: point, end: point}, true);
+range = TextBuffer.Range.fromObject({ start: point, end: point }, true);
 TextBuffer.Range.fromObject([point, point]);
 TextBuffer.Range.fromObject([[0, 0], [0, 0]]);
 TextBuffer.Range.fromObject([point, [0, 0]]);
@@ -315,7 +315,7 @@ buffer.markRange([point, point]);
 buffer.markRange([[0, 0], [0, 0]]);
 buffer.markRange([point, [0, 0]]);
 buffer.markRange([[0, 0], point]);
-buffer.markRange(range, { exclusive: true});
+buffer.markRange(range, { exclusive: true });
 buffer.markRange(range, { invalidate: "surround" });
 buffer.markRange(range, { reversed: true });
 buffer.markRange(range, { exclusive: true, invalidate: "surround", reversed: true });
@@ -413,8 +413,7 @@ buffer.scanInRange(/r^Test/, [point, point], (): void => {});
 buffer.scanInRange(/r^Test/, [[0, 0], [0, 0]], (): void => {});
 buffer.scanInRange(/r^Test/, [point, [0, 0]], (): void => {});
 buffer.scanInRange(/r^Test/, [[0, 0], point], (): void => {});
-buffer.scanInRange(/r^Test/, [[0, 0], [0, 0]], { trailingContextLineCount: 42 },
-    (): void => {});
+buffer.scanInRange(/r^Test/, [[0, 0], [0, 0]], { trailingContextLineCount: 42 }, (): void => {});
 
 buffer.backwardsScanInRange(/r^Test/, range, (): void => {});
 buffer.backwardsScanInRange(/r^Test/, range, (params) => {
@@ -435,8 +434,7 @@ buffer.backwardsScanInRange(/r^Test/, [point, point], (): void => {});
 buffer.backwardsScanInRange(/r^Test/, [[0, 0], [0, 0]], (): void => {});
 buffer.backwardsScanInRange(/r^Test/, [point, [0, 0]], (): void => {});
 buffer.backwardsScanInRange(/r^Test/, [[0, 0], point], (): void => {});
-buffer.backwardsScanInRange(/r^Test/, [[0, 0], [0, 0]], { trailingContextLineCount: 42 },
-    (): void => {});
+buffer.backwardsScanInRange(/r^Test/, [[0, 0], [0, 0]], { trailingContextLineCount: 42 }, (): void => {});
 
 num = buffer.replace(/r^Test/, "Test");
 
@@ -578,7 +576,9 @@ marker = markerLayer.markRange([[0, 0], [0, 0]]);
 marker = markerLayer.markRange(range, { exclusive: true });
 marker = markerLayer.markRange([point, point], { invalidate: "never" });
 marker = markerLayer.markRange(range, {
-    exclusive: false, invalidate: "surround", reversed: false,
+    exclusive: false,
+    invalidate: "surround",
+    reversed: false,
 });
 
 marker = markerLayer.markPosition(point);
@@ -607,7 +607,9 @@ displayMarker = displayMarker.copy({
 });
 
 // Event Subscription
-sub = displayMarker.onDidChange((event) => { event.hasTail; });
+sub = displayMarker.onDidChange((event) => {
+    event.hasTail;
+});
 sub = displayMarker.onDidDestroy(() => {});
 
 // TextEditorMarker Details
@@ -720,7 +722,9 @@ bool = displayMarkerLayer.isDestroyed();
 // Event Subscription
 sub = displayMarkerLayer.onDidDestroy(() => {});
 sub = displayMarkerLayer.onDidUpdate(() => {});
-sub = displayMarkerLayer.onDidCreateMarker((marker) => { marker.isReversed(); });
+sub = displayMarkerLayer.onDidCreateMarker((marker) => {
+    marker.isReversed();
+});
 
 // Marker creation
 displayMarker = displayMarkerLayer.markScreenRange(range);
@@ -729,8 +733,12 @@ displayMarker = displayMarkerLayer.markScreenRange(range, { clipDirection: "forw
 displayMarker = displayMarkerLayer.markScreenRange(range, { exclusive: true });
 displayMarker = displayMarkerLayer.markScreenRange(range, { invalidate: "never" });
 displayMarker = displayMarkerLayer.markScreenRange(range, { reversed: true });
-displayMarker = displayMarkerLayer.markScreenRange(range, { clipDirection: "backward",
-    exclusive: false, invalidate: "overlap", reversed: false });
+displayMarker = displayMarkerLayer.markScreenRange(range, {
+    clipDirection: "backward",
+    exclusive: false,
+    invalidate: "overlap",
+    reversed: false,
+});
 displayMarker = displayMarkerLayer.markScreenRange([point, point]);
 displayMarker = displayMarkerLayer.markScreenRange([point, [0, 0]]);
 displayMarker = displayMarkerLayer.markScreenRange([[0, 0], point]);
@@ -742,8 +750,11 @@ displayMarker = displayMarkerLayer.markScreenPosition(point, {});
 displayMarker = displayMarkerLayer.markScreenPosition(point, { clipDirection: "forward" });
 displayMarker = displayMarkerLayer.markScreenPosition(point, { exclusive: true });
 displayMarker = displayMarkerLayer.markScreenPosition(point, { invalidate: "never" });
-displayMarker = displayMarkerLayer.markScreenPosition(point, { clipDirection: "backward",
-    exclusive: false, invalidate: "overlap" });
+displayMarker = displayMarkerLayer.markScreenPosition(point, {
+    clipDirection: "backward",
+    exclusive: false,
+    invalidate: "overlap",
+});
 displayMarker = displayMarkerLayer.markScreenPosition([0, 0]);
 displayMarker = displayMarkerLayer.markScreenPosition([0, 0], { exclusive: false });
 
@@ -752,8 +763,7 @@ displayMarker = displayMarkerLayer.markBufferRange(range, {});
 displayMarker = displayMarkerLayer.markBufferRange(range, { invalidate: "inside" });
 displayMarker = displayMarkerLayer.markBufferRange(range, { exclusive: true });
 displayMarker = displayMarkerLayer.markBufferRange(range, { reversed: true });
-displayMarker = displayMarkerLayer.markBufferRange(range, { exclusive: false,
-    invalidate: "overlap", reversed: false });
+displayMarker = displayMarkerLayer.markBufferRange(range, { exclusive: false, invalidate: "overlap", reversed: false });
 displayMarker = displayMarkerLayer.markBufferRange([point, point]);
 displayMarker = displayMarkerLayer.markBufferRange([point, [0, 0]]);
 displayMarker = displayMarkerLayer.markBufferRange([[0, 0], point]);
@@ -764,8 +774,7 @@ displayMarker = displayMarkerLayer.markBufferPosition(point);
 displayMarker = displayMarkerLayer.markBufferPosition(point, {});
 displayMarker = displayMarkerLayer.markBufferPosition(point, { exclusive: true });
 displayMarker = displayMarkerLayer.markBufferPosition(point, { invalidate: "never" });
-displayMarker = displayMarkerLayer.markBufferPosition(point, { exclusive: false,
-    invalidate: "overlap" });
+displayMarker = displayMarkerLayer.markBufferPosition(point, { exclusive: false, invalidate: "overlap" });
 displayMarker = displayMarkerLayer.markBufferPosition([0, 0]);
 displayMarker = displayMarkerLayer.markBufferPosition([0, 0], { exclusive: false });
 

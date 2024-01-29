@@ -202,7 +202,7 @@
 declare module "gd" {
     
 
-    module gd {
+    namespace gd {
         
         /**
          * 

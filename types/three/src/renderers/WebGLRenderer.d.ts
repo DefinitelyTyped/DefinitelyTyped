@@ -1,29 +1,36 @@
-import { Scene } from './../scenes/Scene';
-import { Camera } from './../cameras/Camera';
-import { WebGLExtensions } from './webgl/WebGLExtensions';
-import { WebGLInfo } from './webgl/WebGLInfo';
-import { WebGLShadowMap } from './webgl/WebGLShadowMap';
-import { WebGLCapabilities } from './webgl/WebGLCapabilities';
-import { WebGLProperties } from './webgl/WebGLProperties';
-import { WebGLRenderLists } from './webgl/WebGLRenderLists';
-import { WebGLState } from './webgl/WebGLState';
-import { Vector2 } from './../math/Vector2';
-import { Vector4 } from './../math/Vector4';
-import { Color } from './../math/Color';
-import { WebGLRenderTarget } from './WebGLRenderTarget';
-import { WebGLMultipleRenderTargets } from './WebGLMultipleRenderTargets';
-import { Object3D } from './../core/Object3D';
-import { Material } from './../materials/Material';
-import { ToneMapping, ShadowMapType, CullFace, TextureEncoding } from '../constants';
-import { WebXRManager } from '../renderers/webxr/WebXRManager';
-import { BufferGeometry } from './../core/BufferGeometry';
-import { Texture } from '../textures/Texture';
-import { Data3DTexture } from '../textures/Data3DTexture';
-import { XRAnimationLoopCallback } from './webxr/WebXR';
-import { Vector3 } from '../math/Vector3';
-import { Box3 } from '../math/Box3';
-import { DataArrayTexture } from '../textures/DataArrayTexture';
-import { ColorRepresentation } from '../utils';
+import { Scene } from '../scenes/Scene.js';
+import { Camera } from '../cameras/Camera.js';
+import { WebGLExtensions } from './webgl/WebGLExtensions.js';
+import { WebGLInfo } from './webgl/WebGLInfo.js';
+import { WebGLShadowMap } from './webgl/WebGLShadowMap.js';
+import { WebGLCapabilities } from './webgl/WebGLCapabilities.js';
+import { WebGLProperties } from './webgl/WebGLProperties.js';
+import { WebGLRenderLists } from './webgl/WebGLRenderLists.js';
+import { WebGLState } from './webgl/WebGLState.js';
+import { Vector2 } from '../math/Vector2.js';
+import { Vector4 } from '../math/Vector4.js';
+import { Color, ColorRepresentation } from '../math/Color.js';
+import { WebGLRenderTarget } from './WebGLRenderTarget.js';
+import { WebGLMultipleRenderTargets } from './WebGLMultipleRenderTargets.js';
+import { Object3D } from '../core/Object3D.js';
+import { Material } from '../materials/Material.js';
+import {
+    ToneMapping,
+    ShadowMapType,
+    CullFace,
+    TextureEncoding,
+    ColorSpace,
+    WebGLCoordinateSystem,
+} from '../constants.js';
+import { WebXRManager } from './webxr/WebXRManager.js';
+import { BufferGeometry } from '../core/BufferGeometry.js';
+import { OffscreenCanvas, Texture } from '../textures/Texture.js';
+import { Data3DTexture } from '../textures/Data3DTexture.js';
+import { Vector3 } from '../math/Vector3.js';
+import { Box3 } from '../math/Box3.js';
+import { DataArrayTexture } from '../textures/DataArrayTexture.js';
+import { WebGLProgram } from './webgl/WebGLProgram.js';
+import { Plane } from '../math/Plane.js';
 
 export interface Renderer {
     domElement: HTMLCanvasElement;
@@ -31,10 +38,6 @@ export interface Renderer {
     render(scene: Object3D, camera: Camera): void;
     setSize(width: number, height: number, updateStyle?: boolean): void;
 }
-
-/** This is only available in worker JS contexts, not the DOM. */
-// tslint:disable-next-line:no-empty-interface
-export interface OffscreenCanvas extends EventTarget {}
 
 export interface WebGLRendererParameters {
     /**
@@ -105,6 +108,21 @@ export interface WebGLDebug {
      * Enables error checking and reporting when shader programs are being compiled.
      */
     checkShaderErrors: boolean;
+
+    /**
+     * A callback function that can be used for custom error reporting. The callback receives the WebGL context, an
+     * instance of WebGLProgram as well two instances of WebGLShader representing the vertex and fragment shader.
+     * Assigning a custom function disables the default error reporting.
+     * @default `null`
+     */
+    onShaderError:
+        | ((
+              gl: WebGLRenderingContext,
+              program: WebGLProgram,
+              glVertexShader: WebGLShader,
+              glFragmentShader: WebGLShader,
+          ) => void)
+        | null;
 }
 
 /**
@@ -127,11 +145,6 @@ export class WebGLRenderer implements Renderer {
      * @default document.createElementNS( 'http://www.w3.org/1999/xhtml', 'canvas' )
      */
     domElement: HTMLCanvasElement;
-
-    /**
-     * The HTML5 Canvas's 'webgl' context obtained from the canvas where the renderer will draw.
-     */
-    context: WebGLRenderingContext;
 
     /**
      * Defines whether the renderer should automatically clear its output before rendering.
@@ -172,7 +185,7 @@ export class WebGLRenderer implements Renderer {
     /**
      * @default []
      */
-    clippingPlanes: any[];
+    clippingPlanes: readonly Plane[];
 
     /**
      * @default false
@@ -184,13 +197,26 @@ export class WebGLRenderer implements Renderer {
     /**
      * Default is LinearEncoding.
      * @default THREE.LinearEncoding
+     * @deprecated Use {@link WebGLRenderer.outputColorSpace .outputColorSpace} in three.js r152+.
      */
     outputEncoding: TextureEncoding;
 
     /**
-     * @default false
+     * Color space used for output to HTMLCanvasElement. Supported values are
+     * {@link SRGBColorSpace} and {@link LinearSRGBColorSpace}.
+     * @default THREE.SRGBColorSpace.
      */
-    physicallyCorrectLights: boolean;
+    get outputColorSpace(): ColorSpace;
+    set outputColorSpace(colorSpace: ColorSpace);
+
+    get coordinateSystem(): typeof WebGLCoordinateSystem;
+
+    /**
+     * @deprecated Migrate your lighting according to the following guide:
+     * https://discourse.threejs.org/t/updates-to-lighting-in-three-js-r155/53733.
+     * @default true
+     */
+    useLegacyLights: boolean;
 
     /**
      * @default THREE.NoToneMapping
@@ -336,7 +362,7 @@ export class WebGLRenderer implements Renderer {
      * A build in function that can be used instead of requestAnimationFrame. For WebXR projects this function must be used.
      * @param callback The function will be called every available frame. If `null` is passed it will stop any already ongoing animation.
      */
-    setAnimationLoop(callback: XRAnimationLoopCallback | null): void;
+    setAnimationLoop(callback: XRFrameRequestCallback | null): void;
 
     /**
      * @deprecated Use {@link WebGLRenderer#setAnimationLoop .setAnimationLoop()} instead.
@@ -344,9 +370,19 @@ export class WebGLRenderer implements Renderer {
     animate(callback: () => void): void;
 
     /**
-     * Compiles all materials in the scene with the camera. This is useful to precompile shaders before the first rendering.
+     * Compiles all materials in the scene with the camera. This is useful to precompile shaders before the first
+     * rendering. If you want to add a 3D object to an existing scene, use the third optional parameter for applying the
+     * target scene.
+     * Note that the (target) scene's lighting should be configured before calling this method.
      */
-    compile(scene: Object3D, camera: Camera): void;
+    compile: (scene: Object3D, camera: Camera, targetScene?: Scene | null) => Set<Material>;
+
+    /**
+     * Asynchronous version of {@link compile}(). The method returns a Promise that resolves when the given scene can be
+     * rendered without unnecessary stalling due to shader compilation.
+     * This method makes use of the KHR_parallel_shader_compile WebGL extension.
+     */
+    compileAsync: (scene: Object3D, camera: Camera, targetScene?: Scene | null) => Promise<Object3D>;
 
     /**
      * Render a scene or an object using a camera.

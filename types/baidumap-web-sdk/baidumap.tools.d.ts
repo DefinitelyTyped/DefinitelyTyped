@@ -1,8 +1,3 @@
-// Type definitions for BaiduMap v3.0
-// Project: http://lbsyun.baidu.com/index.php?title=jspopular3.0
-// Definitions by: Codemonk <http://www.youxianxueche.com/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /* *****************************************************************************
 Copyright [Codemonk] [Codemonk@live.cn]
 
@@ -33,7 +28,7 @@ SOFTWARE.
 /// <reference path="./baidumap.overlay.d.ts" />
 declare namespace BMap {
     class PushpinTool {
-        constructor(map: Map, opts?: PushpinToolOptions)
+        constructor(map: Map, opts?: PushpinToolOptions);
         open(): boolean;
         close(): boolean;
         setIcon(icon: Icon): Icon;
@@ -41,7 +36,7 @@ declare namespace BMap {
         setCursor(cursor: string): string;
         getCursor(): string;
         toString(): string;
-        onmarkend: (event: { type: string, target: any, marker: Marker }) => void;
+        onmarkend: (event: { type: string; target: any; marker: Marker }) => void;
     }
     interface PushpinToolOptions {
         icon?: Icon | undefined;
@@ -53,14 +48,16 @@ declare namespace BMap {
         open(): boolean;
         close(): void;
         toString(): string;
-        ondrawend: (event: { type: string, target: any, points: Point[], polylines: Polyline[], distance: number }) => void;
+        ondrawend: (
+            event: { type: string; target: any; points: Point[]; polylines: Polyline[]; distance: number },
+        ) => void;
     }
     class DragAndZoomTool {
         constructor(map: Map, opts?: DragAndZoomToolOptions);
         open(): boolean;
         close(): void;
         toString(): string;
-        ondrawend: (event: { type: string, target: any, bounds: Bounds[] }) => void;
+        ondrawend: (event: { type: string; target: any; bounds: Bounds[] }) => void;
     }
     interface DragAndZoomToolOptions {
         zoomType?: ZoomType | undefined;

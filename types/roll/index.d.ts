@@ -1,11 +1,6 @@
-// Type definitions for roll 1.2
-// Project: https://github.com/troygoode/node-roll/
-// Definitions by: icopp <https://github.com/icopp>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type RollTransformation = RollTransformationKey | [RollTransformationKey, number] | ((results: number[]) => number[]);
 
-type RollTransformationKey = 'sum' | 'add' | 'subtract' | 'multiply' | 'divide' | 'best-of' | 'worst-of';
+type RollTransformationKey = "sum" | "add" | "subtract" | "multiply" | "divide" | "best-of" | "worst-of";
 
 interface RollObject {
     quantity: number;
@@ -22,7 +17,7 @@ interface RollOutput {
 }
 
 declare class InvalidInputError extends Error {
-    name: 'InvalidInputError';
+    name: "InvalidInputError";
 }
 
 declare class Roll {

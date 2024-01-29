@@ -1,5 +1,5 @@
-import { Popover } from '@wordpress/components';
-import { ComponentType, ReactNode } from 'react';
+import { Popover } from "@wordpress/components";
+import { ComponentType, JSX, ReactNode } from "react";
 
 declare namespace URLPopover {
     interface Props extends Popover.Props {

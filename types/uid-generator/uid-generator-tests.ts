@@ -1,17 +1,17 @@
-import UIDGenerator = require('uid-generator');
+import UIDGenerator = require("uid-generator");
 
-new UIDGenerator('abc'); // $ExpectType UIDGeneratorInstance
-const generator = new UIDGenerator(128, 'abc'); // $ExpectType UIDGeneratorInstance
+new UIDGenerator("abc"); // $ExpectType UIDGeneratorInstance
+const generator = new UIDGenerator(128, "abc"); // $ExpectType UIDGeneratorInstance
 
 generator.generateSync(); // $ExpectType string
 generator.generate((err, uid) => {
-  err; // $ExpectType Error | null
-  uid; // $ExpectType string
+    err; // $ExpectType Error | null
+    uid; // $ExpectType string
 });
 generator.generate().then(uid => {
-  uid; // $ExpectType string
+    uid; // $ExpectType string
 }).catch(e => {
-  e;   // $ExpectType any
+    e; // $ExpectType any
 });
 
 generator.bitSize; // $ExpectType number

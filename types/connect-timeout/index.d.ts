@@ -1,9 +1,3 @@
-// Type definitions for connect-timeout
-// Project: https://github.com/expressjs/timeout
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="express" />
 
 declare namespace Express {
@@ -31,7 +25,6 @@ declare module "connect-timeout" {
         interface TimeoutOptions {
             /**
              * @summary Controls if this module will "respond" in the form of forwarding an error.
-             * @type {boolean}
              */
             respond?: boolean | undefined;
         }

@@ -1,10 +1,3 @@
-// Type definitions for rivets 0.9
-// Project: http://rivetsjs.com/, https://github.com/mikeric/rivets
-// Definitions by:  Trevor Baron <https://github.com/TrevorDev>
-//                  Jakub Matjanowski <https://github.com/matjanos>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 export namespace Rivets {
@@ -52,7 +45,7 @@ export namespace Rivets {
             rootInterface?: string | undefined;
 
             // Template delimiters for text bindings
-            templateDelimiters?: string[] | undefined
+            templateDelimiters?: string[] | undefined;
 
             // Augment the event handler of the on-* binder
             handler?(context: any, ev: Event, biding: any): void;

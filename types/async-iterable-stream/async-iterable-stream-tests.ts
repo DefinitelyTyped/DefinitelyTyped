@@ -1,10 +1,10 @@
-import AsyncIterableStream = require('async-iterable-stream');
+import AsyncIterableStream = require("async-iterable-stream");
 
 // Simple, dummy implementation of the abstract class
 
 class DummyAsyncIterator {
     async next() {
-        return { done: true, value: 'dummy' };
+        return { done: true, value: "dummy" };
     }
 
     return() {

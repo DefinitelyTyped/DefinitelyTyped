@@ -1,13 +1,13 @@
 import * as materialize from "materializecss__materialize";
 
-const elem = document.querySelector('.whatever')!;
+const elem = document.querySelector(".whatever")!;
 
 // $ExpectType Datepicker
 const _datePicker = new M.Datepicker(elem);
 // $ExpectType Datepicker
 const el = M.Datepicker.init(elem);
 // $ExpectType Datepicker[]
-const els = M.Datepicker.init(document.querySelectorAll('.whatever'));
+const els = M.Datepicker.init(document.querySelectorAll(".whatever"));
 
 // $ExpectType Datepicker
 new materialize.Datepicker(elem);
@@ -19,7 +19,7 @@ const datePicker = new materialize.Datepicker(elem, {
         this;
         // $ExpectType Date
         date;
-    }
+    },
 });
 // $ExpectType void
 datePicker.open();
@@ -42,10 +42,10 @@ const _datePickerWithNullableOptions = new materialize.Datepicker(elem, {
     container: null,
     parse: null,
     disableDayFn: null,
-    onSelect : null,
-    onOpen : null,
-    onClose : null,
-    onDraw : null,
+    onSelect: null,
+    onOpen: null,
+    onClose: null,
+    onDraw: null,
 });
 
 $(".whatever").datepicker();
@@ -57,10 +57,10 @@ $(".whatever").datepicker({
     container: null,
     parse: null,
     disableDayFn: null,
-    onSelect : null,
-    onOpen : null,
-    onClose : null,
-    onDraw : null,
+    onSelect: null,
+    onOpen: null,
+    onClose: null,
+    onDraw: null,
 });
 $(".whatever").datepicker("open");
 $(".whatever").datepicker("destroy");

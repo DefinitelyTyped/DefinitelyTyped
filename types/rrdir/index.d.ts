@@ -1,8 +1,3 @@
-// Type definitions for rrdir 8.2
-// Project: https://github.com/silverwind/rrdir#readme
-// Definitions by: Zhang Nan <https://github.com/anyone-developer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as fs from "fs";

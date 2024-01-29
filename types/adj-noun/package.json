@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/adj-noun",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/btford/adj-noun"
+    ],
+    "devDependencies": {
+        "@types/adj-noun": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

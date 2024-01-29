@@ -1,248 +1,246 @@
-// Type definitions for @creativebulma/bulma-tagsinput 1.0
-// Project: https://github.com/CreativeBulma/bulma-tagsinput
-// Definitions by: Remco Haszing <https://github.com/remcohaszing>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+declare namespace BulmaTagsInput {
+    interface BulmaTagsInputItem {
+        value: string;
+        text: string;
+    }
 
-export interface BulmaTagsInputItem {
-    value: string;
-    text: string;
+    interface BulmaTagsInputOptions {
+        /**
+         * When true, the same tag can be added multiple times.
+         *
+         * @default false
+         */
+        allowDuplicates?: boolean | undefined;
+
+        /**
+         * When true, duplicate tags value check is case sensitive.
+         *
+         * @default true
+         */
+        caseSensitive?: boolean | undefined;
+
+        /**
+         * When true, tags will be unselected when new tag is entered.
+         *
+         * @default false
+         */
+        clearSelectionOnTyping?: boolean | undefined;
+
+        /**
+         * When true, datalist will close automatically after an item have been selected.
+         *
+         * @default true
+         */
+        closeDropdownOnItemSelect?: boolean | undefined;
+
+        /**
+         * Multiple tags can be added at once. Delimiter is used to separate all tags.
+         *
+         * @default ",",
+         */
+        delimiter?: string | undefined;
+
+        /**
+         * When true, tags can be entered manually. This option is useful with select Tags inputs. Set
+         * to false automatically when using on select element.
+         *
+         * @default true
+         */
+        freeInput?: boolean | undefined;
+
+        /**
+         * When true, if `allowDuplicates` option if false then the already existing tag will be
+         * temporarly and visually identified as duplicate
+         *
+         * @default true
+         */
+        highlightDuplicate?: boolean | undefined;
+
+        /**
+         * When true, identified matches strings when searching is highlighted.
+         *
+         * @default true
+         */
+        highlightMatchesString?: boolean | undefined;
+
+        /**
+         * When adding objects as tags, you can set itemText to the name of the property of item to use
+         * for a its tag's text. When this options is not set, the value of _itemValue_ will be used.
+         */
+        itemText?: string | undefined;
+
+        /**
+         * When adding objects as tags, itemValue must be set to the name of the property containing the
+         * item's value.
+         */
+        itemValue?: string | undefined;
+
+        /**
+         * When set, no more than the given number of tags are allowed to add.
+         */
+        maxTags?: number | undefined;
+
+        /**
+         * Defines the maximum length of a single tag.
+         */
+        maxChars?: number | undefined;
+
+        /**
+         * Defines the minimum length of a single tag.
+         *
+         * @default 1
+         */
+        minChars?: number | undefined;
+
+        /**
+         * Empty dropdown label.
+         *
+         * @default "No results found"
+         */
+        noResultsLabel?: string | undefined;
+
+        /**
+         * TagsInput placeholder text if original input doesn't have one.
+         *
+         * @default undefined
+         */
+        placeholder?: string | undefined;
+
+        /**
+         * When true, tags are removable either using the associted delete button or _backspace_ and
+         * _delete_ keys.
+         *
+         * @default true
+         */
+        removable?: boolean | undefined;
+
+        /**
+         * Defines the minimum length of input value before loading auto-complete.
+         *
+         * @default 1
+         */
+        searchMinChars?: number | undefined;
+
+        /**
+         * Defines on what dropdown item data do we search the entered value.
+         *
+         * @default "text"
+         */
+        searchOn?: "value" | "text" | undefined;
+
+        /**
+         * When true, tags can be selected either by mouse click or using _left_ or _right_ arrow keys.
+         *
+         * @default true
+         */
+        selectable?: boolean | undefined;
+
+        /**
+         * Source of data proposed in dropdown (used for auto-complete).
+         *
+         * @default undefined
+         */
+        source?:
+            | Array<string | BulmaTagsInputItem>
+            | (() => Array<string | BulmaTagsInputItem>)
+            | Promise<Array<string | BulmaTagsInputItem>>
+            | undefined;
+
+        /**
+         * Classname applied to each tag.
+         *
+         * @default "is-rounded"
+         */
+        tagClass?: string | undefined;
+
+        /**
+         * When true, automatically removes all whitespace around tags.
+         *
+         * @default true
+         */
+        trim?: boolean | undefined;
+    }
+
+    interface BulmaTagsInputEventMap {
+        /**
+         * Trigerred before adding new tag. The concerned item is passed as parameter. You can modify the item
+         * before its treatment by returning the new item data or prevent tag to be added by returning false.
+         */
+        "before.add": string | BulmaTagsInputItem;
+
+        /**
+         * Triggered once a tag has been added. The added item and the related tag are passed in an object as
+         * parameter.
+         */
+        "after.add": {
+            item: string | BulmaTagsInputItem;
+            tag: string;
+        };
+
+        /**
+         * Triggered before removing a tag. The concerned item is passed as parameter. You can prevent
+         * deletion by returning `false`.
+         */
+        "before.remove": string | BulmaTagsInputItem;
+
+        /**
+         * Triggered once a tag has been removed. The removed item is passed as parameter.
+         */
+        "after.remove": string | BulmaTagsInputItem;
+
+        /**
+         * Triggered before flushing items. Items array is passed as parameter.
+         */
+        "before.flush": Array<string | BulmaTagsInputItem>;
+
+        /**
+         * Triggered after flushing items.
+         */
+        "after.flush": Array<string | BulmaTagsInputItem>;
+
+        /**
+         * Triggered before selecting an item. The concerned item and related tag are passed in an
+         * Object as parameter.
+         */
+        "before.select": {
+            item: string | BulmaTagsInputItem;
+            tag: string;
+        };
+
+        /**
+         * Triggered once an item has been selected. The concerned item and related tag are passed in
+         * an Object as parameter.
+         */
+        "after.select": {
+            item: string | BulmaTagsInputItem;
+            tag: string;
+        };
+
+        /**
+         * Triggered before unselect an item. The concerned item and related tag are passed in an Object
+         * as parameter.
+         */
+        "before.unselect": {
+            item: string | BulmaTagsInputItem;
+            tag: string;
+        };
+
+        /**
+         * Triggered once an item has been unselected. The concerned item and related tag are passed in
+         * an Object as parameter.
+         */
+        "after.unselect": {
+            item: string | BulmaTagsInputItem;
+            tag: string;
+        };
+    }
 }
 
-export interface BulmaTagsInputOptions {
-    /**
-     * When true, the same tag can be added multiple times.
-     *
-     * @default false
-     */
-    allowDuplicates?: boolean | undefined;
-
-    /**
-     * When true, duplicate tags value check is case sensitive.
-     *
-     * @default true
-     */
-    caseSensitive?: boolean | undefined;
-
-    /**
-     * When true, tags will be unselected when new tag is entered.
-     *
-     * @default false
-     */
-    clearSelectionOnTyping?: boolean | undefined;
-
-    /**
-     * When true, datalist will close automatically after an item have been selected.
-     *
-     * @default true
-     */
-    closeDropdownOnItemSelect?: boolean | undefined;
-
-    /**
-     * Multiple tags can be added at once. Delimiter is used to separate all tags.
-     *
-     * @default ",",
-     */
-    delimiter?: string | undefined;
-
-    /**
-     * When true, tags can be entered manually. This option is useful with select Tags inputs. Set
-     * to false automatically when using on select element.
-     *
-     * @default true
-     */
-    freeInput?: boolean | undefined;
-
-    /**
-     * When true, if `allowDuplicates` option if false then the already existing tag will be
-     * temporarly and visually identified as duplicate
-     *
-     * @default true
-     */
-    highlightDuplicate?: boolean | undefined;
-
-    /**
-     * When true, identified matches strings when searching is highlighted.
-     *
-     * @default true
-     */
-    highlightMatchesString?: boolean | undefined;
-
-    /**
-     * When adding objects as tags, you can set itemText to the name of the property of item to use
-     * for a its tag's text. When this options is not set, the value of _itemValue_ will be used.
-     */
-    itemText?: string | undefined;
-
-    /**
-     * When adding objects as tags, itemValue must be set to the name of the property containing the
-     * item's value.
-     */
-    itemValue?: string | undefined;
-
-    /**
-     * When set, no more than the given number of tags are allowed to add.
-     */
-    maxTags?: number | undefined;
-
-    /**
-     * Defines the maximum length of a single tag.
-     */
-    maxChars?: number | undefined;
-
-    /**
-     * Defines the minimum length of a single tag.
-     *
-     * @default 1
-     */
-    minChars?: number | undefined;
-
-    /**
-     * Empty dropdown label.
-     *
-     * @default "No results found"
-     */
-    noResultsLabel?: string | undefined;
-
-    /**
-     * TagsInput placeholder text if original input doesn't have one.
-     *
-     * @default undefined
-     */
-    placeholder?: string | undefined;
-
-    /**
-     * When true, tags are removable either using the associted delete button or _backspace_ and
-     * _delete_ keys.
-     *
-     * @default true
-     */
-    removable?: boolean | undefined;
-
-    /**
-     * Defines the minimum length of input value before loading auto-complete.
-     *
-     * @default 1
-     */
-    searchMinChars?: number | undefined;
-
-    /**
-     * Defines on what dropdown item data do we search the entered value.
-     *
-     * @default "text"
-     */
-    searchOn?: 'value' | 'text' | undefined;
-
-    /**
-     * When true, tags can be selected either by mouse click or using _left_ or _right_ arrow keys.
-     *
-     * @default true
-     */
-    selectable?: boolean | undefined;
-
-    /**
-     * Source of data proposed in dropdown (used for auto-complete).
-     *
-     * @default undefined
-     */
-    source?:
-        | Array<string | BulmaTagsInputItem>
-        | (() => Array<string | BulmaTagsInputItem>)
-        | Promise<Array<string | BulmaTagsInputItem>> | undefined;
-
-    /**
-     * Classname applied to each tag.
-     *
-     * @default "is-rounded"
-     */
-    tagClass?: string | undefined;
-
-    /**
-     * When true, automatically removes all whitespace around tags.
-     *
-     * @default true
-     */
-    trim?: boolean | undefined;
-}
-
-export interface BulmaTagsInputEventMap {
-    /**
-     * Trigerred before adding new tag. The concerned item is passed as parameter. You can modify the item
-     * before its treatment by returning the new item data or prevent tag to be added by returning false.
-     */
-    'before.add': string | BulmaTagsInputItem;
-
-    /**
-     * Triggered once a tag has been added. The added item and the related tag are passed in an object as
-     * parameter.
-     */
-    'after.add': {
-        item: string | BulmaTagsInputItem;
-        tag: string;
-    };
-
-    /**
-     * Triggered before removing a tag. The concerned item is passed as parameter. You can prevent
-     * deletion by returning `false`.
-     */
-    'before.remove': string | BulmaTagsInputItem;
-
-    /**
-     * Triggered once a tag has been removed. The removed item is passed as parameter.
-     */
-    'after.remove': string | BulmaTagsInputItem;
-
-    /**
-     * Triggered before flushing items. Items array is passed as parameter.
-     */
-    'before.flush': Array<string | BulmaTagsInputItem>;
-
-    /**
-     * Triggered after flushing items.
-     */
-    'after.flush': Array<string | BulmaTagsInputItem>;
-
-    /**
-     * Triggered before selecting an item. The concerned item and related tag are passed in an
-     * Object as parameter.
-     */
-    'before.select': {
-        item: string | BulmaTagsInputItem;
-        tag: string;
-    };
-
-    /**
-     * Triggered once an item has been selected. The concerned item and related tag are passed in
-     * an Object as parameter.
-     */
-    'after.select': {
-        item: string | BulmaTagsInputItem;
-        tag: string;
-    };
-
-    /**
-     * Triggered before unselect an item. The concerned item and related tag are passed in an Object
-     * as parameter.
-     */
-    'before.unselect': {
-        item: string | BulmaTagsInputItem;
-        tag: string;
-    };
-
-    /**
-     * Triggered once an item has been unselected. The concerned item and related tag are passed in
-     * an Object as parameter.
-     */
-    'after.unselect': {
-        item: string | BulmaTagsInputItem;
-        tag: string;
-    };
-}
-
-export default class BulmaTagsInput {
+declare class BulmaTagsInput {
     /**
      * @param selector query string returning a single Node or directly a Node
      */
-    constructor(selector: string | HTMLInputElement, options?: BulmaTagsInputOptions);
+    constructor(selector: string | HTMLInputElement, options?: BulmaTagsInput.BulmaTagsInputOptions);
 
     /**
      * DOM modifications will be observed to detect any new element responding to the given selector
@@ -251,7 +249,7 @@ export default class BulmaTagsInput {
      * @param selector selector can be a query string returning a single Node or a NodeList, directly
      * a Node or a NodeList
      */
-    static attach(selector: string | HTMLInputElement, options?: BulmaTagsInputOptions): BulmaTagsInput;
+    static attach(selector: string | HTMLInputElement, options?: BulmaTagsInput.BulmaTagsInputOptions): BulmaTagsInput;
 
     /**
      * Add given item to the component.
@@ -261,7 +259,7 @@ export default class BulmaTagsInput {
      * You can provide multiple items at once by passing and Array of item or a string with multiple
      * value delimited by delimiter option (default: comma).
      */
-    add(item: string | BulmaTagsInputItem | Array<string | BulmaTagsInputItem>): this;
+    add(item: string | BulmaTagsInput.BulmaTagsInputItem | Array<string | BulmaTagsInput.BulmaTagsInputItem>): this;
 
     /**
      * Unselect the current selected tag.
@@ -283,7 +281,7 @@ export default class BulmaTagsInput {
      *
      * @param item Item to find.
      */
-    has(item: string | BulmaTagsInputItem): boolean;
+    has(item: string | BulmaTagsInput.BulmaTagsInputItem): boolean;
 
     /**
      * Check if given value is present
@@ -304,7 +302,7 @@ export default class BulmaTagsInput {
      *
      * @param item Item to find.
      */
-    indexOf(item: string | BulmaTagsInputItem): number;
+    indexOf(item: string | BulmaTagsInput.BulmaTagsInputItem): number;
 
     /**
      * Get the internal input element
@@ -314,7 +312,7 @@ export default class BulmaTagsInput {
     /**
      * Get all added items
      */
-    items: Array<string | BulmaTagsInputItem>;
+    items: Array<string | BulmaTagsInput.BulmaTagsInputItem>;
 
     /**
      * Remove given items
@@ -324,7 +322,7 @@ export default class BulmaTagsInput {
      * You can provide multiple items at once by passing and Array of item or a string with multiple
      * value delimited by delimiter option (default: comma).
      */
-    remove(item: string | BulmaTagsInputItem | Array<string | BulmaTagsInputItem>): this;
+    remove(item: string | BulmaTagsInput.BulmaTagsInputItem | Array<string | BulmaTagsInput.BulmaTagsInputItem>): this;
 
     /**
      * Remove all tags at once
@@ -349,7 +347,7 @@ export default class BulmaTagsInput {
      * item will be selected one by one and at the end only the last existing item from the list will
      * be selected at the end.
      */
-    select(item: string | BulmaTagsInputItem): this;
+    select(item: string | BulmaTagsInput.BulmaTagsInputItem): this;
 
     /**
      * Select tag at given index
@@ -361,7 +359,7 @@ export default class BulmaTagsInput {
     /**
      * Get the current selected item
      */
-    selected: string | BulmaTagsInputItem;
+    selected: string | BulmaTagsInput.BulmaTagsInputItem;
 
     /**
      * Get the current selected item index
@@ -390,14 +388,17 @@ export default class BulmaTagsInput {
      * @param eventName
      * @param listener
      */
-    on<T extends keyof BulmaTagsInputEventMap>(eventName: T, listener: (item: BulmaTagsInputEventMap[T]) => any): void;
+    on<T extends keyof BulmaTagsInput.BulmaTagsInputEventMap>(
+        eventName: T,
+        listener: (item: BulmaTagsInput.BulmaTagsInputEventMap[T]) => any,
+    ): void;
 
     /**
      * Subscribes on event name specified function to fire only once
      */
-    once<T extends keyof BulmaTagsInputEventMap>(
+    once<T extends keyof BulmaTagsInput.BulmaTagsInputEventMap>(
         eventName: T,
-        listener: (item: BulmaTagsInputEventMap[T]) => any,
+        listener: (item: BulmaTagsInput.BulmaTagsInputEventMap[T]) => any,
     ): void;
 
     /**
@@ -405,3 +406,7 @@ export default class BulmaTagsInput {
      */
     off(eventName: string): void;
 }
+
+export as namespace BulmaTagsInput;
+
+export = BulmaTagsInput;

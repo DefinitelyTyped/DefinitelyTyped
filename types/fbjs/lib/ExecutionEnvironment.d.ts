@@ -12,5 +12,5 @@ declare namespace ExecutionEnvironment {
     const isInWorker: boolean;
 }
 
-// tslint:disable-next-line export-just-namespace
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = ExecutionEnvironment;

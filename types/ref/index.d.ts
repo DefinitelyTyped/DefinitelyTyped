@@ -1,8 +1,3 @@
-// Type definitions for ref
-// Project: https://github.com/TooTallNate/ref
-// Definitions by: Paul Loyd <https://github.com/loyd>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export interface Type {
@@ -85,8 +80,7 @@ export declare function readInt64LE(buffer: Buffer, offset?: number): any;
 /** Read a JS Object that has previously been written. */
 export declare function readObject(buffer: Buffer, offset?: number): Object;
 /** Read data from the pointer. */
-export declare function readPointer(buffer: Buffer, offset?: number,
-    length?: number): Buffer;
+export declare function readPointer(buffer: Buffer, offset?: number, length?: number): Buffer;
 /**
  * Read a big-endian unsigned 64-bit int.
  * If there is losing precision, then return a string, otherwise a number.
@@ -113,22 +107,19 @@ export declare function refType(type: string): Type;
  * This function "attaches" source to the returned buffer to prevent it from
  * being garbage collected.
  */
-export declare function reinterpret(buffer: Buffer, size: number,
-    offset?: number): Buffer;
+export declare function reinterpret(buffer: Buffer, size: number, offset?: number): Buffer;
 /**
  * Scan past the boundary of the buffer's length until it finds size number
  * of aligned NULL bytes.
  */
-export declare function reinterpretUntilZeros(buffer: Buffer, size: number,
-    offset?: number): Buffer;
+export declare function reinterpretUntilZeros(buffer: Buffer, size: number, offset?: number): Buffer;
 
 /** Write pointer if the indirection is 1, otherwise write value. */
 export declare function set(buffer: Buffer, offset: number, value: any, type?: Type): void;
 /** Write pointer if the indirection is 1, otherwise write value. */
 export declare function set(buffer: Buffer, offset: number, value: any, type?: string): void;
 /** Write the string as a NULL terminated. Default encoding is utf8. */
-export declare function writeCString(buffer: Buffer, offset: number,
-    string: string, encoding?: string): void;
+export declare function writeCString(buffer: Buffer, offset: number, string: string, encoding?: string): void;
 /** Write a big-endian signed 64-bit int. */
 export declare function writeInt64BE(buffer: Buffer, offset: number, input: number): void;
 /** Write a big-endian signed 64-bit int. */
@@ -148,8 +139,7 @@ export declare function writeObject(buffer: Buffer, offset: number, object: Obje
  * Write the memory address of pointer to buffer at the specified offset. This
  * function "attaches" object to buffer to prevent it from being garbage collected.
  */
-export declare function writePointer(buffer: Buffer, offset: number,
-    pointer: Buffer): void;
+export declare function writePointer(buffer: Buffer, offset: number, pointer: Buffer): void;
 
 /** Write a little-endian unsigned 64-bit int. */
 export declare function writeUInt64BE(buffer: Buffer, offset: number, input: number): void;
@@ -163,26 +153,40 @@ export declare function writeUInt64BE(buffer: Buffer, offset: number, input: str
 export declare function _attach(buffer: Buffer, object: Object): void;
 
 /** Same as ref.reinterpret, except that this version does not attach buffer. */
-export declare function _reinterpret(buffer: Buffer, size: number,
-    offset?: number): Buffer;
+export declare function _reinterpret(buffer: Buffer, size: number, offset?: number): Buffer;
 /** Same as ref.reinterpretUntilZeros, except that this version does not attach buffer. */
-export declare function _reinterpretUntilZeros(buffer: Buffer, size: number,
-    offset?: number): Buffer;
+export declare function _reinterpretUntilZeros(buffer: Buffer, size: number, offset?: number): Buffer;
 /** Same as ref.writePointer, except that this version does not attach pointer. */
-export declare function _writePointer(buffer: Buffer, offset: number,
-    pointer: Buffer): void;
+export declare function _writePointer(buffer: Buffer, offset: number, pointer: Buffer): void;
 /** Same as ref.writeObject, except that this version does not attach object. */
 export declare function _writeObject(buffer: Buffer, offset: number, object: Object): void;
 
 /** Default types. */
 export declare var types: {
-    void: Type; int64: Type; ushort: Type;
-    int: Type; uint64: Type; float: Type;
-    uint: Type; long: Type; double: Type;
-    int8: Type; ulong: Type; Object: Type;
-    uint8: Type; longlong: Type; CString: Type;
-    int16: Type; ulonglong: Type; bool: Type;
-    uint16: Type; char: Type; byte: Type;
-    int32: Type; uchar: Type; size_t: Type;
-    uint32: Type; short: Type;
+    void: Type;
+    int64: Type;
+    ushort: Type;
+    int: Type;
+    uint64: Type;
+    float: Type;
+    uint: Type;
+    long: Type;
+    double: Type;
+    int8: Type;
+    ulong: Type;
+    Object: Type;
+    uint8: Type;
+    longlong: Type;
+    CString: Type;
+    int16: Type;
+    ulonglong: Type;
+    bool: Type;
+    uint16: Type;
+    char: Type;
+    byte: Type;
+    int32: Type;
+    uchar: Type;
+    size_t: Type;
+    uint32: Type;
+    short: Type;
 };

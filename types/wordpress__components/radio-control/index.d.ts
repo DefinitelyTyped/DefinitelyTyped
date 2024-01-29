@@ -1,6 +1,6 @@
-import { ComponentType } from 'react';
+import { ComponentType, JSX } from "react";
 
-import BaseControl from '../base-control';
+import BaseControl from "../base-control";
 
 declare namespace RadioControl {
     interface Props<T> extends BaseControl.ControlProps {
@@ -26,7 +26,7 @@ declare namespace RadioControl {
         value: T;
     }
 }
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 declare function RadioControl<T>(props: RadioControl.Props<T>): JSX.Element;
 
 export default RadioControl;

@@ -6,7 +6,7 @@ instance.init({
     androidId: "androidId",
     email: "email",
     password: "password",
-    masterToken: "masterToken"
+    masterToken: "masterToken",
 }, (error: Error) => {
     console.log(error.message);
     console.log(error.name);
@@ -15,7 +15,7 @@ instance.init({
 instance.login({
     androidId: "androidId",
     email: "email",
-    password: "password"
+    password: "password",
 }, (error: Error, loginResponse: pm.LoginResponse) => {
     console.log(error.message);
     console.log(error.name);
@@ -35,7 +35,7 @@ instance.getLibrary((error: Error, response: pm.LibraryResponse) => {
 
 instance.getLibrary({
     limit: 123,
-    nextPageToken: "nextPageToken"
+    nextPageToken: "nextPageToken",
 }, (error: Error, response: pm.LibraryResponse) => {
     console.log(error.message);
     console.log(error.name);
@@ -150,7 +150,7 @@ instance.deletePlaylist("playlistId", (error: Error, mutateResponses: pm.MutateR
 instance.updatePlayListMeta("playlistId", {
     name: "name",
     description: "description",
-    shareState: "shareState"
+    shareState: "shareState",
 }, (error: Error, mutateResponses: pm.MutateResponses) => {
     console.log(error.message);
     console.log(error.name);
@@ -163,41 +163,58 @@ instance.updatePlayListMeta("playlistId", {
     }
 });
 
-instance.addTrackToPlayList("songId", "playlistId", (error: Error, mutateResponses: pm.MutateResponses) => {
-    console.log(error.message);
-    console.log(error.name);
-    if (mutateResponses && mutateResponses.mutate_response) {
-        mutateResponses.mutate_response.forEach((mutateResponse: pm.MutateResponse) => {
-            console.log(mutateResponse.client_id);
-            console.log(mutateResponse.id);
-            console.log(mutateResponse.response_code);
-        });
-    }
-}, "entryBeforeClientId", "entryAfterClientId");
+instance.addTrackToPlayList(
+    "songId",
+    "playlistId",
+    (error: Error, mutateResponses: pm.MutateResponses) => {
+        console.log(error.message);
+        console.log(error.name);
+        if (mutateResponses && mutateResponses.mutate_response) {
+            mutateResponses.mutate_response.forEach((mutateResponse: pm.MutateResponse) => {
+                console.log(mutateResponse.client_id);
+                console.log(mutateResponse.id);
+                console.log(mutateResponse.response_code);
+            });
+        }
+    },
+    "entryBeforeClientId",
+    "entryAfterClientId",
+);
 
-instance.addTrackToPlayList(["songId1", "songId2"], "playlistId", (error: Error, mutateResponses: pm.MutateResponses) => {
-    console.log(error.message);
-    console.log(error.name);
-    if (mutateResponses && mutateResponses.mutate_response) {
-        mutateResponses.mutate_response.forEach((mutateResponse: pm.MutateResponse) => {
-            console.log(mutateResponse.client_id);
-            console.log(mutateResponse.id);
-            console.log(mutateResponse.response_code);
-        });
-    }
-}, "entryBeforeClientId", "entryAfterClientId");
+instance.addTrackToPlayList(
+    ["songId1", "songId2"],
+    "playlistId",
+    (error: Error, mutateResponses: pm.MutateResponses) => {
+        console.log(error.message);
+        console.log(error.name);
+        if (mutateResponses && mutateResponses.mutate_response) {
+            mutateResponses.mutate_response.forEach((mutateResponse: pm.MutateResponse) => {
+                console.log(mutateResponse.client_id);
+                console.log(mutateResponse.id);
+                console.log(mutateResponse.response_code);
+            });
+        }
+    },
+    "entryBeforeClientId",
+    "entryAfterClientId",
+);
 
-instance.movePlayListEntry("entryToMove", "entryBeforeClientId", "entryAfterClientId", (error: Error, mutateResponses: pm.MutateResponses) => {
-    console.log(error.message);
-    console.log(error.name);
-    if (mutateResponses && mutateResponses.mutate_response) {
-        mutateResponses.mutate_response.forEach((mutateResponse: pm.MutateResponse) => {
-            console.log(mutateResponse.client_id);
-            console.log(mutateResponse.id);
-            console.log(mutateResponse.response_code);
-        });
-    }
-});
+instance.movePlayListEntry(
+    "entryToMove",
+    "entryBeforeClientId",
+    "entryAfterClientId",
+    (error: Error, mutateResponses: pm.MutateResponses) => {
+        console.log(error.message);
+        console.log(error.name);
+        if (mutateResponses && mutateResponses.mutate_response) {
+            mutateResponses.mutate_response.forEach((mutateResponse: pm.MutateResponse) => {
+                console.log(mutateResponse.client_id);
+                console.log(mutateResponse.id);
+                console.log(mutateResponse.response_code);
+            });
+        }
+    },
+);
 
 instance.incrementTrackPlaycount("songId", (error: Error, mutateResponses: pm.MutateResponses) => {
     console.log(error.message);
@@ -211,7 +228,7 @@ instance.incrementTrackPlaycount("songId", (error: Error, mutateResponses: pm.Mu
     }
 });
 
-instance.changeTrackMetadata({ }, (error: Error, mutateResponses: pm.MutateResponses) => {
+instance.changeTrackMetadata({}, (error: Error, mutateResponses: pm.MutateResponses) => {
     console.log(error.message);
     console.log(error.name);
     if (mutateResponses && mutateResponses.mutate_response) {
@@ -235,17 +252,20 @@ instance.removePlayListEntry("playlistItemId", (error: Error, mutateResponses: p
     }
 });
 
-instance.removePlayListEntry(["playlistItemId1", "playlistItemId2"], (error: Error, mutateResponses: pm.MutateResponses) => {
-    console.log(error.message);
-    console.log(error.name);
-    if (mutateResponses && mutateResponses.mutate_response) {
-        mutateResponses.mutate_response.forEach((mutateResponse: pm.MutateResponse) => {
-            console.log(mutateResponse.client_id);
-            console.log(mutateResponse.id);
-            console.log(mutateResponse.response_code);
-        });
-    }
-});
+instance.removePlayListEntry(
+    ["playlistItemId1", "playlistItemId2"],
+    (error: Error, mutateResponses: pm.MutateResponses) => {
+        console.log(error.message);
+        console.log(error.name);
+        if (mutateResponses && mutateResponses.mutate_response) {
+            mutateResponses.mutate_response.forEach((mutateResponse: pm.MutateResponse) => {
+                console.log(mutateResponse.client_id);
+                console.log(mutateResponse.id);
+                console.log(mutateResponse.response_code);
+            });
+        }
+    },
+);
 
 instance.getPlayListEntries((error: Error, response: pm.PlaylistResponse) => {
     console.log(error.message);
@@ -302,7 +322,7 @@ instance.getPlayListEntries((error: Error, response: pm.PlaylistResponse) => {
 
 instance.getPlayListEntries({
     limit: 123,
-    nextPageToken: "nextPageToken"
+    nextPageToken: "nextPageToken",
 }, (error: Error, response: pm.PlaylistResponse) => {
     console.log(error.message);
     console.log(error.name);

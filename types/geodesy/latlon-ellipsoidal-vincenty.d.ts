@@ -2,7 +2,7 @@
  * @format
  */
 
-import LatLonEllipsoidal, { Dms } from './latlon-ellipsoidal';
+import LatLonEllipsoidal, { Dms } from "./latlon-ellipsoidal";
 
 declare class LatLonEllipsoidal_Vincenty extends LatLonEllipsoidal {
     distanceTo(point: LatLonEllipsoidal_Vincenty): number;
@@ -28,4 +28,4 @@ declare class LatLonEllipsoidal_Vincenty extends LatLonEllipsoidal {
     };
 }
 
-export { LatLonEllipsoidal_Vincenty as default, Dms };
+export { Dms, LatLonEllipsoidal_Vincenty as default };

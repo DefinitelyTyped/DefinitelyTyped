@@ -1,10 +1,3 @@
-// Type definitions for Google People API 1.0
-// Project: https://developers.google.com/people/
-// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-//                 Joshua O'Brien <https://github.com/joshuaobrien>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="gapi" />
 
 declare namespace gapi.client.people {
@@ -38,7 +31,7 @@ declare namespace gapi.client.people {
         namespace connections {
             function list(parameters: ListParameters): HttpRequest<Response>;
 
-            type SortOrder = 'LAST_MODIFIED_ASCENDING' | 'FIRST_NAME_ASCENDING' | 'LAST_NAME_ASCENDING';
+            type SortOrder = "LAST_MODIFIED_ASCENDING" | "FIRST_NAME_ASCENDING" | "LAST_NAME_ASCENDING";
 
             interface ListParameters {
                 resourceName: string;
@@ -92,13 +85,13 @@ declare namespace gapi.client.people {
     }
 
     type SourceType =
-        | 'SOURCE_TYPE_UNSPECIFIED'
-        | 'ACCOUNT'
-        | 'PROFILE'
-        | 'DOMAIN_PROFILE'
-        | 'CONTACT'
-        | 'OTHER_CONTACT'
-        | 'DOMAIN_CONTACT';
+        | "SOURCE_TYPE_UNSPECIFIED"
+        | "ACCOUNT"
+        | "PROFILE"
+        | "DOMAIN_PROFILE"
+        | "CONTACT"
+        | "OTHER_CONTACT"
+        | "DOMAIN_CONTACT";
 
     interface Source {
         type: SourceType;
@@ -107,7 +100,7 @@ declare namespace gapi.client.people {
         resourceName: string;
     }
 
-    type ObjectType = 'OBJECT_TYPE_UNSPECIFIED' | 'PERSON' | 'PAGE';
+    type ObjectType = "OBJECT_TYPE_UNSPECIFIED" | "PERSON" | "PAGE";
 
     interface PersonMetadata {
         sources: Source[];
@@ -145,7 +138,7 @@ declare namespace gapi.client.people {
         phoneticHonorificSuffix: string;
     }
 
-    type NicknameType = 'DEFAULT' | 'MAIDEN_NAME' | 'INITIALS' | 'GPLUS' | 'OTHER_NAME';
+    type NicknameType = "DEFAULT" | "MAIDEN_NAME" | "INITIALS" | "GPLUS" | "OTHER_NAME";
 
     interface Nickname {
         metadata: FieldMetadata;

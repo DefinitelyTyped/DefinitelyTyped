@@ -1,17 +1,10 @@
-// Type definitions for schwifty 5.0
-// Project: https://github.com/hapipal/schwifty
-// Definitions by: ozum <https://github.com/ozum>
-//                 timcosta <https://github.com/timcosta>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 // HELP NEEDED: If possible, find a better way to define Server.models, Request.models and ResponseToolkit.models
 // They are dynamic types extended from SchwiftyModel.
 
-import * as Objection from "objection";
+import { Plugin, Request, ResponseToolkit, Server } from "@hapi/hapi";
 import * as Joi from "joi";
-import { Server, Request, ResponseToolkit, Plugin } from "@hapi/hapi";
 import * as Knex from "knex";
+import * as Objection from "objection";
 
 export type ModelClass = typeof Model | typeof Objection.Model;
 
@@ -32,7 +25,8 @@ export interface RegistrationOptions {
 export function assertCompatible(
     ModelA: typeof Model,
     ModelB: typeof Model,
-    message?: string
+    message?: string,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ): void | Error;
 
 export const plugin: Plugin<RegistrationOptions>;
@@ -55,10 +49,10 @@ declare module "@hapi/hapi" {
                 | ModelClass
                 | ModelClass[]
                 | {
-                      knex: Knex | Knex.Config;
-                      models: ModelClass[];
-                      migrationsDir: string;
-                  }
+                    knex: Knex | Knex.Config;
+                    models: ModelClass[];
+                    migrationsDir: string;
+                },
         ) => void;
         knex: () => Knex;
         models: (all?: boolean) => RegisteredModels;

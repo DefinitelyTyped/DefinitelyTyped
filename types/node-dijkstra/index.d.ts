@@ -1,8 +1,3 @@
-// Type definitions for node-dijkstra 2.5
-// Project: https://github.com/albertorestifo/node-dijkstra
-// Definitions by: Jorge López <https://github.com/nokutu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class Graph {
     /**
      * Creates a new Graph, optionally initializing it a nodes graph representation.
@@ -47,7 +42,7 @@ declare class Graph {
      *
      * const route = new Graph(g)
      */
-    constructor(nodes?: {[key: string]: {[key: string]: number}} | Map<string, Map<string, number>>);
+    constructor(nodes?: { [key: string]: { [key: string]: number } } | Map<string, Map<string, number>>);
 
     /**
      * Adds a node to the graph
@@ -133,14 +128,14 @@ declare class Graph {
      * //       cost: 4
      * //    }
      */
-    path(start: any, goal: any, options ?: PathOption): string[] | PathResult;
+    path(start: any, goal: any, options?: PathOption): string[] | PathResult;
 }
 
 interface PathOption {
-    trim ?: boolean | undefined;
-    reverse ?: boolean | undefined;
-    cost ?: boolean | undefined;
-    avoid ?: any[] | undefined;
+    trim?: boolean | undefined;
+    reverse?: boolean | undefined;
+    cost?: boolean | undefined;
+    avoid?: any[] | undefined;
 }
 
 interface PathResult {

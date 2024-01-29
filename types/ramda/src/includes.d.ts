@@ -1,2 +1,2 @@
-import { includes } from '../index';
+import { includes } from "../index";
 export default includes;

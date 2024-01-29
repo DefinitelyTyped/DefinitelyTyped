@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.storage
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the <code>browser.storage</code> API to store, retrieve, and track changes to user data.
  * Permissions: "storage"
@@ -64,6 +67,13 @@ export namespace Storage {
          * @returns Callback on success, or on failure (in which case $(ref:runtime.lastError) will be set).
          */
         clear(): Promise<void>;
+
+        /**
+         * Fired when one or more items change.
+         *
+         * @param changes Object mapping each key that changed to its corresponding $(ref:storage.StorageChange) for that item.
+         */
+        onChanged: Events.Event<(changes: StorageAreaOnChangedChangesType) => void>;
     }
 
     interface StorageAreaSync {
@@ -113,6 +123,13 @@ export namespace Storage {
          * @returns Callback on success, or on failure (in which case $(ref:runtime.lastError) will be set).
          */
         clear(): Promise<void>;
+
+        /**
+         * Fired when one or more items change.
+         *
+         * @param changes Object mapping each key that changed to its corresponding $(ref:storage.StorageChange) for that item.
+         */
+        onChanged: Events.Event<(changes: StorageAreaSyncOnChangedChangesType) => void>;
     }
 
     interface SyncStorageAreaSync extends StorageAreaSync {
@@ -169,6 +186,20 @@ export namespace Storage {
         QUOTA_BYTES: 5242880;
     }
 
+    /**
+     * Object mapping each key that changed to its corresponding $(ref:storage.StorageChange) for that item.
+     */
+    interface StorageAreaOnChangedChangesType {
+        [s: string]: StorageChange;
+    }
+
+    /**
+     * Object mapping each key that changed to its corresponding $(ref:storage.StorageChange) for that item.
+     */
+    interface StorageAreaSyncOnChangedChangesType {
+        [s: string]: StorageChange;
+    }
+
     interface Static {
         /**
          * Fired when one or more items change.
@@ -184,5 +215,11 @@ export namespace Storage {
         local: LocalStorageArea;
 
         managed: ManagedStorageArea;
+
+        /**
+         * Items in the <code>session</code> storage area are kept in memory, and only until the either browser or extension is
+         * closed or reloaded.
+         */
+        session: StorageArea;
     }
 }

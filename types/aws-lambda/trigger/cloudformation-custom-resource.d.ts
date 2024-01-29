@@ -30,11 +30,11 @@ export interface CloudFormationCustomResourceEventCommon {
 }
 
 export interface CloudFormationCustomResourceCreateEvent extends CloudFormationCustomResourceEventCommon {
-    RequestType: 'Create';
+    RequestType: "Create";
 }
 
 export interface CloudFormationCustomResourceUpdateEvent extends CloudFormationCustomResourceEventCommon {
-    RequestType: 'Update';
+    RequestType: "Update";
     PhysicalResourceId: string;
     OldResourceProperties: {
         [Key: string]: any;
@@ -42,7 +42,7 @@ export interface CloudFormationCustomResourceUpdateEvent extends CloudFormationC
 }
 
 export interface CloudFormationCustomResourceDeleteEvent extends CloudFormationCustomResourceEventCommon {
-    RequestType: 'Delete';
+    RequestType: "Delete";
     PhysicalResourceId: string;
 }
 
@@ -51,18 +51,20 @@ export interface CloudFormationCustomResourceResponseCommon {
     StackId: string;
     RequestId: string;
     LogicalResourceId: string;
-    Data?: {
-        [Key: string]: any;
-    } | undefined;
+    Data?:
+        | {
+            [Key: string]: any;
+        }
+        | undefined;
     NoEcho?: boolean | undefined;
 }
 
 export interface CloudFormationCustomResourceSuccessResponse extends CloudFormationCustomResourceResponseCommon {
-    Status: 'SUCCESS';
+    Status: "SUCCESS";
     Reason?: string | undefined;
 }
 
 export interface CloudFormationCustomResourceFailedResponse extends CloudFormationCustomResourceResponseCommon {
-    Status: 'FAILED';
+    Status: "FAILED";
     Reason: string;
 }

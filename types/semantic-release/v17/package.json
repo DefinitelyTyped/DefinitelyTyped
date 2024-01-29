@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/semantic-release",
+    "version": "17.2.9999",
+    "projects": [
+        "https://github.com/semantic-release/semantic-release#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/semantic-release": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leonardo Gatica",
+            "githubUsername": "lgaticaq"
+        },
+        {
+            "name": "Daniel Cassidy",
+            "githubUsername": "djcsdy"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

@@ -1,55 +1,100 @@
-import { createInterface } from 'readline';
-import { DistinctQuestion, Separator } from 'inquirer';
-import inquirer = require('inquirer');
-import InputPrompt = require('inquirer/lib/prompts/input');
-import { fetchAsyncQuestionProperty } from 'inquirer/lib/utils/utils';
-import incrementListIndex = require('inquirer/lib/utils/incrementListIndex');
-import Choices = require('inquirer/lib/objects/choices');
-import Paginator = require('inquirer/lib/utils/paginator');
-import ScreenManager = require('inquirer/lib/utils/screen-manager');
-import { Subject } from 'rxjs';
-
+import inquirer, { Answers, DistinctChoice, DistinctQuestion, InputQuestionOptions } from "inquirer";
+import Choices from "inquirer/lib/objects/choices.js";
+import InputPrompt from "inquirer/lib/prompts/input.js";
+import incrementListIndex from "inquirer/lib/utils/incrementListIndex.js";
+import Paginator from "inquirer/lib/utils/paginator.js";
+import ScreenManager from "inquirer/lib/utils/screen-manager.js";
+import { fetchAsyncQuestionProperty } from "inquirer/lib/utils/utils.js";
+import { createInterface } from "readline";
+import { Subject } from "rxjs";
 {
-    new inquirer.Separator('');
+    new inquirer.Separator("");
     const promptModule = inquirer.createPromptModule();
-    promptModule.prompts['']; // $ExpectType PromptConstructor
-    promptModule.registerPrompt('', InputPrompt); // $ExpectType PromptModule
+    promptModule.prompts[""]; // $ExpectType PromptConstructor
+    promptModule.registerPrompt("", InputPrompt); // $ExpectType PromptModule
     promptModule.restoreDefaultPrompts();
+    inquirer.createPromptModule({ skipTTYChecks: false });
 }
 {
     inquirer.prompt([
         {
-            message: '',
-            default: '',
+            message: "",
+            default: "",
         },
     ]);
+}
+{
+    interface AnswerHash {
+        this: string;
+        is: string;
+        a: string;
+        test: string;
+    }
+
+    // Having a `name` in an already named question is counterproductive. Thus, it's considered an error.
+    inquirer.prompt<AnswerHash>(
+        // @ts-expect-error
+        {
+            this: {
+                name: "override-this",
+                message: "1st question",
+            },
+            is: {
+                message: "2nd question",
+            },
+            a: {
+                message: "3rd question",
+            },
+            test: {
+                message: "4th question",
+            },
+        },
+    );
+
+    // Take note that the properties of the answer-hash `this`, `is`, `a` and `test` are showing up in the auto completion
+    inquirer.prompt<AnswerHash>(
+        {
+            this: {
+                message: "1st question",
+            },
+            is: {
+                message: "2nd question",
+            },
+            a: {
+                message: "3rd question",
+            },
+            test: {
+                message: "4th question",
+            },
+        },
+    );
 }
 {
     new inquirer.ui.BottomBar();
     new inquirer.ui.Prompt(inquirer.prompt.prompts);
 }
 {
-    const checkBoxQuestion: inquirer.CheckboxQuestion = {
-        type: 'checkbox',
+    const checkBoxQuestion: DistinctQuestion = {
+        type: "checkbox",
         askAnswered: true,
     };
 
-    const listQuestion: inquirer.ListQuestion = {
-        type: 'list',
+    const listQuestion: DistinctQuestion = {
+        type: "list",
         askAnswered: true,
     };
 
-    const rawListQuestion: inquirer.RawListQuestion = {
-        type: 'rawlist',
+    const rawListQuestion: DistinctQuestion = {
+        type: "rawlist",
         askAnswered: true,
     };
 
-    const expandQuestion: inquirer.ExpandQuestion = {
-        type: 'expand',
+    const expandQuestion: DistinctQuestion = {
+        type: "expand",
         askAnswered: true,
     };
 
-    // $ExpectError
+    // @ts-expect-error
     expandQuestion.loop;
     // $ExpectType boolean
     rawListQuestion.loop!;
@@ -71,25 +116,25 @@ import { Subject } from 'rxjs';
     ]);
 }
 {
-    let choice: inquirer.DistinctChoice;
+    let choice: DistinctChoice;
 
     choice = {
-        type: 'separator',
-        line: 'This is a test',
+        type: "separator",
+        line: "This is a test",
     };
 
-    if (choice.type === 'separator' && !(choice instanceof Separator)) {
+    if (choice.type === "separator" && !(choice instanceof inquirer.Separator)) {
         // $ExpectType SeparatorOptions
         choice;
     }
 }
 
-interface ChalkQuestionOptions<T extends inquirer.Answers = inquirer.Answers> extends inquirer.InputQuestionOptions<T> {
+interface ChalkQuestionOptions<T extends Answers = Answers> extends InputQuestionOptions<T> {
     previewColors: boolean;
 }
 
-interface ChalkQuestion<T extends inquirer.Answers = inquirer.Answers> extends ChalkQuestionOptions<T> {
-    type: 'chalk';
+interface ChalkQuestion<T extends Answers = Answers> extends ChalkQuestionOptions<T> {
+    type: "chalk";
 }
 
 class ChalkPrompt extends InputPrompt {
@@ -98,9 +143,9 @@ class ChalkPrompt extends InputPrompt {
     protected onKeypress() {}
 }
 
-inquirer.registerPrompt('chalk', ChalkPrompt);
+inquirer.registerPrompt("chalk", ChalkPrompt);
 
-declare module 'inquirer' {
+declare module "inquirer" {
     interface QuestionMap<T> {
         chalk: ChalkQuestion<T>;
     }
@@ -108,7 +153,7 @@ declare module 'inquirer' {
 
 inquirer.prompt([
     {
-        type: 'chalk',
+        type: "chalk",
         previewColors: true,
     },
 ]);
@@ -116,21 +161,21 @@ inquirer.prompt([
 inquirer.prompt(
     [
         {
-            name: 'foo',
-            default: 'bar',
+            name: "foo",
+            default: "bar",
         },
     ],
     {
-        foo: 'baz',
+        foo: "baz",
     },
 );
 
 fetchAsyncQuestionProperty(
     {
-        name: 'foo',
-        default: 'bar',
+        name: "foo",
+        default: "bar",
     },
-    'message',
+    "message",
     {},
 ).pipe(source => {
     return source;
@@ -138,19 +183,19 @@ fetchAsyncQuestionProperty(
 
 {
     const options = {
-        name: 'foo',
+        name: "foo",
         loop: true,
-        choices: new Choices([{ name: 'foo' }], {}),
+        choices: new Choices([{ name: "foo" }], {}),
     };
 
     // $ExpectType number
-    incrementListIndex(0, 'up', options);
-    // $ExpectError
-    incrementListIndex('notANumber', 'up', options);
-    // $ExpectError
-    incrementListIndex(0, 'left', options);
-    // $ExpectError
-    incrementListIndex(0, 'up', {});
+    incrementListIndex(0, "up", options);
+    // @ts-expect-error
+    incrementListIndex("notANumber", "up", options);
+    // @ts-expect-error
+    incrementListIndex(0, "left", options);
+    // @ts-expect-error
+    incrementListIndex(0, "up", {});
 }
 
 {
@@ -162,8 +207,8 @@ fetchAsyncQuestionProperty(
 
     new Paginator(screen);
     new Paginator(screen, { isInfinite: true });
-    // $ExpectError
-    new Paginator(screen, { someUnsupportedOptions: 'foobar' });
+    // @ts-expect-error
+    new Paginator(screen, { someUnsupportedOptions: "foobar" });
 }
 
 {
@@ -174,21 +219,21 @@ fetchAsyncQuestionProperty(
     const screen = new ScreenManager(rl);
 
     const paginator = new Paginator(screen);
-    paginator.paginate('test', 0);
-    paginator.paginate('test', 0, 0);
+    paginator.paginate("test", 0);
+    paginator.paginate("test", 0, 0);
 }
 
 {
     const prompts = new Subject<DistinctQuestion>();
     const promptResult = inquirer.prompt(prompts);
     promptResult.ui.process.subscribe({
-        next: (value: {name: string, answer: any}) => {
+        next: (value: { name: string; answer: any }) => {
             // DO NOTHING
         },
     });
-    // $ExpectError
-    promptResult.ui.process.subscribe({
-        next: (value: {name_: string, answer: number}) => {
+    // dprint-ignore
+    // @ts-expect-error
+    promptResult.ui.process.subscribe({ next: (value: {name_: string, answer: number}) => {
             // DO NOTHING
         },
     });
@@ -196,10 +241,10 @@ fetchAsyncQuestionProperty(
 }
 
 {
-    const prompts = new Subject<DistinctQuestion<{str: string; num: number}>>();
+    const prompts = new Subject<DistinctQuestion<{ str: string; num: number }>>();
     const promptResult = inquirer.prompt(prompts);
     promptResult.ui.process.subscribe({
-        next: (value: {name: 'str', answer: string} | {name: 'num', answer: number}) => {
+        next: (value: { name: "str"; answer: string } | { name: "num"; answer: number }) => {
             // DO NOTHING
         },
     });
@@ -214,9 +259,9 @@ fetchAsyncQuestionProperty(
             }
         },
     });
-    // $ExpectError
-    promptResult.ui.process.subscribe({
-        next: (value: {name: string, answer: number}) => {
+    // dprint-ignore
+    // @ts-expect-error
+    promptResult.ui.process.subscribe({ next: (value: {name: string, answer: number}) => {
             // DO NOTHING
         },
     });

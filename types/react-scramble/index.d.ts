@@ -1,15 +1,10 @@
-// Type definitions for react-scramble 0.4
-// Project: https://github.com/cettoana/react-scramble#readme
-// Definitions by: fes300 <https://github.com/fes300>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as React from 'react';
+import * as React from "react";
 
 export interface Step {
     /**
      * Action of the step, + as scramble, - as descramble and leave blank to do nothing.
      */
-    action: '+' | '-';
+    action: "+" | "-";
     /**
      * Times of action in the step.
      */
@@ -21,10 +16,12 @@ export interface Step {
     /**
      * Scramble/descrmble type of the step.
      */
-    type?: 'all' | 'random' | 'forward' | undefined;
+    type?: "all" | "random" | "forward" | undefined;
 }
 
 export interface AnimationControls {
+    reset: () => void;
+    restart: () => void;
     start: () => void;
     pause: () => void;
 }
@@ -41,7 +38,7 @@ export interface Props {
     /**
      * Speed of scramble per second.
      */
-    speed?: 'slow' | 'medium' | 'fast' | undefined;
+    speed?: "slow" | "medium" | "fast" | undefined;
     /**
      * Original text.
      */
@@ -57,11 +54,11 @@ export interface Props {
     /**
      * Event trigger type when mouse enter.
      */
-    mouseEnterTrigger?: 'start' | 'pause' | 'reset' | 'restart' | undefined;
+    mouseEnterTrigger?: "start" | "pause" | "reset" | "restart" | undefined;
     /**
      * Event trigger type when mouse leave.
      */
-    mouseLeaveTrigger?: 'start' | 'pause' | 'reset' | 'restart' | undefined;
+    mouseLeaveTrigger?: "start" | "pause" | "reset" | "restart" | undefined;
     /**
      * Method binding callback function.
      */

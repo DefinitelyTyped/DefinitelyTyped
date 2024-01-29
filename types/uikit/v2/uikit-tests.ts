@@ -3,15 +3,15 @@ function testDropdown() {
     UIkit.dropdown($("#parent"));
 
     const options: UIkit.DropdownOptions = {
-        pos: 'bottom-center',
-        mode: 'click',
+        pos: "bottom-center",
+        mode: "click",
         remaintime: 150,
         justify: false,
         boundary: window,
         delay: 0,
-        dropdownSelector: '.uk-dropdown,.uk-dropdown-blank',
+        dropdownSelector: ".uk-dropdown,.uk-dropdown-blank",
         hoverDelayIdle: 200,
-        preventflip: 'x'
+        preventflip: "x",
     };
     const dropdown = UIkit.dropdown("$parent", options);
 
@@ -29,15 +29,24 @@ function testModal() {
         bgclose: true,
         minScrollHeight: 150,
         center: false,
-        modal: true
+        modal: true,
     };
     UIkit.modal.confirm("Are you sure?", () => {});
     UIkit.modal.confirm("Are you sure?", () => {}, {});
-    UIkit.modal.confirm("Are you sure?", () => {}, () => {});
-    UIkit.modal.confirm("Are you sure?", () => {}, () => {}, {});
+    UIkit.modal.confirm(
+        "Are you sure?",
+        () => {},
+        () => {},
+    );
+    UIkit.modal.confirm(
+        "Are you sure?",
+        () => {},
+        () => {},
+        {},
+    );
     UIkit.modal.confirm("Are you sure?", () => {}, {});
 
-    UIkit.modal.prompt("Name:", 'value', (newvalue: string) => {
+    UIkit.modal.prompt("Name:", "value", (newvalue: string) => {
         // will be executed on submit.
     });
     let modal = UIkit.modal.blockUI("Any content...");
@@ -60,10 +69,12 @@ function testOffCanvas() {
 
 function testLightBox() {
     const element = "#group";
-    const lightbox = UIkit.lightbox(element, {/* options */});
+    const lightbox = UIkit.lightbox(element, {
+        /* options */
+    });
     const lightbox2 = UIkit.lightbox.create([
-        {source: 'http://url/to/video.mp4', type: 'video'},
-        {source: 'http://url/to/image.jpg', type: 'image'}
+        { source: "http://url/to/video.mp4", type: "video" },
+        { source: "http://url/to/image.jpg", type: "image" },
     ]);
     lightbox2.show();
     const lightbox3 = UIkit.lightbox(element);
@@ -79,7 +90,9 @@ function testDatepicker() {
 }
 
 function testHtmlEditor() {
-    const htmleditor = UIkit.htmleditor("textarea", {/* options */});
+    const htmleditor = UIkit.htmleditor("textarea", {
+        /* options */
+    });
 }
 
 function testSlider() {
@@ -101,20 +114,22 @@ function testAccordion() {
 
 function testNotify() {
     UIkit.notify({
-        message: 'Bazinga!',
-        status: 'info',
+        message: "Bazinga!",
+        status: "info",
         timeout: 5000,
-        pos: 'top-center'
+        pos: "top-center",
     });
 
     // Shortcuts
-    UIkit.notify('My message');
-    UIkit.notify('My message', status);
-    UIkit.notify('My message', {/* options */});
+    UIkit.notify("My message");
+    UIkit.notify("My message", status);
+    UIkit.notify("My message", {
+        /* options */
+    });
 
-    UIkit.notify("Message...", {timeout: 0});
-    UIkit.notify("...", {pos: 'top-center'});
-    UIkit.notify("...", {status: 'info'});
+    UIkit.notify("Message...", { timeout: 0 });
+    UIkit.notify("...", { pos: "top-center" });
+    UIkit.notify("...", { status: "info" });
 }
 
 function testSearch() {
@@ -122,29 +137,29 @@ function testSearch() {
 }
 
 function testNestable() {
-    const nestable = UIkit.nestable('element', {});
+    const nestable = UIkit.nestable("element", {});
 }
 function testSortable() {
-    const sortable = UIkit.sortable('element', {});
+    const sortable = UIkit.sortable("element", {});
 }
 function testStick() {
-    const sticky = UIkit.sticky('element', {});
+    const sticky = UIkit.sticky("element", {});
 }
 function testTimePicker() {
-    const timepicker = UIkit.timepicker('element', {});
+    const timepicker = UIkit.timepicker("element", {});
 }
 
 function testTooltip() {
-    const tooltip = UIkit.tooltip('element', {});
+    const tooltip = UIkit.tooltip("element", {});
 }
 
 function testUpload() {
     $(() => {
         const progressbar = $("#progressbar");
-        const bar = progressbar.find('.uk-progress-bar');
+        const bar = progressbar.find(".uk-progress-bar");
         const settings = {
-            action: '/', // upload url
-            allow : '*.(jpg|jpeg|gif|png)', // allow only images
+            action: "/", // upload url
+            allow: "*.(jpg|jpeg|gif|png)", // allow only images
             loadstart() {
                 bar.css("width", "0%").text("0%");
                 progressbar.removeClass("uk-hidden");
@@ -161,26 +176,26 @@ function testUpload() {
                 }, 250);
 
                 alert("Upload Completed");
-            }
+            },
         };
 
         const select = UIkit.uploadSelect($("#upload-select"), settings);
-        const drop   = UIkit.uploadDrop($("#upload-drop"), settings);
+        const drop = UIkit.uploadDrop($("#upload-drop"), settings);
     });
 
     // Test with object literal
     const select2 = UIkit.uploadSelect($("#upload-select"), {
-        action: '/', // upload url
-        allow: '*.(jpg|jpeg|gif|png)', // allow only images
+        action: "/", // upload url
+        allow: "*.(jpg|jpeg|gif|png)", // allow only images
         loadstart: () => {},
         progress: (percent: number) => {},
-        allcomplete: (response: any) => {}
+        allcomplete: (response: any) => {},
     });
     const drop2 = UIkit.uploadDrop($("#upload-drop"), {
-        action: '/', // upload url
-        allow: '*.(jpg|jpeg|gif|png)', // allow only images
+        action: "/", // upload url
+        allow: "*.(jpg|jpeg|gif|png)", // allow only images
         loadstart: () => {},
         progress: (percent: number) => {},
-        allcomplete: (response: any) => {}
+        allcomplete: (response: any) => {},
     });
 }

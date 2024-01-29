@@ -1,6 +1,6 @@
-import ExternalMechanism = require('sasl-external');
-import { Mechanism } from 'sasl-external';
-import { Factory } from 'saslmechanisms';
+import ExternalMechanism = require("sasl-external");
+import { Mechanism } from "sasl-external";
+import { Factory } from "saslmechanisms";
 
 new Factory().use(ExternalMechanism);
 new Factory().use(Mechanism);
@@ -17,6 +17,6 @@ m.name;
 // $ExpectType true
 m.clientFirst;
 // $ExpectType string
-m.response({ authzid: 'a' });
+m.response({ authzid: "a" });
 // $ExpectType void
-m.challenge('challenge');
+m.challenge("challenge");

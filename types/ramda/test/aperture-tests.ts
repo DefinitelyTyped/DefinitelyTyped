@@ -1,6 +1,6 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
-() => {
+(() => {
     // $ExpectType <T>(list: readonly T[]) => [] | [T, T][]
     const aperture2 = R.aperture(2);
 
@@ -20,4 +20,4 @@ import * as R from 'ramda';
     const undefArr: undefined[] = [undefined, undefined, undefined];
     // $ExpectType [] | [undefined, undefined, undefined][]
     const aperturedUndefined = R.aperture(3, undefArr);
-};
+});

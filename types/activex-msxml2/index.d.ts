@@ -1,9 +1,3 @@
-// Type definitions for non-npm package Microsoft XML, v6.0 - MSXML2 6.0
-// Project: https://msdn.microsoft.com/en-us/library/ms763742.aspx
-// Definitions by: Zev Spitz <https://github.com/zspitz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-
 /// <reference types="activex-interop" />
 
 declare namespace MSXML2 {
@@ -385,7 +379,7 @@ declare namespace MSXML2 {
 
     /** W3C-DOM XML Document 6.0 (Apartment) */
     class DOMDocument60 {
-        private 'MSXML2.DOMDocument60_typekey': DOMDocument60;
+        private "MSXML2.DOMDocument60_typekey": DOMDocument60;
         private constructor();
 
         /** abort an asynchronous download */
@@ -426,7 +420,19 @@ declare namespace MSXML2 {
         createEntityReference(name: string): IXMLDOMEntityReference;
 
         /** create a node of the specified node type and name */
-        createNode(type: DOMNodeType.NODE_ATTRIBUTE | DOMNodeType.NODE_CDATA_SECTION | DOMNodeType.NODE_COMMENT | DOMNodeType.NODE_DOCUMENT_FRAGMENT | DOMNodeType.NODE_TEXT | DOMNodeType.NODE_ELEMENT | DOMNodeType.NODE_ENTITY_REFERENCE | DOMNodeType.NODE_PROCESSING_INSTRUCTION, name: string, namespaceURI: string): IXMLDOMNode;
+        createNode(
+            type:
+                | DOMNodeType.NODE_ATTRIBUTE
+                | DOMNodeType.NODE_CDATA_SECTION
+                | DOMNodeType.NODE_COMMENT
+                | DOMNodeType.NODE_DOCUMENT_FRAGMENT
+                | DOMNodeType.NODE_TEXT
+                | DOMNodeType.NODE_ELEMENT
+                | DOMNodeType.NODE_ENTITY_REFERENCE
+                | DOMNodeType.NODE_PROCESSING_INSTRUCTION,
+            name: string,
+            namespaceURI: string,
+        ): IXMLDOMNode;
 
         /** create a processing instruction node */
         createProcessingInstruction(target: string, data: string): IXMLDOMProcessingInstruction;
@@ -588,7 +594,7 @@ declare namespace MSXML2 {
 
     /** W3C-DOM XML Document 6.0 (Free threaded) */
     class FreeThreadedDOMDocument60 {
-        private 'MSXML2.FreeThreadedDOMDocument60_typekey': FreeThreadedDOMDocument60;
+        private "MSXML2.FreeThreadedDOMDocument60_typekey": FreeThreadedDOMDocument60;
         private constructor();
 
         /** abort an asynchronous download */
@@ -791,13 +797,27 @@ declare namespace MSXML2 {
 
     /** Free Threaded XML HTTP Request class 6.0 */
     class FreeThreadedXMLHTTP60 {
-        private 'MSXML2.FreeThreadedXMLHTTP60_typekey': FreeThreadedXMLHTTP60;
+        private "MSXML2.FreeThreadedXMLHTTP60_typekey": FreeThreadedXMLHTTP60;
         private constructor();
         abort(): void;
         getAllResponseHeaders(ppwszHeaders: string): void;
-        GetCookie(pwszUrl: string, pwszName: string, dwFlags: number, pcCookies: number, ppCookies: tagXHR_COOKIE): void;
+        GetCookie(
+            pwszUrl: string,
+            pwszName: string,
+            dwFlags: number,
+            pcCookies: number,
+            ppCookies: tagXHR_COOKIE,
+        ): void;
         getResponseHeader(pwszHeader: string, ppwszValue: string): void;
-        open(pwszMethod: string, pwszUrl: string, pStatusCallback: IXMLHTTPRequest2Callback, pwszUserName: string, pwszPassword: string, pwszProxyUserName: string, pwszProxyPassword: string): void;
+        open(
+            pwszMethod: string,
+            pwszUrl: string,
+            pStatusCallback: IXMLHTTPRequest2Callback,
+            pwszUserName: string,
+            pwszPassword: string,
+            pwszProxyUserName: string,
+            pwszProxyPassword: string,
+        ): void;
         send(pBody: ISequentialStream, cbBody: number): void;
         SetCookie(pCookie: tagXHR_COOKIE, pdwCookieState: number): void;
         SetCustomResponseStream(pSequentialStream: ISequentialStream): void;
@@ -806,7 +826,7 @@ declare namespace MSXML2 {
     }
 
     /** IMXNamespacePrefixes interface */
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IMXNamespacePrefixes {
         item(index: number): string;
         readonly length: number;
@@ -815,7 +835,7 @@ declare namespace MSXML2 {
 
     /** XML Schema */
     class ISchema {
-        private 'MSXML2.ISchema_typekey': ISchema;
+        private "MSXML2.ISchema_typekey": ISchema;
         private constructor();
         readonly attributeGroups: ISchemaItemCollection;
         readonly attributes: ISchemaItemCollection;
@@ -837,7 +857,7 @@ declare namespace MSXML2 {
 
     /** XML Schema Item */
     class ISchemaItem {
-        private 'MSXML2.ISchemaItem_typekey': ISchemaItem;
+        private "MSXML2.ISchemaItem_typekey": ISchemaItem;
         private constructor();
         readonly id: string;
         readonly itemType: SOMITEMTYPE;
@@ -849,7 +869,7 @@ declare namespace MSXML2 {
     }
 
     /** XML Schema Item Collection */
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface ISchemaItemCollection {
         item(index: number): ISchemaItem;
         itemByName(name: string): ISchemaItem;
@@ -859,7 +879,7 @@ declare namespace MSXML2 {
     }
 
     /** XML Schema String Collection */
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface ISchemaStringCollection {
         item(index: number): string;
         readonly length: number;
@@ -867,7 +887,7 @@ declare namespace MSXML2 {
     }
 
     class ISequentialStream {
-        private 'MSXML2.ISequentialStream_typekey': ISequentialStream;
+        private "MSXML2.ISequentialStream_typekey": ISequentialStream;
         private constructor();
         RemoteRead(pv: number, cb: number, pcbRead: number): void;
         RemoteWrite(pv: number, cb: number, pcbWritten: number): void;
@@ -875,7 +895,7 @@ declare namespace MSXML2 {
 
     /** IVBSAXAttributes interface */
     class IVBSAXAttributes {
-        private 'MSXML2.IVBSAXAttributes_typekey': IVBSAXAttributes;
+        private "MSXML2.IVBSAXAttributes_typekey": IVBSAXAttributes;
         private constructor();
 
         /** Look up the index of an attribute by Namespace name. */
@@ -917,7 +937,7 @@ declare namespace MSXML2 {
 
     /** IVBSAXContentHandler interface */
     class IVBSAXContentHandler {
-        private 'MSXML2.IVBSAXContentHandler_typekey': IVBSAXContentHandler;
+        private "MSXML2.IVBSAXContentHandler_typekey": IVBSAXContentHandler;
         private constructor();
 
         /** Receive notification of character data. */
@@ -948,7 +968,12 @@ declare namespace MSXML2 {
         startDocument(): void;
 
         /** Receive notification of the beginning of an element. */
-        startElement(strNamespaceURI: string, strLocalName: string, strQName: string, oAttributes: IVBSAXAttributes): void;
+        startElement(
+            strNamespaceURI: string,
+            strLocalName: string,
+            strQName: string,
+            oAttributes: IVBSAXAttributes,
+        ): void;
 
         /** Begin the scope of a prefix-URI Namespace mapping. */
         startPrefixMapping(strPrefix: string, strURI: string): void;
@@ -956,7 +981,7 @@ declare namespace MSXML2 {
 
     /** IVBSAXDTDHandler interface */
     class IVBSAXDTDHandler {
-        private 'MSXML2.IVBSAXDTDHandler_typekey': IVBSAXDTDHandler;
+        private "MSXML2.IVBSAXDTDHandler_typekey": IVBSAXDTDHandler;
         private constructor();
 
         /** Receive notification of a notation declaration event. */
@@ -968,7 +993,7 @@ declare namespace MSXML2 {
 
     /** IVBSAXEntityResolver interface */
     class IVBSAXEntityResolver {
-        private 'MSXML2.IVBSAXEntityResolver_typekey': IVBSAXEntityResolver;
+        private "MSXML2.IVBSAXEntityResolver_typekey": IVBSAXEntityResolver;
         private constructor();
 
         /** Allow the application to resolve external entities. */
@@ -977,7 +1002,7 @@ declare namespace MSXML2 {
 
     /** IVBSAXErrorHandler interface */
     class IVBSAXErrorHandler {
-        private 'MSXML2.IVBSAXErrorHandler_typekey': IVBSAXErrorHandler;
+        private "MSXML2.IVBSAXErrorHandler_typekey": IVBSAXErrorHandler;
         private constructor();
 
         /** Receive notification of a recoverable error. */
@@ -992,7 +1017,7 @@ declare namespace MSXML2 {
 
     /** IVBSAXLocator interface */
     class IVBSAXLocator {
-        private 'MSXML2.IVBSAXLocator_typekey': IVBSAXLocator;
+        private "MSXML2.IVBSAXLocator_typekey": IVBSAXLocator;
         private constructor();
 
         /** Get the column number where the current document event ends. */
@@ -1009,7 +1034,7 @@ declare namespace MSXML2 {
     }
 
     class IXMLDOMAttribute {
-        private 'MSXML2.IXMLDOMAttribute_typekey': IXMLDOMAttribute;
+        private "MSXML2.IXMLDOMAttribute_typekey": IXMLDOMAttribute;
         private constructor();
 
         /** append a child node */
@@ -1112,7 +1137,7 @@ declare namespace MSXML2 {
     }
 
     class IXMLDOMCDATASection {
-        private 'MSXML2.IXMLDOMCDATASection_typekey': IXMLDOMCDATASection;
+        private "MSXML2.IXMLDOMCDATASection_typekey": IXMLDOMCDATASection;
         private constructor();
 
         /** append a child node */
@@ -1233,7 +1258,7 @@ declare namespace MSXML2 {
     }
 
     class IXMLDOMComment {
-        private 'MSXML2.IXMLDOMComment_typekey': IXMLDOMComment;
+        private "MSXML2.IXMLDOMComment_typekey": IXMLDOMComment;
         private constructor();
 
         /** append a child node */
@@ -1351,7 +1376,7 @@ declare namespace MSXML2 {
     }
 
     class IXMLDOMDocument {
-        private 'MSXML2.IXMLDOMDocument_typekey': IXMLDOMDocument;
+        private "MSXML2.IXMLDOMDocument_typekey": IXMLDOMDocument;
         private constructor();
 
         /** abort an asynchronous download */
@@ -1532,7 +1557,7 @@ declare namespace MSXML2 {
     }
 
     class IXMLDOMDocumentFragment {
-        private 'MSXML2.IXMLDOMDocumentFragment_typekey': IXMLDOMDocumentFragment;
+        private "MSXML2.IXMLDOMDocumentFragment_typekey": IXMLDOMDocumentFragment;
         private constructor();
 
         /** append a child node */
@@ -1629,7 +1654,7 @@ declare namespace MSXML2 {
     }
 
     class IXMLDOMDocumentType {
-        private 'MSXML2.IXMLDOMDocumentType_typekey': IXMLDOMDocumentType;
+        private "MSXML2.IXMLDOMDocumentType_typekey": IXMLDOMDocumentType;
         private constructor();
 
         /** append a child node */
@@ -1735,7 +1760,7 @@ declare namespace MSXML2 {
     }
 
     class IXMLDOMElement {
-        private 'MSXML2.IXMLDOMElement_typekey': IXMLDOMElement;
+        private "MSXML2.IXMLDOMElement_typekey": IXMLDOMElement;
         private constructor();
 
         /** append a child node */
@@ -1859,7 +1884,7 @@ declare namespace MSXML2 {
     }
 
     class IXMLDOMEntityReference {
-        private 'MSXML2.IXMLDOMEntityReference_typekey': IXMLDOMEntityReference;
+        private "MSXML2.IXMLDOMEntityReference_typekey": IXMLDOMEntityReference;
         private constructor();
 
         /** append a child node */
@@ -1956,12 +1981,12 @@ declare namespace MSXML2 {
     }
 
     class IXMLDOMImplementation {
-        private 'MSXML2.IXMLDOMImplementation_typekey': IXMLDOMImplementation;
+        private "MSXML2.IXMLDOMImplementation_typekey": IXMLDOMImplementation;
         private constructor();
         hasFeature(feature: string, version: string): boolean;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IXMLDOMNamedNodeMap {
         /** lookup item by name */
         getNamedItem(name: string): IXMLDOMNode;
@@ -1996,7 +2021,7 @@ declare namespace MSXML2 {
 
     /** Core DOM node interface */
     class IXMLDOMNode {
-        private 'MSXML2.IXMLDOMNode_typekey': IXMLDOMNode;
+        private "MSXML2.IXMLDOMNode_typekey": IXMLDOMNode;
         private constructor();
 
         /** append a child node */
@@ -2092,7 +2117,7 @@ declare namespace MSXML2 {
         readonly xml: string;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IXMLDOMNodeList {
         /** collection of nodes */
         item(index: number): IXMLDOMNode;
@@ -2112,7 +2137,7 @@ declare namespace MSXML2 {
 
     /** structure for reporting parser errors */
     class IXMLDOMParseError {
-        private 'MSXML2.IXMLDOMParseError_typekey': IXMLDOMParseError;
+        private "MSXML2.IXMLDOMParseError_typekey": IXMLDOMParseError;
         private constructor();
 
         /** the error code */
@@ -2138,7 +2163,7 @@ declare namespace MSXML2 {
     }
 
     class IXMLDOMProcessingInstruction {
-        private 'MSXML2.IXMLDOMProcessingInstruction_typekey': IXMLDOMProcessingInstruction;
+        private "MSXML2.IXMLDOMProcessingInstruction_typekey": IXMLDOMProcessingInstruction;
         private constructor();
 
         /** append a child node */
@@ -2241,7 +2266,7 @@ declare namespace MSXML2 {
     }
 
     /** XML Schemas Collection */
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IXMLDOMSchemaCollection {
         /** add a new schema */
         add(namespaceURI: string, var_1: any): void;
@@ -2266,7 +2291,7 @@ declare namespace MSXML2 {
     }
 
     class IXMLDOMText {
-        private 'MSXML2.IXMLDOMText_typekey': IXMLDOMText;
+        private "MSXML2.IXMLDOMText_typekey": IXMLDOMText;
         private constructor();
 
         /** append a child node */
@@ -2388,7 +2413,7 @@ declare namespace MSXML2 {
 
     /** IXMLHTTPRequest2Callback Interface */
     class IXMLHTTPRequest2Callback {
-        private 'MSXML2.IXMLHTTPRequest2Callback_typekey': IXMLHTTPRequest2Callback;
+        private "MSXML2.IXMLHTTPRequest2Callback_typekey": IXMLHTTPRequest2Callback;
         private constructor();
         ondataavailable(pXHR: FreeThreadedXMLHTTP60, pResponseStream: ISequentialStream): void;
         OnError(pXHR: FreeThreadedXMLHTTP60, hrError: undefined): void;
@@ -2399,7 +2424,7 @@ declare namespace MSXML2 {
 
     /** IXSLProcessor Interface */
     class IXSLProcessor {
-        private 'MSXML2.IXSLProcessor_typekey': IXSLProcessor;
+        private "MSXML2.IXSLProcessor_typekey": IXSLProcessor;
         private constructor();
 
         /** pass object to stylesheet */
@@ -2447,7 +2472,7 @@ declare namespace MSXML2 {
 
     /** Microsoft HTML Writer 6.0 */
     class MXHTMLWriter60 {
-        private 'MSXML2.MXHTMLWriter60_typekey': MXHTMLWriter60;
+        private "MSXML2.MXHTMLWriter60_typekey": MXHTMLWriter60;
         private constructor();
 
         /** Determine whether or not to write the byte order mark */
@@ -2480,7 +2505,7 @@ declare namespace MSXML2 {
 
     /** MX Namespace Manager 6.0 */
     class MXNamespaceManager60 {
-        private 'MSXML2.MXNamespaceManager60_typekey': MXNamespaceManager60;
+        private "MSXML2.MXNamespaceManager60_typekey": MXNamespaceManager60;
         private constructor();
         allowOverride: boolean;
         declarePrefix(prefix: string, namespaceURI: string): void;
@@ -2498,7 +2523,7 @@ declare namespace MSXML2 {
 
     /** Microsoft XML Writer 6.0 */
     class MXXMLWriter60 {
-        private 'MSXML2.MXXMLWriter60_typekey': MXXMLWriter60;
+        private "MSXML2.MXXMLWriter60_typekey": MXXMLWriter60;
         private constructor();
 
         /** Determine whether or not to write the byte order mark */
@@ -2531,7 +2556,7 @@ declare namespace MSXML2 {
 
     /** SAX Attributes 6.0 */
     class SAXAttributes60 {
-        private 'MSXML2.SAXAttributes60_typekey': SAXAttributes60;
+        private "MSXML2.SAXAttributes60_typekey": SAXAttributes60;
         private constructor();
 
         /** Add an attribute to the end of the list. */
@@ -2547,7 +2572,14 @@ declare namespace MSXML2 {
         removeAttribute(nIndex: number): void;
 
         /** Set an attribute in the list. */
-        setAttribute(nIndex: number, strURI: string, strLocalName: string, strQName: string, strType: string, strValue: string): void;
+        setAttribute(
+            nIndex: number,
+            strURI: string,
+            strLocalName: string,
+            strQName: string,
+            strType: string,
+            strValue: string,
+        ): void;
 
         /** Copy an entire Attributes object. */
         setAttributes(varAtts: any): void;
@@ -2570,7 +2602,7 @@ declare namespace MSXML2 {
 
     /** SAX XML Reader 6.0 */
     class SAXXMLReader60 {
-        private 'MSXML2.SAXXMLReader60_typekey': SAXXMLReader60;
+        private "MSXML2.SAXXMLReader60_typekey": SAXXMLReader60;
         private constructor();
 
         /** Set or get the base URL for the document. */
@@ -2612,7 +2644,7 @@ declare namespace MSXML2 {
 
     /** Server XML HTTP Request 6.0  */
     class ServerXMLHTTP60 {
-        private 'MSXML2.ServerXMLHTTP60_typekey': ServerXMLHTTP60;
+        private "MSXML2.ServerXMLHTTP60_typekey": ServerXMLHTTP60;
         private constructor();
 
         /** Abort HTTP request */
@@ -2687,7 +2719,7 @@ declare namespace MSXML2 {
 
     /** XML HTTP Request class 6.0 */
     class XMLHTTP60 {
-        private 'MSXML2.XMLHTTP60_typekey': XMLHTTP60;
+        private "MSXML2.XMLHTTP60_typekey": XMLHTTP60;
         private constructor();
 
         /** Abort HTTP request */
@@ -2763,7 +2795,7 @@ declare namespace MSXML2 {
 
     /** XSL Stylesheet Cache 6.0 */
     class XSLTemplate60 {
-        private 'MSXML2.XSLTemplate60_typekey': XSLTemplate60;
+        private "MSXML2.XSLTemplate60_typekey": XSLTemplate60;
         private constructor();
 
         /** create a new processor object */
@@ -2775,21 +2807,29 @@ declare namespace MSXML2 {
 }
 
 interface ActiveXObject {
-    on(obj: MSXML2.DOMDocument60, event: 'ondataavailable' | 'onreadystatechange', handler: (this: MSXML2.DOMDocument60, parameter: {}) => void): void;
-    on(obj: MSXML2.FreeThreadedDOMDocument60, event: 'ondataavailable' | 'onreadystatechange', handler: (this: MSXML2.FreeThreadedDOMDocument60, parameter: {}) => void): void;
+    on(
+        obj: MSXML2.DOMDocument60,
+        event: "ondataavailable" | "onreadystatechange",
+        handler: (this: MSXML2.DOMDocument60, parameter: {}) => void,
+    ): void;
+    on(
+        obj: MSXML2.FreeThreadedDOMDocument60,
+        event: "ondataavailable" | "onreadystatechange",
+        handler: (this: MSXML2.FreeThreadedDOMDocument60, parameter: {}) => void,
+    ): void;
 }
 
 interface ActiveXObjectNameMap {
-    'Msxml2.DOMDocument': MSXML2.DOMDocument60;
-    'Msxml2.DOMDocument.6.0': MSXML2.DOMDocument60;
-    'Msxml2.FreeThreadedDOMDocument': MSXML2.FreeThreadedDOMDocument60;
-    'Msxml2.MXHTMLWriter': MSXML2.MXHTMLWriter60;
-    'Msxml2.MXNamespaceManager': MSXML2.MXNamespaceManager60;
-    'Msxml2.MXXMLWriter': MSXML2.MXXMLWriter60;
-    'Msxml2.SAXAttributes': MSXML2.SAXAttributes60;
-    'Msxml2.SAXXMLReader': MSXML2.SAXXMLReader60;
-    'Msxml2.ServerXMLHTTP': MSXML2.ServerXMLHTTP60;
-    'Msxml2.XMLHTTP': MSXML2.XMLHTTP60;
-    'Msxml2.XMLSchemaCache': MSXML2.XMLSchemaCache60;
-    'Msxml2.XSLTemplate': MSXML2.XSLTemplate60;
+    "Msxml2.DOMDocument": MSXML2.DOMDocument60;
+    "Msxml2.DOMDocument.6.0": MSXML2.DOMDocument60;
+    "Msxml2.FreeThreadedDOMDocument": MSXML2.FreeThreadedDOMDocument60;
+    "Msxml2.MXHTMLWriter": MSXML2.MXHTMLWriter60;
+    "Msxml2.MXNamespaceManager": MSXML2.MXNamespaceManager60;
+    "Msxml2.MXXMLWriter": MSXML2.MXXMLWriter60;
+    "Msxml2.SAXAttributes": MSXML2.SAXAttributes60;
+    "Msxml2.SAXXMLReader": MSXML2.SAXXMLReader60;
+    "Msxml2.ServerXMLHTTP": MSXML2.ServerXMLHTTP60;
+    "Msxml2.XMLHTTP": MSXML2.XMLHTTP60;
+    "Msxml2.XMLSchemaCache": MSXML2.XMLSchemaCache60;
+    "Msxml2.XSLTemplate": MSXML2.XSLTemplate60;
 }

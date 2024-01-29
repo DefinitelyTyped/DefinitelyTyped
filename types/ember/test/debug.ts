@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Ember from "ember";
 
 const {
     runInDebug,
@@ -11,28 +11,34 @@ const {
 const assert: typeof Ember.assert = Ember.assert;
 
 /**
- * @ember/debug tests
+ * `@ember/debug` tests
  */
-runInDebug(); // $ExpectError
-runInDebug(() => console.log('Should not show up in prod')); // $ExpectType void
+// @ts-expect-error
+runInDebug();
+runInDebug(() => console.log("Should not show up in prod")); // $ExpectType void
 
 // Log a warning if we have more than 3 tomsters
 const tomsterCount = 2;
-warn('Too many tomsters!'); // $ExpectError
-warn('Too many tomsters!', { id: 'some-warning' }); // $ExpectType void
-warn('Too many tomsters!', tomsterCount <= 3); // $ExpectError
-warn('Too many tomsters!', tomsterCount <= 3, { id: 'some-warning' }); // $ExpectType void
+// @ts-expect-error
+warn("Too many tomsters!");
+warn("Too many tomsters!", { id: "some-warning" }); // $ExpectType void
+// @ts-expect-error
+warn("Too many tomsters!", tomsterCount <= 3);
+warn("Too many tomsters!", tomsterCount <= 3, { id: "some-warning" }); // $ExpectType void
 // $ExpectType void
-warn('Too many tomsters!', tomsterCount <= 3, {
-    id: 'ember-debug.too-many-tomsters',
+warn("Too many tomsters!", tomsterCount <= 3, {
+    id: "ember-debug.too-many-tomsters",
 });
 
-debug(); // $ExpectError
-debug('Too many tomsters!'); // $ExpectType void
-debug('Too many tomsters!', 'foo'); // $ExpectError
+// @ts-expect-error
+debug();
+debug("Too many tomsters!"); // $ExpectType void
+// @ts-expect-error
+debug("Too many tomsters!", "foo");
 
 // next is not called, so no warnings get the default behavior
-registerWarnHandler(); // $ExpectError
+// @ts-expect-error
+registerWarnHandler();
 registerWarnHandler(() => {}); // $ExpectType void
 registerWarnHandler((message, options, next) => { // $ExpectType void
     message; // $ExpectType string
@@ -42,7 +48,8 @@ registerWarnHandler((message, options, next) => { // $ExpectType void
 registerWarnHandler((message, options, next) => { // $ExpectType void
     message; // $ExpectType string
     options; // $ExpectType { id: string; } | undefined
-    next(); // $ExpectError
+    // @ts-expect-error
+    next();
 });
 registerWarnHandler((message, options, next) => { // $ExpectType void
     message; // $ExpectType string
@@ -56,7 +63,8 @@ registerWarnHandler((message, options, next) => { // $ExpectType void
 });
 
 // next is not called, so no warnings get the default behavior
-registerDeprecationHandler(); // $ExpectError
+// @ts-expect-error
+registerDeprecationHandler();
 registerDeprecationHandler(() => {}); // $ExpectType void
 registerDeprecationHandler((message, options, next) => { // $ExpectType void
     message; // $ExpectType string
@@ -66,7 +74,8 @@ registerDeprecationHandler((message, options, next) => { // $ExpectType void
 registerDeprecationHandler((message, options, next) => { // $ExpectType void
     message; // $ExpectType string
     options; // $ExpectType { id: string; until: string; } | undefined
-    next(); // $ExpectError
+    // @ts-expect-error
+    next();
 });
 registerDeprecationHandler((message, options, next) => { // $ExpectType void
     message; // $ExpectType string
@@ -80,11 +89,11 @@ registerDeprecationHandler((message, options, next) => { // $ExpectType void
 });
 
 // Test for truthiness
-const str: unknown = 'hello';
-assert('Must pass a string', typeof str === 'string');
+const str: unknown = "hello";
+assert("Must pass a string", typeof str === "string");
 str; // $ExpectType string
 
 // Fail unconditionally
 // This has to be last because `assert never` will raise TS's checks for
 // unreachable code.
-assert('This code path should never be run'); // $ExpectType never
+assert("This code path should never be run"); // $ExpectType never

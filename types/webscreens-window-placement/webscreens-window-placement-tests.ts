@@ -10,8 +10,8 @@ window.getScreenDetails().then((screenDetails: ScreenDetails) => {
     screenDetails.oncurrentscreenchange = (ev: Event) => console.log(ev);
     screenDetails.onscreenschange = (ev: Event) => console.log(ev);
 
-    screenDetails.addEventListener('screenschange', (ev: Event) => console.log(ev));
-    screenDetails.addEventListener('screenschange', (ev: Event) => console.log(ev));
+    screenDetails.addEventListener("screenschange", (ev: Event) => console.log(ev));
+    screenDetails.addEventListener("screenschange", (ev: Event) => console.log(ev));
 
     console.log(currentScreen);
     console.log(screens);

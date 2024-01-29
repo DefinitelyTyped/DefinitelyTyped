@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/react-native-snackbar-component",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/sidevesh/react-native-snackbar"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-snackbar-component": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Haseeb Majid",
+            "githubUsername": "hmajid2301"
+        },
+        {
+            "name": "Enrico Balsamo",
+            "githubUsername": "balsick"
+        }
+    ]
+}

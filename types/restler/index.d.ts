@@ -1,8 +1,3 @@
-// Type definitions for restler 3.1.0
-// Project: https://github.com/danwrong/restler
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 declare module "restler" {
@@ -121,104 +116,87 @@ declare module "restler" {
     interface RestlerOptions {
         /**
          * OAuth Bearer Token.
-         * @type {string}
          */
         accessToken?: string | undefined;
 
         /**
          *  HTTP Agent instance to use. If not defined globalAgent will be used. If false opts out of connection pooling with an Agent, defaults request to Connection: close.
-         * @type {any}
          */
         agent?: any;
 
         /**
          * A http.Client instance if you want to reuse or implement some kind of connection pooling.
-         * @type {any}
          */
         client?: any;
 
         /**
          * Data to be added to the body of the request.
-         * @type {any}
          */
         data?: any;
 
         /**
          * Encoding of the response body
-         * @type {string}
          */
         decoding?: string | undefined;
 
         /**
          * Encoding of the request body.
-         * @type {string}
          */
         encoding?: string | undefined;
 
         /**
          * If set will recursively follow redirects.
-         * @type {boolean}
          */
         followRedirects?: boolean | undefined;
 
         /**
          * A hash of HTTP headers to be sent.
-         * @type {RestlerOptionsHeader}
          */
         headers?: RestlerOptionsHeader | undefined;
 
         /**
          * Request method
-         * @type {string}
          */
         method?: string | undefined;
 
         /**
          * If set the data passed will be formatted as <code>multipart/form-encoded</code>.
-         * @type {boolean}
          */
         multipart?: boolean | undefined;
 
         /**
          * A function that will be called on the returned data. Use any of predefined <code>restler.parsers</code>.
-         * @type {any}
          */
         parser?: any;
 
         /**
          * Basic auth password.
-         * @type {string}
          */
         password?: string | undefined;
 
         /**
          * Query string variables as a javascript object, will override the querystring in the URL.
-         * @type {any}
          */
         query?: any;
 
         /**
          * If true, the server certificate is verified against the list of supplied CAs.
          * An 'error' event is emitted if verification fails. Verification happens at the connection level, before the HTTP request is sent.
-         * @type {boolean}
          */
         rejectUnauthorized?: boolean | undefined;
 
         /**
          * Emit the timeout event when the response does not return within the said value (in ms).
-         * @type {number}
          */
         timeout?: number | undefined;
 
         /**
          * Basic auth username.
-         * @type {string}
          */
         username?: string | undefined;
 
         /**
          * Options for xml2js.
-         * @type {any}
          */
         xml2js?: any;
     }

@@ -1,11 +1,4 @@
-// Type definitions for json-rpc-ws 4.0
-// Project: https://github.com/andyet/json-rpc-ws
-// Definitions by: Nicolas Penin <https://github.com/npenin>
-//                 Margus Lamp <https://github.com/mlamp>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
-import * as ws from 'ws';
+import * as ws from "ws";
 
 export function createServer<TConnection extends Connection>(): Server<TConnection>;
 export function createClient<TConnection extends Connection>(): Client<TConnection>;
@@ -51,11 +44,18 @@ export class Base<TConnection extends Connection> {
     /**
      * Add a handler function for a given method
      */
-    expose<ParamType, ParamCallbackType>(eventName: string, handler: Handler<TConnection, ParamType, ParamCallbackType>): void;
+    expose<ParamType, ParamCallbackType>(
+        eventName: string,
+        handler: Handler<TConnection, ParamType, ParamCallbackType>,
+    ): void;
     /**
      * Send a method request through a specific connection
      */
-    send<ParamType, ParamCallbackType>(eventName: string, params?: ParamType, callback?: ReplyCallback<ParamCallbackType>): void;
+    send<ParamType, ParamCallbackType>(
+        eventName: string,
+        params?: ParamType,
+        callback?: ReplyCallback<ParamCallbackType>,
+    ): void;
     send<ParamType>(eventName: string, params: ParamType): void;
     /**
      * Connected event handler
@@ -92,7 +92,11 @@ export interface Connection {
     sendRaw<ParamType>(payload: Payload<ParamType>): void;
     processPayload<ParamType>(payload: Payload<ParamType>): void;
     sendResult(id: string, error?: any, result?: any): void;
-    sendMethod<ParamType, ParamCallbackType>(method: string, params: ParamType, callback?: ReplyCallback<ParamCallbackType>): void;
+    sendMethod<ParamType, ParamCallbackType>(
+        method: string,
+        params: ParamType,
+        callback?: ReplyCallback<ParamCallbackType>,
+    ): void;
     sendError(error: any, id?: string, data?: any): void;
     close(error?: any): void;
     hangup(callback?: () => void): void;
@@ -100,7 +104,7 @@ export interface Connection {
 }
 
 export interface Payload<ParamType> {
-    jsonrpc?: '2.0' | undefined;
+    jsonrpc?: "2.0" | undefined;
     id: string;
     method: string;
     params?: ParamType | undefined;
@@ -108,7 +112,11 @@ export interface Payload<ParamType> {
     error?: any;
 }
 
-export type Handler<TConnection extends Connection, ParamType, ParamCallbackType> = (this: TConnection, params: ParamType, reply: ReplyCallback<ParamCallbackType>) => void;
+export type Handler<TConnection extends Connection, ParamType, ParamCallbackType> = (
+    this: TConnection,
+    params: ParamType,
+    reply: ReplyCallback<ParamCallbackType>,
+) => void;
 export type ReplyCallback<ParamType> = (error: any, params?: ParamType) => void;
 
 /**

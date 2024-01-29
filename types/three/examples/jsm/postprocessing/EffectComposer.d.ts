@@ -1,9 +1,9 @@
-import { Clock, WebGLRenderer, WebGLRenderTarget } from '../../../src/Three';
+import { Clock, WebGLRenderer, WebGLRenderTarget } from '../../../src/Three.js';
 
-import { Pass } from './Pass';
-import { ShaderPass } from './ShaderPass';
+import { Pass, FullScreenQuad } from './Pass.js';
+import { ShaderPass } from './ShaderPass.js';
 
-export { FullScreenQuad } from './Pass';
+export { FullScreenQuad } from './Pass.js';
 export { Pass };
 
 export class EffectComposer {
@@ -27,4 +27,5 @@ export class EffectComposer {
     reset(renderTarget?: WebGLRenderTarget): void;
     setSize(width: number, height: number): void;
     setPixelRatio(pixelRatio: number): void;
+    dispose(): void;
 }

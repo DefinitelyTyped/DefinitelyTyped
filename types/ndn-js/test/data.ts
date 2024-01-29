@@ -27,10 +27,10 @@ n = data.getCongestionMark();
 n = data.getIncomingFaceId();
 
 data = data.setName(name)
-           .setMetaInfo(meta)
-           .setContent(blob)
-           .setContent(Buffer.alloc(4))
-           .setSignature(sig);
+    .setMetaInfo(meta)
+    .setContent(blob)
+    .setContent(Buffer.alloc(4))
+    .setSignature(sig);
 
 data.wireDecode(blob);
 data.wireDecode(Buffer.alloc(4));

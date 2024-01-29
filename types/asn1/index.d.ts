@@ -1,8 +1,3 @@
-// Type definitions for asn1 0.2
-// Project: https://github.com/joyent/node-asn1
-// Definitions by: Jim Geurts <https://github.com/jgeurts>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 /// <reference types="node" />
 
 export class BerReader {
@@ -17,16 +12,16 @@ export class BerReader {
     constructor(data: Buffer);
 
     peek(): number | null;
-    readBoolean(): boolean;
+    readBoolean(): boolean | null;
     readByte(peek: boolean): number | null;
-    readEnumeration(): number;
-    readInt(): number;
-    readLength(offset?: number): number;
-    readOID(tag?: number): string;
+    readEnumeration(): number | null;
+    readInt(): number | null;
+    readLength(offset?: number): number | null;
+    readOID(tag?: number): string | null;
     readSequence(tag?: number): number | null;
-    readString(tag?: number): string;
-    readString(tag: number, retbuf: boolean): Buffer;
-    _readTag(tag?: number): number;
+    readString(tag?: number): string | null;
+    readString(tag: number, retbuf: boolean): Buffer | null;
+    _readTag(tag?: number): number | null;
 }
 
 export class BerWriter {
@@ -35,10 +30,7 @@ export class BerWriter {
     readonly _size: number;
     _offset: number;
 
-    constructor(options?: {
-        size: number;
-        growthFactor: number;
-    });
+    constructor(options?: { size: number; growthFactor: number });
 
     endSequence(): void;
     startSequence(tag?: number): void;
@@ -51,7 +43,7 @@ export class BerWriter {
     writeNull(): void;
     writeOID(s: string, tag: number): void;
     writeString(s: string, tag?: number): void;
-    writeStringArray(strings: ReadonlyArray<string>): void;
+    writeStringArray(strings: readonly string[]): void;
     _ensure(length: number): void;
 }
 

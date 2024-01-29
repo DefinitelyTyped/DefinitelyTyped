@@ -1,6 +1,6 @@
-import { run } from '@ember/runloop';
-import EmberObject from '@ember/object';
-import { Backburner, DebugInfo, QueueItem, DeferredActionQueues } from '@ember/runloop/-private/backburner';
+import EmberObject from "@ember/object";
+import { run } from "@ember/runloop";
+import { Backburner, DebugInfo, DeferredActionQueues, QueueItem } from "@ember/runloop/-private/backburner";
 
 run; // $ExpectType RunNamespace
 run.queues; // $ExpectType EmberRunQueues[]
@@ -8,10 +8,10 @@ const queues: string[] = run.queues;
 
 // It will be the responsibility of each consuming package that needs access to the backburner property
 // to merge the private types in the public API.
-declare module '@ember/runloop' {
-  interface RunNamespace {
-    backburner: Backburner;
-  }
+declare module "@ember/runloop" {
+    interface RunNamespace {
+        backburner: Backburner;
+    }
 }
 
 function testRun() {
@@ -34,14 +34,14 @@ function testRun() {
             return 123;
         },
         () => {
-            console.log('foo');
+            console.log("foo");
         },
-        'bar',
-        {}
+        "bar",
+        {},
     );
 
     function destroyApp(application: EmberObject) {
-        run(application, 'destroy');
+        run(application, "destroy");
         run(application, function() {
             this.destroy();
         });
@@ -58,8 +58,8 @@ function testBind() {
         editor: null as string | null,
 
         setupEditor(editor: string) {
-            this.set('editor', editor);
-        }
+            this.set("editor", editor);
+        },
     });
 }
 
@@ -78,7 +78,7 @@ function testCancel() {
 
     run.cancel(runLater);
 
-    const runScheduleOnce = run.scheduleOnce('afterRender', myContext, () => {
+    const runScheduleOnce = run.scheduleOnce("afterRender", myContext, () => {
         // will not be executed
     });
 
@@ -90,9 +90,14 @@ function testCancel() {
 
     run.cancel(runOnce);
 
-    const throttle = run.throttle(myContext, () => {
-        // will not be executed
-    }, 1, false);
+    const throttle = run.throttle(
+        myContext,
+        () => {
+            // will not be executed
+        },
+        1,
+        false,
+    );
 
     run.cancel(throttle);
 
@@ -102,9 +107,14 @@ function testCancel() {
 
     run.cancel(debounce);
 
-    const debounceImmediate = run.debounce(myContext, () => {
-        // will be executed since we passed in true (immediate)
-    }, 100, true);
+    const debounceImmediate = run.debounce(
+        myContext,
+        () => {
+            // will be executed since we passed in true (immediate)
+        },
+        100,
+        true,
+    );
 
     // the 100ms delay until this method can be called again will be canceled
     run.cancel(debounceImmediate);
@@ -114,22 +124,22 @@ function testDebounce() {
     function runIt() {
     }
 
-    const myContext = { name: 'debounce' };
+    const myContext = { name: "debounce" };
 
     run.debounce(runIt, 150);
     run.debounce(myContext, runIt, 150);
     run.debounce(myContext, runIt, 150, true);
 
     EmberObject.extend({
-        searchValue: 'test',
+        searchValue: "test",
         fetchResults(value: string) {},
 
         actions: {
             handleTyping() {
                 // the fetchResults function is passed into the component from its parent
-                run.debounce(this, this.get('fetchResults'), this.get('searchValue'), 250);
-            }
-        }
+                run.debounce(this, this.get("fetchResults"), this.get("searchValue"), 250);
+            },
+        },
     });
 }
 
@@ -153,7 +163,7 @@ function testJoin() {
     });
 
     run.later(() => {
-        console.log({ msg: 'Hold Your Horses' });
+        console.log({ msg: "Hold Your Horses" });
     }, 3000);
 }
 
@@ -179,47 +189,47 @@ function testNext() {
 function testOnce() {
     EmberObject.extend({
         init() {
-            run.once(this, 'processFullName');
+            run.once(this, "processFullName");
         },
 
         processFullName() {
-        }
+        },
     });
 }
 
 function testSchedule() {
     EmberObject.extend({
         init() {
-            run.schedule('sync', this, () => {
+            run.schedule("sync", this, () => {
                 // this will be executed in the first RunLoop queue, when bindings are synced
-                console.log('scheduled on sync queue');
+                console.log("scheduled on sync queue");
             });
 
-            run.schedule('actions', this, () => {
+            run.schedule("actions", this, () => {
                 // this will be executed in the 'actions' queue, after bindings have synced.
-                console.log('scheduled on actions queue');
+                console.log("scheduled on actions queue");
             });
-        }
+        },
     });
 
-    run.schedule('actions', () => {
+    run.schedule("actions", () => {
         // Do more things
     });
 }
 
 function testScheduleOnce() {
     function sayHi() {
-        console.log('hi');
+        console.log("hi");
     }
 
     const myContext = {};
     run(() => {
-        run.scheduleOnce('afterRender', myContext, sayHi);
-        run.scheduleOnce('afterRender', myContext, sayHi);
+        run.scheduleOnce("afterRender", myContext, sayHi);
+        run.scheduleOnce("afterRender", myContext, sayHi);
         // sayHi will only be executed once, in the afterRender queue of the RunLoop
     });
-    run.scheduleOnce('actions', myContext, () => {
-        console.log('Closure');
+    run.scheduleOnce("actions", myContext, () => {
+        console.log("Closure");
     });
 }
 
@@ -227,14 +237,18 @@ function testThrottle() {
     function runIt() {
     }
 
-    const myContext = { name: 'throttle' };
+    const myContext = { name: "throttle" };
 
     run.throttle(runIt, 150);
     run.throttle(myContext, runIt, 150);
 }
 
 function testBackburner() {
-  const debugInfo: DebugInfo = run.backburner.getDebugInfo();
-  const queueItems: QueueItem[] = debugInfo.timers;
-  const deferredActionQueues: DeferredActionQueues[] = debugInfo.instanceStack;
+    const debugInfo: DebugInfo = run.backburner.getDebugInfo();
+    const queueItems: QueueItem[] = debugInfo.timers;
+    const deferredActionQueues: DeferredActionQueues[] = debugInfo.instanceStack;
+
+    function noop() {}
+    run.backburner.on("end", noop);
+    run.backburner.off("end", noop);
 }

@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/com.wikitude.phonegap.wikitudeplugin",
+    "version": "7.2.9999",
+    "projects": [
+        "https://github.com/Wikitude/wikitude-cordova-plugin",
+        "https://github.com/wikitude/wikitude-phonegap"
+    ],
+    "devDependencies": {
+        "@types/com.wikitude.phonegap.wikitudeplugin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "zbarbuto",
+            "githubUsername": "zbarbuto"
+        }
+    ]
+}

@@ -7,7 +7,7 @@ $(document).ready(() => {
             info: true,
             items: "row",
             selector: "td:first-child",
-            style: "os"
-        }
+            style: "os",
+        },
     };
 });

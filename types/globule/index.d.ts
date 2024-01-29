@@ -1,10 +1,5 @@
-// Type definitions for globule 1.1
-// Project: https://github.com/cowboy/node-globule
-// Definitions by: Dusan Radovanovic <https://github.com/durad>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import minimatch = require('minimatch');
-import glob = require('glob');
+import minimatch = require("minimatch");
+import glob = require("glob");
 
 interface FindOptions extends glob.IOptions {
     src?: string | undefined;
@@ -19,7 +14,7 @@ interface MappingOptions extends FindOptions {
     srcBase?: string | undefined;
     destBase?: string | undefined;
     ext?: string | undefined;
-    extDot?: 'first' | 'last' | undefined;
+    extDot?: "first" | "last" | undefined;
     flatten?: boolean | undefined;
     rename?(p: string): string;
 }

@@ -170,7 +170,15 @@ declare namespace jsrsasign.KJUR.jws {
          * // header and payload can be passed by both string and object
          * sJWS = KJUR.jws.JWS.sign(null, '{alg:"HS256",cty:"JWT"}', '{age:21}', "aaa");
          */
-        function sign(alg: string | null, spHead: string | { alg: string }, spPayload: string | object, pass?: string | { [type: string]: string }): string;
+        function sign(
+            alg: string | null,
+            spHead: string | { alg: string },
+            spPayload: string | object,
+            key?: string | RSAKey | crypto.ECDSA | { b64: string } | { hex: string } | { utf8: string } | {
+                rstr: string;
+            } | { b64u: string },
+            pass?: string | { [type: string]: string },
+        ): string;
 
         /**
          * verify JWS signature by specified key or certificate
@@ -202,12 +210,9 @@ declare namespace jsrsasign.KJUR.jws {
          * - In case 'alg' is 'none' in the JWS header,
          * validation not supported after jsjws 3.1.0.
          *
-         *
-         *
          * NOTE1: The argument 'acceptAlgs' is supported since 3.2.0.
          * Strongly recommended to provide acceptAlgs to mitigate
          * signature replacement attacks.
-         *
          *
          * NOTE2: From jsrsasign 4.9.0 jws 3.2.5, Way to provide password
          * for HS* algorithm is changed. The 'key' attribute value is
@@ -234,7 +239,15 @@ declare namespace jsrsasign.KJUR.jws {
          */
         function verify(
             sJWS: string,
-            key: string | RSAKey | crypto.ECDSA | { b64: string } | { hex: string } | { utf8: string } | { rstr: string } | { b64u: string },
+            key:
+                | string
+                | RSAKey
+                | crypto.ECDSA
+                | { b64: string }
+                | { hex: string }
+                | { utf8: string }
+                | { rstr: string }
+                | { b64u: string },
             acceptAlgs?: string[],
         ): boolean;
 
@@ -291,7 +304,6 @@ declare namespace jsrsasign.KJUR.jws {
          * - alg is included in acceptField.alg array. (MANDATORY)
          * - alg is proper for key.
          *
-         *
          * - Payload.iss (issuer) - Payload.iss is included in acceptField.iss array if specified. (OPTION)
          * - Payload.sub (subject) - Payload.sub is included in acceptField.sub array if specified. (OPTION)
          * - Payload.aud (audience) - Payload.aud is included in acceptField.aud array or
@@ -315,10 +327,8 @@ declare namespace jsrsasign.KJUR.jws {
          * - Payload.nbf (not before) - Validation time is greater than Payload.nbf - gracePeriod.
          * - Payload.iat (issued at) - Validation time is greater than Payload.iat - gracePeriod.
          *
-         *
          * - Payload.jti (JWT id) - Payload.jti is included in acceptField.jti if specified. (OPTION)
          * - JWS signature of JWS is valid for specified key.
-         *
          *
          * __acceptField parameters__
          * Here is available acceptField argument parameters:
@@ -335,7 +345,6 @@ declare namespace jsrsasign.KJUR.jws {
          *
          * - gracePeriod - acceptable time difference between signer and verifier
          * in seconds (ex. 3600). If this is not specified, zero will be used.
-         *
          *
          * @example
          * // simple validation for HS256

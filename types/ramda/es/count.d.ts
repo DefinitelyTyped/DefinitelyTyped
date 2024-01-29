@@ -1,2 +1,2 @@
-import { count } from '../index';
+import { count } from "../index.js";
 export default count;

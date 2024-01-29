@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/glob-stream",
+    "version": "8.0.9999",
+    "projects": [
+        "https://github.com/wearefractal/glob-stream"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/picomatch": "*",
+        "@types/streamx": "*"
+    },
+    "devDependencies": {
+        "@types/glob-stream": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bart van der Schoor",
+            "githubUsername": "Bartvds"
+        },
+        {
+            "name": "mrmlnc",
+            "githubUsername": "mrmlnc"
+        },
+        {
+            "name": "Manuel Thalmann",
+            "githubUsername": "manuth"
+        }
+    ]
+}

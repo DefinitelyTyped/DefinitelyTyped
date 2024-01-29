@@ -1,7 +1,7 @@
-import { PureComponent, Validator, Requireable } from 'react';
-import { CellMeasurerCacheInterface, KeyMapper, MeasuredCellParent } from './CellMeasurer';
-import { GridCellRenderer } from './Grid';
-import { IndexRange } from '../../index';
+import { PureComponent, Requireable, Validator } from "react";
+import { IndexRange } from "../../index";
+import { CellMeasurerCacheInterface, KeyMapper, MeasuredCellParent } from "./CellMeasurer";
+import { GridCellRenderer } from "./Grid";
 /**
  * Specifies the number of miliseconds during which to disable pointer events while a scroll is in progress.
  * This improves performance and makes scrolling smoother.
@@ -90,7 +90,7 @@ export class Masonry extends PureComponent<MasonryProps, MasonryState> {
         onCellsRendered: noop;
         onScroll: noop;
         overscanByPixels: 20;
-        role: 'grid';
+        role: "grid";
         scrollingResetTimeInterval: typeof DEFAULT_SCROLLING_RESET_TIME_INTERVAL;
         style: emptyObject;
         tabIndex: 0;

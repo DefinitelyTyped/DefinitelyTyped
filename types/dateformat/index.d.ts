@@ -1,9 +1,3 @@
-// Type definitions for dateformat 5.0
-// Project: https://github.com/felixge/node-dateformat
-// Definitions by: Kombu <https://github.com/aicest>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace dateFormat;
 
 /**

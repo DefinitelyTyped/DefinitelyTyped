@@ -1,12 +1,8 @@
-// Type definitions for @hapi/jwt 2.0
-// Project: https://github.com/hapijs/jwt
-// Definitions by: Sergio Sánchez <https://github.com/ssanchezmarc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.2
+/// <reference types="node" />
 
-import { Plugin, ResponseToolkit, Request, ResponseObject } from '@hapi/hapi';
+import { Plugin, Request, ResponseObject, ResponseToolkit } from "@hapi/hapi";
 
-declare module '@hapi/hapi' {
+declare module "@hapi/hapi" {
     interface ServerAuth {
         /**
          * Function to define the server authentication strategy to be used.
@@ -15,7 +11,7 @@ declare module '@hapi/hapi' {
          * @param scheme jwt for this plugin.
          * @param options jwt plugin options.
          */
-        strategy(name: string, scheme: 'jwt', options?: hapiJwt.Options): void;
+        strategy(name: string, scheme: "jwt", options?: hapiJwt.Options): void;
     }
 }
 
@@ -23,19 +19,19 @@ declare namespace hapiJwt {
     // Common definitions
 
     type SupportedAlgorithm =
-        | 'RS256'
-        | 'RS384'
-        | 'RS512'
-        | 'PS256'
-        | 'PS384'
-        | 'PS512'
-        | 'ES256'
-        | 'ES384'
-        | 'ES512'
-        | 'HS256'
-        | 'HS384'
-        | 'HS512';
-    type NoAlgorithm = 'none';
+        | "RS256"
+        | "RS384"
+        | "RS512"
+        | "PS256"
+        | "PS384"
+        | "PS512"
+        | "ES256"
+        | "ES384"
+        | "ES512"
+        | "HS256"
+        | "HS384"
+        | "HS512";
+    type NoAlgorithm = "none";
 
     interface StandardKey {
         /**
@@ -85,7 +81,7 @@ declare namespace hapiJwt {
             /**
              *  The token type.
              */
-            typ?: 'JWT' | undefined;
+            typ?: "JWT" | undefined;
         };
         /**
          *  An object containing the payload.

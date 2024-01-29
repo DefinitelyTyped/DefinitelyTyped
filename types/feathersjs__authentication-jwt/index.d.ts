@@ -1,14 +1,11 @@
-// Type definitions for @feathersjs/authentication-jwt 1.0
-// Project: https://feathersjs.com
-// Definitions by: Jan Lohage <https://github.com/j2L4e>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+import { Application } from "@feathersjs/feathers";
+import { Request } from "express";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import * as self from "@feathersjs/authentication-jwt";
 
-import { Application } from '@feathersjs/feathers';
-import { Request } from 'express';
-import * as self from '@feathersjs/authentication-jwt';
-
-declare const feathersAuthenticationJwt: ((options?: Partial<FeathersAuthenticationJWTOptions>) => () => void) & typeof self;
+declare const feathersAuthenticationJwt:
+    & ((options?: Partial<FeathersAuthenticationJWTOptions>) => () => void)
+    & typeof self;
 export default feathersAuthenticationJwt;
 
 export interface FeathersAuthenticationJWTOptions {

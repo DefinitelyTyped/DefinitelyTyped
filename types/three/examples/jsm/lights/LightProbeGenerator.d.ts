@@ -1,4 +1,4 @@
-import { CubeTexture, LightProbe, WebGLRenderer, WebGLCubeRenderTarget } from '../../../src/Three';
+import { CubeTexture, LightProbe, WebGLRenderer, WebGLCubeRenderTarget } from '../../../src/Three.js';
 
 export namespace LightProbeGenerator {
     function fromCubeTexture(cubeTexture: CubeTexture): LightProbe;

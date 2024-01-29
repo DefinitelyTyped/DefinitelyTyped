@@ -1,19 +1,14 @@
-// Type definitions for @xmpp/client 0.13
-// Project: https://github.com/xmppjs/xmpp.js/tree/main/packages/client
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { Client as ClientCore, jid as xmppJid, xml as xmppXml } from '@xmpp/client-core';
-import { Options as ConnectionOptions } from '@xmpp/connection';
-import { IQCallee } from '@xmpp/iq/callee';
-import { IQCaller } from '@xmpp/iq/caller';
-import { IncomingContext, Middleware } from '@xmpp/middleware';
-import { StreamFeatures } from '@xmpp/stream-features';
-import { Reconnect } from '@xmpp/reconnect';
-import { Resource } from '@xmpp/resource-binding';
-import { Credentials, SASL } from '@xmpp/sasl';
-import { StreamManagement } from '@xmpp/stream-management';
-import * as koaCompose from 'koa-compose';
+import { Client as ClientCore, jid as xmppJid, xml as xmppXml } from "@xmpp/client-core";
+import { Options as ConnectionOptions } from "@xmpp/connection";
+import { IQCallee } from "@xmpp/iq/callee";
+import { IQCaller } from "@xmpp/iq/caller";
+import { IncomingContext, Middleware } from "@xmpp/middleware";
+import { Reconnect } from "@xmpp/reconnect";
+import { Resource } from "@xmpp/resource-binding";
+import { Credentials, SASL } from "@xmpp/sasl";
+import { StreamFeatures } from "@xmpp/stream-features";
+import { StreamManagement } from "@xmpp/stream-management";
+import * as koaCompose from "koa-compose";
 
 /**
  * An XMPP client is an entity that connects to an XMPP server.

@@ -1,9 +1,3 @@
-// Type definitions for node-crate 2.0
-// Project: https://github.com/megastef/node-crate, http://megastef.github.io/node-crate
-// Definitions by: Greg Jednaszewski <https://github.com/gjednaszewski>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 declare namespace crate {
     interface DBResultObject {
         json: object[];
@@ -21,7 +15,7 @@ declare namespace crate {
         /**
          * Executes a parameterized sql statement.
          */
-        execute: (sql: string, args?: Array<string|number|Date>) => Promise<DBResultObject>;
+        execute: (sql: string, args?: Array<string | number | Date>) => Promise<DBResultObject>;
         /**
          * Inserts a row in table.
          */

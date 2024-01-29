@@ -9,16 +9,13 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "qrcode-tests.ts"
+        "test/qrcode-tests.ts",
+        "test/qrcode-browser-tests.ts"
     ]
 }

@@ -1,28 +1,13 @@
-// Type definitions for braintree 3.3
-// Project: https://github.com/braintree/braintree_node
-// Definitions by: Sam Rubin <https://github.com/smrubin>
-//                 Aaron Rose <https://github.com/acdr>
-//                 Sanders DeNardi <https://github.com/sedenardi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 /// <reference types="node" />
 
 export = braintree;
 export as namespace braintree;
-import * as stream from 'stream';
+import * as stream from "stream";
 
 declare namespace braintree {
     /**
      * Braintree Config and Client
      */
-
-    export enum Environment {
-        Development = 'Development',
-        Production = 'Production',
-        Qa = 'Qa',
-        Sandbox = 'Sandbox',
-    }
 
     export type TextFieldSearchFn = () => {
         is: (input: string) => void;
@@ -105,7 +90,7 @@ declare namespace braintree {
 
         createdUsing: MultiValueSearchFn<typeof Transaction.CreatedUsing[keyof typeof Transaction.CreatedUsing]>;
         creditcardCardType: MultiValueSearchFn<
-            typeof CreditCard.CardType[keyof Omit<typeof CreditCard.CardType, 'All'>]
+            typeof CreditCard.CardType[keyof Omit<typeof CreditCard.CardType, "All">]
         >;
         creditCardCustomerLocation: MultiValueSearchFn<CustomerLocation>;
 
@@ -115,7 +100,7 @@ declare namespace braintree {
         merchantAccountId: MultiValueSearchFn<string>;
         status: MultiValueSearchFn<TransactionStatus>;
         source: MultiValueSearchFn<TransactionSource | string>;
-        type: MultiValueSearchFn<typeof Transaction.Type[keyof Omit<typeof Transaction.Type, 'All'>]>;
+        type: MultiValueSearchFn<typeof Transaction.Type[keyof Omit<typeof Transaction.Type, "All">]>;
         storeIds: MultiValueSearchFn<string>;
 
         refund: KeyValueSearchFn<boolean>;
@@ -136,6 +121,26 @@ declare namespace braintree {
     }) => void;
 
     export type GatewayConfig = KeyGatewayConfig | ClientGatewayConfig | AccessTokenGatewayConfig;
+
+    export class Environment {
+        constructor(
+            server: string,
+            port: string,
+            authUrl: string,
+            ssl: boolean,
+            graphQLServer: string,
+            graphQLPort: string,
+        );
+
+        baseUrl: string;
+        baseGraphQLUrl: string;
+        uriScheme: string;
+
+        static readonly Development: Environment;
+        static readonly Production: Environment;
+        static readonly Qa: Environment;
+        static readonly Sandbox: Environment;
+    }
 
     export interface KeyGatewayConfig {
         environment: Environment;
@@ -177,8 +182,6 @@ declare namespace braintree {
         webhookNotification: WebhookNotificationGateway;
         webhookTesting: WebhookTestingGateway;
     }
-
-    export function connect(config: GatewayConfig): BraintreeGateway;
 
     interface ValidatedResponse<T> {
         success: boolean;
@@ -316,7 +319,7 @@ declare namespace braintree {
 
     interface SubscriptionGateway {
         cancel(subscriptionId: string): Promise<void>;
-        create(request: SubscriptionRequest): Promise<ValidatedResponse<Subscription>>;
+        create(request: SubscriptionCreateRequest): Promise<ValidatedResponse<Subscription>>;
         find(subscriptionId: string): Promise<Subscription>;
         retryCharge(
             subscriptionId: string,
@@ -324,7 +327,7 @@ declare namespace braintree {
             submitForSettlement?: boolean,
         ): Promise<ValidatedResponse<Subscription>>;
         search(searchFn: any): stream.Readable;
-        update(subscriptionId: string, updates: SubscriptionRequest): Promise<ValidatedResponse<Subscription>>;
+        update(subscriptionId: string, updates: SubscriptionUpdateRequest): Promise<ValidatedResponse<Subscription>>;
     }
 
     interface TestingGateway {
@@ -467,10 +470,10 @@ declare namespace braintree {
         merchantAccountId?: string | undefined;
         options?:
             | {
-                  failOnDuplicatePaymentMethod?: boolean | undefined;
-                  makeDefault?: boolean | undefined;
-                  verifyCard?: boolean | undefined;
-              }
+                failOnDuplicatePaymentMethod?: boolean | undefined;
+                makeDefault?: boolean | undefined;
+                verifyCard?: boolean | undefined;
+            }
             | undefined;
         version?: string | undefined;
     }
@@ -481,33 +484,33 @@ declare namespace braintree {
 
     export class CreditCard {
         static CardType: {
-            AmEx: 'American Express';
-            CarteBlanche: 'Carte Blanche';
-            ChinaUnionPay: 'China UnionPay';
-            DinersClubInternational: 'Diners Club';
-            Discover: 'Discover';
-            Elo: 'Elo';
-            JCB: 'JCB';
-            Laser: 'Laser';
-            UKMaestro: 'UK Maestro';
-            Maestro: 'Maestro';
-            MasterCard: 'MasterCard';
-            Solo: 'Solo';
-            Switch: 'Switch';
-            Visa: 'Visa';
-            Unknown: 'Unknown';
-            All: () => Array<typeof CreditCard.CardType[keyof Omit<typeof CreditCard.CardType, 'All'>]>;
+            AmEx: "American Express";
+            CarteBlanche: "Carte Blanche";
+            ChinaUnionPay: "China UnionPay";
+            DinersClubInternational: "Diners Club";
+            Discover: "Discover";
+            Elo: "Elo";
+            JCB: "JCB";
+            Laser: "Laser";
+            UKMaestro: "UK Maestro";
+            Maestro: "Maestro";
+            MasterCard: "MasterCard";
+            Solo: "Solo";
+            Switch: "Switch";
+            Visa: "Visa";
+            Unknown: "Unknown";
+            All: () => Array<typeof CreditCard.CardType[keyof Omit<typeof CreditCard.CardType, "All">]>;
         };
 
         static CustomerLocation: {
-            International: 'international';
-            US: 'us';
+            International: "international";
+            US: "us";
         };
 
         static CardTypeIndicator: {
-            Yes: 'Yes';
-            No: 'No';
-            Unknown: 'Unknown';
+            Yes: "Yes";
+            No: "No";
+            Unknown: "Unknown";
         };
 
         billingAddress?: Address | undefined;
@@ -544,19 +547,19 @@ declare namespace braintree {
     export interface CreditCardCreateRequest {
         billingAddress?:
             | {
-                  company?: string | undefined;
-                  countryCodeAlpha2?: string | undefined;
-                  countryCodeAlpha3?: string | undefined;
-                  countryCodeNumeric?: string | undefined;
-                  countryName?: string | undefined;
-                  extendedAddress?: string | undefined;
-                  firstName?: string | undefined;
-                  lastName?: string | undefined;
-                  locality?: string | undefined;
-                  postalCode?: string | undefined;
-                  region?: string | undefined;
-                  streetAddress?: string | undefined;
-              }
+                company?: string | undefined;
+                countryCodeAlpha2?: string | undefined;
+                countryCodeAlpha3?: string | undefined;
+                countryCodeNumeric?: string | undefined;
+                countryName?: string | undefined;
+                extendedAddress?: string | undefined;
+                firstName?: string | undefined;
+                lastName?: string | undefined;
+                locality?: string | undefined;
+                postalCode?: string | undefined;
+                region?: string | undefined;
+                streetAddress?: string | undefined;
+            }
             | undefined;
         billingAddressId?: string | undefined;
         cardholderName?: string | undefined;
@@ -568,12 +571,12 @@ declare namespace braintree {
         number?: string | undefined;
         options?:
             | {
-                  failOnDuplicatePaymentMethod?: boolean | undefined;
-                  makeDefault?: boolean | undefined;
-                  verificationAmount?: string | undefined;
-                  verificationMerchantAccountId?: string | undefined;
-                  verifyCard?: boolean | undefined;
-              }
+                failOnDuplicatePaymentMethod?: boolean | undefined;
+                makeDefault?: boolean | undefined;
+                verificationAmount?: string | undefined;
+                verificationMerchantAccountId?: string | undefined;
+                verifyCard?: boolean | undefined;
+            }
             | undefined;
         paymentMethodNonce?: string | undefined;
         token?: string | undefined;
@@ -582,24 +585,24 @@ declare namespace braintree {
     export interface CreditCardUpdateRequest {
         billingAddress?:
             | {
-                  company?: string | undefined;
-                  countryCodeAlpha2?: string | undefined;
-                  countryCodeAlpha3?: string | undefined;
-                  countryCodeNumeric?: string | undefined;
-                  countryName?: string | undefined;
-                  extendedAddress?: string | undefined;
-                  firstName?: string | undefined;
-                  lastName?: string | undefined;
-                  locality?: string | undefined;
-                  postalCode?: string | undefined;
-                  region?: string | undefined;
-                  streetAddress?: string | undefined;
-                  options?:
-                      | {
-                            updateExisting?: boolean | undefined;
-                        }
-                      | undefined;
-              }
+                company?: string | undefined;
+                countryCodeAlpha2?: string | undefined;
+                countryCodeAlpha3?: string | undefined;
+                countryCodeNumeric?: string | undefined;
+                countryName?: string | undefined;
+                extendedAddress?: string | undefined;
+                firstName?: string | undefined;
+                lastName?: string | undefined;
+                locality?: string | undefined;
+                postalCode?: string | undefined;
+                region?: string | undefined;
+                streetAddress?: string | undefined;
+                options?:
+                    | {
+                        updateExisting?: boolean | undefined;
+                    }
+                    | undefined;
+            }
             | undefined;
         cardholderName?: string | undefined;
         cvv?: string | undefined;
@@ -620,40 +623,40 @@ declare namespace braintree {
         avsStreetAddressResponseCode?: string | undefined;
         billing?:
             | {
-                  company?: string | undefined;
-                  countryName?: string | undefined;
-                  extendedAddress?: string | undefined;
-                  firstName?: string | undefined;
-                  lastName?: string | undefined;
-                  locality?: string | undefined;
-                  postalCode?: string | undefined;
-                  region?: string | undefined;
-                  streetAddress?: string | undefined;
-              }
+                company?: string | undefined;
+                countryName?: string | undefined;
+                extendedAddress?: string | undefined;
+                firstName?: string | undefined;
+                lastName?: string | undefined;
+                locality?: string | undefined;
+                postalCode?: string | undefined;
+                region?: string | undefined;
+                streetAddress?: string | undefined;
+            }
             | undefined;
         createdAt: string;
         creditCard?:
             | {
-                  bin: string;
-                  cardholderName?: string | undefined;
-                  cardType: string;
-                  commercial: Commercial;
-                  countryOfIssuance: string;
-                  customerLocation: CustomerLocation;
-                  debit: string;
-                  durbinRegulated: DurbinRegulated;
-                  expirationDate?: string | undefined;
-                  expirationMonth?: string | undefined;
-                  expirationYear?: string | undefined;
-                  healthcare: HealthCare;
-                  issuingBank: string;
-                  last4: string;
-                  payroll: Payroll;
-                  prepaid: Prepaid;
-                  productId: string;
-                  token: string;
-                  uniqueNumberIdentifier: string;
-              }
+                bin: string;
+                cardholderName?: string | undefined;
+                cardType: string;
+                commercial: Commercial;
+                countryOfIssuance: string;
+                customerLocation: CustomerLocation;
+                debit: string;
+                durbinRegulated: DurbinRegulated;
+                expirationDate?: string | undefined;
+                expirationMonth?: string | undefined;
+                expirationYear?: string | undefined;
+                healthcare: HealthCare;
+                issuingBank: string;
+                last4: string;
+                payroll: Payroll;
+                prepaid: Prepaid;
+                productId: string;
+                token: string;
+                uniqueNumberIdentifier: string;
+            }
             | undefined;
         currencyIsoCode: string;
         cvvResponseCode: string;
@@ -799,7 +802,7 @@ declare namespace braintree {
         updatedAt: string;
     }
 
-    export type DisputeStatus = 'Accepted' | 'Disputed' | 'Expired' | 'Open' | 'Lost' | 'Won';
+    export type DisputeStatus = "Accepted" | "Disputed" | "Expired" | "Open" | "Lost" | "Won";
 
     export interface DisputeStatusHistory {
         disbursementDate: Date;
@@ -822,8 +825,8 @@ declare namespace braintree {
 
     export class Disbursement {
         static Types: {
-            Credit: 'credit';
-            Debit: 'debit';
+            Credit: "credit";
+            Debit: "debit";
         };
 
         id: string;
@@ -838,17 +841,17 @@ declare namespace braintree {
         followUpAction?: DisbursementFollowUpAction | undefined;
     }
 
-    export type DisbursementType = 'credit' | 'debit';
+    export type DisbursementType = "credit" | "debit";
 
     export interface DisbursementMerchantAccount {
         id: string;
         subMerchantAccount: boolean;
-        status: 'active';
+        status: "active";
     }
 
-    export type DisbursementExceptionMessage = 'bank_rejected' | 'insufficient_funds' | 'account_not_authorized';
+    export type DisbursementExceptionMessage = "bank_rejected" | "insufficient_funds" | "account_not_authorized";
 
-    export type DisbursementFollowUpAction = 'contact_us' | 'update_funding_information' | 'none';
+    export type DisbursementFollowUpAction = "contact_us" | "update_funding_information" | "none";
 
     /**
      * Merchant Account
@@ -856,15 +859,15 @@ declare namespace braintree {
 
     export class MerchantAccount {
         static Status: {
-            Pending: 'pending';
-            Active: 'active';
-            Suspended: 'suspended';
+            Pending: "pending";
+            Active: "active";
+            Suspended: "suspended";
         };
 
         static FundingDestination: {
-            Bank: 'bank';
-            Email: 'email';
-            MobilePhone: 'mobile_phone';
+            Bank: "bank";
+            Email: "email";
+            MobilePhone: "mobile_phone";
         };
 
         business?: MerchantBusinessResponse | undefined;
@@ -947,7 +950,7 @@ declare namespace braintree {
         ssnLast4?: string | undefined;
     }
 
-    export type MerchantAccountStatus = 'Pending' | 'Active' | 'Suspended';
+    export type MerchantAccountStatus = "Pending" | "Active" | "Suspended";
 
     /**
      * OAuth
@@ -991,19 +994,19 @@ declare namespace braintree {
     export interface PaymentMethodCreateRequest {
         billingAddress?:
             | {
-                  company?: string | undefined;
-                  countryCodeAlpha2?: string | undefined;
-                  countryCodeAlpha3?: string | undefined;
-                  countryCodeNumeric?: string | undefined;
-                  countryName?: string | undefined;
-                  extendedAddress?: string | undefined;
-                  firstName?: string | undefined;
-                  lastName?: string | undefined;
-                  locality?: string | undefined;
-                  postalCode?: string | undefined;
-                  region?: string | undefined;
-                  streetAddress?: string | undefined;
-              }
+                company?: string | undefined;
+                countryCodeAlpha2?: string | undefined;
+                countryCodeAlpha3?: string | undefined;
+                countryCodeNumeric?: string | undefined;
+                countryName?: string | undefined;
+                extendedAddress?: string | undefined;
+                firstName?: string | undefined;
+                lastName?: string | undefined;
+                locality?: string | undefined;
+                postalCode?: string | undefined;
+                region?: string | undefined;
+                streetAddress?: string | undefined;
+            }
             | undefined;
         billingAddressId?: string | undefined;
         cardholderName?: string | undefined;
@@ -1016,12 +1019,12 @@ declare namespace braintree {
         number?: string | undefined;
         options?:
             | {
-                  failOnDuplicatePaymentMethod?: boolean | undefined;
-                  makeDefault?: boolean | undefined;
-                  verificationAmount?: string | undefined;
-                  verificationMerchantAccountId?: string | undefined;
-                  verifyCard?: boolean | undefined;
-              }
+                failOnDuplicatePaymentMethod?: boolean | undefined;
+                makeDefault?: boolean | undefined;
+                verificationAmount?: string | undefined;
+                verificationMerchantAccountId?: string | undefined;
+                verifyCard?: boolean | undefined;
+            }
             | undefined;
         paymentMethodNonce: string;
     }
@@ -1029,24 +1032,24 @@ declare namespace braintree {
     export interface PaymentMethodUpdateRequest {
         billingAddress?:
             | {
-                  company?: string | undefined;
-                  countryCodeAlpha2?: string | undefined;
-                  countryCodeAlpha3?: string | undefined;
-                  countryCodeNumeric?: string | undefined;
-                  countryName?: string | undefined;
-                  extendedAddress?: string | undefined;
-                  firstName?: string | undefined;
-                  lastName?: string | undefined;
-                  locality?: string | undefined;
-                  postalCode?: string | undefined;
-                  region?: string | undefined;
-                  streetAddress?: string | undefined;
-                  options?:
-                      | {
-                            updateExisting?: boolean | undefined;
-                        }
-                      | undefined;
-              }
+                company?: string | undefined;
+                countryCodeAlpha2?: string | undefined;
+                countryCodeAlpha3?: string | undefined;
+                countryCodeNumeric?: string | undefined;
+                countryName?: string | undefined;
+                extendedAddress?: string | undefined;
+                firstName?: string | undefined;
+                lastName?: string | undefined;
+                locality?: string | undefined;
+                postalCode?: string | undefined;
+                region?: string | undefined;
+                streetAddress?: string | undefined;
+                options?:
+                    | {
+                        updateExisting?: boolean | undefined;
+                    }
+                    | undefined;
+            }
             | undefined;
         billingAddressId?: string | undefined;
         cardholderName?: string | undefined;
@@ -1058,11 +1061,11 @@ declare namespace braintree {
         number?: string | undefined;
         options?:
             | {
-                  makeDefault?: boolean | undefined;
-                  verificationAcmount?: string | undefined;
-                  verificationMerchantAccountId?: string | undefined;
-                  verifyCard?: boolean | undefined;
-              }
+                makeDefault?: boolean | undefined;
+                verificationAcmount?: string | undefined;
+                verificationMerchantAccountId?: string | undefined;
+                verifyCard?: boolean | undefined;
+            }
             | undefined;
         paymentMethodNonce?: string | undefined;
     }
@@ -1099,15 +1102,15 @@ declare namespace braintree {
     }
 
     export type PaymentMethodType =
-        | 'AndroidPayCard'
-        | 'ApplePayCard'
-        | 'CreditCard'
-        | 'MasterpassCard'
-        | 'PayPalAccount'
-        | 'UsBankAccount'
-        | 'VenmoAccount'
-        | 'VisaCheckoutCard'
-        | 'SamsungPayCard';
+        | "AndroidPayCard"
+        | "ApplePayCard"
+        | "CreditCard"
+        | "MasterpassCard"
+        | "PayPalAccount"
+        | "UsBankAccount"
+        | "VenmoAccount"
+        | "VisaCheckoutCard"
+        | "SamsungPayCard";
 
     /**
      * Account Updater
@@ -1185,31 +1188,31 @@ declare namespace braintree {
         | PaymentMethodNotification
         | DisbursementNotification;
 
-    export type AccountUpdaterNotificationKind = 'account_updater_daily_report';
+    export type AccountUpdaterNotificationKind = "account_updater_daily_report";
 
-    export type DisputeNotificationKind = 'dispute_opened' | 'dispute_lost' | 'dispute_won';
+    export type DisputeNotificationKind = "dispute_opened" | "dispute_lost" | "dispute_won";
 
     export type SubscriptionNotificationKind =
-        | 'subscription_canceled'
-        | 'subscription_charged_successfully'
-        | 'subscription_charged_unsuccessfully'
-        | 'subscription_expired'
-        | 'subscription_trial_ended'
-        | 'subscription_went_active'
-        | 'subscription_went_past_due';
+        | "subscription_canceled"
+        | "subscription_charged_successfully"
+        | "subscription_charged_unsuccessfully"
+        | "subscription_expired"
+        | "subscription_trial_ended"
+        | "subscription_went_active"
+        | "subscription_went_past_due";
 
-    export type SubMerchantAccountApprovedNotificationKind = 'sub_merchant_account_approved';
+    export type SubMerchantAccountApprovedNotificationKind = "sub_merchant_account_approved";
 
-    export type SubMerchantAccountDeclinedNotificationKind = 'sub_merchant_account_declined';
+    export type SubMerchantAccountDeclinedNotificationKind = "sub_merchant_account_declined";
 
     export type TransactionNotificationKind =
-        | 'transaction_disbursed'
-        | 'transaction_settled'
-        | 'transaction_settlement_declined';
+        | "transaction_disbursed"
+        | "transaction_settled"
+        | "transaction_settlement_declined";
 
-    export type PaymentMethodNotificationKind = 'payment_method_revoked_by_customer';
+    export type PaymentMethodNotificationKind = "payment_method_revoked_by_customer";
 
-    export type DisbursementNotificationKind = 'disbursement' | 'disbursement_exception';
+    export type DisbursementNotificationKind = "disbursement" | "disbursement_exception";
 
     export type WebhookNotificationKind =
         | AccountUpdaterNotificationKind
@@ -1220,17 +1223,17 @@ declare namespace braintree {
         | TransactionNotificationKind
         | PaymentMethodNotificationKind
         | DisbursementNotificationKind
-        | 'check'
-        | 'connected_merchant_paypal_status_changed'
-        | 'connected_merchant_status_transitioned'
-        | 'grantor_updated_granted_payment_method'
-        | 'granted_payment_method_revoked'
-        | 'local_payment_completed'
-        | 'partner_merchant_connected'
-        | 'partner_merchant_disconnected'
-        | 'partner_merchant_declined'
-        | 'oauth_access_revoked'
-        | 'recipient_updated_granted_payment_method';
+        | "check"
+        | "connected_merchant_paypal_status_changed"
+        | "connected_merchant_status_transitioned"
+        | "grantor_updated_granted_payment_method"
+        | "granted_payment_method_revoked"
+        | "local_payment_completed"
+        | "partner_merchant_connected"
+        | "partner_merchant_disconnected"
+        | "partner_merchant_declined"
+        | "oauth_access_revoked"
+        | "recipient_updated_granted_payment_method";
 
     /**
      * Plan
@@ -1268,11 +1271,11 @@ declare namespace braintree {
 
     export class Subscription {
         static Status: {
-            Active: 'Active';
-            Canceled: 'Canceled';
-            Expired: 'Expired';
-            PastDue: 'Past Due';
-            Pending: 'Pending';
+            Active: "Active";
+            Canceled: "Canceled";
+            Expired: "Expired";
+            PastDue: "Past Due";
+            Pending: "Pending";
             All: () => string[];
         };
 
@@ -1295,7 +1298,7 @@ declare namespace braintree {
         nextBillingDate: string;
         nextBillingPeriodAmount: string;
         numberOfBillingCycles?: number | undefined;
-        paidThroughDate: Date;
+        paidThroughDate?: Date | undefined;
         paymentMethodToken: string;
         planId: string;
         price?: string | undefined;
@@ -1311,43 +1314,61 @@ declare namespace braintree {
     export interface SubscriptionRequest {
         addOns?:
             | {
-                  add?: AddOnAddRequest[] | undefined;
-                  remove?: string[] | undefined;
-                  update?: AddOnUpdateRequest[] | undefined;
-              }
+                add?: AddOnAddRequest[] | undefined;
+                remove?: string[] | undefined;
+                update?: AddOnUpdateRequest[] | undefined;
+            }
             | undefined;
-        billingDayOfMonth?: number | undefined;
         descriptor?: Descriptor | undefined;
         discounts?:
             | {
-                  add?: DiscountAddRequest[] | undefined;
-                  remove?: string[] | undefined;
-                  update?: DiscountUpdateRequest[] | undefined;
-              }
+                add?: DiscountAddRequest[] | undefined;
+                remove?: string[] | undefined;
+                update?: DiscountUpdateRequest[] | undefined;
+            }
             | undefined;
         firstBillingDate?: Date | undefined;
         id?: string | undefined;
         merchantAccountId?: string | undefined;
         neverExpires?: boolean | undefined;
         numberOfBillingCycles?: number | undefined;
-        options?:
-            | {
-                  doNotInheritAddOnsOrDiscounts?: boolean | undefined;
-                  paypal?:
-                      | {
-                            description?: string | undefined;
-                        }
-                      | undefined;
-                  startImmediately?: boolean | undefined;
-              }
-            | undefined;
         paymentMethodNonce?: string | undefined;
         paymentMethodToken?: string | undefined;
         planId: string;
         price?: string | undefined;
+    }
+
+    export interface SubscriptionCreateRequest extends SubscriptionRequest {
+        billingDayOfMonth?: number | undefined;
+        options?:
+            | {
+                doNotInheritAddOnsOrDiscounts?: boolean | undefined;
+                paypal?:
+                    | {
+                        description?: string | undefined;
+                    }
+                    | undefined;
+                startImmediately?: boolean | undefined;
+            }
+            | undefined;
         trialDuration?: number | undefined;
         trialDurationUnit?: string | undefined;
         trialPeriod?: boolean | undefined;
+    }
+
+    export interface SubscriptionUpdateRequest extends Partial<SubscriptionRequest> {
+        options?:
+            | {
+                paypal?:
+                    | {
+                        description?: string | undefined;
+                    }
+                    | undefined;
+                prorateCharges?: boolean | undefined;
+                replaceAllAddOnsAndDiscounts?: boolean | undefined;
+                revertSubscriptionOnProrationFailure?: boolean | undefined;
+            }
+            | undefined;
     }
 
     export interface SubscriptionHistory {
@@ -1357,9 +1378,9 @@ declare namespace braintree {
         subscriptionSource: SubscriptionSource;
     }
 
-    export type SubscriptionStatus = 'Active' | 'Canceled' | 'Expired' | 'Past Due' | 'Pending';
+    export type SubscriptionStatus = "Active" | "Canceled" | "Expired" | "Past Due" | "Pending";
 
-    export type SubscriptionSource = 'api' | 'control_panel' | 'recurring';
+    export type SubscriptionSource = "api" | "control_panel" | "recurring";
 
     /**
      * Transaction
@@ -1367,107 +1388,107 @@ declare namespace braintree {
 
     export class Transaction {
         static EscrowStatus: {
-            HoldPending: 'hold_pending';
-            Held: 'held';
-            ReleasePending: 'release_pending';
-            Released: 'released';
-            Refunded: 'refunded';
+            HoldPending: "hold_pending";
+            Held: "held";
+            ReleasePending: "release_pending";
+            Released: "released";
+            Refunded: "refunded";
         };
 
         static Type: {
-            Credit: 'credit';
-            Sale: 'sale';
-            All: () => Array<typeof Transaction.Type[keyof Omit<typeof Transaction.Type, 'All'>]>;
+            Credit: "credit";
+            Sale: "sale";
+            All: () => Array<typeof Transaction.Type[keyof Omit<typeof Transaction.Type, "All">]>;
         };
 
         static Source: {
-            Api: 'Api';
-            ControlPanel: 'ControlPanel';
-            Recurring: 'Recurring';
+            Api: "Api";
+            ControlPanel: "ControlPanel";
+            Recurring: "Recurring";
         };
 
         static CreatedUsing: {
-            Token: 'token';
-            FullInformation: 'full_information';
+            Token: "token";
+            FullInformation: "full_information";
         };
 
         static GatewayRejectionReason: {
-            ApplicationIncomplete: 'application_incomplete';
-            Avs: 'avs';
-            Cvv: 'cvv';
-            AvsAndCvv: 'avs_and_cvv';
-            Duplicate: 'duplicate';
-            Fraud: 'fraud';
-            RiskThreshold: 'risk_threshold';
-            ThreeDSecure: 'three_d_secure';
-            TokenIssuance: 'token_issuance';
+            ApplicationIncomplete: "application_incomplete";
+            Avs: "avs";
+            Cvv: "cvv";
+            AvsAndCvv: "avs_and_cvv";
+            Duplicate: "duplicate";
+            Fraud: "fraud";
+            RiskThreshold: "risk_threshold";
+            ThreeDSecure: "three_d_secure";
+            TokenIssuance: "token_issuance";
         };
 
         static Status: {
-            AuthorizationExpired: 'authorization_expired';
-            Authorizing: 'authorizing';
-            Authorized: 'authorized';
-            GatewayRejected: 'gateway_rejected';
-            Failed: 'failed';
-            ProcessorDeclined: 'processor_declined';
-            Settled: 'settled';
-            Settling: 'settling';
-            SettlementConfirmed: 'settlement_confirmed';
-            SettlementDeclined: 'settlement_declined';
-            SettlementPending: 'settlement_pending';
-            SubmittedForSettlement: 'submitted_for_settlement';
-            Voided: 'voided';
-            All: () => Array<typeof Transaction.Status[keyof Omit<typeof Transaction.Status, 'All'>]>;
+            AuthorizationExpired: "authorization_expired";
+            Authorizing: "authorizing";
+            Authorized: "authorized";
+            GatewayRejected: "gateway_rejected";
+            Failed: "failed";
+            ProcessorDeclined: "processor_declined";
+            Settled: "settled";
+            Settling: "settling";
+            SettlementConfirmed: "settlement_confirmed";
+            SettlementDeclined: "settlement_declined";
+            SettlementPending: "settlement_pending";
+            SubmittedForSettlement: "submitted_for_settlement";
+            Voided: "voided";
+            All: () => Array<typeof Transaction.Status[keyof Omit<typeof Transaction.Status, "All">]>;
         };
 
         addOns?: AddOn[] | undefined;
-        additionalProccessorResponse: string;
+        additionalProcessorResponse: string;
         amount: string;
         androidPayCard?:
             | {
-                  bin: string;
-                  commercial: Commercial;
-                  countryOfIssuance: string;
-                  debit: Debit;
-                  durbinRegulated: DurbinRegulated;
-                  expirationMonth: string;
-                  expirationYear: string;
-                  googleTransactionId: string;
-                  healthcare: HealthCare;
-                  imageUrl: string;
-                  payroll: Payroll;
-                  prepaid: Prepaid;
-                  productId: string;
-                  sourceCardLast4: string;
-                  sourceCardType: string;
-                  sourceDescription: string;
-                  token: string;
-                  virtualCardLast4: string;
-                  virtualCardType: string;
-              }
+                bin: string;
+                commercial: Commercial;
+                countryOfIssuance: string;
+                debit: Debit;
+                durbinRegulated: DurbinRegulated;
+                expirationMonth: string;
+                expirationYear: string;
+                googleTransactionId: string;
+                healthcare: HealthCare;
+                imageUrl: string;
+                payroll: Payroll;
+                prepaid: Prepaid;
+                productId: string;
+                sourceCardLast4: string;
+                sourceCardType: string;
+                sourceDescription: string;
+                token: string;
+                virtualCardLast4: string;
+                virtualCardType: string;
+            }
             | undefined;
         applePayCard?:
             | {
-                  bin: string;
-                  cardType: string;
-                  cardholderName: string;
-                  commercial: Commercial;
-                  countryOfIssuance: string;
-                  debit: Debit;
-                  durbinRegulated: DurbinRegulated;
-                  expirationMonth: string;
-                  expirationYear: string;
-                  healthcare: HealthCare;
-                  imageUrl: string;
-                  issuingBank: string;
-                  last4: string;
-                  paymentInsuranceName: string;
-                  payroll: Payroll;
-                  prepaid: Prepaid;
-                  productId: string;
-                  sourceDescription: string;
-                  token: string;
-              }
+                bin: string;
+                cardType: string;
+                cardholderName: string;
+                commercial: Commercial;
+                countryOfIssuance: string;
+                debit: Debit;
+                durbinRegulated: DurbinRegulated;
+                expirationMonth: string;
+                expirationYear: string;
+                healthcare: HealthCare;
+                imageUrl: string;
+                issuingBank: string;
+                last4: string;
+                paymentInsuranceName: string;
+                payroll: Payroll;
+                prepaid: Prepaid;
+                productId: string;
+                sourceDescription: string;
+                token: string;
+            }
             | undefined;
         authorizationAdjustments?: AuthorizationAdjustment[] | undefined;
         authorizationExpiresAt?: Date | undefined;
@@ -1476,47 +1497,47 @@ declare namespace braintree {
         avsStreetAddressResponseCode: string;
         billing?:
             | {
-                  company?: string | undefined;
-                  countryCodeAlpha2?: string | undefined;
-                  countryCodeAlpha3?: string | undefined;
-                  countryCodeNumeric?: string | undefined;
-                  countryName?: string | undefined;
-                  extendedAddress?: string | undefined;
-                  firstName?: string | undefined;
-                  id?: string | undefined;
-                  lastName?: string | undefined;
-                  locality?: string | undefined;
-                  postalCode?: string | undefined;
-                  region?: string | undefined;
-                  streetAddress?: string | undefined;
-              }
+                company?: string | undefined;
+                countryCodeAlpha2?: string | undefined;
+                countryCodeAlpha3?: string | undefined;
+                countryCodeNumeric?: string | undefined;
+                countryName?: string | undefined;
+                extendedAddress?: string | undefined;
+                firstName?: string | undefined;
+                id?: string | undefined;
+                lastName?: string | undefined;
+                locality?: string | undefined;
+                postalCode?: string | undefined;
+                region?: string | undefined;
+                streetAddress?: string | undefined;
+            }
             | undefined;
         channel?: string | undefined;
         createdAt: string;
         creditCard?:
             | {
-                  bin: string;
-                  cardholderName?: string | undefined;
-                  cardType: string;
-                  commercial: Commercial;
-                  countryOfIssuance: string;
-                  customerLocation: CustomerLocation;
-                  debit: string;
-                  durbinRegulated: DurbinRegulated;
-                  expirationDate?: string | undefined;
-                  expirationMonth?: string | undefined;
-                  expirationYear?: string | undefined;
-                  healthcare: HealthCare;
-                  imageUrl?: string | undefined;
-                  issuingBank: string;
-                  last4: string;
-                  maskedNumber?: string | undefined;
-                  payroll: Payroll;
-                  prepaid: Prepaid;
-                  productId: string;
-                  token: string;
-                  uniqueNumberIdentifier: string;
-              }
+                bin: string;
+                cardholderName?: string | undefined;
+                cardType: string;
+                commercial: Commercial;
+                countryOfIssuance: string;
+                customerLocation: CustomerLocation;
+                debit: string;
+                durbinRegulated: DurbinRegulated;
+                expirationDate?: string | undefined;
+                expirationMonth?: string | undefined;
+                expirationYear?: string | undefined;
+                healthcare: HealthCare;
+                imageUrl?: string | undefined;
+                issuingBank: string;
+                last4: string;
+                maskedNumber?: string | undefined;
+                payroll: Payroll;
+                prepaid: Prepaid;
+                productId: string;
+                token: string;
+                uniqueNumberIdentifier: string;
+            }
             | undefined;
         currencyIsoCode: string;
         customer: {
@@ -1545,27 +1566,27 @@ declare namespace braintree {
         lineItems?: TransactionLineItem[] | undefined;
         masterpassCardDetails?:
             | {
-                  bin: string;
-                  cardType: string;
-                  cardholderName: string;
-                  commercial: Commercial;
-                  countryOfIssuance: string;
-                  customerLocation: CustomerLocation;
-                  debit: Debit;
-                  durbinRegulated: DurbinRegulated;
-                  expirationDate: string;
-                  expirationMonth: string;
-                  expirationYear: string;
-                  healthcare: HealthCare;
-                  imageUrl: string;
-                  issuingBank: string;
-                  last4: string;
-                  maskedNumber: string;
-                  payroll: Payroll;
-                  prepaid: Prepaid;
-                  productId: string;
-                  token: string;
-              }
+                bin: string;
+                cardType: string;
+                cardholderName: string;
+                commercial: Commercial;
+                countryOfIssuance: string;
+                customerLocation: CustomerLocation;
+                debit: Debit;
+                durbinRegulated: DurbinRegulated;
+                expirationDate: string;
+                expirationMonth: string;
+                expirationYear: string;
+                healthcare: HealthCare;
+                imageUrl: string;
+                issuingBank: string;
+                last4: string;
+                maskedNumber: string;
+                payroll: Payroll;
+                prepaid: Prepaid;
+                productId: string;
+                token: string;
+            }
             | undefined;
         merchantAccountId?: string | undefined;
         networkTransactionId?: string | undefined;
@@ -1573,26 +1594,26 @@ declare namespace braintree {
         paymentInstrumentType: PaymentInstrumentType;
         paypalAccount?:
             | {
-                  authorizationId: string;
-                  captureId: string;
-                  customField: string;
-                  imageUrl: string;
-                  payerEmail: string;
-                  payerFirstName: string;
-                  payerId: string;
-                  payerLastName: string;
-                  payerStatus: string;
-                  paymentId: string;
-                  refundFromTransactionFeeAmount: string;
-                  refundFromTransactionFeeCurrencyIsoCode: string;
-                  refundId: string;
-                  sellerProtectionStatus: string;
-                  taxId: string;
-                  taxIdType: string;
-                  token: string;
-                  transactionFeeAmount: string;
-                  transactionFeeCurrencyIsoCode: string;
-              }
+                authorizationId: string;
+                captureId: string;
+                customField: string;
+                imageUrl: string;
+                payerEmail: string;
+                payerFirstName: string;
+                payerId: string;
+                payerLastName: string;
+                payerStatus: string;
+                paymentId: string;
+                refundFromTransactionFeeAmount: string;
+                refundFromTransactionFeeCurrencyIsoCode: string;
+                refundId: string;
+                sellerProtectionStatus: string;
+                taxId: string;
+                taxIdType: string;
+                token: string;
+                transactionFeeAmount: string;
+                transactionFeeCurrencyIsoCode: string;
+            }
             | undefined;
         planId?: string | undefined;
         processorAuthorizationCode: string;
@@ -1608,47 +1629,47 @@ declare namespace braintree {
         riskData?: TransactionRiskData | undefined;
         samsungPayCardDetails?:
             | {
-                  bin: string;
-                  cardType: string;
-                  cardholderName: string;
-                  commercial: Commercial;
-                  countryOfIssuance: string;
-                  customerLocation: CustomerLocation;
-                  debit: Debit;
-                  durbinRegulated: DurbinRegulated;
-                  expirationDate: string;
-                  expirationMonth: string;
-                  expirationYear: string;
-                  healthcare: HealthCare;
-                  imageUrl: string;
-                  issuingBank: string;
-                  last4: string;
-                  maskedNumber: string;
-                  payroll: Payroll;
-                  prepaid: Prepaid;
-                  productId: string;
-                  sourceCardLast4: string;
-                  token: string;
-              }
+                bin: string;
+                cardType: string;
+                cardholderName: string;
+                commercial: Commercial;
+                countryOfIssuance: string;
+                customerLocation: CustomerLocation;
+                debit: Debit;
+                durbinRegulated: DurbinRegulated;
+                expirationDate: string;
+                expirationMonth: string;
+                expirationYear: string;
+                healthcare: HealthCare;
+                imageUrl: string;
+                issuingBank: string;
+                last4: string;
+                maskedNumber: string;
+                payroll: Payroll;
+                prepaid: Prepaid;
+                productId: string;
+                sourceCardLast4: string;
+                token: string;
+            }
             | undefined;
         serviceFeeAmount?: string | undefined;
         settlementBatchId?: string | undefined;
         shipping?:
             | {
-                  company?: string | undefined;
-                  countryCodeAlpha2?: string | undefined;
-                  countryCodeAlpha3?: string | undefined;
-                  countryCodeNumeric?: string | undefined;
-                  countryName?: string | undefined;
-                  extendedAddress?: string | undefined;
-                  firstName?: string | undefined;
-                  id?: string | undefined;
-                  lastName?: string | undefined;
-                  locality?: string | undefined;
-                  postalCode?: string | undefined;
-                  region?: string | undefined;
-                  streetAddress?: string | undefined;
-              }
+                company?: string | undefined;
+                countryCodeAlpha2?: string | undefined;
+                countryCodeAlpha3?: string | undefined;
+                countryCodeNumeric?: string | undefined;
+                countryName?: string | undefined;
+                extendedAddress?: string | undefined;
+                firstName?: string | undefined;
+                id?: string | undefined;
+                lastName?: string | undefined;
+                locality?: string | undefined;
+                postalCode?: string | undefined;
+                region?: string | undefined;
+                streetAddress?: string | undefined;
+            }
             | undefined;
         shippingAmount?: string | undefined;
         shipsFromPostalCode?: string | undefined;
@@ -1656,9 +1677,9 @@ declare namespace braintree {
         statusHistory?: TransactionStatusHistory[] | undefined;
         subscription?:
             | {
-                  billingPeriodEndDate: Date;
-                  billingPeriodStartDate: Date;
-              }
+                billingPeriodEndDate: Date;
+                billingPeriodStartDate: Date;
+            }
             | undefined;
         subscriptionId?: string | undefined;
         taxAmount?: string | undefined;
@@ -1668,37 +1689,37 @@ declare namespace braintree {
         updatedAt: string;
         venmoAccount?:
             | {
-                  imageUrl: string;
-                  sourceDescription: string;
-                  token: string;
-                  username: string;
-                  venmoUserId: string;
-              }
+                imageUrl: string;
+                sourceDescription: string;
+                token: string;
+                username: string;
+                venmoUserId: string;
+            }
             | undefined;
         visaCheckoutCardDetails?:
             | {
-                  bin: string;
-                  callId: string;
-                  cardType: string;
-                  cardholderName: string;
-                  commercial: Commercial;
-                  countryOfIssuance: string;
-                  customerLocation: CustomerLocation;
-                  debit: Debit;
-                  durbinRegulated: DurbinRegulated;
-                  expirationDate: string;
-                  expirationMonth: string;
-                  expirationYear: string;
-                  healthcare: HealthCare;
-                  imageUrl: string;
-                  issuingBank: string;
-                  last4: string;
-                  maskedNumber: string;
-                  payroll: Payroll;
-                  prepaid: Prepaid;
-                  productId: string;
-                  token: string;
-              }
+                bin: string;
+                callId: string;
+                cardType: string;
+                cardholderName: string;
+                commercial: Commercial;
+                countryOfIssuance: string;
+                customerLocation: CustomerLocation;
+                debit: Debit;
+                durbinRegulated: DurbinRegulated;
+                expirationDate: string;
+                expirationMonth: string;
+                expirationYear: string;
+                healthcare: HealthCare;
+                imageUrl: string;
+                issuingBank: string;
+                last4: string;
+                maskedNumber: string;
+                payroll: Payroll;
+                prepaid: Prepaid;
+                productId: string;
+                token: string;
+            }
             | undefined;
         voiceReferralNumber?: string | undefined;
     }
@@ -1711,45 +1732,45 @@ declare namespace braintree {
         amount: string;
         billing?:
             | {
-                  company?: string | undefined;
-                  countryName?: string | undefined;
-                  extendedAddress?: string | undefined;
-                  firstName?: string | undefined;
-                  lastName?: string | undefined;
-                  locality?: string | undefined;
-                  postalCode?: string | undefined;
-                  region?: string | undefined;
-                  streetAddress?: string | undefined;
-                  countryCodeAlpha2?: string | undefined;
-                  countryCodeAlpha3?: string | undefined;
-                  countryCodeNumeric?: string | undefined;
-              }
+                company?: string | undefined;
+                countryName?: string | undefined;
+                extendedAddress?: string | undefined;
+                firstName?: string | undefined;
+                lastName?: string | undefined;
+                locality?: string | undefined;
+                postalCode?: string | undefined;
+                region?: string | undefined;
+                streetAddress?: string | undefined;
+                countryCodeAlpha2?: string | undefined;
+                countryCodeAlpha3?: string | undefined;
+                countryCodeNumeric?: string | undefined;
+            }
             | undefined;
         billingAddressId?: string | undefined;
         channel?: string | undefined;
         creditCard?:
             | {
-                  cardholderName?: string | undefined;
-                  cvv?: string | undefined;
-                  expirationDate?: string | undefined;
-                  expirationMonth?: string | undefined;
-                  expirationYear?: string | undefined;
-                  number?: string | undefined;
-                  token?: string | undefined;
-              }
+                cardholderName?: string | undefined;
+                cvv?: string | undefined;
+                expirationDate?: string | undefined;
+                expirationMonth?: string | undefined;
+                expirationYear?: string | undefined;
+                number?: string | undefined;
+                token?: string | undefined;
+            }
             | undefined;
         customer?:
             | {
-                  company?: string | undefined;
-                  customFields?: any;
-                  email?: string | undefined;
-                  fax?: string | undefined;
-                  firstName?: string | undefined;
-                  id?: string | undefined;
-                  lastName?: string | undefined;
-                  phone?: string | undefined;
-                  website?: string | undefined;
-              }
+                company?: string | undefined;
+                customFields?: any;
+                email?: string | undefined;
+                fax?: string | undefined;
+                firstName?: string | undefined;
+                id?: string | undefined;
+                lastName?: string | undefined;
+                phone?: string | undefined;
+                website?: string | undefined;
+            }
             | undefined;
         customerId?: string | undefined;
         customFields?: Record<string, any> | undefined;
@@ -1759,40 +1780,40 @@ declare namespace braintree {
         discountAmount?: string | undefined;
         externalVault?:
             | {
-                  previousNetworkTransactionId?: string | undefined;
-                  status?: string | undefined;
-              }
+                previousNetworkTransactionId?: string | undefined;
+                status?: string | undefined;
+            }
             | undefined;
         lineItems?: TransactionLineItem[] | undefined;
         merchantAccountId?: string | undefined;
         options?:
             | {
-                  addBillingAddressToPaymentMethod?: boolean | undefined;
-                  holdInEscrow?: boolean | undefined;
-                  paypal?:
-                      | {
-                            customField?: string | undefined;
-                            description?: string | undefined;
-                        }
-                      | undefined;
-                  skipAdvancedFraudChecking?: boolean | undefined;
-                  skipAvs?: boolean | undefined;
-                  skipCvv?: boolean | undefined;
-                  storeInVault?: boolean | undefined;
-                  storeInVaultOnSuccess?: boolean | undefined;
-                  storeShippingAddressInVault?: boolean | undefined;
-                  submitForSettlement?: boolean | undefined;
-                  threeDSecure?:
-                      | {
-                            required?: boolean | undefined;
-                        }
-                      | undefined;
-                  venmo?:
-                      | {
-                            profileId?: string | undefined;
-                        }
-                      | undefined;
-              }
+                addBillingAddressToPaymentMethod?: boolean | undefined;
+                holdInEscrow?: boolean | undefined;
+                paypal?:
+                    | {
+                        customField?: string | undefined;
+                        description?: string | undefined;
+                    }
+                    | undefined;
+                skipAdvancedFraudChecking?: boolean | undefined;
+                skipAvs?: boolean | undefined;
+                skipCvv?: boolean | undefined;
+                storeInVault?: boolean | undefined;
+                storeInVaultOnSuccess?: boolean | undefined;
+                storeShippingAddressInVault?: boolean | undefined;
+                submitForSettlement?: boolean | undefined;
+                threeDSecure?:
+                    | {
+                        required?: boolean | undefined;
+                    }
+                    | undefined;
+                venmo?:
+                    | {
+                        profileId?: string | undefined;
+                    }
+                    | undefined;
+            }
             | undefined;
         orderId?: string | undefined;
         paymentMethodNonce?: string | undefined;
@@ -1808,19 +1829,19 @@ declare namespace braintree {
         sharedShippingAddressId?: string | undefined;
         shipping?:
             | {
-                  company?: string | undefined;
-                  countryCodeAlpha2?: string | undefined;
-                  countryCodeAlpha3?: string | undefined;
-                  countryCodeNumeric?: string | undefined;
-                  countryName?: string | undefined;
-                  extendedAddress?: string | undefined;
-                  firstName?: string | undefined;
-                  lastName?: string | undefined;
-                  locality?: string | undefined;
-                  postalCode?: string | undefined;
-                  region?: string | undefined;
-                  streetAddress?: string | undefined;
-              }
+                company?: string | undefined;
+                countryCodeAlpha2?: string | undefined;
+                countryCodeAlpha3?: string | undefined;
+                countryCodeNumeric?: string | undefined;
+                countryName?: string | undefined;
+                extendedAddress?: string | undefined;
+                firstName?: string | undefined;
+                lastName?: string | undefined;
+                locality?: string | undefined;
+                postalCode?: string | undefined;
+                region?: string | undefined;
+                streetAddress?: string | undefined;
+            }
             | undefined;
         shippingAddressId?: string | undefined;
         shippingAmount?: string | undefined;
@@ -1829,11 +1850,11 @@ declare namespace braintree {
         taxExempt?: boolean | undefined;
         threeDSecurePassThru?:
             | {
-                  cavv?: string | undefined;
-                  eciFlag: string;
-                  threeDSecureVision?: string | undefined;
-                  xid?: string | undefined;
-              }
+                cavv?: string | undefined;
+                eciFlag: string;
+                threeDSecureVision?: string | undefined;
+                xid?: string | undefined;
+            }
             | undefined;
         transactionSource?: TransactionRequestSource | undefined;
     }
@@ -1862,7 +1883,7 @@ declare namespace braintree {
         success: boolean;
     }
 
-    export type EscrowStatus = 'hold_pending' | 'held' | 'release_pending' | 'released' | 'refunded';
+    export type EscrowStatus = "hold_pending" | "held" | "release_pending" | "released" | "refunded";
 
     export interface FacilitatedDetails {
         merchantId: string;
@@ -1877,29 +1898,29 @@ declare namespace braintree {
     }
 
     export type GatewayRejectionReason =
-        | 'application_incomplete'
-        | 'avs'
-        | 'avs_and_cvv'
-        | 'cvv'
-        | 'duplicate'
-        | 'fraud'
-        | 'risk_threshold'
-        | 'three_d_secure'
-        | 'token_issuance';
+        | "application_incomplete"
+        | "avs"
+        | "avs_and_cvv"
+        | "cvv"
+        | "duplicate"
+        | "fraud"
+        | "risk_threshold"
+        | "three_d_secure"
+        | "token_issuance";
 
     export type PaymentInstrumentType =
-        | 'android_pay_card'
-        | 'apple_pay_card'
-        | 'credit_card'
-        | 'masterpass_card'
-        | 'paypal_account'
-        | 'samsung_pay_card'
-        | 'venmo_account'
-        | 'visa_checkout_card';
+        | "android_pay_card"
+        | "apple_pay_card"
+        | "credit_card"
+        | "masterpass_card"
+        | "paypal_account"
+        | "samsung_pay_card"
+        | "venmo_account"
+        | "visa_checkout_card";
 
-    export type TransactionProcessorResponseType = 'approved' | 'soft_declined' | 'hard_declined';
+    export type TransactionProcessorResponseType = "approved" | "soft_declined" | "hard_declined";
 
-    export type TransactionRequestSource = 'recurring' | 'unscheduled' | 'recurring_first' | 'moto';
+    export type TransactionRequestSource = "recurring" | "unscheduled" | "recurring_first" | "moto";
 
     export interface TransactionRiskData {
         decision: string;
@@ -1909,19 +1930,19 @@ declare namespace braintree {
     }
 
     export type TransactionStatus =
-        | 'authorization_expired'
-        | 'authorized'
-        | 'authorizing'
-        | 'settlement_confirmed'
-        | 'settlement_pending'
-        | 'settlement_declined'
-        | 'failed'
-        | 'gateway_rejected'
-        | 'processor_declined'
-        | 'settled'
-        | 'settling'
-        | 'submitted_for_settlement'
-        | 'voided';
+        | "authorization_expired"
+        | "authorized"
+        | "authorizing"
+        | "settlement_confirmed"
+        | "settlement_pending"
+        | "settlement_declined"
+        | "failed"
+        | "gateway_rejected"
+        | "processor_declined"
+        | "settled"
+        | "settling"
+        | "submitted_for_settlement"
+        | "voided";
 
     export interface TransactionStatusHistory {
         amount: string;
@@ -1931,7 +1952,7 @@ declare namespace braintree {
         user: string;
     }
 
-    export type TransactionSource = 'Api' | 'ControlPanel' | 'Recurring';
+    export type TransactionSource = "Api" | "ControlPanel" | "Recurring";
 
     export interface TransactionThreeDSecureInfo {
         enrolled: string;
@@ -1964,13 +1985,13 @@ declare namespace braintree {
      * Payment Method Instances
      */
 
-    export type Commercial = 'Yes' | 'No' | 'Unknown';
-    export type CustomerLocation = 'US' | 'International';
-    export type Debit = 'Yes' | 'No' | 'Unknown';
-    export type DurbinRegulated = 'Yes' | 'No' | 'Unknown';
-    export type HealthCare = 'Yes' | 'No' | 'Unknown';
-    export type Payroll = 'Yes' | 'No' | 'Unknown';
-    export type Prepaid = 'Yes' | 'No' | 'Unknown';
+    export type Commercial = "Yes" | "No" | "Unknown";
+    export type CustomerLocation = "US" | "International";
+    export type Debit = "Yes" | "No" | "Unknown";
+    export type DurbinRegulated = "Yes" | "No" | "Unknown";
+    export type HealthCare = "Yes" | "No" | "Unknown";
+    export type Payroll = "Yes" | "No" | "Unknown";
+    export type Prepaid = "Yes" | "No" | "Unknown";
 
     /**
      * Android Pay Card
@@ -2273,13 +2294,14 @@ declare namespace braintree {
 
     export interface AuthenticationError extends Error {}
     export interface AuthorizationError extends Error {}
-    export interface DownForMaintenanceError extends Error {}
+    export interface GatewayTimeoutError extends Error {}
     export interface InvalidChallengeError extends Error {}
     export interface InvalidKeysError extends Error {}
     export interface InvalidSignatureError extends Error {}
-    export interface InvalidTransparentRedirectHashError extends Error {}
     export interface NotFoundError extends Error {}
+    export interface RequestTimeoutError extends Error {}
     export interface ServerError extends Error {}
+    export interface ServiceUnavailableError extends Error {}
     export interface TestOperationPerformedInProductionError extends Error {}
     export interface TooManyRequestsError extends Error {}
     export interface UnexpectedError extends Error {}

@@ -7,7 +7,7 @@ interface Text extends HummerComponent {
     /**
      * 富文本内容
      */
-    rickText: import('../interface/info').rickTextType;
+    rickText: import("../interface/info").rickTextType;
     /**
      * 是否支持长按复制功能 默认 false
      */
@@ -18,5 +18,5 @@ declare const Text: {
     /**
      * 文本展示控件。
      */
-    new (): Text;
+    new(): Text;
 };

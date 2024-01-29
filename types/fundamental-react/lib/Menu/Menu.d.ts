@@ -36,9 +36,9 @@ export type MenuListProps = {
 
 declare const Menu: React.FunctionComponent<MenuProps> & {
     displayName: "Menu";
-    Group: React.FunctionComponent<MenuGroupProps> & {displayName: "Menu.Group"};
-    Item: React.FunctionComponent<MenuItemProps> & {displayName: "Menu.Item"};
-    List: React.FunctionComponent<MenuListProps> & {displayName: "Menu.List"};
+    Group: React.FunctionComponent<MenuGroupProps> & { displayName: "Menu.Group" };
+    Item: React.FunctionComponent<MenuItemProps> & { displayName: "Menu.Item" };
+    List: React.FunctionComponent<MenuListProps> & { displayName: "Menu.List" };
 };
 
 export default Menu;

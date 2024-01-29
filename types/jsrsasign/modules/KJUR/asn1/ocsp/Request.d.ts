@@ -26,11 +26,11 @@ declare namespace jsrsasign.KJUR.asn1.ocsp {
             params?:
                 | CertificateRequest
                 | {
-                      alg: string;
-                      keyhash: string;
-                      namehash: string;
-                      serial: string;
-                  },
+                    alg: string;
+                    keyhash: string;
+                    namehash: string;
+                    serial: string;
+                },
         );
 
         getEncodedHex(): string;

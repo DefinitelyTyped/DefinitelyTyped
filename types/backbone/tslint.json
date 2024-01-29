@@ -1,9 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "export-just-namespace": false,
-        "no-empty-interface": false,
-        "no-namespace": false,
-        "unified-signatures": false
-    }
-}

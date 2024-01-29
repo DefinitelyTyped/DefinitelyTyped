@@ -1,19 +1,21 @@
-import { Vector,
-  Matrix,
-  Line,
-  Plane,
-  LinkedListNode,
-  LinkedList,
-  CircularLinkedList,
-  Vertex,
-  Polygon,
-  LineSegment,
-  PRECISION,
-  mht,
-  makeLookAt,
-  makeOrtho,
-  makePerspective,
-  makeFrustum } from "sylvester-es6";
+import {
+    CircularLinkedList,
+    Line,
+    LineSegment,
+    LinkedList,
+    LinkedListNode,
+    makeFrustum,
+    makeLookAt,
+    makeOrtho,
+    makePerspective,
+    Matrix,
+    mht,
+    Plane,
+    Polygon,
+    PRECISION,
+    Vector,
+    Vertex,
+} from "sylvester-es6";
 
 // Vector
 const vector1 = new Vector([1, 2]);
@@ -369,7 +371,7 @@ const polygonSetVertices2 = polygon2.setVertices([vector1, vector2], plane1);
 polygon2.populateVertexTypeLists();
 polygon2.copyVertices();
 polygon2.clearCache();
-polygon2.setCache('a', 1);
+polygon2.setCache("a", 1);
 const polygonInspect = polygon2.inspect();
 
 // PRECISION

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Wizard, Step, Steps, withWizard } from "react-albus";
+import { Step, Steps, withWizard, Wizard } from "react-albus";
 
 declare module "react-albus" {
     interface StepObject {

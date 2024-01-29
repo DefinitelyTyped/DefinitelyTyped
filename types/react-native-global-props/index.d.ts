@@ -1,15 +1,9 @@
-// Type definitions for react-native-global-props 1.1
-// Project: https://github.com/Ajackster/react-native-global-props#readme
-// Definitions by: Liam Jones <https://github.com/liamjones/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import {
     ActivityIndicatorProps,
     ImageProps,
     KeyboardAvoidingViewProps,
     ListViewProps,
     ModalProps,
-    PickerProps,
     RefreshControlProps,
     ScrollViewProps,
     SliderProps,
@@ -22,7 +16,7 @@ import {
     TouchableOpacityProps,
     TouchableWithoutFeedbackProps,
     ViewProps,
-} from 'react-native';
+} from "react-native";
 
 export function setCustomView(customViewProps: ViewProps): void;
 
@@ -50,8 +44,6 @@ export function setCustomKeyboardAvoidingView(customKeyboardAvoidingViewProps: K
 
 export function setCustomModal(customModalProps: ModalProps): void;
 
-export function setCustomPicker(customPickerProps: PickerProps): void;
-
 export function setCustomRefreshControl(customRefreshControlProps: RefreshControlProps): void;
 
 export function setCustomScrollView(customScrollViewProps: ScrollViewProps): void;
@@ -61,6 +53,12 @@ export function setCustomSlider(customSliderProps: SliderProps): void;
 export function setCustomStatusBar(customStatusBarProps: StatusBarProps): void;
 
 export function setCustomSwitch(customSwitchProps: SwitchProps): void;
+
+/**
+ * @deprecated Picker was a deprecated React Native component removed in RN 0.66 - https://reactnative.dev/docs/0.65/picker.
+ *             Use one of the community packages instead - https://reactnative.directory/?search=picker
+ */
+export function setCustomPicker(customPickerProps: any): void;
 
 /**
  * @deprecated ListView is a deprecated React Native component - https://reactnative.dev/docs/listview

@@ -1,13 +1,8 @@
-// Type definitions for react-key-handler 1.2
-// Project: https://github.com/ayrton/react-key-handler
-// Definitions by: Pedro Queiroz <https://github.com/pmqueiroz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import * as React from "react";
 
-import * as React from 'react';
-
-type _KEYDOWN = 'keydown';
-type _KEYPRESS = 'keypress';
-type _KEYUP = 'keyup';
+type _KEYDOWN = "keydown";
+type _KEYPRESS = "keypress";
+type _KEYUP = "keyup";
 
 export type Matcher = (event: KeyboardEvent, ref: ReactKeyHandlerIntrinsicProps) => boolean;
 
@@ -43,19 +38,19 @@ export interface ReactKeyHandlerProps extends ReactKeyHandlerIntrinsicProps {
     onKeyHandle: (event: React.KeyboardEvent) => void;
 }
 
-export default function KeyHandler(props: ReactKeyHandlerProps): JSX.Element;
+export default function KeyHandler(props: ReactKeyHandlerProps): React.JSX.Element;
 
 export function keyHandleDecorator(
     matcher?: Matcher,
-): (props: ReactKeyHandlerProps) => (Component: JSX.Element) => (...args: any[]) => JSX.Element;
+): (props: ReactKeyHandlerProps) => (Component: React.JSX.Element) => (...args: any[]) => React.JSX.Element;
 
 export function keyToggleHandler(
     props: ReactKeyHandlerIntrinsicProps,
-): (Component: JSX.Element) => (...args: any[]) => JSX.Element;
+): (Component: React.JSX.Element) => (...args: any[]) => React.JSX.Element;
 
 export function keyHandler(
     props: ReactKeyHandlerIntrinsicProps,
-): (Component: JSX.Element) => (...args: any[]) => JSX.Element;
+): (Component: React.JSX.Element) => (...args: any[]) => React.JSX.Element;
 
 export const KEYDOWN: _KEYDOWN;
 

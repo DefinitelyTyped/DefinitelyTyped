@@ -1,14 +1,8 @@
-// Type definitions for karma-jasmine-spec-tags 1.2
-// Project: https://github.com/mnasyrov/karma-jasmine-spec-tags#readme
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
-import 'karma';
+import "karma";
 
 // A plugin for karma-jasmine which helps to filter tests (specs) by tags.
 
-declare module 'karma' {
+declare module "karma" {
     /**
      * Default values can be configured using client map in Karma configuration
      */

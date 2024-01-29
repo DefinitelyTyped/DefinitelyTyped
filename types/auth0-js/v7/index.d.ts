@@ -1,8 +1,3 @@
-// Type definitions for Auth0.js 7.0
-// Project: https://github.com/auth0/auth0.js
-// Definitions by: Robert McLaws <https://github.com/advancedrei>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /** Extensions to the browser Window object. */
 interface Window {
     /** Allows you to pass the id_token to other APIs, as specified in https://docs.auth0.com/apps-apis */
@@ -11,7 +6,7 @@ interface Window {
 
 /** This is the interface for the main Auth0 client. */
 interface Auth0Static {
-    new (options: Auth0ClientOptions): Auth0Static;
+    new(options: Auth0ClientOptions): Auth0Static;
     changePassword(options: any, callback?: (error?: Auth0Error, valid?: any) => void): void;
     decodeJwt(jwt: string): any;
     login(
@@ -172,6 +167,7 @@ interface Auth0DelegationToken {
 
 declare const Auth0: Auth0Static;
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "auth0-js" {
     export = Auth0;
 }

@@ -1,5 +1,5 @@
 import { Disposable } from "event-kit";
-import { File, Directory } from "pathwatcher";
+import { Directory, File } from "pathwatcher";
 
 let bool: boolean;
 let str: string;
@@ -99,7 +99,7 @@ bool = dir.isRoot();
 str = dir.getPath();
 str = dir.getRealPathSync();
 str = dir.getBaseName();
-dir.relativize("Test.file") ;
+dir.relativize("Test.file");
 
 // Traversing
 dir = dir.getParent();

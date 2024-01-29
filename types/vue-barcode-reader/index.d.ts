@@ -1,9 +1,4 @@
-// Type definitions for vue-barcode-reader 0.0
-// Project: https://github.com/olefirenko/vue-barcode-reader
-// Definitions by: Julian Schmidt <https://github.com/julisch94>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import Vue from 'vue';
+import Vue from "vue";
 
 /**
  * Emits the following events:

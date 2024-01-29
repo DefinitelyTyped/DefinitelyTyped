@@ -1,2 +1,2 @@
-import ToString = require('../2017/ToString');
+import ToString = require("../2017/ToString");
 export = ToString;

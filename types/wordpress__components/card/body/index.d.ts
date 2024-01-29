@@ -1,4 +1,6 @@
-import Card from '..';
+import Card from "..";
+
+import { JSX } from "react";
 
 declare namespace CardBody {
     type Props<T extends keyof JSX.IntrinsicElements> = {
@@ -21,7 +23,7 @@ declare namespace CardBody {
     } & JSX.IntrinsicElements[T];
 }
 
-// tslint:disable-next-line no-unnecessary-generics
-declare function CardBody<T extends keyof JSX.IntrinsicElements = 'div'>(props: CardBody.Props<T>): JSX.Element;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+declare function CardBody<T extends keyof JSX.IntrinsicElements = "div">(props: CardBody.Props<T>): JSX.Element;
 
 export default CardBody;

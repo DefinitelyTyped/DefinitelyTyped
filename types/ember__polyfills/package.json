@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/ember__polyfills",
+    "version": "4.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "@ember/polyfills",
+    "projects": [
+        "https://emberjs.com/api/ember/4.0/modules/@ember%2Fpolyfills"
+    ],
+    "devDependencies": {
+        "@types/ember__polyfills": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Krystan HuffMenne",
+            "githubUsername": "gitKrystan"
+        },
+        {
+            "name": "James C. Davis",
+            "githubUsername": "jamescdavis"
+        },
+        {
+            "name": "Peter Wagenet",
+            "githubUsername": "wagenet"
+        }
+    ]
+}

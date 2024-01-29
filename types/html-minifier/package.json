@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/html-minifier",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/kangax/html-minifier",
+        "https://kangax.github.io/html-minifier"
+    ],
+    "dependencies": {
+        "@types/clean-css": "*",
+        "@types/relateurl": "*",
+        "@types/uglify-js": "*"
+    },
+    "devDependencies": {
+        "@types/html-minifier": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tanguy Krotoff",
+            "githubUsername": "tkrotoff"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

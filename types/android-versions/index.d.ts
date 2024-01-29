@@ -1,8 +1,3 @@
-// Type definitions for android-versions 1.6
-// Project: https://github.com/dvoiss/android-versions#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * A module to get Android versions by API level, NDK level, semantic version, or version name.
  *
@@ -51,7 +46,10 @@ declare namespace android {
         | "O_MR1"
         | "P"
         | "Q"
-        | "R";
+        | "R"
+        | "S"
+        | "S_V2"
+        | "TIRAMISU";
 
     type MapVersionSupport = {
         [K in VersionCode]: AndroidVersion;
@@ -68,8 +66,8 @@ declare const android: {
     get: (
         arg:
             | {
-                  toString(): string;
-              }
+                toString(): string;
+            }
             | ((version: android.AndroidVersion) => boolean),
     ) => android.AndroidVersion | null;
     /**
@@ -80,8 +78,8 @@ declare const android: {
     getAll: (
         arg:
             | {
-                  toString(): string;
-              }
+                toString(): string;
+            }
             | ((version: android.AndroidVersion) => boolean),
     ) => android.AndroidVersion[] | null;
 } & android.MapVersionSupport;

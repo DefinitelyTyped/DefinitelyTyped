@@ -1,6 +1,28 @@
 {
     "private": true,
+    "name": "@types/rdfjs__formats-common",
+    "version": "3.1.9999",
+    "projects": [
+        "https://github.com/rdfjs-base/formats-common"
+    ],
+    "type": "module",
     "dependencies": {
-      "rdf-js": "^4.0.2"
-    }
-  }
+        "@types/node": "*",
+        "@types/rdfjs__parser-jsonld": "*",
+        "@types/rdfjs__parser-n3": "*",
+        "@types/rdfjs__serializer-jsonld": "*",
+        "@types/rdfjs__serializer-ntriples": "*",
+        "@types/rdfjs__sink-map": "*",
+        "@rdfjs/types": ">=1.0.0",
+        "rdfxml-streaming-parser": ">=2"
+    },
+    "devDependencies": {
+        "@types/rdfjs__formats-common": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "tpluscode",
+            "githubUsername": "tpluscode"
+        }
+    ]
+}

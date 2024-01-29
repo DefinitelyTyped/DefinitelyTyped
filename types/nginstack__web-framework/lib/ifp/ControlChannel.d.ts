@@ -12,8 +12,14 @@ declare class ControlChannel {
     setDataChannelSequence(seq: number): void;
     getDataChannelSequence(): number;
     lockSessionByNavigator(): string;
+    lockScreen(): void;
+    requestScreenLock(): void;
+    isScreenLockPending(): boolean;
     unlockSessionByNavigator(userName: string, password: string, newPassword?: string): string;
-    getSessionLocked(): boolean;
+    isScreenLocked(): boolean;
+    getScreenLockedAt(): number;
+    getScreenUnlockedAt(): number;
+    getScreenLockRequestedAt(): number;
     getLastMessage(): any;
     updateMessage(message: any): void;
     setCtrlMessage(message: any): void;
@@ -31,9 +37,9 @@ declare class ControlChannel {
     getMessageForNavigator(
         sequenceToListen: any,
         retry: any,
-        disableContinueOptimization: any
+        disableContinueOptimization: any,
     ): any;
-    handleNavigatorResponse(ctrlMessage: any): 'ctrl:continue' | 'ctrl:stop:-1' | 'ctrl:setok';
+    handleNavigatorResponse(ctrlMessage: any): "ctrl:continue" | "ctrl:stop:-1" | "ctrl:setok";
 }
 declare namespace ControlChannel {
     function formatErrorPayload(
@@ -41,7 +47,7 @@ declare namespace ControlChannel {
         info: {
             stackTrace?: string | string[];
             ticket?: string;
-        }
+        },
     ): string;
     function getInstance(): ControlChannel;
 }

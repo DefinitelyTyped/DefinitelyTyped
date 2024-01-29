@@ -2,7 +2,7 @@
 import Blessed = require("blessed");
 import ReactBlessed = require("react-blessed");
 import React = require("react");
-import { BlessedIntrinsicElementsPrefixed, BlessedAttributes, Element } from "react-blessed";
+import { BlessedAttributes, BlessedIntrinsicElementsPrefixed, Element } from "react-blessed";
 
 // Testing example from demos page
 // https://github.com/Yomguithereal/react-blessed/blob/master/examples/dashboard.jsx
@@ -99,7 +99,7 @@ class Progress extends React.Component<any, any> {
 
     constructor(props: any) {
         super(props);
-        const interval: NodeJS.Timer = setInterval(() => {
+        const interval = setInterval(() => {
             const { progress } = this.state;
             if (this.state.progress >= 100) {
                 clearInterval(interval);
@@ -121,8 +121,7 @@ class Progress extends React.Component<any, any> {
                 onComplete={() =>
                     this.setState({
                         color: "green",
-                    })
-                }
+                    })}
                 onKeypress={(...args) => {}}
                 class={stylesheet.bordered}
                 filled={progress}
@@ -175,7 +174,9 @@ const Box = () => <box style={{ fg: "blue" }} />;
 const BlessedBox = () => <blessed-box style={{ fg: "blue" }} />;
 const FF: React.FC<ReactBlessed.BlessedIntrinsicElements["box"]> = props => <box {...props} />;
 
-const Div = () => <div />; // $ExpectError
+// Undesired. Should error but we can only augment intrinsic elements.
+// Should not typecheck once `@types/react` moves DOM intrinsics to `react-dom`.
+const Div = () => <div />;
 
 /**
  * Test ReactElement attributes
@@ -210,10 +211,12 @@ const boxRef = React.createRef<ReactBlessed.BoxElement>();
 
 <ForwardRef ref={boxFnRef} />;
 <ForwardRef ref={boxRef} />;
-<ForwardRef ref="string" />; // $ExpectError
+// @ts-expect-error
+<ForwardRef ref="string" />;
 <ForwardRef2 ref={boxFnRef} />;
 <ForwardRef2 ref={boxRef} />;
-<ForwardRef2 ref="string" />; // $ExpectError
+// @ts-expect-error
+<ForwardRef2 ref="string" />;
 
 const newContextRef = React.createRef<NewContext>();
 <NewContext ref={newContextRef} />;
@@ -222,12 +225,14 @@ const newContextRef = React.createRef<NewContext>();
 
 const ForwardNewContext = React.forwardRef((_props: {}, ref?: React.Ref<NewContext>) => <NewContext ref={ref} />);
 <ForwardNewContext ref={newContextRef} />;
-<ForwardNewContext ref="string" />; // $ExpectError
+// @ts-expect-error
+<ForwardNewContext ref="string" />;
 
 const ForwardRef3 = React.forwardRef(
     (
-        props: BlessedIntrinsicElementsPrefixed["blessed-box"] &
-            Pick<BlessedIntrinsicElementsPrefixed["blessed-box"] & { theme?: {} }, "ref" | "theme">,
+        props:
+            & BlessedIntrinsicElementsPrefixed["blessed-box"]
+            & Pick<BlessedIntrinsicElementsPrefixed["blessed-box"] & { theme?: {} }, "ref" | "theme">,
         ref?: React.Ref<ReactBlessed.BoxElement>,
     ) => <blessed-box {...props} ref={ref} />,
 );

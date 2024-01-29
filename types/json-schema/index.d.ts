@@ -1,28 +1,19 @@
-// Type definitions for json-schema 4.0, 6.0 and 7.0
-// Project: https://github.com/kriszyp/json-schema
-// Definitions by: Boris Cherny <https://github.com/bcherny>
-//                 Lucian Buzzo <https://github.com/lucianbuzzo>
-//                 Roland Groza <https://github.com/rolandjitsu>
-//                 Jason Kwok <https://github.com/JasonHK>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
-//==================================================================================================
+// ==================================================================================================
 // JSON Schema Draft 04
-//==================================================================================================
+// ==================================================================================================
 
 /**
  * @see https://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.1
  */
 export type JSONSchema4TypeName =
-    | 'string' //
-    | 'number'
-    | 'integer'
-    | 'boolean'
-    | 'object'
-    | 'array'
-    | 'null'
-    | 'any';
+    | "string" //
+    | "number"
+    | "integer"
+    | "boolean"
+    | "object"
+    | "array"
+    | "null"
+    | "any";
 
 /**
  * @see https://tools.ietf.org/html/draft-zyp-json-schema-04#section-3.5
@@ -240,19 +231,19 @@ export interface JSONSchema4 {
     format?: string | undefined;
 }
 
-//==================================================================================================
+// ==================================================================================================
 // JSON Schema Draft 06
-//==================================================================================================
+// ==================================================================================================
 
 export type JSONSchema6TypeName =
-    | 'string' //
-    | 'number'
-    | 'integer'
-    | 'boolean'
-    | 'object'
-    | 'array'
-    | 'null'
-    | 'any';
+    | "string" //
+    | "number"
+    | "integer"
+    | "boolean"
+    | "object"
+    | "array"
+    | "null"
+    | "any";
 
 export type JSONSchema6Type =
     | string //
@@ -556,24 +547,24 @@ export interface JSONSchema6 {
     format?: string | undefined;
 }
 
-//==================================================================================================
+// ==================================================================================================
 // JSON Schema Draft 07
-//==================================================================================================
+// ==================================================================================================
 // https://tools.ietf.org/html/draft-handrews-json-schema-validation-01
-//--------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------
 
 /**
  * Primitive type
  * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01#section-6.1.1
  */
 export type JSONSchema7TypeName =
-    | 'string' //
-    | 'number'
-    | 'integer'
-    | 'boolean'
-    | 'object'
-    | 'array'
-    | 'null';
+    | "string" //
+    | "number"
+    | "integer"
+    | "boolean"
+    | "object"
+    | "array"
+    | "null";
 
 /**
  * Primitive type
@@ -625,7 +616,7 @@ export interface JSONSchema7 {
      * @see https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#appendix-A
      */
     $defs?: {
-              [key: string]: JSONSchema7Definition;
+        [key: string]: JSONSchema7Definition;
     } | undefined;
 
     /**
@@ -659,7 +650,7 @@ export interface JSONSchema7 {
     maxItems?: number | undefined;
     minItems?: number | undefined;
     uniqueItems?: boolean | undefined;
-    contains?: JSONSchema7 | undefined;
+    contains?: JSONSchema7Definition | undefined;
 
     /**
      * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01#section-6.5

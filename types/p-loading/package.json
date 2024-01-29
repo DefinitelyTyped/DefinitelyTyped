@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/p-loading",
+    "version": "1.2.9999",
+    "projects": [
+        "http://joseshiru.github.io/p-loading/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/p-loading": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Soner Köksal",
+            "githubUsername": "renjfk"
+        }
+    ]
+}

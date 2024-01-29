@@ -1,15 +1,6 @@
-// Type definitions for rosie
-// Project: https://github.com/rosiejs/rosie
-// Definitions by: Abner Oliveira <https://github.com/abner>,
-//                 Chris Grigg <https://github.com/subvertallchris>,
-//                 Alex Bukurov <https://github.com/abukurov>
-//                 Adam Misiorny <https://github.com/adam187>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 declare namespace rosie {
     interface IFactoryStatic {
-        new <T = any>(): IFactory<T>;
+        new<T = any>(): IFactory<T>;
         /**
          * Defines a factory by name and constructor function. Call #attr and #option
          * on the result to define the properties of this factory.
@@ -20,7 +11,7 @@ declare namespace rosie {
          */
         define<T = any>(
             name: string,
-            constructor?: ((...opts: any[]) => any) | (new <T>(...opts: any[]) => any),
+            constructor?: ((...opts: any[]) => any) | (new<T>(...opts: any[]) => any),
         ): IFactory<T>;
 
         /**
@@ -53,6 +44,21 @@ declare namespace rosie {
          * @return {object}
          */
         attributes(name: string, attributes: any, options?: any): any;
+
+        /**
+         * Resets any build state, such as sequences, to their original values.
+         *
+         * @return {void}
+         */
+        resetAll(): void;
+
+        /**
+         * Resets any build state, such as sequences, to their original values on a specific factory.
+         *
+         * @param {string} name
+         * @return {void}
+         */
+        reset(name: string): void;
     }
 
     interface IFactory<T = any> {
@@ -240,7 +246,6 @@ declare namespace rosie {
         /**
          * Generates values for all the registered options using the values given.
          *
-         * @private
          * @param {object} options
          * @return {object}
          */
@@ -267,6 +272,13 @@ declare namespace rosie {
          * @return {Factory}
          */
         extend<K extends Partial<T>>(name: string | IFactory<K>): IFactory<T>;
+
+        /**
+         * Resets any build state, such as sequences, to their original values on this factory.
+         *
+         * @return {void}
+         */
+        reset(): void;
     }
 }
 

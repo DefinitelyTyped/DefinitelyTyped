@@ -1,8 +1,3 @@
-// Type definitions for deployJava.js
-// Project: https://www.java.com/js/deployJava.txt
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace DeployJava {
     /**
      * @summary Interface for {@link deployJava} object.
@@ -56,7 +51,7 @@ declare namespace DeployJava {
          * @summary JRE versions installed.
          * @member  {Array<string>}
          */
-        preInstallJREList: Array<string>;
+        preInstallJREList: string[];
 
         /**
          * @summary URL of current document.
@@ -86,7 +81,12 @@ declare namespace DeployJava {
          * @param   {boolean}       minMatch       Minimum version match.
          * @return  {boolean}       True if a or many patterns are identical to version, otherwise, False.
          */
-        compareVersionToPattern(version: string, patternArray: Array<string>, familyMatch: boolean, minMatch: boolean): boolean;
+        compareVersionToPattern(
+            version: string,
+            patternArray: string[],
+            familyMatch: boolean,
+            minMatch: boolean,
+        ): boolean;
 
         /**
          * @summary Enable alerts.
@@ -115,7 +115,7 @@ declare namespace DeployJava {
          * @summary Get JRE versions (in format : "#.#[.#[_#]]") installed.
          * @return {Array<string>} JRE Version list.
          */
-        getJREs(): Array<string>;
+        getJREs(): string[];
 
         /**
          * Gets a Java plugin.

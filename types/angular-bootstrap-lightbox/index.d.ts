@@ -1,10 +1,4 @@
-// Type definitions for angular-bootstrap-lightbox 0.12
-// Project: https://github.com/compact/angular-bootstrap-lightbox
-// Definitions by: Roland Zwaga <https://github.com/rolandzwaga>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace angular.bootstrap.lightbox {
-
     export interface ILightboxImageInfo {
         url: string;
         width: number;
@@ -13,7 +7,7 @@ declare namespace angular.bootstrap.lightbox {
         caption?: string | undefined;
     }
 
-    export interface IImageDimensionLimits  {
+    export interface IImageDimensionLimits {
         minWidth?: number | undefined;
         minHeight?: number | undefined;
         maxWidth?: number | undefined;
@@ -21,35 +15,35 @@ declare namespace angular.bootstrap.lightbox {
     }
 
     export interface IImageDimensionParameter {
-        windowWidth:number;
-        windowHeight:number;
-        imageWidth:number;
-        imageHeight:number;
+        windowWidth: number;
+        windowHeight: number;
+        imageWidth: number;
+        imageHeight: number;
     }
 
     export interface IModalDimensionsParameter {
-        windowWidth:number;
-        windowHeight:number;
-        imageDisplayWidth:number;
-        imageDisplayHeight:number;
+        windowWidth: number;
+        windowHeight: number;
+        imageDisplayWidth: number;
+        imageDisplayHeight: number;
     }
 
     export interface IModalDimensions {
-        width:number;
-        height:number;
+        width: number;
+        height: number;
     }
 
     export interface ILightbox {
         openModal(
-            images:ILightboxImageInfo[],
-            index:number,
+            images: ILightboxImageInfo[],
+            index: number,
             modalParams?: { [key: string]: any }, // angular.ui.bootstrap.IModalSettings
-        ):void;
+        ): void;
     }
 
     export interface ILightBoxProvider {
-        templateUrl:string;
-        calculateImageDimensionLimits:(dimensions:IImageDimensionParameter)=>IImageDimensionLimits;
-        calculateModalDimensions:(dimensions:IModalDimensionsParameter)=>IModalDimensions;
+        templateUrl: string;
+        calculateImageDimensionLimits: (dimensions: IImageDimensionParameter) => IImageDimensionLimits;
+        calculateModalDimensions: (dimensions: IModalDimensionsParameter) => IModalDimensions;
     }
 }

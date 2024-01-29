@@ -6,7 +6,7 @@ export type ButtonGroupProps = {
 } & React.HTMLAttributes<HTMLDivElement>;
 
 declare const ButtonGroup: React.FunctionComponent<ButtonGroupProps> & {
-    displayName: "ButtonGroup"
+    displayName: "ButtonGroup";
 };
 
 export default ButtonGroup;

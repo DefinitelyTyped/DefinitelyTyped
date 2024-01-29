@@ -16,6 +16,8 @@ declare namespace Accounts {
 
     function user(options?: { fields?: Mongo.FieldSpecifier | undefined }): Meteor.User | null;
 
+    function userAsync(options?: { fields?: Mongo.FieldSpecifier | undefined }): Promise<Meteor.User | null>;
+
     function userId(): string | null;
 
     function createUser(
@@ -23,10 +25,20 @@ declare namespace Accounts {
             username?: string | undefined;
             email?: string | undefined;
             password?: string | undefined;
-            profile?: Object | undefined;
+            profile?: Meteor.UserProfile | undefined;
         },
         callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void,
     ): string;
+
+    function createUserAsync(
+        options: {
+            username?: string | undefined;
+            email?: string | undefined;
+            password?: string | undefined;
+            profile?: Meteor.UserProfile | undefined;
+        },
+        callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void,
+    ): Promise<string>;
 
     function config(options: {
         sendVerificationEmail?: boolean | undefined;
@@ -90,12 +102,16 @@ declare namespace Accounts {
 
     function logoutOtherClients(callback?: (error?: Error | Meteor.Error | Meteor.TypedError) => void): void;
 
+    type PasswordSignupField = 'USERNAME_AND_EMAIL' | 'USERNAME_AND_OPTIONAL_EMAIL' | 'USERNAME_ONLY' | 'EMAIL_ONLY';
+    type PasswordlessSignupField = 'USERNAME_AND_EMAIL' | 'EMAIL_ONLY';
+
     var ui: {
         config(options: {
-            requestPermissions?: Object | undefined;
-            requestOfflineToken?: Object | undefined;
-            forceApprovalPrompt?: Object | undefined;
-            passwordSignupFields?: string | undefined;
+            requestPermissions?: Record<string, string[]> | undefined;
+            requestOfflineToken?: Record<'google', boolean> | undefined;
+            forceApprovalPrompt?: Record<'google', boolean> | undefined;
+            passwordSignupFields?: PasswordSignupField | PasswordSignupField[] | undefined;
+            passwordlessSignupFields?: PasswordlessSignupField | PasswordlessSignupField[] | undefined;
         }): void;
     };
 }
@@ -155,7 +171,9 @@ declare namespace Accounts {
 
     function setUsername(userId: string, newUsername: string): void;
 
-    function setPassword(userId: string, newPassword: string, options?: { logout?: Object | undefined }): void;
+    function setPassword(userId: string, newPassword: string, options?: { logout?: boolean | undefined }): void;
+
+    function setPasswordAsync(userId: string, newPassword: string, options?: { logout?: boolean | undefined }): Promise<void>;
 
     function validateNewUser(func: Function): boolean;
 
@@ -207,6 +225,13 @@ declare namespace Accounts {
         userCallback?: ((err?: any) => void) | undefined;
     }
 
+    type LoginMethodResult = { error: Error } | {
+        userId: string;
+        error?: Error;
+        stampedLoginToken?: StampedLoginToken;
+        options?: Record<string, any>;
+    };
+
     /**
      *
      * Call a login method on the server.
@@ -251,7 +276,8 @@ declare namespace Accounts {
      * - `undefined`, meaning don't handle;
      * - a login method result object
      **/
-    function registerLoginHandler(name: string, handler: (options: any) => undefined | Object): void;
+    function registerLoginHandler(handler: (options: any) => undefined | LoginMethodResult): void;
+    function registerLoginHandler(name: string, handler: (options: any) => undefined | LoginMethodResult): void;
 
     type Password =
         | string

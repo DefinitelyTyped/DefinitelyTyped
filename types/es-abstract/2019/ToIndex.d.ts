@@ -1,2 +1,2 @@
-import ToIndex = require('../2018/ToIndex');
+import ToIndex = require("../2018/ToIndex");
 export = ToIndex;

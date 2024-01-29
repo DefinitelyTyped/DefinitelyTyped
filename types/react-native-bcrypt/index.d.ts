@@ -1,8 +1,3 @@
-// Type definitions for react-native-bcrypt 2.4
-// Project: https://github.com/emiraydin/react-native-bcrypt/#readme
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /*~ If this module is a UMD module that exposes a global variable 'myLib' when
  *~ loaded outside a module loader environment, declare that global here.
  *~ Otherwise, delete this declaration.
@@ -41,7 +36,7 @@ interface ReactNativeBcrypt {
     genSalt(
         rounds?: number | ((error: Error, string?: string) => any),
         seed_length?: number | ((error: Error, string?: string) => any),
-        callback?: ((error: Error, string?: string) => any)
+        callback?: (error: Error, string?: string) => any,
     ): void;
 
     /**
@@ -54,13 +49,18 @@ interface ReactNativeBcrypt {
 
     /**
      * Asynchronously generates a hash for the given string.
-     * @para s String to hash
+     * @param s String to hash
      * @param salt Salt length to generate or salt to use
      * @param callback Callback receiving the error, if any, and the resulting hash
      * @param progressCallback Callback successively called with the percentage of rounds completed
      *  (0.0 - 1.0), maximally once per `MAX_EXECUTION_TIME = 100` ms.
      */
-    hash(s: string, salt: number | string, callback: ((error: Error, string?: string) => any), progressCallback?: (number: number) => void): void;
+    hash(
+        s: string,
+        salt: number | string,
+        callback: (error: Error, string?: string) => any,
+        progressCallback?: (number: number) => void,
+    ): void;
 
     /**
      * Synchronously tests a string against a hash.
@@ -78,7 +78,12 @@ interface ReactNativeBcrypt {
      * @param progressCallback Callback successively called with the percentage of rounds completed
      *  (0.0 - 1.0), maximally once per `MAX_EXECUTION_TIME = 100` ms.
      */
-    compare(s: string, hash: string, callback: ((error: Error, boolean: boolean) => any), progressCallback?: (number: number) => any): void;
+    compare(
+        s: string,
+        hash: string,
+        callback: (error: Error, boolean: boolean) => any,
+        progressCallback?: (number: number) => any,
+    ): void;
 
     /**
      * Gets the number of rounds used to encrypt the specified hash.

@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/netlify-identity-widget",
+    "version": "1.9.9999",
+    "projects": [
+        "https://github.com/netlify/netlify-identity-widget",
+        "https://identity.netlify.com"
+    ],
+    "devDependencies": {
+        "@types/netlify-identity-widget": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Naveen Kumar Sangi",
+            "githubUsername": "nkprince007"
+        }
+    ]
+}

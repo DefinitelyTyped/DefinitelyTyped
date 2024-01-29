@@ -1,6 +1,6 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
-() => {
+(() => {
     type Predicate = (x: number) => boolean;
 
     function gt10(x: number) {
@@ -44,4 +44,4 @@ import * as R from 'ramda';
         // $ExpectType string
         foobar.bar;
     }
-};
+});

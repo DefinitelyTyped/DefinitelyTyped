@@ -1,4 +1,4 @@
-import { Writable, WritableOptions } from 'stream';
+import { Writable, WritableOptions } from "stream";
 
 export = Verifier;
 

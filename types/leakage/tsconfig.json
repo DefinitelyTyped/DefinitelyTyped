@@ -6,12 +6,8 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "baseUrl": "../",
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
@@ -21,4 +17,3 @@
         "leakage-tests.ts"
     ]
 }
-

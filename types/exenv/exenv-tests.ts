@@ -1,4 +1,4 @@
-import * as ExecutionEnvironment from 'exenv';
+import * as ExecutionEnvironment from "exenv";
 
 JSON.stringify(ExecutionEnvironment.canUseDOM);
 JSON.stringify(ExecutionEnvironment.canUseEventListeners);

@@ -1,2 +1,2 @@
-import { split } from '../index';
+import { split } from "../index.js";
 export default split;

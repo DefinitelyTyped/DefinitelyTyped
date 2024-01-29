@@ -1,8 +1,3 @@
-// Type definitions for html-docx-js 0.3
-// Project: https://github.com/evidenceprime/html-docx-js#readme
-// Definitions by: Jacob Fischer <https://github.com/JacobFischer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**
@@ -22,7 +17,7 @@ export function asBlob(
         /**
          * Page orientation. Must be `landscape` or `portrait` (default).
          */
-        orientation?: 'landscape' | 'portrait' | undefined;
+        orientation?: "landscape" | "portrait" | undefined;
         /**
          * A map of margin sizes (expressed in twentieths of point, see
          * [WordprocessingML documentation](http://officeopenxml.com/WPsectionPgMar.php)

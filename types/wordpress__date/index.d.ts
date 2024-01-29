@@ -1,10 +1,4 @@
-// Type definitions for @wordpress/date 3.3
-// Project: https://github.com/WordPress/gutenberg/tree/master/packages/date/README.md
-// Definitions by: Derek Sifford <https://github.com/dsifford>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
-import { Moment, MomentInput } from 'moment';
+import { Moment, MomentInput } from "moment";
 
 export interface DateSettings {
     formats: {
@@ -26,7 +20,7 @@ export interface DateSettings {
         relative: {
             future: string;
             past: string;
-        }
+        };
         weekdays: string[];
         weekdaysShort: string[];
     };
@@ -49,7 +43,7 @@ export interface DateSettings {
  *
  * @returns - Formatted date.
  */
-export function date(dateFormat: string, dateValue?: MomentInput, timezone?: string|boolean): string;
+export function date(dateFormat: string, dateValue?: MomentInput, timezone?: string | boolean): string;
 
 /**
  * Formats a date (like `date_i18n()` in PHP).
@@ -64,7 +58,7 @@ export function date(dateFormat: string, dateValue?: MomentInput, timezone?: str
  *
  * @returns - Formatted date.
  */
-export function dateI18n(dateFormat: string, dateValue?: MomentInput, timezone?: string|boolean): string;
+export function dateI18n(dateFormat: string, dateValue?: MomentInput, timezone?: string | boolean): string;
 
 /**
  * Formats a date. Does not alter the date's timezone.

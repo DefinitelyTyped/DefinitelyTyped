@@ -1,9 +1,3 @@
-// Type definitions for react-geosuggest 2.7
-// Project: https://github.com/ubilabs/react-geosuggest
-// Definitions by: Brad Menchl <https://github.com/brmenchl>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="google.maps" />
 
 import { Component, InputHTMLAttributes } from "react";
@@ -17,9 +11,12 @@ export default class Geosuggest extends Component<GeosuggestProps> {
 }
 
 // Replace with Exclude once on 2.8+
-export type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
+export type Omit<T, K extends keyof T> = Pick<
+    T,
+    ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never; [x: number]: never })[keyof T]
+>;
 
-export interface GeosuggestProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'style'> {
+export interface GeosuggestProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "style"> {
     placeholder?: string | undefined;
     initialValue?: string | undefined;
     className?: string | undefined;
@@ -67,12 +64,12 @@ export interface Styles {
     suggests?: Record<string, any> | undefined;
 }
 
-export type QueryType
-    = 'address'
-    | 'establishment'
-    | 'geocode'
-    | '(cities)'
-    | '(regions)';
+export type QueryType =
+    | "address"
+    | "establishment"
+    | "geocode"
+    | "(cities)"
+    | "(regions)";
 
 export interface Fixture {
     className?: string | undefined;
@@ -83,6 +80,6 @@ export interface Fixture {
 export interface Suggest {
     gmaps?: google.maps.GeocoderResult | undefined;
     label: string;
-    location: {lat: number, lng: number};
+    location: { lat: number; lng: number };
     placeId: string;
 }

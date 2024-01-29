@@ -1,4 +1,4 @@
-import 'setimmediate';
+import "setimmediate";
 
 // $ExpectType number
 const i1 = setImmediate((...args) => {
@@ -11,26 +11,42 @@ const i2 = setImmediate((...args) => {
 }, 1);
 
 // $ExpectType number
-const i3 = setImmediate((foo, bar, baz) => {
-    foo; // $ExpectType number
-    bar; // $ExpectType string
-    baz; // $ExpectType boolean
-}, 1, 'a', true);
+const i3 = setImmediate(
+    (foo, bar, baz) => {
+        foo; // $ExpectType number
+        bar; // $ExpectType string
+        baz; // $ExpectType boolean
+    },
+    1,
+    "a",
+    true,
+);
 
 clearImmediate(i1);
 clearImmediate(i2);
 clearImmediate(i3);
 
 // Errors:
-setImmediate(); // $ExpectError
-setImmediate((foo: unknown) => {}); // $ExpectError
+// @ts-expect-error
+setImmediate();
+// @ts-expect-error
+setImmediate((foo: unknown) => {});
 
-clearImmediate(); // $ExpectError
-clearImmediate(null); // $ExpectError
-clearImmediate(undefined); // $ExpectError
-clearImmediate('string'); // $ExpectError
-clearImmediate(Symbol.iterator); // $ExpectError
-clearImmediate(true); // $ExpectError
-clearImmediate(false); // $ExpectError
-clearImmediate({}); // $ExpectError
-clearImmediate(Function); // $ExpectError
+// @ts-expect-error
+clearImmediate();
+// @ts-expect-error
+clearImmediate(null);
+// @ts-expect-error
+clearImmediate(undefined);
+// @ts-expect-error
+clearImmediate("string");
+// @ts-expect-error
+clearImmediate(Symbol.iterator);
+// @ts-expect-error
+clearImmediate(true);
+// @ts-expect-error
+clearImmediate(false);
+// @ts-expect-error
+clearImmediate({});
+// @ts-expect-error
+clearImmediate(Function);

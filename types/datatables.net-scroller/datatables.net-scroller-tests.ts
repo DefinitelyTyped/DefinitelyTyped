@@ -7,7 +7,7 @@ $(document).ready(() => {
             serverWait: 1000,
             displayBuffer: 10,
             boundaryScale: 0.6,
-            loadingIndicator: true
-        }
+            loadingIndicator: true,
+        },
     };
 });

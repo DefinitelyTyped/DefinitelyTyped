@@ -1,10 +1,18 @@
-import { Popover } from 'bootstrap';
-import * as $ from 'jquery';
+import { Popover } from "bootstrap";
+import * as $ from "jquery";
 
 const element = new Element();
 
 // $ExpectType Popover
 new Popover(element, { delay: 0.5, animation: true });
+new Popover(element, {
+    popperConfig: {
+        placement: "top",
+    },
+});
+new Popover(element, {
+    popperConfig: defaultBsPopperConfig => defaultBsPopperConfig,
+});
 
 // $ExpectType Popover | null
 Popover.getInstance(element);
@@ -23,7 +31,7 @@ Popover.Default.placement;
 Popover.Default.selector;
 Popover.Default.template;
 Popover.Default.title;
-Popover.Default.fallbackPlacement;
+Popover.Default.fallbackPlacements;
 Popover.Default.boundary;
 Popover.Default.customClass;
 Popover.Default.sanitize;
@@ -41,7 +49,7 @@ Popover.DefaultType.placement; // $ExpectType string
 Popover.DefaultType.selector; // $ExpectType string
 Popover.DefaultType.template; // $ExpectType string
 Popover.DefaultType.title; // $ExpectType string
-Popover.DefaultType.fallbackPlacement; // $ExpectType string
+Popover.DefaultType.fallbackPlacements; // $ExpectType string
 Popover.DefaultType.boundary; // $ExpectType string
 Popover.DefaultType.customClass; // $ExpectType string
 Popover.DefaultType.sanitize; // $ExpectType string
@@ -70,16 +78,17 @@ element.addEventListener(Popover.Events.inserted, event => {
     // do something…
 });
 
-// $ExpectType void
-$('.alert').popover();
+// $ExpectType JQuery<HTMLElement>
+$(".alert").popover();
 
-// $ExpectType void
-$('.alert').popover({ delay: 0.5, animation: true });
+// $ExpectType JQuery<HTMLElement>
+$(".alert").popover({ delay: 0.5, animation: true });
 
-$('.alert').popover('show'); // $ExpectType void
-$('.alert').popover('hide'); // $ExpectType void
-$('.alert').popover('toggle'); // $ExpectType void
-$('.alert').popover('enable'); // $ExpectType void
-$('.alert').popover('disable'); // $ExpectType void
-$('.alert').popover('toggleEnabled'); // $ExpectType void
-$('.alert').popover('update'); // $ExpectType void
+$(".alert").popover("show"); // $ExpectType JQuery<HTMLElement>
+$(".alert").popover("hide"); // $ExpectType JQuery<HTMLElement>
+$(".alert").popover("toggle"); // $ExpectType JQuery<HTMLElement>
+$(".alert").popover("enable"); // $ExpectType JQuery<HTMLElement>
+$(".alert").popover("disable"); // $ExpectType JQuery<HTMLElement>
+$(".alert").popover("toggleEnabled"); // $ExpectType JQuery<HTMLElement>
+$(".alert").popover("update"); // $ExpectType JQuery<HTMLElement>
+$(".alert").popover("setContent"); // $ExpectType JQuery<HTMLElement>

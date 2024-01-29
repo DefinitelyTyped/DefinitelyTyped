@@ -1,23 +1,21 @@
-// Type definitions for json-schema-compare 0.2
-// Project: https://github.com/mokkabonna/json-schema-compare#readme
-// Definitions by: Emily Marigold Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { JSONSchema4, JSONSchema6, JSONSchema7, JSONSchema6Definition, JSONSchema7Definition } from 'json-schema';
+import { JSONSchema4, JSONSchema6, JSONSchema6Definition, JSONSchema7, JSONSchema7Definition } from "json-schema";
 
 export = compare;
 
 type JSONSchemaComparee = JSONSchema4 | JSONSchema6Definition | JSONSchema7Definition | undefined;
 type KnownKeys<T> = {
-    [K in keyof T]: string extends K ? never : K
+    [K in keyof T]: string extends K ? never : K;
 } extends { [_ in keyof T]: infer U } ? U : never;
 /**
  * The `string & {''?: never}` is a workaround for
  * [Microsoft/TypeScript#29729](https://github.com/Microsoft/TypeScript/issues/29729).
  * It will be removed as soon as it's not needed anymore.
  */
-type JSONSchemaKeys = KnownKeys<JSONSchema4> | keyof JSONSchema6 | keyof JSONSchema7 | string & {''?: never | undefined};
+type JSONSchemaKeys =
+    | KnownKeys<JSONSchema4>
+    | keyof JSONSchema6
+    | keyof JSONSchema7
+    | string & { ""?: never | undefined };
 interface Options {
     /**
      * Ignores certain keywords, useful to exclude meta keywords like title,

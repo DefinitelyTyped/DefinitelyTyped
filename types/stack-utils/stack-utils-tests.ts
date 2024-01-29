@@ -1,7 +1,11 @@
 /// <reference types="node" />
-import StackUtils = require('stack-utils');
+import StackUtils = require("stack-utils");
 
-const stack = new StackUtils({cwd: process.cwd(), internals: StackUtils.nodeInternals(), ignoredPackages: ["foobar"]});
+const stack = new StackUtils({
+    cwd: process.cwd(),
+    internals: StackUtils.nodeInternals(),
+    ignoredPackages: ["foobar"],
+});
 const stackStr = new Error().stack;
 
 if (stackStr) {
@@ -9,11 +13,15 @@ if (stackStr) {
 }
 
 new StackUtils();
-new StackUtils({cwd: process.cwd()});
-new StackUtils({internals: StackUtils.nodeInternals()});
-new StackUtils({wrapCallSite(callSite) { return callSite; }});
+new StackUtils({ cwd: process.cwd() });
+new StackUtils({ internals: StackUtils.nodeInternals() });
+new StackUtils({
+    wrapCallSite(callSite) {
+        return callSite;
+    },
+});
 
-const str = '';
+const str = "";
 
 stack.clean(str); // $ExpectType string
 stack.clean([str]);

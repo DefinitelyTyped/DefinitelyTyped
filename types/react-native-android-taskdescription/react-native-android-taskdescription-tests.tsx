@@ -1,5 +1,5 @@
-import * as React from 'react';
-import ReactNativeAndroidTaskDescription from 'react-native-android-taskdescription';
+import * as React from "react";
+import ReactNativeAndroidTaskDescription from "react-native-android-taskdescription";
 
 const test: React.FC = () => (
     <ReactNativeAndroidTaskDescription

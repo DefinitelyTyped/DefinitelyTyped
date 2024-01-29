@@ -1,15 +1,7 @@
-// Type definitions for jQuery mmenu v5.5.3
-// Project: http://mmenu.frebsite.nl/
-// Definitions by: John Gouigouix <https://github.com/Gouigouix>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 declare namespace JQueryMmenu {
-
     interface NavbarOptions {
-
         /**
          * Whether or not to add a navbar above the panels.
          * Default: true
@@ -28,11 +20,9 @@ declare namespace JQueryMmenu {
          * Default: "parent"
          */
         titleLink?: string | undefined;
-
     }
 
     interface OnclickOptions {
-
         /**
          * Whether or not the menu should close after clicking a link inside it.
          * The default value varies per link: true if the default behavior for
@@ -54,17 +44,15 @@ declare namespace JQueryMmenu {
          * Default: true
          */
         setSelected?: boolean | any | undefined;
-
     }
 
     interface Options {
-
         /**
          * A collection of extension names to enable for the menu.
          * You'll need this option when using the extensions.
          * Default: []
          */
-        extensions?: Array<Object> | undefined;
+        extensions?: Object[] | undefined;
 
         /**
          * navbar options
@@ -83,11 +71,9 @@ declare namespace JQueryMmenu {
          * Default: true
          */
         slidingSubmenus?: boolean | undefined;
-
     }
 
     interface ClassnamesConfigurations {
-
         /**
          * The classname on a LI that should be displayed as a divider.
          * Default: "Divider"
@@ -119,11 +105,9 @@ declare namespace JQueryMmenu {
          * Default: "vertical"
          */
         vertical?: string | undefined;
-
     }
 
     interface Configurations {
-
         /**
          * the CSS class names object
          */
@@ -153,11 +137,9 @@ declare namespace JQueryMmenu {
          * Default: 400 (The value should match the associated CSS value.)
          */
         transitionDuration?: number | undefined;
-
     }
 
     interface API {
-
         /**
          * Trigger non-specialized signature method
          * @param methodName
@@ -219,14 +201,10 @@ declare namespace JQueryMmenu {
         update(): void;
         /** @see update() */
         bind(methodName: "update", callback: () => void): void;
-
     }
-
 }
 
-
 interface JQuery {
-
     /**
      * Create mmenu component
      */
@@ -239,5 +217,4 @@ interface JQuery {
      * @param element
      */
     data(element: "mmenu"): JQueryMmenu.API;
-
 }

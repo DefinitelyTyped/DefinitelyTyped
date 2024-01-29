@@ -1,4 +1,4 @@
-import TBTC from '@keep-network/tbtc.js';
+import TBTC from "@keep-network/tbtc.js";
 
 const tbtc = TBTC.withConfig({
     web3: {} as any,
@@ -7,12 +7,12 @@ const tbtc = TBTC.withConfig({
         testnet: {
             server: "electrumx-server.test.tbtc.network",
             port: 50002,
-            protocol: "ssl"
+            protocol: "ssl",
         },
         testnetWS: {
             server: "electrumx-server.test.tbtc.network",
             port: 50003,
-            protocol: "ws"
-        }
+            protocol: "ws",
+        },
     },
 });

@@ -1,5 +1,5 @@
-import { Interface as ReadlineInterface } from 'readline';
-import inquirer = require('../..');
+import { Interface as ReadlineInterface } from "readline";
+import inquirer, { StreamOptions } from "../../index.js";
 
 /**
  * Represents a ui.
@@ -16,12 +16,12 @@ declare class UI {
     protected activePrompt: inquirer.prompts.PromptBase;
 
     /**
-     * Initializes a new instance of the `UI` class.
+     * Initializes a new instance of the {@link UI `UI`} class.
      *
      * @param options
      * The input- and output-stream of the ui.
      */
-    constructor(options?: inquirer.StreamOptions);
+    constructor(options?: StreamOptions);
 
     /**
      * Handles a forced exit of the application.
@@ -34,4 +34,4 @@ declare class UI {
     protected close(): void;
 }
 
-export = UI;
+export default UI;

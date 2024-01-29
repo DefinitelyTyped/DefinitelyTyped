@@ -1,4 +1,4 @@
-export default function configure() {
+export default function configure () {
   window.recurly.configure('my-public-key');
   window.recurly.configure({
     cors: true,
@@ -66,7 +66,7 @@ export default function configure() {
     }
   });
 
-  // $ExpectError
+  // @ts-expect-error
   window.recurly.configure({
     cors: true,
     currency: 'USD',

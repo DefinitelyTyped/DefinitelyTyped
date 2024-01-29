@@ -1,12 +1,3 @@
-// Type definitions for prismjs 1.26
-// Project: http://prismjs.com/, https://github.com/leaverou/prism
-// Definitions by: Michael Schmidt <https://github.com/RunDevelopment>
-//                 ExE Boss <https://github.com/ExE-Boss>
-//                 Erik Lieben <https://github.com/eriklieben>
-//                 Andre Wiggins <https://github.com/andrewiggins>
-//                 Michał Miszczyszyn <https://github.com/mmiszy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace Prism;
 export const languages: Languages;
 export const plugins: Record<string, any>;
@@ -158,16 +149,16 @@ export namespace util {
     function encode(tokens: TokenStream): TokenStream;
 
     /** Determine the type of the object */
-    function type(o: null): 'Null';
-    function type(o: undefined): 'Undefined';
+    function type(o: null): "Null";
+    function type(o: undefined): "Undefined";
     // tslint:disable:ban-types
-    function type(o: boolean | Boolean): 'Boolean';
-    function type(o: number | Number): 'Number';
-    function type(o: string | String): 'String';
-    function type(o: Function): 'Function';
+    function type(o: boolean | Boolean): "Boolean";
+    function type(o: number | Number): "Number";
+    function type(o: string | String): "String";
+    function type(o: Function): "Function";
     // tslint:enable:ban-types
-    function type(o: RegExp): 'RegExp';
-    function type(o: any[]): 'Array';
+    function type(o: RegExp): "RegExp";
+    function type(o: any[]): "Array";
     function type(o: any): string;
 
     /** Get the unique id of this object or give it one if it does not have one */
@@ -194,7 +185,7 @@ export interface GrammarRest {
     important?: GrammarValue | undefined;
     style?: GrammarValue | undefined;
     comment?: GrammarValue | undefined;
-    'class-name'?: GrammarValue | undefined;
+    "class-name"?: GrammarValue | undefined;
 
     /**
      * An optional grammar object that will appended to this grammar.
@@ -297,26 +288,27 @@ export namespace hooks {
     type HookTypes = keyof HookEnvironmentMap;
 
     interface HookEnvironmentMap {
-        'before-highlightall': RequiredEnvironment<'selector'>;
+        "before-highlightall": RequiredEnvironment<"selector">;
 
-        'before-sanity-check': ElementEnvironment;
-        'before-highlight': ElementEnvironment;
+        "before-sanity-check": ElementEnvironment;
+        "before-highlight": ElementEnvironment;
 
-        'before-insert': ElementHighlightedEnvironment;
-        'after-highlight': ElementHighlightedEnvironment;
+        "before-insert": ElementHighlightedEnvironment;
+        "after-highlight": ElementHighlightedEnvironment;
         complete: ElementHighlightedEnvironment;
 
-        'before-tokenize': TokenizeEnvironment;
-        'after-tokenize': TokenizeEnvironment;
+        "before-tokenize": TokenizeEnvironment;
+        "after-tokenize": TokenizeEnvironment;
 
-        wrap: RequiredEnvironment<'type' | 'content' | 'tag' | 'classes' | 'attributes' | 'language'>;
+        wrap: RequiredEnvironment<"type" | "content" | "tag" | "classes" | "attributes" | "language">;
     }
 
-    type RequiredEnvironment<T extends keyof Environment, U extends Environment = Environment> = U &
-        Required<Pick<U, T>>;
-    type ElementEnvironment = RequiredEnvironment<'element' | 'language' | 'grammar' | 'code'>;
-    type ElementHighlightedEnvironment = RequiredEnvironment<'highlightedCode', ElementEnvironment>;
-    type TokenizeEnvironment = RequiredEnvironment<'code' | 'grammar' | 'language'>;
+    type RequiredEnvironment<T extends keyof Environment, U extends Environment = Environment> =
+        & U
+        & Required<Pick<U, T>>;
+    type ElementEnvironment = RequiredEnvironment<"element" | "language" | "grammar" | "code">;
+    type ElementHighlightedEnvironment = RequiredEnvironment<"highlightedCode", ElementEnvironment>;
+    type TokenizeEnvironment = RequiredEnvironment<"code" | "grammar" | "language">;
 
     interface RegisteredHooks {
         [hook: string]: HookCallback[];

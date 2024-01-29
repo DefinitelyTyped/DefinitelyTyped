@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import {
     ActivityIndicatorProps,
     ImageProps,
@@ -6,7 +6,6 @@ import {
     ListView,
     ListViewProps,
     ModalProps,
-    PickerProps,
     RefreshControlProps,
     ScrollViewProps,
     SliderProps,
@@ -20,7 +19,7 @@ import {
     TouchableWithoutFeedbackProps,
     View,
     ViewProps,
-} from 'react-native';
+} from "react-native";
 import {
     setCustomActivityIndicator,
     setCustomImage,
@@ -41,7 +40,7 @@ import {
     setCustomTouchableWithoutFeedback,
     setCustomView,
     setCustomWebView,
-} from 'react-native-global-props';
+} from "react-native-global-props";
 
 const customViewProps: ViewProps = {};
 // $ExpectType void
@@ -57,7 +56,7 @@ setCustomText(customTextProps);
 
 const customImageProps: ImageProps = {
     source: {
-        uri: 'https://example.org/image.png',
+        uri: "https://example.org/image.png",
     },
 };
 // $ExpectType void
@@ -91,10 +90,6 @@ const customModalProps: ModalProps = {};
 // $ExpectType void
 setCustomModal(customModalProps);
 
-const customPickerProps: PickerProps = {};
-// $ExpectType void
-setCustomPicker(customPickerProps);
-
 const customRefreshControlProps: RefreshControlProps = {
     refreshing: false,
 };
@@ -117,9 +112,18 @@ const customSwitchProps: SwitchProps = {};
 // $ExpectType void
 setCustomSwitch(customSwitchProps);
 
+const customPickerProps = {};
+// $ExpectType void
+setCustomPicker(customPickerProps);
+
 const customListViewProps: ListViewProps = {
     dataSource: new ListView.DataSource({}),
-    renderRow(rowData: any, sectionID: string | number, rowID: string | number, highlightRow: boolean | undefined): React.ReactElement {
+    renderRow(
+        rowData: any,
+        sectionID: string | number,
+        rowID: string | number,
+        highlightRow: boolean | undefined,
+    ): React.ReactElement {
         return <View />;
     },
 };

@@ -1,8 +1,8 @@
-import { Base, EmitterBase } from '../base';
-import { Identity } from '../../identity';
-import Transport from '../../transport/transport';
-import { FrameEvents } from '../events/frame';
-export declare type EntityType = 'window' | 'iframe' | 'external connection' | 'view' | 'unknown';
+import { Identity } from "../../identity";
+import Transport from "../../transport/transport";
+import { Base, EmitterBase } from "../base";
+import { FrameEvents } from "../events/frame";
+export declare type EntityType = "window" | "iframe" | "external connection" | "view" | "unknown";
 export interface FrameInfo {
     uuid: string;
     name: string;
@@ -64,7 +64,6 @@ export default class _FrameModule extends Base {
  *
  * The fin.Frame namespace represents a way to interact with `iframes` and facilitates the discovery of current context
  * (iframe or main window) as well as the ability to listen for <a href="tutorial-Frame.EventEmitter.html">frame-specific events</a>.
- * @class
  * @alias Frame
  * @hideconstructor
  */

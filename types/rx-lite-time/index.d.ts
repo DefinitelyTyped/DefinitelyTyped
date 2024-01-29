@@ -1,8 +1,3 @@
-// Type definitions for rx-lite-time 4.0
-// Project: https://github.com/Reactive-Extensions/RxJS
-// Definitions by: Carl de Billy <http://carl.debilly.net/>, Igor Oleinikov <https://github.com/Igorbek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="rx-lite" />
 
 declare namespace Rx {
@@ -11,7 +6,11 @@ declare namespace Rx {
         delayWithSelector(delayDurationSelector: (item: T) => number): Observable<T>;
         delayWithSelector(subscriptionDelay: number, delayDurationSelector: (item: T) => number): Observable<T>;
 
-        timeoutWithSelector<TTimeout>(firstTimeout: Observable<TTimeout>, timeoutdurationSelector?: (item: T) => Observable<TTimeout>, other?: Observable<T>): Observable<T>;
+        timeoutWithSelector<TTimeout>(
+            firstTimeout: Observable<TTimeout>,
+            timeoutdurationSelector?: (item: T) => Observable<TTimeout>,
+            other?: Observable<T>,
+        ): Observable<T>;
 
         debounceWithSelector<TTimeout>(debounceDurationSelector: (item: T) => Observable<TTimeout>): Observable<T>;
         /**
@@ -49,14 +48,16 @@ declare namespace Rx {
             iterate: (state: TState) => TState,
             resultSelector: (state: TState) => TResult,
             timeSelector: (state: TState) => number,
-            scheduler?: IScheduler): Observable<TResult>;
+            scheduler?: IScheduler,
+        ): Observable<TResult>;
         generateWithAbsoluteTime<TState, TResult>(
             initialState: TState,
             condition: (state: TState) => boolean,
             iterate: (state: TState) => TState,
             resultSelector: (state: TState) => TResult,
             timeSelector: (state: TState) => Date,
-            scheduler?: IScheduler): Observable<TResult>;
+            scheduler?: IScheduler,
+        ): Observable<TResult>;
     }
 }
 

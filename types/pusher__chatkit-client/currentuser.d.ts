@@ -1,8 +1,8 @@
 export {};
-import { PusherUser } from './user';
-import { PusherRoom, PusherReadCursor } from './room';
-import { PusherMessage, SendMessagePayload } from './message';
-import { UserHook, UserPresenceHook, ReadCursorHook, RoomParams, UserAndRoomParams } from './hooks';
+import { ReadCursorHook, RoomParams, UserAndRoomParams, UserHook, UserPresenceHook } from "./hooks";
+import { PusherMessage, SendMessagePayload } from "./message";
+import { PusherReadCursor, PusherRoom } from "./room";
+import { PusherUser } from "./user";
 
 export interface RoomSubscriptionHooks {
     onMessage?: ((message: PusherMessage) => void) | undefined;
@@ -52,7 +52,7 @@ interface UpdateRoomParams {
 interface FetchMultipartMessagesParams {
     roomId: string;
     initialId?: number | undefined;
-    direction?: 'older' | 'newer' | undefined;
+    direction?: "older" | "newer" | undefined;
     limit?: number | undefined;
 }
 

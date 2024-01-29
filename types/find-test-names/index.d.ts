@@ -1,9 +1,4 @@
-// Type definitions for find-test-names 1.17
-// Project: https://github.com/bahmutov/find-test-names
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { formatTestList } from './format-test-list';
+import { formatTestList } from "./format-test-list";
 export interface VisitCallback {
     (test: Test | Suite, parentSuite?: Suite): void;
 }
@@ -20,21 +15,23 @@ export interface ResultsWithStructure extends Results {
 
 export interface Test {
     name: string;
-    type: 'test';
+    requiredTags: string[] | undefined;
+    type: "test";
     tags: Tags;
     pending: boolean;
 }
 export interface TestInfo {
     name: string;
-    type: 'test';
+    type: "test";
     pending: boolean;
     tags?: Tags | undefined;
 }
 export interface Suite {
     name: string;
+    requiredTags?: string[] | undefined;
     tags?: Tags | undefined;
     pending: boolean;
-    type: 'suite';
+    type: "suite";
     tests: Test[];
     suites: Suite[];
     testCount: number;
@@ -42,7 +39,7 @@ export interface Suite {
 }
 export interface SuiteInfo {
     name: string;
-    type: 'suite';
+    type: "suite";
     pending: boolean;
     tags?: Tags | undefined;
 }
@@ -108,7 +105,6 @@ export function countTags(structure: Structure): Record<string, number>;
  */
 export function visitEachNode(structure: Structure, fn: VisitCallback, parentSuite: Suite): void;
 /**
- *
  * @param structure
  */
 export function setParentSuite(structure: Structure): void;
@@ -125,4 +121,16 @@ export function setEffectiveTags(structure: Structure): Structure;
  * @param tags
  */
 export function filterByEffectiveTags(structure: string | Structure, tags: string[]): Test[];
+
+/**
+ * Returns a single object with full test titles as keys.
+ */
+export function findEffectiveTestTags(source: string): Record<string, Tags>;
+
+/**
+ * Reads the source code of the given spec file from disk
+ * and finds all tests and their effective tags.
+ */
+export function findEffectiveTestTagsIn(specFilename: string): ReturnType<typeof findEffectiveTestTags>;
+
 export { formatTestList };

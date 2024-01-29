@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/microsoft-live-connect",
+    "version": "5.0.9999",
+    "projects": [
+        "http://msdn.microsoft.com/en-us/library/live/hh243643.aspx"
+    ],
+    "dependencies": {
+        "@types/winjs": "*",
+        "@types/winrt": "*"
+    },
+    "devDependencies": {
+        "@types/microsoft-live-connect": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "John Vilk",
+            "githubUsername": "jvilk"
+        }
+    ]
+}

@@ -1,6 +1,6 @@
-import { Quad, BaseQuad } from 'rdf-js';
-import { Query, QueryInit } from '.';
-import { ResultRow } from './ResultParser';
+import { BaseQuad, Quad } from "@rdfjs/types";
+import { Query, QueryInit } from ".";
+import { ResultRow } from "./ResultParser";
 
 declare namespace ParsingQuery {
     type ParsingQuery<Q extends BaseQuad = Quad> = Query<boolean, Q[], ResultRow[], void>;

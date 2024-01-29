@@ -1,7 +1,7 @@
 import * as log from "lambda-log";
 
 const logMessage: log.LogMessage = log.log("customLevel", "custom", {
-    key: "value"
+    key: "value",
 });
 logMessage.level;
 logMessage.meta;
@@ -20,9 +20,13 @@ log.assert(true, "this will print");
 const logInstance = new log.LambdaLog({
     dynamicMeta: (logMessage: log.LogMessage) => {
         return {
-            value: logMessage.value
+            value: logMessage.value,
         };
-    }
+    },
+    logHandler: console,
+    levelKey: "msg",
+    messageKey: "msg",
+    tagsKey: "_tags",
 });
 logInstance.log("customLevel", "custom", { key: "value" });
 logInstance.info("info", { key: "value" });

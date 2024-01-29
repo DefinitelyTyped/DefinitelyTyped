@@ -1,0 +1,51 @@
+{
+    "private": true,
+    "name": "@types/koa",
+    "version": "2.14.9999",
+    "projects": [
+        "http://koajs.com"
+    ],
+    "dependencies": {
+        "@types/accepts": "*",
+        "@types/content-disposition": "*",
+        "@types/cookies": "*",
+        "@types/http-assert": "*",
+        "@types/http-errors": "*",
+        "@types/keygrip": "*",
+        "@types/koa-compose": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/koa": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "jKey Lu",
+            "githubUsername": "jkeylu"
+        },
+        {
+            "name": "Brice Bernard",
+            "githubUsername": "brikou"
+        },
+        {
+            "name": "harryparkdotio",
+            "githubUsername": "harryparkdotio"
+        },
+        {
+            "name": "Wooram Jun",
+            "githubUsername": "chatoo2412"
+        },
+        {
+            "name": "Christian Vaagland Tellnes",
+            "githubUsername": "tellnes"
+        },
+        {
+            "name": "Piotr Kuczynski",
+            "githubUsername": "pkuczynski"
+        },
+        {
+            "name": "vnoder",
+            "githubUsername": "vnoder"
+        }
+    ]
+}

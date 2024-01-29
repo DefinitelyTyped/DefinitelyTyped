@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/fireo",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/octabytes/fireo-nodejs"
+    ],
+    "devDependencies": {
+        "@types/fireo": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Azeem Haider",
+            "githubUsername": "AxeemHaider"
+        }
+    ]
+}

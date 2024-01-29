@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/pixelmatch",
+    "version": "5.2.9999",
+    "projects": [
+        "https://github.com/mapbox/pixelmatch#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/pixelmatch": "workspace:.",
+        "@types/pngjs": "*"
+    },
+    "owners": [
+        {
+            "name": "Oleg Repin",
+            "githubUsername": "iamolegga"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        },
+        {
+            "name": "Damian Frizzi",
+            "githubUsername": "damianfrizzi"
+        }
+    ]
+}

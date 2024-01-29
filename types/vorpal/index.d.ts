@@ -1,12 +1,5 @@
-// Type definitions for vorpal 1.12
-// Project: https://github.com/dthree/vorpal
-// Definitions by: Daniel Byrne <https://github.com/danwbyrne>
-//                 Gheorghe Avram <https://github.com/sweethuman>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 declare class Vorpal {
-    parse(argv: ReadonlyArray<string>, opts?: Vorpal.ParseOpts): this;
+    parse(argv: readonly string[], opts?: Vorpal.ParseOpts): this;
     delimiter(value: string): this;
     show(): this;
     hide(): this;
@@ -36,7 +29,7 @@ declare namespace Vorpal {
     }
 
     interface ParseOpts {
-        use?: 'minimist';
+        use?: "minimist";
     }
 
     interface PromptObject {
@@ -52,13 +45,13 @@ declare namespace Vorpal {
         _cancel: Cancel | undefined;
         alias(command: string): this;
         parse(value: (command: string, args: Args) => string): this;
-        option(option: string, description: string, autocomplete?: ReadonlyArray<string>): this;
-        types(types: { string?: ReadonlyArray<string> | undefined }): this;
+        option(option: string, description: string, autocomplete?: readonly string[]): this;
+        types(types: { string?: readonly string[] | undefined }): this;
         hidden(): this;
         remove(): this;
         help(value: (args: Args) => void): this;
         validate(value: (args: Args) => boolean | string): this;
-        autocomplete(values: ReadonlyArray<string> | { data: () => Promise<ReadonlyArray<string>> }): this;
+        autocomplete(values: readonly string[] | { data: () => Promise<readonly string[]> }): this;
         action(action: Action): this;
         cancel(cancel: Cancel): this;
         allowUnknownOptions(): this;
@@ -83,7 +76,7 @@ declare namespace Vorpal {
 
     class CommandInstance {
         log(value: string, ...values: string[]): void;
-        prompt(prompt: object | ReadonlyArray<object>): Promise<PromptObject>;
+        prompt(prompt: object | readonly object[]): Promise<PromptObject>;
         delimiter(value: string): void;
     }
 }

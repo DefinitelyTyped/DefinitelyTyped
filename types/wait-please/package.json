@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/wait-please",
+    "version": "3.1.9999",
+    "projects": [
+        "https://github.com/dy/wait-please#readme"
+    ],
+    "devDependencies": {
+        "@types/wait-please": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

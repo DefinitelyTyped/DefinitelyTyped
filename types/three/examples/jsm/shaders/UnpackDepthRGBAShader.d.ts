@@ -1,9 +1,10 @@
-import { Uniform } from '../../../src/Three';
+import { IUniform } from '../../../src/Three.js';
 
 export const UnpackDepthRGBAShader: {
+    name: string;
     uniforms: {
-        tDiffuse: Uniform;
-        opacity: Uniform;
+        tDiffuse: IUniform;
+        opacity: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

@@ -1,13 +1,6 @@
-// Type definitions for transducers-js 0.4
-// Project: https://github.com/cognitect-labs/transducers-js
-// Definitions by: Colin Kahn <https://github.com/colinkahn>
-//                 David Philipson <https://github.com/dphilipson>
-//                 Adrian Leonhard <https://github.com/NaridaL>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Reduced<TResult> {
-  ['@@transducer/reduced']: boolean;
-  ['@@transducer/value']: TResult;
+    ["@@transducer/reduced"]: boolean;
+    ["@@transducer/value"]: TResult;
 }
 
 export type Reducer<TResult, TInput> = (result: TResult, input: TInput) => TResult;
@@ -15,16 +8,17 @@ export type Reducer<TResult, TInput> = (result: TResult, input: TInput) => TResu
 // Common case: Transducer<TInput, TOutput> =
 //   Transformer<TResult, TOutput> => Transformer<TResult, TInput>.
 export interface Transducer<TInput, TOutput> {
-    <TResult>(xf: Transformer<TResult, TOutput>)
-        : Transformer<TResult, TInput>;
-    <TResult, TCompleteResult>(xf: CompletingTransformer<TResult, TCompleteResult, TOutput>)
-        : CompletingTransformer<TResult, TCompleteResult, TInput>;
+    <TResult>(xf: Transformer<TResult, TOutput>): Transformer<TResult, TInput>;
+    <TResult, TCompleteResult>(
+        xf: CompletingTransformer<TResult, TCompleteResult, TOutput>,
+    ): CompletingTransformer<TResult, TCompleteResult, TInput>;
 }
 
-export interface CompletingTransformer <TResult, TCompleteResult, TInput> {
-  ['@@transducer/init'](): TResult | void;
-  ['@@transducer/step'](result: TResult, input: TInput): TResult | Reduced<TResult>;
-  ['@@transducer/result'](result: TResult): TCompleteResult;
+export interface CompletingTransformer<TResult, TCompleteResult, TInput> {
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    ["@@transducer/init"](): TResult | void;
+    ["@@transducer/step"](result: TResult, input: TInput): TResult | Reduced<TResult>;
+    ["@@transducer/result"](result: TResult): TCompleteResult;
 }
 
 export type Transformer<TResult, TInput> = CompletingTransformer<TResult, TResult, TInput>;
@@ -45,7 +39,12 @@ export function isReduced(x: any): boolean;
 // 2-4 Transducers
 export function comp<A, B, C>(a: Transducer<A, B>, b: Transducer<B, C>): Transducer<A, C>;
 export function comp<A, B, C, D>(a: Transducer<A, B>, b: Transducer<B, C>, c: Transducer<C, D>): Transducer<A, D>;
-export function comp<A, B, C, D, E>(a: Transducer<A, B>, b: Transducer<B, C>, c: Transducer<C, D>, d: Transducer<D, E>): Transducer<A, E>;
+export function comp<A, B, C, D, E>(
+    a: Transducer<A, B>,
+    b: Transducer<B, C>,
+    c: Transducer<C, D>,
+    d: Transducer<D, E>,
+): Transducer<A, E>;
 // N identical Transducers
 export function comp<A>(...args: Array<Transducer<A, A>>): Transducer<A, A>;
 // 2-4 arbitrary functions
@@ -68,10 +67,10 @@ export function complement<T>(f: (x: T) => boolean): (x: T) => boolean;
 export function identity<T>(arg: T): T;
 
 export class Map<TResult, TInput, TOutput> implements Transformer<TResult, TInput> {
-  constructor(f: (x: TInput) => TOutput, xf: Transformer<TResult, TOutput>);
-  ['@@transducer/init'](): TResult;
-  ['@@transducer/step'](result: TResult, input: TInput): TResult;
-  ['@@transducer/result'](result: TResult): TResult;
+    constructor(f: (x: TInput) => TOutput, xf: Transformer<TResult, TOutput>);
+    ["@@transducer/init"](): TResult;
+    ["@@transducer/step"](result: TResult, input: TInput): TResult;
+    ["@@transducer/result"](result: TResult): TResult;
 }
 
 /**
@@ -80,10 +79,10 @@ export class Map<TResult, TInput, TOutput> implements Transformer<TResult, TInpu
 export function map<TInput, TOutput>(f: (x: TInput) => TOutput): Transducer<TInput, TOutput>;
 
 export class Filter<TResult, TInput> implements Transformer<TResult, TInput> {
-  constructor(pred: (x: TInput) => boolean, xf: Transformer<TResult, TInput>);
-  ['@@transducer/init'](): TResult;
-  ['@@transducer/step'](result: TResult, input: TInput): TResult;
-  ['@@transducer/result'](result: TResult): TResult;
+    constructor(pred: (x: TInput) => boolean, xf: Transformer<TResult, TInput>);
+    ["@@transducer/init"](): TResult;
+    ["@@transducer/step"](result: TResult, input: TInput): TResult;
+    ["@@transducer/result"](result: TResult): TResult;
 }
 
 /**
@@ -98,10 +97,10 @@ export function filter<TInput>(pred: (x: TInput) => boolean): Transducer<TInput,
 export function remove<TInput>(pred: (x: TInput) => boolean): Transducer<TInput, TInput>;
 
 export class Keep<TResult, TInput> implements Transformer<TResult, TInput> {
-  constructor(f: (x: TInput) => any, xf: Transformer<TResult, TInput>);
-  ['@@transducer/init'](): TResult;
-  ['@@transducer/step'](result: TResult, input: TInput): TResult;
-  ['@@transducer/result'](result: TResult): TResult;
+    constructor(f: (x: TInput) => any, xf: Transformer<TResult, TInput>);
+    ["@@transducer/init"](): TResult;
+    ["@@transducer/step"](result: TResult, input: TInput): TResult;
+    ["@@transducer/result"](result: TResult): TResult;
 }
 
 /**
@@ -111,10 +110,10 @@ export class Keep<TResult, TInput> implements Transformer<TResult, TInput> {
 export function keep<TInput>(f: (x: TInput) => any): Transducer<TInput, TInput>;
 
 export class KeepIndexed<TResult, TInput> implements Transformer<TResult, TInput> {
-  constructor(f: (i: number, x: TInput) => any, xf: Transformer<TResult, TInput>);
-  ['@@transducer/init'](): TResult;
-  ['@@transducer/step'](result: TResult, input: TInput): TResult;
-  ['@@transducer/result'](result: TResult): TResult;
+    constructor(f: (i: number, x: TInput) => any, xf: Transformer<TResult, TInput>);
+    ["@@transducer/init"](): TResult;
+    ["@@transducer/step"](result: TResult, input: TInput): TResult;
+    ["@@transducer/result"](result: TResult): TResult;
 }
 
 /**
@@ -124,10 +123,10 @@ export class KeepIndexed<TResult, TInput> implements Transformer<TResult, TInput
 export function keepIndexed<TInput>(f: (i: number, x: TInput) => any): Transducer<TInput, TInput>;
 
 export class Take<TResult, TInput> implements Transformer<TResult, TInput> {
-  constructor(n: number, xf: Transformer<TResult, TInput>);
-  ['@@transducer/init'](): TResult;
-  ['@@transducer/step'](result: TResult, input: TInput): TResult | Reduced<TResult>;
-  ['@@transducer/result'](result: TResult): TResult;
+    constructor(n: number, xf: Transformer<TResult, TInput>);
+    ["@@transducer/init"](): TResult;
+    ["@@transducer/step"](result: TResult, input: TInput): TResult | Reduced<TResult>;
+    ["@@transducer/result"](result: TResult): TResult;
 }
 
 /**
@@ -137,10 +136,10 @@ export class Take<TResult, TInput> implements Transformer<TResult, TInput> {
 export function take<TInput>(n: number): Transducer<TInput, TInput>;
 
 export class TakeWhile<TResult, TInput> implements Transformer<TResult, TInput> {
-  constructor(pred: (n: TInput) => boolean, xf: Transformer<TResult, TInput>);
-  ['@@transducer/init'](): TResult;
-  ['@@transducer/step'](result: TResult, input: TInput): TResult | Reduced<TResult>;
-  ['@@transducer/result'](result: TResult): TResult;
+    constructor(pred: (n: TInput) => boolean, xf: Transformer<TResult, TInput>);
+    ["@@transducer/init"](): TResult;
+    ["@@transducer/step"](result: TResult, input: TInput): TResult | Reduced<TResult>;
+    ["@@transducer/result"](result: TResult): TResult;
 }
 
 /**
@@ -150,10 +149,10 @@ export class TakeWhile<TResult, TInput> implements Transformer<TResult, TInput> 
 export function takeWhile<TInput>(pred: (n: TInput) => boolean): Transducer<TInput, TInput>;
 
 export class TakeNth<TResult, TInput> implements Transformer<TResult, TInput> {
-  constructor(n: number, xf: Transformer<TResult, TInput>);
-  ['@@transducer/init'](): TResult;
-  ['@@transducer/step'](result: TResult, input: TInput): TResult;
-  ['@@transducer/result'](result: TResult): TResult;
+    constructor(n: number, xf: Transformer<TResult, TInput>);
+    ["@@transducer/init"](): TResult;
+    ["@@transducer/step"](result: TResult, input: TInput): TResult;
+    ["@@transducer/result"](result: TResult): TResult;
 }
 
 /**
@@ -162,10 +161,10 @@ export class TakeNth<TResult, TInput> implements Transformer<TResult, TInput> {
 export function takeNth<TInput>(n: number): Transducer<TInput, TInput>;
 
 export class Drop<TResult, TInput> implements Transformer<TResult, TInput> {
-  constructor(n: number, xf: Transformer<TResult, TInput>);
-  ['@@transducer/init'](): TResult;
-  ['@@transducer/step'](result: TResult, input: TInput): TResult;
-  ['@@transducer/result'](result: TResult): TResult;
+    constructor(n: number, xf: Transformer<TResult, TInput>);
+    ["@@transducer/init"](): TResult;
+    ["@@transducer/step"](result: TResult, input: TInput): TResult;
+    ["@@transducer/result"](result: TResult): TResult;
 }
 
 /**
@@ -174,10 +173,10 @@ export class Drop<TResult, TInput> implements Transformer<TResult, TInput> {
 export function drop<TInput>(n: number): Transducer<TInput, TInput>;
 
 export class DropWhile<TResult, TInput> implements Transformer<TResult, TInput> {
-  constructor(pred: (input: TInput) => boolean, xf: Transformer<TResult, TInput>);
-  ['@@transducer/init'](): TResult;
-  ['@@transducer/step'](result: TResult, input: TInput): TResult;
-  ['@@transducer/result'](result: TResult): TResult;
+    constructor(pred: (input: TInput) => boolean, xf: Transformer<TResult, TInput>);
+    ["@@transducer/init"](): TResult;
+    ["@@transducer/step"](result: TResult, input: TInput): TResult;
+    ["@@transducer/result"](result: TResult): TResult;
 }
 
 /**
@@ -187,10 +186,10 @@ export class DropWhile<TResult, TInput> implements Transformer<TResult, TInput> 
 export function dropWhile<TInput>(pred: (input: TInput) => boolean): Transducer<TInput, TInput>;
 
 export class PartitionBy<TResult, TInput> implements Transformer<TResult, TInput> {
-  constructor(f: (input: TInput) => any, xf: Transformer<TResult, TInput[]>);
-  ['@@transducer/init'](): TResult;
-  ['@@transducer/step'](result: TResult, input: TInput): TResult;
-  ['@@transducer/result'](result: TResult): TResult;
+    constructor(f: (input: TInput) => any, xf: Transformer<TResult, TInput[]>);
+    ["@@transducer/init"](): TResult;
+    ["@@transducer/step"](result: TResult, input: TInput): TResult;
+    ["@@transducer/result"](result: TResult): TResult;
 }
 
 /**
@@ -201,10 +200,10 @@ export class PartitionBy<TResult, TInput> implements Transformer<TResult, TInput
 export function partitionBy<TInput>(f: (input: TInput) => any): Transducer<TInput, TInput[]>;
 
 export class PartitionAll<TResult, TInput> implements Transformer<TResult, TInput> {
-  constructor(n: number, xf: Transformer<TResult, TInput[]>);
-  ['@@transducer/init'](): TResult;
-  ['@@transducer/step'](result: TResult, input: TInput): TResult;
-  ['@@transducer/result'](result: TResult): TResult;
+    constructor(n: number, xf: Transformer<TResult, TInput[]>);
+    ["@@transducer/init"](): TResult;
+    ["@@transducer/step"](result: TResult, input: TInput): TResult;
+    ["@@transducer/result"](result: TResult): TResult;
 }
 
 /**
@@ -213,11 +212,13 @@ export class PartitionAll<TResult, TInput> implements Transformer<TResult, TInpu
  */
 export function partitionAll<TResult, TInput>(n: number): Transducer<TInput, TInput[]>;
 
-export class Completing<TResult, TCompleteResult, TInput> implements CompletingTransformer<TResult, TCompleteResult, TInput> {
-  constructor(cf: (result: TResult) => TCompleteResult, xf: Transformer<TResult, TInput>);
-  ['@@transducer/init'](): TResult;
-  ['@@transducer/step'](result: TResult, input: TInput): TResult;
-  ['@@transducer/result'](result: TResult): TCompleteResult;
+export class Completing<TResult, TCompleteResult, TInput>
+    implements CompletingTransformer<TResult, TCompleteResult, TInput>
+{
+    constructor(cf: (result: TResult) => TCompleteResult, xf: Transformer<TResult, TInput>);
+    ["@@transducer/init"](): TResult;
+    ["@@transducer/step"](result: TResult, input: TInput): TResult;
+    ["@@transducer/result"](result: TResult): TCompleteResult;
 }
 
 /**
@@ -226,13 +227,14 @@ export class Completing<TResult, TCompleteResult, TInput> implements CompletingT
  */
 export function completing<TResult, TCompleteResult, TInput>(
     xf: Transformer<TResult, TInput> | Reducer<TResult, TInput>,
-    cf: (result: TResult) => TCompleteResult): CompletingTransformer<TResult, TCompleteResult, TInput>;
+    cf: (result: TResult) => TCompleteResult,
+): CompletingTransformer<TResult, TCompleteResult, TInput>;
 
 export class Wrap<TResult, TInput> implements Transformer<TResult, TInput> {
-  constructor(stepFn: Reducer<TResult, TInput>);
-  ['@@transducer/init'](): TResult;
-  ['@@transducer/step'](result: TResult, input: TInput): TResult;
-  ['@@transducer/result'](result: TResult): TResult;
+    constructor(stepFn: Reducer<TResult, TInput>);
+    ["@@transducer/init"](): TResult;
+    ["@@transducer/step"](result: TResult, input: TInput): TResult;
+    ["@@transducer/result"](result: TResult): TResult;
 }
 
 /**
@@ -257,85 +259,101 @@ export function mapcat<TResult, TInput, TOutput>(f: (arr: TInput) => Iterable<TO
  * and a iterable collection - returns the reduction.
  */
 export function transduce<TResult, TInput, TOutput>(
-  xf: Transducer<TInput, TOutput>,
-  f: Reducer<TResult, TOutput>,
-  init: TResult,
-  coll: Iterable<TInput>): TResult;
+    xf: Transducer<TInput, TOutput>,
+    f: Reducer<TResult, TOutput>,
+    init: TResult,
+    coll: Iterable<TInput>,
+): TResult;
 export function transduce<TResult, TCompleteResult, TInput, TOutput>(
-  xf: Transducer<TInput, TOutput>,
-  f: CompletingTransformer<TResult, TCompleteResult, TOutput>,
-  init: TResult,
-  coll: Iterable<TInput>): TCompleteResult;
+    xf: Transducer<TInput, TOutput>,
+    f: CompletingTransformer<TResult, TCompleteResult, TOutput>,
+    init: TResult,
+    coll: Iterable<TInput>,
+): TCompleteResult;
 export function transduce<TResult, TCompleteResult, TInput, TOutput>(
-  xf: Transducer<TInput, TOutput>,
-  f: CompletingTransformer<TResult, TCompleteResult, TOutput>,
-  coll: Iterable<TInput>): TCompleteResult;
+    xf: Transducer<TInput, TOutput>,
+    f: CompletingTransformer<TResult, TCompleteResult, TOutput>,
+    coll: Iterable<TInput>,
+): TCompleteResult;
 // Overloads for object iteration.
 export function transduce<TResult, TInput, TOutput>(
-  xf: Transducer<[string, TInput], TOutput>,
-  f: Reducer<TResult, TOutput>,
-  init: TResult,
-  coll: { [key: string]: TInput }): TResult;
+    xf: Transducer<[string, TInput], TOutput>,
+    f: Reducer<TResult, TOutput>,
+    init: TResult,
+    coll: { [key: string]: TInput },
+): TResult;
 export function transduce<TResult, TCompleteResult, TInput, TOutput>(
-  xf: Transducer<[string, TInput], TOutput>,
-  f: CompletingTransformer<TResult, TCompleteResult, TOutput>,
-  init: TResult,
-  coll: { [key: string]: TInput }): TCompleteResult;
+    xf: Transducer<[string, TInput], TOutput>,
+    f: CompletingTransformer<TResult, TCompleteResult, TOutput>,
+    init: TResult,
+    coll: { [key: string]: TInput },
+): TCompleteResult;
 export function transduce<TResult, TCompleteResult, TInput, TOutput>(
-  xf: Transducer<[string, TInput], TOutput>,
-  f: CompletingTransformer<TResult, TCompleteResult, TOutput>,
-  coll: { [key: string]: TInput }): TCompleteResult;
+    xf: Transducer<[string, TInput], TOutput>,
+    f: CompletingTransformer<TResult, TCompleteResult, TOutput>,
+    coll: { [key: string]: TInput },
+): TCompleteResult;
 
 /**
  * Given a transducer, an intial value and a
  * collection - returns the reduction.
  */
 export function reduce<TResult, TInput>(
-  xf: Transformer<TResult, TInput> | Reducer<TResult, TInput>,
-  init: TResult,
-  coll: Iterable<TInput>): TResult;
+    xf: Transformer<TResult, TInput> | Reducer<TResult, TInput>,
+    init: TResult,
+    coll: Iterable<TInput>,
+): TResult;
 export function reduce<TResult, TCompleteResult, TInput>(
-  xf: CompletingTransformer<TResult, TCompleteResult, TInput>,
-  init: TResult,
-  coll: Iterable<TInput>): TCompleteResult;
+    xf: CompletingTransformer<TResult, TCompleteResult, TInput>,
+    init: TResult,
+    coll: Iterable<TInput>,
+): TCompleteResult;
 // Overloads for object iteration.
 export function reduce<TResult, TInput>(
-  xf: Transformer<TResult, [string, TInput]> | Reducer<TResult, [string, TInput]>,
-  init: TResult,
-  coll: { [key: string]: TInput }): TResult;
+    xf: Transformer<TResult, [string, TInput]> | Reducer<TResult, [string, TInput]>,
+    init: TResult,
+    coll: { [key: string]: TInput },
+): TResult;
 export function reduce<TResult, TCompleteResult, TInput>(
-  xf: CompletingTransformer<TResult, TCompleteResult, [string, TInput]>,
-  init: TResult,
-  coll: { [key: string]: TInput }): TCompleteResult;
+    xf: CompletingTransformer<TResult, TCompleteResult, [string, TInput]>,
+    init: TResult,
+    coll: { [key: string]: TInput },
+): TCompleteResult;
 
 /**
  * Reduce a value into the given empty value using a transducer.
  */
 export function into<TInput, TOutput>(
-  empty: TOutput[],
-  xf: Transducer<TInput, TOutput>,
-  coll: Iterable<TInput>): TOutput[];
+    empty: TOutput[],
+    xf: Transducer<TInput, TOutput>,
+    coll: Iterable<TInput>,
+): TOutput[];
 export function into<TInput>(
-  empty: string,
-  xf: Transducer<TInput, string>,
-  coll: Iterable<TInput>): string;
+    empty: string,
+    xf: Transducer<TInput, string>,
+    coll: Iterable<TInput>,
+): string;
 export function into<TInput, TOutput>(
-  empty: { [key: string]: TOutput },
-  xf: Transducer<TInput, [string, TOutput]>,
-  coll: Iterable<TInput>): { [key: string]: TOutput };
+    empty: { [key: string]: TOutput },
+    xf: Transducer<TInput, [string, TOutput]>,
+    coll: Iterable<TInput>,
+): { [key: string]: TOutput };
 // Overloads for object iteration.
 export function into<TInput, TOutput>(
-  empty: TOutput[],
-  xf: Transducer<[string, TInput], TOutput>,
-  coll: { [key: string]: TInput }): TOutput[];
+    empty: TOutput[],
+    xf: Transducer<[string, TInput], TOutput>,
+    coll: { [key: string]: TInput },
+): TOutput[];
 export function into<TInput>(
-  empty: string,
-  xf: Transducer<[string, TInput], string>,
-  coll: { [key: string]: TInput }): string;
+    empty: string,
+    xf: Transducer<[string, TInput], string>,
+    coll: { [key: string]: TInput },
+): string;
 export function into<TInput, TOutput>(
-  empty: { [key: string]: TOutput },
-  xf: Transducer<[string, TInput], [string, TOutput]>,
-  coll: { [key: string]: TInput }): { [key: string]: TOutput };
+    empty: { [key: string]: TOutput },
+    xf: Transducer<[string, TInput], [string, TOutput]>,
+    coll: { [key: string]: TInput },
+): { [key: string]: TOutput };
 
 /**
  * Convert a transducer transformer object into a function so
@@ -343,8 +361,8 @@ export function into<TInput, TOutput>(
  * Underscore, lodash
  */
 export function toFn<TResult, TInput, TOutput>(
-  xf: Transducer<TInput, TOutput>,
-  builder: Reducer<TResult, TOutput> | Transformer<TResult, TOutput>
+    xf: Transducer<TInput, TOutput>,
+    builder: Reducer<TResult, TOutput> | Transformer<TResult, TOutput>,
 ): Reducer<TResult, TOutput>;
 
 /**

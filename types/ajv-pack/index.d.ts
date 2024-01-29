@@ -1,11 +1,4 @@
-// Type definitions for ajv-pack 0.3
-// Project: https://github.com/epoberezkin/ajv-pack
-// Definitions by: Mihail Malo <https://github.com/qm3ster>
-//                 Christian Murphy <https://github.com/ChristianMurphy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
-import { Ajv, ValidateFunction } from 'ajv';
+import { Ajv, ValidateFunction } from "ajv";
 
 declare namespace AjvPack {
     interface AjvPack {
@@ -28,13 +21,13 @@ declare namespace AjvPack {
          * add schema to the instance
          * @return result from ajv instance
          */
-        addSchema: Ajv['addSchema'];
+        addSchema: Ajv["addSchema"];
 
         /**
          * add custom keyword to the instance
          * @return result from ajv instance
          */
-        addKeyword: Ajv['addKeyword'];
+        addKeyword: Ajv["addKeyword"];
     }
 
     function instance(ajv: Ajv): AjvPack;

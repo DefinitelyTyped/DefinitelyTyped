@@ -1,0 +1,6 @@
+{
+    "rules": {
+        "@definitelytyped/no-single-element-tuple-type": "off",
+        "@typescript-eslint/consistent-type-definitions": "off"
+    }
+}

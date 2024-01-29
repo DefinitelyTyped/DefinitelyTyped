@@ -2,15 +2,15 @@
 
 {
     const a = new Alert();
-    a.title = 'Some title';
-    a.message = 'Some message';
-    const tf1 = a.addTextField('user id');
+    a.title = "Some title";
+    a.message = "Some message";
+    const tf1 = a.addTextField("user id");
     // $ExpectType TextField
-    a.addTextField('username', 'pre filled text');
+    a.addTextField("username", "pre filled text");
     // $ExpectType TextField
-    a.addSecureTextField('password');
-    a.addAction('OK');
-    a.addCancelAction('Cancel');
+    a.addSecureTextField("password");
+    a.addAction("OK");
+    a.addCancelAction("Cancel");
     a.present();
     a.presentAlert();
     a.presentSheet();
@@ -21,7 +21,7 @@
     tf1.font = Font.systemFont(16);
     tf1.isSecure = false;
     tf1.leftAlignText();
-    tf1.placeholder = 'id';
+    tf1.placeholder = "id";
     tf1.rightAlignText();
     tf1.setDecimalPadKeyboard();
     tf1.setDefaultKeyboard();
@@ -32,7 +32,7 @@
     tf1.setTwitterKeyboard();
     tf1.setURLKeyboard();
     tf1.setWebSearchKeyboard();
-    tf1.text = 'Chuck Norris';
+    tf1.text = "Chuck Norris";
     tf1.textColor = Color.red();
 }
 
@@ -49,7 +49,7 @@
 }
 
 {
-    const c = new Color('ffffff', 1);
+    const c = new Color("ffffff", 1);
     c.red = 42;
     c.green = 42;
     c.blue = 42;
@@ -59,7 +59,7 @@
     Color.dynamic(c, Color.black());
 
     // Optional alpha paramneter
-    new Color('ffffff');
+    new Color("ffffff");
 }
 
 {
@@ -70,42 +70,44 @@
     // $ExpectType boolean
     config.runsInApp;
     // $ExpectType boolean
+    config.runsInAccessoryWidget;
+    // $ExpectType boolean
     config.runsInNotification;
     // $ExpectType boolean
     config.runsInWidget;
     // $ExpectType boolean
     config.runsWithSiri;
-    // $ExpectType "small" | "medium" | "large" | "extraLarge" | null
+    // $ExpectType "small" | "medium" | "large" | "extraLarge" | "accessoryRectangular" | "accessoryInline" | "accessoryCircular" | null
     config.widgetFamily;
 }
 
 {
     // $ExpectType Promise<string[]>
-    DocumentPicker.open(['public.plain-text']);
+    DocumentPicker.open(["public.plain-text"]);
     // $ExpectType Promise<string>
     DocumentPicker.openFile();
     // $ExpectType Promise<string>
     DocumentPicker.openFolder();
 
     // $ExpectType Promise<string[]>
-    DocumentPicker.export('some/file.txt');
+    DocumentPicker.export("some/file.txt");
     // $ExpectType Promise<string[]>
-    DocumentPicker.exportString('foo-bar');
+    DocumentPicker.exportString("foo-bar");
     // $ExpectType Promise<string[]>
-    DocumentPicker.exportString('foo-bar', 'file.txt');
+    DocumentPicker.exportString("foo-bar", "file.txt");
     // $ExpectType Promise<string[]>
-    DocumentPicker.exportImage(Image.fromFile('some/image.png'));
+    DocumentPicker.exportImage(Image.fromFile("some/image.png"));
     // $ExpectType Promise<string[]>
-    DocumentPicker.exportImage(Image.fromFile('some/image.png'), 'super interesting image.png');
+    DocumentPicker.exportImage(Image.fromFile("some/image.png"), "super interesting image.png");
     // $ExpectType Promise<string[]>
-    DocumentPicker.exportData(Data.fromFile('test.bin'));
+    DocumentPicker.exportData(Data.fromFile("test.bin"));
     // $ExpectType Promise<string[]>
-    DocumentPicker.exportData(Data.fromFile('test.bin'), 'super interesting data.bin');
+    DocumentPicker.exportData(Data.fromFile("test.bin"), "super interesting data.bin");
 }
 
 {
     const fm = FileManager.iCloud();
-    // $ExpectError
+    // @ts-expect-error
     const error = new FileManager();
     // $ExpectType string
     fm.documentsDirectory();
@@ -118,7 +120,7 @@
 }
 
 {
-    const font = new Font('Helvetica', 12);
+    const font = new Font("Helvetica", 12);
     // $ExpectType Font
     Font.largeTitle();
     // $ExpectType Font
@@ -139,76 +141,80 @@
     const listWidget = new ListWidget();
 
     listWidget.backgroundColor = Color.gray();
-    // $ExpectError
+    // @ts-expect-error
     listWidget.backgroundColor = 5;
 
-    listWidget.backgroundImage = Image.fromFile('some/image.png');
-    // $ExpectError
-    listWidget.backgroundImage = 'foo';
+    listWidget.backgroundImage = Image.fromFile("some/image.png");
+    // @ts-expect-error
+    listWidget.backgroundImage = "foo";
 
     const gradient = new LinearGradient();
     gradient.colors = [Color.white(), Color.gray(), Color.white()];
-    // $ExpectError
+    // @ts-expect-error
     gradient.colors = Color.black();
 
     gradient.locations = [0, 0.5, 1];
-    // $ExpectError
+    // @ts-expect-error
     gradient.locations = 1;
 
     gradient.startPoint = new Point(0, 1);
-    // $ExpectError
+    // @ts-expect-error
     gradient.startPoint = 1;
 
     gradient.endPoint = new Point(0, 1);
-    // $ExpectError
+    // @ts-expect-error
     gradient.endPoint = 1;
 
     listWidget.backgroundGradient = gradient;
-    // $ExpectError
-    listWidget.backgroundGradient = 'bar';
+    // @ts-expect-error
+    listWidget.backgroundGradient = "bar";
+
+    listWidget.addAccessoryWidgetBackground = true;
+    // @ts-expect-error
+    listWidget.addAccessoryWidgetBackground = 42;
 
     listWidget.spacing = 5;
-    // $ExpectError
-    listWidget.spacing = '5';
+    // @ts-expect-error
+    listWidget.spacing = "5";
 
-    listWidget.url = 'https://scriptable.app';
-    // $ExpectError
+    listWidget.url = "https://scriptable.app";
+    // @ts-expect-error
     listWidget.url = /https:\/\/scriptable.app/;
 
     listWidget.refreshAfterDate = new Date();
-    // $ExpectError
-    listWidget.refreshAfterDate = '2020-01-01T00:00:00Z';
+    // @ts-expect-error
+    listWidget.refreshAfterDate = "2020-01-01T00:00:00Z";
 
-    const widgetText = listWidget.addText('some text');
-    // $ExpectError
+    const widgetText = listWidget.addText("some text");
+    // @ts-expect-error
     listWidget.addText(42);
 
     const widgetDate = listWidget.addDate(new Date());
-    // $ExpectError
-    listWidget.addDate('2020-01-01T00:00:00Z');
+    // @ts-expect-error
+    listWidget.addDate("2020-01-01T00:00:00Z");
 
-    const widgetImage = listWidget.addImage(Image.fromData(Data.fromBase64String('foobar')));
-    // $ExpectError
-    listWidget.addImage('42');
+    const widgetImage = listWidget.addImage(Image.fromData(Data.fromBase64String("foobar")));
+    // @ts-expect-error
+    listWidget.addImage("42");
 
     const widgetSpacer = listWidget.addSpacer(10);
     listWidget.addSpacer();
-    // $ExpectError
-    listWidget.addSpacer('10');
+    // @ts-expect-error
+    listWidget.addSpacer("10");
 
     const widgetStack = listWidget.addStack();
-    // $ExpectError
+    // @ts-expect-error
     listWidget.addStack(42);
 
     // $ExpectType void
     listWidget.setPadding(0, 1, 2, 3);
-    // $ExpectError
-    listWidget.setPadding('0', '1', '2', '3');
+    // @ts-expect-error
+    listWidget.setPadding("0", "1", "2", "3");
 
     // $ExpectType void
     listWidget.useDefaultPadding();
-    // $ExpectError
-    listWidget.useDefaultPadding('qux');
+    // @ts-expect-error
+    listWidget.useDefaultPadding("qux");
 
     // $ExpectType Promise<void>
     listWidget.presentSmall();
@@ -218,67 +224,73 @@
     listWidget.presentLarge();
     // $ExpectType Promise<void>
     listWidget.presentExtraLarge();
+    // $ExpectType Promise<void>
+    listWidget.presentAccessoryCircular();
+    // $ExpectType Promise<void>
+    listWidget.presentAccessoryInline();
+    // $ExpectType Promise<void>
+    listWidget.presentAccessoryRectangular();
 
     Script.setWidget(listWidget);
 
     // $ExpectType Image
     widgetImage.image;
-    widgetImage.image = Image.fromFile('some/image.png');
-    // $ExpectError
-    widgetImage.image = '42';
+    widgetImage.image = Image.fromFile("some/image.png");
+    // @ts-expect-error
+    widgetImage.image = "42";
 
     // $ExpectType boolean
     widgetImage.resizable;
     widgetImage.resizable = true;
-    // $ExpectError
+    // @ts-expect-error
     widgetImage.resizable = 1;
 
     // $ExpectType number
     widgetImage.imageOpacity;
     widgetImage.imageOpacity = 42;
-    // $ExpectError
-    widgetImage.imageOpacity = '42';
+    // @ts-expect-error
+    widgetImage.imageOpacity = "42";
 
     // $ExpectType Size
     widgetImage.imageSize;
     widgetImage.imageSize = new Size(84, 42);
-    // $ExpectError
+    // @ts-expect-error
     widgetImage.imageSize = [42, 42];
 
     // $ExpectType number
     widgetImage.cornerRadius;
     widgetImage.cornerRadius = 13;
-    // $ExpectError
-    widgetImage.cornerRadius = '13';
+    // @ts-expect-error
+    widgetImage.cornerRadius = "13";
 
     // $ExpectType number
     widgetImage.borderWidth;
     widgetImage.borderWidth = 13;
-    // $ExpectError
-    widgetImage.borderWidth = '13';
+    // @ts-expect-error
+    widgetImage.borderWidth = "13";
 
     // $ExpectType Color
     widgetImage.borderColor;
     widgetImage.borderColor = Color.white();
-    // $ExpectError
-    widgetImage.borderColor = '13';
+    // @ts-expect-error
+    widgetImage.borderColor = "13";
 
     // $ExpectType boolean
     widgetImage.containerRelativeShape;
     widgetImage.containerRelativeShape = true;
-    // $ExpectError
+    // @ts-expect-error
     widgetImage.containerRelativeShape = 1;
 
     // $ExpectType Color
     widgetImage.tintColor;
     widgetImage.tintColor = Color.black();
-    // $ExpectError
-    widgetImage.tintColor = 'black';
+    // @ts-expect-error
+    widgetImage.tintColor = "black";
 
     // $ExpectType string
     widgetImage.url;
-    widgetImage.url = 'https://localhost:80/';
-    // $ExpectError
+    widgetImage.url = "https://localhost:80/";
+    // @ts-expect-error
     widgetImage.url = 42;
 
     // $ExpectType void
@@ -295,19 +307,19 @@
     // $ExpectType number
     widgetSpacer.length;
     widgetSpacer.length = 3;
-    // $ExpectError
-    widgetSpacer.length = '3';
+    // @ts-expect-error
+    widgetSpacer.length = "3";
 
     // $ExpectType string
     widgetText.text;
-    widgetText.text = 'The quick brwon fox jumps over the lazy dog';
-    // $ExpectError
+    widgetText.text = "The quick brwon fox jumps over the lazy dog";
+    // @ts-expect-error
     widgetText.text = 42;
 
     // $ExpectType Color
     widgetText.textColor;
     widgetText.textColor = Color.black();
-    // $ExpectError
+    // @ts-expect-error
     widgetText.textColor = 42;
 
     // $ExpectType Font
@@ -317,43 +329,43 @@
     // $ExpectType number
     widgetText.textOpacity;
     widgetText.textOpacity = 0.9;
-    // $ExpectError
-    widgetText.textOpacity = '1';
+    // @ts-expect-error
+    widgetText.textOpacity = "1";
 
     // $ExpectType number
     widgetText.lineLimit;
     widgetText.lineLimit = 3;
-    // $ExpectError
-    widgetText.lineLimit = '3';
+    // @ts-expect-error
+    widgetText.lineLimit = "3";
 
     // $ExpectType number
     widgetText.minimumScaleFactor;
     widgetText.minimumScaleFactor = 3;
-    // $ExpectError
-    widgetText.minimumScaleFactor = '3';
+    // @ts-expect-error
+    widgetText.minimumScaleFactor = "3";
 
     // $ExpectType Color
     widgetText.shadowColor;
     widgetText.shadowColor = Color.black();
-    // $ExpectError
-    widgetText.shadowColor = 'black';
+    // @ts-expect-error
+    widgetText.shadowColor = "black";
 
     // $ExpectType number
     widgetText.shadowRadius;
     widgetText.shadowRadius = 3;
-    // $ExpectError
-    widgetText.shadowRadius = '3';
+    // @ts-expect-error
+    widgetText.shadowRadius = "3";
 
     // $ExpectType Point
     widgetText.shadowOffset;
     widgetText.shadowOffset = new Point(1, 2);
-    // $ExpectError
+    // @ts-expect-error
     widgetText.shadowOffset = [1, 2];
 
     // $ExpectType string
     widgetText.url;
-    widgetText.url = 'http://localhost/';
-    // $ExpectError
+    widgetText.url = "http://localhost/";
+    // @ts-expect-error
     widgetText.url = 0;
 
     // $ExpectType void
@@ -366,14 +378,14 @@
     // $ExpectType Date
     widgetDate.date;
     widgetDate.date = new Date();
-    // $ExpectError
-    widgetDate.date = '2020-01-01T00:00:00Z';
+    // @ts-expect-error
+    widgetDate.date = "2020-01-01T00:00:00Z";
 
     // $ExpectType Color
     widgetDate.textColor;
     widgetDate.textColor = Color.black();
-    // $ExpectError
-    widgetDate.textColor = 'black';
+    // @ts-expect-error
+    widgetDate.textColor = "black";
 
     // $ExpectType Font
     widgetDate.font;
@@ -382,43 +394,43 @@
     // $ExpectType number
     widgetDate.textOpacity;
     widgetDate.textOpacity = 0.4;
-    // $ExpectError
-    widgetDate.textOpacity = '1';
+    // @ts-expect-error
+    widgetDate.textOpacity = "1";
 
     // $ExpectType number
     widgetDate.lineLimit;
     widgetDate.lineLimit = 42;
-    // $ExpectError
-    widgetDate.lineLimit = '42';
+    // @ts-expect-error
+    widgetDate.lineLimit = "42";
 
     // $ExpectType number
     widgetDate.minimumScaleFactor;
     widgetDate.minimumScaleFactor = 0.01;
-    // $ExpectError
-    widgetDate.minimumScaleFactor = '42';
+    // @ts-expect-error
+    widgetDate.minimumScaleFactor = "42";
 
     // $ExpectType Color
     widgetDate.shadowColor;
     widgetDate.shadowColor = Color.gray();
-    // $ExpectError
-    widgetDate.shadowColor = 'gray';
+    // @ts-expect-error
+    widgetDate.shadowColor = "gray";
 
     // $ExpectType number
     widgetDate.shadowRadius;
     widgetDate.shadowRadius = 42;
-    // $ExpectError
-    widgetDate.shadowRadius = '42';
+    // @ts-expect-error
+    widgetDate.shadowRadius = "42";
 
     // $ExpectType Point
     widgetDate.shadowOffset;
     widgetDate.shadowOffset = new Point(42, 42);
-    // $ExpectError
+    // @ts-expect-error
     widgetDate.shadowOffset = [42, 42];
 
     // $ExpectType string
     widgetDate.url;
-    widgetDate.url = 'http://localhost:80/';
-    // $ExpectError
+    widgetDate.url = "http://localhost:80/";
+    // @ts-expect-error
     widgetDate.url = 42;
 
     // $ExpectType void
@@ -441,63 +453,63 @@
     // $ExpectType Color
     widgetStack.backgroundColor;
     widgetStack.backgroundColor = Color.black();
-    // $ExpectError
-    widgetStack.backgroundColor = 'black';
+    // @ts-expect-error
+    widgetStack.backgroundColor = "black";
 
     // $ExpectType Image
     widgetStack.backgroundImage;
-    widgetStack.backgroundImage = Image.fromFile('some/file.png');
-    // $ExpectError
-    widgetStack.backgroundImage = 'black';
+    widgetStack.backgroundImage = Image.fromFile("some/file.png");
+    // @ts-expect-error
+    widgetStack.backgroundImage = "black";
 
     // $ExpectType LinearGradient
     widgetStack.backgroundGradient;
     widgetStack.backgroundGradient = new LinearGradient();
-    // $ExpectError
+    // @ts-expect-error
     widgetStack.backgroundGradient = 42;
 
     // $ExpectType number
     widgetStack.spacing;
     widgetStack.spacing = 42;
-    // $ExpectError
-    widgetStack.spacing = '42';
+    // @ts-expect-error
+    widgetStack.spacing = "42";
 
     // $ExpectType Size
     widgetStack.size;
     widgetStack.size = new Size(4, 2);
-    // $ExpectError
+    // @ts-expect-error
     widgetStack.size = [4, 2];
 
     // $ExpectType number
     widgetStack.cornerRadius;
     widgetStack.cornerRadius = 10;
-    // $ExpectError
-    widgetStack.cornerRadius = '10';
+    // @ts-expect-error
+    widgetStack.cornerRadius = "10";
 
     // $ExpectType number
     widgetStack.borderWidth;
     widgetStack.borderWidth = 3;
-    // $ExpectError
-    widgetStack.borderWidth = '3';
+    // @ts-expect-error
+    widgetStack.borderWidth = "3";
 
     // $ExpectType Color
     widgetStack.borderColor;
     widgetStack.borderColor = Color.black();
-    // $ExpectError
-    widgetStack.borderColor = 'black';
+    // @ts-expect-error
+    widgetStack.borderColor = "black";
 
     // $ExpectType string
     widgetStack.url;
-    widgetStack.url = 'http://localhost:80/';
-    // $ExpectError
+    widgetStack.url = "http://localhost:80/";
+    // @ts-expect-error
     widgetStack.url = 21;
 
     // $ExpectType WidgetText
-    widgetStack.addText('foo');
+    widgetStack.addText("foo");
     // $ExpectType WidgetDate
     widgetStack.addDate(new Date());
     // $ExpectType WidgetImage
-    widgetStack.addImage(Image.fromFile('some/image.png'));
+    widgetStack.addImage(Image.fromFile("some/image.png"));
     // $ExpectType WidgetSpacer
     widgetStack.addSpacer(4);
     // $ExpectType WidgetSpacer
@@ -530,14 +542,14 @@
 }
 
 {
-    const url = 'http://httpbin.org/POST';
+    const url = "http://httpbin.org/POST";
     const req = new Request(url);
     req.url === url;
-    req.method = 'POST';
+    req.method = "POST";
     req.headers = {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
     };
-    req.body = '{"answer":42}';
+    req.body = "{\"answer\":42}";
     req.timeoutInterval = 5;
     req.allowInsecureRequest = true;
     // $ExpectType Promise<any>
@@ -546,8 +558,8 @@
 }
 
 {
-    const sf = SFSymbol.named('car');
-    // $ExpectError
+    const sf = SFSymbol.named("car");
+    // @ts-expect-error
     const err = new SFSymbol();
 
     // $ExpectType void
@@ -573,9 +585,9 @@
 }
 
 {
-    // $ExpectError
+    // @ts-expect-error
     ShareSheet.present("foobar");
-    // $ExpectError
+    // @ts-expect-error
     ShareSheet.present(42);
     // $ExpectType Promise<ShareSheetResult>
     ShareSheet.present([]);
@@ -583,4 +595,168 @@
     ShareSheet.present(["test"]);
     // $ExpectType Promise<ShareSheetResult>
     ShareSheet.present([42]);
+}
+
+{
+    // @ts-expect-error
+    const cError = new Calendar();
+    // $ExpectType Promise<Calendar[]>
+    Calendar.forReminders();
+    // @ts-expect-error
+    Calendar.forReminders("foo");
+
+    // $ExpectType Promise<Calendar[]>
+    Calendar.forEvents();
+    // @ts-expect-error
+    Calendar.forEvents("foo");
+
+    // @ts-expect-error
+    Calendar.forRemindersByTitle();
+    // @ts-expect-error
+    Calendar.forRemindersByTitle(42);
+    // $ExpectType Promise<Calendar>
+    const promise = Calendar.forRemindersByTitle("foo");
+
+    // @ts-expect-error
+    Calendar.forEventsByTitle();
+    // @ts-expect-error
+    Calendar.forEventsByTitle(42);
+    // $ExpectType Promise<Calendar>
+    Calendar.forEventsByTitle("foo");
+
+    // @ts-expect-error
+    Calendar.createForReminders();
+    // @ts-expect-error
+    Calendar.createForReminders(42);
+    // $ExpectType Promise<Calendar>
+    Calendar.createForReminders("foo");
+
+    // @ts-expect-error
+    Calendar.findOrCreateForReminders();
+    // @ts-expect-error
+    Calendar.findOrCreateForReminders(42);
+    // $ExpectType Promise<Calendar>
+    Calendar.findOrCreateForReminders("foo");
+
+    // $ExpectType Promise<Calendar>
+    Calendar.defaultForReminders();
+    // @ts-expect-error
+    Calendar.defaultForReminders("foo");
+
+    // $ExpectType Promise<Calendar>
+    Calendar.defaultForEvents();
+    // @ts-expect-error
+    Calendar.defaultForEvents("foo");
+
+    // $ExpectType Promise<Calendar[]>
+    Calendar.presentPicker();
+    // @ts-expect-error
+    Calendar.presentPicker("foo");
+    // $ExpectType Promise<Calendar[]>
+    Calendar.presentPicker(false);
+    // $ExpectType Promise<Calendar[]>
+    Calendar.presentPicker(true);
+
+    promise.then(calendar => {
+        // $ExpectType string
+        calendar.identifier;
+        calendar.identifier = "foo";
+        // $ExpectType string
+        calendar.title;
+        calendar.title = "foo";
+        // $ExpectType boolean
+        calendar.isSubscribed;
+        calendar.isSubscribed = true;
+        // $ExpectType boolean
+        calendar.allowsContentModifications;
+        calendar.allowsContentModifications = true;
+        // $ExpectType Color
+        calendar.color;
+        calendar.color = new Color("000000");
+
+        // @ts-expect-error
+        calendar.supportsAvailability();
+        // @ts-expect-error
+        calendar.supportsAvailability("foo");
+        // $ExpectType boolean
+        calendar.supportsAvailability("busy");
+
+        // $ExpectType void
+        calendar.save();
+        // @ts-expect-error
+        calendar.save(42);
+
+        // $ExpectType void
+        calendar.remove();
+        // @ts-expect-error
+        calendar.remove(42);
+    });
+}
+
+{
+    const r = new Reminder();
+    // $ExpectType Calendar
+    r.calendar;
+    // $ExpectType Date | null
+    r.completionDate;
+    // $ExpectType Date | null
+    r.creationDate;
+    // $ExpectType Date | null
+    r.dueDate;
+    // $ExpectType boolean
+    r.dueDateIncludesTime;
+    // $ExpectType string
+    r.identifier;
+    // $ExpectType boolean
+    r.isCompleted;
+    // $ExpectType boolean
+    r.isOverdue;
+    // $ExpectType string | undefined
+    r.notes;
+    delete r.notes;
+    // $ExpectType number
+    r.priority;
+    // $ExpectType string
+    r.title;
+
+    // $ExpectType void
+    r.remove();
+    // @ts-expect-error
+    r.remove("foo");
+    // $ExpectType void
+    r.removeAllRecurrenceRules();
+    // @ts-expect-error
+    r.removeAllRecurrenceRules("foo");
+    // $ExpectType void
+    r.save();
+    // @ts-expect-error
+    r.save("foo");
+
+    // @ts-expect-error
+    const noRule = new RecurrenceRule();
+    const rule = RecurrenceRule.daily(1);
+    r.addRecurrenceRule(rule);
+    // @ts-expect-error
+    r.addRecurrenceRule("foo");
+}
+
+{
+    // @ts-expect-error
+    new ContactsContainer();
+
+    // $ExpectType Promise<ContactsContainer>
+    const promise = ContactsContainer.default();
+    // $ExpectType Promise<ContactsContainer[]>
+    ContactsContainer.all();
+    // @ts-expect-error
+    ContactsContainer.withIdentifier();
+    // $ExpectType Promise<ContactsContainer>
+    ContactsContainer.withIdentifier("foo");
+
+    promise.then(container => {
+        // $ExpectType string
+        container.identifier;
+        // $ExpectType string
+        container.name;
+    });
 }

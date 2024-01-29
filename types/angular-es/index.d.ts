@@ -1,27 +1,29 @@
-// Type definitions for angular-es v0.0.3
-// Project: https://github.com/mbutsykin/angular-es
-// Definitions by: mbutsykin <https://github.com/mbutsykin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-declare module 'angular-es' {
-
+declare module "angular-es" {
     interface ClassDecorator {
-        <TFunction extends Function>(target: TFunction): TFunction|void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        <TFunction extends Function>(target: TFunction): TFunction | void;
     }
 
     interface MethodDecorator {
-        <T>(target: Object, propertyKey: string|symbol, descriptor: TypedPropertyDescriptor<T>): TypedPropertyDescriptor<T>|void;
+        <T>(
+            target: Object,
+            propertyKey: string | symbol,
+            descriptor: TypedPropertyDescriptor<T>,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        ): TypedPropertyDescriptor<T> | void;
     }
 
     /**
      * Decorated target
      */
     interface ngESDecorator extends ClassDecorator, MethodDecorator {
-        (target: Object|Function,
-         ngName?: string,
-         ngArguments?: Array<any>,
-         ngType?: string,
-         injectAsProperty?: Array<string>): void;
+        (
+            target: Object | Function,
+            ngName?: string,
+            ngArguments?: any[],
+            ngType?: string,
+            injectAsProperty?: string[],
+        ): void;
     }
 
     /**
@@ -29,13 +31,13 @@ declare module 'angular-es' {
      * @see https://docs.angularjs.org/guide/component
      */
     interface iComponent {
-        selector: string,
-        controllerAs?: string | undefined,
-        require?: string | undefined,
-        template?: string | undefined,
-        templateUrl?: string | undefined,
-        transclude?: string | undefined,
-        bindings?: Object | undefined
+        selector: string;
+        controllerAs?: string | undefined;
+        require?: string | undefined;
+        template?: string | undefined;
+        templateUrl?: string | undefined;
+        transclude?: string | undefined;
+        bindings?: Object | undefined;
     }
 
     /**
@@ -113,7 +115,7 @@ declare module 'angular-es' {
      *
      * @returns decorated class
      */
-    function Inject(...dependencies: Array<string>): ngESDecorator;
+    function Inject(...dependencies: string[]): ngESDecorator;
 
     /**
      * Inject dependencies as properties to target
@@ -122,7 +124,7 @@ declare module 'angular-es' {
      *
      * @returns decorated class
      */
-    function InjectAsProperty(...dependencies: Array<string>): ngESDecorator;
+    function InjectAsProperty(...dependencies: string[]): ngESDecorator;
 
     /**
      * Attach target to the specified module
@@ -183,5 +185,5 @@ declare module 'angular-es' {
         Run,
         Service,
         Value,
-    }
+    };
 }

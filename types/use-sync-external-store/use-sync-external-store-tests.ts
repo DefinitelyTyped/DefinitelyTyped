@@ -1,5 +1,5 @@
-import { useSyncExternalStore } from 'use-sync-external-store/shim';
-import { useSyncExternalStoreWithSelector } from 'use-sync-external-store/shim/with-selector';
+import { useSyncExternalStore } from "use-sync-external-store/shim";
+import { useSyncExternalStoreWithSelector } from "use-sync-external-store/shim/with-selector";
 
 interface Store<State> {
     getState(): State;
@@ -15,7 +15,7 @@ function useVersion(): number {
 function useStoreWrong() {
     useSyncExternalStore(
         // no unsubscribe returned
-        // $ExpectError
+        // @ts-expect-error
         () => {
             return null;
         },
@@ -23,10 +23,10 @@ function useStoreWrong() {
     );
 
     // `string` is not assignable to `number`
-    // $ExpectError
+    // @ts-expect-error
     const version: number = useSyncExternalStore(
         () => () => {},
-        () => '1',
+        () => "1",
     );
 }
 
@@ -60,7 +60,7 @@ function useReduxVersion(): { major: number; minor: number } {
         objectStore.getServerState,
         state => state.version,
         // `patch` does not exist on type `{ major: number, minor: number }`
-        // $ExpectError
+        // @ts-expect-error
         (a, b) => a.patch === b.patch,
     );
     return useSyncExternalStoreWithSelector(

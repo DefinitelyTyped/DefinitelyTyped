@@ -1,16 +1,13 @@
-// Type definitions for node-static 0.7
-// Project: https://github.com/cloudhead/node-static
-// Definitions by: Ben Davies <https://github.com/Morfent>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import * as events from 'events';
-import * as fs from 'fs';
-import * as http from 'http';
-import * as mime from 'mime';
+import * as events from "events";
+import * as fs from "fs";
+import * as http from "http";
+import * as mime from "mime";
 
-export interface Headers { [k: string]: any; }
+export interface Headers {
+    [k: string]: any;
+}
 export type Finish = (status: number, headers?: Headers) => void;
 export type Callback = (e: Error) => void;
 
@@ -38,9 +35,29 @@ export class Server {
     constructor(root: string, options?: Options);
 
     serveDir: (pathname: string, req: http.IncomingMessage, res: http.ServerResponse, finish: Finish) => void;
-    serveFile: (pathname: string, status: number, headers: Headers, req: http.IncomingMessage, res: http.ServerResponse) => events.EventEmitter;
-    finish: (status: number, headers: Headers, req: http.IncomingMessage, res: http.ServerResponse, promise: events.EventEmitter, callback: Callback) => void;
-    servePath: (pathname: string, status: number, headers: Headers, req: http.IncomingMessage, res: http.ServerResponse, finish: Finish) => events.EventEmitter;
+    serveFile: (
+        pathname: string,
+        status: number,
+        headers: Headers,
+        req: http.IncomingMessage,
+        res: http.ServerResponse,
+    ) => events.EventEmitter;
+    finish: (
+        status: number,
+        headers: Headers,
+        req: http.IncomingMessage,
+        res: http.ServerResponse,
+        promise: events.EventEmitter,
+        callback: Callback,
+    ) => void;
+    servePath: (
+        pathname: string,
+        status: number,
+        headers: Headers,
+        req: http.IncomingMessage,
+        res: http.ServerResponse,
+        finish: Finish,
+    ) => events.EventEmitter;
     resolve: (pathname: string) => string;
     serve: (req: http.IncomingMessage, res: http.ServerResponse, callback?: Callback) => events.EventEmitter;
     gzipOk: (req: http.IncomingMessage, contentType: string) => boolean;
@@ -53,13 +70,38 @@ export class Server {
         stat: fs.Stats,
         req: http.IncomingMessage,
         res: http.ServerResponse,
-        finish: Finish
+        finish: Finish,
     ) => void;
     parseByteRange: (req: http.IncomingMessage, stat: fs.Stats) => ByteRange;
-    // tslint:disable-next-line max-line-length
-    respondNoGzip: (pathname: string, status: number, contentType: string, _headers: Headers, files: string[], stat: fs.Stats, req: http.IncomingMessage, res: http.ServerResponse, finish: Finish) => void;
-    respond: (pathname: string, status: number, _headers: Headers, files: string[], stat: fs.Stats, req: http.IncomingMessage, res: http.ServerResponse, finish: Finish) => void;
-    stream: (pathname: string, files: string[], length: number, startByte: number, res: http.ServerResponse, callback: Callback) => void;
+    respondNoGzip: (
+        pathname: string,
+        status: number,
+        contentType: string,
+        _headers: Headers,
+        files: string[],
+        stat: fs.Stats,
+        req: http.IncomingMessage,
+        res: http.ServerResponse,
+        finish: Finish,
+    ) => void;
+    respond: (
+        pathname: string,
+        status: number,
+        _headers: Headers,
+        files: string[],
+        stat: fs.Stats,
+        req: http.IncomingMessage,
+        res: http.ServerResponse,
+        finish: Finish,
+    ) => void;
+    stream: (
+        pathname: string,
+        files: string[],
+        length: number,
+        startByte: number,
+        res: http.ServerResponse,
+        callback: Callback,
+    ) => void;
 }
 
 export const version: [number, number, number];

@@ -1,8 +1,3 @@
-// Type definitions for readline-sync 1.4
-// Project: https://github.com/anseki/readline-sync
-// Definitions by: Tristan Jones <https://github.com/jonestristand>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type OptionType = string | number | RegExp | ((input: string) => boolean);
 
 export interface BasicOptions {
@@ -48,9 +43,19 @@ export function questionInt(query?: any, options?: BasicOptions): number;
 export function questionFloat(query?: any, options?: BasicOptions): number;
 export function questionPath(query?: any, options?: BasicOptions): string;
 
-export function promptCL(commandHandler?: { [id: string]: (...args: string[]) => void } | ((command: string, ...args: string[]) => void), options?: BasicOptions): string[];
+export function promptCL(
+    commandHandler?: { [id: string]: (...args: string[]) => void } | ((command: string, ...args: string[]) => void),
+    options?: BasicOptions,
+): string[];
 export function promptLoop(inputHandler: (value: string) => boolean, options?: BasicOptions): void;
-export function promptCLLoop(commandHandler?: { [id: string]: (...args: string[]) => boolean | void } | ((command: string, ...args: string[]) => boolean | void), options?: BasicOptions): void;
+export function promptCLLoop(
+    commandHandler?:
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        | { [id: string]: (...args: string[]) => boolean | void }
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        | ((command: string, ...args: string[]) => boolean | void),
+    options?: BasicOptions,
+): void;
 export function promptSimShell(options?: BasicOptions): string;
 
 export function keyInYN(query?: any, options?: BasicOptions): boolean | string;

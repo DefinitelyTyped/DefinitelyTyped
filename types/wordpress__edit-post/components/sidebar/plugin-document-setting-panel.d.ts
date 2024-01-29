@@ -1,5 +1,5 @@
-import { Dashicon, Slot } from '@wordpress/components';
-import { FC, ReactNode } from 'react';
+import { Dashicon, Slot } from "@wordpress/components";
+import { FC, JSX, ReactNode } from "react";
 
 declare namespace PluginDocumentSettingPanel {
     interface Props {
@@ -43,7 +43,7 @@ declare namespace PluginDocumentSettingPanel {
  */
 declare const PluginDocumentSettingPanel: {
     (props: PluginDocumentSettingPanel.Props): JSX.Element;
-    Slot: FC<Omit<Slot.Props, 'name'>>;
+    Slot: FC<Omit<Slot.Props, "name">>;
 };
 
 export default PluginDocumentSettingPanel;

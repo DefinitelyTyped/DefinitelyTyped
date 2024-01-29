@@ -1,3 +1,3 @@
-import dtsGenerator = require('dts-generator');
+import dtsGenerator = require("dts-generator");
 
-dtsGenerator({name: 'foo', out: 'bar'});
+dtsGenerator({ name: "foo", out: "bar" });

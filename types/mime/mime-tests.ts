@@ -1,15 +1,15 @@
 import mime = require("mime");
 import mimelite = require("mime/lite");
-import Mime from "mime/Mime";
+import Mime = require("mime/Mime");
 
 let strOrNul: string | null;
 
 const obj = {
-    mime: ["ext", "ext2"]
+    mime: ["ext", "ext2"],
 };
 
 const obj2 = {
-    "text/plain": ["txt"]
+    "text/plain": ["txt"],
 };
 
 mime.define(obj);
@@ -28,3 +28,6 @@ strOrNul = mimelite.getType("ext");
 strOrNul = mimelite.getType("foo");
 strOrNul = mimelite.getExtension("mime");
 strOrNul = mimelite.getExtension("bar");
+
+new Mime({ "text/x-abc": ["abc"] }, { "text/y-def": ["def"] }, { "text/y-ghi": ["ghi"] });
+new Mime({ "text/x-abc": ["abc", "abcd"] });

@@ -2,41 +2,41 @@ import browserSync = require("browser-sync");
 import { EventEmitter } from "events";
 
 (() => {
-    //make sure that the interfaces are correctly exposed
+    // make sure that the interfaces are correctly exposed
     var bsInstance: browserSync.BrowserSyncInstance;
     var bsStatic: browserSync.BrowserSyncStatic;
     var opts: browserSync.Options;
 })();
 
 browserSync({
-    ui: true
+    ui: true,
 });
 
 browserSync({
     ui: {
         port: 9000,
         weinre: {
-            port: 9001
-        }
-    }
+            port: 9001,
+        },
+    },
 });
 
 browserSync({
-    files: "app/css/style.css"
-});
-
-browserSync({
-    files: [
-        "app/css/style.css",
-        "app/js/*.js"
-    ]
+    files: "app/css/style.css",
 });
 
 browserSync({
     files: [
         "app/css/style.css",
-        "!app/js/*.js"
-    ]
+        "app/js/*.js",
+    ],
+});
+
+browserSync({
+    files: [
+        "app/css/style.css",
+        "!app/js/*.js",
+    ],
 });
 
 browserSync({
@@ -44,11 +44,11 @@ browserSync({
         "wp-content/themes/**/*.css",
         {
             match: ["wp-content/themes/**/*.css"],
-            fn: function (event, file) {
+            fn: function(event, file) {
                 /** Custom event handler **/
-            }
-        }
-    ]
+            },
+        },
+    ],
 });
 
 browserSync({
@@ -57,221 +57,227 @@ browserSync({
         "add",
         "unlink",
         "addDir",
-        "unlinkDir"
-    ]
+        "unlinkDir",
+    ],
 });
 
 browserSync({
-    watch: true
+    watch: true,
 });
 
 browserSync({
     ignore: [
-        "app/js/*.js"
-    ]
+        "app/js/*.js",
+    ],
 });
 
 browserSync({
-    single: true
+    single: true,
 });
 
 browserSync({
     watchOptions: {
         ignoreInitial: true,
-        ignored: '*.txt'
+        ignored: "*.txt",
     },
-    files: ['./app']
+    files: ["./app"],
 });
 
 browserSync({
     files: [
         {
             match: ["wp-content/themes/**/*.php"],
-            fn: function (event, file) {
+            fn: function(event, file) {
                 /** Custom event handler **/
             },
             options: {
-                ignored: '*.txt'
-            }
-        }
-    ]
+                ignored: "*.txt",
+            },
+        },
+    ],
 });
 
 browserSync({
-    server: "app"
+    server: "app",
 });
 
 // multiple base directory
 browserSync({
     server: {
-        baseDir: ["app", "dist"]
-    }
+        baseDir: ["app", "dist"],
+    },
 });
 
 browserSync({
-    server: true
-});
-
-browserSync({
-    server: {
-        baseDir: "./"
-    }
+    server: true,
 });
 
 browserSync({
     server: {
         baseDir: "./",
-        index: "index.htm"
-    }
+    },
 });
 
 browserSync({
     server: {
         baseDir: "./",
-        directory: true
-    }
+        index: "index.htm",
+    },
+});
+
+browserSync({
+    server: {
+        baseDir: "./",
+        directory: true,
+    },
 });
 
 browserSync({
     server: {
         baseDir: "app",
         serveStaticOptions: {
-            extensions: ["html"]
-        }
-    }
+            extensions: ["html"],
+        },
+    },
 });
 
 browserSync({
-    proxy: "yourlocal.dev"
+    proxy: "yourlocal.dev",
 });
 
 browserSync({
     proxy: {
         target: "http://yourlocal.dev",
-        proxyReq: function (proxyReq) {
+        proxyReq: function(proxyReq) {
             console.log(proxyReq);
-        }
-    }
+        },
+    },
 });
 
 browserSync({
     proxy: {
         target: "http://yourlocal.dev",
         proxyReq: [
-            function (proxyReq) {
+            function(proxyReq) {
                 console.log(proxyReq);
-            }
-        ]
-    }
+            },
+        ],
+    },
 });
 
 browserSync({
     proxy: {
         target: "http://yourlocal.dev",
-        proxyRes: function (proxyResponse, req, res) {
+        proxyRes: function(proxyResponse, req, res) {
             console.log(proxyResponse);
-        }
-    }
+        },
+    },
 });
 
 browserSync({
     proxy: {
         target: "http://yourlocal.dev",
         proxyRes: [
-            function (proxyResponse, req, res) {
+            function(proxyResponse, req, res) {
                 console.log(proxyResponse);
-            }
-        ]
-    }
+            },
+        ],
+    },
 });
 
 browserSync({
     proxy: {
         target: "http://yourlocal.dev",
-        proxyRes: function (res) {
+        proxyRes: function(res) {
             console.log(res);
-        }
-    }
+        },
+    },
 });
 
 browserSync({
     proxy: {
         target: "http://yourlocal.dev",
         proxyRes: [
-            function (res) {
+            function(res) {
                 console.log(res);
-            }
-        ]
-    }
+            },
+        ],
+    },
 });
 
 browserSync({
     proxy: "https://yourlocal.dev",
     https: {
         key: "./path/to/the/key/file.key",
-        cert: "./path/to/the/cert/file.cer"
-    }
+        cert: "./path/to/the/cert/file.cer",
+    },
 });
 
 browserSync({
-    port: 3000
-});
-
-browserSync({
-    proxy: "http://yourlocal.dev",
-    serveStatic: ['.', './app/css']
+    port: 3000,
 });
 
 browserSync({
     proxy: "http://yourlocal.dev",
-    serveStatic: [{
-        route: '/assets',
-        dir: 'tmp'
-    }]
+    serveStatic: [".", "./app/css"],
 });
 
 browserSync({
     proxy: "http://yourlocal.dev",
     serveStatic: [{
-        route: ['/assets', '/content'],
-        dir: 'tmp'
-    }]
+        route: "/assets",
+        dir: "tmp",
+    }],
 });
 
 browserSync({
     proxy: "http://yourlocal.dev",
     serveStatic: [{
-        route: '/assets',
-        dir: ['./tmp', './app']
-    }]
+        route: ["/assets", "/content"],
+        dir: "tmp",
+    }],
 });
 
 browserSync({
-    serveStatic: ['.', './app', './temp'],
+    proxy: "http://yourlocal.dev",
+    serveStatic: [{
+        route: "/assets",
+        dir: ["./tmp", "./app"],
+    }],
+});
+
+browserSync({
+    serveStatic: [".", "./app", "./temp"],
     serveStaticOptions: {
-        extensions: ['html'] // pretty urls
-    }
+        extensions: ["html"], // pretty urls
+    },
 });
 
 browserSync({
-    https: true
+    https: true,
 });
 
 browserSync({
     server: "./app",
-    https: true
+    https: true,
 });
 
 browserSync({
     server: "./app",
     https: {
         key: "./path/to/the/key/file.key",
-        cert: "./path/to/the/cert/file.cer"
-    }
+        cert: "./path/to/the/cert/file.cer",
+    },
 });
 
 browserSync({
-    httpModule: "http2"
+    watch: true,
+    server: "./app",
+    snippet: false,
+});
+
+browserSync({
+    httpModule: "http2",
 });
 
 browserSync({
@@ -281,10 +287,23 @@ browserSync({
         forms: {
             inputs: true,
             submit: true,
-            toggles: true
-        }
+            toggles: true,
+        },
     },
-    proxy: "https://yourlocal.dev"
+    proxy: "https://yourlocal.dev",
+});
+
+browserSync({
+    cwd: "./",
+    callbacks: {
+        ready: function(err: Error, bs: browserSync.BrowserSyncInstance) {
+            console.log(err, bs);
+        },
+    },
+    listen: "0.0.0.0",
+    script: {
+        domain: "localhost",
+    },
 });
 
 /**
@@ -294,52 +313,51 @@ browserSync({
 
 browserSync({
     snippetOptions: {
-
         // Ignore all HTML files within the templates folder
         blacklist: [
-            "templates/*.html"
+            "templates/*.html",
         ],
         // Provide a custom Regex for inserting the snippet.
         rule: {
             match: /<\/body>/i,
-            fn: function (snippet, match) {
+            fn: function(snippet, match) {
                 return snippet + match;
-            }
-        }
-    }
+            },
+        },
+    },
 });
 
 browserSync({
     rewriteRules: [
         {
             match: /Browsersync/g,
-            fn: function (req, res, match) {
-                return 'kittenz';
-            }
-        }
-    ]
+            fn: function(req, res, match) {
+                return "kittenz";
+            },
+        },
+    ],
 });
 
 browserSync({
     rewriteRules: [
         {
             match: /(cats|kitten[sz]) are mediocre/g,
-            replace: "$1 are excellent"
-        }
-    ]
+            replace: "$1 are excellent",
+        },
+    ],
 });
 
 var config = {
     server: {
-        baseDir: "./"
-    }
+        baseDir: "./",
+    },
 };
 
 // config only
 browserSync(config);
 
 // config + callback
-browserSync(config, function (err, bs) {
+browserSync(config, function(err, bs) {
     if (!err) {
         console.log("BrowserSync is ready!");
     }
@@ -364,19 +382,19 @@ browserSync.notify("HTML <span color='green'>is supported</span> too!");
 // Since 1.3.0, specify a timeout
 browserSync.notify("This message will only last a second", 1000);
 
-browserSync(config, function (err, bs) {
+browserSync(config, function(err, bs) {
     browserSync.exit();
 });
 
 console.log(browserSync.active); // false
 
-browserSync(config, function (err, bs) {
+browserSync(config, function(err, bs) {
     console.log(browserSync.active); // true
 });
 
 var evt = browserSync.emitter;
 
-evt.on("init", function () {
+evt.on("init", function() {
     console.log("BrowserSync is running!");
 });
 
@@ -387,7 +405,7 @@ var has = browserSync.has("My server");
 var bs = browserSync.create();
 
 bs.init({
-    server: { index: "./app" }
+    server: { index: "./app" },
 });
 
 bs.reload();
@@ -397,32 +415,32 @@ browserSync.use(
         plugin: function(opts: object, bs: browserSync.BrowserSyncInstance) {
             console.log(opts);
         },
-        "plugin:name": "test"
+        "plugin:name": "test",
     },
-    { files: "*.css" }
+    { files: "*.css" },
 );
 
 browserSync.use({
     plugin: function(opts: object, bs: browserSync.BrowserSyncInstance) {
         console.log(bs.name);
-    }
+    },
 });
 
 browserSync(
     {
         server: {
-            baseDir: "test/fixtures"
+            baseDir: "test/fixtures",
         },
         logLevel: "silent",
-        open: false
-    }
+        open: false,
+    },
 );
 
 var instanceName = "TestInstance";
 var namedInstance = browserSync.create(instanceName);
 namedInstance.init({
     server: { index: "./app" },
-    https: true
+    https: true,
 });
 
 console.log(namedInstance.getOption("https")); // Should output true.

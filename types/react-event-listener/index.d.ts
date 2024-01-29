@@ -1,13 +1,11 @@
-// Type definitions for react-event-listener 0.4
-// Project: https://github.com/oliviertassinari/react-event-listener
-// Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import React = require("react");
 
-export interface EventOptions extends Pick<AddEventListenerOptions, 'capture' | 'passive'> { }
+export interface EventOptions extends Pick<AddEventListenerOptions, "capture" | "passive"> {}
 
-export function withOptions<T, TThis = any>(handler: (this: TThis, ev: T) => any, options: EventOptions): (this: TThis, ev: T) => any;
+export function withOptions<T, TThis = any>(
+    handler: (this: TThis, ev: T) => any,
+    options: EventOptions,
+): (this: TThis, ev: T) => any;
 
 export type EventListenerThisType<T extends EventTarget | WindowEventTargets> = T extends keyof Window ? Window[T] : T;
 
@@ -190,6 +188,8 @@ export interface EventListenerProps<T extends EventTarget | WindowEventTargets> 
     target: T;
 }
 
-export type WindowEventTargets = {[K in keyof Window]: Window[K] extends EventTarget ? K : never}[keyof Window];
+export type WindowEventTargets = { [K in keyof Window]: Window[K] extends EventTarget ? K : never }[keyof Window];
 
-export default class EventListener<T extends EventTarget | WindowEventTargets> extends React.PureComponent<EventListenerProps<T>> { }
+export default class EventListener<T extends EventTarget | WindowEventTargets>
+    extends React.PureComponent<EventListenerProps<T>>
+{}

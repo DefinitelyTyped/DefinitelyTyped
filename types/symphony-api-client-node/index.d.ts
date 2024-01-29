@@ -1,9 +1,3 @@
-// Type definitions for symphony-api-client-node 1.1
-// Project: https://github.com/SymphonyPlatformSolutions/symphony-api-client-node
-// Definitions by: Mike Martinsky <https://github.com/mmartinsky>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 import { Token } from "./SymBotAuth";
 
 export * from "./AdminClient";

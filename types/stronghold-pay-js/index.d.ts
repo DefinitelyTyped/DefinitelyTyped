@@ -1,10 +1,3 @@
-// Type definitions for non-npm package stronghold-pay-js-browser 2.0
-// Project: https://docs.strongholdpay.com/stronghold-pay-js/
-// Definitions by: Adrien Etienne <https://github.com/AdrienEtienne>
-//                Sean Bennett <https://github.com/itsseanbennett>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 /// <reference types="jquery" />
 
 export = Stronghold;
@@ -16,21 +9,21 @@ declare global {
          */
         enum ENVIRONMENT {
             sandbox = "sandbox",
-            live = "live"
+            live = "live",
         }
         const HOST = "https://api.strongholdpay.com";
         enum EVENT {
             EXIT = "exit",
             SUCCESS = "success",
             ERROR = "error",
-            READY = "ready"
+            READY = "ready",
         }
         enum ERROR_TYPE {
             API_ERROR = "api_error",
             AUTH_ERROR = "auth_error",
             INVALID_REQUEST_ERROR = "invalid_request_error",
             OBJECT_ERROR = "object_error",
-            VALIDATION_ERROR = "validation_error"
+            VALIDATION_ERROR = "validation_error",
         }
         enum ERROR_CODE {
             SERVER_ERROR = "server_error",
@@ -60,12 +53,12 @@ declare global {
             INVALID_CHARGE_AMOUNT = "invalid_charge_amount",
             MISSING_FIELD = "missing_field",
             INVALID_FIELD = "invalid_field",
-            VALUE_TAKEN = "value_taken"
+            VALUE_TAKEN = "value_taken",
         }
         enum ERROR_MESSAGE {
             AMOUNT_BAD_FORMAT = "The 'amount' option was unable to be parsed as number.",
             BAD_ENVIRONMENT = "Invalid environment provided. Expect \"live\" or \"sandbox\".",
-            ATTRIBUTE_REQUIRED = "Attribute is required."
+            ATTRIBUTE_REQUIRED = "Attribute is required.",
         }
         class StrongholdPayError extends Error {
             type: ERROR_TYPE;
@@ -145,12 +138,12 @@ declare global {
         }
         interface PaymentSource {
             id: string;
-            type: 'bank';
+            type: "bank";
             label: string;
         }
         enum CHARGE_TYPE {
             BANK_DEBIT = "bank_debit",
-            BANK_DEBIT_CUSTOMER_NOT_PRESENT = "bank_debit_cnp"
+            BANK_DEBIT_CUSTOMER_NOT_PRESENT = "bank_debit_cnp",
         }
         enum CHARGE_STATUS {
             CREATED = "created",
@@ -161,7 +154,7 @@ declare global {
             CAPTURE_FAILED = "capture_failed",
             DISPUTED = "disputed",
             REFUND_PENDING = "refund_pending",
-            REFUNDED = "refunded"
+            REFUNDED = "refunded",
         }
         interface Charge {
             id: string;

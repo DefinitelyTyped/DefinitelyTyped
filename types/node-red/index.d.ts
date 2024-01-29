@@ -1,23 +1,14 @@
-// Type definitions for node-red 1.2
-// Project: https://github.com/node-red/node-red/tree/master/packages/node_modules/node-red, https://nodered.org/
-// Definitions by: Anders E. Andersen <https://github.com/andersea>
-//                 Thomas B. Mørch <https://github.com/tbowmo>
-//                 Bernardo Belchior <https://github.com/bernardobelchior>
-//                 Alex Kaul <https://github.com/alexk111>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
-
 // tslint:disable:no-empty-interface
 
-import { Express } from 'express';
-import { EventEmitter } from 'events';
-import { Server as HttpServer } from 'http';
+import { EventEmitter } from "events";
+import { Express } from "express";
+import { Server as HttpServer } from "http";
 
-import * as editorAPI from '@node-red/editor-api';
-import * as editorClient from '@node-red/editor-client';
-import * as registry from '@node-red/registry';
-import * as runtime from '@node-red/runtime';
-import * as util from '@node-red/util';
+import * as editorAPI from "@node-red/editor-api";
+import * as editorClient from "@node-red/editor-client";
+import * as registry from "@node-red/registry";
+import * as runtime from "@node-red/runtime";
+import * as util from "@node-red/util";
 
 declare const nodeRed: nodeRed.NodeRedApp;
 
@@ -61,6 +52,16 @@ declare namespace nodeRed {
          * under @node-red/runtime.
          */
         readonly nodes: runtime.InternalNodesModule;
+
+        /**
+         * This provides access to the internal plugins module of the
+         * runtime. The details of this API remain undocumented as they should not
+         * be used directly.
+         *
+         * Most administrative actions should be performed use the runtime api
+         * under @node-red/runtime.
+         */
+        readonly plugins: runtime.InternalPluginsModule;
 
         /**
          * Runtime events emitter
@@ -118,10 +119,12 @@ declare namespace nodeRed {
      * by the node .js files.
      */
     interface NodeInitializer<TSets extends NodeAPISettingsWithData = NodeAPISettingsWithData>
-        extends registry.NodeInitializer<TSets> {}
+        extends registry.NodeInitializer<TSets>
+    {}
 
     interface NodeConstructor<TNode extends Node<TCreds>, TNodeDef extends NodeDef, TCreds extends {}>
-        extends registry.NodeConstructor<TNode, TNodeDef, TCreds> {}
+        extends registry.NodeConstructor<TNode, TNodeDef, TCreds>
+    {}
 
     interface NodeAPISettingsWithData extends registry.NodeAPISettingsWithData {}
 
@@ -140,7 +143,8 @@ declare namespace nodeRed {
     interface NodeMessageInFlow extends registry.NodeMessageInFlow {}
 
     interface NodeAPI<TSets extends NodeAPISettingsWithData = NodeAPISettingsWithData>
-        extends registry.NodeAPI<TSets> {}
+        extends registry.NodeAPI<TSets>
+    {}
 
     interface Node<TCreds extends {} = {}> extends registry.Node<TCreds> {}
 
@@ -165,7 +169,8 @@ declare namespace nodeRed {
      * Read more: https://nodered.org/docs/creating-nodes/properties#property-definitions
      */
     interface EditorNodePropertyDef<TVal, TInstProps extends EditorNodeProperties = EditorNodeProperties>
-        extends editorClient.NodePropertyDef<TVal, TInstProps> {}
+        extends editorClient.NodePropertyDef<TVal, TInstProps>
+    {}
 
     /**
      * Properties definitions (`defaults` object)
@@ -173,7 +178,7 @@ declare namespace nodeRed {
      */
     type EditorNodePropertiesDef<
         TProps extends EditorNodeProperties,
-        TInstProps extends TProps = TProps
+        TInstProps extends TProps = TProps,
     > = editorClient.NodePropertiesDef<TProps, TInstProps>;
 
     /**
@@ -197,7 +202,7 @@ declare namespace nodeRed {
     interface EditorNodeDef<
         TProps extends EditorNodeProperties = EditorNodeProperties,
         TCreds = undefined,
-        TInstProps extends TProps = TProps
+        TInstProps extends TProps = TProps,
     > extends editorClient.NodeDef<TProps, TCreds, TInstProps> {}
 
     /**
@@ -215,7 +220,6 @@ declare namespace nodeRed {
      *   ...
      * })
      * ```
-     *
      */
     interface EditorRED extends editorClient.RED {}
 

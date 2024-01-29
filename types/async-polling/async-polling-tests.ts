@@ -11,7 +11,7 @@ function someAsynchroneProcess(callback: (error?: Error, response?: any) => any)
 }
 
 let polling = AsyncPolling(end => {
-    someAsynchroneProcess(function (error, response) {
+    someAsynchroneProcess(function(error, response) {
         if (error) {
             end(error);
             return;

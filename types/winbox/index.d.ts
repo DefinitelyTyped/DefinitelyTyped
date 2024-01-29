@@ -1,8 +1,3 @@
-// Type definitions for winbox 0.2
-// Project: https://nextapps-de.github.io/winbox/
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace WinBox;
 
 interface WinBox {
@@ -37,6 +32,7 @@ interface WinBox {
     minimize(state?: boolean): WinBox;
     maximize(state?: boolean): WinBox;
     fullscreen(state?: boolean): WinBox;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     close(force?: boolean): boolean | void;
     move(x?: string | number, y?: string | number, skipUpdate?: boolean): WinBox;
     resize(w?: string | number, h?: string | number, skipUpdate?: boolean): WinBox;
@@ -47,8 +43,8 @@ declare namespace WinBox {
     interface WinBoxConstructor {
         (title: string, params?: Params): WinBox;
         (params: Params): WinBox;
-        new (title: string, params?: Params): WinBox;
-        new (params: Params): WinBox;
+        new(title: string, params?: Params): WinBox;
+        new(params: Params): WinBox;
     }
 
     interface Params {

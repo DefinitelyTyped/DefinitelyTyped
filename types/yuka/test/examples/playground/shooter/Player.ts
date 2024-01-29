@@ -3,7 +3,7 @@
  */
 
 import { GameEntity, MovingEntity, Quaternion, Vector3 } from "yuka";
-import { Blaster } from './Blaster';
+import { Blaster } from "./Blaster";
 
 const q = new Quaternion();
 

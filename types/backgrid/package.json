@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/backgrid",
+    "version": "0.2.9999",
+    "projects": [
+        "http://backgridjs.com/"
+    ],
+    "dependencies": {
+        "@types/backbone": "*"
+    },
+    "devDependencies": {
+        "@types/backgrid": "workspace:.",
+        "@types/jquery": "*"
+    },
+    "owners": [
+        {
+            "name": "Jeremy Lujan",
+            "githubUsername": "jlujan"
+        }
+    ]
+}

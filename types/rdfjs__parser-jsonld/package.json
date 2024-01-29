@@ -1,6 +1,26 @@
 {
     "private": true,
+    "name": "@types/rdfjs__parser-jsonld",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/rdfjs-base/parser-jsonld"
+    ],
+    "type": "module",
     "dependencies": {
-      "rdf-js": "^4.0.2"
-    }
-  }
+        "@types/jsonld": "*",
+        "@rdfjs/types": ">=1.0.0"
+    },
+    "devDependencies": {
+        "@types/rdfjs__parser-jsonld": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chris Wilkinson",
+            "githubUsername": "thewilkybarkid"
+        },
+        {
+            "name": "tpluscode",
+            "githubUsername": "tpluscode"
+        }
+    ]
+}

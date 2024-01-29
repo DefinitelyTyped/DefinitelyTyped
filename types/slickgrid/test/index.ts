@@ -10,18 +10,18 @@ interface MyData extends Slick.SlickData {
 }
 
 var grid: Slick.Grid<MyData>;
-var columns: Slick.Column<MyData>[] = [
+var columns: Array<Slick.Column<MyData>> = [
     { id: "title", name: "Title", field: "title" },
     { id: "duration", name: "Duration", field: "duration" },
     { id: "%", name: "% Complete", field: "percentComplete" },
     { id: "start", name: "Start", field: "start" },
     { id: "finish", name: "Finish", field: "finish" },
-    { id: "effort-driven", name: "Effort Driven", field: "effortDriven" }
+    { id: "effort-driven", name: "Effort Driven", field: "effortDriven" },
 ];
 
 var options: Slick.GridOptions<MyData> = {
     enableCellNavigation: true,
-    enableColumnReorder: false
+    enableColumnReorder: false,
 };
 
 var data: MyData[] = [];
@@ -32,7 +32,7 @@ for (var i = 0; i < 500; i++) {
         percentComplete: Math.round(Math.random() * 100),
         start: "01/01/2009",
         finish: "01/05/2009",
-        effortDriven: (i % 5 == 0)
+        effortDriven: (i % 5 == 0),
     };
 }
 
@@ -44,14 +44,21 @@ grid.getData();
 
 grid.getDataItem(14).title;
 
-grid.setData([{ title: "task", duration: "5 days", percentComplete: 5, start: "01/01/2013", finish: "12/12/2013", effortDriven: false }], true);
+grid.setData([{
+    title: "task",
+    duration: "5 days",
+    percentComplete: 5,
+    start: "01/01/2013",
+    finish: "12/12/2013",
+    effortDriven: false,
+}], true);
 
 var ids: string[] = [];
 for (i = 0; i < grid.getDataLength(); i++) {
     ids.push(grid.getDataItem(i).title);
 }
 
-var $selectedCells = $('.' + grid.getOptions().selectedCellCssClass);
+var $selectedCells = $("." + grid.getOptions().selectedCellCssClass);
 
 grid.getSelectedRows();
 
@@ -59,7 +66,7 @@ grid.getSelectionModel();
 
 grid.setOptions({ selectedCellCssClass: "newSelection" });
 grid.setSelectedRows([0]);
-$('.newSelection');
+$(".newSelection");
 
 grid.setSelectedRows([0, 1, 2]);
 
@@ -87,7 +94,11 @@ class SingleCellSelectionModel extends Slick.SelectionModel<MyData, Slick.Range[
             return;
         }
 
-        this.onSelectedRangesChanged.notify([new Slick.Range(cell.row, cell.cell, cell.row, cell.cell)], new Slick.EventData(), this);
+        this.onSelectedRangesChanged.notify(
+            [new Slick.Range(cell.row, cell.cell, cell.row, cell.cell)],
+            new Slick.EventData(),
+            this,
+        );
     }
 }
 
@@ -110,29 +121,33 @@ grid.updateColumnHeader("FirstName", "A First Name");
 grid.addCellCssStyles("test", {
     0: {
         "number_column": "cell-bold",
-        "title_column": "cell-title cell-highlighted"
+        "title_column": "cell-title cell-highlighted",
     },
     4: {
-        "percent_column": "cell-highlighted"
-    }
+        "percent_column": "cell-highlighted",
+    },
 });
 
 grid.canCellBeActive(5, 10);
 
 grid.canCellBeSelected(5, 10);
 
-grid.editActiveCell(new Slick.Editors.Date<MyData>({
-    column: cols[0],
-    container: htmlElement,
-    grid: grid
-}));
+grid.editActiveCell(
+    new Slick.Editors.Date<MyData>({
+        column: cols[0],
+        container: htmlElement,
+        grid: grid,
+    }),
+);
 
 grid.setActiveCell(0, 0);
-grid.editActiveCell(new Slick.Editors.Date<MyData>({
-    column: cols[0],
-    container: htmlElement,
-    grid: grid
-}));
+grid.editActiveCell(
+    new Slick.Editors.Date<MyData>({
+        column: cols[0],
+        container: htmlElement,
+        grid: grid,
+    }),
+);
 
 grid.flashCell(5, 10);
 grid.flashCell(5, 10, 500);
@@ -186,17 +201,17 @@ grid.setActiveCell(5, 10);
 grid.setCellCssStyles("test", {
     0: {
         "number_column": "cell-bold",
-        "title_column": "cell-title cell-highlighted"
+        "title_column": "cell-title cell-highlighted",
     },
     4: {
-        "percent_column": "cell-highlighted"
-    }
+        "percent_column": "cell-highlighted",
+    },
 });
 
 // Begin DataView tests
 var dataView = new Slick.Data.DataView<MyData>();
-var gridWithDataView = new Slick.Grid<MyData>('#grid2', dataView, columns, options);
-dataView.getIdxById('foo') + 5;
+var gridWithDataView = new Slick.Grid<MyData>("#grid2", dataView, columns, options);
+dataView.getIdxById("foo") + 5;
 
 columns.forEach(column => {
     if (column.editor !== Slick.Editors.Integer) {
@@ -211,7 +226,7 @@ grid.onSort.subscribe((e, args) => {
 
 grid.onMouseEnter.subscribe((e: DOMEvent, args: Slick.OnMouseEnterEventArgs<MyData>) => {
     let cell: Slick.Cell = args.grid.getCellFromEvent(e);
-    if (!cell) { return; }
+    if (!cell) return;
 });
 
 // EventHandler tests

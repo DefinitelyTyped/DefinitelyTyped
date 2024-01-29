@@ -1,13 +1,7 @@
-// Type definitions for @ledgerhq/hw-app-btc 5.19
-// Project: https://github.com/LedgerHQ/ledgerjs/tree/master/packages/hw-app-btc, https://github.com/ledgerhq/ledgerjs
-// Definitions by: Gregory Hill <https://github.com/gregdhill>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
-import Transport from '@ledgerhq/hw-transport';
+import Transport from "@ledgerhq/hw-transport";
 
-type AddressFormat = 'legacy' | 'p2sh' | 'bech32';
+type AddressFormat = "legacy" | "p2sh" | "bech32";
 
 interface CreateTransactionArg {
     inputs: Array<[Transaction, number, string | null, number | null]>;
@@ -21,7 +15,9 @@ interface CreateTransactionArg {
     additionals?: string[] | undefined;
     expiryHeight?: Buffer | undefined;
     useTrustedInputForSegwit?: boolean | undefined;
-    onDeviceStreaming?: (({ progress, total, index }: { progress: number; total: number; index: number }) => void) | undefined;
+    onDeviceStreaming?:
+        | (({ progress, total, index }: { progress: number; total: number; index: number }) => void)
+        | undefined;
     onDeviceSignatureRequested?: (() => void) | undefined;
     onDeviceSignatureGranted?: (() => void) | undefined;
 }

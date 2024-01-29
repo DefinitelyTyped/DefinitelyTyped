@@ -1,6 +1,6 @@
-import { ShaderMaterial } from '../../../src/Three';
+import { IUniform, ShaderMaterial } from '../../../src/Three.js';
 
-import { Pass } from './Pass';
+import { Pass, FullScreenQuad } from './Pass.js';
 
 export interface HalftonePassParameters {
     shape?: number;
@@ -17,7 +17,21 @@ export interface HalftonePassParameters {
 
 export class HalftonePass extends Pass {
     constructor(width: number, height: number, params: HalftonePassParameters);
-    uniforms: object;
+    uniforms: {
+        tDiffuse: IUniform;
+        shape: IUniform<number>;
+        radius: IUniform<number>;
+        rotateR: IUniform<number>;
+        rotateG: IUniform<number>;
+        rotateB: IUniform<number>;
+        scatter: IUniform<number>;
+        width: IUniform<number>;
+        height: IUniform<number>;
+        blending: IUniform<number>;
+        blendingMode: IUniform<number>;
+        greyscale: IUniform<boolean>;
+        disable: IUniform<boolean>;
+    };
     material: ShaderMaterial;
-    fsQuad: object;
+    fsQuad: FullScreenQuad;
 }

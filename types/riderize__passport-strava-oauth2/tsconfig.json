@@ -8,13 +8,6 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
-        "paths": {
-            "@riderize/*": ["riderize__*"]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

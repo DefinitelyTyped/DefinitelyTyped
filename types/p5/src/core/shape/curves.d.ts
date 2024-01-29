@@ -245,7 +245,7 @@ declare module '../../../index' {
          *   @param c coordinate of second point
          *   @param d coordinate of second control point
          *   @param t value between 0 and 1
-         *   @return bezier value at position t
+         *   @return Curve value at position t
          */
         curvePoint(a: number, b: number, c: number, d: number, t: number): number;
 

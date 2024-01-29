@@ -1,10 +1,4 @@
-// Type definitions for react-autocomplete 1.8
-// Project: https://github.com/reactjs/react-autocomplete
-// Definitions by: Lee Standen <https://github.com/lstanden>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { Component, ChangeEvent, ReactNode, CSSProperties, HTMLProps } from 'react';
+import { ChangeEvent, Component, CSSProperties, HTMLProps, ReactNode } from "react";
 
 export = Autocomplete;
 declare namespace Autocomplete {
@@ -75,11 +69,13 @@ declare namespace Autocomplete {
          * { top, left, minWidth } which are the coordinates of the top-left corner
          * and the width of the dropdown menu.
          */
-        renderMenu?: ((
-            items: ReactNode[],
-            value: string,
-            styles: CSSProperties,
-        ) => ReactNode) | undefined;
+        renderMenu?:
+            | ((
+                items: ReactNode[],
+                value: string,
+                styles: CSSProperties,
+            ) => ReactNode)
+            | undefined;
         /**
          * Styles that are applied to the dropdown menu in the default `renderMenu`
          * implementation. If you override `renderMenu` and you want to use
@@ -145,22 +141,22 @@ declare namespace Autocomplete {
     }
 
     interface State {
-      /**
-       * True when the menu is visible. Provided to `onMenuVisibilityChange`.
-       */
-      isOpen: boolean;
+        /**
+         * True when the menu is visible. Provided to `onMenuVisibilityChange`.
+         */
+        isOpen: boolean;
 
-      /**
-       * Index of the highlighted item, `null` if none currently is.
-       */
-      highlightedIndex: number | null;
+        /**
+         * Index of the highlighted item, `null` if none currently is.
+         */
+        highlightedIndex: number | null;
 
-      /**
-       * These three `menu___` values are used in CSS to layout the menu.
-       */
-      menuLeft?: number | undefined;
-      menuTop?: number | undefined;
-      menuWidth?: number | undefined;
+        /**
+         * These three `menu___` values are used in CSS to layout the menu.
+         */
+        menuLeft?: number | undefined;
+        menuTop?: number | undefined;
+        menuWidth?: number | undefined;
     }
 }
 declare class Autocomplete extends Component<Autocomplete.Props, Autocomplete.State> {
@@ -168,11 +164,11 @@ declare class Autocomplete extends Component<Autocomplete.Props, Autocomplete.St
      * Autocomplete exposes a subset of `HTMLInputElement` properties to the parent component.
      * They can be accessed through Autocomplete's `ref` prop.
      */
-    blur: HTMLInputElement['blur'];
-    checkValidity: HTMLInputElement['checkValidity'];
-    click: HTMLInputElement['click'];
-    focus: HTMLInputElement['focus'];
-    select: HTMLInputElement['select'];
-    setCustomValidity: HTMLInputElement['setCustomValidity'];
-    setSelectionRange: HTMLInputElement['setSelectionRange'];
+    blur: HTMLInputElement["blur"];
+    checkValidity: HTMLInputElement["checkValidity"];
+    click: HTMLInputElement["click"];
+    focus: HTMLInputElement["focus"];
+    select: HTMLInputElement["select"];
+    setCustomValidity: HTMLInputElement["setCustomValidity"];
+    setSelectionRange: HTMLInputElement["setSelectionRange"];
 }

@@ -1,13 +1,13 @@
 import React = require("react");
 import { act, create, ReactTestInstance } from "react-test-renderer";
-import { createRenderer } from 'react-test-renderer/shallow';
+import { createRenderer } from "react-test-renderer/shallow";
 
-class TestComponent extends React.Component { }
+class TestComponent extends React.Component {}
 
 const renderer = create(React.createElement("div"), {
     createNodeMock: (el: React.ReactElement) => {
         return {};
-    }
+    },
 });
 
 const json = renderer.toJSON();
@@ -78,10 +78,10 @@ shallowRenderer.getMountedInstance();
 
 // Only synchronous, void callbacks are acceptable for act()
 act(() => {});
-// $ExpectError
+// @ts-expect-error
 act(() => null);
-// $ExpectError
-Promise.resolve(act(() => {}));
+// TODO: @ts-expect-error is broken on Typescript 4.8 because Promise.resolve type is simpler.
+// Promise.resolve(act(() => {}));
 
 // async act is now acceptable in React 16.9,
 // but the result must be void or undefined
@@ -92,6 +92,6 @@ void (async () => {
 
     await act(async () => {});
     await act(async () => undefined);
-    // $ExpectError
+    // @ts-expect-error
     await act(async () => null);
 })();

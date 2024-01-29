@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/podcast",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/maxnowack/node-podcast"
+    ],
+    "devDependencies": {
+        "@types/podcast": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Niklas Mollenhauer",
+            "githubUsername": "nikeee"
+        },
+        {
+            "name": "Malo Bourgon",
+            "githubUsername": "malob"
+        }
+    ]
+}

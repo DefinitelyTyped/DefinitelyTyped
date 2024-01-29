@@ -7,4 +7,4 @@ export class FloatScatter extends FloatScatterBase {
     getValueAt(t: number): number;
     value: number;
 }
-import { FloatScatterBase } from './FloatScatterBase';
+import { FloatScatterBase } from "./FloatScatterBase";

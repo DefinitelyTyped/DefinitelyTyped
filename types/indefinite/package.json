@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/indefinite",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/tandrewnichols/indefinite"
+    ],
+    "devDependencies": {
+        "@types/indefinite": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "omaishar",
+            "githubUsername": "omaishar"
+        }
+    ]
+}

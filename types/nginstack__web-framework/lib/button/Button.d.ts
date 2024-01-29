@@ -43,4 +43,4 @@ declare class Button {
     private getChanges;
     protected propertiesToSync_: string[];
 }
-import ButtonTimer = require('./ButtonTimer.js');
+import ButtonTimer = require("./ButtonTimer.js");

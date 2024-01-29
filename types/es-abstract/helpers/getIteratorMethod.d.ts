@@ -1,4 +1,4 @@
-import type { PropertyKey } from '../index';
+import type { PropertyKey } from "../index";
 
 declare function getIteratorMethod<T>(
     ES: {

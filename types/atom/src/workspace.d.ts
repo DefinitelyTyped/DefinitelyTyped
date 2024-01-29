@@ -10,7 +10,7 @@ import {
     TextEditorObservedEvent,
     ViewModel,
     WorkspaceCenter,
-} from '../index';
+} from "../index";
 
 /** Represents the state of the user interface for the entire window. */
 export interface Workspace {
@@ -277,7 +277,7 @@ export interface Workspace {
     replace(
         regex: RegExp,
         replacementText: string,
-        filePaths: ReadonlyArray<string>,
+        filePaths: readonly string[],
         iterator: (result: { filePath: string | undefined; replacements: number }) => void,
     ): Promise<void>;
 }
@@ -298,7 +298,7 @@ export interface WorkspaceOpenOptions {
      *  opened in the bottommost pane of the current active pane's column. If only one pane
      *  exists in the column, a new pane will be created.
      */
-    split?: 'left' | 'right' | 'up' | 'down' | undefined;
+    split?: "left" | "right" | "up" | "down" | undefined;
 
     /**
      *  A boolean indicating whether to call Pane::activate on containing pane.
@@ -333,12 +333,12 @@ export interface WorkspaceOpenOptions {
      *  by the item.
      *  NOTE: This option should almost always be omitted to honor user preference.
      */
-    location?: 'left' | 'right' | 'bottom' | 'center' | undefined;
+    location?: "left" | "right" | "bottom" | "center" | undefined;
 }
 
 export interface WorkspaceScanOptions {
     /** An array of glob patterns to search within. */
-    paths?: ReadonlyArray<string> | undefined;
+    paths?: readonly string[] | undefined;
 
     /** A function to be periodically called with the number of paths searched. */
     onPathsSearched?(pathsSearched: number): void;

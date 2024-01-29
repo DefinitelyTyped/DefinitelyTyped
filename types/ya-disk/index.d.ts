@@ -1,59 +1,54 @@
-// Type definitions for ya-disk 4.0
-// Project: https://github.com/RomiC/ya-disk#readme
-// Definitions by: Vladislav Veluga <https://github.com/vladislav805>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type MediaType =
-    | 'audio'
-    | 'backup'
-    | 'book'
-    | 'compressed'
-    | 'data'
-    | 'development'
-    | 'diskimage'
-    | 'document'
-    | 'encoded'
-    | 'executable'
-    | 'flash'
-    | 'font'
-    | 'image'
-    | 'settings'
-    | 'spreadsheet'
-    | 'text'
-    | 'unknown'
-    | 'video'
-    | 'web';
+    | "audio"
+    | "backup"
+    | "book"
+    | "compressed"
+    | "data"
+    | "development"
+    | "diskimage"
+    | "document"
+    | "encoded"
+    | "executable"
+    | "flash"
+    | "font"
+    | "image"
+    | "settings"
+    | "spreadsheet"
+    | "text"
+    | "unknown"
+    | "video"
+    | "web";
 
 export type PreviewSize =
-    | 'S'
-    | 'M'
-    | 'L'
-    | 'XL'
-    | 'XXL'
-    | 'XXXL'
+    | "S"
+    | "M"
+    | "L"
+    | "XL"
+    | "XXL"
+    | "XXXL"
     | number
     | `${number}`
     | `${number}x`
     | `x${number}`
     | `${number}x${number}`;
 
-export type ResourceType = 'dir' | 'file';
+export type ResourceType = "dir" | "file";
 
 export type Sort =
-    | 'name'
-    | 'path'
-    | 'created'
-    | 'modified'
-    | 'size'
-    | '-name'
-    | '-path'
-    | '-created'
-    | '-modified'
-    | '-size';
+    | "name"
+    | "path"
+    | "created"
+    | "modified"
+    | "size"
+    | "-name"
+    | "-path"
+    | "-created"
+    | "-modified"
+    | "-size";
 
 export interface Link {
     href: string;
-    method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+    method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
     templated: boolean;
 }
 
@@ -94,7 +89,7 @@ interface FilesResourceList {
 }
 
 export interface Operation {
-    status: 'success' | 'failed' | 'in-progress';
+    status: "success" | "failed" | "in-progress";
 }
 
 interface LastUploadedResourceList {
@@ -148,11 +143,23 @@ export namespace upload {
 }
 
 export namespace resources {
-    function copy(token: string, from: string, to: string, overwrite?: boolean, fields?: string): Promise<ApiResponse<Link>>;
+    function copy(
+        token: string,
+        from: string,
+        to: string,
+        overwrite?: boolean,
+        fields?: string,
+    ): Promise<ApiResponse<Link>>;
 
     function create(token: string, path: string): Promise<Link>;
 
-    function move(token: string, from: string, to: string, overwrite?: boolean, fields?: string): Promise<ApiResponse<Link>>;
+    function move(
+        token: string,
+        from: string,
+        to: string,
+        overwrite?: boolean,
+        fields?: string,
+    ): Promise<ApiResponse<Link>>;
 
     function remove(token: string, path: string, permanently?: boolean): Promise<ApiResponse<Link>>;
 }

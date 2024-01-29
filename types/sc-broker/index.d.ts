@@ -1,13 +1,8 @@
-// Type definitions for sc-broker 8.0
-// Project: https://github.com/SocketCluster/sc-broker
-// Definitions by: Daniel Rose <https://github.com/DanielRose>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import { EventEmitter } from "events";
+import { Key, Keys } from "expirymanager";
+import { FlexiMap, KeyChain } from "fleximap";
 
-import { EventEmitter } from 'events';
-import { KeyChain, FlexiMap } from 'fleximap';
-import { Keys, Key } from 'expirymanager';
-
-import { SCBrokerOptions } from './scbroker';
+import { SCBrokerOptions } from "./scbroker";
 
 export interface SCBrokerServerOptions {
     id?: string | undefined;
@@ -31,25 +26,25 @@ export interface SCBrokerServer extends EventEmitter {
     port?: number | undefined;
     ipcAckTimeout: number;
 
-    on(event: 'error', listener: (err?: Error) => void): this;
-    on(event: 'brokerMessage', listener: BrokerMessageListener): this;
-    on(event: 'ready', listener: (data: any) => void): this;
-    on(event: 'exit', listener: (data: ExitData) => void): this;
+    on(event: "error", listener: (err?: Error) => void): this;
+    on(event: "brokerMessage", listener: BrokerMessageListener): this;
+    on(event: "ready", listener: (data: any) => void): this;
+    on(event: "exit", listener: (data: ExitData) => void): this;
 
-    once(event: 'error', listener: (err?: Error) => void): this;
-    once(event: 'brokerMessage', listener: BrokerMessageListener): this;
-    once(event: 'ready', listener: (data: any) => void): this;
-    once(event: 'exit', listener: (data: ExitData) => void): this;
+    once(event: "error", listener: (err?: Error) => void): this;
+    once(event: "brokerMessage", listener: BrokerMessageListener): this;
+    once(event: "ready", listener: (data: any) => void): this;
+    once(event: "exit", listener: (data: ExitData) => void): this;
 
-    removeListener(event: 'error', listener: (err?: Error) => void): this;
-    removeListener(event: 'brokerMessage', listener: BrokerMessageListener): this;
-    removeListener(event: 'ready', listener: (data: any) => void): this;
-    removeListener(event: 'exit', listener: (data: ExitData) => void): this;
+    removeListener(event: "error", listener: (err?: Error) => void): this;
+    removeListener(event: "brokerMessage", listener: BrokerMessageListener): this;
+    removeListener(event: "ready", listener: (data: any) => void): this;
+    removeListener(event: "exit", listener: (data: ExitData) => void): this;
 
-    off(event: 'error', listener: (err?: Error) => void): this;
-    off(event: 'brokerMessage', listener: BrokerMessageListener): this;
-    off(event: 'ready', listener: (data: any) => void): this;
-    off(event: 'exit', listener: (data: ExitData) => void): this;
+    off(event: "error", listener: (err?: Error) => void): this;
+    off(event: "brokerMessage", listener: BrokerMessageListener): this;
+    off(event: "ready", listener: (data: any) => void): this;
+    off(event: "exit", listener: (data: ExitData) => void): this;
 
     sendToBroker(data: any, callback?: (err: Error | null, data: any, brokerId: string) => void): void;
 
@@ -105,9 +100,9 @@ export interface SpliceOptions {
 }
 
 export interface SCBrokerClient extends EventEmitter {
-    readonly CONNECTED: 'connected';
-    readonly CONNECTING: 'connecting';
-    readonly DISCONNECTED: 'disconnected';
+    readonly CONNECTED: "connected";
+    readonly CONNECTING: "connecting";
+    readonly DISCONNECTED: "disconnected";
 
     socketPath?: string | undefined;
     port?: number | undefined;
@@ -115,18 +110,18 @@ export interface SCBrokerClient extends EventEmitter {
     autoReconnect: boolean;
     autoReconnectOptions?: AutoReconnectOptions | undefined;
     connectRetryErrorThreshold: number;
-    state: 'connected' | 'connecting' | 'disconnected';
+    state: "connected" | "connecting" | "disconnected";
     connectAttempts: number;
     pendingReconnect: boolean;
     pendingReconnectTimeout: number | null;
 
-    on(event: 'error', listener: (err?: Error) => void): this;
-    on(event: 'warning', listener: (warning?: Error) => void): this;
-    on(event: 'ready', listener: (data: any) => void): this;
-    on(event: 'message', listener: (channel: string, data: any) => void): this;
-    on(event: 'subscribeFail', listener: (err: Error | null, channel: string) => void): this;
-    on(event: 'subscribe', listener: (channel: string) => void): this;
-    on(event: 'unsubscribe', listener: () => void): this;
+    on(event: "error", listener: (err?: Error) => void): this;
+    on(event: "warning", listener: (warning?: Error) => void): this;
+    on(event: "ready", listener: (data: any) => void): this;
+    on(event: "message", listener: (channel: string, data: any) => void): this;
+    on(event: "subscribeFail", listener: (err: Error | null, channel: string) => void): this;
+    on(event: "subscribe", listener: (channel: string) => void): this;
+    on(event: "unsubscribe", listener: () => void): this;
 
     isConnected(): boolean;
 

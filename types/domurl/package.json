@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/domurl",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/Mikhus/domurl"
+    ],
+    "devDependencies": {
+        "@types/domurl": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mikhus",
+            "url": "ttps://github.com/Mikhus"
+        }
+    ]
+}

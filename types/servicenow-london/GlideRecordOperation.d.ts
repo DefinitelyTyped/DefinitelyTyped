@@ -1,1 +1,1 @@
-type GlideRecordOperation = 'insert' | 'update' | 'delete';
+type GlideRecordOperation = "insert" | "update" | "delete";

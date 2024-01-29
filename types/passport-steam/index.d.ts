@@ -1,67 +1,55 @@
-// Type definitions for passport-steam 1.0
-// Project: https://github.com/liamcurry/passport-steam
-// Definitions by: Gonthier Renaud <https://github.com/kzay>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+import { Request } from "express";
+import * as Passport from "passport";
 
-export = passport_steam;
-
-declare function passport_steam(options: any, validate: any): any;
-
-declare namespace passport_steam {
-    // Circular reference from passport_steam
-    const Strategy: any;
-
-    const version: string;
-
-    namespace prototype {
-        function authenticate(req: any): any;
-
-        function loadAssociation(fn: any): any;
-
-        function loadDiscoveredInfo(fn: any): any;
-
-        function loadDiscoveredInformation(fn: any): any;
-
-        function saveAssociation(fn: any): any;
-
-        function saveDiscoveredInfo(fn: any): any;
-
-        function saveDiscoveredInformation(fn: any): any;
-
-        namespace authenticate {
-            const prototype: {
-            };
-        }
-
-        namespace loadAssociation {
-            const prototype: {
-            };
-        }
-
-        namespace loadDiscoveredInfo {
-            const prototype: {
-            };
-        }
-
-        namespace loadDiscoveredInformation {
-            const prototype: {
-            };
-        }
-
-        namespace saveAssociation {
-            const prototype: {
-            };
-        }
-
-        namespace saveDiscoveredInfo {
-            const prototype: {
-            };
-        }
-
-        namespace saveDiscoveredInformation {
-            const prototype: {
-            };
-        }
-    }
+declare class SteamStrategy<T extends SteamStrategyOptions> extends Passport.Strategy {
+    constructor(options: T, validate: ValidateFn<T>);
 }
+
+declare namespace SteamStrategy {
+    const Strategy: typeof SteamStrategy;
+    const version: string;
+}
+
+interface SteamStrategyOptions {
+    returnURL: string;
+    realm: string;
+    apiKey: string;
+    passReqToCallback?: boolean;
+}
+
+type ValidateFn<T extends SteamStrategyOptions> = T["passReqToCallback"] extends true
+    ? (req: Request, identifier: SteamIdentifier, profile: SteamProfile, done: DoneFn) => void
+    : (identifier: SteamIdentifier, profile: SteamProfile, done: DoneFn) => void;
+
+type DoneFn = (err: unknown, user?: Express.User | false | null) => void;
+
+type SteamIdentifier = string;
+
+interface SteamProfile {
+    provider: "steam";
+    _json: {
+        steamid: string;
+        communityvisibilitystate: number;
+        profilestate: number;
+        personaname: string;
+        commentpermission: number;
+        profileurl: string;
+        avatar: string;
+        avatarmedium: string;
+        avatarfull: string;
+        avatarhash: string;
+        lastlogoff: number;
+        personastate: number;
+        realname: string;
+        primaryclanid: string;
+        timecreated: number;
+        personastateflags: number;
+        loccountrycode: string;
+        locstatecode: string;
+    };
+    id: string;
+    displayName: string;
+    photos: Array<{ value: string }>;
+}
+
+export = SteamStrategy;

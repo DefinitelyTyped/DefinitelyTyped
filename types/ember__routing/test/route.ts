@@ -1,8 +1,9 @@
-import Route from '@ember/routing/route';
-import Array from '@ember/array';
-import EmberObject from '@ember/object';
-import Controller from '@ember/controller';
-import Transition from '@ember/routing/-private/transition';
+import Array from "@ember/array";
+import Controller from "@ember/controller";
+import EmberObject from "@ember/object";
+import Route from "@ember/routing/route";
+import RouteInfo, { RouteInfoWithAttributes } from "@ember/routing/route-info";
+import Transition from "@ember/routing/transition";
 
 class Post extends EmberObject {}
 
@@ -10,21 +11,21 @@ interface Posts extends Array<Post> {}
 
 Route.extend({
     beforeModel(transition: Transition) {
-        this.transitionTo('someOtherRoute');
+        this.transitionTo("someOtherRoute");
     },
 });
 
 Route.extend({
     afterModel(posts: Posts, transition: Transition) {
         if (posts.firstObject) {
-            this.transitionTo('post.show', posts.firstObject);
+            this.transitionTo("post.show", posts.firstObject);
         }
     },
 });
 
 Route.extend({
     model() {
-        return this.modelFor('post');
+        return this.modelFor("post");
     },
 });
 
@@ -43,19 +44,31 @@ Route.extend({
     },
 });
 
+class ActivateRoute extends Route {
+    activate(transition: Transition) {
+        this.transitionTo("someOtherRoute");
+    }
+}
+
+class DeactivateRoute extends Route {
+    deactivate(transition: Transition) {
+        this.transitionTo("someOtherRoute");
+    }
+}
+
 class RedirectRoute extends Route {
     redirect(model: {}, a: Transition) {
         if (!model) {
-            this.transitionTo('there');
+            this.transitionTo("there");
         }
     }
 }
 
 class InvalidRedirect extends Route {
-    // $ExpectError
+    // @ts-expect-error
     redirect(model: {}, a: Transition, anOddArg: unknown) {
         if (!model) {
-            this.transitionTo('there');
+            this.transitionTo("there");
         }
     }
 }
@@ -66,49 +79,51 @@ class TransitionToExamples extends Route {
     // necessarily includes all objects.
     transitionToModelAndQP() {
         // $ExpectType Transition<unknown>
-        this.transitionTo('somewhere', { queryParams: { neat: true } });
+        this.transitionTo("somewhere", { queryParams: { neat: true } });
     }
 
     transitionToJustQP() {
         // $ExpectType Transition<unknown>
-        this.transitionTo({ queryParams: { neat: 'true' } });
+        this.transitionTo({ queryParams: { neat: "true" } });
     }
 
     transitionToNonsense() {
-        this.transitionTo({ cannotDoModelHere: true }); // $ExpectError
+        // @ts-expect-error
+        this.transitionTo({ cannotDoModelHere: true });
     }
 
     transitionToBadQP() {
-        this.transitionTo({ queryParams: 12 }); // $ExpectError
+        // @ts-expect-error
+        this.transitionTo({ queryParams: 12 });
     }
 
     transitionToId() {
         // $ExpectType Transition<unknown>
-        this.transitionTo('blog-post', 1);
+        this.transitionTo("blog-post", 1);
     }
 
     transitionToIdWithQP() {
         // $ExpectType Transition<unknown>
-        this.transitionTo('blog-post', 1, { queryParams: { includeComments: true } });
+        this.transitionTo("blog-post", 1, { queryParams: { includeComments: true } });
     }
 
     transitionToIds() {
         // $ExpectType Transition<unknown>
-        this.transitionTo('blog-comment', 1, '13');
+        this.transitionTo("blog-comment", 1, "13");
     }
 
     transitionToIdsWithQP() {
         // $ExpectType Transition<unknown>
-        this.transitionTo('blog-comment', 1, '13', { queryParams: { includePost: true } });
+        this.transitionTo("blog-comment", 1, "13", { queryParams: { includePost: true } });
     }
 
     buildRouteInfoMetadata() {
-        return { foo: 'bar' };
+        return { foo: "bar" };
     }
 }
 
 class ApplicationController extends Controller {}
-declare module '@ember/controller' {
+declare module "@ember/controller" {
     interface Registry {
         application: ApplicationController;
     }
@@ -117,36 +132,37 @@ declare module '@ember/controller' {
 Route.extend({
     setupController(controller: Controller, model: {}, transition: Transition) {
         this._super(controller, model);
-        this.controllerFor('application').set('model', model);
+        this.controllerFor("application").set("model", model);
         transition.abort();
     },
 });
 
 const route = Route.create();
-route.controllerFor('whatever'); // $ExpectType Controller
-route.paramsFor('whatever'); // $ExpectType object
+route.controllerFor("whatever"); // $ExpectType Controller
+route.paramsFor("whatever"); // $ExpectType object
 
 class RouteUsingClass extends Route.extend({
-    randomProperty: 'the .extend + extends bit type-checks properly',
+    randomProperty: "the .extend + extends bit type-checks properly",
 }) {
     beforeModel() {
-        return Promise.resolve('beforeModel can return promises');
+        return Promise.resolve("beforeModel can return promises");
     }
     afterModel(resolvedModel: unknown, transition: Transition) {
-        return Promise.resolve('afterModel can also return promises');
+        return Promise.resolve("afterModel can also return promises");
     }
     intermediateTransitionWithoutModel() {
-        this.intermediateTransitionTo('some-route');
+        this.intermediateTransitionTo("some-route");
     }
     intermediateTransitionWithModel() {
-        this.intermediateTransitionTo('some.other.route', {});
+        this.intermediateTransitionTo("some.other.route", {});
     }
     intermediateTransitionWithMultiModel() {
-        this.intermediateTransitionTo('some.other.route', 1, 2, {});
+        this.intermediateTransitionTo("some.other.route", 1, 2, {});
     }
 }
 
 class WithNonReturningBeforeAndModelHooks extends Route {
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     beforeModel(transition: Transition): void | Promise<unknown> {
         return;
     }
@@ -157,12 +173,15 @@ class WithNonReturningBeforeAndModelHooks extends Route {
 }
 
 class WithBadReturningBeforeAndModelHooks extends Route {
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     beforeModel(transition: Transition): void | Promise<unknown> {
-        return "returning anything else is nonsensical (if 'legal')"; // $ExpectError
+        // @ts-expect-error
+        return "returning anything else is nonsensical (if 'legal')";
     }
 
     afterModel(resolvedModel: unknown, transition: Transition): void {
-        return "returning anything else is nonsensical (if 'legal')"; // $ExpectError
+        // @ts-expect-error
+        return "returning anything else is nonsensical (if 'legal')";
     }
 }
 
@@ -181,9 +200,30 @@ class WithNonsenseParams extends Route<boolean, number> {}
 
 class WithImplicitParams extends Route {
     model(params: RouteParams) {
-        return { whatUp: 'dog' };
+        return { whatUp: "dog" };
     }
 }
 
 // $ExpectType RouteParams
 type ImplicitParams = WithImplicitParams extends Route<any, infer T> ? T : never;
+
+// back-compat for existing users of these
+// NOTE: we will *not* migrate the private import locations when moving to
+// publish from Ember itself.
+import PrivateTransition from "@ember/routing/-private/transition";
+declare let publicTransition: Transition;
+declare let oldPrivateTransition: PrivateTransition;
+publicTransition = oldPrivateTransition;
+oldPrivateTransition = publicTransition;
+
+import PrivateRouteInfo from "@ember/routing/-private/route-info";
+declare let publicRouteInfo: RouteInfo;
+declare let privateRouteInfo: PrivateRouteInfo;
+publicRouteInfo = privateRouteInfo;
+privateRouteInfo = publicRouteInfo;
+
+import PrivateRouteInfoWithAttributes from "@ember/routing/-private/route-info-with-attributes";
+declare let publicRouteInfoWithAttributes: RouteInfoWithAttributes;
+declare let privateRouteInfoWithAttributes: PrivateRouteInfoWithAttributes;
+publicRouteInfoWithAttributes = privateRouteInfoWithAttributes;
+privateRouteInfoWithAttributes = publicRouteInfoWithAttributes;

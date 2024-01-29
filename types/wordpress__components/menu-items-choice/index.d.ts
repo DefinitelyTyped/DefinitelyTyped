@@ -1,6 +1,6 @@
-import { ComponentType } from 'react';
+import { ComponentType } from "react";
 
-import Shortcut from '../shortcut';
+import Shortcut from "../shortcut";
 
 declare namespace MenuItemsChoice {
     interface Props {

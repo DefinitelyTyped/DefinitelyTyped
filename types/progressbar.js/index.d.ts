@@ -1,14 +1,10 @@
-// Type definitions for progressbar.js 1.1
-// Project: https://kimmobrunfeldt.github.io/progressbar.js/
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import Line = require('./line');
-import Circle = require('./circle');
-import SemiCircle = require('./semicircle');
-import Square = require('./square');
-import Path = require('./path');
-import Shape = require('./shape');
-import utils = require('./utils');
+import Line = require("./line");
+import Circle = require("./circle");
+import SemiCircle = require("./semicircle");
+import Square = require("./square");
+import Path = require("./path");
+import Shape = require("./shape");
+import utils = require("./utils");
 
 export as namespace ProgressBar;
 
@@ -103,7 +99,7 @@ declare namespace main {
         /**
          * Width of the stroke.
          * Unit is percentage of SVG canvas' size.
-         * @desc In Line shape, you should control
+         * @description In Line shape, you should control
          * the stroke width by setting container's height.
          * WARNING: IE doesn't support values over 6, see this bug:
          * @see {@link https://github.com/kimmobrunfeldt/progressbar.js/issues/79}

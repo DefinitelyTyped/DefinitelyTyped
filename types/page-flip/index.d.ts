@@ -1,8 +1,3 @@
-// Type definitions for page-flip 2.0
-// Project: https://nodlik.github.io/StPageFlip/
-// Definitions by: Thibault-Pierre Gouin <https://github.com/lethyb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { PageRect, Point, Rect, RectPoints, Segment } from "./dist/BasicTypes";
 import { HTMLPageCollection } from "./dist/Collection/HTMLPageCollection";
 import { ImagePageCollection } from "./dist/Collection/ImagePageCollection";
@@ -26,47 +21,47 @@ import { SwipeData, UI } from "./dist/UI/UI";
 export as namespace St;
 
 export {
-  // Enumerations
-  FlipCorner,
-  FlipDirection,
-  FlippingState,
-  Orientation,
-  PageDensity,
-  PageOrientation,
-  SizeType,
-  // Classes
-  CanvasRender,
-  CanvasUI,
-  EventObject,
-  Flip,
-  FlipCalculation,
-  HTMLPage,
-  HTMLPageCollection,
-  HTMLRender,
-  HTMLUI,
-  Helper,
-  ImagePage,
-  ImagePageCollection,
-  Page,
-  PageCollection,
-  PageFlip,
-  Render,
-  Settings,
-  UI,
-  // Interfaces
-  FlipSetting,
-  PageState,
-  WidgetEvent,
-  // Type aliases
-  DataType,
-  EventCallback,
-  FrameAction,
-  NumberArray,
-  PageRect,
-  Point,
-  Rect,
-  RectPoints,
-  Segment,
-  Shadow,
-  SwipeData
+    // Classes
+    CanvasRender,
+    CanvasUI,
+    // Type aliases
+    DataType,
+    EventCallback,
+    EventObject,
+    Flip,
+    FlipCalculation,
+    // Enumerations
+    FlipCorner,
+    FlipDirection,
+    FlippingState,
+    // Interfaces
+    FlipSetting,
+    FrameAction,
+    Helper,
+    HTMLPage,
+    HTMLPageCollection,
+    HTMLRender,
+    HTMLUI,
+    ImagePage,
+    ImagePageCollection,
+    NumberArray,
+    Orientation,
+    Page,
+    PageCollection,
+    PageDensity,
+    PageFlip,
+    PageOrientation,
+    PageRect,
+    PageState,
+    Point,
+    Rect,
+    RectPoints,
+    Render,
+    Segment,
+    Settings,
+    Shadow,
+    SizeType,
+    SwipeData,
+    UI,
+    WidgetEvent,
 };

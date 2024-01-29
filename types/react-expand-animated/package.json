@@ -1,6 +1,21 @@
 {
-  "private": true,
-  "dependencies": {
-    "csstype": "^3.0.2"
-  }
+    "private": true,
+    "name": "@types/react-expand-animated",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/sonybinhle/react-expand-animated"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "csstype": "^3.0.2"
+    },
+    "devDependencies": {
+        "@types/react-expand-animated": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ben Langlois",
+            "githubUsername": "BenLanglois"
+        }
+    ]
 }

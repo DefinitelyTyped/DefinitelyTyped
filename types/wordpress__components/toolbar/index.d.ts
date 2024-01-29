@@ -1,12 +1,14 @@
-import { ComponentType, HTMLProps } from 'react';
+import { ComponentType, HTMLProps } from "react";
 
-import DropdownMenu from '../dropdown-menu';
-import ToolbarButton from '../toolbar-button';
+import DropdownMenu from "../dropdown-menu";
+import ToolbarButton from "../toolbar-button";
 
 declare namespace Toolbar {
     interface Props
-        extends Omit<HTMLProps<HTMLDivElement>, 'controls' | 'label'>,
-            Partial<Pick<DropdownMenu.Props, 'icon' | 'label'>> {
+        extends
+            Omit<HTMLProps<HTMLDivElement>, "controls" | "label">,
+            Partial<Pick<DropdownMenu.Props, "icon" | "label">>
+    {
         /**
          * Class to set on the container div.
          */

@@ -7,16 +7,15 @@ export default class Drive {
 }
 
 export interface DriveFreeInfo {
-    totalGb: number;
-    freeGb: number;
-    freePercentage: number;
+    totalGb: string;
+    freeGb: string;
+    freePercentage: string;
 }
 
 export interface DriveUsedInfo {
-    totalGb: number;
-    usedGb: number;
-    usedPercentage: number;
+    totalGb: string;
+    usedGb: string;
+    usedPercentage: string;
 }
 
-export interface DriveInfo extends DriveFreeInfo, DriveUsedInfo {
-}
+export interface DriveInfo extends DriveFreeInfo, DriveUsedInfo {}

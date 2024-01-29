@@ -19,6 +19,6 @@ export class MessageBinding {
     off(): void;
     __reset(): MessageBinding;
 }
-import { Glob } from '../utils/Glob';
-import { BindingType } from './BindingType';
-import { MessageDispatcher } from './MessageDispatcher';
+import { Glob } from "../utils/Glob";
+import { BindingType } from "./BindingType";
+import { MessageDispatcher } from "./MessageDispatcher";

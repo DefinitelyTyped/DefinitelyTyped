@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/actioncable",
+    "version": "5.2.9999",
+    "projects": [
+        "https://github.com/rails/rails/tree/master/actioncable/app/assets/javascripts"
+    ],
+    "devDependencies": {
+        "@types/actioncable": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Vincent Zhu",
+            "githubUsername": "zhu1230"
+        },
+        {
+            "name": "Jared Szechy",
+            "githubUsername": "szechyjs"
+        },
+        {
+            "name": "David Mejorado",
+            "githubUsername": "davidmh"
+        }
+    ]
+}

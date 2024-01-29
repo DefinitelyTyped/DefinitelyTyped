@@ -1,8 +1,3 @@
-// Type definitions for dependency-solver 1.0
-// Project: https://github.com/haavistu/dependency-solver#readme
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Solve dependency graph
  *

@@ -1,40 +1,36 @@
 {
-  "compilerOptions": {
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "baseUrl": "../",
-    "typeRoots": [
-      "../"
-    ],
-    "noEmit": true,
-    "types": [],
-    "lib": [
-        "es5",
-        "es6",
-        "es2015.iterable",
-        "dom"
-    ],
-    "module": "commonjs",
-    "forceConsistentCasingInFileNames": true
-  },
-  "files": [
-    "index.d.ts",
-    "test/dom.ts",
-    "test/deferred.ts",
-    "test/game.ts",
-    "test/scene.ts",
-    "test/drawable.ts",
-    "test/simpletext.ts",
-    "test/paint.ts",
-    "test/bitmaptext.ts",
-    "test/sprite.ts",
-    "test/map.ts",
-    "test/tetris/tetris.ts",
-    "test/tetris/shape.ts",
-    "test/tetris/grid.ts",
-    "test/tetris/shape_behavior.ts",
-    "test/tetris/flash_lines.ts"
-  ]
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "noEmit": true,
+        "types": [],
+        "lib": [
+            "es5",
+            "es6",
+            "es2015.iterable",
+            "dom"
+        ],
+        "module": "commonjs",
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/dom.ts",
+        "test/deferred.ts",
+        "test/game.ts",
+        "test/scene.ts",
+        "test/drawable.ts",
+        "test/simpletext.ts",
+        "test/paint.ts",
+        "test/bitmaptext.ts",
+        "test/sprite.ts",
+        "test/map.ts",
+        "test/tetris/tetris.ts",
+        "test/tetris/shape.ts",
+        "test/tetris/grid.ts",
+        "test/tetris/shape_behavior.ts",
+        "test/tetris/flash_lines.ts"
+    ]
 }

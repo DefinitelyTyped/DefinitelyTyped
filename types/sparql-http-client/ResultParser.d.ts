@@ -1,5 +1,5 @@
-import { Duplex } from 'stream';
-import { DataFactory, BaseQuad, Quad, Term } from 'rdf-js';
+import { BaseQuad, DataFactory, Quad, Term } from "@rdfjs/types";
+import { Duplex } from "stream";
 
 declare namespace ResultParser {
     type ResultRow = Record<string, Term>;
@@ -10,7 +10,7 @@ declare namespace ResultParser {
 }
 
 declare class ResultParser<Q extends BaseQuad = Quad> extends Duplex {
-    constructor(options?: ResultParser.ResultParserInit<Q>)
+    constructor(options?: ResultParser.ResultParserInit<Q>);
 }
 
 export = ResultParser;

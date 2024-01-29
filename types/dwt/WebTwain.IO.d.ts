@@ -138,10 +138,12 @@ export interface WebTwainIO extends WebTwainUtil {
         successCallback: (
             result: Base64Result,
             indices: number[],
-            type: number) => void,
+            type: number,
+        ) => void,
         failureCallBack: (
             errorCode: number,
-            errorString: string) => void
+            errorString: string,
+        ) => void,
     ): void;
     /**
      * Convert the specified images to a blob.
@@ -161,10 +163,12 @@ export interface WebTwainIO extends WebTwainUtil {
         successCallback: (
             result: Blob,
             indices: number[],
-            type: number) => void,
+            type: number,
+        ) => void,
         failureCallBack: (
             errorCode: number,
-            errorString: string) => void
+            errorString: string,
+        ) => void,
     ): void;
     /**
      * Download the specified file via FTP
@@ -181,7 +185,8 @@ export interface WebTwainIO extends WebTwainUtil {
         successCallback: () => void,
         failureCallBack: (
             errorCode: number,
-            errorString: string) => void
+            errorString: string,
+        ) => void,
     ): void;
     /**
      * Download the specified file via FTP.
@@ -200,7 +205,8 @@ export interface WebTwainIO extends WebTwainUtil {
         successCallback: () => void,
         failureCallBack: (
             errorCode: number,
-            errorString: string) => void
+            errorString: string,
+        ) => void,
     ): void;
     /**
      * Upload the specified image via FTP.
@@ -219,7 +225,8 @@ export interface WebTwainIO extends WebTwainUtil {
         successCallback: () => void,
         failureCallback: (
             errorCode: number,
-            errorString: string) => void
+            errorString: string,
+        ) => void,
     ): void;
     /**
      * Upload the specified image via FTP.
@@ -240,7 +247,8 @@ export interface WebTwainIO extends WebTwainUtil {
         successCallback: () => void,
         failureCallback: (
             errorCode: number,
-            errorString: string) => void
+            errorString: string,
+        ) => void,
     ): void;
     /**
      * Upload all images as a multi-page TIFF via FTP.
@@ -257,7 +265,8 @@ export interface WebTwainIO extends WebTwainUtil {
         successCallback: () => void,
         failureCallback: (
             errorCode: number,
-            errorString: string) => void
+            errorString: string,
+        ) => void,
     ): void;
     /**
      * Upload all images as a multi-page PDF via FTP.
@@ -274,7 +283,8 @@ export interface WebTwainIO extends WebTwainUtil {
         successCallback: () => void,
         failureCallback: (
             errorCode: number,
-            errorString: string) => void
+            errorString: string,
+        ) => void,
     ): void;
     /**
      * Upload selected images as a multi-page PDF via FTP.
@@ -291,7 +301,8 @@ export interface WebTwainIO extends WebTwainUtil {
         successCallback: () => void,
         failureCallback: (
             errorCode: number,
-            errorString: string) => void
+            errorString: string,
+        ) => void,
     ): void;
     /**
      * Upload selected images as a multi-page TIFF via FTP.
@@ -309,7 +320,8 @@ export interface WebTwainIO extends WebTwainUtil {
         successCallback: () => void,
         failureCallback: (
             errorCode: number,
-            errorString: string) => void
+            errorString: string,
+        ) => void,
     ): void;
     /**
      * Download the specified file via a HTTP Get request.
@@ -326,7 +338,8 @@ export interface WebTwainIO extends WebTwainUtil {
         successCallback: () => void,
         failureCallback: (
             errorCode: number,
-            errorString: string) => void
+            errorString: string,
+        ) => void,
     ): void;
     /**
      * Download the specified file via a HTTP Get request.
@@ -345,7 +358,8 @@ export interface WebTwainIO extends WebTwainUtil {
         successCallback: () => void,
         failureCallback: (
             errorCode: number,
-            errorString: string) => void
+            errorString: string,
+        ) => void,
     ): void;
     /**
      * Download the specified file via a HTTP Post request.
@@ -366,7 +380,8 @@ export interface WebTwainIO extends WebTwainUtil {
         onServerReturnedSomething: (
             errorCode: number,
             errorString: string,
-            response: string) => void
+            response: string,
+        ) => void,
     ): void;
     /**
      * Download the specified file via a HTTP Get request.
@@ -385,7 +400,8 @@ export interface WebTwainIO extends WebTwainUtil {
         successCallback: () => void,
         failureCallback: (
             errorCode: number,
-            errorString: string) => void
+            errorString: string,
+        ) => void,
     ): void;
     /**
      * Upload the specified image(s) via a HTTP Post.
@@ -410,7 +426,8 @@ export interface WebTwainIO extends WebTwainUtil {
         onServerReturnedSomething: (
             errorCode: number,
             errorString: string,
-            response: string) => void
+            response: string,
+        ) => void,
     ): void;
     HTTPUpload(
         URL: string,
@@ -421,7 +438,8 @@ export interface WebTwainIO extends WebTwainUtil {
         onServerReturnedSomething: (
             errorCode: number,
             errorString: string,
-            response: string) => void
+            response: string,
+        ) => void,
     ): void;
     HTTPUpload(
         URL: string,
@@ -429,7 +447,8 @@ export interface WebTwainIO extends WebTwainUtil {
         onServerReturnedSomething: (
             errorCode: number,
             errorString: string,
-            response: string) => void
+            response: string,
+        ) => void,
     ): void;
     /**
      * Upload the specified image via a HTTP Put request.
@@ -450,7 +469,8 @@ export interface WebTwainIO extends WebTwainUtil {
         successCallback: () => void,
         failureCallback: (
             errorCode: number,
-            errorString: string) => void
+            errorString: string,
+        ) => void,
     ): void;
     /**
      * Upload the specified image via a HTTP Post request.
@@ -474,7 +494,8 @@ export interface WebTwainIO extends WebTwainUtil {
         onServerReturnedSomething: (
             errorCode: number,
             errorString: string,
-            response: string) => void
+            response: string,
+        ) => void,
     ): void;
     /**
      * Upload the specified image via a HTTP Post request.
@@ -499,7 +520,8 @@ export interface WebTwainIO extends WebTwainUtil {
         onServerReturnedSomething: (
             errorCode: number,
             errorString: string,
-            response: string) => void
+            response: string,
+        ) => void,
     ): void;
     /**
      * Upload all images in the buffer as a TIFF file via a HTTP Post request.
@@ -520,7 +542,8 @@ export interface WebTwainIO extends WebTwainUtil {
         onServerReturnedSomething: (
             errorCode: number,
             errorString: string,
-            response: string) => void
+            response: string,
+        ) => void,
     ): void;
     /**
      * Upload all images in the buffer as a PDF file via a HTTP Post request.
@@ -541,7 +564,8 @@ export interface WebTwainIO extends WebTwainUtil {
         onServerReturnedSomething: (
             errorCode: number,
             errorString: string,
-            response: string) => void
+            response: string,
+        ) => void,
     ): void;
     /**
      * Upload all selected images in the buffer as a PDF file via a HTTP Post request.
@@ -562,7 +586,8 @@ export interface WebTwainIO extends WebTwainUtil {
         onServerReturnedSomething: (
             errorCode: number,
             errorString: string,
-            response: string) => void
+            response: string,
+        ) => void,
     ): void;
     /**
      * Upload all selected images in the buffer as a TIFF file via a HTTP Post request.
@@ -583,7 +608,8 @@ export interface WebTwainIO extends WebTwainUtil {
         onServerReturnedSomething: (
             errorCode: number,
             errorString: string,
-            response: string) => void
+            response: string,
+        ) => void,
     ): void;
     /**
      * Upload the specified file via a HTTP Post request.
@@ -606,7 +632,8 @@ export interface WebTwainIO extends WebTwainUtil {
         onServerReturnedSomething: (
             errorCode: number,
             errorString: string,
-            response: string) => void
+            response: string,
+        ) => void,
     ): void;
     /**
      * Load image(s) specified by its absolute path.
@@ -621,7 +648,9 @@ export interface WebTwainIO extends WebTwainUtil {
         successCallback?: () => void,
         failureCallback?: (
             errorCode: number,
-            errorString: string) => void
+            errorString: string,
+        ) => void,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Load image(s) specified by its absolute path.
@@ -638,7 +667,9 @@ export interface WebTwainIO extends WebTwainUtil {
         successCallback?: () => void,
         failureCallback?: (
             errorCode: number,
-            errorString: string) => void
+            errorString: string,
+        ) => void,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Load image(s) from a base64 string.
@@ -654,7 +685,9 @@ export interface WebTwainIO extends WebTwainUtil {
         successCallback?: () => void,
         failureCallback?: (
             errorCode: number,
-            errorString: string) => void
+            errorString: string,
+        ) => void,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Load image(s) from a binary object (Blob | ArrayBuffer).
@@ -669,7 +702,8 @@ export interface WebTwainIO extends WebTwainUtil {
         successCallback: () => void,
         failureCallback: (
             errorCode: number,
-            errorString: string) => void
+            errorString: string,
+        ) => void,
     ): void;
     /**
      * Load an image from the system clipboard. The image must be in DIB format.
@@ -682,7 +716,9 @@ export interface WebTwainIO extends WebTwainUtil {
         successCallback?: () => void,
         failureCallback?: (
             errorCode: number,
-            errorString: string) => void
+            errorString: string,
+        ) => void,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * [Deprecation] Return or set how many threads can be used when you upload files through POST.
@@ -710,7 +746,8 @@ export interface WebTwainIO extends WebTwainUtil {
         fileName: string,
         index: number,
         successCallback?: () => void,
-        failureCallback?: (errorCode: number, errorString: string) => void
+        failureCallback?: (errorCode: number, errorString: string) => void,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Save the specified image as a JPEG file.
@@ -725,7 +762,8 @@ export interface WebTwainIO extends WebTwainUtil {
         fileName: string,
         index: number,
         successCallback?: () => void,
-        failureCallback?: (errorCode: number, errorString: string) => void
+        failureCallback?: (errorCode: number, errorString: string) => void,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Save the specified image as a PDF file.
@@ -740,7 +778,8 @@ export interface WebTwainIO extends WebTwainUtil {
         fileName: string,
         index: number,
         successCallback?: () => void,
-        failureCallback?: (errorCode: number, errorString: string) => void
+        failureCallback?: (errorCode: number, errorString: string) => void,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Save the specified image as a PNG file.
@@ -755,7 +794,8 @@ export interface WebTwainIO extends WebTwainUtil {
         fileName: string,
         index: number,
         successCallback?: () => void,
-        failureCallback?: (errorCode: number, errorString: string) => void
+        failureCallback?: (errorCode: number, errorString: string) => void,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Save the specified image as a TIFF file.
@@ -770,7 +810,8 @@ export interface WebTwainIO extends WebTwainUtil {
         fileName: string,
         index: number,
         successCallback?: () => void,
-        failureCallback?: (errorCode: number, errorString: string) => void
+        failureCallback?: (errorCode: number, errorString: string) => void,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Saves all the images in buffer as a multi-page TIFF file.
@@ -783,7 +824,8 @@ export interface WebTwainIO extends WebTwainUtil {
     SaveAllAsMultiPageTIFF(
         fileName: string,
         successCallback?: () => void,
-        failureCallback?: (errorCode: number, errorString: string) => void
+        failureCallback?: (errorCode: number, errorString: string) => void,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Saves all the images in buffer as a multi-page PDF file.
@@ -796,7 +838,8 @@ export interface WebTwainIO extends WebTwainUtil {
     SaveAllAsPDF(
         fileName: string,
         successCallback?: () => void,
-        failureCallback?: (errorCode: number, errorString: string) => void
+        failureCallback?: (errorCode: number, errorString: string) => void,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Saves all selected images in buffer as a multi-page PDF file.
@@ -809,7 +852,8 @@ export interface WebTwainIO extends WebTwainUtil {
     SaveSelectedImagesAsMultiPagePDF(
         fileName: string,
         successCallback?: () => void,
-        failureCallback?: (errorCode: number, errorString: string) => void
+        failureCallback?: (errorCode: number, errorString: string) => void,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Saves all selected images in buffer as a multi-page TIFF file.
@@ -824,7 +868,9 @@ export interface WebTwainIO extends WebTwainUtil {
         successCallback?: () => void,
         failureCallback?: (
             errorCode: number,
-            errorString: string) => void
+            errorString: string,
+        ) => void,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * [Deprecation] Return an index from the selected indices array. Read SelectedImagesIndices instead.
@@ -843,7 +889,7 @@ export interface WebTwainIO extends WebTwainUtil {
      */
     SaveSelectedImagesToBase64Binary(
         successCallback?: (result: string[]) => void,
-        failureCallback?: (errorCode: number, errorString: string) => void
+        failureCallback?: (errorCode: number, errorString: string) => void,
     ): string | boolean;
     /**
      * Add a custom field to the HTTP Post Form.
@@ -852,7 +898,7 @@ export interface WebTwainIO extends WebTwainUtil {
      */
     SetHTTPFormField(
         name: string,
-        value: string
+        value: string,
     ): boolean;
     /**
      * Add a binary file to the HTTP Post Form.
@@ -863,7 +909,7 @@ export interface WebTwainIO extends WebTwainUtil {
     SetHTTPFormField(
         name: string,
         content: Blob,
-        fileName?: string
+        fileName?: string,
     ): boolean;
     /**
      * Add a custom header to the HTTP Post Form.
@@ -872,7 +918,7 @@ export interface WebTwainIO extends WebTwainUtil {
      */
     SetHTTPHeader(
         name: string,
-        value: string
+        value: string,
     ): boolean;
     /**
      * Clear the content of all custom tiff tags.
@@ -883,7 +929,7 @@ export interface WebTwainIO extends WebTwainUtil {
     SetTiffCustomTag(
         id: number,
         content: string,
-        useBase64Encoding: boolean
+        useBase64Encoding: boolean,
     ): boolean;
     /**
      * Set the segmentation threshold and segment size.
@@ -892,7 +938,7 @@ export interface WebTwainIO extends WebTwainUtil {
      */
     SetUploadSegment(
         threshold: number,
-        size: number
+        size: number,
     ): boolean;
     /**
      * Show the system's save-file dialog or open-file dialog.
@@ -913,7 +959,7 @@ export interface WebTwainIO extends WebTwainUtil {
         initialDirectory: string,
         allowMultiSelect: boolean,
         showOverwritePrompt: boolean,
-        flag: number
+        flag: number,
     ): boolean;
     /**
      * [Deprecation] Set a cookie string into the Http Header to be used when uploading scanned images through POST.

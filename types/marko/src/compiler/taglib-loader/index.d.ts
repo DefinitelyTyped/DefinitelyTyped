@@ -1,5 +1,5 @@
-import _Taglib from './Taglib';
-import Tag = require('./Tag');
+import _Taglib from "./Taglib";
+import Tag = require("./Tag");
 
 export class Taglib extends _Taglib {}
 

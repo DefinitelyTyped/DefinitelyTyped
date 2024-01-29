@@ -1,30 +1,16 @@
-// Type definitions for request 2.48
-// Project: https://github.com/request/request
-// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>,
-//                 bonnici <https://github.com/bonnici>,
-//                 Bart van der Schoor <https://github.com/Bartvds>,
-//                 Joe Skeen <https://github.com/joeskeen>,
-//                 Christopher Currens <https://github.com/ccurrens>,
-//                 Jon Stevens <https://github.com/lookfirst>,
-//                 Matt R. Wilson <https://github.com/mastermatt>
-//                 Jose Colella <https://github.com/josecolella>
-//                 Marek Urbanowicz <https://github.com/murbanowicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 // Imported from: https://github.com/soywiz/typescript-node-definitions/d.ts
 
 /// <reference types="node" />
 
-import caseless = require('caseless');
-import stream = require('stream');
-import http = require('http');
-import https = require('https');
-import fs = require('fs');
-import FormData = require('form-data');
-import net = require('net');
-import tough = require('tough-cookie');
-import { Url } from 'url';
+import caseless = require("caseless");
+import stream = require("stream");
+import http = require("http");
+import https = require("https");
+import fs = require("fs");
+import FormData = require("form-data");
+import net = require("net");
+import tough = require("tough-cookie");
+import { Url } from "url";
 
 declare namespace request {
     interface RequestAPI<TRequest extends Request, TOptions extends CoreOptions, TUriUrlOptions> {
@@ -64,7 +50,10 @@ declare namespace request {
         delete(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
 
         initParams(uri: string, options?: TOptions, callback?: RequestCallback): RequiredUriUrl & TOptions;
-        initParams(uriOrOpts: string | RequiredUriUrl & TOptions, callback?: RequestCallback): RequiredUriUrl & TOptions;
+        initParams(
+            uriOrOpts: string | RequiredUriUrl & TOptions,
+            callback?: RequestCallback,
+        ): RequiredUriUrl & TOptions;
 
         forever(agentOptions: any, optionsArg: any): TRequest;
         jar(store?: any): CookieJar;
@@ -73,9 +62,9 @@ declare namespace request {
         debug: boolean;
     }
 
-    interface DefaultUriUrlRequestApi<TRequest extends Request,
-            TOptions extends CoreOptions,
-            TUriUrlOptions> extends RequestAPI<TRequest, TOptions, TUriUrlOptions> {
+    interface DefaultUriUrlRequestApi<TRequest extends Request, TOptions extends CoreOptions, TUriUrlOptions>
+        extends RequestAPI<TRequest, TOptions, TUriUrlOptions>
+    {
         defaults(options: TOptions): DefaultUriUrlRequestApi<TRequest, TOptions, OptionalUriUrl>;
         (callback?: RequestCallback): TRequest;
 
@@ -209,10 +198,12 @@ declare namespace request {
 
     interface Multipart {
         chunked?: boolean | undefined;
-        data?: Array<{
-            'content-type'?: string | undefined,
-            body: MultipartBody
-        }> | undefined;
+        data?:
+            | Array<{
+                "content-type"?: string | undefined;
+                body: MultipartBody;
+            }>
+            | undefined;
     }
 
     interface RequestPart {
@@ -239,13 +230,13 @@ declare namespace request {
         jar(jar: CookieJar): Request;
 
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: 'request', listener: (req: http.ClientRequest) => void): this;
-        on(event: 'response', listener: (resp: Response) => void): this;
-        on(event: 'data', listener: (data: Buffer | string) => void): this;
-        on(event: 'error', listener: (e: Error) => void): this;
-        on(event: 'complete', listener: (resp: Response, body?: string | Buffer) => void): this;
-        on(event: 'pipe', listener: (src: stream.Readable) => void): this;
-        on(event: 'socket', listener: (src: net.Socket) => void): this;
+        on(event: "request", listener: (req: http.ClientRequest) => void): this;
+        on(event: "response", listener: (resp: Response) => void): this;
+        on(event: "data", listener: (data: Buffer | string) => void): this;
+        on(event: "error", listener: (e: Error) => void): this;
+        on(event: "complete", listener: (resp: Response, body?: string | Buffer) => void): this;
+        on(event: "pipe", listener: (src: stream.Readable) => void): this;
+        on(event: "socket", listener: (src: net.Socket) => void): this;
 
         write(buffer: Buffer | string, cb?: (err?: Error) => void): boolean;
         write(str: string, encoding?: string, cb?: (err?: Error) => void): boolean;
@@ -288,7 +279,7 @@ declare namespace request {
         pool: PoolOptions;
         dests: stream.Readable[];
         callback?: RequestCallback | undefined;
-        uri: Url & { href: string, pathname: string };
+        uri: Url & { href: string; pathname: string };
         proxy: null | string | Url;
         tunnel: boolean;
         setHost: boolean;
@@ -365,7 +356,7 @@ declare namespace request {
         consumer_secret?: string | undefined;
         token?: string | undefined;
         token_secret?: string | undefined;
-        transport_method?: 'body' | 'header' | 'query' | undefined;
+        transport_method?: "body" | "header" | "query" | undefined;
         verifier?: string | undefined;
         body_hash?: true | string | undefined;
     }

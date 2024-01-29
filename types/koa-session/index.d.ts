@@ -1,11 +1,3 @@
-// Type definitions for koa-session 5.10
-// Project: https://github.com/koajs/session
-// Definitions by: Yu Hsin Lu <https://github.com/kerol2r20>
-//                 Tomek Łaziuk <https://github.com/tlaziuk>
-//                 Hiroshi Ioka <https://github.com/hirochachacha>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /* =================== USAGE ===================
 
     import session = require("koa-session");
@@ -58,9 +50,14 @@ declare namespace session {
         manuallyCommit(): Promise<void>;
 
         /**
+         * regenerate this session
+         */
+        regenerate(callback?: () => void): void;
+
+        /**
          * save this session no matter whether it is populated
          */
-        save(): void;
+        save(callback?: () => void): void;
 
         /**
          * allow to put any value on session object
@@ -68,10 +65,10 @@ declare namespace session {
         [_: string]: any;
     }
 
-    interface ContextSession {
-        ctx: Koa.Context;
+    interface ContextSession<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext, ResponseBodyT = any> {
+        ctx: Koa.ParameterizedContext<StateT, ContextT, ResponseBodyT>;
 
-        app: Koa.Context["app"];
+        app: Koa.ParameterizedContext<StateT, ContextT, ResponseBodyT>["app"];
 
         opts: opts;
 
@@ -117,7 +114,9 @@ declare namespace session {
         hash(sess: any): string;
     }
 
-    interface opts extends Omit<Cookies.SetOption, 'maxAge'> {
+    interface opts<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext, ResponseBodyT = any>
+        extends Omit<Cookies.SetOption, "maxAge">
+    {
         /**
          * cookie key (default is koa:sess)
          */
@@ -164,14 +163,14 @@ declare namespace session {
          * External key is used the cookie by default,
          * but you can use options.externalKey to customize your own external key methods.
          */
-        externalKey?: ExternalKeys | undefined;
+        externalKey?: ExternalKeys<StateT, ContextT, ResponseBodyT> | undefined;
 
         /**
          * If your session store requires data or utilities from context, opts.ContextStore is alse supported.
          * ContextStore must be a class which claims three instance methods demonstrated above.
          * new ContextStore(ctx) will be executed on every request.
          */
-        ContextStore?: { new(ctx: Koa.Context): stores } | undefined;
+        ContextStore?: { new(ctx: Koa.ParameterizedContext<StateT, ContextT, ResponseBodyT>): stores } | undefined;
 
         /**
          * If you want to add prefix for all external session id, you can use options.prefix, it will not work if options.genid present.
@@ -181,12 +180,12 @@ declare namespace session {
         /**
          * Hook: valid session value before use it
          */
-        valid?(ctx: Koa.Context, session: Partial<Session>): void;
+        valid?(ctx: Koa.ParameterizedContext<StateT, ContextT, ResponseBodyT>, session: Partial<Session>): void;
 
         /**
          * Hook: before save session
          */
-        beforeSave?(ctx: Koa.Context, session: Session): void;
+        beforeSave?(ctx: Koa.ParameterizedContext<StateT, ContextT, ResponseBodyT>, session: Session): void;
 
         /**
          * (boolean) automatically commit headers (default true).
@@ -203,7 +202,12 @@ declare namespace session {
         /**
          * set session object for key, with a maxAge (in ms)
          */
-        set(key: string, sess: Partial<Session> & { _expire?: number | undefined, _maxAge?: number | undefined }, maxAge: opts["maxAge"], data: { changed: boolean; rolling: opts["rolling"] }): any;
+        set(
+            key: string,
+            sess: Partial<Session> & { _expire?: number | undefined; _maxAge?: number | undefined },
+            maxAge: opts["maxAge"],
+            data: { changed: boolean; rolling: opts["rolling"] },
+        ): any;
 
         /**
          * destroy session for key
@@ -211,22 +215,27 @@ declare namespace session {
         destroy(key: string): any;
     }
 
-    interface ExternalKeys {
+    interface ExternalKeys<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext, ResponseBodyT = any> {
         /**
          * get session object by key
          */
-        get(ctx: Koa.Context): string | undefined;
+        get(ctx: Koa.ParameterizedContext<StateT, ContextT, ResponseBodyT>): string | undefined;
 
         /**
          * set session object for key, with a maxAge (in ms)
          */
-        set(ctx: Koa.Context, value: any): void;
+        set(ctx: Koa.ParameterizedContext<StateT, ContextT, ResponseBodyT>, value: any): void;
     }
 }
 
-declare function session(CONFIG: Partial<session.opts>, app: Koa): Koa.Middleware;
+declare function session<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext, ResponseBodyT = any>(
+    CONFIG: Partial<session.opts<StateT, ContextT, ResponseBodyT>>,
+    app: Koa<StateT, ContextT>,
+): Koa.Middleware<StateT, ContextT, ResponseBodyT>;
 
-declare function session(app: Koa): Koa.Middleware;
+declare function session<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext>(
+    app: Koa<StateT, ContextT>,
+): Koa.Middleware<StateT, ContextT>;
 
 declare module "koa" {
     interface BaseContext {

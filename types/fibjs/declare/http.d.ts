@@ -202,7 +202,7 @@
 declare module "http" {
     
 
-    module http {
+    namespace http {
         
         
         /**

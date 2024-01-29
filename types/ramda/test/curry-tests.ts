@@ -1,6 +1,6 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
-() => {
+(() => {
     function addFourNumbers(a: number, b: number, c: number, d: number): number {
         return a + b + c + d;
     }
@@ -38,9 +38,9 @@ import * as R from 'ramda';
     const inc = addTwoNumbersCurried(1);
     const z1: number = inc(2);
     const z2: number = addTwoNumbersCurried(2, 3);
-};
+});
 
-() => {
+(() => {
     interface Car {
         speed?: number | undefined;
     }
@@ -59,8 +59,9 @@ import * as R from 'ramda';
     const cars: Car[] = [{ speed: 65 }, {}];
     for (const car of cars) {
         if (typeGuardCurried(1)(2)(3)(4)(5)(car)) {
-            drive(car); // $ExpectError
+            // @ts-expect-error
+            drive(car);
             // Generic Curry solved a previously non reported issue
         }
     }
-};
+});

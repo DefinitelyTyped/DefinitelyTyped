@@ -1,20 +1,20 @@
-import webpack = require('webpack');
-import DuplicatePackageCheckerWebpackPlugin = require('duplicate-package-checker-webpack-plugin');
+import webpack = require("webpack");
+import DuplicatePackageCheckerWebpackPlugin = require("duplicate-package-checker-webpack-plugin");
 
 const a: webpack.Configuration = {
-    entry: 'test.js',
+    entry: "test.js",
     plugins: [
-        new DuplicatePackageCheckerWebpackPlugin()
-    ]
+        new DuplicatePackageCheckerWebpackPlugin(),
+    ],
 };
 const b: webpack.Configuration = {
-    entry: 'test.js',
+    entry: "test.js",
     plugins: [
-        new DuplicatePackageCheckerWebpackPlugin({})
-    ]
+        new DuplicatePackageCheckerWebpackPlugin({}),
+    ],
 };
 const c: webpack.Configuration = {
-    entry: 'test.js',
+    entry: "test.js",
     plugins: [
         new DuplicatePackageCheckerWebpackPlugin({
             verbose: true,
@@ -23,7 +23,7 @@ const c: webpack.Configuration = {
             strict: false,
             exclude(instance) {
                 return instance.name === "fbjs";
-            }
-        })
-    ]
+            },
+        }),
+    ],
 };

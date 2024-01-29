@@ -1,2 +1,2 @@
-import { chain } from '../index';
+import { chain } from "../index.js";
 export default chain;

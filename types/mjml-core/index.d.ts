@@ -1,9 +1,3 @@
-// Type definitions for mjml-core 4.7
-// Project: https://mjml.io
-// Definitions by: Ian Edington       <https://github.com/IanEdington>
-//                 Ryan Burr          <https://github.com/ryanburr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * The main parser for MJML.
  * This version doesn't contain any of the core components registered in the 'mjml' package.
@@ -65,7 +59,7 @@ export interface MJMLParsingOptions {
      *
      * default: soft
      */
-    validationLevel?: 'strict' | 'soft' | 'skip' | undefined;
+    validationLevel?: "strict" | "soft" | "skip" | undefined;
 
     /**
      * Full path of the specified file to use when resolving paths from mj-include components
@@ -187,7 +181,7 @@ export abstract class BodyComponent extends Component {
     renderChildren(
         children?: [],
         options?: {
-            props?: Component['props'] | undefined;
+            props?: Component["props"] | undefined;
             renderer?: ((component: Component) => any) | undefined;
             attributes?: Record<string, string> | undefined;
             rawXML?: boolean | undefined;

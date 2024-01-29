@@ -1,4 +1,4 @@
-import resolvePath = require('resolve-path');
+import resolvePath = require("resolve-path");
 
-resolvePath('/var/log/', 'user.log'); // $ExpectType string
-resolvePath('user.log'); // $ExpectType string
+resolvePath("/var/log/", "user.log"); // $ExpectType string
+resolvePath("user.log"); // $ExpectType string

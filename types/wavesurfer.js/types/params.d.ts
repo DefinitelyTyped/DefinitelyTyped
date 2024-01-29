@@ -1,7 +1,7 @@
-import MultiCanvas from '../src/drawer.multicanvas';
-import { PluginDefinition } from './plugin';
-import { DrawingContextAttributes } from './util';
-import { XHROptions } from './xhr';
+import MultiCanvas from "../src/drawer.multicanvas";
+import { PluginDefinition } from "./plugin";
+import { DrawingContextAttributes } from "./util";
+import { XHROptions } from "./xhr";
 
 export interface WaveSurferParams {
     /** Use your own previously initialized AudioContext or leave blank (default: null). */
@@ -22,7 +22,7 @@ export interface WaveSurferParams {
      * MediaElement is a fallback for unsupported browsers.
      * MediaElementWebAudio allows to use WebAudio API also with big audio files, loading audio like with MediaElement backend (HTML5 audio tag).
      */
-    backend?: 'WebAudio' | 'MediaElement' | 'MediaElementWebAudio' | undefined;
+    backend?: "WebAudio" | "MediaElement" | "MediaElementWebAudio" | undefined;
     /** Change background color of the waveform container (default: null). */
     backgroundColor?: string | undefined;
     /** The height of the wave bars (default: 1). */
@@ -67,7 +67,7 @@ export interface WaveSurferParams {
     /** (Use with backend MediaElement or MediaElementWebAudio) Enable the native controls for the media element (default: false). */
     mediaControls?: boolean | undefined;
     /** (Use with backend MediaElement or MediaElementWebAudio) 'audio'|'video' ('video' only for MediaElement) */
-    mediaType?: 'audio' | 'video' | undefined;
+    mediaType?: "audio" | "video" | undefined;
     /** Minimum number of pixels per second of audio (default: 20). */
     minPxPerSec?: number | undefined;
     /** If true, normalize by the maximum peak instead of 1.0 (default: false). */
@@ -79,7 +79,7 @@ export interface WaveSurferParams {
     /** An array of plugin definitions to register during instantiation. */
     plugins?: PluginDefinition[] | undefined;
     /** The fill color of the part of the waveform behind the cursor (default: '#555'). */
-    progressColor?: string | undefined;
+    progressColor?: string | CanvasGradient | undefined;
     /** Set to false to keep the media element in the DOM when the player is destroyed (default: true). */
     removeMediaElementOnDestroy?: boolean | undefined;
     /** Can be used to inject a custom renderer (default: MultiCanvas). */

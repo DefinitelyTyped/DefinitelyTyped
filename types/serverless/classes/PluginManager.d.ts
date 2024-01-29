@@ -1,5 +1,5 @@
-import Serverless = require('../index');
-import Plugin = require('./Plugin');
+import Serverless = require("../index");
+import Plugin = require("./Plugin");
 
 declare class PluginManager {
     constructor(serverless: Serverless);

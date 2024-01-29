@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-mce",
+    "version": "0.6.9999",
+    "projects": [
+        "https://github.com/janstuemmel/react-mce"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "@types/tinymce": "*"
+    },
+    "devDependencies": {
+        "@types/react-mce": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gavin Heise",
+            "githubUsername": "morphologue"
+        }
+    ]
+}

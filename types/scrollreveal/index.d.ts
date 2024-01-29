@@ -1,11 +1,6 @@
-// Type definitions for ScrollReveal
-// Project: https://github.com/jlmakes/scrollreveal.js
-// Definitions by: David Pires <https://github.com/Davidblkx>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare const ScrollReveal: scrollReveal.ScrollRevealObject;
 
-declare module 'scrollreveal' {
+declare module "scrollreveal" {
     export = ScrollReveal;
 }
 
@@ -33,6 +28,7 @@ declare namespace scrollReveal {
         opacity?: number | undefined;
         scale?: number | undefined;
         easing?: string | undefined;
+        cleanup?: boolean | undefined;
         container?: any;
         mobile?: boolean | undefined;
         reset?: boolean | undefined;
@@ -48,6 +44,8 @@ declare namespace scrollReveal {
     interface ScrollRevealObject {
         (): ScrollRevealObject;
         (options: ScrollRevealObjectOptions): ScrollRevealObject;
+        clean(selector: string | HTMLElement | NodeListOf<Element>): void;
+        destroy(): void;
         reveal(selector: string | HTMLElement | NodeListOf<Element>): ScrollRevealObject;
         reveal(selector: string | HTMLElement | NodeListOf<Element>, interval: number): ScrollRevealObject;
         reveal(

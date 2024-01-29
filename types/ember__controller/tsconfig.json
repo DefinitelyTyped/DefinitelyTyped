@@ -7,13 +7,6 @@
             "dom"
         ],
         "strict": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
-        "paths": {
-            "@ember/*": ["ember__*"]
-        },
         "types": [],
         "noEmit": true,
         "exactOptionalPropertyTypes": true,
@@ -23,6 +16,7 @@
     "files": [
         "index.d.ts",
         "test/main.ts",
-        "test/octane.ts"
+        "test/octane.ts",
+        "test/registry.ts"
     ]
 }

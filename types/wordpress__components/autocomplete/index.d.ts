@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
-import { Value } from '@wordpress/rich-text';
+import { Value } from "@wordpress/rich-text";
+import { JSX, ReactNode } from "react";
 
 declare namespace Autocomplete {
     /**
@@ -8,12 +8,12 @@ declare namespace Autocomplete {
      *   - `replace`: Replace the current block with the block specified in
      *      the `value` property.
      */
-    type Action = 'insert-at-caret' | 'replace';
+    type Action = "insert-at-caret" | "replace";
 
     type OptionCompletion =
         | ReactNode
-        | { action: 'insert-at-caret'; value: ReactNode }
-        | { action: 'replace'; value: Value };
+        | { action: "insert-at-caret"; value: ReactNode }
+        | { action: "replace"; value: Value };
 
     interface Completer<T> {
         /**
@@ -119,7 +119,7 @@ declare namespace Autocomplete {
     }
 }
 
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 declare function Autocomplete<T = any>(props: Autocomplete.Props<T>): JSX.Element;
 
 export default Autocomplete;

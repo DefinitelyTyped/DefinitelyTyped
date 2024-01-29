@@ -1,30 +1,51 @@
-import { querySelectorDeep, querySelectorAllDeep, collectAllElementsDeep } from 'query-selector-shadow-dom';
+import { collectAllElementsDeep, querySelectorAllDeep, querySelectorDeep } from "query-selector-shadow-dom";
 
 // $ExpectType HTMLElement | null
-const doc = querySelectorDeep('document');
+const doc = querySelectorDeep("document");
+
+// $ExpectType HTMLDivElement | null
+const div = querySelectorDeep("div");
+
+// $ExpectType SVGGElement | null
+const g = querySelectorDeep("g");
 
 // $ExpectType HTMLElement | null
-const doc2 = querySelectorDeep('div.test');
+const divTest = querySelectorDeep("div.test");
 
-// $ExpectError
+// @ts-expect-error
 querySelectorDeep(42);
-// $ExpectError
+// @ts-expect-error
 querySelectorDeep(true);
-// $ExpectError
+// @ts-expect-error
 querySelectorDeep({});
 
 // $ExpectType HTMLElement[]
-const docs = querySelectorAllDeep('document');
+const docs = querySelectorAllDeep("document");
 
-// $ExpectError
+// $ExpectType HTMLDivElement[]
+const divs = querySelectorAllDeep("div");
+
+// $ExpectType SVGGElement[]
+const gs = querySelectorAllDeep("g");
+
+// $ExpectType HTMLElement[]
+const divTests = querySelectorAllDeep("div.test");
+
+// @ts-expect-error
 querySelectorAllDeep(42);
-// $ExpectError
+// @ts-expect-error
 querySelectorAllDeep(true);
-// $ExpectError
+// @ts-expect-error
 querySelectorAllDeep({});
 
-// $Expect HTMLHtmlElement
+// $Expect HTMLElement[]
 const whole1 = collectAllElementsDeep(null, document);
 
-// $ExpectError
+// $Expect HTMLDivElement[]
+const allDivs = collectAllElementsDeep("div", document);
+
+// $Expect SVGGElement[]
+const allGs = collectAllElementsDeep("svg", document);
+
+// @ts-expect-error
 const whole2 = collectAllElementsDeep();

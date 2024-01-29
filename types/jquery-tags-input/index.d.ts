@@ -1,9 +1,3 @@
-// Type definitions for jQuery Tags Input Plugin 1.3
-// Project: https://github.com/xoxco/jQuery-Tags-Input
-// Definitions by: Anderson Friaça <https://github.com/AndersonFriaca>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 declare namespace jQueryTagsInput {
@@ -11,102 +5,102 @@ declare namespace jQueryTagsInput {
         /**
          * Url for autocomplete
          */
-         autocomplete_url?: string | undefined;
+        autocomplete_url?: string | undefined;
 
         /**
          * Autocomplete options
          */
-         autocomplete?: object | undefined;
+        autocomplete?: object | undefined;
 
         /**
          * Height of tag
          */
-         height?: string | undefined;
+        height?: string | undefined;
 
         /**
          * Width of tag
          */
-         width?: string | undefined;
+        width?: string | undefined;
 
         /**
          * Interactive tags
          */
-         interactive?: boolean | undefined;
+        interactive?: boolean | undefined;
 
         /**
          * Placeholder of field when tags is empty
          */
-         defaultText?: string | undefined;
+        defaultText?: string | undefined;
 
         /**
          * Callback function on add tag
          */
-         onAddTag?: ((addedValue: string) => void) | undefined;
+        onAddTag?: ((addedValue: string) => void) | undefined;
 
         /**
          * Callback function on remove tag
          */
-         onRemoveTag?: ((removedValue: string) => void) | undefined;
+        onRemoveTag?: ((removedValue: string) => void) | undefined;
 
         /**
          * Callback function on change list of tags
          */
-         onChange?: ((element: JQuery, changedValue: string) => void) | undefined;
+        onChange?: ((element: JQuery, changedValue: string) => void) | undefined;
 
         /**
          * Delimiters on tags creation
          */
-         delimiter?: string[]|string | undefined;
+        delimiter?: string[] | string | undefined;
 
         /**
          * Remove with tag backspace
          */
-         removeWithBackspace ?: boolean | undefined;
+        removeWithBackspace?: boolean | undefined;
 
         /**
          * Minimun char length for tag
          */
-         minChars?: number | undefined;
+        minChars?: number | undefined;
 
         /**
          * Max char length for tag
          */
-         maxChars?: number | undefined;
+        maxChars?: number | undefined;
 
         /**
          * Placeholder color of tags
          */
-         placeholderColor?: string | undefined;
-     }
- }
- interface JQuery {
+        placeholderColor?: string | undefined;
+    }
+}
+interface JQuery {
     /**
      * Transform input field to work with tags
      * @param options for creation
      */
-     tagsInput(options?: jQueryTagsInput.Options): JQuery;
+    tagsInput(options?: jQueryTagsInput.Options): JQuery;
 
     /**
      * Add a new tag to list
      * @param tag value
      */
-     addTag(tag: string): boolean;
+    addTag(tag: string): boolean;
 
     /**
      * Remove tag with value from list
      * @param tag to be removed
      */
-     removeTag(tag: string): boolean;
+    removeTag(tag: string): boolean;
 
     /**
      * Add a new tags
      * @param tags string separated by delimiter
      */
-     importTags(tags: string): void;
+    importTags(tags: string): void;
 
     /**
      * Verify if tag exists
      * @param tag value
      */
-     tagExist(tag: string): boolean;
- }
+    tagExist(tag: string): boolean;
+}

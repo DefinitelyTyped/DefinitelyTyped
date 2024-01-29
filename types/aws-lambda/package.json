@@ -1,0 +1,174 @@
+{
+    "private": true,
+    "name": "@types/aws-lambda",
+    "version": "8.10.9999",
+    "projects": [
+        "http://docs.aws.amazon.com/lambda"
+    ],
+    "devDependencies": {
+        "@types/aws-lambda": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "James Darbyshire",
+            "githubUsername": "darbio"
+        },
+        {
+            "name": "Michael Skarum",
+            "githubUsername": "skarum"
+        },
+        {
+            "name": "Stef Heyenrath",
+            "githubUsername": "StefH"
+        },
+        {
+            "name": "Rich Buggy",
+            "githubUsername": "buggy"
+        },
+        {
+            "name": "wwwy3y3",
+            "githubUsername": "wwwy3y3"
+        },
+        {
+            "name": "Ishaan Malhi",
+            "githubUsername": "OrthoDex"
+        },
+        {
+            "name": "Michael Marner",
+            "githubUsername": "MichaelMarner"
+        },
+        {
+            "name": "Daniel Cottone",
+            "githubUsername": "daniel-cottone"
+        },
+        {
+            "name": "Kostya Misura",
+            "githubUsername": "kostya-misura"
+        },
+        {
+            "name": "Markus Tacker",
+            "githubUsername": "coderbyheart"
+        },
+        {
+            "name": "Palmi Valgeirsson",
+            "githubUsername": "palmithor"
+        },
+        {
+            "name": "Danilo Raisi",
+            "githubUsername": "daniloraisi"
+        },
+        {
+            "name": "Simon Buchan",
+            "githubUsername": "simonbuchan"
+        },
+        {
+            "name": "David Hayden",
+            "githubUsername": "Haydabase"
+        },
+        {
+            "name": "Chris Redekop",
+            "githubUsername": "repl-chris"
+        },
+        {
+            "name": "Aneil Mallavarapu",
+            "githubUsername": "aneilbaboo"
+        },
+        {
+            "name": "Jeremy Nagel",
+            "githubUsername": "jeznag"
+        },
+        {
+            "name": "Louis Larry",
+            "githubUsername": "louislarry"
+        },
+        {
+            "name": "Daniel Papukchiev",
+            "githubUsername": "dpapukchiev"
+        },
+        {
+            "name": "Oliver Hookins",
+            "githubUsername": "ohookins"
+        },
+        {
+            "name": "Trevor Leach",
+            "githubUsername": "trevor-leach"
+        },
+        {
+            "name": "James Gregory",
+            "githubUsername": "jagregory"
+        },
+        {
+            "name": "Erik Dalén",
+            "githubUsername": "dalen"
+        },
+        {
+            "name": "Loïk Gaonac'h",
+            "githubUsername": "loikg"
+        },
+        {
+            "name": "Roberto Zen",
+            "githubUsername": "skyzenr"
+        },
+        {
+            "name": "Grzegorz Redlicki",
+            "githubUsername": "redlickigrzegorz"
+        },
+        {
+            "name": "Juan Carbonel",
+            "githubUsername": "juancarbonel"
+        },
+        {
+            "name": "Peter McIntyre",
+            "githubUsername": "pwmcintyre"
+        },
+        {
+            "name": "Alex Bolenok",
+            "githubUsername": "alex-bolenok-centralreach"
+        },
+        {
+            "name": "Marian Zange",
+            "githubUsername": "marianzange"
+        },
+        {
+            "name": "Alessandro Palumbo",
+            "githubUsername": "apalumbo"
+        },
+        {
+            "name": "Sachin Shekhar",
+            "githubUsername": "SachinShekhar"
+        },
+        {
+            "name": "Ivan Martos",
+            "githubUsername": "ivanmartos"
+        },
+        {
+            "name": "Zach Anthony",
+            "githubUsername": "zach-anthony"
+        },
+        {
+            "name": "Peter Savnik",
+            "githubUsername": "savnik"
+        },
+        {
+            "name": "Benoit Boure",
+            "githubUsername": "bboure"
+        },
+        {
+            "name": "James Lakin",
+            "githubUsername": "jamesorlakin"
+        },
+        {
+            "name": "Ross Gerbasi",
+            "githubUsername": "aphex"
+        },
+        {
+            "name": "Joey Kilpatrick",
+            "githubUsername": "joeykilpatrick"
+        },
+        {
+            "name": "Luciano Manerich Junior",
+            "githubUsername": "lmanerich"
+        }
+    ]
+}

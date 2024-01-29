@@ -1,6 +1,46 @@
 {
     "private": true,
+    "name": "@types/ramda",
+    "version": "0.29.9999",
+    "projects": [
+        "https://ramdajs.com"
+    ],
+    "exports": {
+        ".": {
+            "require": "./src/index.js",
+            "import": "./es/index.js",
+            "default": "./src/index.js"
+        },
+        "./es/*": "./es/*.js",
+        "./src/*": "./src/*.js",
+        "./dist/*": "./dist/*.js",
+        "./es/": "./es/",
+        "./src/": "./src/",
+        "./dist/": "./dist/"
+    },
+    "minimumTypeScriptVersion": "5.0",
     "dependencies": {
-        "ts-toolbelt": "^6.15.1"
-    }
+        "types-ramda": "^0.29.7"
+    },
+    "devDependencies": {
+        "@types/ramda": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Harris Miller",
+            "githubUsername": "harris-miller"
+        },
+        {
+            "name": "Nicholai Nissen",
+            "githubUsername": "Nicholaiii"
+        },
+        {
+            "name": "Kevin Wallace",
+            "githubUsername": "kedashoe"
+        },
+        {
+            "name": "Wang Zengdi",
+            "githubUsername": "adispring"
+        }
+    ]
 }

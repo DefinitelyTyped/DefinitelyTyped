@@ -1,10 +1,4 @@
-// Type definitions for cli v0.11.2
-// Project: https://www.npmjs.com/package/cli
-// Definitions by: Klaus Reimer <https://github.com/kayahr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-
 
 interface CLI {
     app: string;
@@ -18,20 +12,22 @@ interface CLI {
     option_width: number;
     native: any;
     output(message?: any, ...optionalParams: any[]): void;
-    exit(code: number): void;
+    exit(code: number): never;
     no_color: boolean;
     enable(...plugins: string[]): CLI;
     disable(...plugins: string[]): CLI;
-    setArgv(argv: string | Array<any>, keepArg0?: boolean): void;
+    setArgv(argv: string | any[], keepArg0?: boolean): void;
     next(): string;
-    parse(opts?: { [long: string]: { 0: string | boolean, 1: string, 2?: string | undefined, 3?: any } },
-        commands?: { [name: string]: string } | string[]): any;
+    parse(
+        opts?: { [long: string]: { 0: string | boolean; 1: string; 2?: string | undefined; 3?: any } },
+        commands?: { [name: string]: string } | string[],
+    ): any;
     autocompleteCommand(command: string): string;
     info(msg: string): void;
     error(msg: string): void;
     ok(msg: string): void;
     debug(msg: string): void;
-    fatal(msg: string): void;
+    fatal(msg: string): never;
     setApp(appName: string, version: string): CLI;
     setApp(packageJson: string): CLI;
     parsePackageJson(path?: string): void;

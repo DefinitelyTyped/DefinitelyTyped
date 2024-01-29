@@ -1,0 +1,31 @@
+{
+    "private": true,
+    "name": "@types/serve-static",
+    "version": "1.15.9999",
+    "projects": [
+        "https://github.com/expressjs/serve-static"
+    ],
+    "dependencies": {
+        "@types/http-errors": "*",
+        "@types/mime": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/express": "*",
+        "@types/serve-static": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Uros Smolnik",
+            "githubUsername": "urossmolnik"
+        },
+        {
+            "name": "Linus Unnebäck",
+            "githubUsername": "LinusU"
+        },
+        {
+            "name": "Devansh Jethmalani",
+            "githubUsername": "devanshj"
+        }
+    ]
+}

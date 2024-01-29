@@ -1,15 +1,13 @@
-// Type definitions for cors 2.8
-// Project: https://github.com/expressjs/cors/
-// Definitions by: Alan Plum <https://github.com/pluma>
-//                 Gaurav Sharma <https://github.com/gtpan77>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+/// <reference types="node" />
 
-import { IncomingHttpHeaders } from 'http';
+import { IncomingHttpHeaders } from "http";
 
-type StaticOrigin = boolean | string | RegExp | (boolean | string | RegExp)[];
+type StaticOrigin = boolean | string | RegExp | Array<boolean | string | RegExp>;
 
-type CustomOrigin = (requestOrigin: string | undefined, callback: (err: Error | null, origin?: StaticOrigin) => void) => void;
+type CustomOrigin = (
+    requestOrigin: string | undefined,
+    callback: (err: Error | null, origin?: StaticOrigin) => void,
+) => void;
 
 declare namespace e {
     interface CorsRequest {

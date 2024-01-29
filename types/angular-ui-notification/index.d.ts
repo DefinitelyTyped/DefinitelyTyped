@@ -1,19 +1,13 @@
-// Type definitions for angular-ui-notification
-// Project: https://github.com/alexcrack/angular-ui-notification
-// Definitions by: Kamil Rojewski <https://github.com/krojew>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="angular" />
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     export namespace uiNotification {
-        type XPosition = 'right' | 'left' | 'center';
-        type YPosition = 'top' | 'bottom';
+        type XPosition = "right" | "left" | "center";
+        type YPosition = "top" | "bottom";
 
-        type MessageType = 'primary' | 'info' | 'success' | 'warning' | 'error';
+        type MessageType = "primary" | "info" | "success" | "warning" | "error";
 
         interface IGlobalMessageOptions {
             delay?: number | undefined;

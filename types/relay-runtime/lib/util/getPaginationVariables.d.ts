@@ -1,7 +1,7 @@
-import { ReaderPaginationMetadata } from './ReaderNode';
-import { Variables } from './RelayRuntimeTypes';
+import { ReaderPaginationMetadata } from "./ReaderNode";
+import { Variables } from "./RelayRuntimeTypes";
 
-export type Direction = 'forward' | 'backward';
+export type Direction = "forward" | "backward";
 
 export default function getPaginationVariables(
     direction: Direction,

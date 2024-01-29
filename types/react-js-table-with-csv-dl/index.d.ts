@@ -1,9 +1,4 @@
-// Type definitions for react-js-table-with-csv-dl 0.9
-// Project: https://github.com/jciccio/react-table-with-csv-download
-// Definitions by: manuzcheruz <https://github.com/manuzcheruz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as React from 'react';
+import * as React from "react";
 
 export interface TableViewerProps {
     /**
@@ -50,4 +45,4 @@ export interface TableViewerProps {
     errorColor?: string;
 }
 
-export default class TableViewer extends React.Component<TableViewerProps> { }
+export default class TableViewer extends React.Component<TableViewerProps> {}

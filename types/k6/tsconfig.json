@@ -8,10 +8,6 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
@@ -20,6 +16,7 @@
     "files": [
         "index.d.ts",
         "k6-tests.ts",
+        "test/browser.ts",
         "test/crypto.ts",
         "test/data.ts",
         "test/encoding.ts",
@@ -31,6 +28,13 @@
         "test/index.ts",
         "test/metrics.ts",
         "test/options.ts",
+        "test/redis.ts",
+        "test/timers.ts",
+        "test/tracing.ts",
+        "test/webcrypto.ts",
+        "test/websockets.ts",
+        "test/experimental/fs.ts",
+        "test/experimental/grpc.ts",
         "test/ws.ts"
     ]
 }

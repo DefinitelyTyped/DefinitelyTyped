@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/gifencoder",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/eugeneware/gifencoder#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gifencoder": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Carlos Precioso",
+            "githubUsername": "cprecioso"
+        },
+        {
+            "name": "Almeida",
+            "githubUsername": "almeidx"
+        }
+    ]
+}

@@ -1,4 +1,4 @@
-import { Identity } from '../../identity';
+import { Identity } from "../../identity";
 export interface Entity {
     type: string;
     uuid: string;

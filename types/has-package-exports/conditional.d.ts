@@ -1,6 +1,6 @@
 // This is necessary to disallow import of `has-package-exports/conditional.js`:
-// tslint:disable-next-line: no-declare-current-package no-single-declare-module
-declare module 'has-package-exports/conditional' {
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "has-package-exports/conditional" {
     /**
      * Whether the current environment supports conditional `exports` in `package.json`.
      *

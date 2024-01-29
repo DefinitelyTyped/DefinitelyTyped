@@ -1,8 +1,8 @@
 import npmWhich = require("npm-which");
 
 const which = npmWhich("");
-// $ExpectError
-npmWhich("", { });
+// @ts-expect-error
+npmWhich("", {});
 npmWhich("", { cwd: "" });
 npmWhich(
     "",
@@ -12,9 +12,10 @@ npmWhich(
         error;
         // $ExpectType string
         result;
-    });
-// $ExpectError
-npmWhich.sync("", { });
+    },
+);
+// @ts-expect-error
+npmWhich.sync("", {});
 npmWhich.sync("", { cwd: "" });
 which("", () => null);
 which("", { cwd: "" }, () => null);

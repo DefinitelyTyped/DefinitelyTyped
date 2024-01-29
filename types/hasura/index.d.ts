@@ -1,13 +1,8 @@
-// Type definitions for Hasura GraphQL Engine API types 0.1
-// Project: https://github.com/hasura/graphql-engine
-// Definitions by: Toan Nguyen <https://github.com/hgiasac>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-export const XHasuraAdminSecret = 'x-hasura-admin-secret';
-export const XHasuraClientName = 'hasura-client-name';
-export const XHasuraRole = 'x-hasura-role';
-export const XHasuraUserID = 'x-hasura-user-id';
-export const HASURA_ROLE_ADMIN = 'admin';
+export const XHasuraAdminSecret = "x-hasura-admin-secret";
+export const XHasuraClientName = "hasura-client-name";
+export const XHasuraRole = "x-hasura-role";
+export const XHasuraUserID = "x-hasura-user-id";
+export const HASURA_ROLE_ADMIN = "admin";
 
 export interface ColumnBoolExp<T = string | number | boolean> {
     _eq?: T | undefined;
@@ -42,136 +37,161 @@ type Equals<X, Y> = (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y 
 type ScalarType = string | number | boolean | ScalarJSON<unknown> | ScalarJSONB<unknown>;
 type ObjectType = Record<string, ScalarType | Record<string, ScalarType> | Array<Record<string, ScalarType>>>;
 export type ScalarJSON<T> = T & {
-    __type?: 'json' | undefined;
+    __type?: "json" | undefined;
 };
 export type ScalarJSONB<T> = T & {
-    __type?: 'jsonb' | undefined;
+    __type?: "jsonb" | undefined;
 };
-export type ScalarUUID = string & { __type?: 'uuid' | undefined };
-export type WhereBoolExp<T extends Record<string, any>> = {
-    [key in keyof T]?: T[key] extends string
-        ? TextColumnBoolExp
-        : Equals<T[key], ScalarJSON<T[key]>> extends true
-        ? JSONColumnBoolExp
-        : Equals<T[key], ScalarJSONB<T[key]>> extends true
-        ? JSONBColumnBoolExp
-        : T[key] extends ObjectType
-        ? WhereBoolExp<T[key]>
-        : T[key] extends ObjectType[]
-        ? WhereBoolExp<T[key][0]>
-        : ColumnBoolExp<T[key]>;
-} & {
-    _and?: Array<WhereBoolExp<T>> | undefined;
-    _or?: Array<WhereBoolExp<T>> | undefined;
-    _not?: Array<WhereBoolExp<T>> | undefined;
-};
-type ScalarOrderBy = 'asc' | 'desc' | 'asc_nulls_first' | 'asc_nulls_last' | 'desc_nulls_first' | 'desc_nulls_last';
+export type ScalarUUID = string & { __type?: "uuid" | undefined };
+export type WhereBoolExp<T extends Record<string, any>> =
+    & {
+        [key in keyof T]?: T[key] extends string ? TextColumnBoolExp
+            : Equals<T[key], ScalarJSON<T[key]>> extends true ? JSONColumnBoolExp
+            : Equals<T[key], ScalarJSONB<T[key]>> extends true ? JSONBColumnBoolExp
+            : T[key] extends ObjectType ? WhereBoolExp<T[key]>
+            : T[key] extends ObjectType[] ? WhereBoolExp<T[key][0]>
+            : ColumnBoolExp<T[key]>;
+    }
+    & {
+        _and?: Array<WhereBoolExp<T>> | undefined;
+        _or?: Array<WhereBoolExp<T>> | undefined;
+        _not?: Array<WhereBoolExp<T>> | undefined;
+    };
+type ScalarOrderBy = "asc" | "desc" | "asc_nulls_first" | "asc_nulls_last" | "desc_nulls_first" | "desc_nulls_last";
 type NumberScalarKeys<T> = {
     [key in keyof T]: T[key] extends number ? key : never;
 }[keyof T];
 type ScalaKeys<T> = {
-    [key in keyof T]: Equals<T[key], ScalarJSON<T[key]>> extends true
-        ? key
-        : Equals<T[key], ScalarJSONB<T[key]>> extends true
-        ? key
-        : T[key] extends number | string | boolean
-        ? key
+    [key in keyof T]: Equals<T[key], ScalarJSON<T[key]>> extends true ? key
+        : Equals<T[key], ScalarJSONB<T[key]>> extends true ? key
+        : T[key] extends number | string | boolean ? key
         : never;
 }[keyof T];
 type MinMaxAggregateKeys<T> = {
-    [key in keyof T]: Equals<T[key], ScalarUUID> extends true
-        ? never
-        : T[key] extends number | string | boolean
-        ? key
+    [key in keyof T]: Equals<T[key], ScalarUUID> extends true ? never
+        : T[key] extends number | string | boolean ? key
         : never;
 }[keyof T];
-export type OrderBy<T extends Record<string, any>> = {
-    [key in keyof T]?: Equals<T[key], ScalarJSON<T[key]>> extends true
-        ? ScalarOrderBy
-        : Equals<T[key], ScalarJSONB<T[key]>> extends true
-        ? ScalarOrderBy
-        : T[key] extends ObjectType
-        ? OrderBy<T[key]>
-        : T[key] extends ObjectType[]
-        ? OrderBy<T[key][0]>
-        : ScalarOrderBy;
-} & {
-    [key: string]: any;
-};
+export type OrderBy<T extends Record<string, any>> =
+    & {
+        [key in keyof T]?: Equals<T[key], ScalarJSON<T[key]>> extends true ? ScalarOrderBy
+            : Equals<T[key], ScalarJSONB<T[key]>> extends true ? ScalarOrderBy
+            : T[key] extends ObjectType ? OrderBy<T[key]>
+            : T[key] extends ObjectType[] ? OrderBy<T[key][0]>
+            : ScalarOrderBy;
+    }
+    & {
+        [key: string]: any;
+    };
 interface BaseOrderByAggregate<T> {
     count?: ScalarOrderBy | undefined;
-    max?: MinMaxAggregateKeys<T> extends never
-        ? never
-        : {
-              [key in MinMaxAggregateKeys<T>]?: ScalarOrderBy;
-          } | undefined;
-    min?: {
-        [key in MinMaxAggregateKeys<T>]?: ScalarOrderBy;
-    } | undefined;
+    max?: MinMaxAggregateKeys<T> extends never ? never
+        :
+            | {
+                [key in MinMaxAggregateKeys<T>]?: ScalarOrderBy;
+            }
+            | undefined;
+    min?:
+        | {
+            [key in MinMaxAggregateKeys<T>]?: ScalarOrderBy;
+        }
+        | undefined;
 }
 
 interface NumberOrderByAggregate<T, Keys extends keyof T> {
-    avg?: {
-        [key in Keys]?: ScalarOrderBy;
-    } | undefined;
-    sum?: {
-        [key in Keys]?: ScalarOrderBy;
-    } | undefined;
-    stddev?: {
-        [key in Keys]?: ScalarOrderBy;
-    } | undefined;
-    stddev_pop?: {
-        [key in Keys]?: ScalarOrderBy;
-    } | undefined;
-    stddev_samp?: {
-        [key in Keys]?: ScalarOrderBy;
-    } | undefined;
-    var_pop?: {
-        [key in Keys]?: ScalarOrderBy;
-    } | undefined;
-    variance?: {
-        [key in Keys]?: ScalarOrderBy;
-    } | undefined;
+    avg?:
+        | {
+            [key in Keys]?: ScalarOrderBy;
+        }
+        | undefined;
+    sum?:
+        | {
+            [key in Keys]?: ScalarOrderBy;
+        }
+        | undefined;
+    stddev?:
+        | {
+            [key in Keys]?: ScalarOrderBy;
+        }
+        | undefined;
+    stddev_pop?:
+        | {
+            [key in Keys]?: ScalarOrderBy;
+        }
+        | undefined;
+    stddev_samp?:
+        | {
+            [key in Keys]?: ScalarOrderBy;
+        }
+        | undefined;
+    var_pop?:
+        | {
+            [key in Keys]?: ScalarOrderBy;
+        }
+        | undefined;
+    variance?:
+        | {
+            [key in Keys]?: ScalarOrderBy;
+        }
+        | undefined;
 }
-export type OrderByAggregate<T extends Record<string, any>> = (NumberScalarKeys<T> extends never
-    ? BaseOrderByAggregate<T>
-    : BaseOrderByAggregate<T> & NumberOrderByAggregate<T, NumberScalarKeys<T>>) &
-    OrderBy<T>;
+export type OrderByAggregate<T extends Record<string, any>> =
+    & (NumberScalarKeys<T> extends never ? BaseOrderByAggregate<T>
+        : BaseOrderByAggregate<T> & NumberOrderByAggregate<T, NumberScalarKeys<T>>)
+    & OrderBy<T>;
 
 export type Aggregate<T> = T & {
     __aggregate?: never | undefined;
 };
 interface BaseAggregateResult<T> {
     count?: number | undefined;
-    max?: {
-        [key in MinMaxAggregateKeys<T>]?: T[key];
-    } | undefined;
-    min?: {
-        [key in MinMaxAggregateKeys<T>]?: T[key];
-    } | undefined;
+    max?:
+        | {
+            [key in MinMaxAggregateKeys<T>]?: T[key];
+        }
+        | undefined;
+    min?:
+        | {
+            [key in MinMaxAggregateKeys<T>]?: T[key];
+        }
+        | undefined;
 }
 interface NumberAggregateResult<T, Keys extends keyof T> extends BaseAggregateResult<T> {
-    avg?: {
-        [key in Keys]?: number;
-    } | undefined;
-    sum?: {
-        [key in Keys]?: number;
-    } | undefined;
-    stddev?: {
-        [key in Keys]?: number;
-    } | undefined;
-    stddev_pop?: {
-        [key in Keys]?: number;
-    } | undefined;
-    stddev_samp?: {
-        [key in Keys]?: number;
-    } | undefined;
-    var_pop?: {
-        [key in Keys]?: number;
-    } | undefined;
-    variance?: {
-        [key in Keys]?: number;
-    } | undefined;
+    avg?:
+        | {
+            [key in Keys]?: number;
+        }
+        | undefined;
+    sum?:
+        | {
+            [key in Keys]?: number;
+        }
+        | undefined;
+    stddev?:
+        | {
+            [key in Keys]?: number;
+        }
+        | undefined;
+    stddev_pop?:
+        | {
+            [key in Keys]?: number;
+        }
+        | undefined;
+    stddev_samp?:
+        | {
+            [key in Keys]?: number;
+        }
+        | undefined;
+    var_pop?:
+        | {
+            [key in Keys]?: number;
+        }
+        | undefined;
+    variance?:
+        | {
+            [key in Keys]?: number;
+        }
+        | undefined;
 }
 
 export type HasuraDataItem<T extends Record<string, any>> = T & {
@@ -185,8 +205,7 @@ export interface HasuraQueryResponse<K extends string, T extends Record<string, 
     };
 }
 
-type AggregateResult<T> = NumberScalarKeys<T> extends never
-    ? BaseAggregateResult<T>
+type AggregateResult<T> = NumberScalarKeys<T> extends never ? BaseAggregateResult<T>
     : NumberAggregateResult<T, NumberScalarKeys<T>>;
 
 export interface HasuraAggregateResult<T extends Record<string, any>> {
@@ -200,23 +219,18 @@ export interface HasuraAggregateQueryResponse<K extends string, T extends Record
 }
 export interface HasuraMultipleQueriesResponse<T extends Record<string, any>> {
     data: {
-        [key in keyof T]: Equals<T[key], Aggregate<T[key]>> extends true
-            ? HasuraAggregateResult<T[key]>
+        [key in keyof T]: Equals<T[key], Aggregate<T[key]>> extends true ? HasuraAggregateResult<T[key]>
             : Array<T[key]>;
     };
 }
 type HasuraInsertInputObject<T extends Record<string, any>> = {
-    [key in keyof T]?: Equals<T[key], ScalarJSON<T[key]>> extends true
-        ? T[key]
-        : Equals<T[key], ScalarJSONB<T[key]>> extends true
-        ? T[key]
-        : T[key] extends ObjectType
-        ? HasuraInsertInputSingle<T[key], 'data'>
-        : T[key] extends ObjectType[]
-        ? HasuraInsertInput<T[key][0], 'data'>
+    [key in keyof T]?: Equals<T[key], ScalarJSON<T[key]>> extends true ? T[key]
+        : Equals<T[key], ScalarJSONB<T[key]>> extends true ? T[key]
+        : T[key] extends ObjectType ? HasuraInsertInputSingle<T[key], "data">
+        : T[key] extends ObjectType[] ? HasuraInsertInput<T[key][0], "data">
         : T[key];
 };
-export type HasuraInsertOnConflict<T extends Record<string, any>, OC extends string = 'on_conflict'> = {
+export type HasuraInsertOnConflict<T extends Record<string, any>, OC extends string = "on_conflict"> = {
     [oc in OC]?: {
         constraint: string;
         update_columns: Array<keyof T>;
@@ -225,39 +239,42 @@ export type HasuraInsertOnConflict<T extends Record<string, any>, OC extends str
 };
 export type HasuraInsertInputSingle<
     T extends Record<string, any>,
-    OKey extends string = 'objects',
-    OC extends string = 'on_conflict'
-> = {
-    [ok in OKey]: HasuraInsertInputObject<T>;
-} &
-    HasuraInsertOnConflict<T, OC>;
+    OKey extends string = "objects",
+    OC extends string = "on_conflict",
+> =
+    & {
+        [ok in OKey]: HasuraInsertInputObject<T>;
+    }
+    & HasuraInsertOnConflict<T, OC>;
 export type HasuraInsertInput<
     T extends Record<string, any>,
-    OKey extends string = 'objects',
-    ConflictKey extends string = 'on_conflict'
-> = {
-    [ok in OKey]: Array<HasuraInsertInputObject<T>>;
-} &
-    HasuraInsertOnConflict<T, ConflictKey>;
+    OKey extends string = "objects",
+    ConflictKey extends string = "on_conflict",
+> =
+    & {
+        [ok in OKey]: Array<HasuraInsertInputObject<T>>;
+    }
+    & HasuraInsertOnConflict<T, ConflictKey>;
 export type HasuraUpdateInput<
     T extends Record<string, any>,
-    WhereKey extends string = 'where',
-    SKey extends string = '_set',
-    IncKey extends string = '_inc'
-> = {
-    [ok in WhereKey]: WhereBoolExp<T>;
-} &
-    {
+    WhereKey extends string = "where",
+    SKey extends string = "_set",
+    IncKey extends string = "_inc",
+> =
+    & {
+        [ok in WhereKey]: WhereBoolExp<T>;
+    }
+    & {
         [key in SKey]: {
             [k in ScalaKeys<T>]?: T[k];
         };
-    } &
-    {
+    }
+    & {
         [key in IncKey]?: {
             [k in NumberScalarKeys<T>]: T[k];
         };
     };
-export type HasuraDeleteInput<T extends Record<string, any>, WhereKey extends string = 'where'> = {
+export type HasuraDeleteInput<T extends Record<string, any>, WhereKey extends string = "where"> = {
     [ok in WhereKey]: WhereBoolExp<T>;
 };
 export interface HasuraMutationResponse<T extends Record<string, any> = never> {

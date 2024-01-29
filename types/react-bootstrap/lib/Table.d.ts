@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 declare namespace Table {
     export interface TableProps extends React.HTMLProps<Table> {
@@ -11,5 +11,5 @@ declare namespace Table {
         bsClass?: string | undefined;
     }
 }
-declare class Table extends React.Component<Table.TableProps> { }
+declare class Table extends React.Component<Table.TableProps> {}
 export = Table;

@@ -1,9 +1,3 @@
-// Type definitions for react-imgpro 1.3
-// Project: https://github.com/nitin42/react-imgpro
-// Definitions by: Carlos Li <https://github.com/echoulen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 import ProcessImage = ReactImgpro.ProcessImage;
@@ -20,12 +14,12 @@ declare namespace ReactImgpro {
         width: number;
         height: number;
         mode:
-            "horizontal_left" |
-            "horizontal_center" |
-            "horizontal_right" |
-            "vertical_top" |
-            "vertical_bottom" |
-            "vertical_middle";
+            | "horizontal_left"
+            | "horizontal_center"
+            | "horizontal_right"
+            | "vertical_top"
+            | "vertical_bottom"
+            | "vertical_middle";
     }
     interface ProcessImageProps {
         image: string;
@@ -69,7 +63,7 @@ declare namespace ReactImgpro {
             mix?: {
                 color?: string | undefined;
                 amount?: number | undefined;
-            } | undefined,
+            } | undefined;
             tint?: number | undefined;
             xor?: number | undefined;
             shade?: number | undefined;

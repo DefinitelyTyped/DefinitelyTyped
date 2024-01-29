@@ -1,4 +1,4 @@
-import * as Guacamole from 'guacamole-client';
+import * as Guacamole from "guacamole-client";
 
 declare const srcLayer: Guacamole.Layer;
 declare const srcx: number;
@@ -16,16 +16,16 @@ const checkStatus = (s: Guacamole.Status): [Guacamole.Status.Code, string | unde
     s.isError(),
 ];
 
-// $ExpectError
+// @ts-expect-error
 const layer = new Guacamole.Layer();
 
 const l2 = new Guacamole.Layer(1, 2);
 l2.arc(1, 2, 3, 4, 5, true as boolean | undefined);
 l2.arc(1, 2, 3, 4, 5);
-// $ExpectError
+// @ts-expect-error
 l2.arc(1 as number | null, 2, 3, 4, 5);
 l2.copy(srcLayer, srcx, srcy, srcw, srch, x, y);
-// $ExpectError
+// @ts-expect-error
 l2.copy({}, 1, 2, 3, 4, 5, 5);
 l2.pop();
 l2.put(srcLayer, srcx, srcy, srcw, srch, x, y);
@@ -40,55 +40,55 @@ mouse.onmouseout = console.log;
 mouse.onmousedown = st => st.left;
 mouse.onmousemove = st => st.down;
 
-const tunnel = new Guacamole.WebSocketTunnel('haha');
+const tunnel = new Guacamole.WebSocketTunnel("haha");
 tunnel.connect();
-tunnel.connect('123');
-// $ExpectError
+tunnel.connect("123");
+// @ts-expect-error
 tunnel.connect({});
 tunnel.onerror = checkStatus;
 const tis: boolean = tunnel.isConnected();
 tunnel.state === Guacamole.Tunnel.State.CONNECTING;
-// $ExpectError
+// @ts-expect-error
 const z = tunnel.state === 5;
 
-// $ExpectError
+// @ts-expect-error
 tunnel.uuid.substr(0);
 tunnel.uuid && tunnel.uuid.substr(0);
 
-// $ExpectError
+// @ts-expect-error
 tunnel.sendMessage();
 tunnel.sendMessage(1);
 tunnel.oninstruction = (code, args) => [code.trim(), args.map];
 tunnel.onstatechange = state => state === Guacamole.Tunnel.State.OPEN;
 tunnel.onerror = s => s.code === Guacamole.Status.Code.fromHTTPCode(500);
 tunnel.disconnect();
-// $ExpectError
+// @ts-expect-error
 new Guacamole.WebSocketTunnel(null);
-// $ExpectError
+// @ts-expect-error
 new Guacamole.WebSocketTunnel(undefined);
-// $ExpectError
+// @ts-expect-error
 new Guacamole.WebSocketTunnel({});
 
 const client = new Guacamole.Client(tunnel);
 
-// $ExpectError
+// @ts-expect-error
 new Guacamole.Client(null);
-// $ExpectError
+// @ts-expect-error
 new Guacamole.Client({});
 
 client.connect();
 client.connect(123);
 client.connect({});
-client.connect('sdfdsf');
+client.connect("sdfdsf");
 client.onerror = (status: Guacamole.Status) => {
     console.log(status.code === Guacamole.Status.Code.UNSUPPORTED);
-    // $ExpectError
+    // @ts-expect-error
     status.message.trim();
 
     status.message && status.message.trim();
 };
 client.onerror = null;
-// $ExpectError
+// @ts-expect-error
 client.endStream();
 
 const d = new Guacamole.Display();
@@ -99,25 +99,25 @@ const o$ = new Guacamole.OutputStream(client, 3);
 o$.index.toFixed();
 o$.onack = checkStatus;
 o$.sendEnd();
-o$.sendBlob('sdfdsf');
-// $ExpectError
-o$.sendBlob('sdfsd' as null | string);
+o$.sendBlob("sdfdsf");
+// @ts-expect-error
+o$.sendBlob("sdfsd" as null | string);
 
 const i$ = new Guacamole.InputStream(client, 55);
 i$.onend = () => {};
 i$.onblob = x => {
-    i$.sendAck('sdfsd', Guacamole.Status.Code.SUCCESS);
+    i$.sendAck("sdfsd", Guacamole.Status.Code.SUCCESS);
     x.trim();
 };
 
 const vp = new Guacamole.VideoPlayer();
 vp.sync();
 
-new Guacamole.Client(new Guacamole.HTTPTunnel('https://hey.hey')).sendKeyEvent(1 as 1 | 0, 10);
+new Guacamole.Client(new Guacamole.HTTPTunnel("https://hey.hey")).sendKeyEvent(1 as 1 | 0, 10);
 new Guacamole.Client(tunnel)
-  // $ExpectError
-  .sendKeyEvent(true, 5);
+    // @ts-expect-error
+    .sendKeyEvent(true, 5);
 
 new Guacamole.Client(tunnel).sendMouseState(new Guacamole.Mouse.State(1, 2, false, false, false, false, true));
-// $ExpectError
+// @ts-expect-error
 new Guacamole.Client(tunnel).sendMouseState({ left: true });

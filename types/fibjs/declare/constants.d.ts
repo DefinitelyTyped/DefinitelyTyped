@@ -202,7 +202,7 @@
 declare module "constants" {
     
 
-    module constants {
+    namespace constants {
         
         
         

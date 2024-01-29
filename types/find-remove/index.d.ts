@@ -1,8 +1,3 @@
-// Type definitions for find-remove 2.0
-// Project: https://github.com/binarykitchen/find-remove
-// Definitions by: nadchif <https://github.com/nadchif>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * findRemoveSync takes any start directory and searches files from there for removal. the selection of files for removal depends on the given options.
  * and at last, it deletes the selected files/directories

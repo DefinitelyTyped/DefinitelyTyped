@@ -1,5 +1,5 @@
-import koaQs = require('koa-qs');
-import Koa = require('koa');
+import koaQs = require("koa-qs");
+import Koa = require("koa");
 
 const app = koaQs(new Koa());
 

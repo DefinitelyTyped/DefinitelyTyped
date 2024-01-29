@@ -1,9 +1,14 @@
-import { Component, HTMLProps, FormEvent } from "react";
+import { Component, FormEvent, HTMLProps } from "react";
 import { Dispatch } from "redux";
-import { SubmitHandler, FormProps, FormErrors } from "../index";
+import { FormErrors, FormProps, SubmitHandler } from "../index";
 
 interface FormSubmitHandler {
-    (values: any, dispatch?: Dispatch<any>, props?: FormProps<any, any, any> & { [prop: string]: any }): void | FormErrors<any> | Promise<any>;
+    (
+        values: any,
+        dispatch?: Dispatch<any>,
+        props?: FormProps<any, any, any> & { [prop: string]: any },
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    ): void | FormErrors<any> | Promise<any>;
 }
 
 export interface FormComponentProps extends HTMLProps<HTMLFormElement> {

@@ -1,2 +1,2 @@
-import { memoizeWith } from '../index';
+import { memoizeWith } from "../index.js";
 export default memoizeWith;

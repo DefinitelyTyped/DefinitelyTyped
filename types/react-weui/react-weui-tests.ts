@@ -1,1 +1,1 @@
-import WeUI = require('react-weui');
+import WeUI = require("react-weui");

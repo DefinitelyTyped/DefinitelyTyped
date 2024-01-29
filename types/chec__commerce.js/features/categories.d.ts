@@ -1,6 +1,6 @@
-import Commerce = require('@chec/commerce.js');
-import { Category } from '../types/category';
-import { PaginationMeta } from '../types/pagination';
+import Commerce = require("../");
+import { Category } from "../types/category";
+import { PaginationMeta } from "../types/pagination";
 
 export interface CategoryCollection {
     data: Category[];

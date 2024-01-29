@@ -55,8 +55,7 @@ declare namespace GoogleAdsScripts {
          *      }
          */
         interface LanguageSelector
-            extends Base.Selector<LanguageIterator>,
-                Base.SelectorWithIds,
-                Base.SelectorWithLimit {}
+            extends Base.Selector<LanguageIterator>, Base.SelectorWithIds, Base.SelectorWithLimit
+        {}
     }
 }

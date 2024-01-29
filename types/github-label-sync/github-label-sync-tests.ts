@@ -1,28 +1,29 @@
-import githubLabelSync, { defaults } from 'github-label-sync';
+import githubLabelSync, { defaults } from "github-label-sync";
 
 githubLabelSync({
-    accessToken: 'abc',
+    accessToken: "abc",
     labels: [
         {
-            name: 'label',
-            color: '123456',
-            aliases: ['some', 'aliases', 'for', 'the', 'label'],
+            name: "label",
+            color: "123456",
+            aliases: ["some", "aliases", "for", "the", "label"],
         },
         {
-            name: 'other label',
-            color: 'abcdef',
-            description: 'A very inspiring description',
+            name: "other label",
+            color: "abcdef",
+            description: "A very inspiring description",
+            delete: true,
         },
     ],
-    repo: 'owner/repo',
+    repo: "owner/repo",
 
     allowAddedLabels: true,
     dryRun: true,
-    endpoint: 'abc',
+    endpoint: "abc",
     format: {
-        diff: s => s + 'a',
-        success: s => s + 'b',
-        warning: s => s + 'c',
+        diff: s => s + "a",
+        success: s => s + "b",
+        warning: s => s + "c",
     },
     log: {
         info: _s => {},
@@ -32,14 +33,14 @@ githubLabelSync({
 
 githubLabelSync({
     ...defaults,
-    accessToken: 'abc',
-    repo: 'owner/name',
-    endpoint: 'abc',
+    accessToken: "abc",
+    repo: "owner/name",
+    endpoint: "abc",
 });
 
 githubLabelSync({
-    accessToken: 'abc',
-    repo: 'owner/name',
+    accessToken: "abc",
+    repo: "owner/name",
     labels: [],
 }).then(value => {
     value[0].name;

@@ -1,33 +1,33 @@
-import * as gulp from 'gulp';
-import templateCache = require('gulp-angular-templatecache');
+import * as gulp from "gulp";
+import templateCache = require("gulp-angular-templatecache");
 
-gulp.task('templatecache:no-arguments', function () {
-    return gulp.src('templates/**/*.html')
+gulp.task("templatecache:no-arguments", function() {
+    return gulp.src("templates/**/*.html")
         .pipe(templateCache())
-        .pipe(gulp.dest('public'));
+        .pipe(gulp.dest("public"));
 });
 
-gulp.task('templatecache:with-filename', function () {
-    return gulp.src('templates/**/*.html')
-        .pipe(templateCache('templates.js'))
-        .pipe(gulp.dest('public'));
+gulp.task("templatecache:with-filename", function() {
+    return gulp.src("templates/**/*.html")
+        .pipe(templateCache("templates.js"))
+        .pipe(gulp.dest("public"));
 });
 
-gulp.task('templatecache:with-options', function () {
-    return gulp.src('templates/**/*.html')
+gulp.task("templatecache:with-options", function() {
+    return gulp.src("templates/**/*.html")
         .pipe(templateCache({
-            filename: 'templates.js',
+            filename: "templates.js",
             standalone: true,
-            module: 'app.templates'
+            module: "app.templates",
         }))
-        .pipe(gulp.dest('public'));
+        .pipe(gulp.dest("public"));
 });
 
-gulp.task('templatecache:with-filename-and-options', function () {
-    return gulp.src('templates/**/*.html')
-        .pipe(templateCache('templates.js', {
+gulp.task("templatecache:with-filename-and-options", function() {
+    return gulp.src("templates/**/*.html")
+        .pipe(templateCache("templates.js", {
             standalone: true,
-            module: 'app.templates'
+            module: "app.templates",
         }))
-        .pipe(gulp.dest('public'));
+        .pipe(gulp.dest("public"));
 });

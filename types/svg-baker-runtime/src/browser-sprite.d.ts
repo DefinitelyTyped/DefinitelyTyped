@@ -1,8 +1,8 @@
-import Sprite from './sprite';
-import BrowserSpriteSymbol from './browser-symbol';
+import BrowserSpriteSymbol from "./browser-symbol";
+import Sprite from "./sprite";
 
-import { SpriteConfig } from './sprite.config';
-import { BrowserSpriteConfig } from './browser-sprite.config';
+import { BrowserSpriteConfig } from "./browser-sprite.config";
+import { SpriteConfig } from "./sprite.config";
 
 export default class BrowserSprite extends Sprite {
     constructor(cfg?: SpriteConfig & BrowserSpriteConfig);

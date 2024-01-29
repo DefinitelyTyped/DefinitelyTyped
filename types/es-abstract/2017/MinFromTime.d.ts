@@ -1,2 +1,2 @@
-import MinFromTime = require('../2016/MinFromTime');
+import MinFromTime = require("../2016/MinFromTime");
 export = MinFromTime;

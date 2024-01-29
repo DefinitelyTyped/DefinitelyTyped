@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/format-link-header",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/jonathansamines/format-link-header"
+    ],
+    "devDependencies": {
+        "@types/format-link-header": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chris Wilkinson",
+            "githubUsername": "thewilkybarkid"
+        }
+    ]
+}

@@ -1,13 +1,3 @@
-// Type definitions for ember-test-helpers 1.0
-// Project: https://github.com/emberjs/ember-test-helpers#readme
-// Definitions by: Derek Wickern <https://github.com/dwickern>
-//                 Mike North <https://github.com/mike-north>
-//                 Chris Krycho <https://github.com/chriskrycho>
-//                 James C. Davis <https://github.com/jamescdavis>
-//                 Dan Freeman <https://github.com/dfreeman>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 // NOTE: These types apply to ember-test-helper v0.7. The major
 // version had to be bumped for SemVer due to a breaking change
 // in TypeScript 3.1
@@ -18,9 +8,9 @@
 
 /// <reference types="jquery" />
 
-declare module 'ember-test-helpers' {
-    import Ember from 'ember';
-    import { TemplateFactory } from 'htmlbars-inline-precompile';
+declare module "ember-test-helpers" {
+    import Ember from "ember";
+    import { TemplateFactory } from "htmlbars-inline-precompile";
     import RSVP from "rsvp";
 
     interface ModuleCallbacks {
@@ -94,7 +84,7 @@ declare module 'ember-test-helpers' {
     function setResolver(resolver: Ember.Resolver): void;
 }
 
-declare module 'ember-test-helpers/wait' {
+declare module "ember-test-helpers/wait" {
     import RSVP from "rsvp";
 
     interface WaitOptions {
@@ -106,6 +96,6 @@ declare module 'ember-test-helpers/wait' {
     export default function wait(options?: WaitOptions): RSVP.Promise<void>;
 }
 
-declare module 'ember-test-helpers/has-ember-version' {
+declare module "ember-test-helpers/has-ember-version" {
     export default function hasEmberVersion(major: number, minor: number): boolean;
 }

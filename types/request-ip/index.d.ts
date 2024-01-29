@@ -1,36 +1,30 @@
-// Type definitions for request-ip
-// Project: https://github.com/pbojinov/request-ip
-// Definitions by: Adam Babcock <https://github.com/mrhen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
-import * as http from 'http';
+import * as http from "http";
 
 interface RequestHeaders extends http.IncomingHttpHeaders {
-    'x-client-ip'?: string | undefined;
-    'x-forwarded-for'?: string | undefined;
-    'x-real-ip'?: string | undefined;
-    'x-cluster-client-ip'?: string | undefined;
-    'x-forwarded'?: string | undefined;
-    'forwarded-for'?: string | undefined;
-    'forwarded'?: string | undefined;
+    "x-client-ip"?: string | undefined;
+    "x-forwarded-for"?: string | undefined;
+    "x-real-ip"?: string | undefined;
+    "x-cluster-client-ip"?: string | undefined;
+    "x-forwarded"?: string | undefined;
+    "forwarded-for"?: string | undefined;
+    "forwarded"?: string | undefined;
 }
 
 interface Request {
-    headers: RequestHeaders;
+    headers?: RequestHeaders;
     connection?: {
         remoteAddress?: string | undefined;
         socket?: {
-            remoteAddress?: string | undefined
+            remoteAddress?: string | undefined;
         } | undefined;
     } | undefined;
     info?: {
-        remoteAddress?: string | undefined
+        remoteAddress?: string | undefined;
     } | undefined;
     socket?: {
-        remoteAddress?: string | undefined
+        remoteAddress?: string | undefined;
     } | undefined;
 }
 
@@ -43,9 +37,9 @@ export declare function getClientIp(req: Request): string | null;
 export function mw(options?: Options): (req: Request, res: any, next: any) => any;
 
 declare global {
-  namespace Express {
-    interface Request {
-      clientIp?: string | undefined;
+    namespace Express {
+        interface Request {
+            clientIp?: string | undefined;
+        }
     }
-  }
 }

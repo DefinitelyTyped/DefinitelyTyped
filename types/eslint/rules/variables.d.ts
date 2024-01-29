@@ -10,13 +10,13 @@ export interface Variables extends Linter.RulesRecord {
     "init-declarations":
         | Linter.RuleEntry<["always"]>
         | Linter.RuleEntry<
-              [
-                  "never",
-                  Partial<{
-                      ignoreForLoopInit: boolean;
-                  }>,
-              ]
-          >;
+            [
+                "never",
+                Partial<{
+                    ignoreForLoopInit: boolean;
+                }>,
+            ]
+        >;
 
     /**
      * Rule to disallow deleting variables.
@@ -48,10 +48,10 @@ export interface Variables extends Linter.RulesRecord {
             ...Array<
                 | string
                 | {
-                      name: string;
-                      message?: string | undefined;
-                  }
-            >
+                    name: string;
+                    message?: string | undefined;
+                }
+            >,
         ]
     >;
 
@@ -168,19 +168,19 @@ export interface Variables extends Linter.RulesRecord {
     "no-use-before-define": Linter.RuleEntry<
         [
             | Partial<{
-                  /**
-                   * @default true
-                   */
-                  functions: boolean;
-                  /**
-                   * @default true
-                   */
-                  classes: boolean;
-                  /**
-                   * @default true
-                   */
-                  variables: boolean;
-              }>
+                /**
+                 * @default true
+                 */
+                functions: boolean;
+                /**
+                 * @default true
+                 */
+                classes: boolean;
+                /**
+                 * @default true
+                 */
+                variables: boolean;
+            }>
             | "nofunc",
         ]
     >;

@@ -1,12 +1,6 @@
-// Type definitions for leaflet.pattern 0.1
-// Project: https://github.com/pixelizedPeanut/Leaflet.pattern#leafletpattern
-// Definitions by: Maarten Paauw <https://github.com/maartenpaauw>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+import * as L from "leaflet";
 
-import * as L from 'leaflet';
-
-declare module 'leaflet' {
+declare module "leaflet" {
     interface Map {
         addPattern(pattern: Pattern | StripePattern): Map;
 
@@ -24,8 +18,8 @@ declare module 'leaflet' {
         y?: number | undefined;
         width?: number | undefined;
         height?: number | undefined;
-        patternUnits?: 'userSpaceOnUse' | 'objectBoundingBox' | undefined;
-        patternContentUnits?: 'userSpaceOnUse' | 'objectBoundingBox' | undefined;
+        patternUnits?: "userSpaceOnUse" | "objectBoundingBox" | undefined;
+        patternContentUnits?: "userSpaceOnUse" | "objectBoundingBox" | undefined;
         patternTransform?: string | null | undefined;
         angle?: number | null | undefined;
     }
@@ -44,14 +38,14 @@ declare module 'leaflet' {
         color?: string | undefined;
         weight?: number | undefined;
         opacity?: number | undefined;
-        lineCap?: 'butt' | 'round' | 'square' | 'inherit' | undefined;
-        lineJoin?: 'butt' | 'round' | 'square' | 'inherit' | undefined;
+        lineCap?: "butt" | "round" | "square" | "inherit" | undefined;
+        lineJoin?: "butt" | "round" | "square" | "inherit" | undefined;
         dashArray?: number[] | null | undefined;
         dashOffset?: number | null | undefined;
         fill?: boolean | undefined;
         fillColor?: string | undefined;
         fillOpacity?: number | undefined;
-        fillRule?: 'nonzero' | 'evenodd' | 'inherit' | undefined;
+        fillRule?: "nonzero" | "evenodd" | "inherit" | undefined;
         fillPattern?: Pattern | null | undefined;
     }
 

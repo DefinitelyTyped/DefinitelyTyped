@@ -30,8 +30,6 @@ declare class Class_Buffer extends Class__object {
      * 
      * @brief 获取缓存对象的尺寸
      * 
-     * @readonly
-     * @type Integer
      */
     
     length: number

@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/react-is",
+    "version": "18.2.9999",
+    "projects": [
+        "https://reactjs.org/"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-dom": "*",
+        "@types/react-is": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Avi Vahl",
+            "githubUsername": "AviVahl"
+        },
+        {
+            "name": "Christian Chown",
+            "githubUsername": "christianchown"
+        },
+        {
+            "name": "Sebastian Silbermann",
+            "githubUsername": "eps1lon"
+        }
+    ]
+}

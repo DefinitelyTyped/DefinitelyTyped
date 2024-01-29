@@ -1,14 +1,10 @@
-// Type definitions for d3-dsv 0.4
-// Project: https://www.npmjs.com/package/d3-dsv
-// Definitions by: Jason Swearingen <https://jasonswearingen.github.io>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /** A parser and formatter for DSV (CSV and TSV) files. Extracted from D3. */
 declare function loader(
     /** the symbol used to separate cells in the row. */
     delimiter: string,
     /** example: "text/plain" */
-    encoding?: string): D3Dsv;
+    encoding?: string,
+): D3Dsv;
 
 export = loader;
 export as namespace d3_dsv;
@@ -34,8 +30,8 @@ interface D3Dsv {
     parse<TRow>(
         table: string,
         /** coerce cells (strings) into different types or modify them. return null to strip this row from the output results. */
-        accessor?: (row: any) => TRow
-        ): TRow[];
+        accessor?: (row: any) => TRow,
+    ): TRow[];
 
     /**
      * Parses the specified string, which is the contents of a CSV file, returning an array of arrays representing the parsed rows.
@@ -56,8 +52,8 @@ interface D3Dsv {
     parseRows<TRow>(
         table: string,
         /** coerce cells (strings) into different types or modify them. return null to strip this row from the output results. */
-        accessor?: (row: string[]) => TRow
-        ): TRow[];
+        accessor?: (row: string[]) => TRow,
+    ): TRow[];
 
     /**
      * Converts the specified array of rows into comma-separated values format, returning a string.

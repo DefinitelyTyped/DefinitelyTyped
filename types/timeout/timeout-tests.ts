@@ -1,3 +1,3 @@
-import { timeout } from 'timeout';
+import { timeout } from "timeout";
 
-timeout('name', 10, () => console.log('I work!')); // $ExpectType string
+timeout("name", 10, () => console.log("I work!")); // $ExpectType string

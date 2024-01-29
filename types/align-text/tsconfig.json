@@ -1,13 +1,13 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6"],
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
@@ -18,6 +18,7 @@
         "test/simple.ts",
         "test/center-simple.ts",
         "test/center-complex.ts",
+        "test/center-all-arguments.ts",
         "test/array.ts"
     ]
 }

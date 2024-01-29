@@ -1,9 +1,3 @@
-// Type definitions for zxcvbn 4.4
-// Project: https://github.com/dropbox/zxcvbn#readme
-// Definitions by: Matt Traynham <https://github.com/mtraynham>
-//                 Muhun Kim <https://github.com/x86chi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function zxcvbn(password: string, userInputs?: string[]): zxcvbn.ZXCVBNResult;
 
 export = zxcvbn;
@@ -110,8 +104,8 @@ declare namespace zxcvbn {
         | "Straight rows of keys are easy to guess"
         | "Short keyboard patterns are easy to guess"
         | "Use a longer keyboard pattern with more turns"
-        | 'Repeats like "aaa" are easy to guess'
-        | 'Repeats like "abcabcabc" are only slightly harder to guess than "abc"'
+        | "Repeats like \"aaa\" are easy to guess"
+        | "Repeats like \"abcabcabc\" are only slightly harder to guess than \"abc\""
         | "Sequences like abc or 6543 are easy to guess"
         | "Recent years are easy to guess"
         | "Dates are often easy to guess"

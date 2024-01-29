@@ -1,8 +1,3 @@
-// Type definitions for promise-inflight 1.0
-// Project: https://github.com/iarna/promise-inflight#readme
-// Definitions by: Emily Marigold Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = inflight;
 
 type Resolvable<T> = PromiseLike<T> | T;
@@ -17,11 +12,11 @@ type Resolvable<T> = PromiseLike<T> | T;
  */
 declare function inflight<T>(
     unique: Resolvable<string> | Resolvable<ReadonlyArray<Resolvable<string>>>,
-    doFly: () => Resolvable<T>
+    doFly: () => Resolvable<T>,
 ): Promise<T>;
 
 declare namespace inflight {
     const active: {
-        [key: string]: Promise<any>
+        [key: string]: Promise<any>;
     };
 }

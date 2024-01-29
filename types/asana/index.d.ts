@@ -1,12 +1,4 @@
-// Type definitions for node-asana 0.18.4
-// Project: https://github.com/Asana/node-asana
-// Definitions by: Qubo <https://github.com/tkqubo>
-//                 Tasyp <https://github.com/tasyp>
-//                 Filippo Sarzana <https://github.com/filipposarzana>
-//                 Lorant Szakacs <https://github.com/szlori>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-import * as Promise from 'bluebird';
+import * as Promise from "bluebird";
 
 declare namespace asana {
     var Client: ClientStatic;
@@ -16,7 +8,6 @@ declare namespace asana {
          * Constructs a Client with instances of all the resources using the dispatcher.
          * It also keeps a reference to the dispatcher so that way the end user can have
          * access to it.
-         * @class
          * @classdesc A wrapper for the Asana API which is authenticated for one user
          * @param {Dispatcher} dispatcher The request dispatcher to use
          * @param {Object} options        Options to configure the client
@@ -25,7 +16,7 @@ declare namespace asana {
          * @param {String} [redirectUri]  Default redirect URI for this client
          * @param {String} [asanaBaseUrl] Base URL for Asana, for debugging
          */
-        new (dispatcher: Dispatcher, options?: ClientOptions): Client;
+        new(dispatcher: Dispatcher, options?: ClientOptions): Client;
         /**
          * Creates a new client.
          * @param {Object} options Options for specifying the client, see constructor.
@@ -34,15 +25,7 @@ declare namespace asana {
     }
 
     /** Options to configure the client */
-    interface ClientOptions extends DispatcherOptions {
-        clientId?: string | number | undefined;
-        clientSecret?: string | undefined;
-        redirectUri?: string | undefined;
-        asanaBaseUrl?: string | undefined;
-        defaultHeaders?: {
-            [key: string]: string;
-        } | undefined;
-    }
+    type ClientOptions = auth.AppOptions & DispatcherOptions;
 
     interface Client {
         /**
@@ -96,77 +79,62 @@ declare namespace asana {
          * The internal dispatcher. This is mostly used by the resources but provided
          * for custom requests to the API or API features that have not yet been added
          * to the client.
-         * @type {Dispatcher}
          */
         dispatcher: Dispatcher;
         /**
          * An instance of the Attachments resource.
-         * @type {Attachments}
          */
         attachments: resources.Attachments;
         /**
          * An instance of the CustomFields resource.
-         * @type {CustomFields}
          */
-         customFields: resources.CustomFields;
+        customFields: resources.CustomFields;
         /**
          * An instance of the Events resource.
-         * @type {Events}
          */
         events: resources.Events;
         /**
          * An instance of the Projects resource.
-         * @type {Projects}
          */
         projects: resources.Projects;
         /**
          * An instance of the Sections resource.
-         * @type {Sections}
          */
         sections: resources.Sections;
         /**
          * An instance of the Stories resource.
-         * @type {Stories}
          */
         stories: resources.Stories;
         /**
          * An instance of the Tags resource.
-         * @type {Tags}
          */
         tags: resources.Tags;
         /**
          * An instance of the Tasks resource.
-         * @type {Tasks}
          */
         tasks: resources.Tasks;
         /**
          * An instance of the UserTaskLists resource.
-         * @type {UserTaskLists}
          */
         userTaskLists: resources.UserTaskLists;
         /**
          * An instance of the Teams resource.
-         * @type {Teams}
          */
         teams: resources.Teams;
         /**
          * An instance of the Users resource.
-         * @type {Users}
          */
         users: resources.Users;
         /**
          * An instance of the Typeahead resource.
-         * @type {Typeahead}
          */
         typeahead: resources.Typeahead;
         /**
          * An instance of the Workspaces resource.
-         * @type {Workspaces}
          */
         workspaces: resources.Workspaces;
         /**
          * An instance of the Webhooks resource.
-         * @type {Webhooks}
          */
         webhooks: resources.Webhooks;
         /**
@@ -181,7 +149,6 @@ declare namespace asana {
         /**
          * Creates a dispatcher which will act as a basic wrapper for making HTTP
          * requests to the API, and handle authentication.
-         * @class
          * @classdesc A HTTP wrapper for the Asana API
          * @param {Object} options for default behavior of the Dispatcher
          * @option {Authenticator} [authenticator] Object to use for authentication.
@@ -195,7 +162,7 @@ declare namespace asana {
          * @option {Number} [requestTimeout] Timeout (in milliseconds) to wait for the
          *     request to finish.
          */
-        new (options?: DispatcherOptions): Dispatcher;
+        new(options?: DispatcherOptions): Dispatcher;
 
         /**
          * Default handler for requests that are considered unauthorized.
@@ -208,7 +175,6 @@ declare namespace asana {
 
         /**
          * The relative API path for the current version of the Asana API.
-         * @type {String}
          */
         API_PATH: string;
     }
@@ -218,6 +184,11 @@ declare namespace asana {
         retryOnRateLimit?: boolean | undefined;
         handleUnauthorized?: (() => boolean | Promise<boolean>) | undefined;
         requestTimeout?: string | undefined;
+        defaultHeaders?:
+            | {
+                [key: string]: string;
+            }
+            | undefined;
     }
 
     interface Dispatcher {
@@ -316,13 +287,11 @@ declare namespace asana {
 
         /**
          * The base URL for Asana
-         * @type {String}
          */
         asanaBaseUrl: string;
 
         /**
          * Whether requests should be automatically retried if rate limited.
-         * @type {Boolean}
          */
         retryOnRateLimit: boolean;
 
@@ -330,13 +299,11 @@ declare namespace asana {
          * Handler for unauthorized requests which may seek reauthorization.
          * Default behavior is available if configured with an Oauth authenticator
          * that has a refresh token, and will refresh the current access token.
-         * @type {Function}
          */
         handleUnauthorized: () => boolean | Promise<boolean>;
 
         /**
          * The amount of time in milliseconds to wait for a request to finish.
-         * @type {Number}
          */
         requestTimeout: number;
     }
@@ -348,7 +315,7 @@ declare namespace asana {
             /**
              * @param apiKey
              */
-            new (apiKey: string): BasicAuthenticator;
+            new(apiKey: string): BasicAuthenticator;
         }
 
         interface BasicAuthenticator extends Authenticator {
@@ -384,9 +351,8 @@ declare namespace asana {
              *     be either the object returned from an access token request (which
              *     contains the token and some other metadata) or just the `access_token`
              *     field.
-             * @constructor
              */
-            new (options: OauthAuthenticatorOptions): OauthAuthenticator;
+            new(options: OauthAuthenticatorOptions): OauthAuthenticator;
         }
 
         interface OauthAuthenticatorOptions {
@@ -424,7 +390,6 @@ declare namespace asana {
          * A layer to abstract the differences between using different types of
          * authentication (Oauth vs. Basic). The Authenticator is responsible for
          * establishing credentials and applying them to outgoing requests.
-         * @constructor
          */
         interface Authenticator {
             /**
@@ -459,9 +424,8 @@ declare namespace asana {
              * @option {String} [redirectUri]  The default redirect URI
              * @option {String} [scope]        Scope to use, supports `default` and `scim`
              * @option {String} [asanaBaseUrl] Base URL to use for Asana, for debugging
-             * @constructor
              */
-            new (options: AppOptions): App;
+            new(options: AppOptions): App;
         }
 
         interface AppOptions extends AsanaAuthorizeUrlOptions {
@@ -537,9 +501,8 @@ declare namespace asana {
              * @option {String} error The string code identifying the error.
              * @option {String} [error_uri] A link to help and information about the error.
              * @option {String} [error_description] A description of the error.
-             * @constructor
              */
-            new (options: OauthErrorOptions): OauthError;
+            new(options: OauthErrorOptions): OauthError;
         }
 
         interface OauthErrorOptions {
@@ -569,9 +532,8 @@ declare namespace asana {
              * redirecting to an authorization page on Asana, and redirecting back with
              * the credentials.
              * @param {Object} options See `BaseBrowserFlow` for options.
-             * @constructor
              */
-            new (options: any): RedirectFlow;
+            new(options: any): RedirectFlow;
         }
 
         interface RedirectFlow extends BaseBrowserFlow {}
@@ -583,9 +545,8 @@ declare namespace asana {
              * An Oauth flow that runs in the browser and requests user authorization by
              * popping up a window and prompting the user.
              * @param {Object} options See `BaseBrowserFlow` for options.
-             * @constructor
              */
-            new (options: any): PopupFlow;
+            new(options: any): PopupFlow;
         }
 
         interface PopupFlow extends BaseBrowserFlow {
@@ -610,9 +571,8 @@ declare namespace asana {
              *     instructions to output to the user. Passed the authorize url.
              * @option {String function()} [prompt] String to output immediately before
              *     waiting for a line from stdin.
-             * @constructor
              */
-            new (options: any): NativeFlow;
+            new(options: any): NativeFlow;
         }
 
         interface NativeFlow extends Flow {
@@ -655,9 +615,8 @@ declare namespace asana {
              *     directory of the extension to the receiver page. This is an HTML file
              *     that has been made web-accessible, and that calls the receiver method
              *     `Asana.auth.ChromeExtensionFlow.runReceiver();`.
-             * @constructor
              */
-            new (options: any): ChromeExtensionFlow;
+            new(options: any): ChromeExtensionFlow;
         }
 
         interface ChromeExtensionFlow extends BaseBrowserFlow {
@@ -678,9 +637,8 @@ declare namespace asana {
              * @option {String} [redirectUri] The URL that Asana should redirect to once
              *     user authorization is complete. Defaults to the URL configured in
              *     the app, and if none then the current page URL.
-             * @constructor
              */
-            new (options: any): BaseBrowserFlow;
+            new(options: any): BaseBrowserFlow;
         }
 
         interface BaseBrowserFlow extends Flow {
@@ -722,7 +680,7 @@ declare namespace asana {
         }
 
         interface FlowType {
-            new (options: any): Flow;
+            new(options: any): Flow;
         }
 
         interface Flow {
@@ -807,7 +765,7 @@ declare namespace asana {
             /**
              * @param dispatcher
              */
-            new (dispatcher: Dispatcher): Attachments;
+            new(dispatcher: Dispatcher): Attachments;
         }
 
         namespace Attachments {
@@ -828,10 +786,9 @@ declare namespace asana {
          * An _attachment_ object represents any file attached to a task in Asana,
          * whether it's an uploaded file or one associated via a third-party service
          * such as Dropbox or Google Drive.
-         * @class
          * @param {Dispatcher} dispatcher The API dispatcher
          */
-        interface Attachments extends Resource {
+        interface Attachments extends TopLevelResource {
             /**
              * * Returns the full record for a single attachment.
              *   * @param {String|Number} attachment Globally unique identifier for the attachment.
@@ -868,7 +825,7 @@ declare namespace asana {
              * @param dispatcher
              * @return
              */
-            new (dispatcher: Dispatcher): Events;
+            new(dispatcher: Dispatcher): Events;
         }
 
         namespace Events {
@@ -937,10 +894,9 @@ declare namespace asana {
          *
          * Sync tokens always expire after 24 hours, but may expire sooner, depending on
          * load on the service.
-         * @class
          * @param {Dispatcher} dispatcher The API dispatcher
          */
-        interface Events extends Resource {
+        interface Events extends TopLevelResource {
             /**
              * Dispatches a GET request to /events of the API to get a set of recent
              * changes to a resource.
@@ -958,7 +914,7 @@ declare namespace asana {
             /**
              * @param dispatcher
              */
-            new (dispatcher: Dispatcher): Projects;
+            new(dispatcher: Dispatcher): Projects;
         }
 
         namespace Projects {
@@ -987,11 +943,11 @@ declare namespace asana {
             }
 
             interface FollowersParams {
-                followers: (number | string)[];
+                followers: Array<number | string>;
             }
 
             interface MembersParams {
-                members: (number | string)[];
+                members: Array<number | string>;
             }
 
             interface Status {
@@ -1024,10 +980,9 @@ declare namespace asana {
          * change the team of a project via the API. Non-organization workspaces do not
          * have teams and so you should not specify the team of project in a
          * regular workspace.
-         * @class
          * @param {Dispatcher} dispatcher The API dispatcher
          */
-        interface Projects extends Resource {
+        interface Projects extends TopLevelResource {
             /**
              * * Creates a new project in a workspace or team.
              * *
@@ -1052,7 +1007,7 @@ declare namespace asana {
              */
             create(
                 data: Projects.CreateParams & { workspace: string | number },
-                dispatchOptions?: any
+                dispatchOptions?: any,
             ): Promise<Projects.Type>;
 
             /**
@@ -1088,7 +1043,11 @@ declare namespace asana {
              * @param dispatchOptions?
              * @return
              */
-            createInTeam(team: string | number, data: Projects.CreateParams, dispatchOptions?: any): Promise<Projects.Type>;
+            createInTeam(
+                team: string | number,
+                data: Projects.CreateParams,
+                dispatchOptions?: any,
+            ): Promise<Projects.Type>;
 
             /**
              * * Returns the complete project record for a single project.
@@ -1311,22 +1270,103 @@ declare namespace asana {
             /**
              * @param dispatcher
              */
-            new (dispatcher: Dispatcher): Stories;
+            new(dispatcher: Dispatcher): Stories;
         }
 
         namespace Stories {
-            interface ShortType extends Resource {
+            // https://developers.asana.com/docs/story-compact
+            interface ShortType {
+                gid: string;
+                resource_type: string;
                 created_at: string;
                 created_by: Resource;
-                type: string;
-                text: string;
+                resource_subtype: string;
+                type: string; // not documented
+                text: string; // create-only
             }
 
+            // https://developers.asana.com/docs/story
             interface Type extends ShortType {
                 html_text: string;
+                is_pinned: boolean;
+                sticker_name: string | null;
+                assignee: Resource;
+                custom_field: CustomField;
+                dependency: Resource;
+                duplicate_of: Resource;
+                duplicated_from: Resource;
+                follower: Resource;
+                hearted: boolean; // deprecated
+                hearts: Array<{
+                    gid: string;
+                    user: Resource;
+                }>; // deprecated
+                is_edited: boolean;
+                liked: boolean;
+                likes: Array<{
+                    gid: string;
+                    user: Resource;
+                }>;
+                new_approval_status: string;
+                new_dates: {
+                    due_at: string | null;
+                    due_on: string | null;
+                    start_on: string | null;
+                };
+                new_enum_value: Resource & {
+                    color: string;
+                    enabled: boolean;
+                };
+                new_multi_enum_values:
+                    & Resource
+                    & Array<{
+                        color: string;
+                        enabled: boolean;
+                    }>;
+                new_name: string;
+                new_number_value: number;
+                new_resource_subtype: string;
+                new_section: Resource;
+                new_text_value: string;
+                num_hearts: number; // deprecated
+                num_likes: number;
+                old_approval_status: string;
+                old_dates: {
+                    due_at: string | null;
+                    due_on: string | null;
+                    start_on: string | null;
+                };
+                old_enum_value: Resource & {
+                    color: string;
+                    enabled: boolean;
+                };
+                old_multi_enum_values:
+                    & Resource
+                    & Array<{
+                        color: string;
+                        enabled: boolean;
+                    }>;
+                old_name: string;
+                old_number_value: number;
+                old_resource_subtype: string;
+                old_section: Resource;
+                old_text_value: string;
+                previews: Array<{
+                    fallback: string;
+                    footer: string;
+                    header: string;
+                    header_link: string;
+                    html_text: string;
+                    text: string;
+                    title: string;
+                    title_link: string;
+                }>;
+                project: Resource;
                 source: string;
+                story: ShortType;
+                tag: Resource;
                 target: Resource;
-                hearts: Type[];
+                task: Resource;
             }
         }
 
@@ -1340,10 +1380,9 @@ declare namespace asana {
          *
          * Stories are a form of history in the system, and as such they are read-only.
          * Once generated, it is not possible to modify a story.
-         * @class
          * @param {Dispatcher} dispatcher The API dispatcher
          */
-        interface Stories extends Resource {
+        interface Stories extends TopLevelResource {
             /**
              * * Returns the compact records for all stories on the task.
              *   * @param {String|Number} task Globally unique identifier for the task.
@@ -1401,7 +1440,7 @@ declare namespace asana {
             /**
              * @param dispatcher
              */
-            new (dispatcher: Dispatcher): Tags;
+            new(dispatcher: Dispatcher): Tags;
         }
 
         namespace Tags {
@@ -1429,10 +1468,9 @@ declare namespace asana {
          * simplify them in the future so it is not encouraged to rely too heavily on it.
          * Unlike projects, tags do not provide any ordering on the tasks they
          * are associated with.
-         * @class
          * @param {Dispatcher} dispatcher The API dispatcher
          */
-        interface Tags extends Resource {
+        interface Tags extends TopLevelResource {
             /**
              * * Creates a new tag in a workspace or organization.
              * *
@@ -1575,38 +1613,92 @@ declare namespace asana {
             /**
              * @param dispatcher
              */
-            new (dispatcher: Dispatcher): Tasks;
+            new(dispatcher: Dispatcher): Tasks;
         }
 
         namespace Tasks {
+            // https://developers.asana.com/docs/task
             interface Type extends Resource {
+                approval_status: string | undefined;
                 created_at: string;
                 modified_at: string;
                 completed_at: string | null;
                 completed: boolean;
+                dependencies: Resource[]; // opt in
+                dependents: Resource[]; // opt in
                 due_on: string | null;
+                start_at: string | null;
                 start_on: string | null;
-                due_at: string;
-                assignee_status: string;
+                due_at: string | null;
+                assignee_status: string; // deprecated
                 assignee: Assignee | null;
+                assignee_section: Resource;
+                external:
+                    | {
+                        // opt-in
+                        data: string | undefined;
+                        gid: string | undefined;
+                    }
+                    | undefined;
+                html_notes: string | undefined; // opt in
+                is_rendered_as_separator: boolean | undefined; // opt in
                 notes: string;
                 workspace: Resource;
-                num_hearts: number;
-                hearted: boolean;
-                parent: Resource;
+                num_hearts: number; // deprecated
+                hearted: boolean; // deprecated
+                hearts: Resource[]; // deprecated
+                parent: Resource | null;
+                num_likes: number;
+                num_subtasks: number; // opt in
+                liked: boolean;
+                likes: Array<{
+                    gid: string;
+                    user: Resource;
+                }>;
                 tags: Resource[];
                 projects: Resource[];
                 memberships: Membership[];
                 followers: Resource[];
                 custom_fields: CustomField[];
+                permalink_url: string;
             }
 
+            // https://developers.asana.com/docs/create-a-task
+            // https://forum.asana.com/t/add-task-to-a-section-upon-creation-via-api-request/51957/5
             interface CreateParams {
-                name: string;
+                approval_status?: string | undefined;
+                assignee?: string | undefined;
+                assignee_section?: string | undefined;
+                // assignee_status: string; // deprecated - use assignee_section
                 completed?: boolean | undefined;
-                hearted?: boolean | undefined;
+                // hearted?: boolean | undefined; // deprecated and removed from documentation
+                custom_fields?: { [index: string]: number | string } | undefined;
+                due_at?: string | undefined;
+                due_on?: string | null | undefined;
+                external?:
+                    | {
+                        data?: string | undefined;
+                        gid?: string | undefined;
+                    }
+                    | undefined;
+                followers?: string[] | undefined; // create-only
+                html_notes?: string | undefined;
+                liked?: boolean | undefined;
+                name?: string | undefined;
                 notes?: string | undefined;
-                custom_fields?: Object | undefined;
+                parent?: string | undefined;
+                projects?: string[] | undefined; // create-only
+                resource_subtype?: string | undefined;
+                start_at?: string | null | undefined;
+                start_on?: string | null | undefined;
+                tags?: string[] | undefined; // create-only
+                workspace?: string | undefined;
+                memberships?:
+                    | Array<{
+                        project: string;
+                        section: string;
+                    }>
+                    | undefined;
             }
 
             // https://developers.asana.com/docs/update-a-task
@@ -1618,17 +1710,24 @@ declare namespace asana {
                 custom_fields?: { [index: string]: number | string } | undefined;
                 due_at?: string | undefined;
                 due_on?: string | null | undefined;
+                external?:
+                    | {
+                        data?: string | undefined;
+                        gid?: string | undefined;
+                    }
+                    | undefined;
                 html_notes?: string | undefined;
                 liked?: boolean | undefined;
                 name?: string | undefined;
                 notes?: string | undefined;
                 parent?: string | undefined;
+                start_at?: string | null | undefined;
                 start_on?: string | null | undefined;
                 workspace?: string | undefined;
             }
 
             interface FollowersParams {
-                followers: (number | string)[];
+                followers: Array<number | string>;
             }
 
             interface AddProjectParams {
@@ -1668,10 +1767,9 @@ declare namespace asana {
          * centered. In the Asana application, multiple tasks populate the middle pane
          * according to some view parameters, and the set of selected tasks determines
          * the more detailed information presented in the details pane.
-         * @class
          * @param {Dispatcher} dispatcher The API dispatcher
          */
-        interface Tasks extends Resource {
+        interface Tasks extends TopLevelResource {
             /**
              * * Creating a new task is as easy as POSTing to the `/tasks` endpoint
              * * with a data block containing the fields you'd like to set on the task.
@@ -1814,7 +1912,7 @@ declare namespace asana {
             findByTag(
                 tag: string | number,
                 params?: PaginationParams,
-                dispatchOptions?: any
+                dispatchOptions?: any,
             ): Promise<ResourceList<Tasks.Type>>;
 
             /**
@@ -2069,18 +2167,35 @@ declare namespace asana {
              * @return {Promise} The requested resource
              */
             updateTask(taskGid: string, data?: Tasks.UpdateParams, dispatchOptions?: any): Promise<Tasks.Type>;
+
+            // https://developers.asana.com/docs/get-tasks-from-a-section
+            // https://github.com/Asana/node-asana/blob/master/lib/resources/gen/tasks.js#L314-L333
+            /**
+             * Get tasks from a section
+             * @param {String} sectionGid: (required) The globally unique identifier for the section.
+             * @param {Object} [params]: Parameters for the request
+             * @param {Object} [dispatchOptions]: Options, if any, to pass the dispatcher for the request
+             * @return {Promise} The requested resource
+             */
+            getTasksForSection(
+                sectionGid: string | number,
+                params?: PaginationParams,
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Tasks.Type>>;
         }
 
         interface SectionsStatic {
             /**
              * @param dispatcher
              */
-            new (dispatcher: Dispatcher): Sections;
+            new(dispatcher: Dispatcher): Sections;
         }
 
         namespace Sections {
+            // https://developers.asana.com/docs/section
             interface Type extends Resource {
                 created_at: string;
+                project?: Projects.Type;
             }
 
             interface SectionsParams {
@@ -2092,7 +2207,7 @@ declare namespace asana {
 
         var Sections: SectionsStatic;
 
-        interface Sections extends Resource {
+        interface Sections extends TopLevelResource {
             /**
              * Returns the compact records for all sections in the specified project.
              * @param {String|Number} project The project to get sections from.
@@ -2128,7 +2243,7 @@ declare namespace asana {
             /**
              * @param dispatcher
              */
-            new (dispatcher: Dispatcher): Teams;
+            new(dispatcher: Dispatcher): Teams;
         }
 
         namespace Teams {
@@ -2142,10 +2257,9 @@ declare namespace asana {
         /**
          * A _team_ is used to group related projects and people together within an
          * organization. Each project in an organization is associated with a team.
-         * @class
          * @param {Dispatcher} dispatcher The API dispatcher
          */
-        interface Teams extends Resource {
+        interface Teams extends TopLevelResource {
             /**
              * * Returns the full record for a single team.
              *   * @param {String|Number} team Globally unique identifier for the team.
@@ -2231,7 +2345,7 @@ declare namespace asana {
             /**
              * @param dispatcher
              */
-            new (dispatcher: Dispatcher): Users;
+            new(dispatcher: Dispatcher): Users;
         }
 
         namespace Users {
@@ -2258,10 +2372,9 @@ declare namespace asana {
          * Like other objects in the system, users are referred to by numerical IDs.
          * However, the special string identifier `me` can be used anywhere
          * a user ID is accepted, to refer to the current authenticated user.
-         * @class
          * @param {Dispatcher} dispatcher The API dispatcher
          */
-        interface Users extends Resource {
+        interface Users extends TopLevelResource {
             /**
              * * Returns the full user record for the currently authenticated user.
              *   * @param {Object} [params] Parameters for the request
@@ -2325,7 +2438,7 @@ declare namespace asana {
             /**
              * @param dispatcher
              */
-            new (dispatcher: Dispatcher): Webhooks;
+            new(dispatcher: Dispatcher): Webhooks;
         }
 
         namespace Webhooks {
@@ -2396,10 +2509,9 @@ declare namespace asana {
          *
          * Webhooks themselves contain only the information necessary to deliver the
          * events to the desired target as they are generated.
-         * @class
          * @param {Dispatcher} dispatcher The API dispatcher
          */
-        interface Webhooks extends Resource {
+        interface Webhooks extends TopLevelResource {
             /**
              * * Establishing a webhook is a two-part process. First, a simple HTTP POST
              * * similar to any other resource creation. Since you could have multiple
@@ -2475,7 +2587,7 @@ declare namespace asana {
             /**
              * @param dispatcher
              */
-            new (dispatcher: Dispatcher): Workspaces;
+            new(dispatcher: Dispatcher): Workspaces;
         }
 
         namespace Workspaces {
@@ -2512,10 +2624,9 @@ declare namespace asana {
          * using workspace-based APIs for organizations. Currently, and until after
          * some reasonable grace period following any further announcements, you can
          * still reference organizations in any `workspace` parameter.
-         * @class
          * @param {Dispatcher} dispatcher The API dispatcher
          */
-        interface Workspaces extends Resource {
+        interface Workspaces extends TopLevelResource {
             /**
              * * Returns the full workspace record for a single workspace.
              *   * @param {String|Number} workspace Globally unique identifier for the workspace or organization.
@@ -2560,7 +2671,7 @@ declare namespace asana {
             update(
                 workspace: string | number,
                 data: { name?: string | undefined },
-                dispatchOptions?: any
+                dispatchOptions?: any,
             ): Promise<Workspaces.Type>;
 
             /**
@@ -2650,7 +2761,7 @@ declare namespace asana {
             /**
              * @param dispatcher
              */
-            new (dispatcher: Dispatcher): UserTaskLists;
+            new(dispatcher: Dispatcher): UserTaskLists;
         }
 
         namespace UserTaskLists {
@@ -2670,10 +2781,9 @@ declare namespace asana {
          * when they can address them. When building an integration it’s worth noting that tasks with due dates
          * will automatically move through assignee_status states as their due dates approach; read up on task
          * auto-promotion, https://asana.com/guide/help/fundamentals/my-tasks#gl-auto-promote, for more information
-         * @class
          * @param {Dispatcher} dispatcher The API dispatcher
          */
-        interface UserTaskLists extends Resource {
+        interface UserTaskLists extends TopLevelResource {
             /**
              * Returns the full record for the user task list for the given user
              * @param {String|Number} user An identifier for the user. Can be one of an email address,
@@ -2684,7 +2794,11 @@ declare namespace asana {
              * @param {Object} [dispatchOptions] Options, if any, to pass the dispatcher for the request
              * @return {Promise} The requested resource
              */
-            findByUser(user: number | string, params?: Params, dispatchOptions?: any): Promise<UserTaskLists.Type>;
+            findByUser(
+                user: number | string,
+                params?: Params & { workspace?: string },
+                dispatchOptions?: any,
+            ): Promise<UserTaskLists.Type>;
 
             /**
              * Returns the full record for a user task list.
@@ -2731,10 +2845,10 @@ declare namespace asana {
             /**
              * @param dispatcher
              */
-            new (dispatcher: Dispatcher): Resource;
+            new(dispatcher: Dispatcher): Resource;
 
             /**
-             * @type {number} Default number of items to get per page.
+             * Default number of items to get per page.
              */
             DEFAULT_PAGE_LIMIT: number;
 
@@ -2771,9 +2885,8 @@ declare namespace asana {
          * Base class for a resource accessible via the API. Uses a `Dispatcher` to
          * access the resources.
          * @param {Dispatcher} dispatcher
-         * @constructor
          */
-        interface Resource {
+        interface TopLevelResource {
             /**
              * Dispatches a GET request to the API, where the expected result is a
              * single resource.
@@ -2848,12 +2961,12 @@ declare namespace asana {
             dispatchDelete(path: string, dispatchOptions?: any): Promise<any>;
         }
 
-        interface ResourceStream<T extends Resource> {
-            on(command: 'data', callback: (resource: T) => any): void;
-            on(command: 'end' | 'finish' | 'error', callback: () => void): void;
+        interface ResourceStream<T extends AnonymousResource> {
+            on(command: "data", callback: (resource: T) => any): void;
+            on(command: "end" | "finish" | "error", callback: () => void): void;
         }
 
-        interface ResourceList<T extends Resource> {
+        interface ResourceList<T extends AnonymousResource> {
             /**
              * Get the next page of results in a collection.
              *
@@ -2894,12 +3007,14 @@ declare namespace asana {
             os_version: string;
         }
 
-        interface Resource {
-            id: number;
-            name: string;
+        interface AnonymousResource {
             gid: string;
             resource_type: string;
             resource_subtype?: string;
+        }
+
+        interface Resource extends AnonymousResource {
+            name: string;
         }
 
         interface PaginationParams extends Params {
@@ -2938,7 +3053,7 @@ declare namespace asana {
             }
         }
 
-        interface CustomFields extends Resource {
+        interface CustomFields extends TopLevelResource {
             // https://github.com/Asana/node-asana/blob/6bf00fb3257847744bf0ebe2dc0e95c445477282/lib/resources/gen/custom_fields.js#L91-L110
             /**
              * Get a workspace's custom fields
@@ -2967,14 +3082,18 @@ declare namespace asana {
             enabled: boolean;
             enum_options: EnumValue[] | null;
             enum_value: EnumValue | null;
+            precision: number | null;
             number_value: number | null;
+            created_by: Resource;
+            display_value: string | null;
+            type: string | null;
         }
 
         interface CustomFieldsStatic {
             /**
              * @param dispatcher
              */
-            new (dispatcher: Dispatcher): CustomFields;
+            new(dispatcher: Dispatcher): CustomFields;
         }
 
         var CustomFields: CustomFieldsStatic;
@@ -2985,11 +3104,11 @@ declare namespace asana {
                 query?: string | undefined;
                 count?: number | undefined;
                 opt_pretty?: boolean | undefined;
-                opt_fields?: string[] | undefined;
+                opt_fields?: string | undefined;
             }
         }
 
-        interface Typeahead extends Resource {
+        interface Typeahead extends TopLevelResource {
             // https://github.com/Asana/node-asana/blob/6bf00fb3257847744bf0ebe2dc0e95c445477282/lib/resources/gen/typeahead.js#L19-L40
             /**
              * Get objects via typeahead
@@ -3011,9 +3130,39 @@ declare namespace asana {
              */
             typeaheadForWorkspace(
                 workspaceGid: string,
-                params?: Typeahead.TypeaheadParams,
+                params?: Typeahead.TypeaheadParams & { resource_type: "custom_field" },
+                dispatchOptions?: any,
+            ): Promise<ResourceList<CustomFields.Type>>;
+            typeaheadForWorkspace(
+                workspaceGid: string,
+                params?: Typeahead.TypeaheadParams & { resource_type: "project" },
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Projects.Type>>;
+            // typeaheadForWorkspace(
+            //     workspaceGid: string,
+            //     params?: Typeahead.TypeaheadParams & { resource_type: 'portfolio' },
+            //     dispatchOptions?: any,
+            // ): Promise<ResourceList<Portfolios.Type>>;
+            typeaheadForWorkspace(
+                workspaceGid: string,
+                params?: Typeahead.TypeaheadParams & { resource_type: "tag" },
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Tags.Type>>;
+            typeaheadForWorkspace(
+                workspaceGid: string,
+                params?: Typeahead.TypeaheadParams & { resource_type: "task" },
                 dispatchOptions?: any,
             ): Promise<ResourceList<Tasks.Type>>;
+            typeaheadForWorkspace(
+                workspaceGid: string,
+                params?: Typeahead.TypeaheadParams & { resource_type: "user" },
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Users.Type>>;
+            typeaheadForWorkspace(
+                workspaceGid: string,
+                params?: Typeahead.TypeaheadParams,
+                dispatchOptions?: any,
+            ): Promise<ResourceList<Resource>>;
         }
     }
 

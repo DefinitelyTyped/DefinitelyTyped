@@ -15,8 +15,5 @@ gulp.task("es:readArray ", () => {
 es.pipeline(
     es.readArray([0, 1, 2, 3, undefined]),
     es.filterSync((value: number | undefined) => !!value),
-    es.map((value: number, callback: Function) =>
-        callback(null, value + 1)
-    )
+    es.map((value: number, callback: Function) => callback(null, value + 1)),
 );
-

@@ -1,13 +1,5 @@
-// Type definitions for cache-manager v3.4.0
-// Project: https://github.com/BryanDonovan/node-cache-manager
-// Definitions by: Dominik Einkemmer <https://github.com/dominikeinkemmer>
-//                 Eduard Marbach <https://github.com/BlackDark>
-//                 Bryan Donovan <https://github.com/BryanDonovan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 export interface CachingConfig {
-    ttl: number | TtlFunction;
+    ttl?: number | TtlFunction;
 }
 
 export interface TtlFunction {
@@ -29,10 +21,16 @@ export interface Store {
 }
 
 export interface StoreConfig extends CachingConfig {
-    store: 'memory' | 'none' | Store | {
-        create(...args: any[]): Store;
-    };
-    max?: number | undefined;
+    store:
+        | "memory"
+        | "none"
+        | Store
+        | {
+            create(...args: any[]): Store;
+        };
+    max?: number;
+    maxSize?: number;
+    sizeCalculation?: (value: any, key: any) => number;
 
     /**
      * You may pass in any other arguments these will be passed on to the `create` method of your store,
@@ -51,11 +49,11 @@ export interface CacheOptions {
 
 export type CallbackFunc<T> = (error: any, result: T) => void;
 export type WrapArgsType<T> =
-  | string
-  | ((callback: CallbackFunc<T>) => void)
-  | CachingConfig
-  | CallbackFunc<T>
-  | (() => PromiseLike<T> | T);
+    | string
+    | ((callback: CallbackFunc<T>) => void)
+    | CachingConfig
+    | CallbackFunc<T>
+    | (() => PromiseLike<T> | T);
 
 export interface Cache {
     set<T>(key: string, value: T, options?: CachingConfig): Promise<T>;
@@ -71,7 +69,7 @@ export interface Cache {
     // wrap<T>(...keys: string[], work: (callback: (error: any, result: T) => void) => void, callback: (error: any, result: T) => void): void
     // wrap<T>(...keys: string[], work: (callback: (error: any, result: T) => void) => void, options: CachingConfig): void
     // wrap<T>(...keys: string[], work: (callback: (error: any, result: T) => void) => void): Promise<any>;
-    wrap<T>(...args: WrapArgsType<T>[]): Promise<T>;
+    wrap<T>(...args: Array<WrapArgsType<T>>): Promise<T>;
 
     get<T>(key: string, callback: (error: any, result: T | undefined) => void): void;
     get<T>(key: string): Promise<T | undefined>;
@@ -99,7 +97,7 @@ export interface MultiCache {
     // wrap<T>(...keys: string[], work: (callback: (error: any, result: T) => void) => void, callback: (error: any, result: T) => void): void
     // wrap<T>(...keys: string[], work: (callback: (error: any, result: T) => void) => void, options: CachingConfig): void
     // wrap<T>(...keys: string[], work: (callback: (error: any, result: T) => void) => void): Promise<any>;
-    wrap<T>(...args: WrapArgsType<T>[]): Promise<T>;
+    wrap<T>(...args: Array<WrapArgsType<T>>): Promise<T>;
 
     get<T>(key: string, callback: (error: any, result: T | undefined) => void): void;
     get<T>(key: string): Promise<T | undefined>;

@@ -1,11 +1,9 @@
-
-
-describe('something', () => {
+describe("something", () => {
     beforeEach(() => {
         installPromiseMatchers();
     });
-    
-    it('should do something', () => {
+
+    it("should do something", () => {
         var foo = {};
         var bar = {};
 
@@ -15,4 +13,4 @@ describe('something', () => {
         expect(foo).toBeResolved();
         expect(foo).toBeRejected();
     });
-})
+});

@@ -1,10 +1,4 @@
-// Type definitions for csso 5.0
-// Project: https://github.com/css/csso
-// Definitions by: Christian Rackerseder <https://github.com/screendriver>
-//                 Erik Källén <https://github.com/erik-kallen>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import * as csstree from 'css-tree';
+import * as csstree from "css-tree";
 
 export as namespace csso;
 export const version: string;
@@ -27,6 +21,10 @@ export const syntax: typeof csstree & {
      * Does the main task – compress an AST.
      */
     compress(ast: csstree.CssNode, options?: CompressOptions): { ast: csstree.CssNode };
+
+    // §16. Calculating a selector’s specificity
+    // https://www.w3.org/TR/selectors-4/#specificity-rules
+    specificity(simpleSelector: csstree.CssNode): [a: number, b: number, c: number];
 };
 
 export interface Result {
@@ -47,10 +45,10 @@ export interface Usage {
     scopes?: string[][] | undefined;
     blacklist?:
         | {
-              tags?: string[] | undefined;
-              ids?: string[] | undefined;
-              classes?: string[] | undefined;
-          }
+            tags?: string[] | undefined;
+            ids?: string[] | undefined;
+            classes?: string[] | undefined;
+        }
         | undefined;
 }
 

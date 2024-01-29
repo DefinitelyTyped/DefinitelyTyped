@@ -1,5 +1,5 @@
 import { ComponentClass } from "react";
-import { ReactWidgetsCommonProps, AutoFocus } from "./CommonProps";
+import { AutoFocus, ReactWidgetsCommonProps } from "./CommonProps";
 
 declare namespace NumberPicker {
     interface NumberPickerProps extends ReactWidgetsCommonProps, AutoFocus {

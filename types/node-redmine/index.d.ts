@@ -1,8 +1,3 @@
-// Type definitions for node-redmine 0.2
-// Project: https://github.com/zanran/node-redmine#readme
-// Definitions by: Roberto Rossetti <https://github.com/grptx>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export interface IssueRecord {

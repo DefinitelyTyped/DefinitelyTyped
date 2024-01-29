@@ -1,14 +1,8 @@
-// Type definitions for winston-syslog 2.4
-// Project: https://github.com/winstonjs/winston-syslog, https://github.com/indexzero/winston-syslog
-// Definitions by: Chris Barth <https://github.com/cjbarth>, Felix Hochgruber <https://github.com/felix-hoc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
-import * as Transport from 'winston-transport';
-import * as dgram from 'dgram';
-import * as glossy from 'glossy';
-import * as net from 'net';
+import * as dgram from "dgram";
+import * as glossy from "glossy";
+import * as net from "net";
+import * as Transport from "winston-transport";
 
 export interface SyslogTransportOptions extends Transport.TransportStreamOptions {
     host?: string | undefined;
@@ -28,7 +22,7 @@ export interface SyslogTransportInstance extends Transport {
     producer: any;
     socket: dgram.Socket | net.Socket;
 
-    connect(callback: (err: (true | null)) => any): void;
+    connect(callback: (err: true | null) => any): void;
 
     new(options?: SyslogTransportOptions): SyslogTransportInstance;
 }

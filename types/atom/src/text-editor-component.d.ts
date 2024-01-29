@@ -1,4 +1,4 @@
-import { PixelPosition, Point, PointLike } from '../index';
+import { PixelPosition, Point, PointLike } from "../index";
 
 /**
  *  Undocumented: Rendering component for TextEditor

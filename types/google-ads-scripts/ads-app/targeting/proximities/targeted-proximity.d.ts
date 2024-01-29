@@ -75,11 +75,13 @@ declare namespace GoogleAdsScripts {
          *      }
          */
         interface TargetedProximitySelector
-            extends Base.Selector<TargetedProximityIterator>,
+            extends
+                Base.Selector<TargetedProximityIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
                 Base.SelectorWithIds,
-                Base.SelectorWithLimit {}
+                Base.SelectorWithLimit
+        {}
     }
 }

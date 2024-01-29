@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/videojs-vtt.js",
+    "version": "0.15.9999",
+    "projects": [
+        "https://github.com/videojs/vtt.js"
+    ],
+    "devDependencies": {
+        "@types/videojs-vtt.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "David Ko",
+            "githubUsername": "davidholyko"
+        }
+    ]
+}

@@ -1,77 +1,92 @@
-// tslint:disable-next-line:interface-name
+import { Color } from '../../math/Color.js';
+import { Vector2 } from '../../math/Vector2.js';
+import { Matrix3 } from '../../math/Matrix3.js';
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IUniform<TValue = any> {
     value: TValue;
 }
 
-export let UniformsLib: {
+export const UniformsLib: {
     common: {
-        diffuse: IUniform;
-        opacity: IUniform;
-        map: IUniform;
-        uvTransform: IUniform;
-        uv2Transform: IUniform;
-        alphaMap: IUniform;
+        diffuse: IUniform<Color>;
+        opacity: IUniform<number>;
+        map: IUniform<unknown>;
+        mapTransform: IUniform<Matrix3>;
+        alphaMap: IUniform<unknown>;
+        alphaMapTransform: IUniform<Matrix3>;
+        alphaTest: IUniform<number>;
     };
     specularmap: {
-        specularMap: IUniform;
+        specularMap: IUniform<unknown>;
+        specularMapTransform: IUniform<Matrix3>;
     };
     envmap: {
-        envMap: IUniform;
-        flipEnvMap: IUniform;
-        reflectivity: IUniform;
-        refractionRatio: IUniform;
-        maxMipLevel: IUniform;
+        envMap: IUniform<unknown>;
+        flipEnvMap: IUniform<number>;
+        reflectivity: IUniform<number>;
+        ior: IUniform<number>;
+        refractRatio: IUniform<number>;
     };
     aomap: {
-        aoMap: IUniform;
-        aoMapIntensity: IUniform;
+        aoMap: IUniform<unknown>;
+        aoMapIntensity: IUniform<number>;
+        aoMapTransform: IUniform<Matrix3>;
     };
     lightmap: {
-        lightMap: IUniform;
-        lightMapIntensity: IUniform;
-    };
-    emissivemap: {
-        emissiveMap: IUniform;
+        lightMap: IUniform<number>;
+        lightMapIntensity: IUniform<number>;
+        lightMapTransform: IUniform<Matrix3>;
     };
     bumpmap: {
-        bumpMap: IUniform;
-        bumpScale: IUniform;
+        bumpMap: IUniform<unknown>;
+        bumpMapTransform: IUniform<Matrix3>;
+        bumpScale: IUniform<number>;
     };
     normalmap: {
-        normalMap: IUniform;
-        normalScale: IUniform;
+        normalMap: IUniform<unknown>;
+        normalMapTransform: IUniform<Matrix3>;
+        normalScale: IUniform<Vector2>;
     };
     displacementmap: {
-        displacementMap: IUniform;
-        displacementScale: IUniform;
-        displacementBias: IUniform;
+        displacementMap: IUniform<unknown>;
+        displacementMapTransform: IUniform<Matrix3>;
+        displacementScale: IUniform<number>;
+        displacementBias: IUniform<number>;
     };
-    roughnessmap: {
-        roughnessMap: IUniform;
+    emissivemap: {
+        emissiveMap: IUniform<unknown>;
+        emissiveMapTransform: IUniform<Matrix3>;
     };
     metalnessmap: {
-        metalnessMap: IUniform;
+        metalnessMap: IUniform<unknown>;
+        metalnessMapTransform: IUniform<Matrix3>;
+    };
+    roughnessmap: {
+        roughnessMap: IUniform<unknown>;
+        roughnessMapTransform: IUniform<Matrix3>;
     };
     gradientmap: {
-        gradientMap: IUniform;
+        gradientMap: IUniform<unknown>;
     };
     fog: {
-        fogDensity: IUniform;
-        fogNear: IUniform;
-        fogFar: IUniform;
-        fogColor: IUniform;
+        fogDensity: IUniform<number>;
+        fogNear: IUniform<number>;
+        fogFar: IUniform<number>;
+        fogColor: IUniform<Color>;
     };
     lights: {
-        ambientLightColor: IUniform;
+        ambientLightColor: IUniform<unknown[]>;
+        lightProbe: IUniform<unknown[]>;
         directionalLights: {
-            value: any[];
+            value: unknown[];
             properties: {
                 direction: {};
                 color: {};
             };
         };
         directionalLightShadows: {
-            value: any[];
+            value: unknown[];
             properties: {
                 shadowBias: {};
                 shadowNormalBias: {};
@@ -79,10 +94,10 @@ export let UniformsLib: {
                 shadowMapSize: {};
             };
         };
-        directionalShadowMap: IUniform;
-        directionalShadowMatrix: IUniform;
+        directionalShadowMap: IUniform<unknown[]>;
+        directionalShadowMatrix: IUniform<unknown[]>;
         spotLights: {
-            value: any[];
+            value: unknown[];
             properties: {
                 color: {};
                 position: {};
@@ -94,7 +109,7 @@ export let UniformsLib: {
             };
         };
         spotLightShadows: {
-            value: any[];
+            value: unknown[];
             properties: {
                 shadowBias: {};
                 shadowNormalBias: {};
@@ -102,10 +117,11 @@ export let UniformsLib: {
                 shadowMapSize: {};
             };
         };
-        spotShadowMap: IUniform;
-        spotShadowMatrix: IUniform;
+        spotLightMap: IUniform<unknown[]>;
+        spotShadowMap: IUniform<unknown[]>;
+        spotLightMatrix: IUniform<unknown[]>;
         pointLights: {
-            value: any[];
+            value: unknown[];
             properties: {
                 color: {};
                 position: {};
@@ -114,18 +130,20 @@ export let UniformsLib: {
             };
         };
         pointLightShadows: {
-            value: any[];
+            value: unknown[];
             properties: {
                 shadowBias: {};
                 shadowNormalBias: {};
                 shadowRadius: {};
                 shadowMapSize: {};
+                shadowCameraNear: {};
+                shadowCameraFar: {};
             };
         };
-        pointShadowMap: IUniform;
-        pointShadowMatrix: IUniform;
+        pointShadowMap: IUniform<unknown[]>;
+        pointShadowMatrix: IUniform<unknown[]>;
         hemisphereLights: {
-            value: any[];
+            value: unknown[];
             properties: {
                 direction: {};
                 skycolor: {};
@@ -133,7 +151,7 @@ export let UniformsLib: {
             };
         };
         rectAreaLights: {
-            value: any[];
+            value: unknown[];
             properties: {
                 color: {};
                 position: {};
@@ -141,13 +159,27 @@ export let UniformsLib: {
                 height: {};
             };
         };
+        ltc_1: IUniform<unknown>;
+        ltc_2: IUniform<unknown>;
     };
     points: {
-        diffuse: IUniform;
-        opacity: IUniform;
-        size: IUniform;
-        scale: IUniform;
-        map: IUniform;
-        uvTransform: IUniform;
+        diffuse: IUniform<Color>;
+        opacity: IUniform<number>;
+        size: IUniform<number>;
+        scale: IUniform<number>;
+        map: IUniform<unknown>;
+        alphaMap: IUniform<unknown>;
+        alphaTest: IUniform<number>;
+        uvTransform: IUniform<Matrix3>;
+    };
+    sprite: {
+        diffuse: IUniform<Color>;
+        opacity: IUniform<number>;
+        center: IUniform<Vector2>;
+        rotation: IUniform<number>;
+        map: IUniform<unknown>;
+        mapTransform: IUniform<Matrix3>;
+        alphaMap: IUniform<unknown>;
+        alphaTest: IUniform<number>;
     };
 };

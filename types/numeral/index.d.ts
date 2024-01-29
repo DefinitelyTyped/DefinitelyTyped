@@ -1,10 +1,3 @@
-// Type definitions for Numeral.js 2.0
-// Project: https://github.com/adamwdraper/Numeral-js
-// Definitions by: Vincent Bortone <https://github.com/vbortone>
-//                 Kenneth Luján <https://github.com/klujanrosas>
-//                 Carlos Quiroga <https://github.com/KarlosQ>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 export as namespace numeral;
 
 /**
@@ -12,7 +5,7 @@ export as namespace numeral;
  */
 declare function numeral(input?: any): numeral.Numeral;
 
-type VERSION = '2.0.6';
+type VERSION = "2.0.6";
 
 declare namespace numeral {
     /** compare numeral object */
@@ -73,7 +66,7 @@ declare namespace numeral {
 
     function validate(value: any, culture: any): boolean;
 
-    const fn: Numeral['prototype'];
+    const fn: Numeral["prototype"];
 
     // http://numeraljs.com/#use-it
     class Numeral {
@@ -142,7 +135,7 @@ declare namespace numeral {
         stringToNumber: (string: string) => number;
     }
 
-    type RegisterType = 'format' | 'locale';
+    type RegisterType = "format" | "locale";
 }
 
 export = numeral;

@@ -1,5 +1,5 @@
-import * as m from 'mithril';
-import { Component, ClosureComponent, FactoryComponent } from 'mithril';
+import * as m from "mithril";
+import { ClosureComponent, Component, FactoryComponent } from "mithril";
 
 ///////////////////////////////////////////////////////////
 // 0.
@@ -8,16 +8,16 @@ import { Component, ClosureComponent, FactoryComponent } from 'mithril';
 function comp0() {
     return {
         view() {
-            return m('span', 'Test');
+            return m("span", "Test");
         },
     };
 }
 
 // Mount the component
-m.mount(document.getElementById('comp0')!, comp0);
+m.mount(document.getElementById("comp0")!, comp0);
 
 // Unmount the component
-m.mount(document.getElementById('comp0')!, null);
+m.mount(document.getElementById("comp0")!, null);
 
 ///////////////////////////////////////////////////////////
 // 1.
@@ -29,7 +29,7 @@ function comp1(): Component {
             // vnode.dom type inferred
         },
         view(vnode) {
-            return m('span', 'Test');
+            return m("span", "Test");
         },
     };
 }
@@ -48,7 +48,7 @@ const comp2: FactoryComponent<Comp2Attrs> = vnode => ({
     // vnode is inferred
     view({ attrs: { title, description } }) {
         // Comp2Attrs type is inferred
-        return [m('h2', title), m('p', description)];
+        return [m("h2", title), m("p", description)];
     },
 });
 
@@ -57,7 +57,7 @@ const comp2a: ClosureComponent<Comp2Attrs> = vnode => ({
     // vnode is inferred
     view({ attrs: { title, description } }) {
         // Comp2Attrs type is inferred
-        return [m('h2', title), m('p', description)];
+        return [m("h2", title), m("p", description)];
     },
 });
 
@@ -73,19 +73,19 @@ const comp3: FactoryComponent<{ pageHead: string }> = () => ({
     },
     view({ attrs }) {
         return m(
-            '.page',
-            m('h1', attrs.pageHead),
+            ".page",
+            m("h1", attrs.pageHead),
             m(comp2, {
                 // attrs is type checked - nice!
-                title: 'A Title',
-                description: 'Some descriptive text.',
+                title: "A Title",
+                description: "Some descriptive text.",
                 onremove(vnode) {
-                    console.log('comp2 was removed');
+                    console.log("comp2 was removed");
                 },
             }),
             // Test other hyperscript parameter variations
             m(comp1, m(comp1)),
-            m('br'),
+            m("br"),
         );
     },
 });
@@ -97,19 +97,19 @@ const comp3a: ClosureComponent<{ pageHead: string }> = () => ({
     },
     view({ attrs }) {
         return m(
-            '.page',
-            m('h1', attrs.pageHead),
+            ".page",
+            m("h1", attrs.pageHead),
             m(comp2, {
                 // attrs is type checked - nice!
-                title: 'A Title',
-                description: 'Some descriptive text.',
+                title: "A Title",
+                description: "Some descriptive text.",
                 onremove(vnode) {
-                    console.log('comp2 was removed');
+                    console.log("comp2 was removed");
                 },
             }),
             // Test other hyperscript parameter variations
             m(comp1, m(comp1)),
-            m('br'),
+            m("br"),
         );
     },
 });
@@ -136,13 +136,13 @@ function comp4(): Component<Comp4Attrs> {
         },
         view({ attrs }) {
             return [
-                m('h1', `This ${attrs.name} has been clicked ${count} times`),
+                m("h1", `This ${attrs.name} has been clicked ${count} times`),
                 m(
-                    'button',
+                    "button",
                     {
                         onclick: () => add(1),
                     },
-                    'Click me',
+                    "Click me",
                 ),
             ];
         },
@@ -169,15 +169,15 @@ function comp5(): Component<Comp4Attrs, Comp5State> {
         },
         view({ attrs, state }) {
             return [
-                m('h1', `This ${attrs.name} has been clicked ${state.count} times`),
+                m("h1", `This ${attrs.name} has been clicked ${state.count} times`),
                 m(
-                    'button',
+                    "button",
                     {
                         onclick() {
                             state.add(1);
                         },
                     },
-                    'Click me',
+                    "Click me",
                 ),
             ];
         },
@@ -188,15 +188,15 @@ function comp5(): Component<Comp4Attrs, Comp5State> {
 //
 // Test that all are mountable components
 //
-m.route(document.body, '/', {
-    '/comp0': comp0,
-    '/comp1': comp1,
-    '/comp2': comp2,
-    '/comp2a': comp2a,
-    '/comp3': comp3,
-    '/comp3a': comp3a,
-    '/comp4': comp4,
-    '/comp5': comp5,
+m.route(document.body, "/", {
+    "/comp0": comp0,
+    "/comp1": comp1,
+    "/comp2": comp2,
+    "/comp2a": comp2a,
+    "/comp3": comp3,
+    "/comp3a": comp3a,
+    "/comp4": comp4,
+    "/comp5": comp5,
 });
 
 ///////////////////////////////////////////////////////////
@@ -211,7 +211,7 @@ export default (): Component<Attrs> => {
     const count = 0;
     return {
         view({ attrs }) {
-            return m('span', `name: ${attrs.name}, count: ${count}`);
+            return m("span", `name: ${attrs.name}, count: ${count}`);
         },
     };
 };

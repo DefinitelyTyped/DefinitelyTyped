@@ -1,9 +1,3 @@
-// Type definitions for are.na 0.1
-// Project: https://github.com/ivangreene/arena-js
-// Definitions by: Hunter Caron <https://github.com/huntercaron>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
-
 /**
  * Timestamp in ISO 8601 format, eg. "2020-06-20T15:59:04.796Z"
  */
@@ -143,7 +137,9 @@ declare class Arena {
          * If title is not set, an error will occur.
          * If status is not set, it will default to "public".
          */
-        update(params: { title?: string | undefined; status?: Arena.ChannelStatus | undefined }): Promise<Arena.Channel>;
+        update(
+            params: { title?: string | undefined; status?: Arena.ChannelStatus | undefined },
+        ): Promise<Arena.Channel>;
         /**
          * Add collaborators to a channel. Pass userIds as an Array or multiple arguments.
          */
@@ -278,19 +274,19 @@ declare namespace Arena {
     /**
      * The type of block.
      */
-    type BlockType = 'Image' | 'Text' | 'Link' | 'Media' | 'Attachment';
+    type BlockType = "Image" | "Text" | "Link" | "Media" | "Attachment";
 
     /**
      * Either "default" (a standard channel) or "profile" the default channel of a user
      */
-    type ChannelKind = 'default' | 'profile';
+    type ChannelKind = "default" | "profile";
 
     /**
      * Can be "private" (only open for reading and adding to the channel by channel author and collaborators),
      * "closed" (open for reading by everyone, only channel author and collaborators can add) or "public"
      * (everyone can read and add to the channel)
      */
-    type ChannelStatus = 'private' | 'closed' | 'open';
+    type ChannelStatus = "private" | "closed" | "open";
 
     /**
      * Representation of a block's source
@@ -473,7 +469,7 @@ declare namespace Arena {
      * Block of type "Text"
      */
     interface TextBlock extends Block {
-        class: 'Text';
+        class: "Text";
         content: string;
         content_html: string;
         image: null;
@@ -483,7 +479,7 @@ declare namespace Arena {
      * Block of type "Image"
      */
     interface ImageBlock extends Block {
-        class: 'Image';
+        class: "Image";
         content: null;
         content_html: null;
         image: Image;
@@ -493,7 +489,7 @@ declare namespace Arena {
      * Block of type "Link"
      */
     interface LinkBlock extends Block {
-        class: 'Link';
+        class: "Link";
         content: null;
         content_html: null;
         image: Image;
@@ -503,7 +499,7 @@ declare namespace Arena {
      * Block of type "Media"
      */
     interface MediaBlock extends Block {
-        class: 'Media';
+        class: "Media";
         content: null;
         content_html: null;
         image: null;
@@ -513,7 +509,7 @@ declare namespace Arena {
      * Block of type "Attachment"
      */
     interface AttachmentBlock extends Block {
-        class: 'Attachment';
+        class: "Attachment";
         content: null;
         content_html: null;
         image: null;

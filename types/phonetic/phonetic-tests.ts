@@ -1,10 +1,10 @@
-import phonetic = require('phonetic');
+import phonetic = require("phonetic");
 
 // $ExpectType string
 phonetic.generate({ syllables: 2 });
 
 // $ExpectType string
-phonetic.generate({ seed: 'dreams' });
+phonetic.generate({ seed: "dreams" });
 
 // $ExpectType string
 phonetic.generate({ compoundSimplicity: 3 });
@@ -17,17 +17,17 @@ phonetic.generate({ capFirst: false });
 
 // Errors
 
-// $ExpectError
-phonetic.generate({ syllables: 'two' });
+// @ts-expect-error
+phonetic.generate({ syllables: "two" });
 
-// $ExpectError
+// @ts-expect-error
 phonetic.generate({ seed: 3 });
 
-// $ExpectError
-phonetic.generate({ compoundSimplicity: 'three' });
+// @ts-expect-error
+phonetic.generate({ compoundSimplicity: "three" });
 
-// $ExpectError
-phonetic.generate({ phoneticSimplicity: 'three' });
+// @ts-expect-error
+phonetic.generate({ phoneticSimplicity: "three" });
 
-// $ExpectError
+// @ts-expect-error
 phonetic.generate({ capFirst: 1 });

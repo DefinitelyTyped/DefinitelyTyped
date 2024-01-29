@@ -1,12 +1,24 @@
-// Type definitions for commonmark.js 0.27
-// Project: https://github.com/jgm/commonmark.js, http://commonmark.org
-// Definitions by: Nico Jansen <https://github.com/nicojs>
-//                 Leonard Thieu <https://github.com/leonard-thieu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type NodeType =
-    'text' |'softbreak' | 'linebreak' | 'emph' | 'strong' | 'html_inline' | 'link' | 'image' | 'code' | 'document' | 'paragraph' |
-    'block_quote' | 'item' | 'list' | 'heading' | 'code_block' | 'html_block' | 'thematic_break' | 'custom_inline' | 'custom_block';
+    | "text"
+    | "softbreak"
+    | "linebreak"
+    | "emph"
+    | "strong"
+    | "html_inline"
+    | "link"
+    | "image"
+    | "code"
+    | "document"
+    | "paragraph"
+    | "block_quote"
+    | "item"
+    | "list"
+    | "heading"
+    | "code_block"
+    | "html_block"
+    | "thematic_break"
+    | "custom_inline"
+    | "custom_block";
 
 export class Node {
     constructor(nodeType: NodeType, sourcepos?: Position);
@@ -67,7 +79,7 @@ export class Node {
     /**
      * either Bullet or Ordered (or undefined).
      */
-    listType: 'bullet' | 'ordered';
+    listType: "bullet" | "ordered";
     /**
      * true if list is tight
      */
@@ -79,7 +91,7 @@ export class Node {
     /**
      * a String, either ) or . for an ordered list.
      */
-    listDelimiter: ')' | '.';
+    listDelimiter: ")" | ".";
     /**
      * used only for CustomBlock or CustomInline.
      */
@@ -141,7 +153,7 @@ export class Parser {
 }
 
 export class HtmlRenderer {
-    constructor(options?: HtmlRenderingOptions)
+    constructor(options?: HtmlRenderingOptions);
 
     render(root: Node): string;
 
@@ -159,7 +171,7 @@ export class HtmlRenderer {
 }
 
 export class XmlRenderer {
-    constructor(options?: XmlRenderingOptions)
+    constructor(options?: XmlRenderingOptions);
 
     render(root: Node): string;
 }
@@ -178,7 +190,7 @@ export interface NodeWalker {
     /**
      * Returns an object with properties entering and node. Returns null when we have finished walking the tree.
      */
-    next(): NodeWalkingStep;
+    next(): NodeWalkingStep | null;
     /**
      * Resets the iterator to resume at the specified node and setting for entering. (Normally this isn't needed unless you do destructive updates to the Node tree.)
      */

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/umami",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/umami-software/umami"
+    ],
+    "devDependencies": {
+        "@types/umami": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Noah Overcash",
+            "githubUsername": "ncovercash"
+        }
+    ]
+}

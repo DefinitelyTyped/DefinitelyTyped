@@ -1,3 +1,3 @@
-import { LinkTo } from '@ember/routing';
+import { LinkTo } from "@ember/routing";
 
 LinkTo; // $ExpectType LinkTo

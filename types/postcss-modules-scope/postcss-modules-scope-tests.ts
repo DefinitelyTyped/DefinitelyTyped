@@ -10,6 +10,6 @@ postcss([scope({
         }
 
         const sanitisedPath = path.replace(/\.[^\.\/\\]+$/, "").replace(/[\W_]+/g, "_").replace(/^_|_$/g, "");
-return `_${sanitisedPath}__${exportedName}`;
-    }
+        return `_${sanitisedPath}__${exportedName}`;
+    },
 })]);

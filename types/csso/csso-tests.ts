@@ -1,61 +1,63 @@
-import { minify, minifyBlock, syntax, version } from 'csso';
+import { minify, minifyBlock, syntax, version } from "csso";
 
-minify('.test { color: #ff0000; }').css;
-minify('.test { color: #ff0000; }').map;
-minify('.test { color: #ff0000; }', {
+minify(".test { color: #ff0000; }").css;
+minify(".test { color: #ff0000; }").map;
+minify(".test { color: #ff0000; }", {
     sourceMap: true,
-    filename: '',
+    filename: "",
     debug: true,
     beforeCompress: () => {},
     afterCompress: () => {},
     restructure: false,
     forceMediaMerge: true,
     clone: false,
-    comments: '',
+    comments: "",
     logger: () => {},
 });
 
-minifyBlock('color: rgba(255, 0, 0, 1); color: #ff0000').css; // $ExpectType string
-minifyBlock('color: rgba(255, 0, 0, 1); color: #ff0000').map;
-minifyBlock('color: rgba(255, 0, 0, 1); color: #ff0000', {
+minifyBlock("color: rgba(255, 0, 0, 1); color: #ff0000").css; // $ExpectType string
+minifyBlock("color: rgba(255, 0, 0, 1); color: #ff0000").map;
+minifyBlock("color: rgba(255, 0, 0, 1); color: #ff0000", {
     sourceMap: true,
-    filename: '',
+    filename: "",
     debug: true,
     beforeCompress: () => {},
     afterCompress: () => {},
     restructure: false,
     forceMediaMerge: true,
     clone: false,
-    comments: '',
+    comments: "",
     logger: () => {},
     usage: {
-        tags: ['ul', 'li'],
-        ids: ['x'],
-        classes: ['a', 'b'],
+        tags: ["ul", "li"],
+        ids: ["x"],
+        classes: ["a", "b"],
         blacklist: {
-            tags: ['body'],
-            ids: ['y'],
-            classes: ['c'],
+            tags: ["body"],
+            ids: ["y"],
+            classes: ["c"],
         },
         scopes: [
-            ['a', 'b', 'c'],
-            ['d', 'e'],
+            ["a", "b", "c"],
+            ["d", "e"],
         ],
     },
 });
 
-syntax.compress({ type: 'CDC' }).ast; // $ExpectType CssNode
+syntax.compress({ type: "CDC" }).ast; // $ExpectType CssNode
 syntax.compress(
-    { type: 'CDC' },
+    { type: "CDC" },
     {
         restructure: false,
         forceMediaMerge: true,
         clone: false,
-        comments: '',
+        comments: "",
         logger: () => {},
     },
 ).ast; // $ExpectType CssNode
 
-syntax.parse('.b {font-weight: bold}'); // $ExpectType CssNode
+const selector = syntax.parse(".b {font-weight: bold}"); // $ExpectType CssNode
+
+syntax.specificity(selector); // $ExpectType [a: number, b: number, c: number]
 
 version; // $ExpectType string

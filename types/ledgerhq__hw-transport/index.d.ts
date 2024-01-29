@@ -1,15 +1,9 @@
-// Type definitions for @ledgerhq/hw-transport 4.21
-// Project: https://github.com/LedgerHQ/ledgerjs/tree/master/packages/hw-transport, https://github.com/ledgerhq/ledgerjs
-// Definitions by: Daniel Byrne <https://github.com/danwbyrne>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
 declare class Transport<TDescriptor extends Descriptor = string> {
     constructor();
     static isSupported(): Promise<boolean>;
-    static list(): Promise<ReadonlyArray<Descriptor>>;
+    static list(): Promise<readonly Descriptor[]>;
     static listen(observer: Observer<DescriptorEvent<Descriptor>>): Subscription;
     static open(descriptor: Descriptor, timeout?: number): Promise<Transport<typeof descriptor>>;
     static create(openTimeout?: number, listenTimeout?: number): Promise<Transport<Descriptor>>;
@@ -32,7 +26,7 @@ declare class Transport<TDescriptor extends Descriptor = string> {
         p1: number,
         p2: number,
         data?: Buffer,
-        statusList?: ReadonlyArray<number>,
+        statusList?: readonly number[],
     ): Promise<Buffer>;
     decorateAppAPIMethods(self: any, methods: string[], scrambleKey: string): void;
 }
@@ -40,7 +34,7 @@ declare class Transport<TDescriptor extends Descriptor = string> {
 export type Device = any;
 export type Descriptor = string; // ?
 export interface DescriptorEvent<Descriptor> {
-    type: 'add' | 'remove';
+    type: "add" | "remove";
     descriptor: Descriptor;
     device?: Device | undefined;
 }

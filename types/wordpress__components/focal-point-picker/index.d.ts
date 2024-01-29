@@ -1,6 +1,6 @@
-import { ComponentType } from 'react';
+import { ComponentType } from "react";
 
-import BaseControl from '../base-control';
+import BaseControl from "../base-control";
 
 declare namespace FocalPointPicker {
     interface Props extends BaseControl.ControlProps {

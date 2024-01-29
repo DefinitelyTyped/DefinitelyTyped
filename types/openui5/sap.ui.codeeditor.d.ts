@@ -1,11 +1,9 @@
-// For Library Version: 1.100.0
+// For Library Version: 1.120.0
 
 declare module "sap/ui/codeeditor/library" {}
 
 declare module "sap/ui/codeeditor/CodeEditor" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
-
-  import Event from "sap/ui/base/Event";
 
   import { CSSSize } from "sap/ui/core/library";
 
@@ -13,8 +11,10 @@ declare module "sap/ui/codeeditor/CodeEditor" {
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
-   * @SINCE 1.46
+   * @since 1.46
    *
    * Allows to visualize source code of various types with syntax highlighting, line numbers in editable and
    * read only mode. Use this control in scenarios where the user should be able to inspect and edit source
@@ -57,6 +57,8 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -75,10 +77,12 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.codeeditor.CodeEditor.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @SINCE 1.52
+     * @since 1.52
      *
      * Defines custom completer - object implementing a getCompletions method. The method has two parameters
      * - fnCallback method and context object. Context object provides details about oPos and sPrefix as provided
@@ -88,7 +92,9 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * Object with getCompletions method
        */
-      oCustomCompleter: object
+      oCustomCompleter: {
+        getCompletions: Function;
+      }
     ): void;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.codeeditor.CodeEditor`.
@@ -97,6 +103,8 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * otherwise it will be bound to this `sap.ui.codeeditor.CodeEditor` itself.
      *
      * Fired when the value has changed and the focus leaves the code editor.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -107,7 +115,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CodeEditor$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.codeeditor.CodeEditor` itself
        */
@@ -120,12 +128,14 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * otherwise it will be bound to this `sap.ui.codeeditor.CodeEditor` itself.
      *
      * Fired when the value has changed and the focus leaves the code editor.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CodeEditor$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.codeeditor.CodeEditor` itself
        */
@@ -138,6 +148,8 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * otherwise it will be bound to this `sap.ui.codeeditor.CodeEditor` itself.
      *
      * Fired when the value is changed by user interaction - each keystroke, delete, paste, etc.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachLiveChange(
       /**
@@ -148,7 +160,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CodeEditor$LiveChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.codeeditor.CodeEditor` itself
        */
@@ -161,12 +173,14 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * otherwise it will be bound to this `sap.ui.codeeditor.CodeEditor` itself.
      *
      * Fired when the value is changed by user interaction - each keystroke, delete, paste, etc.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachLiveChange(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CodeEditor$LiveChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.codeeditor.CodeEditor` itself
        */
@@ -176,12 +190,14 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.codeeditor.CodeEditor`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachChange(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CodeEditor$ChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -191,55 +207,49 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * Detaches event handler `fnFunction` from the {@link #event:liveChange liveChange} event of this `sap.ui.codeeditor.CodeEditor`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachLiveChange(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CodeEditor$LiveChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:change change} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireChange(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The current value of the code editor.
-         */
-        value?: string;
-        /**
-         * The old value of the code editor.
-         */
-        oldValue?: string;
-      }
+      mParameters?: CodeEditor$ChangeEventParameters
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireLiveChange(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The current value of the code editor.
-         */
-        value?: string;
-        /**
-         * The underlying change event of the third-party code editor.
-         */
-        editorEvent?: object;
-      }
+      mParameters?: CodeEditor$LiveChangeEventParameters
     ): this;
     /**
      * Sets the focus to the code editor
+     *
+     * @returns Returns `this` to allow method chaining
      */
     focus(): this;
     /**
@@ -252,10 +262,14 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * tomorrow_night_blue, tomorrow_night_bright, tomorrow_night_eighties, twilight, dracula vibrant_ink, xcode
      *
      * Default value is `"default"`.
+     *
+     * @returns Value of property `colorTheme`
      */
     getColorTheme(): string;
     /**
      * Returns the current value of the code editor
+     *
+     * @returns Returns the current value of the code editor
      */
     getCurrentValue(): string;
     /**
@@ -264,6 +278,8 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * Sets whether the code in the editor can be changed by the user.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `editable`
      */
     getEditable(): boolean;
     /**
@@ -273,12 +289,16 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * 20px.
      *
      * Default value is `"100%"`.
+     *
+     * @returns Value of property `height`
      */
     getHeight(): CSSSize;
     /**
      * Returns the DOMNode ID to be used for the "labelFor" attribute of the label.
      *
      * By default, this is the ID of the control itself.
+     *
+     * @returns ID to be used for the `labelFor`
      */
     getIdForLabel(): string;
     /**
@@ -287,10 +307,12 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * Sets whether line numbers should be shown.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `lineNumbers`
      */
     getLineNumbers(): boolean;
     /**
-     * @SINCE 1.48.1
+     * @since 1.48.1
      *
      * Gets current value of property {@link #getMaxLines maxLines}.
      *
@@ -301,6 +323,8 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * set to `auto`.
      *
      * Default value is `0`.
+     *
+     * @returns Value of property `maxLines`
      */
     getMaxLines(): int;
     /**
@@ -309,6 +333,8 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * Sets whether to show syntax hints in the editor. This flag is only available if line numbers are shown.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `syntaxHints`
      */
     getSyntaxHints(): boolean;
     /**
@@ -329,6 +355,8 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * mixal, jssm, fsharp, edifact, csp, cssound_score, cssound_orchestra, cssound_document
      *
      * Default value is `"javascript"`.
+     *
+     * @returns Value of property `type`
      */
     getType(): string;
     /**
@@ -337,6 +365,8 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * The value displayed in the code editor.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `value`
      */
     getValue(): string;
     /**
@@ -345,6 +375,8 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * Sets whether the code is automatically selected if a value is set.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `valueSelection`
      */
     getValueSelection(): boolean;
     /**
@@ -353,16 +385,23 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * The width of the code editor.
      *
      * Default value is `"100%"`.
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
-     * @SINCE 1.54.1
+     * @since 1.54.1
      *
-     * Pretty-prints the content of the editor
+     * Pretty-prints the content of the editor.
+     *
+     * **Note:** Works well only for PHP. For other programming languages, the content might not be formatted
+     * well. In such cases it is recommended to use your own formatting.
      */
     prettyPrint(): void;
     /**
      * Sets the color theme of the code editor
+     *
+     * @returns Returns `this` to allow method chaining
      */
     setColorTheme(
       /**
@@ -378,6 +417,8 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEditable(
       /**
@@ -394,6 +435,8 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `"100%"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeight(
       /**
@@ -409,6 +452,8 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setLineNumbers(
       /**
@@ -417,7 +462,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       bLineNumbers?: boolean
     ): this;
     /**
-     * @SINCE 1.48.1
+     * @since 1.48.1
      *
      * Sets a new value for property {@link #getMaxLines maxLines}.
      *
@@ -430,6 +475,8 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMaxLines(
       /**
@@ -445,6 +492,8 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSyntaxHints(
       /**
@@ -472,6 +521,8 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `"javascript"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setType(
       /**
@@ -487,6 +538,8 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValue(
       /**
@@ -502,6 +555,8 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueSelection(
       /**
@@ -517,6 +572,8 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `"100%"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
@@ -552,31 +609,31 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     /**
      * The width of the code editor.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The height of the code editor. A minimal height of 3rem will be applied in case the height is less than
      * 20px.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Sets whether the code in the editor can be changed by the user.
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Sets whether line numbers should be shown.
      */
-    lineNumbers?: boolean | PropertyBindingInfo;
+    lineNumbers?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Sets whether the code is automatically selected if a value is set.
      */
-    valueSelection?: boolean | PropertyBindingInfo;
+    valueSelection?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.48.1
+     * @since 1.48.1
      *
      * Sets whether the editor height should auto expand to a maximum number of lines. After reaching the maximum
      * number of lines specified, the content of the `CodeEditor` will become scrollable.
@@ -584,7 +641,7 @@ declare module "sap/ui/codeeditor/CodeEditor" {
      * **Note:** Keep in mind that the auto expand `CodeEditor` behavior requires the `height` property to be
      * set to `auto`.
      */
-    maxLines?: int | PropertyBindingInfo;
+    maxLines?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Sets the editor color theme. Possible values are: default, hcb, hcb_bright, hcb_blue, theme-ambiance,
@@ -598,18 +655,52 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     /**
      * Sets whether to show syntax hints in the editor. This flag is only available if line numbers are shown.
      */
-    syntaxHints?: boolean | PropertyBindingInfo;
+    syntaxHints?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Fired when the value is changed by user interaction - each keystroke, delete, paste, etc.
      */
-    liveChange?: (oEvent: Event) => void;
+    liveChange?: (oEvent: CodeEditor$LiveChangeEvent) => void;
 
     /**
      * Fired when the value has changed and the focus leaves the code editor.
      */
-    change?: (oEvent: Event) => void;
+    change?: (oEvent: CodeEditor$ChangeEvent) => void;
   }
+
+  export interface CodeEditor$ChangeEventParameters {
+    /**
+     * The current value of the code editor.
+     */
+    value?: string;
+
+    /**
+     * The old value of the code editor.
+     */
+    oldValue?: string;
+  }
+
+  export type CodeEditor$ChangeEvent = Event<
+    CodeEditor$ChangeEventParameters,
+    CodeEditor
+  >;
+
+  export interface CodeEditor$LiveChangeEventParameters {
+    /**
+     * The current value of the code editor.
+     */
+    value?: string;
+
+    /**
+     * The underlying change event of the third-party code editor.
+     */
+    editorEvent?: object;
+  }
+
+  export type CodeEditor$LiveChangeEvent = Event<
+    CodeEditor$LiveChangeEventParameters,
+    CodeEditor
+  >;
 }
 
 declare namespace sap {

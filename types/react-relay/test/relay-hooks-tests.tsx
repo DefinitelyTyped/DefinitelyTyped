@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import {
     EntryPoint,
     EntryPointComponent,
@@ -9,8 +9,10 @@ import {
     JSResourceReference,
     loadEntryPoint,
     loadQuery,
+    PreloadedEntryPoint,
     PreloadedQuery,
     RelayEnvironmentProvider,
+    useClientQuery,
     useEntryPointLoader,
     useFragment,
     useLazyLoadQuery,
@@ -20,8 +22,8 @@ import {
     useQueryLoader,
     useRefetchableFragment,
     useRelayEnvironment,
-    useSubscription
-} from 'react-relay/hooks';
+    useSubscription,
+} from "react-relay/hooks";
 
 import {
     commitMutation,
@@ -32,14 +34,14 @@ import {
     Network,
     RecordSource,
     Store,
-} from 'relay-runtime';
+} from "relay-runtime";
 
 const source = new RecordSource();
 const store = new Store(source);
 
 function cacheHandler(operation: any, variables: { [key: string]: string }, _cacheConfig: {}) {
-    return fetch('/graphql', {
-        method: 'POST',
+    return fetch("/graphql", {
+        method: "POST",
         body: JSON.stringify({
             query: operation.text, // GraphQL text from input
             variables,
@@ -62,7 +64,7 @@ const environmentProvider: IEnvironmentProvider<any> = {
     },
 };
 
-// tslint:disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 declare function JSResource<TModule extends any>(): JSResourceReference<TModule>;
 
 const query = graphql`
@@ -77,11 +79,11 @@ const variables = {};
  * Test of fetchQuery
  */
 const dispose = fetchQuery(environment, query, variables).subscribe({
-    start: subsctiption => {},
-    next: payload => {},
+    start: (subsctiption) => {},
+    next: (payload) => {},
     error: (error: Error) => {},
     complete: () => {},
-    unsubscribe: subscription => {},
+    unsubscribe: (subscription) => {},
 });
 
 dispose.unsubscribe();
@@ -91,9 +93,12 @@ interface AppQueryVariables {
 }
 
 interface AppQueryResponse {
-    readonly user: {
-        readonly name: string;
-    } | null;
+    readonly user:
+        | {
+            readonly name: string;
+        }
+        | null
+        | undefined;
 }
 
 interface AppQuery {
@@ -165,8 +170,29 @@ function LazyLoadQuery() {
                     }
                 }
             `,
-            { id: '4' },
-            { fetchPolicy: 'store-and-network', networkCacheConfig: { force: true } },
+            { id: "4" },
+            { fetchPolicy: "store-and-network", networkCacheConfig: { force: true } },
+        );
+
+        return <h1>{data.user!.name}</h1>;
+    };
+}
+
+/**
+ * Tests for useClientQuery
+ * see https://relay.dev/docs/en/experimental/api-reference#useClientQuery
+ */
+function ClientQuery() {
+    return function App() {
+        const data = useClientQuery<AppQuery>(
+            graphql`
+                query AppQuery($id: ID!) {
+                    user(id: $id) {
+                        name
+                    }
+                }
+            `,
+            { id: "4" },
         );
 
         return <h1>{data.user!.name}</h1>;
@@ -185,14 +211,14 @@ interface UserComponent_user {
     readonly profile_picture: {
         readonly uri: string;
     };
-    readonly ' $fragmentType': 'UserComponent_user';
+    readonly " $fragmentType": "UserComponent_user";
 }
 
 type UserComponent_user$data = UserComponent_user;
 
 interface UserComponent_user$key {
-    readonly ' $data'?: UserComponent_user$data | undefined;
-    readonly ' $fragmentSpreads': FragmentRefs<'UserComponent_user'>;
+    readonly " $data"?: UserComponent_user$data | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"UserComponent_user">;
 }
 
 function NonNullableFragment() {
@@ -220,11 +246,11 @@ function NonNullableFragment() {
 
 function NullableFragment() {
     interface Props {
-        user: UserComponent_user$key | null;
+        user: UserComponent_user$key | null | undefined;
     }
 
     return function UserComponent(props: Props) {
-        // $ExpectType UserComponent_user | null
+        // $ExpectType UserComponent_user | null | undefined
         useFragment(
             graphql`
                 fragment UserComponent_user on User {
@@ -246,12 +272,12 @@ type UserComponent_users = ReadonlyArray<{
     readonly profile_picture: {
         readonly uri: string;
     };
-    readonly ' $fragmentType': 'UserComponent_users';
+    readonly " $fragmentType": "UserComponent_users";
 }>;
 type UserComponent_users$data = UserComponent_users;
 type UserComponent_users$key = ReadonlyArray<{
-    readonly ' $data'?: UserComponent_users$data | undefined;
-    readonly ' $fragmentSpreads': FragmentRefs<'UserComponent_users'>;
+    readonly " $data"?: UserComponent_users$data | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"UserComponent_users">;
 }>;
 
 function NonNullableArrayFragment() {
@@ -272,7 +298,7 @@ function NonNullableArrayFragment() {
             props.users,
         );
 
-        return data.map(d => (
+        return data.map((d) => (
             <>
                 <h1>{d.name}</h1>
                 <div>
@@ -285,7 +311,7 @@ function NonNullableArrayFragment() {
 
 function NullableArrayFragment() {
     interface Props {
-        users: UserComponent_users$key | null;
+        users: UserComponent_users$key | null | undefined;
     }
 
     return function UserComponent(props: Props) {
@@ -301,7 +327,7 @@ function NullableArrayFragment() {
             props.users,
         );
 
-        return data!.map(d => (
+        return data!.map((d) => (
             <>
                 <h1>{d.name}</h1>
                 <div>
@@ -314,7 +340,7 @@ function NullableArrayFragment() {
 
 function ArrayOfNullableFragment() {
     interface Props {
-        users: ReadonlyArray<UserComponent_users$key[0] | null>;
+        users: ReadonlyArray<UserComponent_users$key[0] | null | undefined>;
     }
 
     return function UserComponent(props: Props) {
@@ -330,7 +356,7 @@ function ArrayOfNullableFragment() {
             props.users,
         );
 
-        return data.map(d => (
+        return data.map((d) => (
             <>
                 <h1>{d.name}</h1>
                 <div>
@@ -352,9 +378,12 @@ function RefetchableFragment() {
     }
 
     interface CommentBodyRefetchQueryResponse {
-        readonly node: {
-            readonly ' $fragmentSpreads': FragmentRefs<'CommentBody_comment'>;
-        } | null;
+        readonly node:
+            | {
+                readonly " $fragmentSpreads": FragmentRefs<"CommentBody_comment">;
+            }
+            | null
+            | undefined;
     }
 
     interface CommentBodyRefetchQuery {
@@ -363,23 +392,26 @@ function RefetchableFragment() {
     }
 
     interface CommentBody_comment {
-        readonly body: {
-            readonly text: string;
-        } | null;
-        readonly id: string | null;
-        readonly ' $fragmentType': 'CommentBody_comment';
+        readonly body:
+            | {
+                readonly text: string;
+            }
+            | null
+            | undefined;
+        readonly id: string | null | undefined;
+        readonly " $fragmentType": "CommentBody_comment";
     }
 
     type CommentBody_comment$data = CommentBody_comment;
 
     interface CommentBody_comment$key {
-        readonly ' $data'?: CommentBody_comment$data | undefined;
-        readonly ' $fragmentSpreads': FragmentRefs<'CommentBody_comment'>;
+        readonly " $data"?: CommentBody_comment$data | undefined;
+        readonly " $fragmentSpreads": FragmentRefs<"CommentBody_comment">;
     }
 
     interface Props {
         comment: CommentBody_comment$key;
-        commentNullable: CommentBody_comment$key | null;
+        commentNullable: CommentBody_comment$key | null | undefined;
     }
 
     return function CommentBody(props: Props) {
@@ -408,7 +440,7 @@ function RefetchableFragment() {
             <>
                 <p>{data.body!.text}</p>
                 <p>{dataNullable!.body!.text}</p>
-                <button onClick={() => refetch({ lang: 'SPANISH' }, { fetchPolicy: 'store-or-network' })}>
+                <button onClick={() => refetch({ lang: "SPANISH" }, { fetchPolicy: "store-or-network" })}>
                     Translate Comment
                 </button>
             </>
@@ -429,7 +461,7 @@ function PaginationFragment() {
 
     interface FriendsListPaginationQueryResponse {
         readonly node: {
-            readonly ' $fragmentSpreads': FragmentRefs<'FriendsListComponent_user'>;
+            readonly " $fragmentSpreads": FragmentRefs<"FriendsListComponent_user">;
         };
     }
 
@@ -449,18 +481,18 @@ function PaginationFragment() {
             }>;
         };
         readonly id: string;
-        readonly ' $fragmentType': 'FriendsListComponent_user';
+        readonly " $fragmentType": "FriendsListComponent_user";
     }
 
     type FriendsListComponent_user$data = FriendsListComponent_user;
 
     interface FriendsListComponent_user$key {
-        readonly ' $data'?: FriendsListComponent_user$data | undefined;
-        readonly ' $fragmentSpreads': FragmentRefs<'FriendsListComponent_user'>;
+        readonly " $data"?: FriendsListComponent_user$data | undefined;
+        readonly " $fragmentSpreads": FragmentRefs<"FriendsListComponent_user">;
     }
 
     interface Props {
-        user: FriendsListComponent_user$key | null;
+        user: FriendsListComponent_user$key | null | undefined;
     }
 
     return function FriendsList(props: Props) {
@@ -515,7 +547,7 @@ function PaginationFragment_WithNonNullUserProp() {
 
     interface FriendsListPaginationQueryResponse {
         readonly node: {
-            readonly ' $fragmentSpreads': FragmentRefs<'FriendsListComponent_user'>;
+            readonly " $fragmentSpreads": FragmentRefs<"FriendsListComponent_user">;
         };
     }
 
@@ -535,14 +567,14 @@ function PaginationFragment_WithNonNullUserProp() {
             }>;
         };
         readonly id: string;
-        readonly ' $fragmentType': 'FriendsListComponent_user';
+        readonly " $fragmentType": "FriendsListComponent_user";
     }
 
     type FriendsListComponent_user$data = FriendsListComponent_user;
 
     interface FriendsListComponent_user$key {
-        readonly ' $data'?: FriendsListComponent_user$data | undefined;
-        readonly ' $fragmentSpreads': FragmentRefs<'FriendsListComponent_user'>;
+        readonly " $data"?: FriendsListComponent_user$data | undefined;
+        readonly " $fragmentSpreads": FragmentRefs<"FriendsListComponent_user">;
     }
 
     interface Props {
@@ -598,23 +630,29 @@ function PaginationFragment_WithNonNullUserProp() {
  */
 function Mutation() {
     interface FeedbackLikeMutationRawResponse {
-        readonly feedback_like: {
-            readonly feedback: {
-                readonly id: string;
-                readonly viewer_does_like?: boolean | null | undefined;
-                readonly like_count?: number | null | undefined;
-            };
-        } | null;
+        readonly feedback_like:
+            | {
+                readonly feedback: {
+                    readonly id: string;
+                    readonly viewer_does_like?: boolean | null | undefined;
+                    readonly like_count?: number | null | undefined;
+                };
+            }
+            | null
+            | undefined;
     }
 
     interface FeedbackLikeMutationResponse {
-        readonly feedback_like: {
-            readonly feedback: {
-                readonly id: string;
-                readonly viewer_does_like?: boolean | null | undefined;
-                readonly like_count?: number | null | undefined;
-            };
-        } | null;
+        readonly feedback_like:
+            | {
+                readonly feedback: {
+                    readonly id: string;
+                    readonly viewer_does_like?: boolean | null | undefined;
+                    readonly like_count?: number | null | undefined;
+                };
+            }
+            | null
+            | undefined;
     }
 
     interface FeedbackLikeMutationVariables {
@@ -651,8 +689,8 @@ function Mutation() {
                     commit({
                         variables: {
                             input: {
-                                id: '123',
-                                text: 'text',
+                                id: "123",
+                                text: "text",
                             },
                         },
                         onCompleted(data) {
@@ -669,7 +707,7 @@ function Mutation() {
                         optimisticResponse: {
                             feedback_like: {
                                 feedback: {
-                                    id: '1',
+                                    id: "1",
                                 },
                             },
                         },
@@ -746,7 +784,7 @@ function QueryLoader() {
 
     function QueryFetcherExample(): React.ReactElement {
         React.useEffect(() => {
-            loadQuery({ id: 'EXAMPLE' });
+            loadQuery({ id: "EXAMPLE" }, { fetchPolicy: "store-only" });
             return disposeQuery;
         });
 
@@ -803,11 +841,11 @@ function LoadQuery() {
     `;
 
     const variables: AppQueryVariables = {
-        id: '1',
+        id: "1",
     };
 
     const preloadedQuery = loadQuery<AppQuery>(environment, query, variables, {
-        fetchPolicy: 'store-or-network',
+        fetchPolicy: "store-or-network",
         networkCacheConfig: {
             force: true,
         },
@@ -887,7 +925,7 @@ function EntryPointTests() {
     };
 
     const entrypointReference = loadEntryPoint(environmentProvider, entrypoint, {
-        slug: 'test-slug',
+        slug: "test-slug",
     });
 
     // $ExpectType SomeQueryVariables
@@ -936,7 +974,7 @@ function EntryPointTests() {
                         someQueryRef: {
                             parameters: query,
                             variables: {
-                                slug: '/test',
+                                slug: "/test",
                             },
                         },
                     },
@@ -948,7 +986,7 @@ function EntryPointTests() {
             {},
             { mainPanelA?: typeof entrypointA | undefined; mainPanelB?: typeof entrypointB | undefined },
             {},
-            { foo: 'bar' }
+            { foo: "bar" }
         > = ({ entryPoints, extraProps }) => {
             const onClick = () => {
                 console.log(extraProps.foo);
@@ -956,22 +994,26 @@ function EntryPointTests() {
 
             return (
                 <>
-                    {entryPoints.mainPanelA ? (
-                        <EntryPointContainer
-                            entryPointReference={entryPoints.mainPanelA}
-                            props={{
-                                onClick,
-                            }}
-                        />
-                    ) : null}
-                    {entryPoints.mainPanelB ? (
-                        <EntryPointContainer
-                            entryPointReference={entryPoints.mainPanelB}
-                            props={{
-                                onClick,
-                            }}
-                        />
-                    ) : null}
+                    {entryPoints.mainPanelA
+                        ? (
+                            <EntryPointContainer
+                                entryPointReference={entryPoints.mainPanelA}
+                                props={{
+                                    onClick,
+                                }}
+                            />
+                        )
+                        : null}
+                    {entryPoints.mainPanelB
+                        ? (
+                            <EntryPointContainer
+                                entryPointReference={entryPoints.mainPanelB}
+                                props={{
+                                    onClick,
+                                }}
+                            />
+                        )
+                        : null}
                 </>
             );
         };
@@ -980,35 +1022,37 @@ function EntryPointTests() {
             root: JSResource(),
             getPreloadProps(params) {
                 return {
-                    entryPoints:
-                        params.route === 'a'
-                            ? {
-                                  mainPanelA: {
-                                      entryPoint: entrypointA,
-                                      entryPointParams: {
-                                          slug: 'hello',
-                                      },
-                                  },
-                              }
-                            : {
-                                  mainPanelB: {
-                                      entryPoint: entrypointB,
-                                      entryPointParams: {
-                                          author: 'world',
-                                      },
-                                  },
-                              },
+                    entryPoints: params.route === "a"
+                        ? {
+                            mainPanelA: {
+                                entryPoint: entrypointA,
+                                entryPointParams: {
+                                    slug: "hello",
+                                },
+                            },
+                        }
+                        : {
+                            mainPanelB: {
+                                entryPoint: entrypointB,
+                                entryPointParams: {
+                                    author: "world",
+                                },
+                            },
+                        },
                     queries: {},
                     extraProps: {
-                        foo: 'bar',
+                        foo: "bar",
                     },
                 };
             },
         };
 
         const entrypointReference = loadEntryPoint(environmentProvider, entrypoint, {
-            route: 'b',
+            route: "b",
         });
+
+        const nestedEntryPointReference: PreloadedEntryPoint<typeof RootEntryPointComponent> | undefined =
+            entrypointReference.entryPoints.mainPanelB;
 
         return <EntryPointContainer entryPointReference={entrypointReference} props={{}} />;
     }
@@ -1024,19 +1068,21 @@ function EntryPointTests() {
 
         React.useEffect(() => {
             entryPointLoaderCallback({
-                slug: 'test-slug',
+                slug: "test-slug",
             });
 
             return dispose;
         }, []);
 
-        return queryReference ? (
-            <EntryPointContainer
-                entryPointReference={queryReference}
-                props={{
-                    onClick() {},
-                }}
-            />
-        ) : null;
+        return queryReference
+            ? (
+                <EntryPointContainer
+                    entryPointReference={queryReference}
+                    props={{
+                        onClick() {},
+                    }}
+                />
+            )
+            : null;
     }
 }

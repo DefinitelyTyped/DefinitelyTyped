@@ -1,6 +1,6 @@
 /// <reference types="node" />
-import { ChildProcess } from 'child_process';
-import { ConfigWithRuntime } from '../transport/wire';
+import { ChildProcess } from "child_process";
+import { ConfigWithRuntime } from "../transport/wire";
 export default class Launcher {
     private os;
     OpenFin_Installer: string;

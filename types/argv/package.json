@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/argv",
+    "version": "0.0.9999",
+    "projects": [
+        "https://www.npmjs.com/package/argv"
+    ],
+    "devDependencies": {
+        "@types/argv": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Hookclaw",
+            "githubUsername": "hookclaw"
+        }
+    ]
+}

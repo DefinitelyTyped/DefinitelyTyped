@@ -7,7 +7,7 @@
  *                                                                         *
  ***************************************************************************/
 
-/** 
+/**
  * @author Richard <richardo2016@gmail.com>
  *
  */
@@ -23,50 +23,45 @@
     */
 
 declare class Class_Fiber extends Class__object {
-    
+
     /**
-     * class prop 
+     * class prop
      *
-     * 
+     *
      * @brief 查询纤程的唯一 id
-     * 
-     * @readonly
-     * @type Long
+     *
+     * @note Assumed to be a long number.
      */
-    
+
     id: number
-    
+
     /**
-     * class prop 
+     * class prop
      *
-     * 
+     *
      * @brief 查询纤程的调用纤程
-     * 
-     * @readonly
-     * @type Fiber
-     */
-    
-    caller: Class_Fiber
-    
-    /**
-     * class prop 
      *
-     * 
-     * @brief 查询纤程的调用堆栈
-     * 
-     * @readonly
-     * @type String
      */
-    
-    stack: string
-    
-    
-    
+
+    caller: Class_Fiber
+
     /**
-     * 
+     * class prop
+     *
+     *
+     * @brief 查询纤程的调用堆栈
+     *
+     */
+
+    stack: string
+
+
+
+    /**
+     *
      * @brief 等待纤程结束
-     * 
-     * 
+     *
+     *
      */
     join(): void;
 

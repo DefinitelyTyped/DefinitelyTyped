@@ -1,7 +1,7 @@
-import { Matrix4 } from './Matrix4';
-import { Quaternion } from './Quaternion';
-import { BufferAttribute } from './../core/BufferAttribute';
-import { Vector } from './Vector2';
+import { Matrix4 } from './Matrix4.js';
+import { Quaternion } from './Quaternion.js';
+import { BufferAttribute } from '../core/BufferAttribute.js';
+import { Vector } from './Vector2.js';
 
 export type Vector4Tuple = [number, number, number, number];
 
@@ -220,4 +220,9 @@ export class Vector4 implements Vector {
      * Sets this vector's x, y, z and w from Math.random
      */
     random(): this;
+
+    /**
+     * Iterating through a Vector4 instance will yield its components (x, y, z, w) in the corresponding order.
+     */
+    [Symbol.iterator](): Iterator<number>;
 }

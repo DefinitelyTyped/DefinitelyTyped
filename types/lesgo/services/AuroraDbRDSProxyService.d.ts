@@ -1,8 +1,8 @@
-import { ConnectionOptions } from 'mysql2';
-import { RowDataPacket, OkPacket, ResultSetHeader, FieldPacket, Connection } from 'mysql2/promise';
-import { PaginatorObject } from './pagination/Paginator';
+import { ConnectionOptions } from "mysql2";
+import { Connection, FieldPacket, OkPacket, ResultSetHeader, RowDataPacket } from "mysql2/promise";
+import { PaginatorObject } from "./pagination/Paginator";
 
-export type AuroraDbRDSProxyServiceParams = Pick<ConnectionOptions, 'host' | 'user' | 'password' | 'database'> & {
+export type AuroraDbRDSProxyServiceParams = Pick<ConnectionOptions, "host" | "user" | "password" | "database"> & {
     persists?: boolean;
 };
 

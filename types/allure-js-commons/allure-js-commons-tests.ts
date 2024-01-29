@@ -1,6 +1,7 @@
 import Allure from "allure-js-commons";
 
-const shouldMakeError = new Allure("test"); // $ExpectError
+// @ts-expect-error
+const shouldMakeError = new Allure("test");
 const allure = new Allure();
 
 allure.startSuite("suite");
@@ -12,10 +13,12 @@ allure.endCase("pending");
 allure.endCase("skipped");
 allure.endCase("failed");
 allure.endCase("broken", 1232131232);
-allure.endCase("error"); // $ExpectError
+// @ts-expect-error
+allure.endCase("error");
 
 allure.startStep("error");
-allure.endStep("error"); // $ExpectError
+// @ts-expect-error
+allure.endStep("error");
 
 allure.setDescription("description");
 allure.addAttachment("image", {}, "image/jpeg");

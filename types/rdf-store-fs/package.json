@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/rdf-store-fs",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/rdf-ext/rdf-store-fs"
+    ],
+    "dependencies": {
+        "@rdfjs/types": ">=1",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/rdf-ext": "*",
+        "@types/rdf-store-fs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "tpluscode",
+            "githubUsername": "tpluscode"
+        }
+    ]
+}

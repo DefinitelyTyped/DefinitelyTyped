@@ -1,6 +1,6 @@
-import parse = require('parse-passwd');
+import parse = require("parse-passwd");
 
-const entries = parse('doowb:*:123:123:Brian Woodward:/Users/doowb:/bin/bash');
+const entries = parse("doowb:*:123:123:Brian Woodward:/Users/doowb:/bin/bash");
 entries; // $ExpectType PasswdEntry[]
 
 const entry = entries[0];

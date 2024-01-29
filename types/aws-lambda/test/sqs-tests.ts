@@ -14,49 +14,48 @@ const handler: SQSHandler = async (event, context, callback) => {
 };
 
 const handlerWithResponse: SQSHandler = (event, context, callback) => {
-    callback(
-        null,
-        {
-            batchItemFailures: [
-                {
-                    itemIdentifier: event.Records[0].messageId
-                }
-            ]
-        });
+    callback(null, {
+        batchItemFailures: [
+            {
+                itemIdentifier: event.Records[0].messageId,
+            },
+        ],
+    });
 };
 
 // See https://docs.aws.amazon.com/lambda/latest/dg/eventsources.html#eventsources-sqs
 const event: SQSEvent = {
     Records: [
         {
-            messageId: 'c80e8021-a70a-42c7-a470-796e1186f753',
-            receiptHandle: 'AQEBJQ+/u6NsnT5t8Q/VbVxgdUl4TMKZ5FqhksRdIQvLBhwNvADoBxYSOVeCBXdnS9P+',
-            body: '{"foo":"bar"}',
+            messageId: "c80e8021-a70a-42c7-a470-796e1186f753",
+            receiptHandle: "AQEBJQ+/u6NsnT5t8Q/VbVxgdUl4TMKZ5FqhksRdIQvLBhwNvADoBxYSOVeCBXdnS9P+",
+            body: "{\"foo\":\"bar\"}",
             attributes: {
-                AWSTraceHeader: 'Root=1-5e58e4c3-71b539e3d6bd4aa29600bf67;Sampled=1',
-                ApproximateReceiveCount: '3',
-                SentTimestamp: '1529104986221',
-                SenderId: '594035263019',
-                ApproximateFirstReceiveTimestamp: '1529104986230',
+                AWSTraceHeader: "Root=1-5e58e4c3-71b539e3d6bd4aa29600bf67;Sampled=1",
+                ApproximateReceiveCount: "3",
+                SentTimestamp: "1529104986221",
+                SenderId: "594035263019",
+                ApproximateFirstReceiveTimestamp: "1529104986230",
+                DeadLetterQueueSourceArn: "arn:aws:sqs:123456789012:source-queue",
             },
             messageAttributes: {
                 testAttr: {
-                    stringValue: '100',
-                    binaryValue: 'base64Str',
+                    stringValue: "100",
+                    binaryValue: "base64Str",
                     stringListValues: [],
                     binaryListValues: [],
-                    dataType: 'Number',
+                    dataType: "Number",
                 },
                 testAttr2: {
-                    stringValue: '100',
-                    binaryValue: 'base64Str',
-                    dataType: 'Number',
+                    stringValue: "100",
+                    binaryValue: "base64Str",
+                    dataType: "Number",
                 },
             },
-            md5OfBody: '9bb58f26192e4ba00f01e2e7b136bbd8',
-            eventSource: 'aws:sqs',
-            eventSourceARN: 'arn:aws:sqs:us-west-2:594035263019:NOTFIFOQUEUE',
-            awsRegion: 'us-west-2',
+            md5OfBody: "9bb58f26192e4ba00f01e2e7b136bbd8",
+            eventSource: "aws:sqs",
+            eventSourceARN: "arn:aws:sqs:us-west-2:594035263019:NOTFIFOQUEUE",
+            awsRegion: "us-west-2",
         },
     ],
 };
@@ -74,13 +73,14 @@ const fifoEvent: SQSEvent = {
                 MessageGroupId: "1",
                 SenderId: "AIDAIO23YVJENQZJOL4VO",
                 MessageDeduplicationId: "1",
-                ApproximateFirstReceiveTimestamp: "1573251510774"
+                ApproximateFirstReceiveTimestamp: "1573251510774",
+                DeadLetterQueueSourceArn: "arn:aws:sqs:123456789012:source-queue",
             },
             messageAttributes: {},
             md5OfBody: "e4e68fb7bd0e697a0ae8f1bb342846b3",
             eventSource: "aws:sqs",
             eventSourceARN: "arn:aws:sqs:us-east-2:123456789012:fifo.fifo",
-            awsRegion: "us-east-2"
-        }
-    ]
+            awsRegion: "us-east-2",
+        },
+    ],
 };

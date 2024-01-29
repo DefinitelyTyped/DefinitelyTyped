@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/facebook-instant-games",
+    "version": "7.1.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "facebook-instant-games",
+    "projects": [
+        "https://developers.facebook.com/docs/games/instant-games"
+    ],
+    "devDependencies": {
+        "@types/facebook-instant-games": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Menushka Weeratunga",
+            "githubUsername": "menushka"
+        },
+        {
+            "name": "Øyvind Johansen Amundrud",
+            "githubUsername": "oyvindjam"
+        },
+        {
+            "name": "Alex A. Yermoshenko",
+            "githubUsername": "doterax"
+        }
+    ]
+}

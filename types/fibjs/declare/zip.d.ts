@@ -202,7 +202,7 @@
 declare module "zip" {
     
 
-    module zip {
+    namespace zip {
         
         /**
          * 

@@ -11,21 +11,21 @@ function test_base() {
     let p: number;
 
     // create examples of margins, offsets, options
-    margins = { top: 20, right: 20, bottom: 20, left: 20};
+    margins = { top: 20, right: 20, bottom: 20, left: 20 };
     offsets = [0.5, 0.5];
     options = { initialWidth: 400, initialHeight: 300, margin: margins, offset: offsets };
 
     /**
      * Test constructor
      */
-    tb = new d3kit.Base();        // empty
+    tb = new d3kit.Base(); // empty
     tb = new d3kit.Base(options); // with options
     another = new d3kit.Base();
 
     /**
      * Test static function
      */
-    defopts = d3kit.Base.getDefaultOptions();        // without options
+    defopts = d3kit.Base.getDefaultOptions(); // without options
     defopts = d3kit.Base.getDefaultOptions(options); // with options
 
     /**
@@ -64,23 +64,23 @@ function test_abstract_plate() {
     let sel: d3.Selection<d3.BaseType, any, d3.BaseType, any>;
 
     // create a div, append to body, return Node as type Element
-    el = document.body.appendChild(document.createElement('div')) as Element;
+    el = document.body.appendChild(document.createElement("div")) as Element;
 
     // create example of options
-    margins = { top: 20, right: 20, bottom: 20, left: 20};
+    margins = { top: 20, right: 20, bottom: 20, left: 20 };
     offsets = [0.5, 0.5];
     options = { initialWidth: 400, initialHeight: 300, margin: margins, offset: offsets };
 
     /**
      * Test constructor
      */
-    plate = new d3kit.AbstractPlate(el);          // without options
+    plate = new d3kit.AbstractPlate(el); // without options
     plate = new d3kit.AbstractPlate(el, options); // with options
 
     /**
      * Test functions
      */
-    el  = plate.getNode();
+    el = plate.getNode();
     sel = plate.getSelection();
 }
 
@@ -94,20 +94,20 @@ function test_canvas_plate() {
     let context: CanvasRenderingContext2D;
 
     // create example of options
-    margins = { top: 20, right: 20, bottom: 20, left: 20};
+    margins = { top: 20, right: 20, bottom: 20, left: 20 };
     offsets = [0.5, 0.5];
     options = { initialWidth: 400, initialHeight: 300, margin: margins, offset: offsets };
 
     /**
      * Test constructor
      */
-    plate = new d3kit.CanvasPlate();        // without options
+    plate = new d3kit.CanvasPlate(); // without options
     plate = new d3kit.CanvasPlate(options); // with options
 
     /**
      * Test functions
      */
-    el  = plate.getNode();
+    el = plate.getNode();
     sel = plate.getSelection();
     plate = plate.clear();
     context = plate.getContext2d();
@@ -122,20 +122,20 @@ function test_div_plate() {
     let sel: d3.Selection<d3.BaseType, any, d3.BaseType, any>;
 
     // create example of options
-    margins = { top: 20, right: 20, bottom: 20, left: 20};
+    margins = { top: 20, right: 20, bottom: 20, left: 20 };
     offsets = [0.5, 0.5];
     options = { initialWidth: 400, initialHeight: 300, margin: margins, offset: offsets };
 
     /**
      * Test constructor
      */
-    plate = new d3kit.DivPlate();        // without options
+    plate = new d3kit.DivPlate(); // without options
     plate = new d3kit.DivPlate(options); // with options
 
     /**
      * Test functions
      */
-    el  = plate.getNode();
+    el = plate.getNode();
     sel = plate.getSelection();
 }
 
@@ -150,14 +150,14 @@ function test_svg_plate() {
     let layers: d3kit.LayerOrganizer;
 
     // create example of options
-    margins = { top: 20, right: 20, bottom: 20, left: 20};
+    margins = { top: 20, right: 20, bottom: 20, left: 20 };
     offsets = [0.5, 0.5];
     options = { initialWidth: 400, initialHeight: 300, margin: margins, offset: offsets };
 
     /**
      * Test constructor
      */
-    plate = new d3kit.SvgPlate();        // without options
+    plate = new d3kit.SvgPlate(); // without options
     plate = new d3kit.SvgPlate(options); // with options
 
     /**
@@ -169,7 +169,7 @@ function test_svg_plate() {
     /**
      * Test functions
      */
-    el  = plate.getNode();
+    el = plate.getNode();
     sel = plate.getSelection();
 }
 
@@ -193,30 +193,30 @@ function test_abstract_chart() {
     let plate: d3kit.AbstractPlate;
 
     // create a div, append to body, return Node as type Element
-    el = document.body.appendChild(document.createElement('div')) as Element;
+    el = document.body.appendChild(document.createElement("div")) as Element;
 
     // create examples of margins, offsets, options, fit options, watch options
-    margins = { top: 20, right: 20, bottom: 20, left: 20};
+    margins = { top: 20, right: 20, bottom: 20, left: 20 };
     offsets = [0.5, 0.5];
     options = { initialWidth: 400, initialHeight: 300, margin: margins, offset: offsets };
-    fitopts = { mode: 'basic', width: '90%', ratio: 4 / 3 };
-    watchop = { mode: 'window', target: null, interval: 500 };
+    fitopts = { mode: "basic", width: "90%", ratio: 4 / 3 };
+    watchop = { mode: "window", target: null, interval: 500 };
     plate = new d3kit.AbstractPlate(el);
 
     /**
      * Test constructor
      */
     chart = new d3kit.AbstractChart(el); // with element
-    chart = new d3kit.AbstractChart('div#chart'); // with selector
+    chart = new d3kit.AbstractChart("div#chart"); // with selector
     chart = new d3kit.AbstractChart(el, options); // with element+options
-    chart = new d3kit.AbstractChart('div#chart', options); // with selector+options
+    chart = new d3kit.AbstractChart("div#chart", options); // with selector+options
     another = new d3kit.AbstractChart(el);
 
     /**
      * Test static functions
      */
     defopts = d3kit.AbstractChart.getDefaultOptions();
-    events  = d3kit.AbstractChart.getCustomEventNames();
+    events = d3kit.AbstractChart.getCustomEventNames();
 
     /**
      * Test getters
@@ -231,7 +231,7 @@ function test_abstract_chart() {
     margins = chart.margin();
     offsets = chart.offset();
     options = chart.options();
-    events  = chart.getCustomEventNames();
+    events = chart.getCustomEventNames();
 
     /**
      * Test setters
@@ -255,21 +255,23 @@ function test_abstract_chart() {
     /**
      * Test plate functions
      */
-    plate = chart.addPlate('a-plate', plate, true); // with doNotAppend
-    chart = chart.addPlate('a-plate', plate);       // without doNotAppend
-    chart = chart.removePlate('a-plate');
+    plate = chart.addPlate("a-plate", plate, true); // with doNotAppend
+    chart = chart.addPlate("a-plate", plate); // without doNotAppend
+    chart = chart.removePlate("a-plate");
 
     /**
      * Test events
      */
     chart.dimension(d).updateDimensionNow();
-    chart.setupDispatcher(['click', 'mouseover']);
+    chart.setupDispatcher(["click", "mouseover"]);
     chart.fit(fitopts); // without watch options
     chart.fit(fitopts, true); // with boolean for watch options
     chart.fit(fitopts, watchop); // with explicit watch options
     chart.stopFitWatcher();
-    chart.on('mouseover', () => { chart.stopFitWatcher(); });
-    chart.off('mouseover');
+    chart.on("mouseover", () => {
+        chart.stopFitWatcher();
+    });
+    chart.off("mouseover");
     chart.destroy();
 }
 
@@ -285,10 +287,10 @@ function test_svg_chart() {
     let plate: d3kit.SvgPlate;
 
     // create a div, append to body, return Node as type Element
-    el = document.body.appendChild(document.createElement('div')) as Element;
+    el = document.body.appendChild(document.createElement("div")) as Element;
 
     // create examples of margins, offsets, options, fit options, watch options
-    margins = { top: 20, right: 20, bottom: 20, left: 20};
+    margins = { top: 20, right: 20, bottom: 20, left: 20 };
     offsets = [0.5, 0.5];
     options = { initialWidth: 400, initialHeight: 300, margin: margins, offset: offsets };
 
@@ -296,25 +298,25 @@ function test_svg_chart() {
      * Test constructor
      */
     chart = new d3kit.SvgChart(el); // with element
-    chart = new d3kit.SvgChart('div#chart'); // with selector
+    chart = new d3kit.SvgChart("div#chart"); // with selector
     chart = new d3kit.SvgChart(el, options); // with element+options
-    chart = new d3kit.SvgChart('div#chart', options); // with selector+options
+    chart = new d3kit.SvgChart("div#chart", options); // with selector+options
 
     /**
      * Test plate functions
      */
     plate = new d3kit.SvgPlate();
-    plate = chart.addPlate('a-plate', plate, true) as d3kit.SvgPlate; // with doNotAppend
-    chart = chart.addPlate('a-plate', plate);       // without doNotAppend
-    chart = chart.removePlate('a-plate');
+    plate = chart.addPlate("a-plate", plate, true) as d3kit.SvgPlate; // with doNotAppend
+    chart = chart.addPlate("a-plate", plate); // without doNotAppend
+    chart = chart.removePlate("a-plate");
 
     /**
      * Test properties
      */
-    svg    = chart.svg;
-    rootg  = chart.rootG;
+    svg = chart.svg;
+    rootg = chart.rootG;
     layers = chart.layers;
-    plate  = chart.plate;
+    plate = chart.plate;
 }
 
 function test_canvas_chart() {
@@ -326,10 +328,10 @@ function test_canvas_chart() {
     let context: CanvasRenderingContext2D;
 
     // create a div, append to body, return Node as type Element
-    el = document.body.appendChild(document.createElement('div')) as Element;
+    el = document.body.appendChild(document.createElement("div")) as Element;
 
     // create examples of margins, offsets, options, fit options, watch options
-    margins = { top: 20, right: 20, bottom: 20, left: 20};
+    margins = { top: 20, right: 20, bottom: 20, left: 20 };
     offsets = [0.5, 0.5];
     options = { initialWidth: 400, initialHeight: 300, margin: margins, offset: offsets, pixelRatio: 1 };
 
@@ -337,9 +339,9 @@ function test_canvas_chart() {
      * Test constructor
      */
     chart = new d3kit.CanvasChart(el); // with element
-    chart = new d3kit.CanvasChart('div#chart'); // with selector
+    chart = new d3kit.CanvasChart("div#chart"); // with selector
     chart = new d3kit.CanvasChart(el, options); // with element+options
-    chart = new d3kit.CanvasChart('div#chart', options); // with selector+options
+    chart = new d3kit.CanvasChart("div#chart", options); // with selector+options
 
     /**
      * Test canvas chart functions
@@ -362,10 +364,10 @@ function test_hybrid_chart() {
     let context: CanvasRenderingContext2D;
 
     // create a div, append to body, return Node as type Element
-    el = document.body.appendChild(document.createElement('div')) as Element;
+    el = document.body.appendChild(document.createElement("div")) as Element;
 
     // create examples of margins, offsets, options, fit options, watch options
-    margins = { top: 20, right: 20, bottom: 20, left: 20};
+    margins = { top: 20, right: 20, bottom: 20, left: 20 };
     offsets = [0.5, 0.5];
     options = { initialWidth: 400, initialHeight: 300, margin: margins, offset: offsets };
 
@@ -373,25 +375,25 @@ function test_hybrid_chart() {
      * Test constructor
      */
     chart = new d3kit.HybridChart(el); // with element
-    chart = new d3kit.HybridChart('div#chart'); // with selector
+    chart = new d3kit.HybridChart("div#chart"); // with selector
     chart = new d3kit.HybridChart(el, options); // with element+options
-    chart = new d3kit.HybridChart('div#chart', options); // with selector+options
+    chart = new d3kit.HybridChart("div#chart", options); // with selector+options
 
     /**
      * Test plate functions
      */
     plate = new d3kit.SvgPlate();
-    plate = chart.addPlate('a-plate', plate, true) as d3kit.SvgPlate; // with doNotAppend
-    chart = chart.addPlate('a-plate', plate);       // without doNotAppend
-    chart = chart.removePlate('a-plate');
+    plate = chart.addPlate("a-plate", plate, true) as d3kit.SvgPlate; // with doNotAppend
+    chart = chart.addPlate("a-plate", plate); // without doNotAppend
+    chart = chart.removePlate("a-plate");
 
     /**
      * Test SVG properties
      */
-    svg    = chart.svg;
-    rootg  = chart.rootG;
+    svg = chart.svg;
+    rootg = chart.rootG;
     layers = chart.layers;
-    plate  = chart.plate;
+    plate = chart.plate;
 
     /**
      * Test canvas chart functions
@@ -407,34 +409,34 @@ function test_layer_organizer() {
     let layers: d3kit.LayerOrganizer;
     let hasXAxis: boolean;
 
-    selection = d3.select('svg');
+    selection = d3.select("svg");
 
     /**
      * Test constructor
      */
-    layers = new d3kit.LayerOrganizer(selection);        // without specifying tag
-    layers = new d3kit.LayerOrganizer(selection, 'div'); // specifying tag
+    layers = new d3kit.LayerOrganizer(selection); // without specifying tag
+    layers = new d3kit.LayerOrganizer(selection, "div"); // specifying tag
 
     /**
      * Test layer creation
      */
-    layers.create('graph');
-    layers.create(['graph', 'highlight']);
-    layers.create({graph: [{axes: ['x-axis', 'y-axis']}, {labels: ['x-label', 'y-label', 'title']}]});
-    layers.create([{axes: ['x-axis', 'y-axis']}, {labels: ['x-label', 'y-label', 'title']}]);
+    layers.create("graph");
+    layers.create(["graph", "highlight"]);
+    layers.create({ graph: [{ axes: ["x-axis", "y-axis"] }, { labels: ["x-label", "y-label", "title"] }] });
+    layers.create([{ axes: ["x-axis", "y-axis"] }, { labels: ["x-label", "y-label", "title"] }]);
 
     /**
      * Test other layer organizer functions
      */
-    layer    = layers.get('x-axis');
-    hasXAxis = layers.has('x-axis');
+    layer = layers.get("x-axis");
+    hasXAxis = layers.has("x-axis");
 }
 
 function test_helper() {
     const simple1: {} = { one: 1 };
     const simple2: {} = { two: 2 };
     const complex: {} = { fruit: ["apple", "pear", "grape"], prez: { fn: "Barack", ln: "Obama" } };
-    const anObject: {} = { this: "isanobject"};
+    const anObject: {} = { this: "isanobject" };
     let merged1: {};
     let merged2: {};
     let isObj: boolean;
@@ -449,8 +451,8 @@ function test_helper() {
     merged2 = d3kit.helper.deepExtend(simple1, complex);
     aFuncxn = d3kit.helper.functor(aFuncxn); // with a function argument
     aFuncxn = d3kit.helper.functor(simple1); // with a value argument
-    isObj   = d3kit.helper.isObject(anObject);
-    isFunc  = d3kit.helper.isFunction(aFuncxn);
+    isObj = d3kit.helper.isObject(anObject);
+    isFunc = d3kit.helper.isFunction(aFuncxn);
     kebabed = d3kit.helper.kebabCase("a string to convert to kebab case");
     throtld = d3kit.helper.throttle(aFuncxn, 300);
 }

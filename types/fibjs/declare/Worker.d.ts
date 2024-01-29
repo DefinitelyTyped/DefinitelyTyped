@@ -31,7 +31,6 @@ declare class Class_Worker extends Class_EventEmitter {
      * @brief 查询和绑定接受 postMessage 消息事件，相当于 on("message", func);
      * 
      * 
-     * @type Function
      */
     
     onmessage: Function

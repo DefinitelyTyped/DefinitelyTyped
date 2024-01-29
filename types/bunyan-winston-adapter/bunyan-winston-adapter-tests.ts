@@ -3,7 +3,7 @@ import { createLogger } from "winston";
 
 const logger = createLogger();
 const mapping = {
-  trace: 'silly'
+    trace: "silly",
 };
 const adapterA = createAdapter(logger);
 const adapterB = createAdapter(logger, mapping);

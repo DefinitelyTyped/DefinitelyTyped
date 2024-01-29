@@ -1,17 +1,6 @@
-// Type definitions for chai-as-promised 7.1.0
-// Project: https://github.com/domenic/chai-as-promised/
-// Definitions by: jt000 <https://github.com/jt000>,
-//                 Yuki Kokubun <https://github.com/Kuniwak>,
-//                 Leonard Thieu <https://github.com/leonard-thieu>,
-//                 Mike Lazer-Walker <https://github.com/lazerwalker>,
-//                 Matt Bishop <https://github.com/mattbishop>
-//                 William Orr <https://github.com/worr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="chai" />
 
-declare module 'chai-as-promised' {
+declare module "chai-as-promised" {
     interface ChaiAsPromised extends Chai.ChaiPlugin {
         transferPromiseness(assertion: Chai.PromisedAssertion, promise: PromiseLike<any>): void;
         transformAsserterArgs(values: any[]): any;
@@ -22,7 +11,6 @@ declare module 'chai-as-promised' {
 }
 
 declare namespace Chai {
-
     // For BDD API
     interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
         eventually: PromisedAssertion;
@@ -172,7 +160,7 @@ declare namespace Chai {
         include: PromisedInclude;
         property: PromisedProperty;
         members: PromisedMembers;
-        ordered: PromisedOrdered
+        ordered: PromisedOrdered;
     }
 
     interface PromisedOrdered {
@@ -403,7 +391,7 @@ declare namespace Chai {
         doesNotHaveAllDeepKeys(obj: PromiseLike<any>, keys: any[], msg?: string): PromiseLike<void>;
         doesNotHaveAllDeepKeys(obj: PromiseLike<any>, keys: object, msg?: string): PromiseLike<void>;
 
-        //alias frenzy
+        // alias frenzy
         throw(fn: Function, msg?: string): PromiseLike<void>;
         throw(fn: Function, regExp: RegExp): PromiseLike<void>;
         throw(fn: Function, errType: Function, msg?: string): PromiseLike<void>;
@@ -446,15 +434,33 @@ declare namespace Chai {
         changes(modifier: Function, obj: Object, property: string, msg?: string): PromiseLike<void>;
         changesBy(modifier: Function, obj: object, property: string, change: number, msg?: string): PromiseLike<void>;
         doesNotChange(modifier: Function, obj: Object, property: string, msg?: string): PromiseLike<void>;
-        changesButNotBy(modifier: Function, obj: object, property: string, change: number, msg?: string): PromiseLike<void>;
+        changesButNotBy(
+            modifier: Function,
+            obj: object,
+            property: string,
+            change: number,
+            msg?: string,
+        ): PromiseLike<void>;
         increases(modifier: Function, obj: Object, property: string, msg?: string): PromiseLike<void>;
         increasesBy(modifier: Function, obj: Object, property: string, change: number, msg?: string): PromiseLike<void>;
         doesNotIncrease(modifier: Function, obj: Object, property: string, msg?: string): PromiseLike<void>;
-        increasesButNotBy(modifier: Function, obj: Object, property: string, change: number, msg?: string): PromiseLike<void>;
+        increasesButNotBy(
+            modifier: Function,
+            obj: Object,
+            property: string,
+            change: number,
+            msg?: string,
+        ): PromiseLike<void>;
         decreases(modifier: Function, obj: Object, property: string, msg?: string): PromiseLike<void>;
         decreasesBy(modifier: Function, obj: Object, property: string, change: number, msg?: string): PromiseLike<void>;
         doesNotDecrease(modifier: Function, obj: Object, property: string, msg?: string): PromiseLike<void>;
-        decreasesButNotBy(modifier: Function, obj: Object, property: string, change: number, msg?: string): PromiseLike<void>;
+        decreasesButNotBy(
+            modifier: Function,
+            obj: Object,
+            property: string,
+            change: number,
+            msg?: string,
+        ): PromiseLike<void>;
 
         ifError(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
 

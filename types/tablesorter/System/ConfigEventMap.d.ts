@@ -5,9 +5,8 @@ export type ConfigEventMap =
     /**
      * Indicates the `filterInit`-event.
      */
-    "filterInit" |
-
+    | "filterInit"
     /**
      * Indicates the `filterEnd`-event.
      */
-    "filterEnd";
+    | "filterEnd";

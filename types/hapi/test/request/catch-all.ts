@@ -6,9 +6,13 @@ const options: ServerOptions = {
 };
 const server = new Server(options);
 
-server.route({ method: '*', path: '/{p*}', handler(request, h) {
-    return h.response('The page was not found').code(404);
-}});
+server.route({
+    method: "*",
+    path: "/{p*}",
+    handler(request, h) {
+        return h.response("The page was not found").code(404);
+    },
+});
 
 server.start();
-console.log('Server started at: ' + server.info.uri);
+console.log("Server started at: " + server.info.uri);

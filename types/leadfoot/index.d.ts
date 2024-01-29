@@ -1,13 +1,7 @@
-// Type definitions for leadfoot
-// Project: https://github.com/theintern/leadfoot
-// Definitions by: theintern <https://github.com/theintern>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="dojo" />
 /// <reference types="node" />
 
-declare module leadfoot {
-
+declare namespace leadfoot {
     /**
      * An error from the remote WebDriver server.
      */
@@ -45,7 +39,7 @@ declare module leadfoot {
         /**
          * The response object for the request.
          */
-//        response: request.IResponse;
+        //        response: request.IResponse;
         response: any;
 
         /**
@@ -366,10 +360,10 @@ declare module leadfoot {
     }
 }
 
-declare module 'leadfoot/helpers/pollUntil' {
-    import Promise = require('dojo/promise/Promise');
+declare module "leadfoot/helpers/pollUntil" {
+    import Promise = require("dojo/promise/Promise");
 
-    namespace pollUntil { }
+    namespace pollUntil {}
 
     /**
      * A {@link module:leadfoot/Command} helper that polls for a value within the client environment until the value exists
@@ -423,151 +417,159 @@ declare module 'leadfoot/helpers/pollUntil' {
      *         // value was never set
      *     });
      */
-    function pollUntil<T>(poller: Function | string, args?: any[], timeout?: number, pollInterval?: number): (value: any) => Promise<T>;
-    function pollUntil<T>(poller: Function | string, timeout?: number, pollInterval?: number): (value: any) => Promise<T>;
+    function pollUntil<T>(
+        poller: Function | string,
+        args?: any[],
+        timeout?: number,
+        pollInterval?: number,
+    ): (value: any) => Promise<T>;
+    function pollUntil<T>(
+        poller: Function | string,
+        timeout?: number,
+        pollInterval?: number,
+    ): (value: any) => Promise<T>;
 
     export = pollUntil;
 }
 
-declare module 'leadfoot/Command' {
-    import Element = require('leadfoot/Element');
-    import Promise = require('dojo/promise/Promise');
-    import Thenable = require('dojo/promise/Thenable');
-    import Session = require('leadfoot/Session');
+declare module "leadfoot/Command" {
+    import Element = require("leadfoot/Element");
+    import Promise = require("dojo/promise/Promise");
+    import Thenable = require("dojo/promise/Thenable");
+    import Session = require("leadfoot/Session");
 
     /**
-    * The Command class is a chainable, subclassable object type that can be used to execute commands serially against a
-    * remote WebDriver environment. The standard Command class includes methods from the {@link module:leadfoot/Session}
-    * and {@link module:leadfoot/Element} classes, so you can perform all standard session and element operations that
-    * come with Leadfoot without being forced to author long promise chains.
-    *
-    * In order to use the Command class, you first need to pass it a {@link module:leadfoot/Session} instance for it to
-    * use:
-    *
-    * ```js
-    * var command = new Command(session);
-    * ```
-    *
-    * Once you have created the Command, you can then start chaining methods, and they will execute in order one after
-    * another:
-    *
-    * ```js
-    * command.get('http://example.com')
-    *   .findByTagName('h1')
-    *   .getVisibleText()
-    *   .then(function (text) {
-    *       assert.strictEqual(text, 'Example Domain');
-    *   });
-    * ```
-    *
-    * Because these operations are asynchronous, you need to use a `then` callback in order to retrieve the value from the
-    * last method. Command objects are Thenables, which means that they can be used with any Promises/A+ or ES6-confirmant
-    * Promises implementation, though there are some specific differences in the arguments and context that are provided
-    * to callbacks; see {@link module:leadfoot/Command#then} for more details.
-    *
-    * ---
-    *
-    * Each call on a Command generates a new Command object, which means that certain operations can be parallelised:
-    *
-    * ```js
-    * command = command.get('http://example.com');
-    * Promise.all([
-    *   command.getPageTitle(),
-    *   command.findByTagName('h1').getVisibleText()
-    * ]).then(function (results) {
-    *   assert.strictEqual(results[0], results[1]);
-    * });
-    * ```
-    *
-    * In this example, the commands on line 3 and 4 both depend upon the `get` call completing successfully but are
-    * otherwise independent of each other and so execute here in parallel. This is different from commands in Intern 1
-    * which were always chained onto the last called method within a given test.
-    *
-    * ---
-    *
-    * Command objects actually encapsulate two different types of interaction: *session* interactions, which operate
-    * against the entire browser session, and *element* interactions, which operate against specific elements taken from
-    * the currently loaded page. Things like navigating the browser, moving the mouse cursor, and executing scripts are
-    * session interactions; things like getting text displayed on the page, typing into form fields, and getting element
-    * attributes are element interactions.
-    *
-    * Session interactions can be performed at any time, from any Command. On the other hand, to perform element
-    * interactions, you first need to retrieve one or more elements to interact with. This can be done using any of the
-    * `find` or `findAll` methods, by the `getActiveElement` method, or by returning elements from `execute` or
-    * `executeAsync` calls. The retrieved elements are stored internally as the *element context* of all chained
-    * Commands. When an element method is called on a chained Command with a single element context, the result will be
-    * returned as-is:
-    *
-    * ```js
-    * command = command.get('http://example.com')
-    *   // finds one element -> single element context
-    *   .findByTagName('h1')
-    *   .getVisibleText()
-    *   .then(function (text) {
-    *     // `text` is the text from the element context
-    *     assert.strictEqual(text, 'Example Domain');
-    *   });
-    * ```
-    *
-    * When an element method is called on a chained Command with a multiple element context, the result will be returned
-    * as an array:
-    *
-    * ```js
-    * command = command.get('http://example.com')
-    *   // finds multiple elements -> multiple element context
-    *   .findAllByTagName('p')
-    *   .getVisibleText()
-    *   .then(function (texts) {
-    *     // `texts` is an array of text from each of the `p` elements
-    *     assert.deepEqual(texts, [
-    *       'This domain is established to be used for […]',
-    *       'More information...'
-    *     ]);
-    *   });
-    * ```
-    *
-    * The `find` and `findAll` methods are special and change their behaviour based on the current element filtering state
-    * of a given command. If a command has been filtered by element, the `find` and `findAll` commands will only find
-    * elements *within* the currently filtered set of elements. Otherwise, they will find elements throughout the page.
-    *
-    * Some method names, like `click`, are identical for both Session and Element APIs; in this case, the element APIs
-    * are suffixed with the word `Element` in order to identify them uniquely.
-    *
-    * ---
-    *
-    * Commands can be subclassed in order to add additional functionality without making direct modifications to the
-    * default Command prototype that might break other parts of the system:
-    *
-    * ```js
-    * function CustomCommand() {
-    *   Command.apply(this, arguments);
-    * }
-    * CustomCommand.prototype = Object.create(Command.prototype);
-    * CustomCommand.prototype.constructor = CustomCommand;
-    * CustomCommand.prototype.login = function (username, password) {
-    *   return new this.constructor(this, function () {
-    *     return this.parent
-    *       .findById('username')
-    *         .click()
-    *         .type(username)
-    *         .end()
-    *       .findById('password')
-    *         .click()
-    *         .type(password)
-    *         .end()
-    *       .findById('login')
-    *         .click()
-    *         .end();
-    *   });
-    * };
-    * ```
-    *
-    * Note that returning `this`, or a command chain starting from `this`, from a callback or command initialiser will
-    * deadlock the Command, as it waits for itself to settle before settling.
-    */
+     * The Command class is a chainable, subclassable object type that can be used to execute commands serially against a
+     * remote WebDriver environment. The standard Command class includes methods from the {@link module:leadfoot/Session}
+     * and {@link module:leadfoot/Element} classes, so you can perform all standard session and element operations that
+     * come with Leadfoot without being forced to author long promise chains.
+     *
+     * In order to use the Command class, you first need to pass it a {@link module:leadfoot/Session} instance for it to
+     * use:
+     *
+     * ```js
+     * var command = new Command(session);
+     * ```
+     *
+     * Once you have created the Command, you can then start chaining methods, and they will execute in order one after
+     * another:
+     *
+     * ```js
+     * command.get('http://example.com')
+     *   .findByTagName('h1')
+     *   .getVisibleText()
+     *   .then(function (text) {
+     *       assert.strictEqual(text, 'Example Domain');
+     *   });
+     * ```
+     *
+     * Because these operations are asynchronous, you need to use a `then` callback in order to retrieve the value from the
+     * last method. Command objects are Thenables, which means that they can be used with any Promises/A+ or ES6-confirmant
+     * Promises implementation, though there are some specific differences in the arguments and context that are provided
+     * to callbacks; see {@link module:leadfoot/Command#then} for more details.
+     *
+     * ---
+     *
+     * Each call on a Command generates a new Command object, which means that certain operations can be parallelised:
+     *
+     * ```js
+     * command = command.get('http://example.com');
+     * Promise.all([
+     *   command.getPageTitle(),
+     *   command.findByTagName('h1').getVisibleText()
+     * ]).then(function (results) {
+     *   assert.strictEqual(results[0], results[1]);
+     * });
+     * ```
+     *
+     * In this example, the commands on line 3 and 4 both depend upon the `get` call completing successfully but are
+     * otherwise independent of each other and so execute here in parallel. This is different from commands in Intern 1
+     * which were always chained onto the last called method within a given test.
+     *
+     * ---
+     *
+     * Command objects actually encapsulate two different types of interaction: *session* interactions, which operate
+     * against the entire browser session, and *element* interactions, which operate against specific elements taken from
+     * the currently loaded page. Things like navigating the browser, moving the mouse cursor, and executing scripts are
+     * session interactions; things like getting text displayed on the page, typing into form fields, and getting element
+     * attributes are element interactions.
+     *
+     * Session interactions can be performed at any time, from any Command. On the other hand, to perform element
+     * interactions, you first need to retrieve one or more elements to interact with. This can be done using any of the
+     * `find` or `findAll` methods, by the `getActiveElement` method, or by returning elements from `execute` or
+     * `executeAsync` calls. The retrieved elements are stored internally as the *element context* of all chained
+     * Commands. When an element method is called on a chained Command with a single element context, the result will be
+     * returned as-is:
+     *
+     * ```js
+     * command = command.get('http://example.com')
+     *   // finds one element -> single element context
+     *   .findByTagName('h1')
+     *   .getVisibleText()
+     *   .then(function (text) {
+     *     // `text` is the text from the element context
+     *     assert.strictEqual(text, 'Example Domain');
+     *   });
+     * ```
+     *
+     * When an element method is called on a chained Command with a multiple element context, the result will be returned
+     * as an array:
+     *
+     * ```js
+     * command = command.get('http://example.com')
+     *   // finds multiple elements -> multiple element context
+     *   .findAllByTagName('p')
+     *   .getVisibleText()
+     *   .then(function (texts) {
+     *     // `texts` is an array of text from each of the `p` elements
+     *     assert.deepEqual(texts, [
+     *       'This domain is established to be used for […]',
+     *       'More information...'
+     *     ]);
+     *   });
+     * ```
+     *
+     * The `find` and `findAll` methods are special and change their behaviour based on the current element filtering state
+     * of a given command. If a command has been filtered by element, the `find` and `findAll` commands will only find
+     * elements *within* the currently filtered set of elements. Otherwise, they will find elements throughout the page.
+     *
+     * Some method names, like `click`, are identical for both Session and Element APIs; in this case, the element APIs
+     * are suffixed with the word `Element` in order to identify them uniquely.
+     *
+     * ---
+     *
+     * Commands can be subclassed in order to add additional functionality without making direct modifications to the
+     * default Command prototype that might break other parts of the system:
+     *
+     * ```js
+     * function CustomCommand() {
+     *   Command.apply(this, arguments);
+     * }
+     * CustomCommand.prototype = Object.create(Command.prototype);
+     * CustomCommand.prototype.constructor = CustomCommand;
+     * CustomCommand.prototype.login = function (username, password) {
+     *   return new this.constructor(this, function () {
+     *     return this.parent
+     *       .findById('username')
+     *         .click()
+     *         .type(username)
+     *         .end()
+     *       .findById('password')
+     *         .click()
+     *         .type(password)
+     *         .end()
+     *       .findById('login')
+     *         .click()
+     *         .end();
+     *   });
+     * };
+     * ```
+     *
+     * Note that returning `this`, or a command chain starting from `this`, from a callback or command initialiser will
+     * deadlock the Command, as it waits for itself to settle before settling.
+     */
     class Command<T> implements Thenable<T> {
         /**
-         * @constructor module:leadfoot/Command
          * @param {module:leadfoot/Command|module:leadfoot/Session} parent
          * The parent command that this command is chained to, or a {@link module:leadfoot/Session} object if this is the
          * first command in a command chain.
@@ -585,20 +587,16 @@ declare module 'leadfoot/Command' {
         constructor(
             parent: Command<any> | Session,
             initialiser?: (setContext: Command.ContextSetter, value: any) => Thenable<T> | T,
-            errback?: (setContext: Command.ContextSetter, error: Error) => Thenable<T> | T
+            errback?: (setContext: Command.ContextSetter, error: Error) => Thenable<T> | T,
         );
 
         /**
          * The parent Command of the Command, if one exists.
-         *
-         * @readonly
          */
         parent: Command<any>;
 
         /**
          * The parent Session of the Command.
-         *
-         * @readonly
          */
         session: Session;
 
@@ -611,15 +609,11 @@ declare module 'leadfoot/Command' {
          *   values even if there is only one element in the context (`findAll`).
          * - depth (number): The depth of the context within the command chain. This is used to prevent traversal into
          *   higher filtering levels by {@link module:leadfoot/Command#end}.
-         *
-         * @readonly
          */
         context: Command.Context;
 
         /**
          * The underlying Promise for the Command.
-         *
-         * @readonly
          */
         promise: Promise<T>;
 
@@ -669,7 +663,7 @@ declare module 'leadfoot/Command' {
          */
         then<U>(
             callback: (value: T, setContext?: Command.ContextSetter) => Thenable<U> | U,
-            errback?: (error: Error, setContext?: Command.ContextSetter) => Thenable<U> | U
+            errback?: (error: Error, setContext?: Command.ContextSetter) => Thenable<U> | U,
         ): Command<U>;
 
         /**
@@ -680,7 +674,9 @@ declare module 'leadfoot/Command' {
         /**
          * Adds a callback to be invoked once the previously chained operations have resolved.
          */
-        finally<U>(callback: (valueOrError: T | Error, setContext?: Command.ContextSetter) => Thenable<U> | U): Command<U>;
+        finally<U>(
+            callback: (valueOrError: T | Error, setContext?: Command.ContextSetter) => Thenable<U> | U,
+        ): Command<U>;
 
         /**
          * Cancels all outstanding chained operations of the Command. Calling this method will cause this command and all
@@ -883,7 +879,7 @@ declare module 'leadfoot/Command' {
          * @returns
          * An object describing the width and height of the window, in CSS pixels.
          */
-        getWindowSize(windowHandle?: string): Command<{ width: number; height: number; }>;
+        getWindowSize(windowHandle?: string): Command<{ width: number; height: number }>;
 
         /**
          * Sets the position of a window.
@@ -913,7 +909,7 @@ declare module 'leadfoot/Command' {
          * primary monitor. If a secondary monitor exists above or to the left of the primary monitor, these values
          * will be negative.
          */
-        getWindowPosition(windowHandle?: string): Command<{ x: number; y: number; }>;
+        getWindowPosition(windowHandle?: string): Command<{ x: number; y: number }>;
 
         /**
          * Maximises a window according to the platform’s window system behaviour.
@@ -1615,12 +1611,12 @@ declare module 'leadfoot/Command' {
          * Gets the position of the element relative to the top-left corner of the document, taking into account
          * scrolling and CSS transformations (if they are supported).
          */
-        getPosition(): Command<{ x: number; y: number; }>;
+        getPosition(): Command<{ x: number; y: number }>;
 
         /**
          * Gets the size of the element, taking into account CSS transformations (if they are supported).
          */
-        getSize(): Command<{ width: number; height: number; }>;
+        getSize(): Command<{ width: number; height: number }>;
 
         /**
          * Gets a CSS computed property value for the element.
@@ -1659,7 +1655,7 @@ declare module 'leadfoot/Command' {
         static addElementMethod(target: Command<any>, key: string): void;
     }
 
-    module Command {
+    namespace Command {
         export interface Context extends Array<Element> {
             isSingle: boolean;
             depth: number;
@@ -1673,26 +1669,23 @@ declare module 'leadfoot/Command' {
     export = Command;
 }
 
-declare module 'leadfoot/Element' {
-    import Promise = require('dojo/promise/Promise');
-    import Session = require('leadfoot/Session');
+declare module "leadfoot/Element" {
+    import Promise = require("dojo/promise/Promise");
+    import Session = require("leadfoot/Session");
 
     /**
      * An Element represents a DOM or UI element within the remote environment.
      */
     class Element {
-        constructor(elementId: string | Element | { ELEMENT: string; }, session: Session);
+        constructor(elementId: string | Element | { ELEMENT: string }, session: Session);
 
         /**
          * The opaque, remote-provided ID of the element.
-         * @readonly
          */
         elementId: string;
 
         /**
          * The session that the element belongs to.
-         *
-         * @readonly
          */
         session: Session;
 
@@ -1726,7 +1719,7 @@ declare module 'leadfoot/Element' {
          */
         protected _post(path: string, requestData: {}, pathParts?: string[]): Promise<{}>;
 
-        toJSON(): { ELEMENT: string; };
+        toJSON(): { ELEMENT: string };
 
         /**
          * Gets the first element within this element that matches the given query.
@@ -1869,12 +1862,12 @@ declare module 'leadfoot/Element' {
          * Gets the position of the element relative to the top-left corner of the document, taking into account
          * scrolling and CSS transformations (if they are supported).
          */
-        getPosition(): Promise<{ x: number; y: number; }>;
+        getPosition(): Promise<{ x: number; y: number }>;
 
         /**
          * Gets the size of the element, taking into account CSS transformations (if they are supported).
          */
-        getSize(): Promise<{ width: number; height: number; }>;
+        getSize(): Promise<{ width: number; height: number }>;
 
         /**
          * Gets a CSS computed property value for the element.
@@ -2061,194 +2054,194 @@ declare module 'leadfoot/Element' {
     export = Element;
 }
 
-declare module 'leadfoot/keys' {
+declare module "leadfoot/keys" {
     var keys: {
         /** Releases all held modifier keys. */
-        'NULL': string;
+        "NULL": string;
         /** OS-specific keystroke sequence that performs a cancel action. */
-        'CANCEL': string;
+        "CANCEL": string;
         /** The help key. This key only appears on older Apple keyboards in place of the Insert key. */
-        'HELP': string;
+        "HELP": string;
         /** The backspace key. */
-        'BACKSPACE': string;
+        "BACKSPACE": string;
         /** The tab key. */
-        'TAB': string;
+        "TAB": string;
         /** The clear key. This key only appears on full-size Apple keyboards in place of Num Lock key. */
-        'CLEAR': string;
+        "CLEAR": string;
         /** The return key. */
-        'RETURN': string;
+        "RETURN": string;
         /** The enter (numpad) key. */
-        'ENTER': string;
+        "ENTER": string;
         /** The shift key. */
-        'SHIFT': string;
+        "SHIFT": string;
         /** The control key. */
-        'CONTROL': string;
+        "CONTROL": string;
         /** The alt key. */
-        'ALT': string;
+        "ALT": string;
         /** The pause key. */
-        'PAUSE': string;
+        "PAUSE": string;
         /** The escape key. */
-        'ESCAPE': string;
+        "ESCAPE": string;
 
         /** The space bar. */
-        'SPACE': string;
+        "SPACE": string;
         /** The page up key. */
-        'PAGE_UP': string;
+        "PAGE_UP": string;
         /** The page down key. */
-        'PAGE_DOWN': string;
+        "PAGE_DOWN": string;
         /** The end key. */
-        'END': string;
+        "END": string;
         /** The home key. */
-        'HOME': string;
+        "HOME": string;
         /** The left arrow. */
-        'ARROW_LEFT': string;
+        "ARROW_LEFT": string;
         /** The up arrow. */
-        'ARROW_UP': string;
+        "ARROW_UP": string;
         /** The right arrow. */
-        'ARROW_RIGHT': string;
+        "ARROW_RIGHT": string;
         /** The down arrow. */
-        'ARROW_DOWN': string;
+        "ARROW_DOWN": string;
         /** The insert key. */
-        'INSERT': string;
+        "INSERT": string;
         /** The delete key. */
-        'DELETE': string;
+        "DELETE": string;
         /** The semicolon key. */
-        'SEMICOLON': string;
+        "SEMICOLON": string;
         /** The equals key. */
-        'EQUALS': string;
+        "EQUALS": string;
 
         /** The numpad zero key. */
-        'NUMPAD0': string;
+        "NUMPAD0": string;
         /** The numpad one key. */
-        'NUMPAD1': string;
+        "NUMPAD1": string;
         /** The numpad two key. */
-        'NUMPAD2': string;
+        "NUMPAD2": string;
         /** The numpad three key. */
-        'NUMPAD3': string;
+        "NUMPAD3": string;
         /** The numpad four key. */
-        'NUMPAD4': string;
+        "NUMPAD4": string;
         /** The numpad five key. */
-        'NUMPAD5': string;
+        "NUMPAD5": string;
         /** The numpad six key. */
-        'NUMPAD6': string;
+        "NUMPAD6": string;
         /** The numpad seven key. */
-        'NUMPAD7': string;
+        "NUMPAD7": string;
         /** The numpad eight key. */
-        'NUMPAD8': string;
+        "NUMPAD8": string;
         /** The numpad nine key. */
-        'NUMPAD9': string;
+        "NUMPAD9": string;
 
         /** The numpad multiply (*) key. */
-        'MULTIPLY': string;
+        "MULTIPLY": string;
         /** The numpad add (+) key. */
-        'ADD': string;
+        "ADD": string;
         /** The numpad separator (=) key. */
-        'SEPARATOR': string;
+        "SEPARATOR": string;
         /** The numpad subtract (-) key. */
-        'SUBTRACT': string;
+        "SUBTRACT": string;
         /** The numpad decimal (.) key. */
-        'DECIMAL': string;
+        "DECIMAL": string;
         /** The numpad divide (/) key. */
-        'DIVIDE': string;
+        "DIVIDE": string;
 
         /** The F1 key. */
-        'F1': string;
+        "F1": string;
         /** The F2 key. */
-        'F2': string;
+        "F2": string;
         /** The F3 key. */
-        'F3': string;
+        "F3": string;
         /** The F4 key. */
-        'F4': string;
+        "F4": string;
         /** The F5 key. */
-        'F5': string;
+        "F5": string;
         /** The F6 key. */
-        'F6': string;
+        "F6": string;
         /** The F7 key. */
-        'F7': string;
+        "F7": string;
         /** The F8 key. */
-        'F8': string;
+        "F8": string;
         /** The F9 key. */
-        'F9': string;
+        "F9": string;
         /** The F10 key. */
-        'F10': string;
+        "F10": string;
         /** The F11 key. */
-        'F11': string;
+        "F11": string;
         /** The F12 key. */
-        'F12': string;
+        "F12": string;
         /** The meta (Windows) key. */
-        'META': string;
+        "META": string;
         /** The command (⌘) key. */
-        'COMMAND': string;
+        "COMMAND": string;
         /** The zenkaku/hankaku key. */
-        'ZENKAKU_HANKAKU': string;
+        "ZENKAKU_HANKAKU": string;
 
-        '\uE000': string;
-        '\uE001': string;
-        '\uE002': string;
-        '\uE003': string;
-        '\uE004': string;
-        '\uE005': string;
-        '\uE006': string;
-        '\uE007': string;
-        '\uE008': string;
-        '\uE009': string;
-        '\uE00A': string;
-        '\uE00B': string;
-        '\uE00C': string;
+        "\uE000": string;
+        "\uE001": string;
+        "\uE002": string;
+        "\uE003": string;
+        "\uE004": string;
+        "\uE005": string;
+        "\uE006": string;
+        "\uE007": string;
+        "\uE008": string;
+        "\uE009": string;
+        "\uE00A": string;
+        "\uE00B": string;
+        "\uE00C": string;
 
-        '\uE00D': string;
-        '\uE00E': string;
-        '\uE00F': string;
-        '\uE010': string;
-        '\uE011': string;
-        '\uE012': string;
-        '\uE013': string;
-        '\uE014': string;
-        '\uE015': string;
-        '\uE016': string;
-        '\uE017': string;
-        '\uE018': string;
-        '\uE019': string;
+        "\uE00D": string;
+        "\uE00E": string;
+        "\uE00F": string;
+        "\uE010": string;
+        "\uE011": string;
+        "\uE012": string;
+        "\uE013": string;
+        "\uE014": string;
+        "\uE015": string;
+        "\uE016": string;
+        "\uE017": string;
+        "\uE018": string;
+        "\uE019": string;
 
-        '\uE01A': string;
-        '\uE01B': string;
-        '\uE01C': string;
-        '\uE01D': string;
-        '\uE01E': string;
-        '\uE01F': string;
-        '\uE020': string;
-        '\uE021': string;
-        '\uE022': string;
-        '\uE023': string;
+        "\uE01A": string;
+        "\uE01B": string;
+        "\uE01C": string;
+        "\uE01D": string;
+        "\uE01E": string;
+        "\uE01F": string;
+        "\uE020": string;
+        "\uE021": string;
+        "\uE022": string;
+        "\uE023": string;
 
-        '\uE024': string;
-        '\uE025': string;
-        '\uE026': string;
-        '\uE027': string;
-        '\uE028': string;
-        '\uE029': string;
+        "\uE024": string;
+        "\uE025": string;
+        "\uE026": string;
+        "\uE027": string;
+        "\uE028": string;
+        "\uE029": string;
 
-        '\uE031': string;
-        '\uE032': string;
-        '\uE033': string;
-        '\uE034': string;
-        '\uE035': string;
-        '\uE036': string;
-        '\uE037': string;
-        '\uE038': string;
-        '\uE039': string;
-        '\uE03A': string;
-        '\uE03B': string;
-        '\uE03C': string;
-        '\uE03D': string;
-        '\uE040': string;
+        "\uE031": string;
+        "\uE032": string;
+        "\uE033": string;
+        "\uE034": string;
+        "\uE035": string;
+        "\uE036": string;
+        "\uE037": string;
+        "\uE038": string;
+        "\uE039": string;
+        "\uE03A": string;
+        "\uE03B": string;
+        "\uE03C": string;
+        "\uE03D": string;
+        "\uE040": string;
     };
     export = keys;
 }
 
-declare module 'leadfoot/Server' {
-    import Promise = require('dojo/promise/Promise');
-    import Session = require('leadfoot/Session');
+declare module "leadfoot/Server" {
+    import Promise = require("dojo/promise/Promise");
+    import Session = require("leadfoot/Session");
 
     /**
      * The Server class represents a remote HTTP server implementing the WebDriver wire protocol that can be used to
@@ -2340,7 +2333,10 @@ declare module 'leadfoot/Server' {
          * A hash map of required capabilities of the remote environment. The server will not return an environment that
          * does not match all the required capabilities if one is not available.
          */
-        createSession(desiredCapabilities: leadfoot.Capabilities, requiredCapabilities?: leadfoot.Capabilities): Promise<Session>;
+        createSession(
+            desiredCapabilities: leadfoot.Capabilities,
+            requiredCapabilities?: leadfoot.Capabilities,
+        ): Promise<Session>;
 
         /**
          * Adds additional capabilities data on the `capabilities` key of the passed session.
@@ -2352,7 +2348,7 @@ declare module 'leadfoot/Server' {
          *
          * @returns {Promise.<Object[]>}
          */
-        getSessions(): Promise<{}[]>;
+        getSessions(): Promise<Array<{}>>;
 
         /**
          * Gets information on the capabilities of a given session from the server. The list of capabilities returned
@@ -2374,10 +2370,10 @@ declare module 'leadfoot/Server' {
     export = Server;
 }
 
-declare module 'leadfoot/Session' {
-    import Element = require('leadfoot/Element');
-    import Promise = require('dojo/promise/Promise');
-    import Server = require('leadfoot/Server');
+declare module "leadfoot/Session" {
+    import Element = require("leadfoot/Element");
+    import Promise = require("dojo/promise/Promise");
+    import Server = require("leadfoot/Server");
 
     /**
      * A Session represents a connection to a remote environment that can be driven programmatically.
@@ -2392,15 +2388,11 @@ declare module 'leadfoot/Session' {
 
         /**
          * Information about the available features and bugs in the remote environment.
-         *
-         * @readonly
          */
         capabilities: leadfoot.Capabilities;
 
         /**
          * The current session ID.
-         *
-         * @readonly
          */
         sessionId: string;
 
@@ -2408,8 +2400,6 @@ declare module 'leadfoot/Session' {
          * The Server that the session runs on.
          *
          * @member {module:leadfoot/Server} server
-         * @memberOf module:leadfoot/Session#
-         * @readonly
          */
         server: Server;
 
@@ -2653,7 +2643,7 @@ declare module 'leadfoot/Session' {
          * @returns
          * An object describing the width and height of the window, in CSS pixels.
          */
-        getWindowSize(windowHandle?: string): Promise<{ width: number; height: number; }>;
+        getWindowSize(windowHandle?: string): Promise<{ width: number; height: number }>;
 
         /**
          * Sets the position of a window.
@@ -2683,7 +2673,7 @@ declare module 'leadfoot/Session' {
          * primary monitor. If a secondary monitor exists above or to the left of the primary monitor, these values
          * will be negative.
          */
-        getWindowPosition(windowHandle?: string): Promise<{ x: number; y: number; }>;
+        getWindowPosition(windowHandle?: string): Promise<{ x: number; y: number }>;
 
         /**
          * Maximises a window according to the platform’s window system behaviour.

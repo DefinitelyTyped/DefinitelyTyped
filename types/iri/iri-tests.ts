@@ -1,6 +1,6 @@
-import { IRI, fromURI, toIRIString } from 'iri';
+import { fromURI, IRI, toIRIString } from "iri";
 
-const iri = new IRI('iri');
+const iri = new IRI("iri");
 // $ExpectType string
 iri.toString();
 // $ExpectType IRI
@@ -24,7 +24,7 @@ iri.port();
 // $ExpectType string | null
 iri.query();
 // $ExpectType IRI
-iri.resolveReference('ref');
+iri.resolveReference("ref");
 iri.resolveReference(iri);
 // $ExpectType string | null
 iri.scheme();
@@ -38,6 +38,6 @@ iri.toIRIString();
 iri.toIRI();
 
 // $ExpectType IRI
-fromURI('u');
+fromURI("u");
 // $ExpectType string
-toIRIString('u');
+toIRIString("u");

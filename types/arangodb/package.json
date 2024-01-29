@@ -1,4 +1,22 @@
 {
-  "private": true,
-  "dependencies": {}
+    "private": true,
+    "name": "@types/arangodb",
+    "version": "3.5.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "ArangoDB",
+    "projects": [
+        "https://github.com/arangodb/arangodb"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/arangodb": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alan Plum",
+            "githubUsername": "pluma"
+        }
+    ]
 }

@@ -11,12 +11,16 @@ export interface APIGatewayAuthorizerResultContext {
 // Default authorizer type, prefer using a specific type with the "...WithAuthorizer..." variant types.
 // Note that this doesn't have to be a context from a custom lambda outhorizer, AWS also has a cognito
 // authorizer type and could add more, so the property won't always be a string.
-export type APIGatewayEventDefaultAuthorizerContext = undefined | null | {
-    [name: string]: any;
-};
+export type APIGatewayEventDefaultAuthorizerContext =
+    | undefined
+    | null
+    | {
+        [name: string]: any;
+    };
 
-export type APIGatewayEventRequestContext =
-    APIGatewayEventRequestContextWithAuthorizer<APIGatewayEventDefaultAuthorizerContext>;
+export type APIGatewayEventRequestContext = APIGatewayEventRequestContextWithAuthorizer<
+    APIGatewayEventDefaultAuthorizerContext
+>;
 
 // The requestContext property of both request authorizer and proxy integration events.
 export interface APIGatewayEventRequestContextWithAuthorizer<TAuthorizerContext> {

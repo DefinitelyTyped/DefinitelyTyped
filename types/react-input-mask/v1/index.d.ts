@@ -1,9 +1,3 @@
-// Type definitions for react-input-mask 1.2
-// Project: https://github.com/sanniassin/react-input-mask
-// Definitions by: Alexandre Paré <https://github.com/apare>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 declare namespace ReactInputMask {

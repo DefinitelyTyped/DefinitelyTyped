@@ -1,8 +1,8 @@
-// For Library Version: 1.100.0
+// For Library Version: 1.120.0
 
 declare module "sap/ui/support/library" {
   /**
-   * @SINCE 1.100.0
+   * @since 1.50
    *
    * Defines the Audiences.
    */
@@ -21,7 +21,7 @@ declare module "sap/ui/support/library" {
     Internal = "Internal",
   }
   /**
-   * @SINCE 1.100.0
+   * @since 1.50
    *
    * Issue Categories.
    */
@@ -43,6 +43,8 @@ declare module "sap/ui/support/library" {
      */
     DataModel = "DataModel",
     /**
+     * @since 1.58
+     *
      * Fiori Guidelines issue category.
      */
     FioriGuidelines = "FioriGuidelines",
@@ -55,6 +57,8 @@ declare module "sap/ui/support/library" {
      */
     Memory = "Memory",
     /**
+     * @since 1.60
+     *
      * Modularization issue category.
      */
     Modularization = "Modularization",
@@ -76,7 +80,7 @@ declare module "sap/ui/support/library" {
     Usage = "Usage",
   }
   /**
-   * @SINCE 1.100.0
+   * @since 1.58
    *
    * Analysis history formats.
    */
@@ -91,7 +95,32 @@ declare module "sap/ui/support/library" {
     String = "String",
   }
   /**
-   * @SINCE 1.100.0
+   * Support Assistant rule configuration
+   */
+  export type RuleConfiguration = {
+    id: string;
+
+    async: boolean;
+
+    title: string;
+
+    resolution: string;
+
+    minversion: string;
+
+    categories: Array<Categories | keyof typeof Categories>;
+
+    audiences: Array<Audiences | keyof typeof Audiences>;
+
+    description: string;
+
+    resolutionurls: string;
+
+    check: string;
+  };
+
+  /**
+   * @since 1.50
    *
    * Defines severity types.
    */
@@ -110,7 +139,7 @@ declare module "sap/ui/support/library" {
     Medium = "Medium",
   }
   /**
-   * @SINCE 1.100.0
+   * @since 1.60
    *
    * Contains the available system presets.
    */
@@ -119,6 +148,12 @@ declare module "sap/ui/support/library" {
      * The accessibility preset.
      */
     Accessibility = "undefined",
+    /**
+     * @experimental (since 1.120)
+     *
+     * Preset to find usages of deprecated controls, properties, aggregations and others.
+     */
+    Deprecations = "undefined",
   }
 }
 
@@ -158,10 +193,90 @@ declare module "sap/ui/support/supportRules/History" {
   };
 }
 
-declare module "sap/ui/support/RuleAnalyzer" {
-  import { AnalysisResult } from "sap/ui/support/supportRules/History";
+declare module "sap/ui/support/supportRules/ExecutionScope" {
+  /**
+   * @since 1.48
+   *
+   * Allows to select the scope of analysis on an application.
+   *
+   * Overview:
+   *
+   * The ExecutionScope provides access to internal UI5 objects available for inspection. The `getElements`
+   * API method allows the user to select a specific subset of elements valid for their case. It accepts one
+   * query object argument.
+   *
+   * Usage: The ExecutionScope is passed as third argument to all rule check functions.
+   *
+   * When you analyze your application, available objects are collected depending on the settings passed to
+   * the Support Assistant at the moment when you start it.
+   */
+  export default class ExecutionScope {
+    constructor();
 
-  import { HistoryFormats } from "sap/ui/support/library";
+    /**
+     *
+     * @returns Array of matched elements
+     */
+    getElements(
+      /**
+       * Object with specific filtering options
+       */
+      oConfig: {
+        /**
+         * Type name to filter by type
+         */
+        type: string;
+        /**
+         * Option to exclude elements that are not public aggregations
+         */
+        public: boolean;
+        /**
+         * Option to exclude elements that are clones of list bindings
+         */
+        cloned: boolean;
+      }
+    ): any[];
+    /**
+     * Gets elements by their type
+     *
+     * @returns Array of matched elements
+     */
+    getElementsByClassName(
+      /**
+       * Either string or function to be used when selecting a subset of elements
+       */
+      classNameSelector: string | Function
+    ): any[];
+    /**
+     * Gets the logged objects by object type
+     *
+     * @returns Array of logged objects
+     */
+    getLoggedObjects(
+      /**
+       * Type of logged objects
+       */
+      type: any
+    ): any[];
+    /**
+     * Returns all public elements, i.e. elements that are part of public API aggregations
+     *
+     * @returns Array of matched elements
+     */
+    getPublicElements(): any[];
+    /**
+     * Gets the type of the execution scope
+     *
+     * @returns The type of the execution scope. Possible values are `global`, `subtree` or `components`.
+     */
+    getType(): string;
+  }
+}
+
+declare module "sap/ui/support/RuleAnalyzer" {
+  import { RuleConfiguration, HistoryFormats } from "sap/ui/support/library";
+
+  import { AnalysisResult } from "sap/ui/support/supportRules/History";
 
   /**
    * The `sap.ui.support.RuleAnalyzer` namespace is the central entry point for the Support Assistant functionality.
@@ -175,32 +290,35 @@ declare module "sap/ui/support/RuleAnalyzer" {
    * 	 -  `sap.ui.support.RuleAnalyzer.addRule` method allows adding a new rule.
    * 	 -  `sap.ui.support.RuleAnalyzer.analyze` starts the analysis of the application.
    * 	 -  Then the result can be accessed with methods `sap.ui.support.RuleAnalyzer.getAnalysisHistory`, `sap.ui.support.RuleAnalyzer.getLastAnalysisHistory`
-   * 			or `sap.ui.support.RuleAnalyzer.getFormattedAnalysisHistory`.
+   *     or `sap.ui.support.RuleAnalyzer.getFormattedAnalysisHistory`.
    *
-   * For more information, see {@link topic:a34eb58aaf124f538a3ead23a6cab04a Support Assistant API}.
+   * For more information, see {@link https://ui5.sap.com/#/topic/a34eb58aaf124f538a3ead23a6cab04a Support Assistant API}.
    */
   interface RuleAnalyzer {
     /**
-     * @SINCE 1.60
+     * @since 1.60
      *
      * Adds new temporary rule when in silent mode
+     *
+     * @returns Rule creation status. Possible values are "success" or description of why adding failed.
      */
     addRule(
       /**
-       * Settings for the new rule. For detailed information about its properties see {@link topic:eaeea19a991d46f29e6d8d8827317d0e
-       * Rule Property Values}
+       * Settings for the new rule. For detailed information about its properties see {@link https://ui5.sap.com/#/topic/eaeea19a991d46f29e6d8d8827317d0e Rule Property Values}
        */
-      oRule: object
+      oRule: RuleConfiguration
     ): string;
     /**
      * Main method to perform analysis of a given running application.
      *
      * Allows to choose a particular execution scope - desired part of the UI to be checked and a flexible way
      * to specify the list of rules to be used.
+     *
+     * @returns Notifies the finished state by starting the Analyzer
      */
     analyze(
       /**
-       * The execution scope of the analysis (see {@link topic:e15067d976f24b11907f4c262bd749a0 Execution Scope}).
+       * The execution scope of the analysis (see {@link https://ui5.sap.com/#/topic/e15067d976f24b11907f4c262bd749a0 Execution Scope}).
        */
       oExecutionScope?: {
         /**
@@ -231,10 +349,15 @@ declare module "sap/ui/support/RuleAnalyzer" {
     ): Promise<any>;
     /**
      * Returns the history of all executed analyses.
+     *
+     * @returns Array of history objects in the order of analyses performed. The results of the last analysis
+     * are contained in the last element in the array.
      */
     getAnalysisHistory(): AnalysisResult[];
     /**
      * Returns the history of all executed analyses into formatted output depending on the passed format.
+     *
+     * @returns All analysis history objects in the correct format.
      */
     getFormattedAnalysisHistory(
       /**
@@ -244,6 +367,8 @@ declare module "sap/ui/support/RuleAnalyzer" {
     ): any;
     /**
      * Returns the result of the last analysis performed.
+     *
+     * @returns Last analysis history.
      */
     getLastAnalysisHistory(): AnalysisResult;
   }
@@ -254,7 +379,7 @@ declare module "sap/ui/support/RuleAnalyzer" {
 declare namespace sap {
   namespace ui {
     /**
-     * @SINCE 1.50
+     * @since 1.50
      *
      * UI5 library: sap.ui.support. A library for the Support Assistant tool. Overview: The library provides
      * the Support Assistant tool. It enables application developers to check whether their applications are
@@ -262,155 +387,72 @@ declare namespace sap {
      * to check all aspects of an application.
      */
     namespace support {
-      export const CoreFacade: undefined;
-
       /**
-       * Creates a RuleSet. The RuleSet can store multiple rules concerning namespaces. Usage: The RuleSet is
-       * an interface used to create, update and delete rulesets.
+       * The CoreFacade interface allows rule developers to access the metadata, models, UI areas and components
+       * of the Core.
+       *
+       * Usage: The CoreFacade is passed as second argument to all rule check functions.
        */
-      namespace RuleSet {
-        /**
-         * Adds rules to RuleSet.
-         */
-        function addRule(
-          /**
-           * Settings object with rule information
-           */
-          oSettings: object
-        ): string;
-        /**
-         * Clears all rulesets inside the RuleSet.
-         */
-        function clearAllRuleSets(): void;
-        /**
-         * Gets all rules from the RuleSet.
-         */
-        function getRules(): object;
-        /**
-         * Loads the previous selection of the user - which rules are selected to be run by the Rule Analyzer. The
-         * method applies the settings to the currently loaded rules.
-         */
-        function loadSelectionOfRules(
-          /**
-           * The current loaded libraries and their rules
-           */
-          aLibraries: Object[]
-        ): void;
-        /**
-         * Remove rule from RuleSet.
-         */
-        function removeRule(
-          /**
-           * Rule object that will be removed
-           */
-          oRule: object
-        ): void;
-        /**
-         * Stores which rules are selected to be run by the analyzer on the next check
-         */
-        function storeSelectionOfRules(
-          /**
-           * The data for the libraries and their rules
-           */
-          aLibraries: Object[]
-        ): void;
-        /**
-         * Updates rules from the RuleSet.
-         */
-        function updateRule(
-          /**
-           * Rule ID
-           */
-          sRuleId: string,
-          /**
-           * Rule settings
-           */
-          ORuleSettings: object
-        ): string;
-      }
-
-      /**
-       * @SINCE 1.48
-       *
-       * Allows to select the scope of analysis on an application.
-       *
-       * Overview:
-       *
-       * `ExecutionScope` is the third parameter of a rule check function. It provides access to internal UI5
-       * objects available for inspection. The `getElements` API method allows the user to select a specific subset
-       * of elements valid for their case. It accepts one query object argument.
-       *
-       * Usage:
-       *
-       * When a rule is executed, three parameters are passed: `oIssueManager`, `oCoreFacade` and `oScope`.
-       *
-       * An `ExecutionScope` instance is passed to every call of a rule check function. When you analyze your
-       * application, available objects are collected depending on the settings passed to the Support Assistant
-       * at the moment when you start it.
-       */
-      class ExecutionScope {
+      class CoreFacade {
         constructor();
 
-        static getElements(
+        /**
+         * Gets the Components from the Core object.
+         */
+        getComponents(): void;
+        /**
+         * Gets the Metadata from the Core object.
+         */
+        getMetadata(): void;
+        /**
+         * Gets the Models from the Core object.
+         */
+        getModels(): void;
+        /**
+         * Gets the UI areas from the Core object.
+         */
+        getUIAreas(): void;
+      }
+      /**
+       * The IssueManagerFacade allows rule developers to add new issues.
+       *
+       * Usage: The IssueManagerFacade is passed as first argument to all rule check functions.
+       */
+      class IssueManagerFacade {
+        constructor();
+
+        /**
+         * Adds issue
+         */
+        addIssue(
           /**
-           * Object with specific filtering options
+           * Issue object to be added
            */
-          oConfig: {
-            /**
-             * Type name to filter by type
-             */
-            type: string;
-            /**
-             * Option to exclude elements that are not public aggregations
-             */
-            public: boolean;
-            /**
-             * Option to exclude elements that are clones of list bindings
-             */
-            cloned: boolean;
+          oIssue: {
+            severity: import("sap/ui/support/library").Severity;
+
+            details: string;
+
+            context: {
+              id: string;
+            };
           }
-        ): any[];
-        /**
-         * Gets elements by their type
-         */
-        static getElementsByClassName(
-          /**
-           * Either string or function to be used when selecting a subset of elements
-           */
-          classNameSelector: string | Function
-        ): any[];
-        /**
-         * Gets the logged objects by object type
-         */
-        static getLoggedObjects(
-          /**
-           * Type of logged objects
-           */
-          type: any
-        ): any[];
-        /**
-         * Returns all public elements, i.e. elements that are part of public API aggregations
-         */
-        static getPublicElements(): any[];
-        /**
-         * Gets the type of the execution scope
-         */
-        static getType(): string;
+        ): void;
       }
     }
   }
 
   interface IUI5DefineDependencyNames {
-    "sap/ui/support/jQuery.sap.support": undefined;
-
     "sap/ui/support/library": undefined;
 
     "sap/ui/support/RuleAnalyzer": undefined;
+
+    "sap/ui/support/supportRules/CoreFacade": undefined;
 
     "sap/ui/support/supportRules/ExecutionScope": undefined;
 
     "sap/ui/support/supportRules/History": undefined;
 
-    "sap/ui/support/supportRules/RuleSet": undefined;
+    "sap/ui/support/supportRules/IssueManager": undefined;
   }
 }

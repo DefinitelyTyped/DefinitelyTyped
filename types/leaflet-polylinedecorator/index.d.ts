@@ -1,14 +1,6 @@
-// Type definitions for leaflet-polylinedecorator 1.6
-// Project: https://github.com/bbecquet/Leaflet.PolylineDecorator#readme
-// Definitions by: Viktor Soucek <https://github.com/soucekv>
-//                 Michael Faisst <https://github.com/michaelfaisst>
-//                 BePo65 <https://github.com/BePo65>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+import * as L from "leaflet";
 
-import * as L from 'leaflet';
-
-declare module 'leaflet' {
+declare module "leaflet" {
     namespace Symbol {
         interface DashOptions {
             pixelSize?: number | undefined;
@@ -67,8 +59,14 @@ declare module 'leaflet' {
     }
 
     class PolylineDecorator extends FeatureGroup {
-        constructor(paths: Polyline | Polygon | LatLngExpression[] | Polyline[] | Polygon[] | LatLngExpression[][], options?: PolylineDecoratorOptions);
-        initialize(paths: Polyline | Polygon | LatLngExpression[] | Polyline[] | Polygon[] | LatLngExpression[][], options?: PolylineDecoratorOptions): void;
+        constructor(
+            paths: Polyline | Polygon | LatLngExpression[] | Polyline[] | Polygon[] | LatLngExpression[][],
+            options?: PolylineDecoratorOptions,
+        );
+        initialize(
+            paths: Polyline | Polygon | LatLngExpression[] | Polyline[] | Polygon[] | LatLngExpression[][],
+            options?: PolylineDecoratorOptions,
+        ): void;
         setPatterns(patterns: Pattern[]): void;
         setPaths(paths: Polyline | Polygon | LatLngExpression[] | Polyline[] | Polygon[] | LatLngExpression[][]): void;
         onAdd(map: Map): this;

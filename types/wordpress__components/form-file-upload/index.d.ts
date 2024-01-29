@@ -1,6 +1,6 @@
-import { ChangeEventHandler, ComponentType } from 'react';
+import { ChangeEventHandler, ComponentType, JSX } from "react";
 
-import IconButton from '../icon-button';
+import IconButton from "../icon-button";
 
 declare namespace FormFileUpload {
     interface BaseProps {
@@ -20,7 +20,7 @@ declare namespace FormFileUpload {
          */
         onChange: ChangeEventHandler<HTMLInputElement>;
     }
-    interface IconButtonProps extends BaseProps, Partial<Omit<IconButton.Props, 'onChange'>> {
+    interface IconButtonProps extends BaseProps, Partial<Omit<IconButton.Props, "onChange">> {
         render?: never | undefined;
     }
     interface RenderProps extends BaseProps {

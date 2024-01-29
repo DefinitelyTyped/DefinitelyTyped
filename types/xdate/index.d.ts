@@ -1,54 +1,44 @@
-// Type definitions for XDate 0.8
-// Project: http://arshaw.com/xdate/
-// Definitions by: yamada28go <https://github.com/yamada28go>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
-interface formatters_info
-{
+interface formatters_info {
     i?: string | undefined;
     u?: string | undefined;
-    xxx? : string | undefined;
-    vvv?: ((xdate : XDate , useutc : boolean ) => string) | undefined;
+    xxx?: string | undefined;
+    vvv?: ((xdate: XDate, useutc: boolean) => string) | undefined;
 }
 
-interface locale_detail
-{
-    monthNames? : string [] | undefined;
-    monthNamesShort?: string [] | undefined;
+interface locale_detail {
+    monthNames?: string[] | undefined;
+    monthNamesShort?: string[] | undefined;
     dayNames?: string[] | undefined;
-    dayNamesShort?: string [] | undefined;
+    dayNamesShort?: string[] | undefined;
     amDesignator?: string | undefined;
     pmDesignator?: string | undefined;
 }
 
-
 declare class XDate {
-
-    //------------
-    //Constructors
-    //------------
+    // ------------
+    // Constructors
+    // ------------
 
     public constructor();
 
-    public constructor( utcmode : boolean );
+    public constructor(utcmode: boolean);
 
     /**
      * constructor
      */
-    public constructor(xdate : XDate ,  utcmode? : boolean ) ;
+    public constructor(xdate: XDate, utcmode?: boolean);
 
     /**
      * constructor
      * @param {Date} [nativeDate] - JavaScript native date
      */
-    public constructor(nativeDate : Date ,  utcmode? : boolean ) ;
+    public constructor(nativeDate: Date, utcmode?: boolean);
 
     /**
      * constructor
      * @param {number} [milliseconds] - milliseconds
      */
-    public constructor(milliseconds: number ,  utcmode? : boolean ) ;
+    public constructor(milliseconds: number, utcmode?: boolean);
 
     /**
      * constructor
@@ -60,318 +50,334 @@ declare class XDate {
      * @param {number} [seconds] - seconds
      * @param {number} [milliseconds] - milliseconds
      */
-    public constructor( year : number , month : number , date : number ,
-            hours? : number , minutes? : number , seconds? : number , milliseconds? : number , utcmode? : boolean );
+    public constructor(
+        year: number,
+        month: number,
+        date: number,
+        hours?: number,
+        minutes?: number,
+        seconds?: number,
+        milliseconds?: number,
+        utcmode?: boolean,
+    );
 
     /**
      * constructor
      * @param {string} [dateString] - formatted date string
      */
-    public constructor( dateString : string ,  utcmode? : boolean  );
+    public constructor(dateString: string, utcmode?: boolean);
 
-    //------------
-    //Getters
-    //------------
+    // ------------
+    // Getters
+    // ------------
 
     /**
      * Returns the 4-digit year (ex: 2012)
      * @return {number} 4-digit year (ex: 2012)
      */
-    public getFullYear() : number ;
+    public getFullYear(): number;
 
     /*
-     *Returns the month of the year. (0-11)
-     *Value is zero-index, meaning Jan=0, Feb=1, Mar=2, etc.
+     * Returns the month of the year. (0-11)
+     * Value is zero-index, meaning Jan=0, Feb=1, Mar=2, etc.
      */
-    public getMonth() : number;
+    public getMonth(): number;
 
     /*
-     *Returns the ISO week number of the year. (1-53)
+     * Returns the ISO week number of the year. (1-53)
      */
     public getWeek(): number;
 
     /*
-     *Returns the date of the month. (1-31)
+     * Returns the date of the month. (1-31)
      */
-    public getDate() : number;
+    public getDate(): number;
 
     /*
-     *Returns the day-of-week as a number. (0-6)
-     *Sun=0, Mon=1, Tue=2, etc.
+     * Returns the day-of-week as a number. (0-6)
+     * Sun=0, Mon=1, Tue=2, etc.
      */
-    public getDay() : number;
+    public getDay(): number;
 
     /*
-     *Returns the hour of the day. (0-23)
+     * Returns the hour of the day. (0-23)
      */
-    public getHours() : number;
+    public getHours(): number;
 
     /*
-     *Returns the minute of the hour. (0-59)
+     * Returns the minute of the hour. (0-59)
      */
-    public getMinutes() : number;
+    public getMinutes(): number;
 
     /*
-     *Returns the second of the minute. (0-59)
+     * Returns the second of the minute. (0-59)
      */
-    public getSeconds() : number;
+    public getSeconds(): number;
 
     /*
-     *Returns the millisecond of the second. (0-999)
+     * Returns the millisecond of the second. (0-999)
      */
-    public getMilliseconds() : number;
+    public getMilliseconds(): number;
 
     /*
-     *Returns the number of milliseconds since the epoch.
+     * Returns the number of milliseconds since the epoch.
      */
-    public getTime() : number;
+    public getTime(): number;
 
     /*
-     *Returns the number of milliseconds since the epoch. Identical to getTime.
+     * Returns the number of milliseconds since the epoch. Identical to getTime.
      */
-    public valueOf() : number;
+    public valueOf(): number;
 
-    //------------
-    //Setters
-    //------------
+    // ------------
+    // Setters
+    // ------------
 
     /*
-     *year is a 4-digit year
+     * year is a 4-digit year
      */
-    public setFullYear(year : number , preventOverflow? : boolean) : XDate;
+    public setFullYear(year: number, preventOverflow?: boolean): XDate;
 
     /*
       month is zero-indexed, meaning Jan=0, Feb=1, Mar=2, etc.
     */
-    public setMonth(month : number , preventOverflow? : boolean ) : XDate;
+    public setMonth(month: number, preventOverflow?: boolean): XDate;
 
     /*
-     *Moves the xdate to the Monday of the given week with time 00:00:00.
-     *The week is represented by a given ISO week number and an optional year. If year is omitted, the xdate's year with be used.
+     * Moves the xdate to the Monday of the given week with time 00:00:00.
+     * The week is represented by a given ISO week number and an optional year. If year is omitted, the xdate's year with be used.
      */
-    public setWeek(week : number , year? :  number) : XDate;
+    public setWeek(week: number, year?: number): XDate;
 
     /*
-     *Sets the date of the month. (1-31)
+     * Sets the date of the month. (1-31)
      */
-    public setDate(date : number ) : XDate;
+    public setDate(date: number): XDate;
 
     /*
-     *Sets the hour of the day. (0-23)
+     * Sets the hour of the day. (0-23)
      */
-    public setHours(hours: number ) :XDate;
+    public setHours(hours: number): XDate;
 
     /*
-     *Sets the minute of the hour. (0-59)
+     * Sets the minute of the hour. (0-59)
      */
-    public setMinutes(minutes : number) : XDate;
+    public setMinutes(minutes: number): XDate;
 
     /*
-     *Sets the second of the minute. (0-59)
+     * Sets the second of the minute. (0-59)
      */
-    public setSeconds(seconds : number) : XDate;
+    public setSeconds(seconds: number): XDate;
 
     /*
-     *Sets the millisecond of the second. (0-999)
+     * Sets the millisecond of the second. (0-999)
      */
-    public setMilliseconds(milliseconds : number) : XDate;
+    public setMilliseconds(milliseconds: number): XDate;
 
     /*
-     *Sets the number of milliseconds since the epoch.
+     * Sets the number of milliseconds since the epoch.
      */
-    public setTime(milliseconds : number ) : XDate;
+    public setTime(milliseconds: number): XDate;
 
-    //------------
-    //Adding
-    //------------
-    public addYears(years : number, preventOverflow? : boolean) : XDate;
-    public addMonths(months : number , preventOverflow? : boolean) : XDate;
-    public addWeeks(weeks : number) : XDate;
-    public addDays(days : number) : XDate;
-    public addHours(hours : number) : XDate;
-    public addMinutes(minutes : number) : XDate;
-    public addSeconds(seconds : number) : XDate;
-    public addMilliseconds(milliseconds : number) :XDate;
+    // ------------
+    // Adding
+    // ------------
+    public addYears(years: number, preventOverflow?: boolean): XDate;
+    public addMonths(months: number, preventOverflow?: boolean): XDate;
+    public addWeeks(weeks: number): XDate;
+    public addDays(days: number): XDate;
+    public addHours(hours: number): XDate;
+    public addMinutes(minutes: number): XDate;
+    public addSeconds(seconds: number): XDate;
+    public addMilliseconds(milliseconds: number): XDate;
 
+    // ------------
+    // Diffing
+    // ------------
+    public diffYears(otherDate: string): number;
+    public diffYears(otherDate: XDate): number;
+    public diffMonths(otherDate: string): number;
+    public diffMonths(otherDate: XDate): number;
+    public diffWeeks(otherDate: string): number;
+    public diffWeeks(otherDate: XDate): number;
+    public diffDays(otherDate: string): number;
+    public diffDays(otherDate: XDate): number;
+    public diffHours(otherDate: string): number;
+    public diffHours(otherDate: XDate): number;
+    public diffMinutes(otherDate: string): number;
+    public diffMinutes(otherDate: XDate): number;
+    public diffSeconds(otherDate: string): number;
+    public diffSeconds(otherDate: XDate): number;
+    public diffMilliseconds(otherDate: string): number;
+    public diffMilliseconds(otherDate: XDate): number;
 
-    //------------
-    //Diffing
-    //------------
-    public diffYears(otherDate : string) : number ;
-    public diffYears(otherDate : XDate) : number ;
-    public diffMonths(otherDate : string) : number ;
-    public diffMonths(otherDate : XDate) : number ;
-    public diffWeeks(otherDate : string) : number ;
-    public diffWeeks(otherDate : XDate) : number ;
-    public diffDays(otherDate : string) : number ;
-    public diffDays(otherDate : XDate) : number ;
-    public diffHours(otherDate : string) : number ;
-    public diffHours(otherDate : XDate) : number ;
-    public diffMinutes(otherDate : string) : number ;
-    public diffMinutes(otherDate : XDate) : number ;
-    public diffSeconds(otherDate : string) : number ;
-    public diffSeconds(otherDate : XDate) : number ;
-    public diffMilliseconds(otherDate : string) : number ;
-    public diffMilliseconds(otherDate : XDate) : number ;
-
-
-    //------------
-    //Formatting
-    //------------
+    // ------------
+    // Formatting
+    // ------------
 
     /*
-     *If formatString is not specified, a browser-produced IETF string will be returned.
+     * If formatString is not specified, a browser-produced IETF string will be returned.
      * settings can be a name of an available locale or an object that overrides the default locale's settings.
      */
-    public toString(formatString? : string , settings? : Object) : string;
+    public toString(formatString?: string, settings?: Object): string;
 
     /*
-     *Same as toString but gets its values from the UTC version of the date.
-     *As a result, "Z" will be displayed as the timezone.
+     * Same as toString but gets its values from the UTC version of the date.
+     * As a result, "Z" will be displayed as the timezone.
      */
-    public toUTCString(formatString? : string , settings? : Object) : string;
-    public toGMTString(formatString? : string , settings? : Object) : string;
+    public toUTCString(formatString?: string, settings?: Object): string;
+    public toGMTString(formatString?: string, settings?: Object): string;
 
     /*
-     *Returns an ISO8601 string that has been normalized to UTC. Will have a "Z" timezone indicator.
-     *See the native Date's specs for toISOString.
+     * Returns an ISO8601 string that has been normalized to UTC. Will have a "Z" timezone indicator.
+     * See the native Date's specs for toISOString.
      */
-    public toISOString() : string;
+    public toISOString(): string;
 
     /*
-     *Same as native Date's toDateString
+     * Same as native Date's toDateString
      */
-    public toDateString() : string;
+    public toDateString(): string;
 
     /*
-     *Same as native Date's toTimeString
+     * Same as native Date's toTimeString
      */
-    public toTimeString() : string;
+    public toTimeString(): string;
 
     /*
-     *Same as native Date's toLocaleString
+     * Same as native Date's toLocaleString
      */
-    public toLocaleString() : string;
+    public toLocaleString(): string;
 
     /*
-     *Same as native Date's toLocaleDateString
+     * Same as native Date's toLocaleDateString
      */
-    public toLocaleDateString() : string;
+    public toLocaleDateString(): string;
 
     /*
-     *Same as native Date's toLocaleTimeString
+     * Same as native Date's toLocaleTimeString
      */
-    public toLocaleTimeString() : string;
+    public toLocaleTimeString(): string;
 
+    // ------------
+    // Formatting
+    // ------------
+    public getUTCFullYear(): number;
+    public getUTCMonth(): number;
+    public getUTCWeek(): number;
+    public getUTCDate(): number;
+    public getUTCDay(): number;
+    public getUTCHours(): number;
+    public getUTCMinutes(): number;
+    public getUTCSeconds(): number;
+    public getUTCMilliseconds(): number;
+    public setUTCFullYear(year: number): XDate;
+    public setUTCMonth(month: number): XDate;
+    public setUTCWeek(week: number, year?: number): XDate;
+    public setUTCDate(date: number): XDate;
+    public setUTCHours(hours: number): XDate;
+    public setUTCMinutes(minutes: number): XDate;
+    public setUTCSeconds(seconds: number): XDate;
+    public setUTCMilliseconds(milliseconds: number): XDate;
 
-    //------------
-    //Formatting
-    //------------
-    public getUTCFullYear() : number ;
-    public getUTCMonth()  : number ;
-    public getUTCWeek()  : number ;
-    public getUTCDate()  : number ;
-    public getUTCDay()  : number ;
-    public getUTCHours()  : number ;
-    public getUTCMinutes()  : number ;
-    public getUTCSeconds()  : number ;
-    public getUTCMilliseconds()  : number ;
-    public setUTCFullYear(year : number) : XDate;
-    public setUTCMonth(month : number)  : XDate;
-    public setUTCWeek(week : number , year? : number )  : XDate;
-    public setUTCDate(date : number )  : XDate;
-    public setUTCHours(hours : number )  : XDate;
-    public setUTCMinutes(minutes : number )  : XDate;
-    public setUTCSeconds(seconds : number )  : XDate;
-    public setUTCMilliseconds(milliseconds : number)  : XDate;
-
-    //------------
-    //UTC Mode
-    //------------
+    // ------------
+    // UTC Mode
+    // ------------
 
     /*
-     *Returns true if the date is in UTC-mode and false otherwise
+     * Returns true if the date is in UTC-mode and false otherwise
      */
-    public getUTCMode() : boolean;
+    public getUTCMode(): boolean;
 
     /*
-     *utcMode must be either true or false. If the optional doCoercion parameters is set to true,
-     *the underlying millisecond time of the date will be coerced in such a way that methods like
-     *getDate and getHours will have the same values before and after the conversion.
+     * utcMode must be either true or false. If the optional doCoercion parameters is set to true,
+     * the underlying millisecond time of the date will be coerced in such a way that methods like
+     * getDate and getHours will have the same values before and after the conversion.
      */
-    public setUTCMode(utcMode : boolean , doCoercion? : boolean ) : XDate;
+    public setUTCMode(utcMode: boolean, doCoercion?: boolean): XDate;
 
     /*
-     *Returns the number of minutes from UTC, just like the native Date's getTimezoneOffset.
-     *However, if the XDate is in UTC-mode, 0 will be returned.
+     * Returns the number of minutes from UTC, just like the native Date's getTimezoneOffset.
+     * However, if the XDate is in UTC-mode, 0 will be returned.
      */
-    public getTimezoneOffset() : number;
+    public getTimezoneOffset(): number;
 
-    //------------
-    //Utilities
-    //------------
+    // ------------
+    // Utilities
+    // ------------
 
     /*
-     *returns a copy of the XDate
+     * returns a copy of the XDate
      */
-    public clone() : XDate;
+    public clone(): XDate;
 
     /*
-     *sets the hours, minutes, seconds, and milliseconds to zero
+     * sets the hours, minutes, seconds, and milliseconds to zero
      */
-    public clearTime() : XDate ;
+    public clearTime(): XDate;
 
     /*
-     *return true if the XDate is a valid date, false otherwise
+     * return true if the XDate is a valid date, false otherwise
      */
-    public valid() : boolean ;
+    public valid(): boolean;
 
     /*
-     *Returns a conversion to a native Date
+     * Returns a conversion to a native Date
      */
-    public toDate() : Date;
+    public toDate(): Date;
 
-    //------------
-    //Static function
-    //------------
-
+    // ------------
+    // Static function
+    // ------------
 
     /*
-     *Returns the number of days in the given month
+     * Returns the number of days in the given month
      */
-    public static getDaysInMonth(year : number , month : number) : number;
+    public static getDaysInMonth(year: number, month: number): number;
 
     /*
-     *Parses a date-string and returns milliseconds since the epoch. You'll probably want to use new XDate(dateString) instead.
+     * Parses a date-string and returns milliseconds since the epoch. You'll probably want to use new XDate(dateString) instead.
      */
-    public static parse(dateString : string ) : number;
-
+    public static parse(dateString: string): number;
 
     /*
-     *Returns the current date, as milliseconds since the epoch. You'll probably want to use new XDate() instead.
+     * Returns the current date, as milliseconds since the epoch. You'll probably want to use new XDate() instead.
      */
-    public static now() : number ;
-
+    public static now(): number;
 
     /*
-     *Returns the current date with time cleared, as an XDate object
+     * Returns the current date with time cleared, as an XDate object
      */
-    public static today() : XDate ;
+    public static today(): XDate;
 
     /*
-     *Returns a milliseconds time since the epoch for the given UTC date
+     * Returns a milliseconds time since the epoch for the given UTC date
      */
-    public static UTC(year : number , month : number , date : number , hours : number,
-              minutes : number , seconds : number , milliseconds : number ) : XDate;
+    public static UTC(
+        year: number,
+        month: number,
+        date: number,
+        hours: number,
+        minutes: number,
+        seconds: number,
+        milliseconds: number,
+    ): XDate;
 
-    public static locales : { [key: string]: locale_detail; };
+    public static locales: { [key: string]: locale_detail };
 
-    public static defaultLocale : string;
-    public static formatters : formatters_info;
+    public static defaultLocale: string;
+    public static formatters: formatters_info;
 
-    public static getDaysInMonth(year : number, month : number) : number;
-    public static UTC(year : number, month : number, day : number , hours? : number , minutes? : number , seconds?:number,ms?:number): number;
-
+    public static getDaysInMonth(year: number, month: number): number;
+    public static UTC(
+        year: number,
+        month: number,
+        day: number,
+        hours?: number,
+        minutes?: number,
+        seconds?: number,
+        ms?: number,
+    ): number;
 }
 
 export = XDate;

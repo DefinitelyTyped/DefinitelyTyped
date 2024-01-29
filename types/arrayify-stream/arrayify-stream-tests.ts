@@ -1,6 +1,6 @@
-import arrayifyStream from 'arrayify-stream';
-import { Readable } from 'stream';
-import { EventEmitter } from 'events';
+import arrayifyStream from "arrayify-stream";
+import { EventEmitter } from "events";
+import { Readable } from "stream";
 
 async function test() {
     const readable = new Readable();
@@ -12,10 +12,10 @@ async function test() {
 
     const emitter = new EventEmitter();
     const prom = arrayifyStream(emitter);
-    emitter.emit('data', '123');
-    emitter.emit('end');
+    emitter.emit("data", "123");
+    emitter.emit("end");
     await prom;
 
-    // $ExpectError
+    // @ts-expect-error
     arrayifyStream();
 }

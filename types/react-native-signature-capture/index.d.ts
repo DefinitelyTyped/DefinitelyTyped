@@ -1,15 +1,9 @@
-// Type definitions for react-native-signature-capture 0.4
-// Project: https://github.com/RepairShopr/react-native-signature-capture#readme
-// Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /*~ If this module is a UMD module that exposes a global variable 'myLib' when
  *~ loaded outside a module loader environment, declare that global here.
  *~ Otherwise, delete this declaration.
  */
-import { Component } from 'react';
-import { ViewProps } from 'react-native';
+import { Component } from "react";
+import { ViewProps } from "react-native";
 
 export interface SignatureCaptureProps extends ViewProps {
     /**
@@ -45,7 +39,7 @@ export interface SignatureCaptureProps extends ViewProps {
      * Change the screen orientation based on boolean value
      * "portrait" or "landscape"
      */
-    viewMode?: 'portrait' | 'landscape' | undefined;
+    viewMode?: "portrait" | "landscape" | undefined;
 
     /**
      * sets the max size of the image maintains aspect ratio,

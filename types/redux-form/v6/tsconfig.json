@@ -11,19 +11,7 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "jsx": "react",
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
-        "paths": {
-            "redux-form": [
-                "redux-form/v6"
-            ],
-            "redux-form/*": [
-                "redux-form/v6/*"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

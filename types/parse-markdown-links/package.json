@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/parse-markdown-links",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ralphtheninja/parse-markdown-links"
+    ],
+    "devDependencies": {
+        "@types/parse-markdown-links": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

@@ -1,4 +1,4 @@
-import fs = require('mz/fs');
+import fs = require("mz/fs");
 
 fs.stat(__filename); // $ExpectType Promise<Stats>
 fs.stat(__filename, (err, stats) => {
@@ -23,5 +23,5 @@ fs.realpath.native(path, { encoding: stringEncoding }); // $ExpectType Promise<s
 fs.realpath.native(path, anyEncoding); // $ExpectType Promise<string | Buffer>
 fs.realpath.native(path, { encoding: anyEncoding }); // $ExpectType Promise<string | Buffer>
 
-fs.realpath.native(path, 'buffer'); // $ExpectType Promise<Buffer>
-fs.realpath.native(path, { encoding: 'buffer' }); // $ExpectType Promise<Buffer>
+fs.realpath.native(path, "buffer"); // $ExpectType Promise<Buffer>
+fs.realpath.native(path, { encoding: "buffer" }); // $ExpectType Promise<Buffer>

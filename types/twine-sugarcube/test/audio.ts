@@ -106,46 +106,49 @@ SimpleAudio.groups.has(":ui");
 
 SimpleAudio.lists.add("bgm_lacuna", "swamped", "heavens_a_lie", "closer", "to_the_edge");
 // Using a mix of track IDs and descriptors
-SimpleAudio.lists.add("bgm_lacuna",
+SimpleAudio.lists.add(
+    "bgm_lacuna",
     // Add existing track "swamped" at its current volume
     "swamped",
     // Add existing track "heavens_a_lie" at 50% volume
     {
         id: "heavens_a_lie",
-        volume: 0.5
+        volume: 0.5,
     },
     // Add an owned copy of existing track "closer" at its current volume
     {
         id: "closer",
-        own: true
+        own: true,
     },
     // Add an owned copy of existing track "to_the_edge" at 100% volume
     {
         id: "to_the_edge",
         own: true,
-        volume: 1
-    }
+        volume: 1,
+    },
 );
 // Using descriptors with sources
-SimpleAudio.lists.add("bgm_lacuna", // $ExpectType void
+// $ExpectType void
+SimpleAudio.lists.add(
+    "bgm_lacuna",
     // Add a track from the given sources at the default volume (100%)
     {
-        sources: ["media/audio/Swamped.mp3"]
+        sources: ["media/audio/Swamped.mp3"],
     },
     // Add a track from the given sources at 50% volume
     {
         sources: ["media/audio/Heaven's_A_Lie.mp3"],
-        volume: 0.5
+        volume: 0.5,
     },
     // Add a track from the given sources at the default volume (100%)
     {
-        sources: ["media/audio/Closer.mp3"]
+        sources: ["media/audio/Closer.mp3"],
     },
     // Add a track from the given sources at 100% volume
     {
         sources: ["media/audio/To_The_Edge.mp3"],
-        volume: 1
-    }
+        volume: 1,
+    },
 );
 
 SimpleAudio.lists.clear(); // $ExpectType void

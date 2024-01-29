@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/jquery.placeholder",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/mathiasbynens/jquery-placeholder"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.placeholder": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Peter Gill",
+            "githubUsername": "majorsilence"
+        },
+        {
+            "name": "Neil Culver",
+            "githubUsername": "EnableSoftware"
+        }
+    ]
+}

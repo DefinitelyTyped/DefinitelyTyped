@@ -1,15 +1,9 @@
-// Type definitions for smartwizard 5.0
-// Project: https://github.com/techlab/SmartWizard
-// Definitions by: Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 declare namespace JQuerySmartwizard {
-    type TransitionAnimation = 'none' | 'fade' | 'slide-horizontal' | 'slide-vertical' | 'slide-swing';
-    type ToolbarPosition = 'none' | 'top' | 'bottom' | 'both';
-    type ToolbarButtonPosition = 'left' | 'right' | 'center';
+    type TransitionAnimation = "none" | "fade" | "slide-horizontal" | "slide-vertical" | "slide-swing";
+    type ToolbarPosition = "none" | "top" | "bottom" | "both";
+    type ToolbarButtonPosition = "left" | "right" | "center";
 
     interface TransitionSettings {
         /**
@@ -34,12 +28,10 @@ declare namespace JQuerySmartwizard {
 
     interface ToolbarSettings {
         /**
-         *
          * @default 'bottom'
          */
         toolbarPosition?: ToolbarPosition | undefined;
         /**
-         *
          * @default 'right'
          */
         toolbarButtonPosition?: ToolbarButtonPosition | undefined;
@@ -212,37 +204,37 @@ interface JQuery {
      *
      * @see {@link http://techlaboratory.net/jquery-smartwizard#func-getstepindex}
      */
-    smartWizard(functionName: 'getStepIndex'): number;
+    smartWizard(functionName: "getStepIndex"): number;
 
     /**
      * Allow you to go to a certain step.
      *
      * @see {@link http://techlaboratory.net/jquery-smartwizard#func-gotostep}
      */
-    smartWizard(functionName: 'goToStep', step: number): void;
+    smartWizard(functionName: "goToStep", step: number): void;
 
     /**
      * Allow you to show/hide the built-n loader animation.
      *
      * @see {@link http://techlaboratory.net/jquery-smartwizard#func-loader}
      */
-    smartWizard(functionName: 'loader', action: 'show' | 'hide'): void;
+    smartWizard(functionName: "loader", action: "show" | "hide"): void;
 
     /**
      * Allow you to set the options dynamically.
      *
      * @see {@link http://techlaboratory.net/jquery-smartwizard#func-setoptions}
      */
-    smartWizard(functionName: 'setOptions', options: JQuerySmartwizard.SmartWizardOptions): void;
+    smartWizard(functionName: "setOptions", options: JQuerySmartwizard.SmartWizardOptions): void;
 
     /**
      * Change the state of a step
      *
      * @see {@link http://techlaboratory.net/jquery-smartwizard#func-stepstate}
      */
-    smartWizard(functionName: 'stepState', steps: number[], action: 'disable' | 'hide'): void;
+    smartWizard(functionName: "stepState", steps: number[], action: "disable" | "hide"): void;
 
-    smartWizard(functionName?: 'next' | 'prev' | 'reset'): void;
+    smartWizard(functionName?: "next" | "prev" | "reset"): void;
 
     /**
      * The leaveStep event triggers just before leaving from a step. You can
@@ -252,7 +244,7 @@ interface JQuery {
      * @see {@link http://techlaboratory.net/jquery-smartwizard#event-leavestep}
      */
     on(
-        eventName: 'leaveStep',
+        eventName: "leaveStep",
         callback: (
             e: Event,
             anchorObject: JQuery<HTMLAnchorElement>,
@@ -263,7 +255,7 @@ interface JQuery {
     ): void;
 
     on(
-        eventName: 'showStep' | 'stepContent',
+        eventName: "showStep" | "stepContent",
         callback: (e: Event, anchorObject: JQuery<HTMLAnchorElement>, stepIndex: number, stepDirection: string) => void,
     ): void;
 }

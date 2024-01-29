@@ -1,12 +1,12 @@
-import * as RDF from 'rdf-js';
-import toNT = require('@rdfjs/to-ntriples');
-import blankNode = require('@rdfjs/to-ntriples/lib/blankNode');
-import defaultGraph = require('@rdfjs/to-ntriples/lib/defaultGraph');
-import namedNode = require('@rdfjs/to-ntriples/lib/namedNode');
-import variable = require('@rdfjs/to-ntriples/lib/variable');
-import quad = require('@rdfjs/to-ntriples/lib/quad');
-import dataset = require('@rdfjs/to-ntriples/lib/dataset');
-import term = require('@rdfjs/to-ntriples/lib/term');
+import * as RDF from "@rdfjs/types";
+import toNT = require("@rdfjs/to-ntriples");
+import blankNode = require("@rdfjs/to-ntriples/lib/blankNode");
+import defaultGraph = require("@rdfjs/to-ntriples/lib/defaultGraph");
+import namedNode = require("@rdfjs/to-ntriples/lib/namedNode");
+import variable = require("@rdfjs/to-ntriples/lib/variable");
+import quad = require("@rdfjs/to-ntriples/lib/quad");
+import dataset = require("@rdfjs/to-ntriples/lib/dataset");
+import term = require("@rdfjs/to-ntriples/lib/term");
 
 const rdfBlankNode: RDF.BlankNode = <any> {};
 const rdfDefaultGraph: RDF.DefaultGraph = <any> {};

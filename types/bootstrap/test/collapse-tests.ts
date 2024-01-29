@@ -1,10 +1,10 @@
-import { Collapse } from 'bootstrap';
-import * as $ from 'jquery';
+import { Collapse } from "bootstrap";
+import * as $ from "jquery";
 
 const element = new Element();
 
 // $ExpectType Collapse
-new Collapse(element, { parent: '.parent' });
+new Collapse(element, { parent: ".parent" });
 
 // $ExpectType Collapse | null
 Collapse.getInstance(element);
@@ -33,12 +33,12 @@ element.addEventListener(Collapse.Events.hidden, event => {
     // do something…
 });
 
-// $ExpectType void
-$('.alert').collapse();
+// $ExpectType JQuery<HTMLElement>
+$(".alert").collapse();
 
-// $ExpectType void
-$('.alert').collapse({ parent: '.parent' });
+// $ExpectType JQuery<HTMLElement>
+$(".alert").collapse({ parent: ".parent" });
 
-$('.alert').collapse('show'); // $ExpectType void
-$('.alert').collapse('hide'); // $ExpectType void
-$('.alert').collapse('toggle'); // $ExpectType void
+$(".alert").collapse("show"); // $ExpectType JQuery<HTMLElement>
+$(".alert").collapse("hide"); // $ExpectType JQuery<HTMLElement>
+$(".alert").collapse("toggle"); // $ExpectType JQuery<HTMLElement>

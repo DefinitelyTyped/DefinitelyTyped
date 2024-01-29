@@ -1,9 +1,3 @@
-// Type definitions for firebird 0.1
-// Project: https://github.com/xdenser/node-firebird-libfbclient
-// Definitions by: Yasushi Kato <https://github.com/karak>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node"/>
 
 /**
@@ -11,8 +5,8 @@
  *
  * Original document is [here](https://www.npmjs.com/package/firebird).
  */
-declare module 'firebird' {
-    import * as stream from 'stream';
+declare module "firebird" {
+    import * as stream from "stream";
 
     /**
      * @see createConnection() method will create Firebird Connection object for you
@@ -65,9 +59,11 @@ declare module 'firebird' {
         /**
          * Registers connection to listen for firebird event name, called from PL\SQL (in stored procedures or triggers) with post_event 'name'.
          *
-         * @desc
+         * @description
          * You may set callback for event with
-         * @code connection.on('fbevent', function(name, count){ <your code>));.
+         * ```js
+         * connection.on('fbevent', function(name, count){ <your code>));.
+         * ```
          * Where name is event name, and count is number of times event were posted.
          *
          * @param name Firebird Event Name.
@@ -85,7 +81,7 @@ declare module 'firebird' {
          * @summary
          * Synchronously commits current transaction.
          *
-         * @desc
+         * @description
          * Notes:
          * There is only one transaction associated with connection.
          * Transacation is automatically started before any query if connection does not have active transaction (check @see inTransaction property).
@@ -97,7 +93,7 @@ declare module 'firebird' {
         /**
          * Asynchronous commit transaction.
          *
-         * @desc
+         * @description
          * Read notes in @see commitSync() .
          *
          * @param callback function(err), where err is error object in case of error.
@@ -107,7 +103,7 @@ declare module 'firebird' {
         /**
          * Synchronously rollbacks current transaction.
          *
-         * @desc
+         * @description
          * Read notes in @see commitSync() .
          */
         rollbackSync(): void;
@@ -115,7 +111,7 @@ declare module 'firebird' {
         /**
          * Asynchronously rollbacks current transaction.
          *
-         * @desc
+         * @description
          * Read notes in @see commitSync() .
          *
          * @param callback function(err), where err is error object in case of error.
@@ -125,7 +121,7 @@ declare module 'firebird' {
         /**
          * Synchronously starts new default transaction.
          *
-         * @desc
+         * @description
          * The default transaction should be not in started state before call to this method.
          * Read notes in @see commitSync() .
          */
@@ -134,7 +130,7 @@ declare module 'firebird' {
         /**
          * Asynchronously starts new default transaction.
          *
-         * @desc
+         * @description
          * Read notes in @see commitSync() .
          *
          * @param callback function(err), where err is error object in case of error.
@@ -175,7 +171,7 @@ declare module 'firebird' {
     }
 
     /**
-     * @desc
+     * @description
      * Here is Firebird to Node data type accordance:
      *
      * | Firebird  | Node      |
@@ -207,7 +203,7 @@ declare module 'firebird' {
          * @summary
          * Synchronously fetches result rows.
          *
-         * @desc
+         * @description
          * If you pass "all" as rowCount - it will fetch all result rows.
          * If you pass less rowCount than are actually in result, it will return specified number of rows.
          * You may call fetchSync multiple times until all rows will be fetched.
@@ -216,9 +212,9 @@ declare module 'firebird' {
          * @param rowCount number of rows to fetch from results;
          * @param asObject format of returned rows. When false - methods returns array of array, when true - array of objects.
          */
-        fetchSync(rowCount: number | "all", asObject: boolean): DataType[][] | Array<{[column: string]: DataType}>;
+        fetchSync(rowCount: number | "all", asObject: boolean): DataType[][] | Array<{ [column: string]: DataType }>;
         fetchSync(rowCount: number | "all", asObject: false): DataType[][];
-        fetchSync(rowCount: number | "all", asObject: true): Array<{[column: string]: DataType}>;
+        fetchSync(rowCount: number | "all", asObject: true): Array<{ [column: string]: DataType }>;
         fetchSync<T extends {}>(rowCount: number | "all", asObject: true): T[];
 
         /**
@@ -229,16 +225,36 @@ declare module 'firebird' {
          * @param rowCallback function(row), row - Array or Object (depends on asObject parameter) representing single row from result; called for each fetched row.
          * @param eofCallback function(err,eof), err - Error object in case of error, or null; eof - true | false. called when whole operation is complete.
          */
-        fetch(rowCount: number | "all", asObject: boolean, rowCallback: (row: DataType[]| {[column: string]: DataType}) => void, eofCallback: (err: Error | null, eof: boolean) => void): void;
-        fetch(rowCount: number | "all", asObject: false, rowCallback: (row: DataType[]) => void, eofCallback: (err: Error | null, eof: boolean) => void): void;
-        fetch(rowCount: number | "all", asObject: true, rowCallback: (row: {[column: string]: DataType}) => void, eofCallback: (err: Error | null, eof: boolean) => void): void;
-        fetch<T extends {}>(rowCount: number | "all", asObject: true, rowCallback: (row: T) => void, eofCallback: (err: Error | null, eof: boolean) => void): void;
+        fetch(
+            rowCount: number | "all",
+            asObject: boolean,
+            rowCallback: (row: DataType[] | { [column: string]: DataType }) => void,
+            eofCallback: (err: Error | null, eof: boolean) => void,
+        ): void;
+        fetch(
+            rowCount: number | "all",
+            asObject: false,
+            rowCallback: (row: DataType[]) => void,
+            eofCallback: (err: Error | null, eof: boolean) => void,
+        ): void;
+        fetch(
+            rowCount: number | "all",
+            asObject: true,
+            rowCallback: (row: { [column: string]: DataType }) => void,
+            eofCallback: (err: Error | null, eof: boolean) => void,
+        ): void;
+        fetch<T extends {}>(
+            rowCount: number | "all",
+            asObject: true,
+            rowCallback: (row: T) => void,
+            eofCallback: (err: Error | null, eof: boolean) => void,
+        ): void;
     }
 
     /**
      * Represents SQL transaction.
      *
-     * @desc
+     * @description
      * To get instance of this object call @see startNewTransactionSync or @see startNewTransaction methods of @see Connection object.
      * Transaction objects may be reused after commit or rollback.
      */
@@ -261,7 +277,7 @@ declare module 'firebird' {
         /**
          * Synchronously commits this transaction.
          *
-         * @desc
+         * @description
          * Notes:
          * Transacation is automatically started before any query in context of this object
          * if this object does not have active transaction (check inTransaction property).
@@ -272,25 +288,25 @@ declare module 'firebird' {
         /**
          * Asynchronous commit transaction.
          *
-         * @desc
+         * @description
          * Read notes in @see commitSync() .
          *
          * @param callback function(err), where err is error object in case of error.
          */
         commit(callback: (err: Error | null) => void): void;
 
-         /**
-          * Synchronously rollbacks transaction.
-          *
-          * @desc
-          * Read notes in @see commitSync() .
-          */
+        /**
+         * Synchronously rollbacks transaction.
+         *
+         * @description
+         * Read notes in @see commitSync() .
+         */
         rollbackSync(): void;
 
         /**
          * Asynchronously rollbacks transaction.
          *
-         * @desc
+         * @description
          * Read notes in @see commitSync() .
          *
          * @param callback function(err), where err is error object in case of error.
@@ -300,7 +316,7 @@ declare module 'firebird' {
         /**
          * Synchronously starts transaction.
          *
-         * @desc
+         * @description
          * The transaction should be not in started state before call to this method.
          * Read notes in @see commitSync() .
          * See @see inTransaction property.
@@ -310,7 +326,7 @@ declare module 'firebird' {
         /**
          * Asynchronously starts new transaction.
          *
-         * @desc
+         * @description
          * Read notes in @see commitSync() .
          *
          * @param callback function(err), where err is error object in case of error.
@@ -341,7 +357,7 @@ declare module 'firebird' {
         /**
          * Synchronously executes prepared statement with given parameters.
          *
-         * @desc
+         * @description
          * You may fetch rows with methods inherited from @see FBResult.
          * @see Statement is executed in context of default connection transaction.
          *
@@ -357,19 +373,19 @@ declare module 'firebird' {
         /**
          * Asynchronously executes prepared statement with given parameters.
          *
-         * @desc
+         * @description
          * @see FBStatement emits 'result' or 'error' event.
          * You may fetch rows with methods inherited from @see FBResult after 'result' event emitted.
          * Statement is executed in context of default connection transaction.
          *
          * @param params parameters of prepared statement in the same order as in SQL and with appropriate types.
          */
-         exec(...params: DataType[]): void;
+        exec(...params: DataType[]): void;
 
-         /**
-          * Same as @see exec but executes statement in context of given @see Transaction obejct.
-          */
-         execInTrans(transaction: Transaction, ...params: DataType[]): void;
+        /**
+         * Same as @see exec but executes statement in context of given @see Transaction obejct.
+         */
+        execInTrans(transaction: Transaction, ...params: DataType[]): void;
     }
 
     /**
@@ -392,53 +408,59 @@ declare module 'firebird' {
          * @param buffer Node buffer to fill with data.
          * @returns actual number of bytes read.
          */
-         _readSync(buffer: Buffer): number;
+        _readSync(buffer: Buffer): number;
 
-         /**
-          * Asynchronously reads BLOB segment (chunk) into buffer. Tries to fill whole buffer with data.
-          *
-          * @param buffer Node buffer to fill with data.
-          * @param callback function(err,buffer,len), err - Error object in case of error, or null;buffer - buffer filled with data; len - actual data length.
-          */
-         _read(buffer: Buffer, callback: (err: Error | null, buffer: Buffer, len: number) => void): void;
+        /**
+         * Asynchronously reads BLOB segment (chunk) into buffer. Tries to fill whole buffer with data.
+         *
+         * @param buffer Node buffer to fill with data.
+         * @param callback function(err,buffer,len), err - Error object in case of error, or null;buffer - buffer filled with data; len - actual data length.
+         */
+        _read(buffer: Buffer, callback: (err: Error | null, buffer: Buffer, len: number) => void): void;
 
-         /**
-          * Asynchronously reads all data from BLOB field.
-          * Object emits events while reading data error, drain',end`.
-          *
-          * @param initialSize - optional, initial result buffer to allocate, default = 0
-          * @param chunkSize - optional, size of chunk used to read data, default = 1024
-          * @param callback - optional, function (err, buffer, len), err - Error object in case of error, or null;buffer - buffer filled with data; len - actual data length.
-          */
-          _readAll(initialSize?: number, chunkSize?: number, callback?: (err: Error | null, buffer: Buffer, len: number) => void): void;
-          _readAll(initialSize: number, callback: (err: Error | null, buffer: Buffer, len: number) => void): void;
-          _readAll(callback: (err: Error | null, buffer: Buffer, len: number) => void): void;
+        /**
+         * Asynchronously reads all data from BLOB field.
+         * Object emits events while reading data error, drain',end`.
+         *
+         * @param initialSize - optional, initial result buffer to allocate, default = 0
+         * @param chunkSize - optional, size of chunk used to read data, default = 1024
+         * @param callback - optional, function (err, buffer, len), err - Error object in case of error, or null;buffer - buffer filled with data; len - actual data length.
+         */
+        _readAll(
+            initialSize?: number,
+            chunkSize?: number,
+            callback?: (err: Error | null, buffer: Buffer, len: number) => void,
+        ): void;
+        _readAll(initialSize: number, callback: (err: Error | null, buffer: Buffer, len: number) => void): void;
+        _readAll(callback: (err: Error | null, buffer: Buffer, len: number) => void): void;
 
-          /**
-           * Synchronously writes BLOB segment (chunk) from buffer.
-           *
-           * @param buffer Node buffer to write from to blob;
-           * @param len optional length parameter, if specified only len bytes from buffer will be writen.
-           * @returns number of bytes actually writen.
-           */
-          _writeSync(buffer: Buffer, len?: number): number;
+        /**
+         * Synchronously writes BLOB segment (chunk) from buffer.
+         *
+         * @param buffer Node buffer to write from to blob;
+         * @param len optional length parameter, if specified only len bytes from buffer will be writen.
+         * @returns number of bytes actually writen.
+         */
+        _writeSync(buffer: Buffer, len?: number): number;
 
-          /**
-           * Asynchronously writes BLOB segment (chunk) from buffer and calls callback function if any.
-           *
-           * @param buffer Node buffer to write from to blob;
-           * @param len optional length parameter, if specified only len bytes from buffer will be writen.
-           * @param callback function(err), err - Error object in case of error, or null;
-           */
-          _write(buffer: Buffer, len?: number, callback?: (err: Error | null) => void): void;
+        /**
+         * Asynchronously writes BLOB segment (chunk) from buffer and calls callback function if any.
+         *
+         * @param buffer Node buffer to write from to blob;
+         * @param len optional length parameter, if specified only len bytes from buffer will be writen.
+         * @param callback function(err), err - Error object in case of error, or null;
+         */
+        _write(buffer: Buffer, len?: number, callback?: (err: Error | null) => void): void;
     }
 
     /**
      * Represents BLOB stream.
      *
-     * @desc
+     * @description
      * Create BLOB stream using
-     * @code var strm = new fb.Stream(FBblob);.
+     * ```js
+     * var strm = new fb.Stream(FBblob);.
+     * ```
      *
      * You may pipe strm to/from NodeJS Stream objects (fs or socket).
      * You may also look at [NodeJS Streams reference](https://nodejs.org/api/stream.html).

@@ -39,7 +39,7 @@ declare class TestSuite {
     checkNotEquals(expected: any, actual: any, msg: any): void;
     checkEqualNumbers(expected: any, actual: any, delta: any, msg: any): void;
     checkNotEqualNumbers(expected: any, actual: any, delta: any, msg: any): void;
-    removeTime(dt: any): Date;
+    removeTime(dt: Date): Date;
     checkEqualDates(expected: any, actual: any, msg: any): void;
     checkNotEqualDates(expected: any, actual: any, msg: any): void;
     checkEqualDateTimes(expected: any, actual: any, msg: any): void;

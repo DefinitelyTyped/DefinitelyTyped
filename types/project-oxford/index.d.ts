@@ -1,9 +1,3 @@
-// Type definitions for project-oxford v0.1.3
-// Project: https://github.com/felixrieseberg/project-oxford
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 /// <reference types="node" />
 
 import Promise = require("bluebird");
@@ -17,7 +11,6 @@ export declare class Client {
 }
 
 export declare class FaceAPI {
-
     /**
      * Call the Face Detected API
      * Detects human faces in an image and returns face locations, face landmarks, and
@@ -180,7 +173,7 @@ export declare class PersonGroup {
 
     /**
      * Starts a person group training.
-         * Training is a necessary preparation process of a person group before identification.
+     * Training is a necessary preparation process of a person group before identification.
      * Each person group needs to be trained in order to call Identification. The training
      * will process for a while on the server side even after this API has responded.
      *
@@ -262,7 +255,12 @@ export declare class Person {
      * @param {string} userData          - Optional fields for user-provided data attached to a person. Size limit is 16KB.
      * @return {Promise}                 - Promise resolving with the resulting JSON
      */
-    public create(personGroupId: string, faces: string[], name: string, userData: string): Promise<{ personId: string }>;
+    public create(
+        personGroupId: string,
+        faces: string[],
+        name: string,
+        userData: string,
+    ): Promise<{ personId: string }>;
 
     /**
      * Deletes an existing person from a person group.
@@ -291,7 +289,13 @@ export declare class Person {
      * @param {string} userData          - Optional fields for user-provided data attached to a person. Size limit is 16KB.
      * @return {Promise}                 - Promise resolving with the resulting JSON
      */
-    public update(personGroupId: string, personId: string, faces: string[], name: string, userData: string): Promise<void>;
+    public update(
+        personGroupId: string,
+        personId: string,
+        faces: string[],
+        name: string,
+        userData: string,
+    ): Promise<void>;
 
     /**
      * Lists all persons in a person group, with the person information.
@@ -310,7 +314,7 @@ declare namespace Options {
         analyzesFaceLandmarks?: boolean | undefined; // Analyze face landmarks?
         analyzesAge?: boolean | undefined; // Analyze age?
         analyzesGender?: boolean | undefined; // Analyze gender?
-        analyzesHeadPose?: boolean | undefined; //Analyze headpose?
+        analyzesHeadPose?: boolean | undefined; // Analyze headpose?
     }
 
     interface Identify {
@@ -340,7 +344,7 @@ declare namespace Options {
     interface Ocr {
         url?: string | undefined; // URL to image to be analyzed
         path?: string | undefined; // Path to image to be analyzed
-        language?: string | undefined; //BCP - 47 language code of the text to be detected in the image.Default value is "unk", then the service will auto detect the language of the text in the image.
+        language?: string | undefined; // BCP - 47 language code of the text to be detected in the image.Default value is "unk", then the service will auto detect the language of the text in the image.
         detectOrientation?: boolean | undefined; // Detect orientation of text in the image
     }
 }
@@ -389,7 +393,7 @@ declare namespace FaceResponses {
     }
 
     interface Attributes {
-        "headPose": { "pitch": number, "roll": number, "yaw": number };
+        "headPose": { "pitch": number; "roll": number; "yaw": number };
         "gender": string;
         "age": number;
     }
@@ -425,7 +429,6 @@ declare namespace FaceResponses {
 }
 
 declare namespace PersonGroupResponses {
-
     export interface PersonGroup {
         "personGroupId": string;
         "name": string;
@@ -463,19 +466,19 @@ declare namespace VisionResponses {
         "categories": [{
             "name": string;
             "score": number;
-        }],
+        }];
         "adult": {
             "isAdultContent": boolean;
             "isRacyContent": boolean;
             "adultScore": number;
             "racyScore": number;
-        },
+        };
         "requestId": string;
         "metadata": {
             "width": number;
             "height": number;
             "format": string;
-        },
+        };
         "faces": [
             {
                 "age": number;
@@ -485,22 +488,21 @@ declare namespace VisionResponses {
                     "top": number;
                     "width": number;
                     "height": number;
-                }
-            }
-        ],
+                };
+            },
+        ];
         "color": {
             "dominantColorForeground": string;
             "dominantColorBackground": string;
             "dominantColors": string[];
             "accentColor": string;
             "isBWImg": boolean;
-        },
+        };
         "imageType": {
             "clipArtType": number;
             "lineDrawingType": number;
-        }
+        };
     }
-
 
     export interface Ocr {
         "language": string;
@@ -513,8 +515,8 @@ declare namespace VisionResponses {
                 "words": [{
                     "boundingBox": string;
                     "text": string;
-                }]
-            }]
-        }]
+                }];
+            }];
+        }];
     }
 }

@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Sizes } from 'react-bootstrap';
+import * as React from "react";
+import { Sizes } from "react-bootstrap";
 
 declare namespace Label {
     export interface LabelProps extends React.HTMLProps<Label> {
@@ -7,5 +7,5 @@ declare namespace Label {
         bsStyle?: string | undefined;
     }
 }
-declare class Label extends React.Component<Label.LabelProps> { }
+declare class Label extends React.Component<Label.LabelProps> {}
 export = Label;

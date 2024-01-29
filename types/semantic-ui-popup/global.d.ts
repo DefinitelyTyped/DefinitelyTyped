@@ -9,70 +9,70 @@ declare namespace SemanticUI {
         /**
          * Shows popup
          */
-        (behavior: 'show'): JQuery;
+        (behavior: "show"): JQuery;
         /**
          * Hides popup
          */
-        (behavior: 'hide'): JQuery;
+        (behavior: "hide"): JQuery;
         /**
          * Hides all visible pop ups on the page
          */
-        (behavior: 'hide all'): JQuery;
+        (behavior: "hide all"): JQuery;
         /**
          * Returns current popup dom element
          */
-        (behavior: 'get popup'): JQuery;
+        (behavior: "get popup"): JQuery;
         /**
          * Changes current popup content
          */
-        (behavior: 'change content', html: string): JQuery;
+        (behavior: "change content", html: string): JQuery;
         /**
          * Toggles visibility of popup
          */
-        (behavior: 'toggle'): JQuery;
+        (behavior: "toggle"): JQuery;
         /**
          * Returns whether popup is visible
          */
-        (behavior: 'is visible'): boolean;
+        (behavior: "is visible"): boolean;
         /**
          * Returns whether popup is hidden
          */
-        (behavior: 'is hidden'): boolean;
+        (behavior: "is hidden"): boolean;
         /**
          * Returns whether popup is created and inserted into the page
          */
-        (behavior: 'exists'): boolean;
+        (behavior: "exists"): boolean;
         /**
          * Adjusts popup when content size changes (only necessary for centered popups)
          */
-        (behavior: 'reposition'): JQuery;
+        (behavior: "reposition"): JQuery;
         /**
          * Repositions a popup
          */
-        (behavior: 'set position', position: string): JQuery;
+        (behavior: "set position", position: string): JQuery;
         /**
          * @since 2.2.11
          */
-        (behavior: 'bind clickaway'): JQuery;
+        (behavior: "bind clickaway"): JQuery;
         /**
          * @since 2.2.11
          */
-        (behavior: 'bind touch close'): JQuery;
+        (behavior: "bind touch close"): JQuery;
         /**
          * @since 2.2.11
          */
-        (behavior: 'bind close on scroll'): JQuery;
+        (behavior: "bind close on scroll"): JQuery;
         /**
          * Removes popup from the page and removes all events
          */
-        (behavior: 'destroy'): JQuery;
+        (behavior: "destroy"): JQuery;
         /**
          * Removes popup from the page
          */
-        (behavior: 'remove popup'): JQuery;
-        <K extends keyof PopupSettings>(behavior: 'setting', name: K, value?: undefined): PopupSettings._Impl[K];
-        <K extends keyof PopupSettings>(behavior: 'setting', name: K, value: PopupSettings._Impl[K]): JQuery;
-        (behavior: 'setting', value: PopupSettings): JQuery;
+        (behavior: "remove popup"): JQuery;
+        <K extends keyof PopupSettings>(behavior: "setting", name: K, value?: undefined): PopupSettings._Impl[K];
+        <K extends keyof PopupSettings>(behavior: "setting", name: K, value: PopupSettings._Impl[K]): JQuery;
+        (behavior: "setting", value: PopupSettings): JQuery;
         (settings?: PopupSettings): JQuery;
     }
 
@@ -82,54 +82,57 @@ declare namespace SemanticUI {
     type PopupSettings = PopupSettings.Param;
 
     namespace PopupSettings {
-        type Param = (Pick<_Impl, 'popup'> |
-            Pick<_Impl, 'exclusive'> |
-            Pick<_Impl, 'movePopup'> |
-            Pick<_Impl, 'observeChanges'> |
-            Pick<_Impl, 'boundary'> |
-            Pick<_Impl, 'context'> |
-            Pick<_Impl, 'scrollContext'> |
-            Pick<_Impl, 'jitter'> |
-            Pick<_Impl, 'position'> |
-            Pick<_Impl, 'inline'> |
-            Pick<_Impl, 'preserve'> |
-            Pick<_Impl, 'prefer'> |
-            Pick<_Impl, 'lastResort'> |
-            Pick<_Impl, 'on'> |
-            Pick<_Impl, 'delay'> |
-            Pick<_Impl, 'transition'> |
-            Pick<_Impl, 'duration'> |
-            Pick<_Impl, 'setFluidWidth'> |
-            Pick<_Impl, 'hoverable'> |
-            Pick<_Impl, 'closable'> |
-            Pick<_Impl, 'addTouchEvents'> |
-            Pick<_Impl, 'hideOnScroll'> |
-            Pick<_Impl, 'target'> |
-            Pick<_Impl, 'distanceAway'> |
-            Pick<_Impl, 'offset'> |
-            Pick<_Impl, 'maxSearchDepth'> |
-            Pick<_Impl, 'onCreate'> |
-            Pick<_Impl, 'onRemove'> |
-            Pick<_Impl, 'onShow'> |
-            Pick<_Impl, 'onVisible'> |
-            Pick<_Impl, 'onHide'> |
-            Pick<_Impl, 'onHidden'> |
-            Pick<_Impl, 'onUnplaceable'> |
-            Pick<_Impl, 'variation'> |
-            Pick<_Impl, 'content'> |
-            Pick<_Impl, 'title'> |
-            Pick<_Impl, 'html'> |
-            Pick<_Impl, 'selector'> |
-            Pick<_Impl, 'metadata'> |
-            Pick<_Impl, 'className'> |
-            Pick<_Impl, 'error'> |
-            Pick<_Impl, 'namespace'> |
-            Pick<_Impl, 'name'> |
-            Pick<_Impl, 'silent'> |
-            Pick<_Impl, 'debug'> |
-            Pick<_Impl, 'performance'> |
-            Pick<_Impl, 'verbose'>) &
-            Partial<Pick<_Impl, keyof _Impl>>;
+        type Param =
+            & (
+                | Pick<_Impl, "popup">
+                | Pick<_Impl, "exclusive">
+                | Pick<_Impl, "movePopup">
+                | Pick<_Impl, "observeChanges">
+                | Pick<_Impl, "boundary">
+                | Pick<_Impl, "context">
+                | Pick<_Impl, "scrollContext">
+                | Pick<_Impl, "jitter">
+                | Pick<_Impl, "position">
+                | Pick<_Impl, "inline">
+                | Pick<_Impl, "preserve">
+                | Pick<_Impl, "prefer">
+                | Pick<_Impl, "lastResort">
+                | Pick<_Impl, "on">
+                | Pick<_Impl, "delay">
+                | Pick<_Impl, "transition">
+                | Pick<_Impl, "duration">
+                | Pick<_Impl, "setFluidWidth">
+                | Pick<_Impl, "hoverable">
+                | Pick<_Impl, "closable">
+                | Pick<_Impl, "addTouchEvents">
+                | Pick<_Impl, "hideOnScroll">
+                | Pick<_Impl, "target">
+                | Pick<_Impl, "distanceAway">
+                | Pick<_Impl, "offset">
+                | Pick<_Impl, "maxSearchDepth">
+                | Pick<_Impl, "onCreate">
+                | Pick<_Impl, "onRemove">
+                | Pick<_Impl, "onShow">
+                | Pick<_Impl, "onVisible">
+                | Pick<_Impl, "onHide">
+                | Pick<_Impl, "onHidden">
+                | Pick<_Impl, "onUnplaceable">
+                | Pick<_Impl, "variation">
+                | Pick<_Impl, "content">
+                | Pick<_Impl, "title">
+                | Pick<_Impl, "html">
+                | Pick<_Impl, "selector">
+                | Pick<_Impl, "metadata">
+                | Pick<_Impl, "className">
+                | Pick<_Impl, "error">
+                | Pick<_Impl, "namespace">
+                | Pick<_Impl, "name">
+                | Pick<_Impl, "silent">
+                | Pick<_Impl, "debug">
+                | Pick<_Impl, "performance">
+                | Pick<_Impl, "verbose">
+            )
+            & Partial<Pick<_Impl, keyof _Impl>>;
 
         interface _Impl {
             // region Popup Settings
@@ -205,7 +208,7 @@ declare namespace SemanticUI {
              *
              * @default 'adjacent'
              */
-            prefer: 'adjacent' | 'opposite';
+            prefer: "adjacent" | "opposite";
             /**
              * When set to false, a popup will not appear and produce an error message if it cannot entirely fit on page.
              * Setting this to a position like, right center forces the popup to use this position as a last resort even if it is partially offstage.
@@ -219,7 +222,7 @@ declare namespace SemanticUI {
              *
              * @default 'hover'
              */
-            on: 'focus' | 'click' | 'hover' | 'manual';
+            on: "focus" | "click" | "hover" | "manual";
             /**
              * Delay in milliseconds before showing or hiding a popup on hover or focus
              */
@@ -265,7 +268,7 @@ declare namespace SemanticUI {
              *
              * @default 'auto'
              */
-            hideOnScroll: 'auto' | false;
+            hideOnScroll: "auto" | false;
             /**
              * If a selector or jQuery object is specified this allows the popup to be positioned relative to that element.
              *
@@ -306,6 +309,7 @@ declare namespace SemanticUI {
             /**
              * Callback before popup is shown. Returning false from this callback will cancel the popup from showing.
              */
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onShow(this: JQuery, $module: JQuery): false | void;
             /**
              * Callback after popup is shown
@@ -314,6 +318,7 @@ declare namespace SemanticUI {
             /**
              * Callback before popup is hidden. Returning false from this callback will cancel the popup from hiding.
              */
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onHide(this: JQuery, $module: JQuery): false | void;
             /**
              * Callback after popup is hidden
@@ -414,9 +419,12 @@ declare namespace SemanticUI {
         type DelaySettings = DelaySettings.Param;
 
         namespace DelaySettings {
-            type Param = (Pick<_Impl, 'show'> |
-                Pick<_Impl, 'hide'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param =
+                & (
+                    | Pick<_Impl, "show">
+                    | Pick<_Impl, "hide">
+                )
+                & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 show: number;
@@ -427,8 +435,9 @@ declare namespace SemanticUI {
         type SelectorSettings = SelectorSettings.Param;
 
         namespace SelectorSettings {
-            type Param = (Pick<_Impl, 'popup'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param =
+                & (Pick<_Impl, "popup">)
+                & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -441,13 +450,16 @@ declare namespace SemanticUI {
         type MetadataSettings = MetadataSettings.Param;
 
         namespace MetadataSettings {
-            type Param = (Pick<_Impl, 'content'> |
-                Pick<_Impl, 'html'> |
-                Pick<_Impl, 'offset'> |
-                Pick<_Impl, 'position'> |
-                Pick<_Impl, 'title'> |
-                Pick<_Impl, 'variation'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param =
+                & (
+                    | Pick<_Impl, "content">
+                    | Pick<_Impl, "html">
+                    | Pick<_Impl, "offset">
+                    | Pick<_Impl, "position">
+                    | Pick<_Impl, "title">
+                    | Pick<_Impl, "variation">
+                )
+                & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -480,12 +492,15 @@ declare namespace SemanticUI {
         type ClassNameSettings = ClassNameSettings.Param;
 
         namespace ClassNameSettings {
-            type Param = (Pick<_Impl, 'loading'> |
-                Pick<_Impl, 'popup'> |
-                Pick<_Impl, 'position'> |
-                Pick<_Impl, 'visible'> |
-                Pick<_Impl, 'popupVisible'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param =
+                & (
+                    | Pick<_Impl, "loading">
+                    | Pick<_Impl, "popup">
+                    | Pick<_Impl, "position">
+                    | Pick<_Impl, "visible">
+                    | Pick<_Impl, "popupVisible">
+                )
+                & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -514,12 +529,15 @@ declare namespace SemanticUI {
         type ErrorSettings = ErrorSettings.Param;
 
         namespace ErrorSettings {
-            type Param = (Pick<_Impl, 'invalidPosition'> |
-                Pick<_Impl, 'cannotPlace'> |
-                Pick<_Impl, 'method'> |
-                Pick<_Impl, 'noTransition'> |
-                Pick<_Impl, 'notFound'>) &
-                Partial<Pick<_Impl, keyof _Impl>>;
+            type Param =
+                & (
+                    | Pick<_Impl, "invalidPosition">
+                    | Pick<_Impl, "cannotPlace">
+                    | Pick<_Impl, "method">
+                    | Pick<_Impl, "noTransition">
+                    | Pick<_Impl, "notFound">
+                )
+                & Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**

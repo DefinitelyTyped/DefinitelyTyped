@@ -1,5 +1,5 @@
-import estraverse from 'estraverse';
-import estree from 'estree';
+import estraverse from "estraverse";
+import estree from "estree";
 
 declare const NODE: estree.Node;
 declare const NODE_VISITOR: estraverse.Visitor;
@@ -40,7 +40,7 @@ declare const FLAG: estraverse.VisitorOption;
             }
         },
         fallback(node) {
-           // Test cases for `this
+            // Test cases for `this
             {
                 // $ExpectType Controller
                 this;
@@ -55,7 +55,7 @@ declare const FLAG: estraverse.VisitorOption;
             }
 
             return [];
-        }
+        },
     };
 }
 

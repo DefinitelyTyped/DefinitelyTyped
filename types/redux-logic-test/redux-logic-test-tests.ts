@@ -1,4 +1,4 @@
-import { createMockStore } from 'redux-logic-test';
+import { createMockStore } from "redux-logic-test";
 
 const store = createMockStore({
     initialState: {},

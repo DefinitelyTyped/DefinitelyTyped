@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/passport-deezer",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/krachot/passport-deezer"
+    ],
+    "dependencies": {
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/passport-deezer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "anyo",
+            "githubUsername": "nyo"
+        }
+    ]
+}

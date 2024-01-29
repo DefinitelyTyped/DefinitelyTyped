@@ -1,3 +1,3 @@
-import isTouchDevice from 'is-touch-device';
+import isTouchDevice from "is-touch-device";
 
 if (isTouchDevice()) {}

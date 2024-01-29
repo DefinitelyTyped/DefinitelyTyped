@@ -11,16 +11,6 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "experimentalDecorators": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
-        "paths": {
-            "@ember/controller": ["ember__controller/v3"],
-            "@ember/controller/*": ["ember__controller/v3/*"],
-            "@ember/object": ["ember__object/v3"],
-            "@ember/object/*": ["ember__object/v3/*"]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

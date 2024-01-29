@@ -1,7 +1,7 @@
-import ReactReconciler = require('react-reconciler');
-import ReactReconcilerConstants = require('react-reconciler/constants');
-import * as ReactTestHostConfig from './ReactTestHostConfig';
-import * as Constants from './ReactReconcilerPriorityConstant';
+import ReactReconciler = require("react-reconciler");
+import ReactReconcilerConstants = require("react-reconciler/constants");
+import * as Constants from "./ReactReconcilerPriorityConstant";
+import * as ReactTestHostConfig from "./ReactTestHostConfig";
 
 // $ExpectType Reconciler<Container, Instance, TextInstance, any, PublicInstance>
 ReactReconciler<
@@ -21,7 +21,7 @@ ReactReconciler<
 >(ReactTestHostConfig);
 
 function isEqual(target: number, value: number): boolean {
-  return target === value;
+    return target === value;
 }
 
 // $ExpectType boolean
@@ -39,5 +39,5 @@ isEqual(Constants.IDLE_EVENT_PRIORITY, ReactReconcilerConstants.IdleEventPriorit
 // $ExpectType boolean
 isEqual(Constants.LEGACY_ROOT, ReactReconcilerConstants.LegacyRoot);
 
-// $ExpectError boolean
+// $ExpectType boolean
 isEqual(Constants.CONCURRENT_ROOT, ReactReconcilerConstants.ConcurrentRoot);

@@ -1,8 +1,8 @@
-import css from './styles.css';
-import less from './styles.less';
-import sass from './styles.sass';
-import scss from './styles.scss';
-import styl from './styles.styl';
+import css from "./styles.css";
+import less from "./styles.less";
+import sass from "./styles.sass";
+import scss from "./styles.scss";
+import styl from "./styles.styl";
 
 css; // $ExpectType CSSModule
 

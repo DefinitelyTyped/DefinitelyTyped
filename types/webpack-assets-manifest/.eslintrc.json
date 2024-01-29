@@ -1,0 +1,13 @@
+{
+    "rules": {
+        "@definitelytyped/no-single-element-tuple-type": "off",
+        "@typescript-eslint/no-empty-interface": "off",
+        "no-duplicate-imports": "off",
+        "@typescript-eslint/triple-slash-reference": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/consistent-type-definitions": "off",
+        "@typescript-eslint/explicit-member-accessibility": "off",
+        "@typescript-eslint/no-misused-new": "off"
+    }
+}

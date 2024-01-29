@@ -1,6 +1,6 @@
-import { MutationParameters } from '../mutations/commitMutation';
-import { GraphQLResponse, PayloadData } from '../network/RelayNetworkTypes';
-import { RelayObservable } from '../network/RelayObservable';
+import { MutationParameters } from "../mutations/commitMutation";
+import { GraphQLResponse, PayloadData } from "../network/RelayNetworkTypes";
+import { RelayObservable } from "../network/RelayObservable";
 import {
     Environment as IEnvironment,
     ExecuteMutationConfig,
@@ -13,9 +13,9 @@ import {
     SingularReaderSelector,
     Snapshot,
     StoreUpdater,
-} from '../store/RelayStoreTypes';
-import { Disposable } from '../util/RelayRuntimeTypes';
-import { ActorIdentifier } from './ActorIdentifier';
+} from "../store/RelayStoreTypes";
+import { Disposable } from "../util/RelayRuntimeTypes";
+import { ActorIdentifier } from "./ActorIdentifier";
 
 export type MultiActorStoreUpdater = (
     actorIdentifier: ActorIdentifier,
@@ -61,10 +61,7 @@ export interface MultiActorEnvironment {
      * cache and therefore takes time proportional to the size/complexity of the
      * selector.
      */
-    check(
-        actorEnvironment: ActorEnvironment,
-        operation: OperationDescriptor,
-    ): OperationAvailability;
+    check(actorEnvironment: ActorEnvironment, operation: OperationDescriptor): OperationAvailability;
 
     /**
      * Subscribe to changes to the results of a selector. The callback is called
@@ -82,27 +79,18 @@ export interface MultiActorEnvironment {
      * retained in-memory. The records will not be eligible for garbage collection
      * until the returned reference is disposed.
      */
-    retain(
-        actorEnvironment: ActorEnvironment,
-        operation: OperationDescriptor,
-    ): Disposable;
+    retain(actorEnvironment: ActorEnvironment, operation: OperationDescriptor): Disposable;
 
     /**
      * Apply an optimistic update to the environment. The mutation can be reverted
      * by calling `dispose()` on the returned value.
      */
-    applyUpdate(
-        actorEnvironment: ActorEnvironment,
-        optimisticUpdate: OptimisticUpdateFunction,
-    ): Disposable;
+    applyUpdate(actorEnvironment: ActorEnvironment, optimisticUpdate: OptimisticUpdateFunction): Disposable;
 
     /**
      * Revert updates for the `update` function.
      */
-    revertUpdate(
-        actorEnvironment: ActorEnvironment,
-        update: OptimisticUpdateFunction,
-    ): void;
+    revertUpdate(actorEnvironment: ActorEnvironment, update: OptimisticUpdateFunction): void;
 
     /**
      * Revert updates for the `update` function, and apply the `replacement` update.
@@ -127,10 +115,7 @@ export interface MultiActorEnvironment {
      * should therefore not be used for optimistic updates. This is mainly
      * intended for updating fields from client schema extensions.
      */
-    commitUpdate(
-        actorEnvironment: ActorEnvironment,
-        updater: StoreUpdater,
-    ): void;
+    commitUpdate(actorEnvironment: ActorEnvironment, updater: StoreUpdater): void;
 
     /**
      * Commit store updates for each actor-specific environment known to MultActorEnvironment
@@ -149,10 +134,7 @@ export interface MultiActorEnvironment {
     /**
      * Read the results of a selector from in-memory records in the store.
      */
-    lookup(
-        actorEnvironment: ActorEnvironment,
-        selector: SingularReaderSelector,
-    ): Snapshot;
+    lookup(actorEnvironment: ActorEnvironment, selector: SingularReaderSelector): Snapshot;
 
     /**
      * Send a query to the server with Observer semantics: one or more
@@ -165,7 +147,7 @@ export interface MultiActorEnvironment {
     execute(
         actorEnvironment: ActorEnvironment,
         config: {
-            operation: OperationDescriptor,
+            operation: OperationDescriptor;
         },
     ): RelayObservable<GraphQLResponse>;
 
@@ -183,8 +165,8 @@ export interface MultiActorEnvironment {
     executeSubscription(
         actorEnvironment: ActorEnvironment,
         config: {
-            operation: OperationDescriptor,
-            updater?: SelectorStoreUpdater<MutationParameters['response']> | null,
+            operation: OperationDescriptor;
+            updater?: SelectorStoreUpdater<MutationParameters["response"]> | null;
         },
     ): RelayObservable<GraphQLResponse>;
 
@@ -215,8 +197,8 @@ export interface MultiActorEnvironment {
     executeWithSource(
         actorEnvironment: ActorEnvironment,
         arg: {
-            operation: OperationDescriptor,
-            source: RelayObservable<GraphQLResponse>,
+            operation: OperationDescriptor;
+            source: RelayObservable<GraphQLResponse>;
         },
     ): RelayObservable<GraphQLResponse>;
 
@@ -227,10 +209,7 @@ export interface MultiActorEnvironment {
      * without actively receiving payload, for example a live query or an
      * active GraphQL subscription
      */
-    isRequestActive(
-        actorEnvironment: ActorEnvironment,
-        requestIdentifier: string,
-    ): boolean;
+    isRequestActive(actorEnvironment: ActorEnvironment, requestIdentifier: string): boolean;
 
     /**
      * Returns `true` if execute in the server environment

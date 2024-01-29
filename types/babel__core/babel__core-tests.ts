@@ -1,44 +1,53 @@
-import * as babel from '@babel/core';
-import * as t from '@babel/types';
+import * as babel from "@babel/core";
+import * as t from "@babel/types";
 
 const options: babel.TransformOptions = {
+    targets: {
+        esmodules: true,
+        chrome: "100",
+        safari: "15",
+    },
+    assumptions: {
+        noDocumentAll: true,
+        noClassCalls: true,
+    },
     ast: true,
     sourceMaps: true,
     inputSourceMap: {
-        file: 'foo.ts',
-        mappings: 'AAAA',
-        names: ['foo'],
-        sources: ['foo.ts'],
+        file: "foo.ts",
+        mappings: "AAAA",
+        names: ["foo"],
+        sources: ["foo.ts"],
         version: 3,
-        sourceRoot: '',
-        sourcesContent: ['foo'],
+        sourceRoot: "",
+        sourcesContent: ["foo"],
     },
-    browserslistEnv: 'last 1 chrome version',
+    browserslistEnv: "last 1 chrome version",
     browserslistConfigFile: false,
     cloneInputAst: false,
 };
 
-babel.transform('code();', options, (err, result) => {
+babel.transform("code();", options, (err, result) => {
     const { code, map, ast } = result!;
     const { body } = ast!.program;
 });
 
-const transformSyncResult = babel.transformSync('code();', options);
+const transformSyncResult = babel.transformSync("code();", options);
 if (transformSyncResult) {
     const { code, map, ast } = transformSyncResult;
     const { body } = ast!.program;
 }
 
-babel.transformFile('filename.js', options, (err, result) => {
+babel.transformFile("filename.js", options, (err, result) => {
     const { code, map, ast } = result!;
     const { body } = ast!.program;
 });
 
-babel.transformFileSync('filename.js', options)!.code;
+babel.transformFileSync("filename.js", options)!.code;
 
 function checkParseResult(_config: t.File) {}
 
-const sourceCode = 'if (true) return;';
+const sourceCode = "if (true) return;";
 const parsedAst = babel.parse(sourceCode, options);
 
 checkParseResult(parsedAst!);
@@ -57,33 +66,33 @@ babel.transformFromAstAsync(parsedAst!, sourceCode, options).then(transformFromA
     const { body } = ast!.program;
 });
 
-const pluginPath = babel.resolvePlugin('plugin-name', 'babelrcPath');
-const presetPath = babel.resolvePreset('preset-name', 'babelrcPath');
+const pluginPath = babel.resolvePlugin("plugin-name", "babelrcPath");
+const presetPath = babel.resolvePreset("preset-name", "babelrcPath");
 
 function checkOptions(_options: babel.TransformOptions) {}
 function checkConfigFunction(_config: babel.ConfigFunction) {}
 
-checkOptions({ envName: 'banana' });
+checkOptions({ envName: "banana" });
 // babel uses object destructuring default to provide the envName fallback so null is not allowed
-// $ExpectError
+// @ts-expect-error
 checkOptions({ envName: null });
-checkOptions({ caller: { name: '@babel/register' } });
-checkOptions({ caller: { name: 'babel-jest', supportsStaticESM: false, supportsTopLevelAwait: true } });
+checkOptions({ caller: { name: "@babel/register" } });
+checkOptions({ caller: { name: "babel-jest", supportsStaticESM: false, supportsTopLevelAwait: true } });
 // don't add an index signature; users should augment the interface instead if they need to
-// $ExpectError
-checkOptions({ caller: { name: '', tomato: true } });
-checkOptions({ rootMode: 'upward-optional' });
-// $ExpectError
-checkOptions({ rootMode: 'potato' });
-checkOptions({ exclude: '../node_modules' });
-// $ExpectError
+// @ts-expect-error
+checkOptions({ caller: { name: "", tomato: true } });
+checkOptions({ rootMode: "upward-optional" });
+// @ts-expect-error
+checkOptions({ rootMode: "potato" });
+checkOptions({ exclude: "../node_modules" });
+// @ts-expect-error
 checkOptions({ exclude: 256 });
-checkOptions({ include: [/node_modules/, new RegExp('bower_components')] });
-// $ExpectError
+checkOptions({ include: [/node_modules/, new RegExp("bower_components")] });
+// @ts-expect-error
 checkOptions({ include: [null] });
-checkOptions({ test: fileName => (fileName ? fileName.endsWith('mjs') : false) });
-// $ExpectError
-checkOptions({ test: fileName => fileName && fileName.endsWith('mjs') });
+checkOptions({ test: fileName => (fileName ? fileName.endsWith("mjs") : false) });
+// @ts-expect-error
+checkOptions({ test: fileName => fileName && fileName.endsWith("mjs") });
 checkOptions({
     overrides: [
         {
@@ -94,36 +103,36 @@ checkOptions({
 });
 checkOptions({
     overrides: {
-        // $ExpectError
+        // @ts-expect-error
         test: /^.*\.m?js$/,
         compact: true,
     },
 });
 
-// $ExpectError
+// @ts-expect-error
 checkConfigFunction(() => {});
 // you technically can do that though you probably shouldn't
 checkConfigFunction(() => ({}));
 checkConfigFunction(api => {
     api.assertVersion(7);
-    api.assertVersion('^7.2');
+    api.assertVersion("^7.2");
 
     api.cache.forever();
     api.cache.never();
     api.cache.using(() => true);
     api.cache.using(() => 1);
-    api.cache.using(() => '1');
+    api.cache.using(() => "1");
     api.cache.using(() => null);
     api.cache.using(() => undefined);
-    // $ExpectError
+    // @ts-expect-error
     api.cache.using(() => ({}));
     api.cache.invalidate(() => 2);
 
     // $ExpectType string
     api.env();
 
-    api.env('development');
-    api.env(['production', 'test']);
+    api.env("development");
+    api.env(["production", "test"]);
     // $ExpectType 42
     api.env(name => 42);
 
@@ -152,9 +161,9 @@ if (partialConfig) {
 }
 
 function withPluginPass(state: babel.PluginPass) {
-    state.file.hub.addHelper('something');
-    if (!state.get('jsxDetected')) return;
-    state.set('jsxDetected', true);
+    state.file.hub.addHelper("something");
+    if (!state.get("jsxDetected")) return;
+    state.set("jsxDetected", true);
 }
 
 const plugin: babel.PluginObj = {

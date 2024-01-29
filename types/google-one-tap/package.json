@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/google-one-tap",
+    "version": "1.2.9999",
+    "projects": [
+        "https://developers.google.com/identity/one-tap/web"
+    ],
+    "devDependencies": {
+        "@types/google-one-tap": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "voidpumpkin",
+            "githubUsername": "voidpumpkin"
+        },
+        {
+            "name": "kostasmanionis",
+            "githubUsername": "kostasmanionis"
+        },
+        {
+            "name": "cmgt",
+            "githubUsername": "cmgt"
+        }
+    ]
+}

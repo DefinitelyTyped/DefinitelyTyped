@@ -1,2 +1,2 @@
-import CreateDataPropertyOrThrow = require('../2016/CreateDataPropertyOrThrow');
+import CreateDataPropertyOrThrow = require("../2016/CreateDataPropertyOrThrow");
 export = CreateDataPropertyOrThrow;

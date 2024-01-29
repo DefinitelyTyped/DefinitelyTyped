@@ -1,13 +1,13 @@
-import { Schema } from '@wordpress/core-data';
+import { Attachment } from "@wordpress/core-data";
 
 export type UploadMediaErrorCode =
-    | 'MIME_TYPE_NOT_ALLOWED_FOR_USER'
-    | 'MIME_TYPE_NOT_SUPPORTED'
-    | 'SIZE_ABOVE_LIMIT'
-    | 'EMPTY_FILE'
-    | 'GENERAL';
+    | "MIME_TYPE_NOT_ALLOWED_FOR_USER"
+    | "MIME_TYPE_NOT_SUPPORTED"
+    | "SIZE_ABOVE_LIMIT"
+    | "EMPTY_FILE"
+    | "GENERAL";
 
-export interface MediaItem extends Omit<Schema.Media<'edit'>, 'alt_text' | 'caption' | 'source_url' | 'title'> {
+export interface MediaItem extends Omit<Attachment, "alt_text" | "caption" | "source_url" | "title"> {
     alt: string;
     caption: string;
     title: string;

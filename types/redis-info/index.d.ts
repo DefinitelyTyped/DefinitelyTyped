@@ -1,11 +1,6 @@
-// Type definitions for redis-info 3.0
-// Project: https://github.com/FGRibreau/node-redis-info#readme
-// Definitions by: Yurick Hauschild <https://github.com/Yurickh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export enum Flag {
-    ON = '1',
-    OFF = '0',
+    ON = "1",
+    OFF = "0",
 }
 
 export interface ServerInfo {
@@ -13,9 +8,9 @@ export interface ServerInfo {
     redis_git_sha1: string;
     redis_git_dirty: Flag;
     redis_build_id: string;
-    redis_mode: 'standalone' | 'sentinel' | 'cluster';
+    redis_mode: "standalone" | "sentinel" | "cluster";
     os: string;
-    arch_bits: '32' | '64';
+    arch_bits: "32" | "64";
     multiplexing_api: string;
     atomicvar_api: string;
     gcc_version: string;
@@ -89,9 +84,10 @@ export interface BasePersistenceInfo {
     aof_last_cow_size: string;
 }
 
-export type PersistenceInfo = BasePersistenceInfo &
-    (PersistenceAOFOnInfo | PersistenceAOFOffInfo) &
-    (PersistenceLoadingOnInfo | PersistenceLoadingOffInfo);
+export type PersistenceInfo =
+    & BasePersistenceInfo
+    & (PersistenceAOFOnInfo | PersistenceAOFOffInfo)
+    & (PersistenceLoadingOnInfo | PersistenceLoadingOffInfo);
 
 export interface PersistenceAOFOnInfo {
     aof_enabled: Flag.ON;
@@ -165,11 +161,11 @@ export interface BaseReplicationInfo {
 export type ReplicationInfo = BaseReplicationInfo & (ReplicationMasterInfo | ReplicationReplicaInfo);
 
 export interface ReplicationMasterInfo {
-    role: 'master';
+    role: "master";
 }
 
 export interface BaseReplicationReplicaInfo {
-    role: 'slave';
+    role: "slave";
     master_host: string;
     master_port: string;
     master_last_io_seconds_ago: string;
@@ -180,9 +176,10 @@ export interface BaseReplicationReplicaInfo {
     min_slaves_good_slaves: string;
 }
 
-export type ReplicationReplicaInfo = BaseReplicationReplicaInfo &
-    (ReplicationReplicaSyncOnInfo | ReplicationReplicaSyncOffInfo) &
-    (ReplicationReplicaLinkUpInfo | ReplicationReplicaLinkDownInfo);
+export type ReplicationReplicaInfo =
+    & BaseReplicationReplicaInfo
+    & (ReplicationReplicaSyncOnInfo | ReplicationReplicaSyncOffInfo)
+    & (ReplicationReplicaLinkUpInfo | ReplicationReplicaLinkDownInfo);
 
 export interface ReplicationReplicaSyncOnInfo {
     master_sync_in_progress: Flag.ON;
@@ -195,8 +192,8 @@ export interface ReplicationReplicaSyncOffInfo {
 }
 
 export enum LinkStatus {
-    UP = 'up',
-    DOWN = 'down',
+    UP = "up",
+    DOWN = "down",
 }
 
 export interface ReplicationReplicaLinkUpInfo {

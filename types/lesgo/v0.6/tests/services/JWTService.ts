@@ -1,18 +1,18 @@
-import JWTService from 'lesgo/lib/services/JWTService';
+import JWTService from "lesgo/lib/services/JWTService";
 
-// $ExpectType JWTService<{ bar: any; foo: any; }>
-const jwtService = new JWTService('mytoken', {
-    secret: 'shhhhh',
+// $ExpectType JWTService<{ bar: any; foo: any; }> || JWTService<{ foo: any; bar: any; }>
+const jwtService = new JWTService("mytoken", {
+    secret: "shhhhh",
     iss: {
         validate: true,
-        data: ['urn:issuer'],
+        data: ["urn:issuer"],
     },
     customClaims: {
         validate: true,
-        data: ['foo', 'bar'],
+        data: ["foo", "bar"],
     },
 });
 
-jwtService.validate(); // $ExpectType JWTService<{ bar: any; foo: any; }>
+jwtService.validate(); // $ExpectType JWTService<{ bar: any; foo: any; }> || JWTService<{ foo: any; bar: any; }>
 
 jwtService.jwt();

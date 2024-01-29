@@ -1,12 +1,4 @@
-// Type definitions for react-list 0.8
-// Project: https://github.com/coderiety/react-list
-// Definitions by: Yifei Yan <https://github.com/buptyyf>, Tom Shen <https://github.com/tomshen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import {
-    Component
-} from "react";
+import { Component, JSX } from "react";
 
 type ItemRenderer = (index: number, key: number | string) => JSX.Element;
 type ItemsRenderer = (items: JSX.Element[], ref: string) => JSX.Element;
@@ -17,7 +9,7 @@ type ScrollParentGetter = () => JSX.Element;
 interface ReactListProps {
     children?: React.ReactNode;
     ref?: React.LegacyRef<ReactList> | undefined;
-    axis?: 'x' | 'y' | undefined;
+    axis?: "x" | "y" | undefined;
     initialIndex?: number | undefined;
     itemRenderer?: ItemRenderer | undefined;
     itemSizeEstimator?: ItemSizeEstimator | undefined;
@@ -38,5 +30,5 @@ declare class ReactList extends Component<ReactListProps> {
     scrollAround(index: number): void;
     getVisibleRange(): number[];
 }
-declare namespace ReactList { }
+declare namespace ReactList {}
 export = ReactList;

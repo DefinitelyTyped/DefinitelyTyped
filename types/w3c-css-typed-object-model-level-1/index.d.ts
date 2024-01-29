@@ -1,230 +1,321 @@
-// Type definitions for non-npm package css-typed-object-model-level-1 20180410.0
-// Project: https://www.w3.org/TR/css-typed-om-1/
-// Definitions by: Nathan Shively-Sanders <https://github.com/sandersn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
-declare class CSSStyleValue {
-    static parse(property: string, cssText: string): CSSStyleValue;
-    static parseAll(property: string, cssText: string): CSSStyleValue[];
+interface CSSStyleValue {
     toString(): string;
 }
 
-declare class CSSVariableReferenceValue {
-    constructor(variable: string, fallback?: CSSUnparsedValue)
+declare var CSSStyleValue: {
+    prototype: CSSStyleValue;
+    new(): CSSStyleValue;
+    parse(property: string, cssText: string): CSSStyleValue;
+    parseAll(property: string, cssText: string): CSSStyleValue[];
+};
+
+interface CSSVariableReferenceValue {
+    readonly fallback: CSSUnparsedValue | null;
     variable: string;
-    readonly fallback?: CSSUnparsedValue | undefined;
 }
 
-type CSSUnparsedSegment = string | CSSVariableReferenceValue;
+declare var CSSVariableReferenceValue: {
+    prototype: CSSVariableReferenceValue;
+    new(variable: string, fallback?: CSSUnparsedValue | null): CSSVariableReferenceValue;
+};
 
-declare class CSSUnparsedValue extends CSSStyleValue {
-    constructor(members: CSSUnparsedSegment[]);
-    [Symbol.iterator](): IterableIterator<CSSUnparsedSegment>;
+interface CSSUnparsedValue extends CSSStyleValue {
     readonly length: number;
-    [idx: number]: CSSUnparsedSegment;
+    forEach(
+        callbackfn: (value: CSSUnparsedSegment, key: number, parent: CSSUnparsedValue) => void,
+        thisArg?: any,
+    ): void;
 }
 
-declare class CSSKeywordValue extends CSSStyleValue {
-    constructor(value: string);
+declare var CSSUnparsedValue: {
+    prototype: CSSUnparsedValue;
+    new(members: CSSUnparsedSegment[]): CSSUnparsedValue;
+};
+
+interface CSSKeywordValue extends CSSStyleValue {
     value: string;
 }
 
+declare var CSSKeywordValue: {
+    prototype: CSSKeywordValue;
+    new(value: string): CSSKeywordValue;
+};
+
 type CSSNumberOrNumeric = CSSNumberish | CSSNumericValue;
 
-declare enum CSSNumericBaseType {
-    'length',
-    'angle',
-    'time',
-    'frequency',
-    'resolution',
-    'flex',
-    'percent',
-}
-
 interface CSSNumericType {
-    length: number;
-    angle: number;
-    time: number;
-    frequency: number;
-    resolution: number;
-    flex: number;
-    percent: number;
-    percentHint: CSSNumericBaseType;
+    angle?: number;
+    flex?: number;
+    frequency?: number;
+    length?: number;
+    percent?: number;
+    percentHint?: CSSNumericBaseType;
+    resolution?: number;
+    time?: number;
 }
 
-declare class CSSNumericValue extends CSSStyleValue {
-    add(...values: CSSNumberOrNumeric[]): CSSNumericValue;
-    sub(...values: CSSNumberOrNumeric[]): CSSNumericValue;
-    mul(...values: CSSNumberOrNumeric[]): CSSNumericValue;
-    div(...values: CSSNumberOrNumeric[]): CSSNumericValue;
-    min(...values: CSSNumberOrNumeric[]): CSSNumericValue;
-    max(...values: CSSNumberOrNumeric[]): CSSNumericValue;
-
-    equals(...values: CSSNumberOrNumeric[]): boolean;
-
+interface CSSNumericValue extends CSSStyleValue {
+    add(...values: CSSNumberish[]): CSSNumericValue;
+    div(...values: CSSNumberish[]): CSSNumericValue;
+    equals(...value: CSSNumberish[]): boolean;
+    max(...values: CSSNumberish[]): CSSNumericValue;
+    min(...values: CSSNumberish[]): CSSNumericValue;
+    mul(...values: CSSNumberish[]): CSSNumericValue;
+    sub(...values: CSSNumberish[]): CSSNumericValue;
     to(unit: string): CSSUnitValue;
     toSum(...units: string[]): CSSMathSum;
     type(): CSSNumericType;
-
-    static parse(cssText: string): CSSNumericValue;
 }
 
-declare class CSSUnitValue extends CSSNumericValue {
-    constructor(value: number, unit: string);
-    value: number;
+declare var CSSNumericValue: {
+    prototype: CSSNumericValue;
+    new(): CSSNumericValue;
+    parse(cssText: string): CSSNumericValue;
+};
+
+interface CSSUnitValue extends CSSNumericValue {
     readonly unit: string;
+    value: number;
 }
 
-declare class CSSMathValue extends CSSNumericValue {
+declare var CSSUnitValue: {
+    prototype: CSSUnitValue;
+    new(value: number, unit: string): CSSUnitValue;
+};
+
+interface CSSMathValue extends CSSNumericValue {
     readonly operator: CSSMathOperator;
 }
 
-declare class CSSMathSum extends CSSMathValue {
-    constructor(...args: CSSNumberOrNumeric[]);
+declare var CSSMathValue: {
+    prototype: CSSMathValue;
+    new(): CSSMathValue;
+};
+
+interface CSSMathSum extends CSSMathValue {
     readonly values: CSSNumericArray;
 }
 
-declare class CSSMathProduct extends CSSMathValue {
-    constructor(...args: CSSNumberOrNumeric[])
+declare var CSSMathSum: {
+    prototype: CSSMathSum;
+    new(...args: CSSNumberish[]): CSSMathSum;
+};
+
+interface CSSMathProduct extends CSSMathValue {
     readonly values: CSSNumericArray;
 }
 
-declare class CSSMathNegate extends CSSMathValue {
-    constructor(arg: CSSNumberOrNumeric)
+declare var CSSMathProduct: {
+    prototype: CSSMathProduct;
+    new(...args: CSSNumberish[]): CSSMathProduct;
+};
+
+interface CSSMathNegate extends CSSMathValue {
     readonly value: CSSNumericValue;
 }
 
-declare class CSSMathInvert extends CSSMathValue {
-    constructor(arg: CSSNumberOrNumeric)
+declare var CSSMathNegate: {
+    prototype: CSSMathNegate;
+    new(arg: CSSNumberish): CSSMathNegate;
+};
+
+interface CSSMathInvert extends CSSMathValue {
     readonly value: CSSNumericValue;
 }
 
-declare class CSSMathMin extends CSSMathValue {
-    constructor(...args: CSSNumberOrNumeric[])
+declare var CSSMathInvert: {
+    prototype: CSSMathInvert;
+    new(arg: CSSNumberish): CSSMathInvert;
+};
+
+interface CSSMathMin extends CSSMathValue {
     readonly values: CSSNumericArray;
 }
 
-declare class CSSMathMax extends CSSMathValue {
-    constructor(...args: CSSNumberOrNumeric[])
+declare var CSSMathMin: {
+    prototype: CSSMathMin;
+    new(...args: CSSNumberish[]): CSSMathMin;
+};
+
+interface CSSMathMax extends CSSMathValue {
     readonly values: CSSNumericArray;
 }
 
-// TODO(yavanosta): conflict with base class properties
-// Since there is no support for this class in any browser, it's better
-// wait for the implementation.
-// declare class CSSMathClamp extends CSSMathValue {
-// constructor(min: CSSNumberOrNumeric, val: CSSNumberOrNumeric, max: CSSNumberOrNumeric);
-//     readonly min: CSSNumericValue;
-//     readonly val: CSSNumericValue;
-//     readonly max: CSSNumericValue;
-// };
+declare var CSSMathMax: {
+    prototype: CSSMathMax;
+    new(...args: CSSNumberish[]): CSSMathMax;
+};
 
-declare class CSSNumericArray {
-    [Symbol.iterator](): IterableIterator<CSSNumericValue>;
-    readonly length: number;
-    readonly [index: number]: CSSNumericValue;
+interface CSSMathClamp extends CSSMathValue {
+    readonly lower: CSSNumericValue;
+    readonly upper: CSSNumericValue;
+    readonly value: CSSNumericValue;
 }
 
-declare enum CSSMathOperator {
-    'sum',
-    'product',
-    'negate',
-    'invert',
-    'min',
-    'max',
-    'clamp',
+declare var CSSMathClamp: {
+    prototype: CSSMathClamp;
+    new(lower: CSSNumberish, value: CSSNumberish, upper: CSSNumberish): CSSMathClamp;
+};
+
+interface CSSNumericArray {
+    readonly length: number;
+    forEach(callbackfn: (value: CSSNumericValue, key: number, parent: CSSNumericArray) => void, thisArg?: any): void;
 }
 
-declare class CSSTransformValue extends CSSStyleValue {
-    constructor(transforms: CSSTransformComponent[]);
-    [Symbol.iterator](): IterableIterator<CSSTransformComponent>;
-    readonly length: number;
-    [index: number]: CSSTransformComponent;
+declare var CSSNumericArray: {
+    prototype: CSSNumericArray;
+    new(): CSSNumericArray;
+};
+
+interface CSSTransformValue extends CSSStyleValue {
     readonly is2D: boolean;
+    readonly length: number;
     toMatrix(): DOMMatrix;
+    forEach(
+        callbackfn: (value: CSSTransformComponent, key: number, parent: CSSTransformValue) => void,
+        thisArg?: any,
+    ): void;
 }
 
-declare class CSSTransformComponent {
+declare var CSSTransformValue: {
+    prototype: CSSTransformValue;
+    new(transforms: CSSTransformComponent[]): CSSTransformValue;
+};
+
+interface CSSTransformComponent {
     is2D: boolean;
     toMatrix(): DOMMatrix;
     toString(): string;
 }
 
-declare class CSSTranslate extends CSSTransformComponent {
-    constructor(x: CSSNumericValue, y: CSSNumericValue, z?: CSSNumericValue);
+declare var CSSTransformComponent: {
+    prototype: CSSTransformComponent;
+    new(): CSSTransformComponent;
+};
+
+interface CSSTranslate extends CSSTransformComponent {
     x: CSSNumericValue;
     y: CSSNumericValue;
     z: CSSNumericValue;
 }
 
-declare class CSSRotate extends CSSTransformComponent {
-    constructor(angle: CSSNumericValue);
-    constructor(x: CSSNumberOrNumeric, y: CSSNumberOrNumeric, z: CSSNumberOrNumeric, angle: CSSNumericValue)
-    x: CSSNumberOrNumeric;
-    y: CSSNumberOrNumeric;
-    z: CSSNumberOrNumeric;
+declare var CSSTranslate: {
+    prototype: CSSTranslate;
+    new(x: CSSNumericValue, y: CSSNumericValue, z?: CSSNumericValue): CSSTranslate;
+};
+
+interface CSSRotate extends CSSTransformComponent {
     angle: CSSNumericValue;
+    x: CSSNumberish;
+    y: CSSNumberish;
+    z: CSSNumberish;
 }
 
-declare class CSSScale extends CSSTransformComponent {
-    constructor(x: CSSNumberOrNumeric, y: CSSNumberOrNumeric, z?: CSSNumberOrNumeric)
-    x: CSSNumberOrNumeric;
-    y: CSSNumberOrNumeric;
-    z: CSSNumberOrNumeric;
+declare var CSSRotate: {
+    prototype: CSSRotate;
+    new(angle: CSSNumericValue): CSSRotate;
+    new(x: CSSNumberish, y: CSSNumberish, z: CSSNumberish, angle: CSSNumericValue): CSSRotate;
+};
+
+interface CSSScale extends CSSTransformComponent {
+    x: CSSNumberish;
+    y: CSSNumberish;
+    z: CSSNumberish;
 }
 
-declare class CSSSkew extends CSSTransformComponent {
-    constructor(ax: CSSNumericValue, ay: CSSNumericValue)
+declare var CSSScale: {
+    prototype: CSSScale;
+    new(x: CSSNumberish, y: CSSNumberish, z?: CSSNumberish): CSSScale;
+};
+
+interface CSSSkew extends CSSTransformComponent {
     ax: CSSNumericValue;
     ay: CSSNumericValue;
 }
 
-declare class CSSSkewX extends CSSTransformComponent {
-    constructor(ax: CSSNumericValue)
+declare var CSSSkew: {
+    prototype: CSSSkew;
+    new(ax: CSSNumericValue, ay: CSSNumericValue): CSSSkew;
+};
+
+interface CSSSkewX extends CSSTransformComponent {
     ax: CSSNumericValue;
 }
 
-declare class CSSSkewY extends CSSTransformComponent {
-    constructor(ay: CSSNumericValue)
+declare var CSSSkewX: {
+    prototype: CSSSkewX;
+    new(ax: CSSNumericValue): CSSSkewX;
+};
+
+interface CSSSkewY extends CSSTransformComponent {
     ay: CSSNumericValue;
 }
+
+declare var CSSSkewY: {
+    prototype: CSSSkewY;
+    new(ay: CSSNumericValue): CSSSkewY;
+};
 
 /* Note that skew(x,y) is *not* the same as skewX(x) skewY(y),
      thus the separate interfaces for all three. */
 
-declare class CSSPerspective extends CSSTransformComponent {
-    constructor(length: CSSNumericValue)
-    length: CSSNumericValue;
+interface CSSPerspective extends CSSTransformComponent {
+    length: CSSPerspectiveValue;
 }
 
-declare class CSSMatrixComponent extends CSSTransformComponent {
-    constructor(matrix: DOMMatrixReadOnly, options?: CSSMatrixComponentOptions)
+declare var CSSPerspective: {
+    prototype: CSSPerspective;
+    new(length: CSSPerspectiveValue): CSSPerspective;
+};
+
+interface CSSMatrixComponent extends CSSTransformComponent {
     matrix: DOMMatrix;
 }
 
+declare var CSSMatrixComponent: {
+    prototype: CSSMatrixComponent;
+    new(matrix: DOMMatrixReadOnly, options?: CSSMatrixComponentOptions): CSSMatrixComponent;
+};
+
 interface CSSMatrixComponentOptions {
-    is2D: boolean;
+    is2D?: boolean;
+}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface CSSImageValue extends CSSStyleValue {
 }
 
-declare class CSSImageValue extends CSSStyleValue {
-}
+declare var CSSImageValue: {
+    prototype: CSSImageValue;
+    new(): CSSImageValue;
+};
 
-declare class StylePropertyMapReadOnly {
-    [Symbol.iterator](): IterableIterator<[string, CSSStyleValue[]]>;
-
-    get(property: string): CSSStyleValue | undefined;
+interface StylePropertyMapReadOnly {
+    readonly size: number;
+    get(property: string): undefined | CSSStyleValue;
     getAll(property: string): CSSStyleValue[];
     has(property: string): boolean;
-    readonly size: number;
+    forEach(
+        callbackfn: (value: CSSStyleValue[], key: string, parent: StylePropertyMapReadOnly) => void,
+        thisArg?: any,
+    ): void;
 }
 
-declare class StylePropertyMap extends StylePropertyMapReadOnly {
-    set(property: string, ...values: Array<CSSStyleValue | string>): void;
+declare var StylePropertyMapReadOnly: {
+    prototype: StylePropertyMapReadOnly;
+    new(): StylePropertyMapReadOnly;
+};
+
+interface StylePropertyMap extends StylePropertyMapReadOnly {
     append(property: string, ...values: Array<CSSStyleValue | string>): void;
-    delete(property: string): void;
     clear(): void;
+    delete(property: string): void;
+    set(property: string, ...values: Array<CSSStyleValue | string>): void;
 }
+
+declare var StylePropertyMap: {
+    prototype: StylePropertyMap;
+    new(): StylePropertyMap;
+};
 
 interface Element {
     computedStyleMap(): StylePropertyMapReadOnly;

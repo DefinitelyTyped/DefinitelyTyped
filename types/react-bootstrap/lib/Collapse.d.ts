@@ -1,10 +1,11 @@
-import * as React from 'react';
-import { TransitionCallbacks } from 'react-bootstrap';
+import * as React from "react";
+import { TransitionCallbacks } from "react-bootstrap";
 
 declare namespace Collapse {
     export interface CollapseProps extends TransitionCallbacks, React.ClassAttributes<Collapse> {
-        dimension?: 'height' | 'width' | { ( ):string } | undefined;
-        getDimensionValue?: (( dimension:number, element:React.ReactElement ) => number) | undefined;
+        children?: React.ReactNode;
+        dimension?: "height" | "width" | { (): string } | undefined;
+        getDimensionValue?: ((dimension: number, element: React.ReactElement) => number) | undefined;
         in?: boolean | undefined;
         timeout?: number | undefined;
         transitionAppear?: boolean | undefined;
@@ -12,5 +13,5 @@ declare namespace Collapse {
         unmountOnExit?: boolean | undefined;
     }
 }
-declare class Collapse extends React.Component<Collapse.CollapseProps> { }
+declare class Collapse extends React.Component<Collapse.CollapseProps> {}
 export = Collapse;

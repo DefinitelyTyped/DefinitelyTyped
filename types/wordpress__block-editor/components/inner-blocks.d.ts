@@ -1,7 +1,9 @@
-import { TemplateArray } from '@wordpress/blocks';
-import { ComponentType } from 'react';
+import { TemplateArray } from "@wordpress/blocks";
+import { ComponentType, JSX, Ref } from "react";
 
-import { EditorTemplateLock } from '../';
+import { EditorTemplateLock } from "../";
+
+import { Merged, Reserved } from "./use-block-props";
 
 declare namespace InnerBlocks {
     interface Props {
@@ -52,5 +54,16 @@ declare const InnerBlocks: {
      */
     DefaultBlockAppender: ComponentType<{ children?: never | undefined }>;
 };
+
+export interface UseInnerBlocksProps {
+    <Props extends Record<string, unknown>>(
+        props?: Props & { ref?: Ref<unknown> },
+        options?: InnerBlocks.Props,
+    ): Omit<Props, "ref"> & Merged & Reserved;
+
+    save: (props?: Record<string, unknown>) => Record<string, unknown>;
+}
+
+export const useInnerBlocksProps: UseInnerBlocksProps;
 
 export default InnerBlocks;

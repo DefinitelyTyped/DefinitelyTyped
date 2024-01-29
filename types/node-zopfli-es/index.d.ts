@@ -1,12 +1,6 @@
-// Type definitions for node-zopfli-es 0.0
-// Project: https://github.com/jaeh/node-zopfli-es
-// Definitions by: Alorel <https://github.com/Alorel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
-import { Transform } from 'stream';
+import { Transform } from "stream";
 
 declare class Zopfli extends Transform {
     constructor(format?: Zopfli.Format, options?: Zopfli.Options);
@@ -31,13 +25,18 @@ declare class Zopfli extends Transform {
     static zlib(input: Buffer, cb: (err: Error, out: Buffer) => void): void;
     static zlib(input: Buffer, options?: Zopfli.Options): Promise<Buffer>;
 
-    static compress(input: Buffer, format: Zopfli.Format, options: Zopfli.Options, cb: (err: Error, out: Buffer) => void): void;
+    static compress(
+        input: Buffer,
+        format: Zopfli.Format,
+        options: Zopfli.Options,
+        cb: (err: Error, out: Buffer) => void,
+    ): void;
     static compress(input: Buffer, format: Zopfli.Format, cb: (err: Error, out: Buffer) => void): void;
     static compress(input: Buffer, format: Zopfli.Format, options?: Zopfli.Options): Promise<Buffer>;
 }
 
 declare namespace Zopfli {
-    type Format = 'deflate' | 'gzip' | 'zlib';
+    type Format = "deflate" | "gzip" | "zlib";
 
     interface Options {
         verbose?: boolean | undefined;

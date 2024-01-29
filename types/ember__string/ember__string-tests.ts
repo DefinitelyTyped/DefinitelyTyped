@@ -1,37 +1,43 @@
-import {
-  dasherize,
-  camelize,
-  capitalize,
-  classify,
-  decamelize,
-  underscore,
-  w,
-} from '@ember/string';
+import { camelize, capitalize, classify, dasherize, decamelize, underscore, w } from "@ember/string";
 
-dasherize(); // $ExpectError
-dasherize('blue man group'); // $ExpectType string
-dasherize('', ''); // $ExpectError
+// @ts-expect-error
+dasherize();
+dasherize("blue man group"); // $ExpectType string
+// @ts-expect-error
+dasherize("", "");
 
-camelize(); // $ExpectError
-camelize('blue man group'); // $ExpectType string
-camelize('', ''); // $ExpectError
+// @ts-expect-error
+camelize();
+camelize("blue man group"); // $ExpectType string
+// @ts-expect-error
+camelize("", "");
 
-decamelize(); // $ExpectError
-decamelize('blue man group'); // $ExpectType string
-decamelize('', ''); // $ExpectError
+// @ts-expect-error
+decamelize();
+decamelize("blue man group"); // $ExpectType string
+// @ts-expect-error
+decamelize("", "");
 
-underscore(); // $ExpectError
-underscore('blue man group'); // $ExpectType string
-underscore('', ''); // $ExpectError
+// @ts-expect-error
+underscore();
+underscore("blue man group"); // $ExpectType string
+// @ts-expect-error
+underscore("", "");
 
-w(); // $ExpectError
-w('blue man group'); // $ExpectType string[]
-w('', ''); // $ExpectError
+// @ts-expect-error
+w();
+w("blue man group"); // $ExpectType string[]
+// @ts-expect-error
+w("", "");
 
-classify(); // $ExpectError
-classify('blue man group'); // $ExpectType string
-classify('', ''); // $ExpectError
+// @ts-expect-error
+classify();
+classify("blue man group"); // $ExpectType string
+// @ts-expect-error
+classify("", "");
 
-capitalize(); // $ExpectError
-capitalize('blue man group'); // $ExpectType string
-capitalize('', ''); // $ExpectError
+// @ts-expect-error
+capitalize();
+capitalize("blue man group"); // $ExpectType string
+// @ts-expect-error
+capitalize("", "");

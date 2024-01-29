@@ -1,7 +1,7 @@
 // Tests that were present in the old 2.1 type declarations
 // Slightly modified to reflect the new version
 
-() => {
+(() => {
     const paper = Raphael(10, 50, 320, 200);
     const circle = paper.circle(50, 40, 10);
     circle.attr("fill", "#f00");
@@ -13,7 +13,7 @@
         fill: "#223fa3",
         stroke: "#000",
         "stroke-width": 80,
-        "stroke-opacity": 0.5
+        "stroke-opacity": 0.5,
     }, 2000);
 
     const img = document.createElement("img");
@@ -31,14 +31,18 @@
 
     butt1.push(
         R.circle(24.833, 26.917, 26.667).attr({ stroke: "#ccc", fill: "#fff", "fill-opacity": .4, "stroke-width": 2 }),
-        R.path("M12.582,9.551C3.251,16.237,0.921,29.021,7.08,38.564l-2.36,1.689l4.893,2.262l4.893,2.262l-0.568-5.36l-0.567-5.359z").attr({ stroke: "none", fill: "#000" }),
-        R.circle(24.833, 26.917, 26.667).attr({ fill: "#fff", opacity: 0 })
+        R.path(
+            "M12.582,9.551C3.251,16.237,0.921,29.021,7.08,38.564l-2.36,1.689l4.893,2.262l4.893,2.262l-0.568-5.36l-0.567-5.359z",
+        ).attr({ stroke: "none", fill: "#000" }),
+        R.circle(24.833, 26.917, 26.667).attr({ fill: "#fff", opacity: 0 }),
     );
 
     butt2.push(
         R.circle(24.833, 26.917, 26.667).attr({ stroke: "#ccc", fill: "#fff", "fill-opacity": .4, "stroke-width": 2 }),
-        R.path("M37.566,9.551c9.331,6.686,11.661,19.471,5.502,29.014l2.36,1.689l-4.893,2.262l-4.893,2.262l0.568-5.36l0.567-5.359z").attr({ stroke: "none", fill: "#000" }),
-        R.circle(24.833, 26.917, 26.667).attr({ fill: "#fff", opacity: 0 })
+        R.path(
+            "M37.566,9.551c9.331,6.686,11.661,19.471,5.502,29.014l2.36,1.689l-4.893,2.262l-4.893,2.262l0.568-5.36l0.567-5.359z",
+        ).attr({ stroke: "none", fill: "#000" }),
+        R.circle(24.833, 26.917, 26.667).attr({ fill: "#fff", opacity: 0 }),
     );
 
     const butt3: import("raphael").RaphaelMatrix = Raphael.matrix(1, 0, 0, 1, 0, 0);
@@ -77,4 +81,4 @@
     const attr = { font: "50px Helvetica", opacity: 0.5 };
     txt[0] = R2.text(320, 240, text).attr(attr).attr({ fill: "#0f0" });
     R.safari();
-};
+});

@@ -2,7 +2,22 @@
  * Converted to TypeScript from: http://seenjs.io/demo-noisy-sphere.html
  */
 
-import { Shapes, Colors, Scene, Models, Viewports, Context, Simplex3D, Drag, Quaternion, RenderContext, Shape, Point, Surface, Matrix } from 'seen';
+import {
+    Colors,
+    Context,
+    Drag,
+    Matrix,
+    Models,
+    Point,
+    Quaternion,
+    RenderContext,
+    Scene,
+    Shape,
+    Shapes,
+    Simplex3D,
+    Surface,
+    Viewports,
+} from "seen";
 
 const width = 900;
 const height = 500;
@@ -14,10 +29,10 @@ const scene: Scene = new Scene({
     fractionalPoints: true,
     cullBackfaces: false,
     model: Models["default"]().add(shape),
-    viewport: Viewports.center(width, height)
+    viewport: Viewports.center(width, height),
 });
 
-const context: RenderContext = Context('seen-canvas', scene).render();
+const context: RenderContext = Context("seen-canvas", scene).render();
 
 const ref: Surface[] = shape.surfaces;
 const originals: Point[][] = [];
@@ -37,7 +52,7 @@ context.animate().onBefore((t, dt) => {
     let p: Point;
     let ref2: Point[];
     const ref1: Surface[] = shape.surfaces;
-    for (let k  = 0, len1 = ref1.length; k < len1; k++) {
+    for (let k = 0, len1 = ref1.length; k < len1; k++) {
         surf = ref1[k];
         ref2 = surf.points;
         for (let i = 0, l = 0, len2 = ref2.length; l < len2; i = ++l) {
@@ -50,11 +65,11 @@ context.animate().onBefore((t, dt) => {
     return shape.rotx(dt * 1e-4).rotz(-dt * 1e-4);
 }).start();
 
-const dragger: Drag = new Drag(document.getElementById('seen-canvas')!, {
-    inertia: true
+const dragger: Drag = new Drag(document.getElementById("seen-canvas")!, {
+    inertia: true,
 });
 
-dragger.on('drag.rotate', (e) => {
+dragger.on("drag.rotate", (e) => {
     const xform: Matrix = Quaternion.xyToTransform(e.offsetRelative[0], e.offsetRelative[1]);
     shape.transform(xform);
     return context.render();

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/spatialite",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/zhm/node-spatialite"
+    ],
+    "dependencies": {
+        "@types/sqlite3": "*"
+    },
+    "devDependencies": {
+        "@types/spatialite": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Arne Schubert",
+            "githubUsername": "atd-schubert"
+        }
+    ]
+}

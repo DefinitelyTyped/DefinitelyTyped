@@ -1,7 +1,7 @@
-$('#country').countrySelect();
+$("#country").countrySelect();
 
-$('#country').countrySelect({
-  defaultCountry: 'gb'
+$("#country").countrySelect({
+    defaultCountry: "gb",
 });
 
-$('#country').countrySelect('destroy');
+$("#country").countrySelect("destroy");

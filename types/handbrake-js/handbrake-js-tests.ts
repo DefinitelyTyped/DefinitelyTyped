@@ -1,7 +1,7 @@
-import * as hb from 'handbrake-js';
+import * as hb from "handbrake-js";
 
 const options: hb.HandbrakeOptions = {
-    version: true
+    version: true,
 };
 
 hb.exec(options, (err, stdout, stderr) => {
@@ -20,14 +20,14 @@ hb.run(options).then(result => {
 });
 
 hb.spawn({
-    input: 'something.avi',
-    output: 'something.mp4',
-    preset: 'Normal',
-    rotate: '1'
-}).on('progress', (progress) => {
+    input: "something.avi",
+    output: "something.mp4",
+    preset: "Normal",
+    rotate: "1",
+}).on("progress", (progress) => {
     console.log(progress.percentComplete);
-}).on('error', (err) => {
+}).on("error", (err) => {
     console.error(err);
-}).on('end', () => {
-    console.log('Process ended');
+}).on("end", () => {
+    console.log("Process ended");
 });

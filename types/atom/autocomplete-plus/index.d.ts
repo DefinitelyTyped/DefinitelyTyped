@@ -3,7 +3,7 @@
 
 /// <reference path="./config.d.ts" />
 
-import { Point, ScopeDescriptor, TextEditor } from '../index';
+import { Point, ScopeDescriptor, TextEditor } from "../index";
 
 /** The parameters passed into getSuggestions by Autocomplete+. */
 export interface SuggestionsRequestedEvent {

@@ -3,7 +3,7 @@ import { ActivationFunction } from "vscode-notebook-renderer";
 const activate: ActivationFunction<{ cool: boolean }> = context => {
     const prevState = context.getState();
 
-    // $ExpectError
+    // @ts-expect-error
     prevState.cool;
 
     if (prevState) {
@@ -12,11 +12,11 @@ const activate: ActivationFunction<{ cool: boolean }> = context => {
 
     context.setState({ cool: true });
 
-    // $ExpectError
+    // @ts-expect-error
     context.setState({ unknownProp: true });
 
     if (context.postMessage) {
-        context.postMessage('hello world');
+        context.postMessage("hello world");
     }
     if (context.onDidReceiveMessage) {
         context.onDidReceiveMessage(message => {
@@ -50,7 +50,7 @@ const activate: ActivationFunction<{ cool: boolean }> = context => {
             id;
         },
 
-        otherProp: () => { },
+        otherProp: () => {},
     };
 };
 

@@ -1,9 +1,9 @@
-import { UrlParser } from 'url-params-parser';
+import { UrlParser } from "url-params-parser";
 
 // $ExpectType UrlParserResult
 const urlParser = UrlParser(
-    'https://address.com/employees/show/1234/developer/reports/asc',
-    '/employees/show/:id/:title/reports/:order',
+    "https://address.com/employees/show/1234/developer/reports/asc",
+    "/employees/show/:id/:title/reports/:order",
 );
 
 urlParser.host; // $ExpectType string

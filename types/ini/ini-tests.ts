@@ -1,6 +1,6 @@
-import * as ini from 'ini';
+import * as ini from "ini";
 
-const iniContent = '';
+const iniContent = "";
 
 /* ini.decode() / ini.parse() */
 
@@ -8,54 +8,72 @@ const iniContent = '';
 let decoded = ini.decode(iniContent);
 decoded = ini.parse(iniContent);
 
-// $ExpectError
+// @ts-expect-error
 let badDecoded = ini.decode();
-// $ExpectError
+// @ts-expect-error
 badDecoded = ini.decode(null);
-// $ExpectError
+// @ts-expect-error
 badDecoded = ini.parse();
-// $ExpectError
+// @ts-expect-error
 badDecoded = ini.parse(null);
 
 /* ini.encode() / ini.stringify() */
 
 // $ExpectType string
 let encoded = ini.encode(decoded);
-encoded = ini.encode(decoded, 'Section');
+encoded = ini.encode(decoded, "Section");
 encoded = ini.encode(decoded, { whitespace: true });
-encoded = ini.encode(decoded, { section: 'Section' });
-encoded = ini.encode(decoded, { whitespace: true, section: 'Section' });
+encoded = ini.encode(decoded, { section: "Section" });
+encoded = ini.encode(decoded, { whitespace: true, section: "Section" });
+encoded = ini.encode(decoded, {
+    align: true,
+    sort: true,
+    whitespace: true,
+    section: "Section",
+    newline: true,
+    platform: "linux",
+    bracketedArray: true,
+});
 
-// $ExpectError
+// @ts-expect-error
 let badEncoded = ini.encode();
-// $ExpectError
+// @ts-expect-error
 badEncoded = ini.encode(decoded, null);
 
 encoded = ini.stringify(decoded);
-encoded = ini.stringify(decoded, 'Section');
+encoded = ini.stringify(decoded, "Section");
 encoded = ini.stringify(decoded, { whitespace: true });
-encoded = ini.stringify(decoded, { section: 'Section' });
-encoded = ini.stringify(decoded, { whitespace: true, section: 'Section' });
+encoded = ini.stringify(decoded, { section: "Section" });
+encoded = ini.stringify(decoded, { whitespace: true, section: "Section" });
+encoded = ini.stringify(decoded, {
+    align: true,
+    sort: true,
+    whitespace: true,
+    section: "Section",
+    newline: true,
+    platform: "linux",
+    bracketedArray: true,
+});
 
-// $ExpectError
+// @ts-expect-error
 badEncoded = ini.stringify();
-// $ExpectError
+// @ts-expect-error
 badEncoded = ini.stringify(decoded, null);
 
 /* ini.safe() / ini.unsafe() */
 
 // $ExpectType string
-const safeStr = ini.safe('foo bar');
+const safeStr = ini.safe("foo bar");
 
-// $ExpectError
+// @ts-expect-error
 let badSafeStr = ini.safe();
-// $ExpectError
+// @ts-expect-error
 badSafeStr = ini.safe(null);
 
 // $ExpectType string
 const unsafeStr = ini.unsafe(safeStr);
 
-// $ExpectError
+// @ts-expect-error
 let badUnsafeStr = ini.unsafe();
-// $ExpectError
+// @ts-expect-error
 badUnsafeStr = ini.unsafe(null);

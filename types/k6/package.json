@@ -1,0 +1,53 @@
+{
+    "private": true,
+    "name": "@types/k6",
+    "version": "0.49.9999",
+    "projects": [
+        "https://grafana.com/docs/k6/latest/"
+    ],
+    "devDependencies": {
+        "@types/k6": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mihail Stoykov",
+            "githubUsername": "MStoykov"
+        },
+        {
+            "name": "Ivan",
+            "githubUsername": "codebien"
+        },
+        {
+            "name": "Théo Crevon",
+            "githubUsername": "oleiade"
+        },
+        {
+            "name": "Oleg Bespalov",
+            "githubUsername": "olegbespalov"
+        },
+        {
+            "name": "Pepe Cano",
+            "githubUsername": "ppcano"
+        },
+        {
+            "name": "Nicole van der Hoeven",
+            "githubUsername": "nicolevanderhoeven"
+        },
+        {
+            "name": "Ankur Agarwal",
+            "githubUsername": "ankur22"
+        },
+        {
+            "name": "İnanç Gümüş",
+            "githubUsername": "inancgumus"
+        },
+        {
+            "name": "Daniel Jiménez",
+            "githubUsername": "ka3de"
+        },
+        {
+            "name": "Joan López de la Franca Beltran",
+            "githubUsername": "joanlopez"
+        }
+    ]
+}

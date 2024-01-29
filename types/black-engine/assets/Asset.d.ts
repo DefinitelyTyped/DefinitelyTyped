@@ -19,6 +19,6 @@ export class Asset extends MessageDispatcher {
     get isReady(): boolean;
     get loaders(): AssetLoader[];
 }
-import { MessageDispatcher } from '../messages/MessageDispatcher';
-import { AssetLoader } from './loaders/AssetLoader';
-import { LoaderFactory } from '../assets/LoaderFactory';
+import { LoaderFactory } from "../assets/LoaderFactory";
+import { MessageDispatcher } from "../messages/MessageDispatcher";
+import { AssetLoader } from "./loaders/AssetLoader";

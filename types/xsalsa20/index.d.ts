@@ -1,8 +1,3 @@
-// Type definitions for xsalsa20 1.1
-// Project: https://github.com/mafintosh/xsalsa20
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export = XSalsa20;
@@ -35,7 +30,7 @@ declare namespace XSalsa20 {
          * @param nonce Should be 24 bytes.
          * @param key Should be 32 bytes.
          */
-        new (nonce: Uint8Array | Buffer, key: Uint8Array | Buffer): Xor;
+        new(nonce: Uint8Array | Buffer, key: Uint8Array | Buffer): Xor;
     }
 
     interface Xor {

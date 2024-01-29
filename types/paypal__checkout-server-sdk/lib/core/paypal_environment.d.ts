@@ -4,7 +4,7 @@
  * @see {@link https://github.com/paypal/Checkout-NodeJS-SDK/blob/develop/lib/core/paypal_environment.js}
  */
 
-import paypalhttp = require('@paypal/paypalhttp');
+import paypalhttp = require("@paypal/paypalhttp");
 
 export class PayPalEnvironment extends paypalhttp.Environment {
     readonly clientId: string;

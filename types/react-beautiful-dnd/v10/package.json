@@ -1,0 +1,44 @@
+{
+    "private": true,
+    "name": "@types/react-beautiful-dnd",
+    "version": "10.1.9999",
+    "projects": [
+        "https://github.com/atlassian/react-beautiful-dnd"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-beautiful-dnd": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "varHarrie",
+            "githubUsername": "varHarrie"
+        },
+        {
+            "name": "Bradley Ayers",
+            "githubUsername": "bradleyayers"
+        },
+        {
+            "name": "Austin Turner",
+            "githubUsername": "paustint"
+        },
+        {
+            "name": "Mark Nelissen",
+            "githubUsername": "marknelissen"
+        },
+        {
+            "name": "Enrico Boccadifuoco",
+            "githubUsername": "enricoboccadifuoco"
+        },
+        {
+            "name": "Taeheon Kim",
+            "githubUsername": "lonyele"
+        },
+        {
+            "name": "Kanitkorn Sujautra",
+            "githubUsername": "lukyth"
+        }
+    ]
+}

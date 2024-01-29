@@ -1,9 +1,9 @@
-import * as React from 'react';
-import Switch, { Case, Default } from 'react-switch-case';
+import * as React from "react";
+import Switch, { Case, Default } from "react-switch-case";
 
 class Test extends React.Component {
     render() {
-        const condition = 'component1';
+        const condition = "component1";
 
         return (
             <Switch condition={condition}>

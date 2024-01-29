@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/voronoi-diagram",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/mikolalysenko/voronoi-diagram"
+    ],
+    "devDependencies": {
+        "@types/voronoi-diagram": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michael Neu",
+            "githubUsername": "michaelneu"
+        }
+    ]
+}

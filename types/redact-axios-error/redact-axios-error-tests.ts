@@ -1,4 +1,4 @@
-import { getAxiosErrorInterceptor, AxiosErrorGroomer } from 'redact-axios-error';
+import { AxiosErrorGroomer, getAxiosErrorInterceptor } from "redact-axios-error";
 
 getAxiosErrorInterceptor();
 getAxiosErrorInterceptor(null);

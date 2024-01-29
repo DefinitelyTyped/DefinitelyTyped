@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/consul",
+    "version": "0.40.9999",
+    "projects": [
+        "https://github.com/silas/node-consul"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/consul": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ilya Mochalov",
+            "githubUsername": "chrootsu"
+        },
+        {
+            "name": "Vadym Vakhovskiy",
+            "githubUsername": "vadim-v"
+        },
+        {
+            "name": "Radoslav Kirilov",
+            "githubUsername": "smoke"
+        }
+    ]
+}

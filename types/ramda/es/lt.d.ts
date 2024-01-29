@@ -1,2 +1,2 @@
-import { lt } from '../index';
+import { lt } from "../index.js";
 export default lt;

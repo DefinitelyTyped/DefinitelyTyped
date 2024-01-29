@@ -1,6 +1,22 @@
 {
     "private": true,
+    "name": "@types/rollup-plugin-buble",
+    "version": "0.19.9999",
+    "projects": [
+        "https://github.com/rollup/rollup-plugin-buble#readme"
+    ],
     "dependencies": {
+        "@types/buble": "*",
+        "@types/node": "*",
         "rollup": "^0.63.4"
-    }
+    },
+    "devDependencies": {
+        "@types/rollup-plugin-buble": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Hugo Alliaume",
+            "githubUsername": "Kocal"
+        }
+    ]
 }

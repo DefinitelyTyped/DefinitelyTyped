@@ -1,23 +1,27 @@
-import styleNames from 'stylenames';
+import styleNames from "stylenames";
 
-styleNames(); // $ExpectError
+// @ts-expect-error
+styleNames();
 
-styleNames({ foo: 'block' }); // $ExpectError
+// @ts-expect-error
+styleNames({ foo: "block" });
 
-styleNames({ background: 1 }); // $ExpectError
+// @ts-expect-error
+styleNames({ background: 1 });
 
-styleNames({ backgroundColor: { blue: 1 } }); // $ExpectError
+// @ts-expect-error
+styleNames({ backgroundColor: { blue: 1 } });
 
 styleNames({
-    height: '120px',
+    height: "120px",
     width: {
-        '200px': false,
+        "200px": false,
     },
 });
 
 styleNames({
-    height: '120px',
+    height: "120px",
     width: {
-        '200px': true,
+        "200px": true,
     },
 });

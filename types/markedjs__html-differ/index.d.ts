@@ -1,8 +1,3 @@
-// Type definitions for @markedjs/html-differ 3.0
-// Project: https://github.com/markedjs/html-differ
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export class HtmlDiffer {
     constructor(options?: Options);
     constructor(preset: Preset | CustomPreset);
@@ -54,7 +49,7 @@ export interface CustomPreset extends Options {
     preset: Preset;
 }
 
-export type Preset = 'bem' | string;
+export type Preset = "bem" | string;
 
 /**
  * Note that some cases may omit a particular flag field.

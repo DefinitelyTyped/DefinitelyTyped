@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.scripting
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the scripting API to execute script in different contexts.
  * Permissions: "scripting"
@@ -10,8 +13,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import { Manifest } from "./manifest";
 import { ExtensionTypes } from "./extensionTypes";
+import { Manifest } from "./manifest";
 
 export namespace Scripting {
     /**
@@ -51,6 +54,12 @@ export namespace Scripting {
          * Optional.
          */
         world?: ExecutionWorld;
+
+        /**
+         * Whether the injection should be triggered in the target as soon as possible (but not necessarily prior to page load).
+         * Optional.
+         */
+        injectImmediately?: boolean;
     }
 
     /**
@@ -69,10 +78,12 @@ export namespace Scripting {
         result?: any;
 
         /**
-         * When the injection has failed, the error is exposed to the caller with this property.
+         * The error property is set when the script execution failed. The value is typically an (Error)
+         * object with a message property, but could be any value (including primitives and undefined)
+         * if the script threw or rejected with such a value.
          * Optional.
          */
-        error?: InjectionResultErrorType;
+        error?: any;
 
         /**
          * Whether the script should inject into all frames within the tab. Defaults to false.
@@ -241,20 +252,10 @@ export namespace Scripting {
 
     interface UpdateContentScriptsScriptsItemType extends RegisteredContentScript {
         /**
-         * Specifies if this content script will persist into future sessions. This is currently NOT supported.
+         * Specifies if this content script will persist into future sessions.
          * Optional.
          */
         persistAcrossSessions?: boolean;
-    }
-
-    /**
-     * When the injection has failed, the error is exposed to the caller with this property.
-     */
-    interface InjectionResultErrorType {
-        /**
-         * A message explaining why the injection has failed.
-         */
-        message: string;
     }
 
     /**

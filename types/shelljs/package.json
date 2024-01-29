@@ -1,0 +1,46 @@
+{
+    "private": true,
+    "name": "@types/shelljs",
+    "version": "0.8.9999",
+    "projects": [
+        "http://shelljs.org",
+        "https://github.com/shelljs/shelljs"
+    ],
+    "dependencies": {
+        "@types/glob": "~7.2.0",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/shelljs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Niklas Mollenhauer",
+            "githubUsername": "nikeee"
+        },
+        {
+            "name": "Vojtech Jasny",
+            "githubUsername": "voy"
+        },
+        {
+            "name": "George Kalpakas",
+            "githubUsername": "gkalpak"
+        },
+        {
+            "name": "Paul Huynh",
+            "githubUsername": "pheromonez"
+        },
+        {
+            "name": "Alexander Futász",
+            "githubUsername": "aldafu"
+        },
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        },
+        {
+            "name": "Mirco Sanguineti",
+            "githubUsername": "msanguineti"
+        }
+    ]
+}

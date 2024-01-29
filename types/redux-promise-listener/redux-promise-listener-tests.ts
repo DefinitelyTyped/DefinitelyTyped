@@ -1,5 +1,5 @@
-import { createStore, applyMiddleware, AnyAction } from 'redux';
-import createReduxPromiseListener from 'redux-promise-listener';
+import { AnyAction, applyMiddleware, createStore } from "redux";
+import createReduxPromiseListener from "redux-promise-listener";
 
 // $ExpectType PromiseListener
 const reduxPromiseListener = createReduxPromiseListener();
@@ -10,9 +10,9 @@ const store = createStore(rootReducer, applyMiddleware(reduxPromiseListener.midd
 
 declare const actionMatcher: (action: AnyAction) => boolean;
 
-const API_REQUEST = 'API_REQUEST';
-const API_SUCCESS = Math.random() > 0.5 ? 'API_SUCCESS' : actionMatcher;
-const API_FAILURE = Math.random() > 0.5 ? 'API_FAILURE' : actionMatcher;
+const API_REQUEST = "API_REQUEST";
+const API_SUCCESS = Math.random() > 0.5 ? "API_SUCCESS" : actionMatcher;
+const API_FAILURE = Math.random() > 0.5 ? "API_FAILURE" : actionMatcher;
 
 // $ExpectType AsyncFunction<any>
 promiseListener.createAsyncFunction({
@@ -28,28 +28,30 @@ const action = promiseListener.createAsyncFunction({
     reject: API_FAILURE,
     setPayload: action => ({
         ...action,
-        input: 'additional data',
+        input: "additional data",
     }),
     getPayload: action => action.result,
     getError: action => action.errors,
 });
 
 // $ExpectType Promise<any>
-action.asyncFunction('test');
+action.asyncFunction("test");
 
 // $ExpectType void
 action.unsubscribe();
 
-// $ExpectError
+// @ts-expect-error
 promiseListener.createAsyncFunction();
 
-// $ExpectError
+// @ts-expect-error
 promiseListener.createAsyncFunction("I'm not a config");
 
 promiseListener.createAsyncFunction({
     start: API_REQUEST,
-    resolve: 0, // $ExpectError
-    reject: null, // $ExpectError
+    // @ts-expect-error
+    resolve: 0,
+    // @ts-expect-error
+    reject: null,
 });
 
 interface ActionRequest {
@@ -75,13 +77,13 @@ const action2 = promiseListener.createAsyncFunction({
     reject: API_FAILURE,
     setPayload: (action: ActionRequest, payload) => ({
         ...action,
-        input: 'additional data',
+        input: "additional data",
     }),
     getPayload: (action: ActionSuccess) => action.result,
     getError: (action: ActionError) => action.errors,
 });
 
-action2.asyncFunction('test');
+action2.asyncFunction("test");
 
 // $ExpectType Promise<string>
 type action2Ret = ReturnType<typeof action2.asyncFunction>;
@@ -93,7 +95,7 @@ const action3 = promiseListener.createAsyncFunction<ActionRequest, ActionSuccess
     reject: API_FAILURE,
     setPayload: (action, payload) => ({
         ...action,
-        input: 'additional data',
+        input: "additional data",
     }),
     getError: action => action.errors,
 });
@@ -108,7 +110,7 @@ const action4 = promiseListener.createAsyncFunction({
     reject: API_FAILURE,
     setPayload: (action: ActionRequest, payload) => ({
         ...action,
-        input: 'additional data',
+        input: "additional data",
     }),
     getPayload: (action: ActionSuccess) => action.result,
     getError: (action: ActionError) => action.errors,
@@ -129,7 +131,7 @@ const action5 = promiseListener.createAsyncFunction<ActionRequest, ActionSuccess
     reject: API_FAILURE,
     setPayload: (action, payload) => ({
         ...action,
-        input: 'additional data',
+        input: "additional data",
     }),
     getError: action => action.errors,
 });

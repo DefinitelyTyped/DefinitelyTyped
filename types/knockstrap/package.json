@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/knockstrap",
+    "version": "0.0.9999",
+    "projects": [
+        "http://faulknercs.github.io/Knockstrap/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*",
+        "@types/knockout": "*"
+    },
+    "devDependencies": {
+        "@types/knockstrap": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Pluciński",
+            "githubUsername": "adaskothebeast"
+        }
+    ]
+}

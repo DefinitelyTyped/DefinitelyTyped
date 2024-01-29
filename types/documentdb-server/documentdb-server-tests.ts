@@ -1,115 +1,155 @@
-
-
 // Samples taken from http://azure.github.io/azure-documentdb-js-server/Collection.html
 function chain() {
     var name: string = "John";
     var result: IQueryResponse = __.chain()
-        .filter(function (doc: any) { return doc.name == name; })
-        .map(function (doc: any) { return { name: doc.name, age: doc.age }; })
+        .filter(function(doc: any) {
+            return doc.name == name;
+        })
+        .map(function(doc: any) {
+            return { name: doc.name, age: doc.age };
+        })
         .value();
     if (!result.isAccepted) throw new Error("The call was not accepted");
 }
 function filter() {
     // Example 1: get documents(people) with age < 30.
-    var result: IQueryResponse = __.filter(function (doc: any) { return doc.age < 30; });
+    var result: IQueryResponse = __.filter(function(doc: any) {
+        return doc.age < 30;
+    });
     if (!result.isAccepted) throw new Error("The call was not accepted");
     // Example 2: get documents (people) with age < 30 and select only name.
     var result: IQueryResponse = __.chain()
-        .filter(function (doc: any) { return doc.age < 30; })
+        .filter(function(doc: any) {
+            return doc.age < 30;
+        })
         .pluck("name")
         .value();
     if (!result.isAccepted) throw new Error("The call was not accepted");
     // Example 3: get document (person) with id = 1 and delete it.
     var result: IQueryResponse = __.filter(
-        function (doc: any) { return doc.id === 1; },
-        function (err: IFeedCallbackError, feed: Array<any>, options: IFeedCallbackOptions) {
+        function(doc: any) {
+            return doc.id === 1;
+        },
+        function(err: IFeedCallbackError, feed: any[], options: IFeedCallbackOptions) {
             if (err) throw err;
             if (!__.deleteDocument(feed[0].getSelfLink())) throw new Error("deleteDocument was not accepted");
-        });
+        },
+    );
     if (!result.isAccepted) throw new Error("The call was not accepted");
 }
 function flatten() {
     // Get documents (people) with age < 30, select tags (an array property)
     // and flatten the result into one array for all documents.
     var result: IQueryResponse = __.chain()
-        .filter(function (doc: any) { return doc.age < 30; })
-        .map(function (doc: any) { return doc.tags; })
+        .filter(function(doc: any) {
+            return doc.age < 30;
+        })
+        .map(function(doc: any) {
+            return doc.tags;
+        })
         .flatten()
         .value();
     if (!result.isAccepted) throw new Error("The call was not accepted");
 }
 function map() {
     // Example 1: select only name and age for each document (person).
-    var result: IQueryResponse = __.map(function (doc: any) { return { name: doc.name, age: doc.age }; });
+    var result: IQueryResponse = __.map(function(doc: any) {
+        return { name: doc.name, age: doc.age };
+    });
     if (!result.isAccepted) throw new Error("The call was not accepted");
     // Example 2: select name and age for each document (person), and return only people with age < 30.
     var result: IQueryResponse = __.chain()
-        .map(function (doc: any) { return { name: doc.name, age: doc.age }; })
-        .filter(function (doc: any) { return doc.age < 30; })
+        .map(function(doc: any) {
+            return { name: doc.name, age: doc.age };
+        })
+        .filter(function(doc: any) {
+            return doc.age < 30;
+        })
         .value();
     if (!result.isAccepted) throw new Error("The call was not accepted");
 }
 function pluck() {
     // Get documents (people) with age < 30 and select only name.
     var result: IQueryResponse = __.chain()
-        .filter(function (doc: any) { return doc.age < 30; })
+        .filter(function(doc: any) {
+            return doc.age < 30;
+        })
         .pluck("name")
         .value();
     if (!result.isAccepted) throw new Error("The call was not accepted");
 }
 function sortBy() {
     // Example 1: sort documents (people) by age
-    var result: IQueryResponse = __.sortBy(function (doc: any) { return doc.age; })
+    var result: IQueryResponse = __.sortBy(function(doc: any) {
+        return doc.age;
+    });
     if (!result.isAccepted) throw new Error("The call was not accepted");
     // Example 2: sortBy in a chain by name
     var result: IQueryResponse = __.chain()
-        .filter(function (doc: any) { return doc.age < 30; })
-        .sortBy(function (doc: any) { return doc.name; })
+        .filter(function(doc: any) {
+            return doc.age < 30;
+        })
+        .sortBy(function(doc: any) {
+            return doc.name;
+        })
         .value();
     if (!result.isAccepted) throw new Error("The call was not accepted");
 }
 function sortByDescending() {
     // Example 1: sort documents (people) by age in descending order
-    var result: IQueryResponse = __.sortByDescending(function (doc: any) { return doc.age; })
+    var result: IQueryResponse = __.sortByDescending(function(doc: any) {
+        return doc.age;
+    });
     if (!result.isAccepted) throw new Error("The call was not accepted");
     // Example 2: sortBy in a chain by name in descending order
     var result: IQueryResponse = __.chain()
-        .filter(function (doc: any) { return doc.age < 30; })
-        .sortByDescending(function (doc: any) { return doc.name; })
+        .filter(function(doc: any) {
+            return doc.age < 30;
+        })
+        .sortByDescending(function(doc: any) {
+            return doc.name;
+        })
         .value();
     if (!result.isAccepted) throw new Error("The call was not accepted");
 }
 function value() {
     // Example 1: use defaults: the result goes to the response body.
     var result: IQueryResponse = __.chain()
-        .filter(function (doc: any) { return doc.name == "John"; })
+        .filter(function(doc: any) {
+            return doc.name == "John";
+        })
         .pluck("age")
         .value();
     if (!result.isAccepted) throw new Error("The call was not accepted");
     // Example 2: use options and callback.
-    function usingOptionsAndCallback (continuationToken: string) {
+    function usingOptionsAndCallback(continuationToken: string) {
         var result = __.chain()
-            .filter(function (doc: any) { return doc.name == "John"; })
+            .filter(function(doc: any) {
+                return doc.name == "John";
+            })
             .pluck("age")
-            .value({ continuation: continuationToken }, function (err: IFeedCallbackError, feed: Array<any>, options: IFeedCallbackOptions) {
-            if (err) throw err;
-            __.response.setBody({
-                result: feed,
-                continuation: options.continuation
-            });
-        });
+            .value(
+                { continuation: continuationToken },
+                function(err: IFeedCallbackError, feed: any[], options: IFeedCallbackOptions) {
+                    if (err) throw err;
+                    __.response.setBody({
+                        result: feed,
+                        continuation: options.continuation,
+                    });
+                },
+            );
         if (!result.isAccepted) throw new Error("The call was not accepted");
     }
 }
 
 // Samples taken from https://github.com/Azure/azure-documentdb-js-server/tree/master/samples
 /**
-* This script called as stored procedure to import lots of documents in one batch.
-* The script sets response body to the number of docs imported and is called multiple times
-* by the client until total number of docs desired by the client is imported.
-* @param  {Object[]} docs - Array of documents to import.
-*/
-function bulkImport(docs: Array<Object>) {
+ * This script called as stored procedure to import lots of documents in one batch.
+ * The script sets response body to the number of docs imported and is called multiple times
+ * by the client until total number of docs desired by the client is imported.
+ * @param  {Object[]} docs - Array of documents to import.
+ */
+function bulkImport(docs: Object[]) {
     var collection: ICollection = getContext().getCollection();
     var collectionLink: string = collection.getSelfLink();
 
@@ -133,7 +173,10 @@ function bulkImport(docs: Array<Object>) {
     //    In this case the callback will not be called, we just call setBody and we are done.
     // 2) The callback was called docs.length times.
     //    In this case all documents were created and we don't need to call tryCreate anymore. Just call setBody and we are done.
-    function tryCreate(doc: Object, callback: (err: IRequestCallbackError, doc: Object, options: IRequestCallbackOptions) => void): void {
+    function tryCreate(
+        doc: Object,
+        callback: (err: IRequestCallbackError, doc: Object, options: IRequestCallbackOptions) => void,
+    ): void {
         var isAccepted = collection.createDocument(collectionLink, doc, callback);
 
         // If the request was accepted, callback will be called.
@@ -163,15 +206,15 @@ function bulkImport(docs: Array<Object>) {
 }
 
 /**
-* This is executed as stored procedure to count the number of docs in the collection.
-* To avoid script timeout on the server when there are lots of documents (100K+), the script executed in batches,
-* each batch counts docs to some number and returns continuation token.
-* The script is run multiple times, starting from empty continuation,
-* then using continuation returned by last invocation script until continuation returned by the script is null/empty string.
-*
-* @param {String} filterQuery - Optional filter for query (e.g. "SELECT * FROM docs WHERE docs.category = 'food'").
-* @param {String} continuationToken - The continuation token passed by request, continue counting from this token.
-*/
+ * This is executed as stored procedure to count the number of docs in the collection.
+ * To avoid script timeout on the server when there are lots of documents (100K+), the script executed in batches,
+ * each batch counts docs to some number and returns continuation token.
+ * The script is run multiple times, starting from empty continuation,
+ * then using continuation returned by last invocation script until continuation returned by the script is null/empty string.
+ *
+ * @param {String} filterQuery - Optional filter for query (e.g. "SELECT * FROM docs WHERE docs.category = 'food'").
+ * @param {String} continuationToken - The continuation token passed by request, continue counting from this token.
+ */
 function count(filterQuery: string, continuationToken: string) {
     var collection: ICollection = getContext().getCollection();
     var maxResult: number = 25; // MAX number of docs to process in one batch, when reached, return to client/request continuation.
@@ -198,15 +241,15 @@ function count(filterQuery: string, continuationToken: string) {
 
     function query(responseOptions: IFeedOptions) {
         // For empty query string, use readDocuments rather than queryDocuments -- it's faster as doesn't need to process the query.
-        return (filterQuery && filterQuery.length) ?
-            collection.queryDocuments(collection.getSelfLink(), filterQuery, responseOptions, onReadDocuments) :
-            collection.readDocuments(collection.getSelfLink(), responseOptions, onReadDocuments);
+        return (filterQuery && filterQuery.length)
+            ? collection.queryDocuments(collection.getSelfLink(), filterQuery, responseOptions, onReadDocuments)
+            : collection.readDocuments(collection.getSelfLink(), responseOptions, onReadDocuments);
     }
 
     // This is callback is called from collection.queryDocuments/readDocuments.
-    function onReadDocuments(err: IFeedCallbackError, docFeed: Array<any>, responseOptions: IFeedCallbackOptions) {
+    function onReadDocuments(err: IFeedCallbackError, docFeed: any[], responseOptions: IFeedCallbackOptions) {
         if (err) {
-            throw 'Error while reading document: ' + err;
+            throw "Error while reading document: " + err;
         }
 
         // Increament the number of documents counted so far.
@@ -228,38 +271,41 @@ function count(filterQuery: string, continuationToken: string) {
     }
 }
 
-
 /**
-* This is run as stored procedure and does the following:
-* - get 1st document in the collection, convert to JSON, prepend string specified by the prefix parameter
-*   and set response to the result of that.
-*
-* @param {String} prefix - The string to prepend to the 1st document in collection.
-*/
+ * This is run as stored procedure and does the following:
+ * - get 1st document in the collection, convert to JSON, prepend string specified by the prefix parameter
+ *   and set response to the result of that.
+ *
+ * @param {String} prefix - The string to prepend to the 1st document in collection.
+ */
 function simple(prefix: string) {
     var collection: ICollection = getContext().getCollection();
 
     // Query documents and take 1st item.
     var isAccepted: boolean = collection.queryDocuments(
         collection.getSelfLink(),
-        'SELECT * FROM root r',
-        function (err: IFeedCallbackError, feed: Array<any>, options: IFeedCallbackOptions) {
+        "SELECT * FROM root r",
+        function(err: IFeedCallbackError, feed: any[], options: IFeedCallbackOptions) {
             if (err) throw err;
 
             // Check the feed and if it's empty, set the body to 'no docs found',
             // Otherwise just take 1st element from the feed.
             if (!feed || !feed.length) getContext().getResponse().setBody("no docs found");
             else getContext().getResponse().setBody(prefix + JSON.stringify(feed[0]));
-        });
+        },
+    );
 
-    if (!isAccepted) throw new Error("The query wasn't accepted by the server. Try again/use continuation token between API and script.");
+    if (!isAccepted) {
+        throw new Error(
+            "The query wasn't accepted by the server. Try again/use continuation token between API and script.",
+        );
+    }
 }
 
 /**
  * A DocumentDB stored procedure that bulk deletes documents for a given query.<br/>
  * Note: You may need to execute this sproc multiple times (depending whether the sproc is able to delete every document within the execution timeout limit).
  *
- * @function
  * @param {string} query - A query that provides the documents to be deleted (e.g. "SELECT * FROM c WHERE c.founded_year = 2008")
  * @returns {Object.<number, boolean>} Returns an object with the two properties:<br/>
  *   deleted - contains a count of documents deleted<br/>
@@ -271,7 +317,7 @@ function bulkDeleteSproc(query: string) {
     var response: IResponse = getContext().getResponse();
     var responseBody: any = {
         deleted: 0,
-        continuation: true
+        continuation: true,
     };
 
     // Validate input.
@@ -284,23 +330,28 @@ function bulkDeleteSproc(query: string) {
     function tryQueryAndDelete(continuation?: string) {
         var requestOptions: IFeedOptions = { continuation: continuation };
 
-        var isAccepted: boolean = collection.queryDocuments(collectionLink, query, requestOptions, function (err: IFeedCallbackError, retrievedDocs: Array<any>, responseOptions: IFeedCallbackOptions) {
-            if (err) throw err;
+        var isAccepted: boolean = collection.queryDocuments(
+            collectionLink,
+            query,
+            requestOptions,
+            function(err: IFeedCallbackError, retrievedDocs: any[], responseOptions: IFeedCallbackOptions) {
+                if (err) throw err;
 
-            if (retrievedDocs.length > 0) {
-                // Begin deleting documents as soon as documents are returned form the query results.
-                // tryDelete() resumes querying after deleting; no need to page through continuation tokens.
-                //  - this is to prioritize writes over reads given timeout constraints.
-                tryDelete(retrievedDocs);
-            } else if (responseOptions.continuation) {
-                // Else if the query came back empty, but with a continuation token; repeat the query w/ the token.
-                tryQueryAndDelete(responseOptions.continuation);
-            } else {
-                // Else if there are no more documents and no continuation token - we are finished deleting documents.
-                responseBody.continuation = false;
-                response.setBody(responseBody);
-            }
-        });
+                if (retrievedDocs.length > 0) {
+                    // Begin deleting documents as soon as documents are returned form the query results.
+                    // tryDelete() resumes querying after deleting; no need to page through continuation tokens.
+                    //  - this is to prioritize writes over reads given timeout constraints.
+                    tryDelete(retrievedDocs);
+                } else if (responseOptions.continuation) {
+                    // Else if the query came back empty, but with a continuation token; repeat the query w/ the token.
+                    tryQueryAndDelete(responseOptions.continuation);
+                } else {
+                    // Else if there are no more documents and no continuation token - we are finished deleting documents.
+                    responseBody.continuation = false;
+                    response.setBody(responseBody);
+                }
+            },
+        );
 
         // If we hit execution bounds - return continuation: true.
         if (!isAccepted) {
@@ -310,10 +361,10 @@ function bulkDeleteSproc(query: string) {
 
     // Recursively deletes documents passed in as an array argument.
     // Attempts to query for more on empty array.
-    function tryDelete(documents: Array<IDocumentMeta>) {
+    function tryDelete(documents: IDocumentMeta[]) {
         if (documents.length > 0) {
             // Delete the first document in the array.
-            var isAccepted: boolean = collection.deleteDocument(documents[0]._self, {}, function (err, responseOptions) {
+            var isAccepted: boolean = collection.deleteDocument(documents[0]._self, {}, function(err, responseOptions) {
                 if (err) throw err;
 
                 responseBody.deleted++;
@@ -367,7 +418,6 @@ function bulkDeleteSproc(query: string) {
  * @example <caption>Set the property "message" to "Hello World" and the "messageDate" to the current date in the document where id = "bar".</caption>
  * updateSproc("bar", {$set: {message: "Hello World"}, $currentDate: {messageDate: ""}});
  *
- * @function
  * @param {string} id - The id for your document.
  * @param {object} update - the modifications to apply.
  * @returns {object} the updated document.
@@ -386,25 +436,33 @@ function updateSproc(id: string, update: Object) {
     // Recursively queries for a document by id w/ support for continuation tokens.
     // Calls tryUpdate(document) as soon as the query returns a document.
     function tryQueryAndUpdate(continuation?: string) {
-        var query: IParameterizedQuery = { query: "select * from root r where r.id = @id", parameters: [{ name: "@id", value: id }] };
+        var query: IParameterizedQuery = {
+            query: "select * from root r where r.id = @id",
+            parameters: [{ name: "@id", value: id }],
+        };
         var requestOptions: IFeedOptions = { continuation: continuation };
 
-        var isAccepted: boolean = collection.queryDocuments(collectionLink, query, requestOptions, function (err: IFeedCallbackError, documents: Array<any>, responseOptions: IFeedCallbackOptions) {
-            if (err) throw err;
+        var isAccepted: boolean = collection.queryDocuments(
+            collectionLink,
+            query,
+            requestOptions,
+            function(err: IFeedCallbackError, documents: any[], responseOptions: IFeedCallbackOptions) {
+                if (err) throw err;
 
-            if (documents.length > 0) {
-                // If the document is found, update it.
-                // There is no need to check for a continuation token since we are querying for a single document.
-                tryUpdate(documents[0]);
-            } else if (responseOptions.continuation) {
-                // Else if the query came back empty, but with a continuation token; repeat the query w/ the token.
-                // It is highly unlikely for this to happen when performing a query by id; but is included to serve as an example for larger queries.
-                tryQueryAndUpdate(responseOptions.continuation);
-            } else {
-                // Else a document with the given id does not exist..
-                throw new Error("Document not found.");
-            }
-        });
+                if (documents.length > 0) {
+                    // If the document is found, update it.
+                    // There is no need to check for a continuation token since we are querying for a single document.
+                    tryUpdate(documents[0]);
+                } else if (responseOptions.continuation) {
+                    // Else if the query came back empty, but with a continuation token; repeat the query w/ the token.
+                    // It is highly unlikely for this to happen when performing a query by id; but is included to serve as an example for larger queries.
+                    tryQueryAndUpdate(responseOptions.continuation);
+                } else {
+                    // Else a document with the given id does not exist..
+                    throw new Error("Document not found.");
+                }
+            },
+        );
 
         // If we hit execution bounds - throw an exception.
         // This is highly unlikely given that this is a query by id; but is included to serve as an example for larger queries.
@@ -415,7 +473,6 @@ function updateSproc(id: string, update: Object) {
 
     // Updates the supplied document according to the update object passed in to the sproc.
     function tryUpdate(document: IDocumentMeta) {
-
         // DocumentDB supports optimistic concurrency control via HTTP ETag.
         var requestOptions: IReplaceOptions = { etag: document._etag };
 
@@ -433,12 +490,17 @@ function updateSproc(id: string, update: Object) {
         push(document, update);
 
         // Update the document.
-        var isAccepted: boolean = collection.replaceDocument(document._self, document, requestOptions, function (err, updatedDocument, responseOptions) {
-            if (err) throw err;
+        var isAccepted: boolean = collection.replaceDocument(
+            document._self,
+            document,
+            requestOptions,
+            function(err, updatedDocument, responseOptions) {
+                if (err) throw err;
 
-            // If we have successfully updated the document - return it in the response body.
-            response.setBody(updatedDocument);
-        });
+                // If we have successfully updated the document - return it in the response body.
+                response.setBody(updatedDocument);
+            },
+        );
 
         // If we hit execution bounds - throw an exception.
         if (!isAccepted) {
@@ -449,14 +511,14 @@ function updateSproc(id: string, update: Object) {
     // Operator implementations.
     // The $inc operator increments the value of a field by a specified amount.
     function inc(document: any, update: any) {
-        var fields: Array<string>, i: number;
+        var fields: string[], i: number;
 
         if (update.$inc) {
             fields = Object.keys(update.$inc);
             for (i = 0; i < fields.length; i++) {
                 if (isNaN(update.$inc[fields[i]])) {
                     // Validate the field; throw an exception if it is not a number (can't increment by NaN).
-                    throw new Error("Bad $inc parameter - value must be a number")
+                    throw new Error("Bad $inc parameter - value must be a number");
                 } else if (document[fields[i]]) {
                     // If the field exists, increment it by the given amount.
                     document[fields[i]] += update.$inc[fields[i]];
@@ -470,14 +532,14 @@ function updateSproc(id: string, update: Object) {
 
     // The $mul operator multiplies the value of the field by the specified amount.
     function mul(document: any, update: any) {
-        var fields: Array<string>, i: number;
+        var fields: string[], i: number;
 
         if (update.$mul) {
             fields = Object.keys(update.$mul);
             for (i = 0; i < fields.length; i++) {
                 if (isNaN(update.$mul[fields[i]])) {
                     // Validate the field; throw an exception if it is not a number (can't multiply by NaN).
-                    throw new Error("Bad $mul parameter - value must be a number")
+                    throw new Error("Bad $mul parameter - value must be a number");
                 } else if (document[fields[i]]) {
                     // If the field exists, multiply it by the given amount.
                     document[fields[i]] *= update.$mul[fields[i]];
@@ -491,7 +553,7 @@ function updateSproc(id: string, update: Object) {
 
     // The $rename operator renames a field.
     function rename(document: any, update: any) {
-        var fields: Array<string>, i: number, existingFieldName: string, newFieldName: string;
+        var fields: string[], i: number, existingFieldName: string, newFieldName: string;
 
         if (update.$rename) {
             fields = Object.keys(update.$rename);
@@ -500,7 +562,9 @@ function updateSproc(id: string, update: Object) {
                 newFieldName = update.$rename[fields[i]];
 
                 if (existingFieldName == newFieldName) {
-                    throw new Error("Bad $rename parameter: The new field name must differ from the existing field name.")
+                    throw new Error(
+                        "Bad $rename parameter: The new field name must differ from the existing field name.",
+                    );
                 } else if (document[existingFieldName]) {
                     // If the field exists, set/overwrite the new field name and unset the existing field name.
                     document[newFieldName] = document[existingFieldName];
@@ -514,7 +578,7 @@ function updateSproc(id: string, update: Object) {
 
     // The $set operator sets the value of a field.
     function set(document: any, update: any) {
-        var fields: Array<string>, i: number;
+        var fields: string[], i: number;
 
         if (update.$set) {
             fields = Object.keys(update.$set);
@@ -526,7 +590,7 @@ function updateSproc(id: string, update: Object) {
 
     // The $unset operator removes the specified field.
     function unset(document: any, update: any) {
-        var fields: Array<string>, i: number;
+        var fields: string[], i: number;
 
         if (update.$unset) {
             fields = Object.keys(update.$unset);
@@ -538,7 +602,7 @@ function updateSproc(id: string, update: Object) {
 
     // The $min operator only updates the field if the specified value is less than the existing field value.
     function min(document: any, update: any) {
-        var fields: Array<string>, i: number;
+        var fields: string[], i: number;
 
         if (update.$min) {
             fields = Object.keys(update.$min);
@@ -552,7 +616,7 @@ function updateSproc(id: string, update: Object) {
 
     // The $max operator only updates the field if the specified value is greater than the existing field value.
     function max(document: any, update: any) {
-        var fields: Array<string>, i: number;
+        var fields: string[], i: number;
 
         if (update.$max) {
             fields = Object.keys(update.$max);
@@ -567,7 +631,7 @@ function updateSproc(id: string, update: Object) {
     // The $currentDate operator sets the value of a field to current date as a POSIX epoch.
     function currentDate(document: any, update: any) {
         var currentDate: Date = new Date();
-        var fields: Array<string>, i: number;
+        var fields: string[], i: number;
 
         if (update.$currentDate) {
             fields = Object.keys(update.$currentDate);
@@ -580,7 +644,7 @@ function updateSproc(id: string, update: Object) {
 
     // The $addToSet operator adds elements to an array only if they do not already exist in the set.
     function addToSet(document: any, update: any) {
-        var fields: Array<string>, i: number;
+        var fields: string[], i: number;
 
         if (update.$addToSet) {
             fields = Object.keys(update.$addToSet);
@@ -588,7 +652,7 @@ function updateSproc(id: string, update: Object) {
             for (i = 0; i < fields.length; i++) {
                 if (!Array.isArray(document[fields[i]])) {
                     // Validate the document field; throw an exception if it is not an array.
-                    throw new Error("Bad $addToSet parameter - field in document must be an array.")
+                    throw new Error("Bad $addToSet parameter - field in document must be an array.");
                 } else if (document[fields[i]].indexOf(update.$addToSet[fields[i]]) === -1) {
                     // Add the element if it doesn't already exist in the array.
                     document[fields[i]].push(update.$addToSet[fields[i]]);
@@ -600,7 +664,7 @@ function updateSproc(id: string, update: Object) {
     // The $pop operator removes the first or last item of an array.
     // Pass $pop a value of -1 to remove the first element of an array and 1 to remove the last element in an array.
     function pop(document: any, update: any) {
-        var fields: Array<string>, i: number;
+        var fields: string[], i: number;
 
         if (update.$pop) {
             fields = Object.keys(update.$pop);
@@ -608,7 +672,7 @@ function updateSproc(id: string, update: Object) {
             for (i = 0; i < fields.length; i++) {
                 if (!Array.isArray(document[fields[i]])) {
                     // Validate the document field; throw an exception if it is not an array.
-                    throw new Error("Bad $pop parameter - field in document must be an array.")
+                    throw new Error("Bad $pop parameter - field in document must be an array.");
                 } else if (update.$pop[fields[i]] < 0) {
                     // Remove the first element from the array if it's less than 0 (be flexible).
                     document[fields[i]].shift();
@@ -622,7 +686,7 @@ function updateSproc(id: string, update: Object) {
 
     // The $push operator adds an item to an array.
     function push(document: any, update: any) {
-        var fields: Array<string>, i: number;
+        var fields: string[], i: number;
 
         if (update.$push) {
             fields = Object.keys(update.$push);
@@ -630,7 +694,7 @@ function updateSproc(id: string, update: Object) {
             for (i = 0; i < fields.length; i++) {
                 if (!Array.isArray(document[fields[i]])) {
                     // Validate the document field; throw an exception if it is not an array.
-                    throw new Error("Bad $push parameter - field in document must be an array.")
+                    throw new Error("Bad $push parameter - field in document must be an array.");
                 } else {
                     // Push the element in to the array.
                     document[fields[i]].push(update.$push[fields[i]]);
@@ -641,9 +705,9 @@ function updateSproc(id: string, update: Object) {
 }
 
 /**
-* This script runs as a pre-trigger when a document is inserted:
-* for each inserted document, validate/canonicalize document.weekday and create field document.createdTime.
-*/
+ * This script runs as a pre-trigger when a document is inserted:
+ * for each inserted document, validate/canonicalize document.weekday and create field document.createdTime.
+ */
 function validateClass() {
     var collection: ICollection = getContext().getCollection();
     var collectionLink: string = collection.getSelfLink();
@@ -663,9 +727,9 @@ function validateClass() {
         if (!day || !day.length || day.length < 3) throw new Error("Bad input: " + day);
 
         // Try to see if we can canonicalize the day.
-        var days: Array<string> = ["Monday", "Tuesday", "Wednesday", "Friday", "Saturday", "Sunday"];
+        var days: string[] = ["Monday", "Tuesday", "Wednesday", "Friday", "Saturday", "Sunday"];
         var fullDay: string;
-        days.forEach(function (x: string) {
+        days.forEach(function(x: string) {
             if (day.substring(0, 3).toLowerCase() == x.substring(0, 3).toLowerCase()) fullDay = x;
         });
         if (fullDay) return fullDay;
@@ -676,14 +740,14 @@ function validateClass() {
 }
 
 /**
-* This script runs as a trigger:
-* for each inserted document, look at document.size and update aggregate properties of metadata document: minSize, maxSize, totalSize.
-*/
+ * This script runs as a trigger:
+ * for each inserted document, look at document.size and update aggregate properties of metadata document: minSize, maxSize, totalSize.
+ */
 function updateMetadata() {
     // HTTP error codes sent to our callback funciton by DocDB server.
     var ErrorCode: any = {
         RETRY_WITH: 449,
-    }
+    };
 
     var collection: ICollection = getContext().getCollection();
     var collectionLink: string = collection.getSelfLink();
@@ -698,33 +762,41 @@ function updateMetadata() {
 
     function getAndUpdateMetadata() {
         // Get the meta document. We keep it in the same collection. it's the only doc that has .isMetadata = true.
-        var isAccepted: boolean = collection.queryDocuments(collectionLink, 'SELECT * FROM root r WHERE r.isMetadata = true', function (err: IFeedCallbackError, feed: Array<any>, options: IFeedCallbackOptions) {
-            if (err) throw err;
-            if (!feed || !feed.length) throw new Error("Failed to find the metadata document.");
-
-            // The metadata document.
-            var metaDoc: any = feed[0];
-
-            // Update metaDoc.minSize:
-            // for 1st document use doc.Size, for all the rest see if it's less than last min.
-            if (metaDoc.minSize == 0) metaDoc.minSize = doc.size;
-            else metaDoc.minSize = Math.min(metaDoc.minSize, doc.size);
-
-            // Update metaDoc.maxSize.
-            metaDoc.maxSize = Math.max(metaDoc.maxSize, doc.size);
-
-            // Update metaDoc.totalSize.
-            metaDoc.totalSize += doc.size;
-
-            // Update/replace the metadata document in the store.
-            var isAccepted: boolean = collection.replaceDocument(metaDoc._self, metaDoc, function (err: IRequestCallbackError) {
+        var isAccepted: boolean = collection.queryDocuments(
+            collectionLink,
+            "SELECT * FROM root r WHERE r.isMetadata = true",
+            function(err: IFeedCallbackError, feed: any[], options: IFeedCallbackOptions) {
                 if (err) throw err;
-                // Note: in case concurrent updates causes conflict with ErrorCode.RETRY_WITH, we can't read the meta again
-                //       and update again because due to Snapshot isolation we will read same exact version (we are in same transaction).
-                //       We have to take care of that on the client side.
-            });
-            if (!isAccepted) throw new Error("The call replaceDocument(metaDoc) returned false.");
-        });
+                if (!feed || !feed.length) throw new Error("Failed to find the metadata document.");
+
+                // The metadata document.
+                var metaDoc: any = feed[0];
+
+                // Update metaDoc.minSize:
+                // for 1st document use doc.Size, for all the rest see if it's less than last min.
+                if (metaDoc.minSize == 0) metaDoc.minSize = doc.size;
+                else metaDoc.minSize = Math.min(metaDoc.minSize, doc.size);
+
+                // Update metaDoc.maxSize.
+                metaDoc.maxSize = Math.max(metaDoc.maxSize, doc.size);
+
+                // Update metaDoc.totalSize.
+                metaDoc.totalSize += doc.size;
+
+                // Update/replace the metadata document in the store.
+                var isAccepted: boolean = collection.replaceDocument(
+                    metaDoc._self,
+                    metaDoc,
+                    function(err: IRequestCallbackError) {
+                        if (err) throw err;
+                        // Note: in case concurrent updates causes conflict with ErrorCode.RETRY_WITH, we can't read the meta again
+                        //       and update again because due to Snapshot isolation we will read same exact version (we are in same transaction).
+                        //       We have to take care of that on the client side.
+                    },
+                );
+                if (!isAccepted) throw new Error("The call replaceDocument(metaDoc) returned false.");
+            },
+        );
         if (!isAccepted) throw new Error("The call queryDocuments for metaDoc returned false.");
     }
 }

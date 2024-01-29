@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/node-7z",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/quentinrossetti/node-7z"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/node-7z": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Erik Rothoff Andersson",
+            "githubUsername": "erkie"
+        },
+        {
+            "name": "Colin Berry",
+            "githubUsername": "colin969"
+        }
+    ]
+}

@@ -1,26 +1,15 @@
-// Type definitions for react-native-snap-carousel 3.8
-// Project: https://github.com/archriss/react-native-snap-carousel
-// Definitions by: jnbt <https://github.com/jnbt>
-//                 Jacob Froman <https://github.com/j-fro>
-//                 Nikolay Polukhin <https://github.com/gazaret>
-//                 Guillaume Amat <https://github.com/GuillaumeAmat>
-//                 Vitor Luiz Cavalcanti <https://github.com/VitorLuizC>
-//                 Lemon Garrett <https://github.com/egarrett94>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
+import * as React from "react";
 import {
     Animated,
-    LayoutChangeEvent,
-    NativeSyntheticEvent,
-    NativeScrollEvent,
-    StyleProp,
-    ScrollViewProps,
-    ViewStyle,
+    FlatListProps,
     ImageProps,
-    FlatListProps
-} from 'react-native';
+    LayoutChangeEvent,
+    NativeScrollEvent,
+    NativeSyntheticEvent,
+    ScrollViewProps,
+    StyleProp,
+    ViewStyle,
+} from "react-native";
 
 export interface AdditionalParallaxProps {
     carouselRef?: React.Component<FlatListProps<any>> | undefined;
@@ -38,7 +27,7 @@ export interface CarouselProps<T> {
     /**
      * Array of items to loop over
      */
-    data: ReadonlyArray<T>;
+    data: readonly T[];
     /**
      * Function that takes an item from the `data` array and returns a React
      * Element. See `react-native`'s `FlatList`
@@ -184,17 +173,21 @@ export interface CarouselProps<T> {
      * they will now play the custom animation you provide as soon as they become active.
      * This means you cannot use props layout, scrollInterpolator or slideInterpolatedStyle in conjunction with activeAnimationOptions
      */
-    activeAnimationOptions?: Animated.DecayAnimationConfig | Animated.TimingAnimationConfig | Animated.SpringAnimationConfig | undefined;
+    activeAnimationOptions?:
+        | Animated.DecayAnimationConfig
+        | Animated.TimingAnimationConfig
+        | Animated.SpringAnimationConfig
+        | undefined;
     /**
      * Custom animation type: either 'decay, 'spring' or 'timing'.
      * Note that it will only be applied to the scale animation since opacity's animation type will always be set
      * to timing (no one wants the opacity to 'bounce' around)
      */
-    activeAnimationType?: 'decay' | 'spring' | 'timing' | undefined;
+    activeAnimationType?: "decay" | "spring" | "timing" | undefined;
     /**
      * Determine active slide's alignment relative to the carousel
      */
-    activeSlideAlignment?: 'start' | 'center' | 'end' | undefined;
+    activeSlideAlignment?: "start" | "center" | "end" | undefined;
     /**
      * Optional styles for Scrollview's global wrapper
      */
@@ -223,7 +216,7 @@ export interface CarouselProps<T> {
      * WARNING: setting this prop to either 'stack' or 'tinder' will activate useScrollView to prevent rendering bugs with FlatList.
      * Therefore, those layouts will probably not be suited if you have a large data set.
      */
-    layout?: 'default' | 'stack' | 'tinder' | undefined;
+    layout?: "default" | "stack" | "tinder" | undefined;
     /**
      * Use to increase or decrease the default card offset in both 'stack' and 'tinder' layouts.
      */
@@ -231,11 +224,18 @@ export interface CarouselProps<T> {
     /**
      * Used to define custom interpolations
      */
-    scrollInterpolator?(index: number, carouselProps: CarouselProps<any>): { inputRange: number[], outputRange: number[] };
+    scrollInterpolator?(
+        index: number,
+        carouselProps: CarouselProps<any>,
+    ): { inputRange: number[]; outputRange: number[] };
     /**
      * Used to define custom interpolations
      */
-    slideInterpolatedStyle?(index: number, animatedValue: Animated.AnimatedValue, carouselProps: CarouselProps<any>): StyleProp<ViewStyle>;
+    slideInterpolatedStyle?(
+        index: number,
+        animatedValue: Animated.AnimatedValue,
+        carouselProps: CarouselProps<any>,
+    ): StyleProp<ViewStyle>;
     /**
      * Optional style for each item's container (the one whose scale and opacity are animated)
      */
@@ -299,7 +299,7 @@ export type ParallaxImageProperties = ParallaxImageProps & {
     ref?: React.LegacyRef<ParallaxImageStatic> | undefined;
 };
 
-export class ParallaxImage extends React.Component<ParallaxImageProperties> { }
+export class ParallaxImage extends React.Component<ParallaxImageProperties> {}
 
 export interface PaginationProps {
     /**
@@ -405,7 +405,7 @@ export type PaginationProperties = PaginationProps & {
     ref?: React.LegacyRef<PaginationStatic> | undefined;
 };
 
-export class Pagination extends React.Component<PaginationProperties> { }
+export class Pagination extends React.Component<PaginationProperties> {}
 
 export default class Carousel<T> extends React.Component<CarouselProperties<T>> {
     /**
@@ -428,7 +428,13 @@ export default class Carousel<T> extends React.Component<CarouselProperties<T>> 
     /**
      * Snap to an item manually
      */
-    snapToItem(index: number, animated?: boolean, fireCallback?: boolean, initial?: boolean, lockScroll?: boolean): void;
+    snapToItem(
+        index: number,
+        animated?: boolean,
+        fireCallback?: boolean,
+        initial?: boolean,
+        lockScroll?: boolean,
+    ): void;
     /**
      * Snap to next item manually
      */

@@ -1,6 +1,6 @@
 import { Intel } from "./inteltypes";
 
-export { };
+export {};
 
 declare global {
     type ChatChannels = "all" | "faction" | "alerts";
@@ -55,7 +55,14 @@ declare global {
 
         renderDivider(text: string): string;
 
-        renderMsg(msg: string, nick: string, time: number, team: 0 | 1 | 2, msgToPlayer: boolean, systemNarrowcast: boolean): string;
+        renderMsg(
+            msg: string,
+            nick: string,
+            time: number,
+            team: 0 | 1 | 2,
+            msgToPlayer: boolean,
+            systemNarrowcast: boolean,
+        ): string;
 
         /** add nickname to chat-input line */
         addNickname(nick: string): void;

@@ -1,11 +1,3 @@
-// Type definitions for react-responsive 8.0
-// Project: https://github.com/contra/react-responsive
-// Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
-//                 Alec Hill <https://github.com/alechill>
-//                 Javier Gonzalez <https://github.com/xaviergonz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export interface MediaQueryTypes {
@@ -35,8 +27,8 @@ export interface MediaQueryMatchers {
     colorIndex?: boolean | undefined;
     monochrome?: boolean | undefined;
     resolution?: number | string | undefined;
-    orientation?: 'portrait' | 'landscape' | undefined;
-    scan?: 'progressive' | 'interlace' | undefined;
+    orientation?: "portrait" | "landscape" | undefined;
+    scan?: "progressive" | "interlace" | undefined;
     type?: MediaQueryType | undefined;
 }
 
@@ -86,7 +78,7 @@ export interface MediaQueryProps extends MediaQueryAllQueryable {
     onChange?: ((matches: boolean) => void) | undefined;
 }
 
-declare class MediaQuery extends React.Component<MediaQueryProps> { }
+declare class MediaQuery extends React.Component<MediaQueryProps> {}
 export function toQuery(matchers: Partial<MediaQueryAllQueryable>): string;
 
 export const Context: React.Context<Partial<MediaQueryAllQueryable>>;
@@ -94,7 +86,7 @@ export const Context: React.Context<Partial<MediaQueryAllQueryable>>;
 export function useMediaQuery(
     settings: Partial<MediaQueryAllQueryable & { query?: string | undefined }>,
     device?: MediaQueryMatchers,
-    callback?: (matches: boolean) => void
+    callback?: (matches: boolean) => void,
 ): boolean;
 
 export default MediaQuery;

@@ -1,30 +1,29 @@
 // from https://hapijs.com/tutorials/getting-started#adding-routes
 
-'use strict';
+"use strict";
 
-import Hapi = require('hapi');
+import Hapi = require("hapi");
 
 const server = new Hapi.Server();
-server.connection({ port: 3000, host: 'localhost' });
+server.connection({ port: 3000, host: "localhost" });
 
 server.route({
-    method: 'GET',
-    path: '/',
-    handler: function (request, reply) {
-        reply('Hello, world!');
-    }
+    method: "GET",
+    path: "/",
+    handler: function(request, reply) {
+        reply("Hello, world!");
+    },
 });
 
 server.route({
-    method: 'GET',
-    path: '/{name}',
-    handler: function (request, reply) {
-        reply('Hello, ' + encodeURIComponent(request.params.name) + '!');
-    }
+    method: "GET",
+    path: "/{name}",
+    handler: function(request, reply) {
+        reply("Hello, " + encodeURIComponent(request.params.name) + "!");
+    },
 });
 
 server.start((err) => {
-
     if (err) {
         throw err;
     }

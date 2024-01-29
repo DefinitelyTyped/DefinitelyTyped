@@ -1,8 +1,3 @@
-// Type definitions for canvas-fit 1.5
-// Project: https://github.com/hughsk/canvas-fit
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Creates a resize function for your canvas element. Calling this function will resize the canvas to fit its parent element.
  */

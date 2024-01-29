@@ -1,4 +1,4 @@
-import RingBuffer = require('ringbufferjs');
+import RingBuffer = require("ringbufferjs");
 
 const buffer: RingBuffer<number> = new RingBuffer<number>(10);
 buffer.enq(1);

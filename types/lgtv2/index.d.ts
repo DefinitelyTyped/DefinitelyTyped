@@ -1,12 +1,6 @@
-// Type definitions for lgtv2 1.4
-// Project: https://github.com/hobbyquaker/lgtv2
-// Definitions by: Ovidiu Pruteanu <https://github.com/ovidiupruteanu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
-
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 declare namespace LGTV {
     interface SpecializedSocket {
@@ -49,10 +43,10 @@ declare class LGTV extends EventEmitter {
     subscribe(uri: string, callback: (error: Error | null, result: any) => void): void;
     subscribe(uri: string, payload?: any, callback?: (error: Error | null, result: any) => void): void;
 
-    on(event: 'connecting', listener: (host: string) => void): this;
-    on(event: 'connect' | 'prompt', listener: () => void): this;
-    on(event: 'error', listener: (error: Error) => void): this;
-    on(event: 'close', listener: (hadError: boolean) => void): this;
+    on(event: "connecting", listener: (host: string) => void): this;
+    on(event: "connect" | "prompt", listener: () => void): this;
+    on(event: "error", listener: (error: Error) => void): this;
+    on(event: "close", listener: (hadError: boolean) => void): this;
 }
 
 export = LGTV;

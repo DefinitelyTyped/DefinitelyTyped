@@ -6,8 +6,8 @@
  * are not intended as functional tests.
  */
 
-import * as d3Random from 'd3-random';
-import * as seedrandom from 'seedrandom';
+import * as d3Random from "d3-random";
+import * as seedrandom from "seedrandom";
 
 // ------------------------------------------------------------
 // Preparatory Steps
@@ -215,5 +215,5 @@ randomNumberGenerator = prngPoisson(1);
 
 const seed = 0.4212687683098432008;
 
-let array = Array.from({length: 3}, d3Random.randomLcg(seed));
-array = Array.from({length: 3}, d3Random.randomNormal.source(d3Random.randomLcg(seed))(0, 1));
+let array = Array.from({ length: 3 }, d3Random.randomLcg(seed));
+array = Array.from({ length: 3 }, d3Random.randomNormal.source(d3Random.randomLcg(seed))(0, 1));

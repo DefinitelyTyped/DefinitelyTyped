@@ -1,13 +1,17 @@
-// Type definitions for React (react-addons-test-utils) 15.6
-// Project: http://facebook.github.io/react/
-// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { AbstractView, Component, ComponentClass,
-    ReactElement, ReactInstance, ClassType,
-    DOMElement, SFCElement, CElement,
-    ReactHTMLElement, DOMAttributes, SFC } from 'react';
+import {
+    AbstractView,
+    CElement,
+    ClassType,
+    Component,
+    ComponentClass,
+    DOMAttributes,
+    DOMElement,
+    ReactElement,
+    ReactHTMLElement,
+    ReactInstance,
+    SFC,
+    SFCElement,
+} from "react";
 
 export = TestUtils;
 
@@ -116,56 +120,80 @@ declare namespace TestUtils {
     }
 
     export function renderIntoDocument<T extends Element>(
-        element: DOMElement<any, T>): T;
+        element: DOMElement<any, T>,
+    ): T;
     export function renderIntoDocument(
-        element: SFCElement<any>): void;
+        element: SFCElement<any>,
+    ): void;
     export function renderIntoDocument<T extends Component<any>>(
-        element: CElement<any, T>): T;
+        element: CElement<any, T>,
+    ): T;
     export function renderIntoDocument<P>(
-        element: ReactElement<P>): Component<P> | Element | void;
+        element: ReactElement<P>,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    ): Component<P> | Element | void;
 
     export function mockComponent(
-        mocked: MockedComponentClass, mockTagName?: string): typeof TestUtils;
+        mocked: MockedComponentClass,
+        mockTagName?: string,
+    ): typeof TestUtils;
 
     export function isElementOfType<T extends HTMLElement>(
-        element: ReactElement, type: string): element is ReactHTMLElement<T>;
+        element: ReactElement,
+        type: string,
+    ): element is ReactHTMLElement<T>;
     export function isElementOfType<P extends DOMAttributes<{}>, T extends Element>(
-        element: ReactElement, type: string): element is DOMElement<P, T>;
+        element: ReactElement,
+        type: string,
+    ): element is DOMElement<P, T>;
     export function isElementOfType<P>(
-        element: ReactElement, type: SFC<P>): element is SFCElement<P>;
+        element: ReactElement,
+        type: SFC<P>,
+    ): element is SFCElement<P>;
     export function isElementOfType<P, T extends Component<P>, C extends ComponentClass<P>>(
-        element: ReactElement, type: ClassType<P, T, C>): element is CElement<P, T>;
+        element: ReactElement,
+        type: ClassType<P, T, C>,
+    ): element is CElement<P, T>;
 
     export function isDOMComponent(instance: ReactInstance): instance is Element;
     export function isCompositeComponent(instance: ReactInstance): instance is Component<any>;
     export function isCompositeComponentWithType<T extends Component<any>, C extends ComponentClass<any>>(
-        instance: ReactInstance, type: ClassType<any, T, C>): T;
+        instance: ReactInstance,
+        type: ClassType<any, T, C>,
+    ): T;
 
     export function findAllInRenderedTree(
         root: Component<any>,
-        fn: (i: ReactInstance) => boolean): ReactInstance[];
+        fn: (i: ReactInstance) => boolean,
+    ): ReactInstance[];
 
     export function scryRenderedDOMComponentsWithClass(
         root: Component<any>,
-        className: string): Element[];
+        className: string,
+    ): Element[];
     export function findRenderedDOMComponentWithClass(
         root: Component<any>,
-        className: string): Element;
+        className: string,
+    ): Element;
 
     export function scryRenderedDOMComponentsWithTag(
         root: Component<any>,
-        tagName: string): Element[];
+        tagName: string,
+    ): Element[];
     export function findRenderedDOMComponentWithTag(
         root: Component<any>,
-        tagName: string): Element;
+        tagName: string,
+    ): Element;
 
     export function scryRenderedComponentsWithType<T extends Component<any>, C extends ComponentClass<any>>(
         root: Component<any>,
-        type: ClassType<any, T, C>): T[];
+        type: ClassType<any, T, C>,
+    ): T[];
 
     export function findRenderedComponentWithType<T extends Component<any>, C extends ComponentClass<any>>(
         root: Component<any>,
-        type: ClassType<any, T, C>): T;
+        type: ClassType<any, T, C>,
+    ): T;
 
     export function createRenderer(): ShallowRenderer;
 }

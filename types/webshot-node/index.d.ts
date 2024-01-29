@@ -1,7 +1,3 @@
-// Type definitions for webshot-node 0.18
-// Project: https://github.com/architjn/node-webshot#readme
-// Definitions by: Logan Kearsley <https://github.com/gliese1337>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node"/>
 
 export = webshot;
@@ -22,8 +18,8 @@ declare namespace webshot {
             height: number;
         } | undefined;
         shotSize?: {
-            width: 'window' | 'all' | number;
-            height: 'window' | 'all' | number;
+            width: "window" | "all" | number;
+            height: "window" | "all" | number;
         } | undefined;
         shotOffset?: {
             left: number;
@@ -32,14 +28,14 @@ declare namespace webshot {
             bottom: number;
         } | undefined;
         phantomPath?: string | undefined;
-        phantomConfig?: {[key: string]: any} | undefined;
-        cookies?: Array<{[key: string]: any}> | null | undefined;
-        customHeaders?: Array<{[key: string]: any}> | null | undefined;
+        phantomConfig?: { [key: string]: any } | undefined;
+        cookies?: Array<{ [key: string]: any }> | null | undefined;
+        customHeaders?: Array<{ [key: string]: any }> | null | undefined;
         defaultWhiteBackground?: boolean | undefined;
         customCSS?: string | undefined;
         quality?: number | undefined;
-        streamType?: 'png' | 'jpg' | 'jpeg' | undefined;
-        siteType?: 'url' | 'file' | 'html' | undefined;
+        streamType?: "png" | "jpg" | "jpeg" | undefined;
+        siteType?: "url" | "file" | "html" | undefined;
         renderDelay?: number | undefined;
         timeout?: number | undefined;
         takeShotOnCallback?: boolean | undefined;

@@ -1,8 +1,3 @@
-// Type definitions for esm 3.2
-// Project: https://github.com/standard-things/esm#readme
-// Definitions by: Richie Bendall <https://github.com/Richienb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 declare namespace Options {

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/fbjs",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/facebook/fbjs/tree/master/packages/fbjs"
+    ],
+    "dependencies": {
+        "@types/jsdom": "*"
+    },
+    "devDependencies": {
+        "@types/fbjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Lorenzo Di Giacomo",
+            "githubUsername": "morrys"
+        }
+    ]
+}

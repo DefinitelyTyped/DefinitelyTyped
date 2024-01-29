@@ -1,13 +1,9 @@
-// Type definitions for webidl2 23.13
-// Project: https://github.com/w3c/webidl2.js#readme
-// Definitions by: Kagama Sascha Rosylight <https://github.com/saschanaz>
-//                 ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace WebIDL2;
 export {};
 
 export function parse(str: string, options?: ParseOptions): IDLRootType[];
+export function write(ast: IDLRootType[], options?: WriteOptions): string;
+export function validate(ast: IDLRootType[]): WebIDLErrorData[];
 
 export type IDLRootType =
     | CallbackType
@@ -42,7 +38,90 @@ export interface ParseOptions {
     sourceName?: string | undefined;
 }
 
-export class WebIDLParseError extends Error {
+export interface WriteOptions {
+    templates?: {
+        /**
+         * A function that receives syntax strings plus anything the templates returned.
+         * The items are guaranteed to be ordered.
+         * The returned value may be again passed to any template functions,
+         * or it may also be the final return value of `write()`.
+         * @param items
+         */
+        wrap?(items: any[]): any;
+        /**
+         * @param t A trivia string, which includes whitespaces and comments.
+         */
+        trivia?(t: string): string;
+        /**
+         * The identifier for a container type. For example, the `Foo` part of `interface Foo {};`.
+         * @param escaped The escaped raw name of the definition.
+         * @param data The definition with the name
+         * @param parent The parent of the definition, undefined if absent
+         */
+        name?(escaped: string, { data, parent }: { data: any; parent: any }): string;
+        /**
+         * Called for each type referece, e.g. `Window`, `DOMString`, or `unsigned long`.
+         * @param escaped The referenced name. Typically string, but may also be the return
+         *            value of `wrap()` if the name contains whitespace.
+         * @param unescaped Unescaped reference.
+         */
+        reference?(escaped: any, unescaped: any): any;
+        /**
+         * Called for each generic-form syntax, e.g. `sequence`, `Promise`, or `maplike`.
+         * @param name The keyword for syntax
+         */
+        generic?(name: string): string;
+        /**
+         * Called for each nameless members, e.g. `stringifier` for `stringifier;` and `constructor` for `constructor();`
+         * @param keyword The keyword for syntax
+         */
+        nameless?(keyword: string, { data, parent }: { data: any; parent: any }): string;
+        /**
+         * Called only once for each types, e.g. `Document`, `Promise<DOMString>`, or `sequence<long>`.
+         * @param type The `wrap()`ed result of references and syntatic bracket strings.
+         */
+        type?(type: any): any;
+        /**
+         * Receives the return value of `reference()`. String if it's absent.
+         */
+        inheritance?(inh: any): any;
+        /**
+         * Called for each IDL type definition, e.g. an interface, an operation, or a typedef.
+         * @param content The wrapped value of everything the definition contains.
+         * @param data The original definition object
+         * @param parent The parent of the definition, undefined if absent
+         */
+        definition?(content: any, { data, parent }: { data: any; parent: any }): any;
+        /**
+         * Called for each extended attribute annotation.
+         * @param content The wrapped value of everything the annotation contains.
+         */
+        extendedAttribute?(content: any): any;
+        /**
+         * The `Foo` part of `[Foo=Whatever]`.
+         * @param ref The name of the referenced extended attribute name.
+         */
+        extendedAttributeReference?(ref: any): any;
+    };
+}
+
+export class WebIDLError extends Error {
+    /** the error message */
+    message: string;
+    bareMessage: string;
+
+    /** the line at which the error occurred. */
+    context: string;
+    line: number;
+    sourceName: string | undefined;
+
+    /** a short peek at the text at the point where the error happened */
+    input: string;
+    /** the five tokens at the point of error, as understood by the tokeniser */
+    tokens: Token[];
+}
+
+export class WebIDLParseError extends WebIDLError {
     constructor(options: {
         message: string;
         bareMessage: string;
@@ -54,20 +133,17 @@ export class WebIDLParseError extends Error {
     });
 
     name: "WebIDLParseError";
+}
 
-    /** the error message */
-    message: string;
-    bareMessage: string;
+export class WebIDLErrorData extends WebIDLError {
+    /** the level of error */
+    level: "error" | "warning";
 
-    context: string;
-    /** the line at which the error occurred. */
-    line: number;
-    sourceName: string | undefined;
+    /** A function to automatically fix the error */
+    autofix?(): void;
 
-    /** a short peek at the text at the point where the error happened */
-    input: string;
-    /** the five tokens at the point of error, as understood by the tokeniser */
-    tokens: Token[];
+    /** The name of the rule that threw the error */
+    ruleName: string;
 }
 
 export interface Token {

@@ -1,8 +1,3 @@
-// Type definitions for vec2 1.6
-// Project: https://github.com/tmpvar/vec2.js
-// Definitions by: Konrad Klockgether <https://github.com/Nielio>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * A generic library useful when you need to work with points/vectors in 2d space.
  * **Stuff to Note**: most of the Vec2's methods take a `returnNew` as the last parameter.
@@ -14,8 +9,15 @@ declare class Vec2 {
     readonly x: number;
     readonly y: number;
 
-    constructor(xy: number[]);
+    constructor(xy: number[] | { x: number; y: number });
     constructor(x: number, y: number);
+
+    static fromArray(xy: number[]): Vec2;
+
+    // Floating point stability
+    static precision: number;
+
+    static clean(val: number): number;
 
     /**
      * Add an observer `fn` that will be called whenever this vector changes.  Calling this method without a function causes it to notify observers.
@@ -32,12 +34,17 @@ declare class Vec2 {
     /**
      * Sets the `x` and `y` coordinates of this vector.  If `false` is passed for `notify`, none of the observers will be called.
      */
-    set(x: number, y: number, notify: boolean): Vec2;
+    set(x: number, y: number, notify?: boolean): Vec2;
 
     /**
      * Sets the `x` and `y` of this vector to `0`
      */
     zero(): Vec2;
+
+    /**
+     * Returns a new vector with the same component values
+     */
+    clone(): Vec2;
 
     /**
      * Negate the `x` and `y` coords of this vector.  If `returnNew` is truthy, a new vector with the negated coordinates will be returned.
@@ -132,7 +139,6 @@ declare class Vec2 {
     clamp(low: Vec2, high: Vec2, returnNew?: boolean): Vec2;
 
     /**
-     *
      * Perform linear interpolation between this vector and the incoming.
      * `amount` - the percentage along the path to place the vector
      * `returnNew` - if `truthy`, apply the result to a new vector and return it, otherwise return `this`
@@ -147,12 +153,12 @@ declare class Vec2 {
     /**
      * _returns_: `double`
      */
-    dot(): number;
+    dot(vec: Vec2): number;
 
     /**
      * _returns_: `double`
      */
-    perpDot(): number;
+    perpDot(vec: Vec2): number;
 
     /**
      * Returns the angle from this vector to the incoming.
@@ -174,12 +180,12 @@ declare class Vec2 {
      */
     fromArray(array: number[]): Vec2;
 
-     toJSON(): { x: number, y: number };
+    toJSON(): { x: number; y: number };
 
     /**
      * _returns_: `'(x, y)'`
      */
-     toString(): string;
+    toString(): string;
 }
 
 export = Vec2;

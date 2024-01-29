@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/bunyan-prettystream",
+    "version": "0.1.9999",
+    "projects": [
+        "https://www.npmjs.com/package/bunyan-prettystream"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/bunyan-prettystream": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jason Swearingen",
+            "githubUsername": "jasonswearingen"
+        },
+        {
+            "name": "Vadim Macagon",
+            "githubUsername": "enlight"
+        }
+    ]
+}

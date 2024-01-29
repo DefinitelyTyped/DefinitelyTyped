@@ -1,5 +1,5 @@
-import * as d3 from 'd3';
-import { Query } from '../query';
+import * as d3 from "d3";
+import { Query } from "../query";
 
 export interface Link {
     /**
@@ -13,7 +13,6 @@ export interface Link {
     /**
      * Return the color to use on links and relation donut segments.
      *
-     *
      * Return null or undefined
      * @param link
      * @param element
@@ -23,7 +22,6 @@ export interface Link {
     getColor: (link: any, element: SVGGElement, attribute: string) => string;
 
     /**
-     *
      * @param link
      * @param element
      * @return css class
@@ -31,7 +29,6 @@ export interface Link {
     getCSSClass: (link: any, element: SVGGElement) => string;
 
     /**
-     *
      * @param link
      */
     getDistance: (link: any) => number;
@@ -52,10 +49,9 @@ export interface Taxonomy {
      * @param label the label used for the taxonomy.
      * @returns the text representation of the taxonomy.
      */
-    getTextValue: (label: string)  => string;
+    getTextValue: (label: string) => string;
 
     /**
-     *
      * @param label
      * @param element
      * @return css class
@@ -408,10 +404,10 @@ export interface Node {
      * SVG: the node is displayed using a list of svg path, each path can contain its own color.
      */
     DisplayTypes: Readonly<{
-        TEXT: 0
-        IMAGE: 1
-        SVG: 2
-        SYMBOL: 3
+        TEXT: 0;
+        IMAGE: 1;
+        SVG: 2;
+        SYMBOL: 3;
     }>;
 
     /**
@@ -438,7 +434,6 @@ export interface Node {
     getProperty: (label: string, name: string) => any;
 
     /**
-     *
      * @param label
      */
     getIsAutoLoadValue: (label: string) => boolean;
@@ -520,7 +515,7 @@ export interface Provider {
      * Default color scale generator.
      * Used in getColor link and node providers.
      */
-    colorScale: d3.ScaleOrdinal<string, ReadonlyArray<string>>;
+    colorScale: d3.ScaleOrdinal<string, readonly string[]>;
 
     colorLuminance: (hex: string, lum: number) => string;
 

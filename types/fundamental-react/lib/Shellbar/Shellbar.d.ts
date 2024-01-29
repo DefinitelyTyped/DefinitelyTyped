@@ -2,13 +2,15 @@ import * as React from "react";
 import { IconSize } from "../Icon/Icon";
 
 export type ShellbarProps = {
-    actions?: Array<{
-        menu?: React.ReactNode | undefined;
-        label?: string | undefined;
-        glyph: string;
-        notificationCount: number;
-        callback?: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined;
-    }> | undefined;
+    actions?:
+        | Array<{
+            menu?: React.ReactNode | undefined;
+            label?: string | undefined;
+            glyph: string;
+            notificationCount: number;
+            callback?: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined;
+        }>
+        | undefined;
     backAction?: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined;
     className?: string | undefined;
     copilot?: boolean | undefined;
@@ -26,23 +28,27 @@ export type ShellbarProps = {
         label?: string | undefined;
         callback?: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined;
     } | undefined;
-    productMenu?: Array<{
-        link?: string | undefined;
-        callback?: ((...args: any[]) => void) | undefined;
-        url?: string | undefined;
-        glyph?: string | undefined;
-        size?: IconSize | undefined;
-        name?: React.ReactNode | undefined;
-    }> | undefined;
+    productMenu?:
+        | Array<{
+            link?: string | undefined;
+            callback?: ((...args: any[]) => void) | undefined;
+            url?: string | undefined;
+            glyph?: string | undefined;
+            size?: IconSize | undefined;
+            name?: React.ReactNode | undefined;
+        }>
+        | undefined;
     productSwitch?: object | undefined;
-    productSwitchList?: Array<{
-        title: string;
-        link?: string | undefined;
-        url?: string | undefined;
-        glyph: string;
-        image: string;
-        callback?: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined;
-    }> | undefined;
+    productSwitchList?:
+        | Array<{
+            title: string;
+            link?: string | undefined;
+            url?: string | undefined;
+            glyph: string;
+            image: string;
+            callback?: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined;
+        }>
+        | undefined;
     productTitle?: string | undefined;
     profile?: { [x: string]: any } | undefined;
     profileMenu?: Array<{ [x: string]: any }> | undefined;

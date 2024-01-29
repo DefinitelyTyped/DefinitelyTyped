@@ -1,4 +1,4 @@
-import { DRMAgent, WifiDirectStatus, WifiPeerInfo, WifiStatus, WifiWfdInfo, WiredStatus } from 'webostvjs';
+import { DRMAgent, WifiDirectStatus, WifiPeerInfo, WifiStatus, WifiWfdInfo, WiredStatus } from "webostvjs";
 
 function test_APP_BROWSER() {
     // $ExpectType string
@@ -50,7 +50,7 @@ function test_LGUDID() {
             err; // $ExpectType FailureResponse
             err.errorCode; // $ExpectType string | number
             err.errorText; // $ExpectType string
-        }
+        },
     });
     window.webOSDev.LGUDID({
         onSuccess(res) {
@@ -58,7 +58,7 @@ function test_LGUDID() {
             res.id; // $ExpectType string
         },
         onFailure(error) {
-        }
+        },
     });
 }
 
@@ -76,7 +76,7 @@ function test_connection_getStatus() {
             err; // $ExpectType FailureResponse
             err.errorCode; // $ExpectType string | number
             err.errorText; // $ExpectType string
-        }
+        },
     });
 
     window.webOSDev.connection.getStatus({
@@ -112,7 +112,7 @@ function test_drmAgent() {
             err; // $ExpectType FailureResponse
             err.errorCode; // $ExpectType string | number
             err.errorText; // $ExpectType string
-        }
+        },
     });
     // $ExpectType void
     drmAgent.isLoaded({
@@ -126,7 +126,7 @@ function test_drmAgent() {
             err; // $ExpectType FailureResponse
             err.errorCode; // $ExpectType string | number
             err.errorText; // $ExpectType string
-        }
+        },
     });
     // $ExpectType void
     drmAgent.load({
@@ -138,13 +138,13 @@ function test_drmAgent() {
             err; // $ExpectType FailureResponse
             err.errorCode; // $ExpectType string | number
             err.errorText; // $ExpectType string
-        }
+        },
     });
     // $ExpectType void
     drmAgent.sendDrmMessage();
     // $ExpectType void
     drmAgent.sendDrmMessage({
-        msg: 'some message',
+        msg: "some message",
         onSuccess(res) {
             res; // $ExpectType SendDrmMessageSuccessResponse
             res.msgId; // $ExpectType string | undefined
@@ -155,7 +155,7 @@ function test_drmAgent() {
             err; // $ExpectType FailureResponse
             err.errorCode; // $ExpectType string | number
             err.errorText; // $ExpectType string
-        }
+        },
     });
     drmAgent.unload({
         onSuccess(res) {
@@ -165,21 +165,21 @@ function test_drmAgent() {
             err; // $ExpectType FailureResponse
             err.errorCode; // $ExpectType string | number
             err.errorText; // $ExpectType string
-        }
+        },
     });
 }
 
 function test_launch() {
     // $ExpectType void
     window.webOSDev.launch({
-        id: 'some id',
+        id: "some id",
         params: {},
         onSuccess() {},
         onFailure(err) {
             err; // $ExpectType FailureResponse
             err.errorCode; // $ExpectType string | number
             err.errorText; // $ExpectType string
-        }
+        },
     });
 }
 
@@ -257,7 +257,7 @@ function test_connection_getStatus_wifiDirect_WifiPeer(wifiPeerInfo: WifiPeerInf
     wifiPeerInfo.deviceName;
     // $ExpectType boolean
     wifiPeerInfo.groupOwner;
-    // $ExpectType "true" | "false" | undefined
+    // $ExpectType "true" | "false" | undefined || "false" | "true" | undefined
     wifiPeerInfo.invited;
     // $ExpectType string | undefined
     wifiPeerInfo.peerIp;

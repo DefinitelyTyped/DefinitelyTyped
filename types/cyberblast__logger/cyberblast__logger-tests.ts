@@ -1,6 +1,6 @@
 import { Logger, Severity, SeverityLevel } from "@cyberblast/logger";
 
-const something = {something: ""};
+const something = { something: "" };
 const callback = (logData: any) => {};
 
 let logger = new Logger(""); // $ExpectType Logger
@@ -11,25 +11,25 @@ logger.close(); // $ExpectedType void
 logger.defineCategory(""); // $ExpectedType void
 
 const logData1 = {
-  severity: Severity.Error,
-  category: "",
-  message: ""
+    severity: Severity.Error,
+    category: "",
+    message: "",
 };
 logger.log(logData1); // $ExpectedType void
 
 const logData2 = {
-  severity: Severity.Error,
-  category: "",
-  message: "",
-  time: new Date()
+    severity: Severity.Error,
+    category: "",
+    message: "",
+    time: new Date(),
 };
 logger.log(logData2); // $ExpectedType void
 
 const logData3 = {
-  severity: Severity.Error,
-  category: "",
-  message: "",
-  data: something
+    severity: Severity.Error,
+    category: "",
+    message: "",
+    data: something,
 };
 logger.log(logData3); // $ExpectedType void
 

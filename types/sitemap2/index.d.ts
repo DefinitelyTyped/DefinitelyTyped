@@ -1,14 +1,9 @@
-// Type definitions for sitemap2 1.0
-// Project: https://github.com/vlkosinov/sitemap2
-// Definitions by: Yuichi Shundo <https://github.com/shundy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var sitemap2: Sitemap;
 
 export = sitemap2;
 
 interface Sitemap {
-    new (conf?: SitemapConfig): Sitemap;
+    new(conf?: SitemapConfig): Sitemap;
 
     addUrl(urlData: UrlData | UrlData[] | string | string[]): this;
     addSitemap(sm: Sitemap): this;

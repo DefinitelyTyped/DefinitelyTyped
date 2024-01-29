@@ -1,16 +1,10 @@
-// Type definitions for acl 0.4
-// Project: https://github.com/optimalbits/node_acl
-// Definitions by: Qubo <https://github.com/tkQubo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 /// <reference types="node"/>
 
-import http = require('http');
-import Promise = require('bluebird');
-import express = require('express');
-import redis = require('redis');
-import mongo = require('mongodb');
+import http = require("http");
+import Promise = require("bluebird");
+import express = require("express");
+import redis = require("redis");
+import mongo = require("mongodb");
 
 export = AclStatic;
 
@@ -26,10 +20,10 @@ type AllowedCallback = (err: Error, allowed: boolean) => any;
 type GetUserId = (req: http.IncomingMessage, res: http.ServerResponse) => Value;
 
 interface AclStatic {
-    new (
+    new(
         backend: AclStatic.Backend<any>,
         logger?: AclStatic.Logger,
-        options?: AclStatic.Option
+        options?: AclStatic.Option,
     ): AclStatic.Acl;
     readonly memoryBackend: AclStatic.MemoryBackendStatic;
     readonly mongodbBackend: AclStatic.MongodbBackendStatic;
@@ -49,7 +43,7 @@ declare namespace AclStatic {
         hasRole: (
             userId: Value,
             role: string,
-            cb?: (err: Error, isInRole: boolean) => any
+            cb?: (err: Error, isInRole: boolean) => any,
         ) => Promise<boolean>;
         addRoleParents: (role: string, parents: Values, cb?: Callback) => Promise<void>;
         removeRole: (role: string, cb?: Callback) => Promise<void>;
@@ -62,26 +56,26 @@ declare namespace AclStatic {
             role: string,
             resources: strings,
             permissions: strings,
-            cb?: Callback
+            cb?: Callback,
         ) => Promise<void>;
         removePermissions: (
             role: string,
             resources: strings,
             permissions: strings,
-            cb?: Callback
+            cb?: Callback,
         ) => Promise<void>;
         allowedPermissions: (userId: Value, resources: strings, cb?: AnyCallback) => Promise<void>;
         isAllowed: (
             userId: Value,
             resources: strings,
             permissions: strings,
-            cb?: AllowedCallback
+            cb?: AllowedCallback,
         ) => Promise<boolean>;
         areAnyRolesAllowed: (
             roles: strings,
             resource: strings,
             permissions: strings,
-            cb?: AllowedCallback
+            cb?: AllowedCallback,
         ) => Promise<any>;
         whatResources: {
             (roles: strings, cb?: AnyCallback): Promise<any>;
@@ -91,7 +85,7 @@ declare namespace AclStatic {
         middleware: (
             numPathComponents?: number,
             userId?: Value | GetUserId,
-            actions?: strings
+            actions?: strings,
         ) => express.RequestHandler;
     }
 
@@ -120,7 +114,7 @@ declare namespace AclStatic {
 
     interface MemoryBackend extends Backend<Action[]> {}
     interface MemoryBackendStatic {
-        new (): MemoryBackend;
+        new(): MemoryBackend;
     }
 
     //
@@ -140,13 +134,13 @@ declare namespace AclStatic {
         getAsync: (
             bucket: string,
             key: Value,
-            cb?: (err: Error | null, value: any) => void
+            cb?: (err: Error | null, value: any) => void,
         ) => Promise<any>;
         cleanAsync: (cb?: (error?: Error) => void) => Promise<void>;
         unionAsync: (
             bucket: string,
             keys: Value[],
-            cb?: (error: Error | undefined, results: any[]) => void
+            cb?: (error: Error | undefined, results: any[]) => void,
         ) => Promise<any[]>;
     }
 
@@ -168,12 +162,12 @@ declare namespace AclStatic {
     // for redis backend
     interface RedisBackend extends Backend<redis.RedisClient> {}
     interface RedisBackendStatic {
-        new (redis: redis.RedisClient, prefix?: string): RedisBackend;
+        new(redis: redis.RedisClient, prefix?: string): RedisBackend;
     }
 
     // for mongodb backend
     interface MongodbBackend extends Backend<Callback> {}
     interface MongodbBackendStatic {
-        new (db: mongo.Db, prefix?: string, useSingle?: boolean): MongodbBackend;
+        new(db: mongo.Db, prefix?: string, useSingle?: boolean): MongodbBackend;
     }
 }

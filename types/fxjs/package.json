@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/fxjs",
+    "version": "0.15.9999",
+    "projects": [
+        "https://github.com/marpple/FxJS.git"
+    ],
+    "devDependencies": {
+        "@types/fxjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "minyeong",
+            "githubUsername": "load28"
+        }
+    ]
+}

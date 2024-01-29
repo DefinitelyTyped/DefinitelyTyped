@@ -1,6 +1,6 @@
 // See docs https://codemirror.net/doc/manual.html#addon_foldcode
 
-import * as CodeMirror from '../../';
+import * as CodeMirror from "../../";
 
 export type FoldRangeFinder = (cm: CodeMirror.Editor, pos: CodeMirror.Position) => CodeMirror.FoldRange | undefined;
 
@@ -9,7 +9,7 @@ export interface FoldHelpers {
     auto: FoldRangeFinder;
 }
 
-declare module '../../' {
+declare module "../../" {
     interface Editor {
         /**
          * Helps with code folding. Adds a foldCode method to editor instances, which will try to do a code fold starting at the given line,
@@ -20,7 +20,7 @@ declare module '../../' {
         foldCode: (
             lineOrPos: number | Position,
             rangeFindeOrFoldOptions?: FoldRangeFinder | FoldOptions,
-            force?: 'fold' | 'unfold',
+            force?: "fold" | "unfold",
         ) => void;
         isFolded(pos: Position): boolean | undefined;
         foldOption<K extends keyof FoldOptions>(option: K): FoldOptions[K];

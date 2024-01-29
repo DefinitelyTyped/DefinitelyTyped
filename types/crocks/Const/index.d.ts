@@ -1,2 +1,2 @@
-import Const from './Const';
+import Const from "./Const";
 export default Const;

@@ -3,12 +3,12 @@ import { FCReturn, ReactLIAttr } from "../../../typings/shared";
 
 interface HeaderMenuProps<RP = {}> extends ReactLIAttr {
     isCurrentPage?: boolean | undefined;
-    menuLinkName: string,
+    menuLinkName: string;
     focusRef?(element: HTMLElement): void;
-    renderMenuContent?: React.ComponentType<RP> | undefined,
+    renderMenuContent?: React.ComponentType<RP> | undefined;
 }
 
-declare class HeaderMenu extends React.Component<HeaderMenuProps> { }
+declare class HeaderMenu extends React.Component<HeaderMenuProps> {}
 
 export interface HeaderMenuForwardRefProps<RP = {}> extends Omit<HeaderMenuProps<RP>, "focusRef" | "ref"> {
     ref?: HeaderMenuProps<RP>["focusRef"] | undefined;

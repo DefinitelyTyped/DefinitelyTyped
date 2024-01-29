@@ -1,4 +1,4 @@
-import dotdir = require('dotdir-regex');
+import dotdir = require("dotdir-regex");
 
 // $ExpectType RegExp
 dotdir();

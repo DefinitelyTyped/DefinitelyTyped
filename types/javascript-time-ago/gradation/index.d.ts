@@ -1,4 +1,4 @@
-export type Unit = 'now' | 'second' | 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year';
+export type Unit = "now" | "second" | "minute" | "hour" | "day" | "week" | "month" | "year";
 
 export interface Gradation {
     unit?: Unit | undefined;
@@ -15,6 +15,6 @@ export interface Gradation {
     threshold_for_year?: number | undefined;
 }
 
-export { default as canonical } from './canonical';
-export { default as convenient } from './convenient';
-export { minute, hour, day, month, year, getStep, getDate } from './helpers';
+export { default as canonical } from "./canonical";
+export { default as convenient } from "./convenient";
+export { day, getDate, getStep, hour, minute, month, year } from "./helpers";

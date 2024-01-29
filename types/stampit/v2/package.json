@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/stampit",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/stampit-org/stampit"
+    ],
+    "devDependencies": {
+        "@types/stampit": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Vasyl Boroviak",
+            "githubUsername": "koresar"
+        }
+    ]
+}

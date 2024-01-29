@@ -1,11 +1,6 @@
-// Type definitions for @xmpp/connection 0.13
-// Project: https://github.com/xmppjs/xmpp.js/tree/main/packages/connection
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { EventEmitter } from '@xmpp/events';
-import { JID } from '@xmpp/jid';
-import { Element, Parser } from '@xmpp/xml';
+import { EventEmitter } from "@xmpp/events";
+import { JID } from "@xmpp/jid";
+import { Element, Parser } from "@xmpp/xml";
 
 export = Connection;
 
@@ -142,7 +137,7 @@ declare abstract class Connection extends EventEmitter {
     off(event: string | symbol, listener: (...args: any[]) => void): this;
 
     emit<TStatus extends keyof Connection.StatusEvents>(
-        event: 'status',
+        event: "status",
         status: TStatus,
         ...args: Parameters<Connection.StatusEvents[TStatus]>
     ): boolean;
@@ -207,7 +202,7 @@ declare namespace Connection {
     }
 
     interface SocketConstructor {
-        new (): SocketBase;
+        new(): SocketBase;
     }
 
     interface SocketBase extends EventEmitter {

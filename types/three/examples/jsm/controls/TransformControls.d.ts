@@ -1,6 +1,38 @@
-import { Object3D, Camera, MOUSE, Raycaster } from '../../../src/Three';
+import { Object3D, Camera, MOUSE, Raycaster, Mesh, Vector3, Quaternion, Object3DEventMap } from '../../../src/Three.js';
 
-export class TransformControls extends Object3D {
+export interface TransformControlsEventMap extends Object3DEventMap {
+    change: {};
+    mouseDown: {};
+    mouseUp: {};
+    objectChange: {};
+    'camera-changed': { value: unknown };
+    'object-changed': { value: unknown };
+    'enabled-changed': { value: unknown };
+    'axis-changed': { value: unknown };
+    'mode-changed': { value: unknown };
+    'translationSnap-changed': { value: unknown };
+    'rotationSnap-changed': { value: unknown };
+    'scaleSnap-changed': { value: unknown };
+    'space-changed': { value: unknown };
+    'size-changed': { value: unknown };
+    'dragging-changed': { value: unknown };
+    'showX-changed': { value: unknown };
+    'showY-changed': { value: unknown };
+    'showZ-changed': { value: unknown };
+    'worldPosition-changed': { value: unknown };
+    'worldPositionStart-changed': { value: unknown };
+    'worldQuaternion-changed': { value: unknown };
+    'worldQuaternionStart-changed': { value: unknown };
+    'cameraPosition-changed': { value: unknown };
+    'cameraQuaternion-changed': { value: unknown };
+    'pointStart-changed': { value: unknown };
+    'pointEnd-changed': { value: unknown };
+    'rotationAxis-changed': { value: unknown };
+    'rotationAngle-changed': { value: unknown };
+    'eye-changed': { value: unknown };
+}
+
+export class TransformControls extends Object3D<TransformControlsEventMap> {
     constructor(object: Camera, domElement?: HTMLElement);
 
     domElement: HTMLElement;
@@ -20,11 +52,12 @@ export class TransformControls extends Object3D {
     showX: boolean;
     showY: boolean;
     showZ: boolean;
+
     readonly isTransformControls: true;
     mouseButtons: {
-        LEFT: MOUSE;
-        MIDDLE: MOUSE;
-        RIGHT: MOUSE;
+        LEFT?: MOUSE | null | undefined;
+        MIDDLE?: MOUSE | null | undefined;
+        RIGHT?: MOUSE | null | undefined;
     };
 
     attach(object: Object3D): this;
@@ -39,4 +72,44 @@ export class TransformControls extends Object3D {
     setSpace(space: 'world' | 'local'): void;
     reset(): void;
     dispose(): void;
+}
+
+export class TransformControlsGizmo extends Object3D {
+    type: 'TransformControlsGizmo';
+    isTransformControlsGizmo: true;
+
+    gizmo: {
+        translate: Object3D;
+        rotate: Object3D;
+        scale: Object3D;
+    };
+    helper: {
+        translate: Object3D;
+        rotate: Object3D;
+        scale: Object3D;
+    };
+    picker: {
+        translate: Object3D;
+        rotate: Object3D;
+        scale: Object3D;
+    };
+
+    constructor();
+}
+
+export class TransformControlsPlane extends Mesh {
+    type: 'TransformControlsPlane';
+    isTransformControlsPlane: true;
+
+    constructor();
+
+    mode: 'translate' | 'scale' | 'rotate';
+
+    axis: 'X' | 'Y' | 'Z' | 'XY' | 'YZ' | 'XZ' | 'XYZ' | 'E';
+
+    space: 'local' | 'world';
+
+    eye: Vector3;
+    worldPosition: Vector3;
+    worldQuaternion: Quaternion;
 }

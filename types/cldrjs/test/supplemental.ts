@@ -15,5 +15,3 @@ const preferred = timeData.preferred();
 const weekData = supplemental.weekData;
 const firstDay = weekData.firstDay();
 const minDays = weekData.minDays();
-
-

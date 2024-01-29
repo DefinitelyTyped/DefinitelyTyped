@@ -1,4 +1,4 @@
-import * as AWS from "aws-sdk";
+import * as AWS from "aws-sdk2-types";
 import { Client } from "elasticsearch";
 import HttpAmazonESConnector = require("http-aws-es");
 

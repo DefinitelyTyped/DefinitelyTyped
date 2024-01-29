@@ -14,7 +14,7 @@ declare namespace echarts {
              * of the grid, and the second y axis is on the other side
              * against the first y axis.
              */
-            position?: 'left' | 'right' | undefined;
+            position?: "left" | "right" | undefined;
 
             /**
              * Options:

@@ -1,43 +1,43 @@
-import * as chai from 'chai';
-import * as spies from 'chai-spies';
+import * as chai from "chai";
+import * as spies from "chai-spies";
 
 function original(): void {
-  // do something cool
+    // do something cool
 }
 
 let ee = {
     on(name: string, fn: () => void) {
-    }
+    },
 };
 
 let spiedFn = chai.spy(original);
 
 // then use in place of original
-ee.on('some event', spiedFn);
+ee.on("some event", spiedFn);
 
 // or use without original
 let spy_again = chai.spy();
-ee.on('some other event', spy_again);
+ee.on("some other event", spy_again);
 
 // or you can track an object's method
-let array = [ 1, 2, 3 ];
-chai.spy.on(array, 'push');
+let array = [1, 2, 3];
+chai.spy.on(array, "push");
 
 // or you can track multiple object's methods
-chai.spy.on(array, ['push', 'pop']);
+chai.spy.on(array, ["push", "pop"]);
 
 // or you can have a custom function implementation
-chai.spy.on(array, 'push', function(item) {
+chai.spy.on(array, "push", function(item) {
     array.push(item);
 });
 
 // or you can have custom function with multiple parameters
-chai.spy.on(array, 'push', function(first, second, third) {
+chai.spy.on(array, "push", function(first, second, third) {
     array.push(first, second, third);
 });
 
 // or you can have custom function with variable length parameters
-chai.spy.on(array, 'push', function(...elements) {
+chai.spy.on(array, "push", function(...elements) {
     array.push(...elements);
 });
 
@@ -47,7 +47,7 @@ array.push(5);
 // array.push.reset();
 
 // or you can create spy object
-let object = chai.spy.interface([ 'push', 'pop' ]);
+let object = chai.spy.interface(["push", "pop"]);
 object.push(5);
 
 // or you create spy which returns static value
@@ -55,9 +55,8 @@ spiedFn = chai.spy.returns(true);
 
 spiedFn(); // true
 
-
-let should = chai.should()
-  , expect = chai.expect;
+let should = chai.should(),
+    expect = chai.expect;
 
 const spy = chai.spy();
 
@@ -73,56 +72,56 @@ spy.should.have.been.called();
 
 // .with
 const spyStringArg = chai.spy((arg: string) => arg);
-spyStringArg('foo');
-expect(spyStringArg).to.have.been.called.with('foo');
-spyStringArg.should.have.been.called.with('foo');
+spyStringArg("foo");
+expect(spyStringArg).to.have.been.called.with("foo");
+spyStringArg.should.have.been.called.with("foo");
 
 const spyTwoStringArgsAndOneNumber = chai.spy((arg1: string, arg2: string, arg3: number) => arg3);
-spyTwoStringArgsAndOneNumber('foo', 'bar', 1);
-expect(spyTwoStringArgsAndOneNumber).to.have.been.called.with('bar', 'foo');
-spyTwoStringArgsAndOneNumber.should.have.been.called.with('bar', 'foo');
+spyTwoStringArgsAndOneNumber("foo", "bar", 1);
+expect(spyTwoStringArgsAndOneNumber).to.have.been.called.with("bar", "foo");
+spyTwoStringArgsAndOneNumber.should.have.been.called.with("bar", "foo");
 
 // .with.exactly
 const spyTwoStringArgs = chai.spy((arg1: string, arg2: string) => arg1);
-spyTwoStringArgs('', '');
-spyTwoStringArgs('foo', 'bar');
-expect(spyTwoStringArgs).to.have.been.called.with.exactly('foo', 'bar');
-spyTwoStringArgs.should.have.been.called.with.exactly('foo', 'bar');
+spyTwoStringArgs("", "");
+spyTwoStringArgs("foo", "bar");
+expect(spyTwoStringArgs).to.have.been.called.with.exactly("foo", "bar");
+spyTwoStringArgs.should.have.been.called.with.exactly("foo", "bar");
 
 // .always.with
 const spyThreeAnyArgs = chai.spy((arg1: any, arg2: any, arg3: any) => arg1);
-spyThreeAnyArgs('foo', null, null);
-spyThreeAnyArgs('foo', 'bar', null);
-spyThreeAnyArgs(1, 2, 'foo');
-expect(spy).to.have.been.called.always.with('foo');
-spy.should.have.been.called.always.with('foo');
+spyThreeAnyArgs("foo", null, null);
+spyThreeAnyArgs("foo", "bar", null);
+spyThreeAnyArgs(1, 2, "foo");
+expect(spy).to.have.been.called.always.with("foo");
+spy.should.have.been.called.always.with("foo");
 
 // .always.with.exactly
-spyStringArg('foo');
-spyStringArg('foo');
-expect(spyStringArg).to.have.been.called.always.with.exactly('foo');
-spyStringArg.should.have.been.called.always.with.exactly('foo');
+spyStringArg("foo");
+spyStringArg("foo");
+expect(spyStringArg).to.have.been.called.always.with.exactly("foo");
+spyStringArg.should.have.been.called.always.with.exactly("foo");
 
 // .first / .second / .third
 const spyStringIteratedArg = chai.spy((arg: string) => arg);
-spyStringIteratedArg('foo');
-spyStringIteratedArg('bar');
-spyStringIteratedArg('baz');
-expect(spyStringIteratedArg).to.have.been.first.called.with('foo');
-spyStringIteratedArg.should.have.been.first.called.with('foo');
-expect(spyStringIteratedArg).to.have.been.first.called.with('bar');
-spyStringIteratedArg.should.have.been.first.called.with('bar');
-expect(spyStringIteratedArg).to.have.been.first.called.with('baz');
-spyStringIteratedArg.should.have.been.first.called.with('baz');
+spyStringIteratedArg("foo");
+spyStringIteratedArg("bar");
+spyStringIteratedArg("baz");
+expect(spyStringIteratedArg).to.have.been.first.called.with("foo");
+spyStringIteratedArg.should.have.been.first.called.with("foo");
+expect(spyStringIteratedArg).to.have.been.first.called.with("bar");
+spyStringIteratedArg.should.have.been.first.called.with("bar");
+expect(spyStringIteratedArg).to.have.been.first.called.with("baz");
+spyStringIteratedArg.should.have.been.first.called.with("baz");
 
 // .nth
 const spyStringNthArg = chai.spy((arg: string) => arg);
-spyStringNthArg('foo');
-spyStringNthArg('bar');
-expect(spyStringNthArg).on.nth(1).be.called.with('foo');
-spyStringNthArg.should.on.nth(1).be.called.with('foo');
-expect(spyStringNthArg).on.nth(2).be.called.with('bar');
-spyStringNthArg.should.on.nth(2).be.called.with('bar');
+spyStringNthArg("foo");
+spyStringNthArg("bar");
+expect(spyStringNthArg).on.nth(1).be.called.with("foo");
+spyStringNthArg.should.on.nth(1).be.called.with("foo");
+expect(spyStringNthArg).on.nth(2).be.called.with("bar");
+spyStringNthArg.should.on.nth(2).be.called.with("bar");
 
 // .once
 expect(spy).to.have.been.called.once;
@@ -169,9 +168,9 @@ spy.should.not.have.been.called.below(3);
 // You can also create sandbox
 let sb = chai.spy.sandbox();
 
-sb.on(array, 'pop', () => {
+sb.on(array, "pop", () => {
     return 1;
-})
+});
 
 let one = array.pop();
 expect(one).to.equal(1);

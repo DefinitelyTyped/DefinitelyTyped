@@ -1,13 +1,6 @@
-// Type definitions for styled-components 3.0
-// Project: https://github.com/styled-components/styled-components
-// Definitions by: Igor Oleinikov <https://github.com/Igorbek>
-//                 Ihor Chulinda <https://github.com/Igmat>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="node" />
 
-import * as React from 'react';
+import * as React from "react";
 
 export interface ThemeProps<T> {
     theme: T;
@@ -30,7 +23,7 @@ export type FlattenInterpolation<P> = InterpolationValue | InterpolationFunction
 export type InterpolationValue = string | number | Styles | FalseyValue | StyledComponentClass<any, any>;
 export type SimpleInterpolation =
     | InterpolationValue
-    | ReadonlyArray<InterpolationValue | ReadonlyArray<InterpolationValue>>;
+    | ReadonlyArray<InterpolationValue | readonly InterpolationValue[]>;
 export interface Styles {
     [ruleOrSelector: string]: string | number | Styles;
 }
@@ -44,9 +37,9 @@ type Attrs<P, A extends Partial<P>, T> = {
 export interface StyledComponentClass<P, T, O = P> extends React.ComponentClass<ThemedOuterStyledProps<O, T>> {
     extend: ThemedStyledFunction<P, T, O>;
 
-    withComponent<K extends keyof JSX.IntrinsicElements>(
+    withComponent<K extends keyof React.JSX.IntrinsicElements>(
         tag: K,
-    ): StyledComponentClass<JSX.IntrinsicElements[K], T, JSX.IntrinsicElements[K] & O>;
+    ): StyledComponentClass<React.JSX.IntrinsicElements[K], T, React.JSX.IntrinsicElements[K] & O>;
     withComponent<U = {}>(element: React.ComponentType<U>): StyledComponentClass<U, T, U & O>;
 }
 
@@ -67,14 +60,14 @@ export interface ThemedStyledFunction<P, T, O = P> {
 export type StyledFunction<P> = ThemedStyledFunction<P, any>;
 
 type ThemedStyledComponentFactories<T> = {
-    [TTag in keyof JSX.IntrinsicElements]: ThemedStyledFunction<JSX.IntrinsicElements[TTag], T>;
+    [TTag in keyof React.JSX.IntrinsicElements]: ThemedStyledFunction<React.JSX.IntrinsicElements[TTag], T>;
 };
 
 export interface ThemedBaseStyledInterface<T> extends ThemedStyledComponentFactories<T> {
-    <P, TTag extends keyof JSX.IntrinsicElements>(tag: TTag): ThemedStyledFunction<
+    <P, TTag extends keyof React.JSX.IntrinsicElements>(tag: TTag): ThemedStyledFunction<
         P,
         T,
-        P & JSX.IntrinsicElements[TTag]
+        P & React.JSX.IntrinsicElements[TTag]
     >;
     <P, O>(component: StyledComponentClass<P, T, O>): ThemedStyledFunction<P, T, O>;
     <P extends { [prop: string]: any; theme?: T | undefined }>(component: React.ComponentType<P>): ThemedStyledFunction<
@@ -86,7 +79,7 @@ export interface ThemedBaseStyledInterface<T> extends ThemedStyledComponentFacto
 
 export type ThemedStyledInterface<T> = ThemedBaseStyledInterface<Extract<keyof T, string> extends never ? any : T>;
 export type StyledInterface = ThemedStyledInterface<DefaultTheme>;
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DefaultTheme {}
 
 export interface ThemeProviderProps<T> {
@@ -108,7 +101,7 @@ type KeyofBase = keyof any;
 type Diff<T extends KeyofBase, U extends KeyofBase> = ({ [P in T]: P } & { [P in U]: never })[T];
 type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
 type DiffBetween<T, U> = Pick<T, Diff<keyof T, keyof U>> & Pick<U, Diff<keyof U, keyof T>>;
-type WithOptionalTheme<P extends { theme?: T | undefined }, T> = Omit<P, 'theme'> & {
+type WithOptionalTheme<P extends { theme?: T | undefined }, T> = Omit<P, "theme"> & {
     theme?: T | undefined;
 };
 

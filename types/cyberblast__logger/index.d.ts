@@ -1,8 +1,3 @@
-// Type definitions for @cyberblast/logger 0.0
-// Project: https://github.com/cyberblast/logger
-// Definitions by: cyberblast <https://github.com/cyberblast>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface LogData {
     severity: Severity;
     category: string;
@@ -13,7 +8,7 @@ export interface LogData {
 
 export class Logger {
     constructor(configPath?: string);
-    category: { [key: string]: string; };
+    category: { [key: string]: string };
     init(): Promise<void>;
     close(): void;
     defineCategory(name: string): void;
@@ -34,12 +29,12 @@ export enum Severity {
     Error = "Error",
     Warning = "Warning",
     Info = "Info",
-    Verbose = "Verbose"
+    Verbose = "Verbose",
 }
 
 export enum SeverityLevel {
     Error = 4,
     Warning = 3,
     Info = 2,
-    Verbose = 1
+    Verbose = 1,
 }

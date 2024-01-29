@@ -45,14 +45,14 @@ rest.putJson("http://example.com/action", jsonData).on("complete", function(data
 
 // post JSON with options
 var jsonData = { id: 334 };
-var options = { query: {"api-version": "1.0"}};
+var options = { query: { "api-version": "1.0" } };
 rest.postJson("http://example.com/action", jsonData, options).on("complete", function(data, response) {
     // handle response
 });
 
 // put JSON with options
 var jsonData = { id: 334 };
-var options = { query: {"api-version": "1.0"}};
+var options = { query: { "api-version": "1.0" } };
 rest.putJson("http://example.com/action", jsonData, options).on("complete", function(data, response) {
     // handle response
 });

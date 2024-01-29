@@ -1,11 +1,11 @@
-import OrcidStrategy = require('passport-orcid');
+import OrcidStrategy = require("passport-orcid");
 import {
     Strategy,
     StrategyOptions,
     StrategyOptionsWithRequest,
     VerifyFunction,
     VerifyFunctionWithRequest,
-} from 'passport-orcid';
+} from "passport-orcid";
 
 const strategy: OrcidStrategy = {} as any;
 const options1: StrategyOptions = {} as any;
@@ -21,43 +21,43 @@ new OrcidStrategy(options2, verify2);
 const strategy3: Strategy = strategy;
 const strategy4: Strategy = strategy;
 
-// $ExpectError
+// @ts-expect-error
 new OrcidStrategy(options1, verify2);
-// $ExpectError
+// @ts-expect-error
 new OrcidStrategy(options2, verify1);
 
 const options1WithNoClientId: StrategyOptions = {
     ...options1,
-    // $ExpectError
+    // @ts-expect-error
     clientID: undefined,
 };
 
 const options1WithNoClientSecret: StrategyOptions = {
     ...options1,
-    // $ExpectError
+    // @ts-expect-error
     clientSecret: undefined,
 };
 
 const options1withAuthorizationUrl: StrategyOptions = {
     ...options1,
-    // $ExpectError
-    authorizationURL: 'http://www.example.com/auth',
+    // @ts-expect-error
+    authorizationURL: "http://www.example.com/auth",
 };
 
 const options1withTokenUrl: StrategyOptions = {
     ...options1,
-    // $ExpectError
-    tokenURL: 'http://www.example.com/token',
+    // @ts-expect-error
+    tokenURL: "http://www.example.com/token",
 };
 
 const options2withAuthorizationUrl: StrategyOptionsWithRequest = {
     ...options2,
-    // $ExpectError
-    authorizationURL: 'http://www.example.com/auth',
+    // @ts-expect-error
+    authorizationURL: "http://www.example.com/auth",
 };
 
 const options2withTokenUrl: StrategyOptionsWithRequest = {
     ...options2,
-    // $ExpectError
-    tokenURL: 'http://www.example.com/token',
+    // @ts-expect-error
+    tokenURL: "http://www.example.com/token",
 };

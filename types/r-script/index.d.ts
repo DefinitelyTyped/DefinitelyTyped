@@ -1,9 +1,3 @@
-// Type definitions for r-script 0.0
-// Project: https://github.com/joshkatz/r-script
-// Definitions by: Adrian Leonhard <https://github.com/NaridaL>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 interface R {
     data(...args: any[]): this;
     call(callback: (err: any, d: any) => void): void;

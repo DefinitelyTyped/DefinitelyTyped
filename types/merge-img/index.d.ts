@@ -1,11 +1,6 @@
-// Type definitions for merge-img 2.1
-// Project: https://github.com/preco21/merge-img#readme
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import Jimp = require('jimp');
+import Jimp = require("jimp");
 
 /**
  * Merges given images into a single image in right order.
@@ -50,7 +45,7 @@ export interface Options {
      * Aligning of given images. If the images are not all the same size, images will be sorted to largest image
      * @default 'start'
      */
-    align?: 'start' | 'center' | 'end' | undefined;
+    align?: "start" | "center" | "end" | undefined;
     /**
      * Offset in pixels between each image
      * @default 0

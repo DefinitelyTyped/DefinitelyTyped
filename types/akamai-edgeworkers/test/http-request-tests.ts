@@ -1,5 +1,7 @@
-import { httpRequest } from 'http-request';
-import { createResponse } from 'create-response';
+import { createResponse } from "create-response";
+import { httpRequest } from "http-request";
+import { ReadableStream } from "streams";
+import { TextEncoderStream } from "text-encode-transform";
 
 // Check the arguments of httpRequest
 httpRequest("url");
@@ -7,10 +9,19 @@ httpRequest("url", {});
 httpRequest("url", { headers: { "Accept-Encoding": "zz" } });
 httpRequest("url", { method: "POST", body: "post payload" });
 httpRequest("url", { timeout: 9 });
+httpRequest("url", {
+    method: "POST",
+    body: new ReadableStream({
+        start(controller) {
+            controller.enqueue("This is a ReadableStream test");
+            controller.close();
+        },
+    }).pipeThrough(new TextEncoderStream()),
+});
 
 httpRequest("url").then(response => {
     // Verify the non-body fields
-    const r = response.status;
+    const status = response.status;
     const ok = response.ok;
 
     response.text().then(words => words.toUpperCase());

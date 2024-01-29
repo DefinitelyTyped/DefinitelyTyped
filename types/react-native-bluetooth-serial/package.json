@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-bluetooth-serial",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/rusel1989/react-native-bluetooth-serial"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-bluetooth-serial": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rodrigo Weber",
+            "githubUsername": "RodrigoAWeber"
+        }
+    ]
+}

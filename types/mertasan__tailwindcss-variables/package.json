@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/mertasan__tailwindcss-variables",
+    "version": "2.6.9999",
+    "projects": [
+        "https://github.com/mertasan/tailwindcss-variables#readme"
+    ],
+    "dependencies": {
+        "tailwindcss": ">=3.2.0"
+    },
+    "devDependencies": {
+        "@types/mertasan__tailwindcss-variables": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Liam Martens",
+            "githubUsername": "LiamMartens"
+        }
+    ]
+}

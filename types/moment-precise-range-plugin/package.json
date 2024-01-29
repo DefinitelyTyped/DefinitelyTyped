@@ -1,6 +1,20 @@
 {
     "private": true,
+    "name": "@types/moment-precise-range-plugin",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/codebox/moment-precise-range"
+    ],
     "dependencies": {
         "moment": ">=2.14.0"
-    }
+    },
+    "devDependencies": {
+        "@types/moment-precise-range-plugin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mitchell Grice",
+            "githubUsername": "gricey432"
+        }
+    ]
 }

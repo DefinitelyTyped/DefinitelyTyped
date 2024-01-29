@@ -11,7 +11,7 @@ declare namespace jsrsasign.KJUR.asn1.csr {
     }
 
     interface ParamResponse {
-        subject: { array?: Array<[{ type: string; value: string; ds: string }]>, str: string };
+        subject: { array?: Array<[{ type: string; value: string; ds: string }]>; str: string };
         sbjpubkey: string;
         extreq?: Array<{ extname: string; array?: any[] }>;
         sigalg: string;
@@ -39,7 +39,6 @@ declare namespace jsrsasign.KJUR.asn1.csr {
          * - sbjpubkey - parameter to be passed to `KEYUTIL.getKey`
          * - sigalg - signature algorithm name (ex. SHA256withRSA)
          * - sbjprvkey - parameter to be passed to `KEYUTIL.getKey`
-         *
          *
          * @example
          * // 1) by key object
@@ -80,12 +79,14 @@ declare namespace jsrsasign.KJUR.asn1.csr {
          */
         function newCSRPEM(param?: {
             subject:
-                | StringParam & { certissuer?: string | undefined; certsubject?: string | undefined }
-                | x509.X500NameParam & { certissuer?: string | undefined; certsubject?: string | undefined }
-                | { ldapstr: string } & { certissuer?: string | undefined; certsubject?: string | undefined };
-            ext?: Array<{
-                subjectAltName: ArrayParam<{ dns: string }>;
-            }> | undefined;
+                | (StringParam & { certissuer?: string | undefined; certsubject?: string | undefined })
+                | (x509.X500NameParam & { certissuer?: string | undefined; certsubject?: string | undefined })
+                | ({ ldapstr: string } & { certissuer?: string | undefined; certsubject?: string | undefined });
+            ext?:
+                | Array<{
+                    subjectAltName: ArrayParam<{ dns: string }>;
+                }>
+                | undefined;
             sbjpubkey: RSAKey | crypto.ECDSA | crypto.DSA | jws.JWS.JsonWebKey | { n: string; e: string } | string;
             sigalg: string;
             sbjprvkey: RSAKey | crypto.ECDSA | crypto.DSA | jws.JWS.JsonWebKey | { n: string; e: string } | string;
@@ -104,7 +105,6 @@ declare namespace jsrsasign.KJUR.asn1.csr {
          * - subject.hex - hexadecimal string of X.500 Name of subject
          * - pubkey.obj - subject public key object such as RSAKey, KJUR.crypto.{ECDSA,DSA}
          * - pubkey.hex - hexadecimal string of subject public key
-         *
          *
          * @example
          * o = KJUR.asn1.csr.CSRUtil.getInfo("-----BEGIN CERTIFICATE REQUEST...");

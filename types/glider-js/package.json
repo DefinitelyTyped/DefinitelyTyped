@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/glider-js",
+    "version": "1.7.9999",
+    "projects": [
+        "https://nickpiscitelli.github.io/Glider.js"
+    ],
+    "devDependencies": {
+        "@types/glider-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Martin Badin",
+            "githubUsername": "martin-badin"
+        }
+    ]
+}

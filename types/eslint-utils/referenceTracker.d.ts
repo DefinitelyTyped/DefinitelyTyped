@@ -1,5 +1,4 @@
-import { Scope } from 'eslint';
-import { Node } from 'estree';
+import { Rule, Scope } from "eslint";
 
 export interface ReferenceTrackerOptions {
     /**
@@ -10,7 +9,7 @@ export interface ReferenceTrackerOptions {
     /**
      * The mode to determine the ImportDeclaration's behavior for CJS modules.
      */
-    mode?: 'legacy' | 'strict';
+    mode?: "legacy" | "strict";
 }
 
 export interface TraceMap<T = unknown> {
@@ -32,7 +31,7 @@ export const READ: unique symbol;
 
 export interface TrackedReferences<T> {
     info: T;
-    node: Node;
+    node: Rule.Node;
     path: string[];
     type: symbol;
 }

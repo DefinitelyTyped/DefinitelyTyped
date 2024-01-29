@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/node-zookeeper-client",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/alexguan/node-zookeeper-client"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/node-zookeeper-client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "York Yao",
+            "githubUsername": "plantain-00"
+        },
+        {
+            "name": "Jesse Zhang",
+            "githubUsername": "jessezhang91"
+        }
+    ]
+}

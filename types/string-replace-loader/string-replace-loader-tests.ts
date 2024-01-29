@@ -1,6 +1,6 @@
 "use strict";
 
-import { ReplaceEntries, ReplaceEntry, Options } from "string-replace-loader";
+import { Options, ReplaceEntries, ReplaceEntry } from "string-replace-loader";
 
 declare const options: Options;
 options; // $ExpectType Options

@@ -1,8 +1,3 @@
-// Type definitions for osrm 5.25
-// Project: https://github.com/Project-OSRM/osrm-backend
-// Definitions by: Denis Carriere <https://github.com/DenisCarriere>, Ringo Leese <https://github.com/ringostarr80>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**
@@ -11,7 +6,7 @@
  *
  * https://github.com/Project-OSRM/node-osrm/blob/master/docs/api.md
  */
- declare class OSRM {
+declare class OSRM {
     constructor(options: string);
     // tslint:disable-next-line:unified-signatures
     constructor(options: OSRM.PathConstructorOptions);
@@ -21,11 +16,31 @@
      * Returns the fastest route between two or more coordinates while visiting the waypoints in order.
      */
     route(options: OSRM.RouteOptions, callback: (err: Error, results: OSRM.RouteResults) => void): void;
+    route(
+        options: OSRM.RouteOptions,
+        pluginConfig: OSRM.PluginConfig & { format: "json_buffer" },
+        callback: (err: Error, results: Buffer) => void,
+    ): void;
+    route(
+        options: OSRM.RouteOptions,
+        pluginConfig: OSRM.PluginConfig,
+        callback: (err: Error, results: OSRM.RouteResults) => void,
+    ): void;
     /**
      * Returns Object containing waypoints. waypoints: array of Ẁaypoint objects sorted by distance to the input coordinate.
      * Each object has an additional distance property, which is the distance in meters to the supplied input coordinate.
      */
     nearest(options: OSRM.NearestOptions, callback: (err: Error, results: OSRM.NearestResults) => void): void;
+    nearest(
+        options: OSRM.NearestOptions,
+        pluginConfig: OSRM.PluginConfig & { format: "json_buffer" },
+        callback: (err: Error, results: Buffer) => void,
+    ): void;
+    nearest(
+        options: OSRM.NearestOptions,
+        pluginConfig: OSRM.PluginConfig,
+        callback: (err: Error, results: OSRM.NearestResults) => void,
+    ): void;
     /**
      * Returns Object containing durations, sources, and destinations. durations: array of arrays that stores the matrix in
      * row-major order. durations[i][j] gives the travel time from the i-th waypoint to the j-th waypoint. Values are given
@@ -34,10 +49,21 @@
      * array of arrays of row,column values, indicating which cells contain estimated values.
      */
     table(options: OSRM.TableOptions, callback: (err: Error, results: OSRM.TableResults) => void): void;
+    table(
+        options: OSRM.TableOptions,
+        pluginConfig: OSRM.PluginConfig & { format: "json_buffer" },
+        callback: (err: Error, results: Buffer) => void,
+    ): void;
+    table(
+        options: OSRM.TableOptions,
+        pluginConfig: OSRM.PluginConfig,
+        callback: (err: Error, results: OSRM.TableResults) => void,
+    ): void;
     /**
      * Returns Buffer contains a Protocol Buffer encoded vector tile.
      */
     tile(XYZ: OSRM.Tile, callback: (err: Error, results: Buffer) => void): void;
+    tile(XYZ: OSRM.Tile, pluginConfig: OSRM.PluginConfig, callback: (err: Error, results: Buffer) => void): void;
     /**
      * Returns Object containing tracepoints and matchings. tracepoints Array of Ẁaypoint objects representing all points
      * of the trace in order. If the trace point was ommited by map matching because it is an outlier, the entry will be
@@ -47,6 +73,16 @@
      * is the confidence of the matching. float value between 0 and 1. 1 is very confident that the matching is correct.
      */
     match(options: OSRM.MatchOptions, callback: (err: Error, results: OSRM.MatchResults) => void): void;
+    match(
+        options: OSRM.MatchOptions,
+        pluginConfig: OSRM.PluginConfig & { format: "json_buffer" },
+        callback: (err: Error, results: Buffer) => void,
+    ): void;
+    match(
+        options: OSRM.MatchOptions,
+        pluginConfig: OSRM.PluginConfig,
+        callback: (err: Error, results: OSRM.MatchResults) => void,
+    ): void;
     /**
      * Returns Object containing waypoints and trips. waypoints: an array of Waypoint objects representing all waypoints
      * in input order. Each Waypoint object has the following additional properties, 1) trips_index: index to trips of the
@@ -54,17 +90,27 @@
      * objects that assemble the trace.
      */
     trip(options: OSRM.TripOptions, callback: (err: Error, results: OSRM.TripResults) => void): void;
+    trip(
+        options: OSRM.TripOptions,
+        pluginConfig: OSRM.PluginConfig & { format: "json_buffer" },
+        callback: (err: Error, results: Buffer) => void,
+    ): void;
+    trip(
+        options: OSRM.TripOptions,
+        pluginConfig: OSRM.PluginConfig,
+        callback: (err: Error, results: OSRM.TripResults) => void,
+    ): void;
 }
 
 declare namespace OSRM {
     const version: number;
-    type AlgorithmTypes = 'CH' | 'CoreCH' | 'MLD';
-    type GeometriesTypes = 'polyline' | 'geojson' | 'polyline6';
-    type OverviewTypes = 'full' | 'simplified' | 'false';
-    type SnappingTypes = 'default' | 'any';
-    type ApproachTypes = 'unrestricted' | 'curb';
-    type FallbackCoordinateTypes = 'input' | 'snapped';
-    type GapTypes = 'split' | 'ignore';
+    type AlgorithmTypes = "CH" | "CoreCH" | "MLD";
+    type GeometriesTypes = "polyline" | "geojson" | "polyline6";
+    type OverviewTypes = "full" | "simplified" | "false";
+    type SnappingTypes = "default" | "any";
+    type ApproachTypes = "unrestricted" | "curb";
+    type FallbackCoordinateTypes = "input" | "snapped";
+    type GapTypes = "split" | "ignore";
     type Coordinate = number[];
     type Polyline = string;
     type Bearing = number[];
@@ -73,19 +119,41 @@ declare namespace OSRM {
     type Duration = number;
     type Distance = number;
     type Tile = [number, number, number];
-    type StepManeuverTypes = 'turn' | 'new name' | 'depart' | 'arrive' | 'merge' |
-                             'ramp' | 'on ramp' | 'off ramp' | 'fork' | 'end of road' |
-                             'use lane' | 'continue' | 'roundabout' | 'rotary' | 'roundabout turn' |
-                             'notification' | 'exit roundabout' | 'exit rotary';
-    type Indication = 'uturn' | 'sharp right' | 'right' | 'slight rigth' |
-                      'straight' |'slight left' | 'left' | 'sharp left';
+    type StepManeuverTypes =
+        | "turn"
+        | "new name"
+        | "depart"
+        | "arrive"
+        | "merge"
+        | "ramp"
+        | "on ramp"
+        | "off ramp"
+        | "fork"
+        | "end of road"
+        | "use lane"
+        | "continue"
+        | "roundabout"
+        | "rotary"
+        | "roundabout turn"
+        | "notification"
+        | "exit roundabout"
+        | "exit rotary";
+    type Indication =
+        | "uturn"
+        | "sharp right"
+        | "right"
+        | "slight rigth"
+        | "straight"
+        | "slight left"
+        | "left"
+        | "sharp left";
 
     interface LineString {
-        type: 'LineString';
+        type: "LineString";
         coordinates: Coordinate[];
     }
 
-    interface  Waypoint {
+    interface Waypoint {
         hint: string;
         distance: number;
         name: string;
@@ -507,7 +575,10 @@ declare namespace OSRM {
         /**
          * An array with strings of duration, nodes, distance, weight, datasources, speed or boolean for enabling/disabling all. (optional, default false)
          */
-        annotations?: boolean | Array<('duration' | 'nodes' | 'distance' | 'weight' | 'datasources' | 'speed')> | boolean;
+        annotations?:
+            | boolean
+            | Array<("duration" | "nodes" | "distance" | "weight" | "datasources" | "speed")>
+            | boolean;
         /**
          * Returned route geometry format (influences overview and per step). Can also be geojson. (optional, default polyline)
          */
@@ -532,6 +603,10 @@ declare namespace OSRM {
          * Which edges can be snapped to, either default, or any. default only snaps to edges marked by the profile as is_startpoint, any will allow snapping to any edge in the routing graph.
          */
         snapping?: SnappingTypes;
+        /**
+         * Which classes to exclude.
+         */
+        exclude?: string[];
     }
 
     /**
@@ -596,7 +671,11 @@ declare namespace OSRM {
          * Return the requested table or tables in response. Can be ['duration'] (return the duration matrix, default) or
          * ['duration', distance'] (return both the duration matrix and the distance matrix).
          */
-        annotations?: Array<('duration' | 'distance')>;
+        annotations?: Array<("duration" | "distance")>;
+        /**
+         * Which classes to exclude.
+         */
+        exclude?: string[];
     }
 
     /**
@@ -615,7 +694,7 @@ declare namespace OSRM {
         /**
          * An array with strings of duration, nodes, distance, weight, datasources, speed or boolean for enabling/disabling all. (optional, default false)
          */
-        annotations?: Array<('duration' | 'nodes' | 'distance' | 'weight' | 'datasources' | 'speed')> | boolean;
+        annotations?: Array<("duration" | "nodes" | "distance" | "weight" | "datasources" | "speed")> | boolean;
         /**
          * Returned route geometry format (influences overview and per step). Can also be geojson. (optional, default polyline)
          */
@@ -648,6 +727,10 @@ declare namespace OSRM {
          * Which edges can be snapped to, either default, or any. default only snaps to edges marked by the profile as is_startpoint, any will allow snapping to any edge in the routing graph.
          */
         snapping?: SnappingTypes;
+        /**
+         * Which classes to exclude.
+         */
+        exclude?: string[];
     }
 
     /**
@@ -665,7 +748,7 @@ declare namespace OSRM {
         /**
          * An array with strings of duration, nodes, distance, weight, datasources, speed or boolean for enabling/disabling all. (optional, default false)
          */
-        annotations?: Array<('duration' | 'nodes' | 'distance' | 'weight' | 'datasources' | 'speed')> | boolean;
+        annotations?: Array<("duration" | "nodes" | "distance" | "weight" | "datasources" | "speed")> | boolean;
         /**
          * Returned route geometry format (influences overview and per step). Can also be geojson. (optional, default polyline)
          */
@@ -681,11 +764,11 @@ declare namespace OSRM {
         /**
          * Return route starts at any or first coordinate. (optional, default any)
          */
-        source?: 'any' | 'first';
+        source?: "any" | "first";
         /**
          * Return route ends at any or last coordinate. (optional, default any)
          */
-        destination?: 'any' | 'last';
+        destination?: "any" | "last";
         /**
          * Keep waypoints on curb side. Can be null (unrestricted, default) or curb.
          */
@@ -694,6 +777,10 @@ declare namespace OSRM {
          * Which edges can be snapped to, either default, or any. default only snaps to edges marked by the profile as is_startpoint, any will allow snapping to any edge in the routing graph.
          */
         snapping?: SnappingTypes;
+        /**
+         * Which classes to exclude.
+         */
+        exclude?: string[];
     }
 
     interface RouteResults {
@@ -721,6 +808,16 @@ declare namespace OSRM {
     interface TripResults {
         waypoints: TripWaypoint[];
         trips: Route[];
+    }
+
+    interface PluginConfig {
+        /**
+         * The format of the result object to various API calls.
+         * Valid options are object (default), which returns a standard Javascript object, as described above, and json_buffer, which will return a NodeJS Buffer object, containing a JSON string.
+         * The latter has the advantage that it can be immediately serialized to disk/sent over the network, and the generation of the string is performed outside the main NodeJS event loop.
+         * This option is ignored by the tile plugin.
+         */
+        format?: "object" | "json_buffer";
     }
 }
 export = OSRM;

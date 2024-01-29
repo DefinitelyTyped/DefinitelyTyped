@@ -1,7 +1,7 @@
-import { Plane } from './../math/Plane';
-import { EventDispatcher } from './../core/EventDispatcher';
-import { WebGLRenderer } from './../renderers/WebGLRenderer';
-import { Shader } from './../renderers/shaders/ShaderLib';
+import { Plane } from '../math/Plane.js';
+import { EventDispatcher } from '../core/EventDispatcher.js';
+import { WebGLProgramParametersWithUniforms } from '../renderers/webgl/WebGLPrograms.js';
+import { WebGLRenderer } from '../renderers/WebGLRenderer.js';
 import {
     BlendingDstFactor,
     BlendingEquation,
@@ -12,14 +12,15 @@ import {
     StencilFunc,
     StencilOp,
     PixelFormat,
-} from '../constants';
-import { ColorRepresentation } from '../utils';
-import { Color } from '../math/Color';
-import { Texture } from '../textures/Texture';
+} from '../constants.js';
+import { Color, ColorRepresentation } from '../math/Color.js';
 
 export interface MaterialParameters {
+    alphaHash?: boolean | undefined;
     alphaTest?: number | undefined;
     alphaToCoverage?: boolean | undefined;
+    blendAlpha?: number | undefined;
+    blendColor?: ColorRepresentation | undefined;
     blendDst?: BlendingDstFactor | undefined;
     blendDstAlpha?: number | undefined;
     blendEquation?: BlendingEquation | undefined;
@@ -35,7 +36,6 @@ export interface MaterialParameters {
     depthFunc?: DepthModes | undefined;
     depthTest?: boolean | undefined;
     depthWrite?: boolean | undefined;
-    fog?: boolean | undefined;
     name?: string | undefined;
     opacity?: number | undefined;
     polygonOffset?: boolean | undefined;
@@ -43,6 +43,7 @@ export interface MaterialParameters {
     polygonOffsetUnits?: number | undefined;
     precision?: 'highp' | 'mediump' | 'lowp' | null | undefined;
     premultipliedAlpha?: boolean | undefined;
+    forceSinglePass?: boolean | undefined;
     dithering?: boolean | undefined;
     side?: Side | undefined;
     shadowSide?: Side | undefined;
@@ -59,14 +60,29 @@ export interface MaterialParameters {
     stencilFail?: StencilOp | undefined;
     stencilZFail?: StencilOp | undefined;
     stencilZPass?: StencilOp | undefined;
-    userData?: any;
+    userData?: Record<string, any> | undefined;
 }
 
 /**
  * Materials describe the appearance of objects. They are defined in a (mostly) renderer-independent way, so you don't have to rewrite materials if you decide to use a different renderer.
  */
-export class Material extends EventDispatcher {
+export class Material extends EventDispatcher<{ dispose: {} }> {
     constructor();
+
+    /**
+     * Read-only flag to check if a given object is of type {@link Material}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isMaterial: true;
+
+    /**
+     * Enables alpha hashed transparency, an alternative to {@link .transparent} or {@link .alphaTest}. The material
+     * will not be rendered if opacity is lower than a random threshold. Randomization introduces some grain or noise,
+     * but approximates alpha blending without the associated problems of sorting. Using TAARenderPass can reduce the
+     * resulting noise.
+     */
+    alphaHash: boolean;
 
     /**
      * Sets the alpha value to be used when running an alpha test. Default is 0.
@@ -79,6 +95,20 @@ export class Material extends EventDispatcher {
      * @default false
      */
     alphaToCoverage: boolean;
+
+    /**
+     * Represents the alpha value of the constant blend color. This property has only an effect when using custom
+     * blending with {@link ConstantAlphaFactor} or {@link OneMinusConstantAlphaFactor}.
+     * @default 0
+     */
+    blendAlpha: number;
+
+    /**
+     * Represent the RGB values of the constant blend color. This property has only an effect when using custom
+     * blending with {@link ConstantColorFactor} or {@link OneMinusConstantColorFactor}.
+     * @default 0x000000
+     */
+    blendColor: Color;
 
     /**
      * Blending destination. It's one of the blending mode constants defined in Three.js. Default is {@link OneMinusSrcAlphaFactor}.
@@ -135,7 +165,7 @@ export class Material extends EventDispatcher {
      * See the WebGL / clipping /intersection example. Default is null.
      * @default null
      */
-    clippingPlanes: any;
+    clippingPlanes: Plane[] | null;
 
     /**
      * Defines whether to clip shadows according to the clipping planes specified on this material. Default is false.
@@ -163,7 +193,8 @@ export class Material extends EventDispatcher {
     depthFunc: DepthModes;
 
     /**
-     * Whether to have depth test enabled when rendering this material. Default is true.
+     * Whether to have depth test enabled when rendering this material. When the depth test is disabled, the depth write
+     * will also be implicitly disabled.
      * @default true
      */
     depthTest: boolean;
@@ -174,12 +205,6 @@ export class Material extends EventDispatcher {
      * @default true
      */
     depthWrite: boolean;
-
-    /**
-     * Whether the material is affected by fog. Default is true.
-     * @default fog
-     */
-    fog: boolean;
 
     /**
      * Unique number of this material instance.
@@ -239,12 +264,6 @@ export class Material extends EventDispatcher {
     stencilZPass: StencilOp;
 
     /**
-     * Used to check whether this or derived classes are materials. Default is true.
-     * You should not change this, as it used internally for optimisation.
-     */
-    readonly isMaterial: true;
-
-    /**
      * Material name. Default is an empty string.
      * @default ''
      */
@@ -294,6 +313,11 @@ export class Material extends EventDispatcher {
     premultipliedAlpha: boolean;
 
     /**
+     * @default false
+     */
+    forceSinglePass: boolean;
+
+    /**
      * Whether to apply dithering to the color to remove the appearance of banding. Default is false.
      * @default false
      */
@@ -301,8 +325,9 @@ export class Material extends EventDispatcher {
 
     /**
      * Defines which of the face sides will be rendered - front, back or both.
-     * Default is THREE.FrontSide. Other options are THREE.BackSide and THREE.DoubleSide.
-     * @default THREE.FrontSide
+     * Default is {@link THREE.FrontSide}. Other options are {@link THREE.BackSide} and {@link THREE.DoubleSide}.
+     *
+     * @default {@link THREE.FrontSide}
      */
     side: Side;
 
@@ -314,8 +339,8 @@ export class Material extends EventDispatcher {
     shadowSide: Side | null;
 
     /**
-     * Defines whether this material is tone mapped according to the renderer's toneMapping setting.
-     * Default is true.
+     * Defines whether this material is tone mapped according to the renderer's
+     * {@link WebGLRenderer.toneMapping toneMapping} setting. It is ignored when rendering to a render target.
      * @default true
      */
     toneMapped: boolean;
@@ -323,7 +348,6 @@ export class Material extends EventDispatcher {
     /**
      * Defines whether this material is transparent. This has an effect on rendering as transparent objects need special treatment and are rendered after non-transparent objects.
      * When set to true, the extent to which the material is transparent is controlled by setting it's .opacity property.
-     * Default is false.
      * @default false
      */
     transparent: boolean;
@@ -355,7 +379,7 @@ export class Material extends EventDispatcher {
      * An object that can be used to store custom data about the Material. It should not hold references to functions as these will not be cloned.
      * @default {}
      */
-    userData: any;
+    userData: Record<string, any>;
 
     /**
      * This starts at 0 and counts how many times .needsUpdate is set to true.
@@ -381,12 +405,12 @@ export class Material extends EventDispatcher {
 
     /**
      * An optional callback that is executed immediately before the shader program is compiled.
-     * This function is called with the shader source code as a parameter.
+     * This function is called with the associated WebGL program parameters and renderer.
      * Useful for the modification of built-in materials.
-     * @param shader Source code of the shader
-     * @param renderer WebGLRenderer Context that is initializing the material
+     * @param parameters WebGL program parameters
+     * @param renderer WebGLRenderer context that is initializing the material
      */
-    onBeforeCompile(shader: Shader, renderer: WebGLRenderer): void;
+    onBeforeCompile(parameters: WebGLProgramParametersWithUniforms, renderer: WebGLRenderer): void;
 
     /**
      * In case onBeforeCompile is used, this callback can be used to identify values of settings used in onBeforeCompile, so three.js can reuse a cached shader or recompile the shader as needed.

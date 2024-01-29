@@ -1,0 +1,9 @@
+{
+    "rules": {
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/no-any-union": "off",
+        "@definitelytyped/npm-naming": "off",
+        "@typescript-eslint/adjacent-overload-signatures": "off",
+        "@typescript-eslint/ban-types": "off"
+    }
+}

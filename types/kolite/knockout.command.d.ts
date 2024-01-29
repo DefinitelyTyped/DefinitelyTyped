@@ -1,12 +1,5 @@
-// Type definitions for KoLite 1.1
-// Project: https://github.com/CodeSeven/kolite
-// Definitions by: Boris Yankov <https://github.com/borisyankov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 /// <reference types="knockout" />
-
 
 // Command /////////////////////////////////////////////
 
@@ -28,7 +21,7 @@ interface KoLiteCommandOptions {
 interface KnockoutStatic {
     command(options: KoLiteCommandOptions): KoliteCommand;
     asyncCommand(options: KoLiteCommandOptions): KoliteAsyncCommand;
-} 
+}
 
 // when using AMD, it is exported
 interface KnockoutCommandStatic {
@@ -46,7 +39,6 @@ interface KnockoutBindingHandlers {
 
 // Ambient declarations for typescript+requirejs
 declare var kocommand: KnockoutCommandStatic;
-declare module 'kocommand'{
+declare module "kocommand" {
     export = kocommand;
 }
-

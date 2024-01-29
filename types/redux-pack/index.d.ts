@@ -1,37 +1,25 @@
-// Type definitions for redux-pack 0.1
-// Project: https://github.com/lelandrichardson/redux-pack
-// Definitions by: tansongyang <https://github.com/tansongyang>
-//                 dschuman <https://github.com/quicksnap>
-//                 pweinberg <https://github.com/no-stack-dub-sack>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
-import {
-    Action as ReduxAction,
-    Middleware,
-    Reducer
-} from 'redux';
+import { Action as ReduxAction, Middleware, Reducer } from "redux";
 
 export const KEY: {
-    readonly LIFECYCLE: 'redux-pack/LIFECYCLE';
-    readonly TRANSACTION: 'redux-pack/TRANSACTION';
+    readonly LIFECYCLE: "redux-pack/LIFECYCLE";
+    readonly TRANSACTION: "redux-pack/TRANSACTION";
 };
 
 export const LIFECYCLE: {
-    readonly START: 'start';
-    readonly SUCCESS: 'success';
-    readonly FAILURE: 'failure';
+    readonly START: "start";
+    readonly SUCCESS: "success";
+    readonly FAILURE: "failure";
 };
 
-export type LIFECYCLEValues = 'start' | 'success' | 'failure';
+export type LIFECYCLEValues = "start" | "success" | "failure";
 
 export const middleware: Middleware;
 
 // MetaPayload differs from ActionMeta in that it is the object that the reducers
 // receive, instead of what is dispatched
 export type MetaPayload<M> = M & {
-    ['redux-pack/LIFECYCLE']?: LIFECYCLEValues | undefined;
-    ['redux-pack/TRANSACTION']?: string | undefined;
+    ["redux-pack/LIFECYCLE"]?: LIFECYCLEValues | undefined;
+    ["redux-pack/TRANSACTION"]?: string | undefined;
 };
 
 // Incomplete typing
@@ -56,12 +44,21 @@ export interface ActionMeta<TFullState = {}, TSuccessPayload = {}, TErrorPayload
     onFinish?(resolved: boolean, getState: GetState<TFullState>): void;
     onSuccess?(response: TSuccessPayload, getState: GetState<TFullState>): void;
     onFailure?(error: TErrorPayload, getState: GetState<TFullState>): void;
-    ['redux-pack/LIFECYCLE']?: LIFECYCLEValues | undefined;
-    ['redux-pack/TRANSACTION']?: string | undefined;
+    ["redux-pack/LIFECYCLE"]?: LIFECYCLEValues | undefined;
+    ["redux-pack/TRANSACTION"]?: string | undefined;
 }
 
-export interface PackError { error: boolean; payload: any; }
-export interface Action<TFullState = {}, TSuccessPayload = {}, TErrorPayload = PackError, TStartPayload = {}, TMetaPayload = {}> extends ReduxAction {
+export interface PackError {
+    error: boolean;
+    payload: any;
+}
+export interface Action<
+    TFullState = {},
+    TSuccessPayload = {},
+    TErrorPayload = PackError,
+    TStartPayload = {},
+    TMetaPayload = {},
+> extends ReduxAction {
     promise?: Promise<TSuccessPayload> | undefined;
     payload?: TSuccessPayload | TErrorPayload | TStartPayload | undefined;
     meta?: ActionMeta<TFullState, TSuccessPayload, TErrorPayload, TStartPayload> & TMetaPayload | undefined;
@@ -70,7 +67,9 @@ export interface Action<TFullState = {}, TSuccessPayload = {}, TErrorPayload = P
     error?: boolean | null | undefined;
 }
 
-export interface TFullState { [key: string]: any; }
+export interface TFullState {
+    [key: string]: any;
+}
 export function handle<TState, TSuccessPayload, TErrorPayload, TStartPayload, TMetaPayload>(
     state: TState,
     action: Action<TFullState, TSuccessPayload, TErrorPayload, TStartPayload, TMetaPayload>,

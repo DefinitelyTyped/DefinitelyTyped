@@ -1,4 +1,4 @@
-import { Disposable } from '../index';
+import { Disposable } from "../index";
 
 /**
  *  Loads and activates a package's main module and resources such as stylesheets,

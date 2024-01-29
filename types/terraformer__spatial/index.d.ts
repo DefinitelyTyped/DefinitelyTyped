@@ -1,15 +1,9 @@
-// Type definitions for @terraformer/spatial 2.0
-// Project: https://github.com/terraformer-js/terraformer
-// Definitions by: Jan Zak <https://github.com/zakjan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import * as GeoJSON from "geojson";
 
-export const MercatorCRS: { type: string; properties: { href: string; type: string; }; };
-export const GeographicCRS: { type: string; properties: { href: string; type: string; }; };
+export const MercatorCRS: { type: string; properties: { href: string; type: string } };
+export const GeographicCRS: { type: string; properties: { href: string; type: string } };
 export function calculateBounds(geojson: GeoJSON.GeoJSON): GeoJSON.BBox;
-export function calculateEnvelope(geojson: GeoJSON.GeoJSON): { x: number; y: number; w: number; h: number; };
+export function calculateEnvelope(geojson: GeoJSON.GeoJSON): { x: number; y: number; w: number; h: number };
 export function positionToGeographic(position: GeoJSON.Position): GeoJSON.Position;
 export function positionToMercator(position: GeoJSON.Position): GeoJSON.Position;
 export function toGeographic<T extends GeoJSON.GeoJSON>(geojson: T): T;
@@ -20,4 +14,8 @@ export function polygonContainsPoint(polygon: GeoJSON.Position[][], point: GeoJS
 export function within(geojson: GeoJSON.GeoJSON, comparisonGeojson: GeoJSON.GeoJSON): boolean;
 export function contains(geojson: GeoJSON.GeoJSON, comparisonGeojson: GeoJSON.GeoJSON): boolean;
 export function intersects(geojson: GeoJSON.GeoJSON, comparisonGeojson: GeoJSON.GeoJSON): boolean;
-export function toCircle(center: GeoJSON.Position, radius: number, interpolate?: number): GeoJSON.Feature<GeoJSON.Polygon>;
+export function toCircle(
+    center: GeoJSON.Position,
+    radius: number,
+    interpolate?: number,
+): GeoJSON.Feature<GeoJSON.Polygon>;

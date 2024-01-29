@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/tonic-ui__react",
+    "version": "1.29.9999",
+    "projects": [
+        "https://github.com/trendmicro-frontend/tonic-ui/tree/master/packages/react"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/tonic-ui__react": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Derek Hawker",
+            "githubUsername": "derekhawker"
+        }
+    ]
+}

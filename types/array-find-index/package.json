@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/array-find-index",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/sindresorhus/array-find-index"
+    ],
+    "devDependencies": {
+        "@types/array-find-index": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sam Verschueren",
+            "githubUsername": "samverschueren"
+        }
+    ]
+}

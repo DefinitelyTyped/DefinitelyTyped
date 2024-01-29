@@ -1,4 +1,4 @@
-import PoissonDiskSampling = require('poisson-disk-sampling');
+import PoissonDiskSampling = require("poisson-disk-sampling");
 
 const p = new PoissonDiskSampling({
     shape: [600, 300, 200],
@@ -7,4 +7,4 @@ const p = new PoissonDiskSampling({
     tries: 10,
 });
 
-p.fill(); // $ExpectType number[][]
+p.fill(); // $ExpectType Point[]

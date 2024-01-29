@@ -1,13 +1,7 @@
-// Type definitions for react-leaflet-markercluster 3.0
-// Project: https://github.com/YUzhva/react-leaflet-markercluster
-// Definitions by: Davide Ciacco <https://github.com/ciaccodavide>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="leaflet.markercluster" />
 
-import { ComponentType } from 'react';
-import { DivIcon, Icon, MarkerCluster, Point, PolylineOptions } from 'leaflet';
+import { DivIcon, Icon, MarkerCluster, Point, PolylineOptions } from "leaflet";
+import { ComponentType } from "react";
 
 interface MarkerClusterGroupProps {
     /**
@@ -174,7 +168,7 @@ interface MarkerClusterGroupProps {
      * Typically used to implement a progress indicator.
      * Defaults to null.
      */
-        chunkProgress?: ((processed: number, total: number, elapsed: number) => void) | null;
+    chunkProgress?: ((processed: number, total: number, elapsed: number) => void) | null;
 }
 
 declare const MarkerClusterGroup: ComponentType<MarkerClusterGroupProps>;

@@ -1,10 +1,4 @@
-// Type definitions for mongoose-delete 0.5
-// Project: https://github.com/dsanel/mongoose-delete
-// Definitions by: Mochamad Arifin <https://github.com/ndunks>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
-
-import mongoose = require('mongoose');
+import mongoose = require("mongoose");
 
 /**
  * This is interface helper to declaring model that using Soft Delete
@@ -14,17 +8,18 @@ declare namespace MongooseDelete {
         (this: THIS, err: any, doc: T): void;
     }
     type overridableMethods =
-        | 'count'
-        | 'countDocuments'
-        | 'find'
-        | 'findOne'
-        | 'findOneAndUpdate'
-        | 'update'
-        | 'updateOne'
-        | 'updateMany'
-        | 'aggregate';
-    interface SoftDeleteModel<T extends Omit<mongoose.Document, 'delete'>, QueryHelpers = {}>
-        extends mongoose.Model<T, QueryHelpers> {
+        | "count"
+        | "countDocuments"
+        | "find"
+        | "findOne"
+        | "findOneAndUpdate"
+        | "update"
+        | "updateOne"
+        | "updateMany"
+        | "aggregate";
+    interface SoftDeleteModel<T extends Omit<mongoose.Document, "delete">, QueryHelpers = {}>
+        extends mongoose.Model<T, QueryHelpers>
+    {
         /** Count only deleted documents */
         countDeleted: this["count"];
         /** Count all documents including deleted */
@@ -45,10 +40,18 @@ declare namespace MongooseDelete {
         findOneAndUpdateDeleted: this["findOneAndUpdate"];
         /** Find One And Update all documents including deleted */
         findOneAndUpdateWithDeleted: this["findOneAndUpdate"];
-        /** Update only deleted documents */
-        updateDeleted: this["update"];
-        /** Update all documents including deleted */
-        updateWithDeleted: this["update"];
+        /**
+         * @deprecated use `updateOneDeleted` or `updateManyDeleted` instead
+         *
+         * Update only deleted documents
+         */
+        updateDeleted: this["updateOne"];
+        /**
+         * @deprecated use `updateOneWithDeleted` or `updateManyWithDeleted` instead
+         *
+         * Update all documents including deleted
+         */
+        updateWithDeleted: this["updateOne"];
         /** Update One only deleted documents */
         updateOneDeleted: this["updateOne"];
         /** Update One all documents including deleted */
@@ -65,12 +68,19 @@ declare namespace MongooseDelete {
         /**
          * Delete documents by conditions
          */
-        delete(conditions?: any, deleteBy?: any, fn?: Callback<T, this>): mongoose.Query<ReturnType<mongoose.Model<T>['deleteMany']>, T, QueryHelpers>;
+        delete(
+            conditions?: any,
+            deleteBy?: any,
+            fn?: Callback<T, this>,
+        ): mongoose.Query<ReturnType<mongoose.Model<T>["deleteMany"]>, T, QueryHelpers>;
 
         /**
          * Restore documents by conditions
          */
-        restore(conditions?: any, fn?: Callback<T, this>): mongoose.Query<ReturnType<mongoose.Model<T>['updateMany']>, T, QueryHelpers>;
+        restore(
+            conditions?: any,
+            fn?: Callback<T, this>,
+        ): mongoose.Query<ReturnType<mongoose.Model<T>["updateMany"]>, T, QueryHelpers>;
 
         /**
          * Delete a document by ID
@@ -79,12 +89,10 @@ declare namespace MongooseDelete {
             id?: string | mongoose.Types.ObjectId | Callback<T, this>,
             deleteBy?: string | mongoose.Types.ObjectId | mongoose.Document | Callback<T, this>,
             fn?: Callback<T, this>,
-        ): mongoose.Query<ReturnType<mongoose.Model<T>['deleteOne']>, T, QueryHelpers> & QueryHelpers;
+        ): mongoose.Query<ReturnType<mongoose.Model<T>["deleteOne"]>, T, QueryHelpers> & QueryHelpers;
     }
 
-    interface SoftDeleteDocument
-        extends Omit<mongoose.Document, 'delete'>,
-        SoftDeleteInterface {
+    interface SoftDeleteDocument extends Omit<mongoose.Document, "delete">, SoftDeleteInterface {
         /** Soft delete this document */
         delete(
             deleteBy?: string | mongoose.Types.ObjectId | Callback<this>,
@@ -100,11 +108,13 @@ declare namespace MongooseDelete {
     }
 }
 interface Options {
-    overrideMethods: boolean | 'all' | MongooseDelete.overridableMethods[];
+    overrideMethods: boolean | "all" | MongooseDelete.overridableMethods[];
     deletedAt: boolean;
     deletedBy: boolean;
-    indexFields: boolean | 'all' | Array<keyof MongooseDelete.SoftDeleteInterface>;
+    indexFields: boolean | "all" | Array<keyof MongooseDelete.SoftDeleteInterface>;
     validateBeforeDelete: boolean;
+    validateBeforeRestore: boolean;
+    use$neOperator: boolean;
 
     /**
      * DeleteBy Schema type, equal to

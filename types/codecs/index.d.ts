@@ -1,8 +1,3 @@
-// Type definitions for codecs 2.2
-// Project: https://github.com/mafintosh/codecs
-// Definitions by: Martin Heidegger <https://github.com/martinheidegger>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 declare namespace codecs {
     type JsonObject = { [Key in string]?: JsonValue };
@@ -13,19 +8,21 @@ declare namespace codecs {
         encode(input: InType): Buffer;
         decode(input: Uint8Array): OutType;
     }
-    interface NamedCodec<TName extends string = string, InType = any, OutType = InType> extends BaseCodec<InType, OutType> {
+    interface NamedCodec<TName extends string = string, InType = any, OutType = InType>
+        extends BaseCodec<InType, OutType>
+    {
         name: TName;
     }
 
-    type AsciiCodec = NamedCodec<'ascii', string>;
-    type Base64Codec = NamedCodec<'base64', string>;
-    type BinaryCodec = NamedCodec<'binary', string | Uint8Array, Buffer>;
-    type HexCodec = NamedCodec<'hex', string>;
-    type JsonCodec = NamedCodec<'json', any, JsonValue>;
-    type NDJsonCodec = NamedCodec<'ndjson', any, JsonValue>;
-    type Ucs2Codec = NamedCodec<'ucs2', string>;
-    type Utf8Codec = NamedCodec<'utf-8', string>;
-    type Utf16leCodec = NamedCodec<'utf16le', string>;
+    type AsciiCodec = NamedCodec<"ascii", string>;
+    type Base64Codec = NamedCodec<"base64", string>;
+    type BinaryCodec = NamedCodec<"binary", string | Uint8Array, Buffer>;
+    type HexCodec = NamedCodec<"hex", string>;
+    type JsonCodec = NamedCodec<"json", any, JsonValue>;
+    type NDJsonCodec = NamedCodec<"ndjson", any, JsonValue>;
+    type Ucs2Codec = NamedCodec<"ucs2", string>;
+    type Utf8Codec = NamedCodec<"utf-8", string>;
+    type Utf16leCodec = NamedCodec<"utf16le", string>;
 
     interface CodecLookup {
         ascii: AsciiCodec;
@@ -35,11 +32,11 @@ declare namespace codecs {
         json: JsonCodec;
         ndjson: NDJsonCodec;
         ucs2: Ucs2Codec;
-        ['ucs-2']: Ucs2Codec;
+        ["ucs-2"]: Ucs2Codec;
         utf8: Utf8Codec;
-        ['utf-8']: Utf8Codec;
+        ["utf-8"]: Utf8Codec;
         utf16le: Utf16leCodec;
-        ['utf16-le']: Utf16leCodec;
+        ["utf16-le"]: Utf16leCodec;
     }
 
     type CodecNames = keyof CodecLookup;
@@ -47,47 +44,36 @@ declare namespace codecs {
     type CodecInput = BaseCodec | CodecNames;
     type MaybeCodecInput = CodecInput | string | null | undefined;
 
-    type OutType <
+    type OutType<
         TCodec extends MaybeCodecInput,
         TFallback extends NamedCodec = BinaryCodec,
-        TCodecs = CodecLookup
-    > = Codec<TCodec, TFallback, TCodecs> extends BaseCodec<any, infer T>
-        ? T
+        TCodecs = CodecLookup,
+    > = Codec<TCodec, TFallback, TCodecs> extends BaseCodec<any, infer T> ? T
         : unknown;
 
-    type InType <
+    type InType<
         TCodec extends MaybeCodecInput,
         TFallback extends NamedCodec = BinaryCodec,
-        TCodecs = CodecLookup
-    > = Codec<TCodec, TFallback, TCodecs> extends BaseCodec<infer T, any>
-        ? T
+        TCodecs = CodecLookup,
+    > = Codec<TCodec, TFallback, TCodecs> extends BaseCodec<infer T, any> ? T
         : unknown;
 
-    type CodecName <
+    type CodecName<
         TInput extends MaybeCodecInput,
         TFallback extends NamedCodec = BinaryCodec,
-        TCodecs = CodecLookup
-    > = TInput extends null | undefined
-        ? TFallback['name']
-        : TInput extends NamedCodec
-            ? TInput['name']
-            : TInput extends BaseCodec
-                ? undefined
-                : TInput extends keyof TCodecs
-                    ? TCodecs[TInput] extends NamedCodec<infer Name>
-                        ? Name
-                        : undefined
-                    : TFallback['name'];
+        TCodecs = CodecLookup,
+    > = TInput extends null | undefined ? TFallback["name"]
+        : TInput extends NamedCodec ? TInput["name"]
+        : TInput extends BaseCodec ? undefined
+        : TInput extends keyof TCodecs ? TCodecs[TInput] extends NamedCodec<infer Name> ? Name
+            : undefined
+        : TFallback["name"];
 
-    type Codec<TInput, TFallback = BinaryCodec, TCodecs = CodecLookup> = TInput extends BaseCodec
-        ? TInput
-        : TInput extends null | undefined
-            ? TFallback
-            : TInput extends keyof TCodecs
-                ? TCodecs[TInput] extends BaseCodec
-                    ? TCodecs[TInput]
-                    : TFallback
-                : TFallback;
+    type Codec<TInput, TFallback = BinaryCodec, TCodecs = CodecLookup> = TInput extends BaseCodec ? TInput
+        : TInput extends null | undefined ? TFallback
+        : TInput extends keyof TCodecs ? TCodecs[TInput] extends BaseCodec ? TCodecs[TInput]
+            : TFallback
+        : TFallback;
 
     interface Codecs {
         (): BinaryCodec;

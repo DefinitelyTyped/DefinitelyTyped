@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/twemoji-parser",
+    "version": "13.1.9999",
+    "projects": [
+        "https://github.com/twitter/twemoji-parser"
+    ],
+    "devDependencies": {
+        "@types/twemoji-parser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

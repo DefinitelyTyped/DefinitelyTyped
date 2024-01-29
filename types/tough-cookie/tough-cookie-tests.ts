@@ -1,29 +1,29 @@
-import { Cookie, CookieJar, MemoryCookieStore, PrefixSecurityEnum, version } from 'tough-cookie';
+import { Cookie, CookieJar, MemoryCookieStore, PrefixSecurityEnum, version } from "tough-cookie";
 
 version; // $ExpectType string
 PrefixSecurityEnum.DISABLED; // $ExpectType string
 PrefixSecurityEnum.SILENT; // $ExpectType string
 PrefixSecurityEnum.STRICT; // $ExpectType string
 
-let header = '';
-const cb = (err: Error | null) => { };
+let header = "";
+const cb = (err: Error | null) => {};
 const cbCookie = (err: Error | null, cookie: Cookie | null) => {};
 const cbCookies = (err: Error | null, cookies: Cookie[]) => {};
 const cbCookieJar = (err: Error | null, jar: CookieJar) => {};
 const cbString = (err: Error | null, value: string) => {};
 const cbStrings = (err: Error | null, value: string[]) => {};
 
-const url = 'http://example.com/otherpath';
+const url = "http://example.com/otherpath";
 const cookie: Cookie = Cookie.parse(header)!;
-cookie.value = 'somethingdifferent';
+cookie.value = "somethingdifferent";
 header = cookie.toString();
 
 const jar = new CookieJar();
-jar.setCookie(cookie, 'http://currentdomain.example.com/path'); // $ExpectType Promise<Cookie>
-jar.setCookie(cookie, 'http://currentdomain.example.com/path', cbCookie); // $ExpectType void
-jar.setCookie(cookie, 'http://currentdomain.example.com/path', {}, cbCookie); // $ExpectType void
+jar.setCookie(cookie, "http://currentdomain.example.com/path"); // $ExpectType Promise<Cookie>
+jar.setCookie(cookie, "http://currentdomain.example.com/path", cbCookie); // $ExpectType void
+jar.setCookie(cookie, "http://currentdomain.example.com/path", {}, cbCookie); // $ExpectType void
 
-jar.setCookieSync(cookie, 'http://currentdomain.example.com/path'); // $ExpectType Cookie
+jar.setCookieSync(cookie, "http://currentdomain.example.com/path"); // $ExpectType Cookie
 
 jar.getCookies(url); // $ExpectType Promise<Cookie[]>
 jar.getCookies(url, {}); // $ExpectType Promise<Cookie[]>
@@ -76,11 +76,11 @@ CookieJar.deserializeSync("test cookie with store", new MemoryCookieStore()); //
 CookieJar.deserializeSync("test cookie"); // $ExpectType CookieJar
 
 const store = new MemoryCookieStore();
-store.findCookie('example.com', '/', 'foo', cbCookie); // $ExpectType void
-store.findCookie('example.com', '/', 'foo'); // $ExpectType Promise<Cookie | null>
+store.findCookie("example.com", "/", "foo", cbCookie); // $ExpectType void
+store.findCookie("example.com", "/", "foo"); // $ExpectType Promise<Cookie | null>
 
-store.findCookies('example.com', '/', false, cbCookies); // $ExpectType void
-store.findCookies('example.com', '/', false); // $ExpectType Promise<Cookie[]>
+store.findCookies("example.com", "/", false, cbCookies); // $ExpectType void
+store.findCookies("example.com", "/", false); // $ExpectType Promise<Cookie[]>
 
 store.putCookie(cookie, cb); // $ExpectType void
 store.putCookie(cookie); // $ExpectType Promise<void>
@@ -88,11 +88,11 @@ store.putCookie(cookie); // $ExpectType Promise<void>
 store.updateCookie(cookie, cookie, cb); // $ExpectType void
 store.updateCookie(cookie, cookie); // $ExpectType Promise<void>
 
-store.removeCookie('example.com', '/', 'foo', cb); // $ExpectType void
-store.removeCookie('example.com', '/', 'foo'); // $ExpectType Promise<void>
+store.removeCookie("example.com", "/", "foo", cb); // $ExpectType void
+store.removeCookie("example.com", "/", "foo"); // $ExpectType Promise<void>
 
-store.removeCookies('example.com', '/', cb); // $ExpectType void
-store.removeCookies('example.com', '/'); // $ExpectType Promise<void>
+store.removeCookies("example.com", "/", cb); // $ExpectType void
+store.removeCookies("example.com", "/"); // $ExpectType Promise<void>
 
 store.getAllCookies(cbCookies); // $ExpectType void
 store.getAllCookies(); // $ExpectType Promise<Cookie[]>

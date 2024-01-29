@@ -1,8 +1,3 @@
-// Type definitions for json-merge-patch
-// Project: https://github.com/pierreinglebert/json-merge-patch
-// Definitions by: Jimmy Leung <https://github.com/jimmy-leung-coherent>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare module "json-merge-patch" {
     function apply(target: any, patch: null): null;
     function apply<U>(target: any, patch: U): U;

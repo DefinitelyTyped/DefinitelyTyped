@@ -1,9 +1,3 @@
-// Type definitions for cradle
-// Project: https://github.com/flatiron/cradle
-// Definitions by: Panu Horsmalahti <https://github.com/panuhorsmalahti>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
 interface Options {
     host?: string | undefined;
     hostname?: string | undefined;
@@ -13,7 +7,7 @@ interface Options {
     auth?: string | {
         username: string;
         password: string;
-    } | undefined
+    } | undefined;
     ca?: string | undefined;
     secure?: boolean | undefined;
     retries?: number | undefined;
@@ -69,18 +63,15 @@ export declare class Database {
     get(ids: string[], callback: Callback): void;
     save(document: any, callback: Callback): void;
     save(id: string, document: any, callback: Callback): void;
-    save(id: string, revision: string, document: any,
-        callback: Callback): void;
+    save(id: string, revision: string, document: any, callback: Callback): void;
     save<T>(document: T, callback: Callback): void;
     save<T>(id: string, document: T, callback: Callback): void;
-    save<T>(id: string, revision: string, document: T,
-        callback: Callback): void;
+    save<T>(id: string, revision: string, document: T, callback: Callback): void;
     save(documents: any[], callback: Callback): void;
     merge(id: string, document: any, callback: Callback): void;
     merge<T>(id: string, document: T, callback: Callback): void;
     remove(id: string, revision: string, callback: Callback): void;
-    update(name: string, id: string, queryObject: any, documentBody: any,
-        callback: Callback): void;
+    update(name: string, id: string, queryObject: any, documentBody: any, callback: Callback): void;
     view(name: string, callback: Callback): void;
     view(name: string, options: {
         group?: boolean | undefined;
@@ -98,16 +89,17 @@ export declare class Database {
     destroy(callback: ErrorCallback): void;
     changes(options: ChangesOptions): any;
     changes(callback: (error: any, list: any[]) => void): void;
-    changes(options: ChangesOptions, callback: (error: any,
-        list: any[]) => void): void;
-    saveAttachment(idAndRevData: {
-        id: string;
-        rev: string;
-    }, attachmentData: any, callback: Callback): void;
-    getAttachment(id: string, attachmentName: string,
-        callback: Callback): void;
-    removeAttachment(id: string, attachmentName: string,
-        callback: Callback): void;
+    changes(options: ChangesOptions, callback: (error: any, list: any[]) => void): void;
+    saveAttachment(
+        idAndRevData: {
+            id: string;
+            rev: string;
+        },
+        attachmentData: any,
+        callback: Callback,
+    ): void;
+    getAttachment(id: string, attachmentName: string, callback: Callback): void;
+    removeAttachment(id: string, attachmentName: string, callback: Callback): void;
     info(callback: Callback): void;
     all(callback: Callback): void;
     all(options: any, callback: Callback): void;

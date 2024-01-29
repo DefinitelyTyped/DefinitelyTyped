@@ -1,6 +1,21 @@
 {
+    "private": true,
+    "name": "@types/metascraper-address",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/goodhood-eu/metascraper-address#readme"
+    ],
     "dependencies": {
-        "metascraper": "^5.14.0"
+        "@types/node": "*",
+        "metascraper": "^5.41.0"
     },
-    "private": true
+    "devDependencies": {
+        "@types/metascraper-address": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Imdahl",
+            "githubUsername": "ffflorian"
+        }
+    ]
 }

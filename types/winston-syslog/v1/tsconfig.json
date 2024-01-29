@@ -8,19 +8,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
-        "paths": {
-            "winston-syslog": [
-                "winston-syslog/v1"
-            ],
-            "winston-syslog/*": [
-                "winston-syslog/v1/*"
-            ]
-        },
         "noEmit": true,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true

@@ -1,9 +1,3 @@
-// Type definitions for folder-hash 4.0
-// Project: https://github.com/marc136/node-folder-hash#readme
-// Definitions by: Kevin Brown <https://github.com/thekevinbrown>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type PathGlobFunction = () => string[];
 
 export interface FolderAndFileOptions {
@@ -26,7 +20,7 @@ export interface HashElementOptions {
     // Defaults to 'sha1'.
     algo?: string | undefined;
     // Defaults to 'base64'
-    encoding?: "base64" | "hex" | "binary" | undefined;
+    encoding?: "base64" | "base64url" | "hex" | "binary" | undefined;
     files?: FolderAndFileOptions | undefined;
     folders?: FolderAndFileOptions | undefined;
     symbolicLinks?: SymbolicLinkOptions | undefined;

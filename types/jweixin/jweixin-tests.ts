@@ -1,9 +1,9 @@
-import { scanQRCode } from 'jweixin';
+import { scanQRCode } from "jweixin";
 
 scanQRCode({
     needResult: 0,
-    scanType: ['qrCode'],
+    scanType: ["qrCode"],
     success(res) {
         console.log(res);
-    }
+    },
 });

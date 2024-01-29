@@ -1,22 +1,16 @@
-// Type definitions for react-helmet-with-visor 5.4
-// Project: https://github.com/kokushkin/react-helmet-with-visor
-// Definitions by: Nickolay Kulikov <https://github.com/kokushkin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
+import * as React from "react";
 
 interface OtherElementAttributes {
     [key: string]: string | number | boolean | null | undefined;
 }
 
-type HtmlProps = JSX.IntrinsicElements['html'] & OtherElementAttributes;
+type HtmlProps = React.JSX.IntrinsicElements["html"] & OtherElementAttributes;
 
-type BodyProps = JSX.IntrinsicElements['body'] & OtherElementAttributes;
+type BodyProps = React.JSX.IntrinsicElements["body"] & OtherElementAttributes;
 
-type LinkProps = JSX.IntrinsicElements['link'];
+type LinkProps = React.JSX.IntrinsicElements["link"];
 
-type MetaProps = JSX.IntrinsicElements['meta'];
+type MetaProps = React.JSX.IntrinsicElements["meta"];
 
 export interface HelmetTags {
     baseTag: any[];

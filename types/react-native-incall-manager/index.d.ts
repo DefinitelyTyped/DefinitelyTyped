@@ -1,11 +1,5 @@
-// Type definitions for react-native-incall-manager 3.2
-// Project: https://github.com/zxcpoiu/react-native-incall-manager#readme
-// Definitions by: Carlos Quiroga <https://github.com/KarlosQ>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 export interface StartSetup {
-    media?: string | undefined;
+    media?: "video" | "audio" | undefined;
     auto?: boolean | undefined;
     ringback?: string | undefined;
 }
@@ -23,9 +17,9 @@ declare class InCallManager {
 
     turnScreenOn(): void;
 
-    getIsWiredHeadsetPluggedIn(): Promise<any>;
+    getIsWiredHeadsetPluggedIn(): Promise<{ isWiredHeadsetPluggedIn: boolean }>;
 
-    setFlashOn(enable?: boolean, brightness?: number): number;
+    setFlashOn(enable?: boolean, brightness?: number): void;
 
     setKeepScreenOn(enable?: boolean): void;
 
@@ -37,30 +31,35 @@ declare class InCallManager {
 
     startRingtone(
         ringtone?: string,
-        vibrate_pattern?: any[],
-        ios_category?: string,
-        seconds?: number
+        vibrate_pattern?: number[],
+        ios_category?: "playback" | "default",
+        seconds?: number,
     ): void;
 
     stopRingtone(): void;
+
+    startProximitySensor(): void;
+
+    stopProximitySensor(): void;
 
     startRingback(ringback?: string): void;
 
     stopRingback(): void;
 
-    checkRecordPermission(): Promise<string>;
-
-    requestRecordPermission(): Promise<string>;
-
-    checkCameraPermission(): Promise<string>;
-
-    requestCameraPermission(): Promise<string>;
-
     pokeScreen(_timeout?: number): void;
 
-    getAudioUri(audioType: string, fileType: string): any;
+    getAudioUri(
+        audioType: "ringtone" | "ringback" | "busytone",
+        fileType: string,
+    ): Promise<string | null>;
 
-    chooseAudioRoute(route: any): any;
+    chooseAudioRoute(
+        route: "EARPIECE" | "SPEAKER_PHONE" | "WIRED_HEADSET" | "BLUETOOTH",
+    ): Promise<{ availableAudioDeviceList: string; selectedAudioDevice: string }>;
+
+    requestAudioFocus(): Promise<string | undefined>;
+
+    abandonAudioFocus(): Promise<string | undefined>;
 }
 
 declare const _default: InCallManager;

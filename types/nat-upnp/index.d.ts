@@ -1,9 +1,5 @@
-// Type definitions for nat-upnp 1.1
-// Project: https://github.com/indutny/node-nat-upnp
-// Definitions by: SimplyLinn <https://github.com/SimplyLinn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 /**
  * Standard options that many options use.
@@ -13,17 +9,17 @@ export interface StandardOpts {
         | number
         | null
         | {
-              port?: number | undefined;
-              host?: string | undefined;
-          }
+            port?: number | undefined;
+            host?: string | undefined;
+        }
         | undefined;
     private?:
         | number
         | null
         | {
-              port?: number | undefined;
-              host?: string | undefined;
-          }
+            port?: number | undefined;
+            host?: string | undefined;
+        }
         | undefined;
     protocol?: string | undefined;
 }
@@ -38,7 +34,7 @@ export type RawResponse = Partial<
     Record<
         string,
         {
-            '@': { 'xmlns:u': string };
+            "@": { "xmlns:u": string };
             [key: string]: unknown;
         }
     >
@@ -223,7 +219,7 @@ export const ssdp: {
 export const utils: {
     getNamespace(
         data: {
-            '@'?: Record<string, string> | undefined;
+            "@"?: Record<string, string> | undefined;
         },
         uri: string,
     ): string;

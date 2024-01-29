@@ -1,12 +1,3 @@
-// Type definitions for non-npm package wx-app 2.9
-// Project: https://mp.weixin.qq.com/debug/wxadoc/dev/api/
-// Definitions by: taoqf <https://github.com/taoqf>
-//                 AlexStacker <https://github.com/AlexStacker>
-//                 Jimexist <https://github.com/Jimexist>
-//                 ChenKS12138 <https://github.com/ChenKS12138>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 declare namespace wx {
     // #region 基本参数
     interface DataResponse {
@@ -51,15 +42,16 @@ declare namespace wx {
         header?: RequestHeader | undefined;
         /** 默认为 GET，有效值：OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT */
         method?:
-        | "GET"
-        | "OPTIONS"
-        | "GET"
-        | "HEAD"
-        | "POST"
-        | "PUT"
-        | "DELETE"
-        | "TRACE"
-        | "CONNECT" | undefined;
+            | "GET"
+            | "OPTIONS"
+            | "GET"
+            | "HEAD"
+            | "POST"
+            | "PUT"
+            | "DELETE"
+            | "TRACE"
+            | "CONNECT"
+            | undefined;
         /** 如果设为json，会尝试对返回的数据做一次 JSON.parse */
         dataType?: string | undefined;
         /**
@@ -95,7 +87,7 @@ declare namespace wx {
                 totalBytesSent: number;
                 /** 预期需要上传的数据总长度，单位 Bytes */
                 totalBytesExpectedToSend: number;
-            }) => void
+            }) => void,
         ): void;
         /**
          * 中断下载任务
@@ -141,7 +133,7 @@ declare namespace wx {
                 totalBytesWritten: number;
                 /** 预期需要下载的数据总长度，单位 Bytes */
                 totalBytesExpectedToWrite: number;
-            }) => void
+            }) => void,
         ): void;
         /**
          * 中断下载任务
@@ -455,7 +447,7 @@ declare namespace wx {
      * @deprecated 1.2.0
      */
     function getBackgroundAudioPlayerState(
-        options: GetBackgroundAudioPlayerStateOptions
+        options: GetBackgroundAudioPlayerStateOptions,
     ): void;
     interface PlayBackgroundAudioOptions extends BaseOptions {
         /** 音乐链接 */
@@ -810,7 +802,7 @@ declare namespace wx {
      */
     function createLivePlayerContext(
         id: string,
-        instance: any
+        instance: any,
     ): LivePlayerContext;
     // 文件
     interface AccessOptions extends BaseOptions {
@@ -1048,7 +1040,6 @@ declare namespace wx {
     function getStorage(options: GetStorageOptions): void;
     /**
      * 从本地缓存中同步获取指定 key 对应的内容。
-     *
      */
     function getStorageSync(key: string): any | string;
     interface StorageInfo {
@@ -1262,7 +1253,7 @@ declare namespace wx {
      * @version 1.1.0
      */
     function onNetworkStatusChange(
-        callback: (res: { isConnected: boolean; networkType: networkType }) => void
+        callback: (res: { isConnected: boolean; networkType: networkType }) => void,
     ): void;
     // 设备-----加速度计
     interface AccelerometerData {
@@ -1415,14 +1406,14 @@ declare namespace wx {
      * @version 1.1.0
      */
     function getBluetoothAdapterState(
-        options: GetBluetoothAdapterStateOptions
+        options: GetBluetoothAdapterStateOptions,
     ): void;
     /**
      * 监听蓝牙适配器状态变化事件
      * @version 1.1.0
      */
     function onBluetoothAdapterStateChange(
-        callback: (res: BluetoothAdapterState) => void
+        callback: (res: BluetoothAdapterState) => void,
     ): void;
     interface StartBluetoothDevicesDiscoveryOptions extends BaseOptions {
         /**
@@ -1452,7 +1443,7 @@ declare namespace wx {
      * });
      */
     function startBluetoothDevicesDiscovery(
-        options: StartBluetoothDevicesDiscoveryOptions
+        options: StartBluetoothDevicesDiscoveryOptions,
     ): void;
     interface StopBluetoothDevicesDiscoveryOptions extends BaseOptions {
         success(res: ErrMsgResponse): void;
@@ -1462,7 +1453,7 @@ declare namespace wx {
      * @version 1.1.0
      */
     function stopBluetoothDevicesDiscovery(
-        options: StopBluetoothDevicesDiscoveryOptions
+        options: StopBluetoothDevicesDiscoveryOptions,
     ): void;
     /**
      * 蓝牙设备信息
@@ -1489,7 +1480,7 @@ declare namespace wx {
         success(
             res: {
                 devices: BluetoothDevice[];
-            } & ErrMsgResponse
+            } & ErrMsgResponse,
         ): void;
     }
     /**
@@ -1501,14 +1492,14 @@ declare namespace wx {
      * @version 1.1.0
      */
     function onBluetoothDeviceFound(
-        callback: (res: { devices: BluetoothDevice[] }) => void
+        callback: (res: { devices: BluetoothDevice[] }) => void,
     ): void;
     interface GetConnectedBluetoothDevicesOptions extends BaseOptions {
         services: string[];
         success(
             res: {
                 devices: BluetoothDevice[];
-            } & ErrMsgResponse
+            } & ErrMsgResponse,
         ): void;
     }
     /**
@@ -1516,7 +1507,7 @@ declare namespace wx {
      * @version 1.1.0
      */
     function getConnectedBluetoothDevices(
-        options: GetConnectedBluetoothDevicesOptions
+        options: GetConnectedBluetoothDevicesOptions,
     ): void;
     interface CreateBLEConnectionOptions extends BaseOptions {
         /**
@@ -1556,7 +1547,7 @@ declare namespace wx {
                     uuid: string;
                     isPrimary: boolean;
                 }>;
-            } & ErrMsgResponse
+            } & ErrMsgResponse,
         ): void;
     }
     /**
@@ -1598,14 +1589,14 @@ declare namespace wx {
                         indicate: boolean;
                     }>;
                 }>;
-            } & ErrMsgResponse
+            } & ErrMsgResponse,
         ): void;
     }
     /**
      * 获取蓝牙设备所有 characteristic（特征值）
      */
     function getBLEDeviceCharacteristics(
-        options: GetBLEDeviceCharacteristicsOptions
+        options: GetBLEDeviceCharacteristicsOptions,
     ): void;
 
     interface WriteBLECharacteristicValue extends BaseOptions {
@@ -1679,7 +1670,7 @@ declare namespace wx {
                      */
                     value: ArrayBuffer;
                 };
-            } & ErrMsgResponse
+            } & ErrMsgResponse,
         ): void;
     }
 
@@ -1688,7 +1679,7 @@ declare namespace wx {
      * 注意：必须设备的特征值支持read才可以成功调用，具体参照 characteristic 的 properties 属性
      */
     function readBLECharacteristicValue(
-        options: ReadBLECharacteristicValue
+        options: ReadBLECharacteristicValue,
     ): void;
     /**
      * 向低功耗蓝牙设备特征值中写入二进制数据。
@@ -1696,7 +1687,7 @@ declare namespace wx {
      * tips: 并行调用多次读写接口存在读写失败的可能性
      */
     function writeBLECharacteristicValue(
-        options: WriteBLECharacteristicValue
+        options: WriteBLECharacteristicValue,
     ): void;
     /**
      * 启用低功耗蓝牙设备特征值变化时的 notify 功能。
@@ -1704,7 +1695,7 @@ declare namespace wx {
      * 另外，必须先启用notify才能监听到设备 characteristicValueChange 事件
      */
     function notifyBLECharacteristicValueChanged(
-        options: NotifyBLECharacteristicValueChanged
+        options: NotifyBLECharacteristicValueChanged,
     ): void;
     /**
      * 监听低功耗蓝牙连接的错误事件，包括设备丢失，连接异常断开等等。
@@ -1719,7 +1710,7 @@ declare namespace wx {
              * 连接目前的状态
              */
             connected: boolean;
-        }) => void
+        }) => void,
     ): void;
     /**
      * 监听低功耗蓝牙设备的特征值变化。必须先启用notify接口才能接收到设备推送的notification。
@@ -1742,7 +1733,7 @@ declare namespace wx {
              * 特征值最新的值
              */
             value: ArrayBuffer;
-        }) => void
+        }) => void,
     ): void;
     // #region iBeacon
     interface StartBeaconDiscoveryOptions extends BaseOptions {
@@ -1803,7 +1794,7 @@ declare namespace wx {
      * @version 1.2.0
      */
     function onBeaconServiceChange(
-        callback?: (available: boolean, discovering: boolean) => void
+        callback?: (available: boolean, discovering: boolean) => void,
     ): void;
     // #endregion
     // 设备-----屏幕亮度
@@ -2480,7 +2471,7 @@ declare namespace wx {
             c: number,
             d: number,
             tx: number,
-            ty: number
+            ty: number,
         ): Animation;
         /** 同transform-function matrix3d */
         matrix3d(
@@ -2499,7 +2490,7 @@ declare namespace wx {
             a4: number,
             b4: number,
             c4: number,
-            d4: number
+            d4: number,
         ): Animation;
     }
     // #region 位置API
@@ -2562,14 +2553,14 @@ declare namespace wx {
         relativeToViewport(margins?: Margins): IntersectionObserver;
         observe(
             selector?: string,
-            callback?: (response: ObserveResponse) => void
+            callback?: (response: ObserveResponse) => void,
         ): IntersectionObserver;
         disconnect(): void;
     }
 
     function createIntersectionObserver(
         context: Component<any, any>,
-        options?: CreateIntersectionObserverOption
+        options?: CreateIntersectionObserverOption,
     ): IntersectionObserver;
 
     interface NodesRefRect extends RectArea {
@@ -2641,7 +2632,7 @@ declare namespace wx {
          * 节点信息会在callback中返回。
          */
         boundingClientRect<T extends NodesRefRect | NodesRefRect[]>(
-            callback?: (rect: T) => void
+            callback?: (rect: T) => void,
         ): SelectorQuery;
         /**
          * 添加节点的滚动位置查询请求，以像素为单位。
@@ -2657,7 +2648,7 @@ declare namespace wx {
          */
         fields(
             fields: NodeRefFieldsOptions,
-            callback?: (result: any) => void
+            callback?: (result: any) => void,
         ): SelectorQuery;
     }
     /**
@@ -2791,7 +2782,7 @@ declare namespace wx {
             dx: number,
             dy: number,
             dWidth: number,
-            dHeight: number
+            dHeight: number,
         ): void;
         /**
          * 绘制图像，图像保持原始尺寸。
@@ -2815,7 +2806,7 @@ declare namespace wx {
             dx: number,
             dy: number,
             dWidth: number,
-            dHeight: number
+            dHeight: number,
         ): void;
         /**
          * 设置全局画笔透明度。
@@ -2873,7 +2864,6 @@ declare namespace wx {
          * @param y 矩形路径左上角的y坐标
          * @param width 矩形路径的宽度
          * @param height 矩形路径的高度
-         *
          */
         fillRect(x: number, y: number, width: number, height: number): void;
         /**
@@ -2883,7 +2873,6 @@ declare namespace wx {
          * @param y 矩形路径左上角的y坐标
          * @param width 矩形路径的宽度
          * @param height 矩形路径的高度
-         *
          */
         strokeRect(x: number, y: number, width: number, height: number): void;
         /**
@@ -2902,7 +2891,7 @@ declare namespace wx {
             radius: number,
             startAngle: number,
             endAngle: number,
-            counterclockwise?: boolean
+            counterclockwise?: boolean,
         ): void;
         /**
          * 创建二次方贝塞尔曲线
@@ -2929,7 +2918,7 @@ declare namespace wx {
             cp2x: number,
             cp2y: number,
             x: number,
-            y: number
+            y: number,
         ): void;
         /**
          * 设置填充样式
@@ -2955,7 +2944,7 @@ declare namespace wx {
             offsetX: number,
             offsetY: number,
             blur: number,
-            color: string
+            color: string,
         ): void;
         /**
          * 创建一个线性的渐变颜色。
@@ -2969,7 +2958,7 @@ declare namespace wx {
             x0: number,
             y0: number,
             x1: number,
-            y1: number
+            y1: number,
         ): CanvasGradient;
         /**
          * 创建一个颜色的渐变点。
@@ -2977,7 +2966,6 @@ declare namespace wx {
          * Tip: 需要使用 addColorStop() 来指定渐变点，至少要两个。
          * @param stop (0-1)  表示渐变点在起点和终点中的位置
          * @param color 渐变点的颜色
-         *
          */
         addColorStop(stop: number, color: string): void;
         /**
@@ -2986,7 +2974,6 @@ declare namespace wx {
          * @param x 圆心的x坐标
          * @param y 圆心的y坐标
          * @param r 圆的半径
-         *
          */
         createCircularGradient(x: number, y: number, r: number): void;
         /**
@@ -3024,7 +3011,6 @@ declare namespace wx {
          * 将之前在绘图上下文中的描述（路径、变形、样式）画到 canvas 中。
          * Tip: 绘图上下文需要由 wx.createCanvasContext(canvasId) 来创建。
          * @param [reserve] 非必填。本次绘制是否接着上一次绘制，即reserve参数为false，则在本次调用drawCanvas绘制之前native层应先清空画布再继续绘制；若reserver参数为true，则保留当前画布上的内容，本次调用drawCanvas绘制的内容覆盖在上面，默认 false
-         *
          */
         draw(reserve?: boolean): void;
     }
@@ -3103,14 +3089,14 @@ declare namespace wx {
         /** 可选的字体描述符 */
         desc?: {
             /** 字体样式，可选值为 normal / italic / oblique */
-            style?: ['normal', 'italic', 'oblique'] | undefined;
+            style?: ["normal", "italic", "oblique"] | undefined;
             /** 字体粗细，可选值为 normal / bold / 100 / 200../ 900 */
-            weight?: ['normal', 'bold', '100', '200', '300', '400', '500', '600', '700', '800', '900'] | undefined;
+            weight?: ["normal", "bold", "100", "200", "300", "400", "500", "600", "700", "800", "900"] | undefined;
             /** 设置小型大写字母的字体显示文本，可选值为 normal / small-caps / inherit */
-            variant?: ['normal', 'small-caps', 'inherit'] | undefined;
+            variant?: ["normal", "small-caps", "inherit"] | undefined;
         } | undefined;
         /** 字体作用范围，可选值为 webview / native，默认 webview，设置 native 可在 Canvas 2D 下使用 */
-        scopes?: Array<'webview'|'native'> | undefined;
+        scopes?: Array<"webview" | "native"> | undefined;
     }
     /**
      * 动态加载网络字体，文件地址需为下载类型。['2.10.0'](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)起支持全局生效，需在 `app.js` 中调用
@@ -3135,7 +3121,7 @@ declare namespace wx {
             res: {
                 /* 调用结果 */
                 errMsg: string;
-            } & ExtConfig
+            } & ExtConfig,
         ): void;
     }
     /**
@@ -3271,7 +3257,6 @@ declare namespace wx {
     interface ShareAppMessage extends BaseOptions {
         /**
          * 分享标题  默认为当前小程序名称
-         *
          */
         title?: string | undefined;
         /**
@@ -3287,7 +3272,6 @@ declare namespace wx {
         /**
          * 分享路径  当默认为前页面 path ，
          * 必须是以 / 开头的完整路径
-         *
          */
         path?: string | undefined;
         success?(res: {
@@ -3301,7 +3285,6 @@ declare namespace wx {
     }
     /**
      * 显示分享按钮
-     *
      */
     function showShareMenu(options?: ShareMenuOptions): void;
 
@@ -3341,47 +3324,38 @@ declare namespace wx {
         success?(res: {
             /**
              * 调用结果
-             *
              */
             errMsg: string;
             /**
              * 收货人姓名
-             *
              */
             userName: string;
             /**
              * 邮编
-             *
              */
             postalCode: string;
             /**
              * 国标收货地址第一级地址
-             *
              */
             provinceName: string;
             /**
              * 国标收货地址第二级地址
-             *
              */
             cityName: string;
             /**
              * 国标收货地址第三级地址
-             *
              */
             countyName: string;
             /**
              * 详细收货地址信息
-             *
              */
             detailInfo: string;
             /**
              * 收货地址国家码
-             *
              */
             nationalCode: string;
             /**
              * 收货人手机号码
-             *
              */
             telNumber: string;
         }): void;
@@ -3436,7 +3410,6 @@ declare namespace wx {
 
     /**
      * 查看微信卡包中的卡券。
-     *
      */
     function openCard(options: OpenCardOptions): void;
 
@@ -3492,7 +3465,7 @@ declare namespace wx {
      * 获取本机支持的 SOTER 生物认证方式
      */
     function checkIsSupportSoterAuthentication(
-        options: CheckIsSupportSoterAuthenticationOptions
+        options: CheckIsSupportSoterAuthenticationOptions,
     ): void;
     interface StartSoterAuthenticationOptions extends BaseOptions {
         requestAuthModes: AuthModes[]; // 请求使用的可接受的生物认证方式
@@ -3510,7 +3483,7 @@ declare namespace wx {
      * 开始 SOTER 生物认证
      */
     function startSoterAuthentication(
-        options: StartSoterAuthenticationOptions
+        options: StartSoterAuthenticationOptions,
     ): void;
 
     interface CheckIsSoterEnrolledInDeviceOptions extends BaseOptions {
@@ -3524,7 +3497,7 @@ declare namespace wx {
      * 获取设备内是否录入如指纹等生物信息的接口
      */
     function checkIsSoterEnrolledInDevice(
-        options: CheckIsSoterEnrolledInDeviceOptions
+        options: CheckIsSoterEnrolledInDeviceOptions,
     ): void;
 
     interface ChooseInvoiceTitleOptions extends BaseOptions {
@@ -3554,17 +3527,17 @@ declare namespace wx {
          */
         onCheckForUpdate(
             /** 向微信后台请求检查更新结果事件的回调函数 */
-            callback: (result: { hasUpdate: boolean }) => void
+            callback: (result: { hasUpdate: boolean }) => void,
         ): void;
         /** 监听小程序更新失败事件。小程序有新版本，客户端主动触发下载（无需开发者触发），下载失败（可能是网络原因等）后回调 */
         onUpdateFailed(
             /** 小程序更新失败事件的回调函数 */
-            callback: (res: { errMsg: string }) => void
+            callback: (res: { errMsg: string }) => void,
         ): void;
         /** 监听小程序有版本更新事件。客户端主动触发下载（无需开发者触发），下载成功后回调 */
         onUpdateReady(
             /** 小程序有版本更新事件的回调函数 */
-            callback: () => void
+            callback: () => void,
         ): void;
     }
 
@@ -3594,7 +3567,7 @@ declare namespace wx {
      * 返回到上一个小程序，只有在当前小程序是被其他小程序打开时可以调用成功
      */
     function navigateBackMiniProgram(
-        options: NavigateBackMiniProgramOptions
+        options: NavigateBackMiniProgramOptions,
     ): void;
 
     // #endregion
@@ -3602,12 +3575,10 @@ declare namespace wx {
 
     /**
      * 将 ArrayBuffer 数据转成 Base64 字符串
-     *
      */
     function arrayBufferToBase64(arrayBuffer: ArrayBuffer): string;
     /**
      * 将 Base64 字符串转成 ArrayBuffer 数据
-     *
      */
     function base64ToArrayBuffer(base64: string): ArrayBuffer;
     /**
@@ -3653,34 +3624,34 @@ declare namespace wx {
         detail: Detail;
     }
 
-    interface BuiltInEvent<T extends EventType, Detail>
-        extends BaseEvent<T, Detail> { }
+    interface BuiltInEvent<T extends EventType, Detail> extends BaseEvent<T, Detail> {}
 
-    interface CustomEvent<T extends string, Detail>
-        extends BaseEvent<T, Detail> { }
+    interface CustomEvent<T extends string, Detail> extends BaseEvent<T, Detail> {}
 
     /**
      * 指定focus时的光标位置
      * @version 1.5.0
      */
-    interface InputEvent
-        extends BuiltInEvent<
-        "input",
-        {
-            value: string;
-            cursor: number;
-        }
-        > { }
+    interface InputEvent extends
+        BuiltInEvent<
+            "input",
+            {
+                value: string;
+                cursor: number;
+            }
+        >
+    {}
 
-    interface FormEvent
-        extends BuiltInEvent<
-        "form",
-        {
-            value: { [name: string]: string | boolean | number };
-        }
-        > { }
+    interface FormEvent extends
+        BuiltInEvent<
+            "form",
+            {
+                value: { [name: string]: string | boolean | number };
+            }
+        >
+    {}
 
-    interface ScrollEvent extends BuiltInEvent<"scroll", {}> { }
+    interface ScrollEvent extends BuiltInEvent<"scroll", {}> {}
 
     interface Touch {
         identifier: number;
@@ -3690,14 +3661,15 @@ declare namespace wx {
         clientY: number;
     }
 
-    interface TouchEvent<T extends TouchEventType>
-        extends BuiltInEvent<
-        T,
-        {
-            x: number;
-            y: number;
-        }
-        > {
+    interface TouchEvent<T extends TouchEventType> extends
+        BuiltInEvent<
+            T,
+            {
+                x: number;
+                y: number;
+            }
+        >
+    {
         touches: Touch[];
         changedTouches: Touch[];
     }
@@ -3864,10 +3836,8 @@ declare namespace wx {
 
     type DefaultProps = object | Record<string, any>;
 
-    type UnionToIntersection<U> = (U extends any
-        ? (k: U) => void
-        : never) extends ((k: infer I) => void)
-        ? I
+    type UnionToIntersection<U> = (U extends any ? (k: U) => void
+        : never) extends ((k: infer I) => void) ? I
         : never;
 
     type ArrayType<T extends any[]> = T extends Array<infer R> ? R : never;
@@ -3878,27 +3848,24 @@ declare namespace wx {
         __DO_NOT_USE_INTERNAL_FIELD_METHODS: Methods;
     }
 
-    type UnboxBehaviorData<T> = T extends Behavior<{}, {}, {}>
-        ? T["__DO_NOT_USE_INTERNAL_FIELD_DATA"]
+    type UnboxBehaviorData<T> = T extends Behavior<{}, {}, {}> ? T["__DO_NOT_USE_INTERNAL_FIELD_DATA"]
         : {};
-    type UnboxBehaviorProps<T> = T extends Behavior<{}, {}, {}>
-        ? T["__DO_NOT_USE_INTERNAL_FIELD_PROPS"]
+    type UnboxBehaviorProps<T> = T extends Behavior<{}, {}, {}> ? T["__DO_NOT_USE_INTERNAL_FIELD_PROPS"]
         : {};
-    type UnboxBehaviorMethods<T> = T extends Behavior<{}, {}, {}>
-        ? T["__DO_NOT_USE_INTERNAL_FIELD_METHODS"]
+    type UnboxBehaviorMethods<T> = T extends Behavior<{}, {}, {}> ? T["__DO_NOT_USE_INTERNAL_FIELD_METHODS"]
         : {};
 
     type UnboxBehaviorsMethods<
-        Behaviors extends Array<Behavior<{}, {}, {}> | string>
-        > = UnboxBehaviorMethods<UnionToIntersection<ArrayType<Behaviors>>>;
+        Behaviors extends Array<Behavior<{}, {}, {}> | string>,
+    > = UnboxBehaviorMethods<UnionToIntersection<ArrayType<Behaviors>>>;
 
     type UnboxBehaviorsData<
-        Behaviors extends Array<Behavior<{}, {}, {}> | string>
-        > = UnboxBehaviorData<UnionToIntersection<ArrayType<Behaviors>>>;
+        Behaviors extends Array<Behavior<{}, {}, {}> | string>,
+    > = UnboxBehaviorData<UnionToIntersection<ArrayType<Behaviors>>>;
 
     type UnboxBehaviorsProps<
-        Behaviors extends Array<Behavior<{}, {}, {}> | string>
-        > = UnboxBehaviorProps<UnionToIntersection<ArrayType<Behaviors>>>;
+        Behaviors extends Array<Behavior<{}, {}, {}> | string>,
+    > = UnboxBehaviorProps<UnionToIntersection<ArrayType<Behaviors>>>;
 
     // CombinedInstance models the `this`, i.e. instance type for (user defined) component
     type CombinedInstance<
@@ -3906,8 +3873,8 @@ declare namespace wx {
         Data,
         Methods,
         Props,
-        Behaviors extends Array<Behavior<{}, {}, {}> | string>
-        > = Methods & Instance & UnboxBehaviorsMethods<Behaviors>;
+        Behaviors extends Array<Behavior<{}, {}, {}> | string>,
+    > = Methods & Instance & UnboxBehaviorsMethods<Behaviors>;
 
     type Prop<T> = (() => T) | { new(...args: any[]): T & object };
 
@@ -3956,10 +3923,11 @@ declare namespace wx {
         Data,
         Methods,
         Props,
-        Behaviors extends Array<Behavior<{}, {}, {}> | string>
-        > = object &
-        ComponentOptions<V, Data, Methods, Props, Behaviors> &
-        ThisType<CombinedInstance<V, Data, Methods, Readonly<Props>, Behaviors>>;
+        Behaviors extends Array<Behavior<{}, {}, {}> | string>,
+    > =
+        & object
+        & ComponentOptions<V, Data, Methods, Props, Behaviors>
+        & ThisType<CombinedInstance<V, Data, Methods, Readonly<Props>, Behaviors>>;
 
     interface ComponentRelation<D = any, P = any> {
         /** 目标组件的相对关系，可选的值为 parent 、 child 、 ancestor 、 descendant */
@@ -4020,8 +3988,8 @@ declare namespace wx {
         Data = DefaultData<Instance>,
         Methods = DefaultMethods<Instance>,
         Props = PropsDefinition<DefaultProps>,
-        Behaviors extends Array<Behavior<{}, {}, {}> | string> = []
-        > extends Partial<Lifetimes> {
+        Behaviors extends Array<Behavior<{}, {}, {}> | string> = [],
+    > extends Partial<Lifetimes> {
         /**
          * 组件的对外属性，是属性名到属性设置的映射表
          * 属性设置中可包含三个字段:
@@ -4050,20 +4018,22 @@ declare namespace wx {
         /**
          * 一些组件选项，请参见文档其他部分的说明
          */
-        options?: Partial<{
-            /**
-             * 使用外部样式类可以让组件使用指定的组件外样式类，如果希望组件外样式类能够完全影响组件内部，
-             * 可以将组件构造器中的options.addGlobalClass字段置为true。这个特性从小程序基础库版本 2.2.3 开始支持。
-             *
-             * @version 2.2.3
-             */
-            addGlobalClass: boolean;
-            /**
-             * 在组件的wxml中可以包含 slot 节点，用于承载组件使用者提供的wxml结构。
-             * 默认情况下，一个组件的wxml中只能有一个slot。需要使用多slot时，可以在组件js中声明启用。
-             */
-            multipleSlots: boolean;
-        }> | undefined;
+        options?:
+            | Partial<{
+                /**
+                 * 使用外部样式类可以让组件使用指定的组件外样式类，如果希望组件外样式类能够完全影响组件内部，
+                 * 可以将组件构造器中的options.addGlobalClass字段置为true。这个特性从小程序基础库版本 2.2.3 开始支持。
+                 *
+                 * @version 2.2.3
+                 */
+                addGlobalClass: boolean;
+                /**
+                 * 在组件的wxml中可以包含 slot 节点，用于承载组件使用者提供的wxml结构。
+                 * 默认情况下，一个组件的wxml中只能有一个slot。需要使用多slot时，可以在组件js中声明启用。
+                 */
+                multipleSlots: boolean;
+            }>
+            | undefined;
 
         /**
          * 组件接受的外部样式类，参见 外部样式类
@@ -4110,10 +4080,8 @@ declare namespace wx {
     type PropValueType<Def> = Def extends {
         type: (...args: any[]) => infer T;
         value?: infer T | undefined;
-    }
-        ? T
-        : Def extends (...args: any[]) => infer T
-        ? T
+    } ? T
+        : Def extends (...args: any[]) => infer T ? T
         : never;
 
     /**
@@ -4122,8 +4090,8 @@ declare namespace wx {
     interface Component<
         D,
         P,
-        B extends Array<Behavior<{}, {}, {}> | string> = []
-        > {
+        B extends Array<Behavior<{}, {}, {}> | string> = [],
+    > {
         /**
          * 组件的文件路径
          */
@@ -4139,24 +4107,26 @@ declare namespace wx {
         /**
          * 组件数据，包括内部数据和属性值
          */
-        data: D &
-        UnboxBehaviorsData<B> &
-        {
-            [key in keyof (P & UnboxBehaviorsProps<B>)]: PropValueType<
-                (P & UnboxBehaviorsProps<B>)[key]
-            >
-        };
+        data:
+            & D
+            & UnboxBehaviorsData<B>
+            & {
+                [key in keyof (P & UnboxBehaviorsProps<B>)]: PropValueType<
+                    (P & UnboxBehaviorsProps<B>)[key]
+                >;
+            };
 
         /**
          * 组件数据，包括内部数据和属性值（与 data 一致）
          */
-        properties: D &
-        UnboxBehaviorsData<B> &
-        {
-            [key in keyof (P & UnboxBehaviorsProps<B>)]: PropValueType<
-                (P & UnboxBehaviorsProps<B>)[key]
-            >
-        };
+        properties:
+            & D
+            & UnboxBehaviorsData<B>
+            & {
+                [key in keyof (P & UnboxBehaviorsProps<B>)]: PropValueType<
+                    (P & UnboxBehaviorsProps<B>)[key]
+                >;
+            };
         /**
          * 将数据从逻辑层发送到视图层，同时改变对应的 this.data 的值
          * 1. 直接修改 this.data 而不调用 this.setData 是无法改变页面的状态的，还会造成数据不一致。
@@ -4168,15 +4138,15 @@ declare namespace wx {
         setData(
             data: {
                 [key in keyof D]?:
-                | string
-                | number
-                | boolean
-                | symbol
-                | object
-                | null
-                | any[]
+                    | string
+                    | number
+                    | boolean
+                    | symbol
+                    | object
+                    | null
+                    | any[];
             },
-            callback?: () => void
+            callback?: () => void,
         ): void;
         /**
          * 检查组件是否具有 behavior
@@ -4193,7 +4163,7 @@ declare namespace wx {
                 bubbles: boolean;
                 composed: boolean;
                 capturePhase: boolean;
-            }>
+            }>,
         ): void;
         /**
          * 创建一个 SelectorQuery 对象
@@ -4205,7 +4175,7 @@ declare namespace wx {
          * https://developers.weixin.qq.com/miniprogram/dev/api/intersection-observer.html
          */
         createIntersectionObserver(
-            options?: CreateIntersectionObserverOption
+            options?: CreateIntersectionObserverOption,
         ): IntersectionObserver;
         /**
          * 使用选择器选择组件实例节点
@@ -4278,9 +4248,11 @@ declare namespace wx {
          * + 用户点击转发按钮的时候会调
          * + 此事件需要 return 一个 Object，用于自定义转发内容
          */
-        onShareAppMessage?: ((
-            options?: PageShareAppMessageOptions
-        ) => ShareAppMessage) | undefined;
+        onShareAppMessage?:
+            | ((
+                options?: PageShareAppMessageOptions,
+            ) => ShareAppMessage)
+            | undefined;
         /**
          * 页面滚动触发事件的处理函数
          * 监听用户滑动页面事件。
@@ -4305,7 +4277,7 @@ declare namespace wx {
         /**
          * 字段可以获取到当前页面的路径。
          */
-        route(): void;
+        route: string;
         /**
          * 更新
          */
@@ -4551,7 +4523,7 @@ declare namespace wx {
  * 接受一个 object 参数，其指定小程序的生命周期函数等。
  */
 declare function App<T extends wx.AppOptions>(
-    app: T & ThisType<T & wx.App>
+    app: T & ThisType<T & wx.App>,
 ): void;
 /**
  * 获取小程序实例
@@ -4563,7 +4535,7 @@ declare function Component<
     D,
     M,
     P,
-    B extends Array<wx.Behavior<{}, {}, {}> | string> = []
+    B extends Array<wx.Behavior<{}, {}, {}> | string> = [],
 >(
     options?: wx.ThisTypedComponentOptionsWithRecordProps<
         wx.Component<D, P, B>,
@@ -4571,7 +4543,7 @@ declare function Component<
         M,
         P,
         B
-    >
+    >,
 ): string;
 /**
  * behaviors 是用于组件间代码共享的特性
@@ -4585,7 +4557,7 @@ declare function Behavior<
     D,
     M,
     P,
-    B extends Array<wx.Behavior<{}, {}, {}> | string> = []
+    B extends Array<wx.Behavior<{}, {}, {}> | string> = [],
 >(
     options?: wx.ThisTypedComponentOptionsWithRecordProps<
         wx.Component<D, P, B>,
@@ -4593,7 +4565,7 @@ declare function Behavior<
         M,
         P,
         B
-    >
+    >,
 ): wx.Behavior<
     D & wx.UnboxBehaviorsData<B>,
     P & wx.UnboxBehaviorsProps<B>,
@@ -4606,7 +4578,7 @@ declare function Behavior<
  * 接受一个 object 参数，其指定页面的初始数据、生命周期函数、事件处理函数等。
  */
 declare function Page<T extends wx.PageOptions & object>(
-    page: T & ThisType<T & wx.Page>
+    page: T & ThisType<T & wx.Page>,
 ): void;
 /**
  * getCurrentPages() 函数用于获取当前页面栈的实例，

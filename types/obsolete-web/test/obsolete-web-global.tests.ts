@@ -7,7 +7,7 @@ const {
 
 new Obsolete();
 new Obsolete(Obsolete.defaultOptions);
-new Obsolete().test(['ie 10', 'chrome 23']);
-new Obsolete().test(['ie 10', 'chrome 23'], () => {
-    console.log('done');
+new Obsolete().test(["ie 10", "chrome 23"]);
+new Obsolete().test(["ie 10", "chrome 23"], () => {
+    console.log("done");
 });

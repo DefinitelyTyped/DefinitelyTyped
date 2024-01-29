@@ -1,10 +1,10 @@
 /// <reference types="jquery" />
-import { Identity } from '../../identity';
-import { ViewState } from './resizable-view';
-import { Bounds } from '../../shapes/shapes';
-import { View } from '../../main';
-import { MonitorInfo } from '../system/monitor';
-import { Snapshot } from '../../shapes/Platform';
+import { Identity } from "../../identity";
+import { View } from "../../main";
+import { Snapshot } from "../../shapes/Platform";
+import { Bounds } from "../../shapes/shapes";
+import { MonitorInfo } from "../system/monitor";
+import { ViewState } from "./resizable-view";
 export interface ViewComponent extends GoldenLayout.ContentItem {
     componentState: ViewState;
 }
@@ -15,18 +15,25 @@ export interface LayoutEventPayload {
 }
 export declare const addComponentToContentItem: (component: ViewComponent, target: GoldenLayout.ItemConfig) => void;
 export declare const emitLocalEvent: (event: string, identity: Identity, container: HTMLElement) => void;
-export declare type LayoutPresetTypes = 'columns' | 'grid' | 'rows' | 'tabs';
+export declare type LayoutPresetTypes = "columns" | "grid" | "rows" | "tabs";
 export declare const getPresetLayoutFunction: {
     columns: (components: ViewComponent[]) => GoldenLayout.Config;
     grid: (components: ViewComponent[]) => GoldenLayout.Config;
     rows: (components: ViewComponent[]) => GoldenLayout.Config;
     tabs: (components: ViewComponent[]) => GoldenLayout.Config;
 };
-export declare const generatePresetLayoutContent: (components: ViewComponent[], type: LayoutPresetTypes) => GoldenLayout.Config;
+export declare const generatePresetLayoutContent: (
+    components: ViewComponent[],
+    type: LayoutPresetTypes,
+) => GoldenLayout.Config;
 export declare function createComponent(componentState: {
     name: string;
 }): GoldenLayout.ComponentConfig;
-export declare const debounce: <T extends (...args: any[]) => any>(callback: T, delay: number, resizing: boolean) => (...args: Parameters<T>) => void;
+export declare const debounce: <T extends (...args: any[]) => any>(
+    callback: T,
+    delay: number,
+    resizing: boolean,
+) => (...args: Parameters<T>) => void;
 export declare const delay: (delay: number) => Promise<unknown>;
 export declare const generateLayoutContent: (componentState: any) => GoldenLayout.Config;
 export declare const getSourceIdentity: (e: JQuery.DragEventBase<HTMLElement, Identity, HTMLElement, HTMLElement>) => {
@@ -34,15 +41,25 @@ export declare const getSourceIdentity: (e: JQuery.DragEventBase<HTMLElement, Id
     name: string;
 };
 export declare function handleRenderError(component: ViewComponent, e: Error): void;
-export declare const getOutOfWindowDropBounds: (e: {
-    screenY: number;
-    screenX: number;
-}, container: HTMLElement, dimensions: {
-    width: any;
-    height: any;
-}) => Partial<Bounds>;
-export declare const isSameApp: (e: JQuery.DragEventBase<HTMLElement, undefined, HTMLElement, HTMLElement>, currentWindow: Identity) => boolean;
-export declare const isSameWindow: (e: JQuery.DragEventBase<HTMLElement, Identity, HTMLElement, HTMLElement>, currentWindow: Identity) => boolean;
+export declare const getOutOfWindowDropBounds: (
+    e: {
+        screenY: number;
+        screenX: number;
+    },
+    container: HTMLElement,
+    dimensions: {
+        width: any;
+        height: any;
+    },
+) => Partial<Bounds>;
+export declare const isSameApp: (
+    e: JQuery.DragEventBase<HTMLElement, undefined, HTMLElement, HTMLElement>,
+    currentWindow: Identity,
+) => boolean;
+export declare const isSameWindow: (
+    e: JQuery.DragEventBase<HTMLElement, Identity, HTMLElement, HTMLElement>,
+    currentWindow: Identity,
+) => boolean;
 export declare const mock: {
     on: () => void;
 };
@@ -57,4 +74,7 @@ export declare const buildFailedEventPayload: (response: string, identity: Ident
     identity: Identity;
 };
 export declare const promisifyViewLoadEvents: (view: View, windowIdentity: Identity) => Promise<LayoutEventPayload>;
-export declare const getOutOfBoundsWindows: (snapshot: Snapshot, monitorInfo: MonitorInfo) => Promise<import("../../shapes/WindowOptions").WindowOptions[]>;
+export declare const getOutOfBoundsWindows: (
+    snapshot: Snapshot,
+    monitorInfo: MonitorInfo,
+) => Promise<Array<import("../../shapes/WindowOptions").WindowOptions>>;

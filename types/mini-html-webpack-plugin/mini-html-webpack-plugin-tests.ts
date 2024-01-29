@@ -1,46 +1,46 @@
-import MiniHtmlWebpackPlugin = require('mini-html-webpack-plugin');
-import webpack = require('webpack');
-import { minify } from 'html-minifier';
+import MiniHtmlWebpackPlugin = require("mini-html-webpack-plugin");
+import webpack = require("webpack");
+import { minify } from "html-minifier";
 const { generateAttributes, generateCSSReferences, generateJSReferences } = MiniHtmlWebpackPlugin;
 
 const config: webpack.Configuration = {
     plugins: [
         new MiniHtmlWebpackPlugin({
-            filename: 'demo.html',
-            publicPath: 'demo/',
+            filename: "demo.html",
+            publicPath: "demo/",
             context: {
-                title: 'Webpack demo',
+                title: "Webpack demo",
                 htmlAttributes: {
-                    lang: 'en',
+                    lang: "en",
                 },
-                head: '',
-                body: '',
+                head: "",
+                body: "",
                 cssAttributes: {
-                    rel: 'preload',
-                    as: 'style',
+                    rel: "preload",
+                    as: "style",
                 },
                 jsAttributes: {
                     defer: true,
                 },
             },
-            chunks: ['app'],
+            chunks: ["app"],
         }),
     ],
 };
 
 const configMultiplePages: webpack.Configuration = {
     entry: {
-        app: './app.js',
-        another: './another.js',
+        app: "./app.js",
+        another: "./another.js",
     },
     plugins: [
         new MiniHtmlWebpackPlugin({
-            filename: 'index.html',
-            chunks: ['app'],
+            filename: "index.html",
+            chunks: ["app"],
         }),
         new MiniHtmlWebpackPlugin({
-            filename: 'another.html',
-            chunks: ['another'],
+            filename: "another.html",
+            chunks: ["another"],
         }),
     ],
 };
@@ -49,7 +49,7 @@ const configMinify = {
     plugins: [
         new MiniHtmlWebpackPlugin({
             context: {
-                title: 'Minification demo',
+                title: "Minification demo",
             },
             template: context => minify(MiniHtmlWebpackPlugin.defaultTemplate(context)),
         }),
@@ -59,16 +59,16 @@ const configMinify = {
 const configCustomTemplates = {
     plugins: [
         new MiniHtmlWebpackPlugin({
-            filename: 'demo.html',
-            publicPath: 'demo/',
+            filename: "demo.html",
+            publicPath: "demo/",
             context: {
-                title: 'Webpack demo',
+                title: "Webpack demo",
                 htmlAttributes: {
-                    lang: 'en',
+                    lang: "en",
                 },
                 cssAttributes: {
-                    rel: 'preload',
-                    as: 'style',
+                    rel: "preload",
+                    as: "style",
                 },
                 jsAttributes: {
                     defer: true,

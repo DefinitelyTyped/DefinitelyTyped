@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/poool-access",
+    "version": "5.16.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "poool-access",
+    "projects": [
+        "https://poool.dev/docs/access/javascript"
+    ],
+    "devDependencies": {
+        "@types/poool-access": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxime Da Silva",
+            "githubUsername": "maximedasilva"
+        },
+        {
+            "name": "Ugo Stephant",
+            "githubUsername": "dackmin"
+        }
+    ]
+}

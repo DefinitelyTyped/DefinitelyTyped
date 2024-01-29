@@ -1,6 +1,6 @@
-import { ComponentType, ReactNode } from 'react';
+import { ComponentType, JSX, ReactNode } from "react";
 
-import Popover from '../popover';
+import Popover from "../popover";
 
 declare namespace Dropdown {
     interface Props {
@@ -41,7 +41,7 @@ declare namespace Dropdown {
          *
          * @defaultValue "firstElement"
          */
-        focusOnMount?: 'firstElement' | 'container' | false | undefined;
+        focusOnMount?: "firstElement" | "container" | false | undefined;
         renderToggle(props: RenderProps): JSX.Element;
         renderContent(props: RenderProps): JSX.Element;
     }

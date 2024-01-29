@@ -1,15 +1,9 @@
-// Type definitions for globaloffensive 2.2
-// Project: https://github.com/DoctorMcKay/node-globaloffensive
-// Definitions by: joshuajeschek <https://github.com/joshuajeschek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
-
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
-import type SteamUser = require('steam-user');
-import SteamID = require('steamid');
-import { GCConnectionStatus, ItemCustomizationNotification } from './enums';
+import { EventEmitter } from "events";
+import type SteamUser = require("steam-user");
+import SteamID = require("steamid");
+import { GCConnectionStatus, ItemCustomizationNotification } from "./enums";
 
 export = GlobalOffensive;
 
@@ -168,7 +162,19 @@ declare class GlobalOffensive extends EventEmitter {
     getCasketContents(
         casketId: string,
         callback: (err: Error | null, items: GlobalOffensive.InventoryItem[]) => void,
-    ): Promise<GlobalOffensive.InventoryItem[]>;
+    ): void;
+
+    /**
+     * Craft some items using a given recipe.
+     *
+     * You will receive a `craftingComplete` event in response.
+     * If crafting succeeded, you will also get `itemRemoved` events for each item you spent,
+     * and `itemAcquired` events for each item you received.
+     *
+     * @param items - IDs of items to craft
+     * @param recipe - The ID of the recipe to use
+     */
+    craft(items: number[], recipe: number): void;
 
     // EVENTS
     on<K extends keyof GlobalOffensiveEvents>(event: K, listener: (...args: GlobalOffensiveEvents[K]) => void): this;
@@ -184,6 +190,7 @@ declare class GlobalOffensive extends EventEmitter {
 type ValueOf<T> = T[keyof T];
 
 interface GlobalOffensiveEvents {
+    debug: [message: string];
     connectedToGC: [];
     disconnectedFromGC: [reason: ValueOf<typeof GCConnectionStatus>];
     accountData: [accountData: GlobalOffensive.AccountData];
@@ -196,17 +203,18 @@ interface GlobalOffensiveEvents {
     itemRemoved: [item: GlobalOffensive.InventoryItem];
     itemCustomizationNotification: [itemIds: string[], notificationType: ValueOf<typeof ItemCustomizationNotification>];
     playersProfile: [profile: GlobalOffensive.Profile];
+    craftingComplete: [recipe: number, itemsGained: string[]];
 }
 
 declare namespace GlobalOffensive {
-    interface Profile extends Omit<AccountData, 'global_stats'> {
+    interface Profile extends Omit<AccountData, "global_stats"> {
         /**
          * Seems to always be `null`
          */
         global_stats: null;
     }
 
-    //#region AccountData
+    // #region AccountData
 
     interface AccountData {
         account_id: number;
@@ -305,9 +313,9 @@ declare namespace GlobalOffensive {
         cmd_leader: number;
     }
 
-    //#endregion AccountData
+    // #endregion AccountData
 
-    //#region Match
+    // #region Match
     interface MatchesData {
         matches: Match[];
         streams: unknown[];
@@ -385,7 +393,7 @@ declare namespace GlobalOffensive {
     interface TournamentTeams {
         players: {
             account_id: number;
-            player_nick: 'string';
+            player_nick: "string";
             player_name: string | null;
             player_flag: string | null;
             player_dob: unknown | null;
@@ -427,9 +435,9 @@ declare namespace GlobalOffensive {
         reservation_id: unknown | null;
     }
 
-    //#endregion Match
+    // #endregion Match
 
-    //#region Inventory
+    // #region Inventory
 
     interface InventoryItem {
         /**
@@ -572,5 +580,5 @@ declare namespace GlobalOffensive {
         questid: unknown | null;
         dropreason: unknown | null;
     }
-    //#endregion Inventory
+    // #endregion Inventory
 }

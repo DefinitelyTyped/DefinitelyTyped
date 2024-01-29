@@ -1,2 +1,2 @@
-import { otherwise } from '../index';
+import { otherwise } from "../index";
 export default otherwise;

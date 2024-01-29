@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/pumpify",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/mafintosh/pumpify"
+    ],
+    "dependencies": {
+        "@types/duplexify": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/pumpify": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Justin Beckwith",
+            "githubUsername": "JustinBeckwith"
+        },
+        {
+            "name": "Ankur Oberoi",
+            "githubUsername": "aoberoi"
+        }
+    ]
+}

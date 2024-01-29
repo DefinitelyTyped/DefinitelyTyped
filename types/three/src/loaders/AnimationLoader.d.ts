@@ -1,16 +1,9 @@
-import { LoadingManager } from './LoadingManager';
-import { Loader } from './Loader';
-import { AnimationClip } from './../animation/AnimationClip';
+import { LoadingManager } from './LoadingManager.js';
+import { Loader } from './Loader.js';
+import { AnimationClip } from '../animation/AnimationClip.js';
 
-export class AnimationLoader extends Loader {
+export class AnimationLoader extends Loader<AnimationClip[]> {
     constructor(manager?: LoadingManager);
 
-    load(
-        url: string,
-        onLoad: (response: AnimationClip[]) => void,
-        onProgress?: (request: ProgressEvent) => void,
-        onError?: (event: ErrorEvent) => void,
-    ): void;
-    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<AnimationClip[]>;
-    parse(json: any): AnimationClip[];
+    parse(json: readonly unknown[]): AnimationClip[];
 }

@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/ledgerhq__hw-transport-node-hid",
+    "version": "4.22.9999",
+    "projects": [
+        "https://github.com/LedgerHQ/ledgerjs/tree/master/packages/hw-transport-node-hid",
+        "https://github.com/ledgerhq/ledgerjs"
+    ],
+    "dependencies": {
+        "@types/ledgerhq__hw-transport": "*",
+        "@types/node": "*",
+        "@types/node-hid": "*"
+    },
+    "devDependencies": {
+        "@types/ledgerhq__hw-transport-node-hid": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Byrne",
+            "githubUsername": "danwbyrne"
+        }
+    ]
+}

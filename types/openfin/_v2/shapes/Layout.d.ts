@@ -1,4 +1,4 @@
-import { Identity } from './Identity';
+import { Identity } from "./Identity";
 export interface Layout {
     settings: {
         popoutWholeStack?: boolean | undefined;
@@ -9,17 +9,17 @@ export interface Layout {
     };
     content: LayoutContent;
 }
-export declare type LayoutContent = (LayoutRow | LayoutColumn | LayoutComponent)[];
+export declare type LayoutContent = Array<LayoutRow | LayoutColumn | LayoutComponent>;
 export interface LayoutRow {
-    type: 'row';
+    type: "row";
     content: LayoutContent;
 }
 export interface LayoutColumn {
-    type: 'column';
+    type: "column";
     content: LayoutContent;
 }
 export interface LayoutComponent {
-    type: 'component';
+    type: "component";
     componentName: string;
     componentState: {
         identity: Identity;

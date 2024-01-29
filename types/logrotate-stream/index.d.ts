@@ -1,15 +1,9 @@
-// Type definitions for logrotate-stream 0.2.8
-// Project: https://github.com/dstokes/logrotate-stream
-// Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import stream = require("stream");
 
 // wrapper to be able to use "export =" while also exporting the Options interface
 declare namespace logrotateStream {
-
     /**
      * Options object for the exported function.
      */
@@ -31,7 +25,6 @@ declare namespace logrotateStream {
          */
         compress?: boolean | undefined;
     }
-
 }
 
 /**
@@ -39,6 +32,5 @@ declare namespace logrotateStream {
  * @returns a writable stream to a rotating log file
  */
 declare function logrotateStream(opts: logrotateStream.Options): stream.Writable;
-
 
 export = logrotateStream;

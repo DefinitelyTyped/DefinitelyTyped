@@ -1,16 +1,16 @@
-import * as React from 'react';
+import * as React from "react";
 
 import {
-    Magnifier,
     GlassMagnifier,
-    SideBySideMagnifier,
-    PictureInPictureMagnifier,
+    Magnifier,
     MagnifierContainer,
     MagnifierPreview,
     MagnifierZoom,
     MOUSE_ACTIVATION,
+    PictureInPictureMagnifier,
+    SideBySideMagnifier,
     TOUCH_ACTIVATION,
-} from 'react-image-magnifiers';
+} from "react-image-magnifiers";
 
 export const MagnifierExample1 = () => <Magnifier imageSrc="./image.jpg" />;
 export const MagnifierExample2 = () => (
@@ -100,6 +100,6 @@ export const CustomLayoutExample = () => (
         <div className="example-class">
             <MagnifierPreview imageSrc="./image.jpg" />
         </div>
-        <MagnifierZoom style={{ height: '400px' }} imageSrc="./image.jpg" />
+        <MagnifierZoom style={{ height: "400px" }} imageSrc="./image.jpg" />
     </MagnifierContainer>
 );

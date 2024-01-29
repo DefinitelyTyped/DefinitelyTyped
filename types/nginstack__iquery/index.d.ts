@@ -1,9 +1,3 @@
-// Type definitions for @nginstack/iquery 59.0
-// Project: https://dev.azure.com/nginstack/nginstack
-// Definitions by: Renato Ribeiro <https://github.com/Henato>
-//                 Paulo Moreno <https://github.com/paulocmoreno>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.3
 /// <reference path="lib/IClauseFrom.d.ts" />
 /// <reference path="lib/IClauseJoin.d.ts" />
 /// <reference path="lib/IClauseSelect.d.ts" />

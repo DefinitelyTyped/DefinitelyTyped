@@ -29,7 +29,7 @@ window.plugins.OneSignal.addSubscriptionObserver((state) => {
 });
 
 window.plugins.OneSignal.getTags((tags) => {
-    console.log('Tags Received: ' + JSON.stringify(tags));
+    console.log("Tags Received: " + JSON.stringify(tags));
 });
 
 window.plugins.OneSignal.sendTag("key", "value");
@@ -47,16 +47,13 @@ window.plugins.OneSignal.syncHashedEmail("John.Smith@example.com");
 window.plugins.OneSignal.getIds((ids) => {
     const notificationObj = {
         contents: { en: "message body" },
-        include_player_ids: [ids.userId]
+        include_player_ids: [ids.userId],
     };
-    window.plugins.OneSignal.postNotification(notificationObj,
-        (successResponse) => {
-            console.log("Notification Post Success:", successResponse);
-        },
-        (failedResponse) => {
-            console.log("Notification Post Failed: ", failedResponse);
-        }
-    );
+    window.plugins.OneSignal.postNotification(notificationObj, (successResponse) => {
+        console.log("Notification Post Success:", successResponse);
+    }, (failedResponse) => {
+        console.log("Notification Post Failed: ", failedResponse);
+    });
 });
 
 window.plugins.OneSignal.clearOneSignalNotifications();

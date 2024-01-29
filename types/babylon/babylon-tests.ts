@@ -13,6 +13,6 @@ assert(node.end === 38);
 assert(node.loc.start > node.loc.end);
 
 babylon.parse(code, {
-  sourceType: "module", // default: "script"
-  plugins: ["jsx"] // default: []
+    sourceType: "module", // default: "script"
+    plugins: ["jsx"], // default: []
 });

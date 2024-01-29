@@ -1,26 +1,20 @@
-// Type definitions for Jasmine-JQuery 1.5.8
-// Project: https://github.com/velesin/jasmine-jquery
-// Definitions by: Gregor Stamac <https://github.com/gstamac>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="jasmine"/>
 /// <reference types="jquery"/>
 
 declare function sandbox(attributes?: any): string;
 
 declare function readFixtures(...uls: string[]): string;
-declare function preloadFixtures(...uls: string[]) : void;
+declare function preloadFixtures(...uls: string[]): void;
 declare function loadFixtures(...uls: string[]): void;
 declare function appendLoadFixtures(...uls: string[]): void;
 declare function setFixtures(html: string): string;
-declare function appendSetFixtures(html: string) : void;
+declare function appendSetFixtures(html: string): void;
 
-declare function preloadStyleFixtures(...uls: string[]) : void;
-declare function loadStyleFixtures(...uls: string[]) : void;
-declare function appendLoadStyleFixtures(...uls: string[]) : void;
-declare function setStyleFixtures(html: string) : void;
-declare function appendSetStyleFixtures(html: string) : void;
+declare function preloadStyleFixtures(...uls: string[]): void;
+declare function loadStyleFixtures(...uls: string[]): void;
+declare function appendLoadStyleFixtures(...uls: string[]): void;
+declare function setStyleFixtures(html: string): void;
+declare function appendSetStyleFixtures(html: string): void;
 
 declare function loadJSONFixtures(...uls: string[]): jasmine.JSONFixtures;
 declare function getJSONFixture(url: string): any;
@@ -46,7 +40,7 @@ declare namespace jasmine {
         clearCache(): void;
         cleanUp(): void;
         sandbox(attributes?: any): string;
-        createContainer_(html: string) : string;
+        createContainer_(html: string): string;
         addToContainer_(html: string): void;
         getFixtureHtml_(url: string): string;
         loadFixtureIntoCache_(relativeUrl: string): void;
@@ -58,15 +52,15 @@ declare namespace jasmine {
         fixturesPath: string;
         set(html: string): string;
         appendSet(html: string): void;
-        preload(...uls: string[]) : void;
-        load(...uls: string[]) : void;
-        appendLoad(...uls: string[]) : void;
+        preload(...uls: string[]): void;
+        load(...uls: string[]): void;
+        appendLoad(...uls: string[]): void;
         read_(...uls: string[]): string;
-        clearCache() : void;
-        cleanUp() : void;
-        createStyle_(html: string) : void;
+        clearCache(): void;
+        cleanUp(): void;
+        createStyle_(html: string): void;
         getFixtureHtml_(url: string): string;
-        loadFixtureIntoCache_(relativeUrl: string) : void;
+        loadFixtureIntoCache_(relativeUrl: string): void;
         makeFixtureUrl_(relativeUrl: string): string;
         proxyCallTo_(methodName: string, passedArguments: any): any;
     }
@@ -163,7 +157,7 @@ declare namespace jasmine {
          * @param attributeName Name of the attribute to check
          * @param expectedAttributeValue Expected attribute value
          */
-        toHaveAttr(attributeName: string, expectedAttributeValue? : any): void;
+        toHaveAttr(attributeName: string, expectedAttributeValue?: any): void;
 
         /**
          * Check if DOM element contains a property and, optionally, if the value of the property is equal to the expected one.
@@ -171,7 +165,7 @@ declare namespace jasmine {
          * @param propertyName Property name to check
          * @param expectedPropertyValue Expected property value
          */
-        toHaveProp(propertyName: string, expectedPropertyValue? : any): void;
+        toHaveProp(propertyName: string, expectedPropertyValue?: any): void;
 
         /**
          * Check if DOM element has the given Id
@@ -224,14 +218,13 @@ declare namespace jasmine {
          * // returns true
          * expect($('<input type="text" value="some text"/>')).toHaveValue('some text')
          */
-        toHaveValue(value : string): void;
+        toHaveValue(value: string): void;
 
         /**
          * Check if DOM element has the given data.
          * This can only be applied for element on with jQuery data(key) can be called.
-         *
          */
-        toHaveData(key : string, expectedValue : string): void;
+        toHaveData(key: string, expectedValue: string): void;
         toBe(selector: T): void;
 
         /**
@@ -296,7 +289,7 @@ declare namespace jasmine {
          * @example
          * expect($form).toHandleWith("submit", yourSubmitCallback)
          */
-        toHandleWith(eventName: string, eventHandler : JQueryCallback): void;
+        toHandleWith(eventName: string, eventHandler: JQueryCallback): void;
 
         /**
          * Checks if event was triggered.
@@ -358,7 +351,6 @@ declare namespace jasmine {
          * expect($('#id-name')[0]).toBeInDOM()
          */
         toBeInDOM(): void;
-
     }
 
     interface JQueryEventSpy {
@@ -382,7 +374,7 @@ declare namespace jasmine {
         wasTriggeredWith(selector: string, eventName: string, expectedArgs: any, env: jasmine.Env): boolean;
         wasPrevented(selector: string, eventName: string): boolean;
         wasStopped(selector: string, eventName: string): boolean;
-        cleanUp() : void;
+        cleanUp(): void;
     }
 
     var JQuery: JasmineJQuery;

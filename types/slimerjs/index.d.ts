@@ -1,8 +1,3 @@
-// Type definitions for SlimerJS 0.10
-// Project: https://docs.slimerjs.org/current/index.html#api-reference, https://github.com/laurentj/slimerjs
-// Definitions by: Alex Wall <https://github.com/alexwall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var phantom: Phantom;
 declare var slimer: Slimer;
 
@@ -19,11 +14,11 @@ interface Slimer {
 
 interface Phantom {
     // Properties
-    args: string[];  // DEPRECATED
+    args: string[]; // DEPRECATED
     cookies: Cookie[];
     cookiesEnabled: boolean;
     libraryPath: string;
-    scriptName: string;  // DEPRECATED
+    scriptName: string; // DEPRECATED
     version: {
         major: number;
         minor: number;
@@ -54,7 +49,7 @@ interface SystemModule {
         name: string;
         version: string;
     };
-    env: { [name: string]: string; };
+    env: { [name: string]: string };
     args: string[];
     standarderr: Std;
     standardin: Std;
@@ -77,7 +72,7 @@ interface WebPage {
     clipRect: ClipRect;
     content: string;
     cookies: Cookie[];
-    customHeaders: { [name: string]: string; };
+    customHeaders: { [name: string]: string };
     event: any; // :TODO: elaborate this when documentation improves
     focusedFrameName: string;
     frameContent: string;
@@ -107,11 +102,11 @@ interface WebPage {
 
     // Functions
     addCookie(cookie: Cookie): boolean;
-    childFramesCount(): number;  // DEPRECATED
-    childFramesName(): string;  // DEPRECATED
+    childFramesCount(): number; // DEPRECATED
+    childFramesName(): string; // DEPRECATED
     clearCookies(): void;
     close(): void;
-    currentFrameName(): string;  // DEPRECATED
+    currentFrameName(): string; // DEPRECATED
     deleteCookie(cookieName: string): boolean;
     // evaluate<R>(callback: () => R): Promise<R>;
     // evaluate<T, R>(callback: (arg: T) => R, arg: T): Promise<R>;
@@ -135,11 +130,19 @@ interface WebPage {
     open(url: string, method: string, data: any, callback?: (status: string) => any): Promise<string>;
     open(url: string, method: string, data: any, headers: any, callback: (status: string) => any): Promise<string>;
     openUrl(url: string, httpConf: HttpConf, settings: any): Promise<string>; // :TODO: elaborate this when documentation improves
-    release(): void;  // DEPRECATED
+    release(): void; // DEPRECATED
     reload(): void;
     // render(filename: string): Promise<void>;
     render(filename: string): void;
-    render(filename: string, options?: { format?: string | undefined; quality?: string | undefined; ratio?: number | undefined; onlyViewport?: boolean | undefined }): Promise<void>;
+    render(
+        filename: string,
+        options?: {
+            format?: string | undefined;
+            quality?: string | undefined;
+            ratio?: number | undefined;
+            onlyViewport?: boolean | undefined;
+        },
+    ): Promise<void>;
     renderBase64(type: string): Promise<string>;
     renderBase64(format: string): string;
     sendEvent(mouseEventType: string, mouseX?: number, mouseY?: number, button?: string): Promise<void>;
@@ -154,13 +157,13 @@ interface WebPage {
     // switchToFrame(framePosition: number): void;
     switchToChildFrame(framePosOrName: number | string): void;
     // switchToChildFrame(framePosition: number): void;
-    switchToMainFrame(): void;  // DEPRECATED
-    switchToParentFrame(): void;  // DEPRECATED
+    switchToMainFrame(): void; // DEPRECATED
+    switchToParentFrame(): void; // DEPRECATED
     uploadFile(selector: string, filename: string): void;
 
     // Callbacks
     onAlert(msg: string): any;
-    onCallback(): void;  // EXPERIMENTAL
+    onCallback(): void; // EXPERIMENTAL
     onClosing(closingPage: WebPage): any;
     onConfirm(msg: string): boolean;
     onConsoleMessage(msg: string, lineNum?: number, sourceId?: string): any;
@@ -207,7 +210,7 @@ interface ResourceResponse {
     id: number;
     url: string;
     time: Date;
-    headers: { [name: string]: string; };
+    headers: { [name: string]: string };
     bodySize: number;
     contentType?: string | undefined;
     redirectURL?: string | undefined;
@@ -226,7 +229,7 @@ interface ResourceRequest {
     method: string;
     url: string;
     time: Date;
-    headers: { [name: string]: string; };
+    headers: { [name: string]: string };
 }
 
 interface NetworkRequest {
@@ -287,7 +290,7 @@ interface FileSystem {
     // File Functions
     // open(path: string, mode: string): IStream;
     // open(path: string, options: { mode: string; charset?: string; }): IStream;
-    open(path: string, mode: string | { mode: string; charset?: string | undefined; }): Stream;
+    open(path: string, mode: string | { mode: string; charset?: string | undefined }): Stream;
     read(path: string): string;
     write(path: string, content: string, mode: string): void;
     size(path: string): number;
@@ -311,7 +314,10 @@ interface Stream {
 interface WebServer {
     registerDirectory(urlpath: string, directoryPath: string): void;
     registerFile(urlpath: string, filePath: string): void;
-    registerPathHandler(urlpath: string, handlerCallback: (request: WebServerRequest, response: WebServerResponse) => void): void;
+    registerPathHandler(
+        urlpath: string,
+        handlerCallback: (request: WebServerRequest, response: WebServerResponse) => void,
+    ): void;
     port: number;
     listen(port: number | string, cb?: (request: WebServerRequest, response: WebServerResponse) => void): boolean;
     // listen(ipAddressPort: string, cb?: (request: IWebServerRequest, response: IWebServerResponse) => void): boolean;
@@ -326,19 +332,19 @@ interface WebServerRequest {
     method: string;
     url: string;
     httpVersion: number;
-    headers: { [name: string]: string; };
+    headers: { [name: string]: string };
     post: string;
     postRaw: string;
 }
 
 interface WebServerResponse {
-    headers: { [name: string]: string; };
+    headers: { [name: string]: string };
     setHeader(name: string, value: string): void;
     header(name: string): string;
     statusCode: number;
     setEncoding(encoding: string): void;
     write(data: string): void;
-    writeHead(statusCode: number, headers?: { [name: string]: string; }): void;
+    writeHead(statusCode: number, headers?: { [name: string]: string }): void;
     close(): void;
     closeGracefully(): void;
 }

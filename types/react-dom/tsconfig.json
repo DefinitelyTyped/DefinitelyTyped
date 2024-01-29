@@ -3,7 +3,7 @@
         "index.d.ts",
         "test/react-dom-tests.tsx",
         "test/experimental-tests.tsx",
-        "test/next-tests.tsx"
+        "test/canary-tests.tsx"
     ],
     "compilerOptions": {
         "module": "commonjs",
@@ -15,10 +15,6 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,

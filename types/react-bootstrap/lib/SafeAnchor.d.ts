@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 declare namespace SafeAnchor {
     export interface SafeAnchorProps extends React.HTMLProps<SafeAnchor> {
@@ -9,5 +9,5 @@ declare namespace SafeAnchor {
         componentClass?: React.ElementType | undefined;
     }
 }
-declare class SafeAnchor extends React.Component<SafeAnchor.SafeAnchorProps> { }
+declare class SafeAnchor extends React.Component<SafeAnchor.SafeAnchorProps> {}
 export = SafeAnchor;

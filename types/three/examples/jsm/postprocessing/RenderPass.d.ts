@@ -1,13 +1,23 @@
-import { Scene, Camera, Material, Color } from '../../../src/Three';
+import { Scene, Camera, Material, Color } from '../../../src/Three.js';
 
-import { Pass } from './Pass';
+import { Pass } from './Pass.js';
 
 export class RenderPass extends Pass {
-    constructor(scene: Scene, camera: Camera, overrideMaterial?: Material, clearColor?: Color, clearAlpha?: number);
+    constructor(
+        scene: Scene,
+        camera: Camera,
+        overrideMaterial?: Material | null,
+        clearColor?: Color | null,
+        clearAlpha?: number | null,
+    );
+
     scene: Scene;
     camera: Camera;
-    overrideMaterial: Material;
-    clearColor: Color;
-    clearAlpha: number;
+
+    overrideMaterial: Material | null;
+
+    clearColor: Color | null;
+    clearAlpha: number | null;
+
     clearDepth: boolean;
 }

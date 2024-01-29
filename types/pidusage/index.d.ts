@@ -1,9 +1,3 @@
-// Type definitions for pidusage 2.0
-// Project: https://github.com/soyuka/pidusage
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 interface Stat {
     /**
      * percentage (from 0 to 100*vcore)
@@ -42,11 +36,25 @@ interface Stat {
 }
 
 declare function pidusage(pid: number | string, callback: (err: Error | null, stats: Stat) => void): void;
-declare function pidusage(pid: number | string, options: { [key: string]: any }, callback: (err: Error | null, stats: Stat) => void): void;
-declare function pidusage(pids: Array<number | string>, callback: (err: Error | null, stats: { [key: string]: Stat }) => void): void;
-declare function pidusage(pids: Array<number | string>, options: { [key: string]: any }, callback: (err: Error | null, stats: { [key: string]: Stat }) => void): void;
+declare function pidusage(
+    pid: number | string,
+    options: { [key: string]: any },
+    callback: (err: Error | null, stats: Stat) => void,
+): void;
+declare function pidusage(
+    pids: Array<number | string>,
+    callback: (err: Error | null, stats: { [key: string]: Stat }) => void,
+): void;
+declare function pidusage(
+    pids: Array<number | string>,
+    options: { [key: string]: any },
+    callback: (err: Error | null, stats: { [key: string]: Stat }) => void,
+): void;
 declare function pidusage(pid: number | string, options?: { [key: string]: any }): Promise<Stat>;
-declare function pidusage(pids: Array<number | string>, options?: { [key: string]: any }): Promise<{ [key: string]: Stat }>;
+declare function pidusage(
+    pids: Array<number | string>,
+    options?: { [key: string]: any },
+): Promise<{ [key: string]: Stat }>;
 
 declare namespace pidusage {
     type Status = Stat;

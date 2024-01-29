@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/treeverse",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/npm/treeverse#readme"
+    ],
+    "minimumTypeScriptVersion": "4.7",
+    "devDependencies": {
+        "@types/treeverse": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mendes Hugo",
+            "githubUsername": "HugoMendes98"
+        }
+    ]
+}

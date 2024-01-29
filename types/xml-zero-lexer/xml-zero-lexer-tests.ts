@@ -1,6 +1,6 @@
-import Lexx, { NodeTypes, NodeTypeKeys } from 'xml-zero-lexer';
+import Lexx, { NodeTypeKeys, NodeTypes } from "xml-zero-lexer";
 
-const xml = '<p>his divine shadow</p>';
+const xml = "<p>his divine shadow</p>";
 
 const options: Lexx.Options = { jsx: true, html: true, blackholes: ["script"] };
 

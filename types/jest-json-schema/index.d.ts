@@ -1,11 +1,5 @@
-// Type definitions for jest-json-schema 6.1
-// Project: https://github.com/americanexpress/jest-json-schema#readme
-// Definitions by: Matt Scheurich <https://github.com/lvl99>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
-
 /// <reference types="jest" />
-import * as ajv from 'ajv';
+import * as ajv from "ajv";
 
 declare global {
     namespace jest {

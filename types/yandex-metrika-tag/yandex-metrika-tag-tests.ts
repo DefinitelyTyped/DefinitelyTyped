@@ -2,87 +2,87 @@ const counterID = 123456;
 
 ym; // $ExpectType Event
 
-// $ExpectError
-ym('badID', 'init');
+// @ts-expect-error
+ym("badID", "init");
 
-// $ExpectError
-ym(counterID, 'noSuchMethod');
+// @ts-expect-error
+ym(counterID, "noSuchMethod");
 
-// $ExpectError
-ym(counterID, 'init');
-
-// $ExpectType void
-ym(counterID, 'init', {});
-
-// $ExpectError
-ym(counterID, 'init', {
-    unknownProp: 'test',
-});
-
-// $ExpectError
-ym(counterID, 'init', {
-    ut: 'bad ut',
-});
+// @ts-expect-error
+ym(counterID, "init");
 
 // $ExpectType void
-ym(counterID, 'init', {
-    ut: 'noindex',
+ym(counterID, "init", {});
+
+// @ts-expect-error
+ym(counterID, "init", {
+    unknownProp: "test",
+});
+
+// @ts-expect-error
+ym(counterID, "init", {
+    ut: "bad ut",
 });
 
 // $ExpectType void
-ym(counterID, 'hit', '/page', 'Page title');
-
-// $ExpectError
-ym(counterID, 'addFileExtenstion');
-
-// $ExpectType void
-ym(counterID, 'file', '/some/path');
+ym(counterID, "init", {
+    ut: "noindex",
+});
 
 // $ExpectType void
-ym(counterID, 'file', '/download/nothing.7z', {
+ym(counterID, "hit", "/page", "Page title");
+
+// @ts-expect-error
+ym(counterID, "addFileExtenstion");
+
+// $ExpectType void
+ym(counterID, "file", "/some/path");
+
+// $ExpectType void
+ym(counterID, "file", "/download/nothing.7z", {
     callback() {
         // $ExpectType string
         this;
     },
-    ctx: 'test',
-    referer: '/url',
-    params: { order_price: 200, currency: 'UAH' },
+    ctx: "test",
+    referer: "/url",
+    params: { order_price: 200, currency: "UAH" },
 });
 
-// $ExpectError
-ym(counterID, 'extLink', 'https://some.site', {
+// @ts-expect-error
+ym(counterID, "extLink", "https://some.site", {
     callback: null,
-    ctx: { a: 'b' },
-    title: 'some title',
+    ctx: { a: "b" },
+    title: "some title",
     params: { order_price: 10 },
 });
 
 // $ExpectType void
-ym(counterID, 'setUserID', '123456');
+ym(counterID, "setUserID", "123456");
 
-// $ExpectError
-ym(counterID, 'setUserID', 123456);
-
-// $ExpectType void
-ym(counterID, 'notBounce');
+// @ts-expect-error
+ym(counterID, "setUserID", 123456);
 
 // $ExpectType void
-ym(counterID, 'reachGoal', 'target');
+ym(counterID, "notBounce");
 
-// $ExpectError
-ym(counterID, 'reachGoal', 111);
+// $ExpectType void
+ym(counterID, "reachGoal", "target");
 
-// $ExpectError
-ym(counterID, 'reachGoal', null);
+// @ts-expect-error
+ym(counterID, "reachGoal", 111);
 
-// $ExpectError
-ym(counterID, 'reachGoal', 'someGoal', null);
+// @ts-expect-error
+ym(counterID, "reachGoal", null);
+
+// @ts-expect-error
+ym(counterID, "reachGoal", "someGoal", null);
 
 // $ExpectType void
 ym(
     counterID,
-    'reachGoal',
-    'someGoal',
+    "reachGoal",
+    "someGoal",
     undefined,
     function() {
         // $ExpectType number
@@ -91,30 +91,30 @@ ym(
     111,
 );
 
-// $ExpectError
-ym(counterID, 'params');
+// @ts-expect-error
+ym(counterID, "params");
 
 // $ExpectType void
-ym(counterID, 'params', {
+ym(counterID, "params", {
     order_price: 100,
-    currency: 'USD',
-    customKey: 'some data',
+    currency: "USD",
+    customKey: "some data",
 });
 
-// $ExpectError
-ym(counterID, 'userParams');
+// @ts-expect-error
+ym(counterID, "userParams");
 
 // $ExpectType void
-ym(counterID, 'userParams', {
+ym(counterID, "userParams", {
     UserID: 111,
     anotherKey: undefined,
     andAnother: {
-        mood: 'happy',
+        mood: "happy",
     },
 });
 
 // $ExpectType void
-ym(counterID, 'replacePhones');
+ym(counterID, "replacePhones");
 
-// $ExpectError
-ym(counterID, 'replacePhones', 'anotherParam');
+// @ts-expect-error
+ym(counterID, "replacePhones", "anotherParam");

@@ -1,8 +1,3 @@
-// Type definitions for pizzip 3.0
-// Project: https://github.com/open-xml-templating/pizzip#readme
-// Definitions by: Edward Sammut Alessi <https://github.com/Slessi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export as namespace PizZip;
@@ -121,11 +116,11 @@ declare class PizZip {
      * see https://github.com/open-xml-templating/pizzip/blob/master/documentation/api_pizzip/support.md
      * @param options the options to generate the zip file
      */
-    generate(options?: PizZip.GenerateOptions & { type?: 'string' | 'base64' | undefined }): string;
-    generate(options: PizZip.GenerateOptions & { type: 'blob' }): Blob;
-    generate(options: PizZip.GenerateOptions & { type: 'nodebuffer' }): Buffer;
-    generate(options: PizZip.GenerateOptions & { type: 'arraybuffer' }): ArrayBuffer;
-    generate(options: PizZip.GenerateOptions & { type: 'uint8array' }): Uint8Array;
+    generate(options?: PizZip.GenerateOptions & { type?: "string" | "base64" | undefined }): string;
+    generate(options: PizZip.GenerateOptions & { type: "blob" }): Blob;
+    generate(options: PizZip.GenerateOptions & { type: "nodebuffer" }): Buffer;
+    generate(options: PizZip.GenerateOptions & { type: "arraybuffer" }): ArrayBuffer;
+    generate(options: PizZip.GenerateOptions & { type: "uint8array" }): Uint8Array;
 
     /**
      * Delete a file or folder (recursively).
@@ -135,7 +130,7 @@ declare class PizZip {
 }
 
 declare namespace PizZip {
-    type Compression = 'STORE' | 'DEFLATE';
+    type Compression = "STORE" | "DEFLATE";
     type Data = string | ArrayBuffer | Uint8Array | Buffer;
     type LoadData = Data | number[];
 
@@ -273,9 +268,12 @@ declare namespace PizZip {
          * With `STORE` (no compression), this parameter is ignored.
          * With `DEFLATE`, you can give the compression level with `compressionOptions : {level:6}` (or any level between 1 (best speed) and 9 (best compression)).
          */
-        compressionOptions?: {
-            level: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
-        } | null | undefined;
+        compressionOptions?:
+            | {
+                level: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+            }
+            | null
+            | undefined;
         /**
          * The comment for this file.
          * the zip format has no flag or field to give the encoding of this field and PizZip will use UTF-8.
@@ -334,9 +332,12 @@ declare namespace PizZip {
          * calling `generate()` with a different compression level won't update the entry.
          * The reason is simple : PizZip doesn't know how compressed the content was and how to match the compression level with the implementation we use.
          */
-        compressionOptions?: {
-            level: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
-        } | null | undefined;
+        compressionOptions?:
+            | {
+                level: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+            }
+            | null
+            | undefined;
         /**
          * The type of zip to return. Note : when using type = "uint8array", "arraybuffer" or "blob",
          * be sure to check if the browser supports it (you can use PizZip.support)
@@ -355,7 +356,7 @@ declare namespace PizZip {
          *
          * @default "base64"
          */
-        type?: 'base64' | 'string' | 'uint8array' | 'arraybuffer' | 'blob' | 'nodebuffer' | undefined;
+        type?: "base64" | "string" | "uint8array" | "arraybuffer" | "blob" | "nodebuffer" | undefined;
         /**
          * The comment to use for the zip file.
          */
@@ -374,7 +375,7 @@ declare namespace PizZip {
          * if you force the platform to `UNIX` the generated zip file will have a strange behavior on UNIX platforms.
          * @default "DOS"
          */
-        platform?: 'DOS' | 'UNIX' | NodeJS.Platform | undefined;
+        platform?: "DOS" | "UNIX" | NodeJS.Platform | undefined;
         /**
          * the function to encode the file name / comment.
          * By default, PizZip uses UTF-8 to encode the file names / comments. You can use this method to force an other encoding.

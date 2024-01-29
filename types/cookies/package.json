@@ -1,0 +1,31 @@
+{
+    "private": true,
+    "name": "@types/cookies",
+    "version": "0.9.9999",
+    "projects": [
+        "https://github.com/pillarjs/cookies"
+    ],
+    "dependencies": {
+        "@types/connect": "*",
+        "@types/express": "*",
+        "@types/keygrip": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/cookies": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Wang Zishi",
+            "githubUsername": "WangZishi"
+        },
+        {
+            "name": "jKey Lu",
+            "githubUsername": "jkeylu"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

@@ -6,13 +6,13 @@ new AMap.StationSearch({});
 const stationSearch = new AMap.StationSearch({
     pageIndex: 1,
     pageSize: 10,
-    city: '深圳'
+    city: "深圳",
 });
 
-stationSearch.search('keyword', (status, result) => {
-    const temp: 'error' | 'complete' | 'no_data' = status;
+stationSearch.search("keyword", (status, result) => {
+    const temp: "error" | "complete" | "no_data" = status;
     status;
-    if (typeof result !== 'string') {
+    if (typeof result !== "string") {
         // $ExpectType string
         result.info;
         // $ExpectType StationInfo[]
@@ -53,8 +53,8 @@ stationSearch.search('keyword', (status, result) => {
     }
 });
 
-stationSearch.searchById('id', (status, result) => {
-    const temp: 'error' | 'complete' | 'no_data' = status;
+stationSearch.searchById("id", (status, result) => {
+    const temp: "error" | "complete" | "no_data" = status;
     // $ExpectType string | SearchResult
     result;
 });
@@ -70,11 +70,11 @@ stationSearch.setPageSize(10);
 stationSearch.setPageSize();
 
 // $ExpectType void
-stationSearch.setCity('city');
+stationSearch.setCity("city");
 // $ExpectType void
 stationSearch.setCity();
 
-declare const completeEvent: AMap.StationSearch.EventMap['complete'];
+declare const completeEvent: AMap.StationSearch.EventMap["complete"];
 // $ExpectType "complete"
 completeEvent.type;
 // $ExpectType string
@@ -86,7 +86,7 @@ completeEvent.keywordList;
 // $ExpectType StationInfo[]
 completeEvent.stationInfo;
 
-declare const errorEvent: AMap.StationSearch.EventMap['error'];
+declare const errorEvent: AMap.StationSearch.EventMap["error"];
 // $ExpectType "error"
 errorEvent.type;
 // $ExpectType string

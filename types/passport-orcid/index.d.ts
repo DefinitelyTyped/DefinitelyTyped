@@ -1,18 +1,13 @@
-// Type definitions for passport-orcid 0.0
-// Project: https://github.com/hubgit/passport-orcid
-// Definitions by: Chris Wilkinson <https://github.com/thewilkybarkid>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import OAuth2Strategy = require('passport-oauth2');
+import OAuth2Strategy = require("passport-oauth2");
 
 type OrcidStrategyOptions<
-    T extends Omit<OAuth2Strategy.StrategyOptions, 'passReqToCallback'>,
-    > = Omit<T, 'authorizationURL' | 'tokenURL'> & {
+    T extends Omit<OAuth2Strategy.StrategyOptions, "passReqToCallback">,
+> = Omit<T, "authorizationURL" | "tokenURL"> & {
     sandbox?: boolean;
 };
 
 declare class OrcidStrategy extends OAuth2Strategy {
-    name: 'orcid';
+    name: "orcid";
 
     constructor(
         options: OrcidStrategy.StrategyOptions,
@@ -26,8 +21,7 @@ declare class OrcidStrategy extends OAuth2Strategy {
 
 declare namespace OrcidStrategy {
     type StrategyOptions = OrcidStrategyOptions<OAuth2Strategy.StrategyOptions>;
-    type StrategyOptionsWithRequest =
-        OrcidStrategyOptions<OAuth2Strategy.StrategyOptionsWithRequest>;
+    type StrategyOptionsWithRequest = OrcidStrategyOptions<OAuth2Strategy.StrategyOptionsWithRequest>;
 
     type VerifyFunction = OAuth2Strategy.VerifyFunction;
     type VerifyFunctionWithRequest = OAuth2Strategy.VerifyFunctionWithRequest;

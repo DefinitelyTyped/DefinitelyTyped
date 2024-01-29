@@ -1,8 +1,8 @@
-import typeOf = require('typeof');
+import typeOf = require("typeof");
 
 typeOf(undefined);
 typeOf(null);
 typeOf(1);
-typeOf('string');
+typeOf("string");
 typeOf(() => {});
 typeOf({});

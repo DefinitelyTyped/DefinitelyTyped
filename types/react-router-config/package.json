@@ -1,6 +1,27 @@
 {
     "private": true,
+    "name": "@types/react-router-config",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config",
+        "https://github.com/reacttraining/react-router"
+    ],
     "dependencies": {
-        "@types/history": "^4.7.11"
-    }
+        "@types/history": "^4.7.11",
+        "@types/react": "*",
+        "@types/react-router": "^5.1.0"
+    },
+    "devDependencies": {
+        "@types/react-router-config": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "John Reilly",
+            "githubUsername": "johnnyreilly"
+        },
+        {
+            "name": "Mathieu TUDISCO",
+            "githubUsername": "mathieutu"
+        }
+    ]
 }

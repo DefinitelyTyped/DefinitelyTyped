@@ -1,9 +1,3 @@
-// Type definitions for move-concurrently 1.0
-// Project: https://www.npmjs.com/package/move-concurrently
-// Definitions by: Melvin Groenhoff <https://github.com/mgroenhoff>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 /**
  * Recursively moves from to to and resolves its promise when finished. If to already exists then the promise will be rejected with an EEXIST error.
  */
@@ -24,7 +18,7 @@ declare namespace move {
         /**
          * (Default: global.Promise) The promise implementation to use, defaults to Node's.
          */
-        Promise?: (new (...args: any[]) => T | undefined) | undefined;
+        Promise?: (new(...args: any[]) => T | undefined) | undefined;
         /**
          * (Default: require('fs')) The filesystem module to use. Can be used to use graceful-fs or to inject a mock.
          */

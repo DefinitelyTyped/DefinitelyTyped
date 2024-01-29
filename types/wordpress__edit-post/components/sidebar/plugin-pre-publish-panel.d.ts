@@ -1,5 +1,5 @@
-import { Slot } from '@wordpress/components';
-import { FC, ReactNode } from 'react';
+import { Slot } from "@wordpress/components";
+import { FC, JSX, ReactNode } from "react";
 
 declare namespace PluginPrePublishPanel {
     interface Props {
@@ -42,7 +42,7 @@ declare namespace PluginPrePublishPanel {
  */
 declare const PluginPrePublishPanel: {
     (props: PluginPrePublishPanel.Props): JSX.Element;
-    Slot: FC<Omit<Slot.Props, 'name'>>;
+    Slot: FC<Omit<Slot.Props, "name">>;
 };
 
 export default PluginPrePublishPanel;

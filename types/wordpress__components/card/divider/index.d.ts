@@ -1,4 +1,6 @@
-import { HorizontalRule } from '../../primitives';
+import { HorizontalRule } from "../../primitives";
+
+import { JSX } from "react";
 
 declare namespace CardDivider {
     type Props<T extends keyof JSX.IntrinsicElements> = {
@@ -16,10 +18,10 @@ declare namespace CardDivider {
     } & JSX.IntrinsicElements[T];
 }
 
-// tslint:disable:no-unnecessary-generics
+/* eslint-disable @definitelytyped/no-unnecessary-generics */
 declare function CardDivider<T extends keyof JSX.IntrinsicElements = typeof HorizontalRule>(
     props: CardDivider.Props<T>,
 ): JSX.Element;
-// tslint:enable:no-unnecessary-generics
+/* eslint-enable @definitelytyped/no-unnecessary-generics */
 
 export default CardDivider;

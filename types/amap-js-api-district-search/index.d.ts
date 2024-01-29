@@ -1,18 +1,12 @@
-// Type definitions for non-npm package amap-js-api-district-search 1.4
-// Project: https://lbs.amap.com/api/javascript-api/reference/search#m_AMap.DistrictSearch
-// Definitions by: breeze9527 <https://github.com/breeze9527>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="amap-js-api" />
 
 declare namespace AMap {
     namespace DistrictSearch {
         interface EventMap {
-            error: Event<'error', { info: string; }>;
-            complete: Event<'complete', SearchResult>;
+            error: Event<"error", { info: string }>;
+            complete: Event<"complete", SearchResult>;
         }
-        type Level = 'country' | 'province' | 'city' | 'district' | 'biz_area';
+        type Level = "country" | "province" | "city" | "district" | "biz_area";
         interface Options {
             /**
              * 关键字对应的行政区级别或商圈
@@ -25,7 +19,7 @@ declare namespace AMap {
             /**
              * 是否返回行政区边界坐标点
              */
-            extensions?: 'base' | 'all' | undefined;
+            extensions?: "base" | "all" | undefined;
             /**
              * 显示下级行政区级数
              * 0：不返回下级行政区
@@ -75,7 +69,7 @@ declare namespace AMap {
              */
             districtList: District[];
         }
-        type SearchStatus = 'complete' | 'error' | 'no_data';
+        type SearchStatus = "complete" | "error" | "no_data";
     }
     class DistrictSearch extends EventEmitter {
         /**
@@ -90,7 +84,7 @@ declare namespace AMap {
          */
         search(
             keyword: string,
-            callback: (status: DistrictSearch.SearchStatus, result: DistrictSearch.SearchResult | string) => void
+            callback: (status: DistrictSearch.SearchStatus, result: DistrictSearch.SearchResult | string) => void,
         ): void;
         /**
          * 设置关键字对应的行政区级别或商圈

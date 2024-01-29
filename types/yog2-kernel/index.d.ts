@@ -1,15 +1,8 @@
-// Type definitions for yog2-kernel 1.9
-// Project: https://github.com/fex-team/yog2-kernel
-// Definitions by: ssddi456 <https://github.com/ssddi456>
-//                 devinux <https://github.com/devinux>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as express from "express";
 import * as _ from "lodash";
 import * as ral from "node-ral";
-import * as log from "yog-log";
 import * as yogBigpipe from "yog-bigpipe";
+import * as log from "yog-log";
 
 export as namespace yog;
 declare namespace yog {

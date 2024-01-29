@@ -1,9 +1,4 @@
-// Type definitions for cobe 0.4
-// Project: https://github.com/shuding/cobe
-// Definitions by: Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import Phenomenon from 'phenomenon';
+import Phenomenon from "phenomenon";
 
 declare namespace cobe {
     interface Marker {

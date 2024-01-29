@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/color-diff",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/markusn/color-diff#readme"
+    ],
+    "devDependencies": {
+        "@types/color-diff": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "katsanva",
+            "githubUsername": "katsanva"
+        }
+    ]
+}

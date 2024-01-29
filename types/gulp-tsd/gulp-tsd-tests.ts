@@ -9,6 +9,6 @@ gulp.task("tsd", () => {
 gulp.task("tsd:options", (callback: any) => {
     tsd({
         command: "reinstall",
-        config: "tsd.json"
+        config: "tsd.json",
     }, callback);
 });

@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/mapbox__mapbox-gl-draw",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/mapbox/mapbox-gl-draw"
+    ],
+    "dependencies": {
+        "@types/geojson": "*",
+        "@types/mapbox-gl": "*"
+    },
+    "devDependencies": {
+        "@types/mapbox__mapbox-gl-draw": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tudor Gergely",
+            "githubUsername": "tudorgergely"
+        },
+        {
+            "name": "Shayan Toqraee",
+            "githubUsername": "Shayan-To"
+        },
+        {
+            "name": "Joel Daros",
+            "githubUsername": "joel-daros"
+        }
+    ]
+}

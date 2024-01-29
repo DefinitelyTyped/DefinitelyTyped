@@ -1,4 +1,4 @@
-import { Converter, Validator, Validation } from '../ojvalidation-base';
+import { Converter, Validation, Validator } from "../ojvalidation-base";
 export class IntlNumberConverter extends NumberConverter {
     constructor(options?: IntlNumberConverter.ConverterOptions);
     format(value: number): string;
@@ -8,25 +8,25 @@ export class IntlNumberConverter extends NumberConverter {
     resolvedOptions(): IntlNumberConverter.ConverterOptions;
 }
 export namespace IntlNumberConverter {
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ConverterOptions = {
-        style?: 'decimal' | 'currency' | 'percent' | 'unit' | undefined;
+        style?: "decimal" | "currency" | "percent" | "unit" | undefined;
         currency?: string | undefined;
-        unit?: 'byte' | 'bit' | undefined;
-        currencyDisplay?: 'code' | 'symbol' | 'name' | undefined;
-        decimalFormat?: 'standard' | 'short' | 'long' | undefined;
-        currencyFormat?: 'standard' | 'short' | 'long' | undefined;
+        unit?: "byte" | "bit" | undefined;
+        currencyDisplay?: "code" | "symbol" | "name" | undefined;
+        decimalFormat?: "standard" | "short" | "long" | undefined;
+        currencyFormat?: "standard" | "short" | "long" | undefined;
         minimumIntegerDigits?: number | undefined;
         minimumFractionDigits?: number | undefined;
         maximumFractionDigits?: number | undefined;
         useGrouping?: boolean | undefined;
         pattern?: string | undefined;
-        roundingMode?: 'HALF_UP' | 'HALF_DOWN' | 'HALF_EVEN' | undefined;
+        roundingMode?: "HALF_UP" | "HALF_DOWN" | "HALF_EVEN" | undefined;
         roundDuringParse?: boolean | undefined;
         separators?: Separators | undefined;
-        lenientParse?: 'full' | 'none' | undefined;
+        lenientParse?: "full" | "none" | undefined;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type Separators = {
         decimal?: string | undefined;
         group?: string | undefined;
@@ -45,7 +45,7 @@ export class NumberRangeValidator implements Validator<string | number> {
     validate(value: string | number): void;
 }
 export namespace NumberRangeValidator {
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ValidatorOptions = {
         converter?: NumberConverter | undefined;
         min?: number | undefined;

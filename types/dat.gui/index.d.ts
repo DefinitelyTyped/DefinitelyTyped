@@ -1,8 +1,3 @@
-// Type definitions for dat.GUI 0.7
-// Project: https://github.com/dataarts/dat.gui
-// Definitions by: Satoru Kimura <https://github.com/gyohk>, ZongJing Lu <https://github.com/sonic3d>, Richard Roylance <https://github.com/rroylance>, Nahuel Scotti <https://github.com/singuerinc>, Teoxoy <https://github.com/teoxoy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace dat;
 
 export interface GUIParams {
@@ -45,39 +40,45 @@ export interface GUIParams {
 }
 
 export class GUI {
-    static CLASS_AUTO_PLACE: string
-    static CLASS_AUTO_PLACE_CONTAINER: string
-    static CLASS_MAIN: string
-    static CLASS_CONTROLLER_ROW: string
-    static CLASS_TOO_TALL: string
-    static CLASS_CLOSED: string
-    static CLASS_CLOSE_BUTTON: string
-    static CLASS_CLOSE_TOP: string
-    static CLASS_CLOSE_BOTTOM: string
-    static CLASS_DRAG: string
-    static DEFAULT_WIDTH: number
-    static TEXT_CLOSED: string
-    static TEXT_OPEN: string
+    static CLASS_AUTO_PLACE: string;
+    static CLASS_AUTO_PLACE_CONTAINER: string;
+    static CLASS_MAIN: string;
+    static CLASS_CONTROLLER_ROW: string;
+    static CLASS_TOO_TALL: string;
+    static CLASS_CLOSED: string;
+    static CLASS_CLOSE_BUTTON: string;
+    static CLASS_CLOSE_TOP: string;
+    static CLASS_CLOSE_BOTTOM: string;
+    static CLASS_DRAG: string;
+    static DEFAULT_WIDTH: number;
+    static TEXT_CLOSED: string;
+    static TEXT_OPEN: string;
 
     constructor(option?: GUIParams);
 
     __controllers: GUIController[];
-    __folders: {[folderName: string]: GUI};
+    __folders: { [folderName: string]: GUI };
     domElement: HTMLElement;
 
-    add(target: Object, propName:string, min?: number, max?: number, step?: number): GUIController;
-    add(target: Object, propName:string, status: boolean): GUIController;
-    add(target: Object, propName:string, items:string[]): GUIController;
-    add(target: Object, propName:string, items:number[]): GUIController;
-    add(target: Object, propName:string, items:Object): GUIController;
+    add<T extends object>(
+        target: T,
+        propName: keyof T,
+        min?: number,
+        max?: number,
+        step?: number,
+    ): GUIController;
+    add<T extends object>(target: T, propName: keyof T, status: boolean): GUIController;
+    add<T extends object>(target: T, propName: keyof T, items: string[]): GUIController;
+    add<T extends object>(target: T, propName: keyof T, items: number[]): GUIController;
+    add<T extends object>(target: T, propName: keyof T, items: Object): GUIController;
 
-    addColor(target: Object, propName:string): GUIController;
+    addColor(target: Object, propName: string): GUIController;
 
     remove(controller: GUIController): void;
     destroy(): void;
 
-    addFolder(propName:string): GUI;
-    removeFolder(subFolder:GUI):void;
+    addFolder(propName: string): GUI;
+    removeFolder(subFolder: GUI): void;
 
     open(): void;
     close(): void;
@@ -89,8 +90,8 @@ export class GUI {
 
     getSaveObject(): Object;
     save(): void;
-    saveAs(presetName:string): void;
-    revert(gui:GUI): void;
+    saveAs(presetName: string): void;
+    revert(gui: GUI): void;
 
     listen(controller: GUIController): void;
     updateDisplay(): void;
@@ -107,12 +108,12 @@ export class GUI {
     useLocalStorage: boolean;
 }
 
-export class GUIController {
+export class GUIController<T extends object = object> {
     domElement: HTMLElement;
     object: Object;
     property: string;
 
-    constructor(object: Object, property: string);
+    constructor(object: T, property: keyof T);
 
     options(option: any): GUIController;
     name(name: string): GUIController;

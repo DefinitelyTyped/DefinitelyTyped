@@ -1,0 +1,37 @@
+{
+    "private": true,
+    "name": "@types/react-draft-wysiwyg",
+    "version": "1.13.9999",
+    "projects": [
+        "https://github.com/jpuri/react-draft-wysiwyg#readme"
+    ],
+    "dependencies": {
+        "@types/draft-js": "*",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-draft-wysiwyg": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "imechZhangLY",
+            "githubUsername": "imechZhangLY"
+        },
+        {
+            "name": "brunoMaurice",
+            "githubUsername": "brunoMaurice"
+        },
+        {
+            "name": "ldanet",
+            "githubUsername": "ldanet"
+        },
+        {
+            "name": "Munif Tanjim",
+            "githubUsername": "MunifTanjim"
+        },
+        {
+            "name": "Nathan Zeplowitz",
+            "githubUsername": "n-zeplo"
+        }
+    ]
+}

@@ -1,6 +1,6 @@
-import * as http from './http';
-import * as webdriver from './index';
-import * as remote from './remote';
+import * as http from "./http";
+import * as webdriver from "./index";
+import * as remote from "./remote";
 
 /**
  * Configuration options for the FirefoxDriver.
@@ -146,7 +146,6 @@ export class Driver extends webdriver.WebDriver {
      * Installs a new addon with the current session. This function will return an
      * ID that may later be used to {@linkplain #uninstallAddon uninstall} the
      * addon.
-     *
      *
      * @param {string} path Path on the local filesystem to the web extension to
      *     install.

@@ -1,17 +1,12 @@
-// Type definitions for cls-hooked 4.3
-// Project: https://github.com/jeff-lewis/cls-hooked
-// Definitions by: Leo Liang <https://github.com/aleung>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
-export interface Namespace {
+export interface Namespace<N = Record<string, any>> {
     active: any;
 
-    set<T>(key: string, value: T): T;
-    get(key: string): any;
+    set<K extends keyof N = keyof N>(key: K, value: N[K]): N[K];
+    get<K extends keyof N = keyof N>(key: K): N[K];
     run(fn: (...args: any[]) => void): void;
     runAndReturn<T>(fn: (...args: any[]) => T): T;
     runPromise<T>(fn: (...args: any[]) => Promise<T>): Promise<T>;
@@ -22,7 +17,9 @@ export interface Namespace {
     exit(context: any): void;
 }
 
-export function createNamespace(name: string): Namespace;
-export function getNamespace(name: string): Namespace | undefined;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+export function createNamespace<N = Record<string, any>>(name: string): Namespace<N>;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+export function getNamespace<N = Record<string, any>>(name: string): Namespace<N> | undefined;
 export function destroyNamespace(name: string): void;
 export function reset(): void;

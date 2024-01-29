@@ -1,12 +1,4 @@
-// Type definitions for rss
-// Project: https://github.com/dylang/node-rss
-// Definitions by: Second Datke <https://github.com/secondwtq>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-declare var factory: NodeRSS.RSSFactory;
-export = factory;
-
-declare namespace NodeRSS {
+declare namespace RSS {
     interface FeedOptions {
         /**
          * Title of your site or feed.
@@ -172,36 +164,38 @@ declare namespace NodeRSS {
          */
         indent?: boolean | string | undefined;
     }
-
-    interface RSS {
-        /**
-         * Add an item to a feed. An item can be used for a blog
-         * entry, project update, log entry, etc.
-         * @param {ItemOptions} itemOptions
-         * @returns {RSS}
-         */
-        item(itemOptions: ItemOptions): RSS;
-        /**
-         * Generate XML and return as a string for this feed.
-         * @returns {string}
-         */
-        xml(): string;
-        /**
-         * Generate XML and return as a string for this feed.
-         *
-         * @param {XmlOptions} xmlOptions - You can use indent
-         * option to specify the tab character to use.
-         * @returns {string}
-         */
-        xml(xmlOptions: XmlOptions): string;
-    }
-
-    interface RSSFactory {
-        /**
-         * Create an RSS feed with options.
-         * @param {FeedOptions} feedOptions - Options for the RSS feed.
-         * @returns {RSS}
-         */
-        new(feedOptions: FeedOptions): RSS;
-    }
 }
+
+// export declare class RSS {
+declare class RSS {
+    /**
+     * Create an RSS feed with options.
+     * @param {FeedOptions} feedOptions - Options for the RSS feed.
+     * @param {ItemOptions[]} feedItems - Array of items for the RSS feed.
+     * @returns {RSS}
+     */
+    constructor(feedOptions: RSS.FeedOptions, feedItems?: RSS.ItemOptions[]);
+
+    /**
+     * Add an item to a feed. An item can be used for a blog
+     * entry, project update, log entry, etc.
+     * @param {ItemOptions} itemOptions
+     * @returns {RSS}
+     */
+    item(itemOptions: RSS.ItemOptions): RSS;
+    /**
+     * Generate XML and return as a string for this feed.
+     * @returns {string}
+     */
+    xml(): string;
+    /**
+     * Generate XML and return as a string for this feed.
+     *
+     * @param {XmlOptions} xmlOptions - You can use indent
+     * option to specify the tab character to use.
+     * @returns {string}
+     */
+    xml(xmlOptions: RSS.XmlOptions): string;
+}
+
+export = RSS;

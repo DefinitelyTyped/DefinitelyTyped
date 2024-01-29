@@ -1,3 +1,3 @@
-import webpack = require('webpack');
+import webpack = require("webpack");
 // it's the first entry
 const a = new webpack.AutomaticPrefetchPlugin();

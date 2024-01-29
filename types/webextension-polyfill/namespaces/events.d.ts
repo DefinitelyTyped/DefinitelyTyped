@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.events
- * Generated from Mozilla sources. Do not manually edit!
  *
  * The <code>chrome.events</code> namespace contains common types used by APIs dispatching events to notify you when
  * something interesting happens.

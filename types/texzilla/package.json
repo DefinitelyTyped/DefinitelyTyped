@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/texzilla",
+    "version": "0.9.9999",
+    "projects": [
+        "https://github.com/fred-wang/TeXZilla/"
+    ],
+    "devDependencies": {
+        "@types/texzilla": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michal Grňo",
+            "githubUsername": "m93a"
+        }
+    ]
+}

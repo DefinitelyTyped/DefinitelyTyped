@@ -5,29 +5,29 @@ const config: tedious.ConnectionConfig = {
     server: "127.0.0.1",
     options: {
         database: "somedb",
-        instanceName: "someinstance"
+        instanceName: "someinstance",
     },
     authentication: {
-        type: 'default',
+        type: "default",
         options: {
             userName: "rogier",
-            password: "rogiers password"
-        }
-    }
+            password: "rogiers password",
+        },
+    },
 };
 
 const poolConfig: ConnectionPool.PoolConfig = {
     min: 1,
-    max: 4
+    max: 4,
 };
 
 const pool: ConnectionPool = new ConnectionPool(poolConfig, config);
 
-pool.on('error', (err: Error) => {
+pool.on("error", (err: Error) => {
     console.error(err);
 });
 
-pool.once('error', (err: Error) => {
+pool.once("error", (err: Error) => {
     console.error(err);
 });
 

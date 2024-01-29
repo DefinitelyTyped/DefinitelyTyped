@@ -1,9 +1,10 @@
-import * as React from 'react';
+import * as React from "react";
 
 declare namespace Gateway {
     interface GatewayProps {
         into: string;
+        children?: React.ReactNode;
     }
 }
-declare class Gateway extends React.Component<Gateway.GatewayProps> { }
+declare class Gateway extends React.Component<Gateway.GatewayProps> {}
 export = Gateway;

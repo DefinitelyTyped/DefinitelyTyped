@@ -1,9 +1,9 @@
-import request = require('requestretry');
-import http = require('http');
+import request = require("requestretry");
+import http = require("http");
 
 // Promisified request function
 request({
-    url: 'https://api.example.com/v1/a/b',
+    url: "https://api.example.com/v1/a/b",
     json: true,
     // The below parameters are specific to request-retry
     // (default) try 5 times
@@ -11,14 +11,14 @@ request({
     // (default) wait for 5s before trying again
     retryDelay: 5000,
     // (default) retry on 5xx or network errors
-    retryStrategy: request.RetryStrategies.HTTPOrNetworkError
+    retryStrategy: request.RetryStrategies.HTTPOrNetworkError,
 }).then(res => {
     // Body
 });
 
 // HTTPOrNetworkError strategy.
 request({
-    url: 'https://api.example.com/v1/a/b',
+    url: "https://api.example.com/v1/a/b",
     json: true,
     // The below parameters are specific to request-retry
     // (default) try 5 times
@@ -26,14 +26,14 @@ request({
     // (default) wait for 5s before trying again
     retryDelay: 5000,
     // (default) retry on 5xx or network errors
-    retryStrategy: request.RetryStrategies.HTTPOrNetworkError
+    retryStrategy: request.RetryStrategies.HTTPOrNetworkError,
 }, (err, response, body) => {
     // Body.
 });
 
 // HttpError strategy.
 request({
-    url: 'https://api.example.com/v1/a/b',
+    url: "https://api.example.com/v1/a/b",
     json: true,
     // The below parameters are specific to request-retry
     // (default) try 5 times
@@ -41,14 +41,14 @@ request({
     // (default) wait for 5s before trying again
     retryDelay: 5000,
     // (default) retry on 5xx or network errors
-    retryStrategy: request.RetryStrategies.HttpError
+    retryStrategy: request.RetryStrategies.HttpError,
 }, (err, response, body) => {
     // Body.
 });
 
 // NetworkError strategy.
 request({
-    url: 'https://api.example.com/v1/a/b',
+    url: "https://api.example.com/v1/a/b",
     json: true,
     // The below parameters are specific to request-retry
     // (default) try 5 times
@@ -56,7 +56,7 @@ request({
     // (default) wait for 5s before trying again
     retryDelay: 5000,
     // (default) retry on 5xx or network errors
-    retryStrategy: request.RetryStrategies.NetworkError
+    retryStrategy: request.RetryStrategies.NetworkError,
 }, (err, response, body) => {
     // Body.
 });
@@ -68,7 +68,7 @@ const CustomRetryStrategy = (err: Error, response: http.IncomingMessage, body: a
 };
 
 request({
-    url: 'https://api.example.com/v1/a/b',
+    url: "https://api.example.com/v1/a/b",
     json: true,
     // The below parameters are specific to request-retry
     // (default) try 5 times
@@ -76,7 +76,7 @@ request({
     // (default) wait for 5s before trying again
     retryDelay: 5000,
     // (default) retry on 5xx or network errors
-    retryStrategy: CustomRetryStrategy
+    retryStrategy: CustomRetryStrategy,
 }, (err, response, body) => {
     // Body.
 });
@@ -87,7 +87,7 @@ const CustomDelayStrategy = (err: Error, response: http.IncomingMessage, body: a
 };
 
 request({
-    url: 'https://api.example.com/v1/a/b',
+    url: "https://api.example.com/v1/a/b",
     json: true,
     // The below parameters are specific to request-retry
     // (default) try 5 times
@@ -100,8 +100,8 @@ request({
 
 // No options required
 request({
-    url: 'https://api.example.com/v1/a/b',
-    json: true
+    url: "https://api.example.com/v1/a/b",
+    json: true,
 }, (err, response, body) => {
     // Body.
 });

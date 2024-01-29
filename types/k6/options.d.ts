@@ -1,13 +1,13 @@
 /*
  * Program options.
- * https://k6.io/docs/using-k6/options/
+ * https://grafana.com/docs/k6/latest/using-k6/k6-options/
  */
 
-import { CipherSuite } from './http';
+import { CipherSuite } from "./http";
 
 /**
  * Program options.
- * https://k6.io/docs/using-k6/options/
+ * https://grafana.com/docs/k6/latest/using-k6/k6-options/
  */
 export interface Options {
     /** Maximum parallel `http.batch()` connections per VU. */
@@ -25,23 +25,23 @@ export interface Options {
     /** Discard response bodies. */
     discardResponseBodies?: boolean;
 
-    /** DNS resolution behavior. https://k6.io/docs/using-k6/options#dns */
+    /** DNS resolution behavior. https://grafana.com/docs/k6/latest/using-k6/k6-options#dns */
     dns?: {
         /** 0, inf, or any time duration(60s, 5m30s, 10m, 2h). */
         ttl: string;
 
-        select: 'first' | 'random' |  'roundRobin';
+        select: "first" | "random" | "roundRobin";
 
-        policy: 'preferIPv4' | 'preferIPv6' | 'onlyIPv4' | 'onlyIPv6' | 'any';
+        policy: "preferIPv4" | "preferIPv6" | "onlyIPv4" | "onlyIPv6" | "any";
     };
 
     /** Test duration. */
     duration?: string;
 
-    /** Partition the test run in different segments. https://k6.io/docs/using-k6/options#execution-segment */
+    /** Partition the test run in different segments. https://grafana.com/docs/k6/latest/using-k6/k6-options#execution-segment */
     executionSegment?: string;
 
-    /** Define the sequence segment to run. https://k6.io/docs/using-k6/options#execution-segment */
+    /** Define the sequence segment to run. https://grafana.com/docs/k6/latest/using-k6/k6-options#execution-segment */
     executionSegmentSequence?: string;
 
     /** Third party collector configuration. */
@@ -87,7 +87,7 @@ export interface Options {
     rps?: number;
 
     /** Scenario specifications. */
-    scenarios?: { [name: string]: Scenario};
+    scenarios?: { [name: string]: Scenario };
 
     /** Setup function timeout. */
     setupTimeout?: string;
@@ -152,13 +152,13 @@ export interface Stage {
 
 /**
  * Threshold specification.
- * https://k6.io/docs/using-k6/thresholds/
+ * https://grafana.com/docs/k6/latest/using-k6/thresholds/
  */
 export type Threshold = string | ObjectThreshold;
 
 /**
  * Object form threshold specification.
- * https://k6.io/docs/using-k6/thresholds/
+ * https://grafana.com/docs/k6/latest/using-k6/thresholds/
  */
 export interface ObjectThreshold {
     /** Abort test if threshold violated. */
@@ -179,18 +179,28 @@ export interface Certificate {
     cert: string;
 
     /** Domains certificate is valid for. */
-    domains: string[];
+    domains?: string[];
 
     /** PEM encoded certificate key. */
     key: string;
+
+    /** PEM passphrase. */
+    password?: string;
 }
 
-export type ExecutorOptions = "shared-iterations" | "per-vu-iterations" | "constant-vus" | "ramping-vus" | "constant-arrival-rate" | "ramping-arrival-rate" | "externally-controlled";
+export type ExecutorOptions =
+    | "shared-iterations"
+    | "per-vu-iterations"
+    | "constant-vus"
+    | "ramping-vus"
+    | "constant-arrival-rate"
+    | "ramping-arrival-rate"
+    | "externally-controlled";
 
 /**
  * BaseScenario.
  *
- * https://k6.io/docs/using-k6/scenarios/
+ * https://grafana.com/docs/k6/latest/using-k6/scenarios/
  */
 export abstract class BaseScenario {
     /**
@@ -214,7 +224,7 @@ export abstract class BaseScenario {
 
     /**
      * Time to wait for iterations to finish executing before stopping them forcefully.
-     * See https://k6.io/docs/using-k6/scenarios#graceful-stop-and-ramp-down/
+     * See https://grafana.com/docs/k6/latest/using-k6/scenarios#graceful-stop-and-ramp-down/
      *
      * Default value is 30s
      */
@@ -232,12 +242,15 @@ export abstract class BaseScenario {
 
     /** Tags specific to this scenario. */
     tags?: { [name: string]: string };
+
+    /** Additional options for each scenario */
+    options?: ScenarioOptions;
 }
 
 /**
  * A fixed amount of iterations are shared between a number of VUs.
  *
- * https://k6.io/docs/using-k6/scenarios/executors/shared-iterations/
+ * https://grafana.com/docs/k6/latest/using-k6/scenarios/executors/shared-iterations/
  */
 export interface SharedIterationsScenario extends BaseScenario {
     executor: "shared-iterations";
@@ -266,7 +279,7 @@ export interface SharedIterationsScenario extends BaseScenario {
 /**
  * Each VU executes an exact number of iterations.
  *
- * https://k6.io/docs/using-k6/scenarios/executors/per-vu-iterations/
+ * https://grafana.com/docs/k6/latest/using-k6/scenarios/executors/per-vu-iterations/
  */
 export interface PerVUIterationsScenario extends BaseScenario {
     executor: "per-vu-iterations";
@@ -295,7 +308,7 @@ export interface PerVUIterationsScenario extends BaseScenario {
 /**
  * A fixed number of VUs execute as many iterations as possible for a specified amount of time.
  *
- * https://k6.io/docs/using-k6/scenarios/executors/constant-vus/
+ * https://grafana.com/docs/k6/latest/using-k6/scenarios/executors/constant-vus/
  */
 export interface ConstantVUsScenario extends BaseScenario {
     executor: "constant-vus";
@@ -316,7 +329,7 @@ export interface ConstantVUsScenario extends BaseScenario {
 /**
  * A variable number of VUs execute as many iterations as possible for a specified amount of time.
  *
- * https://k6.io/docs/using-k6/scenarios/executors/ramping-vus/
+ * https://grafana.com/docs/k6/latest/using-k6/scenarios/executors/ramping-vus/
  */
 export interface RampingVUsScenario extends BaseScenario {
     executor: "ramping-vus";
@@ -342,7 +355,7 @@ export interface RampingVUsScenario extends BaseScenario {
 /**
  * A fixed number of iterations are executed in a specified period of time.
  *
- * https://k6.io/docs/using-k6/scenarios/executors/constant-arrival-rate/
+ * https://grafana.com/docs/k6/latest/using-k6/scenarios/executors/constant-arrival-rate/
  */
 export interface ConstantArrivalRateScenario extends BaseScenario {
     executor: "constant-arrival-rate";
@@ -374,7 +387,7 @@ export interface ConstantArrivalRateScenario extends BaseScenario {
 /**
  * A variable number of iterations are executed in a specified period of time.
  *
- * https://k6.io/docs/using-k6/scenarios/executors/ramping-arrival-rate/
+ * https://grafana.com/docs/k6/latest/using-k6/scenarios/executors/ramping-arrival-rate/
  */
 export interface RampingArrivalRateScenario extends BaseScenario {
     executor: "ramping-arrival-rate";
@@ -402,7 +415,7 @@ export interface RampingArrivalRateScenario extends BaseScenario {
 /**
  * Control and scale execution at runtime via k6's REST API or the CLI.
  *
- * https://k6.io/docs/using-k6/scenarios/executors/externally-controlled/
+ * https://grafana.com/docs/k6/latest/using-k6/scenarios/executors/externally-controlled/
  */
 export interface ExternallyControlledScenario extends BaseScenario {
     executor: "externally-controlled";
@@ -421,10 +434,16 @@ export interface ExternallyControlledScenario extends BaseScenario {
     maxVUs?: number;
 }
 
-export type Scenario = SharedIterationsScenario |
-                       PerVUIterationsScenario |
-                       ConstantVUsScenario |
-                       RampingVUsScenario |
-                       ConstantArrivalRateScenario |
-                       RampingArrivalRateScenario |
-                       ExternallyControlledScenario;
+export type Scenario =
+    | SharedIterationsScenario
+    | PerVUIterationsScenario
+    | ConstantVUsScenario
+    | RampingVUsScenario
+    | ConstantArrivalRateScenario
+    | RampingArrivalRateScenario
+    | ExternallyControlledScenario;
+
+export interface ScenarioOptions {
+    /** Browser specific options */
+    browser?: any;
+}

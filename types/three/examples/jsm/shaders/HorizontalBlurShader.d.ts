@@ -1,9 +1,9 @@
-import { Uniform } from '../../../src/Three';
+import { IUniform } from '../../../src/Three.js';
 
 export const HorizontalBlurShader: {
     uniforms: {
-        tDiffuse: Uniform;
-        h: Uniform;
+        tDiffuse: IUniform;
+        h: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

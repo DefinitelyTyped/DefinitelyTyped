@@ -1,6 +1,29 @@
 {
-  "private": true,
-  "dependencies": {
-    "graphql": "^14.5.3"
-  }
+    "private": true,
+    "name": "@types/relay-compiler",
+    "version": "14.0.9999",
+    "projects": [
+        "https://relay.dev"
+    ],
+    "devDependencies": {
+        "@types/relay-compiler": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "n1ru4l",
+            "githubUsername": "n1ru4l"
+        },
+        {
+            "name": "Eloy Durán",
+            "githubUsername": "alloy"
+        },
+        {
+            "name": "Marais Rossouw",
+            "githubUsername": "maraisr"
+        },
+        {
+            "name": "Levi Buzolic",
+            "githubUsername": "levibuzolic"
+        }
+    ]
 }

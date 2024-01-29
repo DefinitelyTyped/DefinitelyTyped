@@ -1,32 +1,43 @@
-import tokenProvider = require('axios-token-interceptor');
+import axios from "axios";
+import tokenProvider = require("axios-token-interceptor");
 
-const getToken = async (): Promise<{ access_token: string; expires_in: number }> => ({
-    access_token: 'token1',
+const getToken = async (): Promise<tokenProvider.Token> => ({
+    access_token: "token1",
     expires_in: 50,
 });
 
-tokenProvider.tokenCache(getToken, {
+const cache = tokenProvider.tokenCache(getToken, {
     getMaxAge: token => token.expires_in,
 });
 
-tokenProvider(); // $ExpectError
+cache().then((token: tokenProvider.Token) => {
+    token.access_token; // $ExpectType string
+    token.expires_in; // $ExpectType number
+});
+
+// @ts-expect-error
+tokenProvider();
 
 const validOptions1 = {
-    getToken: () => 'qwerty',
+    getToken: () => "qwerty",
 };
-tokenProvider(validOptions1); // $ExpectType TokenProvider
+const provider1 = tokenProvider(validOptions1); // $ExpectType TokenProvider
+axios.interceptors.request.use(provider1);
 
 const validOptions2 = {
-    getToken: () => Promise.resolve('qwerty'),
+    getToken: () => Promise.resolve("qwerty"),
 };
-tokenProvider(validOptions2); // $ExpectType TokenProvider
+const provider2 = tokenProvider(validOptions2); // $ExpectType TokenProvider
+axios.interceptors.request.use(provider2);
 
-tokenProvider.tokenCache(); // $ExpectError
+// @ts-expect-error
+tokenProvider.tokenCache();
 
-const validCacheGetter = () => Promise.resolve('qwerty');
+const validCacheGetter = () => Promise.resolve("qwerty");
 const validCacheOptions = {
     maxAge: 3600,
 };
-const cache = tokenProvider.tokenCache(validCacheGetter, validCacheOptions); // $Expect TokenCache
+const cache2 = tokenProvider.tokenCache(validCacheGetter, validCacheOptions); // $Expect TokenCache
 
-cache.reset(); // $ExpectType void
+cache2.reset(); // $ExpectType void
+cache2().then((token: string) => {});

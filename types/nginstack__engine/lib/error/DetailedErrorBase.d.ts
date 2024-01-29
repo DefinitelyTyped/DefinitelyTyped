@@ -4,16 +4,16 @@ declare function DetailedErrorBase(
     error: any,
     solution: any,
     details: any,
-    errorCode: any
+    code: any
 ): void;
 declare class DetailedErrorBase {
-    constructor(name: any, error: any, solution: any, details: any, errorCode: any);
+    constructor(name: any, error: any, solution: any, details: any, code: any);
     private _name;
     private _error;
     private _solution;
     private _details;
+    private _code;
     private _sourceLocation;
-    private _errorCode;
     toString(): any;
     toHtmlString(): any;
     toSqlString(): any;

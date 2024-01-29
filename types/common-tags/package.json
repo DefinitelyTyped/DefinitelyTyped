@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/common-tags",
+    "version": "1.8.9999",
+    "projects": [
+        "https://github.com/declandewet/common-tags"
+    ],
+    "devDependencies": {
+        "@types/common-tags": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Viktor Zozuliak",
+            "githubUsername": "zuzusik"
+        },
+        {
+            "name": "Paul Wang",
+            "githubUsername": "tzupengwang"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

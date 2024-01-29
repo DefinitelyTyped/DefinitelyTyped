@@ -1,24 +1,27 @@
-import { MediaOptions } from 'webostvjs';
+import { MediaOptions } from "webostvjs";
 
 const mediaOptions: MediaOptions = {
-    mediaTransportType: 'WIDEVINE',
+    mediaTransportType: "WIDEVINE",
     option: {
         mediaFormat: {
-            type: 'audio',
+            type: "audio",
         },
         drm: {
-            clientId: '111',
-            type: 'widevine',
+            clientId: "111",
+            type: "widevine",
             widevine: {
                 seperatedStream: true,
             },
         },
         adaptiveStreaming: {
+            adaptiveResolution: true,
             seamlessPlay: true,
             maxWidth: 1000,
             maxHeight: 800,
             bps: {
                 start: 100000,
+                minimum: 0,
+                maximum: 1e10,
             },
         },
     },

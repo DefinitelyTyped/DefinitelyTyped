@@ -1,8 +1,3 @@
-// Type definitions for urlparser 0.2
-// Project: https://github.com/kaerus-component/urlparser
-// Definitions by: OpenByteDev <https://github.com/OpenByteDev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // TypeScript Version: 2.2
 
 interface UrlData {
@@ -11,7 +6,7 @@ interface UrlData {
         username: string;
         password: string;
         hostname: string;
-        port: string|number;
+        port: string | number;
     };
     path: {
         base: string;
@@ -26,10 +21,10 @@ interface UrlData {
 }
 
 interface UrlParser {
-    url: (o: UrlData|undefined) => string;
-    host: (o: UrlData|undefined) => string;
-    path: (o: UrlData|undefined) => string;
-    query: (o: UrlData|undefined) => string;
+    url: (o: UrlData | undefined) => string;
+    host: (o: UrlData | undefined) => string;
+    path: (o: UrlData | undefined) => string;
+    query: (o: UrlData | undefined) => string;
     parse: (parse: string) => UrlData;
 }
 

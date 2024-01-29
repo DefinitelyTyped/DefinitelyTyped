@@ -1,6 +1,6 @@
-import { Price } from './price';
+import { Price } from "./price";
 
-export type DiscountType = 'percentage' | 'fixed';
+export type DiscountType = "percentage" | "fixed";
 
 export interface Discount {
     valid: boolean;

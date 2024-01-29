@@ -1,22 +1,22 @@
-import { Engine, EngineChain } from 'node-uci';
+import { Engine, EngineChain } from "node-uci";
 
 (async () => {
-    const engine = new Engine('any');
-    await engine.getBufferUntil(str => str === 'any');
-    engine.write('any');
+    const engine = new Engine("any");
+    await engine.getBufferUntil(str => str === "any");
+    engine.write("any");
     engine.chain();
     await engine.init();
     await engine.quit();
     await engine.isready();
-    await engine.sendCmd('any');
-    await engine.setoption('any');
-    await engine.setoption('any', 'any');
+    await engine.sendCmd("any");
+    await engine.setoption("any");
+    await engine.setoption("any", "any");
     await engine.ucinewgame();
     await engine.ponderhit();
-    await engine.position('any');
-    await engine.position('any', ['any']);
+    await engine.position("any");
+    await engine.position("any", ["any"]);
     const goOptions = {
-        searchmoves: ['any'],
+        searchmoves: ["any"],
         ponder: true,
         wtime: 2,
         btime: 2,
@@ -35,13 +35,13 @@ import { Engine, EngineChain } from 'node-uci';
     const engineChain = new EngineChain(engine);
     await engineChain
         .init()
-        .setoption('any')
-        .setoption('any', 'any')
+        .setoption("any")
+        .setoption("any", "any")
         .isready()
         .ucinewgame()
         .quit()
-        .position('any')
-        .position('any', ['any'])
+        .position("any")
+        .position("any", ["any"])
         .go(goOptions);
 
     engineChain.exec();

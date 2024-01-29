@@ -1,3 +1,3 @@
-import { DayPickerRangeController } from '../../index';
+import { DayPickerRangeController } from "../../index";
 
 export default DayPickerRangeController;

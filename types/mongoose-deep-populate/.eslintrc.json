@@ -1,0 +1,7 @@
+{
+    "rules": {
+        "@definitelytyped/dt-header": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@definitelytyped/no-duplicate-imports": "off"
+    }
+}

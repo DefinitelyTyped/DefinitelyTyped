@@ -1,6 +1,20 @@
 {
     "private": true,
+    "name": "@types/postcss-modules-values",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/css-modules/postcss-modules-values#readme"
+    ],
     "dependencies": {
         "postcss": "^8.0.0"
-    }
+    },
+    "devDependencies": {
+        "@types/postcss-modules-values": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bob Matcuk",
+            "githubUsername": "bmatcuk"
+        }
+    ]
 }

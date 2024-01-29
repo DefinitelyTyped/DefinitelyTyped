@@ -1,2 +1,2 @@
-import { hasIn } from '../index';
+import { hasIn } from "../index.js";
 export default hasIn;

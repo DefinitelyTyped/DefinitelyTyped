@@ -1,5 +1,5 @@
-import ahoy = require('ahoy.js');
-import { trackChanges, trackClicks, trackSubmits } from 'ahoy.js';
+import ahoy = require("ahoy.js");
+import { trackChanges, trackClicks, trackSubmits } from "ahoy.js";
 
 // $ExpectType void
 ahoy.start();
@@ -11,14 +11,15 @@ ahoy.configure({
 });
 
 ahoy.configure({
-    cookies: 1, // $ExpectError
+    // @ts-expect-error
+    cookies: 1,
 });
 
 // $ExpectType void
-trackSubmits('#selector');
+trackSubmits("#selector");
 
 // $ExpectType void
-trackClicks('#selector');
+trackClicks("#selector");
 
 // $ExpectType void
-trackChanges('#selector');
+trackChanges("#selector");

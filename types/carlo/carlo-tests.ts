@@ -1,8 +1,8 @@
-import carlo = require('carlo');
+import carlo = require("carlo");
 
 async function main() {
     const app = await carlo.launch({
-        title: 'Test'
+        title: "Test",
     });
 
     app.browserForTest();
@@ -10,7 +10,7 @@ async function main() {
     const window = await app.createWindow({});
     window.setBounds({
         top: 10,
-        width: 30
+        width: 30,
     });
 }
 
@@ -19,14 +19,14 @@ async function main() {
     const app = await carlo.launch();
 
     // Terminate Node.js process on app window closing.
-    app.on('exit', () => process.exit());
+    app.on("exit", () => process.exit());
 
     // Tell carlo where your web files are located.
     app.serveFolder(__dirname);
 
     // Expose 'env' function in the web environment.
-    await app.exposeFunction('env', _ => process.env);
+    await app.exposeFunction("env", _ => process.env);
 
     // Navigate to the main page of your app.
-    await app.load('example.html');
+    await app.load("example.html");
 })();

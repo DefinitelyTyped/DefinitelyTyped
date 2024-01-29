@@ -1,9 +1,9 @@
-export interface Projection {
-    ProjectionType?: 'ALL' | 'KEYS_ONLY' | 'INCLUDE' | string;
-    NonKeyAttributes?: string[];
+export interface Projection<T> {
+    ProjectionType?: "ALL" | "KEYS_ONLY" | "INCLUDE" | string;
+    NonKeyAttributes?: Array<keyof T>;
 }
 
-import * as stream from 'stream';
+import * as stream from "stream";
 
 export type DynamoDB = any;
 
@@ -26,17 +26,17 @@ export type binaryType =
     | stream.Stream;
 
 interface StringSet {
-    type: 'String';
+    type: "String";
     values: string[];
 }
 
 interface NumberSet {
-    type: 'Number';
+    type: "Number";
     values: number[];
 }
 
 interface BinarySet {
-    type: 'Binary';
+    type: "Binary";
     values: binaryType[];
 }
 

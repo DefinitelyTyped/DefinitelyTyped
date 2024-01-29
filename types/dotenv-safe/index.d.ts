@@ -1,10 +1,4 @@
-// Type definitions for dotenv-safe 8.1
-// Project: https://github.com/rolodato/dotenv-safe
-// Definitions by: Stan Goldmann <https://github.com/krenor>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
-import dotenv = require('dotenv');
+import dotenv = require("dotenv");
 
 export interface MissingEnvVarsError extends Error {
     /**

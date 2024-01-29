@@ -1,6 +1,6 @@
-import '../../';
+import "../../";
 
-declare module '../../' {
+declare module "../../" {
     /**
      * Provides a framework for showing autocompletion hints. Defines editor.showHint, which takes an optional
      * options object, and pops up a widget that allows the user to select a completion. Finding hints is done with
@@ -13,7 +13,11 @@ declare module '../../' {
 
     function on<T extends keyof CompletionEventMap>(hints: Hints, eventName: T, handler: CompletionEventMap[T]): void;
     function off<T extends keyof CompletionEventMap>(hints: Hints, eventName: T, handler: CompletionEventMap[T]): void;
-    function signal<T extends keyof CompletionEventMap>(hints: Hints, eventName: T, ...args: Parameters<CompletionEventMap[T]>): void;
+    function signal<T extends keyof CompletionEventMap>(
+        hints: Hints,
+        eventName: T,
+        ...args: Parameters<CompletionEventMap[T]>
+    ): void;
 
     interface CompletionEventMap {
         shown: () => void;
@@ -81,12 +85,15 @@ declare module '../../' {
         updateOnCursorActivity?: boolean | undefined;
         completeOnSingleClick?: boolean | undefined;
         container?: HTMLElement | null | undefined;
-        customKeys?: { [key: string]: ((editor: Editor, handle: CompletionHandle) => void) | string } | null | undefined;
+        customKeys?:
+            | { [key: string]: ((editor: Editor, handle: CompletionHandle) => void) | string }
+            | null
+            | undefined;
         extraKeys?: { [key: string]: ((editor: Editor, handle: CompletionHandle) => void) | string } | null | undefined;
         scrollMargin?: number | undefined;
         paddingForScrollbar?: boolean | undefined;
         moveOnOverlap?: boolean | undefined;
-        words?: ReadonlyArray<string> | undefined; // used by fromList
+        words?: readonly string[] | undefined; // used by fromList
     }
 
     /** The Handle used to interact with the autocomplete dialog box. */

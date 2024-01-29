@@ -1,8 +1,3 @@
-// Type definitions for require-hacker 3.0
-// Project: https://github.com/catamphetamine/require-hacker#readme
-// Definitions by: Ciarán Ingle <https://github.com/inglec-arista>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Resolve {
     /**
      * @param path Path that is `require`d
@@ -29,13 +24,13 @@ export interface GlobalResolve {
      */
     (path: string, module: any):
         | {
-              /**
-               * The absolute path of the path argument passed to this `require` function (which could be relative).
-               */
-              path: string;
-              /** Valid CommonJS JavaScript module source code. */
-              source: string;
-          }
+            /**
+             * The absolute path of the path argument passed to this `require` function (which could be relative).
+             */
+            path: string;
+            /** Valid CommonJS JavaScript module source code. */
+            source: string;
+        }
         | undefined;
 }
 

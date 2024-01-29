@@ -1,16 +1,10 @@
-// Type definitions for non-npm package amap-js-api-geocoder 1.4
-// Project: https://lbs.amap.com/api/javascript-api/reference/lnglat-to-address#m_AMap.Geocoder
-// Definitions by: breeze9527 <https://github.com/breeze9527>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="amap-js-api" />
 
 declare namespace AMap {
     namespace Geocoder {
         interface EventMap {
-            complete: Event<'complete', GeocodeResult | {} | ReGeocodeResult | BatchReGeocodeResult>;
-            error: Event<'error', { info: string }>;
+            complete: Event<"complete", GeocodeResult | {} | ReGeocodeResult | BatchReGeocodeResult>;
+            error: Event<"error", { info: string }>;
         }
         interface Options {
             /**
@@ -32,7 +26,7 @@ declare namespace AMap {
             /**
              * 是否返回详细信息
              */
-            extensions?: 'base' | 'all' | undefined;
+            extensions?: "base" | "all" | undefined;
         }
         interface BuildingArea {
             /**
@@ -325,7 +319,7 @@ declare namespace AMap {
              */
             regeocodes: ReGeocode[];
         }
-        type SearchStatus = 'complete' | 'no_data' | 'error';
+        type SearchStatus = "complete" | "no_data" | "error";
     }
     class Geocoder extends EventEmitter {
         /**
@@ -340,7 +334,7 @@ declare namespace AMap {
          */
         getLocation(
             address: string | string[],
-            callback: (status: Geocoder.SearchStatus, result: Geocoder.GeocodeResult | string) => void
+            callback: (status: Geocoder.SearchStatus, result: Geocoder.GeocodeResult | string) => void,
         ): void;
         /**
          * 设置地址描述所在城市
@@ -354,7 +348,7 @@ declare namespace AMap {
          */
         getAddress(
             location: LocationValue,
-            callback: (status: Geocoder.SearchStatus, result: Geocoder.ReGeocodeResult | string) => void
+            callback: (status: Geocoder.SearchStatus, result: Geocoder.ReGeocodeResult | string) => void,
         ): void;
         /**
          * 根据给定坐标进行解析
@@ -363,7 +357,7 @@ declare namespace AMap {
          */
         getAddress(
             locations: LocationValue[],
-            callback: (status: Geocoder.SearchStatus, result: Geocoder.BatchReGeocodeResult | string) => void
+            callback: (status: Geocoder.SearchStatus, result: Geocoder.BatchReGeocodeResult | string) => void,
         ): void;
 
         // internal

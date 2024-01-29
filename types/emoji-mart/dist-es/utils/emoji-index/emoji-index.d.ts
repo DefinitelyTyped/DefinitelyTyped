@@ -1,7 +1,7 @@
-import { EmojiData, EmojiEntry } from './nimble-emoji-index';
+import { EmojiData, EmojiEntry } from "./nimble-emoji-index";
 
 declare const _default: {
-    search(query: ''): null;
+    search(query: ""): null;
     search(query: string): EmojiData[] | null;
 
     emojis: { [emoji: string]: EmojiEntry };

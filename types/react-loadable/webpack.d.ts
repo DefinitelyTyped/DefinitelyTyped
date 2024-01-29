@@ -1,4 +1,4 @@
-import webpack = require('webpack');
+import webpack = require("webpack");
 
 export interface Bundle {
     id: string;

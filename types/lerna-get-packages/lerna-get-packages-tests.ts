@@ -1,5 +1,5 @@
-import lernaGetPackages = require('lerna-get-packages');
+import lernaGetPackages = require("lerna-get-packages");
 
-const packages = lernaGetPackages('.');
+const packages = lernaGetPackages(".");
 packages.map(p => p.location);
 packages.map(p => p.package.dependencies);

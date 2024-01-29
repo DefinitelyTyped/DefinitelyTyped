@@ -1,9 +1,3 @@
-// Type definitions for lunr.js 2.3
-// Project: https://github.com/olivernn/lunr.js, http://lunrjs.com
-// Definitions by: Sean Tan <https://github.com/seantanly>, Andrés Pérez <https://github.com/hokiegeek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export as namespace lunr;
 export = lunr;
 
@@ -103,7 +97,7 @@ declare namespace lunr {
          */
         metadataWhitelist: string[];
 
-        constructor()
+        constructor();
 
         /**
          * Sets the document field used as the document reference. Every document must have this field.
@@ -134,7 +128,13 @@ declare namespace lunr {
          * @param fieldName - The name of a field to index in all documents.
          * @param attributes - Optional attributes associated with this field.
          */
-        field(fieldName: string, attributes?: { boost?: number | undefined, extractor?: ((doc: object) => string | object | object[]) | undefined }): void;
+        field(
+            fieldName: string,
+            attributes?: {
+                boost?: number | undefined;
+                extractor?: ((doc: object) => string | object | object[]) | undefined;
+            },
+        ): void;
 
         /**
          * A parameter to tune the amount of field length normalisation that is applied when
@@ -178,7 +178,6 @@ declare namespace lunr {
          *
          * This completes the indexing process and should only be called
          * once all documents have been added to the index.
-         *
          */
         build(): Index;
 
@@ -306,7 +305,7 @@ declare namespace lunr {
         /**
          * @param attrs The attributes of the built search index.
          */
-        constructor(attrs: Index.Attributes)
+        constructor(attrs: Index.Attributes);
 
         /**
          * Performs a search against the index using lunr query syntax.
@@ -343,7 +342,6 @@ declare namespace lunr {
          *
          * The schema for this JSON blob will be described in a
          * separate JSON schema file.
-         *
          */
         toJSON(): object;
 
@@ -371,7 +369,7 @@ declare namespace lunr {
          * @param field - The field in which the term was found
          * @param metadata - The metadata recorded about this term in this field
          */
-        constructor(term: string, field: string, metadata: object)
+        constructor(term: string, field: string, metadata: object);
 
         /**
          * An instance of lunr.MatchData will be created for every term that matches a
@@ -406,7 +404,7 @@ declare namespace lunr {
     type PipelineFunction = (
         token: Token,
         i: number,
-        tokens: Token[]
+        tokens: Token[],
     ) => null | Token | Token[];
 
     /**
@@ -437,7 +435,7 @@ declare namespace lunr {
      * is not necessary.
      */
     class Pipeline {
-        constructor()
+        constructor();
 
         /**
          * Register a function with the pipeline.
@@ -521,7 +519,6 @@ declare namespace lunr {
 
         /**
          * Resets the pipeline by removing any existing processors.
-         *
          */
         reset(): void;
 
@@ -529,7 +526,6 @@ declare namespace lunr {
          * Returns a representation of the pipeline ready for serialisation.
          *
          * Logs a warning if the function has not been registered.
-         *
          */
         toJSON(): PipelineFunction[];
     }
@@ -550,13 +546,13 @@ declare namespace lunr {
             /**
              * Term's presence in a document is prohibited, documents that do contain this term will not be returned.
              */
-            PROHIBITED = 3
+            PROHIBITED = 3,
         }
 
         enum wildcard {
             NONE = 0,
             LEADING = 1 << 0,
-            TRAILING = 1 << 1
+            TRAILING = 1 << 1,
         }
 
         /**
@@ -599,7 +595,7 @@ declare namespace lunr {
         /**
          * @param allFields An array of all available fields in a lunr.Index.
          */
-        constructor(allFields: string[])
+        constructor(allFields: string[]);
 
         /**
          * Adds a {@link lunr.Query~Clause} to this query.
@@ -644,7 +640,7 @@ declare namespace lunr {
         start: number;
         end: number;
 
-        constructor(message: string, start: string, end: string)
+        constructor(message: string, start: string, end: string);
     }
 
     /**
@@ -705,11 +701,10 @@ declare namespace lunr {
          * @param [str=''] - The string token being wrapped.
          * @param [metadata={}] - Metadata associated with this token.
          */
-        constructor(str: string, metadata: object)
+        constructor(str: string, metadata: object);
 
         /**
          * Returns the token string that is being wrapped by this object.
-         *
          */
         toString(): string;
 
@@ -754,7 +749,7 @@ declare namespace lunr {
      * This helps to reduce the space used for storing the token set.
      */
     class TokenSet {
-        constructor()
+        constructor();
 
         /**
          * Creates a TokenSet instance from the given sorted array of words.
@@ -794,7 +789,6 @@ declare namespace lunr {
         /**
          * Converts this TokenSet into an array of strings
          * contained within the TokenSet.
-         *
          */
         toArray(): string[];
 
@@ -805,7 +799,6 @@ declare namespace lunr {
          * in objects, largely to aid the construction and minimisation
          * of a TokenSet. As such it is not designed to be a human
          * friendly representation of the TokenSet.
-         *
          */
         toString(): string;
 
@@ -901,7 +894,7 @@ declare namespace lunr {
         /**
          * @param [elements] - The flat list of element index and element value pairs.
          */
-        constructor(elements: number[])
+        constructor(elements: number[]);
 
         /**
          * Calculates the position within the vector to insert a given index.
@@ -936,12 +929,11 @@ declare namespace lunr {
         upsert(
             insertIdx: number,
             val: number,
-            fn: (existingVal: number, val: number) => number
+            fn: (existingVal: number, val: number) => number,
         ): void;
 
         /**
          * Calculates the magnitude of this vector.
-         *
          */
         magnitude(): number;
 
@@ -963,13 +955,11 @@ declare namespace lunr {
 
         /**
          * Converts the vector to an array of the elements within the vector.
-         *
          */
         toArray(): number[];
 
         /**
          * A JSON serializable representation of the vector.
-         *
          */
         toJSON(): number[];
     }

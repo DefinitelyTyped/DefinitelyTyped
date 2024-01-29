@@ -1,4 +1,4 @@
-import { Box3, Matrix3, Matrix4, Plane, Ray, Sphere, Vector3 } from '../../../src/Three';
+import { Box3, Matrix3, Matrix4, Plane, Ray, Sphere, Vector3 } from '../../../src/Three.js';
 
 export class OBB {
     center: Vector3;

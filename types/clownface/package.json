@@ -1,6 +1,28 @@
 {
     "private": true,
+    "name": "@types/clownface",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/rdf-ext/clownface"
+    ],
+    "type": "module",
     "dependencies": {
-      "rdf-js": "^4.0.2"
-    }
-  }
+        "@rdfjs/types": ">=1.0.0",
+        "@types/rdfjs__environment": "*"
+    },
+    "devDependencies": {
+        "@types/clownface": "workspace:.",
+        "@types/rdfjs__dataset": "*",
+        "@types/rdfjs__data-model": "*"
+    },
+    "owners": [
+        {
+            "name": "tpluscode",
+            "githubUsername": "tpluscode"
+        },
+        {
+            "name": "BenjaminHofstetter",
+            "githubUsername": "BenjaminHofstetter"
+        }
+    ]
+}

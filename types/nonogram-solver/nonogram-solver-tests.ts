@@ -1,6 +1,6 @@
-import solve = require('nonogram-solver');
+import solve = require("nonogram-solver");
 
-const { status, puzzle } = solve('input.json');
+const { status, puzzle } = solve("input.json");
 
 puzzle; // $ExpectType Puzzle
 puzzle.columnHints; // $ExpectType number[][]

@@ -1,7 +1,7 @@
 // https://github.com/hapijs/hapi/blob/master/API.md#-serverdecoratetype-property-method-options
 import { Request, ResponseToolkit, Server } from "hapi";
 
-declare module 'hapi' {
+declare module "hapi" {
     interface HandlerDecorations {
         test?: {
             test: number;
@@ -16,25 +16,25 @@ const server = new Server({
 });
 
 server.start();
-server.decorate('toolkit', 'success', function() {
-    return this.response({ status: 'ok' });
+server.decorate("toolkit", "success", function() {
+    return this.response({ status: "ok" });
 });
-server.decorate('handler', 'test', (route, options) => (req, h) => 123);
+server.decorate("handler", "test", (route, options) => (req, h) => 123);
 server.route({
-    method: 'GET',
-    path: '/',
+    method: "GET",
+    path: "/",
     handler: {
         test: {
             test: 123,
-        }
-    }
+        },
+    },
 });
 
 console.log(server.decorations.toolkit);
 
 // Test decorators with additional arguments
 
-declare module 'hapi' {
+declare module "hapi" {
     interface Server {
         withParams(x: number, y: string): string;
     }
@@ -48,28 +48,28 @@ function decorateServerWithParams(this: Server, x: number, y: string) {
     return `${x} ${y}`;
 }
 
-server.decorate('server', 'withParams', decorateServerWithParams);
+server.decorate("server", "withParams", decorateServerWithParams);
 server.withParams(1, "one");
 
 function decorateToolkitWithParams(this: ResponseToolkit, x: number, y: string) {
     return `${x} ${y}`;
 }
 
-server.decorate('toolkit', 'withParams', decorateToolkitWithParams);
+server.decorate("toolkit", "withParams", decorateToolkitWithParams);
 
-server.decorate('toolkit', Symbol('hi'), decorateToolkitWithParams);
+server.decorate("toolkit", Symbol("hi"), decorateToolkitWithParams);
 
 server.route({
-    method: 'GET',
-    path: '/toolkitWithParams',
+    method: "GET",
+    path: "/toolkitWithParams",
     handler: (r, h) => {
         return h.withParams(1, "one");
-    }
+    },
 });
 
 // Test request + apply option types
 
-declare module 'hapi' {
+declare module "hapi" {
     interface Request {
         withApply(x: string, y: number): string;
     }
@@ -81,19 +81,19 @@ function decorateRequestWithApply(request: Request) {
     };
 }
 
-server.decorate('request', 'withApply', decorateRequestWithApply, {apply: true});
+server.decorate("request", "withApply", decorateRequestWithApply, { apply: true });
 
 server.route({
-    method: 'GET',
-    path: '/requestWithApply',
+    method: "GET",
+    path: "/requestWithApply",
     handler: (r, h) => {
         return r.withApply("one", 1);
-    }
+    },
 });
 
 // Test extend option type
 
-declare module 'hapi' {
+declare module "hapi" {
     interface Server {
         withExtend(x: string, y: number): string;
     }
@@ -106,5 +106,5 @@ const decorateServerWithExtend = (existing: () => void) => {
     };
 };
 
-server.decorate('server', 'withExtend', decorateServerWithExtend, {extend: true});
+server.decorate("server", "withExtend", decorateServerWithExtend, { extend: true });
 server.withExtend("one", 1);

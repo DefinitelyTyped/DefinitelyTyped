@@ -1,0 +1,16 @@
+{
+    "private": true,
+    "name": "@types/react-google-maps-loader",
+    "version": "4.2.9999",
+    "projects": [
+        "https://github.com/xuopled/react-google-maps-loader"
+    ],
+    "dependencies": {
+        "@types/google.maps": "*",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-google-maps-loader": "workspace:."
+    },
+    "owners": []
+}

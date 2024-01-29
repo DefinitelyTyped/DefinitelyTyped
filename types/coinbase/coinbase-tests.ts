@@ -5,9 +5,12 @@ const client = new coinbase.Client({ apiKey: "key", apiSecret: "secret", version
 client.getAccounts({}, (error: Error | null, result: coinbase.Account[]): void => undefined);
 
 client.getAccount("abcdef", (error: Error | null, account: coinbase.Account): void => {
-    account.buy({ amount: "1", commit: false, currency: "BTC", payment_method: "abcdef" }, (error: Error | null, buy: coinbase.Buy): void => {
-        buy.commit((error: Error | null, buy: coinbase.Buy): void => undefined);
-    });
+    account.buy(
+        { amount: "1", commit: false, currency: "BTC", payment_method: "abcdef" },
+        (error: Error | null, buy: coinbase.Buy): void => {
+            buy.commit((error: Error | null, buy: coinbase.Buy): void => undefined);
+        },
+    );
 
     account.createAddress({ name: "foo" }, (error: Error | null, address: coinbase.Address): void => {
         address.getTransactions({}, (error: Error | null, transactions: coinbase.Transaction[]): void => undefined);
@@ -15,9 +18,12 @@ client.getAccount("abcdef", (error: Error | null, account: coinbase.Account): vo
 
     account.delete((error: Error | null): void => undefined);
 
-    account.deposit({ amount: "1", commit: false, currency: "USD", payment_method: "abcdef" }, (error: Error | null, deposit: coinbase.Deposit): void => {
-        deposit.commit((error: Error | null, deposit: coinbase.Deposit): void => undefined);
-    });
+    account.deposit(
+        { amount: "1", commit: false, currency: "USD", payment_method: "abcdef" },
+        (error: Error | null, deposit: coinbase.Deposit): void => {
+            deposit.commit((error: Error | null, deposit: coinbase.Deposit): void => undefined);
+        },
+    );
 
     account.getAddress("abcdef", (error: Error | null, address: coinbase.Address): void => undefined);
 
@@ -27,7 +33,10 @@ client.getAccount("abcdef", (error: Error | null, account: coinbase.Account): vo
 
     account.getBuys(null, (error: Error | null, buy: coinbase.Buy[]): void => undefined);
 
-    account.getBuys({ next_starting_after: "abcdef" }, (error: Error | null, buy: coinbase.Buy[], pagination: coinbase.Pagination): void => undefined);
+    account.getBuys(
+        { next_starting_after: "abcdef" },
+        (error: Error | null, buy: coinbase.Buy[], pagination: coinbase.Pagination): void => undefined,
+    );
 
     account.getDeposit("abcdef", (error: Error | null, deposit: coinbase.Deposit): void => undefined);
 
@@ -37,7 +46,10 @@ client.getAccount("abcdef", (error: Error | null, account: coinbase.Account): vo
 
     account.getSells(null, (error: Error | null, deposit: coinbase.Sell[]): void => undefined);
 
-    account.getSells({ next_starting_after: "abcdef" }, (error: Error | null, deposit: coinbase.Sell[], pagination: coinbase.Pagination): void => undefined);
+    account.getSells(
+        { next_starting_after: "abcdef" },
+        (error: Error | null, deposit: coinbase.Sell[], pagination: coinbase.Pagination): void => undefined,
+    );
 
     account.getTransaction("abcdef", (error: Error | null, transaction: coinbase.Transaction): void => {
         transaction.updated_at;
@@ -45,7 +57,10 @@ client.getAccount("abcdef", (error: Error | null, account: coinbase.Account): vo
 
     account.getTransactions({}, (error: Error | null, transactions: coinbase.Transaction[]): void => undefined);
 
-    account.getTransactions({ next_starting_after: "abcdef" }, (error: Error | null, deposit: coinbase.Transaction[], pagination: coinbase.Pagination): void => undefined);
+    account.getTransactions(
+        { next_starting_after: "abcdef" },
+        (error: Error | null, deposit: coinbase.Transaction[], pagination: coinbase.Pagination): void => undefined,
+    );
 
     account.getWithdrawal("abcdef", (error: Error | null, withdrawal: coinbase.Withdrawal): void => undefined);
 
@@ -53,44 +68,57 @@ client.getAccount("abcdef", (error: Error | null, account: coinbase.Account): vo
 
     account.requestMoney(
         { amount: "1", currency: "EUR", description: "foo", to: "bar", type: "request" },
-        (error: Error | null, result: coinbase.Transaction) => undefined
+        (error: Error | null, result: coinbase.Transaction) => undefined,
     );
-    account.requestMoney({ amount: "1", currency: "EUR", to: "bar", type: "request" }, (error: Error | null, tx: coinbase.Transaction) => {
-        tx.cancel((error: Error | null, tx: coinbase.Transaction): void => undefined);
-        tx.complete((error: Error | null, tx: coinbase.Transaction): void => undefined);
-        tx.resend((error: Error | null, tx: coinbase.Transaction): void => undefined);
-    });
+    account.requestMoney(
+        { amount: "1", currency: "EUR", to: "bar", type: "request" },
+        (error: Error | null, tx: coinbase.Transaction) => {
+            tx.cancel((error: Error | null, tx: coinbase.Transaction): void => undefined);
+            tx.complete((error: Error | null, tx: coinbase.Transaction): void => undefined);
+            tx.resend((error: Error | null, tx: coinbase.Transaction): void => undefined);
+        },
+    );
 
     account.sell(
-        { agree_btc_amount_varies: true, amount: "1", commit: true, currency: "BTC", payment_method: "abcdef", quote: true },
+        {
+            agree_btc_amount_varies: true,
+            amount: "1",
+            commit: true,
+            currency: "BTC",
+            payment_method: "abcdef",
+            quote: true,
+        },
         (error: Error | null, sell: coinbase.Sell): void => {
             sell.commit((error: Error | null, sell: coinbase.Sell): void => undefined);
-        }
+        },
     );
     account.sell(
         { currency: "BTC", payment_method: "abcdef", total: "3" },
         (error: Error | null, sell: coinbase.Sell): void => {
             sell.commit((error: Error | null, sell: coinbase.Sell): void => undefined);
-        }
+        },
     );
 
     account.sendMoney(
         { amount: "1", currency: "EUR", description: "foo", fee: "2", idem: "bar", to: "baz", type: "send" },
-        (error: Error | null, result: coinbase.Transaction) => undefined
+        (error: Error | null, result: coinbase.Transaction) => undefined,
     );
 
     account.setPrimary((error: Error | null, result: coinbase.Account): void => undefined);
 
     account.transferMoney(
         { amount: "1", currency: "USD", description: "foo", to: "bar", type: "transfer" },
-        (error: Error | null, tx: coinbase.Transaction): void => undefined
+        (error: Error | null, tx: coinbase.Transaction): void => undefined,
     );
 
     account.update({ name: "foo" }, (error: Error | null, result: coinbase.Account): void => undefined);
 
-    account.withdraw({ amount: "1", commit: false, currency: "ETH", payment_method: "abcdef" }, (error: Error | null, result: coinbase.Withdrawal): void => {
-        result.commit((error: Error | null, result: coinbase.Withdrawal): void => undefined);
-    });
+    account.withdraw(
+        { amount: "1", commit: false, currency: "ETH", payment_method: "abcdef" },
+        (error: Error | null, result: coinbase.Withdrawal): void => {
+            result.commit((error: Error | null, result: coinbase.Withdrawal): void => undefined);
+        },
+    );
 });
 
 client.getBuyPrice({ currencyPair: "USD-BTC" }, (error: Error | null, result: coinbase.Price): void => undefined);
@@ -106,11 +134,17 @@ client.getPaymentMethods((error: Error | null, result: coinbase.PaymentMethod[])
 client.getSellPrice({ currencyPair: "USD-BTC" }, (error: Error | null, result: coinbase.Price): void => undefined);
 
 client.getSpotPrice({ currencyPair: "USD-BTC" }, (error: Error | null, result: coinbase.Price): void => undefined);
-client.getSpotPrice({ currencyPair: "USD-BTC", date: "2017-22-01" }, (error: Error | null, result: coinbase.Price): void => undefined);
+client.getSpotPrice(
+    { currencyPair: "USD-BTC", date: "2017-22-01" },
+    (error: Error | null, result: coinbase.Price): void => undefined,
+);
 
 client.getTime((error: Error | null, result: coinbase.Time): void => undefined);
 
 client.getUser("abcdef", (error: Error | null, user: coinbase.User): void => {
     user.showAuth((error: Error | null, auth: coinbase.Auth): void => undefined);
-    user.update({ name: "foo", time_zone: "bar", native_currency: "USD" }, (error: Error | null, user: coinbase.User): void => undefined);
+    user.update(
+        { name: "foo", time_zone: "bar", native_currency: "USD" },
+        (error: Error | null, user: coinbase.User): void => undefined,
+    );
 });

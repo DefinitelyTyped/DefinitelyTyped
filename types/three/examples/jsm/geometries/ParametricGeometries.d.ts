@@ -1,6 +1,6 @@
-import { Curve, Vector3 } from '../../../src/Three';
+import { Curve, Vector3 } from '../../../src/Three.js';
 
-import { ParametricGeometry } from './ParametricGeometry';
+import { ParametricGeometry } from './ParametricGeometry.js';
 
 export namespace ParametricGeometries {
     function klein(v: number, u: number, target: Vector3): Vector3;

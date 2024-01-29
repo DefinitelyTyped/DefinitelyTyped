@@ -1,9 +1,3 @@
-// Type definitions for braces 3.0
-// Project: https://github.com/micromatch/braces
-// Definitions by: vemoo <https://github.com/vemoo>
-//                 mrmlnc <https://github.com/mrmlnc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace braces {
     type Transform = (str: string) => string;
 
@@ -84,11 +78,11 @@ declare namespace braces {
          */
         quantifiers?: boolean | undefined;
         /**
-         * Strip backslashes that were used for escaping from the result.
+         * Do not strip backslashes that were used for escaping from the result.
          *
          * @default undefined
          */
-        unescape?: boolean | undefined;
+        keepEscaping?: boolean | undefined;
     }
 }
 interface Braces {

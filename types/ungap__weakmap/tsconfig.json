@@ -1,21 +1,17 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es5", "es2015.iterable"],
+        "lib": [
+            "es5",
+            "es2015.iterable"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "@ungap/*": [
-                "ungap__*"
-            ]
-        }
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",

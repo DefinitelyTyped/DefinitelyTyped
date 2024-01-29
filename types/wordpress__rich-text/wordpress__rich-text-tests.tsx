@@ -1,14 +1,21 @@
-import { dispatch, select } from '@wordpress/data';
-import * as RT from '@wordpress/rich-text';
+import { dispatch, select } from "@wordpress/data";
+import * as RT from "@wordpress/rich-text";
+import { createRef } from "react";
+
+// $ExpectType RichTextStoreDescriptor
+RT.store;
+
+// $ExpectType "core/rich-text"
+RT.store.name;
 
 const VALUE: RT.Value = {
     formats: [],
     replacements: [],
-    text: '',
+    text: "",
 };
 
 const FORMAT: RT.Format = {
-    type: 'foo',
+    type: "foo",
 };
 
 //
@@ -30,20 +37,26 @@ RT.concat(VALUE, VALUE, VALUE);
 // create
 //
 RT.create();
-RT.create({ text: 'Hello World!' });
-RT.create({ html: '<p>Hello World!<p>' });
-RT.create({ element: document.createElement('div') });
+RT.create({ text: "Hello World!" });
+RT.create({ html: "<p>Hello World!<p>" });
+RT.create({ element: document.createElement("div") });
 RT.create({
-    element: document.createElement('div'),
-    multilineTag: 'p',
-    multilineWrapperTags: ['div', 'p'],
+    element: document.createElement("div"),
+    multilineTag: "p",
+    multilineWrapperTags: ["div", "p"],
     range: new Range(),
 });
 
 //
 // getActiveFormat
 //
-RT.getActiveFormat(VALUE, 'foo');
+RT.getActiveFormat(VALUE, "foo");
+
+//
+// getActiveFormats
+//
+RT.getActiveFormats(VALUE);
+RT.getActiveFormats(VALUE, []);
 
 //
 // getActiveObject
@@ -82,27 +95,27 @@ RT.isEmpty(VALUE);
 //
 RT.join([VALUE, VALUE]);
 RT.join([], VALUE);
-RT.join([], 'foo');
-RT.join([VALUE], 'foo');
+RT.join([], "foo");
+RT.join([VALUE], "foo");
 
 //
 // registerFormatType
 //
-RT.registerFormatType('foo', {
-    tagName: 'span',
-    className: 'foo',
-    title: 'Foo',
+RT.registerFormatType("foo", {
+    tagName: "span",
+    className: "foo",
+    title: "Foo",
     edit: () => <span>Hello World</span>,
 });
-RT.registerFormatType('foo', {
-    tagName: 'span',
+RT.registerFormatType("foo", {
+    tagName: "span",
     className: null,
-    title: 'Foo',
-    keywords: ['foo', 'bar', 'baz'],
+    title: "Foo",
+    keywords: ["foo", "bar", "baz"],
     object: false,
     attributes: {
-        className: 'class',
-        myFoo: 'data-my-foo',
+        className: "class",
+        myFoo: "data-my-foo",
     },
     edit(props) {
         return <span data-is-active={props.isActive}>{props.value.text}</span>;
@@ -119,17 +132,17 @@ RT.remove(VALUE, 10, 20);
 //
 // removeFormat
 //
-RT.removeFormat(VALUE, 'foo');
-RT.removeFormat(VALUE, 'foo', 10);
+RT.removeFormat(VALUE, "foo");
+RT.removeFormat(VALUE, "foo", 10);
 
 //
 // replace
 //
-RT.replace(VALUE, 'foo', 'bar');
-RT.replace(VALUE, /foo/, 'bar');
-RT.replace(VALUE, 'foo', match => `${match}bar`);
+RT.replace(VALUE, "foo", "bar");
+RT.replace(VALUE, /foo/, "bar");
+RT.replace(VALUE, "foo", match => `${match}bar`);
 RT.replace(VALUE, /foo/, match => `${match}bar`);
-RT.replace(VALUE, 'foo', (match, a, b) => `${match} ${a} ${b}`);
+RT.replace(VALUE, "foo", (match, a, b) => `${match} ${a} ${b}`);
 
 //
 // slice
@@ -142,9 +155,9 @@ RT.slice(VALUE, 10, 20);
 // split
 //
 RT.split(VALUE);
-RT.split(VALUE, 'foo');
+RT.split(VALUE, "foo");
 RT.split(VALUE, 5);
-RT.split(VALUE, 'foo', 10);
+RT.split(VALUE, "foo", 10);
 RT.split(VALUE, 5, 10);
 RT.split(VALUE, undefined, 5);
 
@@ -152,7 +165,7 @@ RT.split(VALUE, undefined, 5);
 // toHTMLString
 //
 RT.toHTMLString({ value: VALUE });
-RT.toHTMLString({ value: VALUE, multilineTag: 'p' });
+RT.toHTMLString({ value: VALUE, multilineTag: "p" });
 
 //
 // toggleFormat
@@ -162,23 +175,35 @@ RT.toggleFormat(VALUE, FORMAT);
 //
 // unregisterFormatType
 //
-RT.unregisterFormatType('foo');
+RT.unregisterFormatType("foo");
 
 //
 // store
 //
-dispatch('core/rich-text').addFormatTypes({
+dispatch("core/rich-text").addFormatTypes({
     className: null,
     edit: () => null,
-    name: 'my/foo',
-    tagName: 'a',
-    title: 'foo',
+    name: "my/foo",
+    tagName: "a",
+    title: "foo",
 });
-dispatch('core/rich-text').removeFormatTypes('my/foo');
-dispatch('core/rich-text').removeFormatTypes(['my/foo', 'my/bar']);
+dispatch("core/rich-text").removeFormatTypes("my/foo");
+dispatch("core/rich-text").removeFormatTypes(["my/foo", "my/bar"]);
 
 // $ExpectType NamedFormatConfiguration[]
-select('core/rich-text').getFormatTypes();
+select("core/rich-text").getFormatTypes();
 
 // $ExpectType NamedFormatConfiguration | undefined
-select('core/rich-text').getFormatTypeForBareElement('a');
+select("core/rich-text").getFormatTypeForBareElement("a");
+
+// useAnchor
+RT.useAnchor({ editableContentElement: new HTMLElement(), value: RT.create() });
+RT.useAnchor({ editableContentElement: new HTMLElement(), value: RT.create(), settings: RT.create().formats[0]![0] });
+
+// useAnchorRef
+RT.useAnchorRef({ ref: createRef(), value: VALUE });
+RT.useAnchorRef({
+    ref: createRef(),
+    value: VALUE,
+    settings: select("core/rich-text").getFormatTypeForBareElement("a")!,
+});

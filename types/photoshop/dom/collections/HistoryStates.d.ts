@@ -11,7 +11,7 @@ import { HistoryState } from "../HistoryState";
  * var snapshots = app.activeDocument.historyStates.filter(h => h.snapshot)
  * ```
  */
-export declare class HistoryStates {
+export declare class HistoryStates extends Array<HistoryState> {
     /**
      * @ignore
      */
@@ -21,7 +21,8 @@ export declare class HistoryStates {
      */
     private proxy;
     /**
-     * Used to access the history states in the collection
+     * Used to access the history states in the collection.
+     * @minVersion 22.5
      */
     [index: number]: HistoryState;
     /**
@@ -35,15 +36,18 @@ export declare class HistoryStates {
         get: (obj: any, key: any) => any;
     };
     /**
-     * Find the first history state with the matching name
+     * Find the first history state with the matching name.
+     * @minVersion 22.5
      */
     getByName(name: string): HistoryState;
     /**
-     * Number of [[HistoryState]] elements in this collection
+     * Number of [[HistoryState]] elements in this collection.
+     * @minVersion 22.5
      */
     get length(): number;
     /**
-     * The owner document of this HistoryState collection
+     * The owner document of this HistoryState collection.
+     * @minVersion 22.5
      */
     get parent(): Document;
 }

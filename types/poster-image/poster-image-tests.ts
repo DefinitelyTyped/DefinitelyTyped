@@ -1,4 +1,4 @@
-import poster = require('poster-image');
+import poster = require("poster-image");
 
 const file = new Blob();
 

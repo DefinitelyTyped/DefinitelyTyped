@@ -1,9 +1,3 @@
-// Type definitions for Glider.js 1.7
-// Project: https://nickpiscitelli.github.io/Glider.js
-// Definitions by: Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 declare namespace Glider {
     // Selectors are either results of querying document DOM or a string
     // Let's default to nullable Element to allow friction free migration
@@ -12,58 +6,58 @@ declare namespace Glider {
 
     type EasingFunction = (x: number, t: number, b: number, c: number, d: number) => number;
 
-    interface GliderEvent<T = undefined> {
-        bubbles: boolean;
+    interface GliderEvent<T = undefined> extends Event {
         detail: T;
+        target: (HTMLElement & { _glider: Glider<HTMLElement> | undefined }) | null;
     }
 
     interface GliderEventMap {
         /**
          * Called whenever an item is added to Glider.js
          */
-        'glider-add': {
+        "glider-add": {
             scroll: () => void;
         };
 
         /**
          * Called whenever a Glider.js paging animation is complete
          */
-        'glider-animated': {
+        "glider-animated": {
             value: string | number;
-            type: 'arrow' | 'dot' | 'slide';
+            type: "arrow" | "dot" | "slide";
         };
 
         /**
          * Called whenever a Glider.js is destroyed
          */
-        'glider-destroy': undefined;
+        "glider-destroy": undefined;
 
         /**
          * Called after Glider.js is first initialized
          */
-        'glider-loaded': undefined;
+        "glider-loaded": undefined;
 
         /**
          * Called whenever Glider.js refreshes its elements or settings
          */
-        'glider-refresh': undefined;
+        "glider-refresh": undefined;
 
         /**
          * Called whenever a Glider.js animation is complete
          */
-        'glider-remove': undefined;
+        "glider-remove": undefined;
 
         /**
          * Called whenever a slide is hidden. Passed an object containing the slide index
          */
-        'glider-slide-hidden': {
+        "glider-slide-hidden": {
             slide: number;
         };
 
         /**
          * Called whenever a slide is shown. Passed an object containing the slide index
          */
-        'glider-slide-visible': {
+        "glider-slide-visible": {
             slide: number;
         };
     }
@@ -79,9 +73,9 @@ declare namespace Glider {
          */
         arrows?:
             | {
-                  prev: Selector | null;
-                  next: Selector | null;
-              }
+                prev: Selector | null;
+                next: Selector | null;
+            }
             | undefined;
 
         /**
@@ -175,7 +169,7 @@ declare namespace Glider {
          * this value is set to `auto`, it will match the value of
          * `slidesToScroll`.
          */
-        slidesToScroll?: number | 'auto' | undefined;
+        slidesToScroll?: number | "auto" | undefined;
 
         /**
          * The number of slides to show in container. If this value is set
@@ -183,11 +177,11 @@ declare namespace Glider {
          * number of items able to fit within the container viewport. This
          * requires setting the `itemWidth` option.
          */
-        slidesToShow?: number | 'auto' | undefined;
+        slidesToShow?: number | "auto" | undefined;
     }
 
     interface Arrow extends HTMLElement {
-        _func?: (glider: Glider, direction: 'next' | 'prev') => false;
+        _func?: (glider: Glider, direction: "next" | "prev") => false;
     }
 }
 
@@ -288,10 +282,22 @@ declare global {
             listener: (event: Glider.GliderEvent<Glider.GliderEventMap[K]>) => void,
             options?: boolean | AddEventListenerOptions,
         ): void;
+
+        removeEventListener<K extends keyof Glider.GliderEventMap>(
+            type: K,
+            listener: (event: Glider.GliderEvent<Glider.GliderEventMap[K]>) => void,
+            options?: boolean | AddEventListenerOptions,
+        ): void;
     }
 
     interface HTMLDivElement {
         addEventListener<K extends keyof Glider.GliderEventMap>(
+            type: K,
+            listener: (event: Glider.GliderEvent<Glider.GliderEventMap[K]>) => void,
+            options?: boolean | AddEventListenerOptions,
+        ): void;
+
+        removeEventListener<K extends keyof Glider.GliderEventMap>(
             type: K,
             listener: (event: Glider.GliderEvent<Glider.GliderEventMap[K]>) => void,
             options?: boolean | AddEventListenerOptions,

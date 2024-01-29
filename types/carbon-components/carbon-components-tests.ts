@@ -24,6 +24,7 @@ import {
     ProductSwitcher,
     ProgressIndicator,
     Search,
+    settings,
     SideNav,
     Slider,
     StructuredList,
@@ -33,18 +34,17 @@ import {
     Toolbar,
     Tooltip,
     TooltipSimple,
-    settings,
-} from 'carbon-components';
+} from "carbon-components";
 
-const accordion = new Accordion(document.getElementById('root')!, { selectorAccordionContent: '' });
+const accordion = new Accordion(document.getElementById("root")!, { selectorAccordionContent: "" });
 
 accordion._checkIfButton();
 accordion._handleKeypress({});
-accordion._toggle(document.getElementById('root')!);
+accordion._toggle(document.getElementById("root")!);
 Accordion.components;
 Accordion.options;
 
-const checkbox = new Checkbox(document.getElementById('root')!);
+const checkbox = new Checkbox(document.getElementById("root")!);
 
 checkbox._handleBlur();
 checkbox._handleClick();
@@ -58,11 +58,11 @@ settings.prefix; // $ExpectType string
 settings.selectorFocusable; // $ExpectType string
 settings.selectorTabbable; // $ExpectType string
 
-const tooltip = new Tooltip(document.getElementById('tooltip')!, { classShown: 'tooltip' });
+const tooltip = new Tooltip(document.getElementById("tooltip")!, { classShown: "tooltip" });
 
-tooltip.changeState('', {}, () => {});
+tooltip.changeState("", {}, () => {});
 
-const tableEl = document.getElementById('table')!;
-const datatable = new DataTableV2(tableEl, { selectorActionCancel: '' });
+const tableEl = document.getElementById("table")!;
+const datatable = new DataTableV2(tableEl, { selectorActionCancel: "" });
 
 datatable.activateSearch(tableEl);

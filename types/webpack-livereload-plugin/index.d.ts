@@ -1,11 +1,6 @@
-// Type definitions for webpack-livereload-plugin 2.3
-// Project: https://github.com/statianzo/webpack-livereload-plugin#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-import { Plugin, Stats } from 'webpack';
-import { ServerOptions } from 'https';
-import webpack = require('webpack');
+import { ServerOptions } from "https";
+import { Plugin, Stats } from "webpack";
+import webpack = require("webpack");
 
 declare class LiveReloadPlugin extends Plugin {
     readonly isRunning: boolean;
@@ -22,7 +17,7 @@ declare class LiveReloadPlugin extends Plugin {
 }
 
 declare namespace LiveReloadPlugin {
-    interface Options extends Pick<ServerOptions, 'cert' | 'key' | 'pfx'> {
+    interface Options extends Pick<ServerOptions, "cert" | "key" | "pfx"> {
         /**
          * protocol for livereload `<script>` src attribute value
          * @default protocol of the page, either `http` or `https`

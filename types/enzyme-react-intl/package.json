@@ -1,6 +1,22 @@
 {
     "private": true,
+    "name": "@types/enzyme-react-intl",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/joetidee/enzyme-react-intl#readme"
+    ],
     "dependencies": {
+        "@types/enzyme": "^3",
+        "@types/react": "^16",
         "react-intl": "^3"
-    }
+    },
+    "devDependencies": {
+        "@types/enzyme-react-intl": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mateusz Meller",
+            "githubUsername": "mateusz-meller"
+        }
+    ]
 }

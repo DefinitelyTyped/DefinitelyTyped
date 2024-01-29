@@ -8,10 +8,6 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
@@ -21,6 +17,6 @@
     "files": [
         "index.d.ts",
         "test/react-is-tests.tsx",
-        "test/next-tests.tsx"
+        "test/canary-tests.tsx"
     ]
 }

@@ -1,76 +1,76 @@
-import * as Rox from 'rox-node';
+import * as Rox from "rox-node";
 
 const flags = {
-  superFlag: new Rox.Flag(false),
-  superFlag2: new Rox.Flag(),
+    superFlag: new Rox.Flag(false),
+    superFlag2: new Rox.Flag(),
 };
 
 const stringFlags = {
-  strFlag: new Rox.RoxString('value1', ['value1', 'value2']),
+    strFlag: new Rox.RoxString("value1", ["value1", "value2"]),
 };
 
 const numberFlags = {
-  numFlag: new Rox.RoxNumber(12, [18, 24]),
+    numFlag: new Rox.RoxNumber(12, [18, 24]),
 };
 
 // The register function should be called before the call to Rox.setup()
-Rox.register('default', { ...numberFlags, ...stringFlags, ...flags });
-Rox.setContext({ user: 'John Doe' });
-Rox.setup('ROLLOUT_IO_KEY', {
-  impressionHandler,
-  configurationFetchedHandler,
-  dynamicPropertyRuleHandler
+Rox.register("default", { ...numberFlags, ...stringFlags, ...flags });
+Rox.setContext({ user: "John Doe" });
+Rox.setup("ROLLOUT_IO_KEY", {
+    impressionHandler,
+    configurationFetchedHandler,
+    dynamicPropertyRuleHandler,
 }).then(linkTargetGroupAttributes);
 
 Rox.fetch();
 
-Rox.dynamicApi.isEnabled('system.repotAnalytics', false);
-Rox.dynamicApi.value('ui.textColor', 'red');
+Rox.dynamicApi.isEnabled("system.repotAnalytics", false);
+Rox.dynamicApi.value("ui.textColor", "red");
 
 Rox.flags[0].defaultValue;
 Rox.flags[0].name;
 
 flags.superFlag.isEnabled();
-flags.superFlag.isEnabled({ user: 'John' });
+flags.superFlag.isEnabled({ user: "John" });
 
 numberFlags.numFlag.defaultValue;
 numberFlags.numFlag.name;
 numberFlags.numFlag.getValue();
-numberFlags.numFlag.getValue({ user: 'John' });
+numberFlags.numFlag.getValue({ user: "John" });
 
 stringFlags.strFlag.defaultValue;
 stringFlags.strFlag.name;
 stringFlags.strFlag.getValue();
-stringFlags.strFlag.getValue({ user: 'John' });
+stringFlags.strFlag.getValue({ user: "John" });
 
 function linkTargetGroupAttributes() {
-  Rox.setCustomStringProperty('id', 'someId');
-  Rox.setCustomStringProperty('id', () => 'someId');
-  Rox.setCustomStringProperty('id', (context: any): string => context.id);
+    Rox.setCustomStringProperty("id", "someId");
+    Rox.setCustomStringProperty("id", () => "someId");
+    Rox.setCustomStringProperty("id", (context: any): string => context.id);
 
-  Rox.setCustomBooleanProperty('thisIsATest', true);
-  Rox.setCustomBooleanProperty('thisIsATest', () => true);
-  Rox.setCustomBooleanProperty('thisIsATest', (context: any): boolean => context.value);
+    Rox.setCustomBooleanProperty("thisIsATest", true);
+    Rox.setCustomBooleanProperty("thisIsATest", () => true);
+    Rox.setCustomBooleanProperty("thisIsATest", (context: any): boolean => context.value);
 
-  Rox.setCustomNumberProperty('aNumberProperty', 17);
-  Rox.setCustomNumberProperty('aNumberProperty', () => 17);
-  Rox.setCustomNumberProperty('aNumberProperty', (context: any): number => context.value);
+    Rox.setCustomNumberProperty("aNumberProperty", 17);
+    Rox.setCustomNumberProperty("aNumberProperty", () => 17);
+    Rox.setCustomNumberProperty("aNumberProperty", (context: any): number => context.value);
 }
 
 function dynamicPropertyRuleHandler(propName: string, _context: unknown) {
-  return propName === 'myPropName';
+    return propName === "myPropName";
 }
 
 function impressionHandler(
-  _reporting: Rox.RoxReporting
+    _reporting: Rox.RoxReporting,
 ) {
-  // If _reporting.targeting is false, it mean there were no dashboard conditions, and default value was used
+    // If _reporting.targeting is false, it mean there were no dashboard conditions, and default value was used
 }
 
 function configurationFetchedHandler(fetcherResult: Rox.RoxFetcherResult) {
-  if (
-    fetcherResult.hasChanges &&
-    fetcherResult.fetcherStatus === Rox.RoxFetcherStatus.AppliedFromCache
-  ) {
-  }
+    if (
+        fetcherResult.hasChanges
+        && fetcherResult.fetcherStatus === Rox.RoxFetcherStatus.AppliedFromCache
+    ) {
+    }
 }

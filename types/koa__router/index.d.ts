@@ -1,15 +1,3 @@
-// Type definitions for @koa/router 8.x
-// Project: https://github.com/koajs/koa-router#readme
-// Definitions by: Jerry Chin <https://github.com/hellopao>
-//                 Pavel Ivanov <https://github.com/schfkt>
-//                 JounQin <https://github.com/JounQin>
-//                 Romain Faust <https://github.com/romain-faust>
-//                 Guillaume Mayer <https://github.com/Guillaume-Mayer>
-//                 Andrea Gueugnaut <https://github.com/falinor>
-//                 Jeremy Forsythe <https://github.com/jdforsythe>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /* =================== USAGE ===================
 
     import * as Router from "@koa/router";
@@ -17,9 +5,9 @@
 
  =============================================== */
 
- import * as Koa from "koa";
+import * as Koa from "koa";
 
- declare namespace Router {
+declare namespace Router {
     interface RouterOptions {
         /**
          * Prefix for all routes.
@@ -41,6 +29,14 @@
          * account when matching routes.
          */
         strict?: boolean | undefined;
+        /**
+         * Only run last matched route's controller when there are multiple matches
+         */
+        exclusive?: boolean | undefined;
+        /**
+         * Host for router match
+         */
+        host?: string | RegExp | undefined;
     }
 
     interface RouterParamContext<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> {
@@ -59,12 +55,17 @@
         _matchedRouteName: string | undefined;
     }
 
-    type RouterContext<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> = Koa.ParameterizedContext<StateT, ContextT & RouterParamContext<StateT, ContextT>>;
+    type RouterContext<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext, BodyT = unknown> =
+        Koa.ParameterizedContext<StateT, ContextT & RouterParamContext<StateT, ContextT>, BodyT>;
 
-    type Middleware<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> = Koa.Middleware<StateT, ContextT & RouterParamContext<StateT, ContextT>>;
+    type Middleware<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext, BodyT = unknown> = Koa.Middleware<
+        StateT,
+        ContextT & RouterParamContext<StateT, ContextT>,
+        BodyT
+    >;
 
-    interface ParamMiddleware {
-        (param: string, ctx: RouterContext, next: Koa.Next): any;
+    interface ParamMiddleware<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext, BodyT = unknown> {
+        (param: string, ctx: RouterContext<StateT, ContextT, BodyT>, next: Koa.Next): any;
     }
 
     interface RouterAllowedMethodsOptions {
@@ -83,10 +84,25 @@
     }
 
     interface LayerOptions {
+        /**
+         * Route name
+         */
         name: string | null;
+        /**
+         * Case sensitive (default: false)
+         */
         sensitive?: boolean | undefined;
+        /**
+         * Require the trailing slash (default: false)
+         */
         strict?: boolean | undefined;
+        /**
+         * (default: false)
+         */
         end?: boolean | undefined;
+        /**
+         * (default: '')
+         */
         prefix?: string | undefined;
         ignoreCaptures?: boolean | undefined;
     }
@@ -119,9 +135,14 @@
         paramNames: ParamName[];
         stack: Middleware[];
         regexp: RegExp;
-        path: string;
+        path: string | RegExp;
 
-        constructor(path: string | RegExp, methods: string[], middleware: Middleware | Middleware[], opts?: LayerOptions);
+        constructor(
+            path: string | RegExp,
+            methods: string[],
+            middleware: Middleware | Middleware[],
+            opts?: LayerOptions,
+        );
 
         /**
          * Returns whether request `path` matches route.
@@ -131,7 +152,11 @@
         /**
          * Returns map of URL parameters for given `path` and `paramNames`.
          */
-        params(path: string | RegExp, captures: string[], existingParams?: object): object;
+        params<ParamT extends string = string>(
+            path: string | RegExp,
+            captures: ParamT[],
+            params?: Record<string, any>,
+        ): { [key in ParamT]?: string };
 
         /**
          * Returns array of regexp url path captures.
@@ -140,13 +165,35 @@
 
         /**
          * Generate URL for route using given `params`.
+         *
+         * @example
+         *
+         * ```javascript
+         * const route = new Layer('/users/:id', ['GET'], fn);
+         *
+         * route.url({ id: 123 }); // => "/users/123"
+         * ```
          */
         url(params: object): string;
 
         /**
          * Run validations on route named parameters.
+         *
+         * @example
+         *
+         * ```javascript
+         * router
+         *   .param('user', function (id, ctx, next) {
+         *     ctx.user = users[id];
+         *     if (!ctx.user) return ctx.status = 404;
+         *     next();
+         *   })
+         *   .get('/users/:user', function (ctx, next) {
+         *     ctx.body = ctx.user;
+         *   });
+         * ```
          */
-        param(param: string, fn: Middleware): Layer;
+        param(param: string, middleware: ParamMiddleware): Layer;
 
         /**
          * Prefix route path.
@@ -174,6 +221,13 @@ declare class Router<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> {
      * "down" the middleware stack.
      */
     use(...middleware: Array<Router.Middleware<StateT, ContextT>>): Router<StateT, ContextT>;
+    /**
+     * Use given middleware.
+     *
+     * Middleware run in the order they are defined by `.use()`. They are invoked
+     * sequentially, requests start at the first middleware and work their way
+     * "down" the middleware stack.
+     */
     use(
         path: string | string[] | RegExp,
         ...middleware: Array<Router.Middleware<StateT, ContextT>>
@@ -182,148 +236,187 @@ declare class Router<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> {
     /**
      * HTTP get method
      */
-    get<T = {}, U = {}>(
+    get<T = {}, U = {}, B = unknown>(
         name: string,
         path: string | RegExp,
-        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U, B>>
     ): Router<StateT, ContextT>;
-    get<T = {}, U = {}>(
+    /**
+     * HTTP get method
+     */
+    get<T = {}, U = {}, B = unknown>(
         path: string | RegExp | Array<string | RegExp>,
-        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U, B>>
     ): Router<StateT, ContextT>;
 
     /**
      * HTTP post method
      */
-    post<T = {}, U = {}>(
+    post<T = {}, U = {}, B = unknown>(
         name: string,
         path: string | RegExp,
-        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U, B>>
     ): Router<StateT, ContextT>;
-    post<T = {}, U = {}>(
+    /**
+     * HTTP post method
+     */
+    post<T = {}, U = {}, B = unknown>(
         path: string | RegExp | Array<string | RegExp>,
-        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U, B>>
     ): Router<StateT, ContextT>;
 
     /**
      * HTTP put method
      */
-    put<T = {}, U = {}>(
+    put<T = {}, U = {}, B = unknown>(
         name: string,
         path: string | RegExp,
-        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U, B>>
     ): Router<StateT, ContextT>;
-    put<T = {}, U = {}>(
+    /**
+     * HTTP put method
+     */
+    put<T = {}, U = {}, B = unknown>(
         path: string | RegExp | Array<string | RegExp>,
-        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U, B>>
     ): Router<StateT, ContextT>;
 
     /**
      * HTTP link method
      */
-    link<T = {}, U = {}>(
+    link<T = {}, U = {}, B = unknown>(
         name: string,
         path: string | RegExp,
-        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U, B>>
     ): Router<StateT, ContextT>;
-    link<T = {}, U = {}>(
+    /**
+     * HTTP link method
+     */
+    link<T = {}, U = {}, B = unknown>(
         path: string | RegExp | Array<string | RegExp>,
-        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U, B>>
     ): Router<StateT, ContextT>;
 
     /**
      * HTTP unlink method
      */
-    unlink<T = {}, U = {}>(
+    unlink<T = {}, U = {}, B = unknown>(
         name: string,
         path: string | RegExp,
-        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U, B>>
     ): Router<StateT, ContextT>;
-    unlink<T = {}, U = {}>(
+    /**
+     * HTTP unlink method
+     */
+    unlink<T = {}, U = {}, B = unknown>(
         path: string | RegExp | Array<string | RegExp>,
-        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U, B>>
     ): Router<StateT, ContextT>;
 
     /**
      * HTTP delete method
      */
-    delete<T = {}, U = {}>(
+    delete<T = {}, U = {}, B = unknown>(
         name: string,
         path: string | RegExp,
-        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U, B>>
     ): Router<StateT, ContextT>;
-    delete<T = {}, U = {}>(
+    /**
+     * HTTP delete method
+     */
+    delete<T = {}, U = {}, B = unknown>(
         path: string | RegExp | Array<string | RegExp>,
-        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U, B>>
     ): Router<StateT, ContextT>;
 
     /**
      * Alias for `router.delete()` because delete is a reserved word
      */
-    del<T = {}, U = {}>(
+    del<T = {}, U = {}, B = unknown>(
         name: string,
         path: string | RegExp,
-        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U, B>>
     ): Router<StateT, ContextT>;
-    del<T = {}, U = {}>(
+    /**
+     * Alias for `router.delete()` because delete is a reserved word
+     */
+    del<T = {}, U = {}, B = unknown>(
         path: string | RegExp | Array<string | RegExp>,
-        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U, B>>
     ): Router<StateT, ContextT>;
 
     /**
      * HTTP head method
      */
-    head<T = {}, U = {}>(
+    head<T = {}, U = {}, B = unknown>(
         name: string,
         path: string | RegExp,
-        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U, B>>
     ): Router<StateT, ContextT>;
-    head<T = {}, U = {}>(
+    /**
+     * HTTP head method
+     */
+    head<T = {}, U = {}, B = unknown>(
         path: string | RegExp | Array<string | RegExp>,
-        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U, B>>
     ): Router<StateT, ContextT>;
 
     /**
      * HTTP options method
      */
-    options<T = {}, U = {}>(
+    options<T = {}, U = {}, B = unknown>(
         name: string,
         path: string | RegExp,
-        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U, B>>
     ): Router<StateT, ContextT>;
-    options<T = {}, U = {}>(
+    /**
+     * HTTP options method
+     */
+    options<T = {}, U = {}, B = unknown>(
         path: string | RegExp | Array<string | RegExp>,
-        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U, B>>
     ): Router<StateT, ContextT>;
 
     /**
      * HTTP patch method
      */
-    patch<T = {}, U = {}>(
+    patch<T = {}, U = {}, B = unknown>(
         name: string,
         path: string | RegExp,
-        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U, B>>
     ): Router<StateT, ContextT>;
-    patch<T = {}, U = {}>(
+    /**
+     * HTTP patch method
+     */
+    patch<T = {}, U = {}, B = unknown>(
         path: string | RegExp | Array<string | RegExp>,
-        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U, B>>
     ): Router<StateT, ContextT>;
 
     /**
      * Register route with all methods.
      */
-    all<T = {}, U = {}>(
+    all<T = {}, U = {}, B = unknown>(
         name: string,
         path: string | RegExp,
-        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U, B>>
     ): Router<StateT, ContextT>;
-    all<T = {}, U = {}>(
+    /**
+     * Register route with all methods.
+     */
+    all<T = {}, U = {}, B = unknown>(
         path: string | RegExp | Array<string | RegExp>,
-        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U>>
+        ...middleware: Array<Router.Middleware<StateT & T, ContextT & U, B>>
     ): Router<StateT, ContextT>;
 
     /**
      * Set the path prefix for a Router instance that was already initialized.
+     *
+     * @example
+     *
+     * ```javascript
+     * router.prefix('/things/:thing_id')
+     * ```
      */
     prefix(prefix: string): Router<StateT, ContextT>;
 
@@ -341,15 +434,59 @@ declare class Router<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> {
      * Returns separate middleware for responding to `OPTIONS` requests with
      * an `Allow` header containing the allowed methods, as well as responding
      * with `405 Method Not Allowed` and `501 Not Implemented` as appropriate.
+     *
+     * @example
+     *
+     * ```javascript
+     * var Koa = require('koa');
+     * var Router = require('koa-router');
+     *
+     * var app = new Koa();
+     * var router = new Router();
+     *
+     * app.use(router.routes());
+     * app.use(router.allowedMethods());
+     * ```
+     *
+     * **Example with [Boom](https://github.com/hapijs/boom)**
+     *
+     * ```javascript
+     * var Koa = require('koa');
+     * var Router = require('koa-router');
+     * var Boom = require('boom');
+     *
+     * var app = new Koa();
+     * var router = new Router();
+     *
+     * app.use(router.routes());
+     * app.use(router.allowedMethods({
+     *   throw: true,
+     *   notImplemented: () => new Boom.notImplemented(),
+     *   methodNotAllowed: () => new Boom.methodNotAllowed()
+     * }));
+     * ```
      */
     allowedMethods(
-        options?: Router.RouterAllowedMethodsOptions
+        options?: Router.RouterAllowedMethodsOptions,
     ): Router.Middleware<StateT, ContextT>;
 
     /**
      * Redirect `source` to `destination` URL with optional 30x status `code`.
      *
      * Both `source` and `destination` can be route names.
+     *
+     * ```javascript
+     * router.redirect('/login', 'sign-in');
+     * ```
+     *
+     * This is equivalent to:
+     *
+     * ```javascript
+     * router.all('/login', ctx => {
+     *   ctx.redirect('/sign-in');
+     *   ctx.status = 301;
+     * });
+     * ```
      */
     redirect(source: string, destination: string, code?: number): Router<StateT, ContextT>;
 
@@ -385,7 +522,6 @@ declare class Router<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> {
      *
      * router.url('user', { id: 3 }, { query: "limit=1" });
      * // => "/users/3?limit=1"
-     *
      */
     url(name: string, params?: any, options?: Router.UrlOptionsQuery): Error | string;
 
@@ -395,14 +531,65 @@ declare class Router<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> {
     match(path: string, method: string): Router.RoutesMatch;
 
     /**
-     * Run middleware for named route parameters. Useful for auto-loading or validation.
+     * Run middleware for named route parameters. Useful for auto-loading or
+     * validation.
+     *
+     * @example
+     *
+     * ```javascript
+     * router
+     *   .param('user', (id, ctx, next) => {
+     *     ctx.user = users[id];
+     *     if (!ctx.user) return ctx.status = 404;
+     *     return next();
+     *   })
+     *   .get('/users/:user', ctx => {
+     *     ctx.body = ctx.user;
+     *   })
+     *   .get('/users/:user/friends', ctx => {
+     *     return ctx.user.getFriends().then(function(friends) {
+     *       ctx.body = friends;
+     *     });
+     *   })
+     *   // /users/3 => {"id": 3, "name": "Alex"}
+     *   // /users/3/friends => [{"id": 4, "name": "TJ"}]
+     * ```
      */
-    param(param: string, middleware: Router.ParamMiddleware): Router<StateT, ContextT>;
+
+    param<BodyT = unknown>(
+        param: string,
+        middleware: Router.ParamMiddleware<StateT, ContextT, BodyT>,
+    ): Router<StateT, ContextT>;
 
     /**
-     * Generate URL from url pattern and given `params`.
+     * Generate URL for route. Takes a route name and map of named `params`.
+     *
+     * @example
+     *
+     * ```javascript
+     * router.get('user', '/users/:id', (ctx, next) => {
+     *   // ...
+     * });
+     *
+     * router.url('user', 3);
+     * // => "/users/3"
+     *
+     * router.url('user', { id: 3 });
+     * // => "/users/3"
+     *
+     * router.use((ctx, next) => {
+     *   // redirect to named route
+     *   ctx.redirect(ctx.router.url('sign-in'));
+     * })
+     *
+     * router.url('user', { id: 3 }, { query: { limit: 1 } });
+     * // => "/users/3?limit=1"
+     *
+     * router.url('user', { id: 3 }, { query: "limit=1" });
+     * // => "/users/3?limit=1"
+     * ```
      */
     static url(path: string | RegExp, params: object): string;
- }
+}
 
- export = Router;
+export = Router;

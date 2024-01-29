@@ -1,14 +1,8 @@
-// Type definitions for Orchestrator 0.3
-// Project: https://github.com/orchestrator/orchestrator
-// Definitions by: Qubo <https://github.com/tkQubo>, TeamworkGuy2 <https://github.com/TeamworkGuy2>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
 import * as events from "events";
-import * as stream from "stream";
 import * as Q from "q";
+import * as stream from "stream";
 
 /** A module for sequencing and executing tasks and dependencies in maximum concurrency
  */
@@ -97,7 +91,7 @@ declare namespace Orchestrator {
     type RunTask = (task: Orchestrator.TaskFunc, done: (err: any, meta: Orchestrator.Meta) => void) => void;
 
     /** The module export of the sequencify package: https://www.npmjs.com/package/sequencify */
-    type Sequencify = (tasks: Array<{ dep: string[]; }>, names: string[]) => {
+    type Sequencify = (tasks: Array<{ dep: string[] }>, names: string[]) => {
         sequence: string[];
         missingTasks: string[];
         recursiveDependencies: string[];
@@ -137,13 +131,28 @@ declare namespace Orchestrator {
          * @param tasks Tasks to be executed. You may pass any number of tasks as individual arguments.
          * @param cb Callback to call after run completed.
          */
-        (...tasks: Strings[]/*, cb?: (error: any) => any */): Orchestrator;
+        (...tasks: Strings[] /*, cb?: (error: any) => any */): Orchestrator;
         // TODO: TypeScript 2.1.5 cannot express varargs followed by callback as a last argument...
         (task1: Strings, task2: Strings, cb?: (error?: any) => any): Orchestrator;
         (task1: Strings, task2: Strings, task3: Strings, cb?: (error?: any) => any): Orchestrator;
         (task1: Strings, task2: Strings, task3: Strings, task4: Strings, cb?: (error?: any) => any): Orchestrator;
-        (task1: Strings, task2: Strings, task3: Strings, task4: Strings, task5: Strings, cb?: (error?: any) => any): Orchestrator;
-        (task1: Strings, task2: Strings, task3: Strings, task4: Strings, task5: Strings, task6: Strings, cb?: (error?: any) => any): Orchestrator;
+        (
+            task1: Strings,
+            task2: Strings,
+            task3: Strings,
+            task4: Strings,
+            task5: Strings,
+            cb?: (error?: any) => any,
+        ): Orchestrator;
+        (
+            task1: Strings,
+            task2: Strings,
+            task3: Strings,
+            task4: Strings,
+            task5: Strings,
+            task6: Strings,
+            cb?: (error?: any) => any,
+        ): Orchestrator;
     }
 
     interface OnCallbackEvent {
@@ -170,10 +179,18 @@ declare namespace Orchestrator {
     interface Meta {
         duration: number;
         hrDuration: [number, number];
-        runMethod: ("callback" | "catch" | "promise" | "stream" | "sync");
+        runMethod: "callback" | "catch" | "promise" | "stream" | "sync";
     }
 
-    type EventNames = ("start" | "stop" | "err" | "task_start" | "task_stop" | "task_err" | "task_not_found" | "task_recursion");
+    type EventNames =
+        | "start"
+        | "stop"
+        | "err"
+        | "task_start"
+        | "task_stop"
+        | "task_err"
+        | "task_not_found"
+        | "task_recursion";
 }
 
 export = Orchestrator;

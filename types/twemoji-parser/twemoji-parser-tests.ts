@@ -1,16 +1,16 @@
-import twemojiParser = require('twemoji-parser');
-import { parse, toCodePoints } from 'twemoji-parser';
+import twemojiParser = require("twemoji-parser");
+import { parse, toCodePoints } from "twemoji-parser";
 
 // $ExpectType EmojiEntity[]
-twemojiParser.parse('I 🧡 Twemoji! 🥳');
+twemojiParser.parse("I 🧡 Twemoji! 🥳");
 // $ExpectType EmojiEntity[]
-const entities = parse('I 🧡 Twemoji! 🥳', {
-    assetType: 'png',
+const entities = parse("I 🧡 Twemoji! 🥳", {
+    assetType: "png",
 });
 // $ExpectType string[]
-twemojiParser.toCodePoints('\uD83D\uDE03');
+twemojiParser.toCodePoints("\uD83D\uDE03");
 // $ExpectType string[]
-const codePoints = toCodePoints('\uD83D\uDE03');
+const codePoints = toCodePoints("\uD83D\uDE03");
 
 entities.forEach(entity => {
     /*

@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.sidebarAction
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use sidebar actions to add a sidebar to Firefox.
  * Permissions: "manifest:sidebar_action"

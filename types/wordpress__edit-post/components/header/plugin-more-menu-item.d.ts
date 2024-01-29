@@ -1,8 +1,8 @@
-import { Dashicon, MenuItem } from '@wordpress/components';
-import { ComponentType, ReactNode } from 'react';
+import { Dashicon, MenuItem } from "@wordpress/components";
+import { ComponentType, JSX, ReactNode } from "react";
 
 declare namespace PluginMoreMenuItem {
-    interface Props extends Omit<MenuItem.Props, 'href'> {
+    interface Props extends Omit<MenuItem.Props, "href"> {
         children: ReactNode;
         /**
          * When `href` is provided then the menu item is represented as an anchor rather than

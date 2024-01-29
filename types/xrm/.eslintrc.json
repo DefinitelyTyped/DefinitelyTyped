@@ -1,0 +1,8 @@
+{
+    "rules": {
+        "@definitelytyped/no-const-enum": "off",
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@definitelytyped/npm-naming": "off",
+        "@typescript-eslint/no-empty-interface": "off"
+    }
+}

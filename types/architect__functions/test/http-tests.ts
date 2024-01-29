@@ -1,6 +1,6 @@
 ////////////////////
 // tests arc.http.async: https://arc.codes/docs/en/reference/runtime/node#arc.http.async
-import * as arc from '@architect/functions';
+import * as arc from "@architect/functions";
 
 exports.handler = arc.http.async(auth, handlerasync);
 
@@ -18,23 +18,23 @@ async function handlerasync(request: arc.HttpRequest) {
 
 ////////////////////
 // tests arc.http.express: https://arc.codes/docs/en/reference/runtime/node#arc.http.express
-import express = require('express');
+import express = require("express");
 
 const app = express();
 
-app.get('/', (req, res) => res.send('Hello World!'));
-app.get('/cool', (req, res) => res.send('very cool'));
+app.get("/", (req, res) => res.send("Hello World!"));
+app.get("/cool", (req, res) => res.send("very cool"));
 
 ////////////////////
 // tests for arc.http.helpers: https://github.com/architect/functions/blob/master/src/http/index.js#L21-L26
 async function handlerhelpers(req: arc.HttpRequest): Promise<arc.HttpResponse | undefined> {
     req = arc.http.helpers.interpolate(req);
     const data = arc.http.helpers.bodyParser(req);
-    const image = arc.http.helpers.static('test.jpg');
-    const description = arc.http.helpers.static('test.txt', {stagePath: '/staging'});
+    const image = arc.http.helpers.static("test.jpg");
+    const description = arc.http.helpers.static("test.txt", { stagePath: "/staging" });
     return {
         statusCode: 307,
-        headers: { location: arc.http.helpers.url('test.txt') },
+        headers: { location: arc.http.helpers.url("test.txt") },
     };
 }
 
@@ -48,7 +48,7 @@ async function handlersession(req: arc.HttpRequest): Promise<arc.HttpResponse | 
     // write the cookie to the browser
     return {
         statusCode: 200,
-        headers: { 'set-cookie': cookie },
+        headers: { "set-cookie": cookie },
     };
 }
 
@@ -57,7 +57,7 @@ async function handlersession(req: arc.HttpRequest): Promise<arc.HttpResponse | 
 const asap = arc.http.proxy({
     spa: false,
     alias: {
-        '/playground': '/playground.html',
+        "/playground": "/playground.html",
     },
 });
 

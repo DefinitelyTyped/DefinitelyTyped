@@ -1,7 +1,8 @@
-import { DiscreteInterpolant } from './../math/interpolants/DiscreteInterpolant';
-import { LinearInterpolant } from './../math/interpolants/LinearInterpolant';
-import { CubicInterpolant } from './../math/interpolants/CubicInterpolant';
-import { InterpolationModes } from '../constants';
+import { DiscreteInterpolant } from '../math/interpolants/DiscreteInterpolant.js';
+import { LinearInterpolant } from '../math/interpolants/LinearInterpolant.js';
+import { CubicInterpolant } from '../math/interpolants/CubicInterpolant.js';
+import { Interpolant } from '../math/Interpolant.js';
+import { InterpolationModes } from '../constants.js';
 
 export class KeyframeTrack {
     /**
@@ -10,7 +11,7 @@ export class KeyframeTrack {
      * @param values
      * @param [interpolation=THREE.InterpolateLinear]
      */
-    constructor(name: string, times: ArrayLike<any>, values: ArrayLike<any>, interpolation?: InterpolationModes);
+    constructor(name: string, times: ArrayLike<number>, values: ArrayLike<any>, interpolation?: InterpolationModes);
 
     name: string;
     times: Float32Array;
@@ -31,6 +32,7 @@ export class KeyframeTrack {
 
     setInterpolation(interpolation: InterpolationModes): KeyframeTrack;
     getInterpolation(): InterpolationModes;
+    createInterpolant(): Interpolant;
 
     getValueSize(): number;
 

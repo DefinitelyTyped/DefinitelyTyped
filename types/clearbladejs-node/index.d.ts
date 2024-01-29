@@ -1,18 +1,12 @@
-// Type definitions for non-npm package clearbladejs-node 1.0
-// Project: https://github.com/ClearBlade/Node-SDK
-// Definitions by: Jim Bouquet <https://github.com/ClearBlade>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="request" />
 
-import { Response, RequestCallback } from "request/index";
+import { RequestCallback, Response } from "request/index";
 // import {//PacketCallback } from "mqtt";
 
 export enum MessagingQOS {
     MESSAGING_QOS_AT_MOST_ONCE = 0,
     MESSAGING_QOS_AT_LEAST_ONCE = 1,
-    MESSAGING_QOS_EXACTLY_ONCE = 2
+    MESSAGING_QOS_EXACTLY_ONCE = 2,
 }
 
 export interface Resp {
@@ -113,21 +107,21 @@ export interface Collection {
 }
 
 export enum QuerySortDirections {
-    QUERY_SORT_ASCENDING = 'ASC',
-    QUERY_SORT_DESCENDING = 'DESC'
+    QUERY_SORT_ASCENDING = "ASC",
+    QUERY_SORT_DESCENDING = "DESC",
 }
 
 export enum QueryConditions {
-    QUERY_EQUAL = 'EQ',
-    QUERY_NOTEQUAL = 'NEQ',
-    QUERY_GREATERTHAN = 'GT',
-    QUERY_GREATERTHAN_EQUAL = 'GTE',
-    QUERY_LESSTHAN = 'LT',
-    QUERY_LESSTHAN_EQUAL = 'LTE',
-    QUERY_MATCHES = 'RE'
+    QUERY_EQUAL = "EQ",
+    QUERY_NOTEQUAL = "NEQ",
+    QUERY_GREATERTHAN = "GT",
+    QUERY_GREATERTHAN_EQUAL = "GTE",
+    QUERY_LESSTHAN = "LT",
+    QUERY_LESSTHAN_EQUAL = "LTE",
+    QUERY_MATCHES = "RE",
 }
 
-export type QueryValue = string|number|boolean;
+export type QueryValue = string | number | boolean;
 
 export interface QueryOptions {
     offset?: number | undefined;

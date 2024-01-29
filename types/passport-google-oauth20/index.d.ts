@@ -1,19 +1,10 @@
-// Type definitions for passport-google-oauth 2.0
-// Project: https://github.com/jaredhanson/passport-google-oauth2
-// Definitions by: Yasunori Ohoka <https://github.com/yasupeke>
-//                 Eduard Zintz <https://github.com/ezintz>
-//                 Tan Nguyen <https://github.com/ngtan>
-//                 Gleb Varenov <https://github.com/acerbic>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
-import * as passport from 'passport';
-import * as express from 'express';
-import * as oauth2 from 'passport-oauth2';
+import * as express from "express";
+import * as passport from "passport";
+import * as oauth2 from "passport-oauth2";
 
 export type OAuth2StrategyOptionsWithoutRequiredURLs = Pick<
     oauth2._StrategyOptionsBase,
-    Exclude<keyof oauth2._StrategyOptionsBase, 'authorizationURL' | 'tokenURL'>
+    Exclude<keyof oauth2._StrategyOptionsBase, "authorizationURL" | "tokenURL">
 >;
 
 export interface _StrategyOptionsBase extends OAuth2StrategyOptionsWithoutRequiredURLs {
@@ -60,7 +51,7 @@ export interface Profile extends passport.Profile {
      * Ex: `"10769150350006150715113082367"`
      */
     id: string;
-    emails?: Array<{ value: string; verified: 'true' | 'false' }>;
+    emails?: Array<{ value: string; verified: "true" | "false" }>;
 
     _raw: string;
     /**
@@ -161,7 +152,7 @@ export interface Profile extends passport.Profile {
          *
          * Ex: `"true"`
          */
-        email_verified?: 'true' | 'false';
+        email_verified?: "true" | "false";
         /**
          * The user's given name(s) or first name(s). Might be provided when a name
          * claim is present.
@@ -266,7 +257,7 @@ export class Strategy extends oauth2.Strategy {
 
 // additional Google-specific options
 export interface AuthenticateOptionsGoogle extends passport.AuthenticateOptions {
-    accessType?: 'offline' | 'online' | undefined;
+    accessType?: "offline" | "online" | undefined;
     prompt?: string | undefined;
     loginHint?: string | undefined;
     includeGrantedScopes?: boolean | undefined;
@@ -287,7 +278,7 @@ export interface GoogleCallbackParameters {
 }
 
 // allow Google-specific options when using "google" strategy
-declare module 'passport' {
+declare module "passport" {
     interface Authenticator<
         InitializeRet = express.Handler,
         AuthenticateRet = any,
@@ -295,12 +286,12 @@ declare module 'passport' {
         AuthorizeOptions = AuthenticateOptions,
     > {
         authenticate(
-            strategy: 'google',
+            strategy: "google",
             options: AuthenticateOptionsGoogle,
             callback?: (...args: any[]) => any,
         ): AuthenticateRet;
         authorize(
-            strategy: 'google',
+            strategy: "google",
             options: AuthenticateOptionsGoogle,
             callback?: (...args: any[]) => any,
         ): AuthorizeRet;

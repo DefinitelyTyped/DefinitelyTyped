@@ -1,8 +1,3 @@
-// Type definitions for jrf-pip 1.0
-// Project: https://github.com/jirufik/jrf-pip#readme
-// Definitions by: rufus <https://github.com/jirufik>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface ParallelProcessingParams<T> {
     arrayValues: T[];
 

@@ -1,11 +1,3 @@
-// Type definitions for @hapi/shot 4.1
-// Project: https://github.com/hapijs/shot
-// Definitions by: AJP <https://github.com/AJamesPhillips>
-//                 Simon Schick <https://github.com/SimonSchick>
-//                 Silas Rech <https://github.com/lenovouser>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
 
 import { ServerResponse } from "http";
@@ -37,14 +29,14 @@ export type Listener = (req: SimulatedRequestObject, res: SimulatedResponseObjec
  * a simulated request object. Inherits from Stream.Readable.
  * @see {@link https://github.com/hapijs/shot/blob/master/API.md#shotinjectdispatchfunc-options-callback}
  */
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SimulatedRequestObject extends Readable {}
 
 /**
  * a simulated response object. Inherits from node's Http.ServerResponse.
  * @see {@link https://github.com/hapijs/shot/blob/master/API.md#shotinjectdispatchfunc-options-callback}
  */
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SimulatedResponseObject extends ServerResponse {}
 
 /**
@@ -104,5 +96,5 @@ export interface ResponseObject {
     /** the raw payload as a Buffer. */
     rawPayload: Buffer;
     /** an object containing the response trailers. */
-    trailers: {[index: string]: any};
+    trailers: { [index: string]: any };
 }

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/react-html-parser",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/wrakky/react-html-parser#readme"
+    ],
+    "dependencies": {
+        "@types/htmlparser2": "*",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-html-parser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Spencer Elliott",
+            "githubUsername": "elliottsj"
+        },
+        {
+            "name": "Wooram Jun",
+            "githubUsername": "chatoo2412"
+        }
+    ]
+}

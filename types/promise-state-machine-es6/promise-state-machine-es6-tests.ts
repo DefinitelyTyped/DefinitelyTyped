@@ -1,31 +1,31 @@
-import PromiseStateMachine = require('promise-state-machine-es6');
-import { Events } from 'promise-state-machine-es6';
+import PromiseStateMachine = require("promise-state-machine-es6");
+import { Events } from "promise-state-machine-es6";
 
 enum State {
     stopped,
-    running
+    running,
 }
 
 enum Transitions {
-    start = 'start',
-    stop = 'stop'
+    start = "start",
+    stop = "stop",
 }
 
 class MyFsm extends PromiseStateMachine<State, Transitions> {
     constructor(props: {
-        initial: State,
-        events: Events<State, Transitions>
+        initial: State;
+        events: Events<State, Transitions>;
     }) {
         super(props);
     }
 }
 
 const fsm = new MyFsm({
-   initial: State.stopped,
-   events: {
-       [Transitions.start]: { from: State.stopped, to: State.running },
-       [Transitions.stop]: { from: [State.running], to: State.stopped }
-   }
+    initial: State.stopped,
+    events: {
+        [Transitions.start]: { from: State.stopped, to: State.running },
+        [Transitions.stop]: { from: [State.running], to: State.stopped },
+    },
 });
 
 // $ExpectType State
@@ -37,8 +37,8 @@ fsm.stop;
 // $ExpectType Promise<any>
 fsm.start();
 
-fsm.on('start', (from, to) => {
-    return Promise.resolve('Started');
+fsm.on("start", (from, to) => {
+    return Promise.resolve("Started");
 });
 
 // $ExpectType boolean
@@ -57,10 +57,12 @@ fsm.can(Transitions.start, Transitions.stop);
 fsm.toDOTsync();
 
 // $ExpectType string
-fsm.toDOTsync({ replacer: (data) => {
+fsm.toDOTsync({
+    replacer: (data) => {
         return {
-            from: 'From: ' + String(data.from),
-            to: 'To: ' + String(data.to),
-            transition: 'Transition: ' + String(data.transition)
+            from: "From: " + String(data.from),
+            to: "To: " + String(data.to),
+            transition: "Transition: " + String(data.transition),
         };
-    } });
+    },
+});

@@ -1,8 +1,3 @@
-// Type definitions for jsrp 0.2
-// Project: https://github.com/alax/jsrp
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace jsrp;
 
 export interface ClientOptions {

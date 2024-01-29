@@ -1,5 +1,5 @@
-import imagemagick = require('imagemagick');
-import child_process = require('child_process');
+import imagemagick = require("imagemagick");
+import child_process = require("child_process");
 
 var str: string = null;
 var num: number = 0;
@@ -13,12 +13,10 @@ cp = imagemagick.identify(str, (err: Error, res: imagemagick.Features) => {
 });
 
 cp = imagemagick.convert(str, num, (err: Error, res: any) => {
-
 });
 
 cp = imagemagick.resize({
     width: num,
-    height: num
+    height: num,
 }, (err: Error, res: any) => {
-
 });

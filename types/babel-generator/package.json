@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/babel-generator",
+    "version": "6.25.9999",
+    "projects": [
+        "https://github.com/babel/babel/tree/master/packages/babel-generator",
+        "https://babeljs.io"
+    ],
+    "dependencies": {
+        "@types/babel-types": "*"
+    },
+    "devDependencies": {
+        "@types/babel-generator": "workspace:.",
+        "@types/babylon": "*"
+    },
+    "owners": [
+        {
+            "name": "Troy Gerwien",
+            "githubUsername": "yortus"
+        }
+    ]
+}

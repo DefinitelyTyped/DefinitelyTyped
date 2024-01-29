@@ -1,11 +1,6 @@
-// Type definitions for cookieconsent 3.1
-// Project: https://www.npmjs.com/package/cookieconsent
-// Definitions by: Kelly Littlepage <https://github.com/klittlepage>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import * as CSS from "csstype";
 
-import * as CSS from 'csstype';
-
-export type Status = 'deny' | 'allow' | 'dismiss';
+export type Status = "deny" | "allow" | "dismiss";
 
 export interface Country {
     hasLaw: boolean;
@@ -15,8 +10,8 @@ export interface Country {
 
 export type ServiceResponse =
     | {
-          code: string;
-      }
+        code: string;
+    }
     | Error;
 
 export interface ServiceOptions {
@@ -38,8 +33,8 @@ export type ServiceDefinition = (options: ServiceOptions) => {
 
 export interface ComplianceTypes {
     info: string;
-    'opt-in': string;
-    'opt-out': string;
+    "opt-in": string;
+    "opt-out": string;
 }
 
 export type LayoutTypes = { basic?: string } & { [key: string]: string };
@@ -88,26 +83,26 @@ export interface Options {
     type?: keyof ComplianceTypes;
     layouts?: LayoutTypes;
     layout?: LayoutTypes;
-    position?: 'top' | 'bottom' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
-    theme?: 'block' | 'edgeless' | 'classic';
+    position?: "top" | "bottom" | "top-left" | "top-right" | "bottom-left" | "bottom-right";
+    theme?: "block" | "edgeless" | "classic";
     static?: boolean;
     palette?: {
         popup?: {
-            background?: CSS.Properties['background'];
-            text?: CSS.Properties['color'];
-            link?: CSS.Properties['color'];
+            background?: CSS.Properties["background"];
+            text?: CSS.Properties["color"];
+            link?: CSS.Properties["color"];
         };
 
         button?: {
-            background?: CSS.Properties['background'];
-            border?: CSS.Properties['color'];
-            text?: CSS.Properties['color'];
+            background?: CSS.Properties["background"];
+            border?: CSS.Properties["color"];
+            text?: CSS.Properties["color"];
         };
 
         highlight?: {
-            background?: CSS.Properties['background'];
-            border?: CSS.Properties['color'];
-            text?: CSS.Properties['color'];
+            background?: CSS.Properties["background"];
+            border?: CSS.Properties["color"];
+            text?: CSS.Properties["color"];
         };
     };
     revokable?: boolean;

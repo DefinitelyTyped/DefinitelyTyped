@@ -1,6 +1,20 @@
 {
-  "private": true,
-  "dependencies": {
-    "gl-matrix": "^3.2.0"
-  }
+    "private": true,
+    "name": "@types/viewport-mercator-project",
+    "version": "6.1.9999",
+    "projects": [
+        "https://github.com/uber-common/viewport-mercator-project#readme"
+    ],
+    "dependencies": {
+        "gl-matrix": "^3.2.0"
+    },
+    "devDependencies": {
+        "@types/viewport-mercator-project": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Fabio Berta",
+            "githubUsername": "fnberta"
+        }
+    ]
 }

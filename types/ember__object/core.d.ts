@@ -1,12 +1,13 @@
+// eslint-disable-next-line @definitelytyped/no-self-import
 import {
-    EmberInstanceArguments,
-    UnwrapComputedPropertySetters,
-    EmberClassConstructor,
-    Objectify,
-    MixinOrLiteral,
     EmberClassArguments,
-    Fix
-} from '@ember/object/-private/types';
+    EmberClassConstructor,
+    EmberInstanceArguments,
+    Fix,
+    MixinOrLiteral,
+    Objectify,
+    UnwrapComputedPropertySetters,
+} from "@ember/object/-private/types";
 
 export default class CoreObject {
     /**
@@ -66,17 +67,17 @@ export default class CoreObject {
     toString(): string;
 
     static create<Class extends typeof CoreObject>(
-        this: Class
+        this: Class,
     ): InstanceType<Class>;
 
     static create<
         Class extends typeof CoreObject,
         T1 extends EmberInstanceArguments<
             UnwrapComputedPropertySetters<InstanceType<Class>>
-        >
+        >,
     >(
         this: Class,
-        arg1: T1 & ThisType<T1 & InstanceType<Class>>
+        arg1: T1 & ThisType<T1 & InstanceType<Class>>,
     ): InstanceType<Class> & T1;
 
     static create<
@@ -86,11 +87,11 @@ export default class CoreObject {
         >,
         T2 extends EmberInstanceArguments<
             UnwrapComputedPropertySetters<InstanceType<Class>>
-        >
+        >,
     >(
         this: Class,
         arg1: T1 & ThisType<T1 & InstanceType<Class>>,
-        arg2: T2 & ThisType<T2 & InstanceType<Class>>
+        arg2: T2 & ThisType<T2 & InstanceType<Class>>,
     ): InstanceType<Class> & T1 & T2;
 
     static create<
@@ -103,26 +104,26 @@ export default class CoreObject {
         >,
         T3 extends EmberInstanceArguments<
             UnwrapComputedPropertySetters<InstanceType<Class>>
-        >
+        >,
     >(
         this: Class,
         arg1: T1 & ThisType<T1 & InstanceType<Class>>,
         arg2: T2 & ThisType<T2 & InstanceType<Class>>,
-        arg3: T3 & ThisType<T3 & InstanceType<Class>>
+        arg3: T3 & ThisType<T3 & InstanceType<Class>>,
     ): InstanceType<Class> & T1 & T2 & T3;
 
     static extend<Statics, Instance>(
-        this: Statics & EmberClassConstructor<Instance>
+        this: Statics & EmberClassConstructor<Instance>,
     ): Objectify<Statics> & EmberClassConstructor<Instance>;
 
     static extend<
         Statics,
         Instance extends B1,
         T1 extends EmberClassArguments,
-        B1
+        B1,
     >(
         this: Statics & EmberClassConstructor<Instance>,
-        arg1: MixinOrLiteral<T1, B1> & ThisType<Fix<Instance & T1>>
+        arg1: MixinOrLiteral<T1, B1> & ThisType<Fix<Instance & T1>>,
     ): Objectify<Statics> & EmberClassConstructor<T1 & Instance>;
 
     static extend<
@@ -131,11 +132,11 @@ export default class CoreObject {
         T1 extends EmberClassArguments,
         B1,
         T2 extends EmberClassArguments,
-        B2
+        B2,
     >(
         this: Statics & EmberClassConstructor<Instance>,
         arg1: MixinOrLiteral<T1, B1> & ThisType<Fix<Instance & T1>>,
-        arg2: MixinOrLiteral<T2, B2> & ThisType<Fix<Instance & T1 & T2>>
+        arg2: MixinOrLiteral<T2, B2> & ThisType<Fix<Instance & T1 & T2>>,
     ): Objectify<Statics> & EmberClassConstructor<T1 & T2 & Instance>;
 
     static extend<
@@ -146,12 +147,12 @@ export default class CoreObject {
         T2 extends EmberClassArguments,
         B2,
         T3 extends EmberClassArguments,
-        B3
+        B3,
     >(
         this: Statics & EmberClassConstructor<Instance>,
         arg1: MixinOrLiteral<T1, B1> & ThisType<Fix<Instance & T1>>,
         arg2: MixinOrLiteral<T2, B2> & ThisType<Fix<Instance & T1 & T2>>,
-        arg3: MixinOrLiteral<T3, B3> & ThisType<Fix<Instance & T1 & T2 & T3>>
+        arg3: MixinOrLiteral<T3, B3> & ThisType<Fix<Instance & T1 & T2 & T3>>,
     ): Objectify<Statics> & EmberClassConstructor<T1 & T2 & T3 & Instance>;
 
     static extend<
@@ -164,28 +165,29 @@ export default class CoreObject {
         T3 extends EmberClassArguments,
         B3,
         T4 extends EmberClassArguments,
-        B4
+        B4,
     >(
         this: Statics & EmberClassConstructor<Instance>,
         arg1: MixinOrLiteral<T1, B1> & ThisType<Fix<Instance & T1>>,
         arg2: MixinOrLiteral<T2, B2> & ThisType<Fix<Instance & T1 & T2>>,
         arg3: MixinOrLiteral<T3, B3> & ThisType<Fix<Instance & T1 & T2 & T3>>,
-        arg4: MixinOrLiteral<T4, B4> &
-            ThisType<Fix<Instance & T1 & T2 & T3 & T4>>
+        arg4:
+            & MixinOrLiteral<T4, B4>
+            & ThisType<Fix<Instance & T1 & T2 & T3 & T4>>,
     ): Objectify<Statics> & EmberClassConstructor<T1 & T2 & T3 & T4 & Instance>;
 
     static reopen<Statics, Instance>(
-        this: Statics & EmberClassConstructor<Instance>
+        this: Statics & EmberClassConstructor<Instance>,
     ): Objectify<Statics> & EmberClassConstructor<Instance>;
 
     static reopen<
         Statics,
         Instance extends B1,
         T1 extends EmberClassArguments,
-        B1
+        B1,
     >(
         this: Statics & EmberClassConstructor<Instance>,
-        arg1: MixinOrLiteral<T1, B1> & ThisType<Fix<Instance & T1>>
+        arg1: MixinOrLiteral<T1, B1> & ThisType<Fix<Instance & T1>>,
     ): Objectify<Statics> & EmberClassConstructor<Instance & T1>;
 
     static reopen<
@@ -194,11 +196,11 @@ export default class CoreObject {
         T1 extends EmberClassArguments,
         B1,
         T2 extends EmberClassArguments,
-        B2
+        B2,
     >(
         this: Statics & EmberClassConstructor<Instance>,
         arg1: MixinOrLiteral<T1, B1> & ThisType<Fix<Instance & T1>>,
-        arg2: MixinOrLiteral<T2, B2> & ThisType<Fix<Instance & T1 & T2>>
+        arg2: MixinOrLiteral<T2, B2> & ThisType<Fix<Instance & T1 & T2>>,
     ): Objectify<Statics> & EmberClassConstructor<Instance & T1 & T2>;
 
     static reopen<
@@ -209,32 +211,32 @@ export default class CoreObject {
         T2 extends EmberClassArguments,
         B2,
         T3 extends EmberClassArguments,
-        B3
+        B3,
     >(
         this: Statics & EmberClassConstructor<Instance>,
         arg1: MixinOrLiteral<T1, B1> & ThisType<Fix<Instance & T1>>,
         arg2: MixinOrLiteral<T2, B2> & ThisType<Fix<Instance & T1 & T2>>,
-        arg3: MixinOrLiteral<T3, B3> & ThisType<Fix<Instance & T1 & T2 & T3>>
+        arg3: MixinOrLiteral<T3, B3> & ThisType<Fix<Instance & T1 & T2 & T3>>,
     ): Objectify<Statics> & EmberClassConstructor<Instance & T1 & T2 & T3>;
 
     static reopenClass<Statics>(this: Statics): Statics;
 
     static reopenClass<Statics, T1 extends EmberClassArguments>(
         this: Statics,
-        arg1: T1
+        arg1: T1,
     ): Statics & T1;
 
     static reopenClass<
         Statics,
         T1 extends EmberClassArguments,
-        T2 extends EmberClassArguments
+        T2 extends EmberClassArguments,
     >(this: Statics, arg1: T1, arg2: T2): Statics & T1 & T2;
 
     static reopenClass<
         Statics,
         T1 extends EmberClassArguments,
         T2 extends EmberClassArguments,
-        T3 extends EmberClassArguments
+        T3 extends EmberClassArguments,
     >(this: Statics, arg1: T1, arg2: T2, arg3: T3): Statics & T1 & T2 & T3;
 
     /**
@@ -243,7 +245,7 @@ export default class CoreObject {
      */
     static eachComputedProperty(
         callback: (...args: any[]) => unknown,
-        binding: {}
+        binding: {},
     ): void;
     /**
      * Returns the original hash that was passed to meta().

@@ -24,7 +24,7 @@ declare namespace VisualizationSchedulerJob {
         recipients: Array<{
             name: string;
             address: string;
-        }>
+        }>,
     ): string;
     function parseParametersField(value: any): any;
     function tryGetServer(): number;

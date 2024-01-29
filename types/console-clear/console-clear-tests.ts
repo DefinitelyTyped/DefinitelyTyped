@@ -1,4 +1,4 @@
-import consoleClear = require('console-clear');
+import consoleClear = require("console-clear");
 
 consoleClear();
 consoleClear(true);

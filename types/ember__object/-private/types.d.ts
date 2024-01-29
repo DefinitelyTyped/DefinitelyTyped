@@ -1,5 +1,7 @@
-import Mixin from '@ember/object/mixin';
-import ComputedProperty from '@ember/object/computed';
+// eslint-disable-next-line @definitelytyped/no-self-import
+import Mixin from "@ember/object/mixin";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import ComputedProperty from "@ember/object/computed";
 
 /**
  * Map type `T` to a plain object hash with the identity mapping.
@@ -51,7 +53,7 @@ declare const SetType: unique symbol;
  * Implementation is carefully chosen for the reasons described in
  * https://github.com/typed-ember/ember-typings/pull/29
  */
-export type EmberClassConstructor<T> = (new (properties?: object) => T) & (new (...args: any[]) => T);
+export type EmberClassConstructor<T> = (new(properties?: object) => T) & (new(...args: any[]) => T);
 
 /**
  * Check that any arguments to `create()` match the type's properties.
@@ -105,7 +107,9 @@ export type ComputedPropertyObj<Get, Set> =
 export type ComputedPropertyGetter<T> = ComputedPropertyGetterFunction<T> | ComputedPropertyGetterObj<T>;
 export type ComputedPropertySetter<T> = ComputedPropertySetterFunction<T> | ComputedPropertySetterObj<T>;
 
-export type ComputedPropertyCallback<Get, Set = Get> = ComputedPropertyGetterFunction<Get> | ComputedPropertyObj<Get, Set>;
+export type ComputedPropertyCallback<Get, Set = Get> =
+    | ComputedPropertyGetterFunction<Get>
+    | ComputedPropertyObj<Get, Set>;
 
 export type ObserverMethod<Target, Sender> =
     | keyof Target

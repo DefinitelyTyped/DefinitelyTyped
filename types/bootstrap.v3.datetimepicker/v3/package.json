@@ -1,6 +1,16 @@
 {
     "private": true,
+    "name": "@types/bootstrap.v3.datetimepicker",
+    "version": "3.0.9999",
+    "projects": [
+        "http://eonasdan.github.io/bootstrap-datetimepicker"
+    ],
     "dependencies": {
+        "@types/jquery": "*",
         "moment": ">=2.14.0"
-    }
+    },
+    "devDependencies": {
+        "@types/bootstrap.v3.datetimepicker": "workspace:."
+    },
+    "owners": []
 }

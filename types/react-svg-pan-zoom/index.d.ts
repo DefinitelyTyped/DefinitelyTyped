@@ -1,34 +1,27 @@
-// Type definitions for react-svg-pan-zoom 3.3
-// Project: https://github.com/chrvadala/react-svg-pan-zoom#readme, https://chrvadala.github.io/react-svg-pan-zoom
-// Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
-//                 Trey Wenger <https://github.com/tvwenger>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
+import * as React from "react";
 
 // String constants:
-export const MODE_IDLE = 'idle';
-export const MODE_PANNING = 'panning';
-export const MODE_ZOOMING = 'zooming';
+export const MODE_IDLE = "idle";
+export const MODE_PANNING = "panning";
+export const MODE_ZOOMING = "zooming";
 
-export const TOOL_AUTO = 'auto';
-export const TOOL_NONE = 'none';
-export const TOOL_PAN = 'pan';
-export const TOOL_ZOOM_IN = 'zoom-in';
-export const TOOL_ZOOM_OUT = 'zoom-out';
+export const TOOL_AUTO = "auto";
+export const TOOL_NONE = "none";
+export const TOOL_PAN = "pan";
+export const TOOL_ZOOM_IN = "zoom-in";
+export const TOOL_ZOOM_OUT = "zoom-out";
 
-export const POSITION_NONE = 'none';
-export const POSITION_TOP = 'top';
-export const POSITION_RIGHT = 'right';
-export const POSITION_BOTTOM = 'bottom';
-export const POSITION_LEFT = 'left';
+export const POSITION_NONE = "none";
+export const POSITION_TOP = "top";
+export const POSITION_RIGHT = "right";
+export const POSITION_BOTTOM = "bottom";
+export const POSITION_LEFT = "left";
 
-export const ALIGN_CENTER = 'center';
-export const ALIGN_LEFT = 'left';
-export const ALIGN_RIGHT = 'right';
-export const ALIGN_TOP = 'top';
-export const ALIGN_BOTTOM = 'bottom';
+export const ALIGN_CENTER = "center";
+export const ALIGN_LEFT = "left";
+export const ALIGN_RIGHT = "right";
+export const ALIGN_TOP = "top";
+export const ALIGN_BOTTOM = "bottom";
 
 export type Mode = typeof MODE_IDLE | typeof MODE_PANNING | typeof MODE_ZOOMING;
 
@@ -53,14 +46,17 @@ export interface Value {
     miniatureOpen: boolean;
 }
 
-export type Tool = typeof TOOL_AUTO | typeof TOOL_NONE | typeof TOOL_PAN |
-                                        typeof TOOL_ZOOM_IN | typeof TOOL_ZOOM_OUT;
-export type ToolbarPosition = typeof POSITION_NONE | typeof POSITION_TOP | typeof POSITION_RIGHT |
-                                        typeof POSITION_BOTTOM | typeof POSITION_LEFT;
+export type Tool = typeof TOOL_AUTO | typeof TOOL_NONE | typeof TOOL_PAN | typeof TOOL_ZOOM_IN | typeof TOOL_ZOOM_OUT;
+export type ToolbarPosition =
+    | typeof POSITION_NONE
+    | typeof POSITION_TOP
+    | typeof POSITION_RIGHT
+    | typeof POSITION_BOTTOM
+    | typeof POSITION_LEFT;
 
 export interface OptionalProps {
     // default tool
-   defaultTool: Exclude<Tool, typeof TOOL_AUTO>;
+    defaultTool: Exclude<Tool, typeof TOOL_AUTO>;
 
     // background of the viewer
     background: string;
@@ -191,7 +187,12 @@ export type Props = RequiredProps & Partial<OptionalProps>;
 export class ReactSVGPanZoom extends React.Component<Props> {
     pan(SVGDeltaX: number, SVGDeltaY: number): void;
     zoom(SVGPointX: number, SVGPointY: number, scaleFactor: number): void;
-    fitSelection(selectionSVGPointX: number, selectionSVGPointY: number, selectionWidth: number, selectionHeight: number): void;
+    fitSelection(
+        selectionSVGPointX: number,
+        selectionSVGPointY: number,
+        selectionWidth: number,
+        selectionHeight: number,
+    ): void;
     fitToViewer(): void;
     setPointOnViewerCenter(SVGPointX: number, SVGPointY: number, zoomLevel: number): void;
     reset(): void;
@@ -202,12 +203,20 @@ export class ReactSVGPanZoom extends React.Component<Props> {
     setTool(tool: Tool): void;
 }
 
-export type UncontrolledProps = UncontrolledRequiredProps & Partial<OptionalProps> & Partial<UncontrolledExtraOptionalProps>;
+export type UncontrolledProps =
+    & UncontrolledRequiredProps
+    & Partial<OptionalProps>
+    & Partial<UncontrolledExtraOptionalProps>;
 
 export class UncontrolledReactSVGPanZoom extends React.Component<UncontrolledProps> {
     pan(SVGDeltaX: number, SVGDeltaY: number): void;
     zoom(SVGPointX: number, SVGPointY: number, scaleFactor: number): void;
-    fitSelection(selectionSVGPointX: number, selectionSVGPointY: number, selectionWidth: number, selectionHeight: number): void;
+    fitSelection(
+        selectionSVGPointX: number,
+        selectionSVGPointY: number,
+        selectionWidth: number,
+        selectionHeight: number,
+    ): void;
     fitToViewer(): void;
     setPointOnViewerCenter(SVGPointX: number, SVGPointY: number, zoomLevel: number): void;
     reset(): void;
@@ -254,7 +263,12 @@ export function pan(value: Value, SVGDeltaX: number, SVGDeltaY: number, panLimit
 export function zoom(value: Value, SVGPointX: number, SVGPointY: number, scaleFactor: number): Value;
 
 export function fitSelection(
-    value: Value, selectionSVGPointX: number, selectionSVGPointY: number, selectionWidth: number, selectionHeight: number): Value;
+    value: Value,
+    selectionSVGPointX: number,
+    selectionSVGPointY: number,
+    selectionWidth: number,
+    selectionHeight: number,
+): Value;
 
 export function fitToViewer(value: Value): Value;
 

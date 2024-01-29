@@ -1,7 +1,7 @@
 export = DataSet;
-declare function DataSet(idoDB?: any): void;
+declare function DataSet(idoDB?: IdoDB): void;
 declare class DataSet {
-    constructor(idoDB?: any);
+    constructor(idoDB?: IdoDB);
     sqlStatement: string;
     createField(fieldName: string, fieldType: string, opt_fieldSize?: number): void;
     create(): void;
@@ -97,10 +97,10 @@ declare class DataSet {
     fieldIsNull(fieldNameOrPositionIndex: any): boolean;
     getField(
         fieldId: number | string,
-        opt_options?: GetFieldOptions | number
+        options?: GetFieldOptions | number
     ): string | number | Date | boolean | null;
     setField(fieldId: number | string, value: any, opt_ignoreInvalidFieldId?: boolean): void;
-    applyUpdates(opt_waitDBCacheSync?: boolean, opt_logChanges?: boolean): number;
+    applyUpdates(waitDBCacheSync?: boolean, logChanges?: boolean): number;
     cancelUpdates(opt_key?: number): void;
     copyStructure(sourceDataSet: DataSet, fieldNames?: string): void;
     rollBack(): void;
@@ -127,7 +127,7 @@ declare class DataSet {
         kind: string;
     };
     iterate(func: (arg0: DataSet) => any, thisObj?: any): void;
-    getDeltaInspector(): any;
+    getDeltaInspector(): DeltaInspector;
     updateAll(
         fieldNames: string[],
         values: any[] | DataSet,
@@ -171,16 +171,20 @@ declare namespace DataSet {
         File,
         MemoryStream,
         GetFieldOptions,
+        DeltaInspector,
+        IdoDB,
+        DataSetFieldType,
         ApplyUndoLogOptions,
         DataSetFieldDef,
     };
 }
+type IdoDB = import('../ido/IdoDB');
 declare function DataSetFieldDefs(): void;
 declare class DataSetFieldDefs {
     size: number;
     add(
         defOrName: DataSetFieldDef | DataSetFieldDef[] | string,
-        type?: any,
+        type?: DataSetFieldType,
         size?: number
     ): void;
     get(id: string | number): DataSetFieldDef;
@@ -191,20 +195,22 @@ declare class DataSetFieldDefs {
     assign(fieldDefs: DataSetFieldDefs): void;
     toArray(): DataSetFieldDef[];
 }
+import DBKey = require('../dbkey/DBKey.js');
+declare function getIntegerDataType(): DataSetFieldType;
+declare function setIntegerDataType(type: DataSetFieldType): void;
+declare function setStringOverflowMode(mode: string): void;
+declare function getStringOverflowMode(): string;
 type File = import('../io/File');
 type MemoryStream = import('../io/MemoryStream');
 type GetFieldOptions = import('./GetFieldOptions');
+type DeltaInspector = import('./DeltaInspector');
+type DataSetFieldType = import('./DataSetDataType').DataSetFieldType;
 interface ApplyUndoLogOptions {
     startVersion: number | null;
     endVersion: number | null;
 }
-import DBKey = require('../dbkey/DBKey.js');
-declare function getIntegerDataType(): any;
-declare function setIntegerDataType(type: any): void;
-declare function setStringOverflowMode(mode: string): void;
-declare function getStringOverflowMode(): string;
 interface DataSetFieldDef {
     name: string;
-    type: any;
+    type: DataSetFieldType;
     size: number;
 }

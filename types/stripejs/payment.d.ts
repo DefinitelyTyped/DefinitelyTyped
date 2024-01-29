@@ -36,13 +36,13 @@ export interface StripePaymentRequest {
      * Register your event listener
      * @see https://stripe.com/docs/stripe-js/reference#payment-request-on
      */
-    on(event: 'cancel', handler: () => void): void;
+    on(event: "cancel", handler: () => void): void;
 
-    on(event: 'token' | 'source', handler: (event: StripePaymentResponse) => void): void;
+    on(event: "token" | "source", handler: (event: StripePaymentResponse) => void): void;
 
-    on(event: 'shippingaddresschange', handler: (event: NewShippingAddress) => void): void;
+    on(event: "shippingaddresschange", handler: (event: NewShippingAddress) => void): void;
 
-    on(event: 'shippingoptionchange', handler: (event: NewShippingOptions) => void): void;
+    on(event: "shippingoptionchange", handler: (event: NewShippingOptions) => void): void;
 }
 
 export interface CanMakePaymentResult {
@@ -227,9 +227,9 @@ export interface StripePaymentResponse {
 }
 
 export type completeStatus =
-    'success' |
-    'fail' |
-    'invalid_payer_name' |
-    'invalid_payer_phone' |
-    'invalid_payer_email' |
-    'invalid_shipping_address';
+    | "success"
+    | "fail"
+    | "invalid_payer_name"
+    | "invalid_payer_phone"
+    | "invalid_payer_email"
+    | "invalid_shipping_address";

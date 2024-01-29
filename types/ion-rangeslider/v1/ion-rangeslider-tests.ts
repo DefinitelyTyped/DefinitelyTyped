@@ -1,6 +1,6 @@
 /// <reference types="jquery"/>
 
-var sliderInputElement = $('<input />');
+var sliderInputElement = $("<input />");
 sliderInputElement.ionRangeSlider({
     min: 10,
     max: 100,
@@ -17,21 +17,21 @@ sliderInputElement.ionRangeSlider({
     prettify: true,
     disable: false,
     values: ["a", "b", "c"],
-    onLoad: function (obj) {
+    onLoad: function(obj) {
         console.log(obj);
     },
-    onChange: function (obj) {
+    onChange: function(obj) {
         console.log(obj);
     },
-    onFinish: function (obj) {
+    onFinish: function(obj) {
         console.log(obj);
-    }
+    },
 });
 sliderInputElement.ionRangeSlider("update", {
     min: 20,
     max: 90,
     from: 40,
     to: 70,
-    step: 5
+    step: 5,
 });
 sliderInputElement.ionRangeSlider("remove");

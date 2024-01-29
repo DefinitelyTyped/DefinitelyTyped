@@ -1,7 +1,7 @@
 declare var Elm: ElmInstance<ShanghaiPorts>;
 
 interface ShanghaiPorts {
-    coordinates: PortToElm<Array<number>>;
+    coordinates: PortToElm<number[]>;
     incomingShip: PortToElm<Ship>;
     outgoingShip: PortToElm<string>;
     totalCapacity: PortFromElm<number>;
@@ -17,8 +17,8 @@ interface Ship {
 var shanghai = Elm.Main.init({
     flags: {
         coordinates: [0, 0],
-        incomingShip: { name: '', capacity: 0 },
-        outgoingShip: '',
+        incomingShip: { name: "", capacity: 0 },
+        outgoingShip: "",
     },
 });
 
@@ -28,13 +28,13 @@ function logger(x: any) {
 shanghai.ports.totalCapacity.subscribe(logger);
 // send some ships to the port of Shanghai
 shanghai.ports.incomingShip.send({
-    name: 'Mary Mærsk',
+    name: "Mary Mærsk",
     capacity: 18270,
 });
 shanghai.ports.incomingShip.send({
-    name: 'Emma Mærsk',
+    name: "Emma Mærsk",
     capacity: 15500,
 });
 // have those ships leave the port of Shanghai
-shanghai.ports.outgoingShip.send('Mary Mærsk');
-shanghai.ports.outgoingShip.send('Emma Mærsk');
+shanghai.ports.outgoingShip.send("Mary Mærsk");
+shanghai.ports.outgoingShip.send("Emma Mærsk");

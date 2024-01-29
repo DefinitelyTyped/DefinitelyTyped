@@ -9,10 +9,6 @@
         "strictFunctionTypes": true,
         "strictNullChecks": true,
         "esModuleInterop": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "jsx": "react",
         "types": [],
         "noEmit": true,

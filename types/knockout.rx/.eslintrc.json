@@ -1,0 +1,6 @@
+{
+    "rules": {
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@definitelytyped/npm-naming": "off"
+    }
+}

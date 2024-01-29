@@ -1,6 +1,22 @@
 {
-  "private": true,
-  "dependencies": {
-    "csstype": "^3.0.2"
-  }
+    "private": true,
+    "name": "@types/fluent-react",
+    "version": "0.8.9999",
+    "projects": [
+        "http://projectfluent.org"
+    ],
+    "dependencies": {
+        "@types/fluent": "*",
+        "@types/react": "*",
+        "csstype": "^3.0.2"
+    },
+    "devDependencies": {
+        "@types/fluent-react": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Huy Nguyen",
+            "githubUsername": "huy-nguyen"
+        }
+    ]
 }

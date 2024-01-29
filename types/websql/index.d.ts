@@ -1,41 +1,49 @@
-// Type definitions for websql
-// Project: http://www.w3.org/TR/webdatabase/
-// Definitions by: TeamworkGuy2 <https://github.com/TeamworkGuy2>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // W3C spec: http://www.w3.org/TR/webdatabase/#database
 // Spec revision: 2010-11-18
 // NOTE: the W3C websql spec has been deprecated
 
 // uncomment to integrate with Window global object
-interface Window extends WindowDatabase { }
-interface WorkerUtils extends WorkerUtilsDatabase { }
+interface Window extends WindowDatabase {}
+interface WorkerUtils extends WorkerUtilsDatabase {}
 
 // util interfaces
-interface DOMString extends String { }
-interface ObjectArray extends Array<any> { }
+interface DOMString extends String {}
+interface ObjectArray extends Array<any> {}
 
-
-//[Supplemental, NoInterfaceObject]
+// [Supplemental, NoInterfaceObject]
 interface WindowDatabase {
-    openDatabase(name: DOMString, version: DOMString, displayName: DOMString, estimatedSize: number,
-        creationCallback?: DatabaseCallback): Database;
+    openDatabase(
+        name: DOMString,
+        version: DOMString,
+        displayName: DOMString,
+        estimatedSize: number,
+        creationCallback?: DatabaseCallback,
+    ): Database;
 }
 
-//[Supplemental, NoInterfaceObject]
+// [Supplemental, NoInterfaceObject]
 interface WorkerUtilsDatabase {
-    openDatabase(name: DOMString, version: DOMString, displayName: DOMString, estimatedSize: number,
-        creationCallback?: DatabaseCallback): Database;
+    openDatabase(
+        name: DOMString,
+        version: DOMString,
+        displayName: DOMString,
+        estimatedSize: number,
+        creationCallback?: DatabaseCallback,
+    ): Database;
 
-    openDatabaseSync(name: DOMString, version: DOMString, displayName: DOMString, estimatedSize: number,
-        creationCallback?: DatabaseCallback): DatabaseSync;
+    openDatabaseSync(
+        name: DOMString,
+        version: DOMString,
+        displayName: DOMString,
+        estimatedSize: number,
+        creationCallback?: DatabaseCallback,
+    ): DatabaseSync;
 }
 
-//[Callback = FunctionOnly, NoInterfaceObject]
+// [Callback = FunctionOnly, NoInterfaceObject]
 interface DatabaseCallback {
-    /*handleEvent*/(database: Database): void;
+    /*handleEvent*/ (database: Database): void;
 }
-
 
 /** 4.3 Asynchronous database API - The transaction() and readTransaction() methods takes
  * one to three arguments. When called, these methods must immediately return and then
@@ -45,13 +53,19 @@ interface DatabaseCallback {
  * postflight operation
  */
 interface Database {
-    /*readonly/const*/version: DOMString;
+    /*readonly/const*/ version: DOMString;
 
-    transaction(callback: SQLTransactionCallback, errorCallback?: SQLTransactionErrorCallback,
-        successCallback?: SQLVoidCallback): void;
+    transaction(
+        callback: SQLTransactionCallback,
+        errorCallback?: SQLTransactionErrorCallback,
+        successCallback?: SQLVoidCallback,
+    ): void;
 
-    readTransaction(callback: SQLTransactionCallback, errorCallback?: SQLTransactionErrorCallback,
-        successCallback?: SQLVoidCallback): void;
+    readTransaction(
+        callback: SQLTransactionCallback,
+        errorCallback?: SQLTransactionErrorCallback,
+        successCallback?: SQLVoidCallback,
+    ): void;
 
     /** The changeVersion() method allows scripts to atomically verify the version number and change
      * it at the same time as doing a schema update. When the method is invoked, it must immediately
@@ -59,47 +73,55 @@ interface Database {
      * the third argument, the error callback being the fourth argument, the success callback being
      * the fifth argument
      */
-    changeVersion(oldVersion: DOMString, newVersion: DOMString, callback?: SQLTransactionCallback,
-        errorCallback?: SQLTransactionErrorCallback, successCallback?: SQLVoidCallback): void;
+    changeVersion(
+        oldVersion: DOMString,
+        newVersion: DOMString,
+        callback?: SQLTransactionCallback,
+        errorCallback?: SQLTransactionErrorCallback,
+        successCallback?: SQLVoidCallback,
+    ): void;
 }
 
-//[Callback = FunctionOnly, NoInterfaceObject]
+// [Callback = FunctionOnly, NoInterfaceObject]
 interface SQLVoidCallback {
-    /*handleEvent*/(): void;
+    /*handleEvent*/ (): void;
 }
 
-//[Callback = FunctionOnly, NoInterfaceObject]
+// [Callback = FunctionOnly, NoInterfaceObject]
 interface SQLTransactionCallback {
-    /*handleEvent*/(transaction: SQLTransaction): void;
+    /*handleEvent*/ (transaction: SQLTransaction): void;
 }
 
-//[Callback = FunctionOnly, NoInterfaceObject]
+// [Callback = FunctionOnly, NoInterfaceObject]
 interface SQLTransactionErrorCallback {
-    /*handleEvent*/(error: SQLError): void;
+    /*handleEvent*/ (error: SQLError): void;
 }
 
 /** 4.3.1 Executing SQL statements
  */
 interface SQLTransaction {
-    executeSql(sqlStatement: DOMString, arguments?: ObjectArray, callback?: SQLStatementCallback,
-        errorCallback?: SQLStatementErrorCallback): void;
+    executeSql(
+        sqlStatement: DOMString,
+        arguments?: ObjectArray,
+        callback?: SQLStatementCallback,
+        errorCallback?: SQLStatementErrorCallback,
+    ): void;
 }
 
-//[Callback = FunctionOnly, NoInterfaceObject]
+// [Callback = FunctionOnly, NoInterfaceObject]
 interface SQLStatementCallback {
-    /*handleEvent*/(transaction: SQLTransaction, resultSet: SQLResultSet): void;
+    /*handleEvent*/ (transaction: SQLTransaction, resultSet: SQLResultSet): void;
 }
 
-//[Callback = FunctionOnly, NoInterfaceObject]
+// [Callback = FunctionOnly, NoInterfaceObject]
 interface SQLStatementErrorCallback {
-    /*handleEvent*/(transaction: SQLTransaction, error: SQLError): boolean;
+    /*handleEvent*/ (transaction: SQLTransaction, error: SQLError): boolean;
 }
-
 
 /** 4.4 Synchronous database API
  */
 interface DatabaseSync {
-    /*readonly/const*/version: DOMString;
+    /*readonly/const*/ version: DOMString;
 
     transaction(callback: SQLTransactionSyncCallback): void;
 
@@ -108,9 +130,9 @@ interface DatabaseSync {
     changeVersion(oldVersion: DOMString, newVersion: DOMString, callback: SQLTransactionSyncCallback): void;
 }
 
-//[Callback = FunctionOnly, NoInterfaceObject]
+// [Callback = FunctionOnly, NoInterfaceObject]
 interface SQLTransactionSyncCallback {
-    /*handleEvent*/(transaction: SQLTransactionSync): void;
+    /*handleEvent*/ (transaction: SQLTransactionSync): void;
 }
 
 /** 4.4.1 Executing SQL statements
@@ -118,7 +140,6 @@ interface SQLTransactionSyncCallback {
 interface SQLTransactionSync {
     executeSql(sqlStatement: DOMString, arguments?: ObjectArray): SQLResultSet;
 }
-
 
 /** 4.5 Database query results
  * The insertId attribute must return the row ID of the row that the SQLResultSet
@@ -159,7 +180,6 @@ interface SQLResultSetRowList {
     length: number;
     item(index: number): any;
 }
-
 
 /** 4.6 Errors and exceptions - asynchronous database API error
  */

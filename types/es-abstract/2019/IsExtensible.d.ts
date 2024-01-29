@@ -1,2 +1,2 @@
-import IsExtensible = require('../2018/IsExtensible');
+import IsExtensible = require("../2018/IsExtensible");
 export = IsExtensible;

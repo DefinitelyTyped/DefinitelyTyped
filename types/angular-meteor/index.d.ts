@@ -1,21 +1,15 @@
-// Type definitions for Angular JS Meteor (angular.meteor module) 0.8
-// Project: https://github.com/Urigo/angular-meteor
-// Definitions by: Peter Grman <https://github.com/pgrm>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 /// <reference types="meteor" />
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     export namespace meteor {
         interface IRootScopeService extends angular.IRootScopeService {
             /**
              * The current logged in user and it's data. it is null if the user is not logged in. A reactive data source.
              */
             currentUser: Meteor.User;
-         /**
+            /**
              * True if a login method (such as Meteor.loginWithPassword, Meteor.loginWithFacebook, or Accounts.createUser) is currently in progress.
              * A reactive data source. Can be use to display animation while user is logging in.
              */
@@ -52,7 +46,7 @@ declare module 'angular' {
              * @param definitions - Object containing `name` => `function` definition, where each name is a string and each function is the helper function. Should return a [MongoDB Cursor](http://docs.meteor.com/#/full/mongo_cursor)
              * @return This method returns this, which the the reactive context, in order to provide the ability to chain the logic.
              */
-            helpers(definitions : { [helperName : string] : () => Mongo.Cursor<any> }): IScope;
+            helpers(definitions: { [helperName: string]: () => Mongo.Cursor<any> }): IScope;
 
             /**
              * This method is a wrapper of Tracker.autorun and shares exactly the same API.
@@ -62,7 +56,7 @@ declare module 'angular' {
              *
              * @param runFunc - The function to run. It receives one argument: the Computation object that will be returned.
              */
-            autorun(runFunc : () => void) : Tracker.Computation;
+            autorun(runFunc: () => void): Tracker.Computation;
         }
 
         /**
@@ -77,7 +71,10 @@ declare module 'angular' {
              * @param [autoClientSave=true] - By default, changes in the Angular collection will automatically update the Meteor collection.
              *                              - However if set to false, changes in the client won't be automatically propagated back to the Meteor collection.
              */
-            collection<T>(collection: Mongo.Collection<T>|ReactiveResult|Function|(()=>T), autoClientSave?: boolean): AngularMeteorCollection<T>;
+            collection<T>(
+                collection: Mongo.Collection<T> | ReactiveResult | Function | (() => T),
+                autoClientSave?: boolean,
+            ): AngularMeteorCollection<T>;
 
             /**
              * A service that wraps the Meteor collections to enable reactivity within AngularJS.
@@ -88,7 +85,11 @@ declare module 'angular' {
              *                              - However if set to false, changes in the client won't be automatically propagated back to the Meteor collection.
              * @param [updateCollection] - A collection object which will be used for updates (insert, update, delete).
              */
-            collection<T, U>(collection: Mongo.Collection<T>|ReactiveResult|Function|(()=>T), autoClientSave: boolean, updateCollection: Mongo.Collection<U>): AngularMeteorCollection2<T, U>;
+            collection<T, U>(
+                collection: Mongo.Collection<T> | ReactiveResult | Function | (() => T),
+                autoClientSave: boolean,
+                updateCollection: Mongo.Collection<U>,
+            ): AngularMeteorCollection2<T, U>;
 
             /**
              * A service that wraps a Meteor object to enable reactivity within AngularJS.
@@ -101,7 +102,11 @@ declare module 'angular' {
              * @param [autoClientSave=true] - By default, changes in the Angular object will automatically update the Meteor object.
              *                              - However if set to false, changes in the client won't be automatically propagated back to the Meteor object.
              */
-            object<T>(collection: Mongo.Collection<T>, selector: Mongo.Selector<T>|Mongo.ObjectID|string, autoClientSave?: boolean): AngularMeteorObject<T>;
+            object<T>(
+                collection: Mongo.Collection<T>,
+                selector: Mongo.Selector<T> | Mongo.ObjectID | string,
+                autoClientSave?: boolean,
+            ): AngularMeteorObject<T>;
 
             /**
              * A service which is a wrapper for Meteor.subscribe. It subscribes to a Meteor.publish method in the client and returns a AngularJS promise when ready.
@@ -151,7 +156,7 @@ declare module 'angular' {
              * If it returns a string, the promise will be rejected using said string as the reason.
              * Any other return (false, null, undefined) will be rejected with the default "FORBIDDEN" reason.
              */
-            requireValidUser(validatorFn: (user: Meteor.User) => boolean|string): angular.IPromise<Meteor.User>;
+            requireValidUser(validatorFn: (user: Meteor.User) => boolean | string): angular.IPromise<Meteor.User>;
 
             /**
              * Log the user in with a password.
@@ -159,7 +164,10 @@ declare module 'angular' {
              * @param user - Either a string interpreted as a username or an email; or an object with a single key: email, username or id.
              * @param password - The user's password.
              */
-            loginWithPassword(user: string|{email: string}|{username: string}|{id: string}, password: string): angular.IPromise<void>;
+            loginWithPassword(
+                user: string | { email: string } | { username: string } | { id: string },
+                password: string,
+            ): angular.IPromise<void>;
 
             /**
              * Create a new user. More information: http://docs.meteor.com/#/full/accounts_createuser
@@ -169,7 +177,14 @@ declare module 'angular' {
              * @param options.password - The user's password. This is not sent in plain text over the wire.
              * @param options.profile - The user's profile, typically including the name field.
              */
-            createUser(options: {username?: string | undefined; email?: string | undefined; password: string; profile?: Object | undefined}): angular.IPromise<void>;
+            createUser(
+                options: {
+                    username?: string | undefined;
+                    email?: string | undefined;
+                    password: string;
+                    profile?: Object | undefined;
+                },
+            ): angular.IPromise<void>;
 
             /**
              * Change the current user's password. Must be logged in.
@@ -184,7 +199,7 @@ declare module 'angular' {
              *
              * @param options.email - The email address to send a password reset link.
              */
-            forgotPassword(options: {email: string}): angular.IPromise<void>;
+            forgotPassword(options: { email: string }): angular.IPromise<void>;
 
             /**
              * Reset the password for a user using a token received in email. Logs the user in afterwards.
@@ -252,7 +267,9 @@ declare module 'angular' {
              *
              * @return The promise solved successfully when the picture is taken with the data as a parameter or rejected with an error as a parameter in case of error.
              */
-            getPicture(options?: {width?: number | undefined; height?: number | undefined; quality?: number | undefined}): angular.IPromise<any>;
+            getPicture(
+                options?: { width?: number | undefined; height?: number | undefined; quality?: number | undefined },
+            ): angular.IPromise<any>;
 
             // <- $meteorCamera END
 
@@ -308,13 +325,13 @@ declare module 'angular' {
              *
              * @param subscriptionName - The subscription name to subscribe to. Exactly like the first parameter in $meteor.subscribe service.
              */
-            subscribe(subscriptionName:string): AngularMeteorObject<T>;
+            subscribe(subscriptionName: string): AngularMeteorObject<T>;
         }
 
         /**
          * An object that connects a Meteor Collection to an AngularJS scope variable
          */
-        interface AngularMeteorCollection<T> extends AngularMeteorCollection2<T, T> { }
+        interface AngularMeteorCollection<T> extends AngularMeteorCollection2<T, T> {}
 
         /**
          * An object that connects a Meteor Collection to an AngularJS scope variable,
@@ -327,7 +344,7 @@ declare module 'angular' {
              *               - If an object is passed, the method pushes that object into the AngularMeteorCollection.
              *               - If an array is passed, the method pushes all objects in the array into the AngularMeteorCollection.
              */
-            save(docs?: U|U[]): void;
+            save(docs?: U | U[]): void;
 
             /**
              * @param [keys] - The keys of the object to remove from the Meteor Collection.
@@ -335,7 +352,7 @@ declare module 'angular' {
              *               - If an object is passed, the method removes the object with that key from the AngularMeteorCollection.
              *               - If an array is passed, the method removes all objects that matches the keys in the array from the AngularMeteorCollection.
              */
-            remove(keys?: U|string|number|string[]|number[]): void;
+            remove(keys?: U | string | number | string[] | number[]): void;
 
             /**
              * A shorten (Syntactic sugar) function for the $meteor.subscribe function.
@@ -343,13 +360,13 @@ declare module 'angular' {
              *
              * @param subscriptionName - The subscription name to subscribe to. Exactly like the first parameter in $meteor.subscribe service.
              */
-             subscribe(subscriptionName:string): AngularMeteorCollection2<T, U>;
+            subscribe(subscriptionName: string): AngularMeteorCollection2<T, U>;
         }
 
         interface ILoginWithExternalService {
             (options: Meteor.LoginWithExternalServiceOptions): angular.IPromise<void>;
         }
 
-        interface ReactiveResult { }
-        }
+        interface ReactiveResult {}
+    }
 }

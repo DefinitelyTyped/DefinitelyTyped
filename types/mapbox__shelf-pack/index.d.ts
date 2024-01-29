@@ -1,16 +1,15 @@
-// Type definitions for @mapbox/shelf-pack 3.0
-// Project: https://github.com/mapbox/shelf-pack
-// Definitions by: Gyusun Yeom <https://github.com/Perlmint>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-// tslint:disable-next-line no-single-declare-module
+/* eslint-disable @definitelytyped/no-declare-current-package */
+// eslint-disable-next-line @definitelytyped/no-single-declare-module
 declare module "@mapbox/shelf-pack" {
     export = ShelfPack;
 
     class ShelfPack {
         constructor(width?: number, height?: number, options?: ShelfPack.CreateOption);
 
-        pack(bins: Array<ShelfPack.RequestShort | ShelfPack.RequestLong>, options?: ShelfPack.PackOption): ShelfPack.Bin[];
+        pack(
+            bins: Array<ShelfPack.RequestShort | ShelfPack.RequestLong>,
+            options?: ShelfPack.PackOption,
+        ): ShelfPack.Bin[];
         packOne(w: number, h: number, id?: ShelfPack.ID): ShelfPack.Bin;
         getBin(id: ShelfPack.ID): ShelfPack.Bin;
         ref(bin: ShelfPack.Bin): number;

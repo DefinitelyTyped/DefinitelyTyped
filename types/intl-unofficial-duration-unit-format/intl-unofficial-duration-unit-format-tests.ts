@@ -1,54 +1,54 @@
-import DurationUnitFormat from 'intl-unofficial-duration-unit-format';
+import DurationUnitFormat from "intl-unofficial-duration-unit-format";
 
 new DurationUnitFormat().format(10);
 
-new DurationUnitFormat('en').format(10);
+new DurationUnitFormat("en").format(10);
 
-new DurationUnitFormat(['en-GB', 'en-US']).format(10);
+new DurationUnitFormat(["en-GB", "en-US"]).format(10);
 
-// $ExpectError
-new DurationUnitFormat('en').format(undefined);
+// @ts-expect-error
+new DurationUnitFormat("en").format(undefined);
 
-new DurationUnitFormat('en', {
-    style: 'custom',
+new DurationUnitFormat("en", {
+    style: "custom",
 });
 
-new DurationUnitFormat('en', {
+new DurationUnitFormat("en", {
     style: DurationUnitFormat.styles.CUSTOM,
 });
 
-new DurationUnitFormat('en', {
-    // $ExpectError
-    style: 'wrong',
+new DurationUnitFormat("en", {
+    // @ts-expect-error
+    style: "wrong",
 });
 
-new DurationUnitFormat('en', {
+new DurationUnitFormat("en", {
     formatUnits: {
-        day: '{value}',
-        hour: '{value}',
-        minute: '{value}',
-        second: '{value}',
+        day: "{value}",
+        hour: "{value}",
+        minute: "{value}",
+        second: "{value}",
     },
 });
 
-new DurationUnitFormat('en', {
+new DurationUnitFormat("en", {
     formatUnits: {
-        // $ExpectError
-        wrong: '{value}',
+        // @ts-expect-error
+        wrong: "{value}",
     },
 });
 
-new DurationUnitFormat('en', {
-    // $ExpectError
+new DurationUnitFormat("en", {
+    // @ts-expect-error
     formatUnits: {},
 });
 
-new DurationUnitFormat('en', {
+new DurationUnitFormat("en", {
     formatUnits: {
-        [DurationUnitFormat.units.DAY]: '{value}',
-        [DurationUnitFormat.units.HOUR]: '{value}',
-        [DurationUnitFormat.units.MINUTE]: '{value}',
-        [DurationUnitFormat.units.SECOND]: '{value}',
+        [DurationUnitFormat.units.DAY]: "{value}",
+        [DurationUnitFormat.units.HOUR]: "{value}",
+        [DurationUnitFormat.units.MINUTE]: "{value}",
+        [DurationUnitFormat.units.SECOND]: "{value}",
     },
 });
 

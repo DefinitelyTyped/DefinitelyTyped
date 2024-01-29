@@ -1,9 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "dt-header": false,
-        "jsdoc-format": false,
-        "no-padding": false,
-        "semicolon": false
-    }
-}

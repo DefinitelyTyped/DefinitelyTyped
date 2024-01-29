@@ -1,9 +1,4 @@
-// Type definitions for imagemin-mozjpeg 8.0
-// Project: https://github.com/imagemin/imagemin-mozjpeg#readme
-// Definitions by: Jeff Chan <https://github.com/hkjeffchan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { Plugin } from 'imagemin';
+import { Plugin } from "imagemin";
 
 declare function imageminMozjpeg(options?: imageminMozjpeg.Options): Plugin;
 
@@ -48,7 +43,6 @@ declare namespace imageminMozjpeg {
         /**
          * Trellis optimization.
          * @default true
-         *
          */
         trellis?: boolean | undefined;
 
@@ -62,7 +56,7 @@ declare namespace imageminMozjpeg {
          * Set Trellis optimization method. Available methods: psnr, hvs-psnr, ssim, ms-ssim
          * @default 'hvs-psnr'
          */
-        tune?: 'psnr' | 'hvs-psnr' | 'ssim' | 'ms-ssim' | undefined;
+        tune?: "psnr" | "hvs-psnr" | "ssim" | "ms-ssim" | undefined;
 
         /**
          * Black-on-white deringing via overshoot.
@@ -83,7 +77,7 @@ declare namespace imageminMozjpeg {
          * float Use floating-point DCT
          * @default 'int'
          */
-        dct?: 'int' | 'fast' | 'float' | undefined;
+        dct?: "int" | "fast" | "float" | undefined;
 
         /**
          * Use 8-bit quantization table entries for baseline JPEG compatibility.

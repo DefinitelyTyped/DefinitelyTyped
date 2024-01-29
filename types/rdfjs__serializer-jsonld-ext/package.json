@@ -1,6 +1,23 @@
 {
     "private": true,
+    "name": "@types/rdfjs__serializer-jsonld-ext",
+    "version": "4.0.9999",
+    "type": "module",
+    "projects": [
+        "https://github.com/rdfjs-base/serializer-jsonld-ext"
+    ],
     "dependencies": {
-      "rdf-js": "^4.0.2"
-    }
-  }
+        "@types/jsonld": "*",
+        "@types/node": "*",
+        "@rdfjs/types": ">=1.0.0"
+    },
+    "devDependencies": {
+        "@types/rdfjs__serializer-jsonld-ext": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chris Wilkinson",
+            "githubUsername": "thewilkybarkid"
+        }
+    ]
+}

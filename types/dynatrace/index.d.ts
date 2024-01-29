@@ -1,8 +1,3 @@
-// Type definitions for dynatrace 1.0
-// Project: https://www.dynatrace.com/, https://github.com/npm/deprecate-holder
-// Definitions by: Alvaro Cruz <https://github.com/alvaro450>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface dynaTrace {
     /**
      * @description disable automatic detection
@@ -35,7 +30,7 @@ interface dynaTrace {
     sendSignal(
         forceSync: boolean,
         sendPreview: boolean,
-        killUnfinished: boolean
+        killUnfinished: boolean,
     ): void;
     /**
      * @description parentAction: optional id of parent action.
@@ -56,7 +51,7 @@ interface dynaTrace {
         name: string,
         type: string,
         time?: number,
-        parentAction?: number | boolean
+        parentAction?: number | boolean,
     ): number;
     /**
      * @description stops the action that is represented by the given tracking object.
@@ -112,7 +107,7 @@ interface dynaTrace {
         url: string,
         success: boolean,
         start?: number,
-        stop?: number
+        stop?: number,
     ): void;
     /**
      * @description Adds a listener that is called when the user is leaving the page,
@@ -142,7 +137,7 @@ interface dynaTrace {
         playTime: number,
         bufferingCount: number,
         bufferingTime: number,
-        type: "_info_" | "_warn_" | "_error_"
+        type: "_info_" | "_warn_" | "_error_",
     ): void;
     /**
      * @description Indicates the start of a user input. User inputs must always
@@ -158,7 +153,7 @@ interface dynaTrace {
         domNode: any,
         type: string,
         addInfo: string,
-        validTime: number
+        validTime: number,
     ): any;
     /**
      * @description the user input object returned by beginUserInput

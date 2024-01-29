@@ -1,14 +1,14 @@
-import * as Kavenegar from 'kavenegar';
+import * as Kavenegar from "kavenegar";
 
 const kavenegar = Kavenegar.KavenegarApi({
-    apikey: 'your api key',
+    apikey: "your api key",
 });
 
 kavenegar.Send(
     {
-        message: 'خدمات پیام کوتاه کاوه نگار',
-        sender: '10004346',
-        receptor: '09123456789,09367891011',
+        message: "خدمات پیام کوتاه کاوه نگار",
+        sender: "10004346",
+        receptor: "09123456789,09367891011",
     },
     (response, status, message) => {
         const responseTest = response;
@@ -19,9 +19,9 @@ kavenegar.Send(
 
 kavenegar.SendArray(
     {
-        message: '["کاوه نگار", "وب سرویس کاوه نگار"]',
-        sender: '["10008445","10008445"]',
-        receptor: '["09123456789","09123456781"]',
+        message: "[\"کاوه نگار\", \"وب سرویس کاوه نگار\"]",
+        sender: "[\"10008445\",\"10008445\"]",
+        receptor: "[\"09123456789\",\"09123456781\"]",
     },
     (response, status, message) => {
         const responseMessage = message;
@@ -30,7 +30,7 @@ kavenegar.SendArray(
 
 kavenegar.Status(
     {
-        messageid: '85463238,85463239',
+        messageid: "85463238,85463239",
     },
     (response, status, message) => {
         const messageId = response[0].messageid;
@@ -40,7 +40,7 @@ kavenegar.Status(
 
 kavenegar.StatusLocalMessageid(
     {
-        localid: '450',
+        localid: "450",
     },
     (response, status, message) => {
         const messageId = response[0].messageid;
@@ -51,7 +51,7 @@ kavenegar.StatusLocalMessageid(
 
 kavenegar.Select(
     {
-        messageid: '989405630,31031213,31031214',
+        messageid: "989405630,31031213,31031214",
     },
     (response, status, message) => {
         const messageId = response[0].messageid;
@@ -70,15 +70,15 @@ kavenegar.SelectOutbox(
     },
 );
 
-kavenegar.LatestOutbox({ pagesize: 12, sender: '10004535' }, (response, status, message) => {
+kavenegar.LatestOutbox({ pagesize: 12, sender: "10004535" }, (response, status, message) => {
     const responseTest = response[0];
 });
 
-kavenegar.Cancel({ messageid: '989405630,31031213,31031214' }, (response, status, message) => {
+kavenegar.Cancel({ messageid: "989405630,31031213,31031214" }, (response, status, message) => {
     const responseTest = response;
 });
 
-kavenegar.Receive({ linenumber: '30002225', isread: 1 }, (response, status, message) => {
+kavenegar.Receive({ linenumber: "30002225", isread: 1 }, (response, status, message) => {
     const responseTest = response;
 });
 
@@ -86,7 +86,7 @@ kavenegar.CountInbox(
     {
         startdate: 1644862633,
         enddate: 1410570000,
-        linenumber: '10008284',
+        linenumber: "10008284",
         isread: 1,
     },
     (response, status, message) => {
@@ -96,9 +96,9 @@ kavenegar.CountInbox(
 
 kavenegar.VerifyLookup(
     {
-        receptor: '09361234567',
-        token: '852596',
-        template: 'registerverify',
+        receptor: "09361234567",
+        token: "852596",
+        template: "registerverify",
     },
     (response, status, message) => {
         const responseTest = response;
@@ -107,8 +107,8 @@ kavenegar.VerifyLookup(
 
 kavenegar.CallMakeTTS(
     {
-        receptor: '09361234567',
-        message: 'خدمات پیام کوتاه کاوه نگار',
+        receptor: "09361234567",
+        message: "خدمات پیام کوتاه کاوه نگار",
     },
     (response, status, message) => {
         const responseTest = response;
@@ -122,6 +122,6 @@ kavenegar.AccountInfo({}, (response, status, message) => {
     const type = response.type;
 });
 
-kavenegar.AccountConfig({ apilogs: 'justfaults', defaultsender: '10004535' }, (response, status, message) => {
+kavenegar.AccountConfig({ apilogs: "justfaults", defaultsender: "10004535" }, (response, status, message) => {
     const responseTest = response;
 });

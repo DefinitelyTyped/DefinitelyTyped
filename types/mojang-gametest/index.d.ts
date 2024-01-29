@@ -1,39 +1,20 @@
-// Type definitions for Minecraft Bedrock Edition script APIs (experimental) 0.1
-// Project: https://docs.microsoft.com/minecraft/creator/
-// Definitions by: Jake Shirley <https://github.com/JakeShirley>
-//                 Mike Ammerlaan <https://github.com/mammerla>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /* *****************************************************************************
    Copyright (c) Microsoft Corporation.
    ***************************************************************************** */
 /**
- * GameTest provides scriptable APIs for scaffolding and
- * testing content experiences in Minecraft.
+ * The mojang-gametest module provides scriptable APIs for
+ * scaffolding and testing content experiences in Minecraft.
+ *
+ * Manifest Details
+ * ```json
+ * {
+ *   // mojang-gametest
+ *   "uuid": "6f4b6893-1bb6-42fd-b458-7fa3d0c89616",
+ *   "version": "1.0.0-beta"
+ * }
+ * ```
  */
-import * as mojangminecraft from 'mojang-minecraft';
-/**
- * Represents the type of fluid for use within a fluid
- * containing block, like a cauldron.
- */
-export enum FluidType {
-    /**
-     * Represents water as a type of fluida.
-     */
-    water = 0,
-    /**
-     * Represents lava as a type of fluid.
-     */
-    lava = 1,
-    /**
-     * Represents powder snow as a type of fluid.
-     */
-    powderSnow = 2,
-    /**
-     * Represents a potion as a type of fluid.
-     */
-    potion = 3,
-}
+import * as mojangminecraft from "mojang-minecraft";
 /**
  * Returns information about whether this fence is connected to
  * other fences in several directions.
@@ -43,22 +24,23 @@ export class FenceConnectivity {
      * Represents whether this fence block is connected to another
      * fence to the east (x + 1).
      */
-    readonly 'east': boolean;
+    readonly "east": boolean;
     /**
      * Represents whether this fence block is connected to another
      * fence to the north (z - 1).
      */
-    readonly 'north': boolean;
+    readonly "north": boolean;
     /**
      * Represents whether this fence block is connected to another
      * fence to the south (z + 1).
      */
-    readonly 'south': boolean;
+    readonly "south": boolean;
     /**
      * Represents whether this fence block is connected to another
      * fence to the west (x - 1).
      */
-    readonly 'west': boolean;
+    readonly "west": boolean;
+    protected constructor();
 }
 /**
  * Executes a set of steps defined via chained .thenXyz
@@ -158,6 +140,7 @@ export class GameTestSequence {
      * method steps can be added.
      */
     thenWaitAfter(delayTicks: number, callback: () => void): GameTestSequence;
+    protected constructor();
 }
 /**
  * A utility class to set GameTest parameters for a test.
@@ -173,7 +156,7 @@ export class RegistrationBuilder {
      * RegistrationBuilder object where additional configuration
      * methods can be called.
      */
-    batch(batchName: 'night' | 'day'): RegistrationBuilder;
+    batch(batchName: "night" | "day"): RegistrationBuilder;
     /**
      * @remarks
      * Sets the maximum number of times a test will try to rerun if
@@ -266,6 +249,47 @@ export class RegistrationBuilder {
      * methods can be called.
      */
     tag(tag: string): RegistrationBuilder;
+    protected constructor();
+}
+/**
+ * Implements a class that can be used for testing sculk
+ * spreading behaviors. This sculk spreader class can drive the
+ * growth of sculk around a particular block.
+ */
+export class SculkSpreader {
+    /**
+     * Gets the maximum charge of a sculk spreader.
+     * @throws This property can throw when used.
+     */
+    readonly "maxCharge": number;
+    /**
+     * @remarks
+     * Adds a cursor - which is a notional waypoint that the sculk
+     * will spread in the direction of.
+     * @param offset
+     * @param charge
+     */
+    addCursorsWithOffset(offset: mojangminecraft.BlockLocation, charge: number): void;
+    /**
+     * @remarks
+     * Retrieves the current position of the specified cursor.
+     * @param index
+     * @throws This function can throw errors.
+     */
+    getCursorPosition(index: number): mojangminecraft.BlockLocation;
+    /**
+     * @remarks
+     * Returns a number of overall cursors for this sculk spreader.
+     * @throws This function can throw errors.
+     */
+    getNumberOfCursors(): number;
+    /**
+     * @remarks
+     * Gets the total current charge of the sculk spreader.
+     * @throws This function can throw errors.
+     */
+    getTotalCharge(): number;
+    protected constructor();
 }
 /**
  * A simulated player can be used within GameTests to represent
@@ -276,80 +300,96 @@ export class RegistrationBuilder {
  */
 export class SimulatedPlayer extends mojangminecraft.Player {
     /**
-     * Rotation of the body in degrees. Range is between -180 and
-     * 180 degrees.
-     * @throws This property can throw when used.
-     */
-    readonly 'bodyRotation': number;
-    /**
      * Dimension that the simulated player is currently within.
      * @throws This property can throw when used.
      */
-    readonly 'dimension': mojangminecraft.Dimension;
+    readonly "dimension": mojangminecraft.Dimension;
     /**
      * Location of the center of the head component of the player.
      * @throws This property can throw when used.
      */
-    readonly 'headLocation': mojangminecraft.Location;
+    readonly "headLocation": mojangminecraft.Location;
     /**
      * Rotation of the head across pitch and yaw angles.
      * @throws This property can throw when used.
      */
-    readonly 'headRotation': mojangminecraft.PitchYawRotation;
+    readonly "headRotation": mojangminecraft.XYRotation;
     /**
      * Identifier for the player.
      * @throws This property can throw when used.
      */
-    readonly 'id': string;
+    readonly "id": string;
     /**
      * True if the player is currently using a sneaking movement.
      */
-    'isSneaking': boolean;
+    "isSneaking": boolean;
     /**
      * Current location of the player.
      * @throws This property can throw when used.
      */
-    readonly 'location': mojangminecraft.Location;
+    readonly "location": mojangminecraft.Location;
     /**
      * Name of the player.
      * @throws This property can throw when used.
      */
-    readonly 'name': string;
+    readonly "name": string;
     /**
      * Optional name tag of the player.
      */
-    'nameTag': string;
+    "nameTag": string;
+    /**
+     * Contains methods for manipulating the on-screen display of a
+     * Player.
+     */
+    readonly "onScreenDisplay": mojangminecraft.ScreenDisplay;
+    /**
+     * Main rotation of the entity.
+     * @throws This property can throw when used.
+     */
+    readonly "rotation": mojangminecraft.XYRotation;
+    /**
+     * Returns a scoreboard identity that represents this entity.
+     * @throws This property can throw when used.
+     */
+    readonly "scoreboard": mojangminecraft.ScoreboardIdentity;
     /**
      * Manages the selected slot in the player's hotbar.
      */
-    'selectedSlot': number;
+    "selectedSlot": number;
     /**
      * Retrieves or sets an entity that is used as the target of
      * AI-related behaviors, like attacking.
      */
-    'target': mojangminecraft.Entity;
+    "target": mojangminecraft.Entity;
     /**
      * Current speed of the player across X, Y, and Z dimensions.
      * @throws This property can throw when used.
      */
-    readonly 'velocity': mojangminecraft.Vector;
+    readonly "velocity": mojangminecraft.Vector;
     /**
      * Vector of the current view of the player.
      * @throws This property can throw when used.
      */
-    readonly 'viewVector': mojangminecraft.Vector;
+    readonly "viewVector": mojangminecraft.Vector;
     /**
      * @remarks
      * Adds an effect, like poison, to the entity.
      * @param effectType
      * Type of effect to add to the entity.
      * @param duration
-     * Amount of time, in seconds, for the effect to apply.
+     * Amount of time, in ticks, for the effect to apply.
      * @param amplifier
      * Optional amplification of the effect to apply.
+     * @param showParticles
      * @throws This function can throw errors.
      */
-    addEffect(effectType: mojangminecraft.EffectType, duration: number, amplifier: number): void;
+    addEffect(
+        effectType: mojangminecraft.EffectType,
+        duration: number,
+        amplifier?: number,
+        showParticles?: boolean,
+    ): void;
+    addExperience(amount: number): boolean;
     /**
      * @remarks
      * Adds a specified tag to a simulated player.
@@ -390,7 +430,7 @@ export class SimulatedPlayer extends mojangminecraft.Player {
      * Direction to place the specified item within.
      * @throws This function can throw errors.
      */
-    breakBlock(blockLocation: mojangminecraft.BlockLocation, direction?: number): boolean;
+    breakBlock(blockLocation: mojangminecraft.BlockLocation, direction?: mojangminecraft.Direction): boolean;
     /**
      * @remarks
      * Gets the first block that intersects with the vector of the
@@ -417,6 +457,16 @@ export class SimulatedPlayer extends mojangminecraft.Player {
      * and supported by the API.
      */
     getComponents(): mojangminecraft.IEntityComponent[];
+    /**
+     * @remarks
+     * Returns a property value.
+     * @param identifier
+     * @returns
+     * Returns the value for the property, or undefined if the
+     * property has not been set.
+     * @throws This function can throw errors.
+     */
+    getDynamicProperty(identifier: string): boolean | number | string;
     /**
      * @remarks
      * Returns the effect for the specified EffectType on the
@@ -500,7 +550,7 @@ export class SimulatedPlayer extends mojangminecraft.Player {
      * Direction to place the specified item within.
      * @throws This function can throw errors.
      */
-    interactWithBlock(blockLocation: mojangminecraft.BlockLocation, direction?: number): boolean;
+    interactWithBlock(blockLocation: mojangminecraft.BlockLocation, direction?: mojangminecraft.Direction): boolean;
     /**
      * @remarks
      * Causes the simulated player to interact with a mob. Returns
@@ -648,6 +698,14 @@ export class SimulatedPlayer extends mojangminecraft.Player {
      * @throws This function can throw errors.
      */
     playSound(soundID: string, soundOptions?: mojangminecraft.SoundOptions): void;
+    postClientMessage(id: string, value: string): void;
+    /**
+     * @remarks
+     * Removes a specified property.
+     * @param identifier
+     * @throws This function can throw errors.
+     */
+    removeDynamicProperty(identifier: string): boolean;
     /**
      * @remarks
      * Removes a specified tag from a simulated player.
@@ -685,12 +743,36 @@ export class SimulatedPlayer extends mojangminecraft.Player {
     runCommand(commandString: string): any;
     /**
      * @remarks
+     * Runs a particular command asynchronously from the context of
+     * this entity. Where possible, running a command
+     * asynchronously is recommended, especially for long running
+     * operations.
+     * @param commandString
+     * Command to run. Note that command strings should not start
+     * with slash.
+     * @returns
+     * For commands that return data, returns a JSON structure with
+     * command response values.
+     * @throws This function can throw errors.
+     */
+    runCommandAsync(commandString: string): Promise<mojangminecraft.CommandResult>;
+    /**
+     * @remarks
      * Causes the simulated player to turn to face the provided
      * angle, relative to the GameTest.
      * @param angleInDegrees
      * @throws This function can throw errors.
      */
     setBodyRotation(angleInDegrees: number): void;
+    /**
+     * @remarks
+     * Sets a specified property to a value.
+     * @param identifier
+     * @param value
+     * Data value of the property to set.
+     * @throws This function can throw errors.
+     */
+    setDynamicProperty(identifier: string, value: boolean | number | string): void;
     /**
      * @remarks
      * Sets the game mode that the simulated player is operating
@@ -714,12 +796,20 @@ export class SimulatedPlayer extends mojangminecraft.Player {
     setItem(itemStack: mojangminecraft.ItemStack, slot: number, selectSlot?: boolean): boolean;
     /**
      * @remarks
+     * Sets the main rotation of the entity.
+     * @param degreesX
+     * @param degreesY
+     * @throws This function can throw errors.
+     */
+    setRotation(degreesX: number, degreesY: number): void;
+    /**
+     * @remarks
      * Sets a velocity for the entity to move with.
      * @param velocity
      * X/Y/Z components of the velocity.
      * @throws This function can throw errors.
      */
-    setVelocity(velocity: mojangminecraft.Vector): void;
+    setVelocity(velocity: mojangminecraft.Vector3): void;
     /**
      * @remarks
      * Sets the item cooldown time for a particular cooldown
@@ -768,13 +858,15 @@ export class SimulatedPlayer extends mojangminecraft.Player {
      * X rotation of the player after teleportation.
      * @param yRotation
      * Y rotation of the player after teleportation.
+     * @param keepVelocity
      * @throws This function can throw errors.
      */
     teleport(
-        location: mojangminecraft.Location,
+        location: mojangminecraft.Vector3,
         dimension: mojangminecraft.Dimension,
         xRotation: number,
         yRotation: number,
+        keepVelocity?: boolean,
     ): void;
     /**
      * @remarks
@@ -786,13 +878,23 @@ export class SimulatedPlayer extends mojangminecraft.Player {
      * Dimension to move the selected player to.
      * @param facingLocation
      * Location that this player will be facing.
+     * @param keepVelocity
      * @throws This function can throw errors.
      */
     teleportFacing(
-        location: mojangminecraft.Location,
+        location: mojangminecraft.Vector3,
         dimension: mojangminecraft.Dimension,
-        facingLocation: mojangminecraft.Location,
+        facingLocation: mojangminecraft.Vector3,
+        keepVelocity?: boolean,
     ): void;
+    /**
+     * @remarks
+     * For simulated players, this API is effectively a no-op as
+     * simulated players do not have a connected client.
+     * @param message
+     * @throws This function can throw errors.
+     */
+    tell(message: mojangminecraft.RawMessage | string): void;
     /**
      * @remarks
      * Triggers an entity type event. For every entity, a number of
@@ -843,7 +945,7 @@ export class SimulatedPlayer extends mojangminecraft.Player {
     useItemInSlotOnBlock(
         slot: number,
         blockLocation: mojangminecraft.BlockLocation,
-        direction?: number,
+        direction?: mojangminecraft.Direction,
         faceLocationX?: number,
         faceLocationY?: number,
     ): boolean;
@@ -867,10 +969,11 @@ export class SimulatedPlayer extends mojangminecraft.Player {
     useItemOnBlock(
         itemStack: mojangminecraft.ItemStack,
         blockLocation: mojangminecraft.BlockLocation,
-        direction?: number,
+        direction?: mojangminecraft.Direction,
         faceLocationX?: number,
         faceLocationY?: number,
     ): boolean;
+    protected constructor();
 }
 /**
  * These well-known tags can be used to classify different
@@ -882,22 +985,23 @@ export class Tags {
      * Indicates that the tagged test should be a part of all
      * suites.
      */
-    static readonly 'suiteAll' = 'suite:all';
+    static readonly "suiteAll" = "suite:all";
     /**
      * Indicates that the tagged test should be a part of an
      * internal (debug) test suite.
      */
-    static readonly 'suiteDebug' = 'suite:debug';
+    static readonly "suiteDebug" = "suite:debug";
     /**
      * Indicates that the tagged test should be a part of the
      * default test suite.
      */
-    static readonly 'suiteDefault' = 'suite:default';
+    static readonly "suiteDefault" = "suite:default";
     /**
      * Indicates that the tagged test should be a part of a suite
      * of disabled tests.
      */
-    static readonly 'suiteDisabled' = 'suite:disabled';
+    static readonly "suiteDisabled" = "suite:disabled";
+    protected constructor();
 }
 /**
  * Main class for GameTest functions, with helpers and data for
@@ -951,8 +1055,9 @@ export class Test {
      * @example testIfButtonNotPressed.js
      * ```typescript
      *        test.assertBlockState(buttonPos, (block) => {
-     *          return block.getBlockData().getProperty("button_pressed_bit") == 0;
+     *          return block.permutation.getProperty("button_pressed_bit") == 0;
      *        });
+     *
      * ```
      */
     assertBlockState(
@@ -1124,6 +1229,24 @@ export class Test {
      * specified type is present in the GameTest area. If false,
      * tests that an entity of the specified type is not present.
      * @throws This function can throw errors.
+     * @example simpleMobTest.ts
+     * ```typescript
+     *          gt.register("StarterTests", "simpleMobTest", (test: gt.Test) => {
+     *            const attackerId = "fox";
+     *            const victimId = "chicken";
+     *
+     *            test.spawn(attackerId, new mc.BlockLocation(5, 2, 5));
+     *            test.spawn(victimId, new mc.BlockLocation(2, 2, 2));
+     *
+     *            test.assertEntityPresentInArea(victimId, true);
+     *
+     *            test.succeedWhen(() => {
+     *              test.assertEntityPresentInArea(victimId, false);
+     *            });
+     *          })
+     *            .maxTicks(400)
+     *            .structureName("gametests:mediumglass");
+     * ```
      */
     assertEntityPresentInArea(entityTypeIdentifier: string, isPresent?: boolean): void;
     /**
@@ -1251,6 +1374,7 @@ export class Test {
      * @throws This function can throw errors.
      */
     assertRedstonePower(blockLocation: mojangminecraft.BlockLocation, power: number): void;
+    destroyBlock(blockLocation: mojangminecraft.BlockLocation, dropResources?: boolean): void;
     /**
      * @remarks
      * Marks the current test as a failure case.
@@ -1294,6 +1418,15 @@ export class Test {
      * @throws This function can throw errors.
      */
     getFenceConnectivity(blockLocation: mojangminecraft.BlockLocation): FenceConnectivity;
+    /**
+     * @remarks
+     * Retrieves a sculk spreader object that can be used to
+     * control and manage how sculk grows from a block.
+     * @param blockLocation
+     * Location of the block to retrieve a sculk spreader from.
+     * @throws This function can throw errors.
+     */
+    getSculkSpreader(blockLocation: mojangminecraft.BlockLocation): SculkSpreader;
     /**
      * @remarks
      * Returns the direction of the current test - see the
@@ -1405,6 +1538,7 @@ export class Test {
      * @throws This function can throw errors.
      */
     rotateDirection(direction: mojangminecraft.Direction): mojangminecraft.Direction;
+    rotateVector(vector: mojangminecraft.Vector): mojangminecraft.Vector;
     /**
      * @remarks
      * Runs a specific callback after a specified delay of ticks
@@ -1465,7 +1599,7 @@ export class Test {
      * list of values.
      * @throws This function can throw errors.
      */
-    setFluidContainer(location: mojangminecraft.BlockLocation, type: number): void;
+    setFluidContainer(location: mojangminecraft.BlockLocation, type: mojangminecraft.FluidType): void;
     /**
      * @remarks
      * Sets the fuse of an explodable entity.
@@ -1489,6 +1623,24 @@ export class Test {
      * The spawned entity. If the entity cannot be spawned, returns
      * undefined.
      * @throws This function can throw errors.
+     * @example simpleMobTest.ts
+     * ```typescript
+     *          gt.register("StarterTests", "simpleMobTest", (test: gt.Test) => {
+     *            const attackerId = "fox";
+     *            const victimId = "chicken";
+     *
+     *            test.spawn(attackerId, new mc.BlockLocation(5, 2, 5));
+     *            test.spawn(victimId, new mc.BlockLocation(2, 2, 2));
+     *
+     *            test.assertEntityPresentInArea(victimId, true);
+     *
+     *            test.succeedWhen(() => {
+     *              test.assertEntityPresentInArea(victimId, false);
+     *            });
+     *          })
+     *            .maxTicks(400)
+     *            .structureName("gametests:mediumglass");
+     * ```
      * @example spawnAdultPig.js
      * ```typescript
      *        test.spawn("minecraft:pig<minecraft:ageable_grow_up>", new BlockLocation(1, 2, 1));
@@ -1658,6 +1810,24 @@ export class Test {
      * Testing callback function that runs. If the function runs
      * successfully, the test is marked as a success.
      * @throws This function can throw errors.
+     * @example simpleMobTest.ts
+     * ```typescript
+     *          gt.register("StarterTests", "simpleMobTest", (test: gt.Test) => {
+     *            const attackerId = "fox";
+     *            const victimId = "chicken";
+     *
+     *            test.spawn(attackerId, new mc.BlockLocation(5, 2, 5));
+     *            test.spawn(victimId, new mc.BlockLocation(2, 2, 2));
+     *
+     *            test.assertEntityPresentInArea(victimId, true);
+     *
+     *            test.succeedWhen(() => {
+     *              test.assertEntityPresentInArea(victimId, false);
+     *            });
+     *          })
+     *            .maxTicks(400)
+     *            .structureName("gametests:mediumglass");
+     * ```
      */
     succeedWhen(callback: () => void): void;
     /**
@@ -1813,6 +1983,7 @@ export class Test {
      * @throws This function can throw errors.
      */
     worldLocation(relativeLocation: mojangminecraft.Location): mojangminecraft.Location;
+    protected constructor();
 }
 /**
  * @remarks
@@ -1835,6 +2006,24 @@ export class Test {
  *          test.fail("This test, runnable via '/gametest run ExampleTests:alwaysFail', will always fail");
  *        });
  *
+ * ```
+ * @example simpleMobTest.ts
+ * ```typescript
+ *          gt.register("StarterTests", "simpleMobTest", (test: gt.Test) => {
+ *            const attackerId = "fox";
+ *            const victimId = "chicken";
+ *
+ *            test.spawn(attackerId, new mc.BlockLocation(5, 2, 5));
+ *            test.spawn(victimId, new mc.BlockLocation(2, 2, 2));
+ *
+ *            test.assertEntityPresentInArea(victimId, true);
+ *
+ *            test.succeedWhen(() => {
+ *              test.assertEntityPresentInArea(victimId, false);
+ *            });
+ *          })
+ *            .maxTicks(400)
+ *            .structureName("gametests:mediumglass");
  * ```
  */
 export function register(

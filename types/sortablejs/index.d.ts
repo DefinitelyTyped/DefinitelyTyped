@@ -1,21 +1,14 @@
-// Type definitions for Sortable.js 1.10
-// Project: https://github.com/RubaXa/Sortable
-// Definitions by: Maw-Fox <https://github.com/Maw-Fox>
-//                 Maarten Staa <https://github.com/maartenstaa>
-//                 Wayne Van Son <https://github.com/waynevanson>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 import {
     AutoScrollOptions,
-    MultiDragOptions,
-    OnSpillOptions,
-    SwapOptions,
     AutoScrollPlugin,
+    MultiDragOptions,
     MultiDragPlugin,
+    OnSpillOptions,
     OnSpillPlugin,
-    SwapPlugin,
     SortablePlugin,
-} from './plugins';
+    SwapOptions,
+    SwapPlugin,
+} from "./plugins";
 
 export = Sortable;
 
@@ -83,8 +76,9 @@ declare class Sortable {
     /**
      * Sorts the elements according to the array.
      * @param order an array of strings to sort.
+     * @param useAnimation default: false.
      */
-    sort(order: ReadonlyArray<string>): void;
+    sort(order: readonly string[], useAnimation?: boolean): void;
 
     /**
      * Saving and restoring of the sort.
@@ -104,11 +98,8 @@ declare class Sortable {
 
 declare namespace Sortable {
     export interface Options
-        extends SortableOptions,
-            AutoScrollOptions,
-            MultiDragOptions,
-            OnSpillOptions,
-            SwapOptions {}
+        extends SortableOptions, AutoScrollOptions, MultiDragOptions, OnSpillOptions, SwapOptions
+    {}
 
     /**
      * A class that all plugins inherit from for the sake of type inference.
@@ -129,6 +120,10 @@ declare namespace Sortable {
          * dragged element
          */
         item: HTMLElement;
+        /**
+         * dragged elements
+         */
+        items: HTMLElement[];
         /**
          * new index within parent
          */
@@ -153,7 +148,7 @@ declare namespace Sortable {
         /**
          * Pull mode if dragging into another sortable
          */
-        pullMode: 'clone' | boolean | undefined;
+        pullMode: "clone" | boolean | undefined;
         /**
          * When MultiDrag is used to sort, this holds a HTMLElement and oldIndex for each item selected.
          *
@@ -161,7 +156,7 @@ declare namespace Sortable {
          *
          * If MultiDrag is not used to sort, this array will be empty.
          */
-        oldIndicies: { multiDragElement: HTMLElement; index: number }[];
+        oldIndicies: Array<{ multiDragElement: HTMLElement; index: number }>;
         /**
          * When MultiDrag is used to sort, this holds a HTMLElement and newIndex for each item.
          *
@@ -169,7 +164,7 @@ declare namespace Sortable {
          *
          * If MultiDrag is not used to sort, this array will be empty.
          */
-        newIndicies: { multiDragElement: HTMLElement; index: number }[];
+        newIndicies: Array<{ multiDragElement: HTMLElement; index: number }>;
         /** When Swap is used to sort, this will contain the dragging item that was dropped on.*/
         swapItem: HTMLElement | null;
     }
@@ -187,8 +182,8 @@ declare namespace Sortable {
         willInsertAfter?: boolean | undefined;
     }
 
-    type PullResult = ReadonlyArray<string> | boolean | 'clone';
-    type PutResult = ReadonlyArray<string> | boolean;
+    type PullResult = readonly string[] | boolean | "clone";
+    type PutResult = readonly string[] | boolean;
     export interface GroupOptions {
         /**
          * group name
@@ -197,35 +192,45 @@ declare namespace Sortable {
         /**
          * ability to move from the list. clone — copy the item, rather than move.
          */
-        pull?: PullResult | ((to: Sortable, from: Sortable, dragEl: HTMLElement, event: SortableEvent) => PullResult) | undefined;
+        pull?:
+            | PullResult
+            | ((to: Sortable, from: Sortable, dragEl: HTMLElement, event: SortableEvent) => PullResult)
+            | undefined;
         /**
          * whether elements can be added from other lists, or an array of group names from which elements can be taken.
          */
-        put?: PutResult | ((to: Sortable, from: Sortable, dragEl: HTMLElement, event: SortableEvent) => PutResult) | undefined;
+        put?:
+            | PutResult
+            | ((to: Sortable, from: Sortable, dragEl: HTMLElement, event: SortableEvent) => PutResult)
+            | undefined;
         /**
          * a canonical version of pull, created by Sortable
          */
-        checkPull?: ((
-            sortable: Sortable,
-            activeSortable: Sortable,
-            dragEl: HTMLElement,
-            event: SortableEvent,
-        ) => boolean | string | Array<string>) | undefined;
+        checkPull?:
+            | ((
+                sortable: Sortable,
+                activeSortable: Sortable,
+                dragEl: HTMLElement,
+                event: SortableEvent,
+            ) => boolean | string | string[])
+            | undefined;
         /**
          * a canonical version of put, created by Sortable
          */
-        checkPut?: ((
-            sortable: Sortable,
-            activeSortable: Sortable,
-            dragEl: HTMLElement,
-            event: SortableEvent,
-        ) => boolean | string | 'clone' | Array<string>) | undefined;
+        checkPut?:
+            | ((
+                sortable: Sortable,
+                activeSortable: Sortable,
+                dragEl: HTMLElement,
+                event: SortableEvent,
+            ) => boolean | string | "clone" | string[])
+            | undefined;
         /**
          * revert cloned element to initial position after moving to a another list.
          */
         revertClone?: boolean | undefined;
     }
-    type Direction = 'vertical' | 'horizontal';
+    type Direction = "vertical" | "horizontal";
     export interface SortableOptions {
         /**
          * ms, animation speed moving items when sorting, `0` — without animation
@@ -248,7 +253,10 @@ declare namespace Sortable {
          * Direction of Sortable
          * (will be detected automatically if not given)
          */
-        direction?: ((evt: SortableEvent, target: HTMLElement, dragEl: HTMLElement) => Direction) | Direction | undefined;
+        direction?:
+            | ((evt: SortableEvent, target: HTMLElement, dragEl: HTMLElement) => Direction)
+            | Direction
+            | undefined;
         /**
          * Disables the sortable if set to true.
          */
@@ -313,7 +321,8 @@ declare namespace Sortable {
          */
         filter?:
             | string
-            | ((this: Sortable, event: Event | TouchEvent, target: HTMLElement, sortable: Sortable) => boolean) | undefined;
+            | ((this: Sortable, event: Event | TouchEvent, target: HTMLElement, sortable: Sortable) => boolean)
+            | undefined;
         /**
          * ignore the HTML5 DnD behaviour and force the fallback to kick in
          */
@@ -412,6 +421,7 @@ declare namespace Sortable {
         /**
          * Event when you move an item in the list or between lists
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         onMove?: ((evt: MoveEvent, originalEvent: Event) => boolean | -1 | 1 | void) | undefined;
         /**
          * Called when dragging element changes position
@@ -491,6 +501,18 @@ declare namespace Sortable {
          * @param state a class's state.
          */
         toggleClass(element: HTMLElement, name: string, state: boolean): void;
+
+        /**
+         * Selects the provided multi-drag item
+         * @param element The element to be selected
+         */
+        select(element: HTMLElement): void;
+
+        /**
+         * Deselects the provided multi-drag item
+         * @param element The element to be deselected
+         */
+        deselect(element: HTMLElement): void;
     }
 
     interface DOMRect {

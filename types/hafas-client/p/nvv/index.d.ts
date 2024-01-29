@@ -1,5 +1,3 @@
-export = nvvProfile;
+import { Profile } from "../../index";
 
-import createClient = require('../../index');
-
-declare const nvvProfile: createClient.Profile;
+export const profile: Profile;

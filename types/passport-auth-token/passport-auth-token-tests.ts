@@ -2,12 +2,12 @@
  * Created by Ian Woongsoo Lee <https://github.com/yummyummyummy>.
  */
 
-import Koa = require('koa');
-import KoaRouter = require('koa-router');
-import passport = require('koa-passport');
-import AuthTokenStrategy = require('passport-auth-token');
+import Koa = require("koa");
+import KoaRouter = require("koa-router");
+import passport = require("koa-passport");
+import AuthTokenStrategy = require("passport-auth-token");
 
-//#region Test Models
+// #region Test Models
 interface AccessToken {
     id: string;
 }
@@ -39,7 +39,7 @@ class UserImpl implements User {
         callback(new UserImpl(), undefined);
     }
 }
-//#endregion
+// #endregion
 
 // Sample from https://github.com/mbell8903/passport-auth-token#configure-strategy
 passport.use(
@@ -126,6 +126,6 @@ const app = new Koa();
 const route = new KoaRouter<Koa.DefaultState, Koa.Context>();
 // Sample from https://github.com/mbell8903/passport-auth-token#authenticate-requests
 app.use(route.routes());
-route.post('/login', passport.authenticate('authtoken', { session: false, optional: false }), async (ctx, next) => {
+route.post("/login", passport.authenticate("authtoken", { session: false, optional: false }), async (ctx, next) => {
     await next();
 });

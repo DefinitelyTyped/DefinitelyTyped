@@ -18,13 +18,13 @@ export interface CleaveOptions {
     date?: boolean | undefined;
     dateMin?: string | undefined;
     dateMax?: string | undefined;
-    datePattern?: ReadonlyArray<string> | undefined;
+    datePattern?: readonly string[] | undefined;
 }
 
 // Time Options
 export interface CleaveOptions {
     time?: boolean | undefined;
-    timePattern?: ReadonlyArray<string> | undefined;
+    timePattern?: readonly string[] | undefined;
     timeFormat?: string | undefined;
 }
 
@@ -39,14 +39,15 @@ export interface CleaveOptions {
     numeralPositiveOnly?: boolean | undefined;
     numeralThousandsGroupStyle?: NumeralThousandsGroupStyleType | undefined;
     stripLeadingZeroes?: boolean | undefined;
+    tailPrefix?: boolean | undefined;
 }
 
 // Extra Options
 export interface CleaveOptions {
-    blocks?: ReadonlyArray<number> | undefined;
+    blocks?: readonly number[] | undefined;
     copyDelimiter?: boolean | undefined;
     delimiter?: string | undefined;
-    delimiters?: ReadonlyArray<string> | undefined;
+    delimiters?: readonly string[] | undefined;
     delimiterLazyShow?: boolean | undefined;
     initValue?: any;
     lowercase?: boolean | undefined;

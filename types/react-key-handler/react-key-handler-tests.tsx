@@ -1,21 +1,21 @@
-import * as React from 'react';
+import * as React from "react";
 import KeyHandler, {
     KEYDOWN,
-    KEYPRESS,
-    KEYUP,
     keyHandleDecorator,
     keyHandler,
+    KEYPRESS,
     keyToggleHandler,
-} from 'react-key-handler';
+    KEYUP,
+} from "react-key-handler";
 
 const onKeyHandleCallback = () => {};
 
 const matcher = () => true;
 
-// $ExpectError
+// @ts-expect-error
 const missingRequired = <KeyHandler />;
 
-// $ExpectError
+// @ts-expect-error
 const invalidExample = <KeyHandler onKeyHandle={true} />;
 
 // $ExpectType Element
@@ -36,20 +36,20 @@ KEYPRESS;
 // $ExpectType "keyup"
 KEYUP;
 
-// $ExpectError
+// @ts-expect-error
 keyHandler()();
 
-// $ExpectError
-keyHandler({ keyEventName: KEYPRESS, keyValue: 's' })();
+// @ts-expect-error
+keyHandler({ keyEventName: KEYPRESS, keyValue: "s" })();
 
 // $ExpectType (...args: any[]) => Element
-keyHandler({ keyEventName: KEYPRESS, keyValue: 's' })(<div />);
+keyHandler({ keyEventName: KEYPRESS, keyValue: "s" })(<div />);
 
-// $ExpectError
+// @ts-expect-error
 keyToggleHandler()();
 
-// $ExpectError
-keyToggleHandler({ keyEventName: KEYPRESS, keyValue: 's' })();
+// @ts-expect-error
+keyToggleHandler({ keyEventName: KEYPRESS, keyValue: "s" })();
 
 // $ExpectType (...args: any[]) => Element
-keyToggleHandler({ keyEventName: KEYPRESS, keyValue: 's' })(<div />);
+keyToggleHandler({ keyEventName: KEYPRESS, keyValue: "s" })(<div />);

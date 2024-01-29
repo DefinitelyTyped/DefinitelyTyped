@@ -1,8 +1,8 @@
-import textFit = require('textfit');
-import $ = require('jquery');
+import textFit = require("textfit");
+import $ = require("jquery");
 
-const element = document.createElement('div');
-const elements = Array(2).map(() => document.createElement('div'));
+const element = document.createElement("div");
+const elements = Array(2).map(() => document.createElement("div"));
 
 const options: textFit.TextFitOption = {
     alignVert: false,
@@ -18,13 +18,13 @@ const options: textFit.TextFitOption = {
 textFit(element, options);
 textFit(elements, options);
 
-const ul = document.createElement('ul');
-ul.append(document.createElement('li'));
+const ul = document.createElement("ul");
+ul.append(document.createElement("li"));
 
-const nodeList = ul.querySelectorAll('li');
+const nodeList = ul.querySelectorAll("li");
 textFit(nodeList, options);
 
 const htmlCollection = ul.children;
 textFit(htmlCollection, options);
 
-textFit($('#dummy_selector'), options);
+textFit($("#dummy_selector"), options);

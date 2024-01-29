@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/wordpress__keycodes",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/WordPress/gutenberg/tree/master/packages/keycodes/README.md"
+    ],
+    "devDependencies": {
+        "@types/wordpress__keycodes": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Derek Sifford",
+            "githubUsername": "dsifford"
+        }
+    ]
+}

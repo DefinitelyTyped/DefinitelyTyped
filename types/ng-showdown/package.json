@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/ng-showdown",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/showdownjs/ng-showdown#readme"
+    ],
+    "dependencies": {
+        "@types/angular": "*",
+        "@types/showdown": "*"
+    },
+    "devDependencies": {
+        "@types/ng-showdown": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

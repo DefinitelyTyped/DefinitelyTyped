@@ -1,5 +1,5 @@
-import * as React from 'react';
-import WithSizes, { Sizes } from 'react-sizes';
+import * as React from "react";
+import WithSizes, { Sizes } from "react-sizes";
 
 interface TestProps {
     foo: string;
@@ -8,7 +8,7 @@ interface TestProps {
 }
 
 const mapSizesToProps = ({ width, height }: Sizes): TestProps => ({
-    foo: 'foo',
+    foo: "foo",
     width,
     height,
 });

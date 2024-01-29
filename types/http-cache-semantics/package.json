@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/http-cache-semantics",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/kornelski/http-cache-semantics#readme"
+    ],
+    "devDependencies": {
+        "@types/http-cache-semantics": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

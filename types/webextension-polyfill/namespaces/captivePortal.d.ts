@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.captivePortal
- * Generated from Mozilla sources. Do not manually edit!
  *
  * This API provides the ability detect the captive portal state of the users connection.
  * Permissions: "captivePortal"

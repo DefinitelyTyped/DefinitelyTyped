@@ -1,0 +1,46 @@
+{
+    "private": true,
+    "name": "@types/ember",
+    "version": "4.0.9999",
+    "projects": [
+        "https://emberjs.com/",
+        "https://github.com/emberjs/ember"
+    ],
+    "dependencies": {
+        "@types/ember__application": "*",
+        "@types/ember__array": "*",
+        "@types/ember__component": "*",
+        "@types/ember__controller": "*",
+        "@types/ember__debug": "*",
+        "@types/ember__engine": "*",
+        "@types/ember__error": "*",
+        "@types/ember__object": "*",
+        "@types/ember__polyfills": "*",
+        "@types/ember__routing": "*",
+        "@types/ember__runloop": "*",
+        "@types/ember__service": "*",
+        "@types/ember__string": "*",
+        "@types/ember__template": "*",
+        "@types/ember__test": "*",
+        "@types/ember__utils": "*",
+        "@types/rsvp": "*"
+    },
+    "devDependencies": {
+        "@types/ember": "workspace:.",
+        "@types/htmlbars-inline-precompile": "*"
+    },
+    "owners": [
+        {
+            "name": "James C. Davis",
+            "githubUsername": "jamescdavis"
+        },
+        {
+            "name": "Peter Wagenet",
+            "githubUsername": "wagenet"
+        },
+        {
+            "name": "Krystan HuffMenne",
+            "githubUsername": "gitKrystan"
+        }
+    ]
+}

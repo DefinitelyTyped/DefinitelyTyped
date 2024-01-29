@@ -1,4 +1,4 @@
-// For Library Version: 1.100.0
+// For Library Version: 1.120.0
 
 declare module "sap/ui/commons/library" {
   import { ColorPickerMode as ColorPickerMode1 } from "sap/ui/unified/library";
@@ -287,7 +287,7 @@ declare module "sap/ui/commons/library" {
     Underline = "Underline",
   }
   /**
-   * @SINCE 1.9.1
+   * @since 1.9.1
    * @deprecated (since 1.16.0) - Use {@link sap.ui.core.TitleLevel} instead.
    *
    * Level of a title.
@@ -369,7 +369,7 @@ declare module "sap/ui/commons/library" {
     Single = "Single",
   }
   /**
-   * @SINCE 1.7.2
+   * @since 1.7.2
    * @deprecated (since 1.38)
    *
    * States for TriStateCheckBox
@@ -637,8 +637,6 @@ declare module "sap/ui/commons/Accordion" {
 
   import AccordionSection from "sap/ui/commons/AccordionSection";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { CSSSize } from "sap/ui/core/library";
@@ -647,6 +645,8 @@ declare module "sap/ui/commons/Accordion" {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38)
@@ -690,6 +690,8 @@ declare module "sap/ui/commons/Accordion" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -708,10 +710,14 @@ declare module "sap/ui/commons/Accordion" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.Accordion.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some section to the aggregation {@link #getSections sections}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addSection(
       /**
@@ -726,6 +732,8 @@ declare module "sap/ui/commons/Accordion" {
      * otherwise it will be bound to this `sap.ui.commons.Accordion` itself.
      *
      * Event is triggered when the user closes a section.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSectionClose(
       /**
@@ -736,7 +744,7 @@ declare module "sap/ui/commons/Accordion" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Accordion$SectionCloseEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Accordion` itself
        */
@@ -749,12 +757,14 @@ declare module "sap/ui/commons/Accordion" {
      * otherwise it will be bound to this `sap.ui.commons.Accordion` itself.
      *
      * Event is triggered when the user closes a section.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSectionClose(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Accordion$SectionCloseEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Accordion` itself
        */
@@ -767,6 +777,8 @@ declare module "sap/ui/commons/Accordion" {
      * otherwise it will be bound to this `sap.ui.commons.Accordion` itself.
      *
      * Event is triggered when the user opens a section.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSectionOpen(
       /**
@@ -777,7 +789,7 @@ declare module "sap/ui/commons/Accordion" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Accordion$SectionOpenEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Accordion` itself
        */
@@ -790,12 +802,14 @@ declare module "sap/ui/commons/Accordion" {
      * otherwise it will be bound to this `sap.ui.commons.Accordion` itself.
      *
      * Event is triggered when the user opens a section.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSectionOpen(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Accordion$SectionOpenEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Accordion` itself
        */
@@ -809,6 +823,8 @@ declare module "sap/ui/commons/Accordion" {
      * otherwise it will be bound to this `sap.ui.commons.Accordion` itself.
      *
      * Event is triggered when the user changes the position of a section.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSectionsReorder(
       /**
@@ -819,7 +835,7 @@ declare module "sap/ui/commons/Accordion" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Accordion$SectionsReorderEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Accordion` itself
        */
@@ -833,12 +849,14 @@ declare module "sap/ui/commons/Accordion" {
      * otherwise it will be bound to this `sap.ui.commons.Accordion` itself.
      *
      * Event is triggered when the user changes the position of a section.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSectionsReorder(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Accordion$SectionsReorderEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Accordion` itself
        */
@@ -855,18 +873,22 @@ declare module "sap/ui/commons/Accordion" {
     ): void;
     /**
      * Destroys all the sections in the aggregation {@link #getSections sections}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroySections(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:sectionClose sectionClose} event of this `sap.ui.commons.Accordion`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSectionClose(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Accordion$SectionCloseEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -876,12 +898,14 @@ declare module "sap/ui/commons/Accordion" {
      * Detaches event handler `fnFunction` from the {@link #event:sectionOpen sectionOpen} event of this `sap.ui.commons.Accordion`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSectionOpen(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Accordion$SectionOpenEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -892,71 +916,64 @@ declare module "sap/ui/commons/Accordion" {
      * this `sap.ui.commons.Accordion`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSectionsReorder(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Accordion$SectionsReorderEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:sectionClose sectionClose} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireSectionClose(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * ID of the closed section
-         */
-        closeSectionId?: string;
-      }
+      mParameters?: Accordion$SectionCloseEventParameters
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:sectionOpen sectionOpen} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireSectionOpen(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * ID of the opened section
-         */
-        openSectionId?: string;
-        /**
-         * IDs of the sections to be closed. Can be initial in the case of no previously opened section.
-         */
-        closeSectionIds?: string[];
-      }
+      mParameters?: Accordion$SectionOpenEventParameters
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:sectionsReorder sectionsReorder} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireSectionsReorder(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * ID of the moved section
-         */
-        movedSectionId?: string;
-        /**
-         * New index of the moved section
-         */
-        newIndex?: int;
-      }
+      mParameters?: Accordion$SectionsReorderEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getOpenedSectionsId openedSectionsId}.
      *
      * Section IDs that are opened by default at application start
+     *
+     * @returns Value of property `openedSectionsId`
      */
     getOpenedSectionsId(): string;
     /**
@@ -971,11 +988,15 @@ declare module "sap/ui/commons/Accordion" {
      * When the specified width is less than the width of a section content, a horizontal scroll bar is provided.
      *
      * Default value is `'200px'`.
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Checks for the provided `sap.ui.commons.AccordionSection` in the aggregation {@link #getSections sections}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfSection(
       /**
@@ -985,6 +1006,8 @@ declare module "sap/ui/commons/Accordion" {
     ): int;
     /**
      * Inserts a section into the aggregation {@link #getSections sections}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertSection(
       /**
@@ -1011,19 +1034,25 @@ declare module "sap/ui/commons/Accordion" {
      * Removes all the controls from the aggregation {@link #getSections sections}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllSections(): AccordionSection[];
     /**
      * Removes a section from the aggregation {@link #getSections sections}.
+     *
+     * @returns The removed section or `null`
      */
     removeSection(
       /**
        * The section to remove or its index or id
        */
       vSection: int | string | AccordionSection
-    ): AccordionSection;
+    ): AccordionSection | null;
     /**
      * Redefinition of the method to add additional handling
+     *
+     * @returns 'this' to allow method chaining
      */
     setOpenedSectionsId(
       /**
@@ -1039,6 +1068,8 @@ declare module "sap/ui/commons/Accordion" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'200px'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
@@ -1052,7 +1083,7 @@ declare module "sap/ui/commons/Accordion" {
     /**
      * When the specified width is less than the width of a section content, a horizontal scroll bar is provided.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Section IDs that are opened by default at application start
@@ -1062,31 +1093,79 @@ declare module "sap/ui/commons/Accordion" {
     /**
      * Empty container used to display any library control
      */
-    sections?: AccordionSection[] | AccordionSection | AggregationBindingInfo;
+    sections?:
+      | AccordionSection[]
+      | AccordionSection
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * Event is triggered when the user opens a section.
      */
-    sectionOpen?: (oEvent: Event) => void;
+    sectionOpen?: (oEvent: Accordion$SectionOpenEvent) => void;
 
     /**
      * Event is triggered when the user closes a section.
      */
-    sectionClose?: (oEvent: Event) => void;
+    sectionClose?: (oEvent: Accordion$SectionCloseEvent) => void;
 
     /**
      * Event is triggered when the user changes the position of a section.
      */
-    sectionsReorder?: (oEvent: Event) => void;
+    sectionsReorder?: (oEvent: Accordion$SectionsReorderEvent) => void;
   }
+
+  export interface Accordion$SectionCloseEventParameters {
+    /**
+     * ID of the closed section
+     */
+    closeSectionId?: string;
+  }
+
+  export type Accordion$SectionCloseEvent = Event<
+    Accordion$SectionCloseEventParameters,
+    Accordion
+  >;
+
+  export interface Accordion$SectionOpenEventParameters {
+    /**
+     * ID of the opened section
+     */
+    openSectionId?: string;
+
+    /**
+     * IDs of the sections to be closed. Can be initial in the case of no previously opened section.
+     */
+    closeSectionIds?: string[];
+  }
+
+  export type Accordion$SectionOpenEvent = Event<
+    Accordion$SectionOpenEventParameters,
+    Accordion
+  >;
+
+  export interface Accordion$SectionsReorderEventParameters {
+    /**
+     * ID of the moved section
+     */
+    movedSectionId?: string;
+
+    /**
+     * New index of the moved section
+     */
+    newIndex?: int;
+  }
+
+  export type Accordion$SectionsReorderEvent = Event<
+    Accordion$SectionsReorderEventParameters,
+    Accordion
+  >;
 }
 
 declare module "sap/ui/commons/AccordionSection" {
   import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
 
   import Control from "sap/ui/core/Control";
-
-  import Event from "sap/ui/base/Event";
 
   import { CSSSize } from "sap/ui/core/library";
 
@@ -1096,6 +1175,8 @@ declare module "sap/ui/commons/AccordionSection" {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38)
@@ -1139,6 +1220,8 @@ declare module "sap/ui/commons/AccordionSection" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -1157,10 +1240,14 @@ declare module "sap/ui/commons/AccordionSection" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.AccordionSection.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addContent(
       /**
@@ -1175,6 +1262,8 @@ declare module "sap/ui/commons/AccordionSection" {
      * otherwise it will be bound to this `sap.ui.commons.AccordionSection` itself.
      *
      * Event is fired when the user scrolls the panel
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachScroll(
       /**
@@ -1185,7 +1274,7 @@ declare module "sap/ui/commons/AccordionSection" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: AccordionSection$ScrollEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.AccordionSection` itself
        */
@@ -1198,12 +1287,14 @@ declare module "sap/ui/commons/AccordionSection" {
      * otherwise it will be bound to this `sap.ui.commons.AccordionSection` itself.
      *
      * Event is fired when the user scrolls the panel
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachScroll(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: AccordionSection$ScrollEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.AccordionSection` itself
        */
@@ -1211,40 +1302,39 @@ declare module "sap/ui/commons/AccordionSection" {
     ): this;
     /**
      * Destroys all the content in the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyContent(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:scroll scroll} event of this `sap.ui.commons.AccordionSection`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachScroll(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: AccordionSection$ScrollEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:scroll scroll} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireScroll(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Horizontal scroll position
-         */
-        left?: int;
-        /**
-         * Vertical scroll position
-         */
-        top?: int;
-      }
+      mParameters?: AccordionSection$ScrollEventParameters
     ): this;
     /**
      * @deprecated (since 1.34) - Use Accordion's "openedSectionsId" property
@@ -1254,6 +1344,8 @@ declare module "sap/ui/commons/AccordionSection" {
      * It is recommended to adjust the settings for the width when the section is set to 'collapsed'.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `collapsed`
      */
     getCollapsed(): boolean;
     /**
@@ -1271,23 +1363,31 @@ declare module "sap/ui/commons/AccordionSection" {
      * It is required that the used theme supports the control.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
      */
     getEnabled(): boolean;
     /**
      * Gets current value of property {@link #getMaxHeight maxHeight}.
      *
      * When the section content exceeds maxHeight, a vertical scroll bar appears.
+     *
+     * @returns Value of property `maxHeight`
      */
     getMaxHeight(): CSSSize;
     /**
      * Gets current value of property {@link #getTitle title}.
      *
      * Text for the section header
+     *
+     * @returns Value of property `title`
      */
     getTitle(): string;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfContent(
       /**
@@ -1297,6 +1397,8 @@ declare module "sap/ui/commons/AccordionSection" {
     ): int;
     /**
      * Inserts a content into the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertContent(
       /**
@@ -1314,19 +1416,25 @@ declare module "sap/ui/commons/AccordionSection" {
      * Removes all the controls from the aggregation {@link #getContent content}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllContent(): Control[];
     /**
      * Removes a content from the aggregation {@link #getContent content}.
+     *
+     * @returns The removed content or `null`
      */
     removeContent(
       /**
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Property setter for the "collapsed" state
+     *
+     * @returns 'this' to allow method chaining
      */
     setCollapsed(
       /**
@@ -1336,6 +1444,8 @@ declare module "sap/ui/commons/AccordionSection" {
     ): this;
     /**
      * Property setter for the "enabled" state
+     *
+     * @returns 'this' to allow method chaining
      */
     setEnabled(
       /**
@@ -1349,6 +1459,8 @@ declare module "sap/ui/commons/AccordionSection" {
      * When the section content exceeds maxHeight, a vertical scroll bar appears.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMaxHeight(
       /**
@@ -1362,6 +1474,8 @@ declare module "sap/ui/commons/AccordionSection" {
      * Text for the section header
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTitle(
       /**
@@ -1375,19 +1489,19 @@ declare module "sap/ui/commons/AccordionSection" {
     /**
      * When the section content exceeds maxHeight, a vertical scroll bar appears.
      */
-    maxHeight?: CSSSize | PropertyBindingInfo;
+    maxHeight?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * It is required that the used theme supports the control.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * @deprecated (since 1.34) - Use Accordion's "openedSectionsId" property
      *
      * It is recommended to adjust the settings for the width when the section is set to 'collapsed'.
      */
-    collapsed?: boolean | PropertyBindingInfo;
+    collapsed?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Text for the section header
@@ -1400,13 +1514,30 @@ declare module "sap/ui/commons/AccordionSection" {
      * the child control may have width and height of 100%; when the panel dimensions are not set, the child
      * defines the panel size.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Event is fired when the user scrolls the panel
      */
-    scroll?: (oEvent: Event) => void;
+    scroll?: (oEvent: AccordionSection$ScrollEvent) => void;
   }
+
+  export interface AccordionSection$ScrollEventParameters {
+    /**
+     * Horizontal scroll position
+     */
+    left?: int;
+
+    /**
+     * Vertical scroll position
+     */
+    top?: int;
+  }
+
+  export type AccordionSection$ScrollEvent = Event<
+    AccordionSection$ScrollEventParameters,
+    AccordionSection
+  >;
 }
 
 declare module "sap/ui/commons/ApplicationHeader" {
@@ -1463,6 +1594,8 @@ declare module "sap/ui/commons/ApplicationHeader" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -1481,6 +1614,8 @@ declare module "sap/ui/commons/ApplicationHeader" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.ApplicationHeader.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
@@ -1490,6 +1625,8 @@ declare module "sap/ui/commons/ApplicationHeader" {
      * otherwise it will be bound to this `sap.ui.commons.ApplicationHeader` itself.
      *
      * Fires an event to log off the user from the application. No parameters.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachLogoff(
       /**
@@ -1513,6 +1650,8 @@ declare module "sap/ui/commons/ApplicationHeader" {
      * otherwise it will be bound to this `sap.ui.commons.ApplicationHeader` itself.
      *
      * Fires an event to log off the user from the application. No parameters.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachLogoff(
       /**
@@ -1528,6 +1667,8 @@ declare module "sap/ui/commons/ApplicationHeader" {
      * Detaches event handler `fnFunction` from the {@link #event:logoff logoff} event of this `sap.ui.commons.ApplicationHeader`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachLogoff(
       /**
@@ -1540,7 +1681,11 @@ declare module "sap/ui/commons/ApplicationHeader" {
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:logoff logoff} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireLogoff(
       /**
@@ -1554,6 +1699,8 @@ declare module "sap/ui/commons/ApplicationHeader" {
      * Determines if the logoff area will be displayed at the right hand side of the application header.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `displayLogoff`
      */
     getDisplayLogoff(): boolean;
     /**
@@ -1562,24 +1709,32 @@ declare module "sap/ui/commons/ApplicationHeader" {
      * Determines if the welcome text is displayed
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `displayWelcome`
      */
     getDisplayWelcome(): boolean;
     /**
      * Gets current value of property {@link #getLogoSrc logoSrc}.
      *
      * Path (src) to the logo icon to be displayed in the application header.
+     *
+     * @returns Value of property `logoSrc`
      */
     getLogoSrc(): URI;
     /**
      * Gets current value of property {@link #getLogoText logoText}.
      *
      * The text that will be displayed beside the logo in the application header. This property is optional.
+     *
+     * @returns Value of property `logoText`
      */
     getLogoText(): string;
     /**
      * Gets current value of property {@link #getUserName userName}.
      *
      * User name that will be displayed beside the welcome text
+     *
+     * @returns Value of property `userName`
      */
     getUserName(): string;
     /**
@@ -1590,6 +1745,8 @@ declare module "sap/ui/commons/ApplicationHeader" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDisplayLogoff(
       /**
@@ -1605,6 +1762,8 @@ declare module "sap/ui/commons/ApplicationHeader" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDisplayWelcome(
       /**
@@ -1618,6 +1777,8 @@ declare module "sap/ui/commons/ApplicationHeader" {
      * Path (src) to the logo icon to be displayed in the application header.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setLogoSrc(
       /**
@@ -1631,6 +1792,8 @@ declare module "sap/ui/commons/ApplicationHeader" {
      * The text that will be displayed beside the logo in the application header. This property is optional.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setLogoText(
       /**
@@ -1644,6 +1807,8 @@ declare module "sap/ui/commons/ApplicationHeader" {
      * User name that will be displayed beside the welcome text
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setUserName(
       /**
@@ -1657,7 +1822,7 @@ declare module "sap/ui/commons/ApplicationHeader" {
     /**
      * Path (src) to the logo icon to be displayed in the application header.
      */
-    logoSrc?: URI | PropertyBindingInfo;
+    logoSrc?: URI | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The text that will be displayed beside the logo in the application header. This property is optional.
@@ -1667,7 +1832,7 @@ declare module "sap/ui/commons/ApplicationHeader" {
     /**
      * Determines if the logoff area will be displayed at the right hand side of the application header.
      */
-    displayLogoff?: boolean | PropertyBindingInfo;
+    displayLogoff?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * User name that will be displayed beside the welcome text
@@ -1677,13 +1842,20 @@ declare module "sap/ui/commons/ApplicationHeader" {
     /**
      * Determines if the welcome text is displayed
      */
-    displayWelcome?: boolean | PropertyBindingInfo;
+    displayWelcome?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Fires an event to log off the user from the application. No parameters.
      */
     logoff?: (oEvent: Event) => void;
   }
+
+  export interface ApplicationHeader$LogoffEventParameters {}
+
+  export type ApplicationHeader$LogoffEvent = Event<
+    ApplicationHeader$LogoffEventParameters,
+    ApplicationHeader
+  >;
 }
 
 declare module "sap/ui/commons/Area" {
@@ -1738,6 +1910,8 @@ declare module "sap/ui/commons/Area" {
      * contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -1756,30 +1930,40 @@ declare module "sap/ui/commons/Area" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.Area.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getAlt alt}.
      *
      * Alternative text that is displayed in the case the image is not available
+     *
+     * @returns Value of property `alt`
      */
     getAlt(): string;
     /**
      * Gets current value of property {@link #getCoords coords}.
      *
      * Coordinates of the area
+     *
+     * @returns Value of property `coords`
      */
     getCoords(): string;
     /**
      * Gets current value of property {@link #getHref href}.
      *
      * Hyper link that is executed when the area is clicked
+     *
+     * @returns Value of property `href`
      */
     getHref(): URI;
     /**
      * Gets current value of property {@link #getShape shape}.
      *
      * The value is a string and can be 'rect' for rectangle, 'poly' for poligon, 'circle', or default.
+     *
+     * @returns Value of property `shape`
      */
     getShape(): string;
     /**
@@ -1788,6 +1972,8 @@ declare module "sap/ui/commons/Area" {
      * Alternative text that is displayed in the case the image is not available
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAlt(
       /**
@@ -1801,6 +1987,8 @@ declare module "sap/ui/commons/Area" {
      * Coordinates of the area
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setCoords(
       /**
@@ -1814,6 +2002,8 @@ declare module "sap/ui/commons/Area" {
      * Hyper link that is executed when the area is clicked
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHref(
       /**
@@ -1827,6 +2017,8 @@ declare module "sap/ui/commons/Area" {
      * The value is a string and can be 'rect' for rectangle, 'poly' for poligon, 'circle', or default.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShape(
       /**
@@ -1850,7 +2042,7 @@ declare module "sap/ui/commons/Area" {
     /**
      * Hyper link that is executed when the area is clicked
      */
-    href?: URI | PropertyBindingInfo;
+    href?: URI | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Alternative text that is displayed in the case the image is not available
@@ -1867,16 +2059,16 @@ declare module "sap/ui/commons/AutoComplete" {
 
   import { ToolbarItem } from "sap/ui/commons/library";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import ListBox from "sap/ui/commons/ListBox";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
-   * @SINCE 1.10.0
+   * @since 1.10.0
    * @deprecated (since 1.38)
    *
    * Textfield with list based text completion.
@@ -1919,6 +2111,8 @@ declare module "sap/ui/commons/AutoComplete" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.commons.ComboBox.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -1937,6 +2131,8 @@ declare module "sap/ui/commons/AutoComplete" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.AutoComplete.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
@@ -1946,6 +2142,8 @@ declare module "sap/ui/commons/AutoComplete" {
      * otherwise it will be bound to this `sap.ui.commons.AutoComplete` itself.
      *
      * Fired when the user has changed the value and a suggestion list update should occur.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSuggest(
       /**
@@ -1956,7 +2154,7 @@ declare module "sap/ui/commons/AutoComplete" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: AutoComplete$SuggestEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.AutoComplete` itself
        */
@@ -1969,12 +2167,14 @@ declare module "sap/ui/commons/AutoComplete" {
      * otherwise it will be bound to this `sap.ui.commons.AutoComplete` itself.
      *
      * Fired when the user has changed the value and a suggestion list update should occur.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSuggest(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: AutoComplete$SuggestEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.AutoComplete` itself
        */
@@ -1984,30 +2184,31 @@ declare module "sap/ui/commons/AutoComplete" {
      * Detaches event handler `fnFunction` from the {@link #event:suggest suggest} event of this `sap.ui.commons.AutoComplete`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSuggest(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: AutoComplete$SuggestEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:suggest suggest} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireSuggest(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The current value which was typed in.
-         */
-        suggestValue?: string;
-      }
+      mParameters?: AutoComplete$SuggestEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getEnableScrolling enableScrolling}.
@@ -2016,6 +2217,8 @@ declare module "sap/ui/commons/AutoComplete" {
      * If set to false only the first n items (n=maxPopupItems) are shown.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `enableScrolling`
      */
     getEnableScrolling(): boolean;
     /**
@@ -2039,6 +2242,8 @@ declare module "sap/ui/commons/AutoComplete" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEnableScrolling(
       /**
@@ -2078,12 +2283,565 @@ declare module "sap/ui/commons/AutoComplete" {
      * Determines whether scrolling should be enabled when the number of items is higher than maxPopupItems.
      * If set to false only the first n items (n=maxPopupItems) are shown.
      */
-    enableScrolling?: boolean | PropertyBindingInfo;
+    enableScrolling?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Fired when the user has changed the value and a suggestion list update should occur.
      */
-    suggest?: (oEvent: Event) => void;
+    suggest?: (oEvent: AutoComplete$SuggestEvent) => void;
+  }
+
+  export interface AutoComplete$SuggestEventParameters {
+    /**
+     * The current value which was typed in.
+     */
+    suggestValue?: string;
+  }
+
+  export type AutoComplete$SuggestEvent = Event<
+    AutoComplete$SuggestEventParameters,
+    AutoComplete
+  >;
+}
+
+declare module "sap/ui/commons/layout/BorderLayout" {
+  import { CSSSize } from "sap/ui/core/library";
+
+  import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import { layout } from "sap/ui/commons/library";
+
+  import BorderLayoutArea from "sap/ui/commons/layout/BorderLayoutArea";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * @since 1.110
+   *
+   * The object contains the available parameters for BorderLayout's Area.
+   */
+  export type BorderLayoutAreaData = {
+    /**
+     * Defines the height or the width. Is not used when the area element is in Center.
+     */
+    size?: CSSSize;
+    /**
+     * Invisible controls are not rendered.
+     */
+    visible?: boolean;
+    /**
+     * The overflow mode of the area in horizontal direction as CSS value.
+     */
+    overflowX?: string;
+    /**
+     * The overflow mode of the area in vertical direction as CSS value.
+     */
+    overflowY?: string;
+    /**
+     * The content alignment as CSS value.
+     */
+    contentAlign?: string;
+  };
+
+  /**
+   * @deprecated (since 1.38) - replaced by {@link sap.m.Page}
+   *
+   * Based upon the border layout as it comes with the Java standard. Using this layout, you are able to divide
+   * your available UI space into five areas whose sizes can be defined. These areas are: Top: Header; Bottom:
+   * Footer; Begin: Left/right-hand side panel; Center: Content area in the middle; End: Right/left-hand side
+   * panel.
+   */
+  export default class BorderLayout extends Control {
+    /**
+     * Constructor for a new layout/BorderLayout.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $BorderLayoutSettings
+    );
+    /**
+     * Constructor for a new layout/BorderLayout.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * id for the new control, generated automatically if no id is given
+       */
+      sId?: string,
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $BorderLayoutSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.commons.layout.BorderLayout with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, BorderLayout>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.layout.BorderLayout.
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds controls to the specified area.
+     *
+     * @returns Reference to `this` for method chaining
+     */
+    addContent(
+      /**
+       * Specifies the area where controls will be added
+       */
+      sAreaId:
+        | layout.BorderLayoutAreaTypes
+        | keyof typeof layout.BorderLayoutAreaTypes
+    ): this;
+    /**
+     * Creates the specified area and adds the given controls to it. Returns the created area.
+     *
+     * @returns The created aria
+     */
+    createArea(
+      /**
+       * Specifies which area will be created. If the area is already available, the method call is ignored.
+       */
+      sAreaId:
+        | layout.BorderLayoutAreaTypes
+        | keyof typeof layout.BorderLayoutAreaTypes,
+      /**
+       * Any number of controls can be submitted to be added to the newly created area; where each control is
+       * submitted as one argument.
+       */
+      oContent: Control
+    ): BorderLayoutArea;
+    /**
+     * Destroys the begin in the aggregation {@link #getBegin begin}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyBegin(): this;
+    /**
+     * Destroys the bottom in the aggregation {@link #getBottom bottom}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyBottom(): this;
+    /**
+     * Destroys the center in the aggregation {@link #getCenter center}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyCenter(): this;
+    /**
+     * Destroys the content of the specified area.
+     *
+     * @returns Reference to `this` for method chaining
+     */
+    destroyContent(
+      /**
+       * Specifies the area whose content will be destroyed
+       */
+      sAreaId:
+        | layout.BorderLayoutAreaTypes
+        | keyof typeof layout.BorderLayoutAreaTypes
+    ): this;
+    /**
+     * Destroys the end in the aggregation {@link #getEnd end}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyEnd(): this;
+    /**
+     * Destroys the top in the aggregation {@link #getTop top}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyTop(): this;
+    /**
+     * Returns the area of the given type. If the area does not exist, it will be created when create is set
+     * to true.
+     *
+     * @returns The aria
+     */
+    getArea(
+      /**
+       * The aria ID
+       */
+      sAreaId:
+        | layout.BorderLayoutAreaTypes
+        | keyof typeof layout.BorderLayoutAreaTypes,
+      /**
+       * Whether the aria must be created
+       */
+      bCreate: boolean
+    ): BorderLayoutArea;
+    /**
+     * Returns the object of the specified area. If the area does not exist, the area will be created and returned.
+     *
+     * @returns The aria
+     */
+    getAreaById(
+      /**
+       * Specifies the area whose object will be returned.
+       */
+      sAreaId:
+        | layout.BorderLayoutAreaTypes
+        | keyof typeof layout.BorderLayoutAreaTypes
+    ): BorderLayoutArea;
+    /**
+     * Returns a JSON-like object that contains all property values of the requested area.
+     *
+     * @returns The aria data
+     */
+    getAreaData(
+      /**
+       * Specifies the area whose data will be returned
+       */
+      sAreaId:
+        | layout.BorderLayoutAreaTypes
+        | keyof typeof layout.BorderLayoutAreaTypes
+    ): BorderLayoutAreaData;
+    /**
+     * Gets content of aggregation {@link #getBegin begin}.
+     *
+     * Represents the Begin area
+     */
+    getBegin(): BorderLayoutArea;
+    /**
+     * Gets content of aggregation {@link #getBottom bottom}.
+     *
+     * Represents the Bottom area
+     */
+    getBottom(): BorderLayoutArea;
+    /**
+     * Gets content of aggregation {@link #getCenter center}.
+     *
+     * Represents the Center area
+     */
+    getCenter(): BorderLayoutArea;
+    /**
+     * Returns all controls inside the specified area inside an array.
+     *
+     * @returns The array with the content
+     */
+    getContent(
+      /**
+       * Specifies the area whose content controls shall be returned.
+       */
+      sAreaId:
+        | layout.BorderLayoutAreaTypes
+        | keyof typeof layout.BorderLayoutAreaTypes
+    ): Control[];
+    /**
+     * Gets content of aggregation {@link #getEnd end}.
+     *
+     * Represents the End area
+     */
+    getEnd(): BorderLayoutArea;
+    /**
+     * Gets current value of property {@link #getHeight height}.
+     *
+     * Defines the overall height of the layout
+     *
+     * Default value is `'100%'`.
+     *
+     * @returns Value of property `height`
+     */
+    getHeight(): CSSSize;
+    /**
+     * @deprecated (since 1.5.2) - replaced by the global configuration for the page
+     *
+     * Gets current value of property {@link #getRtl rtl}.
+     *
+     * The RTL setting swaps the areas Begin and End.
+     *
+     * Default value is `false`.
+     *
+     * @returns Value of property `rtl`
+     */
+    getRtl(): boolean;
+    /**
+     * Gets content of aggregation {@link #getTop top}.
+     *
+     * Represents the Top area
+     */
+    getTop(): BorderLayoutArea;
+    /**
+     * Gets current value of property {@link #getWidth width}.
+     *
+     * Defines the overall width of the layout
+     *
+     * Default value is `'100%'`.
+     *
+     * @returns Value of property `width`
+     */
+    getWidth(): CSSSize;
+    /**
+     * Determines the index of a given content control.
+     *
+     * @returns The index of the content
+     */
+    indexOfContent(
+      /**
+       * Specifies the area that will be searched
+       */
+      sAreaId:
+        | layout.BorderLayoutAreaTypes
+        | keyof typeof layout.BorderLayoutAreaTypes,
+      /**
+       * Specifies the control whose index will be searched
+       */
+      oContent: Control
+    ): int;
+    /**
+     * Inserts controls to an area at a given index.
+     *
+     * @returns Reference to `this` for method chaining
+     */
+    insertContent(
+      /**
+       * Specifies the area where the controls shall be inserted.
+       */
+      sAreaId:
+        | layout.BorderLayoutAreaTypes
+        | keyof typeof layout.BorderLayoutAreaTypes,
+      /**
+       * Specifies the index where the controls shall be added. For a negative value of iIndex, the content is
+       * inserted at position '0'; for a value greater than the current size of the aggregation, the content is
+       * inserted at the last position.
+       */
+      iIndex: int
+    ): this;
+    /**
+     * Removes all content from an area.
+     *
+     * @returns Reference to `this` for method chaining
+     */
+    removeAllContent(
+      /**
+       * Specifies the area whose content shall be removed
+       */
+      sAreaId:
+        | layout.BorderLayoutAreaTypes
+        | keyof typeof layout.BorderLayoutAreaTypes
+    ): this;
+    /**
+     * Removes the content with the given index from an area.
+     *
+     * @returns Reference to `this` for method chaining
+     */
+    removeContent(
+      /**
+       * Specifies the area whose content shall be removed
+       */
+      oAreaId:
+        | layout.BorderLayoutAreaTypes
+        | keyof typeof layout.BorderLayoutAreaTypes,
+      /**
+       * The content to be removed Specifies the control that shall be removed
+       */
+      vElement: any
+    ): this;
+    /**
+     * Sets the properties of the specified area with the given values.
+     *
+     * @returns Reference to `this` for method chaining
+     */
+    setAreaData(
+      /**
+       * Specifies the area whose properties will be set
+       */
+      sAreaId:
+        | layout.BorderLayoutAreaTypes
+        | keyof typeof layout.BorderLayoutAreaTypes,
+      /**
+       * JSON-like object that contains the values to be set
+       */
+      oData: BorderLayoutAreaData
+    ): this;
+    /**
+     * Sets the aggregated {@link #getBegin begin}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setBegin(
+      /**
+       * The begin to set
+       */
+      oBegin: BorderLayoutArea
+    ): this;
+    /**
+     * Sets the aggregated {@link #getBottom bottom}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setBottom(
+      /**
+       * The bottom to set
+       */
+      oBottom: BorderLayoutArea
+    ): this;
+    /**
+     * Sets the aggregated {@link #getCenter center}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setCenter(
+      /**
+       * The center to set
+       */
+      oCenter: BorderLayoutArea
+    ): this;
+    /**
+     * Sets the aggregated {@link #getEnd end}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setEnd(
+      /**
+       * The end to set
+       */
+      oEnd: BorderLayoutArea
+    ): this;
+    /**
+     * Sets a new value for property {@link #getHeight height}.
+     *
+     * Defines the overall height of the layout
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `'100%'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setHeight(
+      /**
+       * New value for property `height`
+       */
+      sHeight?: CSSSize
+    ): this;
+    /**
+     * @deprecated (since 1.5.2) - replaced by the global configuration for the page
+     *
+     * Sets a new value for property {@link #getRtl rtl}.
+     *
+     * The RTL setting swaps the areas Begin and End.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRtl(
+      /**
+       * New value for property `rtl`
+       */
+      bRtl?: boolean
+    ): this;
+    /**
+     * Sets the aggregated {@link #getTop top}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setTop(
+      /**
+       * The top to set
+       */
+      oTop: BorderLayoutArea
+    ): this;
+    /**
+     * Sets a new value for property {@link #getWidth width}.
+     *
+     * Defines the overall width of the layout
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `'100%'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setWidth(
+      /**
+       * New value for property `width`
+       */
+      sWidth?: CSSSize
+    ): this;
+  }
+
+  export interface $BorderLayoutSettings extends $ControlSettings {
+    /**
+     * @deprecated (since 1.5.2) - replaced by the global configuration for the page
+     *
+     * The RTL setting swaps the areas Begin and End.
+     */
+    rtl?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the overall width of the layout
+     */
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the overall height of the layout
+     */
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Represents the Top area
+     */
+    top?: BorderLayoutArea;
+
+    /**
+     * Represents the Begin area
+     */
+    begin?: BorderLayoutArea;
+
+    /**
+     * Represents the Center area
+     */
+    center?: BorderLayoutArea;
+
+    /**
+     * Represents the End area
+     */
+    end?: BorderLayoutArea;
+
+    /**
+     * Represents the Bottom area
+     */
+    bottom?: BorderLayoutArea;
   }
 }
 
@@ -2092,7 +2850,13 @@ declare module "sap/ui/commons/Button" {
 
   import { ToolbarItem, ButtonStyle } from "sap/ui/commons/library";
 
-  import { IFormContent, ID, CSSSize, URI } from "sap/ui/core/library";
+  import {
+    IFormContent,
+    ID,
+    AccessibilityInfo,
+    CSSSize,
+    URI,
+  } from "sap/ui/core/library";
 
   import Event from "sap/ui/base/Event";
 
@@ -2147,6 +2911,8 @@ declare module "sap/ui/commons/Button" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -2165,10 +2931,14 @@ declare module "sap/ui/commons/Button" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.Button.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaDescribedBy(
       /**
@@ -2178,6 +2948,8 @@ declare module "sap/ui/commons/Button" {
     ): this;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -2192,6 +2964,8 @@ declare module "sap/ui/commons/Button" {
      * otherwise it will be bound to this `sap.ui.commons.Button` itself.
      *
      * Event is fired when the user presses the control.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachPress(
       /**
@@ -2215,6 +2989,8 @@ declare module "sap/ui/commons/Button" {
      * otherwise it will be bound to this `sap.ui.commons.Button` itself.
      *
      * Event is fired when the user presses the control.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachPress(
       /**
@@ -2230,6 +3006,8 @@ declare module "sap/ui/commons/Button" {
      * Detaches event handler `fnFunction` from the {@link #event:press press} event of this `sap.ui.commons.Button`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachPress(
       /**
@@ -2242,7 +3020,11 @@ declare module "sap/ui/commons/Button" {
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:press press} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     firePress(
       /**
@@ -2255,18 +3037,20 @@ declare module "sap/ui/commons/Button" {
      */
     focus(): void;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
+     *
+     * @returns Current accessibility state of the control.
      */
-    getAccessibilityInfo(): object;
+    getAccessibilityInfo(): AccessibilityInfo;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
-     * ariaDescribedBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     getAriaDescribedBy(): ID[];
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -2276,6 +3060,8 @@ declare module "sap/ui/commons/Button" {
      * than enabled ones, depending on custom settings.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
      */
     getEnabled(): boolean;
     /**
@@ -2283,6 +3069,8 @@ declare module "sap/ui/commons/Button" {
      *
      * Specifies the button height. If this property is set, the height which is specified by the underlying
      * theme is not used any longer.
+     *
+     * @returns Value of property `height`
      */
     getHeight(): CSSSize;
     /**
@@ -2291,6 +3079,8 @@ declare module "sap/ui/commons/Button" {
      * Unique identifier used for help service
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `helpId`
      */
     getHelpId(): string;
     /**
@@ -2300,6 +3090,8 @@ declare module "sap/ui/commons/Button" {
      * font URI.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `icon`
      */
     getIcon(): URI;
     /**
@@ -2308,6 +3100,8 @@ declare module "sap/ui/commons/Button" {
      * If set to true (default), the display sequence is 1. icon 2. control text .
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `iconFirst`
      */
     getIconFirst(): boolean;
     /**
@@ -2318,6 +3112,8 @@ declare module "sap/ui/commons/Button" {
      * ignored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `iconHovered`
      */
     getIconHovered(): URI;
     /**
@@ -2328,6 +3124,8 @@ declare module "sap/ui/commons/Button" {
      * this property is ignored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `iconSelected`
      */
     getIconSelected(): URI;
     /**
@@ -2336,6 +3134,8 @@ declare module "sap/ui/commons/Button" {
      * The button is rendered as lite button.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `lite`
      */
     getLite(): boolean;
     /**
@@ -2344,6 +3144,8 @@ declare module "sap/ui/commons/Button" {
      * Style of the button. (e.g. emphasized)
      *
      * Default value is `Default`.
+     *
+     * @returns Value of property `style`
      */
     getStyle(): ButtonStyle | keyof typeof ButtonStyle;
     /**
@@ -2353,6 +3155,8 @@ declare module "sap/ui/commons/Button" {
      * styling can be added usig addStyleClass.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `styled`
      */
     getStyled(): boolean;
     /**
@@ -2361,40 +3165,52 @@ declare module "sap/ui/commons/Button" {
      * Button text displayed at runtime.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Control width as common CSS-size (px or % as unit, for example)
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Removes all the controls in the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaDescribedBy(): ID[];
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes an ariaDescribedBy from the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns The removed ariaDescribedBy or `null`
      */
     removeAriaDescribedBy(
       /**
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getEnabled enabled}.
      *
@@ -2404,6 +3220,8 @@ declare module "sap/ui/commons/Button" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEnabled(
       /**
@@ -2418,6 +3236,8 @@ declare module "sap/ui/commons/Button" {
      * theme is not used any longer.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeight(
       /**
@@ -2433,6 +3253,8 @@ declare module "sap/ui/commons/Button" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHelpId(
       /**
@@ -2449,6 +3271,8 @@ declare module "sap/ui/commons/Button" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIcon(
       /**
@@ -2464,6 +3288,8 @@ declare module "sap/ui/commons/Button" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIconFirst(
       /**
@@ -2481,6 +3307,8 @@ declare module "sap/ui/commons/Button" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIconHovered(
       /**
@@ -2498,6 +3326,8 @@ declare module "sap/ui/commons/Button" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIconSelected(
       /**
@@ -2513,6 +3343,8 @@ declare module "sap/ui/commons/Button" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setLite(
       /**
@@ -2528,6 +3360,8 @@ declare module "sap/ui/commons/Button" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Default`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setStyle(
       /**
@@ -2544,6 +3378,8 @@ declare module "sap/ui/commons/Button" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setStyled(
       /**
@@ -2559,6 +3395,8 @@ declare module "sap/ui/commons/Button" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -2572,6 +3410,8 @@ declare module "sap/ui/commons/Button" {
      * Control width as common CSS-size (px or % as unit, for example)
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
@@ -2591,12 +3431,12 @@ declare module "sap/ui/commons/Button" {
      * Boolean property to enable the control (default is true). Buttons that are disabled have other colors
      * than enabled ones, depending on custom settings.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Control width as common CSS-size (px or % as unit, for example)
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Unique identifier used for help service
@@ -2607,48 +3447,51 @@ declare module "sap/ui/commons/Button" {
      * Icon to be displayed as graphical element within the button. This can be a URI to an image or an icon
      * font URI.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Icon to be displayed as graphical element within the button when it is hovered (only if also a base icon
      * was specified). If not specified the base icon is used. If an icon font icon is used, this property is
      * ignored.
      */
-    iconHovered?: URI | PropertyBindingInfo;
+    iconHovered?: URI | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Icon to be displayed as graphical element within the button when it is selected (only if also a base
      * icon was specified). If not specified the base or hovered icon is used. If an icon font icon is used,
      * this property is ignored.
      */
-    iconSelected?: URI | PropertyBindingInfo;
+    iconSelected?: URI | PropertyBindingInfo | `{${string}}`;
 
     /**
      * If set to true (default), the display sequence is 1. icon 2. control text .
      */
-    iconFirst?: boolean | PropertyBindingInfo;
+    iconFirst?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Specifies the button height. If this property is set, the height which is specified by the underlying
      * theme is not used any longer.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Indicates if the button is styled. If not it is rendered as native HTML-button. In this case a custom
      * styling can be added usig addStyleClass.
      */
-    styled?: boolean | PropertyBindingInfo;
+    styled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The button is rendered as lite button.
      */
-    lite?: boolean | PropertyBindingInfo;
+    lite?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Style of the button. (e.g. emphasized)
      */
-    style?: (ButtonStyle | keyof typeof ButtonStyle) | PropertyBindingInfo;
+    style?:
+      | (ButtonStyle | keyof typeof ButtonStyle)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Association to controls / ids which describe this control (see WAI-ARIA attribute aria-describedby).
@@ -2665,6 +3508,10 @@ declare module "sap/ui/commons/Button" {
      */
     press?: (oEvent: Event) => void;
   }
+
+  export interface Button$PressEventParameters {}
+
+  export type Button$PressEvent = Event<Button$PressEventParameters, Button>;
 }
 
 declare module "sap/ui/commons/Callout" {
@@ -2723,6 +3570,8 @@ declare module "sap/ui/commons/Callout" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.commons.CalloutBase.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -2741,10 +3590,14 @@ declare module "sap/ui/commons/Callout" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.Callout.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addContent(
       /**
@@ -2754,6 +3607,8 @@ declare module "sap/ui/commons/Callout" {
     ): this;
     /**
      * Destroys all the content in the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyContent(): this;
     /**
@@ -2765,6 +3620,8 @@ declare module "sap/ui/commons/Callout" {
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfContent(
       /**
@@ -2774,6 +3631,8 @@ declare module "sap/ui/commons/Callout" {
     ): int;
     /**
      * Inserts a content into the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertContent(
       /**
@@ -2791,24 +3650,28 @@ declare module "sap/ui/commons/Callout" {
      * Removes all the controls from the aggregation {@link #getContent content}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllContent(): Control[];
     /**
      * Removes a content from the aggregation {@link #getContent content}.
+     *
+     * @returns The removed content or `null`
      */
     removeContent(
       /**
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
   }
 
   export interface $CalloutSettings extends $CalloutBaseSettings {
     /**
      * Determines the content of the Callout
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
   }
 }
 
@@ -2820,11 +3683,11 @@ declare module "sap/ui/commons/CalloutBase" {
 
   import Event from "sap/ui/base/Event";
 
-  import Control from "sap/ui/core/Control";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { Dock } from "sap/ui/core/library";
+
+  import Control from "sap/ui/core/Control";
 
   /**
    * @deprecated (since 1.38)
@@ -2868,6 +3731,8 @@ declare module "sap/ui/commons/CalloutBase" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.TooltipBase.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -2886,6 +3751,8 @@ declare module "sap/ui/commons/CalloutBase" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.CalloutBase.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
@@ -2901,6 +3768,8 @@ declare module "sap/ui/commons/CalloutBase" {
      *
      * Event is fired before a Callout is displayed. Call the preventDefault method of the event object to postpone
      * opening. Application may use this event to start asynchronous Ajax call to load the Callout content
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachBeforeOpen(
       /**
@@ -2911,7 +3780,7 @@ declare module "sap/ui/commons/CalloutBase" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CalloutBase$BeforeOpenEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
        */
@@ -2925,12 +3794,14 @@ declare module "sap/ui/commons/CalloutBase" {
      *
      * Event is fired before a Callout is displayed. Call the preventDefault method of the event object to postpone
      * opening. Application may use this event to start asynchronous Ajax call to load the Callout content
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachBeforeOpen(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CalloutBase$BeforeOpenEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
        */
@@ -2943,6 +3814,8 @@ declare module "sap/ui/commons/CalloutBase" {
      * otherwise it will be bound to this `sap.ui.commons.CalloutBase` itself.
      *
      * Event is fired when the Callout window is closed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachClose(
       /**
@@ -2966,6 +3839,8 @@ declare module "sap/ui/commons/CalloutBase" {
      * otherwise it will be bound to this `sap.ui.commons.CalloutBase` itself.
      *
      * Event is fired when the Callout window is closed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachClose(
       /**
@@ -2984,6 +3859,8 @@ declare module "sap/ui/commons/CalloutBase" {
      * otherwise it will be bound to this `sap.ui.commons.CalloutBase` itself.
      *
      * The event is fired when the popup is opened.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachOpen(
       /**
@@ -2994,7 +3871,7 @@ declare module "sap/ui/commons/CalloutBase" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CalloutBase$OpenEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
        */
@@ -3007,19 +3884,21 @@ declare module "sap/ui/commons/CalloutBase" {
      * otherwise it will be bound to this `sap.ui.commons.CalloutBase` itself.
      *
      * The event is fired when the popup is opened.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachOpen(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CalloutBase$OpenEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.CalloutBase` itself
        */
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Attaches event handler `fnFunction` to the {@link #event:opened opened} event of this `sap.ui.commons.CalloutBase`.
      *
@@ -3027,6 +3906,8 @@ declare module "sap/ui/commons/CalloutBase" {
      * otherwise it will be bound to this `sap.ui.commons.CalloutBase` itself.
      *
      * Is fired when the Callout has been opened
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachOpened(
       /**
@@ -3044,7 +3925,7 @@ declare module "sap/ui/commons/CalloutBase" {
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Attaches event handler `fnFunction` to the {@link #event:opened opened} event of this `sap.ui.commons.CalloutBase`.
      *
@@ -3052,6 +3933,8 @@ declare module "sap/ui/commons/CalloutBase" {
      * otherwise it will be bound to this `sap.ui.commons.CalloutBase` itself.
      *
      * Is fired when the Callout has been opened
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachOpened(
       /**
@@ -3071,12 +3954,14 @@ declare module "sap/ui/commons/CalloutBase" {
      * Detaches event handler `fnFunction` from the {@link #event:beforeOpen beforeOpen} event of this `sap.ui.commons.CalloutBase`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachBeforeOpen(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CalloutBase$BeforeOpenEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -3086,6 +3971,8 @@ declare module "sap/ui/commons/CalloutBase" {
      * Detaches event handler `fnFunction` from the {@link #event:close close} event of this `sap.ui.commons.CalloutBase`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachClose(
       /**
@@ -3101,23 +3988,27 @@ declare module "sap/ui/commons/CalloutBase" {
      * Detaches event handler `fnFunction` from the {@link #event:open open} event of this `sap.ui.commons.CalloutBase`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachOpen(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CalloutBase$OpenEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Detaches event handler `fnFunction` from the {@link #event:opened opened} event of this `sap.ui.commons.CalloutBase`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachOpened(
       /**
@@ -3130,24 +4021,27 @@ declare module "sap/ui/commons/CalloutBase" {
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:beforeOpen beforeOpen} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @returns Whether or not to prevent the default action
      */
     fireBeforeOpen(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Parent control that has this Callout as a tooltip
-         */
-        parent?: Control;
-      }
+      mParameters?: CalloutBase$BeforeOpenEventParameters
     ): boolean;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:close close} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireClose(
       /**
@@ -3156,23 +4050,25 @@ declare module "sap/ui/commons/CalloutBase" {
       mParameters?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:open open} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireOpen(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Parent control that has this Callout as a tooltip
-         */
-        parent?: Control;
-      }
+      mParameters?: CalloutBase$OpenEventParameters
     ): this;
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:opened opened} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireOpened(
       /**
@@ -3183,6 +4079,8 @@ declare module "sap/ui/commons/CalloutBase" {
     /**
      * Set position of the Callout window relative to the parent control. This function automatically calculates
      * and sets the correct offset, use it instead of `setMyPosition/setAtPosition`.
+     *
+     * @returns `this` to allow method chaining
      */
     setPosition(
       /**
@@ -3200,7 +4098,7 @@ declare module "sap/ui/commons/CalloutBase" {
     /**
      * The event is fired when the popup is opened.
      */
-    open?: (oEvent: Event) => void;
+    open?: (oEvent: CalloutBase$OpenEvent) => void;
 
     /**
      * Event is fired when the Callout window is closed.
@@ -3211,15 +4109,53 @@ declare module "sap/ui/commons/CalloutBase" {
      * Event is fired before a Callout is displayed. Call the preventDefault method of the event object to postpone
      * opening. Application may use this event to start asynchronous Ajax call to load the Callout content
      */
-    beforeOpen?: (oEvent: Event) => void;
+    beforeOpen?: (oEvent: CalloutBase$BeforeOpenEvent) => void;
 
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Is fired when the Callout has been opened
      */
     opened?: (oEvent: Event) => void;
   }
+
+  export interface CalloutBase$BeforeOpenEventParameters {
+    /**
+     * Parent control that has this Callout as a tooltip
+     */
+    parent?: Control;
+  }
+
+  export type CalloutBase$BeforeOpenEvent = Event<
+    CalloutBase$BeforeOpenEventParameters,
+    CalloutBase
+  >;
+
+  export interface CalloutBase$CloseEventParameters {}
+
+  export type CalloutBase$CloseEvent = Event<
+    CalloutBase$CloseEventParameters,
+    CalloutBase
+  >;
+
+  export interface CalloutBase$OpenEventParameters {
+    /**
+     * Parent control that has this Callout as a tooltip
+     */
+    parent?: Control;
+  }
+
+  export type CalloutBase$OpenEvent = Event<
+    CalloutBase$OpenEventParameters,
+    CalloutBase
+  >;
+
+  export interface CalloutBase$OpenedEventParameters {}
+
+  export type CalloutBase$OpenedEvent = Event<
+    CalloutBase$OpenedEventParameters,
+    CalloutBase
+  >;
 }
 
 declare module "sap/ui/commons/Carousel" {
@@ -3237,7 +4173,7 @@ declare module "sap/ui/commons/Carousel" {
   import { enums } from "sap/ui/commons/library";
 
   /**
-   * @SINCE 1.8.0
+   * @since 1.8.0
    * @deprecated (since 1.38) - Instead, use the `sap.m.Carousel` control.
    *
    * Carousel holds multiple controls and displays them vertically or horizontally next to each other. You
@@ -3281,6 +4217,8 @@ declare module "sap/ui/commons/Carousel" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -3299,10 +4237,14 @@ declare module "sap/ui/commons/Carousel" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.Carousel.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addContent(
       /**
@@ -3315,6 +4257,8 @@ declare module "sap/ui/commons/Carousel" {
      *
      * See {@link sap.ui.base.ManagedObject#bindAggregation ManagedObject.bindAggregation} for a detailed description
      * of the possible properties of `oBindingInfo`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     bindContent(
       /**
@@ -3328,6 +4272,8 @@ declare module "sap/ui/commons/Carousel" {
     calculateAndSetSize(): void;
     /**
      * Destroys all the content in the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyContent(): this;
     /**
@@ -3336,6 +4282,8 @@ declare module "sap/ui/commons/Carousel" {
      * Duration for animation when navigating through the contents of the Carousel
      *
      * Default value is `500`.
+     *
+     * @returns Value of property `animationDuration`
      */
     getAnimationDuration(): int;
     /**
@@ -3350,6 +4298,8 @@ declare module "sap/ui/commons/Carousel" {
      * Default height of the item in a carousel if no height can be determined
      *
      * Default value is `150`.
+     *
+     * @returns Value of property `defaultItemHeight`
      */
     getDefaultItemHeight(): int;
     /**
@@ -3358,22 +4308,30 @@ declare module "sap/ui/commons/Carousel" {
      * Default width of the item in a carousel if no height can be determined
      *
      * Default value is `150`.
+     *
+     * @returns Value of property `defaultItemWidth`
      */
     getDefaultItemWidth(): int;
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Gets current value of property {@link #getFirstVisibleIndex firstVisibleIndex}.
      *
      * The index of the element in the content aggreation which is displayed first on rendering
      *
      * Default value is `0`.
+     *
+     * @returns Value of property `firstVisibleIndex`
      */
     getFirstVisibleIndex(): int;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Returns the DOM Element that should get the focus.
      *
      * To be overwritten by the specific control method.
+     *
+     * @returns Returns the DOM Element that should get the focus
      */
     getFocusDomRef(): Element;
     /**
@@ -3382,12 +4340,16 @@ declare module "sap/ui/commons/Carousel" {
      * Determines the size of the handle in pixels. (Height for vertical carousel, width for horizontal carousel)
      *
      * Default value is `22`.
+     *
+     * @returns Value of property `handleSize`
      */
     getHandleSize(): int;
     /**
      * Gets current value of property {@link #getHeight height}.
      *
      * Determines the height of the Carousel
+     *
+     * @returns Value of property `height`
      */
     getHeight(): CSSSize;
     /**
@@ -3396,23 +4358,31 @@ declare module "sap/ui/commons/Carousel" {
      * Determines the orientation of the Carousel. Can be either "horizontal" or "vertical"
      *
      * Default value is `horizontal`.
+     *
+     * @returns Value of property `orientation`
      */
     getOrientation(): enums.Orientation | keyof typeof enums.Orientation;
     /**
      * Gets current value of property {@link #getVisibleItems visibleItems}.
      *
      * If defined, the carousel displays the number of items defined. Items will be resized to fit the area.
+     *
+     * @returns Value of property `visibleItems`
      */
     getVisibleItems(): int;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Determines the width of the Carousel
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfContent(
       /**
@@ -3422,6 +4392,8 @@ declare module "sap/ui/commons/Carousel" {
     ): int;
     /**
      * Inserts a content into the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertContent(
       /**
@@ -3447,17 +4419,21 @@ declare module "sap/ui/commons/Carousel" {
      * Removes all the controls from the aggregation {@link #getContent content}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllContent(): Control[];
     /**
      * Removes a content from the aggregation {@link #getContent content}.
+     *
+     * @returns The removed content or `null`
      */
     removeContent(
       /**
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getAnimationDuration animationDuration}.
      *
@@ -3466,6 +4442,8 @@ declare module "sap/ui/commons/Carousel" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `500`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAnimationDuration(
       /**
@@ -3481,6 +4459,8 @@ declare module "sap/ui/commons/Carousel" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `150`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDefaultItemHeight(
       /**
@@ -3496,6 +4476,8 @@ declare module "sap/ui/commons/Carousel" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `150`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDefaultItemWidth(
       /**
@@ -3504,11 +4486,13 @@ declare module "sap/ui/commons/Carousel" {
       iDefaultItemWidth?: int
     ): this;
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Setter for property `firstVisibleIndex`.
      *
      * Default value is `0`
+     *
+     * @returns `this` to allow method chaining
      */
     setFirstVisibleIndex(
       /**
@@ -3524,6 +4508,8 @@ declare module "sap/ui/commons/Carousel" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `22`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHandleSize(
       /**
@@ -3537,6 +4523,8 @@ declare module "sap/ui/commons/Carousel" {
      * Determines the height of the Carousel
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeight(
       /**
@@ -3552,6 +4540,8 @@ declare module "sap/ui/commons/Carousel" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `horizontal`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setOrientation(
       /**
@@ -3565,6 +4555,8 @@ declare module "sap/ui/commons/Carousel" {
      * If defined, the carousel displays the number of items defined. Items will be resized to fit the area.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setVisibleItems(
       /**
@@ -3578,6 +4570,8 @@ declare module "sap/ui/commons/Carousel" {
      * Determines the width of the Carousel
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
@@ -3604,6 +4598,8 @@ declare module "sap/ui/commons/Carousel" {
     showPrevious(): void;
     /**
      * Unbinds aggregation {@link #getContent content} from model data.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     unbindContent(): this;
   }
@@ -3614,54 +4610,55 @@ declare module "sap/ui/commons/Carousel" {
      */
     orientation?:
       | (enums.Orientation | keyof typeof enums.Orientation)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Determines the width of the Carousel
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the height of the Carousel
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Default height of the item in a carousel if no height can be determined
      */
-    defaultItemHeight?: int | PropertyBindingInfo;
+    defaultItemHeight?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Default width of the item in a carousel if no height can be determined
      */
-    defaultItemWidth?: int | PropertyBindingInfo;
+    defaultItemWidth?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Duration for animation when navigating through the contents of the Carousel
      */
-    animationDuration?: int | PropertyBindingInfo;
+    animationDuration?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * If defined, the carousel displays the number of items defined. Items will be resized to fit the area.
      */
-    visibleItems?: int | PropertyBindingInfo;
+    visibleItems?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the size of the handle in pixels. (Height for vertical carousel, width for horizontal carousel)
      */
-    handleSize?: int | PropertyBindingInfo;
+    handleSize?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * The index of the element in the content aggreation which is displayed first on rendering
      */
-    firstVisibleIndex?: int | PropertyBindingInfo;
+    firstVisibleIndex?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Controls which are displayed inside the Carousel
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
   }
 }
 
@@ -3671,16 +4668,17 @@ declare module "sap/ui/commons/CheckBox" {
   import {
     IFormContent,
     ID,
+    AccessibilityInfo,
     TextDirection,
     ValueState,
     CSSSize,
   } from "sap/ui/core/library";
 
-  import Event from "sap/ui/base/Event";
-
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - Instead, use the `sap.m.CheckBox` control.
@@ -3726,6 +4724,8 @@ declare module "sap/ui/commons/CheckBox" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -3744,10 +4744,14 @@ declare module "sap/ui/commons/CheckBox" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.CheckBox.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaDescribedBy(
       /**
@@ -3757,6 +4761,8 @@ declare module "sap/ui/commons/CheckBox" {
     ): this;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -3771,6 +4777,8 @@ declare module "sap/ui/commons/CheckBox" {
      * otherwise it will be bound to this `sap.ui.commons.CheckBox` itself.
      *
      * Event is triggered when the control status is changed by the user by flagging or unflagging the checkbox.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -3781,7 +4789,7 @@ declare module "sap/ui/commons/CheckBox" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CheckBox$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.CheckBox` itself
        */
@@ -3794,12 +4802,14 @@ declare module "sap/ui/commons/CheckBox" {
      * otherwise it will be bound to this `sap.ui.commons.CheckBox` itself.
      *
      * Event is triggered when the control status is changed by the user by flagging or unflagging the checkbox.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CheckBox$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.CheckBox` itself
        */
@@ -3810,6 +4820,8 @@ declare module "sap/ui/commons/CheckBox" {
      *
      * See {@link sap.ui.base.ManagedObject#bindProperty ManagedObject.bindProperty} for a detailed description
      * of the possible properties of `oBindingInfo`
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     bindChecked(
       /**
@@ -3821,44 +4833,47 @@ declare module "sap/ui/commons/CheckBox" {
      * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.commons.CheckBox`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachChange(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: CheckBox$ChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:change change} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireChange(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Checks whether the box is flagged or not flagged.
-         */
-        checked?: boolean;
-      }
+      mParameters?: CheckBox$ChangeEventParameters
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
+     *
+     * @returns The object contains the accessibility information of `sap.ui.commons.CheckBox`
      */
-    getAccessibilityInfo(): object;
+    getAccessibilityInfo(): AccessibilityInfo;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
-     * ariaDescribedBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     getAriaDescribedBy(): ID[];
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -3867,6 +4882,8 @@ declare module "sap/ui/commons/CheckBox" {
      * Contains the state of the control whether it is flagged with a check mark, or not
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `checked`
      */
     getChecked(): boolean;
     /**
@@ -3875,6 +4892,8 @@ declare module "sap/ui/commons/CheckBox" {
      * Specifies whether the user shall be allowed to select the check box.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `editable`
      */
     getEditable(): boolean;
     /**
@@ -3883,6 +4902,8 @@ declare module "sap/ui/commons/CheckBox" {
      * Using this property, the control could be disabled, if required.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
      */
     getEnabled(): boolean;
     /**
@@ -3890,12 +4911,16 @@ declare module "sap/ui/commons/CheckBox" {
      *
      * The 'name' property to be used in the HTML code, for example for HTML forms that send data to the server
      * via submit.
+     *
+     * @returns Value of property `name`
      */
     getName(): string;
     /**
      * Gets current value of property {@link #getText text}.
      *
      * Defines the text displayed next to the check box
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
@@ -3905,6 +4930,8 @@ declare module "sap/ui/commons/CheckBox" {
      * control.
      *
      * Default value is `Inherit`.
+     *
+     * @returns Value of property `textDirection`
      */
     getTextDirection(): TextDirection | keyof typeof TextDirection;
     /**
@@ -3913,6 +4940,8 @@ declare module "sap/ui/commons/CheckBox" {
      * Accepts the core enumeration ValueState.type that supports 'None', 'Error', 'Warning' and 'Success'.
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `valueState`
      */
     getValueState(): ValueState | keyof typeof ValueState;
     /**
@@ -3920,34 +4949,44 @@ declare module "sap/ui/commons/CheckBox" {
      *
      * The width can be set to an absolute value. If no value is set, the control width results from the text
      * length.
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Removes all the controls in the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaDescribedBy(): ID[];
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes an ariaDescribedBy from the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns The removed ariaDescribedBy or `null`
      */
     removeAriaDescribedBy(
       /**
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getChecked checked}.
      *
@@ -3956,6 +4995,8 @@ declare module "sap/ui/commons/CheckBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setChecked(
       /**
@@ -3971,6 +5012,8 @@ declare module "sap/ui/commons/CheckBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEditable(
       /**
@@ -3986,6 +5029,8 @@ declare module "sap/ui/commons/CheckBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEnabled(
       /**
@@ -4000,6 +5045,8 @@ declare module "sap/ui/commons/CheckBox" {
      * via submit.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setName(
       /**
@@ -4013,6 +5060,8 @@ declare module "sap/ui/commons/CheckBox" {
      * Defines the text displayed next to the check box
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -4029,6 +5078,8 @@ declare module "sap/ui/commons/CheckBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Inherit`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTextDirection(
       /**
@@ -4044,6 +5095,8 @@ declare module "sap/ui/commons/CheckBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueState(
       /**
@@ -4058,6 +5111,8 @@ declare module "sap/ui/commons/CheckBox" {
      * length.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
@@ -4071,6 +5126,8 @@ declare module "sap/ui/commons/CheckBox" {
     toggle(): this;
     /**
      * Unbinds property {@link #getChecked checked} from model data.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     unbindChecked(): this;
   }
@@ -4079,7 +5136,7 @@ declare module "sap/ui/commons/CheckBox" {
     /**
      * Contains the state of the control whether it is flagged with a check mark, or not
      */
-    checked?: boolean | PropertyBindingInfo;
+    checked?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the text displayed next to the check box
@@ -4089,23 +5146,26 @@ declare module "sap/ui/commons/CheckBox" {
     /**
      * Using this property, the control could be disabled, if required.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Specifies whether the user shall be allowed to select the check box.
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Accepts the core enumeration ValueState.type that supports 'None', 'Error', 'Warning' and 'Success'.
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?:
+      | (ValueState | keyof typeof ValueState)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * The width can be set to an absolute value. If no value is set, the control width results from the text
      * length.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The value can be set to LTR or RTL. Otherwise, the control inherits the text direction from its parent
@@ -4113,7 +5173,8 @@ declare module "sap/ui/commons/CheckBox" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * The 'name' property to be used in the HTML code, for example for HTML forms that send data to the server
@@ -4134,8 +5195,20 @@ declare module "sap/ui/commons/CheckBox" {
     /**
      * Event is triggered when the control status is changed by the user by flagging or unflagging the checkbox.
      */
-    change?: (oEvent: Event) => void;
+    change?: (oEvent: CheckBox$ChangeEvent) => void;
   }
+
+  export interface CheckBox$ChangeEventParameters {
+    /**
+     * Checks whether the box is flagged or not flagged.
+     */
+    checked?: boolean;
+  }
+
+  export type CheckBox$ChangeEvent = Event<
+    CheckBox$ChangeEventParameters,
+    CheckBox
+  >;
 }
 
 declare module "sap/ui/commons/ColorPicker" {
@@ -4160,8 +5233,8 @@ declare module "sap/ui/commons/ColorPicker" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.ColorPicker#constructor
-     * sap.ui.unified.ColorPicker} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.ColorPicker#constructor sap.ui.unified.ColorPicker }
+     * can be used.
      */
     constructor(
       /**
@@ -4176,8 +5249,8 @@ declare module "sap/ui/commons/ColorPicker" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.ColorPicker#constructor
-     * sap.ui.unified.ColorPicker} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.ColorPicker#constructor sap.ui.unified.ColorPicker }
+     * can be used.
      */
     constructor(
       /**
@@ -4195,6 +5268,8 @@ declare module "sap/ui/commons/ColorPicker" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.unified.ColorPicker.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -4213,6 +5288,8 @@ declare module "sap/ui/commons/ColorPicker" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.ColorPicker.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -4224,6 +5301,7 @@ declare module "sap/ui/commons/ComboBox" {
   import {
     default as TextField,
     $TextFieldSettings,
+    TextField$ChangeEventParameters,
   } from "sap/ui/commons/TextField";
 
   import { ToolbarItem } from "sap/ui/commons/library";
@@ -4235,11 +5313,13 @@ declare module "sap/ui/commons/ComboBox" {
     PropertyBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
-  import { ID } from "sap/ui/core/library";
+  import { AccessibilityInfo, ID } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import ListBox from "sap/ui/commons/ListBox";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - replaced by {@link sap.m.ComboBox}
@@ -4286,6 +5366,8 @@ declare module "sap/ui/commons/ComboBox" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.commons.TextField.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -4304,9 +5386,13 @@ declare module "sap/ui/commons/ComboBox" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.ComboBox.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Compares the previous value with the current value and fires the "Change" event if the ComboBox is editable
      * and the value has changed or whether the value has been changed e.g. via up/down or auto-complete feature
      */
@@ -4323,6 +5409,8 @@ declare module "sap/ui/commons/ComboBox" {
     ): void;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addItem(
       /**
@@ -4335,6 +5423,8 @@ declare module "sap/ui/commons/ComboBox" {
      *
      * See {@link sap.ui.base.ManagedObject#bindAggregation ManagedObject.bindAggregation} for a detailed description
      * of the possible properties of `oBindingInfo`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     bindItems(
       /**
@@ -4344,14 +5434,20 @@ declare module "sap/ui/commons/ComboBox" {
     ): this;
     /**
      * Destroys all the items in the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyItems(): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fire event change to attached listeners.
      *
      * Expects following event parameters:
      * 	 - 'newValue' of type `string` The new / changed value of the textfield.
      * 	 - 'selectedItem' of type `sap.ui.core.ListItem` selected item
+     *
+     * @returns `this` to allow method chaining
      */
     fireChange(
       /**
@@ -4360,10 +5456,14 @@ declare module "sap/ui/commons/ComboBox" {
       mArguments?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
+     *
+     * @returns The accessibility info
      */
-    getAccessibilityInfo(): object;
+    getAccessibilityInfo(): AccessibilityInfo;
     /**
      * Gets current value of property {@link #getDisplaySecondaryValues displaySecondaryValues}.
      *
@@ -4371,12 +5471,18 @@ declare module "sap/ui/commons/ComboBox" {
      * displayed in the list.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `displaySecondaryValues`
      */
     getDisplaySecondaryValues(): boolean;
     /**
-     * Returns the DomRef which represents the icon for value help. Could be overwritten in child-classes
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * Returns the DOM element which represents the icon for value help. Could be overwritten in child-classes.
+     *
+     * @returns The F4-element's DOM reference or `null`
      */
-    getF4ButtonDomRef(): Element;
+    getF4ButtonDomRef(): Element | null;
     /**
      * Gets content of aggregation {@link #getItems items}.
      *
@@ -4394,6 +5500,8 @@ declare module "sap/ui/commons/ComboBox" {
      * than this setting, a scrollbar is provided.
      *
      * Default value is `10`.
+     *
+     * @returns Value of property `maxPopupItems`
      */
     getMaxPopupItems(): int;
     /**
@@ -4402,6 +5510,8 @@ declare module "sap/ui/commons/ComboBox" {
      * Id of the selected item. If the value has no corresponding item, the `selectedItemId` is empty.
      *
      * If the `selectedItemId` is set to a not existing item, it will not be changed.
+     *
+     * @returns Value of property `selectedItemId`
      */
     getSelectedItemId(): string;
     /**
@@ -4414,11 +5524,15 @@ declare module "sap/ui/commons/ComboBox" {
      * If duplicate keys exists the first item matching the key is used.
      *
      * If the key is set to a not existing value it will not be changed.
+     *
+     * @returns Value of property `selectedKey`
      */
     getSelectedKey(): string;
     /**
      * Checks for the provided `sap.ui.core.ListItem` in the aggregation {@link #getItems items}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfItem(
       /**
@@ -4428,6 +5542,8 @@ declare module "sap/ui/commons/ComboBox" {
     ): int;
     /**
      * Inserts a item into the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertItem(
       /**
@@ -4442,6 +5558,8 @@ declare module "sap/ui/commons/ComboBox" {
       iIndex: int
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Handle sapenter pseudo events on the control
      */
     onsapenter(
@@ -4451,6 +5569,8 @@ declare module "sap/ui/commons/ComboBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Handle sapescape pseudo events on the control
      */
     onsapescape(
@@ -4460,6 +5580,8 @@ declare module "sap/ui/commons/ComboBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Handle saphide pseudo events on the control
      */
     onsaphide(
@@ -4469,6 +5591,8 @@ declare module "sap/ui/commons/ComboBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Handle sapnextmodifiers pseudo events on the control if in toolbar prevent item navigation if popup is
      * opened.
      */
@@ -4479,6 +5603,8 @@ declare module "sap/ui/commons/ComboBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Handle sapshow pseudo events on the control
      */
     onsapshow(
@@ -4491,17 +5617,21 @@ declare module "sap/ui/commons/ComboBox" {
      * Removes all the controls from the aggregation {@link #getItems items}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllItems(): ListItem[];
     /**
      * Removes a item from the aggregation {@link #getItems items}.
+     *
+     * @returns The removed item or `null`
      */
     removeItem(
       /**
        * The item to remove or its index or id
        */
       vItem: int | string | ListItem
-    ): ListItem;
+    ): ListItem | null;
     /**
      * Sets a new value for property {@link #getDisplaySecondaryValues displaySecondaryValues}.
      *
@@ -4511,6 +5641,8 @@ declare module "sap/ui/commons/ComboBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDisplaySecondaryValues(
       /**
@@ -4520,6 +5652,8 @@ declare module "sap/ui/commons/ComboBox" {
     ): this;
     /**
      * Sets the associated {@link #getListBox listBox}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setListBox(
       /**
@@ -4537,6 +5671,8 @@ declare module "sap/ui/commons/ComboBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `10`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMaxPopupItems(
       /**
@@ -4552,6 +5688,8 @@ declare module "sap/ui/commons/ComboBox" {
      * If the `selectedItemId` is set to a not existing item, it will not be changed.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSelectedItemId(
       /**
@@ -4571,6 +5709,8 @@ declare module "sap/ui/commons/ComboBox" {
      * If the key is set to a not existing value it will not be changed.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSelectedKey(
       /**
@@ -4580,6 +5720,8 @@ declare module "sap/ui/commons/ComboBox" {
     ): this;
     /**
      * Unbinds aggregation {@link #getItems items} from model data.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     unbindItems(): this;
   }
@@ -4589,13 +5731,13 @@ declare module "sap/ui/commons/ComboBox" {
      * Defines the number of items that shall be displayed at once. If the overall number of items is higher
      * than this setting, a scrollbar is provided.
      */
-    maxPopupItems?: int | PropertyBindingInfo;
+    maxPopupItems?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Indicates whether the `additionalText` property that is available for `sap.ui.core.ListItem` shall be
      * displayed in the list.
      */
-    displaySecondaryValues?: boolean | PropertyBindingInfo;
+    displaySecondaryValues?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Key of the selected item.
@@ -4618,7 +5760,7 @@ declare module "sap/ui/commons/ComboBox" {
     /**
      * `ListItems` (see `sap.ui.core.ListBox`) that shall be displayed in the list.
      */
-    items?: ListItem[] | ListItem | AggregationBindingInfo;
+    items?: ListItem[] | ListItem | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Using this method, you provide a `ListBox` control. This allows reuse of item lists in different controls.
@@ -4631,6 +5773,19 @@ declare module "sap/ui/commons/ComboBox" {
      */
     listBox?: ListBox | string;
   }
+
+  export interface ComboBox$ChangeEventParameters
+    extends TextField$ChangeEventParameters {
+    /**
+     * The new / changed item of the ComboBox.
+     */
+    selectedItem?: ListItem;
+  }
+
+  export type ComboBox$ChangeEvent = Event<
+    ComboBox$ChangeEventParameters,
+    ComboBox
+  >;
 }
 
 declare module "sap/ui/commons/DatePicker" {
@@ -4638,6 +5793,8 @@ declare module "sap/ui/commons/DatePicker" {
     default as TextField,
     $TextFieldSettings,
   } from "sap/ui/commons/TextField";
+
+  import { AccessibilityInfo } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -4690,6 +5847,8 @@ declare module "sap/ui/commons/DatePicker" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.commons.TextField.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -4708,15 +5867,22 @@ declare module "sap/ui/commons/DatePicker" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.DatePicker.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fire event change to attached listeners.
      *
      * Provides the following event parameters:
      * 	 - 'newValue' of type `string` The new / changed value of the DatePicker.
      * 	 - 'newYyyymmdd' of type `string` The new / changed Yyyymmdd of the DatePicker.
      * 	 - 'invalidValue' of type `boolean` The new / changed value of the DatePicker is not a valid date.
+     *
+     *
+     * @returns `this` to allow method chaining
      */
     fireChange(
       /**
@@ -4729,16 +5895,22 @@ declare module "sap/ui/commons/DatePicker" {
       bInvalidValue?: boolean
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
+     *
+     * @returns Current accessibility state of the control
      */
-    getAccessibilityInfo(): object;
+    getAccessibilityInfo(): AccessibilityInfo;
     /**
      * Gets current value of property {@link #getLocale locale}.
      *
      * Defines the locale (language and country), e.g. "en-US", whose translations and Date formatters should
      * be used to render the DatePicker.If the value property is bound to a model using a Date type the locale
      * will be ignored, because the locale information of the model are used.
+     *
+     * @returns Value of property `locale`
      */
     getLocale(): string;
     /**
@@ -4746,6 +5918,8 @@ declare module "sap/ui/commons/DatePicker" {
      *
      * Defines the date as a "yyyymmdd" string, independent from the format used. The inherited textField "value"
      * attribute uses the date format as configured via the locale. The date is interpreted as gregorian date
+     *
+     * @returns Value of property `yyyymmdd`
      */
     getYyyymmdd(): string;
     /**
@@ -4756,6 +5930,8 @@ declare module "sap/ui/commons/DatePicker" {
      * will be ignored, because the locale information of the model are used.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setLocale(
       /**
@@ -4770,6 +5946,8 @@ declare module "sap/ui/commons/DatePicker" {
      * attribute uses the date format as configured via the locale. The date is interpreted as gregorian date
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setYyyymmdd(
       /**
@@ -4806,8 +5984,6 @@ declare module "sap/ui/commons/Dialog" {
     OpenState,
   } from "sap/ui/core/library";
 
-  import Event from "sap/ui/base/Event";
-
   import { enums } from "sap/ui/commons/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
@@ -4818,6 +5994,8 @@ declare module "sap/ui/commons/Dialog" {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - Instead, use the `sap.m.Dialog` control.
@@ -4864,6 +6042,8 @@ declare module "sap/ui/commons/Dialog" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -4882,10 +6062,14 @@ declare module "sap/ui/commons/Dialog" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.Dialog.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some button to the aggregation {@link #getButtons buttons}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addButton(
       /**
@@ -4895,6 +6079,8 @@ declare module "sap/ui/commons/Dialog" {
     ): this;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addContent(
       /**
@@ -4910,6 +6096,8 @@ declare module "sap/ui/commons/Dialog" {
      *
      * Event is fired when the dialog has been closed (after closing-animation etc.). Event parameters provide
      * information about last position and last size.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachClosed(
       /**
@@ -4920,7 +6108,7 @@ declare module "sap/ui/commons/Dialog" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Dialog$ClosedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Dialog` itself
        */
@@ -4934,12 +6122,14 @@ declare module "sap/ui/commons/Dialog" {
      *
      * Event is fired when the dialog has been closed (after closing-animation etc.). Event parameters provide
      * information about last position and last size.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachClosed(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Dialog$ClosedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Dialog` itself
        */
@@ -4951,52 +6141,45 @@ declare module "sap/ui/commons/Dialog" {
     close(): void;
     /**
      * Destroys all the buttons in the aggregation {@link #getButtons buttons}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyButtons(): this;
     /**
      * Destroys all the content in the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyContent(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:closed closed} event of this `sap.ui.commons.Dialog`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachClosed(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Dialog$ClosedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:closed closed} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireClosed(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The width of the dialog when closed
-         */
-        width?: int;
-        /**
-         * The height of the dialog when closed
-         */
-        height?: int;
-        /**
-         * The top position of the dialog when closed
-         */
-        top?: int;
-        /**
-         * The left position of the dialog when closed
-         */
-        left?: int;
-      }
+      mParameters?: Dialog$ClosedEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getAccessibleRole accessibleRole}.
@@ -5004,6 +6187,8 @@ declare module "sap/ui/commons/Dialog" {
      * The ARIA role for the control. E.g. for alert-style Dialogs this can be set to "AlertDialog".
      *
      * Default value is `Dialog`.
+     *
+     * @returns Value of property `accessibleRole`
      */
     getAccessibleRole(): AccessibleRole | keyof typeof AccessibleRole;
     /**
@@ -5012,16 +6197,20 @@ declare module "sap/ui/commons/Dialog" {
      * Padding is theme-dependent. When set to "false", the content extends to the dialog borders.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `applyContentPadding`
      */
     getApplyContentPadding(): boolean;
     /**
-     * @SINCE 1.10
+     * @since 1.10
      *
      * Gets current value of property {@link #getAutoClose autoClose}.
      *
      * If this property is set to true the Dialog will close if the Dialog loses its focus
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `autoClose`
      */
     getAutoClose(): boolean;
     /**
@@ -5046,6 +6235,8 @@ declare module "sap/ui/commons/Dialog" {
      * Specifies the border design. Border design is theme dependent.
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `contentBorderDesign`
      */
     getContentBorderDesign():
       | enums.BorderDesign
@@ -5056,13 +6247,25 @@ declare module "sap/ui/commons/Dialog" {
      */
     getDefaultButton(): ID;
     /**
-     * @EXPERIMENTAL
+     * @experimental - Whether a dialog is regarded as "enabled" during the state transitions (OPENING, CLOSING)
+     * is not fully decided. Currently, it is enabled during the OPENING phase and disabled during the CLOSING
+     * phase. The only potential change would be to treat the OPENING phase as disabled as well. Applications
+     * should be prepared to receive events from "enabled" controls after they called open() on the dialog until
+     * close() is called on it. If the mentioned potential change should happen, the dialog will become enabled
+     * only after the transition to OPEN. Events from "enabled" children then can still only arrive between
+     * open() and close(), so applications that obey the previous rule should continue to work. Only end users
+     * or code that explicitly triggers pseudo user events will notice a difference.
+     *  A second aspect that might change is the visual behavior of the content: during the CLOSING phase it
+     * 'looks' enabled but in fact it is already disabled. This avoids unnecessary redraws for content that
+     * becomes hidden soon. Should this show to be confusing for end users, it might be changed.
      *
      * Determines whether the dialog is currently enabled or not.
      *
      * Applications can't control the enabled state via a property. A dialog is implicitly enabled depending
      * on its `openState`. Descendant controls that honor the enabled state of their ancestors will appear disabled
      * after the dialog is closed.
+     *
+     * @returns indicates whether the dialog is currently enabled or not.
      */
     getEnabled(): boolean;
     /**
@@ -5070,6 +6273,8 @@ declare module "sap/ui/commons/Dialog" {
      *
      * Outer height of dialog window. When not set and not constrained by one of the height parameters (minHeight/maxHeight),
      * the window size is automatically adapted to the content.
+     *
+     * @returns Value of property `height`
      */
     getHeight(): CSSSize;
     /**
@@ -5078,7 +6283,7 @@ declare module "sap/ui/commons/Dialog" {
      */
     getInitialFocus(): ID;
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * Gets current value of property {@link #getKeepInWindow keepInWindow}.
      *
@@ -5087,6 +6292,8 @@ declare module "sap/ui/commons/Dialog" {
      * window.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `keepInWindow`
      */
     getKeepInWindow(): boolean;
     /**
@@ -5094,6 +6301,8 @@ declare module "sap/ui/commons/Dialog" {
      *
      * Maximum outer height of the dialog window. If set, neither the user nor some layout settings can make
      * the window larger.
+     *
+     * @returns Value of property `maxHeight`
      */
     getMaxHeight(): CSSSize;
     /**
@@ -5101,6 +6310,8 @@ declare module "sap/ui/commons/Dialog" {
      *
      * Maximum outer width of the dialog window. If set, neither the user nor some layout settings can make
      * the window larger.
+     *
+     * @returns Value of property `maxWidth`
      */
     getMaxWidth(): CSSSize;
     /**
@@ -5108,6 +6319,8 @@ declare module "sap/ui/commons/Dialog" {
      *
      * Minimum outer height of the dialog window. When set, neither the user nor some layout settings can make
      * the window smaller.
+     *
+     * @returns Value of property `minHeight`
      */
     getMinHeight(): CSSSize;
     /**
@@ -5115,6 +6328,8 @@ declare module "sap/ui/commons/Dialog" {
      *
      * Minimum outer width of the dialog window. When set, neither the user nor some layout settings can make
      * the window smaller.
+     *
+     * @returns Value of property `minWidth`
      */
     getMinWidth(): CSSSize;
     /**
@@ -5124,6 +6339,8 @@ declare module "sap/ui/commons/Dialog" {
      * dialog.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `modal`
      */
     getModal(): boolean;
     /**
@@ -5137,6 +6354,8 @@ declare module "sap/ui/commons/Dialog" {
      * symbol.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `resizable`
      */
     getResizable(): boolean;
     /**
@@ -5145,6 +6364,8 @@ declare module "sap/ui/commons/Dialog" {
      * Scroll position from left to right. "0" means leftmost position.
      *
      * Default value is `0`.
+     *
+     * @returns Value of property `scrollLeft`
      */
     getScrollLeft(): int;
     /**
@@ -5153,6 +6374,8 @@ declare module "sap/ui/commons/Dialog" {
      * Scroll position from top to bottom. "0" means topmost position.
      *
      * Default value is `0`.
+     *
+     * @returns Value of property `scrollTop`
      */
     getScrollTop(): int;
     /**
@@ -5161,6 +6384,8 @@ declare module "sap/ui/commons/Dialog" {
      * Displays a close button in the title bar.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `showCloseButton`
      */
     getShowCloseButton(): boolean;
     /**
@@ -5169,6 +6394,8 @@ declare module "sap/ui/commons/Dialog" {
      * Dialog title displayed in the header.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `title`
      */
     getTitle(): string;
     /**
@@ -5176,11 +6403,15 @@ declare module "sap/ui/commons/Dialog" {
      *
      * Outer width of dialog window. When not set and not constrained by one of the width parameters (minWidth/maxWidth),
      * the window size is automatically adapted to the content.
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getButtons buttons}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfButton(
       /**
@@ -5191,6 +6422,8 @@ declare module "sap/ui/commons/Dialog" {
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfContent(
       /**
@@ -5200,6 +6433,8 @@ declare module "sap/ui/commons/Dialog" {
     ): int;
     /**
      * Inserts a button into the aggregation {@link #getButtons buttons}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertButton(
       /**
@@ -5215,6 +6450,8 @@ declare module "sap/ui/commons/Dialog" {
     ): this;
     /**
      * Inserts a content into the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertContent(
       /**
@@ -5241,32 +6478,40 @@ declare module "sap/ui/commons/Dialog" {
      * Removes all the controls from the aggregation {@link #getButtons buttons}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllButtons(): Control[];
     /**
      * Removes all the controls from the aggregation {@link #getContent content}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllContent(): Control[];
     /**
      * Removes a button from the aggregation {@link #getButtons buttons}.
+     *
+     * @returns The removed button or `null`
      */
     removeButton(
       /**
        * The button to remove or its index or id
        */
       vButton: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a content from the aggregation {@link #getContent content}.
+     *
+     * @returns The removed content or `null`
      */
     removeContent(
       /**
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getAccessibleRole accessibleRole}.
      *
@@ -5275,6 +6520,8 @@ declare module "sap/ui/commons/Dialog" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Dialog`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleRole(
       /**
@@ -5290,6 +6537,8 @@ declare module "sap/ui/commons/Dialog" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setApplyContentPadding(
       /**
@@ -5298,7 +6547,7 @@ declare module "sap/ui/commons/Dialog" {
       bApplyContentPadding?: boolean
     ): this;
     /**
-     * @SINCE 1.10
+     * @since 1.10
      *
      * Sets a new value for property {@link #getAutoClose autoClose}.
      *
@@ -5307,6 +6556,8 @@ declare module "sap/ui/commons/Dialog" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAutoClose(
       /**
@@ -5322,6 +6573,8 @@ declare module "sap/ui/commons/Dialog" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setContentBorderDesign(
       /**
@@ -5333,6 +6586,8 @@ declare module "sap/ui/commons/Dialog" {
     ): this;
     /**
      * Sets the associated {@link #getDefaultButton defaultButton}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDefaultButton(
       /**
@@ -5348,6 +6603,8 @@ declare module "sap/ui/commons/Dialog" {
      * the window size is automatically adapted to the content.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeight(
       /**
@@ -5357,6 +6614,8 @@ declare module "sap/ui/commons/Dialog" {
     ): this;
     /**
      * Sets the associated {@link #getInitialFocus initialFocus}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setInitialFocus(
       /**
@@ -5366,7 +6625,7 @@ declare module "sap/ui/commons/Dialog" {
       oInitialFocus: ID | Control
     ): this;
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * Sets a new value for property {@link #getKeepInWindow keepInWindow}.
      *
@@ -5377,6 +6636,8 @@ declare module "sap/ui/commons/Dialog" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setKeepInWindow(
       /**
@@ -5391,6 +6652,8 @@ declare module "sap/ui/commons/Dialog" {
      * the window larger.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMaxHeight(
       /**
@@ -5405,6 +6668,8 @@ declare module "sap/ui/commons/Dialog" {
      * the window larger.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMaxWidth(
       /**
@@ -5419,6 +6684,8 @@ declare module "sap/ui/commons/Dialog" {
      * the window smaller.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMinHeight(
       /**
@@ -5433,6 +6700,8 @@ declare module "sap/ui/commons/Dialog" {
      * the window smaller.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMinWidth(
       /**
@@ -5449,6 +6718,8 @@ declare module "sap/ui/commons/Dialog" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setModal(
       /**
@@ -5465,6 +6736,8 @@ declare module "sap/ui/commons/Dialog" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setResizable(
       /**
@@ -5480,6 +6753,8 @@ declare module "sap/ui/commons/Dialog" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setScrollLeft(
       /**
@@ -5495,6 +6770,8 @@ declare module "sap/ui/commons/Dialog" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setScrollTop(
       /**
@@ -5510,6 +6787,8 @@ declare module "sap/ui/commons/Dialog" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowCloseButton(
       /**
@@ -5525,6 +6804,8 @@ declare module "sap/ui/commons/Dialog" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTitle(
       /**
@@ -5539,6 +6820,8 @@ declare module "sap/ui/commons/Dialog" {
      * the window size is automatically adapted to the content.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
@@ -5553,23 +6836,23 @@ declare module "sap/ui/commons/Dialog" {
      * Outer width of dialog window. When not set and not constrained by one of the width parameters (minWidth/maxWidth),
      * the window size is automatically adapted to the content.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Outer height of dialog window. When not set and not constrained by one of the height parameters (minHeight/maxHeight),
      * the window size is automatically adapted to the content.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Scroll position from left to right. "0" means leftmost position.
      */
-    scrollLeft?: int | PropertyBindingInfo;
+    scrollLeft?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Scroll position from top to bottom. "0" means topmost position.
      */
-    scrollTop?: int | PropertyBindingInfo;
+    scrollTop?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Dialog title displayed in the header.
@@ -5579,84 +6862,86 @@ declare module "sap/ui/commons/Dialog" {
     /**
      * Padding is theme-dependent. When set to "false", the content extends to the dialog borders.
      */
-    applyContentPadding?: boolean | PropertyBindingInfo;
+    applyContentPadding?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Displays a close button in the title bar.
      */
-    showCloseButton?: boolean | PropertyBindingInfo;
+    showCloseButton?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Specifies whether the dialog window can be resized by the user. The dialog frame contains the visual
      * symbol.
      */
-    resizable?: boolean | PropertyBindingInfo;
+    resizable?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Minimum outer width of the dialog window. When set, neither the user nor some layout settings can make
      * the window smaller.
      */
-    minWidth?: CSSSize | PropertyBindingInfo;
+    minWidth?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Minimum outer height of the dialog window. When set, neither the user nor some layout settings can make
      * the window smaller.
      */
-    minHeight?: CSSSize | PropertyBindingInfo;
+    minHeight?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Maximum outer width of the dialog window. If set, neither the user nor some layout settings can make
      * the window larger.
      */
-    maxWidth?: CSSSize | PropertyBindingInfo;
+    maxWidth?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Maximum outer height of the dialog window. If set, neither the user nor some layout settings can make
      * the window larger.
      */
-    maxHeight?: CSSSize | PropertyBindingInfo;
+    maxHeight?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Specifies the border design. Border design is theme dependent.
      */
     contentBorderDesign?:
       | (enums.BorderDesign | keyof typeof enums.BorderDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Specifies whether the dialog should be modal, or not. In case of `true` the focus is kept inside the
      * dialog.
      */
-    modal?: boolean | PropertyBindingInfo;
+    modal?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The ARIA role for the control. E.g. for alert-style Dialogs this can be set to "AlertDialog".
      */
     accessibleRole?:
       | (AccessibleRole | keyof typeof AccessibleRole)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * Specifies whether Dialog movement should be restricted to the visible area of the window. This only affects
      * drag&drop movements by the user. This doesn't affect modal dialogs -> modal dialogs always stay in the
      * window.
      */
-    keepInWindow?: boolean | PropertyBindingInfo;
+    keepInWindow?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.10
+     * @since 1.10
      *
      * If this property is set to true the Dialog will close if the Dialog loses its focus
      */
-    autoClose?: boolean | PropertyBindingInfo;
+    autoClose?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Aggregation of the buttons to display at the bottom of the dialog, for example OK and Cancel. Association
      * defaultButton can be used for one of the defined buttons.
      */
-    buttons?: Control[] | Control | AggregationBindingInfo;
+    buttons?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Aggregation of the content of the dialog (one or more controls).
@@ -5664,7 +6949,7 @@ declare module "sap/ui/commons/Dialog" {
      * Warning: when content is added with width given as a percentage, the Dialog itself should have a width
      * set.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Defines one of the buttons that have been provided via button aggregation to be the default button. This
@@ -5683,8 +6968,32 @@ declare module "sap/ui/commons/Dialog" {
      * Event is fired when the dialog has been closed (after closing-animation etc.). Event parameters provide
      * information about last position and last size.
      */
-    closed?: (oEvent: Event) => void;
+    closed?: (oEvent: Dialog$ClosedEvent) => void;
   }
+
+  export interface Dialog$ClosedEventParameters {
+    /**
+     * The width of the dialog when closed
+     */
+    width?: int;
+
+    /**
+     * The height of the dialog when closed
+     */
+    height?: int;
+
+    /**
+     * The top position of the dialog when closed
+     */
+    top?: int;
+
+    /**
+     * The left position of the dialog when closed
+     */
+    left?: int;
+  }
+
+  export type Dialog$ClosedEvent = Event<Dialog$ClosedEventParameters, Dialog>;
 }
 
 declare module "sap/ui/commons/DropdownBox" {
@@ -5693,13 +7002,13 @@ declare module "sap/ui/commons/DropdownBox" {
     $ComboBoxSettings,
   } from "sap/ui/commons/ComboBox";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { URI } from "sap/ui/core/library";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - replaced by {@link sap.m.ComboBox}
@@ -5744,6 +7053,8 @@ declare module "sap/ui/commons/DropdownBox" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.commons.ComboBox.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -5762,6 +7073,8 @@ declare module "sap/ui/commons/DropdownBox" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.DropdownBox.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
@@ -5772,6 +7085,8 @@ declare module "sap/ui/commons/DropdownBox" {
      *
      * Event fired whenever the configured searchHelpItem is clicked or the searchHelpItem is configured and
      * F4 key is pressed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSearchHelp(
       /**
@@ -5782,7 +7097,7 @@ declare module "sap/ui/commons/DropdownBox" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DropdownBox$SearchHelpEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.DropdownBox` itself
        */
@@ -5796,12 +7111,14 @@ declare module "sap/ui/commons/DropdownBox" {
      *
      * Event fired whenever the configured searchHelpItem is clicked or the searchHelpItem is configured and
      * F4 key is pressed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSearchHelp(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DropdownBox$SearchHelpEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.DropdownBox` itself
        */
@@ -5816,30 +7133,31 @@ declare module "sap/ui/commons/DropdownBox" {
      * Detaches event handler `fnFunction` from the {@link #event:searchHelp searchHelp} event of this `sap.ui.commons.DropdownBox`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSearchHelp(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: DropdownBox$SearchHelpEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:searchHelp searchHelp} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireSearchHelp(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The current value of the DropdownBox.
-         */
-        value?: string;
-      }
+      mParameters?: DropdownBox$SearchHelpEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getMaxHistoryItems maxHistoryItems}.
@@ -5850,12 +7168,16 @@ declare module "sap/ui/commons/DropdownBox" {
      * activate this feature when this control handles confidential data.
      *
      * Default value is `0`.
+     *
+     * @returns Value of property `maxHistoryItems`
      */
     getMaxHistoryItems(): int;
     /**
      * Gets current value of property {@link #getSearchHelpAdditionalText searchHelpAdditionalText}.
      *
      * (optional) The additional Text to use for the search help entry.
+     *
+     * @returns Value of property `searchHelpAdditionalText`
      */
     getSearchHelpAdditionalText(): string;
     /**
@@ -5864,26 +7186,36 @@ declare module "sap/ui/commons/DropdownBox" {
      * Whether the DropdownBox's search help should be enabled.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `searchHelpEnabled`
      */
     getSearchHelpEnabled(): boolean;
     /**
      * Gets current value of property {@link #getSearchHelpIcon searchHelpIcon}.
      *
      * (optional) The URI of the icon to use for the search help entry.
+     *
+     * @returns Value of property `searchHelpIcon`
      */
     getSearchHelpIcon(): URI;
     /**
      * Gets current value of property {@link #getSearchHelpText searchHelpText}.
      *
      * (optional) The text to use for the search help entry.
+     *
+     * @returns Value of property `searchHelpText`
      */
     getSearchHelpText(): string;
     /**
-     * Extends the method inherited from sap.ui.core.Element by providing information on Search Help access
-     * (if needed)
+     * Overrides the method inherited from {@link sap.ui.core.Element} by providing information on Search Help
+     * access (if needed)
+     *
+     * @returns string tooltip or `undefined`
      */
-    getTooltip_AsString(): string;
+    getTooltip_AsString(): string | undefined;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Ensure that handed in ListBoxes are taken from the visible UI immediately.
      */
     onAfterRendering(
@@ -5893,6 +7225,8 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Handle the click event happening in the DropdownBox
      */
     onclick(
@@ -5902,6 +7236,8 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Handle focusin event Ensures the text gets selected when focus gets into the field
      */
     onfocusin(
@@ -5911,6 +7247,8 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Handle keydown event
      */
     onkeydown(
@@ -5920,6 +7258,8 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Handle keypress event
      */
     onkeypress(
@@ -5929,6 +7269,8 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Handle keyup event This must only be considered if it is from Backspace-key in IE or after paste. In
      * case there is a keyup with a tab this results from being entered via tabbing and can be ignored, too.
      */
@@ -5939,6 +7281,8 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Handle paste event
      */
     onpaste(
@@ -5948,6 +7292,8 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Handle pseudo event onsapdelete. If triggered with open dropdown and current item provided by history
      * feature, removes the selected item from this instance's history.
      */
@@ -5958,6 +7304,8 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Handle pseudo event onsaphome
      */
     onsaphome(
@@ -5967,6 +7315,8 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Move the cursor one step to the left (and adapt selection)
      */
     onsapleft(
@@ -5976,6 +7326,8 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Move the cursor one step to the right (and adapt selection)
      */
     onsapright(
@@ -5985,6 +7337,8 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Handle sapshow pseudo events on the control
      */
     onsapshow(
@@ -5994,6 +7348,8 @@ declare module "sap/ui/commons/DropdownBox" {
       oEvent: jQuery.Event
     ): void;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Handle the select event happening in the DropdownBox
      */
     onselect(
@@ -6013,6 +7369,8 @@ declare module "sap/ui/commons/DropdownBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMaxHistoryItems(
       /**
@@ -6024,6 +7382,8 @@ declare module "sap/ui/commons/DropdownBox" {
      * Overwrite of Setter for property `searchHelpAdditionalText`.
      *
      * Default value is empty/`undefined`
+     *
+     * @returns `this` to allow method chaining
      */
     setSearchHelpAdditionalText(
       /**
@@ -6036,6 +7396,8 @@ declare module "sap/ui/commons/DropdownBox" {
      * compatiple with the previous functionality
      *
      * Default value is `false`
+     *
+     * @returns `this` to allow method chaining
      */
     setSearchHelpEnabled(
       /**
@@ -6059,6 +7421,8 @@ declare module "sap/ui/commons/DropdownBox" {
      * Overwrite of Setter for property `searchHelpIcon`.
      *
      * Default value is empty/`undefined`
+     *
+     * @returns `this` to allow method chaining
      */
     setSearchHelpIcon(
       /**
@@ -6070,6 +7434,8 @@ declare module "sap/ui/commons/DropdownBox" {
      * Overwrite of Setter for property `searchHelpText`.
      *
      * Default value is empty/`undefined`
+     *
+     * @returns `this` to allow method chaining
      */
     setSearchHelpText(
       /**
@@ -6083,7 +7449,7 @@ declare module "sap/ui/commons/DropdownBox" {
     /**
      * Whether the DropdownBox's search help should be enabled.
      */
-    searchHelpEnabled?: boolean | PropertyBindingInfo;
+    searchHelpEnabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * (optional) The text to use for the search help entry.
@@ -6098,7 +7464,7 @@ declare module "sap/ui/commons/DropdownBox" {
     /**
      * (optional) The URI of the icon to use for the search help entry.
      */
-    searchHelpIcon?: URI | PropertyBindingInfo;
+    searchHelpIcon?: URI | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Maximum number of history items in the list.
@@ -6106,14 +7472,26 @@ declare module "sap/ui/commons/DropdownBox" {
      * If 0 no history is displayed or stored. The history is locally stored on the client. Therefore do not
      * activate this feature when this control handles confidential data.
      */
-    maxHistoryItems?: int | PropertyBindingInfo;
+    maxHistoryItems?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Event fired whenever the configured searchHelpItem is clicked or the searchHelpItem is configured and
      * F4 key is pressed.
      */
-    searchHelp?: (oEvent: Event) => void;
+    searchHelp?: (oEvent: DropdownBox$SearchHelpEvent) => void;
   }
+
+  export interface DropdownBox$SearchHelpEventParameters {
+    /**
+     * The current value of the DropdownBox.
+     */
+    value?: string;
+  }
+
+  export type DropdownBox$SearchHelpEvent = Event<
+    DropdownBox$SearchHelpEventParameters,
+    DropdownBox
+  >;
 }
 
 declare module "sap/ui/commons/FileUploader" {
@@ -6141,8 +7519,8 @@ declare module "sap/ui/commons/FileUploader" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.FileUploader#constructor
-     * sap.ui.unified.FileUploader} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.FileUploader#constructor sap.ui.unified.FileUploader }
+     * can be used.
      */
     constructor(
       /**
@@ -6157,8 +7535,8 @@ declare module "sap/ui/commons/FileUploader" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.FileUploader#constructor
-     * sap.ui.unified.FileUploader} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.FileUploader#constructor sap.ui.unified.FileUploader }
+     * can be used.
      */
     constructor(
       /**
@@ -6176,6 +7554,8 @@ declare module "sap/ui/commons/FileUploader" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.unified.FileUploader.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -6194,6 +7574,8 @@ declare module "sap/ui/commons/FileUploader" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.FileUploader.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -6223,8 +7605,8 @@ declare module "sap/ui/commons/FileUploaderParameter" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.FileUploaderParameter#constructor
-     * sap.ui.unified.FileUploaderParameter} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.FileUploaderParameter#constructor sap.ui.unified.FileUploaderParameter }
+     * can be used.
      */
     constructor(
       /**
@@ -6239,8 +7621,8 @@ declare module "sap/ui/commons/FileUploaderParameter" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.FileUploaderParameter#constructor
-     * sap.ui.unified.FileUploaderParameter} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.FileUploaderParameter#constructor sap.ui.unified.FileUploaderParameter }
+     * can be used.
      */
     constructor(
       /**
@@ -6258,6 +7640,8 @@ declare module "sap/ui/commons/FileUploaderParameter" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.unified.FileUploaderParameter.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -6276,12 +7660,1023 @@ declare module "sap/ui/commons/FileUploaderParameter" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.FileUploaderParameter.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
 
   export interface $FileUploaderParameterSettings
     extends $FileUploaderParameterSettings1 {}
+}
+
+declare module "sap/ui/commons/TextField" {
+  import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import { ToolbarItem } from "sap/ui/commons/library";
+
+  import {
+    IFormContent,
+    ID,
+    AccessibilityInfo,
+    AccessibleRole,
+    Design,
+    ImeMode,
+    TextAlign,
+    TextDirection,
+    ValueState,
+    CSSSize,
+  } from "sap/ui/core/library";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import Event from "sap/ui/base/Event";
+
+  /**
+   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+   *
+   * The object representing the serialized focus information.
+   */
+  export type FocusInfo = {
+    /**
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
+     * ID of the component
+     */
+    id?: string;
+    /**
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     *
+     * User input
+     */
+    userinput?: /* was: sap.ui.commons.UserInputInfo */ any | null;
+  };
+
+  /**
+   * @deprecated (since 1.38) - replaced by {@link sap.m.Input}
+   *
+   * Renders an input field for text input.
+   */
+  export default class TextField
+    extends Control
+    implements ToolbarItem, IFormContent {
+    __implements__sap_ui_commons_ToolbarItem: boolean;
+    __implements__sap_ui_core_IFormContent: boolean;
+    /**
+     * Constructor for a new TextField.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $TextFieldSettings
+    );
+    /**
+     * Constructor for a new TextField.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * id for the new control, generated automatically if no ID is given
+       */
+      sID?: string,
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $TextFieldSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.commons.TextField with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, TextField>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.commons.TextField.
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * Compares the previous value with the current value and fires the change event if the TextField is editable
+     * and the value has changed.
+     */
+    _checkChange(
+      /**
+       * The event object.
+       */
+      oEvent: jQuery.Event
+    ): void;
+    /**
+     * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addAriaDescribedBy(
+      /**
+       * The ariaDescribedBy to add; if empty, nothing is inserted
+       */
+      vAriaDescribedBy: ID | Control
+    ): this;
+    /**
+     * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addAriaLabelledBy(
+      /**
+       * The ariaLabelledBy to add; if empty, nothing is inserted
+       */
+      vAriaLabelledBy: ID | Control
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.TextField`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.TextField` itself.
+     *
+     * Event is fired when the text in the field has changed AND the focus leaves the TextField or the Enter
+     * key is pressed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachChange(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: TextField$ChangeEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.TextField`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.TextField` itself.
+     *
+     * Event is fired when the text in the field has changed AND the focus leaves the TextField or the Enter
+     * key is pressed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: TextField$ChangeEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.commons.TextField`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.TextField` itself.
+     *
+     * This event if fired during typing into the `TextField` and returns the currently entered value. **Note:**
+     * This is not the content of the value property. The value property is only updated by ENTER and by leaving
+     * the control.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachLiveChange(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: TextField$LiveChangeEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.commons.TextField`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.commons.TextField` itself.
+     *
+     * This event if fired during typing into the `TextField` and returns the currently entered value. **Note:**
+     * This is not the content of the value property. The value property is only updated by ENTER and by leaving
+     * the control.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachLiveChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: TextField$LiveChangeEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Binds property {@link #getValue value} to model data.
+     *
+     * See {@link sap.ui.base.ManagedObject#bindProperty ManagedObject.bindProperty} for a detailed description
+     * of the possible properties of `oBindingInfo`
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    bindValue(
+      /**
+       * The binding information
+       */
+      oBindingInfo: PropertyBindingInfo
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.commons.TextField`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachChange(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: TextField$ChangeEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:liveChange liveChange} event of this `sap.ui.commons.TextField`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachLiveChange(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: TextField$LiveChangeEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * Fires event {@link #event:change change} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireChange(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: TextField$ChangeEventParameters
+    ): this;
+    /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * Fires event {@link #event:liveChange liveChange} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireLiveChange(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: TextField$LiveChangeEventParameters
+    ): this;
+    /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * See:
+     * 	sap.ui.core.Control#getAccessibilityInfo
+     *
+     * @returns Current accessibility state of the control
+     */
+    getAccessibilityInfo(): AccessibilityInfo;
+    /**
+     * Gets current value of property {@link #getAccessibleRole accessibleRole}.
+     *
+     * Accessibility role for the text field.
+     *
+     * Default value is `Textbox`.
+     *
+     * @returns Value of property `accessibleRole`
+     */
+    getAccessibleRole(): AccessibleRole | keyof typeof AccessibleRole;
+    /**
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
+     */
+    getAriaDescribedBy(): ID[];
+    /**
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     */
+    getAriaLabelledBy(): ID[];
+    /**
+     * Gets current value of property {@link #getDesign design}.
+     *
+     * Font type. valid values are Standard and Monospace.
+     *
+     * Default value is `Standard`.
+     *
+     * @returns Value of property `design`
+     */
+    getDesign(): Design | keyof typeof Design;
+    /**
+     * Gets current value of property {@link #getEditable editable}.
+     *
+     * Switches edit state of the control. Read-only fields have different colors, depending on theme setting.
+     *
+     * Default value is `true`.
+     *
+     * @returns Value of property `editable`
+     */
+    getEditable(): boolean;
+    /**
+     * Gets current value of property {@link #getEnabled enabled}.
+     *
+     * Switches enabled state of the control. Disabled fields have different colors, and can not be focused.
+     *
+     * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
+     */
+    getEnabled(): boolean;
+    /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * Returns an object representing the serialized focus information
+     *
+     * @returns an object representing the serialized focus information
+     */
+    getFocusInfo(): FocusInfo;
+    /**
+     * Gets current value of property {@link #getHelpId helpId}.
+     *
+     * Unique identifier used for help service.
+     *
+     * Default value is `empty string`.
+     *
+     * @returns Value of property `helpId`
+     */
+    getHelpId(): string;
+    /**
+     * Gets current value of property {@link #getImeMode imeMode}.
+     *
+     * State of the Input Method Editor (IME).
+     *
+     * Default value is `Auto`.
+     *
+     * @returns Value of property `imeMode`
+     */
+    getImeMode(): ImeMode | keyof typeof ImeMode;
+    /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * Method for accessing the DOM Ref of the input element.
+     *
+     * @returns DOM reference or `null`
+     */
+    getInputDomRef(): HTMLElement | null;
+    /**
+     * Returns the current value of the `TextField`. In case of editing the `TextField` you can access the current
+     * value via this method. The validated value is accessible via the property value.
+     *
+     * @returns live value
+     */
+    getLiveValue(): string;
+    /**
+     * Gets current value of property {@link #getMaxLength maxLength}.
+     *
+     * Maximum number of characters. Value '0' means the feature is switched off.
+     *
+     * Default value is `0`.
+     *
+     * @returns Value of property `maxLength`
+     */
+    getMaxLength(): int;
+    /**
+     * Gets current value of property {@link #getName name}.
+     *
+     * The `name` property to be used in the HTML code (e.g. for HTML forms that send data to the server via
+     * 'submit').
+     *
+     * @returns Value of property `name`
+     */
+    getName(): string;
+    /**
+     * @since 1.14.0
+     *
+     * Gets current value of property {@link #getPlaceholder placeholder}.
+     *
+     * Placeholder for the text field.
+     *
+     * @returns Value of property `placeholder`
+     */
+    getPlaceholder(): string;
+    /**
+     * Gets current value of property {@link #getRequired required}.
+     *
+     * Depending on theme the `TextField` is shown as required. If a `Label` is assigned to the `TextField`
+     * it will visualize the requires state too.
+     *
+     * Default value is `false`.
+     *
+     * @returns Value of property `required`
+     */
+    getRequired(): boolean;
+    /**
+     * Gets current value of property {@link #getTextAlign textAlign}.
+     *
+     * Sets the horizontal alignment of the text.
+     *
+     * Default value is `Begin`.
+     *
+     * @returns Value of property `textAlign`
+     */
+    getTextAlign(): TextAlign | keyof typeof TextAlign;
+    /**
+     * Gets current value of property {@link #getTextDirection textDirection}.
+     *
+     * Direction of the text. Possible values: "rtl", "ltr".
+     *
+     * Default value is `Inherit`.
+     *
+     * @returns Value of property `textDirection`
+     */
+    getTextDirection(): TextDirection | keyof typeof TextDirection;
+    /**
+     * Gets current value of property {@link #getValue value}.
+     *
+     * Text inside the `TextField`
+     *
+     * Default value is `empty string`.
+     *
+     * @returns Value of property `value`
+     */
+    getValue(): string;
+    /**
+     * Gets current value of property {@link #getValueState valueState}.
+     *
+     * Visualizes warnings or errors related to the text field. Possible values: Warning, Error, Success.
+     *
+     * Default value is `None`.
+     *
+     * @returns Value of property `valueState`
+     */
+    getValueState(): ValueState | keyof typeof ValueState;
+    /**
+     * Gets current value of property {@link #getWidth width}.
+     *
+     * Width of text field. When it is set (CSS-size such as % or px), this is the exact size. When left blank,
+     * the text field length defines the width.
+     *
+     * @returns Value of property `width`
+     */
+    getWidth(): CSSSize;
+    /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * Event handler called when control is receiving the focus
+     */
+    onfocusin(
+      /**
+       * The event object.
+       */
+      oEvent: jQuery.Event
+    ): void;
+    /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * Event handler for keyup. fire the liveChange event
+     */
+    onkeyup(
+      /**
+       * The event object.
+       */
+      oEvent: jQuery.Event
+    ): void;
+    /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * Event handler called when enter key is pressed.
+     * See:
+     * 	sap.ui.commons.TextField#onfocusout
+     */
+    onsapenter(
+      /**
+       * The event object.
+       */
+      oEvent: jQuery.Event
+    ): void;
+    /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * Event handler called when control is losing the focus
+     */
+    onsapfocusleave(
+      /**
+       * The event object.
+       */
+      oEvent: jQuery.Event
+    ): void;
+    /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * Event handler called when text selection starts. When the text field is disabled, the text should not
+     * be selectable, so cancel the event.
+     */
+    onselectstart(
+      /**
+       * The event object.
+       */
+      oEvent: jQuery.Event
+    ): void;
+    /**
+     * Removes all the controls in the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllAriaDescribedBy(): ID[];
+    /**
+     * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllAriaLabelledBy(): ID[];
+    /**
+     * Removes an ariaDescribedBy from the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns The removed ariaDescribedBy or `null`
+     */
+    removeAriaDescribedBy(
+      /**
+       * The ariaDescribedBy to be removed or its index or ID
+       */
+      vAriaDescribedBy: int | ID | Control
+    ): ID | null;
+    /**
+     * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
+     */
+    removeAriaLabelledBy(
+      /**
+       * The ariaLabelledBy to be removed or its index or ID
+       */
+      vAriaLabelledBy: int | ID | Control
+    ): ID | null;
+    /**
+     * Sets a new value for property {@link #getAccessibleRole accessibleRole}.
+     *
+     * Accessibility role for the text field.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Textbox`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setAccessibleRole(
+      /**
+       * New value for property `accessibleRole`
+       */
+      sAccessibleRole?: AccessibleRole | keyof typeof AccessibleRole
+    ): this;
+    /**
+     * Sets a new value for property {@link #getDesign design}.
+     *
+     * Font type. valid values are Standard and Monospace.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Standard`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDesign(
+      /**
+       * New value for property `design`
+       */
+      sDesign?: Design | keyof typeof Design
+    ): this;
+    /**
+     * Sets a new value for property {@link #getEditable editable}.
+     *
+     * Switches edit state of the control. Read-only fields have different colors, depending on theme setting.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setEditable(
+      /**
+       * New value for property `editable`
+       */
+      bEditable?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getEnabled enabled}.
+     *
+     * Switches enabled state of the control. Disabled fields have different colors, and can not be focused.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setEnabled(
+      /**
+       * New value for property `enabled`
+       */
+      bEnabled?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getHelpId helpId}.
+     *
+     * Unique identifier used for help service.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setHelpId(
+      /**
+       * New value for property `helpId`
+       */
+      sHelpId?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getImeMode imeMode}.
+     *
+     * State of the Input Method Editor (IME).
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Auto`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setImeMode(
+      /**
+       * New value for property `imeMode`
+       */
+      sImeMode?: ImeMode | keyof typeof ImeMode
+    ): this;
+    /**
+     * Sets a new value for property {@link #getMaxLength maxLength}.
+     *
+     * Maximum number of characters. Value '0' means the feature is switched off.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setMaxLength(
+      /**
+       * New value for property `maxLength`
+       */
+      iMaxLength?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getName name}.
+     *
+     * The `name` property to be used in the HTML code (e.g. for HTML forms that send data to the server via
+     * 'submit').
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setName(
+      /**
+       * New value for property `name`
+       */
+      sName?: string
+    ): this;
+    /**
+     * @since 1.14.0
+     *
+     * Sets a new value for property {@link #getPlaceholder placeholder}.
+     *
+     * Placeholder for the text field.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setPlaceholder(
+      /**
+       * New value for property `placeholder`
+       */
+      sPlaceholder?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getRequired required}.
+     *
+     * Depending on theme the `TextField` is shown as required. If a `Label` is assigned to the `TextField`
+     * it will visualize the requires state too.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRequired(
+      /**
+       * New value for property `required`
+       */
+      bRequired?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getTextAlign textAlign}.
+     *
+     * Sets the horizontal alignment of the text.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Begin`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setTextAlign(
+      /**
+       * New value for property `textAlign`
+       */
+      sTextAlign?: TextAlign | keyof typeof TextAlign
+    ): this;
+    /**
+     * Sets a new value for property {@link #getTextDirection textDirection}.
+     *
+     * Direction of the text. Possible values: "rtl", "ltr".
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Inherit`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setTextDirection(
+      /**
+       * New value for property `textDirection`
+       */
+      sTextDirection?: TextDirection | keyof typeof TextDirection
+    ): this;
+    /**
+     * Sets a new value for property {@link #getValue value}.
+     *
+     * Text inside the `TextField`
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setValue(
+      /**
+       * New value for property `value`
+       */
+      sValue?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getValueState valueState}.
+     *
+     * Visualizes warnings or errors related to the text field. Possible values: Warning, Error, Success.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setValueState(
+      /**
+       * New value for property `valueState`
+       */
+      sValueState?: ValueState | keyof typeof ValueState
+    ): this;
+    /**
+     * Sets a new value for property {@link #getWidth width}.
+     *
+     * Width of text field. When it is set (CSS-size such as % or px), this is the exact size. When left blank,
+     * the text field length defines the width.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setWidth(
+      /**
+       * New value for property `width`
+       */
+      sWidth?: CSSSize
+    ): this;
+    /**
+     * Unbinds property {@link #getValue value} from model data.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    unbindValue(): this;
+  }
+
+  export interface $TextFieldSettings extends $ControlSettings {
+    /**
+     * Text inside the `TextField`
+     */
+    value?: string | PropertyBindingInfo;
+
+    /**
+     * Direction of the text. Possible values: "rtl", "ltr".
+     */
+    textDirection?:
+      | (TextDirection | keyof typeof TextDirection)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Switches enabled state of the control. Disabled fields have different colors, and can not be focused.
+     */
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Switches edit state of the control. Read-only fields have different colors, depending on theme setting.
+     */
+    editable?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Depending on theme the `TextField` is shown as required. If a `Label` is assigned to the `TextField`
+     * it will visualize the requires state too.
+     */
+    required?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Width of text field. When it is set (CSS-size such as % or px), this is the exact size. When left blank,
+     * the text field length defines the width.
+     */
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Maximum number of characters. Value '0' means the feature is switched off.
+     */
+    maxLength?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Visualizes warnings or errors related to the text field. Possible values: Warning, Error, Success.
+     */
+    valueState?:
+      | (ValueState | keyof typeof ValueState)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Sets the horizontal alignment of the text.
+     */
+    textAlign?:
+      | (TextAlign | keyof typeof TextAlign)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * State of the Input Method Editor (IME).
+     */
+    imeMode?:
+      | (ImeMode | keyof typeof ImeMode)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Font type. valid values are Standard and Monospace.
+     */
+    design?:
+      | (Design | keyof typeof Design)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Unique identifier used for help service.
+     */
+    helpId?: string | PropertyBindingInfo;
+
+    /**
+     * Accessibility role for the text field.
+     */
+    accessibleRole?:
+      | (AccessibleRole | keyof typeof AccessibleRole)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * The `name` property to be used in the HTML code (e.g. for HTML forms that send data to the server via
+     * 'submit').
+     */
+    name?: string | PropertyBindingInfo;
+
+    /**
+     * @since 1.14.0
+     *
+     * Placeholder for the text field.
+     */
+    placeholder?: string | PropertyBindingInfo;
+
+    /**
+     * Association to controls / IDs which describe this control (see WAI-ARIA attribute aria-describedby).
+     */
+    ariaDescribedBy?: Array<Control | string>;
+
+    /**
+     * Association to controls / IDs which label this control (see WAI-ARIA attribute aria-labelledby).
+     */
+    ariaLabelledBy?: Array<Control | string>;
+
+    /**
+     * Event is fired when the text in the field has changed AND the focus leaves the TextField or the Enter
+     * key is pressed.
+     */
+    change?: (oEvent: TextField$ChangeEvent) => void;
+
+    /**
+     * This event if fired during typing into the `TextField` and returns the currently entered value. **Note:**
+     * This is not the content of the value property. The value property is only updated by ENTER and by leaving
+     * the control.
+     */
+    liveChange?: (oEvent: TextField$LiveChangeEvent) => void;
+  }
+
+  export interface TextField$ChangeEventParameters {
+    /**
+     * The new / changed value of the `TextField`.
+     */
+    newValue?: string;
+  }
+
+  export type TextField$ChangeEvent = Event<
+    TextField$ChangeEventParameters,
+    TextField
+  >;
+
+  export interface TextField$LiveChangeEventParameters {
+    /**
+     * Current visible value of the `TextField`.
+     */
+    liveValue?: string;
+  }
+
+  export type TextField$LiveChangeEvent = Event<
+    TextField$LiveChangeEventParameters,
+    TextField
+  >;
 }
 
 declare module "sap/ui/commons/form/Form" {
@@ -6293,7 +8688,7 @@ declare module "sap/ui/commons/form/Form" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.9.1
+   * @since 1.9.1
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * Form control. Holder for form control to be rendered in a specific form layout. A Form supports VariantLayoutData
@@ -6307,8 +8702,8 @@ declare module "sap/ui/commons/form/Form" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.Form#constructor
-     * sap.ui.layout.form.Form} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.Form#constructor sap.ui.layout.form.Form }
+     * can be used.
      */
     constructor(
       /**
@@ -6323,8 +8718,8 @@ declare module "sap/ui/commons/form/Form" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.Form#constructor
-     * sap.ui.layout.form.Form} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.Form#constructor sap.ui.layout.form.Form }
+     * can be used.
      */
     constructor(
       /**
@@ -6342,6 +8737,8 @@ declare module "sap/ui/commons/form/Form" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.layout.form.Form.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -6360,22 +8757,28 @@ declare module "sap/ui/commons/form/Form" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.form.Form.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @SINCE 1.12.0
+     * @since 1.12.0
      *
      * Getter for property `visible`. Invisible Forms are not rendered.
      *
      * Default value is `true`
+     *
+     * @returns the value of property `visible`
      */
     getVisible(): boolean;
     /**
-     * @SINCE 1.12.0
+     * @since 1.12.0
      *
      * Setter for property `visible`.
      *
      * Default value is `true`
+     *
+     * @returns `this` to allow method chaining
      */
     setVisible(
       /**
@@ -6397,7 +8800,7 @@ declare module "sap/ui/commons/form/FormContainer" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.9.1
+   * @since 1.9.1
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * Used to group form elements.
@@ -6410,8 +8813,8 @@ declare module "sap/ui/commons/form/FormContainer" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormContainer#constructor
-     * sap.ui.layout.form.FormContainer} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormContainer#constructor sap.ui.layout.form.FormContainer }
+     * can be used.
      */
     constructor(
       /**
@@ -6426,8 +8829,8 @@ declare module "sap/ui/commons/form/FormContainer" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormContainer#constructor
-     * sap.ui.layout.form.FormContainer} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormContainer#constructor sap.ui.layout.form.FormContainer }
+     * can be used.
      */
     constructor(
       /**
@@ -6445,6 +8848,8 @@ declare module "sap/ui/commons/form/FormContainer" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.layout.form.FormContainer.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -6463,22 +8868,28 @@ declare module "sap/ui/commons/form/FormContainer" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.form.FormContainer.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @SINCE 1.12.0
+     * @since 1.12.0
      *
      * Getter for property `visible`. Invisible FormContainers are not rendered.
      *
      * Default value is `true`
+     *
+     * @returns the value of property `visible`
      */
     getVisible(): boolean;
     /**
-     * @SINCE 1.12.0
+     * @since 1.12.0
      *
      * Setter for property `visible`.
      *
      * Default value is `true`
+     *
+     * @returns `this` to allow method chaining
      */
     setVisible(
       /**
@@ -6500,7 +8911,7 @@ declare module "sap/ui/commons/form/FormElement" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.9.1
+   * @since 1.9.1
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * A form element is a combination of one label and different controls associated to this label.
@@ -6513,8 +8924,8 @@ declare module "sap/ui/commons/form/FormElement" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormElement#constructor
-     * sap.ui.layout.form.FormElement} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormElement#constructor sap.ui.layout.form.FormElement }
+     * can be used.
      */
     constructor(
       /**
@@ -6529,8 +8940,8 @@ declare module "sap/ui/commons/form/FormElement" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormElement#constructor
-     * sap.ui.layout.form.FormElement} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormElement#constructor sap.ui.layout.form.FormElement }
+     * can be used.
      */
     constructor(
       /**
@@ -6548,6 +8959,8 @@ declare module "sap/ui/commons/form/FormElement" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.layout.form.FormElement.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -6566,22 +8979,28 @@ declare module "sap/ui/commons/form/FormElement" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.form.FormElement.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @SINCE 1.12.0
+     * @since 1.12.0
      *
      * Getter for property `visible`. Invisible FormElements are not rendered.
      *
      * Default value is `true`
+     *
+     * @returns the value of property `visible`
      */
     getVisible(): boolean;
     /**
-     * @SINCE 1.12.0
+     * @since 1.12.0
      *
      * Setter for property `visible`.
      *
      * Default value is `true`
+     *
+     * @returns `this` to allow method chaining
      */
     setVisible(
       /**
@@ -6603,7 +9022,7 @@ declare module "sap/ui/commons/form/FormLayout" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.9.1
+   * @since 1.9.1
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * Base layout for Forms. Other Layouts must inherit from this one.
@@ -6616,8 +9035,8 @@ declare module "sap/ui/commons/form/FormLayout" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormLayout#constructor
-     * sap.ui.layout.form.FormLayout} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormLayout#constructor sap.ui.layout.form.FormLayout }
+     * can be used.
      */
     constructor(
       /**
@@ -6632,8 +9051,8 @@ declare module "sap/ui/commons/form/FormLayout" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormLayout#constructor
-     * sap.ui.layout.form.FormLayout} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.FormLayout#constructor sap.ui.layout.form.FormLayout }
+     * can be used.
      */
     constructor(
       /**
@@ -6651,6 +9070,8 @@ declare module "sap/ui/commons/form/FormLayout" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.layout.form.FormLayout.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -6669,6 +9090,8 @@ declare module "sap/ui/commons/form/FormLayout" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.form.FormLayout.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -6685,7 +9108,7 @@ declare module "sap/ui/commons/form/GridContainerData" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.9.1
+   * @since 1.9.1
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * Grid layout specific properties for FormContainers. The width and height properties of the elements are
@@ -6699,8 +9122,8 @@ declare module "sap/ui/commons/form/GridContainerData" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridContainerData#constructor
-     * sap.ui.layout.form.GridContainerData} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridContainerData#constructor sap.ui.layout.form.GridContainerData }
+     * can be used.
      */
     constructor(
       /**
@@ -6715,8 +9138,8 @@ declare module "sap/ui/commons/form/GridContainerData" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridContainerData#constructor
-     * sap.ui.layout.form.GridContainerData} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridContainerData#constructor sap.ui.layout.form.GridContainerData }
+     * can be used.
      */
     constructor(
       /**
@@ -6734,6 +9157,8 @@ declare module "sap/ui/commons/form/GridContainerData" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.layout.form.GridContainerData.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -6752,6 +9177,8 @@ declare module "sap/ui/commons/form/GridContainerData" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.form.GridContainerData.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -6769,7 +9196,7 @@ declare module "sap/ui/commons/form/GridElementData" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.9.1
+   * @since 1.9.1
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * The grid specific layout data for FormElement fields. The width property of the elements is ignored since
@@ -6783,8 +9210,8 @@ declare module "sap/ui/commons/form/GridElementData" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridElementData#constructor
-     * sap.ui.layout.form.GridElementData} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridElementData#constructor sap.ui.layout.form.GridElementData }
+     * can be used.
      */
     constructor(
       /**
@@ -6799,8 +9226,8 @@ declare module "sap/ui/commons/form/GridElementData" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridElementData#constructor
-     * sap.ui.layout.form.GridElementData} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridElementData#constructor sap.ui.layout.form.GridElementData }
+     * can be used.
      */
     constructor(
       /**
@@ -6818,6 +9245,8 @@ declare module "sap/ui/commons/form/GridElementData" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.layout.form.GridElementData.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -6836,6 +9265,8 @@ declare module "sap/ui/commons/form/GridElementData" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.form.GridElementData.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -6852,7 +9283,7 @@ declare module "sap/ui/commons/form/GridLayout" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.9.1
+   * @since 1.9.1
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * This Layout implements a guideline 2.0 grid. This can be a 16 column grid or an 8 column grid.
@@ -6867,8 +9298,8 @@ declare module "sap/ui/commons/form/GridLayout" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridLayout#constructor
-     * sap.ui.layout.form.GridLayout} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridLayout#constructor sap.ui.layout.form.GridLayout }
+     * can be used.
      */
     constructor(
       /**
@@ -6883,8 +9314,8 @@ declare module "sap/ui/commons/form/GridLayout" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridLayout#constructor
-     * sap.ui.layout.form.GridLayout} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.GridLayout#constructor sap.ui.layout.form.GridLayout }
+     * can be used.
      */
     constructor(
       /**
@@ -6902,6 +9333,8 @@ declare module "sap/ui/commons/form/GridLayout" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.layout.form.GridLayout.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -6920,6 +9353,8 @@ declare module "sap/ui/commons/form/GridLayout" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.form.GridLayout.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -6936,7 +9371,7 @@ declare module "sap/ui/commons/form/ResponsiveLayout" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.10.0
+   * @since 1.10.0
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * Renders a form with responsive layout. Internally the ResponsiveFlowLayout is used.
@@ -6949,8 +9384,8 @@ declare module "sap/ui/commons/form/ResponsiveLayout" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.ResponsiveLayout#constructor
-     * sap.ui.layout.form.ResponsiveLayout} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.ResponsiveLayout#constructor sap.ui.layout.form.ResponsiveLayout }
+     * can be used.
      */
     constructor(
       /**
@@ -6965,8 +9400,8 @@ declare module "sap/ui/commons/form/ResponsiveLayout" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.ResponsiveLayout#constructor
-     * sap.ui.layout.form.ResponsiveLayout} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.ResponsiveLayout#constructor sap.ui.layout.form.ResponsiveLayout }
+     * can be used.
      */
     constructor(
       /**
@@ -6984,6 +9419,8 @@ declare module "sap/ui/commons/form/ResponsiveLayout" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.layout.form.ResponsiveLayout.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -7002,6 +9439,8 @@ declare module "sap/ui/commons/form/ResponsiveLayout" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.form.ResponsiveLayout.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -7016,12 +9455,14 @@ declare module "sap/ui/commons/form/SimpleForm" {
     $SimpleFormSettings as $SimpleFormSettings1,
   } from "sap/ui/layout/form/SimpleForm";
 
-  import { form } from "sap/ui/commons/library";
+  import { form } from "sap/ui/layout/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
   /**
-   * @SINCE 1.12
+   * @since 1.12
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * Use the SimpleForm to create a form based on title, label and fields that are stacked in the content
@@ -7036,9 +9477,6 @@ declare module "sap/ui/commons/form/SimpleForm" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
-     *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.SimpleForm#constructor
-     * sap.ui.layout.form.SimpleForm} can be used.
      */
     constructor(
       /**
@@ -7052,9 +9490,6 @@ declare module "sap/ui/commons/form/SimpleForm" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
-     *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.form.SimpleForm#constructor
-     * sap.ui.layout.form.SimpleForm} can be used.
      */
     constructor(
       /**
@@ -7072,6 +9507,8 @@ declare module "sap/ui/commons/form/SimpleForm" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.layout.form.SimpleForm.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -7090,32 +9527,78 @@ declare module "sap/ui/commons/form/SimpleForm" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.form.SimpleForm.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @SINCE 1.14
+     * @since 1.14
      *
-     * Getter for property `layout`. The FormLayout that is used to render the SimpleForm
+     * Gets current value of property {@link #getLayout layout}.
      *
-     * Default value is `ResponsiveLayout`
+     * The `FormLayout` that is used to render the `SimpleForm`.
+     *
+     * We recommend using the `GridLayout` for rendering a `SimpleForm` in `sap.ui.commons` library, as responsive
+     * layouts are not designed for this library.
+     *
+     * **Note** If possible, set the `layout` before adding content to prevent calculations for the default
+     * layout.
+     *
+     * **Note** The `ResponsiveLayout` has been deprecated and must no longer be used.
+     *
+     * Default value is `ResponsiveLayout`.
+     *
+     * @returns Value of property `layout`
      */
-    getLayout(): form.SimpleFormLayout;
+    getLayout(): form.SimpleFormLayout | keyof typeof form.SimpleFormLayout;
     /**
-     * @SINCE 1.14
+     * @since 1.14
      *
-     * Setter for property `layout`.
+     * Sets a new value for property {@link #getLayout layout}.
      *
-     * Default value is `ResponsiveLayout`
+     * The `FormLayout` that is used to render the `SimpleForm`.
+     *
+     * We recommend using the `GridLayout` for rendering a `SimpleForm` in `sap.ui.commons` library, as responsive
+     * layouts are not designed for this library.
+     *
+     * **Note** If possible, set the `layout` before adding content to prevent calculations for the default
+     * layout.
+     *
+     * **Note** The `ResponsiveLayout` has been deprecated and must no longer be used.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `ResponsiveLayout`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setLayout(
       /**
-       * new value for property `layout`
+       * New value for property `layout`
        */
-      oLayout: form.SimpleFormLayout
+      sLayout?: form.SimpleFormLayout | keyof typeof form.SimpleFormLayout
     ): this;
   }
 
-  export interface $SimpleFormSettings extends $SimpleFormSettings1 {}
+  export interface $SimpleFormSettings extends $SimpleFormSettings1 {
+    /**
+     * @since 1.14
+     *
+     * The `FormLayout` that is used to render the `SimpleForm`.
+     *
+     * We recommend using the `GridLayout` for rendering a `SimpleForm` in `sap.ui.commons` library, as responsive
+     * layouts are not designed for this library.
+     *
+     * **Note** If possible, set the `layout` before adding content to prevent calculations for the default
+     * layout.
+     *
+     * **Note** The `ResponsiveLayout` has been deprecated and must no longer be used.
+     */
+    layout?:
+      | (form.SimpleFormLayout | keyof typeof form.SimpleFormLayout)
+      | PropertyBindingInfo
+      | `{${string}}`;
+  }
 }
 
 declare module "sap/ui/commons/FormattedTextView" {
@@ -7133,7 +9616,7 @@ declare module "sap/ui/commons/FormattedTextView" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * @SINCE 1.9.0
+   * @since 1.9.0
    * @deprecated (since 1.38) - Instead, use the `sap.ui.core.HTML` control.
    *
    * The FormattedTextView control allows the usage of a limited set of HTML tags for display.
@@ -7175,6 +9658,8 @@ declare module "sap/ui/commons/FormattedTextView" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -7193,10 +9678,14 @@ declare module "sap/ui/commons/FormattedTextView" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.FormattedTextView.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some control to the aggregation {@link #getControls controls}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addControl(
       /**
@@ -7206,6 +9695,8 @@ declare module "sap/ui/commons/FormattedTextView" {
     ): this;
     /**
      * Destroys all the controls in the aggregation {@link #getControls controls}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyControls(): this;
     /**
@@ -7214,6 +9705,8 @@ declare module "sap/ui/commons/FormattedTextView" {
      * The ARIA role for the control.
      *
      * Default value is `Document`.
+     *
+     * @returns Value of property `accessibleRole`
      */
     getAccessibleRole(): AccessibleRole | keyof typeof AccessibleRole;
     /**
@@ -7228,6 +9721,8 @@ declare module "sap/ui/commons/FormattedTextView" {
      * Determines text with placeholders.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `htmlText`
      */
     getHtmlText(): string;
     /**
@@ -7237,6 +9732,8 @@ declare module "sap/ui/commons/FormattedTextView" {
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getControls controls}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfControl(
       /**
@@ -7246,6 +9743,8 @@ declare module "sap/ui/commons/FormattedTextView" {
     ): int;
     /**
      * Inserts a control into the aggregation {@link #getControls controls}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertControl(
       /**
@@ -7263,17 +9762,21 @@ declare module "sap/ui/commons/FormattedTextView" {
      * Removes all the controls from the aggregation {@link #getControls controls}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllControls(): Control[];
     /**
      * Removes a control from the aggregation {@link #getControls controls}.
+     *
+     * @returns The removed control or `null`
      */
     removeControl(
       /**
        * The control to remove or its index or id
        */
       vControl: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getAccessibleRole accessibleRole}.
      *
@@ -7282,6 +9785,8 @@ declare module "sap/ui/commons/FormattedTextView" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Document`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleRole(
       /**
@@ -7319,7 +9824,8 @@ declare module "sap/ui/commons/FormattedTextView" {
      */
     accessibleRole?:
       | (AccessibleRole | keyof typeof AccessibleRole)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Determines text with placeholders.
@@ -7329,7 +9835,7 @@ declare module "sap/ui/commons/FormattedTextView" {
     /**
      * Array of controls that should be replaced within htmlText.
      */
-    controls?: Control[] | Control | AggregationBindingInfo;
+    controls?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
   }
 }
 
@@ -7389,6 +9895,8 @@ declare module "sap/ui/commons/HorizontalDivider" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -7407,6 +9915,8 @@ declare module "sap/ui/commons/HorizontalDivider" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.HorizontalDivider.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
@@ -7415,6 +9925,8 @@ declare module "sap/ui/commons/HorizontalDivider" {
      * Defines the height of the divider.
      *
      * Default value is `Medium`.
+     *
+     * @returns Value of property `height`
      */
     getHeight(): HorizontalDividerHeight | keyof typeof HorizontalDividerHeight;
     /**
@@ -7423,6 +9935,8 @@ declare module "sap/ui/commons/HorizontalDivider" {
      * Defines the type of the divider.
      *
      * Default value is `Area`.
+     *
+     * @returns Value of property `type`
      */
     getType(): HorizontalDividerType | keyof typeof HorizontalDividerType;
     /**
@@ -7431,6 +9945,8 @@ declare module "sap/ui/commons/HorizontalDivider" {
      * Defines the width of the divider.
      *
      * Default value is `'100%'`.
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
@@ -7441,6 +9957,8 @@ declare module "sap/ui/commons/HorizontalDivider" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Medium`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeight(
       /**
@@ -7456,6 +9974,8 @@ declare module "sap/ui/commons/HorizontalDivider" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Area`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setType(
       /**
@@ -7471,6 +9991,8 @@ declare module "sap/ui/commons/HorizontalDivider" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'100%'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
@@ -7484,21 +10006,23 @@ declare module "sap/ui/commons/HorizontalDivider" {
     /**
      * Defines the width of the divider.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the type of the divider.
      */
     type?:
       | (HorizontalDividerType | keyof typeof HorizontalDividerType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the height of the divider.
      */
     height?:
       | (HorizontalDividerHeight | keyof typeof HorizontalDividerHeight)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
   }
 }
 
@@ -7566,6 +10090,8 @@ declare module "sap/ui/commons/Image" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -7584,6 +10110,8 @@ declare module "sap/ui/commons/Image" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.Image.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
@@ -7593,6 +10121,8 @@ declare module "sap/ui/commons/Image" {
      * otherwise it will be bound to this `sap.ui.commons.Image` itself.
      *
      * Event is fired when the user clicks on the control.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachPress(
       /**
@@ -7616,6 +10146,8 @@ declare module "sap/ui/commons/Image" {
      * otherwise it will be bound to this `sap.ui.commons.Image` itself.
      *
      * Event is fired when the user clicks on the control.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachPress(
       /**
@@ -7631,6 +10163,8 @@ declare module "sap/ui/commons/Image" {
      * Detaches event handler `fnFunction` from the {@link #event:press press} event of this `sap.ui.commons.Image`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachPress(
       /**
@@ -7643,7 +10177,11 @@ declare module "sap/ui/commons/Image" {
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:press press} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     firePress(
       /**
@@ -7656,6 +10194,8 @@ declare module "sap/ui/commons/Image" {
      *
      * The alternative text that is displayed in case the Image is not available, or cannot be displayed. If
      * the image is set to decorative this property is ignored.
+     *
+     * @returns Value of property `alt`
      */
     getAlt(): string;
     /**
@@ -7667,6 +10207,8 @@ declare module "sap/ui/commons/Image" {
      * if the image is decorative.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `decorative`
      */
     getDecorative(): boolean;
     /**
@@ -7674,18 +10216,24 @@ declare module "sap/ui/commons/Image" {
      *
      * When the empty value is kept, the original size is not changed. It is also possible to make settings
      * for width or height only, the overall size is maintained then, considering the aspect ratio.
+     *
+     * @returns Value of property `height`
      */
     getHeight(): CSSSize;
     /**
      * Gets current value of property {@link #getSrc src}.
      *
      * Relative or absolute path to URL where the image file is stored.
+     *
+     * @returns Value of property `src`
      */
     getSrc(): URI;
     /**
      * Gets current value of property {@link #getUseMap useMap}.
      *
      * The name of the image map that defines the clickable areas
+     *
+     * @returns Value of property `useMap`
      */
     getUseMap(): string;
     /**
@@ -7693,6 +10241,8 @@ declare module "sap/ui/commons/Image" {
      *
      * When the empty value is kept, the original size is not changed. It is also possible to make settings
      * for width or height only, the overall size is maintained then, considering the aspect ratio.
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
@@ -7702,6 +10252,8 @@ declare module "sap/ui/commons/Image" {
      * the image is set to decorative this property is ignored.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAlt(
       /**
@@ -7720,6 +10272,8 @@ declare module "sap/ui/commons/Image" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDecorative(
       /**
@@ -7734,6 +10288,8 @@ declare module "sap/ui/commons/Image" {
      * for width or height only, the overall size is maintained then, considering the aspect ratio.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeight(
       /**
@@ -7747,6 +10303,8 @@ declare module "sap/ui/commons/Image" {
      * Relative or absolute path to URL where the image file is stored.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSrc(
       /**
@@ -7760,6 +10318,8 @@ declare module "sap/ui/commons/Image" {
      * The name of the image map that defines the clickable areas
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setUseMap(
       /**
@@ -7774,6 +10334,8 @@ declare module "sap/ui/commons/Image" {
      * for width or height only, the overall size is maintained then, considering the aspect ratio.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
@@ -7787,19 +10349,19 @@ declare module "sap/ui/commons/Image" {
     /**
      * Relative or absolute path to URL where the image file is stored.
      */
-    src?: URI | PropertyBindingInfo;
+    src?: URI | PropertyBindingInfo | `{${string}}`;
 
     /**
      * When the empty value is kept, the original size is not changed. It is also possible to make settings
      * for width or height only, the overall size is maintained then, considering the aspect ratio.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * When the empty value is kept, the original size is not changed. It is also possible to make settings
      * for width or height only, the overall size is maintained then, considering the aspect ratio.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * A decorative image is included for design reasons. Accessibility tools will ignore decorative images.
@@ -7807,7 +10369,7 @@ declare module "sap/ui/commons/Image" {
      * not be rendered as decorative). A decorative image has no ALT attribute, so the Alt property is ignored
      * if the image is decorative.
      */
-    decorative?: boolean | PropertyBindingInfo;
+    decorative?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The alternative text that is displayed in case the Image is not available, or cannot be displayed. If
@@ -7825,6 +10387,10 @@ declare module "sap/ui/commons/Image" {
      */
     press?: (oEvent: Event) => void;
   }
+
+  export interface Image$PressEventParameters {}
+
+  export type Image$PressEvent = Event<Image$PressEventParameters, Image>;
 }
 
 declare module "sap/ui/commons/ImageMap" {
@@ -7832,14 +10398,14 @@ declare module "sap/ui/commons/ImageMap" {
 
   import Area from "sap/ui/commons/Area";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - There's not replacement because of the archaic design pattern.
@@ -7883,6 +10449,8 @@ declare module "sap/ui/commons/ImageMap" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -7901,10 +10469,14 @@ declare module "sap/ui/commons/ImageMap" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.ImageMap.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some area to the aggregation {@link #getAreas areas}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addArea(
       /**
@@ -7919,6 +10491,8 @@ declare module "sap/ui/commons/ImageMap" {
      * otherwise it will be bound to this `sap.ui.commons.ImageMap` itself.
      *
      * Event for the areas that can be clicked in an ImageMap
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachPress(
       /**
@@ -7929,7 +10503,7 @@ declare module "sap/ui/commons/ImageMap" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ImageMap$PressEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.ImageMap` itself
        */
@@ -7942,12 +10516,14 @@ declare module "sap/ui/commons/ImageMap" {
      * otherwise it will be bound to this `sap.ui.commons.ImageMap` itself.
      *
      * Event for the areas that can be clicked in an ImageMap
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachPress(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ImageMap$PressEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.ImageMap` itself
        */
@@ -7957,6 +10533,8 @@ declare module "sap/ui/commons/ImageMap" {
      * Adds areas to the Image Map.
      *
      * Each argument must be either a JSon object or a list of objects or the area element or elements.
+     *
+     * @returns `this` to allow method chaining
      */
     createArea(
       /**
@@ -7966,36 +10544,39 @@ declare module "sap/ui/commons/ImageMap" {
     ): this;
     /**
      * Destroys all the areas in the aggregation {@link #getAreas areas}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyAreas(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:press press} event of this `sap.ui.commons.ImageMap`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachPress(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ImageMap$PressEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:press press} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     firePress(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Id of clicked Area.
-         */
-        areaId?: string;
-      }
+      mParameters?: ImageMap$PressEventParameters
     ): this;
     /**
      * Gets content of aggregation {@link #getAreas areas}.
@@ -8007,11 +10588,15 @@ declare module "sap/ui/commons/ImageMap" {
      * Gets current value of property {@link #getName name}.
      *
      * Name for the image that serves as reference
+     *
+     * @returns Value of property `name`
      */
     getName(): string;
     /**
      * Checks for the provided `sap.ui.commons.Area` in the aggregation {@link #getAreas areas}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfArea(
       /**
@@ -8021,6 +10606,8 @@ declare module "sap/ui/commons/ImageMap" {
     ): int;
     /**
      * Inserts a area into the aggregation {@link #getAreas areas}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertArea(
       /**
@@ -8038,23 +10625,29 @@ declare module "sap/ui/commons/ImageMap" {
      * Removes all the controls from the aggregation {@link #getAreas areas}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAreas(): Area[];
     /**
      * Removes a area from the aggregation {@link #getAreas areas}.
+     *
+     * @returns The removed area or `null`
      */
     removeArea(
       /**
        * The area to remove or its index or id
        */
       vArea: int | string | Area
-    ): Area;
+    ): Area | null;
     /**
      * Sets a new value for property {@link #getName name}.
      *
      * Name for the image that serves as reference
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setName(
       /**
@@ -8073,19 +10666,31 @@ declare module "sap/ui/commons/ImageMap" {
     /**
      * Area representing the reference to the target location
      */
-    areas?: Area[] | Area | AggregationBindingInfo;
+    areas?: Area[] | Area | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Event for the areas that can be clicked in an ImageMap
      */
-    press?: (oEvent: Event) => void;
+    press?: (oEvent: ImageMap$PressEvent) => void;
   }
+
+  export interface ImageMap$PressEventParameters {
+    /**
+     * Id of clicked Area.
+     */
+    areaId?: string;
+  }
+
+  export type ImageMap$PressEvent = Event<
+    ImageMap$PressEventParameters,
+    ImageMap
+  >;
 }
 
 declare module "sap/ui/commons/InPlaceEdit" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
-  import Event from "sap/ui/base/Event";
+  import { AccessibilityInfo, ValueState } from "sap/ui/core/library";
 
   import { TextViewDesign } from "sap/ui/commons/library";
 
@@ -8093,12 +10698,12 @@ declare module "sap/ui/commons/InPlaceEdit" {
 
   import TooltipBase from "sap/ui/core/TooltipBase";
 
-  import { ValueState } from "sap/ui/core/library";
-
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
-   * @SINCE 1.8.0
+   * @since 1.8.0
    * @deprecated (since 1.38) - replaced by {@link sap.m.Input}
    *
    * The InPlaceEdit is a functionality to have text in display mode that can be changed in place.
@@ -8140,6 +10745,8 @@ declare module "sap/ui/commons/InPlaceEdit" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -8158,6 +10765,8 @@ declare module "sap/ui/commons/InPlaceEdit" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.InPlaceEdit.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
@@ -8168,6 +10777,8 @@ declare module "sap/ui/commons/InPlaceEdit" {
      *
      * Event is fired when the text in the field has changed AND the focus leaves the InPlaceEdit or the Enter
      * key is pressed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -8178,7 +10789,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: InPlaceEdit$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.InPlaceEdit` itself
        */
@@ -8192,19 +10803,21 @@ declare module "sap/ui/commons/InPlaceEdit" {
      *
      * Event is fired when the text in the field has changed AND the focus leaves the InPlaceEdit or the Enter
      * key is pressed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: InPlaceEdit$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.InPlaceEdit` itself
        */
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.16.5
+     * @since 1.16.5
      *
      * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.commons.InPlaceEdit`.
      *
@@ -8214,6 +10827,8 @@ declare module "sap/ui/commons/InPlaceEdit" {
      * This event if fired during typing into the InPlaceEdit and returns the currently entered value. This
      * is not the content of the value property. The value property is only updated by ENTER and by leaving
      * the control.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachLiveChange(
       /**
@@ -8224,14 +10839,14 @@ declare module "sap/ui/commons/InPlaceEdit" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: InPlaceEdit$LiveChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.InPlaceEdit` itself
        */
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.16.5
+     * @since 1.16.5
      *
      * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.commons.InPlaceEdit`.
      *
@@ -8241,12 +10856,14 @@ declare module "sap/ui/commons/InPlaceEdit" {
      * This event if fired during typing into the InPlaceEdit and returns the currently entered value. This
      * is not the content of the value property. The value property is only updated by ENTER and by leaving
      * the control.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachLiveChange(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: InPlaceEdit$LiveChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.InPlaceEdit` itself
        */
@@ -8259,75 +10876,82 @@ declare module "sap/ui/commons/InPlaceEdit" {
     clearOldText(): void;
     /**
      * Destroys the content in the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyContent(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.commons.InPlaceEdit`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachChange(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: InPlaceEdit$ChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * @SINCE 1.16.5
+     * @since 1.16.5
      *
      * Detaches event handler `fnFunction` from the {@link #event:liveChange liveChange} event of this `sap.ui.commons.InPlaceEdit`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachLiveChange(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: InPlaceEdit$LiveChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:change change} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireChange(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The new / changed value of the InPlaceEdit.
-         */
-        newValue?: string;
-      }
+      mParameters?: InPlaceEdit$ChangeEventParameters
     ): this;
     /**
-     * @SINCE 1.16.5
+     * @since 1.16.5
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireLiveChange(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Current value of the Textfield.
-         */
-        liveValue?: string;
-      }
+      mParameters?: InPlaceEdit$LiveChangeEventParameters
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
+     *
+     * @returns Current accessibility state of the control.
      */
-    getAccessibilityInfo(): object;
+    getAccessibilityInfo(): AccessibilityInfo;
     /**
      * Gets content of aggregation {@link #getContent content}.
      *
@@ -8336,13 +10960,15 @@ declare module "sap/ui/commons/InPlaceEdit" {
      */
     getContent(): Control;
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * Gets current value of property {@link #getDesign design}.
      *
      * Defines the visual appearance of the control. Currently this is not supported for Labels.
      *
      * Default value is `Standard`.
+     *
+     * @returns Value of property `design`
      */
     getDesign(): TextViewDesign | keyof typeof TextViewDesign;
     /**
@@ -8356,6 +10982,8 @@ declare module "sap/ui/commons/InPlaceEdit" {
      *
      * If a content control is assigned to the InPlaceEdit the tooltip of this control is used. A directly set
      * tooltip to the InPlaceEdit is ignored in this case.
+     *
+     * @returns The tooltip for this Element.
      */
     getTooltip(): string | TooltipBase;
     /**
@@ -8364,6 +10992,8 @@ declare module "sap/ui/commons/InPlaceEdit" {
      * If undo is enabled after changing the text an undo button appears.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `undoEnabled`
      */
     getUndoEnabled(): boolean;
     /**
@@ -8373,10 +11003,14 @@ declare module "sap/ui/commons/InPlaceEdit" {
      * the content control has an own valueState property this will be used.
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `valueState`
      */
     getValueState(): ValueState | keyof typeof ValueState;
     /**
      * Sets the aggregated {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setContent(
       /**
@@ -8385,7 +11019,7 @@ declare module "sap/ui/commons/InPlaceEdit" {
       oContent: Control
     ): this;
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * Sets a new value for property {@link #getDesign design}.
      *
@@ -8394,6 +11028,8 @@ declare module "sap/ui/commons/InPlaceEdit" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Standard`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDesign(
       /**
@@ -8409,6 +11045,8 @@ declare module "sap/ui/commons/InPlaceEdit" {
      *
      * If a content control is assigned to the InPlaceEdit the tooltip of this control is used. A directly set
      * tooltip to the InPlaceEdit is ignored in this case.
+     *
+     * @returns `this` to allow method chaining
      */
     setTooltip(
       /**
@@ -8424,6 +11062,8 @@ declare module "sap/ui/commons/InPlaceEdit" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setUndoEnabled(
       /**
@@ -8440,6 +11080,8 @@ declare module "sap/ui/commons/InPlaceEdit" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueState(
       /**
@@ -8454,21 +11096,25 @@ declare module "sap/ui/commons/InPlaceEdit" {
      * Visualizes warnings or errors related to the InPlaceEdit. Possible values: Warning, Error, Success. If
      * the content control has an own valueState property this will be used.
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?:
+      | (ValueState | keyof typeof ValueState)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * If undo is enabled after changing the text an undo button appears.
      */
-    undoEnabled?: boolean | PropertyBindingInfo;
+    undoEnabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.9.0
+     * @since 1.9.0
      *
      * Defines the visual appearance of the control. Currently this is not supported for Labels.
      */
     design?:
       | (TextViewDesign | keyof typeof TextViewDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Content control of the InPlaceEdit. The following controls are allowed: TextField, ComboBox, DropdownBox
@@ -8480,17 +11126,41 @@ declare module "sap/ui/commons/InPlaceEdit" {
      * Event is fired when the text in the field has changed AND the focus leaves the InPlaceEdit or the Enter
      * key is pressed.
      */
-    change?: (oEvent: Event) => void;
+    change?: (oEvent: InPlaceEdit$ChangeEvent) => void;
 
     /**
-     * @SINCE 1.16.5
+     * @since 1.16.5
      *
      * This event if fired during typing into the InPlaceEdit and returns the currently entered value. This
      * is not the content of the value property. The value property is only updated by ENTER and by leaving
      * the control.
      */
-    liveChange?: (oEvent: Event) => void;
+    liveChange?: (oEvent: InPlaceEdit$LiveChangeEvent) => void;
   }
+
+  export interface InPlaceEdit$ChangeEventParameters {
+    /**
+     * The new / changed value of the InPlaceEdit.
+     */
+    newValue?: string;
+  }
+
+  export type InPlaceEdit$ChangeEvent = Event<
+    InPlaceEdit$ChangeEventParameters,
+    InPlaceEdit
+  >;
+
+  export interface InPlaceEdit$LiveChangeEventParameters {
+    /**
+     * Current value of the Textfield.
+     */
+    liveValue?: string;
+  }
+
+  export type InPlaceEdit$LiveChangeEvent = Event<
+    InPlaceEdit$LiveChangeEventParameters,
+    InPlaceEdit
+  >;
 }
 
 declare module "sap/ui/commons/Label" {
@@ -8500,6 +11170,7 @@ declare module "sap/ui/commons/Label" {
 
   import {
     Label as Label1,
+    AccessibilityInfo,
     URI,
     ID,
     TextAlign,
@@ -8556,6 +11227,8 @@ declare module "sap/ui/commons/Label" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -8574,25 +11247,35 @@ declare module "sap/ui/commons/Label" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.Label.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
+     *
+     * @returns The accessibility info
      */
-    getAccessibilityInfo(): object;
+    getAccessibilityInfo(): AccessibilityInfo;
     /**
      * Gets current value of property {@link #getDesign design}.
      *
      * Defines whether the labels are in bold format.
      *
      * Default value is `Standard`.
+     *
+     * @returns Value of property `design`
      */
     getDesign(): LabelDesign | keyof typeof LabelDesign;
     /**
      * Gets current value of property {@link #getIcon icon}.
      *
      * Determines the icon to be displayed in the control. This can be a URI to an image or an icon font URI.
+     *
+     * @returns Value of property `icon`
      */
     getIcon(): URI;
     /**
@@ -8600,7 +11283,7 @@ declare module "sap/ui/commons/Label" {
      */
     getLabelFor(): ID;
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Gets current value of property {@link #getRequired required}.
      *
@@ -8610,15 +11293,19 @@ declare module "sap/ui/commons/Label" {
      * value.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `required`
      */
     getRequired(): boolean;
     /**
-     * @SINCE 1.14.0
+     * @since 1.14.0
      *
      * Gets current value of property {@link #getRequiredAtBegin requiredAtBegin}.
      *
      * Determines whether the required indicator is at the beginning of the label (if set) or at the end (if
      * not set).
+     *
+     * @returns Value of property `requiredAtBegin`
      */
     getRequiredAtBegin(): boolean;
     /**
@@ -8627,6 +11314,8 @@ declare module "sap/ui/commons/Label" {
      * Determines the text to be displayed.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
@@ -8635,6 +11324,8 @@ declare module "sap/ui/commons/Label" {
      * Determines the alignment of the text. Available options are `Begin`, `Center`, `End`, `Left`, and `Right`.
      *
      * Default value is `Begin`.
+     *
+     * @returns Value of property `textAlign`
      */
     getTextAlign(): TextAlign | keyof typeof TextAlign;
     /**
@@ -8643,6 +11334,8 @@ declare module "sap/ui/commons/Label" {
      * Determines the text direction - right-to-left (RTL) and left-to-right (LTR).
      *
      * Default value is `Inherit`.
+     *
+     * @returns Value of property `textDirection`
      */
     getTextDirection(): TextDirection | keyof typeof TextDirection;
     /**
@@ -8651,6 +11344,8 @@ declare module "sap/ui/commons/Label" {
      * Determines the control width as common CSS-size (for example, px or % as unit).
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
@@ -8660,6 +11355,8 @@ declare module "sap/ui/commons/Label" {
      * is.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `wrapping`
      */
     getWrapping(): boolean;
     /**
@@ -8670,6 +11367,8 @@ declare module "sap/ui/commons/Label" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Standard`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDesign(
       /**
@@ -8683,6 +11382,8 @@ declare module "sap/ui/commons/Label" {
      * Determines the icon to be displayed in the control. This can be a URI to an image or an icon font URI.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIcon(
       /**
@@ -8692,6 +11393,8 @@ declare module "sap/ui/commons/Label" {
     ): this;
     /**
      * Sets the associated {@link #getLabelFor labelFor}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setLabelFor(
       /**
@@ -8701,7 +11404,7 @@ declare module "sap/ui/commons/Label" {
       oLabelFor: ID | Control
     ): this;
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Sets a new value for property {@link #getRequired required}.
      *
@@ -8713,6 +11416,8 @@ declare module "sap/ui/commons/Label" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setRequired(
       /**
@@ -8721,7 +11426,7 @@ declare module "sap/ui/commons/Label" {
       bRequired?: boolean
     ): this;
     /**
-     * @SINCE 1.14.0
+     * @since 1.14.0
      *
      * Sets a new value for property {@link #getRequiredAtBegin requiredAtBegin}.
      *
@@ -8729,6 +11434,8 @@ declare module "sap/ui/commons/Label" {
      * not set).
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setRequiredAtBegin(
       /**
@@ -8744,6 +11451,8 @@ declare module "sap/ui/commons/Label" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -8759,6 +11468,8 @@ declare module "sap/ui/commons/Label" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Begin`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTextAlign(
       /**
@@ -8774,6 +11485,8 @@ declare module "sap/ui/commons/Label" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Inherit`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTextDirection(
       /**
@@ -8789,6 +11502,8 @@ declare module "sap/ui/commons/Label" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
@@ -8805,6 +11520,8 @@ declare module "sap/ui/commons/Label" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWrapping(
       /**
@@ -8818,25 +11535,29 @@ declare module "sap/ui/commons/Label" {
     /**
      * Defines whether the labels are in bold format.
      */
-    design?: (LabelDesign | keyof typeof LabelDesign) | PropertyBindingInfo;
+    design?:
+      | (LabelDesign | keyof typeof LabelDesign)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Determines the text direction - right-to-left (RTL) and left-to-right (LTR).
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Specifies whether a line wrapping width shall be displayed when the text value is longer than the width
      * is.
      */
-    wrapping?: boolean | PropertyBindingInfo;
+    wrapping?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the control width as common CSS-size (for example, px or % as unit).
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the text to be displayed.
@@ -8846,30 +11567,33 @@ declare module "sap/ui/commons/Label" {
     /**
      * Determines the icon to be displayed in the control. This can be a URI to an image or an icon font URI.
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the alignment of the text. Available options are `Begin`, `Center`, `End`, `Left`, and `Right`.
      */
-    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo;
+    textAlign?:
+      | (TextAlign | keyof typeof TextAlign)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Allows to enforce the required indicator even when the associated control doesn't have a getRequired
      * method (a required property) or when the flag is not set. If the associated control has a required property,
      * the values of both required flags are combined with the OR operator, so a Label can't override a required=true
      * value.
      */
-    required?: boolean | PropertyBindingInfo;
+    required?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.14.0
+     * @since 1.14.0
      *
      * Determines whether the required indicator is at the beginning of the label (if set) or at the end (if
      * not set).
      */
-    requiredAtBegin?: boolean | PropertyBindingInfo;
+    requiredAtBegin?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the association to the labeled control. By default, the label is set the for the attribute to
@@ -8936,6 +11660,8 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -8954,6 +11680,8 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.layout.AbsoluteLayout.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
@@ -8969,16 +11697,22 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
        * JSON-like object which defines the position of the child control in the layout. The object is expected
        * to have one or more from the attribute set top, bottom, left, right; each with a value of type sap.ui.core.CSSSize.
        */
-      oPos?: object
+      oPos?: {
+        left: string;
+
+        right: string;
+      }
     ): this;
     /**
      * Adds element to the layout.
+     *
+     * @returns `this` Control reference for chaining.
      */
     addPosition(
       /**
        * Element which must be positioned in the layout.
        */
-      oPosition: object
+      oPosition: Control
     ): this;
     /**
      * Destroys all aggregated position containers and their child controls. Returns 'this' to allow method
@@ -8987,6 +11721,8 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
     destroyContent(): this;
     /**
      * Destroys all elements from the layout.
+     *
+     * @returns `this` Control reference for chaining.
      */
     destroyPositions(): this;
     /**
@@ -8999,6 +11735,8 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
      * The overall height of the control. When not set, 100% is automatically set.
      *
      * Default value is `'100%'`.
+     *
+     * @returns Value of property `height`
      */
     getHeight(): CSSSize;
     /**
@@ -9007,6 +11745,8 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
      * 'Auto', 'Scroll', 'Hidden', and 'None' are the available values for setting the vertical scrolling mode.
      *
      * Default value is `Hidden`.
+     *
+     * @returns Value of property `horizontalScrolling`
      */
     getHorizontalScrolling(): Scrolling | keyof typeof Scrolling;
     /**
@@ -9021,6 +11761,8 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
      * 'Auto', 'Scroll', 'Hidden', and 'None' are the available values for setting the vertical scrolling mode.
      *
      * Default value is `Hidden`.
+     *
+     * @returns Value of property `verticalScrolling`
      */
     getVerticalScrolling(): Scrolling | keyof typeof Scrolling;
     /**
@@ -9029,6 +11771,8 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
      * The overall width of the control. When not set, 100% is automatically set.
      *
      * Default value is `'100%'`.
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
@@ -9042,8 +11786,10 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
       oContent: Control
     ): int;
     /**
-     * Checks for the provided `sap.ui.commons.layout.PositionContainer` in the aggregation {@link #getPositions
-     * positions}. and returns its index if found or -1 otherwise.
+     * Checks for the provided `sap.ui.commons.layout.PositionContainer` in the aggregation {@link #getPositions positions}.
+     * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfPosition(
       /**
@@ -9070,16 +11816,22 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
        * JSON-like object which defines the position of the child control in the layout. The object is expected
        * to have one or more from the attribute set top, bottom, left, right; each with a value of type sap.ui.core.CSSSize.
        */
-      oPos?: object
+      oPos?: {
+        left: string;
+
+        right: string;
+      }
     ): this;
     /**
      * Inserts element to the layout on a specific index.
+     *
+     * @returns `this` Control reference for chaining.
      */
     insertPosition(
       /**
        * Element which must be positioned in the layout.
        */
-      oPosition: object,
+      oPosition: Control,
       /**
        * Index of the element which is to be positioned.
        */
@@ -9092,8 +11844,10 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
     removeAllContent(): Control[];
     /**
      * Removes all elements from the layout.
+     *
+     * @returns Removed elements.
      */
-    removeAllPositions(): object;
+    removeAllPositions(): Control[];
     /**
      * Removes the given control and its corresponding position container from the aggregation named 'positions'.
      */
@@ -9102,19 +11856,23 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
        * The content control to remove, its ID, or the index of the corresponding position container in the 'positions'
        * aggregation.
        */
-      oContent: object
+      vContent: string | Control
     ): Control;
     /**
      * Removes element from the layout.
+     *
+     * @returns Removed element.
      */
     removePosition(
       /**
        * Element which must be removed from the positions element within the layout.
        */
       vPosition: any
-    ): object;
+    ): Control;
     /**
      * Sets the `height` property.
+     *
+     * @returns `this` Control reference for chaining.
      */
     setHeight(
       /**
@@ -9124,12 +11882,14 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
     ): this;
     /**
      * Sets the `horizontalScrolling` property.
+     *
+     * @returns `this` Control reference for chaining.
      */
     setHorizontalScrolling(
       /**
        * Object that contains settings for Horizontal scrolling.
        */
-      oHorizontalScrolling: object
+      oHorizontalScrolling: Scrolling | keyof typeof Scrolling
     ): this;
     /**
      * Allows to set or change the position information of the given child control
@@ -9144,19 +11904,27 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
        * JSON-like object which defines the position of the child control in the layout. The object is expected
        * to have one or more from the attribute set top, bottom, left, right; each with a value of type sap.ui.core.CSSSize.
        */
-      oPos?: object
+      oPos?: {
+        left: string;
+
+        right: string;
+      }
     ): boolean;
     /**
      * Sets the `verticalScrolling` property.
+     *
+     * @returns `this` Control reference for chaining.
      */
     setVerticalScrolling(
       /**
        * Object that contains settings for Vertical scrolling.
        */
-      oVerticalScrolling: object
+      oVerticalScrolling: Scrolling | keyof typeof Scrolling
     ): this;
     /**
      * Sets the `width` property.
+     *
+     * @returns `this` Control reference for chaining.
      */
     setWidth(
       /**
@@ -9170,26 +11938,28 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
     /**
      * The overall width of the control. When not set, 100% is automatically set.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The overall height of the control. When not set, 100% is automatically set.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * 'Auto', 'Scroll', 'Hidden', and 'None' are the available values for setting the vertical scrolling mode.
      */
     verticalScrolling?:
       | (Scrolling | keyof typeof Scrolling)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * 'Auto', 'Scroll', 'Hidden', and 'None' are the available values for setting the vertical scrolling mode.
      */
     horizontalScrolling?:
       | (Scrolling | keyof typeof Scrolling)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Positioned child controls within the layout
@@ -9197,460 +11967,8 @@ declare module "sap/ui/commons/layout/AbsoluteLayout" {
     positions?:
       | PositionContainer[]
       | PositionContainer
-      | AggregationBindingInfo;
-  }
-}
-
-declare module "sap/ui/commons/layout/BorderLayout" {
-  import { default as Control, $ControlSettings } from "sap/ui/core/Control";
-
-  import { layout } from "sap/ui/commons/library";
-
-  import BorderLayoutArea from "sap/ui/commons/layout/BorderLayoutArea";
-
-  import { CSSSize } from "sap/ui/core/library";
-
-  import ElementMetadata from "sap/ui/core/ElementMetadata";
-
-  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
-
-  /**
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Page}
-   *
-   * Based upon the border layout as it comes with the Java standard. Using this layout, you are able to divide
-   * your available UI space into five areas whose sizes can be defined. These areas are: Top: Header; Bottom:
-   * Footer; Begin: Left/right-hand side panel; Center: Content area in the middle; End: Right/left-hand side
-   * panel.
-   */
-  export default class BorderLayout extends Control {
-    /**
-     * Constructor for a new layout/BorderLayout.
-     *
-     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
-     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
-     * of the syntax of the settings object.
-     */
-    constructor(
-      /**
-       * initial settings for the new control
-       */
-      mSettings?: $BorderLayoutSettings
-    );
-    /**
-     * Constructor for a new layout/BorderLayout.
-     *
-     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
-     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
-     * of the syntax of the settings object.
-     */
-    constructor(
-      /**
-       * id for the new control, generated automatically if no id is given
-       */
-      sId?: string,
-      /**
-       * initial settings for the new control
-       */
-      mSettings?: $BorderLayoutSettings
-    );
-
-    /**
-     * Creates a new subclass of class sap.ui.commons.layout.BorderLayout with name `sClassName` and enriches
-     * it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, BorderLayout>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
-     * Returns a metadata object for class sap.ui.commons.layout.BorderLayout.
-     */
-    static getMetadata(): ElementMetadata;
-    /**
-     * Adds controls to the specified area.
-     */
-    addContent(
-      /**
-       * Specifies the area where controls will be added
-       */
-      sAreaId:
-        | layout.BorderLayoutAreaTypes
-        | keyof typeof layout.BorderLayoutAreaTypes
-    ): this;
-    /**
-     * Creates the specified area and adds the given controls to it. Returns the created area.
-     */
-    createArea(
-      /**
-       * Specifies which area will be created. If the area is already available, the method call is ignored.
-       */
-      sAreaId:
-        | layout.BorderLayoutAreaTypes
-        | keyof typeof layout.BorderLayoutAreaTypes,
-      /**
-       * Any number of controls can be submitted to be added to the newly created area; where each control is
-       * submitted as one argument.
-       */
-      oContent: Control
-    ): BorderLayoutArea;
-    /**
-     * Destroys the begin in the aggregation {@link #getBegin begin}.
-     */
-    destroyBegin(): this;
-    /**
-     * Destroys the bottom in the aggregation {@link #getBottom bottom}.
-     */
-    destroyBottom(): this;
-    /**
-     * Destroys the center in the aggregation {@link #getCenter center}.
-     */
-    destroyCenter(): this;
-    /**
-     * Destroys the content of the specified area.
-     */
-    destroyContent(
-      /**
-       * Specifies the area whose content will be destroyed
-       */
-      sAreaId:
-        | layout.BorderLayoutAreaTypes
-        | keyof typeof layout.BorderLayoutAreaTypes
-    ): this;
-    /**
-     * Destroys the end in the aggregation {@link #getEnd end}.
-     */
-    destroyEnd(): this;
-    /**
-     * Destroys the top in the aggregation {@link #getTop top}.
-     */
-    destroyTop(): this;
-    /**
-     * Returns the area of the given type. If the area does not exist, it will be created when create is set
-     * to true.
-     */
-    getArea(
-      /**
-       * The aria ID
-       */
-      sAreaId:
-        | layout.BorderLayoutAreaTypes
-        | keyof typeof layout.BorderLayoutAreaTypes,
-      /**
-       * Whether the aria must be created
-       */
-      bCreate: boolean
-    ): BorderLayoutArea;
-    /**
-     * Returns the object of the specified area. If the area does not exist, the area will be created and returned.
-     */
-    getAreaById(
-      /**
-       * Specifies the area whose object will be returned.
-       */
-      sAreaId:
-        | layout.BorderLayoutAreaTypes
-        | keyof typeof layout.BorderLayoutAreaTypes
-    ): BorderLayoutArea;
-    /**
-     * Returns a JSON-like object that contains all property values of the requested area.
-     */
-    getAreaData(
-      /**
-       * Specifies the area whose data will be returned
-       */
-      sAreaId:
-        | layout.BorderLayoutAreaTypes
-        | keyof typeof layout.BorderLayoutAreaTypes
-    ): object;
-    /**
-     * Gets content of aggregation {@link #getBegin begin}.
-     *
-     * Represents the Begin area
-     */
-    getBegin(): BorderLayoutArea;
-    /**
-     * Gets content of aggregation {@link #getBottom bottom}.
-     *
-     * Represents the Bottom area
-     */
-    getBottom(): BorderLayoutArea;
-    /**
-     * Gets content of aggregation {@link #getCenter center}.
-     *
-     * Represents the Center area
-     */
-    getCenter(): BorderLayoutArea;
-    /**
-     * Returns all controls inside the specified area inside an array.
-     */
-    getContent(
-      /**
-       * Specifies the area whose content controls shall be returned.
-       */
-      sAreaId:
-        | layout.BorderLayoutAreaTypes
-        | keyof typeof layout.BorderLayoutAreaTypes
-    ): Control[];
-    /**
-     * Gets content of aggregation {@link #getEnd end}.
-     *
-     * Represents the End area
-     */
-    getEnd(): BorderLayoutArea;
-    /**
-     * Gets current value of property {@link #getHeight height}.
-     *
-     * Defines the overall height of the layout
-     *
-     * Default value is `'100%'`.
-     */
-    getHeight(): CSSSize;
-    /**
-     * @deprecated (since 1.5.2) - replaced by the global configuration for the page
-     *
-     * Gets current value of property {@link #getRtl rtl}.
-     *
-     * The RTL setting swaps the areas Begin and End.
-     *
-     * Default value is `false`.
-     */
-    getRtl(): boolean;
-    /**
-     * Gets content of aggregation {@link #getTop top}.
-     *
-     * Represents the Top area
-     */
-    getTop(): BorderLayoutArea;
-    /**
-     * Gets current value of property {@link #getWidth width}.
-     *
-     * Defines the overall width of the layout
-     *
-     * Default value is `'100%'`.
-     */
-    getWidth(): CSSSize;
-    /**
-     * Determines the index of a given content control.
-     */
-    indexOfContent(
-      /**
-       * Specifies the area that will be searched
-       */
-      sAreaId:
-        | layout.BorderLayoutAreaTypes
-        | keyof typeof layout.BorderLayoutAreaTypes,
-      /**
-       * Specifies the control whose index will be searched
-       */
-      oContent: Control
-    ): int;
-    /**
-     * Inserts controls to an area at a given index.
-     */
-    insertContent(
-      /**
-       * Specifies the area where the controls shall be inserted.
-       */
-      sAreaId:
-        | layout.BorderLayoutAreaTypes
-        | keyof typeof layout.BorderLayoutAreaTypes,
-      /**
-       * Specifies the index where the controls shall be added. For a negative value of iIndex, the content is
-       * inserted at position '0'; for a value greater than the current size of the aggregation, the content is
-       * inserted at the last position.
-       */
-      iIndex: int
-    ): this;
-    /**
-     * Removes all content from an area.
-     */
-    removeAllContent(
-      /**
-       * Specifies the area whose content shall be removed
-       */
-      sAreaId:
-        | layout.BorderLayoutAreaTypes
-        | keyof typeof layout.BorderLayoutAreaTypes
-    ): this;
-    /**
-     * Removes the content with the given index from an area.
-     */
-    removeContent(
-      /**
-       * Specifies the area whose content shall be removed
-       */
-      oAreaId:
-        | layout.BorderLayoutAreaTypes
-        | keyof typeof layout.BorderLayoutAreaTypes,
-      /**
-       * The content to be removed Specifies the control that shall be removed
-       */
-      vElement: any
-    ): this;
-    /**
-     * Sets the properties of the specified area with the given values.
-     */
-    setAreaData(
-      /**
-       * Specifies the area whose properties will be set
-       */
-      sAreaId:
-        | layout.BorderLayoutAreaTypes
-        | keyof typeof layout.BorderLayoutAreaTypes,
-      /**
-       * JSON-like object that contains the values to be set
-       */
-      oData: object
-    ): this;
-    /**
-     * Sets the aggregated {@link #getBegin begin}.
-     */
-    setBegin(
-      /**
-       * The begin to set
-       */
-      oBegin: BorderLayoutArea
-    ): this;
-    /**
-     * Sets the aggregated {@link #getBottom bottom}.
-     */
-    setBottom(
-      /**
-       * The bottom to set
-       */
-      oBottom: BorderLayoutArea
-    ): this;
-    /**
-     * Sets the aggregated {@link #getCenter center}.
-     */
-    setCenter(
-      /**
-       * The center to set
-       */
-      oCenter: BorderLayoutArea
-    ): this;
-    /**
-     * Sets the aggregated {@link #getEnd end}.
-     */
-    setEnd(
-      /**
-       * The end to set
-       */
-      oEnd: BorderLayoutArea
-    ): this;
-    /**
-     * Sets a new value for property {@link #getHeight height}.
-     *
-     * Defines the overall height of the layout
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `'100%'`.
-     */
-    setHeight(
-      /**
-       * New value for property `height`
-       */
-      sHeight?: CSSSize
-    ): this;
-    /**
-     * @deprecated (since 1.5.2) - replaced by the global configuration for the page
-     *
-     * Sets a new value for property {@link #getRtl rtl}.
-     *
-     * The RTL setting swaps the areas Begin and End.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `false`.
-     */
-    setRtl(
-      /**
-       * New value for property `rtl`
-       */
-      bRtl?: boolean
-    ): this;
-    /**
-     * Sets the aggregated {@link #getTop top}.
-     */
-    setTop(
-      /**
-       * The top to set
-       */
-      oTop: BorderLayoutArea
-    ): this;
-    /**
-     * Sets a new value for property {@link #getWidth width}.
-     *
-     * Defines the overall width of the layout
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `'100%'`.
-     */
-    setWidth(
-      /**
-       * New value for property `width`
-       */
-      sWidth?: CSSSize
-    ): this;
-  }
-
-  export interface $BorderLayoutSettings extends $ControlSettings {
-    /**
-     * @deprecated (since 1.5.2) - replaced by the global configuration for the page
-     *
-     * The RTL setting swaps the areas Begin and End.
-     */
-    rtl?: boolean | PropertyBindingInfo;
-
-    /**
-     * Defines the overall width of the layout
-     */
-    width?: CSSSize | PropertyBindingInfo;
-
-    /**
-     * Defines the overall height of the layout
-     */
-    height?: CSSSize | PropertyBindingInfo;
-
-    /**
-     * Represents the Top area
-     */
-    top?: BorderLayoutArea;
-
-    /**
-     * Represents the Begin area
-     */
-    begin?: BorderLayoutArea;
-
-    /**
-     * Represents the Center area
-     */
-    center?: BorderLayoutArea;
-
-    /**
-     * Represents the End area
-     */
-    end?: BorderLayoutArea;
-
-    /**
-     * Represents the Bottom area
-     */
-    bottom?: BorderLayoutArea;
+      | AggregationBindingInfo
+      | `{${string}}`;
   }
 }
 
@@ -9712,6 +12030,8 @@ declare module "sap/ui/commons/layout/BorderLayoutArea" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -9730,10 +12050,14 @@ declare module "sap/ui/commons/layout/BorderLayoutArea" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.layout.BorderLayoutArea.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addContent(
       /**
@@ -9743,6 +12067,8 @@ declare module "sap/ui/commons/layout/BorderLayoutArea" {
     ): this;
     /**
      * Destroys all the content in the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyContent(): this;
     /**
@@ -9753,6 +12079,8 @@ declare module "sap/ui/commons/layout/BorderLayoutArea" {
      * Defines which area the element represents: top, begin, center, end, bottom
      *
      * Default value is `top`.
+     *
+     * @returns Value of property `areaId`
      */
     getAreaId():
       | layout.BorderLayoutAreaTypes
@@ -9769,6 +12097,8 @@ declare module "sap/ui/commons/layout/BorderLayoutArea" {
      * The content alignment as CSS value
      *
      * Default value is `'left'`.
+     *
+     * @returns Value of property `contentAlign`
      */
     getContentAlign(): string;
     /**
@@ -9777,6 +12107,8 @@ declare module "sap/ui/commons/layout/BorderLayoutArea" {
      * The overflow mode of the area in horizontal direction as CSS value
      *
      * Default value is `'auto'`.
+     *
+     * @returns Value of property `overflowX`
      */
     getOverflowX(): string;
     /**
@@ -9785,6 +12117,8 @@ declare module "sap/ui/commons/layout/BorderLayoutArea" {
      * The overflow mode of the area in vertical direction as CSS value
      *
      * Default value is `'auto'`.
+     *
+     * @returns Value of property `overflowY`
      */
     getOverflowY(): string;
     /**
@@ -9793,6 +12127,8 @@ declare module "sap/ui/commons/layout/BorderLayoutArea" {
      * Defines the height or the width. Is not used when the area element is in Center.
      *
      * Default value is `'100px'`.
+     *
+     * @returns Value of property `size`
      */
     getSize(): CSSSize;
     /**
@@ -9801,11 +12137,15 @@ declare module "sap/ui/commons/layout/BorderLayoutArea" {
      * Invisible controls are not rendered
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `visible`
      */
     getVisible(): boolean;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfContent(
       /**
@@ -9815,6 +12155,8 @@ declare module "sap/ui/commons/layout/BorderLayoutArea" {
     ): int;
     /**
      * Inserts a content into the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertContent(
       /**
@@ -9832,17 +12174,21 @@ declare module "sap/ui/commons/layout/BorderLayoutArea" {
      * Removes all the controls from the aggregation {@link #getContent content}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllContent(): Control[];
     /**
      * Removes a content from the aggregation {@link #getContent content}.
+     *
+     * @returns The removed content or `null`
      */
     removeContent(
       /**
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * @deprecated (since 1.3.3) - Redundant to the aggregation by the parent border layout.
      *
@@ -9853,6 +12199,8 @@ declare module "sap/ui/commons/layout/BorderLayoutArea" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `top`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAreaId(
       /**
@@ -9870,6 +12218,8 @@ declare module "sap/ui/commons/layout/BorderLayoutArea" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'left'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setContentAlign(
       /**
@@ -9885,6 +12235,8 @@ declare module "sap/ui/commons/layout/BorderLayoutArea" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'auto'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setOverflowX(
       /**
@@ -9900,6 +12252,8 @@ declare module "sap/ui/commons/layout/BorderLayoutArea" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'auto'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setOverflowY(
       /**
@@ -9915,6 +12269,8 @@ declare module "sap/ui/commons/layout/BorderLayoutArea" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'100px'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSize(
       /**
@@ -9930,6 +12286,8 @@ declare module "sap/ui/commons/layout/BorderLayoutArea" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setVisible(
       /**
@@ -9950,7 +12308,8 @@ declare module "sap/ui/commons/layout/BorderLayoutArea" {
           | layout.BorderLayoutAreaTypes
           | keyof typeof layout.BorderLayoutAreaTypes
         )
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * The overflow mode of the area in horizontal direction as CSS value
@@ -9970,17 +12329,17 @@ declare module "sap/ui/commons/layout/BorderLayoutArea" {
     /**
      * Defines the height or the width. Is not used when the area element is in Center.
      */
-    size?: CSSSize | PropertyBindingInfo;
+    size?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Invisible controls are not rendered
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Controls within the area
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
   }
 }
 
@@ -10005,8 +12364,8 @@ declare module "sap/ui/commons/layout/HorizontalLayout" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.HorizontalLayout#constructor
-     * sap.ui.layout.HorizontalLayout} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.HorizontalLayout#constructor sap.ui.layout.HorizontalLayout }
+     * can be used.
      */
     constructor(
       /**
@@ -10021,8 +12380,8 @@ declare module "sap/ui/commons/layout/HorizontalLayout" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.HorizontalLayout#constructor
-     * sap.ui.layout.HorizontalLayout} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.HorizontalLayout#constructor sap.ui.layout.HorizontalLayout }
+     * can be used.
      */
     constructor(
       /**
@@ -10040,6 +12399,8 @@ declare module "sap/ui/commons/layout/HorizontalLayout" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.layout.HorizontalLayout.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -10058,6 +12419,8 @@ declare module "sap/ui/commons/layout/HorizontalLayout" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.layout.HorizontalLayout.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -10132,6 +12495,8 @@ declare module "sap/ui/commons/layout/MatrixLayout" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -10150,10 +12515,14 @@ declare module "sap/ui/commons/layout/MatrixLayout" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.layout.MatrixLayout.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some row to the aggregation {@link #getRows rows}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addRow(
       /**
@@ -10167,22 +12536,30 @@ declare module "sap/ui/commons/layout/MatrixLayout" {
      * Each argument must be either a matrix layout cell, which is added to the row "as is", or an arbitrary
      * content control, which is wrapped with a new (default) matrix layout cell first and then added to the
      * row.
+     *
+     * @returns `this` to allow method chaining
      */
     createRow(): this;
     /**
      * Destroys all the rows in the aggregation {@link #getRows rows}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyRows(): this;
     /**
      * Gets current value of property {@link #getColumns columns}.
      *
      * Number of columns. If not specified, the number of columns will be determined from the given cells.
+     *
+     * @returns Value of property `columns`
      */
     getColumns(): int;
     /**
      * Gets current value of property {@link #getHeight height}.
      *
      * CSS height of the matrix layout.
+     *
+     * @returns Value of property `height`
      */
     getHeight(): CSSSize;
     /**
@@ -10194,6 +12571,8 @@ declare module "sap/ui/commons/layout/MatrixLayout" {
      * the given ones because of browser dependend optimazations.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `layoutFixed`
      */
     getLayoutFixed(): boolean;
     /**
@@ -10206,6 +12585,8 @@ declare module "sap/ui/commons/layout/MatrixLayout" {
      * Gets current value of property {@link #getWidth width}.
      *
      * CSS width of the matrix layout. If the LayoutFixed = true an adequate width should be provided.
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
@@ -10213,11 +12594,15 @@ declare module "sap/ui/commons/layout/MatrixLayout" {
      *
      * Widths of the columns. Use an array to define the widths of the columns. If a column shall have an automatical
      * sizing enter "auto" for this column width.
+     *
+     * @returns Value of property `widths`
      */
     getWidths(): CSSSize[];
     /**
      * Checks for the provided `sap.ui.commons.layout.MatrixLayoutRow` in the aggregation {@link #getRows rows}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfRow(
       /**
@@ -10227,6 +12612,8 @@ declare module "sap/ui/commons/layout/MatrixLayout" {
     ): int;
     /**
      * Inserts a row into the aggregation {@link #getRows rows}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertRow(
       /**
@@ -10244,23 +12631,29 @@ declare module "sap/ui/commons/layout/MatrixLayout" {
      * Removes all the controls from the aggregation {@link #getRows rows}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllRows(): MatrixLayoutRow[];
     /**
      * Removes a row from the aggregation {@link #getRows rows}.
+     *
+     * @returns The removed row or `null`
      */
     removeRow(
       /**
        * The row to remove or its index or id
        */
       vRow: int | string | MatrixLayoutRow
-    ): MatrixLayoutRow;
+    ): MatrixLayoutRow | null;
     /**
      * Sets a new value for property {@link #getColumns columns}.
      *
      * Number of columns. If not specified, the number of columns will be determined from the given cells.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setColumns(
       /**
@@ -10274,6 +12667,8 @@ declare module "sap/ui/commons/layout/MatrixLayout" {
      * CSS height of the matrix layout.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeight(
       /**
@@ -10292,6 +12687,8 @@ declare module "sap/ui/commons/layout/MatrixLayout" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setLayoutFixed(
       /**
@@ -10305,6 +12702,8 @@ declare module "sap/ui/commons/layout/MatrixLayout" {
      * CSS width of the matrix layout. If the LayoutFixed = true an adequate width should be provided.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
@@ -10319,6 +12718,8 @@ declare module "sap/ui/commons/layout/MatrixLayout" {
      * sizing enter "auto" for this column width.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidths(
       /**
@@ -10332,12 +12733,12 @@ declare module "sap/ui/commons/layout/MatrixLayout" {
     /**
      * CSS width of the matrix layout. If the LayoutFixed = true an adequate width should be provided.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * CSS height of the matrix layout.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Sets the table layout. If fixed the width parameter of a column has priority, if not the width of the
@@ -10345,23 +12746,27 @@ declare module "sap/ui/commons/layout/MatrixLayout" {
      * of the MatrixLayout should be provided. Otherwise the column width displayed could be different than
      * the given ones because of browser dependend optimazations.
      */
-    layoutFixed?: boolean | PropertyBindingInfo;
+    layoutFixed?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Number of columns. If not specified, the number of columns will be determined from the given cells.
      */
-    columns?: int | PropertyBindingInfo;
+    columns?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Widths of the columns. Use an array to define the widths of the columns. If a column shall have an automatical
      * sizing enter "auto" for this column width.
      */
-    widths?: CSSSize[] | PropertyBindingInfo;
+    widths?: CSSSize[] | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The matrix layout's individual rows.
      */
-    rows?: MatrixLayoutRow[] | MatrixLayoutRow | AggregationBindingInfo;
+    rows?:
+      | MatrixLayoutRow[]
+      | MatrixLayoutRow
+      | AggregationBindingInfo
+      | `{${string}}`;
   }
 }
 
@@ -10421,6 +12826,8 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -10439,10 +12846,14 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.layout.MatrixLayoutCell.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addContent(
       /**
@@ -10490,6 +12901,8 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
     ): this;
     /**
      * Destroys all the content in the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyContent(): this;
     /**
@@ -10498,6 +12911,8 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
      * Determines the matrix layout cell's background design.
      *
      * Default value is `'Transparent'`.
+     *
+     * @returns Value of property `backgroundDesign`
      */
     getBackgroundDesign():
       | layout.BackgroundDesign
@@ -10508,6 +12923,8 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
      * Determines how many columns of the underlying grid structure are occupied by this matrix layout cell.
      *
      * Default value is `1`.
+     *
+     * @returns Value of property `colSpan`
      */
     getColSpan(): int;
     /**
@@ -10525,6 +12942,8 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
      * Determines the horizontal alignment of the matrix layout cell's content with the cell's borders.
      *
      * Default value is `'Begin'`.
+     *
+     * @returns Value of property `hAlign`
      */
     getHAlign(): layout.HAlign | keyof typeof layout.HAlign;
     /**
@@ -10535,6 +12954,8 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
      * in case of nesting.
      *
      * Default value is `'End'`.
+     *
+     * @returns Value of property `padding`
      */
     getPadding(): layout.Padding | keyof typeof layout.Padding;
     /**
@@ -10544,6 +12965,8 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
      * case a row-height is used, all rows affected by the RowSpan must have the same unit.
      *
      * Default value is `1`.
+     *
+     * @returns Value of property `rowSpan`
      */
     getRowSpan(): int;
     /**
@@ -10553,6 +12976,8 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
      * width, with or without a vertical line.
      *
      * Default value is `'None'`.
+     *
+     * @returns Value of property `separation`
      */
     getSeparation(): layout.Separation | keyof typeof layout.Separation;
     /**
@@ -10561,6 +12986,8 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
      * Determines the vertical alignment of the matrix layout cell's content with the cell's borders.
      *
      * Default value is `'Middle'`.
+     *
+     * @returns Value of property `vAlign`
      */
     getVAlign(): layout.VAlign | keyof typeof layout.VAlign;
     /**
@@ -10576,6 +13003,8 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfContent(
       /**
@@ -10585,6 +13014,8 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
     ): int;
     /**
      * Inserts a content into the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertContent(
       /**
@@ -10602,17 +13033,21 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
      * Removes all the controls from the aggregation {@link #getContent content}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllContent(): Control[];
     /**
      * Removes a content from the aggregation {@link #getContent content}.
+     *
+     * @returns The removed content or `null`
      */
     removeContent(
       /**
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes the given string from the list of custom style classes that have been set previously. Regular
      * style classes like "sapUiBtn" cannot be removed.
@@ -10633,6 +13068,8 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'Transparent'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setBackgroundDesign(
       /**
@@ -10650,6 +13087,8 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `1`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setColSpan(
       /**
@@ -10665,6 +13104,8 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'Begin'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHAlign(
       /**
@@ -10682,6 +13123,8 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'End'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPadding(
       /**
@@ -10698,6 +13141,8 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `1`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setRowSpan(
       /**
@@ -10714,6 +13159,8 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'None'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSeparation(
       /**
@@ -10729,6 +13176,8 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'Middle'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setVAlign(
       /**
@@ -10744,17 +13193,21 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
      */
     backgroundDesign?:
       | (layout.BackgroundDesign | keyof typeof layout.BackgroundDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Determines how many columns of the underlying grid structure are occupied by this matrix layout cell.
      */
-    colSpan?: int | PropertyBindingInfo;
+    colSpan?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the horizontal alignment of the matrix layout cell's content with the cell's borders.
      */
-    hAlign?: (layout.HAlign | keyof typeof layout.HAlign) | PropertyBindingInfo;
+    hAlign?:
+      | (layout.HAlign | keyof typeof layout.HAlign)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Determines the padding of the matrix layout cell's content within the cell's borders. The default value
@@ -10763,13 +13216,14 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
      */
     padding?:
       | (layout.Padding | keyof typeof layout.Padding)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Determines how many rows of the underlying grid structure are occupied by this matrix layout cell. In
      * case a row-height is used, all rows affected by the RowSpan must have the same unit.
      */
-    rowSpan?: int | PropertyBindingInfo;
+    rowSpan?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines how a matrix layout cell is separated from its predecessor, via a vertical gutter of variable
@@ -10777,12 +13231,16 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
      */
     separation?:
       | (layout.Separation | keyof typeof layout.Separation)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Determines the vertical alignment of the matrix layout cell's content with the cell's borders.
      */
-    vAlign?: (layout.VAlign | keyof typeof layout.VAlign) | PropertyBindingInfo;
+    vAlign?:
+      | (layout.VAlign | keyof typeof layout.VAlign)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * The matrix layout cell's content (arbitrary controls).
@@ -10790,7 +13248,7 @@ declare module "sap/ui/commons/layout/MatrixLayoutCell" {
      * If the matrix row has a defined height and the matrix has layoutFixed = true, the controls inside of
      * a cell should all use the same unit for its height property.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
   }
 }
 
@@ -10850,6 +13308,8 @@ declare module "sap/ui/commons/layout/MatrixLayoutRow" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -10868,10 +13328,14 @@ declare module "sap/ui/commons/layout/MatrixLayoutRow" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.layout.MatrixLayoutRow.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some cell to the aggregation {@link #getCells cells}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addCell(
       /**
@@ -10919,6 +13383,8 @@ declare module "sap/ui/commons/layout/MatrixLayoutRow" {
     ): this;
     /**
      * Destroys all the cells in the aggregation {@link #getCells cells}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyCells(): this;
     /**
@@ -10931,6 +13397,8 @@ declare module "sap/ui/commons/layout/MatrixLayoutRow" {
      * Gets current value of property {@link #getHeight height}.
      *
      * Height of the row.
+     *
+     * @returns Value of property `height`
      */
     getHeight(): CSSSize;
     /**
@@ -10944,8 +13412,10 @@ declare module "sap/ui/commons/layout/MatrixLayoutRow" {
       sStyleClass: string
     ): boolean;
     /**
-     * Checks for the provided `sap.ui.commons.layout.MatrixLayoutCell` in the aggregation {@link #getCells
-     * cells}. and returns its index if found or -1 otherwise.
+     * Checks for the provided `sap.ui.commons.layout.MatrixLayoutCell` in the aggregation {@link #getCells cells}.
+     * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfCell(
       /**
@@ -10955,6 +13425,8 @@ declare module "sap/ui/commons/layout/MatrixLayoutRow" {
     ): int;
     /**
      * Inserts a cell into the aggregation {@link #getCells cells}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertCell(
       /**
@@ -10972,17 +13444,21 @@ declare module "sap/ui/commons/layout/MatrixLayoutRow" {
      * Removes all the controls from the aggregation {@link #getCells cells}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllCells(): MatrixLayoutCell[];
     /**
      * Removes a cell from the aggregation {@link #getCells cells}.
+     *
+     * @returns The removed cell or `null`
      */
     removeCell(
       /**
        * The cell to remove or its index or id
        */
       vCell: int | string | MatrixLayoutCell
-    ): MatrixLayoutCell;
+    ): MatrixLayoutCell | null;
     /**
      * Removes the given string from the list of custom style classes that have been set previously. Regular
      * style classes like "sapUiBtn" cannot be removed.
@@ -11001,6 +13477,8 @@ declare module "sap/ui/commons/layout/MatrixLayoutRow" {
      * Height of the row.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeight(
       /**
@@ -11014,12 +13492,16 @@ declare module "sap/ui/commons/layout/MatrixLayoutRow" {
     /**
      * Height of the row.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The matrix layout row's individual cells.
      */
-    cells?: MatrixLayoutCell[] | MatrixLayoutCell | AggregationBindingInfo;
+    cells?:
+      | MatrixLayoutCell[]
+      | MatrixLayoutCell
+      | AggregationBindingInfo
+      | `{${string}}`;
   }
 }
 
@@ -11076,6 +13558,8 @@ declare module "sap/ui/commons/layout/PositionContainer" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -11094,16 +13578,22 @@ declare module "sap/ui/commons/layout/PositionContainer" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.layout.PositionContainer.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Destroys the control in the aggregation {@link #getControl control}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyControl(): this;
     /**
      * Gets current value of property {@link #getBottom bottom}.
      *
      * Defines the distance to the bottom of the layout (as specified in HTML)
+     *
+     * @returns Value of property `bottom`
      */
     getBottom(): CSSSize;
     /**
@@ -11113,6 +13603,8 @@ declare module "sap/ui/commons/layout/PositionContainer" {
      * of the attributes left and right are ignored when this feature is activated.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `centerHorizontally`
      */
     getCenterHorizontally(): boolean;
     /**
@@ -11122,6 +13614,8 @@ declare module "sap/ui/commons/layout/PositionContainer" {
      * of the attributes top and bottom are ignored when this feature is activated.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `centerVertically`
      */
     getCenterVertically(): boolean;
     /**
@@ -11134,18 +13628,24 @@ declare module "sap/ui/commons/layout/PositionContainer" {
      * Gets current value of property {@link #getLeft left}.
      *
      * Defines the distance to the left of the layout (as specified in HTML)
+     *
+     * @returns Value of property `left`
      */
     getLeft(): CSSSize;
     /**
      * Gets current value of property {@link #getRight right}.
      *
      * Defines the distance to the right of the layout (as specified in HTML)
+     *
+     * @returns Value of property `right`
      */
     getRight(): CSSSize;
     /**
      * Gets current value of property {@link #getTop top}.
      *
      * Defines the distance to the top of the layout (as specified in HTML)
+     *
+     * @returns Value of property `top`
      */
     getTop(): CSSSize;
     /**
@@ -11154,6 +13654,8 @@ declare module "sap/ui/commons/layout/PositionContainer" {
      * Defines the distance to the bottom of the layout (as specified in HTML)
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setBottom(
       /**
@@ -11170,6 +13672,8 @@ declare module "sap/ui/commons/layout/PositionContainer" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setCenterHorizontally(
       /**
@@ -11186,6 +13690,8 @@ declare module "sap/ui/commons/layout/PositionContainer" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setCenterVertically(
       /**
@@ -11195,6 +13701,8 @@ declare module "sap/ui/commons/layout/PositionContainer" {
     ): this;
     /**
      * Sets the aggregated {@link #getControl control}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setControl(
       /**
@@ -11208,6 +13716,8 @@ declare module "sap/ui/commons/layout/PositionContainer" {
      * Defines the distance to the left of the layout (as specified in HTML)
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setLeft(
       /**
@@ -11221,6 +13731,8 @@ declare module "sap/ui/commons/layout/PositionContainer" {
      * Defines the distance to the right of the layout (as specified in HTML)
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setRight(
       /**
@@ -11234,6 +13746,8 @@ declare module "sap/ui/commons/layout/PositionContainer" {
      * Defines the distance to the top of the layout (as specified in HTML)
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTop(
       /**
@@ -11258,34 +13772,34 @@ declare module "sap/ui/commons/layout/PositionContainer" {
     /**
      * Defines the distance to the top of the layout (as specified in HTML)
      */
-    top?: CSSSize | PropertyBindingInfo;
+    top?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the distance to the bottom of the layout (as specified in HTML)
      */
-    bottom?: CSSSize | PropertyBindingInfo;
+    bottom?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the distance to the left of the layout (as specified in HTML)
      */
-    left?: CSSSize | PropertyBindingInfo;
+    left?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the distance to the right of the layout (as specified in HTML)
      */
-    right?: CSSSize | PropertyBindingInfo;
+    right?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Indicates whether this container shall be centered horizontally within the AbsoluteLayout area. The values
      * of the attributes left and right are ignored when this feature is activated.
      */
-    centerHorizontally?: boolean | PropertyBindingInfo;
+    centerHorizontally?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Indicates whether this container should be centered vertically within the AbsoluteLayout area. The values
      * of the attributes top and bottom are ignored when this feature is activated.
      */
-    centerVertically?: boolean | PropertyBindingInfo;
+    centerVertically?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Child control of the position container
@@ -11303,7 +13817,7 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayout" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.9.1
+   * @since 1.9.1
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * This is a layout where several controls can be added. These controls are blown up to fit a whole line.
@@ -11317,8 +13831,8 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayout" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.ResponsiveFlowLayout#constructor
-     * sap.ui.layout.ResponsiveFlowLayout} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.ResponsiveFlowLayout#constructor sap.ui.layout.ResponsiveFlowLayout }
+     * can be used.
      */
     constructor(
       /**
@@ -11333,8 +13847,8 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayout" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.ResponsiveFlowLayout#constructor
-     * sap.ui.layout.ResponsiveFlowLayout} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.ResponsiveFlowLayout#constructor sap.ui.layout.ResponsiveFlowLayout }
+     * can be used.
      */
     constructor(
       /**
@@ -11352,6 +13866,8 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayout" {
      * enriches it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.layout.ResponsiveFlowLayout.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -11370,6 +13886,8 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayout" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.layout.ResponsiveFlowLayout.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -11387,7 +13905,7 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayoutData" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.9.1
+   * @since 1.9.1
    * @deprecated (since 1.16.0) - moved to sap.ui.layout library. Please use this one.
    *
    * This is a LayoutData Element that can be added to a control if this control is used within a ResponsiveFlowLayout
@@ -11400,8 +13918,8 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayoutData" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.ResponsiveFlowLayoutData#constructor
-     * sap.ui.layout.ResponsiveFlowLayoutData} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.ResponsiveFlowLayoutData#constructor sap.ui.layout.ResponsiveFlowLayoutData }
+     * can be used.
      */
     constructor(
       /**
@@ -11416,8 +13934,8 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayoutData" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.ResponsiveFlowLayoutData#constructor
-     * sap.ui.layout.ResponsiveFlowLayoutData} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.ResponsiveFlowLayoutData#constructor sap.ui.layout.ResponsiveFlowLayoutData }
+     * can be used.
      */
     constructor(
       /**
@@ -11435,6 +13953,8 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayoutData" {
      * and enriches it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.layout.ResponsiveFlowLayoutData.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -11453,22 +13973,28 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayoutData" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.layout.ResponsiveFlowLayoutData.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Getter for property `margin`. This property prevents any margin of the element if set to false
      *
      * Default value is `true`
+     *
+     * @returns the value of property `margin`
      */
     getMargin(): boolean;
     /**
-     * @SINCE 1.11.0
+     * @since 1.11.0
      *
      * Setter for property `margin`.
      *
      * Default value is `true`
+     *
+     * @returns `this` to allow method chaining
      */
     setMargin(
       /**
@@ -11503,8 +14029,8 @@ declare module "sap/ui/commons/layout/VerticalLayout" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.VerticalLayout#constructor
-     * sap.ui.layout.VerticalLayout} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.VerticalLayout#constructor sap.ui.layout.VerticalLayout }
+     * can be used.
      */
     constructor(
       /**
@@ -11519,8 +14045,8 @@ declare module "sap/ui/commons/layout/VerticalLayout" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.VerticalLayout#constructor
-     * sap.ui.layout.VerticalLayout} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.layout.VerticalLayout#constructor sap.ui.layout.VerticalLayout }
+     * can be used.
      */
     constructor(
       /**
@@ -11538,6 +14064,8 @@ declare module "sap/ui/commons/layout/VerticalLayout" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.layout.VerticalLayout.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -11556,6 +14084,8 @@ declare module "sap/ui/commons/layout/VerticalLayout" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.layout.VerticalLayout.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -11571,7 +14101,13 @@ declare module "sap/ui/commons/Link" {
     FormattedTextViewControl,
   } from "sap/ui/commons/library";
 
-  import { IFormContent, ID, URI, CSSSize } from "sap/ui/core/library";
+  import {
+    IFormContent,
+    ID,
+    AccessibilityInfo,
+    URI,
+    CSSSize,
+  } from "sap/ui/core/library";
 
   import Event from "sap/ui/base/Event";
 
@@ -11628,6 +14164,8 @@ declare module "sap/ui/commons/Link" {
      * contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -11646,10 +14184,14 @@ declare module "sap/ui/commons/Link" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.Link.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaDescribedBy(
       /**
@@ -11659,6 +14201,8 @@ declare module "sap/ui/commons/Link" {
     ): this;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -11673,6 +14217,8 @@ declare module "sap/ui/commons/Link" {
      * otherwise it will be bound to this `sap.ui.commons.Link` itself.
      *
      * Event is fired when the user clicks the control.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachPress(
       /**
@@ -11696,6 +14242,8 @@ declare module "sap/ui/commons/Link" {
      * otherwise it will be bound to this `sap.ui.commons.Link` itself.
      *
      * Event is fired when the user clicks the control.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachPress(
       /**
@@ -11711,6 +14259,8 @@ declare module "sap/ui/commons/Link" {
      * Detaches event handler `fnFunction` from the {@link #event:press press} event of this `sap.ui.commons.Link`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachPress(
       /**
@@ -11723,10 +14273,14 @@ declare module "sap/ui/commons/Link" {
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:press press} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @returns Whether or not to prevent the default action
      */
     firePress(
       /**
@@ -11739,18 +14293,20 @@ declare module "sap/ui/commons/Link" {
      */
     focus(): void;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
+     *
+     * @returns The object contains the accessibility information of `sap.ui.commons.Link`
      */
-    getAccessibilityInfo(): object;
+    getAccessibilityInfo(): AccessibilityInfo;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
-     * ariaDescribedBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     getAriaDescribedBy(): ID[];
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -11759,6 +14315,8 @@ declare module "sap/ui/commons/Link" {
      * Whether the link can be triggered by the user.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
      */
     getEnabled(): boolean;
     /**
@@ -11767,6 +14325,8 @@ declare module "sap/ui/commons/Link" {
      * Unique identifier used for help service.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `helpId`
      */
     getHelpId(): string;
     /**
@@ -11774,12 +14334,16 @@ declare module "sap/ui/commons/Link" {
      *
      * The link target URI. Supports standard hyperlink behavior. If an action should be triggered, this should
      * not be set, but instead an event handler for the "press" event should be registered.
+     *
+     * @returns Value of property `href`
      */
     getHref(): URI;
     /**
      * Gets current value of property {@link #getTarget target}.
      *
      * Options are _self, _top, _blank, _parent, _search. Alternatively, a frame name can be entered.
+     *
+     * @returns Value of property `target`
      */
     getTarget(): string;
     /**
@@ -11788,43 +14352,55 @@ declare module "sap/ui/commons/Link" {
      * Link text to be displayed.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
-     * @SINCE 1.8.0
+     * @since 1.8.0
      *
      * Gets current value of property {@link #getWidth width}.
      *
      * Width of text link. When it is set (CSS-size such as % or px), this is the exact size. When left blank,
      * the text defines the size.
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Removes all the controls in the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaDescribedBy(): ID[];
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes an ariaDescribedBy from the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns The removed ariaDescribedBy or `null`
      */
     removeAriaDescribedBy(
       /**
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getEnabled enabled}.
      *
@@ -11833,6 +14409,8 @@ declare module "sap/ui/commons/Link" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEnabled(
       /**
@@ -11848,6 +14426,8 @@ declare module "sap/ui/commons/Link" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHelpId(
       /**
@@ -11862,6 +14442,8 @@ declare module "sap/ui/commons/Link" {
      * not be set, but instead an event handler for the "press" event should be registered.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHref(
       /**
@@ -11875,6 +14457,8 @@ declare module "sap/ui/commons/Link" {
      * Options are _self, _top, _blank, _parent, _search. Alternatively, a frame name can be entered.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTarget(
       /**
@@ -11890,6 +14474,8 @@ declare module "sap/ui/commons/Link" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -11898,7 +14484,7 @@ declare module "sap/ui/commons/Link" {
       sText?: string
     ): this;
     /**
-     * @SINCE 1.8.0
+     * @since 1.8.0
      *
      * Sets a new value for property {@link #getWidth width}.
      *
@@ -11906,6 +14492,8 @@ declare module "sap/ui/commons/Link" {
      * the text defines the size.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
@@ -11924,7 +14512,7 @@ declare module "sap/ui/commons/Link" {
     /**
      * Whether the link can be triggered by the user.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Unique identifier used for help service.
@@ -11935,7 +14523,7 @@ declare module "sap/ui/commons/Link" {
      * The link target URI. Supports standard hyperlink behavior. If an action should be triggered, this should
      * not be set, but instead an event handler for the "press" event should be registered.
      */
-    href?: URI | PropertyBindingInfo;
+    href?: URI | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Options are _self, _top, _blank, _parent, _search. Alternatively, a frame name can be entered.
@@ -11943,12 +14531,12 @@ declare module "sap/ui/commons/Link" {
     target?: string | PropertyBindingInfo;
 
     /**
-     * @SINCE 1.8.0
+     * @since 1.8.0
      *
      * Width of text link. When it is set (CSS-size such as % or px), this is the exact size. When left blank,
      * the text defines the size.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Association to controls / ids which describe this control (see WAI-ARIA attribute aria-describedby).
@@ -11965,6 +14553,10 @@ declare module "sap/ui/commons/Link" {
      */
     press?: (oEvent: Event) => void;
   }
+
+  export interface Link$PressEventParameters {}
+
+  export type Link$PressEvent = Event<Link$PressEventParameters, Link>;
 }
 
 declare module "sap/ui/commons/ListBox" {
@@ -11974,8 +14566,6 @@ declare module "sap/ui/commons/ListBox" {
 
   import Item from "sap/ui/core/Item";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import ListItem from "sap/ui/core/ListItem";
@@ -11984,6 +14574,8 @@ declare module "sap/ui/commons/ListBox" {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - Instead, use the `sap.m.List` control.
@@ -12029,6 +14621,8 @@ declare module "sap/ui/commons/ListBox" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -12047,10 +14641,14 @@ declare module "sap/ui/commons/ListBox" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.ListBox.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaDescribedBy(
       /**
@@ -12060,6 +14658,8 @@ declare module "sap/ui/commons/ListBox" {
     ): this;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -12069,6 +14669,8 @@ declare module "sap/ui/commons/ListBox" {
     ): this;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addItem(
       /**
@@ -12079,6 +14681,8 @@ declare module "sap/ui/commons/ListBox" {
     /**
      * Adds the given index to current selection. When multiple selection is disabled, this replaces the current
      * selection. When the given index is invalid, the call is ignored.
+     *
+     * @returns `this` to allow method chaining.
      */
     addSelectedIndex(
       /**
@@ -12088,6 +14692,8 @@ declare module "sap/ui/commons/ListBox" {
     ): this;
     /**
      * Adds the given indices to selection. Any invalid indices are ignored.
+     *
+     * @returns `this` to allow method chaining.
      */
     addSelectedIndices(
       /**
@@ -12102,6 +14708,8 @@ declare module "sap/ui/commons/ListBox" {
      * otherwise it will be bound to this `sap.ui.commons.ListBox` itself.
      *
      * Event is fired when selection is changed by user interaction.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelect(
       /**
@@ -12112,7 +14720,7 @@ declare module "sap/ui/commons/ListBox" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ListBox$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.ListBox` itself
        */
@@ -12125,12 +14733,14 @@ declare module "sap/ui/commons/ListBox" {
      * otherwise it will be bound to this `sap.ui.commons.ListBox` itself.
      *
      * Event is fired when selection is changed by user interaction.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelect(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ListBox$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.ListBox` itself
        */
@@ -12138,55 +14748,45 @@ declare module "sap/ui/commons/ListBox" {
     ): this;
     /**
      * Removes complete selection.
+     *
+     * @returns `this` to allow method chaining.
      */
     clearSelection(): this;
     /**
      * Destroys all the items in the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyItems(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:select select} event of this `sap.ui.commons.ListBox`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSelect(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ListBox$SelectEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:select select} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireSelect(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * ID of the ListBox which triggered the event.
-         */
-        id?: string;
-        /**
-         * The currently selected index of the ListBox. In the case of multiple selection, this is exactly one of
-         * the selected indices - the one whose selection has triggered the selection change. To get all currently
-         * selected indices, use selectedIndices.
-         */
-        selectedIndex?: int;
-        /**
-         * The currently selected item of the ListBox. In the case of multiple selection, this is exactly one of
-         * the selected items - the one whose selection has triggered the selection change.
-         */
-        selectedItem?: Item;
-        /**
-         * Array containing the indices which are selected.
-         */
-        selectedIndices?: int[];
-      }
+      mParameters?: ListBox$SelectEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getAllowMultiSelect allowMultiSelect}.
@@ -12194,16 +14794,16 @@ declare module "sap/ui/commons/ListBox" {
      * Determines whether multiple selection is allowed.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `allowMultiSelect`
      */
     getAllowMultiSelect(): boolean;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
-     * ariaDescribedBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     getAriaDescribedBy(): ID[];
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -12216,6 +14816,8 @@ declare module "sap/ui/commons/ListBox" {
      * total ListBox height.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `displayIcons`
      */
     getDisplayIcons(): boolean;
     /**
@@ -12225,6 +14827,8 @@ declare module "sap/ui/commons/ListBox" {
      * be displayed.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `displaySecondaryValues`
      */
     getDisplaySecondaryValues(): boolean;
     /**
@@ -12234,6 +14838,8 @@ declare module "sap/ui/commons/ListBox" {
      * keyboard.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `editable`
      */
     getEditable(): boolean;
     /**
@@ -12243,6 +14849,8 @@ declare module "sap/ui/commons/ListBox" {
      * Disabled controls have another color display depending on custom settings.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
      */
     getEnabled(): boolean;
     /**
@@ -12250,6 +14858,8 @@ declare module "sap/ui/commons/ListBox" {
      *
      * Control height as common CSS-size (px or % as unit, for example). The setting overrides any definitions
      * made for the setVisibleItems() method.
+     *
+     * @returns Value of property `height`
      */
     getHeight(): CSSSize;
     /**
@@ -12262,16 +14872,22 @@ declare module "sap/ui/commons/ListBox" {
      * Gets current value of property {@link #getMaxWidth maxWidth}.
      *
      * Determines the maximum width of the ListBox. If not set, there is no maximum width.
+     *
+     * @returns Value of property `maxWidth`
      */
     getMaxWidth(): CSSSize;
     /**
      * Gets current value of property {@link #getMinWidth minWidth}.
      *
      * Determines the minimum width of the ListBox. If not set, there is no minimum width.
+     *
+     * @returns Value of property `minWidth`
      */
     getMinWidth(): CSSSize;
     /**
      * Returns how many pixels the ListBox contents are currently scrolled down.
+     *
+     * @returns Vertical scroll position.
      */
     getScrollTop(): int;
     /**
@@ -12280,29 +14896,41 @@ declare module "sap/ui/commons/ListBox" {
      * Determines the text alignment in the secondary ListBox text column (if available).
      *
      * Default value is `Begin`.
+     *
+     * @returns Value of property `secondaryValueTextAlign`
      */
     getSecondaryValueTextAlign(): TextAlign | keyof typeof TextAlign;
     /**
      * Zero-based index of selected item. Index value for no selection is -1. When multiple selection is enabled
      * and multiple items are selected, the method returns the first selected item.
+     *
+     * @returns Selected index
      */
     getSelectedIndex(): int;
     /**
      * Zero-based indices of selected items, wrapped in an array. An empty array means "no selection".
+     *
+     * @returns Array of selected indices.
      */
     getSelectedIndices(): int[];
     /**
      * Returns selected item. When no item is selected, "null" is returned. When multi-selection is enabled
      * and multiple items are selected, only the first selected item is returned.
+     *
+     * @returns Selected item
      */
     getSelectedItem(): Item;
     /**
      * Returns an array containing the selected items. In the case of no selection, an empty array is returned.
+     *
+     * @returns Selected items.
      */
     getSelectedItems(): Item[];
     /**
      * Returns the keys of the selected items in an array. If a selected item does not have a key, the respective
      * array entry will be undefined.
+     *
+     * @returns Array with selected keys.
      */
     getSelectedKeys(): string[];
     /**
@@ -12311,21 +14939,29 @@ declare module "sap/ui/commons/ListBox" {
      * Determines the text alignment in the primary ListBox column.
      *
      * Default value is `Begin`.
+     *
+     * @returns Value of property `valueTextAlign`
      */
     getValueTextAlign(): TextAlign | keyof typeof TextAlign;
     /**
      * Returns the number of visible items.
+     *
+     * @returns Number of visible items.
      */
     getVisibleItems(): int;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Control width as common CSS-size (px or % as unit, for example).
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Checks for the provided `sap.ui.core.Item` in the aggregation {@link #getItems items}. and returns its
      * index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfItem(
       /**
@@ -12335,6 +14971,8 @@ declare module "sap/ui/commons/ListBox" {
     ): int;
     /**
      * Inserts a item into the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertItem(
       /**
@@ -12350,6 +14988,8 @@ declare module "sap/ui/commons/ListBox" {
     ): this;
     /**
      * Returns whether the given index is selected.
+     *
+     * @returns Whether index is selected.
      */
     isIndexSelected(
       /**
@@ -12359,47 +14999,61 @@ declare module "sap/ui/commons/ListBox" {
     ): boolean;
     /**
      * Removes all the controls in the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaDescribedBy(): ID[];
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes all the controls from the aggregation {@link #getItems items}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllItems(): Item[];
     /**
      * Removes an ariaDescribedBy from the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns The removed ariaDescribedBy or `null`
      */
     removeAriaDescribedBy(
       /**
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a item from the aggregation {@link #getItems items}.
+     *
+     * @returns The removed item or `null`
      */
     removeItem(
       /**
        * The item to remove or its index or id
        */
       vItem: int | string | Item
-    ): Item;
+    ): Item | null;
     /**
      * Removes the given index from this selection. When the index is invalid or not selected, the call is ignored.
+     *
+     * @returns `this` to allow method chaining.
      */
     removeSelectedIndex(
       /**
@@ -12413,6 +15067,8 @@ declare module "sap/ui/commons/ListBox" {
      * appear at the topmost visible position in the ListBox. If bLazy is true, it only scrolls as far as required
      * to make the item visible. Setting the scrollTop property and calling scrollToIndex are two operations
      * influencing the same "physical" property, so the last call "wins".
+     *
+     * @returns `this` to allow method chaining.
      */
     scrollToIndex(
       /**
@@ -12433,6 +15089,8 @@ declare module "sap/ui/commons/ListBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAllowMultiSelect(
       /**
@@ -12452,6 +15110,8 @@ declare module "sap/ui/commons/ListBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDisplayIcons(
       /**
@@ -12468,6 +15128,8 @@ declare module "sap/ui/commons/ListBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDisplaySecondaryValues(
       /**
@@ -12484,6 +15146,8 @@ declare module "sap/ui/commons/ListBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEditable(
       /**
@@ -12500,6 +15164,8 @@ declare module "sap/ui/commons/ListBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEnabled(
       /**
@@ -12509,6 +15175,8 @@ declare module "sap/ui/commons/ListBox" {
     ): this;
     /**
      * Sets the height of this ListBox in CSS units.
+     *
+     * @returns `this` to allow method chaining.
      */
     setHeight(
       /**
@@ -12518,6 +15186,8 @@ declare module "sap/ui/commons/ListBox" {
     ): this;
     /**
      * Allows setting the list items as array for this instance of ListBox.
+     *
+     * @returns `this` to allow method chaining.
      */
     setItems(
       /**
@@ -12536,6 +15206,8 @@ declare module "sap/ui/commons/ListBox" {
      * Determines the maximum width of the ListBox. If not set, there is no maximum width.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMaxWidth(
       /**
@@ -12549,6 +15221,8 @@ declare module "sap/ui/commons/ListBox" {
      * Determines the minimum width of the ListBox. If not set, there is no minimum width.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMinWidth(
       /**
@@ -12558,6 +15232,8 @@ declare module "sap/ui/commons/ListBox" {
     ): this;
     /**
      * Positions the ListBox contents so that they are scrolled-down by the given number of pixels.
+     *
+     * @returns `this` to allow method chaining.
      */
     setScrollTop(
       /**
@@ -12573,6 +15249,8 @@ declare module "sap/ui/commons/ListBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Begin`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSecondaryValueTextAlign(
       /**
@@ -12583,6 +15261,8 @@ declare module "sap/ui/commons/ListBox" {
     /**
      * Sets the zero-based index of the currently selected item. This method removes any previous selections.
      * When the given index is invalid, the call is ignored.
+     *
+     * @returns `this` to allow method chaining.
      */
     setSelectedIndex(
       /**
@@ -12595,6 +15275,8 @@ declare module "sap/ui/commons/ListBox" {
      * multiple selection is disabled and multiple items are given, the selection is set to the index of the
      * first valid index in the given array. Any invalid indices are ignored. The previous selection is in any
      * case replaced.
+     *
+     * @returns `this` to allow method chaining.
      */
     setSelectedIndices(
       /**
@@ -12606,6 +15288,8 @@ declare module "sap/ui/commons/ListBox" {
      * Keys of the items to be selected, wrapped in an array. An empty array means no selection. When multiple
      * selection is disabled, and multiple keys are given, the selection is set to the item with the first valid
      * key in the given array. Any invalid keys are ignored. The previous selection is replaced in any case.
+     *
+     * @returns `this` to allow method chaining.
      */
     setSelectedKeys(
       /**
@@ -12621,6 +15305,8 @@ declare module "sap/ui/commons/ListBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Begin`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueTextAlign(
       /**
@@ -12630,6 +15316,8 @@ declare module "sap/ui/commons/ListBox" {
     ): this;
     /**
      * Makes the ListBox render with a height that allows it to display exactly the given number of items.
+     *
+     * @returns `this` to allow method chaining.
      */
     setVisibleItems(
       /**
@@ -12639,6 +15327,8 @@ declare module "sap/ui/commons/ListBox" {
     ): this;
     /**
      * Sets the width of this ListBox in CSS units.
+     *
+     * @returns `this` to allow method chaining.
      */
     setWidth(
       /**
@@ -12653,35 +15343,35 @@ declare module "sap/ui/commons/ListBox" {
      * Determines whether the ListBox is interactive or not. Can be used to disable interaction with mouse or
      * keyboard.
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines whether the ListBox is enabled or not. Can be used to disable interaction with mouse or keyboard.
      * Disabled controls have another color display depending on custom settings.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines whether multiple selection is allowed.
      */
-    allowMultiSelect?: boolean | PropertyBindingInfo;
+    allowMultiSelect?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Control width as common CSS-size (px or % as unit, for example).
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Control height as common CSS-size (px or % as unit, for example). The setting overrides any definitions
      * made for the setVisibleItems() method.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Scroll bar position from the top. Setting the scrollTop property and calling scrollToIndex are two operations
      * influencing the same "physical" property, so the last call "wins".
      */
-    scrollTop?: int | PropertyBindingInfo;
+    scrollTop?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines whether the icons of the list items shall also be displayed. Enabling icons requires some
@@ -12690,35 +15380,39 @@ declare module "sap/ui/commons/ListBox" {
      * of icons that can be displayed in the ListBox depends on the size of the icons themselves and of the
      * total ListBox height.
      */
-    displayIcons?: boolean | PropertyBindingInfo;
+    displayIcons?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines whether the text values from the additionalText property (see sap.ui.core.ListItems) shall
      * be displayed.
      */
-    displaySecondaryValues?: boolean | PropertyBindingInfo;
+    displaySecondaryValues?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the text alignment in the primary ListBox column.
      */
-    valueTextAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo;
+    valueTextAlign?:
+      | (TextAlign | keyof typeof TextAlign)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Determines the text alignment in the secondary ListBox text column (if available).
      */
     secondaryValueTextAlign?:
       | (TextAlign | keyof typeof TextAlign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Determines the minimum width of the ListBox. If not set, there is no minimum width.
      */
-    minWidth?: CSSSize | PropertyBindingInfo;
+    minWidth?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the maximum width of the ListBox. If not set, there is no maximum width.
      */
-    maxWidth?: CSSSize | PropertyBindingInfo;
+    maxWidth?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The ListBox height in number of items that are initially displayed without scrolling. This setting overwrites
@@ -12730,12 +15424,12 @@ declare module "sap/ui/commons/ListBox" {
      * in the case the control was already rendered. Note that if the control was not rendered, the behavior
      * will be undefined, it may return -1 or any other number.
      */
-    visibleItems?: int | PropertyBindingInfo;
+    visibleItems?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Aggregation of items to be displayed. Must be either of type sap.ui.core.ListItem or sap.ui.core.SeparatorItem.
      */
-    items?: Item[] | Item | AggregationBindingInfo;
+    items?: Item[] | Item | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Association to controls / ids which describe this control (see WAI-ARIA attribute aria-describedby).
@@ -12750,8 +15444,38 @@ declare module "sap/ui/commons/ListBox" {
     /**
      * Event is fired when selection is changed by user interaction.
      */
-    select?: (oEvent: Event) => void;
+    select?: (oEvent: ListBox$SelectEvent) => void;
   }
+
+  export interface ListBox$SelectEventParameters {
+    /**
+     * ID of the ListBox which triggered the event.
+     */
+    id?: string;
+
+    /**
+     * The currently selected index of the ListBox. In the case of multiple selection, this is exactly one of
+     * the selected indices - the one whose selection has triggered the selection change. To get all currently
+     * selected indices, use selectedIndices.
+     */
+    selectedIndex?: int;
+
+    /**
+     * The currently selected item of the ListBox. In the case of multiple selection, this is exactly one of
+     * the selected items - the one whose selection has triggered the selection change.
+     */
+    selectedItem?: Item;
+
+    /**
+     * Array containing the indices which are selected.
+     */
+    selectedIndices?: int[];
+  }
+
+  export type ListBox$SelectEvent = Event<
+    ListBox$SelectEventParameters,
+    ListBox
+  >;
 }
 
 declare module "sap/ui/commons/Menu" {
@@ -12763,7 +15487,7 @@ declare module "sap/ui/commons/Menu" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.0.0
+   * @since 1.0.0
    * @deprecated (since 1.21.0) - replaced by {@link sap.ui.unified.Menu}
    *
    * A menu is an interactive element which provides a choice of different actions to the user. These actions
@@ -12778,8 +15502,8 @@ declare module "sap/ui/commons/Menu" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.Menu#constructor
-     * sap.ui.unified.Menu} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.Menu#constructor sap.ui.unified.Menu }
+     * can be used.
      */
     constructor(
       /**
@@ -12794,8 +15518,8 @@ declare module "sap/ui/commons/Menu" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.Menu#constructor
-     * sap.ui.unified.Menu} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.Menu#constructor sap.ui.unified.Menu }
+     * can be used.
      */
     constructor(
       /**
@@ -12813,6 +15537,8 @@ declare module "sap/ui/commons/Menu" {
      * contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.unified.Menu.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -12831,6 +15557,8 @@ declare module "sap/ui/commons/Menu" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.Menu.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -12901,6 +15629,8 @@ declare module "sap/ui/commons/MenuBar" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -12919,10 +15649,14 @@ declare module "sap/ui/commons/MenuBar" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.MenuBar.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addItem(
       /**
@@ -12932,6 +15666,8 @@ declare module "sap/ui/commons/MenuBar" {
     ): this;
     /**
      * Destroys all the items in the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyItems(): this;
     /**
@@ -12940,6 +15676,8 @@ declare module "sap/ui/commons/MenuBar" {
      * Available design options are Header and Standard. Note that design settings are theme-dependent.
      *
      * Default value is `Standard`.
+     *
+     * @returns Value of property `design`
      */
     getDesign(): MenuBarDesign | keyof typeof MenuBarDesign;
     /**
@@ -12948,6 +15686,8 @@ declare module "sap/ui/commons/MenuBar" {
      * When the MenuBar is not enabled, automatically all single menu items are also displayed as 'disabled'.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
      */
     getEnabled(): boolean;
     /**
@@ -12962,11 +15702,15 @@ declare module "sap/ui/commons/MenuBar" {
      * Specifies the width of the MenuBar
      *
      * Default value is `'100%'`.
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Checks for the provided `sap.ui.unified.MenuItem` in the aggregation {@link #getItems items}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfItem(
       /**
@@ -12976,6 +15720,8 @@ declare module "sap/ui/commons/MenuBar" {
     ): int;
     /**
      * Inserts a item into the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertItem(
       /**
@@ -12993,17 +15739,21 @@ declare module "sap/ui/commons/MenuBar" {
      * Removes all the controls from the aggregation {@link #getItems items}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllItems(): MenuItem[];
     /**
      * Removes a item from the aggregation {@link #getItems items}.
+     *
+     * @returns The removed item or `null`
      */
     removeItem(
       /**
        * The item to remove or its index or id
        */
       vItem: int | string | MenuItem
-    ): MenuItem;
+    ): MenuItem | null;
     /**
      * Sets a new value for property {@link #getDesign design}.
      *
@@ -13012,6 +15762,8 @@ declare module "sap/ui/commons/MenuBar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Standard`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDesign(
       /**
@@ -13027,6 +15779,8 @@ declare module "sap/ui/commons/MenuBar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEnabled(
       /**
@@ -13042,6 +15796,8 @@ declare module "sap/ui/commons/MenuBar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'100%'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
@@ -13055,37 +15811,46 @@ declare module "sap/ui/commons/MenuBar" {
     /**
      * When the MenuBar is not enabled, automatically all single menu items are also displayed as 'disabled'.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Specifies the width of the MenuBar
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Available design options are Header and Standard. Note that design settings are theme-dependent.
      */
-    design?: (MenuBarDesign | keyof typeof MenuBarDesign) | PropertyBindingInfo;
+    design?:
+      | (MenuBarDesign | keyof typeof MenuBarDesign)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Aggregation of menu items.
      */
-    items?: MenuItem[] | MenuItem | AggregationBindingInfo;
+    items?: MenuItem[] | MenuItem | AggregationBindingInfo | `{${string}}`;
   }
 }
 
 declare module "sap/ui/commons/MenuButton" {
-  import { default as Button, $ButtonSettings } from "sap/ui/commons/Button";
-
-  import Event from "sap/ui/base/Event";
-
-  import MenuItemBase from "sap/ui/unified/MenuItemBase";
+  import {
+    default as Button,
+    $ButtonSettings,
+    Button$PressEventParameters,
+  } from "sap/ui/commons/Button";
 
   import Menu from "sap/ui/unified/Menu";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import MenuItemBase from "sap/ui/unified/MenuItemBase";
+
+  import Event from "sap/ui/base/Event";
+
+  import MenuItemBase1 from "sap/ui/commons/MenuItemBase";
 
   /**
    * @deprecated (since 1.38) - Instead, use the `sap.m.MenuButton` control.
@@ -13130,6 +15895,8 @@ declare module "sap/ui/commons/MenuButton" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.commons.Button.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -13148,6 +15915,8 @@ declare module "sap/ui/commons/MenuButton" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.MenuButton.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
@@ -13157,6 +15926,8 @@ declare module "sap/ui/commons/MenuButton" {
      * otherwise it will be bound to this `sap.ui.commons.MenuButton` itself.
      *
      * Event that is fired when a menu item is selected by the user
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachItemSelected(
       /**
@@ -13167,7 +15938,7 @@ declare module "sap/ui/commons/MenuButton" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: MenuButton$ItemSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.MenuButton` itself
        */
@@ -13180,12 +15951,14 @@ declare module "sap/ui/commons/MenuButton" {
      * otherwise it will be bound to this `sap.ui.commons.MenuButton` itself.
      *
      * Event that is fired when a menu item is selected by the user
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachItemSelected(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: MenuButton$ItemSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.MenuButton` itself
        */
@@ -13200,6 +15973,8 @@ declare module "sap/ui/commons/MenuButton" {
      * Event is fired when an item from the menu was selected.
      * See:
      * 	sap.ui.commons.MenuButton#attachItemSelected
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachPress(
       /**
@@ -13210,7 +15985,7 @@ declare module "sap/ui/commons/MenuButton" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: MenuButton$PressEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.MenuButton` itself
        */
@@ -13225,12 +16000,14 @@ declare module "sap/ui/commons/MenuButton" {
      * Event is fired when an item from the menu was selected.
      * See:
      * 	sap.ui.commons.MenuButton#attachItemSelected
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachPress(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: MenuButton$PressEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.MenuButton` itself
        */
@@ -13238,18 +16015,22 @@ declare module "sap/ui/commons/MenuButton" {
     ): this;
     /**
      * Destroys the menu in the aggregation named `menu`.
+     *
+     * @returns `this` to allow method chaining
      */
     destroyMenu(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:itemSelected itemSelected} event of this `sap.ui.commons.MenuButton`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachItemSelected(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: MenuButton$ItemSelectedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -13261,51 +16042,54 @@ declare module "sap/ui/commons/MenuButton" {
      * The passed function and listener object must match the ones used for event registration.
      * See:
      * 	sap.ui.commons.MenuButton#detachItemSelected
+     *
+     * @returns Reference to `this` to allow method chaining
      */
     detachPress(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function,
+      fnFunction: (evt: MenuButton$PressEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:itemSelected itemSelected} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireItemSelected(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The ID of the selected item
-         */
-        itemId?: string;
-        /**
-         * The selected item
-         */
-        item?: MenuItemBase;
-      }
+      mParameters?: MenuButton$ItemSelectedEventParameters
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:press press} to attached listeners.
      * See:
      * 	sap.ui.commons.MenuButton#fireItemSelected
+     *
+     * @returns Reference to `this` to allow method chaining
      */
     firePress(
       /**
        * Parameters to pass along with the event
        */
-      oParameters?: object
+      oParameters?: MenuButton$PressEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getDockButton dockButton}.
      *
      * The position / edge (see sap.ui.core.Popup.Dock) of the button where the menu is docked. Default is 'begin
      * bottom'.
+     *
+     * @returns Value of property `dockButton`
      */
     getDockButton(): string;
     /**
@@ -13313,6 +16097,8 @@ declare module "sap/ui/commons/MenuButton" {
      *
      * The position / edge (see sap.ui.core.Popup.Dock) of the menu which is docked to the button. Default is
      * 'begin top'.
+     *
+     * @returns Value of property `dockMenu`
      */
     getDockMenu(): string;
     /**
@@ -13328,6 +16114,8 @@ declare module "sap/ui/commons/MenuButton" {
      * bottom'.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDockButton(
       /**
@@ -13342,6 +16130,8 @@ declare module "sap/ui/commons/MenuButton" {
      * 'begin top'.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDockMenu(
       /**
@@ -13351,6 +16141,8 @@ declare module "sap/ui/commons/MenuButton" {
     ): this;
     /**
      * Setter for the aggregated `menu`.
+     *
+     * @returns `this` to allow method chaining
      */
     setMenu(
       /**
@@ -13381,8 +16173,43 @@ declare module "sap/ui/commons/MenuButton" {
     /**
      * Event that is fired when a menu item is selected by the user
      */
-    itemSelected?: (oEvent: Event) => void;
+    itemSelected?: (oEvent: MenuButton$ItemSelectedEvent) => void;
   }
+
+  export interface MenuButton$ItemSelectedEventParameters {
+    /**
+     * The ID of the selected item
+     */
+    itemId?: string;
+
+    /**
+     * The selected item
+     */
+    item?: MenuItemBase;
+  }
+
+  export type MenuButton$ItemSelectedEvent = Event<
+    MenuButton$ItemSelectedEventParameters,
+    MenuButton
+  >;
+
+  export interface MenuButton$PressEventParameters
+    extends Button$PressEventParameters {
+    /**
+     * The id of the selected item
+     */
+    itemId?: string;
+
+    /**
+     * The selected item
+     */
+    item?: MenuItemBase1;
+  }
+
+  export type MenuButton$PressEvent = Event<
+    MenuButton$PressEventParameters,
+    MenuButton
+  >;
 }
 
 declare module "sap/ui/commons/MenuItem" {
@@ -13394,7 +16221,7 @@ declare module "sap/ui/commons/MenuItem" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @SINCE 1.0.0
+   * @since 1.0.0
    * @deprecated (since 1.21.0) - replaced by {@link sap.ui.unified.MenuItem}
    *
    * Standard item to be used inside a menu. A menu item represents an action which can be selected by the
@@ -13408,8 +16235,8 @@ declare module "sap/ui/commons/MenuItem" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.MenuItem#constructor
-     * sap.ui.unified.MenuItem} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.MenuItem#constructor sap.ui.unified.MenuItem }
+     * can be used.
      */
     constructor(
       /**
@@ -13424,8 +16251,8 @@ declare module "sap/ui/commons/MenuItem" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.MenuItem#constructor
-     * sap.ui.unified.MenuItem} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.MenuItem#constructor sap.ui.unified.MenuItem }
+     * can be used.
      */
     constructor(
       /**
@@ -13443,6 +16270,8 @@ declare module "sap/ui/commons/MenuItem" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.unified.MenuItem.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -13461,6 +16290,8 @@ declare module "sap/ui/commons/MenuItem" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.MenuItem.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -13475,7 +16306,7 @@ declare module "sap/ui/commons/MenuItemBase" {
   } from "sap/ui/unified/MenuItemBase";
 
   /**
-   * @SINCE 1.0.0
+   * @since 1.0.0
    * @deprecated (since 1.21.0) - replaced by {@link sap.ui.unified.MenuItemBase}
    *
    * Abstract base class for menu item which provides common properties and events for all concrete item implementations.
@@ -13532,8 +16363,8 @@ declare module "sap/ui/commons/MenuTextFieldItem" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.MenuTextFieldItem#constructor
-     * sap.ui.unified.MenuTextFieldItem} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.MenuTextFieldItem#constructor sap.ui.unified.MenuTextFieldItem }
+     * can be used.
      */
     constructor(
       /**
@@ -13548,8 +16379,8 @@ declare module "sap/ui/commons/MenuTextFieldItem" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.MenuTextFieldItem#constructor
-     * sap.ui.unified.MenuTextFieldItem} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.unified.MenuTextFieldItem#constructor sap.ui.unified.MenuTextFieldItem }
+     * can be used.
      */
     constructor(
       /**
@@ -13567,6 +16398,8 @@ declare module "sap/ui/commons/MenuTextFieldItem" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.unified.MenuTextFieldItem.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -13585,6 +16418,8 @@ declare module "sap/ui/commons/MenuTextFieldItem" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.MenuTextFieldItem.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -13645,6 +16480,8 @@ declare module "sap/ui/commons/Message" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -13663,6 +16500,8 @@ declare module "sap/ui/commons/Message" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.Message.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
@@ -13683,24 +16522,32 @@ declare module "sap/ui/commons/Message" {
      * Gets current value of property {@link #getAssociatedElementId associatedElementId}.
      *
      * Associated UI element ID. (Optional) For navigation to error field.
+     *
+     * @returns Value of property `associatedElementId`
      */
     getAssociatedElementId(): string;
     /**
      * Gets current value of property {@link #getDesign design}.
      *
      * Internal attribute, used to force the display of the "short" or the "long" text only.
+     *
+     * @returns Value of property `design`
      */
     getDesign(): string;
     /**
      * Gets current value of property {@link #getText text}.
      *
      * Message short text. (Mandatory)
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
      * Gets current value of property {@link #getType type}.
      *
      * "Success", or "Warning", or "Error" messages. (Mandatory)
+     *
+     * @returns Value of property `type`
      */
     getType(): MessageType | keyof typeof MessageType;
     /**
@@ -13709,6 +16556,8 @@ declare module "sap/ui/commons/Message" {
      * Associated UI element ID. (Optional) For navigation to error field.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAssociatedElementId(
       /**
@@ -13722,6 +16571,8 @@ declare module "sap/ui/commons/Message" {
      * Internal attribute, used to force the display of the "short" or the "long" text only.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDesign(
       /**
@@ -13735,6 +16586,8 @@ declare module "sap/ui/commons/Message" {
      * Message short text. (Mandatory)
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -13748,6 +16601,8 @@ declare module "sap/ui/commons/Message" {
      * "Success", or "Warning", or "Error" messages. (Mandatory)
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setType(
       /**
@@ -13761,7 +16616,10 @@ declare module "sap/ui/commons/Message" {
     /**
      * "Success", or "Warning", or "Error" messages. (Mandatory)
      */
-    type?: (MessageType | keyof typeof MessageType) | PropertyBindingInfo;
+    type?:
+      | (MessageType | keyof typeof MessageType)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Message short text. (Mandatory)
@@ -13831,6 +16689,8 @@ declare module "sap/ui/commons/MessageBar" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -13849,6 +16709,8 @@ declare module "sap/ui/commons/MessageBar" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.MessageBar.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
@@ -13862,6 +16724,8 @@ declare module "sap/ui/commons/MessageBar" {
     ): void;
     /**
      * Deletes all messages.
+     *
+     * @returns `this` to allow method chaining
      */
     deleteAllMessages(): this;
     /**
@@ -13879,6 +16743,8 @@ declare module "sap/ui/commons/MessageBar" {
      * Element ID upon which the MessageBar will be initially positioned.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `anchorID`
      */
     getAnchorID(): string;
     /**
@@ -13890,6 +16756,8 @@ declare module "sap/ui/commons/MessageBar" {
      * come in.
      *
      * Default value is `"begin top"`.
+     *
+     * @returns Value of property `anchorSnapPoint`
      */
     getAnchorSnapPoint(): string;
     /**
@@ -13899,6 +16767,8 @@ declare module "sap/ui/commons/MessageBar" {
      * limit.
      *
      * Default value is `7`.
+     *
+     * @returns Value of property `maxListed`
      */
     getMaxListed(): int;
     /**
@@ -13908,6 +16778,8 @@ declare module "sap/ui/commons/MessageBar" {
      * switched off.
      *
      * Default value is `3`.
+     *
+     * @returns Value of property `maxToasted`
      */
     getMaxToasted(): int;
     /**
@@ -13916,6 +16788,8 @@ declare module "sap/ui/commons/MessageBar" {
      * Specifies whether or not the MessageBar is visible. Invisible controls are not rendered.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `visible`
      */
     getVisible(): boolean;
     /**
@@ -13926,6 +16800,8 @@ declare module "sap/ui/commons/MessageBar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAnchorID(
       /**
@@ -13944,6 +16820,8 @@ declare module "sap/ui/commons/MessageBar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `"begin top"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAnchorSnapPoint(
       /**
@@ -13960,6 +16838,8 @@ declare module "sap/ui/commons/MessageBar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `7`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMaxListed(
       /**
@@ -13976,6 +16856,8 @@ declare module "sap/ui/commons/MessageBar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `3`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMaxToasted(
       /**
@@ -13990,6 +16872,8 @@ declare module "sap/ui/commons/MessageBar" {
      *
      * The default implementation of function `setVisible()` is enhanced in order to toggle the `visibility:hidden;`
      * attribute over the control.
+     *
+     * @returns `this` to allow method chaining
      */
     setVisible(
       /**
@@ -14008,19 +16892,19 @@ declare module "sap/ui/commons/MessageBar" {
     /**
      * Specifies whether or not the MessageBar is visible. Invisible controls are not rendered.
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Maximum number of simultaneous messages being toasted in a row. Value '0' means this dynamic part is
      * switched off.
      */
-    maxToasted?: int | PropertyBindingInfo;
+    maxToasted?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Maximum number of messages being displayed in the List before a scrollbar appears. Value '0' means no
      * limit.
      */
-    maxListed?: int | PropertyBindingInfo;
+    maxListed?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Type: sap.ui.core.Popup.Dock SnapPoint of MessageBar over anchorId. Note: Use "begin" or "end" for RTL
@@ -14036,7 +16920,7 @@ declare module "sap/ui/commons/MessageBox" {
   import Control from "sap/ui/core/Control";
 
   /**
-   * @SINCE 0.8.8
+   * @since 0.8.8
    * @deprecated (since 1.38) - Instead, use the `sap.m.MessageBox` control.
    *
    * Provides methods to create standard alerts, confirmation dialogs, or arbitrary message boxes.
@@ -14056,6 +16940,23 @@ declare module "sap/ui/commons/MessageBox" {
    * ```
    */
   interface MessageBox {
+    /**
+     * @deprecated (since 1.38)
+     *
+     * Enumeration of supported actions in a MessageBox.
+     *
+     * Each action is represented as a button in the message box. The values of this enumeration are used for
+     * both, specifying the set of allowed actions as well as reporting back the user choice.
+     */
+    Action: typeof Action;
+
+    /**
+     * @deprecated (since 1.38)
+     *
+     * Enumeration of the pre-defined icons that can be used in a MessageBox.
+     */
+    Icon: typeof Icon;
+
     /**
      * Displays an alert box with the given message and an OK button (no icons). If a callback is given, it
      * is called after the alert box has been closed by the user via the OK button or via the Close icon. The
@@ -14191,7 +17092,7 @@ declare module "sap/ui/commons/MessageBox" {
    * Each action is represented as a button in the message box. The values of this enumeration are used for
    * both, specifying the set of allowed actions as well as reporting back the user choice.
    */
-  export enum Action {
+  enum Action {
     /**
      * Adds an "Abort" button to the message box.
      */
@@ -14230,7 +17131,7 @@ declare module "sap/ui/commons/MessageBox" {
    *
    * Enumeration of the pre-defined icons that can be used in a MessageBox.
    */
-  export enum Icon {
+  enum Icon {
     /**
      * @deprecated (since 1.9.1) - The error icon is used instead
      *
@@ -14316,6 +17217,8 @@ declare module "sap/ui/commons/MessageList" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -14334,12 +17237,16 @@ declare module "sap/ui/commons/MessageList" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.MessageList.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getAnchorId anchorId}.
      *
      * ID of the anchor under which the MessageList will render.
+     *
+     * @returns Value of property `anchorId`
      */
     getAnchorId(): string;
     /**
@@ -14348,6 +17255,8 @@ declare module "sap/ui/commons/MessageList" {
      * Maximum number of messages being display in the List before a scrollbar appears. Value '0' means no limit.
      *
      * Default value is `'7'`.
+     *
+     * @returns Value of property `maxListed`
      */
     getMaxListed(): string;
     /**
@@ -14356,6 +17265,8 @@ declare module "sap/ui/commons/MessageList" {
      * Specifies whether or not the MessageList is visible. Invisible controls are not rendered.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `visible`
      */
     getVisible(): boolean;
     /**
@@ -14364,6 +17275,8 @@ declare module "sap/ui/commons/MessageList" {
      * ID of the anchor under which the MessageList will render.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAnchorId(
       /**
@@ -14379,6 +17292,8 @@ declare module "sap/ui/commons/MessageList" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'7'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMaxListed(
       /**
@@ -14402,6 +17317,8 @@ declare module "sap/ui/commons/MessageList" {
      *
      * The default implementation of function "setVisible()" is overwritten in order to invoke the open() and
      * close() of the MessageList Popup.
+     *
+     * @returns `this` to allow method chaining
      */
     setVisible(
       /**
@@ -14415,7 +17332,7 @@ declare module "sap/ui/commons/MessageList" {
     /**
      * Specifies whether or not the MessageList is visible. Invisible controls are not rendered.
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * ID of the anchor under which the MessageList will render.
@@ -14482,6 +17399,8 @@ declare module "sap/ui/commons/MessageToast" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -14500,6 +17419,8 @@ declare module "sap/ui/commons/MessageToast" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.MessageToast.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
@@ -14509,6 +17430,8 @@ declare module "sap/ui/commons/MessageToast" {
      * otherwise it will be bound to this `sap.ui.commons.MessageToast` itself.
      *
      * Fired once the `toast()` method is over, so that the MessageBar can "toast" another message if needed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachNext(
       /**
@@ -14532,6 +17455,8 @@ declare module "sap/ui/commons/MessageToast" {
      * otherwise it will be bound to this `sap.ui.commons.MessageToast` itself.
      *
      * Fired once the `toast()` method is over, so that the MessageBar can "toast" another message if needed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachNext(
       /**
@@ -14547,6 +17472,8 @@ declare module "sap/ui/commons/MessageToast" {
      * Detaches event handler `fnFunction` from the {@link #event:next next} event of this `sap.ui.commons.MessageToast`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachNext(
       /**
@@ -14559,7 +17486,11 @@ declare module "sap/ui/commons/MessageToast" {
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:next next} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireNext(
       /**
@@ -14571,6 +17502,8 @@ declare module "sap/ui/commons/MessageToast" {
      * Gets current value of property {@link #getAnchorId anchorId}.
      *
      * ID of the anchor on top of which the MessageToast is to render.
+     *
+     * @returns Value of property `anchorId`
      */
     getAnchorId(): string;
     /**
@@ -14583,6 +17516,8 @@ declare module "sap/ui/commons/MessageToast" {
      * ID of the anchor on top of which the MessageToast is to render.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAnchorId(
       /**
@@ -14619,18 +17554,25 @@ declare module "sap/ui/commons/MessageToast" {
      */
     next?: (oEvent: Event) => void;
   }
+
+  export interface MessageToast$NextEventParameters {}
+
+  export type MessageToast$NextEvent = Event<
+    MessageToast$NextEventParameters,
+    MessageToast
+  >;
 }
 
 declare module "sap/ui/commons/Paginator" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
-  import Event from "sap/ui/base/Event";
-
-  import { PaginatorEvent } from "sap/ui/commons/library";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import { PaginatorEvent } from "sap/ui/commons/library";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38)
@@ -14674,6 +17616,8 @@ declare module "sap/ui/commons/Paginator" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -14692,6 +17636,8 @@ declare module "sap/ui/commons/Paginator" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.Paginator.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
@@ -14701,6 +17647,8 @@ declare module "sap/ui/commons/Paginator" {
      * otherwise it will be bound to this `sap.ui.commons.Paginator` itself.
      *
      * Event is fired when the user navigates to another page by selecting it directly, or by jumping forward/backward.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachPage(
       /**
@@ -14711,7 +17659,7 @@ declare module "sap/ui/commons/Paginator" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Paginator$PageEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Paginator` itself
        */
@@ -14724,12 +17672,14 @@ declare module "sap/ui/commons/Paginator" {
      * otherwise it will be bound to this `sap.ui.commons.Paginator` itself.
      *
      * Event is fired when the user navigates to another page by selecting it directly, or by jumping forward/backward.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachPage(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Paginator$PageEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Paginator` itself
        */
@@ -14739,42 +17689,31 @@ declare module "sap/ui/commons/Paginator" {
      * Detaches event handler `fnFunction` from the {@link #event:page page} event of this `sap.ui.commons.Paginator`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachPage(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Paginator$PageEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:page page} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     firePage(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The page which is the current one before the page event is fired (and another page is displayed)
-         */
-        srcPage?: int;
-        /**
-         * The page that shall be displayed next after the page event is fired.
-         *
-         * The page number is 1-based: the first page has index 1, not 0, to match the number visible in the UI.
-         */
-        targetPage?: int;
-        /**
-         * Provides the values 'First', 'Last', 'Next', 'Previous', 'Goto'. The event parameter informs the application
-         * how the user navigated to the new page: Whether the 'Next' button was used, or another button, or whether
-         * the page was directly selected
-         */
-        type?: PaginatorEvent | keyof typeof PaginatorEvent;
-      }
+      mParameters?: Paginator$PageEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getCurrentPage currentPage}.
@@ -14782,12 +17721,16 @@ declare module "sap/ui/commons/Paginator" {
      * Represents the current page (first page has index 1, not 0, to match the visual number)
      *
      * Default value is `1`.
+     *
+     * @returns Value of property `currentPage`
      */
     getCurrentPage(): int;
     /**
      * Gets current value of property {@link #getNumberOfPages numberOfPages}.
      *
      * Represents the overall number of pages that are embedded into the parent control
+     *
+     * @returns Value of property `numberOfPages`
      */
     getNumberOfPages(): int;
     /**
@@ -14798,6 +17741,8 @@ declare module "sap/ui/commons/Paginator" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `1`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setCurrentPage(
       /**
@@ -14811,6 +17756,8 @@ declare module "sap/ui/commons/Paginator" {
      * Represents the overall number of pages that are embedded into the parent control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setNumberOfPages(
       /**
@@ -14824,18 +17771,44 @@ declare module "sap/ui/commons/Paginator" {
     /**
      * Represents the current page (first page has index 1, not 0, to match the visual number)
      */
-    currentPage?: int | PropertyBindingInfo;
+    currentPage?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Represents the overall number of pages that are embedded into the parent control
      */
-    numberOfPages?: int | PropertyBindingInfo;
+    numberOfPages?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Event is fired when the user navigates to another page by selecting it directly, or by jumping forward/backward.
      */
-    page?: (oEvent: Event) => void;
+    page?: (oEvent: Paginator$PageEvent) => void;
   }
+
+  export interface Paginator$PageEventParameters {
+    /**
+     * The page which is the current one before the page event is fired (and another page is displayed)
+     */
+    srcPage?: int;
+
+    /**
+     * The page that shall be displayed next after the page event is fired.
+     *
+     * The page number is 1-based: the first page has index 1, not 0, to match the number visible in the UI.
+     */
+    targetPage?: int;
+
+    /**
+     * Provides the values 'First', 'Last', 'Next', 'Previous', 'Goto'. The event parameter informs the application
+     * how the user navigated to the new page: Whether the 'Next' button was used, or another button, or whether
+     * the page was directly selected
+     */
+    type?: PaginatorEvent | keyof typeof PaginatorEvent;
+  }
+
+  export type Paginator$PageEvent = Event<
+    Paginator$PageEventParameters,
+    Paginator
+  >;
 }
 
 declare module "sap/ui/commons/Panel" {
@@ -14899,6 +17872,8 @@ declare module "sap/ui/commons/Panel" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -14917,10 +17892,14 @@ declare module "sap/ui/commons/Panel" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.Panel.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some button to the aggregation {@link #getButtons buttons}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addButton(
       /**
@@ -14930,6 +17909,8 @@ declare module "sap/ui/commons/Panel" {
     ): this;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addContent(
       /**
@@ -14939,14 +17920,20 @@ declare module "sap/ui/commons/Panel" {
     ): this;
     /**
      * Destroys all the buttons in the aggregation {@link #getButtons buttons}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyButtons(): this;
     /**
      * Destroys all the content in the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyContent(): this;
     /**
      * Destroys the title in the aggregation {@link #getTitle title}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyTitle(): this;
     /**
@@ -14955,6 +17942,8 @@ declare module "sap/ui/commons/Panel" {
      * Determines whether the Panel will have padding. Padding is theme-dependent.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `applyContentPadding`
      */
     getApplyContentPadding(): boolean;
     /**
@@ -14963,6 +17952,8 @@ declare module "sap/ui/commons/Panel" {
      * Determines the background color. Note that color settings are theme-dependent.
      *
      * Default value is `Fill`.
+     *
+     * @returns Value of property `areaDesign`
      */
     getAreaDesign(): enums.AreaDesign | keyof typeof enums.AreaDesign;
     /**
@@ -14971,6 +17962,8 @@ declare module "sap/ui/commons/Panel" {
      * Determines if the Panel can have a box as border. Note that displaying borders is theme-dependent.
      *
      * Default value is `Box`.
+     *
+     * @returns Value of property `borderDesign`
      */
     getBorderDesign(): enums.BorderDesign | keyof typeof enums.BorderDesign;
     /**
@@ -14986,6 +17979,8 @@ declare module "sap/ui/commons/Panel" {
      * are not rendered. A collapsed Panel consumes less space than an expanded one.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `collapsed`
      */
     getCollapsed(): boolean;
     /**
@@ -15002,10 +17997,16 @@ declare module "sap/ui/commons/Panel" {
      * Represents the state of the of the Panel (enabled or disabled)
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
      */
     getEnabled(): boolean;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Returns an object representing the serialized focus information.
+     *
+     * @returns an object representing the serialized focus information
      */
     getFocusInfo(): object;
     /**
@@ -15013,16 +18014,22 @@ declare module "sap/ui/commons/Panel" {
      *
      * Determines the height of the Panel in CSS size. Per default, the height for the Panel is automatically
      * adjusted to the content. Dimension allows to explicitly specify the height.
+     *
+     * @returns Value of property `height`
      */
     getHeight(): CSSSize;
     /**
      * Returns the scroll position of the panel in pixels from the left. Returns 0 if not rendered yet. Also
      * internally updates the control property.
+     *
+     * @returns The scroll position.
      */
     getScrollLeft(): int;
     /**
      * Returns the scroll position of the panel in pixels from the top. Returns 0 if not rendered yet. Also
      * internally updates the control property.
+     *
+     * @returns The scroll position.
      */
     getScrollTop(): int;
     /**
@@ -15031,11 +18038,15 @@ declare module "sap/ui/commons/Panel" {
      * Determines whether the Panel will have an icon for collapsing/expanding, or not.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `showCollapseIcon`
      */
     getShowCollapseIcon(): boolean;
     /**
      * Returns the text that is rendered in the Panel header. If a Title control was used it returns the text
      * of the Title control.
+     *
+     * @returns The text in the Panel header.
      */
     getText(): string;
     /**
@@ -15051,11 +18062,15 @@ declare module "sap/ui/commons/Panel" {
      * Determines the width of the Panel in CSS size.
      *
      * Default value is `'100%'`.
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Checks for the provided `sap.ui.commons.Button` in the aggregation {@link #getButtons buttons}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfButton(
       /**
@@ -15066,6 +18081,8 @@ declare module "sap/ui/commons/Panel" {
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfContent(
       /**
@@ -15075,6 +18092,8 @@ declare module "sap/ui/commons/Panel" {
     ): int;
     /**
      * Inserts a button into the aggregation {@link #getButtons buttons}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertButton(
       /**
@@ -15090,6 +18109,8 @@ declare module "sap/ui/commons/Panel" {
     ): this;
     /**
      * Inserts a content into the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertContent(
       /**
@@ -15107,34 +18128,44 @@ declare module "sap/ui/commons/Panel" {
      * Removes all the controls from the aggregation {@link #getButtons buttons}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllButtons(): Button[];
     /**
      * Removes all the controls from the aggregation {@link #getContent content}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllContent(): Control[];
     /**
      * Removes a button from the aggregation {@link #getButtons buttons}.
+     *
+     * @returns The removed button or `null`
      */
     removeButton(
       /**
        * The button to remove or its index or id
        */
       vButton: int | string | Button
-    ): Button;
+    ): Button | null;
     /**
      * Removes a content from the aggregation {@link #getContent content}.
+     *
+     * @returns The removed content or `null`
      */
     removeContent(
       /**
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Property setter for the padding
+     *
+     * @returns `this` to allow method chaining.
      */
     setApplyContentPadding(
       /**
@@ -15150,6 +18181,8 @@ declare module "sap/ui/commons/Panel" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Fill`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAreaDesign(
       /**
@@ -15165,6 +18198,8 @@ declare module "sap/ui/commons/Panel" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Box`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setBorderDesign(
       /**
@@ -15174,6 +18209,8 @@ declare module "sap/ui/commons/Panel" {
     ): this;
     /**
      * Property setter for the "collapsed" state
+     *
+     * @returns `this` to allow method chaining.
      */
     setCollapsed(
       /**
@@ -15183,6 +18220,8 @@ declare module "sap/ui/commons/Panel" {
     ): this;
     /**
      * Sets the dimensions of the panel.
+     *
+     * @returns `this` to allow method chaining.
      */
     setDimensions(
       /**
@@ -15196,6 +18235,8 @@ declare module "sap/ui/commons/Panel" {
     ): this;
     /**
      * Property setter for the "enabled" state
+     *
+     * @returns `this` to allow method chaining.
      */
     setEnabled(
       /**
@@ -15205,6 +18246,8 @@ declare module "sap/ui/commons/Panel" {
     ): this;
     /**
      * Sets the height of the panel.
+     *
+     * @returns `this` to allow method chaining.
      */
     setHeight(
       /**
@@ -15214,6 +18257,8 @@ declare module "sap/ui/commons/Panel" {
     ): this;
     /**
      * Sets the scroll position of the panel in pixels from the left.
+     *
+     * @returns `this` to allow method chaining.
      */
     setScrollLeft(
       /**
@@ -15223,6 +18268,8 @@ declare module "sap/ui/commons/Panel" {
     ): this;
     /**
      * Sets the scrolls position of the panel in pixels from the top.
+     *
+     * @returns `this` to allow method chaining.
      */
     setScrollTop(
       /**
@@ -15238,6 +18285,8 @@ declare module "sap/ui/commons/Panel" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowCollapseIcon(
       /**
@@ -15247,6 +18296,8 @@ declare module "sap/ui/commons/Panel" {
     ): this;
     /**
      * Sets the text that will be rendered in the Panel header.
+     *
+     * @returns `this` to allow method chaining.
      */
     setText(
       /**
@@ -15256,6 +18307,8 @@ declare module "sap/ui/commons/Panel" {
     ): this;
     /**
      * Sets a Tille control that will be rendered in the Panel header.
+     *
+     * @returns `this` to allow method chaining.
      */
     setTitle(
       /**
@@ -15265,6 +18318,8 @@ declare module "sap/ui/commons/Panel" {
     ): this;
     /**
      * Sets the width of the panel.
+     *
+     * @returns `this` to allow method chaining.
      */
     setWidth(
       /**
@@ -15278,58 +18333,60 @@ declare module "sap/ui/commons/Panel" {
     /**
      * Determines the width of the Panel in CSS size.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the height of the Panel in CSS size. Per default, the height for the Panel is automatically
      * adjusted to the content. Dimension allows to explicitly specify the height.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Represents the state of the of the Panel (enabled or disabled)
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the scroll position from left to right. Value "0" means leftmost position.
      */
-    scrollLeft?: int | PropertyBindingInfo;
+    scrollLeft?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the scroll position from top to bottom. Value "0" means topmost position.
      */
-    scrollTop?: int | PropertyBindingInfo;
+    scrollTop?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines whether the Panel will have padding. Padding is theme-dependent.
      */
-    applyContentPadding?: boolean | PropertyBindingInfo;
+    applyContentPadding?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines whether the Panel will be initially collapsed. When it is initially collapsed, the contents
      * are not rendered. A collapsed Panel consumes less space than an expanded one.
      */
-    collapsed?: boolean | PropertyBindingInfo;
+    collapsed?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the background color. Note that color settings are theme-dependent.
      */
     areaDesign?:
       | (enums.AreaDesign | keyof typeof enums.AreaDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Determines if the Panel can have a box as border. Note that displaying borders is theme-dependent.
      */
     borderDesign?:
       | (enums.BorderDesign | keyof typeof enums.BorderDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Determines whether the Panel will have an icon for collapsing/expanding, or not.
      */
-    showCollapseIcon?: boolean | PropertyBindingInfo;
+    showCollapseIcon?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Specifies the text that is rendered in the Panel header. Can be used to create a simple titles that do
@@ -15342,7 +18399,7 @@ declare module "sap/ui/commons/Panel" {
      * single direct child. When the Panel dimensions are set, the child control may have width and height of
      * 100%. When the dimensions are not set, the child defines the size of the Panel.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Aggregates the title element of the Panel. For text titles only, you alternatively could use setText()
@@ -15353,7 +18410,7 @@ declare module "sap/ui/commons/Panel" {
     /**
      * The buttons that shall be displayed in the Panel header
      */
-    buttons?: Button[] | Button | AggregationBindingInfo;
+    buttons?: Button[] | Button | AggregationBindingInfo | `{${string}}`;
   }
 }
 
@@ -15378,8 +18435,8 @@ declare module "sap/ui/commons/PasswordField" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.commons.TextField#constructor
-     * sap.ui.commons.TextField} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.commons.TextField#constructor sap.ui.commons.TextField }
+     * can be used.
      */
     constructor(
       /**
@@ -15394,8 +18451,8 @@ declare module "sap/ui/commons/PasswordField" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.commons.TextField#constructor
-     * sap.ui.commons.TextField} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.commons.TextField#constructor sap.ui.commons.TextField }
+     * can be used.
      */
     constructor(
       /**
@@ -15413,6 +18470,8 @@ declare module "sap/ui/commons/PasswordField" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.commons.TextField.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -15431,6 +18490,8 @@ declare module "sap/ui/commons/PasswordField" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.PasswordField.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -15491,6 +18552,8 @@ declare module "sap/ui/commons/ProgressIndicator" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -15509,11 +18572,17 @@ declare module "sap/ui/commons/ProgressIndicator" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.ProgressIndicator.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
+     *
+     * @returns The accessibility info
      */
     getAccessibilityInfo(): object;
     /**
@@ -15524,6 +18593,8 @@ declare module "sap/ui/commons/ProgressIndicator" {
      * value).
      *
      * Default value is `NEUTRAL`.
+     *
+     * @returns Value of property `barColor`
      */
     getBarColor(): BarColor | keyof typeof BarColor;
     /**
@@ -15532,6 +18603,8 @@ declare module "sap/ui/commons/ProgressIndicator" {
      * Determines the text value that will be displayed in the bar.
      *
      * Default value is `'0%'`.
+     *
+     * @returns Value of property `displayValue`
      */
     getDisplayValue(): string;
     /**
@@ -15541,6 +18614,8 @@ declare module "sap/ui/commons/ProgressIndicator" {
      * be focused.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
      */
     getEnabled(): boolean;
     /**
@@ -15549,6 +18624,8 @@ declare module "sap/ui/commons/ProgressIndicator" {
      * Determines the numerical value for the displayed length of the progress bar.
      *
      * Default value is `0`.
+     *
+     * @returns Value of property `percentValue`
      */
     getPercentValue(): int;
     /**
@@ -15557,6 +18634,8 @@ declare module "sap/ui/commons/ProgressIndicator" {
      * Determines whether the percent value shall be rendered inside the bar.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `showValue`
      */
     getShowValue(): boolean;
     /**
@@ -15565,6 +18644,8 @@ declare module "sap/ui/commons/ProgressIndicator" {
      * Determines the width of the control.
      *
      * Default value is `'100%'`.
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
@@ -15577,6 +18658,8 @@ declare module "sap/ui/commons/ProgressIndicator" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `NEUTRAL`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setBarColor(
       /**
@@ -15592,6 +18675,8 @@ declare module "sap/ui/commons/ProgressIndicator" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'0%'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDisplayValue(
       /**
@@ -15608,6 +18693,8 @@ declare module "sap/ui/commons/ProgressIndicator" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEnabled(
       /**
@@ -15618,6 +18705,8 @@ declare module "sap/ui/commons/ProgressIndicator" {
     /**
      * Sets the new percent value which the ProgressIndicator should display. A new rendering is not necessary,
      * only the bar has to be moved.
+     *
+     * @returns `this` to allow method chaining.
      */
     setPercentValue(
       /**
@@ -15633,6 +18722,8 @@ declare module "sap/ui/commons/ProgressIndicator" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowValue(
       /**
@@ -15648,6 +18739,8 @@ declare module "sap/ui/commons/ProgressIndicator" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'100%'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
@@ -15662,14 +18755,17 @@ declare module "sap/ui/commons/ProgressIndicator" {
      * Determines whether the control is enabled or not. Disabled controls have different colors, and can not
      * be focused.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the color of the bar which visualizes the progress. Possible values defined in the sap.ui.core.BarColor
      * enumeration are the following: CRITICAL (yellow), NEGATIVE (red), POSITIVE (green), NEUTRAL (blue) (default
      * value).
      */
-    barColor?: (BarColor | keyof typeof BarColor) | PropertyBindingInfo;
+    barColor?:
+      | (BarColor | keyof typeof BarColor)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Determines the text value that will be displayed in the bar.
@@ -15679,17 +18775,17 @@ declare module "sap/ui/commons/ProgressIndicator" {
     /**
      * Determines the numerical value for the displayed length of the progress bar.
      */
-    percentValue?: int | PropertyBindingInfo;
+    percentValue?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines whether the percent value shall be rendered inside the bar.
      */
-    showValue?: boolean | PropertyBindingInfo;
+    showValue?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the width of the control.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
   }
 }
 
@@ -15758,6 +18854,8 @@ declare module "sap/ui/commons/RadioButton" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -15776,10 +18874,14 @@ declare module "sap/ui/commons/RadioButton" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.RadioButton.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaDescribedBy(
       /**
@@ -15789,6 +18891,8 @@ declare module "sap/ui/commons/RadioButton" {
     ): this;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -15803,6 +18907,8 @@ declare module "sap/ui/commons/RadioButton" {
      * otherwise it will be bound to this `sap.ui.commons.RadioButton` itself.
      *
      * Triggers when the user makes a change on the RadioButton.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelect(
       /**
@@ -15826,6 +18932,8 @@ declare module "sap/ui/commons/RadioButton" {
      * otherwise it will be bound to this `sap.ui.commons.RadioButton` itself.
      *
      * Triggers when the user makes a change on the RadioButton.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelect(
       /**
@@ -15841,6 +18949,8 @@ declare module "sap/ui/commons/RadioButton" {
      * Detaches event handler `fnFunction` from the {@link #event:select select} event of this `sap.ui.commons.RadioButton`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSelect(
       /**
@@ -15853,7 +18963,11 @@ declare module "sap/ui/commons/RadioButton" {
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:select select} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireSelect(
       /**
@@ -15862,13 +18976,11 @@ declare module "sap/ui/commons/RadioButton" {
       mParameters?: object
     ): this;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
-     * ariaDescribedBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     getAriaDescribedBy(): ID[];
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -15877,6 +18989,8 @@ declare module "sap/ui/commons/RadioButton" {
      * Specifies whether the user can select the RadioButton.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `editable`
      */
     getEditable(): boolean;
     /**
@@ -15885,6 +18999,8 @@ declare module "sap/ui/commons/RadioButton" {
      * Displays the disabled controls in another color, depending on the customer settings.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
      */
     getEnabled(): boolean;
     /**
@@ -15895,12 +19011,16 @@ declare module "sap/ui/commons/RadioButton" {
      * when one of the RadioButtons in a group is selected, all others are unselected.
      *
      * Default value is `'sapUiRbDefaultGroup'`.
+     *
+     * @returns Value of property `groupName`
      */
     getGroupName(): string;
     /**
      * Gets current value of property {@link #getKey key}.
      *
      * Can be used for subsequent actions.
+     *
+     * @returns Value of property `key`
      */
     getKey(): string;
     /**
@@ -15909,12 +19029,16 @@ declare module "sap/ui/commons/RadioButton" {
      * Specifies the select state of the RadioButton.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `selected`
      */
     getSelected(): boolean;
     /**
      * Gets current value of property {@link #getText text}.
      *
      * Defines the text displayed next to the RadioButton.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
@@ -15924,6 +19048,8 @@ declare module "sap/ui/commons/RadioButton" {
      * the control can inherit the text direction from its parent container.
      *
      * Default value is `Inherit`.
+     *
+     * @returns Value of property `textDirection`
      */
     getTextDirection(): TextDirection | keyof typeof TextDirection;
     /**
@@ -15932,6 +19058,8 @@ declare module "sap/ui/commons/RadioButton" {
      * Enumeration sap.ui.core.ValueState provides state values Error, Success, Warning and None.
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `valueState`
      */
     getValueState(): ValueState | keyof typeof ValueState;
     /**
@@ -15939,34 +19067,44 @@ declare module "sap/ui/commons/RadioButton" {
      *
      * Determines the control width. By default, it depends on the text length. Alternatively, CSS sizes in
      * % or px can be set.
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Removes all the controls in the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaDescribedBy(): ID[];
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes an ariaDescribedBy from the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns The removed ariaDescribedBy or `null`
      */
     removeAriaDescribedBy(
       /**
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getEditable editable}.
      *
@@ -15975,6 +19113,8 @@ declare module "sap/ui/commons/RadioButton" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEditable(
       /**
@@ -15990,6 +19130,8 @@ declare module "sap/ui/commons/RadioButton" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEnabled(
       /**
@@ -16007,6 +19149,8 @@ declare module "sap/ui/commons/RadioButton" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'sapUiRbDefaultGroup'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setGroupName(
       /**
@@ -16020,6 +19164,8 @@ declare module "sap/ui/commons/RadioButton" {
      * Can be used for subsequent actions.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setKey(
       /**
@@ -16035,6 +19181,8 @@ declare module "sap/ui/commons/RadioButton" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSelected(
       /**
@@ -16048,6 +19196,8 @@ declare module "sap/ui/commons/RadioButton" {
      * Defines the text displayed next to the RadioButton.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -16064,6 +19214,8 @@ declare module "sap/ui/commons/RadioButton" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Inherit`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTextDirection(
       /**
@@ -16079,6 +19231,8 @@ declare module "sap/ui/commons/RadioButton" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueState(
       /**
@@ -16093,6 +19247,8 @@ declare module "sap/ui/commons/RadioButton" {
      * % or px can be set.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
@@ -16111,28 +19267,31 @@ declare module "sap/ui/commons/RadioButton" {
     /**
      * Displays the disabled controls in another color, depending on the customer settings.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Specifies whether the user can select the RadioButton.
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Specifies the select state of the RadioButton.
      */
-    selected?: boolean | PropertyBindingInfo;
+    selected?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Enumeration sap.ui.core.ValueState provides state values Error, Success, Warning and None.
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?:
+      | (ValueState | keyof typeof ValueState)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Determines the control width. By default, it depends on the text length. Alternatively, CSS sizes in
      * % or px can be set.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the text direction - options are left-to-right (LTR) and right-to-left (RTL). Alternatively,
@@ -16140,7 +19299,8 @@ declare module "sap/ui/commons/RadioButton" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the name of the RadioButtonGroup, in which the current RadioButton belongs to. You can define
@@ -16169,6 +19329,13 @@ declare module "sap/ui/commons/RadioButton" {
      */
     select?: (oEvent: Event) => void;
   }
+
+  export interface RadioButton$SelectEventParameters {}
+
+  export type RadioButton$SelectEvent = Event<
+    RadioButton$SelectEventParameters,
+    RadioButton
+  >;
 }
 
 declare module "sap/ui/commons/RadioButtonGroup" {
@@ -16178,14 +19345,14 @@ declare module "sap/ui/commons/RadioButtonGroup" {
 
   import Item from "sap/ui/core/Item";
 
-  import Event from "sap/ui/base/Event";
-
   import {
     AggregationBindingInfo,
     PropertyBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - Instead, use the `sap.m.RadioButtonGroup` control.
@@ -16235,6 +19402,8 @@ declare module "sap/ui/commons/RadioButtonGroup" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -16253,10 +19422,14 @@ declare module "sap/ui/commons/RadioButtonGroup" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.RadioButtonGroup.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaDescribedBy(
       /**
@@ -16266,6 +19439,8 @@ declare module "sap/ui/commons/RadioButtonGroup" {
     ): this;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -16275,6 +19450,8 @@ declare module "sap/ui/commons/RadioButtonGroup" {
     ): this;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addItem(
       /**
@@ -16289,6 +19466,8 @@ declare module "sap/ui/commons/RadioButtonGroup" {
      * otherwise it will be bound to this `sap.ui.commons.RadioButtonGroup` itself.
      *
      * Fires when selection is changed by user interaction.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelect(
       /**
@@ -16299,7 +19478,7 @@ declare module "sap/ui/commons/RadioButtonGroup" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RadioButtonGroup$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RadioButtonGroup` itself
        */
@@ -16312,12 +19491,14 @@ declare module "sap/ui/commons/RadioButtonGroup" {
      * otherwise it will be bound to this `sap.ui.commons.RadioButtonGroup` itself.
      *
      * Fires when selection is changed by user interaction.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelect(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RadioButtonGroup$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RadioButtonGroup` itself
        */
@@ -16328,6 +19509,8 @@ declare module "sap/ui/commons/RadioButtonGroup" {
      *
      * See {@link sap.ui.base.ManagedObject#bindAggregation ManagedObject.bindAggregation} for a detailed description
      * of the possible properties of `oBindingInfo`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     bindItems(
       /**
@@ -16338,49 +19521,52 @@ declare module "sap/ui/commons/RadioButtonGroup" {
     /**
      * Creates a new instance of RadioButtonGroup, with the same settings as the RadioButtonGroup on which the
      * method is called. Event handlers are not cloned.
+     *
+     * @returns New instance of RadioButtonGroup
      */
     clone(): this;
     /**
      * Destroys all the items in the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyItems(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:select select} event of this `sap.ui.commons.RadioButtonGroup`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSelect(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RadioButtonGroup$SelectEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:select select} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireSelect(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Index of the selected RadioButton.
-         */
-        selectedIndex?: int;
-      }
+      mParameters?: RadioButtonGroup$SelectEventParameters
     ): this;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
-     * ariaDescribedBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     getAriaDescribedBy(): ID[];
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -16389,6 +19575,8 @@ declare module "sap/ui/commons/RadioButtonGroup" {
      * Determines the maximum number of RadioButtons displayed in one line.
      *
      * Default value is `1`.
+     *
+     * @returns Value of property `columns`
      */
     getColumns(): int;
     /**
@@ -16399,10 +19587,12 @@ declare module "sap/ui/commons/RadioButtonGroup" {
      * disabled state. Additionally the control is no longer interactive, but can receive focus.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `editable`
      */
     getEditable(): boolean;
     /**
-     * @SINCE 1.10.3
+     * @since 1.10.3
      *
      * Gets current value of property {@link #getEnabled enabled}.
      *
@@ -16411,6 +19601,8 @@ declare module "sap/ui/commons/RadioButtonGroup" {
      * enabled property of the Item will define if a RadioButton is enabled or not.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
      */
     getEnabled(): boolean;
     /**
@@ -16425,10 +19617,14 @@ declare module "sap/ui/commons/RadioButtonGroup" {
      * The index of the selected/checked RadioButton.
      *
      * Default value is `0`.
+     *
+     * @returns Value of property `selectedIndex`
      */
     getSelectedIndex(): int;
     /**
      * When no item is selected, "null" is returned.
+     *
+     * @returns Selected Item
      */
     getSelectedItem(): Item;
     /**
@@ -16440,17 +19636,23 @@ declare module "sap/ui/commons/RadioButtonGroup" {
      * the value of the invalid property for the whole RadioButtonGroup to true.
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `valueState`
      */
     getValueState(): ValueState | keyof typeof ValueState;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Defines the width of the RadioButtonGroup.
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Checks for the provided `sap.ui.core.Item` in the aggregation {@link #getItems items}. and returns its
      * index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfItem(
       /**
@@ -16460,6 +19662,8 @@ declare module "sap/ui/commons/RadioButtonGroup" {
     ): int;
     /**
      * Inserts a item into the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertItem(
       /**
@@ -16475,45 +19679,57 @@ declare module "sap/ui/commons/RadioButtonGroup" {
     ): this;
     /**
      * Removes all the controls in the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaDescribedBy(): ID[];
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes all the controls from the aggregation {@link #getItems items}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllItems(): Item[];
     /**
      * Removes an ariaDescribedBy from the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns The removed ariaDescribedBy or `null`
      */
     removeAriaDescribedBy(
       /**
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a item from the aggregation {@link #getItems items}.
+     *
+     * @returns The removed item or `null`
      */
     removeItem(
       /**
        * The item to remove or its index or id
        */
       vItem: int | string | Item
-    ): Item;
+    ): Item | null;
     /**
      * Sets a new value for property {@link #getColumns columns}.
      *
@@ -16522,6 +19738,8 @@ declare module "sap/ui/commons/RadioButtonGroup" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `1`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setColumns(
       /**
@@ -16539,6 +19757,8 @@ declare module "sap/ui/commons/RadioButtonGroup" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEditable(
       /**
@@ -16547,7 +19767,7 @@ declare module "sap/ui/commons/RadioButtonGroup" {
       bEditable?: boolean
     ): this;
     /**
-     * @SINCE 1.10.3
+     * @since 1.10.3
      *
      * Sets a new value for property {@link #getEnabled enabled}.
      *
@@ -16558,6 +19778,8 @@ declare module "sap/ui/commons/RadioButtonGroup" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEnabled(
       /**
@@ -16573,6 +19795,8 @@ declare module "sap/ui/commons/RadioButtonGroup" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSelectedIndex(
       /**
@@ -16600,6 +19824,8 @@ declare module "sap/ui/commons/RadioButtonGroup" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueState(
       /**
@@ -16613,6 +19839,8 @@ declare module "sap/ui/commons/RadioButtonGroup" {
      * Defines the width of the RadioButtonGroup.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
@@ -16622,6 +19850,8 @@ declare module "sap/ui/commons/RadioButtonGroup" {
     ): this;
     /**
      * Unbinds aggregation {@link #getItems items} from model data.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     unbindItems(): this;
   }
@@ -16630,19 +19860,19 @@ declare module "sap/ui/commons/RadioButtonGroup" {
     /**
      * Defines the width of the RadioButtonGroup.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the maximum number of RadioButtons displayed in one line.
      */
-    columns?: int | PropertyBindingInfo;
+    columns?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Specifies whether the user can change the selected value of the RadioButtonGroup. When the property is
      * set to false, the control obtains visual styles different from its visual styles for the normal and the
      * disabled state. Additionally the control is no longer interactive, but can receive focus.
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The value state to be displayed for the RadioButton. Possible values are: sap.ui.core.ValueState.Error,
@@ -16650,26 +19880,29 @@ declare module "sap/ui/commons/RadioButtonGroup" {
      * Setting this attribute to sap.ui.core.ValueState.Error when the accessibility feature is enabled, sets
      * the value of the invalid property for the whole RadioButtonGroup to true.
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?:
+      | (ValueState | keyof typeof ValueState)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * The index of the selected/checked RadioButton.
      */
-    selectedIndex?: int | PropertyBindingInfo;
+    selectedIndex?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.10.3
+     * @since 1.10.3
      *
      * Enables/disables the RadioButtonGroup. If it is disabled all RadioButtons will be displayed as disabled.
      * The enabled property of the Item will not be used in this case. If the RadioButtonGroup is enabled, the
      * enabled property of the Item will define if a RadioButton is enabled or not.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The RadioButtons of this RadioButtonGroup.
      */
-    items?: Item[] | Item | AggregationBindingInfo;
+    items?: Item[] | Item | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Association to controls / IDs, which describe this control (see WAI-ARIA attribute aria-describedby).
@@ -16684,8 +19917,20 @@ declare module "sap/ui/commons/RadioButtonGroup" {
     /**
      * Fires when selection is changed by user interaction.
      */
-    select?: (oEvent: Event) => void;
+    select?: (oEvent: RadioButtonGroup$SelectEvent) => void;
   }
+
+  export interface RadioButtonGroup$SelectEventParameters {
+    /**
+     * Index of the selected RadioButton.
+     */
+    selectedIndex?: int;
+  }
+
+  export type RadioButtonGroup$SelectEvent = Event<
+    RadioButtonGroup$SelectEventParameters,
+    RadioButtonGroup
+  >;
 }
 
 declare module "sap/ui/commons/RangeSlider" {
@@ -16696,7 +19941,7 @@ declare module "sap/ui/commons/RangeSlider" {
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
-   * @SINCE 1.8.0
+   * @since 1.8.0
    * @deprecated (since 1.38) - replaced by {@link sap.m.RangeSlider}
    *
    * The interactive control is displayed either as a horizontal or a vertical line with two pointers and
@@ -16739,6 +19984,8 @@ declare module "sap/ui/commons/RangeSlider" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.commons.Slider.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -16757,6 +20004,8 @@ declare module "sap/ui/commons/RangeSlider" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.RangeSlider.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
@@ -16768,6 +20017,8 @@ declare module "sap/ui/commons/RangeSlider" {
      * the valid range. If it is smaller than `value` it will be set to the same value.
      *
      * Default value is `80`.
+     *
+     * @returns Value of property `value2`
      */
     getValue2(): float;
     /**
@@ -16781,6 +20032,8 @@ declare module "sap/ui/commons/RangeSlider" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `80`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValue2(
       /**
@@ -16797,7 +20050,7 @@ declare module "sap/ui/commons/RangeSlider" {
      * **Note:** If the value is not in the valid range (between `min` and `max`) it will be changed to be in
      * the valid range. If it is smaller than `value` it will be set to the same value.
      */
-    value2?: float | PropertyBindingInfo;
+    value2?: float | PropertyBindingInfo | `{${string}}`;
   }
 }
 
@@ -16806,13 +20059,13 @@ declare module "sap/ui/commons/RatingIndicator" {
 
   import { ID, URI } from "sap/ui/core/library";
 
-  import Event from "sap/ui/base/Event";
-
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { RatingIndicatorVisualMode } from "sap/ui/commons/library";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - Instead, use the `sap.m.RatingIndicator` control.
@@ -16858,6 +20111,8 @@ declare module "sap/ui/commons/RatingIndicator" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -16876,10 +20131,14 @@ declare module "sap/ui/commons/RatingIndicator" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.RatingIndicator.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaDescribedBy(
       /**
@@ -16889,6 +20148,8 @@ declare module "sap/ui/commons/RatingIndicator" {
     ): this;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -16903,6 +20164,8 @@ declare module "sap/ui/commons/RatingIndicator" {
      * otherwise it will be bound to this `sap.ui.commons.RatingIndicator` itself.
      *
      * The event is fired when the user has done a rating.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -16913,7 +20176,7 @@ declare module "sap/ui/commons/RatingIndicator" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RatingIndicator$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RatingIndicator` itself
        */
@@ -16926,12 +20189,14 @@ declare module "sap/ui/commons/RatingIndicator" {
      * otherwise it will be bound to this `sap.ui.commons.RatingIndicator` itself.
      *
      * The event is fired when the user has done a rating.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RatingIndicator$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RatingIndicator` itself
        */
@@ -16942,6 +20207,8 @@ declare module "sap/ui/commons/RatingIndicator" {
      *
      * See {@link sap.ui.base.ManagedObject#bindProperty ManagedObject.bindProperty} for a detailed description
      * of the possible properties of `oBindingInfo`
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     bindValue(
       /**
@@ -16953,44 +20220,47 @@ declare module "sap/ui/commons/RatingIndicator" {
      * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.commons.RatingIndicator`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachChange(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RatingIndicator$ChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:change change} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireChange(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The value of the user rating
-         */
-        value?: int;
-      }
+      mParameters?: RatingIndicator$ChangeEventParameters
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
+     *
+     * @returns The accessibility info
      */
     getAccessibilityInfo(): object;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
-     * ariaDescribedBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     getAriaDescribedBy(): ID[];
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -17000,6 +20270,8 @@ declare module "sap/ui/commons/RatingIndicator" {
      * average Value before the user votes.
      *
      * Default value is `0`.
+     *
+     * @returns Value of property `averageValue`
      */
     getAverageValue(): float;
     /**
@@ -17008,6 +20280,8 @@ declare module "sap/ui/commons/RatingIndicator" {
      * Determines if the rating symbols can be edited.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `editable`
      */
     getEditable(): boolean;
     /**
@@ -17016,6 +20290,8 @@ declare module "sap/ui/commons/RatingIndicator" {
      * The URI to the image which is displayed when the mouse hovers onto a rating symbol. If used, a requirement
      * is that all custom icons need to have the same size. Note that when this attribute is used also the other
      * icon attributes need to be set.
+     *
+     * @returns Value of property `iconHovered`
      */
     getIconHovered(): URI;
     /**
@@ -17023,6 +20299,8 @@ declare module "sap/ui/commons/RatingIndicator" {
      *
      * The URI to the image which shall be displayed for all selected rating symbols. Note that when this attribute
      * is used, also the other icon attributes need to be set.
+     *
+     * @returns Value of property `iconSelected`
      */
     getIconSelected(): URI;
     /**
@@ -17031,6 +20309,8 @@ declare module "sap/ui/commons/RatingIndicator" {
      * The URI to the image which shall be displayed for all unselected rating symbols. If this attribute is
      * used, a requirement is that all custom icons need to have the same size. Note that when this attribute
      * is used also the other icon attributes need to be set.
+     *
+     * @returns Value of property `iconUnselected`
      */
     getIconUnselected(): URI;
     /**
@@ -17039,6 +20319,8 @@ declare module "sap/ui/commons/RatingIndicator" {
      * Determines the number of displayed rating symbols
      *
      * Default value is `5`.
+     *
+     * @returns Value of property `maxValue`
      */
     getMaxValue(): int;
     /**
@@ -17048,6 +20330,8 @@ declare module "sap/ui/commons/RatingIndicator" {
      * averageValue is shown.
      *
      * Default value is `0`.
+     *
+     * @returns Value of property `value`
      */
     getValue(): float;
     /**
@@ -17056,36 +20340,46 @@ declare module "sap/ui/commons/RatingIndicator" {
      * Defines how float values are visualized: Full, Half, Continuous (see enumeration RatingIndicatorVisualMode)
      *
      * Default value is `Half`.
+     *
+     * @returns Value of property `visualMode`
      */
     getVisualMode():
       | RatingIndicatorVisualMode
       | keyof typeof RatingIndicatorVisualMode;
     /**
      * Removes all the controls in the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaDescribedBy(): ID[];
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes an ariaDescribedBy from the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns The removed ariaDescribedBy or `null`
      */
     removeAriaDescribedBy(
       /**
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getAverageValue averageValue}.
      *
@@ -17095,6 +20389,8 @@ declare module "sap/ui/commons/RatingIndicator" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAverageValue(
       /**
@@ -17110,6 +20406,8 @@ declare module "sap/ui/commons/RatingIndicator" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEditable(
       /**
@@ -17125,6 +20423,8 @@ declare module "sap/ui/commons/RatingIndicator" {
      * icon attributes need to be set.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIconHovered(
       /**
@@ -17139,6 +20439,8 @@ declare module "sap/ui/commons/RatingIndicator" {
      * is used, also the other icon attributes need to be set.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIconSelected(
       /**
@@ -17154,6 +20456,8 @@ declare module "sap/ui/commons/RatingIndicator" {
      * is used also the other icon attributes need to be set.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIconUnselected(
       /**
@@ -17165,6 +20469,8 @@ declare module "sap/ui/commons/RatingIndicator" {
      * Setter for property `maxValue`.
      *
      * Default value is `5` Minimum value is `1`
+     *
+     * @returns `this` to allow method chaining
      */
     setMaxValue(
       /**
@@ -17181,6 +20487,8 @@ declare module "sap/ui/commons/RatingIndicator" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValue(
       /**
@@ -17196,6 +20504,8 @@ declare module "sap/ui/commons/RatingIndicator" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Half`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setVisualMode(
       /**
@@ -17207,6 +20517,8 @@ declare module "sap/ui/commons/RatingIndicator" {
     ): this;
     /**
      * Unbinds property {@link #getValue value} from model data.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     unbindValue(): this;
   }
@@ -17215,51 +20527,52 @@ declare module "sap/ui/commons/RatingIndicator" {
     /**
      * Determines if the rating symbols can be edited.
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the number of displayed rating symbols
      */
-    maxValue?: int | PropertyBindingInfo;
+    maxValue?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the currently selected value. If value is set to sap.ui.commons.RatingIndicator.NoValue, the
      * averageValue is shown.
      */
-    value?: float | PropertyBindingInfo;
+    value?: float | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the average value. This value is shown if no value is set. This can be used to display an
      * average Value before the user votes.
      */
-    averageValue?: float | PropertyBindingInfo;
+    averageValue?: float | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The URI to the image which shall be displayed for all selected rating symbols. Note that when this attribute
      * is used, also the other icon attributes need to be set.
      */
-    iconSelected?: URI | PropertyBindingInfo;
+    iconSelected?: URI | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The URI to the image which shall be displayed for all unselected rating symbols. If this attribute is
      * used, a requirement is that all custom icons need to have the same size. Note that when this attribute
      * is used also the other icon attributes need to be set.
      */
-    iconUnselected?: URI | PropertyBindingInfo;
+    iconUnselected?: URI | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The URI to the image which is displayed when the mouse hovers onto a rating symbol. If used, a requirement
      * is that all custom icons need to have the same size. Note that when this attribute is used also the other
      * icon attributes need to be set.
      */
-    iconHovered?: URI | PropertyBindingInfo;
+    iconHovered?: URI | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines how float values are visualized: Full, Half, Continuous (see enumeration RatingIndicatorVisualMode)
      */
     visualMode?:
       | (RatingIndicatorVisualMode | keyof typeof RatingIndicatorVisualMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Association to controls / ids which describe this control (see WAI-ARIA attribute aria-describedby).
@@ -17274,16 +20587,26 @@ declare module "sap/ui/commons/RatingIndicator" {
     /**
      * The event is fired when the user has done a rating.
      */
-    change?: (oEvent: Event) => void;
+    change?: (oEvent: RatingIndicator$ChangeEvent) => void;
   }
+
+  export interface RatingIndicator$ChangeEventParameters {
+    /**
+     * The value of the user rating
+     */
+    value?: int;
+  }
+
+  export type RatingIndicator$ChangeEvent = Event<
+    RatingIndicator$ChangeEventParameters,
+    RatingIndicator
+  >;
 }
 
 declare module "sap/ui/commons/ResponsiveContainer" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
   import ResponsiveContainerRange from "sap/ui/commons/ResponsiveContainerRange";
-
-  import Event from "sap/ui/base/Event";
 
   import { ID, CSSSize } from "sap/ui/core/library";
 
@@ -17293,6 +20616,8 @@ declare module "sap/ui/commons/ResponsiveContainer" {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - Use a container by choice from the {@link sap.m} library, instead.
@@ -17338,6 +20663,8 @@ declare module "sap/ui/commons/ResponsiveContainer" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -17356,10 +20683,14 @@ declare module "sap/ui/commons/ResponsiveContainer" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.ResponsiveContainer.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some range to the aggregation {@link #getRanges ranges}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addRange(
       /**
@@ -17374,6 +20705,8 @@ declare module "sap/ui/commons/ResponsiveContainer" {
      * otherwise it will be bound to this `sap.ui.commons.ResponsiveContainer` itself.
      *
      * The event is fired the width of the container reaches a new range.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachRangeSwitch(
       /**
@@ -17384,7 +20717,7 @@ declare module "sap/ui/commons/ResponsiveContainer" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ResponsiveContainer$RangeSwitchEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.ResponsiveContainer`
        * itself
@@ -17398,12 +20731,14 @@ declare module "sap/ui/commons/ResponsiveContainer" {
      * otherwise it will be bound to this `sap.ui.commons.ResponsiveContainer` itself.
      *
      * The event is fired the width of the container reaches a new range.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachRangeSwitch(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ResponsiveContainer$RangeSwitchEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.ResponsiveContainer`
        * itself
@@ -17412,36 +20747,39 @@ declare module "sap/ui/commons/ResponsiveContainer" {
     ): this;
     /**
      * Destroys all the ranges in the aggregation {@link #getRanges ranges}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyRanges(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:rangeSwitch rangeSwitch} event of this `sap.ui.commons.ResponsiveContainer`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachRangeSwitch(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: ResponsiveContainer$RangeSwitchEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:rangeSwitch rangeSwitch} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireRangeSwitch(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The current range
-         */
-        currentRange?: ResponsiveContainerRange;
-      }
+      mParameters?: ResponsiveContainer$RangeSwitchEventParameters
     ): this;
     /**
      * ID of the element which is the current target of the association {@link #getDefaultContent defaultContent},
@@ -17454,6 +20792,8 @@ declare module "sap/ui/commons/ResponsiveContainer" {
      * The width of the responsive container.
      *
      * Default value is `'100%'`.
+     *
+     * @returns Value of property `height`
      */
     getHeight(): CSSSize;
     /**
@@ -17468,11 +20808,15 @@ declare module "sap/ui/commons/ResponsiveContainer" {
      * The width of the responsive container.
      *
      * Default value is `'100%'`.
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
-     * Checks for the provided `sap.ui.commons.ResponsiveContainerRange` in the aggregation {@link #getRanges
-     * ranges}. and returns its index if found or -1 otherwise.
+     * Checks for the provided `sap.ui.commons.ResponsiveContainerRange` in the aggregation {@link #getRanges ranges}.
+     * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfRange(
       /**
@@ -17482,6 +20826,8 @@ declare module "sap/ui/commons/ResponsiveContainer" {
     ): int;
     /**
      * Inserts a range into the aggregation {@link #getRanges ranges}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertRange(
       /**
@@ -17499,19 +20845,25 @@ declare module "sap/ui/commons/ResponsiveContainer" {
      * Removes all the controls from the aggregation {@link #getRanges ranges}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllRanges(): ResponsiveContainerRange[];
     /**
      * Removes a range from the aggregation {@link #getRanges ranges}.
+     *
+     * @returns The removed range or `null`
      */
     removeRange(
       /**
        * The range to remove or its index or id
        */
       vRange: int | string | ResponsiveContainerRange
-    ): ResponsiveContainerRange;
+    ): ResponsiveContainerRange | null;
     /**
      * Sets the associated {@link #getDefaultContent defaultContent}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDefaultContent(
       /**
@@ -17528,6 +20880,8 @@ declare module "sap/ui/commons/ResponsiveContainer" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'100%'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeight(
       /**
@@ -17543,6 +20897,8 @@ declare module "sap/ui/commons/ResponsiveContainer" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'100%'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
@@ -17556,12 +20912,12 @@ declare module "sap/ui/commons/ResponsiveContainer" {
     /**
      * The width of the responsive container.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The width of the responsive container.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The ranges defined for this container
@@ -17569,7 +20925,8 @@ declare module "sap/ui/commons/ResponsiveContainer" {
     ranges?:
       | ResponsiveContainerRange[]
       | ResponsiveContainerRange
-      | AggregationBindingInfo;
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * The default content to show, in case the range does not provide content
@@ -17579,8 +20936,20 @@ declare module "sap/ui/commons/ResponsiveContainer" {
     /**
      * The event is fired the width of the container reaches a new range.
      */
-    rangeSwitch?: (oEvent: Event) => void;
+    rangeSwitch?: (oEvent: ResponsiveContainer$RangeSwitchEvent) => void;
   }
+
+  export interface ResponsiveContainer$RangeSwitchEventParameters {
+    /**
+     * The current range
+     */
+    currentRange?: ResponsiveContainerRange;
+  }
+
+  export type ResponsiveContainer$RangeSwitchEvent = Event<
+    ResponsiveContainer$RangeSwitchEventParameters,
+    ResponsiveContainer
+  >;
 }
 
 declare module "sap/ui/commons/ResponsiveContainerRange" {
@@ -17636,6 +21005,8 @@ declare module "sap/ui/commons/ResponsiveContainerRange" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -17654,6 +21025,8 @@ declare module "sap/ui/commons/ResponsiveContainerRange" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.ResponsiveContainerRange.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
@@ -17666,6 +21039,8 @@ declare module "sap/ui/commons/ResponsiveContainerRange" {
      * The minimal height for this range to be displayed.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `height`
      */
     getHeight(): CSSSize;
     /**
@@ -17674,6 +21049,8 @@ declare module "sap/ui/commons/ResponsiveContainerRange" {
      * A key which can be used to identify the range (optional).
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `key`
      */
     getKey(): string;
     /**
@@ -17682,10 +21059,14 @@ declare module "sap/ui/commons/ResponsiveContainerRange" {
      * The minimal width for this range to be displayed.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Sets the associated {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setContent(
       /**
@@ -17702,6 +21083,8 @@ declare module "sap/ui/commons/ResponsiveContainerRange" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeight(
       /**
@@ -17717,6 +21100,8 @@ declare module "sap/ui/commons/ResponsiveContainerRange" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setKey(
       /**
@@ -17732,6 +21117,8 @@ declare module "sap/ui/commons/ResponsiveContainerRange" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
@@ -17745,12 +21132,12 @@ declare module "sap/ui/commons/ResponsiveContainerRange" {
     /**
      * The minimal width for this range to be displayed.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The minimal height for this range to be displayed.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * A key which can be used to identify the range (optional).
@@ -17819,6 +21206,8 @@ declare module "sap/ui/commons/RichTooltip" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.TooltipBase.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -17837,47 +21226,61 @@ declare module "sap/ui/commons/RichTooltip" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.RichTooltip.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @SINCE 1.11.1
+     * @since 1.11.1
      *
      * Gets current value of property {@link #getImageAltText imageAltText}.
      *
      * This is the alt text for the image
+     *
+     * @returns Value of property `imageAltText`
      */
     getImageAltText(): string;
     /**
      * Gets current value of property {@link #getImageSrc imageSrc}.
      *
      * If RichTooltip contains an image, this property is used to define the source path.
+     *
+     * @returns Value of property `imageSrc`
      */
     getImageSrc(): URI;
     /**
      * Gets current value of property {@link #getTitle title}.
      *
      * Tool tip title to be displayed in the header.
+     *
+     * @returns Value of property `title`
      */
     getTitle(): string;
     /**
      * This returns the previously set text. Since a FormattedTextView is used for rendering and stuff the corresponding
      * property of the FormattedTextView is being read and returned. If no text was set an empty string is being
      * returned.
+     *
+     * @returns the ValueState text that was previously set.
      */
     getValueStateText(): string;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Calculates the height of the RichTooltip to set a proper min-height. Additionally the ARIA attributes
      * are set to the corresponding elements.
      */
     onAfterRendering(): void;
     /**
-     * @SINCE 1.11.1
+     * @since 1.11.1
      *
      * Sets a new value for property {@link #getImageAltText imageAltText}.
      *
      * This is the alt text for the image
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setImageAltText(
       /**
@@ -17891,6 +21294,8 @@ declare module "sap/ui/commons/RichTooltip" {
      * If RichTooltip contains an image, this property is used to define the source path.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setImageSrc(
       /**
@@ -17904,6 +21309,8 @@ declare module "sap/ui/commons/RichTooltip" {
      * Tool tip title to be displayed in the header.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTitle(
       /**
@@ -17913,6 +21320,8 @@ declare module "sap/ui/commons/RichTooltip" {
     ): this;
     /**
      * This sets an individual text for the ValueState of the parent element of the RichTooltip.
+     *
+     * @returns Returns `this` to facilitate method chaining.
      */
     setValueStateText(
       /**
@@ -17931,17 +21340,17 @@ declare module "sap/ui/commons/RichTooltip" {
     /**
      * If RichTooltip contains an image, this property is used to define the source path.
      */
-    imageSrc?: URI | PropertyBindingInfo;
+    imageSrc?: URI | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.11.1
+     * @since 1.11.1
      *
      * This property is an individual text that will be used instead of the default ValueState text
      */
     valueStateText?: string | PropertyBindingInfo;
 
     /**
-     * @SINCE 1.11.1
+     * @since 1.11.1
      *
      * This is the alt text for the image
      */
@@ -17954,8 +21363,6 @@ declare module "sap/ui/commons/RoadMap" {
 
   import RoadMapStep from "sap/ui/commons/RoadMapStep";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { CSSSize } from "sap/ui/core/library";
@@ -17964,6 +21371,8 @@ declare module "sap/ui/commons/RoadMap" {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - Instead, use the `sap.m.Wizard` control.
@@ -18007,6 +21416,8 @@ declare module "sap/ui/commons/RoadMap" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -18025,10 +21436,14 @@ declare module "sap/ui/commons/RoadMap" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.RoadMap.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some step to the aggregation {@link #getSteps steps}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addStep(
       /**
@@ -18043,6 +21458,8 @@ declare module "sap/ui/commons/RoadMap" {
      * otherwise it will be bound to this `sap.ui.commons.RoadMap` itself.
      *
      * Event is fired when a given step is expanded or collapsed by user.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachStepExpanded(
       /**
@@ -18053,7 +21470,7 @@ declare module "sap/ui/commons/RoadMap" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RoadMap$StepExpandedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RoadMap` itself
        */
@@ -18066,12 +21483,14 @@ declare module "sap/ui/commons/RoadMap" {
      * otherwise it will be bound to this `sap.ui.commons.RoadMap` itself.
      *
      * Event is fired when a given step is expanded or collapsed by user.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachStepExpanded(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RoadMap$StepExpandedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RoadMap` itself
        */
@@ -18084,6 +21503,8 @@ declare module "sap/ui/commons/RoadMap" {
      * otherwise it will be bound to this `sap.ui.commons.RoadMap` itself.
      *
      * Event is fired when the user selects a step.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachStepSelected(
       /**
@@ -18094,7 +21515,7 @@ declare module "sap/ui/commons/RoadMap" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RoadMap$StepSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RoadMap` itself
        */
@@ -18107,12 +21528,14 @@ declare module "sap/ui/commons/RoadMap" {
      * otherwise it will be bound to this `sap.ui.commons.RoadMap` itself.
      *
      * Event is fired when the user selects a step.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachStepSelected(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RoadMap$StepSelectedEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RoadMap` itself
        */
@@ -18120,18 +21543,22 @@ declare module "sap/ui/commons/RoadMap" {
     ): this;
     /**
      * Destroys all the steps in the aggregation {@link #getSteps steps}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroySteps(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:stepExpanded stepExpanded} event of this `sap.ui.commons.RoadMap`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachStepExpanded(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RoadMap$StepExpandedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -18141,61 +21568,67 @@ declare module "sap/ui/commons/RoadMap" {
      * Detaches event handler `fnFunction` from the {@link #event:stepSelected stepSelected} event of this `sap.ui.commons.RoadMap`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachStepSelected(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RoadMap$StepSelectedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:stepExpanded stepExpanded} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireStepExpanded(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * ID of the expanded/collapsed step
-         */
-        stepId?: string;
-      }
+      mParameters?: RoadMap$StepExpandedEventParameters
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:stepSelected stepSelected} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireStepSelected(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * ID of the selected step
-         */
-        stepId?: string;
-      }
+      mParameters?: RoadMap$StepSelectedEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getFirstVisibleStep firstVisibleStep}.
      *
      * ID of the first step to be displayed
+     *
+     * @returns Value of property `firstVisibleStep`
      */
     getFirstVisibleStep(): string;
     /**
      * Gets current value of property {@link #getNumberOfVisibleSteps numberOfVisibleSteps}.
      *
      * Total number of steps to be displayed at once
+     *
+     * @returns Value of property `numberOfVisibleSteps`
      */
     getNumberOfVisibleSteps(): int;
     /**
      * Gets current value of property {@link #getSelectedStep selectedStep}.
      *
      * ID of the step which is currently selected
+     *
+     * @returns Value of property `selectedStep`
      */
     getSelectedStep(): string;
     /**
@@ -18210,11 +21643,15 @@ declare module "sap/ui/commons/RoadMap" {
      * Determines the control width in CSS size
      *
      * Default value is `'100%'`.
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Checks for the provided `sap.ui.commons.RoadMapStep` in the aggregation {@link #getSteps steps}. and
      * returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfStep(
       /**
@@ -18224,6 +21661,8 @@ declare module "sap/ui/commons/RoadMap" {
     ): int;
     /**
      * Inserts a step into the aggregation {@link #getSteps steps}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertStep(
       /**
@@ -18241,23 +21680,29 @@ declare module "sap/ui/commons/RoadMap" {
      * Removes all the controls from the aggregation {@link #getSteps steps}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllSteps(): RoadMapStep[];
     /**
      * Removes a step from the aggregation {@link #getSteps steps}.
+     *
+     * @returns The removed step or `null`
      */
     removeStep(
       /**
        * The step to remove or its index or id
        */
       vStep: int | string | RoadMapStep
-    ): RoadMapStep;
+    ): RoadMapStep | null;
     /**
      * Sets a new value for property {@link #getFirstVisibleStep firstVisibleStep}.
      *
      * ID of the first step to be displayed
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setFirstVisibleStep(
       /**
@@ -18271,6 +21716,8 @@ declare module "sap/ui/commons/RoadMap" {
      * Total number of steps to be displayed at once
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setNumberOfVisibleSteps(
       /**
@@ -18284,6 +21731,8 @@ declare module "sap/ui/commons/RoadMap" {
      * ID of the step which is currently selected
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSelectedStep(
       /**
@@ -18299,6 +21748,8 @@ declare module "sap/ui/commons/RoadMap" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'100%'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
@@ -18312,7 +21763,7 @@ declare module "sap/ui/commons/RoadMap" {
     /**
      * Total number of steps to be displayed at once
      */
-    numberOfVisibleSteps?: int | PropertyBindingInfo;
+    numberOfVisibleSteps?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * ID of the first step to be displayed
@@ -18327,23 +21778,51 @@ declare module "sap/ui/commons/RoadMap" {
     /**
      * Determines the control width in CSS size
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Steps that are composing the RoadMap
      */
-    steps?: RoadMapStep[] | RoadMapStep | AggregationBindingInfo;
+    steps?:
+      | RoadMapStep[]
+      | RoadMapStep
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * Event is fired when the user selects a step.
      */
-    stepSelected?: (oEvent: Event) => void;
+    stepSelected?: (oEvent: RoadMap$StepSelectedEvent) => void;
 
     /**
      * Event is fired when a given step is expanded or collapsed by user.
      */
-    stepExpanded?: (oEvent: Event) => void;
+    stepExpanded?: (oEvent: RoadMap$StepExpandedEvent) => void;
   }
+
+  export interface RoadMap$StepExpandedEventParameters {
+    /**
+     * ID of the expanded/collapsed step
+     */
+    stepId?: string;
+  }
+
+  export type RoadMap$StepExpandedEvent = Event<
+    RoadMap$StepExpandedEventParameters,
+    RoadMap
+  >;
+
+  export interface RoadMap$StepSelectedEventParameters {
+    /**
+     * ID of the selected step
+     */
+    stepId?: string;
+  }
+
+  export type RoadMap$StepSelectedEvent = Event<
+    RoadMap$StepSelectedEventParameters,
+    RoadMap
+  >;
 }
 
 declare module "sap/ui/commons/RoadMapStep" {
@@ -18398,6 +21877,8 @@ declare module "sap/ui/commons/RoadMapStep" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -18416,6 +21897,8 @@ declare module "sap/ui/commons/RoadMapStep" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.RoadMapStep.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
@@ -18423,6 +21906,8 @@ declare module "sap/ui/commons/RoadMapStep" {
      * in one of the next releases.
      *
      * Adds some subStep to the aggregation {@link #getSubSteps subSteps}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addSubStep(
       /**
@@ -18435,6 +21920,8 @@ declare module "sap/ui/commons/RoadMapStep" {
      * in one of the next releases.
      *
      * Destroys all the subSteps in the aggregation {@link #getSubSteps subSteps}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroySubSteps(): this;
     /**
@@ -18443,6 +21930,8 @@ declare module "sap/ui/commons/RoadMapStep" {
      * Specifies whether the user shall be allowed to click a step, or not
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
      */
     getEnabled(): boolean;
     /**
@@ -18454,12 +21943,16 @@ declare module "sap/ui/commons/RoadMapStep" {
      * This property is only relevant when using sub steps.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `expanded`
      */
     getExpanded(): boolean;
     /**
      * Gets current value of property {@link #getLabel label}.
      *
      * Label of the step
+     *
+     * @returns Value of property `label`
      */
     getLabel(): string;
     /**
@@ -18478,6 +21971,8 @@ declare module "sap/ui/commons/RoadMapStep" {
      * Step is visible
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `visible`
      */
     getVisible(): boolean;
     /**
@@ -18486,6 +21981,8 @@ declare module "sap/ui/commons/RoadMapStep" {
      *
      * Checks for the provided `sap.ui.commons.RoadMapStep` in the aggregation {@link #getSubSteps subSteps}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfSubStep(
       /**
@@ -18498,6 +21995,8 @@ declare module "sap/ui/commons/RoadMapStep" {
      * in one of the next releases.
      *
      * Inserts a subStep into the aggregation {@link #getSubSteps subSteps}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertSubStep(
       /**
@@ -18518,6 +22017,8 @@ declare module "sap/ui/commons/RoadMapStep" {
      * Removes all the controls from the aggregation {@link #getSubSteps subSteps}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllSubSteps(): RoadMapStep[];
     /**
@@ -18525,13 +22026,15 @@ declare module "sap/ui/commons/RoadMapStep" {
      * in one of the next releases.
      *
      * Removes a subStep from the aggregation {@link #getSubSteps subSteps}.
+     *
+     * @returns The removed subStep or `null`
      */
     removeSubStep(
       /**
        * The subStep to remove or its index or id
        */
       vSubStep: int | string | RoadMapStep
-    ): RoadMapStep;
+    ): RoadMapStep | null;
     /**
      * Sets a new value for property {@link #getEnabled enabled}.
      *
@@ -18540,6 +22043,8 @@ declare module "sap/ui/commons/RoadMapStep" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEnabled(
       /**
@@ -18558,6 +22063,8 @@ declare module "sap/ui/commons/RoadMapStep" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setExpanded(
       /**
@@ -18571,6 +22078,8 @@ declare module "sap/ui/commons/RoadMapStep" {
      * Label of the step
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setLabel(
       /**
@@ -18586,6 +22095,8 @@ declare module "sap/ui/commons/RoadMapStep" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setVisible(
       /**
@@ -18604,7 +22115,7 @@ declare module "sap/ui/commons/RoadMapStep" {
     /**
      * Specifies whether the user shall be allowed to click a step, or not
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * @deprecated (since 1.10.5) - Note that sub steps will not be supported in future. This feature might
@@ -18612,12 +22123,12 @@ declare module "sap/ui/commons/RoadMapStep" {
      *
      * This property is only relevant when using sub steps.
      */
-    expanded?: boolean | PropertyBindingInfo;
+    expanded?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Step is visible
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * @deprecated (since 1.10.5) - Sub steps will not be supported in future. This feature might be removed
@@ -18626,7 +22137,11 @@ declare module "sap/ui/commons/RoadMapStep" {
      * Sub steps for the current step. Will be displayed only in the case that the step is expanded. Otherwise,
      * special arrows show the availability of sub steps. One level of sub steps supported.
      */
-    subSteps?: RoadMapStep[] | RoadMapStep | AggregationBindingInfo;
+    subSteps?:
+      | RoadMapStep[]
+      | RoadMapStep
+      | AggregationBindingInfo
+      | `{${string}}`;
   }
 }
 
@@ -18636,8 +22151,6 @@ declare module "sap/ui/commons/RowRepeater" {
   import RowRepeaterFilter from "sap/ui/commons/RowRepeaterFilter";
 
   import RowRepeaterSorter from "sap/ui/commons/RowRepeaterSorter";
-
-  import Event from "sap/ui/base/Event";
 
   import {
     AggregationBindingInfo,
@@ -18651,6 +22164,8 @@ declare module "sap/ui/commons/RowRepeater" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import Title from "sap/ui/core/Title";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - Instead, use the `sap.ui.table.Table` control.
@@ -18695,6 +22210,8 @@ declare module "sap/ui/commons/RowRepeater" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -18713,10 +22230,14 @@ declare module "sap/ui/commons/RowRepeater" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.RowRepeater.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some filter to the aggregation {@link #getFilters filters}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addFilter(
       /**
@@ -18726,6 +22247,8 @@ declare module "sap/ui/commons/RowRepeater" {
     ): this;
     /**
      * Adds some row to the aggregation {@link #getRows rows}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addRow(
       /**
@@ -18735,6 +22258,8 @@ declare module "sap/ui/commons/RowRepeater" {
     ): this;
     /**
      * Adds some sorter to the aggregation {@link #getSorters sorters}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addSorter(
       /**
@@ -18758,6 +22283,8 @@ declare module "sap/ui/commons/RowRepeater" {
      * otherwise it will be bound to this `sap.ui.commons.RowRepeater` itself.
      *
      * This event is triggered when a filter is set.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachFilter(
       /**
@@ -18768,7 +22295,7 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RowRepeater$FilterEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
        */
@@ -18781,12 +22308,14 @@ declare module "sap/ui/commons/RowRepeater" {
      * otherwise it will be bound to this `sap.ui.commons.RowRepeater` itself.
      *
      * This event is triggered when a filter is set.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachFilter(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RowRepeater$FilterEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
        */
@@ -18799,6 +22328,8 @@ declare module "sap/ui/commons/RowRepeater" {
      * otherwise it will be bound to this `sap.ui.commons.RowRepeater` itself.
      *
      * This event is triggered when paging was executed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachPage(
       /**
@@ -18809,7 +22340,7 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RowRepeater$PageEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
        */
@@ -18822,12 +22353,14 @@ declare module "sap/ui/commons/RowRepeater" {
      * otherwise it will be bound to this `sap.ui.commons.RowRepeater` itself.
      *
      * This event is triggered when paging was executed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachPage(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RowRepeater$PageEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
        */
@@ -18840,6 +22373,8 @@ declare module "sap/ui/commons/RowRepeater" {
      * otherwise it will be bound to this `sap.ui.commons.RowRepeater` itself.
      *
      * This event is triggered when the number of rows was changed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachResize(
       /**
@@ -18850,7 +22385,7 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RowRepeater$ResizeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
        */
@@ -18863,12 +22398,14 @@ declare module "sap/ui/commons/RowRepeater" {
      * otherwise it will be bound to this `sap.ui.commons.RowRepeater` itself.
      *
      * This event is triggered when the number of rows was changed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachResize(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RowRepeater$ResizeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
        */
@@ -18881,6 +22418,8 @@ declare module "sap/ui/commons/RowRepeater" {
      * otherwise it will be bound to this `sap.ui.commons.RowRepeater` itself.
      *
      * This event is triggered when a sorting is applied.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSort(
       /**
@@ -18891,7 +22430,7 @@ declare module "sap/ui/commons/RowRepeater" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RowRepeater$SortEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
        */
@@ -18904,12 +22443,14 @@ declare module "sap/ui/commons/RowRepeater" {
      * otherwise it will be bound to this `sap.ui.commons.RowRepeater` itself.
      *
      * This event is triggered when a sorting is applied.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSort(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RowRepeater$SortEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.RowRepeater` itself
        */
@@ -18920,6 +22461,8 @@ declare module "sap/ui/commons/RowRepeater" {
      *
      * See {@link sap.ui.base.ManagedObject#bindAggregation ManagedObject.bindAggregation} for a detailed description
      * of the possible properties of `oBindingInfo`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     bindRows(
       /**
@@ -18929,34 +22472,46 @@ declare module "sap/ui/commons/RowRepeater" {
     ): this;
     /**
      * Destroys all the filters in the aggregation {@link #getFilters filters}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyFilters(): this;
     /**
      * Destroys the noData in the aggregation {@link #getNoData noData}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyNoData(): this;
     /**
      * Destroys all the rows in the aggregation {@link #getRows rows}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyRows(): this;
     /**
      * Destroys all the sorters in the aggregation {@link #getSorters sorters}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroySorters(): this;
     /**
      * Destroys the title in the aggregation {@link #getTitle title}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyTitle(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:filter filter} event of this `sap.ui.commons.RowRepeater`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachFilter(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RowRepeater$FilterEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -18966,12 +22521,14 @@ declare module "sap/ui/commons/RowRepeater" {
      * Detaches event handler `fnFunction` from the {@link #event:page page} event of this `sap.ui.commons.RowRepeater`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachPage(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RowRepeater$PageEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -18981,12 +22538,14 @@ declare module "sap/ui/commons/RowRepeater" {
      * Detaches event handler `fnFunction` from the {@link #event:resize resize} event of this `sap.ui.commons.RowRepeater`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachResize(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RowRepeater$ResizeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -18996,80 +22555,70 @@ declare module "sap/ui/commons/RowRepeater" {
      * Detaches event handler `fnFunction` from the {@link #event:sort sort} event of this `sap.ui.commons.RowRepeater`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSort(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: RowRepeater$SortEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:filter filter} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireFilter(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The ID of the filter that has just been applied.
-         */
-        filterId?: string;
-      }
+      mParameters?: RowRepeater$FilterEventParameters
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:page page} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     firePage(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The value of the currentPage property after the change.
-         */
-        currentPage?: int;
-        /**
-         * The value of the currentPage property before the change.
-         */
-        previousPage?: int;
-      }
+      mParameters?: RowRepeater$PageEventParameters
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:resize resize} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireResize(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The value of the numberOfRows property after the change.
-         */
-        numberOfRows?: int;
-        /**
-         * The value of the numberOfRows property before the change.
-         */
-        previousNumberOfRows?: int;
-      }
+      mParameters?: RowRepeater$ResizeEventParameters
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:sort sort} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireSort(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The ID of the sorter that has just been applied.
-         */
-        sorterId?: string;
-      }
+      mParameters?: RowRepeater$SortEventParameters
     ): this;
     /**
      * Switch to first page.
@@ -19081,6 +22630,8 @@ declare module "sap/ui/commons/RowRepeater" {
      * The index of the page currently displayed. The index starts at 1.
      *
      * Default value is `1`.
+     *
+     * @returns Value of property `currentPage`
      */
     getCurrentPage(): int;
     /**
@@ -19089,6 +22640,8 @@ declare module "sap/ui/commons/RowRepeater" {
      * The visual design of the control.
      *
      * Default value is `Standard`.
+     *
+     * @returns Value of property `design`
      */
     getDesign(): RowRepeaterDesign | keyof typeof RowRepeaterDesign;
     /**
@@ -19104,6 +22657,8 @@ declare module "sap/ui/commons/RowRepeater" {
      * and the overflow will be hidden.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `fixedRowHeight`
      */
     getFixedRowHeight(): CSSSize;
     /**
@@ -19118,6 +22673,8 @@ declare module "sap/ui/commons/RowRepeater" {
      * Number of rows displayed.
      *
      * Default value is `5`.
+     *
+     * @returns Value of property `numberOfRows`
      */
     getNumberOfRows(): int;
     /**
@@ -19133,6 +22690,8 @@ declare module "sap/ui/commons/RowRepeater" {
      * 0. This will deactivate the paging feature.
      *
      * Default value is `0`.
+     *
+     * @returns Value of property `showMoreSteps`
      */
     getShowMoreSteps(): int;
     /**
@@ -19145,6 +22704,8 @@ declare module "sap/ui/commons/RowRepeater" {
      * Gets current value of property {@link #getThreshold threshold}.
      *
      * Threshold to fetch the next chunk of data. The minimal threshold can be the numberOfRows of the RR.
+     *
+     * @returns Value of property `threshold`
      */
     getThreshold(): int;
     /**
@@ -19165,6 +22726,8 @@ declare module "sap/ui/commons/RowRepeater" {
     /**
      * Checks for the provided `sap.ui.commons.RowRepeaterFilter` in the aggregation {@link #getFilters filters}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfFilter(
       /**
@@ -19175,6 +22738,8 @@ declare module "sap/ui/commons/RowRepeater" {
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getRows rows}. and returns its
      * index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfRow(
       /**
@@ -19185,6 +22750,8 @@ declare module "sap/ui/commons/RowRepeater" {
     /**
      * Checks for the provided `sap.ui.commons.RowRepeaterSorter` in the aggregation {@link #getSorters sorters}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfSorter(
       /**
@@ -19194,6 +22761,8 @@ declare module "sap/ui/commons/RowRepeater" {
     ): int;
     /**
      * Inserts a filter into the aggregation {@link #getFilters filters}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertFilter(
       /**
@@ -19209,6 +22778,8 @@ declare module "sap/ui/commons/RowRepeater" {
     ): this;
     /**
      * Inserts a row into the aggregation {@link #getRows rows}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertRow(
       /**
@@ -19224,6 +22795,8 @@ declare module "sap/ui/commons/RowRepeater" {
     ): this;
     /**
      * Inserts a sorter into the aggregation {@link #getSorters sorters}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertSorter(
       /**
@@ -19253,47 +22826,59 @@ declare module "sap/ui/commons/RowRepeater" {
      * Removes all the controls from the aggregation {@link #getFilters filters}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllFilters(): RowRepeaterFilter[];
     /**
      * Removes all the controls from the aggregation {@link #getRows rows}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllRows(): Control[];
     /**
      * Removes all the controls from the aggregation {@link #getSorters sorters}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllSorters(): RowRepeaterSorter[];
     /**
      * Removes a filter from the aggregation {@link #getFilters filters}.
+     *
+     * @returns The removed filter or `null`
      */
     removeFilter(
       /**
        * The filter to remove or its index or id
        */
       vFilter: int | string | RowRepeaterFilter
-    ): RowRepeaterFilter;
+    ): RowRepeaterFilter | null;
     /**
      * Removes a row from the aggregation {@link #getRows rows}.
+     *
+     * @returns The removed row or `null`
      */
     removeRow(
       /**
        * The row to remove or its index or id
        */
       vRow: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a sorter from the aggregation {@link #getSorters sorters}.
+     *
+     * @returns The removed sorter or `null`
      */
     removeSorter(
       /**
        * The sorter to remove or its index or id
        */
       vSorter: int | string | RowRepeaterSorter
-    ): RowRepeaterSorter;
+    ): RowRepeaterSorter | null;
     /**
      * Resizes the row repeater by changing the number of displayed rows. This method will only resize the RowRepeater
      * if the property showMoreSteps is set.
@@ -19306,6 +22891,8 @@ declare module "sap/ui/commons/RowRepeater" {
     ): void;
     /**
      * Setter for property `currentPage`.
+     *
+     * @returns `this` to allow method chaining
      */
     setCurrentPage(
       /**
@@ -19321,6 +22908,8 @@ declare module "sap/ui/commons/RowRepeater" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Standard`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDesign(
       /**
@@ -19337,6 +22926,8 @@ declare module "sap/ui/commons/RowRepeater" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setFixedRowHeight(
       /**
@@ -19346,6 +22937,8 @@ declare module "sap/ui/commons/RowRepeater" {
     ): this;
     /**
      * Sets the aggregated {@link #getNoData noData}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setNoData(
       /**
@@ -19357,6 +22950,8 @@ declare module "sap/ui/commons/RowRepeater" {
      * Setter for property `numberOfRows`.
      *
      * Default value is `5`
+     *
+     * @returns `this` to allow method chaining
      */
     setNumberOfRows(
       /**
@@ -19367,6 +22962,8 @@ declare module "sap/ui/commons/RowRepeater" {
     /**
      * Override the default behavior of `setShowMoreSteps` to update the paging mode flag. Any change to the
      * paging mode flag will result in the current page being set to the first page.
+     *
+     * @returns `this` to allow method chaining
      */
     setShowMoreSteps(
       /**
@@ -19380,6 +22977,8 @@ declare module "sap/ui/commons/RowRepeater" {
      * Threshold to fetch the next chunk of data. The minimal threshold can be the numberOfRows of the RR.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setThreshold(
       /**
@@ -19389,6 +22988,8 @@ declare module "sap/ui/commons/RowRepeater" {
     ): this;
     /**
      * Sets the aggregated {@link #getTitle title}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTitle(
       /**
@@ -19400,6 +23001,8 @@ declare module "sap/ui/commons/RowRepeater" {
      * The `triggerShowMore` function increments the number of rows by the value of `showMoreSteps`.
      *
      * This method will only trigger a showMore if the property showMoreSteps is set.
+     *
+     * @returns `this` to allow method chaining
      */
     triggerShowMore(): this;
     /**
@@ -19413,6 +23016,8 @@ declare module "sap/ui/commons/RowRepeater" {
     ): void;
     /**
      * Unbinds aggregation {@link #getRows rows} from model data.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     unbindRows(): this;
   }
@@ -19421,41 +23026,42 @@ declare module "sap/ui/commons/RowRepeater" {
     /**
      * Number of rows displayed.
      */
-    numberOfRows?: int | PropertyBindingInfo;
+    numberOfRows?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The index of the page currently displayed. The index starts at 1.
      */
-    currentPage?: int | PropertyBindingInfo;
+    currentPage?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Step size used to increase the numberOfRows value. This feature is only active if value is greater than
      * 0. This will deactivate the paging feature.
      */
-    showMoreSteps?: int | PropertyBindingInfo;
+    showMoreSteps?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Row height adapts to rendered content. If a fixed height is specified the cells have a maximum height
      * and the overflow will be hidden.
      */
-    fixedRowHeight?: CSSSize | PropertyBindingInfo;
+    fixedRowHeight?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The visual design of the control.
      */
     design?:
       | (RowRepeaterDesign | keyof typeof RowRepeaterDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Threshold to fetch the next chunk of data. The minimal threshold can be the numberOfRows of the RR.
      */
-    threshold?: int | PropertyBindingInfo;
+    threshold?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Rows to be repeated.
      */
-    rows?: Control[] | Control | AggregationBindingInfo;
+    rows?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Title to be displayed in top left corner. Either text or icon.
@@ -19465,12 +23071,20 @@ declare module "sap/ui/commons/RowRepeater" {
     /**
      * Filters to be provided in toolbar.
      */
-    filters?: RowRepeaterFilter[] | RowRepeaterFilter | AggregationBindingInfo;
+    filters?:
+      | RowRepeaterFilter[]
+      | RowRepeaterFilter
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * Sorters to be provided in secondary toolbar.
      */
-    sorters?: RowRepeaterSorter[] | RowRepeaterSorter | AggregationBindingInfo;
+    sorters?:
+      | RowRepeaterSorter[]
+      | RowRepeaterSorter
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * This control is shown, in case there is no data available to be displayed in the RowRepeater.
@@ -19480,23 +23094,81 @@ declare module "sap/ui/commons/RowRepeater" {
     /**
      * This event is triggered when a filter is set.
      */
-    filter?: (oEvent: Event) => void;
+    filter?: (oEvent: RowRepeater$FilterEvent) => void;
 
     /**
      * This event is triggered when a sorting is applied.
      */
-    sort?: (oEvent: Event) => void;
+    sort?: (oEvent: RowRepeater$SortEvent) => void;
 
     /**
      * This event is triggered when paging was executed.
      */
-    page?: (oEvent: Event) => void;
+    page?: (oEvent: RowRepeater$PageEvent) => void;
 
     /**
      * This event is triggered when the number of rows was changed.
      */
-    resize?: (oEvent: Event) => void;
+    resize?: (oEvent: RowRepeater$ResizeEvent) => void;
   }
+
+  export interface RowRepeater$FilterEventParameters {
+    /**
+     * The ID of the filter that has just been applied.
+     */
+    filterId?: string;
+  }
+
+  export type RowRepeater$FilterEvent = Event<
+    RowRepeater$FilterEventParameters,
+    RowRepeater
+  >;
+
+  export interface RowRepeater$PageEventParameters {
+    /**
+     * The value of the currentPage property after the change.
+     */
+    currentPage?: int;
+
+    /**
+     * The value of the currentPage property before the change.
+     */
+    previousPage?: int;
+  }
+
+  export type RowRepeater$PageEvent = Event<
+    RowRepeater$PageEventParameters,
+    RowRepeater
+  >;
+
+  export interface RowRepeater$ResizeEventParameters {
+    /**
+     * The value of the numberOfRows property after the change.
+     */
+    numberOfRows?: int;
+
+    /**
+     * The value of the numberOfRows property before the change.
+     */
+    previousNumberOfRows?: int;
+  }
+
+  export type RowRepeater$ResizeEvent = Event<
+    RowRepeater$ResizeEventParameters,
+    RowRepeater
+  >;
+
+  export interface RowRepeater$SortEventParameters {
+    /**
+     * The ID of the sorter that has just been applied.
+     */
+    sorterId?: string;
+  }
+
+  export type RowRepeater$SortEvent = Event<
+    RowRepeater$SortEventParameters,
+    RowRepeater
+  >;
 }
 
 declare module "sap/ui/commons/RowRepeaterFilter" {
@@ -19549,6 +23221,8 @@ declare module "sap/ui/commons/RowRepeaterFilter" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -19567,24 +23241,32 @@ declare module "sap/ui/commons/RowRepeaterFilter" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.RowRepeaterFilter.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getFilters filters}.
      *
      * The set of filter objects.
+     *
+     * @returns Value of property `filters`
      */
     getFilters(): object;
     /**
      * Gets current value of property {@link #getIcon icon}.
      *
      * The filter icon if needed for display.
+     *
+     * @returns Value of property `icon`
      */
     getIcon(): string;
     /**
      * Gets current value of property {@link #getText text}.
      *
      * The filter title if needed for display.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
@@ -19593,6 +23275,8 @@ declare module "sap/ui/commons/RowRepeaterFilter" {
      * The set of filter objects.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setFilters(
       /**
@@ -19606,6 +23290,8 @@ declare module "sap/ui/commons/RowRepeaterFilter" {
      * The filter icon if needed for display.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIcon(
       /**
@@ -19619,6 +23305,8 @@ declare module "sap/ui/commons/RowRepeaterFilter" {
      * The filter title if needed for display.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -19642,7 +23330,7 @@ declare module "sap/ui/commons/RowRepeaterFilter" {
     /**
      * The set of filter objects.
      */
-    filters?: object | PropertyBindingInfo;
+    filters?: object | PropertyBindingInfo | `{${string}}`;
   }
 }
 
@@ -19696,6 +23384,8 @@ declare module "sap/ui/commons/RowRepeaterSorter" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -19714,24 +23404,32 @@ declare module "sap/ui/commons/RowRepeaterSorter" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.RowRepeaterSorter.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getIcon icon}.
      *
      * The sorter icon if needed for display.
+     *
+     * @returns Value of property `icon`
      */
     getIcon(): string;
     /**
      * Gets current value of property {@link #getSorter sorter}.
      *
      * The sorter object.
+     *
+     * @returns Value of property `sorter`
      */
     getSorter(): object;
     /**
      * Gets current value of property {@link #getText text}.
      *
      * The sorter title if needed for display.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
@@ -19740,6 +23438,8 @@ declare module "sap/ui/commons/RowRepeaterSorter" {
      * The sorter icon if needed for display.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIcon(
       /**
@@ -19753,6 +23453,8 @@ declare module "sap/ui/commons/RowRepeaterSorter" {
      * The sorter object.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSorter(
       /**
@@ -19766,6 +23468,8 @@ declare module "sap/ui/commons/RowRepeaterSorter" {
      * The sorter title if needed for display.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -19789,7 +23493,7 @@ declare module "sap/ui/commons/RowRepeaterSorter" {
     /**
      * The sorter object.
      */
-    sorter?: object | PropertyBindingInfo;
+    sorter?: object | PropertyBindingInfo | `{${string}}`;
   }
 }
 
@@ -19800,13 +23504,13 @@ declare module "sap/ui/commons/SearchField" {
 
   import { ID, TextAlign, ValueState, CSSSize } from "sap/ui/core/library";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import SearchProvider from "sap/ui/core/search/SearchProvider";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - Instead, use the `sap.m.SearchField` control.
@@ -19851,6 +23555,8 @@ declare module "sap/ui/commons/SearchField" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -19869,10 +23575,14 @@ declare module "sap/ui/commons/SearchField" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.SearchField.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaDescribedBy(
       /**
@@ -19882,6 +23592,8 @@ declare module "sap/ui/commons/SearchField" {
     ): this;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -19896,6 +23608,8 @@ declare module "sap/ui/commons/SearchField" {
      * otherwise it will be bound to this `sap.ui.commons.SearchField` itself.
      *
      * Event which is fired when the user triggers a search
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSearch(
       /**
@@ -19906,7 +23620,7 @@ declare module "sap/ui/commons/SearchField" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: SearchField$SearchEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.SearchField` itself
        */
@@ -19919,12 +23633,14 @@ declare module "sap/ui/commons/SearchField" {
      * otherwise it will be bound to this `sap.ui.commons.SearchField` itself.
      *
      * Event which is fired when the user triggers a search
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSearch(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: SearchField$SearchEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.SearchField` itself
        */
@@ -19937,6 +23653,8 @@ declare module "sap/ui/commons/SearchField" {
      * otherwise it will be bound to this `sap.ui.commons.SearchField` itself.
      *
      * Event which is fired when new suggest values are required.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSuggest(
       /**
@@ -19947,7 +23665,7 @@ declare module "sap/ui/commons/SearchField" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: SearchField$SuggestEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.SearchField` itself
        */
@@ -19960,12 +23678,14 @@ declare module "sap/ui/commons/SearchField" {
      * otherwise it will be bound to this `sap.ui.commons.SearchField` itself.
      *
      * Event which is fired when new suggest values are required.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSuggest(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: SearchField$SuggestEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.SearchField` itself
        */
@@ -19977,18 +23697,22 @@ declare module "sap/ui/commons/SearchField" {
     clearHistory(): void;
     /**
      * Destroys the searchProvider in the aggregation {@link #getSearchProvider searchProvider}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroySearchProvider(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:search search} event of this `sap.ui.commons.SearchField`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSearch(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: SearchField$SearchEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -19998,53 +23722,51 @@ declare module "sap/ui/commons/SearchField" {
      * Detaches event handler `fnFunction` from the {@link #event:suggest suggest} event of this `sap.ui.commons.SearchField`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSuggest(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: SearchField$SuggestEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:search search} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireSearch(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The search query
-         */
-        query?: string;
-      }
+      mParameters?: SearchField$SearchEventParameters
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:suggest suggest} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireSuggest(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The value for which suggestions are required.
-         */
-        value?: string;
-      }
+      mParameters?: SearchField$SuggestEventParameters
     ): this;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
-     * ariaDescribedBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     getAriaDescribedBy(): ID[];
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -20053,16 +23775,20 @@ declare module "sap/ui/commons/SearchField" {
      * Non-editable controls have different colors, depending on custom settings
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `editable`
      */
     getEditable(): boolean;
     /**
-     * @SINCE 1.10.3
+     * @since 1.10.3
      *
      * Gets current value of property {@link #getEnableCache enableCache}.
      *
      * When list suggestion is enabled all suggestions are cached and no suggest event is fired.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `enableCache`
      */
     getEnableCache(): boolean;
     /**
@@ -20071,6 +23797,8 @@ declare module "sap/ui/commons/SearchField" {
      * Defines whether the clear functionality shall be active
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `enableClear`
      */
     getEnableClear(): boolean;
     /**
@@ -20079,6 +23807,8 @@ declare module "sap/ui/commons/SearchField" {
      * Disabled fields have different colors, and they can not be focused.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
      */
     getEnabled(): boolean;
     /**
@@ -20088,6 +23818,8 @@ declare module "sap/ui/commons/SearchField" {
      * and when the clear button (if activated) is pressed.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `enableFilterMode`
      */
     getEnableFilterMode(): boolean;
     /**
@@ -20096,6 +23828,8 @@ declare module "sap/ui/commons/SearchField" {
      * Defines whether a pop up list shall be provided for suggestions
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `enableListSuggest`
      */
     getEnableListSuggest(): boolean;
     /**
@@ -20106,6 +23840,8 @@ declare module "sap/ui/commons/SearchField" {
      * data.
      *
      * Default value is `0`.
+     *
+     * @returns Value of property `maxHistoryItems`
      */
     getMaxHistoryItems(): int;
     /**
@@ -20114,6 +23850,8 @@ declare module "sap/ui/commons/SearchField" {
      * Maximum number of characters. Value '0' means the feature is switched off.
      *
      * Default value is `0`.
+     *
+     * @returns Value of property `maxLength`
      */
     getMaxLength(): int;
     /**
@@ -20122,16 +23860,20 @@ declare module "sap/ui/commons/SearchField" {
      * Maximum number of suggestion items in the suggestion list.
      *
      * Default value is `10`.
+     *
+     * @returns Value of property `maxSuggestionItems`
      */
     getMaxSuggestionItems(): int;
     /**
-     * @SINCE 1.32
+     * @since 1.32
      *
      * Gets current value of property {@link #getPlaceholder placeholder}.
      *
      * Placeholder for the input field.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `placeholder`
      */
     getPlaceholder(): string;
     /**
@@ -20146,6 +23888,8 @@ declare module "sap/ui/commons/SearchField" {
      * Defines whether an additional search button shall be displayed
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `showExternalButton`
      */
     getShowExternalButton(): boolean;
     /**
@@ -20155,6 +23899,8 @@ declare module "sap/ui/commons/SearchField" {
      * This feature is deactivated on mobile devices.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `showListExpander`
      */
     getShowListExpander(): boolean;
     /**
@@ -20163,6 +23909,8 @@ declare module "sap/ui/commons/SearchField" {
      * Minimum length of the entered string triggering the suggestion list.
      *
      * Default value is `3`.
+     *
+     * @returns Value of property `startSuggestion`
      */
     getStartSuggestion(): int;
     /**
@@ -20171,6 +23919,8 @@ declare module "sap/ui/commons/SearchField" {
      * Sets the horizontal alignment of the text
      *
      * Default value is `Begin`.
+     *
+     * @returns Value of property `textAlign`
      */
     getTextAlign(): TextAlign | keyof typeof TextAlign;
     /**
@@ -20179,16 +23929,20 @@ declare module "sap/ui/commons/SearchField" {
      * Text that shall be displayed within the search field
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `value`
      */
     getValue(): string;
     /**
-     * @SINCE 1.32
+     * @since 1.32
      *
      * Gets current value of property {@link #getValueState valueState}.
      *
      * Visualizes warnings or errors related to the input field. Possible values: Warning, Error, Success, None.
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `valueState`
      */
     getValueState(): ValueState | keyof typeof ValueState;
     /**
@@ -20198,40 +23952,52 @@ declare module "sap/ui/commons/SearchField" {
      * of list items is higher than the setting, a scroll bar is provided.
      *
      * Default value is `20`.
+     *
+     * @returns Value of property `visibleItemCount`
      */
     getVisibleItemCount(): int;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Control width in CSS-size
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Removes all the controls in the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaDescribedBy(): ID[];
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes an ariaDescribedBy from the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns The removed ariaDescribedBy or `null`
      */
     removeAriaDescribedBy(
       /**
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getEditable editable}.
      *
@@ -20240,6 +24006,8 @@ declare module "sap/ui/commons/SearchField" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEditable(
       /**
@@ -20248,7 +24016,7 @@ declare module "sap/ui/commons/SearchField" {
       bEditable?: boolean
     ): this;
     /**
-     * @SINCE 1.10.3
+     * @since 1.10.3
      *
      * Sets a new value for property {@link #getEnableCache enableCache}.
      *
@@ -20257,6 +24025,8 @@ declare module "sap/ui/commons/SearchField" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEnableCache(
       /**
@@ -20272,6 +24042,8 @@ declare module "sap/ui/commons/SearchField" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEnableClear(
       /**
@@ -20287,6 +24059,8 @@ declare module "sap/ui/commons/SearchField" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEnabled(
       /**
@@ -20303,6 +24077,8 @@ declare module "sap/ui/commons/SearchField" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEnableFilterMode(
       /**
@@ -20318,6 +24094,8 @@ declare module "sap/ui/commons/SearchField" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEnableListSuggest(
       /**
@@ -20335,6 +24113,8 @@ declare module "sap/ui/commons/SearchField" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMaxHistoryItems(
       /**
@@ -20350,6 +24130,8 @@ declare module "sap/ui/commons/SearchField" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMaxLength(
       /**
@@ -20365,6 +24147,8 @@ declare module "sap/ui/commons/SearchField" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `10`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMaxSuggestionItems(
       /**
@@ -20373,7 +24157,7 @@ declare module "sap/ui/commons/SearchField" {
       iMaxSuggestionItems?: int
     ): this;
     /**
-     * @SINCE 1.32
+     * @since 1.32
      *
      * Sets a new value for property {@link #getPlaceholder placeholder}.
      *
@@ -20382,6 +24166,8 @@ declare module "sap/ui/commons/SearchField" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPlaceholder(
       /**
@@ -20391,6 +24177,8 @@ declare module "sap/ui/commons/SearchField" {
     ): this;
     /**
      * Sets the aggregated {@link #getSearchProvider searchProvider}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSearchProvider(
       /**
@@ -20406,6 +24194,8 @@ declare module "sap/ui/commons/SearchField" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowExternalButton(
       /**
@@ -20422,6 +24212,8 @@ declare module "sap/ui/commons/SearchField" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowListExpander(
       /**
@@ -20437,6 +24229,8 @@ declare module "sap/ui/commons/SearchField" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `3`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setStartSuggestion(
       /**
@@ -20452,6 +24246,8 @@ declare module "sap/ui/commons/SearchField" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Begin`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTextAlign(
       /**
@@ -20467,6 +24263,8 @@ declare module "sap/ui/commons/SearchField" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValue(
       /**
@@ -20475,7 +24273,7 @@ declare module "sap/ui/commons/SearchField" {
       sValue?: string
     ): this;
     /**
-     * @SINCE 1.32
+     * @since 1.32
      *
      * Sets a new value for property {@link #getValueState valueState}.
      *
@@ -20484,6 +24282,8 @@ declare module "sap/ui/commons/SearchField" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueState(
       /**
@@ -20500,6 +24300,8 @@ declare module "sap/ui/commons/SearchField" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `20`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setVisibleItemCount(
       /**
@@ -20513,6 +24315,8 @@ declare module "sap/ui/commons/SearchField" {
      * Control width in CSS-size
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
@@ -20540,36 +24344,36 @@ declare module "sap/ui/commons/SearchField" {
     /**
      * Defines whether a pop up list shall be provided for suggestions
      */
-    enableListSuggest?: boolean | PropertyBindingInfo;
+    enableListSuggest?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the list expander shall be displayed in the case of an enabled list for suggestions.
      * This feature is deactivated on mobile devices.
      */
-    showListExpander?: boolean | PropertyBindingInfo;
+    showListExpander?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the clear functionality shall be active
      */
-    enableClear?: boolean | PropertyBindingInfo;
+    enableClear?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether an additional search button shall be displayed
      */
-    showExternalButton?: boolean | PropertyBindingInfo;
+    showExternalButton?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.10.3
+     * @since 1.10.3
      *
      * When list suggestion is enabled all suggestions are cached and no suggest event is fired.
      */
-    enableCache?: boolean | PropertyBindingInfo;
+    enableCache?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines whether the search event should also be fired when the SearchField is empty (like a Filter field)
      * and when the clear button (if activated) is pressed.
      */
-    enableFilterMode?: boolean | PropertyBindingInfo;
+    enableFilterMode?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Text that shall be displayed within the search field
@@ -20579,32 +24383,35 @@ declare module "sap/ui/commons/SearchField" {
     /**
      * Disabled fields have different colors, and they can not be focused.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Non-editable controls have different colors, depending on custom settings
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Control width in CSS-size
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Maximum number of characters. Value '0' means the feature is switched off.
      */
-    maxLength?: int | PropertyBindingInfo;
+    maxLength?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.32
+     * @since 1.32
      *
      * Visualizes warnings or errors related to the input field. Possible values: Warning, Error, Success, None.
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?:
+      | (ValueState | keyof typeof ValueState)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
-     * @SINCE 1.32
+     * @since 1.32
      *
      * Placeholder for the input field.
      */
@@ -20613,30 +24420,33 @@ declare module "sap/ui/commons/SearchField" {
     /**
      * Sets the horizontal alignment of the text
      */
-    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo;
+    textAlign?:
+      | (TextAlign | keyof typeof TextAlign)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the number of items in the suggestion list that shall be displayed at once. If the overall number
      * of list items is higher than the setting, a scroll bar is provided.
      */
-    visibleItemCount?: int | PropertyBindingInfo;
+    visibleItemCount?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Minimum length of the entered string triggering the suggestion list.
      */
-    startSuggestion?: int | PropertyBindingInfo;
+    startSuggestion?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Maximum number of suggestion items in the suggestion list.
      */
-    maxSuggestionItems?: int | PropertyBindingInfo;
+    maxSuggestionItems?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Maximum number of history items in the suggestion list. 0 displays and stores no history. The history
      * is locally stored on the client. Therefore do not activate this feature when this control handles confidential
      * data.
      */
-    maxHistoryItems?: int | PropertyBindingInfo;
+    maxHistoryItems?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Search provider instance which handles the suggestions for this SearchField (e.g. Open Search Protocol).
@@ -20656,13 +24466,37 @@ declare module "sap/ui/commons/SearchField" {
     /**
      * Event which is fired when the user triggers a search
      */
-    search?: (oEvent: Event) => void;
+    search?: (oEvent: SearchField$SearchEvent) => void;
 
     /**
      * Event which is fired when new suggest values are required.
      */
-    suggest?: (oEvent: Event) => void;
+    suggest?: (oEvent: SearchField$SuggestEvent) => void;
   }
+
+  export interface SearchField$SearchEventParameters {
+    /**
+     * The search query
+     */
+    query?: string;
+  }
+
+  export type SearchField$SearchEvent = Event<
+    SearchField$SearchEventParameters,
+    SearchField
+  >;
+
+  export interface SearchField$SuggestEventParameters {
+    /**
+     * The value for which suggestions are required.
+     */
+    value?: string;
+  }
+
+  export type SearchField$SuggestEvent = Event<
+    SearchField$SuggestEventParameters,
+    SearchField
+  >;
 }
 
 declare module "sap/ui/commons/SearchProvider" {
@@ -20686,8 +24520,8 @@ declare module "sap/ui/commons/SearchProvider" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.search.OpenSearchProvider#constructor
-     * sap.ui.core.search.OpenSearchProvider} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.search.OpenSearchProvider#constructor sap.ui.core.search.OpenSearchProvider }
+     * can be used.
      */
     constructor(
       /**
@@ -20702,8 +24536,8 @@ declare module "sap/ui/commons/SearchProvider" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.search.OpenSearchProvider#constructor
-     * sap.ui.core.search.OpenSearchProvider} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.search.OpenSearchProvider#constructor sap.ui.core.search.OpenSearchProvider }
+     * can be used.
      */
     constructor(
       /**
@@ -20721,6 +24555,8 @@ declare module "sap/ui/commons/SearchProvider" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.search.OpenSearchProvider.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -20739,6 +24575,8 @@ declare module "sap/ui/commons/SearchProvider" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.SearchProvider.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -20756,14 +24594,14 @@ declare module "sap/ui/commons/SegmentedButton" {
 
   import Button from "sap/ui/commons/Button";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - replaced by {@link sap.m.SegmentedButton}
@@ -20812,6 +24650,8 @@ declare module "sap/ui/commons/SegmentedButton" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -20830,14 +24670,20 @@ declare module "sap/ui/commons/SegmentedButton" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.SegmentedButton.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Rerendering of the Buttons
      */
     _rerenderButtons(): void;
     /**
      * Adds some button to the aggregation {@link #getButtons buttons}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addButton(
       /**
@@ -20852,6 +24698,8 @@ declare module "sap/ui/commons/SegmentedButton" {
      * otherwise it will be bound to this `sap.ui.commons.SegmentedButton` itself.
      *
      * Event fired when button selected
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelect(
       /**
@@ -20862,7 +24710,7 @@ declare module "sap/ui/commons/SegmentedButton" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: SegmentedButton$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.SegmentedButton` itself
        */
@@ -20875,12 +24723,14 @@ declare module "sap/ui/commons/SegmentedButton" {
      * otherwise it will be bound to this `sap.ui.commons.SegmentedButton` itself.
      *
      * Event fired when button selected
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelect(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: SegmentedButton$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.SegmentedButton` itself
        */
@@ -20888,36 +24738,39 @@ declare module "sap/ui/commons/SegmentedButton" {
     ): this;
     /**
      * Destroys all the buttons in the aggregation {@link #getButtons buttons}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyButtons(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:select select} event of this `sap.ui.commons.SegmentedButton`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSelect(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: SegmentedButton$SelectEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:select select} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireSelect(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Id of selected ToggleButton
-         */
-        selectedButtonId?: string;
-      }
+      mParameters?: SegmentedButton$SelectEventParameters
     ): this;
     /**
      * Gets content of aggregation {@link #getButtons buttons}.
@@ -20931,6 +24784,8 @@ declare module "sap/ui/commons/SegmentedButton" {
      * enabled
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
      */
     getEnabled(): boolean;
     /**
@@ -20941,6 +24796,8 @@ declare module "sap/ui/commons/SegmentedButton" {
     /**
      * Checks for the provided `sap.ui.commons.Button` in the aggregation {@link #getButtons buttons}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfButton(
       /**
@@ -20950,6 +24807,8 @@ declare module "sap/ui/commons/SegmentedButton" {
     ): int;
     /**
      * Inserts a button into the aggregation {@link #getButtons buttons}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertButton(
       /**
@@ -20967,17 +24826,21 @@ declare module "sap/ui/commons/SegmentedButton" {
      * Removes all the controls from the aggregation {@link #getButtons buttons}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllButtons(): Button[];
     /**
      * Removes a button from the aggregation {@link #getButtons buttons}.
+     *
+     * @returns The removed button or `null`
      */
     removeButton(
       /**
        * The button to remove or its index or id
        */
       vButton: int | string | Button
-    ): Button;
+    ): Button | null;
     /**
      * Sets a new value for property {@link #getEnabled enabled}.
      *
@@ -20986,6 +24849,8 @@ declare module "sap/ui/commons/SegmentedButton" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEnabled(
       /**
@@ -20995,6 +24860,8 @@ declare module "sap/ui/commons/SegmentedButton" {
     ): this;
     /**
      * Sets the associated {@link #getSelectedButton selectedButton}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSelectedButton(
       /**
@@ -21009,12 +24876,12 @@ declare module "sap/ui/commons/SegmentedButton" {
     /**
      * enabled
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Buttons
      */
-    buttons?: Button[] | Button | AggregationBindingInfo;
+    buttons?: Button[] | Button | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Selected Button
@@ -21024,8 +24891,20 @@ declare module "sap/ui/commons/SegmentedButton" {
     /**
      * Event fired when button selected
      */
-    select?: (oEvent: Event) => void;
+    select?: (oEvent: SegmentedButton$SelectEvent) => void;
   }
+
+  export interface SegmentedButton$SelectEventParameters {
+    /**
+     * Id of selected ToggleButton
+     */
+    selectedButtonId?: string;
+  }
+
+  export type SegmentedButton$SelectEvent = Event<
+    SegmentedButton$SelectEventParameters,
+    SegmentedButton
+  >;
 }
 
 declare module "sap/ui/commons/Slider" {
@@ -21033,11 +24912,11 @@ declare module "sap/ui/commons/Slider" {
 
   import { IFormContent, ID, CSSSize } from "sap/ui/core/library";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - replaced by {@link sap.m.Slider}
@@ -21083,6 +24962,8 @@ declare module "sap/ui/commons/Slider" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -21101,10 +24982,14 @@ declare module "sap/ui/commons/Slider" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.Slider.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaDescribedBy(
       /**
@@ -21114,6 +24999,8 @@ declare module "sap/ui/commons/Slider" {
     ): this;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -21128,6 +25015,8 @@ declare module "sap/ui/commons/Slider" {
      * otherwise it will be bound to this `sap.ui.commons.Slider` itself.
      *
      * Value was changed. This event is fired if the value has changed by a user action.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -21138,7 +25027,7 @@ declare module "sap/ui/commons/Slider" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Slider$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Slider` itself
        */
@@ -21151,12 +25040,14 @@ declare module "sap/ui/commons/Slider" {
      * otherwise it will be bound to this `sap.ui.commons.Slider` itself.
      *
      * Value was changed. This event is fired if the value has changed by a user action.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Slider$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Slider` itself
        */
@@ -21170,6 +25061,8 @@ declare module "sap/ui/commons/Slider" {
      *
      * Value was changed. This event is fired during the mouse move. The normal change event is only fired by
      * mouseup.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachLiveChange(
       /**
@@ -21180,7 +25073,7 @@ declare module "sap/ui/commons/Slider" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Slider$LiveChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Slider` itself
        */
@@ -21194,12 +25087,14 @@ declare module "sap/ui/commons/Slider" {
      *
      * Value was changed. This event is fired during the mouse move. The normal change event is only fired by
      * mouseup.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachLiveChange(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Slider$LiveChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Slider` itself
        */
@@ -21209,12 +25104,14 @@ declare module "sap/ui/commons/Slider" {
      * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.commons.Slider`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachChange(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Slider$ChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -21224,53 +25121,51 @@ declare module "sap/ui/commons/Slider" {
      * Detaches event handler `fnFunction` from the {@link #event:liveChange liveChange} event of this `sap.ui.commons.Slider`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachLiveChange(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Slider$LiveChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:change change} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireChange(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Current value of the slider after a change.
-         */
-        value?: float;
-      }
+      mParameters?: Slider$ChangeEventParameters
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireLiveChange(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Current value of the slider after a change.
-         */
-        value?: float;
-      }
+      mParameters?: Slider$LiveChangeEventParameters
     ): this;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
-     * ariaDescribedBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     getAriaDescribedBy(): ID[];
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -21279,6 +25174,8 @@ declare module "sap/ui/commons/Slider" {
      * Using the slider interactively requires value "true".
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `editable`
      */
     getEditable(): boolean;
     /**
@@ -21287,16 +25184,20 @@ declare module "sap/ui/commons/Slider" {
      * Switches enabled state of the control. Disabled fields have different colors, and can not be focused.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
      */
     getEnabled(): boolean;
     /**
-     * @SINCE 1.7.1
+     * @since 1.7.1
      *
      * Gets current value of property {@link #getHeight height}.
      *
      * Height of the vertical slider.
      *
      * Default value is `'100%'`.
+     *
+     * @returns Value of property `height`
      */
     getHeight(): CSSSize;
     /**
@@ -21305,6 +25206,8 @@ declare module "sap/ui/commons/Slider" {
      * Labels to be displayed instead of numbers. Attribute totalUnits and label count should be the same
      *
      * **Note:** To show the labels `stepLabels` must be activated.
+     *
+     * @returns Value of property `labels`
      */
     getLabels(): string[];
     /**
@@ -21315,6 +25218,8 @@ declare module "sap/ui/commons/Slider" {
      * **Note:** If `min` is larger than `max` both values will be switched
      *
      * Default value is `100`.
+     *
+     * @returns Value of property `max`
      */
     getMax(): float;
     /**
@@ -21325,12 +25230,16 @@ declare module "sap/ui/commons/Slider" {
      * **Note:** If `min` is larger than `max` both values will be switched
      *
      * Default value is `0`.
+     *
+     * @returns Value of property `min`
      */
     getMin(): float;
     /**
      * Gets current value of property {@link #getSmallStepWidth smallStepWidth}.
      *
      * The grip can only be moved in steps of this width.
+     *
+     * @returns Value of property `smallStepWidth`
      */
     getSmallStepWidth(): float;
     /**
@@ -21339,6 +25248,8 @@ declare module "sap/ui/commons/Slider" {
      * Display step numbers for the ticks on the slider.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `stepLabels`
      */
     getStepLabels(): boolean;
     /**
@@ -21346,6 +25257,8 @@ declare module "sap/ui/commons/Slider" {
      *
      * Number of units that are displayed by ticks. The PageUp and PageDown keys navigate according to these
      * units.
+     *
+     * @returns Value of property `totalUnits`
      */
     getTotalUnits(): int;
     /**
@@ -21357,16 +25270,20 @@ declare module "sap/ui/commons/Slider" {
      * the valid range.
      *
      * Default value is `50`.
+     *
+     * @returns Value of property `value`
      */
     getValue(): float;
     /**
-     * @SINCE 1.7.1
+     * @since 1.7.1
      *
      * Gets current value of property {@link #getVertical vertical}.
      *
      * Orientation of slider
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `vertical`
      */
     getVertical(): boolean;
     /**
@@ -21375,34 +25292,44 @@ declare module "sap/ui/commons/Slider" {
      * Width of the horizontal slider.
      *
      * Default value is `'100%'`.
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Removes all the controls in the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaDescribedBy(): ID[];
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes an ariaDescribedBy from the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns The removed ariaDescribedBy or `null`
      */
     removeAriaDescribedBy(
       /**
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getEditable editable}.
      *
@@ -21411,6 +25338,8 @@ declare module "sap/ui/commons/Slider" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEditable(
       /**
@@ -21426,6 +25355,8 @@ declare module "sap/ui/commons/Slider" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEnabled(
       /**
@@ -21434,7 +25365,7 @@ declare module "sap/ui/commons/Slider" {
       bEnabled?: boolean
     ): this;
     /**
-     * @SINCE 1.7.1
+     * @since 1.7.1
      *
      * Sets a new value for property {@link #getHeight height}.
      *
@@ -21443,6 +25374,8 @@ declare module "sap/ui/commons/Slider" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'100%'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeight(
       /**
@@ -21458,6 +25391,8 @@ declare module "sap/ui/commons/Slider" {
      * **Note:** To show the labels `stepLabels` must be activated.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setLabels(
       /**
@@ -21475,6 +25410,8 @@ declare module "sap/ui/commons/Slider" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `100`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMax(
       /**
@@ -21492,6 +25429,8 @@ declare module "sap/ui/commons/Slider" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMin(
       /**
@@ -21505,6 +25444,8 @@ declare module "sap/ui/commons/Slider" {
      * The grip can only be moved in steps of this width.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSmallStepWidth(
       /**
@@ -21520,6 +25461,8 @@ declare module "sap/ui/commons/Slider" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setStepLabels(
       /**
@@ -21534,6 +25477,8 @@ declare module "sap/ui/commons/Slider" {
      * units.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTotalUnits(
       /**
@@ -21552,6 +25497,8 @@ declare module "sap/ui/commons/Slider" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `50`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValue(
       /**
@@ -21560,7 +25507,7 @@ declare module "sap/ui/commons/Slider" {
       fValue?: float
     ): this;
     /**
-     * @SINCE 1.7.1
+     * @since 1.7.1
      *
      * Sets a new value for property {@link #getVertical vertical}.
      *
@@ -21569,6 +25516,8 @@ declare module "sap/ui/commons/Slider" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setVertical(
       /**
@@ -21584,6 +25533,8 @@ declare module "sap/ui/commons/Slider" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'100%'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
@@ -21597,21 +25548,21 @@ declare module "sap/ui/commons/Slider" {
     /**
      * Width of the horizontal slider.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Minimal value of the slider.
      *
      * **Note:** If `min` is larger than `max` both values will be switched
      */
-    min?: float | PropertyBindingInfo;
+    min?: float | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Maximal value of the slider
      *
      * **Note:** If `min` is larger than `max` both values will be switched
      */
-    max?: float | PropertyBindingInfo;
+    max?: float | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Current value of the slider. (Position of the grip.)
@@ -21619,54 +25570,54 @@ declare module "sap/ui/commons/Slider" {
      * **Note:** If the value is not in the valid range (between `min` and `max`) it will be changed to be in
      * the valid range.
      */
-    value?: float | PropertyBindingInfo;
+    value?: float | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The grip can only be moved in steps of this width.
      */
-    smallStepWidth?: float | PropertyBindingInfo;
+    smallStepWidth?: float | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Number of units that are displayed by ticks. The PageUp and PageDown keys navigate according to these
      * units.
      */
-    totalUnits?: int | PropertyBindingInfo;
+    totalUnits?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Display step numbers for the ticks on the slider.
      */
-    stepLabels?: boolean | PropertyBindingInfo;
+    stepLabels?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Using the slider interactively requires value "true".
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Switches enabled state of the control. Disabled fields have different colors, and can not be focused.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Labels to be displayed instead of numbers. Attribute totalUnits and label count should be the same
      *
      * **Note:** To show the labels `stepLabels` must be activated.
      */
-    labels?: string[] | PropertyBindingInfo;
+    labels?: string[] | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.7.1
+     * @since 1.7.1
      *
      * Orientation of slider
      */
-    vertical?: boolean | PropertyBindingInfo;
+    vertical?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @SINCE 1.7.1
+     * @since 1.7.1
      *
      * Height of the vertical slider.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Association to controls / IDs which describe this control (see WAI-ARIA attribute aria-describedby).
@@ -21681,14 +25632,35 @@ declare module "sap/ui/commons/Slider" {
     /**
      * Value was changed. This event is fired if the value has changed by a user action.
      */
-    change?: (oEvent: Event) => void;
+    change?: (oEvent: Slider$ChangeEvent) => void;
 
     /**
      * Value was changed. This event is fired during the mouse move. The normal change event is only fired by
      * mouseup.
      */
-    liveChange?: (oEvent: Event) => void;
+    liveChange?: (oEvent: Slider$LiveChangeEvent) => void;
   }
+
+  export interface Slider$ChangeEventParameters {
+    /**
+     * Current value of the slider after a change.
+     */
+    value?: float;
+  }
+
+  export type Slider$ChangeEvent = Event<Slider$ChangeEventParameters, Slider>;
+
+  export interface Slider$LiveChangeEventParameters {
+    /**
+     * Current value of the slider after a change.
+     */
+    value?: float;
+  }
+
+  export type Slider$LiveChangeEvent = Event<
+    Slider$LiveChangeEventParameters,
+    Slider
+  >;
 }
 
 declare module "sap/ui/commons/Splitter" {
@@ -21749,6 +25721,8 @@ declare module "sap/ui/commons/Splitter" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -21767,10 +25741,14 @@ declare module "sap/ui/commons/Splitter" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.Splitter.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some firstPaneContent to the aggregation {@link #getFirstPaneContent firstPaneContent}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addFirstPaneContent(
       /**
@@ -21780,6 +25758,8 @@ declare module "sap/ui/commons/Splitter" {
     ): this;
     /**
      * Adds some secondPaneContent to the aggregation {@link #getSecondPaneContent secondPaneContent}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addSecondPaneContent(
       /**
@@ -21789,10 +25769,14 @@ declare module "sap/ui/commons/Splitter" {
     ): this;
     /**
      * Destroys all the firstPaneContent in the aggregation {@link #getFirstPaneContent firstPaneContent}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyFirstPaneContent(): this;
     /**
      * Destroys all the secondPaneContent in the aggregation {@link #getSecondPaneContent secondPaneContent}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroySecondPaneContent(): this;
     /**
@@ -21808,6 +25792,8 @@ declare module "sap/ui/commons/Splitter" {
      * The height of the split area in px or in %
      *
      * Default value is `'100%'`.
+     *
+     * @returns Value of property `height`
      */
     getHeight(): SplitterSize;
     /**
@@ -21816,6 +25802,8 @@ declare module "sap/ui/commons/Splitter" {
      * The minimum size (width for vertical splitter or height for horizontal splitter) of the first Pane
      *
      * Default value is `'0%'`.
+     *
+     * @returns Value of property `minSizeFirstPane`
      */
     getMinSizeFirstPane(): Percentage;
     /**
@@ -21824,6 +25812,8 @@ declare module "sap/ui/commons/Splitter" {
      * The minimum size (width for vertical splitter or height for horizontal splitter) of the second Pane
      *
      * Default value is `'0%'`.
+     *
+     * @returns Value of property `minSizeSecondPane`
      */
     getMinSizeSecondPane(): Percentage;
     /**
@@ -21840,6 +25830,8 @@ declare module "sap/ui/commons/Splitter" {
      * the content does not fit into its pane.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `showScrollBars`
      */
     getShowScrollBars(): boolean;
     /**
@@ -21848,6 +25840,8 @@ declare module "sap/ui/commons/Splitter" {
      * set the splitter bar to be visible or not.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `splitterBarVisible`
      */
     getSplitterBarVisible(): boolean;
     /**
@@ -21856,6 +25850,8 @@ declare module "sap/ui/commons/Splitter" {
      * The splitter can have horizontal or vertical orientation.
      *
      * Default value is `Vertical`.
+     *
+     * @returns Value of property `splitterOrientation`
      */
     getSplitterOrientation(): Orientation | keyof typeof Orientation;
     /**
@@ -21865,6 +25861,8 @@ declare module "sap/ui/commons/Splitter" {
      * middle of the area that is available for the splitter.
      *
      * Default value is `'50%'`.
+     *
+     * @returns Value of property `splitterPosition`
      */
     getSplitterPosition(): Percentage;
     /**
@@ -21873,11 +25871,15 @@ declare module "sap/ui/commons/Splitter" {
      * The width of the split area in px or in %
      *
      * Default value is `'100%'`.
+     *
+     * @returns Value of property `width`
      */
     getWidth(): SplitterSize;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getFirstPaneContent firstPaneContent}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfFirstPaneContent(
       /**
@@ -21888,6 +25890,8 @@ declare module "sap/ui/commons/Splitter" {
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getSecondPaneContent secondPaneContent}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfSecondPaneContent(
       /**
@@ -21897,6 +25901,8 @@ declare module "sap/ui/commons/Splitter" {
     ): int;
     /**
      * Inserts a firstPaneContent into the aggregation {@link #getFirstPaneContent firstPaneContent}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertFirstPaneContent(
       /**
@@ -21912,6 +25918,8 @@ declare module "sap/ui/commons/Splitter" {
     ): this;
     /**
      * Inserts a secondPaneContent into the aggregation {@link #getSecondPaneContent secondPaneContent}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertSecondPaneContent(
       /**
@@ -21929,32 +25937,40 @@ declare module "sap/ui/commons/Splitter" {
      * Removes all the controls from the aggregation {@link #getFirstPaneContent firstPaneContent}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllFirstPaneContent(): Control[];
     /**
      * Removes all the controls from the aggregation {@link #getSecondPaneContent secondPaneContent}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllSecondPaneContent(): Control[];
     /**
      * Removes a firstPaneContent from the aggregation {@link #getFirstPaneContent firstPaneContent}.
+     *
+     * @returns The removed firstPaneContent or `null`
      */
     removeFirstPaneContent(
       /**
        * The firstPaneContent to remove or its index or id
        */
       vFirstPaneContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a secondPaneContent from the aggregation {@link #getSecondPaneContent secondPaneContent}.
+     *
+     * @returns The removed secondPaneContent or `null`
      */
     removeSecondPaneContent(
       /**
        * The secondPaneContent to remove or its index or id
        */
       vSecondPaneContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getHeight height}.
      *
@@ -21963,6 +25979,8 @@ declare module "sap/ui/commons/Splitter" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'100%'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeight(
       /**
@@ -21978,6 +25996,8 @@ declare module "sap/ui/commons/Splitter" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'0%'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMinSizeFirstPane(
       /**
@@ -21993,6 +26013,8 @@ declare module "sap/ui/commons/Splitter" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'0%'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMinSizeSecondPane(
       /**
@@ -22009,6 +26031,8 @@ declare module "sap/ui/commons/Splitter" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowScrollBars(
       /**
@@ -22024,6 +26048,8 @@ declare module "sap/ui/commons/Splitter" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSplitterBarVisible(
       /**
@@ -22039,6 +26065,8 @@ declare module "sap/ui/commons/Splitter" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Vertical`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSplitterOrientation(
       /**
@@ -22055,6 +26083,8 @@ declare module "sap/ui/commons/Splitter" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'50%'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSplitterPosition(
       /**
@@ -22070,6 +26100,8 @@ declare module "sap/ui/commons/Splitter" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'100%'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
@@ -22085,56 +26117,65 @@ declare module "sap/ui/commons/Splitter" {
      */
     splitterOrientation?:
       | (Orientation | keyof typeof Orientation)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Position of splitter bar in percentage. The default value means that the splitter is positioned in the
      * middle of the area that is available for the splitter.
      */
-    splitterPosition?: Percentage | PropertyBindingInfo;
+    splitterPosition?: Percentage | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The minimum size (width for vertical splitter or height for horizontal splitter) of the first Pane
      */
-    minSizeFirstPane?: Percentage | PropertyBindingInfo;
+    minSizeFirstPane?: Percentage | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The minimum size (width for vertical splitter or height for horizontal splitter) of the second Pane
      */
-    minSizeSecondPane?: Percentage | PropertyBindingInfo;
+    minSizeSecondPane?: Percentage | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The width of the split area in px or in %
      */
-    width?: SplitterSize | PropertyBindingInfo;
+    width?: SplitterSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The height of the split area in px or in %
      */
-    height?: SplitterSize | PropertyBindingInfo;
+    height?: SplitterSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Specifies if the browser should display scroll bars or simply cut the content of a splitter pane when
      * the content does not fit into its pane.
      */
-    showScrollBars?: boolean | PropertyBindingInfo;
+    showScrollBars?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * set the splitter bar to be visible or not.
      */
-    splitterBarVisible?: boolean | PropertyBindingInfo;
+    splitterBarVisible?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Controls inside the first pane. These are the left ones in case of defining a vertical splitter, and
      * the top ones in case of using the horizontal splitter.
      */
-    firstPaneContent?: Control[] | Control | AggregationBindingInfo;
+    firstPaneContent?:
+      | Control[]
+      | Control
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * Controls inside the second pane. These are the right ones in case of defining a vertical splitter, and
      * the bottom ones in case of using the horizontal splitter.
      */
-    secondPaneContent?: Control[] | Control | AggregationBindingInfo;
+    secondPaneContent?:
+      | Control[]
+      | Control
+      | AggregationBindingInfo
+      | `{${string}}`;
   }
 }
 
@@ -22189,6 +26230,8 @@ declare module "sap/ui/commons/Tab" {
      * contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.commons.Panel.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -22207,6 +26250,8 @@ declare module "sap/ui/commons/Tab" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.Tab.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
@@ -22215,6 +26260,8 @@ declare module "sap/ui/commons/Tab" {
      * Specifies whether the tab contains a close button.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `closable`
      */
     getClosable(): boolean;
     /**
@@ -22223,6 +26270,8 @@ declare module "sap/ui/commons/Tab" {
      * Specifies the horizontal scrolling.
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `horizontalScrolling`
      */
     getHorizontalScrolling(): Scrolling | keyof typeof Scrolling;
     /**
@@ -22234,6 +26283,8 @@ declare module "sap/ui/commons/Tab" {
      * Defines whether the tab is the active one.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `selected`
      */
     getSelected(): boolean;
     /**
@@ -22242,6 +26293,8 @@ declare module "sap/ui/commons/Tab" {
      * Specifies the vertical scrolling.
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `verticalScrolling`
      */
     getVerticalScrolling(): Scrolling | keyof typeof Scrolling;
     /**
@@ -22252,6 +26305,8 @@ declare module "sap/ui/commons/Tab" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setClosable(
       /**
@@ -22267,6 +26322,8 @@ declare module "sap/ui/commons/Tab" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHorizontalScrolling(
       /**
@@ -22285,6 +26342,8 @@ declare module "sap/ui/commons/Tab" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSelected(
       /**
@@ -22300,6 +26359,8 @@ declare module "sap/ui/commons/Tab" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setVerticalScrolling(
       /**
@@ -22315,19 +26376,21 @@ declare module "sap/ui/commons/Tab" {
      */
     verticalScrolling?:
       | (Scrolling | keyof typeof Scrolling)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Specifies the horizontal scrolling.
      */
     horizontalScrolling?:
       | (Scrolling | keyof typeof Scrolling)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Specifies whether the tab contains a close button.
      */
-    closable?: boolean | PropertyBindingInfo;
+    closable?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * @deprecated (since 0.17.0) - This property is not used. To identify the selected tab in a TabStrip selectedIndex
@@ -22335,7 +26398,7 @@ declare module "sap/ui/commons/Tab" {
      *
      * Defines whether the tab is the active one.
      */
-    selected?: boolean | PropertyBindingInfo;
+    selected?: boolean | PropertyBindingInfo | `{${string}}`;
   }
 }
 
@@ -22343,8 +26406,6 @@ declare module "sap/ui/commons/TabStrip" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
   import Tab from "sap/ui/commons/Tab";
-
-  import Event from "sap/ui/base/Event";
 
   import { CSSSize } from "sap/ui/core/library";
 
@@ -22354,6 +26415,8 @@ declare module "sap/ui/commons/TabStrip" {
     PropertyBindingInfo,
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - Instead, use the `sap.m.TabContainer` control.
@@ -22398,6 +26461,8 @@ declare module "sap/ui/commons/TabStrip" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -22416,10 +26481,14 @@ declare module "sap/ui/commons/TabStrip" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.TabStrip.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some tab to the aggregation {@link #getTabs tabs}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addTab(
       /**
@@ -22434,6 +26503,8 @@ declare module "sap/ui/commons/TabStrip" {
      * otherwise it will be bound to this `sap.ui.commons.TabStrip` itself.
      *
      * Fires when the user closes a tab.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachClose(
       /**
@@ -22444,7 +26515,7 @@ declare module "sap/ui/commons/TabStrip" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: TabStrip$CloseEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TabStrip` itself
        */
@@ -22457,12 +26528,14 @@ declare module "sap/ui/commons/TabStrip" {
      * otherwise it will be bound to this `sap.ui.commons.TabStrip` itself.
      *
      * Fires when the user closes a tab.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachClose(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: TabStrip$CloseEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TabStrip` itself
        */
@@ -22475,6 +26548,8 @@ declare module "sap/ui/commons/TabStrip" {
      * otherwise it will be bound to this `sap.ui.commons.TabStrip` itself.
      *
      * Fires when the user selects a tab.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelect(
       /**
@@ -22485,7 +26560,7 @@ declare module "sap/ui/commons/TabStrip" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: TabStrip$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TabStrip` itself
        */
@@ -22498,12 +26573,14 @@ declare module "sap/ui/commons/TabStrip" {
      * otherwise it will be bound to this `sap.ui.commons.TabStrip` itself.
      *
      * Fires when the user selects a tab.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelect(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: TabStrip$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TabStrip` itself
        */
@@ -22524,6 +26601,8 @@ declare module "sap/ui/commons/TabStrip" {
     ): void;
     /**
      * Creates a Tab and adds it to the TabStrip.
+     *
+     * @returns oTab The created tab control
      */
     createTab(
       /**
@@ -22537,18 +26616,22 @@ declare module "sap/ui/commons/TabStrip" {
     ): Tab;
     /**
      * Destroys all the tabs in the aggregation {@link #getTabs tabs}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyTabs(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:close close} event of this `sap.ui.commons.TabStrip`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachClose(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: TabStrip$CloseEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -22558,44 +26641,44 @@ declare module "sap/ui/commons/TabStrip" {
      * Detaches event handler `fnFunction` from the {@link #event:select select} event of this `sap.ui.commons.TabStrip`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSelect(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: TabStrip$SelectEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:close close} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireClose(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The index of the closed tab.
-         */
-        index?: int;
-      }
+      mParameters?: TabStrip$CloseEventParameters
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:select select} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireSelect(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The index of the selected tab.
-         */
-        index?: int;
-      }
+      mParameters?: TabStrip$SelectEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getEnableTabReordering enableTabReordering}.
@@ -22603,12 +26686,16 @@ declare module "sap/ui/commons/TabStrip" {
      * Specifies whether tab reordering is enabled.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `enableTabReordering`
      */
     getEnableTabReordering(): boolean;
     /**
      * Gets current value of property {@link #getHeight height}.
      *
      * Specifies the height of the tab bar and content area.
+     *
+     * @returns Value of property `height`
      */
     getHeight(): CSSSize;
     /**
@@ -22617,6 +26704,8 @@ declare module "sap/ui/commons/TabStrip" {
      * Specifies the index of the currently selected tab.
      *
      * Default value is `0`.
+     *
+     * @returns Value of property `selectedIndex`
      */
     getSelectedIndex(): int;
     /**
@@ -22629,11 +26718,15 @@ declare module "sap/ui/commons/TabStrip" {
      * Gets current value of property {@link #getWidth width}.
      *
      * Specifies the width of the bar and content area.
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Checks for the provided `sap.ui.commons.Tab` in the aggregation {@link #getTabs tabs}. and returns its
      * index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfTab(
       /**
@@ -22643,6 +26736,8 @@ declare module "sap/ui/commons/TabStrip" {
     ): int;
     /**
      * Inserts a tab into the aggregation {@link #getTabs tabs}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertTab(
       /**
@@ -22664,19 +26759,25 @@ declare module "sap/ui/commons/TabStrip" {
      * Removes all the controls from the aggregation {@link #getTabs tabs}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllTabs(): Tab[];
     /**
      * Removes a tab from the aggregation {@link #getTabs tabs}.
+     *
+     * @returns The removed tab or `null`
      */
     removeTab(
       /**
        * The tab to remove or its index or id
        */
       vTab: int | string | Tab
-    ): Tab;
+    ): Tab | null;
     /**
      * Sets whether tab reordering is enabled.
+     *
+     * @returns Pointer to the control instance for chaining.
      */
     setEnableTabReordering(
       /**
@@ -22690,6 +26791,8 @@ declare module "sap/ui/commons/TabStrip" {
      * Specifies the height of the tab bar and content area.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeight(
       /**
@@ -22705,6 +26808,8 @@ declare module "sap/ui/commons/TabStrip" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSelectedIndex(
       /**
@@ -22718,6 +26823,8 @@ declare module "sap/ui/commons/TabStrip" {
      * Specifies the width of the bar and content area.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
@@ -22731,38 +26838,62 @@ declare module "sap/ui/commons/TabStrip" {
     /**
      * Specifies the height of the tab bar and content area.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Specifies the width of the bar and content area.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Specifies the index of the currently selected tab.
      */
-    selectedIndex?: int | PropertyBindingInfo;
+    selectedIndex?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Specifies whether tab reordering is enabled.
      */
-    enableTabReordering?: boolean | PropertyBindingInfo;
+    enableTabReordering?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The tabs contained in the TabStrip.
      */
-    tabs?: Tab[] | Tab | AggregationBindingInfo;
+    tabs?: Tab[] | Tab | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Fires when the user selects a tab.
      */
-    select?: (oEvent: Event) => void;
+    select?: (oEvent: TabStrip$SelectEvent) => void;
 
     /**
      * Fires when the user closes a tab.
      */
-    close?: (oEvent: Event) => void;
+    close?: (oEvent: TabStrip$CloseEvent) => void;
   }
+
+  export interface TabStrip$CloseEventParameters {
+    /**
+     * The index of the closed tab.
+     */
+    index?: int;
+  }
+
+  export type TabStrip$CloseEvent = Event<
+    TabStrip$CloseEventParameters,
+    TabStrip
+  >;
+
+  export interface TabStrip$SelectEventParameters {
+    /**
+     * The index of the selected tab.
+     */
+    index?: int;
+  }
+
+  export type TabStrip$SelectEvent = Event<
+    TabStrip$SelectEventParameters,
+    TabStrip
+  >;
 }
 
 declare module "sap/ui/commons/TextArea" {
@@ -22819,6 +26950,8 @@ declare module "sap/ui/commons/TextArea" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.commons.TextField.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -22837,6 +26970,8 @@ declare module "sap/ui/commons/TextArea" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.TextArea.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
@@ -22844,24 +26979,32 @@ declare module "sap/ui/commons/TextArea" {
      *
      * Number of Columns. Cols means number of characters per row. This proprty is only used if Width is not
      * used.
+     *
+     * @returns Value of property `cols`
      */
     getCols(): int;
     /**
      * Gets current value of property {@link #getCursorPos cursorPos}.
      *
      * Position of cursor, e.g., to let the user re-start typing at the same position as before the server roundtrip
+     *
+     * @returns Value of property `cursorPos`
      */
     getCursorPos(): int;
     /**
      * Gets current value of property {@link #getExplanation explanation}.
      *
      * text which appears, in case quick-help is switched on
+     *
+     * @returns Value of property `explanation`
      */
     getExplanation(): string;
     /**
      * Gets current value of property {@link #getHeight height}.
      *
      * Height of text field. When it is set (CSS-size such as % or px), this is the exact size.
+     *
+     * @returns Value of property `height`
      */
     getHeight(): CSSSize;
     /**
@@ -22870,18 +27013,24 @@ declare module "sap/ui/commons/TextArea" {
      * Gets current value of property {@link #getLabeledBy labeledBy}.
      *
      * ID of label control
+     *
+     * @returns Value of property `labeledBy`
      */
     getLabeledBy(): string;
     /**
      * Gets current value of property {@link #getRows rows}.
      *
      * Number of Rows. This proprty is only used if Height is not used.
+     *
+     * @returns Value of property `rows`
      */
     getRows(): int;
     /**
      * Gets current value of property {@link #getWrapping wrapping}.
      *
      * Text wrapping. Possible values are: Soft, Hard, Off.
+     *
+     * @returns Value of property `wrapping`
      */
     getWrapping(): Wrapping | keyof typeof Wrapping;
     /**
@@ -22891,6 +27040,8 @@ declare module "sap/ui/commons/TextArea" {
      * used.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setCols(
       /**
@@ -22900,6 +27051,8 @@ declare module "sap/ui/commons/TextArea" {
     ): this;
     /**
      * Property setter for the cursor position
+     *
+     * @returns `this` to allow method chaining
      */
     setCursorPos(
       /**
@@ -22913,6 +27066,8 @@ declare module "sap/ui/commons/TextArea" {
      * text which appears, in case quick-help is switched on
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setExplanation(
       /**
@@ -22926,6 +27081,8 @@ declare module "sap/ui/commons/TextArea" {
      * Height of text field. When it is set (CSS-size such as % or px), this is the exact size.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeight(
       /**
@@ -22941,6 +27098,8 @@ declare module "sap/ui/commons/TextArea" {
      * ID of label control
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setLabeledBy(
       /**
@@ -22950,6 +27109,8 @@ declare module "sap/ui/commons/TextArea" {
     ): this;
     /**
      * Property setter for MaxLength
+     *
+     * @returns `this` to allow method chaining
      */
     setMaxLength(
       /**
@@ -22963,6 +27124,8 @@ declare module "sap/ui/commons/TextArea" {
      * Number of Rows. This proprty is only used if Height is not used.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setRows(
       /**
@@ -22976,6 +27139,8 @@ declare module "sap/ui/commons/TextArea" {
      * Text wrapping. Possible values are: Soft, Hard, Off.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWrapping(
       /**
@@ -22989,28 +27154,31 @@ declare module "sap/ui/commons/TextArea" {
     /**
      * Height of text field. When it is set (CSS-size such as % or px), this is the exact size.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Number of Columns. Cols means number of characters per row. This proprty is only used if Width is not
      * used.
      */
-    cols?: int | PropertyBindingInfo;
+    cols?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Number of Rows. This proprty is only used if Height is not used.
      */
-    rows?: int | PropertyBindingInfo;
+    rows?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Text wrapping. Possible values are: Soft, Hard, Off.
      */
-    wrapping?: (Wrapping | keyof typeof Wrapping) | PropertyBindingInfo;
+    wrapping?:
+      | (Wrapping | keyof typeof Wrapping)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Position of cursor, e.g., to let the user re-start typing at the same position as before the server roundtrip
      */
-    cursorPos?: int | PropertyBindingInfo;
+    cursorPos?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * text which appears, in case quick-help is switched on
@@ -23026,842 +27194,6 @@ declare module "sap/ui/commons/TextArea" {
   }
 }
 
-declare module "sap/ui/commons/TextField" {
-  import { default as Control, $ControlSettings } from "sap/ui/core/Control";
-
-  import { ToolbarItem } from "sap/ui/commons/library";
-
-  import {
-    IFormContent,
-    ID,
-    AccessibleRole,
-    Design,
-    ImeMode,
-    TextAlign,
-    TextDirection,
-    ValueState,
-    CSSSize,
-  } from "sap/ui/core/library";
-
-  import Event from "sap/ui/base/Event";
-
-  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
-
-  import ElementMetadata from "sap/ui/core/ElementMetadata";
-
-  /**
-   * @deprecated (since 1.38) - replaced by {@link sap.m.Input}
-   *
-   * Renders an input field for text input.
-   */
-  export default class TextField
-    extends Control
-    implements ToolbarItem, IFormContent {
-    __implements__sap_ui_commons_ToolbarItem: boolean;
-    __implements__sap_ui_core_IFormContent: boolean;
-    /**
-     * Constructor for a new TextField.
-     *
-     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
-     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
-     * of the syntax of the settings object.
-     */
-    constructor(
-      /**
-       * Initial settings for the new control
-       */
-      mSettings?: $TextFieldSettings
-    );
-    /**
-     * Constructor for a new TextField.
-     *
-     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
-     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
-     * of the syntax of the settings object.
-     */
-    constructor(
-      /**
-       * id for the new control, generated automatically if no ID is given
-       */
-      sID?: string,
-      /**
-       * Initial settings for the new control
-       */
-      mSettings?: $TextFieldSettings
-    );
-
-    /**
-     * Creates a new subclass of class sap.ui.commons.TextField with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, TextField>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
-     * Returns a metadata object for class sap.ui.commons.TextField.
-     */
-    static getMetadata(): ElementMetadata;
-    /**
-     * Compares the previous value with the current value and fires the change event if the TextField is editable
-     * and the value has changed.
-     */
-    _checkChange(
-      /**
-       * The event object.
-       */
-      oEvent: jQuery.Event
-    ): void;
-    /**
-     * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
-     */
-    addAriaDescribedBy(
-      /**
-       * The ariaDescribedBy to add; if empty, nothing is inserted
-       */
-      vAriaDescribedBy: ID | Control
-    ): this;
-    /**
-     * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
-     */
-    addAriaLabelledBy(
-      /**
-       * The ariaLabelledBy to add; if empty, nothing is inserted
-       */
-      vAriaLabelledBy: ID | Control
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.TextField`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.TextField` itself.
-     *
-     * Event is fired when the text in the field has changed AND the focus leaves the TextField or the Enter
-     * key is pressed.
-     */
-    attachChange(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.ui.commons.TextField`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.TextField` itself.
-     *
-     * Event is fired when the text in the field has changed AND the focus leaves the TextField or the Enter
-     * key is pressed.
-     */
-    attachChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.commons.TextField`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.TextField` itself.
-     *
-     * This event if fired during typing into the `TextField` and returns the currently entered value. **Note:**
-     * This is not the content of the value property. The value property is only updated by ENTER and by leaving
-     * the control.
-     */
-    attachLiveChange(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:liveChange liveChange} event of this `sap.ui.commons.TextField`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.commons.TextField` itself.
-     *
-     * This event if fired during typing into the `TextField` and returns the currently entered value. **Note:**
-     * This is not the content of the value property. The value property is only updated by ENTER and by leaving
-     * the control.
-     */
-    attachLiveChange(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.commons.TextField` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Binds property {@link #getValue value} to model data.
-     *
-     * See {@link sap.ui.base.ManagedObject#bindProperty ManagedObject.bindProperty} for a detailed description
-     * of the possible properties of `oBindingInfo`
-     */
-    bindValue(
-      /**
-       * The binding information
-       */
-      oBindingInfo: PropertyBindingInfo
-    ): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.commons.TextField`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     */
-    detachChange(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:liveChange liveChange} event of this `sap.ui.commons.TextField`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     */
-    detachLiveChange(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (p1: Event) => void,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Fires event {@link #event:change change} to attached listeners.
-     */
-    fireChange(
-      /**
-       * Parameters to pass along with the event
-       */
-      mParameters?: {
-        /**
-         * The new / changed value of the `TextField`.
-         */
-        newValue?: string;
-      }
-    ): this;
-    /**
-     * Fires event {@link #event:liveChange liveChange} to attached listeners.
-     */
-    fireLiveChange(
-      /**
-       * Parameters to pass along with the event
-       */
-      mParameters?: {
-        /**
-         * Current visible value of the `TextField`.
-         */
-        liveValue?: string;
-      }
-    ): this;
-    /**
-     * See:
-     * 	sap.ui.core.Control#getAccessibilityInfo
-     */
-    getAccessibilityInfo(): object;
-    /**
-     * Gets current value of property {@link #getAccessibleRole accessibleRole}.
-     *
-     * Accessibility role for the text field.
-     *
-     * Default value is `Textbox`.
-     */
-    getAccessibleRole(): AccessibleRole | keyof typeof AccessibleRole;
-    /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
-     * ariaDescribedBy}.
-     */
-    getAriaDescribedBy(): ID[];
-    /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
-     */
-    getAriaLabelledBy(): ID[];
-    /**
-     * Gets current value of property {@link #getDesign design}.
-     *
-     * Font type. valid values are Standard and Monospace.
-     *
-     * Default value is `Standard`.
-     */
-    getDesign(): Design | keyof typeof Design;
-    /**
-     * Gets current value of property {@link #getEditable editable}.
-     *
-     * Switches edit state of the control. Read-only fields have different colors, depending on theme setting.
-     *
-     * Default value is `true`.
-     */
-    getEditable(): boolean;
-    /**
-     * Gets current value of property {@link #getEnabled enabled}.
-     *
-     * Switches enabled state of the control. Disabled fields have different colors, and can not be focused.
-     *
-     * Default value is `true`.
-     */
-    getEnabled(): boolean;
-    /**
-     * Returns an object representing the serialized focus information
-     */
-    getFocusInfo(): object;
-    /**
-     * Gets current value of property {@link #getHelpId helpId}.
-     *
-     * Unique identifier used for help service.
-     *
-     * Default value is `empty string`.
-     */
-    getHelpId(): string;
-    /**
-     * Gets current value of property {@link #getImeMode imeMode}.
-     *
-     * State of the Input Method Editor (IME).
-     *
-     * Default value is `Auto`.
-     */
-    getImeMode(): ImeMode | keyof typeof ImeMode;
-    /**
-     * Method for accessing the DOM Ref of the input element.
-     */
-    getInputDomRef(): object;
-    /**
-     * Returns the current value of the `TextField`. In case of editing the `TextField` you can access the current
-     * value via this method. The validated value is accessible via the property value.
-     */
-    getLiveValue(): string;
-    /**
-     * Gets current value of property {@link #getMaxLength maxLength}.
-     *
-     * Maximum number of characters. Value '0' means the feature is switched off.
-     *
-     * Default value is `0`.
-     */
-    getMaxLength(): int;
-    /**
-     * Gets current value of property {@link #getName name}.
-     *
-     * The `name` property to be used in the HTML code (e.g. for HTML forms that send data to the server via
-     * 'submit').
-     */
-    getName(): string;
-    /**
-     * @SINCE 1.14.0
-     *
-     * Gets current value of property {@link #getPlaceholder placeholder}.
-     *
-     * Placeholder for the text field.
-     */
-    getPlaceholder(): string;
-    /**
-     * Gets current value of property {@link #getRequired required}.
-     *
-     * Depending on theme the `TextField` is shown as required. If a `Label` is assigned to the `TextField`
-     * it will visualize the requires state too.
-     *
-     * Default value is `false`.
-     */
-    getRequired(): boolean;
-    /**
-     * Gets current value of property {@link #getTextAlign textAlign}.
-     *
-     * Sets the horizontal alignment of the text.
-     *
-     * Default value is `Begin`.
-     */
-    getTextAlign(): TextAlign | keyof typeof TextAlign;
-    /**
-     * Gets current value of property {@link #getTextDirection textDirection}.
-     *
-     * Direction of the text. Possible values: "rtl", "ltr".
-     *
-     * Default value is `Inherit`.
-     */
-    getTextDirection(): TextDirection | keyof typeof TextDirection;
-    /**
-     * Gets current value of property {@link #getValue value}.
-     *
-     * Text inside the `TextField`
-     *
-     * Default value is `empty string`.
-     */
-    getValue(): string;
-    /**
-     * Gets current value of property {@link #getValueState valueState}.
-     *
-     * Visualizes warnings or errors related to the text field. Possible values: Warning, Error, Success.
-     *
-     * Default value is `None`.
-     */
-    getValueState(): ValueState | keyof typeof ValueState;
-    /**
-     * Gets current value of property {@link #getWidth width}.
-     *
-     * Width of text field. When it is set (CSS-size such as % or px), this is the exact size. When left blank,
-     * the text field length defines the width.
-     */
-    getWidth(): CSSSize;
-    /**
-     * Event handler called when control is receiving the focus
-     */
-    onfocusin(
-      /**
-       * The event object.
-       */
-      oEvent: jQuery.Event
-    ): void;
-    /**
-     * Event handler for keyup. fire the liveChange event
-     */
-    onkeyup(
-      /**
-       * The event object.
-       */
-      oEvent: jQuery.Event
-    ): void;
-    /**
-     * Event handler called when enter key is pressed.
-     * See:
-     * 	sap.ui.commons.TextField#onfocusout
-     */
-    onsapenter(
-      /**
-       * The event object.
-       */
-      oEvent: jQuery.Event
-    ): void;
-    /**
-     * Event handler called when control is losing the focus
-     */
-    onsapfocusleave(
-      /**
-       * The event object.
-       */
-      oEvent: jQuery.Event
-    ): void;
-    /**
-     * Event handler called when text selection starts. When the text field is disabled, the text should not
-     * be selectable, so cancel the event.
-     */
-    onselectstart(
-      /**
-       * The event object.
-       */
-      oEvent: jQuery.Event
-    ): void;
-    /**
-     * Removes all the controls in the association named {@link #getAriaDescribedBy ariaDescribedBy}.
-     */
-    removeAllAriaDescribedBy(): ID[];
-    /**
-     * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
-     */
-    removeAllAriaLabelledBy(): ID[];
-    /**
-     * Removes an ariaDescribedBy from the association named {@link #getAriaDescribedBy ariaDescribedBy}.
-     */
-    removeAriaDescribedBy(
-      /**
-       * The ariaDescribedBy to be removed or its index or ID
-       */
-      vAriaDescribedBy: int | ID | Control
-    ): ID;
-    /**
-     * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
-     */
-    removeAriaLabelledBy(
-      /**
-       * The ariaLabelledBy to be removed or its index or ID
-       */
-      vAriaLabelledBy: int | ID | Control
-    ): ID;
-    /**
-     * Sets a new value for property {@link #getAccessibleRole accessibleRole}.
-     *
-     * Accessibility role for the text field.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `Textbox`.
-     */
-    setAccessibleRole(
-      /**
-       * New value for property `accessibleRole`
-       */
-      sAccessibleRole?: AccessibleRole | keyof typeof AccessibleRole
-    ): this;
-    /**
-     * Sets a new value for property {@link #getDesign design}.
-     *
-     * Font type. valid values are Standard and Monospace.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `Standard`.
-     */
-    setDesign(
-      /**
-       * New value for property `design`
-       */
-      sDesign?: Design | keyof typeof Design
-    ): this;
-    /**
-     * Sets a new value for property {@link #getEditable editable}.
-     *
-     * Switches edit state of the control. Read-only fields have different colors, depending on theme setting.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `true`.
-     */
-    setEditable(
-      /**
-       * New value for property `editable`
-       */
-      bEditable?: boolean
-    ): this;
-    /**
-     * Sets a new value for property {@link #getEnabled enabled}.
-     *
-     * Switches enabled state of the control. Disabled fields have different colors, and can not be focused.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `true`.
-     */
-    setEnabled(
-      /**
-       * New value for property `enabled`
-       */
-      bEnabled?: boolean
-    ): this;
-    /**
-     * Sets a new value for property {@link #getHelpId helpId}.
-     *
-     * Unique identifier used for help service.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `empty string`.
-     */
-    setHelpId(
-      /**
-       * New value for property `helpId`
-       */
-      sHelpId?: string
-    ): this;
-    /**
-     * Sets a new value for property {@link #getImeMode imeMode}.
-     *
-     * State of the Input Method Editor (IME).
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `Auto`.
-     */
-    setImeMode(
-      /**
-       * New value for property `imeMode`
-       */
-      sImeMode?: ImeMode | keyof typeof ImeMode
-    ): this;
-    /**
-     * Sets a new value for property {@link #getMaxLength maxLength}.
-     *
-     * Maximum number of characters. Value '0' means the feature is switched off.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `0`.
-     */
-    setMaxLength(
-      /**
-       * New value for property `maxLength`
-       */
-      iMaxLength?: int
-    ): this;
-    /**
-     * Sets a new value for property {@link #getName name}.
-     *
-     * The `name` property to be used in the HTML code (e.g. for HTML forms that send data to the server via
-     * 'submit').
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     */
-    setName(
-      /**
-       * New value for property `name`
-       */
-      sName?: string
-    ): this;
-    /**
-     * @SINCE 1.14.0
-     *
-     * Sets a new value for property {@link #getPlaceholder placeholder}.
-     *
-     * Placeholder for the text field.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     */
-    setPlaceholder(
-      /**
-       * New value for property `placeholder`
-       */
-      sPlaceholder?: string
-    ): this;
-    /**
-     * Sets a new value for property {@link #getRequired required}.
-     *
-     * Depending on theme the `TextField` is shown as required. If a `Label` is assigned to the `TextField`
-     * it will visualize the requires state too.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `false`.
-     */
-    setRequired(
-      /**
-       * New value for property `required`
-       */
-      bRequired?: boolean
-    ): this;
-    /**
-     * Sets a new value for property {@link #getTextAlign textAlign}.
-     *
-     * Sets the horizontal alignment of the text.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `Begin`.
-     */
-    setTextAlign(
-      /**
-       * New value for property `textAlign`
-       */
-      sTextAlign?: TextAlign | keyof typeof TextAlign
-    ): this;
-    /**
-     * Sets a new value for property {@link #getTextDirection textDirection}.
-     *
-     * Direction of the text. Possible values: "rtl", "ltr".
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `Inherit`.
-     */
-    setTextDirection(
-      /**
-       * New value for property `textDirection`
-       */
-      sTextDirection?: TextDirection | keyof typeof TextDirection
-    ): this;
-    /**
-     * Sets a new value for property {@link #getValue value}.
-     *
-     * Text inside the `TextField`
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `empty string`.
-     */
-    setValue(
-      /**
-       * New value for property `value`
-       */
-      sValue?: string
-    ): this;
-    /**
-     * Sets a new value for property {@link #getValueState valueState}.
-     *
-     * Visualizes warnings or errors related to the text field. Possible values: Warning, Error, Success.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `None`.
-     */
-    setValueState(
-      /**
-       * New value for property `valueState`
-       */
-      sValueState?: ValueState | keyof typeof ValueState
-    ): this;
-    /**
-     * Sets a new value for property {@link #getWidth width}.
-     *
-     * Width of text field. When it is set (CSS-size such as % or px), this is the exact size. When left blank,
-     * the text field length defines the width.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     */
-    setWidth(
-      /**
-       * New value for property `width`
-       */
-      sWidth?: CSSSize
-    ): this;
-    /**
-     * Unbinds property {@link #getValue value} from model data.
-     */
-    unbindValue(): this;
-  }
-
-  export interface $TextFieldSettings extends $ControlSettings {
-    /**
-     * Text inside the `TextField`
-     */
-    value?: string | PropertyBindingInfo;
-
-    /**
-     * Direction of the text. Possible values: "rtl", "ltr".
-     */
-    textDirection?:
-      | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
-
-    /**
-     * Switches enabled state of the control. Disabled fields have different colors, and can not be focused.
-     */
-    enabled?: boolean | PropertyBindingInfo;
-
-    /**
-     * Switches edit state of the control. Read-only fields have different colors, depending on theme setting.
-     */
-    editable?: boolean | PropertyBindingInfo;
-
-    /**
-     * Depending on theme the `TextField` is shown as required. If a `Label` is assigned to the `TextField`
-     * it will visualize the requires state too.
-     */
-    required?: boolean | PropertyBindingInfo;
-
-    /**
-     * Width of text field. When it is set (CSS-size such as % or px), this is the exact size. When left blank,
-     * the text field length defines the width.
-     */
-    width?: CSSSize | PropertyBindingInfo;
-
-    /**
-     * Maximum number of characters. Value '0' means the feature is switched off.
-     */
-    maxLength?: int | PropertyBindingInfo;
-
-    /**
-     * Visualizes warnings or errors related to the text field. Possible values: Warning, Error, Success.
-     */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
-
-    /**
-     * Sets the horizontal alignment of the text.
-     */
-    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo;
-
-    /**
-     * State of the Input Method Editor (IME).
-     */
-    imeMode?: (ImeMode | keyof typeof ImeMode) | PropertyBindingInfo;
-
-    /**
-     * Font type. valid values are Standard and Monospace.
-     */
-    design?: (Design | keyof typeof Design) | PropertyBindingInfo;
-
-    /**
-     * Unique identifier used for help service.
-     */
-    helpId?: string | PropertyBindingInfo;
-
-    /**
-     * Accessibility role for the text field.
-     */
-    accessibleRole?:
-      | (AccessibleRole | keyof typeof AccessibleRole)
-      | PropertyBindingInfo;
-
-    /**
-     * The `name` property to be used in the HTML code (e.g. for HTML forms that send data to the server via
-     * 'submit').
-     */
-    name?: string | PropertyBindingInfo;
-
-    /**
-     * @SINCE 1.14.0
-     *
-     * Placeholder for the text field.
-     */
-    placeholder?: string | PropertyBindingInfo;
-
-    /**
-     * Association to controls / IDs which describe this control (see WAI-ARIA attribute aria-describedby).
-     */
-    ariaDescribedBy?: Array<Control | string>;
-
-    /**
-     * Association to controls / IDs which label this control (see WAI-ARIA attribute aria-labelledby).
-     */
-    ariaLabelledBy?: Array<Control | string>;
-
-    /**
-     * Event is fired when the text in the field has changed AND the focus leaves the TextField or the Enter
-     * key is pressed.
-     */
-    change?: (oEvent: Event) => void;
-
-    /**
-     * This event if fired during typing into the `TextField` and returns the currently entered value. **Note:**
-     * This is not the content of the value property. The value property is only updated by ENTER and by leaving
-     * the control.
-     */
-    liveChange?: (oEvent: Event) => void;
-  }
-}
-
 declare module "sap/ui/commons/TextView" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
@@ -23874,6 +27206,7 @@ declare module "sap/ui/commons/TextView" {
   import {
     IFormContent,
     ID,
+    AccessibilityInfo,
     AccessibleRole,
     TextAlign,
     TextDirection,
@@ -23930,6 +27263,8 @@ declare module "sap/ui/commons/TextView" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -23948,10 +27283,14 @@ declare module "sap/ui/commons/TextView" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.TextView.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaDescribedBy(
       /**
@@ -23961,6 +27300,8 @@ declare module "sap/ui/commons/TextView" {
     ): this;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -23973,6 +27314,8 @@ declare module "sap/ui/commons/TextView" {
      *
      * See {@link sap.ui.base.ManagedObject#bindProperty ManagedObject.bindProperty} for a detailed description
      * of the possible properties of `oBindingInfo`
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     bindText(
       /**
@@ -23981,24 +27324,28 @@ declare module "sap/ui/commons/TextView" {
       oBindingInfo: PropertyBindingInfo
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
+     *
+     * @returns The accessibility info
      */
-    getAccessibilityInfo(): object;
+    getAccessibilityInfo(): AccessibilityInfo;
     /**
      * Gets current value of property {@link #getAccessibleRole accessibleRole}.
      *
      * The ARIA role for the control.
+     *
+     * @returns Value of property `accessibleRole`
      */
     getAccessibleRole(): AccessibleRole | keyof typeof AccessibleRole;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
-     * ariaDescribedBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     getAriaDescribedBy(): ID[];
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -24007,6 +27354,8 @@ declare module "sap/ui/commons/TextView" {
      * Defines the visual appearance of the control.
      *
      * Default value is `Standard`.
+     *
+     * @returns Value of property `design`
      */
     getDesign(): TextViewDesign | keyof typeof TextViewDesign;
     /**
@@ -24016,6 +27365,8 @@ declare module "sap/ui/commons/TextView" {
      * focusable.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
      */
     getEnabled(): boolean;
     /**
@@ -24024,6 +27375,8 @@ declare module "sap/ui/commons/TextView" {
      * Unique identifier used for help services.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `helpId`
      */
     getHelpId(): string;
     /**
@@ -24032,6 +27385,8 @@ declare module "sap/ui/commons/TextView" {
      * Semantic color of the text View
      *
      * Default value is `Default`.
+     *
+     * @returns Value of property `semanticColor`
      */
     getSemanticColor(): TextViewColor | keyof typeof TextViewColor;
     /**
@@ -24040,6 +27395,8 @@ declare module "sap/ui/commons/TextView" {
      * Text to be displayed.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
@@ -24048,6 +27405,8 @@ declare module "sap/ui/commons/TextView" {
      * Sets the horizontal alignment of the text.
      *
      * Default value is `Begin`.
+     *
+     * @returns Value of property `textAlign`
      */
     getTextAlign(): TextAlign | keyof typeof TextAlign;
     /**
@@ -24057,12 +27416,16 @@ declare module "sap/ui/commons/TextView" {
      * inherit the text direction from its parent control.
      *
      * Default value is `Inherit`.
+     *
+     * @returns Value of property `textDirection`
      */
     getTextDirection(): TextDirection | keyof typeof TextDirection;
     /**
      * Gets current value of property {@link #getWidth width}.
      *
      * Width of the TextView
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
@@ -24071,40 +27434,52 @@ declare module "sap/ui/commons/TextView" {
      * Disabled automatic wrapping of the text.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `wrapping`
      */
     getWrapping(): boolean;
     /**
      * Removes all the controls in the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaDescribedBy(): ID[];
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes an ariaDescribedBy from the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns The removed ariaDescribedBy or `null`
      */
     removeAriaDescribedBy(
       /**
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getAccessibleRole accessibleRole}.
      *
      * The ARIA role for the control.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAccessibleRole(
       /**
@@ -24120,6 +27495,8 @@ declare module "sap/ui/commons/TextView" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Standard`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDesign(
       /**
@@ -24136,6 +27513,8 @@ declare module "sap/ui/commons/TextView" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEnabled(
       /**
@@ -24151,6 +27530,8 @@ declare module "sap/ui/commons/TextView" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHelpId(
       /**
@@ -24166,6 +27547,8 @@ declare module "sap/ui/commons/TextView" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Default`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSemanticColor(
       /**
@@ -24181,6 +27564,8 @@ declare module "sap/ui/commons/TextView" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -24196,6 +27581,8 @@ declare module "sap/ui/commons/TextView" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Begin`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTextAlign(
       /**
@@ -24212,6 +27599,8 @@ declare module "sap/ui/commons/TextView" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Inherit`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTextDirection(
       /**
@@ -24225,6 +27614,8 @@ declare module "sap/ui/commons/TextView" {
      * Width of the TextView
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
@@ -24240,6 +27631,8 @@ declare module "sap/ui/commons/TextView" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWrapping(
       /**
@@ -24249,6 +27642,8 @@ declare module "sap/ui/commons/TextView" {
     ): this;
     /**
      * Unbinds property {@link #getText text} from model data.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     unbindText(): this;
   }
@@ -24265,13 +27660,14 @@ declare module "sap/ui/commons/TextView" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Switches the enabled state of the control. When the control is disabled, it is greyed out and no longer
      * focusable.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Unique identifier used for help services.
@@ -24283,36 +27679,42 @@ declare module "sap/ui/commons/TextView" {
      */
     accessibleRole?:
       | (AccessibleRole | keyof typeof AccessibleRole)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the visual appearance of the control.
      */
     design?:
       | (TextViewDesign | keyof typeof TextViewDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Disabled automatic wrapping of the text.
      */
-    wrapping?: boolean | PropertyBindingInfo;
+    wrapping?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Semantic color of the text View
      */
     semanticColor?:
       | (TextViewColor | keyof typeof TextViewColor)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Sets the horizontal alignment of the text.
      */
-    textAlign?: (TextAlign | keyof typeof TextAlign) | PropertyBindingInfo;
+    textAlign?:
+      | (TextAlign | keyof typeof TextAlign)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Width of the TextView
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Association to controls / IDs which describe this control (see WAI-ARIA attribute aria-describedby).
@@ -24349,8 +27751,8 @@ declare module "sap/ui/commons/Title" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Title#constructor
-     * sap.ui.core.Title} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Title#constructor sap.ui.core.Title }
+     * can be used.
      */
     constructor(
       /**
@@ -24365,8 +27767,8 @@ declare module "sap/ui/commons/Title" {
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
      *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Title#constructor
-     * sap.ui.core.Title} can be used.
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Title#constructor sap.ui.core.Title }
+     * can be used.
      */
     constructor(
       /**
@@ -24384,6 +27786,8 @@ declare module "sap/ui/commons/Title" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Title.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -24402,10 +27806,12 @@ declare module "sap/ui/commons/Title" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.Title.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
-     * @SINCE 1.9.1
+     * @since 1.9.1
      *
      * Getter for property `level`. Defines the level of the title. If set to auto the level of the title is
      * chosen by the control rendering the title.
@@ -24413,14 +27819,18 @@ declare module "sap/ui/commons/Title" {
      * Currently not all controls using the Title.control supporting this property.
      *
      * Default value is `Auto`
+     *
+     * @returns the value of property `level`
      */
     getLevel(): TitleLevel | keyof typeof TitleLevel;
     /**
-     * @SINCE 1.9.1
+     * @since 1.9.1
      *
      * Setter for property `level`.
      *
      * Default value is `Auto`
+     *
+     * @returns `this` to allow method chaining
      */
     setLevel(
       /**
@@ -24435,6 +27845,8 @@ declare module "sap/ui/commons/Title" {
 
 declare module "sap/ui/commons/ToggleButton" {
   import { default as Button, $ButtonSettings } from "sap/ui/commons/Button";
+
+  import { AccessibilityInfo } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -24482,6 +27894,8 @@ declare module "sap/ui/commons/ToggleButton" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.commons.Button.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -24500,19 +27914,27 @@ declare module "sap/ui/commons/ToggleButton" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.ToggleButton.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * See:
      * 	sap.ui.core.Control#getAccessibilityInfo
+     *
+     * @returns Current accessibility state of the control
      */
-    getAccessibilityInfo(): object;
+    getAccessibilityInfo(): AccessibilityInfo;
     /**
      * Gets current value of property {@link #getPressed pressed}.
      *
      * The property is “true” when the control is toggled. The default state of this property is "false".
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `pressed`
      */
     getPressed(): boolean;
     /**
@@ -24523,6 +27945,8 @@ declare module "sap/ui/commons/ToggleButton" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPressed(
       /**
@@ -24536,7 +27960,7 @@ declare module "sap/ui/commons/ToggleButton" {
     /**
      * The property is “true” when the control is toggled. The default state of this property is "false".
      */
-    pressed?: boolean | PropertyBindingInfo;
+    pressed?: boolean | PropertyBindingInfo | `{${string}}`;
   }
 }
 
@@ -24599,6 +28023,8 @@ declare module "sap/ui/commons/Toolbar" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -24617,10 +28043,14 @@ declare module "sap/ui/commons/Toolbar" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.Toolbar.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addItem(
       /**
@@ -24630,6 +28060,8 @@ declare module "sap/ui/commons/Toolbar" {
     ): this;
     /**
      * Adds some rightItem to the aggregation {@link #getRightItems rightItems}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addRightItem(
       /**
@@ -24639,10 +28071,14 @@ declare module "sap/ui/commons/Toolbar" {
     ): this;
     /**
      * Destroys all the items in the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyItems(): this;
     /**
      * Destroys all the rightItems in the aggregation {@link #getRightItems rightItems}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyRightItems(): this;
     /**
@@ -24651,6 +28087,8 @@ declare module "sap/ui/commons/Toolbar" {
      * Design settings are theme-dependent.
      *
      * Default value is `Flat`.
+     *
+     * @returns Value of property `design`
      */
     getDesign(): ToolbarDesign | keyof typeof ToolbarDesign;
     /**
@@ -24672,6 +28110,8 @@ declare module "sap/ui/commons/Toolbar" {
      * and then inherit the design from their parent control.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `standalone`
      */
     getStandalone(): boolean;
     /**
@@ -24681,11 +28121,15 @@ declare module "sap/ui/commons/Toolbar" {
      * into a drop-down menu.
      *
      * Default value is `'auto'`.
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Checks for the provided `sap.ui.commons.ToolbarItem` in the aggregation {@link #getItems items}. and
      * returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfItem(
       /**
@@ -24696,6 +28140,8 @@ declare module "sap/ui/commons/Toolbar" {
     /**
      * Checks for the provided `sap.ui.commons.ToolbarItem` in the aggregation {@link #getRightItems rightItems}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfRightItem(
       /**
@@ -24705,6 +28151,8 @@ declare module "sap/ui/commons/Toolbar" {
     ): int;
     /**
      * Inserts a item into the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertItem(
       /**
@@ -24720,6 +28168,8 @@ declare module "sap/ui/commons/Toolbar" {
     ): this;
     /**
      * Inserts a rightItem into the aggregation {@link #getRightItems rightItems}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertRightItem(
       /**
@@ -24737,32 +28187,40 @@ declare module "sap/ui/commons/Toolbar" {
      * Removes all the controls from the aggregation {@link #getItems items}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllItems(): ToolbarItem[];
     /**
      * Removes all the controls from the aggregation {@link #getRightItems rightItems}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllRightItems(): ToolbarItem[];
     /**
      * Removes a item from the aggregation {@link #getItems items}.
+     *
+     * @returns The removed item or `null`
      */
     removeItem(
       /**
        * The item to remove or its index or id
        */
       vItem: int | string | ToolbarItem
-    ): ToolbarItem;
+    ): ToolbarItem | null;
     /**
      * Removes a rightItem from the aggregation {@link #getRightItems rightItems}.
+     *
+     * @returns The removed rightItem or `null`
      */
     removeRightItem(
       /**
        * The rightItem to remove or its index or id
        */
       vRightItem: int | string | ToolbarItem
-    ): ToolbarItem;
+    ): ToolbarItem | null;
     /**
      * Sets a new value for property {@link #getDesign design}.
      *
@@ -24771,6 +28229,8 @@ declare module "sap/ui/commons/Toolbar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Flat`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDesign(
       /**
@@ -24787,6 +28247,8 @@ declare module "sap/ui/commons/Toolbar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setStandalone(
       /**
@@ -24803,6 +28265,8 @@ declare module "sap/ui/commons/Toolbar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'auto'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
@@ -24817,28 +28281,39 @@ declare module "sap/ui/commons/Toolbar" {
      * When there is not enough space for the toolbar to display all items, the rightmost items are overflowing
      * into a drop-down menu.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Design settings are theme-dependent.
      */
-    design?: (ToolbarDesign | keyof typeof ToolbarDesign) | PropertyBindingInfo;
+    design?:
+      | (ToolbarDesign | keyof typeof ToolbarDesign)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Per default, tool bars have the stand alone status. Alternatively, they can be nested in other controls
      * and then inherit the design from their parent control.
      */
-    standalone?: boolean | PropertyBindingInfo;
+    standalone?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Aggregating the tool bar items.
      */
-    items?: ToolbarItem[] | ToolbarItem | AggregationBindingInfo;
+    items?:
+      | ToolbarItem[]
+      | ToolbarItem
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * Aggregating the right side tool bar items.
      */
-    rightItems?: ToolbarItem[] | ToolbarItem | AggregationBindingInfo;
+    rightItems?:
+      | ToolbarItem[]
+      | ToolbarItem
+      | AggregationBindingInfo
+      | `{${string}}`;
   }
 }
 
@@ -24897,6 +28372,8 @@ declare module "sap/ui/commons/ToolbarSeparator" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -24915,12 +28392,16 @@ declare module "sap/ui/commons/ToolbarSeparator" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.ToolbarSeparator.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getDesign design}.
      *
      * Design of the Separator.
+     *
+     * @returns Value of property `design`
      */
     getDesign(): ToolbarSeparatorDesign | keyof typeof ToolbarSeparatorDesign;
     /**
@@ -24929,6 +28410,8 @@ declare module "sap/ui/commons/ToolbarSeparator" {
      * When set to false, there is no visual indication of separation by a vertical line but by a wider space.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `displayVisualSeparator`
      */
     getDisplayVisualSeparator(): boolean;
     /**
@@ -24937,6 +28420,8 @@ declare module "sap/ui/commons/ToolbarSeparator" {
      * Design of the Separator.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDesign(
       /**
@@ -24952,6 +28437,8 @@ declare module "sap/ui/commons/ToolbarSeparator" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDisplayVisualSeparator(
       /**
@@ -24965,14 +28452,15 @@ declare module "sap/ui/commons/ToolbarSeparator" {
     /**
      * When set to false, there is no visual indication of separation by a vertical line but by a wider space.
      */
-    displayVisualSeparator?: boolean | PropertyBindingInfo;
+    displayVisualSeparator?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Design of the Separator.
      */
     design?:
       | (ToolbarSeparatorDesign | keyof typeof ToolbarSeparatorDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
   }
 }
 
@@ -24980,8 +28468,6 @@ declare module "sap/ui/commons/Tree" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
   import TreeNode from "sap/ui/commons/TreeNode";
-
-  import Event from "sap/ui/base/Event";
 
   import {
     AggregationBindingInfo,
@@ -24995,6 +28481,8 @@ declare module "sap/ui/commons/Tree" {
   import Context from "sap/ui/model/Context";
 
   import { TreeSelectionMode } from "sap/ui/commons/library";
+
+  import Event from "sap/ui/base/Event";
 
   /**
    * @deprecated (since 1.38) - replaced by {@link sap.m.Tree}
@@ -25038,6 +28526,8 @@ declare module "sap/ui/commons/Tree" {
      * contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -25056,10 +28546,14 @@ declare module "sap/ui/commons/Tree" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.Tree.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some node to the aggregation {@link #getNodes nodes}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addNode(
       /**
@@ -25074,6 +28568,8 @@ declare module "sap/ui/commons/Tree" {
      * otherwise it will be bound to this `sap.ui.commons.Tree` itself.
      *
      * Event is fired when a tree node is selected.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelect(
       /**
@@ -25084,7 +28580,7 @@ declare module "sap/ui/commons/Tree" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Tree$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Tree` itself
        */
@@ -25097,12 +28593,14 @@ declare module "sap/ui/commons/Tree" {
      * otherwise it will be bound to this `sap.ui.commons.Tree` itself.
      *
      * Event is fired when a tree node is selected.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelect(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Tree$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Tree` itself
        */
@@ -25116,6 +28614,8 @@ declare module "sap/ui/commons/Tree" {
      * otherwise it will be bound to this `sap.ui.commons.Tree` itself.
      *
      * fired when the selection of the tree has been changed
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelectionChange(
       /**
@@ -25126,7 +28626,7 @@ declare module "sap/ui/commons/Tree" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Tree$SelectionChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Tree` itself
        */
@@ -25140,12 +28640,14 @@ declare module "sap/ui/commons/Tree" {
      * otherwise it will be bound to this `sap.ui.commons.Tree` itself.
      *
      * fired when the selection of the tree has been changed
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelectionChange(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Tree$SelectionChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.Tree` itself
        */
@@ -25156,6 +28658,8 @@ declare module "sap/ui/commons/Tree" {
      *
      * See {@link sap.ui.base.ManagedObject#bindAggregation ManagedObject.bindAggregation} for a detailed description
      * of the possible properties of `oBindingInfo`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     bindNodes(
       /**
@@ -25169,18 +28673,22 @@ declare module "sap/ui/commons/Tree" {
     collapseAll(): void;
     /**
      * Destroys all the nodes in the aggregation {@link #getNodes nodes}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyNodes(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:select select} event of this `sap.ui.commons.Tree`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSelect(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Tree$SelectEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -25191,12 +28699,14 @@ declare module "sap/ui/commons/Tree" {
      * this `sap.ui.commons.Tree`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSelectionChange(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: Tree$SelectionChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -25207,43 +28717,33 @@ declare module "sap/ui/commons/Tree" {
      */
     expandAll(): void;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:select select} to attached listeners.
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @returns Whether or not to prevent the default action
      */
     fireSelect(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The node which has been selected.
-         */
-        node?: TreeNode;
-        /**
-         * The binding context of the selected node.
-         */
-        nodeContext?: object;
-      }
+      mParameters?: Tree$SelectEventParameters
     ): boolean;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:selectionChange selectionChange} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireSelectionChange(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * The nodes which has been selected.
-         */
-        nodes?: TreeNode[];
-        /**
-         * The binding context of the selected nodes.
-         */
-        nodeContexts?: object[];
-      }
+      mParameters?: Tree$SelectionChangeEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getHeight height}.
@@ -25251,6 +28751,8 @@ declare module "sap/ui/commons/Tree" {
      * Tree height
      *
      * Default value is `'auto'`.
+     *
+     * @returns Value of property `height`
      */
     getHeight(): CSSSize;
     /**
@@ -25258,12 +28760,16 @@ declare module "sap/ui/commons/Tree" {
      *
      * Minimal width for the Tree. Can be useful when, for example, the width is specified in percentage, to
      * avoid the tree to become too narrow when container is resize
+     *
+     * @returns Value of property `minWidth`
      */
     getMinWidth(): CSSSize;
     /**
-     * @SINCE 1.19
+     * @since 1.19
      *
      * Returns the node with the given context, or null if no such node currently exists.
+     *
+     * @returns The found tree node
      */
     getNodeByContext(
       /**
@@ -25283,6 +28789,8 @@ declare module "sap/ui/commons/Tree" {
      * Selection mode of the Tree.
      *
      * Default value is `Legacy`.
+     *
+     * @returns Value of property `selectionMode`
      */
     getSelectionMode(): TreeSelectionMode | keyof typeof TreeSelectionMode;
     /**
@@ -25291,6 +28799,8 @@ declare module "sap/ui/commons/Tree" {
      * Tree Header is display. If false, the tree will be in a transparent mode
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `showHeader`
      */
     getShowHeader(): boolean;
     /**
@@ -25299,6 +28809,8 @@ declare module "sap/ui/commons/Tree" {
      * Show Header icons (e.g. Expand/Collapse all). Only consider if showHeader is true
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `showHeaderIcons`
      */
     getShowHeaderIcons(): boolean;
     /**
@@ -25307,12 +28819,16 @@ declare module "sap/ui/commons/Tree" {
      * Display horizontal scrollbar. If false, the overflow content will be hidden
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `showHorizontalScrollbar`
      */
     getShowHorizontalScrollbar(): boolean;
     /**
      * Gets current value of property {@link #getTitle title}.
      *
      * Tree title
+     *
+     * @returns Value of property `title`
      */
     getTitle(): string;
     /**
@@ -25321,11 +28837,15 @@ declare module "sap/ui/commons/Tree" {
      * Tree width
      *
      * Default value is `'auto'`.
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Checks for the provided `sap.ui.commons.TreeNode` in the aggregation {@link #getNodes nodes}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfNode(
       /**
@@ -25335,6 +28855,8 @@ declare module "sap/ui/commons/Tree" {
     ): int;
     /**
      * Inserts a node into the aggregation {@link #getNodes nodes}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertNode(
       /**
@@ -25352,17 +28874,21 @@ declare module "sap/ui/commons/Tree" {
      * Removes all the controls from the aggregation {@link #getNodes nodes}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllNodes(): TreeNode[];
     /**
      * Removes a node from the aggregation {@link #getNodes nodes}.
+     *
+     * @returns The removed node or `null`
      */
     removeNode(
       /**
        * The node to remove or its index or id
        */
       vNode: int | string | TreeNode
-    ): TreeNode;
+    ): TreeNode | null;
     /**
      * Sets a new value for property {@link #getHeight height}.
      *
@@ -25371,6 +28897,8 @@ declare module "sap/ui/commons/Tree" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'auto'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeight(
       /**
@@ -25385,6 +28913,8 @@ declare module "sap/ui/commons/Tree" {
      * avoid the tree to become too narrow when container is resize
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMinWidth(
       /**
@@ -25400,6 +28930,8 @@ declare module "sap/ui/commons/Tree" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Legacy`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSelectionMode(
       /**
@@ -25415,6 +28947,8 @@ declare module "sap/ui/commons/Tree" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowHeader(
       /**
@@ -25430,6 +28964,8 @@ declare module "sap/ui/commons/Tree" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowHeaderIcons(
       /**
@@ -25445,6 +28981,8 @@ declare module "sap/ui/commons/Tree" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowHorizontalScrollbar(
       /**
@@ -25458,6 +28996,8 @@ declare module "sap/ui/commons/Tree" {
      * Tree title
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTitle(
       /**
@@ -25473,6 +29013,8 @@ declare module "sap/ui/commons/Tree" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'auto'`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
@@ -25482,6 +29024,8 @@ declare module "sap/ui/commons/Tree" {
     ): this;
     /**
      * Unbinds aggregation {@link #getNodes nodes} from model data.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     unbindNodes(): this;
   }
@@ -25495,56 +29039,88 @@ declare module "sap/ui/commons/Tree" {
     /**
      * Tree width
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Tree height
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Tree Header is display. If false, the tree will be in a transparent mode
      */
-    showHeader?: boolean | PropertyBindingInfo;
+    showHeader?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Show Header icons (e.g. Expand/Collapse all). Only consider if showHeader is true
      */
-    showHeaderIcons?: boolean | PropertyBindingInfo;
+    showHeaderIcons?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Display horizontal scrollbar. If false, the overflow content will be hidden
      */
-    showHorizontalScrollbar?: boolean | PropertyBindingInfo;
+    showHorizontalScrollbar?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Minimal width for the Tree. Can be useful when, for example, the width is specified in percentage, to
      * avoid the tree to become too narrow when container is resize
      */
-    minWidth?: CSSSize | PropertyBindingInfo;
+    minWidth?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Selection mode of the Tree.
      */
     selectionMode?:
       | (TreeSelectionMode | keyof typeof TreeSelectionMode)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * First level nodes
      */
-    nodes?: TreeNode[] | TreeNode | AggregationBindingInfo;
+    nodes?: TreeNode[] | TreeNode | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Event is fired when a tree node is selected.
      */
-    select?: (oEvent: Event) => void;
+    select?: (oEvent: Tree$SelectEvent) => void;
 
     /**
      * fired when the selection of the tree has been changed
      */
-    selectionChange?: (oEvent: Event) => void;
+    selectionChange?: (oEvent: Tree$SelectionChangeEvent) => void;
   }
+
+  export interface Tree$SelectEventParameters {
+    /**
+     * The node which has been selected.
+     */
+    node?: TreeNode;
+
+    /**
+     * The binding context of the selected node.
+     */
+    nodeContext?: object;
+  }
+
+  export type Tree$SelectEvent = Event<Tree$SelectEventParameters, Tree>;
+
+  export interface Tree$SelectionChangeEventParameters {
+    /**
+     * The nodes which has been selected.
+     */
+    nodes?: TreeNode[];
+
+    /**
+     * The binding context of the selected nodes.
+     */
+    nodeContexts?: object[];
+  }
+
+  export type Tree$SelectionChangeEvent = Event<
+    Tree$SelectionChangeEventParameters,
+    Tree
+  >;
 }
 
 declare module "sap/ui/commons/TreeNode" {
@@ -25605,6 +29181,8 @@ declare module "sap/ui/commons/TreeNode" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -25623,10 +29201,14 @@ declare module "sap/ui/commons/TreeNode" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.TreeNode.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaDescribedBy(
       /**
@@ -25636,6 +29218,8 @@ declare module "sap/ui/commons/TreeNode" {
     ): this;
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
       /**
@@ -25645,6 +29229,8 @@ declare module "sap/ui/commons/TreeNode" {
     ): this;
     /**
      * Adds some node to the aggregation {@link #getNodes nodes}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addNode(
       /**
@@ -25659,6 +29245,8 @@ declare module "sap/ui/commons/TreeNode" {
      * otherwise it will be bound to this `sap.ui.commons.TreeNode` itself.
      *
      * Node is selected
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelected(
       /**
@@ -25682,6 +29270,8 @@ declare module "sap/ui/commons/TreeNode" {
      * otherwise it will be bound to this `sap.ui.commons.TreeNode` itself.
      *
      * Node is selected
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSelected(
       /**
@@ -25701,6 +29291,8 @@ declare module "sap/ui/commons/TreeNode" {
      * otherwise it will be bound to this `sap.ui.commons.TreeNode` itself.
      *
      * Node state has changed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachToggleOpenState(
       /**
@@ -25711,7 +29303,7 @@ declare module "sap/ui/commons/TreeNode" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: TreeNode$ToggleOpenStateEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TreeNode` itself
        */
@@ -25725,12 +29317,14 @@ declare module "sap/ui/commons/TreeNode" {
      * otherwise it will be bound to this `sap.ui.commons.TreeNode` itself.
      *
      * Node state has changed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachToggleOpenState(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: TreeNode$ToggleOpenStateEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TreeNode` itself
        */
@@ -25751,12 +29345,16 @@ declare module "sap/ui/commons/TreeNode" {
     ): void;
     /**
      * Destroys all the nodes in the aggregation {@link #getNodes nodes}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyNodes(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:selected selected} event of this `sap.ui.commons.TreeNode`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSelected(
       /**
@@ -25773,12 +29371,14 @@ declare module "sap/ui/commons/TreeNode" {
      * this `sap.ui.commons.TreeNode`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachToggleOpenState(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: TreeNode$ToggleOpenStateEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -25798,7 +29398,11 @@ declare module "sap/ui/commons/TreeNode" {
       bDisableExpandFinishedHandler: boolean
     ): void;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:selected selected} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireSelected(
       /**
@@ -25807,27 +29411,24 @@ declare module "sap/ui/commons/TreeNode" {
       mParameters?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:toggleOpenState toggleOpenState} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireToggleOpenState(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Node has been opened if true
-         */
-        opened?: boolean;
-      }
+      mParameters?: TreeNode$ToggleOpenStateEventParameters
     ): this;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
-     * ariaDescribedBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     getAriaDescribedBy(): ID[];
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -25836,6 +29437,8 @@ declare module "sap/ui/commons/TreeNode" {
      * Node is expanded
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `expanded`
      */
     getExpanded(): boolean;
     /**
@@ -25844,12 +29447,16 @@ declare module "sap/ui/commons/TreeNode" {
      * Should the node has an expander.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `hasExpander`
      */
     getHasExpander(): boolean;
     /**
      * Gets current value of property {@link #getIcon icon}.
      *
      * Icon to display in front of the node
+     *
+     * @returns Value of property `icon`
      */
     getIcon(): URI;
     /**
@@ -25858,6 +29465,8 @@ declare module "sap/ui/commons/TreeNode" {
      * Node is selected
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `isSelected`
      */
     getIsSelected(): boolean;
     /**
@@ -25872,17 +29481,23 @@ declare module "sap/ui/commons/TreeNode" {
      * The node is selectable. If true, clicking on the node text triggers "selected" event
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `selectable`
      */
     getSelectable(): boolean;
     /**
      * Gets current value of property {@link #getText text}.
      *
      * Node text
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
      * Checks for the provided `sap.ui.commons.TreeNode` in the aggregation {@link #getNodes nodes}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfNode(
       /**
@@ -25892,6 +29507,8 @@ declare module "sap/ui/commons/TreeNode" {
     ): int;
     /**
      * Inserts a node into the aggregation {@link #getNodes nodes}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertNode(
       /**
@@ -25907,45 +29524,57 @@ declare module "sap/ui/commons/TreeNode" {
     ): this;
     /**
      * Removes all the controls in the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaDescribedBy(): ID[];
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaLabelledBy(): ID[];
     /**
      * Removes all the controls from the aggregation {@link #getNodes nodes}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllNodes(): TreeNode[];
     /**
      * Removes an ariaDescribedBy from the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns The removed ariaDescribedBy or `null`
      */
     removeAriaDescribedBy(
       /**
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
       /**
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a node from the aggregation {@link #getNodes nodes}.
+     *
+     * @returns The removed node or `null`
      */
     removeNode(
       /**
        * The node to remove or its index or id
        */
       vNode: int | string | TreeNode
-    ): TreeNode;
+    ): TreeNode | null;
     /**
      * Select the node, and if any, deselects the previously selected node
      */
@@ -25958,6 +29587,8 @@ declare module "sap/ui/commons/TreeNode" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setExpanded(
       /**
@@ -25973,6 +29604,8 @@ declare module "sap/ui/commons/TreeNode" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHasExpander(
       /**
@@ -25986,6 +29619,8 @@ declare module "sap/ui/commons/TreeNode" {
      * Icon to display in front of the node
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIcon(
       /**
@@ -25997,6 +29632,8 @@ declare module "sap/ui/commons/TreeNode" {
      * Redefinition of Setter for property `isSelected` for validation purpose
      *
      * Default value is empty/`undefined`
+     *
+     * @returns `this` to allow method chaining
      */
     setIsSelected(
       /**
@@ -26008,6 +29645,8 @@ declare module "sap/ui/commons/TreeNode" {
      * Redefinition of Setter for property `selectable` for validation purpose.
      *
      * Default value is `true`
+     *
+     * @returns `this` to allow method chaining
      */
     setSelectable(
       /**
@@ -26021,6 +29660,8 @@ declare module "sap/ui/commons/TreeNode" {
      * Node text
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -26039,32 +29680,32 @@ declare module "sap/ui/commons/TreeNode" {
     /**
      * Node is expanded
      */
-    expanded?: boolean | PropertyBindingInfo;
+    expanded?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Should the node has an expander.
      */
-    hasExpander?: boolean | PropertyBindingInfo;
+    hasExpander?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Icon to display in front of the node
      */
-    icon?: URI | PropertyBindingInfo;
+    icon?: URI | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Node is selected
      */
-    isSelected?: boolean | PropertyBindingInfo;
+    isSelected?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The node is selectable. If true, clicking on the node text triggers "selected" event
      */
-    selectable?: boolean | PropertyBindingInfo;
+    selectable?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Subnodes for the current node
      */
-    nodes?: TreeNode[] | TreeNode | AggregationBindingInfo;
+    nodes?: TreeNode[] | TreeNode | AggregationBindingInfo | `{${string}}`;
 
     /**
      * Association to controls / ids which describe this control (see WAI-ARIA attribute aria-describedby).
@@ -26079,19 +29720,36 @@ declare module "sap/ui/commons/TreeNode" {
     /**
      * Node state has changed.
      */
-    toggleOpenState?: (oEvent: Event) => void;
+    toggleOpenState?: (oEvent: TreeNode$ToggleOpenStateEvent) => void;
 
     /**
      * Node is selected
      */
     selected?: (oEvent: Event) => void;
   }
+
+  export interface TreeNode$SelectedEventParameters {}
+
+  export type TreeNode$SelectedEvent = Event<
+    TreeNode$SelectedEventParameters,
+    TreeNode
+  >;
+
+  export interface TreeNode$ToggleOpenStateEventParameters {
+    /**
+     * Node has been opened if true
+     */
+    opened?: boolean;
+  }
+
+  export type TreeNode$ToggleOpenStateEvent = Event<
+    TreeNode$ToggleOpenStateEventParameters,
+    TreeNode
+  >;
 }
 
 declare module "sap/ui/commons/TriStateCheckBox" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
-
-  import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -26101,8 +29759,10 @@ declare module "sap/ui/commons/TriStateCheckBox" {
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
-   * @SINCE 1.7.2
+   * @since 1.7.2
    * @deprecated (since 1.38)
    *
    * TriStateCheckBox to reflect mixed state for checkboxes. The control can display three states, namely
@@ -26147,6 +29807,8 @@ declare module "sap/ui/commons/TriStateCheckBox" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -26165,6 +29827,8 @@ declare module "sap/ui/commons/TriStateCheckBox" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.TriStateCheckBox.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
@@ -26174,6 +29838,8 @@ declare module "sap/ui/commons/TriStateCheckBox" {
      * otherwise it will be bound to this `sap.ui.commons.TriStateCheckBox` itself.
      *
      * Event is triggered when the control status is changed by the user by flagging or unflagging the checkbox.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -26184,7 +29850,7 @@ declare module "sap/ui/commons/TriStateCheckBox" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: TriStateCheckBox$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TriStateCheckBox` itself
        */
@@ -26197,12 +29863,14 @@ declare module "sap/ui/commons/TriStateCheckBox" {
      * otherwise it will be bound to this `sap.ui.commons.TriStateCheckBox` itself.
      *
      * Event is triggered when the control status is changed by the user by flagging or unflagging the checkbox.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: TriStateCheckBox$ChangeEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.ui.commons.TriStateCheckBox` itself
        */
@@ -26212,30 +29880,31 @@ declare module "sap/ui/commons/TriStateCheckBox" {
      * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.ui.commons.TriStateCheckBox`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachChange(
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event) => void,
+      fnFunction: (p1: TriStateCheckBox$ChangeEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:change change} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireChange(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: {
-        /**
-         * Checks whether the box is flagged or not flagged.
-         */
-        selectionState?: string;
-      }
+      mParameters?: TriStateCheckBox$ChangeEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getEditable editable}.
@@ -26243,6 +29912,8 @@ declare module "sap/ui/commons/TriStateCheckBox" {
      * Specifies whether the user shall be allowed to flag the check box
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `editable`
      */
     getEditable(): boolean;
     /**
@@ -26251,6 +29922,8 @@ declare module "sap/ui/commons/TriStateCheckBox" {
      * Using this property, the control could be disabled, if required.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
      */
     getEnabled(): boolean;
     /**
@@ -26259,6 +29932,8 @@ declare module "sap/ui/commons/TriStateCheckBox" {
      * Defines the states of the checkbox
      *
      * Default value is `Unchecked`.
+     *
+     * @returns Value of property `selectionState`
      */
     getSelectionState():
       | TriStateCheckBoxState
@@ -26267,6 +29942,8 @@ declare module "sap/ui/commons/TriStateCheckBox" {
      * Gets current value of property {@link #getText text}.
      *
      * Defines the text displayed next to the check box
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
@@ -26276,6 +29953,8 @@ declare module "sap/ui/commons/TriStateCheckBox" {
      * control.
      *
      * Default value is `Inherit`.
+     *
+     * @returns Value of property `textDirection`
      */
     getTextDirection(): TextDirection | keyof typeof TextDirection;
     /**
@@ -26284,6 +29963,8 @@ declare module "sap/ui/commons/TriStateCheckBox" {
      * Accepts the core enumeration ValueState.type that supports 'None', 'Error', 'Warning' and 'Success'.
      *
      * Default value is `None`.
+     *
+     * @returns Value of property `valueState`
      */
     getValueState(): ValueState | keyof typeof ValueState;
     /**
@@ -26291,6 +29972,8 @@ declare module "sap/ui/commons/TriStateCheckBox" {
      *
      * The width can be set to an absolute value. If no value is set, the control width results from the text
      * length.
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
@@ -26301,6 +29984,8 @@ declare module "sap/ui/commons/TriStateCheckBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEditable(
       /**
@@ -26316,6 +30001,8 @@ declare module "sap/ui/commons/TriStateCheckBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEnabled(
       /**
@@ -26331,6 +30018,8 @@ declare module "sap/ui/commons/TriStateCheckBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Unchecked`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSelectionState(
       /**
@@ -26346,6 +30035,8 @@ declare module "sap/ui/commons/TriStateCheckBox" {
      * Defines the text displayed next to the check box
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -26362,6 +30053,8 @@ declare module "sap/ui/commons/TriStateCheckBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Inherit`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTextDirection(
       /**
@@ -26377,6 +30070,8 @@ declare module "sap/ui/commons/TriStateCheckBox" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValueState(
       /**
@@ -26391,6 +30086,8 @@ declare module "sap/ui/commons/TriStateCheckBox" {
      * length.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
@@ -26415,7 +30112,8 @@ declare module "sap/ui/commons/TriStateCheckBox" {
      */
     selectionState?:
       | (TriStateCheckBoxState | keyof typeof TriStateCheckBoxState)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the text displayed next to the check box
@@ -26425,23 +30123,26 @@ declare module "sap/ui/commons/TriStateCheckBox" {
     /**
      * Using this property, the control could be disabled, if required.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Specifies whether the user shall be allowed to flag the check box
      */
-    editable?: boolean | PropertyBindingInfo;
+    editable?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Accepts the core enumeration ValueState.type that supports 'None', 'Error', 'Warning' and 'Success'.
      */
-    valueState?: (ValueState | keyof typeof ValueState) | PropertyBindingInfo;
+    valueState?:
+      | (ValueState | keyof typeof ValueState)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * The width can be set to an absolute value. If no value is set, the control width results from the text
      * length.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The value can be set to LTR or RTL. Otherwise, the control inherits the text direction from its parent
@@ -26449,13 +30150,26 @@ declare module "sap/ui/commons/TriStateCheckBox" {
      */
     textDirection?:
       | (TextDirection | keyof typeof TextDirection)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Event is triggered when the control status is changed by the user by flagging or unflagging the checkbox.
      */
-    change?: (oEvent: Event) => void;
+    change?: (oEvent: TriStateCheckBox$ChangeEvent) => void;
   }
+
+  export interface TriStateCheckBox$ChangeEventParameters {
+    /**
+     * Checks whether the box is flagged or not flagged.
+     */
+    selectionState?: string;
+  }
+
+  export type TriStateCheckBox$ChangeEvent = Event<
+    TriStateCheckBox$ChangeEventParameters,
+    TriStateCheckBox
+  >;
 }
 
 declare module "sap/ui/commons/ValueHelpField" {
@@ -26514,6 +30228,8 @@ declare module "sap/ui/commons/ValueHelpField" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.commons.TextField.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -26532,6 +30248,8 @@ declare module "sap/ui/commons/ValueHelpField" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.commons.ValueHelpField.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
@@ -26542,6 +30260,8 @@ declare module "sap/ui/commons/ValueHelpField" {
      * otherwise it will be bound to this `sap.ui.commons.ValueHelpField` itself.
      *
      * Event which is fired when the ValueHelp is requested.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachValueHelpRequest(
       /**
@@ -26566,6 +30286,8 @@ declare module "sap/ui/commons/ValueHelpField" {
      * otherwise it will be bound to this `sap.ui.commons.ValueHelpField` itself.
      *
      * Event which is fired when the ValueHelp is requested.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachValueHelpRequest(
       /**
@@ -26582,6 +30304,8 @@ declare module "sap/ui/commons/ValueHelpField" {
      * this `sap.ui.commons.ValueHelpField`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachValueHelpRequest(
       /**
@@ -26594,7 +30318,11 @@ declare module "sap/ui/commons/ValueHelpField" {
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:valueHelpRequest valueHelpRequest} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireValueHelpRequest(
       /**
@@ -26607,6 +30335,8 @@ declare module "sap/ui/commons/ValueHelpField" {
      *
      * URL of the icon for the value help when disabled. If no parameter is supplied the default icon image
      * will be shown. If an icon font icon is used, this property is ignored.
+     *
+     * @returns Value of property `iconDisabledURL`
      */
     getIconDisabledURL(): URI;
     /**
@@ -26614,6 +30344,8 @@ declare module "sap/ui/commons/ValueHelpField" {
      *
      * URL of the icon for the value help when hovered. If no parameter is supplied the standard icon image
      * will be shown. If an icon font icon is used, this property is ignored.
+     *
+     * @returns Value of property `iconHoverURL`
      */
     getIconHoverURL(): URI;
     /**
@@ -26621,9 +30353,13 @@ declare module "sap/ui/commons/ValueHelpField" {
      *
      * URL of the standard icon for the value help. If no parameter is supplied the default icon image will
      * be shown. This can be a URI to an image or an icon font URI.
+     *
+     * @returns Value of property `iconURL`
      */
     getIconURL(): URI;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Handle F4 event
      */
     onsapshow(
@@ -26639,6 +30375,8 @@ declare module "sap/ui/commons/ValueHelpField" {
      * will be shown. If an icon font icon is used, this property is ignored.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIconDisabledURL(
       /**
@@ -26653,6 +30391,8 @@ declare module "sap/ui/commons/ValueHelpField" {
      * will be shown. If an icon font icon is used, this property is ignored.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIconHoverURL(
       /**
@@ -26667,6 +30407,8 @@ declare module "sap/ui/commons/ValueHelpField" {
      * be shown. This can be a URI to an image or an icon font URI.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIconURL(
       /**
@@ -26681,25 +30423,32 @@ declare module "sap/ui/commons/ValueHelpField" {
      * URL of the standard icon for the value help. If no parameter is supplied the default icon image will
      * be shown. This can be a URI to an image or an icon font URI.
      */
-    iconURL?: URI | PropertyBindingInfo;
+    iconURL?: URI | PropertyBindingInfo | `{${string}}`;
 
     /**
      * URL of the icon for the value help when hovered. If no parameter is supplied the standard icon image
      * will be shown. If an icon font icon is used, this property is ignored.
      */
-    iconHoverURL?: URI | PropertyBindingInfo;
+    iconHoverURL?: URI | PropertyBindingInfo | `{${string}}`;
 
     /**
      * URL of the icon for the value help when disabled. If no parameter is supplied the default icon image
      * will be shown. If an icon font icon is used, this property is ignored.
      */
-    iconDisabledURL?: URI | PropertyBindingInfo;
+    iconDisabledURL?: URI | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Event which is fired when the ValueHelp is requested.
      */
     valueHelpRequest?: (oEvent: Event) => void;
   }
+
+  export interface ValueHelpField$ValueHelpRequestEventParameters {}
+
+  export type ValueHelpField$ValueHelpRequestEvent = Event<
+    ValueHelpField$ValueHelpRequestEventParameters,
+    ValueHelpField
+  >;
 }
 
 declare namespace sap {

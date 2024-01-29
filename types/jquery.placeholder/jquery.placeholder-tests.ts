@@ -1,5 +1,4 @@
-$('input').placeholder();
+$("input").placeholder();
 
 // specify custom class
-$('input').placeholder({ customClass: 'my-placeholder' });
-
+$("input").placeholder({ customClass: "my-placeholder" });

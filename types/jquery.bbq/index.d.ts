@@ -1,13 +1,7 @@
-// Type definitions for jquery.bbq 1.2
-// Project: http://benalman.com/projects/jquery-bbq-plugin/
-// Definitions by: Ryan Cavanaugh <https://github.com/RyanCavanaugh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import $ = require('jquery');
+import $ = require("jquery");
 
 declare global {
     namespace JQueryBbq {
-
         interface JQuery {
             /**
              * Adds a 'state' into the browser history at the current position, setting
@@ -79,7 +73,6 @@ declare global {
              * @name coerce If true, coerces any numbers or true, false, null, and undefined to their actual value. Defaults to false if omitted.
              */
             (params: string, coerce?: boolean): any;
-
 
             /**
              * Parse the query string from a URL or the current window.location.href,

@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/dom-view-transitions",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "dom-view-transitions-browser",
+    "projects": [
+        "https://drafts.csswg.org/css-view-transitions-1/"
+    ],
+    "devDependencies": {
+        "@types/dom-view-transitions": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jake Archibald",
+            "githubUsername": "jakearchibald"
+        },
+        {
+            "name": "Thomas Wilkinson",
+            "githubUsername": "tbondwilkinson"
+        }
+    ]
+}

@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.urlbar
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the <code>browser.urlbar</code> API to experiment with new features in the URLBar.
  * Restricted to Mozilla privileged WebExtensions.
@@ -185,7 +188,8 @@ export namespace Urlbar {
      * action in response. Currently the only applicable <code>ResultTypes</code> are <code>dynamic</code> and <code>tip</code>.
      */
     interface onResultPickedEvent
-        extends Events.Event<(payload: OnResultPickedPayloadType, elementName: string) => void> {
+        extends Events.Event<(payload: OnResultPickedPayloadType, elementName: string) => void>
+    {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -194,7 +198,7 @@ export namespace Urlbar {
          */
         addListener(
             callback: (payload: OnResultPickedPayloadType, elementName: string) => void,
-            providerName: string
+            providerName: string,
         ): void;
     }
 

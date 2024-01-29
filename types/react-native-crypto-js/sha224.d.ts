@@ -1,3 +1,3 @@
-import RNCryptoJS = require('./index');
+import RNCryptoJS = require("./index");
 
 export = RNCryptoJS.SHA224;

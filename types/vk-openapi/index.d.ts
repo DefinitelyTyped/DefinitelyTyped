@@ -1,9 +1,3 @@
-// Type definitions for non-npm package VK Open API 1.6
-// Project: https://vk.com/dev/openapi
-// Definitions by: hikiko4ern <https://github.com/hikiko4ern>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
-
 declare var VK: vk.OpenAPI.API;
 
 declare namespace vk {
@@ -54,12 +48,12 @@ declare namespace vk {
 
             interface LoginStatus {
                 session: Session;
-                status: 'connected' | 'not_authorized' | 'unknown';
+                status: "connected" | "not_authorized" | "unknown";
             }
 
             interface EmptyLoginStatus {
                 session: null;
-                status: 'unknown';
+                status: "unknown";
                 settings: undefined;
             }
         }
@@ -135,7 +129,7 @@ declare namespace vk {
             }
 
             interface GroupOptions {
-                width?: number | 'auto' | undefined;
+                width?: number | "auto" | undefined;
                 height?: number | undefined;
                 mode?: 1 | 3 | 4 | undefined;
                 no_cover?: NumericBoolean | undefined;
@@ -148,7 +142,7 @@ declare namespace vk {
             interface LikeOptions {
                 width?: number | undefined;
                 height?: 18 | 20 | 22 | 24 | 30 | undefined;
-                type?: 'button' | 'mini' | 'vertical' | 'full' | undefined;
+                type?: "button" | "mini" | "vertical" | "full" | undefined;
                 verb?: NumericBoolean | undefined;
                 pageTitle?: string | undefined;
                 pageUrl?: string | undefined;
@@ -158,12 +152,12 @@ declare namespace vk {
             interface RecommendedOptions {
                 limit?: number | undefined;
                 max?: number | undefined;
-                period?: 'day' | 'week' | 'month' | undefined;
+                period?: "day" | "week" | "month" | undefined;
             }
 
-            type RecommendedSort = 'friend_likes' | 'likes';
+            type RecommendedSort = "friend_likes" | "likes";
 
-            type RecommendedTarget = 'blank' | 'top' | 'parent';
+            type RecommendedTarget = "blank" | "top" | "parent";
 
             interface PollOptions {
                 width?: number | undefined;
@@ -204,7 +198,7 @@ declare namespace vk {
                 disableTitleChange?: 1 | undefined;
             }
 
-            type OnCanNotWriteReason = 'offline' | 'no_access' | 'disabled_messages' | 'cant_write';
+            type OnCanNotWriteReason = "offline" | "no_access" | "disabled_messages" | "cant_write";
 
             interface CommunityMessages {
                 stopTitleAnimation(): void;
@@ -239,33 +233,31 @@ declare namespace vk {
             }
 
             type ObserverEvent =
-                | 'auth.login'
-                | 'auth.logout'
-                | 'auth.statusChange'
-                | 'auth.sessionChange'
-                | 'widgets.comments.new_comment'
-                | 'widgets.comments.delete_comment'
-                | 'widgets.groups.joined'
-                | 'widgets.groups.leaved'
-                | 'widgets.like.liked'
-                | 'widgets.like.unliked'
-                | 'widgets.like.shared'
-                | 'widgets.like.unshared'
-                | 'widgets.subscribed'
-                | 'widgets.unsubscribed'
-                | 'widgets.allowMessagesFromCommunity.allowed'
-                | 'widgets.allowMessagesFromCommunity.denied';
+                | "auth.login"
+                | "auth.logout"
+                | "auth.statusChange"
+                | "auth.sessionChange"
+                | "widgets.comments.new_comment"
+                | "widgets.comments.delete_comment"
+                | "widgets.groups.joined"
+                | "widgets.groups.leaved"
+                | "widgets.like.liked"
+                | "widgets.like.unliked"
+                | "widgets.like.shared"
+                | "widgets.like.unshared"
+                | "widgets.subscribed"
+                | "widgets.unsubscribed"
+                | "widgets.allowMessagesFromCommunity.allowed"
+                | "widgets.allowMessagesFromCommunity.denied";
 
             type ObserverEventHandler<E extends ObserverEvent> = E extends
-                | 'widgets.comments.new_comment'
-                | 'widgets.comments.delete_comment'
+                | "widgets.comments.new_comment"
+                | "widgets.comments.delete_comment"
                 ? (num: number, lastComment: string, date: string, sign: string) => void
-                : E extends 'widgets.like.liked' | 'widgets.like.unliked'
-                ? (likes: number) => void
-                : E extends 'widgets.like.shared' | 'widgets.like.unshared'
-                ? (shares: number) => void
-                : E extends 'widgets.allowMessagesFromCommunity.allowed' | 'widgets.allowMessagesFromCommunity.denied'
-                ? (uid: number) => void
+                : E extends "widgets.like.liked" | "widgets.like.unliked" ? (likes: number) => void
+                : E extends "widgets.like.shared" | "widgets.like.unshared" ? (shares: number) => void
+                : E extends "widgets.allowMessagesFromCommunity.allowed" | "widgets.allowMessagesFromCommunity.denied"
+                    ? (uid: number) => void
                 : () => void;
         }
 
@@ -279,18 +271,18 @@ declare namespace vk {
             }
 
             type ProductEvent =
-                | 'view_home'
-                | 'view_category'
-                | 'view_product'
-                | 'view_search'
-                | 'view_other'
-                | 'add_to_wishlist'
-                | 'add_to_cart'
-                | 'remove_from_wishlist'
-                | 'remove_from_cart'
-                | 'init_checkout'
-                | 'add_payment_info'
-                | 'purchase';
+                | "view_home"
+                | "view_category"
+                | "view_product"
+                | "view_search"
+                | "view_other"
+                | "add_to_wishlist"
+                | "add_to_cart"
+                | "remove_from_wishlist"
+                | "remove_from_cart"
+                | "init_checkout"
+                | "add_payment_info"
+                | "purchase";
 
             interface ProductEventParams {
                 products?: Product[] | undefined;
@@ -318,25 +310,25 @@ declare namespace vk {
             }
 
             type GoalEvent =
-                | 'add_to_cart'
-                | 'add_to_wishlist'
-                | 'customize_product'
-                | 'initiate_checkout'
-                | 'add_payment_info'
-                | 'purchase'
-                | 'contact'
-                | 'lead'
-                | 'schedule'
-                | 'complete_registration'
-                | 'submit_application'
-                | 'start_trial'
-                | 'subscribe'
-                | 'page_view'
-                | 'view_content'
-                | 'search'
-                | 'find_location'
-                | 'donate'
-                | 'conversion';
+                | "add_to_cart"
+                | "add_to_wishlist"
+                | "customize_product"
+                | "initiate_checkout"
+                | "add_payment_info"
+                | "purchase"
+                | "contact"
+                | "lead"
+                | "schedule"
+                | "complete_registration"
+                | "submit_application"
+                | "start_trial"
+                | "subscribe"
+                | "page_view"
+                | "view_content"
+                | "search"
+                | "find_location"
+                | "donate"
+                | "conversion";
 
             interface GoalParams {
                 value?: number | undefined;

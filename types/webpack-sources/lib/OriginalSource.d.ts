@@ -1,8 +1,8 @@
-import { SourceListMap } from 'source-list-map';
-import { SourceNode } from 'source-map';
+import { SourceListMap } from "source-list-map";
+import { SourceNode } from "source-map";
 
-import { SourceAndMapMixin } from '.';
-import Source = require('./Source');
+import { SourceAndMapMixin } from ".";
+import Source = require("./Source");
 
 /**
  * Represents source code, which is a copy of the original file

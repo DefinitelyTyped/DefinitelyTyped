@@ -1,5 +1,5 @@
-import * as React from 'react';
-import RangeSlider from 'react-bootstrap-range-slider';
+import * as React from "react";
+import RangeSlider from "react-bootstrap-range-slider";
 
 // Valid examples
 
@@ -18,8 +18,8 @@ const validStringTooltip = (
         tooltip="auto"
         tooltipPlacement="top"
         tooltipLabel={n => `Value is ${n}`}
-        tooltipStyle={{ fontSize: '1.5rem' }}
-        tooltipProps={{ className: 'text-center' }}
+        tooltipStyle={{ fontSize: "1.5rem" }}
+        tooltipProps={{ className: "text-center" }}
         inputProps={{ onMouseEnter: () => {} }}
         ref={ref}
         bsPrefix="custom-prefix-"
@@ -30,27 +30,27 @@ const validCustomTooltip = <RangeSlider tooltipLabel={n => <p>Value is {n}</p>} 
 
 // Invalid examples
 
-// $ExpectError
+// @ts-expect-error
 const invalidVariant = <RangeSlider variant="large" />;
 
-// $ExpectError
+// @ts-expect-error
 const invalidTooltipPlacement = <RangeSlider tooltipPlacement="left" />;
 
 const providingChildren = (
-    // $ExpectError
+    // @ts-expect-error
     <RangeSlider>
         <span>I'm a child</span>
     </RangeSlider>
 );
 
-// $ExpectError
+// @ts-expect-error
 const stringValue = <RangeSlider value="5" />;
 
-// $ExpectError
-const invalidTooltipStyle = <RangeSlider tooltipStyle={{ textSize: 'big' }} />;
+// @ts-expect-error
+const invalidTooltipStyle = <RangeSlider tooltipStyle={{ textSize: "big" }} />;
 
-// $ExpectError
-const invalidInputProps = <RangeSlider inputProps={{ someInvalidProp: 'value' }} />;
+// @ts-expect-error
+const invalidInputProps = <RangeSlider inputProps={{ someInvalidProp: "value" }} />;
 
-// $ExpectError
-const invalidTooltipProps = <RangeSlider tooltipProps={{ someInvalidProp: 'value' }} />;
+// @ts-expect-error
+const invalidTooltipProps = <RangeSlider tooltipProps={{ someInvalidProp: "value" }} />;

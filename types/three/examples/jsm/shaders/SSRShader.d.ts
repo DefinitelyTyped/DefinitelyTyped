@@ -1,4 +1,4 @@
-import { Matrix4, Vector2, Texture, IUniform } from '../../../src/Three';
+import { Matrix4, Vector2, Texture, IUniform } from '../../../src/Three.js';
 /**
  * References:
  * https://lettier.github.io/3d-game-shaders-for-beginners/screen-space-reflection.html
@@ -6,6 +6,7 @@ import { Matrix4, Vector2, Texture, IUniform } from '../../../src/Three';
 
 export const SSRShader: SSRShader;
 export interface SSRShader {
+    name: string;
     defines: {
         MAX_STEP: number;
         isPerspectiveCamera: boolean;
@@ -35,6 +36,7 @@ export interface SSRShader {
 
 export const SSRDepthShader: SSRDepthShader;
 export interface SSRDepthShader {
+    name: string;
     defines: {
         PERSPECTIVE_CAMERA: number;
     };
@@ -49,6 +51,7 @@ export interface SSRDepthShader {
 
 export const SSRBlurShader: SSRBlurShader;
 export interface SSRBlurShader {
+    name: string;
     uniforms: {
         tDiffuse: IUniform<Texture | null>;
         resolution: IUniform<Vector2>;

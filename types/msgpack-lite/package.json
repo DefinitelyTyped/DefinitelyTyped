@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/msgpack-lite",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/kawanet/msgpack-lite"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/msgpack-lite": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Endel Dreyer",
+            "githubUsername": "endel"
+        },
+        {
+            "name": "Edmund Fokschaner",
+            "githubUsername": "efokschaner"
+        }
+    ]
+}

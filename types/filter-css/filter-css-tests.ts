@@ -1,16 +1,16 @@
-import filter from 'filter-css';
+import filter from "filter-css";
 
 // $ExpectType string
-filter('', '');
+filter("", "");
 
 // $ExpectType string
-filter('', /a/, {});
+filter("", /a/, {});
 
 // $ExpectType string
-filter('', (context, value, node) => true, {
+filter("", (context, value, node) => true, {
     matchTypes: true,
     matchMedia: true,
     matchSelectors: true,
     matchDeclarationProperties: true,
-    matchDeclarationValues: true
+    matchDeclarationValues: true,
 });

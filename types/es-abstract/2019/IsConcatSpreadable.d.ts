@@ -1,2 +1,2 @@
-import IsConcatSpreadable = require('../2018/IsConcatSpreadable');
+import IsConcatSpreadable = require("../2018/IsConcatSpreadable");
 export = IsConcatSpreadable;

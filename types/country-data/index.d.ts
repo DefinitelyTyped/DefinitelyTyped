@@ -1,18 +1,11 @@
-// Type definitions for country-data 0.0
-// Project: https://github.com/OpenBookPrices/country-data
-// Definitions by: Logan Dam <https://github.com/biltongza>
-//                 Mike MacCana <https://github.com/mikemaccana>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-
 export interface Country {
     readonly alpha2: string;
     readonly alpha3: string;
-    readonly countryCallingCodes: ReadonlyArray<string>;
-    readonly currencies: ReadonlyArray<string>;
+    readonly countryCallingCodes: readonly string[];
+    readonly currencies: readonly string[];
     readonly emoji: string;
     readonly ioc: string;
-    readonly languages: ReadonlyArray<string>;
+    readonly languages: readonly string[];
     readonly name: string;
     readonly status: string;
 }
@@ -34,19 +27,19 @@ export interface Language {
 
 export interface Continent {
     readonly name: string;
-    readonly regions: ReadonlyArray<string>;
-    readonly countries: ReadonlyArray<Country>;
+    readonly regions: readonly string[];
+    readonly countries: readonly Country[];
 }
 
 export interface Region {
     readonly name: string;
-    readonly countries: ReadonlyArray<string>;
+    readonly countries: readonly string[];
 }
 
 export const countries: {
     readonly [key: string]: Country;
 } & {
-    readonly all: ReadonlyArray<Country>;
+    readonly all: readonly Country[];
 };
 
 export const continents: {
@@ -60,21 +53,21 @@ export const continents: {
 };
 
 export const callingCodes: {
-    readonly all: ReadonlyArray<string>;
+    readonly all: readonly string[];
 };
 
 export const callingCountries: {
-    readonly all: ReadonlyArray<Country>;
+    readonly all: readonly Country[];
 };
 
 export const currencies: {
     readonly [key: string]: Currency;
 } & {
-    readonly all: ReadonlyArray<Currency>;
+    readonly all: readonly Currency[];
 };
 
 export const languages: {
-    readonly all: ReadonlyArray<Language>;
+    readonly all: readonly Language[];
 };
 
 export const regions: {
@@ -104,7 +97,7 @@ export const regions: {
 };
 
 export const lookup: {
-    readonly countries: (query: any) => ReadonlyArray<Country>;
-    readonly currencies: (query: any) => ReadonlyArray<Currency>;
-    readonly languages: (query: any) => ReadonlyArray<Language>;
+    readonly countries: (query: any) => readonly Country[];
+    readonly currencies: (query: any) => readonly Currency[];
+    readonly languages: (query: any) => readonly Language[];
 };

@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/hubot-slack",
+    "version": "4.10.9999",
+    "projects": [
+        "https://github.com/slackapi/hubot-slack"
+    ],
+    "dependencies": {
+        "@slack/rtm-api": "*",
+        "@slack/web-api": "*",
+        "@slack/types": "*",
+        "@types/hubot": "*"
+    },
+    "devDependencies": {
+        "@types/hubot-slack": "workspace:."
+    },
+    "owners": []
+}

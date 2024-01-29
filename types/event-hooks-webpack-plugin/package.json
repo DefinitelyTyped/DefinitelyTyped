@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/event-hooks-webpack-plugin",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/cascornelissen/event-hooks-webpack-plugin"
+    ],
+    "dependencies": {
+        "@types/webpack": "^4"
+    },
+    "devDependencies": {
+        "@types/event-hooks-webpack-plugin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Pine Mizune",
+            "githubUsername": "pine"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

@@ -11,7 +11,7 @@ interface JQuery {
     /**
      * Remove the plugin from the input, and unbind any event listeners.
      */
-    intlTelInput(method: 'destroy'): void;
+    intlTelInput(method: "destroy"): void;
 
     /**
      * Get the extension from the current number.
@@ -19,7 +19,7 @@ interface JQuery {
      * e.g. if the input value was "(702) 555-5555 ext. 1234", this would
      * return "1234".
      */
-    intlTelInput(method: 'getExtension'): string;
+    intlTelInput(method: "getExtension"): string;
 
     /**
      * Get the current number in the given format (defaults to E.164 standard).
@@ -30,7 +30,7 @@ interface JQuery {
      * international number.
      * @param numberFormat the format in which the number will be returned.
      */
-    intlTelInput(method: 'getNumber', numberFormat?: intlTelInputUtils.numberFormat): string;
+    intlTelInput(method: "getNumber", numberFormat?: intlTelInputUtils.numberFormat): string;
     intlTelInput(method: string, numberFormat: intlTelInputUtils.numberFormat): string;
 
     /**
@@ -41,12 +41,12 @@ interface JQuery {
      * Note that in the US there's no way to differentiate between fixed-line and
      * mobile numbers, so instead it will return FIXED_LINE_OR_MOBILE.
      */
-    intlTelInput(method: 'getNumberType'): intlTelInputUtils.numberType;
+    intlTelInput(method: "getNumberType"): intlTelInputUtils.numberType;
 
     /**
      * Get the country data for the currently selected flag.
      */
-    intlTelInput(method: 'getSelectedCountryData'): intlTelInput.CountryData;
+    intlTelInput(method: "getSelectedCountryData"): intlTelInput.CountryData;
 
     /**
      * Get more information about a validation error.
@@ -54,7 +54,7 @@ interface JQuery {
      * Returns an integer, which you can match against the various options in the
      * global enum ValidationError
      */
-    intlTelInput(method: 'getValidationError'): intlTelInputUtils.validationError;
+    intlTelInput(method: "getValidationError"): intlTelInputUtils.validationError;
 
     /**
      * Validate the current number. Expects an internationally formatted number
@@ -64,13 +64,13 @@ interface JQuery {
      * Also see getNumberType if you want to make sure the user enters a certain
      * type of number e.g. a mobile number.
      */
-    intlTelInput(method: 'isValidNumber'): boolean;
+    intlTelInput(method: "isValidNumber"): boolean;
 
     /**
      * Change the country selection (e.g. when the user is entering their address).
      * @param countryCode country code of the country to be set.
      */
-    intlTelInput(method: 'setCountry', countryCode: string): void;
+    intlTelInput(method: "setCountry", countryCode: string): void;
 
     /**
      * Insert a number, and update the selected flag accordingly.
@@ -78,11 +78,11 @@ interface JQuery {
      * national formatting.
      * @param aNumber number to be set.
      */
-    intlTelInput(method: 'setNumber', aNumber: string): void;
+    intlTelInput(method: "setNumber", aNumber: string): void;
 
     /**
      * Set the type of the placeholder number
      * @param type Placeholder number type to be set
      */
-    intlTelInput(method: 'setPlaceholderNumberType', type: intlTelInput.placeholderNumberType): void;
+    intlTelInput(method: "setPlaceholderNumberType", type: intlTelInput.placeholderNumberType): void;
 }

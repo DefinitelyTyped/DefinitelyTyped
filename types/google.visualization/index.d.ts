@@ -1,19 +1,6 @@
-// Type definitions for Google Visualisation Apis
-// Project: https://developers.google.com/chart/
-// Definitions by: Dan Ludwig <https://github.com/danludwig>,
-//                 Gregory Moore <https://github.com/gmoore-sjcorg>,
-//                 Dan Manastireanu <https://github.com/danmana>,
-//                 Michael Cheng <https://github.com/mlcheng>,
-//                 Ivan Bisultanov <https://github.com/IvanBisultanov>,
-//                 Gleb Mazovetskiy <https://github.com/glebm>,
-//                 Shrujal Shah <https://github.com/shrujalshah28>,
-//                 David <https://github.com/dckorben>
-//                 Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace google {
     /** Legacy https://developers.google.com/chart/interactive/docs/basic_load_libs#updateloader */
-    function load(visualization: 'visualization', version: string | number, options: LoadOptions): void;
+    function load(visualization: "visualization", version: string | number, options: LoadOptions): void;
     function setOnLoadCallback(handler: Function): void;
     function setOnLoadCallback(handler: () => void): void;
 
@@ -24,7 +11,7 @@ declare namespace google {
         function load(options: LoadOptions): Promise<void>;
         function load(version: string | number, options: LoadOptions): Promise<void>;
         /** Legacy https://developers.google.com/chart/interactive/docs/basic_load_libs#updateloader */
-        function load(visualization: 'visualization', version: string | number, options: LoadOptions): Promise<void>;
+        function load(visualization: "visualization", version: string | number, options: LoadOptions): Promise<void>;
 
         function setOnLoadCallback(handler: Function): void;
     }
@@ -45,7 +32,6 @@ declare namespace google {
 
     // https://developers.google.com/chart/interactive/docs/reference
     namespace visualization {
-
         export function dataTableToCsv(data: DataTable | DataView): string;
         export function arrayToDataTable(data: any[], firstRowIsData?: boolean): DataTable;
 
@@ -68,13 +54,13 @@ declare namespace google {
             options?: any;
         }
 
-        //#region ChartWrapper
+        // #region ChartWrapper
         // https://developers.google.com/chart/interactive/docs/reference#chartwrapperobject
         export class ChartWrapper {
             constructor(spec?: ChartSpecs);
             draw(container_ref?: HTMLElement): void;
             toJSON(): string;
-            clone():ChartWrapper;
+            clone(): ChartWrapper;
             getDataSourceUrl(): string;
             getDataTable(): DataTable;
             getChartType(): string;
@@ -97,9 +83,9 @@ declare namespace google {
             setOptions(options: Object): void;
             setView(view_spec: string): void;
         }
-        //#endregion
+        // #endregion
 
-        //#region data
+        // #region data
         // https://developers.google.com/chart/interactive/docs/reference#google_visualization_data_group
         export interface GroupKeyOptions {
             column: number;
@@ -122,20 +108,35 @@ declare namespace google {
             function month(value: Date): number;
 
             // https://developers.google.com/chart/interactive/docs/reference#group
-            function sum(values: ReadonlyArray<number>): number;
-            function avg(values: ReadonlyArray<number>): number;
-            function min(values: ReadonlyArray<number> | ReadonlyArray<string> | ReadonlyArray<Date>): number | string | Date | null;
-            function max(values: ReadonlyArray<number> | ReadonlyArray<string> | ReadonlyArray<Date>): number | string | Date | null;
-            function count(values: ReadonlyArray<any>): number;
+            function sum(values: readonly number[]): number;
+            function avg(values: readonly number[]): number;
+            function min(
+                values: readonly number[] | readonly string[] | readonly Date[],
+            ): number | string | Date | null;
+            function max(
+                values: readonly number[] | readonly string[] | readonly Date[],
+            ): number | string | Date | null;
+            function count(values: readonly any[]): number;
 
-            function group(data: DataTable | DataView, keys: ReadonlyArray<number | GroupKeyOptions>, columns?: ReadonlyArray<GroupColumnOptions>): DataTable;
+            function group(
+                data: DataTable | DataView,
+                keys: ReadonlyArray<number | GroupKeyOptions>,
+                columns?: readonly GroupColumnOptions[],
+            ): DataTable;
 
             // https://developers.google.com/chart/interactive/docs/reference#join
-            function join(dataA: DataTable | DataView, dataB: DataTable | DataView, joinMethod: 'full' | 'inner' | 'left' | 'right', keys: ReadonlyArray<[number|string, number|string]>, columnsA: ReadonlyArray<number|string>, columnsB: ReadonlyArray<number|string>): DataTable;
+            function join(
+                dataA: DataTable | DataView,
+                dataB: DataTable | DataView,
+                joinMethod: "full" | "inner" | "left" | "right",
+                keys: ReadonlyArray<[number | string, number | string]>,
+                columnsA: ReadonlyArray<number | string>,
+                columnsB: ReadonlyArray<number | string>,
+            ): DataTable;
         }
-        //#endregion
+        // #endregion
 
-        //#region DataTable
+        // #region DataTable
         // https://developers.google.com/chart/interactive/docs/reference#DataTable
         export class DataTable {
             constructor(data?: any, version?: any);
@@ -148,7 +149,7 @@ declare namespace google {
             addRows(rows: any[][]): number;
             clone(): DataTable;
             getColumnId(columnIndex: number): string;
-            getColumnIndex(columnIdentifier: number|string): number;
+            getColumnIndex(columnIdentifier: number | string): number;
             getColumnLabel(columnIndex: number): string;
             getColumnPattern(columnIndex: number): string;
             getColumnProperties(columnIndex: number): Properties;
@@ -180,7 +181,13 @@ declare namespace google {
             removeColumns(columnIndex: number, numberOfColumns: number): void;
             removeRow(rowIndex: number): void;
             removeRows(rowIndex: number, numberOfRows: number): void;
-            setCell(rowIndex: number, columnIndex: number, value?: any, formattedValue?: string, properties?: Properties): void;
+            setCell(
+                rowIndex: number,
+                columnIndex: number,
+                value?: any,
+                formattedValue?: string,
+                properties?: Properties,
+            ): void;
             setColumnLabel(columnIndex: number, label: string): void;
             setColumnProperty(columnIndex: number, name: string, value: any): void;
             setColumnProperties(columnIndex: number, properties: Properties): void;
@@ -200,7 +207,7 @@ declare namespace google {
         }
 
         export interface Properties {
-            [property: string]: any
+            [property: string]: any;
         }
 
         export interface SortByColumn {
@@ -259,8 +266,8 @@ declare namespace google {
             maxValue?: any;
         }
 
-        //#endregion
-        //#region Query
+        // #endregion
+        // #region Query
 
         // https://developers.google.com/chart/interactive/docs/reference#query
         export class Query {
@@ -270,17 +277,17 @@ declare namespace google {
 
             setRefreshInterval(intervalSeconds: number): void;
             setTimeout(timeoutSeconds: number): void;
-            setQuery(queryString:string): void;
+            setQuery(queryString: string): void;
 
             send(callback: (response: QueryResponse) => void): void;
         }
 
         export interface QueryOptions {
-            sendMethod?: string | undefined,
-            makeRequestParams?: Object | undefined
+            sendMethod?: string | undefined;
+            makeRequestParams?: Object | undefined;
         }
-        //#endregion
-        //#region QueryResponse
+        // #endregion
+        // #region QueryResponse
 
         // https://developers.google.com/chart/interactive/docs/reference#queryresponse
         export class QueryResponse {
@@ -294,8 +301,8 @@ declare namespace google {
             isError(): boolean;
         }
 
-        //#endregion
-        //#region DataView
+        // #endregion
+        // #region DataView
 
         // https://developers.google.com/chart/interactive/docs/reference#DataView
         export class DataView {
@@ -352,8 +359,8 @@ declare namespace google {
             properties?: Properties | undefined;
             role?: string | undefined;
         }
-        //#endregion
-        //#region GeoChart
+        // #endregion
+        // #region GeoChart
 
         // https://developers.google.com/chart/interactive/docs/gallery/geochart
         export class GeoChart extends ChartBaseRenderable {
@@ -370,7 +377,7 @@ declare namespace google {
             enableRegionInteractivity?: boolean | undefined;
             height?: number | undefined;
             keepAspectRatio?: boolean | undefined;
-            legend?: ChartLegend | 'none' | undefined;
+            legend?: ChartLegend | "none" | undefined;
             region?: string | undefined;
             magnifyingGlass?: GeoChartMagnifyingGlass | undefined;
             markerOpacity?: number | undefined;
@@ -390,8 +397,8 @@ declare namespace google {
             row: number;
         }
 
-        //#endregion
-        //#region Common
+        // #endregion
+        // #region Common
         export interface ChartAnnotations {
             boxStyle?: ChartBoxStyle | undefined;
             textStyle?: ChartTextStyle | undefined;
@@ -429,7 +436,7 @@ declare namespace google {
                 x2: string;
                 y2: string;
                 useObjectBoundingBoxUnits?: boolean | undefined;
-            } | undefined
+            } | undefined;
         }
 
         export interface ChartTextStyle {
@@ -447,13 +454,13 @@ declare namespace google {
             focused?: {
                 color?: string | undefined;
                 opacity?: number | undefined;
-            } | undefined
+            } | undefined;
             opacity?: number | undefined;
             orientation?: ChartOrientation | undefined;
             selected?: {
                 color?: string | undefined;
                 opacity?: number | undefined;
-            } | undefined
+            } | undefined;
             trigger?: string | undefined;
         }
 
@@ -493,13 +500,13 @@ declare namespace google {
             height?: number | string | undefined;
         }
 
-        export type ChartOrientation = 'vertical' | 'horizontal';
-        export type ChartAxisTitlesPosition = 'in' | 'out' | 'none';
+        export type ChartOrientation = "vertical" | "horizontal";
+        export type ChartAxisTitlesPosition = "in" | "out" | "none";
 
-        export type ChartSelectionMode = 'single' | 'multiple';
+        export type ChartSelectionMode = "single" | "multiple";
 
-        export type ChartLegendPosition = 'bottom' | 'left' | 'in' | 'none' | 'right' | 'top';
-        export type ChartLegendAlignment = 'start' | 'center' | 'end';
+        export type ChartLegendPosition = "bottom" | "left" | "in" | "none" | "right" | "top";
+        export type ChartLegendAlignment = "start" | "center" | "end";
         export interface ChartLegend {
             alignment?: ChartLegendAlignment | undefined;
             maxLines?: number | undefined;
@@ -574,7 +581,7 @@ declare namespace google {
             legend?: ChartLegend | undefined;
         }
 
-        export type ChartPointShape = 'circle' | 'triangle' | 'square' | 'diamond' | 'star' | 'polygon';
+        export type ChartPointShape = "circle" | "triangle" | "square" | "diamond" | "star" | "polygon";
 
         export interface ChartLayoutInterface {
             getBoundingBox(id: string): ChartBoundingBox;
@@ -606,7 +613,7 @@ declare namespace google {
 
         // https://developers.google.com/chart/interactive/docs/gallery/trendlines
         export interface ChartTrendlineOptions {
-            type?: 'linear' | 'exponential' | 'polynomial' | undefined;
+            type?: "linear" | "exponential" | "polynomial" | undefined;
             degree?: number | undefined;
             color?: string | undefined;
             lineWidth?: number | undefined;
@@ -615,7 +622,7 @@ declare namespace google {
             pointsVisible?: boolean | undefined;
             labelInLegend?: string | undefined;
             visibleInLegend?: boolean | undefined;
-            showR2?: boolean | undefined
+            showR2?: boolean | undefined;
         }
 
         export interface ChartAction {
@@ -652,8 +659,8 @@ declare namespace google {
             setAction(action: ChartAction): void;
         }
 
-        //#endregion
-        //#region ScatterChart
+        // #endregion
+        // #region ScatterChart
 
         // https://developers.google.com/chart/interactive/docs/gallery/scatterchart
         export class ScatterChart extends CoreChartBase {
@@ -669,7 +676,7 @@ declare namespace google {
             chartArea?: ChartArea | undefined;
             colors?: string[] | undefined;
             crosshair?: ChartCrosshair | undefined;
-            curveType?: 'none' | 'function' | undefined;
+            curveType?: "none" | "function" | undefined;
             dataOpacity?: number | undefined;
             enableInteractivity?: boolean | undefined;
             explorer?: ChartExplorer | undefined;
@@ -678,7 +685,7 @@ declare namespace google {
             forceIFrame?: boolean | undefined;
             hAxis?: ChartAxis | undefined;
             height?: number | undefined;
-            legend?: ChartLegend | 'none' | undefined;
+            legend?: ChartLegend | "none" | undefined;
             lineWidth?: number | undefined;
             orientation?: ChartOrientation | undefined;
             pointShape?: ChartPointShape | undefined;
@@ -687,7 +694,7 @@ declare namespace google {
             selectionMode?: ChartSelectionMode | undefined;
             series?: any;
             theme?: string | undefined;
-            trendlines?: { [key: number]: ChartTrendlineOptions; } | undefined;
+            trendlines?: { [key: number]: ChartTrendlineOptions } | undefined;
             title?: string | undefined;
             titlePosition?: string | undefined;
             titleTextStyle?: ChartTextStyle | undefined;
@@ -696,8 +703,8 @@ declare namespace google {
             width?: number | undefined;
         }
 
-        //#endregion
-        //#region ColumnChart
+        // #endregion
+        // #region ColumnChart
 
         // https://developers.google.com/chart/interactive/docs/gallery/columnchart
         export class ColumnChart extends CoreChartBase {
@@ -721,8 +728,8 @@ declare namespace google {
             fontName?: string | undefined;
             hAxis?: ChartAxis | undefined;
             height?: number | undefined;
-            isStacked?: boolean | 'percent' | 'relative' | 'absolute' | undefined;
-            legend?: ChartLegend | 'none' | undefined;
+            isStacked?: boolean | "percent" | "relative" | "absolute" | undefined;
+            legend?: ChartLegend | "none" | undefined;
             reverseCategories?: boolean | undefined;
             selectionMode?: ChartSelectionMode | undefined;
             series?: any;
@@ -736,8 +743,8 @@ declare namespace google {
             width?: number | undefined;
         }
 
-        //#endregion
-        //#region LineChart
+        // #endregion
+        // #region LineChart
 
         // https://developers.google.com/chart/interactive/docs/gallery/linechart
         export class LineChart extends CoreChartBase {
@@ -746,7 +753,7 @@ declare namespace google {
 
         export interface LineChartSeriesOptions extends ChartSeriesOptionsBase {
             annotations?: ChartAnnotations | undefined;
-            curveType?: 'none' | 'function' | undefined;
+            curveType?: "none" | "function" | undefined;
             pointShape?: ChartPointShape | undefined;
             pointSize?: number | undefined;
             pointsVisible?: boolean | undefined;
@@ -759,7 +766,7 @@ declare namespace google {
 
         // https://developers.google.com/chart/interactive/docs/gallery/intervals#combining-interval-styles
         export interface Intervals {
-            style?: 'area' | 'bars' | 'boxes' | 'line' | 'points' | 'sticks' | undefined;
+            style?: "area" | "bars" | "boxes" | "line" | "points" | "sticks" | undefined;
             color?: string | undefined;
             barWidth?: number | undefined;
             boxWidth?: number | undefined;
@@ -778,7 +785,7 @@ declare namespace google {
             chartArea?: ChartArea | undefined;
             colors?: string[] | undefined;
             crosshair?: ChartCrosshair | undefined;
-            curveType?: 'none' | 'function' | undefined;
+            curveType?: "none" | "function" | undefined;
             dataOpacity?: number | undefined;
             enableInteractivity?: boolean | undefined;
             explorer?: ChartExplorer | undefined;
@@ -788,15 +795,15 @@ declare namespace google {
             hAxis?: ChartAxis | undefined;
             height?: number | undefined;
             interpolateNulls?: boolean | undefined;
-            legend?: ChartLegend | 'none' | undefined;
+            legend?: ChartLegend | "none" | undefined;
             lineWidth?: number | undefined;
             min?: number | undefined;
             orientation?: ChartOrientation | undefined;
             reverseCategories?: boolean | undefined;
             selectionMode?: ChartSelectionMode | undefined;
-            series?: LineChartSeriesOptions[] | { [key: number]: LineChartSeriesOptions; } | undefined;
+            series?: LineChartSeriesOptions[] | { [key: number]: LineChartSeriesOptions } | undefined;
             domainAxis?: { type: string } | undefined;
-            trendlines?: { [key: number]: ChartTrendlineOptions; } | undefined;
+            trendlines?: { [key: number]: ChartTrendlineOptions } | undefined;
             pointShape?: ChartPointShape | undefined;
             pointSize?: number | undefined;
             pointsVisible?: boolean | undefined;
@@ -812,8 +819,8 @@ declare namespace google {
             width?: number | undefined;
         }
 
-        //#endregion
-        //#region BarChart
+        // #endregion
+        // #region BarChart
 
         // https://developers.google.com/chart/interactive/docs/gallery/barchart#configuration-options
         export interface BarChartOptions {
@@ -833,8 +840,8 @@ declare namespace google {
             hAxes?: any;
             hAxis?: ChartAxis | undefined;
             height?: number | undefined;
-            isStacked?: boolean | 'percent' | 'relative' | 'absolute' | undefined;
-            legend?: ChartLegend | 'none' | undefined;
+            isStacked?: boolean | "percent" | "relative" | "absolute" | undefined;
+            legend?: ChartLegend | "none" | undefined;
             reverseCategories?: boolean | undefined;
             series?: any;
             theme?: string | undefined;
@@ -852,8 +859,8 @@ declare namespace google {
             draw(data: DataTable | DataView, options: BarChartOptions): void;
         }
 
-        //#endregion
-        //#region Histogram
+        // #endregion
+        // #region Histogram
 
         // https://developers.google.com/chart/interactive/docs/gallery/histogram
         export class Histogram extends CoreChartBase {
@@ -877,8 +884,8 @@ declare namespace google {
             histogram?: HistogramHistogramOptions | undefined;
             height?: number | undefined;
             interpolateNulls?: boolean | undefined;
-            isStacked?: boolean | 'percent' | 'relative' | 'absolute' | undefined;
-            legend?: ChartLegend | 'none' | undefined;
+            isStacked?: boolean | "percent" | "relative" | "absolute" | undefined;
+            legend?: ChartLegend | "none" | undefined;
             orientation?: ChartOrientation | undefined;
             reverseCategories?: boolean | undefined;
             series?: any;
@@ -898,8 +905,8 @@ declare namespace google {
             lastBucketPercentile?: number | undefined;
         }
 
-        //#endregion
-        //#region AreaChart
+        // #endregion
+        // #region AreaChart
 
         // https://developers.google.com/chart/interactive/docs/gallery/areachart
         export class AreaChart extends CoreChartBase {
@@ -926,8 +933,8 @@ declare namespace google {
             hAxis?: ChartAxis | undefined;
             height?: number | undefined;
             interpolateNulls?: boolean | undefined;
-            isStacked?: boolean | 'percent' | 'relative' | 'absolute' | undefined;
-            legend?: ChartLegend | 'none' | undefined;
+            isStacked?: boolean | "percent" | "relative" | "absolute" | undefined;
+            legend?: ChartLegend | "none" | undefined;
             lineWidth?: number | undefined;
             orientation?: ChartOrientation | undefined;
             pointSize?: number | undefined;
@@ -944,21 +951,20 @@ declare namespace google {
             width?: number | undefined;
         }
 
-        //#endregion
-        //#region AnnotationChart
+        // #endregion
+        // #region AnnotationChart
 
         // https://developers.google.com/chart/interactive/docs/gallery/annotationchart
         export class AnnotationChart extends ChartBaseClearable {
             draw(data: DataTable | DataView, options: AnnotationChartOptions, state?: any): void;
             setVisibleChartRange(start: Date, end: Date): void;
-            getVisibleChartRange(): {start: Date; end: Date };
+            getVisibleChartRange(): { start: Date; end: Date };
             hideDataColumns(columnIndexes: number | number[]): void;
             showDataColumns(columnIndexes: number | number[]): void;
         }
 
         // https://developers.google.com/chart/interactive/docs/gallery/annotationchart#Configuration_Options
-        export interface AnnotationChartOptions
-        {
+        export interface AnnotationChartOptions {
             allowHtml?: boolean | undefined;
             allValuesSuffix?: string | undefined;
             annotationsWidth?: number | undefined;
@@ -973,7 +979,7 @@ declare namespace google {
             displayRangeSelector?: boolean | undefined;
             displayZoomButtons?: boolean | undefined;
             fill?: number | undefined;
-            legendPosition?: 'sameRow' | 'newRow' | undefined;
+            legendPosition?: "sameRow" | "newRow" | undefined;
             max?: number | undefined;
             min?: number | undefined;
             numberFormats?: any;
@@ -985,8 +991,8 @@ declare namespace google {
             zoomStartTime?: Date | undefined;
         }
 
-        //#endregion
-        //#region SteppedAreaChart
+        // #endregion
+        // #region SteppedAreaChart
 
         // https://developers.google.com/chart/interactive/docs/gallery/areachart
         export class SteppedAreaChart extends CoreChartBase {
@@ -1010,8 +1016,8 @@ declare namespace google {
             hAxis?: ChartAxis | undefined;
             height?: number | undefined;
             interpolateNulls?: boolean | undefined;
-            isStacked?: boolean | 'percent' | 'relative' | 'absolute' | undefined;
-            legend?: ChartLegend | 'none' | undefined;
+            isStacked?: boolean | "percent" | "relative" | "absolute" | undefined;
+            legend?: ChartLegend | "none" | undefined;
             reverseCategories?: boolean | undefined;
             selectionMode?: ChartSelectionMode | undefined;
             series?: any;
@@ -1025,8 +1031,8 @@ declare namespace google {
             width?: number | undefined;
         }
 
-        //#endregion
-        //#region PieChart
+        // #endregion
+        // #region PieChart
 
         // https://developers.google.com/chart/interactive/docs/gallery/piechart
         export class PieChart extends CoreChartBase {
@@ -1036,7 +1042,7 @@ declare namespace google {
         export interface PieChartLegend {
             alignment?: ChartLegendAlignment | undefined;
             maxLines?: number | undefined;
-            position?: 'bottom' | 'labeled' | 'left' | 'none' | 'right' | 'top' | undefined;
+            position?: "bottom" | "labeled" | "left" | "none" | "right" | "top" | undefined;
             textStyle?: ChartTextStyle | undefined;
             numberFormat?: string | undefined;
         }
@@ -1051,7 +1057,7 @@ declare namespace google {
             fontName?: string | undefined;
             height?: number | undefined;
             is3D?: boolean | undefined;
-            legend?: PieChartLegend | 'none' | undefined;
+            legend?: PieChartLegend | "none" | undefined;
             pieHole?: number | undefined;
             pieSliceBorderColor?: string | undefined;
             pieSliceText?: string | undefined;
@@ -1068,8 +1074,8 @@ declare namespace google {
             width?: number | undefined;
         }
 
-        //#endregion
-        //#region BubbleChart
+        // #endregion
+        // #region BubbleChart
 
         // https://developers.google.com/chart/interactive/docs/gallery/scatterchart
         export class BubbleChart extends CoreChartBase {
@@ -1091,7 +1097,7 @@ declare namespace google {
             forceIFrame?: boolean | undefined;
             hAxis?: ChartAxis | undefined;
             height?: number | undefined;
-            legend?: ChartLegend | 'none' | undefined;
+            legend?: ChartLegend | "none" | undefined;
             selectionMode?: ChartSelectionMode | undefined;
             series?: any;
             sizeAxis?: ChartSizeAxis | undefined;
@@ -1118,8 +1124,8 @@ declare namespace google {
             minValue?: number | undefined;
         }
 
-        //#endregion
-        //#region TreeMap
+        // #endregion
+        // #region TreeMap
 
         // https://developers.google.com/chart/interactive/docs/gallery/treemap
         export class TreeMap extends ChartBaseClearable {
@@ -1156,8 +1162,8 @@ declare namespace google {
             useWeightedAverageForAggregation?: boolean | undefined;
         }
 
-        //#endregion
-        //#region Table
+        // #endregion
+        // #region Table
 
         // https://developers.google.com/chart/interactive/docs/gallery/table
         export class Table extends ChartBaseClearable {
@@ -1175,7 +1181,7 @@ declare namespace google {
             height?: string | number | undefined;
             page?: string | undefined;
             pageSize?: number | undefined;
-            pagingButtons?: number | 'both' | 'prev' | 'next' | 'auto' | undefined;
+            pagingButtons?: number | "both" | "prev" | "next" | "auto" | undefined;
             rtlTable?: boolean | undefined;
             scrollLeftStartPosition?: number | undefined;
             showRowNumber?: boolean | undefined;
@@ -1203,8 +1209,8 @@ declare namespace google {
             sortedIndexes: number[];
         }
 
-        //#endregion
-        //#region Timeline
+        // #endregion
+        // #region Timeline
 
         // https://developers.google.com/chart/interactive/docs/gallery/timeline
         export class Timeline {
@@ -1235,7 +1241,7 @@ declare namespace google {
             } | undefined;
             tooltip?: {
                 isHtml?: boolean | undefined;
-                trigger?: 'focus' | 'none' | undefined;
+                trigger?: "focus" | "none" | undefined;
                 textStyle?: ChartTextStyle | undefined;
             } | undefined;
             width?: number | undefined;
@@ -1247,8 +1253,8 @@ declare namespace google {
             fontSize: number;
         }
 
-        //#endregion
-        //#region CandlestickChart
+        // #endregion
+        // #region CandlestickChart
 
         // https://developers.google.com/chart/interactive/docs/gallery/candlestickchart
         export class CandlestickChart extends CoreChartBase {
@@ -1271,7 +1277,7 @@ declare namespace google {
             fontName?: string | undefined;
             hAxis?: ChartAxis | undefined;
             height?: number | undefined;
-            legend?: ChartLegend | 'none' | undefined;
+            legend?: ChartLegend | "none" | undefined;
             orientation?: ChartOrientation | undefined;
             reverseCategories?: boolean | undefined;
             selectionMode?: ChartSelectionMode | undefined;
@@ -1286,8 +1292,8 @@ declare namespace google {
             width?: number | undefined;
         }
 
-        //#endregion
-        //#region ComboChart
+        // #endregion
+        // #region ComboChart
 
         // https://developers.google.com/chart/interactive/docs/gallery/combochart
         export class ComboChart extends CoreChartBase {
@@ -1307,7 +1313,7 @@ declare namespace google {
             chartArea?: ChartArea | undefined;
             colors?: string[] | undefined;
             crosshair?: ChartCrosshair | undefined;
-            curveType?: 'none' | 'function' | undefined;
+            curveType?: "none" | "function" | undefined;
             dataOpacity?: number | undefined;
             enableInteractivity?: boolean | undefined;
             focusTarget?: string | undefined;
@@ -1318,7 +1324,7 @@ declare namespace google {
             height?: number | undefined;
             interpolateNulls?: boolean | undefined;
             isStacked?: boolean | undefined;
-            legend?: ChartLegend | 'none' | undefined;
+            legend?: ChartLegend | "none" | undefined;
             lineDashStyle?: number[] | undefined;
             lineWidth?: number | undefined;
             orientation?: ChartOrientation | undefined;
@@ -1339,23 +1345,26 @@ declare namespace google {
             width?: number | undefined;
         }
 
-        //#endregion
-        //#region Dashboard
+        // #endregion
+        // #region Dashboard
 
         // https://developers.google.com/chart/interactive/docs/gallery/controls#dashboard
         export class Dashboard {
             constructor(containerRef: HTMLElement);
-            bind(controls: ControlWrapper | ControlWrapper[], charts: ChartWrapper | ChartWrapper[]): google.visualization.Dashboard;
+            bind(
+                controls: ControlWrapper | ControlWrapper[],
+                charts: ChartWrapper | ChartWrapper[],
+            ): google.visualization.Dashboard;
             draw(data: DataTable | DataView): void;
             getSelection(): Object[];
         }
 
-        //#endregion
-        //#region ControlWrapper
+        // #endregion
+        // #region ControlWrapper
 
         // https://developers.google.com/chart/interactive/docs/gallery/controls#controlwrapperobject
         export class ControlWrapper {
-            constructor(opt_spec?: ControlWrapperOptions)
+            constructor(opt_spec?: ControlWrapperOptions);
             draw(): void;
             toJSON(): string;
             clone(): ControlWrapper;
@@ -1381,8 +1390,8 @@ declare namespace google {
             state?: Object | undefined;
         }
 
-        //#endregion
-        //#region calendar
+        // #endregion
+        // #region calendar
 
         // https://developers.google.com/chart/interactive/docs/gallery/calendar
         export class Calendar extends ChartBaseClearable {
@@ -1415,8 +1424,8 @@ declare namespace google {
             forceIFrame?: boolean | undefined;
             height?: number | undefined;
             noDataPattern?: {
-                backgroundColor: string,
-                color: string
+                backgroundColor: string;
+                color: string;
             } | undefined;
             tooltip?: {
                 isHtml: boolean;
@@ -1425,8 +1434,8 @@ declare namespace google {
             title?: string | undefined;
         }
 
-        //#endregion
-        //#region Map
+        // #endregion
+        // #region Map
 
         // https://developers.google.com/chart/interactive/docs/gallery/map
         export class Map extends ChartBase {
@@ -1443,7 +1452,7 @@ declare namespace google {
                 mapTypeId: {
                     name?: string | undefined;
                     styles?: any[] | undefined;
-                }
+                };
             };
             mapType?: string | undefined;
             mapTypeIds?: any[] | undefined;
@@ -1454,8 +1463,8 @@ declare namespace google {
             zoomLevel?: number | undefined;
         }
 
-        //#endregion
-        //#region Events
+        // #endregion
+        // #region Events
 
         namespace events {
             function addListener(visualization: any, eventName: string, callback: Function): any;
@@ -1467,8 +1476,8 @@ declare namespace google {
             function trigger(visualization: any, eventName: string, args?: any): void;
         }
 
-        //#endregion
-        //#region Formatter
+        // #endregion
+        // #region Formatter
 
         class DefaultFormatter {
             /**
@@ -1662,8 +1671,8 @@ declare namespace google {
             format(data: DataTable, srcColumnIndices: number[], opt_dstColumnIndex?: number): void;
         }
 
-        //#endregion
-        //#region OrgChart
+        // #endregion
+        // #region OrgChart
 
         // https://developers.google.com/chart/interactive/docs/gallery/orgchart
         export class OrgChart extends ChartBase {
@@ -1683,14 +1692,13 @@ declare namespace google {
             selectionColor?: string | undefined;
             /**
              * Chart size
-             * @type {('small'|'medium'|'large')}
              * @default 'medium'
              */
             size?: string | undefined;
         }
 
-        //#endregion
-        //#region Gantt
+        // #endregion
+        // #region Gantt
 
         // https://developers.google.com/chart/interactive/docs/gallery/ganttchart
         export class Gantt extends ChartBaseClearable {
@@ -1735,9 +1743,8 @@ declare namespace google {
             width?: number | undefined;
         }
 
-
-        //#endregion
-        //#region Gauge
+        // #endregion
+        // #region Gauge
 
         // https://developers.google.com/chart/interactive/docs/gallery/gauge
         // Note: can't extend ChartBaseClearable because Gauge doesn't have getSelection(), setSelection()
@@ -1769,8 +1776,8 @@ declare namespace google {
             yellowTo?: number | undefined;
         }
 
-        //#endregion
-        //#region Sankey
+        // #endregion
+        // #region Sankey
 
         // https://developers.google.com/chart/interactive/docs/gallery/sankey
         export class Sankey extends ChartBaseClearable {
@@ -1786,11 +1793,11 @@ declare namespace google {
                 iterations?: number | undefined;
                 link?: {
                     color?: string | ChartStrokeFill | undefined;
-                    colorMode?: 'none' | 'source' | 'target' | 'gradient' | undefined;
+                    colorMode?: "none" | "source" | "target" | "gradient" | undefined;
                     colors?: string[] | undefined;
                 } | undefined;
                 node?: {
-                    colorMode?: 'unique' | undefined;
+                    colorMode?: "unique" | undefined;
                     colors?: string[] | undefined;
                     interactivity?: boolean | undefined;
                     label?: ChartTextStyle | undefined;
@@ -1802,6 +1809,6 @@ declare namespace google {
             } | undefined;
         }
 
-        //#endregion
+        // #endregion
     }
 }

@@ -1,7 +1,7 @@
-import { Mimetype } from './GuacCommon';
-import { OutputStream } from './OutputStream';
-import { InputStream } from './InputStream';
-import { Client } from './Client';
+import { Client } from "./Client";
+import { Mimetype } from "./GuacCommon";
+import { InputStream } from "./InputStream";
+import { OutputStream } from "./OutputStream";
 
 /**
  * An object used by the Guacamole client to house arbitrarily-many named

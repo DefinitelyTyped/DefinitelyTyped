@@ -34,7 +34,7 @@ const browserInstalledClock = lolex.install<lolex.BrowserClock>({
     now: 0,
     shouldAdvanceTime: true,
     target: {},
-    toFake: ["setTimeout", "nextTick", "hrtime"]
+    toFake: ["setTimeout", "nextTick", "hrtime"],
 });
 
 const nodeInstalledClock = lolex.install<lolex.NodeClock>({
@@ -43,7 +43,7 @@ const nodeInstalledClock = lolex.install<lolex.NodeClock>({
     now: new Date(0),
     shouldAdvanceTime: true,
     target: {},
-    toFake: ["setTimeout", "nextTick", "hrtime"]
+    toFake: ["setTimeout", "nextTick", "hrtime"],
 });
 
 const browserNow: number = browserClock.now;

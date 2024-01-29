@@ -1,2 +1,2 @@
-import { either } from '../index';
+import { either } from "../index";
 export default either;

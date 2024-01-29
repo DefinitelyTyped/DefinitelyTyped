@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/event-source-polyfill",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/Yaffle/EventSource"
+    ],
+    "devDependencies": {
+        "@types/event-source-polyfill": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Emily Klassen",
+            "githubUsername": "forivall"
+        }
+    ]
+}

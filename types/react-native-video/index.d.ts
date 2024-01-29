@@ -1,13 +1,5 @@
-// Type definitions for react-native-video 5.0
-// Project: https://github.com/react-native-community/react-native-video, https://github.com/brentvatne/react-native-video
-// Definitions by: HuHuanming <https://github.com/huhuanming>
-//                 Nekith <https://github.com/Nekith>
-//                 Philip Frank <https://github.com/bananer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
-import { ViewProps } from 'react-native';
+import * as React from "react";
+import { ViewProps } from "react-native";
 
 export interface OnLoadData {
     canPlayFastForward: boolean;
@@ -22,7 +14,7 @@ export interface OnLoadData {
     naturalSize: {
         height: number;
         width: number;
-        orientation: 'portrait' | 'landscape';
+        orientation: "portrait" | "landscape";
     };
     videoTracks: Array<{
         bitrate: number;
@@ -57,7 +49,7 @@ export interface OnBandwidthUpdateData {
 
 export interface LoadError {
     error: {
-        '': string;
+        "": string;
         errorString: string;
     };
 }
@@ -85,45 +77,45 @@ export interface OnBufferData {
 }
 
 export interface DRMSettings {
-  type: DRMType;
-  licenseServer?: string | undefined;
-  headers?: { [key: string]: string } | undefined;
-  contentId?: string | undefined;
-  certificateUrl?: string | undefined;
-  base64Certificate?: boolean | undefined;
-  getLicense?(): Promise<string>;
+    type: DRMType;
+    licenseServer?: string | undefined;
+    headers?: { [key: string]: string } | undefined;
+    contentId?: string | undefined;
+    certificateUrl?: string | undefined;
+    base64Certificate?: boolean | undefined;
+    getLicense?(spcString: string): Promise<string>;
 }
 
 export const TextTrackType: {
-    SRT: 'application/x-subrip';
-    TTML: 'application/ttml+xml';
-    VTT: 'text/vtt';
+    SRT: "application/x-subrip";
+    TTML: "application/ttml+xml";
+    VTT: "text/vtt";
 };
 
 export enum FilterType {
-    NONE = '',
-    INVERT = 'CIColorInvert',
-    MONOCHROME = 'CIColorMonochrome',
-    POSTERIZE = 'CIColorPosterize',
-    FALSE = 'CIFalseColor',
-    MAXIMUMCOMPONENT = 'CIMaximumComponent',
-    MINIMUMCOMPONENT = 'CIMinimumComponent',
-    CHROME = 'CIPhotoEffectChrome',
-    FADE = 'CIPhotoEffectFade',
-    INSTANT = 'CIPhotoEffectInstant',
-    MONO = 'CIPhotoEffectMono',
-    NOIR = 'CIPhotoEffectNoir',
-    PROCESS = 'CIPhotoEffectProcess',
-    TONAL = 'CIPhotoEffectTonal',
-    TRANSFER = 'CIPhotoEffectTransfer',
-    SEPIA = 'CISepiaTone',
+    NONE = "",
+    INVERT = "CIColorInvert",
+    MONOCHROME = "CIColorMonochrome",
+    POSTERIZE = "CIColorPosterize",
+    FALSE = "CIFalseColor",
+    MAXIMUMCOMPONENT = "CIMaximumComponent",
+    MINIMUMCOMPONENT = "CIMinimumComponent",
+    CHROME = "CIPhotoEffectChrome",
+    FADE = "CIPhotoEffectFade",
+    INSTANT = "CIPhotoEffectInstant",
+    MONO = "CIPhotoEffectMono",
+    NOIR = "CIPhotoEffectNoir",
+    PROCESS = "CIPhotoEffectProcess",
+    TONAL = "CIPhotoEffectTonal",
+    TRANSFER = "CIPhotoEffectTransfer",
+    SEPIA = "CISepiaTone",
 }
 
 export enum DRMType {
-  WIDEVINE = 'widevine',
-  PLAYREADY = 'playready',
-  CLEARKEY = 'clearkey',
-  FAIRPLAY = 'fairplay',
+    WIDEVINE = "widevine",
+    PLAYREADY = "playready",
+    CLEARKEY = "clearkey",
+    FAIRPLAY = "fairplay",
 }
 
 export interface VideoProperties extends ViewProps {
@@ -134,7 +126,7 @@ export interface VideoProperties extends ViewProps {
     src?: any;
     seek?: number | undefined;
     fullscreen?: boolean | undefined;
-    fullscreenOrientation?: 'all' | 'landscape' | 'portrait' | undefined;
+    fullscreenOrientation?: "all" | "landscape" | "portrait" | undefined;
     fullscreenAutorotate?: boolean | undefined;
     onVideoLoadStart?(): void;
     onVideoLoad?(): void;
@@ -151,7 +143,9 @@ export interface VideoProperties extends ViewProps {
 
     /* Wrapper component */
     // Opaque type returned by require('./video.mp4')
-    source: { uri?: string | undefined, headers?: {[key: string]: string } | undefined, type?: string | undefined } | number;
+    source:
+        | { uri?: string | undefined; headers?: { [key: string]: string } | undefined; type?: string | undefined }
+        | number;
     minLoadRetryCount?: number | undefined;
     maxBitRate?: number | undefined;
     resizeMode?: "stretch" | "contain" | "cover" | "none" | undefined; // via Image#resizeMode
@@ -173,8 +167,8 @@ export interface VideoProperties extends ViewProps {
     pictureInPicture?: boolean | undefined;
     playInBackground?: boolean | undefined;
     playWhenInactive?: boolean | undefined;
-    ignoreSilentSwitch?: 'ignore' | 'obey' | undefined;
-    mixWithOthers?: 'inherit' | 'mix' | 'duck' | undefined;
+    ignoreSilentSwitch?: "ignore" | "obey" | undefined;
+    mixWithOthers?: "inherit" | "mix" | "duck" | undefined;
     reportBandwidth?: boolean | undefined;
     disableFocus?: boolean | undefined;
     controls?: boolean | undefined;
@@ -182,6 +176,9 @@ export interface VideoProperties extends ViewProps {
     progressUpdateInterval?: number | undefined;
     useTextureView?: boolean | undefined;
     hideShutterView?: boolean | undefined;
+    shutterColor?: string;
+    frameQuality?: number;
+    onFrameChange?: (base64ImageString: string) => void;
     allowsExternalPlayback?: boolean | undefined;
     audioOnly?: boolean | undefined;
     preventsDisplaySleepDuringVideoPlayback?: boolean | undefined;
@@ -210,23 +207,25 @@ export interface VideoProperties extends ViewProps {
     onRestoreUserInterfaceForPictureInPictureStop?(): void;
     onExternalPlaybackChange?(data: OnExternalPlaybackChangeData): void;
     selectedAudioTrack?: {
-        type: 'system' | 'disabled' | 'title' | 'language' | 'index';
+        type: "system" | "disabled" | "title" | "language" | "index";
         value?: string | number | undefined;
     } | undefined;
     selectedTextTrack?: {
-        type: 'system' | 'disabled' | 'title' | 'language' | 'index';
+        type: "system" | "disabled" | "title" | "language" | "index";
         value?: string | number | undefined;
     } | undefined;
     selectedVideoTrack?: {
-        type: 'auto' | 'disabled' | 'resolution' | 'index';
+        type: "auto" | "disabled" | "resolution" | "index";
         value?: string | number | undefined;
     } | undefined;
-    textTracks?: Array<{
-        title?: string | undefined;
-        language?: string | undefined;
-        type: 'application/x-subrip' | 'application/ttml+xml' | 'text/vtt';
-        uri: string;
-    }> | undefined;
+    textTracks?:
+        | Array<{
+            title?: string | undefined;
+            language?: string | undefined;
+            type: "application/x-subrip" | "application/ttml+xml" | "text/vtt";
+            uri: string;
+        }>
+        | undefined;
 
     /* Required by react-native */
     scaleX?: number | undefined;

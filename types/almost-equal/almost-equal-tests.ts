@@ -1,4 +1,4 @@
-import * as almostEqual from 'almost-equal';
+import * as almostEqual from "almost-equal";
 
 const res1 = almostEqual(1.999999, 2.0);
 

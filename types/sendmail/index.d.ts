@@ -1,9 +1,3 @@
-// Type definitions for sendmail 1.4
-// Project: https://github.com/guileen/node-sendmail
-// Definitions by: Saeid Ostad <https://github.com/saostad>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 declare namespace sendMailFactory {
     interface Options {
         logger?: {
@@ -17,9 +11,10 @@ declare namespace sendMailFactory {
         dkim?:
             | boolean
             | {
-                  privateKey: string;
-                  keySelector: string;
-              } | undefined;
+                privateKey: string;
+                keySelector: string;
+            }
+            | undefined;
         /** Default: False */
         devPort?: number | boolean | undefined;
         /** Default: localhost */
@@ -48,14 +43,16 @@ declare namespace sendMailFactory {
         content?: string | undefined;
         text?: string | undefined;
         html?: string | undefined;
-        attachments?: Array<{
-            type?: string | undefined;
-            filename?: string | undefined;
-            content?: any;
-            path?: string | undefined;
-            contentType?: string | undefined;
-            encoding?: string | undefined;
-        }> | undefined;
+        attachments?:
+            | Array<{
+                type?: string | undefined;
+                filename?: string | undefined;
+                content?: any;
+                path?: string | undefined;
+                contentType?: string | undefined;
+                encoding?: string | undefined;
+            }>
+            | undefined;
     }
 }
 

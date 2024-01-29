@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "lib": [
+            "es6"
+        ],
+        "module": "commonjs",
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "types": []
+    },
+    "files": [
+        "index.d.ts",
+        "fluent-reveal-effect-tests.ts"
+    ]
+}

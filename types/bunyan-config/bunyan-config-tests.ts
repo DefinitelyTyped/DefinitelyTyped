@@ -4,35 +4,36 @@ import bunyanConfig = require("bunyan-config");
 var jsonConfig = {
     name: "myLogger",
     streams: [{
-        stream: "stdout"
+        stream: "stdout",
     }, {
-        stream: { name: "stderr" }
+        stream: { name: "stderr" },
     }, {
         type: "raw",
         stream: {
             name: "bunyan-logstash",
             params: {
                 host: "localhost",
-                port: 5005
-            }
-        }
+                port: 5005,
+            },
+        },
     }, {
         type: "raw",
         stream: {
             name: "bunyan-redis",
             params: {
                 host: "localhost",
-                port: 6379
-            }
-        }
-    }], serializers: {
+                port: 6379,
+            },
+        },
+    }],
+    serializers: {
         req: "bunyan:stdSerializers.req",
         fromNodeModules: "someNodeModule",
         fromNodeModulesWithProps: "someNodeModule:a.b.c",
         custom: "./lib/customSerializers:custom",
         another: "./lib/anotherSerializer",
-        absolutePath: "/path/to/serializer:xyz"
-    }
+        absolutePath: "/path/to/serializer:xyz",
+    },
 };
 
 var config = bunyanConfig(jsonConfig);

@@ -1,11 +1,11 @@
-import weightedRandomObject from 'weighted-random-object';
+import weightedRandomObject from "weighted-random-object";
 
 interface MyObject {
     data: string;
     weight: number;
 }
 
-const objs: MyObject[] = [{ data: 'a', weight: 7 }, { data: 'b', weight: 5 }];
+const objs: MyObject[] = [{ data: "a", weight: 7 }, { data: "b", weight: 5 }];
 
 weightedRandomObject(objs); // $ExpectType MyObject
 

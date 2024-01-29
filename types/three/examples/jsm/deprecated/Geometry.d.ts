@@ -13,7 +13,7 @@ import {
     AnimationClip,
     EventDispatcher,
     Object3D,
-} from '../../../src/Three';
+} from '../../../src/Three.js';
 
 /**
  * @deprecated Use Face3 instead.

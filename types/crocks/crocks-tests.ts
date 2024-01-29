@@ -1,70 +1,70 @@
-import crocks = require('crocks');
+import crocks = require("crocks");
 
-import Async from 'crocks/Async';
-import asyncToPromise from 'crocks/Async/asyncToPromise';
-import eitherToAsync from 'crocks/Async/eitherToAsync';
-import firstToAsync from 'crocks/Async/firstToAsync';
-import lastToAsync from 'crocks/Async/lastToAsync';
-import maybeToAsync from 'crocks/Async/maybeToAsync';
-import race from 'crocks/Async/race';
-import resultToAsync from 'crocks/Async/resultToAsync';
+import Async from "crocks/Async";
+import asyncToPromise from "crocks/Async/asyncToPromise";
+import eitherToAsync from "crocks/Async/eitherToAsync";
+import firstToAsync from "crocks/Async/firstToAsync";
+import lastToAsync from "crocks/Async/lastToAsync";
+import maybeToAsync from "crocks/Async/maybeToAsync";
+import race from "crocks/Async/race";
+import resultToAsync from "crocks/Async/resultToAsync";
 
-import Either from 'crocks/Either';
-import firstToEither from 'crocks/Either/firstToEither';
-import lastToEither from 'crocks/Either/lastToEither';
-import Left from 'crocks/Either/Left';
-import maybeToEither from 'crocks/Either/maybeToEither';
-import resultToEither from 'crocks/Either/resultToEither';
-import Right from 'crocks/Either/Right';
+import Either from "crocks/Either";
+import firstToEither from "crocks/Either/firstToEither";
+import lastToEither from "crocks/Either/lastToEither";
+import Left from "crocks/Either/Left";
+import maybeToEither from "crocks/Either/maybeToEither";
+import resultToEither from "crocks/Either/resultToEither";
+import Right from "crocks/Either/Right";
 
-import eitherToFirst from 'crocks/First/eitherToFirst';
-import First from 'crocks/First/First';
-import lastToFirst from 'crocks/First/lastToFirst';
-import maybeToFirst from 'crocks/First/maybeToFirst';
-import resultToFirst from 'crocks/First/resultToFirst';
+import eitherToFirst from "crocks/First/eitherToFirst";
+import First from "crocks/First/First";
+import lastToFirst from "crocks/First/lastToFirst";
+import maybeToFirst from "crocks/First/maybeToFirst";
+import resultToFirst from "crocks/First/resultToFirst";
 
-import eitherToLast from 'crocks/Last/eitherToLast';
-import firstToLast from 'crocks/Last/firstToLast';
-import Last from 'crocks/Last/Last';
-import maybeToLast from 'crocks/Last/maybeToLast';
-import resultToLast from 'crocks/Last/resultToLast';
+import eitherToLast from "crocks/Last/eitherToLast";
+import firstToLast from "crocks/Last/firstToLast";
+import Last from "crocks/Last/Last";
+import maybeToLast from "crocks/Last/maybeToLast";
+import resultToLast from "crocks/Last/resultToLast";
 
-import eitherToMaybe from 'crocks/Maybe/eitherToMaybe';
-import find from 'crocks/Maybe/find';
-import firstToMaybe from 'crocks/Maybe/firstToMaybe';
-import getPath from 'crocks/Maybe/getPath';
-import getProp from 'crocks/Maybe/getProp';
-import lastToMaybe from 'crocks/Maybe/lastToMaybe';
-import Maybe from 'crocks/Maybe';
-import maybeToArray from 'crocks/Maybe/maybeToArray';
-import resultToMaybe from 'crocks/Maybe/resultToMaybe';
-import safe from 'crocks/Maybe/safe';
-import safeAfter from 'crocks/Maybe/safeAfter';
-import safeLift from 'crocks/Maybe/safeLift';
+import Maybe from "crocks/Maybe";
+import eitherToMaybe from "crocks/Maybe/eitherToMaybe";
+import find from "crocks/Maybe/find";
+import firstToMaybe from "crocks/Maybe/firstToMaybe";
+import getPath from "crocks/Maybe/getPath";
+import getProp from "crocks/Maybe/getProp";
+import lastToMaybe from "crocks/Maybe/lastToMaybe";
+import maybeToArray from "crocks/Maybe/maybeToArray";
+import resultToMaybe from "crocks/Maybe/resultToMaybe";
+import safe from "crocks/Maybe/safe";
+import safeAfter from "crocks/Maybe/safeAfter";
+import safeLift from "crocks/Maybe/safeLift";
 
-import branch from 'crocks/Pair/branch';
-import fanout from 'crocks/Pair/fanout';
-import fst from 'crocks/Pair/fst';
-import Pair from 'crocks/Pair';
-import snd from 'crocks/Pair/snd';
-import toPairs from 'crocks/Pair/toPairs';
-import writerToPair from 'crocks/Pair/writerToPair';
+import Pair from "crocks/Pair";
+import branch from "crocks/Pair/branch";
+import fanout from "crocks/Pair/fanout";
+import fst from "crocks/Pair/fst";
+import snd from "crocks/Pair/snd";
+import toPairs from "crocks/Pair/toPairs";
+import writerToPair from "crocks/Pair/writerToPair";
 
-import * as combinators from 'crocks/combinators';
-import * as pointfree from 'crocks/pointfree';
-import * as predicates from 'crocks/predicates';
+import * as combinators from "crocks/combinators";
+import * as pointfree from "crocks/pointfree";
+import * as predicates from "crocks/predicates";
 
-import evalWith from 'crocks/State/evalWith';
-import execWith from 'crocks/State/execWith';
-import State from 'crocks/State';
+import State from "crocks/State";
+import evalWith from "crocks/State/evalWith";
+import execWith from "crocks/State/execWith";
 
-import nmap from 'crocks/Tuple/nmap';
-import project from 'crocks/Tuple/project';
-import Tuple from 'crocks/Tuple';
+import Tuple from "crocks/Tuple";
+import nmap from "crocks/Tuple/nmap";
+import project from "crocks/Tuple/project";
 
-import log from 'crocks/Writer/log';
-import read from 'crocks/Writer/read';
-import Writer from 'crocks/Writer';
+import Writer from "crocks/Writer";
+import log from "crocks/Writer/log";
+import read from "crocks/Writer/read";
 
 const noop = () => {};
 

@@ -1,10 +1,4 @@
-// Type definitions for react-messenger-checkbox 0.1
-// Project: https://github.com/Yoctol/react-messenger-checkbox
-// Definitions by: Rémi Roycourt <https://github.com/remiroyc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
-import * as React from 'react';
+import * as React from "react";
 
 interface ReactMessengerProps {
     pageId: string;
@@ -14,8 +8,8 @@ interface ReactMessengerProps {
 
     prechecked?: boolean | undefined;
     allowLogin?: boolean | undefined;
-    size?: 'small' | 'medium' | 'large' | 'standard' | 'xlarge' | undefined;
-    skin?: 'light' | 'dark' | undefined;
+    size?: "small" | "medium" | "large" | "standard" | "xlarge" | undefined;
+    skin?: "light" | "dark" | undefined;
     centerAlign?: boolean | undefined;
     autoLogAppEvents?: boolean | undefined;
     xfbml?: boolean | undefined;

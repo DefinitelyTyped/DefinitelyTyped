@@ -1,52 +1,53 @@
-import * as React from 'react';
-import ReactScrollIntoViewIfNeeded from 'react-scroll-into-view-if-needed';
+import * as React from "react";
+import ReactScrollIntoViewIfNeeded from "react-scroll-into-view-if-needed";
 
 const validOptions = {
-    block: 'start',
-    scrollMode: 'if-needed',
-    skipOverflowHiddenElements: true
+    block: "start",
+    scrollMode: "if-needed",
+    skipOverflowHiddenElements: true,
 };
 
 const invalidOptions = {
-    invalidOption: 'foobar'
+    invalidOption: "foobar",
 };
 
-() => (
+(() => (
     <ReactScrollIntoViewIfNeeded
         active={true}
         options={{
-            block: 'start',
-            scrollMode: 'if-needed',
-            skipOverflowHiddenElements: true
+            block: "start",
+            scrollMode: "if-needed",
+            skipOverflowHiddenElements: true,
         }}
         elementType="h1"
     >
         Children
     </ReactScrollIntoViewIfNeeded>
-);
+));
 
-() => (
+(() => (
     <ReactScrollIntoViewIfNeeded
         options={{
-            invalidOption: 'foobar' // $ExpectError
+            // @ts-expect-error
+            invalidOption: "foobar",
         }}
     >
         Children
     </ReactScrollIntoViewIfNeeded>
-);
+));
 
-() => (
+(() => (
     <ReactScrollIntoViewIfNeeded
-        active={5} // $ExpectError
+        // @ts-expect-error
+        active={5}
     >
         Children
     </ReactScrollIntoViewIfNeeded>
-);
+));
 
-() => (
-    <ReactScrollIntoViewIfNeeded
-        elementType="h8" // $ExpectError
-    >
+(() => (
+    <ReactScrollIntoViewIfNeeded // @ts-expect-error
+     elementType="h8">
         Children
     </ReactScrollIntoViewIfNeeded>
-);
+));

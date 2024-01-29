@@ -1,15 +1,9 @@
-// Type definitions for leaflet.polylinemeasure 1.0
-// Project: https://github.com/ppete2/Leaflet.PolylineMeasure#readme
-// Definitions by: Rinat Sultanov <https://github.com/RiON69>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+import * as L from "leaflet";
 
-import * as L from 'leaflet';
-
-declare module 'leaflet' {
+declare module "leaflet" {
     namespace Control {
         interface PolylineMeasure extends Control {
-            new (options?: PolylineMeasureOptions): any;
+            new(options?: PolylineMeasureOptions): any;
         }
 
         interface PolylineMeasureOptions {

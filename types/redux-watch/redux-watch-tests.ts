@@ -1,4 +1,4 @@
-import watch = require('redux-watch');
+import watch = require("redux-watch");
 
 interface DummyState {
     fieldA: {
@@ -9,7 +9,7 @@ interface DummyState {
 function dummyGetState(): DummyState {
     return {
         fieldA: {
-            fieldB: 'some value',
+            fieldB: "some value",
         },
     };
 }
@@ -17,12 +17,12 @@ function dummyGetState(): DummyState {
 const fieldBChangeHandler = (
     newValue: string,
     oldValue: string,
-    pathToField: any
+    pathToField: any,
 ) => {};
 
 const fieldBWatchWrapper = watch(
     dummyGetState,
-    ['fieldA', 'fieldB']
+    ["fieldA", "fieldB"],
 );
 
 const fieldBWatch = fieldBWatchWrapper(fieldBChangeHandler);

@@ -1,21 +1,9 @@
-// Type definitions for anchor-js 4.2
-// Project: https://github.com/bryanbraun/anchorjs
-// Definitions by: Brian Surowiec <https://github.com/xt0rted>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// TODO: remove @deprecated aliases in next major version (6.*)
 declare namespace anchorjs {
-    interface Anchor {
-        options: AnchorOptions;
+    type Placement = "left" | "right";
+    type Visibility = "always" | "hover";
 
-        add(selector?: string): Anchor;
-        remove(selector?: string): Anchor;
-        removeAll(): void;
-    }
-
-    type AnchorPlacement = 'left' | 'right';
-    type AnchorVisibility = 'always' | 'hover' | 'touch';
-
-    interface AnchorOptions {
+    interface Options {
         ariaLabel?: string | undefined;
         base?: string | undefined;
         class?: string | undefined;
@@ -23,21 +11,33 @@ declare namespace anchorjs {
         placement?: AnchorPlacement | undefined;
         titleText?: string | undefined;
         truncate?: number | undefined;
-        visible?: AnchorVisibility | undefined;
+        visible?: Visibility | undefined;
     }
 
-    interface AnchorStatic {
-        new(options?: AnchorOptions): Anchor;
+    interface AnchorJS {
+        options: Options;
+        new(options?: Options): this;
+        add(selector?: string): this;
+        remove(selector?: string): this;
+        removeAll(): void;
     }
+
+    /** @deprecated alias for AnchorJS */
+    type Anchor = AnchorJS;
+    /** @deprecated alias for {Placement} */
+    type AnchorPlacement = Placement;
+    /** @deprecated alias for {Visibility} */
+    type AnchorVisibility = Visibility;
+    /** @deprecated alias for {Options} */
+    type AnchorOptions = Options;
 }
 
-declare const anchors: anchorjs.Anchor;
-declare const AnchorJS: anchorjs.AnchorStatic;
+declare const AnchorJS: anchorjs.AnchorJS;
 
 export = AnchorJS;
 
 export as namespace AnchorJS;
 
 declare global {
-    const anchors: anchorjs.Anchor;
+    const anchors: anchorjs.AnchorJS;
 }

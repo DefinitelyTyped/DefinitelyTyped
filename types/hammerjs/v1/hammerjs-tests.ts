@@ -7,20 +7,20 @@ if (!Hammer.HAS_TOUCHEVENTS && !Hammer.HAS_POINTEREVENTS) {
 // instance method check
 var el = document.getElementById("container");
 
-Hammer(el).on("doubletap", function () {
-    alert('you doubletapped me!');
+Hammer(el).on("doubletap", function() {
+    alert("you doubletapped me!");
 });
 
 var hammertime = Hammer(el, {
     drag: false,
-    transform: false
-}).off("tap", function (event:HammerEvent) {
-    alert('hello!');
+    transform: false,
+}).off("tap", function(event: HammerEvent) {
+    alert("hello!");
 });
 
 hammertime.enable(false);
 
-hammertime.on("touch drag transform", function (ev: HammerEvent) {
+hammertime.on("touch drag transform", function(ev: HammerEvent) {
     if (!ev.gesture) {
         return;
     }
@@ -32,15 +32,15 @@ hammertime.on("touch drag transform", function (ev: HammerEvent) {
 
 // jQuery check
 $("#element")
-   .hammer({
-       // Options
-   })
-   .on("tap", function (ev) {
-       console.log(ev);
-   });
+    .hammer({
+        // Options
+    })
+    .on("tap", function(ev) {
+        console.log(ev);
+    });
 
 $("#container").hammer({
     preventDefault: false,
-    dragBlockVertical: false
-}).on("hold tap doubletap transformstart transform transformend dragstart drag dragend release swipe", function (ev) {
+    dragBlockVertical: false,
+}).on("hold tap doubletap transformstart transform transformend dragstart drag dragend release swipe", function(ev) {
 });

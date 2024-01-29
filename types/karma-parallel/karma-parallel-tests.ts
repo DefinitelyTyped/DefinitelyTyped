@@ -1,17 +1,17 @@
-import karma = require('karma');
+import karma = require("karma");
 
 const configTest = (config: karma.Config) => {
     config.set({
         // NOTE: 'parallel' must be the first framework in the list
-        frameworks: ['parallel', 'mocha' /* or 'jasmine' */],
-        files: ['test/**/*.js'],
+        frameworks: ["parallel", "mocha" /* or 'jasmine' */],
+        files: ["test/**/*.js"],
         plugins: [
             // add karma-parallel to the plugins if you encounter something like "karma parallel No provider for framework:parallel"
-            require('karma-parallel'),
+            require("karma-parallel"),
         ],
         parallelOptions: {
             executors: 4, // Defaults to cpu-count - 1
-            shardStrategy: 'round-robin',
+            shardStrategy: "round-robin",
             customShardStrategy: config => {
                 config.executors; // $ExpectType number
                 config.shardIndex; // $ExpectType number

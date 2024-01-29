@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/etag",
+    "version": "1.8.9999",
+    "projects": [
+        "https://github.com/jshttp/etag#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/etag": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

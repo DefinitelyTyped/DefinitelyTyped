@@ -1,8 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "interface-over-type-literal": false,
-        "max-line-length": false,
-        "object-literal-key-quotes": false
-    }
-}

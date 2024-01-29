@@ -1,9 +1,3 @@
-// Type definitions for trunk8
-// Project: https://github.com/rviscomi/trunk8
-// Definitions by: Blake Niemyjski <https://github.com/niemyjski>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 interface Trunk8Options {
@@ -37,7 +31,6 @@ interface Trunk8Options {
 interface JQuery {
     /**
     Creates a trunk8 instance and calls a method.
-    @constructor
     @param {string} method
     @param {string} value
     */
@@ -45,7 +38,6 @@ interface JQuery {
 
     /**
     Creates a trunk8 instance with default options.
-    @constructor
     @param {Trunk8Options} options
     */
     trunk8(options?: Trunk8Options): any;

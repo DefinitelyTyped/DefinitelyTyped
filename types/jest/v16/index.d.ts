@@ -1,11 +1,3 @@
-// Type definitions for Jest 16.0
-// Project: http://facebook.github.io/jest/
-// Definitions by: Asana (https://asana.com)
-//                 Ivo Stratev <https://github.com/NoHomey>
-//                 jwbay <https://github.com/jwbay>
-//                 ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var beforeAll: jest.Lifecycle;
 declare var beforeEach: jest.Lifecycle;
 declare var afterAll: jest.Lifecycle;
@@ -89,7 +81,7 @@ declare namespace jest {
     }
 
     interface DoneCallback {
-        (...args: any[]): any
+        (...args: any[]): any;
         fail(error?: string | { message: string }): any;
     }
 
@@ -109,7 +101,7 @@ declare namespace jest {
     }
 
     interface Describe {
-        (name: string, fn: EmptyFunction): void
+        (name: string, fn: EmptyFunction): void;
         only: Describe;
         skip: Describe;
     }
@@ -125,7 +117,7 @@ declare namespace jest {
         toBeFalsy(): void;
         toBeGreaterThan(expected: number): void;
         toBeGreaterThanOrEqual(expected: number): void;
-        toBeInstanceOf(expected: any): void
+        toBeInstanceOf(expected: any): void;
         toBeLessThan(expected: number): void;
         toBeLessThanOrEqual(expected: number): void;
         toBeNull(): void;
@@ -147,11 +139,11 @@ declare namespace jest {
     }
 
     interface Constructable {
-        new (...args: any[]): any
+        new(...args: any[]): any;
     }
 
     interface Mock<T> extends Function {
-        new (): T;
+        new(): T;
         (...args: any[]): any;
         mock: MockContext<T>;
         mockClear(): void;
@@ -169,9 +161,9 @@ declare namespace jest {
     }
 }
 
-//Jest ships with a copy of Jasmine. They monkey-patch its APIs and divergence/deprecation are expected.
-//Relevant parts of Jasmine's API are below so they can be changed and removed over time.
-//This file can't reference jasmine.d.ts since the globals aren't compatible.
+// Jest ships with a copy of Jasmine. They monkey-patch its APIs and divergence/deprecation are expected.
+// Relevant parts of Jasmine's API are below so they can be changed and removed over time.
+// This file can't reference jasmine.d.ts since the globals aren't compatible.
 
 declare function spyOn(object: any, method: string): jasmine.Spy;
 /** If you call the function pending anywhere in the spec body, no matter the expectations, the spec will be marked pending. */
@@ -201,19 +193,19 @@ declare namespace jasmine {
     }
 
     interface Any {
-        new (expectedClass: any): any;
+        new(expectedClass: any): any;
         jasmineMatches(other: any): boolean;
         jasmineToString(): string;
     }
 
     interface ArrayContaining {
-        new (sample: any[]): any;
+        new(sample: any[]): any;
         asymmetricMatch(other: any): boolean;
         jasmineToString(): string;
     }
 
     interface ObjectContaining {
-        new (sample: any): any;
+        new(sample: any): any;
         jasmineMatches(other: any, mismatchKeys: any[], mismatchValues: any[]): boolean;
         jasmineToString(): string;
     }
@@ -223,7 +215,7 @@ declare namespace jasmine {
         identity: string;
         and: SpyAnd;
         calls: Calls;
-        mostRecentCall: { args: any[]; };
+        mostRecentCall: { args: any[] };
         argsForCall: any[];
         wasCalled: boolean;
     }
@@ -276,13 +268,13 @@ declare namespace jasmine {
     }
 
     interface CustomMatcherFactory {
-        (util: MatchersUtil, customEqualityTesters: Array<CustomEqualityTester>): CustomMatcher;
+        (util: MatchersUtil, customEqualityTesters: CustomEqualityTester[]): CustomMatcher;
     }
 
     interface MatchersUtil {
-        equals(a: any, b: any, customTesters?: Array<CustomEqualityTester>): boolean;
-        contains<T>(haystack: ArrayLike<T> | string, needle: any, customTesters?: Array<CustomEqualityTester>): boolean;
-        buildFailureMessage(matcherName: string, isNot: boolean, actual: any, ...expected: Array<any>): string;
+        equals(a: any, b: any, customTesters?: CustomEqualityTester[]): boolean;
+        contains<T>(haystack: ArrayLike<T> | string, needle: any, customTesters?: CustomEqualityTester[]): boolean;
+        buildFailureMessage(matcherName: string, isNot: boolean, actual: any, ...expected: any[]): string;
     }
 
     interface CustomEqualityTester {

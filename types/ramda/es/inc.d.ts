@@ -1,2 +1,2 @@
-import { inc } from '../index';
+import { inc } from "../index.js";
 export default inc;

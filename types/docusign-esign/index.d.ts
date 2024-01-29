@@ -1,9 +1,3 @@
-// Type definitions for docusign-esign 5.6
-// Project: https://github.com/docusign/docusign-node-client#readme
-// Definitions by: Edwin Quimbo <https://github.com/equimbo/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
-
 /// <reference types="node" />
 
 export class ApiClient {
@@ -29,12 +23,17 @@ export class ApiClient {
         contentTypes: string[],
         accepts: string[],
         returnType: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<any>;
 
     deserialize(response: object, returnType: any): any;
 
-    generateAccessToken(clientId: string, clientSecret: string, code: string, callback?: () => void): Promise<any>;
+    generateAccessToken(
+        clientId: string,
+        clientSecret: string,
+        code: string,
+        callback?: (() => void) | ((error: any, response: any) => void),
+    ): Promise<any>;
 
     getAuthorizationUri(
         clientId: string,
@@ -50,7 +49,7 @@ export class ApiClient {
 
     getOAuthBasePath(): string;
 
-    getUserInfo(accessToken: string, callback?: () => void): Promise<any>;
+    getUserInfo(accessToken: string, callback?: (() => void) | ((error: any, response: any) => void)): Promise<any>;
 
     hasNoInvalidScopes(scopes: string[]): boolean;
 
@@ -69,7 +68,7 @@ export class ApiClient {
         scopes: string[],
         rsaPrivateKey: Buffer,
         expiresIn: number,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, response: any) => void),
     ): Promise<any>;
 
     requestJWTUserToken(
@@ -78,7 +77,7 @@ export class ApiClient {
         scopes: string[],
         rsaPrivateKey: Buffer,
         expiresIn: number,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, response: any) => void),
     ): Promise<any>;
 
     setBasePath(basePath: string): void;
@@ -120,318 +119,538 @@ export class Configuration {
 export class AccountsApi {
     constructor(apiClient?: ApiClient);
 
-    _delete(accountId: string, callback?: () => void): Promise<void>;
+    _delete(
+        accountId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<void>;
 
-    create(optsOrCallback?: any, callback?: () => void): Promise<NewAccountSummary>;
+    create(
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<NewAccountSummary>;
 
-    createBrand(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<BrandsResponse>;
+    createBrand(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<BrandsResponse>;
 
-    createCustomField(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<CustomFields>;
+    createCustomField(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<CustomFields>;
 
-    createPermissionProfile(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<PermissionProfile>;
+    createPermissionProfile(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<PermissionProfile>;
 
-    deleteBrand(accountId: string, brandId: string, callback?: () => void): Promise<void>;
+    deleteBrand(
+        accountId: string,
+        brandId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<void>;
 
-    deleteBrandLogoByType(accountId: string, brandId: string, logoType: string, callback?: () => void): Promise<void>;
+    deleteBrandLogoByType(
+        accountId: string,
+        brandId: string,
+        logoType: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<void>;
 
-    deleteBrands(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<BrandsResponse>;
+    deleteBrands(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<BrandsResponse>;
 
     deleteCaptiveRecipient(
         accountId: string,
         recipientPart: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CaptiveRecipientInformation>;
 
     deleteCustomField(
         accountId: string,
         customFieldId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<void>;
 
-    deleteENoteConfiguration(accountId: string, callback?: () => void): Promise<void>;
+    deleteENoteConfiguration(
+        accountId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<void>;
 
     deletePermissionProfile(
         accountId: string,
         permissionProfileId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<void>;
 
     getAccountIdentityVerification(
         accountId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<AccountIdentityVerificationResponse>;
 
-    getAccountInformation(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<AccountInformation>;
+    getAccountInformation(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<AccountInformation>;
 
-    getAccountTabSettings(accountId: string, callback?: () => void): Promise<TabAccountSettings>;
+    getAccountTabSettings(
+        accountId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<TabAccountSettings>;
 
-    getAllPaymentGatewayAccounts(accountId: string, callback?: () => void): Promise<PaymentGatewayAccountsInfo>;
+    getAllPaymentGatewayAccounts(
+        accountId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<PaymentGatewayAccountsInfo>;
 
-    getBillingCharges(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<BillingChargeResponse>;
+    getBillingCharges(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<BillingChargeResponse>;
 
-    getBrand(accountId: string, brandId: string, optsOrCallback?: any, callback?: () => void): Promise<Brand>;
+    getBrand(
+        accountId: string,
+        brandId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<Brand>;
 
-    getBrandExportFile(accountId: string, brandId: string, callback?: () => void): Promise<void>;
+    getBrandExportFile(
+        accountId: string,
+        brandId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<void>;
 
-    getBrandLogoByType(accountId: string, brandId: string, logoType: string, callback?: () => void): Promise<object>;
+    getBrandLogoByType(
+        accountId: string,
+        brandId: string,
+        logoType: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<object>;
 
-    getBrandResources(accountId: string, brandId: string, callback?: () => void): Promise<BrandResourcesList>;
+    getBrandResources(
+        accountId: string,
+        brandId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<BrandResourcesList>;
 
     getBrandResourcesByContentType(
         accountId: string,
         brandId: string,
         resourceContentType: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<void>;
 
-    getConsumerDisclosure(accountId: string, langCode: string, callback?: () => void): Promise<ConsumerDisclosure>;
+    getConsumerDisclosure(
+        accountId: string,
+        langCode: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<ConsumerDisclosure>;
 
     getConsumerDisclosureDefault(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ConsumerDisclosure>;
 
-    getENoteConfiguration(accountId: string, callback?: () => void): Promise<ENoteConfiguration>;
+    getENoteConfiguration(
+        accountId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<ENoteConfiguration>;
 
-    getEnvelopePurgeConfiguration(accountId: string, callback?: () => void): Promise<EnvelopePurgeConfiguration>;
+    getEnvelopePurgeConfiguration(
+        accountId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<EnvelopePurgeConfiguration>;
 
-    getFavoriteTemplates(accountId: string, callback?: () => void): Promise<FavoriteTemplatesInfo>;
+    getFavoriteTemplates(
+        accountId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<FavoriteTemplatesInfo>;
 
-    getNotificationDefaults(accountId: string, callback?: () => void): Promise<NotificationDefaults>;
+    getNotificationDefaults(
+        accountId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<NotificationDefaults>;
 
-    getPasswordRules(accountId: string, callback?: () => void): Promise<AccountPasswordRules>;
+    getPasswordRules(
+        accountId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<AccountPasswordRules>;
 
-    getPasswordRules_0(callback?: () => void): Promise<UserPasswordRules>;
+    getPasswordRules_0(
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<UserPasswordRules>;
 
     getPermissionProfile(
         accountId: string,
         permissionProfileId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<PermissionProfile>;
 
-    getProvisioning(callback?: () => void): Promise<ProvisioningInformation>;
+    getProvisioning(
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<ProvisioningInformation>;
 
-    getSupportedLanguages(accountId: string, callback?: () => void): Promise<SupportedLanguages>;
+    getSupportedLanguages(
+        accountId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<SupportedLanguages>;
 
-    getWatermark(accountId: string, callback?: () => void): Promise<Watermark>;
+    getWatermark(
+        accountId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<Watermark>;
 
-    getWatermarkPreview(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<Watermark>;
+    getWatermarkPreview(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<Watermark>;
 
-    listBrands(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<BrandsResponse>;
+    listBrands(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<BrandsResponse>;
 
-    listCustomFields(accountId: string, callback?: () => void): Promise<CustomFields>;
+    listCustomFields(
+        accountId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<CustomFields>;
 
     listPermissions(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<PermissionProfileInformation>;
 
     listRecipientNamesByEmail(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<RecipientNamesResponse>;
 
-    listSettings(accountId: string, callback?: () => void): Promise<AccountSettingsInformation>;
+    listSettings(
+        accountId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<AccountSettingsInformation>;
 
-    listSignatureProviders(accountId: string, callback?: () => void): Promise<AccountSignatureProviders>;
+    listSignatureProviders(
+        accountId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<AccountSignatureProviders>;
 
-    listUnsupportedFileTypes(accountId: string, callback?: () => void): Promise<FileTypeList>;
+    listUnsupportedFileTypes(
+        accountId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<FileTypeList>;
 
-    unFavoriteTemplate(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<FavoriteTemplatesInfo>;
+    unFavoriteTemplate(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<FavoriteTemplatesInfo>;
 
     updateAccountTabSettings(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<TabAccountSettings>;
 
-    updateBrand(accountId: string, brandId: string, optsOrCallback?: any, callback?: () => void): Promise<Brand>;
+    updateBrand(
+        accountId: string,
+        brandId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<Brand>;
 
     updateBrandLogoByType(
         logoFileBytes: Blob,
         accountId: string,
         brandId: string,
         logoType: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<void>;
 
     updateBrandResourcesByContentType(
         accountId: string,
         brandId: string,
         resourceContentType: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<BrandResources>;
 
     updateConsumerDisclosure(
         accountId: string,
         langCode: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ConsumerDisclosure>;
 
     updateCustomField(
         accountId: string,
         customFieldId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CustomFields>;
 
     updateENoteConfiguration(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ENoteConfiguration>;
 
     updateEnvelopePurgeConfiguration(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopePurgeConfiguration>;
 
     updateFavoriteTemplate(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<FavoriteTemplatesInfo>;
 
     updateNotificationDefaults(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<NotificationDefaults>;
 
-    updatePasswordRules(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<AccountPasswordRules>;
+    updatePasswordRules(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<AccountPasswordRules>;
 
     updatePermissionProfile(
         accountId: string,
         permissionProfileId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<PermissionProfile>;
 
-    updateSettings(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<void>;
+    updateSettings(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<void>;
 
-    updateWatermark(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<Watermark>;
+    updateWatermark(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<Watermark>;
 }
 
 export class AuthenticationApi {
     constructor(apiClient?: ApiClient);
 
-    deleteSocialLogin(accountId: string, userId: string, optsOrCallback?: any, callback?: () => void): Promise<void>;
+    deleteSocialLogin(
+        accountId: string,
+        userId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<void>;
 
-    getOAuthToken(callback?: () => void): Promise<OauthAccess>;
+    getOAuthToken(callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<OauthAccess>;
 
-    listSocialLogins(accountId: string, userId: string, callback?: () => void): Promise<UserSocialIdResult>;
+    listSocialLogins(
+        accountId: string,
+        userId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<UserSocialIdResult>;
 
-    login(optsOrCallback?: any, callback?: () => void): Promise<LoginInformation>;
+    login(
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<LoginInformation>;
 
-    revokeOAuthToken(callback?: () => void): Promise<void>;
+    revokeOAuthToken(callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 
-    updatePassword(loginPart: string, optsOrCallback?: any, callback?: () => void): Promise<void>;
+    updatePassword(
+        loginPart: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<void>;
 
-    updateSocialLogin(accountId: string, userId: string, optsOrCallback?: any, callback?: () => void): Promise<void>;
+    updateSocialLogin(
+        accountId: string,
+        userId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<void>;
 }
 
 export class BillingApi {
     constructor(apiClient?: ApiClient);
 
-    getBillingPlan(billingPlanId: string, callback?: () => void): Promise<BillingPlanResponse>;
+    getBillingPlan(
+        billingPlanId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<BillingPlanResponse>;
 
-    getCreditCardInfo(accountId: string, callback?: () => void): Promise<CreditCardInformation>;
+    getCreditCardInfo(
+        accountId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<CreditCardInformation>;
 
     getDowngradeRequestBillingInfo(
         accountId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DowngradRequestBillingInfoResponse>;
 
-    getInvoice(accountId: string, invoiceId: string, callback?: () => void): Promise<BillingInvoice>;
+    getInvoice(
+        accountId: string,
+        invoiceId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<BillingInvoice>;
 
-    getPayment(accountId: string, paymentId: string, callback?: () => void): Promise<BillingPaymentItem>;
+    getPayment(
+        accountId: string,
+        paymentId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<BillingPaymentItem>;
 
-    getPlan(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<AccountBillingPlanResponse>;
+    getPlan(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<AccountBillingPlanResponse>;
 
-    listBillingPlans(callback?: () => void): Promise<BillingPlansResponse>;
+    listBillingPlans(
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<BillingPlansResponse>;
 
-    listInvoices(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<BillingInvoicesResponse>;
+    listInvoices(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<BillingInvoicesResponse>;
 
-    listInvoicesPastDue(accountId: string, callback?: () => void): Promise<BillingInvoicesSummary>;
+    listInvoicesPastDue(
+        accountId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<BillingInvoicesSummary>;
 
-    listPayments(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<BillingPaymentsResponse>;
+    listPayments(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<BillingPaymentsResponse>;
 
-    makePayment(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<BillingPaymentResponse>;
+    makePayment(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<BillingPaymentResponse>;
 
-    purchaseEnvelopes(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<void>;
+    purchaseEnvelopes(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<void>;
 
     updateDowngradeAccountBillingPlan(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DowngradePlanUpdateResponse>;
 
-    updatePlan(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<BillingPlanUpdateResponse>;
+    updatePlan(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<BillingPlanUpdateResponse>;
 }
 
 export class BulkEnvelopesApi {
     constructor(apiClient?: ApiClient);
 
-    createBulkSendList(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<BulkSendingList>;
+    createBulkSendList(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<BulkSendingList>;
 
     createBulkSendRequest(
         accountId: string,
         bulkSendListId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<BulkSendResponse>;
 
     createBulkSendTestRequest(
         accountId: string,
         bulkSendListId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<BulkSendTestResponse>;
 
     deleteBulkSendList(
         accountId: string,
         bulkSendListId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<BulkSendingListSummaries>;
 
     deleteRecipients(
         accountId: string,
         envelopeId: string,
         recipientId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<BulkRecipientsUpdateResponse>;
 
-    get(accountId: string, batchId: string, optsOrCallback?: any, callback?: () => void): Promise<BulkEnvelopeStatus>;
+    get(
+        accountId: string,
+        batchId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<BulkEnvelopeStatus>;
 
-    getBulkSendList(accountId: string, bulkSendListId: string, callback?: () => void): Promise<BulkSendingList>;
+    getBulkSendList(
+        accountId: string,
+        bulkSendListId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<BulkSendingList>;
 
-    getBulkSendLists(accountId: string, callback?: () => void): Promise<BulkSendingListSummaries>;
+    getBulkSendLists(
+        accountId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<BulkSendingListSummaries>;
 
     getRecipients(
         accountId: string,
         envelopeId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<BulkRecipientsResponse>;
 
-    list(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<BulkEnvelopesResponse>;
+    list(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<BulkEnvelopesResponse>;
 
     updateBulkSendList(
         accountId: string,
         bulkSendListId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<BulkSendingList>;
 
     updateRecipients(
@@ -439,7 +658,7 @@ export class BulkEnvelopesApi {
         accountId: string,
         envelopeId: string,
         recipientId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<BulkRecipientsSummaryResponse>;
 }
 
@@ -450,21 +669,21 @@ export class CloudStorageApi {
         accountId: string,
         userId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CloudStorageProviders>;
 
     deleteProvider(
         accountId: string,
         userId: string,
         serviceId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CloudStorageProviders>;
 
     deleteProviders(
         accountId: string,
         userId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CloudStorageProviders>;
 
     getProvider(
@@ -472,7 +691,7 @@ export class CloudStorageApi {
         userId: string,
         serviceId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CloudStorageProviders>;
 
     list(
@@ -481,7 +700,7 @@ export class CloudStorageApi {
         serviceId: string,
         folderId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ExternalFolder>;
 
     listFolders(
@@ -489,14 +708,14 @@ export class CloudStorageApi {
         userId: string,
         serviceId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ExternalFolder>;
 
     listProviders(
         accountId: string,
         userId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CloudStorageProviders>;
 }
 
@@ -507,14 +726,14 @@ export class CommentsApi {
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CommentHistoryResult>;
 
     getCommentsTranscript(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<object>;
 }
 
@@ -524,139 +743,238 @@ export class ConnectApi {
     createConfiguration(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ConnectCustomConfiguration>;
 
-    deleteConfiguration(accountId: string, connectId: string, callback?: () => void): Promise<void>;
+    deleteConfiguration(
+        accountId: string,
+        connectId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<void>;
 
-    deleteEventFailureLog(accountId: string, failureId: string, callback?: () => void): Promise<void>;
+    deleteEventFailureLog(
+        accountId: string,
+        failureId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<void>;
 
-    deleteEventLog(accountId: string, logId: string, callback?: () => void): Promise<void>;
+    deleteEventLog(
+        accountId: string,
+        logId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<void>;
 
-    deleteEventLogs(accountId: string, callback?: () => void): Promise<void>;
+    deleteEventLogs(
+        accountId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<void>;
 
     deleteMobileNotifiers(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<MobileNotifierConfigurationInformation>;
 
-    getConfiguration(accountId: string, connectId: string, callback?: () => void): Promise<ConnectConfigResults>;
+    getConfiguration(
+        accountId: string,
+        connectId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<ConnectConfigResults>;
 
-    getEventLog(accountId: string, logId: string, optsOrCallback?: any, callback?: () => void): Promise<ConnectLog>;
+    getEventLog(
+        accountId: string,
+        logId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<ConnectLog>;
 
-    listConfigurations(accountId: string, callback?: () => void): Promise<ConnectConfigResults>;
+    listConfigurations(
+        accountId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<ConnectConfigResults>;
 
-    listEventFailureLogs(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<ConnectLogs>;
+    listEventFailureLogs(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<ConnectLogs>;
 
-    listEventLogs(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<ConnectLogs>;
+    listEventLogs(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<ConnectLogs>;
 
-    listMobileNotifiers(accountId: string, callback?: () => void): Promise<MobileNotifierConfigurationInformation>;
+    listMobileNotifiers(
+        accountId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<MobileNotifierConfigurationInformation>;
 
-    listTests(accountId: string, connectId: string, callback?: () => void): Promise<ResourceInformation>;
+    listTests(
+        accountId: string,
+        connectId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<ResourceInformation>;
 
     listUsers(
         accountId: string,
         connectId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<IntegratedUserInfoList>;
 
-    retryEventForEnvelope(accountId: string, envelopeId: string, callback?: () => void): Promise<ConnectFailureResults>;
+    retryEventForEnvelope(
+        accountId: string,
+        envelopeId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<ConnectFailureResults>;
 
     retryEventForEnvelopes(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ConnectFailureResults>;
 
     updateConfiguration(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ConnectCustomConfiguration>;
 
     updateMobileNotifiers(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<MobileNotifierConfigurationInformation>;
 }
 
 export class CustomTabsApi {
     constructor(apiClient?: ApiClient);
 
-    _delete(accountId: string, customTabId: string, callback?: () => void): Promise<void>;
+    _delete(
+        accountId: string,
+        customTabId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<void>;
 
-    create(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<TabMetadata>;
+    create(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<TabMetadata>;
 
-    get(accountId: string, customTabId: string, callback?: () => void): Promise<TabMetadata>;
+    get(
+        accountId: string,
+        customTabId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<TabMetadata>;
 
-    list(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<TabMetadataList>;
+    list(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<TabMetadataList>;
 
-    update(accountId: string, customTabId: string, optsOrCallback?: any, callback?: () => void): Promise<TabMetadata>;
+    update(
+        accountId: string,
+        customTabId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<TabMetadata>;
 }
 
 export class DataFeedApi {
     constructor(apiClient?: ApiClient);
 
-    getDataFeedElement(accountId: string, dataFeedElementId: string, callback?: () => void): Promise<void>;
+    getDataFeedElement(
+        accountId: string,
+        dataFeedElementId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<void>;
 }
 
 export class DiagnosticsApi {
     constructor(apiClient?: ApiClient);
 
-    deleteRequestLogs(callback?: () => void): Promise<void>;
+    deleteRequestLogs(callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 
-    getRequestLog(requestLogId: string, callback?: () => void): Promise<object>;
+    getRequestLog(
+        requestLogId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<object>;
 
-    getRequestLogSettings(callback?: () => void): Promise<DiagnosticsSettingsInformation>;
+    getRequestLogSettings(
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<DiagnosticsSettingsInformation>;
 
-    getResources(callback?: () => void): Promise<ResourceInformation>;
+    getResources(
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<ResourceInformation>;
 
-    getService(callback?: () => void): Promise<ServiceInformation>;
+    getService(callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<ServiceInformation>;
 
-    listRequestLogs(optsOrCallback?: any, callback?: () => void): Promise<ApiRequestLogsResult>;
+    listRequestLogs(
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<ApiRequestLogsResult>;
 
-    updateRequestLogSettings(optsOrCallback?: any, callback?: () => void): Promise<DiagnosticsSettingsInformation>;
+    updateRequestLogSettings(
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<DiagnosticsSettingsInformation>;
 }
 
 export class EmailArchiveApi {
     constructor(apiClient?: ApiClient);
 
-    createBCCEmailArchive(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<BccEmailArchive>;
+    createBCCEmailArchive(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<BccEmailArchive>;
 
-    deleteBCCEmailArchive(accountId: string, bccEmailArchiveId: string, callback?: () => void): Promise<void>;
+    deleteBCCEmailArchive(
+        accountId: string,
+        bccEmailArchiveId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<void>;
 
     getBCCEmailArchiveHistoryList(
         accountId: string,
         bccEmailArchiveId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<BccEmailArchiveHistoryList>;
 
     getBCCEmailArchiveList(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<BccEmailArchiveList>;
 }
 
 export class EnvelopeApplianceApi {
     constructor(apiClient?: ApiClient);
 
-    getApplianceInfo(accountId: string, envelopeId: string, callback?: () => void): Promise<DisplayApplianceInfo>;
+    getApplianceInfo(
+        accountId: string,
+        envelopeId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<DisplayApplianceInfo>;
 }
 
 export class EnvelopePurgeConfigurationApi {
     constructor(apiClient?: ApiClient);
 
-    getEnvelopePurgeConfiguration(accountId: string, callback?: () => void): Promise<EnvelopePurgeConfiguration>;
+    getEnvelopePurgeConfiguration(
+        accountId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<EnvelopePurgeConfiguration>;
 
     updateEnvelopePurgeConfiguration(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopePurgeConfiguration>;
 }
 
@@ -667,7 +985,7 @@ export class EnvelopesApi {
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentTemplateList>;
 
     applyTemplateToDocument(
@@ -675,25 +993,33 @@ export class EnvelopesApi {
         envelopeId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentTemplateList>;
 
-    createChunkedUpload(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<ChunkedUploadResponse>;
+    createChunkedUpload(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<ChunkedUploadResponse>;
 
-    createConsoleView(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<ViewUrl>;
+    createConsoleView(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<ViewUrl>;
 
     createCorrectView(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ViewUrl>;
 
     createCustomFields(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CustomFields>;
 
     createDocumentFields(
@@ -701,7 +1027,7 @@ export class EnvelopesApi {
         envelopeId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentFieldsInformation>;
 
     createDocumentResponsiveHtmlPreview(
@@ -709,7 +1035,7 @@ export class EnvelopesApi {
         envelopeId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentHtmlDefinitions>;
 
     createDocumentTabs(
@@ -717,71 +1043,75 @@ export class EnvelopesApi {
         envelopeId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
     createEditView(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ViewUrl>;
 
     createEmailSettings(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EmailSettings>;
 
-    createEnvelope(accountId: string, options?: any, callback?: () => void): Promise<EnvelopeSummary>;
+    createEnvelope(
+        accountId: string,
+        options?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<EnvelopeSummary>;
 
     createEnvelopeComments(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CommentHistoryResult>;
 
     createEnvelopeRecipientPreview(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ViewUrl>;
 
     createEnvelopeRecipientSharedView(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ViewUrl>;
 
     createEnvelopeTransferRules(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopeTransferRuleInformation>;
 
     createLock(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<LockInformation>;
 
     createRecipient(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Recipients>;
 
     createRecipientProofFileLink(
         accountId: string,
         envelopeId: string,
         recipientId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ProofServiceViewLink>;
 
     createRecipientProofFileResourceToken(
@@ -789,28 +1119,28 @@ export class EnvelopesApi {
         accountId: string,
         envelopeId: string,
         recipientId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ProofServiceResourceToken>;
 
     createRecipientView(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ViewUrl>;
 
     createResponsiveHtmlPreview(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentHtmlDefinitions>;
 
     createSenderView(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ViewUrl>;
 
     createTabs(
@@ -818,27 +1148,27 @@ export class EnvelopesApi {
         envelopeId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
     deleteAttachments(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopeAttachmentsResult>;
 
     deleteChunkedUpload(
         accountId: string,
         chunkedUploadId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ChunkedUploadResponse>;
 
     deleteCustomFields(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CustomFields>;
 
     deleteDocumentFields(
@@ -846,7 +1176,7 @@ export class EnvelopesApi {
         envelopeId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentFieldsInformation>;
 
     deleteDocumentPage(
@@ -854,7 +1184,7 @@ export class EnvelopesApi {
         envelopeId: string,
         documentId: string,
         pageNumber: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<void>;
 
     deleteDocumentTabs(
@@ -862,38 +1192,46 @@ export class EnvelopesApi {
         envelopeId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
     deleteDocuments(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopeDocumentsResult>;
 
-    deleteEmailSettings(accountId: string, envelopeId: string, callback?: () => void): Promise<EmailSettings>;
+    deleteEmailSettings(
+        accountId: string,
+        envelopeId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<EmailSettings>;
 
     deleteEnvelopeTransferRules(
         accountId: string,
         envelopeTransferRuleId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<void>;
 
-    deleteLock(accountId: string, envelopeId: string, callback?: () => void): Promise<LockInformation>;
+    deleteLock(
+        accountId: string,
+        envelopeId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<LockInformation>;
 
     deleteRecipient(
         accountId: string,
         envelopeId: string,
         recipientId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Recipients>;
 
     deleteRecipients(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Recipients>;
 
     deleteTabs(
@@ -901,7 +1239,7 @@ export class EnvelopesApi {
         envelopeId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
     deleteTemplatesFromDocument(
@@ -909,25 +1247,34 @@ export class EnvelopesApi {
         envelopeId: string,
         documentId: string,
         templateId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<void>;
 
-    getAttachment(accountId: string, envelopeId: string, attachmentId: string, callback?: () => void): Promise<void>;
+    getAttachment(
+        accountId: string,
+        envelopeId: string,
+        attachmentId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<void>;
 
-    getAttachments(accountId: string, envelopeId: string, callback?: () => void): Promise<EnvelopeAttachmentsResult>;
+    getAttachments(
+        accountId: string,
+        envelopeId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<EnvelopeAttachmentsResult>;
 
     getChunkedUpload(
         accountId: string,
         chunkedUploadId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ChunkedUploadResponse>;
 
     getCommentsTranscript(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<object>;
 
     getConsumerDisclosure(
@@ -936,7 +1283,7 @@ export class EnvelopesApi {
         recipientId: string,
         langCode: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ConsumerDisclosure>;
 
     getConsumerDisclosureDefault(
@@ -944,7 +1291,7 @@ export class EnvelopesApi {
         envelopeId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ConsumerDisclosure>;
 
     getDocument(
@@ -952,7 +1299,7 @@ export class EnvelopesApi {
         envelopeId: string,
         documentId: string,
         optsOrCallback: DocumentOptions,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<string>;
 
     getDocumentPageImage(
@@ -961,7 +1308,7 @@ export class EnvelopesApi {
         documentId: string,
         pageNumber: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<string>;
 
     getDocumentTabs(
@@ -969,44 +1316,65 @@ export class EnvelopesApi {
         envelopeId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
-    getEmailSettings(accountId: string, envelopeId: string, callback?: () => void): Promise<EmailSettings>;
+    getEmailSettings(
+        accountId: string,
+        envelopeId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<EmailSettings>;
 
-    getEnvelope(accountId: string, envelopeId: string, optsOrCallback?: any, callback?: () => void): Promise<Envelope>;
+    getEnvelope(
+        accountId: string,
+        envelopeId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<Envelope>;
 
     getEnvelopeDocumentHtmlDefinitions(
         accountId: string,
         envelopeId: string,
         documentId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentHtmlDefinitionOriginals>;
 
     getEnvelopeHtmlDefinitions(
         accountId: string,
         envelopeId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentHtmlDefinitionOriginals>;
 
     getEnvelopeTransferRules(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopeTransferRuleInformation>;
 
-    getFormData(accountId: string, envelopeId: string, callback?: () => void): Promise<EnvelopeFormData>;
+    getFormData(
+        accountId: string,
+        envelopeId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<EnvelopeFormData>;
 
-    getLock(accountId: string, envelopeId: string, callback?: () => void): Promise<LockInformation>;
+    getLock(
+        accountId: string,
+        envelopeId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<LockInformation>;
 
-    getNotificationSettings(accountId: string, envelopeId: string, callback?: () => void): Promise<Notification>;
+    getNotificationSettings(
+        accountId: string,
+        envelopeId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<Notification>;
 
     getPageTabs(
         accountId: string,
         envelopeId: string,
         documentId: string,
         pageNumber: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
     getPages(
@@ -1014,14 +1382,14 @@ export class EnvelopesApi {
         envelopeId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<PageImages>;
 
     getRecipientDocumentVisibility(
         accountId: string,
         envelopeId: string,
         recipientId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentVisibilityList>;
 
     getRecipientInitialsImage(
@@ -1029,14 +1397,14 @@ export class EnvelopesApi {
         envelopeId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<string>;
 
     getRecipientSignature(
         accountId: string,
         envelopeId: string,
         recipientId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<UserSignature>;
 
     getRecipientSignatureImage(
@@ -1044,49 +1412,65 @@ export class EnvelopesApi {
         envelopeId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<string>;
 
-    getTabsBlob(accountId: string, envelopeId: string, callback?: () => void): Promise<void>;
+    getTabsBlob(
+        accountId: string,
+        envelopeId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<void>;
 
     getTemplateRecipientDocumentVisibility(
         accountId: string,
         templateId: string,
         recipientId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentVisibilityList>;
 
-    listAuditEvents(accountId: string, envelopeId: string, callback?: () => void): Promise<EnvelopeAuditEventResponse>;
+    listAuditEvents(
+        accountId: string,
+        envelopeId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<EnvelopeAuditEventResponse>;
 
-    listCustomFields(accountId: string, envelopeId: string, callback?: () => void): Promise<CustomFieldsEnvelope>;
+    listCustomFields(
+        accountId: string,
+        envelopeId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<CustomFieldsEnvelope>;
 
     listDocumentFields(
         accountId: string,
         envelopeId: string,
         documentId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentFieldsInformation>;
 
     listDocuments(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopeDocumentsResult>;
 
     listRecipients(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Recipients>;
 
-    listStatus(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<EnvelopesInformation>;
+    listStatus(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<EnvelopesInformation>;
 
     listStatusChanges(
         accountId: string,
         optsOrCallback: EnvelopesFilters,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopesInformation>;
 
     listTabs(
@@ -1094,14 +1478,14 @@ export class EnvelopesApi {
         envelopeId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
     listTemplates(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<TemplateInformation>;
 
     listTemplatesForDocument(
@@ -1109,7 +1493,7 @@ export class EnvelopesApi {
         envelopeId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<TemplateInformation>;
 
     putAttachment(
@@ -1117,14 +1501,14 @@ export class EnvelopesApi {
         envelopeId: string,
         attachmentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopeAttachmentsResult>;
 
     putAttachments(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopeAttachmentsResult>;
 
     rotateDocumentPage(
@@ -1133,21 +1517,21 @@ export class EnvelopesApi {
         documentId: string,
         pageNumber: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<void>;
 
     update(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopeUpdateSummary>;
 
     updateChunkedUpload(
         accountId: string,
         chunkedUploadId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ChunkedUploadResponse>;
 
     updateChunkedUploadPart(
@@ -1155,21 +1539,21 @@ export class EnvelopesApi {
         chunkedUploadId: string,
         chunkedUploadPartSeq: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ChunkedUploadResponse>;
 
     updateCustomFields(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CustomFields>;
 
     updateDocument(
         accountId: string,
         envelopeId: string,
         documentId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopeDocument>;
 
     updateDocumentFields(
@@ -1177,7 +1561,7 @@ export class EnvelopesApi {
         envelopeId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentFieldsInformation>;
 
     updateDocumentTabs(
@@ -1185,48 +1569,48 @@ export class EnvelopesApi {
         envelopeId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
     updateDocuments(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopeDocumentsResult>;
 
     updateEmailSettings(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EmailSettings>;
 
     updateEnvelopeTransferRule(
         accountId: string,
         envelopeTransferRuleId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopeTransferRule>;
 
     updateEnvelopeTransferRules(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopeTransferRuleInformation>;
 
     updateLock(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<LockInformation>;
 
     updateNotificationSettings(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Notification>;
 
     updateRecipientDocumentVisibility(
@@ -1234,35 +1618,35 @@ export class EnvelopesApi {
         envelopeId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentVisibilityList>;
 
     updateRecipientInitialsImage(
         accountId: string,
         envelopeId: string,
         recipientId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<void>;
 
     updateRecipientSignatureImage(
         accountId: string,
         envelopeId: string,
         recipientId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<void>;
 
     updateRecipients(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<RecipientsUpdateSummary>;
 
     updateRecipientsDocumentVisibility(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentVisibilityList>;
 
     updateTabs(
@@ -1270,24 +1654,28 @@ export class EnvelopesApi {
         envelopeId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
-    updateTabsBlob(accountId: string, envelopeId: string, callback?: () => void): Promise<void>;
+    updateTabsBlob(
+        accountId: string,
+        envelopeId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<void>;
 
     updateTemplateRecipientDocumentVisibility(
         accountId: string,
         templateId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<TemplateDocumentVisibilityList>;
 
     updateTemplateRecipientsDocumentVisibility(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<TemplateDocumentVisibilityList>;
 }
 
@@ -1316,170 +1704,268 @@ export class FoldersApi {
         accountId: string,
         folderId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<FoldersResponse>;
 
     search(
         accountId: string,
         searchFolderId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<FolderItemResponse>;
 }
 
 export class GroupsApi {
     constructor(apiClient?: ApiClient);
 
-    createGroups(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<GroupInformation>;
+    createGroups(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<GroupInformation>;
 
     deleteBrands(
         accountId: string,
         groupId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<BrandsResponse>;
 
     deleteGroupUsers(
         accountId: string,
         groupId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<UsersResponse>;
 
-    deleteGroups(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<GroupInformation>;
+    deleteGroups(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<GroupInformation>;
 
-    getBrands(accountId: string, groupId: string, callback?: () => void): Promise<BrandsResponse>;
+    getBrands(
+        accountId: string,
+        groupId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<BrandsResponse>;
 
     listGroupUsers(
         accountId: string,
         groupId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<UsersResponse>;
 
-    listGroups(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<GroupInformation>;
+    listGroups(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<GroupInformation>;
 
     updateBrands(
         accountId: string,
         groupId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<BrandsResponse>;
 
     updateGroupUsers(
         accountId: string,
         groupId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<UsersResponse>;
 
-    updateGroups(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<GroupInformation>;
+    updateGroups(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<GroupInformation>;
 }
 
 export class NotaryApi {
     constructor(apiClient?: ApiClient);
 
-    createNotary(optsOrCallback?: any, callback?: () => void): Promise<Notary>;
+    createNotary(
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<Notary>;
 
-    createNotaryJurisdictions(optsOrCallback?: any, callback?: () => void): Promise<NotaryJurisdiction>;
+    createNotaryJurisdictions(
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<NotaryJurisdiction>;
 
-    deleteNotaryJurisdiction(jurisdictionId: string, callback?: () => void): Promise<void>;
+    deleteNotaryJurisdiction(
+        jurisdictionId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<void>;
 
-    getNotary(optsOrCallback?: any, callback?: () => void): Promise<NotaryResult>;
+    getNotary(
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<NotaryResult>;
 
-    getNotaryJurisdiction(jurisdictionId: string, callback?: () => void): Promise<NotaryJurisdiction>;
+    getNotaryJurisdiction(
+        jurisdictionId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<NotaryJurisdiction>;
 
-    getNotaryJurisdictionSeal(jurisdictionId: string, callback?: () => void): Promise<void>;
+    getNotaryJurisdictionSeal(
+        jurisdictionId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<void>;
 
-    getNotaryJurisdictions(callback?: () => void): Promise<NotaryJurisdictionList>;
+    getNotaryJurisdictions(
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<NotaryJurisdictionList>;
 
-    listNotaryJournals(optsOrCallback?: any, callback?: () => void): Promise<NotaryJournalList>;
+    listNotaryJournals(
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<NotaryJournalList>;
 
-    updateNotary(optsOrCallback?: any, callback?: () => void): Promise<Notary>;
+    updateNotary(
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<Notary>;
 
     updateNotaryJurisdiction(
         jurisdictionId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<NotaryJurisdiction>;
 }
 
 export class OrganizationsApi {
     constructor(apiClient?: ApiClient);
 
-    deleteReport(organizationId: string, reportCorrelationId: string, callback?: () => void): Promise<void>;
+    deleteReport(
+        organizationId: string,
+        reportCorrelationId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<void>;
 
-    getReport(organizationId: string, reportCorrelationId: string, callback?: () => void): Promise<void>;
+    getReport(
+        organizationId: string,
+        reportCorrelationId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<void>;
 }
 
 export class PowerFormsApi {
     constructor(apiClient?: ApiClient);
 
-    createPowerForm(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<PowerForm>;
+    createPowerForm(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<PowerForm>;
 
-    deletePowerForm(accountId: string, powerFormId: string, callback?: () => void): Promise<void>;
+    deletePowerForm(
+        accountId: string,
+        powerFormId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<void>;
 
-    deletePowerForms(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<PowerFormsResponse>;
+    deletePowerForms(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<PowerFormsResponse>;
 
-    getPowerForm(accountId: string, powerFormId: string, callback?: () => void): Promise<PowerForm>;
+    getPowerForm(
+        accountId: string,
+        powerFormId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<PowerForm>;
 
     getPowerFormData(
         accountId: string,
         powerFormId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<PowerFormsFormDataResponse>;
 
     listPowerFormSenders(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<PowerFormSendersResponse>;
 
-    listPowerForms(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<PowerFormsResponse>;
+    listPowerForms(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<PowerFormsResponse>;
 
     updatePowerForm(
         accountId: string,
         powerFormId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<PowerForm>;
 }
 
 export class SigningGroupsApi {
     constructor(apiClient?: ApiClient);
 
-    createList(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<SigningGroupInformation>;
+    createList(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<SigningGroupInformation>;
 
-    deleteList(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<SigningGroupInformation>;
+    deleteList(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<SigningGroupInformation>;
 
     deleteUsers(
         accountId: string,
         signingGroupId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<SigningGroupUsers>;
 
-    get(accountId: string, signingGroupId: string, callback?: () => void): Promise<SigningGroup>;
+    get(
+        accountId: string,
+        signingGroupId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<SigningGroup>;
 
-    list(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<SigningGroupInformation>;
+    list(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<SigningGroupInformation>;
 
-    listUsers(accountId: string, signingGroupId: string, callback?: () => void): Promise<SigningGroupUsers>;
+    listUsers(
+        accountId: string,
+        signingGroupId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<SigningGroupUsers>;
 
     update(
         accountId: string,
         signingGroupId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<SigningGroup>;
 
-    updateList(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<SigningGroupInformation>;
+    updateList(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<SigningGroupInformation>;
 
     updateUsers(
         accountId: string,
         signingGroupId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<SigningGroupUsers>;
 }
 
@@ -1490,7 +1976,7 @@ export class TemplatesApi {
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CustomFields>;
 
     createDocumentFields(
@@ -1498,28 +1984,28 @@ export class TemplatesApi {
         templateId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentFieldsInformation>;
 
     createEditView(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ViewUrl>;
 
     createLock(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<LockInformation>;
 
     createRecipients(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Recipients>;
 
     createTabs(
@@ -1527,17 +2013,21 @@ export class TemplatesApi {
         templateId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
-    createTemplate(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<TemplateSummary>;
+    createTemplate(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<TemplateSummary>;
 
     createTemplateDocumentResponsiveHtmlPreview(
         accountId: string,
         templateId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentHtmlDefinitions>;
 
     createTemplateDocumentTabs(
@@ -1545,35 +2035,35 @@ export class TemplatesApi {
         templateId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
     createTemplateRecipientPreview(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ViewUrl>;
 
     createTemplateResponsiveHtmlPreview(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentHtmlDefinitions>;
 
     deleteBulkRecipients(
         accountId: string,
         templateId: string,
         recipientId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<BulkRecipientsUpdateResponse>;
 
     deleteCustomFields(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CustomFields>;
 
     deleteDocumentFields(
@@ -1581,7 +2071,7 @@ export class TemplatesApi {
         templateId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentFieldsInformation>;
 
     deleteDocumentPage(
@@ -1590,14 +2080,14 @@ export class TemplatesApi {
         documentId: string,
         pageNumber: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<void>;
 
     deleteDocuments(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<TemplateDocumentsResult>;
 
     deleteGroupShare(
@@ -1605,14 +2095,14 @@ export class TemplatesApi {
         templateId: string,
         templatePart: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<GroupInformation>;
 
     deleteLock(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<LockInformation>;
 
     deleteRecipient(
@@ -1620,14 +2110,14 @@ export class TemplatesApi {
         templateId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Recipients>;
 
     deleteRecipients(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Recipients>;
 
     deleteTabs(
@@ -1635,7 +2125,7 @@ export class TemplatesApi {
         templateId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
     deleteTemplateDocumentTabs(
@@ -1643,17 +2133,22 @@ export class TemplatesApi {
         templateId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
-    get(accountId: string, templateId: string, optsOrCallback?: any, callback?: () => void): Promise<EnvelopeTemplate>;
+    get(
+        accountId: string,
+        templateId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<EnvelopeTemplate>;
 
     getDocument(
         accountId: string,
         templateId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<string>;
 
     getDocumentPageImage(
@@ -1662,7 +2157,7 @@ export class TemplatesApi {
         documentId: string,
         pageNumber: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<string>;
 
     getDocumentTabs(
@@ -1670,19 +2165,27 @@ export class TemplatesApi {
         templateId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
-    getLock(accountId: string, templateId: string, callback?: () => void): Promise<LockInformation>;
+    getLock(
+        accountId: string,
+        templateId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<LockInformation>;
 
-    getNotificationSettings(accountId: string, templateId: string, callback?: () => void): Promise<Notification>;
+    getNotificationSettings(
+        accountId: string,
+        templateId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<Notification>;
 
     getPageTabs(
         accountId: string,
         templateId: string,
         documentId: string,
         pageNumber: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
     getPages(
@@ -1690,20 +2193,20 @@ export class TemplatesApi {
         templateId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<PageImages>;
 
     getTemplateDocumentHtmlDefinitions(
         accountId: string,
         templateId: string,
         documentId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentHtmlDefinitionOriginals>;
 
     getTemplateHtmlDefinitions(
         accountId: string,
         templateId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentHtmlDefinitionOriginals>;
 
     listBulkRecipients(
@@ -1711,30 +2214,34 @@ export class TemplatesApi {
         templateId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<BulkRecipientsResponse>;
 
-    listCustomFields(accountId: string, templateId: string, callback?: () => void): Promise<CustomFields>;
+    listCustomFields(
+        accountId: string,
+        templateId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<CustomFields>;
 
     listDocumentFields(
         accountId: string,
         templateId: string,
         documentId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentFieldsInformation>;
 
     listDocuments(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<TemplateDocumentsResult>;
 
     listRecipients(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Recipients>;
 
     listTabs(
@@ -1742,10 +2249,14 @@ export class TemplatesApi {
         templateId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
-    listTemplates(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<EnvelopeTemplateResults>;
+    listTemplates(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<EnvelopeTemplateResults>;
 
     rotateDocumentPage(
         accountId: string,
@@ -1753,14 +2264,14 @@ export class TemplatesApi {
         documentId: string,
         pageNumber: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<void>;
 
     update(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<TemplateUpdateSummary>;
 
     updateBulkRecipients(
@@ -1768,14 +2279,14 @@ export class TemplatesApi {
         templateId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<BulkRecipientsSummaryResponse>;
 
     updateCustomFields(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CustomFields>;
 
     updateDocument(
@@ -1783,7 +2294,7 @@ export class TemplatesApi {
         templateId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopeDocument>;
 
     updateDocumentFields(
@@ -1791,14 +2302,14 @@ export class TemplatesApi {
         templateId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentFieldsInformation>;
 
     updateDocuments(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<TemplateDocumentsResult>;
 
     updateGroupShare(
@@ -1806,28 +2317,28 @@ export class TemplatesApi {
         templateId: string,
         templatePart: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<GroupInformation>;
 
     updateLock(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<LockInformation>;
 
     updateNotificationSettings(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Notification>;
 
     updateRecipients(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<RecipientsUpdateSummary>;
 
     updateTabs(
@@ -1835,7 +2346,7 @@ export class TemplatesApi {
         templateId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
     updateTemplateDocumentTabs(
@@ -1843,74 +2354,120 @@ export class TemplatesApi {
         templateId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 }
 
 export class TrustServiceProvidersApi {
     constructor(apiClient?: ApiClient);
 
-    getSealProviders(accountId: string, callback?: () => void): Promise<AccountSeals>;
+    getSealProviders(
+        accountId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<AccountSeals>;
 }
 
 export class UsersApi {
     constructor(apiClient?: ApiClient);
 
-    _delete(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<UsersResponse>;
+    _delete(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<UsersResponse>;
 
-    create(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<NewUsersSummary>;
+    create(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<NewUsersSummary>;
 
     createSignatures(
         accountId: string,
         userId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<UserSignaturesInformation>;
 
-    deleteContactWithId(accountId: string, contactId: string, callback?: () => void): Promise<ContactUpdateResponse>;
+    deleteContactWithId(
+        accountId: string,
+        contactId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<ContactUpdateResponse>;
 
-    deleteContacts(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<ContactUpdateResponse>;
+    deleteContacts(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<ContactUpdateResponse>;
 
     deleteCustomSettings(
         accountId: string,
         userId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CustomSettingsInformation>;
 
-    deleteProfileImage(accountId: string, userId: string, callback?: () => void): Promise<void>;
+    deleteProfileImage(
+        accountId: string,
+        userId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<void>;
 
-    deleteSignature(accountId: string, userId: string, signatureId: string, callback?: () => void): Promise<void>;
+    deleteSignature(
+        accountId: string,
+        userId: string,
+        signatureId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<void>;
 
     deleteSignatureImage(
         accountId: string,
         userId: string,
         signatureId: string,
         imageType: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<UserSignature>;
 
     getContactById(
         accountId: string,
         contactId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ContactGetResponse>;
 
     getInformation(
         accountId: string,
         userId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<UserInformation>;
 
-    getProfile(accountId: string, userId: string, callback?: () => void): Promise<UserProfile>;
+    getProfile(
+        accountId: string,
+        userId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<UserProfile>;
 
-    getProfileImage(accountId: string, userId: string, optsOrCallback?: any, callback?: () => void): Promise<string>;
+    getProfileImage(
+        accountId: string,
+        userId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<string>;
 
-    getSettings(accountId: string, userId: string, callback?: () => void): Promise<UserSettingsInformation>;
+    getSettings(
+        accountId: string,
+        userId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<UserSettingsInformation>;
 
-    getSignature(accountId: string, userId: string, signatureId: string, callback?: () => void): Promise<UserSignature>;
+    getSignature(
+        accountId: string,
+        userId: string,
+        signatureId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<UserSignature>;
 
     getSignatureImage(
         accountId: string,
@@ -1918,43 +2475,73 @@ export class UsersApi {
         signatureId: string,
         imageType: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<string>;
 
-    list(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<UserInformationList>;
+    list(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<UserInformationList>;
 
-    listCustomSettings(accountId: string, userId: string, callback?: () => void): Promise<CustomSettingsInformation>;
+    listCustomSettings(
+        accountId: string,
+        userId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<CustomSettingsInformation>;
 
     listSignatures(
         accountId: string,
         userId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<UserSignaturesInformation>;
 
-    postContacts(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<ContactUpdateResponse>;
+    postContacts(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<ContactUpdateResponse>;
 
-    putContacts(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<ContactUpdateResponse>;
+    putContacts(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<ContactUpdateResponse>;
 
     updateCustomSettings(
         accountId: string,
         userId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CustomSettingsInformation>;
 
-    updateProfile(accountId: string, userId: string, optsOrCallback?: any, callback?: () => void): Promise<void>;
+    updateProfile(
+        accountId: string,
+        userId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<void>;
 
-    updateProfileImage(accountId: string, userId: string, callback?: () => void): Promise<void>;
+    updateProfileImage(
+        accountId: string,
+        userId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<void>;
 
-    updateSettings(accountId: string, userId: string, optsOrCallback?: any, callback?: () => void): Promise<void>;
+    updateSettings(
+        accountId: string,
+        userId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<void>;
 
     updateSignature(
         accountId: string,
         userId: string,
         signatureId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<UserSignature>;
 
     updateSignatureImage(
@@ -1963,49 +2550,65 @@ export class UsersApi {
         signatureId: string,
         imageType: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<UserSignature>;
 
     updateSignatures(
         accountId: string,
         userId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<UserSignaturesInformation>;
 
     updateUser(
         accountId: string,
         userId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<UserInformation>;
 
-    updateUsers(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<UserInformationList>;
+    updateUsers(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<UserInformationList>;
 }
 
 export class WorkspacesApi {
     constructor(apiClient?: ApiClient);
 
-    createWorkspace(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<Workspace>;
+    createWorkspace(
+        accountId: string,
+        optsOrCallback?: any,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<Workspace>;
 
     createWorkspaceFile(
         accountId: string,
         workspaceId: string,
         folderId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<WorkspaceItem>;
 
-    deleteWorkspace(accountId: string, workspaceId: string, callback?: () => void): Promise<Workspace>;
+    deleteWorkspace(
+        accountId: string,
+        workspaceId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<Workspace>;
 
     deleteWorkspaceFolderItems(
         accountId: string,
         workspaceId: string,
         folderId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<void>;
 
-    getWorkspace(accountId: string, workspaceId: string, callback?: () => void): Promise<Workspace>;
+    getWorkspace(
+        accountId: string,
+        workspaceId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<Workspace>;
 
     getWorkspaceFile(
         accountId: string,
@@ -2013,7 +2616,7 @@ export class WorkspacesApi {
         folderId: string,
         fileId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<null>;
 
     listWorkspaceFilePages(
@@ -2022,7 +2625,7 @@ export class WorkspacesApi {
         folderId: string,
         fileId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<PageImages>;
 
     listWorkspaceFolderItems(
@@ -2030,16 +2633,19 @@ export class WorkspacesApi {
         workspaceId: string,
         folderId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<WorkspaceFolderContents>;
 
-    listWorkspaces(accountId: string, callback?: () => void): Promise<WorkspaceList>;
+    listWorkspaces(
+        accountId: string,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
+    ): Promise<WorkspaceList>;
 
     updateWorkspace(
         accountId: string,
         workspaceId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Workspace>;
 
     updateWorkspaceFile(
@@ -2047,7 +2653,7 @@ export class WorkspacesApi {
         workspaceId: string,
         folderId: string,
         fileId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<WorkspaceItem>;
 }
 
@@ -2357,7 +2963,9 @@ export interface AccountBrands {
     /**
      * A list of brands.
      */
-    brands?: /* Information about a brand that is associated with an account. A brand applies custom styles and text to an envelope. */ Brand[] | undefined;
+    brands?:
+        | /* Information about a brand that is associated with an account. A brand applies custom styles and text to an envelope. */ Brand[]
+        | undefined;
     /**
      * The brand that envelope recipients see when a brand is not explicitly set.
      */
@@ -2384,9 +2992,10 @@ export interface AccountConsumerDisclosures {
     allowCDWithdraw?: string | undefined;
     /**
      * Metadata that indicates whether the `allowCDWithdraw` property is editable.
-     *
      */
-    allowCDWithdrawMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowCDWithdrawMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * If the customer needs to change their email address, this is the email address to which they should the change request.
      *
@@ -2537,9 +3146,10 @@ export interface AccountConsumerDisclosures {
     useConsumerDisclosureWithinAccount?: string | undefined;
     /**
      * Metadata that indicates whether the `useConsumerDisclosureWithinAccount` property is editable.
-     *
      */
-    useConsumerDisclosureWithinAccountMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    useConsumerDisclosureWithinAccountMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Contains the first address line of the postal address to which a customer can send a consent withdrawal notification.
      *
@@ -2619,11 +3229,15 @@ export interface AccountCustomFields {
     /**
      * An array of list custom fields.
      */
-    listCustomFields?: /* This object represents a list custom field from which envelope creators and senders can select custom data. */ ListCustomField[] | undefined;
+    listCustomFields?:
+        | /* This object represents a list custom field from which envelope creators and senders can select custom data. */ ListCustomField[]
+        | undefined;
     /**
      * An array of text custom fields.
      */
-    textCustomFields?: /* This object represents a free text custom field where envelope creators and senders can enter custom data. */ TextCustomField[] | undefined;
+    textCustomFields?:
+        | /* This object represents a free text custom field where envelope creators and senders can enter custom data. */ TextCustomField[]
+        | undefined;
 }
 
 export interface AccountIdentityInputOption {
@@ -2633,7 +3247,9 @@ export interface AccountIdentityInputOption {
 }
 
 export interface AccountIdentityVerificationResponse {
-    identityVerification?: /* Specifies an Identity Verification workflow. */ AccountIdentityVerificationWorkflow[] | undefined;
+    identityVerification?:
+        | /* Specifies an Identity Verification workflow. */ AccountIdentityVerificationWorkflow[]
+        | undefined;
 }
 
 /**
@@ -2697,9 +3313,10 @@ export interface AccountInformation {
      * by the plan used to create the account and cannot be overridden.
      *
      * [accountsettings]: https://developers.docusign.com/esign-rest-api/reference/Accounts/Accounts/create/#account-settings
-     *
      */
-    accountSettings?: /* Contains account settings information. Used in requests to set property values. Used in responses to report property values. */ AccountSettingsInformation | undefined;
+    accountSettings?:
+        | /* Contains account settings information. Used in requests to set property values. Used in responses to report property values. */ AccountSettingsInformation
+        | undefined;
     /**
      * When set to **true**, the transaction rooms feature exposed through the Workspaces API is enabled.
      */
@@ -2862,7 +3479,9 @@ export interface AccountNotification {
     /**
      * A complex element that specifies the expiration settings for the envelope.
      */
-    expirations?: /* A complex element that specifies the expiration settings for the envelope. */ Expirations | undefined;
+    expirations?:
+        | /* A complex element that specifies the expiration settings for the envelope. */ Expirations
+        | undefined;
     /**
      * A complex element that specifies reminder settings for the envelope
      */
@@ -2924,7 +3543,6 @@ export interface AccountPasswordRules {
     expirePasswordDays?: string | undefined;
     /**
      * Metadata that indicates whether the `expirePasswordDays` property is editable.
-     *
      */
     expirePasswordDaysMetadata?: AccountPasswordExpirePasswordDays | undefined;
     /**
@@ -2933,7 +3551,6 @@ export interface AccountPasswordRules {
     lockoutDurationMinutes?: string | undefined;
     /**
      * Metadata that indicates whether the `lockoutDurationMinutes` property is editable.
-     *
      */
     lockoutDurationMinutesMetadata?: AccountPasswordLockoutDurationMinutes | undefined;
     /**
@@ -2948,7 +3565,6 @@ export interface AccountPasswordRules {
     lockoutDurationType?: string | undefined;
     /**
      * Metadata that indicates whether the `lockoutDurationType` property is editable.
-     *
      */
     lockoutDurationTypeMetadata?: AccountPasswordLockoutDurationType | undefined;
     /**
@@ -2957,7 +3573,6 @@ export interface AccountPasswordRules {
     minimumPasswordAgeDays?: string | undefined;
     /**
      * Metadata that indicates whether the `minimumPasswordAgeDays` property is editable.
-     *
      */
     minimumPasswordAgeDaysMetadata?: AccountPasswordMinimumPasswordAgeDays | undefined;
     /**
@@ -2966,7 +3581,6 @@ export interface AccountPasswordRules {
     minimumPasswordLength?: string | undefined;
     /**
      * Metadata that indicates whether the `minimumPasswordLength` property is editable.
-     *
      */
     minimumPasswordLengthMetadata?: AccountMinimumPasswordLength | undefined;
     /**
@@ -3013,7 +3627,6 @@ export interface AccountPasswordRules {
     passwordStrengthType?: string | undefined;
     /**
      * Metadata that indicates whether the `passwordStrengthType` property is editable.
-     *
      */
     passwordStrengthTypeMetadata?: AccountPasswordStrengthType | undefined;
     /**
@@ -3022,10 +3635,10 @@ export interface AccountPasswordRules {
     questionsRequired?: string | undefined;
     /**
      * Metadata that indicates whether the `questionsRequired` property is editable.
-     *
      */
     questionsRequiredMetadata?: /* Information about the number of password questions required (0 to 4) to confirm a user's identity when a user needs to reset their password.
-     */ AccountPasswordQuestionsRequired | undefined;
+     */
+        AccountPasswordQuestionsRequired | undefined;
 }
 
 export interface AccountPasswordStrengthType {
@@ -3098,7 +3711,9 @@ export interface AccountPermissionProfiles {
     /**
      * This object specifies the permissions that are associated with the account permission profile.
      */
-    settings?: /* This object defines account permissions for users who are associated with the account permission profile.  */ AccountRoleSettings | undefined;
+    settings?:
+        | /* This object defines account permissions for users who are associated with the account permission profile.  */ AccountRoleSettings
+        | undefined;
     /**
      * The total number of users in the group associated with the account permission profile.
      */
@@ -3118,45 +3733,50 @@ export interface AccountRoleSettings {
     allowAccountManagement?: string | undefined;
     /**
      * Metadata that indicates whether the `allowAccountManagement` property is editable.
-     *
      */
-    allowAccountManagementMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowAccountManagementMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, users can manage documents by using the API.
      */
     allowApiAccess?: string | undefined;
     /**
      * Metadata that indicates whether the `allowApiAccess` property is editable.
-     *
      */
-    allowApiAccessMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowApiAccessMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, users can access the account by using the eSignature API.
      */
     allowApiAccessToAccount?: string | undefined;
     /**
      * Metadata that indicates whether the `allowApiAccessToAccount` property is editable.
-     *
      */
-    allowApiAccessToAccountMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowApiAccessToAccountMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, users can send envelopes on behalf of others.
      */
     allowApiSendingOnBehalfOfOthers?: string | undefined;
     /**
      * Metadata that indicates whether the `allowApiSendingOnBehalfOfOthers` property is editable.
-     *
      */
-    allowApiSendingOnBehalfOfOthersMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowApiSendingOnBehalfOfOthersMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, users may specify sequential signing recipients when they send documents by using the API.
      */
     allowApiSequentialSigning?: string | undefined;
     /**
      * Metadata that indicates whether the `allowApiSequentialSigning` property is editable.
-     *
      */
-    allowApiSequentialSigningMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowApiSequentialSigningMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      *  If **true**, auto-tagging is enabled for the account.
      */
@@ -3164,26 +3784,29 @@ export interface AccountRoleSettings {
     /**
      * Metadata that indicates whether the `allowAutoTagging` property is editable.
      */
-    allowAutoTaggingMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowAutoTaggingMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, bulk sending is enabled for users.
      */
     allowBulkSending?: string | undefined;
     /**
      * Metadata that indicates whether the `allowBulkSending` property is editable.
-     *
      */
-    allowBulkSendingMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowBulkSendingMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, the DocuSign Desktop Client is enabled for users.
-     *
      */
     allowDocuSignDesktopClient?: string | undefined;
     /**
      * Metadata that indicates whether the `allowDocuSignDesktopClient` property is editable.
-     *
      */
-    allowDocuSignDesktopClientMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowDocuSignDesktopClientMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Specifies the level of access that users have to the account's address book. Valid values are:
      *
@@ -3191,18 +3814,20 @@ export interface AccountRoleSettings {
      * - `useShared`
      * - `usePersonalAndShared`
      * - `personalAndShared`
-     *
      */
     allowedAddressBookAccess?: string | undefined;
     /**
      * Metadata that indicates whether the `allowedAddressBookAccess` property is editable.
-     *
      */
-    allowedAddressBookAccessMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowedAddressBookAccessMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     allowedClickwrapsAccess?: string | undefined;
 
-    allowedClickwrapsAccessMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowedClickwrapsAccessMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Specifies the level of access that users have to account templates. Valid values are:
      *
@@ -3214,27 +3839,30 @@ export interface AccountRoleSettings {
     allowedTemplateAccess?: string | undefined;
     /**
      * Metadata that indicates whether the `allowedTemplateAccess` property is editable.
-     *
      */
-    allowedTemplateAccessMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowedTemplateAccessMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, users can be recipients of envelopes transferred to them by administrators of other accounts.
      */
     allowedToBeEnvelopeTransferRecipient?: string | undefined;
     /**
      * Metadata that indicates whether the `allowedToBeEnvelopeTransferRecipient` property is editable.
-     *
      */
-    allowedToBeEnvelopeTransferRecipientMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowedToBeEnvelopeTransferRecipientMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, users can send envelopes.
      */
     allowEnvelopeSending?: string | undefined;
     /**
      * Metadata that indicates whether the `allowEnvelopeSending` property is editable.
-     *
      */
-    allowEnvelopeSendingMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowEnvelopeSendingMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, users can add electronic seal ([eSeal](https://support.docusign.com/en/guides/ndse-user-guide-apply-electronic-seals)) recipients.
      */
@@ -3242,7 +3870,9 @@ export interface AccountRoleSettings {
     /**
      * Metadata that indicates whether the `allowESealRecipients` property is editable.
      */
-    allowESealRecipientsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowESealRecipientsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, PowerForm Administrators can access all of the PowerForm envelopes associated with the account.
      */
@@ -3250,25 +3880,29 @@ export interface AccountRoleSettings {
     /**
      * Metadata that indicates whether the `allowPowerFormsAdminToAccessAllPowerFormEnvelopes` property is editable.
      */
-    allowPowerFormsAdminToAccessAllPowerFormEnvelopesMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowPowerFormsAdminToAccessAllPowerFormEnvelopesMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, senders can set the language of the email that is sent to recipients.
      */
     allowSendersToSetRecipientEmailLanguage?: string | undefined;
     /**
      * Metadata that indicates whether the `allowSendersToSetRecipientEmailLanguage` property is editable.
-     *
      */
-    allowSendersToSetRecipientEmailLanguageMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowSendersToSetRecipientEmailLanguageMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, users can add requests for attachments from signers.
      */
     allowSignerAttachments?: string | undefined;
     /**
      * Metadata that indicates whether the `allowSignerAttachments` property is editable.
-     *
      */
-    allowSignerAttachmentsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowSignerAttachmentsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, senders can include supplemental documents.
      */
@@ -3276,16 +3910,19 @@ export interface AccountRoleSettings {
     /**
      * Metadata that indicates whether the `allowSupplementalDocuments` property is editable.
      */
-    allowSupplementalDocumentsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowSupplementalDocumentsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, the tagger palette is visible during the sending and correct flows and users can add tabs to documents.
      */
     allowTaggingInSendAndCorrect?: string | undefined;
     /**
      * Metadata that indicates whether the `allowTaggingInSendAndCorrect` property is editable.
-     *
      */
-    allowTaggingInSendAndCorrectMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowTaggingInSendAndCorrectMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -3293,7 +3930,9 @@ export interface AccountRoleSettings {
     /**
      * Reserved for DocuSign.
      */
-    allowVaultingMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowVaultingMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, users can override the default account setting that controls whether recipients can sign documents on paper.
      * The option to overrride this setting occurs during the sending process on a per-envelope basis.
@@ -3301,9 +3940,10 @@ export interface AccountRoleSettings {
     allowWetSigningOverride?: string | undefined;
     /**
      * Metadata that indicates whether the `allowWetSigningOverride` property is editable.
-     *
      */
-    allowWetSigningOverrideMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowWetSigningOverrideMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -3311,25 +3951,29 @@ export interface AccountRoleSettings {
     /**
      * Reserved for DocuSign.
      */
-    canCreateWorkspacesMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    canCreateWorkspacesMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, users cannot upload documents.
      */
     disableDocumentUpload?: string | undefined;
     /**
      * Metadata that indicates whether the `disableDocumentUpload` property is editable.
-     *
      */
-    disableDocumentUploadMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    disableDocumentUploadMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, users can access the **Other Actions** menu.
      */
     disableOtherActions?: string | undefined;
     /**
      * Metadata that indicates whether the `disableOtherActions` property is editable.
-     *
      */
-    disableOtherActionsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    disableOtherActionsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, API request logging is enabled.
      *
@@ -3338,27 +3982,30 @@ export interface AccountRoleSettings {
     enableApiRequestLogging?: string | undefined;
     /**
      * Metadata that indicates whether the `enableApiRequestLogging` property is editable.
-     *
      */
-    enableApiRequestLoggingMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableApiRequestLoggingMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, senders are notified when recipients view the documents that they send.
      */
     enableRecipientViewingNotifications?: string | undefined;
     /**
      * Metadata that indicates whether the `enableRecipientViewingNotifications` property is editable.
-     *
      */
-    enableRecipientViewingNotificationsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableRecipientViewingNotificationsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, the sequential signing user export interface is enabled.
      */
     enableSequentialSigningInterface?: string | undefined;
     /**
      * Metadata that indicates whether the `enableSequentialSigningInterface` property is editable.
-     *
      */
-    enableSequentialSigningInterfaceMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableSequentialSigningInterfaceMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -3366,61 +4013,69 @@ export interface AccountRoleSettings {
     /**
      * Reserved for DocuSign.
      */
-    enableTransactionPointIntegrationMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableTransactionPointIntegrationMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * The PowerForms rights associated with the account permission profile. Valid values are:
      *
      * - `none`
      * - `user`
      * - `admin`
-     *
      */
     powerFormRole?: string | undefined;
     /**
      * Metadata that indicates whether the `powerFormRole` property is editable.
-     *
      */
-    powerFormRoleMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    powerFormRoleMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, senders receive emails about completed, self-signed documents that contain links to the completed documents instead of PDF attachments.
      */
     receiveCompletedSelfSignedDocumentsAsEmailLinks?: string | undefined;
     /**
      * Metadata that indicates whether the `receiveCompletedSelfSignedDocumentsAsEmailLinks` property is editable.
-     *
      */
-    receiveCompletedSelfSignedDocumentsAsEmailLinksMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    receiveCompletedSelfSignedDocumentsAsEmailLinksMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
-    signingUiVersionMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    signingUiVersionMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, senders can require recipients to accept supplemental documents.
      */
     supplementalDocumentsMustAccept?: string | undefined;
     /**
      * Metadata that indicates whether the `supplementalDocumentsMustAccept` property is editable.
-     *
      */
-    supplementalDocumentsMustAcceptMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    supplementalDocumentsMustAcceptMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, senders can require recipients to read supplemental documents.
      */
     supplementalDocumentsMustRead?: string | undefined;
     /**
      * Metadata that indicates whether the `supplementalDocumentsMustRead` property is editable.
-     *
      */
-    supplementalDocumentsMustReadMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    supplementalDocumentsMustReadMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, users can require recipients to view supplemental documents.
      */
     supplementalDocumentsMustView?: string | undefined;
     /**
      * Metadata that indicates whether the `supplementalDocumentsMustView` property is editable.
-     *
      */
-    supplementalDocumentsMustViewMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    supplementalDocumentsMustViewMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -3428,7 +4083,9 @@ export interface AccountRoleSettings {
     /**
      * Reserved for DocuSign.
      */
-    useNewDocuSignExperienceInterfaceMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    useNewDocuSignExperienceInterfaceMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -3436,7 +4093,9 @@ export interface AccountRoleSettings {
     /**
      * Reserved for DocuSign.
      */
-    useNewSendingInterfaceMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    useNewSendingInterfaceMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -3444,7 +4103,9 @@ export interface AccountRoleSettings {
     /**
      * Reserved for DocuSign.
      */
-    vaultingModeMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    vaultingModeMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 }
 
 export interface AccountSealProviders {
@@ -3467,7 +4128,9 @@ export interface AccountSettingsInformation {
     /**
      * Format of the string provided to a recipient in order to access an envelope.
      */
-    accessCodeFormat?: /* object specifying the format of the string provided to a recipient in order to access an envelope. */ AccessCodeFormat | undefined;
+    accessCodeFormat?:
+        | /* object specifying the format of the string provided to a recipient in order to access an envelope. */ AccessCodeFormat
+        | undefined;
     /**
      * UTC date/time format for the account.
      */
@@ -3475,7 +4138,9 @@ export interface AccountSettingsInformation {
     /**
      * Metadata that indicates whether the `accountDateTimeFormat` property is editable.
      */
-    accountDateTimeFormatMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    accountDateTimeFormatMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * The name on the account.
      */
@@ -3483,15 +4148,21 @@ export interface AccountSettingsInformation {
     /**
      * Metadata that indicates whether the `accountName` property is editable.
      */
-    accountNameMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    accountNameMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * An object that specifies notifications (expirations and reminders) for the envelope.
      */
-    accountNotification?: /* A complex element that specifies notifications (expirations and reminders) for the envelope. */ AccountNotification | undefined;
+    accountNotification?:
+        | /* A complex element that specifies notifications (expirations and reminders) for the envelope. */ AccountNotification
+        | undefined;
     /**
      * An object that defines the settings to use in the UI.
      */
-    accountUISettings?: /* An object that defines the options that are available to non-administrators in the UI. */ AccountUISettings | undefined;
+    accountUISettings?:
+        | /* An object that defines the options that are available to non-administrators in the UI. */ AccountUISettings
+        | undefined;
     /**
      * When set to **true**, [Signature Adoption Configuration](https://support.docusign.com/en/guides/ndse-admin-guide-signature-adopt-config) is enabled.
      *
@@ -3500,18 +4171,20 @@ export interface AccountSettingsInformation {
     adoptSigConfig?: string | undefined;
     /**
      * Metadata that indicates whether the `adoptSigConfig` property is editable.
-     *
      */
-    adoptSigConfigMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    adoptSigConfigMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * If **true**, the Advanced Correction feature is enabled for this account.
      */
     advancedCorrect?: string | undefined;
     /**
      * Metadata that indicates whether the `advancedCorrect` property is editable.
-     *
      */
-    advancedCorrectMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    advancedCorrectMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, the configured [Access Code Format](https://developers.docusign.com/esign-rest-api/reference/Accounts/Accounts/get#accessCodeFormat)
      * page is enabled for account administrators.
@@ -3521,9 +4194,10 @@ export interface AccountSettingsInformation {
     allowAccessCodeFormat?: string | undefined;
     /**
      * Metadata that indicates whether the `allowAccessCodeFormat` property is editable.
-     *
      */
-    allowAccessCodeFormatMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowAccessCodeFormatMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, the account can be managed on a per-user basis.
      *
@@ -3532,18 +4206,20 @@ export interface AccountSettingsInformation {
     allowAccountManagementGranular?: string | undefined;
     /**
      * Metadata that indicates whether the `allowAccountManagementGranular` property is editable.
-     *
      */
-    allowAccountManagementGranularMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowAccountManagementGranularMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Boolean that specifies whether member names can be changed in the account.
      */
     allowAccountMemberNameChange?: string | undefined;
     /**
      * Metadata that indicates whether the `allowAccountMemberNameChange` property is editable.
-     *
      */
-    allowAccountMemberNameChangeMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowAccountMemberNameChangeMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, [Conditional Routing](https://support.docusign.com/en/guides/ndse-user-guide-conditional-recipients) is enabled for the account as part of
      * DocuSign's Advanced Recipient Routing feature.
@@ -3552,34 +4228,38 @@ export interface AccountSettingsInformation {
     /**
      * Metadata that indicates whether the ` allowAdvancedRecipientRoutingConditional` property is editable.
      */
-    allowAdvancedRecipientRoutingConditionalMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowAdvancedRecipientRoutingConditionalMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     /**
      *   If **true**, an agent recipient can change the email addresses of recipients later in the signing order.
-     *
      */
     allowAgentNameEmailEdit?: string | undefined;
     /**
      * Metadata that indicates whether the `allowAgentNameEmailEdit` property is editable.
-     *
      */
-    allowAgentNameEmailEditMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowAgentNameEmailEditMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     allowAgreementActions?: string | undefined;
     /**
      * Metadata about the `allowAgreementActions` property.
      */
-    allowAgreementActionsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowAgreementActionsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      *   If **true**, auto-navigation can be enabled for this account.
-     *
      */
     allowAutoNavSettings?: string | undefined;
     /**
      * Metadata that indicates whether the `allowAutoNavSettings` property is editable.
-     *
      */
-    allowAutoNavSettingsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowAutoNavSettingsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      *  If **true**, auto-tagging is enabled for the account.
      */
@@ -3587,7 +4267,9 @@ export interface AccountSettingsInformation {
     /**
      * Metadata that indicates whether the `allowAutoTagging` property is editable.
      */
-    allowAutoTaggingMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowAutoTaggingMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, bulk send functionality is enabled for the account.
      *
@@ -3596,9 +4278,10 @@ export interface AccountSettingsInformation {
     allowBulkSend?: string | undefined;
     /**
      * Metadata that indicates whether the `allowBulkSend` property is editable.
-     *
      */
-    allowBulkSendMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowBulkSendMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, indicates that the customer can withdraw their consent to the consumer disclosure when they decline to sign documents.
      * If these recipients sign documents sent to them from your account in the future, they will be required to agree to the terms in the disclosure.
@@ -3608,9 +4291,10 @@ export interface AccountSettingsInformation {
     allowCDWithdraw?: string | undefined;
     /**
      * Metadata that indicates whether the `allowCDWithdraw` property is editable.
-     *
      */
-    allowCDWithdrawMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowCDWithdrawMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Boolean that specifies whether a Connect configuration can use HTTP listeners.
      */
@@ -3621,190 +4305,190 @@ export interface AccountSettingsInformation {
     allowConnectSendFinishLater?: string | undefined;
     /**
      * Metadata that indicates whether the `allowConnectSendFinishLater` property is editable.
-     *
      */
-    allowConnectSendFinishLaterMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowConnectSendFinishLaterMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * If **true**,
      * the account has the ability to change the
      * [Consumer Disclosure](https://support.docusign.com/en/guides/ndse-admin-guide-legal-disclosure)
      * setting.
-     *
      */
     allowConsumerDisclosureOverride?: string | undefined;
     /**
      * Metadata that indicates whether the `allowConsumerDisclosureOverride` property is editable.
-     *
      */
-    allowConsumerDisclosureOverrideMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowConsumerDisclosureOverrideMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, senders can download form data from the envelopes that they send.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     allowDataDownload?: string | undefined;
     /**
      * Metadata that indicates whether the `allowDataDownload` property is editable.
-     *
      */
-    allowDataDownloadMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowDataDownloadMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Boolean that specifies whether disclosure documents can be included in envelopes.
      */
     allowDocumentDisclosures?: string | undefined;
     /**
      * Metadata that indicates whether the `allowDocumentDisclosures` property is editable.
-     *
      */
-    allowDocumentDisclosuresMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowDocumentDisclosuresMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Boolean that specifies whether notifications can include the envelope's signed document.
      */
     allowDocumentsOnSignedEnvelopes?: string | undefined;
     /**
      * Metadata that indicates whether the `allowDocumentsOnSignedEnvelopes` property is editable.
-     *
      */
-    allowDocumentsOnSignedEnvelopesMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowDocumentsOnSignedEnvelopesMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, the [Document Visibility](https://support.docusign.com/guides/ndse-user-guide-document-visibility) feature is enabled for the account.
-     *
      */
     allowDocumentVisibility?: string | undefined;
     /**
      * Metadata that indicates whether the `allowDocumentVisibility` property is editable.
-     *
      */
-    allowDocumentVisibilityMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowDocumentVisibilityMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**,
      * [eHanko stamps](https://support.docusign.com/en/guides/ndse-user-guide-manage-your-stamps)
      * are enabled.
-     *
      */
     allowEHankoStamps?: string | undefined;
     /**
      * Metadata that indicates whether the `allowEHankoStamps` property is editable.
-     *
      */
-    allowEHankoStampsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowEHankoStampsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Specifies whether eNote eOriginal integration is enabled.
-     *
      */
     allowENoteEOriginal?: string | undefined;
     /**
      * Metadata that indicates whether the `allowENoteEOriginal` property is editable.
-     *
      */
-    allowENoteEOriginalMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowENoteEOriginalMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, the envelope correction feature is enabled.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     allowEnvelopeCorrect?: string | undefined;
     /**
      * Metadata that indicates whether the `allowEnvelopeCorrect` property is editable.
-     *
      */
-    allowEnvelopeCorrectMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowEnvelopeCorrectMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Specifies whether the account is able to
      * manage rules that [transfer ownership](https://support.docusign.com/en/guides/ndse-admin-guide-custody-transfer)
      * of envelopes within the same account.
-     *
-     *
-     *
-     *
      */
     allowEnvelopeCustodyTransfer?: string | undefined;
     /**
      * Metadata that indicates whether the `allowEnvelopeCustodyTransfer` property is editable.
-     *
      */
-    allowEnvelopeCustodyTransferMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowEnvelopeCustodyTransferMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Specifies whether
      * [envelope custom fields](https://support.docusign.com/en/guides/ndse-user-guide-manage-custom-fields)
      * are enabled.
-     *
      */
     allowEnvelopeCustomFields?: string | undefined;
     /**
      * Metadata that indicates whether the `allowEnvelopeCustomFields` property is editable.
-     *
      */
-    allowEnvelopeCustomFieldsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowEnvelopeCustomFieldsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, envelope publishing reporting is enabled.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     allowEnvelopePublishReporting?: string | undefined;
     /**
      * Metadata that indicates whether the `allowEnvelopePublishReporting` property is editable.
-     *
      */
-    allowEnvelopePublishReportingMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowEnvelopePublishReportingMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Specifies whether the account has access to reports.
-     *
      */
     allowEnvelopeReporting?: string | undefined;
     /**
      * Metadata that indicates whether the `allowEnvelopeReporting` property is editable.
-     *
      */
-    allowEnvelopeReportingMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowEnvelopeReportingMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * If the account plan does not include calculated fields, this setting allows an account to use them.
-     *
-     *
      */
     allowExpression?: string | undefined;
     /**
      * Metadata that indicates whether the `allowExpression` property is editable.
-     *
      */
-    allowExpressionMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowExpressionMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, signers are required to use Express Digital Signatures.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     allowExpressSignerCertificate?: string | undefined;
     /**
      * Metadata that indicates whether the `allowExpressSignerCertificate` property is editable.
-     *
      */
-    allowExpressSignerCertificateMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowExpressSignerCertificateMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Boolean that specifies whether resource files can be used for extended sending.
      */
     allowExtendedSendingResourceFile?: string | undefined;
     /**
      * Metadata that indicates whether the `allowExtendedSendingResourceFile` property is editable.
-     *
      */
-    allowExtendedSendingResourceFileMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowExtendedSendingResourceFileMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, the account can
      * configure and use signature pads for their recipients.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     allowExternalSignaturePad?: string | undefined;
     /**
      * Metadata that indicates whether the `allowExternalSignaturePad` property is editable.
-     *
      */
-    allowExternalSignaturePadMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowExternalSignaturePadMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, IDV Level 1 is allowed. The default value is **false**.
      */
@@ -3812,35 +4496,39 @@ export interface AccountSettingsInformation {
     /**
      * Metadata that indicates whether the `allowIDVLevel1` property is editable.
      */
-    allowIDVLevel1Metadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowIDVLevel1Metadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     allowIDVPlatform?: string | undefined;
     /**
      * Metadata that indicates whether the `allowIDVPlatform` property is editable.
      */
-    allowIDVPlatformMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowIDVPlatformMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, the account administrator can enable in-person signing.
      *
      * **Note**: Only SysAdmin users can change this setting.
-     *
-     *
      */
     allowInPerson?: string | undefined;
     /**
      * Metadata that indicates whether the `allowInPerson` property is editable.
-     *
      */
-    allowInPersonMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowInPersonMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, [Managed Stamps](https://support.docusign.com/en/guides/ndse-admin-guide-managed-stamps) are enabled.
      */
     allowManagedStamps?: string | undefined;
     /**
      * Metadata that indicates whether the `allowManagedStamps` property is editable.
-     *
      */
-    allowManagedStampsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowManagedStampsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, the Document Markup feature is enabled.
      *
@@ -3849,44 +4537,45 @@ export interface AccountSettingsInformation {
     allowMarkup?: string | undefined;
     /**
      * Metadata that indicates whether the `allowMarkup` property is editable.
-     *
      */
-    allowMarkupMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowMarkupMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, account users can set their own
      * [time zone settings](https://support.docusign.com/en/articles/How-do-I-modify-time-zone-settings-for-my-account).
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     allowMemberTimeZone?: string | undefined;
     /**
      * Metadata that indicates whether the `allowMemberTimeZone` property is editable.
-     *
      */
-    allowMemberTimeZoneMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowMemberTimeZoneMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, the account can use
      * [merge fields](https://support.docusign.com/en/guides/dfs-user-guide-merge-fields-user)
      * with DocuSign for Salesforce.
-     *
      */
     allowMergeFields?: string | undefined;
     /**
      * Metadata that indicates whether the `allowMergeFields` property is editable.
-     *
      */
-    allowMergeFieldsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowMergeFieldsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Specifies whether the account supports multiple brands.
-     *
      */
     allowMultipleBrandProfiles?: string | undefined;
     /**
      * Metadata that indicates whether the `allowMultipleBrandProfiles` property is editable.
-     *
      */
-    allowMultipleBrandProfilesMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowMultipleBrandProfilesMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, recipients can
      * upload multiple signer attachments with a single attachment.
@@ -3896,25 +4585,28 @@ export interface AccountSettingsInformation {
     allowMultipleSignerAttachments?: string | undefined;
     /**
      * Metadata that indicates whether the `allowMultipleSignerAttachments` property is editable.
-     *
      */
-    allowMultipleSignerAttachmentsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowMultipleSignerAttachmentsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Specifies whether users can use
      * international numbers
      * for phone authentication.
-     *
      */
     allowNonUSPhoneAuth?: string | undefined;
     /**
      * Metadata that indicates whether the `allowNonUSPhoneAuth` property is editable.
-     *
      */
-    allowNonUSPhoneAuthMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowNonUSPhoneAuthMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     allowOcrOfEnvelopeDocuments?: string | undefined;
 
-    allowOcrOfEnvelopeDocumentsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowOcrOfEnvelopeDocumentsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**,
      * [offline signing](https://support.docusign.com/articles/Offline-access-with-the-DocuSign-Mobile-App-for-iOS-iPad-iPhone-iPod-Touch)
@@ -3925,9 +4617,10 @@ export interface AccountSettingsInformation {
     allowOfflineSigning?: string | undefined;
     /**
      * Metadata that indicates whether the `allowOfflineSigning` property is editable.
-     *
      */
-    allowOfflineSigningMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowOfflineSigningMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, senders can use OpenTrust signer certificates.
      *
@@ -3936,18 +4629,20 @@ export interface AccountSettingsInformation {
     allowOpenTrustSignerCertificate?: string | undefined;
     /**
      * Metadata that indicates whether the `allowOpenTrustSignerCertificate` property is editable.
-     *
      */
-    allowOpenTrustSignerCertificateMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowOpenTrustSignerCertificateMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Boolean that specifies whether [Organization Administration](https://developers.docusign.com/orgadmin-api) is enabled for the account.
      */
     allowOrganizations?: string | undefined;
     /**
      * Metadata that indicates whether the `allowOrganizations` property is editable.
-     *
      */
-    allowOrganizationsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowOrganizationsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, payment processing is enabled for the account.
      *
@@ -3956,9 +4651,10 @@ export interface AccountSettingsInformation {
     allowPaymentProcessing?: string | undefined;
     /**
      * Metadata that indicates whether the `allowPaymentProcessing` property is editable.
-     *
      */
-    allowPaymentProcessingMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowPaymentProcessingMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, signers can use personal signer certificates.
      *
@@ -3967,61 +4663,65 @@ export interface AccountSettingsInformation {
     allowPersonalSignerCertificate?: string | undefined;
     /**
      * Metadata that indicates whether the `allowPersonalSignerCertificate` property is editable.
-     *
      */
-    allowPersonalSignerCertificateMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowPersonalSignerCertificateMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Boolean that specifies whether phone authentication is enabled for the account.
      */
     allowPhoneAuthentication?: string | undefined;
     /**
      * Metadata that indicates whether the `allowPhoneAuthentication` property is editable.
-     *
      */
-    allowPhoneAuthenticationMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowPhoneAuthenticationMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Boolean that specifies whether users can override phone authentication.
      */
     allowPhoneAuthOverride?: string | undefined;
     /**
      * Metadata that indicates whether the `allowPhoneAuthOverride` property is editable.
-     *
      */
-    allowPhoneAuthOverrideMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowPhoneAuthOverrideMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign. This property returns the value **false** when listing account settings. Read only.
      */
     allowPrivateSigningGroups?: string | undefined;
     /**
      * Metadata that indicates whether the `allowPrivateSigningGroups` property is editable.
-     *
      */
-    allowPrivateSigningGroupsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowPrivateSigningGroupsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**,
      * an account administrator can to turn on reminders
      * and expiration defaults for the account.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     allowReminders?: string | undefined;
     /**
      * Metadata that indicates whether the `allowReminders` property is editable.
-     *
      */
-    allowRemindersMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowRemindersMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * If **true**,
      * resource files can be uploaded in branding.
-     *
      */
     allowResourceFileBranding?: string | undefined;
     /**
      * Metadata that indicates whether the `allowResourceFileBranding` property is editable.
-     *
      */
-    allowResourceFileBrandingMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowResourceFileBrandingMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**,
      * account administrators can
@@ -4029,76 +4729,79 @@ export interface AccountSettingsInformation {
      * required to use SAFE-BioPharma digital signatures.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     allowSafeBioPharmaSignerCertificate?: string | undefined;
     /**
      * Metadata that indicates whether the `allowSafeBioPharmaSignerCertificate` property is editable.
-     *
      */
-    allowSafeBioPharmaSignerCertificateMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowSafeBioPharmaSignerCertificateMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Boolean that specifies whether a DocuSign Signature Appliance can be used with the account.
      */
     allowSecurityAppliance?: string | undefined;
     /**
      * Metadata that indicates whether the `allowSecurityAppliance` property is editable.
-     *
      */
-    allowSecurityApplianceMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowSecurityApplianceMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * If **true**,
      * the account admin can enable the
      * Send to Certified Delivery
      * feature on the account.
-     *
      */
     allowSendToCertifiedDelivery?: string | undefined;
     /**
      * Metadata that indicates whether the `allowSendToCertifiedDelivery` property is editable.
-     *
      */
-    allowSendToCertifiedDeliveryMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowSendToCertifiedDeliveryMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * If **true**,
      * the account admin can enable the Send to Intermediary
      * feature on the account.
-     *
      */
     allowSendToIntermediary?: string | undefined;
     /**
      * Metadata that indicates whether the `allowSendToIntermediary` property is editable.
-     *
      */
-    allowSendToIntermediaryMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowSendToIntermediaryMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * If **true**,
      * the account can use templates.
-     *
      */
     allowServerTemplates?: string | undefined;
     /**
      * Metadata that indicates whether the `allowServerTemplates` property is editable.
-     *
      */
-    allowServerTemplatesMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowServerTemplatesMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     allowSetEmbeddedRecipientStartURL?: string | undefined;
 
-    allowSetEmbeddedRecipientStartURLMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowSetEmbeddedRecipientStartURLMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**,
      * shared tabs are enabled for the account.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     allowSharedTabs?: string | undefined;
     /**
      * Metadata that indicates whether the `allowSharedTabs` property is editable.
-     *
      */
-    allowSharedTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowSharedTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, Signature Stamps are enabled.
      *
@@ -4107,9 +4810,10 @@ export interface AccountSettingsInformation {
     allowSignatureStamps?: string | undefined;
     /**
      * Metadata that indicates whether the `allowSignatureStamps` property is editable.
-     *
      */
-    allowSignatureStampsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowSignatureStampsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, recipients can sign documents from the home page.
      *
@@ -4118,21 +4822,22 @@ export interface AccountSettingsInformation {
     allowSignDocumentFromHomePage?: string | undefined;
     /**
      * Metadata that indicates whether the `allowSignDocumentFromHomePage` property is editable.
-     *
      */
-    allowSignDocumentFromHomePageMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowSignDocumentFromHomePageMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, the recipient of an envelope sent from this account can reassign it to another person.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     allowSignerReassign?: string | undefined;
     /**
      * Metadata that indicates whether the `allowSignerReassign` property is editable.
-     *
      */
-    allowSignerReassignMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowSignerReassignMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, an account administrator can override the ability of an envelope recipient to reassign it to another person.
      *
@@ -4141,52 +4846,56 @@ export interface AccountSettingsInformation {
     allowSignerReassignOverride?: string | undefined;
     /**
      * Metadata that indicates whether the `allowSignerReassignOverride` property is editable.
-     *
      */
-    allowSignerReassignOverrideMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowSignerReassignOverrideMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Boolean that specifies whether Signing and App Extensions are allowed.
      */
     allowSigningExtensions?: string | undefined;
     /**
      * Metadata that indicates whether the `allowSigningExtensions` property is editable.
-     *
      */
-    allowSigningExtensionsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowSigningExtensionsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, the account allows signing groups. This setting is only shown in responses that list account settings. Read only.
      */
     allowSigningGroups?: string | undefined;
     /**
      * Metadata that indicates whether the `allowSigningGroups` property is editable.
-     *
      */
-    allowSigningGroupsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowSigningGroupsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Boolean that specifies whether the account supports radio buttons on tabs [Radio CustomTabType](https://developers.docusign.com/esign-soap-api/reference/Sending-Group/Tab).
      */
     allowSigningRadioDeselect?: string | undefined;
     /**
      * Metadata that indicates whether the `allowSigningRadioDeselect` property is editable.
-     *
      */
-    allowSigningRadioDeselectMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowSigningRadioDeselectMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * If **true**,
      * the account administrator can enable
      * the Sign Now feature.
-     *
      */
     allowSignNow?: string | undefined;
     /**
      * Metadata that indicates whether the `allowSignNow` property is editable.
-     *
      */
     allowSignNowMetadata?: string | undefined;
 
     allowSMSDelivery?: string | undefined;
 
-    allowSMSDeliveryMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowSMSDeliveryMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Deprecated.
      */
@@ -4194,7 +4903,9 @@ export interface AccountSettingsInformation {
     /**
      * Deprecated.
      */
-    allowSocialIdLoginMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowSocialIdLoginMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, this user can include supplemental documents.
      */
@@ -4202,15 +4913,21 @@ export interface AccountSettingsInformation {
     /**
      * Metadata that indicates whether the `allowSupplementalDocuments` property is editable.
      */
-    allowSupplementalDocumentsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowSupplementalDocumentsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     allowUsersToAccessDirectory?: string | undefined;
 
-    allowUsersToAccessDirectoryMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowUsersToAccessDirectoryMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     allowValueInsights?: string | undefined;
 
-    allowValueInsightsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowValueInsightsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * This property determines how template anchor tabs are applied.
      *
@@ -4221,22 +4938,22 @@ export interface AccountSettingsInformation {
      *
      * **Note**: When you are using the `anchorPopulationScope` property with a Composite Template, the value `document` is supported only with a single server template
      * and a single inline template.
-     *
-     *
      */
     anchorPopulationScope?: string | undefined;
     /**
      * Metadata that indicates whether the `anchorPopulationScope` property is editable.
-     *
      */
-    anchorPopulationScopeMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    anchorPopulationScopeMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
-     *
      */
     anchorTagVersionedPlacementEnabled?: string | undefined;
 
-    anchorTagVersionedPlacementMetadataEnabled?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    anchorTagVersionedPlacementMetadataEnabled?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, envelope documents are included as a PDF file attachment to "signing completed" emails.
      *
@@ -4246,7 +4963,9 @@ export interface AccountSettingsInformation {
     /**
      * Metadata that indicates whether the `attachCompletedEnvelope` property is editable.
      */
-    attachCompletedEnvelopeMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    attachCompletedEnvelopeMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Sets when authentication checks are applied for recipient envelope access. This setting only applies to the following ID checks:
      *
@@ -4264,14 +4983,14 @@ export interface AccountSettingsInformation {
      * to allow recipients to skip authentication when they have recently passed authentication by setting a variable time frame.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     authenticationCheck?: string | undefined;
     /**
      * Metadata that indicates whether the `authenticationCheck` property is editable.
-     *
      */
-    authenticationCheckMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    authenticationCheckMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Specifies how auto-navigation works.
      * Valid values are:
@@ -4283,23 +5002,24 @@ export interface AccountSettingsInformation {
      * - `page_then_required_fields`
      * - `page_then_required_and_blank_fields`
      * - `page_then_all_fields`
-     *
      */
     autoNavRule?: string | undefined;
     /**
      * Metadata that indicates whether the `autoNavRule` property is editable.
-     *
      */
-    autoNavRuleMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    autoNavRuleMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Boolean that specifies whether to automatically provision a user membership in the account for accountless recipients. (Also known as Just-in-Time provisioning.)
      */
     autoProvisionSignerAccount?: string | undefined;
     /**
      * Metadata that indicates whether the `autoProvisionSignerAccount` property is editable.
-     *
      */
-    autoProvisionSignerAccountMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    autoProvisionSignerAccountMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Boolean that specifies whether BCC for Email Archive is enabled for the account. BCC for Email Archive allows you to set up an archive email address
      * so that a BCC copy of an envelope is sent only to that address.
@@ -4307,27 +5027,30 @@ export interface AccountSettingsInformation {
     bccEmailArchive?: string | undefined;
     /**
      * Metadata that indicates whether the `bccEmailArchive` property is editable.
-     *
      */
-    bccEmailArchiveMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    bccEmailArchiveMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
-     *
      */
     betaSwitchConfiguration?: string | undefined;
     /**
      * Reserved for DocuSign.
      */
-    betaSwitchConfigurationMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    betaSwitchConfigurationMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * The billing address for the account.
      */
     billingAddress?: /* Contains address information. */ AddressInformation | undefined;
     /**
      * Metadata that indicates whether the `billingAddress` property is editable.
-     *
      */
-    billingAddressMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    billingAddressMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, this user can use the bulk send feature for the account.
      */
@@ -4338,31 +5061,36 @@ export interface AccountSettingsInformation {
     bulkSendMaxUnprocessedEnvelopesCount?: string | undefined;
     /**
      * Metadata that indicates whether the `bulkSend` property is editable.
-     *
      */
-    bulkSendMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    bulkSendMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, account administrators can self-brand their sending console through the DocuSign console.
      */
     canSelfBrandSend?: string | undefined;
     /**
      * Metadata that indicates whether the `canSelfBrandSend` property is editable.
-     *
      */
-    canSelfBrandSendMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    canSelfBrandSendMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, account administrators can self-brand their signing console through the DocuSign console.
      */
     canSelfBrandSign?: string | undefined;
     /**
      * Metadata that indicates whether the `canSelfBrandSign` property is editable.
-     *
      */
-    canSelfBrandSignMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    canSelfBrandSignMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     canUseSalesforceOAuth?: string | undefined;
 
-    canUseSalesforceOAuthMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    canUseSalesforceOAuthMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -4370,31 +5098,37 @@ export interface AccountSettingsInformation {
     /**
      * Reserved for DocuSign.
      */
-    captureVoiceRecordingMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    captureVoiceRecordingMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Boolean that specifies whether to use a shorter/wider format when generating the CFR Part 11 signature image.
      */
     cfrUseWideImage?: string | undefined;
     /**
      * Metadata that indicates whether the `cfrUseWideImage` property is editable.
-     *
      */
-    cfrUseWideImageMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    cfrUseWideImageMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     checkForMultipleAdminsOnAccount?: string | undefined;
     /**
      * Metadata that indicates whether the `checkForMultipleAdminsOnAccount` property is editable.
      */
-    checkForMultipleAdminsOnAccountMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    checkForMultipleAdminsOnAccountMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Boolean that specifies whether the signers of the envelopes from this account use a signature with a DocuSign chrome around it or not.
      */
     chromeSignatureEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `chromeSignatureEnabled` property is editable.
-     *
      */
-    chromeSignatureEnabledMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    chromeSignatureEnabledMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, the text of comments is included in email notifications when a comment is posted.
      *
@@ -4403,9 +5137,10 @@ export interface AccountSettingsInformation {
     commentEmailShowMessageText?: string | undefined;
     /**
      * Metadata that indicates whether the `commentEmailShowMessageText` property is editable.
-     *
      */
-    commentEmailShowMessageTextMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    commentEmailShowMessageTextMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true** and comments are enabled for the account, senders can disable comments for an envelope through the **Advanced Options** menu that
      * appears during the sending process.
@@ -4413,9 +5148,10 @@ export interface AccountSettingsInformation {
     commentsAllowEnvelopeOverride?: string | undefined;
     /**
      * Metadata that indicates whether the `commentsAllowEnvelopeOverride` property is editable.
-     *
      */
-    commentsAllowEnvelopeOverrideMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    commentsAllowEnvelopeOverrideMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, conditional fields can be used in documents.
      *
@@ -4424,9 +5160,10 @@ export interface AccountSettingsInformation {
     conditionalFieldsEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `conditionalFieldsEnabled` property is editable.
-     *
      */
-    conditionalFieldsEnabledMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    conditionalFieldsEnabledMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Speficies how often to display the consumer disclosure.
      *
@@ -4435,23 +5172,24 @@ export interface AccountSettingsInformation {
      * - `once`: Per account, the supplemental document is displayed once only per `userId`.
      * - `always`: Per envelope, the supplemental document is displayed once only per `userId`.
      * - `each_access`: Per envelope, the supplemental document is displayed once only per `recipientId`.
-     *
      */
     consumerDisclosureFrequency?: string | undefined;
     /**
      * Metadata that indicates whether the `consumerDisclosureFrequency` property is editable.
-     *
      */
-    consumerDisclosureFrequencyMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    consumerDisclosureFrequencyMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Boolean that specifies whether to enable PDF form fields to get converted to DocuSign secure fields when the document is added or uploaded to an envelope.
      */
     convertPdfFields?: string | undefined;
     /**
      * Metadata that indicates whether the `convertPdfFields` property is editable.
-     *
      */
-    convertPdfFieldsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    convertPdfFieldsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Specifies how data is shared for tabs with the same tabLabel. Valid values are:
      *
@@ -4474,18 +5212,20 @@ export interface AccountSettingsInformation {
     dataPopulationScope?: string | undefined;
     /**
      * Metadata that indicates whether the `dataPopulationScope` property is editable.
-     *
      */
-    dataPopulationScopeMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    dataPopulationScopeMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, the mobile app distributor key is prevented from connecting for account users.
      */
     disableMobileApp?: string | undefined;
     /**
      * Metadata that indicates whether the `disableMobileApp` property is editable.
-     *
      */
-    disableMobileAppMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    disableMobileAppMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, push notifications are disabled for the account.
      *
@@ -4494,9 +5234,10 @@ export interface AccountSettingsInformation {
     disableMobilePushNotifications?: string | undefined;
     /**
      * Metadata that indicates whether the `disableMobilePushNotifications` property is editable.
-     *
      */
-    disableMobilePushNotificationsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    disableMobilePushNotificationsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, sending from a mobile application is disabled.
      *
@@ -4505,9 +5246,10 @@ export interface AccountSettingsInformation {
     disableMobileSending?: string | undefined;
     /**
      * Metadata that indicates whether the `disableMobileSending` property is editable.
-     *
      */
-    disableMobileSendingMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    disableMobileSendingMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, account users cannot be logged into multiple sessions at the same time.
      *
@@ -4516,40 +5258,46 @@ export interface AccountSettingsInformation {
     disableMultipleSessions?: string | undefined;
     /**
      * Metadata that indicates whether the `disableMultipleSessions` property is editable.
-     *
      */
-    disableMultipleSessionsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    disableMultipleSessionsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
-    disablePurgeNotificationsForSenderMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    disablePurgeNotificationsForSenderMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, signers cannot view certificates of completion.
      */
     disableSignerCertView?: string | undefined;
     /**
      * Metadata that indicates whether the `disableSignerCertView` property is editable.
-     *
      */
-    disableSignerCertViewMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    disableSignerCertViewMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, signers cannot view envelope history.
      */
     disableSignerHistoryView?: string | undefined;
     /**
      * Metadata that indicates whether the `disableSignerHistoryView` property is editable.
-     *
      */
-    disableSignerHistoryViewMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    disableSignerHistoryViewMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, the **Select Style** option is hidden from signers and they must draw their signature instead.
      */
     disableStyleSignature?: string | undefined;
     /**
      * Metadata that indicates whether the `disableStyleSignature` property is editable.
-     *
      */
-    disableStyleSignatureMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    disableStyleSignatureMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, signers cannot upload custom image files of their signature and initials.
      *
@@ -4558,27 +5306,30 @@ export interface AccountSettingsInformation {
     disableUploadSignature?: string | undefined;
     /**
      * Metadata that indicates whether the `disableUploadSignature` property is editable.
-     *
      */
-    disableUploadSignatureMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    disableUploadSignatureMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, the User Sharing feature is disabled for the account.
      */
     disableUserSharing?: string | undefined;
     /**
      * Metadata that indicates whether the `disableUserSharing` property is editable.
-     *
      */
-    disableUserSharingMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    disableUserSharingMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Boolean that specifies whether to display a Beta switch for your app.
      */
     displayBetaSwitch?: string | undefined;
     /**
      * Metadata that indicates whether the `displayBetaSwitch` property is editable.
-     *
      */
-    displayBetaSwitchMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    displayBetaSwitchMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Sets the account document upload restriction for non-account administrators. Valid values are:
      *
@@ -4587,14 +5338,14 @@ export interface AccountSettingsInformation {
      * - `no_upload`: Non-administrators cannot upload files.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     documentConversionRestrictions?: string | undefined;
     /**
      * Metadata that indicates whether the `documentConversionRestrictions` property is editable.
-     *
      */
-    documentConversionRestrictionsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    documentConversionRestrictionsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Sets a document retention period, which controls the number of days that DocuSign retains documents after they have reached a completed,declined, or voided state.
      * When document retention is enabled for the account, the default value is `356` days.
@@ -4602,9 +5353,10 @@ export interface AccountSettingsInformation {
     documentRetention?: string | undefined;
     /**
      * Metadata that indicates whether the `documentRetention` property is editable.
-     *
      */
-    documentRetentionMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    documentRetentionMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true** and `documentRetention` is set, document fields and metadata are also purged after the document retention period ends.
      * The default value is **false**.
@@ -4629,9 +5381,10 @@ export interface AccountSettingsInformation {
     documentVisibility?: string | undefined;
     /**
      * Metadata that indicates whether the `documentVisibility` property is editable.
-     *
      */
-    documentVisibilityMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    documentVisibilityMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Specifies the version of the email templates used in an account. If new signing is selected in a member's Admin page, the user is updated to the newest version (1.1),
      * the minimum version of email supported for the account.
@@ -4639,36 +5392,40 @@ export interface AccountSettingsInformation {
     emailTemplateVersion?: string | undefined;
     /**
      * Metadata that indicates whether the `emailTemplateVersion` property is editable.
-     *
      */
-    emailTemplateVersionMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    emailTemplateVersionMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, enables Access Code Generator on the account.
      */
     enableAccessCodeGenerator?: string | undefined;
     /**
      * Metadata that indicates whether the `enableAccessCodeGenerator` property is editable.
-     *
      */
-    enableAccessCodeGeneratorMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableAccessCodeGeneratorMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, enables Advanced Payments for the account.
      */
     enableAdvancedPayments?: string | undefined;
     /**
      * Metadata that indicates whether the `enableAdvancedPayments` property is editable.
-     *
      */
-    enableAdvancedPaymentsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableAdvancedPaymentsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, enables advanced PowerForms for the account.
      */
     enableAdvancedPowerForms?: string | undefined;
     /**
      * Metadata that indicates whether the `enableAdvancedPowerForms` property is editable.
-     *
      */
-    enableAdvancedPowerFormsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableAdvancedPowerFormsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, enables the account to set the AutoNav rule setting, which enables a sender to override the auto-navigation setting per envelope.
      *
@@ -4677,9 +5434,10 @@ export interface AccountSettingsInformation {
     enableAutoNav?: string | undefined;
     /**
      * Metadata that indicates whether the `enableAutoNav` property is editable.
-     *
      */
-    enableAutoNavMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableAutoNavMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, calculated fields are enabled for the account.
      *
@@ -4688,9 +5446,10 @@ export interface AccountSettingsInformation {
     enableCalculatedFields?: string | undefined;
     /**
      * Metadata that indicates whether the `enableCalculatedFields` property is editable.
-     *
      */
-    enableCalculatedFieldsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableCalculatedFieldsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Boolean that specifies whether clickwraps are enabled in your app. A [clickwrap](https://developers.docusign.com/click-api/guides/)
      * is an iframe that you embed in your own website or app.
@@ -4698,31 +5457,36 @@ export interface AccountSettingsInformation {
     enableClickwraps?: string | undefined;
     /**
      * Metadata that indicates whether the `enableClickwraps` property is editable.
-     *
      */
-    enableClickwrapsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableClickwrapsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     enableCommentsHistoryDownloadInSigning?: string | undefined;
 
-    enableCommentsHistoryDownloadInSigningMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableCommentsHistoryDownloadInSigningMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, enables customer satisfaction metric tracking for the account.
      */
     enableCustomerSatisfactionMetricTracking?: string | undefined;
     /**
      * Metadata that indicates whether the `enableCustomerSatisfactionMetricTracking` property is editable.
-     *
      */
-    enableCustomerSatisfactionMetricTrackingMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableCustomerSatisfactionMetricTrackingMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
     enableDSPro?: string | undefined;
     /**
      * Metadata that indicates whether the `enableDSPro` property is editable.
-     *
      */
-    enableDSProMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableDSProMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, enables the account administrator to control envelope stamping for an account (stamping the `envelopeId` in the the document margins).
      *
@@ -4731,22 +5495,26 @@ export interface AccountSettingsInformation {
     enableEnvelopeStampingByAccountAdmin?: string | undefined;
     /**
      * Metadata that indicates whether the `enableEnvelopeStampingByAccountAdmin` property is editable.
-     *
      */
-    enableEnvelopeStampingByAccountAdminMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableEnvelopeStampingByAccountAdminMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, enables the DocuSign administrator to control envelope stamping for an account (placement of the `envelopeId`).
      */
     enableEnvelopeStampingByDSAdmin?: string | undefined;
     /**
      * Metadata that indicates whether the `enableEnvelopeStampingByDSAdmin` property is editable.
-     *
      */
-    enableEnvelopeStampingByDSAdminMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableEnvelopeStampingByDSAdminMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     enableInBrowserEditor?: string | undefined;
 
-    enableInBrowserEditorMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableInBrowserEditorMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, payment processing is enabled for this account.
      *
@@ -4755,9 +5523,10 @@ export interface AccountSettingsInformation {
     enablePaymentProcessing?: string | undefined;
     /**
      * Metadata that indicates whether the `enablePaymentProcessing` property is editable.
-     *
      */
-    enablePaymentProcessingMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enablePaymentProcessingMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, enables PowerForms for the account.
      *
@@ -4772,23 +5541,26 @@ export interface AccountSettingsInformation {
     enablePowerFormDirect?: string | undefined;
     /**
      * Metadata that indicates whether the `enablePowerFormDirect` property is editable.
-     *
      */
-    enablePowerFormDirectMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enablePowerFormDirectMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Metadata that indicates whether the `enablePowerForm` property is editable.
-     *
      */
-    enablePowerFormMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enablePowerFormMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
     enableRecipientDomainValidation?: string | undefined;
     /**
      * Metadata that indicates whether the `enableRecipientDomainValidation` property is editable.
-     *
      */
-    enableRecipientDomainValidationMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableRecipientDomainValidationMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Enables direct links to envelopes in reports for administrators in the following scopes:
      * - `NoEnvelopes`
@@ -4798,21 +5570,22 @@ export interface AccountSettingsInformation {
     enableReportLinks?: string | undefined;
     /**
      * Metadata that indicates whether the `enableReportLinks` property is editable.
-     *
      */
-    enableReportLinksMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableReportLinksMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, the account can use the `requireSignOnPaper` option.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     enableRequireSignOnPaper?: string | undefined;
     /**
      * Metadata that indicates whether the `enableRequireSignOnPaper` property is editable.
-     *
      */
-    enableRequireSignOnPaperMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableRequireSignOnPaperMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, account administrators can reserve a web domain and users. Domains are organization-specific reserved internet domains, such as
      * `@exampledomain.com`. You can define policy settings for users of each reserved domain within your organization, export lists of domain users for audit purposes,
@@ -4828,76 +5601,82 @@ export interface AccountSettingsInformation {
     enableReservedDomain?: string | undefined;
     /**
      * Metadata that indicates whether the `enableReservedDomain` property is editable.
-     *
      */
-    enableReservedDomainMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableReservedDomainMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, enables responsive signing.
      */
     enableResponsiveSigning?: string | undefined;
     /**
      * Metadata that indicates whether the `enableResponsiveSigning` property is editable.
-     *
      */
-    enableResponsiveSigningMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableResponsiveSigningMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, scheduled releases are enabled. The default value is **false**.
      */
     enableScheduledRelease?: string | undefined;
     /**
      * Metadata that indicates whether the `enableScheduledRelease` property is editable.
-     *
      */
-    enableScheduledReleaseMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableScheduledReleaseMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     enableSearchUI?: string | undefined;
 
-    enableSearchUIMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableSearchUIMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, enables fonts to be set on tags for the account.
      */
     enableSendingTagsFontSettings?: string | undefined;
     /**
      * Metadata that indicates whether the `enableSendingTagsFontSettings` property is editable.
-     *
      */
-    enableSendingTagsFontSettingsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableSendingTagsFontSettingsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, this account can use the Agent recipient type.
      *
      * **Note**: Only SysAdmin users can change this setting.
-     *
      */
     enableSendToAgent?: string | undefined;
     /**
      * Metadata that indicates whether the `enableSendToAgent` property is editable.
-     *
      */
-    enableSendToAgentMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableSendToAgentMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, this account can use the Intermediary recipient type.
      *
      * **Note**: Only Admin users can change this setting, and only if `allowSendToIntermediary` is set.
-     *
      */
     enableSendToIntermediary?: string | undefined;
     /**
      * Metadata that indicates whether the `enableSendToIntermediary` property is editable.
-     *
      */
-    enableSendToIntermediaryMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableSendToIntermediaryMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, this account can use the Editor recipient type.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     enableSendToManage?: string | undefined;
     /**
      * Metadata that indicates whether the `enableSendToManage` property is editable.
-     *
      */
-    enableSendToManageMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableSendToManageMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, the account can define the routing
      * order of recipients for envelopes sent by using the DocuSign API.
@@ -4907,22 +5686,23 @@ export interface AccountSettingsInformation {
     enableSequentialSigningAPI?: string | undefined;
     /**
      * Metadata that indicates whether the `enableSequentialSigningAPI` property is editable.
-     *
      */
-    enableSequentialSigningAPIMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableSequentialSigningAPIMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, the account can define the routing order
      * of recipients for envelopes sent by using the DocuSign application.
      *
      * **Note**: Only SysAdmin users can change this setting.
-     *
      */
     enableSequentialSigningUI?: string | undefined;
     /**
      * Metadata that indicates whether the `enableSequentialSigningUI` property is editable.
-     *
      */
-    enableSequentialSigningUIMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableSequentialSigningUIMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, users can use the signing attachments feature to request attachments from signers.
      *
@@ -4931,9 +5711,10 @@ export interface AccountSettingsInformation {
     enableSignerAttachments?: string | undefined;
     /**
      * Metadata that indicates whether the `enableSignerAttachments` property is editable.
-     *
      */
-    enableSignerAttachmentsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableSignerAttachmentsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, enables comments for the account so that signers and recipients can make and respond to comments in documents
      * belonging to the envelopes that they are sent.
@@ -4941,39 +5722,42 @@ export interface AccountSettingsInformation {
     enableSigningExtensionComments?: string | undefined;
     /**
      * Metadata that indicates whether the `enableSigningExtensionComments` property is editable.
-     *
      */
-    enableSigningExtensionCommentsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableSigningExtensionCommentsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, enables conversation functionality.
      */
     enableSigningExtensionConversations?: string | undefined;
     /**
      * Metadata that indicates whether the `enableSigningExtensionConversations` property is editable.
-     *
      */
-    enableSigningExtensionConversationsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableSigningExtensionConversationsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, switches Signing Order to On by default for new envelopes.
      */
     enableSigningOrderSettingsForAccount?: string | undefined;
     /**
      * Metadata that indicates whether the `enableSigningOrderSettingsForAccount` property is editable.
-     *
      */
-    enableSigningOrderSettingsForAccountMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableSigningOrderSettingsForAccountMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, a sender can allow signers to use the sign on paper option.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     enableSignOnPaper?: string | undefined;
     /**
      * Metadata that indicates whether the `enableSignOnPaper` property is editable.
-     *
      */
-    enableSignOnPaperMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableSignOnPaperMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, a user can override the default default account setting for the Sign on Paper option, which specifies whether
      * signers can sign documents on paper as an option to signing electronically.
@@ -4983,9 +5767,10 @@ export interface AccountSettingsInformation {
     enableSignOnPaperOverride?: string | undefined;
     /**
      * Metadata that indicates whether the `enableSignOnPaperOverride` property is editable.
-     *
      */
-    enableSignOnPaperOverrideMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableSignOnPaperOverrideMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, Sign with Notary functionality is enabled for the account.
      *
@@ -4994,9 +5779,10 @@ export interface AccountSettingsInformation {
     enableSignWithNotary?: string | undefined;
     /**
      * Metadata that indicates whether the `enableSignWithNotary` property is editable.
-     *
      */
-    enableSignWithNotaryMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableSignWithNotaryMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, blockchain-based [Smart Contracts](https://www.docusign.com/products/blockchain) are enabled. The default value is **false**.
      */
@@ -5004,19 +5790,21 @@ export interface AccountSettingsInformation {
     /**
      * Metadata that indicates whether the `enableSmartContracts` property is editable.
      */
-    enableSmartContractsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableSmartContractsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, the account can use SMS authentication.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     enableSMSAuthentication?: string | undefined;
     /**
      * Metadata that indicates whether the `enableSMSAuthentication` property is editable.
-     *
      */
-    enableSMSAuthenticationMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableSMSAuthenticationMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Deprecated.
      */
@@ -5024,16 +5812,19 @@ export interface AccountSettingsInformation {
     /**
      * Deprecated.
      */
-    enableSocialIdLoginMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableSocialIdLoginMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, enables strikethrough formatting in documents.
      */
     enableStrikeThrough?: string | undefined;
     /**
      * Metadata that indicates whether the `enableStrikeThrough` property is editable.
-     *
      */
-    enableStrikeThroughMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableStrikeThroughMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -5041,34 +5832,39 @@ export interface AccountSettingsInformation {
     /**
      * Reserved for DocuSign.
      */
-    enableTransactionPointMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableTransactionPointMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, Vaulting is enabled for the account.
      */
     enableVaulting?: string | undefined;
     /**
      * Metadata that indicates whether the `enableVaulting` property is editable.
-     *
      */
-    enableVaultingMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableVaultingMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
     enableWitnessing?: string | undefined;
     /**
      * Metadata that indicates whether the `enableWitnessing` property is editable.
-     *
      */
-    enableWitnessingMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableWitnessingMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, the template name must be unique.
      */
     enforceTemplateNameUniqueness?: string | undefined;
     /**
      * Metadata that indicates whether the `enforceTemplateNameUniqueness` property is editable.
-     *
      */
-    enforceTemplateNameUniquenessMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enforceTemplateNameUniquenessMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Shows the envelope integration rule for the account, which indicates whether custom admins can enable Connect for their accounts. Enumeration values are:
      *
@@ -5080,9 +5876,10 @@ export interface AccountSettingsInformation {
     envelopeIntegrationAllowed?: string | undefined;
     /**
      * Metadata that indicates whether the `envelopeIntegrationAllowed` property is editable.
-     *
      */
-    envelopeIntegrationAllowedMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    envelopeIntegrationAllowedMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, enables Connect for an account. Note that Connect integration requires additional configuration that must be set up for it to take effect;
      * this switch is only the on/off control for the account.
@@ -5092,9 +5889,10 @@ export interface AccountSettingsInformation {
     envelopeIntegrationEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `envelopeIntegrationEnabled` property is editable.
-     *
      */
-    envelopeIntegrationEnabledMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    envelopeIntegrationEnabledMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, envelopes sent by this account automatically have the envelope ID stamped in the document margins, unless the sender selects not
      * to have the documents stamped.
@@ -5102,9 +5900,10 @@ export interface AccountSettingsInformation {
     envelopeStampingDefaultValue?: string | undefined;
     /**
      * Metadata that indicates whether the `envelopeStampingDefaultValue` property is editable.
-     *
      */
-    envelopeStampingDefaultValueMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    envelopeStampingDefaultValueMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Boolean that specifies whether a member of an account can express send (without tags) or must send with tags on documents.
      */
@@ -5116,18 +5915,22 @@ export interface AccountSettingsInformation {
     expressSendAllowTabs?: string | undefined;
     /**
      * Metadata that indicates whether the `expressSendAllowTabs` property is editable.
-     *
      */
-    expressSendAllowTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    expressSendAllowTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Metadata that indicates whether the `expressSend` property is editable.
-     *
      */
-    expressSendMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    expressSendMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * A list of external document sources such as DropBox and OneDrive.
      */
-    externalDocumentSources?: /* A complex object specifying the external document sources. */ ExternalDocumentSources | undefined;
+    externalDocumentSources?:
+        | /* A complex object specifying the external document sources. */ ExternalDocumentSources
+        | undefined;
     /**
      * Specifies the signature pad type.
      * Valid values are:
@@ -5139,14 +5942,14 @@ export interface AccountSettingsInformation {
      * - `topaz_sigplusextlite`
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     externalSignaturePadType?: string | undefined;
     /**
      * Metadata that indicates whether the `externalSignaturePadType` property is editable.
-     *
      */
-    externalSignaturePadTypeMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    externalSignaturePadTypeMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, fax delivery to recipients is allowed for the account.
      *
@@ -5155,37 +5958,44 @@ export interface AccountSettingsInformation {
     faxOutEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `faxOutEnabled` property is editable.
-     *
      */
-    faxOutEnabledMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    faxOutEnabledMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, HTML used to implement [Guided Forms](https://www.docusign.com/products/guided-forms) is enabled for the account.
      */
     guidedFormsHtmlAllowed?: string | undefined;
 
-    guidedFormsHtmlAllowedMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    guidedFormsHtmlAllowedMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Boolean that specifies whether to hide the account address in the Certificate of Completion.
      */
     hideAccountAddressInCoC?: string | undefined;
     /**
      * Metadata that indicates whether the `hideAccountAddressInCoC` property is editable.
-     *
      */
-    hideAccountAddressInCoCMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    hideAccountAddressInCoCMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Boolean that specifies whether to hide the pricing functionality for an account.
      */
     hidePricing?: string | undefined;
     /**
      * Metadata that indicates whether the `hidePricing` property is editable.
-     *
      */
-    hidePricingMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    hidePricingMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * A list of ID check configuration objects.
      */
-    idCheckConfigurations?: /* A complex object specifying ID check configuration. */ IdCheckConfiguration[] | undefined;
+    idCheckConfigurations?:
+        | /* A complex object specifying ID check configuration. */ IdCheckConfiguration[]
+        | undefined;
     /**
      * Determines when a user's authentication with the account expires. Valid values are:
      *
@@ -5203,23 +6013,26 @@ export interface AccountSettingsInformation {
     idCheckExpireDays?: string | undefined;
     /**
      * Metadata that indicates whether the `idCheckExpireDays` property is editable.
-     *
      */
-    idCheckExpireDaysMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    idCheckExpireDaysMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Metadata that indicates whether the `idCheckExpire` property is editable.
-     *
      */
-    idCheckExpireMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    idCheckExpireMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * The number of minutes before user authentication credentials expire.
      */
     idCheckExpireMinutes?: string | undefined;
     /**
      * Metadata that indicates whether the `idCheckExpireMinutes` property is editable.
-     *
      */
-    idCheckExpireMinutesMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    idCheckExpireMinutesMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Indicates if authentication is configured for the account. Valid values are:
      *
@@ -5232,16 +6045,20 @@ export interface AccountSettingsInformation {
     idCheckRequired?: string | undefined;
     /**
      * Metadata that indicates whether the `idCheckRequired` property is editable.
-     *
      */
-    idCheckRequiredMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    idCheckRequiredMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
-    identityVerification?: /* Specifies an Identity Verification workflow. */ AccountIdentityVerificationWorkflow[] | undefined;
+    identityVerification?:
+        | /* Specifies an Identity Verification workflow. */ AccountIdentityVerificationWorkflow[]
+        | undefined;
     /**
      * Metadata that indicates whether the `identityVerification` property is editable.
-     *
      */
-    identityVerificationMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    identityVerificationMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -5249,7 +6066,9 @@ export interface AccountSettingsInformation {
     /**
      * Reserved for DocuSign.
      */
-    ignoreErrorIfAnchorTabNotFoundMetadataEnabled?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    ignoreErrorIfAnchorTabNotFoundMetadataEnabled?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * A text field containing the question that an in-person signing host uses to collect personal information from the recipient.
      * The recipient's response to this question is saved and can be viewed in the certificate associated with the envelope.
@@ -5259,18 +6078,20 @@ export interface AccountSettingsInformation {
     inPersonIDCheckQuestion?: string | undefined;
     /**
      * Metadata that indicates whether the `inPersonIDCheckQuestion` property is editable.
-     *
      */
-    inPersonIDCheckQuestionMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    inPersonIDCheckQuestionMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, in-person signing is enabled for the account.
      */
     inPersonSigningEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `inPersonSigningEnabled` property is editable.
-     *
      */
-    inPersonSigningEnabledMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    inPersonSigningEnabledMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, the account can send in-session (embedded) envelopes.
      *
@@ -5279,9 +6100,10 @@ export interface AccountSettingsInformation {
     inSessionEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `inSessionEnabled` property is editable.
-     *
      */
-    inSessionEnabledMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    inSessionEnabledMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, emails are not sent to the in-session (embedded) recipients on an envelope.
      *
@@ -5290,9 +6112,10 @@ export interface AccountSettingsInformation {
     inSessionSuppressEmails?: string | undefined;
     /**
      * Metadata that indicates whether the `inSessionSuppressEmails` property is editable.
-     *
      */
-    inSessionSuppressEmailsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    inSessionSuppressEmailsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * The maximum number of signing groups allowed on the account. The default value is `50`. This setting is only shown in responses that list account settings.
      *
@@ -5301,9 +6124,10 @@ export interface AccountSettingsInformation {
     maximumSigningGroups?: string | undefined;
     /**
      * Metadata that indicates whether the `maximumSigningGroups` property is editable.
-     *
      */
-    maximumSigningGroupsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    maximumSigningGroupsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * The maximum number of users per signing group. The default value is `50`. This setting is only shown in responses that list account settings.
      *
@@ -5312,9 +6136,10 @@ export interface AccountSettingsInformation {
     maximumUsersPerSigningGroup?: string | undefined;
     /**
      * Metadata that indicates whether the `maximumUsersPerSigningGroup` property is editable.
-     *
      */
-    maximumUsersPerSigningGroupMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    maximumUsersPerSigningGroupMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * The maximum number of custom stamps.
      */
@@ -5327,9 +6152,10 @@ export interface AccountSettingsInformation {
     mobileSessionTimeout?: string | undefined;
     /**
      * Metadata that indicates whether the `mobileSessionTimeout` property is editable.
-     *
      */
-    mobileSessionTimeoutMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    mobileSessionTimeoutMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * The number of active custom stamps associated with the account. DocuSign calculates this number automatically. This property is only visible to the DocuSign account manager.
      */
@@ -5340,27 +6166,30 @@ export interface AccountSettingsInformation {
     optInMobileSigningV02?: string | undefined;
     /**
      * Metadata that indicates whether the `optInMobileSigningV02` property is editable.
-     *
      */
-    optInMobileSigningV02Metadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    optInMobileSigningV02Metadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Boolean that allows envelope senders to opt out of the recipient signing auto-navigation feature and opt out of updating tab font color.
      */
     optOutAutoNavTextAndTabColorUpdates?: string | undefined;
     /**
      * Metadata that indicates whether the `optOutAutoNavTextAndTabColorUpdates` property is editable.
-     *
      */
-    optOutAutoNavTextAndTabColorUpdatesMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    optOutAutoNavTextAndTabColorUpdatesMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Boolean that specifies whether to allow envelope senders to opt out of using the new platform seal.
      */
     optOutNewPlatformSeal?: string | undefined;
     /**
      * Metadata that indicates whether the `optOutNewPlatformSealPlatform` property is editable.
-     *
      */
-    optOutNewPlatformSealPlatformMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    optOutNewPlatformSealPlatformMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, senders can allow recipients to provide a phone number for the Phone Authentication process.
      *
@@ -5369,9 +6198,10 @@ export interface AccountSettingsInformation {
     phoneAuthRecipientMayProvidePhoneNumber?: string | undefined;
     /**
      * Metadata that indicates whether the `phoneAuthRecipientMayProvidePhoneNumber` property is editable.
-     *
      */
-    phoneAuthRecipientMayProvidePhoneNumberMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    phoneAuthRecipientMayProvidePhoneNumberMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * The policy for adding a digital certificate to downloaded, printed, and emailed documents.
      *
@@ -5382,79 +6212,79 @@ export interface AccountSettingsInformation {
      * - `yes_sign` (Specifies that PDF files downloaded from the platform are signed.)
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     pkiSignDownloadedPDFDocs?: string | undefined;
     /**
      * Metadata that indicates whether the `pkiSignDownloadedPDFDocs` property is editable.
-     *
      */
-    pkiSignDownloadedPDFDocsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    pkiSignDownloadedPDFDocsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**,
      * recipients receiving envelopes from this account
      * can sign offline.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     recipientsCanSignOffline?: string | undefined;
     /**
      * Metadata that indicates whether the `recipientsCanSignOffline` property is editable.
-     *
      */
-    recipientsCanSignOfflineMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    recipientsCanSignOfflineMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, recipients receiving envelopes from this account can override auto-navigation functionality.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     recipientSigningAutoNavigationControl?: string | undefined;
     /**
      * Metadata that indicates whether the `recipientSigningAutoNavigationControl` property is editable.
-     *
      */
-    recipientSigningAutoNavigationControlMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    recipientSigningAutoNavigationControlMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**,
      * recipients are required
      * to use a 21 CFR part 11-compliant signing experience.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     require21CFRpt11Compliance?: string | undefined;
     /**
      * Metadata that indicates whether the `require21CFRpt11Compliance` property is editable.
-     *
      */
-    require21CFRpt11ComplianceMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    require21CFRpt11ComplianceMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, signers who decline to sign an envelope sent from this account
      * are required to provide a reason for declining.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     requireDeclineReason?: string | undefined;
     /**
      * Metadata that indicates whether the `requireDeclineReason` property is editable.
-     *
      */
-    requireDeclineReasonMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    requireDeclineReasonMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, the account requires external management of users.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     requireExternalUserManagement?: string | undefined;
     /**
      * Metadata that indicates whether the `requireExternalUserManagement` property is editable.
-     *
      */
-    requireExternalUserManagementMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    requireExternalUserManagementMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Sets the Digital Signature certificate requirements for sending envelopes.
      * Valid values are:
@@ -5464,14 +6294,14 @@ export interface AccountSettingsInformation {
      * - `docusign_personal`: Signers must use a DocuSign personal certificate.
      * - `safe`
      * - `open_trust`: Signers must use an OpenTrust certificate.
-     *
      */
     requireSignerCertificateType?: string | undefined;
     /**
      * Metadata that indicates whether the `requireSignerCertificateType` property is editable.
-     *
      */
-    requireSignerCertificateTypeMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    requireSignerCertificateTypeMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * The RSA account name.
      *
@@ -5479,18 +6309,15 @@ export interface AccountSettingsInformation {
      * Only Admin users can change this setting. Modifying this value may disrupt
      * your ID Check capability.
      * Ensure you have the correct value before changing it.
-     *
      */
     rsaVeridAccountName?: string | undefined;
     /**
      * The password for the RSA account.
      *
-     *
      * **Note**:
      * Only Admin users can change this setting. Modifying this value may disrupt
      * your ID Check capability.
      * Ensure you have the correct value before changing it.
-     *
      */
     rsaVeridPassword?: string | undefined;
     /**
@@ -5500,7 +6327,6 @@ export interface AccountSettingsInformation {
      * Only Admin users can change this setting. Modifying this value may disrupt
      * your ID Check capability.
      * Ensure you have the correct value before changing it.
-     *
      */
     rsaVeridRuleset?: string | undefined;
     /**
@@ -5510,7 +6336,6 @@ export interface AccountSettingsInformation {
      * Only Admin users can change this setting. Modifying this value may disrupt
      * your ID Check capability.
      * Ensure you have the correct value before changing it.
-     *
      */
     rsaVeridUserId?: string | undefined;
     /**
@@ -5522,55 +6347,55 @@ export interface AccountSettingsInformation {
      *    in the email.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     selfSignedRecipientEmailDocument?: string | undefined;
     /**
      * Metadata that indicates whether the `selfSignedRecipientEmailDocument` property is editable.
-     *
      */
-    selfSignedRecipientEmailDocumentMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    selfSignedRecipientEmailDocumentMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, the `selfSignedRecipientEmailDocument` user setting
      * can be set for an individual user.
      * The user setting overrides the account setting.
      *
      * **Note**: Only Admin users can change this account setting.
-     *
      */
     selfSignedRecipientEmailDocumentUserOverride?: string | undefined;
     /**
      * Metadata that indicates whether the `selfSignedRecipientEmailDocumentUserOverride` property is editable.
-     *
      */
-    selfSignedRecipientEmailDocumentUserOverrideMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    selfSignedRecipientEmailDocumentUserOverrideMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, a signer can draw their signature in each
      * location where a sign or initial tab exists. This functionality
      * is typically used for mobile signing.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     senderCanSignInEachLocation?: string | undefined;
     /**
      * Metadata that indicates whether the `senderCanSignInEachLocation` property is editable.
-     *
      */
-    senderCanSignInEachLocationMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    senderCanSignInEachLocationMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, a sender who is also a recipient of an envelope
      * must follow the authentication requirements for the envelope.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     senderMustAuthenticateSigning?: string | undefined;
     /**
      * Metadata that indicates whether the `senderMustAuthenticateSigning` property is editable.
-     *
      */
-    senderMustAuthenticateSigningMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    senderMustAuthenticateSigningMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * The account-wide default font color to use for the content of the tab.
      *
@@ -5586,14 +6411,14 @@ export interface AccountSettingsInformation {
      * - `NavyBlue`
      * - `Purple`
      * - `White`
-     *
      */
     sendingTagsFontColor?: string | undefined;
     /**
      * Metadata that indicates whether the `sendingTagsFontColor` property is editable.
-     *
      */
-    sendingTagsFontColorMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    sendingTagsFontColorMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * The account-wide default font to be used for the tab value. Supported fonts include:
      *
@@ -5617,9 +6442,10 @@ export interface AccountSettingsInformation {
     sendingTagsFontName?: string | undefined;
     /**
      * Metadata that indicates whether the `sendingTagsFontName` property is editable.
-     *
      */
-    sendingTagsFontNameMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    sendingTagsFontNameMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * The account-wide default font size used for the information in the tab:
      *
@@ -5644,44 +6470,45 @@ export interface AccountSettingsInformation {
     sendingTagsFontSize?: string | undefined;
     /**
      * Metadata that indicates whether the `sendingTagsFontSize` property is editable.
-     *
      */
-    sendingTagsFontSizeMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    sendingTagsFontSizeMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When true,
      * the account can use the
      * certified deliveries recipient type.
-     *
      */
     sendToCertifiedDeliveryEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `sendToCertifiedDeliveryEnabled` property is editable.
-     *
      */
-    sendToCertifiedDeliveryEnabledMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    sendToCertifiedDeliveryEnabledMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * The amount of idle activity time, in minutes, before a user is automatically logged out of the system. The minimum setting is 20 minutes and the maximum setting is 120 minutes.
-     *
      */
     sessionTimeout?: string | undefined;
     /**
      * Metadata that indicates whether the `sessionTimeout` property is editable.
-     *
      */
-    sessionTimeoutMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    sessionTimeoutMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, senders can set the email language to use for
      * each recipient.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     setRecipEmailLang?: string | undefined;
     /**
      * Metadata that indicates whether the `setRecipEmailLang` property is editable.
-     *
      */
-    setRecipEmailLangMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    setRecipEmailLangMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * If **true**,
      * setting a unique language for a recipient
@@ -5691,76 +6518,83 @@ export interface AccountSettingsInformation {
      * recipient.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     setRecipSignLang?: string | undefined;
     /**
      * Metadata that indicates whether the `setRecipSignLang` property is editable.
-     *
      */
-    setRecipSignLangMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    setRecipSignLangMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Boolean that specifies whether an account can use Shared Template Folders.
      */
     sharedTemplateFolders?: string | undefined;
     /**
      * Metadata that indicates whether the `sharedTemplateFolders` property is editable.
-     *
      */
-    sharedTemplateFoldersMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    sharedTemplateFoldersMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Boolean that specifies whether complete dialogs are displayed directly within an application in embedded signing sessions.
      */
     showCompleteDialogInEmbeddedSession?: string | undefined;
     /**
      * Metadata that indicates whether the `showCompleteDialogInEmbeddedSession` property is editable.
-     *
      */
-    showCompleteDialogInEmbeddedSessionMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    showCompleteDialogInEmbeddedSessionMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, Conditional Routing options display to senders during the sending experience.
      */
     showConditionalRoutingOnSend?: string | undefined;
 
-    showConditionalRoutingOnSendMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    showConditionalRoutingOnSendMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Boolean that specifies whether conditional field options are initially displayed (before a user makes entries).
      */
     showInitialConditionalFields?: string | undefined;
     /**
      * Metadata that indicates whether the `showInitialConditionalFields` property is editable.
-     *
      */
-    showInitialConditionalFieldsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    showInitialConditionalFieldsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Boolean that specifies whether localized watermarks are displayed.
      */
     showLocalizedWatermarks?: string | undefined;
     /**
      * Metadata that indicates whether the `showLocalizedWatermarks` property is editable.
-     *
      */
-    showLocalizedWatermarksMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    showLocalizedWatermarksMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * If **true**,
      * show tutorials.
-     *
      */
     showTutorials?: string | undefined;
     /**
      * Metadata that indicates whether the `showTutorials` property is editable.
-     *
      */
-    showTutorialsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    showTutorialsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Names of electronic or digital signature providers that can be used.
      */
     signatureProviders?: string[] | undefined;
     /**
      * Metadata that indicates whether the `signatureProviders` property is editable.
-     *
      */
-    signatureProvidersMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    signatureProvidersMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * The format for the signature date. Valid values are:
      *
@@ -5784,28 +6618,28 @@ export interface AccountSettingsInformation {
      * - `yyyy MMMM d`
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     signDateFormat?: string | undefined;
     /**
      * Metadata that indicates whether the `signDateFormat` property is editable.
-     *
      */
-    signDateFormatMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    signDateFormatMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**,
      * the Certificate of Completion is included in the PDF of the envelope documents
      * when it is downloaded.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     signerAttachCertificateToEnvelopePDF?: string | undefined;
     /**
      * Metadata that indicates whether the `signerAttachCertificateToEnvelopePDF` property is editable.
-     *
      */
-    signerAttachCertificateToEnvelopePDFMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    signerAttachCertificateToEnvelopePDFMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, signer attachments are added to the parent document
      * that contains the attachment.
@@ -5813,54 +6647,54 @@ export interface AccountSettingsInformation {
      * a new document in the envelope for every signer attachment.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     signerAttachConcat?: string | undefined;
     /**
      * Metadata that indicates whether the `signerAttachConcat` property is editable.
-     *
      */
-    signerAttachConcatMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    signerAttachConcatMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**,
      * a signer can create a DocuSign account
      * after signing.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     signerCanCreateAccount?: string | undefined;
     /**
      * Metadata that indicates whether the `signerCanCreateAccount` property is editable.
-     *
      */
-    signerCanCreateAccountMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    signerCanCreateAccountMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, recipients can sign on a mobile device.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     signerCanSignOnMobile?: string | undefined;
     /**
      * Metadata that indicates whether the `signerCanSignOnMobile` property is editable.
-     *
      */
-    signerCanSignOnMobileMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    signerCanSignOnMobileMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, an "envelope complete" email is sent to an in-session
      * (embedded) or offline signer after DocuSign processes the envelope
      * if in-session emails are not suppressed.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     signerInSessionUseEnvelopeCompleteEmail?: string | undefined;
     /**
      * Metadata that indicates whether the `signerInSessionUseEnvelopeCompleteEmail` property is editable.
-     *
      */
-    signerInSessionUseEnvelopeCompleteEmailMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    signerInSessionUseEnvelopeCompleteEmailMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Sets the login requirements for signers. Valid values are:
      *
@@ -5873,79 +6707,79 @@ export interface AccountSettingsInformation {
      *   who does not have a DocuSign account, and the signer must also log in for
      *   each envelope they will sign.
      *
-     *
      * **Note**: Only Admin users can change this setting. If you use Direct PowerForms
      * or captive (embedded signers), the "Account required" settings are bypassed for
      * those signers. If your workflow requires that the signer have an account,
      * you should not use those methods.
-     *
      */
     signerLoginRequirements?: string | undefined;
     /**
      * Metadata that indicates whether the `signerLoginRequirements` property is editable.
-     *
      */
-    signerLoginRequirementsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    signerLoginRequirementsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, senders can only send an envelope to a recipient
      * that has a DocuSign account.
      *
      * **Note**: Only Account Administrators can change this setting.
-     *
      */
     signerMustHaveAccount?: string | undefined;
     /**
      * Metadata that indicates whether the `signerMustHaveAccount` property is editable.
-     *
      */
-    signerMustHaveAccountMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    signerMustHaveAccountMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**,
      * signers must log in to the DocuSign platform to sign an envelope.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     signerMustLoginToSign?: string | undefined;
     /**
      * Metadata that indicates whether the `signerMustLoginToSign` property is editable.
-     *
      */
-    signerMustLoginToSignMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    signerMustLoginToSignMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, the initial values of all SecureFields are written
      * to the document when it is sent.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     signerShowSecureFieldInitialValues?: string | undefined;
     /**
      * Metadata that indicates whether the `signerShowSecureFieldInitialValues` property is editable.
-     *
      */
-    signerShowSecureFieldInitialValuesMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    signerShowSecureFieldInitialValuesMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * The number of minutes
      * that a signing session stays
      * alive without any activity.
-     *
      */
     signingSessionTimeout?: string | undefined;
     /**
      * Metadata that indicates whether the `signingSessionTimeout` property is editable.
-     *
      */
-    signingSessionTimeoutMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    signingSessionTimeoutMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
-     *
      */
     signingUiVersion?: string | undefined;
     /**
      * Reserved for DocuSign.
      */
-    signingUiVersionMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    signingUiVersionMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * The format for the signature time. Valid values are:
      *
@@ -5954,127 +6788,132 @@ export interface AccountSettingsInformation {
      * - `h:mm`
      * - `HH:mm:ss`
      * - `h:mm:ss`
-     *
      */
     signTimeFormat?: string | undefined;
     /**
      * Metadata that indicates whether the `signTimeFormat` property is editable.
-     *
      */
-    signTimeFormatMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    signTimeFormatMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * If **true**,
      * the time shows the AM or PM indicator.
-     *
      */
     signTimeShowAmPm?: string | undefined;
     /**
      * Metadata that indicates whether the `signTimeShowAmPm` property is editable.
-     *
      */
-    signTimeShowAmPmMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    signTimeShowAmPmMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, simplified sending is enabled for the account. The default value is **false**.
      */
     simplifiedSendingEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `simplifiedSendingEnabled` property is editable.
-     *
      */
-    simplifiedSendingEnabledMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    simplifiedSendingEnabledMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * If **true**,
      * single sign-on (SSO) is enabled.
-     *
      */
     singleSignOnEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `singleSignOnEnabled` property is editable.
-     *
      */
-    singleSignOnEnabledMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    singleSignOnEnabledMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * If **true**,
      * do not require authentication prompt for viewing completed envelopes
-     *
      */
     skipAuthCompletedEnvelopes?: string | undefined;
     /**
      * Metadata that indicates whether the `skipAuthCompletedEnvelopes` property is editable.
-     *
      */
-    skipAuthCompletedEnvelopesMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    skipAuthCompletedEnvelopesMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * If **true**,
      * recipients can use
      * [social ids](https://support.docusign.com/guides/signer-authentication)
      * when signing
-     *
      */
     socialIdRecipAuth?: string | undefined;
     /**
      * Metadata that indicates whether the `socialIdRecipAuth` property is editable.
-     *
      */
-    socialIdRecipAuthMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    socialIdRecipAuthMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, senders can specify the visibility of the documents in an envelope at the recipient level.
-     *
      */
     specifyDocumentVisibility?: string | undefined;
     /**
      * Metadata that indicates whether the `specifyDocumentVisibility` property is editable.
-     *
      */
-    specifyDocumentVisibilityMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    specifyDocumentVisibilityMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * If **true**,
      * when initiating correction of an in-flight envelope
      * the sender starts in advanced correct mode.
-     *
      */
     startInAdvancedCorrect?: string | undefined;
     /**
      * Metadata that indicates whether the `startInAdvancedCorrect` property is editable.
-     *
      */
-    startInAdvancedCorrectMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    startInAdvancedCorrectMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, account users must accept supplemental documents when signing.
      */
     supplementalDocumentsMustAccept?: string | undefined;
     /**
      * Metadata that indicates whether the `supplementalDocumentsMustAccept` property is editable.
-     *
      */
-    supplementalDocumentsMustAcceptMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    supplementalDocumentsMustAcceptMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, account users must both view and accept supplemental documents when signing.
      */
     supplementalDocumentsMustRead?: string | undefined;
     /**
      * Metadata that indicates whether the `supplementalDocumentsMustRead` property is editable.
-     *
      */
-    supplementalDocumentsMustReadMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    supplementalDocumentsMustReadMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, account users must view supplemental documents when signing.
      */
     supplementalDocumentsMustView?: string | undefined;
     /**
      * Metadata that indicates whether the `supplementalDocumentsMustView` property is editable.
-     *
      */
-    supplementalDocumentsMustViewMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    supplementalDocumentsMustViewMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Boolean that specifies whether or not API calls require a x509 cert in the header of the call.
      */
     suppressCertificateEnforcement?: string | undefined;
     /**
      * Metadata that indicates whether the `suppressCertificateEnforcement` property is editable.
-     *
      */
-    suppressCertificateEnforcementMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    suppressCertificateEnforcementMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Account-wide tab settings.
      */
@@ -6181,14 +7020,14 @@ export interface AccountSettingsInformation {
      * - `TZ_94_WestAsiaStandardTime`
      * - `TZ_95_WestPacificStandardTime`
      * - `TZ_96_YakutskStandardTime`
-     *
      */
     timezoneOffsetAPI?: string | undefined;
     /**
      * Metadata that indicates whether the `timezoneOffsetAPI` property is editable.
-     *
      */
-    timezoneOffsetAPIMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    timezoneOffsetAPIMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Specifies the time zone
      * to use in the UI.
@@ -6291,193 +7130,197 @@ export interface AccountSettingsInformation {
      * - `TZ_94_WestAsiaStandardTime`
      * - `TZ_95_WestPacificStandardTime`
      * - `TZ_96_YakutskStandardTime`
-     *
      */
     timezoneOffsetUI?: string | undefined;
     /**
      * Metadata that indicates whether the `timezoneOffsetUI` property is editable.
-     *
      */
-    timezoneOffsetUIMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    timezoneOffsetUIMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
-     *
      */
     universalSignatureOptIn?: string | undefined;
     /**
      * Reserved for DocuSign.
-     *
      */
     useAccountLevelEmail?: string | undefined;
     /**
      * Metadata that indicates whether the `useAccountLevelEmail` property is editable.
-     *
      */
-    useAccountLevelEmailMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    useAccountLevelEmailMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, the account uses an Electronic Record and
      * Signature Disclosure Statement.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     useConsumerDisclosure?: string | undefined;
     /**
      * Metadata that indicates whether the `useConsumerDisclosure` property is editable.
-     *
      */
-    useConsumerDisclosureMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    useConsumerDisclosureMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, specifies that recipients in the same account as the sender must agree to eSign an Electronic Record and Signature Disclosure Statement.
      */
     useConsumerDisclosureWithinAccount?: string | undefined;
     /**
      * Metadata that indicates whether the `useConsumerDisclosureWithinAccount` property is editable.
-     *
      */
-    useConsumerDisclosureWithinAccountMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    useConsumerDisclosureWithinAccountMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
-     *
      */
     useDerivedKeys?: string | undefined;
     /**
      * Metadata that indicates whether the `useDerivedKeys` property is editable.
-     *
      */
-    useDerivedKeysMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    useDerivedKeysMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * If **true**,
      * signers
      * are required to use Express Digital Signatures.
-     *
      */
     useDocuSignExpressSignerCertificate?: string | undefined;
     /**
      * Metadata that indicates whether the `useDocuSignExpressSignerCertificate` property is editable.
-     *
      */
-    useDocuSignExpressSignerCertificateMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    useDocuSignExpressSignerCertificateMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     useMultiAppGroupsData?: string | undefined;
 
-    useMultiAppGroupsDataMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    useMultiAppGroupsDataMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
-     *
      */
     useNewBlobForPdf?: string | undefined;
     /**
      * Metadata that indicates whether the `useNewBlobForPdf` property is editable.
-     *
      */
-    useNewBlobForPdfMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    useNewBlobForPdfMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * If **true**,
      * signers are
      * required to use SAFE digital signatures.
-     *
      */
     useSAFESignerCertificates?: string | undefined;
     /**
      * Metadata that indicates whether the `useSAFESignerCertificates` property is editable.
-     *
      */
-    useSAFESignerCertificatesMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    useSAFESignerCertificatesMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**,
      * the account can use the API.
      *
      * **Note**: Only SysAdmin users can change this setting.
-     *
      */
     usesAPI?: string | undefined;
     /**
      * Metadata that indicates whether the `usesAPI` property is editable.
-     *
      */
-    usesAPIMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    usesAPIMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Boolean that specifies whether the account uses the digital signature provider platform to eSign.
      */
     useSignatureProviderPlatform?: string | undefined;
     /**
      * Metadata that indicates whether the `useSignatureProviderPlatform` property is editable.
-     *
      */
-    useSignatureProviderPlatformMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    useSignatureProviderPlatformMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Boolean that specifies whether validations on recipient email domains are allowed.
      */
     validationsAllowed?: string | undefined;
     /**
      * Metadata that indicates whether the `validationsAllowed` property is editable.
-     *
      */
-    validationsAllowedMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    validationsAllowedMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Valid values are:
      *
      * - `docusign`
      * - `account`
-     *
      */
     validationsBrand?: string | undefined;
     /**
      * Metadata that indicates whether the `validationsBrand` property is editable.
-     *
      */
-    validationsBrandMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    validationsBrandMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Valid values are:
      *
      * - `none`
      * - `monthly`
-     *
      */
     validationsCadence?: string | undefined;
     /**
      * Metadata that indicates whether the `validationsCadence` property is editable.
-     *
      */
-    validationsCadenceMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    validationsCadenceMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * If **true**,
      * enables validations.
-     *
      */
     validationsEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `validationsEnabled` property is editable.
-     *
      */
-    validationsEnabledMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    validationsEnabledMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Valid values are:
      *
      * - `none`
      * - `life_sciences_part11`
-     *
      */
     validationsReport?: string | undefined;
     /**
      * Metadata that indicates whether the `validationsReport` property is editable.
-     *
      */
-    validationsReportMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    validationsReportMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * If **true**,
      * the
      * [watermark feature](https://support.docusign.com/en/articles/How-do-I-manage-the-watermark-for-In-Process-envelopes-sent-from-my-account)
      * is enabled for the account.
-     *
      */
     waterMarkEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `waterMarkEnabled` property is editable.
-     *
      */
-    waterMarkEnabledMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    waterMarkEnabledMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * If **true**,
      * sent reminders are included in the envelope history.
@@ -6485,18 +7328,20 @@ export interface AccountSettingsInformation {
     writeReminderToEnvelopeHistory?: string | undefined;
     /**
      * Metadata that indicates whether the `writeReminderToEnvelopeHistory` property is editable.
-     *
      */
-    writeReminderToEnvelopeHistoryMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    writeReminderToEnvelopeHistoryMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * The smallest screen allowed.
      */
     wurflMinAllowableScreenSize?: string | undefined;
     /**
      * Metadata that indicates whether the `wurflMinAllowableScreenSize` property is editable.
-     *
      */
-    wurflMinAllowableScreenSizeMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    wurflMinAllowableScreenSizeMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 }
 /**
  * Contains shared access information.
@@ -6513,7 +7358,9 @@ export interface AccountSharedAccess {
     /**
      * A complex type containing an errorCode and message identifying the error that occurred.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The URI for the next chunk of records based on the search request. It is `null` if this is the last set of results for the search.
      */
@@ -6542,7 +7389,6 @@ export interface AccountSharedAccess {
 /**
  * Contains information abotu the signature provider associated with the Identity Verification workflow.
  * If empty, then this specific workflow is not intended for signers.
- *
  */
 export interface AccountSignatureProvider {
     /**
@@ -6568,8 +7414,6 @@ export interface AccountSignatureProvider {
      * method.
      *
      * Example: `universalsignaturepen_default`
-     *
-     *
      */
     signatureProviderName?: string | undefined;
     /**
@@ -6579,7 +7423,9 @@ export interface AccountSignatureProvider {
     /**
      * Reserved for DocuSign.
      */
-    signatureProviderRequiredOptions?: /* Contains additional information that a specific signature provider requires. */ SignatureProviderRequiredOption[] | undefined;
+    signatureProviderRequiredOptions?:
+        | /* Contains additional information that a specific signature provider requires. */ SignatureProviderRequiredOption[]
+        | undefined;
 }
 /**
  * Reserved for DocuSign.
@@ -6600,7 +7446,6 @@ export interface AccountSignatureProviderOption {
 }
 /**
  * This resource provides information on the Standards Based Signature providers that have been provisioned for an account.
- *
  */
 export interface AccountSignatureProviders {
     /**
@@ -6620,27 +7465,30 @@ export interface AccountTabSettings {
     allowTabOrder?: string | undefined;
     /**
      * Metadata that indicates whether the `allowTabOrder` property is editable.
-     *
      */
-    allowTabOrderMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowTabOrderMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, approve and decline tabs are enabled.
      */
     approveDeclineTabsEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `approveDeclineTabs` property is editable.
-     *
      */
-    approveDeclineTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    approveDeclineTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, [calculated fields](https://support.docusign.com/en/guides/ndse-user-guide-calculated-fields) are enabled for tabs.
      */
     calculatedFieldsEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `calculatedFields` property is editable.
-     *
      */
-    calculatedFieldsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    calculatedFieldsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, checkbox tabs are enabled.
      */
@@ -6648,29 +7496,35 @@ export interface AccountTabSettings {
     /**
      * Metadata that indicates whether the `checkBoxTabs` property is editable.
      */
-    checkBoxTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    checkBoxTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, regular expressions are enabled for tabs that contain data fields.
      */
     dataFieldRegexEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `dataFieldRegex` property is editable.
-     *
      */
-    dataFieldRegexMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    dataFieldRegexMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, setting character limits for input fields is enabled.
      */
     dataFieldSizeEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `dataFieldSize` property is editable.
-     *
      */
-    dataFieldSizeMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    dataFieldSizeMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     drawTabsEnabled?: string | undefined;
 
-    drawTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    drawTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -6678,43 +7532,49 @@ export interface AccountTabSettings {
     /**
      * Reserved for DocuSign.
      */
-    firstLastEmailTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    firstLastEmailTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, list tabs are enabled.
      */
     listTabsEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `listTabs` property is editable.
-     *
      */
-    listTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    listTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, note tabs are enabled.
      */
     noteTabsEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `noteTabs` property is editable.
-     *
      */
-    noteTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    noteTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, radio button tabs are enabled.
      */
     radioTabsEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `radioTabs` property is editable.
-     *
      */
-    radioTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    radioTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, saving custom tabs is enabled.
      */
     savingCustomTabsEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `savingCustomTabs` property is editable.
-     *
      */
-    savingCustomTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    savingCustomTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -6722,29 +7582,32 @@ export interface AccountTabSettings {
     /**
      * Reserved for DocuSign.
      */
-    senderToChangeTabAssignmentsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    senderToChangeTabAssignmentsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, shared custom tabs are enabled.
      */
     sharedCustomTabsEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `sharedCustomTabs` property is editable.
-     *
      */
-    sharedCustomTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    sharedCustomTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, [data
      * labels](https://support.docusign.com/en/videos/Data-Labels) are enabled.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     tabDataLabelEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `tabDataLabel` property is editable.
-     *
      */
-    tabDataLabelMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    tabDataLabelMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -6752,19 +7615,21 @@ export interface AccountTabSettings {
     /**
      * Reserved for DocuSign.
      */
-    tabLocationMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    tabLocationMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, tab locking is enabled.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     tabLockingEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `tabLocking` property is editable.
-     *
      */
-    tabLockingMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    tabLockingMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -6772,30 +7637,33 @@ export interface AccountTabSettings {
     /**
      * Reserved for DocuSign.
      */
-    tabScaleMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    tabScaleMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, text formatting (such as font type, font size,
      * font color, bold, italic, and underline) is enabled for tabs that
      * support formatting.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     tabTextFormattingEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `tabTextFormatting` property is editable.
-     *
      */
-    tabTextFormattingMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    tabTextFormattingMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, text tabs are enabled.
      */
     textTabsEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `textTabs` property is editable.
-     *
      */
-    textTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    textTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 }
 /**
  * An object that defines the options that are available to non-administrators in the UI.
@@ -6807,23 +7675,33 @@ export interface AccountUISettings {
 
     enableAdminMessage?: string | undefined;
 
-    enableAdminMessageMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableAdminMessageMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     enableEasySignCanUseMultiTemplateApply?: string | undefined;
 
-    enableEasySignCanUseMultiTemplateApplyMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableEasySignCanUseMultiTemplateApplyMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     enableEasySignTemplateUpload?: string | undefined;
 
-    enableEasySignTemplateUploadMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableEasySignTemplateUploadMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     enableEnvelopeCopyWithData?: string | undefined;
 
-    enableEnvelopeCopyWithDataMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableEnvelopeCopyWithDataMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     hideSendAnEnvelope?: string | undefined;
 
-    hideSendAnEnvelopeMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    hideSendAnEnvelopeMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, the **Templates** menu is hidden from account users who are not Admins. The default value is **false**.
      */
@@ -6831,25 +7709,37 @@ export interface AccountUISettings {
 
     hideUseATemplateInPrepare?: string | undefined;
 
-    hideUseATemplateInPrepareMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    hideUseATemplateInPrepareMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
-    hideUseATemplateMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    hideUseATemplateMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     orderBasedRecipientIdGeneration?: string | undefined;
 
-    orderBasedRecipientIdGenerationMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    orderBasedRecipientIdGenerationMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     removeEnvelopeForwarding?: string | undefined;
 
-    removeEnvelopeForwardingMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    removeEnvelopeForwardingMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     shouldRedactAccessCode?: string | undefined;
 
-    shouldRedactAccessCodeMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    shouldRedactAccessCodeMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     uploadNewImageToSignOrInitial?: string | undefined;
 
-    uploadNewImageToSignOrInitialMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    uploadNewImageToSignOrInitialMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 }
 
 export interface AccountWatermarks {
@@ -6875,7 +7765,6 @@ export interface AccountWatermarks {
      * - TimesNewRoman
      * - Trebuchet
      * - Verdana
-     *
      */
     font?: string | undefined;
     /**
@@ -6891,7 +7780,6 @@ export interface AccountWatermarks {
      * - NavyBlue
      * - Purple
      * - White
-     *
      */
     fontColor?: string | undefined;
     /**
@@ -6948,9 +7836,10 @@ export interface Accounts {
      * by the plan used to create the account and cannot be overridden.
      *
      * [accountsettings]: https://developers.docusign.com/esign-rest-api/reference/Accounts/Accounts/create/#account-settings
-     *
      */
-    accountSettings?: /* Contains account settings information. Used in requests to set property values. Used in responses to report property values. */ AccountSettingsInformation | undefined;
+    accountSettings?:
+        | /* Contains account settings information. Used in requests to set property values. Used in responses to report property values. */ AccountSettingsInformation
+        | undefined;
 
     /**
      * When set to **true**, the transaction rooms feature exposed through the Workspaces API is enabled.
@@ -7264,7 +8153,9 @@ export interface Agent {
      * A list of `documentVisibility` objects. Each object in the list specifies whether a document in the envelope is visible to this recipient.
      * For the envelope to use this functionality, Document Visibility must be enabled for the account and the `enforceSignerVisibility` property must be set to **true**.
      */
-    documentVisibility?: /* This object configures a recipient's read/write access to a document. */ DocumentVisibility[] | undefined;
+    documentVisibility?:
+        | /* This object configures a recipient's read/write access to a document. */ DocumentVisibility[]
+        | undefined;
     /**
      * The email id of the agent. Notification of the document to sign is sent to this email id.
      *
@@ -7312,7 +8203,9 @@ export interface Agent {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * Specifies the documents that are not visible to this recipient. Document Visibility must be enabled for the account and the `enforceSignerVisibility`
      * property must be set to **true** for the envelope to use this.
@@ -7368,7 +8261,9 @@ export interface Agent {
     /**
      * An object that contains input information related to a recipient ID check.
      */
-    idCheckInformationInput?: /* A complex element that contains input information related to a recipient ID check. */ IdCheckInformationInput | undefined;
+    idCheckInformationInput?:
+        | /* A complex element that contains input information related to a recipient ID check. */ IdCheckInformationInput
+        | undefined;
     /**
      * When set to **true** and the envelope recipient creates a DocuSign account after signing, the Manage Account Email Notification settings
      * are used as the default settings for the recipient's account.
@@ -7409,7 +8304,6 @@ export interface Agent {
      * on the signing screen.
      *
      * Maximum Length: 1000 characters.
-     *
      */
     note?: string | undefined;
     /**
@@ -7424,8 +8318,6 @@ export interface Agent {
      * * `senderProvidedNumbers`: ArrayOfStrings.  A list of phone numbers the recipient can use.
      * * `recordVoicePrint`: Reserved for DocuSign.
      * * `validateRecipProvidedNumber`: Reserved for DocuSign.
-     *
-     *
      */
     phoneAuthentication?: RecipientPhoneAuthentication | undefined;
     /**
@@ -7435,7 +8327,9 @@ export interface Agent {
     /**
      * Information about the recipient's authentication status. Read only.
      */
-    recipientAuthenticationStatus?: /* A complex element that contains information about a user's authentication status. */ AuthenticationStatus | undefined;
+    recipientAuthenticationStatus?:
+        | /* A complex element that contains information about a user's authentication status. */ AuthenticationStatus
+        | undefined;
     /**
      * Metadata about the features that are supported for the recipient type. Read only.
      */
@@ -7524,8 +8418,6 @@ export interface Agent {
     /**
      * When `idCheckConfigurationName` is set to `SMS Auth $`, you use this complex type to provide the recipient authentication method details.
      * It contains the element `senderProvidedNumbers`, which is an array of phone numbers that the recipient can use for SMS text authentication.
-     *
-     *
      */
     smsAuthentication?: RecipientSMSAuthentication | undefined;
     /**
@@ -7573,7 +8465,6 @@ export interface Agent {
     /**
      * The ID of the user to access. Generally this is the ID of the current authenticated user, but if the authenticated user is an Administrator on the account,
      * `userId` can represent another user whom the Administrator is accessing.
-     *
      */
     userId?: string | undefined;
 }
@@ -7587,7 +8478,6 @@ export interface ApiRequestLog {
     createdDateTime?: string | undefined;
     /**
      * A sender-defined description of the line item.
-     *
      */
     description?: string | undefined;
 
@@ -7633,7 +8523,6 @@ export interface AppStoreReceipt {
  * A tab that allows the recipient to approve documents
  * without placing a signature or initials on the
  * document.
- *
  */
 export interface Approve {
     anchorAllowWhiteSpaceInCharacters?: string | undefined;
@@ -7688,7 +8577,6 @@ export interface Approve {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -7734,11 +8622,9 @@ export interface Approve {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -7819,7 +8705,6 @@ export interface Approve {
      * For conditional fields, this is the value of the parent tab that controls the tab's visibility.
      *
      * If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
-     *
      */
     conditionalParentValue?: string | undefined;
     /**
@@ -7848,7 +8733,9 @@ export interface Approve {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The font to be used for the tab value. Supported fonts include:
      *
@@ -7868,7 +8755,6 @@ export interface Approve {
      * - TimesNewRoman
      * - Trebuchet
      * - Verdana
-     *
      */
     font?: string | undefined;
     /**
@@ -7884,7 +8770,6 @@ export interface Approve {
      * - NavyBlue
      * - Purple
      * - White
-     *
      */
     fontColor?: string | undefined;
     /**
@@ -7969,12 +8854,13 @@ export interface Approve {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
 
     mergeFieldXml?: string | undefined;
     /**
      * Specifies the page number on which the tab is located. For supplemental documents, this value must be `1`.
-     *
      */
     pageNumber?: string | undefined;
     /**
@@ -8035,7 +8921,6 @@ export interface Approve {
      * If no value is provided, the tab type is used as the value.
      *
      * Maximum Length: 500 characters.
-     *
      */
     tabLabel?: string | undefined;
     /**
@@ -8105,7 +8990,6 @@ export interface Approve {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**
@@ -8116,7 +9000,6 @@ export interface Approve {
      * This property indicates the vertical offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     yPosition?: string | undefined;
     /**
@@ -8163,7 +9046,6 @@ export interface Attachment {
      * - `guidedForm`: [Guided forms](https://www.docusign.com/products/guided-forms) provide a step-by-step, mobile-ready experience to help
      * signers easily complete long or complex forms.
      * - `eventNotifications`: A list of envelope-level event statuses that trigger Connect to send updates to the endpoint specified in the `url` property.
-     *
      */
     label?: string | undefined;
     /**
@@ -8331,13 +9213,14 @@ export interface AuthenticationStatus {
 /**
  * The `EmailArchive` resource provides methods for managing your email archive configuration, which consists of the BCC email address or addresses
  * that you want to use to archive DocuSign emails. Each account can use up to five BCC email addresses for archiving purposes.
- *
  */
 export interface BCCEmailArchive {
     /**
      * A list of changes to the BCC email archive configuration.
      */
-    bccEmailArchiveHistory?: /* Contains details about the history of the BCC email archive configuration. */ BccEmailArchiveHistory[] | undefined;
+    bccEmailArchiveHistory?:
+        | /* Contains details about the history of the BCC email archive configuration. */ BccEmailArchiveHistory[]
+        | undefined;
     /**
      * The last index position in the result set.
      */
@@ -8479,7 +9362,9 @@ export interface BccEmailArchiveHistoryList {
     /**
      * A list of changes to the BCC email archive configuration.
      */
-    bccEmailArchiveHistory?: /* Contains details about the history of the BCC email archive configuration. */ BccEmailArchiveHistory[] | undefined;
+    bccEmailArchiveHistory?:
+        | /* Contains details about the history of the BCC email archive configuration. */ BccEmailArchiveHistory[]
+        | undefined;
     /**
      * The last index position in the result set.
      */
@@ -8740,7 +9625,6 @@ export interface BillingPaymentItem {
     amount?: string | undefined;
     /**
      * A sender-defined description of the line item.
-     *
      */
     description?: string | undefined;
 
@@ -8853,7 +9737,8 @@ export interface BillingPlan {
      * Reserved for DocuSign.
      */
     planFeatureSets?: /* This object provides details about a feature set, or add-on product that is associated with an account.
-        It is reserved for DocuSign internal use only. */ FeatureSet[] | undefined;
+        It is reserved for DocuSign internal use only. */
+        FeatureSet[] | undefined;
     /**
      * DocuSign's id for the account plan.
      */
@@ -8884,15 +9769,21 @@ export interface BillingPlanInformation {
     /**
      * The billing address for the account.
      */
-    billingAddress?: /* Contains information about the address associated with the account. */ AccountAddress | undefined;
+    billingAddress?:
+        | /* Contains information about the address associated with the account. */ AccountAddress
+        | undefined;
     /**
      * A complex type that has information about the credit card used to pay for this account.
      */
-    creditCardInformation?: /* This object contains information about a credit card that is associated with an account. */ CreditCardInformation | undefined;
+    creditCardInformation?:
+        | /* This object contains information about a credit card that is associated with an account. */ CreditCardInformation
+        | undefined;
     /**
      * Information about the bank that processes direct debits for the payment plan.
      */
-    directDebitProcessorInformation?: /* Contains information about a bank that processes a customer's direct debit payments. */ DirectDebitProcessorInformation | undefined;
+    directDebitProcessorInformation?:
+        | /* Contains information about a bank that processes a customer's direct debit payments. */ DirectDebitProcessorInformation
+        | undefined;
     /**
      * (Optional) The user's reason for downgrading their billing plan.
      */
@@ -8930,7 +9821,9 @@ export interface BillingPlanInformation {
     /**
      * An object used to identify the features and attributes of the account being created.
      */
-    planInformation?: /* An object used to identify the features and attributes of the account being created. */ PlanInformation | undefined;
+    planInformation?:
+        | /* An object used to identify the features and attributes of the account being created. */ PlanInformation
+        | undefined;
     /**
      * A complex type that contains properties for entering referral and discount information.
      */
@@ -9061,7 +9954,9 @@ export interface BillingPlans {
     /**
      * The billing address for the account.
      */
-    billingAddress?: /* Contains information about the address associated with the account. */ AccountAddress | undefined;
+    billingAddress?:
+        | /* Contains information about the address associated with the account. */ AccountAddress
+        | undefined;
     /**
      * When set to **true**, the credit card address information is the same as that returned as the billing address.
      * If false, then the billing address is considered a billing contact address, and the credit card address can be different.
@@ -9074,11 +9969,15 @@ export interface BillingPlans {
     /**
      * A complex type that has information about the credit card used to pay for this account.
      */
-    creditCardInformation?: /* This object contains information about a credit card that is associated with an account. */ CreditCardInformation | undefined;
+    creditCardInformation?:
+        | /* This object contains information about a credit card that is associated with an account. */ CreditCardInformation
+        | undefined;
     /**
      * Information about the bank that processes direct debits for the payment plan.
      */
-    directDebitProcessorInformation?: /* Contains information about a bank that processes a customer's direct debit payments. */ DirectDebitProcessorInformation | undefined;
+    directDebitProcessorInformation?:
+        | /* Contains information about a bank that processes a customer's direct debit payments. */ DirectDebitProcessorInformation
+        | undefined;
 
     downgradePlanInformation?: DowngradePlanUpdateResponse | undefined;
     /**
@@ -9260,7 +10159,9 @@ export interface Brand {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * When **true**, the `brandCompany` property is overriding the name of the company in the account settings.
      */
@@ -9285,7 +10186,9 @@ export interface Brand {
      *
      * If you do not specify landing pages, the DocuSign default pages are used.
      */
-    landingPages?: /* A name-value pair that describes an item and provides a value for the item. */ NameValue[] | undefined;
+    landingPages?:
+        | /* A name-value pair that describes an item and provides a value for the item. */ NameValue[]
+        | undefined;
     /**
      * An array of `brandLink` objects that contain information about the links that the brand uses.
      */
@@ -9469,7 +10372,9 @@ export interface BrandsResponse {
     /**
      * A list of brands.
      */
-    brands?: /* Information about a brand that is associated with an account. A brand applies custom styles and text to an envelope. */ Brand[] | undefined;
+    brands?:
+        | /* Information about a brand that is associated with an account. A brand applies custom styles and text to an envelope. */ Brand[]
+        | undefined;
     /**
      * The brand that envelope recipients see when a brand is not explicitly set.
      */
@@ -9508,7 +10413,9 @@ export interface BulkEnvelope {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The name of the recipient assigned to this envelope transaction.
      */
@@ -9636,7 +10543,9 @@ export interface BulkRecipient {
     /**
      * Array or errors.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails[] | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails[]
+        | undefined;
     /**
      * Specifies the authentication check used for the signer. If blank then no authentication check is required for the signer. Only one value can be used in this field.
      *
@@ -9662,7 +10571,6 @@ export interface BulkRecipient {
      * on the signing screen.
      *
      * Maximum Length: 1000 characters.
-     *
      */
     note?: string | undefined;
     /**
@@ -9760,7 +10668,9 @@ export interface BulkRecipientsSummaryResponse {
     /**
      * Array or errors.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails[] | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails[]
+        | undefined;
 }
 
 export interface BulkRecipientsUpdateResponse {
@@ -9849,7 +10759,8 @@ export interface BulkSendingCopy {
      * **Note**: These custom fields must also be included in the original envelope or template that you want to send.
      */
     customFields?: /* This object contains details about a custom field for a bulk send copy. In a bulk send request, each custom field in the bulk send list
-        must match a custom field in the envelope or template that you want to send. */ BulkSendingCopyCustomField[] | undefined;
+        must match a custom field in the envelope or template that you want to send. */
+        BulkSendingCopyCustomField[] | undefined;
     /**
      * The email body for this copy of the envelope.
      */
@@ -9972,7 +10883,9 @@ export interface BulkSendingCopyRecipient {
     /**
      * An object that contains input information related to a recipient ID check.
      */
-    idCheckInformationInput?: /* A complex element that contains input information related to a recipient ID check. */ IdCheckInformationInput | undefined;
+    idCheckInformationInput?:
+        | /* A complex element that contains input information related to a recipient ID check. */ IdCheckInformationInput
+        | undefined;
 
     identificationMethod?: string | undefined;
 
@@ -9986,7 +10899,6 @@ export interface BulkSendingCopyRecipient {
      * on the signing screen.
      *
      * Maximum Length: 1000 characters.
-     *
      */
     note?: string | undefined;
     /**
@@ -9997,8 +10909,6 @@ export interface BulkSendingCopyRecipient {
      * * `senderProvidedNumbers`: ArrayOfStrings.  A list of phone numbers the recipient can use.
      * * `recordVoicePrint`: Reserved for DocuSign.
      * * `validateRecipProvidedNumber`: Reserved for DocuSign.
-     *
-     *
      */
     phoneAuthentication?: RecipientPhoneAuthentication | undefined;
     /**
@@ -10018,8 +10928,6 @@ export interface BulkSendingCopyRecipient {
     /**
      * When `idCheckConfigurationName` is set to `SMS Auth $`, you use this complex type to provide the recipient authentication method details.
      * It contains the element `senderProvidedNumbers`, which is an array of phone numbers that the recipient can use for SMS text authentication.
-     *
-     *
      */
     smsAuthentication?: RecipientSMSAuthentication | undefined;
     /**
@@ -10087,7 +10995,9 @@ export interface BulkSendingListSummaries {
     /**
      * An array of `bulkSendingListSummary` objects where each summary provides basic information about a bulk send list that belongs to the current user.
      */
-    bulkListSummaries?: /* This object contains basic information about a bulk send list. */ BulkSendingListSummary[] | undefined;
+    bulkListSummaries?:
+        | /* This object contains basic information about a bulk send list. */ BulkSendingListSummary[]
+        | undefined;
 }
 /**
  * This object contains basic information about a bulk send list.
@@ -10133,7 +11043,9 @@ export interface CaptiveRecipient {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The username associated with the captive recipient.
      */
@@ -10146,7 +11058,9 @@ export interface CaptiveRecipientInformation {
     /**
      * A complex type containing information about one or more captive recipients.
      */
-    captiveRecipients?: /* This object contains details about a captive (embedded) recipient. */ CaptiveRecipient[] | undefined;
+    captiveRecipients?:
+        | /* This object contains details about a captive (embedded) recipient. */ CaptiveRecipient[]
+        | undefined;
 }
 /**
  * Contains information about a carbon copy recipient. Carbon copy recipients get a copy of the envelope but don't need to sign, initial,
@@ -10225,7 +11139,9 @@ export interface CarbonCopy {
      * A list of `documentVisibility` objects. Each object in the list specifies whether a document in the envelope is visible to this recipient.
      * For the envelope to use this functionality, Document Visibility must be enabled for the account and the `enforceSignerVisibility` property must be set to **true**.
      */
-    documentVisibility?: /* This object configures a recipient's read/write access to a document. */ DocumentVisibility[] | undefined;
+    documentVisibility?:
+        | /* This object configures a recipient's read/write access to a document. */ DocumentVisibility[]
+        | undefined;
     /**
      * The recipient's email address. Notification of the document to sign is sent to this email address.
      *
@@ -10272,7 +11188,9 @@ export interface CarbonCopy {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * Specifies the documents that are not visible to this recipient. Document Visibility must be enabled for the account and the `enforceSignerVisibility`
      * property must be set to **true** for the envelope to use this.
@@ -10327,7 +11245,9 @@ export interface CarbonCopy {
     /**
      * An object that contains input information related to a recipient ID check.
      */
-    idCheckInformationInput?: /* A complex element that contains input information related to a recipient ID check. */ IdCheckInformationInput | undefined;
+    idCheckInformationInput?:
+        | /* A complex element that contains input information related to a recipient ID check. */ IdCheckInformationInput
+        | undefined;
     /**
      * Specifies the ID Verification workflow applied on an envelope by workflow ID. <br/>See
      * the [list](https://developers.docusign.com/esign-rest-api/reference/Accounts/IdentityVerifications/list) method in the
@@ -10378,7 +11298,6 @@ export interface CarbonCopy {
      * on the signing screen.
      *
      * Maximum Length: 1000 characters.
-     *
      */
     note?: string | undefined;
     /**
@@ -10392,8 +11311,6 @@ export interface CarbonCopy {
      * * `senderProvidedNumbers`: ArrayOfStrings.  A list of phone numbers the recipient can use.
      * * `recordVoicePrint`: Reserved for DocuSign.
      * * `validateRecipProvidedNumber`: Reserved for DocuSign.
-     *
-     *
      */
     phoneAuthentication?: RecipientPhoneAuthentication | undefined;
 
@@ -10405,7 +11322,9 @@ export interface CarbonCopy {
     /**
      * Information about the recipient's authentication status. Read only.
      */
-    recipientAuthenticationStatus?: /* A complex element that contains information about a user's authentication status. */ AuthenticationStatus | undefined;
+    recipientAuthenticationStatus?:
+        | /* A complex element that contains information about a user's authentication status. */ AuthenticationStatus
+        | undefined;
     /**
      * Metadata about the features that are supported for the recipient type. Read only.
      */
@@ -10493,8 +11412,6 @@ export interface CarbonCopy {
     /**
      * When `idCheckConfigurationName` is set to `SMS Auth $`, you use this complex type to provide the recipient authentication method details.
      * It contains the element `senderProvidedNumbers`, which is an array of phone numbers that the recipient can use for SMS text authentication.
-     *
-     *
      */
     smsAuthentication?: RecipientSMSAuthentication | undefined;
     /**
@@ -10545,7 +11462,6 @@ export interface CarbonCopy {
     /**
      * The ID of the user to access. Generally this is the ID of the current authenticated user, but if the authenticated user is an Administrator on the account,
      * `userId` can represent another user whom the Administrator is accessing.
-     *
      */
     userId?: string | undefined;
 }
@@ -10634,7 +11550,9 @@ export interface CertifiedDelivery {
      * A list of `documentVisibility` objects. Each object in the list specifies whether a document in the envelope is visible to this recipient.
      * For the envelope to use this functionality, Document Visibility must be enabled for the account and the `enforceSignerVisibility` property must be set to **true**.
      */
-    documentVisibility?: /* This object configures a recipient's read/write access to a document. */ DocumentVisibility[] | undefined;
+    documentVisibility?:
+        | /* This object configures a recipient's read/write access to a document. */ DocumentVisibility[]
+        | undefined;
     /**
      * The recipient's email address.
      */
@@ -10679,7 +11597,9 @@ export interface CertifiedDelivery {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * Specifies the documents that are not visible to this recipient. Document Visibility must be enabled for the account and the `enforceSignerVisibility` property must be
      * set to **true** for the envelope to use this.
@@ -10734,7 +11654,9 @@ export interface CertifiedDelivery {
     /**
      * An object that contains input information related to a recipient ID check.
      */
-    idCheckInformationInput?: /* A complex element that contains input information related to a recipient ID check. */ IdCheckInformationInput | undefined;
+    idCheckInformationInput?:
+        | /* A complex element that contains input information related to a recipient ID check. */ IdCheckInformationInput
+        | undefined;
     /**
      * Specifies the ID Verification workflow applied on an envelope by workflow ID. <br/>See the
      * [list](https://developers.docusign.com/esign-rest-api/reference/Accounts/IdentityVerifications/list) method in the
@@ -10785,7 +11707,6 @@ export interface CertifiedDelivery {
      * on the signing screen.
      *
      * Maximum Length: 1000 characters.
-     *
      */
     note?: string | undefined;
     /**
@@ -10799,8 +11720,6 @@ export interface CertifiedDelivery {
      * * `senderProvidedNumbers`: ArrayOfStrings.  A list of phone numbers the recipient can use.
      * * `recordVoicePrint`: Reserved for DocuSign.
      * * `validateRecipProvidedNumber`: Reserved for DocuSign.
-     *
-     *
      */
     phoneAuthentication?: RecipientPhoneAuthentication | undefined;
 
@@ -10812,7 +11731,9 @@ export interface CertifiedDelivery {
     /**
      * Information about the recipient's authentication status. Read only.
      */
-    recipientAuthenticationStatus?: /* A complex element that contains information about a user's authentication status. */ AuthenticationStatus | undefined;
+    recipientAuthenticationStatus?:
+        | /* A complex element that contains information about a user's authentication status. */ AuthenticationStatus
+        | undefined;
     /**
      * Metadata about the features that are supported for the recipient type. Read only.
      */
@@ -10900,8 +11821,6 @@ export interface CertifiedDelivery {
     /**
      * When `idCheckConfigurationName` is set to `SMS Auth $`, you use this complex type to provide the recipient authentication method details.
      * It contains the element `senderProvidedNumbers`, which is an array of phone numbers that the recipient can use for SMS text authentication.
-     *
-     *
      */
     smsAuthentication?: RecipientSMSAuthentication | undefined;
     /**
@@ -10950,13 +11869,11 @@ export interface CertifiedDelivery {
     /**
      * The ID of the user to access. Generally this is the ID of the current authenticated user, but if the authenticated user is an Administrator on the account,
      * `userId` can represent another user whom the Administrator is accessing.
-     *
      */
     userId?: string | undefined;
 }
 /**
  * A tab that allows the recipient to select a yes/no (on/off) option.
- *
  */
 export interface Checkbox {
     anchorAllowWhiteSpaceInCharacters?: string | undefined;
@@ -11011,7 +11928,6 @@ export interface Checkbox {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -11057,11 +11973,9 @@ export interface Checkbox {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -11134,7 +12048,6 @@ export interface Checkbox {
      * For conditional fields, this is the value of the parent tab that controls the tab's visibility.
      *
      * If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
-     *
      */
     conditionalParentValue?: string | undefined;
     /**
@@ -11163,7 +12076,9 @@ export interface Checkbox {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The font to be used for the tab value. Supported fonts include:
      *
@@ -11183,7 +12098,6 @@ export interface Checkbox {
      * - TimesNewRoman
      * - Trebuchet
      * - Verdana
-     *
      */
     font?: string | undefined;
     /**
@@ -11199,7 +12113,6 @@ export interface Checkbox {
      * - NavyBlue
      * - Purple
      * - White
-     *
      */
     fontColor?: string | undefined;
     /**
@@ -11288,7 +12201,9 @@ export interface Checkbox {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
 
     mergeFieldXml?: string | undefined;
     /**
@@ -11356,7 +12271,6 @@ export interface Checkbox {
     shared?: string | undefined;
     /**
      * Metadata that indicates whether the `shared` property is editable.
-     *
      */
     sharedMetadata?: /* Metadata about a property. */ PropertyMetadata | undefined;
 
@@ -11395,7 +12309,6 @@ export interface Checkbox {
      * If no value is provided, the tab type is used as the value.
      *
      * Maximum Length: 500 characters.
-     *
      */
     tabLabel?: string | undefined;
     /**
@@ -11465,7 +12378,6 @@ export interface Checkbox {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**
@@ -11531,7 +12443,9 @@ export interface ChunkedUploadResponse {
     /**
      * A list of the parts that compose the chunked upload, including their byte sizes. The list must be contiguous before you can commit the chunked upload.
      */
-    chunkedUploadParts?: /* An object that contains information about the chunked upload part. */ ChunkedUploadPart[] | undefined;
+    chunkedUploadParts?:
+        | /* An object that contains information about the chunked upload part. */ ChunkedUploadPart[]
+        | undefined;
     /**
      * The URI that you use to reference the chunked upload in other API requests, such as envelope document and envelope attachment requests.
      */
@@ -11545,7 +12459,6 @@ export interface ChunkedUploadResponse {
      * The UTC time at which the chunked upload expires and is no longer addressable.
      *
      * **Note**: You must fully upload and use a chunked upload within 20 minutes of initializing it.
-     *
      */
     expirationDateTime?: string | undefined;
     /**
@@ -11581,7 +12494,9 @@ export interface ChunkedUploads {
     /**
      * A list of the parts that compose the chunked upload, including their byte sizes. The list must be contiguous before you can commit the chunked upload.
      */
-    chunkedUploadParts?: /* An object that contains information about the chunked upload part. */ ChunkedUploadPart[] | undefined;
+    chunkedUploadParts?:
+        | /* An object that contains information about the chunked upload part. */ ChunkedUploadPart[]
+        | undefined;
     /**
      * The URI that you use to reference the chunked upload in other API requests, such as envelope document and envelope attachment requests.
      */
@@ -11601,7 +12516,6 @@ export interface ChunkedUploads {
     /**
      * The maximum number of parts allowed for a chunked upload. This value is configurable per DocuSign environment, account, or integrator.
      * The default value is 128. The maximum possible value is 256.
-     *
      */
     maxChunkedUploadParts?: string | undefined;
     /**
@@ -11672,7 +12586,9 @@ export interface CloudStorageProvider {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The URL the user is redirected to after the cloud storage provider authenticates the user. Using this will append the redirectUrl to the authenticationUrl.
      *
@@ -11695,7 +12611,9 @@ export interface CloudStorageProviders {
     /**
      * An Array containing the storage providers associated with the user.
      */
-    storageProviders?: /* Contains details about a specific cloud storage provider. */ CloudStorageProvider[] | undefined;
+    storageProviders?:
+        | /* Contains details about a specific cloud storage provider. */ CloudStorageProvider[]
+        | undefined;
 }
 
 export interface Comment {
@@ -11884,7 +12802,6 @@ export interface CommentThread {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -11930,11 +12847,9 @@ export interface CommentThread {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -12011,7 +12926,6 @@ export interface CommentThread {
      * For conditional fields, this is the value of the parent tab that controls the tab's visibility.
      *
      * If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
-     *
      */
     conditionalParentValue?: string | undefined;
     /**
@@ -12040,7 +12954,9 @@ export interface CommentThread {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The font to be used for the tab value. Supported fonts include:
      *
@@ -12060,7 +12976,6 @@ export interface CommentThread {
      * - TimesNewRoman
      * - Trebuchet
      * - Verdana
-     *
      */
     font?: string | undefined;
     /**
@@ -12076,7 +12991,6 @@ export interface CommentThread {
      * - NavyBlue
      * - Purple
      * - White
-     *
      */
     fontColor?: string | undefined;
     /**
@@ -12161,7 +13075,9 @@ export interface CommentThread {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
 
     mergeFieldXml?: string | undefined;
     /**
@@ -12226,7 +13142,6 @@ export interface CommentThread {
      * If no value is provided, the tab type is used as the value.
      *
      * Maximum Length: 500 characters.
-     *
      */
     tabLabel?: string | undefined;
     /**
@@ -12300,7 +13215,6 @@ export interface CommentThread {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**
@@ -12402,7 +13316,6 @@ export interface CommentsPublish {
 }
 /**
  * A tab that displays the recipient's company name.
- *
  */
 export interface Company {
     anchorAllowWhiteSpaceInCharacters?: string | undefined;
@@ -12457,7 +13370,6 @@ export interface Company {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -12503,11 +13415,9 @@ export interface Company {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -12594,7 +13504,6 @@ export interface Company {
      * For conditional fields, this is the value of the parent tab that controls the tab's visibility.
      *
      * If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
-     *
      */
     conditionalParentValue?: string | undefined;
     /**
@@ -12632,7 +13541,9 @@ export interface Company {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The font to be used for the tab value. Supported fonts include:
      *
@@ -12652,7 +13563,6 @@ export interface Company {
      * - TimesNewRoman
      * - Trebuchet
      * - Verdana
-     *
      */
     font?: string | undefined;
     /**
@@ -12668,7 +13578,6 @@ export interface Company {
      * - NavyBlue
      * - Purple
      * - White
-     *
      */
     fontColor?: string | undefined;
     /**
@@ -12769,7 +13678,9 @@ export interface Company {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
 
     mergeFieldXml?: string | undefined;
     /**
@@ -12832,7 +13743,6 @@ export interface Company {
      * - `signed`: The recipient signed the tab.
      * - `declined`: The recipient declined the envelope.
      * - `na`: Used when the `status` property is not applicable to the tab type. (For example, a tab that has the `tabType` `SignerAttachmentOptional`).
-     *
      */
     status?: string | undefined;
     /**
@@ -12860,7 +13770,6 @@ export interface Company {
      * If no value is provided, the tab type is used as the value.
      *
      * Maximum Length: 500 characters.
-     *
      */
     tabLabel?: string | undefined;
     /**
@@ -12938,7 +13847,6 @@ export interface Company {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**
@@ -13098,7 +14006,6 @@ export interface ConnectConfigurations {
      * - `voided`: The voided status indicates that the sender has voided the envelope.
      *
      * **Note**: In previous versions of the API, this value was a single comma-separated string.
-     *
      */
     envelopeEvents?: string[] | undefined;
 
@@ -13171,7 +14078,6 @@ export interface ConnectConfigurations {
      * - `autoresponded`: The recipient's email system sent back an automatic response. This status is only used when **Send-on-behalf-of** is turned off for the account.
      *
      * **Note**: In previous versions of the API, this value was a single comma-separated string.
-     *
      */
     recipientEvents?: string[] | undefined;
     /**
@@ -13209,8 +14115,6 @@ export interface ConnectConfigurations {
      * When `requiresAcknowledgement` is set to **false** and you do not acknowledge receiving an event notification message within 100 seconds,
      * DocuSign treats the message as a failure and determines that the server is unavailable. It does not retry to send the notification message,
      * and you must handle the failure manually.
-     *
-     *
      */
     requiresAcknowledgement?: string | undefined;
     /**
@@ -13387,8 +14291,6 @@ export interface ConnectCustomConfiguration {
      * When `requiresAcknowledgement` is set to **false** and you do not acknowledge receiving an event notification message within 100 seconds,
      * DocuSign treats the message as a failure and determines that the server is unavailable. It does not retry to send the notification message,
      * and you must handle the failure manually.
-     *
-     *
      */
     requiresAcknowledgement?: string | undefined;
     /**
@@ -13452,7 +14354,9 @@ export interface ConnectDebugLog {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The UTC date and time of the event.
      */
@@ -13511,7 +14415,6 @@ export interface ConnectFailureResult {
     configId?: string | undefined;
     /**
      * Reserved for DocuSign.
-     *
      */
     configUrl?: string | undefined;
     /**
@@ -13705,7 +14608,9 @@ export interface ConnectSalesforceObject {
     /**
      * The DocuSign and Salesforce fields that you want to use to match a Salesforce object with DocuSign information. This information tells Connect when to send updates to Salesforce.
      */
-    selectFields?: /* This object is used to match a DocuSign field to a Salesforce field so that Docusign can send information to your Salesforce account. */ ConnectSalesforceField[] | undefined;
+    selectFields?:
+        | /* This object is used to match a DocuSign field to a Salesforce field so that Docusign can send information to your Salesforce account. */ ConnectSalesforceField[]
+        | undefined;
     /**
      * The Salesforce.com object type, such as `case`, `contact`, or `opportunity`.
      */
@@ -13721,7 +14626,9 @@ export interface ConnectSalesforceObject {
      *
      * **Note**: You can choose to update SalesForce (with information from DocuSign) only, update DocuSign only, or both.
      */
-    updateFields?: /* This object is used to match a DocuSign field to a Salesforce field so that Docusign can send information to your Salesforce account. */ ConnectSalesforceField[] | undefined;
+    updateFields?:
+        | /* This object is used to match a DocuSign field to a Salesforce field so that Docusign can send information to your Salesforce account. */ ConnectSalesforceField[]
+        | undefined;
 }
 
 export interface ConnectUserObject {
@@ -13773,9 +14680,10 @@ export interface ConsumerDisclosure {
     allowCDWithdraw?: string | undefined;
     /**
      * Metadata that indicates whether the `allowCDWithdraw` property is editable.
-     *
      */
-    allowCDWithdrawMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowCDWithdrawMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * If the customer needs to change their email address, this is the email address to which they should the change request.
      *
@@ -13927,9 +14835,10 @@ export interface ConsumerDisclosure {
     useConsumerDisclosureWithinAccount?: string | undefined;
     /**
      * Metadata that indicates whether the `useConsumerDisclosureWithinAccount` property is editable.
-     *
      */
-    useConsumerDisclosureWithinAccountMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    useConsumerDisclosureWithinAccountMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Contains the first address line of the postal address to which a customer can send a consent withdrawal notification.
      *
@@ -14039,7 +14948,9 @@ export interface Contact {
      *
      * You must ask the user who added the contact for the phone number and then manually enter it into the authentication box.
      */
-    contactPhoneNumbers?: /* Details about the phone numbers associated with a specific contact. */ ContactPhoneNumber[] | undefined;
+    contactPhoneNumbers?:
+        | /* Details about the phone numbers associated with a specific contact. */ ContactPhoneNumber[]
+        | undefined;
     /**
      * The URI for retrieving information about the contact.
      */
@@ -14049,7 +14960,9 @@ export interface Contact {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
 
     isOwner?: boolean | undefined;
 
@@ -14181,7 +15094,9 @@ export interface Contacts {
      *
      * You must ask the user who added the contact for the phone number and then manually enter it into the authentication box.
      */
-    contactPhoneNumbers?: /* Details about the phone numbers associated with a specific contact. */ ContactPhoneNumber[] | undefined;
+    contactPhoneNumbers?:
+        | /* Details about the phone numbers associated with a specific contact. */ ContactPhoneNumber[]
+        | undefined;
     /**
      * The URI for retrieving information about the contact.
      */
@@ -14193,7 +15108,9 @@ export interface Contacts {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * When **true**, the current user is the owner of the contact.
      */
@@ -14384,7 +15301,9 @@ export interface CustomField {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The id of the custom field.
      */
@@ -14419,29 +15338,39 @@ export interface CustomFields {
     /**
      * An array of list custom fields.
      */
-    listCustomFields?: /* This object represents a list custom field from which envelope creators and senders can select custom data. */ ListCustomField[] | undefined;
+    listCustomFields?:
+        | /* This object represents a list custom field from which envelope creators and senders can select custom data. */ ListCustomField[]
+        | undefined;
     /**
      * An array of text custom fields.
      */
-    textCustomFields?: /* This object represents a free text custom field where envelope creators and senders can enter custom data. */ TextCustomField[] | undefined;
+    textCustomFields?:
+        | /* This object represents a free text custom field where envelope creators and senders can enter custom data. */ TextCustomField[]
+        | undefined;
 }
 
 export interface CustomFieldsEnvelope {
     /**
      * An array of list custom fields.
      */
-    listCustomFields?: /* This object represents a list custom field from which envelope creators and senders can select custom data. */ ListCustomField[] | undefined;
+    listCustomFields?:
+        | /* This object represents a list custom field from which envelope creators and senders can select custom data. */ ListCustomField[]
+        | undefined;
     /**
      * An array of text custom fields.
      */
-    textCustomFields?: /* This object represents a free text custom field where envelope creators and senders can enter custom data. */ TextCustomField[] | undefined;
+    textCustomFields?:
+        | /* This object represents a free text custom field where envelope creators and senders can enter custom data. */ TextCustomField[]
+        | undefined;
 }
 
 export interface CustomSettingsInformation {
     /**
      * The name/value pair information for the user custom setting.
      */
-    customSettings?: /* A name-value pair that describes an item and provides a value for the item. */ NameValue[] | undefined;
+    customSettings?:
+        | /* A name-value pair that describes an item and provides a value for the item. */ NameValue[]
+        | undefined;
 }
 /**
  * Custom tabs
@@ -14496,7 +15425,6 @@ export interface CustomTabs {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -14534,11 +15462,9 @@ export interface CustomTabs {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -14614,7 +15540,6 @@ export interface CustomTabs {
      * - TimesNewRoman
      * - Trebuchet
      * - Verdana
-     *
      */
     font?: string | undefined;
     /**
@@ -14630,7 +15555,6 @@ export interface CustomTabs {
      * - NavyBlue
      * - Purple
      * - White
-     *
      */
     fontColor?: string | undefined;
     /**
@@ -14698,7 +15622,9 @@ export interface CustomTabs {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
     /**
      * The name of the custom tab.
      */
@@ -14753,7 +15679,6 @@ export interface CustomTabs {
     stampType?: string | undefined;
     /**
      * Metadata that indicates whether the `stampType` property is editable.
-     *
      */
     stampTypeMetadata?: /* Metadata about a property. */ PropertyMetadata | undefined;
     /**
@@ -14761,7 +15686,6 @@ export interface CustomTabs {
      * If no value is provided, the tab type is used as the value.
      *
      * Maximum Length: 500 characters.
-     *
      */
     tabLabel?: string | undefined;
     /**
@@ -14791,7 +15715,6 @@ export interface CustomTabs {
      * - Title
      * - Zip5
      * - Zip5Dash4
-     *
      */
     type?: string | undefined;
     /**
@@ -14820,7 +15743,6 @@ export interface CustomTabs {
  * particular date format enforced, DocuSign recommends using a
  * Text tab with a validation pattern and a validation message
  * to enforce the format.
- *
  */
 export interface Date {
     anchorAllowWhiteSpaceInCharacters?: string | undefined;
@@ -14875,7 +15797,6 @@ export interface Date {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -14921,11 +15842,9 @@ export interface Date {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -15012,7 +15931,6 @@ export interface Date {
      * For conditional fields, this is the value of the parent tab that controls the tab's visibility.
      *
      * If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
-     *
      */
     conditionalParentValue?: string | undefined;
     /**
@@ -15050,7 +15968,9 @@ export interface Date {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The font to be used for the tab value. Supported fonts include:
      *
@@ -15070,7 +15990,6 @@ export interface Date {
      * - TimesNewRoman
      * - Trebuchet
      * - Verdana
-     *
      */
     font?: string | undefined;
     /**
@@ -15086,7 +16005,6 @@ export interface Date {
      * - NavyBlue
      * - Purple
      * - White
-     *
      */
     fontColor?: string | undefined;
     /**
@@ -15186,7 +16104,9 @@ export interface Date {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
 
     mergeFieldXml?: string | undefined;
     /**
@@ -15285,7 +16205,6 @@ export interface Date {
      * - `signed`: The recipient signed the tab.
      * - `declined`: The recipient declined the envelope.
      * - `na`: Used when the `status` property is not applicable to the tab type. (For example, a tab that has the `tabType` `SignerAttachmentOptional`).
-     *
      */
     status?: string | undefined;
     /**
@@ -15313,7 +16232,6 @@ export interface Date {
      * If no value is provided, the tab type is used as the value.
      *
      * Maximum Length: 500 characters.
-     *
      */
     tabLabel?: string | undefined;
     /**
@@ -15407,7 +16325,6 @@ export interface Date {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**
@@ -15426,7 +16343,6 @@ export interface Date {
 /**
  * A tab that displays the date that the recipient signed the
  * document.
- *
  */
 export interface DateSigned {
     anchorAllowWhiteSpaceInCharacters?: string | undefined;
@@ -15481,7 +16397,6 @@ export interface DateSigned {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -15527,11 +16442,9 @@ export interface DateSigned {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -15604,7 +16517,6 @@ export interface DateSigned {
      * For conditional fields, this is the value of the parent tab that controls the tab's visibility.
      *
      * If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
-     *
      */
     conditionalParentValue?: string | undefined;
     /**
@@ -15633,7 +16545,9 @@ export interface DateSigned {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The font to be used for the tab value. Supported fonts include:
      *
@@ -15653,7 +16567,6 @@ export interface DateSigned {
      * - TimesNewRoman
      * - Trebuchet
      * - Verdana
-     *
      */
     font?: string | undefined;
     /**
@@ -15669,7 +16582,6 @@ export interface DateSigned {
      * - NavyBlue
      * - Purple
      * - White
-     *
      */
     fontColor?: string | undefined;
     /**
@@ -15753,7 +16665,9 @@ export interface DateSigned {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
 
     mergeFieldXml?: string | undefined;
     /**
@@ -15827,7 +16741,6 @@ export interface DateSigned {
      * If no value is provided, the tab type is used as the value.
      *
      * Maximum Length: 500 characters.
-     *
      */
     tabLabel?: string | undefined;
     /**
@@ -15905,7 +16818,6 @@ export interface DateSigned {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**
@@ -15954,7 +16866,6 @@ export interface DateStampProperties {
  * A tab that allows the recipient the option of declining an
  * envelope. If the recipient clicks the tab during the signing
  * process, the envelope is voided.
- *
  */
 export interface Decline {
     anchorAllowWhiteSpaceInCharacters?: string | undefined;
@@ -16009,7 +16920,6 @@ export interface Decline {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -16055,11 +16965,9 @@ export interface Decline {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -16140,7 +17048,6 @@ export interface Decline {
      * For conditional fields, this is the value of the parent tab that controls the tab's visibility.
      *
      * If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
-     *
      */
     conditionalParentValue?: string | undefined;
     /**
@@ -16177,7 +17084,9 @@ export interface Decline {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The font to be used for the tab value. Supported fonts include:
      *
@@ -16197,7 +17106,6 @@ export interface Decline {
      * - TimesNewRoman
      * - Trebuchet
      * - Verdana
-     *
      */
     font?: string | undefined;
     /**
@@ -16213,7 +17121,6 @@ export interface Decline {
      * - NavyBlue
      * - Purple
      * - White
-     *
      */
     fontColor?: string | undefined;
     /**
@@ -16297,7 +17204,9 @@ export interface Decline {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
 
     mergeFieldXml?: string | undefined;
     /**
@@ -16363,7 +17272,6 @@ export interface Decline {
      * If no value is provided, the tab type is used as the value.
      *
      * Maximum Length: 500 characters.
-     *
      */
     tabLabel?: string | undefined;
     /**
@@ -16433,7 +17341,6 @@ export interface Decline {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**
@@ -16517,8 +17424,6 @@ export interface DirectDebitProcessorInformation {
     bankTransferType?: string | undefined;
     /**
      * The user's country. The system populates this value automatically.
-     *
-     *
      */
     country?: string | undefined;
     /**
@@ -16581,7 +17486,8 @@ export interface DisplayApplianceEnvelope {
     burnDefaultTabData?: boolean | undefined;
     convertPdfFields?: /*Boolean that specifies whether to enable PDF form fields to
             get converted to DocuSign secure fields when the document is added or
-            uploaded to an envelope.*/ boolean | undefined;
+            uploaded to an envelope.*/
+        boolean | undefined;
     envelopeId?: /*The envelope's GUID. \n\nExample: `93be49ab-afa0-4adf-933c-f752070d71ec` */ string | undefined;
     envelopeType?: string | undefined;
     includeSigsBeforeComplete?: boolean | undefined;
@@ -16593,7 +17499,8 @@ export interface DisplayApplianceEnvelope {
     signOnline?: boolean | undefined;
     status?: /*The status of the item. */ string | undefined;
     userId?: /*The ID of the user to access. Generally this is the ID of the current authenticated user, but if the authenticated user is an Administrator on the account,
-        `userId` can represent another user whom the Administrator is accessing. */ string | undefined;
+        `userId` can represent another user whom the Administrator is accessing. */
+        string | undefined;
 }
 
 export interface DisplayApplianceInfo {
@@ -16704,7 +17611,6 @@ export interface Document {
      *   The document is shown in the normal signing window.
      *   This value is not used with supplemental documents,
      *   but is the default value for all other documents.
-     *
      */
     display?: string | undefined;
     /**
@@ -16713,14 +17619,15 @@ export interface Document {
      */
     documentBase64?: string | undefined;
 
-    documentFields?: /* A name-value pair that describes an item and provides a value for the item. */ NameValue[] | undefined;
+    documentFields?:
+        | /* A name-value pair that describes an item and provides a value for the item. */ NameValue[]
+        | undefined;
     /**
      * Specifies the document ID of this document. This value is used by tabs to determine which document they appear in.
      */
     documentId?: string | undefined;
     /**
      * When set to **true**, the document is been already encrypted by the sender for use with the DocuSign Key Manager Security Appliance.
-     *
      */
     encryptedWithKeyManager?: string | undefined;
     /**
@@ -16729,18 +17636,18 @@ export interface Document {
      * If the document is not a PDF, `fileExtension` is required.
      *
      * If you try to upload a non-PDF document without a `fileExtension`, you will receive an "unable to load document" error message.
-     *
      */
     fileExtension?: string | undefined;
 
     fileFormatHint?: string | undefined;
 
-    htmlDefinition?: /* Holds the properties that define how to generate the responsive-formatted HTML for the document. */ DocumentHtmlDefinition | undefined;
+    htmlDefinition?:
+        | /* Holds the properties that define how to generate the responsive-formatted HTML for the document. */ DocumentHtmlDefinition
+        | undefined;
     /**
      * When set to **true**,
      * the document is included in the combined document download (`documentsCombinedUri`).
      * The default value is **true**.
-     *
      */
     includeInDownload?: string | undefined;
 
@@ -16757,7 +17664,6 @@ export interface Document {
      * * yPosition - The y position of the matchbox on a page.
      * * width - The width of the matchbox.
      * * height - The height of the matchbox.
-     *
      */
     matchBoxes?: MatchBox[] | undefined;
     /**
@@ -16770,7 +17676,6 @@ export interface Document {
      * (Optional) The order in which to sort the results.
      *
      * Valid values are:
-     *
      *
      * * `asc`: Ascending order.
      * * `desc`: Descending order.
@@ -16800,7 +17705,6 @@ export interface Document {
      * The file id from the cloud storage service where the document is located. This information is returned using
      * [CloudStorage::listFolders](https://developers.docusign.com/esign-rest-api/reference/CloudStorage/CloudStorage/listFolders) or
      * [CloudStorage::list](https://developers.docusign.com/esign-rest-api/reference/CloudStorage/CloudStorage/list).
-     *
      */
     remoteUrl?: string | undefined;
     /**
@@ -16818,8 +17722,6 @@ export interface Document {
      *
      * *	`view_accept`<br>
      *   The recipient is required to view and accept the document.
-     *
-     *
      */
     signerMustAcknowledge?: string | undefined;
 
@@ -16840,7 +17742,6 @@ export interface Document {
     /**
      * When set to **true**, PDF form field data is transformed into document tab values when the PDF form field name matches the DocuSign custom tab tabLabel.
      * The resulting PDF form data is also returned in the PDF meta data when requesting the document PDF.
-     *
      */
     transformPdfFields?: string | undefined;
     /**
@@ -16850,7 +17751,9 @@ export interface Document {
 }
 
 export interface DocumentFieldsInformation {
-    documentFields?: /* A name-value pair that describes an item and provides a value for the item. */ NameValue[] | undefined;
+    documentFields?:
+        | /* A name-value pair that describes an item and provides a value for the item. */ NameValue[]
+        | undefined;
 }
 
 export interface DocumentHtmlCollapsibleDisplaySettings {
@@ -16949,7 +17852,9 @@ export interface DocumentHtmlDefinitionOriginal {
      */
     documentIdGuid?: string | undefined;
 
-    htmlDefinition?: /* Holds the properties that define how to generate the responsive-formatted HTML for the document. */ DocumentHtmlDefinition | undefined;
+    htmlDefinition?:
+        | /* Holds the properties that define how to generate the responsive-formatted HTML for the document. */ DocumentHtmlDefinition
+        | undefined;
 }
 
 export interface DocumentHtmlDefinitionOriginals {
@@ -17023,7 +17928,6 @@ export interface DocumentHtmlDisplaySettings {
      *   The document is shown in the normal signing window.
      *   This value is not used with supplemental documents,
      *   but is the default value for all other documents.
-     *
      */
     display?: string | undefined;
     /**
@@ -17086,7 +17990,9 @@ export interface DocumentTemplate {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The unique identifier of the template. If this is not provided, DocuSign generates an error and the call fails.
      */
@@ -17109,7 +18015,9 @@ export interface DocumentVisibility {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * A local reference that senders use to map recipients to other objects, such as specific document tabs. Within an envelope, each `recipientId` must be unique,
      * but there is no uniqueness requirement across envelopes. For example, many envelopes assign the first recipient a `recipientId` of `1`.
@@ -17134,7 +18042,9 @@ export interface DocumentVisibilityList {
     /**
      * An array of `documentVisibility` objects that specifies which documents are visible to which recipients.
      */
-    documentVisibility?: /* This object configures a recipient's read/write access to a document. */ DocumentVisibility[] | undefined;
+    documentVisibility?:
+        | /* This object configures a recipient's read/write access to a document. */ DocumentVisibility[]
+        | undefined;
 }
 
 export interface DowngradRequestBillingInfoResponse {
@@ -17160,7 +18070,9 @@ export interface DowngradeBillingPlanInformation {
     /**
      * An object used to identify the features and attributes of the account being created.
      */
-    planInformation?: /* An object used to identify the features and attributes of the account being created. */ PlanInformation | undefined;
+    planInformation?:
+        | /* An object used to identify the features and attributes of the account being created. */ PlanInformation
+        | undefined;
 }
 
 export interface DowngradePlanUpdateResponse {
@@ -17240,7 +18152,6 @@ export interface Draw {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -17286,11 +18197,9 @@ export interface Draw {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -17355,7 +18264,6 @@ export interface Draw {
      * For conditional fields, this is the value of the parent tab that controls the tab's visibility.
      *
      * If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
-     *
      */
     conditionalParentValue?: string | undefined;
     /**
@@ -17384,7 +18292,9 @@ export interface Draw {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * An integer specifying the order in which the guided form HTML should render. The order is relative to the `formPageLabel`, the group by which to place the guided form HTML block.
      */
@@ -17428,7 +18338,9 @@ export interface Draw {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
 
     mergeFieldXml?: string | undefined;
     /**
@@ -17560,7 +18472,6 @@ export interface Draw {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**
@@ -17699,7 +18610,9 @@ export interface Editor {
      * A list of `documentVisibility` objects. Each object in the list specifies whether a document in the envelope is visible to this recipient.
      * For the envelope to use this functionality, Document Visibility must be enabled for the account and the `enforceSignerVisibility` property must be set to **true**.
      */
-    documentVisibility?: /* This object configures a recipient's read/write access to a document. */ DocumentVisibility[] | undefined;
+    documentVisibility?:
+        | /* This object configures a recipient's read/write access to a document. */ DocumentVisibility[]
+        | undefined;
     /**
      * The recipient's email address. Notification of the document to sign is sent to this email address.
      *
@@ -17746,7 +18659,9 @@ export interface Editor {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -17793,7 +18708,9 @@ export interface Editor {
     /**
      * An object that contains input information related to a recipient ID check.
      */
-    idCheckInformationInput?: /* A complex element that contains input information related to a recipient ID check. */ IdCheckInformationInput | undefined;
+    idCheckInformationInput?:
+        | /* A complex element that contains input information related to a recipient ID check. */ IdCheckInformationInput
+        | undefined;
     /**
      * When set to **true** and the envelope recipient creates a DocuSign account after signing, the Manage Account Email Notification settings are used as the default
      * settings for the recipient's account.
@@ -17834,7 +18751,6 @@ export interface Editor {
      * on the signing screen.
      *
      * Maximum Length: 1000 characters.
-     *
      */
     note?: string | undefined;
     /**
@@ -17848,8 +18764,6 @@ export interface Editor {
      * * `senderProvidedNumbers`: ArrayOfStrings.  A list of phone numbers the recipient can use.
      * * `recordVoicePrint`: Reserved for DocuSign.
      * * `validateRecipProvidedNumber`: Reserved for DocuSign.
-     *
-     *
      */
     phoneAuthentication?: RecipientPhoneAuthentication | undefined;
     /**
@@ -17859,7 +18773,9 @@ export interface Editor {
     /**
      * Information about the recipient's authentication status. Read only.
      */
-    recipientAuthenticationStatus?: /* A complex element that contains information about a user's authentication status. */ AuthenticationStatus | undefined;
+    recipientAuthenticationStatus?:
+        | /* A complex element that contains information about a user's authentication status. */ AuthenticationStatus
+        | undefined;
     /**
      * Metadata about the features that are supported for the recipient type. Read only.
      */
@@ -17946,8 +18862,6 @@ export interface Editor {
     /**
      * When `idCheckConfigurationName` is set to `SMS Auth $`, you use this complex type to provide the recipient authentication method details. It contains the element
      * `senderProvidedNumbers`, which is an array of phone numbers that the recipient can use for SMS text authentication.
-     *
-     *
      */
     smsAuthentication?: RecipientSMSAuthentication | undefined;
     /**
@@ -17969,7 +18883,6 @@ export interface Editor {
      * - `sent`: The recipient has been sent an email notification that it is their turn to sign an envelope.
      * - `signed`: The recipient has completed (signed) all required tags in an envelope. This is a temporary state during processing, after which the recipient's
      * status automatically switches to `completed`.
-     *
      */
     status?: string | undefined;
     /**
@@ -17995,7 +18908,6 @@ export interface Editor {
     /**
      * The ID of the user to access. Generally this is the ID of the current authenticated user, but if the authenticated user is an Administrator on the account,
      * `userId` can represent another user whom the Administrator is accessing.
-     *
      */
     userId?: string | undefined;
 }
@@ -18010,7 +18922,6 @@ export interface Editor {
  * When getting information that includes
  * this tab type, the original value of the tab when the
  * associated envelope was sent is included in the response.
- *
  */
 export interface Email {
     anchorAllowWhiteSpaceInCharacters?: string | undefined;
@@ -18065,7 +18976,6 @@ export interface Email {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -18111,11 +19021,9 @@ export interface Email {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -18202,7 +19110,6 @@ export interface Email {
      * For conditional fields, this is the value of the parent tab that controls the tab's visibility.
      *
      * If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
-     *
      */
     conditionalParentValue?: string | undefined;
     /**
@@ -18240,7 +19147,9 @@ export interface Email {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The font to be used for the tab value. Supported fonts include:
      *
@@ -18260,7 +19169,6 @@ export interface Email {
      * - TimesNewRoman
      * - Trebuchet
      * - Verdana
-     *
      */
     font?: string | undefined;
     /**
@@ -18276,7 +19184,6 @@ export interface Email {
      * - NavyBlue
      * - Purple
      * - White
-     *
      */
     fontColor?: string | undefined;
     /**
@@ -18376,7 +19283,9 @@ export interface Email {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
 
     mergeFieldXml?: string | undefined;
     /**
@@ -18475,7 +19384,6 @@ export interface Email {
      * - `signed`: The recipient signed the tab.
      * - `declined`: The recipient declined the envelope.
      * - `na`: Used when the `status` property is not applicable to the tab type. (For example, a tab that has the `tabType` `SignerAttachmentOptional`).
-     *
      */
     status?: string | undefined;
     /**
@@ -18503,7 +19411,6 @@ export interface Email {
      * If no value is provided, the tab type is used as the value.
      *
      * Maximum Length: 500 characters.
-     *
      */
     tabLabel?: string | undefined;
     /**
@@ -18597,7 +19504,6 @@ export interface Email {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**
@@ -18617,7 +19523,6 @@ export interface Email {
 /**
  * A tab that displays the recipient's email as entered in the
  * recipient information.
- *
  */
 export interface EmailAddress {
     anchorAllowWhiteSpaceInCharacters?: string | undefined;
@@ -18672,7 +19577,6 @@ export interface EmailAddress {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -18718,11 +19622,9 @@ export interface EmailAddress {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -18795,7 +19697,6 @@ export interface EmailAddress {
      * For conditional fields, this is the value of the parent tab that controls the tab's visibility.
      *
      * If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
-     *
      */
     conditionalParentValue?: string | undefined;
     /**
@@ -18824,7 +19725,9 @@ export interface EmailAddress {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The font to be used for the tab value. Supported fonts include:
      *
@@ -18844,7 +19747,6 @@ export interface EmailAddress {
      * - TimesNewRoman
      * - Trebuchet
      * - Verdana
-     *
      */
     font?: string | undefined;
     /**
@@ -18860,7 +19762,6 @@ export interface EmailAddress {
      * - NavyBlue
      * - Purple
      * - White
-     *
      */
     fontColor?: string | undefined;
     /**
@@ -18944,7 +19845,9 @@ export interface EmailAddress {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
 
     mergeFieldXml?: string | undefined;
     /**
@@ -18958,7 +19861,6 @@ export interface EmailAddress {
     /**
      * The page number on which the tab is located.
      * For supplemental documents, this value must be `1`.
-     *
      */
     pageNumber?: string | undefined;
     /**
@@ -19019,7 +19921,6 @@ export interface EmailAddress {
      * If no value is provided, the tab type is used as the value.
      *
      * Maximum Length: 500 characters.
-     *
      */
     tabLabel?: string | undefined;
     /**
@@ -19097,7 +19998,6 @@ export interface EmailAddress {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**
@@ -19172,7 +20072,6 @@ export interface Envelope {
      * When **true**, the envelope is queued for processing and the value of the `status` property is set to `Processing`. Additionally, GET status calls return
      * `Processing` until completed.
      *
-     *
      * **Note**: A `transactionId` is required for this call to work correctly. When the envelope is created, the status is `Processing` and an `envelopeId`
      * is not returned in the response. To get the `envelopeId`, use a GET envelope query by using the
      * [transactionId](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create/#envelopeDefinition) or by checking the Connect notification.
@@ -19196,7 +20095,6 @@ export interface Envelope {
     authoritativeCopyDefault?: string | undefined;
     /**
      * When set to **true**, autonavigation is set for the recipient.
-     *
      */
     autoNavigation?: string | undefined;
     /**
@@ -19226,7 +20124,8 @@ export interface Envelope {
      * not used by DocuSign. Each `customField` string can be a maximum of 100 characters.
      */
     customFields?: /* An `accountCustomField` is an envelope custom field that you set at the account level. Applying custom fields enables account administators
-        to group and manage envelopes.  */ AccountCustomFields | undefined;
+        to group and manage envelopes.  */
+        AccountCustomFields | undefined;
     /**
      * The URI for retrieving custom fields.
      */
@@ -19268,7 +20167,6 @@ export interface Envelope {
      *
      * For information about adding merge field information to the email subject, see [Template Email Subject Merge
      * Fields](https://developers.docusign.com/esign-rest-api/reference/Templates/Templates/create#template-email-subject-merge-fields).
-     *
      */
     emailSubject?: string | undefined;
     /**
@@ -19396,7 +20294,9 @@ export interface Envelope {
      */
     messageLock?: string | undefined;
 
-    notification?: /* A complex element that specifies the notification settings for the envelope. */ Notification | undefined;
+    notification?:
+        | /* A complex element that specifies the notification settings for the envelope. */ Notification
+        | undefined;
     /**
      * The URI for retrieving notifications.
      */
@@ -19422,8 +20322,6 @@ export interface Envelope {
      * * `documents_and_metadata_queued`: The envelope documents and metadata have been added to the purge queue, but have not yet been purged.
      * * `documents_purged`: The envelope documents have been successfully purged.
      * * `documents_and_metadata_purged`: The envelope documents and metadata have been successfully purged.
-     *
-     *
      */
     purgeState?: string | undefined;
     /**
@@ -19450,7 +20348,6 @@ export interface Envelope {
      * When set to **true**, recipients can sign on a mobile device.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     signerCanSignOnMobile?: string | undefined;
     /**
@@ -19461,13 +20358,13 @@ export interface Envelope {
      * The status of the item.
      */
     status?:
-        | 'completed'
-        | 'created'
-        | 'declined'
-        | 'delivered'
-        | 'sent'
-        | 'voided'
-        | 'signed'
+        | "completed"
+        | "created"
+        | "declined"
+        | "delivered"
+        | "sent"
+        | "voided"
+        | "signed"
         | undefined;
     /**
      * The data and time that the status changed.
@@ -19524,7 +20421,9 @@ export interface EnvelopeAttachment {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
 
     label?: string | undefined;
 
@@ -19550,7 +20449,9 @@ export interface EnvelopeAttachments {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * A label for the attachment. Potential values include:
      *
@@ -19579,7 +20480,9 @@ export interface EnvelopeAttachmentsResult {
 }
 
 export interface EnvelopeAuditEvent {
-    eventFields?: /* A name-value pair that describes an item and provides a value for the item. */ NameValue[] | undefined;
+    eventFields?:
+        | /* A name-value pair that describes an item and provides a value for the item. */ NameValue[]
+        | undefined;
 }
 
 export interface EnvelopeAuditEventResponse {
@@ -19605,9 +20508,10 @@ export interface EnvelopeConsumerDisclosures {
     allowCDWithdraw?: string | undefined;
     /**
      * Metadata that indicates whether the `allowCDWithdraw` property is editable.
-     *
      */
-    allowCDWithdrawMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowCDWithdrawMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * If the customer needs to change their email address, this is the email address to which they should the change request.
      */
@@ -19628,7 +20532,6 @@ export interface EnvelopeConsumerDisclosures {
      *
      * **Note**: This substitution only works if you use the default legal disclosure or if you apply the `companyName` to the merge fields in a custom ERSD.
      * You must also set the value of the `useBrand` property to **true**.
-     *
      */
     companyName?: string | undefined;
     /**
@@ -19754,9 +20657,10 @@ export interface EnvelopeConsumerDisclosures {
     useConsumerDisclosureWithinAccount?: string | undefined;
     /**
      * Metadata that indicates whether the `useConsumerDisclosureWithinAccount` property is editable.
-     *
      */
-    useConsumerDisclosureWithinAccountMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    useConsumerDisclosureWithinAccountMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Contains the first address line of the postal address to which a customer can send a consent withdrawal notification.
      *
@@ -19841,11 +20745,15 @@ export interface EnvelopeCustomFields {
     /**
      * An array of list custom fields.
      */
-    listCustomFields?: /* This object represents a list custom field from which envelope creators and senders can select custom data. */ ListCustomField[] | undefined;
+    listCustomFields?:
+        | /* This object represents a list custom field from which envelope creators and senders can select custom data. */ ListCustomField[]
+        | undefined;
     /**
      * An array of text custom fields.
      */
-    textCustomFields?: /* This object represents a free text custom field where envelope creators and senders can enter custom data. */ TextCustomField[] | undefined;
+    textCustomFields?:
+        | /* This object represents a free text custom field where envelope creators and senders can enter custom data. */ TextCustomField[]
+        | undefined;
 }
 
 /**
@@ -19892,7 +20800,6 @@ export interface EnvelopeDefinition {
     /**
      * When **true**, the envelope is queued for processing and the value of the `status` property is set to `Processing`. Additionally, GET status calls return `Processing` until completed.
      *
-     *
      * **Note**: A `transactionId` is required for this call to work correctly. When the envelope is created, the status is `Processing` and an `envelopeId`
      * is not returned in the response. To get the `envelopeId`, use a GET envelope query by using the
      * [transactionId](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create/#envelopeDefinition) or by checking the Connect notification.
@@ -19920,7 +20827,6 @@ export interface EnvelopeDefinition {
     authoritativeCopyDefault?: string | undefined;
     /**
      * When set to **true**, autonavigation is set for the recipient.
-     *
      */
     autoNavigation?: string | undefined;
     /**
@@ -19955,7 +20861,8 @@ export interface EnvelopeDefinition {
      * not used by DocuSign. Each `customField` string can be a maximum of 100 characters.
      */
     customFields?: /* An `accountCustomField` is an envelope custom field that you set at the account level. Applying custom fields enables account administators to group
-        and manage envelopes.  */ AccountCustomFields | undefined;
+        and manage envelopes.  */
+        AccountCustomFields | undefined;
     /**
      * The URI for retrieving custom fields.
      */
@@ -20007,7 +20914,6 @@ export interface EnvelopeDefinition {
      *
      * For information about adding merge field information to the email subject, see
      * [Template Email Subject Merge Fields](https://developers.docusign.com/esign-rest-api/reference/Templates/Templates/create#template-email-subject-merge-fields).
-     *
      */
     emailSubject?: string | undefined;
     /**
@@ -20144,7 +21050,9 @@ export interface EnvelopeDefinition {
     /**
      * An optional complex element that specifies the notification options for the envelope.
      */
-    notification?: /* A complex element that specifies the notification settings for the envelope. */ Notification | undefined;
+    notification?:
+        | /* A complex element that specifies the notification settings for the envelope. */ Notification
+        | undefined;
     /**
      * The URI for retrieving notifications.
      */
@@ -20169,7 +21077,6 @@ export interface EnvelopeDefinition {
      * Initiates a purge request. Valid values are:
      * * `documents_queued`: Places envelope documents in the purge queue.
      * * `documents_and_metadata_queued`: Places envelope documents and metadata in the purge queue.
-     *
      */
     purgeState?: string | undefined;
     /**
@@ -20196,7 +21103,6 @@ export interface EnvelopeDefinition {
      * When set to **true**, recipients can sign on a mobile device.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     signerCanSignOnMobile?: string | undefined;
     /**
@@ -20238,7 +21144,6 @@ export interface EnvelopeDefinition {
      * * `emailNotification`: This is an optional complex element that has a role-specific `emailSubject`, `emailBody`, and `language`. It follows the same format as
      * the `emailNotification` property for recipients.
      * * `tabs`: This property enables the tab values to be specified for matching to tabs in the template.
-     *
      */
     templateRoles?: TemplateRole[] | undefined;
     /**
@@ -20295,7 +21200,9 @@ export interface EnvelopeDocument {
      */
     authoritativeCopyMetadata?: /* Metadata about a property. */ PropertyMetadata | undefined;
 
-    availableDocumentTypes?: /* This object contains information about the type of signature. */ SignatureType[] | undefined;
+    availableDocumentTypes?:
+        | /* This object contains information about the type of signature. */ SignatureType[]
+        | undefined;
     /**
      * When **true**, the document has editable form fields that are made available through a PDF format.
      */
@@ -20317,7 +21224,6 @@ export interface EnvelopeDocument {
      *   The document is shown in the normal signing window.
      *   This value is not used with supplemental documents,
      *   but is the default value for all other documents.
-     *
      */
     display?: string | undefined;
     /**
@@ -20327,7 +21233,9 @@ export interface EnvelopeDocument {
     /**
      * An object containing information about the custom fields on the document.
      */
-    documentFields?: /* A name-value pair that describes an item and provides a value for the item. */ NameValue[] | undefined;
+    documentFields?:
+        | /* A name-value pair that describes an item and provides a value for the item. */ NameValue[]
+        | undefined;
     /**
      * The id of the document that the tab is placed on. This value must refer to the id of an existing document.
      */
@@ -20339,12 +21247,13 @@ export interface EnvelopeDocument {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * When set to **true**,
      * the document is included in the combined document download (`documentsCombinedUri`).
      * The default value is **true**.
-     *
      */
     includeInDownload?: string | undefined;
     /**
@@ -20365,7 +21274,6 @@ export interface EnvelopeDocument {
      * (Optional) The order in which to sort the results.
      *
      * Valid values are:
-     *
      *
      * * `asc`: Ascending order.
      * * `desc`: Descending order.
@@ -20390,8 +21298,6 @@ export interface EnvelopeDocument {
      *
      * *	`view_accept`<br>
      *   The recipient is required to view and accept the document.
-     *
-     *
      */
     signerMustAcknowledge?: string | undefined;
     /**
@@ -20428,9 +21334,10 @@ export interface EnvelopeDocumentFields {
      * * value - A string that can be a maximum of 200 characters.
      *
      * *IMPORTANT*: If you are using xml, the name/value pair is contained in a nameValue element.
-     *
      */
-    documentFields?: /* A name-value pair that describes an item and provides a value for the item. */ NameValue[] | undefined;
+    documentFields?:
+        | /* A name-value pair that describes an item and provides a value for the item. */ NameValue[]
+        | undefined;
 }
 
 export interface EnvelopeDocumentHtmlDefinitions {
@@ -20458,19 +21365,15 @@ export interface EnvelopeDocumentTabs {
      * The value of an approve tab can't be set.
      *
      * [approve]:		      https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/approve
-     *
      */
     approveTabs?: Approve[] | undefined;
     /**
      * A list of
      * [Checkbox tabs][checkbox].
      *
-     *
      * A Checkbox tab enables the recipient to select a yes/no (on/off) option. This value can be set.
      *
-     *
      * [checkbox]:  https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/checkbox
-     *
      */
     checkboxTabs?: Checkbox[] | undefined;
     /**
@@ -20482,24 +21385,18 @@ export interface EnvelopeDocumentTabs {
      * A list of
      * [Company tabs][company].
      *
-     *
      * A Company tab displays a field for the name of the recipient's company. This value can't be set.
      *
-     *
-     *
      * [company]: https://developers.docusign.com/esign-rest-api/reference/EnvelopeRecipientTabs/create/#/definitions/company
-     *
      */
     companyTabs?: Company[] | undefined;
     /**
      * A list of
      * [Date Signed tabs][dateSigned].
      *
-     *
      * A Date Signed tab displays the date that the recipient signed the document. This value can't be set.
      *
      * [dateSigned]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/dateSigned
-     *
      */
     dateSignedTabs?: DateSigned[] | undefined;
     /**
@@ -20518,9 +21415,7 @@ export interface EnvelopeDocumentTabs {
      *
      * A Decline tab enables the recipient to decline the envelope. If the recipient clicks the tab during the signing process, the envelope is voided. The value of this tab can't be set.
      *
-     *
      * [decline]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/decline
-     *
      */
     declineTabs?: Decline[] | undefined;
 
@@ -20531,9 +21426,7 @@ export interface EnvelopeDocumentTabs {
      *
      * An Email Address tab displays the recipient's email as entered in the recipient information. This value can't be set.
      *
-     *
      * [emailAddress]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/emailAddress
-     *
      */
     emailAddressTabs?: EmailAddress[] | undefined;
     /**
@@ -20551,7 +21444,6 @@ export interface EnvelopeDocumentTabs {
      * associated envelope was sent is included in the response.
      *
      * [email]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/email
-     *
      */
     emailTabs?: Email[] | undefined;
     /**
@@ -20560,9 +21452,7 @@ export interface EnvelopeDocumentTabs {
      *
      * An Envelope ID tab  displays the envelope ID. Recipients cannot enter or change the information in this tab. This value can't be set.
      *
-     *
      * [envelopeId]: https://developers.docusign.com/esign-rest-api/reference/EnvelopeRecipientTabs/create/#/definitions/envelopeId
-     *
      */
     envelopeIdTabs?: EnvelopeId[] | undefined;
     /**
@@ -20572,9 +21462,7 @@ export interface EnvelopeDocumentTabs {
      * A First Name tab displays the recipient's first name. The system automatically populates this field by splitting the name in the recipient information on spaces.
      * This value can't be set.
      *
-     *
      * [firstName]: https://developers.docusign.com/esign-rest-api/reference/EnvelopeRecipientTabs/create/#/definitions/firstName
-     *
      */
     firstNameTabs?: FirstName[] | undefined;
     /**
@@ -20590,7 +21478,6 @@ export interface EnvelopeDocumentTabs {
      * [calculatedfields]: https://support.docusign.com/en/guides/ndse-user-guide-calculated-fields
      * [paymentguide]:     https://support.docusign.com/en/guides/requesting-payments-along-with-signatures
      * [formulaTab]:	    	https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/formulaTab
-     *
      */
     formulaTabs?: FormulaTab[] | undefined;
     /**
@@ -20599,9 +21486,7 @@ export interface EnvelopeDocumentTabs {
      *
      * A Full Name tab displays the recipient's full name. This value can't be set.
      *
-     *
      * [fullName]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/fullName
-     *
      */
     fullNameTabs?: FullName[] | undefined;
     /**
@@ -20611,7 +21496,6 @@ export interface EnvelopeDocumentTabs {
      * This type of tab enables the recipient to initial the document. May be optional. This value can't be set.
      *
      * [initialHere]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/initialHere
-     *
      */
     initialHereTabs?: InitialHere[] | undefined;
     /**
@@ -20620,9 +21504,7 @@ export interface EnvelopeDocumentTabs {
      *
      * A Last Name tab displays the recipient's last name. The system automatically populates this field by splitting the name in the recipient information on spaces. This value can't be set.
      *
-     *
      * [lastName]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/lastName
-     *
      */
     lastNameTabs?: LastName[] | undefined;
     /**
@@ -20639,7 +21521,6 @@ export interface EnvelopeDocumentTabs {
      * **Note**: Only one notarize tab can appear on a page.
      *
      * [notarize]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/notarize
-     *
      */
     notarizeTabs?: Notarize[] | undefined;
     /**
@@ -20649,7 +21530,6 @@ export interface EnvelopeDocumentTabs {
      * A Note tab displays additional information to the recipient in the form of a note. This value can be set.
      *
      * [note]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/note
-     *
      */
     noteTabs?: Note[] | undefined;
     /**
@@ -20658,7 +21538,7 @@ export interface EnvelopeDocumentTabs {
      * A Number tab enables the recipient to enter numbers and decimal points (.). This value can be set.
      * [number]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/number
      */
-    // tslint:disable-next-line: ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     numberTabs?: Number[] | undefined;
     /**
      * This type of tab enables the recipient to strike through document text. This value can't be set.
@@ -20677,9 +21557,7 @@ export interface EnvelopeDocumentTabs {
      *
      * This type of tab enables the recipient to attach supporting documents to an envelope. This value can't be set.
      *
-     *
      * [signerAttachment]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/signerAttachment
-     *
      */
     signerAttachmentTabs?: SignerAttachment[] | undefined;
     /**
@@ -20689,7 +21567,6 @@ export interface EnvelopeDocumentTabs {
      * This type of tab enables the recipient to sign a document. May be optional. This value can't be set.
      *
      * [signHere]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/signHere
-     *
      */
     signHereTabs?: SignHere[] | undefined;
     /**
@@ -20707,9 +21584,7 @@ export interface EnvelopeDocumentTabs {
      * An SSN tab contains a one-line field that enables the recipient to enter a Social Security Number (SSN) with or without
      * dashes. It uses the same parameters as a Text tab, with the validation message and pattern set for SSN information. This value can be set.
      *
-     *
      * [ssn]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/ssn
-     *
      */
     ssnTabs?: Ssn[] | undefined;
     /**
@@ -20723,7 +21598,6 @@ export interface EnvelopeDocumentTabs {
      * A text tab enables the recipient to enter free text. This value can be set.
      *
      * [text]: https://developers.docusign.com/esign-rest-api/reference/EnvelopeRecipientTabs/create/#/definitions/text
-     *
      */
     textTabs?: Text[] | undefined;
     /**
@@ -20732,9 +21606,7 @@ export interface EnvelopeDocumentTabs {
      *
      * A Title tab displays the recipient's title.  This value can't be set.
      *
-     *
      * [title]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/title
-     *
      */
     titleTabs?: Title[] | undefined;
     /**
@@ -20744,7 +21616,6 @@ export interface EnvelopeDocumentTabs {
      * A View tab is used with an Approve tab to handle supplemental documents.  This value can be set.
      *
      * [view]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/view
-     *
      */
     viewTabs?: /* This tab is used with the Approve tab to handle supplemental documents. */ View[] | undefined;
     /**
@@ -20754,9 +21625,7 @@ export interface EnvelopeDocumentTabs {
      * A Zip tab enables the recipient to enter a ZIP code. The ZIP code can be five digits or nine digits ( in ZIP+4 format), and can be entered with or without dashes.
      * It uses the same parameters as a Text tab, with the validation message and pattern set for ZIP code information.  This value can be set.
      *
-     *
      * [zip]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/zip
-     *
      */
     zipTabs?: Zip[] | undefined;
 }
@@ -20780,7 +21649,9 @@ export interface EnvelopeDocumentVisibility {
     /**
      * An array of `documentVisibility` objects that specifies which documents are visible to which recipients.
      */
-    documentVisibility?: /* This object configures a recipient's read/write access to a document. */ DocumentVisibility[] | undefined;
+    documentVisibility?:
+        | /* This object configures a recipient's read/write access to a document. */ DocumentVisibility[]
+        | undefined;
 }
 
 /**
@@ -20862,7 +21733,6 @@ export interface EnvelopeFormData {
      *
      * For information about adding merge field information to the email subject, see [Template Email Subject
      * Merge Fields](https://developers.docusign.com/esign-rest-api/reference/Templates/Templates/create#template-email-subject-merge-fields).
-     *
      */
     emailSubject?: string | undefined;
     /**
@@ -20900,7 +21770,6 @@ export interface EnvelopeHtmlDefinitions {
 /**
  * A tab that displays the envelope ID. Recipients cannot enter
  * or change the information in this tab.
- *
  */
 export interface EnvelopeId {
     anchorAllowWhiteSpaceInCharacters?: string | undefined;
@@ -20955,7 +21824,6 @@ export interface EnvelopeId {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -21001,11 +21869,9 @@ export interface EnvelopeId {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -21078,7 +21944,6 @@ export interface EnvelopeId {
      * For conditional fields, this is the value of the parent tab that controls the tab's visibility.
      *
      * If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
-     *
      */
     conditionalParentValue?: string | undefined;
     /**
@@ -21107,7 +21972,9 @@ export interface EnvelopeId {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The font to be used for the tab value. Supported fonts include:
      *
@@ -21127,7 +21994,6 @@ export interface EnvelopeId {
      * - TimesNewRoman
      * - Trebuchet
      * - Verdana
-     *
      */
     font?: string | undefined;
     /**
@@ -21143,7 +22009,6 @@ export interface EnvelopeId {
      * - NavyBlue
      * - Purple
      * - White
-     *
      */
     fontColor?: string | undefined;
     /**
@@ -21227,7 +22092,9 @@ export interface EnvelopeId {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
 
     mergeFieldXml?: string | undefined;
     /**
@@ -21301,7 +22168,6 @@ export interface EnvelopeId {
      * If no value is provided, the tab type is used as the value.
      *
      * Maximum Length: 500 characters.
-     *
      */
     tabLabel?: string | undefined;
     /**
@@ -21371,7 +22237,6 @@ export interface EnvelopeId {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**
@@ -21409,14 +22274,15 @@ export interface EnvelopeLocks {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * Sets the time, in seconds, until the lock expires when there is no activity on the envelope.
      *
      * The default value is 300 seconds. The maximum value is 1,800 seconds.
      *
      * The lock duration can be extended.
-     *
      */
     lockDurationInSeconds?: string | undefined;
     /**
@@ -21441,7 +22307,6 @@ export interface EnvelopeLocks {
     lockType?: string | undefined;
     /**
      * When set to **true**, a scratchpad is used to edit information.
-     *
      */
     useScratchPad?: string | undefined;
 }
@@ -21470,7 +22335,9 @@ export interface EnvelopeNotificationRequest {
     /**
      * A complex element that specifies the expiration settings for the envelope.
      */
-    expirations?: /* A complex element that specifies the expiration settings for the envelope. */ Expirations | undefined;
+    expirations?:
+        | /* A complex element that specifies the expiration settings for the envelope. */ Expirations
+        | undefined;
     /**
      * A complex element that specifies reminder settings for the envelope
      */
@@ -21509,7 +22376,6 @@ export interface EnvelopePurgeConfiguration {
 
 /**
  * All of the tabs associated with a recipient. Each property is a list of a type of tab.
- *
  */
 export interface EnvelopeRecipientTabs {
     /**
@@ -21526,19 +22392,15 @@ export interface EnvelopeRecipientTabs {
      * The value of an approve tab can't be set.
      *
      * [approve]:		      https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/approve
-     *
      */
     approveTabs?: Approve[] | undefined;
     /**
      * A list of
      * [Checkbox tabs][checkbox].
      *
-     *
      * A Checkbox tab enables the recipient to select a yes/no (on/off) option. This value can be set.
      *
-     *
      * [checkbox]:  https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/checkbox
-     *
      */
     checkboxTabs?: Checkbox[] | undefined;
     /**
@@ -21550,24 +22412,18 @@ export interface EnvelopeRecipientTabs {
      * A list of
      * [Company tabs][company].
      *
-     *
      * A Company tab displays a field for the name of the recipient's company. This value can't be set.
      *
-     *
-     *
      * [company]: https://developers.docusign.com/esign-rest-api/reference/EnvelopeRecipientTabs/create/#/definitions/company
-     *
      */
     companyTabs?: Company[] | undefined;
     /**
      * A list of
      * [Date Signed tabs][dateSigned].
      *
-     *
      * A Date Signed tab displays the date that the recipient signed the document. This value can't be set.
      *
      * [dateSigned]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/dateSigned
-     *
      */
     dateSignedTabs?: DateSigned[] | undefined;
     /**
@@ -21579,9 +22435,7 @@ export interface EnvelopeRecipientTabs {
      *
      * **Note**: If you need to enforce a specific date format, we recommend that you use a Text tab with a validation pattern and validation message.
      *
-     *
      * [date]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/date
-     *
      */
     dateTabs?: Date[] | undefined;
     /**
@@ -21590,9 +22444,7 @@ export interface EnvelopeRecipientTabs {
      *
      * A Decline tab enables the recipient to decline the envelope. If the recipient clicks the tab during the signing process, the envelope is voided. The value of this tab can't be set.
      *
-     *
      * [decline]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/decline
-     *
      */
     declineTabs?: Decline[] | undefined;
 
@@ -21603,9 +22455,7 @@ export interface EnvelopeRecipientTabs {
      *
      * An Email Address tab displays the recipient's email as entered in the recipient information. This value can't be set.
      *
-     *
      * [emailAddress]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/emailAddress
-     *
      */
     emailAddressTabs?: EmailAddress[] | undefined;
     /**
@@ -21623,7 +22473,6 @@ export interface EnvelopeRecipientTabs {
      * associated envelope was sent is included in the response.
      *
      * [email]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/email
-     *
      */
     emailTabs?: Email[] | undefined;
     /**
@@ -21632,9 +22481,7 @@ export interface EnvelopeRecipientTabs {
      *
      * An Envelope ID tab  displays the envelope ID. Recipients cannot enter or change the information in this tab. This value can't be set.
      *
-     *
      * [envelopeId]: https://developers.docusign.com/esign-rest-api/reference/EnvelopeRecipientTabs/create/#/definitions/envelopeId
-     *
      */
     envelopeIdTabs?: EnvelopeId[] | undefined;
     /**
@@ -21644,9 +22491,7 @@ export interface EnvelopeRecipientTabs {
      * A First Name tab displays the recipient's first name. The system automatically populates this field by splitting the name in the recipient information on spaces.
      * This value can't be set.
      *
-     *
      * [firstName]: https://developers.docusign.com/esign-rest-api/reference/EnvelopeRecipientTabs/create/#/definitions/firstName
-     *
      */
     firstNameTabs?: FirstName[] | undefined;
     /**
@@ -21663,7 +22508,6 @@ export interface EnvelopeRecipientTabs {
      * [calculatedfields]: https://support.docusign.com/en/guides/ndse-user-guide-calculated-fields
      * [paymentguide]:     https://support.docusign.com/en/guides/requesting-payments-along-with-signatures
      * [formulaTab]:	    	https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/formulaTab
-     *
      */
     formulaTabs?: FormulaTab[] | undefined;
     /**
@@ -21672,9 +22516,7 @@ export interface EnvelopeRecipientTabs {
      *
      * A Full Name tab displays the recipient's full name. This value can't be set.
      *
-     *
      * [fullName]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/fullName
-     *
      */
     fullNameTabs?: FullName[] | undefined;
     /**
@@ -21684,7 +22526,6 @@ export interface EnvelopeRecipientTabs {
      * This type of tab enables the recipient to initial the document. May be optional. This value can't be set.
      *
      * [initialHere]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/initialHere
-     *
      */
     initialHereTabs?: InitialHere[] | undefined;
     /**
@@ -21693,9 +22534,7 @@ export interface EnvelopeRecipientTabs {
      *
      * A Last Name tab displays the recipient's last name. The system automatically populates this field by splitting the name in the recipient information on spaces. This value can't be set.
      *
-     *
      * [lastName]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/lastName
-     *
      */
     lastNameTabs?: LastName[] | undefined;
     /**
@@ -21712,7 +22551,6 @@ export interface EnvelopeRecipientTabs {
      * **Note**: Only one notarize tab can appear on a page.
      *
      * [notarize]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/notarize
-     *
      */
     notarizeTabs?: Notarize[] | undefined;
     /**
@@ -21722,7 +22560,6 @@ export interface EnvelopeRecipientTabs {
      * A Note tab displays additional information to the recipient in the form of a note. This value can be set.
      *
      * [note]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/note
-     *
      */
     noteTabs?: Note[] | undefined;
     /**
@@ -21731,7 +22568,7 @@ export interface EnvelopeRecipientTabs {
      * A Number tab enables the recipient to enter numbers and decimal points (.). This value can be set.
      * [number]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/number
      */
-    // tslint:disable-next-line: ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     numberTabs?: Number[] | undefined;
     /**
      * This type of tab enables the recipient to strike through document text. This value can't be set.
@@ -21750,9 +22587,7 @@ export interface EnvelopeRecipientTabs {
      *
      * This type of tab enables the recipient to attach supporting documents to an envelope. This value can't be set.
      *
-     *
      * [signerAttachment]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/signerAttachment
-     *
      */
     signerAttachmentTabs?: SignerAttachment[] | undefined;
     /**
@@ -21762,7 +22597,6 @@ export interface EnvelopeRecipientTabs {
      * This type of tab enables the recipient to sign a document. May be optional. This value can't be set.
      *
      * [signHere]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/signHere
-     *
      */
     signHereTabs?: SignHere[] | undefined;
     /**
@@ -21780,9 +22614,7 @@ export interface EnvelopeRecipientTabs {
      * An SSN tab contains a one-line field that enables the recipient to enter a Social Security Number (SSN) with or without
      * dashes. It uses the same parameters as a Text tab, with the validation message and pattern set for SSN information. This value can be set.
      *
-     *
      * [ssn]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/ssn
-     *
      */
     ssnTabs?: Ssn[] | undefined;
     /**
@@ -21796,7 +22628,6 @@ export interface EnvelopeRecipientTabs {
      * A text tab enables the recipient to enter free text. This value can be set.
      *
      * [text]: https://developers.docusign.com/esign-rest-api/reference/EnvelopeRecipientTabs/create/#/definitions/text
-     *
      */
     textTabs?: Text[] | undefined;
     /**
@@ -21805,9 +22636,7 @@ export interface EnvelopeRecipientTabs {
      *
      * A Title tab displays the recipient's title.  This value can't be set.
      *
-     *
      * [title]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/title
-     *
      */
     titleTabs?: Title[] | undefined;
     /**
@@ -21817,7 +22646,6 @@ export interface EnvelopeRecipientTabs {
      * A View tab is used with an Approve tab to handle supplemental documents.  This value can be set.
      *
      * [view]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/view
-     *
      */
     viewTabs?: /* This tab is used with the Approve tab to handle supplemental documents. */ View[] | undefined;
     /**
@@ -21827,9 +22655,7 @@ export interface EnvelopeRecipientTabs {
      * A Zip tab enables the recipient to enter a ZIP code. The ZIP code can be five digits or nine digits ( in ZIP+4 format), and can be entered with or without dashes.
      * It uses the same parameters as a Text tab, with the validation message and pattern set for ZIP code information.  This value can be set.
      *
-     *
      * [zip]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/zip
-     *
      */
     zipTabs?: Zip[] | undefined;
 }
@@ -21842,18 +22668,21 @@ export interface EnvelopeRecipients {
      * A list of agent recipients assigned to the documents.
      */
     agents?: /* Contains information about an agent recipient. An agent is a recipient who can add name and email information for recipients that appear after
-        the agent in routing order. */ Agent[] | undefined;
+        the agent in routing order. */
+        Agent[] | undefined;
     /**
      * A list of carbon copy recipients assigned to the documents.
      */
     carbonCopies?: /* Contains information about a carbon copy recipient. Carbon copy recipients get a copy of the envelope but don't need to sign, initial,
-        date or add information to any of the documents.  */ CarbonCopy[] | undefined;
+        date or add information to any of the documents.  */
+        CarbonCopy[] | undefined;
     /**
      * A complex type containing information on a recipient the must receive the completed documents for the envelope to be completed, but the recipient does
      * not need to sign, initial, date, or add information to any of the documents.
      */
     certifiedDeliveries?: /* Contains information about a certified delivery recipient. Certified delivery recipients must receive the completed documents
-        for the envelope to be completed. However, they don't need to sign, initial, date or add information to any of the documents. */ CertifiedDelivery[] | undefined;
+        for the envelope to be completed. However, they don't need to sign, initial, date or add information to any of the documents. */
+        CertifiedDelivery[] | undefined;
     /**
      * The routing order of the current recipient. If this value equals a particular signer's routing order, it indicates that the envelope has been sent to that recipient,
      * but he or she has not completed the required actions.
@@ -21865,11 +22694,14 @@ export interface EnvelopeRecipients {
     editors?: /* A complex type defining the management and access rights of a recipient assigned as an editor on the envelope. Editors have the same management
         and access rights for the envelope as the sender. They can make changes to the envelope as if they were using the Correct feature. This recipient can add name
         and email information, add or change the routing order and set authentication options for the remaining recipients. Additionally, this recipient can edit
-        signature/initial tabs and text tabs for the remaining recipients. */ Editor[] | undefined;
+        signature/initial tabs and text tabs for the remaining recipients. */
+        Editor[] | undefined;
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * Specifies a signer that is in the same physical location as a DocuSign user who will act as a Signing Host for the transaction. The recipient added is the Signing
      * Host and new separate Signer Name field appears after Sign in person is selected.
@@ -21880,7 +22712,8 @@ export interface EnvelopeRecipients {
      * Agents, Editors or Intermediaries recipient types are added).
      */
     intermediaries?: /* Contains information about an intermediary recipient. An intermediary is a recipient who can, but is not required to, add name and email information for
-         recipients at the same or subsequent level in the routing order, unless subsequent agents, editors or intermediaries are added. */ Intermediary[] | undefined;
+         recipients at the same or subsequent level in the routing order, unless subsequent agents, editors or intermediaries are added. */
+        Intermediary[] | undefined;
     /**
      * The number of recipients in the envelope.
      */
@@ -21897,7 +22730,8 @@ export interface EnvelopeRecipients {
      * A list of signers who act as witnesses on the envelope.
      */
     witnesses?: /* A complex type containing information about a witness recipient. Witnesses are recipients whose signatures affirm that the identified signers have signed the
-        documents in the envelope. */ Witness[] | undefined;
+        documents in the envelope. */
+        Witness[] | undefined;
 }
 
 /**
@@ -21915,7 +22749,9 @@ export interface EnvelopeSummary {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * Indicates the envelope status. Valid values are:
      *
@@ -21926,7 +22762,6 @@ export interface EnvelopeSummary {
      * * `sent`: The envelope is sent to the recipients.
      * * `signed`: The envelope has been signed by the recipients.
      * * `voided`: The envelope is no longer valid and recipients cannot access or sign the envelope.
-     *
      */
     status?: string | undefined;
     /**
@@ -21971,7 +22806,6 @@ export interface EnvelopeTemplate {
      * When **true**, the envelope is queued for processing and the value of the `status` property is set to `Processing`. Additionally, GET status calls return
      * `Processing` until completed.
      *
-     *
      * **Note**: A `transactionId` is required for this call to work correctly. When the envelope is created, the status is `Processing` and an `envelopeId` is not
      * returned in the response. To get the `envelopeId`, use a GET envelope query by using the
      * [transactionId](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create/#envelopeDefinition) or by checking the Connect notification.
@@ -22014,7 +22848,6 @@ export interface EnvelopeTemplate {
     autoMatchSpecifiedByUser?: string | undefined;
     /**
      * When set to **true**, autonavigation is set for the recipient.
-     *
      */
     autoNavigation?: string | undefined;
     /**
@@ -22048,7 +22881,8 @@ export interface EnvelopeTemplate {
      * but otherwise not used by DocuSign. Each `customField` string can be a maximum of 100 characters.
      */
     customFields?: /* An `accountCustomField` is an envelope custom field that you set at the account level. Applying custom fields enables account
-        administators to group and manage envelopes.  */ AccountCustomFields | undefined;
+        administators to group and manage envelopes.  */
+        AccountCustomFields | undefined;
     /**
      * The URI for retrieving custom fields.
      */
@@ -22067,7 +22901,6 @@ export interface EnvelopeTemplate {
     deliveredDateTime?: string | undefined;
     /**
      * A sender-defined description of the line item.
-     *
      */
     description?: string | undefined;
     /**
@@ -22099,7 +22932,6 @@ export interface EnvelopeTemplate {
      *
      * For information about adding merge field information to the email subject, see
      * [Template Email Subject Merge Fields](https://developers.docusign.com/esign-rest-api/reference/Templates/Templates/create#template-email-subject-merge-fields).
-     *
      */
     emailSubject?: string | undefined;
     /**
@@ -22252,7 +23084,9 @@ export interface EnvelopeTemplate {
      */
     newPassword?: string | undefined;
 
-    notification?: /* A complex element that specifies the notification settings for the envelope. */ Notification | undefined;
+    notification?:
+        | /* A complex element that specifies the notification settings for the envelope. */ Notification
+        | undefined;
     /**
      * The URI for retrieving notifications.
      */
@@ -22294,8 +23128,6 @@ export interface EnvelopeTemplate {
      * * `documents_and_metadata_queued`: The envelope documents and metadata have been added to the purge queue, but have not yet been purged.
      * * `documents_purged`: The envelope documents have been successfully purged.
      * * `documents_and_metadata_purged`: The envelope documents and metadata have been successfully purged.
-     *
-     *
      */
     purgeState?: string | undefined;
     /**
@@ -22326,7 +23158,6 @@ export interface EnvelopeTemplate {
      * When set to **true**, recipients can sign on a mobile device.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     signerCanSignOnMobile?: string | undefined;
     /**
@@ -22435,7 +23266,9 @@ export interface EnvelopeTransactionStatus {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * Indicates the envelope status. Valid values are:
      *
@@ -22509,7 +23342,9 @@ export interface EnvelopeTransferRuleInformation {
     /**
      * Contains information about a specific envelope transfer rule.
      */
-    envelopeTransferRules?: /* This object contains details about an envelope transfer rule. */ EnvelopeTransferRule[] | undefined;
+    envelopeTransferRules?:
+        | /* This object contains details about an envelope transfer rule. */ EnvelopeTransferRule[]
+        | undefined;
     /**
      * The URI for the next chunk of records based on the search request. It is `null` if this is the last set of results for the search.
      */
@@ -22593,7 +23428,9 @@ export interface EnvelopeTransferRules {
     /**
      * Contains information about a specific envelope transfer rule.
      */
-    envelopeTransferRules?: /* This object contains details about an envelope transfer rule. */ EnvelopeTransferRule[] | undefined;
+    envelopeTransferRules?:
+        | /* This object contains details about an envelope transfer rule. */ EnvelopeTransferRule[]
+        | undefined;
     /**
      * The URI for the next chunk of records based on the search request. It is `null` if this is the last set of results for the search.
      */
@@ -22628,9 +23465,13 @@ export interface EnvelopeUpdateSummary {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
 
-    listCustomFieldUpdateResults?: /* This object represents a list custom field from which envelope creators and senders can select custom data. */ ListCustomField[] | undefined;
+    listCustomFieldUpdateResults?:
+        | /* This object represents a list custom field from which envelope creators and senders can select custom data. */ ListCustomField[]
+        | undefined;
     /**
      * Provides lock information about an envelope that a user has locked.
      */
@@ -22644,18 +23485,20 @@ export interface EnvelopeUpdateSummary {
      * * `documents_and_metadata_queued`: The envelope documents and metadata have been added to the purge queue, but have not yet been purged.
      * * `documents_purged`: The envelope documents have been successfully purged.
      * * `documents_and_metadata_purged`: The envelope documents and metadata have been successfully purged.
-     *
-     *
      */
     purgeState?: string | undefined;
     /**
      * An array of `recipientUpdateResults` objects that contain details about the recipients.
      */
-    recipientUpdateResults?: /* The recipient details that are returned after you update the recipient. */ RecipientUpdateResponse[] | undefined;
+    recipientUpdateResults?:
+        | /* The recipient details that are returned after you update the recipient. */ RecipientUpdateResponse[]
+        | undefined;
 
     tabUpdateResults?: EnvelopeRecipientTabs | undefined;
 
-    textCustomFieldUpdateResults?: /* This object represents a free text custom field where envelope creators and senders can enter custom data. */ TextCustomField[] | undefined;
+    textCustomFieldUpdateResults?:
+        | /* This object represents a free text custom field where envelope creators and senders can enter custom data. */ TextCustomField[]
+        | undefined;
 }
 
 /**
@@ -22703,7 +23546,6 @@ export interface Envelopes {
      * When **true**, the envelope is queued for processing and the value of the `status` property is set to `Processing`. Additionally, GET status calls return
      * `Processing` until completed.
      *
-     *
      * **Note**: A `transactionId` is required for this call to work correctly. When the envelope is created, the status is `Processing` and an `envelopeId`
      * is not returned in the response. To get the `envelopeId`, use a GET envelope query by using the
      * [transactionId](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create/#envelopeDefinition) or by checking the Connect notification.
@@ -22727,7 +23569,6 @@ export interface Envelopes {
     authoritativeCopyDefault?: string | undefined;
     /**
      * When set to **true**, autonavigation is set for the recipient.
-     *
      */
     autoNavigation?: string | undefined;
     /**
@@ -22757,7 +23598,8 @@ export interface Envelopes {
      * but otherwise not used by DocuSign. Each `customField` string can be a maximum of 100 characters.
      */
     customFields?: /* An `accountCustomField` is an envelope custom field that you set at the account level. Applying custom fields enables account administators
-        to group and manage envelopes.  */ AccountCustomFields | undefined;
+        to group and manage envelopes.  */
+        AccountCustomFields | undefined;
     /**
      * The URI for retrieving custom fields.
      */
@@ -22804,7 +23646,6 @@ export interface Envelopes {
      *
      * For information about adding merge field information to the email subject, see [Template Email Subject Merge
      * Fields](https://developers.docusign.com/esign-rest-api/reference/Templates/Templates/create#template-email-subject-merge-fields).
-     *
      */
     emailSubject?: string | undefined;
     /**
@@ -22850,7 +23691,6 @@ export interface Envelopes {
     envelopeLocation?: string | undefined;
     /**
      * Metadata that indicates whether the `envelope` property is editable.
-     *
      */
     envelopeMetadata?: EnvelopeMetadata | undefined;
     /**
@@ -22948,9 +23788,10 @@ export interface Envelopes {
      *    * expireAfter - An integer that sets the number of days the envelope is active.
      *    * expireWarn - An integer that sets the number of days before envelope expiration that an expiration warning email is sent to the recipient. If set to 0 (zero),
      * no warning email is sent.
-     *
      */
-    notification?: /* A complex element that specifies the notification settings for the envelope. */ Notification | undefined;
+    notification?:
+        | /* A complex element that specifies the notification settings for the envelope. */ Notification
+        | undefined;
     /**
      * The URI for retrieving notifications.
      */
@@ -22976,8 +23817,6 @@ export interface Envelopes {
      * * `documents_and_metadata_queued`: The envelope documents and metadata have been added to the purge queue, but have not yet been purged.
      * * `documents_purged`: The envelope documents have been successfully purged.
      * * `documents_and_metadata_purged`: The envelope documents and metadata have been successfully purged.
-     *
-     *
      */
     purgeState?: string | undefined;
     /**
@@ -23004,7 +23843,6 @@ export interface Envelopes {
      * When set to **true**, recipients can sign on a mobile device.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     signerCanSignOnMobile?: string | undefined;
     /**
@@ -23021,7 +23859,6 @@ export interface Envelopes {
      * * `sent`: The envelope is sent to the recipients.
      * * `signed`: The envelope has been signed by the recipients.
      * * `voided`: The envelope is no longer valid and recipients cannot access or sign the envelope.
-     *
      */
     status?: string | undefined;
     /**
@@ -23281,7 +24118,9 @@ export interface ExternalDocumentSources {
     /**
      * Metadata indicating whether the `boxnetEnabled` property is editable.
      */
-    boxnetMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    boxnetMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * The account is enabled to allow external documents to be attached from DropBox.
      */
@@ -23289,7 +24128,9 @@ export interface ExternalDocumentSources {
     /**
      * Metadata indicating whether the `dropboxEnabled` property is editable.
      */
-    dropboxMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    dropboxMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * The account is enabled to allow external documents to be attached from Google Drive.
      */
@@ -23297,7 +24138,9 @@ export interface ExternalDocumentSources {
     /**
      * Metadata indicating whether the `googleDriveEnabled` property is editable.
      */
-    googleDriveMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    googleDriveMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * The account is enabled to allow external documents to be attached from OneDrive.
      */
@@ -23305,7 +24148,9 @@ export interface ExternalDocumentSources {
     /**
      * Metadata indicating whether the `oneDriveEnabled` property is editable.
      */
-    oneDriveMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    oneDriveMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * The account is enabled to allow external documents to be attached from Salesforce.
      */
@@ -23313,7 +24158,9 @@ export interface ExternalDocumentSources {
     /**
      * Metadata indicating whether the `salesforceEnabled` property is editable.
      */
-    salesforceMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    salesforceMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 }
 
 /**
@@ -23402,7 +24249,9 @@ export interface FavoriteTemplates {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
 
     favoriteTemplates?: FavoriteTemplatesContentItem[] | undefined;
 
@@ -23413,7 +24262,9 @@ export interface FavoriteTemplatesContentItem {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
 
     favoritedDate?: string | undefined;
     /**
@@ -23426,7 +24277,9 @@ export interface FavoriteTemplatesInfo {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
 
     favoriteTemplates?: FavoriteTemplatesContentItem[] | undefined;
 
@@ -23446,7 +24299,9 @@ export interface FeatureSet {
     /**
      * Reserved for DocuSign.
      */
-    currencyFeatureSetPrices?: /* Information about the price and currency associated with the feature set. Reserved for internal DocuSign use only. */ CurrencyFeatureSetPrice[] | undefined;
+    currencyFeatureSetPrices?:
+        | /* Information about the price and currency associated with the feature set. Reserved for internal DocuSign use only. */ CurrencyFeatureSetPrice[]
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -23536,7 +24391,6 @@ export interface Filter {
      *
      * Valid values are:
      *
-     *
      * * `asc`: Ascending order.
      * * `desc`: Descending order.
      */
@@ -23573,7 +24427,6 @@ export interface Filter {
  * takes the recipient's name as entered in the recipient
  * information, splits it into sections based on spaces and
  * uses the first section as the first name.
- *
  */
 export interface FirstName {
     anchorAllowWhiteSpaceInCharacters?: string | undefined;
@@ -23628,7 +24481,6 @@ export interface FirstName {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -23674,11 +24526,9 @@ export interface FirstName {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -23751,7 +24601,6 @@ export interface FirstName {
      * For conditional fields, this is the value of the parent tab that controls the tab's visibility.
      *
      * If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
-     *
      */
     conditionalParentValue?: string | undefined;
     /**
@@ -23780,7 +24629,9 @@ export interface FirstName {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The font to be used for the tab value. Supported fonts include:
      *
@@ -23800,7 +24651,6 @@ export interface FirstName {
      * - TimesNewRoman
      * - Trebuchet
      * - Verdana
-     *
      */
     font?: string | undefined;
     /**
@@ -23816,7 +24666,6 @@ export interface FirstName {
      * - NavyBlue
      * - Purple
      * - White
-     *
      */
     fontColor?: string | undefined;
     /**
@@ -23900,7 +24749,9 @@ export interface FirstName {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
 
     mergeFieldXml?: string | undefined;
     /**
@@ -23913,7 +24764,6 @@ export interface FirstName {
     nameMetadata?: /* Metadata about a property. */ PropertyMetadata | undefined;
     /**
      * The page number on which the tab is located. For supplemental documents, this value must be `1`.
-     *
      */
     pageNumber?: string | undefined;
     /**
@@ -23974,7 +24824,6 @@ export interface FirstName {
      * If no value is provided, the tab type is used as the value.
      *
      * Maximum Length: 500 characters.
-     *
      */
     tabLabel?: string | undefined;
     /**
@@ -24052,7 +24901,6 @@ export interface FirstName {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**
@@ -24076,7 +24924,9 @@ export interface Folder {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * An object used to present a filtered view of the items in a folder.
      */
@@ -24301,7 +25151,9 @@ export interface FolderSharedItem {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The id of the folder.
      */
@@ -24441,7 +25293,9 @@ export interface FormDataItem {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The selected value in a list.
      */
@@ -24482,7 +25336,6 @@ export interface FormDataItem {
  *
  * [calculatedfields]: https://support.docusign.com/en/guides/ndse-user-guide-calculated-fields
  * [paymentguide]:     https://support.docusign.com/en/guides/requesting-payments-along-with-signatures
- *
  */
 export interface FormulaTab {
     anchorAllowWhiteSpaceInCharacters?: string | undefined;
@@ -24537,7 +25390,6 @@ export interface FormulaTab {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -24583,11 +25435,9 @@ export interface FormulaTab {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -24674,7 +25524,6 @@ export interface FormulaTab {
      * For conditional fields, this is the value of the parent tab that controls the tab's visibility.
      *
      * If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
-     *
      */
     conditionalParentValue?: string | undefined;
     /**
@@ -24712,7 +25561,9 @@ export interface FormulaTab {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The font to be used for the tab value. Supported fonts include:
      *
@@ -24732,7 +25583,6 @@ export interface FormulaTab {
      * - TimesNewRoman
      * - Trebuchet
      * - Verdana
-     *
      */
     font?: string | undefined;
     /**
@@ -24748,7 +25598,6 @@ export interface FormulaTab {
      * - NavyBlue
      * - Purple
      * - White
-     *
      */
     fontColor?: string | undefined;
     /**
@@ -24838,7 +25687,6 @@ export interface FormulaTab {
      * Maximum Length: 2000 characters
      *
      * [calculatedfields]: https://support.docusign.com/en/guides/ndse-user-guide-calculated-fields
-     *
      */
     formula?: string | undefined;
     /**
@@ -24863,7 +25711,6 @@ export interface FormulaTab {
      *
      * * **true**: The tab is displayed as a payment.
      * * **false**: The tab is displayed as a regular formula.
-     *
      */
     hidden?: string | undefined;
     /**
@@ -24909,7 +25756,9 @@ export interface FormulaTab {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
 
     mergeFieldXml?: string | undefined;
     /**
@@ -24930,7 +25779,6 @@ export interface FormulaTab {
     originalValueMetadata?: /* Metadata about a property. */ PropertyMetadata | undefined;
     /**
      * The page number on which the tab is located. For supplemental documents, this value must be `1`.
-     *
      */
     pageNumber?: string | undefined;
     /**
@@ -24946,7 +25794,6 @@ export interface FormulaTab {
      * to learn more about payments.
      *
      * [paymentguide]:     https://support.docusign.com/en/guides/requesting-payments-along-with-signatures
-     *
      */
     paymentDetails?: PaymentDetails | undefined;
     /**
@@ -25055,7 +25902,6 @@ export interface FormulaTab {
      * If no value is provided, the tab type is used as the value.
      *
      * Maximum Length: 500 characters.
-     *
      */
     tabLabel?: string | undefined;
     /**
@@ -25149,7 +25995,6 @@ export interface FormulaTab {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**
@@ -25167,7 +26012,6 @@ export interface FormulaTab {
 }
 /**
  * A tab that displays the recipient's full name.
- *
  */
 export interface FullName {
     anchorAllowWhiteSpaceInCharacters?: string | undefined;
@@ -25222,7 +26066,6 @@ export interface FullName {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -25268,11 +26111,9 @@ export interface FullName {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -25345,7 +26186,6 @@ export interface FullName {
      * For conditional fields, this is the value of the parent tab that controls the tab's visibility.
      *
      * If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
-     *
      */
     conditionalParentValue?: string | undefined;
     /**
@@ -25374,7 +26214,9 @@ export interface FullName {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The font to be used for the tab value. Supported fonts include:
      *
@@ -25394,7 +26236,6 @@ export interface FullName {
      * - TimesNewRoman
      * - Trebuchet
      * - Verdana
-     *
      */
     font?: string | undefined;
     /**
@@ -25410,7 +26251,6 @@ export interface FullName {
      * - NavyBlue
      * - Purple
      * - White
-     *
      */
     fontColor?: string | undefined;
     /**
@@ -25494,7 +26334,9 @@ export interface FullName {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
 
     mergeFieldXml?: string | undefined;
     /**
@@ -25507,7 +26349,6 @@ export interface FullName {
     nameMetadata?: /* Metadata about a property. */ PropertyMetadata | undefined;
     /**
      * The page number on which the tab is located. For supplemental documents, this value must be `1`.
-     *
      */
     pageNumber?: string | undefined;
     /**
@@ -25568,7 +26409,6 @@ export interface FullName {
      * If no value is provided, the tab type is used as the value.
      *
      * Maximum Length: 500 characters.
-     *
      */
     tabLabel?: string | undefined;
     /**
@@ -25646,7 +26486,6 @@ export interface FullName {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**
@@ -25686,7 +26525,9 @@ export interface Group {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The DocuSign group ID for the group.
      */
@@ -25730,7 +26571,9 @@ export interface GroupBrands {
     /**
      * A list of brands.
      */
-    brands?: /* Information about a brand that is associated with an account. A brand applies custom styles and text to an envelope. */ Brand[] | undefined;
+    brands?:
+        | /* Information about a brand that is associated with an account. A brand applies custom styles and text to an envelope. */ Brand[]
+        | undefined;
     /**
      * The brand that envelope recipients see when a brand is not explicitly set.
      */
@@ -25892,7 +26735,9 @@ export interface IdCheckSecurityStep {
  * you to list the workflows that are available to an account.
  */
 export interface IdentityVerifications {
-    identityVerification?: /* Specifies an Identity Verification workflow. */ AccountIdentityVerificationWorkflow[] | undefined;
+    identityVerification?:
+        | /* Specifies an Identity Verification workflow. */ AccountIdentityVerificationWorkflow[]
+        | undefined;
 }
 
 /**
@@ -25904,7 +26749,6 @@ export interface IdentityVerifications {
  * see the [EnvelopeRecipients resource][resource].
  *
  * [resource]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipients#in-person-signer-recipient
- *
  */
 export interface InPersonSigner {
     /**
@@ -25929,7 +26773,6 @@ export interface InPersonSigner {
     allowSystemOverrideForLockedRecipient?: string | undefined;
     /**
      * When set to **true**, autonavigation is set for the recipient.
-     *
      */
     autoNavigation?: string | undefined;
     /**
@@ -25975,7 +26818,6 @@ export interface InPersonSigner {
      * When set to **true**,
      * this is the default recipient for the envelope.
      * This option is used when creating an envelope from a template.
-     *
      */
     defaultRecipient?: string | undefined;
     /**
@@ -25998,13 +26840,14 @@ export interface InPersonSigner {
      * A list of `documentVisibility` objects. Each object in the list specifies whether a document in the envelope is visible to this recipient.
      * For the envelope to use this functionality, Document Visibility must be enabled for the account and the `enforceSignerVisibility` property must be set to **true**.
      */
-    documentVisibility?: /* This object configures a recipient's read/write access to a document. */ DocumentVisibility[] | undefined;
+    documentVisibility?:
+        | /* This object configures a recipient's read/write access to a document. */ DocumentVisibility[]
+        | undefined;
     /**
      * The signer's email address in an eNotary flow.
      *
      * Use only when `inPersonSigningType` is `notary`.
      * For regular in-person-signer flow, use `signerEmail` instead.
-     *
      */
     email?: string | undefined;
     /**
@@ -26047,7 +26890,9 @@ export interface InPersonSigner {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * Specifies the documents that are not visible to this recipient. Document Visibility must be enabled for the account and the `enforceSignerVisibility` property
      * must be set to **true** for the envelope to use this.
@@ -26074,7 +26919,6 @@ export interface InPersonSigner {
      * For eNotary flow, use `email` instead.
      *
      * Maximum Length: 100 characters.
-     *
      */
     hostEmail?: string | undefined;
     /**
@@ -26089,7 +26933,6 @@ export interface InPersonSigner {
      * For eNotary flow, use `name` instead.
      *
      * Maximum Length: 100 characters.
-     *
      */
     hostName?: string | undefined;
     /**
@@ -26116,7 +26959,9 @@ export interface InPersonSigner {
     /**
      * An object that contains input information related to a recipient ID check.
      */
-    idCheckInformationInput?: /* A complex element that contains input information related to a recipient ID check. */ IdCheckInformationInput | undefined;
+    idCheckInformationInput?:
+        | /* A complex element that contains input information related to a recipient ID check. */ IdCheckInformationInput
+        | undefined;
     /**
      * When set to **true** and the envelope recipient creates a DocuSign account after signing, the Manage Account Email Notification settings are used as the
      * default settings for the recipient's account.
@@ -26128,7 +26973,6 @@ export interface InPersonSigner {
      *
      * * `inPersonSigner`: The envelope uses the normal in-person signing flow.
      * * `notary`: The envelope uses the eNotary in-person signing flow.
-     *
      */
     inPersonSigningType?: string | undefined;
     /**
@@ -26150,7 +26994,6 @@ export interface InPersonSigner {
      * For a regular in-person-signer flow, use `signerName` instead.
      *
      * Maximum Length: 100 characters.
-     *
      */
     name?: string | undefined;
     /**
@@ -26170,7 +27013,6 @@ export interface InPersonSigner {
      * This note is visible only to this recipient.
      *
      * Maximum Length: 1000 characters.
-     *
      */
     note?: string | undefined;
     /**
@@ -26193,7 +27035,9 @@ export interface InPersonSigner {
     /**
      * Information about the recipient's authentication status. Read only.
      */
-    recipientAuthenticationStatus?: /* A complex element that contains information about a user's authentication status. */ AuthenticationStatus | undefined;
+    recipientAuthenticationStatus?:
+        | /* A complex element that contains information about a user's authentication status. */ AuthenticationStatus
+        | undefined;
     /**
      * Metadata about the features that are supported for the recipient type. Read only.
      */
@@ -26296,8 +27140,6 @@ export interface InPersonSigner {
      * For eNotary flow, use `email` instead.
      *
      * Maximum Length: 100 characters.
-     *
-     *
      */
     signerEmail?: string | undefined;
     /**
@@ -26327,7 +27169,6 @@ export interface InPersonSigner {
      * For eNotary flow, use `name` instead.
      *
      * Maximum Length: 100 characters.
-     *
      */
     signerName?: string | undefined;
     /**
@@ -26362,8 +27203,6 @@ export interface InPersonSigner {
     /**
      * When `idCheckConfigurationName` is set to `SMS Auth $`, you use this complex type to provide the recipient authentication method details.
      * It contains the element `senderProvidedNumbers`, which is an array of phone numbers that the recipient can use for SMS text authentication.
-     *
-     *
      */
     smsAuthentication?: RecipientSMSAuthentication | undefined;
     /**
@@ -26415,7 +27254,6 @@ export interface InPersonSigner {
     /**
      * The ID of the user to access. Generally this is the ID of the current authenticated user, but if the authenticated user is an Administrator on the account,
      * `userId` can represent another user whom the Administrator is accessing.
-     *
      */
     userId?: string | undefined;
 }
@@ -26423,7 +27261,6 @@ export interface InPersonSigner {
 /**
  * A tab that allows the recipient to initial the document. May
  * be optional.
- *
  */
 export interface InitialHere {
     anchorAllowWhiteSpaceInCharacters?: string | undefined;
@@ -26478,7 +27315,6 @@ export interface InitialHere {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -26524,11 +27360,9 @@ export interface InitialHere {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -26593,7 +27427,6 @@ export interface InitialHere {
      * For conditional fields, this is the value of the parent tab that controls the tab's visibility.
      *
      * If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
-     *
      */
     conditionalParentValue?: string | undefined;
     /**
@@ -26622,7 +27455,9 @@ export interface InitialHere {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * An integer specifying the order in which the guided form HTML should render. The order is relative to the `formPageLabel`, the group by which to place the guided form HTML block.
      */
@@ -26658,7 +27493,9 @@ export interface InitialHere {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
 
     mergeFieldXml?: string | undefined;
     /**
@@ -26747,7 +27584,6 @@ export interface InitialHere {
      * If no value is provided, the tab type is used as the value.
      *
      * Maximum Length: 500 characters.
-     *
      */
     tabLabel?: string | undefined;
     /**
@@ -26809,7 +27645,6 @@ export interface InitialHere {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**
@@ -26832,7 +27667,8 @@ export interface InlineTemplate {
      * not used by DocuSign. Each `customField` string can be a maximum of 100 characters.
      */
     customFields?: /* An `accountCustomField` is an envelope custom field that you set at the account level. Applying custom fields enables account administators to
-        group and manage envelopes.  */ AccountCustomFields | undefined;
+        group and manage envelopes.  */
+        AccountCustomFields | undefined;
     /**
      * A complex element that contains details about the documents associated with the envelope.
      */
@@ -26959,7 +27795,9 @@ export interface Intermediary {
      * A list of `documentVisibility` objects. Each object in the list specifies whether a document in the envelope is visible to this recipient.
      * For the envelope to use this functionality, Document Visibility must be enabled for the account and the `enforceSignerVisibility` property must be set to **true**.
      */
-    documentVisibility?: /* This object configures a recipient's read/write access to a document. */ DocumentVisibility[] | undefined;
+    documentVisibility?:
+        | /* This object configures a recipient's read/write access to a document. */ DocumentVisibility[]
+        | undefined;
     /**
      * The recipient's email address. Notification of the document to sign is sent to this email address.
      *
@@ -27006,7 +27844,9 @@ export interface Intermediary {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * Specifies the documents that are not visible to this recipient. Document Visibility must be enabled for the account and the `enforceSignerVisibility`
      * property must be set to **true** for the envelope to use this.
@@ -27061,7 +27901,9 @@ export interface Intermediary {
     /**
      * An object that contains input information related to a recipient ID check.
      */
-    idCheckInformationInput?: /* A complex element that contains input information related to a recipient ID check. */ IdCheckInformationInput | undefined;
+    idCheckInformationInput?:
+        | /* A complex element that contains input information related to a recipient ID check. */ IdCheckInformationInput
+        | undefined;
     /**
      * When set to **true** and the envelope recipient creates a DocuSign account after signing, the Manage Account Email Notification settings are used as
      * the default settings for the recipient's account.
@@ -27102,7 +27944,6 @@ export interface Intermediary {
      * on the signing screen.
      *
      * Maximum Length: 1000 characters.
-     *
      */
     note?: string | undefined;
     /**
@@ -27117,8 +27958,6 @@ export interface Intermediary {
      * * `senderProvidedNumbers`: ArrayOfStrings.  A list of phone numbers the recipient can use.
      * * `recordVoicePrint`: Reserved for DocuSign.
      * * `validateRecipProvidedNumber`: Reserved for DocuSign.
-     *
-     *
      */
     phoneAuthentication?: RecipientPhoneAuthentication | undefined;
     /**
@@ -27128,7 +27967,9 @@ export interface Intermediary {
     /**
      * Information about the recipient's authentication status. Read only.
      */
-    recipientAuthenticationStatus?: /* A complex element that contains information about a user's authentication status. */ AuthenticationStatus | undefined;
+    recipientAuthenticationStatus?:
+        | /* A complex element that contains information about a user's authentication status. */ AuthenticationStatus
+        | undefined;
     /**
      * Metadata about the features that are supported for the recipient type. Read only.
      */
@@ -27215,8 +28056,6 @@ export interface Intermediary {
     /**
      * When `idCheckConfigurationName` is set to `SMS Auth $`, you use this complex type to provide the recipient authentication method details.
      * It contains the element `senderProvidedNumbers`, which is an array of phone numbers that the recipient can use for SMS text authentication.
-     *
-     *
      */
     smsAuthentication?: RecipientSMSAuthentication | undefined;
     /**
@@ -27238,7 +28077,6 @@ export interface Intermediary {
      * - `sent`: The recipient has been sent an email notification that it is their turn to sign an envelope.
      * - `signed`: The recipient has completed (signed) all required tags in an envelope. This is a temporary state during processing, after which the recipient's status
      * automatically switches to `completed`.
-     *
      */
     status?: string | undefined;
     /**
@@ -27264,7 +28102,6 @@ export interface Intermediary {
     /**
      * The ID of the user to access. Generally this is the ID of the current authenticated user, but if the authenticated user is an Administrator on the account,
      * `userId` can represent another user whom the Administrator is accessing.
-     *
      */
     userId?: string | undefined;
 }
@@ -27336,7 +28173,6 @@ export interface Jurisdiction {
  * takes the recipient's name as entered in the recipient
  * information, splits it into sections based on spaces and
  * uses the last section as the last name.
- *
  */
 export interface LastName {
     anchorAllowWhiteSpaceInCharacters?: string | undefined;
@@ -27391,7 +28227,6 @@ export interface LastName {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -27437,11 +28272,9 @@ export interface LastName {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -27514,7 +28347,6 @@ export interface LastName {
      * For conditional fields, this is the value of the parent tab that controls the tab's visibility.
      *
      * If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
-     *
      */
     conditionalParentValue?: string | undefined;
     /**
@@ -27543,7 +28375,9 @@ export interface LastName {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The font to be used for the tab value. Supported fonts include:
      *
@@ -27563,7 +28397,6 @@ export interface LastName {
      * - TimesNewRoman
      * - Trebuchet
      * - Verdana
-     *
      */
     font?: string | undefined;
     /**
@@ -27579,7 +28412,6 @@ export interface LastName {
      * - NavyBlue
      * - Purple
      * - White
-     *
      */
     fontColor?: string | undefined;
     /**
@@ -27663,7 +28495,9 @@ export interface LastName {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
 
     mergeFieldXml?: string | undefined;
     /**
@@ -27676,7 +28510,6 @@ export interface LastName {
     nameMetadata?: /* Metadata about a property. */ PropertyMetadata | undefined;
     /**
      * The page number on which the tab is located. For supplemental documents, this value must be `1`.
-     *
      */
     pageNumber?: string | undefined;
     /**
@@ -27737,7 +28570,6 @@ export interface LastName {
      * If no value is provided, the tab type is used as the value.
      *
      * Maximum Length: 500 characters.
-     *
      */
     tabLabel?: string | undefined;
     /**
@@ -27815,7 +28647,6 @@ export interface LastName {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**
@@ -27838,7 +28669,6 @@ export interface LastName {
  * property contains a list of
  * [`listItem`](https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/listItem)
  * objects to specify the selectable options.
- *
  */
 export interface List {
     anchorAllowWhiteSpaceInCharacters?: string | undefined;
@@ -27893,7 +28723,6 @@ export interface List {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -27939,11 +28768,9 @@ export interface List {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -28016,7 +28843,6 @@ export interface List {
      * For conditional fields, this is the value of the parent tab that controls the tab's visibility.
      *
      * If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
-     *
      */
     conditionalParentValue?: string | undefined;
     /**
@@ -28045,7 +28871,9 @@ export interface List {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The font to be used for the tab value. Supported fonts include:
      *
@@ -28065,7 +28893,6 @@ export interface List {
      * - TimesNewRoman
      * - Trebuchet
      * - Verdana
-     *
      */
     font?: string | undefined;
     /**
@@ -28081,7 +28908,6 @@ export interface List {
      * - NavyBlue
      * - Purple
      * - White
-     *
      */
     fontColor?: string | undefined;
     /**
@@ -28163,7 +28989,6 @@ export interface List {
      *
      * Maximum Length of listItems:  2048 characters.
      * Maximum Length of items in the list: 100 characters.
-     *
      */
     listItems?: ListItem[] | undefined;
     /**
@@ -28189,12 +29014,13 @@ export interface List {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
 
     mergeFieldXml?: string | undefined;
     /**
      * The page number on which the tab is located. For supplemental documents, this value must be `1`.
-     *
      */
     pageNumber?: string | undefined;
     /**
@@ -28299,7 +29125,6 @@ export interface List {
      * If no value is provided, the tab type is used as the value.
      *
      * Maximum Length: 500 characters.
-     *
      */
     tabLabel?: string | undefined;
     /**
@@ -28377,7 +29202,6 @@ export interface List {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**
@@ -28405,7 +29229,9 @@ export interface ListCustomField {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The id of the custom field.
      */
@@ -28469,17 +29295,23 @@ export interface ListItem {
 export interface LocalePolicy {
     addressFormat?: string | undefined;
 
-    addressFormatMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    addressFormatMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     allowRegion?: string | undefined;
 
     calendarType?: string | undefined;
 
-    calendarTypeMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    calendarTypeMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     cultureName?: string | undefined;
 
-    cultureNameMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    cultureNameMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * The currency code for the account, based on the [ISO 4217 currency code](https://www.iso.org/iso-4217-currency-codes.html).
      */
@@ -28487,15 +29319,21 @@ export interface LocalePolicy {
     /**
      * Metadata that indicates whether the `currencyCode` property is editable.
      */
-    currencyCodeMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    currencyCodeMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     currencyNegativeFormat?: string | undefined;
 
-    currencyNegativeFormatMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    currencyNegativeFormatMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     currencyPositiveFormat?: string | undefined;
 
-    currencyPositiveFormatMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    currencyPositiveFormatMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     customDateFormat?: string | undefined;
 
@@ -28507,7 +29345,9 @@ export interface LocalePolicy {
 
     dateFormat?: string | undefined;
 
-    dateFormatMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    dateFormatMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     effectiveAddressFormat?: string | undefined;
 
@@ -28535,11 +29375,15 @@ export interface LocalePolicy {
 
     initialFormat?: string | undefined;
 
-    initialFormatMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    initialFormatMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     nameFormat?: string | undefined;
 
-    nameFormatMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    nameFormatMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * The format for the signature date. Valid values are:
      *
@@ -28563,14 +29407,14 @@ export interface LocalePolicy {
      * - `yyyy MMMM d`
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     signDateFormat?: string | undefined;
     /**
      * Metadata that indicates whether the `signDateFormat` property is editable.
-     *
      */
-    signDateFormatMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    signDateFormatMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * The format for the signature time. Valid values are:
      *
@@ -28579,22 +29423,26 @@ export interface LocalePolicy {
      * - `h:mm`
      * - `HH:mm:ss`
      * - `h:mm:ss`
-     *
      */
     signTimeFormat?: string | undefined;
     /**
      * Metadata that indicates whether the `signTimeFormat` property is editable.
-     *
      */
-    signTimeFormatMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    signTimeFormatMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     timeFormat?: string | undefined;
 
-    timeFormatMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    timeFormatMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     timeZone?: string | undefined;
 
-    timeZoneMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    timeZoneMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 }
 
 export interface LocalePolicyTab {
@@ -28627,7 +29475,9 @@ export interface LockInformation {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The number of seconds to lock the envelope for editing.  This value must be greater than `0` seconds.
      */
@@ -28654,7 +29504,6 @@ export interface LockInformation {
     lockType?: string | undefined;
     /**
      * When set to **true**, a scratchpad is used to edit information.
-     *
      */
     useScratchPad?: string | undefined;
 }
@@ -28681,7 +29530,6 @@ export interface LockRequest {
     templatePassword?: string | undefined;
     /**
      * When set to **true**, a scratchpad is used to edit information.
-     *
      */
     useScratchPad?: string | undefined;
 }
@@ -28711,11 +29559,15 @@ export interface LoginAccount {
     /**
      * A list of settings on the acccount that indicate what features are available.
      */
-    loginAccountSettings?: /* A name-value pair that describes an item and provides a value for the item. */ NameValue[] | undefined;
+    loginAccountSettings?:
+        | /* A name-value pair that describes an item and provides a value for the item. */ NameValue[]
+        | undefined;
     /**
      * A list of user-level settings that indicate what user-specific features are available.
      */
-    loginUserSettings?: /* A name-value pair that describes an item and provides a value for the item. */ NameValue[] | undefined;
+    loginUserSettings?:
+        | /* A name-value pair that describes an item and provides a value for the item. */ NameValue[]
+        | undefined;
     /**
      * The name associated with the account.
      */
@@ -28727,7 +29579,6 @@ export interface LoginAccount {
     /**
      * The ID of the user to access. Generally this is the ID of the current authenticated user, but if the authenticated user is an Administrator on the account,
      * `userId` can represent another user whom the Administrator is accessing.
-     *
      */
     userId?: string | undefined;
     /**
@@ -28755,7 +29606,6 @@ export interface MatchBox {
     /**
      * Specifies the page number on which the tab is located.
      * Must be 1 for supplemental documents.
-     *
      */
     pageNumber?: string | undefined;
     /**
@@ -28766,7 +29616,6 @@ export interface MatchBox {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**
@@ -28782,14 +29631,15 @@ export interface MemberGroupSharedItem {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The group sharing the item.
      */
     group?: /* This object contains information about a group. */ Group | undefined;
     /**
      * How the item is shared. One of:
-     *
      *
      * - `not_shared`: The item is not shared.
      *
@@ -28809,7 +29659,9 @@ export interface MemberSharedItems {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * List of information about shared folders.
      */
@@ -28858,7 +29710,6 @@ export interface MergeField {
     pathExtendedMetadata?: /* Metadata about a property. */ PropertyMetadata | undefined;
     /**
      * Metadata that indicates whether the `path` property is editable.
-     *
      */
     pathMetadata?: /* Metadata about a property. */ PropertyMetadata | undefined;
     /**
@@ -28867,7 +29718,6 @@ export interface MergeField {
     row?: string | undefined;
     /**
      * Metadata that indicates whether the `row` property is editable.
-     *
      */
     rowMetadata?: /* Metadata about a property. */ PropertyMetadata | undefined;
     /**
@@ -28885,7 +29735,9 @@ export interface MobileNotifierConfiguration {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The Platform of the client application
      */
@@ -28899,7 +29751,6 @@ export interface MobileNotifierConfigurationInformation {
 /**
  * Describes information
  * about the `total` of a payment.
- *
  */
 export interface Money {
     /**
@@ -28907,7 +29758,6 @@ export interface Money {
      * in the currency's base unit.
      * For example, for USD
      * the base currency is one cent.
-     *
      */
     amountInBaseUnit?: string | undefined;
     /**
@@ -28925,7 +29775,6 @@ export interface Money {
      * This is a read-only property.
      *
      * [ISO4217]:          https://en.wikipedia.org/wiki/ISO_4217
-     *
      */
     currency?: string | undefined;
     /**
@@ -28938,7 +29787,6 @@ export interface Money {
      * and the displayed amount is `$12.59 USD`.
      *
      * This is a read-only property.
-     *
      */
     displayAmount?: string | undefined;
 }
@@ -28950,7 +29798,9 @@ export interface NameValue {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The name of the item.
      */
@@ -28979,21 +29829,28 @@ export interface NewAccountDefinition {
      * by the plan used to create the account and cannot be overridden.
      *
      * [accountsettings]: https://developers.docusign.com/esign-rest-api/reference/Accounts/Accounts/create/#account-settings
-     *
      */
-    accountSettings?: /* Contains account settings information. Used in requests to set property values. Used in responses to report property values. */ AccountSettingsInformation | undefined;
+    accountSettings?:
+        | /* Contains account settings information. Used in requests to set property values. Used in responses to report property values. */ AccountSettingsInformation
+        | undefined;
     /**
      * A complex type that contains the following information for the new account: `Street1`, `Street2`, `City`, `State`, `Zip`, `Phone`, and `Fax`.
      */
-    addressInformation?: /* Contains information about the address associated with the account. */ AccountAddress | undefined;
+    addressInformation?:
+        | /* Contains information about the address associated with the account. */ AccountAddress
+        | undefined;
     /**
      * A complex type that has information about the credit card used to pay for this account.
      */
-    creditCardInformation?: /* This object contains information about a credit card that is associated with an account. */ CreditCardInformation | undefined;
+    creditCardInformation?:
+        | /* This object contains information about a credit card that is associated with an account. */ CreditCardInformation
+        | undefined;
     /**
      * Information about the bank that processes direct debits for the payment plan.
      */
-    directDebitProcessorInformation?: /* Contains information about a bank that processes a customer's direct debit payments. */ DirectDebitProcessorInformation | undefined;
+    directDebitProcessorInformation?:
+        | /* Contains information about a bank that processes a customer's direct debit payments. */ DirectDebitProcessorInformation
+        | undefined;
     /**
      * The Distributor Code that you received from DocuSign.
      */
@@ -29031,7 +29888,9 @@ export interface NewAccountDefinition {
     /**
      * An object used to identify the features and attributes of the account being created.
      */
-    planInformation?: /* An object used to identify the features and attributes of the account being created. */ PlanInformation | undefined;
+    planInformation?:
+        | /* An object used to identify the features and attributes of the account being created. */ PlanInformation
+        | undefined;
     /**
      * A complex type that contains properties for entering referral and discount information.
      */
@@ -29089,7 +29948,9 @@ export interface NewUser {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The ID of the permission profile. Possible values include:
      *
@@ -29126,7 +29987,6 @@ export interface NewUser {
      * - `Active`
      * - `Closed`
      * - `Disabled`
-     *
      */
     userStatus?: string | undefined;
 }
@@ -29206,7 +30066,6 @@ export interface Notarize {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -29252,11 +30111,9 @@ export interface Notarize {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -29321,7 +30178,6 @@ export interface Notarize {
      * For conditional fields, this is the value of the parent tab that controls the tab's visibility.
      *
      * If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
-     *
      */
     conditionalParentValue?: string | undefined;
     /**
@@ -29350,7 +30206,9 @@ export interface Notarize {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * An integer specifying the order in which the guided form HTML should render. The order is relative to the `formPageLabel`, the group by which to place the guided form HTML block.
      */
@@ -29394,7 +30252,9 @@ export interface Notarize {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
 
     mergeFieldXml?: string | undefined;
     /**
@@ -29517,7 +30377,6 @@ export interface Notarize {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**
@@ -29557,7 +30416,6 @@ export interface Notary {
  * * `name`: Specifies the notary's full legal name.
  * * `email`: Specifies the notary's email address.
  * * `recipientId`: A unique ID number for the notary signing host.
- *
  */
 export interface NotaryHost {
     /**
@@ -29630,12 +30488,13 @@ export interface NotaryHost {
      * A list of `documentVisibility` objects. Each object in the list specifies whether a document in the envelope is visible to this recipient.
      * For the envelope to use this functionality, Document Visibility must be enabled for the account and the `enforceSignerVisibility` property must be set to **true**.
      */
-    documentVisibility?: /* This object configures a recipient's read/write access to a document. */ DocumentVisibility[] | undefined;
+    documentVisibility?:
+        | /* This object configures a recipient's read/write access to a document. */ DocumentVisibility[]
+        | undefined;
     /**
      * The notary's email address.
      *
      * Maximum Length: 100 characters.
-     *
      */
     email?: string | undefined;
     /**
@@ -29678,7 +30537,9 @@ export interface NotaryHost {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -29709,7 +30570,9 @@ export interface NotaryHost {
     /**
      * An object that contains input information related to a recipient ID check.
      */
-    idCheckInformationInput?: /* A complex element that contains input information related to a recipient ID check. */ IdCheckInformationInput | undefined;
+    idCheckInformationInput?:
+        | /* A complex element that contains input information related to a recipient ID check. */ IdCheckInformationInput
+        | undefined;
     /**
      * When set to **true** and the envelope recipient creates a DocuSign account after signing, the Manage Account Email Notification settings are used as the default
      * settings for the recipient's account.
@@ -29727,7 +30590,6 @@ export interface NotaryHost {
      * The notary's full legal name.
      *
      * Maximum Length: 100 characters.
-     *
      */
     name?: string | undefined;
     /**
@@ -29739,7 +30601,6 @@ export interface NotaryHost {
      * This note is visible only to this notary.
      *
      * Maximum Length: 1000 characters.
-     *
      */
     note?: string | undefined;
     /**
@@ -29753,8 +30614,6 @@ export interface NotaryHost {
      * * `senderProvidedNumbers`: ArrayOfStrings.  A list of phone numbers the recipient can use.
      * * `recordVoicePrint`: Reserved for DocuSign.
      * * `validateRecipProvidedNumber`: Reserved for DocuSign.
-     *
-     *
      */
     phoneAuthentication?: RecipientPhoneAuthentication | undefined;
     /**
@@ -29764,7 +30623,9 @@ export interface NotaryHost {
     /**
      * Information about the recipient's authentication status. Read only.
      */
-    recipientAuthenticationStatus?: /* A complex element that contains information about a user's authentication status. */ AuthenticationStatus | undefined;
+    recipientAuthenticationStatus?:
+        | /* A complex element that contains information about a user's authentication status. */ AuthenticationStatus
+        | undefined;
     /**
      * Metadata about the features that are supported for the recipient type. Read only.
      */
@@ -29852,8 +30713,6 @@ export interface NotaryHost {
     /**
      * When `idCheckConfigurationName` is set to `SMS Auth $`, you use this complex type to provide the recipient authentication method details.
      * It contains the element `senderProvidedNumbers`, which is an array of phone numbers that the recipient can use for SMS text authentication.
-     *
-     *
      */
     smsAuthentication?: RecipientSMSAuthentication | undefined;
     /**
@@ -29905,7 +30764,6 @@ export interface NotaryHost {
     /**
      * The ID of the user to access. Generally this is the ID of the current authenticated user, but if the authenticated user is an Administrator on the account,
      * `userId` can represent another user whom the Administrator is accessing.
-     *
      */
     userId?: string | undefined;
 }
@@ -29930,7 +30788,6 @@ export interface NotaryJournal {
      * For eNotary flow, use `name` instead.
      *
      * Maximum Length: 100 characters.
-     *
      */
     signerName?: string | undefined;
 }
@@ -30005,7 +30862,6 @@ export interface NotaryJournals {
      * For eNotary flow, use `name` instead.
      *
      * Maximum Length: 100 characters.
-     *
      */
     signerName?: string | undefined;
 }
@@ -30019,7 +30875,9 @@ export interface NotaryJurisdiction {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
 
     jurisdiction?: Jurisdiction | undefined;
 
@@ -30066,7 +30924,6 @@ export interface NotaryResult {
 /**
  * A tab that displays additional information, in the form of a
  * note, for the recipient.
- *
  */
 export interface Note {
     anchorAllowWhiteSpaceInCharacters?: string | undefined;
@@ -30121,7 +30978,6 @@ export interface Note {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -30167,11 +31023,9 @@ export interface Note {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -30244,7 +31098,6 @@ export interface Note {
      * For conditional fields, this is the value of the parent tab that controls the tab's visibility.
      *
      * If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
-     *
      */
     conditionalParentValue?: string | undefined;
     /**
@@ -30273,7 +31126,9 @@ export interface Note {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The font to be used for the tab value. Supported fonts include:
      *
@@ -30293,7 +31148,6 @@ export interface Note {
      * - TimesNewRoman
      * - Trebuchet
      * - Verdana
-     *
      */
     font?: string | undefined;
     /**
@@ -30309,7 +31163,6 @@ export interface Note {
      * - NavyBlue
      * - Purple
      * - White
-     *
      */
     fontColor?: string | undefined;
     /**
@@ -30393,7 +31246,9 @@ export interface Note {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
 
     mergeFieldXml?: string | undefined;
     /**
@@ -30406,7 +31261,6 @@ export interface Note {
     nameMetadata?: /* Metadata about a property. */ PropertyMetadata | undefined;
     /**
      * The page number on which the tab is located. For supplemental documents, this value must be `1`.
-     *
      */
     pageNumber?: string | undefined;
     /**
@@ -30475,7 +31329,6 @@ export interface Note {
      * If no value is provided, the tab type is used as the value.
      *
      * Maximum Length: 500 characters.
-     *
      */
     tabLabel?: string | undefined;
     /**
@@ -30553,7 +31406,6 @@ export interface Note {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**
@@ -30577,7 +31429,9 @@ export interface Notification {
     /**
      * A complex element that specifies the expiration settings for the envelope.
      */
-    expirations?: /* A complex element that specifies the expiration settings for the envelope. */ Expirations | undefined;
+    expirations?:
+        | /* A complex element that specifies the expiration settings for the envelope. */ Expirations
+        | undefined;
     /**
      * A complex element that specifies reminder settings for the envelope
      */
@@ -30594,7 +31448,6 @@ export interface Notification {
  */
 export interface NotificationDefaultSettings {
     /**
-     *
      * An array of email notifications that sets the email the user receives when they are a sender. When the specific email notification is set to true,
      * the user will receive those types of email notifications from DocuSign.
      *
@@ -30606,16 +31459,18 @@ export interface NotificationDefaultSettings {
      * * withdrawnConsent
      * * recipientViewed
      * * deliveryFailed
-     *
      */
-    senderEmailNotifications?: /* Contains the settings for the email notifications that senders receive about the envelopes that they send. */ SenderEmailNotifications | undefined;
+    senderEmailNotifications?:
+        | /* Contains the settings for the email notifications that senders receive about the envelopes that they send. */ SenderEmailNotifications
+        | undefined;
     /**
      * An array of email notifications that specifies the email the user receives when they are a sender. When the specific email notification is set to true, the user receives
      * those types of email notifications from DocuSign. The user inherits the default account sender email notification settings when the user is created.
      */
     signerEmailNotifications?: /* An array of email notifications that specifies the email the user receives when they are a sender. When the specific email notification is
         set to true, the user receives those types of email notifications from DocuSign. The user inherits the default account sender email notification settings when the user is created.
-        */ SignerEmailNotifications | undefined;
+        */
+        SignerEmailNotifications | undefined;
 }
 
 /**
@@ -30625,17 +31480,20 @@ export interface NotificationDefaults {
     /**
      * The default notification settings for envelopes sent by using the console.
      */
-    apiEmailNotifications?: /* Contains details about the default notification settings for the envelope notifications that senders and signers receive. */ NotificationDefaultSettings | undefined;
+    apiEmailNotifications?:
+        | /* Contains details about the default notification settings for the envelope notifications that senders and signers receive. */ NotificationDefaultSettings
+        | undefined;
     /**
      * The default notification settings for envelopes sent by using the API.
      */
-    emailNotifications?: /* Contains details about the default notification settings for the envelope notifications that senders and signers receive. */ NotificationDefaultSettings | undefined;
+    emailNotifications?:
+        | /* Contains details about the default notification settings for the envelope notifications that senders and signers receive. */ NotificationDefaultSettings
+        | undefined;
 }
 
 /**
  * A tab that allows the recipient to enter numbers and decimal
  * (.) points.
- *
  */
 export interface Number {
     anchorAllowWhiteSpaceInCharacters?: string | undefined;
@@ -30690,7 +31548,6 @@ export interface Number {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -30736,11 +31593,9 @@ export interface Number {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -30827,7 +31682,6 @@ export interface Number {
      * For conditional fields, this is the value of the parent tab that controls the tab's visibility.
      *
      * If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
-     *
      */
     conditionalParentValue?: string | undefined;
     /**
@@ -30865,7 +31719,9 @@ export interface Number {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The font to be used for the tab value. Supported fonts include:
      *
@@ -30885,7 +31741,6 @@ export interface Number {
      * - TimesNewRoman
      * - Trebuchet
      * - Verdana
-     *
      */
     font?: string | undefined;
     /**
@@ -30901,7 +31756,6 @@ export interface Number {
      * - NavyBlue
      * - Purple
      * - White
-     *
      */
     fontColor?: string | undefined;
     /**
@@ -30991,7 +31845,6 @@ export interface Number {
      * Maximum Length: 2000 characters
      *
      * [calculatedfields]: https://support.docusign.com/en/guides/ndse-user-guide-calculated-fields
-     *
      */
     formula?: string | undefined;
     /**
@@ -31045,7 +31898,9 @@ export interface Number {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
 
     mergeFieldXml?: string | undefined;
     /**
@@ -31066,7 +31921,6 @@ export interface Number {
     originalValueMetadata?: /* Metadata about a property. */ PropertyMetadata | undefined;
     /**
      * The page number on which the tab is located. For supplemental documents, this value must be `1`.
-     *
      */
     pageNumber?: string | undefined;
     /**
@@ -31171,7 +32025,6 @@ export interface Number {
      * If no value is provided, the tab type is used as the value.
      *
      * Maximum Length: 500 characters.
-     *
      */
     tabLabel?: string | undefined;
     /**
@@ -31265,7 +32118,6 @@ export interface Number {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**
@@ -31328,7 +32180,9 @@ export interface Page {
     /**
      * If an error occurs, this property describes the error.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The height of the page in pixels.
      */
@@ -31427,7 +32281,6 @@ export interface PayPalLegacySettings {
      * This is a read-only property.
      *
      * [ISO4217]:          https://en.wikipedia.org/wiki/ISO_4217
-     *
      */
     currency?: string | undefined;
 
@@ -31454,7 +32307,6 @@ export interface PayPalLegacySettings {
  * to learn more about payments.
  *
  * [paymentguide]:     https://support.docusign.com/en/guides/requesting-payments-along-with-signatures
- *
  */
 export interface PaymentDetails {
     /**
@@ -31470,7 +32322,6 @@ export interface PaymentDetails {
      * `'["BankAccount", "CreditCard"]'`
      *
      * Do not specify `BankAccount` (ACH) if you are also using in-person signing.
-     *
      */
     allowedPaymentMethods?: string[] | undefined;
     /**
@@ -31492,7 +32343,6 @@ export interface PaymentDetails {
      * Specifying any other ISO 4217 code for payments is an error.
      *
      * [ISO4217]:          https://en.wikipedia.org/wiki/ISO_4217
-     *
      */
     currencyCode?: string | undefined;
     /**
@@ -31531,9 +32381,7 @@ export interface PaymentDetails {
      * in the Payments section
      * of the DocuSign Admin console.
      *
-     *
      * [paymentgateways]:  https://support.docusign.com/en/guides/managing-payment-gateways
-     *
      */
     gatewayAccountId?: string | undefined;
     /**
@@ -31565,7 +32413,6 @@ export interface PaymentDetails {
      * The list of line items
      * are returned as metadata
      * to the payment gateway.
-     *
      */
     lineItems?: PaymentLineItem[] | undefined;
     /**
@@ -31606,7 +32453,6 @@ export interface PaymentDetails {
      *
      * * `future_payment_saved` <br>
      * The recipient's payment method has been saved to the sender's payment gateway.
-     *
      */
     status?: string | undefined;
     /**
@@ -31618,7 +32464,6 @@ export interface PaymentDetails {
      * only after the document is completed,
      * which is when all recipients have paid and
      * have completed all required fields.
-     *
      */
     total?: Money | undefined;
 }
@@ -31712,7 +32557,8 @@ export interface PaymentGatewayAccount {
      * each payment method.
      */
     supportedPaymentMethodsWithOptions?: /* This object contains information about a payment method that the gateway accepts and the payment options that are compatible with it.
-     */ PaymentMethodWithOptions[] | undefined;
+     */
+        PaymentMethodWithOptions[] | undefined;
 }
 
 export interface PaymentGatewayAccountSetting {
@@ -31814,7 +32660,8 @@ export interface PaymentGatewayAccounts {
      * with each payment method.
      */
     supportedPaymentMethodsWithOptions?: /* This object contains information about a payment method that the gateway accepts and the payment options that are compatible with it.
-     */ PaymentMethodWithOptions[] | undefined;
+     */
+        PaymentMethodWithOptions[] | undefined;
 }
 
 /**
@@ -31824,42 +32671,37 @@ export interface PaymentGatewayAccountsInfo {
     /**
      * A list of payment gateway accounts.
      */
-    paymentGatewayAccounts?: /* This object contains details about a payment gateway account. */ PaymentGatewayAccount[] | undefined;
+    paymentGatewayAccounts?:
+        | /* This object contains details about a payment gateway account. */ PaymentGatewayAccount[]
+        | undefined;
 }
 
 /**
  * A line item describes details
  * about an individual line item
  * in a payment request.
- *
- *
  */
 export interface PaymentLineItem {
     /**
      * This is a the `tabLabel`
      * that specifies the amount paid
      * for the line items.
-     *
-     *
      */
     amountReference?: string | undefined;
     /**
      * A sender-defined description of the line item.
-     *
      */
     description?: string | undefined;
     /**
      * This is the sender-defined
      * SKU, inventory number, or other item code
      * for the line item.
-     *
      */
     itemCode?: string | undefined;
     /**
      * This is a sender-defined
      * product name, service name,
      * or other designation for the line item.
-     *
      */
     name?: string | undefined;
 }
@@ -31917,7 +32759,6 @@ export interface Payments {
     amount?: string | undefined;
     /**
      * A sender-defined description of the line item.
-     *
      */
     description?: string | undefined;
 
@@ -31963,7 +32804,9 @@ export interface PermissionProfile {
     /**
      * This object specifies the permissions that are associated with the account permission profile.
      */
-    settings?: /* This object defines account permissions for users who are associated with the account permission profile.  */ AccountRoleSettings | undefined;
+    settings?:
+        | /* This object defines account permissions for users who are associated with the account permission profile.  */ AccountRoleSettings
+        | undefined;
     /**
      * The total number of users in the group associated with the account permission profile.
      */
@@ -31981,7 +32824,9 @@ export interface PermissionProfileInformation {
     /**
      * A complex type containing a collection of permission profiles.
      */
-    permissionProfiles?: /* This object defines the account permissions for a profile that you can apply to a group of users. */ PermissionProfile[] | undefined;
+    permissionProfiles?:
+        | /* This object defines the account permissions for a profile that you can apply to a group of users. */ PermissionProfile[]
+        | undefined;
 }
 
 /**
@@ -32004,7 +32849,7 @@ export interface PlanInformation {
      * Reserved for DocuSign.
      */
     planFeatureSets?: /* This object provides details about a feature set, or add-on product that is associated with an account. It is reserved for DocuSign internal use only. */
-    FeatureSet[] | undefined;
+        FeatureSet[] | undefined;
     /**
      * DocuSign's id for the account plan.
      */
@@ -32079,7 +32924,6 @@ export interface PolyLineOverlay {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -32125,11 +32969,9 @@ export interface PolyLineOverlay {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -32194,7 +33036,6 @@ export interface PolyLineOverlay {
      * For conditional fields, this is the value of the parent tab that controls the tab's visibility.
      *
      * If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
-     *
      */
     conditionalParentValue?: string | undefined;
     /**
@@ -32223,7 +33064,9 @@ export interface PolyLineOverlay {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * An integer specifying the order in which the guided form HTML should render. The order is relative to the `formPageLabel`, the group by which to place the guided form HTML block.
      */
@@ -32271,7 +33114,9 @@ export interface PolyLineOverlay {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
 
     mergeFieldXml?: string | undefined;
     /**
@@ -32280,7 +33125,6 @@ export interface PolyLineOverlay {
     overlayType?: string | undefined;
     /**
      * Metadata that indicates whether the `overlayType` property is editable.
-     *
      */
     overlayTypeMetadata?: /* Metadata about a property. */ PropertyMetadata | undefined;
     /**
@@ -32357,7 +33201,6 @@ export interface PolyLineOverlay {
      * If no value is provided, the tab type is used as the value.
      *
      * Maximum Length: 500 characters.
-     *
      */
     tabLabel?: string | undefined;
     /**
@@ -32415,7 +33258,6 @@ export interface PolyLineOverlay {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**
@@ -32455,7 +33297,6 @@ export interface PowerForm {
      *
      * For information about adding merge field information to the email subject, see
      * [Template Email Subject Merge Fields](https://developers.docusign.com/esign-rest-api/reference/Templates/Templates/create#template-email-subject-merge-fields).
-     *
      */
     emailSubject?: string | undefined;
     /**
@@ -32465,7 +33306,9 @@ export interface PowerForm {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The instructions that display on the landing page for the first recipient. These instructions are important if the recipient accesses the PowerForm
      * by a method other than email. If instructions are entered, they display as an introduction after the recipient accesses the PowerForm.  Limit: 2000 characters.
@@ -32477,7 +33320,6 @@ export interface PowerForm {
      * When **false**, the PowerForm cannot be emailed or accessed by a recipient, even if they arrive at the PowerForm URL.
      *
      * If a recipient attempts to sign an inactive PowerForm, an error message informs the recipient that the document is not active and suggests that they contact the sender.
-     *
      */
     isActive?: string | undefined;
     /**
@@ -32502,7 +33344,6 @@ export interface PowerForm {
      * - `months`
      *
      * For example, to limit a recipient to signing once per year, set the `limitUseInterval` to 365 and the `limitUseIntervalUnits` to `days`.
-     *
      */
     limitUseIntervalUnits?: string | undefined;
     /**
@@ -32525,7 +33366,8 @@ export interface PowerForm {
      * An array of recipient objects that provides details about the recipients of the envelope.
      */
     recipients?: /* **Note**: For a self-service PowerForm on a website, you can specify the intended recipients generically (for example, use `Member` as the `Name`),
-        and omit personal details such as `email`. */ PowerFormRecipient[] | undefined;
+        and omit personal details such as `email`. */
+        PowerFormRecipient[] | undefined;
     /**
      * The sender's name.
      */
@@ -32601,7 +33443,9 @@ export interface PowerFormFormDataEnvelope {
 export interface PowerFormFormDataRecipient {
     email?: string | undefined;
 
-    formData?: /* A name-value pair that describes an item and provides a value for the item. */ NameValue[] | undefined;
+    formData?:
+        | /* A name-value pair that describes an item and provides a value for the item. */ NameValue[]
+        | undefined;
     /**
      * The name of the recipient.
      */
@@ -32766,7 +33610,6 @@ export interface PowerForms {
      *
      * You can customize the subject line to include a recipient's name or email address by using merge fields. For information about adding merge fields to the email subject,
      * see [Template Email Subject Merge Fields](https://developers.docusign.com/esign-rest-api/reference/Templates/Templates/create#template-email-subject-merge-fields).
-     *
      */
     emailSubject?: string | undefined;
     /**
@@ -32776,7 +33619,9 @@ export interface PowerForms {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The instructions that display on the landing page for the first recipient. These instructions are important if the recipient
      * accesses the PowerForm by a method other than email. When you include instructions, they display as an introduction after the recipient accesses the PowerForm.
@@ -32784,7 +33629,6 @@ export interface PowerForms {
     instructions?: string | undefined;
     /**
      * When **true**, indicates that the PowerForm is active and can be sent to recipients. This is the default value.
-     *
      *
      * When **false**, the PowerForm cannot be emailed or accessed by a recipient, even if they arrive at the PowerForm URL.
      *
@@ -32813,7 +33657,6 @@ export interface PowerForms {
      * - `months`
      *
      * For example, to limit a recipient to signing once per year, set the `limitUseInterval` to 365 and the `limitUseIntervalUnits` to `days`.
-     *
      */
     limitUseIntervalUnits?: string | undefined;
     /**
@@ -32839,7 +33682,8 @@ export interface PowerForms {
      * property and leave other details (such as `name` and `email`) blank.
      */
     recipients?: /* **Note**: For a self-service PowerForm on a website, you can specify the intended recipients generically (for example, use `Member` as the `Name`),
-        and omit personal details such as `email`. */ PowerFormRecipient[] | undefined;
+        and omit personal details such as `email`. */
+        PowerFormRecipient[] | undefined;
     /**
      * The name of the sender.
      *
@@ -33026,7 +33870,6 @@ export interface PurchasedEnvelopesInformation {
  * One of the selectable radio buttons
  * in the `radios` property
  * of a [`radioGroup`](https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/radioGroup) tab.
- *
  */
 export interface Radio {
     anchorAllowWhiteSpaceInCharacters?: string | undefined;
@@ -33081,7 +33924,6 @@ export interface Radio {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -33127,11 +33969,9 @@ export interface Radio {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -33195,7 +34035,9 @@ export interface Radio {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The font to be used for the tab value. Supported fonts include:
      *
@@ -33215,7 +34057,6 @@ export interface Radio {
      * - TimesNewRoman
      * - Trebuchet
      * - Verdana
-     *
      */
     font?: string | undefined;
     /**
@@ -33231,7 +34072,6 @@ export interface Radio {
      * - NavyBlue
      * - Purple
      * - White
-     *
      */
     fontColor?: string | undefined;
     /**
@@ -33287,7 +34127,6 @@ export interface Radio {
     /**
      * Specifies the page number on which the tab is located.
      * Must be 1 for supplemental documents.
-     *
      */
     pageNumber?: string | undefined;
     /**
@@ -33357,7 +34196,6 @@ export interface Radio {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**
@@ -33381,7 +34219,6 @@ export interface Radio {
  * [`radio`](https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/radio)
  * objects  associated with the group. Only one radio button can
  * be selected in a group.
- *
  */
 export interface RadioGroup {
     /**
@@ -33396,7 +34233,6 @@ export interface RadioGroup {
      * For conditional fields, this is the value of the parent tab that controls the tab's visibility.
      *
      * If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
-     *
      */
     conditionalParentValue?: string | undefined;
     /**
@@ -33884,7 +34720,6 @@ export interface RecipientSignatureInformation {
 /**
  * An Electronic or Standards Based Signature (digital signature) provider for the signer to use.
  * [More information](https://developers.docusign.com/esign-rest-api/guides/standards-based-signatures).
- *
  */
 export interface RecipientSignatureProvider {
     /**
@@ -33898,7 +34733,6 @@ export interface RecipientSignatureProvider {
     sealDocumentsWithTabsOnly?: string | undefined;
     /**
      * Indicates the name of the electronic seal to apply on documents.
-     *
      */
     sealName?: string | undefined;
     /**
@@ -33908,13 +34742,10 @@ export interface RecipientSignatureProvider {
      * [AccountSignatureProviders::List](https://developers.docusign.com/esign-rest-api/reference/Accounts/AccountSignatureProviders/list/) method.
      *
      * Example: `universalsignaturepen_default`
-     *
-     *
      */
     signatureProviderName?: string | undefined;
     /**
      * Metadata that indicates whether the `signatureProviderName` property is editable.
-     *
      */
     signatureProviderNameMetadata?: /* Metadata about a property. */ PropertyMetadata | undefined;
     /**
@@ -33979,7 +34810,9 @@ export interface RecipientUpdateResponse {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * A local reference that senders use to map recipients to other objects, such as specific document tabs. Within an envelope, each `recipientId` must be
      * unique, but there is no uniqueness requirement across envelopes. For example, many envelopes assign the first recipient a `recipientId` of `1`.
@@ -34089,7 +34922,6 @@ export interface RecipientViewRequest {
      *   such as completed, declined, or voided.
      *
      * Ensure that you include `https://` in the URL to prevent the redirect from failing on certain browsers.
-     *
      */
     returnUrl?: string | undefined;
     /**
@@ -34132,12 +34964,14 @@ export interface Recipients {
      * A list of agent recipients assigned to the documents.
      */
     agents?: /* Contains information about an agent recipient. An agent is a recipient who can add name and email information for recipients that appear after the
-        agent in routing order. */ Agent[] | undefined;
+        agent in routing order. */
+        Agent[] | undefined;
     /**
      * A list of carbon copy recipients assigned to the documents.
      */
     carbonCopies?: /* Contains information about a carbon copy recipient. Carbon copy recipients get a copy of the envelope but don't need to sign, initial,
-        date or add information to any of the documents.  */ CarbonCopy[] | undefined;
+        date or add information to any of the documents.  */
+        CarbonCopy[] | undefined;
     /**
      * A complex type containing information on a recipient the must receive the completed documents for the envelope to be completed, but the recipient
      * does not need to sign, initial, date, or add information to any of the documents.
@@ -34154,11 +34988,14 @@ export interface Recipients {
     editors?: /* A complex type defining the management and access rights of a recipient assigned as an editor on the envelope.
         Editors have the same management and access rights for the envelope as the sender. They can make changes to the envelope as if they were using the Correct feature.
         This recipient can add name and email information, add or change the routing order and set authentication options for the remaining recipients.
-        Additionally, this recipient can edit signature/initial tabs and text tabs for the remaining recipients. */ Editor[] | undefined;
+        Additionally, this recipient can edit signature/initial tabs and text tabs for the remaining recipients. */
+        Editor[] | undefined;
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * Specifies a signer that is in the same physical location as a DocuSign user who will act as a Signing Host for the transaction.
      * The recipient added is the Signing Host and new separate Signer Name field appears after Sign in person is selected.
@@ -34185,7 +35022,8 @@ export interface Recipients {
      * A list of signers who act as witnesses on the envelope.
      */
     witnesses?: /* A complex type containing information about a witness recipient. Witnesses are recipients whose signatures affirm that the identified
-        signers have signed the documents in the envelope. */ Witness[] | undefined;
+        signers have signed the documents in the envelope. */
+        Witness[] | undefined;
 }
 
 /**
@@ -34195,7 +35033,9 @@ export interface RecipientsUpdateSummary {
     /**
      * An array of `recipientUpdateResults` objects that contain details about the recipients.
      */
-    recipientUpdateResults?: /* The recipient details that are returned after you update the recipient. */ RecipientUpdateResponse[] | undefined;
+    recipientUpdateResults?:
+        | /* The recipient details that are returned after you update the recipient. */ RecipientUpdateResponse[]
+        | undefined;
 }
 
 /**
@@ -34213,7 +35053,6 @@ export interface ReferralInformation {
      * promoCode, groupMemberId, idType, and industry.
      *
      * ###### Note: saleDiscountPercent, saleDiscountAmount, saleDiscountFixedAmount, saleDiscountPeriods, and saleDiscountSeatPriceOverride are reserved for DoucSign use only.
-     *
      */
     advertisementId?: string | undefined;
     /**
@@ -34312,14 +35151,18 @@ export interface RequestLogs {
 }
 
 export interface ResourceInformation {
-    resources?: /* A name-value pair that describes an item and provides a value for the item. */ NameValue[] | undefined;
+    resources?:
+        | /* A name-value pair that describes an item and provides a value for the item. */ NameValue[]
+        | undefined;
 }
 
 /**
  * API resource information
  */
 export interface Resources {
-    resources?: /* A name-value pair that describes an item and provides a value for the item. */ NameValue[] | undefined;
+    resources?:
+        | /* A name-value pair that describes an item and provides a value for the item. */ NameValue[]
+        | undefined;
 }
 
 /**
@@ -34453,7 +35296,9 @@ export interface SealSign {
     /**
      * Not applicable.
      */
-    documentVisibility?: /* This object configures a recipient's read/write access to a document. */ DocumentVisibility[] | undefined;
+    documentVisibility?:
+        | /* This object configures a recipient's read/write access to a document. */ DocumentVisibility[]
+        | undefined;
     /**
      * Not applicable.
      */
@@ -34465,7 +35310,9 @@ export interface SealSign {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -34485,7 +35332,9 @@ export interface SealSign {
     /**
      * Not applicable.
      */
-    idCheckInformationInput?: /* A complex element that contains input information related to a recipient ID check. */ IdCheckInformationInput | undefined;
+    idCheckInformationInput?:
+        | /* A complex element that contains input information related to a recipient ID check. */ IdCheckInformationInput
+        | undefined;
     /**
      * Not applicable.
      */
@@ -34521,7 +35370,9 @@ export interface SealSign {
     /**
      * Not applicable.
      */
-    recipientAuthenticationStatus?: /* A complex element that contains information about a user's authentication status. */ AuthenticationStatus | undefined;
+    recipientAuthenticationStatus?:
+        | /* A complex element that contains information about a user's authentication status. */ AuthenticationStatus
+        | undefined;
     /**
      * Metadata about the features that are supported for the recipient type. Read only.
      */
@@ -34579,7 +35430,6 @@ export interface SealSign {
      * Specifies the routing order of the electronic seal in the envelope.
      * The routing order assigned to your electronic seal cannot be shared with another recipient.
      * It is recommended that you set a routing order for your electronic seals.
-     *
      */
     routingOrder?: string | undefined;
     /**
@@ -34822,7 +35672,9 @@ export interface SharedItem {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * How the item is shared. One of:
      *
@@ -34841,7 +35693,6 @@ export interface SharedItem {
 /**
  * A tab that allows the recipient to sign a document. May be
  * optional.
- *
  */
 export interface SignHere {
     anchorAllowWhiteSpaceInCharacters?: string | undefined;
@@ -34896,7 +35747,6 @@ export interface SignHere {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -34942,11 +35792,9 @@ export interface SignHere {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -35011,7 +35859,6 @@ export interface SignHere {
      * For conditional fields, this is the value of the parent tab that controls the tab's visibility.
      *
      * If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
-     *
      */
     conditionalParentValue?: string | undefined;
     /**
@@ -35038,7 +35885,9 @@ export interface SignHere {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * An integer specifying the order in which the guided form HTML should render. The order is relative to the `formPageLabel`,
      * the group by which to place the guided form HTML block.
@@ -35079,7 +35928,9 @@ export interface SignHere {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
 
     mergeFieldXml?: string | undefined;
     /**
@@ -35101,7 +35952,6 @@ export interface SignHere {
     /**
      * Specifies the page number on which the tab is located.
      * Must be 1 for supplemental documents.
-     *
      */
     pageNumber?: string | undefined;
     /**
@@ -35157,7 +36007,6 @@ export interface SignHere {
      * - `signed`: The recipient signed the tab.
      * - `declined`: The recipient declined the envelope.
      * - `na`: Used when the `status` property is not applicable to the tab type. (For example, a tab that has the `tabType` `SignerAttachmentOptional`).
-     *
      */
     status?: string | undefined;
     /**
@@ -35185,7 +36034,6 @@ export interface SignHere {
      * If no value is provided, the tab type is used as the value.
      *
      * Maximum Length: 500 characters.
-     *
      */
     tabLabel?: string | undefined;
     /**
@@ -35247,7 +36095,6 @@ export interface SignHere {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**
@@ -35271,7 +36118,6 @@ export interface SignHere {
      * See [Sign Here Tab Alignment](https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/#sign-here-tab-alignment)
      * </p>
      * </div>
-     *
      */
     yPosition?: string | undefined;
     /**
@@ -35363,7 +36209,6 @@ export interface Signer {
     allowSystemOverrideForLockedRecipient?: string | undefined;
     /**
      * When set to **true**, autonavigation is set for the recipient.
-     *
      */
     autoNavigation?: string | undefined;
     /**
@@ -35432,7 +36277,9 @@ export interface Signer {
      * A list of `documentVisibility` objects. Each object in the list specifies whether a document in the envelope is visible to this recipient.
      * For the envelope to use this functionality, Document Visibility must be enabled for the account and the `enforceSignerVisibility` property must be set to **true**.
      */
-    documentVisibility?: /* This object configures a recipient's read/write access to a document. */ DocumentVisibility[] | undefined;
+    documentVisibility?:
+        | /* This object configures a recipient's read/write access to a document. */ DocumentVisibility[]
+        | undefined;
     /**
      * The recipient's email address. The system sends notifications about the documents to sign to this address. Maximum length: 100 characters.
      */
@@ -35478,7 +36325,9 @@ export interface Signer {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * Specifies the documents that are not visible to this recipient. Document Visibility must be enabled for the account and the `enforceSignerVisibility`
      * property must be set to **true** for the envelope to use this.
@@ -35534,7 +36383,9 @@ export interface Signer {
     /**
      * An object that contains input information related to a recipient ID check.
      */
-    idCheckInformationInput?: /* A complex element that contains input information related to a recipient ID check. */ IdCheckInformationInput | undefined;
+    idCheckInformationInput?:
+        | /* A complex element that contains input information related to a recipient ID check. */ IdCheckInformationInput
+        | undefined;
     /**
      * Specifies the ID Verification workflow applied on an envelope by workflow ID. <br/>See the
      * [list](https://developers.docusign.com/esign-rest-api/reference/Accounts/IdentityVerifications/list) method in the
@@ -35548,7 +36399,8 @@ export interface Signer {
         [list](https://developers.docusign.com/esign-rest-api/reference/Accounts/IdentityVerifications/list) method in the
         [IdentityVerifications](https://developers.docusign.com/esign-rest-api/reference/Accounts/IdentityVerifications) resource for more information
         on how to retrieve workflow IDs available for an account. This can be used in addition to other
-        [recipient authentication](https://support.docusign.com/en/guides/ndse-user-guide-recipient-authentication) methods.  */ RecipientIdentityVerification | undefined;
+        [recipient authentication](https://support.docusign.com/en/guides/ndse-user-guide-recipient-authentication) methods.  */
+        RecipientIdentityVerification | undefined;
     /**
      * When set to **true** and the envelope recipient creates a DocuSign account after signing, the Manage Account Email Notification settings are used as the
      * default settings for the recipient's account.
@@ -35556,7 +36408,6 @@ export interface Signer {
     inheritEmailNotificationConfiguration?: string | undefined;
     /**
      * Reserved for DocuSign.
-     *
      */
     isBulkRecipient?: string | undefined;
     /**
@@ -35598,7 +36449,6 @@ export interface Signer {
      * on the signing screen.
      *
      * Maximum Length: 1000 characters.
-     *
      */
     note?: string | undefined;
     /**
@@ -35613,8 +36463,6 @@ export interface Signer {
      * * `senderProvidedNumbers`: ArrayOfStrings.  A list of phone numbers the recipient can use.
      * * `recordVoicePrint`: Reserved for DocuSign.
      * * `validateRecipProvidedNumber`: Reserved for DocuSign.
-     *
-     *
      */
     phoneAuthentication?: RecipientPhoneAuthentication | undefined;
 
@@ -35626,7 +36474,9 @@ export interface Signer {
     /**
      * Information about the recipient's authentication status. Read only.
      */
-    recipientAuthenticationStatus?: /* A complex element that contains information about a user's authentication status. */ AuthenticationStatus | undefined;
+    recipientAuthenticationStatus?:
+        | /* A complex element that contains information about a user's authentication status. */ AuthenticationStatus
+        | undefined;
     /**
      * Metadata about the features that are supported for the recipient type. Read only.
      */
@@ -35757,8 +36607,6 @@ export interface Signer {
     /**
      * When `idCheckConfigurationName` is set to `SMS Auth $`, you use this complex type to provide the recipient authentication method details.
      * It contains the element `senderProvidedNumbers`, which is an array of phone numbers that the recipient can use for SMS text authentication.
-     *
-     *
      */
     smsAuthentication?: RecipientSMSAuthentication | undefined;
     /**
@@ -35778,7 +36626,6 @@ export interface Signer {
      * - `faxpending`: The recipient has finished signing and the system is waiting a fax attachment by the recipient before completing their signing step.
      * - `autoresponded`: The recipient's email system auto-responded to the email from DocuSign. This status is used by the DocuSign webapp (also known as
      * the DocuSign console) to inform senders about the auto-responded email.
-     *
      */
     status?: string | undefined;
     /**
@@ -35808,7 +36655,6 @@ export interface Signer {
     /**
      * The ID of the user to access. Generally this is the ID of the current authenticated user, but if the authenticated user is an Administrator on the account,
      * `userId` can represent another user whom the Administrator is accessing.
-     *
      */
     userId?: string | undefined;
 }
@@ -35816,7 +36662,6 @@ export interface Signer {
 /**
  * A tab that allows the recipient to attach supporting
  * documents to an envelope.
- *
  */
 export interface SignerAttachment {
     anchorAllowWhiteSpaceInCharacters?: string | undefined;
@@ -35871,7 +36716,6 @@ export interface SignerAttachment {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -35917,11 +36761,9 @@ export interface SignerAttachment {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -35986,7 +36828,6 @@ export interface SignerAttachment {
      * For conditional fields, this is the value of the parent tab that controls the tab's visibility.
      *
      * If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
-     *
      */
     conditionalParentValue?: string | undefined;
     /**
@@ -36015,7 +36856,9 @@ export interface SignerAttachment {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * An integer specifying the order in which the guided form HTML should render. The order is relative to the `formPageLabel`,
      * the group by which to place the guided form HTML block.
@@ -36052,7 +36895,9 @@ export interface SignerAttachment {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
 
     mergeFieldXml?: string | undefined;
     /**
@@ -36114,7 +36959,6 @@ export interface SignerAttachment {
      * - `signed`: The recipient signed the tab.
      * - `declined`: The recipient declined the envelope.
      * - `na`: Used when the `status` property is not applicable to the tab type. (For example, a tab that has the `tabType` `SignerAttachmentOptional`).
-     *
      */
     status?: string | undefined;
     /**
@@ -36142,7 +36986,6 @@ export interface SignerAttachment {
      * If no value is provided, the tab type is used as the value.
      *
      * Maximum Length: 500 characters.
-     *
      */
     tabLabel?: string | undefined;
     /**
@@ -36204,7 +37047,6 @@ export interface SignerAttachment {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**
@@ -36308,7 +37150,9 @@ export interface SigningGroup {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The email address for the signing group. You can use a group email address to email all of the group members at the same time.
      */
@@ -36362,7 +37206,9 @@ export interface SigningGroupUser {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The name of the group member.
      *
@@ -36396,7 +37242,9 @@ export interface SigningGroups {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The email address for the signing group. You can use a group email address to email all of the group members at the same time.
      */
@@ -36496,7 +37344,6 @@ export interface SmartSection {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -36542,11 +37389,9 @@ export interface SmartSection {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -36615,7 +37460,6 @@ export interface SmartSection {
      * For conditional fields, this is the value of the parent tab that controls the tab's visibility.
      *
      * If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
-     *
      */
     conditionalParentValue?: string | undefined;
     /**
@@ -36634,7 +37478,9 @@ export interface SmartSection {
     /**
      * This object defines how the HTML section inside the `startAnchor` and `endAnchor` displays.
      */
-    displaySettings?: /* These properties define how a Smart Section displays. A Smart Section is a type of display section. */ SmartSectionDisplaySettings | undefined;
+    displaySettings?:
+        | /* These properties define how a Smart Section displays. A Smart Section is a type of display section. */ SmartSectionDisplaySettings
+        | undefined;
     /**
      * The `documentId` is set by the API client. It is an integer that falls between `1` and 2,147,483,647. The value is encoded as a string without commas.
      * The values `1`, `2`, `3`, and so on are typically used to identify the first few documents in an envelope. Tab definitions include a `documentId`
@@ -36658,7 +37504,9 @@ export interface SmartSection {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * An integer specifying the order in which the guided form HTML should render. The order is relative to the `formPageLabel`, the group by which to place the guided form HTML block.
      */
@@ -36702,7 +37550,9 @@ export interface SmartSection {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
 
     mergeFieldXml?: string | undefined;
     /**
@@ -36710,7 +37560,6 @@ export interface SmartSection {
      *
      * - `line`
      * - `outline`
-     *
      */
     overlayType?: string | undefined;
     /**
@@ -36806,7 +37655,6 @@ export interface SmartSection {
      * If no value is provided, the tab type is used as the value.
      *
      * Maximum Length: 500 characters.
-     *
      */
     tabLabel?: string | undefined;
     /**
@@ -36864,7 +37712,6 @@ export interface SmartSection {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**
@@ -36890,7 +37737,6 @@ export interface SmartSectionAnchorPosition {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: number | undefined; // double
     /**
@@ -36990,7 +37836,9 @@ export interface SocialAccountInformation {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The social account provider (Facebook, Yahoo, etc.)
      */
@@ -37017,7 +37865,6 @@ export interface SocialAuthentication {
  * Security Number. The SSN can be typed with or without
  * dashes. It uses the same parameters as a Text tab, with the
  * validation message and pattern set for SSN information.
- *
  */
 export interface Ssn {
     anchorAllowWhiteSpaceInCharacters?: string | undefined;
@@ -37072,7 +37919,6 @@ export interface Ssn {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -37118,11 +37964,9 @@ export interface Ssn {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -37209,7 +38053,6 @@ export interface Ssn {
      * For conditional fields, this is the value of the parent tab that controls the tab's visibility.
      *
      * If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
-     *
      */
     conditionalParentValue?: string | undefined;
     /**
@@ -37247,7 +38090,9 @@ export interface Ssn {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The font to be used for the tab value. Supported fonts include:
      *
@@ -37267,7 +38112,6 @@ export interface Ssn {
      * - TimesNewRoman
      * - Trebuchet
      * - Verdana
-     *
      */
     font?: string | undefined;
     /**
@@ -37283,7 +38127,6 @@ export interface Ssn {
      * - NavyBlue
      * - Purple
      * - White
-     *
      */
     fontColor?: string | undefined;
     /**
@@ -37384,7 +38227,9 @@ export interface Ssn {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
 
     mergeFieldXml?: string | undefined;
     /**
@@ -37482,7 +38327,6 @@ export interface Ssn {
      * - `signed`: The recipient signed the tab.
      * - `declined`: The recipient declined the envelope.
      * - `na`: Used when the `status` property is not applicable to the tab type. (For example, a tab that has the `tabType` `SignerAttachmentOptional`).
-     *
      */
     status?: string | undefined;
     /**
@@ -37510,7 +38354,6 @@ export interface Ssn {
      * If no value is provided, the tab type is used as the value.
      *
      * Maximum Length: 500 characters.
-     *
      */
     tabLabel?: string | undefined;
     /**
@@ -37604,7 +38447,6 @@ export interface Ssn {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**
@@ -37683,7 +38525,9 @@ export interface Stamp {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * Optionally specify an external identifier for the user's signature.
      */
@@ -37763,7 +38607,9 @@ export interface SupportedLanguages {
      * }
      * ```
      */
-    languages?: /* A name-value pair that describes an item and provides a value for the item. */ NameValue[] | undefined;
+    languages?:
+        | /* A name-value pair that describes an item and provides a value for the item. */ NameValue[]
+        | undefined;
 }
 
 export interface TabAccountSettings {
@@ -37775,27 +38621,30 @@ export interface TabAccountSettings {
     allowTabOrder?: string | undefined;
     /**
      * Metadata that indicates whether the `allowTabOrder` property is editable.
-     *
      */
-    allowTabOrderMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowTabOrderMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, approve and decline tabs are enabled.
      */
     approveDeclineTabsEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `approveDeclineTabs` property is editable.
-     *
      */
-    approveDeclineTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    approveDeclineTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, [calculated fields](https://support.docusign.com/en/guides/ndse-user-guide-calculated-fields) are enabled for tabs.
      */
     calculatedFieldsEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `calculatedFields` property is editable.
-     *
      */
-    calculatedFieldsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    calculatedFieldsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, checkbox tabs are enabled.
      */
@@ -37803,29 +38652,35 @@ export interface TabAccountSettings {
     /**
      * Metadata that indicates whether the `checkBoxTabs` property is editable.
      */
-    checkBoxTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    checkBoxTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, regular expressions are enabled for tabs that contain data fields.
      */
     dataFieldRegexEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `dataFieldRegex` property is editable.
-     *
      */
-    dataFieldRegexMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    dataFieldRegexMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, setting character limits for input fields is enabled.
      */
     dataFieldSizeEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `dataFieldSize` property is editable.
-     *
      */
-    dataFieldSizeMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    dataFieldSizeMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     drawTabsEnabled?: string | undefined;
 
-    drawTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    drawTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -37833,43 +38688,49 @@ export interface TabAccountSettings {
     /**
      * Reserved for DocuSign.
      */
-    firstLastEmailTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    firstLastEmailTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, list tabs are enabled.
      */
     listTabsEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `listTabs` property is editable.
-     *
      */
-    listTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    listTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, note tabs are enabled.
      */
     noteTabsEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `noteTabs` property is editable.
-     *
      */
-    noteTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    noteTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, radio button tabs are enabled.
      */
     radioTabsEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `radioTabs` property is editable.
-     *
      */
-    radioTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    radioTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, saving custom tabs is enabled.
      */
     savingCustomTabsEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `savingCustomTabs` property is editable.
-     *
      */
-    savingCustomTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    savingCustomTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -37877,29 +38738,32 @@ export interface TabAccountSettings {
     /**
      * Reserved for DocuSign.
      */
-    senderToChangeTabAssignmentsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    senderToChangeTabAssignmentsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, shared custom tabs are enabled.
      */
     sharedCustomTabsEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `sharedCustomTabs` property is editable.
-     *
      */
-    sharedCustomTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    sharedCustomTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, [data
      * labels](https://support.docusign.com/en/videos/Data-Labels) are enabled.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     tabDataLabelEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `tabDataLabel` property is editable.
-     *
      */
-    tabDataLabelMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    tabDataLabelMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -37907,19 +38771,21 @@ export interface TabAccountSettings {
     /**
      * Reserved for DocuSign.
      */
-    tabLocationMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    tabLocationMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, tab locking is enabled.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     tabLockingEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `tabLocking` property is editable.
-     *
      */
-    tabLockingMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    tabLockingMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -37927,30 +38793,33 @@ export interface TabAccountSettings {
     /**
      * Reserved for DocuSign.
      */
-    tabScaleMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    tabScaleMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, text formatting (such as font type, font size,
      * font color, bold, italic, and underline) is enabled for tabs that
      * support formatting.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     tabTextFormattingEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `tabTextFormatting` property is editable.
-     *
      */
-    tabTextFormattingMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    tabTextFormattingMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, text tabs are enabled.
      */
     textTabsEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `textTabs` property is editable.
-     *
      */
-    textTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    textTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 }
 
 export interface TabGroup {
@@ -38006,7 +38875,6 @@ export interface TabGroup {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -38052,11 +38920,9 @@ export interface TabGroup {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -38121,7 +38987,6 @@ export interface TabGroup {
      * For conditional fields, this is the value of the parent tab that controls the tab's visibility.
      *
      * If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
-     *
      */
     conditionalParentValue?: string | undefined;
     /**
@@ -38150,7 +39015,9 @@ export interface TabGroup {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * An integer specifying the order in which the guided form HTML should render. The order is relative to the `formPageLabel`, the group by which to place the guided form HTML block.
      */
@@ -38210,7 +39077,9 @@ export interface TabGroup {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
 
     mergeFieldXml?: string | undefined;
     /**
@@ -38352,7 +39221,6 @@ export interface TabGroup {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**
@@ -38419,7 +39287,6 @@ export interface TabMetadata {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -38457,11 +39324,9 @@ export interface TabMetadata {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -38537,7 +39402,6 @@ export interface TabMetadata {
      * - TimesNewRoman
      * - Trebuchet
      * - Verdana
-     *
      */
     font?: string | undefined;
     /**
@@ -38553,7 +39417,6 @@ export interface TabMetadata {
      * - NavyBlue
      * - Purple
      * - White
-     *
      */
     fontColor?: string | undefined;
     /**
@@ -38619,7 +39482,9 @@ export interface TabMetadata {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
 
     name?: string | undefined;
     /**
@@ -38679,7 +39544,6 @@ export interface TabMetadata {
      * If no value is provided, the tab type is used as the value.
      *
      * Maximum Length: 500 characters.
-     *
      */
     tabLabel?: string | undefined;
 
@@ -38729,19 +39593,15 @@ export interface Tabs {
      * The value of an approve tab can't be set.
      *
      * [approve]:		      https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/approve
-     *
      */
     approveTabs?: Approve[] | undefined;
     /**
      * A list of
      * [Checkbox tabs][checkbox].
      *
-     *
      * A Checkbox tab enables the recipient to select a yes/no (on/off) option. This value can be set.
      *
-     *
      * [checkbox]:  https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/checkbox
-     *
      */
     checkboxTabs?: Checkbox[] | undefined;
     /**
@@ -38753,24 +39613,18 @@ export interface Tabs {
      * A list of
      * [Company tabs][company].
      *
-     *
      * A Company tab displays a field for the name of the recipient's company. This value can't be set.
      *
-     *
-     *
      * [company]: https://developers.docusign.com/esign-rest-api/reference/EnvelopeRecipientTabs/create/#/definitions/company
-     *
      */
     companyTabs?: Company[] | undefined;
     /**
      * A list of
      * [Date Signed tabs][dateSigned].
      *
-     *
      * A Date Signed tab displays the date that the recipient signed the document. This value can't be set.
      *
      * [dateSigned]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/dateSigned
-     *
      */
     dateSignedTabs?: DateSigned[] | undefined;
     /**
@@ -38782,9 +39636,7 @@ export interface Tabs {
      *
      * **Note**: If you need to enforce a specific date format, we recommend that you use a Text tab with a validation pattern and validation message.
      *
-     *
      * [date]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/date
-     *
      */
     dateTabs?: Date[] | undefined;
     /**
@@ -38794,9 +39646,7 @@ export interface Tabs {
      * A Decline tab enables the recipient to decline the envelope. If the recipient clicks the tab during the signing process, the envelope is voided.
      * The value of this tab can't be set.
      *
-     *
      * [decline]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/decline
-     *
      */
     declineTabs?: Decline[] | undefined;
     drawTabs?: Draw[] | undefined;
@@ -38806,9 +39656,7 @@ export interface Tabs {
      *
      * An Email Address tab displays the recipient's email as entered in the recipient information. This value can't be set.
      *
-     *
      * [emailAddress]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/emailAddress
-     *
      */
     emailAddressTabs?: EmailAddress[] | undefined;
     /**
@@ -38826,7 +39674,6 @@ export interface Tabs {
      * associated envelope was sent is included in the response.
      *
      * [email]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/email
-     *
      */
     emailTabs?: Email[] | undefined;
     /**
@@ -38835,9 +39682,7 @@ export interface Tabs {
      *
      * An Envelope ID tab  displays the envelope ID. Recipients cannot enter or change the information in this tab. This value can't be set.
      *
-     *
      * [envelopeId]: https://developers.docusign.com/esign-rest-api/reference/EnvelopeRecipientTabs/create/#/definitions/envelopeId
-     *
      */
     envelopeIdTabs?: EnvelopeId[] | undefined;
     /**
@@ -38847,9 +39692,7 @@ export interface Tabs {
      * A First Name tab displays the recipient's first name. The system automatically populates this field by splitting the name in the recipient information on spaces.
      * This value can't be set.
      *
-     *
      * [firstName]: https://developers.docusign.com/esign-rest-api/reference/EnvelopeRecipientTabs/create/#/definitions/firstName
-     *
      */
     firstNameTabs?: FirstName[] | undefined;
     /**
@@ -38866,7 +39709,6 @@ export interface Tabs {
      * [calculatedfields]: https://support.docusign.com/en/guides/ndse-user-guide-calculated-fields
      * [paymentguide]:     https://support.docusign.com/en/guides/requesting-payments-along-with-signatures
      * [formulaTab]:	    	https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/formulaTab
-     *
      */
     formulaTabs?: FormulaTab[] | undefined;
     /**
@@ -38875,9 +39717,7 @@ export interface Tabs {
      *
      * A Full Name tab displays the recipient's full name. This value can't be set.
      *
-     *
      * [fullName]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/fullName
-     *
      */
     fullNameTabs?: FullName[] | undefined;
     /**
@@ -38887,7 +39727,6 @@ export interface Tabs {
      * This type of tab enables the recipient to initial the document. May be optional. This value can't be set.
      *
      * [initialHere]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/initialHere
-     *
      */
     initialHereTabs?: InitialHere[] | undefined;
     /**
@@ -38897,9 +39736,7 @@ export interface Tabs {
      * A Last Name tab displays the recipient's last name. The system automatically populates this field by splitting the name in the recipient information on spaces.
      * This value can't be set.
      *
-     *
      * [lastName]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/lastName
-     *
      */
     lastNameTabs?: LastName[] | undefined;
     /**
@@ -38916,7 +39753,6 @@ export interface Tabs {
      * **Note**: Only one notarize tab can appear on a page.
      *
      * [notarize]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/notarize
-     *
      */
     notarizeTabs?: Notarize[] | undefined;
     /**
@@ -38926,7 +39762,6 @@ export interface Tabs {
      * A Note tab displays additional information to the recipient in the form of a note. This value can be set.
      *
      * [note]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/note
-     *
      */
     noteTabs?: Note[] | undefined;
     /**
@@ -38935,8 +39770,8 @@ export interface Tabs {
      * A Number tab enables the recipient to enter numbers and decimal points (.). This value can be set.
      * [number]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/number
      */
-    numberTabs?: // tslint:disable-next-line: ban-types
-    Number[] | undefined;
+    numberTabs?: // eslint-disable-next-line @typescript-eslint/ban-types
+        Number[] | undefined;
     /**
      * This type of tab enables the recipient to strike through document text. This value can't be set.
      */
@@ -38954,9 +39789,7 @@ export interface Tabs {
      *
      * This type of tab enables the recipient to attach supporting documents to an envelope. This value can't be set.
      *
-     *
      * [signerAttachment]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/signerAttachment
-     *
      */
     signerAttachmentTabs?: SignerAttachment[] | undefined;
     /**
@@ -38966,7 +39799,6 @@ export interface Tabs {
      * This type of tab enables the recipient to sign a document. May be optional. This value can't be set.
      *
      * [signHere]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/signHere
-     *
      */
     signHereTabs?: SignHere[] | undefined;
     /**
@@ -38984,9 +39816,7 @@ export interface Tabs {
      * An SSN tab contains a one-line field that enables the recipient to enter a Social Security Number (SSN) with or without
      * dashes. It uses the same parameters as a Text tab, with the validation message and pattern set for SSN information. This value can be set.
      *
-     *
      * [ssn]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/ssn
-     *
      */
     ssnTabs?: Ssn[] | undefined;
     /**
@@ -39001,7 +39831,6 @@ export interface Tabs {
      * A text tab enables the recipient to enter free text. This value can be set.
      *
      * [text]: https://developers.docusign.com/esign-rest-api/reference/EnvelopeRecipientTabs/create/#/definitions/text
-     *
      */
     textTabs?: Text[] | undefined;
     /**
@@ -39010,9 +39839,7 @@ export interface Tabs {
      *
      * A Title tab displays the recipient's title.  This value can't be set.
      *
-     *
      * [title]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/title
-     *
      */
     titleTabs?: Title[] | undefined;
     /**
@@ -39022,7 +39849,6 @@ export interface Tabs {
      * A View tab is used with an Approve tab to handle supplemental documents.  This value can be set.
      *
      * [view]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/view
-     *
      */
     viewTabs?: /* This tab is used with the Approve tab to handle supplemental documents. */ View[] | undefined;
     /**
@@ -39033,9 +39859,7 @@ export interface Tabs {
      * and can be entered with or without dashes. It uses the same parameters as a Text tab, with the validation message and pattern set for ZIP code information.
      * This value can be set.
      *
-     *
      * [zip]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/zip
-     *
      */
     zipTabs?: Zip[] | undefined;
 }
@@ -39049,27 +39873,30 @@ export interface TabsBlob {
     allowTabOrder?: string | undefined;
     /**
      * Metadata that indicates whether the `allowTabOrder` property is editable.
-     *
      */
-    allowTabOrderMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowTabOrderMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, approve and decline tabs are enabled.
      */
     approveDeclineTabsEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `approveDeclineTabs` property is editable.
-     *
      */
-    approveDeclineTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    approveDeclineTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, [calculated fields](https://support.docusign.com/en/guides/ndse-user-guide-calculated-fields) are enabled for tabs.
      */
     calculatedFieldsEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `calculatedFields` property is editable.
-     *
      */
-    calculatedFieldsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    calculatedFieldsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, checkbox tabs are enabled.
      */
@@ -39077,29 +39904,35 @@ export interface TabsBlob {
     /**
      * Metadata that indicates whether the `checkBoxTabs` property is editable.
      */
-    checkBoxTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    checkBoxTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, regular expressions are enabled for tabs that contain data fields.
      */
     dataFieldRegexEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `dataFieldRegex` property is editable.
-     *
      */
-    dataFieldRegexMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    dataFieldRegexMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, setting character limits for input fields is enabled.
      */
     dataFieldSizeEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `dataFieldSize` property is editable.
-     *
      */
-    dataFieldSizeMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    dataFieldSizeMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 
     drawTabsEnabled?: string | undefined;
 
-    drawTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    drawTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -39107,43 +39940,49 @@ export interface TabsBlob {
     /**
      * Reserved for DocuSign.
      */
-    firstLastEmailTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    firstLastEmailTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, list tabs are enabled.
      */
     listTabsEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `listTabs` property is editable.
-     *
      */
-    listTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    listTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, note tabs are enabled.
      */
     noteTabsEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `noteTabs` property is editable.
-     *
      */
-    noteTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    noteTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, radio button tabs are enabled.
      */
     radioTabsEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `radioTabs` property is editable.
-     *
      */
-    radioTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    radioTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, saving custom tabs is enabled.
      */
     savingCustomTabsEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `savingCustomTabs` property is editable.
-     *
      */
-    savingCustomTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    savingCustomTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -39151,29 +39990,32 @@ export interface TabsBlob {
     /**
      * Reserved for DocuSign.
      */
-    senderToChangeTabAssignmentsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    senderToChangeTabAssignmentsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, shared custom tabs are enabled.
      */
     sharedCustomTabsEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `sharedCustomTabs` property is editable.
-     *
      */
-    sharedCustomTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    sharedCustomTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, [data
      * labels](https://support.docusign.com/en/videos/Data-Labels) are enabled.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     tabDataLabelEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `tabDataLabel` property is editable.
-     *
      */
-    tabDataLabelMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    tabDataLabelMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -39181,19 +40023,21 @@ export interface TabsBlob {
     /**
      * Reserved for DocuSign.
      */
-    tabLocationMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    tabLocationMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, tab locking is enabled.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     tabLockingEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `tabLocking` property is editable.
-     *
      */
-    tabLockingMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    tabLockingMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -39201,30 +40045,33 @@ export interface TabsBlob {
     /**
      * Reserved for DocuSign.
      */
-    tabScaleMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    tabScaleMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, text formatting (such as font type, font size,
      * font color, bold, italic, and underline) is enabled for tabs that
      * support formatting.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     tabTextFormattingEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `tabTextFormatting` property is editable.
-     *
      */
-    tabTextFormattingMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    tabTextFormattingMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, text tabs are enabled.
      */
     textTabsEnabled?: string | undefined;
     /**
      * Metadata that indicates whether the `textTabs` property is editable.
-     *
      */
-    textTabsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    textTabsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 }
 
 /**
@@ -39269,11 +40116,15 @@ export interface TemplateCustomFields {
     /**
      * An array of list custom fields.
      */
-    listCustomFields?: /* This object represents a list custom field from which envelope creators and senders can select custom data. */ ListCustomField[] | undefined;
+    listCustomFields?:
+        | /* This object represents a list custom field from which envelope creators and senders can select custom data. */ ListCustomField[]
+        | undefined;
     /**
      * An array of text custom fields.
      */
-    textCustomFields?: /* This object represents a free text custom field where envelope creators and senders can enter custom data. */ TextCustomField[] | undefined;
+    textCustomFields?:
+        | /* This object represents a free text custom field where envelope creators and senders can enter custom data. */ TextCustomField[]
+        | undefined;
 }
 
 /**
@@ -39288,9 +40139,10 @@ export interface TemplateDocumentFields {
      * * `value` - A string that can be a maximum of 200 characters.
      *
      * **Important**: If you are using XML, the name/value pair is contained in a `nameValue` element.
-     *
      */
-    documentFields?: /* A name-value pair that describes an item and provides a value for the item. */ NameValue[] | undefined;
+    documentFields?:
+        | /* A name-value pair that describes an item and provides a value for the item. */ NameValue[]
+        | undefined;
 }
 
 export interface TemplateDocumentHtmlDefinitions {
@@ -39325,19 +40177,15 @@ export interface TemplateDocumentTabs {
      * The value of an approve tab can't be set.
      *
      * [approve]:		      https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/approve
-     *
      */
     approveTabs?: Approve[] | undefined;
     /**
      * A list of
      * [Checkbox tabs][checkbox].
      *
-     *
      * A Checkbox tab enables the recipient to select a yes/no (on/off) option. This value can be set.
      *
-     *
      * [checkbox]:  https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/checkbox
-     *
      */
     checkboxTabs?: Checkbox[] | undefined;
     /**
@@ -39349,24 +40197,18 @@ export interface TemplateDocumentTabs {
      * A list of
      * [Company tabs][company].
      *
-     *
      * A Company tab displays a field for the name of the recipient's company. This value can't be set.
      *
-     *
-     *
      * [company]: https://developers.docusign.com/esign-rest-api/reference/EnvelopeRecipientTabs/create/#/definitions/company
-     *
      */
     companyTabs?: Company[] | undefined;
     /**
      * A list of
      * [Date Signed tabs][dateSigned].
      *
-     *
      * A Date Signed tab displays the date that the recipient signed the document. This value can't be set.
      *
      * [dateSigned]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/dateSigned
-     *
      */
     dateSignedTabs?: DateSigned[] | undefined;
     /**
@@ -39378,9 +40220,7 @@ export interface TemplateDocumentTabs {
      *
      * **Note**: If you need to enforce a specific date format, we recommend that you use a Text tab with a validation pattern and validation message.
      *
-     *
      * [date]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/date
-     *
      */
     dateTabs?: Date[] | undefined;
     /**
@@ -39390,9 +40230,7 @@ export interface TemplateDocumentTabs {
      * A Decline tab enables the recipient to decline the envelope. If the recipient clicks the tab during the signing process, the envelope is voided.
      * The value of this tab can't be set.
      *
-     *
      * [decline]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/decline
-     *
      */
     declineTabs?: Decline[] | undefined;
 
@@ -39403,9 +40241,7 @@ export interface TemplateDocumentTabs {
      *
      * An Email Address tab displays the recipient's email as entered in the recipient information. This value can't be set.
      *
-     *
      * [emailAddress]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/emailAddress
-     *
      */
     emailAddressTabs?: EmailAddress[] | undefined;
     /**
@@ -39423,7 +40259,6 @@ export interface TemplateDocumentTabs {
      * associated envelope was sent is included in the response.
      *
      * [email]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/email
-     *
      */
     emailTabs?: Email[] | undefined;
     /**
@@ -39432,9 +40267,7 @@ export interface TemplateDocumentTabs {
      *
      * An Envelope ID tab  displays the envelope ID. Recipients cannot enter or change the information in this tab. This value can't be set.
      *
-     *
      * [envelopeId]: https://developers.docusign.com/esign-rest-api/reference/EnvelopeRecipientTabs/create/#/definitions/envelopeId
-     *
      */
     envelopeIdTabs?: EnvelopeId[] | undefined;
     /**
@@ -39444,9 +40277,7 @@ export interface TemplateDocumentTabs {
      * A First Name tab displays the recipient's first name. The system automatically populates this field by splitting the name in the recipient information on spaces.
      * This value can't be set.
      *
-     *
      * [firstName]: https://developers.docusign.com/esign-rest-api/reference/EnvelopeRecipientTabs/create/#/definitions/firstName
-     *
      */
     firstNameTabs?: FirstName[] | undefined;
     /**
@@ -39463,7 +40294,6 @@ export interface TemplateDocumentTabs {
      * [calculatedfields]: https://support.docusign.com/en/guides/ndse-user-guide-calculated-fields
      * [paymentguide]:     https://support.docusign.com/en/guides/requesting-payments-along-with-signatures
      * [formulaTab]:	    	https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/formulaTab
-     *
      */
     formulaTabs?: FormulaTab[] | undefined;
     /**
@@ -39472,9 +40302,7 @@ export interface TemplateDocumentTabs {
      *
      * A Full Name tab displays the recipient's full name. This value can't be set.
      *
-     *
      * [fullName]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/fullName
-     *
      */
     fullNameTabs?: FullName[] | undefined;
     /**
@@ -39484,7 +40312,6 @@ export interface TemplateDocumentTabs {
      * This type of tab enables the recipient to initial the document. May be optional. This value can't be set.
      *
      * [initialHere]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/initialHere
-     *
      */
     initialHereTabs?: InitialHere[] | undefined;
     /**
@@ -39494,9 +40321,7 @@ export interface TemplateDocumentTabs {
      * A Last Name tab displays the recipient's last name. The system automatically populates this field by splitting the name in the recipient information on spaces.
      * This value can't be set.
      *
-     *
      * [lastName]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/lastName
-     *
      */
     lastNameTabs?: LastName[] | undefined;
     /**
@@ -39513,7 +40338,6 @@ export interface TemplateDocumentTabs {
      * **Note**: Only one notarize tab can appear on a page.
      *
      * [notarize]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/notarize
-     *
      */
     notarizeTabs?: Notarize[] | undefined;
     /**
@@ -39523,7 +40347,6 @@ export interface TemplateDocumentTabs {
      * A Note tab displays additional information to the recipient in the form of a note. This value can be set.
      *
      * [note]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/note
-     *
      */
     noteTabs?: Note[] | undefined;
     /**
@@ -39532,7 +40355,7 @@ export interface TemplateDocumentTabs {
      * A Number tab enables the recipient to enter numbers and decimal points (.). This value can be set.
      * [number]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/number
      */
-    // tslint:disable-next-line: ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     numberTabs?: Number[] | undefined;
     /**
      * This type of tab enables the recipient to strike through document text. This value can't be set.
@@ -39544,7 +40367,6 @@ export interface TemplateDocumentTabs {
      * A Radio Group tab places a group of radio buttons on a document. The `radios` property is used to add and place the radio
      * buttons associated with the group. Only one radio button can be selected in a group. This value can be set.
      * [radioGroup]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/radioGroup
-     *
      */
     radioGroupTabs?: RadioGroup[] | undefined;
     /**
@@ -39562,7 +40384,6 @@ export interface TemplateDocumentTabs {
      * This type of tab enables the recipient to sign a document. May be optional. This value can't be set.
      *
      * [signHere]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/signHere
-     *
      */
     signHereTabs?: SignHere[] | undefined;
     /**
@@ -39580,9 +40401,7 @@ export interface TemplateDocumentTabs {
      * An SSN tab contains a one-line field that enables the recipient to enter a Social Security Number (SSN) with or without
      * dashes. It uses the same parameters as a Text tab, with the validation message and pattern set for SSN information. This value can be set.
      *
-     *
      * [ssn]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/ssn
-     *
      */
     ssnTabs?: Ssn[] | undefined;
     /**
@@ -39596,7 +40415,6 @@ export interface TemplateDocumentTabs {
      * A text tab enables the recipient to enter free text. This value can be set.
      *
      * [text]: https://developers.docusign.com/esign-rest-api/reference/EnvelopeRecipientTabs/create/#/definitions/text
-     *
      */
     textTabs?: Text[] | undefined;
     /**
@@ -39605,9 +40423,7 @@ export interface TemplateDocumentTabs {
      *
      * A Title tab displays the recipient's title.  This value can't be set.
      *
-     *
      * [title]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/title
-     *
      */
     titleTabs?: Title[] | undefined;
     /**
@@ -39617,7 +40433,6 @@ export interface TemplateDocumentTabs {
      * A View tab is used with an Approve tab to handle supplemental documents.  This value can be set.
      *
      * [view]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/view
-     *
      */
     viewTabs?: /* This tab is used with the Approve tab to handle supplemental documents. */ View[] | undefined;
     /**
@@ -39627,9 +40442,7 @@ export interface TemplateDocumentTabs {
      * A Zip tab enables the recipient to enter a ZIP code. The ZIP code can be five digits or nine digits ( in ZIP+4 format), and can be entered with or without dashes.
      * It uses the same parameters as a Text tab, with the validation message and pattern set for ZIP code information.  This value can be set.
      *
-     *
      * [zip]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/zip
-     *
      */
     zipTabs?: Zip[] | undefined;
 }
@@ -39655,7 +40468,9 @@ export interface TemplateDocumentVisibility {
     /**
      * An array of `documentVisibility` objects that specifies which documents are visible to which recipients.
      */
-    documentVisibility?: /* This object configures a recipient's read/write access to a document. */ DocumentVisibility[] | undefined;
+    documentVisibility?:
+        | /* This object configures a recipient's read/write access to a document. */ DocumentVisibility[]
+        | undefined;
 }
 
 /**
@@ -39665,7 +40480,9 @@ export interface TemplateDocumentVisibilityList {
     /**
      * An array of `documentVisibility` objects that specifies which documents are visible to which recipients.
      */
-    documentVisibility?: /* This object configures a recipient's read/write access to a document. */ DocumentVisibility[] | undefined;
+    documentVisibility?:
+        | /* This object configures a recipient's read/write access to a document. */ DocumentVisibility[]
+        | undefined;
 }
 
 /**
@@ -39713,14 +40530,15 @@ export interface TemplateLocks {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * Sets the time, in seconds, until the lock expires when there is no activity on the envelope.
      *
      * If no value is entered, then the default value of 300 seconds is used. The maximum value is 1,800 seconds.
      *
      * The lock duration can be extended.
-     *
      */
     lockDurationInSeconds?: string | undefined;
     /**
@@ -39745,7 +40563,6 @@ export interface TemplateLocks {
     lockType?: string | undefined;
     /**
      * When set to **true**, a scratchpad is used to edit information.
-     *
      */
     useScratchPad?: string | undefined;
 }
@@ -39760,7 +40577,9 @@ export interface TemplateNotificationRequest {
     /**
      * A complex element that specifies the expiration settings for the envelope.
      */
-    expirations?: /* A complex element that specifies the expiration settings for the envelope. */ Expirations | undefined;
+    expirations?:
+        | /* A complex element that specifies the expiration settings for the envelope. */ Expirations
+        | undefined;
     /**
      * The user's encrypted password hash.
      */
@@ -39872,9 +40691,7 @@ export interface TemplateRecipientTabs {
      *
      * An Envelope ID tab  displays the envelope ID. Recipients cannot enter or change the information in this tab. This value can't be set.
      *
-     *
      * [envelopeId]: https://developers.docusign.com/esign-rest-api/reference/EnvelopeRecipientTabs/create/#/definitions/envelopeId
-     *
      */
     envelopeIdTabs?: EnvelopeId[] | undefined;
     /**
@@ -39884,9 +40701,7 @@ export interface TemplateRecipientTabs {
      * A First Name tab displays the recipient's first name. The system automatically populates this field by splitting the name in the recipient information on spaces.
      * This value can't be set.
      *
-     *
      * [firstName]: https://developers.docusign.com/esign-rest-api/reference/EnvelopeRecipientTabs/create/#/definitions/firstName
-     *
      */
     firstNameTabs?: FirstName[] | undefined;
     /**
@@ -39903,7 +40718,6 @@ export interface TemplateRecipientTabs {
      * [calculatedfields]: https://support.docusign.com/en/guides/ndse-user-guide-calculated-fields
      * [paymentguide]:     https://support.docusign.com/en/guides/requesting-payments-along-with-signatures
      * [formulaTab]:	    	https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/formulaTab
-     *
      */
     formulaTabs?: FormulaTab[] | undefined;
     /**
@@ -39912,9 +40726,7 @@ export interface TemplateRecipientTabs {
      *
      * A Full Name tab displays the recipient's full name. This value can't be set.
      *
-     *
      * [fullName]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/fullName
-     *
      */
     fullNameTabs?: FullName[] | undefined;
     /**
@@ -39924,7 +40736,6 @@ export interface TemplateRecipientTabs {
      * This type of tab enables the recipient to initial the document. May be optional. This value can't be set.
      *
      * [initialHere]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/initialHere
-     *
      */
     initialHereTabs?: InitialHere[] | undefined;
     /**
@@ -39934,9 +40745,7 @@ export interface TemplateRecipientTabs {
      * A Last Name tab displays the recipient's last name. The system automatically populates this field by splitting the name in the
      * recipient information on spaces. This value can't be set.
      *
-     *
      * [lastName]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/lastName
-     *
      */
     lastNameTabs?: LastName[] | undefined;
     /**
@@ -39953,7 +40762,6 @@ export interface TemplateRecipientTabs {
      * **Note**: Only one notarize tab can appear on a page.
      *
      * [notarize]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/notarize
-     *
      */
     notarizeTabs?: Notarize[] | undefined;
     /**
@@ -39963,7 +40771,6 @@ export interface TemplateRecipientTabs {
      * A Note tab displays additional information to the recipient in the form of a note. This value can be set.
      *
      * [note]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/note
-     *
      */
     noteTabs?: Note[] | undefined;
     /**
@@ -39972,7 +40779,7 @@ export interface TemplateRecipientTabs {
      * A Number tab enables the recipient to enter numbers and decimal points (.). This value can be set.
      * [number]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/number
      */
-    // tslint:disable-next-line: ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     numberTabs?: Number[] | undefined;
     /**
      * This type of tab enables the recipient to strike through document text. This value can't be set.
@@ -40012,9 +40819,7 @@ export interface TemplateRecipientTabs {
      * An SSN tab contains a one-line field that enables the recipient to enter a Social Security Number (SSN) with or without
      * dashes. It uses the same parameters as a Text tab, with the validation message and pattern set for SSN information. This value can be set.
      *
-     *
      * [ssn]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/ssn
-     *
      */
     ssnTabs?: Ssn[] | undefined;
     /**
@@ -40028,7 +40833,6 @@ export interface TemplateRecipientTabs {
      * A text tab enables the recipient to enter free text. This value can be set.
      *
      * [text]: https://developers.docusign.com/esign-rest-api/reference/EnvelopeRecipientTabs/create/#/definitions/text
-     *
      */
     textTabs?: Text[] | undefined;
     /**
@@ -40037,9 +40841,7 @@ export interface TemplateRecipientTabs {
      *
      * A Title tab displays the recipient's title.  This value can't be set.
      *
-     *
      * [title]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/title
-     *
      */
     titleTabs?: Title[] | undefined;
     /**
@@ -40049,7 +40851,6 @@ export interface TemplateRecipientTabs {
      * A View tab is used with an Approve tab to handle supplemental documents.  This value can be set.
      *
      * [view]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/view
-     *
      */
     viewTabs?: /* This tab is used with the Approve tab to handle supplemental documents. */ View[] | undefined;
     /**
@@ -40059,9 +40860,7 @@ export interface TemplateRecipientTabs {
      * A Zip tab enables the recipient to enter a ZIP code. The ZIP code can be five digits or nine digits ( in ZIP+4 format), and can be entered with or without dashes.
      * It uses the same parameters as a Text tab, with the validation message and pattern set for ZIP code information.  This value can be set.
      *
-     *
      * [zip]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/zip
-     *
      */
     zipTabs?: Zip[] | undefined;
 }
@@ -40074,12 +40873,14 @@ export interface TemplateRecipients {
      * A list of agent recipients assigned to the documents.
      */
     agents?: /* Contains information about an agent recipient. An agent is a recipient who can add name and email information for recipients that appear after
-        the agent in routing order. */ Agent[] | undefined;
+        the agent in routing order. */
+        Agent[] | undefined;
     /**
      * A list of carbon copy recipients assigned to the documents.
      */
     carbonCopies?: /* Contains information about a carbon copy recipient. Carbon copy recipients get a copy of the envelope but don't need to sign, initial,
-        date or add information to any of the documents.  */ CarbonCopy[] | undefined;
+        date or add information to any of the documents.  */
+        CarbonCopy[] | undefined;
     /**
      * A complex type containing information on a recipient the must receive the completed documents for the envelope to be completed, but the recipient does not need to sign,
      * initial, date, or add information to any of the documents.
@@ -40096,11 +40897,14 @@ export interface TemplateRecipients {
     editors?: /* A complex type defining the management and access rights of a recipient assigned as an editor on the envelope.
         Editors have the same management and access rights for the envelope as the sender. They can make changes to the envelope as if they were using the Correct feature.
         This recipient can add name and email information, add or change the routing order and set authentication options for the remaining recipients. Additionally,
-        this recipient can edit signature/initial tabs and text tabs for the remaining recipients. */ Editor[] | undefined;
+        this recipient can edit signature/initial tabs and text tabs for the remaining recipients. */
+        Editor[] | undefined;
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * Specifies a signer that is in the same physical location as a DocuSign user who will act as a Signing Host for the transaction.
      * The recipient added is the Signing Host and new separate Signer Name field appears after Sign in person is selected.
@@ -40112,7 +40916,7 @@ export interface TemplateRecipients {
      */
     intermediaries?: /* Contains information about an intermediary recipient. An intermediary is a recipient who can, but is not required to,
                         add name and email information for recipients at the same or subsequent level in the routing order, unless subsequent agents, editors or intermediaries are added. */
-    Intermediary[] | undefined;
+        Intermediary[] | undefined;
     /**
      * The number of recipients in the envelope.
      */
@@ -40130,7 +40934,8 @@ export interface TemplateRecipients {
      * A list of signers who act as witnesses on the envelope.
      */
     witnesses?: /* A complex type containing information about a witness recipient. Witnesses are recipients whose signatures affirm that the identified signers
-        have signed the documents in the envelope. */ Witness[] | undefined;
+        have signed the documents in the envelope. */
+        Witness[] | undefined;
 }
 
 /**
@@ -40255,7 +41060,9 @@ export interface TemplateSharedItem {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * Information about the user who owns the template.
      */
@@ -40269,7 +41076,6 @@ export interface TemplateSharedItem {
      *
      * - `not_shared`
      * - `shared_to`
-     *
      */
     shared?: string | undefined;
     /**
@@ -40309,7 +41115,9 @@ export interface TemplateSummary {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The name of the template.
      */
@@ -40341,19 +41149,15 @@ export interface TemplateTabs {
      * The value of an approve tab can't be set.
      *
      * [approve]:		      https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/approve
-     *
      */
     approveTabs?: Approve[] | undefined;
     /**
      * A list of
      * [Checkbox tabs][checkbox].
      *
-     *
      * A Checkbox tab enables the recipient to select a yes/no (on/off) option. This value can be set.
      *
-     *
      * [checkbox]:  https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/checkbox
-     *
      */
     checkboxTabs?: Checkbox[] | undefined;
     /**
@@ -40365,24 +41169,18 @@ export interface TemplateTabs {
      * A list of
      * [Company tabs][company].
      *
-     *
      * A Company tab displays a field for the name of the recipient's company. This value can't be set.
      *
-     *
-     *
      * [company]: https://developers.docusign.com/esign-rest-api/reference/EnvelopeRecipientTabs/create/#/definitions/company
-     *
      */
     companyTabs?: Company[] | undefined;
     /**
      * A list of
      * [Date Signed tabs][dateSigned].
      *
-     *
      * A Date Signed tab displays the date that the recipient signed the document. This value can't be set.
      *
      * [dateSigned]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/dateSigned
-     *
      */
     dateSignedTabs?: DateSigned[] | undefined;
     /**
@@ -40394,9 +41192,7 @@ export interface TemplateTabs {
      *
      * **Note**: If you need to enforce a specific date format, we recommend that you use a Text tab with a validation pattern and validation message.
      *
-     *
      * [date]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/date
-     *
      */
     dateTabs?: Date[] | undefined;
     /**
@@ -40406,9 +41202,7 @@ export interface TemplateTabs {
      * A Decline tab enables the recipient to decline the envelope. If the recipient clicks the tab during the signing process, the envelope is voided.
      * The value of this tab can't be set.
      *
-     *
      * [decline]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/decline
-     *
      */
     declineTabs?: Decline[] | undefined;
 
@@ -40419,9 +41213,7 @@ export interface TemplateTabs {
      *
      * An Email Address tab displays the recipient's email as entered in the recipient information. This value can't be set.
      *
-     *
      * [emailAddress]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/emailAddress
-     *
      */
     emailAddressTabs?: EmailAddress[] | undefined;
     /**
@@ -40439,7 +41231,6 @@ export interface TemplateTabs {
      * associated envelope was sent is included in the response.
      *
      * [email]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/email
-     *
      */
     emailTabs?: Email[] | undefined;
     /**
@@ -40448,9 +41239,7 @@ export interface TemplateTabs {
      *
      * An Envelope ID tab  displays the envelope ID. Recipients cannot enter or change the information in this tab. This value can't be set.
      *
-     *
      * [envelopeId]: https://developers.docusign.com/esign-rest-api/reference/EnvelopeRecipientTabs/create/#/definitions/envelopeId
-     *
      */
     envelopeIdTabs?: EnvelopeId[] | undefined;
     /**
@@ -40460,9 +41249,7 @@ export interface TemplateTabs {
      * A First Name tab displays the recipient's first name. The system automatically populates this field by splitting the name in the recipient information on spaces.
      * This value can't be set.
      *
-     *
      * [firstName]: https://developers.docusign.com/esign-rest-api/reference/EnvelopeRecipientTabs/create/#/definitions/firstName
-     *
      */
     firstNameTabs?: FirstName[] | undefined;
     /**
@@ -40479,7 +41266,6 @@ export interface TemplateTabs {
      * [calculatedfields]: https://support.docusign.com/en/guides/ndse-user-guide-calculated-fields
      * [paymentguide]:     https://support.docusign.com/en/guides/requesting-payments-along-with-signatures
      * [formulaTab]:	    	https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/formulaTab
-     *
      */
     formulaTabs?: FormulaTab[] | undefined;
     /**
@@ -40488,9 +41274,7 @@ export interface TemplateTabs {
      *
      * A Full Name tab displays the recipient's full name. This value can't be set.
      *
-     *
      * [fullName]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/fullName
-     *
      */
     fullNameTabs?: FullName[] | undefined;
     /**
@@ -40500,7 +41284,6 @@ export interface TemplateTabs {
      * This type of tab enables the recipient to initial the document. May be optional. This value can't be set.
      *
      * [initialHere]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/initialHere
-     *
      */
     initialHereTabs?: InitialHere[] | undefined;
     /**
@@ -40510,9 +41293,7 @@ export interface TemplateTabs {
      * A Last Name tab displays the recipient's last name. The system automatically populates this field by splitting the name in the recipient information on spaces.
      * This value can't be set.
      *
-     *
      * [lastName]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/lastName
-     *
      */
     lastNameTabs?: LastName[] | undefined;
     /**
@@ -40529,7 +41310,6 @@ export interface TemplateTabs {
      * **Note**: Only one notarize tab can appear on a page.
      *
      * [notarize]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/notarize
-     *
      */
     notarizeTabs?: Notarize[] | undefined;
     /**
@@ -40539,7 +41319,6 @@ export interface TemplateTabs {
      * A Note tab displays additional information to the recipient in the form of a note. This value can be set.
      *
      * [note]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/note
-     *
      */
     noteTabs?: Note[] | undefined;
     /**
@@ -40549,7 +41328,7 @@ export interface TemplateTabs {
      * A Number tab enables the recipient to enter numbers and decimal points (.). This value can be set.
      * [number]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/number
      */
-    // tslint:disable-next-line: ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     numberTabs?: Number[] | undefined;
     /**
      * This type of tab enables the recipient to strike through document text. This value can't be set.
@@ -40568,9 +41347,7 @@ export interface TemplateTabs {
      *
      * This type of tab enables the recipient to attach supporting documents to an envelope. This value can't be set.
      *
-     *
      * [signerAttachment]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/signerAttachment
-     *
      */
     signerAttachmentTabs?: SignerAttachment[] | undefined;
     /**
@@ -40580,7 +41357,6 @@ export interface TemplateTabs {
      * This type of tab enables the recipient to sign a document. May be optional. This value can't be set.
      *
      * [signHere]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/signHere
-     *
      */
     signHereTabs?: SignHere[] | undefined;
     /**
@@ -40598,9 +41374,7 @@ export interface TemplateTabs {
      * An SSN tab contains a one-line field that enables the recipient to enter a Social Security Number (SSN) with or without
      * dashes. It uses the same parameters as a Text tab, with the validation message and pattern set for SSN information. This value can be set.
      *
-     *
      * [ssn]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/ssn
-     *
      */
     ssnTabs?: Ssn[] | undefined;
     /**
@@ -40614,7 +41388,6 @@ export interface TemplateTabs {
      * A text tab enables the recipient to enter free text. This value can be set.
      *
      * [text]: https://developers.docusign.com/esign-rest-api/reference/EnvelopeRecipientTabs/create/#/definitions/text
-     *
      */
     textTabs?: Text[] | undefined;
     /**
@@ -40623,9 +41396,7 @@ export interface TemplateTabs {
      *
      * A Title tab displays the recipient's title.  This value can't be set.
      *
-     *
      * [title]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/title
-     *
      */
     titleTabs?: Title[] | undefined;
     /**
@@ -40635,7 +41406,6 @@ export interface TemplateTabs {
      * A View tab is used with an Approve tab to handle supplemental documents.  This value can be set.
      *
      * [view]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/view
-     *
      */
     viewTabs?: /* This tab is used with the Approve tab to handle supplemental documents. */ View[] | undefined;
     /**
@@ -40645,9 +41415,7 @@ export interface TemplateTabs {
      * A Zip tab enables the recipient to enter a ZIP code. The ZIP code can be five digits or nine digits ( in ZIP+4 format), and can be entered with or without dashes.
      * It uses the same parameters as a Text tab, with the validation message and pattern set for ZIP code information.  This value can be set.
      *
-     *
      * [zip]: https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipientTabs/create/#/definitions/zip
-     *
      */
     zipTabs?: Zip[] | undefined;
 }
@@ -40664,9 +41432,13 @@ export interface TemplateUpdateSummary {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
 
-    listCustomFieldUpdateResults?: /* This object represents a list custom field from which envelope creators and senders can select custom data. */ ListCustomField[] | undefined;
+    listCustomFieldUpdateResults?:
+        | /* This object represents a list custom field from which envelope creators and senders can select custom data. */ ListCustomField[]
+        | undefined;
     /**
      * Provides lock information about an envelope that a user has locked.
      */
@@ -40685,11 +41457,15 @@ export interface TemplateUpdateSummary {
     /**
      * An array of `recipientUpdateResults` objects that contain details about the recipients.
      */
-    recipientUpdateResults?: /* The recipient details that are returned after you update the recipient. */ RecipientUpdateResponse[] | undefined;
+    recipientUpdateResults?:
+        | /* The recipient details that are returned after you update the recipient. */ RecipientUpdateResponse[]
+        | undefined;
 
     tabUpdateResults?: EnvelopeRecipientTabs | undefined;
 
-    textCustomFieldUpdateResults?: /* This object represents a free text custom field where envelope creators and senders can enter custom data. */ TextCustomField[] | undefined;
+    textCustomFieldUpdateResults?:
+        | /* This object represents a free text custom field where envelope creators and senders can enter custom data. */ TextCustomField[]
+        | undefined;
 }
 
 /**
@@ -40736,7 +41512,6 @@ export interface Templates {
      * When **true**, the envelope is queued for processing and the value of the `status` property is set to `Processing`.
      * Additionally, GET status calls return `Processing` until completed.
      *
-     *
      * **Note**: A `transactionId` is required for this call to work correctly. When the envelope is created,
      * the status is `Processing` and an `envelopeId` is not returned in the response. To get the `envelopeId`,
      * use a GET envelope query by using the [transactionId](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create/#envelopeDefinition)
@@ -40780,7 +41555,6 @@ export interface Templates {
     autoMatchSpecifiedByUser?: string | undefined;
     /**
      * When set to **true**, autonavigation is set for the recipient.
-     *
      */
     autoNavigation?: string | undefined;
     /**
@@ -40814,7 +41588,8 @@ export interface Templates {
      * This information is returned in the envelope status but otherwise not used by DocuSign. Each `customField` string can be a maximum of 100 characters.
      */
     customFields?: /* An `accountCustomField` is an envelope custom field that you set at the account level.
-          Applying custom fields enables account administators to group and manage envelopes.  */ AccountCustomFields | undefined;
+          Applying custom fields enables account administators to group and manage envelopes.  */
+        AccountCustomFields | undefined;
     /**
      * The URI for retrieving custom fields.
      */
@@ -40833,7 +41608,6 @@ export interface Templates {
     deliveredDateTime?: string | undefined;
     /**
      * A sender-defined description of the line item.
-     *
      */
     description?: string | undefined;
     /**
@@ -40865,7 +41639,6 @@ export interface Templates {
      *
      * For information about adding merge field information to the email subject,
      * see [Template Email Subject Merge Fields](https://developers.docusign.com/esign-rest-api/reference/Templates/Templates/create#template-email-subject-merge-fields).
-     *
      */
     emailSubject?: string | undefined;
     /**
@@ -41030,7 +41803,9 @@ export interface Templates {
     /**
      * A complex element that specifies the notification options for envelopes that use the template.
      */
-    notification?: /* A complex element that specifies the notification settings for the envelope. */ Notification | undefined;
+    notification?:
+        | /* A complex element that specifies the notification settings for the envelope. */ Notification
+        | undefined;
     /**
      * The URI for retrieving notifications.
      */
@@ -41103,14 +41878,12 @@ export interface Templates {
      * and is shared with all users on the account.
      *
      * If **false**, the template is only shared with the **Administrator** group.
-     *
      */
     shared?: string | undefined;
     /**
      * When set to **true**, recipients can sign on a mobile device.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     signerCanSignOnMobile?: string | undefined;
     /**
@@ -41170,7 +41943,6 @@ export interface Templates {
 
 /**
  * A tab that allows the recipient to enter any type of text.
- *
  */
 export interface Text {
     anchorAllowWhiteSpaceInCharacters?: string | undefined;
@@ -41224,7 +41996,6 @@ export interface Text {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -41270,11 +42041,9 @@ export interface Text {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -41361,7 +42130,6 @@ export interface Text {
      * For conditional fields, this is the value of the parent tab that controls the tab's visibility.
      *
      * If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
-     *
      */
     conditionalParentValue?: string | undefined;
     /**
@@ -41399,7 +42167,9 @@ export interface Text {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The font to be used for the tab value. Supported fonts include:
      *
@@ -41419,7 +42189,6 @@ export interface Text {
      * - TimesNewRoman
      * - Trebuchet
      * - Verdana
-     *
      */
     font?: string | undefined;
     /**
@@ -41435,7 +42204,6 @@ export interface Text {
      * - NavyBlue
      * - Purple
      * - White
-     *
      */
     fontColor?: string | undefined;
     /**
@@ -41526,7 +42294,6 @@ export interface Text {
      * Maximum Length: 2000 characters
      *
      * [calculatedfields]: https://support.docusign.com/en/guides/ndse-user-guide-calculated-fields
-     *
      */
     formula?: string | undefined;
     /**
@@ -41580,7 +42347,9 @@ export interface Text {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
 
     mergeFieldXml?: string | undefined;
     /**
@@ -41705,7 +42474,6 @@ export interface Text {
      * If no value is provided, the tab type is used as the value.
      *
      * Maximum Length: 500 characters.
-     *
      */
     tabLabel?: string | undefined;
     /**
@@ -41799,7 +42567,6 @@ export interface Text {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**
@@ -41827,7 +42594,9 @@ export interface TextCustomField {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The id of the custom field.
      */
@@ -41852,7 +42621,6 @@ export interface TextCustomField {
 
 /**
  * A tab that displays the recipient's title.
- *
  */
 export interface Title {
     anchorAllowWhiteSpaceInCharacters?: string | undefined;
@@ -41907,7 +42675,6 @@ export interface Title {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -41953,11 +42720,9 @@ export interface Title {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -42044,7 +42809,6 @@ export interface Title {
      * For conditional fields, this is the value of the parent tab that controls the tab's visibility.
      *
      * If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
-     *
      */
     conditionalParentValue?: string | undefined;
     /**
@@ -42082,7 +42846,9 @@ export interface Title {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The font to be used for the tab value. Supported fonts include:
      *
@@ -42102,7 +42868,6 @@ export interface Title {
      * - TimesNewRoman
      * - Trebuchet
      * - Verdana
-     *
      */
     font?: string | undefined;
     /**
@@ -42118,7 +42883,6 @@ export interface Title {
      * - NavyBlue
      * - Purple
      * - White
-     *
      */
     fontColor?: string | undefined;
     /**
@@ -42219,7 +42983,9 @@ export interface Title {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
 
     mergeFieldXml?: string | undefined;
     /**
@@ -42281,7 +43047,6 @@ export interface Title {
      * - `signed`: The recipient signed the tab.
      * - `declined`: The recipient declined the envelope.
      * - `na`: Used when the `status` property is not applicable to the tab type. (For example, a tab that has the `tabType` `SignerAttachmentOptional`).
-     *
      */
     status?: string | undefined;
     /**
@@ -42309,7 +43074,6 @@ export interface Title {
      * If no value is provided, the tab type is used as the value.
      *
      * Maximum Length: 500 characters.
-     *
      */
     tabLabel?: string | undefined;
     /**
@@ -42387,7 +43151,6 @@ export interface Title {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**
@@ -42440,52 +43203,63 @@ export interface UserAccountManagementGranularInformation {
      */
     canManageAccountSecuritySettings?: string | undefined;
 
-    canManageAccountSecuritySettingsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    canManageAccountSecuritySettingsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * **True** if the user can manage account settings.
      */
     canManageAccountSettings?: string | undefined;
 
-    canManageAccountSettingsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    canManageAccountSettingsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * **True** if the user can manage administrators.
      */
     canManageAdmins?: string | undefined;
     /**
      * Metadata that indicates whether the `canManageAdmins` property is editable.
-     *
      */
-    canManageAdminsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    canManageAdminsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * **True** if the user can manage reporting.
      */
     canManageReporting?: string | undefined;
 
-    canManageReportingMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    canManageReportingMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * **True** if the user can manage sharing.
      */
     canManageSharing?: string | undefined;
     /**
      * Metadata that indicates whether the `canManageSharing` property is editable.
-     *
      */
-    canManageSharingMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    canManageSharingMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * **True** if the user can manage signing groups.
      */
     canManageSigningGroups?: string | undefined;
 
-    canManageSigningGroupsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    canManageSigningGroupsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * **True** if the user can manage users.
      */
     canManageUsers?: string | undefined;
     /**
      * Metadata that indicates whether the `canManageUsers` property is editable.
-     *
      */
-    canManageUsersMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    canManageUsersMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 }
 
 /**
@@ -42495,7 +43269,9 @@ export interface UserCustomSettings {
     /**
      * The name/value pair information for the user custom setting.
      */
-    customSettings?: /* A name-value pair that describes an item and provides a value for the item. */ NameValue[] | undefined;
+    customSettings?:
+        | /* A name-value pair that describes an item and provides a value for the item. */ NameValue[]
+        | undefined;
 }
 
 export interface UserInfo {
@@ -42516,7 +43292,9 @@ export interface UserInfo {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * Boolean value that indicates whether the user is currently logged in or not.
      */
@@ -42536,7 +43314,6 @@ export interface UserInfo {
     /**
      * The ID of the user to access. Generally this is the ID of the current authenticated user, but if the authenticated user is an Administrator on the account,
      * `userId` can represent another user whom the Administrator is accessing.
-     *
      */
     userId?: string | undefined;
     /**
@@ -42551,7 +43328,6 @@ export interface UserInfo {
      * - `Active`
      * - `Closed`
      * - `Disabled`
-     *
      */
     userStatus?: string | undefined;
     /**
@@ -42591,7 +43367,9 @@ export interface UserInformation {
     /**
      * The name/value pair information for the user custom setting.
      */
-    customSettings?: /* A name-value pair that describes an item and provides a value for the item. */ NameValue[] | undefined;
+    customSettings?:
+        | /* A name-value pair that describes an item and provides a value for the item. */ NameValue[]
+        | undefined;
     /**
      * The default account ID associated with the user.
      */
@@ -42605,7 +43383,9 @@ export interface UserInformation {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The user's first name.
      * Maximum Length: 50 characters.
@@ -42614,13 +43394,14 @@ export interface UserInformation {
     /**
      * A complex element containing up to four Question/Answer pairs for forgotten password information.
      */
-    forgottenPasswordInfo?: /* A complex element that has up to four Question/Answer pairs for forgotten password information. */ ForgottenPasswordInformation | undefined;
+    forgottenPasswordInfo?:
+        | /* A complex element that has up to four Question/Answer pairs for forgotten password information. */ ForgottenPasswordInformation
+        | undefined;
     /**
      * A list of the group information for groups to add the user to.
      * Use [UserGroups::listGroups](https://developers.docusign.com/esign-rest-api/reference/UserGroups/Groups/list) to get information about groups.
      *
      * When setting a user's group, only the `groupId` is required.
-     *
      */
     groupList?: /* This object contains information about a group. */ Group[] | undefined;
     /**
@@ -42722,7 +43503,6 @@ export interface UserInformation {
     /**
      * The ID of the user to access. Generally this is the ID of the current authenticated user, but if the authenticated user is an Administrator on the account,
      * `userId` can represent another user whom the Administrator is accessing.
-     *
      */
     userId?: string | undefined;
     /**
@@ -42746,7 +43526,6 @@ export interface UserInformation {
      * - `Active`
      * - `Closed`
      * - `Disabled`
-     *
      */
     userStatus?: string | undefined;
     /**
@@ -42803,7 +43582,9 @@ export interface UserPasswordInformation {
     /**
      * A complex element containing up to four Question/Answer pairs for forgotten password information.
      */
-    forgottenPasswordInfo?: /* A complex element that has up to four Question/Answer pairs for forgotten password information. */ ForgottenPasswordInformation | undefined;
+    forgottenPasswordInfo?:
+        | /* A complex element that has up to four Question/Answer pairs for forgotten password information. */ ForgottenPasswordInformation
+        | undefined;
     /**
      * The user's new password.
      */
@@ -42821,7 +43602,6 @@ export interface UserPasswordRules {
     /**
      * The ID of the user to access. Generally this is the ID of the current authenticated user, but if the authenticated user is an Administrator on the account,
      * `userId` can represent another user whom the Administrator is accessing.
-     *
      */
     userId?: string | undefined;
 }
@@ -42834,7 +43614,9 @@ export interface UserProfile {
     /**
      * Indicates the authentication methods that the user uses. These properties cannot be modified by the PUT operation.
      */
-    authenticationMethods?: /* Contains information about the method used for authentication. */ AuthenticationMethod[] | undefined;
+    authenticationMethods?:
+        | /* Contains information about the method used for authentication. */ AuthenticationMethod[]
+        | undefined;
     /**
      * The name of the user's company.
      */
@@ -42870,7 +43652,6 @@ export interface UserProfile {
      * - `lastSignedDateTime`: The date and time the user last signed an envelope.
      * - `sentCount`: The number of envelopes the user has sent.
      * - `signedCount`: The number of envelopes the user has signed.
-     *
      */
     usageHistory?: UsageHistory | undefined;
 
@@ -42892,7 +43673,9 @@ export interface UserProfiles {
     /**
      * Indicates the authentication methods that the user uses. These properties cannot be modified by the PUT operation.
      */
-    authenticationMethods?: /* Contains information about the method used for authentication. */ AuthenticationMethod[] | undefined;
+    authenticationMethods?:
+        | /* Contains information about the method used for authentication. */ AuthenticationMethod[]
+        | undefined;
     /**
      * The name of the user's company.
      */
@@ -42930,7 +43713,6 @@ export interface UserProfiles {
      * - `lastSignedDateTime`: The date and time the user last signed an envelope.
      * - `sentCount`: The number of envelopes the user has sent.
      * - `signedCount`: The number of envelopes the user has signed.
-     *
      */
     usageHistory?: UsageHistory | undefined;
     /**
@@ -42953,7 +43735,9 @@ export interface UserSettingsInformation {
     /**
      * Describes which account management capabilities a user has.
      */
-    accountManagementGranular?: /* Describes which account management capabilities a user has. */ UserAccountManagementGranularInformation | undefined;
+    accountManagementGranular?:
+        | /* Describes which account management capabilities a user has. */ UserAccountManagementGranularInformation
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -42961,7 +43745,9 @@ export interface UserSettingsInformation {
     /**
      * Reserved for DocuSign.
      */
-    adminOnlyMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    adminOnlyMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, the API returns suggested tabs for documents for this user.
      */
@@ -42973,7 +43759,9 @@ export interface UserSettingsInformation {
     /**
      * Reserved for DocuSign.
      */
-    allowEnvelopeTransferToMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowEnvelopeTransferToMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, this user can create [electronic seal recipients][eseal].
      *
@@ -42983,7 +43771,9 @@ export interface UserSettingsInformation {
     /**
      * Metadata about the `allowEsealRecipientsMetadata` property.
      */
-    allowEsealRecipientsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowEsealRecipientsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true** and this user is an administrator, they can view all of the envelopes generated from PowerForms. The default value is **false**.
      */
@@ -42991,7 +43781,9 @@ export interface UserSettingsInformation {
     /**
      * Metadata about the `allowPowerFormsAdminToAccessAllPowerFormEnvelopeMetadata` property.
      */
-    allowPowerFormsAdminToAccessAllPowerFormEnvelopeMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowPowerFormsAdminToAccessAllPowerFormEnvelopeMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, this user can set the language used in the standard email format for a recipient when creating an envelope.
      */
@@ -42999,7 +43791,9 @@ export interface UserSettingsInformation {
     /**
      * Metadata for allowRecipientLanguageSelection.
      */
-    allowRecipientLanguageSelectionMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowRecipientLanguageSelectionMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, this user can send envelopes "on behalf of" other users through the API.
      */
@@ -43007,7 +43801,9 @@ export interface UserSettingsInformation {
     /**
      * Metadata for allowSendOnBehalfOf.
      */
-    allowSendOnBehalfOfMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowSendOnBehalfOfMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, this user can include supplemental documents.
      */
@@ -43015,10 +43811,11 @@ export interface UserSettingsInformation {
     /**
      * Metadata that indicates whether the `allowSupplementalDocuments` property is editable.
      */
-    allowSupplementalDocumentsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    allowSupplementalDocumentsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
-     *
      */
     anchorTagVersionedPlacementEnabled?: string | undefined;
     /**
@@ -43028,7 +43825,9 @@ export interface UserSettingsInformation {
     /**
      * Metadata for apiAccountWideAccess.
      */
-    apiAccountWideAccessMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    apiAccountWideAccessMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, this user can export authoritative copy for the account.
      */
@@ -43036,16 +43835,19 @@ export interface UserSettingsInformation {
     /**
      * Metadata about the `apiCanExportACMetadata` property.
      */
-    apiCanExportACMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    apiCanExportACMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, this user can use the bulk send feature for the account.
      */
     bulkSend?: string | undefined;
     /**
      * Metadata that indicates whether the `bulkSend` property is editable.
-     *
      */
-    bulkSendMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    bulkSendMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -43053,7 +43855,9 @@ export interface UserSettingsInformation {
     /**
      * Reserved for DocuSign.
      */
-    canChargeAccountMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    canChargeAccountMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When true, this user can edit the shared address book for the account.
      */
@@ -43061,7 +43865,9 @@ export interface UserSettingsInformation {
     /**
      * Metadata about the `canEditSharedAddressbookMetadata` property.
      */
-    canEditSharedAddressbookMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    canEditSharedAddressbookMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, this user can lock envelopes.
      */
@@ -43069,7 +43875,9 @@ export interface UserSettingsInformation {
     /**
      * Metadata about the `canLockEnvelopes` property.
      */
-    canLockEnvelopesMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    canLockEnvelopesMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, this user is an administrator for the account.
      */
@@ -43077,7 +43885,9 @@ export interface UserSettingsInformation {
     /**
      * Metadata about the `canManageAccountMetadata` property.
      */
-    canManageAccountMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    canManageAccountMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -43085,7 +43895,9 @@ export interface UserSettingsInformation {
     /**
      * Metadata about the `canManageDistributor` property.
      */
-    canManageDistributorMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    canManageDistributorMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, this user can manage templates for the account.
      */
@@ -43093,7 +43905,9 @@ export interface UserSettingsInformation {
     /**
      * Metadata about the `canManageTemplates` property.
      */
-    canManageTemplatesMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    canManageTemplatesMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, this user can send API requests on the account.
      */
@@ -43101,7 +43915,9 @@ export interface UserSettingsInformation {
     /**
      * Metadata about the `canSendAPIRequests` property.
      */
-    canSendAPIRequestsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    canSendAPIRequestsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, this user can send envelopes on the account.
      */
@@ -43109,7 +43925,9 @@ export interface UserSettingsInformation {
     /**
      * Metadata about the `canSendEnvelope` property.
      */
-    canSendEnvelopeMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    canSendEnvelopeMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, this user can sign envelopes.
      */
@@ -43117,7 +43935,9 @@ export interface UserSettingsInformation {
     /**
      * Metadata about the `canSignEnvelope` property.
      */
-    canSignEnvelopeMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    canSignEnvelopeMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, this user can use a scratchpad to edit information.
      */
@@ -43125,7 +43945,9 @@ export interface UserSettingsInformation {
     /**
      * Metadata about the `canUseScratchpad` property.
      */
-    canUseScratchpadMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    canUseScratchpadMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -43133,34 +43955,39 @@ export interface UserSettingsInformation {
     /**
      * Reserved for DocuSign.
      */
-    canUseSmartContractsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    canUseSmartContractsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, this user is prohibited from uploading documents during sending.
      */
     disableDocumentUpload?: string | undefined;
     /**
      * Metadata that indicates whether the `disableDocumentUpload` property is editable.
-     *
      */
-    disableDocumentUploadMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    disableDocumentUploadMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, this user can access the **Other Actions** menu.
      */
     disableOtherActions?: string | undefined;
     /**
      * Metadata that indicates whether the `disableOtherActions` property is editable.
-     *
      */
-    disableOtherActionsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    disableOtherActionsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
     enableDSPro?: string | undefined;
     /**
      * Metadata that indicates whether the `enableDSPro` property is editable.
-     *
      */
-    enableDSProMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableDSProMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, the account can define the routing
      * order of recipients for envelopes sent by using the DocuSign API.
@@ -43170,31 +43997,33 @@ export interface UserSettingsInformation {
     enableSequentialSigningAPI?: string | undefined;
     /**
      * Metadata that indicates whether the `enableSequentialSigningAPI` property is editable.
-     *
      */
-    enableSequentialSigningAPIMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableSequentialSigningAPIMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, the account can define the routing order
      * of recipients for envelopes sent by using the DocuSign application.
      *
      * **Note**: Only SysAdmin users can change this setting.
-     *
      */
     enableSequentialSigningUI?: string | undefined;
     /**
      * Metadata that indicates whether the `enableSequentialSigningUI` property is editable.
-     *
      */
-    enableSequentialSigningUIMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableSequentialSigningUIMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, this user can use the signing attachments feature.
      */
     enableSignerAttachments?: string | undefined;
     /**
      * Metadata that indicates whether the `enableSignerAttachments` property is editable.
-     *
      */
-    enableSignerAttachmentsMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableSignerAttachmentsMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, a user can override the default default account setting for the Sign on Paper option, which specifies whether signers can sign
      * documents on paper as an option to signing electronically.
@@ -43204,9 +44033,10 @@ export interface UserSettingsInformation {
     enableSignOnPaperOverride?: string | undefined;
     /**
      * Metadata that indicates whether the `enableSignOnPaperOverride` property is editable.
-     *
      */
-    enableSignOnPaperOverrideMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableSignOnPaperOverrideMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -43214,16 +44044,19 @@ export interface UserSettingsInformation {
     /**
      * Reserved for DocuSign.
      */
-    enableTransactionPointMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableTransactionPointMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, Vaulting is enabled for the account.
      */
     enableVaulting?: string | undefined;
     /**
      * Metadata that indicates whether the `enableVaulting` property is editable.
-     *
      */
-    enableVaultingMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    enableVaultingMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **false**, this user can apply tabs to documents during the sending experience.
      */
@@ -43248,7 +44081,9 @@ export interface UserSettingsInformation {
     /**
      * Metadata about the `locale` property.
      */
-    localeMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    localeMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -43260,7 +44095,9 @@ export interface UserSettingsInformation {
     /**
      * Metadata about the `manageClickwrapsMode` property.
      */
-    manageClickwrapsModeMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    manageClickwrapsModeMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * The user id (GUID) of the user who last modified this user record.
      */
@@ -43268,7 +44105,9 @@ export interface UserSettingsInformation {
     /**
      * Metadata about the `modifiedBy` property.
      */
-    modifiedByMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    modifiedByMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * The date on which this user record was last modified.
      */
@@ -43276,7 +44115,9 @@ export interface UserSettingsInformation {
     /**
      * Metadata about the `modifiedDate` property.
      */
-    modifiedDateMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    modifiedDateMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Note referencing the page that modified this user record.
      */
@@ -43284,7 +44125,9 @@ export interface UserSettingsInformation {
     /**
      * Metadata about the `modifiedPage` property.
      */
-    modifiedPageMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    modifiedPageMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -43292,7 +44135,9 @@ export interface UserSettingsInformation {
     /**
      * Metadata about the `newSendUI` property.
      */
-    newSendUIMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    newSendUIMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Indicates the Power Form mode setting for the user:
      * - `none`
@@ -43303,7 +44148,9 @@ export interface UserSettingsInformation {
     /**
      * Metadata about the `powerFormMode` property.
      */
-    powerFormModeMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    powerFormModeMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, this user receives notifications when envelopes are viewed.
      */
@@ -43311,7 +44158,9 @@ export interface UserSettingsInformation {
     /**
      * Metadata about the `recipientViewedNotification` property.
      */
-    recipientViewedNotificationMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    recipientViewedNotificationMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Information about the seals associated with this user.
      */
@@ -43325,16 +44174,15 @@ export interface UserSettingsInformation {
      *    in the email.
      *
      * **Note**: Only Admin users can change this setting.
-     *
      */
     selfSignedRecipientEmailDocument?: string | undefined;
     /**
      * Metadata that indicates whether the `selfSignedRecipientEmailDocument` property is editable.
-     *
      */
-    selfSignedRecipientEmailDocumentMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    selfSignedRecipientEmailDocumentMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
-     *
      * An array of email notifications that sets the email the user receives when they are a sender. When the specific email notification is set to true,
      * the user will receive those types of email notifications from DocuSign.
      *
@@ -43346,16 +44194,18 @@ export interface UserSettingsInformation {
      * * withdrawnConsent
      * * recipientViewed
      * * deliveryFailed
-     *
      */
-    senderEmailNotifications?: /* Contains the settings for the email notifications that senders receive about the envelopes that they send. */ SenderEmailNotifications | undefined;
+    senderEmailNotifications?:
+        | /* Contains the settings for the email notifications that senders receive about the envelopes that they send. */ SenderEmailNotifications
+        | undefined;
     /**
      * An array of email notifications that specifies the email the user receives when they are a sender. When the specific email notification is set to true,
      * the user receives those types of email notifications from DocuSign. The user inherits the default account sender email notification settings when the user is created.
      */
     signerEmailNotifications?: /* An array of email notifications that specifies the email the user receives when they are a sender.
         When the specific email notification is set to true, the user receives those types of email notifications from DocuSign.
-        The user inherits the default account sender email notification settings when the user is created. */ SignerEmailNotifications | undefined;
+        The user inherits the default account sender email notification settings when the user is created. */
+        SignerEmailNotifications | undefined;
     /**
      * When **true**, this user gets supplemental documents when downloading documents.
      */
@@ -43366,27 +44216,30 @@ export interface UserSettingsInformation {
     supplementalDocumentsMustAccept?: string | undefined;
     /**
      * Metadata that indicates whether the `supplementalDocumentsMustAccept` property is editable.
-     *
      */
-    supplementalDocumentsMustAcceptMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    supplementalDocumentsMustAcceptMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, this user must both view and accept supplemental documents.
      */
     supplementalDocumentsMustRead?: string | undefined;
     /**
      * Metadata that indicates whether the `supplementalDocumentsMustRead` property is editable.
-     *
      */
-    supplementalDocumentsMustReadMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    supplementalDocumentsMustReadMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, this user must view supplemental documents.
      */
     supplementalDocumentsMustView?: string | undefined;
     /**
      * Metadata that indicates whether the `supplementalDocumentsMustView` property is editable.
-     *
      */
-    supplementalDocumentsMustViewMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    supplementalDocumentsMustViewMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, a new template is created each time the user sends an envelope.
      */
@@ -43394,7 +44247,9 @@ export interface UserSettingsInformation {
     /**
      * Metadata about the `templateActiveCreation` property.
      */
-    templateActiveCreationMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    templateActiveCreationMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, the system notifies this user before applying a matching template.
      */
@@ -43402,7 +44257,9 @@ export interface UserSettingsInformation {
     /**
      * Metadata about the `templateApplyNotify` property.
      */
-    templateApplyNotifyMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    templateApplyNotifyMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When set to **true**, the system automatically applies a matching template to a document if only one template matches.
      * If there are multiple matches, it displays a list of matches to select from.
@@ -43411,7 +44268,9 @@ export interface UserSettingsInformation {
     /**
      * Metadata about the `templateAutoMatching` property.
      */
-    templateAutoMatchingMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    templateAutoMatchingMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Percentage used when matching templates.
      */
@@ -43419,7 +44278,9 @@ export interface UserSettingsInformation {
     /**
      * Metadata about the `tempalteMatchingSensitivity` property.
      */
-    templateMatchingSensitivityMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    templateMatchingSensitivityMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When **true**, users see template matching functionality.
      */
@@ -43427,7 +44288,9 @@ export interface UserSettingsInformation {
     /**
      * Metadata about the `templatePageLevelMatching` property.
      */
-    templatePageLevelMatchingMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    templatePageLevelMatchingMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * When true, daylight savings time is in effect for this user's time zone.
      */
@@ -43435,7 +44298,9 @@ export interface UserSettingsInformation {
     /**
      * Metadata about the `timezoneDST` property.
      */
-    timezoneDSTMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    timezoneDSTMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * The custom DateTime format setting for this user.
      */
@@ -43443,7 +44308,9 @@ export interface UserSettingsInformation {
     /**
      * Metadata about the `timezoneMask` property.
      */
-    timezoneMaskMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    timezoneMaskMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * The timezone offset for the user. Valid values:
      * - `tz_01_afghanistan`
@@ -43547,7 +44414,9 @@ export interface UserSettingsInformation {
     /**
      * Metadata about the `timezoneOffset` property.
      */
-    timezoneOffsetMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    timezoneOffsetMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -43555,7 +44424,9 @@ export interface UserSettingsInformation {
     /**
      * Reserved for DocuSign.
      */
-    timezoneSendingPrefMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    timezoneSendingPrefMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -43563,7 +44434,9 @@ export interface UserSettingsInformation {
     /**
      * Reserved for DocuSign.
      */
-    timezoneSigningPrefMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    timezoneSigningPrefMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -43571,7 +44444,9 @@ export interface UserSettingsInformation {
     /**
      * Reserved for DocuSign.
      */
-    transactionPointSiteNameURLMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    transactionPointSiteNameURLMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Reserved for DocuSign.
      */
@@ -43579,7 +44454,9 @@ export interface UserSettingsInformation {
     /**
      * Reserved for DocuSign.
      */
-    transactionPointUserNameMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    transactionPointUserNameMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
     /**
      * Indicates the specified Vaulting mode:
      * - `none`
@@ -43590,7 +44467,9 @@ export interface UserSettingsInformation {
     /**
      * Metadata about the `vaultingMode` property.
      */
-    vaultingModeMetadata?: /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata | undefined;
+    vaultingModeMetadata?:
+        | /* Metadata that indicates whether a property is editable and describes setting-specific options. */ SettingsMetadata
+        | undefined;
 }
 
 /**
@@ -43600,7 +44479,9 @@ export interface UserSharedItem {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * How the item is shared. One of:
      *
@@ -43608,7 +44489,6 @@ export interface UserSharedItem {
      * - `shared_to`
      * - `shared_from`
      * - `shared_to_and_from`
-     *
      */
     shared?: string | undefined;
     /**
@@ -43647,7 +44527,9 @@ export interface UserSignature {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * Optionally specify an external identifier for the user's signature.
      */
@@ -43879,7 +44761,9 @@ export interface UserSignatures {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * An external ID for the signature or stamp.
      *
@@ -43957,7 +44841,6 @@ export interface UserSignatures {
      * - `8_DocuSign`
      * - `Mistral`
      * - `Rage Italic`
-     *
      */
     signatureFont?: string | undefined;
     /**
@@ -44039,7 +44922,6 @@ export interface UserSocialIdResult {
     /**
      * The ID of the user to access. Generally this is the ID of the current authenticated user, but if the authenticated user is an Administrator on the account,
      * `userId` can represent another user whom the Administrator is accessing.
-     *
      */
     userId?: string | undefined;
 }
@@ -44071,7 +44953,9 @@ export interface Users {
     /**
      * The name/value pair information for the user custom setting.
      */
-    customSettings?: /* A name-value pair that describes an item and provides a value for the item. */ NameValue[] | undefined;
+    customSettings?:
+        | /* A name-value pair that describes an item and provides a value for the item. */ NameValue[]
+        | undefined;
     /**
      * The default account ID associated with the user.
      */
@@ -44087,7 +44971,9 @@ export interface Users {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The user's first name.
      * Maximum Length: 50 characters.
@@ -44096,13 +44982,14 @@ export interface Users {
     /**
      * A complex element containing up to four Question/Answer pairs for forgotten password information.
      */
-    forgottenPasswordInfo?: /* A complex element that has up to four Question/Answer pairs for forgotten password information. */ ForgottenPasswordInformation | undefined;
+    forgottenPasswordInfo?:
+        | /* A complex element that has up to four Question/Answer pairs for forgotten password information. */ ForgottenPasswordInformation
+        | undefined;
     /**
      * A list of the group information for groups to add the user to.
      * Use [UserGroups::listGroups](https://developers.docusign.com/esign-rest-api/reference/UserGroups/Groups/list) to get information about groups.
      *
      * When setting a user's group, only the `groupId` is required.
-     *
      */
     groupList?: /* This object contains information about a group. */ Group[] | undefined;
     /**
@@ -44138,7 +45025,6 @@ export interface Users {
      * * password_expired
      * * password_locked
      * * password_reset_failed
-     *
      */
     loginStatus?: string | undefined;
     /**
@@ -44203,7 +45089,6 @@ export interface Users {
     /**
      * The ID of the user to access. Generally this is the ID of the current authenticated user, but if the authenticated user is an Administrator on the account,
      * `userId` can represent another user whom the Administrator is accessing.
-     *
      */
     userId?: string | undefined;
     /**
@@ -44230,7 +45115,6 @@ export interface Users {
      * - `Active`
      * - `Closed`
      * - `Disabled`
-     *
      */
     userStatus?: string | undefined;
     /**
@@ -44330,7 +45214,6 @@ export interface View {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -44376,11 +45259,9 @@ export interface View {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -44461,7 +45342,6 @@ export interface View {
      * For conditional fields, this is the value of the parent tab that controls the tab's visibility.
      *
      * If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
-     *
      */
     conditionalParentValue?: string | undefined;
     /**
@@ -44490,7 +45370,9 @@ export interface View {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The font to be used for the tab value. Supported fonts include:
      *
@@ -44510,7 +45392,6 @@ export interface View {
      * - TimesNewRoman
      * - Trebuchet
      * - Verdana
-     *
      */
     font?: string | undefined;
     /**
@@ -44526,7 +45407,6 @@ export interface View {
      * - NavyBlue
      * - Purple
      * - White
-     *
      */
     fontColor?: string | undefined;
     /**
@@ -44611,7 +45491,9 @@ export interface View {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
 
     mergeFieldXml?: string | undefined;
     /**
@@ -44688,7 +45570,6 @@ export interface View {
      * If no value is provided, the tab type is used as the value.
      *
      * Maximum Length: 500 characters.
-     *
      */
     tabLabel?: string | undefined;
     /**
@@ -44758,7 +45639,6 @@ export interface View {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**
@@ -44806,7 +45686,6 @@ export interface Watermark {
      * - TimesNewRoman
      * - Trebuchet
      * - Verdana
-     *
      */
     font?: string | undefined;
     /**
@@ -44822,7 +45701,6 @@ export interface Watermark {
      * - NavyBlue
      * - Purple
      * - White
-     *
      */
     fontColor?: string | undefined;
     /**
@@ -44897,7 +45775,6 @@ export interface Witness {
     allowSystemOverrideForLockedRecipient?: string | undefined;
     /**
      * When set to **true**, autonavigation is set for the recipient.
-     *
      */
     autoNavigation?: string | undefined;
     /**
@@ -44967,7 +45844,9 @@ export interface Witness {
      * For the envelope to use this functionality, Document Visibility must be enabled for the account and the `enforceSignerVisibility`
      * property must be set to **true**.
      */
-    documentVisibility?: /* This object configures a recipient's read/write access to a document. */ DocumentVisibility[] | undefined;
+    documentVisibility?:
+        | /* This object configures a recipient's read/write access to a document. */ DocumentVisibility[]
+        | undefined;
     /**
      * The recipient's email address.
      */
@@ -45013,7 +45892,9 @@ export interface Witness {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * Specifies the documents that are not visible to this recipient. Document Visibility must be enabled for the account and the `enforceSignerVisibility`
      * property must be set to **true** for the envelope to use this.
@@ -45070,7 +45951,9 @@ export interface Witness {
     /**
      * An object that contains input information related to a recipient ID check.
      */
-    idCheckInformationInput?: /* A complex element that contains input information related to a recipient ID check. */ IdCheckInformationInput | undefined;
+    idCheckInformationInput?:
+        | /* A complex element that contains input information related to a recipient ID check. */ IdCheckInformationInput
+        | undefined;
     /**
      * Specifies the ID Verification workflow applied on an envelope by workflow ID.
      * <br/>See the [list](https://developers.docusign.com/esign-rest-api/reference/Accounts/IdentityVerifications/list)
@@ -45088,7 +45971,6 @@ export interface Witness {
     inheritEmailNotificationConfiguration?: string | undefined;
     /**
      * Reserved for DocuSign.
-     *
      */
     isBulkRecipient?: string | undefined;
     /**
@@ -45130,7 +46012,6 @@ export interface Witness {
      * on the signing screen.
      *
      * Maximum Length: 1000 characters.
-     *
      */
     note?: string | undefined;
     /**
@@ -45145,8 +46026,6 @@ export interface Witness {
      * * `senderProvidedNumbers`: ArrayOfStrings.  A list of phone numbers the recipient can use.
      * * `recordVoicePrint`: Reserved for DocuSign.
      * * `validateRecipProvidedNumber`: Reserved for DocuSign.
-     *
-     *
      */
     phoneAuthentication?: RecipientPhoneAuthentication | undefined;
 
@@ -45158,7 +46037,9 @@ export interface Witness {
     /**
      * Information about the recipient's authentication status. Read only.
      */
-    recipientAuthenticationStatus?: /* A complex element that contains information about a user's authentication status. */ AuthenticationStatus | undefined;
+    recipientAuthenticationStatus?:
+        | /* A complex element that contains information about a user's authentication status. */ AuthenticationStatus
+        | undefined;
     /**
      * Metadata about the features that are supported for the recipient type. Read only.
      */
@@ -45289,8 +46170,6 @@ export interface Witness {
     /**
      * When `idCheckConfigurationName` is set to `SMS Auth $`, you use this complex type to provide the recipient authentication method details.
      * It contains the element `senderProvidedNumbers`, which is an array of phone numbers that the recipient can use for SMS text authentication.
-     *
-     *
      */
     smsAuthentication?: RecipientSMSAuthentication | undefined;
     /**
@@ -45342,7 +46221,6 @@ export interface Witness {
     /**
      * The ID of the user to access. Generally this is the ID of the current authenticated user, but if the authenticated user is an Administrator on the account,
      * `userId` can represent another user whom the Administrator is accessing.
-     *
      */
     userId?: string | undefined;
     /**
@@ -45423,7 +46301,9 @@ export interface Workspace {
      */
     billableAccountId?: string | undefined;
 
-    callerInformation?: /* This object represents the workspace user. This property is only returned in response to user specific GET call.  */ WorkspaceUser | undefined;
+    callerInformation?:
+        | /* This object represents the workspace user. This property is only returned in response to user specific GET call.  */ WorkspaceUser
+        | undefined;
     /**
      * The UTC DateTime when the workspace user authorization was created.
      */
@@ -45431,7 +46311,9 @@ export interface Workspace {
     /**
      * Details about the user who created the workspace.
      */
-    createdByInformation?: /* This object represents the workspace user. This property is only returned in response to user specific GET call.  */ WorkspaceUser | undefined;
+    createdByInformation?:
+        | /* This object represents the workspace user. This property is only returned in response to user specific GET call.  */ WorkspaceUser
+        | undefined;
     /**
      * The UTC date and time that the comment was last updated.
      *
@@ -45441,11 +46323,15 @@ export interface Workspace {
     /**
      * Details about the user who last modified the workspace.
      */
-    lastModifiedByInformation?: /* This object represents the workspace user. This property is only returned in response to user specific GET call.  */ WorkspaceUser | undefined;
+    lastModifiedByInformation?:
+        | /* This object represents the workspace user. This property is only returned in response to user specific GET call.  */ WorkspaceUser
+        | undefined;
     /**
      * Information about the settings for the workspace.
      */
-    settings?: /* This object provides information about the settings for the workspace. */ WorkspaceSettings | undefined;
+    settings?:
+        | /* This object provides information about the settings for the workspace. */ WorkspaceSettings
+        | undefined;
     /**
      * The status of the item.
      */
@@ -45483,13 +46369,19 @@ export interface WorkspaceFolderContents {
     /**
      * The folder from which to return items. You can enter either the folder name or folder ID.
      */
-    folder?: /* This object represents an item in a workspace, which can be either a file or folder. */ WorkspaceItem | undefined;
+    folder?:
+        | /* This object represents an item in a workspace, which can be either a file or folder. */ WorkspaceItem
+        | undefined;
     /**
      * A list of workspace items.
      */
-    items?: /* This object represents an item in a workspace, which can be either a file or folder. */ WorkspaceItem[] | undefined;
+    items?:
+        | /* This object represents an item in a workspace, which can be either a file or folder. */ WorkspaceItem[]
+        | undefined;
 
-    parentFolders?: /* This object represents an item in a workspace, which can be either a file or folder. */ WorkspaceItem[] | undefined;
+    parentFolders?:
+        | /* This object represents an item in a workspace, which can be either a file or folder. */ WorkspaceItem[]
+        | undefined;
     /**
      * The number of results in this response. Because you can filter which entries are included in the response, this value is always less than or equal to the `totalSetSize`.
      */
@@ -45512,7 +46404,9 @@ export interface WorkspaceFolderContents {
  * This object represents an item in a workspace, which can be either a file or folder.
  */
 export interface WorkspaceItem {
-    callerAuthorization?: /* Provides properties that describe user authorization to a workspace. */ WorkspaceUserAuthorization | undefined;
+    callerAuthorization?:
+        | /* Provides properties that describe user authorization to a workspace. */ WorkspaceUserAuthorization
+        | undefined;
     /**
      * If the item is a file, this property specifies the content type of the file.
      */
@@ -45528,7 +46422,9 @@ export interface WorkspaceItem {
     /**
      * Details about the user who created the workspace item.
      */
-    createdByInformation?: /* This object represents the workspace user. This property is only returned in response to user specific GET call.  */ WorkspaceUser | undefined;
+    createdByInformation?:
+        | /* This object represents the workspace user. This property is only returned in response to user specific GET call.  */ WorkspaceUser
+        | undefined;
     /**
      * The file extension of a file item.
      */
@@ -45562,7 +46458,9 @@ export interface WorkspaceItem {
     /**
      * Details about the user who last modified the workspace item.
      */
-    lastModifiedByInformation?: /* This object represents the workspace user. This property is only returned in response to user specific GET call.  */ WorkspaceUser | undefined;
+    lastModifiedByInformation?:
+        | /* This object represents the workspace user. This property is only returned in response to user specific GET call.  */ WorkspaceUser
+        | undefined;
     /**
      * The name of the file or folder.
      */
@@ -45601,7 +46499,9 @@ export interface WorkspaceItem {
      */
     uri?: string | undefined;
 
-    userAuthorization?: /* Provides properties that describe user authorization to a workspace. */ WorkspaceUserAuthorization | undefined;
+    userAuthorization?:
+        | /* Provides properties that describe user authorization to a workspace. */ WorkspaceUserAuthorization
+        | undefined;
 }
 
 /**
@@ -45611,7 +46511,9 @@ export interface WorkspaceItemList {
     /**
      * A list of workspace items.
      */
-    items?: /* This object represents an item in a workspace, which can be either a file or folder. */ WorkspaceItem[] | undefined;
+    items?:
+        | /* This object represents an item in a workspace, which can be either a file or folder. */ WorkspaceItem[]
+        | undefined;
 }
 
 /**
@@ -45621,7 +46523,9 @@ export interface WorkspaceItems {
     /**
      * An object that describes the caller's workspace permissions.
      */
-    callerAuthorization?: /* Provides properties that describe user authorization to a workspace. */ WorkspaceUserAuthorization | undefined;
+    callerAuthorization?:
+        | /* Provides properties that describe user authorization to a workspace. */ WorkspaceUserAuthorization
+        | undefined;
     /**
      * If the item is a file, this property specifies the content type of the file.
      */
@@ -45637,7 +46541,9 @@ export interface WorkspaceItems {
     /**
      * Details about the user who created the workspace item.
      */
-    createdByInformation?: /* This object represents the workspace user. This property is only returned in response to user specific GET call.  */ WorkspaceUser | undefined;
+    createdByInformation?:
+        | /* This object represents the workspace user. This property is only returned in response to user specific GET call.  */ WorkspaceUser
+        | undefined;
     /**
      * The file extension of a file item.
      */
@@ -45669,7 +46575,9 @@ export interface WorkspaceItems {
     /**
      * Details about the user who last modified the workspace item.
      */
-    lastModifiedByInformation?: /* This object represents the workspace user. This property is only returned in response to user specific GET call.  */ WorkspaceUser | undefined;
+    lastModifiedByInformation?:
+        | /* This object represents the workspace user. This property is only returned in response to user specific GET call.  */ WorkspaceUser
+        | undefined;
     /**
      * The name of the file or folder.
      */
@@ -45715,7 +46623,9 @@ export interface WorkspaceItems {
     /**
      * An object that describes the user's workspace permissions.
      */
-    userAuthorization?: /* Provides properties that describe user authorization to a workspace. */ WorkspaceUserAuthorization | undefined;
+    userAuthorization?:
+        | /* Provides properties that describe user authorization to a workspace. */ WorkspaceUserAuthorization
+        | undefined;
 }
 
 /**
@@ -45785,7 +46695,9 @@ export interface WorkspaceUser {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The text of the workspace invitation email message sent to the user.
      */
@@ -45873,7 +46785,9 @@ export interface WorkspaceUserAuthorization {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The UTC DateTime when the workspace user authorization was last modified.
      */
@@ -45889,7 +46803,9 @@ export interface WorkspaceUserAuthorization {
     /**
      * An object that provides details about the workspace user.
      */
-    workspaceUserInformation?: /* This object represents the workspace user. This property is only returned in response to user specific GET call.  */ WorkspaceUser | undefined;
+    workspaceUserInformation?:
+        | /* This object represents the workspace user. This property is only returned in response to user specific GET call.  */ WorkspaceUser
+        | undefined;
 }
 
 /**
@@ -45901,7 +46817,9 @@ export interface Workspaces {
      */
     billableAccountId?: string | undefined;
 
-    callerInformation?: /* This object represents the workspace user. This property is only returned in response to user specific GET call.  */ WorkspaceUser | undefined;
+    callerInformation?:
+        | /* This object represents the workspace user. This property is only returned in response to user specific GET call.  */ WorkspaceUser
+        | undefined;
     /**
      * The UTC DateTime when the workspace user authorization was created.
      */
@@ -45909,7 +46827,9 @@ export interface Workspaces {
     /**
      * Details about the user who created the workspace.
      */
-    createdByInformation?: /* This object represents the workspace user. This property is only returned in response to user specific GET call.  */ WorkspaceUser | undefined;
+    createdByInformation?:
+        | /* This object represents the workspace user. This property is only returned in response to user specific GET call.  */ WorkspaceUser
+        | undefined;
     /**
      * The UTC date and time that the comment was last updated.
      *
@@ -45919,11 +46839,15 @@ export interface Workspaces {
     /**
      * Details about the user who last modified the workspace.
      */
-    lastModifiedByInformation?: /* This object represents the workspace user. This property is only returned in response to user specific GET call.  */ WorkspaceUser | undefined;
+    lastModifiedByInformation?:
+        | /* This object represents the workspace user. This property is only returned in response to user specific GET call.  */ WorkspaceUser
+        | undefined;
     /**
      * Information about the settings for the workspace.
      */
-    settings?: /* This object provides information about the settings for the workspace. */ WorkspaceSettings | undefined;
+    settings?:
+        | /* This object provides information about the settings for the workspace. */ WorkspaceSettings
+        | undefined;
     /**
      * The status of the workspace. Valid values are:
      *
@@ -45959,7 +46883,6 @@ export interface Workspaces {
  * The zip code can be typed with or without dashes. It uses
  * the same parameters as a Text tab, with the validation
  * message and pattern set for ZIP code information.
- *
  */
 export interface Zip {
     anchorAllowWhiteSpaceInCharacters?: string | undefined;
@@ -46014,7 +46937,6 @@ export interface Zip {
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTabs]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorHorizontalAlignment?: string | undefined;
     /**
@@ -46060,11 +46982,9 @@ export interface Zip {
      *
      *   Example: If the anchor string is `cat`, then `-cat-` is matched but `1cat2` is not when `anchorMatchWholeWord` is set to **true** (its default value).
      *
-     *
      * **Note**: You can only specify the value of this property in POST requests.
      *
      * [AnchorTab]: https://developers.docusign.com/esign-rest-api/guides/concepts/tabs#autoplace
-     *
      */
     anchorMatchWholeWord?: string | undefined;
     /**
@@ -46151,7 +47071,6 @@ export interface Zip {
      * For conditional fields, this is the value of the parent tab that controls the tab's visibility.
      *
      * If the parent tab is a Checkbox, Radio button, Optional Signature, or Optional Initial use "on" as the value to show that the parent tab is active.
-     *
      */
     conditionalParentValue?: string | undefined;
     /**
@@ -46190,7 +47109,9 @@ export interface Zip {
     /**
      * This object describes errors that occur. It is only valid for responses and ignored in requests.
      */
-    errorDetails?: /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails | undefined;
+    errorDetails?:
+        | /* This object describes errors that occur. It is only valid for responses and ignored in requests. */ ErrorDetails
+        | undefined;
     /**
      * The font to be used for the tab value. Supported fonts include:
      *
@@ -46210,7 +47131,6 @@ export interface Zip {
      * - TimesNewRoman
      * - Trebuchet
      * - Verdana
-     *
      */
     font?: string | undefined;
     /**
@@ -46226,7 +47146,6 @@ export interface Zip {
      * - NavyBlue
      * - Purple
      * - White
-     *
      */
     fontColor?: string | undefined;
     /**
@@ -46326,7 +47245,9 @@ export interface Zip {
     /**
      * Contains the information necessary to map the tab to a field in SalesForce.
      */
-    mergeField?: /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField | undefined;
+    mergeField?:
+        | /* Contains information for transfering values between Salesforce data fields and DocuSign Tabs. */ MergeField
+        | undefined;
 
     mergeFieldXml?: string | undefined;
     /**
@@ -46425,7 +47346,6 @@ export interface Zip {
      * - `signed`: The recipient signed the tab.
      * - `declined`: The recipient declined the envelope.
      * - `na`: Used when the `status` property is not applicable to the tab type. (For example, a tab that has the `tabType` `SignerAttachmentOptional`).
-     *
      */
     status?: string | undefined;
     /**
@@ -46453,7 +47373,6 @@ export interface Zip {
      * If no value is provided, the tab type is used as the value.
      *
      * Maximum Length: 500 characters.
-     *
      */
     tabLabel?: string | undefined;
     /**
@@ -46555,7 +47474,6 @@ export interface Zip {
      * This property indicates the horizontal offset of the object on the page.
      * DocuSign uses 72 DPI when determining position.
      * Required. May be zero.
-     *
      */
     xPosition?: string | undefined;
     /**

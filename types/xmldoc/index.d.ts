@@ -1,11 +1,3 @@
-// Type definitions for xmldoc 1.1
-// Project: https://github.com/nfarina/xmldoc
-// Definitions by:  Xavier Stouder <https://github.com/Xstoudi>
-//                  Andrew Sheehan <https://github.com/ajsheehan>
-//                  Jordi Bunster <https://github.com/notlaforge>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 export class XmlDocument extends XmlElement {
     constructor(xml: string);
 
@@ -17,7 +9,7 @@ export type XmlNode = XmlElement | XmlTextNode | XmlCDataNode | XmlCommentNode;
 export class XmlElement {
     constructor(tag: XmlTag);
 
-    type: 'element';
+    type: "element";
     name: string;
     attr: XmlAttributes;
     val: string;
@@ -43,7 +35,7 @@ export class XmlElement {
 export class XmlTextNode {
     constructor(text: string);
 
-    type: 'text';
+    type: "text";
     text: string;
 
     toString(opts?: XmlOptions): string;
@@ -53,7 +45,7 @@ export class XmlTextNode {
 export class XmlCDataNode {
     constructor(cdata: string);
 
-    type: 'cdata';
+    type: "cdata";
     cdata: string;
 
     toString(opts?: XmlOptions): string;
@@ -63,7 +55,7 @@ export class XmlCDataNode {
 export class XmlCommentNode {
     constructor(comment: string);
 
-    type: 'comment';
+    type: "comment";
     comment: string;
 
     toString(opts?: XmlOptions): string;

@@ -1,9 +1,3 @@
-// Type definitions for swagger-hapi 0.7
-// Project: https://github.com/apigee-127/swagger-hapi#readme
-// Definitions by: Michael Mrowetz <https://github.com/micmro>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /* =================== USAGE ===================
 
 import * as SwaggerHapi from "swagger-hapi";

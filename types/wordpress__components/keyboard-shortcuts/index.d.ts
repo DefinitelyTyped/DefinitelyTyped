@@ -1,4 +1,4 @@
-import { ComponentType, ReactNode } from 'react';
+import { ComponentType, ReactNode } from "react";
 
 declare namespace KeyboardShortcuts {
     interface BaseProps {
@@ -16,7 +16,7 @@ declare namespace KeyboardShortcuts {
          * separate `KeyboardShortcuts` element, which can be achieved by
          * assigning a unique `key` prop.
          */
-        shortcuts: Record<string, () => void>;
+        shortcuts: Record<string, (event: KeyboardEvent, combo: string) => void>;
         /**
          * By default, a callback will not be invoked if the key combination
          * occurs in an editable field. Pass `bindGlobal` as `true` if the key
@@ -28,7 +28,7 @@ declare namespace KeyboardShortcuts {
          * To override this, pass `eventName` with the name of a specific keyboard
          * event.
          */
-        eventName?: 'keydown' | 'keypress' | 'keyup' | undefined;
+        eventName?: "keydown" | "keypress" | "keyup" | undefined;
     }
     interface PropsWithChildren extends BaseProps {
         children: ReactNode;

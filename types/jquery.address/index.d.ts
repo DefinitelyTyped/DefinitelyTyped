@@ -1,9 +1,3 @@
-// Type definitions for jQuery.Address 1.5
-// Project: https://github.com/asual/jquery-address
-// Definitions by: Martin Duparc <https://github.com/martinduparc>, Tim Klingeleers <https://github.com/mardaneus86>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 interface JQueryAddressStatic {
@@ -13,26 +7,26 @@ interface JQueryAddressStatic {
      */
     bind(type: any, data: any, callback: Function): JQueryAddressStatic;
     /**
-     * Binds a function to be executed whenever the address is changed. 
-     * The function receives a single event object parameter that contains the following properties: 
+     * Binds a function to be executed whenever the address is changed.
+     * The function receives a single event object parameter that contains the following properties:
      * value, path, pathNames, parameterNames, parameters and queryString.
      */
     change(callback: Function): JQueryAddressStatic;
     /**
-     * Binds a function to be executed once when the address is initiated. 
-     * The function receives a single event object parameter that contains the following properties: 
+     * Binds a function to be executed once when the address is initiated.
+     * The function receives a single event object parameter that contains the following properties:
      * value, path, pathNames, parameterNames, parameters and queryString.
      */
     init(callback: Function): JQueryAddressStatic;
     /**
-     * Binds a function to be executed when the address is changed from inside the page that uses the plugin. 
-     * The function receives a single event object parameter that contains the following properties: 
+     * Binds a function to be executed when the address is changed from inside the page that uses the plugin.
+     * The function receives a single event object parameter that contains the following properties:
      * value, path, pathNames, parameterNames, parameters and queryString.
      */
     internalChange(eventhandler: Function): JQueryAddressStatic;
     /**
-     * Binds a function to be executed when the address is changed from the browser usually when entering the page or using the back and forward buttons. 
-     * The function receives a single event object parameter that contains the following properties: 
+     * Binds a function to be executed when the address is changed from the browser usually when entering the page or using the back and forward buttons.
+     * The function receives a single event object parameter that contains the following properties:
      * value, path, pathNames, parameterNames, parameters and queryString.
      */
     externalChange(eventhandler: Function): JQueryAddressStatic;
@@ -83,7 +77,7 @@ interface JQueryAddressStatic {
     /**
      * Provides a list of all the query parameter names.
      */
-    parameterNames(): Array<string>;
+    parameterNames(): string[];
     /**
      * Provides the deep linking value without the query string and the hash fragment.
      */
@@ -95,7 +89,7 @@ interface JQueryAddressStatic {
     /**
      * Provides a list of all the folders in the deep linking path.
      */
-    pathNames(): Array<string>;
+    pathNames(): string[];
     /**
      * Provides the query string part of the deep linking value.
      */
@@ -160,12 +154,12 @@ interface JQueryAddressStatic {
 
 interface JQueryAddress {
     /**
-     * Adds the plugin functionality to a DOM element and disables the default behavior. Designed primarily to support links and forms. 
+     * Adds the plugin functionality to a DOM element and disables the default behavior. Designed primarily to support links and forms.
      * Accepts an optional function parameter that allows custom processing of the deep link value.
      */
     (): JQuery;
     /**
-     * Adds the plugin functionality to a DOM element and disables the default behavior. Designed primarily to support links and forms. 
+     * Adds the plugin functionality to a DOM element and disables the default behavior. Designed primarily to support links and forms.
      * Accepts an optional function parameter that allows custom processing of the deep link value.
      */
     (fn: Function): JQuery;

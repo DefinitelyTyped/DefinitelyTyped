@@ -3,17 +3,17 @@
 declare namespace M {
     class Autocomplete extends Component<AutocompleteOptions> implements Openable {
         /**
-         * Get Instance
+         * Get Instance.
          */
         static getInstance(elem: Element): Autocomplete;
 
         /**
-         * Init autocomplete
+         * Init autocomplete.
          */
         static init(els: Element, options?: Partial<AutocompleteOptions>): Autocomplete;
 
         /**
-         * Init autocompletes
+         * Init autocompletes.
          */
         static init(els: MElements, options?: Partial<AutocompleteOptions>): Autocomplete[];
 
@@ -53,6 +53,11 @@ declare namespace M {
          * Index of the current selected option.
          */
         activeIndex: number;
+
+        /**
+         * Instance of the dropdown plugin for this autocomplete.
+         */
+        dropdown: Dropdown;
     }
 
     interface AutocompleteData {
@@ -61,7 +66,8 @@ declare namespace M {
 
     interface AutocompleteOptions {
         /**
-         * Data object defining autocomplete options with optional icon strings.
+         * Data object defining autocomplete options with
+         * optional icon strings.
          */
         data: AutocompleteData;
 
@@ -83,15 +89,23 @@ declare namespace M {
         minLength: number;
 
         /**
-         * Sort function that defines the order of the list of autocomplete options.
+         * Sort function that defines the order of the list
+         * of autocomplete options.
          */
         sortFunction: (a: string, b: string, inputText: string) => number;
 
         /**
-         * If true will render the key from each item directly as HTML. User input MUST be properly sanitized first.
+         * If true will render the key from each item directly as HTML.
+         * User input MUST be properly sanitized first.
          * @default false
          */
         allowUnsafeHTML: boolean;
+
+        /**
+         * Pass options object to select dropdown initialization.
+         * @default {}
+         */
+        dropdownOptions: Partial<DropdownOptions>;
     }
 }
 

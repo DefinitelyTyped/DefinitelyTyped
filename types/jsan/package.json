@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jsan",
+    "version": "3.1.9999",
+    "projects": [
+        "https://github.com/kolodny/jsan"
+    ],
+    "devDependencies": {
+        "@types/jsan": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

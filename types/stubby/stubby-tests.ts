@@ -1,4 +1,4 @@
-import { Stubby } from 'stubby';
+import { Stubby } from "stubby";
 
 // README
 {
@@ -8,13 +8,13 @@ import { Stubby } from 'stubby';
     stubby1.start({
         stubs: 80,
         admin: 81,
-        location: 'localhost',
+        location: "localhost",
         data: [
             {
-                request: { url: '/anywhere' },
+                request: { url: "/anywhere" },
             },
             {
-                request: { url: '/but/here' },
+                request: { url: "/but/here" },
             },
         ],
     });
@@ -22,6 +22,6 @@ import { Stubby } from 'stubby';
     stubby2.start({
         stubs: 82,
         admin: 83,
-        location: '127.0.0.2',
+        location: "127.0.0.2",
     });
 }

@@ -1,8 +1,3 @@
-// Type definitions for blocked 1.3
-// Project: https://github.com/visionmedia/node-blocked#readme
-// Definitions by: Jonas Lochmann <https://github.com/l-jonas>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /*~ Note that ES6 modules cannot directly export callable functions.
@@ -18,8 +13,8 @@ export = Blocked;
 declare function Blocked(callback: (ms: number) => void, options?: Blocked.Options): NodeJS.Timer;
 
 declare namespace Blocked {
-  interface Options {
-    threshold?: number | undefined;  // in milliseconds
-    interval?: number | undefined; // in milliseconds
-  }
+    interface Options {
+        threshold?: number | undefined; // in milliseconds
+        interval?: number | undefined; // in milliseconds
+    }
 }

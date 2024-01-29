@@ -1,12 +1,6 @@
-// Type definitions for Leaflet.Editable 0.7
-// Project: https://github.com/leaflet/leaflet.editable
-// Definitions by: Dominic Alie <https://github.com/dalie>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+import * as Leaflet from "leaflet";
 
-import * as Leaflet from 'leaflet';
-
-declare module 'leaflet' {
+declare module "leaflet" {
     /**
      * Make geometries editable in Leaflet.
      *
@@ -14,7 +8,7 @@ declare module 'leaflet' {
      * control editing of geometries. So you can easily build your own UI with your own needs and choices.
      */
     interface EditableStatic {
-        new (map: Map, options: EditOptions): Editable;
+        new(map: Map, options: EditOptions): Editable;
     }
 
     /**
@@ -177,7 +171,7 @@ declare module 'leaflet' {
         editTools: Editable;
     }
 
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Polyline extends EditableMixin {}
 
     namespace Map {
@@ -250,7 +244,7 @@ declare module 'leaflet' {
     /**
      * Inherit from L.Editable.BaseEditor.
      */
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface MarkerEditor extends BaseEditor {}
 
     interface Marker extends EditableMixin, MarkerEditor {}

@@ -1,6 +1,6 @@
-import { DebounceSettings } from 'lodash';
-import { ComponentType, LegacyRef } from 'react';
-import { CommonReactLinesEllipsisProps } from '..';
+import { DebounceSettings } from "lodash";
+import { ComponentType, LegacyRef } from "react";
+import { CommonReactLinesEllipsisProps } from "..";
 
 declare function responsiveHOC(
     wait?: number,

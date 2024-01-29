@@ -1,13 +1,3 @@
-// Type definitions for CometD 4.0
-// Project: https://cometd.org
-// Definitions by: Derek Cicerone <https://github.com/derekcicerone>
-//                 Daniel Perez Alvarez <https://github.com/unindented>
-//                 Alex Henry <https://github.com/alxHenry>
-//                 Harald Gliebe <https://github.com/hagl>
-//                 P.J. Swesey <https://github.com/swese44>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export interface Transport {
     readonly type: string;
     url: string;
@@ -90,9 +80,9 @@ export interface Configuration {
     useWorkerScheduler?: boolean | undefined;
 }
 
-export type ConnectionType = 'long-polling' | 'callback-polling' | 'iframe' | 'flash';
-export type ReconnectAdvice = 'retry' | 'handshake' | 'none';
-export type Status = 'disconnected' | 'disconnecting' | 'handshaking' | 'connected' | 'connecting';
+export type ConnectionType = "long-polling" | "callback-polling" | "iframe" | "flash";
+export type ReconnectAdvice = "retry" | "handshake" | "none";
+export type Status = "disconnected" | "disconnecting" | "handshaking" | "connected" | "connecting";
 
 export interface BaseMessage {
     successful: boolean;
@@ -103,7 +93,7 @@ export interface BaseMessage {
         reconnect?: ReconnectAdvice | undefined;
         timeout?: number | undefined;
         interval?: number | undefined;
-        'multiple-clients'?: boolean | undefined;
+        "multiple-clients"?: boolean | undefined;
         hosts?: string[] | undefined;
     } | undefined;
     connectionType?: ConnectionType | undefined;
@@ -481,7 +471,7 @@ export class CometD {
      *
      * @param level the log level string
      */
-    setLogLevel(level: 'error' | 'warn' | 'info' | 'debug'): void;
+    setLogLevel(level: "error" | "warn" | "info" | "debug"): void;
 
     /**
      * Registers an extension whose callbacks are called for every incoming message (that comes from

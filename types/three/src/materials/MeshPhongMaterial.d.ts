@@ -1,9 +1,8 @@
-import { Color } from './../math/Color';
-import { Texture } from './../textures/Texture';
-import { Vector2 } from './../math/Vector2';
-import { MaterialParameters, Material } from './Material';
-import { Combine, NormalMapTypes } from '../constants';
-import { ColorRepresentation } from '../utils';
+import { Color, ColorRepresentation } from '../math/Color.js';
+import { Texture } from '../textures/Texture.js';
+import { Vector2 } from '../math/Vector2.js';
+import { MaterialParameters, Material } from './Material.js';
+import { Combine, NormalMapTypes } from '../constants.js';
 
 export interface MeshPhongMaterialParameters extends MaterialParameters {
     /** geometry color in hexadecimal. Default is 0xffffff. */
@@ -37,12 +36,19 @@ export interface MeshPhongMaterialParameters extends MaterialParameters {
     wireframeLinewidth?: number | undefined;
     wireframeLinecap?: string | undefined;
     wireframeLinejoin?: string | undefined;
-
+    fog?: boolean | undefined;
     flatShading?: boolean | undefined;
 }
 
 export class MeshPhongMaterial extends Material {
     constructor(parameters?: MeshPhongMaterialParameters);
+
+    /**
+     * Read-only flag to check if a given object is of type {@link MeshPhongMaterial}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isMeshPhongMaterial: true;
 
     /**
      * @default 'MeshNormalMaterial'
@@ -204,6 +210,12 @@ export class MeshPhongMaterial extends Material {
      * @deprecated Use {@link MeshStandardMaterial THREE.MeshStandardMaterial} instead.
      */
     metal: boolean;
+
+    /**
+     * Whether the material is affected by fog. Default is true.
+     * @default fog
+     */
+    fog: boolean;
 
     setValues(parameters: MeshPhongMaterialParameters): void;
 }

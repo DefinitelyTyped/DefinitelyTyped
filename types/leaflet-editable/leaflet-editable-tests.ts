@@ -1,5 +1,5 @@
-import * as L from 'leaflet';
-import 'leaflet-editable';
+import * as L from "leaflet";
+import "leaflet-editable";
 
 class PolygonClass {}
 class PolylineClass {}
@@ -13,7 +13,7 @@ class MarkerEditorClass {}
 class RectangleEditorClass {}
 class CircleEditorClass {}
 
-const map: L.Map = L.map('div', {
+const map: L.Map = L.map("div", {
     editable: true,
     editOptions: {
         zIndex: 1500,
@@ -22,8 +22,8 @@ const map: L.Map = L.map('div', {
         markerClass: MarkerClass,
         rectangleClass: RectangleClass,
         circleClass: CircleClass,
-        drawingCSSClass: 'css-class',
-        drawingCursor: 'pointer',
+        drawingCSSClass: "css-class",
+        drawingCursor: "pointer",
         editLayer: L.layerGroup(),
         featuresLayer: L.layerGroup(),
         polygonEditorClass: PolygonEditorClass,
@@ -43,7 +43,7 @@ const line = L.polyline([
     [43.1291, 1.261],
 ]).addTo(map);
 line.enableEdit();
-line.on('dblclick', L.DomEvent.stop).on('dblclick', line.toggleEdit);
+line.on("dblclick", L.DomEvent.stop).on("dblclick", line.toggleEdit);
 
 const multi = L.polygon([
     [
@@ -75,8 +75,8 @@ const multi = L.polygon([
     ],
 ]).addTo(map);
 multi.enableEdit();
-multi.on('dblclick', L.DomEvent.stop).on('dblclick', multi.toggleEdit);
-multi.bindPopup('hi!');
+multi.on("dblclick", L.DomEvent.stop).on("dblclick", multi.toggleEdit);
+multi.bindPopup("hi!");
 
 const poly = L.polygon([
     [
@@ -92,18 +92,18 @@ const poly = L.polygon([
     ],
 ]).addTo(map);
 poly.enableEdit();
-poly.on('dblclick', L.DomEvent.stop).on('dblclick', poly.toggleEdit);
+poly.on("dblclick", L.DomEvent.stop).on("dblclick", poly.toggleEdit);
 
 const rectangle = L.rectangle([
     [43.1235, 1.255],
     [43.1215, 1.259],
 ]).addTo(map);
 rectangle.enableEdit();
-rectangle.on('dblclick', L.DomEvent.stop).on('dblclick', rectangle.toggleEdit);
+rectangle.on("dblclick", L.DomEvent.stop).on("dblclick", rectangle.toggleEdit);
 
 const circle = L.circle([43.122, 1.25], { radius: 100 }).addTo(map);
 circle.enableEdit();
-circle.on('dblclick', L.DomEvent.stop).on('dblclick', circle.toggleEdit);
+circle.on("dblclick", L.DomEvent.stop).on("dblclick", circle.toggleEdit);
 
 const newMarker = map.editTools.startMarker();
 newMarker.enable();

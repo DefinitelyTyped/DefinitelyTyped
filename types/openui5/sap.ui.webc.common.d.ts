@@ -1,43 +1,96 @@
-// For Library Version: 1.100.0
+// For Library Version: 1.120.0
 
 declare module "sap/ui/webc/common/library" {}
 
 declare module "sap/ui/webc/common/WebComponent" {
-  import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+  import {
+    default as WebComponent1,
+    MetadataOptions as MetadataOptions1,
+    $WebComponentSettings as $WebComponentSettings1,
+  } from "sap/ui/core/webc/WebComponent";
 
   import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
 
   /**
-   * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @since 1.92.0
+   * @deprecated (since 1.118.0) - Use sap.ui.core.webc.WebComponent instead!
+   * @experimental (since 1.92.0) - The API might change. It is not intended for productive usage yet!
    *
    * Base Class for Web Components. Web Components are agnostic UI elements which can be integrated into the
    * UI5 programming model by using this wrapper control. This wrapper control takes care to propagate the
    * properties, the aggregations and the events. It also ensures to render the control and put the aggregated
    * controls in the dedicated slots of the Web Component.
    */
-  export default class WebComponent extends Control {
+  export default class WebComponent extends WebComponent1 {
     /**
      * Constructs and initializes a Web Component Wrapper with the given `sId` and settings.
-     *
-     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
-     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
-     * of the syntax of the settings object.
-     *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Control#constructor
-     * sap.ui.core.Control} can be used.
      */
-    constructor();
+    constructor(
+      /**
+       * Object with initial settings for the new control
+       */
+      mSettings?: $WebComponentSettings
+    );
+    /**
+     * Constructs and initializes a Web Component Wrapper with the given `sId` and settings.
+     */
+    constructor(
+      /**
+       * Optional ID for the new control; generated automatically if no non-empty ID is given Note: this can be
+       * omitted, no matter whether `mSettings` will be given or not!
+       */
+      sId?: string,
+      /**
+       * Object with initial settings for the new control
+       */
+      mSettings?: $WebComponentSettings
+    );
 
     /**
-     * Creates a new subclass of class sap.ui.webc.common.WebComponent with name `sClassName` and enriches it
-     * with the information contained in `oClassInfo`.
+     * Defines a new subclass of WebComponent with the name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     * `oClassInfo` can contain the same information that {@link sap.ui.base.ManagedObject.extend} already accepts,
+     * plus the `dnd` property in the metadata object literal to configure drag-and-drop behavior (see {@link sap.ui.core.webc.WebComponent.MetadataOptions MetadataOptions }
+     * for details). Objects describing aggregations can also have a `dnd` property when used for a class extending
+     * `WebComponent` (see {@link sap.ui.base.ManagedObject.MetadataOptions.AggregationDnD AggregationDnD}).
+     *
+     * Example:
+     * ```javascript
+     *
+     * WebComponent.extend('sap.mylib.MyElement', {
+     *   metadata : {
+     *     library : 'sap.mylib',
+     *     tag : 'my-webcomponent',
+     *     properties : {
+     *       value : 'string',
+     *       width : {
+     *         type: 'sap.ui.core.CSSSize',
+     *         mapping: 'style'
+     *       }
+     *     },
+     *     defaultAggregation: "content",
+     *     aggregations : {
+     *       content : {
+     *         type: 'sap.ui.core.Control',
+     *         multiple : true
+     *       },
+     *       header : {
+     *         type : 'sap.ui.core.Control',
+     *         multiple : false,
+     *         slot: 'header'
+     *       }
+     *     }
+     *   }
+     * });
+     * ```
+     *
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
-       * Name of the class being created
+       * Name of the class to be created
        */
       sClassName: string,
       /**
@@ -45,28 +98,35 @@ declare module "sap/ui/webc/common/WebComponent" {
        */
       oClassInfo?: sap.ClassInfo<T, WebComponent>,
       /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
+       * Constructor function for the metadata object. If not given, it defaults to `sap.ui.core.ElementMetadata`.
        */
       FNMetaImpl?: Function
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.common.WebComponent.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
   }
+  /**
+   * The structure of the "metadata" object which is passed when inheriting from sap.ui.core.Element using
+   * its static "extend" method. See {@link sap.ui.core.Element.extend} for details on its usage.
+   */
+  export type MetadataOptions = MetadataOptions1;
 
-  export interface $WebComponentSettings extends $ControlSettings {}
+  export interface $WebComponentSettings extends $WebComponentSettings1 {}
 }
 
 declare module "sap/ui/webc/common/WebComponentMetadata" {
-  import ElementMetadata from "sap/ui/core/ElementMetadata";
+  import WebComponentMetadata1 from "sap/ui/core/webc/WebComponentMetadata";
 
   /**
-   * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @since 1.92.0
+   * @deprecated (since 1.118.0) - Use sap.ui.core.webc.WebComponentMetadata instead!
+   * @experimental (since 1.92.0) - The API might change. It is not intended for productive usage yet!
    */
-  export default class WebComponentMetadata extends ElementMetadata {
+  export default class WebComponentMetadata extends WebComponentMetadata1 {
     /**
      * Creates a new metadata object for a WebComponent Wrapper subclass.
      */
@@ -80,24 +140,6 @@ declare module "sap/ui/webc/common/WebComponentMetadata" {
        */
       oClassInfo: object
     );
-
-    /**
-     * Returns the list of public getters, proxied by the Component Wrapper to the component itself
-     */
-    getGetters(): any[];
-    /**
-     * Returns the list of public methods, proxied by the Component Wrapper to the component itself
-     */
-    getMethods(): any[];
-    /**
-     * Retrieves the renderer for the described web component class. Note: this is always the default renderer
-     * and Web Component wrappers should not define their own renderers.
-     */
-    getRenderer(): void;
-    /**
-     * Returns the tag, used to render the Component Wrapper
-     */
-    getTag(): string;
   }
 }
 

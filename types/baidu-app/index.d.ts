@@ -1,8 +1,3 @@
-// Type definitions for non-npm package swan-app 2.2
-// Project: https://smartprogram.baidu.com/docs/develop/tutorial/codedir/
-// Definitions by: taoqf <https://github.com/taoqf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // TypeScript Version: 2.8
 
 declare namespace swan {
@@ -50,13 +45,14 @@ declare namespace swan {
         header?: RequestHeader | undefined;
         /** 默认为 GET，有效值：OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT */
         method?:
-        | "GET"
-        | "OPTIONS"
-        | "GET"
-        | "HEAD"
-        | "POST"
-        | "PUT"
-        | "DELETE" | undefined;
+            | "GET"
+            | "OPTIONS"
+            | "GET"
+            | "HEAD"
+            | "POST"
+            | "PUT"
+            | "DELETE"
+            | undefined;
         /** 如果设为json，会尝试对返回的数据做一次 JSON.parse  默认值为json */
         dataType?: string | undefined;
         /**
@@ -66,7 +62,7 @@ declare namespace swan {
         responseType?: string | undefined;
         /** 收到开发者服务成功返回的回调函数，res = {data: '开发者服务器返回的内容'} */
         success?(res: DataResponse): void;
-        fail?(err: { errCode: number; errMsg: string; }): void;
+        fail?(err: { errCode: number; errMsg: string }): void;
     }
     /**
      * swan.request发起的是https请求。一个微信小程序，同时只能有5个网络请求连接。
@@ -94,8 +90,8 @@ declare namespace swan {
                     totalBytesSent: number;
                     /** 预期需要上传的数据总长度，单位 Bytes */
                     totalBytesExpectedToSend: number;
-                }
-            ) => void
+                },
+            ) => void,
         ): void;
         /**
          * 中断下载任务
@@ -142,8 +138,8 @@ declare namespace swan {
                     totalBytesWritten: number;
                     /** 预期需要下载的数据总长度，单位 Bytes */
                     totalBytesExpectedToWrite: number;
-                }
-            ) => void
+                },
+            ) => void,
         ): void;
         /**
          * 中断下载任务
@@ -271,9 +267,9 @@ declare namespace swan {
                         top: number; // 表示定位位置的长方形左上顶点的垂直坐标。
                         width: number; // 表示定位位置的长方形的宽度。
                         height: number; // 表示定位位置的长方形的高。
-                    }
+                    };
                     words: string; // 识别结果字符串
-                }
+                };
             };
         }
         interface ocrBankCardResponse {
@@ -573,10 +569,10 @@ declare namespace swan {
             start(options: VoiceRecognizerStart): void; // 开始;
             stop(): void; // 停止;
             cancel(): void; // 取消;
-            onStart(callback: () => void): void;  // 引擎准备就绪，可以开始说话;
-            onRecognize(callback: (res: VoiceRecognizeResponse) => void): void;  // ;有识别结果返回
-            onFinish(callback: (res: DataResponse) => void): void;  // 识别完成;
-            onError(callback: (res: VoiceErrorResponse) => void): void;  // 识别遇到错;误
+            onStart(callback: () => void): void; // 引擎准备就绪，可以开始说话;
+            onRecognize(callback: (res: VoiceRecognizeResponse) => void): void; // ;有识别结果返回
+            onFinish(callback: (res: DataResponse) => void): void; // 识别完成;
+            onError(callback: (res: VoiceErrorResponse) => void): void; // 识别遇到错;误
         }
         /**
          * 获取全局唯一的语音识别器voiceRecognizer。
@@ -803,7 +799,7 @@ declare namespace swan {
      * @deprecated 1.2.0
      */
     function getBackgroundAudioPlayerState(
-        options: GetBackgroundAudioPlayerStateOptions
+        options: GetBackgroundAudioPlayerStateOptions,
     ): void;
     interface PlayBackgroundAudioOptions extends BaseOptions {
         /** 音乐链接 */
@@ -951,7 +947,7 @@ declare namespace swan {
         /** 停止 */
         stop(): void;
         /** 跳转到指定位置，单位 s */
-        seek(options: { position: number; }): void;
+        seek(options: { position: number }): void;
         /** 销毁当前实例 */
         destroy(): void;
         /** 音频进入可以播放状态，但不保证后面可以流畅播放 */
@@ -1140,7 +1136,7 @@ declare namespace swan {
      */
     function createLivePlayerContext(
         id: string,
-        instance: any
+        instance: any,
     ): LivePlayerContext;
     // 文件
     interface SavedFileData {
@@ -1275,7 +1271,6 @@ declare namespace swan {
     function getStorage(options: GetStorageOptions): void;
     /**
      * 从本地缓存中同步获取指定 key 对应的内容。
-     *
      */
     function getStorageSync(key: string): any;
     interface StorageInfo {
@@ -1385,14 +1380,14 @@ declare namespace swan {
         success(res: { longitude: number; latitude: number }): void;
     }
     interface TranslateMarkerOptions extends BaseOptions {
-        markerId: number;    // 指定 marker
+        markerId: number; // 指定 marker
         destination: {
             latitude: number;
             longitude: number;
-        };    // 指定marker移动到的目标点
-        autoRotate: boolean;    // 移动过程中是否自动旋转 marker
-        rotate: number;    // marker 的旋转角度
-        duration?: number | undefined;    // 动画持续时长，默认值1000ms，平移与旋转分别计算。
+        }; // 指定marker移动到的目标点
+        autoRotate: boolean; // 移动过程中是否自动旋转 marker
+        rotate: number; // marker 的旋转角度
+        duration?: number | undefined; // 动画持续时长，默认值1000ms，平移与旋转分别计算。
         animationEnd?(): void;
     }
     interface GetRegionOptions extends BaseOptions {
@@ -1421,8 +1416,8 @@ declare namespace swan {
         moveToLocation(): void;
         translateMarker(options: TranslateMarkerOptions): void;
         includePoints(options: {
-            points: Array<{ latitude: number; longitude: number; }>; // 要显示在可视区域内的坐标点列表，[{latitude, longitude}] 。
-            padding?: number[] | undefined;    // 坐标点形成的矩形边缘到地图边缘的距离，单位像素。格式为[上,右,下,左]，安卓上只能识别数组第一项，上下左右的 padding 一致。开发者工具暂不支持 padding 参数。
+            points: Array<{ latitude: number; longitude: number }>; // 要显示在可视区域内的坐标点列表，[{latitude, longitude}] 。
+            padding?: number[] | undefined; // 坐标点形成的矩形边缘到地图边缘的距离，单位像素。格式为[上,右,下,左]，安卓上只能识别数组第一项，上下左右的 padding 一致。开发者工具暂不支持 padding 参数。
         }): void;
         getRegion(options: GetRegionOptions): void;
     }
@@ -1473,11 +1468,11 @@ declare namespace swan {
     function getSystemInfo(options: GetSystemInfoOptions): void;
     function getSystemInfoSync(): SystemInfo;
     interface EnvInfo {
-        appKey: string;    // 智能小程序 App Key    2.0.28
-        appName: string;    // 智能小程序名称
-        lastAppURL: string;    // 智能小程序最近一次打开的调起协议
-        sdkVersion: string;    // 基础库版本
-        scheme: string;    // 调起协议的协议头
+        appKey: string; // 智能小程序 App Key    2.0.28
+        appName: string; // 智能小程序名称
+        lastAppURL: string; // 智能小程序最近一次打开的调起协议
+        sdkVersion: string; // 基础库版本
+        scheme: string; // 调起协议的协议头
     }
     function getEnvInfoSync(): EnvInfo;
     /**
@@ -1496,14 +1491,16 @@ declare namespace swan {
      */
     function canIUse(api: string): boolean;
     // 内存
-    function onMemoryWarning(callback: (res: {
-        /**
-         * TRIM_MEMORY_RUNNING_MODERATE = 5
-         * TRIM_MEMORY_RUNNING_LOW = 10
-         * TRIM_MEMORY_RUNNING_CRITICAL = 15
-         */
-        level: number;
-    }) => void): void;
+    function onMemoryWarning(
+        callback: (res: {
+            /**
+             * TRIM_MEMORY_RUNNING_MODERATE = 5
+             * TRIM_MEMORY_RUNNING_LOW = 10
+             * TRIM_MEMORY_RUNNING_CRITICAL = 15
+             */
+            level: number;
+        }) => void,
+    ): void;
     // 设备-----网络状态
     type networkType = "2g" | "3g" | "4g" | "wifi" | "unknown" | "none";
     interface NetworkTypeData {
@@ -1528,8 +1525,8 @@ declare namespace swan {
             res: {
                 isConnected: boolean;
                 networkType: networkType;
-            }
-        ) => void
+            },
+        ) => void,
     ): void;
     // 设备-----加速度计
     interface AccelerometerData {
@@ -1546,7 +1543,7 @@ declare namespace swan {
      */
     function onAccelerometerChange(callback: AccelerometerChangeCallback): void;
     interface AccelerometerOptions extends BaseOptions {
-        interval: 'game' | 'ui' | 'normal';
+        interval: "game" | "ui" | "normal";
     }
     /**
      * 开始监听加速度数据。
@@ -1684,14 +1681,14 @@ declare namespace swan {
      * @version 1.1.0
      */
     function getBluetoothAdapterState(
-        options: GetBluetoothAdapterStateOptions
+        options: GetBluetoothAdapterStateOptions,
     ): void;
     /**
      * 监听蓝牙适配器状态变化事件
      * @version 1.1.0
      */
     function onBluetoothAdapterStateChange(
-        callback: (res: BluetoothAdapterState) => void
+        callback: (res: BluetoothAdapterState) => void,
     ): void;
     interface StopBluetoothDevicesDiscoveryOptions extends BaseOptions {
         success(res: ErrMsgResponse): void;
@@ -1701,7 +1698,7 @@ declare namespace swan {
      * @version 1.1.0
      */
     function stopBluetoothDevicesDiscovery(
-        options: StopBluetoothDevicesDiscoveryOptions
+        options: StopBluetoothDevicesDiscoveryOptions,
     ): void;
     /**
      * 蓝牙设备信息
@@ -1728,7 +1725,7 @@ declare namespace swan {
         success(
             res: {
                 devices: BluetoothDevice[];
-            } & ErrMsgResponse
+            } & ErrMsgResponse,
         ): void;
     }
     /**
@@ -1743,15 +1740,15 @@ declare namespace swan {
         callback: (
             res: {
                 devices: BluetoothDevice[];
-            }
-        ) => void
+            },
+        ) => void,
     ): void;
     interface GetConnectedBluetoothDevicesOptions extends BaseOptions {
         services: string[];
         success(
             res: {
                 devices: BluetoothDevice[];
-            } & ErrMsgResponse
+            } & ErrMsgResponse,
         ): void;
     }
     /**
@@ -1759,7 +1756,7 @@ declare namespace swan {
      * @version 1.1.0
      */
     function getConnectedBluetoothDevices(
-        options: GetConnectedBluetoothDevicesOptions
+        options: GetConnectedBluetoothDevicesOptions,
     ): void;
     interface CreateBLEConnectionOptions extends BaseOptions {
         /**
@@ -1799,7 +1796,7 @@ declare namespace swan {
                     uuid: string;
                     isPrimary: boolean;
                 }>;
-            } & ErrMsgResponse
+            } & ErrMsgResponse,
         ): void;
     }
     /**
@@ -1841,14 +1838,14 @@ declare namespace swan {
                         indicate: boolean;
                     }>;
                 }>;
-            } & ErrMsgResponse
+            } & ErrMsgResponse,
         ): void;
     }
     /**
      * 获取蓝牙设备所有 characteristic（特征值）
      */
     function getBLEDeviceCharacteristics(
-        options: GetBLEDeviceCharacteristicsOptions
+        options: GetBLEDeviceCharacteristicsOptions,
     ): void;
 
     interface WriteBLECharacteristicValue extends BaseOptions {
@@ -1922,7 +1919,7 @@ declare namespace swan {
                      */
                     value: ArrayBuffer;
                 };
-            } & ErrMsgResponse
+            } & ErrMsgResponse,
         ): void;
     }
 
@@ -1931,7 +1928,7 @@ declare namespace swan {
      * 注意：必须设备的特征值支持read才可以成功调用，具体参照 characteristic 的 properties 属性
      */
     function readBLECharacteristicValue(
-        options: ReadBLECharacteristicValue
+        options: ReadBLECharacteristicValue,
     ): void;
     /**
      * 向低功耗蓝牙设备特征值中写入二进制数据。
@@ -1939,7 +1936,7 @@ declare namespace swan {
      * tips: 并行调用多次读写接口存在读写失败的可能性
      */
     function writeBLECharacteristicValue(
-        options: WriteBLECharacteristicValue
+        options: WriteBLECharacteristicValue,
     ): void;
     /**
      * 启用低功耗蓝牙设备特征值变化时的 notify 功能。
@@ -1947,7 +1944,7 @@ declare namespace swan {
      * 另外，必须先启用notify才能监听到设备 characteristicValueChange 事件
      */
     function notifyBLECharacteristicValueChanged(
-        options: NotifyBLECharacteristicValueChanged
+        options: NotifyBLECharacteristicValueChanged,
     ): void;
     /**
      * 监听低功耗蓝牙连接的错误事件，包括设备丢失，连接异常断开等等。
@@ -1963,8 +1960,8 @@ declare namespace swan {
                  * 连接目前的状态
                  */
                 connected: boolean;
-            }
-        ) => void
+            },
+        ) => void,
     ): void;
     /**
      * 监听低功耗蓝牙设备的特征值变化。必须先启用notify接口才能接收到设备推送的notification。
@@ -1988,8 +1985,8 @@ declare namespace swan {
                  * 特征值最新的值
                  */
                 value: ArrayBuffer;
-            }
-        ) => void
+            },
+        ) => void,
     ): void;
     // #region iBeacon
     interface StartBeaconDiscoveryOptions extends BaseOptions {
@@ -2050,7 +2047,7 @@ declare namespace swan {
      * @version 1.2.0
      */
     function onBeaconServiceChange(
-        callback?: (available: boolean, discovering: boolean) => void
+        callback?: (available: boolean, discovering: boolean) => void,
     ): void;
     // #endregion
     // 设备-----屏幕亮度
@@ -2298,7 +2295,7 @@ declare namespace swan {
         /**
          * 是否显示透明蒙层，防止触摸穿透，默认：false
          */
-        mask?: boolean | 'true' | 'false' | undefined;
+        mask?: boolean | "true" | "false" | undefined;
     }
     /**
      * 显示 loading 提示框, 需主动调用 swan.hideLoading 才能关闭提示框
@@ -2727,7 +2724,7 @@ declare namespace swan {
             c: number,
             d: number,
             tx: number,
-            ty: number
+            ty: number,
         ): Animation;
         /** 同transform-function matrix3d */
         matrix3d(
@@ -2746,7 +2743,7 @@ declare namespace swan {
             a4: number,
             b4: number,
             c4: number,
-            d4: number
+            d4: number,
         ): Animation;
     }
     // #region 位置API
@@ -2809,14 +2806,14 @@ declare namespace swan {
         relativeToViewport(margins?: Margins): IntersectionObserver;
         observe(
             selector?: string,
-            callback?: (response: ObserveResponse) => void
+            callback?: (response: ObserveResponse) => void,
         ): IntersectionObserver;
         disconnect(): void;
     }
 
     function createIntersectionObserver(
         context: Component<any, any>,
-        options?: CreateIntersectionObserverOption
+        options?: CreateIntersectionObserverOption,
     ): IntersectionObserver;
 
     interface NodesRefRect extends RectArea {
@@ -2889,7 +2886,7 @@ declare namespace swan {
          * 节点信息会在callback中返回。
          */
         boundingClientRect(
-            callback?: (rect: NodesRefRect | NodesRefRect[]) => void
+            callback?: (rect: NodesRefRect | NodesRefRect[]) => void,
         ): SelectorQuery;
         /**
          * 添加节点的滚动位置查询请求，以像素为单位。
@@ -2905,7 +2902,7 @@ declare namespace swan {
          */
         fields(
             fields: NodeRefFieldsOptions,
-            callback?: (result: any) => void
+            callback?: (result: any) => void,
         ): SelectorQuery;
     }
     /**
@@ -3060,7 +3057,7 @@ declare namespace swan {
             dx: number,
             dy: number,
             dWidth: number,
-            dHeight: number
+            dHeight: number,
         ): void;
         /**
          * 绘制图像，图像保持原始尺寸。
@@ -3084,7 +3081,7 @@ declare namespace swan {
             dx: number,
             dy: number,
             dWidth: number,
-            dHeight: number
+            dHeight: number,
         ): void;
         /**
          * 设置全局画笔透明度。
@@ -3176,7 +3173,6 @@ declare namespace swan {
          * @param y 矩形路径左上角的y坐标
          * @param width 矩形路径的宽度
          * @param height 矩形路径的高度
-         *
          */
         fillRect(x: number, y: number, width: number, height: number): void;
         /**
@@ -3186,7 +3182,6 @@ declare namespace swan {
          * @param y 矩形路径左上角的y坐标
          * @param width 矩形路径的宽度
          * @param height 矩形路径的高度
-         *
          */
         strokeRect(x: number, y: number, width: number, height: number): void;
         /**
@@ -3205,7 +3200,7 @@ declare namespace swan {
             radius: number,
             startAngle: number,
             endAngle: number,
-            counterclockwise?: boolean
+            counterclockwise?: boolean,
         ): void;
         /**
          * 创建二次方贝塞尔曲线
@@ -3232,7 +3227,7 @@ declare namespace swan {
             cp2x: number,
             cp2y: number,
             x: number,
-            y: number
+            y: number,
         ): void;
         /**
          * 设置填充样式
@@ -3258,7 +3253,7 @@ declare namespace swan {
             offsetX: number,
             offsetY: number,
             blur: number,
-            color: string
+            color: string,
         ): void;
         /**
          * 创建一个线性的渐变颜色。
@@ -3272,7 +3267,7 @@ declare namespace swan {
             x0: number,
             y0: number,
             x1: number,
-            y1: number
+            y1: number,
         ): CanvasGradient;
         /**
          * 创建一个颜色的渐变点。
@@ -3280,7 +3275,6 @@ declare namespace swan {
          * Tip: 需要使用 addColorStop() 来指定渐变点，至少要两个。
          * @param stop (0-1)  表示渐变点在起点和终点中的位置
          * @param color 渐变点的颜色
-         *
          */
         addColorStop(stop: number, color: string): void;
         /**
@@ -3289,7 +3283,6 @@ declare namespace swan {
          * @param x 圆心的x坐标
          * @param y 圆心的y坐标
          * @param r 圆的半径
-         *
          */
         createCircularGradient(x: number, y: number, r: number): CanvasGradient;
         /**
@@ -3333,7 +3326,6 @@ declare namespace swan {
          * 将之前在绘图上下文中的描述（路径、变形、样式）画到 canvas 中。
          * Tip: 绘图上下文需要由 swan.createCanvasContext(canvasId) 来创建。
          * @param [reserve] 非必填。本次绘制是否接着上一次绘制，即reserve参数为false，则在本次调用drawCanvas绘制之前native层应先清空画布再继续绘制；若reserver参数为true，则保留当前画布上的内容，本次调用drawCanvas绘制的内容覆盖在上面，默认 false
-         *
          */
         draw(reserve?: boolean): void;
         /**
@@ -3367,13 +3359,13 @@ declare namespace swan {
          * 画布标识，传入 <canvas/> 的 cavas-id
          */
         canvasId: string;
-        x?: number | undefined;    // 画布 x 轴起点（默认 0 ）
-        y?: number | undefined;    // 画布 y 轴起点（默认 0 ）
-        width?: number | undefined;    // 画布宽度（默认为 canvas 宽度 - x）
-        height?: number | undefined;    // 画布高度（默认为 canvas 高度 - y）
-        destWidth?: number | undefined;    // 输出图片宽度（默认为 width * 屏幕像素密度）
-        destHeight?: number | undefined;    // 输出图片高度（默认为 height * 屏幕像素密度）
-        fileType?: string | undefined;    // 目标文件的类型，只支持 ‘jpg’ 或 ‘png’，默认为 ‘png’ 。
+        x?: number | undefined; // 画布 x 轴起点（默认 0 ）
+        y?: number | undefined; // 画布 y 轴起点（默认 0 ）
+        width?: number | undefined; // 画布宽度（默认为 canvas 宽度 - x）
+        height?: number | undefined; // 画布高度（默认为 canvas 高度 - y）
+        destWidth?: number | undefined; // 输出图片宽度（默认为 width * 屏幕像素密度）
+        destHeight?: number | undefined; // 输出图片高度（默认为 height * 屏幕像素密度）
+        fileType?: string | undefined; // 目标文件的类型，只支持 ‘jpg’ 或 ‘png’，默认为 ‘png’ 。
     }
     /**
      * 把当前画布的内容导出生成图片，并返回文件路径
@@ -3426,7 +3418,7 @@ declare namespace swan {
             res: {
                 /* 调用结果 */
                 errMsg: string;
-            } & ExtConfig
+            } & ExtConfig,
         ): void;
     }
     /**
@@ -3573,7 +3565,6 @@ declare namespace swan {
     interface ShareAppMessage extends BaseOptions {
         /**
          * 分享标题  默认为当前小程序名称
-         *
          */
         title?: string | undefined;
         /**
@@ -3589,7 +3580,6 @@ declare namespace swan {
         /**
          * 分享路径  当默认为前页面 path ，
          * 必须是以 / 开头的完整路径
-         *
          */
         path?: string | undefined;
         success?(res: {
@@ -3603,7 +3593,6 @@ declare namespace swan {
     }
     /**
      * 显示分享按钮
-     *
      */
     function showShareMenu(options?: ShareMenuOptions): void;
 
@@ -3643,47 +3632,38 @@ declare namespace swan {
         success?(res: {
             /**
              * 调用结果
-             *
              */
             errMsg: string;
             /**
              * 收货人姓名
-             *
              */
             userName: string;
             /**
              * 邮编
-             *
              */
             postalCode: string;
             /**
              * 国标收货地址第一级地址
-             *
              */
             provinceName: string;
             /**
              * 国标收货地址第二级地址
-             *
              */
             cityName: string;
             /**
              * 国标收货地址第三级地址
-             *
              */
             countyName: string;
             /**
              * 详细收货地址信息
-             *
              */
             detailInfo: string;
             /**
              * 收货地址国家码
-             *
              */
             nationalCode: string;
             /**
              * 收货人手机号码
-             *
              */
             telNumber: string;
         }): void;
@@ -3738,11 +3718,17 @@ declare namespace swan {
 
     /**
      * 查看微信卡包中的卡券。
-     *
      */
     function openCard(options: OpenCardOptions): void;
     // 开放接口-----设置
-    type Scope = "scope.userInfo" | "scope.userLocation" | "scope.address" | "scope.invoiceTitle" | "scope.werun" | "scope.record" | "scope.writePhotosAlbum";
+    type Scope =
+        | "scope.userInfo"
+        | "scope.userLocation"
+        | "scope.address"
+        | "scope.invoiceTitle"
+        | "scope.werun"
+        | "scope.record"
+        | "scope.writePhotosAlbum";
     interface AuthSetting {
         "scope.userInfo": string;
         "scope.userLocation": string;
@@ -3904,7 +3890,7 @@ declare namespace swan {
      * 动态设置当前页面的标题。此方法为 web 版小程序专用方法，使用前需
      * 判断方法是否存在。
      */
-    function setDocumentTitle(options?: { title: string; }): void;
+    function setDocumentTitle(options?: { title: string }): void;
     interface LoadSubPackageOptions extends BaseOptions {
         root: string;
     }
@@ -3915,8 +3901,8 @@ declare namespace swan {
     // #endregion
     // #region 更新
     interface UpdateManager {
-        onCheckForUpdate(callback: (res: { hasUpdate: boolean; }) => void): void;
-        onUpdateReady(callback: (res: { confirm: boolean; }) => void): void;
+        onCheckForUpdate(callback: (res: { hasUpdate: boolean }) => void): void;
+        onUpdateReady(callback: (res: { confirm: boolean }) => void): void;
         applyUpdate(): void;
         onUpdateFailed(callback: (res: any) => void): void;
     }
@@ -3961,7 +3947,7 @@ declare namespace swan {
      * 返回到上一个小程序，只有在当前小程序是被其他小程序打开时可以调用成功
      */
     function navigateBackMiniProgram(
-        options: NavigateBackMiniProgramOptions
+        options: NavigateBackMiniProgramOptions,
     ): void;
 
     // #endregion
@@ -3969,12 +3955,10 @@ declare namespace swan {
 
     /**
      * 将 ArrayBuffer 数据转成 Base64 字符串
-     *
      */
     function arrayBufferToBase64(arrayBuffer: ArrayBuffer): string;
     /**
      * 将 Base64 字符串转成 ArrayBuffer 数据
-     *
      */
     function base64ToArrayBuffer(base64: string): ArrayBuffer;
     /**
@@ -4020,34 +4004,34 @@ declare namespace swan {
         detail: Detail;
     }
 
-    interface BuiltInEvent<T extends EventType, Detail>
-        extends BaseEvent<T, Detail> { }
+    interface BuiltInEvent<T extends EventType, Detail> extends BaseEvent<T, Detail> {}
 
-    interface CustomEvent<T extends string, Detail>
-        extends BaseEvent<T, Detail> { }
+    interface CustomEvent<T extends string, Detail> extends BaseEvent<T, Detail> {}
 
     /**
      * 指定focus时的光标位置
      * @version 1.5.0
      */
-    interface InputEvent
-        extends BuiltInEvent<
-        "input",
-        {
-            value: string;
-            cursor: number;
-        }
-        > { }
+    interface InputEvent extends
+        BuiltInEvent<
+            "input",
+            {
+                value: string;
+                cursor: number;
+            }
+        >
+    {}
 
-    interface FormEvent
-        extends BuiltInEvent<
-        "form",
-        {
-            value: { [name: string]: string | boolean | number };
-        }
-        > { }
+    interface FormEvent extends
+        BuiltInEvent<
+            "form",
+            {
+                value: { [name: string]: string | boolean | number };
+            }
+        >
+    {}
 
-    interface ScrollEvent extends BuiltInEvent<"scroll", {}> { }
+    interface ScrollEvent extends BuiltInEvent<"scroll", {}> {}
 
     interface Touch {
         identifier: number;
@@ -4057,14 +4041,15 @@ declare namespace swan {
         clientY: number;
     }
 
-    interface TouchEvent<T extends TouchEventType>
-        extends BuiltInEvent<
-        T,
-        {
-            x: number;
-            y: number;
-        }
-        > {
+    interface TouchEvent<T extends TouchEventType> extends
+        BuiltInEvent<
+            T,
+            {
+                x: number;
+                y: number;
+            }
+        >
+    {
         touches: Touch[];
         changedTouches: Touch[];
     }
@@ -4235,16 +4220,16 @@ declare namespace swan {
         Instance extends Component<Data, Props>,
         Data,
         Methods,
-        Props
-        > = CombinedInstance<Instance, Data, Methods, Props> & Component<Data, Props>;
+        Props,
+    > = CombinedInstance<Instance, Data, Methods, Props> & Component<Data, Props>;
 
     // CombinedInstance models the `this`, i.e. instance type for (user defined) component
     type CombinedInstance<
         Instance extends Component<Data, Props>,
         Data,
         Methods,
-        Props
-        > = Methods & Instance;
+        Props,
+    > = Methods & Instance;
 
     type Prop<T> = (() => T) | { new(...args: any[]): T & object };
 
@@ -4285,10 +4270,11 @@ declare namespace swan {
         V extends Component<Data, Props>,
         Data,
         Methods,
-        Props
-        > = object &
-        ComponentOptions<V, Data, Methods, Props> &
-        ThisType<CombinedInstance<V, Data, Methods, Readonly<Props>>>;
+        Props,
+    > =
+        & object
+        & ComponentOptions<V, Data, Methods, Props>
+        & ThisType<CombinedInstance<V, Data, Methods, Readonly<Props>>>;
 
     interface ComponentRelation<D = any, P = any> {
         /** 目标组件的相对关系，可选的值为 parent 、 child 、 ancestor 、 descendant */
@@ -4348,8 +4334,8 @@ declare namespace swan {
         Instance extends Component<Data, Props>,
         Data = DefaultData<Instance>,
         Methods = DefaultMethods<Instance>,
-        Props = PropsDefinition<DefaultProps>
-        > extends Partial<Lifetimes> {
+        Props = PropsDefinition<DefaultProps>,
+    > extends Partial<Lifetimes> {
         /**
          * 组件的对外属性，是属性名到属性设置的映射表
          * 属性设置中可包含三个字段:
@@ -4372,20 +4358,22 @@ declare namespace swan {
         /**
          * 一些组件选项，请参见文档其他部分的说明
          */
-        options?: Partial<{
-            /**
-             * 使用外部样式类可以让组件使用指定的组件外样式类，如果希望组件外样式类能够完全影响组件内部，
-             * 可以将组件构造器中的options.addGlobalClass字段置为true。这个特性从小程序基础库版本 2.2.3 开始支持。
-             *
-             * @version 2.2.3
-             */
-            addGlobalClass: boolean;
-            /**
-             * 在组件的swan中可以包含 slot 节点，用于承载组件使用者提供的swan结构。
-             * 默认情况下，一个组件的swan中只能有一个slot。需要使用多slot时，可以在组件js中声明启用。
-             */
-            multipleSlots: boolean;
-        }> | undefined;
+        options?:
+            | Partial<{
+                /**
+                 * 使用外部样式类可以让组件使用指定的组件外样式类，如果希望组件外样式类能够完全影响组件内部，
+                 * 可以将组件构造器中的options.addGlobalClass字段置为true。这个特性从小程序基础库版本 2.2.3 开始支持。
+                 *
+                 * @version 2.2.3
+                 */
+                addGlobalClass: boolean;
+                /**
+                 * 在组件的swan中可以包含 slot 节点，用于承载组件使用者提供的swan结构。
+                 * 默认情况下，一个组件的swan中只能有一个slot。需要使用多slot时，可以在组件js中声明启用。
+                 */
+                multipleSlots: boolean;
+            }>
+            | undefined;
 
         /**
          * 组件接受的外部样式类，参见 外部样式类
@@ -4428,10 +4416,8 @@ declare namespace swan {
     type DataValueType<Def> = Def extends {
         type: (...args: any[]) => infer T;
         value?: infer T | undefined;
-    }
-        ? T
-        : Def extends (...args: any[]) => infer T
-        ? T
+    } ? T
+        : Def extends (...args: any[]) => infer T ? T
         : never;
 
     /**
@@ -4468,18 +4454,20 @@ declare namespace swan {
          * @param [callback] callback 是一个回调函数，在这次setData对界面渲染完毕后调用
          */
         setData(
-            key: string | {
-                [key in keyof D]?:
+            key:
                 | string
-                | number
-                | boolean
-                | symbol
-                | object
-                | null
-                | any[]
-            },
+                | {
+                    [key in keyof D]?:
+                        | string
+                        | number
+                        | boolean
+                        | symbol
+                        | object
+                        | null
+                        | any[];
+                },
             value?: any,
-            callback?: () => void
+            callback?: () => void,
         ): void;
         getData(key: string): any;
         /**
@@ -4497,7 +4485,7 @@ declare namespace swan {
                 bubbles: boolean;
                 composed: boolean;
                 capturePhase: boolean;
-            }>
+            }>,
         ): void;
         /**
          * 创建一个 SelectorQuery 对象
@@ -4509,7 +4497,7 @@ declare namespace swan {
          * https://smartprogram.baidu.com/docs/develop/api/show_query/
          */
         createIntersectionObserver(
-            options?: CreateIntersectionObserverOption
+            options?: CreateIntersectionObserverOption,
         ): IntersectionObserver;
         /**
          * 使用选择器选择组件实例节点
@@ -4578,9 +4566,11 @@ declare namespace swan {
          * + 用户点击转发按钮的时候会调
          * + 此事件需要 return 一个 Object，用于自定义转发内容
          */
-        onShareAppMessage?: ((
-            options?: PageShareAppMessageOptions
-        ) => ShareAppMessage) | undefined;
+        onShareAppMessage?:
+            | ((
+                options?: PageShareAppMessageOptions,
+            ) => ShareAppMessage)
+            | undefined;
         /**
          * 页面滚动触发事件的处理函数
          * 监听用户滑动页面事件。
@@ -4709,7 +4699,7 @@ declare namespace swan {
  * 接受一个 object 参数，其指定小程序的生命周期函数等。
  */
 declare function App<T extends swan.AppOptions>(
-    app: T & ThisType<T & swan.App>
+    app: T & ThisType<T & swan.App>,
 ): void;
 /**
  * 获取小程序实例
@@ -4723,7 +4713,7 @@ declare function Component<D, M, P>(
         D,
         M,
         P
-        >
+    >,
 ): swan.ExtendedComponent<swan.Component<D, P>, D, M, P>;
 /**
  * behaviors 是用于组件间代码共享的特性
@@ -4739,7 +4729,7 @@ declare function Behavior<D, M, P>(
         D,
         M,
         P
-        >
+    >,
 ): swan.ExtendedComponent<swan.Component<D, P>, D, M, P>;
 // #endregion
 // #region Page
@@ -4748,7 +4738,7 @@ declare function Behavior<D, M, P>(
  * 接受一个 object 参数，其指定页面的初始数据、生命周期函数、事件处理函数等。
  */
 declare function Page<T extends swan.PageOptions & object>(
-    page: T & ThisType<T & swan.Page>
+    page: T & ThisType<T & swan.Page>,
 ): void;
 /**
  * getCurrentPages() 函数用于获取当前页面栈的实例，

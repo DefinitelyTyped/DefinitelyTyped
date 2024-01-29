@@ -1,9 +1,4 @@
-// Type definitions for node-mongodb-fixtures 3.2
-// Project: https://github.com/cdimascio/node-mongodb-fixtures#readme
-// Definitions by: Chuah Chee Shian (shian15810) <https://github.com/shian15810>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { MongoClientOptions } from 'mongodb';
+import { MongoClientOptions } from "mongodb";
 
 /**
  * Setup and tear down test fixtures with MongoDB.

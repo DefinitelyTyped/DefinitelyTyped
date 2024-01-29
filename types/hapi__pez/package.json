@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/hapi__pez",
+    "version": "6.1.9999",
+    "projects": [
+        "https://github.com/hapijs/pez"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/hapi__content": "*",
+        "@types/hapi__pez": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Grant Timmerman",
+            "githubUsername": "grant"
+        }
+    ]
+}

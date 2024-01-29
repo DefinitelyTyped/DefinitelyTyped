@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/server-timing-header",
+    "version": "1.9.9999",
+    "projects": [
+        "https://github.com/SilentImp/express-middleware-headers-server-timing#readme"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/express-serve-static-core": "*"
+    },
+    "devDependencies": {
+        "@types/server-timing-header": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

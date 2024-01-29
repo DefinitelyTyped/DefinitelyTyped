@@ -1,9 +1,4 @@
-// Type definitions for react-canvas-draw 1.1
-// Project: https://embiem.github.io/react-canvas-draw/
-// Definitions by: Kamil Socha <https://github.com/ksocha>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as React from 'react';
+import * as React from "react";
 
 export interface CanvasDrawProps {
     onChange?: ((canvas: CanvasDraw) => void) | null | undefined;
@@ -22,6 +17,15 @@ export interface CanvasDrawProps {
     saveData?: string | undefined;
     immediateLoading?: boolean | undefined;
     hideInterface?: boolean | undefined;
+    gridSizeX?: number | undefined;
+    gridSizeY?: number | undefined;
+    gridLineWidth?: number | undefined;
+    hideGridX?: boolean | undefined;
+    hideGridY?: boolean | undefined;
+    enablePanAndZoom?: boolean | undefined;
+    mouseZoomFactor?: number | undefined;
+    zoomExtents?: { min: number; max: number } | undefined;
+    clampLinesToDocument?: boolean | undefined;
     className?: string | undefined;
     style?: React.CSSProperties | undefined;
 }

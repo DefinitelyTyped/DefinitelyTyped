@@ -9,16 +9,9 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "fetch-mock": [ "fetch-mock/v6" ]
-        }  
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",

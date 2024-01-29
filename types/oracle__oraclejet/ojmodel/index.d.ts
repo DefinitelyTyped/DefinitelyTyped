@@ -13,7 +13,7 @@ export class Collection {
     models: Model[];
     offset: number;
     omitLanguageHeader: boolean;
-    parse: ((param0: object) => object);
+    parse: (param0: object) => object;
     sortDirection: number;
     totalResults: number;
     url: null | string | (() => string);
@@ -38,7 +38,7 @@ export class Collection {
         deferred?: boolean | undefined;
         [propName: string]: any;
     }): Promise<Model[]> | Model[];
-    any(iterator: ((param0: object) => void), context?: object): boolean;
+    any(iterator: (param0: object) => void, context?: object): boolean;
     at(index: number, options?: {
         fetchSize?: number | undefined;
         deferred?: boolean | undefined;
@@ -56,7 +56,7 @@ export class Collection {
         [propName: string]: any;
     }): Model | boolean | Promise<Model>;
     difference(...var_args: Model[][]): Model[];
-    each(iterator: ((param0: Model) => void), context?: object): undefined;
+    each(iterator: (param0: Model) => void, context?: object): undefined;
     fetch(options?: {
         success?: ((collection: Collection, response: any, options: object) => void) | undefined;
         error?: ((collection: Collection, xhr: any, options: object) => void) | undefined;
@@ -69,7 +69,7 @@ export class Collection {
         fetchSize?: number | undefined;
         [propName: string]: any;
     }): object;
-    filter(iterator: ((param0: Model) => void), context?: object): Model[];
+    filter(iterator: (param0: Model) => void, context?: object): Model[];
     findWhere(attrs: object | object[], options?: {
         deferred?: boolean | undefined;
         [propName: string]: any;
@@ -88,9 +88,9 @@ export class Collection {
     lastIndexOf(model: Model, fromIndex?: number): number;
     listenTo(otherObj: object, eventType: string, callback: (eventType: string, data: object) => void): undefined;
     listenToOnce(otherObj: object, eventType: string, callback: (eventType: string, data: object) => void): undefined;
-    map(iterator: ((param0: Model) => object), context?: object): object[];
-    max(iterator: ((param0: Model) => object), context?: object): object;
-    min(iterator: ((param0: object) => void), context?: object): object;
+    map(iterator: (param0: Model) => object, context?: object): object[];
+    max(iterator: (param0: Model) => object, context?: object): object;
+    min(iterator: (param0: object) => void, context?: object): object;
     modelId(attrs: object): null | string;
     next(n: number, options?: {
         success?: ((collection: Collection, response: any, options: object) => void) | undefined;
@@ -152,7 +152,11 @@ export class Collection {
     }): Promise<Collection.SetRangeLocalPromise> | null;
     sortBy(iterator: string | ((param0: Model) => object), context?: object): Model[];
     sortedIndex(comparator: string | ((param0: Model, param1?: Model) => object)): number;
-    stopListening(otherObj?: object, eventType?: string, callback?: (eventType: string, data: object) => void): undefined;
+    stopListening(
+        otherObj?: object,
+        eventType?: string,
+        callback?: (eventType: string, data: object) => void,
+    ): undefined;
     sync(method: string, collection: Collection, options?: {
         success?: ((json?: any[]) => void) | undefined;
         error?: ((xhr: any, status: any, error: any) => void) | undefined;
@@ -175,7 +179,7 @@ export class Collection {
     without(...var_args: Model[]): Model[];
 }
 export namespace Collection {
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type CustomPagingOptionsReturn = {
         totalResults?: number | undefined;
         limit?: number | undefined;
@@ -183,7 +187,7 @@ export namespace Collection {
         offset?: number | undefined;
         hasMore?: boolean | undefined;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type SetRangeLocalPromise = {
         start: number;
         count: number;
@@ -197,8 +201,8 @@ export class Model {
     id: string | null;
     idAttribute: string | null;
     omitLanguageHeader: boolean;
-    parse: ((param0: object) => object);
-    parseSave: ((param0: object) => object);
+    parse: (param0: object) => object;
+    parseSave: (param0: object) => object;
     urlRoot: string | null;
     validate: ((param0: object, param1: object) => string | object | null) | null;
     validationError: string | object | null;
@@ -234,7 +238,7 @@ export class Model {
     keys(): object[];
     listenTo(otherObj: object, eventType: string, callback: (eventType: string, data: object) => void): undefined;
     listenToOnce(otherObj: object, eventType: string, callback: (eventType: string, data: object) => void): undefined;
-    matches(attrs: object): ((param0: Model) => boolean);
+    matches(attrs: object): (param0: Model) => boolean;
     off(eventType?: string | object, callback?: (eventType: string, data: object) => void, context?: object): undefined;
     omit(keys: object[] | object): object;
     on(eventType: string | object, callback: (eventType: string, data: object) => void, context?: object): undefined;
@@ -254,7 +258,11 @@ export class Model {
         [propName: string]: any;
     }): object | boolean;
     set(property: string | object, value?: object, options?: object): Model | boolean;
-    stopListening(otherObj?: object, eventType?: string, callback?: (eventType: string, data: object) => void): undefined;
+    stopListening(
+        otherObj?: object,
+        eventType?: string,
+        callback?: (eventType: string, data: object) => void,
+    ): undefined;
     sync(method: string, model: Model, options?: object): object;
     toJSON(): object;
     trigger(eventType: string): undefined;

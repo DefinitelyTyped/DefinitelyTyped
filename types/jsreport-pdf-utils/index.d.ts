@@ -1,9 +1,4 @@
-// Type definitions for jsreport-pdf-utils 1.9
-// Project: https://github.com/jsreport/jsreport-pdf-utils
-// Definitions by: pofider <https://github.com/pofider>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { ExtensionDefinition, Template } from 'jsreport-core';
+import { ExtensionDefinition, Template } from "jsreport-core";
 
 declare namespace JsReportPdfUtils {
     interface PdfOperation {
@@ -51,7 +46,7 @@ declare namespace JsReportPdfUtils {
     }
 }
 
-declare module 'jsreport-core' {
+declare module "jsreport-core" {
     interface TemplateRegistry {
         PdfTemplate: JsReportPdfUtils.PdfTemplate;
     }

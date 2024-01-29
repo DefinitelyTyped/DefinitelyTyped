@@ -15,7 +15,12 @@ declare namespace ComponentFramework {
          * 'setControlState' in the Mode interface.
          * @param container If a control is marked control-type='standard', it will receive an empty div element within which it can render its content.
          */
-        init(context: Context<TInputs>, notifyOutputChanged?: () => void, state?: Dictionary, container?: HTMLDivElement): void;
+        init(
+            context: Context<TInputs>,
+            notifyOutputChanged?: () => void,
+            state?: Dictionary,
+            container?: HTMLDivElement,
+        ): void;
 
         /**
          * Called when any value in the property bag has changed. This includes field values, data-sets, global values such as container height and width,
@@ -41,7 +46,7 @@ declare namespace ComponentFramework {
     /**
      * Interface for Power Apps React controls
      */
-     interface ReactControl<TInputs, TOutputs> extends StandardControl<TInputs, TOutputs> {
+    interface ReactControl<TInputs, TOutputs> extends StandardControl<TInputs, TOutputs> {
         /**
          * Called when any value in the property bag has changed. This includes field values, data-sets, global values such as container height and width,
          * offline status, control metadata values such as label, visible, etc.
@@ -51,6 +56,713 @@ declare namespace ComponentFramework {
          */
         updateView(context: Context<TInputs>): React.ReactElement;
     }
+
+    /**
+     * Fluent v9 theming data
+     */
+    interface FluentDesignState {
+        /**
+         * Full set of design tokens from the Fluent v9 theme
+         */
+        tokenTheme: Theme;
+
+        /**
+         * Typography styles are predefined styles for typography defined by a set of theme tokens.
+         * These presets are used to create and share a consistent typographical look and feel
+         */
+        typographyTokens?: TypographyStyles;
+
+        /**
+         * Brand variants represent the 16-slot color ramp generated from the theme's base brand color
+         */
+        brand: BrandVariants;
+
+        /**
+         * Determines whether the dark mode variant of the theme is active
+         */
+        isDarkTheme?: boolean;
+    }
+
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type BorderRadiusTokens = {
+        borderRadiusNone: string;
+        borderRadiusSmall: string;
+        borderRadiusMedium: string;
+        borderRadiusLarge: string;
+        borderRadiusXLarge: string;
+        borderRadiusCircular: string;
+    };
+
+    type Brands = 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90 | 100 | 110 | 120 | 130 | 140 | 150 | 160;
+
+    type BrandVariants = Record<Brands, string>;
+
+    type ColorPaletteAnchor =
+        | "colorPaletteAnchorBackground2"
+        | "colorPaletteAnchorForeground2"
+        | "colorPaletteAnchorBorderActive";
+
+    type ColorPaletteBeige =
+        | "colorPaletteBeigeBackground2"
+        | "colorPaletteBeigeForeground2"
+        | "colorPaletteBeigeBorderActive";
+
+    type ColorPaletteBerry =
+        | "colorPaletteBerryBackground1"
+        | "colorPaletteBerryBackground2"
+        | "colorPaletteBerryBackground3"
+        | "colorPaletteBerryForeground1"
+        | "colorPaletteBerryForeground2"
+        | "colorPaletteBerryForeground3"
+        | "colorPaletteBerryBorderActive"
+        | "colorPaletteBerryBorder1"
+        | "colorPaletteBerryBorder2";
+
+    type ColorPaletteBlue =
+        | "colorPaletteBlueBackground2"
+        | "colorPaletteBlueForeground2"
+        | "colorPaletteBlueBorderActive";
+
+    type ColorPaletteBrass =
+        | "colorPaletteBrassBackground2"
+        | "colorPaletteBrassForeground2"
+        | "colorPaletteBrassBorderActive";
+
+    type ColorPaletteBrown =
+        | "colorPaletteBrownBackground2"
+        | "colorPaletteBrownForeground2"
+        | "colorPaletteBrownBorderActive";
+
+    type ColorPaletteCornflower =
+        | "colorPaletteCornflowerBackground2"
+        | "colorPaletteCornflowerForeground2"
+        | "colorPaletteCornflowerBorderActive";
+
+    type ColorPaletteCranberry =
+        | "colorPaletteCranberryBackground2"
+        | "colorPaletteCranberryForeground2"
+        | "colorPaletteCranberryBorderActive";
+
+    type ColorPaletteDarkGreen =
+        | "colorPaletteDarkGreenBackground2"
+        | "colorPaletteDarkGreenForeground2"
+        | "colorPaletteDarkGreenBorderActive";
+
+    type ColorPaletteDarkOrange =
+        | "colorPaletteDarkOrangeBackground1"
+        | "colorPaletteDarkOrangeBackground2"
+        | "colorPaletteDarkOrangeBackground3"
+        | "colorPaletteDarkOrangeForeground1"
+        | "colorPaletteDarkOrangeForeground2"
+        | "colorPaletteDarkOrangeForeground3"
+        | "colorPaletteDarkOrangeBorderActive"
+        | "colorPaletteDarkOrangeBorder1"
+        | "colorPaletteDarkOrangeBorder2";
+
+    type ColorPaletteDarkRed =
+        | "colorPaletteDarkRedBackground2"
+        | "colorPaletteDarkRedForeground2"
+        | "colorPaletteDarkRedBorderActive";
+
+    type ColorPaletteForest =
+        | "colorPaletteForestBackground2"
+        | "colorPaletteForestForeground2"
+        | "colorPaletteForestBorderActive";
+
+    type ColorPaletteGold =
+        | "colorPaletteGoldBackground2"
+        | "colorPaletteGoldForeground2"
+        | "colorPaletteGoldBorderActive";
+
+    type ColorPaletteGrape =
+        | "colorPaletteGrapeBackground2"
+        | "colorPaletteGrapeForeground2"
+        | "colorPaletteGrapeBorderActive";
+
+    type ColorPaletteGreen =
+        | "colorPaletteGreenBackground1"
+        | "colorPaletteGreenBackground2"
+        | "colorPaletteGreenBackground3"
+        | "colorPaletteGreenForeground1"
+        | "colorPaletteGreenForeground2"
+        | "colorPaletteGreenForeground3"
+        | "colorPaletteGreenForegroundInverted"
+        | "colorPaletteGreenBorderActive"
+        | "colorPaletteGreenBorder1"
+        | "colorPaletteGreenBorder2";
+
+    type ColorPaletteLavender =
+        | "colorPaletteLavenderBackground2"
+        | "colorPaletteLavenderForeground2"
+        | "colorPaletteLavenderBorderActive";
+
+    type ColorPaletteLightGreen =
+        | "colorPaletteLightGreenBackground1"
+        | "colorPaletteLightGreenBackground2"
+        | "colorPaletteLightGreenBackground3"
+        | "colorPaletteLightGreenForeground1"
+        | "colorPaletteLightGreenForeground2"
+        | "colorPaletteLightGreenForeground3"
+        | "colorPaletteLightGreenBorderActive"
+        | "colorPaletteLightGreenBorder1"
+        | "colorPaletteLightGreenBorder2";
+
+    type ColorPaletteLightTeal =
+        | "colorPaletteLightTealBackground2"
+        | "colorPaletteLightTealForeground2"
+        | "colorPaletteLightTealBorderActive";
+
+    type ColorPaletteLilac =
+        | "colorPaletteLilacBackground2"
+        | "colorPaletteLilacForeground2"
+        | "colorPaletteLilacBorderActive";
+
+    type ColorPaletteMagenta =
+        | "colorPaletteMagentaBackground2"
+        | "colorPaletteMagentaForeground2"
+        | "colorPaletteMagentaBorderActive";
+
+    type ColorPaletteMarigold =
+        | "colorPaletteMarigoldBackground1"
+        | "colorPaletteMarigoldBackground2"
+        | "colorPaletteMarigoldBackground3"
+        | "colorPaletteMarigoldForeground1"
+        | "colorPaletteMarigoldForeground2"
+        | "colorPaletteMarigoldForeground3"
+        | "colorPaletteMarigoldBorderActive"
+        | "colorPaletteMarigoldBorder1"
+        | "colorPaletteMarigoldBorder2";
+
+    type ColorPaletteMink =
+        | "colorPaletteMinkBackground2"
+        | "colorPaletteMinkForeground2"
+        | "colorPaletteMinkBorderActive";
+
+    type ColorPaletteNavy =
+        | "colorPaletteNavyBackground2"
+        | "colorPaletteNavyForeground2"
+        | "colorPaletteNavyBorderActive";
+
+    type ColorPalettePeach =
+        | "colorPalettePeachBackground2"
+        | "colorPalettePeachForeground2"
+        | "colorPalettePeachBorderActive";
+
+    type ColorPalettePink =
+        | "colorPalettePinkBackground2"
+        | "colorPalettePinkForeground2"
+        | "colorPalettePinkBorderActive";
+
+    type ColorPalettePlatinum =
+        | "colorPalettePlatinumBackground2"
+        | "colorPalettePlatinumForeground2"
+        | "colorPalettePlatinumBorderActive";
+
+    type ColorPalettePlum =
+        | "colorPalettePlumBackground2"
+        | "colorPalettePlumForeground2"
+        | "colorPalettePlumBorderActive";
+
+    type ColorPalettePumpkin =
+        | "colorPalettePumpkinBackground2"
+        | "colorPalettePumpkinForeground2"
+        | "colorPalettePumpkinBorderActive";
+
+    type ColorPalettePurple =
+        | "colorPalettePurpleBackground2"
+        | "colorPalettePurpleForeground2"
+        | "colorPalettePurpleBorderActive";
+
+    type ColorPaletteRed =
+        | "colorPaletteRedBackground1"
+        | "colorPaletteRedBackground2"
+        | "colorPaletteRedBackground3"
+        | "colorPaletteRedForeground1"
+        | "colorPaletteRedForeground2"
+        | "colorPaletteRedForeground3"
+        | "colorPaletteRedForegroundInverted"
+        | "colorPaletteRedBorderActive"
+        | "colorPaletteRedBorder1"
+        | "colorPaletteRedBorder2";
+
+    type ColorPaletteRoyalBlue =
+        | "colorPaletteRoyalBlueBackground2"
+        | "colorPaletteRoyalBlueForeground2"
+        | "colorPaletteRoyalBlueBorderActive";
+
+    type ColorPaletteSeafoam =
+        | "colorPaletteSeafoamBackground2"
+        | "colorPaletteSeafoamForeground2"
+        | "colorPaletteSeafoamBorderActive";
+
+    type ColorPaletteSteel =
+        | "colorPaletteSteelBackground2"
+        | "colorPaletteSteelForeground2"
+        | "colorPaletteSteelBorderActive";
+
+    type ColorPaletteTeal =
+        | "colorPaletteTealBackground2"
+        | "colorPaletteTealForeground2"
+        | "colorPaletteTealBorderActive";
+
+    type ColorPaletteTokens = StatusColorPaletteTokens & PersonaColorPaletteTokens;
+
+    type ColorPaletteYellow =
+        | "colorPaletteYellowBackground1"
+        | "colorPaletteYellowBackground2"
+        | "colorPaletteYellowBackground3"
+        | "colorPaletteYellowForeground1"
+        | "colorPaletteYellowForeground2"
+        | "colorPaletteYellowForeground3"
+        | "colorPaletteYellowForegroundInverted"
+        | "colorPaletteYellowBorderActive"
+        | "colorPaletteYellowBorder1"
+        | "colorPaletteYellowBorder2";
+
+    type ColorStatusDanger =
+        | "colorStatusDangerBackground1"
+        | "colorStatusDangerBackground2"
+        | "colorStatusDangerBackground3"
+        | "colorStatusDangerForeground1"
+        | "colorStatusDangerForeground2"
+        | "colorStatusDangerForeground3"
+        | "colorStatusDangerForegroundInverted"
+        | "colorStatusDangerBorderActive"
+        | "colorStatusDangerBorder1"
+        | "colorStatusDangerBorder2";
+
+    type ColorStatusSuccess =
+        | "colorStatusSuccessBackground1"
+        | "colorStatusSuccessBackground2"
+        | "colorStatusSuccessBackground3"
+        | "colorStatusSuccessForeground1"
+        | "colorStatusSuccessForeground2"
+        | "colorStatusSuccessForeground3"
+        | "colorStatusSuccessForegroundInverted"
+        | "colorStatusSuccessBorderActive"
+        | "colorStatusSuccessBorder1"
+        | "colorStatusSuccessBorder2";
+
+    type ColorStatusTokens = Record<ColorStatusSuccess | ColorStatusWarning | ColorStatusDanger, string>;
+
+    type ColorStatusWarning =
+        | "colorStatusWarningBackground1"
+        | "colorStatusWarningBackground2"
+        | "colorStatusWarningBackground3"
+        | "colorStatusWarningForeground1"
+        | "colorStatusWarningForeground2"
+        | "colorStatusWarningForeground3"
+        | "colorStatusWarningForegroundInverted"
+        | "colorStatusWarningBorderActive"
+        | "colorStatusWarningBorder1"
+        | "colorStatusWarningBorder2";
+
+    /**
+     * Design tokens for alias colors
+     */
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type ColorTokens = {
+        colorNeutralForeground1: string;
+        colorNeutralForeground1Hover: string;
+        colorNeutralForeground1Pressed: string;
+        colorNeutralForeground1Selected: string;
+        colorNeutralForeground2: string;
+        colorNeutralForeground2Hover: string;
+        colorNeutralForeground2Pressed: string;
+        colorNeutralForeground2Selected: string;
+        colorNeutralForeground2BrandHover: string;
+        colorNeutralForeground2BrandPressed: string;
+        colorNeutralForeground2BrandSelected: string;
+        colorNeutralForeground3: string;
+        colorNeutralForeground3Hover: string;
+        colorNeutralForeground3Pressed: string;
+        colorNeutralForeground3Selected: string;
+        colorNeutralForeground3BrandHover: string;
+        colorNeutralForeground3BrandPressed: string;
+        colorNeutralForeground3BrandSelected: string;
+        colorNeutralForeground4: string;
+        colorNeutralForegroundDisabled: string;
+        colorNeutralForegroundInvertedDisabled: string;
+        colorBrandForegroundLink: string;
+        colorBrandForegroundLinkHover: string;
+        colorBrandForegroundLinkPressed: string;
+        colorBrandForegroundLinkSelected: string;
+        colorNeutralForeground2Link: string;
+        colorNeutralForeground2LinkHover: string;
+        colorNeutralForeground2LinkPressed: string;
+        colorNeutralForeground2LinkSelected: string;
+        colorCompoundBrandForeground1: string;
+        colorCompoundBrandForeground1Hover: string;
+        colorCompoundBrandForeground1Pressed: string;
+        colorBrandForeground1: string;
+        colorBrandForeground2: string;
+        colorBrandForeground2Hover: string;
+        colorBrandForeground2Pressed: string;
+        colorNeutralForeground1Static: string;
+        colorNeutralForegroundInverted: string;
+        colorNeutralForegroundInvertedHover: string;
+        colorNeutralForegroundInvertedPressed: string;
+        colorNeutralForegroundInvertedSelected: string;
+        colorNeutralForegroundInverted2: string;
+        colorNeutralForegroundOnBrand: string;
+        colorNeutralForegroundStaticInverted: string;
+        colorNeutralForegroundInvertedLink: string;
+        colorNeutralForegroundInvertedLinkHover: string;
+        colorNeutralForegroundInvertedLinkPressed: string;
+        colorNeutralForegroundInvertedLinkSelected: string;
+        colorBrandForegroundInverted: string;
+        colorBrandForegroundInvertedHover: string;
+        colorBrandForegroundInvertedPressed: string;
+        colorBrandForegroundOnLight: string;
+        colorBrandForegroundOnLightHover: string;
+        colorBrandForegroundOnLightPressed: string;
+        colorBrandForegroundOnLightSelected: string;
+        colorNeutralBackground1: string;
+        colorNeutralBackground1Hover: string;
+        colorNeutralBackground1Pressed: string;
+        colorNeutralBackground1Selected: string;
+        colorNeutralBackground2: string;
+        colorNeutralBackground2Hover: string;
+        colorNeutralBackground2Pressed: string;
+        colorNeutralBackground2Selected: string;
+        colorNeutralBackground3: string;
+        colorNeutralBackground3Hover: string;
+        colorNeutralBackground3Pressed: string;
+        colorNeutralBackground3Selected: string;
+        colorNeutralBackground4: string;
+        colorNeutralBackground4Hover: string;
+        colorNeutralBackground4Pressed: string;
+        colorNeutralBackground4Selected: string;
+        colorNeutralBackground5: string;
+        colorNeutralBackground5Hover: string;
+        colorNeutralBackground5Pressed: string;
+        colorNeutralBackground5Selected: string;
+        colorNeutralBackground6: string;
+        colorNeutralBackgroundInverted: string;
+        colorNeutralBackgroundStatic: string;
+        colorNeutralBackgroundAlpha: string;
+        colorNeutralBackgroundAlpha2: string;
+        colorSubtleBackground: string;
+        colorSubtleBackgroundHover: string;
+        colorSubtleBackgroundPressed: string;
+        colorSubtleBackgroundSelected: string;
+        colorSubtleBackgroundLightAlphaHover: string;
+        colorSubtleBackgroundLightAlphaPressed: string;
+        colorSubtleBackgroundLightAlphaSelected: string;
+        colorSubtleBackgroundInverted: string;
+        colorSubtleBackgroundInvertedHover: string;
+        colorSubtleBackgroundInvertedPressed: string;
+        colorSubtleBackgroundInvertedSelected: string;
+        colorTransparentBackground: string;
+        colorTransparentBackgroundHover: string;
+        colorTransparentBackgroundPressed: string;
+        colorTransparentBackgroundSelected: string;
+        colorNeutralBackgroundDisabled: string;
+        colorNeutralBackgroundInvertedDisabled: string;
+        colorNeutralStencil1: string;
+        colorNeutralStencil2: string;
+        colorNeutralStencil1Alpha: string;
+        colorNeutralStencil2Alpha: string;
+        colorBackgroundOverlay: string;
+        colorScrollbarOverlay: string;
+        colorBrandBackground: string;
+        colorBrandBackgroundHover: string;
+        colorBrandBackgroundPressed: string;
+        colorBrandBackgroundSelected: string;
+        colorCompoundBrandBackground: string;
+        colorCompoundBrandBackgroundHover: string;
+        colorCompoundBrandBackgroundPressed: string;
+        colorBrandBackgroundStatic: string;
+        colorBrandBackground2: string;
+        colorBrandBackground2Hover: string;
+        colorBrandBackground2Pressed: string;
+        colorBrandBackgroundInverted: string;
+        colorBrandBackgroundInvertedHover: string;
+        colorBrandBackgroundInvertedPressed: string;
+        colorBrandBackgroundInvertedSelected: string;
+        colorNeutralStrokeAccessible: string;
+        colorNeutralStrokeAccessibleHover: string;
+        colorNeutralStrokeAccessiblePressed: string;
+        colorNeutralStrokeAccessibleSelected: string;
+        colorNeutralStroke1: string;
+        colorNeutralStroke1Hover: string;
+        colorNeutralStroke1Pressed: string;
+        colorNeutralStroke1Selected: string;
+        colorNeutralStroke2: string;
+        colorNeutralStroke3: string;
+        colorNeutralStrokeSubtle: string;
+        colorNeutralStrokeOnBrand: string;
+        colorNeutralStrokeOnBrand2: string;
+        colorNeutralStrokeOnBrand2Hover: string;
+        colorNeutralStrokeOnBrand2Pressed: string;
+        colorNeutralStrokeOnBrand2Selected: string;
+        colorBrandStroke1: string;
+        colorBrandStroke2: string;
+        colorBrandStroke2Hover: string;
+        colorBrandStroke2Pressed: string;
+        colorBrandStroke2Contrast: string;
+        colorCompoundBrandStroke: string;
+        colorCompoundBrandStrokeHover: string;
+        colorCompoundBrandStrokePressed: string;
+        colorNeutralStrokeDisabled: string;
+        colorNeutralStrokeInvertedDisabled: string;
+        colorTransparentStroke: string;
+        colorTransparentStrokeInteractive: string;
+        colorTransparentStrokeDisabled: string;
+        colorNeutralStrokeAlpha: string;
+        colorNeutralStrokeAlpha2: string;
+        colorStrokeFocus1: string;
+        colorStrokeFocus2: string;
+        colorNeutralShadowAmbient: string;
+        colorNeutralShadowKey: string;
+        colorNeutralShadowAmbientLighter: string;
+        colorNeutralShadowKeyLighter: string;
+        colorNeutralShadowAmbientDarker: string;
+        colorNeutralShadowKeyDarker: string;
+        colorBrandShadowAmbient: string;
+        colorBrandShadowKey: string;
+    };
+
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type CurveTokens = {
+        curveAccelerateMax: string;
+        curveAccelerateMid: string;
+        curveAccelerateMin: string;
+        curveDecelerateMax: string;
+        curveDecelerateMid: string;
+        curveDecelerateMin: string;
+        curveEasyEaseMax: string;
+        curveEasyEase: string;
+        curveLinear: string;
+    };
+
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type DurationTokens = {
+        durationUltraFast: string;
+        durationFaster: string;
+        durationFast: string;
+        durationNormal: string;
+        durationGentle: string;
+        durationSlow: string;
+        durationSlower: string;
+        durationUltraSlow: string;
+    };
+
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type FontFamilyTokens = {
+        fontFamilyBase: string;
+        fontFamilyMonospace: string;
+        fontFamilyNumeric: string;
+    };
+
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type FontSizeTokens = {
+        fontSizeBase100: string;
+        fontSizeBase200: string;
+        fontSizeBase300: string;
+        fontSizeBase400: string;
+        fontSizeBase500: string;
+        fontSizeBase600: string;
+        fontSizeHero700: string;
+        fontSizeHero800: string;
+        fontSizeHero900: string;
+        fontSizeHero1000: string;
+    };
+
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type FontWeightTokens = {
+        fontWeightRegular: number;
+        fontWeightMedium: number;
+        fontWeightSemibold: number;
+        fontWeightBold: number;
+    };
+
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type HorizontalSpacingTokens = {
+        spacingHorizontalNone: string;
+        spacingHorizontalXXS: string;
+        spacingHorizontalXS: string;
+        spacingHorizontalSNudge: string;
+        spacingHorizontalS: string;
+        spacingHorizontalMNudge: string;
+        spacingHorizontalM: string;
+        spacingHorizontalL: string;
+        spacingHorizontalXL: string;
+        spacingHorizontalXXL: string;
+        spacingHorizontalXXXL: string;
+    };
+
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type LineHeightTokens = {
+        lineHeightBase100: string;
+        lineHeightBase200: string;
+        lineHeightBase300: string;
+        lineHeightBase400: string;
+        lineHeightBase500: string;
+        lineHeightBase600: string;
+        lineHeightHero700: string;
+        lineHeightHero800: string;
+        lineHeightHero900: string;
+        lineHeightHero1000: string;
+    };
+
+    type PartialTheme = Partial<Theme>;
+
+    type PersonaColorPaletteTokens = Record<
+        | ColorPaletteDarkRed
+        | ColorPaletteCranberry
+        | ColorPalettePumpkin
+        | ColorPalettePeach
+        | ColorPaletteGold
+        | ColorPaletteBrass
+        | ColorPaletteBrown
+        | ColorPaletteForest
+        | ColorPaletteSeafoam
+        | ColorPaletteDarkGreen
+        | ColorPaletteLightTeal
+        | ColorPaletteTeal
+        | ColorPaletteSteel
+        | ColorPaletteBlue
+        | ColorPaletteRoyalBlue
+        | ColorPaletteCornflower
+        | ColorPaletteNavy
+        | ColorPaletteLavender
+        | ColorPalettePurple
+        | ColorPaletteGrape
+        | ColorPaletteLilac
+        | ColorPalettePink
+        | ColorPaletteMagenta
+        | ColorPalettePlum
+        | ColorPaletteBeige
+        | ColorPaletteMink
+        | ColorPalettePlatinum
+        | ColorPaletteAnchor,
+        string
+    >;
+
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type ShadowBrandTokens = {
+        shadow2Brand: string;
+        shadow4Brand: string;
+        shadow8Brand: string;
+        shadow16Brand: string;
+        shadow28Brand: string;
+        shadow64Brand: string;
+    };
+
+    /**
+     * Design tokens for shadow levels
+     */
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type ShadowTokens = {
+        shadow2: string;
+        shadow4: string;
+        shadow8: string;
+        shadow16: string;
+        shadow28: string;
+        shadow64: string;
+    };
+
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type SpacingTokens = {
+        none: string;
+        xxs: string;
+        xs: string;
+        sNudge: string;
+        s: string;
+        mNudge: string;
+        m: string;
+        l: string;
+        xl: string;
+        xxl: string;
+        xxxl: string;
+    };
+
+    type StatusColorPaletteTokens = Record<
+        | ColorPaletteRed
+        | ColorPaletteGreen
+        | ColorPaletteDarkOrange
+        | ColorPaletteYellow
+        | ColorPaletteBerry
+        | ColorPaletteMarigold
+        | ColorPaletteLightGreen,
+        string
+    >;
+
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type StrokeWidthTokens = {
+        strokeWidthThin: string;
+        strokeWidthThick: string;
+        strokeWidthThicker: string;
+        strokeWidthThickest: string;
+    };
+
+    type Theme =
+        & FontSizeTokens
+        & LineHeightTokens
+        & BorderRadiusTokens
+        & StrokeWidthTokens
+        & HorizontalSpacingTokens
+        & VerticalSpacingTokens
+        & DurationTokens
+        & CurveTokens
+        & ShadowTokens
+        & ShadowBrandTokens
+        & FontFamilyTokens
+        & FontWeightTokens
+        & ColorPaletteTokens
+        & ColorStatusTokens
+        & ColorTokens
+        & any;
+
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type TypographyStyle = {
+        fontFamily: string;
+        fontSize: string;
+        fontWeight: string;
+        lineHeight: string;
+    };
+
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type TypographyStyles = {
+        body1: TypographyStyle;
+        body1Strong: TypographyStyle;
+        body1Stronger: TypographyStyle;
+        body2: TypographyStyle;
+        caption1: TypographyStyle;
+        caption1Strong: TypographyStyle;
+        caption1Stronger: TypographyStyle;
+        caption2: TypographyStyle;
+        caption2Strong: TypographyStyle;
+        subtitle1: TypographyStyle;
+        subtitle2: TypographyStyle;
+        subtitle2Stronger: TypographyStyle;
+        title1: TypographyStyle;
+        title2: TypographyStyle;
+        title3: TypographyStyle;
+        largeTitle: TypographyStyle;
+        display: TypographyStyle;
+    };
+
+    /**
+     * Global typography styles (fontSize, fontWeight, and lineHeight)
+     */
+    const typographyStyles: TypographyStyles;
+
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    type VerticalSpacingTokens = {
+        spacingVerticalNone: string;
+        spacingVerticalXXS: string;
+        spacingVerticalXS: string;
+        spacingVerticalSNudge: string;
+        spacingVerticalS: string;
+        spacingVerticalMNudge: string;
+        spacingVerticalM: string;
+        spacingVerticalL: string;
+        spacingVerticalXL: string;
+        spacingVerticalXXL: string;
+        spacingVerticalXXXL: string;
+    };
 
     /**
      * The entire property bag interface available to control via Context Object
@@ -68,6 +780,11 @@ declare namespace ComponentFramework {
         webAPI: WebApi;
         parameters: TInputs;
         updatedProperties: string[];
+
+        /**
+         * Fluent v9 theming
+         */
+        fluentDesignLanguage?: FluentDesignState;
     }
 
     /**
@@ -100,6 +817,11 @@ declare namespace ComponentFramework {
          * Returns information whether the server is online or offline.
          */
         isOffline(): boolean;
+
+        /**
+         * Returns information whether the network is available or not
+         */
+        isNetworkAvailable(): boolean;
     }
 
     /**
@@ -294,7 +1016,10 @@ declare namespace ComponentFramework {
          * @param options Dialog options
          * @returns promise defining success or failure of operation
          */
-        openAlertDialog(alertStrings: NavigationApi.AlertDialogStrings, options?: NavigationApi.AlertDialogOptions): Promise<void>;
+        openAlertDialog(
+            alertStrings: NavigationApi.AlertDialogStrings,
+            options?: NavigationApi.AlertDialogOptions,
+        ): Promise<void>;
 
         /**
          * Opens Confirm Dialog
@@ -302,7 +1027,10 @@ declare namespace ComponentFramework {
          * @param options Options for the dialog
          * @returns promise defining success or failure of operation. the success case returns a boolean specifying whether yes or no button was pressed
          */
-        openConfirmDialog(confirmStrings: NavigationApi.ConfirmDialogStrings, options?: NavigationApi.ConfirmDialogOptions): Promise<NavigationApi.ConfirmDialogResponse>;
+        openConfirmDialog(
+            confirmStrings: NavigationApi.ConfirmDialogStrings,
+            options?: NavigationApi.ConfirmDialogOptions,
+        ): Promise<NavigationApi.ConfirmDialogResponse>;
 
         /**
          * Opens an Error Dialog.
@@ -325,7 +1053,10 @@ declare namespace ComponentFramework {
          * @param parameters entity form parameters.
          * @returns promise defining success or failure of operation
          */
-        openForm(options: NavigationApi.EntityFormOptions, parameters?: {[key: string]: string}): Promise<NavigationApi.OpenFormSuccessResponse>;
+        openForm(
+            options: NavigationApi.EntityFormOptions,
+            parameters?: { [key: string]: string },
+        ): Promise<NavigationApi.OpenFormSuccessResponse>;
 
         /**
          * Open url, including file urls.
@@ -378,7 +1109,6 @@ declare namespace ComponentFramework {
 
         /**
          * Current user's language id
-         *
          */
         languageId: number;
 
@@ -426,7 +1156,11 @@ declare namespace ComponentFramework {
          * @param privilegeType privilege type i.e. Create, Read, Write etc.
          * @param privilegeDepth privilege depth i.e. basic, Global etc.
          */
-        hasEntityPrivilege(entityTypeName: string, privilegeType: PropertyHelper.Types.PrivilegeType, privilegeDepth: PropertyHelper.Types.PrivilegeDepth): boolean;
+        hasEntityPrivilege(
+            entityTypeName: string,
+            privilegeType: PropertyHelper.Types.PrivilegeType,
+            privilegeDepth: PropertyHelper.Types.PrivilegeDepth,
+        ): boolean;
 
         /**
          * Opens a lookup dialog allowing the user to select one or more entities.
@@ -468,18 +1202,22 @@ declare namespace ComponentFramework {
          * Retrieves a collection of entity records.
          * @param entityType logical name of the entity type record to retrieve
          * @param options OData system query options or FetchXML query to retrieve your data.
-         * For support options, please refer to https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/retrievemultiplerecords
+         * For support options, please refer to https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi/retrievemultiplerecords
          * @param maxPageSize Max number of records to be retrieved per page
          * @returns The deferred object for the result of the operation. An object with interface RetrieveMultipleResponse will be resolved if successful.
          */
-        retrieveMultipleRecords(entityType: string, options?: string, maxPageSize?: number): Promise<WebApi.RetrieveMultipleResponse>;
+        retrieveMultipleRecords(
+            entityType: string,
+            options?: string,
+            maxPageSize?: number,
+        ): Promise<WebApi.RetrieveMultipleResponse>;
 
         /**
          * Retrieves an entity record.
          * @param entityType logical name of the entity type record to retrieve
          * @param id GUID of the entity record you want to retrieve.
          * @param options OData system query options, $select and $expand, to retrieve your data.
-         * For support options, please refer to https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/retrieverecord
+         * For support options, please refer to https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi/retrieverecord
          * @returns The deferred object for the result of the operation. A JSON object with the retrieved properties and values will be resolved if successful.
          */
         retrieveRecord(entityType: string, id: string, options?: string): Promise<WebApi.Entity>;
@@ -672,9 +1410,10 @@ declare namespace ComponentFramework {
          * DateTime Field Behavior options
          * 0 - None - Unknown DateTime Behavior,
          * 1 - UserLocal - Respect user local time. Dates stored as UTC,
-         * 3 - TimeZoneIndependent - Dates and time stored without conversion to UTC
+         * 2 - DateOnly. Dates with time stored as midnight without conversion to UTC.
+         * 3 - TimeZoneIndependent - Dates and time stored without conversion to UTC.
          */
-        type DateTimeFieldBehavior = 0 | 1 | 3;
+        type DateTimeFieldBehavior = 0 | 1 | 2 | 3;
     }
 
     /**
@@ -701,7 +1440,7 @@ declare namespace ComponentFramework {
          */
         interface AlertDialogStrings {
             /**
-             * The message to be displyed in the alert dialog.
+             * The message to be displayed in the alert dialog.
              */
             text: string;
 
@@ -831,7 +1570,7 @@ declare namespace ComponentFramework {
 
             /**
              * If you just set errorCode, the message for the error code is automatically retrieved from the server and displayed in the error dialog. If you specify an errorCode value,
-             * an error dialog with a default error message is displyed.
+             * an error dialog with a default error message is displayed.
              */
             errorCode?: number | undefined;
 
@@ -1223,17 +1962,17 @@ declare namespace ComponentFramework {
             /**
              * Whether the lookup allows more than one item to be selected.
              */
-            allowMultiSelect: boolean;
+            allowMultiSelect?: boolean;
 
             /**
              * The default entity type.
              */
-            defaultEntityType: string;
+            defaultEntityType?: string;
 
             /**
              * The default view to use.
              */
-            defaultViewId: string;
+            defaultViewId?: string;
 
             /**
              * The entity types to display.
@@ -1243,7 +1982,7 @@ declare namespace ComponentFramework {
             /**
              * The views to be available in the view picker. Only System views are supported (not user views).
              */
-            viewIds: string[];
+            viewIds?: string[];
         }
     }
 
@@ -1278,7 +2017,7 @@ declare namespace ComponentFramework {
         /**
          * The record id. Read-only.
          */
-        id: { guid: string; };
+        id: { guid: string };
 
         /**
          * The entity logical name. Read-only.
@@ -1337,7 +2076,7 @@ declare namespace ComponentFramework {
         mimeType: string;
     }
 
-///////////////////// Parameter ////////////////////////
+    ///////////////////// Parameter ////////////////////////
 
     namespace PropertyTypes {
         /**
@@ -1597,7 +2336,7 @@ declare namespace ComponentFramework {
             type PrivilegeType = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
             /**
-             * Entity Priviledge Depth
+             * Entity Privilege Depth
              * -1 - None
              * 0 - Basic
              * 1 - Local
@@ -1619,7 +2358,7 @@ declare namespace ComponentFramework {
 
         /**
          * Entity metadata refer to online documentation
-         * https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-utility/getentitymetadata
+         * https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/xrm-utility/getentitymetadata
          */
         interface EntityMetadata {
             [key: string]: any;
@@ -1724,8 +2463,43 @@ declare namespace ComponentFramework {
                  * Supported Condition Operator for filtering expression condition
                  * This is subset of full condition operators list defined in https://docs.microsoft.com/en-us/dotnet/api/microsoft.xrm.sdk.query.conditionoperator
                  */
-                type ConditionOperator = -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 12 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 22 | 23
-                                            | 25 | 26 | 27 | 28 | 29 | 33 | 34 | 37 | 38 | 49 | 70 | 75 | 76 | 77 | 78 | 79 | 87;
+                type ConditionOperator =
+                    | -1
+                    | 0
+                    | 1
+                    | 2
+                    | 3
+                    | 4
+                    | 5
+                    | 6
+                    | 8
+                    | 12
+                    | 14
+                    | 15
+                    | 16
+                    | 17
+                    | 18
+                    | 19
+                    | 20
+                    | 22
+                    | 23
+                    | 25
+                    | 26
+                    | 27
+                    | 28
+                    | 29
+                    | 33
+                    | 34
+                    | 37
+                    | 38
+                    | 49
+                    | 70
+                    | 75
+                    | 76
+                    | 77
+                    | 78
+                    | 79
+                    | 87;
 
                 /**
                  * Supported Filter Operator for filtering expression linkage
@@ -1849,7 +2623,7 @@ declare namespace ComponentFramework {
                 isHidden?: boolean | undefined;
 
                 /**
-                 * Is specific column the primary attrribute of the view's entity
+                 * Is specific column the primary attribute of the view's entity
                  */
                 isPrimary?: boolean | undefined;
 
@@ -1860,7 +2634,7 @@ declare namespace ComponentFramework {
             }
 
             /**
-             * Base interface for dataset record result. Supports value retrival by column name.
+             * Base interface for dataset record result. Supports value retrieval by column name.
              */
             interface EntityRecord {
                 /**
@@ -1878,7 +2652,18 @@ declare namespace ComponentFramework {
                  * Get the raw value of the record's column
                  * @param columnName Column name of the record
                  */
-                getValue(columnName: string): string | Date | number | number[] | boolean | EntityReference | EntityReference[] | LookupValue | LookupValue[];
+                getValue(
+                    columnName: string,
+                ):
+                    | string
+                    | Date
+                    | number
+                    | number[]
+                    | boolean
+                    | EntityReference
+                    | EntityReference[]
+                    | LookupValue
+                    | LookupValue[];
 
                 /**
                  * Get the object that encapsulates an Entity Reference as a plain object

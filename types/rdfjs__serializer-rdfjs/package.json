@@ -1,6 +1,24 @@
 {
     "private": true,
+    "name": "@types/rdfjs__serializer-rdfjs",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/rdfjs-base/serializer-rdfjs"
+    ],
     "dependencies": {
-      "rdf-js": "^4.0.2"
-    }
-  }
+        "@rdfjs/types": ">=1.0.0"
+    },
+    "devDependencies": {
+        "@types/rdfjs__serializer-rdfjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "tpluscode",
+            "githubUsername": "tpluscode"
+        },
+        {
+            "name": "Benjamin Hofstetter",
+            "githubUsername": "BenjaminHofstetter"
+        }
+    ]
+}

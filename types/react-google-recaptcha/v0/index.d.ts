@@ -1,10 +1,4 @@
-// Type definitions for React Google Recaptcha 0.10
-// Project: https://github.com/dozoisch/react-google-recaptcha
-// Definitions by: Koala Human <https://github.com/KoalaHuman>, Tom Sturge <https://github.com/tomsturge>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
+import * as React from "react";
 
 export default ReCAPTCHA;
 
@@ -46,7 +40,7 @@ export interface ReCAPTCHAProps {
      *     It will also be called with null, when captcha expires
      *  @param token string or null
      */
-    onChange?: ((token: string|null) => void) | undefined;
+    onChange?: ((token: string | null) => void) | undefined;
     /**
      *  Optional light or dark theme of the widget
      *  @default "light"

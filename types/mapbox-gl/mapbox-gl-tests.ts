@@ -1,17 +1,17 @@
-import { IControl } from 'mapbox-gl';
-import mapboxgl = require('mapbox-gl');
+import { IControl } from "mapbox-gl";
+import mapboxgl = require("mapbox-gl");
 
 // These examples adapted from Mapbox's examples (https://www.mapbox.com/mapbox-gl-js/examples)
 
 /**
  * Set API Access Token
  */
-mapboxgl.accessToken = 'foo';
+mapboxgl.accessToken = "foo";
 
 /**
  * Set Base API URL
  */
-mapboxgl.baseApiUrl = 'https://example.com';
+mapboxgl.baseApiUrl = "https://example.com";
 
 /**
  * Set amount of workers
@@ -37,7 +37,7 @@ expectType<mapboxgl.PluginStatus>(mapboxgl.getRTLTextPluginStatus());
  * Set RTL Text Plugin
  */
 // $ExpectType void
-mapboxgl.setRTLTextPlugin('https://github.com', e => {}, false);
+mapboxgl.setRTLTextPlugin("https://github.com", e => {}, false);
 
 // $ExpectType void
 mapboxgl.prewarm();
@@ -49,8 +49,8 @@ mapboxgl.clearPrewarmedResources();
  * Display a Map
  */
 let map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v8',
+    container: "map",
+    style: "mapbox://styles/mapbox/streets-v8",
     center: [-50, 50],
     zoom: 10,
     minZoom: 1,
@@ -59,7 +59,7 @@ let map = new mapboxgl.Map({
     maxPitch: 60,
     interactive: true,
     attributionControl: true,
-    customAttribution: '© YourCo',
+    customAttribution: "© YourCo",
     bearingSnap: 7,
     scrollZoom: true,
     maxBounds: [
@@ -70,10 +70,10 @@ let map = new mapboxgl.Map({
     dragRotate: false,
     dragPan: true,
     antialias: true,
-    accessToken: 'some-token',
+    accessToken: "some-token",
     locale: {
-        'FullscreenControl.Enter': 'Розгорнути на весь екран',
-        'FullscreenControl.Exit': 'Вийти з повоноеранного режиму',
+        "FullscreenControl.Enter": "Розгорнути на весь екран",
+        "FullscreenControl.Exit": "Вийти з повоноеранного режиму",
     },
     optimizeForTerrain: false,
 });
@@ -82,7 +82,7 @@ let map = new mapboxgl.Map({
  * Initialize map with bounds
  */
 expectType<mapboxgl.MapboxOptions>({
-    container: 'map',
+    container: "map",
     bounds: new mapboxgl.LngLatBounds([-100, -90, 100, 90]),
     fitBoundsOptions: {
         padding: 0,
@@ -93,7 +93,7 @@ expectType<mapboxgl.MapboxOptions>({
     },
 });
 expectType<mapboxgl.MapboxOptions>({
-    container: 'map',
+    container: "map",
     bounds: [
         [-100, -90],
         [100, 90],
@@ -103,12 +103,12 @@ expectType<mapboxgl.MapboxOptions>({
     },
 });
 expectType<mapboxgl.MapboxOptions>({
-    container: 'map',
+    container: "map",
     bounds: [-100, -90, 100, 90],
 });
 
 expectType<mapboxgl.MapboxOptions>({
-    container: 'map',
+    container: "map",
     touchPitch: true,
 });
 
@@ -116,17 +116,17 @@ expectType<mapboxgl.MapboxOptions>({
  * Check `touchPitch`, `touchZoomRotate`, `scrollZoom` to accept Object
  */
 expectType<mapboxgl.MapboxOptions>({
-    container: 'map',
-    touchPitch: { around: 'center' },
-    touchZoomRotate: { around: 'center' },
-    scrollZoom: { around: 'center' },
+    container: "map",
+    touchPitch: { around: "center" },
+    touchZoomRotate: { around: "center" },
+    scrollZoom: { around: "center" },
 });
 
 /**
  * Check `dragPan` to accept Object
  */
 expectType<mapboxgl.MapboxOptions>({
-    container: 'map',
+    container: "map",
     dragPan: {
         linearity: 0.3,
         easing: t => t,
@@ -139,35 +139,35 @@ expectType<mapboxgl.MapboxOptions>({
  * Check `cooperativeGestures`
  */
 expectType<mapboxgl.MapboxOptions>({
-    container: 'map',
+    container: "map",
     cooperativeGestures: true,
 });
 
 /**
  * Create and style marker clusters
  */
-map.on('load', function () {
+map.on("load", function() {
     // Add a new source from our GeoJSON data and set the
     // 'cluster' option to true.
-    map.addSource('data', {
-        type: 'geojson',
-        data: '/data.geojson',
+    map.addSource("data", {
+        type: "geojson",
+        data: "/data.geojson",
         cluster: true,
         clusterMaxZoom: 14, // Max zoom to cluster points on
         clusterMinPoints: 8,
         clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
-        clusterProperties: { sum: ['+', ['get', 'property']] },
-        filter: 'something',
+        clusterProperties: { sum: ["+", ["get", "property"]] },
+        filter: "something",
     });
 
     map.addLayer({
-        id: 'layer',
-        type: 'symbol',
-        source: 'data',
+        id: "layer",
+        type: "symbol",
+        source: "data",
         layout: {
-            'icon-image': 'marker-15',
-            'text-field': ['get', 'property'],
-            'text-max-width': {
+            "icon-image": "marker-15",
+            "text-field": ["get", "property"],
+            "text-max-width": {
                 stops: [
                     [10, 2],
                     [12, 5],
@@ -176,50 +176,49 @@ map.on('load', function () {
         },
     });
 
-    var layers: [number, string][] = [
-        [150, '#f28cb1'],
-        [20, '#f1f075'],
-        [0, '#51bbd6'],
+    var layers: Array<[number, string]> = [
+        [150, "#f28cb1"],
+        [20, "#f1f075"],
+        [0, "#51bbd6"],
     ];
 
-    layers.forEach(function (layer, i) {
+    layers.forEach(function(layer, i) {
         map.addLayer({
-            id: 'cluster-' + i,
-            type: 'circle',
-            source: 'data',
+            id: "cluster-" + i,
+            type: "circle",
+            source: "data",
             paint: {
-                'circle-color': layer[1],
-                'circle-radius': 18,
+                "circle-color": layer[1],
+                "circle-radius": 18,
             },
-            filter:
-                i == 0
-                    ? ['>=', 'point_count', layer[0]]
-                    : ['all', ['>=', 'point_count', layer[0]], ['<', 'point_count', layers[i - 1][0]]],
+            filter: i == 0
+                ? [">=", "point_count", layer[0]]
+                : ["all", [">=", "point_count", layer[0]], ["<", "point_count", layers[i - 1][0]]],
         });
     });
 
     // Add a layer for the clusters' count labels
     map.addLayer({
-        id: 'cluster-count',
-        type: 'symbol',
-        source: 'data',
+        id: "cluster-count",
+        type: "symbol",
+        source: "data",
         layout: {
-            'text-field': '{point_count}',
-            'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
-            'text-size': 12,
+            "text-field": "{point_count}",
+            "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+            "text-size": 12,
         },
     });
 
     /**
      * Add a GeoJSON line
      */
-    map.addSource('route', {
-        type: 'geojson',
+    map.addSource("route", {
+        type: "geojson",
         data: {
-            type: 'Feature',
+            type: "Feature",
             properties: {},
             geometry: {
-                type: 'LineString',
+                type: "LineString",
                 coordinates: [
                     [-122.48369693756104, 37.83381888486939],
                     [-122.48348236083984, 37.83317489144141],
@@ -245,40 +244,40 @@ map.on('load', function () {
                 ],
             },
         },
-        promoteId: { original: 'COUNTY' },
+        promoteId: { original: "COUNTY" },
     });
 
     map.addLayer({
-        id: 'route',
-        type: 'line',
-        source: 'route',
+        id: "route",
+        type: "line",
+        source: "route",
         layout: {
-            'line-join': 'round',
-            'line-cap': 'round',
+            "line-join": "round",
+            "line-cap": "round",
         },
         paint: {
-            'line-color': '#888',
-            'line-width': 8,
-            'line-dasharray': ['step', ['zoom'], ['literal', [1, 0]], 15, ['literal', [1.75, 1]]],
+            "line-color": "#888",
+            "line-width": 8,
+            "line-dasharray": ["step", ["zoom"], ["literal", [1, 0]], 15, ["literal", [1.75, 1]]],
         },
     });
 
     // Add a vector source
-    map.addSource('vector-source', {
-        type: 'vector',
-        promoteId: { original: 'COUNTY' },
+    map.addSource("vector-source", {
+        type: "vector",
+        promoteId: { original: "COUNTY" },
     });
 
     // Add a custom layer
     map.addLayer({
-        id: 'custom',
-        type: 'custom',
-        renderingMode: '3d',
-        onRemove: function (map, gl) {
+        id: "custom",
+        type: "custom",
+        renderingMode: "3d",
+        onRemove: function(map, gl) {
             map; // $ExpectType Map
             gl; // $ExpectType WebGLRenderingContext
         },
-        render: function (gl, matrix) {
+        render: function(gl, matrix) {
             gl; // $ExpectType WebGLRenderingContext
             matrix; // $ExpectType number[]
         },
@@ -297,7 +296,7 @@ map.setTerrain(null);
 map.setTerrain(undefined);
 // $ExpectType Map
 map.setTerrain({
-    source: 'something',
+    source: "something",
     exaggeration: 10,
 });
 
@@ -322,20 +321,30 @@ map.flyTo({
     speed: 0.5,
     curve: 1,
     screenSpeed: 1,
-    easing: function (t: number) {
+    easing: function(t: number) {
         return t;
     },
     maxDuration: 1,
 });
 
+// RotateTo
+map.rotateTo(45, {
+    duration: 2000,
+    animate: true,
+    easing: (t) => t,
+    center: [-122.3085, 47.5505],
+    zoom: 10,
+    pitch: 60,
+});
+
 // QueryRenderedFeatures
-const features = map.queryRenderedFeatures([0, 0], { layers: ['custom'], validate: false });
+const features = map.queryRenderedFeatures([0, 0], { layers: ["custom"], validate: false });
 features; // $ExpectType MapboxGeoJSONFeature[]
 
 // querySourceFeatures
-const features2 = map.querySourceFeatures('some_source', {
-    sourceLayer: 'source_layer',
-    filter: ['all'],
+const features2 = map.querySourceFeatures("some_source", {
+    sourceLayer: "source_layer",
+    filter: ["all"],
     validate: null,
 });
 features2; // $ExpectType MapboxGeoJSONFeature[]
@@ -345,27 +354,27 @@ features2; // $ExpectType MapboxGeoJSONFeature[]
  */
 var geoJSONSourceObj = new mapboxgl.GeoJSONSource({
     data: {
-        type: 'FeatureCollection',
+        type: "FeatureCollection",
         features: [
             {
-                type: 'Feature',
+                type: "Feature",
                 properties: null,
                 geometry: {
-                    type: 'Point',
+                    type: "Point",
                     coordinates: [-50, 0],
                 },
             },
         ],
     },
 });
-map.addSource('some id', geoJSONSourceObj); // add
-map.removeSource('some id'); // remove
+map.addSource("some id", geoJSONSourceObj); // add
+map.removeSource("some id"); // remove
 
 /**
  * ImageSource
  */
 var imageSourceObj = new mapboxgl.ImageSource({
-    url: '/foo.png',
+    url: "/foo.png",
     coordinates: [
         [-76.54335737228394, 39.18579907229748],
         [-76.52803659439087, 39.1838364847587],
@@ -373,11 +382,11 @@ var imageSourceObj = new mapboxgl.ImageSource({
         [-76.54520273208618, 39.17876344106642],
     ],
 });
-map.addSource('some id', imageSourceObj); // add
-map.removeSource('some id'); // remove
+map.addSource("some id", imageSourceObj); // add
+map.removeSource("some id"); // remove
 
 imageSourceObj.updateImage({
-    url: '/foo.png',
+    url: "/foo.png",
     coordinates: [
         [-76.54335737228394, 39.18579907229748],
         [-76.52803659439087, 39.1838364847587],
@@ -397,7 +406,7 @@ imageSourceObj.setCoordinates([
  * Video Source
  */
 var videoSourceObj = new mapboxgl.VideoSource({
-    urls: ['/blah.mp4', '/blah.webm'],
+    urls: ["/blah.mp4", "/blah.webm"],
     coordinates: [
         [-76.54335737228394, 39.18579907229748],
         [-76.52803659439087, 39.1838364847587],
@@ -405,33 +414,42 @@ var videoSourceObj = new mapboxgl.VideoSource({
         [-76.54520273208618, 39.17876344106642],
     ],
 });
-map.addSource('some id', videoSourceObj); // add
-map.removeSource('some id'); // remove
+map.addSource("some id", videoSourceObj); // add
+map.removeSource("some id"); // remove
+
+/**
+ * Raster Source
+ */
+const rasterSource = map.getSource("tile-source") as mapboxgl.RasterSourceImpl;
+// $ExpectType RasterSourceImpl
+rasterSource.setTiles(["a", "b"]);
+// $ExpectType RasterSourceImpl
+rasterSource.setUrl("https://github.com");
 
 /**
  * Vector Source
  */
-const vectorSource = map.getSource('tile-source') as mapboxgl.VectorSourceImpl;
+const vectorSource = map.getSource("tile-source") as mapboxgl.VectorSourceImpl;
 // $ExpectType VectorSourceImpl
-vectorSource.setTiles(['a', 'b']);
+vectorSource.setTiles(["a", "b"]);
 // $ExpectType VectorSourceImpl
-vectorSource.setUrl('https://github.com');
+vectorSource.setUrl("https://github.com");
 
 /**
  * Add Raster Source /// made URL optional to allow only tiles.
  */
-map.addSource('radar', {
-    type: 'raster',
+map.addSource("radar", {
+    type: "raster",
     tiles: [
-        'https://nowcoast.noaa.gov/arcgis/services/nowcoast/radar_meteo_imagery_nexrad_time/MapServer/WmsServer?bbox={bbox-epsg-3857}&service=WMS&request=GetMap&version=1.3.0&layers=1&styles=&format=image/png&transparent=true&height=256&width=256&crs=EPSG:3857',
+        "https://nowcoast.noaa.gov/arcgis/services/nowcoast/radar_meteo_imagery_nexrad_time/MapServer/WmsServer?bbox={bbox-epsg-3857}&service=WMS&request=GetMap&version=1.3.0&layers=1&styles=&format=image/png&transparent=true&height=256&width=256&crs=EPSG:3857",
     ],
     tileSize: 256,
 });
 
 map.addLayer({
-    id: 'radar',
-    type: 'raster',
-    source: 'radar',
+    id: "radar",
+    type: "raster",
+    source: "radar",
     paint: {},
 });
 
@@ -440,13 +458,13 @@ map.addLayer({
  */
 let featureIdentifier = {
     id: 1337,
-    source: 'source-id',
-    sourceLayer: 'liam-was-here',
+    source: "source-id",
+    sourceLayer: "liam-was-here",
 };
 expectType<mapboxgl.FeatureIdentifier>(featureIdentifier);
 map.setFeatureState(featureIdentifier, { someState: true, someOtherState: 123 });
 map.getFeatureState(featureIdentifier);
-map.removeFeatureState(featureIdentifier, 'someState');
+map.removeFeatureState(featureIdentifier, "someState");
 map.removeFeatureState(featureIdentifier);
 
 /**
@@ -457,26 +475,26 @@ const popupOptions: mapboxgl.PopupOptions = {
     closeOnMove: true,
     closeButton: true,
     focusAfterOpen: true,
-    anchor: 'top-right',
+    anchor: "top-right",
     offset: {
         top: [0, 0] as [number, number],
         bottom: [25, -50] as [number, number],
     },
-    className: 'custom-class',
-    maxWidth: '400px',
+    className: "custom-class",
+    maxWidth: "400px",
 };
 
 const popup = new mapboxgl.Popup(popupOptions)
     .setLngLat([-50, 50])
     .trackPointer()
-    .setHTML('<h1>Hello World!</h1>')
-    .setMaxWidth('none')
+    .setHTML("<h1>Hello World!</h1>")
+    .setMaxWidth("none")
     .addTo(map);
 popup.getMaxWidth();
 popup.getElement(); // $ExpectType HTMLElement
-popup.addClassName('class1');
-popup.removeClassName('class2');
-popup.toggleClassName('class3');
+popup.addClassName("class1");
+popup.removeClassName("class2");
+popup.toggleClassName("class3");
 // $ExpectType Popup
 popup.setOffset([10, 20]);
 
@@ -485,16 +503,16 @@ popup.setOffset([10, 20]);
  */
 const terrainStyle: mapboxgl.Style = {
     version: 8,
-    name: 'terrain',
+    name: "terrain",
     sources: {
         dem: {
-            type: 'raster-dem',
-            url: 'mapbox://mapbox.mapbox-terrain-dem-v1',
+            type: "raster-dem",
+            url: "mapbox://mapbox.mapbox-terrain-dem-v1",
         },
     },
     layers: [],
     terrain: {
-        source: 'dem',
+        source: "dem",
         exaggeration: 1.5,
     },
 };
@@ -504,15 +522,15 @@ const terrainStyle: mapboxgl.Style = {
  */
 var mapStyle: mapboxgl.Style = {
     version: 8,
-    name: 'Dark',
+    name: "Dark",
     sources: {
         mapbox: {
-            type: 'vector',
-            url: 'mapbox://mapbox.mapbox-streets-v6',
+            type: "vector",
+            url: "mapbox://mapbox.mapbox-streets-v6",
         },
         overlay: {
-            type: 'image',
-            url: '/mapbox-gl-js/assets/radar.gif',
+            type: "image",
+            url: "/mapbox-gl-js/assets/radar.gif",
             coordinates: [
                 [-50, 40],
                 [0, 40],
@@ -521,44 +539,44 @@ var mapStyle: mapboxgl.Style = {
             ],
         },
     },
-    sprite: 'mapbox://sprites/mapbox/dark-v8',
-    glyphs: 'mapbox://fonts/mapbox/{fontstack}/{range}.pbf',
+    sprite: "mapbox://sprites/mapbox/dark-v8",
+    glyphs: "mapbox://fonts/mapbox/{fontstack}/{range}.pbf",
     layers: [
         {
-            id: 'background',
-            type: 'background',
-            paint: { 'background-color': '#111' },
+            id: "background",
+            type: "background",
+            paint: { "background-color": "#111" },
         },
         {
-            id: 'water',
-            source: 'mapbox',
-            'source-layer': 'water',
-            type: 'fill',
-            paint: { 'fill-color': '#2c2c2c' },
+            id: "water",
+            source: "mapbox",
+            "source-layer": "water",
+            type: "fill",
+            paint: { "fill-color": "#2c2c2c" },
         },
         {
-            id: 'boundaries',
-            source: 'mapbox',
-            'source-layer': 'admin',
-            type: 'line',
-            paint: { 'line-color': '#797979', 'line-dasharray': [2, 2, 6, 2] },
-            filter: ['all', ['==', 'maritime', 0]],
+            id: "boundaries",
+            source: "mapbox",
+            "source-layer": "admin",
+            type: "line",
+            paint: { "line-color": "#797979", "line-dasharray": [2, 2, 6, 2] },
+            filter: ["all", ["==", "maritime", 0]],
         },
         {
-            id: 'overlay',
-            source: 'overlay',
-            type: 'raster',
-            paint: { 'raster-opacity': 0.85 },
+            id: "overlay",
+            source: "overlay",
+            type: "raster",
+            paint: { "raster-opacity": 0.85 },
         },
         {
-            id: 'cities',
-            source: 'mapbox',
-            'source-layer': 'place_label',
-            type: 'symbol',
+            id: "cities",
+            source: "mapbox",
+            "source-layer": "place_label",
+            type: "symbol",
             layout: {
-                'text-field': '{name_en}',
-                'text-font': ['DIN Offc Pro Bold', 'Arial Unicode MS Bold'],
-                'text-size': {
+                "text-field": "{name_en}",
+                "text-font": ["DIN Offc Pro Bold", "Arial Unicode MS Bold"],
+                "text-size": {
                     stops: [
                         [4, 9],
                         [6, 12],
@@ -566,63 +584,63 @@ var mapStyle: mapboxgl.Style = {
                 },
             },
             paint: {
-                'text-color': '#969696',
-                'text-halo-width': 2,
-                'text-halo-color': 'rgba(0, 0, 0, 0.85)',
+                "text-color": "#969696",
+                "text-halo-width": 2,
+                "text-halo-color": "rgba(0, 0, 0, 0.85)",
             },
         },
         {
-            id: 'states',
-            source: 'mapbox',
-            'source-layer': 'state_label',
-            type: 'symbol',
+            id: "states",
+            source: "mapbox",
+            "source-layer": "state_label",
+            type: "symbol",
             layout: {
-                'text-transform': 'uppercase',
-                'text-field': '{name_en}',
-                'text-font': [
-                    'step',
-                    ['zoom'],
-                    ['literal', ['DIN Offc Pro Regular', 'Arial Unicode MS Regular']],
+                "text-transform": "uppercase",
+                "text-field": "{name_en}",
+                "text-font": [
+                    "step",
+                    ["zoom"],
+                    ["literal", ["DIN Offc Pro Regular", "Arial Unicode MS Regular"]],
                     8,
                     [
-                        'step',
-                        ['get', 'symbolrank'],
-                        ['literal', ['DIN Offc Pro Medium', 'Arial Unicode MS Regular']],
+                        "step",
+                        ["get", "symbolrank"],
+                        ["literal", ["DIN Offc Pro Medium", "Arial Unicode MS Regular"]],
                         11,
-                        ['literal', ['DIN Offc Pro Regular', 'Arial Unicode MS Regular']],
+                        ["literal", ["DIN Offc Pro Regular", "Arial Unicode MS Regular"]],
                     ],
                 ],
-                'text-justify': [
-                    'step',
-                    ['zoom'],
+                "text-justify": [
+                    "step",
+                    ["zoom"],
                     [
-                        'match',
-                        ['get', 'text_anchor'],
-                        ['bottom', 'top'],
-                        'center',
-                        ['left', 'bottom-left', 'top-left'],
-                        'left',
-                        ['right', 'bottom-right', 'top-right'],
-                        'right',
-                        'center',
+                        "match",
+                        ["get", "text_anchor"],
+                        ["bottom", "top"],
+                        "center",
+                        ["left", "bottom-left", "top-left"],
+                        "left",
+                        ["right", "bottom-right", "top-right"],
+                        "right",
+                        "center",
                     ],
                     8,
-                    'center',
+                    "center",
                 ],
-                'text-letter-spacing': 0.15,
-                'text-max-width': 7,
-                'text-size': {
+                "text-letter-spacing": 0.15,
+                "text-max-width": 7,
+                "text-size": {
                     stops: [
                         [4, 10],
                         [6, 14],
                     ],
                 },
             },
-            filter: ['>=', 'area', 80000],
+            filter: [">=", "area", 80000],
             paint: {
-                'text-color': '#969696',
-                'text-halo-width': 2,
-                'text-halo-color': 'rgba(0, 0, 0, 0.85)',
+                "text-color": "#969696",
+                "text-halo-width": 2,
+                "text-halo-color": "rgba(0, 0, 0, 0.85)",
             },
         },
     ],
@@ -635,13 +653,13 @@ var videoStyle: mapboxgl.Style = {
     version: 8,
     sources: {
         satellite: {
-            type: 'raster',
-            url: 'mapbox://mapbox.satellite',
+            type: "raster",
+            url: "mapbox://mapbox.satellite",
             tileSize: 256,
         },
         video: {
-            type: 'video',
-            urls: ['drone.mp4', 'drone.webm'],
+            type: "video",
+            urls: ["drone.mp4", "drone.webm"],
             coordinates: [
                 [-122.51596391201019, 37.56238816766053],
                 [-122.51467645168304, 37.56410183312965],
@@ -652,27 +670,27 @@ var videoStyle: mapboxgl.Style = {
     },
     layers: [
         {
-            id: 'background',
-            type: 'background',
+            id: "background",
+            type: "background",
             paint: {
-                'background-color': 'rgb(4,7,14)',
+                "background-color": "rgb(4,7,14)",
             },
         },
         {
-            id: 'satellite',
-            type: 'raster',
-            source: 'satellite',
+            id: "satellite",
+            type: "raster",
+            source: "satellite",
         },
         {
-            id: 'video',
-            type: 'raster',
-            source: 'video',
+            id: "video",
+            type: "raster",
+            source: "video",
         },
     ],
 };
 
 map = new mapboxgl.Map({
-    container: 'map',
+    container: "map",
     minZoom: 14,
     zoom: 17,
     center: [-122.514426, 37.562984],
@@ -682,7 +700,7 @@ map = new mapboxgl.Map({
 });
 
 map = new mapboxgl.Map({
-    container: 'map',
+    container: "map",
     minZoom: 14,
     zoom: 17,
     center: [-122.514426, 37.562984],
@@ -692,12 +710,12 @@ map = new mapboxgl.Map({
 });
 
 map = new mapboxgl.Map({
-    container: 'map',
-    hash: 'customHash',
+    container: "map",
+    hash: "customHash",
 });
 
-const syncOnce: mapboxgl.Map = map.once('load', () => {});
-const asyncOnce: Promise<mapboxgl.MapboxEvent> = map.once('load');
+const syncOnce: mapboxgl.Map = map.once("load", () => {});
+const asyncOnce: Promise<mapboxgl.MapboxEvent> = map.once("load");
 
 /**
  * Marker
@@ -705,19 +723,20 @@ const asyncOnce: Promise<mapboxgl.MapboxEvent> = map.once('load');
 let marker = new mapboxgl.Marker(undefined, {
     element: undefined,
     offset: [10, 0],
-    anchor: 'bottom-right',
-    color: 'green',
+    anchor: "bottom-right",
+    color: "green",
     draggable: false,
     clickTolerance: 10,
     rotation: 15,
-    rotationAlignment: 'map',
-    pitchAlignment: 'viewport',
+    rotationAlignment: "map",
+    pitchAlignment: "viewport",
     scale: 5.5,
+    occludedOpacity: 0.5,
 })
     .setLngLat([-50, 50])
-    .setPitchAlignment('map')
+    .setPitchAlignment("map")
     .setRotation(100)
-    .setRotationAlignment('viewport')
+    .setRotationAlignment("viewport")
     .addTo(map);
 
 // $ExpectType Alignment
@@ -728,6 +747,12 @@ marker.getRotation();
 
 // $ExpectType Alignment
 marker.getRotationAlignment();
+
+// $ExpectType number
+marker.getOccludedOpacity();
+
+// $ExpectType Marker
+marker.setOccludedOpacity(1);
 
 marker.remove();
 
@@ -771,8 +796,8 @@ const geolocateControl = new mapboxgl.GeolocateControl({ showAccuracyCircle: tru
 /*
  * AttributionControl
  */
-let attributionControl = new mapboxgl.AttributionControl({ compact: false, customAttribution: '© YourCo' });
-attributionControl.on('click', () => {});
+let attributionControl = new mapboxgl.AttributionControl({ compact: false, customAttribution: "© YourCo" });
+attributionControl.on("click", () => {});
 
 /*
  * FullscreenControl
@@ -780,7 +805,7 @@ attributionControl.on('click', () => {});
 new mapboxgl.FullscreenControl();
 new mapboxgl.FullscreenControl(null);
 new mapboxgl.FullscreenControl({});
-new mapboxgl.FullscreenControl({ container: document.querySelector('body') });
+new mapboxgl.FullscreenControl({ container: document.querySelector("body") });
 
 // $ExpectType boolean
 map.hasControl(attributionControl);
@@ -805,8 +830,29 @@ interface EitherType {
     <A, B, C, D, E, F>(a: A, b: B, c: C, d: D, e: E, f: F): A | B | C | D | E | F;
     <A, B, C, D, E, F, G>(a: A, b: B, c: C, d: D, e: E, f: F, g: G): A | B | C | D | E | F | G;
     <A, B, C, D, E, F, G, H>(a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H): A | B | C | D | E | F | G | H;
-    <A, B, C, D, E, F, G, H, I>(a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H, i: I): A | B | C | D | E | F | G | H | I;
-    <A, B, C, D, E, F, G, H, I, J>(a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H, i: I, j: J): A | B | C | D | E | F | G | H | I | J;
+    <A, B, C, D, E, F, G, H, I>(
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+        g: G,
+        h: H,
+        i: I,
+    ): A | B | C | D | E | F | G | H | I;
+    <A, B, C, D, E, F, G, H, I, J>(
+        a: A,
+        b: B,
+        c: C,
+        d: D,
+        e: E,
+        f: F,
+        g: G,
+        h: H,
+        i: I,
+        j: J,
+    ): A | B | C | D | E | F | G | H | I | J;
     /* Add more as needed */
 }
 
@@ -888,9 +934,9 @@ mercatorcoordinate.meterInMercatorCoordinateUnits(); // $ExpectType number
 expectType<mapboxgl.TransformRequestFunction>((url: string) => ({ url }));
 expectType<mapboxgl.TransformRequestFunction>((url: string, resourceType: mapboxgl.ResourceType) => ({
     url,
-    credentials: 'same-origin',
-    headers: { 'Accept-Encoding': 'compress' },
-    method: 'POST',
+    credentials: "same-origin",
+    headers: { "Accept-Encoding": "compress" },
+    method: "POST",
     collectResourceTiming: true,
 }));
 
@@ -926,7 +972,7 @@ expectType<mapboxgl.CameraForBoundsResult | undefined>(map.cameraForBounds(lngla
 
 expectType<mapboxgl.Map>(map.fitScreenCoordinates([0, 0], pointlike, 1));
 expectType<mapboxgl.Map>(map.fitScreenCoordinates([0, 0], pointlike, 1, cameraOpts));
-expectType<mapboxgl.Map>(map.fitScreenCoordinates([0, 0], pointlike, 1, cameraOpts, { key: 'value' }));
+expectType<mapboxgl.Map>(map.fitScreenCoordinates([0, 0], pointlike, 1, cameraOpts, { key: "value" }));
 
 // $ExpectType void
 map.triggerRepaint();
@@ -935,20 +981,38 @@ map.triggerRepaint();
 map.getPadding();
 
 // $ExpectType Map
-map.setPadding({ top: 10, bottom: 20, left: 30, right: 40 }, { myData: 'MY DATA' });
+map.setPadding({ top: 10, bottom: 20, left: 30, right: 40 }, { myData: "MY DATA" });
+
+map.setPaintProperty("layerId", "layerName", null, { validate: true });
+map.setPaintProperty("layerId", "layerName", null, { validate: false });
+map.setPaintProperty("layerId", "layerName", null, {});
+// @ts-expect-error
+map.setPaintProperty("layerId", "layerName", null, { some_option: "some_string" });
+
+map.setLayoutProperty("layerId", "layerName", null, { validate: true });
+map.setLayoutProperty("layerId", "layerName", null, { validate: false });
+map.setLayoutProperty("layerId", "layerName", null, {});
+// @ts-expect-error
+map.setLayoutProperty("layerId", "layerName", null, { some_option: "some_string" });
+
+map.setLight({ anchor: "viewport", color: "blue", intensity: 0.5 }, { validate: true });
+map.setLight({ anchor: "viewport", color: "blue", intensity: 0.5 }, { validate: false });
+map.setLight({ anchor: "viewport", color: "blue", intensity: 0.5 }, {});
+// @ts-expect-error
+map.setLight({ anchor: "viewport", color: "blue", intensity: 0.5 }, { some_option: "some_string" });
 
 // $ExpectType boolean
 map.showPadding;
 map.showPadding = false;
 
-expectType<mapboxgl.Map>(map.setFilter('layerId', true));
-expectType<mapboxgl.Map>(map.setFilter('layerId', false));
+expectType<mapboxgl.Map>(map.setFilter("layerId", true));
+expectType<mapboxgl.Map>(map.setFilter("layerId", false));
 
-map.setFilter('layerId', true, { validate: true });
-map.setFilter('layerId', true, { validate: null });
-map.setFilter('layerId', true, {});
-// $ExpectError
-map.setFilter('layerId', true, { some_option: 'some_string' });
+map.setFilter("layerId", true, { validate: true });
+map.setFilter("layerId", true, { validate: null });
+map.setFilter("layerId", true, {});
+// @ts-expect-error
+map.setFilter("layerId", true, { some_option: "some_string" });
 
 // $ExpectType Map
 map.setMinZoom(5);
@@ -988,38 +1052,55 @@ map.getMinPitch();
 // $ExpectType number
 map.getMaxPitch();
 
+// $ExpectType Map
+map.setFog({
+    color: "blue",
+    "horizon-blend": 0.5,
+    range: [4, 15],
+    "high-color": "red",
+    "space-color": "black",
+    "star-intensity": 0.5,
+});
+// $ExpectType Map
+map.setFog(null);
+// $ExpectType Map
+map.setFog(undefined);
+
+// $ExpectType Fog | null
+map.getFog();
+
 /*
  * Map Events
  */
 
 // General events
 expectType<mapboxgl.Map>(
-    map.on('load', ev => {
+    map.on("load", ev => {
         expectType<mapboxgl.MapboxEvent>(ev);
         expectType<mapboxgl.Map>(ev.target);
         expectType<undefined>(ev.originalEvent);
     }),
 );
 // $ExpectType Map
-map.on('idle', ev => {
+map.on("idle", ev => {
     ev; // $ExpectType MapboxEvent<undefined> & EventData
 });
 expectType<mapboxgl.Map>(
-    map.on('remove', ev => {
+    map.on("remove", ev => {
         expectType<mapboxgl.MapboxEvent>(ev);
         expectType<mapboxgl.Map>(ev.target);
         expectType<undefined>(ev.originalEvent);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('render', ev => {
+    map.on("render", ev => {
         expectType<mapboxgl.MapboxEvent>(ev);
         expectType<mapboxgl.Map>(ev.target);
         expectType<undefined>(ev.originalEvent);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('resize', ev => {
+    map.on("resize", ev => {
         expectType<mapboxgl.MapboxEvent>(ev);
         expectType<mapboxgl.Map>(ev.target);
         expectType<undefined>(ev.originalEvent);
@@ -1028,7 +1109,7 @@ expectType<mapboxgl.Map>(
 
 // Error event
 expectType<mapboxgl.Map>(
-    map.on('error', ev => {
+    map.on("error", ev => {
         expectType<mapboxgl.ErrorEvent>(ev);
         expectType<Error>(ev.error);
         expectType<undefined>(ev.originalEvent);
@@ -1037,7 +1118,7 @@ expectType<mapboxgl.Map>(
 
 // Mouse events
 expectType<mapboxgl.Map>(
-    map.on('mousedown', ev => {
+    map.on("mousedown", ev => {
         expectType<mapboxgl.MapMouseEvent>(ev);
         expectType<mapboxgl.Map>(ev.target);
         expectType<mapboxgl.LngLat>(ev.lngLat);
@@ -1050,21 +1131,7 @@ expectType<mapboxgl.Map>(
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('mouseup', ev => {
-        expectType<mapboxgl.MapMouseEvent>(ev);
-        expectType<mapboxgl.Map>(ev.target);
-        expectType<mapboxgl.LngLat>(ev.lngLat);
-        expectType<mapboxgl.Point>(ev.point);
-
-        // $ExpectType void
-        ev.preventDefault();
-        expectType<boolean>(ev.defaultPrevented);
-
-        expectType<MouseEvent>(ev.originalEvent);
-    }),
-);
-expectType<mapboxgl.Map>(
-    map.on('click', ev => {
+    map.on("mouseup", ev => {
         expectType<mapboxgl.MapMouseEvent>(ev);
         expectType<mapboxgl.Map>(ev.target);
         expectType<mapboxgl.LngLat>(ev.lngLat);
@@ -1078,7 +1145,7 @@ expectType<mapboxgl.Map>(
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('dblclick', ev => {
+    map.on("click", ev => {
         expectType<mapboxgl.MapMouseEvent>(ev);
         expectType<mapboxgl.Map>(ev.target);
         expectType<mapboxgl.LngLat>(ev.lngLat);
@@ -1092,7 +1159,7 @@ expectType<mapboxgl.Map>(
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('mousemove', ev => {
+    map.on("dblclick", ev => {
         expectType<mapboxgl.MapMouseEvent>(ev);
         expectType<mapboxgl.Map>(ev.target);
         expectType<mapboxgl.LngLat>(ev.lngLat);
@@ -1106,7 +1173,7 @@ expectType<mapboxgl.Map>(
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('mouseover', ev => {
+    map.on("mousemove", ev => {
         expectType<mapboxgl.MapMouseEvent>(ev);
         expectType<mapboxgl.Map>(ev.target);
         expectType<mapboxgl.LngLat>(ev.lngLat);
@@ -1120,7 +1187,7 @@ expectType<mapboxgl.Map>(
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('mouseout', ev => {
+    map.on("mouseover", ev => {
         expectType<mapboxgl.MapMouseEvent>(ev);
         expectType<mapboxgl.Map>(ev.target);
         expectType<mapboxgl.LngLat>(ev.lngLat);
@@ -1134,7 +1201,21 @@ expectType<mapboxgl.Map>(
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('contextmenu', ev => {
+    map.on("mouseout", ev => {
+        expectType<mapboxgl.MapMouseEvent>(ev);
+        expectType<mapboxgl.Map>(ev.target);
+        expectType<mapboxgl.LngLat>(ev.lngLat);
+        expectType<mapboxgl.Point>(ev.point);
+
+        // $ExpectType void
+        ev.preventDefault();
+        expectType<boolean>(ev.defaultPrevented);
+
+        expectType<MouseEvent>(ev.originalEvent);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.on("contextmenu", ev => {
         expectType<mapboxgl.MapMouseEvent>(ev);
         expectType<mapboxgl.Map>(ev.target);
         expectType<mapboxgl.LngLat>(ev.lngLat);
@@ -1150,7 +1231,7 @@ expectType<mapboxgl.Map>(
 
 // Touch events
 expectType<mapboxgl.Map>(
-    map.on('touchcancel', ev => {
+    map.on("touchcancel", ev => {
         expectType<mapboxgl.MapTouchEvent>(ev);
         expectType<mapboxgl.Map>(ev.target);
         expectType<mapboxgl.LngLat>(ev.lngLat);
@@ -1166,7 +1247,7 @@ expectType<mapboxgl.Map>(
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('touchmove', ev => {
+    map.on("touchmove", ev => {
         expectType<mapboxgl.MapTouchEvent>(ev);
         expectType<mapboxgl.Map>(ev.target);
         expectType<mapboxgl.LngLat>(ev.lngLat);
@@ -1182,7 +1263,7 @@ expectType<mapboxgl.Map>(
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('touchend', ev => {
+    map.on("touchend", ev => {
         expectType<mapboxgl.MapTouchEvent>(ev);
         expectType<mapboxgl.Map>(ev.target);
         expectType<mapboxgl.LngLat>(ev.lngLat);
@@ -1198,7 +1279,7 @@ expectType<mapboxgl.Map>(
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('touchstart', ev => {
+    map.on("touchstart", ev => {
         expectType<mapboxgl.MapTouchEvent>(ev);
         expectType<mapboxgl.Map>(ev.target);
         expectType<mapboxgl.LngLat>(ev.lngLat);
@@ -1216,14 +1297,14 @@ expectType<mapboxgl.Map>(
 
 // Context events
 expectType<mapboxgl.Map>(
-    map.on('webglcontextlost', ev => {
+    map.on("webglcontextlost", ev => {
         expectType<mapboxgl.MapContextEvent>(ev);
         expectType<mapboxgl.Map>(ev.target);
         expectType<WebGLContextEvent>(ev.originalEvent);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('webglcontextrestored', ev => {
+    map.on("webglcontextrestored", ev => {
         expectType<mapboxgl.MapContextEvent>(ev);
         expectType<mapboxgl.Map>(ev.target);
         expectType<WebGLContextEvent>(ev.originalEvent);
@@ -1232,157 +1313,251 @@ expectType<mapboxgl.Map>(
 
 // Data events
 expectType<mapboxgl.Map>(
-    map.on('dataloading', ev => {
+    map.on("dataloading", ev => {
         expectType<mapboxgl.MapDataEvent>(ev);
         expectType<mapboxgl.Map>(ev.target);
         expectType<undefined>(ev.originalEvent);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('data', ev => {
+    map.on("data", ev => {
         expectType<mapboxgl.MapDataEvent>(ev);
         expectType<mapboxgl.Map>(ev.target);
         expectType<undefined>(ev.originalEvent);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('tiledataloading', ev => {
+    map.on("tiledataloading", ev => {
         expectType<mapboxgl.MapDataEvent>(ev);
         expectType<mapboxgl.Map>(ev.target);
         expectType<undefined>(ev.originalEvent);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('sourcedataloading', ev => {
+    map.on("sourcedataloading", ev => {
         expectType<mapboxgl.MapSourceDataEvent>(ev);
         expectType<mapboxgl.Map>(ev.target);
         expectType<undefined>(ev.originalEvent);
-        expectType<'source'>(ev.dataType);
+        expectType<"source">(ev.dataType);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('sourcedata', ev => {
+    map.on("sourcedata", ev => {
         expectType<mapboxgl.MapSourceDataEvent>(ev);
         expectType<mapboxgl.Map>(ev.target);
         expectType<undefined>(ev.originalEvent);
-        expectType<'source'>(ev.dataType);
+        expectType<"source">(ev.dataType);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('styledataloading', ev => {
+    map.on("styledataloading", ev => {
         expectType<mapboxgl.MapStyleDataEvent>(ev);
         expectType<mapboxgl.Map>(ev.target);
         expectType<undefined>(ev.originalEvent);
-        expectType<'style'>(ev.dataType);
+        expectType<"style">(ev.dataType);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('styledata', ev => {
+    map.on("styledata", ev => {
         expectType<mapboxgl.MapStyleDataEvent>(ev);
         expectType<mapboxgl.Map>(ev.target);
         expectType<undefined>(ev.originalEvent);
-        expectType<'style'>(ev.dataType);
+        expectType<"style">(ev.dataType);
     }),
 );
 
 // Layer events
 expectType<mapboxgl.Map>(
-    map.on('click', eitherType('text', ['text1', 'text2']), ev => {
+    map.on("click", eitherType("text", ["text1", "text2"]), ev => {
         expectType<mapboxgl.MapLayerMouseEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('dblclick', eitherType('text', ['text1', 'text2']), ev => {
+    map.on("dblclick", eitherType("text", ["text1", "text2"]), ev => {
         expectType<mapboxgl.MapLayerMouseEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('mousedown', eitherType('text', ['text1', 'text2']), ev => {
+    map.on("mousedown", eitherType("text", ["text1", "text2"]), ev => {
         expectType<mapboxgl.MapLayerMouseEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('mouseup', eitherType('text', ['text1', 'text2']), ev => {
+    map.on("mouseup", eitherType("text", ["text1", "text2"]), ev => {
         expectType<mapboxgl.MapLayerMouseEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('mousemove', eitherType('text', ['text1', 'text2']), ev => {
+    map.on("mousemove", eitherType("text", ["text1", "text2"]), ev => {
         expectType<mapboxgl.MapLayerMouseEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('mouseenter', eitherType('text', ['text1', 'text2']), ev => {
+    map.on("mouseenter", eitherType("text", ["text1", "text2"]), ev => {
         expectType<mapboxgl.MapLayerMouseEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('mouseleave', eitherType('text', ['text1', 'text2']), ev => {
+    map.on("mouseleave", eitherType("text", ["text1", "text2"]), ev => {
         expectType<mapboxgl.MapLayerMouseEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('mouseover', eitherType('text', ['text1', 'text2']), ev => {
+    map.on("mouseover", eitherType("text", ["text1", "text2"]), ev => {
         expectType<mapboxgl.MapLayerMouseEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('mouseout', eitherType('text', ['text1', 'text2']), ev => {
+    map.on("mouseout", eitherType("text", ["text1", "text2"]), ev => {
         expectType<mapboxgl.MapLayerMouseEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('contextmenu', eitherType('text', ['text1', 'text2']), ev => {
+    map.on("contextmenu", eitherType("text", ["text1", "text2"]), ev => {
         expectType<mapboxgl.MapLayerMouseEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 
 expectType<mapboxgl.Map>(
-    map.on('touchstart', eitherType('text', ['text1', 'text2']), ev => {
+    map.on("touchstart", eitherType("text", ["text1", "text2"]), ev => {
         expectType<mapboxgl.MapLayerTouchEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('touchend', eitherType('text', ['text1', 'text2']), ev => {
+    map.on("touchend", eitherType("text", ["text1", "text2"]), ev => {
         expectType<mapboxgl.MapLayerTouchEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
 expectType<mapboxgl.Map>(
-    map.on('touchcancel', eitherType('text', ['text1', 'text2']), ev => {
+    map.on("touchcancel", eitherType("text", ["text1", "text2"]), ev => {
         expectType<mapboxgl.MapLayerTouchEvent>(ev);
         expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
     }),
 );
+
+expectType<mapboxgl.Map>(
+    map.once("click", eitherType("text", ["text1", "text2"]), ev => {
+        expectType<mapboxgl.MapLayerMouseEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once("dblclick", eitherType("text", ["text1", "text2"]), ev => {
+        expectType<mapboxgl.MapLayerMouseEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once("mousedown", eitherType("text", ["text1", "text2"]), ev => {
+        expectType<mapboxgl.MapLayerMouseEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once("mouseup", eitherType("text", ["text1", "text2"]), ev => {
+        expectType<mapboxgl.MapLayerMouseEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once("mousemove", eitherType("text", ["text1", "text2"]), ev => {
+        expectType<mapboxgl.MapLayerMouseEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once("mouseenter", eitherType("text", ["text1", "text2"]), ev => {
+        expectType<mapboxgl.MapLayerMouseEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once("mouseleave", eitherType("text", ["text1", "text2"]), ev => {
+        expectType<mapboxgl.MapLayerMouseEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once("mouseover", eitherType("text", ["text1", "text2"]), ev => {
+        expectType<mapboxgl.MapLayerMouseEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once("mouseout", eitherType("text", ["text1", "text2"]), ev => {
+        expectType<mapboxgl.MapLayerMouseEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once("contextmenu", eitherType("text", ["text1", "text2"]), ev => {
+        expectType<mapboxgl.MapLayerMouseEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+
+expectType<mapboxgl.Map>(
+    map.once("touchstart", eitherType("text", ["text1", "text2"]), ev => {
+        expectType<mapboxgl.MapLayerTouchEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once("touchend", eitherType("text", ["text1", "text2"]), ev => {
+        expectType<mapboxgl.MapLayerTouchEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+expectType<mapboxgl.Map>(
+    map.once("touchcancel", eitherType("text", ["text1", "text2"]), ev => {
+        expectType<mapboxgl.MapLayerTouchEvent>(ev);
+        expectType<mapboxgl.MapboxGeoJSONFeature[] | undefined>(ev.features);
+    }),
+);
+
+expectType<mapboxgl.Map>(map.off("click", eitherType("text", ["text1", "text2"]), () => {}));
+expectType<mapboxgl.Map>(map.off("dblclick", eitherType("text", ["text1", "text2"]), () => {}));
+expectType<mapboxgl.Map>(map.off("mousedown", eitherType("text", ["text1", "text2"]), () => {}));
+expectType<mapboxgl.Map>(map.off("mouseup", eitherType("text", ["text1", "text2"]), () => {}));
+expectType<mapboxgl.Map>(map.off("mousemove", eitherType("text", ["text1", "text2"]), () => {}));
+expectType<mapboxgl.Map>(map.off("mouseenter", eitherType("text", ["text1", "text2"]), () => {}));
+expectType<mapboxgl.Map>(map.off("mouseleave", eitherType("text", ["text1", "text2"]), () => {}));
+expectType<mapboxgl.Map>(map.off("mouseover", eitherType("text", ["text1", "text2"]), () => {}));
+expectType<mapboxgl.Map>(map.off("mouseout", eitherType("text", ["text1", "text2"]), () => {}));
+expectType<mapboxgl.Map>(map.off("contextmenu", eitherType("text", ["text1", "text2"]), () => {}));
+expectType<mapboxgl.Map>(map.off("touchstart", eitherType("text", ["text1", "text2"]), () => {}));
+expectType<mapboxgl.Map>(map.off("touchend", eitherType("text", ["text1", "text2"]), () => {}));
+expectType<mapboxgl.Map>(map.off("touchcancel", eitherType("text", ["text1", "text2"]), () => {}));
 
 /*
  * Expression
  */
-expectType<mapboxgl.Expression>(['id']);
-expectType<mapboxgl.Expression>(['get', 'property']);
+expectType<mapboxgl.Expression>(["id"]);
+expectType<mapboxgl.Expression>(["get", "property"]);
 expectType<mapboxgl.Expression>([
-    'format',
-    ['concat', ['get', 'name'], '\n'],
+    "format",
+    ["concat", ["get", "name"], "\n"],
     {},
-    ['concat', ['get', 'area'], 'foobar', { 'font-scale': 0.8 }],
+    ["concat", ["get", "area"], "foobar", { "font-scale": 0.8 }],
 ]);
 expectType<mapboxgl.Expression>([
-    'number-format',
-    ['get', 'quantity'],
-    { 'min-fraction-digits': 1, 'max-fraction-digits': 1 }
+    "number-format",
+    ["get", "quantity"],
+    { "min-fraction-digits": 1, "max-fraction-digits": 1 },
 ]);
-const expression = expectType<mapboxgl.Expression>(['coalesce', ['get', 'property'], ['get', 'property']]);
+const expression = expectType<mapboxgl.Expression>(["coalesce", ["get", "property"], ["get", "property"]]);
 
 /*
  *    ScrollZoomHandler
@@ -1392,12 +1567,12 @@ new mapboxgl.Map().scrollZoom.setZoomRate(1);
 
 // $ExpectType void
 new mapboxgl.Map().scrollZoom.setWheelZoomRate(1);
-new mapboxgl.Map().scrollZoom.enable({ around: 'center' });
+new mapboxgl.Map().scrollZoom.enable({ around: "center" });
 
 const touchPitchHandler = new mapboxgl.TouchPitchHandler(map);
 // $ExpectType void
 touchPitchHandler.enable();
-touchPitchHandler.enable({ around: 'center' });
+touchPitchHandler.enable({ around: "center" });
 // $ExpectType boolean
 touchPitchHandler.isActive();
 // $ExpectType boolean
@@ -1423,7 +1598,7 @@ new mapboxgl.Map().dragPan.enable({
  */
 // $ExpectType void
 new mapboxgl.Map().touchZoomRotate.enable({
-    around: 'center',
+    around: "center",
 });
 // $ExpectType void
 new mapboxgl.Map().touchZoomRotate.enable();
@@ -1434,8 +1609,8 @@ new mapboxgl.Map().touchZoomRotate.enable({});
 /*
  * Visibility
  */
-expectType<mapboxgl.Visibility>('visible');
-expectType<mapboxgl.Visibility>('none');
+expectType<mapboxgl.Visibility>("visible");
+expectType<mapboxgl.Visibility>("none");
 
 /*
  * Transition
@@ -1449,10 +1624,10 @@ const transition = expectType<mapboxgl.Transition>({ duration: 0, delay: 0 });
  * StyleFunction
  */
 
-expectType<mapboxgl.StyleFunction>({ base: 1, type: 'categorical' });
+expectType<mapboxgl.StyleFunction>({ base: 1, type: "categorical" });
 const styleFunction = expectType<mapboxgl.StyleFunction>({
     base: 1,
-    type: 'exponential',
+    type: "exponential",
     default: 0,
     stops: [
         [1, 2],
@@ -1465,269 +1640,269 @@ const styleFunction = expectType<mapboxgl.StyleFunction>({
  */
 
 expectType<mapboxgl.Anchor>(
-    eitherType('center', 'left', 'right', 'top', 'bottom', 'top-left', 'top-right', 'bottom-left', 'bottom-right'),
+    eitherType("center", "left", "right", "top", "bottom", "top-left", "top-right", "bottom-left", "bottom-right"),
 );
-const anchor: mapboxgl.Anchor = 'center';
+const anchor: mapboxgl.Anchor = "center";
 
 /*
  * Layouts and Paint options
  */
 
 const backgroundLayout: mapboxgl.BackgroundLayout = {
-    visibility: eitherType('visible', 'none'),
+    visibility: eitherType("visible", "none"),
 };
 
 const backgroundPaint: mapboxgl.BackgroundPaint = {
-    'background-color': eitherType('#000', expression),
-    'background-color-transition': transition,
-    'background-pattern': 'pattern',
-    'background-pattern-transition': transition,
-    'background-opacity': eitherType(0, expression),
-    'background-opacity-transition': transition,
+    "background-color": eitherType("#000", expression),
+    "background-color-transition": transition,
+    "background-pattern": "pattern",
+    "background-pattern-transition": transition,
+    "background-opacity": eitherType(0, expression),
+    "background-opacity-transition": transition,
 };
 
 const fillLayout: mapboxgl.FillLayout = {
-    'fill-sort-key': eitherType(0, expression),
+    "fill-sort-key": eitherType(0, expression),
 };
 
 const fillPaint: mapboxgl.FillPaint = {
-    'fill-antialias': eitherType(false, expression),
-    'fill-opacity': eitherType(0, styleFunction, expression),
-    'fill-opacity-transition': transition,
-    'fill-color': eitherType('#000', styleFunction, expression),
-    'fill-color-transition': transition,
-    'fill-outline-color': eitherType('#000', styleFunction, expression),
-    'fill-outline-color-transition': transition,
-    'fill-translate': [1],
-    'fill-translate-transition': transition,
-    'fill-translate-anchor': eitherType('map', 'viewport'),
-    'fill-pattern': eitherType('#000', expression),
-    'fill-pattern-transition': transition,
+    "fill-antialias": eitherType(false, expression),
+    "fill-opacity": eitherType(0, styleFunction, expression),
+    "fill-opacity-transition": transition,
+    "fill-color": eitherType("#000", styleFunction, expression),
+    "fill-color-transition": transition,
+    "fill-outline-color": eitherType("#000", styleFunction, expression),
+    "fill-outline-color-transition": transition,
+    "fill-translate": [1],
+    "fill-translate-transition": transition,
+    "fill-translate-anchor": eitherType("map", "viewport"),
+    "fill-pattern": eitherType("#000", expression),
+    "fill-pattern-transition": transition,
 };
 
 const fillExtrusionLayout: mapboxgl.FillExtrusionLayout = {
-    visibility: eitherType('visible', 'none'),
+    visibility: eitherType("visible", "none"),
 };
 
 const fillExtrusionPaint: mapboxgl.FillExtrusionPaint = {
-    'fill-extrusion-opacity': eitherType(0, expression),
-    'fill-extrusion-opacity-transition': transition,
-    'fill-extrusion-color': eitherType('#000', styleFunction, expression),
-    'fill-extrusion-color-transition': transition,
-    'fill-extrusion-translate': eitherType([0], expression),
-    'fill-extrusion-translate-transition': transition,
-    'fill-extrusion-translate-anchor': eitherType('map', 'viewport'),
-    'fill-extrusion-pattern': eitherType('#000', expression),
-    'fill-extrusion-pattern-transition': transition,
-    'fill-extrusion-height': eitherType(0, styleFunction, expression),
-    'fill-extrusion-height-transition': transition,
-    'fill-extrusion-base': eitherType(0, styleFunction, expression),
-    'fill-extrusion-base-transition': transition,
-    'fill-extrusion-vertical-gradient': false,
+    "fill-extrusion-opacity": eitherType(0, expression),
+    "fill-extrusion-opacity-transition": transition,
+    "fill-extrusion-color": eitherType("#000", styleFunction, expression),
+    "fill-extrusion-color-transition": transition,
+    "fill-extrusion-translate": eitherType([0], expression),
+    "fill-extrusion-translate-transition": transition,
+    "fill-extrusion-translate-anchor": eitherType("map", "viewport"),
+    "fill-extrusion-pattern": eitherType("#000", expression),
+    "fill-extrusion-pattern-transition": transition,
+    "fill-extrusion-height": eitherType(0, styleFunction, expression),
+    "fill-extrusion-height-transition": transition,
+    "fill-extrusion-base": eitherType(0, styleFunction, expression),
+    "fill-extrusion-base-transition": transition,
+    "fill-extrusion-vertical-gradient": false,
 };
 
 const lineLayout: mapboxgl.LineLayout = {
-    'line-cap': eitherType('butt', 'round', 'square'),
-    'line-join': eitherType('bevel', 'round', 'miter', expression),
-    'line-miter-limit': eitherType(0, expression),
-    'line-round-limit': eitherType(0, expression),
-    'line-sort-key': eitherType(0, expression),
+    "line-cap": eitherType("butt", "round", "square"),
+    "line-join": eitherType("bevel", "round", "miter", expression),
+    "line-miter-limit": eitherType(0, expression),
+    "line-round-limit": eitherType(0, expression),
+    "line-sort-key": eitherType(0, expression),
 };
 
 const linePaint: mapboxgl.LinePaint = {
-    'line-opacity': eitherType(0, styleFunction, expression),
-    'line-opacity-transition': transition,
-    'line-color': eitherType('#000', styleFunction, expression),
-    'line-color-transition': transition,
-    'line-translate': eitherType([0], expression),
-    'line-translate-transition': transition,
-    'line-translate-anchor': eitherType('map', 'viewport'),
-    'line-width': eitherType(0, styleFunction, expression),
-    'line-width-transition': transition,
-    'line-gap-width': eitherType(0, styleFunction, expression),
-    'line-gap-width-transition': transition,
-    'line-offset': eitherType(0, styleFunction, expression),
-    'line-offset-transition': transition,
-    'line-blur': eitherType(0, styleFunction, expression),
-    'line-blur-transition': transition,
-    'line-dasharray': eitherType([0], expression),
-    'line-dasharray-transition': transition,
-    'line-pattern': eitherType('#000', expression),
-    'line-pattern-transition': transition,
-    'line-gradient': expression,
+    "line-opacity": eitherType(0, styleFunction, expression),
+    "line-opacity-transition": transition,
+    "line-color": eitherType("#000", styleFunction, expression),
+    "line-color-transition": transition,
+    "line-translate": eitherType([0], expression),
+    "line-translate-transition": transition,
+    "line-translate-anchor": eitherType("map", "viewport"),
+    "line-width": eitherType(0, styleFunction, expression),
+    "line-width-transition": transition,
+    "line-gap-width": eitherType(0, styleFunction, expression),
+    "line-gap-width-transition": transition,
+    "line-offset": eitherType(0, styleFunction, expression),
+    "line-offset-transition": transition,
+    "line-blur": eitherType(0, styleFunction, expression),
+    "line-blur-transition": transition,
+    "line-dasharray": eitherType([0], expression),
+    "line-dasharray-transition": transition,
+    "line-pattern": eitherType("#000", expression),
+    "line-pattern-transition": transition,
+    "line-gradient": expression,
 };
 
 const symbolLayout: mapboxgl.SymbolLayout = {
-    'symbol-placement': eitherType('point', 'line', 'line-center'),
-    'symbol-spacing': eitherType(0, expression),
-    'symbol-avoid-edges': false,
-    'symbol-z-order': eitherType('viewport-y', 'source'),
-    'icon-allow-overlap': eitherType(false, styleFunction, expression),
-    'icon-ignore-placement': eitherType(false, expression),
-    'icon-optional': false,
-    'icon-rotation-alignment': eitherType('map', 'viewport', 'auto'),
-    'icon-size': eitherType(0, styleFunction, expression),
-    'icon-text-fit': eitherType('none', 'both', 'width', 'height'),
-    'icon-text-fit-padding': eitherType([0], expression),
-    'icon-image': eitherType('#000', styleFunction, expression),
-    'icon-rotate': eitherType(0, styleFunction, expression),
-    'icon-padding': eitherType(0, expression),
-    'icon-keep-upright': false,
-    'icon-offset': eitherType([0], styleFunction, expression),
-    'icon-anchor': eitherType('center', styleFunction, expression),
-    'icon-pitch-alignment': eitherType('map', 'viewport', 'auto'),
-    'text-pitch-alignment': eitherType('map', 'viewport', 'auto'),
-    'text-rotation-alignment': eitherType('map', 'viewport', 'auto'),
-    'text-field': eitherType('#000', styleFunction, expression),
-    'text-font': eitherType(['arial'], expression),
-    'text-size': eitherType(0, styleFunction, expression),
-    'text-max-width': eitherType(0, styleFunction, expression),
-    'text-line-height': eitherType(0, expression),
-    'text-letter-spacing': eitherType(0, expression),
-    'text-justify': eitherType('auto', 'left', 'center', 'right', expression),
-    'text-anchor': eitherType('center', styleFunction, expression),
-    'text-max-angle': eitherType(0, expression),
-    'text-rotate': eitherType(0, styleFunction, expression),
-    'text-padding': eitherType(0, expression),
-    'text-keep-upright': false,
-    'text-transform': eitherType('none', 'uppercase', 'lowercase', styleFunction, expression),
-    'text-offset': eitherType([0], expression),
-    'text-allow-overlap': false,
-    'text-ignore-placement': false,
-    'text-optional': false,
-    'text-radial-offset': eitherType(0, expression),
-    'text-variable-anchor': [anchor],
-    'text-writing-mode': eitherType<
-        Array<'horizontal' | 'vertical'>,
-        Array<'horizontal' | 'vertical'>,
-        Array<'horizontal' | 'vertical'>
-    >(['horizontal'], ['vertical'], ['horizontal', 'vertical']),
-    'symbol-sort-key': eitherType(0, expression),
+    "symbol-placement": eitherType("point", "line", "line-center"),
+    "symbol-spacing": eitherType(0, expression),
+    "symbol-avoid-edges": false,
+    "symbol-z-order": eitherType("viewport-y", "source"),
+    "icon-allow-overlap": eitherType(false, styleFunction, expression),
+    "icon-ignore-placement": eitherType(false, expression),
+    "icon-optional": false,
+    "icon-rotation-alignment": eitherType("map", "viewport", "auto"),
+    "icon-size": eitherType(0, styleFunction, expression),
+    "icon-text-fit": eitherType("none", "both", "width", "height"),
+    "icon-text-fit-padding": eitherType([0], expression),
+    "icon-image": eitherType("#000", styleFunction, expression),
+    "icon-rotate": eitherType(0, styleFunction, expression),
+    "icon-padding": eitherType(0, expression),
+    "icon-keep-upright": false,
+    "icon-offset": eitherType([0], styleFunction, expression),
+    "icon-anchor": eitherType("center", styleFunction, expression),
+    "icon-pitch-alignment": eitherType("map", "viewport", "auto"),
+    "text-pitch-alignment": eitherType("map", "viewport", "auto"),
+    "text-rotation-alignment": eitherType("map", "viewport", "auto"),
+    "text-field": eitherType("#000", styleFunction, expression),
+    "text-font": eitherType(["arial"], expression),
+    "text-size": eitherType(0, styleFunction, expression),
+    "text-max-width": eitherType(0, styleFunction, expression),
+    "text-line-height": eitherType(0, expression),
+    "text-letter-spacing": eitherType(0, expression),
+    "text-justify": eitherType("auto", "left", "center", "right", expression),
+    "text-anchor": eitherType("center", styleFunction, expression),
+    "text-max-angle": eitherType(0, expression),
+    "text-rotate": eitherType(0, styleFunction, expression),
+    "text-padding": eitherType(0, expression),
+    "text-keep-upright": false,
+    "text-transform": eitherType("none", "uppercase", "lowercase", styleFunction, expression),
+    "text-offset": eitherType([0], expression),
+    "text-allow-overlap": false,
+    "text-ignore-placement": false,
+    "text-optional": false,
+    "text-radial-offset": eitherType(0, expression),
+    "text-variable-anchor": [anchor],
+    "text-writing-mode": eitherType<
+        Array<"horizontal" | "vertical">,
+        Array<"horizontal" | "vertical">,
+        Array<"horizontal" | "vertical">
+    >(["horizontal"], ["vertical"], ["horizontal", "vertical"]),
+    "symbol-sort-key": eitherType(0, expression),
 };
 
 const symbolPaint: mapboxgl.SymbolPaint = {
-    'icon-opacity': eitherType(0, styleFunction, expression),
-    'icon-opacity-transition': transition,
-    'icon-color': eitherType('#000', styleFunction, expression),
-    'icon-color-transition': transition,
-    'icon-halo-color': eitherType('#000', styleFunction, expression),
-    'icon-halo-color-transition': transition,
-    'icon-halo-width': eitherType(0, styleFunction, expression),
-    'icon-halo-width-transition': transition,
-    'icon-halo-blur': eitherType(0, styleFunction, expression),
-    'icon-halo-blur-transition': transition,
-    'icon-translate': eitherType([0], expression),
-    'icon-translate-transition': transition,
-    'icon-translate-anchor': eitherType('map', 'viewport'),
-    'text-opacity': eitherType(0, styleFunction, expression),
-    'text-opacity-transition': transition,
-    'text-color': eitherType('#000', styleFunction, expression),
-    'text-color-transition': transition,
-    'text-halo-color': eitherType('#000', styleFunction, expression),
-    'text-halo-color-transition': transition,
-    'text-halo-width': eitherType(0, styleFunction, expression),
-    'text-halo-width-transition': transition,
-    'text-halo-blur': eitherType(0, styleFunction, expression),
-    'text-halo-blur-transition': transition,
-    'text-translate': eitherType([0], expression),
-    'text-translate-transition': transition,
-    'text-translate-anchor': eitherType('map', 'viewport'),
+    "icon-opacity": eitherType(0, styleFunction, expression),
+    "icon-opacity-transition": transition,
+    "icon-color": eitherType("#000", styleFunction, expression),
+    "icon-color-transition": transition,
+    "icon-halo-color": eitherType("#000", styleFunction, expression),
+    "icon-halo-color-transition": transition,
+    "icon-halo-width": eitherType(0, styleFunction, expression),
+    "icon-halo-width-transition": transition,
+    "icon-halo-blur": eitherType(0, styleFunction, expression),
+    "icon-halo-blur-transition": transition,
+    "icon-translate": eitherType([0], expression),
+    "icon-translate-transition": transition,
+    "icon-translate-anchor": eitherType("map", "viewport"),
+    "text-opacity": eitherType(0, styleFunction, expression),
+    "text-opacity-transition": transition,
+    "text-color": eitherType("#000", styleFunction, expression),
+    "text-color-transition": transition,
+    "text-halo-color": eitherType("#000", styleFunction, expression),
+    "text-halo-color-transition": transition,
+    "text-halo-width": eitherType(0, styleFunction, expression),
+    "text-halo-width-transition": transition,
+    "text-halo-blur": eitherType(0, styleFunction, expression),
+    "text-halo-blur-transition": transition,
+    "text-translate": eitherType([0], expression),
+    "text-translate-transition": transition,
+    "text-translate-anchor": eitherType("map", "viewport"),
 };
 
 const rasterLayout: mapboxgl.RasterLayout = {
-    visibility: eitherType('visible', 'none'),
+    visibility: eitherType("visible", "none"),
 };
 
 const rasterPaint: mapboxgl.RasterPaint = {
-    'raster-opacity': eitherType(0, expression),
-    'raster-opacity-transition': transition,
-    'raster-hue-rotate': eitherType(0, expression),
-    'raster-hue-rotate-transition': transition,
-    'raster-brightness-min': eitherType(0, expression),
-    'raster-brightness-min-transition': transition,
-    'raster-brightness-max': eitherType(0, expression),
-    'raster-brightness-max-transition': transition,
-    'raster-saturation': eitherType(0, expression),
-    'raster-saturation-transition': transition,
-    'raster-contrast': eitherType(0, expression),
-    'raster-contrast-transition': transition,
-    'raster-fade-duration': eitherType(0, expression),
-    'raster-resampling': eitherType('linear', 'nearest'),
+    "raster-opacity": eitherType(0, expression),
+    "raster-opacity-transition": transition,
+    "raster-hue-rotate": eitherType(0, expression),
+    "raster-hue-rotate-transition": transition,
+    "raster-brightness-min": eitherType(0, expression),
+    "raster-brightness-min-transition": transition,
+    "raster-brightness-max": eitherType(0, expression),
+    "raster-brightness-max-transition": transition,
+    "raster-saturation": eitherType(0, expression),
+    "raster-saturation-transition": transition,
+    "raster-contrast": eitherType(0, expression),
+    "raster-contrast-transition": transition,
+    "raster-fade-duration": eitherType(0, expression),
+    "raster-resampling": eitherType("linear", "nearest"),
 };
 
 const circleLayout: mapboxgl.CircleLayout = {
-    visibility: eitherType('visible', 'none'),
-    'circle-sort-key': eitherType(0, expression),
+    visibility: eitherType("visible", "none"),
+    "circle-sort-key": eitherType(0, expression),
 };
 
 const circlePaint: mapboxgl.CirclePaint = {
-    'circle-radius': eitherType(0, styleFunction, expression),
-    'circle-radius-transition': transition,
-    'circle-color': eitherType('#000', styleFunction, expression),
-    'circle-color-transition': transition,
-    'circle-blur': eitherType(0, styleFunction, expression),
-    'circle-blur-transition': transition,
-    'circle-opacity': eitherType(0, styleFunction, expression),
-    'circle-opacity-transition': transition,
-    'circle-translate': eitherType([0], expression),
-    'circle-translate-transition': transition,
-    'circle-translate-anchor': eitherType('map', 'viewport'),
-    'circle-pitch-scale': eitherType('map', 'viewport'),
-    'circle-pitch-alignment': eitherType('map', 'viewport'),
-    'circle-stroke-width': eitherType(0, styleFunction, expression),
-    'circle-stroke-width-transition': transition,
-    'circle-stroke-color': eitherType('#000', styleFunction, expression),
-    'circle-stroke-color-transition': transition,
-    'circle-stroke-opacity': eitherType(0, styleFunction, expression),
-    'circle-stroke-opacity-transition': transition,
+    "circle-radius": eitherType(0, styleFunction, expression),
+    "circle-radius-transition": transition,
+    "circle-color": eitherType("#000", styleFunction, expression),
+    "circle-color-transition": transition,
+    "circle-blur": eitherType(0, styleFunction, expression),
+    "circle-blur-transition": transition,
+    "circle-opacity": eitherType(0, styleFunction, expression),
+    "circle-opacity-transition": transition,
+    "circle-translate": eitherType([0], expression),
+    "circle-translate-transition": transition,
+    "circle-translate-anchor": eitherType("map", "viewport"),
+    "circle-pitch-scale": eitherType("map", "viewport"),
+    "circle-pitch-alignment": eitherType("map", "viewport"),
+    "circle-stroke-width": eitherType(0, styleFunction, expression),
+    "circle-stroke-width-transition": transition,
+    "circle-stroke-color": eitherType("#000", styleFunction, expression),
+    "circle-stroke-color-transition": transition,
+    "circle-stroke-opacity": eitherType(0, styleFunction, expression),
+    "circle-stroke-opacity-transition": transition,
 };
 
 const heatmapLayout: mapboxgl.HeatmapLayout = {
-    visibility: eitherType('visible', 'none'),
+    visibility: eitherType("visible", "none"),
 };
 
 const heatmapPaint: mapboxgl.HeatmapPaint = {
-    'heatmap-radius': eitherType(0, styleFunction, expression),
-    'heatmap-radius-transition': transition,
-    'heatmap-weight': eitherType(0, styleFunction, expression),
-    'heatmap-intensity': eitherType(0, styleFunction, expression),
-    'heatmap-intensity-transition': transition,
-    'heatmap-color': eitherType('#000', styleFunction, expression),
-    'heatmap-opacity': eitherType(0, styleFunction, expression),
-    'heatmap-opacity-transition': transition,
+    "heatmap-radius": eitherType(0, styleFunction, expression),
+    "heatmap-radius-transition": transition,
+    "heatmap-weight": eitherType(0, styleFunction, expression),
+    "heatmap-intensity": eitherType(0, styleFunction, expression),
+    "heatmap-intensity-transition": transition,
+    "heatmap-color": eitherType("#000", styleFunction, expression),
+    "heatmap-opacity": eitherType(0, styleFunction, expression),
+    "heatmap-opacity-transition": transition,
 };
 
 const hillshadeLayout: mapboxgl.HillshadeLayout = {
-    visibility: eitherType('visible', 'none'),
+    visibility: eitherType("visible", "none"),
 };
 
 const hillshadePaint: mapboxgl.HillshadePaint = {
-    'hillshade-illumination-direction': eitherType(0, expression),
-    'hillshade-illumination-anchor': eitherType('map', 'viewport'),
-    'hillshade-exaggeration': eitherType(0, expression),
-    'hillshade-exaggeration-transition': transition,
-    'hillshade-shadow-color': eitherType('#000', expression),
-    'hillshade-shadow-color-transition': transition,
-    'hillshade-highlight-color': eitherType('#000', expression),
-    'hillshade-highlight-color-transition': transition,
-    'hillshade-accent-color': eitherType('#000', expression),
-    'hillshade-accent-color-transition': transition,
+    "hillshade-illumination-direction": eitherType(0, expression),
+    "hillshade-illumination-anchor": eitherType("map", "viewport"),
+    "hillshade-exaggeration": eitherType(0, expression),
+    "hillshade-exaggeration-transition": transition,
+    "hillshade-shadow-color": eitherType("#000", expression),
+    "hillshade-shadow-color-transition": transition,
+    "hillshade-highlight-color": eitherType("#000", expression),
+    "hillshade-highlight-color-transition": transition,
+    "hillshade-accent-color": eitherType("#000", expression),
+    "hillshade-accent-color-transition": transition,
 };
 
 const skyLayout: mapboxgl.SkyLayout = {
-    visibility: eitherType('visible', 'none'),
+    visibility: eitherType("visible", "none"),
 };
 
 const skyPaint: mapboxgl.SkyPaint = {
-    'sky-atmosphere-color': eitherType('white', expression),
-    'sky-atmosphere-halo-color': eitherType('white', expression),
-    'sky-atmosphere-sun': eitherType([0], expression),
-    'sky-atmosphere-sun-intensity': eitherType(0, expression),
-    'sky-gradient': eitherType('#000', expression),
-    'sky-gradient-center': eitherType([0], expression),
-    'sky-gradient-radius': eitherType(0, expression),
-    'sky-opacity': eitherType(0, expression),
-    'sky-type': eitherType('gradient', 'atmosphere'),
+    "sky-atmosphere-color": eitherType("white", expression),
+    "sky-atmosphere-halo-color": eitherType("white", expression),
+    "sky-atmosphere-sun": eitherType([0], expression),
+    "sky-atmosphere-sun-intensity": eitherType(0, expression),
+    "sky-gradient": eitherType("#000", expression),
+    "sky-gradient-center": eitherType([0], expression),
+    "sky-gradient-radius": eitherType(0, expression),
+    "sky-opacity": eitherType(0, expression),
+    "sky-type": eitherType("gradient", "atmosphere"),
 };
 
 /* Make sure every layout has all properties optional */
@@ -1798,29 +1973,29 @@ expectType<mapboxgl.AnyPaint>(
  * Make sure layer gets proper Paint, corresponding to layer's type
  */
 
-expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'background', paint: { 'background-opacity': 1 } });
-// $ExpectError
-expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'background', paint: { 'line-opacity': 1 } });
+expectType<mapboxgl.AnyLayer>({ id: "unique", type: "background", paint: { "background-opacity": 1 } });
+// @ts-expect-error
+expectType<mapboxgl.AnyLayer>({ id: "unique", type: "background", paint: { "line-opacity": 1 } });
 
-expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'fill', paint: { 'fill-opacity': 1 } });
-// $ExpectError
-expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'fill', paint: { 'line-opacity': 1 } });
+expectType<mapboxgl.AnyLayer>({ id: "unique", type: "fill", paint: { "fill-opacity": 1 } });
+// @ts-expect-error
+expectType<mapboxgl.AnyLayer>({ id: "unique", type: "fill", paint: { "line-opacity": 1 } });
 
-expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'line', paint: { 'line-opacity': 1 } });
-// $ExpectError
-expectType<mapboxgl.AnyLayer>({ id: 'unique', type: 'line', paint: { 'fill-opacity': 1 } });
+expectType<mapboxgl.AnyLayer>({ id: "unique", type: "line", paint: { "line-opacity": 1 } });
+// @ts-expect-error
+expectType<mapboxgl.AnyLayer>({ id: "unique", type: "line", paint: { "fill-opacity": 1 } });
 
 /**
  * Test map.addImage()
  */
 
 // HTMLImageElement
-const fooHTMLImageElement = document.createElement('img');
-map.addImage('foo', fooHTMLImageElement);
+const fooHTMLImageElement = document.createElement("img");
+map.addImage("foo", fooHTMLImageElement);
 
 // ImageData
 const fooImageData = new ImageData(8, 8);
-map.addImage('foo', fooImageData);
+map.addImage("foo", fooImageData);
 
 // ImageData like
 const fooImageDataLike1 = {
@@ -1828,26 +2003,26 @@ const fooImageDataLike1 = {
     height: 10,
     data: new Uint8ClampedArray(8),
 };
-map.addImage('foo', fooImageDataLike1);
+map.addImage("foo", fooImageDataLike1);
 
 const fooImageDataLike2 = {
     width: 10,
     height: 10,
     data: new Uint8Array(8),
 };
-map.addImage('foo', fooImageDataLike2);
+map.addImage("foo", fooImageDataLike2);
 
 // ArrayBufferView
 const fooArrayBufferView: ArrayBufferView = new Uint8Array(8);
-map.addImage('foo', fooArrayBufferView);
+map.addImage("foo", fooArrayBufferView);
 
 // ImageBitmap
 createImageBitmap(fooHTMLImageElement).then(fooImageBitmap => {
-    map.addImage('foo', fooImageBitmap);
+    map.addImage("foo", fooImageBitmap);
 });
 
 // $ExpectType void
-map.loadImage('foo', (error, result) => {});
+map.loadImage("foo", (error, result) => {});
 
 // KeyboardHandler
 var keyboardHandler = new mapboxgl.KeyboardHandler(map);
@@ -1855,3 +2030,22 @@ var keyboardHandler = new mapboxgl.KeyboardHandler(map);
 keyboardHandler.enableRotation();
 // $ExpectType void
 keyboardHandler.disableRotation();
+
+/**
+ * Test projections
+ */
+
+// projection config: name only
+expectType<mapboxgl.Projection>({ name: "mercator" });
+
+// projection config: with center and parallels
+expectType<mapboxgl.Projection>({ name: "lambertConformalConic", center: [0, 0], parallels: [30, 60] });
+
+// set projection with string
+map.setProjection("mercator");
+
+// set projection with config
+map.setProjection({ name: "globe" });
+
+// get projections
+expectType<mapboxgl.Projection>(map.getProjection());

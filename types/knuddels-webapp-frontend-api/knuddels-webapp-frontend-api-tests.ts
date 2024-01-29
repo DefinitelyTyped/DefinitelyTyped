@@ -1,4 +1,4 @@
-import { KnuddelsEvent } from 'knuddels-webapp-frontend-api';
+import { KnuddelsEvent } from "knuddels-webapp-frontend-api";
 
 const json = {
     someString: "someValue",
@@ -7,7 +7,7 @@ const json = {
     someArray: [
         "abc",
         1337,
-        false
+        false,
     ],
     someObject: {
         anotherKey: "string",
@@ -16,13 +16,13 @@ const json = {
 const color = Client.Color.fromRGB(255, 255, 255);
 const isOffline = Client.getClientType() === ClientType.Offline;
 if (isOffline) {
-    console.log('test-user is offline');
+    console.log("test-user is offline");
 }
 Client.getHostFrame().setTitle("test");
 Client.getHostFrame().focus();
 Client.getHostFrame().setBackgroundColor(color, 1337);
 Client.addEventListener("test", () => {});
-Client.addEventListener("test", (event: {type: string, data: KnuddelsEvent}) => {
+Client.addEventListener("test", (event: { type: string; data: KnuddelsEvent }) => {
     const evtInfo = event.type + event.data;
     console.log(`addEventListener called with ${evtInfo}`);
 });

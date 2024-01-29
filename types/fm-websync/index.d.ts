@@ -1,8 +1,3 @@
-// Type definitions for fm-websync 3.0
-// Project: https://github.com/baz/foo
-// Definitions by: Markus Mauch <https://github.com/markusmauch>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace fm {
     namespace websync {
         interface initializeConfig {
@@ -473,7 +468,6 @@ declare namespace fm {
             connect(config: connectConfig): client;
 
             /**
-             *
              * @param config Takes down a streaming connection to the server and unsubscribes the client.
              * After the disconnect completes successfully, any further calls to methods that require an active connection, like bind, subscribe and publish, will be queued
              * automatically and executed only if/when the client reconnects.
@@ -491,7 +485,7 @@ declare namespace fm {
              * This method should only be called from the callback specified by onSreamFailure and only if the args.willReconnect flag is set to false.
              * Otherwise, the client will reconnect automatically.
              */
-             reconnect(config?: connectConfig): client;
+            reconnect(config?: connectConfig): client;
 
             /**
              * Subscribes the client to receive messages on one or more channels.

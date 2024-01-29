@@ -1,12 +1,6 @@
-// Type definitions for timelinejs
-// Project: https://github.com/NUKnightLab/TimelineJS
-// Definitions by: Roland Zwaga <https://github.com/rolandzwaga>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-declare function createStoryJS(config:knightlab.ITimeLineConfiguration):void;
+declare function createStoryJS(config: knightlab.ITimeLineConfiguration): void;
 
 declare namespace knightlab {
-
     export interface ITimeLineConfiguration {
         width: string;
         height: string;
@@ -96,41 +90,41 @@ declare namespace knightlab {
     }
 
     export interface ITimelineModel {
-        timeline:ITimeLine;
+        timeline: ITimeLine;
     }
 
     export interface ITimeLine {
-        headline?:string | undefined;
-        type?:string | undefined;
-        text?:string | undefined;
-        asset?:ITimeLineAsset | undefined;
-        date?:ITimelineDate[] | undefined;
-        era?:ITimelineEra[] | undefined;
+        headline?: string | undefined;
+        type?: string | undefined;
+        text?: string | undefined;
+        asset?: ITimeLineAsset | undefined;
+        date?: ITimelineDate[] | undefined;
+        era?: ITimelineEra[] | undefined;
     }
 
     export interface ITimeLineAsset {
-        media:string;
-        thumbnail?:string | undefined;
-        credit:string;
-        caption:string;
+        media: string;
+        thumbnail?: string | undefined;
+        credit: string;
+        caption: string;
     }
 
     export interface ITimelineDate extends ITimelineEra {
-        classname?:string | undefined;
-        asset?:ITimeLineAsset | undefined;
+        classname?: string | undefined;
+        asset?: ITimeLineAsset | undefined;
     }
 
     export interface ITimelineEra {
         /*
          * format example: 2011,12,10
          */
-        startDate:string;
+        startDate: string;
         /*
          * format example: 2011,12,10
          */
-        endDate:string;
-        headline:string;
-        text:string;
-        tag?:string | undefined;
+        endDate: string;
+        headline: string;
+        text: string;
+        tag?: string | undefined;
     }
 }

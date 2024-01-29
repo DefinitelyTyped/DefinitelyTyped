@@ -1,6 +1,24 @@
 {
     "private": true,
+    "name": "@types/oracledb",
+    "version": "6.0.9999",
+    "projects": [
+        "https://github.com/oracle/node-oracledb"
+    ],
     "dependencies": {
-        "dotenv": "^8.2.0"
-    }
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/oracledb": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Connor Fitzgerald",
+            "githubUsername": "connorjayfitzgerald"
+        },
+        {
+            "name": "Dan Beglin",
+            "githubUsername": "dannyb648"
+        }
+    ]
 }

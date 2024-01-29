@@ -1,42 +1,42 @@
-import MergeIntoSingleFilePlugin = require('webpack-merge-and-include-globally');
-import { Options } from 'webpack-merge-and-include-globally';
-import { Configuration } from 'webpack';
-import CleanCSS = require('clean-css');
+import MergeIntoSingleFilePlugin = require("webpack-merge-and-include-globally");
+import { Configuration } from "webpack";
+import { Options } from "webpack-merge-and-include-globally";
+import CleanCSS = require("clean-css");
 
 const simpleOptions: Options = {
     files: {
-        'vendor.js': [
-            'node_modules/jquery/**/*.min.js',
-            'node_modules/classnames/index.js',
-            'node_modules/humps/humps.js',
+        "vendor.js": [
+            "node_modules/jquery/**/*.min.js",
+            "node_modules/classnames/index.js",
+            "node_modules/humps/humps.js",
         ],
-        'style.css': ['example/test.css'],
+        "style.css": ["example/test.css"],
     },
     transform: {
-        'vendor.js': code => 'transformed',
+        "vendor.js": code => "transformed",
     },
 };
 
 const complexOptions: Options = {
     files: [
         {
-            src: ['node_modules/jquery/**/*.min.js', 'node_modules/classnames/index.js', 'node_modules/humps/humps.js'],
+            src: ["node_modules/jquery/**/*.min.js", "node_modules/classnames/index.js", "node_modules/humps/humps.js"],
             dest: code => {
                 return {
-                    'vendor.js': 'min.code',
-                    'vendor.js.map': 'min.map',
+                    "vendor.js": "min.code",
+                    "vendor.js.map": "min.map",
                 };
             },
         },
         {
-            src: ['node_modules/jquery/**/*.min.js', 'node_modules/classnames/index.js', 'node_modules/humps/humps.js'],
+            src: ["node_modules/jquery/**/*.min.js", "node_modules/classnames/index.js", "node_modules/humps/humps.js"],
             dest: code => ({
-                'style.css': 'styles',
+                "style.css": "styles",
             }),
         },
         {
-            src: ['node_modules/jquery/**/*.min.js', 'node_modules/classnames/index.js', 'node_modules/humps/humps.js'],
-            dest: 'style.css',
+            src: ["node_modules/jquery/**/*.min.js", "node_modules/classnames/index.js", "node_modules/humps/humps.js"],
+            dest: "style.css",
         },
     ],
     transformFileName: (fileNameBase, extension, hash) => `${fileNameBase}.[${hash}]${extension}`,

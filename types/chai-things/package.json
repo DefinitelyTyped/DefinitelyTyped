@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/chai-things",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/chaijs/chai-things"
+    ],
+    "dependencies": {
+        "@types/chai": "*"
+    },
+    "devDependencies": {
+        "@types/chai-things": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "David Broder-Rodgers",
+            "githubUsername": "DavidBR-SW"
+        }
+    ]
+}

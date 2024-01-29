@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/duplexer3",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/floatdrop/duplexer3"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/duplexer3": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

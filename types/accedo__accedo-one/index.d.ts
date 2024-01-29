@@ -1,9 +1,3 @@
-// Type definitions for @accedo/accedo-one 4.0
-// Project: https://www.accedo.tv/one
-// Definitions by: Alexander P. Cerutti <https://github.com/alexandercerutti>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
-
 /**
  * @example
  * ~ import accedoOne from "@accedo/accedo-one"; // ESM Syntax
@@ -40,7 +34,7 @@ declare class AccedoClient {
      * @param params
      */
 
-    getEntryById(id: string, params?: Pick<AccedoEntryParams, 'preview' | 'at' | 'locale'>): Promise<any>;
+    getEntryById(id: string, params?: Pick<AccedoEntryParams, "preview" | "at" | "locale">): Promise<any>;
 
     /**
      * Get one content entry, based on the given parameters.
@@ -49,7 +43,7 @@ declare class AccedoClient {
      * @param params
      */
 
-    getEntryByAlias<A>(alias: A, params?: Pick<AccedoEntryParams, 'preview' | 'at' | 'locale'>): Promise<A>;
+    getEntryByAlias<A>(alias: A, params?: Pick<AccedoEntryParams, "preview" | "at" | "locale">): Promise<A>;
 
     /**
      * Create a session and store it for reuse in this client instance.
@@ -266,15 +260,15 @@ declare class AccedoClient {
      * @returns A promise of the success of the operation
      */
 
-    sendLogs(logs: ReadonlyArray<AccedoLog.Logobject>): Promise<boolean>;
+    sendLogs(logs: readonly AccedoLog.Logobject[]): Promise<boolean>;
 }
 
 declare namespace AccedoLog {
     enum Level {
-        DEBUG = 'debug',
-        INFO = 'info',
-        WARN = 'warn',
-        ERROR = 'error',
+        DEBUG = "debug",
+        INFO = "info",
+        WARN = "warn",
+        ERROR = "error",
     }
 
     interface Details {
@@ -367,10 +361,12 @@ interface AccedoConfig {
      * onDeviceIdGenerated, onSessionKeyChanged)
      */
 
-    browserInfoProvider?: (() => {
-        deviceId: string;
-        sessionKey: string;
-    }) | undefined;
+    browserInfoProvider?:
+        | (() => {
+            deviceId: string;
+            sessionKey: string;
+        })
+        | undefined;
 
     /** The application Key */
     appKey: string;

@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Sizes } from 'react-bootstrap';
+import * as React from "react";
+import { Sizes } from "react-bootstrap";
 
 declare namespace ListGroupItem {
     export interface ListGroupItemProps extends React.HTMLProps<ListGroupItem> {
@@ -11,5 +11,5 @@ declare namespace ListGroupItem {
         listItem?: boolean | undefined;
     }
 }
-declare class ListGroupItem extends React.Component<ListGroupItem.ListGroupItemProps> { }
+declare class ListGroupItem extends React.Component<ListGroupItem.ListGroupItemProps> {}
 export = ListGroupItem;

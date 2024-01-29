@@ -9,20 +9,20 @@ VMasker(el).maskMoney({});
 
 // Masking input element to money with options.
 VMasker(el).maskMoney({
-  // Decimal precision -> "90"
-  precision: 2,
-  // Decimal separator -> ",90"
-  separator: ',',
-  // Number delimiter -> "12.345.678"
-  delimiter: '.',
-  // Money unit -> "R$ 12.345.678,90"
-  unit: 'R$',
-  // Money unit -> "12.345.678,90 R$"
-  suffixUnit: 'R$',
-  // Force type only number instead decimal,
-  // masking decimals with ",00"
-  // Zero cents -> "R$ 1.234.567.890,00"
-  zeroCents: true
+    // Decimal precision -> "90"
+    precision: 2,
+    // Decimal separator -> ",90"
+    separator: ",",
+    // Number delimiter -> "12.345.678"
+    delimiter: ".",
+    // Money unit -> "R$ 12.345.678,90"
+    unit: "R$",
+    // Money unit -> "12.345.678,90 R$"
+    suffixUnit: "R$",
+    // Force type only number instead decimal,
+    // masking decimals with ",00"
+    // Zero cents -> "R$ 1.234.567.890,00"
+    zeroCents: true,
 });
 
 // Masking an array of input elements to money.
@@ -46,7 +46,7 @@ VMasker(el).maskPattern("(99) 9999-9999");
 VMasker.toPattern(1099911111, "(99) 9999-9999"); // -> (10) 9991-1111
 
 // Pass in an optional placeholder option to represent remaining characters to be entered
-VMasker.toPattern('4', {pattern: "(999) 999-9999", placeholder: "x"}); // -> (4xx) xxx-xxxx
+VMasker.toPattern("4", { pattern: "(999) 999-9999", placeholder: "x" }); // -> (4xx) xxx-xxxx
 
 // unmask!
 VMasker(el).unMask();

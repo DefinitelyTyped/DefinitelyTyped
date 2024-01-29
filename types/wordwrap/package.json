@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/wordwrap",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/substack/node-wordwrap#readme"
+    ],
+    "devDependencies": {
+        "@types/wordwrap": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ark120202",
+            "githubUsername": "ark120202"
+        }
+    ]
+}

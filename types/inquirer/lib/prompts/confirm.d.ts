@@ -1,9 +1,9 @@
-import Prompt = require('./base');
-import { Answers, ConfirmQuestionOptions } from '../..';
-import { Interface as ReadlineInterface } from 'readline';
+import { Interface as ReadlineInterface } from "readline";
+import { Answers, ConfirmQuestionOptions } from "../../index.js";
+import Prompt from "./base.js";
 
 /**
- * The question-options for the `ConfirmPrompt<T>`.
+ * The question-options for the {@link ConfirmPrompt `ConfirmPrompt<TQuestion>`}.
  */
 type Question = ConfirmQuestionOptions;
 
@@ -15,7 +15,7 @@ type Question = ConfirmQuestionOptions;
  */
 declare class ConfirmPrompt<TQuestion extends Question = Question> extends Prompt<TQuestion> {
     /**
-     * Initializes a new instance of the `ConfirmPrompt<T>` class.
+     * Initializes a new instance of the {@link ConfirmPrompt `ConfirmPrompt<TQuestion>`} class.
      *
      * @param question
      * The question to prompt the user to answer.
@@ -26,7 +26,7 @@ declare class ConfirmPrompt<TQuestion extends Question = Question> extends Promp
      * @param answers
      * The answer-object.
      */
-    constructor(questions: TQuestion, readLine: ReadlineInterface, answers: Answers);
+    constructor(question: TQuestion, readLine: ReadlineInterface, answers: Answers);
 
     /**
      * Renders the prompt.
@@ -50,4 +50,4 @@ declare class ConfirmPrompt<TQuestion extends Question = Question> extends Promp
     protected onKeypress(): void;
 }
 
-export = ConfirmPrompt;
+export default ConfirmPrompt;

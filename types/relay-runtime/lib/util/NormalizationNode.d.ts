@@ -1,3 +1,4 @@
+import type { JSResourceReference } from "./JSResourceReference";
 import type { ConcreteRequest } from "./RelayConcreteNode";
 
 /**
@@ -7,38 +8,39 @@ import type { ConcreteRequest } from "./RelayConcreteNode";
 export interface NormalizationOperation {
     readonly kind: string; // "Operation";
     readonly name: string;
-    readonly argumentDefinitions: ReadonlyArray<NormalizationLocalArgumentDefinition>;
-    readonly selections: ReadonlyArray<NormalizationSelection>;
+    readonly argumentDefinitions: readonly NormalizationLocalArgumentDefinition[];
+    readonly selections: readonly NormalizationSelection[];
+    readonly clientAbstractTypes?: {
+        readonly [key: string]: readonly string[];
+    };
 }
 
-export type NormalizationHandle =
-    | NormalizationScalarHandle
-    | NormalizationLinkedHandle;
+export type NormalizationHandle = NormalizationScalarHandle | NormalizationLinkedHandle;
 
 export interface NormalizationLinkedHandle {
     readonly kind: string; // "LinkedHandle";
     readonly alias?: string | null | undefined;
     readonly name: string;
-    readonly args?: ReadonlyArray<NormalizationArgument> | null | undefined;
+    readonly args?: readonly NormalizationArgument[] | null | undefined;
     readonly handle: string;
     readonly key: string;
     // NOTE: this property is optional because it's expected to be rarely used
     readonly dynamicKey?: NormalizationArgument | null | undefined;
-    readonly filters?: ReadonlyArray<string> | null | undefined;
-    readonly handleArgs?: ReadonlyArray<NormalizationArgument>;
+    readonly filters?: readonly string[] | null | undefined;
+    readonly handleArgs?: readonly NormalizationArgument[];
 }
 
 export interface NormalizationScalarHandle {
     readonly kind: string; // "ScalarHandle";
     readonly alias?: string | null | undefined;
     readonly name: string;
-    readonly args?: ReadonlyArray<NormalizationArgument> | null | undefined;
+    readonly args?: readonly NormalizationArgument[] | null | undefined;
     readonly handle: string;
     readonly key: string;
     // NOTE: this property is optional because it's expected to be rarely used
     readonly dynamicKey?: NormalizationArgument | null | undefined;
-    readonly filters?: ReadonlyArray<string> | null | undefined;
-    readonly handleArgs?: ReadonlyArray<NormalizationArgument>;
+    readonly filters?: readonly string[] | null | undefined;
+    readonly handleArgs?: readonly NormalizationArgument[];
 }
 
 export type NormalizationArgument =
@@ -51,22 +53,19 @@ export interface NormalizationCondition {
     readonly kind: string; // "Condition";
     readonly passingValue: boolean;
     readonly condition: string;
-    readonly selections: ReadonlyArray<NormalizationSelection>;
+    readonly selections: readonly NormalizationSelection[];
 }
 
 export interface NormalizationClientExtension {
     readonly kind: string; // "ClientExtension";
-    readonly selections: ReadonlyArray<NormalizationSelection>;
+    readonly selections: readonly NormalizationSelection[];
 }
 
-export type NormalizationField =
-    | NormalizationFlightField
-    | NormalizationScalarField
-    | NormalizationLinkedField;
+export type NormalizationField = NormalizationFlightField | NormalizationScalarField | NormalizationLinkedField;
 
 export interface NormalizationInlineFragment {
     readonly kind: string; // "InlineFragment";
-    readonly selections: ReadonlyArray<NormalizationSelection>;
+    readonly selections: readonly NormalizationSelection[];
     readonly type: string;
     readonly abstractKey?: string | null | undefined;
 }
@@ -74,7 +73,7 @@ export interface NormalizationInlineFragment {
 export interface NormalizationFragmentSpread {
     readonly kind: string; // "FragmentSpread";
     readonly fragment: NormalizationSplitOperation;
-    readonly args?: ReadonlyArray<NormalizationArgument> | null | undefined;
+    readonly args?: readonly NormalizationArgument[] | null | undefined;
 }
 
 export interface NormalizationLinkedField {
@@ -82,10 +81,10 @@ export interface NormalizationLinkedField {
     readonly alias?: string | null | undefined;
     readonly name: string;
     readonly storageKey?: string | null | undefined;
-    readonly args?: ReadonlyArray<NormalizationArgument> | null | undefined;
+    readonly args?: readonly NormalizationArgument[] | null | undefined;
     readonly concreteType?: string | null | undefined;
     readonly plural: boolean;
-    readonly selections: ReadonlyArray<NormalizationSelection>;
+    readonly selections: readonly NormalizationSelection[];
 }
 
 export interface NormalizationActorChange {
@@ -94,11 +93,16 @@ export interface NormalizationActorChange {
 }
 
 export interface NormalizationModuleImport {
-    readonly args?: ReadonlyArray<NormalizationArgument> | null | undefined;
+    readonly args?: readonly NormalizationArgument[] | null | undefined;
     readonly kind: string; // "ModuleImport";
     readonly documentName: string;
     readonly fragmentPropName: string;
     readonly fragmentName: string;
+    readonly componentModuleProvider?: () => unknown | Promise<unknown> | JSResourceReference<unknown>;
+    readonly operationModuleProvider?: () =>
+        | NormalizationRootNode
+        | Promise<NormalizationRootNode>
+        | JSResourceReference<NormalizationRootNode>;
 }
 
 export interface NormalizationListValueArgument {
@@ -134,7 +138,7 @@ export interface NormalizationScalarField {
     readonly kind: string; // "ScalarField";
     readonly alias?: string | null | undefined;
     readonly name: string;
-    readonly args?: ReadonlyArray<NormalizationArgument> | null | undefined;
+    readonly args?: readonly NormalizationArgument[] | null | undefined;
     readonly storageKey?: string | null | undefined;
 }
 
@@ -142,12 +146,12 @@ export interface NormalizationFlightField {
     readonly kind: string; // "FlightField";
     readonly alias?: string | null | undefined;
     readonly name: string;
-    readonly args?: ReadonlyArray<NormalizationArgument> | null | undefined;
+    readonly args?: readonly NormalizationArgument[] | null | undefined;
     readonly storageKey: string | null | undefined;
 }
 
 export interface NormalizationClientComponent {
-    readonly args?: ReadonlyArray<NormalizationArgument> | null | undefined;
+    readonly args?: readonly NormalizationArgument[] | null | undefined;
     readonly kind: string; // "ClientComponent";
     readonly fragment: NormalizationNode;
 }
@@ -173,25 +177,25 @@ export type NormalizationSelection =
     | NormalizationTypeDiscriminator;
 
 export interface NormalizationSplitOperation {
-    readonly argumentDefinitions?: ReadonlyArray<NormalizationLocalArgumentDefinition>;
+    readonly argumentDefinitions?: readonly NormalizationLocalArgumentDefinition[];
     readonly kind: string; // "SplitOperation";
     readonly name: string;
     readonly metadata: { readonly [key: string]: unknown } | null | undefined;
-    readonly selections: ReadonlyArray<NormalizationSelection>;
+    readonly selections: readonly NormalizationSelection[];
 }
 
 export interface NormalizationStream {
     readonly if: string | null;
     readonly kind: string; // "Stream";
     readonly label: string;
-    readonly selections: ReadonlyArray<NormalizationSelection>;
+    readonly selections: readonly NormalizationSelection[];
 }
 
 export interface NormalizationDefer {
     readonly if: string | null;
     readonly kind: string; // "Defer";
     readonly label: string;
-    readonly selections: ReadonlyArray<NormalizationSelection>;
+    readonly selections: readonly NormalizationSelection[];
 }
 
 export interface NormalizationVariableArgument {
@@ -204,7 +208,7 @@ export interface NormalizationVariableArgument {
 export interface NormalizationObjectValueArgument {
     readonly kind: string; // "ObjectValue";
     readonly name: string;
-    readonly fields: ReadonlyArray<NormalizationArgument>;
+    readonly fields: readonly NormalizationArgument[];
 }
 
 export type NormalizationSelectableNode =
@@ -214,6 +218,4 @@ export type NormalizationSelectableNode =
     | NormalizationSplitOperation
     | NormalizationStream;
 
-export type NormalizationRootNode =
-    | ConcreteRequest
-    | NormalizationSplitOperation;
+export type NormalizationRootNode = ConcreteRequest | NormalizationSplitOperation;

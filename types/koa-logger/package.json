@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/koa-logger",
+    "version": "3.1.9999",
+    "projects": [
+        "https://github.com/koajs/logger"
+    ],
+    "dependencies": {
+        "@types/koa": "*"
+    },
+    "devDependencies": {
+        "@types/koa-logger": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Joshua DeVinney",
+            "githubUsername": "geoffreak"
+        },
+        {
+            "name": "Tomek Łaziuk",
+            "githubUsername": "tlaziuk"
+        }
+    ]
+}

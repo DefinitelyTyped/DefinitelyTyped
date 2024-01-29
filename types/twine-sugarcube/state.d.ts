@@ -1,4 +1,4 @@
-import { SugarCubeTemporaryVariables, SugarCubeStoryVariables } from "./userdata";
+import { SugarCubeStoryVariables, SugarCubeTemporaryVariables } from "./userdata";
 
 export interface StoryMoment {
     title: string;

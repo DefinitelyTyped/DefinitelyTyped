@@ -1,6 +1,6 @@
 import { Component, CSSProperties } from "react";
-import { CustomPickerProps, ColorState } from "../../..";
 import { Classes } from "reactcss";
+import { ColorState, CustomPickerProps } from "../../..";
 
 export interface SwatchesPickerStylesProps {
     picker?: CSSProperties | undefined;
@@ -17,4 +17,4 @@ export interface SwatchesPickerProps extends CustomPickerProps {
     styles?: Partial<Classes<SwatchesPickerStylesProps>> | undefined;
 }
 
-export default class SwatchesPicker extends Component<SwatchesPickerProps> { }
+export default class SwatchesPicker extends Component<SwatchesPickerProps> {}

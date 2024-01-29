@@ -1,18 +1,3 @@
-// Type definitions for URI.js 1.19
-// Project: http://medialize.github.io/URI.js
-// Definitions by: RodneyJT <https://github.com/RodneyJT>
-//                 Brian Surowiec <https://github.com/xt0rted>
-//                 Pete Johanson <https://github.com/petejohanson>
-//                 Zhibin Liu <https://github.com/ljqx>
-//                 TeamworkGuy2 <https://github.com/teamworkguy2>
-//                 Akuukis <https://github.com/Akuukis>
-//                 Marcell Toth <https://github.com/marcelltoth>
-//                 Vincenzo Chianese <https://github.com/XVincentX>
-//                 Andree Hagelstein <https://github.com/ahagelstein>
-//                 Alexander Pepper <https://github.com/apepper>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 // urijs uses DOM dependencies which are absent in browserless envoronment like node.js.
 // to avoid compiler errors this monkey patch is used. See more details in:
 // - sinon: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11351
@@ -20,8 +5,8 @@
 /// <reference path="./dom-monkeypatch.d.ts" />
 
 // Compatability with node.js
-// tslint:disable-next-line:no-empty-interface
-interface HTMLElement { }
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface HTMLElement {}
 
 export = URI;
 export as namespace URI;
@@ -35,7 +20,14 @@ declare const URI: {
     addQuery(data: URI.QueryDataMap, qryObj: object): object;
 
     build(parts: URI.URIOptions): string;
-    buildAuthority(parts: { username?: string | undefined; password?: string | undefined; hostname?: string | undefined; port?: string | undefined }): string;
+    buildAuthority(
+        parts: {
+            username?: string | undefined;
+            password?: string | undefined;
+            hostname?: string | undefined;
+            port?: string | undefined;
+        },
+    ): string;
     buildHost(parts: { hostname?: string | undefined; port?: string | undefined }): string;
     buildQuery(data: URI.QueryDataMap, duplicateQueryParameters?: boolean, escapeQuerySpace?: boolean): string;
     buildUserinfo(parts: { username?: string | undefined; password?: string | undefined }): string;
@@ -159,22 +151,22 @@ declare namespace URI {
         equals(url?: string | ReadonlyURI | URI): boolean;
         is(
             qry:
-                | 'relative'
-                | 'absolute'
-                | 'urn'
-                | 'url'
-                | 'domain'
-                | 'name'
-                | 'sld'
-                | 'idn'
-                | 'punycode'
-                | 'ip'
-                | 'ip4'
-                | 'ipv4'
-                | 'inet4'
-                | 'ip6'
-                | 'ipv6'
-                | 'inet6',
+                | "relative"
+                | "absolute"
+                | "urn"
+                | "url"
+                | "domain"
+                | "name"
+                | "sld"
+                | "idn"
+                | "punycode"
+                | "ip"
+                | "ip4"
+                | "ipv4"
+                | "inet4"
+                | "ip6"
+                | "ipv6"
+                | "inet6",
         ): boolean;
 
         hasQuery(
@@ -230,22 +222,22 @@ interface URI {
 
     is(
         qry:
-            | 'relative'
-            | 'absolute'
-            | 'urn'
-            | 'url'
-            | 'domain'
-            | 'name'
-            | 'sld'
-            | 'idn'
-            | 'punycode'
-            | 'ip'
-            | 'ip4'
-            | 'ipv4'
-            | 'inet4'
-            | 'ip6'
-            | 'ipv6'
-            | 'inet6',
+            | "relative"
+            | "absolute"
+            | "urn"
+            | "url"
+            | "domain"
+            | "name"
+            | "sld"
+            | "idn"
+            | "punycode"
+            | "ip"
+            | "ip4"
+            | "ipv4"
+            | "inet4"
+            | "ip6"
+            | "ipv6"
+            | "inet6",
     ): boolean;
     iso8859(): URI;
 
@@ -277,8 +269,8 @@ interface URI {
     preventInvalidHostname(val: boolean): URI;
 
     query(): string;
-    // tslint:disable-next-line void-return
-    query(qry: string | URI.QueryDataMap | ((qryObject: URI.QueryDataMap) => (URI.QueryDataMap | void))): URI;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    query(qry: string | URI.QueryDataMap | ((qryObject: URI.QueryDataMap) => URI.QueryDataMap | void)): URI;
     query(v: boolean): URI.QueryDataMap;
 
     readable(): string;
@@ -293,8 +285,8 @@ interface URI {
     scheme(): string;
     scheme(protocol: string): URI;
     search(): string;
-    // tslint:disable-next-line void-return
-    search(qry: string | URI.QueryDataMap | ((qryObject: URI.QueryDataMap) => (URI.QueryDataMap | void))): URI;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    search(qry: string | URI.QueryDataMap | ((qryObject: URI.QueryDataMap) => URI.QueryDataMap | void)): URI;
     search(v: boolean): URI.QueryDataMap;
     segment(): string[];
     segment(segments: string[] | string): URI;
@@ -341,6 +333,6 @@ declare global {
     }
 }
 
-declare module 'URI' {
+declare module "URI" {
     export = URI;
 }

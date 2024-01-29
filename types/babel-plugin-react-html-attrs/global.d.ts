@@ -34,6 +34,7 @@ interface HTMLAnchorElement extends HTMLElement {}
 interface HTMLAreaElement extends HTMLElement {}
 interface HTMLAudioElement extends HTMLElement {}
 interface HTMLBaseElement extends HTMLElement {}
+interface HTMLBdoElement extends HTMLElement {}
 interface HTMLBodyElement extends HTMLElement {}
 interface HTMLBRElement extends HTMLElement {}
 interface HTMLButtonElement extends HTMLElement {}

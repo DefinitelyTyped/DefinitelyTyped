@@ -1,17 +1,11 @@
-// Type definitions for react-animations 1.0
-// Project: https://github.com/FormidableLabs/react-animations
-// Definitions by: Matheus Battirola <https://github.com/mcbattirola>
-//                 Caroline Aquistapace <https://github.com/aquistapace>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type CSSValue = string | number;
 
 export interface Keyframe {
-  [property: string]: CSSValue;
+    [property: string]: CSSValue;
 }
 
 export interface Animation {
-  [keyframe: string]: Keyframe;
+    [keyframe: string]: Keyframe;
 }
 
 export function merge(primary: Animation, secondary: Animation): Animation;

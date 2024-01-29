@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/kakao-pixel",
+    "version": "0.11.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "kakao-pixel",
+    "projects": [
+        "https://kakaoad.github.io/kakao-pixel/"
+    ],
+    "devDependencies": {
+        "@types/kakao-pixel": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "hahnlee",
+            "githubUsername": "hahnlee"
+        }
+    ]
+}

@@ -1,9 +1,3 @@
-// Type definitions for iScroll Lite 4.1
-// Project: http://cubiq.org/iscroll-4
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Christiaan Rakowski <https://github.com/csrakowski/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
 interface iScrollEvent {
     (e: Event): void;
 }
@@ -33,9 +27,8 @@ interface iScrollOptions {
 }
 
 declare class iScroll {
-
-    constructor (element: string, options?: iScrollOptions);
-    constructor (element: HTMLElement, options?: iScrollOptions);
+    constructor(element: string, options?: iScrollOptions);
+    constructor(element: HTMLElement, options?: iScrollOptions);
 
     destroy(): void;
     refresh(): void;

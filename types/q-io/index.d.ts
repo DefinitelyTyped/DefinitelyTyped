@@ -1,29 +1,22 @@
-// Type definitions for Q-io
-// Project: https://github.com/kriskowal/q-io
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
-//TODO add support for q-io/http-apps
-//TODO add verified support for q-io/fs-mock
-//TODO fix Readers/Writers properly
-//TODO find solution for overloaded return types (QioFS.open/QioFS.read)
+// TODO add support for q-io/http-apps
+// TODO add verified support for q-io/fs-mock
+// TODO fix Readers/Writers properly
+// TODO find solution for overloaded return types (QioFS.open/QioFS.read)
 //     for some ideas see https://typescript.codeplex.com/discussions/461587#post1105930
 
 declare namespace QioFS {
-
-    //TODO how to define the multiple return types? use any for now?
+    // TODO how to define the multiple return types? use any for now?
     export function open(path: string, options?: any): Q.Promise<any>;
-    //export function open(path:string, options?:any):Q.Promise<Qio.Reader>;
-    //export function open(path:string, options?:any):Q.Promise<Qio.Writer>;
-    //export function open(path:string, options?:any):Q.Promise<Buffer>;
+    // export function open(path:string, options?:any):Q.Promise<Qio.Reader>;
+    // export function open(path:string, options?:any):Q.Promise<Qio.Writer>;
+    // export function open(path:string, options?:any):Q.Promise<Buffer>;
 
-    //TODO how to define the multiple return types? use any for now?
+    // TODO how to define the multiple return types? use any for now?
     export function read(path: string, options?: any): Q.Promise<any>;
-    //export function read(path:string, options?:any):Q.Promise<string>;
-    //export function read(path:string, options?:any):Q.Promise<Buffer>;
+    // export function read(path:string, options?:any):Q.Promise<string>;
+    // export function read(path:string, options?:any):Q.Promise<Buffer>;
 
     export function write(path: string, content: Buffer, options?: any): Q.Promise<void>;
     export function write(path: string, content: string, options?: any): Q.Promise<void>;
@@ -99,16 +92,16 @@ declare namespace QioFS {
     export function base(path: string, extension: string): string;
     export function extension(path: string): string;
 
-    //this should return a q-io/fs-mock MockFS
+    // this should return a q-io/fs-mock MockFS
     export function reroot(path: string): typeof QioFS;
 
     export function toObject(path: string): { [path: string]: Buffer };
 
-    //listed but not implemented by Q-io
-    //export function glob(pattern):Q.Promise<string[]>;
-    //export function match(pattern, path:string):Q.Promise<string[]>;
+    // listed but not implemented by Q-io
+    // export function glob(pattern):Q.Promise<string[]>;
+    // export function match(pattern, path:string):Q.Promise<string[]>;
 
-    //TODO link this to node.js FS module (no lazy clones)
+    // TODO link this to node.js FS module (no lazy clones)
     interface Stats {
         node: NodeStats;
         size: number;
@@ -171,7 +164,7 @@ declare namespace QioHTTP {
     interface Response {
         status: number;
         headers: Headers;
-        body: Qio.Reader
+        body: Qio.Reader;
         onclose: () => void;
         node: any;
     }
@@ -180,7 +173,6 @@ declare namespace QioHTTP {
         // [name:string]:any[];
     }
     interface Body extends Qio.Stream {
-
     }
     interface Application {
         (req: Request): Q.Promise<any>;
@@ -223,11 +215,10 @@ declare namespace Qio {
     }
 
     interface BufferReader extends QioBufferReader {
-
     }
 }
 interface QioBufferReader {
-    new (): Qio.Reader;
+    new(): Qio.Reader;
     read(stream: Qio.Reader, charset: string): string;
     read(stream: Qio.Reader): Buffer;
     join(buffers: Buffer[]): Buffer;
@@ -237,7 +228,7 @@ interface QioBufferWriter {
     Writer: Qio.Writer;
 }
 interface QioBufferStream {
-    (buffer: Buffer, encoding: string): Qio.Stream
+    (buffer: Buffer, encoding: string): Qio.Stream;
 }
 
 declare module "q-io/http" {

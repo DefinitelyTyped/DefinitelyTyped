@@ -1,7 +1,7 @@
 /// <reference types="react" />
-import * as React from 'react';
-import { GutterTypes, ExtendedBreakpoints } from '../enums';
-import { FlexboxPropTypes } from '../utils';
+import * as React from "react";
+import { ExtendedBreakpoints, GutterTypes } from "../enums";
+import { FlexboxPropTypes } from "../utils";
 /**
  * Grid container component.
  *

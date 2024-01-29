@@ -1,12 +1,4 @@
-// Type definitions for SlickGrid HeaderButtons Plugin 2.1.0
-// Project: https://github.com/mleibman/SlickGrid
-// Definitions by: Derek Cicerone <https://github.com/derekcicerone/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
-
 declare namespace Slick {
-
     export interface Column<T extends SlickData> {
         header?: Header;
     }
@@ -31,8 +23,7 @@ declare namespace Slick {
         button: HeaderButton;
     }
 
-    export module Plugins {
-
+    export namespace Plugins {
         export class HeaderButtons<T extends SlickData> extends Plugin<T> {
             constructor();
             public onCommand: Event<OnCommandEventArgs<T>>;

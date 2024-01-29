@@ -1,31 +1,33 @@
 import {
-  forwardRef,
-  MutableRefObject,
-  RefObject,
-  useRef,
-  useState,
-  useEffect,
-  useContext,
-  useCallback,
-  createRef,
-  createContext,
-  RaxNode,
-  useImperativeHandle,
-  Ref,
-  useReducer,
-  useLayoutEffect,
-  ComponentRef,
-  useMemo,
- } from "rax";
+    ComponentRef,
+    createContext,
+    createRef,
+    forwardRef,
+    MutableRefObject,
+    RaxNode,
+    Ref,
+    RefObject,
+    useCallback,
+    useContext,
+    useEffect,
+    useImperativeHandle,
+    useLayoutEffect,
+    useMemo,
+    useReducer,
+    useRef,
+    useState,
+} from "rax";
 
 interface PersonProps {
     name: string;
     age: number;
 }
 export function Person(props: PersonProps) {
-    return <div>
-        hello! I'm {props.name} and I'm {props.age} years old!
-    </div>;
+    return (
+        <div>
+            hello! I'm {props.name} and I'm {props.age} years old!
+        </div>
+    );
 }
 
 export interface FancyButtonProps {
@@ -45,12 +47,19 @@ export const FancyButton = forwardRef((props: FancyButtonProps, ref: Ref<FancyBu
         },
         getClickCount() {
             return count;
-        }
+        },
     }));
 
-    return <button onClick={() => { setCount(count + 1); props.onClick(); }}>
-        {props.children}
-    </button>;
+    return (
+        <button
+            onClick={() => {
+                setCount(count + 1);
+                props.onClick();
+            }}
+        >
+            {props.children}
+        </button>
+    );
 });
 
 interface AppState {
@@ -73,7 +82,7 @@ function reducer(s: AppState, action: AppActions): AppState {
 
 const initialState = {
     name: "Daniel",
-    age: 26
+    age: 26,
 };
 
 export function App() {
@@ -90,15 +99,17 @@ export function App() {
         }
     });
 
-    return <>
-        <Person {...state} />
-        <FancyButton onClick={() => dispatch({ type: "getOlder" })}>
-            Birthday time!
-        </FancyButton>
-        <FancyButton onClick={() => dispatch({ type: "resetAge" })}>
-            Let's start over.
-        </FancyButton>
-    </>;
+    return (
+        <>
+            <Person {...state} />
+            <FancyButton onClick={() => dispatch({ type: "getOlder" })}>
+                Birthday time!
+            </FancyButton>
+            <FancyButton onClick={() => dispatch({ type: "resetAge" })}>
+                Let's start over.
+            </FancyButton>
+        </>
+    );
 }
 
 interface Context {
@@ -106,12 +117,12 @@ interface Context {
 }
 const context = createContext<Context>({ test: true });
 
-function useEveryHook(ref: Ref<{ id: number }>|undefined): () => boolean {
+function useEveryHook(ref: Ref<{ id: number }> | undefined): () => boolean {
     const value: Context = useContext(context);
     const [, setState] = useState(() => 0);
 
     // inline object, to (manually) check if autocomplete works
-    useReducer(reducer, { age: 42, name: 'The Answer' });
+    useReducer(reducer, { age: 42, name: "The Answer" });
 
     // test useRef and its convenience overloads
     // $ExpectType MutableRefObject<number>
@@ -139,7 +150,7 @@ function useEveryHook(ref: Ref<{ id: number }>|undefined): () => boolean {
     // $ExpectType MutableRefObject<number | undefined>
     useRef<number>();
     // don't just accept a potential undefined if there is a generic argument
-    // $ExpectError
+    // @ts-expect-error
     useRef<number>(undefined);
     // make sure once again there's no |undefined if the initial value doesn't either
     // $ExpectType MutableRefObject<number>
@@ -172,23 +183,23 @@ function useEveryHook(ref: Ref<{ id: number }>|undefined): () => boolean {
     useEffect(() => () => {});
     // indistinguishable
     useEffect(() => () => undefined);
-    // $ExpectError
+    // @ts-expect-error
     useEffect(() => null);
-    // $ExpectError
+    // @ts-expect-error
     useEffect(() => Math.random() ? null : undefined);
-    // $ExpectError
+    // @ts-expect-error
     useEffect(() => () => null);
-    // $ExpectError
+    // @ts-expect-error
     useEffect(() => () => Math.random() ? null : undefined);
-    // $ExpectError
+    // @ts-expect-error
     useEffect(() => async () => {});
-    // $ExpectError
+    // @ts-expect-error
     useEffect(async () => () => {});
 
     // allow passing an explicit undefined
     useMemo(() => {}, undefined);
     // but don't allow it to be missing
-    // $ExpectError
+    // @ts-expect-error
     useMemo(() => {});
 
     // useState convenience overload
@@ -203,7 +214,7 @@ function useEveryHook(ref: Ref<{ id: number }>|undefined): () => boolean {
     // $ExpectType undefined
     useState(undefined)[0];
     // make sure the generic argument does reject actual potentially undefined inputs
-    // $ExpectError
+    // @ts-expect-error
     useState<number>(undefined)[0];
     // make sure useState does not widen
     const [toggle, setToggle] = useState(false);
@@ -223,12 +234,14 @@ const UsesEveryHook = forwardRef(
         useEveryHook(ref)();
 
         return null;
-    }
+    },
 );
 const everyHookRef = createRef<{ id: number }>();
-<UsesEveryHook ref={everyHookRef}/>;
+<UsesEveryHook ref={everyHookRef} />;
 
-<UsesEveryHook ref={ref => {
-    // $ExpectType { id: number; } | null
-    ref;
- }}/>;
+<UsesEveryHook
+    ref={ref => {
+        // $ExpectType { id: number; } | null
+        ref;
+    }}
+/>;

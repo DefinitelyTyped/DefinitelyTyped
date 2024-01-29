@@ -1,6 +1,56 @@
 {
     "private": true,
+    "name": "@types/styled-components",
+    "version": "5.1.9999",
+    "projects": [
+        "https://github.com/styled-components/styled-components",
+        "https://styled-components.com"
+    ],
     "dependencies": {
+        "@types/hoist-non-react-statics": "*",
+        "@types/react": "*",
         "csstype": "^3.0.2"
-    }
+    },
+    "devDependencies": {
+        "@types/react-dom": "*",
+        "@types/styled-components": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Igor Oleinikov",
+            "githubUsername": "Igorbek"
+        },
+        {
+            "name": "Ihor Chulinda",
+            "githubUsername": "Igmat"
+        },
+        {
+            "name": "Jessica Franco",
+            "githubUsername": "Jessidhia"
+        },
+        {
+            "name": "Jason Killian",
+            "githubUsername": "jkillian"
+        },
+        {
+            "name": "Sebastian Silbermann",
+            "githubUsername": "eps1lon"
+        },
+        {
+            "name": "Matthew Wagerfield",
+            "githubUsername": "wagerfield"
+        },
+        {
+            "name": "Yuki Ito",
+            "githubUsername": "Lazyuki"
+        },
+        {
+            "name": "Aaron Reisman",
+            "githubUsername": "lifeiscontent"
+        },
+        {
+            "name": "Aaron Rose",
+            "githubUsername": "acdr"
+        }
+    ]
 }

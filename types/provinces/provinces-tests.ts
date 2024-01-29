@@ -1,4 +1,4 @@
-import * as provinces from 'provinces';
+import * as provinces from "provinces";
 
 provinces.forEach((province: Province) => {
     // https://github.com/substack/provinces#data-format
@@ -11,8 +11,8 @@ provinces.forEach((province: Province) => {
 
     name = province.name;
     country = province.country;
-    short = province.short ? province.short : '';
+    short = province.short ? province.short : "";
     alt = province.alt ? province.alt : [];
-    region = province.region ? province.region : '';
-    english = province.english ? province.english : '';
+    region = province.region ? province.region : "";
+    english = province.english ? province.english : "";
 });

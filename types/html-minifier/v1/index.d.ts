@@ -1,14 +1,8 @@
-// Type definitions for HTMLMinifier v1.1.1
-// Project: https://github.com/kangax/html-minifier
-// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="uglify-js" />
 
-import * as UglifyJS from 'uglify-js';
-import * as CleanCSS from 'clean-css';
-import * as RelateUrl from 'relateurl';
+import * as CleanCSS from "clean-css";
+import * as RelateUrl from "relateurl";
+import * as UglifyJS from "uglify-js";
 
 declare namespace HTMLMinifier {
     function minify(text: string, options?: Options): string;
@@ -84,22 +78,22 @@ declare namespace HTMLMinifier {
         minifyURLs?: boolean | RelateUrl.Options | undefined;
 
         // Array of regex'es that allow to ignore certain comments, when matched
-        ignoreCustomComments?: Array<RegExp> | undefined;
+        ignoreCustomComments?: RegExp[] | undefined;
 
         // Array of regex'es that allow to ignore certain fragments, when matched (e.g. <?php ... ?>, {{ ... }}, etc.)
-        ignoreCustomFragments?: Array<RegExp> | undefined;
+        ignoreCustomFragments?: RegExp[] | undefined;
 
         // Array of strings corresponding to types of script elements to process through minifier (e.g. text/ng-template, text/x-handlebars-template, etc.)
-        processScripts?: Array<string> | undefined;
+        processScripts?: string[] | undefined;
 
         // Specify a maximum line length. Compressed output will be split by newlines at valid HTML split-points
         maxLineLength?: number | undefined;
 
         // Arrays of regex'es that allow to support custom attribute assign expressions (e.g. '<div flex?="{{mode != cover}}"></div>')
-        customAttrAssign?: Array<RegExp> | undefined;
+        customAttrAssign?: RegExp[] | undefined;
 
         // Arrays of regex'es that allow to support custom attribute surround expressions (e.g. <input {{#if value}}checked="checked"{{/if}}>)
-        customAttrSurround?: Array<RegExp> | undefined;
+        customAttrSurround?: RegExp[] | undefined;
 
         // Regex that specifies custom attribute to strip newlines from (e.g. /ng\-class/)
         customAttrCollapse?: RegExp | undefined;

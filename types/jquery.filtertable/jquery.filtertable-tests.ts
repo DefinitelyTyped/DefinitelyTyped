@@ -1,9 +1,9 @@
-$('table').filterTable();
+$("table").filterTable();
 
-$('table').filterTable({ quickList: ['class', 'tag'] });
+$("table").filterTable({ quickList: ["class", "tag"] });
 
-$('table').filterTable({
+$("table").filterTable({
     callback(term, table) {
-        table.find('tr').removeClass('striped').filter(':visible:even').addClass('striped');
-    }
+        table.find("tr").removeClass("striped").filter(":visible:even").addClass("striped");
+    },
 });

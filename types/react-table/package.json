@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/react-table",
+    "version": "7.7.9999",
+    "projects": [
+        "https://github.com/tannerlinsley/react-table"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-table": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Guy Gascoigne-Piggford",
+            "githubUsername": "ggascoigne"
+        },
+        {
+            "name": "Rohit Garg",
+            "githubUsername": "gargroh"
+        },
+        {
+            "name": "Jason Clark",
+            "githubUsername": "riceboyler"
+        }
+    ]
+}

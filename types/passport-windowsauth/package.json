@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/passport-windowsauth",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/auth0/passport-windowsauth#readme"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/ldapjs": "*",
+        "@types/passport": "*"
+    },
+    "devDependencies": {
+        "@types/passport-windowsauth": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Emily Marigold Klassen",
+            "githubUsername": "forivall"
+        }
+    ]
+}

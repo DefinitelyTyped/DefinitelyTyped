@@ -2,11 +2,24 @@ import WebMercatorViewport, {
     addMetersToLngLat,
     DistanceScalesInput,
     getDistanceScales,
-} from 'viewport-mercator-project';
+} from "viewport-mercator-project";
 
 const mercator = new WebMercatorViewport();
 
-const { width, height, scale, latitude, longitude, altitude, zoom, pitch, bearing, center, viewMatrix, projectionMatrix } = mercator;
+const {
+    width,
+    height,
+    scale,
+    latitude,
+    longitude,
+    altitude,
+    zoom,
+    pitch,
+    bearing,
+    center,
+    viewMatrix,
+    projectionMatrix,
+} = mercator;
 
 const xy = mercator.project([0, 1]);
 const xyz = mercator.project([0, 1, 2]);

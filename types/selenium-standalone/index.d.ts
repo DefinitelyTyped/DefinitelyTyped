@@ -1,14 +1,8 @@
-// Type definitions for selenium-standalone 7.0
-// Project: https://github.com/vvo/selenium-standalone
-// Definitions by: Sander de Waal <https://github.com/SanderDeWaal1992>
-//                 Mykola Grybyk <https://github.com/mgrybyk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
+import { ChildProcess, SpawnOptions } from "child_process";
 import * as http from "http";
 import { URL } from "url";
-import { ChildProcess, SpawnOptions } from "child_process";
 
 export function install(opts?: InstallOpts): Promise<void>;
 
@@ -19,7 +13,7 @@ export interface InstallOpts {
     basePath?: string | undefined;
     version?: string | undefined;
     drivers?: {
-        [browser: string]: DriverOptions
+        [browser: string]: DriverOptions;
     } | undefined;
     progressCb?: ((totalLength: number, progressLength: number, chunkLength: number) => void) | undefined;
     logger?: ((message: string) => void) | undefined;
@@ -30,7 +24,7 @@ export interface StartOpts {
     basePath?: string | undefined;
     version?: string | undefined;
     drivers?: {
-        [browser: string]: DriverOptions
+        [browser: string]: DriverOptions;
     } | undefined;
     seleniumArgs?: string[] | undefined;
     javaArgs?: string[] | undefined;

@@ -1,8 +1,3 @@
-// Type definitions for Woothee 1.11
-// Project: https://github.com/woothee/woothee-js
-// Definitions by: Ryo Kawamata <https://github.com/kawamataryo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace woothee;
 
 /**
@@ -40,9 +35,9 @@ interface WootheeParseResult {
  * The Woothee object.
  */
 interface Woothee {
-   /**
-    * Parsing user-agent.
-    */
+    /**
+     * Parsing user-agent.
+     */
     parse(uaString: string): WootheeParseResult;
     /**
      * Finding crawler.

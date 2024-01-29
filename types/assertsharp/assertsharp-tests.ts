@@ -11,4 +11,6 @@ Assert.IsNotInstanceOfType(true, Date, "Pass");
 Assert.IsNotNull(new Date(), "Pass");
 Assert.IsNull(null, "Pass");
 Assert.IsTrue(true, "Pass");
-Assert.Throws(() => { throw ""; }, "Pass");
+Assert.Throws(() => {
+    throw "";
+}, "Pass");

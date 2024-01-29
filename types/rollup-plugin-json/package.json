@@ -1,6 +1,25 @@
 {
     "private": true,
+    "name": "@types/rollup-plugin-json",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/rollup/rollup-plugin-json#readme"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "rollup": "^0.63.4"
-    }
+    },
+    "devDependencies": {
+        "@types/rollup-plugin-json": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andy Mockler",
+            "githubUsername": "asmockler"
+        },
+        {
+            "name": "Martin Hochel",
+            "githubUsername": "hotell"
+        }
+    ]
 }

@@ -1,14 +1,14 @@
-import { SheetType, DashboardObjectType, SelectionUpdateType, FilterUpdateType } from './enums';
-import { Workbook, DataSource } from './workbook';
+import { DashboardObjectType, FilterUpdateType, SelectionUpdateType, SheetType } from "./enums";
 import {
+    Filter,
     FilterOptions,
+    HierarchicalFilterOptions,
     RangeFilterOptions,
     RelativeDateFilterOptions,
-    HierarchicalFilterOptions,
-    Filter,
-} from './filtering';
-import { Mark } from './marks';
-import { Size, Point } from './other';
+} from "./filtering";
+import { Mark } from "./marks";
+import { Point, Size } from "./other";
+import { DataSource, Workbook } from "./workbook";
 
 // ! Docs specify SheetSize but there is no definition for SheetSize,
 // ! we assume here that it refers to the generic Size type.
@@ -32,10 +32,10 @@ export class Sheet extends SheetInfo {
 }
 
 export type SheetSizeOptions =
-    | { behavior: 'AUTOMATIC' }
-    | { behavior: 'EXACTLY' | 'RANGE'; maxSize: SheetSize; minSize: SheetSize }
-    | { behavior: 'ATMOST'; maxSize: SheetSize }
-    | { behavior: 'ATLEAST'; minSize: SheetSize };
+    | { behavior: "AUTOMATIC" }
+    | { behavior: "EXACTLY" | "RANGE"; maxSize: SheetSize; minSize: SheetSize }
+    | { behavior: "ATMOST"; maxSize: SheetSize }
+    | { behavior: "ATLEAST"; minSize: SheetSize };
 
 export class DataTable {
     getName(): string;

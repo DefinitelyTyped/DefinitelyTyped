@@ -1,21 +1,20 @@
-// Type definitions for passport-oauth2-client-password 0.1.2
-// Project: https://github.com/jaredhanson/passport-oauth2-client-password
-// Definitions by: Ivan Zubok <https://github.com/akaNightmare>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="passport"/>
 /// <reference types="express"/>
 
-import * as passport from 'passport';
-import * as express from  'express';
+import * as express from "express";
+import * as passport from "passport";
 
 interface StrategyOptionsWithRequestInterface {
     passReqToCallback: boolean;
 }
 
 interface VerifyFunctionWithRequest {
-    (req: express.Request, clientId: string, clientSecret: string, done: (error: any, client?: any, info?: any) => void): void;
+    (
+        req: express.Request,
+        clientId: string,
+        clientSecret: string,
+        done: (error: any, client?: any, info?: any) => void,
+    ): void;
 }
 
 interface VerifyFunction {

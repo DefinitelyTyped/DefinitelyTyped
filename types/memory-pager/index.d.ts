@@ -1,8 +1,3 @@
-// Type definitions for memory-pager 1.4
-// Project: https://github.com/mafintosh/memory-pager
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export = Pager;
@@ -19,7 +14,7 @@ interface Pager {
      * Create a new pager.
      * @param pageSize defaults to 1024.
      */
-    new (pageSize?: number): Pager.PagerInstance;
+    new(pageSize?: number): Pager.PagerInstance;
 }
 
 declare namespace Pager {

@@ -25,29 +25,29 @@
  *      return a + b + this.c;
  * }
  */
-import { Transform, ArrowFunctionExpression } from "jscodeshift";
+import { ArrowFunctionExpression, Transform } from "jscodeshift";
 
 const transform: Transform = (file, api) => {
-  const j = api.jscodeshift;
+    const j = api.jscodeshift;
 
-  return j(file.source)
-    .find(j.FunctionExpression)
-    // We check for this expression, as if it's in a function expression, we don't want to re-bind "this" by
-    // using the arrowFunctionExpression. As that could potentially have some unintended consequences.
-    .filter(p => j(p).find(j.ThisExpression).size() === 0)
-    .replaceWith(p => {
-      let body: ArrowFunctionExpression['body'] = p.value.body;
-      // We can get a bit clever here. If we have a function that consists of a single return statement in it's body,
-      // we can transform it to the more compact arrowFunctionExpression (a, b) => a + b, vs (a + b) => { return a + b }
-      let useExpression = false;
-      if (body.type === 'BlockStatement' && body.body.length === 1) {
-        const first = body.body[0];
-        if (first.type === "ReturnStatement") {
-          useExpression = true;
-          body = first.argument!;
-        }
-      }
-      return j.arrowFunctionExpression(p.value.params, body, useExpression);
-    })
-    .toSource();
+    return j(file.source)
+        .find(j.FunctionExpression)
+        // We check for this expression, as if it's in a function expression, we don't want to re-bind "this" by
+        // using the arrowFunctionExpression. As that could potentially have some unintended consequences.
+        .filter(p => j(p).find(j.ThisExpression).size() === 0)
+        .replaceWith(p => {
+            let body: ArrowFunctionExpression["body"] = p.value.body;
+            // We can get a bit clever here. If we have a function that consists of a single return statement in it's body,
+            // we can transform it to the more compact arrowFunctionExpression (a, b) => a + b, vs (a + b) => { return a + b }
+            let useExpression = false;
+            if (body.type === "BlockStatement" && body.body.length === 1) {
+                const first = body.body[0];
+                if (first.type === "ReturnStatement") {
+                    useExpression = true;
+                    body = first.argument!;
+                }
+            }
+            return j.arrowFunctionExpression(p.value.params, body, useExpression);
+        })
+        .toSource();
 };

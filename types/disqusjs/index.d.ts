@@ -1,14 +1,9 @@
-// Type definitions for disqusJS 1.3
-// Project: https://github.com/SukkaW/DisqusJS#readme
-// Definitions by: enpitsulin <https://github.com/enpitsuLin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = DisqusJS;
 
 declare const DisqusJS: DisqusJS;
 
 interface DisqusJS {
-    new (config?: Partial<DisqusJSConfig>): {};
+    new(config?: Partial<DisqusJSConfig>): {};
 }
 
 interface DisqusJSConfig {

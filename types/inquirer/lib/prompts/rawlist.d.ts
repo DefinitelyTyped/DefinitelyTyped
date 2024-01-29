@@ -1,12 +1,12 @@
-import inquirer = require('../..');
-import Prompt = require('./base');
-import Paginator = require('../utils/paginator');
-import { Interface as ReadlineInterface } from 'readline';
+import { Interface as ReadlineInterface } from "readline";
+import inquirer, { Answers, RawListQuestionOptions } from "../../index.js";
+import Paginator from "../utils/paginator.js";
+import Prompt from "./base.js";
 
 /**
- * The question for the `RawListPrompt<T>`.
+ * The question for the {@link RawListPrompt `RawListPrompt<TQuestion>`}.
  */
-type Question = inquirer.RawListQuestionOptions<inquirer.Answers>;
+type Question = RawListQuestionOptions;
 
 /**
  * Represents a prompt which provides a list to choose an answer from.
@@ -36,7 +36,7 @@ declare class RawListPrompt<TQuestion extends Question = Question> extends Promp
     protected paginator: Paginator;
 
     /**
-     * Initializes a new instance of the `RawListPrompt<T>` class.
+     * Initializes a new instance of the {@link RawListPrompt `RawListPrompt<TQuestion>`} class.
      *
      * @param question
      * The question to prompt the user to answer.
@@ -47,7 +47,7 @@ declare class RawListPrompt<TQuestion extends Question = Question> extends Promp
      * @param answers
      * The answer-object.
      */
-    constructor(question: TQuestion, readLine: ReadlineInterface, answers: inquirer.Answers);
+    constructor(question: TQuestion, readLine: ReadlineInterface, answers: Answers);
 
     /**
      * Renders the prompt.
@@ -58,13 +58,13 @@ declare class RawListPrompt<TQuestion extends Question = Question> extends Promp
     protected render(error?: string): void;
 
     /**
-     * Gets the value of the specified `index`.
+     * Gets the value of the specified {@link index `index`}.
      *
      * @param index
      * The index to get the value for.
      *
      * @returns
-     * The value of the specified `index`.
+     * The value of the specified {@link index `index`}.
      */
     protected getCurrentValue(index: number): any;
 
@@ -89,7 +89,7 @@ declare class RawListPrompt<TQuestion extends Question = Question> extends Promp
      * @param type
      * A value indicating whether the up or the down-arrow is being pressed.
      */
-    protected onArrowKey(type: 'up' | 'down'): void;
+    protected onArrowKey(type: "up" | "down"): void;
 
     /**
      * Handles the `success`-event of the prompt.
@@ -108,4 +108,4 @@ declare class RawListPrompt<TQuestion extends Question = Question> extends Promp
     protected onError(): void;
 }
 
-export = RawListPrompt;
+export default RawListPrompt;

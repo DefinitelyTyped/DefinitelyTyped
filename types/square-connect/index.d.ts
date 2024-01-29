@@ -1,683 +1,676 @@
-// Type definitions for square-connect 4.20201028
-// Project: https://docs.connect.squareup.com/
-// Definitions by: Dmitri Dimitrioglo <https://github.com/ddimitrioglo>
-//                 Richard Moot <https://github.com/mootrichard>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 export type CountryType =
-    | 'ZZ'
-    | 'AD'
-    | 'AE'
-    | 'AF'
-    | 'AG'
-    | 'AI'
-    | 'AL'
-    | 'AM'
-    | 'AO'
-    | 'AQ'
-    | 'AR'
-    | 'AS'
-    | 'AT'
-    | 'AU'
-    | 'AW'
-    | 'AX'
-    | 'AZ'
-    | 'BA'
-    | 'BB'
-    | 'BD'
-    | 'BE'
-    | 'BF'
-    | 'BG'
-    | 'BH'
-    | 'BI'
-    | 'BJ'
-    | 'BL'
-    | 'BM'
-    | 'BN'
-    | 'BO'
-    | 'BQ'
-    | 'BR'
-    | 'BS'
-    | 'BT'
-    | 'BV'
-    | 'BW'
-    | 'BY'
-    | 'BZ'
-    | 'CA'
-    | 'CC'
-    | 'CD'
-    | 'CF'
-    | 'CG'
-    | 'CH'
-    | 'CI'
-    | 'CK'
-    | 'CL'
-    | 'CM'
-    | 'CN'
-    | 'CO'
-    | 'CR'
-    | 'CU'
-    | 'CV'
-    | 'CW'
-    | 'CX'
-    | 'CY'
-    | 'CZ'
-    | 'DE'
-    | 'DJ'
-    | 'DK'
-    | 'DM'
-    | 'DO'
-    | 'DZ'
-    | 'EC'
-    | 'EE'
-    | 'EG'
-    | 'EH'
-    | 'ER'
-    | 'ES'
-    | 'ET'
-    | 'FI'
-    | 'FJ'
-    | 'FK'
-    | 'FM'
-    | 'FO'
-    | 'FR'
-    | 'GA'
-    | 'GB'
-    | 'GD'
-    | 'GE'
-    | 'GF'
-    | 'GG'
-    | 'GH'
-    | 'GI'
-    | 'GL'
-    | 'GM'
-    | 'GN'
-    | 'GP'
-    | 'GQ'
-    | 'GR'
-    | 'GS'
-    | 'GT'
-    | 'GU'
-    | 'GW'
-    | 'GY'
-    | 'HK'
-    | 'HM'
-    | 'HN'
-    | 'HR'
-    | 'HT'
-    | 'HU'
-    | 'ID'
-    | 'IE'
-    | 'IL'
-    | 'IM'
-    | 'IN'
-    | 'IO'
-    | 'IQ'
-    | 'IR'
-    | 'IS'
-    | 'IT'
-    | 'JE'
-    | 'JM'
-    | 'JO'
-    | 'JP'
-    | 'KE'
-    | 'KG'
-    | 'KH'
-    | 'KI'
-    | 'KM'
-    | 'KN'
-    | 'KP'
-    | 'KR'
-    | 'KW'
-    | 'KY'
-    | 'KZ'
-    | 'LA'
-    | 'LB'
-    | 'LC'
-    | 'LI'
-    | 'LK'
-    | 'LR'
-    | 'LS'
-    | 'LT'
-    | 'LU'
-    | 'LV'
-    | 'LY'
-    | 'MA'
-    | 'MC'
-    | 'MD'
-    | 'ME'
-    | 'MF'
-    | 'MG'
-    | 'MH'
-    | 'MK'
-    | 'ML'
-    | 'MM'
-    | 'MN'
-    | 'MO'
-    | 'MP'
-    | 'MQ'
-    | 'MR'
-    | 'MS'
-    | 'MT'
-    | 'MU'
-    | 'MV'
-    | 'MW'
-    | 'MX'
-    | 'MY'
-    | 'MZ'
-    | 'NA'
-    | 'NC'
-    | 'NE'
-    | 'NF'
-    | 'NG'
-    | 'NI'
-    | 'NL'
-    | 'NO'
-    | 'NP'
-    | 'NR'
-    | 'NU'
-    | 'NZ'
-    | 'OM'
-    | 'PA'
-    | 'PE'
-    | 'PF'
-    | 'PG'
-    | 'PH'
-    | 'PK'
-    | 'PL'
-    | 'PM'
-    | 'PN'
-    | 'PR'
-    | 'PS'
-    | 'PT'
-    | 'PW'
-    | 'PY'
-    | 'QA'
-    | 'RE'
-    | 'RO'
-    | 'RS'
-    | 'RU'
-    | 'RW'
-    | 'SA'
-    | 'SB'
-    | 'SC'
-    | 'SD'
-    | 'SE'
-    | 'SG'
-    | 'SH'
-    | 'SI'
-    | 'SJ'
-    | 'SK'
-    | 'SL'
-    | 'SM'
-    | 'SN'
-    | 'SO'
-    | 'SR'
-    | 'SS'
-    | 'ST'
-    | 'SV'
-    | 'SX'
-    | 'SY'
-    | 'SZ'
-    | 'TC'
-    | 'TD'
-    | 'TF'
-    | 'TG'
-    | 'TH'
-    | 'TJ'
-    | 'TK'
-    | 'TL'
-    | 'TM'
-    | 'TN'
-    | 'TO'
-    | 'TR'
-    | 'TT'
-    | 'TV'
-    | 'TW'
-    | 'TZ'
-    | 'UA'
-    | 'UG'
-    | 'UM'
-    | 'US'
-    | 'UY'
-    | 'UZ'
-    | 'VA'
-    | 'VC'
-    | 'VE'
-    | 'VG'
-    | 'VI'
-    | 'VN'
-    | 'VU'
-    | 'WF'
-    | 'WS'
-    | 'YE'
-    | 'YT'
-    | 'ZA'
-    | 'ZM'
-    | 'ZW';
+    | "ZZ"
+    | "AD"
+    | "AE"
+    | "AF"
+    | "AG"
+    | "AI"
+    | "AL"
+    | "AM"
+    | "AO"
+    | "AQ"
+    | "AR"
+    | "AS"
+    | "AT"
+    | "AU"
+    | "AW"
+    | "AX"
+    | "AZ"
+    | "BA"
+    | "BB"
+    | "BD"
+    | "BE"
+    | "BF"
+    | "BG"
+    | "BH"
+    | "BI"
+    | "BJ"
+    | "BL"
+    | "BM"
+    | "BN"
+    | "BO"
+    | "BQ"
+    | "BR"
+    | "BS"
+    | "BT"
+    | "BV"
+    | "BW"
+    | "BY"
+    | "BZ"
+    | "CA"
+    | "CC"
+    | "CD"
+    | "CF"
+    | "CG"
+    | "CH"
+    | "CI"
+    | "CK"
+    | "CL"
+    | "CM"
+    | "CN"
+    | "CO"
+    | "CR"
+    | "CU"
+    | "CV"
+    | "CW"
+    | "CX"
+    | "CY"
+    | "CZ"
+    | "DE"
+    | "DJ"
+    | "DK"
+    | "DM"
+    | "DO"
+    | "DZ"
+    | "EC"
+    | "EE"
+    | "EG"
+    | "EH"
+    | "ER"
+    | "ES"
+    | "ET"
+    | "FI"
+    | "FJ"
+    | "FK"
+    | "FM"
+    | "FO"
+    | "FR"
+    | "GA"
+    | "GB"
+    | "GD"
+    | "GE"
+    | "GF"
+    | "GG"
+    | "GH"
+    | "GI"
+    | "GL"
+    | "GM"
+    | "GN"
+    | "GP"
+    | "GQ"
+    | "GR"
+    | "GS"
+    | "GT"
+    | "GU"
+    | "GW"
+    | "GY"
+    | "HK"
+    | "HM"
+    | "HN"
+    | "HR"
+    | "HT"
+    | "HU"
+    | "ID"
+    | "IE"
+    | "IL"
+    | "IM"
+    | "IN"
+    | "IO"
+    | "IQ"
+    | "IR"
+    | "IS"
+    | "IT"
+    | "JE"
+    | "JM"
+    | "JO"
+    | "JP"
+    | "KE"
+    | "KG"
+    | "KH"
+    | "KI"
+    | "KM"
+    | "KN"
+    | "KP"
+    | "KR"
+    | "KW"
+    | "KY"
+    | "KZ"
+    | "LA"
+    | "LB"
+    | "LC"
+    | "LI"
+    | "LK"
+    | "LR"
+    | "LS"
+    | "LT"
+    | "LU"
+    | "LV"
+    | "LY"
+    | "MA"
+    | "MC"
+    | "MD"
+    | "ME"
+    | "MF"
+    | "MG"
+    | "MH"
+    | "MK"
+    | "ML"
+    | "MM"
+    | "MN"
+    | "MO"
+    | "MP"
+    | "MQ"
+    | "MR"
+    | "MS"
+    | "MT"
+    | "MU"
+    | "MV"
+    | "MW"
+    | "MX"
+    | "MY"
+    | "MZ"
+    | "NA"
+    | "NC"
+    | "NE"
+    | "NF"
+    | "NG"
+    | "NI"
+    | "NL"
+    | "NO"
+    | "NP"
+    | "NR"
+    | "NU"
+    | "NZ"
+    | "OM"
+    | "PA"
+    | "PE"
+    | "PF"
+    | "PG"
+    | "PH"
+    | "PK"
+    | "PL"
+    | "PM"
+    | "PN"
+    | "PR"
+    | "PS"
+    | "PT"
+    | "PW"
+    | "PY"
+    | "QA"
+    | "RE"
+    | "RO"
+    | "RS"
+    | "RU"
+    | "RW"
+    | "SA"
+    | "SB"
+    | "SC"
+    | "SD"
+    | "SE"
+    | "SG"
+    | "SH"
+    | "SI"
+    | "SJ"
+    | "SK"
+    | "SL"
+    | "SM"
+    | "SN"
+    | "SO"
+    | "SR"
+    | "SS"
+    | "ST"
+    | "SV"
+    | "SX"
+    | "SY"
+    | "SZ"
+    | "TC"
+    | "TD"
+    | "TF"
+    | "TG"
+    | "TH"
+    | "TJ"
+    | "TK"
+    | "TL"
+    | "TM"
+    | "TN"
+    | "TO"
+    | "TR"
+    | "TT"
+    | "TV"
+    | "TW"
+    | "TZ"
+    | "UA"
+    | "UG"
+    | "UM"
+    | "US"
+    | "UY"
+    | "UZ"
+    | "VA"
+    | "VC"
+    | "VE"
+    | "VG"
+    | "VI"
+    | "VN"
+    | "VU"
+    | "WF"
+    | "WS"
+    | "YE"
+    | "YT"
+    | "ZA"
+    | "ZM"
+    | "ZW";
 
 export type CurrencyType =
-    | 'UNKNOWN_CURRENCY'
-    | 'AED'
-    | 'AFN'
-    | 'ALL'
-    | 'AMD'
-    | 'ANG'
-    | 'AOA'
-    | 'ARS'
-    | 'AUD'
-    | 'AWG'
-    | 'AZN'
-    | 'BAM'
-    | 'BBD'
-    | 'BDT'
-    | 'BGN'
-    | 'BHD'
-    | 'BIF'
-    | 'BMD'
-    | 'BND'
-    | 'BOB'
-    | 'BOV'
-    | 'BRL'
-    | 'BSD'
-    | 'BTN'
-    | 'BWP'
-    | 'BYR'
-    | 'BZD'
-    | 'CAD'
-    | 'CDF'
-    | 'CHE'
-    | 'CHF'
-    | 'CHW'
-    | 'CLF'
-    | 'CLP'
-    | 'CNY'
-    | 'COP'
-    | 'COU'
-    | 'CRC'
-    | 'CUC'
-    | 'CUP'
-    | 'CVE'
-    | 'CZK'
-    | 'DJF'
-    | 'DKK'
-    | 'DOP'
-    | 'DZD'
-    | 'EGP'
-    | 'ERN'
-    | 'ETB'
-    | 'EUR'
-    | 'FJD'
-    | 'FKP'
-    | 'GBP'
-    | 'GEL'
-    | 'GHS'
-    | 'GIP'
-    | 'GMD'
-    | 'GNF'
-    | 'GTQ'
-    | 'GYD'
-    | 'HKD'
-    | 'HNL'
-    | 'HRK'
-    | 'HTG'
-    | 'HUF'
-    | 'IDR'
-    | 'ILS'
-    | 'INR'
-    | 'IQD'
-    | 'IRR'
-    | 'ISK'
-    | 'JMD'
-    | 'JOD'
-    | 'JPY'
-    | 'KES'
-    | 'KGS'
-    | 'KHR'
-    | 'KMF'
-    | 'KPW'
-    | 'KRW'
-    | 'KWD'
-    | 'KYD'
-    | 'KZT'
-    | 'LAK'
-    | 'LBP'
-    | 'LKR'
-    | 'LRD'
-    | 'LSL'
-    | 'LTL'
-    | 'LVL'
-    | 'LYD'
-    | 'MAD'
-    | 'MDL'
-    | 'MGA'
-    | 'MKD'
-    | 'MMK'
-    | 'MNT'
-    | 'MOP'
-    | 'MRO'
-    | 'MUR'
-    | 'MVR'
-    | 'MWK'
-    | 'MXN'
-    | 'MXV'
-    | 'MYR'
-    | 'MZN'
-    | 'NAD'
-    | 'NGN'
-    | 'NIO'
-    | 'NOK'
-    | 'NPR'
-    | 'NZD'
-    | 'OMR'
-    | 'PAB'
-    | 'PEN'
-    | 'PGK'
-    | 'PHP'
-    | 'PKR'
-    | 'PLN'
-    | 'PYG'
-    | 'QAR'
-    | 'RON'
-    | 'RSD'
-    | 'RUB'
-    | 'RWF'
-    | 'SAR'
-    | 'SBD'
-    | 'SCR'
-    | 'SDG'
-    | 'SEK'
-    | 'SGD'
-    | 'SHP'
-    | 'SLL'
-    | 'SOS'
-    | 'SRD'
-    | 'SSP'
-    | 'STD'
-    | 'SVC'
-    | 'SYP'
-    | 'SZL'
-    | 'THB'
-    | 'TJS'
-    | 'TMT'
-    | 'TND'
-    | 'TOP'
-    | 'TRY'
-    | 'TTD'
-    | 'TWD'
-    | 'TZS'
-    | 'UAH'
-    | 'UGX'
-    | 'USD'
-    | 'USN'
-    | 'USS'
-    | 'UYI'
-    | 'UYU'
-    | 'UZS'
-    | 'VEF'
-    | 'VND'
-    | 'VUV'
-    | 'WST'
-    | 'XAF'
-    | 'XAG'
-    | 'XAU'
-    | 'XBA'
-    | 'XBB'
-    | 'XBC'
-    | 'XBD'
-    | 'XCD'
-    | 'XDR'
-    | 'XOF'
-    | 'XPD'
-    | 'XPF'
-    | 'XPT'
-    | 'XTS'
-    | 'XXX'
-    | 'YER'
-    | 'ZAR'
-    | 'ZMK'
-    | 'ZMW'
-    | 'BTC';
+    | "UNKNOWN_CURRENCY"
+    | "AED"
+    | "AFN"
+    | "ALL"
+    | "AMD"
+    | "ANG"
+    | "AOA"
+    | "ARS"
+    | "AUD"
+    | "AWG"
+    | "AZN"
+    | "BAM"
+    | "BBD"
+    | "BDT"
+    | "BGN"
+    | "BHD"
+    | "BIF"
+    | "BMD"
+    | "BND"
+    | "BOB"
+    | "BOV"
+    | "BRL"
+    | "BSD"
+    | "BTN"
+    | "BWP"
+    | "BYR"
+    | "BZD"
+    | "CAD"
+    | "CDF"
+    | "CHE"
+    | "CHF"
+    | "CHW"
+    | "CLF"
+    | "CLP"
+    | "CNY"
+    | "COP"
+    | "COU"
+    | "CRC"
+    | "CUC"
+    | "CUP"
+    | "CVE"
+    | "CZK"
+    | "DJF"
+    | "DKK"
+    | "DOP"
+    | "DZD"
+    | "EGP"
+    | "ERN"
+    | "ETB"
+    | "EUR"
+    | "FJD"
+    | "FKP"
+    | "GBP"
+    | "GEL"
+    | "GHS"
+    | "GIP"
+    | "GMD"
+    | "GNF"
+    | "GTQ"
+    | "GYD"
+    | "HKD"
+    | "HNL"
+    | "HRK"
+    | "HTG"
+    | "HUF"
+    | "IDR"
+    | "ILS"
+    | "INR"
+    | "IQD"
+    | "IRR"
+    | "ISK"
+    | "JMD"
+    | "JOD"
+    | "JPY"
+    | "KES"
+    | "KGS"
+    | "KHR"
+    | "KMF"
+    | "KPW"
+    | "KRW"
+    | "KWD"
+    | "KYD"
+    | "KZT"
+    | "LAK"
+    | "LBP"
+    | "LKR"
+    | "LRD"
+    | "LSL"
+    | "LTL"
+    | "LVL"
+    | "LYD"
+    | "MAD"
+    | "MDL"
+    | "MGA"
+    | "MKD"
+    | "MMK"
+    | "MNT"
+    | "MOP"
+    | "MRO"
+    | "MUR"
+    | "MVR"
+    | "MWK"
+    | "MXN"
+    | "MXV"
+    | "MYR"
+    | "MZN"
+    | "NAD"
+    | "NGN"
+    | "NIO"
+    | "NOK"
+    | "NPR"
+    | "NZD"
+    | "OMR"
+    | "PAB"
+    | "PEN"
+    | "PGK"
+    | "PHP"
+    | "PKR"
+    | "PLN"
+    | "PYG"
+    | "QAR"
+    | "RON"
+    | "RSD"
+    | "RUB"
+    | "RWF"
+    | "SAR"
+    | "SBD"
+    | "SCR"
+    | "SDG"
+    | "SEK"
+    | "SGD"
+    | "SHP"
+    | "SLL"
+    | "SOS"
+    | "SRD"
+    | "SSP"
+    | "STD"
+    | "SVC"
+    | "SYP"
+    | "SZL"
+    | "THB"
+    | "TJS"
+    | "TMT"
+    | "TND"
+    | "TOP"
+    | "TRY"
+    | "TTD"
+    | "TWD"
+    | "TZS"
+    | "UAH"
+    | "UGX"
+    | "USD"
+    | "USN"
+    | "USS"
+    | "UYI"
+    | "UYU"
+    | "UZS"
+    | "VEF"
+    | "VND"
+    | "VUV"
+    | "WST"
+    | "XAF"
+    | "XAG"
+    | "XAU"
+    | "XBA"
+    | "XBB"
+    | "XBC"
+    | "XBD"
+    | "XCD"
+    | "XDR"
+    | "XOF"
+    | "XPD"
+    | "XPF"
+    | "XPT"
+    | "XTS"
+    | "XXX"
+    | "YER"
+    | "ZAR"
+    | "ZMK"
+    | "ZMW"
+    | "BTC";
 
-export type DayOfWeekType = 'SUN' | 'MON' | 'TUE' | 'WED' | 'THU' | 'FRI' | 'SAT';
+export type DayOfWeekType = "SUN" | "MON" | "TUE" | "WED" | "THU" | "FRI" | "SAT";
 
 export type CardBrandType =
-    | 'JCB'
-    | 'VISA'
-    | 'DISCOVER'
-    | 'MASTERCARD'
-    | 'OTHER_BRAND'
-    | 'CHINA_UNIONPAY'
-    | 'DISCOVER_DINERS'
-    | 'AMERICAN_EXPRESS'
-    | 'SQUARE_GIFT_CARD';
+    | "JCB"
+    | "VISA"
+    | "DISCOVER"
+    | "MASTERCARD"
+    | "OTHER_BRAND"
+    | "CHINA_UNIONPAY"
+    | "DISCOVER_DINERS"
+    | "AMERICAN_EXPRESS"
+    | "SQUARE_GIFT_CARD";
 
-export type SortOrderType = 'ASC' | 'DESC';
+export type SortOrderType = "ASC" | "DESC";
 
-export type TaxType = 'ADDITIVE' | 'INCLUSIVE' | 'UNKNOWN_TAX';
+export type TaxType = "ADDITIVE" | "INCLUSIVE" | "UNKNOWN_TAX";
 
-export type TaxApplicationScopeType = 'ORDER' | 'LINE_ITEM' | 'OTHER_TAX_SCOPE';
+export type TaxApplicationScopeType = "ORDER" | "LINE_ITEM" | "OTHER_TAX_SCOPE";
 
 export type DiscountType =
-    | 'FIXED_AMOUNT'
-    | 'FIXED_PERCENTAGE'
-    | 'VARIABLE_AMOUNT'
-    | 'VARIABLE_PERCENTAGE'
-    | 'UNKNOWN_DISCOUNT';
+    | "FIXED_AMOUNT"
+    | "FIXED_PERCENTAGE"
+    | "VARIABLE_AMOUNT"
+    | "VARIABLE_PERCENTAGE"
+    | "UNKNOWN_DISCOUNT";
 
-export type DiscountApplicationScopeType = 'ORDER' | 'LINE_ITEM' | 'OTHER_DISCOUNT_SCOPE';
+export type DiscountApplicationScopeType = "ORDER" | "LINE_ITEM" | "OTHER_DISCOUNT_SCOPE";
 
 export type CustomerSourceType =
-    | 'OTHER'
-    | 'APPOINTMENTS'
-    | 'COUPON'
-    | 'DELETION_RECOVERY'
-    | 'DIRECTORY'
-    | 'EGIFTING'
-    | 'EMAIL_COLLECTION'
-    | 'FEEDBACK'
-    | 'IMPORT'
-    | 'INVOICES'
-    | 'LOYALTY'
-    | 'MARKETING'
-    | 'MERGE'
-    | 'ONLINE_STORE'
-    | 'INSTANT_PROFILE'
-    | 'TERMINAL'
-    | 'THIRD_PARTY'
-    | 'THIRD_PARTY_IMPORT'
-    | 'UNMERGE_RECOVERY';
+    | "OTHER"
+    | "APPOINTMENTS"
+    | "COUPON"
+    | "DELETION_RECOVERY"
+    | "DIRECTORY"
+    | "EGIFTING"
+    | "EMAIL_COLLECTION"
+    | "FEEDBACK"
+    | "IMPORT"
+    | "INVOICES"
+    | "LOYALTY"
+    | "MARKETING"
+    | "MERGE"
+    | "ONLINE_STORE"
+    | "INSTANT_PROFILE"
+    | "TERMINAL"
+    | "THIRD_PARTY"
+    | "THIRD_PARTY_IMPORT"
+    | "UNMERGE_RECOVERY";
 
 export type InventoryStateType =
-    | 'CUSTOM'
-    | 'IN_STOCK'
-    | 'SOLD'
-    | 'RETURNED_BY_CUSTOMER'
-    | 'RESERVED_FOR_SALE'
-    | 'SOLD_ONLINE'
-    | 'ORDERED_FROM_VENDOR'
-    | 'RECEIVED_FROM_VENDOR'
-    | 'IN_TRANSIT_TO'
-    | 'NONE'
-    | 'WASTE'
-    | 'UNLINKED_RETURN';
+    | "CUSTOM"
+    | "IN_STOCK"
+    | "SOLD"
+    | "RETURNED_BY_CUSTOMER"
+    | "RESERVED_FOR_SALE"
+    | "SOLD_ONLINE"
+    | "ORDERED_FROM_VENDOR"
+    | "RECEIVED_FROM_VENDOR"
+    | "IN_TRANSIT_TO"
+    | "NONE"
+    | "WASTE"
+    | "UNLINKED_RETURN";
 
-export type ActivityStatusType = 'ACTIVE' | 'INACTIVE';
+export type ActivityStatusType = "ACTIVE" | "INACTIVE";
 
-export type FulfillmentType = 'PICKUP' | 'SHIPMENT';
+export type FulfillmentType = "PICKUP" | "SHIPMENT";
 
-export type FulfillmentStateType = 'PROPOSED' | 'RESERVED' | 'PREPARED' | 'COMPLETED' | 'CANCELED' | 'FAILED';
+export type FulfillmentStateType = "PROPOSED" | "RESERVED" | "PREPARED" | "COMPLETED" | "CANCELED" | "FAILED";
 
-export type InventoryType = 'PHYSICAL_COUNT' | 'ADJUSTMENT' | 'TRANSFER';
+export type InventoryType = "PHYSICAL_COUNT" | "ADJUSTMENT" | "TRANSFER";
 
 export type ObjectType =
-    | 'ITEM'
-    | 'IMAGE'
-    | 'CATEGORY'
-    | 'ITEM_VARIATION'
-    | 'TAX'
-    | 'DISCOUNT'
-    | 'MODIFIER_LIST'
-    | 'MODIFIER';
+    | "ITEM"
+    | "IMAGE"
+    | "CATEGORY"
+    | "ITEM_VARIATION"
+    | "TAX"
+    | "DISCOUNT"
+    | "MODIFIER_LIST"
+    | "MODIFIER";
 
-export type PricingType = 'FIXED_PRICING' | 'VARIABLE_PRICING';
+export type PricingType = "FIXED_PRICING" | "VARIABLE_PRICING";
 
-export type OrderStateType = 'OPEN' | 'COMPLETED' | 'CANCELED';
+export type OrderStateType = "OPEN" | "COMPLETED" | "CANCELED";
 
 export type AreaUnitType =
-    | 'IMPERIAL_ACRE'
-    | 'IMPERIAL_SQUARE_INCH'
-    | 'IMPERIAL_SQUARE_FOOT'
-    | 'IMPERIAL_SQUARE_YARD'
-    | 'IMPERIAL_SQUARE_MILE'
-    | 'METRIC_SQUARE_METER'
-    | 'METRIC_SQUARE_KILOMETER'
-    | 'METRIC_SQUARE_CENTIMETER';
+    | "IMPERIAL_ACRE"
+    | "IMPERIAL_SQUARE_INCH"
+    | "IMPERIAL_SQUARE_FOOT"
+    | "IMPERIAL_SQUARE_YARD"
+    | "IMPERIAL_SQUARE_MILE"
+    | "METRIC_SQUARE_METER"
+    | "METRIC_SQUARE_KILOMETER"
+    | "METRIC_SQUARE_CENTIMETER";
 
 export type LengthUnitType =
-    | 'IMPERIAL_INCH'
-    | 'IMPERIAL_FOOT'
-    | 'IMPERIAL_YARD'
-    | 'IMPERIAL_MILE'
-    | 'METRIC_MILLIMETER'
-    | 'METRIC_CENTIMETER'
-    | 'METRIC_METER'
-    | 'METRIC_KILOMETER';
+    | "IMPERIAL_INCH"
+    | "IMPERIAL_FOOT"
+    | "IMPERIAL_YARD"
+    | "IMPERIAL_MILE"
+    | "METRIC_MILLIMETER"
+    | "METRIC_CENTIMETER"
+    | "METRIC_METER"
+    | "METRIC_KILOMETER";
 
 export type VolumeUnitType =
-    | 'GENERIC_FLUID_OUNCE'
-    | 'GENERIC_SHOT'
-    | 'GENERIC_CUP'
-    | 'GENERIC_PINT'
-    | 'GENERIC_QUART'
-    | 'GENERIC_GALLON'
-    | 'IMPERIAL_CUBIC_INCH'
-    | 'IMPERIAL_CUBIC_FOOT'
-    | 'IMPERIAL_CUBIC_YARD'
-    | 'METRIC_MILLILITER'
-    | 'METRIC_LITER';
+    | "GENERIC_FLUID_OUNCE"
+    | "GENERIC_SHOT"
+    | "GENERIC_CUP"
+    | "GENERIC_PINT"
+    | "GENERIC_QUART"
+    | "GENERIC_GALLON"
+    | "IMPERIAL_CUBIC_INCH"
+    | "IMPERIAL_CUBIC_FOOT"
+    | "IMPERIAL_CUBIC_YARD"
+    | "METRIC_MILLILITER"
+    | "METRIC_LITER";
 
 export type WeightUnitType =
-    | 'IMPERIAL_WEIGHT_OUNCE'
-    | 'IMPERIAL_POUND'
-    | 'IMPERIAL_STONE'
-    | 'METRIC_MILLIGRAM'
-    | 'METRIC_GRAM'
-    | 'METRIC_KILOGRAM';
+    | "IMPERIAL_WEIGHT_OUNCE"
+    | "IMPERIAL_POUND"
+    | "IMPERIAL_STONE"
+    | "METRIC_MILLIGRAM"
+    | "METRIC_GRAM"
+    | "METRIC_KILOGRAM";
 
 export type ErrorCategoryType =
-    | 'API_ERROR'
-    | 'AUTHENTICATION_ERROR'
-    | 'INVALID_REQUEST_ERROR'
-    | 'RATE_LIMIT_ERROR'
-    | 'PAYMENT_METHOD_ERROR'
-    | 'REFUND_ERROR';
+    | "API_ERROR"
+    | "AUTHENTICATION_ERROR"
+    | "INVALID_REQUEST_ERROR"
+    | "RATE_LIMIT_ERROR"
+    | "PAYMENT_METHOD_ERROR"
+    | "REFUND_ERROR";
 
 export type ErrorCodeType =
-    | 'INTERNAL_SERVER_ERROR'
-    | 'UNAUTHORIZED'
-    | 'ACCESS_TOKEN_EXPIRED'
-    | 'ACCESS_TOKEN_REVOKED'
-    | 'FORBIDDEN'
-    | 'INSUFFICIENT_SCOPES'
-    | 'APPLICATION_DISABLED'
-    | 'V1_APPLICATION'
-    | 'V1_ACCESS_TOKEN'
-    | 'CARD_PROCESSING_NOT_ENABLED'
-    | 'BAD_REQUEST'
-    | 'MISSING_REQUIRED_PARAMETER'
-    | 'INCORRECT_TYPE'
-    | 'INVALID_TIME'
-    | 'INVALID_TIME_RANGE'
-    | 'INVALID_VALUE'
-    | 'INVALID_CURSOR'
-    | 'UNKNOWN_QUERY_PARAMETER'
-    | 'CONFLICTING_PARAMETERS'
-    | 'EXPECTED_JSON_BODY'
-    | 'INVALID_SORT_ORDER'
-    | 'VALUE_REGEX_MISMATCH'
-    | 'VALUE_TOO_SHORT'
-    | 'VALUE_TOO_LONG'
-    | 'VALUE_TOO_LOW'
-    | 'VALUE_TOO_HIGH'
-    | 'VALUE_EMPTY'
-    | 'ARRAY_LENGTH_TOO_LONG'
-    | 'ARRAY_LENGTH_TOO_SHORT'
-    | 'ARRAY_EMPTY'
-    | 'EXPECTED_BOOLEAN'
-    | 'EXPECTED_INTEGER'
-    | 'EXPECTED_FLOAT'
-    | 'EXPECTED_STRING'
-    | 'EXPECTED_OBJECT'
-    | 'EXPECTED_ARRAY'
-    | 'EXPECTED_MAP'
-    | 'EXPECTED_BASE64_ENCODED_BYTE_ARRAY'
-    | 'INVALID_ARRAY_VALUE'
-    | 'INVALID_ENUM_VALUE'
-    | 'INVALID_CONTENT_TYPE'
-    | 'INVALID_FORM_VALUE'
-    | 'ONE_INSTRUMENT_EXPECTED'
-    | 'NO_FIELDS_SET'
-    | 'DEPRECATED_FIELD_SET'
-    | 'CARD_EXPIRED'
-    | 'INVALID_EXPIRATION'
-    | 'INVALID_EXPIRATION_YEAR'
-    | 'INVALID_EXPIRATION_DATE'
-    | 'UNSUPPORTED_CARD_BRAND'
-    | 'UNSUPPORTED_ENTRY_METHOD'
-    | 'INVALID_ENCRYPTED_CARD'
-    | 'INVALID_CARD'
-    | 'DELAYED_TRANSACTION_EXPIRED'
-    | 'DELAYED_TRANSACTION_CANCELED'
-    | 'DELAYED_TRANSACTION_CAPTURED'
-    | 'DELAYED_TRANSACTION_FAILED'
-    | 'CARD_TOKEN_EXPIRED'
-    | 'CARD_TOKEN_USED'
-    | 'AMOUNT_TOO_HIGH'
-    | 'UNSUPPORTED_INSTRUMENT_TYPE'
-    | 'REFUND_AMOUNT_INVALID'
-    | 'REFUND_ALREADY_PENDING'
-    | 'PAYMENT_NOT_REFUNDABLE'
-    | 'INVALID_CARD_DATA'
-    | 'LOCATION_MISMATCH'
-    | 'IDEMPOTENCY_KEY_REUSED'
-    | 'UNEXPECTED_VALUE'
-    | 'SANDBOX_NOT_SUPPORTED'
-    | 'INVALID_EMAIL_ADDRESS'
-    | 'INVALID_PHONE_NUMBER'
-    | 'CHECKOUT_EXPIRED'
-    | 'BAD_CERTIFICATE'
-    | 'INVALID_SQUARE_VERSION_FORMAT'
-    | 'API_VERSION_INCOMPATIBLE'
-    | 'CARD_DECLINED'
-    | 'VERIFY_CVV_FAILURE'
-    | 'VERIFY_AVS_FAILURE'
-    | 'CARD_DECLINED_CALL_ISSUER'
-    | 'NOT_FOUND'
-    | 'APPLE_PAYMENT_PROCESSING_CERTIFICATE_HASH_NOT_FOUND'
-    | 'METHOD_NOT_ALLOWED'
-    | 'NOT_ACCEPTABLE'
-    | 'REQUEST_TIMEOUT'
-    | 'CONFLICT'
-    | 'REQUEST_ENTITY_TOO_LARGE'
-    | 'UNSUPPORTED_MEDIA_TYPE'
-    | 'RATE_LIMITED'
-    | 'NOT_IMPLEMENTED'
-    | 'SERVICE_UNAVAILABLE'
-    | 'GATEWAY_TIMEOUT';
+    | "INTERNAL_SERVER_ERROR"
+    | "UNAUTHORIZED"
+    | "ACCESS_TOKEN_EXPIRED"
+    | "ACCESS_TOKEN_REVOKED"
+    | "FORBIDDEN"
+    | "INSUFFICIENT_SCOPES"
+    | "APPLICATION_DISABLED"
+    | "V1_APPLICATION"
+    | "V1_ACCESS_TOKEN"
+    | "CARD_PROCESSING_NOT_ENABLED"
+    | "BAD_REQUEST"
+    | "MISSING_REQUIRED_PARAMETER"
+    | "INCORRECT_TYPE"
+    | "INVALID_TIME"
+    | "INVALID_TIME_RANGE"
+    | "INVALID_VALUE"
+    | "INVALID_CURSOR"
+    | "UNKNOWN_QUERY_PARAMETER"
+    | "CONFLICTING_PARAMETERS"
+    | "EXPECTED_JSON_BODY"
+    | "INVALID_SORT_ORDER"
+    | "VALUE_REGEX_MISMATCH"
+    | "VALUE_TOO_SHORT"
+    | "VALUE_TOO_LONG"
+    | "VALUE_TOO_LOW"
+    | "VALUE_TOO_HIGH"
+    | "VALUE_EMPTY"
+    | "ARRAY_LENGTH_TOO_LONG"
+    | "ARRAY_LENGTH_TOO_SHORT"
+    | "ARRAY_EMPTY"
+    | "EXPECTED_BOOLEAN"
+    | "EXPECTED_INTEGER"
+    | "EXPECTED_FLOAT"
+    | "EXPECTED_STRING"
+    | "EXPECTED_OBJECT"
+    | "EXPECTED_ARRAY"
+    | "EXPECTED_MAP"
+    | "EXPECTED_BASE64_ENCODED_BYTE_ARRAY"
+    | "INVALID_ARRAY_VALUE"
+    | "INVALID_ENUM_VALUE"
+    | "INVALID_CONTENT_TYPE"
+    | "INVALID_FORM_VALUE"
+    | "ONE_INSTRUMENT_EXPECTED"
+    | "NO_FIELDS_SET"
+    | "DEPRECATED_FIELD_SET"
+    | "CARD_EXPIRED"
+    | "INVALID_EXPIRATION"
+    | "INVALID_EXPIRATION_YEAR"
+    | "INVALID_EXPIRATION_DATE"
+    | "UNSUPPORTED_CARD_BRAND"
+    | "UNSUPPORTED_ENTRY_METHOD"
+    | "INVALID_ENCRYPTED_CARD"
+    | "INVALID_CARD"
+    | "DELAYED_TRANSACTION_EXPIRED"
+    | "DELAYED_TRANSACTION_CANCELED"
+    | "DELAYED_TRANSACTION_CAPTURED"
+    | "DELAYED_TRANSACTION_FAILED"
+    | "CARD_TOKEN_EXPIRED"
+    | "CARD_TOKEN_USED"
+    | "AMOUNT_TOO_HIGH"
+    | "UNSUPPORTED_INSTRUMENT_TYPE"
+    | "REFUND_AMOUNT_INVALID"
+    | "REFUND_ALREADY_PENDING"
+    | "PAYMENT_NOT_REFUNDABLE"
+    | "INVALID_CARD_DATA"
+    | "LOCATION_MISMATCH"
+    | "IDEMPOTENCY_KEY_REUSED"
+    | "UNEXPECTED_VALUE"
+    | "SANDBOX_NOT_SUPPORTED"
+    | "INVALID_EMAIL_ADDRESS"
+    | "INVALID_PHONE_NUMBER"
+    | "CHECKOUT_EXPIRED"
+    | "BAD_CERTIFICATE"
+    | "INVALID_SQUARE_VERSION_FORMAT"
+    | "API_VERSION_INCOMPATIBLE"
+    | "CARD_DECLINED"
+    | "VERIFY_CVV_FAILURE"
+    | "VERIFY_AVS_FAILURE"
+    | "CARD_DECLINED_CALL_ISSUER"
+    | "NOT_FOUND"
+    | "APPLE_PAYMENT_PROCESSING_CERTIFICATE_HASH_NOT_FOUND"
+    | "METHOD_NOT_ALLOWED"
+    | "NOT_ACCEPTABLE"
+    | "REQUEST_TIMEOUT"
+    | "CONFLICT"
+    | "REQUEST_ENTITY_TOO_LARGE"
+    | "UNSUPPORTED_MEDIA_TYPE"
+    | "RATE_LIMITED"
+    | "NOT_IMPLEMENTED"
+    | "SERVICE_UNAVAILABLE"
+    | "GATEWAY_TIMEOUT";
 
 export type ProductSourceType =
-    | 'SQUARE_POS'
-    | 'EXTERNAL_API'
-    | 'BILLING'
-    | 'APPOINTMENTS'
-    | 'INVOICES'
-    | 'ONLINE_STORE'
-    | 'PAYROLL'
-    | 'DASHBOARD'
-    | 'ITEM_LIBRARY_IMPORT'
-    | 'OTHER';
+    | "SQUARE_POS"
+    | "EXTERNAL_API"
+    | "BILLING"
+    | "APPOINTMENTS"
+    | "INVOICES"
+    | "ONLINE_STORE"
+    | "PAYROLL"
+    | "DASHBOARD"
+    | "ITEM_LIBRARY_IMPORT"
+    | "OTHER";
 
 /**
  * Defines request parameters for the AcceptDispute endpoint.
@@ -691,7 +684,7 @@ export class AcceptDisputeResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * Details about the accepted dispute.
      */
@@ -725,7 +718,7 @@ export class AccumulateLoyaltyPointsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The resulting loyalty event.
      */
@@ -748,7 +741,7 @@ export class AddGroupToCustomerResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -863,7 +856,7 @@ export class AdjustLoyaltyPointsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The resulting event data for adjusting points.
      */
@@ -982,7 +975,7 @@ export class BatchChangeInventoryRequest {
      * The set of physical counts and inventory adjustments to be made.
      * Changes are applied based on the client-supplied timestamp and may be sent out of order.
      */
-    changes?: Array<InventoryChange> | undefined;
+    changes?: InventoryChange[] | undefined;
     /**
      * Indicates whether the current physical count should be ignored if the quantity is unchanged since the last physical count.
      * Default: `true`.
@@ -994,11 +987,11 @@ export class BatchChangeInventoryResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The current counts for all objects referenced in the request.
      */
-    counts?: Array<InventoryCount> | undefined;
+    counts?: InventoryCount[] | undefined;
 }
 
 export class BatchDeleteCatalogObjectsRequest {
@@ -1006,18 +999,18 @@ export class BatchDeleteCatalogObjectsRequest {
      * The IDs of the CatalogObjects to be deleted. When an object is deleted, other objects in the graph that depend on
      * that object will be deleted as well (for example, deleting a CatalogItem will delete its CatalogItemVariation.
      */
-    object_ids?: Array<string> | undefined;
+    object_ids?: string[] | undefined;
 }
 
 export class BatchDeleteCatalogObjectsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The IDs of all CatalogObjects deleted by this request.
      */
-    deleted_object_ids?: Array<string> | undefined;
+    deleted_object_ids?: string[] | undefined;
     /**
      * The database [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates) of this deletion
      * in RFC 3339 format, e.g., "2016-09-04T23:59:33.123Z".
@@ -1029,7 +1022,7 @@ export class BatchRetrieveCatalogObjectsRequest {
     /**
      * The IDs of the CatalogObjects to be retrieved.
      */
-    object_ids: Array<string>;
+    object_ids: string[];
     /**
      * If `true`, the response will include additional objects that are related to the requested objects, as follows:
      *  * If the `objects` field of the response contains a CatalogItem, its associated CatalogCategory objects, CatalogTax objects,
@@ -1044,36 +1037,36 @@ export class BatchRetrieveCatalogObjectsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * A list of `CatalogObject`s returned.
      */
-    objects?: Array<CatalogObject> | undefined;
+    objects?: CatalogObject[] | undefined;
     /**
      * A list of `CatalogObject`s referenced by the object in the `objects` field.
      */
-    related_objects?: Array<CatalogObject> | undefined;
+    related_objects?: CatalogObject[] | undefined;
 }
 
 export class BatchRetrieveInventoryChangesRequest {
     /**
      * The filter to return results by `CatalogObject` ID. The filter is only applicable when set. The default value is null.
      */
-    catalog_object_ids?: Array<string> | undefined;
+    catalog_object_ids?: string[] | undefined;
     /**
      * The filter to return results by `Location` ID. The filter is only applicable when set. The default value is null.
      */
-    location_ids?: Array<string> | undefined;
+    location_ids?: string[] | undefined;
     /**
      * The filter to return results by `InventoryChangeType` values other than `TRANSFER`.
      * The default value is `[PHYSICAL_COUNT, ADJUSTMENT]`. See [InventoryChangeType](#type-inventorychangetype) for possible values.
      */
-    types?: Array<InventoryType> | undefined;
+    types?: InventoryType[] | undefined;
     /**
      * The filter to return `ADJUSTMENT` query results by `InventoryState`. This filter is only applied when set.
      * The default value is null. See [InventoryState](#type-inventorystate) for possible values.
      */
-    states?: Array<InventoryStateType> | undefined;
+    states?: InventoryStateType[] | undefined;
     /**
      * The filter to return results with their `calculated_at` value after the given time as specified in an RFC 3339 timestamp.
      * The default value is the UNIX epoch of (`1970-01-01T00:00:00Z`).
@@ -1096,11 +1089,11 @@ export class BatchRetrieveInventoryChangesResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The current calculated inventory changes for the requested objects and locations.
      */
-    changes?: Array<InventoryChange> | undefined;
+    changes?: InventoryChange[] | undefined;
     /**
      * The pagination cursor to be used in a subsequent request. If unset, this is the final response.
      * See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more information.
@@ -1112,11 +1105,11 @@ export class BatchRetrieveInventoryCountsRequest {
     /**
      * The filter to return results by `CatalogObject` ID. The filter is applicable only when set. The default is null.
      */
-    catalog_object_ids?: Array<string> | undefined;
+    catalog_object_ids?: string[] | undefined;
     /**
      * The filter to return results by `Location` ID. This filter is applicable only when set. The default is null.
      */
-    location_ids?: Array<string> | undefined;
+    location_ids?: string[] | undefined;
     /**
      * The filter to return results with their `calculated_at` value  after the given time as specified in an RFC 3339 timestamp.
      * The default value is the UNIX epoch of (`1970-01-01T00:00:00Z`).
@@ -1133,18 +1126,18 @@ export class BatchRetrieveInventoryCountsRequest {
      * Ignored are untracked states of `NONE`, `SOLD`, and `UNLINKED_RETURN`. The default is null.
      * See [InventoryState](#type-inventorystate) for possible values.
      */
-    states?: Array<string> | undefined;
+    states?: string[] | undefined;
 }
 
 export class BatchRetrieveInventoryCountsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The current calculated inventory counts for the requested objects and locations.
      */
-    counts?: Array<InventoryCount> | undefined;
+    counts?: InventoryCount[] | undefined;
     /**
      * The pagination cursor to be used in a subsequent request. If unset, this is the final response.
      * See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more information.
@@ -1161,7 +1154,7 @@ export class BatchRetrieveOrdersRequest {
     /**
      * The IDs of the orders to retrieve. A maximum of 100 orders can be retrieved per request.
      */
-    order_ids: Array<string>;
+    order_ids: string[];
 }
 
 /**
@@ -1171,11 +1164,11 @@ export class BatchRetrieveOrdersResponse {
     /**
      * The requested orders. This will omit any requested orders that do not exist.
      */
-    orders?: Array<Order> | undefined;
+    orders?: Order[] | undefined;
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 export class BatchUpsertCatalogObjectsRequest {
@@ -1201,18 +1194,18 @@ export class BatchUpsertCatalogObjectsRequest {
      * may not exceed 10,000. If either of these limits is violated, an error will be returned and no objects
      * will be inserted or updated.
      */
-    batches: Array<CatalogObjectBatch>;
+    batches: CatalogObjectBatch[];
 }
 
 export class BatchUpsertCatalogObjectsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The created successfully created CatalogObjects.
      */
-    objects?: Array<CatalogObject> | undefined;
+    objects?: CatalogObject[] | undefined;
     /**
      * The database [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates) of this update
      * in RFC 3339 format, e.g., "2016-09-04T23:59:33.123Z".
@@ -1221,7 +1214,7 @@ export class BatchUpsertCatalogObjectsResponse {
     /**
      * The mapping between client and server IDs for this upsert.
      */
-    id_mappings?: Array<CatalogIdMapping> | undefined;
+    id_mappings?: CatalogIdMapping[] | undefined;
 }
 
 /**
@@ -1285,7 +1278,7 @@ export class BulkCreateTeamMembersResponse {
     /**
      * The errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -1311,7 +1304,7 @@ export class BulkUpdateTeamMembersResponse {
     /**
      * The errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -1321,7 +1314,7 @@ export class BusinessHours {
     /**
      * The list of time periods during which the business is open. There may be at most 10 periods per day.
      */
-    periods?: Array<BusinessHoursPeriod> | undefined;
+    periods?: BusinessHoursPeriod[] | undefined;
 }
 
 /**
@@ -1367,7 +1360,7 @@ export class CalculateLoyaltyPointsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The points that the buyer can earn from a specified purchase.
      */
@@ -1385,7 +1378,7 @@ export class CalculateOrderRequest {
      * The reward(s) do not correspond to actual redemptions, that is, no `reward`s are created.
      * Therefore, the reward `id`s are random strings used only to reference the reward tier.
      */
-    proposed_rewards?: Array<OrderReward> | undefined;
+    proposed_rewards?: OrderReward[] | undefined;
 }
 
 export class CalculateOrderResponse {
@@ -1396,7 +1389,7 @@ export class CalculateOrderResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -1421,7 +1414,7 @@ export class CancelInvoiceResponse {
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -1442,7 +1435,7 @@ export class CancelPaymentByIdempotencyKeyResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -1458,7 +1451,7 @@ export class CancelPaymentResponse {
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The successfully canceled `Payment` object.
      */
@@ -1477,7 +1470,7 @@ export class CancelSubscriptionResponse {
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The canceled subscription.
      */
@@ -1490,7 +1483,7 @@ export class CancelTerminalCheckoutResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The canceled `TerminalCheckout`
      */
@@ -1503,7 +1496,7 @@ export class CancelTerminalRefundResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The updated `TerminalRefund`
      */
@@ -1522,7 +1515,7 @@ export class CaptureTransactionResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -1632,7 +1625,7 @@ export class CardPaymentDetails {
     /**
      * For EMV payments, the results of the cardholder verification.
      */
-    verification_results?: 'SUCCESS' | 'FAILURE' | 'UNKNOWN' | undefined;
+    verification_results?: "SUCCESS" | "FAILURE" | "UNKNOWN" | undefined;
     /**
      * The statement description sent to the card networks.
      * @note The actual statement description will vary and is likely to be truncated and appended with additional
@@ -1651,7 +1644,7 @@ export class CardPaymentDetails {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -1711,7 +1704,7 @@ export class CashDrawerShift {
     /**
      * The IDs of all employees that were logged into Square Point of Sale at any point while the cash drawer shift was open.
      */
-    employee_ids?: Array<string> | undefined;
+    employee_ids?: string[] | undefined;
     /**
      * The ID of the employee that started the cash drawer shift.
      */
@@ -1893,7 +1886,7 @@ export class CatalogCustomAttributeDefinition {
      * Currently, only `ITEM` and `ITEM_VARIATION` are allowed. At least one type must be included.
      * See [CatalogObjectType](#type-catalogobjecttype) for possible values.
      */
-    allowed_object_types: Array<string>;
+    allowed_object_types: string[];
     /**
      * The visibility of a custom attribute in seller-facing UIs (including Square Point of Sale applications and
      * Square Dashboard). May be modified.
@@ -1960,7 +1953,7 @@ export class CatalogCustomAttributeDefinitionSelectionConfig {
     /**
      * The set of valid `CatalogCustomAttributeSelections`. Up to a maximum of 100 selections can be defined. Can be modified.
      */
-    allowed_selections?: Array<CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection> | undefined;
+    allowed_selections?: CatalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelection[] | undefined;
 }
 
 /**
@@ -2033,7 +2026,7 @@ export class CatalogCustomAttributeValue {
     /**
      * One or more choices from `allowed_selections`. Populated if `type` = `SELECTION`.
      */
-    selection_uid_values?: Array<string> | undefined;
+    selection_uid_values?: string[] | undefined;
     /**
      * A copy of key from the associated `CatalogCustomAttributeDefinition`.
      */
@@ -2137,7 +2130,7 @@ export class CatalogInfoResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * Limits that apply to this API.
      */
@@ -2238,23 +2231,23 @@ export class CatalogItem {
      * A set of IDs indicating the taxes enabled for this item. When updating an item, any taxes listed here will be
      * added to the item. Taxes may also be added to or deleted from an item using `UpdateItemTaxes`.
      */
-    tax_ids?: Array<string> | undefined;
+    tax_ids?: string[] | undefined;
     /**
      * A set of `CatalogItemModifierListInfo` objects representing the modifier lists that apply to this item, along with
      * the overrides and min and max limits that are specific to this item. Modifier lists may also be added to or
      * deleted from an item using `UpdateItemModifierLists`.
      */
-    modifier_list_info?: Array<CatalogItemModifierListInfo> | undefined;
+    modifier_list_info?: CatalogItemModifierListInfo[] | undefined;
     /**
      * A list of CatalogObjects containing the `CatalogItemVariation`s for this item.
      */
-    variations?: Array<CatalogObject> | undefined;
+    variations?: CatalogObject[] | undefined;
     /**
      * The product type of the item. May not be changed once an item has been created.
      * Only items of product type `REGULAR` or `APPOINTMENTS_SERVICE` may be created by this API; items with other product
      * types are read-only. See [CatalogItemProductType](#type-catalogitemproducttype) for possible values
      */
-    product_type?: 'REGULAR' | 'GIFT_CARD' | 'APPOINTMENTS_SERVICE' | 'RETAIL_ITEM' | 'RESTAURANT_ITEM' | undefined;
+    product_type?: "REGULAR" | "GIFT_CARD" | "APPOINTMENTS_SERVICE" | "RETAIL_ITEM" | "RESTAURANT_ITEM" | undefined;
     /**
      * If `false`, the Square Point of Sale app will present the `CatalogItem`'s details screen immediately, allowing
      * the merchant to choose `CatalogModifier`s before adding the item to the cart. This is the default behavior.
@@ -2267,7 +2260,7 @@ export class CatalogItem {
      * List of item options IDs for this item. Used to manage and group item variations in a specified order.
      * Maximum: 6 item options.
      */
-    item_options?: Array<CatalogItemOptionForItem> | undefined;
+    item_options?: CatalogItemOptionForItem[] | undefined;
 }
 
 /**
@@ -2281,7 +2274,7 @@ export class CatalogItemModifierListInfo {
     /**
      * A set of `CatalogModifierOverride` objects that override whether a given `CatalogModifier` is enabled by default.
      */
-    modifier_overrides?: Array<CatalogModifierOverride> | undefined;
+    modifier_overrides?: CatalogModifierOverride[] | undefined;
     /**
      * If 0 or larger, the smallest number of `CatalogModifier`s that must be selected from this `CatalogModifierList`.
      */
@@ -2321,7 +2314,7 @@ export class CatalogItemOption {
     /**
      * A list of CatalogObjects containing the `CatalogItemOptionValue`s for this item.
      */
-    values?: Array<CatalogObject> | undefined;
+    values?: CatalogObject[] | undefined;
 }
 
 /**
@@ -2422,7 +2415,7 @@ export class CatalogItemVariation {
     /**
      * Per-location price and inventory overrides.
      */
-    location_overrides?: Array<ItemVariationLocationOverrides> | undefined;
+    location_overrides?: ItemVariationLocationOverrides[] | undefined;
     /**
      * If `true`, inventory tracking is active for the variation.
      */
@@ -2431,7 +2424,7 @@ export class CatalogItemVariation {
      * Indicates whether the item variation displays an alert when its inventory quantity is less than or equal to its
      * `inventory_alert_threshold`. See [InventoryAlertType](#type-inventoryalerttype) for possible values.
      */
-    inventory_alert_type?: 'NONE' | 'LOW_QUANTITY' | undefined;
+    inventory_alert_type?: "NONE" | "LOW_QUANTITY" | undefined;
     /**
      * If the inventory quantity for the variation is less than or equal to this value and `inventory_alert_type` is
      * `LOW_QUANTITY`, the variation displays an alert in the merchant dashboard. This value is always an integer.
@@ -2450,7 +2443,7 @@ export class CatalogItemVariation {
     /**
      * List of item option values associated with this item variation. Listed in the same order as the item options of the parent item.
      */
-    item_option_values?: Array<CatalogItemOptionValueForItemVariation> | undefined;
+    item_option_values?: CatalogItemOptionValueForItemVariation[] | undefined;
     /**
      * ID of the ‘CatalogMeasurementUnit’ that is used to measure the quantity sold of this item variation.
      * If left unset, the item will be sold in whole quantities.
@@ -2523,7 +2516,7 @@ export class CatalogModifierList {
      * The options included in the `CatalogModifierList`. You must include at least one `CatalogModifier`.
      * Each CatalogObject must have type `MODIFIER` and contain `CatalogModifier` data.
      */
-    modifiers?: Array<CatalogObject> | undefined;
+    modifiers?: CatalogObject[] | undefined;
 }
 
 /**
@@ -2620,11 +2613,11 @@ export class CatalogObject {
     /**
      * A list of locations where the object is present, even if `present_at_all_locations` is `false`.
      */
-    present_at_location_ids?: Array<string> | undefined;
+    present_at_location_ids?: string[] | undefined;
     /**
      * A list of locations where the object is not present, even if `present_at_all_locations` is `true`.
      */
-    absent_at_location_ids?: Array<string> | undefined;
+    absent_at_location_ids?: string[] | undefined;
     /**
      * Identifies the `CatalogImage` attached to this `CatalogObject`.
      */
@@ -2707,7 +2700,7 @@ export class CatalogObjectBatch {
     /**
      * A list of CatalogObjects belonging to this batch.
      */
-    objects: Array<CatalogObject>;
+    objects: CatalogObject[];
 }
 
 /**
@@ -2728,7 +2721,7 @@ export class CatalogPricingRule {
      * A list of unique IDs for the catalog time periods when this pricing rule is in effect.
      * If left unset, the pricing rule is always in effect.
      */
-    time_period_ids?: Array<string> | undefined;
+    time_period_ids?: string[] | undefined;
     /**
      * Unique ID for the `CatalogDiscount` to take off the price of all matched items.
      */
@@ -2799,13 +2792,13 @@ export class CatalogProductSet {
      * to match groups of products for a bulk discount, such as a discount for an entree and side combo.
      * Only one of `product_ids_all`, `product_ids_any`, or `all_products` can be set. Max: 500 catalog object IDs.
      */
-    product_ids_any?: Array<string> | undefined;
+    product_ids_any?: string[] | undefined;
     /**
      * Unique IDs for any `CatalogObject` included in this product set. All objects in this set must be included in an
      * order for a pricing rule to apply. Only one of `product_ids_all`, `product_ids_any`, or `all_products` can be set.
      * Max: 500 catalog object IDs.
      */
-    product_ids_all?: Array<string> | undefined;
+    product_ids_all?: string[] | undefined;
     /**
      * If set, there must be exactly this many items from `products_any` or `products_all` in the cart for the discount to apply.
      * Cannot be combined with either `quantity_min` or `quantity_max`.
@@ -2893,7 +2886,7 @@ export class CatalogQuery {
 }
 
 export class CatalogQueryCustomAttributeUsage {
-    custom_attribute_definition_ids?: Array<string> | undefined;
+    custom_attribute_definition_ids?: string[] | undefined;
     has_value?: boolean | undefined;
 }
 
@@ -2920,7 +2913,7 @@ export class CatalogQueryItemVariationsForItemOptionValues {
      * A set of `CatalogItemOptionValue` IDs to be used to find associated `CatalogItemVariation`s.
      * All ItemVariations that contain all of the given Item Option Values (in any order) will be returned.
      */
-    item_option_value_ids?: Array<string> | undefined;
+    item_option_value_ids?: string[] | undefined;
 }
 
 /**
@@ -2931,7 +2924,7 @@ export class CatalogQueryItemsForItemOptions {
      * A set of `CatalogItemOption` IDs to be used to find associated `CatalogItem`s.
      * All Items that contain all of the given Item Options (in any order) will be returned.
      */
-    item_option_ids?: Array<string> | undefined;
+    item_option_ids?: string[] | undefined;
 }
 
 /**
@@ -2941,7 +2934,7 @@ export class CatalogQueryItemsForModifierList {
     /**
      * A set of `CatalogModifierList` IDs to be used to find associated `CatalogItem`s.
      */
-    modifier_list_ids: Array<string>;
+    modifier_list_ids: string[];
 }
 
 /**
@@ -2951,7 +2944,7 @@ export class CatalogQueryItemsForTax {
     /**
      * A set of `CatalogTax` IDs to be used to find associated `CatalogItem`s.
      */
-    tax_ids: Array<string>;
+    tax_ids: string[];
 }
 
 /**
@@ -2998,7 +2991,7 @@ export class CatalogQuerySet {
      * The desired values of the search attribute. Matching of the attribute values is exact and case insensitive.
      * A maximum of 250 values may be searched in a request.
      */
-    attribute_values: Array<string>;
+    attribute_values: string[];
 }
 
 /**
@@ -3029,7 +3022,7 @@ export class CatalogQueryText {
     /**
      * A list of 1, 2, or 3 search keywords. Keywords with fewer than 3 characters are ignored.
      */
-    keywords: Array<string>;
+    keywords: string[];
 }
 
 /**
@@ -3076,7 +3069,7 @@ export class CatalogQuickAmountsSettings {
     /**
      * Represents a set of Quick Amounts at this location.
      */
-    amounts?: Array<CatalogQuickAmount> | undefined;
+    amounts?: CatalogQuickAmount[] | undefined;
 }
 
 /**
@@ -3095,7 +3088,7 @@ export class CatalogSubscriptionPlan {
     /**
      * A list of SubscriptionPhase containing the `SubscriptionPhase` for this plan.
      */
-    phases?: Array<SubscriptionPhase> | undefined;
+    phases?: SubscriptionPhase[] | undefined;
 }
 
 /**
@@ -3110,7 +3103,7 @@ export class CatalogTax {
      * Whether the tax is calculated based on a payment's subtotal or total.
      * See [TaxCalculationPhase](#type-taxcalculationphase) for possible values.
      */
-    calculation_phase?: 'TAX_SUBTOTAL_PHASE' | 'TAX_TOTAL_PHASE' | undefined;
+    calculation_phase?: "TAX_SUBTOTAL_PHASE" | "TAX_TOTAL_PHASE" | undefined;
     /**
      * Whether the tax is `ADDITIVE` or `INCLUSIVE`. See [TaxInclusionType](#type-taxinclusiontype) for possible values.
      */
@@ -3222,7 +3215,7 @@ export class ChargeRequest {
      * the app owner merchant. This field requires the `PAYMENTS_WRITE_ADDITIONAL_RECIPIENTS` OAuth permission.
      * This field is currently not supported in sandbox.
      */
-    additional_recipients?: Array<AdditionalRecipient> | undefined;
+    additional_recipients?: AdditionalRecipient[] | undefined;
     /**
      * A token generated by SqPaymentForm's verifyBuyer() that represents customer's device info and 3ds challenge result.
      */
@@ -3256,7 +3249,7 @@ export class ChargeResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The created transaction.
      */
@@ -3318,7 +3311,7 @@ export class Checkout {
      * Additional recipients (other than the merchant) receiving a portion of this checkout. For example, fees assessed
      * on the purchase by a third party integration.
      */
-    additional_recipients?: Array<AdditionalRecipient> | undefined;
+    additional_recipients?: AdditionalRecipient[] | undefined;
 }
 
 /**
@@ -3334,7 +3327,7 @@ export class CompletePaymentResponse {
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The successfully completed payment.
      */
@@ -3387,7 +3380,7 @@ export class CreateBreakTypeResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 export class CreateCatalogImageRequest {
@@ -3413,7 +3406,7 @@ export class CreateCatalogImageResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The newly created `CatalogImage` including a Square-generated URL for each image.
      */
@@ -3477,7 +3470,7 @@ export class CreateCheckoutRequest {
      * location of the app owner merchant. This field requires `PAYMENTS_WRITE_ADDITIONAL_RECIPIENTS` OAuth permission.
      * This field is currently not supported in sandbox.
      */
-    additional_recipients?: Array<ChargeRequestAdditionalRecipient> | undefined;
+    additional_recipients?: ChargeRequestAdditionalRecipient[] | undefined;
     /**
      * An optional note to associate with the checkout object. This value cannot exceed 60 characters.
      */
@@ -3496,7 +3489,7 @@ export class CreateCheckoutResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -3533,7 +3526,7 @@ export class CreateCustomerCardResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The created card on file.
      */
@@ -3563,7 +3556,7 @@ export class CreateCustomerGroupResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The successfully created customer group.
      */
@@ -3631,7 +3624,7 @@ export class CreateCustomerResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The created customer.
      */
@@ -3654,7 +3647,7 @@ export class CreateDeviceCodeResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The created DeviceCode object containing the device code string.
      */
@@ -3686,7 +3679,7 @@ export class CreateDisputeEvidenceFileResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The metadata of the newly uploaded dispute evidence.
      */
@@ -3718,7 +3711,7 @@ export class CreateDisputeEvidenceTextResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The newly uploaded dispute evidence metadata.
      */
@@ -3752,7 +3745,7 @@ export class CreateInvoiceResponse {
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -3773,7 +3766,7 @@ export class CreateLocationResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The newly created `Location`.
      */
@@ -3801,7 +3794,7 @@ export class CreateLoyaltyAccountResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The newly created loyalty account.
      */
@@ -3829,7 +3822,7 @@ export class CreateLoyaltyRewardResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The loyalty reward created.
      */
@@ -3895,7 +3888,7 @@ export class CreateOrderResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -4025,7 +4018,7 @@ export class CreatePaymentResponse {
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The newly created payment.
      */
@@ -4069,7 +4062,7 @@ export class CreateRefundResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The created refund.
      */
@@ -4102,7 +4095,7 @@ export class CreateShiftResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -4169,7 +4162,7 @@ export class CreateSubscriptionResponse {
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The newly created subscription.
      * For more information, see [Subscription object](https://developer.squareup.com/docs/docs/subscriptions-api/overview#subscription-object).
@@ -4205,7 +4198,7 @@ export class CreateTeamMemberResponse {
     /**
      * The errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 export class CreateTerminalCheckoutRequest {
@@ -4225,7 +4218,7 @@ export class CreateTerminalCheckoutResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The created `TerminalCheckout`
      */
@@ -4249,7 +4242,7 @@ export class CreateTerminalRefundResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The created `TerminalRefund`
      */
@@ -4289,7 +4282,7 @@ export class CustomAttributeFilter {
      * A query expression to filter items or item variations by matching  their custom attributes'
      * `selection_uid_values` values against the specified selection uids.
      */
-    selection_uids_filter?: Array<string> | undefined;
+    selection_uids_filter?: string[] | undefined;
     /**
      * A query expression to filter items or item variations by matching their custom attributes'
      * `boolean_value` property values against the specified Boolean expression.
@@ -4316,7 +4309,7 @@ export class Customer {
     /**
      * Payment details of cards stored on file for the customer profile.
      */
-    cards?: Array<Card> | undefined;
+    cards?: Card[] | undefined;
     /**
      * The given (i.e., first) name associated with the customer profile.
      */
@@ -4370,7 +4363,7 @@ export class Customer {
      * `segment_ids` field for customer segments. You can retrieve information about a given customer group and segment
      * respectively using the Customer Groups API and Customer Segments API.
      */
-    groups?: Array<CustomerGroupInfo> | undefined;
+    groups?: CustomerGroupInfo[] | undefined;
     /**
      * A creation source represents the method used to create the customer profile.
      * See [CustomerCreationSource](#type-customercreationsource) for possible values.
@@ -4379,11 +4372,11 @@ export class Customer {
     /**
      * The IDs of customer groups the customer belongs to.
      */
-    group_ids?: Array<string> | undefined;
+    group_ids?: string[] | undefined;
     /**
      * The IDs of segments the customer belongs to.
      */
-    segment_ids?: Array<string> | undefined;
+    segment_ids?: string[] | undefined;
 }
 
 /**
@@ -4400,13 +4393,13 @@ export class CustomerCreationSourceFilter {
      * The list of creation sources used as filtering criteria.
      * See [CustomerCreationSource](#type-customercreationsource) for possible values.
      */
-    values?: Array<CustomerSourceType> | undefined;
+    values?: CustomerSourceType[] | undefined;
     /**
      * Indicates whether a customer profile matching the filter criteria should be included in the result or excluded
      * from the result. Default: `INCLUDE`.
      * See [CustomerInclusionExclusion](#type-customerinclusionexclusion) for possible values.
      */
-    rule?: 'INCLUDE' | 'EXCLUDE' | undefined;
+    rule?: "INCLUDE" | "EXCLUDE" | undefined;
 }
 
 /**
@@ -4642,7 +4635,7 @@ export class DeleteBreakTypeResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 export class DeleteCatalogObjectRequest {}
@@ -4651,13 +4644,13 @@ export class DeleteCatalogObjectResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The IDs of all catalog objects deleted by this request. Multiple IDs may be returned when associated objects
      * are also deleted, for example a catalog item variation will be deleted (and its ID included in this field)
      * when its parent catalog item is deleted.
      */
-    deleted_object_ids?: Array<string> | undefined;
+    deleted_object_ids?: string[] | undefined;
     /**
      * The database [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates) of this deletion
      * in RFC 3339 format, e.g., `2016-09-04T23:59:33.123Z`.
@@ -4677,7 +4670,7 @@ export class DeleteCustomerCardResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -4692,7 +4685,7 @@ export class DeleteCustomerGroupResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -4707,7 +4700,7 @@ export class DeleteCustomerResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -4727,7 +4720,7 @@ export class DeleteInvoiceResponse {
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -4742,7 +4735,7 @@ export class DeleteLoyaltyRewardResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -4757,7 +4750,7 @@ export class DeleteShiftResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 export class Device {
@@ -4890,7 +4883,7 @@ export class Dispute {
     /**
      * The IDs of the evidence associated with the dispute.
      */
-    evidence_ids?: Array<string> | undefined;
+    evidence_ids?: string[] | undefined;
     /**
      * The card brand used in the disputed payment. See [CardBrand](#type-cardbrand) for possible values
      */
@@ -5011,7 +5004,7 @@ export class Employee {
     /**
      * A list of location IDs where this employee has access to.
      */
-    location_ids?: Array<string> | undefined;
+    location_ids?: string[] | undefined;
     /**
      * Specifies the status of the employees being fetched. See [EmployeeStatus](#type-employeestatus) for possible values.
      */
@@ -5082,15 +5075,15 @@ export class FilterValue {
     /**
      * A list of terms that must be present on the field of the resource.
      */
-    all?: Array<string> | undefined;
+    all?: string[] | undefined;
     /**
      * A list of terms where at least one of them must be present on the field of the resource.
      */
-    any?: Array<string> | undefined;
+    any?: string[] | undefined;
     /**
      * A list of terms that must not be present on the field the resource
      */
-    none?: Array<string> | undefined;
+    none?: string[] | undefined;
 }
 
 /**
@@ -5110,7 +5103,7 @@ export class GetBankAccountResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The requested `BankAccount` object.
      */
@@ -5134,7 +5127,7 @@ export class GetBreakTypeResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 export class GetDeviceCodeRequest {}
@@ -5143,7 +5136,7 @@ export class GetDeviceCodeResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The queried DeviceCode.
      */
@@ -5167,7 +5160,7 @@ export class GetEmployeeWageResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -5186,7 +5179,7 @@ export class GetInvoiceResponse {
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -5203,7 +5196,7 @@ export class GetPaymentRefundResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The requested `PaymentRefund`.
      */
@@ -5222,7 +5215,7 @@ export class GetPaymentResponse {
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The requested `Payment`.
      */
@@ -5246,7 +5239,7 @@ export class GetShiftResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -5266,7 +5259,7 @@ export class GetTeamMemberWageResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 export class GetTerminalCheckoutRequest {}
@@ -5275,7 +5268,7 @@ export class GetTerminalCheckoutResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The requested `TerminalCheckout`
      */
@@ -5288,7 +5281,7 @@ export class GetTerminalRefundResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The requested `Refund`
      */
@@ -5596,7 +5589,7 @@ export class Invoice {
      * For invoices  with multiple payment requests, you can specify a maximum of 12 `INSTALLMENT` request types.
      * All of the payment requests must specify the same `request_method`. This field is required when creating an invoice.
      */
-    payment_requests?: Array<InvoicePaymentRequest> | undefined;
+    payment_requests?: InvoicePaymentRequest[] | undefined;
     /**
      * A user-friendly invoice number. The value is unique within a location.
      * If not provided when creating an invoice, Square assigns a value.
@@ -5653,12 +5646,12 @@ export class InvoiceFilter {
      * Limits the search to the specified locations. A location is required.
      * In the current implementation, only one location can be specified.
      */
-    location_ids: Array<string>;
+    location_ids: string[];
     /**
      * Limits the search to the specified customers, within the specified locations.
      * Specifying a customer is optional. In the current implementation, a maximum of one customer can be specified.
      */
-    customer_ids?: Array<string> | undefined;
+    customer_ids?: string[] | undefined;
 }
 
 /**
@@ -5744,7 +5737,7 @@ export class InvoicePaymentRequest {
     /**
      * A list of one or more reminders to send for the payment request.
      */
-    reminders?: Array<InvoicePaymentReminder> | undefined;
+    reminders?: InvoicePaymentReminder[] | undefined;
     /**
      * The payment request amount, computed using the order amount and information from the various payment
      * request fields (`invoice_request_type`,  `fixed_amount_requested_money`, and `percentage_requested`).
@@ -5875,7 +5868,7 @@ export class ItemVariationLocationOverrides {
      * Indicates whether the `CatalogItemVariation` displays an alert when its inventory quantity is less than or
      * equal to its `inventory_alert_threshold`. See [InventoryAlertType](#type-inventoryalerttype) for possible values.
      */
-    inventory_alert_type?: 'NONE' | 'LOW_QUANTITY' | undefined;
+    inventory_alert_type?: "NONE" | "LOW_QUANTITY" | undefined;
     /**
      * If the inventory quantity for the variation is less than or equal to this value and `inventory_alert_type` is
      * `LOW_QUANTITY`, the variation displays an alert in the merchant dashboard. This value is always an integer.
@@ -5943,11 +5936,11 @@ export class ListBankAccountsResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * List of BankAccounts associated with this account.
      */
-    bank_accounts?: Array<BankAccount> | undefined;
+    bank_accounts?: BankAccount[] | undefined;
     /**
      * When a response is truncated, it includes a cursor that you can  use in a subsequent request to fetch next set of bank accounts.
      * If empty, this is the final response.
@@ -5982,7 +5975,7 @@ export class ListBreakTypesResponse {
     /**
      *  A page of `BreakType` results.
      */
-    break_types?: Array<BreakType> | undefined;
+    break_types?: BreakType[] | undefined;
     /**
      * Value supplied in the subsequent request to fetch the next next page of Break Type results.
      */
@@ -5990,7 +5983,7 @@ export class ListBreakTypesResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 export class ListCashDrawerShiftEventsRequest {
@@ -6012,7 +6005,7 @@ export class ListCashDrawerShiftEventsResponse {
     /**
      * All of the events (payments, refunds, etc.) for a cash drawer during the shift.
      */
-    events?: Array<CashDrawerShiftEvent> | undefined;
+    events?: CashDrawerShiftEvent[] | undefined;
     /**
      * Opaque cursor for fetching the next page. Cursor is not present in the last page of results.
      */
@@ -6020,7 +6013,7 @@ export class ListCashDrawerShiftEventsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 export class ListCashDrawerShiftsRequest {
@@ -6055,7 +6048,7 @@ export class ListCashDrawerShiftsResponse {
     /**
      * A collection of CashDrawerShiftSummary objects for shifts that match the query.
      */
-    items?: Array<CashDrawerShiftSummary> | undefined;
+    items?: CashDrawerShiftSummary[] | undefined;
     /**
      * Opaque cursor for fetching the next page of results. Cursor is not present in the last page of results.
      */
@@ -6063,7 +6056,7 @@ export class ListCashDrawerShiftsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 export class ListCatalogRequest {
@@ -6075,14 +6068,23 @@ export class ListCatalogRequest {
     /**
      * An optional case-insensitive, comma-separated list of object types to retrieve, for example `ITEM,ITEM_VARIATION,CATEGORY,IMAGE`.
      */
-    types?: 'ITEM' | 'ITEM_VARIATION' | 'CATEGORY' | 'DISCOUNT' | 'TAX' | 'MODIFIER' | 'MODIFIER_LIST' | 'IMAGE' | undefined;
+    types?:
+        | "ITEM"
+        | "ITEM_VARIATION"
+        | "CATEGORY"
+        | "DISCOUNT"
+        | "TAX"
+        | "MODIFIER"
+        | "MODIFIER_LIST"
+        | "IMAGE"
+        | undefined;
 }
 
 export class ListCatalogResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The pagination cursor to be used in a subsequent request. If unset, this is the final response.
      * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
@@ -6091,7 +6093,7 @@ export class ListCatalogResponse {
     /**
      * The CatalogObjects returned.
      */
-    objects?: Array<CatalogObject> | undefined;
+    objects?: CatalogObject[] | undefined;
 }
 
 /**
@@ -6114,11 +6116,11 @@ export class ListCustomerGroupsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * A list of customer groups belonging to the current merchant.
      */
-    groups?: Array<CustomerGroup> | undefined;
+    groups?: CustomerGroup[] | undefined;
     /**
      * A pagination cursor to retrieve the next set of results for your original query to the endpoint.
      * This value is present only if the request succeeded and additional results are available.
@@ -6146,11 +6148,11 @@ export class ListCustomerSegmentsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The list of customer segments belonging to the associated Square account.
      */
-    segments?: Array<CustomerSegment> | undefined;
+    segments?: CustomerSegment[] | undefined;
     /**
      * A pagination cursor to be used in subsequent calls to __ListCustomerSegments__ to retrieve the next set of query results.
      * Only present only if the request succeeded and additional results are available.
@@ -6188,11 +6190,11 @@ export class ListCustomersResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * An array of `Customer` objects that match the provided query.
      */
-    customers?: Array<Customer> | undefined;
+    customers?: Customer[] | undefined;
     /**
      * A pagination cursor to retrieve the next set of results for the original query.
      * Only present if the request succeeded and additional results are available.
@@ -6221,18 +6223,18 @@ export class ListDeviceCodesRequest {
      * If specified, returns DeviceCodes with the specified statuses. Returns DeviceCodes of status `PAIRED` and `UNPAIRED` if empty.
      * See [DeviceCodeStatus](#type-devicecodestatus) for possible values
      */
-    status?: Array<string> | undefined;
+    status?: string[] | undefined;
 }
 
 export class ListDeviceCodesResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The queried DeviceCode.
      */
-    device_codes?: Array<DeviceCode> | undefined;
+    device_codes?: DeviceCode[] | undefined;
     /**
      * A pagination cursor to retrieve the next set of results for your original query to the endpoint.
      * This value is present only if the request succeeded and additional results are available.
@@ -6253,11 +6255,11 @@ export class ListDisputeEvidenceResponse {
     /**
      * The list of evidence previously uploaded to the specified dispute.
      */
-    evidence?: Array<DisputeEvidence> | undefined;
+    evidence?: DisputeEvidence[] | undefined;
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -6274,7 +6276,7 @@ export class ListDisputesRequest {
      * The dispute states to filter the result. If not specified, the endpoint returns all open disputes (dispute status
      * is not `INQUIRY_CLOSED`, `WON`, or `LOST`). See [DisputeState](#type-disputestate) for possible values.
      */
-    states?: Array<string> | undefined;
+    states?: string[] | undefined;
     /**
      * The ID of the location for which to return a list of disputes. If not specified, the endpoint returns all open
      * disputes (dispute status is not `INQUIRY_CLOSED`, `WON`, or  `LOST`) associated with all locations.
@@ -6289,11 +6291,11 @@ export class ListDisputesResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The list of Disputes.
      */
-    disputes?: Array<Dispute> | undefined;
+    disputes?: Dispute[] | undefined;
     /**
      * The pagination cursor to be used in a subsequent request. If unset, this is the final response.
      * For more information, see [Paginating](https://developer.squareup.com/docs/basics/api101/pagination).
@@ -6327,7 +6329,7 @@ export class ListEmployeeWagesResponse {
     /**
      * A page of Employee Wage results.
      */
-    employee_wages?: Array<EmployeeWage> | undefined;
+    employee_wages?: EmployeeWage[] | undefined;
     /**
      * Value supplied in the subsequent request to fetch the next next page of Employee Wage results.
      */
@@ -6335,7 +6337,7 @@ export class ListEmployeeWagesResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -6368,7 +6370,7 @@ export class ListEmployeesResponse {
     /**
      * List of employees returned from the request.
      */
-    employees?: Array<Employee> | undefined;
+    employees?: Employee[] | undefined;
     /**
      * The token to be used to retrieve the next page of results.
      */
@@ -6376,7 +6378,7 @@ export class ListEmployeesResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -6407,7 +6409,7 @@ export class ListInvoicesResponse {
     /**
      * The invoices retrieved.
      */
-    invoices?: Array<Invoice> | undefined;
+    invoices?: Invoice[] | undefined;
     /**
      * When a response is truncated, it includes a cursor that you can use in a subsequent request to fetch the next set of invoices.
      * If empty, this is the final response. For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
@@ -6416,7 +6418,7 @@ export class ListInvoicesResponse {
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -6432,11 +6434,11 @@ export class ListLocationsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The business locations.
      */
-    locations?: Array<Location> | undefined;
+    locations?: Location[] | undefined;
 }
 
 /**
@@ -6451,11 +6453,11 @@ export class ListLoyaltyProgramsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * A list of `LoyaltyProgram` for the merchant.
      */
-    programs?: Array<LoyaltyProgram> | undefined;
+    programs?: LoyaltyProgram[] | undefined;
 }
 
 /**
@@ -6475,11 +6477,11 @@ export class ListMerchantsResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The requested `Merchant` entities.
      */
-    merchant?: Array<Merchant> | undefined;
+    merchant?: Merchant[] | undefined;
     /**
      * If the  response is truncated, the cursor to use in next request to fetch next set of objects.
      */
@@ -6539,11 +6541,11 @@ export class ListPaymentRefundsResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The list of requested refunds.
      */
-    refunds?: Array<PaymentRefund> | undefined;
+    refunds?: PaymentRefund[] | undefined;
     /**
      * The pagination cursor to be used in a subsequent request. If empty, this is the final response.
      * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
@@ -6606,11 +6608,11 @@ export class ListPaymentsResponse {
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The requested list of payments.
      */
-    payments?: Array<Payment> | undefined;
+    payments?: Payment[] | undefined;
     /**
      * The pagination cursor to be used in a subsequent request. If empty, this is the final response.
      * For more information, see [Pagination](https://developer.squareup.com/docs/basics/api101/pagination).
@@ -6654,11 +6656,11 @@ export class ListRefundsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * An array of refunds that match your query.
      */
-    refunds?: Array<Refund> | undefined;
+    refunds?: Refund[] | undefined;
     /**
      * A pagination cursor for retrieving the next set of results, if any remain.
      * Provide this value as the `cursor` parameter in a subsequent request to this endpoint.
@@ -6690,11 +6692,11 @@ export class ListSubscriptionEventsResponse {
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The `SubscriptionEvents` retrieved.
      */
-    subscription_events?: Array<SubscriptionEvent> | undefined;
+    subscription_events?: SubscriptionEvent[] | undefined;
     /**
      * When a response is truncated, it includes a cursor that you can use in a subsequent request to fetch the next set of events.
      * If empty, this is the final response.
@@ -6727,7 +6729,7 @@ export class ListTeamMemberWagesResponse {
     /**
      * A page of Team Member Wage results.
      */
-    team_member_wages?: Array<TeamMemberWage> | undefined;
+    team_member_wages?: TeamMemberWage[] | undefined;
     /**
      * Value supplied in the subsequent request to fetch the next next page of Team Member Wage results.
      */
@@ -6735,7 +6737,7 @@ export class ListTeamMemberWagesResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -6774,11 +6776,11 @@ export class ListTransactionsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * An array of transactions that match your query.
      */
-    transactions?: Array<Transaction> | undefined;
+    transactions?: Transaction[] | undefined;
     /**
      * A pagination cursor for retrieving the next set of results, if any remain.
      * Provide this value as the `cursor` parameter in a subsequent request to this endpoint.
@@ -6809,7 +6811,7 @@ export class ListWorkweekConfigsResponse {
     /**
      * A page of Employee Wage results.
      */
-    workweek_configs?: Array<WorkweekConfig> | undefined;
+    workweek_configs?: WorkweekConfig[] | undefined;
     /**
      * Value supplied in the subsequent request to fetch the next page of Employee Wage results.
      */
@@ -6817,7 +6819,7 @@ export class ListWorkweekConfigsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -6844,7 +6846,7 @@ export class Location {
      * The Square features that are enabled for the location. See `LocationCapability` for possible values.
      * See [LocationCapability](#type-locationcapability) for possible values
      */
-    capabilities?: Array<string> | undefined;
+    capabilities?: string[] | undefined;
     /**
      * The status of the location, either active or inactive. See [LocationStatus](#type-locationstatus) for possible values.
      */
@@ -6883,7 +6885,7 @@ export class Location {
     /**
      * The type of the location, either physical or mobile. See [LocationType](#type-locationtype) for possible values
      */
-    type?: 'PHYSICAL' | 'MOBILE' | undefined;
+    type?: "PHYSICAL" | "MOBILE" | undefined;
     /**
      * The website URL of the location.
      */
@@ -6968,7 +6970,7 @@ export class LoyaltyAccount {
      * Currently, a buyer can only be mapped to a loyalty account using a phone number.
      * Therefore, the list can only have one mapping.
      */
-    mappings: Array<LoyaltyAccountMapping>;
+    mappings: LoyaltyAccountMapping[];
     /**
      * The Square-assigned ID of the `loyalty program` to which the account belongs.
      */
@@ -7218,7 +7220,7 @@ export class LoyaltyEventLocationFilter {
      * The `location` IDs for loyalty events to query.
      * If multiple values are specified, the endpoint uses a logical OR to combine them.
      */
-    location_ids: Array<string>;
+    location_ids: string[];
 }
 
 /**
@@ -7302,7 +7304,7 @@ export class LoyaltyEventTypeFilter {
      * The loyalty event types used to filter the result. If multiple values are specified, the endpoint uses a logical OR to combine them.
      * See [LoyaltyEventType](#type-loyaltyeventtype) for possible values.
      */
-    types: Array<string>;
+    types: string[];
 }
 
 export class LoyaltyProgram {
@@ -7317,7 +7319,7 @@ export class LoyaltyProgram {
     /**
      * The list of rewards for buyers, sorted by ascending points.
      */
-    reward_tiers: Array<LoyaltyProgramRewardTier>;
+    reward_tiers: LoyaltyProgramRewardTier[];
     /**
      * If present, details for how points expire.
      */
@@ -7329,7 +7331,7 @@ export class LoyaltyProgram {
     /**
      * The `locations` at which the program is active.
      */
-    location_ids: Array<string>;
+    location_ids: string[];
     /**
      * The timestamp when the program was created, in RFC 3339 format.
      */
@@ -7341,7 +7343,7 @@ export class LoyaltyProgram {
     /**
      * Defines how buyers can earn loyalty points.
      */
-    accrual_rules: Array<LoyaltyProgramAccrualRule>;
+    accrual_rules: LoyaltyProgramAccrualRule[];
 }
 
 /**
@@ -7412,7 +7414,7 @@ export class LoyaltyProgramRewardDefinition {
      * A list of `catalog object` ids to which this reward can be applied.
      * They are either all item-variation ids or category ids, depending on the `type` field.
      */
-    catalog_object_ids?: Array<string> | undefined;
+    catalog_object_ids?: string[] | undefined;
     /**
      * Present if `discount_type` is `FIXED_AMOUNT`. For example, $5 off.
      */
@@ -7831,7 +7833,7 @@ export class Order {
     /**
      * The line items included in the order.
      */
-    line_items?: Array<OrderLineItem> | undefined;
+    line_items?: OrderLineItem[] | undefined;
     /**
      * The list of all taxes associated with the order. Taxes can be scoped to either `ORDER` or `LINE_ITEM`.
      * For taxes with `LINE_ITEM` scope, an `OrderLineItemAppliedTax` must be added to each line item that the tax applies to.
@@ -7840,7 +7842,7 @@ export class Order {
      * @note If `LINE_ITEM` scope is set on any taxes in this field, usage of the deprecated `line_items.taxes`
      * field will result in an error. Please use `line_items.applied_taxes` instead.
      */
-    taxes?: Array<OrderLineItemTax> | undefined;
+    taxes?: OrderLineItemTax[] | undefined;
     /**
      * The list of all discounts associated with the order. Discounts can be scoped to either `ORDER` or `LINE_ITEM`.
      * For discounts scoped to `LINE_ITEM`, an `OrderLineItemAppliedDiscount` must be added to each line item that the
@@ -7849,21 +7851,21 @@ export class Order {
      * @note If `LINE_ITEM` scope is set on any discounts in this field, usage of the deprecated `line_items.discounts`
      * field will result in an error. Please use `line_items.applied_discounts` instead.
      */
-    discounts?: Array<OrderLineItemDiscount> | undefined;
+    discounts?: OrderLineItemDiscount[] | undefined;
     /**
      * A list of service charges applied to the order.
      */
-    service_charges?: Array<OrderServiceCharge> | undefined;
+    service_charges?: OrderServiceCharge[] | undefined;
     /**
      * Details on order fulfillment. Orders can only be created with at most one fulfillment.
      * However, orders returned by the API may contain multiple fulfillments.
      */
-    fulfillments?: Array<OrderFulfillment> | undefined;
+    fulfillments?: OrderFulfillment[] | undefined;
     /**
      * Collection of items from sale Orders being returned in this one. Normally part of an Itemized Return or Exchange.
      * There will be exactly one `Return` object per sale Order being referenced.
      */
-    returns?: Array<OrderReturn> | undefined;
+    returns?: OrderReturn[] | undefined;
     /**
      * Rollup of returned money amounts.
      */
@@ -7880,11 +7882,11 @@ export class Order {
     /**
      * The Tenders which were used to pay for the Order.
      */
-    tenders?: Array<Tender> | undefined;
+    tenders?: Tender[] | undefined;
     /**
      * The Refunds that are part of this Order.
      */
-    refunds?: Array<Refund> | undefined;
+    refunds?: Refund[] | undefined;
     /**
      * Application-defined data attached to this order. Metadata fields are intended to store descriptive references
      * or associations with an entity in another system or store brief information about the object.
@@ -7896,7 +7898,7 @@ export class Order {
      * 10 entries per metadata field. Entries written by applications are private and can only be read or modified by
      * the same application. See [Metadata](https://developer.squareup.com/docs/build-basics/metadata) for more information.
      */
-    metadata?: { [key: string]: string; } | undefined;
+    metadata?: { [key: string]: string } | undefined;
     /**
      * Timestamp for when the order was created. In RFC 3339 format, e.g., "2016-09-04T23:59:33.123Z".
      */
@@ -7950,7 +7952,7 @@ export class Order {
     /**
      * A set-like list of rewards that have been added to the order.
      */
-    rewards?: Array<OrderReward> | undefined;
+    rewards?: OrderReward[] | undefined;
 }
 
 export class OrderCreated {
@@ -8033,7 +8035,7 @@ export class OrderFulfillment {
      * per metadata field. Entries written by applications are private and can only be read or modified by the same application.
      * See [Metadata](https://developer.squareup.com/docs/build-basics/metadata) for more information.
      */
-    metadata?: { [key: string]: string; } | undefined;
+    metadata?: { [key: string]: string } | undefined;
     /**
      * Contains details for a pickup fulfillment. Required when fulfillment type is `PICKUP`.
      */
@@ -8075,7 +8077,7 @@ export class OrderFulfillmentPickupDetails {
      * The schedule type of the pickup fulfillment. Defaults to `SCHEDULED`.
      * See [OrderFulfillmentPickupDetailsScheduleType](#type-orderfulfillmentpickupdetailsscheduletype) for possible values.
      */
-    schedule_type?: 'SCHEDULED' | 'ASAP' | undefined;
+    schedule_type?: "SCHEDULED" | "ASAP" | undefined;
     /**
      * The [timestamp](#workingwithdates) that represents the start of the pickup window.
      * Must be in RFC3339 timestamp format, e.g., "2016-09-04T23:59:33.123Z". For fulfillments with the schedule type `ASAP`,
@@ -8307,7 +8309,7 @@ export class OrderFulfillmentUpdated {
     /**
      * The fulfillment that were updated with this version change.
      */
-    fulfillment_update?: Array<OrderFulfillmentUpdatedUpdate> | undefined;
+    fulfillment_update?: OrderFulfillmentUpdatedUpdate[] | undefined;
 }
 
 export class OrderFulfillmentUpdatedObject {
@@ -8385,11 +8387,11 @@ export class OrderLineItem {
      * be read or modified by the same application.
      * See [Metadata](https://developer.squareup.com/docs/build-basics/metadata) for more information.
      */
-    metadata?: { [key: string]: string; } | undefined;
+    metadata?: { [key: string]: string } | undefined;
     /**
      * The [CatalogModifier](#type-catalogmodifier)s applied to this line item.
      */
-    modifiers?: Array<OrderLineItemModifier> | undefined;
+    modifiers?: OrderLineItemModifier[] | undefined;
     /**
      * The list of references to taxes applied to this line item. Each `OrderLineItemAppliedTax` has a `tax_uid` that
      * references the `uid` of a top-level `OrderLineItemTax` applied to the line item. On reads, the amount applied is populated.
@@ -8397,7 +8399,7 @@ export class OrderLineItem {
      * added to the order. `OrderLineItemAppliedTax` records for `LINE_ITEM` scoped taxes must be added in requests for
      * the tax to apply to any line items. To change the amount of a tax, modify the referenced top-level tax.
      */
-    applied_taxes?: Array<OrderLineItemAppliedTax> | undefined;
+    applied_taxes?: OrderLineItemAppliedTax[] | undefined;
     /**
      * The list of references to discounts applied to this line item. Each `OrderLineItemAppliedDiscount` has a
      * `discount_uid` that references the `uid` of a top-level `OrderLineItemDiscounts` applied to the line item.
@@ -8406,7 +8408,7 @@ export class OrderLineItem {
      * records for `LINE_ITEM` scoped discounts must be added in requests for the discount to apply to any line items.
      * To change the amount of a discount, modify the referenced top-level discount.
      */
-    applied_discounts?: Array<OrderLineItemAppliedDiscount> | undefined;
+    applied_discounts?: OrderLineItemAppliedDiscount[] | undefined;
     /**
      * The base price for a single unit of the line item.
      */
@@ -8545,7 +8547,7 @@ export class OrderLineItemDiscount {
      * criteria corresponding to the reward tiers of the rewards that are added to the order through the Loyalty API.
      * To manually unapply discounts that are the result of added rewards, the rewards must be removed from the order through the Loyalty API.
      */
-    reward_ids?: Array<string> | undefined;
+    reward_ids?: string[] | undefined;
     /**
      * The object identifier of a `pricing rule` to be applied automatically to this discount.
      * The specification and application of the discounts, to which a `pricing_rule_id` is assigned,
@@ -8725,21 +8727,21 @@ export class OrderReturn {
     /**
      * Collection of line items which are being returned.
      */
-    return_line_items?: Array<OrderReturnLineItem> | undefined;
+    return_line_items?: OrderReturnLineItem[] | undefined;
     /**
      * Collection of service charges which are being returned.
      */
-    return_service_charges?: Array<OrderReturnServiceCharge> | undefined;
+    return_service_charges?: OrderReturnServiceCharge[] | undefined;
     /**
      * Collection of references to taxes being returned for an order, including the total applied tax amount to be returned.
      * The taxes must reference a top-level tax ID from the source order.
      */
-    return_taxes?: Array<OrderReturnTax> | undefined;
+    return_taxes?: OrderReturnTax[] | undefined;
     /**
      * Collection of references to discounts being returned for an order, including the total applied discount amount to be returned.
      * The discounts must reference a top-level discount ID from the source order.
      */
-    return_discounts?: Array<OrderReturnDiscount> | undefined;
+    return_discounts?: OrderReturnDiscount[] | undefined;
     /**
      * A positive or negative rounding adjustment to the total value being returned. Commonly used to apply Cash Rounding
      * when the minimum unit of account is smaller than the lowest physical denomination of currency.
@@ -8841,19 +8843,19 @@ export class OrderReturnLineItem {
     /**
      * The `CatalogModifier`s applied to this line item.
      */
-    return_modifiers?: Array<OrderReturnLineItemModifier> | undefined;
+    return_modifiers?: OrderReturnLineItemModifier[] | undefined;
     /**
      * The list of references to `OrderReturnTax` entities applied to the returned line item.
      * Each `OrderLineItemAppliedTax` has a `tax_uid` that references the `uid` of a top-level `OrderReturnTax`
      * applied to the returned line item. On reads, the amount applied is populated.
      */
-    applied_taxes?: Array<OrderLineItemAppliedTax> | undefined;
+    applied_taxes?: OrderLineItemAppliedTax[] | undefined;
     /**
      * The list of references to `OrderReturnDiscount` entities applied to the returned line item.
      * Each `OrderLineItemAppliedDiscount` has a `discount_uid` that references the `uid` of a top-level `OrderReturnDiscount`
      * applied to the returned line item. On reads, the amount applied is populated.
      */
-    applied_discounts?: Array<OrderLineItemAppliedDiscount> | undefined;
+    applied_discounts?: OrderLineItemAppliedDiscount[] | undefined;
     /**
      * The base price for a single unit of the line item.
      */
@@ -8975,7 +8977,7 @@ export class OrderReturnServiceCharge {
      * Each `OrderLineItemAppliedTax` has a `tax_uid` that references the `uid` of a top-level `OrderReturnTax` that
      * is being applied to the `OrderReturnServiceCharge`. On reads, the amount applied is populated.
      */
-    applied_taxes?: Array<OrderLineItemAppliedTax> | undefined;
+    applied_taxes?: OrderLineItemAppliedTax[] | undefined;
 }
 
 /**
@@ -9117,7 +9119,7 @@ export class OrderServiceCharge {
      * any taxable service charge. Taxable service charges have the `taxable` field set to true and calculated in
      * the `SUBTOTAL_PHASE`. To change the amount of a tax, modify the referenced top-level tax.
      */
-    applied_taxes?: Array<OrderLineItemAppliedTax> | undefined;
+    applied_taxes?: OrderLineItemAppliedTax[] | undefined;
     /**
      * Application-defined data attached to this service charge. Metadata fields are intended to store descriptive
      * references or associations with an entity in another system or store brief information about the object. Square
@@ -9208,7 +9210,7 @@ export class PayOrderRequest {
     /**
      * The IDs of the `payments` to collect. The payment total must match the order total.
      */
-    payment_ids?: Array<string> | undefined;
+    payment_ids?: string[] | undefined;
 }
 
 /**
@@ -9218,7 +9220,7 @@ export class PayOrderResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The paid, updated `order`.
      */
@@ -9267,7 +9269,7 @@ export class Payment {
     /**
      * Processing fees and fee adjustments assessed by Square on this payment.
      */
-    processing_fee?: Array<ProcessingFee> | undefined;
+    processing_fee?: ProcessingFee[] | undefined;
     /**
      * Total amount of the payment refunded to-date. Specified in the smallest denomination of the applicable currency.
      * For example, US dollar amounts are specified in cents.
@@ -9329,7 +9331,7 @@ export class Payment {
     /**
      * List of `refund_id`s identifying refunds for this payment.
      */
-    refund_ids?: Array<string> | undefined;
+    refund_ids?: string[] | undefined;
     /**
      * The buyer's e-mail address.
      */
@@ -9385,7 +9387,7 @@ export class PaymentRefund {
      * - `REJECTED` - the refund was rejected
      * - `FAILED` - an error occurred
      */
-    status: 'PENDING' | 'COMPLETED' | 'REJECTED' | 'FAILED';
+    status: "PENDING" | "COMPLETED" | "REJECTED" | "FAILED";
     /**
      * Location ID associated with the payment this refund is attached to.
      */
@@ -9404,7 +9406,7 @@ export class PaymentRefund {
     /**
      * Processing fees and fee adjustments assessed by Square on this refund.
      */
-    processing_fee?: Array<ProcessingFee> | undefined;
+    processing_fee?: ProcessingFee[] | undefined;
     /**
      * The ID of the payment assocated with this refund.
      */
@@ -9480,7 +9482,7 @@ export class PublishInvoiceResponse {
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -9518,7 +9520,7 @@ export class RedeemLoyaltyRewardResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The `LoyaltyEvent` for redeeming the reward.
      */
@@ -9561,7 +9563,7 @@ export class Refund {
      * The current status of the refund (`PENDING`, `APPROVED`, `REJECTED`, or `FAILED`).
      * See [RefundStatus](#type-refundstatus) for possible values.
      */
-    status: 'PENDING' | 'APPROVED' | 'REJECTED' | 'FAILED';
+    status: "PENDING" | "APPROVED" | "REJECTED" | "FAILED";
     /**
      * The amount of Square processing fee money refunded to the *merchant*.
      */
@@ -9570,7 +9572,7 @@ export class Refund {
      * Additional recipients (other than the merchant) receiving a portion of this refund.
      * For example, fees assessed on a refund of a purchase by a third party integration.
      */
-    additional_recipients?: Array<AdditionalRecipient> | undefined;
+    additional_recipients?: AdditionalRecipient[] | undefined;
 }
 
 /**
@@ -9617,7 +9619,7 @@ export class RefundPaymentResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The successfully created `PaymentRefund`.
      */
@@ -9647,11 +9649,11 @@ export class RegisterDomainResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * Status of the domain registration. See `RegisterDomainResponseStatus` for possible values.
      */
-    status?: 'PENDING' | 'VERIFIED' | undefined;
+    status?: "PENDING" | "VERIFIED" | undefined;
 }
 
 /**
@@ -9671,7 +9673,7 @@ export class RemoveDisputeEvidenceResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -9686,7 +9688,7 @@ export class RemoveGroupFromCustomerResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 export class RenewTokenRequest {
@@ -9744,7 +9746,7 @@ export class RetrieveCashDrawerShiftResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 export class RetrieveCatalogObjectRequest {
@@ -9762,7 +9764,7 @@ export class RetrieveCatalogObjectResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The `CatalogObject`s returned.
      */
@@ -9770,7 +9772,7 @@ export class RetrieveCatalogObjectResponse {
     /**
      * A list of `CatalogObject`s referenced by the object in the `object` field.
      */
-    related_objects?: Array<CatalogObject> | undefined;
+    related_objects?: CatalogObject[] | undefined;
 }
 
 /**
@@ -9786,7 +9788,7 @@ export class RetrieveCustomerGroupResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The retrieved customer group.
      */
@@ -9806,7 +9808,7 @@ export class RetrieveCustomerResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The requested customer.
      */
@@ -9826,7 +9828,7 @@ export class RetrieveCustomerSegmentResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The retrieved customer segment.
      */
@@ -9845,7 +9847,7 @@ export class RetrieveDisputeEvidenceResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * Metadata about the dispute evidence file.
      */
@@ -9864,7 +9866,7 @@ export class RetrieveDisputeResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * Details about the requested `Dispute`.
      */
@@ -9888,7 +9890,7 @@ export class RetrieveEmployeeResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 export class RetrieveInventoryAdjustmentRequest {}
@@ -9897,7 +9899,7 @@ export class RetrieveInventoryAdjustmentResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The requested `InventoryAdjustment`.
      */
@@ -9921,11 +9923,11 @@ export class RetrieveInventoryChangesResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The set of inventory changes for the requested object and locations.
      */
-    changes?: Array<InventoryChange> | undefined;
+    changes?: InventoryChange[] | undefined;
     /**
      * The pagination cursor to be used in a subsequent request. If unset, this is the final response.
      * See the [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination) guide for more information.
@@ -9950,11 +9952,11 @@ export class RetrieveInventoryCountResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The current calculated inventory counts for the requested object and locations.
      */
-    counts?: Array<InventoryCount> | undefined;
+    counts?: InventoryCount[] | undefined;
     /**
      * The pagination cursor to be used in a subsequent request. If unset, this is the final response.
      * See the [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination) guide for more information.
@@ -9968,7 +9970,7 @@ export class RetrieveInventoryPhysicalCountResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The requested `InventoryPhysicalCount`.
      */
@@ -9987,7 +9989,7 @@ export class RetrieveLocationResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The requested location.
      */
@@ -10006,7 +10008,7 @@ export class RetrieveLoyaltyAccountResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The loyalty account.
      */
@@ -10025,7 +10027,7 @@ export class RetrieveLoyaltyRewardResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The loyalty reward retrieved.
      */
@@ -10044,7 +10046,7 @@ export class RetrieveMerchantResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The requested `Merchant` object.
      */
@@ -10061,7 +10063,7 @@ export class RetrieveOrderResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -10076,7 +10078,7 @@ export class RetrieveSubscriptionResponse {
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The subscription retrieved.
      */
@@ -10099,7 +10101,7 @@ export class RetrieveTeamMemberResponse {
     /**
      * The errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -10115,7 +10117,7 @@ export class RetrieveTransactionResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The requested transaction.
      */
@@ -10138,7 +10140,7 @@ export class RetrieveWageSettingResponse {
     /**
      * The errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 export class RevokeTokenRequest {
@@ -10181,16 +10183,16 @@ export class SearchCatalogItemsRequest {
     /**
      * The category id query expression to return items containing the specified category IDs.
      */
-    category_ids?: Array<string> | undefined;
+    category_ids?: string[] | undefined;
     /**
      * The stock-level query expression to return item variations with the specified stock levels.
      * See [SearchCatalogItemsRequestStockLevel](#type-searchcatalogitemsrequeststocklevel) for possible values.
      */
-    stock_levels?: Array<string> | undefined;
+    stock_levels?: string[] | undefined;
     /**
      * The enabled-location query expression to return items and item variations having specified enabled locations.
      */
-    enabled_location_ids?: Array<string> | undefined;
+    enabled_location_ids?: string[] | undefined;
     /**
      * The pagination token, returned in the previous response, used to fetch the next batch of pending results.
      */
@@ -10208,12 +10210,12 @@ export class SearchCatalogItemsRequest {
      * The product types query expression to return items or item variations having the specified product types.
      * See [CatalogItemProductType](#type-catalogitemproducttype) for possible values.
      */
-    product_types?: Array<string> | undefined;
+    product_types?: string[] | undefined;
     /**
      * The customer-attribute filter to return items or item variations matching the specified custom attribute expressions.
      * A maximum number of 10 custom attribute expressions are supported in a single call to the `SearchCatalogItems` endpoint.
      */
-    custom_attribute_filters?: Array<CustomAttributeFilter> | undefined;
+    custom_attribute_filters?: CustomAttributeFilter[] | undefined;
 }
 
 /**
@@ -10228,11 +10230,11 @@ export class SearchCatalogItemsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * Returned items matching the specified query expressions.
      */
-    items?: Array<CatalogObject> | undefined;
+    items?: CatalogObject[] | undefined;
     /**
      * Pagination token used in the next request to return more of the search result.
      */
@@ -10240,7 +10242,7 @@ export class SearchCatalogItemsResponse {
     /**
      * Ids of returned item variations matching the specified query expression.
      */
-    matched_variation_ids?: Array<string> | undefined;
+    matched_variation_ids?: string[] | undefined;
 }
 
 export class SearchCatalogObjectsRequest {
@@ -10253,7 +10255,7 @@ export class SearchCatalogObjectsRequest {
      * The desired set of object types to appear in the search results.
      * See [CatalogObjectType](#type-catalogobjecttype) for possible values
      */
-    object_types?: Array<ObjectType> | undefined;
+    object_types?: ObjectType[] | undefined;
     /**
      * If `true`, deleted objects will be included in the results.
      * Deleted objects will have their `is_deleted` field set to `true`.
@@ -10289,7 +10291,7 @@ export class SearchCatalogObjectsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The pagination cursor to be used in a subsequent request. If unset, this is the final response.
      * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
@@ -10298,11 +10300,11 @@ export class SearchCatalogObjectsResponse {
     /**
      * The CatalogObjects returned.
      */
-    objects?: Array<CatalogObject> | undefined;
+    objects?: CatalogObject[] | undefined;
     /**
      * A list of CatalogObjects referenced by the objects in the `objects` field.
      */
-    related_objects?: Array<CatalogObject> | undefined;
+    related_objects?: CatalogObject[] | undefined;
     /**
      * When the associated product catalog was last updated.
      * Will match the value for `end_time` or `cursor` if either field is included in the `SearchCatalog` request.
@@ -10340,11 +10342,11 @@ export class SearchCustomersResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * An array of `Customer` objects that match a query.
      */
-    customers?: Array<Customer> | undefined;
+    customers?: Customer[] | undefined;
     /**
      * A pagination cursor that can be used during subsequent calls to SearchCustomers to retrieve the next set of results
      * associated with the original query. Pagination cursors are only present when a request succeeds and additional
@@ -10382,7 +10384,7 @@ export class SearchInvoicesResponse {
     /**
      * The list of invoices returned by the search.
      */
-    invoices?: Array<Invoice> | undefined;
+    invoices?: Invoice[] | undefined;
     /**
      * When a response is truncated, it includes a cursor that you can use in a subsequent request to fetch the next set of invoices.
      * If empty, this is the final response. For more information, see [Pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination).
@@ -10391,7 +10393,7 @@ export class SearchInvoicesResponse {
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -10420,11 +10422,11 @@ export class SearchLoyaltyAccountsRequestLoyaltyAccountQuery {
     /**
      * The set of mappings to use in the loyalty account search. This cannot be combined with `customer_ids`. Max: 30 mappings.
      */
-    mappings?: Array<LoyaltyAccountMapping> | undefined;
+    mappings?: LoyaltyAccountMapping[] | undefined;
     /**
      * The set of customer IDs to use in the loyalty account search. This cannot be combined with `mappings`. Max: 30 customer IDs.
      */
-    customer_ids?: Array<string> | undefined;
+    customer_ids?: string[] | undefined;
 }
 
 /**
@@ -10434,11 +10436,11 @@ export class SearchLoyaltyAccountsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The loyalty accounts that met the search criteria, in order of creation date.
      */
-    loyalty_accounts?: Array<LoyaltyAccount> | undefined;
+    loyalty_accounts?: LoyaltyAccount[] | undefined;
     /**
      * The pagination cursor to use in a subsequent request. If empty, this is the final response.
      * For more information, see [Pagination](https://developer.squareup.com/docs/docs/basics/api101/pagination).
@@ -10474,11 +10476,11 @@ export class SearchLoyaltyEventsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The loyalty events that satisfy the search criteria.
      */
-    events?: Array<LoyaltyEvent> | undefined;
+    events?: LoyaltyEvent[] | undefined;
     /**
      * The pagination cursor to be used in a subsequent request. If empty, this is the final response.
      * For more information, see [Pagination](https://developer.squareup.com/docs/docs/basics/api101/pagination).
@@ -10527,11 +10529,11 @@ export class SearchLoyaltyRewardsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The loyalty rewards that satisfy the search criteria. These are returned in descending order by `updated_at`.
      */
-    rewards?: Array<LoyaltyReward> | undefined;
+    rewards?: LoyaltyReward[] | undefined;
     /**
      * The pagination cursor to be used in a subsequent request. If empty, this is the final response.
      */
@@ -10546,7 +10548,7 @@ export class SearchOrdersCustomerFilter {
     /**
      * List of customer IDs to filter by. Max: 10 customer IDs.
      */
-    customer_ids?: Array<string> | undefined;
+    customer_ids?: string[] | undefined;
 }
 
 /**
@@ -10614,12 +10616,12 @@ export class SearchOrdersFulfillmentFilter {
      * List of `fulfillment types` to filter for. Will return orders if any of its fulfillments match any of the fulfillment
      * types listed in this field. See [OrderFulfillmentType](#type-orderfulfillmenttype) for possible values.
      */
-    fulfillment_types?: Array<FulfillmentType> | undefined;
+    fulfillment_types?: FulfillmentType[] | undefined;
     /**
      * List of `fulfillment states` to filter for. Will return orders if any of its fulfillments match any of the
      * fulfillment states listed in this field. See [OrderFulfillmentState](#type-orderfulfillmentstate) for possible values.
      */
-    fulfillment_states?: Array<FulfillmentStateType> | undefined;
+    fulfillment_states?: FulfillmentStateType[] | undefined;
 }
 
 /**
@@ -10646,7 +10648,7 @@ export class SearchOrdersRequest {
      * The location IDs for the orders to query. All locations must belong to the same merchant.
      * Min: 1 location IDs. Max: 10 location IDs.
      */
-    location_ids?: Array<string> | undefined;
+    location_ids?: string[] | undefined;
     /**
      * A pagination cursor returned by a previous call to this endpoint.
      * Provide this to retrieve the next set of results for your original query.
@@ -10680,11 +10682,11 @@ export class SearchOrdersResponse {
     /**
      * List of `OrderEntries` that fit the query conditions. Populated only if `return_entries` was set to `true` in the request.
      */
-    order_entries?: Array<OrderEntry> | undefined;
+    order_entries?: OrderEntry[] | undefined;
     /**
      * List of `Order` objects that match query conditions. Populated only if `return_entries` in the request is set to `false`.
      */
-    orders?: Array<Order> | undefined;
+    orders?: Order[] | undefined;
     /**
      * The pagination cursor to be used in a subsequent request. If unset, this is the final response.
      * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
@@ -10693,7 +10695,7 @@ export class SearchOrdersResponse {
     /**
      * `Errors` encountered during the search.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -10708,7 +10710,7 @@ export class SearchOrdersSort {
      * SearchOrders will return an error. Default: `CREATED_AT`.
      * See [SearchOrdersSortField](#type-searchorderssortfield) for possible values.
      */
-    sort_field: 'CREATED_AT' | 'UPDATED_AT' | 'CLOSED_AT';
+    sort_field: "CREATED_AT" | "UPDATED_AT" | "CLOSED_AT";
     /**
      * The chronological order in which results are returned. Defaults to `DESC`.
      * See [SortOrder](#type-sortorder) for possible values.
@@ -10729,7 +10731,7 @@ export class SearchOrdersSourceFilter {
      * Filters by `Source` `name`. Will return any orders with with a `source.name` that matches any of the listed source names.
      * Max: 10 source names.
      */
-    source_names?: Array<string> | undefined;
+    source_names?: string[] | undefined;
 }
 
 /**
@@ -10739,7 +10741,7 @@ export class SearchOrdersStateFilter {
     /**
      * States to filter for. See [OrderState](#type-orderstate) for possible values.
      */
-    states: Array<OrderStateType>;
+    states: OrderStateType[];
 }
 
 /**
@@ -10768,7 +10770,7 @@ export class SearchShiftsResponse {
     /**
      * Shifts.
      */
-    shifts?: Array<Shift> | undefined;
+    shifts?: Shift[] | undefined;
     /**
      * Opaque cursor for fetching the next page.
      */
@@ -10776,7 +10778,7 @@ export class SearchShiftsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -10786,11 +10788,11 @@ export class SearchSubscriptionsFilter {
     /**
      * A filter to select subscriptions based on the customer.
      */
-    customer_ids?: Array<string> | undefined;
+    customer_ids?: string[] | undefined;
     /**
      * A filter to select subscriptions based the location.
      */
-    location_ids?: Array<string> | undefined;
+    location_ids?: string[] | undefined;
 }
 
 /**
@@ -10830,11 +10832,11 @@ export class SearchSubscriptionsResponse {
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The search result.
      */
-    subscriptions?: Array<Subscription> | undefined;
+    subscriptions?: Subscription[] | undefined;
     /**
      * When a response is truncated, it includes a cursor that you can  use in a subsequent request to fetch the next
      * set of subscriptions. If empty, this is the final response.
@@ -10853,7 +10855,7 @@ export class SearchTeamMembersFilter {
     /**
      * When present, filter by team members assigned to the specified locations. When empty, include team members assigned to any location.
      */
-    'locationIds'?: Array<string> | undefined;
+    "locationIds"?: string[] | undefined;
     /**
      * When present, filter by team members who match the given status. When empty, include team members of all statuses.
      * See [TeamMemberStatus](#type-teammemberstatus) for possible values.
@@ -10897,7 +10899,7 @@ export class SearchTeamMembersResponse {
     /**
      * The filtered list of `TeamMember` objects.
      */
-    team_members?: Array<TeamMember> | undefined;
+    team_members?: TeamMember[] | undefined;
     /**
      * The opaque cursor for fetching the next page.
      * Read about [pagination](https://developer.squareup.com/docs/docs/working-with-apis/pagination) with Square APIs for more information.
@@ -10906,7 +10908,7 @@ export class SearchTeamMembersResponse {
     /**
      * The errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 export class SearchTerminalCheckoutsRequest {
@@ -10931,11 +10933,11 @@ export class SearchTerminalCheckoutsResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The requested search result of `TerminalCheckout`s.
      */
-    checkouts?: Array<TerminalCheckout> | undefined;
+    checkouts?: TerminalCheckout[] | undefined;
     /**
      * The pagination cursor to be used in a subsequent request. If empty, this is the final response.
      * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
@@ -10964,11 +10966,11 @@ export class SearchTerminalRefundsResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The requested search result of `TerminalRefund`s.
      */
-    refunds?: Array<TerminalRefund> | undefined;
+    refunds?: TerminalRefund[] | undefined;
     /**
      * The pagination cursor to be used in a subsequent request. If empty, this is the final response.
      * See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information.
@@ -11014,11 +11016,11 @@ export class Shift {
     /**
      * A list of any paid or unpaid breaks that were taken during this shift.
      */
-    breaks?: Array<ModelBreak> | undefined;
+    breaks?: ModelBreak[] | undefined;
     /**
      * Describes working state of the current `Shift`. See [ShiftStatus](#type-shiftstatus) for possible values.
      */
-    status?: 'OPEN' | 'CLOSED' | undefined;
+    status?: "OPEN" | "CLOSED" | undefined;
     /**
      * Used for resolving concurrency issues; request will fail if version provided does not match server version at
      * time of request. If not provided, Square executes a blind write; potentially overwriting data from another write.
@@ -11046,15 +11048,15 @@ export class ShiftFilter {
     /**
      * Fetch shifts for the specified location.
      */
-    location_ids: Array<string>;
+    location_ids: string[];
     /**
      * Fetch shifts for the specified employees. DEPRECATED at version 2020-08-26. Use `team_member_ids` instead.
      */
-    employee_ids?: Array<string> | undefined;
+    employee_ids?: string[] | undefined;
     /**
      * Fetch a `Shift` instance by `Shift.status`. See [ShiftFilterStatus](#type-shiftfilterstatus) for possible values.
      */
-    status?: 'OPEN' | 'CLOSED' | undefined;
+    status?: "OPEN" | "CLOSED" | undefined;
     /**
      * Fetch `Shift`s that start in the time range - Inclusive.
      */
@@ -11070,7 +11072,7 @@ export class ShiftFilter {
     /**
      * Fetch shifts for the specified team members. Replaced `employee_ids` at version \"2020-08-26\"
      */
-    team_member_ids: Array<string>;
+    team_member_ids: string[];
 }
 
 /**
@@ -11099,7 +11101,7 @@ export class ShiftSort {
     /**
      * The field to sort on. See [ShiftSortField](#type-shiftsortfield) for possible values.
      */
-    field?: 'START_AT' | 'END_AT' | 'CREATED_AT' | 'UPDATED_AT' | undefined;
+    field?: "START_AT" | "END_AT" | "CREATED_AT" | "UPDATED_AT" | undefined;
     /**
      * The order in which results are returned. Defaults to DESC. See [SortOrder](#type-sortorder) for possible values.
      */
@@ -11142,7 +11144,7 @@ export class ShiftWorkday {
     /**
      * The strategy on which the dates are applied. See [ShiftWorkdayMatcher](#type-shiftworkdaymatcher) for possible values.
      */
-    match_shifts_by?: 'START_AT' | 'END_AT' | 'INTERSECTION' | undefined;
+    match_shifts_by?: "START_AT" | "END_AT" | "INTERSECTION" | undefined;
     /**
      * Location-specific timezones convert workdays to datetime filters.
      * Every location included in the query must have a timezone, or this field must be provided as a fallback.
@@ -11204,7 +11206,7 @@ export class StandardUnitDescriptionGroup {
     /**
      * List of standard (non-custom) measurement units in this description group.
      */
-    standard_unit_descriptions?: Array<StandardUnitDescription> | undefined;
+    standard_unit_descriptions?: StandardUnitDescription[] | undefined;
     /**
      * IETF language tag.
      */
@@ -11223,7 +11225,7 @@ export class SubmitEvidenceResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The `Dispute` for which evidence was submitted.
      */
@@ -11275,7 +11277,7 @@ export class Subscription {
     /**
      * The IDs of the `invoices` created for the  subscription, listed in order when the invoices were created (oldest invoices appear first).
      */
-    invoice_ids?: Array<string> | undefined;
+    invoice_ids?: string[] | undefined;
     /**
      * A custom price to apply for the subscription. If specified, it overrides the price configured by the subscription plan.
      */
@@ -11451,7 +11453,7 @@ export class TeamMemberAssignedLocations {
     /**
      * The locations that the team member is assigned to.
      */
-    location_ids?: Array<string> | undefined;
+    location_ids?: string[] | undefined;
 }
 
 /**
@@ -11532,7 +11534,7 @@ export class Tender {
     /**
      * The type of tender, such as `CARD` or `CASH`. See [TenderType](#type-tendertype) for possible values.
      */
-    type: 'CARD' | 'CASH' | 'THIRD_PARTY_CARD' | 'SQUARE_GIFT_CARD' | 'NO_SALE' | 'OTHER';
+    type: "CARD" | "CASH" | "THIRD_PARTY_CARD" | "SQUARE_GIFT_CARD" | "NO_SALE" | "OTHER";
     /**
      * The details of the card tender. This value is present only if the value of `type` is `CARD`.
      */
@@ -11545,7 +11547,7 @@ export class Tender {
      * Additional recipients (other than the merchant) receiving a portion of this tender.
      * For example, fees assessed on the purchase by a third party integration.
      */
-    additional_recipients?: Array<AdditionalRecipient> | undefined;
+    additional_recipients?: AdditionalRecipient[] | undefined;
     /**
      * The ID of the `Payment` that corresponds to this tender. This value is only present for payments created with the v2 Payments API.
      */
@@ -11561,7 +11563,7 @@ export class TenderCardDetails {
      * See `TenderCardDetailsStatus` for possible values.
      * See [TenderCardDetailsStatus](#type-tendercarddetailsstatus) for possible values.
      */
-    status?: 'AUTHORIZED' | 'CAPTURED' | 'VOIDED' | 'FAILED' | undefined;
+    status?: "AUTHORIZED" | "CAPTURED" | "VOIDED" | "FAILED" | undefined;
     /**
      * The credit card's non-confidential details.
      */
@@ -11570,7 +11572,7 @@ export class TenderCardDetails {
      * The method used to enter the card's details for the transaction.
      * See [TenderCardDetailsEntryMethod](#type-tendercarddetailsentrymethod) for possible values.
      */
-    entry_method?: 'SWIPED' | 'KEYED' | 'EMV' | 'ON_FILE' | 'CONTACTLESS' | undefined;
+    entry_method?: "SWIPED" | "KEYED" | "EMV" | "ON_FILE" | "CONTACTLESS" | undefined;
 }
 
 /**
@@ -11641,7 +11643,7 @@ export class TerminalCheckout {
     /**
      * A list of ids for payments created by this `TerminalCheckout`.
      */
-    payment_ids?: Array<string> | undefined;
+    payment_ids?: string[] | undefined;
     /**
      * The time when the `TerminalCheckout` was created as an RFC 3339 timestamp.
      */
@@ -11821,11 +11823,11 @@ export class Transaction {
     /**
      * The tenders used to pay in the transaction.
      */
-    tenders?: Array<Tender> | undefined;
+    tenders?: Tender[] | undefined;
     /**
      * Refunds that have been applied to any tender in the transaction.
      */
-    refunds?: Array<Refund> | undefined;
+    refunds?: Refund[] | undefined;
     /**
      * If the transaction was created with the `Charge` endpoint, this value is the same as the value provided for
      * the `reference_id` parameter in the request to that endpoint. Otherwise, it is not set.
@@ -11834,7 +11836,16 @@ export class Transaction {
     /**
      * The Square product that processed the transaction. See [TransactionProduct](#type-transactionproduct) for possible values.
      */
-    product?: 'REGISTER' | 'EXTERNAL_API' | 'BILLING' | 'APPOINTMENTS' | 'INVOICES' | 'ONLINE_STORE' | 'PAYROLL' | 'OTHER' | undefined;
+    product?:
+        | "REGISTER"
+        | "EXTERNAL_API"
+        | "BILLING"
+        | "APPOINTMENTS"
+        | "INVOICES"
+        | "ONLINE_STORE"
+        | "PAYROLL"
+        | "OTHER"
+        | undefined;
     /**
      * If the transaction was created in the Square Point of Sale app, this value is the ID generated for the
      * transaction by Square Point of Sale. This ID has no relationship to the transaction's canonical `id`, which is
@@ -11885,7 +11896,7 @@ export class UpdateBreakTypeResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -11906,7 +11917,7 @@ export class UpdateCustomerGroupResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The successfully updated customer group.
      */
@@ -11969,7 +11980,7 @@ export class UpdateCustomerResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The updated customer.
      */
@@ -11996,7 +12007,7 @@ export class UpdateInvoiceRequest {
      * List of fields to clear.
      * For examples, see [Update an invoice](https://developer.squareup.com/docs/docs/invoices-api/overview#update-an-invoice).
      */
-    fields_to_clear?: Array<string> | undefined;
+    fields_to_clear?: string[] | undefined;
 }
 
 /**
@@ -12010,29 +12021,29 @@ export class UpdateInvoiceResponse {
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 export class UpdateItemModifierListsRequest {
     /**
      * The IDs of the catalog items associated with the CatalogModifierList objects being updated.
      */
-    item_ids: Array<string>;
+    item_ids: string[];
     /**
      * The IDs of the CatalogModifierList objects to enable for the CatalogItem.
      */
-    modifier_lists_to_enable?: Array<string> | undefined;
+    modifier_lists_to_enable?: string[] | undefined;
     /**
      * The IDs of the CatalogModifierList objects to disable for the CatalogItem.
      */
-    modifier_lists_to_disable?: Array<string> | undefined;
+    modifier_lists_to_disable?: string[] | undefined;
 }
 
 export class UpdateItemModifierListsResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The database [timestamp](https://developer.squareup.com/docs/build-basics/working-with-date) of this
      * update in RFC 3339 format, e.g., `2016-09-04T23:59:33.123Z`.
@@ -12044,22 +12055,22 @@ export class UpdateItemTaxesRequest {
     /**
      * IDs for the CatalogItems associated with the CatalogTax objects being updated.
      */
-    item_ids: Array<string>;
+    item_ids: string[];
     /**
      * IDs of the CatalogTax objects to enable.
      */
-    taxes_to_enable?: Array<string> | undefined;
+    taxes_to_enable?: string[] | undefined;
     /**
      * IDs of the CatalogTax objects to disable.
      */
-    taxes_to_disable?: Array<string> | undefined;
+    taxes_to_disable?: string[] | undefined;
 }
 
 export class UpdateItemTaxesResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The database [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates) of this update
      * in RFC 3339 format, e.g., `2016-09-04T23:59:33.123Z`.
@@ -12084,7 +12095,7 @@ export class UpdateLocationResponse {
     /**
      * Information on errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The updated `Location`.
      */
@@ -12104,7 +12115,7 @@ export class UpdateOrderRequest {
      * The [dot notation paths](https://developer.squareup.com/docs/orders-api/manage-orders#on-dot-notation) fields to clear.
      * For example, `line_items[uid].note` [Read more about Deleting fields](https://developer.squareup.com/docs/orders-api/manage-orders#delete-fields).
      */
-    fields_to_clear?: Array<string> | undefined;
+    fields_to_clear?: string[] | undefined;
     /**
      * A value you specify that uniquely identifies this update request If you're unsure whether a particular update was
      * applied to an order successfully, you can reattempt it with the same idempotency key without worrying about creating
@@ -12125,7 +12136,7 @@ export class UpdateOrderResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -12150,7 +12161,7 @@ export class UpdateShiftResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -12171,7 +12182,7 @@ export class UpdateSubscriptionResponse {
     /**
      * Information about errors encountered during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The modified `Subscription` object.
      */
@@ -12199,7 +12210,7 @@ export class UpdateTeamMemberResponse {
     /**
      * The errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -12223,7 +12234,7 @@ export class UpdateWageSettingResponse {
     /**
      * The errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -12248,7 +12259,7 @@ export class UpdateWorkweekConfigResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 export class UpsertCatalogObjectRequest {
@@ -12273,7 +12284,7 @@ export class UpsertCatalogObjectResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
     /**
      * The successfully created or updated CatalogObject.
      */
@@ -12281,7 +12292,7 @@ export class UpsertCatalogObjectResponse {
     /**
      * The mapping between client and server IDs for this upsert.
      */
-    id_mappings?: Array<CatalogIdMapping> | undefined;
+    id_mappings?: CatalogIdMapping[] | undefined;
 }
 
 /**
@@ -12311,7 +12322,7 @@ export class VoidTransactionResponse {
     /**
      * Any errors that occurred during the request.
      */
-    errors?: Array<Error> | undefined;
+    errors?: Error[] | undefined;
 }
 
 /**
@@ -12326,7 +12337,7 @@ export class WageSetting {
      * The ordered list of jobs that the team member is assigned to.
      * The first job assignment is considered the team member's \"Primary Job\". <br> <b>Min Length 1 Max Length 12</b>
      */
-    job_assignments: Array<JobAssignment>;
+    job_assignments: JobAssignment[];
     /**
      * Whether the team member is exempt from the overtime rules of the seller country.
      */
@@ -12406,18 +12417,18 @@ export class ApiClient {
         oauth2: {
             type: string;
             accessToken: string;
-        }
+        };
         oauth2ClientSecret: {
             type: string;
             in: string;
             name: string;
-        }
+        };
     };
 
     /**
      * The default HTTP headers to be included for all API calls.
      */
-    defaultHeaders: {[key: string]: string};
+    defaultHeaders: { [key: string]: string };
 
     /**
      *  The default HTTP timeout for all API calls.
@@ -12452,7 +12463,7 @@ export class ApplePayApi {
      * developers to bulk activate Web Apple Pay with Square for merchants using their platform. To learn more about
      * Apple Pay on Web see the Apple Pay section in the [Square Payment Form Walkthrough](/docs/payment-form/payment-form-walkthrough).
      */
-    registerDomain(...args: Array<any>): Promise<RegisterDomainResponse>;
+    registerDomain(...args: any[]): Promise<RegisterDomainResponse>;
 }
 
 // @todo describe methods
@@ -12475,13 +12486,13 @@ export class CatalogApi {
      * @note ListCatalog does not return deleted catalog items. To retrieve deleted catalog items, use SearchCatalogObjects
      * and set `include_deleted_objects` to `true`.
      */
-    batchDeleteCatalogObjects(...args: Array<any>): Promise<BatchDeleteCatalogObjectsResponse>;
+    batchDeleteCatalogObjects(...args: any[]): Promise<BatchDeleteCatalogObjectsResponse>;
     /**
      * Returns a set of objects based on the provided ID. Each [CatalogItem](#type-catalogitem) returned in the set includes all of
      * its child information including: all of its [CatalogItemVariation](#type-catalogitemvariation) objects, references to its
      * [CatalogModifierList](#type-catalogmodifierlist) objects, and the ids of any [CatalogTax](#type-catalogtax) objects that apply to it.
      */
-    batchRetrieveCatalogObjects(...args: Array<any>): Promise<BatchRetrieveCatalogObjectsResponse>;
+    batchRetrieveCatalogObjects(...args: any[]): Promise<BatchRetrieveCatalogObjectsResponse>;
     /**
      * Creates or updates up to 10,000 target objects based on the provided list of objects. The target objects are grouped into
      * batches and each batch is inserted/updated in an all-or-nothing manner. If an object within a batch is malformed in some way,
@@ -12489,18 +12500,18 @@ export class CatalogApi {
      * the same request may still succeed. Each batch may contain up to 1,000 objects, and batches will be processed in order as long
      * as the total object count for the request (items, variations, modifier lists, discounts, and taxes) is no more than 10,000.
      */
-    batchUpsertCatalogObjects(...args: Array<any>): Promise<BatchUpsertCatalogObjectsResponse>;
+    batchUpsertCatalogObjects(...args: any[]): Promise<BatchUpsertCatalogObjectsResponse>;
     /**
      * Returns information about the Square Catalog API, such as batch size limits for `BatchUpsertCatalogObjects`.
      */
-    catalogInfo(...args: Array<any>): Promise<CatalogInfoResponse>;
+    catalogInfo(...args: any[]): Promise<CatalogInfoResponse>;
     /**
      * Deletes a single [CatalogObject](#type-catalogobject) based on the provided ID and returns the set of successfully deleted
      * IDs in the response. Deletion is a cascading event such that all children of the targeted object are also deleted.
      * For example, deleting a [CatalogItem](#type-catalogitem) will also delete all of its
      * [CatalogItemVariation](#type-catalogitemvariation) children.
      */
-    deleteCatalogObject(...args: Array<any>): Promise<DeleteCatalogObjectResponse>;
+    deleteCatalogObject(...args: any[]): Promise<DeleteCatalogObjectResponse>;
     /**
      * Returns a list of [CatalogObject](#type-catalogobject)s that includes all objects of a set of desired types (for example,
      * all [CatalogItem](#type-catalogitem) and [CatalogTax](#type-catalogtax) objects) in the catalog.
@@ -12509,14 +12520,14 @@ export class CatalogApi {
      * @note ListCatalog does not return deleted catalog items.
      * To retrieve deleted catalog items, use SearchCatalogObjects and set `include_deleted_objects` to `true`.
      */
-    listCatalog(...args: Array<any>): Promise<ListCatalogResponse>;
+    listCatalog(...args: any[]): Promise<ListCatalogResponse>;
     /**
      * Returns a single [CatalogItem](#type-catalogitem) as a [CatalogObject](#type-catalogobject) based on the provided ID.
      * The returned object includes all of the relevant [CatalogItem](#type-catalogitem) information including:
      * [CatalogItemVariation](#type-catalogitemvariation) children, references to its [CatalogModifierList](#type-catalogmodifierlist)
      * objects, and the ids of any [CatalogTax](#type-catalogtax) objects that apply to it.
      */
-    retrieveCatalogObject(...args: Array<any>): Promise<RetrieveCatalogObjectResponse>;
+    retrieveCatalogObject(...args: any[]): Promise<RetrieveCatalogObjectResponse>;
     /**
      * Queries the targeted catalog using a variety of query types: [CatalogQuerySortedAttribute](#type-catalogquerysortedattribute),
      * [CatalogQueryExact](#type-catalogqueryexact), [CatalogQueryRange](#type-catalogqueryrange),
@@ -12527,21 +12538,21 @@ export class CatalogApi {
      * [CatalogQueryItemsForItemOptions](#type-catalogqueryitemsforitemoptions),
      * and [CatalogQueryItemVariationsForItemOptionValues](#type-catalogqueryitemvariationsforitemoptionvalues).
      */
-    searchCatalogObjects(...args: Array<any>): Promise<SearchCatalogObjectsResponse>;
+    searchCatalogObjects(...args: any[]): Promise<SearchCatalogObjectsResponse>;
     /**
      * Updates the [CatalogModifierList](#type-catalogmodifierlist) objects that apply to the targeted
      * [CatalogItem](#type-catalogitem) without having to perform an upsert on the entire item.
      */
-    updateItemModifierLists(...args: Array<any>): Promise<UpdateItemModifierListsResponse>;
+    updateItemModifierLists(...args: any[]): Promise<UpdateItemModifierListsResponse>;
     /**
      * Updates the [CatalogTax](#type-catalogtax) objects that apply to the targeted [CatalogItem](#type-catalogitem)
      * without having to perform an upsert on the entire item.
      */
-    updateItemTaxes(...args: Array<any>): Promise<UpdateItemTaxesResponse>;
+    updateItemTaxes(...args: any[]): Promise<UpdateItemTaxesResponse>;
     /**
      * Creates or updates the target [CatalogObject](#type-catalogobject).
      */
-    upsertCatalogObject(...args: Array<any>): Promise<UpsertCatalogObjectResponse>;
+    upsertCatalogObject(...args: any[]): Promise<UpsertCatalogObjectResponse>;
 }
 
 export class CheckoutApi {
@@ -12584,7 +12595,7 @@ export class CustomersApi {
      * When two profiles are merged into a single profile, that profile is assigned a new `customer_id`.
      * You must use the new `customer_id` to delete merged profiles.
      */
-    deleteCustomer(...args: Array<any>): Promise<DeleteCustomerResponse>;
+    deleteCustomer(...args: any[]): Promise<DeleteCustomerResponse>;
     /**
      * Removes a card on file from a customer.
      */
@@ -12592,7 +12603,7 @@ export class CustomersApi {
     /**
      * Lists a business's customers.
      */
-    listCustomers(...args: Array<any>): Promise<ListCustomersResponse>;
+    listCustomers(...args: any[]): Promise<ListCustomersResponse>;
     /**
      * Returns details for a single customer.
      */
@@ -12602,7 +12613,7 @@ export class CustomersApi {
      * Calling SearchCustomers without an explicit query parameter returns all customer profiles ordered alphabetically based
      * on `given_name` and `family_name`.
      */
-    searchCustomers(...args: Array<any>): Promise<SearchCustomersResponse>;
+    searchCustomers(...args: any[]): Promise<SearchCustomersResponse>;
     /**
      * Updates the details of an existing customer. When two profiles are merged into a single profile, that profile
      * is assigned a new `customer_id`. You must use the new `customer_id` to update merged profiles. You cannot edit
@@ -12610,7 +12621,7 @@ export class CustomersApi {
      * card on file with the [DeleteCustomerCard](#endpoint-deletecustomercard) endpoint, then create a new one with
      * the [CreateCustomerCard](#endpoint-createcustomercard) endpoint.
      */
-    updateCustomer(...args: Array<any>): Promise<UpdateCustomerResponse>;
+    updateCustomer(...args: any[]): Promise<UpdateCustomerResponse>;
 }
 
 // @todo describe methods
@@ -12649,13 +12660,13 @@ export class InventoryApi {
      * On success: returns the current calculated counts for all objects referenced in the request.
      * On failure: returns a list of related errors.
      */
-    batchChangeInventory(...args: Array<any>): Promise<BatchChangeInventoryResponse>;
+    batchChangeInventory(...args: any[]): Promise<BatchChangeInventoryResponse>;
     /**
      * Returns historical physical counts and adjustments based on the provided filter criteria.
      * Results are paginated and sorted in ascending order according their `occurred_at` timestamp (oldest first).
      * BatchRetrieveInventoryChanges is a catch-all query endpoint for queries that cannot be handled by other, simpler endpoints.
      */
-    batchRetrieveInventoryChanges(...args: Array<any>): Promise<BatchRetrieveInventoryChangesResponse>;
+    batchRetrieveInventoryChanges(...args: any[]): Promise<BatchRetrieveInventoryChangesResponse>;
     /**
      * Returns current counts for the provided [CatalogObject](#type-catalogobject)s at the requested [Location](#type-location)s.
      * Results are paginated and sorted in descending order according to their `calculated_at` timestamp (newest first).
@@ -12663,11 +12674,11 @@ export class InventoryApi {
      * the most recent change) are returned. This allows clients to perform a "sync" operation, for example in response to
      * receiving a Webhook notification.
      */
-    batchRetrieveInventoryCounts(...args: Array<any>): Promise<BatchRetrieveInventoryCountsResponse>;
+    batchRetrieveInventoryCounts(...args: any[]): Promise<BatchRetrieveInventoryCountsResponse>;
     /**
      * Returns the [InventoryAdjustment](#type-inventoryadjustment) object with the provided `adjustment_id`.
      */
-    retrieveInventoryAdjustment(...args: Array<any>): Promise<RetrieveInventoryAdjustmentResponse>;
+    retrieveInventoryAdjustment(...args: any[]): Promise<RetrieveInventoryAdjustmentResponse>;
     /**
      * Returns a set of physical counts and inventory adjustments for the provided [CatalogObject](#type-catalogobject) at the
      * requested [Location](#type-location)s. Results are paginated and sorted in descending order according to their
@@ -12675,16 +12686,16 @@ export class InventoryApi {
      * This endpoint is useful when displaying recent changes for a specific item. For more sophisticated queries,
      * use a batch endpoint.
      */
-    retrieveInventoryChanges(...args: Array<any>): Promise<RetrieveInventoryChangesResponse>;
+    retrieveInventoryChanges(...args: any[]): Promise<RetrieveInventoryChangesResponse>;
     /**
      * Retrieves the current calculated stock count for a given [CatalogObject](#type-catalogobject) at a given set
      * of [Location](#type-location)s. Responses are paginated and unsorted. For more sophisticated queries, use a batch endpoint.
      */
-    retrieveInventoryCount(...args: Array<any>): Promise<RetrieveInventoryCountResponse>;
+    retrieveInventoryCount(...args: any[]): Promise<RetrieveInventoryCountResponse>;
     /**
      * Returns the [InventoryPhysicalCount](#type-inventoryphysicalcount) object with the provided `physical_count_id`.
      */
-    retrieveInventoryPhysicalCount(...args: Array<any>): Promise<RetrieveInventoryPhysicalCountResponse>;
+    retrieveInventoryPhysicalCount(...args: any[]): Promise<RetrieveInventoryPhysicalCountResponse>;
 }
 
 export class LaborApi {
@@ -12700,7 +12711,7 @@ export class LaborApi {
      * You can only have 3 `BreakType` instances per location. If you attempt to add a 4th `BreakType` for a location,
      * an `INVALID_REQUEST_ERROR` "Exceeded limit of 3 breaks per location." is returned.
      */
-    createBreakType(...args: Array<any>): Promise<CreateBreakTypeResponse>;
+    createBreakType(...args: any[]): Promise<CreateBreakTypeResponse>;
     /**
      * Creates a new `Shift`. A `Shift` represents a complete work day for a single employee.
      * You must provide the following values in your request to this endpoint:
@@ -12710,60 +12721,60 @@ export class LaborApi {
      * `start_at` or `end_at` overlaps another shift for the same employee - If `Break`s are set in the request, a break
      * `start_at` must not be before the `Shift.start_at`. A break `end_at` must not be after the `Shift.end_at`.
      */
-    createShift(...args: Array<any>): Promise<CreateShiftResponse>;
+    createShift(...args: any[]): Promise<CreateShiftResponse>;
     /**
      * Deletes an existing `BreakType`. A `BreakType` can be deleted even if it is referenced from a `Shift`.
      */
-    deleteBreakType(...args: Array<any>): Promise<DeleteBreakTypeResponse>;
+    deleteBreakType(...args: any[]): Promise<DeleteBreakTypeResponse>;
     /**
      * Deletes a `Shift`.
      */
-    deleteShift(...args: Array<any>): Promise<DeleteShiftResponse>;
+    deleteShift(...args: any[]): Promise<DeleteShiftResponse>;
     /**
      * Returns a single `BreakType` specified by id.
      */
-    getBreakType(...args: Array<any>): Promise<GetBreakTypeResponse>;
+    getBreakType(...args: any[]): Promise<GetBreakTypeResponse>;
     /**
      * Returns a single `EmployeeWage` specified by id.
      */
-    getEmployeeWage(...args: Array<any>): Promise<GetEmployeeWageResponse>;
+    getEmployeeWage(...args: any[]): Promise<GetEmployeeWageResponse>;
     /**
      * Returns a single `Shift` specified by id.
      */
-    getShift(...args: Array<any>): Promise<GetShiftResponse>;
+    getShift(...args: any[]): Promise<GetShiftResponse>;
     /**
      * Returns a paginated list of `BreakType` instances for a business.
      */
-    listBreakTypes(...args: Array<any>): Promise<ListBreakTypesResponse>;
+    listBreakTypes(...args: any[]): Promise<ListBreakTypesResponse>;
     /**
      * Returns a paginated list of `EmployeeWage` instances for a business.
      */
-    listEmployeeWages(...args: Array<any>): Promise<ListEmployeeWagesResponse>;
+    listEmployeeWages(...args: any[]): Promise<ListEmployeeWagesResponse>;
     /**
      * Returns a list of `WorkweekConfig` instances for a business.
      */
-    listWorkweekConfigs(...args: Array<any>): Promise<ListWorkweekConfigsResponse>;
+    listWorkweekConfigs(...args: any[]): Promise<ListWorkweekConfigsResponse>;
     /**
      * Returns a paginated list of `Shift` records for a business.
      * The list to be returned can be filtered by: - Location IDs **and** - employee IDs **and** - shift
      * status (`OPEN`, `CLOSED`) **and** - shift start **and** - shift end **and** - work day details.
      * The list can be sorted by: - `start_at` - `end_at` - `created_at` - `updated_at`.
      */
-    searchShifts(...args: Array<any>): Promise<SearchShiftsResponse>;
+    searchShifts(...args: any[]): Promise<SearchShiftsResponse>;
     /**
      * Updates an existing `BreakType`.
      */
-    updateBreakType(...args: Array<any>): Promise<UpdateBreakTypeResponse>;
+    updateBreakType(...args: any[]): Promise<UpdateBreakTypeResponse>;
     /**
      * Updates an existing `Shift`. When adding a `Break` to a `Shift`, any earlier `Breaks` in the `Shift` have
      * the `end_at` property set to a valid RFC-3339 datetime string. When closing a `Shift`, all `Break` instances
      * in the shift must be complete with `end_at` set on each `Break`.
      */
-    updateShift(...args: Array<any>): Promise<UpdateShiftResponse>;
+    updateShift(...args: any[]): Promise<UpdateShiftResponse>;
     /**
      * Updates a `WorkweekConfig`.
      */
-    updateWorkweekConfig(...args: Array<any>): Promise<UpdateWorkweekConfigResponse>;
+    updateWorkweekConfig(...args: any[]): Promise<UpdateWorkweekConfigResponse>;
 }
 
 export class LocationsApi {
@@ -12778,17 +12789,17 @@ export class LocationsApi {
      * [`Location`](#type-location) objects returned by this endpoint correspond to that `location_id` parameter.
      */
     listLocations(): Promise<ListLocationsResponse>;
-  /**
-   * Creates a location.
-   */
+    /**
+     * Creates a location.
+     */
     createLocation(body: Location): Promise<CreateLocationResponse>;
-  /**
-   * Retrieves details of a location.
-   */
+    /**
+     * Retrieves details of a location.
+     */
     retrieveLocation(locationId: string): Promise<RetrieveLocationResponse>;
-  /**
-   * Updates a location.
-   */
+    /**
+     * Updates a location.
+     */
     updateLocation(locationId: string, body: Location): Promise<UpdateLocationResponse>;
 }
 
@@ -12811,7 +12822,9 @@ export class MobileAuthorizationApi {
      * `Authorization: Bearer ACCESS_TOKEN` Replace `ACCESS_TOKEN` with a [valid production authorization credential]
      * @link https://docs.connect.squareup.com/get-started#step-4-understand-the-different-application-credentials
      */
-    createMobileAuthorizationCode(body: CreateMobileAuthorizationCodeRequest): Promise<CreateMobileAuthorizationCodeResponse>;
+    createMobileAuthorizationCode(
+        body: CreateMobileAuthorizationCodeRequest,
+    ): Promise<CreateMobileAuthorizationCodeResponse>;
 }
 
 export class OAuthApi {
@@ -12932,7 +12945,9 @@ export class PaymentsApi {
      * CreatePayment request you want  to cancel. After cancelling the payment, you can submit your CreatePayment request again.
      * Note that if no payment with the specified idempotency key is found, no action is taken, the end point returns successfully.
      */
-    cancelPaymentByIdempotencyKey(body: CancelPaymentByIdempotencyKeyRequest): Promise<CancelPaymentByIdempotencyKeyResponse>;
+    cancelPaymentByIdempotencyKey(
+        body: CancelPaymentByIdempotencyKeyRequest,
+    ): Promise<CancelPaymentByIdempotencyKeyResponse>;
     /**
      * Completes (captures) a payment. By default, payments are set to complete immediately after they are created.
      * If you set autocomplete to false when creating a payment, you can complete (capture) the payment using this endpoint.
@@ -13018,7 +13033,7 @@ export class TransactionsApi {
      * @deprecated recommend using [RefundPayment](#endpoint-refunds-refundpayment) You must issue a refund within 120
      * days of the associated payment. See [this article](https://squareup.com/help/us/en/article/5060) for more
      * information on refund behavior.
-     * @note: Card-present transactions with Interac credit cards **cannot be refunded using the Connect API**.
+     * @note Card-present transactions with Interac credit cards **cannot be refunded using the Connect API**.
      * Interac transactions must refunded in-person (e.g., dipping the card using POS app).
      */
     createRefund(locationId: string, transactionId: string, body: CreateRefundRequest): Promise<CreateRefundResponse>;

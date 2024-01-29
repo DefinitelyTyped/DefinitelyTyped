@@ -1,3 +1,3 @@
-import atob = require('atob');
+import atob = require("atob");
 
-atob('foo');
+atob("foo");

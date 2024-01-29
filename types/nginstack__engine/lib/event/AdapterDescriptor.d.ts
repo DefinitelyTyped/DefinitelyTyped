@@ -12,9 +12,10 @@ declare class AdapterDescriptor {
     beforeInherited: (arg0: Event) => any;
     afterInherited: (arg0: Event) => any;
     private nonDescribedParameters_;
-    listenerFilter: (arg0: any, arg1: (() => any) | Record<any, any>) => boolean;
+    listenerFilter: (arg0: Emitter, arg1: (() => any) | Record<any, any>) => boolean;
 }
 declare namespace AdapterDescriptor {
-    export { Event };
+    export { Event, Emitter };
 }
 type Event = import('./Event');
+type Emitter = import('./Emitter');

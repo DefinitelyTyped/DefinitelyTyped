@@ -1,5 +1,3 @@
-export = vmtProfile;
+import { Profile } from "../../index";
 
-import createClient = require('../../index');
-
-declare const vmtProfile: createClient.Profile;
+export const profile: Profile;

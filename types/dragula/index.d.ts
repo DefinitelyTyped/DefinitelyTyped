@@ -1,10 +1,3 @@
-// Type definitions for dragula 3.7
-// Project: http://bevacqua.github.io/dragula/
-// Definitions by: Paul Welter <https://github.com/pwelter34>
-//                 Yang He <https://github.com/abruzzihraig>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare const dragula: dragula.Dragula;
 
 export = dragula;
@@ -35,14 +28,14 @@ declare namespace dragula {
         cancel(revert?: boolean): void;
         canMove(item: Element): boolean;
         remove(): void;
-        on(event: 'drag', listener: (el: Element, source: Element) => void): Drake;
-        on(event: 'dragend', listener: (el: Element) => void): Drake;
-        on(event: 'drop', listener: (el: Element, target: Element, source: Element, sibling: Element) => void): Drake;
+        on(event: "drag", listener: (el: Element, source: Element) => void): Drake;
+        on(event: "dragend", listener: (el: Element) => void): Drake;
+        on(event: "drop", listener: (el: Element, target: Element, source: Element, sibling: Element) => void): Drake;
         on(
-            event: 'cancel' | 'remove' | 'shadow' | 'over' | 'out',
+            event: "cancel" | "remove" | "shadow" | "over" | "out",
             listener: (el: Element, container: Element, source: Element) => void,
         ): Drake;
-        on(event: 'cloned', listener: (clone: Element, original: Element, type: 'mirror' | 'copy') => void): Drake;
+        on(event: "cloned", listener: (clone: Element, original: Element, type: "mirror" | "copy") => void): Drake;
         destroy(): void;
     }
 

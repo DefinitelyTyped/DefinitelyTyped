@@ -1,19 +1,19 @@
-import * as React from 'react';
-import withRedux from 'next-redux-wrapper';
-import withReduxSaga from 'next-redux-saga';
-import { createStore, Reducer, Store, AnyAction } from 'redux';
+import withReduxSaga from "next-redux-saga";
+import withRedux from "next-redux-wrapper";
+import * as React from "react";
+import { AnyAction, createStore, Reducer, Store } from "redux";
 
 // `next-redux-saga` depends on `next-redux-wrapper`, which depends on `react-redux`, CI cannot detect the `react-redux` and install it.
 // Adding an explicit `react-redux` fix the issue.
-import * as ReactRedux from 'react-redux';
+import * as ReactRedux from "react-redux";
 
 interface InitialState {
     foo: string;
 }
 
-const reducer: Reducer<InitialState> = (state: InitialState = { foo: '' }, action: AnyAction): InitialState => {
+const reducer: Reducer<InitialState> = (state: InitialState = { foo: "" }, action: AnyAction): InitialState => {
     switch (action.type) {
-        case 'FOO':
+        case "FOO":
             return { ...state, foo: action.payload };
         default:
             return state;
@@ -35,8 +35,8 @@ interface Props {
 
 class Page extends React.Component<OwnProps & Props> {
     static getInitialProps({ store, isServer, pathname, query }: any) {
-        store.dispatch({ type: 'FOO', payload: 'foo' });
-        return { custom: 'custom' };
+        store.dispatch({ type: "FOO", payload: "foo" });
+        return { custom: "custom" };
     }
     render() {
         return (
@@ -65,5 +65,5 @@ const Com1 = withRedux<InitialState, ConnectStateProps, DispatchProps, OwnProps,
 
 const Com2 = withRedux(makeStore)(withReduxSaga(Page));
 
-const com1Instance = (<Com1 bar="foo" />);
-const com2Instance = (<Com2 />);
+const com1Instance = <Com1 bar="foo" />;
+const com2Instance = <Com2 />;

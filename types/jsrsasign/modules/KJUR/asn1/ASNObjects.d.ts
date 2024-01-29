@@ -79,7 +79,7 @@ declare namespace jsrsasign.KJUR.asn1 {
 
         /**
          * set value by integer value
-         * @param integer value to set
+         * @param value to set
          */
         setByInteger(intValue: number): void;
 
@@ -547,7 +547,7 @@ declare namespace jsrsasign.KJUR.asn1 {
          * @description
          * 'withMillis' flag is supported from asn1 1.0.6.
          */
-        private formatDate(dateObject: Date, type: 'utc' | 'gen', withMillis: boolean): string;
+        private formatDate(dateObject: Date, type: "utc" | "gen", withMillis: boolean): string;
         private zeroPadding(s: string, len: number): string;
 
         /**

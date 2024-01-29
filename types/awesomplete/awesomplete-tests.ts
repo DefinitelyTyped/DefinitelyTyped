@@ -1,12 +1,12 @@
-import * as Awesomplete from 'awesomplete';
+import * as Awesomplete from "awesomplete";
 
 const input = document.getElementById("myinput");
-new Awesomplete(input, {list: "#mylist"});
+new Awesomplete(input, { list: "#mylist" });
 
-new Awesomplete(input, {list: document.querySelector("#mylist")});
+new Awesomplete(input, { list: document.querySelector("#mylist") });
 
 new Awesomplete(input, {
-    list: ["Ada", "Java", "JavaScript", "LOLCODE", "Node.js", "Ruby on Rails"]
+    list: ["Ada", "Java", "JavaScript", "LOLCODE", "Node.js", "Ruby on Rails"],
 });
 
 const awesomplete = new Awesomplete(input);
@@ -17,31 +17,48 @@ new Awesomplete(input, {
     list: [
         { label: "Belarus", value: "BY" },
         { label: "China", value: "CN" },
-        { label: "United States", value: "US" }
-    ]
+        { label: "United States", value: "US" },
+    ],
 });
 
 // Same with arrays:
 new Awesomplete(input, {
     list: [
-        [ "Belarus", "BY" ],
-        [ "China", "CN" ],
-        [ "United States", "US" ]
-    ]
+        ["Belarus", "BY"],
+        ["China", "CN"],
+        ["United States", "US"],
+    ],
 });
 
-new Awesomplete('input[type="email"]', {
-    list: ["aol.com", "att.net", "comcast.net", "facebook.com", "gmail.com",
-           "gmx.com", "googlemail.com", "google.com", "hotmail.com",
-           "hotmail.co.uk", "mac.com", "me.com", "mail.com", "msn.com",
-           "live.com", "sbcglobal.net", "verizon.net", "yahoo.com", "yahoo.co.uk"],
+new Awesomplete("input[type=\"email\"]", {
+    list: [
+        "aol.com",
+        "att.net",
+        "comcast.net",
+        "facebook.com",
+        "gmail.com",
+        "gmx.com",
+        "googlemail.com",
+        "google.com",
+        "hotmail.com",
+        "hotmail.co.uk",
+        "mac.com",
+        "me.com",
+        "mail.com",
+        "msn.com",
+        "live.com",
+        "sbcglobal.net",
+        "verizon.net",
+        "yahoo.com",
+        "yahoo.co.uk",
+    ],
     data: (text: string, input: string) => {
         return `${input.slice(0, input.indexOf("@"))}@${text}`;
     },
-    filter: Awesomplete.FILTER_STARTSWITH
+    filter: Awesomplete.FILTER_STARTSWITH,
 });
 
-new Awesomplete('input[data-multiple]', {
+new Awesomplete("input[data-multiple]", {
     filter: (text: string, input: any) => {
         return Awesomplete.FILTER_CONTAINS(text, input.match(/[^,]*$/)[0]);
     },
@@ -49,7 +66,7 @@ new Awesomplete('input[data-multiple]', {
     replace(text: string) {
         const before = this.input.value.match(/^.+,\s*|/)[0];
         this.input.value = `${before}${text}, `;
-    }
+    },
 });
 
 const ajax = new XMLHttpRequest();
@@ -59,3 +76,18 @@ ajax.onload = () => {
     new Awesomplete(document.querySelector("#ajax-example input"), { list });
 };
 ajax.send();
+
+new Awesomplete(input, {
+    list: ["Ada", "Java", "JavaScript", "LOLCODE", "Node.js", "Ruby on Rails"],
+    item: (text: string, inputText: string, itemId: number) => {
+        const innerHTML = inputText.trim() === ""
+            ? text
+            : text.replace(RegExp(Awesomplete.$.regExpEscape(inputText.trim()), "gi"), "<mark>$&</mark>");
+
+        return Awesomplete.$.create("li", {
+            innerHTML,
+            "aria-selected": "false",
+            id: `awesomplete_list_item_${itemId}`,
+        });
+    },
+});

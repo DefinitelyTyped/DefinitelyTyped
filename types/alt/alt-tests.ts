@@ -3,49 +3,49 @@
  */
 import Alt = require("alt");
 
-//New alt instance
+// New alt instance
 var alt = new Alt();
 
-//Interfaces for our Action Types
+// Interfaces for our Action Types
 interface TestActionsGenerate {
-    notifyTest(str:string):void;
+    notifyTest(str: string): void;
 }
 
 interface TestActionsExplicit {
-    doTest(str:string):void;
-    success():void;
-    error():void;
-    loading():void;
+    doTest(str: string): void;
+    success(): void;
+    error(): void;
+    loading(): void;
 }
 
-//Create abstracts to inherit ghost methods
+// Create abstracts to inherit ghost methods
 class AbstractActions implements AltJS.ActionsClass {
-    constructor( alt:AltJS.Alt){}
-    actions:any;
-    dispatch: ( ...payload:Array<any>) => void;
-    generateActions:( ...actions:Array<string>) => void;
+    constructor(alt: AltJS.Alt) {}
+    actions: any;
+    dispatch: (...payload: any[]) => void;
+    generateActions: (...actions: string[]) => void;
 }
 
 class AbstractStoreModel<S> implements AltJS.StoreModel<S> {
-  bindActions:( ...actions:Array<Object>) => void;
-  bindAction:( ...args:Array<any>) => void;
-  bindListeners:(obj:any)=> void;
-  exportPublicMethods:(config:{[key:string]:(...args:Array<any>) => any}) => any;
-  exportAsync:( source:any) => void;
-  waitFor:any;
-  exportConfig:any;
-  getState:() => S;
+    bindActions: (...actions: Object[]) => void;
+    bindAction: (...args: any[]) => void;
+    bindListeners: (obj: any) => void;
+    exportPublicMethods: (config: { [key: string]: (...args: any[]) => any }) => any;
+    exportAsync: (source: any) => void;
+    waitFor: any;
+    exportConfig: any;
+    getState: () => S;
 }
 
 class GenerateActionsClass extends AbstractActions {
-    constructor(config:AltJS.Alt) {
+    constructor(config: AltJS.Alt) {
         super(config);
         this.generateActions("notifyTest");
     }
 }
 
 class ExplicitActionsClass extends AbstractActions {
-    doTest(str:string) {
+    doTest(str: string) {
         this.dispatch(str);
     }
     success() {
@@ -63,21 +63,21 @@ var generatedActions = alt.createActions<TestActionsGenerate>(GenerateActionsCla
 var explicitActions = alt.createActions<ExplicitActionsClass>(ExplicitActionsClass);
 
 interface AltTestState {
-    hello:string;
+    hello: string;
 }
 
-var testSource:AltJS.Source = {
-    fakeLoad():AltJS.SourceModel<string> {
+var testSource: AltJS.Source = {
+    fakeLoad(): AltJS.SourceModel<string> {
         return {
             remote() {
-                return new Promise<string>((res:any, rej:any) => {
+                return new Promise<string>((res: any, rej: any) => {
                     setTimeout(() => {
-                        if(!!true) {
+                        if (!!true) {
                             res("stuff");
                         } else {
                             rej("Things have broken");
                         }
-                    }, 250)
+                    }, 250);
                 });
             },
             local() {
@@ -85,53 +85,53 @@ var testSource:AltJS.Source = {
             },
             success: explicitActions.success,
             error: explicitActions.error,
-            loading:explicitActions.loading
+            loading: explicitActions.loading,
         };
-    }
+    },
 };
 
 class TestStore extends AbstractStoreModel<AltTestState> implements AltTestState {
-    hello:string = "world";
+    hello: string = "world";
     constructor() {
         super();
         this.bindAction(generatedActions.notifyTest, this.onTest);
         this.bindActions(explicitActions);
         this.exportAsync(testSource);
         this.exportPublicMethods({
-            split: this.split
+            split: this.split,
         });
     }
-    onTest(str:string) {
+    onTest(str: string) {
         this.hello = str;
     }
 
-    onDoTest(str:string) {
+    onDoTest(str: string) {
         this.hello = str;
     }
 
-    split():string[] {
+    split(): string[] {
         return this.hello.split("");
     }
 }
 
 interface ExtendedTestStore extends AltJS.AltStore<AltTestState> {
-    fakeLoad():string;
-    split():Array<string>;
+    fakeLoad(): string;
+    split(): string[];
 }
 
-var testStore = <ExtendedTestStore>alt.createStore<AltTestState>(new TestStore());
+var testStore = <ExtendedTestStore> alt.createStore<AltTestState>(new TestStore());
 
-function testCallback(state:AltTestState) {
+function testCallback(state: AltTestState) {
     console.log(state);
 }
 
-//Listen allows a typed state callback
+// Listen allows a typed state callback
 testStore.listen(testCallback);
 testStore.unlisten(testCallback);
 
-//State generic passes to derived store
-var name:string = testStore.getState().hello;
-var nameChars:Array<string> = testStore.split();
+// State generic passes to derived store
+var name: string = testStore.getState().hello;
+var nameChars: string[] = testStore.split();
 
 generatedActions.notifyTest("types");
 explicitActions.doTest("more types");

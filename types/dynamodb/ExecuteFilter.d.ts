@@ -1,6 +1,6 @@
-import { Readable } from 'stream';
+import { Readable } from "stream";
 
-import { Callback } from './Callback';
+import { Callback } from "./Callback";
 
 export interface PromisedReadable<T> extends Readable {
     // DevNote: Promise function in dynamodb wraps results in an array

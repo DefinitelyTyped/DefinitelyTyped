@@ -1,11 +1,11 @@
-import mapValues = require('map-values');
+import mapValues = require("map-values");
 
 // $ExpectType string
-mapValues({ a: 234 }, n => 'hi').a;
+mapValues({ a: 234 }, n => "hi").a;
 
-// $ExpectError
-mapValues({ key: 'value' });
+// @ts-expect-error
+mapValues({ key: "value" });
 
 const doubleANumber = (n: number) => n * 2;
-// $ExpectError
+// @ts-expect-error
 mapValues({ key: true }, doubleANumber);

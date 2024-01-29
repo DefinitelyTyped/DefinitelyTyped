@@ -1,7 +1,7 @@
-import semver = require('../index');
+import semver = require("../index");
 
 declare class SemVer {
-    constructor(version: string | SemVer, optionsOrLoose?: boolean | semver.Options);
+    constructor(version: string | SemVer, optionsOrLoose?: boolean | semver.RangeOptions);
 
     raw: string;
     loose: boolean;
@@ -13,7 +13,7 @@ declare class SemVer {
     minor: number;
     patch: number;
     version: string;
-    build: ReadonlyArray<string>;
+    build: readonly string[];
     prerelease: ReadonlyArray<string | number>;
 
     /**

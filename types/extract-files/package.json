@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/extract-files",
+    "version": "13.0.9999",
+    "projects": [
+        "https://github.com/jaydenseric/extract-files#readme"
+    ],
+    "exports": {
+        "./extractFiles.mjs": {
+            "types": "./extractFiles.d.mts"
+        },
+        "./isExtractableFile.mjs": {
+            "types": "./isExtractableFile.d.mts"
+        },
+        "./package.json": "./package.json"
+    },
+    "devDependencies": {
+        "@types/extract-files": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Edward Sammut Alessi",
+            "githubUsername": "Slessi"
+        },
+        {
+            "name": "Alex K",
+            "githubUsername": "lynxtaa"
+        }
+    ]
+}

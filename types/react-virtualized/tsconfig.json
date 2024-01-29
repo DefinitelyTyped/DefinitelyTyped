@@ -5,16 +5,7 @@
             "es6",
             "dom"
         ],
-        "paths": {
-            "react": [
-                "react/v17"
-            ]
-        },
         "jsx": "react",
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,

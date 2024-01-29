@@ -1,4 +1,4 @@
-import blockies = require('blockies');
+import blockies = require("blockies");
 
-const seed = 'seed';
+const seed = "seed";
 blockies({ seed });

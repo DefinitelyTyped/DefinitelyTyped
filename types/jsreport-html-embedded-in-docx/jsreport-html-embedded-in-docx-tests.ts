@@ -1,5 +1,5 @@
-import JsReport = require('jsreport-core');
-import JsreportHtml2docx = require('jsreport-html-embedded-in-docx');
+import JsReport = require("jsreport-core");
+import JsreportHtml2docx = require("jsreport-html-embedded-in-docx");
 
 const jsreport = JsReport();
 jsreport.use(JsreportHtml2docx());
@@ -10,8 +10,8 @@ jsreport.use(JsreportHtml2docx());
     await jsreport.render({
         template: {
             content,
-            engine: 'none',
-            recipe: 'html-embedded-in-docx'
-        }
+            engine: "none",
+            recipe: "html-embedded-in-docx",
+        },
     });
 })();

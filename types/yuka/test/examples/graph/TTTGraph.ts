@@ -130,7 +130,7 @@ export class TTTGraph extends Graph<TTTNode, TTTEdge> {
             }
         }
         if (!bestMove) {
-            throw new Error('Failed to select move');
+            throw new Error("Failed to select move");
         }
         this.turn(bestMove.cell, this.aiPlayer);
     }
@@ -147,7 +147,7 @@ export class TTTGraph extends Graph<TTTNode, TTTEdge> {
     }
 
     findNode(board: number[]) {
-        const value = parseInt(board.join(''), 10);
+        const value = parseInt(board.join(""), 10);
         const node = this.nodeMap.get(value);
 
         return node ? node : -1;

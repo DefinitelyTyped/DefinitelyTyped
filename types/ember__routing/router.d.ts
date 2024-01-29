@@ -1,14 +1,17 @@
 import EmberObject from "@ember/object";
 import Evented from "@ember/object/evented";
+// eslint-disable-next-line @definitelytyped/no-self-import
 import RouterDSL from "@ember/routing/-private/router-dsl";
-import Transition from "@ember/routing/-private/transition";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import Transition from "@ember/routing/transition";
+// eslint-disable-next-line @definitelytyped/no-self-import
 import RouterService from "@ember/routing/router-service";
 
 /**
  * The `Ember.Router` class manages the application state and URLs. Refer to
  * the [routing guide](http://emberjs.com/guides/routing/) for documentation.
  */
-export default class Router extends EmberObject.extend(Evented) {
+export default class Router extends EmberObject {
     /**
      * The `Router.map` function allows you to define mappings from URLs to routes
      * in your application. These mappings are defined within the
@@ -21,7 +24,7 @@ export default class Router extends EmberObject.extend(Evented) {
      *
      * @note the `'auto'` location is [deprecated](https://deprecations.emberjs.com/v4.x/#toc_deprecate-auto-location).
      */
-    location: 'history' | 'hash' | 'none' | 'auto';
+    location: "history" | "hash" | "none" | "auto";
     /**
      * Represents the URL of the root of the application, often '/'. This prefix is
      * assumed on all routes defined on this router.
@@ -36,8 +39,11 @@ export default class Router extends EmberObject.extend(Evented) {
     transitionTo(name: string, options: {}): Transition;
 }
 
-declare module '@ember/service' {
+// eslint-disable-next-line @typescript-eslint/no-empty-interface -- used for declaration merge
+export default interface Router extends Evented {}
+
+declare module "@ember/service" {
     interface Registry {
-        'router': RouterService;
+        "router": RouterService;
     }
 }

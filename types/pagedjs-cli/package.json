@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/pagedjs-cli",
+    "version": "0.3.9999",
+    "projects": [
+        "https://pagedjs.org"
+    ],
+    "type": "module",
+    "dependencies": {
+        "@types/puppeteer": "^5.4.7"
+    },
+    "devDependencies": {
+        "@types/pagedjs-cli": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Valentin Schabschneider",
+            "githubUsername": "valentinschabschneider"
+        }
+    ]
+}

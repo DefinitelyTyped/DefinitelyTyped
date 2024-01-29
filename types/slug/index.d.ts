@@ -1,8 +1,3 @@
-// Type definitions for slug 5.0
-// Project: https://github.com/trott/node-slug
-// Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = slug;
 export as namespace slug;
 
@@ -37,6 +32,7 @@ declare namespace slug {
 
     type Options = {
         locale?: string | undefined;
+        mode?: "pretty" | "rfc3986" | null | undefined;
     } & Partial<Mode>;
 
     type CharMap = Record<string, string>;

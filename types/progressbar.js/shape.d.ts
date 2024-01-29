@@ -1,4 +1,4 @@
-import { PathDrawingOptions, AnimationSupport } from './';
+import { AnimationSupport, PathDrawingOptions } from "./";
 
 declare class Shape {
     /**
@@ -29,7 +29,7 @@ declare class Shape {
     destroy(): void;
     setText(newText: string): void;
 }
-// tslint:disable-next-line no-empty-interface adds members from animation contract
+// eslint-disable-next-line @typescript-eslint/no-empty-interface -- adds members from animation contract
 interface Shape extends AnimationSupport {}
 
 export = Shape;

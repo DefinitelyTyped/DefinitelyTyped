@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { ReactDivAttr, ReactButtonAttr } from '../../../typings/shared';
+import * as React from "react";
+import { ReactButtonAttr, ReactDivAttr } from "../../../typings/shared";
 
-export interface TabsProps extends Omit<ReactDivAttr, 'onScroll'> {
+export interface TabsProps extends Omit<ReactDivAttr, "onScroll"> {
     ariaLabel?: string | undefined;
     iconDescription?: string | undefined;
     leftOverflowButtonProps?: ReactButtonAttr | undefined;
@@ -11,9 +11,9 @@ export interface TabsProps extends Omit<ReactDivAttr, 'onScroll'> {
     scrollDebounceWait?: number | undefined;
     scrollIntoView?: boolean | undefined;
     selected?: number | undefined;
-    selectionMode?: 'automatic' | 'manual' | undefined;
+    selectionMode?: "automatic" | "manual" | undefined;
     tabContentClassName?: string | undefined;
-    type?: 'container' | 'default' | undefined;
+    type?: "container" | "default" | undefined;
 }
 
 declare class Tabs extends React.Component<TabsProps> {}

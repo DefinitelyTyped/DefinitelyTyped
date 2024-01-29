@@ -1,6 +1,27 @@
 {
     "private": true,
+    "name": "@types/react-router-navigation",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/LeoLeBras/react-router-navigation#readme"
+    ],
     "dependencies": {
-        "@types/react-navigation": "3.0.8"
-    }
+        "@types/react": "^17",
+        "react-native": "*",
+        "@types/react-navigation": "3.0.8",
+        "@types/react-router-navigation-core": "*"
+    },
+    "devDependencies": {
+        "@types/react-router-navigation": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kalle Ott",
+            "githubUsername": "kaoDev"
+        },
+        {
+            "name": "John Reilly",
+            "githubUsername": "johnnyreilly"
+        }
+    ]
 }

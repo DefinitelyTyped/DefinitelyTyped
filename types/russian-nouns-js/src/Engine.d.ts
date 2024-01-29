@@ -1,20 +1,18 @@
 /* tslint:disable:no-redundant-jsdoc-2 */
 
-import { Case } from './Case';
-import { Lemma, LemmaOptions } from './Lemma';
-import StressDictionary from './StressDictionary';
+import { Case } from "./Case";
+import { Lemma, LemmaOptions } from "./Lemma";
+import StressDictionary from "./StressDictionary";
 
 export default class Engine {
     /**
      * @description Словарь ударений. Его можно редактировать в рантайме.
-     * @type {API.StressDictionary}
      */
     readonly sd: StressDictionary;
 
     constructor();
 
     /**
-     *
      * @param {RussianNouns.Lemma|Object} lemma Слово в именительном падеже с метаинформацией.
      * @param {string} grammaticalCase Падеж.
      * @param {string} pluralForm Форма во множественном числе.

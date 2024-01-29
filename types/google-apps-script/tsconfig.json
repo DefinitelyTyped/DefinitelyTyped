@@ -1,21 +1,20 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es5"],
+        "lib": [
+            "es5"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "google-apps-script-tests.ts"
+        "test/google-apps-script-tests.ts",
+        "test/google-apps-script-tests.with-node.ts"
     ]
 }

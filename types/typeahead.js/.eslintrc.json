@@ -1,0 +1,9 @@
+{
+    "rules": {
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@definitelytyped/no-single-declare-module": "off",
+        "@definitelytyped/npm-naming": "off",
+        "@typescript-eslint/explicit-member-accessibility": "off"
+    }
+}

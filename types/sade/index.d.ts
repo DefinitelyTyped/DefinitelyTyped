@@ -1,10 +1,4 @@
-// Type definitions for sade 1.7
-// Project: https://github.com/lukeed/sade#readme
-// Definitions by: Epimodev <https://github.com/Epimodev>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as mri from 'mri';
+import * as mri from "mri";
 
 /**
  * Sade is a small but powerful tool for building command-line interface (CLI) applications for Node.js that are fast, responsive, and helpful!
@@ -39,7 +33,7 @@ declare namespace sade {
          */
         alias(...names: string[]): Sade;
         command(str: string, desc?: string, opts?: Readonly<CommandOptions>): Sade;
-        describe(str: string | ReadonlyArray<string>): Sade;
+        describe(str: string | readonly string[]): Sade;
         option(str: string, desc?: string, val?: string | number | boolean): Sade;
         action(handler: Handler): Sade;
         example(str: string): Sade;

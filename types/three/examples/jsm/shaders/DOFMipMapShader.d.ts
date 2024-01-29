@@ -1,11 +1,12 @@
-import { Uniform } from '../../../src/Three';
+import { IUniform } from '../../../src/Three.js';
 
 export const DOFMipMapShader: {
+    name: string;
     uniforms: {
-        tColor: Uniform;
-        tDepth: Uniform;
-        focus: Uniform;
-        maxblur: Uniform;
+        tColor: IUniform;
+        tDepth: IUniform;
+        focus: IUniform;
+        maxblur: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

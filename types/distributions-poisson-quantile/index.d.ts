@@ -1,20 +1,14 @@
-// Type definitions for distributions-poisson-quantile 0.0
-// Project: https://github.com/distributions-io/poisson-quantile#readme
-// Definitions by: Daniel McNally <https://github.com/sangaman>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 declare function quantile(p: number, options?: Options): number;
 declare function quantile(p: number[], options?: Options & { dtype?: undefined }): number[];
-declare function quantile(p: Data, options?: Options & { dtype?: 'float64' | undefined }): Float64Array;
-declare function quantile(p: Data, options: Options & { dtype: 'int8' }): Int8Array;
-declare function quantile(p: Data, options: Options & { dtype: 'uint8' }): Uint8Array;
-declare function quantile(p: Data, options: Options & { dtype: 'uint8_clamped' }): Uint8ClampedArray;
-declare function quantile(p: Data, options: Options & { dtype: 'int16' }): Int16Array;
-declare function quantile(p: Data, options: Options & { dtype: 'uint16' }): Uint16Array;
-declare function quantile(p: Data, options: Options & { dtype: 'int32' }): Int32Array;
-declare function quantile(p: Data, options: Options & { dtype: 'uint32' }): Uint32Array;
-declare function quantile(p: Data, options: Options & { dtype: 'float32' }): Float32Array;
+declare function quantile(p: Data, options?: Options & { dtype?: "float64" | undefined }): Float64Array;
+declare function quantile(p: Data, options: Options & { dtype: "int8" }): Int8Array;
+declare function quantile(p: Data, options: Options & { dtype: "uint8" }): Uint8Array;
+declare function quantile(p: Data, options: Options & { dtype: "uint8_clamped" }): Uint8ClampedArray;
+declare function quantile(p: Data, options: Options & { dtype: "int16" }): Int16Array;
+declare function quantile(p: Data, options: Options & { dtype: "uint16" }): Uint16Array;
+declare function quantile(p: Data, options: Options & { dtype: "int32" }): Int32Array;
+declare function quantile(p: Data, options: Options & { dtype: "uint32" }): Uint32Array;
+declare function quantile(p: Data, options: Options & { dtype: "float32" }): Float32Array;
 declare function quantile(p: MatrixLike, options?: Options): Matrix;
 
 /**
@@ -25,9 +19,19 @@ declare function quantile(p: MatrixLike, options?: Options): Matrix;
  */
 declare function quantile(p: number | Data | MatrixLike, options?: Options): number | Data | Matrix;
 
-type Data = number[]|Int8Array|Uint8Array|Uint8ClampedArray|Int16Array|Uint16Array|Int32Array|Uint32Array|Float32Array|Float64Array;
+type Data =
+    | number[]
+    | Int8Array
+    | Uint8Array
+    | Uint8ClampedArray
+    | Int16Array
+    | Uint16Array
+    | Int32Array
+    | Uint32Array
+    | Float32Array
+    | Float64Array;
 
-type DataType = 'int8' | 'uint8' | 'uint8_clamped' | 'int16' | 'uint16' | 'int32' | 'uint32' | 'float32' | 'float64';
+type DataType = "int8" | "uint8" | "uint8_clamped" | "int16" | "uint16" | "int32" | "uint32" | "float32" | "float64";
 
 type MatrixCallback = (d: number, i: number, j: number, idx: number) => number;
 

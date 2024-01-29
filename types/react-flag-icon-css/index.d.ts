@@ -1,14 +1,8 @@
-// Type definitions for react-flag-icon-css 1.0
-// Project: https://github.com/matteocng/react-flag-icon-css#readme
-// Definitions by: Jon Freedman <https://github.com/jonfreedman>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+import * as CSS from "csstype";
+import { PureComponent, ReactNode } from "react";
 
-import * as CSS from 'csstype';
-import { PureComponent, ReactNode } from 'react';
-
-export type FlagIconSize = 'lg' | '2x' | '3x' | '4x' | '5x';
-export type FlagIconFlip = 'horizontal' | 'vertical';
+export type FlagIconSize = "lg" | "2x" | "3x" | "4x" | "5x";
+export type FlagIconFlip = "horizontal" | "vertical";
 export type FlagIconRotate = 30 | 60 | 90 | 180 | 270;
 
 export interface FlagIconOptions {

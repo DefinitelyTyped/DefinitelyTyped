@@ -1,14 +1,8 @@
-// Type definitions for multicast-dns 7.2
-// Project: https://github.com/mafintosh/multicast-dns
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
-
 /// <reference types="node"/>
 
-import { EventEmitter } from "events";
 import { RemoteInfo, Socket, SocketType } from "dgram";
 import { Answer, Packet, Question, RecordType } from "dns-packet";
+import { EventEmitter } from "events";
 
 export = mDNS;
 

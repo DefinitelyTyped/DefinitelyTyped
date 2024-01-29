@@ -1,21 +1,21 @@
-import Appbar from './lib/react/appbar';
-import Button from './lib/react/button';
-import Checkbox from './lib/react/checkbox';
-import Col from './lib/react/col';
-import Container from './lib/react/container';
-import Divider from './lib/react/divider';
-import Dropdown from './lib/react/dropdown';
-import DropdownItem from './lib/react/dropdown-item';
-import Form from './lib/react/form';
-import Input from './lib/react/input';
-import Option from './lib/react/option';
-import Panel from './lib/react/panel';
-import Radio from './lib/react/radio';
-import Row from './lib/react/row';
-import Select from './lib/react/select';
-import Tab from './lib/react/tab';
-import Tabs from './lib/react/tabs';
-import Textarea from './lib/react/textarea';
+import Appbar from "./lib/react/appbar";
+import Button from "./lib/react/button";
+import Checkbox from "./lib/react/checkbox";
+import Col from "./lib/react/col";
+import Container from "./lib/react/container";
+import Divider from "./lib/react/divider";
+import Dropdown from "./lib/react/dropdown";
+import DropdownItem from "./lib/react/dropdown-item";
+import Form from "./lib/react/form";
+import Input from "./lib/react/input";
+import Option from "./lib/react/option";
+import Panel from "./lib/react/panel";
+import Radio from "./lib/react/radio";
+import Row from "./lib/react/row";
+import Select from "./lib/react/select";
+import Tab from "./lib/react/tab";
+import Tabs from "./lib/react/tabs";
+import Textarea from "./lib/react/textarea";
 
 export {
     Appbar,
@@ -35,7 +35,7 @@ export {
     Select,
     Tab,
     Tabs,
-    Textarea
+    Textarea,
 };
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -60,11 +60,11 @@ export interface ColProps extends DivProps {
     md?: number | undefined;
     lg?: number | undefined;
     xl?: number | undefined;
-    'xs-offset'?: number | undefined;
-    'sm-offset'?: number | undefined;
-    'md-offset'?: number | undefined;
-    'lg-offset'?: number | undefined;
-    'xl-offset'?: number | undefined;
+    "xs-offset"?: number | undefined;
+    "sm-offset"?: number | undefined;
+    "md-offset"?: number | undefined;
+    "lg-offset"?: number | undefined;
+    "xl-offset"?: number | undefined;
 }
 
 export interface ContainerProps extends DivProps {
@@ -85,7 +85,7 @@ export interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
     variant?: string | undefined;
     size?: string | undefined;
     label?: React.ReactNode | undefined;
-    alignMenu?: 'left' | 'right' | undefined;
+    alignMenu?: "left" | "right" | undefined;
     disabled?: boolean | undefined;
 }
 

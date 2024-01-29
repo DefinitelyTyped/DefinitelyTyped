@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/strip-bom-string",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/strip-bom-string"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/strip-bom-string": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "PWall",
+            "githubUsername": "pwall2222"
+        }
+    ]
+}

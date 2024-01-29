@@ -1,18 +1,7 @@
-// Type definitions for request-stats 3.0
-// Project: https://github.com/watson/request-stats
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-import {
-    Server as HttpServer,
-    IncomingMessage,
-    ServerResponse,
-    IncomingHttpHeaders,
-    OutgoingHttpHeaders,
-} from 'http';
-import { Server as HttpsServer } from 'https';
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
+import { IncomingHttpHeaders, IncomingMessage, OutgoingHttpHeaders, Server as HttpServer, ServerResponse } from "http";
+import { Server as HttpsServer } from "https";
 
 export = requestStats;
 
@@ -25,7 +14,7 @@ export = requestStats;
  */
 declare function requestStats(
     server: HttpServer | HttpsServer,
-    statsCallback?: requestStats.StatsCallback
+    statsCallback?: requestStats.StatsCallback,
 ): requestStats.StatsEmitter;
 
 /**
@@ -39,7 +28,7 @@ declare function requestStats(
 declare function requestStats(
     req: IncomingMessage,
     res: ServerResponse,
-    statsCallback?: requestStats.StatsCallback
+    statsCallback?: requestStats.StatsCallback,
 ): requestStats.StatsEmitter;
 
 declare namespace requestStats {
@@ -163,28 +152,28 @@ declare namespace requestStats {
     }
 
     interface StatsEmitter extends EventEmitter {
-        addListener(event: 'complete', listener: StatsCallback): this;
-        addListener(event: 'request', listener: (req: Request) => void): this;
-        on(event: 'complete', listener: StatsCallback): this;
-        on(event: 'request', listener: (req: Request) => void): this;
-        once(event: 'complete', listener: StatsCallback): this;
-        once(event: 'request', listener: (req: Request) => void): this;
-        removeListener(event: 'complete', listener: StatsCallback): this;
-        removeListener(event: 'request', listener: (req: Request) => void): this;
-        off(event: 'complete', listener: StatsCallback): this;
-        off(event: 'request', listener: (req: Request) => void): this;
-        removeAllListeners(event?: 'complete' | 'request'): this;
-        listeners(event: 'complete'): StatsCallback[];
-        listeners(event: 'request'): Array<(req: Request) => void>;
-        rawListeners(event: 'complete'): StatsCallback[];
-        rawListeners(event: 'request'): Array<(req: Request) => void>;
-        emit(event: 'complete', stats: Stats): boolean;
-        emit(event: 'request', req: Request): boolean;
-        listenerCount(type: 'complete' | 'request'): number;
-        prependListener(event: 'complete', listener: StatsCallback): this;
-        prependListener(event: 'request', listener: (req: Request) => void): this;
-        prependOnceListener(event: 'complete', listener: StatsCallback): this;
-        prependOnceListener(event: 'request', listener: (req: Request) => void): this;
-        eventNames(): Array<'complete' | 'request'>;
+        addListener(event: "complete", listener: StatsCallback): this;
+        addListener(event: "request", listener: (req: Request) => void): this;
+        on(event: "complete", listener: StatsCallback): this;
+        on(event: "request", listener: (req: Request) => void): this;
+        once(event: "complete", listener: StatsCallback): this;
+        once(event: "request", listener: (req: Request) => void): this;
+        removeListener(event: "complete", listener: StatsCallback): this;
+        removeListener(event: "request", listener: (req: Request) => void): this;
+        off(event: "complete", listener: StatsCallback): this;
+        off(event: "request", listener: (req: Request) => void): this;
+        removeAllListeners(event?: "complete" | "request"): this;
+        listeners(event: "complete"): StatsCallback[];
+        listeners(event: "request"): Array<(req: Request) => void>;
+        rawListeners(event: "complete"): StatsCallback[];
+        rawListeners(event: "request"): Array<(req: Request) => void>;
+        emit(event: "complete", stats: Stats): boolean;
+        emit(event: "request", req: Request): boolean;
+        listenerCount(type: "complete" | "request"): number;
+        prependListener(event: "complete", listener: StatsCallback): this;
+        prependListener(event: "request", listener: (req: Request) => void): this;
+        prependOnceListener(event: "complete", listener: StatsCallback): this;
+        prependOnceListener(event: "request", listener: (req: Request) => void): this;
+        eventNames(): Array<"complete" | "request">;
     }
 }

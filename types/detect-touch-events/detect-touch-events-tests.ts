@@ -1,3 +1,3 @@
-import detectTouchEvents from 'detect-touch-events';
+import detectTouchEvents from "detect-touch-events";
 
 detectTouchEvents.update();

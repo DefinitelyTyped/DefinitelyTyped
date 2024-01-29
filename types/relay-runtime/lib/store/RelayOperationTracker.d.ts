@@ -1,4 +1,4 @@
-import { RequestDescriptor } from './RelayStoreTypes';
+import { RequestDescriptor } from "./RelayStoreTypes";
 
 export class RelayOperationTracker {
     /**
@@ -15,10 +15,8 @@ export class RelayOperationTracker {
 
     _resolveOwnerResolvers(owner: RequestDescriptor): void;
 
-    getPendingOperationsAffectingOwner(
-        owner: RequestDescriptor,
-    ): {
+    getPendingOperationsAffectingOwner(owner: RequestDescriptor): {
         promise: Promise<void>;
-        pendingOperations: ReadonlyArray<RequestDescriptor>;
+        pendingOperations: readonly RequestDescriptor[];
     } | null;
 }

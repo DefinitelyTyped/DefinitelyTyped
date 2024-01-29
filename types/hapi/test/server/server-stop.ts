@@ -6,11 +6,11 @@ const server = new Server({
 });
 
 server.start();
-server.events.on('start', () => {
-    console.log('Server started at: ' + server.info.uri);
+server.events.on("start", () => {
+    console.log("Server started at: " + server.info.uri);
 });
-server.events.on('stop', () => {
-    console.log('Server stoped.');
+server.events.on("stop", () => {
+    console.log("Server stoped.");
 });
 setTimeout(() => {
     server.stop({ timeout: 10 * 1000 });

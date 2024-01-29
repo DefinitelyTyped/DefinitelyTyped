@@ -1,4 +1,4 @@
-import DS from 'ember-data';
+import DS from "ember-data";
 
 declare const AdapterError: typeof DS.AdapterError;
 declare const InvalidError: typeof DS.InvalidError;

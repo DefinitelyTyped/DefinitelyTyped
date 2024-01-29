@@ -1,9 +1,3 @@
-// Type definitions for non-npm package Google Picker API 0.0
-// Project: https://developers.google.com/picker/
-// Definitions by: grapswiz <https://github.com/grapswiz>
-//                 Chives <https://github.com/chivesrs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type DOMDocument = Document;
 
 declare namespace google {
@@ -242,7 +236,7 @@ declare namespace google {
 
             // Whether Shared team Drive items should be included in results.
             /** @deprecated - use google.picker.Feature.SUPPORT_DRIVES instead */
-            SUPPORT_TEAM_DRIVES = 'std'
+            SUPPORT_TEAM_DRIVES = "std",
         }
 
         /**

@@ -1,8 +1,8 @@
-import { assertType } from './lib/assert';
-import EmberObject from '@ember/object';
+import EmberObject from "@ember/object";
+import { assertType } from "./lib/assert";
 
 const ExtendClass = EmberObject.extend({
-    foo: 'hello',
+    foo: "hello",
 });
 
 class ES6Class extends EmberObject {

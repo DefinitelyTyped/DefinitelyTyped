@@ -1,5 +1,5 @@
-import { Notification } from './Notification';
-import { Values } from './Values';
+import { Notification } from "./Notification";
+import { Values } from "./Values";
 
 export interface Notifications_Options {
     container?: JQuery | undefined;

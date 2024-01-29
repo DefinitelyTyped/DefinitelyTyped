@@ -6,14 +6,10 @@ class Test extends React.Component {
 
     public render() {
         return (
-            <div onMouseEnter={this.onMouseEnter.bind(this) }>
-                <Slider currentIndex={1}
-                    autoHeight
-                    align="center"
-                    ref={ref => this.slider = ref}
-                    >
-                    <div key="slide1"/>
-                    <div key="slide2"/>
+            <div onMouseEnter={this.onMouseEnter.bind(this)}>
+                <Slider currentIndex={1} autoHeight align="center" ref={ref => this.slider = ref}>
+                    <div key="slide1" />
+                    <div key="slide2" />
                 </Slider>
             </div>
         );

@@ -1,4 +1,10 @@
-import { TablesorterEventHandler, ConfigEventHandler, FilterEventHandler, CommonEventHandler, PagerEventHandler } from "tablesorter";
+import {
+    CommonEventHandler,
+    ConfigEventHandler,
+    FilterEventHandler,
+    PagerEventHandler,
+    TablesorterEventHandler,
+} from "tablesorter";
 
 /**
  * Provides tests for the events.

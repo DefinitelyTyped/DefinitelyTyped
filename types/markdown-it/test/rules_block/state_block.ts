@@ -1,15 +1,15 @@
-import MarkdownIt = require('markdown-it');
-import Token = require('markdown-it/lib/token');
+import MarkdownIt = require("markdown-it");
+import Token = require("markdown-it/lib/token");
 
-import StateBlock = require('markdown-it/lib/rules_block/state_block');
+import StateBlock = require("markdown-it/lib/rules_block/state_block");
 
 const md = new MarkdownIt();
 const tokens: Token[] = [];
 
-const state = new StateBlock('# Foobar', md, {}, tokens);
+const state = new StateBlock("# Foobar", md, {}, tokens);
 
 {
-    state.src = '# Foobar';
+    state.src = "# Foobar";
     state.md = md;
     state.env = {};
     state.tokens = tokens;
@@ -29,11 +29,11 @@ const state = new StateBlock('# Foobar', md, {}, tokens);
     state.ddIndent = -1;
     state.listIndent = -1;
 
-    state.parentType = 'root';
+    state.parentType = "root";
 
     state.level = 0;
 
-    state.result = '';
+    state.result = "";
 
     state.bMarks.push(16);
     state.eMarks.push(16);
@@ -49,13 +49,13 @@ const state = new StateBlock('# Foobar', md, {}, tokens);
     let flag: boolean;
     let num: number;
 
-    token = state.push('hr', 'hr', 0);
+    token = state.push("hr", "hr", 0);
     flag = state.isEmpty(2);
     num = state.skipEmptyLines(123);
     num = state.skipSpaces(456);
     num = state.skipSpacesBack(789, 456);
-    num = state.skipChars(234, '*'.charCodeAt(0));
-    num = state.skipCharsBack(345, '_'.charCodeAt(0), 456);
+    num = state.skipChars(234, "*".charCodeAt(0));
+    num = state.skipCharsBack(345, "_".charCodeAt(0), 456);
 
-    token = new state.Token('hr', 'hr', 0);
+    token = new state.Token("hr", "hr", 0);
 }

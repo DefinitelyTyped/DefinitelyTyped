@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/convict-format-with-validator",
+    "version": "6.0.9999",
+    "projects": [
+        "https://github.com/mozilla/node-convict/tree/master/packages/convict-format-with-validator"
+    ],
+    "dependencies": {
+        "@types/convict": "*"
+    },
+    "devDependencies": {
+        "@types/convict-format-with-validator": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Louis Tung",
+            "githubUsername": "louis79719"
+        }
+    ]
+}

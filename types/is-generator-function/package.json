@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/is-generator-function",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ljharb/is-generator-function#readme"
+    ],
+    "devDependencies": {
+        "@types/is-generator-function": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Richie Bendall",
+            "githubUsername": "Richienb"
+        },
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        }
+    ]
+}

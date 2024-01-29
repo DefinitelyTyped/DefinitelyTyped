@@ -1,3 +1,3 @@
-import viewportList = require('viewport-list');
+import viewportList = require("viewport-list");
 
 viewportList(); // $ExpectType Device[]

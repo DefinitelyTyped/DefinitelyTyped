@@ -1,5 +1,3 @@
-export = kvbProfile;
+import { Profile } from "../../index";
 
-import createClient = require('../../index');
-
-declare const kvbProfile: createClient.Profile;
+export const profile: Profile;

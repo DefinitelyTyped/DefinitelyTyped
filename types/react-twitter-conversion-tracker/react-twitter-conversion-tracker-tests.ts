@@ -1,5 +1,5 @@
-import TwitterConvTrkr = require('react-twitter-conversion-tracker');
+import TwitterConvTrkr = require("react-twitter-conversion-tracker");
 
-TwitterConvTrkr.init('nuqtg');
+TwitterConvTrkr.init("nuqtg");
 
 TwitterConvTrkr.pageView();

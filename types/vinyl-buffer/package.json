@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/vinyl-buffer",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/hughsk/vinyl-buffer"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/browserify": "*",
+        "@types/gulp": "*",
+        "@types/vinyl-buffer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Qubo",
+            "githubUsername": "tkQubo"
+        }
+    ]
+}

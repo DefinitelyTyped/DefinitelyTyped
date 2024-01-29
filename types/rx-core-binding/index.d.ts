@@ -1,8 +1,3 @@
-// Type definitions for rx-core-binding 4.0
-// Project: https://github.com/Reactive-Extensions/RxJS
-// Definitions by: Carl de Billy <http://carl.debilly.net/>, Igor Oleinikov <https://github.com/Igorbek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="rx-core" />
 
 declare namespace Rx {
@@ -14,7 +9,7 @@ declare namespace Rx {
     }
 
     interface SubjectStatic {
-        new <T>(): Subject<T>;
+        new<T>(): Subject<T>;
         create<T>(observer?: Observer<T>, observable?: Observable<T>): ISubject<T>;
     }
 
@@ -24,7 +19,7 @@ declare namespace Rx {
     }
 
     interface AsyncSubjectStatic {
-        new <T>(): AsyncSubject<T>;
+        new<T>(): AsyncSubject<T>;
     }
 
     const AsyncSubject: AsyncSubjectStatic;
@@ -34,7 +29,7 @@ declare namespace Rx {
     }
 
     interface BehaviorSubjectStatic {
-        new <T>(initialValue: T): BehaviorSubject<T>;
+        new<T>(initialValue: T): BehaviorSubject<T>;
     }
 
     const BehaviorSubject: BehaviorSubjectStatic;
@@ -43,7 +38,7 @@ declare namespace Rx {
     }
 
     interface ReplaySubjectStatic {
-        new <T>(bufferSize?: number, window?: number, scheduler?: IScheduler): ReplaySubject<T>;
+        new<T>(bufferSize?: number, window?: number, scheduler?: IScheduler): ReplaySubject<T>;
     }
 
     const ReplaySubject: ReplaySubjectStatic;
@@ -54,14 +49,17 @@ declare namespace Rx {
     }
 
     interface ConnectableObservableStatic {
-        new <T>(): ConnectableObservable<T>;
+        new<T>(): ConnectableObservable<T>;
     }
 
     const ConnectableObservable: ConnectableObservableStatic;
 
     interface Observable<T> {
         multicast(subject: Observable<T>): ConnectableObservable<T>;
-        multicast<TResult>(subjectSelector: () => ISubject<T>, selector: (source: ConnectableObservable<T>) => Observable<T>): Observable<T>;
+        multicast<TResult>(
+            subjectSelector: () => ISubject<T>,
+            selector: (source: ConnectableObservable<T>) => Observable<T>,
+        ): Observable<T>;
         publish(): ConnectableObservable<T>;
         publish<TResult>(selector: (source: ConnectableObservable<T>) => Observable<TResult>): Observable<TResult>;
         /**
@@ -78,7 +76,10 @@ declare namespace Rx {
         publishLast(): ConnectableObservable<T>;
         publishLast<TResult>(selector: (source: ConnectableObservable<T>) => Observable<TResult>): Observable<TResult>;
         publishValue(initialValue: T): ConnectableObservable<T>;
-        publishValue<TResult>(selector: (source: ConnectableObservable<T>) => Observable<TResult>, initialValue: T): Observable<TResult>;
+        publishValue<TResult>(
+            selector: (source: ConnectableObservable<T>) => Observable<TResult>,
+            initialValue: T,
+        ): Observable<TResult>;
         /**
          * Returns an observable sequence that shares a single subscription to the underlying sequence and starts with an initialValue.
          * This operator is a specialization of publishValue which creates a subscription when the number of observers goes from zero to one,
@@ -91,8 +92,18 @@ declare namespace Rx {
          * @returns An observable sequence that contains the elements of a sequence produced by multicasting the source sequence.
          */
         shareValue(initialValue: T): Observable<T>;
-        replay(selector?: boolean, bufferSize?: number, window?: number, scheduler?: IScheduler): ConnectableObservable<T>;    // hack to catch first omitted parameter
-        replay(selector: (source: ConnectableObservable<T>) => Observable<T>, bufferSize?: number, window?: number, scheduler?: IScheduler): Observable<T>;
+        replay(
+            selector?: boolean,
+            bufferSize?: number,
+            window?: number,
+            scheduler?: IScheduler,
+        ): ConnectableObservable<T>; // hack to catch first omitted parameter
+        replay(
+            selector: (source: ConnectableObservable<T>) => Observable<T>,
+            bufferSize?: number,
+            window?: number,
+            scheduler?: IScheduler,
+        ): Observable<T>;
         shareReplay(bufferSize?: number, window?: number, scheduler?: IScheduler): Observable<T>;
     }
 }

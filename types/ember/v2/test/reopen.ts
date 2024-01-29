@@ -1,21 +1,22 @@
-import Ember from 'ember';
-import { assertType } from './lib/assert';
+import Ember from "ember";
+import { assertType } from "./lib/assert";
 
-type Person = typeof Person.prototype;
+type Person = Ember.Object & { name: string; sayHello(): void };
 const Person = Ember.Object.extend({
-    name: '',
+    name: "",
     sayHello() {
-        alert(`Hello. My name is ${this.get('name')}`);
+        alert(`Hello. My name is ${this.get("name")}`);
     },
 });
 
-assertType<Person>(Person.reopen());
+assertType<Readonly<typeof Ember.Object> & { new(properties?: object | undefined): Person }>(Person.reopen());
 
 assertType<string>(Person.create().name);
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 assertType<void>(Person.create().sayHello());
 
 const Person2 = Person.reopenClass({
-    species: 'Homo sapiens',
+    species: "Homo sapiens",
 
     createPerson(name: string): Person {
         return Person.create({ name });
@@ -23,29 +24,30 @@ const Person2 = Person.reopenClass({
 });
 
 assertType<string>(Person2.create().name);
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 assertType<void>(Person2.create().sayHello());
 assertType<string>(Person2.species);
 
 let tom = Person2.create({
-    name: 'Tom Dale',
+    name: "Tom Dale",
 });
-let yehuda = Person2.createPerson('Yehuda Katz');
+let yehuda = Person2.createPerson("Yehuda Katz");
 
 tom.sayHello(); // "Hello. My name is Tom Dale"
 yehuda.sayHello(); // "Hello. My name is Yehuda Katz"
 alert(Person2.species); // "Homo sapiens"
 
 const Person3 = Person2.reopen({
-    goodbyeMessage: 'goodbye',
+    goodbyeMessage: "goodbye",
 
     sayGoodbye() {
-        alert(`${this.get('goodbyeMessage')}, ${this.get('name')}`);
+        alert(`${this.get("goodbyeMessage")}, ${this.get("name")}`);
     },
 });
 
 const person3 = Person3.create();
-person3.get('name');
-person3.get('goodbyeMessage');
+person3.get("name");
+person3.get("goodbyeMessage");
 person3.sayHello();
 person3.sayGoodbye();
 

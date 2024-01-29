@@ -1,4 +1,4 @@
-import Duck, { DuckOptions, DuckCreators, DuckReducer, DuckSagas, DuckTakes, DuckInstance } from 'extensible-duck';
+import Duck, { DuckCreators, DuckInstance, DuckOptions, DuckReducer, DuckSagas, DuckTakes } from "extensible-duck";
 
 // mandatory prop types
 interface TState {
@@ -29,7 +29,7 @@ interface TConsts extends Record<string, string[]> {
 
 // mandatory props
 const initialState: TState = { z: 1 };
-const types: Array<keyof TActionTypes> = ['A1'];
+const types: Array<keyof TActionTypes> = ["A1"];
 const reducer: DuckReducer<TState, TAction, TActionTypes, TActionCreators, TSelectors, TSagas, TTakes, TConsts> = (
     s,
     a,
@@ -69,7 +69,7 @@ const sagas: DuckSagas<TState, TAction, TActionTypes, TActionCreators, TSelector
     testDuckInstanceProperties(d);
     return {
         *sg1() {
-            const a: TAction = { type: 's' };
+            const a: TAction = { type: "s" };
             yield a;
         },
     };
@@ -90,7 +90,7 @@ const dMandatoryProps: DuckOptions<
     TSagas,
     TTakes,
     TConsts
-> = { namespace: 'ns', store: 's', types, initialState, reducer, creators, selectors };
+> = { namespace: "ns", store: "s", types, initialState, reducer, creators, selectors };
 const d1 = new Duck<TState, TAction, TActionTypes, TActionCreators, TSelectors, TSagas, TTakes, TConsts>(
     dMandatoryProps,
 );
@@ -98,7 +98,7 @@ const d1 = new Duck<TState, TAction, TActionTypes, TActionCreators, TSelectors, 
 const d2 = new Duck<TState, TAction, TActionTypes, TActionCreators, TSelectors, TSagas, TTakes, TConsts>({
     ...dMandatoryProps,
     // optional props
-    storePath: 'sp',
+    storePath: "sp",
     sagas,
     takes,
     consts,
@@ -112,7 +112,7 @@ const testDuckProperties = (
     d.initialState.z;
     d.reducer(
         initialState,
-        { type: 'a1' },
+        { type: "a1" },
         // have to assert type as Duck class definition is missing 'TConsts'. practically, you'll probably use 'any' 😢
         d as DuckInstance<TState, TAction, TActionTypes, TActionCreators, TSelectors, TSagas, TTakes, TConsts>,
     );
@@ -129,7 +129,7 @@ const testDuckInstanceProperties = (
 ) => {
     d.creators.actA1;
     d.initialState.z;
-    d.reducer(initialState, { type: 'a1' }, d);
+    d.reducer(initialState, { type: "a1" }, d);
     d.selectors.getZ;
     d.store;
     d.storePath;

@@ -1,4 +1,4 @@
-import formatDuration  = require("format-duration");
+import formatDuration = require("format-duration");
 
 const milliseconds = 12345;
 

@@ -29,4 +29,4 @@ export class Curve {
 export namespace Curve {
     const __cache: Curve;
 }
-import { Vector } from './Vector';
+import { Vector } from "./Vector";

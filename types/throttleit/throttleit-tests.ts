@@ -1,3 +1,3 @@
-import throttle = require('throttleit');
+import throttle = require("throttleit");
 
-throttle(() => 'do nothing', 200);
+throttle(() => "do nothing", 200);

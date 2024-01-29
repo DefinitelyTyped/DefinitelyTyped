@@ -1,8 +1,3 @@
-// Type definitions for istextorbinary 2.3
-// Project: https://github.com/bevry/istextorbinary
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**
@@ -27,12 +22,12 @@ export function isTextSync(filename: undefined, buffer: Buffer): boolean;
 export function isText(
     filename: string,
     buffer: Buffer | undefined,
-    next: (err: null, result: boolean) => void
+    next: (err: null, result: boolean) => void,
 ): void;
 export function isText(
     filename: undefined,
     buffer: Buffer,
-    next: (err: null, result: boolean) => void
+    next: (err: null, result: boolean) => void,
 ): void;
 
 /**
@@ -54,12 +49,12 @@ export function isBinarySync(filename: undefined, buffer: Buffer): boolean;
 export function isBinary(
     filename: string,
     buffer: Buffer | undefined,
-    next: (err: null, result: boolean) => void
+    next: (err: null, result: boolean) => void,
 ): void;
 export function isBinary(
     filename: undefined,
     buffer: Buffer,
-    next: (err: null, result: boolean) => void
+    next: (err: null, result: boolean) => void,
 ): void;
 
 /**
@@ -72,7 +67,7 @@ export function isBinary(
  * @param [opts.chunkBegin = 0]
  * @returns either an Error instance if something went wrong, or if successful "utf8" or "binary"
  */
-export function getEncodingSync(buffer: Buffer, opts?: Options): 'utf8' | 'binary';
+export function getEncodingSync(buffer: Buffer, opts?: Options): "utf8" | "binary";
 
 /**
  * Get the encoding of a buffer
@@ -84,7 +79,7 @@ export function getEncodingSync(buffer: Buffer, opts?: Options): 'utf8' | 'binar
 export function getEncoding(
     buffer: Buffer,
     opts: Options | undefined,
-    next: (err: null, result: 'utf8' | 'binary') => void
+    next: (err: null, result: "utf8" | "binary") => void,
 ): void;
 
 export interface Options {

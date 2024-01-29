@@ -1,4 +1,4 @@
-import speedTest = require('speedtest-net');
+import speedTest = require("speedtest-net");
 
 speedTest().then(result => {
     result;
@@ -9,31 +9,31 @@ const progress: speedTest.ProgressFunction = event => {
     if (!event) return;
 
     switch (event.type) {
-        case 'config': {
+        case "config": {
             event.servers; // $ExpectType ServerData[]
             break;
         }
-        case 'download': {
+        case "download": {
             event.timestamp; // $ExpectType Date
             break;
         }
-        case 'log': {
+        case "log": {
             event.level; // $ExpectType string
             break;
         }
-        case 'ping': {
+        case "ping": {
             event.ping; // $ExpectType PingData
             break;
         }
-        case 'result': {
+        case "result": {
             event.isp; // $ExpectType string
             break;
         }
-        case 'testStart': {
+        case "testStart": {
             event.interface; // $ExpectType InterfaceData
             break;
         }
-        case 'upload': {
+        case "upload": {
             event.upload; // $ExpectType DownloadUploadData
             break;
         }

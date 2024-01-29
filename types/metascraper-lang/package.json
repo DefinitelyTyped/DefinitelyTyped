@@ -1,6 +1,21 @@
 {
+    "private": true,
+    "name": "@types/metascraper-lang",
+    "version": "5.14.9999",
+    "projects": [
+        "https://nicedoc.io/microlinkhq/metascraper/packages/metascraper-lang"
+    ],
     "dependencies": {
-        "metascraper": "^5.14.0"
+        "@types/node": "*",
+        "metascraper": "^5.41.0"
     },
-    "private": true
+    "devDependencies": {
+        "@types/metascraper-lang": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Imdahl",
+            "githubUsername": "ffflorian"
+        }
+    ]
 }

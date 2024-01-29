@@ -1,6 +1,3 @@
-import { DatasetIndexed } from 'rdf-dataset-indexed/dataset';
-import { BaseQuad, Term } from 'rdf-js';
+import { BaseQuad, DatasetCore, Term } from "@rdfjs/types";
 
-declare function resource<D extends DatasetIndexed<BaseQuad, BaseQuad>>(input: D, subject: Term): D;
-
-export = resource;
+export default function resource<D extends DatasetCore<BaseQuad, BaseQuad>>(input: D, subject: Term): D;

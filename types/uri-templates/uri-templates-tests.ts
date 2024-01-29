@@ -1,9 +1,9 @@
-import utmpl = require('uri-templates');
+import utmpl = require("uri-templates");
 import URITemplate = utmpl.URITemplate;
 
 let str: string;
 let u: URITemplate;
-const obj = { test: 'test1' };
+const obj = { test: "test1" };
 
 u = utmpl(str);
 

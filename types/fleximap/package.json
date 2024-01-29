@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/fleximap",
+    "version": "0.9.9999",
+    "projects": [
+        "https://github.com/SocketCluster/fleximap"
+    ],
+    "devDependencies": {
+        "@types/fleximap": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Rose",
+            "githubUsername": "DanielRose"
+        }
+    ]
+}

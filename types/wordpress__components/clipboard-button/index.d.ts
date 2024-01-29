@@ -1,5 +1,5 @@
-import { ComponentType } from 'react';
-import Button from '../button';
+import { ComponentType } from "react";
+import Button from "../button";
 
 declare namespace ClipboardButton {
     interface Props extends Button.ButtonProps {

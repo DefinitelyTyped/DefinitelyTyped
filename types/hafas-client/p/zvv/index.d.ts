@@ -1,5 +1,3 @@
-export = zvvProfile;
+import { Profile } from "../../index";
 
-import createClient = require('../../index');
-
-declare const zvvProfile: createClient.Profile;
+export const profile: Profile;

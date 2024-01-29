@@ -1,15 +1,9 @@
-// Type definitions for pacote 11.1
-// Project: https://github.com/npm/pacote#readme
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="node" />
 
-import npmFetch = require('npm-registry-fetch');
-import { Logger } from 'npmlog';
-import { Integrity } from 'ssri';
-import { Transform } from 'stream';
+import npmFetch = require("npm-registry-fetch");
+import { Logger } from "npmlog";
+import { Integrity } from "ssri";
+import { Transform } from "stream";
 
 export interface PackageDist {
     /**
@@ -43,7 +37,7 @@ export interface PackageDist {
      * (Obviously only present for packages published to
      * https://registry.npmjs.org.)
      */
-    'npm-signature'?: string | undefined;
+    "npm-signature"?: string | undefined;
 }
 
 export interface Person {
@@ -66,7 +60,7 @@ export interface CommonMetadata {
     homepage?: string | undefined;
     keywords?: string[] | undefined;
     license?: string | undefined;
-    maintainers?: Person[] | undefined;
+    maintainers: Person[];
     readme?: string | undefined;
     readmeFilename?: string | undefined;
     repository?: {
@@ -110,14 +104,30 @@ export interface Manifest extends CommonMetadata {
     publishConfig?: Record<string, unknown> | undefined;
     scripts?: Record<string, string> | undefined;
 
-    _id?: string | undefined;
-    _nodeVersion?: string | undefined;
-    _npmVersion?: string | undefined;
-    _npmUser?: Person | undefined;
+    _id: string;
+    _nodeVersion: string;
+    _npmVersion: string;
+    _npmUser: Person;
 
     // Non-standard properties from package.json may also appear.
     [key: string]: unknown;
 }
+
+export type AbbreviatedManifest = Pick<
+    Manifest,
+    | "name"
+    | "version"
+    | "bin"
+    | "directories"
+    | "dependencies"
+    | "devDependencies"
+    | "peerDependencies"
+    | "bundledDependencies"
+    | "optionalDependencies"
+    | "engines"
+    | "dist"
+    | "deprecated"
+>;
 
 /**
  * A packument is the top-level package document that lists the set of manifests
@@ -138,19 +148,20 @@ export interface Packument extends CommonMetadata {
      * An object mapping dist-tags to version numbers. This is how `foo@latest`
      * gets turned into `foo@1.2.3`.
      */
-    'dist-tags': { latest: string; } & Record<string, string>;
+    "dist-tags": { latest: string } & Record<string, string>;
     /**
      * In the full packument, an object mapping version numbers to publication
      * times, for the `opts.before` functionality.
      */
-    time?: Record<string, string> & {
+    time: Record<string, string> & {
         created: string;
         modified: string;
-    } | undefined;
-
-    // Non-standard properties may also appear when fullMetadata = true.
-    [key: string]: unknown;
+    };
 }
+
+export type AbbreviatedPackument = {
+    versions: Record<string, AbbreviatedManifest>;
+} & Pick<Packument, "name" | "dist-tags">;
 
 export interface FetchResult {
     /**
@@ -167,7 +178,7 @@ export interface FetchResult {
     integrity: string;
 }
 
-export interface ManifestResult extends Manifest {
+export interface ManifestResult {
     /**
      * A normalized form of the spec passed in as an argument.
      */
@@ -180,6 +191,17 @@ export interface ManifestResult extends Manifest {
      * The integrity value for the package artifact.
      */
     _integrity: string;
+    /**
+     * The canonical spec of this package version: name@version.
+     */
+    _id: string;
+}
+
+export interface PackumentResult {
+    /**
+     * The size of the packument.
+     */
+    _contentLength: number;
 }
 
 export interface PacoteOptions {
@@ -279,13 +301,18 @@ export function extract(spec: string, dest?: string, opts?: Options): Promise<Fe
  * Fetch (or simulate) a package's manifest (basically, the `package.json` file,
  * plus a bit of metadata).
  */
-export function manifest(spec: string, opts?: Options): Promise<ManifestResult>;
+export function manifest(
+    spec: string,
+    opts: Options & ({ before: Date } | { fullMetadata: true }),
+): Promise<Manifest & ManifestResult>;
+export function manifest(spec: string, opts?: Options): Promise<AbbreviatedManifest & ManifestResult>;
 
 /**
  * Fetch (or simulate) a package's packument (basically, the top-level package
  * document listing all the manifests that the registry returns).
  */
-export function packument(spec: string, opts?: Options): Promise<Packument>;
+export function packument(spec: string, opts: Options & { fullMetadata: true }): Promise<Packument & PackumentResult>;
+export function packument(spec: string, opts?: Options): Promise<AbbreviatedPackument & PackumentResult>;
 
 /**
  * Get a package tarball data as a buffer in memory.

@@ -1,7 +1,7 @@
 import { Options } from "jquery-countto";
 
 // Basic usage
-$('.timer').countTo();
+$(".timer").countTo();
 
 // With options
 const options: Options = {
@@ -10,21 +10,21 @@ const options: Options = {
     speed: 1000,
     refreshInterval: 50,
     formatter: (value: number, options: Options) => {
-      return value.toFixed(options.decimals);
+        return value.toFixed(options.decimals);
     },
     onUpdate: (value: number) => {
-      console.log(value);
+        console.log(value);
     },
     onComplete: (value: number) => {
-      console.log(value);
-    }
-  };
+        console.log(value);
+    },
+};
 
-$('.timer').countTo(options);
-$('.timer').countTo({from: 50});
+$(".timer").countTo(options);
+$(".timer").countTo({ from: 50 });
 
 // Controls
-$('.timer').countTo('start');
-$('.timer').countTo('stop');
-$('.timer').countTo('restart');
-$('.timer').countTo('toggle');
+$(".timer").countTo("start");
+$(".timer").countTo("stop");
+$(".timer").countTo("restart");
+$(".timer").countTo("toggle");

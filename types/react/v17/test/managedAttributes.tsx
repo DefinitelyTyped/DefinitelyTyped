@@ -1,4 +1,6 @@
-interface LeaveMeAloneDtslint { foo: string; }
+interface LeaveMeAloneDtslint {
+    foo: string;
+}
 // // Re-enable when we move @types/react to TS 3.0
 
 // import * as React from 'react';
@@ -35,10 +37,10 @@ interface LeaveMeAloneDtslint { foo: string; }
 // }
 
 // const annotatedPropTypesAndDefaultPropsTests = [
-//     // $ExpectError
+//     // @ts-expect-error
 //     <AnnotatedPropTypesAndDefaultProps />, // str and extraStr are required
 //     <AnnotatedPropTypesAndDefaultProps extraStr='abc' str='abc' />,
-//     // $ExpectError
+//     // @ts-expect-error
 //     <AnnotatedPropTypesAndDefaultProps num='abc' />, // num type mismatch
 //     <AnnotatedPropTypesAndDefaultProps
 //         bool={true}
@@ -59,10 +61,10 @@ interface LeaveMeAloneDtslint { foo: string; }
 // }
 
 // const unannotatedPropTypesAndDefaultPropsTests = [
-//     // $ExpectError
+//     // @ts-expect-error
 //     <UnannotatedPropTypesAndDefaultProps />, // stra and extraStr are required
 //     <UnannotatedPropTypesAndDefaultProps extraStr='abc' str='abc' />,
-//     // $ExpectError
+//     // @ts-expect-error
 //     <UnannotatedPropTypesAndDefaultProps extraBool={0} />, // extraBool type mismatch
 //     <UnannotatedPropTypesAndDefaultProps
 //         bool={true}
@@ -82,12 +84,12 @@ interface LeaveMeAloneDtslint { foo: string; }
 // }
 
 // const annotatedPropTypesTests = [
-//     // $ExpectError
+//     // @ts-expect-error
 //     <AnnotatedPropTypes />, // str, extraStr, reqNode and fnc are required
 //     <AnnotatedPropTypes fnc={console.log} extraStr='abc' str='abc' reqNode={<span />} />,
-//     // $ExpectError
+//     // @ts-expect-error
 //     <AnnotatedPropTypes fnc={console.log} extraStr='abc' str='abc' reqNode={<span />} extraBool={false} />, // extraBool doesn't exist
-//     // $ExpectError
+//     // @ts-expect-error
 //     <AnnotatedPropTypes fnc={console.log} extraStr='abc' str='abc' reqNode={<span />} num='abc' />, // num type mismatch
 //     <AnnotatedPropTypes
 //         bool={false}
@@ -106,12 +108,12 @@ interface LeaveMeAloneDtslint { foo: string; }
 // }
 
 // const unannotatedPropTypesTests = [
-//     // $ExpectError
+//     // @ts-expect-error
 //     <UnannotatedPropTypes />, // str, extraStr and fnc are required
 //     <UnannotatedPropTypes fnc={console.log} extraStr='abc' str='abc' />,
-//     // $ExpectError
+//     // @ts-expect-error
 //     <UnannotatedPropTypes fnc={console.log} extraStr='abc' str='abc' reqNode={<span />} />, // reqNode doesn't exist
-//     // $ExpectError
+//     // @ts-expect-error
 //     <UnannotatedPropTypes fnc={console.log} extraStr='abc' str='abc' reqNode={<span />} num='abc' />, // num type mismatch
 //     <UnannotatedPropTypes
 //         bool={false}
@@ -129,11 +131,11 @@ interface LeaveMeAloneDtslint { foo: string; }
 // }
 
 // const annotatedDefaultPropsTests = [
-//     // $ExpectError
+//     // @ts-expect-error
 //     <AnnotatedDefaultProps />, // str is required
 //     <AnnotatedDefaultProps str='abc' />,
 //     <AnnotatedDefaultProps str='abc' reqNode={<span />} />,
-//     // $ExpectError
+//     // @ts-expect-error
 //     <AnnotatedDefaultProps str={() => { }} />, // str type mismatch
 //     <AnnotatedDefaultProps
 //         bool={true}
@@ -165,12 +167,12 @@ interface LeaveMeAloneDtslint { foo: string; }
 // FunctionalComponent.defaultProps = defaultProps;
 
 // const functionalComponentTests = [
-//     // $ExpectError
+//     // @ts-expect-error
 //     <FunctionalComponent />,
 //     // This is possibly a bug/limitation of TS
 //     // Even if JSX.LibraryManagedAttributes returns the correct type, it doesn't seem to work with non-classes
 //     // This also doesn't work with things typed React.SFC<P> because defaultProps will always be Partial<P>
-//     // $ExpectError
+//     // @ts-expect-error
 //     <FunctionalComponent str='' />
 // ];
 
@@ -180,20 +182,16 @@ interface LeaveMeAloneDtslint { foo: string; }
 // const LazyMemoAnnotatedDefaultProps = React.lazy(async () => ({ default: MemoAnnotatedDefaultProps }));
 
 // const memoTests = [
-//     // $ExpectError
+//     // @ts-expect-error
 //     <MemoFunctionalComponent />,
-//     // $ExpectError won't work as long as FunctionalComponent doesn't work either
 //     <MemoFunctionalComponent str='abc' />,
-//     // $ExpectError
+//     // @ts-expect-error
 //     <MemoAnnotatedDefaultProps />,
 //     <AnnotatedDefaultProps str='abc' />,
-//     // $ExpectError this doesn't work despite JSX.LibraryManagedAttributes returning the correct type
 //     <MemoAnnotatedDefaultProps str='abc' />,
-//     // $ExpectError won't work as long as FunctionalComponent doesn't work either
 //     <LazyMemoFunctionalComponent str='abc' />,
-//     // $ExpectError
+//     // @ts-expect-error
 //     <LazyMemoAnnotatedDefaultProps />,
-//     // $ExpectError this doesn't work despite JSX.LibraryManagedAttributes returning the correct type
 //     <LazyMemoAnnotatedDefaultProps str='abc' />
 // ];
 
@@ -211,7 +209,7 @@ interface LeaveMeAloneDtslint { foo: string; }
 // ForwardRef.defaultProps = defaultProps;
 
 // const forwardRefTests = [
-//     // $ExpectError
+//     // @ts-expect-error
 //     <ForwardRef />,
 //     <ForwardRef
 //         fnc={console.log}
@@ -219,7 +217,7 @@ interface LeaveMeAloneDtslint { foo: string; }
 //         str=''
 //     />,
 //     // same bug as MemoFunctionalComponent and React.SFC-typed things
-//     // $ExpectError the type of ForwardRef.defaultProps stays Partial<P> anyway even if assigned
+//     // @ts-expect-error the type of ForwardRef.defaultProps stays Partial<P> anyway even if assigned
 //     <ForwardRef str='abc' />
 // ];
 
@@ -256,7 +254,7 @@ interface LeaveMeAloneDtslint { foo: string; }
 //     bar: boolean
 // } ? true : false;
 
-// // $ExpectError
+// // @ts-expect-error
 // const weakComponentOptionalityTest1: JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, WeakComponentProps3> = { foo: '' };
 // const weakComponentOptionalityTest2: JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, WeakComponentProps3> = { bar: true };
 
@@ -268,7 +266,7 @@ interface LeaveMeAloneDtslint { foo: string; }
 // }
 
 // const weakComponentIndexedTest1: JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, IndexedComponentProps> = { };
-// // $ExpectError
+// // @ts-expect-error
 // const weakComponentIndexedTest2: JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, IndexedComponentProps> = { foo: '' };
 // const weakComponentIndexedTest3: JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, WeakIndexedComponentProps> = { foo: '' };
 // const weakComponentIndexedTest4: JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, WeakIndexedComponentProps> = { foo: 4 };

@@ -1,8 +1,3 @@
-// Type definitions for cqrs-domain 2.10
-// Project: https://github.com/adrai/node-cqrs-domain
-// Definitions by: Steven Weiß <https://github.com/blissi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Domain {
     // region AggregateModel and Command
 
@@ -16,7 +11,7 @@ declare namespace Domain {
         /**
          * Sets attributes for the aggregate.
          *
-         * @example:
+         * @example
          *     aggregate.set('firstname', 'Jack');
          *     // or
          *     aggregate.set({
@@ -31,7 +26,7 @@ declare namespace Domain {
          * @param attr The attribute name.
          * @return The result value.
          *
-         * @example:
+         * @example
          *     aggregate.get('firstname'); // returns 'Jack'
          */
         get(attr: string): any;
@@ -42,7 +37,7 @@ declare namespace Domain {
          * @param attr The attribute name.
          * @return The result value.
          *
-         * @example:
+         * @example
          *     aggregate.has('firstname'); // returns true or false
          */
         has(attr: string): boolean;
@@ -185,27 +180,39 @@ declare namespace Domain {
          * optionally, define if snapshot should be ignored
          * if true, the whole event stream will be loaded
          */
-        defineIgnoreSnapshot(version: AggregateVersion, cb?: ((data: any) => boolean) |
-            boolean): DefineAggregateResult;
+        defineIgnoreSnapshot(
+            version: AggregateVersion,
+            cb?:
+                | ((data: any) => boolean)
+                | boolean,
+        ): DefineAggregateResult;
 
         /**
          * optionally, define conversion algorithm for older snapshots
          * always convert directly to newest version...
          * when loaded a snapshot and it's an older snapshot, a new snapshot with same revision but with newer aggregate version will be created
          */
-        defineSnapshotConversion(version: AggregateVersion, cb: (data: any, aggregate: AggregateModel) => void): DefineAggregateResult;
+        defineSnapshotConversion(
+            version: AggregateVersion,
+            cb: (data: any, aggregate: AggregateModel) => void,
+        ): DefineAggregateResult;
 
         /**
          * optionally, define idGenerator function for new aggregate ids
          */
-        defineAggregateIdGenerator(cb: (() => string) |
-            ((callback: generateIdCallback) => string)): DefineAggregateResult;
+        defineAggregateIdGenerator(
+            cb:
+                | (() => string)
+                | ((callback: generateIdCallback) => string),
+        ): DefineAggregateResult;
 
         /**
          * optionally, define idGenerator function for new aggregate ids that are command aware
          * if you define it that way, the normal defineAggregateIdGenerator function will be replaced
          */
-        defineCommandAwareAggregateIdGenerator(cb: (cmd: Command, callback?: generateIdCallback) => string): DefineAggregateResult;
+        defineCommandAwareAggregateIdGenerator(
+            cb: (cmd: Command, callback?: generateIdCallback) => string,
+        ): DefineAggregateResult;
     }
 
     function defineAggregate(options: DefineAggregateOptions, initializationData?: any): DefineAggregateResult;
@@ -254,7 +261,11 @@ declare namespace Domain {
      * @param data is the command data
      * @param callback is optional, if not defined as function argument you can throw errors or return errors here (sync way)
      */
-    type preLoadConditionHandler = (data: any, callback?: (err: string | Error) => string | Error) => void | string | Error;
+    type preLoadConditionHandler = (
+        data: any,
+        callback?: (err: string | Error) => string | Error,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    ) => void | string | Error;
 
     function definePreLoadCondition(options: DefinePreLoadConditionOptions, handler: preLoadConditionHandler): void;
 
@@ -297,7 +308,12 @@ declare namespace Domain {
      * @param aggregate is the aggregate object
      * @param callback is optional, if not defined as function argument you can throw errors or return errors here (sync way)
      */
-    type preConditionHandler = (data: any, aggregate: AggregateModel, callback?: (err: string | Error) => string | Error) => void | string | Error;
+    type preConditionHandler = (
+        data: any,
+        aggregate: AggregateModel,
+        callback?: (err: string | Error) => string | Error,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    ) => void | string | Error;
 
     function definePreCondition(options: DefinePreConditionOptions, handler: preConditionHandler): void;
 
@@ -367,7 +383,13 @@ declare namespace Domain {
      * @param command the handling command
      * @param callback is optional, if not defined as function argument you can throw errors or return errors here (sync way)
      */
-    type businessRuleHandler = (changed: AggregateModel, previous: AggregateModel, command: any, callback?: (err: string | Error) => string | Error) => void | string | Error;
+    type businessRuleHandler = (
+        changed: AggregateModel,
+        previous: AggregateModel,
+        command: any,
+        callback?: (err: string | Error) => string | Error,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    ) => void | string | Error;
 
     function defineBusinessRule(options: DefineBusinessRuleOptions, handler: businessRuleHandler): void;
 
@@ -397,7 +419,13 @@ declare namespace Domain {
      * @param cmd is the command data
      * @param callback is optional, if not defined as function argument you can throw errors or return errors here (sync way)
      */
-    type commandHandlerHandler = (aggId: string, cmd: any, commandHandler: any, callback?: (err: string | Error) => string | Error) => void | string | Error;
+    type commandHandlerHandler = (
+        aggId: string,
+        cmd: any,
+        commandHandler: any,
+        callback?: (err: string | Error) => string | Error,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    ) => void | string | Error;
 
     function defineCommandHandler(options: DefineCommandHandlerOptions, handler: commandHandlerHandler): void;
 
@@ -549,9 +577,12 @@ declare namespace Domain {
          * @param callback the function that will be called when this action has finished [optional]
          *                            `function(err, evts, aggregateData, meta){}` evts is of type Array, aggregateData and meta are an object
          */
-        handle(cmd: any,
-            cb?: ((err: Error) => void) |
-                ((err: Error, events: any[], aggregateData: any, metaInfos: HandleMetaInfos) => void)): void;
+        handle(
+            cmd: any,
+            cb?:
+                | ((err: Error) => void)
+                | ((err: Error, events: any[], aggregateData: any, metaInfos: HandleMetaInfos) => void),
+        ): void;
 
         /**
          * Returns the domain information.
@@ -563,24 +594,33 @@ declare namespace Domain {
          * @param fn the function to be injected
          * @returns to be able to chain...
          */
-        onEvent(cb: ((evt: any) => void) |
-            ((evt: any, callback: () => void) => void)): CqrsDomain;
+        onEvent(
+            cb:
+                | ((evt: any) => void)
+                | ((evt: any, callback: () => void) => void),
+        ): CqrsDomain;
 
         /**
          * Inject idGenerator function.
          * @param fn The function to be injected.
          * @returns to be able to chain...
          */
-        idGenerator(cb: (() => string) |
-            ((callback: generateIdCallback) => string)): CqrsDomain;
+        idGenerator(
+            cb:
+                | (() => string)
+                | ((callback: generateIdCallback) => string),
+        ): CqrsDomain;
 
         /**
          * Inject idGenerator function for aggregate id.
          * @param fn The function to be injected.
          * @returns to be able to chain...
          */
-        aggregateIdGenerator(cb: (() => string) |
-            ((callback: generateIdCallback) => string)): CqrsDomain;
+        aggregateIdGenerator(
+            cb:
+                | (() => string)
+                | ((callback: generateIdCallback) => string),
+        ): CqrsDomain;
 
         /**
          * Converts an error to the commandRejected event
@@ -600,7 +640,14 @@ declare namespace Domain {
          * @param callback         the function that will be called when this action has finished [optional]
          *                                    `function(err, evts, aggregateData, meta){}` evts is of type Array, aggregateData and meta are an object
          */
-        onDispatched(cmd: any, err: Error, eventsToDispatch: any[], aggregateData: any, meta: any, callback: (err: Error, evts: any[], aggregateData: any, meta: any) => void): void;
+        onDispatched(
+            cmd: any,
+            err: Error,
+            eventsToDispatch: any[],
+            aggregateData: any,
+            meta: any,
+            callback: (err: Error, evts: any[], aggregateData: any, meta: any) => void,
+        ): void;
     }
 
     type SupportedDBTypes = "mongodb" | "redis" | "tingodb" | "azuretable" | "inmemory";
@@ -642,9 +689,9 @@ declare namespace Domain {
          * hint: [eventstore](https://github.com/adrai/node-eventstore#provide-implementation-for-storage)
          */
         eventStore?: {
-            type: SupportedDBTypes,
+            type: SupportedDBTypes;
             host?: string | undefined;
-            port?: number | undefined,
+            port?: number | undefined;
             dbName?: string | undefined;
             eventsCollectionName?: string | undefined;
             snapshotsCollectionName?: string | undefined;
@@ -662,7 +709,7 @@ declare namespace Domain {
          * hint settings like: [eventstore](https://github.com/adrai/node-eventstore#provide-implementation-for-storage)
          */
         aggregateLock?: {
-            type: SupportedDBTypes,
+            type: SupportedDBTypes;
             host?: string | undefined;
             port?: number | undefined;
             db: number;
@@ -678,7 +725,7 @@ declare namespace Domain {
          * hint settings like: [eventstore](https://github.com/adrai/node-eventstore#provide-implementation-for-storage)
          */
         deduplication?: {
-            type: "mongodb" | "redis" | "tingodb" | "inmemory",
+            type: "mongodb" | "redis" | "tingodb" | "inmemory";
             ttl?: number | undefined;
             host?: string | undefined;
             port?: number | undefined;

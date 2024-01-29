@@ -1,7 +1,22 @@
 {
     "private": true,
+    "name": "@types/webpack-plugin-serve",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/shellscape/webpack-plugin-serve"
+    ],
     "dependencies": {
+        "@types/connect-history-api-fallback": "*",
+        "@types/express": "*",
+        "@types/koa": "*",
+        "@types/koa-compress": "*",
+        "@types/koa-static": "*",
+        "@types/node": "*",
         "globby": "^11.0.1",
         "http-proxy-middleware": "^1.0.0"
-    }
+    },
+    "devDependencies": {
+        "@types/webpack-plugin-serve": "workspace:."
+    },
+    "owners": []
 }

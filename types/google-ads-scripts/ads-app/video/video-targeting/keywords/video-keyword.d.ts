@@ -91,11 +91,13 @@ declare namespace GoogleAdsScripts {
          *      }
          */
         interface VideoKeywordSelector
-            extends Base.Selector<VideoKeywordIterator>,
+            extends
+                Base.Selector<VideoKeywordIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
                 Base.SelectorWithIds,
-                Base.SelectorWithLimit {}
+                Base.SelectorWithLimit
+        {}
     }
 }

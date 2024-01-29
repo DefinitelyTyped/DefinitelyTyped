@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { IconGlyph } from '../Icon/Icon';
+import * as React from "react";
+import { IconGlyph } from "../Icon/Icon";
 
 export type ListProps = {
     className?: string | undefined;
@@ -12,8 +12,8 @@ export type ListProps = {
     navigation?: boolean | undefined;
     partialNavigation?: boolean | undefined;
     selectable?: boolean | undefined;
-    footer?: string | JSX.Element | undefined;
-    header?: string | JSX.Element | undefined;
+    footer?: string | React.JSX.Element | undefined;
+    header?: string | React.JSX.Element | undefined;
 } & React.HTMLAttributes<HTMLAnchorElement>;
 
 export interface ListFooterProps {
@@ -31,11 +31,15 @@ export interface ListIconProps {
     className?: string | undefined;
 }
 
-export interface ListItemProps {
+export interface ListItemProps extends React.HTMLAttributes<HTMLLIElement> {
     children?: React.ReactNode;
     className?: string | undefined;
     selected?: boolean | undefined;
     onClick?: ((...args: any[]) => any) | undefined;
+    /** URL to navigate to if list item is a link */
+    url?: string;
+    /** Internal use only */
+    navigation?: boolean;
 }
 
 export interface ListTextProps {
@@ -60,14 +64,14 @@ export interface ListSelectionProps {
 }
 
 declare const List: React.FunctionComponent<ListProps> & {
-    displayName: 'List';
-    Footer: React.FunctionComponent<ListFooterProps> & { displayName: 'List.Footer' };
-    Header: React.FunctionComponent<ListHeaderProps> & { displayName: 'List.Header' };
-    Selection: React.FunctionComponent<ListSelectionProps> & { displayName: 'List.Selection' };
-    Icon: React.FunctionComponent<ListIconProps> & { displayName: 'List.Icon' };
-    Item: React.FunctionComponent<ListItemProps> & { displayName: 'List.Item' };
-    Text: React.FunctionComponent<ListTextProps> & { displayName: 'List.Text' };
-    Byline: React.FunctionComponent<ListBylineProps> & { displayName: 'List.Byline' };
+    displayName: "List";
+    Footer: React.FunctionComponent<ListFooterProps> & { displayName: "List.Footer" };
+    Header: React.FunctionComponent<ListHeaderProps> & { displayName: "List.Header" };
+    Selection: React.FunctionComponent<ListSelectionProps> & { displayName: "List.Selection" };
+    Icon: React.FunctionComponent<ListIconProps> & { displayName: "List.Icon" };
+    Item: React.FunctionComponent<ListItemProps> & { displayName: "List.Item" };
+    Text: React.FunctionComponent<ListTextProps> & { displayName: "List.Text" };
+    Byline: React.FunctionComponent<ListBylineProps> & { displayName: "List.Byline" };
 };
 
 export default List;

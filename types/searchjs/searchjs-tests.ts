@@ -1,4 +1,4 @@
-import { resetDefaults, setDefaults, matchArray, matchObject } from 'searchjs';
+import { matchArray, matchObject, resetDefaults, setDefaults } from "searchjs";
 
 resetDefaults();
 
@@ -11,15 +11,15 @@ setDefaults({
     end: false,
     separator: ".",
     propertySearch: false,
-    propertySearchDepth: -1
+    propertySearchDepth: -1,
 });
 
 matchArray(
     [
-        { a: '1234', b: 56 },
-        { a: 'Hello!', b: 11 },
+        { a: "1234", b: 56 },
+        { a: "Hello!", b: 11 },
     ],
-    { a: 'Hello!' },
+    { a: "Hello!" },
 );
 
-matchObject({ stuff: 'This is some awesome stuff' }, 'some awesome stuff');
+matchObject({ stuff: "This is some awesome stuff" }, "some awesome stuff");

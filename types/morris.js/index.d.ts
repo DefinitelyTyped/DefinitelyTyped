@@ -1,12 +1,23 @@
-// Type definitions for morris.js 0.5.1
-// Project: http://morrisjs.github.io/morris.js/
-// Definitions by: Matthieu Mourisson <https://github.com/mareek>, Matanel Sindilevich <https://github.com/sindilevich>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace morris {
     type AutoAlways = "auto" | "always";
 
-    type Interval = "decade" | "year" | "month" | "week" | "day" | "hour" | "30min" | "15min" | "10min" | "5min" | "minute" | "30sec" | "15sec" | "10sec" | "5sec" | "second";
+    type Interval =
+        | "decade"
+        | "year"
+        | "month"
+        | "week"
+        | "day"
+        | "hour"
+        | "30min"
+        | "15min"
+        | "10min"
+        | "5min"
+        | "minute"
+        | "30sec"
+        | "15sec"
+        | "10sec"
+        | "5sec"
+        | "second";
 
     interface IChartOptions {
         /** The ID of (or a reference to) the element into which to insert the graph. */
@@ -37,7 +48,7 @@ declare namespace morris {
         /** Set the font family of the axis labels (default: sans-serif). */
         gridTextFamily?: string | undefined;
         /** Set the font weight of the axis labels (default: normal). */
-        gridTextWeight?: string | undefined;      
+        gridTextWeight?: string | undefined;
         /** Set the stroke of the grid. (default: 0.5)*/
         gridStrokeWidth?: number | undefined;
         /** Set the line color of the grid. (default: #aaa) */

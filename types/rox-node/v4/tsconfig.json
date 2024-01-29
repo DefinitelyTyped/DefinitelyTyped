@@ -7,13 +7,6 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
-        "paths": {
-            "rox-node": ["rox-node/v4"]
-        },  
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,

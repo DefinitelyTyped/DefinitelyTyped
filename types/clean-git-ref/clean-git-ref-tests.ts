@@ -1,3 +1,3 @@
-import { clean } from 'clean-git-ref';
+import { clean } from "clean-git-ref";
 
-clean('refs/heads/master'); // $ExpectType string
+clean("refs/heads/master"); // $ExpectType string

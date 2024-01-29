@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gulp-modernizr",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/rejas/gulp-modernizr"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-modernizr": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "remisery",
+            "githubUsername": "remisery"
+        }
+    ]
+}

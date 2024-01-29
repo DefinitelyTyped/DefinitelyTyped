@@ -1,8 +1,3 @@
-// Type definitions for cpu-features 0.0
-// Project: https://github.com/mscdex/cpu-features
-// Definitions by: BendingBender <https://github.com/bendingbender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = getCpuInfo;
 
 /**
@@ -61,7 +56,7 @@ declare namespace getCpuInfo {
         | UnknownCpuFeatures;
 
     interface X86CpuFeatures {
-        arch: 'x86';
+        arch: "x86";
         brand: string;
         family: number;
         model: number;
@@ -71,42 +66,42 @@ declare namespace getCpuInfo {
     }
 
     type X86UArch =
-        | 'X86_UNKNOWN'
-        | 'INTEL_CORE'
-        | 'INTEL_PNR'
-        | 'INTEL_NHM'
-        | 'INTEL_ATOM_BNL'
-        | 'INTEL_WSM'
-        | 'INTEL_SNB'
-        | 'INTEL_IVB'
-        | 'INTEL_ATOM_SMT'
-        | 'INTEL_HSW'
-        | 'INTEL_BDW'
-        | 'INTEL_SKL'
-        | 'INTEL_ATOM_GMT'
-        | 'INTEL_KBL'
-        | 'INTEL_CFL'
-        | 'INTEL_WHL'
-        | 'INTEL_CNL'
-        | 'INTEL_ICL'
-        | 'INTEL_TGL'
-        | 'INTEL_SPR'
-        | 'AMD_HAMMER'
-        | 'AMD_K10'
-        | 'AMD_K11'
-        | 'AMD_K12'
-        | 'AMD_BOBCAT'
-        | 'AMD_PILEDRIVER'
-        | 'AMD_STREAMROLLER'
-        | 'AMD_EXCAVATOR'
-        | 'AMD_BULLDOZER'
-        | 'AMD_PUMA'
-        | 'AMD_JAGUAR'
-        | 'AMD_ZEN'
-        | 'AMD_ZEN_PLUS'
-        | 'AMD_ZEN2'
-        | 'AMD_ZEN3'
-        | 'unknown microarchitecture';
+        | "X86_UNKNOWN"
+        | "INTEL_CORE"
+        | "INTEL_PNR"
+        | "INTEL_NHM"
+        | "INTEL_ATOM_BNL"
+        | "INTEL_WSM"
+        | "INTEL_SNB"
+        | "INTEL_IVB"
+        | "INTEL_ATOM_SMT"
+        | "INTEL_HSW"
+        | "INTEL_BDW"
+        | "INTEL_SKL"
+        | "INTEL_ATOM_GMT"
+        | "INTEL_KBL"
+        | "INTEL_CFL"
+        | "INTEL_WHL"
+        | "INTEL_CNL"
+        | "INTEL_ICL"
+        | "INTEL_TGL"
+        | "INTEL_SPR"
+        | "AMD_HAMMER"
+        | "AMD_K10"
+        | "AMD_K11"
+        | "AMD_K12"
+        | "AMD_BOBCAT"
+        | "AMD_PILEDRIVER"
+        | "AMD_STREAMROLLER"
+        | "AMD_EXCAVATOR"
+        | "AMD_BULLDOZER"
+        | "AMD_PUMA"
+        | "AMD_JAGUAR"
+        | "AMD_ZEN"
+        | "AMD_ZEN_PLUS"
+        | "AMD_ZEN2"
+        | "AMD_ZEN3"
+        | "unknown microarchitecture";
 
     /**
      * See https://en.wikipedia.org/wiki/CPUID for a list of x86 cpu features.
@@ -184,7 +179,7 @@ declare namespace getCpuInfo {
     }
 
     interface ArmCpuFeatures {
-        arch: 'arm';
+        arch: "arm";
         implementer: number;
         architecture: number;
         variant: number;
@@ -305,7 +300,7 @@ declare namespace getCpuInfo {
     }
 
     interface Aarch64CpuFeatures {
-        arch: 'aarch64';
+        arch: "aarch64";
         implementer: number;
         variant: number;
         part: number;
@@ -521,7 +516,7 @@ declare namespace getCpuInfo {
     }
 
     interface MipsCpuFeatures {
-        arch: 'mips';
+        arch: "mips";
         flags: MipsCpuFlags;
     }
 
@@ -543,12 +538,12 @@ declare namespace getCpuInfo {
     }
 
     interface PPCCpuFeatures {
-        arch: 'ppc';
+        arch: "ppc";
         platform: string;
         model: string;
         machine: string;
         cpu: string;
-        'instruction set': string;
+        "instruction set": string;
         microarchitecture: string;
         flags: PPCCpuFlags;
     }
@@ -598,7 +593,7 @@ declare namespace getCpuInfo {
     }
 
     interface UnknownCpuFeatures {
-        arch: 'unknown';
+        arch: "unknown";
         flags: {};
     }
 }

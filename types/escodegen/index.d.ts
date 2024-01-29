@@ -1,8 +1,3 @@
-// Type definitions for escodegen
-// Project: https://github.com/estools/escodegen
-// Definitions by: Simon de Lang <https://github.com/simondel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface FormatOptions {
     /**
      * The indent options
@@ -129,7 +124,6 @@ export interface GenerateOptions {
      * looking up node[option.verbatim] value and dump it instead of normal code generation.
      *
      * @example
-     *
      */
     verbatim?: string | undefined;
 }
@@ -160,7 +154,7 @@ export enum Precedence {
     New,
     TaggedTemplate,
     Member,
-    Primary
+    Primary,
 }
 
 /**

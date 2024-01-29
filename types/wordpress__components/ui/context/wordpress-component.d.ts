@@ -1,4 +1,4 @@
-import type { ElementType, ComponentPropsWithRef } from 'react';
+import type { ComponentPropsWithRef, ElementType, JSX } from "react";
 
 /**
  * This file copied from https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/ui/context/wordpress-component.ts
@@ -11,10 +11,10 @@ import type { ElementType, ComponentPropsWithRef } from 'react';
  * by `ComponentPropsWithRef`. The context is that components should require the `children`
  * prop explicitely when needed (see https://github.com/WordPress/gutenberg/pull/31817).
  */
-export type WordPressComponentProps<P, T extends ElementType, IsPolymorphic extends boolean = true> = P &
-    Omit<ComponentPropsWithRef<T>, 'as' | keyof P | 'children'> &
-    (IsPolymorphic extends true
-        ? {
-              as?: T | keyof JSX.IntrinsicElements;
-          }
+export type WordPressComponentProps<P, T extends ElementType, IsPolymorphic extends boolean = true> =
+    & P
+    & Omit<ComponentPropsWithRef<T>, "as" | keyof P | "children">
+    & (IsPolymorphic extends true ? {
+            as?: T | keyof JSX.IntrinsicElements;
+        }
         : { as?: never });

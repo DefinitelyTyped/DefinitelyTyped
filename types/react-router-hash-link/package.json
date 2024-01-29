@@ -1,6 +1,31 @@
 {
     "private": true,
+    "name": "@types/react-router-hash-link",
+    "version": "2.4.9999",
+    "projects": [
+        "https://github.com/rafgraph/react-router-hash-link"
+    ],
     "dependencies": {
-        "@types/history": "^4.7.11"
-    }
+        "@types/history": "^4.7.11",
+        "@types/react": "*",
+        "@types/react-router-dom": "^5.3.0"
+    },
+    "devDependencies": {
+        "@types/react-router": "*",
+        "@types/react-router-hash-link": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sam Baeck",
+            "githubUsername": "zoompie"
+        },
+        {
+            "name": "Michael Vasyliv",
+            "githubUsername": "michael-vasyliv"
+        },
+        {
+            "name": "Eli Robinson",
+            "githubUsername": "EliRobinson"
+        }
+    ]
 }

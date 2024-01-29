@@ -1,8 +1,3 @@
-// Type definitions for usetube 2.1
-// Project: https://github.com/valerebron/usetube
-// Definitions by: Ezell Frazier <https://github.com/lynellf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface YouTubeResults {
     videos: Video[];
     didyoumean: string;

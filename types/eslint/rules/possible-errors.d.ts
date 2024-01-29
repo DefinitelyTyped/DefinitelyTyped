@@ -223,32 +223,32 @@ export interface PossibleErrors extends Linter.RulesRecord {
      */
     "no-extra-parens":
         | Linter.RuleEntry<
-              [
-                  "all",
-                  Partial<{
-                      /**
-                       * @default true,
-                       */
-                      conditionalAssign: boolean;
-                      /**
-                       * @default true
-                       */
-                      returnAssign: boolean;
-                      /**
-                       * @default true
-                       */
-                      nestedBinaryExpressions: boolean;
-                      /**
-                       * @default 'none'
-                       */
-                      ignoreJSX: "none" | "all" | "multi-line" | "single-line";
-                      /**
-                       * @default true
-                       */
-                      enforceForArrowConditionals: boolean;
-                  }>,
-              ]
-          >
+            [
+                "all",
+                Partial<{
+                    /**
+                     * @default true,
+                     */
+                    conditionalAssign: boolean;
+                    /**
+                     * @default true
+                     */
+                    returnAssign: boolean;
+                    /**
+                     * @default true
+                     */
+                    nestedBinaryExpressions: boolean;
+                    /**
+                     * @default 'none'
+                     */
+                    ignoreJSX: "none" | "all" | "multi-line" | "single-line";
+                    /**
+                     * @default true
+                     */
+                    enforceForArrowConditionals: boolean;
+                }>,
+            ]
+        >
         | Linter.RuleEntry<["functions"]>;
 
     /**
@@ -354,6 +354,21 @@ export interface PossibleErrors extends Linter.RulesRecord {
      * @see https://eslint.org/docs/rules/no-obj-calls
      */
     "no-obj-calls": Linter.RuleEntry<[]>;
+
+    /**
+     * Rule to disallow returning values from Promise executor functions.
+     *
+     * @since 7.3.0
+     * @see https://eslint.org/docs/rules/no-promise-executor-return
+     */
+    "no-promise-executor-return": Linter.RuleEntry<[
+        {
+            /**
+             * @default false
+             */
+            allowVoid?: boolean;
+        },
+    ]>;
 
     /**
      * Rule to disallow use of `Object.prototypes` builtins directly.

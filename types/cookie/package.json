@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/cookie",
+    "version": "0.6.9999",
+    "projects": [
+        "https://github.com/jshttp/cookie"
+    ],
+    "devDependencies": {
+        "@types/cookie": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Pine Mizune",
+            "githubUsername": "pine"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

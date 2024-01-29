@@ -78,10 +78,12 @@ untypedCallback(null, str);
 untypedCallback(null, num);
 untypedCallback(null, { foo: 123 });
 untypedCallback(null, { bar: 123 });
-// $ExpectError
+// @ts-expect-error
 untypedCallback(null, anyObj, anyObj);
 
-interface TestResult { foo: number; }
+interface TestResult {
+    foo: number;
+}
 declare const typedCallback: AWSLambda.Callback<TestResult>;
 typedCallback();
 typedCallback(undefined);
@@ -90,9 +92,9 @@ typedCallback(error);
 typedCallback(str); // https://docs.aws.amazon.com/apigateway/latest/developerguide/handle-errors-in-lambda-integration.html
 typedCallback(null, anyObj);
 typedCallback(null, { foo: 123 });
-// $ExpectError
+// @ts-expect-error
 typedCallback(null, str);
-// $ExpectError
+// @ts-expect-error
 typedCallback(null, { bar: 123 });
 
 /* Compatibility functions */
@@ -152,9 +154,9 @@ const untypedCallbackHandler: AWSLambda.Handler = (event, context, cb) => {
  */
 
 // Test we get error for unsafe old style
-// $ExpectError
+// @ts-expect-error
 const unsafeAsyncHandler: CustomHandler = async (event, context, cb) => {
-    cb(null, { resultString: 'No longer valid' });
+    cb(null, { resultString: "No longer valid" });
 };
 
 // Test safe old style still works
@@ -170,10 +172,10 @@ const typedCallbackHandler: CustomHandler = (event, context, cb) => {
     cb();
     cb(null);
     cb(new Error());
-    // $ExpectError
+    // @ts-expect-error
     cb(null, {});
     cb(null, { resultString: str });
-    // $ExpectError
+    // @ts-expect-error
     cb(null, { resultString: bool });
 };
 
@@ -187,10 +189,10 @@ const typedAsyncHandler: CustomHandler = async (event, context, cb) => {
     cb;
     // Can still use callback
     cb(null, { resultString: str });
-    return { resultString: 'Is now valid!' };
+    return { resultString: "Is now valid!" };
 };
 
-// $ExpectError
+// @ts-expect-error
 const badTypedAsyncHandler: CustomHandler = async (event, context, cb) => ({ resultString: bool });
 
 // Test using untyped Callback type still works.

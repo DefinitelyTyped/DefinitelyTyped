@@ -1,0 +1,6 @@
+{
+    "rules": {
+        "@definitelytyped/dt-header": "off",
+        "@typescript-eslint/triple-slash-reference": "off"
+    }
+}

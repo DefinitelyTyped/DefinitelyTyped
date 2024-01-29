@@ -1,17 +1,10 @@
-// Type definitions for non-npm package consumer-data-standards-browser 2.0
-// Project: https://github.com/ConsumerDataStandardsAustralia
-// Definitions by: Tomas Schier <https://github.com/tom-schier>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-export * from './banking';
-export * from './common';
-export * from './dcr';
-export * from './energy';
-export * from './admin';
-export { DataHoldersStatusList, DataHolderStatus, DataRecipientBrandMetaData,
-    Links, LinksPaginated, DataRecipientsStatusList, DataRecipientStatus,
-    Error, JWK, LegalEntityDetail, Meta, MetaError, MetaPaginated,
-    RegisterDataHolderAuth, RegisterDataHolderBrand, RegisterDataHolderBrandServiceEndpoint,
-    RegisterDataRecipient, ResponseErrorList, ResponseErrorListV2Errors, ResponseErrorListV2,
-    ResponseJWKS, ResponseOpenIDProviderConfigMetadata, ResponseRegisterDataHolderBrandList,
-    ResponseRegisterDataRecipientList, SoftwareProductMetaData, SoftwareProductsStatusList,
-    SoftwareProductStatus }  from "./register";
+import * as admin from "./admin";
+import * as banking from "./banking";
+import * as common from "./common";
+import * as dcr1 from "./dcr";
+import * as energy from "./energy";
+import * as energy_sdh from "./energy_sdh";
+import * as register from "./register";
+import * as telco from "./telco";
+
+export { admin, banking, common, dcr1, energy, energy_sdh, register, telco };

@@ -1,5 +1,10 @@
-import { FrameEvent } from './frame';
-export declare type RuntimeEvent<Topic = string, Type = string> = Topic extends 'window' | 'view' ? WindowEvent<Topic, Type> : Topic extends 'frame' ? FrameEvent<Type> : Topic extends 'application' ? ApplicationEvent<Topic, Type> : Topic extends 'external-window' ? ApplicationEvent<Topic, Type> : BaseEvent<Topic, Type>;
+import { FrameEvent } from "./frame";
+export declare type RuntimeEvent<Topic = string, Type = string> = Topic extends "window" | "view"
+    ? WindowEvent<Topic, Type>
+    : Topic extends "frame" ? FrameEvent<Type>
+    : Topic extends "application" ? ApplicationEvent<Topic, Type>
+    : Topic extends "external-window" ? ApplicationEvent<Topic, Type>
+    : BaseEvent<Topic, Type>;
 export interface BaseEvent<Topic, Type> {
     topic: Topic;
     type: Type;

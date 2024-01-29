@@ -32,7 +32,18 @@ declare module "../globalize" {
          */
         timeZone?: string | undefined;
     }
-    type DateFormatPartTypes = "day" | "dayperiod" | "era" | "hour" | "literal" | "minute" | "month" | "second" | "zone" | "weekday" | "year";
+    type DateFormatPartTypes =
+        | "day"
+        | "dayperiod"
+        | "era"
+        | "hour"
+        | "literal"
+        | "minute"
+        | "month"
+        | "second"
+        | "zone"
+        | "weekday"
+        | "year";
     interface DateFormatPart {
         type: DateFormatPartTypes;
         value: string;
@@ -61,13 +72,13 @@ declare module "../globalize" {
          */
         dateToPartsFormatter(options?: DateFormatterOptions): (value: Date) => DateFormatPart[];
 
-        //Return a function that parses a string representing a date into a JavaScript Date object according to the given options. The default parsing assumes numeric year, month, and day (i.e., { skeleton: "yMd" }).
+        // Return a function that parses a string representing a date into a JavaScript Date object according to the given options. The default parsing assumes numeric year, month, and day (i.e., { skeleton: "yMd" }).
         dateParser(options?: DateFormatterOptions): (value: string) => Date;
 
-        //Alias for .dateFormatter( [options] )( value ).
+        // Alias for .dateFormatter( [options] )( value ).
         formatDate(value: Date, options?: DateFormatterOptions): string;
 
-        //Alias for .dateToPartsFormatter( [options] )( value ).
+        // Alias for .dateToPartsFormatter( [options] )( value ).
         formatDateToParts(value: Date, options?: DateFormatterOptions): DateFormatPart[];
 
         /**

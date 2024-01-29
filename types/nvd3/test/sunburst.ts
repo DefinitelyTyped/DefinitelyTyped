@@ -1,9 +1,7 @@
-
 namespace nvd3_test_sunburst {
-
     var chart;
 
-    nv.addGraph(function () {
+    nv.addGraph(function() {
         chart = nv.models.sunburstChart();
 
         chart.color(d3.scale.category20c());
@@ -30,8 +28,8 @@ namespace nvd3_test_sunburst {
                                 { "name": "AgglomerativeCluster", "size": 3938 },
                                 { "name": "CommunityStructure", "size": 3812 },
                                 { "name": "HierarchicalCluster", "size": 6714 },
-                                { "name": "MergeEdge", "size": 743 }
-                            ]
+                                { "name": "MergeEdge", "size": 743 },
+                            ],
                         },
                         {
                             "name": "graph",
@@ -40,16 +38,16 @@ namespace nvd3_test_sunburst {
                                 { "name": "LinkDistance", "size": 5731 },
                                 { "name": "MaxFlowMinCut", "size": 7840 },
                                 { "name": "ShortestPaths", "size": 5914 },
-                                { "name": "SpanningTree", "size": 3416 }
-                            ]
+                                { "name": "SpanningTree", "size": 3416 },
+                            ],
                         },
                         {
                             "name": "optimization",
                             "children": [
-                                { "name": "AspectRatioBanker", "size": 7074 }
-                            ]
-                        }
-                    ]
+                                { "name": "AspectRatioBanker", "size": 7074 },
+                            ],
+                        },
+                    ],
                 },
                 {
                     "name": "animate",
@@ -67,8 +65,8 @@ namespace nvd3_test_sunburst {
                                 { "name": "NumberInterpolator", "size": 1382 },
                                 { "name": "ObjectInterpolator", "size": 1629 },
                                 { "name": "PointInterpolator", "size": 1675 },
-                                { "name": "RectangleInterpolator", "size": 2042 }
-                            ]
+                                { "name": "RectangleInterpolator", "size": 2042 },
+                            ],
                         },
                         { "name": "ISchedulable", "size": 1041 },
                         { "name": "Parallel", "size": 5176 },
@@ -78,8 +76,8 @@ namespace nvd3_test_sunburst {
                         { "name": "Transition", "size": 9201 },
                         { "name": "Transitioner", "size": 19975 },
                         { "name": "TransitionEvent", "size": 1116 },
-                        { "name": "Tween", "size": 6006 }
-                    ]
+                        { "name": "Tween", "size": 6006 },
+                    ],
                 },
                 {
                     "name": "data",
@@ -91,16 +89,16 @@ namespace nvd3_test_sunburst {
                                 { "name": "DelimitedTextConverter", "size": 4294 },
                                 { "name": "GraphMLConverter", "size": 9800 },
                                 { "name": "IDataConverter", "size": 1314 },
-                                { "name": "JSONConverter", "size": 2220 }
-                            ]
+                                { "name": "JSONConverter", "size": 2220 },
+                            ],
                         },
                         { "name": "DataField", "size": 1759 },
                         { "name": "DataSchema", "size": 2165 },
                         { "name": "DataSet", "size": 586 },
                         { "name": "DataSource", "size": 3331 },
                         { "name": "DataTable", "size": 772 },
-                        { "name": "DataUtil", "size": 3322 }
-                    ]
+                        { "name": "DataUtil", "size": 3322 },
+                    ],
                 },
                 {
                     "name": "display",
@@ -108,14 +106,14 @@ namespace nvd3_test_sunburst {
                         { "name": "DirtySprite", "size": 8833 },
                         { "name": "LineSprite", "size": 1732 },
                         { "name": "RectSprite", "size": 3623 },
-                        { "name": "TextSprite", "size": 10066 }
-                    ]
+                        { "name": "TextSprite", "size": 10066 },
+                    ],
                 },
                 {
                     "name": "flex",
                     "children": [
-                        { "name": "FlareVis", "size": 4116 }
-                    ]
+                        { "name": "FlareVis", "size": 4116 },
+                    ],
                 },
                 {
                     "name": "physics",
@@ -127,8 +125,8 @@ namespace nvd3_test_sunburst {
                         { "name": "Particle", "size": 2822 },
                         { "name": "Simulation", "size": 9983 },
                         { "name": "Spring", "size": 2213 },
-                        { "name": "SpringForce", "size": 1681 }
-                    ]
+                        { "name": "SpringForce", "size": 1681 },
+                    ],
                 },
                 {
                     "name": "query",
@@ -185,8 +183,8 @@ namespace nvd3_test_sunburst {
                                 { "name": "variance", "size": 335 },
                                 { "name": "where", "size": 299 },
                                 { "name": "xor", "size": 354 },
-                                { "name": "_", "size": 264 }
-                            ]
+                                { "name": "_", "size": 264 },
+                            ],
                         },
                         { "name": "Minimum", "size": 843 },
                         { "name": "Not", "size": 1554 },
@@ -197,8 +195,8 @@ namespace nvd3_test_sunburst {
                         { "name": "Sum", "size": 791 },
                         { "name": "Variable", "size": 1124 },
                         { "name": "Variance", "size": 1876 },
-                        { "name": "Xor", "size": 1101 }
-                    ]
+                        { "name": "Xor", "size": 1101 },
+                    ],
                 },
                 {
                     "name": "scale",
@@ -212,8 +210,8 @@ namespace nvd3_test_sunburst {
                         { "name": "RootScale", "size": 1756 },
                         { "name": "Scale", "size": 4268 },
                         { "name": "ScaleType", "size": 1821 },
-                        { "name": "TimeScale", "size": 5833 }
-                    ]
+                        { "name": "TimeScale", "size": 5833 },
+                    ],
                 },
                 {
                     "name": "util",
@@ -228,8 +226,8 @@ namespace nvd3_test_sunburst {
                             "name": "heap",
                             "children": [
                                 { "name": "FibonacciHeap", "size": 9354 },
-                                { "name": "HeapNode", "size": 1233 }
-                            ]
+                                { "name": "HeapNode", "size": 1233 },
+                            ],
                         },
                         { "name": "IEvaluable", "size": 335 },
                         { "name": "IPredicate", "size": 383 },
@@ -239,8 +237,8 @@ namespace nvd3_test_sunburst {
                             "children": [
                                 { "name": "DenseMatrix", "size": 3165 },
                                 { "name": "IMatrix", "size": 2815 },
-                                { "name": "SparseMatrix", "size": 3366 }
-                            ]
+                                { "name": "SparseMatrix", "size": 3366 },
+                            ],
                         },
                         { "name": "Maths", "size": 17705 },
                         { "name": "Orientation", "size": 1486 },
@@ -250,15 +248,15 @@ namespace nvd3_test_sunburst {
                                 { "name": "ColorPalette", "size": 6367 },
                                 { "name": "Palette", "size": 1229 },
                                 { "name": "ShapePalette", "size": 2059 },
-                                { "name": "SizePalette", "size": 2291 }
-                            ]
+                                { "name": "SizePalette", "size": 2291 },
+                            ],
                         },
                         { "name": "Property", "size": 5559 },
                         { "name": "Shapes", "size": 19118 },
                         { "name": "Sort", "size": 6887 },
                         { "name": "Stats", "size": 6557 },
-                        { "name": "Strings", "size": 22026 }
-                    ]
+                        { "name": "Strings", "size": 22026 },
+                    ],
                 },
                 {
                     "name": "vis",
@@ -270,8 +268,8 @@ namespace nvd3_test_sunburst {
                                 { "name": "Axis", "size": 24593 },
                                 { "name": "AxisGridLine", "size": 652 },
                                 { "name": "AxisLabel", "size": 636 },
-                                { "name": "CartesianAxes", "size": 6703 }
-                            ]
+                                { "name": "CartesianAxes", "size": 6703 },
+                            ],
                         },
                         {
                             "name": "controls",
@@ -286,8 +284,8 @@ namespace nvd3_test_sunburst {
                                 { "name": "IControl", "size": 763 },
                                 { "name": "PanZoomControl", "size": 5222 },
                                 { "name": "SelectionControl", "size": 7862 },
-                                { "name": "TooltipControl", "size": 8435 }
-                            ]
+                                { "name": "TooltipControl", "size": 8435 },
+                            ],
                         },
                         {
                             "name": "data",
@@ -303,13 +301,13 @@ namespace nvd3_test_sunburst {
                                         { "name": "ArrowType", "size": 698 },
                                         { "name": "EdgeRenderer", "size": 5569 },
                                         { "name": "IRenderer", "size": 353 },
-                                        { "name": "ShapeRenderer", "size": 2247 }
-                                    ]
+                                        { "name": "ShapeRenderer", "size": 2247 },
+                                    ],
                                 },
                                 { "name": "ScaleBinding", "size": 11275 },
                                 { "name": "Tree", "size": 7147 },
-                                { "name": "TreeBuilder", "size": 9930 }
-                            ]
+                                { "name": "TreeBuilder", "size": 9930 },
+                            ],
                         },
                         {
                             "name": "events",
@@ -317,16 +315,16 @@ namespace nvd3_test_sunburst {
                                 { "name": "DataEvent", "size": 2313 },
                                 { "name": "SelectionEvent", "size": 1880 },
                                 { "name": "TooltipEvent", "size": 1701 },
-                                { "name": "VisualizationEvent", "size": 1117 }
-                            ]
+                                { "name": "VisualizationEvent", "size": 1117 },
+                            ],
                         },
                         {
                             "name": "legend",
                             "children": [
                                 { "name": "Legend", "size": 20859 },
                                 { "name": "LegendItem", "size": 4614 },
-                                { "name": "LegendRange", "size": 10530 }
-                            ]
+                                { "name": "LegendRange", "size": 10530 },
+                            ],
                         },
                         {
                             "name": "operator",
@@ -336,8 +334,8 @@ namespace nvd3_test_sunburst {
                                     "children": [
                                         { "name": "BifocalDistortion", "size": 4461 },
                                         { "name": "Distortion", "size": 6314 },
-                                        { "name": "FisheyeDistortion", "size": 3444 }
-                                    ]
+                                        { "name": "FisheyeDistortion", "size": 3444 },
+                                    ],
                                 },
                                 {
                                     "name": "encoder",
@@ -346,16 +344,16 @@ namespace nvd3_test_sunburst {
                                         { "name": "Encoder", "size": 4060 },
                                         { "name": "PropertyEncoder", "size": 4138 },
                                         { "name": "ShapeEncoder", "size": 1690 },
-                                        { "name": "SizeEncoder", "size": 1830 }
-                                    ]
+                                        { "name": "SizeEncoder", "size": 1830 },
+                                    ],
                                 },
                                 {
                                     "name": "filter",
                                     "children": [
                                         { "name": "FisheyeTreeFilter", "size": 5219 },
                                         { "name": "GraphDistanceFilter", "size": 3165 },
-                                        { "name": "VisibilityFilter", "size": 3509 }
-                                    ]
+                                        { "name": "VisibilityFilter", "size": 3509 },
+                                    ],
                                 },
                                 { "name": "IOperator", "size": 1286 },
                                 {
@@ -363,8 +361,8 @@ namespace nvd3_test_sunburst {
                                     "children": [
                                         { "name": "Labeler", "size": 9956 },
                                         { "name": "RadialLabeler", "size": 3899 },
-                                        { "name": "StackedAreaLabeler", "size": 3202 }
-                                    ]
+                                        { "name": "StackedAreaLabeler", "size": 3202 },
+                                    ],
                                 },
                                 {
                                     "name": "layout",
@@ -383,20 +381,20 @@ namespace nvd3_test_sunburst {
                                         { "name": "RadialTreeLayout", "size": 12348 },
                                         { "name": "RandomLayout", "size": 870 },
                                         { "name": "StackedAreaLayout", "size": 9121 },
-                                        { "name": "TreeMapLayout", "size": 9191 }
-                                    ]
+                                        { "name": "TreeMapLayout", "size": 9191 },
+                                    ],
                                 },
                                 { "name": "Operator", "size": 2490 },
                                 { "name": "OperatorList", "size": 5248 },
                                 { "name": "OperatorSequence", "size": 4190 },
                                 { "name": "OperatorSwitch", "size": 2581 },
-                                { "name": "SortOperator", "size": 2023 }
-                            ]
+                                { "name": "SortOperator", "size": 2023 },
+                            ],
                         },
-                        { "name": "Visualization", "size": 16540 }
-                    ]
-                }
-            ]
+                        { "name": "Visualization", "size": 16540 },
+                    ],
+                },
+            ],
         }];
     }
 }

@@ -22,18 +22,20 @@ class ReactabularDndTestComponent extends React.Component<Props> {
     };
 
     render() {
-        return <div>
-            <Table.Provider
-                columns={this.props.columns}
-                renderers={this.renderers}
-            >
-                <Table.Header />
-                <Table.Body
-                    rows={this.props.rows}
-                    rowKey="id"
-                />
-            </Table.Provider>
-        </div>;
+        return (
+            <div>
+                <Table.Provider
+                    columns={this.props.columns}
+                    renderers={this.renderers}
+                >
+                    <Table.Header />
+                    <Table.Body
+                        rows={this.props.rows}
+                        rowKey="id"
+                    />
+                </Table.Provider>
+            </div>
+        );
     }
 }
 export default ReactabularDndTestComponent;

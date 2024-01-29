@@ -62,8 +62,8 @@ declare class DataTable extends DataTable_base {
         expandAll: string;
         sort: string;
         select: string;
-        'select-all': string;
-        'action-bar-cancel': string;
+        "select-all": string;
+        "action-bar-cancel": string;
     };
     static get options(): DataTableOptions;
 }

@@ -7,6 +7,7 @@ export class WebGLCapabilities {
     constructor(gl: WebGLRenderingContext, extensions: any, parameters: WebGLCapabilitiesParameters);
 
     readonly isWebGL2: boolean;
+    readonly drawBuffers: boolean;
     precision: string;
     logarithmicDepthBuffer: boolean;
     maxTextures: number;
@@ -20,6 +21,7 @@ export class WebGLCapabilities {
     vertexTextures: boolean;
     floatFragmentTextures: boolean;
     floatVertexTextures: boolean;
+    maxSamples: number;
 
     getMaxAnisotropy(): number;
     getMaxPrecision(precision: string): string;

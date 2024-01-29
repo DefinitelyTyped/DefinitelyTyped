@@ -1,9 +1,3 @@
-// Type definitions for non-npm package Google Identity Services JavaScript SDK 0.0
-// Project: https://developers.google.com/identity/oauth2/web/reference/js-reference
-//     https://developers.google.com/identity/gsi/web/reference/js-reference
-// Definitions by: Arthur E. Jones <https://github.com/partylich>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace google.accounts {
     namespace oauth2 {
         /**
@@ -38,7 +32,32 @@ declare namespace google.accounts {
          */
         function revoke(accessToken: string, done: () => void): void;
 
+        interface ClientConfigError extends Error {
+            message: string;
+            stack?: string;
+            type: "unknown" | "popup_closed" | "popup_failed_to_open";
+        }
+
         interface OverridableTokenClientConfig {
+            /**
+             * Optional. A space-delimited list of scopes that identify the
+             * resources that your application could access on the user's
+             * behalf. These values inform the consent screen that Google
+             * displays to the user.
+             */
+            scope?: string;
+
+            /**
+             * Optional, defaults to true.
+             * Enables applications to use incremental authorization
+             * to request access to additional scopes in context.
+             * If you set this parameter's value to false and the
+             * authorization request is granted, then the new access token
+             * will only cover any scopes to which the scope requested
+             * in this OverridableTokenClientConfig.
+             */
+            include_granted_scopes?: boolean;
+
             /**
              * Optional. A space-delimited, case-sensitive list of prompts to
              * present the user.
@@ -46,18 +65,44 @@ declare namespace google.accounts {
             prompt?: string;
 
             /**
-             * Optional. If set to false, more granular Google Account
-             * permissions will be disabled for clients created before 2019. No
-             * effect for newer clients, since more granular permissions is
-             * always enabled for them.
+             * Optional, defaults to true. If set to false, more granular Google
+             * Account permissions would be disabled for OAuth client IDs
+             * created before 2019. If both enable_granular_consent and
+             * enable_serial_consent are set, only enable_granular_consent value
+             * would take effect and enable_serial_consent value would be
+             * ignored.
+             *
+             * No effect for newer OAuth client IDs, since more granular
+             * permissions is always enabled for them.
+             */
+            enable_granular_consent?: boolean;
+
+            /**
+             * Deprecated, you should use enable_granular_consent instead.
+             * This has the same effect as enable_granular_consent. Existing
+             * applications that use enable_serial_consent can continue to do
+             * so, but you are encouraged to update your code to use
+             * enable_granular_consent in your next application update.
              */
             enable_serial_consent?: boolean;
 
             /**
              * Optional. If your application knows which user should authorize
-             * the request, it can use this property to provide a hint to
-             * Google. The email address for the target user. For more
-             * information, see the login_hint field in the OpenID Connect docs.
+             * the request, it can use this property to provide a login hint to
+             * Google. When successful, account selection is skipped. The email
+             * address or ID token sub field value for the target user. For more
+             * information, see the login_hint field in the OpenID Connect
+             * documentation.
+             */
+            login_hint?: string;
+
+            /**
+             * Deprecated, you should use login_hint instead.
+             * Optional.
+             * If your application knows which user should authorize the
+             * request, it can use this property to provide a hint to Google.
+             * The email address for the target user. For more information, see
+             * the login_hint field in the OpenID Connect docs.
              */
             hint?: string;
 
@@ -85,7 +130,7 @@ declare namespace google.accounts {
 
         /**
          * A TokenResponse JavaScript object will be passed to your callback
-         * method in the popup UX.
+         * method (as defined in TokenClientConfig) in the popup UX.
          */
         interface TokenResponse {
             /**
@@ -117,7 +162,7 @@ declare namespace google.accounts {
             /**
              * A space-delimited list of scopes that are approved by the user.
              */
-            scopes: string;
+            scope: string;
 
             /**
              * The string value that your application uses to maintain state
@@ -145,6 +190,47 @@ declare namespace google.accounts {
             error_uri: string;
         }
 
+        /**
+         * A CodeResponse JavaScript object will be passed to your callback
+         * method (as defined in CodeClientConfig) in the popup UX.
+         */
+        interface CodeResponse {
+            /**
+             * The authorization code of a successful token response.
+             */
+            code: string;
+
+            /**
+             * A space-delimited list of scopes that are approved by the user.
+             */
+            scope: string;
+
+            /**
+             * The string value that your application uses to maintain state
+             * between your authorization request and the response.
+             */
+            state: string;
+
+            /**
+             * A single ASCII error code.
+             */
+            error: string;
+
+            /**
+             * Human-readable ASCII text providing additional information,
+             * used to assist the client developer in understanding
+             * the error that occurred.
+             */
+            error_description: string;
+
+            /**
+             * A URI identifying a human-readable web page with information
+             * about the error, used to provide the client developer with
+             * additional information about the error.
+             */
+            error_uri: string;
+        }
+
         interface TokenClientConfig {
             /**
              * Required.
@@ -160,12 +246,23 @@ declare namespace google.accounts {
             callback: (tokenResponse: TokenResponse) => void;
 
             /**
-             * Optional.
+             * Required.
              * A space-delimited list of scopes that identify the resources that
              * your application could access on the user's behalf. These values
              * inform the consent screen that Google displays to the user.
              */
-            scope?: string;
+            scope: string;
+
+            /**
+             * Optional, defaults to true.
+             * Enables applications to use incremental authorization
+             * to request access to additional scopes in context.
+             * If you set this parameter's value to false and the
+             * authorization request is granted, then the new access token
+             * will only cover any scopes to which the scope requested
+             * in this TokenClientConfig.
+             */
+            include_granted_scopes?: boolean;
 
             /**
              * Optional, defaults to 'select_account'.
@@ -179,18 +276,42 @@ declare namespace google.accounts {
              * 'consent' Prompt the user for consent.
              * 'select_account' Prompt the user to select an account.
              */
-            prompt?: '' | 'none' | 'consent' | 'select_account';
+            prompt?: "" | "none" | "consent" | "select_account";
 
             /**
-             * Optional, defaults to true.
-             * If set to false, more granular Google Account permissions will be
-             * disabled for clients created before 2019. No effect for newer
-             * clients, since more granular permissions is always enabled for
-             * them.
+             * Optional, defaults to true. If set to false, more granular Google
+             * Account permissions would be disabled for OAuth client IDs
+             * created before 2019. If both enable_granular_consent and
+             * enable_serial_consent are set, only enable_granular_consent value
+             * would take effect and enable_serial_consent value would be
+             * ignored.
+             *
+             * No effect for newer OAuth client IDs, since more granular
+             * permissions is always enabled for them.
+             */
+            enable_granular_consent?: boolean;
+
+            /**
+             * Deprecated, you should use enable_granular_consent instead.
+             * This has the same effect as enable_granular_consent. Existing
+             * applications that use enable_serial_consent can continue to do
+             * so, but you are encouraged to update your code to use
+             * enable_granular_consent in your next application update.
              */
             enable_serial_consent?: boolean;
 
             /**
+             * Optional. If your application knows which user should authorize
+             * the request, it can use this property to provide a login hint to
+             * Google. When successful, account selection is skipped. The email
+             * address or ID token sub field value for the target user. For more
+             * information, see the login_hint field in the OpenID Connect
+             * documentation.
+             */
+            login_hint?: string;
+
+            /**
+             * Deprecated, you should use login_hint instead.
              * Optional.
              * If your application knows which user should authorize the
              * request, it can use this property to provide a hint to Google.
@@ -205,6 +326,15 @@ declare namespace google.accounts {
              * to, use this to provide a hint to Google. For more information,
              * see the hd field in the OpenID Connect docs.
              */
+            hd?: string;
+
+            /**
+             * Deprecated, you should use hd instead.
+             * Optional.
+             * If your application knows the Workspace domain the user belongs
+             * to, use this to provide a hint to Google. For more information,
+             * see the hd field in the OpenID Connect docs.
+             */
             hosted_domain?: string;
 
             /**
@@ -214,6 +344,13 @@ declare namespace google.accounts {
              * server's response.
              */
             state?: string;
+
+            /**
+             * Optional. The JavaScript function that handles some non-OAuth
+             * errors, such as the popup window is failed to open; or closed
+             * before an OAuth response is returned.
+             */
+            error_callback?: (error: ClientConfigError) => void;
         }
 
         interface CodeClientConfig {
@@ -232,6 +369,17 @@ declare namespace google.accounts {
             scope: string;
 
             /**
+             * Optional, defaults to true.
+             * Enables applications to use incremental authorization
+             * to request access to additional scopes in context.
+             * If you set this parameter's value to false and the
+             * authorization request is granted, then the new access token
+             * will only cover any scopes to which the scope requested
+             * in this CodeClientConfig.
+             */
+            include_granted_scopes?: boolean;
+
+            /**
              * Required for redirect UX. Determines where the API server
              * redirects the user after the user completes the authorization
              * flow. The value must exactly match one of the authorized redirect
@@ -246,7 +394,7 @@ declare namespace google.accounts {
              * returned code response. The property will be ignored by the
              * redirect UX.
              */
-            callback?: (response: unknown) => void;
+            callback?: (response: CodeResponse) => void;
 
             /**
              * Optional. Recommended for redirect UX. Specifies any string value
@@ -257,13 +405,38 @@ declare namespace google.accounts {
 
             /**
              * Optional, defaults to true. If set to false, more granular Google
-             * Account permissions will be disabled for clients created before
-             * 2019. No effect for newer clients, since more granular
+             * Account permissions would be disabled for OAuth client IDs
+             * created before 2019. If both enable_granular_consent and
+             * enable_serial_consent are set, only enable_granular_consent value
+             * would take effect and enable_serial_consent value would be
+             * ignored.
+             *
+             * No effect for newer OAuth client IDs, since more granular
              * permissions is always enabled for them.
+             */
+            enable_granular_consent?: boolean;
+
+            /**
+             * Deprecated, you should use enable_granular_consent instead.
+             * This has the same effect as enable_granular_consent. Existing
+             * applications that use enable_serial_consent can continue to do
+             * so, but you are encouraged to update your code to use
+             * enable_granular_consent in your next application update.
              */
             enable_serial_consent?: boolean;
 
             /**
+             * Optional. If your application knows which user should authorize
+             * the request, it can use this property to provide a login hint to
+             * Google. When successful, account selection is skipped. The email
+             * address or ID token sub field value for the target user. For more
+             * information, see the login_hint field in the OpenID Connect
+             * documentation.
+             */
+            login_hint?: string;
+
+            /**
+             * Deprecated, you should use login_hint instead.
              * Optional. If your application knows which user should authorize
              * the request, it can use this property to provide a hint to
              * Google. The email address for the target user. For more
@@ -272,6 +445,15 @@ declare namespace google.accounts {
             hint?: string;
 
             /**
+             * Optional.
+             * If your application knows the Workspace domain the user belongs
+             * to, use this to provide a hint to Google. For more information,
+             * see the hd field in the OpenID Connect docs.
+             */
+            hd?: string;
+
+            /**
+             * Deprecated, you should use hd instead.
              * Optional. If your application knows the Workspace domain the user
              * belongs to, use this to provide a hint to Google. For more
              * information, see the hd field in the OpenID Connect docs.
@@ -283,13 +465,20 @@ declare namespace google.accounts {
              * default, it will open the consent flow in a popup. Valid values
              * are popup and redirect.
              */
-            ux_mode?: 'popup' | 'redirect';
+            ux_mode?: "popup" | "redirect";
 
             /**
              * Optional, defaults to 'false'. Boolean value to prompt the user
              * to select an account.
              */
             select_account?: boolean;
+
+            /**
+             * Optional. The JavaScript function that handles some non-OAuth
+             * errors, such as the popup window is failed to open; or closed
+             * before an OAuth response is returned.
+             */
+            error_callback?: (error: ClientConfigError) => void;
         }
     }
 
@@ -304,7 +493,7 @@ declare namespace google.accounts {
          * Displays the One Tap prompt or the browser native credential manager
          * after the initialize() method is invoked.
          */
-        function prompt(momentListener: (promptMomentNotification: PromptMomentNotification) => void): void;
+        function prompt(momentListener?: (promptMomentNotification: PromptMomentNotification) => void): void;
 
         /**
          * Renders a Sign In With Google button in your web pages.
@@ -414,7 +603,7 @@ declare namespace google.accounts {
              *   signup "Sign up with Google"
              *   use    "Use with Google"
              */
-            context?: 'signin' | 'signup' | 'use';
+            context?: "signin" | "signup" | "use";
 
             /**
              * If you need to call One Tap in the parent domain and its
@@ -427,7 +616,7 @@ declare namespace google.accounts {
              * The Sign In With Google button UX flow. The default value is
              * popup.
              */
-            ux_mode?: 'popup' | 'redirect';
+            ux_mode?: "popup" | "redirect";
 
             /**
              * The origins that are allowed to embed the intermediate iframe.
@@ -441,6 +630,31 @@ declare namespace google.accounts {
              * manually close One Tap.
              */
             intermediate_iframe_close_callback?: () => void;
+
+            /**
+             * This field determines if the upgraded One Tap UX should be enabled
+             * on browsers that support Intelligent Tracking Prevention (ITP).
+             */
+            itp_support?: boolean;
+
+            /**
+             * An email address or an ID token 'sub' value. Google will use the
+             * value as a hint of which user to sign in. If successful, account
+             * selection is skipped.
+             */
+            login_hint?: string;
+
+            /**
+             * Limits displayed accounts to the provided Workspace domain name.
+             * Provide a fully qualified domain name or * (wildcard).
+             */
+            hd?: string;
+
+            /**
+             * Allow the browser to control user sign-in prompts and mediate the
+             * sign-in flow between your website and Google. Defaults to false.
+             */
+            use_fedcm_for_prompt?: boolean;
         }
 
         interface PromptMomentNotification {
@@ -465,14 +679,14 @@ declare namespace google.accounts {
              * The detailed reason why the UI isn't displayed.
              */
             getNotDisplayedReason():
-                | 'browser_not_supported'
-                | 'invalid_client'
-                | 'missing_client_id'
-                | 'opt_out_or_no_session'
-                | 'secure_http_required'
-                | 'suppressed_by_user'
-                | 'unregistered_origin'
-                | 'unknown_reason';
+                | "browser_not_supported"
+                | "invalid_client"
+                | "missing_client_id"
+                | "opt_out_or_no_session"
+                | "secure_http_required"
+                | "suppressed_by_user"
+                | "unregistered_origin"
+                | "unknown_reason";
 
             /**
              * Is this notification for a skipped moment?
@@ -482,7 +696,7 @@ declare namespace google.accounts {
             /**
              * The detailed reason for the skipped moment.
              */
-            getSkippedReason(): 'auto_cancel' | 'user_cancel' | 'tap_outside' | 'issuing_failed';
+            getSkippedReason(): "auto_cancel" | "user_cancel" | "tap_outside" | "issuing_failed";
 
             /**
              * Is this notification for a dismissed moment?
@@ -492,12 +706,12 @@ declare namespace google.accounts {
             /**
              * The detailed reason for the dismissal.
              */
-            getDismissedReason(): 'credential_returned' | 'cancel_called' | 'flow_restarted';
+            getDismissedReason(): "credential_returned" | "cancel_called" | "flow_restarted";
 
             /**
              * Return a string for the moment type.
              */
-            getMomentType(): 'display' | 'skipped' | 'dismissed';
+            getMomentType(): "display" | "skipped" | "dismissed";
         }
 
         /**
@@ -520,7 +734,7 @@ declare namespace google.accounts {
             /**
              * The button type: icon, or standard button.
              */
-            type: 'standard' | 'icon';
+            type: "standard" | "icon";
 
             /**
              * The button theme. For example, filled_blue or filled_black.
@@ -528,12 +742,12 @@ declare namespace google.accounts {
              * filled_blue  A blue-filled button theme:
              * filled_black  A black-filled button theme:
              */
-            theme?: 'outline' | 'filled_blue' | 'filled_black';
+            theme?: "outline" | "filled_blue" | "filled_black";
 
             /**
              * The button size. For example, small or large.
              */
-            size?: 'small' | 'medium' | 'large';
+            size?: "small" | "medium" | "large";
 
             /**
              * The button text. The default value is signin_with.
@@ -546,24 +760,24 @@ declare namespace google.accounts {
              * continue_with  The button text is “Continue with Google”:
              * signup_with  The button text is “Sign in”:
              */
-            text?: 'signin_with' | 'signup_with' | 'continue_with' | 'signin';
+            text?: "signin_with" | "signup_with" | "continue_with" | "signin";
 
             /**
              * The button shape. The default value is rectangular.
              */
-            shape?: 'rectangular' | 'pill' | 'circle' | 'square';
+            shape?: "rectangular" | "pill" | "circle" | "square";
 
             /**
              * The alignment of the Google logo. The default value is left.
              * This attribute only applies to the standard button type.
              */
-            logo_alignment?: 'left' | 'center';
+            logo_alignment?: "left" | "center";
 
             /**
              * The minimum button width, in pixels. The maximum width is 400
              * pixels.
              */
-            width?: string;
+            width?: number;
 
             /**
              * The pre-set locale of the button text. If it's not set, the
@@ -571,6 +785,12 @@ declare namespace google.accounts {
              * is used.
              */
             locale?: string;
+
+            /**
+             * You can define a JavaScript function to be called when the
+             * Sign in with Google button is clicked.
+             */
+            click_listener?: () => void;
         }
     }
 }

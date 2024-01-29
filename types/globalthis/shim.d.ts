@@ -1,4 +1,4 @@
-import implementation = require('./implementation');
+import implementation = require("./implementation");
 
 /**
  * Installs the `globalThis` property onto the global object.

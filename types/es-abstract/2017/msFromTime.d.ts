@@ -1,2 +1,2 @@
-import msFromTime = require('../2016/msFromTime');
+import msFromTime = require("../2016/msFromTime");
 export = msFromTime;

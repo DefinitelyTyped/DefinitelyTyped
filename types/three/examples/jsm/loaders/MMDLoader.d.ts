@@ -1,11 +1,11 @@
-import { Camera, AnimationClip, FileLoader, Loader, LoadingManager, SkinnedMesh } from '../../../src/Three';
+import { Camera, AnimationClip, FileLoader, Loader, LoadingManager, SkinnedMesh } from '../../../src/Three.js';
 
 export interface MMDLoaderAnimationObject {
     animation: AnimationClip;
     mesh: SkinnedMesh;
 }
 
-export class MMDLoader extends Loader {
+export class MMDLoader extends Loader<SkinnedMesh> {
     constructor(manager?: LoadingManager);
     animationBuilder: object;
     animationPath: string;
@@ -13,13 +13,6 @@ export class MMDLoader extends Loader {
     meshBuilder: object;
     parser: object | null;
 
-    load(
-        url: string,
-        onLoad: (mesh: SkinnedMesh) => void,
-        onProgress?: (event: ProgressEvent) => void,
-        onError?: (event: ErrorEvent) => void,
-    ): void;
-    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<SkinnedMesh>;
     loadAnimation(
         url: string,
         object: SkinnedMesh | Camera,

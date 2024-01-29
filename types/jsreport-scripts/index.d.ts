@@ -1,9 +1,4 @@
-// Type definitions for jsreport-scripts 2.6
-// Project: https://github.com/jsreport/jsreport-scripts
-// Definitions by: pofider <https://github.com/pofider>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { ExtensionDefinition, Template } from 'jsreport-core';
+import { ExtensionDefinition, Template } from "jsreport-core";
 
 declare namespace JsReportScripts {
     interface TemplateScript {
@@ -21,7 +16,7 @@ declare namespace JsReportScripts {
     }
 }
 
-declare module 'jsreport-core' {
+declare module "jsreport-core" {
     interface TemplateRegistry {
         ScriptsTemplate: JsReportScripts.ScriptsTemplate;
     }

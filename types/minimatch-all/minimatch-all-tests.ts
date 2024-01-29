@@ -1,10 +1,10 @@
-import minimatchAll = require('minimatch-all');
+import minimatchAll = require("minimatch-all");
 
 // $ExpectType boolean
-minimatchAll('/dir', ['**', '!/dir']);
+minimatchAll("/dir", ["**", "!/dir"]);
 
 // $ExpectType boolean
-minimatchAll('/dir', ['**', '!/dir'], { nonegate: true });
+minimatchAll("/dir", ["**", "!/dir"], { nonegate: true });
 
-// $ExpectError
-minimatchAll('/dir', 'glob pattern');
+// @ts-expect-error
+minimatchAll("/dir", "glob pattern");

@@ -1,10 +1,10 @@
-import ColorHash = require('color-hash');
+import ColorHash = require("color-hash");
 
 const colorHash = new ColorHash();
 
-const result1: [number, number, number] = colorHash.hsl('Hello World');
-const result2: [number, number, number] = colorHash.rgb('Hello World');
-const result3: string = colorHash.hex('Hello World');
+const result1: [number, number, number] = colorHash.hsl("Hello World");
+const result2: [number, number, number] = colorHash.rgb("Hello World");
+const result3: string = colorHash.hex("Hello World");
 
 // Custom Hash
 const customHash = (str: string) => 5;

@@ -1,16 +1,11 @@
-// Type definitions for react-native-wheel-pick 1.1
-// Project: https://github.com/TronNatthakorn/react-native-wheel-pick#readme
-// Definitions by: seongjoojin <https://github.com/seongjoojin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as React from 'react';
-import { StyleProp, ViewStyle, ViewProps } from 'react-native';
+import * as React from "react";
+import { StyleProp, ViewProps, ViewStyle } from "react-native";
 
 export interface DatePickerIOSProps extends ViewProps {
     date?: Date | undefined;
     maximumDate?: Date | undefined;
     minimumDate?: Date | undefined;
-    mode?: 'date' | 'time' | 'datetime' | undefined;
+    mode?: "date" | "time" | "datetime" | undefined;
     onDateChange: (newDate: Date) => void;
 }
 
@@ -24,7 +19,7 @@ export interface DatePickerAndroidProps extends ViewProps {
     date?: Date | undefined;
     maximumDate?: Date | undefined;
     minimumDate?: Date | undefined;
-    mode?: 'date' | 'time' | 'datetime' | undefined;
+    mode?: "date" | "time" | "datetime" | undefined;
     onDateChange: (newDate: Date) => void;
     style?: StyleProp<ViewStyle> | undefined;
     textColor?: string | undefined;
@@ -36,7 +31,7 @@ export interface DatePickerProps extends DatePickerAndroidProps, DatePickerIOSPr
     date?: Date | undefined;
     maximumDate?: Date | undefined;
     minimumDate?: Date | undefined;
-    mode?: 'date' | 'time' | 'datetime' | undefined;
+    mode?: "date" | "time" | "datetime" | undefined;
     onDateChange: (newDate: Date) => void;
     style?: StyleProp<ViewStyle> | undefined;
 }

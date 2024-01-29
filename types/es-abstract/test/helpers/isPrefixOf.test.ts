@@ -1,3 +1,3 @@
-import isPrefixOf = require('es-abstract/helpers/isPrefixOf');
+import isPrefixOf = require("es-abstract/helpers/isPrefixOf");
 
-isPrefixOf('prefix', 'string'); // $ExpectType boolean
+isPrefixOf("prefix", "string"); // $ExpectType boolean

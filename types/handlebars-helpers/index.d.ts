@@ -1,12 +1,9 @@
-// Type definitions for handlebars-helpers 0.5
-// Project: http://assemble.io/helpers/, https://github.com/helpers/handlebars-helpers
-// Definitions by: Toilal <https://github.com/Toilal>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+import * as Handlebars from "handlebars";
 
-import * as Handlebars from 'handlebars';
-
-declare function helpers(groups?: helpers.Options | string | string[], options?: helpers.Options): { [name: string]: Handlebars.HelperDelegate };
+declare function helpers(
+    groups?: helpers.Options | string | string[],
+    options?: helpers.Options,
+): { [name: string]: Handlebars.HelperDelegate };
 
 interface Utils {
     /**

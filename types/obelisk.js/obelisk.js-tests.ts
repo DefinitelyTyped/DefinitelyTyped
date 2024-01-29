@@ -1,7 +1,7 @@
-import * as obelisk from 'obelisk.js';
+import * as obelisk from "obelisk.js";
 
 function test_brick() {
-    var canvas = <HTMLCanvasElement>document.getElementById('canvas-demo');
+    var canvas = <HTMLCanvasElement> document.getElementById("canvas-demo");
 
     var point = new obelisk.Point(500, 20);
     var pixelView = new obelisk.PixelView(canvas, point);
@@ -16,7 +16,7 @@ function test_brick() {
 }
 
 function test_cube() {
-    var canvas = <HTMLCanvasElement>document.getElementById('canvas-demo');
+    var canvas = <HTMLCanvasElement> document.getElementById("canvas-demo");
 
     var point = new obelisk.Point(500, 240);
     var pixelView = new obelisk.PixelView(canvas, point);
@@ -28,7 +28,7 @@ function test_cube() {
 }
 
 function test_pyramid() {
-    var canvas = <HTMLCanvasElement>document.getElementById('canvas-demo');
+    var canvas = <HTMLCanvasElement> document.getElementById("canvas-demo");
 
     var point = new obelisk.Point(500, 240);
     var pixelView = new obelisk.PixelView(canvas, point);
@@ -40,7 +40,7 @@ function test_pyramid() {
 }
 
 function test_side() {
-    var canvas = <HTMLCanvasElement>document.getElementById('canvas-demo');
+    var canvas = <HTMLCanvasElement> document.getElementById("canvas-demo");
 
     var point = new obelisk.Point(500, 200);
     var pixelView = new obelisk.PixelView(canvas, point);
@@ -59,7 +59,7 @@ function test_side() {
 }
 
 function test_slope() {
-    var canvas = <HTMLCanvasElement>document.getElementById('canvas-demo');
+    var canvas = <HTMLCanvasElement> document.getElementById("canvas-demo");
 
     var point = new obelisk.Point(550, 50);
     var pixelView = new obelisk.PixelView(canvas, point);
@@ -99,9 +99,9 @@ function test_gif_rendering() {
     var WIDTH = 64;
     var HEIGHT = 28;
 
-    var img = <HTMLCanvasElement>document.getElementById('animation');
-    var ctx = <CanvasRenderingContext2D>document.createElement('canvas').getContext("2d");
-    var canvas = <HTMLCanvasElement>document.getElementById('canvas-uncle');
+    var img = <HTMLCanvasElement> document.getElementById("animation");
+    var ctx = <CanvasRenderingContext2D> document.createElement("canvas").getContext("2d");
+    var canvas = <HTMLCanvasElement> document.getElementById("canvas-uncle");
 
     var stack: any[] = [];
     var size = 8;
@@ -132,7 +132,7 @@ function test_gif_rendering() {
                         cube = new obelisk.Cube(dimension, color, false);
                         stack.push([cube, pixelColor]);
                     }
-                    var p3d = new obelisk.Point3D(x * (size - 2), 0, (HEIGHT - 1 - y) * (size));
+                    var p3d = new obelisk.Point3D(x * (size - 2), 0, (HEIGHT - 1 - y) * size);
                     pixelView.renderObject(cube, p3d);
                 }
             }
@@ -140,7 +140,7 @@ function test_gif_rendering() {
     }
     window.setInterval(draw, 50);
 
-    var canvasFloor = <HTMLCanvasElement>document.getElementById('canvas-floor');
+    var canvasFloor = <HTMLCanvasElement> document.getElementById("canvas-floor");
     var pixelViewFloor = new obelisk.PixelView(canvasFloor, point);
     var floorDimension = new obelisk.CubeDimension((size - 2) * (WIDTH + 2), (size - 2) * 9, size);
     var floor = new obelisk.Cube(floorDimension, new obelisk.CubeColor(), false);
@@ -148,7 +148,7 @@ function test_gif_rendering() {
 }
 
 function test_line_rendering() {
-    var canvas = document.getElementById('canvas-demo') as HTMLCanvasElement;
+    var canvas = document.getElementById("canvas-demo") as HTMLCanvasElement;
 
     // create pixel view container in point
     var point = new obelisk.Point(400, 200);

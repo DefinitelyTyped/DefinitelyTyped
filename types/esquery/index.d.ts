@@ -1,10 +1,4 @@
-// Type definitions for esquery 1.0
-// Project: https://github.com/jrfeenst/esquery
-// Definitions by: cherryblossom000 <https://github.com/cherryblossom000>
-//                 Brad Zacher <https://github.com/bradzacher>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { Node } from 'estree';
+import { Node } from "estree";
 
 export as namespace esquery;
 
@@ -14,19 +8,35 @@ export = query;
 declare function query(ast: Node, selector: string): Node[];
 
 declare namespace query {
+    interface ESQueryOptions {
+        nodeTypeKey?: string;
+        visitorKeys?: { [nodeType: string]: readonly string[] };
+        fallback?: (node: Node) => string[];
+        matchClass?: (className: string, node: Node, ancestry: Node[]) => boolean;
+    }
+
     /** Parse a selector and return its AST. */
     function parse(selector: string): Selector;
     /** From a JS AST and a selector AST, collect all JS AST nodes that match the selector. */
-    function match(ast: Node, selector: Selector): Node[];
+    function match(ast: Node, selector: Selector, options?: ESQueryOptions): Node[];
     /** Given a `node` and its ancestors, determine if `node` is matched by `selector`. */
-    function matches(node: Node, selector: Selector, ancestry: Node[]): boolean;
+    function matches(node: Node, selector: Selector, ancestry?: Node[], options?: ESQueryOptions): boolean;
     /** Query the code AST using the selector string. */
-    function query(ast: Node, selector: string): Node[];
+    function query(ast: Node, selector: string, options?: ESQueryOptions): Node[];
+
+    /** From a JS AST and a selector AST, collect all JS AST nodes that match the selector. */
+    function traverse(
+        ast: Node,
+        selector: string,
+        visitor: (node: Node, parent: Node, ancestry: Node[]) => void,
+        options?: ESQueryOptions,
+    ): void;
 
     //
     // Unions
     //
-    type Selector =  Field
+    type Selector =
+        | Field
         | Type
         | Sequence
         | Identifier
@@ -42,24 +52,11 @@ declare namespace query {
         | Matches
         | Has
         | Class;
-    type MultiSelector = Sequence
-        | Negation
-        | Matches
-        | Has;
-    type BinarySelector = Descendant
-        | Child
-        | Sibling
-        | Adjacent;
-    type NthSelector = NthChild
-        | NthLastChild;
-    type SubjectSelector = NthSelector
-        | BinarySelector
-        | MultiSelector
-        | Identifier
-        | Wildcard
-        | Attribute;
-    type Literal = StringLiteral
-        | NumericLiteral;
+    type MultiSelector = Sequence | Negation | Matches | Has;
+    type BinarySelector = Descendant | Child | Sibling | Adjacent;
+    type NthSelector = NthChild | NthLastChild;
+    type SubjectSelector = NthSelector | BinarySelector | MultiSelector | Identifier | Wildcard | Attribute;
+    type Literal = StringLiteral | NumericLiteral;
 
     //
     // Base Atoms
@@ -74,7 +71,7 @@ declare namespace query {
         index: NumericLiteral;
     }
     interface BinarySelectorAtom extends SubjectSelectorAtom {
-        type: 'child' | 'sibling' | 'adjacent' | 'descendant';
+        type: "child" | "sibling" | "adjacent" | "descendant";
         left: SubjectSelector;
         right: SubjectSelector;
     }
@@ -82,7 +79,7 @@ declare namespace query {
         selectors: SubjectSelector[];
     }
     interface LiteralAtom extends Atom {
-        type: 'literal';
+        type: "literal";
         value: string | number;
     }
 
@@ -96,7 +93,7 @@ declare namespace query {
         value: number;
     }
     interface RegExpLiteral extends Atom {
-        type: 'regexp';
+        type: "regexp";
         value: RegExp;
     }
 
@@ -104,59 +101,59 @@ declare namespace query {
     // Atoms
     //
     interface Field extends Atom {
-        type: 'field';
+        type: "field";
         name: string;
     }
     interface Type extends Atom {
-        type: 'type';
+        type: "type";
         value: string;
     }
     interface Sequence extends MultiSelectorAtom {
-        type: 'compound';
+        type: "compound";
     }
     interface Identifier extends SubjectSelectorAtom {
-        type: 'identifier';
+        type: "identifier";
         value: string;
     }
     interface Wildcard extends SubjectSelectorAtom {
-        type: 'wildcard';
-        value: '*';
+        type: "wildcard";
+        value: "*";
     }
     interface Attribute extends SubjectSelectorAtom {
-        type: 'attribute';
+        type: "attribute";
         name: string;
-        operator?: '=' | '!=' | '>' | '<' | '>=' | '<=' | undefined;
+        operator?: "=" | "!=" | ">" | "<" | ">=" | "<=" | undefined;
         value?: Literal | RegExpLiteral | Type | undefined;
     }
     interface NthChild extends NthSelectorAtom {
-        type: 'nth-child';
+        type: "nth-child";
     }
     interface NthLastChild extends NthSelectorAtom {
-        type: 'nth-last-child';
+        type: "nth-last-child";
     }
     interface Descendant extends BinarySelectorAtom {
-        type: 'descendant';
+        type: "descendant";
     }
     interface Child extends BinarySelectorAtom {
-        type: 'child';
+        type: "child";
     }
     interface Sibling extends BinarySelectorAtom {
-        type: 'sibling';
+        type: "sibling";
     }
     interface Adjacent extends BinarySelectorAtom {
-        type: 'adjacent';
+        type: "adjacent";
     }
     interface Negation extends MultiSelectorAtom {
-        type: 'not';
+        type: "not";
     }
     interface Matches extends MultiSelectorAtom {
-        type: 'matches';
+        type: "matches";
     }
     interface Has extends MultiSelectorAtom {
-        type: 'has';
+        type: "has";
     }
     interface Class extends Atom {
-        type: 'class';
-        name: 'declaration' | 'expression' | 'function' | 'pattern' | 'statement';
+        type: "class";
+        name: "declaration" | "expression" | "function" | "pattern" | "statement";
     }
 }

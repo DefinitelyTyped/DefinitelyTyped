@@ -1,9 +1,3 @@
-// Type definitions for phonegap-plugin-barcodescanner
-// Project: https://github.com/phonegap/phonegap-plugin-barcodescanner
-// Definitions by: Nathan Ainslie <https://www.github.com/nainslie>
-//                 Jeff Wu <https://www.github.com/jeffwu85182>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface CordovaPlugins {
     barcodeScanner: phonegapBarcode.BarcodeScanner;
 }
@@ -21,7 +15,7 @@ declare namespace phonegapBarcode {
         showTorchButton?: boolean | undefined;
         torchOn?: boolean | undefined;
         saveHistory?: boolean | undefined;
-        resultDisplayDuration? :number | undefined;
+        resultDisplayDuration?: number | undefined;
         disableAnimations: boolean;
         prompt?: string | undefined;
         formats?: string | undefined;
@@ -37,8 +31,17 @@ declare namespace phonegapBarcode {
     }
 
     interface BarcodeScanner {
-        scan: (success: ((result: BarcodeScanResult) => any), failure?: ((err: any) => any), opts?: BarcodeScanOptions) => void;
-        encode: (encodingType: EncodingType, data: string, success: ((result: any) => any), failure?: ((err: any) => any)) => void;
+        scan: (
+            success: (result: BarcodeScanResult) => any,
+            failure?: (err: any) => any,
+            opts?: BarcodeScanOptions,
+        ) => void;
+        encode: (
+            encodingType: EncodingType,
+            data: string,
+            success: (result: any) => any,
+            failure?: (err: any) => any,
+        ) => void;
         Encode: EncodingType;
     }
 }

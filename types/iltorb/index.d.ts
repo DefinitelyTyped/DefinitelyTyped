@@ -1,13 +1,6 @@
-// Type definitions for iltorb 2.3
-// Project: https://github.com/MayhemYDG/iltorb
-// Definitions by: Arturas Molcanovas <https://github.com/Alorel>
-//                 Francis Gulotta <https://github.com/reconbot>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node"/>
 
-import { Transform } from 'stream';
+import { Transform } from "stream";
 
 export type BrotliMode = 0 | 1 | 2;
 export type BrotliCompressionQuality = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;

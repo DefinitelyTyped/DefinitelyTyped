@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/twig",
+    "version": "1.12.9999",
+    "projects": [
+        "https://github.com/twigjs/twig.js"
+    ],
+    "devDependencies": {
+        "@types/twig": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Carlos Ballesteros Velasco",
+            "githubUsername": "soywiz"
+        },
+        {
+            "name": "Tim Schumacher",
+            "githubUsername": "enko"
+        },
+        {
+            "name": "Maik Tizziani",
+            "githubUsername": "mtizziani"
+        },
+        {
+            "name": "Chris Frewin",
+            "githubUsername": "princefishthrower"
+        },
+        {
+            "name": "Emmanuel Gautier",
+            "githubUsername": "emmanuelgautier"
+        }
+    ]
+}

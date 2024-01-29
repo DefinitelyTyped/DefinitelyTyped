@@ -1,6 +1,20 @@
 {
-  "private": true,
-  "dependencies": {
-    "rdf-js": "^4.0.2"
-  }
+    "private": true,
+    "name": "@types/rdfjs__to-ntriples",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/rdfjs-base/to-ntriples"
+    ],
+    "dependencies": {
+        "@rdfjs/types": ">=1.0.0"
+    },
+    "devDependencies": {
+        "@types/rdfjs__to-ntriples": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "tpluscode",
+            "githubUsername": "tpluscode"
+        }
+    ]
 }

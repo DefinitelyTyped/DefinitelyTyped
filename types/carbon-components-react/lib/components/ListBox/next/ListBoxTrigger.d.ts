@@ -4,8 +4,8 @@ import { ListBoxMenuIconTranslationKey } from "../ListBoxMenuIcon";
 
 type ExcludedButtonPropKeys = "aria-label" | "className" | "tabIndex" | "title" | "type";
 export interface ListBoxTriggerProps
-    extends Omit<ReactButtonAttr, ExcludedButtonPropKeys>,
-        InternationalProps<ListBoxMenuIconTranslationKey> {
+    extends Omit<ReactButtonAttr, ExcludedButtonPropKeys>, InternationalProps<ListBoxMenuIconTranslationKey>
+{
     isOpen: boolean;
 }
 

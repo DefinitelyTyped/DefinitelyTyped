@@ -1,62 +1,68 @@
 import * as React from "react";
 
-import { connectMenu, connectRefinementList, connectStateResults, SearchState, StateResultsProvided } from "react-instantsearch/connectors";
-import { InstantSearch, SearchBox, Index, Hits, Highlight, Menu } from "react-instantsearch/dom";
-import { values } from 'lodash';
+import { values } from "lodash";
+import {
+    connectMenu,
+    connectRefinementList,
+    connectStateResults,
+    SearchState,
+    StateResultsProvided,
+} from "react-instantsearch/connectors";
+import { Highlight, Hits, Index, InstantSearch, Menu, SearchBox } from "react-instantsearch/dom";
 
 // https://community.algolia.com/react-instantsearch/guide/Search_state.html
-() => {
-  const searchState: SearchState = {
-    range: {
-      price: {
-        min: 20,
-        max: 3000
-      }
-    },
-    configure: {
-      aroundLatLng: true,
-    },
-    refinementList: {
-      fruits: ['lemon', 'orange']
-    },
-    hierarchicalMenu: {
-      products: 'Laptops > Surface'
-    },
-    menu: {
-      brands: 'Sony'
-    },
-    multiRange: {
-      rank: '2:5'
-    },
-    toggle: {
-      freeShipping: true
-    },
-    relevancyStrictness: 98,
-    hitsPerPage: 10,
-    sortBy: 'mostPopular',
-    query: 'ora',
-    page: 2
-  };
-};
+(() => {
+    const searchState: SearchState = {
+        range: {
+            price: {
+                min: 20,
+                max: 3000,
+            },
+        },
+        configure: {
+            aroundLatLng: true,
+        },
+        refinementList: {
+            fruits: ["lemon", "orange"],
+        },
+        hierarchicalMenu: {
+            products: "Laptops > Surface",
+        },
+        menu: {
+            brands: "Sony",
+        },
+        multiRange: {
+            rank: "2:5",
+        },
+        toggle: {
+            freeShipping: true,
+        },
+        relevancyStrictness: 98,
+        hitsPerPage: 10,
+        sortBy: "mostPopular",
+        query: "ora",
+        page: 2,
+    };
+});
 
-() => {
-  const searchState: SearchState = {
-    query: 'ora', // shared state between all indices
-    page: 2, // shared state between all indices
-    indices: {
-      index1: {
-        configure: {
-          hitsPerPage: 3,
+(() => {
+    const searchState: SearchState = {
+        query: "ora", // shared state between all indices
+        page: 2, // shared state between all indices
+        indices: {
+            index1: {
+                configure: {
+                    hitsPerPage: 3,
+                },
+            },
+            index2: {
+                configure: {
+                    hitsPerPage: 10,
+                },
+            },
         },
-      },
-      index2: {
-        configure: {
-          hitsPerPage: 10,
-        },
-      },
-    },
-  };
-};
+    };
+});
 
 // https://community.algolia.com/react-instantsearch/guide/Custom_connectors.html
 // TODO
@@ -217,154 +223,161 @@ import { values } from 'lodash';
 // };
 
 // https://community.algolia.com/react-instantsearch/guide/Conditional_display.html
-() => {
-  const Content = connectStateResults(
-    ({ searchState }) =>
-      searchState && searchState.query
-        ? <div>
-            The query {searchState.query} exists
-          </div>
-        : <div>No query</div>
-  );
-};
-
-() => {
-  const Content = connectStateResults(
-    ({ searchState, searchResults }) =>
-      searchResults && searchResults.nbHits !== 0
-        ? <div>Some results</div>
-        : <div>
-            No results has been found for {searchState.query}
-          </div>
-  );
-};
-
-() => {
-  const Content = connectStateResults(
-    ({ error }) =>
-      error ? <div>Some error</div> : <div>No error</div>
-  );
-};
-
-() => {
-  const Content = connectStateResults(
-    ({ searching }) =>
-      searching ? <div>We are searching</div> : <div>Search finished</div>
-  );
-};
-
-() => {
-  const Content = connectStateResults(
-    ({ searchingForFacetValues }) =>
-      searchingForFacetValues ? <div>We are searching</div> : <div>Search finished</div>
-  );
-};
-
-() => {
-  const App = () => (
-    <InstantSearch indexName="first" searchClient={{}}>
-      <SearchBox />
-      <AllResults>
-        <div>
-          <Index indexName="first">
-            <IndexResults>
-              <div>
-                <div>first: </div>
-                <Hits />
-              </div>
-            </IndexResults>
-          </Index>
-          <Index indexName="second">
-            <IndexResults>
-              <div>
-                <div>second: </div>
-                <Hits />
-              </div>
-            </IndexResults>
-          </Index>
-          <Index indexName="third">
-            <IndexResults>
-              <div>
-                <div>third: </div>
-                <Hits />
-              </div>
-            </IndexResults>
-          </Index>
-        </div>
-      </AllResults>
-    </InstantSearch>
-  );
-
-  const IndexResults = connectStateResults(
-    ({ searchState, searchResults, children }: React.PropsWithChildren<StateResultsProvided>) =>
-      searchResults && searchResults.nbHits !== 0 ? (
-        children as React.ReactElement
-      ) : (
-        <div>
-          No results has been found for {searchState.query} and index{' '}
-          {searchResults ? searchResults.index : ''}
-        </div>
-      )
-  );
-
-  const AllResults = connectStateResults(({ allSearchResults, children }: React.PropsWithChildren<StateResultsProvided>) => {
-    const hasResults =
-      allSearchResults &&
-        values(allSearchResults).some(results => results.nbHits > 0);
-
-    return !hasResults ? (
-      <div>
-        <div>No results in category, products or brand</div>
-        <Index indexName="first" />
-        <Index indexName="second" />
-        <Index indexName="third" />
-      </div>
-    ) : (
-      children as React.ReactElement
+(() => {
+    const Content = connectStateResults(
+        ({ searchState }) =>
+            searchState && searchState.query
+                ? (
+                    <div>
+                        The query {searchState.query} exists
+                    </div>
+                )
+                : <div>No query</div>,
     );
-  });
-};
+});
 
-() => {
-  const RefinementListWithSearchBox = connectRefinementList(props => {
-    const values = props.items.map(item => {
-      const label = item._highlightResult
-        ? <Highlight attribute="label" hit={item}/>
-        : item.label;
+(() => {
+    const Content = connectStateResults(
+        ({ searchState, searchResults }) =>
+            searchResults && searchResults.nbHits !== 0
+                ? <div>Some results</div>
+                : (
+                    <div>
+                        No results has been found for {searchState.query}
+                    </div>
+                ),
+    );
+});
 
-      return (
-        <li key={item.label}>
-          <span onClick={() => props.refine(item.value)}>
-            {label} {item.isRefined ? '- selected' : ''}
-          </span>
-        </li>
-      );
+(() => {
+    const Content = connectStateResults(
+        ({ error }) => error ? <div>Some error</div> : <div>No error</div>,
+    );
+});
+
+(() => {
+    const Content = connectStateResults(
+        ({ searching }) => searching ? <div>We are searching</div> : <div>Search finished</div>,
+    );
+});
+
+(() => {
+    const Content = connectStateResults(
+        ({ searchingForFacetValues }) =>
+            searchingForFacetValues ? <div>We are searching</div> : <div>Search finished</div>,
+    );
+});
+
+(() => {
+    const App = () => (
+        <InstantSearch indexName="first" searchClient={{}}>
+            <SearchBox />
+            <AllResults>
+                <div>
+                    <Index indexName="first">
+                        <IndexResults>
+                            <div>
+                                <div>first:</div>
+                                <Hits />
+                            </div>
+                        </IndexResults>
+                    </Index>
+                    <Index indexName="second">
+                        <IndexResults>
+                            <div>
+                                <div>second:</div>
+                                <Hits />
+                            </div>
+                        </IndexResults>
+                    </Index>
+                    <Index indexName="third">
+                        <IndexResults>
+                            <div>
+                                <div>third:</div>
+                                <Hits />
+                            </div>
+                        </IndexResults>
+                    </Index>
+                </div>
+            </AllResults>
+        </InstantSearch>
+    );
+
+    const IndexResults = connectStateResults(
+        ({ searchState, searchResults, children }: React.PropsWithChildren<StateResultsProvided>) =>
+            searchResults && searchResults.nbHits !== 0
+                ? (
+                    children as React.ReactElement
+                )
+                : (
+                    <div>
+                        No results has been found for {searchState.query} and index{" "}
+                        {searchResults ? searchResults.index : ""}
+                    </div>
+                ),
+    );
+
+    const AllResults = connectStateResults(
+        ({ allSearchResults, children }: React.PropsWithChildren<StateResultsProvided>) => {
+            const hasResults = allSearchResults
+                && values(allSearchResults).some(results => results.nbHits > 0);
+
+            return !hasResults
+                ? (
+                    <div>
+                        <div>No results in category, products or brand</div>
+                        <Index indexName="first" />
+                        <Index indexName="second" />
+                        <Index indexName="third" />
+                    </div>
+                )
+                : (
+                    children as React.ReactElement
+                );
+        },
+    );
+});
+
+(() => {
+    const RefinementListWithSearchBox = connectRefinementList(props => {
+        const values = props.items.map(item => {
+            const label = item._highlightResult
+                ? <Highlight attribute="label" hit={item} />
+                : item.label;
+
+            return (
+                <li key={item.label}>
+                    <span onClick={() => props.refine(item.value)}>
+                        {label} {item.isRefined ? "- selected" : ""}
+                    </span>
+                </li>
+            );
+        });
+
+        return (
+            <div>
+                <input type="search" onInput={e => props.searchForItems((e.target as HTMLInputElement).value)} />
+                <ul>{values}</ul>
+            </div>
+        );
     });
 
-    return (
-      <div>
-        <input type="search" onInput={e => props.searchForItems((e.target as HTMLInputElement).value)}/>
-        <ul>{values}</ul>
-      </div>
-    );
-  });
-
-  return <RefinementListWithSearchBox attribute="products" />;
-};
+    return <RefinementListWithSearchBox attribute="products" />;
+});
 
 // https://community.algolia.com/react-instantsearch/guide/Virtual_widgets.html
-() => {
-  const VirtualMenu = connectMenu(() => null);
-  const Hoodies = () => <VirtualMenu attribute="clothes" defaultRefinement="hoodies" />;
+(() => {
+    const VirtualMenu = connectMenu(() => null);
+    const Hoodies = () => <VirtualMenu attribute="clothes" defaultRefinement="hoodies" />;
 
-  const App = () => (
-    <InstantSearch
-      indexName="..."
-      searchClient={{}}
-    >
-      <SearchBox defaultRefinement="hi" />
-      <Hoodies />
-      <Menu attribute="fruits" defaultRefinement="Orange" />
-    </InstantSearch>
-  );
-};
+    const App = () => (
+        <InstantSearch
+            indexName="..."
+            searchClient={{}}
+        >
+            <SearchBox defaultRefinement="hi" />
+            <Hoodies />
+            <Menu attribute="fruits" defaultRefinement="Orange" />
+        </InstantSearch>
+    );
+});

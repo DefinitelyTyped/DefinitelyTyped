@@ -1,6 +1,29 @@
 {
-	"private": true,
-	"dependencies": {
-		"iconv-lite": "^0.6.3"
-	}
+    "private": true,
+    "name": "@types/mailparser",
+    "version": "3.4.9999",
+    "projects": [
+        "https://github.com/nodemailer/mailparser"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "iconv-lite": "^0.6.3"
+    },
+    "devDependencies": {
+        "@types/mailparser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Peter Snider",
+            "githubUsername": "psnider"
+        },
+        {
+            "name": "Andrey Volynkin",
+            "githubUsername": "Avol-V"
+        },
+        {
+            "name": "Pior Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
 }

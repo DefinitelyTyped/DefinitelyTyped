@@ -1,9 +1,3 @@
-// Type definitions for has 1.0
-// Project: https://github.com/tarruda/has
-// Definitions by: Jordan Harband <https://github.com/ljharb>
-//                 ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Determines whether an object has an own property with the specified name.
  *

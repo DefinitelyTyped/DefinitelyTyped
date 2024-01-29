@@ -5,10 +5,6 @@
         "lib": [
             "es2017"
         ],
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "noImplicitAny": true,

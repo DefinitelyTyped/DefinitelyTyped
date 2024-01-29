@@ -8,19 +8,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
-        "paths": {
-            "boom": [
-                "boom/v4"
-            ],
-            "catbox": [
-                "catbox/v7"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

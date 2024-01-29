@@ -1,0 +1,40 @@
+{
+    "private": true,
+    "name": "@types/bun",
+    "version": "1.0.9999",
+    "projects": [
+        "https://bun.sh"
+    ],
+    "dependencies": {
+        "bun-types": "1.0.25"
+    },
+    "devDependencies": {
+        "@types/bun": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Colin McDonnell",
+            "githubUsername": "colinhacks"
+        },
+        {
+            "name": "Jarred Sumner",
+            "githubUsername": "Jarred-Sumner"
+        },
+        {
+            "name": "Ashcon Partovi",
+            "githubUsername": "electroid"
+        },
+        {
+            "name": "Dave Caruso",
+            "githubUsername": "paperdave"
+        },
+        {
+            "name": "Robobun",
+            "githubUsername": "robobun"
+        },
+        {
+            "name": "Dylan Conway",
+            "githubUsername": "dylan-conway"
+        }
+    ]
+}

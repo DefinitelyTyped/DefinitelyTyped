@@ -1,13 +1,8 @@
-// Type definitions for koa-graphql 0.8
-// Project: https://github.com/chentsulin/koa-graphql
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
 /// <reference types="node" />
 
-import { Context, Request, Response, Middleware } from 'koa';
-import { GraphQLError, GraphQLSchema, GraphQLFieldResolver, ValidationContext, ASTVisitor } from 'graphql';
-import { RequestInfo } from 'express-graphql';
+import { RequestInfo } from "express-graphql";
+import { ASTVisitor, GraphQLError, GraphQLFieldResolver, GraphQLSchema, ValidationContext } from "graphql";
+import { Context, Middleware, Request, Response } from "koa";
 
 export = graphqlHTTP;
 

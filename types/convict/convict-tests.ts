@@ -1,6 +1,6 @@
 import * as convict from "convict";
-import validator from "validator";
 import { safeLoad } from "js-yaml";
+import validator from "validator";
 
 // define a schema
 
@@ -43,7 +43,7 @@ convict({
                 doc: "The source type",
                 format: ["git", "hg", "svn"],
                 default: null,
-                nullable: true
+                nullable: true,
             },
             url: {
                 doc: "The source URL",
@@ -194,7 +194,9 @@ conf.has("db.ip");
 
 const schema = conf.getSchema();
 
+// @ts-expect-error The `properties` property was renamed in Convict v6.0.0 to `_cvtProperties`
 const schemaVal = conf.getSchema().properties.db.properties.port.default;
+const schemaValNew = conf.getSchema()._cvtProperties.db._cvtProperties.port.default;
 
 conf.get();
 
@@ -232,5 +234,13 @@ const port2 = conf2.get("port");
 if (port2 !== 12345) {
     throw new Error(`Test failed. Expected injected environment variable to be reflected in config.`);
 }
+
+// reset
+
+// $ExpectType void
+conf.reset("ip");
+
+// @ts-expect-error Trying to reset non-existing property
+conf.reset("unknown-key");
 
 // vim:et:sw=2:ts=2

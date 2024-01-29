@@ -1,9 +1,3 @@
-// Type definitions for cacache 15.0
-// Project: https://github.com/npm/cacache#readme
-// Definitions by: Florian Imdahl <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
 export interface CacheObject {
@@ -115,8 +109,6 @@ export namespace get {
      * events at all.
      */
     function stream(cachePath: string, key: string, opts?: Options): NodeJS.ReadableStream;
-    function sync(cachePath: string, key: string, opts?: Options): CacheObject;
-    function syncDigest(cachePath: string, key: string, opts?: Options): CacheObject;
 }
 
 export namespace ls {

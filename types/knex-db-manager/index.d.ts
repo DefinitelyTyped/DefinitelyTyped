@@ -1,10 +1,4 @@
-// Type definitions for knex-db-manager 0.6
-// Project: https://github.com/Vincit/knex-db-manager#readme
-// Definitions by: Dmitrii Solovev <https://github.com/dimonnwc3>
-//                 Nicusor Chiciuc <https://github.com/nicu-chiciuc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { Seeder, Config } from 'knex';
+import { Knex } from "knex";
 
 export interface KnexDbManager {
     createDbOwnerIfNotExist(): Promise<void>;
@@ -22,7 +16,7 @@ export interface KnexDbManager {
     // Warning: We actually just want the Knex interface, but it's not exported in the current version of `knex`
     // Updating to a newer version of `knex` is also problematic since older version of Typescript throw errors
     // The current solution extracts the Knex interface from the Seeder constructor
-    knexInstance(): ConstructorParameters<typeof Seeder>[0];
+    knexInstance(): ConstructorParameters<typeof Knex.Seeder>[0];
 }
 
 export interface DbManagerConfig {
@@ -33,7 +27,7 @@ export interface DbManagerConfig {
 }
 
 export interface DbManagerFactoryConfig {
-    knex: Config | string;
+    knex: Knex.Config | string;
     dbManager: DbManagerConfig;
 }
 

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/esri-leaflet-geocoder",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/Esri/esri-leaflet-geocoder"
+    ],
+    "dependencies": {
+        "@types/esri-leaflet": "*",
+        "@types/leaflet": "*"
+    },
+    "devDependencies": {
+        "@types/esri-leaflet-geocoder": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

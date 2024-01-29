@@ -1,13 +1,5 @@
-// Type definitions for react-native-scrollable-tab-view 0.10
-// Project: https://github.com/brentvatne/react-native-scrollable-tab-view
-// Definitions by: CaiHuan <https://github.com/CaiHuan>
-//                 Egor Shulga <https://github.com/egorshulga>
-//                 ydostyle <https://github.com/ydostyle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
-import { Animated, ScrollViewProps, ViewStyle, TextStyle, StyleProp, LayoutChangeEvent } from 'react-native';
+import * as React from "react";
+import { Animated, LayoutChangeEvent, ScrollViewProps, StyleProp, TextStyle, ViewStyle } from "react-native";
 
 export interface ScrollableTabViewProperties {
     children?: React.ReactNode;
@@ -18,7 +10,7 @@ export interface ScrollableTabViewProperties {
      * and should implement setAnimationValue to be able to animate itself along with the tab content.
      * You can manually pass the props to the TabBar component.
      */
-    renderTabBar?: ((props: TabBarProps) => JSX.Element) | false | undefined;
+    renderTabBar?: ((props: TabBarProps) => React.JSX.Element) | false | undefined;
 
     /**
      * Defaults to "top".
@@ -26,7 +18,7 @@ export interface ScrollableTabViewProperties {
      * "overlayTop" or "overlayBottom" for a semitransparent tab bar that overlays content. Custom
      * tab bars must consume a style prop on their outer element to support this feature: style={this.props.style}.
      */
-    tabBarPosition?: 'top' | 'bottom' | 'overlayTop' | 'overlayBottom' | undefined;
+    tabBarPosition?: "top" | "bottom" | "overlayTop" | "overlayBottom" | undefined;
 
     /**
      * function to call when tab changes, should accept 1 argument which is
@@ -107,7 +99,7 @@ export interface ScrollableTabViewProperties {
 
 export type TabBarProps<T = {}> = T & {
     goToPage?: ((pageNumber: number) => void) | undefined;
-    tabs?: JSX.Element[] | undefined;
+    tabs?: React.JSX.Element[] | undefined;
     activeTab?: number | undefined;
     scrollValue?: Animated.Value | undefined;
     containerWidth?: number | undefined;
@@ -117,7 +109,7 @@ export interface ChangeTabProperties {
     // currentPage
     i: number;
     // currentPage object
-    ref: JSX.Element;
+    ref: React.JSX.Element;
     // previousPage
     from: number;
 }
@@ -128,22 +120,27 @@ export default class ScrollableTabView extends React.Component<ScrollableTabView
 // Each top-level child component should have a tabLabel prop
 // that can be used by the tab bar component to render out the labels.
 export type TabProps<T = {}> = T & {
-    tabLabel: React.ReactChild;
+    tabLabel: React.ReactElement | number | string;
 };
 
 export interface DefaultTabBarProps {
-  backgroundColor?: string | undefined;
-  activeTextColor?: string | undefined;
-  inactiveTextColor?: string | undefined;
-  textStyle?: TextStyle | undefined;
-  tabStyle?: ViewStyle | undefined;
-  renderTab?: RenderTabProperties | undefined;
-  underlineStyle?: ViewStyle | undefined;
-  style?: ViewStyle | undefined;
+    backgroundColor?: string | undefined;
+    activeTextColor?: string | undefined;
+    inactiveTextColor?: string | undefined;
+    textStyle?: TextStyle | undefined;
+    tabStyle?: ViewStyle | undefined;
+    renderTab?: RenderTabProperties | undefined;
+    underlineStyle?: ViewStyle | undefined;
+    style?: ViewStyle | undefined;
 }
 
-export type RenderTabProperties =
-    (name: string, pageIndex: number, isTabActive: boolean, onPressHandler: (pageNumber: number) => void, onLayoutHandler?: (event: LayoutChangeEvent) => void) => JSX.Element;
+export type RenderTabProperties = (
+    name: string,
+    pageIndex: number,
+    isTabActive: boolean,
+    onPressHandler: (pageNumber: number) => void,
+    onLayoutHandler?: (event: LayoutChangeEvent) => void,
+) => React.JSX.Element;
 
 export class DefaultTabBar extends React.Component<TabBarProps<DefaultTabBarProps>> {
 }

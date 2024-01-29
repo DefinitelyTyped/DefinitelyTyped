@@ -1,10 +1,5 @@
-// Type definitions for polygon-lookup 2.6
-// Project: https://github.com/pelias/polygon-lookup
-// Definitions by: Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { FeatureCollection, Polygon } from 'geojson';
-import RBush from 'rbush';
+import { Feature, FeatureCollection, Polygon } from "geojson";
+import RBush from "rbush";
 
 declare namespace PolygonLookup {
     interface BBox {
@@ -31,12 +26,12 @@ declare class PolygonLookup {
      * @param y The y-coordinate of the point.
      * @param limit Number of results to return (`-1` to return all the results).
      * @return  If one or more bounding box intersections are
-     * found and limit is `undefined`, return the first polygon that intersects
+     * found and limit is `undefined`, return the first feature that intersects
      * (`x`, `y`); otherwise, `undefined`. If a limit is passed in, return
      * intersecting polygons as a GeoJSON `FeatureCollection`.
      */
-    search(x: number, y: number): Polygon | undefined;
-    search(x: number, y: number, limit: number): FeatureCollection | undefined;
+    search(x: number, y: number): Feature<Polygon> | undefined;
+    search(x: number, y: number, limit: number): FeatureCollection<Polygon> | undefined;
 
     /**
      * Build a spatial index for a set of polygons, and store both the polygons and

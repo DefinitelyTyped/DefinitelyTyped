@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/polygon-lookup",
+    "version": "2.6.9999",
+    "projects": [
+        "https://github.com/pelias/polygon-lookup"
+    ],
+    "dependencies": {
+        "@types/geojson": "*",
+        "@types/rbush": "*"
+    },
+    "devDependencies": {
+        "@types/polygon-lookup": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Keller",
+            "githubUsername": "ffflorian"
+        }
+    ]
+}

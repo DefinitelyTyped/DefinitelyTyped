@@ -1,13 +1,7 @@
-// Type definitions for scalike API
-// Project: https://github.com/ryoppy/scalike-typescript
-// Definitions by: ryoppy <https://github.com/ryoppy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = scalike;
 export as namespace scalike;
 
 declare namespace scalike {
-
     export interface Either<A, B> {
         value: A | B;
         isLeft: boolean;
@@ -111,7 +105,14 @@ declare namespace scalike {
         private od;
         private oe;
         private of;
-        constructor(oa: Optional<A>, ob: Optional<B>, oc: Optional<C>, od: Optional<D>, oe: Optional<E>, of: Optional<F>);
+        constructor(
+            oa: Optional<A>,
+            ob: Optional<B>,
+            oc: Optional<C>,
+            od: Optional<D>,
+            oe: Optional<E>,
+            of: Optional<F>,
+        );
         run<G>(f: (a: A, b: B, c: C, d: D, e: E, f: F) => G): Optional<G>;
     }
 
@@ -214,12 +215,12 @@ declare namespace scalike {
         function failed<A>(e: Error): Future<A>;
         function successful<A>(a: A): Future<A>;
         function fromTry<A>(t: Try<A>): Future<A>;
-        function sequence<A>(fus: Array<Future<A>>): Future<Array<A>>;
+        function sequence<A>(fus: Array<Future<A>>): Future<A[]>;
         function firstCompletedOf<A>(fus: Array<Future<A>>): Future<A>;
         function find<A>(fus: Array<Future<A>>, f: (a: A) => boolean): Future<Optional<A>>;
         function foldLeft<A, B>(fu: Array<Future<A>>, zero: B, f: (b: B, a: A) => B): Future<B>;
         function reduceLeft<A, B>(fu: Array<Future<A>>, f: (b: B, a: A) => B): Future<B>;
-        function traverse<A, B>(fu: Array<A>, f: (a: A) => Future<B>): Future<Array<B>>;
+        function traverse<A, B>(fu: A[], f: (a: A) => Future<B>): Future<B[]>;
     }
     export class FutureBuilder1<A, B> {
         private oa;

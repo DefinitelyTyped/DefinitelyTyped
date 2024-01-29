@@ -7,7 +7,7 @@ export interface SpriteConfig {
         /**
          * @default 'http://www.w3.org/1999/xlink'
          */
-        'xmlns:xlink'?: string;
+        "xmlns:xlink"?: string;
         /**
          * @default ['position: absolute', 'width: 0', 'height: 0'].join('; ')
          */
@@ -15,7 +15,7 @@ export interface SpriteConfig {
         /**
          * @default 'true'
          */
-        'aria-hidden'?: string;
+        "aria-hidden"?: string;
     };
 }
 

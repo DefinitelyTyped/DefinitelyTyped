@@ -1,4 +1,4 @@
-import getPolyfill = require('./polyfill');
+import getPolyfill = require("./polyfill");
 
 declare function shimGetOwnPropertyDescriptors(): ReturnType<typeof getPolyfill>;
 export = shimGetOwnPropertyDescriptors;

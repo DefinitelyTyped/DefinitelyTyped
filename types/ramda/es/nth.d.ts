@@ -1,2 +1,2 @@
-import { nth } from '../index';
+import { nth } from "../index.js";
 export default nth;

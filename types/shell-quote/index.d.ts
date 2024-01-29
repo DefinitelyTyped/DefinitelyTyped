@@ -1,17 +1,9 @@
-// Type definitions for shell-quote 1.7
-// Project: https://github.com/substack/node-shell-quote
-// Definitions by: Jason Cheatham <https://github.com/jason0x43>
-//                 Cameron Diver <https://github.com/CameronDiver>
-//                 Opportunity Liu <https://github.com/OpportunityLiu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
-export type ControlOperator = '||' | '&&' | ';;' | '|&' | '<(' | '>>' | '>&' | '&' | ';' | '(' | ')' | '|' | '<' | '>';
+export type ControlOperator = "||" | "&&" | ";;" | "|&" | "<(" | ">>" | ">&" | "&" | ";" | "(" | ")" | "|" | "<" | ">";
 
 export type ParseEntry =
     | string
     | { op: ControlOperator }
-    | { op: 'glob'; pattern: string }
+    | { op: "glob"; pattern: string }
     | { comment: string };
 
 export interface ParseOptions {
@@ -24,7 +16,7 @@ export interface ParseOptions {
 /**
  * Return a quoted string for the array `args` suitable for using in shell commands.
  */
-export function quote(args: ReadonlyArray<string>): string;
+export function quote(args: readonly string[]): string;
 
 /**
  * Return an array of arguments from the quoted string `cmd`.

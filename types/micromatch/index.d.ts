@@ -1,12 +1,6 @@
-// Type definitions for micromatch 4.0
-// Project: https://github.com/micromatch/micromatch
-// Definitions by: glen-84 <https://github.com/glen-84>
-//                 vemoo <https://github.com/vemoo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // TypeScript Version: 2.2
 
-import * as braces from 'braces';
+import * as braces from "braces";
 declare namespace micromatch {
     interface Item {
         glob: string;
@@ -114,7 +108,7 @@ declare namespace micromatch {
          *
          * @default undefined
          */
-        ignore?: string | ReadonlyArray<string> | undefined;
+        ignore?: string | readonly string[] | undefined;
         /**
          * Retain quotes in the generated regex, since quotes may also be used as an alternative to backslashes.
          *
@@ -340,7 +334,7 @@ interface Micromatch {
      * //=> [ 'a.js' ]
      * ```
      */
-    (list: ReadonlyArray<string>, patterns: string | ReadonlyArray<string>, options?: micromatch.Options): string[];
+    (list: readonly string[], patterns: string | readonly string[], options?: micromatch.Options): string[];
 
     /**
      * Similar to the main function, but `pattern` must be a string.
@@ -359,7 +353,7 @@ interface Micromatch {
      * //=> ['a.a', 'a.aa']
      * ```
      */
-    match(list: ReadonlyArray<string>, pattern: string, options?: micromatch.Options): string[];
+    match(list: readonly string[], pattern: string, options?: micromatch.Options): string[];
 
     /**
      * Returns true if the specified `string` matches the given glob `pattern`.
@@ -380,7 +374,7 @@ interface Micromatch {
      * //=> false
      * ```
      */
-    isMatch(string: string, pattern: string | ReadonlyArray<string>, options?: micromatch.Options): boolean;
+    isMatch(string: string, pattern: string | readonly string[], options?: micromatch.Options): boolean;
 
     /**
      * Returns true if some of the strings in the given `list` match any of the given glob `patterns`.
@@ -402,8 +396,8 @@ interface Micromatch {
      * ```
      */
     some(
-        list: string | ReadonlyArray<string>,
-        patterns: string | ReadonlyArray<string>,
+        list: string | readonly string[],
+        patterns: string | readonly string[],
         options?: micromatch.Options,
     ): boolean;
 
@@ -431,8 +425,8 @@ interface Micromatch {
      * ```
      */
     every(
-        list: string | ReadonlyArray<string>,
-        patterns: string | ReadonlyArray<string>,
+        list: string | readonly string[],
+        patterns: string | readonly string[],
         options?: micromatch.Options,
     ): boolean;
 
@@ -456,8 +450,8 @@ interface Micromatch {
      * ```
      */
     any(
-        str: string | ReadonlyArray<string>,
-        patterns: string | ReadonlyArray<string>,
+        str: string | readonly string[],
+        patterns: string | readonly string[],
         options?: micromatch.Options,
     ): boolean;
 
@@ -488,8 +482,8 @@ interface Micromatch {
      * ```
      */
     all(
-        str: string | ReadonlyArray<string>,
-        patterns: string | ReadonlyArray<string>,
+        str: string | readonly string[],
+        patterns: string | readonly string[],
         options?: micromatch.Options,
     ): boolean;
 
@@ -510,7 +504,7 @@ interface Micromatch {
      * //=> ['b.b', 'c.c']
      * ```
      */
-    not(list: ReadonlyArray<string>, patterns: string | ReadonlyArray<string>, options?: micromatch.Options): string[];
+    not(list: readonly string[], patterns: string | readonly string[], options?: micromatch.Options): string[];
 
     /**
      * Returns true if the given `string` contains the given pattern. Similar to [.isMatch](#isMatch) but the pattern can match any part of the string.
@@ -531,7 +525,7 @@ interface Micromatch {
      * //=> false
      * ```
      */
-    contains(str: string, patterns: string | ReadonlyArray<string>, options?: micromatch.Options): boolean;
+    contains(str: string, patterns: string | readonly string[], options?: micromatch.Options): boolean;
 
     /**
      * Filter the keys of the given object with the given `glob` pattern and `options`. Does not attempt to match nested keys.
@@ -552,7 +546,7 @@ interface Micromatch {
      * //=> { ab: 'b' }
      * ```
      */
-    matchKeys<T>(object: T, patterns: string | ReadonlyArray<string>, options?: micromatch.Options): Partial<T>;
+    matchKeys<T>(object: T, patterns: string | readonly string[], options?: micromatch.Options): Partial<T>;
 
     /**
      * Returns a memoized matcher function from the given glob `pattern` and `options`. The returned function takes a string to match as its only argument and returns true if the string is a match.

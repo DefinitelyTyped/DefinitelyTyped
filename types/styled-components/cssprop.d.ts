@@ -1,7 +1,7 @@
-import {} from 'react';
-import { CSSProp } from '.';
+import {} from "react";
+import { CSSProp } from ".";
 
-declare module 'react' {
+declare module "react" {
     interface Attributes {
         // NOTE: unlike the plain javascript version, it is not possible to get access
         // to the element's own attributes inside function interpolations.

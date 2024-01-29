@@ -1,9 +1,3 @@
-// Type definitions for Q
-// Project: https://github.com/kriskowal/q
-// Definitions by: Barrie Nemetchek <https://github.com/bnemetchek>, Andrew Gaspar <https://github.com/AndrewGaspar/>, John Reilly <https://github.com/johnnyreilly>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export = Q;
 export as namespace Q;
 
@@ -52,7 +46,11 @@ declare namespace Q {
         /**
          * The then method from the Promises/A+ specification, with an additional progress handler.
          */
-        then<U>(onFulfill?: (value: T) => IWhenable<U>, onReject?: (error: any) => IWhenable<U>, onProgress?: Function): Promise<U>;
+        then<U>(
+            onFulfill?: (value: T) => IWhenable<U>,
+            onReject?: (error: any) => IWhenable<U>,
+            onProgress?: Function,
+        ): Promise<U>;
 
         /**
          * Like then, but "spreads" the array into a variadic fulfillment handler. If any of the promises in the array are rejected, instead calls onRejected with the first rejected promise's rejection reason.
@@ -82,7 +80,11 @@ declare namespace Q {
          *
          * The Golden Rule of done vs. then usage is: either return your promise to someone else, or if the chain ends with you, call done to terminate it.
          */
-        done(onFulfilled?: (value: T) => any, onRejected?: (reason: any) => any, onProgress?: (progress: any) => any): void;
+        done(
+            onFulfilled?: (value: T) => any,
+            onRejected?: (reason: any) => any,
+            onProgress?: (progress: any) => any,
+        ): void;
 
         /**
          * If callback is a function, assumes it's a Node.js-style callback, and calls it as either callback(rejectionReason) when/if promise becomes rejected, or as callback(null, fulfillmentValue) when/if promise becomes fulfilled. If callback is not a function, simply returns promise.
@@ -167,11 +169,15 @@ declare namespace Q {
          */
         inspect(): PromiseState<T>;
 
-        all<A, B, C, D, E, F>(this: Promise<[IWhenable<A>, IWhenable<B>, IWhenable<C>, IWhenable<D>, IWhenable<E>, IWhenable<F>]>): Promise<[A, B, C, D, E, F]>;
+        all<A, B, C, D, E, F>(
+            this: Promise<[IWhenable<A>, IWhenable<B>, IWhenable<C>, IWhenable<D>, IWhenable<E>, IWhenable<F>]>,
+        ): Promise<[A, B, C, D, E, F]>;
         /**
          * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
          */
-        all<A, B, C, D, E>(this: Promise<[IWhenable<A>, IWhenable<B>, IWhenable<C>, IWhenable<D>, IWhenable<E>]>): Promise<[A, B, C, D, E]>;
+        all<A, B, C, D, E>(
+            this: Promise<[IWhenable<A>, IWhenable<B>, IWhenable<C>, IWhenable<D>, IWhenable<E>]>,
+        ): Promise<[A, B, C, D, E]>;
         /**
          * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
          */
@@ -187,7 +193,7 @@ declare namespace Q {
         /**
          * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
          */
-        all<T>(this: Promise<IWhenable<T>[]>): Promise<T[]>;
+        all<T>(this: Promise<Array<IWhenable<T>>>): Promise<T[]>;
     }
 
     interface PromiseState<T> {
@@ -203,7 +209,12 @@ declare namespace Q {
     export function when<T>(value: IWhenable<T>): Promise<T>;
 
     // If a non-promise value is provided, it will not reject or progress
-    export function when<T, U>(value: IWhenable<T>, onFulfilled: (val: T) => IWhenable<U>, onRejected?: (reason: any) => IWhenable<U>, onProgress?: (progress: any) => any): Promise<U>;
+    export function when<T, U>(
+        value: IWhenable<T>,
+        onFulfilled: (val: T) => IWhenable<U>,
+        onRejected?: (reason: any) => IWhenable<U>,
+        onProgress?: (progress: any) => any,
+    ): Promise<U>;
 
     /**
      * Currently "impossible" (and I use the term loosely) to implement due to TypeScript limitations as it is now.
@@ -233,15 +244,21 @@ declare namespace Q {
     /**
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
-    export function all<A, B, C, D, E, F>(promises: IWhenable<[IWhenable<A>, IWhenable<B>, IWhenable<C>, IWhenable<D>, IWhenable<E>, IWhenable<F>]>): Promise<[A, B, C, D, E, F]>;
+    export function all<A, B, C, D, E, F>(
+        promises: IWhenable<[IWhenable<A>, IWhenable<B>, IWhenable<C>, IWhenable<D>, IWhenable<E>, IWhenable<F>]>,
+    ): Promise<[A, B, C, D, E, F]>;
     /**
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
-    export function all<A, B, C, D, E>(promises: IWhenable<[IWhenable<A>, IWhenable<B>, IWhenable<C>, IWhenable<D>, IWhenable<E>]>): Promise<[A, B, C, D, E]>;
+    export function all<A, B, C, D, E>(
+        promises: IWhenable<[IWhenable<A>, IWhenable<B>, IWhenable<C>, IWhenable<D>, IWhenable<E>]>,
+    ): Promise<[A, B, C, D, E]>;
     /**
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
-    export function all<A, B, C, D>(promises: IWhenable<[IWhenable<A>, IWhenable<B>, IWhenable<C>, IWhenable<D>]>): Promise<[A, B, C, D]>;
+    export function all<A, B, C, D>(
+        promises: IWhenable<[IWhenable<A>, IWhenable<B>, IWhenable<C>, IWhenable<D>]>,
+    ): Promise<[A, B, C, D]>;
     /**
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
@@ -256,25 +273,29 @@ declare namespace Q {
     /**
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
-    export function all<T>(promises: IWhenable<IWhenable<T>[]>): Promise<T[]>;
+    export function all<T>(promises: IWhenable<Array<IWhenable<T>>>): Promise<T[]>;
 
     /**
-    * Returns a promise for the first of an array of promises to become settled.
-    */
-    export function race<T>(promises: IWhenable<T>[]): Promise<T>;
+     * Returns a promise for the first of an array of promises to become settled.
+     */
+    export function race<T>(promises: Array<IWhenable<T>>): Promise<T>;
 
     /**
      * Returns a promise that is fulfilled with an array of promise state snapshots, but only after all the original promises have settled, i.e. become either fulfilled or rejected.
      */
-    export function allSettled<T>(promises: IWhenable<IWhenable<T>[]>): Promise<PromiseState<T>[]>;
+    export function allSettled<T>(promises: IWhenable<Array<IWhenable<T>>>): Promise<Array<PromiseState<T>>>;
 
-    export function allResolved<T>(promises: IWhenable<IWhenable<T>[]>): Promise<Promise<T>[]>;
+    export function allResolved<T>(promises: IWhenable<Array<IWhenable<T>>>): Promise<Array<Promise<T>>>;
 
     /**
      * Like then, but "spreads" the array into a variadic fulfillment handler. If any of the promises in the array are rejected, instead calls onRejected with the first rejected promise's rejection reason.
      * This is especially useful in conjunction with all.
      */
-    export function spread<T, U>(promises: IWhenable<T>[], onFulfilled: (...args: T[]) => IWhenable<U>, onRejected?: (reason: any) => IWhenable<U>): Promise<U>;
+    export function spread<T, U>(
+        promises: Array<IWhenable<T>>,
+        onFulfilled: (...args: T[]) => IWhenable<U>,
+        onRejected?: (reason: any) => IWhenable<U>,
+    ): Promise<U>;
 
     /**
      * Returns a promise that will have the same result as promise, except that if promise is not fulfilled or rejected before ms milliseconds, the returned promise will be rejected with an Error with the given message. If message is not supplied, the message will be "Timed out after " + ms + " ms".
@@ -292,7 +313,7 @@ declare namespace Q {
     /**
      * Returns a promise that will be fulfilled with undefined after at least ms milliseconds have passed.
      */
-    export function delay(ms: number): Promise <void>;
+    export function delay(ms: number): Promise<void>;
     /**
      * Returns whether a given promise is in the fulfilled state. When the static version is used on non-promises, the result is always true.
      */
@@ -321,7 +342,13 @@ declare namespace Q {
      */
     export function reject<T>(reason?: any): Promise<T>;
 
-    export function Promise<T>(resolver: (resolve: (val: IWhenable<T>) => void , reject: (reason: any) => void , notify: (progress: any) => void ) => void ): Promise<T>;
+    export function Promise<T>(
+        resolver: (
+            resolve: (val: IWhenable<T>) => void,
+            reject: (reason: any) => void,
+            notify: (progress: any) => void,
+        ) => void,
+    ): Promise<T>;
 
     /**
      * Creates a new version of func that accepts any combination of promise and non-promise values, converting them to their fulfillment values before calling the original func. The returned version also always returns a promise: if func does a return or throw, then Q.promised(func) will return fulfilled or rejected promise, respectively.

@@ -1,8 +1,8 @@
-import GeojsonEquality = require('geojson-equality');
+import GeojsonEquality = require("geojson-equality");
 const eq = new GeojsonEquality();
 
 const g1: GeoJSON.Polygon = {
-    type: 'Polygon',
+    type: "Polygon",
     coordinates: [
         [
             [30, 10],
@@ -14,7 +14,7 @@ const g1: GeoJSON.Polygon = {
     ],
 };
 const g2: GeoJSON.Polygon = {
-    type: 'Polygon',
+    type: "Polygon",
     coordinates: [
         [
             [30, 10],

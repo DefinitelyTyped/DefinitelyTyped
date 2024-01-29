@@ -28,6 +28,6 @@ calculator = new BarbellWeight(300, "squat", {
     program: "STARTING_STRENGTH",
     bar: 45,
     plates: [45, 25, 10, 5],
-    warmup_round_to: 5
+    warmup_round_to: 5,
 });
 results = calculator.getResults();

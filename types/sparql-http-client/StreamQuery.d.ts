@@ -1,6 +1,6 @@
-import { DataFactory, BaseQuad, Quad, Stream } from 'rdf-js';
-import { Query, QueryInit } from '.';
-import { Readable } from 'stream';
+import { BaseQuad, DataFactory, Quad, Stream } from "@rdfjs/types";
+import { Readable } from "stream";
+import { Query, QueryInit } from ".";
 
 declare namespace StreamQuery {
     interface StreamQueryInit<Q extends BaseQuad = Quad> extends QueryInit {

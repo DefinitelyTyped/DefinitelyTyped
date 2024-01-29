@@ -26,7 +26,7 @@ function genericCodec(codec: AudioDecoder | AudioEncoder | VideoDecoder | VideoE
     codec.close();
 }
 
-function errorCallback(error: DOMException): void { }
+function errorCallback(error: DOMException): void {}
 
 //////////////////////////////////////////////////
 // audio-decoder.any.js
@@ -51,22 +51,22 @@ const audioDecoderConfig: AudioDecoderConfig = {
     numberOfChannels: 2,
 };
 
-// $ExpectError
+// @ts-expect-error
 AudioDecoder.isConfigSupported();
 
-// $ExpectError
+// @ts-expect-error
 AudioDecoder.isConfigSupported({
     sampleRate: 48000,
     numberOfChannels: 2,
 });
 
-// $ExpectError
+// @ts-expect-error
 AudioDecoder.isConfigSupported({
     codec: "opus",
     numberOfChannels: 2,
 });
 
-// $ExpectError
+// @ts-expect-error
 AudioDecoder.isConfigSupported({
     codec: "opus",
     sampleRate: 48000,
@@ -84,15 +84,15 @@ function audioOutput(output: AudioData): void {
     output.copyTo(new ArrayBuffer(1024), { planeIndex: 0 });
 }
 
-// $ExpectError
+// @ts-expect-error
 new AudioDecoder({});
 
-// $ExpectError
+// @ts-expect-error
 new AudioDecoder({
     output: audioOutput,
 });
 
-// $ExpectError
+// @ts-expect-error
 new AudioDecoder({
     error: errorCallback,
 });
@@ -102,10 +102,10 @@ const audioDecoder = new AudioDecoder({
     error: errorCallback,
 });
 
-// $ExpectError
+// @ts-expect-error
 audioDecoder.configure();
 
-// $ExpectError
+// @ts-expect-error
 audioDecoder.configure({
     sampleRate: 48000,
     numberOfChannels: 2,
@@ -147,22 +147,22 @@ const audioEncoderConfig: AudioEncoderConfig = {
     numberOfChannels: 2,
 };
 
-// $ExpectError
+// @ts-expect-error
 AudioEncoder.isConfigSupported();
 
-// $ExpectError
+// @ts-expect-error
 AudioEncoder.isConfigSupported({
     sampleRate: 48000,
     numberOfChannels: 2,
 });
 
-// $ExpectError
+// @ts-expect-error
 AudioEncoder.isConfigSupported({
     codec: "opus",
     numberOfChannels: 2,
 });
 
-// $ExpectError
+// @ts-expect-error
 AudioEncoder.isConfigSupported({
     codec: "opus",
     sampleRate: 48000,
@@ -196,15 +196,15 @@ function encodedAudioOutput(output: EncodedAudioChunk, metadata?: EncodedAudioCh
     audioDecoder.decode(output);
 }
 
-// $ExpectError
+// @ts-expect-error
 new AudioEncoder();
 
-// $ExpectError
+// @ts-expect-error
 new AudioEncoder({
     output: encodedAudioOutput,
 });
 
-// $ExpectError
+// @ts-expect-error
 new AudioEncoder({
     error: errorCallback,
 });
@@ -242,10 +242,10 @@ audioFrame.timestamp;
 
 const audioBuffer = new ArrayBuffer(1024);
 
-// $ExpectError
+// @ts-expect-error
 new AudioData({ data: audioBuffer });
 
-// $ExpectError
+// @ts-expect-error
 new AudioData({ timestamp: 100 });
 
 // $ExpectType AudioData
@@ -266,13 +266,13 @@ audioFrame.clone();
 
 const imageDecoderInit: ImageDecoderInit = { data: new Uint8Array(0), type: "image/jpeg" };
 
-// $ExpectError
+// @ts-expect-error
 new ImageDecoder();
 
-// $ExpectError
+// @ts-expect-error
 new ImageDecoder({ data: new Uint8Array(0) });
 
-// $ExpectError
+// @ts-expect-error
 new ImageDecoder({ type: "image/jpeg" });
 
 const imageDecoder = new ImageDecoder(imageDecoderInit);
@@ -355,16 +355,16 @@ const videoDecoderConfig: VideoDecoderConfig = {
     codec: "avc1.64000c",
 };
 
-// $ExpectError
+// @ts-expect-error
 VideoDecoder.isConfigSupported();
 
-// $ExpectError
+// @ts-expect-error
 VideoDecoder.isConfigSupported({ description: new Uint8Array(0) });
 
 VideoDecoder.isConfigSupported(videoDecoderConfig).then((result: VideoDecoderSupport) => {
-    // $ExpectType boolean
+    // $ExpectType boolean | undefined
     result.supported;
-    // $ExpectType VideoDecoderConfig
+    // $ExpectType VideoDecoderConfig | undefined
     result.config;
 });
 
@@ -377,21 +377,21 @@ function videoOutput(output: VideoFrame): void {
     output.displayWidth;
     // $ExpectType number
     output.displayHeight;
-    // $ExpectType number | null
+    // $ExpectType number
     output.timestamp;
     // $ExpectType void
     output.close();
 }
 
-// $ExpectError
+// @ts-expect-error
 new VideoDecoder({});
 
-// $ExpectError
+// @ts-expect-error
 new VideoDecoder({
     output: videoOutput,
 });
 
-// $ExpectError
+// @ts-expect-error
 new VideoDecoder({
     error: errorCallback,
 });
@@ -401,10 +401,10 @@ const videoDecoder = new VideoDecoder({
     error: errorCallback,
 });
 
-// $ExpectError
+// @ts-expect-error
 videoDecoder.configure();
 
-// $ExpectError
+// @ts-expect-error
 videoDecoder.configure({ description: new Uint8Array(0) });
 
 // $ExpectType void
@@ -459,31 +459,31 @@ const videoEncoderConfig: VideoEncoderConfig = {
     height: 480,
 };
 
-// $ExpectError
+// @ts-expect-error
 VideoEncoder.isConfigSupported();
 
-// $ExpectError
+// @ts-expect-error
 VideoEncoder.isConfigSupported({
     width: 640,
     height: 480,
 });
 
-// $ExpectError
+// @ts-expect-error
 VideoEncoder.isConfigSupported({
     codec: "avc1.42001E",
     height: 480,
 });
 
-// $ExpectError
+// @ts-expect-error
 VideoEncoder.isConfigSupported({
     codec: "avc1.42001E",
     width: 640,
 });
 
 VideoEncoder.isConfigSupported(videoEncoderConfig).then((result: VideoEncoderSupport) => {
-    // $ExpectType boolean
+    // $ExpectType boolean | undefined
     result.supported;
-    // $ExpectType VideoEncoderConfig
+    // $ExpectType VideoEncoderConfig | undefined
     result.config;
 });
 
@@ -502,8 +502,8 @@ VideoEncoder.isConfigSupported(futureVideoEncoderConfig);
 
 const videoFrame = new VideoFrame(imageBitmap, { timestamp: 1000000 });
 
-function encodedVideoOutput(output: EncodedVideoChunk, metadata: EncodedVideoChunkMetadata): void {
-    if (metadata.decoderConfig !== undefined) {
+function encodedVideoOutput(output: EncodedVideoChunk, metadata?: EncodedVideoChunkMetadata): void {
+    if (metadata?.decoderConfig !== undefined) {
         videoDecoder.configure(metadata.decoderConfig);
     }
     videoDecoder.decode(output);
@@ -511,15 +511,15 @@ function encodedVideoOutput(output: EncodedVideoChunk, metadata: EncodedVideoChu
     output.timestamp;
 }
 
-// $ExpectError
+// @ts-expect-error
 new VideoEncoder();
 
-// $ExpectError
+// @ts-expect-error
 new VideoEncoder({
     output: encodedVideoOutput,
 });
 
-// $ExpectError
+// @ts-expect-error
 new VideoEncoder({
     error: errorCallback,
 });
@@ -529,7 +529,7 @@ const videoEncoder = new VideoEncoder({
     error: errorCallback,
 });
 
-// $ExpectError
+// @ts-expect-error
 videoEncoder.configure({
     width: 640,
     height: 480,
@@ -563,7 +563,7 @@ videoFrame.close();
 //////////////////////////////////////////////////
 // video-frame.any.js
 
-// $ExpectType number | null
+// $ExpectType number
 videoFrame.timestamp;
 // $ExpectType number | null
 videoFrame.duration;
@@ -580,26 +580,26 @@ videoFrame.displayWidth;
 // $ExpectType number
 videoFrame.displayHeight;
 
-// $ExpectError
+// @ts-expect-error
 new VideoFrame(new ArrayBuffer(1024), {
     codedWidth: 4,
     codedHeight: 2,
 });
 
-// $ExpectError
+// @ts-expect-error
 new VideoFrame(new ArrayBuffer(1024), {
     timestamp: 1234,
     codedHeight: 2,
 });
 
-// $ExpectError
+// @ts-expect-error
 new VideoFrame(new ArrayBuffer(1024), {
     timestamp: 1234,
     codedWidth: 4,
 });
 
 const videoFramePlaneInit: VideoFrameBufferInit = {
-    format: 'BGRA',
+    format: "BGRA",
     timestamp: 1234,
     codedWidth: 4,
     codedHeight: 2,
@@ -608,7 +608,7 @@ const videoFramePlaneInit: VideoFrameBufferInit = {
 new VideoFrame(new ArrayBuffer(1024), videoFramePlaneInit);
 
 new VideoFrame(new ArrayBuffer(1024), {
-    format: 'BGRA',
+    format: "BGRA",
     timestamp: 1234,
     duration: 4321,
     codedWidth: 4,

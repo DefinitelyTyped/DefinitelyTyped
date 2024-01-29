@@ -1,6 +1,6 @@
-import { LoadCallbackType } from '../types';
-import MediaFileReader from './MediaFileReader';
-import ChunkedFileData from './ChunkedFileData';
+import { LoadCallbackType } from "../types";
+import ChunkedFileData from "./ChunkedFileData";
+import MediaFileReader from "./MediaFileReader";
 
 export default class NodeFileReader extends MediaFileReader {
     _path: string;

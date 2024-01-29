@@ -1,16 +1,7 @@
-// Type definitions for needle 2.5
-// Project: https://github.com/tomas/needle
-// Definitions by: San Chen <https://github.com/bigsan>,
-//                 Niklas Mollenhauer <https://github.com/nikeee>,
-//                 Matanel Sindilevich <https://github.com/sindilevich>,
-//                 Bryan Spears <https://github.com/bryanspears>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
 
-import * as http from 'http';
-import * as https from 'https';
+import * as http from "http";
+import * as https from "https";
 
 declare namespace core {
     interface NeedleResponse extends http.IncomingMessage {
@@ -30,9 +21,9 @@ declare namespace core {
 
     type NeedleOptions = RequestOptions & ResponseOptions & RedirectOptions & https.RequestOptions;
 
-    type NeedleReadonlyHttpVerbs = 'get' | 'head';
+    type NeedleReadonlyHttpVerbs = "get" | "head";
 
-    type NeedleReadWriteHttpVerbs = 'delete' | 'patch' | 'post' | 'put';
+    type NeedleReadWriteHttpVerbs = "delete" | "patch" | "post" | "put";
 
     type NeedleHttpVerbs = NeedleReadonlyHttpVerbs | NeedleReadWriteHttpVerbs;
 
@@ -45,7 +36,7 @@ declare namespace core {
         /**
          * Alias for open_timeout
          */
-        timeout?: RequestOptions['open_timeout'] | undefined;
+        timeout?: RequestOptions["open_timeout"] | undefined;
 
         /**
          * Returns error if no response headers are received in X milisecs,
@@ -65,7 +56,7 @@ declare namespace core {
         /**
          * Alias for follow_max
          */
-        follow?: RequestOptions['follow_max'] | undefined;
+        follow?: RequestOptions["follow_max"] | undefined;
 
         /**
          * Enables multipart/form-data encoding. Defaults to false.
@@ -164,6 +155,12 @@ declare namespace core {
          * either here or through options.headers.
          */
         content_type?: string | undefined;
+        /**
+         * When false, needle will not use its default mechanism of picking up proxy configuration from environment variables.
+         *
+         * @default true
+         */
+        use_proxy_from_env_var?: boolean | undefined;
     }
 
     interface ResponseOptions {
@@ -175,7 +172,7 @@ declare namespace core {
         /**
          * Alias for decode_response
          */
-        decode?: ResponseOptions['decode_response'] | undefined;
+        decode?: ResponseOptions["decode_response"] | undefined;
 
         /**
          * Whether to parse XML or JSON response bodies automagically.
@@ -183,11 +180,11 @@ declare namespace core {
          * You can also set this to 'xml' or 'json' in which case Needle
          * will only parse the response if the content type matches.
          */
-        parse_response?: boolean | 'json' | 'xml' | undefined;
+        parse_response?: boolean | "json" | "xml" | undefined;
         /**
          * Alias for parse_response
          */
-        parse?: ResponseOptions['parse_response'] | undefined;
+        parse?: ResponseOptions["parse_response"] | undefined;
 
         /**
          * Whether to parse response’s Set-Cookie header.
@@ -206,35 +203,42 @@ declare namespace core {
         /**
          * Sends the cookies received in the set-cookie header
          * as part of the following request.
-         * false by default.
+         *
+         * @default false
          */
-        follow_set_cookie?: boolean | undefined;
+        follow_set_cookies?: boolean | undefined;
         /**
          * Sets the 'Referer' header to the requested URI
          * when following a redirect.
-         * false by default.
+         *
+         * @default false
          */
         follow_set_referer?: boolean | undefined;
         /**
          * If enabled, resends the request using the original verb
          * instead of being rewritten to get with no data.
-         * false by default.
+         *
+         * @default false
          */
         follow_keep_method?: boolean | undefined;
         /**
          * When true, Needle will only follow redirects that point to the same host
          * as the original request.
-         * false by default.
+         *
+         * @default false
          */
         follow_if_same_host?: boolean | undefined;
         /**
          * When true, Needle will only follow redirects that point to the same protocol
          * as the original request.
-         * false by default.
+         *
+         * @default false
          */
         follow_if_same_protocol?: boolean | undefined;
         /**
-         * Unless true, Needle will not follow redirects that point to same location (as set in the response header) as the original request URL. false by default.
+         * Unless true, Needle will not follow redirects that point to same location (as set in the response header) as the original request URL.
+         *
+         * @default false
          */
         follow_if_same_location?: boolean | undefined;
     }
@@ -252,7 +256,11 @@ declare namespace core {
  * Since needle 2.0
  * @param method Designates an HTTP verb for the request.
  */
-declare function needle(method: core.NeedleReadonlyHttpVerbs, url: string, options?: core.NeedleOptions): Promise<core.NeedleResponse>;
+declare function needle(
+    method: core.NeedleReadonlyHttpVerbs,
+    url: string,
+    options?: core.NeedleOptions,
+): Promise<core.NeedleResponse>;
 /**
  * Calling needle() directly returns a Promise.
  *
@@ -260,7 +268,12 @@ declare function needle(method: core.NeedleReadonlyHttpVerbs, url: string, optio
  * @param method Designates an HTTP verb for the request.
  * @param data May be null when issuing an HTTP DELETE request, but you need to explicity pass it.
  */
-declare function needle(method: core.NeedleHttpVerbs, url: string, data: core.BodyData, options?: core.NeedleOptions): Promise<core.NeedleResponse>;
+declare function needle(
+    method: core.NeedleHttpVerbs,
+    url: string,
+    data: core.BodyData,
+    options?: core.NeedleOptions,
+): Promise<core.NeedleResponse>;
 
 declare namespace needle {
     export type BodyData = core.BodyData;
@@ -300,7 +313,12 @@ declare namespace needle {
     /**
      * Issues an HTTP POST request.
      */
-    export function post(url: string, data: BodyData, options?: NeedleOptions, callback?: NeedleCallback): ReadableStream;
+    export function post(
+        url: string,
+        data: BodyData,
+        options?: NeedleOptions,
+        callback?: NeedleCallback,
+    ): ReadableStream;
 
     /**
      * Issues an HTTP PUT request.
@@ -309,7 +327,12 @@ declare namespace needle {
     /**
      * Issues an HTTP PUT request.
      */
-    export function put(url: string, data: BodyData, options?: NeedleOptions, callback?: NeedleCallback): ReadableStream;
+    export function put(
+        url: string,
+        data: BodyData,
+        options?: NeedleOptions,
+        callback?: NeedleCallback,
+    ): ReadableStream;
 
     /**
      * Same behaviour as PUT.
@@ -318,7 +341,12 @@ declare namespace needle {
     /**
      * Same behaviour as PUT.
      */
-    export function patch(url: string, data: BodyData, options?: NeedleOptions, callback?: NeedleCallback): ReadableStream;
+    export function patch(
+        url: string,
+        data: BodyData,
+        options?: NeedleOptions,
+        callback?: NeedleCallback,
+    ): ReadableStream;
 
     /**
      * Issues an HTTP DELETE request.
@@ -327,7 +355,12 @@ declare namespace needle {
     /**
      * Issues an HTTP DELETE request.
      */
-    function deleteFunc(url: string, data: BodyData, options?: NeedleOptions, callback?: NeedleCallback): ReadableStream;
+    function deleteFunc(
+        url: string,
+        data: BodyData,
+        options?: NeedleOptions,
+        callback?: NeedleCallback,
+    ): ReadableStream;
     // See https://github.com/Microsoft/TypeScript/issues/1784#issuecomment-258720219
     export { deleteFunc as delete };
 
@@ -338,7 +371,12 @@ declare namespace needle {
      * unless you pass a json: true option.
      * @param method Designates an HTTP verb for the request.
      */
-    export function request(method: NeedleHttpVerbs, url: string, data: BodyData, callback?: NeedleCallback): ReadableStream;
+    export function request(
+        method: NeedleHttpVerbs,
+        url: string,
+        data: BodyData,
+        callback?: NeedleCallback,
+    ): ReadableStream;
     /**
      * Generic request.
      * This not only allows for flexibility, but also lets you perform a GET request with data,
@@ -346,7 +384,13 @@ declare namespace needle {
      * unless you pass a json: true option.
      * @param method Designates an HTTP verb for the request.
      */
-    export function request(method: NeedleHttpVerbs, url: string, data: BodyData, options?: NeedleOptions, callback?: NeedleCallback): ReadableStream;
+    export function request(
+        method: NeedleHttpVerbs,
+        url: string,
+        data: BodyData,
+        options?: NeedleOptions,
+        callback?: NeedleCallback,
+    ): ReadableStream;
 }
 
 export = needle;

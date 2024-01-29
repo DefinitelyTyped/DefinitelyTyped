@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/keythereum",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/ethereumjs/keythereum"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/keythereum": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "septs",
+            "githubUsername": "septs"
+        }
+    ]
+}

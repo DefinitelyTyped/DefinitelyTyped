@@ -1,3 +1,3 @@
-import { SingleDatePickerInput } from '../../index';
+import { SingleDatePickerInput } from "../../index";
 
 export default SingleDatePickerInput;

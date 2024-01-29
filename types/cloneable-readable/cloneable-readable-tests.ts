@@ -1,5 +1,5 @@
-import { PassThrough } from 'stream';
-import cloneable = require('cloneable-readable');
+import { PassThrough } from "stream";
+import cloneable = require("cloneable-readable");
 
 const ps = new PassThrough(); // $ExpectType PassThrough
 const cl = cloneable(ps); // $ExpectType Cloneable<PassThrough>

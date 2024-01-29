@@ -1,10 +1,3 @@
-// Type definitions for pica 9.0
-// Project: https://github.com/nodeca/pica
-// Definitions by: Hamit YILMAZ <https://github.com/hmtylmz>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 sapphi-red <https://github.com/sapphi-red>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace pica {
     interface PicaOptions {
         /**
@@ -22,7 +15,7 @@ declare namespace pica {
          *
          * @default ['js', 'wasm', 'ww']
          */
-        features?: Array<'js' | 'wasm' | 'cib' | 'ww'> | ['all'] | undefined;
+        features?: Array<"js" | "wasm" | "cib" | "ww"> | ["all"] | undefined;
         /**
          * cache timeout, ms. Webworkers create is not fast.
          *
@@ -59,7 +52,7 @@ declare namespace pica {
          *
          * @default 'mks2013'
          */
-        filter?: 'box' | 'hamming' | 'lanczos2' | 'lanczos3' | 'mks2013' | undefined;
+        filter?: "box" | "hamming" | "lanczos2" | "lanczos3" | "mks2013" | undefined;
         /**
          * in percents, >=0.
          *
@@ -92,7 +85,7 @@ declare namespace pica {
 
     interface PicaResizeBufferOptions {
         /** Uint8Array with source data. */
-        src: number[];
+        src: Uint8Array;
         /** src image width. */
         width: number;
         /** src image height. */
@@ -100,7 +93,7 @@ declare namespace pica {
         /** output width, >=0, in pixels. */
         toWidth: number;
         /** output height, >=0, in pixels. */
-        toHeigh: number;
+        toHeight: number;
         /**
          * deprecated use `.filter` instead.
          *
@@ -114,7 +107,7 @@ declare namespace pica {
          *
          * @default 'mks2013'
          */
-        filter?: 'box' | 'hamming' | 'lanczos2' | 'lanczos3' | 'mks2013' | undefined;
+        filter?: "box" | "hamming" | "lanczos2" | "lanczos3" | "mks2013" | undefined;
         /**
          * in percents, >=0.
          *
@@ -142,7 +135,7 @@ declare namespace pica {
         /**
          * Optional. Output buffer to write data, if you don't wish pica to create new one.
          */
-        dest?: string | undefined;
+        dest?: Uint8Array | undefined;
     }
 
     interface Pica {
@@ -169,11 +162,11 @@ declare namespace pica {
          * Resize Uint8Array with raw RGBA bitmap (don't confuse with jpeg / png / ... binaries).
          * It does not use tiles & webworkers. Left for special cases when you really need to process raw binary data (for example, if you decode jpeg files "manually").
          */
-        resizeBuffer(options: PicaResizeBufferOptions): Promise<number[]>;
+        resizeBuffer(options: PicaResizeBufferOptions): Promise<Uint8Array>;
     }
 
     interface PicaStatic {
-        new (config?: PicaOptions): Pica;
+        new(config?: PicaOptions): Pica;
         (config?: PicaOptions): Pica;
     }
 }

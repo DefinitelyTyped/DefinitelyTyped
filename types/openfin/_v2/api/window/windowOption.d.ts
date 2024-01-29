@@ -1,5 +1,5 @@
-import { DownloadPreloadOption } from '../system/download-preload';
-import { RGB, ContextMenuSettings, Hotkey } from '../../shapes/shapes';
+import { ContextMenuSettings, Hotkey, RGB } from "../../shapes/shapes";
+import { DownloadPreloadOption } from "../system/download-preload";
 export interface WindowOption {
     accelerator?: Accelerator | undefined;
     alphaMask?: RGB | undefined;
@@ -16,7 +16,7 @@ export interface WindowOption {
     cornerRounding?: CornerRounding | undefined;
     customContext?: any;
     customData?: any;
-    customRequestHeaders?: Array<CustomRequestHeaders> | undefined;
+    customRequestHeaders?: CustomRequestHeaders[] | undefined;
     defaultCentered?: boolean | undefined;
     defaultHeight?: number | undefined;
     defaultLeft?: number | undefined;
@@ -35,7 +35,7 @@ export interface WindowOption {
     minWidth?: number | undefined;
     name?: string | undefined;
     opacity?: number | undefined;
-    preloadScripts?: Array<DownloadPreloadOption> | undefined;
+    preloadScripts?: DownloadPreloadOption[] | undefined;
     resizable?: boolean | undefined;
     resizeRegion?: ResizeRegion | undefined;
     saveWindowState?: boolean | undefined;
@@ -50,8 +50,8 @@ export interface WindowOption {
     waitForPageLoad?: boolean | undefined;
 }
 export interface CustomRequestHeaders {
-    urlPatterns: Array<string>;
-    headers: Array<any>;
+    urlPatterns: string[];
+    headers: any[];
 }
 export declare type WindowOptionDiff = {
     [key in keyof WindowOption]: {

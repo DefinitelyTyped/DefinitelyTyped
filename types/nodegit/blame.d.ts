@@ -1,6 +1,6 @@
-import { Repository } from './repository';
-import { BlameOptions } from './blame-options';
-import { BlameHunk } from './blame-hunk';
+import { BlameHunk } from "./blame-hunk";
+import { BlameOptions } from "./blame-options";
+import { Repository } from "./repository";
 
 export namespace Blame {
     const enum FLAG {
@@ -30,7 +30,6 @@ export class Blame {
 
     buffer(buffer: string, bufferLen: number): Promise<Blame>;
 
-    free(): void;
     /**
      * @returns - the hunk at the given index, or NULL on error
      */

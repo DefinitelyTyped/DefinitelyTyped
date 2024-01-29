@@ -1,8 +1,3 @@
-// Type definitions for xml-zero-lexer 2.1
-// Project: https://github.com/holloway/xml-zero.js/tree/master/packages/xml-zero-lexer
-// Definitions by: 宁倬 <https://github.com/943297456>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export const NodeTypes: {
     /**
      * unofficial
@@ -88,7 +83,7 @@ export const NodeTypeKeys: [
     "NOTATION_NODE",
     "CLOSE_ELEMENT",
     "JSX_ATTRIBUTE",
-    "JSX"
+    "JSX",
 ];
 
 declare namespace Lexx {
@@ -128,4 +123,9 @@ export function onElement(xml: string, i: number, inElement: boolean): [number, 
 export function onExclamation(xml: string, i: number, inElement: boolean): [number, boolean, Lexx.Token];
 export function onShorthandCDATA(xml: string, i: number, inElement: boolean): [number, boolean, Lexx.Token];
 export function onText(xml: string, i: number, jsx?: boolean): [number, boolean, Lexx.Token];
-export function onBlackhole(xml: string, i: number, inElement: boolean, untilToken: Lexx.Token): [number, boolean, Lexx.Token];
+export function onBlackhole(
+    xml: string,
+    i: number,
+    inElement: boolean,
+    untilToken: Lexx.Token,
+): [number, boolean, Lexx.Token];

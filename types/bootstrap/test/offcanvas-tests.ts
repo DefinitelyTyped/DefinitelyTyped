@@ -1,5 +1,5 @@
-import { Offcanvas } from 'bootstrap';
-import * as $ from 'jquery';
+import { Offcanvas } from "bootstrap";
+import * as $ from "jquery";
 
 const element = new Element();
 
@@ -23,6 +23,10 @@ Offcanvas.getOrCreateInstance(element, {
     keyboard: true,
     scroll: false,
 });
+// $ExpectType Offcanvas
+Offcanvas.getOrCreateInstance(element, {
+    backdrop: "static",
+});
 
 // $ExpectType string
 Offcanvas.VERSION;
@@ -43,9 +47,9 @@ element.addEventListener(Offcanvas.Events.shown, event => {
     // do something…
 });
 
-// $ExpectType void
-$('.alert').offcanvas();
+// $ExpectType JQuery<HTMLElement>
+$(".alert").offcanvas();
 
-$('.alert').offcanvas('toggle'); // $ExpectType void
-$('.alert').offcanvas('show'); // $ExpectType void
-$('.alert').offcanvas('hide'); // $ExpectType void
+$(".alert").offcanvas("toggle"); // $ExpectType JQuery<HTMLElement>
+$(".alert").offcanvas("show"); // $ExpectType JQuery<HTMLElement>
+$(".alert").offcanvas("hide"); // $ExpectType JQuery<HTMLElement>

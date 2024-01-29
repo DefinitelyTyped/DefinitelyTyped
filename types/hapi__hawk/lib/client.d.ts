@@ -1,9 +1,9 @@
-import * as Crypto from './crypto';
-import * as http from 'http';
-import * as request from 'request';
+import * as http from "http";
+import * as request from "request";
+import * as Crypto from "./crypto";
 
 export interface Credentials {
-    algorithm: 'sha1' | 'sha256';
+    algorithm: "sha1" | "sha256";
     id: string;
     key: string;
 }

@@ -1,13 +1,4 @@
-// Type definitions for non-npm package @ember/test 3.16
-// Project: https://emberjs.com/api/ember/3.16/modules/@ember%2Ftest
-// Definitions by: Mike North <https://github.com/mike-north>
-//                 Chris Krycho <https://github.com/chriskrycho>
-//                 Dan Freeman <https://github.com/dfreeman>
-//                 James C. Davis <https://github.com/jamescdavis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
-import Application from '@ember/application';
+import Application from "@ember/application";
 
 /**
  * `registerHelper` is used to register a test helper that will be injected
@@ -16,16 +7,13 @@ import Application from '@ember/application';
 export function registerHelper(
     name: string,
     helperMethod: (app: Application, ...args: any[]) => any,
-    options?: object
+    options?: object,
 ): any;
 /**
  * `registerAsyncHelper` is used to register an async test helper that will be injected
  * when `App.injectTestHelpers` is called.
  */
-export function registerAsyncHelper(
-    name: string,
-    helperMethod: (app: Application, ...args: any[]) => any
-): void;
+export function registerAsyncHelper(name: string, helperMethod: (app: Application, ...args: any[]) => any): void;
 
 /**
  * Remove a previously added helper method.
@@ -41,16 +29,10 @@ export function unregisterHelper(name: string): void;
  * is executed and the process repeats.
  */
 export function registerWaiter(callback: () => boolean): any;
-export function registerWaiter<Context>(
-    context: Context,
-    callback: (this: Context) => boolean
-): any;
+export function registerWaiter<Context>(context: Context, callback: (this: Context) => boolean): any;
 /**
  * `unregisterWaiter` is used to unregister a callback that was
  * registered with `registerWaiter`.
  */
 export function unregisterWaiter(callback: () => boolean): any;
-export function unregisterWaiter<Context>(
-    context: Context,
-    callback: (this: Context) => boolean
-): any;
+export function unregisterWaiter<Context>(context: Context, callback: (this: Context) => boolean): any;

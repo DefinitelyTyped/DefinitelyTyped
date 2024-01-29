@@ -1,20 +1,13 @@
-// Type definitions for switchery 0.8.1
-// Project: https://github.com/abpetkov/switchery
-// Definitions by: Bruno Grieder <https://github.com/bgrieder>, Clayton Lautier <https://github.com/claylaut>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var switchery: Switchery.SwitcheryStatic;
 export default switchery;
 export as namespace Switchery;
 
 declare namespace Switchery {
-
     interface SwitcheryStatic {
-        new (node: Node, options?: Options): Switchery;
+        new(node: Node, options?: Options): Switchery;
     }
 
     interface Options {
-
         /**
          * color of the switch element (HEX or RGB value)
          * @default '#64bd63'
@@ -64,7 +57,6 @@ declare namespace Switchery {
 }
 
 interface Switchery {
-
     /**
      * Unbinding all event handlers attached to the switch element to prepare the object for garbage collection.
      * @returns {void}

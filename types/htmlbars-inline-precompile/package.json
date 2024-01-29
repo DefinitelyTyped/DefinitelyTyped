@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/htmlbars-inline-precompile",
+    "version": "3.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "htmlbars-inline-precompile",
+    "projects": [
+        "https://github.com/ember-cli/ember-cli-htmlbars-inline-precompile"
+    ],
+    "devDependencies": {
+        "@types/htmlbars-inline-precompile": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Krystan HuffMenne",
+            "githubUsername": "gitKrystan"
+        },
+        {
+            "name": "James C. Davis",
+            "githubUsername": "jamescdavis"
+        },
+        {
+            "name": "Peter Wagenet",
+            "githubUsername": "wagenet"
+        }
+    ]
+}

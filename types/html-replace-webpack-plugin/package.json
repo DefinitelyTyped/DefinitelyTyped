@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/html-replace-webpack-plugin",
+    "version": "2.6.9999",
+    "projects": [
+        "https://github.com/iminif/html-replace-webpack-plugin#readme"
+    ],
+    "dependencies": {
+        "@types/webpack": "^4"
+    },
+    "devDependencies": {
+        "@types/html-replace-webpack-plugin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alex Brick",
+            "githubUsername": "bricka"
+        }
+    ]
+}

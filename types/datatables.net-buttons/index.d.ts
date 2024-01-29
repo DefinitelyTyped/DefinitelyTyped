@@ -1,12 +1,3 @@
-// Type definitions for JQuery DataTables Buttons extension 1.4
-// Project: http://datatables.net/extensions/buttons/, https://datatables.net
-// Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection>
-//                 Sam Germano <https://github.com/SammyG4Free>
-//                 Jim Hartford <https://github.com/jimhartford>
-//                 Chris Frewin <https://github.com/princefishthrower>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="jquery" />
 /// <reference types="datatables.net"/>
 
@@ -27,7 +18,7 @@ declare namespace DataTables {
     }
 
     interface ButtonStaticFunctions {
-        new (dt: Api, settings: boolean | string[] | ButtonsSettings | ButtonSettings[]): undefined;
+        new(dt: Api, settings: boolean | string[] | ButtonsSettings | ButtonSettings[]): undefined;
         version: string;
         defaults: ButtonsSettings;
     }
@@ -89,7 +80,7 @@ declare namespace DataTables {
         /**
          * Create a new button, adding it to the selected button instance and inserting immediately into the document.
          */
-        add(index: number | string, config: string|FunctionButtom|ButtonSettings): Api;
+        add(index: number | string, config: string | FunctionButtom | ButtonSettings): Api;
 
         /**
          * Disable the selected buttons.
@@ -184,12 +175,12 @@ declare namespace DataTables {
         body: string[];
     }
 
-    //#region "Button Settings"
+    // #region "Button Settings"
 
     interface ButtonsSettings {
         name?: string | undefined;
         tabIndex?: number | undefined;
-        buttons: Array<string|FunctionButtom|ButtonSettings>;
+        buttons: Array<string | FunctionButtom | ButtonSettings>;
         dom?: ButtonDomSettings | undefined;
     }
 
@@ -294,7 +285,7 @@ declare namespace DataTables {
 
     type FunctionButtonAction = (e: any, dt: Api, node: JQuery, config: ButtonSettings) => void;
 
-    type FunctionButtonCustomize = (win: Window|string) => void;
+    type FunctionButtonCustomize = (win: Window | string) => void;
 
     type FunctionExtButtonsCollectionText = (a: any) => string;
 
@@ -314,15 +305,15 @@ declare namespace DataTables {
         text: FunctionExtButtonsCollectionText;
     }
 
-    //#endregion "Button Defaults"
+    // #endregion "Button Defaults"
 
-    //#region "Add-Ons"
+    // #region "Add-Ons"
 
     /**
      * Buttons extension options
      */
     interface ButtonSettings extends ButtomSettingsCommon {
-        //#region (HTML-)File-Export
+        // #region (HTML-)File-Export
 
         /**
          * CSV / EXCEL: Define what the exported filename should be
@@ -357,7 +348,7 @@ declare namespace DataTables {
         /**
          * CSV: charset
          */
-        charset?: string|boolean | undefined;
+        charset?: string | boolean | undefined;
 
         /**
          * CSV: escape char
@@ -379,9 +370,9 @@ declare namespace DataTables {
          */
         pageSize?: string | undefined;
 
-        //#endregion (HTML-)File-Export
+        // #endregion (HTML-)File-Export
 
-        //#region Export and Print
+        // #region Export and Print
 
         /**
          * COPY / CSV / EXCEL / PDF / PRINT: show header
@@ -421,16 +412,16 @@ declare namespace DataTables {
         /**
          * PDF / PRINT: Extra message
          */
-        message?: string|Api|JQuery|object | undefined;
+        message?: string | Api | JQuery | object | undefined;
 
         /**
          * PRINT: Show print dialoge on click
          */
         autoPrint?: boolean | undefined;
 
-        //#endregion Export and Print
+        // #endregion Export and Print
 
-        //#region ColVis
+        // #region ColVis
 
         /**
          * COLVIS: Column selector
@@ -442,16 +433,16 @@ declare namespace DataTables {
          */
         columnText?: FunctionButtonColvisColumnText | undefined;
 
-        //#endregion ColVis
+        // #endregion ColVis
 
-        //#region Buttons
+        // #region Buttons
 
         /**
          * List of buttons to be created
          */
-        buttons?: Array<string|FunctionButtom|ButtonSettings> | undefined;
+        buttons?: Array<string | FunctionButtom | ButtonSettings> | undefined;
 
-        //#endregion Buttons
+        // #endregion Buttons
     }
 
     type ButtonSelectorTypes = string | number | JQuery;
@@ -463,5 +454,5 @@ declare namespace DataTables {
 
     type FunctionButtonColvisColumnText = (dt: Api, i: number, title: string) => string;
 
-    //#endregion "button-settings
+    // #endregion "button-settings
 }

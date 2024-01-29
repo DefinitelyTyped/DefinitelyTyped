@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/xml-c14n",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/deoxxa/xml-c14n"
+    ],
+    "devDependencies": {
+        "@types/xml-c14n": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Konstantin Yuriev",
+            "githubUsername": "gallowsmaker"
+        },
+        {
+            "name": "Max Boguslavskiy",
+            "githubUsername": "maxbogus"
+        }
+    ]
+}

@@ -1,18 +1,18 @@
-import * as qr from 'qr-image';
-import * as fs from 'fs';
+import * as fs from "fs";
+import * as qr from "qr-image";
 
-const qr_svg = qr.image('I love QR!', { type: 'svg' });
-qr_svg.pipe(fs.createWriteStream('i_love_qr.svg'));
+const qr_svg = qr.image("I love QR!", { type: "svg" });
+qr_svg.pipe(fs.createWriteStream("i_love_qr.svg"));
 
-const svg_string = qr.imageSync('I love QR!', { type: 'svg' });
+const svg_string = qr.imageSync("I love QR!", { type: "svg" });
 
 // customize
 function coord2offset(x: number, y: number, size: number) {
     return (size + 1) * y + x + 1;
 }
 
-qr.image('Customize PNG', {
-    type: 'png',
+qr.image("Customize PNG", {
+    type: "png",
     customize: bitmap => {
         const size = bitmap.size;
         const data = bitmap.data;
@@ -25,4 +25,7 @@ qr.image('Customize PNG', {
             }
         }
     },
-}).pipe(fs.createWriteStream('custom.png'));
+}).pipe(fs.createWriteStream("custom.png"));
+
+// $ExpectType SvgObject
+const res = qr.svgObject("test data");

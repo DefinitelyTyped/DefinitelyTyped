@@ -1,4 +1,4 @@
-import { registerCoreBlocks } from '@wordpress/block-library';
+import { registerCoreBlocks } from "@wordpress/block-library";
 
 // $ExpectType void
 registerCoreBlocks();

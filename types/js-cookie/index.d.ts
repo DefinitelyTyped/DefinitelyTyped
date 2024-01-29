@@ -1,13 +1,3 @@
-// Type definitions for js-cookie 3.0
-// Project: https://github.com/js-cookie/js-cookie
-// Definitions by: Theodore Brown <https://github.com/theodorejb>
-//                 BendingBender <https://github.com/BendingBender>
-//                 Antoine Lépée <https://github.com/alepee>
-//                 Yuto Doi <https://github.com/yutod>
-//                 Nicolas Reynis <https://github.com/nreynis>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Cookies {
     interface CookieAttributes {
         /**
@@ -39,7 +29,7 @@ declare namespace Cookies {
          * providing some protection against cross-site request forgery
          * attacks (CSRF)
          */
-        sameSite?: 'strict' | 'Strict' | 'lax' | 'Lax' | 'none' | 'None' | undefined;
+        sameSite?: "strict" | "Strict" | "lax" | "Lax" | "none" | "None" | undefined;
 
         /**
          * An attribute which will be serialized, conformably to RFC 6265
@@ -48,9 +38,9 @@ declare namespace Cookies {
         [property: string]: any;
     }
 
-    interface CookiesStatic<T extends object = object> {
+    interface CookiesStatic<T = string> {
         readonly attributes: CookieAttributes;
-        readonly converter: Required<Converter<T>>;
+        readonly converter: Required<Converter<string>>;
         /**
          * Create a cookie
          */
@@ -59,7 +49,7 @@ declare namespace Cookies {
         /**
          * Read cookie
          */
-        get(name: string): string | undefined;
+        get(name: string): string | T | undefined;
 
         /**
          * Read all available cookies
@@ -86,16 +76,16 @@ declare namespace Cookies {
          * will run the converter first for each cookie. The returned
          * string will be used as the cookie value.
          */
-        withConverter<TConv extends object>(converter: Converter<TConv>): CookiesStatic<TConv>;
+        withConverter<TConv = string>(converter: Converter<TConv>): CookiesStatic<TConv>;
     }
 
-    interface Converter<TConv extends object> {
+    interface Converter<TConv> {
         write?: CookieWriteConverter<TConv> | undefined;
-        read?: CookieReadConverter | undefined;
+        read?: CookieReadConverter<TConv> | undefined;
     }
 
-    type CookieWriteConverter<T extends object> = (value: string | T, name: string) => string;
-    type CookieReadConverter = (value: string, name: string) => string;
+    type CookieWriteConverter<T> = (value: string | T, name: string) => string;
+    type CookieReadConverter<T> = (value: string, name: string) => string | T;
 }
 
 declare const Cookies: Cookies.CookiesStatic & {

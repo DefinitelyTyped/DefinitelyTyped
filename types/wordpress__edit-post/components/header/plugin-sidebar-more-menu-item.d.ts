@@ -1,5 +1,5 @@
-import { Dashicon } from '@wordpress/components';
-import { ComponentType, ReactNode } from 'react';
+import { Dashicon } from "@wordpress/components";
+import { ComponentType, JSX, ReactNode } from "react";
 
 declare namespace PluginSidebarMoreMenuItem {
     interface Props {

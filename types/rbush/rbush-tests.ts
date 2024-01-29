@@ -1,4 +1,4 @@
-import RBush, { BBox } from 'rbush';
+import RBush, { BBox } from "rbush";
 
 interface IndexedRect extends BBox {
     index: number;

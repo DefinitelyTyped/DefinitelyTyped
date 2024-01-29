@@ -1,18 +1,7 @@
-// Type definitions for ShellJS 0.8
-// Project: http://shelljs.org, https://github.com/shelljs/shelljs
-// Definitions by: Niklas Mollenhauer <https://github.com/nikeee>
-//                 Vojtech Jasny <https://github.com/voy>
-//                 George Kalpakas <https://github.com/gkalpak>
-//                 Paul Huynh <https://github.com/pheromonez>
-//                 Alexander Futász <https://github.com/aldafu>
-//                 ExE Boss <https://github.com/ExE-Boss>
-//                 Mirco Sanguineti <https://github.com/msanguineti>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
-import child = require('child_process');
-import glob = require('glob');
+import child = require("child_process");
+import glob = require("glob");
 
 /**
  * Changes the current working directory dir for the duration of the script.
@@ -251,7 +240,7 @@ export const mkdir: MkdirFunction;
  */
 export function test(option: TestOptions, path: string): boolean;
 
-export type TestOptions = '-b' | '-c' | '-d' | '-e' | '-f' | '-L' | '-p' | '-S';
+export type TestOptions = "-b" | "-c" | "-d" | "-e" | "-f" | "-L" | "-p" | "-S";
 
 export interface CatFunction {
     /**
@@ -416,7 +405,7 @@ export interface PushDirFunction {
      *                starting with zero) to the top of the list by rotating the stack.
      * @return        Returns an array of paths in the stack.
      */
-    (options: string, dir: '+N'): ShellArray;
+    (options: string, dir: "+N"): ShellArray;
 
     /**
      * Saves the current directory on the top of the directory stack and then cd to dir.
@@ -430,7 +419,7 @@ export interface PushDirFunction {
      *                starting with zero) to the top of the list by rotating the stack.
      * @return        Returns an array of paths in the stack.
      */
-    (options: string, dir: '-N'): ShellArray;
+    (options: string, dir: "-N"): ShellArray;
 
     /**
      * Saves the current directory on the top of the directory stack and then cd to dir.
@@ -454,7 +443,7 @@ export interface PushDirFunction {
      *            starting with zero) to the top of the list by rotating the stack.
      * @return    Returns an array of paths in the stack.
      */
-    (dir: '+N'): ShellArray;
+    (dir: "+N"): ShellArray;
 
     /**
      * Saves the current directory on the top of the directory stack and then cd to dir.
@@ -464,7 +453,7 @@ export interface PushDirFunction {
      *            starting with zero) to the top of the list by rotating the stack.
      * @return    Returns an array of paths in the stack.
      */
-    (dir: '-N'): ShellArray;
+    (dir: "-N"): ShellArray;
 
     /**
      * Saves the current directory on the top of the directory stack and then cd to dir.
@@ -514,7 +503,7 @@ export interface PopDirFunction {
      * @param dir     Removes the Nth directory (counting from the left of the list printed by dirs), starting with zero.
      * @return        Returns an array of paths in the stack.
      */
-    (options: string, dir: '+N'): ShellArray;
+    (options: string, dir: "+N"): ShellArray;
 
     /**
      * When no arguments are given, popd removes the top directory from the stack
@@ -530,7 +519,7 @@ export interface PopDirFunction {
      * @param dir     Removes the Nth directory (counting from the right of the list printed by dirs), starting with zero.
      * @return        Returns an array of paths in the stack.
      */
-    (options: string, dir: '-N'): ShellArray;
+    (options: string, dir: "-N"): ShellArray;
 
     /**
      * When no arguments are given, popd removes the top directory from the stack
@@ -558,7 +547,7 @@ export interface PopDirFunction {
      * @param dir Removes the Nth directory (counting from the left of the list printed by dirs), starting with zero.
      * @return    Returns an array of paths in the stack.
      */
-    (dir: '+N'): ShellArray;
+    (dir: "+N"): ShellArray;
 
     /**
      * When no arguments are given, popd removes the top directory from the stack
@@ -570,7 +559,7 @@ export interface PopDirFunction {
      * @param dir Removes the Nth directory (counting from the right of the list printed by dirs), starting with zero.
      * @return    Returns an array of paths in the stack.
      */
-    (dir: '-N'): ShellArray;
+    (dir: "-N"): ShellArray;
 
     /**
      * When no arguments are given, popd removes the top directory from the stack
@@ -619,7 +608,7 @@ export interface DirsFunction {
      * @param options Clears the directory stack by deleting all of the elements.
      * @return        Returns an array of paths in the stack, or a single path if +N or -N was specified.
      */
-    (options: '-c'): ShellArray;
+    (options: "-c"): ShellArray;
 
     /**
      * Displays the list of currently remembered directories.
@@ -628,7 +617,7 @@ export interface DirsFunction {
      *                printed by dirs when invoked without options), starting with zero.
      * @return        Returns an array of paths in the stack, or a single path if +N or -N was specified.
      */
-    (options: '+N'): ShellString;
+    (options: "+N"): ShellString;
 
     /**
      * Displays the list of currently remembered directories.
@@ -637,7 +626,7 @@ export interface DirsFunction {
      *                printed by dirs when invoked without options), starting with zero.
      * @return        Returns an array of paths in the stack, or a single path if +N or -N was specified.
      */
-    (options: '-N'): ShellString;
+    (options: "-N"): ShellString;
 
     /**
      * Displays the list of currently remembered directories.
@@ -786,10 +775,8 @@ export const exec: ExecFunction;
 export type ExecCallback = (
     /** The process exit code. */
     code: number,
-
     /** The process standard output. */
     stdout: string,
-
     /** The process standard error output. */
     stderr: string,
 ) => any;
@@ -962,8 +949,8 @@ export interface ShellStringConstructor {
      * @param value     The string value to wrap.
      * @return                A string-like object with special methods.
      */
-    new (value: string): ShellString;
-    new (value: string[]): ShellArray;
+    new(value: string): ShellString;
+    new(value: string[]): ShellArray;
 
     /**
      * Wraps a string (or array) value. This has all the string (or array) methods,
@@ -1060,11 +1047,11 @@ export function tempdir(): ShellString;
  */
 export function error(): ShellString;
 
-export type TouchOptionsLiteral = '-a' | '-c' | '-m' | '-d' | '-r';
+export type TouchOptionsLiteral = "-a" | "-c" | "-m" | "-d" | "-r";
 
 export interface TouchOptionsArray {
-    '-d'?: string | undefined;
-    '-r'?: string | undefined;
+    "-d"?: string | undefined;
+    "-r"?: string | undefined;
 }
 
 export interface TouchFunction {
@@ -1083,7 +1070,7 @@ export const touch: TouchFunction;
 
 export interface HeadOptions {
     /** Show the first <num> lines of the files. */
-    '-n': number;
+    "-n": number;
 }
 
 export interface HeadFunction {
@@ -1131,7 +1118,7 @@ export const sort: SortFunction;
 
 export interface TailOptions {
     /** Show the last <num> lines of files. */
-    '-n': number;
+    "-n": number;
 }
 
 export interface TailFunction {

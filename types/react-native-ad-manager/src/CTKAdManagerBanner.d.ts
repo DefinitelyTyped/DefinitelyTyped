@@ -1,5 +1,5 @@
-import React = require('react');
-import { BannerProps } from '../helper-types';
+import React = require("react");
+import { BannerProps } from "../helper-types";
 
 /**
  * Display a DFP Publisher banner

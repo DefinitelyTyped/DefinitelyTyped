@@ -8,6 +8,7 @@ export interface InputGroupAddonProps {
     className?: string | undefined;
     compact?: boolean | undefined;
     isButton?: boolean | undefined;
+    children?: React.ReactNode;
 }
 
 export type InputGroupProps = {
@@ -16,7 +17,7 @@ export type InputGroupProps = {
     disabled?: boolean | undefined;
     disableStyles?: boolean | undefined;
     validationState?: {
-        state?: 'error' | 'warning' | 'information' | 'success' | undefined;
+        state?: "error" | "warning" | "information" | "success" | undefined;
         text?: string | undefined;
     } | undefined;
     props?: any;
@@ -24,7 +25,7 @@ export type InputGroupProps = {
 
 declare class InputGroup extends React.Component<InputGroupProps> {
     static displayName: "InputGroup";
-    static Addon: React.FunctionComponent<InputGroupAddonProps> & {displayName: "InputGroup.Addon"};
+    static Addon: React.FunctionComponent<InputGroupAddonProps> & { displayName: "InputGroup.Addon" };
 }
 
 export default InputGroup;

@@ -1,18 +1,19 @@
-import * as React from 'react';
-import { StackNavigationState, Route, ParamListBase } from '../../../native';
-import type { StackNavigationHelpers, StackNavigationConfig, StackDescriptorMap } from '../../types';
-// tslint:disable-next-line strict-export-declare-modifiers
+import * as React from "react";
+import { ParamListBase, Route, StackNavigationState } from "../../../native";
+import type { StackDescriptorMap, StackNavigationConfig, StackNavigationHelpers } from "../../types";
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 declare type Props = StackNavigationConfig & {
     state: StackNavigationState<ParamListBase>;
     navigation: StackNavigationHelpers;
     descriptors: StackDescriptorMap;
 };
-// tslint:disable-next-line interface-over-type-literal strict-export-declare-modifiers
+/* eslint-disable @definitelytyped/strict-export-declare-modifiers */
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 declare type State = {
     // tslint:disable-next-line array-type
-    routes: Route<string>[];
+    routes: Array<Route<string>>;
     // tslint:disable-next-line array-type
-    previousRoutes: Route<string>[];
+    previousRoutes: Array<Route<string>>;
     previousDescriptors: StackDescriptorMap;
     openingRouteKeys: string[];
     closingRouteKeys: string[];
@@ -22,9 +23,9 @@ declare type State = {
 export default class StackView extends React.Component<Props, State> {
     static getDerivedStateFromProps(props: Readonly<Props>, state: Readonly<State>): {
         // tslint:disable-next-line no-redundant-undefined array-type use-default-type-parameter
-        routes: Route<string, object | undefined>[];
+        routes: Array<Route<string, object | undefined>>;
         // tslint:disable-next-line no-redundant-undefined array-type use-default-type-parameter
-        previousRoutes: Route<string, object | undefined>[];
+        previousRoutes: Array<Route<string, object | undefined>>;
         descriptors: StackDescriptorMap;
         previousDescriptors: StackDescriptorMap;
         openingRouteKeys?: undefined;
@@ -32,91 +33,125 @@ export default class StackView extends React.Component<Props, State> {
         replacingRouteKeys?: undefined;
     } | {
         // tslint:disable-next-line array-type
-        routes: (Readonly<{
-            key: string;
-            name: string;
-        }> & Readonly<{
-            // tslint:disable-next-line no-redundant-undefined
-            params?: object | undefined;
-        }> & {
-            state?: Readonly<{
+        routes: Array<
+            & Readonly<{
                 key: string;
-                index: number;
-                routeNames: string[];
+                name: string;
+            }>
+            & Readonly<{
                 // tslint:disable-next-line no-redundant-undefined
-                history?: unknown[] | undefined;
-                // tslint:disable-next-line array-type
-                routes: (Readonly<{
-                    key: string;
-                    name: string;
-                }> & Readonly<{
-                    // tslint:disable-next-line no-redundant-undefined
-                    params?: object | undefined;
-                }> & any)[];
-                type: string;
-                stale: false;
-            }> | import("../../../native").PartialState<Readonly<{
-                key: string;
-                index: number;
-                routeNames: string[];
-                // tslint:disable-next-line no-redundant-undefined
-                history?: unknown[] | undefined;
-                // tslint:disable-next-line array-type
-                routes: (Readonly<{
-                    key: string;
-                    name: string;
-                }> & Readonly<{
-                    // tslint:disable-next-line no-redundant-undefined
-                    params?: object | undefined;
-                }> & any)[];
-                type: string;
-                stale: false;
-                // tslint:disable-next-line no-redundant-undefined
-            }>> | undefined;
-        })[];
+                params?: object | undefined;
+            }>
+            & {
+                state?:
+                    | Readonly<{
+                        key: string;
+                        index: number;
+                        routeNames: string[];
+                        // tslint:disable-next-line no-redundant-undefined
+                        history?: unknown[] | undefined;
+                        // tslint:disable-next-line array-type
+                        routes: Array<
+                            & Readonly<{
+                                key: string;
+                                name: string;
+                            }>
+                            & Readonly<{
+                                // tslint:disable-next-line no-redundant-undefined
+                                params?: object | undefined;
+                            }>
+                            & any
+                        >;
+                        type: string;
+                        stale: false;
+                    }>
+                    | import("../../../native").PartialState<
+                        Readonly<{
+                            key: string;
+                            index: number;
+                            routeNames: string[];
+                            // tslint:disable-next-line no-redundant-undefined
+                            history?: unknown[] | undefined;
+                            // tslint:disable-next-line array-type
+                            routes: Array<
+                                & Readonly<{
+                                    key: string;
+                                    name: string;
+                                }>
+                                & Readonly<{
+                                    // tslint:disable-next-line no-redundant-undefined
+                                    params?: object | undefined;
+                                }>
+                                & any
+                            >;
+                            type: string;
+                            stale: false;
+                            // tslint:disable-next-line no-redundant-undefined
+                        }>
+                    >
+                    | undefined;
+            }
+        >;
         // tslint:disable-next-line array-type
-        previousRoutes: (Readonly<{
-            key: string;
-            name: string;
-        }> & Readonly<{
-            // tslint:disable-next-line no-redundant-undefined
-            params?: object | undefined;
-        }> & {
-            state?: Readonly<{
+        previousRoutes: Array<
+            & Readonly<{
                 key: string;
-                index: number;
-                routeNames: string[];
+                name: string;
+            }>
+            & Readonly<{
                 // tslint:disable-next-line no-redundant-undefined
-                history?: unknown[] | undefined;
-                // tslint:disable-next-line array-type
-                routes: (Readonly<{
-                    key: string;
-                    name: string;
-                }> & Readonly<{
-                    // tslint:disable-next-line no-redundant-undefined
-                    params?: object | undefined;
-                }> & any)[];
-                type: string;
-                stale: false;
-            }> | import("../../../native").PartialState<Readonly<{
-                key: string;
-                index: number;
-                routeNames: string[];
-                // tslint:disable-next-line no-redundant-undefined
-                history?: unknown[] | undefined;
-                // tslint:disable-next-line array-type
-                routes: (Readonly<{
-                    key: string;
-                    name: string;
-                }> & Readonly<{
-                    // tslint:disable-next-line no-redundant-undefined
-                    params?: object | undefined;
-                }> & any)[];
-                type: string;
-                stale: false;
-                // tslint:disable-next-line no-redundant-undefined
-            }>> | undefined;
-        })[];
+                params?: object | undefined;
+            }>
+            & {
+                state?:
+                    | Readonly<{
+                        key: string;
+                        index: number;
+                        routeNames: string[];
+                        // tslint:disable-next-line no-redundant-undefined
+                        history?: unknown[] | undefined;
+                        // tslint:disable-next-line array-type
+                        routes: Array<
+                            & Readonly<{
+                                key: string;
+                                name: string;
+                            }>
+                            & Readonly<{
+                                // tslint:disable-next-line no-redundant-undefined
+                                params?: object | undefined;
+                            }>
+                            & any
+                        >;
+                        type: string;
+                        stale: false;
+                    }>
+                    | import("../../../native").PartialState<
+                        Readonly<{
+                            key: string;
+                            index: number;
+                            routeNames: string[];
+                            // tslint:disable-next-line no-redundant-undefined
+                            history?: unknown[] | undefined;
+                            // tslint:disable-next-line array-type
+                            routes: Array<
+                                & Readonly<{
+                                    key: string;
+                                    name: string;
+                                }>
+                                & Readonly<{
+                                    // tslint:disable-next-line no-redundant-undefined
+                                    params?: object | undefined;
+                                }>
+                                & any
+                            >;
+                            type: string;
+                            stale: false;
+                            // tslint:disable-next-line no-redundant-undefined
+                        }>
+                    >
+                    | undefined;
+            }
+        >;
         previousDescriptors: StackDescriptorMap;
         openingRouteKeys: string[];
         closingRouteKeys: string[];
@@ -135,6 +170,6 @@ export default class StackView extends React.Component<Props, State> {
     private handleGestureStart;
     private handleGestureEnd;
     private handleGestureCancel;
-    render(): JSX.Element;
+    render(): React.JSX.Element;
 }
 export {};

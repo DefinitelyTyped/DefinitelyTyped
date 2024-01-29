@@ -1,4 +1,4 @@
-import { Map, TileDesc } from 'athenajs';
+import { Map, TileDesc } from "athenajs";
 
 const map = new Map({
     src: "tiles",
@@ -7,7 +7,7 @@ const map = new Map({
     width: 29 * 32,
     height: 8 * 32,
     viewportW: 320,
-    viewportH: 200
+    viewportH: 200,
 });
 const tiles: TileDesc[] = [];
 const mapContent: Uint8Array = new Uint8Array(10);
@@ -19,7 +19,7 @@ for (let row = 0; row < 8; row++) {
             offsetX: col * 32,
             offsetY: row * 32,
             width: 32,
-            height: 32
+            height: 32,
         });
     }
 }

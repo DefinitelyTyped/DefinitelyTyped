@@ -86,7 +86,7 @@ async function topLevel() {
         // $ExpectType "audio"
         generator.kind;
 
-        // $ExpectError
+        // @ts-expect-error
         new MediaStreamTrackGenerator({ kind: "invalid kind" });
     }
 
@@ -96,7 +96,7 @@ async function topLevel() {
 
         const writer3 = generator.writable.getWriter();
         const data = audioData;
-        // $ExpectError
+        // @ts-expect-error
         writer3.write(data);
     }
 
@@ -108,10 +108,10 @@ async function topLevel() {
 
     // MediaStreamTrackGenerator-video.https.html
 
-    const videoFrame = new VideoFrame(imageBitmap, { timestamp: 1, alpha: 'discard' });
+    const videoFrame = new VideoFrame(imageBitmap, { timestamp: 1, alpha: "discard" });
 
     {
-        const generator = new MediaStreamTrackGenerator({ kind: 'video' });
+        const generator = new MediaStreamTrackGenerator({ kind: "video" });
 
         // Use a MediaStreamTrackProcessor as a sink for |generator| to verify
         // that |processor| actually forwards the frames written to its writable
@@ -131,13 +131,13 @@ async function topLevel() {
     }
 
     {
-        const generator = new MediaStreamTrackGenerator({ kind: 'video' });
+        const generator = new MediaStreamTrackGenerator({ kind: "video" });
 
         new MediaStream([generator]);
     }
 
     {
-        const generator = new MediaStreamTrackGenerator({ kind: 'video' });
+        const generator = new MediaStreamTrackGenerator({ kind: "video" });
 
         // $ExpectType WritableStreamDefaultWriter<VideoFrame>
         const writer = generator.writable.getWriter();
@@ -162,7 +162,7 @@ async function topLevel() {
         const generator = new MediaStreamTrackGenerator({ kind: "audio" });
 
         const writer = generator.writable.getWriter();
-        // $ExpectError
+        // @ts-expect-error
         writer.write(videoFrame);
     }
 

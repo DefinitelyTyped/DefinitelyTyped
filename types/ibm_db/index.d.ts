@@ -1,9 +1,3 @@
-// Type definitions for ibm_db 2.0
-// Project: https://github.com/ibmdb/node-ibm_db
-// Definitions by: Adam Voga <https://github.com/agov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export interface ConnStr {
     DATABASE: string;
     HOSTNAME: string;
@@ -63,22 +57,22 @@ export class Database implements Options {
 
     openSync(connStr: string | ConnStr): boolean;
 
-    close(cb?: (err: Error, db: Database) => any): void;
-    close(): Promise<void>;
+    close(cb: (err: Error | undefined) => void): false;
+    close(): Promise<Error | undefined>;
 
     closeSync(): boolean;
 
     query(query: string, params: any[], cb: (err: Error, res: any[]) => void): void;
-    query(query: string | {sql: string, params: any[]}, cb: (err: Error, res: any[]) => void): void;
-    query(query: string | {sql: string, params: any[]}, params?: any[]): Promise<any[]>;
+    query(query: string | { sql: string; params: any[] }, cb: (err: Error, res: any[]) => void): void;
+    query(query: string | { sql: string; params: any[] }, params?: any[]): Promise<any[]>;
 
     queryResult(query: string, params: any[], cb: (err: Error, res: ODBCResult) => void): void;
-    queryResult(query: string | {sql: string, params: any[]}, cb: (err: Error, res: ODBCResult) => void): void;
+    queryResult(query: string | { sql: string; params: any[] }, cb: (err: Error, res: ODBCResult) => void): void;
     queryResult(query: string, params?: any[]): Promise<ODBCResult>;
 
-    queryResultSync(query: string | {sql: string, params: any[]}, params?: any[]): ODBCResult;
+    queryResultSync(query: string | { sql: string; params: any[] }, params?: any[]): ODBCResult;
 
-    querySync(query: string | {sql: string, params: any[]}, params?: any[]): any[];
+    querySync(query: string | { sql: string; params: any[] }, params?: any[]): any[];
 
     queryStream(sql: string, params: any[]): any; // TODO: add types from stream
 
@@ -104,11 +98,23 @@ export class Database implements Options {
 
     rollbackTransactionSync(): Database;
 
-    columns(catalog: string | null, schema: string | null, table: string | null, column: string | null, cb: (error: Error, res: any[]) => void): void;
+    columns(
+        catalog: string | null,
+        schema: string | null,
+        table: string | null,
+        column: string | null,
+        cb: (error: Error, res: any[]) => void,
+    ): void;
 
-    tables(catalog: string | null, schema: string | null, table: string | null, type: string | null, cb: (error: Error, res: any[]) => void): void;
+    tables(
+        catalog: string | null,
+        schema: string | null,
+        table: string | null,
+        type: string | null,
+        cb: (error: Error, res: any[]) => void,
+    ): void;
 
-    describe(obj: DescribeObject,  cb: (error: Error, res: any[]) => void): void;
+    describe(obj: DescribeObject, cb: (error: Error, res: any[]) => void): void;
 
     prepare(sql: string, cb: (err: Error, stmt: ODBCStatement) => void): void;
     prepare(sql: string): Promise<ODBCStatement>;
@@ -160,15 +166,15 @@ export class ODBCStatement {
 
     // _executeNonQuerySync // TODO: Add missing piece
 
-     _prepare(sql: string, cb: (err: Error) => void): void;
+    _prepare(sql: string, cb: (err: Error) => void): void;
 
-     _bind(params: any[], cb: (err: Error) => void): void;
+    _bind(params: any[], cb: (err: Error) => void): void;
 
-     _bindSync(ary: any[]): void;
+    _bindSync(ary: any[]): void;
 
     execute(params: any[], cb: (err: Error, result: any[], outparams: any) => void): void; // TODO: type of outparams is unknown
     execute(cb: (err: Error, result: any[], outparams: any) => void): void;
-    execute(params: any[]): Promise<{result: any[], outparams: any}>;
+    execute(params: any[]): Promise<{ result: any[]; outparams: any }>;
 
     executeSync(params?: any[]): ODBCResult;
 
@@ -210,24 +216,26 @@ export function openSync(connStr: string | ConnStr, options?: Options): Database
 export function close(db: Database): void;
 
 export class Pool implements PoolOptions {
-  idleTimeout?: number | undefined;
-  autoCleanIdle?: boolean | undefined;
-  maxPoolSize?: number | undefined;
-  connectTimeout?: number | undefined;
-  systemNaming?: any;
+    idleTimeout?: number | undefined;
+    autoCleanIdle?: boolean | undefined;
+    maxPoolSize?: number | undefined;
+    connectTimeout?: number | undefined;
+    systemNaming?: any;
 
-  options: PoolOptions;
-  index: number;
-  availablePool: object;
-  usedPool: object;
-  poolsize: number;
-  odbc: ODBC;
-  openSync(connStr: string): Database;
-  constructor(options?: PoolOptions)
+    options: PoolOptions;
+    index: number;
+    availablePool: object;
+    usedPool: object;
+    poolSize: number;
+    odbc: ODBC;
+    constructor(options?: PoolOptions);
+    open(connStr: string): Promise<Database>;
     open(connStr: string, cb: (err: Error, db: Database) => void): void;
+    openSync(connStr: string): Database;
     init(count: number, connStr: string): boolean;
     setMaxPoolSize(count: number): boolean;
     setConnectTimeout(timeout: number): boolean;
     cleanup(connStr: string): boolean;
+    close(): Promise<boolean>;
     close(cb: (foo: any, bar: any) => any): void;
 } // Class Pool

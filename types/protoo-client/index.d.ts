@@ -1,11 +1,6 @@
-// Type definitions for protoo-client 4.0
-// Project: https://protoojs.org
-// Definitions by: Marks Polakovs <https://github.com/markspolakovs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as http from 'http';
-import * as retry from 'retry';
-import * as websocket from 'websocket';
+import * as http from "http";
+import * as retry from "retry";
+import * as websocket from "websocket";
 
 export interface ProtooRequest {
     request: true;
@@ -58,12 +53,12 @@ export class Peer {
 
     close(): void;
 
-    on(evt: 'open' | 'disconnected' | 'close', handler: () => any): void;
+    on(evt: "open" | "disconnected" | "close", handler: () => any): void;
 
-    on(evt: 'failed', handler: (currentAttempt: number) => any): void;
+    on(evt: "failed", handler: (currentAttempt: number) => any): void;
 
     on(
-        evt: 'request',
+        evt: "request",
         handler: (
             request: ProtooRequest,
             accept: (data?: ProtooResponse) => void,
@@ -71,5 +66,5 @@ export class Peer {
         ) => any,
     ): void;
 
-    on(evt: 'notification', handler: (notif: ProtooNotification) => any): void;
+    on(evt: "notification", handler: (notif: ProtooNotification) => any): void;
 }

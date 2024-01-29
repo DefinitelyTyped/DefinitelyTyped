@@ -1,5 +1,5 @@
-import middy from '@middy/core';
-import { APIGatewayEvent } from 'aws-lambda';
+import middy from "@middy/core";
+import { APIGatewayEvent } from "aws-lambda";
 
 export interface JwtGatewayEvent extends APIGatewayEvent {
     decodedJwt?: {

@@ -1,21 +1,16 @@
-// Type definitions for @hapi/cookie 10.1
-// Project: https://github.com/hapijs/hapi-auth-cookie
-// Definitions by: Silas Rech <https://github.com/lenovouser>
-//                 Simon Schick <https://github.com/SimonSchick>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+import { AuthCredentials, Plugin, Request, ServerStateCookieOptions } from "@hapi/hapi";
 
-import { Request, ResponseObject, Plugin, ResponseToolkit, AuthCredentials, ServerStateCookieOptions } from '@hapi/hapi';
-
-declare module '@hapi/hapi' {
+declare module "@hapi/hapi" {
     interface ServerAuth {
-        strategy(name: string, scheme: 'cookie', options?: hapiAuthCookie.Options): void;
+        strategy(name: string, scheme: "cookie", options?: hapiAuthCookie.Options): void;
     }
 
     interface PluginSpecificConfiguration {
-        'hapi-auth-cookie'?: {
-            redirectTo?: boolean | undefined;
-        } | undefined;
+        cookie?:
+            | {
+                redirectTo?: boolean | undefined;
+            }
+            | undefined;
     }
 
     interface Request {
@@ -29,7 +24,10 @@ declare module '@hapi/hapi' {
 }
 
 declare namespace hapiAuthCookie {
-    interface ValidateResponse { valid: boolean; credentials?: AuthCredentials | undefined; }
+    interface ValidateResponse {
+        isValid: boolean;
+        credentials?: AuthCredentials | undefined;
+    }
     type ValidateFunction = (request?: Request, session?: object) => Promise<ValidateResponse>;
     type RedirectToFunction = (request?: Request) => string;
 
@@ -42,7 +40,7 @@ declare namespace hapiAuthCookie {
          *
          * @default { name: 'sid', clearInvalid: false, isSameSite: 'Strict', isSecure: true, isHttpOnly: true }
          */
-        cookie?: ServerStateCookieOptions & { name: string } | undefined;
+        cookie?: (ServerStateCookieOptions & { name: string }) | undefined;
 
         /**
          * Automatically sets the session cookie after validation to extend the current session for a new TTL duration.
@@ -68,7 +66,7 @@ declare namespace hapiAuthCookie {
          * An optional session validation function used to validate the content of the session cookie on each request.
          * Used to verify that the internal session state is still valid (e.g. user account still exists).
          */
-        validateFunc?: ValidateFunction | undefined;
+        validate?: ValidateFunction | undefined;
 
         /**
          * A name to use with decorating the request object.
@@ -81,6 +79,6 @@ declare namespace hapiAuthCookie {
     }
 }
 
-declare const hapiAuthCookie: Plugin<void>;
+declare const hapiAuthCookie: { plugin: Plugin<void> };
 
 export = hapiAuthCookie;

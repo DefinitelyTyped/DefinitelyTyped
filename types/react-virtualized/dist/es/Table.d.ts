@@ -1,7 +1,7 @@
-import { Validator, ReactNode, Requireable, PureComponent, Component } from 'react';
-import { CellMeasurerCache } from './CellMeasurer';
-import { Index, Alignment, ScrollEventData, IndexRange, OverscanIndexRange } from '../../index';
-import { Grid, GridCoreProps } from './Grid';
+import { Component, JSX, PureComponent, ReactNode, Requireable, Validator } from "react";
+import { Alignment, Index, IndexRange, OverscanIndexRange, ScrollEventData } from "../../index";
+import { CellMeasurerCache } from "./CellMeasurer";
+import { Grid, GridCoreProps } from "./Grid";
 
 export type SortParams = {
     defaultSortDirection: SortDirectionType;
@@ -37,7 +37,7 @@ export type MultiSortReturn = {
 
 export function createMultiSort(
     sortCallback: (params: { sortBy: string; sortDirection: SortDirectionType }) => void,
-    options?: MultiSortOptions
+    options?: MultiSortOptions,
 ): MultiSortReturn;
 
 export type TableCellDataGetterParams = {
@@ -95,7 +95,7 @@ export type TableRowRenderer = (props: TableRowProps) => React.ReactNode;
 // https://github.com/bvaughn/react-virtualized/blob/master/docs/Column.md
 export type ColumnProps = {
     /** Optional aria-label value to set on the column header */
-    'aria-label'?: string | undefined;
+    "aria-label"?: string | undefined;
     /**
      * Callback responsible for returning a cell's data, given its :dataKey
      * ({ columnData: any, dataKey: string, rowData: any }): any
@@ -144,7 +144,7 @@ export type ColumnProps = {
 };
 export class Column extends Component<ColumnProps> {
     static propTypes: {
-        'aria-label': Requireable<string>;
+        "aria-label": Requireable<string>;
         cellDataGetter: Requireable<TableCellDataGetter>;
         cellRenderer: Requireable<TableCellRenderer>;
         className: Requireable<string>;
@@ -187,7 +187,7 @@ export type HeaderMouseEventHandlerParams = {
 
 // ref: https://github.com/bvaughn/react-virtualized/blob/master/docs/Table.md
 export type TableProps = GridCoreProps & {
-    'aria-label'?: string | undefined;
+    "aria-label"?: string | undefined;
     deferredMeasurementCache?: CellMeasurerCache | undefined;
     /**
      * Removes fixed height from the scrollingContainer so that the total height
@@ -332,7 +332,7 @@ export type TableProps = GridCoreProps & {
 
 export const defaultCellDataGetter: TableCellDataGetter;
 export const defaultCellRenderer: TableCellRenderer;
-export const defaultHeaderRenderer: () => React.ReactElement<TableHeaderProps>[];
+export const defaultHeaderRenderer: () => Array<React.ReactElement<TableHeaderProps>>;
 export const defaultHeaderRowRenderer: TableHeaderRowRenderer;
 export const defaultRowRenderer: TableRowRenderer;
 
@@ -341,18 +341,18 @@ export type SortDirectionStatic = {
      * Sort items in ascending order.
      * This means arranging from the lowest value to the highest (e.g. a-z, 0-9).
      */
-    ASC: 'ASC';
+    ASC: "ASC";
 
     /**
      * Sort items in descending order.
      * This means arranging from the highest value to the lowest (e.g. z-a, 9-0).
      */
-    DESC: 'DESC';
+    DESC: "DESC";
 };
 
 export const SortDirection: SortDirectionStatic;
 
-export type SortDirectionType = 'ASC' | 'DESC';
+export type SortDirectionType = "ASC" | "DESC";
 
 export const SortIndicator: React.FunctionComponent<{
     sortDirection?: SortDirectionType | undefined;
@@ -364,7 +364,7 @@ export const SortIndicator: React.FunctionComponent<{
  */
 export class Table extends PureComponent<TableProps> {
     static propTypes: {
-        'aria-label': Requireable<string>;
+        "aria-label": Requireable<string>;
         autoHeight: Requireable<boolean>;
         children: Validator<Column>;
         className: Requireable<string>;
@@ -416,7 +416,7 @@ export class Table extends PureComponent<TableProps> {
         rowRenderer: TableRowRenderer;
         headerRowRenderer: TableHeaderRowRenderer;
         rowStyle: {};
-        scrollToAlignment: 'auto';
+        scrollToAlignment: "auto";
         scrollToIndex: -1;
         style: {};
     };

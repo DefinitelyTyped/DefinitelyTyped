@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/linkify-it",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/markdown-it/linkify-it"
+    ],
+    "devDependencies": {
+        "@types/linkify-it": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Lindsey Smith",
+            "githubUsername": "praxxis"
+        },
+        {
+            "name": "Robert Coie",
+            "url": "https://github.com/rapropos/typed-linkify-it"
+        },
+        {
+            "name": "Alex Plumb",
+            "githubUsername": "alexplumb"
+        },
+        {
+            "name": "Rafa Gares",
+            "githubUsername": "ragafus"
+        }
+    ]
+}

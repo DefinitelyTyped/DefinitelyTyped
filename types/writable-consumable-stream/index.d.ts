@@ -1,15 +1,23 @@
-// Type definitions for writable-consumable-stream 2.0
-// Project: https://github.com/SocketCluster/writable-consumable-stream
-// Definitions by: Daniel Rose <https://github.com/DanielRose>
-//                 Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import ConsumableStream = require("consumable-stream");
 
-import ConsumableStream = require('consumable-stream');
+import Consumer = require("./consumer");
 
-import Consumer = require('./consumer');
+declare namespace WritableConsumableStream {
+    interface Options {
+        generateConsumerId?: () => number;
+        removeConsumerCallback?: (consumerId: number) => void;
+    }
+}
 
 declare class WritableConsumableStream<T> extends ConsumableStream<T> {
-    nextConsumerId: number;
+    generateConsumerId: () => number;
+    removeConsumerCallback: ((consumerId: number) => void) | undefined;
+
+    tailNode: Consumer.Node<T>;
+
+    constructor(options?: WritableConsumableStream.Options);
+
+    clearActiveTimeout(): void;
 
     write(value: T): void;
     close(value?: T): void;
@@ -26,12 +34,14 @@ declare class WritableConsumableStream<T> extends ConsumableStream<T> {
     hasConsumer(consumerId: number): boolean;
 
     setConsumer(consumerId: number, consumer: Consumer<T>): void;
-    removeConsumer(consumerId: number): void;
+    removeConsumer(consumerId: number): boolean;
 
     getConsumerStats(consumerId: number): Consumer.ConsumerStats;
     getConsumerStatsList(): Consumer.ConsumerStats[];
 
     createConsumer(timeout?: number): Consumer<T>;
+
+    getConsumerCount(): number;
 }
 
 export = WritableConsumableStream;

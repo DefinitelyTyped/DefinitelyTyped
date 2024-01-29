@@ -1,4 +1,4 @@
-export interface DatabaseOptions {
+export interface DatabaseConnectionOptions {
     url: string;
     connection?: {
         user: string;
@@ -7,8 +7,16 @@ export interface DatabaseOptions {
         keepAlive?: boolean | undefined;
         keepAliveInitialDelay?: number | undefined;
     } | undefined;
-    plugin?: object | undefined;
+    plugin?: never;
 }
+
+export interface DatabasePluginOptions {
+    url?: never;
+    connection?: never;
+    plugin: object;
+}
+
+export type DatabaseOptions = DatabaseConnectionOptions | DatabasePluginOptions;
 
 export interface Database {
     setup(): Promise<true>;

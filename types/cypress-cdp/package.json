@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/cypress-cdp",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/bahmutov/cypress-cdp#readme"
+    ],
+    "dependencies": {
+        "cypress": "9.7.0",
+        "devtools-protocol": "0.0.1173815"
+    },
+    "devDependencies": {
+        "@types/cypress-cdp": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Anthony Froissant",
+            "githubUsername": "froissant"
+        },
+        {
+            "name": "Louis Loiseau-Billon",
+            "githubUsername": "LouisLoiseau"
+        }
+    ]
+}

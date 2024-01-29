@@ -1,8 +1,3 @@
-// Type definitions for node-wit 6.0
-// Project: https://github.com/wit-ai/node-wit#readme
-// Definitions by: Julien Dufresne <https://github.com/julienduf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export namespace log {
     class Logger {
         constructor(level: string);

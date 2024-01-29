@@ -1,8 +1,3 @@
-// Type definitions for calc-percent 1.0
-// Project: https://github.com/kevva/calc-percent
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Calculate percentage
  * @param val - Value which should be calculated.

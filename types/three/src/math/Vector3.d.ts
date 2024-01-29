@@ -1,13 +1,14 @@
-import { Euler } from './Euler';
-import { Matrix3 } from './Matrix3';
-import { Matrix4 } from './Matrix4';
-import { Quaternion } from './Quaternion';
-import { Camera } from './../cameras/Camera';
-import { Spherical } from './Spherical';
-import { Cylindrical } from './Cylindrical';
-import { BufferAttribute } from './../core/BufferAttribute';
-import { InterleavedBufferAttribute } from './../core/InterleavedBufferAttribute';
-import { Vector } from './Vector2';
+import { Euler } from './Euler.js';
+import { Matrix3 } from './Matrix3.js';
+import { Matrix4 } from './Matrix4.js';
+import { Quaternion } from './Quaternion.js';
+import { Camera } from '../cameras/Camera.js';
+import { Spherical } from './Spherical.js';
+import { Cylindrical } from './Cylindrical.js';
+import { BufferAttribute } from '../core/BufferAttribute.js';
+import { InterleavedBufferAttribute } from '../core/InterleavedBufferAttribute.js';
+import { Vector } from './Vector2.js';
+import { Color } from './Color.js';
 
 export type Vector3Tuple = [number, number, number];
 
@@ -67,6 +68,12 @@ export class Vector3 implements Vector {
     setZ(z: number): Vector3;
 
     setComponent(index: number, value: number): this;
+
+    /**
+     * Sets this vector's {@link x}, {@link y} and {@link z} components from the r, g, and b components of the specified
+     * {@link Color | color}.
+     */
+    setFromColor(color: Color): this;
 
     getComponent(index: number): number;
 
@@ -294,4 +301,9 @@ export class Vector3 implements Vector {
     random(): this;
 
     randomDirection(): this;
+
+    /**
+     * Iterating through a Vector3 instance will yield its components (x, y, z) in the corresponding order.
+     */
+    [Symbol.iterator](): Iterator<number>;
 }

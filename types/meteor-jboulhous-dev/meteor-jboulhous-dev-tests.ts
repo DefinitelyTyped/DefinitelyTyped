@@ -1,3 +1,1 @@
-
-
 Meteor.isDevelopment;

@@ -26,7 +26,7 @@ declare class Header {
                 group: string;
                 value: any;
             }>;
-        }
+        },
     ): void;
     onAfterComplement: Event;
     private sanitize_;
@@ -40,13 +40,13 @@ declare class Header {
             css?: string;
             enterpriseLogo?: number;
             layoutId?: number;
-            mailObject?: Mail;
+            mailObject?: Email;
             filters?: Array<{
                 label: string;
                 group: string;
                 value: any;
             }>;
-        }
+        },
     ): void;
     private MAX_FILTER_VALUE_SIZE_;
     formatFiltersToHeader(
@@ -56,14 +56,14 @@ declare class Header {
             value: any;
         }>,
         convertTagsToLiterals: boolean,
-        showAll: boolean
+        showAll: boolean,
     ): string;
 }
 declare namespace Header {
-    export { groupFilters, Event, Mail, SimpleLayout, Visualization };
+    export { Email, Event, groupFilters, SimpleLayout, Visualization };
 }
-type SimpleLayout = import('./SimpleLayout');
-type Event = import('@nginstack/engine/lib/event/Event');
-type Visualization = import('../dsv/Visualization');
-type Mail = import('@nginstack/engine/lib/mail/Mail');
+type Event = import("@nginstack/engine/lib/event/Event");
 declare function groupFilters(filters: any): any[];
+type Email = import("@nginstack/engine/lib/email/Email");
+type SimpleLayout = import("./SimpleLayout");
+type Visualization = import("../dsv/Visualization");

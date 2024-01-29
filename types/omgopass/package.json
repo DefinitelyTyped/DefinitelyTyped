@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/omgopass",
+    "version": "3.2.9999",
+    "projects": [
+        "https://github.com/omgovich/omgopass#readme"
+    ],
+    "devDependencies": {
+        "@types/omgopass": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nikolai Kolodziej",
+            "githubUsername": "kldzj"
+        }
+    ]
+}

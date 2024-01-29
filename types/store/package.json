@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/store",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/marcuswestin/store.js#readme"
+    ],
+    "devDependencies": {
+        "@types/store": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Vincent Bortone",
+            "githubUsername": "vbortone"
+        },
+        {
+            "name": "harry0000",
+            "githubUsername": "harry0000"
+        },
+        {
+            "name": "Roman Nuritdinov (Ky6uk)",
+            "githubUsername": "Ky6uk"
+        },
+        {
+            "name": "Johnny Edwards (igl00)",
+            "githubUsername": "igl00"
+        },
+        {
+            "name": "Jason Kwok (JasonHK)",
+            "githubUsername": "JasonHK"
+        }
+    ]
+}

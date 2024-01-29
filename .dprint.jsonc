@@ -1,0 +1,61 @@
+{
+    "excludes": [
+        // These files are auto-generated and don't need to be formatted.
+        // NOTE: We generally prefer that packages be formatted with dprint.
+        // Packages are generally only listed if they predate our using dprint (August 2023).
+        // If your package is listed, please consider adding dprint fmt to its generation.
+        "./types/custom-functions-runtime",
+        "./types/dojo",
+        "./types/facebook-nodejs-business-sdk",
+        "./types/fhir",
+        "./types/fibjs",
+        "./types/get-intrinsic",
+        "./types/google-publisher-tag",
+        "./types/google.maps",
+        "./types/locutus",
+        "./types/lodash",
+        "./types/material-ui",
+        "./types/meteor",
+        "./types/microsoft-graph",
+        "./types/nginstack__engine",
+        "./types/node/**/inspector.d.ts",
+        "./types/office-js-preview",
+        "./types/office-js",
+        "./types/office-runtime",
+        "./types/oibackoff",
+        "./types/openui5",
+        "./types/p5",
+        "./types/react-native",
+        "./types/recurly__recurly-js",
+        "./types/sawtooth-sdk",
+        "./types/three",
+        "./types/webextension-polyfill",
+        "./types/winrt-uwp",
+        "./types/vscode",
+
+        // Machine-generated files.
+        "./docs/support-window.json",
+        "./notNeededPackages.json",
+        "**/package-lock.json"
+    ],
+    "prettier": {
+        "associations": [
+            "**/*.{yaml,yml}"
+        ],
+        "yml.tabWidth": 2,
+        "yaml.tabWidth": 2,
+        "yml.singleQuote": true,
+        "yaml.singleQuote": true
+    },
+    // NOTE: if extending this list, also update settings.template.json.
+    "plugins": [
+        "https://plugins.dprint.dev/typescript-0.88.8.wasm",
+        "https://plugins.dprint.dev/json-0.19.1.wasm",
+        "https://plugins.dprint.dev/prettier-0.32.1.json@19aa403ef0862ba8c41164e3dc6f84c0b7a66c2b11e42726b23dd25e6302ada9"
+    ],
+    "indentWidth": 4,
+    "lineWidth": 120,
+    "json": {
+        "trailingCommas": "never" // Our tsconfig files must be parsable by JSON.parse.
+    }
+}

@@ -1,31 +1,46 @@
-import * as AsyncLock from "async-lock";
+import AsyncLock = require("async-lock");
+
+// test type exports
+type Opts = AsyncLock.AsyncLockOptions;
+type CB = AsyncLock.AsyncLockDoneCallback<unknown>;
+type AL = AsyncLock;
+
 const lock = new AsyncLock();
 
-lock.acquire("key", (done) => {
-  done();
-}, (err, ret) => { /* ... */ });
+// $ExpectType void
+lock.acquire<number>(
+    "key",
+    done => {
+        done; // $ExpectType AsyncLockDoneCallback<number>
+        done(undefined, 1);
+    },
+    (err, ret) => {
+        err; // $ExpectType Error | null | undefined
+        ret; // $ExpectType number | undefined
+    },
+);
 
-lock.acquire("key", (done) => { done(); })
-  .then(() => { /* ... */ })
-  .catch(() => { /* ... */ });
+// $ExpectType Promise<number>
+lock.acquire<number>("key", done => {
+    done(undefined, 1);
+});
+lock.acquire("key", () => 1); // $ExpectType Promise<number>
+lock.acquire("key", () => Promise.resolve(1)); // $ExpectType Promise<number>
+lock.acquire(["key1", "key2"], () => 1); // $ExpectType Promise<number>
 
-lock.acquire("key", () => "stringValue")
-// Check returned value's type is inherited properly
-    .then((str) => str.replace("s", "S"));
+lock.isBusy(); // $ExpectType boolean
+lock.isBusy("key"); // $ExpectType boolean
 
-lock.acquire("key", async () => "stringValue")
-// Check returned value's type is inherited properly
-    .then((str) => str.replace("s", "S"));
+new AsyncLock({ timeout: 5000 });
+new AsyncLock({ maxPending: 5000 });
+new AsyncLock({ maxOccupationTime: 5000 });
+new AsyncLock({ maxExecutionTime: 5000 });
+new AsyncLock({ domainReentrant: true });
+new AsyncLock({ skipQueue: true });
+new AsyncLock({ Promise: null });
+new AsyncLock({ timeout: undefined });
 
-lock.acquire([ "key1", "key2" ], (done) => {
-  done();
-}, (err, ret) => { /* ... */ });
-
-lock.isBusy();
-lock.isBusy('key');
-
-const lock2 = new AsyncLock({ timeout : 5000 });
-const lock3 = new AsyncLock({ maxPending : 5000 });
-const lock4 = new AsyncLock({ Promise: null });
-const lock5 = new AsyncLock({ skipQueue: true });
-const lock6 = new AsyncLock({ maxOccupationTime: 5000 });
+AsyncLock.DEFAULT_TIMEOUT; // $ExpectType 0
+AsyncLock.DEFAULT_MAX_OCCUPATION_TIME; // $ExpectType 0
+AsyncLock.DEFAULT_MAX_EXECUTION_TIME; // $ExpectType 0
+AsyncLock.DEFAULT_MAX_PENDING; // $ExpectType 1000

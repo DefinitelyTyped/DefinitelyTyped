@@ -1,12 +1,6 @@
-// Type definitions for leaflet-deepzoom 2.0
-// Project: https://github.com/alfarisi/leaflet-deepzoom/
-// Definitions by: Håkon Løvdal <https://github.com/hlovdal>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+import * as L from "leaflet";
 
-import * as L from 'leaflet';
-
-declare module 'leaflet' {
+declare module "leaflet" {
     namespace TileLayer {
         interface DeepZoomOptions {
             width?: number | undefined;

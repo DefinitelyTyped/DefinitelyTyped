@@ -11,8 +11,8 @@ $("#table").colResizable({
     gripInnerHtml: "",
     draggingClass: ".myClass",
     minWidth: 100,
-    hoverCursor: 'pointer',
-    dragCursor: 'e-resize',
+    hoverCursor: "pointer",
+    dragCursor: "e-resize",
     flush: false,
     marginLeft: "14px",
     marginRight: "auto",
@@ -23,7 +23,7 @@ $("#table").colResizable({
     },
     onDrag(evt) {
         evt.currentTarget; // $ExpectType Element
-    }
+    },
 });
 
 // Samples at http://www.bacubacu.com/colresizable
@@ -35,20 +35,20 @@ $("#sample").colResizable({
     liveDrag: true,
     gripInnerHtml: "<div class='grip'></div>",
     draggingClass: "dragging",
-    onResize: onSampleResized
+    onResize: onSampleResized,
 });
 
 function postbackSample() {
     $("#updatePanelSample").colResizable({
         liveDrag: true,
         postbackSafe: true,
-        partialRefresh: true
+        partialRefresh: true,
     });
 }
 
-$("#flexSample").colResizable({resizeMode: 'flex'});
+$("#flexSample").colResizable({ resizeMode: "flex" });
 
-$("#overflowSample").colResizable({resizeMode: 'overflow'});
+$("#overflowSample").colResizable({ resizeMode: "overflow" });
 
 function onSlide() {}
 
@@ -57,5 +57,5 @@ $("#sample5").colResizable({
     draggingClass: "rangeDrag",
     gripInnerHtml: "<div class='rangeGrip'></div>",
     onResize: onSlide,
-    minWidth: 8
+    minWidth: 8,
 });

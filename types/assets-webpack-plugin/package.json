@@ -1,7 +1,22 @@
 {
     "private": true,
+    "name": "@types/assets-webpack-plugin",
+    "version": "7.1.9999",
+    "projects": [
+        "https://github.com/ztoben/assets-webpack-plugin"
+    ],
     "dependencies": {
-        "tapable": "^2.2.0",
+        "@types/node": "*",
+        "tapable": "^2.2.1",
         "webpack": "^5"
-    }
+    },
+    "devDependencies": {
+        "@types/assets-webpack-plugin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michael Strobel",
+            "githubUsername": "kryops"
+        }
+    ]
 }

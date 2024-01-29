@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/jquery-toast-plugin",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/kamranahmedse/jquery-toast-plugin",
+        "http://www.kamranahmed.info/toast"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery-toast-plugin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Viqas Hussain",
+            "githubUsername": "viqashussain"
+        },
+        {
+            "name": "Andrew Stegmaier",
+            "githubUsername": "astegmaier"
+        }
+    ]
+}

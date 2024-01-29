@@ -1,4 +1,4 @@
-import { BlockConfiguration, BlockStyle, Category } from '../';
+import { BlockConfiguration, BlockStyle, Category } from "../";
 
 export function addBlockStyles(blockName: string, styles: BlockStyle | readonly BlockStyle[]): void;
 export function addBlockTypes(blockTypes: BlockConfiguration<any> | ReadonlyArray<BlockConfiguration<any>>): void;

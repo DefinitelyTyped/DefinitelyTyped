@@ -1,6 +1,20 @@
 {
-  "private": true,
-  "dependencies": {
-    "graphql": "^14.5.3"
-  }
+    "private": true,
+    "name": "@types/graphql-depth-limit",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/stems/graphql-depth-limit#readme"
+    ],
+    "dependencies": {
+        "graphql": "^14.5.3"
+    },
+    "devDependencies": {
+        "@types/graphql-depth-limit": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Siim Tiilen",
+            "githubUsername": "eritikass"
+        }
+    ]
 }

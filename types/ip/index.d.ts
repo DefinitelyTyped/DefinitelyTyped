@@ -1,9 +1,3 @@
-// Type definitions for ip 1.1
-// Project: https://github.com/indutny/node-ip
-// Definitions by: Peter Harris <https://github.com/codeanimal>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export interface SubnetInfo {
@@ -38,7 +32,7 @@ export function toString(ip: Buffer, offset?: number, length?: number): string;
  *
  * @param family The IP family is infered from the prefixLength, but can be explicity specified as either "ipv4" or "ipv6".
  */
-export function fromPrefixLen(prefixLength: number, family?: 'ipv4' | 'ipv6'): string;
+export function fromPrefixLen(prefixLength: number, family?: "ipv4" | "ipv6"): string;
 
 /**
  * Get the network ID IP address from an IP address and its subnet mask.
@@ -90,7 +84,7 @@ export function isV6Format(ip: string): boolean;
  *
  * @param family The family can be either "ipv4" or "ipv6". Default: "ipv4".
  */
-export function loopback(family?: 'ipv4' | 'ipv6'): string;
+export function loopback(family?: "ipv4" | "ipv6"): string;
 
 /**
  * Get the address for the network interface on the current system with the specified 'name'.
@@ -99,7 +93,7 @@ export function loopback(family?: 'ipv4' | 'ipv6'): string;
  * @param name The name can be any named interface, or 'public' or 'private'.
  * @param family The family can be either "ipv4" or "ipv6". Default: "ipv4".
  */
-export function address(name?: 'public' | 'private' | string, family?: 'ipv4' | 'ipv6'): string;
+export function address(name?: "public" | "private" | string, family?: "ipv4" | "ipv6"): string;
 
 /**
  * Convert a string IPv4 IP address to the equivalent long numeric value.

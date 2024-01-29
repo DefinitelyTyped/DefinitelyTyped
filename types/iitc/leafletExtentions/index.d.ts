@@ -1,7 +1,7 @@
-import * as L from 'leaflet';
+import * as L from "leaflet";
 
 // geodesic
-declare module 'leaflet' {
+declare module "leaflet" {
     function geodesicPolyline(latlngs: LatLng[], options?: PolylineOptions): GeodesicPolyline;
     function geodesicPolygon(latlngs: LatLng[], options?: PolylineOptions): GeodesicPolygon;
 
@@ -9,11 +9,11 @@ declare module 'leaflet' {
         getLatLngs(): LatLng[];
     }
 
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     class GeodesicPolygon extends GeodesicPolyline {
     }
 
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     class GeodesicCircle extends Polyline {
     }
 }

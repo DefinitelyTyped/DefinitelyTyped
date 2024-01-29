@@ -1,8 +1,3 @@
-// Type definitions for bchaddrjs 0.4
-// Project: https://github.com/bitcoincashjs/bchaddrjs#readme
-// Definitions by: Emilio Almansi <https://github.com/ealmansi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace bchaddr;
 
 /**
@@ -130,4 +125,6 @@ export function isP2SHAddress(address: string): boolean;
 /**
  * Error thrown when the address given as input is not a valid Bitcoin Cash address.
  */
-export class InvalidAddressError extends Error { constructor(); }
+export class InvalidAddressError extends Error {
+    constructor();
+}

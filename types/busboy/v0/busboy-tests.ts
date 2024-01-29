@@ -1,4 +1,4 @@
-import Busboy = require('busboy');
+import Busboy = require("busboy");
 
 // test type exports
 type Constructor = Busboy.BusboyConstructor;
@@ -7,29 +7,30 @@ type Headers = Busboy.BusboyHeaders;
 type BB = Busboy.Busboy;
 type Events = Busboy.BusboyEvents;
 
-new Busboy({}); // $ExpectError
-const busboy = Busboy({ headers: { 'content-type': 'foo' } }); // $ExpectType Busboy
-new Busboy({ headers: { 'content-type': 'foo' } }); // $ExpectType Busboy
-new Busboy({ headers: { 'content-type': 'foo' }, highWaterMark: 1000 }); // $ExpectType Busboy
-new Busboy({ headers: { 'content-type': 'foo' }, fileHwm: 1000 }); // $ExpectType Busboy
-new Busboy({ headers: { 'content-type': 'foo' }, defCharset: 'utf8' }); // $ExpectType Busboy
-new Busboy({ headers: { 'content-type': 'foo' }, preservePath: true }); // $ExpectType Busboy
-new Busboy({ headers: { 'content-type': 'foo' }, limits: { fieldNameSize: 200 } }); // $ExpectType Busboy
-new Busboy({ headers: { 'content-type': 'foo' }, limits: { fieldSize: 200 } }); // $ExpectType Busboy
-new Busboy({ headers: { 'content-type': 'foo' }, limits: { fields: 200 } }); // $ExpectType Busboy
-new Busboy({ headers: { 'content-type': 'foo' }, limits: { fileSize: 200 } }); // $ExpectType Busboy
-new Busboy({ headers: { 'content-type': 'foo' }, limits: { files: 200 } }); // $ExpectType Busboy
-new Busboy({ headers: { 'content-type': 'foo' }, limits: { parts: 200 } }); // $ExpectType Busboy
-new Busboy({ headers: { 'content-type': 'foo' }, limits: { headerPairs: 200 } }); // $ExpectType Busboy
+// @ts-expect-error
+new Busboy({});
+const busboy = Busboy({ headers: { "content-type": "foo" } }); // $ExpectType Busboy
+new Busboy({ headers: { "content-type": "foo" } }); // $ExpectType Busboy
+new Busboy({ headers: { "content-type": "foo" }, highWaterMark: 1000 }); // $ExpectType Busboy
+new Busboy({ headers: { "content-type": "foo" }, fileHwm: 1000 }); // $ExpectType Busboy
+new Busboy({ headers: { "content-type": "foo" }, defCharset: "utf8" }); // $ExpectType Busboy
+new Busboy({ headers: { "content-type": "foo" }, preservePath: true }); // $ExpectType Busboy
+new Busboy({ headers: { "content-type": "foo" }, limits: { fieldNameSize: 200 } }); // $ExpectType Busboy
+new Busboy({ headers: { "content-type": "foo" }, limits: { fieldSize: 200 } }); // $ExpectType Busboy
+new Busboy({ headers: { "content-type": "foo" }, limits: { fields: 200 } }); // $ExpectType Busboy
+new Busboy({ headers: { "content-type": "foo" }, limits: { fileSize: 200 } }); // $ExpectType Busboy
+new Busboy({ headers: { "content-type": "foo" }, limits: { files: 200 } }); // $ExpectType Busboy
+new Busboy({ headers: { "content-type": "foo" }, limits: { parts: 200 } }); // $ExpectType Busboy
+new Busboy({ headers: { "content-type": "foo" }, limits: { headerPairs: 200 } }); // $ExpectType Busboy
 
-busboy.addListener('file', (fieldname, file, filename, encoding, mimetype) => {
+busboy.addListener("file", (fieldname, file, filename, encoding, mimetype) => {
     fieldname; // $ExpectType string
     file; // $ExpectType Readable
     filename; // $ExpectType string
     encoding; // $ExpectType string
     mimetype; // $ExpectType string
 });
-busboy.addListener('field', (fieldname, val, fieldnameTruncated, valTruncated, encoding, mimetype) => {
+busboy.addListener("field", (fieldname, val, fieldnameTruncated, valTruncated, encoding, mimetype) => {
     fieldname; // $ExpectType string
     val; // $ExpectType string
     fieldnameTruncated; // $ExpectType boolean
@@ -37,33 +38,37 @@ busboy.addListener('field', (fieldname, val, fieldnameTruncated, valTruncated, e
     encoding; // $ExpectType string
     mimetype; // $ExpectType string
 });
-busboy.addListener('partsLimit', () => {});
-busboy.addListener('partsLimit', foo => {}); // $ExpectError
-busboy.addListener('filesLimit', () => {});
-busboy.addListener('filesLimit', foo => {}); // $ExpectError
-busboy.addListener('fieldsLimit', () => {});
-busboy.addListener('fieldsLimit', foo => {}); // $ExpectError
-busboy.addListener('error', e => {
+busboy.addListener("partsLimit", () => {});
+// @ts-expect-error
+busboy.addListener("partsLimit", foo => {});
+busboy.addListener("filesLimit", () => {});
+// @ts-expect-error
+busboy.addListener("filesLimit", foo => {});
+busboy.addListener("fieldsLimit", () => {});
+// @ts-expect-error
+busboy.addListener("fieldsLimit", foo => {});
+busboy.addListener("error", e => {
     e; // $ExpectType unknown
 });
-busboy.addListener('finish', () => {});
-busboy.addListener('finish', foo => {}); // $ExpectError
+busboy.addListener("finish", () => {});
+// @ts-expect-error
+busboy.addListener("finish", foo => {});
 // test fallback
-busboy.on('foo', foo => {
+busboy.on("foo", foo => {
     foo; // $ExpectType any
 });
-busboy.on(Symbol('foo'), foo => {
+busboy.on(Symbol("foo"), foo => {
     foo; // $ExpectType any
 });
 
-busboy.on('file', (fieldname, file, filename, encoding, mimetype) => {
+busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
     fieldname; // $ExpectType string
     file; // $ExpectType Readable
     filename; // $ExpectType string
     encoding; // $ExpectType string
     mimetype; // $ExpectType string
 });
-busboy.on('field', (fieldname, val, fieldnameTruncated, valTruncated, encoding, mimetype) => {
+busboy.on("field", (fieldname, val, fieldnameTruncated, valTruncated, encoding, mimetype) => {
     fieldname; // $ExpectType string
     val; // $ExpectType string
     fieldnameTruncated; // $ExpectType boolean
@@ -71,33 +76,37 @@ busboy.on('field', (fieldname, val, fieldnameTruncated, valTruncated, encoding, 
     encoding; // $ExpectType string
     mimetype; // $ExpectType string
 });
-busboy.on('partsLimit', () => {});
-busboy.on('partsLimit', foo => {}); // $ExpectError
-busboy.on('filesLimit', () => {});
-busboy.on('filesLimit', foo => {}); // $ExpectError
-busboy.on('fieldsLimit', () => {});
-busboy.on('fieldsLimit', foo => {}); // $ExpectError
-busboy.on('error', e => {
+busboy.on("partsLimit", () => {});
+// @ts-expect-error
+busboy.on("partsLimit", foo => {});
+busboy.on("filesLimit", () => {});
+// @ts-expect-error
+busboy.on("filesLimit", foo => {});
+busboy.on("fieldsLimit", () => {});
+// @ts-expect-error
+busboy.on("fieldsLimit", foo => {});
+busboy.on("error", e => {
     e; // $ExpectType unknown
 });
-busboy.on('finish', () => {});
-busboy.on('finish', foo => {}); // $ExpectError
+busboy.on("finish", () => {});
+// @ts-expect-error
+busboy.on("finish", foo => {});
 // test fallback
-busboy.on('foo', foo => {
+busboy.on("foo", foo => {
     foo; // $ExpectType any
 });
-busboy.on(Symbol('foo'), foo => {
+busboy.on(Symbol("foo"), foo => {
     foo; // $ExpectType any
 });
 
-busboy.once('file', (fieldname, file, filename, encoding, mimetype) => {
+busboy.once("file", (fieldname, file, filename, encoding, mimetype) => {
     fieldname; // $ExpectType string
     file; // $ExpectType Readable
     filename; // $ExpectType string
     encoding; // $ExpectType string
     mimetype; // $ExpectType string
 });
-busboy.once('field', (fieldname, val, fieldnameTruncated, valTruncated, encoding, mimetype) => {
+busboy.once("field", (fieldname, val, fieldnameTruncated, valTruncated, encoding, mimetype) => {
     fieldname; // $ExpectType string
     val; // $ExpectType string
     fieldnameTruncated; // $ExpectType boolean
@@ -105,33 +114,37 @@ busboy.once('field', (fieldname, val, fieldnameTruncated, valTruncated, encoding
     encoding; // $ExpectType string
     mimetype; // $ExpectType string
 });
-busboy.once('partsLimit', () => {});
-busboy.once('partsLimit', foo => {}); // $ExpectError
-busboy.once('filesLimit', () => {});
-busboy.once('filesLimit', foo => {}); // $ExpectError
-busboy.once('fieldsLimit', () => {});
-busboy.once('fieldsLimit', foo => {}); // $ExpectError
-busboy.once('error', e => {
+busboy.once("partsLimit", () => {});
+// @ts-expect-error
+busboy.once("partsLimit", foo => {});
+busboy.once("filesLimit", () => {});
+// @ts-expect-error
+busboy.once("filesLimit", foo => {});
+busboy.once("fieldsLimit", () => {});
+// @ts-expect-error
+busboy.once("fieldsLimit", foo => {});
+busboy.once("error", e => {
     e; // $ExpectType unknown
 });
-busboy.once('finish', () => {});
-busboy.once('finish', foo => {}); // $ExpectError
+busboy.once("finish", () => {});
+// @ts-expect-error
+busboy.once("finish", foo => {});
 // test fallback
-busboy.once('foo', foo => {
+busboy.once("foo", foo => {
     foo; // $ExpectType any
 });
-busboy.once(Symbol('foo'), foo => {
+busboy.once(Symbol("foo"), foo => {
     foo; // $ExpectType any
 });
 
-busboy.removeListener('file', (fieldname, file, filename, encoding, mimetype) => {
+busboy.removeListener("file", (fieldname, file, filename, encoding, mimetype) => {
     fieldname; // $ExpectType string
     file; // $ExpectType Readable
     filename; // $ExpectType string
     encoding; // $ExpectType string
     mimetype; // $ExpectType string
 });
-busboy.removeListener('field', (fieldname, val, fieldnameTruncated, valTruncated, encoding, mimetype) => {
+busboy.removeListener("field", (fieldname, val, fieldnameTruncated, valTruncated, encoding, mimetype) => {
     fieldname; // $ExpectType string
     val; // $ExpectType string
     fieldnameTruncated; // $ExpectType boolean
@@ -139,33 +152,37 @@ busboy.removeListener('field', (fieldname, val, fieldnameTruncated, valTruncated
     encoding; // $ExpectType string
     mimetype; // $ExpectType string
 });
-busboy.removeListener('partsLimit', () => {});
-busboy.removeListener('partsLimit', foo => {}); // $ExpectError
-busboy.removeListener('filesLimit', () => {});
-busboy.removeListener('filesLimit', foo => {}); // $ExpectError
-busboy.removeListener('fieldsLimit', () => {});
-busboy.removeListener('fieldsLimit', foo => {}); // $ExpectError
-busboy.removeListener('error', e => {
+busboy.removeListener("partsLimit", () => {});
+// @ts-expect-error
+busboy.removeListener("partsLimit", foo => {});
+busboy.removeListener("filesLimit", () => {});
+// @ts-expect-error
+busboy.removeListener("filesLimit", foo => {});
+busboy.removeListener("fieldsLimit", () => {});
+// @ts-expect-error
+busboy.removeListener("fieldsLimit", foo => {});
+busboy.removeListener("error", e => {
     e; // $ExpectType unknown
 });
-busboy.removeListener('finish', () => {});
-busboy.removeListener('finish', foo => {}); // $ExpectError
+busboy.removeListener("finish", () => {});
+// @ts-expect-error
+busboy.removeListener("finish", foo => {});
 // test fallback
-busboy.removeListener('foo', foo => {
+busboy.removeListener("foo", foo => {
     foo; // $ExpectType any
 });
-busboy.removeListener(Symbol('foo'), foo => {
+busboy.removeListener(Symbol("foo"), foo => {
     foo; // $ExpectType any
 });
 
-busboy.off('file', (fieldname, file, filename, encoding, mimetype) => {
+busboy.off("file", (fieldname, file, filename, encoding, mimetype) => {
     fieldname; // $ExpectType string
     file; // $ExpectType Readable
     filename; // $ExpectType string
     encoding; // $ExpectType string
     mimetype; // $ExpectType string
 });
-busboy.off('field', (fieldname, val, fieldnameTruncated, valTruncated, encoding, mimetype) => {
+busboy.off("field", (fieldname, val, fieldnameTruncated, valTruncated, encoding, mimetype) => {
     fieldname; // $ExpectType string
     val; // $ExpectType string
     fieldnameTruncated; // $ExpectType boolean
@@ -173,33 +190,37 @@ busboy.off('field', (fieldname, val, fieldnameTruncated, valTruncated, encoding,
     encoding; // $ExpectType string
     mimetype; // $ExpectType string
 });
-busboy.off('partsLimit', () => {});
-busboy.off('partsLimit', foo => {}); // $ExpectError
-busboy.off('filesLimit', () => {});
-busboy.off('filesLimit', foo => {}); // $ExpectError
-busboy.off('fieldsLimit', () => {});
-busboy.off('fieldsLimit', foo => {}); // $ExpectError
-busboy.off('error', e => {
+busboy.off("partsLimit", () => {});
+// @ts-expect-error
+busboy.off("partsLimit", foo => {});
+busboy.off("filesLimit", () => {});
+// @ts-expect-error
+busboy.off("filesLimit", foo => {});
+busboy.off("fieldsLimit", () => {});
+// @ts-expect-error
+busboy.off("fieldsLimit", foo => {});
+busboy.off("error", e => {
     e; // $ExpectType unknown
 });
-busboy.off('finish', () => {});
-busboy.off('finish', foo => {}); // $ExpectError
+busboy.off("finish", () => {});
+// @ts-expect-error
+busboy.off("finish", foo => {});
 // test fallback
-busboy.off('foo', foo => {
+busboy.off("foo", foo => {
     foo; // $ExpectType any
 });
-busboy.off(Symbol('foo'), foo => {
+busboy.off(Symbol("foo"), foo => {
     foo; // $ExpectType any
 });
 
-busboy.prependListener('file', (fieldname, file, filename, encoding, mimetype) => {
+busboy.prependListener("file", (fieldname, file, filename, encoding, mimetype) => {
     fieldname; // $ExpectType string
     file; // $ExpectType Readable
     filename; // $ExpectType string
     encoding; // $ExpectType string
     mimetype; // $ExpectType string
 });
-busboy.prependListener('field', (fieldname, val, fieldnameTruncated, valTruncated, encoding, mimetype) => {
+busboy.prependListener("field", (fieldname, val, fieldnameTruncated, valTruncated, encoding, mimetype) => {
     fieldname; // $ExpectType string
     val; // $ExpectType string
     fieldnameTruncated; // $ExpectType boolean
@@ -207,33 +228,37 @@ busboy.prependListener('field', (fieldname, val, fieldnameTruncated, valTruncate
     encoding; // $ExpectType string
     mimetype; // $ExpectType string
 });
-busboy.prependListener('partsLimit', () => {});
-busboy.prependListener('partsLimit', foo => {}); // $ExpectError
-busboy.prependListener('filesLimit', () => {});
-busboy.prependListener('filesLimit', foo => {}); // $ExpectError
-busboy.prependListener('fieldsLimit', () => {});
-busboy.prependListener('fieldsLimit', foo => {}); // $ExpectError
-busboy.prependListener('error', e => {
+busboy.prependListener("partsLimit", () => {});
+// @ts-expect-error
+busboy.prependListener("partsLimit", foo => {});
+busboy.prependListener("filesLimit", () => {});
+// @ts-expect-error
+busboy.prependListener("filesLimit", foo => {});
+busboy.prependListener("fieldsLimit", () => {});
+// @ts-expect-error
+busboy.prependListener("fieldsLimit", foo => {});
+busboy.prependListener("error", e => {
     e; // $ExpectType unknown
 });
-busboy.prependListener('finish', () => {});
-busboy.prependListener('finish', foo => {}); // $ExpectError
+busboy.prependListener("finish", () => {});
+// @ts-expect-error
+busboy.prependListener("finish", foo => {});
 // test fallback
-busboy.prependListener('foo', foo => {
+busboy.prependListener("foo", foo => {
     foo; // $ExpectType any
 });
-busboy.prependListener(Symbol('foo'), foo => {
+busboy.prependListener(Symbol("foo"), foo => {
     foo; // $ExpectType any
 });
 
-busboy.prependOnceListener('file', (fieldname, file, filename, encoding, mimetype) => {
+busboy.prependOnceListener("file", (fieldname, file, filename, encoding, mimetype) => {
     fieldname; // $ExpectType string
     file; // $ExpectType Readable
     filename; // $ExpectType string
     encoding; // $ExpectType string
     mimetype; // $ExpectType string
 });
-busboy.prependOnceListener('field', (fieldname, val, fieldnameTruncated, valTruncated, encoding, mimetype) => {
+busboy.prependOnceListener("field", (fieldname, val, fieldnameTruncated, valTruncated, encoding, mimetype) => {
     fieldname; // $ExpectType string
     val; // $ExpectType string
     fieldnameTruncated; // $ExpectType boolean
@@ -241,21 +266,25 @@ busboy.prependOnceListener('field', (fieldname, val, fieldnameTruncated, valTrun
     encoding; // $ExpectType string
     mimetype; // $ExpectType string
 });
-busboy.prependOnceListener('partsLimit', () => {});
-busboy.prependOnceListener('partsLimit', foo => {}); // $ExpectError
-busboy.prependOnceListener('filesLimit', () => {});
-busboy.prependOnceListener('filesLimit', foo => {}); // $ExpectError
-busboy.prependOnceListener('fieldsLimit', () => {});
-busboy.prependOnceListener('fieldsLimit', foo => {}); // $ExpectError
-busboy.prependOnceListener('error', e => {
+busboy.prependOnceListener("partsLimit", () => {});
+// @ts-expect-error
+busboy.prependOnceListener("partsLimit", foo => {});
+busboy.prependOnceListener("filesLimit", () => {});
+// @ts-expect-error
+busboy.prependOnceListener("filesLimit", foo => {});
+busboy.prependOnceListener("fieldsLimit", () => {});
+// @ts-expect-error
+busboy.prependOnceListener("fieldsLimit", foo => {});
+busboy.prependOnceListener("error", e => {
     e; // $ExpectType unknown
 });
-busboy.prependOnceListener('finish', () => {});
-busboy.prependOnceListener('finish', foo => {}); // $ExpectError
+busboy.prependOnceListener("finish", () => {});
+// @ts-expect-error
+busboy.prependOnceListener("finish", foo => {});
 // test fallback
-busboy.prependOnceListener('foo', foo => {
+busboy.prependOnceListener("foo", foo => {
     foo; // $ExpectType any
 });
-busboy.prependOnceListener(Symbol('foo'), foo => {
+busboy.prependOnceListener(Symbol("foo"), foo => {
     foo; // $ExpectType any
 });

@@ -1,2 +1,2 @@
-import { remove } from '../index';
+import { remove } from "../index";
 export default remove;

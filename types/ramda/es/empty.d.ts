@@ -1,2 +1,2 @@
-import { empty } from '../index';
+import { empty } from "../index.js";
 export default empty;

@@ -1,3 +1,4 @@
+import { JSX } from "react";
 declare namespace CardMedia {
     type Props<T extends keyof JSX.IntrinsicElements> = {
         /**
@@ -12,7 +13,7 @@ declare namespace CardMedia {
     } & JSX.IntrinsicElements[T];
 }
 
-// tslint:disable-next-line no-unnecessary-generics
-declare function CardMedia<T extends keyof JSX.IntrinsicElements = 'div'>(props: CardMedia.Props<T>): JSX.Element;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+declare function CardMedia<T extends keyof JSX.IntrinsicElements = "div">(props: CardMedia.Props<T>): JSX.Element;
 
 export default CardMedia;

@@ -1,4 +1,4 @@
-import BigInteger = require('bigi');
+import BigInteger = require("bigi");
 
 const b1 = BigInteger.fromHex("188DA80EB03090F67CBF20EB43A18800F4FF0AFD82FF1012");
 const b2 = BigInteger.fromHex("07192B95FFC8DA78631011ED6B24CDD573F977A11E794811");

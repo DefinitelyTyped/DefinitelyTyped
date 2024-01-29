@@ -6,6 +6,6 @@ import focusWithin = require("focus-within");
 focusWithin(document);
 
 focusWithin(document, {
-  attr: false,
-  className: 'foo'
+    attr: false,
+    className: "foo",
 });

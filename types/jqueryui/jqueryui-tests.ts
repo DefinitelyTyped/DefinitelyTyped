@@ -1,5 +1,4 @@
 function test_draggable() {
-
     $("#draggable").draggable({ axis: "y" });
     $("#draggable2").draggable({ axis: "x" });
     $("#draggable3").draggable({ containment: "#containment-wrapper", scroll: false });
@@ -11,11 +10,11 @@ function test_draggable() {
     $("#draggable").draggable({ distance: 20 });
     $("#draggable2").draggable({ delay: 1000 });
     $("#draggable").draggable({
-        start: () => { },
-        drag: () => { },
+        start: () => {},
+        drag: () => {},
         stop: (event, ui) => {
             var left = ui.originalPosition.left;
-        }
+        },
     });
     $("#draggable").draggable({ handle: "p" });
     $("#draggable2").draggable({ cancel: "p.ui-widget-header" });
@@ -33,20 +32,21 @@ function test_draggable() {
     $("#draggable").draggable({
         connectToSortable: "#sortable",
         helper: "clone",
-        revert: "invalid"
+        revert: "invalid",
     });
     $("#draggable").draggable({ helper: "original" });
     $("#draggable2").draggable({ opacity: 0.7, helper: "clone" });
     $("#draggable3").draggable({
         cursor: "move",
         cursorAt: { top: -12, left: -20 },
-        helper: (event) => { return $("<div class='ui-widget-header'>I'm a custom helper</div>"); }
+        helper: (event) => {
+            return $("<div class='ui-widget-header'>I'm a custom helper</div>");
+        },
     });
     $("#set div").draggable({ stack: "#set div" });
 }
 
 function test_droppable() {
-
     $("#draggable, #draggable-nonvalid").draggable();
     $("#droppable").droppable({
         accept: "#draggable",
@@ -57,8 +57,8 @@ function test_droppable() {
             $(this)
                 .addClass("ui-state-highlight")
                 .find("p")
-                    .html("Dropped!");
-        }
+                .html("Dropped!");
+        },
     });
     $("#draggable").draggable();
     $("#droppable").droppable({
@@ -67,7 +67,7 @@ function test_droppable() {
                 .addClass("ui-state-highlight")
                 .find("p")
                 .html("Dropped!");
-        }
+        },
     });
 
     var $gallery = $("#gallery"),
@@ -77,49 +77,51 @@ function test_droppable() {
         revert: "invalid",
         containment: "document",
         helper: "clone",
-        cursor: "move"
+        cursor: "move",
     });
 
     $trash.droppable({
         accept: "#gallery > li",
         activeClass: "ui-state-highlight",
-        drop: (event, ui) => { }
+        drop: (event, ui) => {},
     });
 
     $gallery.droppable({
         accept: "#trash li",
         activeClass: "custom-state-active",
-        drop: (event, ui) => { }
+        drop: (event, ui) => {},
     });
 
-    var recycle_icon = "<a href='link/to/recycle/script/when/we/have/js/off' title='Recycle this image' class='ui-icon ui-icon-refresh'>Recycle image</a>";
+    var recycle_icon =
+        "<a href='link/to/recycle/script/when/we/have/js/off' title='Recycle this image' class='ui-icon ui-icon-refresh'>Recycle image</a>";
     function deleteImage($item) {
         $item.fadeOut(() => {
-            var $list = $("ul", $trash).length ?
-                $("ul", $trash) :
-                $("<ul class='gallery ui-helper-reset'/>").appendTo($trash);
+            var $list = $("ul", $trash).length
+                ? $("ul", $trash)
+                : $("<ul class='gallery ui-helper-reset'/>").appendTo($trash);
 
             $item.find("a.ui-icon-trash").remove();
             $item.append(recycle_icon).appendTo($list).fadeIn(() => {
                 $item
                     .animate({ width: "48px" })
                     .find("img")
-                        .animate({ height: "36px" });
+                    .animate({ height: "36px" });
             });
         });
     }
 
-    var trash_icon = "<a href='link/to/trash/script/when/we/have/js/off' title='Delete this image' class='ui-icon ui-icon-trash'>Delete image</a>";
+    var trash_icon =
+        "<a href='link/to/trash/script/when/we/have/js/off' title='Delete this image' class='ui-icon ui-icon-trash'>Delete image</a>";
     function recycleImage($item) {
         $item.fadeOut(() => {
             $item
                 .find("a.ui-icon-refresh")
-                    .remove()
+                .remove()
                 .end()
                 .css("width", "96px")
                 .append(trash_icon)
                 .find("img")
-                    .css("height", "72px")
+                .css("height", "72px")
                 .end()
                 .appendTo($gallery)
                 .fadeIn();
@@ -138,9 +140,9 @@ function test_droppable() {
                 .attr("src", src).appendTo("body");
             setTimeout(() => {
                 img.dialog({
-                    title: <string>title,
+                    title: <string> title,
                     width: 400,
-                    modal: true
+                    modal: true,
                 });
             }, 1);
         }
@@ -161,7 +163,6 @@ function test_droppable() {
         return false;
     });
 
-
     $("#draggable").draggable();
 
     $("#droppable, #droppable-inner").droppable({
@@ -171,9 +172,9 @@ function test_droppable() {
             $(this)
                 .addClass("ui-state-highlight")
                 .find("> p")
-                    .html("Dropped!");
+                .html("Dropped!");
             return false;
-        }
+        },
     });
 
     $("#droppable2, #droppable2-inner").droppable({
@@ -184,8 +185,8 @@ function test_droppable() {
             $(this)
                 .addClass("ui-state-highlight")
                 .find("> p")
-                    .html("Dropped!");
-        }
+                .html("Dropped!");
+        },
     });
 
     $("#draggable").draggable({ revert: "valid" });
@@ -197,13 +198,13 @@ function test_droppable() {
             $(this)
                 .addClass("ui-state-highlight")
                 .find("p")
-                    .html("Dropped!");
-        }
+                .html("Dropped!");
+        },
     });
     $("#catalog").accordion();
     $("#catalog li").draggable({
         appendTo: "body",
-        helper: "clone"
+        helper: "clone",
     });
     $("#cart ol").droppable({
         activeClass: "ui-state-default",
@@ -212,14 +213,14 @@ function test_droppable() {
         drop: (event, ui) => {
             $(this).find(".placeholder").remove();
             $("<li></li>").text(ui.draggable.text()).appendTo(this);
-        }
+        },
     }).sortable({
         items: "li:not(.placeholder)",
         sort: () => {
             // gets added unintentionally by droppable interacting with sortable
             // using connectWithSortable fixes this, but doesn't allow you to customize active/hoverClass options
             $(this).removeClass("ui-state-default");
-        }
+        },
     });
 
     $("#draggable").draggable();
@@ -229,8 +230,8 @@ function test_droppable() {
             $(this)
                 .addClass("ui-state-highlight")
                 .find("p")
-                    .html("Dropped!");
-        }
+                .html("Dropped!");
+        },
     });
 
     $("#draggable2").draggable();
@@ -241,51 +242,49 @@ function test_droppable() {
             $(this)
                 .addClass("ui-state-highlight")
                 .find("p")
-                    .html("Dropped!");
-        }
+                .html("Dropped!");
+        },
     });
-
 }
-
 
 function test_resizable() {
     $("#resizable").resizable();
     $("#resizable").resizable({
-        animate: true
+        animate: true,
     });
     $("#resizable").resizable({
-        containment: "#container"
+        containment: "#container",
     });
     $("#resizable").resizable({
-        delay: 1000
+        delay: 1000,
     });
     $("#resizable2").resizable({
-        distance: 40
+        distance: 40,
     });
     $("#resizable").resizable({
-        helper: "ui-resizable-helper"
+        helper: "ui-resizable-helper",
     });
     $("#resizable").resizable({
         maxHeight: 250,
         maxWidth: 350,
         minHeight: 150,
-        minWidth: 200
+        minWidth: 200,
     });
     $("#resizable").resizable({
-        aspectRatio: 16 / 9
+        aspectRatio: 16 / 9,
     });
     $("#resizable").resizable({
-        grid: 50
+        grid: 50,
     });
     $("#resizable").resizable({
-        alsoResize: "#also"
+        alsoResize: "#also",
     });
     $("#also").resizable();
     $("#resizable").resizable({
-        handles: "se"
+        handles: "se",
     });
     $("#resizable").resizable({
-        ghost: true
+        ghost: true,
     });
     $(".selector").resizable({ alsoResize: "#mirror" });
     var alsoResize = $(".selector").resizable("option", "alsoResize");
@@ -349,17 +348,16 @@ function test_resizable() {
     var widget = $(".selector").resizable("widget");
 }
 
-
 function test_selectable() {
     $("#selectable").selectable();
     $("#selectable").selectable({
-        stop: function () {
+        stop: function() {
             var result = $("#select-result").empty();
-            $(".ui-selected", this).each(function () {
+            $(".ui-selected", this).each(function() {
                 var index = $("#selectable li").index(this);
                 result.append(" #" + (index + 1));
             });
-        }
+        },
     });
     $(".selector").selectable({ autoRefresh: false });
     var autoRefresh = $(".selector").selectable("option", "autoRefresh");
@@ -392,61 +390,60 @@ function test_selectable() {
     var widget = $(".selector").selectable("widget");
 }
 
-
 function test_sortable() {
     $("#sortable").sortable();
     $("#sortable").disableSelection();
     $("#sortable1, #sortable2").sortable({
-        connectWith: ".connectedSortable"
+        connectWith: ".connectedSortable",
     }).disableSelection();
     $("#sortable1, #sortable2").sortable().disableSelection();
     var $tabs = $("#tabs").tabs();
     var $tab_items = $("ul:first li", $tabs).droppable({
         accept: ".connectedSortable li",
         hoverClass: "ui-state-hover",
-        drop: function (event, ui) {
+        drop: function(event, ui) {
             var $item = $(this);
             var $list = $($item.find("a").attr("href"))
                 .find(".connectedSortable");
-            ui.draggable.hide("slow", function () {
+            ui.draggable.hide("slow", function() {
                 $tabs.tabs("select", $tab_items.index($item));
                 $(this).appendTo($list).show("slow");
             });
-        }
+        },
     });
     $("#sortable1").sortable({
-        delay: 300
+        delay: 300,
     });
     $("#sortable2").sortable({
-        distance: 15
+        distance: 15,
     });
     $("li").disableSelection();
     $("#sortable").sortable({
-        placeholder: "ui-state-highlight"
+        placeholder: "ui-state-highlight",
     });
     $("ul.droptrue").sortable({
-        connectWith: "ul"
+        connectWith: "ul",
     });
     $("ul.dropfalse").sortable({
         connectWith: "ul",
-        dropOnEmpty: false
+        dropOnEmpty: false,
     });
     $("#sortable1").sortable({
-        items: "li:not(.ui-state-disabled)"
+        items: "li:not(.ui-state-disabled)",
     });
     $("#sortable2").sortable({
-        cancel: ".ui-state-disabled"
+        cancel: ".ui-state-disabled",
     });
     $(".column").sortable({
-        connectWith: ".column"
+        connectWith: ".column",
     });
     $(".portlet").addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all")
         .find(".portlet-header")
-            .addClass("ui-widget-header ui-corner-all")
-            .prepend("<span class='ui-icon ui-icon-minusthick'></span>")
-            .end()
+        .addClass("ui-widget-header ui-corner-all")
+        .prepend("<span class='ui-icon ui-icon-minusthick'></span>")
+        .end()
         .find(".portlet-content");
-    $(".portlet-header .ui-icon").click(function () {
+    $(".portlet-header .ui-icon").click(function() {
         $(this).toggleClass("ui-icon-minusthick").toggleClass("ui-icon-plusthick");
         $(this).parents(".portlet:first").find(".portlet-content").toggle();
     });
@@ -530,15 +527,13 @@ function test_sortable() {
     var widget = $(".selector").sortable("widget");
 }
 
-
 function test_accordion() {
-
     $("#accordion").accordion();
 
     $("#accordion").accordion({ collapsible: true });
     var icons = {
         header: "ui-icon-circle-arrow-e",
-        activeHeader: "ui-icon-circle-arrow-s"
+        activeHeader: "ui-icon-circle-arrow-s",
     };
     $("#accordion").accordion({ icons: icons });
     $("#toggle").button().click(() => {
@@ -555,20 +550,20 @@ function test_accordion() {
         minWidth: 200,
         resize: () => {
             $("#accordion").accordion("refresh");
-        }
+        },
     });
     $("#accordion").accordion({ event: "click hoverintent" });
     $("#accordion").accordion({ heightStyle: "content" });
     $("#accordion")
         .accordion({
-            header: "> div > h3"
+            header: "> div > h3",
         })
         .sortable({
             axis: "y",
             handle: "h3",
             stop: (event, ui) => {
                 ui.item.children("h3").triggerHandler("focusout");
-            }
+            },
         });
     $(".selector").accordion({ active: 2 });
     var active = $(".selector").accordion("option", "active");
@@ -598,9 +593,7 @@ function test_accordion() {
     $(".selector").accordion("option", { disabled: true });
 }
 
-
 function test_autocomplete() {
-
     $.widget("custom.catcomplete", $.ui.autocomplete, {
         _renderMenu: (ul, items) => {
             var that = this,
@@ -612,24 +605,24 @@ function test_autocomplete() {
                 }
                 that._renderItemData(ul, item);
             });
-        }
+        },
     });
 
     var data = [
-                { label: "anders", category: "" },
-                { label: "andreas", category: "" },
-                { label: "antal", category: "" },
-                { label: "annhhx10", category: "Products" },
-                { label: "annk K12", category: "Products" },
-                { label: "annttop C13", category: "Products" },
-                { label: "anders andersson", category: "People" },
-                { label: "andreas andersson", category: "People" },
-                { label: "andreas johnson", category: "People" }
+        { label: "anders", category: "" },
+        { label: "andreas", category: "" },
+        { label: "antal", category: "" },
+        { label: "annhhx10", category: "Products" },
+        { label: "annk K12", category: "Products" },
+        { label: "annttop C13", category: "Products" },
+        { label: "anders andersson", category: "People" },
+        { label: "andreas andersson", category: "People" },
+        { label: "andreas johnson", category: "People" },
     ];
 
     $("#search").autocomplete({
         delay: 0,
-        source: data
+        source: data,
     });
 
     $.widget("ui.combobox", {
@@ -678,31 +671,38 @@ function test_autocomplete() {
                     minLength: 0,
                     source: (request, response) => {
                         var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
-                        response(select.children("option").map(() => {
-                            var text = $(this).text();
-                            if (this.value && (!request.term || matcher.test(text)))
-                                return {
-                                    label: text.replace(
-                                        new RegExp(
-                                            "(?![^&;]+;)(?!<[^<>]*)(" +
-                                            $.ui.autocomplete.escapeRegex(request.term) +
-                                            ")(?![^<>]*>)(?![^&;]+;)", "gi"
-                                        ), "<strong>$1</strong>"),
-                                    value: text,
-                                    option: this
-                                };
-                        }));
+                        response(
+                            select.children("option").map(() => {
+                                var text = $(this).text();
+                                if (this.value && (!request.term || matcher.test(text))) {
+                                    return {
+                                        label: text.replace(
+                                            new RegExp(
+                                                "(?![^&;]+;)(?!<[^<>]*)("
+                                                    + $.ui.autocomplete.escapeRegex(request.term)
+                                                    + ")(?![^<>]*>)(?![^&;]+;)",
+                                                "gi",
+                                            ),
+                                            "<strong>$1</strong>",
+                                        ),
+                                        value: text,
+                                        option: this,
+                                    };
+                                }
+                            }),
+                        );
                     },
                     select: (event, ui) => {
                         ui.item.option.selected = true;
                         that._trigger("selected", event, {
-                            item: ui.item.option
+                            item: ui.item.option,
                         });
                     },
                     change: (event, ui) => {
-                        if (!ui.item)
+                        if (!ui.item) {
                             return removeIfInvalid(this);
-                    }
+                        }
+                    },
                 })
                 .addClass("ui-widget ui-widget-content ui-corner-left");
 
@@ -720,9 +720,9 @@ function test_autocomplete() {
                 .appendTo(wrapper)
                 .button({
                     icons: {
-                        primary: "ui-icon-triangle-1-s"
+                        primary: "ui-icon-triangle-1-s",
                     },
-                    text: false
+                    text: false,
                 })
                 .removeClass("ui-corner-all")
                 .addClass("ui-corner-right ui-combobox-toggle")
@@ -742,9 +742,9 @@ function test_autocomplete() {
             input
                 .tooltip({
                     position: {
-                        of: this.button
+                        of: this.button,
                     },
-                    tooltipClass: "ui-state-highlight"
+                    tooltipClass: "ui-state-highlight",
                 });
         },
 
@@ -752,9 +752,11 @@ function test_autocomplete() {
             this.wrapper.remove();
             this.element.show();
             $.Widget.prototype.destroy.call(this);
-        }
+        },
     });
-    $("#toggle").click(() => { $("#combobox").toggle(); });
+    $("#toggle").click(() => {
+        $("#combobox").toggle();
+    });
     $("#project").autocomplete({
         minLength: 0,
         source: null,
@@ -768,13 +770,13 @@ function test_autocomplete() {
             $("#project-description").html(ui.item.desc);
             $("#project-icon").attr("src", "images/" + ui.item.icon);
             return false;
-        }
+        },
     });
 
     $("#developer").autocomplete({
         source: (request, response) => {
             var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
-        }
+        },
     });
 
     var availableTags = [
@@ -799,20 +801,22 @@ function test_autocomplete() {
         "Python",
         "Ruby",
         "Scala",
-        "Scheme"
+        "Scheme",
     ];
     $("#tags").autocomplete({ source: availableTags });
     $("#birds")
         .bind("keydown", (event) => {
-            if (event.keyCode === $.ui.keyCode.TAB &&
-                    $(this).data("autocomplete").menu.active) {
+            if (
+                event.keyCode === $.ui.keyCode.TAB
+                && $(this).data("autocomplete").menu.active
+            ) {
                 event.preventDefault();
             }
         })
         .autocomplete({
             source: (request, response) => {
                 $.getJSON("search.php", {
-                    term: null
+                    term: null,
                 }, response);
             },
             search: () => {
@@ -823,24 +827,26 @@ function test_autocomplete() {
             },
             select: (event, ui) => {
                 return false;
-            }
+            },
         });
     $("#tags")
         .bind("keydown", (event) => {
-            if (event.keyCode === $.ui.keyCode.TAB &&
-                    $(this).data("autocomplete").menu.active) {
+            if (
+                event.keyCode === $.ui.keyCode.TAB
+                && $(this).data("autocomplete").menu.active
+            ) {
                 event.preventDefault();
             }
         })
         .autocomplete({
             minLength: 0,
-            source: (request, response) => { },
+            source: (request, response) => {},
             focus: () => {
                 return false;
             },
             select: (event, ui) => {
                 return false;
-            }
+            },
         });
     $("#city").autocomplete({
         source: (request, response) => {
@@ -851,30 +857,33 @@ function test_autocomplete() {
                     featureClass: "P",
                     style: "full",
                     maxRows: 12,
-                    name_startsWith: request.term
+                    name_startsWith: request.term,
                 },
                 success: (data) => {
                     response($.map(data.geonames, (item) => {
                         return {
-                            label: item.name + (item.adminName1 ? ", " + item.adminName1 : "") + ", " + item.countryName,
-                            value: item.name
-                        }
+                            label: item.name + (item.adminName1 ? ", " + item.adminName1 : "") + ", "
+                                + item.countryName,
+                            value: item.name,
+                        };
                     }));
-                }
+                },
             });
         },
         minLength: 2,
         select: (event, ui) => {
-            log(ui.item ?
-                "Selected: " + ui.item.label :
-                "Nothing selected, input was " + this.value);
+            log(
+                ui.item
+                    ? "Selected: " + ui.item.label
+                    : "Nothing selected, input was " + this.value,
+            );
         },
         open: () => {
             $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
         },
         close: () => {
             $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
-        }
+        },
     });
     function log(message) {
         $("<div/>").text(message).prependTo("#log");
@@ -894,153 +903,157 @@ function test_autocomplete() {
                 cache[term] = data;
                 response(data);
             });
-        }
+        },
     });
     $("#birds").autocomplete({
         source: "search.php",
         minLength: 2,
         select: (event, ui) => {
-            log(ui.item ?
-                "Selected: " + ui.item.value + " aka " + ui.item.id :
-                "Nothing selected, input was " + this.value);
-        }
+            log(
+                ui.item
+                    ? "Selected: " + ui.item.value + " aka " + ui.item.id
+                    : "Nothing selected, input was " + this.value,
+            );
+        },
     });
     $("#birds").autocomplete({
         source: data,
         minLength: 0,
         select: (event, ui) => {
-            log(ui.item ?
-                "Selected: " + ui.item.value + ", geonameId: " + ui.item.id :
-                "Nothing selected, input was " + this.value);
-        }
+            log(
+                ui.item
+                    ? "Selected: " + ui.item.value + ", geonameId: " + ui.item.id
+                    : "Nothing selected, input was " + this.value,
+            );
+        },
     });
     $("#birds").autocomplete({
         classes: {
-            'ui-autocomplete': 'foo',
-            'ui-autocomplete-input': 'bar'
-        }
-    })
+            "ui-autocomplete": "foo",
+            "ui-autocomplete-input": "bar",
+        },
+    });
 }
 
-
 function test_button() {
-
     $("#check").button();
     $("#format").buttonset();
     $("input[type=submit], a, button")
         .button()
-        .click((event) => { event.preventDefault(); });
+        .click((event) => {
+            event.preventDefault();
+        });
     $("button:first").button({
         icons: {
-            primary: "ui-icon-locked"
+            primary: "ui-icon-locked",
         },
-        text: false
+        text: false,
     }).next().button({
         icons: {
-            primary: "ui-icon-locked"
-        }
+            primary: "ui-icon-locked",
+        },
     }).next().button({
         icons: {
             primary: "ui-icon-gear",
-            secondary: "ui-icon-triangle-1-s"
-        }
+            secondary: "ui-icon-triangle-1-s",
+        },
     }).next().button({
         icons: {
             primary: "ui-icon-gear",
-            secondary: "ui-icon-triangle-1-s"
+            secondary: "ui-icon-triangle-1-s",
         },
-        text: false
+        text: false,
     });
     $("#rerun")
-            .button()
-            .click(function () {
-                alert("Running the last action");
-            })
-            .next()
-                .button({
-                    text: false,
-                    icons: {
-                        primary: "ui-icon-triangle-1-s"
-                    }
-                })
-                .click(function () {
-                    var menu = $(this).parent().next().show().position({
-                        my: "left top",
-                        at: "left bottom",
-                        of: this
-                    });
-                    $(document).one("click", function () {
-                        menu.hide();
-                    });
-                    return false;
-                })
-                .parent()
-                    .buttonset()
-                    .next()
-                        .hide()
-                        .menu();
+        .button()
+        .click(function() {
+            alert("Running the last action");
+        })
+        .next()
+        .button({
+            text: false,
+            icons: {
+                primary: "ui-icon-triangle-1-s",
+            },
+        })
+        .click(function() {
+            var menu = $(this).parent().next().show().position({
+                my: "left top",
+                at: "left bottom",
+                of: this,
+            });
+            $(document).one("click", function() {
+                menu.hide();
+            });
+            return false;
+        })
+        .parent()
+        .buttonset()
+        .next()
+        .hide()
+        .menu();
     $("#beginning").button({
         text: false,
         icons: {
-            primary: "ui-icon-seek-start"
-        }
+            primary: "ui-icon-seek-start",
+        },
     });
     $("#rewind").button({
         text: false,
         icons: {
-            primary: "ui-icon-seek-prev"
-        }
+            primary: "ui-icon-seek-prev",
+        },
     });
     $("#play").button({
         text: false,
         icons: {
-            primary: "ui-icon-play"
-        }
+            primary: "ui-icon-play",
+        },
     })
-    .click(function () {
-        var options;
-        if ($(this).text() === "play") {
-            options = {
-                label: "pause",
-                icons: {
-                    primary: "ui-icon-pause"
-                }
-            };
-        } else {
-            options = {
-                label: "play",
-                icons: {
-                    primary: "ui-icon-play"
-                }
-            };
-        }
-        $(this).button("option", options);
-    });
+        .click(function() {
+            var options;
+            if ($(this).text() === "play") {
+                options = {
+                    label: "pause",
+                    icons: {
+                        primary: "ui-icon-pause",
+                    },
+                };
+            } else {
+                options = {
+                    label: "play",
+                    icons: {
+                        primary: "ui-icon-play",
+                    },
+                };
+            }
+            $(this).button("option", options);
+        });
     $("#stop").button({
         text: false,
         icons: {
-            primary: "ui-icon-stop"
-        }
+            primary: "ui-icon-stop",
+        },
     })
-    .click(function () {
-        $("#play").button("option", {
-            label: "play",
-            icons: {
-                primary: "ui-icon-play"
-            }
+        .click(function() {
+            $("#play").button("option", {
+                label: "play",
+                icons: {
+                    primary: "ui-icon-play",
+                },
+            });
         });
-    });
     $("#forward").button({
         text: false,
         icons: {
-            primary: "ui-icon-seek-next"
-        }
+            primary: "ui-icon-seek-next",
+        },
     });
     $("#end").button({
         text: false,
         icons: {
-            primary: "ui-icon-seek-end"
-        }
+            primary: "ui-icon-seek-end",
+        },
     });
     $(".selector").button({ disabled: true });
     var disabled = $(".selector").button("option", "disabled");
@@ -1051,69 +1064,67 @@ function test_button() {
     $(".selector").button("destroy");
 }
 
-
 function test_datepicker() {
-    $.datepicker.formatDate('yy-mm-dd', new Date(2007, 1 - 1, 26));
-    $.datepicker.formatDate('DD, MM d, yy', new Date(2007, 7 - 1, 14), {
-        dayNamesShort: $.datepicker.regional['fr'].dayNamesShort,
-        dayNames: $.datepicker.regional['fr'].dayNames,
-        monthNamesShort: $.datepicker.regional['fr'].monthNamesShort,
-        monthNames: $.datepicker.regional['fr'].monthNames
+    $.datepicker.formatDate("yy-mm-dd", new Date(2007, 1 - 1, 26));
+    $.datepicker.formatDate("DD, MM d, yy", new Date(2007, 7 - 1, 14), {
+        dayNamesShort: $.datepicker.regional["fr"].dayNamesShort,
+        dayNames: $.datepicker.regional["fr"].dayNames,
+        monthNamesShort: $.datepicker.regional["fr"].monthNamesShort,
+        monthNames: $.datepicker.regional["fr"].monthNames,
     });
-    $("selector").datepicker($.datepicker.regional['fr']);
+    $("selector").datepicker($.datepicker.regional["fr"]);
 
     $("#datepicker").datepicker();
     $("#datepicker").datepicker("option", "showAnim", $(this).val());
     $("#datepicker").datepicker({
         showOtherMonths: true,
-        selectOtherMonths: true
+        selectOtherMonths: true,
     });
     $("#datepicker").datepicker({
-        showButtonPanel: true
+        showButtonPanel: true,
     });
     $("#datepicker").datepicker({
         changeMonth: true,
-        changeYear: true
+        changeYear: true,
     });
     $("#datepicker").datepicker({
         numberOfMonths: 3,
-        showButtonPanel: true
+        showButtonPanel: true,
     });
     $("#datepicker").datepicker({
         showOn: "button",
         buttonImage: "images/calendar.gif",
-        buttonImageOnly: true
+        buttonImageOnly: true,
     });
-    $.datepicker.setDefaults($.datepicker.regional[<string>""]);
+    $.datepicker.setDefaults($.datepicker.regional[<string> ""]);
     $("#datepicker").datepicker($.datepicker.regional["fr"]);
-    $("#locale").change(function () {
-        $("#datepicker").datepicker("option",
-            $.datepicker.regional[$(this).val() as string]);
+    $("#locale").change(function() {
+        $("#datepicker").datepicker("option", $.datepicker.regional[$(this).val() as string]);
     });
     $("#datepicker").datepicker({
         altField: "#alternate",
-        altFormat: "DD, d MM, yy"
+        altFormat: "DD, d MM, yy",
     });
     $("#datepicker").datepicker({ minDate: -20, maxDate: "+1M +10D" });
     $("#from").datepicker({
         defaultDate: "+1w",
         changeMonth: true,
         numberOfMonths: 3,
-        onClose: function (selectedDate) {
+        onClose: function(selectedDate) {
             $("#to").datepicker("option", "minDate", selectedDate);
-        }
+        },
     });
     $("#to").datepicker({
         defaultDate: "+1w",
         changeMonth: true,
         numberOfMonths: 3,
-        onClose: function (selectedDate) {
+        onClose: function(selectedDate) {
             $("#from").datepicker("option", "maxDate", selectedDate);
-        }
+        },
     });
     $("#datepicker").datepicker({
         showWeek: true,
-        firstDay: 1
+        firstDay: 1,
     });
     $(".selector").datepicker({ altField: "#actualDate" });
     $(".selector").datepicker({ altFormat: "yy-mm-dd" });
@@ -1132,7 +1143,7 @@ function test_datepicker() {
     $(".selector").datepicker({ dayNames: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"] });
     $(".selector").datepicker({ dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"] });
 
-    $.datepicker.setDefaults($.datepicker.regional[<string>""]);
+    $.datepicker.setDefaults($.datepicker.regional[<string> ""]);
     $(".selector").datepicker($.datepicker.regional["fr"]);
 
     // Methods
@@ -1197,7 +1208,10 @@ function test_datepicker() {
         $(".selector").datepicker({ beforeShow: myFunction });
 
         // getter
-        var beforeShow: (input: Element, inst: any) => JQueryUI.DatepickerOptions = $(".selector").datepicker("option", "beforeShow");
+        var beforeShow: (input: Element, inst: any) => JQueryUI.DatepickerOptions = $(".selector").datepicker(
+            "option",
+            "beforeShow",
+        );
 
         // setter
         var $set: JQuery = $(".selector").datepicker("option", "beforeShow", myFunction);
@@ -1243,18 +1257,17 @@ function test_datepicker() {
     }
 
     function calculateWeek() {
-
         function myWeekCalc(date: Date) {
             var checkDate = new Date(date.getTime());
             checkDate.setDate(checkDate.getDate() + 4 - (checkDate.getDay() || 7));
             var time = checkDate.getTime();
             checkDate.setMonth(7);
             checkDate.setDate(28);
-            var week = (Math.floor(Math.round((time - checkDate.getTime()) / 86400000) / 7) + 2);
+            var week = Math.floor(Math.round((time - checkDate.getTime()) / 86400000) / 7) + 2;
             if (week < 1) {
                 week = 52 + week;
             }
-            return 'FW: '+week;
+            return "FW: " + week;
         }
 
         $(".selector").datepicker({ calculateWeek: myWeekCalc });
@@ -1321,12 +1334,22 @@ function test_datepicker() {
     }
 
     function dayNames() {
-        $(".selector").datepicker({ dayNames: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"] });
+        $(".selector").datepicker({
+            dayNames: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
+        });
 
         var dayNames: string[] = $(".selector").datepicker("option", "dayNames");
 
         // setter
-        var $set: JQuery = $(".selector").datepicker("option", "dayNames", ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"]);
+        var $set: JQuery = $(".selector").datepicker("option", "dayNames", [
+            "Dimanche",
+            "Lundi",
+            "Mardi",
+            "Mercredi",
+            "Jeudi",
+            "Vendredi",
+            "Samedi",
+        ]);
     }
 
     function dayNamesMin() {
@@ -1335,7 +1358,15 @@ function test_datepicker() {
         var dayNamesMin: string[] = $(".selector").datepicker("option", "dayNamesMin");
 
         // setter
-        var $set: JQuery = $(".selector").datepicker("option", "dayNamesMin", ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"]);
+        var $set: JQuery = $(".selector").datepicker("option", "dayNamesMin", [
+            "Di",
+            "Lu",
+            "Ma",
+            "Me",
+            "Je",
+            "Ve",
+            "Sa",
+        ]);
     }
 
     function dayNamesShort() {
@@ -1344,7 +1375,15 @@ function test_datepicker() {
         var dayNamesShort: string[] = $(".selector").datepicker("option", "dayNamesShort");
 
         // setter
-        var $set: JQuery = $(".selector").datepicker("option", "dayNamesShort", ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"]);
+        var $set: JQuery = $(".selector").datepicker("option", "dayNamesShort", [
+            "Dim",
+            "Lun",
+            "Mar",
+            "Mer",
+            "Jeu",
+            "Ven",
+            "Sam",
+        ]);
     }
 
     function defaultDate() {
@@ -1386,34 +1425,33 @@ function test_datepicker() {
     }
 }
 
-
 function test_dialog() {
     $("#dialog").dialog();
     $("#dialog").dialog({
         autoOpen: false,
         show: "blind",
-        hide: "explode"
+        hide: "explode",
     });
-    $("#opener").click(function () {
+    $("#opener").click(function() {
         var $el = $("#dialog").dialog("open");
         return false;
     });
     $("#dialog-modal").dialog({
         height: 140,
-        modal: true
+        modal: true,
     });
     $("#dialog-confirm").dialog({
         resizable: false,
         height: 140,
         modal: true,
         buttons: {
-            "Delete all items": function () {
+            "Delete all items": function() {
                 var $el = $(this).dialog("close");
             },
-            Cancel: function () {
+            Cancel: function() {
                 $(this).dialog("close");
-            }
-        }
+            },
+        },
     });
     $("#dialog-form").dialog({
         autoOpen: false,
@@ -1421,26 +1459,39 @@ function test_dialog() {
         width: 350,
         modal: true,
         buttons: {
-            Cancel: function () {
+            Cancel: function() {
                 $(this).dialog("close");
             },
-            close: function () {
+            close: function() {
                 var $el = $(this).dialog("destroy");
-            }
-        }
+            },
+        },
     });
     $("#dialog-message").dialog({
         modal: true,
         buttons: {
-            Ok: function () {
+            Ok: function() {
                 $(this).dialog("close");
-            }
-        }
+            },
+        },
     });
     $(".selector").dialog({ autoOpen: false });
-    $(".selector").dialog({ buttons: { Ok: function () { $(this).dialog("close"); } } });
-    $(".selector").dialog({ buttons: [ { text: "Ok", click: function () { $(this).dialog("close"); } } ] } );
-    $(".selector").dialog({ classes: { "ui-dialog": "custom", "ui-dialog-content": "custom-content" } } );
+    $(".selector").dialog({
+        buttons: {
+            Ok: function() {
+                $(this).dialog("close");
+            },
+        },
+    });
+    $(".selector").dialog({
+        buttons: [{
+            text: "Ok",
+            click: function() {
+                $(this).dialog("close");
+            },
+        }],
+    });
+    $(".selector").dialog({ classes: { "ui-dialog": "custom", "ui-dialog-content": "custom-content" } });
     $(".selector").dialog({ closeOnEscape: false });
     $(".selector").dialog({ closeText: "hide" });
     $(".selector").dialog({ appendTo: "appendTo" });
@@ -1461,10 +1512,9 @@ function test_dialog() {
     $(".selector").dialog({ title: "Dialog Title" });
     $(".selector").dialog({ width: 500 });
     $(".selector").dialog({ zIndex: 20 });
-    var $el = $( ".selector" ).dialog( "moveToTop" );
-    var isOpen = $( ".selector" ).dialog( "isOpen" );
+    var $el = $(".selector").dialog("moveToTop");
+    var isOpen = $(".selector").dialog("isOpen");
 }
-
 
 function test_menu() {
     $("#menu").menu();
@@ -1474,7 +1524,7 @@ function test_menu() {
     $(".selector").menu({ position: { my: "left top", at: "right-5 top+5" } });
     $(".selector").menu({ role: null });
     $(".selector").menu("option", { disabled: true });
-    $(".selector").menu({ select: (e, ui) => { } });
+    $(".selector").menu({ select: (e, ui) => {} });
 }
 
 function test_selectmenu() {
@@ -1487,12 +1537,12 @@ function test_selectmenu() {
     $(".selector").selectmenu({ width: 47 });
 
     // Events
-    $("#selectmenu").selectmenu({ change: (event, ui) => {}});
-    $("#selectmenu").selectmenu({ close: (event, ui) => {}});
-    $("#selectmenu").selectmenu({ create: (event, ui) => {}});
-    $("#selectmenu").selectmenu({ focus: (event, ui) => {}});
-    $("#selectmenu").selectmenu({ open: (event, ui) => {}});
-    $("#selectmenu").selectmenu({ select: (event, ui) => {}});
+    $("#selectmenu").selectmenu({ change: (event, ui) => {} });
+    $("#selectmenu").selectmenu({ close: (event, ui) => {} });
+    $("#selectmenu").selectmenu({ create: (event, ui) => {} });
+    $("#selectmenu").selectmenu({ focus: (event, ui) => {} });
+    $("#selectmenu").selectmenu({ open: (event, ui) => {} });
+    $("#selectmenu").selectmenu({ select: (event, ui) => {} });
 
     // Events and options
     $("#selectmenu").selectmenu({
@@ -1507,7 +1557,7 @@ function test_selectmenu() {
         create: (event, ui) => {},
         focus: (event, ui) => {},
         open: (event, ui) => {},
-        select: (event, ui) => {}
+        select: (event, ui) => {},
     });
 
     // passing in option
@@ -1518,7 +1568,7 @@ function test_selectmenu() {
 
     // Setting option value
     $(".selector").selectmenu("option", "disabled", true);
-    $(".selector").selectmenu("option", "position", { my: "left top", at: "right-5 top+5" } );
+    $(".selector").selectmenu("option", "position", { my: "left top", at: "right-5 top+5" });
 
     // Methods
     $(".selector").selectmenu("close");
@@ -1531,14 +1581,12 @@ function test_selectmenu() {
         .addClass("overflow");
 }
 
-
 function test_progressbar() {
     $("#progressbar").progressbar({
-        value: 37
+        value: 37,
     });
     $(".selector").progressbar({ disabled: true });
 }
-
 
 function test_slider() {
     $("#slider").slider();
@@ -1548,38 +1596,43 @@ function test_slider() {
         range: "min",
         animate: true,
         orientation: "vertical",
-        highlight: true
+        highlight: true,
     });
     $("#slider-range").slider({
         range: true,
         min: 0,
         max: 500,
         values: [75, 300],
-        slide: function (event, ui) {
+        slide: function(event, ui) {
             $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
-        }
+        },
     });
-    $("#amount").val("$" + $("#slider-range").slider("values", 0) +
-        " - $" + $("#slider-range").slider("values", 1));
+    $("#amount").val(
+        "$" + $("#slider-range").slider("values", 0)
+            + " - $" + $("#slider-range").slider("values", 1),
+    );
     var scrollPane = $(".scroll-pane"),
         scrollContent = $(".scroll-content");
     var scrollbar = $(".scroll-bar").slider({
-        slide: function (event, ui) {
+        slide: function(event, ui) {
             if (scrollContent.width() > scrollPane.width()) {
-                scrollContent.css("margin-left", Math.round(
-                    ui.value / 100 * (scrollPane.width() - scrollContent.width())
-                ) + "px");
+                scrollContent.css(
+                    "margin-left",
+                    Math.round(
+                        ui.value / 100 * (scrollPane.width() - scrollContent.width()),
+                    ) + "px",
+                );
             } else {
                 scrollContent.css("margin-left", 0);
             }
-        }
+        },
     });
 
     var handleHelper = scrollbar.find(".ui-slider-handle")
-        .mousedown(function () {
+        .mousedown(function() {
             scrollbar.width(handleHelper.width());
         })
-        .mouseup(function () {
+        .mouseup(function() {
             scrollbar.width("100%");
         })
         .append("<span class='ui-icon ui-icon-grip-dotted-vertical'></span>")
@@ -1589,9 +1642,9 @@ function test_slider() {
         min: 0,
         max: 500,
         step: 50,
-        slide: function (event, ui) {
+        slide: function(event, ui) {
             $("#amount").val("$" + ui.value);
-        }
+        },
     });
     $("#amount").val("$" + $("#slider").slider("value"));
     $(".selector").slider({ animate: "fast" });
@@ -1603,33 +1656,32 @@ function test_slider() {
     $(".selector").slider({ step: 5 });
     $(".selector").slider({ value: 10 });
     $(".selector").slider({ values: [10, 25] });
-    $(".selector").slider({ classes: { "ui-slider": "custom", "ui-slider-handle": "custom-handle" } } );
+    $(".selector").slider({ classes: { "ui-slider": "custom", "ui-slider-handle": "custom-handle" } });
 }
-
 
 function test_spinner() {
     var spinner = $("#spinner").spinner();
 
-    $("#disable").click(function () {
+    $("#disable").click(function() {
         if (spinner.spinner("option", "disabled")) {
             spinner.spinner("enable");
         } else {
             spinner.spinner("disable");
         }
     });
-    $("#destroy").click(function () {
+    $("#destroy").click(function() {
         if (spinner.data("ui-spinner")) {
             spinner.spinner("destroy");
         } else {
             spinner.spinner();
         }
     });
-    $("#getvalue").click(function () { });
-    $("#setvalue").click(function () {
+    $("#getvalue").click(function() {});
+    $("#setvalue").click(function() {
         spinner.spinner("value", 5);
     });
     $("button").button();
-    $("#currency").change(function () {
+    $("#currency").change(function() {
         $("#spinner").spinner("option", "culture", $(this).val());
     });
 
@@ -1637,25 +1689,27 @@ function test_spinner() {
         min: 5,
         max: 2500,
         step: 25,
-        start: function () { return; },
-        numberFormat: "C"
+        start: function() {
+            return;
+        },
+        numberFormat: "C",
     });
     $("#spinner").spinner({
         step: 0.01,
-        numberFormat: "n"
+        numberFormat: "n",
     });
 
-    $("#culture").change(function () {
+    $("#culture").change(function() {
         var current = $("#spinner").spinner("value");
         $("#spinner").spinner("value", current);
     });
     $("#lat, #lng").spinner({
         step: .001,
-        change() { },
-        stop() { },
+        change() {},
+        stop() {},
     });
     $("#spinner").spinner({
-        spin: function (event, ui) {
+        spin: function(event, ui) {
             if (ui.value > 10) {
                 $(this).spinner("value", -10);
                 return false;
@@ -1663,26 +1717,26 @@ function test_spinner() {
                 $(this).spinner("value", 10);
                 return false;
             }
-        }
+        },
     });
     $.widget("ui.timespinner", $.ui.spinner, {
         options: {
             // seconds
             step: 60 * 1000,
             // hours
-            page: 60
+            page: 60,
         },
-        _parse: function (value) {
+        _parse: function(value) {
             if (typeof value === "string") {
-                if (Number(value) == <any>value) {
+                if (Number(value) == <any> value) {
                     return Number(value);
                 }
                 return 123;
             }
             return value;
         },
-        _format: function (value) {
-        }
+        _format: function(value) {
+        },
     });
     $(".selector").spinner({ culture: "fr" });
     $(".selector").spinner({ disabled: true });
@@ -1695,35 +1749,35 @@ function test_spinner() {
     $(".selector").spinner({ step: 2 });
 }
 
-
 function test_tabs() {
     $("#tabs").tabs();
     $("#tabs").tabs({
-        collapsible: true
+        collapsible: true,
     });
     $("#tabs").tabs({
-        beforeLoad: function (event, ui) {
-            ui.jqXHR.fail(function () {
+        beforeLoad: function(event, ui) {
+            ui.jqXHR.fail(function() {
                 ui.panel.html(
-                    "Couldn't load this tab. We'll try to fix this as soon as possible. " +
-                    "If this wouldn't be a demo.");
+                    "Couldn't load this tab. We'll try to fix this as soon as possible. "
+                        + "If this wouldn't be a demo.",
+                );
             });
-        }
+        },
     });
     $("#tabs").tabs({
-        event: "mouseover"
+        event: "mouseover",
     });
     var tabs = $("#tabs").tabs();
     tabs.find(".ui-tabs-nav").sortable({
         axis: "x",
-        stop: function () {
+        stop: function() {
             tabs.tabs("refresh");
-        }
+        },
     });
     $("#tabs").tabs().addClass("ui-tabs-vertical ui-helper-clearfix");
     $("#tabs li").removeClass("ui-corner-top").addClass("ui-corner-left");
     $(".selector").tabs({ active: 1 });
-    $(".selector").tabs({ classes: { "ui-tabs": "custom", "ui-tabs-panel": "custom-panel" } } );
+    $(".selector").tabs({ classes: { "ui-tabs": "custom", "ui-tabs-panel": "custom-panel" } });
     $(".selector").tabs({ collapsible: true });
     $(".selector").tabs({ disabled: [0, 2] });
     $(".selector").tabs({ event: "mouseover" });
@@ -1732,39 +1786,44 @@ function test_tabs() {
     $(".selector").tabs({ show: { effect: "blind", duration: 800 } });
 }
 
-
 function test_tooltip() {
     $(document).tooltip();
     $(document).tooltip({
         position: {
             my: "center bottom-20",
             at: "center top",
-            using: function (position, feedback) {
+            using: function(position, feedback) {
                 $(this).css(position);
                 $("<div>")
                     .addClass("arrow")
                     .addClass(feedback.vertical)
                     .addClass(feedback.horizontal)
                     .appendTo(this);
-            }
-        }
+            },
+        },
     });
     $("#show-option").tooltip({
         show: {
             effect: "slideDown",
-            delay: 250
-        }
+            delay: 250,
+        },
+        open: function(event, ui) {
+            ui.tooltip.animate({ top: ui.tooltip.position().top + 5 }, "fast");
+        },
+        close: function(event, ui) {
+            ui.tooltip.animate({ top: ui.tooltip.position().top + 5 }, "fast");
+        },
     });
     $(document).tooltip({
         items: "img, [data-geo], [title]",
-        content: function () {
+        content: function() {
             var element = $(this);
             if (element.is("[data-geo]")) {
                 var text = element.text();
-                return "<img class='map' alt='" + text +
-                    "' src='http://maps.google.com/maps/api/staticmap?" +
-                    "zoom=11&size=350x350&maptype=terrain&sensor=false&center=" +
-                    text + "'>";
+                return "<img class='map' alt='" + text
+                    + "' src='http://maps.google.com/maps/api/staticmap?"
+                    + "zoom=11&size=350x350&maptype=terrain&sensor=false&center="
+                    + text + "'>";
             }
             if (element.is("[title]")) {
                 return element.attr("title");
@@ -1772,13 +1831,13 @@ function test_tooltip() {
             if (element.is("img")) {
                 return element.attr("alt");
             }
-        }
+        },
     });
     var tooltips = $("[title]").tooltip();
     $("<button>")
         .text("Show help")
         .button()
-        .click(function () {
+        .click(function() {
             tooltips.tooltip("open");
         })
         .insertAfter("form");
@@ -1794,11 +1853,11 @@ function test_tooltip() {
 
 function test_effects() {
     $("#effect").addClass("newClass", 1000, callback);
-    function callback() { }
+    function callback() {}
     $("#effect").animate({
         backgroundColor: "#aa0000",
         color: "#fff",
-        width: 500
+        width: 500,
     }, 1000);
     $("div").effect("bounce", "slow");
     var selectedEffect = $("#effectTypes").val() as string;
@@ -1821,7 +1880,7 @@ function test_effects() {
         of: $("#parent"),
         my: $("#my_horizontal").val() + " " + $("#my_vertical").val(),
         at: $("#at_horizontal").val() + " " + $("#at_vertical").val(),
-        collision: $("#collision_horizontal").val() + " " + $("#collision_vertical").val()
+        collision: $("#collision_horizontal").val() + " " + $("#collision_vertical").val(),
     });
     $("#toggle").toggle({ effect: "scale", direction: "horizontal" });
     $(this).effect("transfer", { to: $("div").eq(5) }, 1000);
@@ -1830,40 +1889,40 @@ function test_effects() {
     $(this).toggleClass("big-blue", 1000, "easeOutSine");
 
     // test with non-HTMLElement
-    var $svg: JQuery<SVGElement> = <unknown>$('<svg>') as JQuery<SVGSVGElement>,
+    var $svg: JQuery<SVGElement> = <unknown> $("<svg>") as JQuery<SVGSVGElement>,
         $ret: JQuery<SVGElement>;
     $ret = $svg.addClass("newClass", 1000, callback);
     $ret = $svg.removeClass("newClass", 1000, callback);
     $ret = $svg.show(selectedEffect, options, 500, callback);
     $ret = $svg.hide("drop", { direction: "down" }, "slow");
-    $ret = $svg.effect("transfer", { to: $("div").eq(5) }, 1000) ;
+    $ret = $svg.effect("transfer", { to: $("div").eq(5) }, 1000);
     $ret = $svg.toggle(selectedEffect, options, 500);
     $ret = $svg.toggleClass("newClass", 1000);
     $ret = $svg.switchClass("big", "blue", 1000, "easeInOutQuad");
 }
 
 function test_methods() {
-    $('.selector').disableSelection();
+    $(".selector").disableSelection();
     $("#position1").position({
         my: "center",
         at: "center",
-        of: "#targetElement"
+        of: "#targetElement",
     });
     $("#position2").position({
         my: "left top",
         at: "left top",
-        of: "#targetElement"
+        of: "#targetElement",
     });
     $("#position3").position({
         my: "right center",
         at: "right bottom",
-        of: "#targetElement"
+        of: "#targetElement",
     });
-    $(document).mousemove(function (event) {
+    $(document).mousemove(function(event) {
         $("#position4").position({
             my: "left+3 bottom-3",
             of: event,
-            collision: "fit"
+            collision: "fit",
         });
     });
 }
@@ -1875,7 +1934,7 @@ function test_ui() {
     $(".selector").jQuery.ui.mouse({ delay: 300 });
     $(".selector").jQuery.ui.mouse({ distance: 10 });
     $(".selector").jQuery.ui.mouse("_mouseCapture");
-    $("aDialog").keypress(function (e) {
+    $("aDialog").keypress(function(e) {
         return (e.keyCode == $.ui.keyCode.ENTER);
     });
     $(".selector").jQuery.ui.selectmenu({ disabled: true });
@@ -1896,10 +1955,10 @@ function test_widget() {
 function test_easing() {
     const easing = (<any> jQuery).easing;
 
-    function test_easing_function( name: string, fn: JQueryEasingFunction ) {
-        const step = Math.pow( 2, -3 ); // use power of 2 to prevent floating point rounding error
-        for( let i = 0; i <= 1; i += step ) {
-            console.log( `$.easing.${name}(${i}): ${fn.call(easing, i)}` );
+    function test_easing_function(name: string, fn: JQueryEasingFunction) {
+        const step = Math.pow(2, -3); // use power of 2 to prevent floating point rounding error
+        for (let i = 0; i <= 1; i += step) {
+            console.log(`$.easing.${name}(${i}): ${fn.call(easing, i)}`);
         }
     }
 

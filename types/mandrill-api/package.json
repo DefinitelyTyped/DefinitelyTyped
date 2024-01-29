@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/mandrill-api",
+    "version": "1.0.9999",
+    "projects": [
+        "http://mandrill.com/"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/mandrill-api": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Paulo Cesar",
+            "githubUsername": "pocesar"
+        }
+    ]
+}

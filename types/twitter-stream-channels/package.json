@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/twitter-stream-channels",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/topheman/twitter-stream-channels"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/twit": "*"
+    },
+    "devDependencies": {
+        "@types/twitter-stream-channels": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adrian Bardan",
+            "githubUsername": "adrianbardan"
+        }
+    ]
+}

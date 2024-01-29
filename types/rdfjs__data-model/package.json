@@ -1,6 +1,30 @@
 {
-  "private": true,
-  "dependencies": {
-      "@rdfjs/types": "^1.0.1"
-  }
+    "private": true,
+    "name": "@types/rdfjs__data-model",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/rdfjs-base/data-model"
+    ],
+    "type": "module",
+    "dependencies": {
+        "@rdfjs/types": "^1.0.1"
+    },
+    "devDependencies": {
+        "@types/rdfjs__data-model": "workspace:.",
+        "@types/rdfjs__environment": "*"
+    },
+    "owners": [
+        {
+            "name": "Jesse Wright",
+            "githubUsername": "jeswr"
+        },
+        {
+            "name": "Ruben Taelman",
+            "githubUsername": "rubensworks"
+        },
+        {
+            "name": "tpluscode",
+            "githubUsername": "tpluscode"
+        }
+    ]
 }

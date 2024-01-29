@@ -1,6 +1,7 @@
 {
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "react-addons-create-fragment-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
@@ -12,10 +13,6 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

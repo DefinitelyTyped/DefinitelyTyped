@@ -1,9 +1,9 @@
-import { ComponentType } from 'react';
+import { ComponentType, JSX } from "react";
 
-import Button from '../button';
-import Dashicon from '../dashicon';
-import Popover from '../popover';
-import Shortcut from '../shortcut';
+import Button from "../button";
+import Dashicon from "../dashicon";
+import Popover from "../popover";
+import Shortcut from "../shortcut";
 
 declare namespace IconButton {
     interface Props extends Button.ButtonProps {

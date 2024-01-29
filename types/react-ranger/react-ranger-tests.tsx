@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { useRanger } from 'react-ranger';
+import * as React from "react";
+import { useRanger } from "react-ranger";
 
 const App = () => {
     const [values, setValues] = React.useState([10]);
@@ -17,26 +17,26 @@ const App = () => {
             <div
                 {...ranger.getTrackProps({
                     style: {
-                        height: '4px',
-                        background: '#ddd',
-                        boxShadow: 'inset 0 1px 2px rgba(0,0,0,.6)',
-                        borderRadius: '2px',
+                        height: "4px",
+                        background: "#ddd",
+                        boxShadow: "inset 0 1px 2px rgba(0,0,0,.6)",
+                        borderRadius: "2px",
                     },
                 })}
             >
                 {ranger.ticks.map(({ getTickProps }) => {
-                    const tickProps = getTickProps({ className: 'tick-class' }); // $ExpectType { className: string; } & TickProps
+                    const tickProps = getTickProps({ className: "tick-class" }); // $ExpectType { className: string; } & TickProps
                     return <div {...tickProps} />;
                 })}
                 {ranger.handles.map(({ getHandleProps }) => (
                     <div
                         {...getHandleProps({
                             style: {
-                                width: '12px',
-                                height: '12px',
-                                borderRadius: '100%',
-                                background: 'linear-gradient(to bottom, #eee 45%, #ddd 55%)',
-                                border: 'solid 1px #888',
+                                width: "12px",
+                                height: "12px",
+                                borderRadius: "100%",
+                                background: "linear-gradient(to bottom, #eee 45%, #ddd 55%)",
+                                border: "solid 1px #888",
                             },
                         })}
                     />

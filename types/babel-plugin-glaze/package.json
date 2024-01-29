@@ -1,7 +1,22 @@
 {
-  "private": true,
-  "dependencies": {
-    "glaze": ">=0.5.1",
-    "treat": "^1.2.4"
-  }
+    "private": true,
+    "name": "@types/babel-plugin-glaze",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/kripod/glaze/blob/master/packages/babel-plugin-glaze/README.md"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "glaze": ">=0.5.1",
+        "treat": "^1.2.4"
+    },
+    "devDependencies": {
+        "@types/babel-plugin-glaze": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kristóf Poduszló",
+            "githubUsername": "kripod"
+        }
+    ]
 }

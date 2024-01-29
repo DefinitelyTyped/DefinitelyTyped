@@ -1,14 +1,8 @@
-// Type definitions for micromatch 2.3.7
-// Project: https://github.com/jonschlinkert/micromatch
-// Definitions by: glen-84 <https://github.com/glen-84>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
-import parseGlob = require('parse-glob');
+import parseGlob = require("parse-glob");
 
 declare namespace micromatch {
-    type MatchFunction<T> = ((value: T) => boolean);
-    type Pattern = (string | RegExp | MatchFunction<string>);
+    type MatchFunction<T> = (value: T) => boolean;
+    type Pattern = string | RegExp | MatchFunction<string>;
 
     interface Options {
         /**
@@ -62,7 +56,7 @@ declare namespace micromatch {
     interface Glob {
         options: micromatch.Options;
         pattern: string;
-        history: { msg: any, pattern: string }[];
+        history: Array<{ msg: any; pattern: string }>;
         tokens: parseGlob.Result;
         orig: string;
         negated: boolean;
@@ -149,7 +143,10 @@ interface Micromatch {
     /**
      * Returns a function that can be passed to Array#filter().
      */
-    filter(patterns: micromatch.Pattern | micromatch.Pattern[], opts?: micromatch.Options): micromatch.MatchFunction<any>;
+    filter(
+        patterns: micromatch.Pattern | micromatch.Pattern[],
+        opts?: micromatch.Options,
+    ): micromatch.MatchFunction<any>;
 
     /**
      * Returns true if a file path matches any of the given patterns.

@@ -1,4 +1,4 @@
-import objectAssignDeep = require('object-assign-deep');
+import objectAssignDeep = require("object-assign-deep");
 
 const objectA = {
     prop1: `Hello`,
@@ -31,15 +31,15 @@ const objectC = {
 };
 
 const result: {
-    array1: null,
-    array2: number[],
-    location: string,
-    name: string,
+    array1: null;
+    array2: number[];
+    location: string;
+    name: string;
     nested: {
-        bool: boolean,
-        still: string,
-        super: number
-    },
-    prop1: string,
-    prop2: string
+        bool: boolean;
+        still: string;
+        super: number;
+    };
+    prop1: string;
+    prop2: string;
 } = objectAssignDeep(objectA, objectB, objectC);

@@ -1,10 +1,10 @@
 import _ = require("../index");
-// tslint:disable-next-line:strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 type GlobalPartial<T> = Partial<T>;
 declare module "../index" {
     type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
     type PartialObject<T> = GlobalPartial<T>;
-    type Many<T> = T | ReadonlyArray<T>;
+    type Many<T> = T | readonly T[];
     type ImpChain<T> =
         T extends { __trapAny: any } ? Collection<any> & Function<any> & Object<any> & Primitive<any> & String :
         T extends null | undefined ? never :

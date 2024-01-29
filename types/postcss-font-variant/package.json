@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/postcss-font-variant",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/postcss/postcss-font-variant#readme"
+    ],
+    "dependencies": {
+        "postcss": "^8.1.0"
+    },
+    "devDependencies": {
+        "@types/postcss-font-variant": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Thompson-Sharpe",
+            "githubUsername": "MysteryBlokHed"
+        }
+    ]
+}

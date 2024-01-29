@@ -1,10 +1,4 @@
-// Type definitions for SAML2-js 3.0.1
-// Project: https://github.com/Clever/saml2
-// Definitions by: horiuchi <https://github.com/horiuchi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-declare module 'saml2-js' {
+declare module "saml2-js" {
     /** Represents an online service that authenticates users in the SAML flow. */
     export class IdentityProvider {
         constructor(options: IdentityProviderOptions);
@@ -154,7 +148,11 @@ declare module 'saml2-js' {
     }
 
     export interface SAMLAssertResponse {
-        response_header: { id: 'string'; destination: string; in_response_to: string };
+        response_header: {
+            id: string;
+            destination: string;
+            in_response_to: string;
+        };
         type: string;
         user: {
             name_id: string;

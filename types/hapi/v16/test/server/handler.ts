@@ -1,55 +1,50 @@
-
 // From https://hapijs.com/api/16.1.1#serverhandlername-method
 
-import * as Hapi from 'hapi';
+import * as Hapi from "hapi";
 const server = new Hapi.Server();
-server.connection({ host: 'localhost', port: 8000 });
+server.connection({ host: "localhost", port: 8000 });
 
 // Defines new handler for routes on this server
-var handler: Hapi.MakeRouteHandler = function (route, options) {
-
-    return function (request, reply) {
-
-        return reply('new handler: ' + options.msg);
-    }
+var handler: Hapi.MakeRouteHandler = function(route, options) {
+    return function(request, reply) {
+        return reply("new handler: " + options.msg);
+    };
 };
 
-server.handler('test', handler);
+server.handler("test", handler);
 
 interface TestPluginConfig {
     msg: string;
 }
 
-declare module 'hapi' {
+declare module "hapi" {
     interface RouteHandlerPlugins {
         test?: TestPluginConfig | undefined;
     }
 }
 
 server.route({
-    method: 'GET',
-    path: '/',
-    handler: { test: { msg: 'test' } }
+    method: "GET",
+    path: "/",
+    handler: { test: { msg: "test" } },
 });
 
-server.start(function (err) { });
+server.start(function(err) {});
 
 // example 2
 
-handler = function (route, options: TestPluginConfig) {
-
-    return function (request, reply) {
-
-        return reply('new handler: ' + options.msg);
-    }
+handler = function(route, options: TestPluginConfig) {
+    return function(request, reply) {
+        return reply("new handler: " + options.msg);
+    };
 };
 
 // Change the default payload processing for this handler
 handler.defaults = {
     payload: {
-        output: 'stream',
-        parse: false
-    }
+        output: "stream",
+        parse: false,
+    },
 };
 
-server.handler('test', handler);
+server.handler("test", handler);

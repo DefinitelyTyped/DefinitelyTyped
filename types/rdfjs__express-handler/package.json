@@ -1,6 +1,24 @@
 {
     "private": true,
+    "name": "@types/rdfjs__express-handler",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/rdfjs-base/express-handler"
+    ],
+    "type": "module",
     "dependencies": {
-      "rdf-js": "^4.0.2"
-    }
-  }
+        "@types/express": "*",
+        "@types/express-serve-static-core": "*",
+        "@types/rdfjs__sink-map": "*",
+        "@rdfjs/types": ">=1.0.0"
+    },
+    "devDependencies": {
+        "@types/rdfjs__express-handler": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "tpluscode",
+            "githubUsername": "tpluscode"
+        }
+    ]
+}

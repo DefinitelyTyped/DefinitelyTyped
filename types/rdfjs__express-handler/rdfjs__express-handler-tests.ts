@@ -1,8 +1,8 @@
-import express = require('express');
-import { EventEmitter } from 'events';
-import { DatasetCore, DatasetCoreFactory, Stream } from 'rdf-js';
-import { SinkMap } from '@rdfjs/sink-map';
-import rdfHandler = require('@rdfjs/express-handler');
+import express = require("express");
+import rdfHandler from "@rdfjs/express-handler";
+import { SinkMap } from "@rdfjs/sink-map";
+import { DatasetCore, DatasetCoreFactory, Stream } from "@rdfjs/types";
+import { EventEmitter } from "events";
 
 const factory: DatasetCoreFactory = <any> {};
 const formats: {
@@ -16,7 +16,7 @@ app.use(rdfHandler());
 app.use(rdfHandler({
     factory,
     formats,
-    defaultMediaType: 'text/turtle',
+    defaultMediaType: "text/turtle",
 }));
 
 app.use(rdfHandler({
@@ -35,7 +35,7 @@ async function streams(req: express.Request, res: express.Response) {
     if (req.quadStream) {
         let stream: Stream = req.quadStream();
         stream = req.quadStream({
-            baseIRI: 'foo'
+            baseIRI: "foo",
         });
 
         await res.quadStream(stream);
@@ -46,7 +46,7 @@ async function datasets(req: express.Request, res: express.Response) {
     if (req.dataset) {
         let dataset: DatasetCore = await req.dataset();
         dataset = await req.dataset({
-            baseIRI: 'foo'
+            baseIRI: "foo",
         });
 
         await res.dataset(dataset);
@@ -56,6 +56,6 @@ async function datasets(req: express.Request, res: express.Response) {
 async function attach(req: express.Request, res: express.Response) {
     await rdfHandler.attach(req, res);
     await rdfHandler.attach(req, res, {
-        baseIriFromRequest: true
+        baseIriFromRequest: true,
     });
 }

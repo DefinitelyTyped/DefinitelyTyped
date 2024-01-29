@@ -1,13 +1,3 @@
-// Type definitions for non-npm package MapKit JS 5.65
-// Project: https://developer.apple.com/reference/mapkitjs
-// Definitions by: Philipp Jean-Jacques <https://github.com/kilghaz>
-//                 Waseem Dahman <https://github.com/wsmd>
-//                 Chris Drackett <https://github.com/chrisdrackett>
-//                 Moritz Sternemann <https://github.com/moritzsternemann>
-//                 Vinayak Kulkarni <https://github.com/vinayakkulkarni>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /**
  * The JavaScript API for embedding Apple maps on your website.
  */
@@ -90,10 +80,10 @@ declare namespace mapkit {
         readonly Visible: string;
     };
 
-    type InitializationEventType = 'configuration-change' | 'error';
+    type InitializationEventType = "configuration-change" | "error";
 
     interface InitializationEvent {
-        status: 'Initialized' | 'Refreshed' | 'Unauthorized' | 'Too Many Requests';
+        status: "Initialized" | "Refreshed" | "Unauthorized" | "Too Many Requests";
     }
 
     /**
@@ -615,43 +605,44 @@ declare namespace mapkit {
 
     // Map Display Events
     interface MapDisplayEvents<T> {
-        'region-change-start': EventBase<T>;
-        'region-change-end': EventBase<T>;
-        'rotation-start': EventBase<T>;
-        'rotation-end': EventBase<T>;
-        'scroll-start': EventBase<T>;
-        'scroll-end': EventBase<T>;
-        'zoom-start': EventBase<T>;
-        'zoom-end': EventBase<T>;
-        'map-type-change': EventBase<T>;
+        "region-change-start": EventBase<T>;
+        "region-change-end": EventBase<T>;
+        "rotation-start": EventBase<T>;
+        "rotation-end": EventBase<T>;
+        "scroll-start": EventBase<T>;
+        "scroll-end": EventBase<T>;
+        "zoom-start": EventBase<T>;
+        "zoom-end": EventBase<T>;
+        "map-type-change": EventBase<T>;
     }
     // Map Annotations Overlay Events
     interface MapAnnotationOverlayEvents<T> {
         select: EventBase<T> & { annotation?: Annotation | undefined; overlay?: Overlay | undefined };
         deselect: EventBase<T> & { annotation?: Annotation | undefined; overlay?: Overlay | undefined };
-        'drag-start': EventBase<T> & { annotation: Annotation };
+        "drag-start": EventBase<T> & { annotation: Annotation };
         dragging: EventBase<T> & { annotation: Annotation; coordinate: Coordinate };
-        'drag-end': EventBase<T> & { annotation: Annotation };
+        "drag-end": EventBase<T> & { annotation: Annotation };
     }
 
     // User Location Events
     interface MapUserLocationEvents<T> {
-        'user-location-change': EventBase<T> & { coordinate: Coordinate; timestamp: Date };
-        'user-location-error': EventBase<T> & { code: number; message: string };
+        "user-location-change": EventBase<T> & { coordinate: Coordinate; timestamp: Date };
+        "user-location-error": EventBase<T> & { code: number; message: string };
     }
 
     // Map Interaction Events
     interface MapInteractionEvents<T> {
-        'single-tap': EventBase<T>;
-        'double-tap': EventBase<T>;
-        'long-press': EventBase<T>;
+        "single-tap": EventBase<T>;
+        "double-tap": EventBase<T>;
+        "long-press": EventBase<T>;
     }
 
     // All map events
-    type MapEvents<T> = MapDisplayEvents<T> &
-        MapAnnotationOverlayEvents<T> &
-        MapUserLocationEvents<T> &
-        MapInteractionEvents<T>;
+    type MapEvents<T> =
+        & MapDisplayEvents<T>
+        & MapAnnotationOverlayEvents<T>
+        & MapUserLocationEvents<T>
+        & MapInteractionEvents<T>;
 
     /**
      * Options that determine map parameters used when showing items.
@@ -1245,10 +1236,10 @@ declare namespace mapkit {
          */
         glyphImage?:
             | {
-                  1: string;
-                  2?: string | undefined;
-                  3?: string | undefined;
-              }
+                1: string;
+                2?: string | undefined;
+                3?: string | undefined;
+            }
             | undefined;
         /**
          * The image to display in the balloon when the marker is selected.
@@ -1264,7 +1255,7 @@ declare namespace mapkit {
         titleVisibility?: string | undefined;
     }
 
-    type AnnotationEventType = 'select' | 'deselect' | 'drag-start' | 'dragging' | 'drag-end';
+    type AnnotationEventType = "select" | "deselect" | "drag-start" | "dragging" | "drag-end";
 
     /**
      * An abstract base object that defines the methods and attributes for map overlays.
@@ -1393,7 +1384,7 @@ declare namespace mapkit {
         style?: Style | undefined;
     }
 
-    type OverlayEventType = 'select' | 'deselect';
+    type OverlayEventType = "select" | "deselect";
 
     /**
      * The width and height of a map region.
@@ -1667,7 +1658,7 @@ declare namespace mapkit {
         reverseLookup(
             coordinate: Coordinate,
             callback: (error: Error | null, data: GeocoderResponse) => void,
-            options?: Pick<GeocoderConstructorOptions, 'language'>,
+            options?: Pick<GeocoderConstructorOptions, "language">,
         ): number;
         /**
          * Cancels the pending lookup or reverse lookup specified by its request ID.
@@ -2734,7 +2725,6 @@ declare namespace mapkit {
     }
 
     /**
-     *
      * @param data The original GeoJSON data, which may be a URL to a GeoJSON file,
      * or a GeoJSON object.
      * @param callback A callback function that is required if you provide a URL

@@ -1,9 +1,4 @@
-// Type definitions for empower-core 1.2
-// Project: https://github.com/twada/power-assert-runtime
-// Definitions by: Jakub Jirutka <https://github.com/jirutka>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
+/// <reference types="node" />
 /**
  * Enhances Power Assert feature to assert function/object.
  *
@@ -39,7 +34,9 @@ declare namespace empowerCore {
         // TODO: Add type for event.
         onSuccess?: ((event: any) => any) | undefined;
         // TODO: Add type for powerAssertContext.
-        modifyMessageBeforeAssert?: ((params: { originalMessage: string, powerAssertContext: any }) => string) | undefined;
+        modifyMessageBeforeAssert?:
+            | ((params: { originalMessage: string; powerAssertContext: any }) => string)
+            | undefined;
         /**
          * Target patterns for power assert feature instrumentation.
          *
@@ -77,7 +74,7 @@ declare namespace empowerCore {
     /**
      * Returns default options object for `empowerCore` function.
      */
-    function defaultOptions(): Required<Omit<Options, 'modifyMessageBeforeAssert'>>;
+    function defaultOptions(): Required<Omit<Options, "modifyMessageBeforeAssert">>;
 }
 
 export = empowerCore;

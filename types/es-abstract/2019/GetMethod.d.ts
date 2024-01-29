@@ -1,2 +1,2 @@
-import GetMethod = require('../2018/GetMethod');
+import GetMethod = require("../2018/GetMethod");
 export = GetMethod;

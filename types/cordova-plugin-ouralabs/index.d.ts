@@ -1,24 +1,17 @@
-// Type definitions for cordova-plugin-ouralabs 1.1.0
-// Project: https://github.com/Justin-Credible/cordova-plugin-ouralabs
-// Definitions by: Justin Unterreiner <https://github.com/Justin-Credible>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace OuralabsPlugin {
-
     interface OuralabsStatic {
-
         /**
          * Log levels designate the severity of the log; used with the log() function.
          * Log levels are ordered from least severe to most severe.
          */
         LogLevel: {
-            TRACE: number,
-            DEBUG: number,
-            INFO: number,
-            WARN: number,
-            ERROR: number,
-            FATAL: number
-        }
+            TRACE: number;
+            DEBUG: number;
+            INFO: number;
+            WARN: number;
+            ERROR: number;
+            FATAL: number;
+        };
 
         /**
          * Initialize the Ourlabs plugin with the given channel ID string value.
@@ -54,7 +47,13 @@ declare namespace OuralabsPlugin {
          * @param [function] successCallback - The success callback for this asynchronous function.
          * @param [function] failureCallback - The failure callback for this asynchronous function; receives an error string.
          */
-        setAttributes(attribute1?: string, attribute2?: string, attribute3?: string, successCallback?: () => void, errorCallback?: (error: string) => void): void;
+        setAttributes(
+            attribute1?: string,
+            attribute2?: string,
+            attribute3?: string,
+            successCallback?: () => void,
+            errorCallback?: (error: string) => void,
+        ): void;
 
         /**
          * Logs a log message of level TRACE with the given information.
@@ -65,7 +64,13 @@ declare namespace OuralabsPlugin {
          * @param successCallback The success callback for this asynchronous function.
          * @param failureCallback The failure callback for this asynchronous function; receives an error string.
          */
-        logTrace(tag: string, message: string, metadata?: any, successCallback?: () => void, failureCallback?: (error: string) => void): void;
+        logTrace(
+            tag: string,
+            message: string,
+            metadata?: any,
+            successCallback?: () => void,
+            failureCallback?: (error: string) => void,
+        ): void;
 
         /**
          * Logs a log message of level DEBUG with the given information.
@@ -76,7 +81,13 @@ declare namespace OuralabsPlugin {
          * @param successCallback The success callback for this asynchronous function.
          * @param failureCallback The failure callback for this asynchronous function; receives an error string.
          */
-        logDebug(tag: string, message: string, metadata?: any, successCallback?: () => void, failureCallback?: (error: string) => void): void;
+        logDebug(
+            tag: string,
+            message: string,
+            metadata?: any,
+            successCallback?: () => void,
+            failureCallback?: (error: string) => void,
+        ): void;
 
         /**
          * Logs a log message of level INFO with the given information.
@@ -87,7 +98,13 @@ declare namespace OuralabsPlugin {
          * @param successCallback The success callback for this asynchronous function.
          * @param failureCallback The failure callback for this asynchronous function; receives an error string.
          */
-        logInfo(tag: string, message: string, metadata?: any, successCallback?: () => void, failureCallback?: (error: string) => void): void;
+        logInfo(
+            tag: string,
+            message: string,
+            metadata?: any,
+            successCallback?: () => void,
+            failureCallback?: (error: string) => void,
+        ): void;
 
         /**
          * Logs a log message of level WARN with the given information.
@@ -98,7 +115,13 @@ declare namespace OuralabsPlugin {
          * @param successCallback The success callback for this asynchronous function.
          * @param failureCallback The failure callback for this asynchronous function; receives an error string.
          */
-        logWarn(tag: string, message: string, metadata?: any, successCallback?: () => void, failureCallback?: (error: string) => void): void;
+        logWarn(
+            tag: string,
+            message: string,
+            metadata?: any,
+            successCallback?: () => void,
+            failureCallback?: (error: string) => void,
+        ): void;
 
         /**
          * Logs a log message of level ERROR with the given information.
@@ -109,7 +132,13 @@ declare namespace OuralabsPlugin {
          * @param successCallback The success callback for this asynchronous function.
          * @param failureCallback The failure callback for this asynchronous function; receives an error string.
          */
-        logError(tag: string, message: string, metadata?: any, successCallback?: () => void, failureCallback?: (error: string) => void): void;
+        logError(
+            tag: string,
+            message: string,
+            metadata?: any,
+            successCallback?: () => void,
+            failureCallback?: (error: string) => void,
+        ): void;
 
         /**
          * Logs a log message of level FATAL with the given information.
@@ -120,7 +149,13 @@ declare namespace OuralabsPlugin {
          * @param successCallback The success callback for this asynchronous function.
          * @param failureCallback The failure callback for this asynchronous function; receives an error string.
          */
-        logFatal(tag: string, message: string, metadata?: any, successCallback?: () => void, failureCallback?: (error: string) => void): void;
+        logFatal(
+            tag: string,
+            message: string,
+            metadata?: any,
+            successCallback?: () => void,
+            failureCallback?: (error: string) => void,
+        ): void;
 
         /**
          * Logs a message with the given information.
@@ -132,7 +167,14 @@ declare namespace OuralabsPlugin {
          * @param successCallback The success callback for this asynchronous function.
          * @param failureCallback The failure callback for this asynchronous function; receives an error string.
          */
-        log(logLevel: number, tag: string, message: string, metadata?: any, successCallback?: () => void, failureCallback?: (error: string) => void): void;
+        log(
+            logLevel: number,
+            tag: string,
+            message: string,
+            metadata?: any,
+            successCallback?: () => void,
+            failureCallback?: (error: string) => void,
+        ): void;
     }
 }
 

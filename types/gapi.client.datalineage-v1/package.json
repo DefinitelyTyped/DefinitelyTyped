@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/gapi.client.datalineage-v1",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Data Lineage API v1",
+    "projects": [
+        "https://cloud.google.com/data-catalog"
+    ],
+    "dependencies": {
+        "@maxim_mazurok/gapi.client.datalineage-v1": "latest"
+    },
+    "devDependencies": {
+        "@types/gapi.client.datalineage-v1": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxim Mazurok",
+            "githubUsername": "Maxim-Mazurok"
+        },
+        {
+            "name": "Nick Amoscato",
+            "githubUsername": "namoscato"
+        },
+        {
+            "name": "Declan Vong",
+            "githubUsername": "declanvong"
+        }
+    ]
+}

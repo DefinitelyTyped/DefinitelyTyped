@@ -8,13 +8,6 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
-        "paths": {
-            "amplitude-js": [ "amplitude-js/v5" ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

@@ -1,4 +1,4 @@
-import { Matrix3 } from '../../../src/Three';
+import { Matrix3, TypedArray } from '../../../src/Three.js';
 
 import { VolumeSlice } from './VolumeSlice.js';
 
@@ -11,7 +11,7 @@ export class Volume {
 
     axisOrder: Array<'x' | 'y' | 'z'>;
 
-    data: ArrayLike<number>;
+    data: TypedArray;
 
     spacing: number[];
     offset: number[];

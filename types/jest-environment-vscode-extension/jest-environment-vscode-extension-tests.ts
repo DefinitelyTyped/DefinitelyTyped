@@ -1,6 +1,6 @@
-import type { Uri, Range, Position } from 'vscode';
+import type { Position, Range, TextDocument } from "vscode";
 
-const uri = null as unknown as Uri;
+const doc = null as unknown as TextDocument;
 const range = null as unknown as Range;
 const position = null as unknown as Position;
 
@@ -10,11 +10,11 @@ const position = null as unknown as Position;
 using(
     {
         files: {
-            'index.js': '',
+            "index.js": "",
         },
     },
-    async mapFileToUri => {
-        mapFileToUri['index.js'];
+    async mapFileToDoc => {
+        mapFileToDoc["index.js"];
     },
 );
 
@@ -22,12 +22,12 @@ using(
 using(
     {
         files: {
-            'index.js': '',
+            "index.js": "",
         },
     },
-    async mapFileToUri => {
-        // $ExpectError
-        mapFileToUri['unknown-file.js'];
+    async mapFileToDoc => {
+        // @ts-expect-error
+        mapFileToDoc["unknown-file.js"];
     },
 );
 
@@ -36,10 +36,10 @@ using(
     {
         files: {},
         mocks: {
-            'window.showQuickPick': async () => '',
+            "window.showQuickPick": async () => "",
         },
     },
-    async mapFileToUri => {},
+    async mapFileToDoc => {},
 );
 
 /* waitFor */
@@ -50,24 +50,24 @@ waitFor(() => 1);
 /* take */
 
 // $ExpectType Promise<{ [codeActionTitle: string]: () => Thenable<void>; }>
-take.codeActions(uri, range);
+take.codeActions(doc, range);
 
 // $ExpectType Promise<(Location | LocationLink)[]> || Promise<(LocationLink | Location)[]>
-take.definitions(uri, position);
+take.definitions(doc, position);
 
 // $ExpectType Promise<string>
-take.documentText(uri);
+take.documentText(doc);
 
 // $ExpectType Promise<SymbolInformation[]>
-take.documentSymbols(uri);
+take.documentSymbols(doc);
 
 // $ExpectType Promise<string[]>
-take.hovers(uri, position);
+take.hovers(doc, position);
 
 /* dedent */
 
 // $ExpectType string
-dedent('');
+dedent("");
 
-// $ExpectError
+// @ts-expect-error
 dedent(1);

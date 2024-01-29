@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/gitana",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/gitana/gitana-node-js"
+    ],
+    "devDependencies": {
+        "@types/gitana": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Juan E. Tenorio Arzola",
+            "githubUsername": "tenoriojuann"
+        }
+    ]
+}

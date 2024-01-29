@@ -1,6 +1,22 @@
 {
     "private": true,
-    "dependencies": {
-        "@vue/reactivity": "^3.2.26"
-    }
+    "name": "@types/alpinejs",
+    "version": "3.13.9999",
+    "projects": [
+        "https://github.com/alpinejs/alpine"
+    ],
+    "minimumTypeScriptVersion": "4.6",
+    "devDependencies": {
+        "@types/alpinejs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Thomas Wirth",
+            "githubUsername": "wtho"
+        },
+        {
+            "name": "Eric Kwoka",
+            "githubUsername": "ekwoka"
+        }
+    ]
 }

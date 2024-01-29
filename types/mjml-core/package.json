@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/mjml-core",
+    "version": "4.7.9999",
+    "projects": [
+        "https://mjml.io"
+    ],
+    "devDependencies": {
+        "@types/mjml-core": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ian Edington      ",
+            "githubUsername": "IanEdington"
+        },
+        {
+            "name": "Ryan Burr         ",
+            "githubUsername": "ryanburr"
+        }
+    ]
+}

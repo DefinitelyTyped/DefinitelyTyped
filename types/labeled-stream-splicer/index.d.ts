@@ -1,25 +1,19 @@
-// Type definitions for labeled-stream-splicer 2.0
-// Project: https://github.com/browserify/labeled-stream-splicer
-// Definitions by: Junxiao Shi <https://github.com/yoursunny>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 /// <reference types="node" />
 import * as stream from "stream";
 
-type Stream = NodeJS.ReadableStream|NodeJS.WritableStream|NodeJS.ReadWriteStream;
-type Index = number|string;
-type LabeledStreamList = ReadonlyArray<string|Stream|ReadonlyArray<Stream>>;
+type Stream = NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream;
+type Index = number | string;
+type LabeledStreamList = ReadonlyArray<string | Stream | readonly Stream[]>;
 
-interface splicer extends Omit<stream.Duplex, "push"|"unshift"> {
+interface splicer extends Omit<stream.Duplex, "push" | "unshift"> {
     readonly length: number;
-    splice(index: Index, howMany: number, ...stream: ReadonlyArray<Stream>): Stream[];
-    push(...stream: ReadonlyArray<Stream>): number;
-    pop(): Stream|undefined;
-    unshift(...stream: ReadonlyArray<Stream>): number;
-    shift(): Stream|undefined;
-    get(index: Index): Stream|undefined;
-    indexOf(labelOrStream: string|Stream): number;
+    splice(index: Index, howMany: number, ...stream: readonly Stream[]): Stream[];
+    push(...stream: readonly Stream[]): number;
+    pop(): Stream | undefined;
+    unshift(...stream: readonly Stream[]): number;
+    shift(): Stream | undefined;
+    get(index: Index): Stream | undefined;
+    indexOf(labelOrStream: string | Stream): number;
 }
 
 declare function splicer(streams?: LabeledStreamList, opts?: stream.TransformOptions): splicer;

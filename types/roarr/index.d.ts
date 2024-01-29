@@ -1,9 +1,3 @@
-// Type definitions for roarr 2.14
-// Project: https://github.com/gajus/roarr#readme
-// Definitions by: Philip Saxton <https://github.com/psaxton>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 // the package defines a recursive type SerializeValueType but, fortunately, neither it nor SerializableObjectType are
 // used anywhere
 
@@ -13,7 +7,7 @@ export interface WriterType {
 
 export interface RoarrGlobalStateType extends WriterType {
     sequence: number;
-    versions: ReadonlyArray<string>;
+    versions: readonly string[];
 }
 
 export type SprintfArgumentType = string | number | boolean | null;
@@ -47,7 +41,7 @@ export interface Logger {
         g?: SprintfArgumentType,
         h?: SprintfArgumentType,
         i?: SprintfArgumentType,
-        k?: SprintfArgumentType
+        k?: SprintfArgumentType,
     ): void;
 
     (
@@ -59,7 +53,7 @@ export interface Logger {
         f?: SprintfArgumentType,
         g?: SprintfArgumentType,
         h?: SprintfArgumentType,
-        i?: SprintfArgumentType
+        i?: SprintfArgumentType,
     ): void;
 }
 
@@ -78,8 +72,7 @@ export interface LoggerType extends Logger {
      *
      * @see https://www.npmjs.com/package/roarr#child
      */
-    child(contextOrFunction: TranslateMessageFunctionType | MessageContextType):
-        LoggerType;
+    child(contextOrFunction: TranslateMessageFunctionType | MessageContextType): LoggerType;
 
     /**
      * Returns the current context.

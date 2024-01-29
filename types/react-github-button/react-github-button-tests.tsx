@@ -1,4 +1,4 @@
-import GitHubButton from 'react-github-button';
+import GitHubButton from "react-github-button";
 
 const MyComponent = () => (
     <GitHubButton

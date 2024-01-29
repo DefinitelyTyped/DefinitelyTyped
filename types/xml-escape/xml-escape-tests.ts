@@ -16,5 +16,5 @@ const preservingApostrophe = xmlEscape(xml, "&"); // $ExpectType string
 
 console.info({
     fullEscaped,
-    preservingApostrophe
+    preservingApostrophe,
 });

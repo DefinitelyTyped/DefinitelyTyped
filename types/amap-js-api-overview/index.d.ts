@@ -1,18 +1,12 @@
-// Type definitions for non-npm package amap-js-api-overview 1.4
-// Project: https://lbs.amap.com/api/javascript-api/reference/map-control#AMap.OverView
-// Definitions by: breeze9527 <https://github.com/breeze9527>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="amap-js-api" />
 
 declare namespace AMap {
     namespace OverView {
         interface EventMap {
-            show: Event<'show'>;
-            hide: Event<'hide'>;
-            open: Event<'open'>;
-            close: Event<'close'>;
+            show: Event<"show">;
+            hide: Event<"hide">;
+            open: Event<"open">;
+            close: Event<"close">;
         }
         interface Options<L extends TileLayer = TileLayer> {
             /**

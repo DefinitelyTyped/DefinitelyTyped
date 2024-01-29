@@ -5,16 +5,13 @@
             "es6"
         ],
         "strict": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
+        "jsx": "react",
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "rr-notifications-tests.ts"
+        "rr-notifications-tests.tsx"
     ]
 }

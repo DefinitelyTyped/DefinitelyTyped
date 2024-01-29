@@ -68,5 +68,5 @@ camera3
 const widthValue = camera.get("width");
 log(widthValue);
 
-// $ExpectError
+// @ts-expect-error
 camera.get("fsp");

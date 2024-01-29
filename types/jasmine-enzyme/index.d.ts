@@ -1,10 +1,3 @@
-// Type definitions for jasmine-enzyme 7.0
-// Project: https://github.com/formidablelabs/enzyme-matchers/packages/jasmine-enzyme
-// Definitions by: Umar Bolatov <https://github.com/bolatovumar>
-//                 Steve Gravrock <https://github.com/sgravrock>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
 /// <reference types="jasmine" />
 /// <reference types="react" />
 
@@ -20,7 +13,7 @@ declare global {
             toContainMatchingElement(selector: string): void;
             toContainMatchingElements(num: number, selector: string): void;
             toContainExactlyOneMatchingElement(selector: string): void;
-            toContainReact(reactInstance: JSX.Element): void;
+            toContainReact(reactInstance: React.JSX.Element): void;
             toExist(): void;
             toHaveClassName(className: string): void;
             toHaveDisplayName(tagName: string): void;
@@ -33,7 +26,7 @@ declare global {
             toHaveText(text?: string): void;
             toIncludeText(text: string): void;
             toHaveValue(value: any): void;
-            toMatchElement(reactInstance: JSX.Element): void;
+            toMatchElement(reactInstance: React.JSX.Element): void;
             toMatchSelector(selector: string): void;
         }
     }

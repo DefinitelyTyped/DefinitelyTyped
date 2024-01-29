@@ -1,13 +1,13 @@
-import { FC } from 'react';
+import { FC } from "react";
 
-import Slot from './slot';
-import Fill from './fill';
-import Provider, { Consumer } from './context';
+import Provider, { Consumer } from "./context";
+import Fill from "./fill";
+import Slot from "./slot";
 
-export { Slot, Fill, Provider, Consumer };
+export { Consumer, Fill, Provider, Slot };
 
 // prettier-ignore
 export function createSlotFill(name: string): {
-    Fill: FC<Omit<Fill.Props, 'name'>>;
-    Slot: FC<Omit<Slot.Props, 'name'>>;
+    Fill: FC<Omit<Fill.Props, "name">>;
+    Slot: FC<Omit<Slot.Props, "name">>;
 };

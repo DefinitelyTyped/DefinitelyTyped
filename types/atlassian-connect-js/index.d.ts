@@ -1,69 +1,65 @@
-// Type definitions for atlassian-connect-js 5.2
-// Project: https://bitbucket.org/atlassian/atlassian-connect-js#readme
-// Definitions by: Josh Parnham <https://github.com/josh->
-//                 Tobias Theobald <https://github.com/Tobi042>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace AP {
-    type RequestOptions = {
-        /**
-         * The HTTP method name.
-         */
-        type?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'PATCH';
+    type RequestOptions =
+        & {
+            /**
+             * The HTTP method name.
+             */
+            type?: "GET" | "HEAD" | "POST" | "PUT" | "DELETE" | "CONNECT" | "OPTIONS" | "PATCH";
 
-        /**
-         * If the request should be cached.
-         */
-        cache?: boolean;
+            /**
+             * If the request should be cached.
+             */
+            cache?: boolean;
 
-        /**
-         * The body of the request; required if type is 'POST' or 'PUT'. Optionally, for 'GET' this will append the object as key=value pairs to the end of the URL query string.
-         */
-        data?: string | object;
+            /**
+             * The body of the request; required if type is 'POST' or 'PUT'. Optionally, for 'GET' this will append the object as key=value pairs to the end of the URL query string.
+             */
+            data?: string | object;
 
-        /**
-         * The content-type string value of the entity body, above; required when data is supplied.
-         */
-        contentType?: string;
+            /**
+             * The content-type string value of the entity body, above; required when data is supplied.
+             */
+            contentType?: string;
 
-        /**
-         * An object containing headers to set; supported headers are: 'Accept', 'If-Match' and 'If-None-Match'.
-         */
-        headers?: { Accept: string; 'If-Match': string; 'If-None-Match': string };
+            /**
+             * An object containing headers to set; supported headers are: 'Accept', 'If-Match' and 'If-None-Match'.
+             */
+            headers?: { Accept: string; "If-Match": string; "If-None-Match": string };
 
-        /**
-         * An optional callback function executed when a HTTP status error code is returned.
-         */
-        error?: (xhr: XMLHttpRequest, statusText: string, errorThrown: any) => void;
+            /**
+             * An optional callback function executed when a HTTP status error code is returned.
+             */
+            error?: (xhr: XMLHttpRequest, statusText: string, errorThrown: any) => void;
 
-        /**
-         * If this is set to true, the developer acknowledges that the API endpoint which is being called may be in beta state, and thus may also have a shorter deprecation cycle than stable APIs.
-         */
-        experimental?: boolean;
-    } & (
-        | {
-              /**
-               * An optional callback function executed on a 200 success status code.
-               */
-              success?: (response: string) => void;
+            /**
+             * If this is set to true, the developer acknowledges that the API endpoint which is being called may be in beta state, and thus may also have a shorter deprecation cycle than stable APIs.
+             */
+            experimental?: boolean;
+        }
+        & (
+            | {
+                /**
+                 * An optional callback function executed on a 200 success status code.
+                 */
+                success?: (response: string) => void;
 
-              /**
-               * If this is set to true, the developer is specifying a request for an attachment consisting of binary data (e.g. an image) and the format of the response will be set to "arraybuffer".
-               */
-              binaryAttachment?: false;
-          }
-        | {
-              /**
-               * An optional callback function executed on a 200 success status code.
-               */
-              success?: (response: ArrayBuffer) => void;
+                /**
+                 * If this is set to true, the developer is specifying a request for an attachment consisting of binary data (e.g. an image) and the format of the response will be set to "arraybuffer".
+                 */
+                binaryAttachment?: false;
+            }
+            | {
+                /**
+                 * An optional callback function executed on a 200 success status code.
+                 */
+                success?: (response: ArrayBuffer) => void;
 
-              /**
-               * If this is set to true, the developer is specifying a request for an attachment consisting of binary data (e.g. an image) and the format of the response will be set to "arraybuffer".
-               */
-              binaryAttachment: true;
-          }
-    );
+                /**
+                 * If this is set to true, the developer is specifying a request for an attachment consisting of binary data (e.g. an image) and the format of the response will be set to "arraybuffer".
+                 */
+                binaryAttachment: true;
+            }
+        );
 
     function defineGlobal(module: object): void;
     function defineModule(name: string, module: object): void;
@@ -203,7 +199,8 @@ declare namespace AP {
          *   alert(data);
          * });
          */
-        function getMacroData(callback: (data: object) => void): void;
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        function getMacroData<T extends object>(callback: (data: T) => void): void;
 
         /**
          * Get the body saved in the saveMacro method.
@@ -373,8 +370,7 @@ declare namespace AP {
              *     // editComponent.submitCallback(false, 'Cannot save the content');
              * });
              */
-            | 'confluence.customcontent.submit'
-
+            | "confluence.customcontent.submit"
             /**
              * The `confluence.customcontent.submitSuccess` event will be emitted when Confluence successfully saved the content.
              * If add-on didn't intercept this event, user will be redirected to the content view page.
@@ -399,8 +395,7 @@ declare namespace AP {
              *     editComponent.submitSuccessCallback(true);
              * });
              */
-            | 'confluence.customcontent.submitSuccess'
-
+            | "confluence.customcontent.submitSuccess"
             /**
              * The `confluence.customcontent.submitError` event will be emitted when Confluence encountered problem when saving the content.
              * If add-on didn't intercept this event, a flag message will be shown.
@@ -421,8 +416,7 @@ declare namespace AP {
              *     editComponent.submitErrorCallback(true);
              * });
              */
-            | 'confluence.customcontent.submitError'
-
+            | "confluence.customcontent.submitError"
             /**
              * The `confluence.customcontent.cancel` event will be emitted when user clicks close button.
              * If add-on didn't intercept this event, user will be redirected to the custom content list or the container page depending on the content type.
@@ -445,7 +439,7 @@ declare namespace AP {
              *     editComponent.cancelCallback(true);
              * });
              */
-            | 'confluence.customcontent.cancel';
+            | "confluence.customcontent.cancel";
 
         interface EditComponent {
             /**
@@ -517,17 +511,17 @@ declare namespace AP {
             /**
              * Opens the dialog at a preset size: small, medium, large, x-large or fullscreen (with chrome).
              */
-            size?: 'small' | 'medium' | 'large' | 'x-large' | 'fullscreen' | undefined;
+            size?: "small" | "medium" | "large" | "x-large" | "fullscreen" | undefined;
 
             /**
              * if size is not set, define the width as a percentage (append a % to the number) or pixels.
              */
-            width?: number | undefined;
+            width?: number | string | undefined;
 
             /**
              * if size is not set, define the height as a percentage (append a % to the number) or pixels.
              */
-            height?: number | undefined;
+            height?: number | string | undefined;
 
             /**
              * (optional) opens the dialog with heading and buttons.
@@ -640,7 +634,7 @@ declare namespace AP {
         /**
          * Returns the button that was requested (either cancel or submit). If the requested button does not exist, an empty Object will be returned instead.
          */
-        function getButton(button: 'cancel' | 'submit'): DialogButton | {};
+        function getButton(button: "cancel" | "submit"): DialogButton | {};
 
         /**
          * Stop the dialog from closing when the submit button is clicked
@@ -774,7 +768,7 @@ declare namespace AP {
          * @param name The name of event to emit
          * @param args 0 or more additional data arguments to deliver with the event
          */
-        function emit(name: string, args: string[]): void;
+        function emit(name: string, args?: string[]): void;
 
         /**
          * Emits a public event on this bus, firing listeners by name as well as all 'anyPublic' listeners.
@@ -785,7 +779,7 @@ declare namespace AP {
          * @param name The name of event to emit
          * @param args 0 or more additional data arguments to deliver with the event
          */
-        function emitPublic(name: string, args: string[]): void;
+        function emitPublic(name: string, args?: string[]): void;
     }
 
     /**
@@ -815,12 +809,12 @@ declare namespace AP {
                 /**
                  * Sets the type of the message. Valid options are "info", "success", "warning" and "error".
                  */
-                type: 'info' | 'success' | 'warning' | 'error';
+                type: "info" | "success" | "warning" | "error";
 
                 /**
                  * The closing behaviour that this flag has. Valid options are "manual", and "auto".
                  */
-                close: 'manual' | 'auto';
+                close: "manual" | "auto";
 
                 /**
                  * Map of {actionIdentifier: 'Action link text'} to add to the flag. The actionIdentifier will be passed to a 'flag.action' event if the link is clicked.
@@ -865,13 +859,62 @@ declare namespace AP {
          * @param title
          * @param url URL to add to history
          */
-        function pushState(newState: object, title: string, url: string): void;
+        function pushState(newState: any, title?: string, url?: string): void;
 
         /**
          * Updates the current entry in the session history. Updates the location's anchor with the specified value but does not change the session history. Does not invoke popState callback.
          * @param url URL to update current history value with
          */
         function replaceState(url: string): void;
+
+        /**
+         * Register a function to run when state is changed.
+         * You should use this to update your UI to show the state.
+         * NB: The function is only documented in the example code provided.
+         *
+         * @param callback Function to run when the state is changed.
+         * @example
+         * AP.history.popState(function(e){
+         *     alert("The URL has changed from: " + e.oldURL + "to: " + e.newURL);
+         * });
+         * @see https://developer.atlassian.com/cloud/confluence/jsapi/history/#example
+         */
+        function popState(
+            callback: (event: {
+                /**
+                 * Add-on key
+                 */
+                key: string;
+                /**
+                 * URL hash
+                 */
+                hash: null | string;
+                /**
+                 * URL query parameters
+                 */
+                query: null | string;
+                /**
+                 * Title of the destination page.
+                 */
+                title: string;
+                /**
+                 * Complete url
+                 */
+                href: string;
+                /**
+                 * State defined in the pushState function
+                 */
+                state: unknown;
+                /**
+                 * URL added to history
+                 */
+                newURL: string;
+                /**
+                 * URL previously in the history, or undefined if no URLs were already in the history.
+                 */
+                oldURL?: string;
+            }) => void,
+        ): void;
     }
 
     /**
@@ -1058,83 +1101,69 @@ declare namespace AP {
             /**
              * A specific dashboard in Jira. Takes a `dashboardId` to identify the dashboard.
              */
-            | 'dashboard'
-
+            | "dashboard"
             /**
              * A specific Issue in Jira. Takes an `issueKey` to identify the issue.
              */
-            | 'issue'
-
+            | "issue"
             /**
              * The module page within a specific add-on. Takes an `addonKey` and a `moduleKey` to identify the correct module.
              */
-            | 'addonModule'
-
+            | "addonModule"
             /**
              * The profile page for a Jira User. Takes a `username` or `userAccountId` to identify the user.
              */
-            | 'userProfile'
-
+            | "userProfile"
             /**
              * The admin details of a specific Jira Project. Takes a `projectKey` to identify the project. Only accessible to administrators.
              */
-            | 'projectAdminSummary'
-
+            | "projectAdminSummary"
             /**
              * The admin panel definted by a connect addon. Takes an `addonKey`, `adminPageKey`, `projectKey` and `projectId`. Only accessible to administrators.
              */
-            | 'projectAdminTabPanel'
-
+            | "projectAdminTabPanel"
             /**
              * A specific location contained within the site. Takes either a `relativeUrl` or `absoluteUrl` to identify the path.
              */
-            | 'site';
+            | "site";
 
         type NavigatorTargetConfluence =
             /**
              * The view page for pages, blogs and custom content. Takes a `contentId` to identify the content.
              */
-            | 'contentview'
-
+            | "contentview"
             /**
              * The edit page for pages, blogs and custom content. Takes a `contentId` to identify the content.
              */
-            | 'contentedit'
-
+            | "contentedit"
             /**
              * The space view page. Takes a `spaceKey` to identify the space.
              */
-            | 'spaceview'
-
+            | "spaceview"
             /**
              * The space tools page. Takes a `spaceKey` to identify the space.
              */
-            | 'spacetools'
-
+            | "spacetools"
             /**
              * The dashboard of Confluence.
              */
-            | 'dashboard'
-
+            | "dashboard"
             /**
              * The profile page for a specific user. Takes a `username` or `userAccountId` to identify the user.
              */
-            | 'userProfile'
-
+            | "userProfile"
             /**
              * The module page within a specific add-on. Takes an `addonKey` and a `moduleKey` to identify the correct module.
              */
-            | 'addonModule'
-
+            | "addonModule"
             /**
              * The list/collector page for pages, blogs and custom content contained in a space. Takes a `spaceKey` and a `contentType` to identify the content type.
              */
-            | 'contentlist'
-
+            | "contentlist"
             /**
              * A specific location contained within a site. Takes a `relativeUrl` to identify the path.
              */
-            | 'site';
+            | "site";
 
         type CustomDataBasicValue = string | number | boolean | null | undefined;
         type CustomDataValue = CustomDataBasicValue | CustomDataBasicValue[];
@@ -1148,7 +1177,7 @@ declare namespace AP {
             /**
              * Identifies the type of content. Can be either `page` or `blogpost`. Required for the `contentEdit` target.
              */
-            contentType: 'page' | 'blogpost';
+            contentType: "page" | "blogpost";
 
             /**
              * Identifies a space. Required for the `spaceView` and `spaceTools` targets.
@@ -1221,7 +1250,7 @@ declare namespace AP {
              *
              * This parameter is optional and defaults to `current`.
              */
-            embeddedContentRender?: 'current' | 'version-at-save' | undefined;
+            embeddedContentRender?: "current" | "version-at-save" | undefined;
 
             /**
              * Identifies a specific page within a site. Required for the `site` target and must begin with `/`.
@@ -1233,6 +1262,19 @@ declare namespace AP {
              */
             absoluteUrl: string;
         }
+
+        interface NavigatorLocationContext {
+            /**
+             * The type of the page.
+             */
+            target: NavigatorTargetJira | NavigatorTargetConfluence;
+
+            /**
+             * Specific information that identifies the page.
+             */
+            context: Partial<NavigatorContext>;
+        }
+
         /**
          * Returns the context of the current page within the host application.
          *
@@ -1247,7 +1289,7 @@ declare namespace AP {
          * **contentedit** - the host application is currently editing a page, blog post or other content.
          * @param callback
          */
-        function getLocation(callback: (location: string) => void): void;
+        function getLocation(callback: (location: NavigatorLocationContext) => void): void;
 
         /**
          * Navigates the user from the current page to the specified page. This call navigates the host product, not the iframe content.
@@ -1262,6 +1304,33 @@ declare namespace AP {
          * Triggers a reload of the parent page.
          */
         function reload(): void;
+    }
+
+    /**
+     * Enables apps to get and set the scroll position.
+     */
+    namespace scrollPosition {
+        /**
+         * Gets the scroll position relative to the browser viewport
+         * @param callback callback to pass the scroll position
+         */
+        function getPosition(
+            callback: (position: { scrollY: number; scrollX: number; width: number; height: number }) => void,
+        ): void;
+
+        /**
+         * Sets the vertical scroll position relative to the iframe
+         * @param y vertical offset position
+         * @param callback callback to pass the scroll position
+         */
+        function setVerticalPosition(
+            y: number,
+            callback: (position: { scrollY: number; scrollX: number; width: number; height: number }) => void,
+        ): void;
+    }
+
+    namespace theming {
+        function initializeTheming(): void;
     }
 
     /**

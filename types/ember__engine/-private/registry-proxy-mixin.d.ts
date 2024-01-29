@@ -1,20 +1,15 @@
-import Mixin from '@ember/object/mixin';
+import Mixin from "@ember/object/mixin";
+import Owner from "@ember/owner";
 
 /**
  * RegistryProxyMixin is used to provide public access to specific
  * registry functionality.
  */
-interface RegistryProxyMixin {
+interface RegistryProxyMixin extends Owner {
     /**
      * Given a fullName return the corresponding factory.
      */
     resolveRegistration(fullName: string): unknown;
-    /**
-     * Registers a factory or value that can be used for dependency injection (with
-     * `inject`) or for service lookup. Each factory is registered with
-     * a full name including two parts: `type:name`.
-     */
-    register(fullName: string, factory: unknown, options?: { singleton?: boolean | undefined; instantiate?: boolean | undefined }): unknown;
     /**
      * Unregister a factory.
      */

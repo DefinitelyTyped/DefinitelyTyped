@@ -1,8 +1,3 @@
-// Type definitions for react-select-country-list 2.2
-// Project: https://github.com/Chun-Lin/react-select-country-list
-// Definitions by: Kieran Roberts <https://github.com/kieran6roberts>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace ReactSelectCountries {
     interface CountryData {
         label: string;
@@ -17,6 +12,10 @@ declare namespace ReactSelectCountries {
         data: CountryData[];
         labelMap: LabelValueMap;
         valueMap: LabelValueMap;
+    }
+
+    interface NativeCountries extends Countries {
+        nativeData: CountryData[];
     }
 }
 
@@ -34,7 +33,7 @@ declare class CountryList {
     getData(): ReactSelectCountries.CountryData[];
     setLabel(value: string, label: string): ReactSelectCountries.Countries;
     setEmpty(label: string): ReactSelectCountries.Countries;
-    native(): ReactSelectCountries.Countries;
+    native(): ReactSelectCountries.NativeCountries;
 }
 
 declare function countryList(): CountryList;

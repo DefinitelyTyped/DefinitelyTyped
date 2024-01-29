@@ -1,9 +1,3 @@
-// Type definitions for humanize-duration 3.27
-// Project: https://github.com/EvanHahn/HumanizeDuration.js
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Evan Hahn <https://github.com/EvanHahn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace humanizeDuration;
 
 declare namespace humanizeDuration {
@@ -146,6 +140,12 @@ declare namespace humanizeDuration {
          * Customize the value used to calculate each unit of time.
          */
         unitMeasures?: UnitMeasuresOptions | undefined;
+        /**
+         * Array of ten strings to which will replace the numerals 0-9.
+         */
+        digitReplacements?:
+            | [string, string, string, string, string, string, string, string, string, string]
+            | undefined;
     }
 
     interface HumanizerOptions extends Options {

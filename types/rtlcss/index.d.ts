@@ -1,10 +1,5 @@
-// Type definitions for rtlcss 3.1
-// Project: https://github.com/MohammadYounes/rtlcss
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { PluginCreator, Postcss, Root } from 'postcss';
-import Processor from 'postcss/lib/processor';
+import { PluginCreator, Postcss, Root } from "postcss";
+import Processor = require("postcss/lib/processor");
 
 declare namespace rtlcss {
     interface MapOptions {
@@ -23,6 +18,11 @@ declare namespace rtlcss {
     }
 
     interface ConfigOptions {
+        /**
+         * An object map of property-name Aliases,
+         * where keys are variable names and values are property names.
+         * e.g. {"aliases": {"--small-padding": "padding"}}
+         */
         aliases?: Record<string, string> | undefined;
         /**
          * Applies to CSS rules containing no directional properties,
@@ -40,8 +40,8 @@ declare namespace rtlcss {
          */
         blacklist?:
             | {
-                  [pluginName: string]: Record<string, unknown>;
-              }
+                [pluginName: string]: Record<string, unknown>;
+            }
             | undefined;
         /**
          * Removes directives comments from output CSS.
@@ -58,8 +58,8 @@ declare namespace rtlcss {
         processUrls?:
             | boolean
             | {
-                  [key: string]: boolean;
-              }
+                [key: string]: boolean;
+            }
             | undefined;
         /**
          * The default array of String Map.
@@ -69,7 +69,11 @@ declare namespace rtlcss {
          * When enabled, flips background-position expressed in length units using calc.
          */
         useCalc?: boolean | undefined;
-        processEnv?: string | undefined;
+        /**
+         * When disabled, prevents flipping agent-defined environment variables
+         * safe-area-inset-left, safe-area-inset-right.
+         */
+        processEnv?: boolean | undefined;
     }
 
     interface HookOptions {

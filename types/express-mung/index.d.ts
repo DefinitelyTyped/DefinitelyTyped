@@ -1,13 +1,6 @@
-// Type definitions for express-mung 0.5
-// Project: https://github.com/richardschneider/express-mung
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
-//                 Levi Bostian <https://github.com/levibostian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node"/>
 
-import { Request, Response, RequestHandler, ErrorRequestHandler } from "express";
+import { ErrorRequestHandler, Request, RequestHandler, Response } from "express";
 
 export type Transform = (body: {}, request: Request, response: Response) => any;
 export type TransformAsync = (body: {}, request: Request, response: Response) => PromiseLike<any>;
@@ -17,7 +10,7 @@ export type TransformChunk = (
     chunk: string | Buffer,
     encoding: string | null,
     request: Request,
-    response: Response
+    response: Response,
 ) => string | Buffer;
 
 export interface Options {

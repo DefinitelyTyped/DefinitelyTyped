@@ -12,4 +12,4 @@ declare class ProcessHelpFormatter {
 declare namespace ProcessHelpFormatter {
     export { Process };
 }
-type Process = import('./Process');
+type Process = import("./Process");

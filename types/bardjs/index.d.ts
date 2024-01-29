@@ -1,9 +1,3 @@
-// Type definitions for bardjs 0.1.4
-// Project: https://github.com/wardbell/bardjs
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="angular" />
 /// <reference types="chai" />
 /// <reference types="mocha" />
@@ -48,7 +42,7 @@ declare namespace bard {
      * DO NOT USE IF YOU NEED THE REAL ROUTER SERVICES!
      * Fall back to `angular.mock.module(...)` or just `module(...)`
      */
-    function appModule(...fns: (string | Function | Object)[]): () => void;
+    function appModule(...fns: Array<string | Function | Object>): () => void;
 
     /**
      * Assert a failure in mocha, without condition
@@ -60,7 +54,7 @@ declare namespace bard {
      * Also adds fakeLogger to the end of the definition
      * Use it as you would the ngMocks#module method
      */
-    function asyncModule(...fns: (string | Function | Object)[]): () => void;
+    function asyncModule(...fns: Array<string | Function | Object>): () => void;
 
     /**
      * Get or set bard debugging flag

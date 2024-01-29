@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/fresh",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/jshttp/fresh#readme"
+    ],
+    "devDependencies": {
+        "@types/fresh": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

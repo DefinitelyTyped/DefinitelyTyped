@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/rollup-plugin-progress",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/jkuri/rollup-plugin-progress#readme"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "rollup": "^0.63.4"
-    }
+    },
+    "devDependencies": {
+        "@types/rollup-plugin-progress": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jeroen Claassens",
+            "githubUsername": "favna"
+        }
+    ]
 }

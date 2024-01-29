@@ -1,0 +1,94 @@
+{
+    "private": true,
+    "name": "@types/plotly.js",
+    "version": "2.12.9999",
+    "projects": [
+        "https://plot.ly/javascript/",
+        "https://github.com/plotly/plotly.js"
+    ],
+    "devDependencies": {
+        "@types/plotly.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chris Gervang",
+            "githubUsername": "chrisgervang"
+        },
+        {
+            "name": "Martin Duparc",
+            "githubUsername": "martinduparc"
+        },
+        {
+            "name": "Frederik Aalund",
+            "githubUsername": "frederikaalund"
+        },
+        {
+            "name": "taoqf",
+            "githubUsername": "taoqf"
+        },
+        {
+            "name": "Dadstart",
+            "githubUsername": "Dadstart"
+        },
+        {
+            "name": "Jared Szechy",
+            "githubUsername": "szechyjs"
+        },
+        {
+            "name": "Sooraj Pudiyadath",
+            "githubUsername": "soorajpudiyadath"
+        },
+        {
+            "name": "Jon Freedman",
+            "githubUsername": "jonfreedman"
+        },
+        {
+            "name": "Megan Riel-Mehan",
+            "githubUsername": "meganrm"
+        },
+        {
+            "name": "Josh Miles",
+            "githubUsername": "milesjos"
+        },
+        {
+            "name": "Pramod Mathai ",
+            "githubUsername": "skippercool"
+        },
+        {
+            "name": "Michael Adams",
+            "githubUsername": "mtadams007"
+        },
+        {
+            "name": "Michael Arnett",
+            "githubUsername": "marnett-git"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        },
+        {
+            "name": "Brandon Mitchell",
+            "githubUsername": "brammitch"
+        },
+        {
+            "name": "Jessica Blizzard",
+            "githubUsername": "blizzardjessica"
+        },
+        {
+            "name": "Oleg Shilov",
+            "githubUsername": "olegshilov"
+        },
+        {
+            "name": "Pablo Gracia",
+            "githubUsername": "PabloGracia"
+        },
+        {
+            "name": "Jeffrey van Gogh",
+            "githubUsername": "jvgogh"
+        },
+        {
+            "name": "John Abdou",
+            "githubUsername": "jpabdou"
+        }
+    ]
+}

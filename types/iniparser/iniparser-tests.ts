@@ -1,7 +1,6 @@
+import * as iniparser from "iniparser";
 
-import * as iniparser from 'iniparser';
-
-type Result = {section: {param: string}};
+type Result = { section: { param: string } };
 
 let file: string;
 
@@ -16,5 +15,5 @@ let file: string;
     let result: Result;
 
     result = iniparser.parseSync<Result>(file);
-    result = iniparser.parseString<Result>('');
+    result = iniparser.parseString<Result>("");
 }

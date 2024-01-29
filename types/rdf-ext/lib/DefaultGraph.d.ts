@@ -1,14 +1,14 @@
-import { DefaultGraph } from 'rdf-js';
-import { PropType } from './_PropType';
+import { DefaultGraph } from "@rdfjs/types";
+import { PropType } from "./_PropType.js";
 
-interface DefaultGraphExt extends DefaultGraph {
-  toCanonical(): string;
-  toJSON(): {
-    value: PropType<DefaultGraph, 'value'>;
-    termType: PropType<DefaultGraph, 'termType'>;
-  };
+export interface DefaultGraphExt extends DefaultGraph {
+    toCanonical(): string;
+    toJSON(): {
+        value: PropType<DefaultGraph, "value">;
+        termType: PropType<DefaultGraph, "termType">;
+    };
 }
 
-declare class DefaultGraphExt {}
+export class DefaultGraphExt {}
 
-export = DefaultGraphExt;
+export default DefaultGraphExt;

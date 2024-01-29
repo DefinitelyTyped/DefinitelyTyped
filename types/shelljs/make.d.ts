@@ -1,4 +1,4 @@
-import shelljs = require('./index');
+import shelljs = require("./index");
 declare global {
     interface Target {
         (...args: any[]): void;

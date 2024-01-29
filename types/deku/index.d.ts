@@ -1,13 +1,7 @@
-// Type definitions for deku v2.0
-// Project: https://github.com/anthonyshort/deku
-// Definitions by: Sho Fuji <https://github.com/pocka>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = deku;
 export as namespace deku;
 
 declare namespace deku {
-
     interface VirtualElement {
         type: string;
     }
@@ -90,7 +84,13 @@ declare namespace deku {
         /**
          * Lazily-rendered virtual nodes
          */
-        function createThunkElement<P, T, O>(fn: (model: Model) => VirtualElement, key: string, props: P, children: T[], options: O): VirtualElement;
+        function createThunkElement<P, T, O>(
+            fn: (model: Model) => VirtualElement,
+            key: string,
+            props: P,
+            children: T[],
+            options: O,
+        ): VirtualElement;
 
         function createEmptyElement(): VirtualElement;
 
@@ -107,16 +107,16 @@ declare namespace deku {
         /**
          * Create a node path, eg. (23,5,2,4) => '23.5.2.4'
          */
-        function createPath(...paths: (number|string)[]): string;
+        function createPath(...paths: Array<number | string>): string;
     }
 }
 
 interface Model {
-    props?: any,
-    children?: any[] | undefined,
-    path?: string | undefined,
-    dispatch?: Dispatch | undefined,
-    context?: any
+    props?: any;
+    children?: any[] | undefined;
+    path?: string | undefined;
+    dispatch?: Dispatch | undefined;
+    context?: any;
 }
 
 interface Component {

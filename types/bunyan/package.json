@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/bunyan",
+    "version": "1.8.9999",
+    "projects": [
+        "https://github.com/trentm/node-bunyan"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/bunyan": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alex Mikhalev",
+            "githubUsername": "amikhalev"
+        }
+    ]
+}

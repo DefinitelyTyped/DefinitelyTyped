@@ -1,21 +1,20 @@
 {
-	"compilerOptions": {
-		"lib": ["es5", "dom"],
-		"module": "commonjs",
-		"noImplicitAny": true,
-		"noImplicitThis": true,
-		"strictNullChecks": true,
-		"strictFunctionTypes": true,
-		"baseUrl": "../",
-		"typeRoots": [
-			"../"
-		],
-		"types": [],
-		"noEmit": true,
-		"forceConsistentCasingInFileNames": true
-	},
-	"files": [
-		"index.d.ts",
-		"obs-studio-tests.ts"
-	]
+    "compilerOptions": {
+        "lib": [
+            "es5",
+            "dom"
+        ],
+        "module": "commonjs",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "obs-studio-tests.ts"
+    ]
 }

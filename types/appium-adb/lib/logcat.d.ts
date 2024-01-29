@@ -1,12 +1,12 @@
-import { EventEmitter } from 'events';
-import { AdbExecutable } from './adb';
+import { EventEmitter } from "events";
+import { AdbExecutable } from "./adb";
 
 export interface LogcatOpts {
     /**
      * The log print format
      * @default `threadtime`
      */
-    format?: 'brief' | 'process' | 'tag' | 'thread' | 'raw' | 'time' | 'threadtime' | 'long' | undefined;
+    format?: "brief" | "process" | "tag" | "thread" | "raw" | "time" | "threadtime" | "long" | undefined;
     /**
      * Series of <tag>[:priority]
      * where <tag> is a log component tag (or * for all) and priority is:
@@ -23,7 +23,7 @@ export interface LogcatOpts {
      * If not specified on the commandline, filterspec is set from ANDROID_LOG_TAGS.
      * If no filterspec is found, filter defaults to '*:I'
      */
-    filterSpecs?: string | ReadonlyArray<string>;
+    filterSpecs?: string | readonly string[];
 }
 
 export interface Log {
@@ -49,15 +49,15 @@ export default class Logcat extends EventEmitter {
     clear(): Promise<void>;
 
     addListener(event: string, listener: (...args: any[]) => void): this;
-    addListener(event: 'output', listener: (output: Log) => void): this;
+    addListener(event: "output", listener: (output: Log) => void): this;
     emit(event: string | symbol, ...args: any[]): boolean;
-    emit(event: 'output', output: Log): boolean;
+    emit(event: "output", output: Log): boolean;
     on(event: string, listener: (...args: any[]) => void): this;
-    on(event: 'output', listener: (output: Log) => void): this;
+    on(event: "output", listener: (output: Log) => void): this;
     once(event: string, listener: (...args: any[]) => void): this;
-    once(event: 'output', listener: (output: Log) => void): this;
+    once(event: "output", listener: (output: Log) => void): this;
     prependListener(event: string, listener: (...args: any[]) => void): this;
-    prependListener(event: 'output', listener: (output: Log) => void): this;
+    prependListener(event: "output", listener: (output: Log) => void): this;
     prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-    prependOnceListener(event: 'output', listener: (output: Log) => void): this;
+    prependOnceListener(event: "output", listener: (output: Log) => void): this;
 }

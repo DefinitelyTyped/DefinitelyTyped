@@ -1,11 +1,6 @@
-// Type definitions for ecurve 1.0
-// Project: https://github.com/cryptocoinjs/ecurve#readme
-// Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types= "node" />
 
-import BigInteger = require('bigi');
+import BigInteger = require("bigi");
 
 export class Curve {
     p: BigInteger;
@@ -14,7 +9,15 @@ export class Curve {
     G: Point;
     n: BigInteger;
     h: BigInteger;
-    constructor(p: BigInteger, a: BigInteger, b: BigInteger, Gx: BigInteger, Gy: BigInteger, n: BigInteger, h: BigInteger);
+    constructor(
+        p: BigInteger,
+        a: BigInteger,
+        b: BigInteger,
+        Gx: BigInteger,
+        Gy: BigInteger,
+        n: BigInteger,
+        h: BigInteger,
+    );
     isInfinity(Q: any): boolean;
     isOnCurve(Q: any): boolean;
     pointFromX(isOdd: boolean, x: Point): Point;

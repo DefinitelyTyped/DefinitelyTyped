@@ -1,20 +1,20 @@
 import * as materialize from "materialize-css";
 
-const elem = document.querySelector('.whatever')!;
+const elem = document.querySelector(".whatever")!;
 
 // $ExpectType Slider
 const _slider = new M.Slider(elem);
 // $ExpectType Slider
 const el = M.Slider.init(elem);
 // $ExpectType Slider[]
-const els = M.Slider.init(document.querySelectorAll('.whatever'));
+const els = M.Slider.init(document.querySelectorAll(".whatever"));
 
 // $ExpectType Slider
 const slider = new materialize.Slider(elem, {
     duration: 1,
     height: 1,
     indicators: true,
-    interval: 1
+    interval: 1,
 });
 
 // $ExpectType void

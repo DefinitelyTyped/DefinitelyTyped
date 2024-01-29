@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/angular-permission",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/Narzerus/angular-permission"
+    ],
+    "dependencies": {
+        "@types/angular": "*",
+        "@types/angular-ui-router": "*"
+    },
+    "devDependencies": {
+        "@types/angular-permission": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Voislav Mishevski",
+            "githubUsername": "vmishevski"
+        }
+    ]
+}

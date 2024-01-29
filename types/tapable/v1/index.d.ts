@@ -1,14 +1,7 @@
-// Type definitions for tapable v1.0.0
-// Project: https://github.com/webpack/tapable.git
-// Definitions by: e-cloud <https://github.com/e-cloud>
-//                 John Reilly <https://github.com/johnnyreilly>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export declare abstract class Tapable {
     private _plugins: {
-        [propName: string]: Tapable.Handler[]
-    }
+        [propName: string]: Tapable.Handler[];
+    };
 
     /** @deprecated Private internals. Do not use directly */
     _pluginCompat: Hook;
@@ -33,7 +26,7 @@ export declare abstract class Tapable {
      * This method is just to "apply" plugins' definition, so that the real event listeners can be registered into
      * registry. Mostly the `apply` method of a plugin is the main place to place extension logic.
      */
-    apply(...plugins: (((this: this) => any) | Tapable.Plugin)[]): void;
+    apply(...plugins: Array<((this: this) => any) | Tapable.Plugin>): void;
 
     /**
      * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
@@ -124,7 +117,7 @@ export declare abstract class Tapable {
      */
     applyPluginsAsyncSeries(name: string, ...args: any[]): void;
 
-    applyPluginsAsyncSeries1(name: string, param: any, callback: Tapable.CallbackFunction): void
+    applyPluginsAsyncSeries1(name: string, param: any, callback: Tapable.CallbackFunction): void;
 
     /**
      * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
@@ -237,11 +230,11 @@ export interface HookCompileOptions {
     type: TapType;
 }
 
-type TapFunction<T extends TapType = TapType, TArg1 = any, TArg2 = any, TArg3 = any, TResult = any> =
-    T extends "sync" ? (arg1: TArg1, arg2: TArg2, arg3: TArg3, ...args: any[]) => TResult :
-    T extends "async" ? (arg1: TArg1, arg2: TArg2, arg3: TArg3, ...args: any[]) => void :
-    T extends "promise" ? (arg1: TArg1, arg2: TArg2, arg3: TArg3, ...args: any[]) => Promise<TResult> :
-    never;
+type TapFunction<T extends TapType = TapType, TArg1 = any, TArg2 = any, TArg3 = any, TResult = any> = T extends "sync"
+    ? (arg1: TArg1, arg2: TArg2, arg3: TArg3, ...args: any[]) => TResult
+    : T extends "async" ? (arg1: TArg1, arg2: TArg2, arg3: TArg3, ...args: any[]) => void
+    : T extends "promise" ? (arg1: TArg1, arg2: TArg2, arg3: TArg3, ...args: any[]) => Promise<TResult>
+    : never;
 
 export interface Tap<TTapType extends TapType = TapType, TArg1 = any, TArg2 = any, TArg3 = any, THookResult = any> {
     name: string;
@@ -252,33 +245,35 @@ export interface Tap<TTapType extends TapType = TapType, TArg1 = any, TArg2 = an
     before?: string | string[] | undefined;
 }
 
-export type TapOptions<TTapType extends TapType = TapType, TArg1 = any, TArg2 = any, TArg3 = any, THookResult = any> = {
-    name: string;
-    stage?: number | undefined;
-    context?: boolean | undefined;
-    before?: string | string[] | undefined;
-} & (
-    TTapType extends "sync" ? {
-        type?: "sync" | undefined;
-        fn?: TapFunction<"sync", TArg1, TArg2, TArg3, THookResult> | undefined;
-    } :
-    TTapType extends "async" ? {
-        type?: "async" | undefined;
-        fn?: TapFunction<"async", TArg1, TArg2, TArg3, THookResult> | undefined;
-    } :
-    TTapType extends "promise" ? {
-        type?: "promise" | undefined;
-        fn?: TapFunction<"promise", TArg1, TArg2, TArg3, THookResult> | undefined;
-    } :
-    {
-        type?: TTapType | undefined;
-        fn?: TapFunction<TTapType, TArg1, TArg2, TArg3, THookResult> | undefined;
+export type TapOptions<TTapType extends TapType = TapType, TArg1 = any, TArg2 = any, TArg3 = any, THookResult = any> =
+    & {
+        name: string;
+        stage?: number | undefined;
+        context?: boolean | undefined;
+        before?: string | string[] | undefined;
     }
-);
+    & (
+        TTapType extends "sync" ? {
+                type?: "sync" | undefined;
+                fn?: TapFunction<"sync", TArg1, TArg2, TArg3, THookResult> | undefined;
+            }
+            : TTapType extends "async" ? {
+                    type?: "async" | undefined;
+                    fn?: TapFunction<"async", TArg1, TArg2, TArg3, THookResult> | undefined;
+                }
+            : TTapType extends "promise" ? {
+                    type?: "promise" | undefined;
+                    fn?: TapFunction<"promise", TArg1, TArg2, TArg3, THookResult> | undefined;
+                }
+            : {
+                type?: TTapType | undefined;
+                fn?: TapFunction<TTapType, TArg1, TArg2, TArg3, THookResult> | undefined;
+            }
+    );
 
 export class Hook<TArg1 = any, TArg2 = any, TArg3 = any, TTabResult = any, THookResult = any> {
     constructor(tapArgumentNames?: string[]);
-    taps: Tap<TapType, TArg1, TArg2, TArg3, THookResult>[];
+    taps: Array<Tap<TapType, TArg1, TArg2, TArg3, THookResult>>;
     interceptors: HookInterceptor[];
 
     isUsed: () => boolean;
@@ -287,21 +282,36 @@ export class Hook<TArg1 = any, TArg2 = any, TArg3 = any, TTabResult = any, THook
     callAsync: (arg1?: TArg1, arg2?: TArg2, arg3?: TArg3, ...args: any[]) => THookResult;
 
     compile: (options: HookCompileOptions) => Function;
-    tap: (name: string | TapOptions<"sync", TArg1, TArg2, TArg3, TTabResult>, fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, ...args: any[]) => TTabResult) => void;
-    tapAsync: (name: string | TapOptions<"async", TArg1, TArg2, TArg3, TTabResult>, fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, ...args: any[]) => void) => void;
-    tapPromise: (name: string | TapOptions<"promise", TArg1, TArg2, TArg3, TTabResult>, fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, ...args: any[]) => Promise<TTabResult>) => void;
+    tap: (
+        name: string | TapOptions<"sync", TArg1, TArg2, TArg3, TTabResult>,
+        fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, ...args: any[]) => TTabResult,
+    ) => void;
+    tapAsync: (
+        name: string | TapOptions<"async", TArg1, TArg2, TArg3, TTabResult>,
+        fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, ...args: any[]) => void,
+    ) => void;
+    tapPromise: (
+        name: string | TapOptions<"promise", TArg1, TArg2, TArg3, TTabResult>,
+        fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, ...args: any[]) => Promise<TTabResult>,
+    ) => void;
     intercept: (interceptor: HookInterceptor) => void;
 }
 
 export class SyncHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3, any, undefined> {}
-export class SyncBailHook<T1 = any, T2 = any, T3 = any, THookResult = any> extends Hook<T1, T2, T3, undefined | THookResult, undefined | THookResult> {}
+export class SyncBailHook<T1 = any, T2 = any, T3 = any, THookResult = any>
+    extends Hook<T1, T2, T3, undefined | THookResult, undefined | THookResult>
+{}
 export class SyncLoopHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3, any, undefined> {}
 export class SyncWaterfallHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3, T1, T1> {}
 
 export class AsyncParallelHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3, any, undefined> {}
-export class AsyncParallelBailHook<T1 = any, T2 = any, T3 = any, THookResult = any> extends Hook<T1, T2, T3, undefined | THookResult, undefined | THookResult> {}
+export class AsyncParallelBailHook<T1 = any, T2 = any, T3 = any, THookResult = any>
+    extends Hook<T1, T2, T3, undefined | THookResult, undefined | THookResult>
+{}
 export class AsyncSeriesHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3, any, undefined> {}
-export class AsyncSeriesBailHook<T1 = any, T2 = any, T3 = any, THookResult = any> extends Hook<T1, T2, T3, undefined | THookResult, undefined | THookResult> {}
+export class AsyncSeriesBailHook<T1 = any, T2 = any, T3 = any, THookResult = any>
+    extends Hook<T1, T2, T3, undefined | THookResult, undefined | THookResult>
+{}
 export class AsyncSeriesWaterfallHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3, T1, T1> {}
 
 export class HookInterceptor {
@@ -317,9 +327,21 @@ export class HookMap<T1 = any, T2 = any, T3 = any> {
     constructor(fn: () => Hook);
     get: (key: any) => Hook<T1, T2, T3> | undefined;
     for: (key: any) => Hook<T1, T2, T3>;
-    tap: (key: any, name: string | TapOptions<"sync", T1, T2, T3>, fn: (arg1: T1, arg2: T2, arg3: T3, ...args: any[]) => any) => void;
-    tapAsync: (key: any, name: string | TapOptions<"async", T1, T2, T3>, fn: (arg1: T1, arg2: T2, arg3: T3, ...args: any[]) => void) => void;
-    tapPromise: (key: any, name: string | TapOptions<"promise", T1, T2, T3>, fn: (arg1: T1, arg2: T2, arg3: T3, ...args: any[]) => Promise<any>) => void;
+    tap: (
+        key: any,
+        name: string | TapOptions<"sync", T1, T2, T3>,
+        fn: (arg1: T1, arg2: T2, arg3: T3, ...args: any[]) => any,
+    ) => void;
+    tapAsync: (
+        key: any,
+        name: string | TapOptions<"async", T1, T2, T3>,
+        fn: (arg1: T1, arg2: T2, arg3: T3, ...args: any[]) => void,
+    ) => void;
+    tapPromise: (
+        key: any,
+        name: string | TapOptions<"promise", T1, T2, T3>,
+        fn: (arg1: T1, arg2: T2, arg3: T3, ...args: any[]) => Promise<any>,
+    ) => void;
     intercept: (interceptor: HookMapInterceptor<T1, T2, T3>) => void;
 }
 
@@ -337,5 +359,5 @@ export class HookMapInterceptor<T1 = any, T2 = any, T3 = any> {
  * ```
  */
 export class MultiHook {
-    constructor(hooks: Hook[])
+    constructor(hooks: Hook[]);
 }

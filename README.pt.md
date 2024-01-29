@@ -2,6 +2,9 @@
 
 > O repositório para definições de tipo do TypeScript de *alta qualidade*.
 
+*You can also read this README in [Español](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [한국어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Русский](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [简体中文](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh-Hans.md), [English](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md), [Italiano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md)
+and [日本語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!*
+
 Veja também o site [definitelytyped.org](http://definitelytyped.org), embora as informações neste README sejam mais atualizadas.
 
 *Link para o [manual do Admin](./docs/admin.md)*
@@ -11,7 +14,7 @@ Veja também o site [definitelytyped.org](http://definitelytyped.org), embora as
 Essa seção acompanha a saúde do respositório e o processo de publicação.
 Ela pode servir de ajuda para contribuidores que estejam passando por problemas com suas PRs e pacotes.
 
-* Build mais recente com [tipagem checada/analisada pelo linter](https://github.com/Microsoft/dtslint) de forma limpa: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
+* Build mais recente com [tipagem checada/analisada pelo linter](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) de forma limpa: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
 * Todos os pacotes tem seus tipos checados/são analisadas pelo linter no typescript@next: [![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
 * Todos os pacotes estão sendo [publicados no npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) em menos de uma hora: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
 * [typescript-bot](https://github.com/typescript-bot) esteve ativo no Definitely Typed [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
@@ -49,16 +52,13 @@ Se você mesmo assim não consegue achar o pacote, verifique se ele [inclui](htt
 Isso normalmente é informado nos campos `"types"` ou `"typings"` no `package.json`,
 ou apenas procure por qualquer arquivo ".d.ts" no pacote e manualmente inclua-os com `/// <reference path="" />`.
 
-#### Versões antigas do TypeScript (3.7 e anteriores)
-
-O Definitely Typed testa apenas pacotes em versões do TypeScript que tenham sido lançadas a menos de 2 anos.
-Atualmente, as versões 3.8 e acima são testadas.
-Se você está usando as versões 2.0 a 3.7 do TypeScript, você ainda pode tentar instalar os pacotes `@types` &mdash; a maioria dos pacotes não usam as novas funcionalidades chiques do TypeScript.
-Mas não tem nenhuma garantia de que elas funcionarão.
-Esta é a tabela de duração de suporte das versões.
+### Support window
 
 <img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
 <img src="docs/support-window.svg#gh-dark-mode-only" style="width:100%">
+
+<details>
+<summary>Versões antigas do TypeScript</summary>
 
 Pacotes `@types` têm tags para versões do TypeScript que elas explicitamente suportam, então normalmente você pode usar versões mais antigas dos pacotes que precedem o período de 2 anos.
 Por exemplo, se você executar o comando `npm dist-tags @types/react`, você verá que o TypeScript 2.5 pode usar os tipos para o react@16.0, enquanto o TypeScript 2.6 e 2.7 podem usar os tipos para o react@16.4:
@@ -81,6 +81,8 @@ Por exemplo, se você executar o comando `npm dist-tags @types/react`, você ver
 * ~~[NuGet](https://nuget.org/packages?q=DefinitelyTyped)~~ (use alternativas aconselhadas. A publicação de tipos do NuGet DT foi desligada)
 
 Talvez você precise adicionar [referências](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html) manuais.
+
+</details>
 
 ## Como eu posso contribuir?
 
@@ -145,7 +147,6 @@ Seu pacote deve possuir a seguinte estrutura:
 | `index.d.ts` | Contém os tipos para o pacote. |
 | [`<my-package>-tests.ts`](#my-package-teststs) | Contém código de exemplo que testa os tipos. Esse código *não* é executado, mas seus tipos são checados. |
 | [`tsconfig.json`](#tsconfigjson) | Permite que você execute `tsc` dentro do pacote. |
-| [`tslint.json`](#linter-tslintjson) | Habilita a análise do código pelo linter. |
 
 Gere esses arquivos executando `npx dts-gen --dt --name nome-do-seu-pacote --template module` se você possuir a versão 5.2.0 ou mais recente do npm ou `npm install -g dts-gen` e `dts-gen --dt --name nome-do-seu-pacote --template module` caso possua uma versão mais antiga.
 Veja todas as opções em [dts-gen](https://github.com/Microsoft/dts-gen).
@@ -160,7 +161,7 @@ Para ver um bom exemplo, veja o pacote [base64-js](https://github.com/Definitely
 
 Quando um pacote [inclui](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) seus próprios tipos, os tipos devem ser removidos do Definitely Typed para evitar confusão.
 
-Você pode removê-lo executando `npm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]`
+Você pode removê-lo executando `pnpm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]`
 - `<typingsPackageName>`: O nome do diretório a ser deletado.
 - `<asOfVersion>`: Um esboço será publicado em `@types/<typingsPackageName>` com essa versão. Deve ser maior do que qualquer versão atualmente publicada, e deve ser uma versão de `<libraryName>` no npm.
 - `<libraryName>`: Nome do pacote no npm que substitui os tipos do Definitely Typed. Normalmente é idêntico ao `<typingsPackageName>`, e nesse caso pode ser omitido.
@@ -187,7 +188,7 @@ Se um pacote nunca esteve no Definitely Typed, ele não precisa ser adicionado a
 
 Teste suas mudanças executando o comando `npm test nome-do-pacote` onde `nome-do-pacote` é o nome do seu pacote.
 
-Este script usa o [dtslint](https://github.com/Microsoft/dtslint) para executar o compilador de TypeScript em seus arquivos dts.
+Este script usa o [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) para executar o compilador de TypeScript em seus arquivos dts.
 
 #### Naming
 
@@ -225,7 +226,7 @@ const result = twoslash("//")
 + // Lida com o parâmetro options
 + const resultWithOptions = twoslash("//", { version: "3.7" })
 + // Quando o parâmetro está incorreto
-+ // $ExpectError
++ // @ts-expect-error
 + const resultWithOptions = twoslash("//", {  })
 ```
 
@@ -233,23 +234,30 @@ Se você está se perguntando por onde começar os testes em seu código, os exe
 
 Você pode [validar suas mudanças](#verificando) executando `npm test` na raiz deste repositório, que leva em consideração os arquivos alterados.
 
-Para afirmar que uma expressão é de um tipo determinado, use `$ExpectType`. Para afirmar que uma expressão causa um erro de compilador, use `$ExpectError`.
+Para afirmar que uma expressão é de um tipo determinado, use `$ExpectType`. Para afirmar que uma expressão causa um erro de compilador, use `@ts-expect-error`.
 
 ```js
 // $ExpectType void
 f(1);
 
-// $ExpectError
+// @ts-expect-error
 f("um");
 ```
 
-Para mais detalhes, veja o arquivo readme do [dtslint](https://github.com/Microsoft/dtslint#write-tests).
+Para mais detalhes, veja o arquivo readme do [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint#write-tests).
 
-#### Linter: `tslint.json`
+##### Linter: `.eslintrc.json`
 
-The linter configuration file, `tslint.json` should contain `{ "extends": "@definitelytyped/dtslint/dt.json" }`, and no additional rules.
+If for some reason a lint rule needs to be disabled, disable it for a specific line:
 
-If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
+```ts
+// eslint-disable-next-line no-const-enum
+const enum Const { One }
+const enum Enum { Two } // eslint-disable-line no-const-enum
+```
+
+You can still disable rules with an .eslintrc.json, but should not in new packages.
+Disabling rules for the entire package makes it harder to review.
 
 #### `tsconfig.json`
 
@@ -277,10 +285,11 @@ Se um arquivo não for testado nem referenciado no `index.d.ts`, adicione-o em u
 #### Erros comuns
 
 * Primeiro, siga as instruções do [manual](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
-* Formatação: Use 4 espaços. O Prettier está configurado neste repositório, então você pode executar `npm run prettier -- --write path/to/package/**/*.ts`. [Se estiver usando asserções](https://github.com/SamVerschueren/tsd#assertions), adicione a tag de exclusão `// prettier-ignore` para marcar linhas de código como exclusas da formatação:
+* Formatação: Use 4 espaços. O Prettier está configurado neste repositório, então você pode executar `pnpm run prettier -- --write 'path/to/package/**/*.ts'`. [Se estiver usando asserções](https://github.com/SamVerschueren/tsd#assertions), adicione a tag de exclusão `// prettier-ignore` para marcar linhas de código como exclusas da formatação:
   ```tsx
   // prettier-ignore
-  const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $ExpectError
+  // @ts-expect-error
+  const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: {
   ```
 * `function sum(nums: number[]): number`: Use `ReadonlyArray` se a função não adiciona valores a seus parâmetros.
 * `interface Foo { new(): Foo; }`:
@@ -496,8 +505,8 @@ No tempo de escrita, a [history v2 `tsconfig.json`](https://github.com/%44efinit
 Se há outros pacotes no Definitely Typed que são incompatíveis com a nova versão, você precisará adicionar mapeamentos de caminho para a versão antiga.
 Você também precisará fazer isso recursivamente para pacotes dependentes da versão antiga.
 
-Por exemplo, `react-router` depende de `history@2`, então o [`tsconfig.json` do react-router](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router/v2/tsconfig.json) tem um mapeamento de caminho para `"history": [ "history/v2" ]`.
-Provisoriamente, o `react-router-bootstrap` (que depende do `react-router`) também precisou ter o mesmo mapeamento de caminhos adicionado (`"history": [ "history/v2" ]`) no seu `tsconfig.json` até que o sua dependência `react-router` fosse atualizada para a última versão.
+Por exemplo, `browser-sync` depende de `micromatch@2`, então o [`tsconfig.json` do browser-sync](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/browser-sync/tsconfig.json) tem um mapeamento de caminho para `"micromatch": [ "micromatch/v2" ]`.
+Provisoriamente, o `browser-sync-webpack-plugin` (que depende do `browser-sync`) também precisou ter o mesmo mapeamento de caminhos adicionado (`"micromatch": [ "micromatch/v2" ]`) no seu `tsconfig.json` até que o sua dependência `browser-sync` fosse atualizada para a última versão.
 
 `/// <reference types=".." />` também não vai funcionar com o mapeamento de caminhos, então dependências devem usar `import`.
 
@@ -522,11 +531,6 @@ Quando `dts-gen` for usado para montar um pacote com escopo, a propriedade `path
     }
 }
 ```
-
-
-#### O histórico do arquivo no GitHub parece incompleto.
-
-O GitHub não [suporta](https://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) histórico de arquivos renomeados. Use [`git log --follow`](https://www.git-scm.com/docs/git-log) ao invés disso.
 
 ## Licença
 

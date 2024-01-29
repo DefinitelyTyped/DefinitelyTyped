@@ -1,13 +1,11 @@
-import { Uniform } from '../../../src/Three';
+import { IUniform } from '../../../src/Three.js';
 
 export const FilmShader: {
     uniforms: {
-        tDiffuse: Uniform;
-        time: Uniform;
-        nIntensity: Uniform;
-        sIntensity: Uniform;
-        sCount: Uniform;
-        grayscale: Uniform;
+        tDiffuse: IUniform;
+        time: IUniform;
+        intensity: IUniform;
+        grayscale: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

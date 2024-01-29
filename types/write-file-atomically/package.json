@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/write-file-atomically",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/shinnn/write-file-atomically#readme"
+    ],
+    "dependencies": {
+        "@types/write-file-atomic": "*"
+    },
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/write-file-atomically": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Aankhen",
+            "githubUsername": "Aankhen"
+        }
+    ]
+}

@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.action
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use browser actions to put icons in the main browser toolbar, to the right of the address bar. In addition to its icon,
  * a browser action can also have a tooltip, a badge, and a popup.
@@ -11,8 +14,8 @@
  * Use of this source code is governed by a BSD-style license that can be
  * found in the LICENSE file.
  */
-import { Tabs } from "./tabs";
 import { Events } from "./events";
+import { Tabs } from "./tabs";
 
 export namespace Action {
     /**
@@ -75,6 +78,18 @@ export namespace Action {
         title: string | null;
     }
 
+    /**
+     * The collection of user-specified settings relating to an extension's action.
+     */
+    interface GetUserSettingsCallbackUserSettingsType {
+        /**
+         * Whether the extension's action icon is visible on browser windows' top-level toolbar (i.e.,
+         * whether the extension has been 'pinned' by the user).
+         * Optional.
+         */
+        isOnToolbar?: boolean;
+    }
+
     interface SetIconDetailsType extends Details {
         /**
          * Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set.
@@ -120,6 +135,17 @@ export namespace Action {
         color: ColorValue;
     }
 
+    /**
+     * An object with information about the popup to open.
+     */
+    interface OpenPopupOptionsType {
+        /**
+         * Defaults to the $(topic:current-window)[current window].
+         * Optional.
+         */
+        windowId?: number;
+    }
+
     type OnClickDataModifiersItemEnum = "Shift" | "Alt" | "Command" | "Ctrl" | "MacCtrl";
 
     interface Static {
@@ -136,6 +162,11 @@ export namespace Action {
          * @param details
          */
         getTitle(details: Details): Promise<string>;
+
+        /**
+         * Returns the user-specified settings relating to an extension's action.
+         */
+        getUserSettings(): Promise<GetUserSettingsCallbackUserSettingsType>;
 
         /**
          * Sets the icon for the browser action. The icon can be specified either as the path to an image file or as the pixel data
@@ -225,9 +256,11 @@ export namespace Action {
         isEnabled(details: Details): Promise<boolean>;
 
         /**
-         * Opens the extension popup window in the active window.
+         * Opens the extension popup window in the specified window.
+         *
+         * @param options Optional. An object with information about the popup to open.
          */
-        openPopup(): Promise<void>;
+        openPopup(options?: OpenPopupOptionsType): Promise<void>;
 
         /**
          * Fired when a browser action icon is clicked.  This event will not fire if the browser action has a popup.

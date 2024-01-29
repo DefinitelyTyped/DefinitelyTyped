@@ -7,7 +7,7 @@
  *                                                                         *
  ***************************************************************************/
 
-/** 
+/**
  * @author Richard <richardo2016@gmail.com>
  *
  */
@@ -23,39 +23,36 @@
     */
 /// <reference path="SeekableStream.d.ts" />
 declare class Class_File extends Class_SeekableStream {
-    
+
     /**
-     * class prop 
+     * class prop
      *
-     * 
+     *
      * @brief 查询当前文件名
-     * 
-     * @readonly
-     * @type String
-     */
-    
-    name: string
-    
-    /**
-     * class prop 
      *
-     * 
-     * @brief 查询当前文件描述符
-     * 
-     * @readonly
-     * @type Integer
      */
-    
-    fd: number
-    
-    
-    
+
+    name: string
+
     /**
-     * 
+     * class prop
+     *
+     *
+     * @brief 查询当前文件描述符
+     *
+     * @note Assumed to be an integer.
+     */
+
+    fd: number
+
+
+
+    /**
+     *
      * @brief 查询当前文件的访问权限，Windows 不支持此方法
      * @param mode 指定设定的访问权限
-     * 
-     * 
+     *
+     *
      * @async
      */
     chmod(mode: number): void;

@@ -1,47 +1,76 @@
-
 import * as Inflector from "inflected";
 
-Inflector.pluralize("Category");
-Inflector.singularize("Categories");
-Inflector.camelize("nerd_bar", false);
-Inflector.underscore('FooBar')      // => 'foo_bar'
-//Inflector.humanize('employee_salary')                   // => 'Employee salary'
-//Inflector.humanize('author_id')                         // => 'Author'
-Inflector.humanize('author_id', { capitalize: false })  // => 'author'
+Inflector.pluralize("post");
+Inflector.pluralize("ley", "es");
 
-Inflector.titleize('man from the boondocks')   // => 'Man From The Boondocks'
-Inflector.titleize('x-men: the last stand')    // => 'X Men: The Last Stand'
-Inflector.titleize('TheManWithoutAPast')       // => 'The Man Without A Past'
-Inflector.titleize('raiders_of_the_lost_ark')  // => 'Raiders Of The Lost Ark'
+Inflector.singularize("posts");
+Inflector.singularize("leyes", "es");
 
-Inflector.tableize('RawScaledScorer')  // => 'raw_scaled_scorers'
-Inflector.tableize('egg_and_ham')      // => 'egg_and_hams'
-Inflector.tableize('fancyCategory')    // => 'fancy_categories'
+Inflector.camelize("foo_bar");
+Inflector.camelize("foo_bar", false);
 
-Inflector.classify('egg_and_hams')  // => 'EggAndHam'
-Inflector.classify('posts')         // => 'Post'
+Inflector.underscore("FooBar"); // => 'foo_bar'
 
-Inflector.dasherize('puni_puni')  // => 'puni-puni'
+Inflector.humanize("author_id");
+Inflector.humanize("author_id", {});
+Inflector.humanize("author_id", { capitalize: false });
 
-Inflector.foreignKey('Message')         // => 'message_id'
-Inflector.foreignKey('Message', false)  // => 'messageid'
+Inflector.titleize("man from the boondocks");
 
-Inflector.ordinal(1)      // => 'st'
-Inflector.ordinal(2)      // => 'nd'
-Inflector.ordinal(1002)   // => 'nd'
-Inflector.ordinal(1003)   // => 'rd'
-Inflector.ordinal(-11)    // => 'th'
-Inflector.ordinal(-1021)  // => 'st'
+Inflector.tableize("RawScaledScorer");
 
-Inflector.ordinalize(1)      // => '1st'
-Inflector.ordinalize(2)      // => '2nd'
-Inflector.ordinalize(1002)   // => '1002nd'
-Inflector.ordinalize(1003)   // => '1003rd'
-Inflector.ordinalize(-11)    // => '-11th'
-Inflector.ordinalize(-1021)  // => '-1021st'
+Inflector.classify("posts");
 
-Inflector.transliterate('Ærøskøbing')  // => 'AEroskobing'
+Inflector.dasherize("puni_puni");
 
-Inflector.parameterize('Donald E. Knuth')                      // => 'donald-e-knuth'
-Inflector.parameterize('Donald E. Knuth', { separator: '+' })  // => 'donald+e+knuth'
+Inflector.foreignKey("Message");
+Inflector.foreignKey("Message", false);
 
+Inflector.ordinal(1);
+
+Inflector.ordinalize(1);
+
+Inflector.inflections("en", ({ acronym, clear, human, irregular, plural, singular, uncountable }) => {
+    acronym("API");
+
+    clear();
+    clear("all");
+
+    human("col_rpted_bugs", "Reported bugs");
+    human(/_cnt$/i, "_count");
+
+    irregular("octopus", "octopi");
+
+    plural(/^(ox)$/i, "$1$2en");
+    plural("oxen");
+
+    singular(/^(ox)en/i, "$1");
+    singular("ox");
+
+    uncountable("equipment");
+    uncountable("equipment", "snow");
+});
+Inflector.inflections(({}) => {});
+Inflector.inflections("en");
+Inflector.inflections();
+
+Inflector.transliterate("Ærøskøbing");
+
+Inflector.transliterations("de", ({ approximate }) => {
+    approximate("ü", "ue");
+});
+Inflector.transliterations(() => {});
+Inflector.transliterations("de");
+Inflector.transliterations();
+
+Inflector.parameterize("Donald E. Knuth");
+Inflector.parameterize("Donald E. Knuth", {});
+Inflector.parameterize("Donald E. Knuth", { preserveCase: true });
+Inflector.parameterize("Donald E. Knuth", { separator: "+" });
+Inflector.parameterize("Donald E. Knuth", { preserveCase: true, separator: "+" });
+
+Inflector.constantify("bankAccount");
+
+Inflector.capitalize("foo");
+Inflector.capitalize(null);
+Inflector.capitalize();

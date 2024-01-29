@@ -1,11 +1,12 @@
-import { createEncoderModule, createDecoderModule, EncoderModule, DecoderModule } from 'draco3d';
+import { createDecoderModule, createEncoderModule, DecoderModule, EncoderModule } from "draco3d";
 
 /* Encode */
 
 createEncoderModule().then((encoderModule: EncoderModule) => {
-    const encoder = new encoderModule.Encoder();
     const builder = new encoderModule.MeshBuilder();
     const mesh = new encoderModule.Mesh();
+    const encoder = new encoderModule.Encoder();
+    const expertEncoder = new encoderModule.ExpertEncoder(mesh);
     const dracoBuffer = new encoderModule.DracoInt8Array();
 
     builder.AddUInt8Attribute(mesh, 5120, 100, 3, new Uint8Array(10));
@@ -25,6 +26,49 @@ createEncoderModule().then((encoderModule: EncoderModule) => {
     encoder.SetEncodingMethod(encoderModule.MESH_EDGEBREAKER_ENCODING);
     encoder.EncodeMeshToDracoBuffer(mesh, dracoBuffer);
 
+    expertEncoder.SetSpeedOptions(5, 5);
+    expertEncoder.SetTrackEncodedProperties(true);
+    expertEncoder.SetEncodingMethod(encoderModule.MESH_EDGEBREAKER_ENCODING);
+    expertEncoder.EncodeToDracoBuffer(true, dracoBuffer);
+
+    let numVertices: number = encoder.GetNumberOfEncodedPoints();
+    let numIndices: number = encoder.GetNumberOfEncodedFaces() * 3;
+
+    numVertices = expertEncoder.GetNumberOfEncodedPoints();
+    numIndices = expertEncoder.GetNumberOfEncodedFaces() * 3;
+
+    encoderModule.destroy(dracoBuffer);
+    encoderModule.destroy(mesh);
+    encoderModule.destroy(builder);
+    encoderModule.destroy(encoder);
+    encoderModule.destroy(expertEncoder);
+});
+
+/* Encode (Expert) */
+
+createEncoderModule().then((encoderModule: EncoderModule) => {
+    const builder = new encoderModule.MeshBuilder();
+    const mesh = new encoderModule.Mesh();
+    const encoder = new encoderModule.ExpertEncoder(mesh);
+    const dracoBuffer = new encoderModule.DracoInt8Array();
+
+    builder.AddUInt8Attribute(mesh, 5120, 100, 3, new Uint8Array(10));
+    builder.AddInt8Attribute(mesh, 5120, 100, 3, new Int8Array(10));
+    builder.AddUInt16Attribute(mesh, 5120, 100, 3, new Uint16Array(10));
+    builder.AddInt16Attribute(mesh, 5120, 100, 3, new Int16Array(10));
+    builder.AddUInt32Attribute(mesh, 5120, 100, 3, new Uint32Array(10));
+    builder.AddFloatAttribute(mesh, 5120, 100, 3, new Float32Array(10));
+
+    encoder.SetAttributeQuantization(encoderModule.POSITION, 12);
+    encoder.SetAttributeExplicitQuantization(encoderModule.POSITION, 14, 2, [0, 0, 0], 10);
+
+    builder.AddFacesToMesh(mesh, 32, new Uint32Array(96));
+
+    encoder.SetSpeedOptions(5, 5);
+    encoder.SetTrackEncodedProperties(true);
+    encoder.SetEncodingMethod(encoderModule.MESH_EDGEBREAKER_ENCODING);
+    encoder.EncodeToDracoBuffer(true, dracoBuffer);
+
     const numVertices: number = encoder.GetNumberOfEncodedPoints();
     const numIndices: number = encoder.GetNumberOfEncodedFaces() * 3;
 
@@ -40,18 +84,20 @@ createDecoderModule().then((decoderModule: DecoderModule) => {
     const decoder = new decoderModule.Decoder();
     const buffer = new decoderModule.DecoderBuffer();
     buffer.Init(new Int8Array(100), 100);
+    const pointCloud = new decoderModule.PointCloud();
 
     try {
         const geometryType = decoder.GetEncodedGeometryType(buffer);
         if (geometryType !== decoderModule.TRIANGULAR_MESH) {
-            throw new Error('Unknown geometry type.');
+            throw new Error("Unknown geometry type.");
         }
 
         const mesh = new decoderModule.Mesh();
-        const status = decoder.DecodeBufferToMesh(buffer, mesh);
+        const numMeshPoints = pointCloud.num_points();
+        const meshStatus = decoder.DecodeBufferToMesh(buffer, mesh);
 
-        if (!status.ok() || mesh.ptr === 0) {
-            throw new Error('Decoding failure.' + status.error_msg());
+        if (!meshStatus.ok() || mesh.ptr === 0) {
+            throw new Error("Decoding failure." + meshStatus.error_msg());
         }
 
         // Indices.
@@ -68,6 +114,15 @@ createDecoderModule().then((decoderModule: DecoderModule) => {
 
         const attributeId = decoder.GetAttributeId(mesh, decoderModule.POSITION);
         const attribute2 = decoder.GetAttribute(mesh, attributeId);
+
+        const pointCloudStatus = decoder.DecodeBufferToPointCloud(buffer, pointCloud);
+
+        if (!pointCloudStatus.ok()) {
+            throw new Error("Decoding failure." + pointCloudStatus.error_msg());
+        }
+
+        const numAttributes = pointCloud.num_attributes();
+        const numPointCloudPoints = pointCloud.num_points();
 
         decoderModule._free(ptr);
     } finally {

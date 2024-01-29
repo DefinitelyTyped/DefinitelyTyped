@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/mongoose-autopopulate",
+    "version": "0.10.9999",
+    "projects": [
+        "https://github.com/mongodb-js/mongoose-autopopulate"
+    ],
     "dependencies": {
-        "@types/mongoose": "5.10.5"
-    }
+        "@types/node": "*",
+        "mongoose": "^6.3.0"
+    },
+    "devDependencies": {
+        "@types/mongoose-autopopulate": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ranjit Singh",
+            "githubUsername": "rann91"
+        }
+    ]
 }

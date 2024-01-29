@@ -1,5 +1,5 @@
-import * as React from 'react';
-import Flag from 'react-world-flags';
+import * as React from "react";
+import Flag from "react-world-flags";
 
 const tests = () => {
     return [

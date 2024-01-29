@@ -1,9 +1,8 @@
-import { Color } from './../math/Color';
-import { Texture } from './../textures/Texture';
-import { Vector2 } from './../math/Vector2';
-import { MaterialParameters, Material } from './Material';
-import { NormalMapTypes } from '../constants';
-import { ColorRepresentation } from '../utils';
+import { Color, ColorRepresentation } from '../math/Color.js';
+import { Texture } from '../textures/Texture.js';
+import { Vector2 } from '../math/Vector2.js';
+import { MaterialParameters, Material } from './Material.js';
+import { NormalMapTypes } from '../constants.js';
 
 export interface MeshMatcapMaterialParameters extends MaterialParameters {
     color?: ColorRepresentation | undefined;
@@ -18,12 +17,19 @@ export interface MeshMatcapMaterialParameters extends MaterialParameters {
     displacementScale?: number | undefined;
     displacementBias?: number | undefined;
     alphaMap?: Texture | null | undefined;
-
+    fog?: boolean | undefined;
     flatShading?: boolean | undefined;
 }
 
 export class MeshMatcapMaterial extends Material {
     constructor(parameters?: MeshMatcapMaterialParameters);
+
+    /**
+     * Read-only flag to check if a given object is of type {@link MeshMatcapMaterial}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isMeshMatcapMaterial: true;
 
     /**
      * @default 'MeshMatcapMaterial'
@@ -100,6 +106,12 @@ export class MeshMatcapMaterial extends Material {
      * @default false
      */
     flatShading: boolean;
+
+    /**
+     * Whether the material is affected by fog. Default is true.
+     * @default fog
+     */
+    fog: boolean;
 
     setValues(parameters: MeshMatcapMaterialParameters): void;
 }

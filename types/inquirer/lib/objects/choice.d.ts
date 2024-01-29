@@ -1,4 +1,4 @@
-import { Answers, CheckboxChoiceOptions, ExpandChoiceOptions, ListChoiceOptions } from '../..';
+import { Answers, CheckboxChoiceOptions, ExpandChoiceOptions, ListChoiceOptions } from "../../index.js";
 
 /**
  * Represents a choice for several question-types.
@@ -7,11 +7,12 @@ import { Answers, CheckboxChoiceOptions, ExpandChoiceOptions, ListChoiceOptions 
  * The type of the answers.
  */
 declare class Choice<T extends Answers = Answers>
-    implements ListChoiceOptions<T>, CheckboxChoiceOptions<T>, ExpandChoiceOptions {
+    implements ListChoiceOptions<T>, CheckboxChoiceOptions<T>, ExpandChoiceOptions
+{
     /**
      * @inheritdoc
      */
-    type?: 'choice' | undefined;
+    type?: "choice" | undefined;
 
     /**
      * @inheritdoc
@@ -51,7 +52,7 @@ declare class Choice<T extends Answers = Answers>
     extra?: any;
 
     /**
-     * Initializes a new instance of the `Choice` class.
+     * Initializes a new instance of the {@link Choice `Choice<T>`} class.
      *
      * @param value
      * The value of the choice.
@@ -62,4 +63,4 @@ declare class Choice<T extends Answers = Answers>
     constructor(value: any, answers: T);
 }
 
-export = Choice;
+export default Choice;

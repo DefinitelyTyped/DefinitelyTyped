@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/power-radix",
+    "version": "2.5.9999",
+    "projects": [
+        "https://github.com/cflynn07/power-radix"
+    ],
+    "devDependencies": {
+        "@types/power-radix": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

@@ -1,3 +1,3 @@
-import shebangCommand = require('shebang-command');
+import shebangCommand = require("shebang-command");
 
-shebangCommand('#!/usr/bin/env node'); // $ExpectType string | null
+shebangCommand("#!/usr/bin/env node"); // $ExpectType string | null

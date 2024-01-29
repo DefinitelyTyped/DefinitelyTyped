@@ -1,0 +1,38 @@
+{
+    "private": true,
+    "name": "@types/mapbox__mapbox-sdk",
+    "version": "0.14.9999",
+    "projects": [
+        "https://github.com/mapbox/mapbox-sdk-js"
+    ],
+    "dependencies": {
+        "@types/geojson": "*",
+        "@types/mapbox-gl": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/mapbox__mapbox-sdk": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jeff Dye",
+            "githubUsername": "jeffbdye"
+        },
+        {
+            "name": "Mike O'Meara",
+            "githubUsername": "mikeomeara1"
+        },
+        {
+            "name": "chachan",
+            "githubUsername": "chachan"
+        },
+        {
+            "name": "techieshark",
+            "githubUsername": "techieshark"
+        },
+        {
+            "name": "Robin Heinemann",
+            "githubUsername": "rroohhh"
+        }
+    ]
+}

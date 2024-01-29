@@ -1,14 +1,9 @@
-// Type definitions for creditkey-js 1.0
-// Project: https://github.com/creditkey/creditkey-js
-// Definitions by: Mike Bennett <https://github.com/Entroper>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-export type Platform = 'production' | 'staging' | 'development';
-export type Mode = 'modal' | 'redirect';
-export type Copy = 'checkout' | 'pdp';
-export type Display = 'button' | 'text' | 'button_text';
-export type Size = 'small' | 'medium' | 'large';
-export type Status = 'declined' | 'pending' | 'approved';
+export type Platform = "production" | "staging" | "development";
+export type Mode = "modal" | "redirect";
+export type Copy = "checkout" | "pdp";
+export type Display = "button" | "text" | "button_text";
+export type Size = "small" | "medium" | "large";
+export type Status = "declined" | "pending" | "approved";
 
 export function checkout(source: string, type: Mode): void;
 export function apply(key: string, type?: Mode, platform?: Platform): void;

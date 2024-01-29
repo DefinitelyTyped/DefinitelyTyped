@@ -1,4 +1,4 @@
-import * as m from '..';
+import * as m from "..";
 
 declare class AckExtension implements m.Extension {
     constructor();

@@ -1,60 +1,87 @@
-// Type definitions for When 2.4.0
-// Project: https://github.com/cujojs/when
-// Definitions by: Derek Cicerone <https://github.com/derekcicerone>, Wim Looman <https://github.com/Nemo157>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function When(): When.Promise<void>;
 declare function When<T>(promiseOrValue: T | When.Promise<T> | When.Thenable<T>): When.Promise<T>;
-declare function When<T, U>(promiseOrValue: T | When.Promise<T> | When.Thenable<T>, transform: (val: T) => U): When.Promise<U>;
+declare function When<T, U>(
+    promiseOrValue: T | When.Promise<T> | When.Thenable<T>,
+    transform: (val: T) => U,
+): When.Promise<U>;
 
 declare namespace When {
     // Helper interfaces
-    module _ {
-        interface Fn0<T> { (): T }
-        interface Fn1<A1, T> { (a1: A1): T }
-        interface Fn2<A1, A2, T> { (a1: A1, a2: A2): T }
-        interface Fn3<A1, A2, A3, T> { (a1: A1, a2: A2, a3: A3): T }
-        interface Fn4<A1, A2, A3, A4, T> { (a1: A1, a2: A2, a3: A3, a4: A4): T }
-        interface Fn5<A1, A2, A3, A4, A5, T> { (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5): T }
-        interface Fn6<A1, A2, A3, A4, A5, A6, T> { (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6): T }
+    namespace _ {
+        interface Fn0<T> {
+            (): T;
+        }
+        interface Fn1<A1, T> {
+            (a1: A1): T;
+        }
+        interface Fn2<A1, A2, T> {
+            (a1: A1, a2: A2): T;
+        }
+        interface Fn3<A1, A2, A3, T> {
+            (a1: A1, a2: A2, a3: A3): T;
+        }
+        interface Fn4<A1, A2, A3, A4, T> {
+            (a1: A1, a2: A2, a3: A3, a4: A4): T;
+        }
+        interface Fn5<A1, A2, A3, A4, A5, T> {
+            (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5): T;
+        }
+        interface Fn6<A1, A2, A3, A4, A5, A6, T> {
+            (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6): T;
+        }
 
-        interface LiftedFn0<T> extends Fn0<Promise<T>> { }
-        interface LiftedFn1<A1, T> extends Fn1<A1 | Promise<A1>, Promise<T>> { }
-        interface LiftedFn2<A1, A2, T> extends Fn2<A1 | Promise<A1>, A2 | Promise<A2>, Promise<T>> { }
-        interface LiftedFn3<A1, A2, A3, T> extends Fn3<A1 | Promise<A1>, A2 | Promise<A2>, A3 | Promise<A3>, Promise<T>> { }
-        interface LiftedFn4<A1, A2, A3, A4, T> extends Fn4<A1 | Promise<A1>, A2 | Promise<A2>, A3 | Promise<A3>, A4 | Promise<A4>, Promise<T>> { }
-        interface LiftedFn5<A1, A2, A3, A4, A5, T> extends Fn5<A1 | Promise<A1>, A2 | Promise<A2>, A3 | Promise<A3>, A4 | Promise<A4>, A5 | Promise<A5>, Promise<T>> { }
+        interface LiftedFn0<T> extends Fn0<Promise<T>> {}
+        interface LiftedFn1<A1, T> extends Fn1<A1 | Promise<A1>, Promise<T>> {}
+        interface LiftedFn2<A1, A2, T> extends Fn2<A1 | Promise<A1>, A2 | Promise<A2>, Promise<T>> {}
+        interface LiftedFn3<A1, A2, A3, T>
+            extends Fn3<A1 | Promise<A1>, A2 | Promise<A2>, A3 | Promise<A3>, Promise<T>>
+        {}
+        interface LiftedFn4<A1, A2, A3, A4, T>
+            extends Fn4<A1 | Promise<A1>, A2 | Promise<A2>, A3 | Promise<A3>, A4 | Promise<A4>, Promise<T>>
+        {}
+        interface LiftedFn5<A1, A2, A3, A4, A5, T> extends
+            Fn5<
+                A1 | Promise<A1>,
+                A2 | Promise<A2>,
+                A3 | Promise<A3>,
+                A4 | Promise<A4>,
+                A5 | Promise<A5>,
+                Promise<T>
+            >
+        {}
 
-        interface NodeCallback<T> { (err: any, result: T): void }
+        interface NodeCallback<T> {
+            (err: any, result: T): void;
+        }
 
-        interface NodeFn0<T> extends _.Fn1<NodeCallback<T>, void> { }
-        interface NodeFn1<A1, T> extends _.Fn2<A1, NodeCallback<T>, void> { }
-        interface NodeFn2<A1, A2, T> extends _.Fn3<A1, A2, NodeCallback<T>, void> { }
-        interface NodeFn3<A1, A2, A3, T> extends _.Fn4<A1, A2, A3, NodeCallback<T>, void> { }
-        interface NodeFn4<A1, A2, A3, A4, T> extends _.Fn5<A1, A2, A3, A4, NodeCallback<T>, void> { }
-        interface NodeFn5<A1, A2, A3, A4, A5, T> extends _.Fn6<A1, A2, A3, A4, A5, NodeCallback<T>, void> { }
+        interface NodeFn0<T> extends _.Fn1<NodeCallback<T>, void> {}
+        interface NodeFn1<A1, T> extends _.Fn2<A1, NodeCallback<T>, void> {}
+        interface NodeFn2<A1, A2, T> extends _.Fn3<A1, A2, NodeCallback<T>, void> {}
+        interface NodeFn3<A1, A2, A3, T> extends _.Fn4<A1, A2, A3, NodeCallback<T>, void> {}
+        interface NodeFn4<A1, A2, A3, A4, T> extends _.Fn5<A1, A2, A3, A4, NodeCallback<T>, void> {}
+        interface NodeFn5<A1, A2, A3, A4, A5, T> extends _.Fn6<A1, A2, A3, A4, A5, NodeCallback<T>, void> {}
     }
 
     function attempt<T>(
-        f: _.Fn0<T>
+        f: _.Fn0<T>,
     ): Promise<T>;
 
     function attempt<A1, T>(
         f: _.Fn1<A1, T>,
-        arg1: A1 | Promise<A1>
+        arg1: A1 | Promise<A1>,
     ): Promise<T>;
 
     function attempt<A1, A2, T>(
         f: _.Fn2<A1, A2, T>,
         arg1: A1 | Promise<A1>,
-        arg2: A2 | Promise<A2>
+        arg2: A2 | Promise<A2>,
     ): Promise<T>;
 
     function attempt<A1, A2, A3, T>(
         f: _.Fn3<A1, A2, A3, T>,
         arg1: A1 | Promise<A1>,
         arg2: A2 | Promise<A2>,
-        arg3: A3 | Promise<A3>
+        arg3: A3 | Promise<A3>,
     ): Promise<T>;
 
     function attempt<A1, A2, A3, A4, T>(
@@ -62,7 +89,7 @@ declare namespace When {
         arg1: A1 | Promise<A1>,
         arg2: A2 | Promise<A2>,
         arg3: A3 | Promise<A3>,
-        arg4: A4 | Promise<A4>
+        arg4: A4 | Promise<A4>,
     ): Promise<T>;
 
     function attempt<A1, A2, A3, A4, A5, T>(
@@ -71,9 +98,8 @@ declare namespace When {
         arg2: A2 | Promise<A2>,
         arg3: A3 | Promise<A3>,
         arg4: A4 | Promise<A4>,
-        arg5: A5 | Promise<A5>
+        arg5: A5 | Promise<A5>,
     ): Promise<T>;
-
 
     function lift<T>(f: _.Fn0<T>): _.LiftedFn0<T>;
     function lift<A1, T>(f: _.Fn1<A1, T>): _.LiftedFn1<A1, T>;
@@ -90,7 +116,6 @@ declare namespace When {
      * Return a promise that will resolve only once all the supplied promisesOrValues
      * have resolved. The resolution value of the returned promise will be an array
      * containing the resolution values of each of the promisesOrValues.
-     * @memberOf when
      *
      * @param promisesOrValues array of anything, may contain a mix
      *      of {@link Promise}s and values
@@ -117,7 +142,11 @@ declare namespace When {
      * @param reduceFunc function(accumulated:*, x:*, index:number):*} f reduce function
      * @returns a promise that will resolve to the final reduced value
      */
-    function reduce<T>(promisesOrValues: any[], reduceFunc: (reduction: T, value: any, index: number) => T | Promise<T>, initialValue: T): Promise<T>;
+    function reduce<T>(
+        promisesOrValues: any[],
+        reduceFunc: (reduction: T, value: any, index: number) => T | Promise<T>,
+        initialValue: T,
+    ): Promise<T>;
 
     /**
      * Traditional reduce function, similar to `Array.prototype.reduceRight()`, but
@@ -129,7 +158,11 @@ declare namespace When {
      * @param reduceFunc function(accumulated:*, x:*, index:number):*} f reduce function
      * @returns a promise that will resolve to the final reduced value
      */
-    function reduceRight<T>(promisesOrValues: any[], reduceFunc: (reduction: T, value: any, index: number) => T | Promise<T>, initialValue: T): Promise<T>;
+    function reduceRight<T>(
+        promisesOrValues: any[],
+        reduceFunc: (reduction: T, value: any, index: number) => T | Promise<T>,
+        initialValue: T,
+    ): Promise<T>;
 
     /**
      * Describes the outcome of a promise.
@@ -149,15 +182,15 @@ declare namespace When {
     type Snapshot<T> = FulfilledDescriptor<T> | RejectedDescriptor | PendingDescriptor;
 
     interface FulfilledDescriptor<T> {
-        state: 'fulfilled';
+        state: "fulfilled";
         value: T;
     }
     interface RejectedDescriptor {
-        state: 'rejected';
+        state: "rejected";
         reason: any;
     }
     interface PendingDescriptor {
-        state: 'pending';
+        state: "pending";
     }
 
     /**
@@ -166,31 +199,30 @@ declare namespace When {
      * The returned promise will only reject if array itself is a rejected promise. Otherwise,
      * it will always fulfill with an array of descriptors. This is in contrast to when.all,
      * which will reject if any element of array rejects.
-     * @memberOf when
      *
      * @param promisesOrValues array of anything, may contain a mix
      *      of {@link Promise}s and values
      */
-    function settle<T>(promisesOrValues: any[]): Promise<Descriptor<T>[]>;
+    function settle<T>(promisesOrValues: any[]): Promise<Array<Descriptor<T>>>;
 
     /**
      * Generates a potentially infinite stream of promises by repeatedly calling f until predicate becomes true.
-     * @memberOf when
      * @param f function that, given a seed, returns the next value or a promise for it.
      * @param predicate function that receives the current iteration value, and should return truthy when the iterating should stop
      * @param handler function that receives each value as it is produced by f. It may return a promise to delay the next iteration.
      * @param seed initial value provided to the handler, and first f invocation. May be a promise.
      */
-    function iterate<U>(f: (seed: U) => U | Promise<U>,
-                        predicate: (value: U) => boolean,
-                        handler: (value: U) => Promise<any> | void,
-                        seed: U | Promise<U>): Promise<U>;
-
+    function iterate<U>(
+        f: (seed: U) => U | Promise<U>,
+        predicate: (value: U) => boolean,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        handler: (value: U) => Promise<any> | void,
+        seed: U | Promise<U>,
+    ): Promise<U>;
 
     /**
      * Similar to when/iterate, when.unfold generates a potentially infinite stream of promises by repeatedly calling
      * unspool until predicate becomes true. when.unfold allows you to thread additional state information through the iteration.
-     * @memberOf when
      * @param unspool function that, given a seed, returns a [valueToSendToHandler, newSeed] pair.
      * May return an array, array of promises, promise for an array, or promise for an array of promises.
      * @param predicate function that receives the current seed, and should return truthy when the unfold should stop
@@ -199,10 +231,13 @@ declare namespace When {
      * It may return a promise to delay the next iteration of the unfold.
      * @param seed initial value provided to the first unspool invocation. May be a promise.
      */
-    function unfold<T, U>(unspool: (seed: U) => [T | Promise<T>, U | Promise<U>] | Promise<[T | Promise<T>, U | Promise<U>]>,
-                          predicate: (value: U) => boolean | Promise<boolean>,
-                          handler: (value: T) => Promise<any> | void,
-                          seed: U | Promise<U>): Promise<void>;
+    function unfold<T, U>(
+        unspool: (seed: U) => [T | Promise<T>, U | Promise<U>] | Promise<[T | Promise<T>, U | Promise<U>]>,
+        predicate: (value: U) => boolean | Promise<boolean>,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        handler: (value: T) => Promise<any> | void,
+        seed: U | Promise<U>,
+    ): Promise<void>;
 
     /**
      * Creates a {promise, resolver} pair, either or both of which
@@ -217,7 +252,7 @@ declare namespace When {
      * @return a promise that will fulfill when *all* the input promises
      * have fulfilled, or will reject when *any one* of the input promises rejects.
      */
-    function join<T>(...promises: Promise<T>[]): Promise<T[]>;
+    function join<T>(...promises: Array<Promise<T>>): Promise<T[]>;
     /**
      * Joins multiple promises into a single returned promise.
      * @return a promise that will fulfill when *all* the input promises
@@ -281,24 +316,24 @@ declare namespace When {
         otherwise<U>(exceptionType: any, onRejected?: (reason: any) => U | Promise<U>): Promise<U>;
 
         then<TResult1, TResult2>(
-            onFulfilled: ((value: T) => TResult1 | Thenable<TResult1>),
-            onRejected: ((reason: any) => TResult2 | Thenable<TResult2>),
-            onProgress?: (update: any) => void
+            onFulfilled: (value: T) => TResult1 | Thenable<TResult1>,
+            onRejected: (reason: any) => TResult2 | Thenable<TResult2>,
+            onProgress?: (update: any) => void,
         ): Promise<TResult1 | TResult2>;
         then<TResult>(
-            onFulfilled: ((value: T) => TResult | Thenable<TResult>),
+            onFulfilled: (value: T) => TResult | Thenable<TResult>,
             onRejected?: ((reason: any) => TResult | Thenable<TResult>) | null,
-            onProgress?: (update: any) => void
+            onProgress?: (update: any) => void,
         ): Promise<TResult>;
         then<TResult>(
             onFulfilled: ((value: T) => T | Thenable<T>) | undefined | null,
-            onRejected: ((reason: any) => TResult | Thenable<TResult>),
-            onProgress?: (update: any) => void
+            onRejected: (reason: any) => TResult | Thenable<TResult>,
+            onProgress?: (update: any) => void,
         ): Promise<T | TResult>;
         then(
             onFulfilled?: ((value: T) => T | Thenable<T>) | null,
             onRejected?: ((reason: any) => T | Thenable<T>) | null,
-            onProgress?: (update: any) => void
+            onProgress?: (update: any) => void,
         ): Promise<T>;
 
         spread<T>(onFulfilled: _.Fn0<Promise<T> | T>): Promise<T>;
@@ -323,7 +358,7 @@ declare module "when" {
 }
 
 declare module "when/node" {
-    import when = require('when');
+    import when = require("when");
     import _ = when._;
 
     function lift<T>(fn: _.NodeFn0<T>): _.LiftedFn0<T>;
@@ -333,27 +368,26 @@ declare module "when/node" {
     function lift<A1, A2, A3, A4, T>(fn: _.NodeFn4<A1, A2, A3, A4, T>): _.LiftedFn4<A1, A2, A3, A4, T>;
     function lift<A1, A2, A3, A4, A5, T>(fn: _.NodeFn5<A1, A2, A3, A4, A5, T>): _.LiftedFn5<A1, A2, A3, A4, A5, T>;
 
-
     function call<T>(
-        fn: _.NodeFn0<T>
+        fn: _.NodeFn0<T>,
     ): when.Promise<T>;
 
     function call<A1, T>(
         fn: _.NodeFn1<A1, T>,
-        arg1: A1 | when.Promise<A1>
+        arg1: A1 | when.Promise<A1>,
     ): when.Promise<T>;
 
     function call<A1, A2, T>(
         fn: _.NodeFn2<A1, A2, T>,
         arg1: A1 | when.Promise<A1>,
-        arg2: A2 | when.Promise<A2>
+        arg2: A2 | when.Promise<A2>,
     ): when.Promise<T>;
 
     function call<A1, A2, A3, T>(
         fn: _.NodeFn3<A1, A2, A3, T>,
         arg1: A1 | when.Promise<A1>,
         arg2: A2 | when.Promise<A2>,
-        arg3: A3 | when.Promise<A3>
+        arg3: A3 | when.Promise<A3>,
     ): when.Promise<T>;
 
     function call<A1, A2, A3, A4, T>(
@@ -361,7 +395,7 @@ declare module "when/node" {
         arg1: A1 | when.Promise<A1>,
         arg2: A2 | when.Promise<A2>,
         arg3: A3 | when.Promise<A3>,
-        arg4: A4 | when.Promise<A4>
+        arg4: A4 | when.Promise<A4>,
     ): when.Promise<T>;
 
     function call<A1, A2, A3, A4, A5, T>(
@@ -370,9 +404,8 @@ declare module "when/node" {
         arg2: A2 | when.Promise<A2>,
         arg3: A3 | when.Promise<A3>,
         arg4: A4 | when.Promise<A4>,
-        arg5: A5 | when.Promise<A5>
+        arg5: A5 | when.Promise<A5>,
     ): when.Promise<T>;
-
 
     function apply<T>(fn: _.NodeFn0<T>, args: any[] | IArguments): when.Promise<T>;
     function apply<T>(fn: _.NodeFn1<any, T>, args: any[] | IArguments): when.Promise<T>;
@@ -381,15 +414,17 @@ declare module "when/node" {
     function apply<T>(fn: _.NodeFn4<any, any, any, any, T>, args: any[] | IArguments): when.Promise<T>;
     function apply<T>(fn: _.NodeFn5<any, any, any, any, any, T>, args: any[] | IArguments): when.Promise<T>;
 
+    function liftAll(
+        srcApi: any,
+        transform?: (destApi: any, liftedFunc: Function, name: string) => any,
+        destApi?: any,
+    ): any;
 
-    function liftAll(srcApi: any, transform?: (destApi: any, liftedFunc: Function, name: string) => any, destApi?: any): any;
-
-
-    function liftCallback<TArg>(callback: (err: any, arg: TArg) => void): (value: when.Promise<TArg>) => when.Promise<TArg>;
-
+    function liftCallback<TArg>(
+        callback: (err: any, arg: TArg) => void,
+    ): (value: when.Promise<TArg>) => when.Promise<TArg>;
 
     function bindCallback<TArg>(arg: when.Promise<TArg>, callback: (err: any, arg: TArg) => void): when.Promise<TArg>;
-
 
     interface Resolver<T> {
         reject(reason: any): void;

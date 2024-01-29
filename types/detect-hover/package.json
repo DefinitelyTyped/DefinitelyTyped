@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/detect-hover",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/rafrex/detect-hover#readme"
+    ],
+    "devDependencies": {
+        "@types/detect-hover": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Thomas Tilkema",
+            "githubUsername": "thomastilkema"
+        }
+    ]
+}

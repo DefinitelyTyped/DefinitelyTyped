@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/koa-xml-body",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/creeperyang/koa-xml-body"
+    ],
+    "dependencies": {
+        "@types/koa": "*",
+        "@types/xml2js": "*"
+    },
+    "devDependencies": {
+        "@types/koa-xml-body": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ulf Winkelvos",
+            "githubUsername": "uwinkelvos"
+        }
+    ]
+}

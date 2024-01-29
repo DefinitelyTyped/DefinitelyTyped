@@ -1,9 +1,3 @@
-// Type definitions for react-facebook-login 4.1
-// Project: https://github.com/keppelen/react-facebook-login
-// Definitions by: Alexandre Paré <https://github.com/apare>, Jan Karres <https://github.com/jankarres>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export interface ReactFacebookLoginProps {
@@ -48,14 +42,16 @@ export interface ReactFacebookLoginInfo {
     accessToken: string;
     name?: string | undefined;
     email?: string | undefined;
-    picture?: {
-        data: {
-          height?: number | undefined,
-          is_silhouette?: boolean | undefined,
-          url?: string | undefined,
-          width?: number | undefined,
-      },
-    } | undefined;
+    picture?:
+        | {
+            data: {
+                height?: number | undefined;
+                is_silhouette?: boolean | undefined;
+                url?: string | undefined;
+                width?: number | undefined;
+            };
+        }
+        | undefined;
 }
 
 export interface ReactFacebookLoginState {
@@ -63,7 +59,4 @@ export interface ReactFacebookLoginState {
     isProcessing?: boolean | undefined;
 }
 
-export default class ReactFacebookLogin extends React.Component<
-    ReactFacebookLoginProps,
-    ReactFacebookLoginState
-> {}
+export default class ReactFacebookLogin extends React.Component<ReactFacebookLoginProps, ReactFacebookLoginState> {}

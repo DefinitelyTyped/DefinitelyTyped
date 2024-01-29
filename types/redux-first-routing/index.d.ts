@@ -1,24 +1,18 @@
-// Type definitions for redux-first-routing 0.3
-// Project: https://github.com/mksarge/redux-first-routing
-// Definitions by: Tomek Łaziuk <https://github.com/tlaziuk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import createBrowserHistory from 'history/createBrowserHistory';
-import { History, Pathname, Search, Hash, Path, LocationDescriptorObject } from 'history';
-import { Action, Store, Reducer, Middleware } from 'redux';
+import { Hash, History, LocationDescriptorObject, Path, Pathname, Search } from "history";
+import createBrowserHistory from "history/createBrowserHistory";
+import { Action, Middleware, Reducer, Store } from "redux";
 
 export { createBrowserHistory };
 
 export function startListener(history: History, store: Store): void;
 
 // constants
-export const PUSH: 'ROUTER/PUSH';
-export const REPLACE: 'ROUTER/REPLACE';
-export const GO: 'ROUTER/GO';
-export const GO_BACK: 'ROUTER/GO_BACK';
-export const GO_FORWARD: 'ROUTER/GO_FORWARD';
-export const LOCATION_CHANGE: 'ROUTER/LOCATION_CHANGE';
+export const PUSH: "ROUTER/PUSH";
+export const REPLACE: "ROUTER/REPLACE";
+export const GO: "ROUTER/GO";
+export const GO_BACK: "ROUTER/GO_BACK";
+export const GO_FORWARD: "ROUTER/GO_FORWARD";
+export const LOCATION_CHANGE: "ROUTER/LOCATION_CHANGE";
 
 // actions
 export interface pushAction<T extends Path | LocationDescriptorObject> extends Action<typeof PUSH> {
@@ -42,15 +36,19 @@ export function goBack(): goBackAction;
 export type goForwardAction = Action<typeof GO_FORWARD>;
 export function goForward(): goForwardAction;
 
-export interface locationChangeAction<P extends Pathname, S extends Search, H extends Hash> extends Action<typeof LOCATION_CHANGE> {
+export interface locationChangeAction<P extends Pathname, S extends Search, H extends Hash>
+    extends Action<typeof LOCATION_CHANGE>
+{
     payload: {
         pathname: P;
         search: S;
-        queries: any,
-        hash: H,
+        queries: any;
+        hash: H;
     };
 }
-export function locationChange<P extends Pathname, S extends Search, H extends Hash>(_: { pathname: P, search: S, hash: H }): locationChangeAction<P, S, H>;
+export function locationChange<P extends Pathname, S extends Search, H extends Hash>(
+    _: { pathname: P; search: S; hash: H },
+): locationChangeAction<P, S, H>;
 
 export interface State {
     pathname: Pathname;

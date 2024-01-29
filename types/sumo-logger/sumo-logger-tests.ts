@@ -1,11 +1,11 @@
-import SumoLogger = require('sumo-logger');
-import expect = require('expect');
+import SumoLogger = require("sumo-logger");
+import expect = require("expect");
 
 const onErrorSpy = expect.createSpy();
 const onSuccessSpy = expect.createSpy();
 
 const logger = new SumoLogger({
-    endpoint: 'http://example.com/',
+    endpoint: "http://example.com/",
     onSuccess: onSuccessSpy,
     onError: onErrorSpy,
 });
@@ -16,8 +16,8 @@ expect(logger.emptyLogQueue).toExist();
 expect(logger.startLogSending).toExist();
 expect(logger.stopLogSending).toExist();
 
-logger.log('message');
-logger.log({ json: 'object' });
+logger.log("message");
+logger.log({ json: "object" });
 
 expect(onErrorSpy).toHaveBeenCalled();
 expect(onErrorSpy.calls.length).toBe(2);

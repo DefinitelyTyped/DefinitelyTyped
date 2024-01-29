@@ -63,7 +63,7 @@ declare namespace M {
          * Defines the edge the menu is aligned to
          * @default 'left'
          */
-        alignment: 'left' | 'right';
+        alignment: "left" | "right";
 
         /**
          * If true, automatically focus dropdown el for keyboard

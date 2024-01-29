@@ -1,11 +1,5 @@
-// Type definitions for redux-first-router-link 1.4
-// Project: https://github.com/faceyspacey/redux-first-router-link#readme
-// Definitions by: janb87 <https://github.com/janb87>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
-import { Location } from 'redux-first-router';
+import { Location } from "redux-first-router";
 
 export type To = string | string[] | object;
 
@@ -25,6 +19,7 @@ export interface LinkProps extends React.HTMLAttributes<HTMLElement> {
     down?: boolean | undefined;
     shouldDispatch?: boolean | undefined;
     target?: string | undefined;
+    children?: React.ReactNode;
 }
 
 export default class Link extends React.Component<LinkProps> {}
@@ -35,6 +30,7 @@ export interface NavLinkProps extends LinkProps {
     ariaCurrent?: string | undefined;
     exact?: boolean | undefined;
     strict?: boolean | undefined;
+    children?: React.ReactNode;
     isActive?(match: Match<object>, location: Location): boolean;
 }
 

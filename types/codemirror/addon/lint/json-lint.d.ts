@@ -1,6 +1,6 @@
-import { Linter } from './lint';
+import { Linter } from "./lint";
 
-declare module '../../' {
+declare module "../../" {
     namespace lint {
         const json: Linter<{}>;
     }

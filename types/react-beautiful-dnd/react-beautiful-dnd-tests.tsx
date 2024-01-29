@@ -1,7 +1,10 @@
-import * as React from 'react';
+import * as React from "react";
 import {
     DragDropContext,
     Draggable,
+    DraggableProvided,
+    DraggableRubric,
+    DraggableStateSnapshot,
     DragStart,
     DragUpdate,
     Droppable,
@@ -12,8 +15,7 @@ import {
     useKeyboardSensor,
     useMouseSensor,
     useTouchSensor,
-} from 'react-beautiful-dnd';
-import * as ReactDOM from 'react-dom';
+} from "react-beautiful-dnd";
 
 interface Item {
     id: string;
@@ -35,14 +37,8 @@ const reorder = (list: any[], startIndex: number, endIndex: number) => {
     return result;
 };
 
-const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
-    userSelect: 'none',
-    background: isDragging ? 'lightgreen' : 'grey',
-    ...draggableStyle,
-});
-
 const getListStyle = (snapshot: DroppableStateSnapshot) => ({
-    background: snapshot.draggingFromThisWith ? 'lightpink' : snapshot.isDraggingOver ? 'lightblue' : 'lightgrey',
+    background: snapshot.draggingFromThisWith ? "lightpink" : snapshot.isDraggingOver ? "lightblue" : "lightgrey",
     width: 250,
 });
 
@@ -57,6 +53,7 @@ class App extends React.Component<{}, AppState> {
     constructor(props: any) {
         super(props);
         this.onDragEnd = this.onDragEnd.bind(this);
+        this.renderItem = this.renderItem.bind(this);
     }
 
     onBeforeDragStart(dragStart: DragStart) {
@@ -89,6 +86,28 @@ class App extends React.Component<{}, AppState> {
         this.setState({ items });
     }
 
+    renderItem(provided: DraggableProvided, snapshot: DraggableStateSnapshot, rubric: DraggableRubric) {
+        const { innerRef, draggableProps, dragHandleProps } = provided;
+        const item = this.state.items[rubric.source.index];
+        return (
+            <div>
+                <div
+                    ref={innerRef}
+                    {...draggableProps}
+                    {...dragHandleProps}
+                    style={{
+                        ...draggableProps.style,
+                        userSelect: "none",
+                        background: snapshot.isDragging ? "lightgreen" : "grey",
+                        boxShadow: snapshot.isClone ? "inset 0px 0px 0px 2px blue" : "none",
+                    }}
+                >
+                    {item.content}
+                </div>
+            </div>
+        );
+    }
+
     render() {
         return (
             <DragDropContext
@@ -99,30 +118,27 @@ class App extends React.Component<{}, AppState> {
                 dragHandleUsageInstructions="Some instruction"
                 enableDefaultSensors={false}
                 sensors={[useMouseSensor, useKeyboardSensor, useTouchSensor]}
+                nonce="1234"
             >
-                <Droppable droppableId='droppable' ignoreContainerClipping={false} isCombineEnabled={true}>
+                <Droppable
+                    droppableId="droppable"
+                    ignoreContainerClipping={false}
+                    isCombineEnabled={true}
+                    renderClone={this.renderItem}
+                    getContainerForClone={() => document.body}
+                >
                     {(droppableProvided, snapshot) => {
                         const { innerRef, droppableProps, placeholder } = droppableProvided;
                         return (
                             <div ref={innerRef} style={getListStyle(snapshot)} {...droppableProps}>
                                 {this.state.items.map((item, index) => (
-                                    <Draggable key={item.id} draggableId={item.id} index={index}
-                                               shouldRespectForcePress>
-                                        {(draggableProvided, snapshot) => {
-                                            const { innerRef, draggableProps, dragHandleProps } = draggableProvided;
-                                            return (
-                                                <div>
-                                                    <div
-                                                        ref={innerRef}
-                                                        {...draggableProps}
-                                                        {...dragHandleProps}
-                                                        style={getItemStyle(snapshot.isDragging, draggableProps.style)}
-                                                    >
-                                                        {item.content}
-                                                    </div>
-                                                </div>
-                                            );
-                                        }}
+                                    <Draggable
+                                        key={item.id}
+                                        draggableId={item.id}
+                                        index={index}
+                                        shouldRespectForcePress
+                                    >
+                                        {this.renderItem}
                                     </Draggable>
                                 ))}
                                 {placeholder}
@@ -135,6 +151,6 @@ class App extends React.Component<{}, AppState> {
     }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+<App />;
 
 resetServerContext();

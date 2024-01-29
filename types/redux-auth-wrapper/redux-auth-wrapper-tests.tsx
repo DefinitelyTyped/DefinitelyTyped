@@ -1,21 +1,18 @@
+import { LocationDescriptorObject } from "history";
 import * as React from "react";
 import { Component, FunctionComponent } from "react";
-import { createStore } from "redux";
 import { push } from "react-router-redux";
-import { LocationDescriptorObject } from "history";
+import { createStore } from "redux";
 
-import {
-    connectedRouterRedirect  as H3connectedRouterRedirect,
-    connectedReduxRedirect  as H3connectedReduxRedirect,
-    createOnEnter
-} from "redux-auth-wrapper/history3/redirect";
 import H3locationHelperBuilder from "redux-auth-wrapper/history3/locationHelper";
-
 import {
-    connectedRouterRedirect,
-    connectedReduxRedirect
-} from "redux-auth-wrapper/history4/redirect";
+    connectedReduxRedirect as H3connectedReduxRedirect,
+    connectedRouterRedirect as H3connectedRouterRedirect,
+    createOnEnter,
+} from "redux-auth-wrapper/history3/redirect";
+
 import locationHelperBuilder from "redux-auth-wrapper/history4/locationHelper";
+import { connectedReduxRedirect, connectedRouterRedirect } from "redux-auth-wrapper/history4/redirect";
 
 import authWrapper from "redux-auth-wrapper/authWrapper";
 import connectedAuthWrapper from "redux-auth-wrapper/connectedAuthWrapper";
@@ -42,15 +39,15 @@ H3connectedRouterRedirect({
     AuthenticatingComponent: "div",
     wrapperDisplayName: "Auth",
     allowRedirectBack: true,
-    redirectQueryParamName: "redirect"
+    redirectQueryParamName: "redirect",
 })(
     ({
         foo,
         isAuthenticated,
         isAuthenticating,
         redirect,
-        redirectPath
-    }) => null
+        redirectPath,
+    }) => null,
 );
 
 H3connectedReduxRedirect({
@@ -60,14 +57,14 @@ H3connectedReduxRedirect({
     AuthenticatingComponent: "div",
     wrapperDisplayName: "Auth",
     allowRedirectBack: boolSelector,
-    redirectQueryParamName: "redirect"
+    redirectQueryParamName: "redirect",
 })(
     ({
         foo,
         isAuthenticated,
         isAuthenticating,
-        redirectPath
-    }) => null
+        redirectPath,
+    }) => null,
 );
 
 const store = createStore(() => ({}));
@@ -77,16 +74,16 @@ const enter = createOnEnter({
     authenticatedSelector: boolStateSelector,
     authenticatingSelector: boolStateSelector,
     allowRedirectBack: true,
-    redirectQueryParamName: "redirect"
+    redirectQueryParamName: "redirect",
 });
-enter(store, { foo : "bar" }, (location: LocationDescriptorObject) => {});
+enter(store, { foo: "bar" }, (location: LocationDescriptorObject) => {});
 
 const H3helper = H3locationHelperBuilder<TestComponentProps>({
     redirectQueryParamName: "redirect",
-    locationSelector: ({ foo }) => ({ pathname : "foo" })
+    locationSelector: ({ foo }) => ({ pathname: "foo" }),
 });
-H3helper.getRedirectQueryParam({ foo : "bar" });
-H3helper.createRedirectLoc({ foo : "bar" }, "redirect");
+H3helper.getRedirectQueryParam({ foo: "bar" });
+H3helper.createRedirectLoc({ foo: "bar" }, "redirect");
 
 /* History 4 */
 
@@ -97,15 +94,15 @@ connectedRouterRedirect({
     AuthenticatingComponent: (props: any) => null,
     wrapperDisplayName: "Auth",
     allowRedirectBack: true,
-    redirectQueryParamName: "redirect"
+    redirectQueryParamName: "redirect",
 })(
     ({
         foo,
         isAuthenticated,
         isAuthenticating,
         redirect,
-        redirectPath
-    }) => null
+        redirectPath,
+    }) => null,
 );
 
 class Loading extends Component {
@@ -122,35 +119,35 @@ connectedReduxRedirect({
     AuthenticatingComponent: Loading,
     wrapperDisplayName: "Auth",
     allowRedirectBack: true,
-    redirectQueryParamName: "redirect"
+    redirectQueryParamName: "redirect",
 })(
     ({
         foo,
         isAuthenticated,
         isAuthenticating,
-        redirectPath
-    }) => null
+        redirectPath,
+    }) => null,
 );
 
 const helper = locationHelperBuilder<TestComponentProps>({
     redirectQueryParamName: "redirect",
-    locationSelector: ({ foo }) => ({ pathname : "foo" })
+    locationSelector: ({ foo }) => ({ pathname: "foo" }),
 });
-helper.getRedirectQueryParam({ foo : "bar" });
-helper.createRedirectLoc({ foo : "bar" }, "redirect");
+helper.getRedirectQueryParam({ foo: "bar" });
+helper.createRedirectLoc({ foo: "bar" }, "redirect");
 
 /* Other Wrappers */
 
 authWrapper<TestComponentProps>({
     AuthenticatingComponent: "div",
     FailureComponent: "div",
-    wrapperDisplayName: "Auth"
+    wrapperDisplayName: "Auth",
 })(
     ({
         foo,
         isAuthenticated,
-        isAuthenticating
-    }) => null
+        isAuthenticating,
+    }) => null,
 );
 
 connectedAuthWrapper({
@@ -158,11 +155,11 @@ connectedAuthWrapper({
     authenticatingSelector: boolSelector,
     AuthenticatingComponent: "div",
     FailureComponent: "div",
-    wrapperDisplayName: "Auth"
+    wrapperDisplayName: "Auth",
 })(
     ({
         foo,
         isAuthenticated,
-        isAuthenticating
-    }) => null
+        isAuthenticating,
+    }) => null,
 );

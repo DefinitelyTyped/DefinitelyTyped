@@ -1,2 +1,10 @@
-declare function _exports(ds: any, fieldNames: string[], fieldValues: any[]): boolean;
-export = _exports;
+export = fieldValuesAreEqual;
+declare function fieldValuesAreEqual(
+    ds: DataSet,
+    fieldNames: string[],
+    fieldValues: any[]
+): boolean;
+declare namespace fieldValuesAreEqual {
+    export { DataSet };
+}
+type DataSet = import('./DataSet');

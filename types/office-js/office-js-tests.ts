@@ -1,5 +1,5 @@
 /*
-office-js-preview
+office-js
 Copyright (c) Microsoft Corporation
 */
 

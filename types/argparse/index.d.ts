@@ -1,14 +1,3 @@
-// Type definitions for argparse 2.0
-// Project: https://github.com/nodeca/argparse
-// Definitions by: Andrew Schurman <https://github.com/arcticwaters>
-//                 Tomasz Łaziuk <https://github.com/tlaziuk>
-//                 Sebastian Silbermann <https://github.com/eps1lon>
-//                 Kannan Goundan <https://github.com/cakoose>
-//                 Halvor Holsten Strand <https://github.com/ondkloss>
-//                 Dieter Oberkofler <https://github.com/doberkofler>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.0
-
 export class ArgumentParser extends ArgumentGroup {
     constructor(options?: ArgumentParserOptions);
     add_subparsers(options?: SubparserOptions): SubParser;
@@ -46,7 +35,7 @@ export interface SubparserOptions {
     title?: string | undefined;
     description?: string | undefined;
     prog?: string | undefined;
-    parser_class?: { new (): any } | undefined;
+    parser_class?: { new(): any } | undefined;
     action?: string | undefined;
     dest?: string | undefined;
     help?: string | undefined;
@@ -67,7 +56,7 @@ export interface ArgumentParserOptions {
     parents?: ArgumentParser[] | undefined;
     prefix_chars?: string | undefined;
     formatter_class?: {
-        new (): HelpFormatter | ArgumentDefaultsHelpFormatter | RawDescriptionHelpFormatter | RawTextHelpFormatter;
+        new(): HelpFormatter | ArgumentDefaultsHelpFormatter | RawDescriptionHelpFormatter | RawTextHelpFormatter;
     } | undefined;
     prog?: string | undefined;
     usage?: string | undefined;
@@ -115,14 +104,14 @@ export class RawDescriptionHelpFormatter {}
 export class RawTextHelpFormatter {}
 
 export interface ArgumentOptions {
-    action?: string | { new (options: ActionConstructorOptions): Action } | undefined;
+    action?: string | { new(options: ActionConstructorOptions): Action } | undefined;
     option_strings?: string[] | undefined;
     dest?: string | undefined;
     nargs?: string | number | undefined;
     const?: any;
     default?: any;
     // type may be a string (primitive) or a Function (constructor)
-    type?: string | Function | undefined; // tslint:disable-line:ban-types
+    type?: string | Function | undefined; // eslint-disable-line @typescript-eslint/ban-types
     choices?: string | string[] | undefined;
     required?: boolean | undefined;
     help?: string | undefined;

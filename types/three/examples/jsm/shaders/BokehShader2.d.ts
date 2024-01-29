@@ -1,41 +1,43 @@
-import { Uniform } from '../../../src/Three';
+import { IUniform } from '../../../src/Three.js';
 
 export interface BokehShaderUniforms {
-    textureWidth: Uniform;
-    textureHeight: Uniform;
-    focalDepth: Uniform;
-    focalLength: Uniform;
-    fstop: Uniform;
-    tColor: Uniform;
-    tDepth: Uniform;
-    maxblur: Uniform;
-    showFocus: Uniform;
-    manualdof: Uniform;
-    vignetting: Uniform;
-    depthblur: Uniform;
-    threshold: Uniform;
-    gain: Uniform;
-    bias: Uniform;
-    fringe: Uniform;
-    znear: Uniform;
-    zfar: Uniform;
-    noise: Uniform;
-    dithering: Uniform;
-    pentagon: Uniform;
-    shaderFocus: Uniform;
-    focusCoords: Uniform;
+    textureWidth: IUniform;
+    textureHeight: IUniform;
+    focalDepth: IUniform;
+    focalLength: IUniform;
+    fstop: IUniform;
+    tColor: IUniform;
+    tDepth: IUniform;
+    maxblur: IUniform;
+    showFocus: IUniform;
+    manualdof: IUniform;
+    vignetting: IUniform;
+    depthblur: IUniform;
+    threshold: IUniform;
+    gain: IUniform;
+    bias: IUniform;
+    fringe: IUniform;
+    znear: IUniform;
+    zfar: IUniform;
+    noise: IUniform;
+    dithering: IUniform;
+    pentagon: IUniform;
+    shaderFocus: IUniform;
+    focusCoords: IUniform;
 }
 
 export const BokehShader: {
+    name: string;
     uniforms: BokehShaderUniforms;
     vertexShader: string;
     fragmentShader: string;
 };
 
 export const BokehDepthShader: {
+    name: string;
     uniforms: {
-        mNear: Uniform;
-        mFar: Uniform;
+        mNear: IUniform;
+        mFar: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

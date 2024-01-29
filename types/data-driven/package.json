@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/data-driven",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/fluentsoftware/data-driven"
+    ],
+    "devDependencies": {
+        "@types/data-driven": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Babcock",
+            "githubUsername": "mrhen"
+        }
+    ]
+}

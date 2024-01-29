@@ -1,4 +1,4 @@
-import * as mdurl from 'mdurl';
+import * as mdurl from "mdurl";
 // import ucmicro from 'uc.micro';
 
 interface Utils {

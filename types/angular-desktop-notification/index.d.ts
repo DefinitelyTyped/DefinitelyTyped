@@ -1,15 +1,9 @@
-// Type definitions for angular-desktop-notification 1.1
-// Project: https://github.com/jmsanpascual/angular-desktop-notification#readme
-// Definitions by: Davide Donadello <https://github.com/Dona278>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import * as angular from 'angular';
+import * as angular from "angular";
 
 declare var _: string;
 export = _;
 
-declare module 'angular' {
+declare module "angular" {
     namespace desktopNotification {
         /**
          * All options available during show notification according to https://developer.mozilla.org/en-US/docs/Web/API/notification
@@ -122,14 +116,14 @@ declare module 'angular' {
             onError?: EventListener | undefined;
         }
 
-        // tslint:disable-next-line interface-name
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         interface IDesktopNotificationOptions {
             autoClose?: boolean | undefined;
             duration?: number | undefined;
             showOnPageHidden?: boolean | undefined;
         }
 
-        // tslint:disable-next-line interface-name
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         interface IDesktopNotificationProvider {
             /**
              * Set the default app-wide configuration for desktopNotification
@@ -137,12 +131,12 @@ declare module 'angular' {
             config(options: IDesktopNotificationOptions): void;
         }
 
-        // tslint:disable-next-line interface-name
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         interface IDesktopNotificationService {
             permissions: {
-                default: 'default',
-                denied: 'denied',
-                granted: 'granted',
+                default: "default";
+                denied: "denied";
+                granted: "granted";
             };
 
             /**

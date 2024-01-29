@@ -1,8 +1,3 @@
-// Type definitions for eslint-scope 3.7
-// Project: https://github.com/eslint/eslint-scope
-// Definitions by: Toru Nagashima <https://github.com/mysticatea>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
 import * as eslint from "eslint";
 import * as estree from "estree";
 
@@ -16,7 +11,18 @@ export class ScopeManager implements eslint.Scope.ScopeManager {
 }
 
 export class Scope implements eslint.Scope.Scope {
-    type: "block" | "catch" | "class" | "for" | "function" | "function-expression-name" | "global" | "module" | "switch" | "with" | "TDZ";
+    type:
+        | "block"
+        | "catch"
+        | "class"
+        | "for"
+        | "function"
+        | "function-expression-name"
+        | "global"
+        | "module"
+        | "switch"
+        | "with"
+        | "TDZ";
     isStrict: boolean;
     upper: Scope | null;
     childScopes: Scope[];
@@ -31,6 +37,7 @@ export class Scope implements eslint.Scope.Scope {
 
 export class Variable implements eslint.Scope.Variable {
     name: string;
+    scope: Scope;
     identifiers: estree.Identifier[];
     references: Reference[];
     defs: eslint.Scope.Definition[];

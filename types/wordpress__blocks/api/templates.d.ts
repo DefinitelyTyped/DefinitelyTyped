@@ -1,4 +1,4 @@
-import { BlockInstance } from '../';
+import { BlockInstance } from "../";
 
 export type Template = readonly [string, Readonly<Record<string, any>>?, TemplateArray?];
 export interface TemplateArray extends ReadonlyArray<Template> {}

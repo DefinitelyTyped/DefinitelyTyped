@@ -27,9 +27,8 @@ function testOpen() {
 }
 
 function testCreateWriteStream() {
-    const stream =
-        temp.createWriteStream("HelloStreamAffix")
-            .then((stream: fs.WriteStream) => stream.write("data"));
+    const stream = temp.createWriteStream("HelloStreamAffix")
+        .then((stream: fs.WriteStream) => stream.write("data"));
 
     const stream2 = temp.createWriteStream();
 }

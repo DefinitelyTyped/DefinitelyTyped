@@ -1,7 +1,11 @@
 import Heap = require("heap");
 
-var numberComparator = (a: number, b: number) => { return a.toString().length - b.toString().length; };
-var stringComparator = (a: string, b: string) => { return a.length - b.length; };
+var numberComparator = (a: number, b: number) => {
+    return a.toString().length - b.toString().length;
+};
+var stringComparator = (a: string, b: string) => {
+    return a.length - b.length;
+};
 
 // Test constructor
 var numberHeap: Heap<number> = new Heap<number>();
@@ -30,6 +34,15 @@ stringHeap.heapify();
 
 numberHeap.updateItem(2);
 stringHeap.updateItem("bar");
+
+var containsItem: boolean = numberHeap.contains(3);
+containsItem = numberHeap.has(2);
+
+containsItem = stringHeap.contains("bar");
+containsItem = stringHeap.has("foo");
+
+numberHeap.clear();
+stringHeap.clear();
 
 var booleanIdentifier: boolean = numberHeap.empty();
 booleanIdentifier = stringHeap.empty();

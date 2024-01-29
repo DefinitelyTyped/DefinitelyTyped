@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.history
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the <code>browser.history</code> API to interact with the browser's record of visited pages. You can add, remove,
  * and query for URLs in the browser's history. To override the history page with your own version, see $(topic:override)
@@ -12,8 +15,8 @@
  * Use of this source code is governed by a BSD-style license that can be
  * found in the LICENSE file.
  */
-import { ExtensionTypes } from "./extensionTypes";
 import { Events } from "./events";
+import { ExtensionTypes } from "./extensionTypes";
 
 export namespace History {
     /**

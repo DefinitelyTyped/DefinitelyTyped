@@ -1,16 +1,8 @@
-// Type definitions for nwsapi 2.2
-// Project: https://github.com/dperini/nwsapi, https://dperini.github.io/nwsapi/
-// Definitions by: ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference path="./_internal/umd-global.d.ts"/>
 
-type ResolveElementType<T extends string> = string extends T
-    ? Element
-    : T extends keyof HTMLElementTagNameMap
-    ? HTMLElementTagNameMap[T]
-    : T extends keyof SVGElementTagNameMap
-    ? SVGElementTagNameMap[T]
+type ResolveElementType<T extends string> = string extends T ? Element
+    : T extends keyof HTMLElementTagNameMap ? HTMLElementTagNameMap[T]
+    : T extends keyof SVGElementTagNameMap ? SVGElementTagNameMap[T]
     : Element;
 
 export = nwsapi;
@@ -18,7 +10,6 @@ declare function nwsapi(global: nwsapi.Global): nwsapi.NWSAPI;
 declare namespace nwsapi {
     // tslint:disable: no-redundant-jsdoc-2
     /**
-     * @enum
      * The `MatcherMode` type should be described using a **TypeScript** enum,\
      * but **TypeScript** doesn't treat `true`, `false` or `null`
      * as constant expressions in enum initializers.
@@ -38,7 +29,6 @@ declare namespace nwsapi {
         /**
          * Used to select elements.
          *
-         *
          * | variable |  type                          |  relation to `e`
          * | :------: |  ----------------------------  | :---------------:
          * |   `c`    | `{ item(i: number): Element }` | `c.item(i) === e`
@@ -57,7 +47,7 @@ declare namespace nwsapi {
 
     interface Global {
         readonly document: Document;
-        readonly DOMException: new (message?: string, name?: string) => DOMException;
+        readonly DOMException: new(message?: string, name?: string) => DOMException;
     }
 
     interface Config {
@@ -154,6 +144,7 @@ declare namespace nwsapi {
         select<S extends string>(
             selector: S,
             context?: ContextNode | null,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             callback?: ((element: ResolveElementType<S>) => boolean | void) | null,
         ): Array<ResolveElementType<S>>;
 
@@ -186,10 +177,8 @@ declare namespace nwsapi {
             selector: string,
             mode: M,
             callback?: ((element: E) => void) | null,
-        ): M extends MatcherMode.MATCH
-            ? MatchLambda<E>
-            : M extends MatcherMode.SELECT | MatcherMode.USE_COLLECTION_ITEM
-            ? SelectLambda<E>
+        ): M extends MatcherMode.MATCH ? MatchLambda<E>
+            : M extends MatcherMode.SELECT | MatcherMode.USE_COLLECTION_ITEM ? SelectLambda<E>
             : never;
 
         /**
@@ -220,7 +209,7 @@ declare namespace nwsapi {
          *
          * @param constructor The error constructor to use, defaults to `DOMException` with a `name` of `"SyntaxError"`.
          */
-        emit(message: string, constructor?: (new (message: string) => Error) | null): void;
+        emit(message: string, constructor?: (new(message: string) => Error) | null): void;
 
         /** special handling configuration flags */
         readonly Config: Config;
@@ -263,7 +252,7 @@ declare namespace nwsapi {
                     readonly Callback: F;
                 },
                 ...args: Parameters<CustomSelector["Callback"]>
-            ) => CustomSelectorResult
+            ) => CustomSelectorResult,
         >(
             name: string,
             regExp: R,

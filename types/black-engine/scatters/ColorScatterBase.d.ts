@@ -2,4 +2,4 @@ export class ColorScatterBase extends Scatter {
     value: number;
     getValue(): number;
 }
-import { Scatter } from './Scatter';
+import { Scatter } from "./Scatter";

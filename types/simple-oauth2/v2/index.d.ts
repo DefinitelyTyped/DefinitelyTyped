@@ -1,37 +1,30 @@
-// Type definitions for simple-oauth2 2.5
-// Project: https://github.com/lelylan/simple-oauth2
-// Definitions by: Michael Müller <https://github.com/mad-mike>,
-//                 Troy Lamerton <https://github.com/troy-lamerton>
-//                 Martín Rodriguez <https://github.com/netux>
-//                 Linus Unnebäck <https://github.com/LinusU>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 /** Creates a new simple-oauth2 client with the passed configuration */
-export function create<ClientIdName extends string = 'client_id'>(options: ModuleOptions<ClientIdName>): OAuthClient<ClientIdName>;
+export function create<ClientIdName extends string = "client_id">(
+    options: ModuleOptions<ClientIdName>,
+): OAuthClient<ClientIdName>;
 
-export interface ModuleOptions<ClientIdName extends string = 'client_id'> {
+export interface ModuleOptions<ClientIdName extends string = "client_id"> {
     client: {
         /** Service registered client id. Required. */
-        id: string,
+        id: string;
         /** Service registered client secret. Required. */
-        secret: string,
+        secret: string;
         /** Parameter name used to send the client secret. Default to client_secret. */
-        secretParamName?: string | undefined,
+        secretParamName?: string | undefined;
         /** Parameter name used to send the client id. Default to client_id. */
-        idParamName?: ClientIdName | undefined
+        idParamName?: ClientIdName | undefined;
     };
     auth: {
         /** String used to set the host to request the tokens to. Required. */
-        tokenHost: string,
+        tokenHost: string;
         /** String path to request an access token. Default to /oauth/token. */
-        tokenPath?: string | undefined,
+        tokenPath?: string | undefined;
         /** String path to revoke an access token. Default to /oauth/revoke. */
-        revokePath?: string | undefined,
+        revokePath?: string | undefined;
         /** String used to set the host to request an "authorization code". Default to the value set on auth.tokenHost. */
-        authorizeHost?: string | undefined,
+        authorizeHost?: string | undefined;
         /** String path to request an authorization code. Default to /oauth/authorize. */
-        authorizePath?: string | undefined
+        authorizePath?: string | undefined;
     };
     /**
      * Used to set global options to the internal http library (wreck).
@@ -41,13 +34,13 @@ export interface ModuleOptions<ClientIdName extends string = 'client_id'> {
     http?: {} | undefined;
     options?: {
         /** Format of data sent in the request body. Defaults to form. */
-        bodyFormat?: "json" | "form" | undefined,
+        bodyFormat?: "json" | "form" | undefined;
         /**
          * Indicates the method used to send the client.id/client.secret authorization params at the token request.
          * If set to body, the bodyFormat option will be used to format the credentials.
          * Defaults to header
          */
-        authorizationMethod?: "header" | "body" | undefined
+        authorizationMethod?: "header" | "body" | undefined;
     } | undefined;
 }
 
@@ -107,7 +100,16 @@ export interface WreckHttpOptions {
     headers?: { [key: string]: any } | undefined;
     redirects?: number | undefined;
     redirect303?: boolean | undefined;
-    beforeRedirect?: ((redirectMethod: string, statusCode: number, location: string, resHeaders: { [key: string]: any }, redirectOptions: any, next: () => {}) => void) | undefined;
+    beforeRedirect?:
+        | ((
+            redirectMethod: string,
+            statusCode: number,
+            location: string,
+            resHeaders: { [key: string]: any },
+            redirectOptions: any,
+            next: () => {},
+        ) => void)
+        | undefined;
     redirected?: ((statusCode: number, location: string, req: any) => void) | undefined;
     timeout?: number | undefined;
     maxBytes?: number | undefined;
@@ -121,25 +123,27 @@ export interface WreckHttpOptions {
     gunzip?: boolean | "force" | undefined;
 }
 
-export interface OAuthClient<ClientIdName extends string = 'client_id'> {
+export interface OAuthClient<ClientIdName extends string = "client_id"> {
     authorizationCode: {
         /**
          * Redirect the user to the autorization page
          * @return the absolute authorization url
          */
         authorizeURL(
-            params?: {
-                /** A string that represents the Client-ID */
-                [key in ClientIdName]?: string
-            } & {
-                /** A string that represents the registered application URI where the user is redirected after authentication */
-                redirect_uri?: string | undefined,
-                /** A string or array of strings that represents the application privileges */
-                scope?: string | string[] | undefined,
-                /** A string that represents an option opaque value used by the client to main the state between the request and the callback */
-                state?: string | undefined
-            }
-        ): string,
+            params?:
+                & {
+                    /** A string that represents the Client-ID */
+                    [key in ClientIdName]?: string;
+                }
+                & {
+                    /** A string that represents the registered application URI where the user is redirected after authentication */
+                    redirect_uri?: string | undefined;
+                    /** A string or array of strings that represents the application privileges */
+                    scope?: string | string[] | undefined;
+                    /** A string that represents an option opaque value used by the client to main the state between the request and the callback */
+                    state?: string | undefined;
+                },
+        ): string;
 
         /** Returns the Access Token object */
         getToken(params: AuthorizationTokenConfig, httpOptions?: WreckHttpOptions): Promise<Token>;

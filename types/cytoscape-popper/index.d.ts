@@ -1,10 +1,5 @@
-// Type definitions for cytoscape-popper 2.0
-// Project: https://github.com/cytoscape/cytoscape.js-popper
-// Definitions by: Felix Barczewicz <https://github.com/DieserFelix>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
-import cy = require('cytoscape');
-import popper = require('@popperjs/core');
+import cy = require("cytoscape");
+import popper = require("@popperjs/core");
 
 declare const cytoscapePopper: cy.Ext;
 export = cytoscapePopper;

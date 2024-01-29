@@ -1,10 +1,5 @@
-// Type definitions for non-npm package web-app-manifest 1.0
-// Project: https://w3c.github.io/manifest/
-// Definitions by: Yamagishi Kazutoshi <https://github.com/ykzts>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-export type TextDirectionType = 'ltr' | 'rtl' | 'auto';
-export type DisplayModeType = 'fullscreen' | 'standalone' | 'minimal-ui' | 'browser';
+export type TextDirectionType = "ltr" | "rtl" | "auto";
+export type DisplayModeType = "fullscreen" | "standalone" | "minimal-ui" | "browser";
 
 /**
  * Each `ImageResource` represents an image that is used as part of a web application, suitable to use in
@@ -253,7 +248,24 @@ export interface WebAppManifest {
      *
      * @see https://w3c.github.io/manifest/#orientation-member
      */
-    orientation?: OrientationLockType | undefined;
+    orientation?:
+        | "any"
+        | "landscape"
+        | "landscape-primary"
+        | "landscape-secondary"
+        | "natural"
+        | "portrait"
+        | "portrait-primary"
+        | "portrait-secondary"
+        | undefined;
+
+    /**
+     * The manifest's id member is a string that represents the identity for the application.
+     * The identity takes the form of a URL, which is same origin as the start URL.
+     *
+     * @see https://w3c.github.io/manifest/#id-member
+     */
+    id?: string | undefined;
 
     /**
      * The `theme_color` member serves as the default theme color for an application context.

@@ -1,5 +1,4 @@
-
-import nodeunit = require('nodeunit');
+import nodeunit = require("nodeunit");
 
 var num: number;
 var value: any;
@@ -8,9 +7,7 @@ var expected: any;
 var message: string;
 var operator: string;
 var error: any;
-var block: () =>{
-
-};
+var block: () => {};
 
 export var testGroup: nodeunit.ITestGroup = {
     setUp: (callback) => {
@@ -19,7 +16,7 @@ export var testGroup: nodeunit.ITestGroup = {
     tearDown: (callback) => {
         callback();
     },
-    test1: function (test: nodeunit.Test) {
+    test1: function(test: nodeunit.Test) {
         test.expect(num);
 
         test.fail(actual, expected, message, operator);
@@ -46,7 +43,7 @@ export var testGroup: nodeunit.ITestGroup = {
         test.doesNotThrow(block, error, message);
         test.ifError(value);
 
-        //assertion wrappers
+        // assertion wrappers
         test.equals(actual, expected);
         test.equals(actual, expected, message);
         test.same(actual, expected);
@@ -57,14 +54,11 @@ export var testGroup: nodeunit.ITestGroup = {
     },
     "This is a test with a nice description": (test: nodeunit.Test) => {
         test.done();
-    }
+    },
 };
-
 
 // see https://github.com/caolan/nodeunit/blob/master/examples/nested/nested_reporter_test.unit.js for example.
 // (https://github.com/caolan/nodeunit/commit/9fee91149324f79753eadbcf8993399a7d76da40)
-
-
 
 var testCase = nodeunit.testCase;
 
@@ -79,8 +73,8 @@ export var testCaseGroup = testCase({
             "Test 1.1.1": function(test: nodeunit.Test) {
                 test.ok(true);
                 test.done();
-            }
-        })
+            },
+        }),
     }),
 
     "TC 2": testCase({
@@ -94,7 +88,7 @@ export var testCaseGroup = testCase({
                 "Test 2.1.1.2": function(test: nodeunit.Test) {
                     test.ok(true);
                     test.done();
-                }
+                },
             }),
 
             "TC 2.2.1": testCase({
@@ -113,9 +107,9 @@ export var testCaseGroup = testCase({
                 "Test 2.2.1.2": function(test: nodeunit.Test) {
                     test.ok(true);
                     test.done();
-                }
-            })
-        })
+                },
+            }),
+        }),
     }),
 
     "TC 3": testCase({
@@ -124,13 +118,8 @@ export var testCaseGroup = testCase({
                 "Test 3.1.1.1 (should fail)": function(test: nodeunit.Test) {
                     test.ok(false);
                     test.done();
-                }
-            })
-        })
-    })
+                },
+            }),
+        }),
+    }),
 });
-
-
-
-
-

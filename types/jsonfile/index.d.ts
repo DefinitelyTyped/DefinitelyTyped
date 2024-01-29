@@ -1,20 +1,13 @@
-// Type definitions for jsonfile 6.1
-// Project: https://github.com/jprichardson/node-jsonfile#readme
-// Definitions by: Daniel Bowring <https://github.com/dbowring>
-//                 BendingBender <https://github.com/BendingBender>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
-import { Url } from 'url';
 import {
     PathLike,
     readFile as fsReadFile,
     readFileSync as fsReadFileSync,
     writeFile as fsWriteFile,
     writeFileSync as fsWriteFileSync,
-} from 'fs';
+} from "fs";
+import { Url } from "url";
 
 export type Path = PathLike | Url;
 
@@ -27,31 +20,31 @@ export interface FS {
 
 export type JFReadOptions =
     | {
-          encoding?: string | null | undefined;
-          flag?: string | undefined;
-          throws?: boolean | undefined;
-          fs?: FS | undefined;
-          reviver?: ((key: any, value: any) => any) | undefined;
-      }
+        encoding?: string | null | undefined;
+        flag?: string | undefined;
+        throws?: boolean | undefined;
+        fs?: FS | undefined;
+        reviver?: ((key: any, value: any) => any) | undefined;
+    }
     | string
     | null
     | undefined;
 
 export type JFWriteOptions =
     | {
-          encoding?: string | null | undefined;
-          mode?: string | number | undefined;
-          flag?: string | undefined;
-          fs?: FS | undefined;
-          EOL?: string | undefined;
-          spaces?: string | number | undefined;
-          replacer?: ((key: string, value: any) => any) | undefined;
-      }
+        encoding?: string | null | undefined;
+        mode?: string | number | undefined;
+        flag?: string | undefined;
+        fs?: FS | undefined;
+        EOL?: string | undefined;
+        spaces?: string | number | undefined;
+        replacer?: ((key: string, value: any) => any) | undefined;
+    }
     | string
     | null;
 
 export type ReadCallback = (err: NodeJS.ErrnoException | null, data: any) => void;
-export type WriteCallback = (err: NodeJS.ErrnoException) => void;
+export type WriteCallback = (err: NodeJS.ErrnoException | null) => void;
 
 /**
  * @see {@link https://github.com/jprichardson/node-jsonfile#readfilefilename-options-callback}

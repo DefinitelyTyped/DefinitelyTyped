@@ -1,15 +1,11 @@
-// Type definitions for react-image-magnify 2.7
-// Project: https://github.com/ethanselzer/react-image-magnify
-// Definitions by: Sumit Parakh <https://github.com/sumitparakh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
+import * as React from "react";
 
 /**
  * React Image Magnify
  */
-export default function ReactImageMagnify(props: ReactImageMagnifyProps & Readonly<{ children?: React.ReactNode | undefined }>): React.ReactElement;
+export default function ReactImageMagnify(
+    props: ReactImageMagnifyProps & Readonly<{ children?: React.ReactNode | undefined }>,
+): React.ReactElement;
 
 export interface CommonImageType {
     src: string;

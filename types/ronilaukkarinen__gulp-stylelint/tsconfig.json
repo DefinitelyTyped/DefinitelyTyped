@@ -8,13 +8,6 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
-        "paths": {
-            "@ronilaukkarinen/*": ["ronilaukkarinen__*"]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

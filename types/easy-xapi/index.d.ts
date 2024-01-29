@@ -1,9 +1,3 @@
-// Type definitions for easy-xapi
-// Project: https://github.com/DeadAlready/easy-xapi
-// Definitions by: Karl Düüna <https://github.com/DeadAlready>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="easy-jsend" />
 /// <reference types="bunyan" />
 /// <reference types="express" />
@@ -16,12 +10,12 @@ declare namespace Express {
 }
 
 declare module "easy-xapi" {
-    import express = require('express');
-    import http = require('http');
-    import Logger = require('bunyan');
+    import express = require("express");
+    import http = require("http");
+    import Logger = require("bunyan");
 
     interface InitConfig {
-        jSend?: {partial: boolean} | undefined;
+        jSend?: { partial: boolean } | undefined;
     }
 
     interface Config {
@@ -31,9 +25,9 @@ declare module "easy-xapi" {
         xHeaderDefaults?: Object | undefined;
         log: {
             name: string;
-            level: string
-        }
-        mount: (app: express.Application) => void
+            level: string;
+        };
+        mount: (app: express.Application) => void;
     }
 
     interface Result {

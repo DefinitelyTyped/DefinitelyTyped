@@ -202,7 +202,7 @@
 declare module "zlib" {
     
 
-    module zlib {
+    namespace zlib {
         
         /**
          * 

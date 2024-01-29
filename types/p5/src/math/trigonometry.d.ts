@@ -8,8 +8,8 @@ declare module '../../index' {
          *   The inverse of cos(), returns the arc cosine of a
          *   value. This function expects the values in the
          *   range of -1 to 1 and values are returned in the
-         *   range 0 to PI (3.1415927) if the angleMode is
-         *   RADIANS or 0 to 180 if the angle mode is DEGREES.
+         *   range 0 to PI (3.1415927) if the angleMode() is
+         *   RADIANS or 0 to 180 if the angleMode() is DEGREES.
          *   @param value the value whose arc cosine is to be
          *   returned
          *   @return the arc cosine of the given value
@@ -45,14 +45,14 @@ declare module '../../index' {
          *   Calculates the angle (in radians) from a specified
          *   point to the coordinate origin as measured from
          *   the positive x-axis. Values are returned as a
-         *   float in the range from PI to -PI if the angleMode
-         *   is RADIANS or 180 to -180 if the angleMode is
-         *   DEGREES. The atan2() function is most often used
-         *   for orienting geometry to the position of the
-         *   cursor. Note: The y-coordinate of the point is the
-         *   first parameter, and the x-coordinate is the
-         *   second parameter, due the the structure of
-         *   calculating the tangent.
+         *   float in the range from PI to -PI if the
+         *   angleMode() is RADIANS or 180 to -180 if the
+         *   angleMode() is DEGREES. The atan2() function is
+         *   most often used for orienting geometry to the
+         *   position of the cursor. Note: The y-coordinate of
+         *   the point is the first parameter, and the
+         *   x-coordinate is the second parameter, due to the
+         *   structure of calculating the tangent.
          *   @param y y-coordinate of the point
          *   @param x x-coordinate of the point
          *   @return the arc tangent of the given point
@@ -92,7 +92,8 @@ declare module '../../index' {
          *   of measuring the same thing. There are 360 degrees
          *   in a circle and 2*PI radians in a circle. For
          *   example, 90° = PI/2 = 1.5707964. This function
-         *   does not take into account the current angleMode.
+         *   does not take into account the current
+         *   angleMode().
          *   @param radians the radians value to convert to
          *   degrees
          *   @return the converted angle
@@ -113,10 +114,19 @@ declare module '../../index' {
         radians(degrees: number): number;
 
         /**
-         *   Sets the current mode of p5 to given mode. Default
-         *   mode is RADIANS.
+         *   Sets the current mode of p5 to the given mode.
+         *   Default mode is RADIANS. Calling angleMode() with
+         *   no arguments returns current anglemode.
          *   @param mode either RADIANS or DEGREES
          */
         angleMode(mode: ANGLE_MODE): void;
+
+        /**
+         *   Sets the current mode of p5 to the given mode.
+         *   Default mode is RADIANS. Calling angleMode() with
+         *   no arguments returns current anglemode.
+         *   @return mode either RADIANS or DEGREES
+         */
+        angleMode(): UNKNOWN_P5_CONSTANT;
     }
 }

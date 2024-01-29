@@ -1,19 +1,20 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6"],
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "@absinthe/*": ["absinthe__*"]
-        }
+        "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "absinthe__socket-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "absinthe__socket-tests.ts"
+    ]
 }

@@ -28,9 +28,9 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/perf_hooks.js)
  */
-declare module 'perf_hooks' {
-    import { AsyncResource } from 'node:async_hooks';
-    type EntryType = 'node' | 'mark' | 'measure' | 'gc' | 'function' | 'http2' | 'http';
+declare module "perf_hooks" {
+    import { AsyncResource } from "node:async_hooks";
+    type EntryType = "node" | "mark" | "measure" | "gc" | "function" | "http2" | "http" | "dns";
     interface NodeGCPerformanceDetail {
         /**
          * When `performanceEntry.entryType` is equal to 'gc', `the performance.kind` property identifies
@@ -146,7 +146,10 @@ declare module 'perf_hooks' {
      * @param util1 The result of a previous call to eventLoopUtilization()
      * @param util2 The result of a previous call to eventLoopUtilization() prior to util1
      */
-    type EventLoopUtilityFunction = (util1?: EventLoopUtilization, util2?: EventLoopUtilization) => EventLoopUtilization;
+    type EventLoopUtilityFunction = (
+        util1?: EventLoopUtilization,
+        util2?: EventLoopUtilization,
+    ) => EventLoopUtilization;
     interface MarkOptions {
         /**
          * Additional optional detail to include with the mark.
@@ -191,6 +194,35 @@ declare module 'perf_hooks' {
          * @param name
          */
         clearMarks(name?: string): void;
+        /**
+         * If name is not provided, removes all PerformanceMeasure objects from the Performance Timeline.
+         * If name is provided, removes only the named measure.
+         * @param name
+         * @since v16.7.0
+         */
+        clearMeasures(name?: string): void;
+        /**
+         * Returns a list of `PerformanceEntry` objects in chronological order with respect to `performanceEntry.startTime`.
+         * If you are only interested in performance entries of certain types or that have certain names, see
+         * `performance.getEntriesByType()` and `performance.getEntriesByName()`.
+         * @since v16.7.0
+         */
+        getEntries(): PerformanceEntry[];
+        /**
+         * Returns a list of `PerformanceEntry` objects in chronological order with respect to `performanceEntry.startTime`
+         * whose `performanceEntry.name` is equal to `name`, and optionally, whose `performanceEntry.entryType` is equal to `type`.
+         * @param name
+         * @param type
+         * @since v16.7.0
+         */
+        getEntriesByName(name: string, type?: EntryType): PerformanceEntry[];
+        /**
+         * Returns a list of `PerformanceEntry` objects in chronological order with respect to `performanceEntry.startTime`
+         * whose `performanceEntry.entryType` is equal to `type`.
+         * @param type
+         * @since v16.7.0
+         */
+        getEntriesByType(type: EntryType): PerformanceEntry[];
         /**
          * Creates a new PerformanceMark entry in the Performance Timeline.
          * A PerformanceMark is a subclass of PerformanceEntry whose performanceEntry.entryType is always 'mark',
@@ -396,13 +428,13 @@ declare module 'perf_hooks' {
         observe(
             options:
                 | {
-                      entryTypes: ReadonlyArray<EntryType>;
-                      buffered?: boolean | undefined;
-                  }
+                    entryTypes: readonly EntryType[];
+                    buffered?: boolean | undefined;
+                }
                 | {
-                      type: EntryType;
-                      buffered?: boolean | undefined;
-                  }
+                    type: EntryType;
+                    buffered?: boolean | undefined;
+                },
         ): void;
     }
     namespace constants {
@@ -551,7 +583,21 @@ declare module 'perf_hooks' {
      * @since v15.9.0
      */
     function createHistogram(options?: CreateHistogramOptions): RecordableHistogram;
+
+    import { performance as _performance } from "perf_hooks";
+    global {
+        /**
+         * `performance` is a global reference for `require('perf_hooks').performance`
+         * https://nodejs.org/api/globals.html#performance
+         * @since v16.0.0
+         */
+        var performance: typeof globalThis extends {
+            onmessage: any;
+            performance: infer T;
+        } ? T
+            : typeof _performance;
+    }
 }
-declare module 'node:perf_hooks' {
-    export * from 'perf_hooks';
+declare module "node:perf_hooks" {
+    export * from "perf_hooks";
 }

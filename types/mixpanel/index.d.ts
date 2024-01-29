@@ -1,10 +1,3 @@
-// Type definitions for Mixpanel 2.14
-// Project: https://mixpanel.com/, https://github.com/mixpanel/mixpanel-node
-//          https://github.com/mixpanel/mixpanel-js
-// Definitions by: Knut Eirik Leira Hjelle <https://github.com/hjellek>
-//                 Manduro <https://github.com/Manduro>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Mixpanel {
     people: Mixpanel.People;
 
@@ -69,6 +62,34 @@ interface Mixpanel {
      * @param callback If provided, the callback function will be called after tracking the event.
      */
     track(eventName: string, properties?: { [index: string]: any }, callback?: () => void): void;
+
+    /**
+     * Track an event. With a predefined EventType
+     *
+     * ### Usage:
+     *
+     *     // Create the event type, extending the EventBaseType
+     *     interface ErrorEvent {
+     *          eventName: 'ERROR' | 'VERY_BAD_ERROR';
+     *          properties: {
+     *              message: string;
+     *              id: number;
+     *          }
+     *     }
+     *
+     *     // Track the error event with the generic
+     *     mixpanel.track<ErrorEvent>('ERROR', { message: 'on no!', id: 1 });
+     *
+     * @param eventName The name of the event. This can be anything the user does - 'Button Click', 'Sign Up', 'Item Purchased', etc.
+     * @param properties A set of properties to include with the event you're sending. These describe the user who did the event or details about the event itself.
+     * @param callback If provided, the callback function will be called after tracking the event.
+     * @template EventType The Event type. Use this to set specific properties for an event name
+     */
+    track<EventType extends Mixpanel.EventBaseType>(
+        eventName: EventType["eventName"],
+        properties: EventType["properties"],
+        callback?: () => void,
+    ): void;
 
     /**
      * Track clicks on a set of document elements. Selector must be a
@@ -162,9 +183,9 @@ interface Mixpanel {
      *     });
      *
      * @param properties An associative array of properties to store about the user
-     * @param days How many days since the user's last visit to store the super properties
+     * @param daysOrOptions How many days since the user's last visit to store the super properties or the options object which controls persistence
      */
-    register(properties: { [index: string]: any }, days?: number): void;
+    register(properties: { [index: string]: any }, daysOrOptions?: number | { persistent?: boolean }): void;
 
     /**
      * Register a set of super properties only once. This will not
@@ -184,16 +205,21 @@ interface Mixpanel {
      *
      * @param properties An associative array of properties to store about the user
      * @param defaultValue Value to override if already set in super properties (ex: 'False') Default: 'None'
-     * @param days How many days since the users last visit to store the super properties
+     * @param daysOrOptions How many days since the users last visit to store the super properties or the options object which controls persistence
      */
-    register_once(properties: { [index: string]: any }, defaultValue?: string, days?: number): void;
+    register_once(
+        properties: { [index: string]: any },
+        defaultValue?: string,
+        daysOrOptions?: number | { persistent?: boolean },
+    ): void;
 
     /**
      * Delete a super property stored with the current user.
      *
      * @param propertyName The name of the super property to remove
+     * @param options The options object which controls persistence
      */
-    unregister(propertyName: string): void;
+    unregister(propertyName: string, options?: { persistent?: boolean }): void;
 
     /**
      * Identify a user with a unique ID. All subsequent
@@ -389,7 +415,7 @@ declare namespace Mixpanel {
          * @param callback If provided, the callback will be called after the tracking event
          */
         increment(prop: string, value?: number, callback?: () => void): void;
-        increment(keys: { [index: string]: number}, callback?: () => void): void;
+        increment(keys: { [index: string]: number }, callback?: () => void): void;
 
         /**
          * Merge a given list with a list-valued people analytics property,
@@ -483,7 +509,6 @@ declare namespace Mixpanel {
          *
          *     // remove the all data you have stored about the current user
          *     mixpanel.people.delete_user();
-         *
          */
         delete_user(): void;
     }
@@ -520,7 +545,7 @@ declare namespace Mixpanel {
          *
          * @default 'cookie'
          */
-        persistence?: 'localStorage' | 'cookie' | undefined;
+        persistence?: "localStorage" | "cookie" | undefined;
         /**
          * Name for super properties persistent store
          *
@@ -627,6 +652,13 @@ declare namespace Mixpanel {
     }
 
     type Query = string | Element | Element[];
+
+    interface EventBaseType {
+        eventName: string;
+        properties: {
+            [key: string]: any;
+        };
+    }
 }
 
 declare var mixpanel: Mixpanel;

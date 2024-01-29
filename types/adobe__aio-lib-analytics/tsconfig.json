@@ -1,28 +1,19 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "lib": [
-      "es6"
-    ],
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictFunctionTypes": true,
-    "strictNullChecks": true,
-    "baseUrl": "../",
-    "typeRoots": [
-      "../"
-    ],
-    "types": [],
-    "noEmit": true,
-    "forceConsistentCasingInFileNames": true,
-    "paths": {
-      "@adobe/*": [
-        "adobe__*"
-      ]
-    }
-  },
-  "files": [
-    "index.d.ts",
-    "adobe__aio-lib-analytics-tests.ts"
-  ]
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "adobe__aio-lib-analytics-tests.ts"
+    ]
 }

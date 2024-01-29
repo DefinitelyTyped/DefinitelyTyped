@@ -1,28 +1,34 @@
-// Type definitions for node-geocoder 3.24
-// Project: https://github.com/nchaulet/node-geocoder#readme
-// Definitions by: Krzysztof Rosinski <https://github.com/rosek86>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
+
+import { RequestInfo, RequestInit, Response } from "node-fetch";
 
 declare namespace node_geocoder {
     type Providers =
-        'freegeoip' | 'datasciencetoolkit' |
-        'locationiq' | 'mapquest' | 'openmapquest' |
-        'tomtom' | 'nominatimmapquest' |
-        'opencage' | 'geocodio' |
-        'yandex' | 'teleport' | 'pickpoint';
+        | "freegeoip"
+        | "datasciencetoolkit"
+        | "locationiq"
+        | "mapquest"
+        | "mapbox"
+        | "openmapquest"
+        | "tomtom"
+        | "nominatimmapquest"
+        | "opencage"
+        | "geocodio"
+        | "yandex"
+        | "teleport"
+        | "pickpoint"
+        | "virtualearth";
 
     interface BaseOptions {
         provider: string;
-        httpAdapter?: 'https' | 'http' | 'request' | undefined;
+        fetch?: (url: RequestInfo, init?: RequestInit) => Promise<Response> | undefined;
         timeout?: number | undefined;
         formatterPattern?: string | undefined;
         formatter?: any;
     }
 
     interface HereOptions {
-        provider: 'here';
+        provider: "here";
         appId: string;
         apiKey: string;
         appCode?: string;
@@ -34,7 +40,7 @@ declare namespace node_geocoder {
     }
 
     interface OpenStreetMapOptions {
-        provider: 'openstreetmap';
+        provider: "openstreetmap";
         language?: string | undefined;
         email?: string | undefined;
         apiKey?: string | undefined;
@@ -42,26 +48,26 @@ declare namespace node_geocoder {
     }
 
     interface OpenDataFranceOptions {
-        provider: 'opendatafrance';
+        provider: "opendatafrance";
         language?: string | undefined;
         email?: string | undefined;
         apiKey?: string | undefined;
     }
 
     interface AgolOptions {
-        provider: 'agol';
+        provider: "agol";
         client_id?: string | undefined;
         client_secret?: string | undefined;
     }
 
     interface SmartyStreetsOptions {
-        provider: 'smartyStreet';
+        provider: "smartyStreet";
         auth_id: string;
         auth_token: string;
     }
 
     interface GoogleOptions {
-        provider: 'google';
+        provider: "google";
         clientId?: string | undefined;
         apiKey?: string | undefined;
         language?: string | undefined;
@@ -77,7 +83,17 @@ declare namespace node_geocoder {
         host?: string | undefined;
     }
 
-    type Options = BaseOptions & (GenericOptions | HereOptions | OpenStreetMapOptions | OpenDataFranceOptions | AgolOptions | SmartyStreetsOptions | GoogleOptions);
+    type Options =
+        & BaseOptions
+        & (
+            | GenericOptions
+            | HereOptions
+            | OpenStreetMapOptions
+            | OpenDataFranceOptions
+            | AgolOptions
+            | SmartyStreetsOptions
+            | GoogleOptions
+        );
 
     interface Location {
         lat: number;
@@ -88,16 +104,20 @@ declare namespace node_geocoder {
         formattedAddress?: string | undefined;
         latitude?: number | undefined;
         longitude?: number | undefined;
-        extra?: {
-            googlePlaceId?: string | undefined;
-            confidence?: number | undefined;
-        } | undefined;
-        administrativeLevels?: {
-            level1long?: string | undefined;
-            level1short?: string | undefined;
-            level2long?: string | undefined;
-            level2short?: string | undefined;
-        } | undefined;
+        extra?:
+            | {
+                googlePlaceId?: string | undefined;
+                confidence?: number | undefined;
+            }
+            | undefined;
+        administrativeLevels?:
+            | {
+                level1long?: string | undefined;
+                level1short?: string | undefined;
+                level2long?: string | undefined;
+                level2short?: string | undefined;
+            }
+            | undefined;
         city?: string | undefined;
         streetName?: string | undefined;
         streetNumber?: string | undefined;

@@ -51,7 +51,7 @@ declare namespace M {
          * Side of screen on which Sidenav appears
          * @default 'left'
          */
-        edge: 'left' | 'right';
+        edge: "left" | "right";
 
         /**
          * Allow swipe gestures to open/close Sidenav

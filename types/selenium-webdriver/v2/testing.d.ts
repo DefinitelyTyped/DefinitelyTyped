@@ -1,8 +1,8 @@
 /**
-* Registers a new test suite.
-* @param name The suite name.
-* @param fn The suite function, or {@code undefined} to define a pending test suite.
-*/
+ * Registers a new test suite.
+ * @param name The suite name.
+ * @param fn The suite function, or {@code undefined} to define a pending test suite.
+ */
 export function describe(name: string, fn: Function): void;
 
 /**

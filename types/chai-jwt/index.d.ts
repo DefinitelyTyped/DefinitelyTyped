@@ -1,8 +1,3 @@
-// Type definitions for chai-jwt 2.0
-// Project: https://github.com/dafortune/chai-jwt#readme
-// Definitions by: Anatoly Pitikin <https://github.com/xapdkop>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 /// <reference types="chai" />
 

@@ -1,19 +1,22 @@
-import EmberObject from '@ember/object';
-import ActionHandler from '@ember/object/-private/action-handler';
-import Transition from '@ember/routing/-private/transition';
-import Evented from '@ember/object/evented';
-import { RenderOptions, RouteQueryParam } from '@ember/routing/types';
-import Controller from '@ember/controller';
+import EmberObject from "@ember/object";
+import ActionHandler from "@ember/object/-private/action-handler";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import Evented from "@ember/object/evented";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import Transition from "@ember/routing/transition";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import Controller from "@ember/controller";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import { RouteQueryParam } from "@ember/routing/types";
 
-// tslint:disable-next-line:strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 type RouteModel = object | string | number;
 
 /**
  * The `Ember.Route` class is used to define individual routes. Refer to
  * the [routing guide](http://emberjs.com/guides/routing/) for documentation.
  */
-export default class Route<Model = unknown, Params extends object = object>
-    extends EmberObject.extend(ActionHandler, Evented) {
+export default class Route<Model = unknown, Params extends object = object> extends EmberObject {
     // methods
     /**
      * This hook is called after this route's model has resolved. It follows
@@ -454,13 +457,13 @@ export default class Route<Model = unknown, Params extends object = object>
      * This hook is executed when the router enters the route. It is not executed
      * when the model for the route changes.
      */
-    activate(): void;
+    activate(transition: Transition): void;
 
     /**
      * This hook is executed when the router completely exits this route. It is
      * not executed when the model for the route changes.
      */
-    deactivate(): void;
+    deactivate(transition: Transition): void;
 
     /**
      * The didTransition action is fired after a transition has successfully been
@@ -523,3 +526,6 @@ export default class Route<Model = unknown, Params extends object = object>
      */
     buildRouteInfoMetadata(): unknown;
 }
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface -- used for declaration merge
+export default interface Route<Model = unknown, Params extends object = object> extends ActionHandler, Evented {}

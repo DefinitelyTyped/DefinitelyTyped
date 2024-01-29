@@ -1,11 +1,4 @@
-// Type definitions for calidation 1.16
-// Project: https://github.com/selbekk/calidation#readme
-// Definitions by: Ray Knight <https://github.com/ArrayKnight>
-//                 Lisa Tassone <https://github.com/lisatassone>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
-import * as React from 'react';
+import * as React from "react";
 
 export type Dirty<T extends object> = Record<keyof T, boolean>;
 
@@ -116,7 +109,8 @@ export interface FormContext<T extends object> {
 }
 
 export interface FormProps<T extends object>
-    extends Omit<React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>, 'onSubmit'> {
+    extends Omit<React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>, "onSubmit">
+{
     onChange?: ((event: React.ChangeEvent<HTMLFormElement>) => void) | undefined;
     onReset?: (() => void) | undefined;
     onSubmit?: ((context: FormContext<T>) => void) | undefined;
@@ -125,7 +119,7 @@ export interface FormProps<T extends object>
 
 export class Form<T extends object> extends React.Component<FormProps<T>> {}
 
-export type ValidationContext<T extends object> = Omit<FormContext<T>, 'register' | 'unregister'>;
+export type ValidationContext<T extends object> = Omit<FormContext<T>, "register" | "unregister">;
 
 export interface ValidationProps<T extends object> {
     children: (context: ValidationContext<T>) => React.ReactNode;
@@ -136,7 +130,7 @@ export interface ValidationProps<T extends object> {
 
 export class Validation<T extends object> extends React.Component<ValidationProps<T>> {}
 
-export interface FormValidationProps<T extends object> extends Omit<FormProps<T>, 'children'>, ValidationProps<T> {
+export interface FormValidationProps<T extends object> extends Omit<FormProps<T>, "children">, ValidationProps<T> {
     children: (context: ValidationContext<T>) => React.ReactNode;
 }
 

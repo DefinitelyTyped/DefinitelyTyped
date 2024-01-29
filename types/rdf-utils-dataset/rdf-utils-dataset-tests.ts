@@ -1,16 +1,12 @@
-import utils = require('rdf-utils-dataset');
-import resourceToGraph = require('rdf-utils-dataset/resourcesToGraph');
-import { DatasetIndexed } from 'rdf-dataset-indexed/dataset';
-import DatasetExt = require('rdf-ext/lib/Dataset');
-import QuadExt = require('rdf-ext/lib/Quad');
-import { BaseQuad, DataFactory, DatasetCore, DatasetCoreFactory, Quad, Term } from 'rdf-js';
+import { BaseQuad, DataFactory, DatasetCore, DatasetCoreFactory, Quad, Term } from "@rdfjs/types";
+import { DatasetIndexed } from "rdf-dataset-indexed/dataset";
+import DatasetExt from "rdf-ext/lib/Dataset";
+import QuadExt from "rdf-ext/lib/Quad";
+import { resource, resourcesToGraph } from "rdf-utils-dataset";
 
-const { resource } = utils;
-
-type Factory<OutQuad extends BaseQuad,
-    InQuad extends BaseQuad,
-    D extends DatasetCore<OutQuad, InQuad>,
-> = DataFactory<OutQuad, InQuad> & DatasetCoreFactory<OutQuad, InQuad, D>;
+type Factory<OutQuad extends BaseQuad, InQuad extends BaseQuad, D extends DatasetCore<OutQuad, InQuad>> =
+    & DataFactory<OutQuad, InQuad>
+    & DatasetCoreFactory<OutQuad, InQuad, D>;
 
 const dataset1: DatasetIndexed<BaseQuad, BaseQuad> = {} as any;
 const dataset2: DatasetIndexed<Quad, BaseQuad> = {} as any;
@@ -35,25 +31,25 @@ resource(dataset3, term);
 resource(dataset4, term);
 
 // $ExpectType DatasetExt
-resourceToGraph(dataset1);
+resourcesToGraph(dataset1);
 
 // $ExpectType DatasetCore<BaseQuad, BaseQuad>
-resourceToGraph(dataset1, { factory: factory1 });
+resourcesToGraph(dataset1, { factory: factory1 });
 
 // $ExpectType DatasetExt
-resourceToGraph(dataset2);
+resourcesToGraph(dataset2);
 
 // $ExpectType DatasetCore<Quad, Quad>
-resourceToGraph(dataset2, { factory: factory2 });
+resourcesToGraph(dataset2, { factory: factory2 });
 
 // $ExpectType DatasetExt
-resourceToGraph(dataset3);
+resourcesToGraph(dataset3);
 
 // $ExpectType DatasetIndexed<Quad, Quad>
-resourceToGraph(dataset3, { factory: factory3 });
+resourcesToGraph(dataset3, { factory: factory3 });
 
 // $ExpectType DatasetExt
-resourceToGraph(dataset4);
+resourcesToGraph(dataset4);
 
 // $ExpectType DatasetExt
-resourceToGraph(dataset4, { factory: factory4 });
+resourcesToGraph(dataset4, { factory: factory4 });

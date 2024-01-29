@@ -1,10 +1,10 @@
-import { VueConstructor } from 'vue';
-import { DatePickerProps } from './shared.d';
+import { VueConstructor } from "vue";
+import { DatePickerProps } from "./shared.d";
 
 export const DatePickerCalendar: DatePickerCalendar;
 
 export interface DatePickerCalendar extends VueConstructor {
-    props: Omit<DatePickerProps, 'isFocus'>;
+    props: Omit<DatePickerProps, "isFocus">;
     date: () => {
         receivedDate: string | Date | null;
     };

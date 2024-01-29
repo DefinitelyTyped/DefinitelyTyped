@@ -2,9 +2,42 @@
 
 let title: string = unsafeWindow.document.title;
 
+// $ExpectType Console
+unsafeWindow.console;
+
+// window.onurlchange
+
+if (window.onurlchange === null) {
+    window.addEventListener("urlchange", ({ url }) => console.log(url));
+    // or
+    window.addEventListener("urlchange", info => console.log(info.url));
+}
+
+// General Listening
+window.addEventListener("click", event => console.log(event));
+
+// GM_addElement
+
+GM_addElement("script", {
+    textContent: "window.foo = \"bar\";",
+});
+
+GM_addElement("script", {
+    src: "https://example.com/script.js",
+    type: "text/javascript",
+});
+
+GM_addElement(document.getElementsByTagName("div")[0], "img", {
+    src: "https://example.com/image.png",
+});
+
+GM_addElement(document.body, "style", {
+    textContent: "div { color: black; };",
+});
+
 // GM_addStyle
 
-const scriptTag: HTMLStyleElement = GM_addStyle('a { font-wight: bold }');
+const scriptTag: HTMLStyleElement = GM_addStyle("a { font-wight: bold }");
 
 // GM_setValue
 
@@ -12,28 +45,21 @@ interface AppState {
     form: { name: string };
 }
 
-GM_setValue('a', 'foobar');
-GM_setValue('b', 123);
-GM_setValue('c', true);
-GM_setValue('d', { form: { name: 'Bob' } });
+GM_setValue("a", "foobar");
+GM_setValue("b", 123);
+GM_setValue("c", true);
+GM_setValue("d", { form: { name: "Bob" } });
 
 // GM_addValueChangeListener
 
-GM_addValueChangeListener(
-    'a',
-    (name: string, oldValue: string, newValue: string, remote: boolean) => {}
-);
-GM_addValueChangeListener(
-    'b',
-    (name, oldValue: number, newValue: number, remote) => {}
-);
-GM_addValueChangeListener(
-    'c',
-    (name, oldValue: boolean, newValue: boolean, remote) => {}
-);
-const dValueChangeListenerId = GM_addValueChangeListener(
-    'd',
-    (name, oldValue: AppState, newValue: AppState, remote) => {}
+GM_addValueChangeListener("a", (name: string, oldValue: string, newValue: string, remote: boolean) => {});
+GM_addValueChangeListener("b", (name, oldValue: number, newValue: number, remote) => {});
+GM_addValueChangeListener("c", (name, oldValue: boolean, newValue: boolean, remote) => {});
+const dValueChangeListenerId: number = GM_addValueChangeListener(
+    "d",
+    (name, oldValue: AppState, newValue: AppState, remote) => {
+        GM_log(name, oldValue.form.name, newValue.form.name);
+    },
 );
 
 // GM_removeValueChangeListener
@@ -42,44 +68,57 @@ GM_removeValueChangeListener(dValueChangeListenerId);
 
 // GM_getValue
 
-const a: string = GM_getValue('a', 'foobar');
-const b: number = GM_getValue('b', 123);
-const c: boolean = GM_getValue('c', true);
-const d: any = GM_getValue('d', null);
-const e: string = GM_getValue('e');
-const f: number = GM_getValue('f');
-const g: boolean = GM_getValue('g');
-const h: AppState = GM_getValue('h');
+const a: string = GM_getValue("a", "foobar");
+const b: number = GM_getValue("b", 123);
+const c: boolean = GM_getValue("c", true);
+const d: any = GM_getValue("d", null);
+const e: string = GM_getValue("e");
+const f: number = GM_getValue("f");
+const g: boolean = GM_getValue("g");
+const h: AppState = GM_getValue("h");
 
 // GM_deleteValue
 
-GM_deleteValue('d');
+GM_deleteValue("d");
 
 // GM_listValues
 
 GM_listValues().forEach((name: string) => {
-    console.log(name + ':', GM_getValue(name));
+    console.log(name + ":", GM_getValue(name));
 });
 
 // GM_getResourceText
 
-const template: string = GM_getResourceText('template');
+const template: string = GM_getResourceText("template");
 
 // GM_getResourceURL
 
-const templateURL: string = GM_getResourceURL('template');
+const templateURL: string = GM_getResourceURL("template");
 
 // GM_registerMenuCommand
 
-GM_registerMenuCommand('Hello, world (simple)', () => {
-    GM_log('Hello, world (simple) clicked');
+GM_registerMenuCommand("Hello, world (simple)", () => {
+    GM_log("Hello, world (simple) clicked");
 });
 const commandId = GM_registerMenuCommand(
-    'Hello, world!',
+    "Hello, world!",
     () => {
-        GM_log('Hello, world clicked');
+        GM_log("Hello, world clicked");
     },
-    'h'
+    "h",
+);
+
+GM_registerMenuCommand(
+    "Show Alert",
+    () => {
+        console.log("Menu item selected");
+    },
+    {
+        accessKey: "a",
+        autoClose: true,
+        title: "Tooltip text",
+        id: 5,
+    },
 );
 
 // GM_unregisterMenuCommand
@@ -90,31 +129,31 @@ GM_unregisterMenuCommand(commandId);
 
 // Bare Minimum
 const abortHandle = GM_xmlhttpRequest({
-    method: 'GET',
-    url: 'http://www.example.com/',
+    method: "GET",
+    url: "http://www.example.com/",
+    headers: {
+        "Content-Type": "application/json",
+    },
     onload(response) {
         alert(response.responseText);
-    }
+    },
 });
 
 abortHandle.abort();
 
 // GET request
 GM_xmlhttpRequest({
-    method: 'GET',
-    url: 'http://www.example.net/',
+    method: "GET",
+    url: "http://www.example.net/",
     headers: {
-        'User-Agent': 'Mozilla/5.0',
-        Accept: 'text/xml'
+        "User-Agent": "Mozilla/5.0",
+        Accept: "text/xml",
     },
     onload(response) {
         let responseXML = response.responseXML;
         // Inject responseXML into existing Object (only appropriate for XML content).
         if (!responseXML) {
-            responseXML = new DOMParser().parseFromString(
-                response.responseText,
-                'text/xml'
-            );
+            responseXML = new DOMParser().parseFromString(response.responseText, "text/xml");
         }
 
         GM_log(
@@ -125,63 +164,63 @@ GM_xmlhttpRequest({
                 response.responseHeaders,
                 response.responseText,
                 response.finalUrl,
-                responseXML
-            ].join('\n')
+                responseXML,
+            ].join("\n"),
         );
-    }
+    },
 });
 
 // POST request
 GM_xmlhttpRequest({
-    method: 'POST',
-    url: 'http://www.example.net/login',
-    data: 'username=johndoe&password=xyz123',
+    method: "POST",
+    url: "http://www.example.net/login",
+    data: "username=johndoe&password=xyz123",
     headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        "Content-Type": "application/x-www-form-urlencoded",
     },
     onload(response) {
-        if (response.responseText.indexOf('Logged in as') > -1) {
-            location.href = 'http://www.example.net/dashboard';
+        if (response.responseText.indexOf("Logged in as") > -1) {
+            location.href = "http://www.example.net/dashboard";
         }
-    }
+    },
 });
 
 // HEAD request
 GM_xmlhttpRequest({
-    url: 'http://www.example.com',
-    method: 'HEAD',
+    url: "http://www.example.com",
+    method: "HEAD",
     onload(response) {
         GM_log(response.responseHeaders);
-    }
+    },
 });
 
 // All options
 interface RequestContext {
     form: {
-        name: string
+        name: string;
     };
 }
 
 GM_xmlhttpRequest<RequestContext>({
-    method: 'POST',
-    url: 'http://example.com/',
-    headers: { 'User-Agent': 'greasemonkey' },
-    data: 'foo=1&bar=2',
-    cookie: 'secret=42',
+    method: "POST",
+    url: "http://example.com/",
+    headers: { "User-Agent": "greasemonkey" },
+    data: "foo=1&bar=2",
+    cookie: "secret=42",
     nocache: true,
     revalidate: true,
     binary: false,
     timeout: 10,
     context: {
         form: {
-            name: 'Alice'
-        }
+            name: "Alice",
+        },
     },
-    responseType: 'json',
-    overrideMimeType: 'text/plain',
+    responseType: "json",
+    overrideMimeType: "text/plain",
     anonymous: false,
-    user: 'guest',
-    password: 'abc123',
+    user: "guest",
+    password: "abc123",
     onabort() {},
     onerror(response) {
         GM_log(response.error);
@@ -198,13 +237,13 @@ GM_xmlhttpRequest<RequestContext>({
     onreadystatechange(response) {
         GM_log(response.context.form.name);
     },
-    ontimeout() {}
+    ontimeout() {},
 });
 
 // Responses
 GM_xmlhttpRequest({
-    method: 'GET',
-    url: 'http://example.com/',
+    method: "GET",
+    url: "http://example.com/",
     onload: response => {
         const readyState: number = response.readyState;
         const responseHeaders: string = response.responseHeaders;
@@ -219,17 +258,33 @@ GM_xmlhttpRequest({
         const lengthComputable: boolean = response.lengthComputable;
         const loaded: number = response.loaded;
         const total: number = response.total;
-    }
+    },
+});
+
+// Fetch
+GM_xmlhttpRequest({
+    method: "GET",
+    url: "https://example.com/",
+    headers: {
+        "Content-Type": "application/json",
+    },
+    onload: (response) => {
+        console.log(response.responseText);
+    },
+    redirect: "error",
+    fetch: true,
+    anonymous: true,
 });
 
 // GM_download
 
 const downloadHandle = GM_download({
-    url: 'http://tampermonkey.net/crx/tampermonkey.xml',
-    name: 'tampermonkey.xml',
-    headers: { 'User-Agent': 'greasemonkey' },
+    url: "http://tampermonkey.net/crx/tampermonkey.xml",
+    name: "tampermonkey.xml",
+    headers: { "User-Agent": "greasemonkey" },
     saveAs: true,
     timeout: 3000,
+    conflictAction: "prompt",
     onerror(response) {
         GM_log(response.error, response.details);
     },
@@ -237,12 +292,12 @@ const downloadHandle = GM_download({
     onload() {},
     onprogress(response) {
         GM_log(response.finalUrl, response.loaded, response.total);
-    }
+    },
 });
 
 downloadHandle.abort();
 
-GM_download('http://tampermonkey.net/crx/tampermonkey.xml', 'tampermonkey.xml');
+GM_download("http://tampermonkey.net/crx/tampermonkey.xml", "tampermonkey.xml");
 
 // GM_saveTab
 
@@ -252,8 +307,8 @@ interface TabState {
 
 const tabState: TabState = {
     form: {
-        name: 'Alice'
-    }
+        name: "Alice",
+    },
 };
 
 GM_saveTab(tabState);
@@ -272,23 +327,28 @@ GM_getTabs(tabsMap => {
 
 // GM_log
 
-GM_log('Hello, World!');
-GM_log('Hello, World!', 'Again');
+GM_log("Hello, World!");
+GM_log("Hello, World!", "Again");
+GM_log("Different types", 0, true, { key: "value" }, [1, 2, 3]);
 
 // GM_openInTab
 
-GM_openInTab('http://www.example.com/');
+GM_openInTab("http://www.example.com/");
 
-GM_openInTab('http://www.example.com/', true);
+GM_openInTab("http://www.example.com/", true);
 
-const openTabObject = GM_openInTab('http://www.example.com/', {
-    active: true,
-    insert: true,
-    setParent: true
-});
+const openTabObject = GM_openInTab(
+    "http://www.example.com/",
+    {
+        active: true,
+        insert: 2,
+        setParent: true,
+        incognito: true,
+    },
+);
 
 openTabObject.onclose = () => {
-    GM_log('Tab closed', openTabObject.closed);
+    GM_log("Tab closed", openTabObject.closed);
 };
 
 openTabObject.close();
@@ -296,48 +356,108 @@ openTabObject.close();
 // GM_notification
 
 const textNotification: Tampermonkey.NotificationDetails = {
-    text: 'Notification text',
-    title: 'Notification title',
-    image: 'https://tampermonkey.net/favicon.ico',
+    text: "Notification text",
+    title: "Notification title",
+    tag: "notification-1",
+    image: "https://tampermonkey.net/favicon.ico",
     timeout: 5000,
+    url: "https://example.com",
     silent: true,
     onclick() {
         GM_log(`Notification with id ${this.id} is clicked`);
     },
     ondone(clicked) {
         GM_log(`Notification with id ${this.id} is clicked ${clicked}`);
-    }
+    },
 };
 
 const highlightNotification: Tampermonkey.NotificationDetails = {
     highlight: true,
     onclick: textNotification.onclick,
-    ondone: textNotification.ondone
+    ondone: textNotification.ondone,
 };
 
 GM_notification(textNotification);
 GM_notification(highlightNotification);
 GM_notification(textNotification, textNotification.ondone);
 
-GM_notification(
-    'Notification text',
-    'Notification title',
-    'https://tampermonkey.net/favicon.ico',
-    function() {
-        GM_log(`Notification with id ${this.id} is clicked`);
-    }
-);
+GM_notification("Notification text", "Notification title", "https://tampermonkey.net/favicon.ico", function() {
+    GM_log(`Notification with id ${this.id} is clicked`);
+});
+
+GM_notification("Notification text");
 
 // GM_setClipboard
 
-GM_setClipboard('Some text in clipboard');
-GM_setClipboard('<b>Some text in clipboard</b>', 'text');
-GM_setClipboard('<b>Some text in clipboard</b>', {
-    type: 'text',
-    mimetype: 'text/plain'
+GM_setClipboard("Some text in clipboard");
+GM_setClipboard("<b>Some text in clipboard</b>", "text");
+GM_setClipboard("<b>Some text in clipboard</b>", {
+    type: "text",
+    mimetype: "text/plain",
 });
 
+// GM_webRequest
+
+GM_webRequest([
+    { selector: "*cancel.me/*", action: "cancel" },
+    { selector: { include: "*", exclude: "http://exclude.me/*" }, action: { redirect: "http://new_static.url" } },
+    {
+        selector: { match: "*://match.me/*" },
+        action: { redirect: { from: "([^:]+)://match.me/(.*)", to: "$1://redirected.to/$2" } },
+    },
+], (info, message, details) => {
+    console.log(info, message, details);
+});
+
+// GM_cookie.*
+
+// $ExpectType void
+GM_cookie.list({ name: "mycookie" }, (cookies, error) => {
+    if (!error) {
+        console.log(cookies);
+    } else {
+        console.error(error);
+    }
+});
+
+GM_cookie.list({}, console.log);
+
+// $ExpectType void
+GM_cookie.set({
+    url: "https://example.com",
+    name: "name",
+    value: "value",
+    domain: ".example.com",
+    path: "/",
+    secure: true,
+    httpOnly: true,
+    expirationDate: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 30), // Expires in 30 days
+}, error => {
+    if (error) {
+        console.error(error);
+    } else {
+        console.log("Cookie set successfully.");
+    }
+});
+
+GM_cookie.delete({ name: "cookie_name" }, error => {
+    if (error) {
+        console.error(error);
+    } else {
+        console.log("Cookie deleted successfully");
+    }
+});
+
+// @ts-expect-error
+GM_cookie.delete({}, () => {});
+
 // GM_info
+
+// $ExpectType ScriptInfo
+window.GM_info;
+
+// @ts-expect-error
+unsafeWindow.GM_info;
 
 // I created a basic userscript and copied GM_info from there for testing if the real thing fits the types
 // I don't think there's a real way of testing this other than testing if it fits the original
@@ -348,27 +468,29 @@ const exampleInfo: Tampermonkey.ScriptInfo = {
         author: null,
         blockers: [],
         copyright: null,
-        description: 'A description',
+        description: "A description",
         description_i18n: {},
         downloadURL: null,
         evilness: 0,
+        enabled: true,
         excludes: [],
-        grant: ['GM_setValue', 'GM_getValue', 'GM_deleteValue'],
-        header: 'headers',
+        grant: ["GM_setValue", "GM_getValue", "GM_deleteValue"],
+        header: "headers",
         homepage: null,
         icon: null,
         icon64: null,
         includes: [],
         lastModified: 1630000000000,
-        matches: ['https://*/*'],
-        name: 'Example userscript',
+        matches: ["https://*/*"],
+        name: "Example userscript",
         name_i18n: {},
-        namespace: 'namespace',
+        namespace: "namespace",
         options: {
             check_for_updates: false,
-            comment: '',
+            comment: "",
             compat_foreach: false,
             compat_metadata: false,
+            compat_powerful_this: false,
             compat_prototypes: false,
             compat_wrappedjsobject: false,
             compatopts_for_requires: true,
@@ -378,48 +500,52 @@ const exampleInfo: Tampermonkey.ScriptInfo = {
                 merge_excludes: true,
                 merge_includes: true,
                 merge_matches: true,
-                orig_connects: ['https://google.com'],
+                orig_connects: ["https://google.com"],
                 orig_excludes: [],
                 orig_includes: [],
-                orig_matches: ['https://*/*'],
+                orig_matches: ["https://*/*"],
                 orig_noframes: null,
-                orig_run_at: 'document-idle',
+                orig_run_at: "document-idle",
                 use_blockers: [],
                 use_connects: [],
                 use_excludes: [],
                 use_includes: [],
                 use_matches: [],
             },
-            run_at: 'document-idle',
+            run_at: "document-idle",
+            sandbox: null,
+            tab_types: null,
+            unwrap: null,
         },
         position: 1,
         resources: [
             {
-                content: 'robots.txt',
-                meta: 'application',
-                name: 'github-robots.txt',
-                url: 'https://github.com/robots.txt',
+                content: "robots.txt",
+                meta: "application",
+                name: "github-robots.txt",
+                url: "https://github.com/robots.txt",
             },
         ],
-        'run-at': 'document-idle',
+        "run-at": "document-idle",
         supportURL: null,
         sync: {
-            imported: false,
+            imported: 9,
         },
         unwrap: false,
         updateURL: null,
-        uuid: 'c0ffeec0-ffee-c0ff-eec0-ffeec0ffeec0',
-        version: '1.0',
+        uuid: "c0ffeec0-ffee-c0ff-eec0-ffeec0ffeec0",
+        version: "1.0",
         webRequest: [],
     },
-    scriptMetaStr: 'metadata',
-    scriptSource: 'console.log(GM_info);',
-    scriptUpdateURL: undefined,
+    scriptMetaStr: "metadata",
+    scriptSource: "console.log(GM_info);",
+    scriptUpdateURL: null,
     scriptWillUpdate: false,
-    version: '4.13.6136',
-    scriptHandler: 'Tampermonkey',
+    version: "4.13.6136",
+    scriptHandler: "Tampermonkey",
     isIncognito: false,
-    downloadMode: 'native',
+    downloadMode: "native",
+    sandboxMode: "raw",
 };
 
 // GM.*
@@ -428,19 +554,24 @@ const exampleInfo: Tampermonkey.ScriptInfo = {
 
 const exampleInfo1: Tampermonkey.ScriptInfo = GM.info;
 
-async () => {
+const exampleInfo2: Tampermonkey.ScriptInfo = window.GM.info;
+
+// @ts-expect-error
+unsafeWindow.GM;
+
+(async () => {
     // GM.addStyle
 
     // $ExpectType HTMLStyleElement
-    await GM.addStyle('div {color: #000;}');
+    await GM.addStyle("div {color: #000;}");
 
     // GM.setValue
 
     // $ExpectType void
-    await GM.setValue('str', 'string');
-    await GM.setValue('num', 0);
-    await GM.setValue('bool', true);
-    await GM.setValue('obj', {
+    await GM.setValue("str", "string");
+    await GM.setValue("num", 0);
+    await GM.setValue("bool", true);
+    await GM.setValue("obj", {
         nested: {
             values: true,
         },
@@ -449,11 +580,11 @@ async () => {
     // GM.getValue
 
     // $ExpectType string
-    await GM.getValue<string>('str');
+    await GM.getValue<string>("str");
 
     // GM.deleteValue
 
-    await GM.deleteValue('a');
+    await GM.deleteValue("a");
 
     // GM.listValues
 
@@ -463,9 +594,9 @@ async () => {
     // GM.addValueChangeListener
 
     // $ExpectType number
-    await GM.addValueChangeListener('a', (name: string, oldValue: string, newValue: string, remote: boolean) => {});
+    await GM.addValueChangeListener("a", (name: string, oldValue: string, newValue: string, remote: boolean) => {});
     // $ExpectType number
-    await GM.addValueChangeListener('a', (name: string, oldValue: number, newValue: number, remote: boolean) => {});
+    await GM.addValueChangeListener("a", (name: string, oldValue: number, newValue: number, remote: boolean) => {});
 
     // GM.removeValueChangeListener
 
@@ -475,19 +606,19 @@ async () => {
     // GM.getResourceText
 
     // $ExpectType string
-    await GM.getResourceText('template');
+    await GM.getResourceText("template");
 
     // GM.getResourceUrl
 
     // $ExpectType string
-    await GM.getResourceUrl('template');
+    await GM.getResourceUrl("template");
 
     // GM.registerMenuCommand
 
     // $ExpectType number
-    await GM.registerMenuCommand('Do thing', () => {});
+    await GM.registerMenuCommand("Do thing", () => {});
     // $ExpectType number
-    await GM.registerMenuCommand('Do other thing', () => {}, 'T');
+    await GM.registerMenuCommand("Do other thing", () => {}, "T");
 
     // GM.unregisterMenuCommand
 
@@ -499,8 +630,8 @@ async () => {
     // Bare minimum
 
     const minResponse = await GM.xmlHttpRequest({
-        url: 'https://github.com/',
-        method: 'GET',
+        url: "https://github.com/",
+        method: "GET",
     });
 
     // $ExpectType string
@@ -512,28 +643,28 @@ async () => {
 
     // GET request
     await GM.xmlHttpRequest({
-        method: 'GET',
-        url: 'http://www.example.net/',
+        method: "GET",
+        url: "http://www.example.net/",
         headers: {
-            'User-Agent': 'Mozilla/5.0',
-            Accept: 'text/xml',
+            "User-Agent": "Mozilla/5.0",
+            Accept: "text/xml",
         },
     });
 
     // POST request
     await GM.xmlHttpRequest({
-        method: 'POST',
-        url: 'http://www.example.net/login',
-        data: 'username=johndoe&password=xyz123',
+        method: "POST",
+        url: "http://www.example.net/login",
+        data: "username=johndoe&password=xyz123",
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
+            "Content-Type": "application/x-www-form-urlencoded",
         },
     });
 
     // HEAD request
     await GM.xmlHttpRequest({
-        url: 'http://www.example.com',
-        method: 'HEAD',
+        url: "http://www.example.com",
+        method: "HEAD",
     });
 
     // All options
@@ -544,25 +675,25 @@ async () => {
     }
 
     const allOptionsResponse = await GM.xmlHttpRequest<RequestContext>({
-        method: 'POST',
-        url: 'http://example.com/',
-        headers: { 'User-Agent': 'greasemonkey' },
-        data: 'foo=1&bar=2',
-        cookie: 'secret=42',
+        method: "POST",
+        url: "http://example.com/",
+        headers: { "User-Agent": "greasemonkey" },
+        data: "foo=1&bar=2",
+        cookie: "secret=42",
         nocache: true,
         revalidate: true,
         binary: false,
         timeout: 10,
         context: {
             form: {
-                name: 'Alice',
+                name: "Alice",
             },
         },
-        responseType: 'json',
-        overrideMimeType: 'text/plain',
+        responseType: "json",
+        overrideMimeType: "text/plain",
         anonymous: false,
-        user: 'guest',
-        password: 'abc123',
+        user: "guest",
+        password: "abc123",
         onabort() {},
         onerror(response) {
             // $ExpectType string
@@ -615,9 +746,9 @@ async () => {
 
     // $ExpectType void
     await GM.download({
-        url: 'http://tampermonkey.net/crx/tampermonkey.xml',
-        name: 'tampermonkey.xml',
-        headers: { 'User-Agent': 'greasemonkey' },
+        url: "http://tampermonkey.net/crx/tampermonkey.xml",
+        name: "tampermonkey.xml",
+        headers: { "User-Agent": "greasemonkey" },
         saveAs: true,
         timeout: 3000,
         onerror(response) {
@@ -643,7 +774,7 @@ async () => {
 
     const tabState: TabState = {
         form: {
-            name: 'Alice',
+            name: "Alice",
         },
     };
 
@@ -666,14 +797,14 @@ async () => {
 
     // $ExpectType void
     await GM.log(42);
-    await GM.log('Hello', 'World!');
+    await GM.log("Hello", "World!");
 
     // GM.openInTab
 
-    await GM.openInTab('https://example.org');
-    await GM.openInTab('https://example.org', true);
+    await GM.openInTab("https://example.org");
+    await GM.openInTab("https://example.org", true);
 
-    const openTabObject = await GM.openInTab('https://example.org', {
+    const openTabObject = await GM.openInTab("https://example.org", {
         active: true,
         insert: false,
         setParent: true,
@@ -697,15 +828,15 @@ async () => {
     // $ExpectType boolean
     await GM.notification(textNotification, textNotification.ondone);
 
-    await GM.notification('text', 'title', 'https://tampermonkey.net/favicon.ico', () => {});
+    await GM.notification("text", "title", "https://tampermonkey.net/favicon.ico", () => {});
 
     // GM.setClipboard
 
     // $ExpectType void
-    await GM.setClipboard('Some text');
-    await GM.setClipboard('Some text', 'text');
-    await GM.setClipboard('Some text', {
-        type: 'text',
-        mimetype: 'text/plain',
+    await GM.setClipboard("Some text");
+    await GM.setClipboard("Some text", "text");
+    await GM.setClipboard("Some text", {
+        type: "text",
+        mimetype: "text/plain",
     });
-};
+});

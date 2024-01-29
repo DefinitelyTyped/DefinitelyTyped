@@ -1,20 +1,19 @@
-// Type definitions for from2 2.3
-// Project: https://github.com/hughsk/from2
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-import * as stream from 'stream';
+import * as stream from "stream";
 
 export = from2;
 
-declare function from2(read: from2.ReadInput): NodeJS.ReadableStream;
-declare function from2(opts: from2.ObjectModeOptions, read: from2.ReadObjectInput): NodeJS.ReadableStream;
-declare function from2(opts: from2.Options, read: from2.ReadInput): NodeJS.ReadableStream;
+declare function from2(read: from2.ReadInput): from2.Stream;
+declare function from2(opts: from2.ObjectModeOptions, read: from2.ReadObjectInput): from2.Stream;
+declare function from2(opts: from2.Options, read: from2.ReadInput): from2.Stream;
 
 declare namespace from2 {
-    function obj(read: ReadObjectInput): NodeJS.ReadableStream;
-    function obj(opts: { objectMode?: true | undefined } & stream.ReadableOptions, read: ReadObjectInput): NodeJS.ReadableStream;
+    interface Stream extends NodeJS.ReadableStream {
+        readonly destroyed: boolean;
+        destroy: (err?: Error) => void;
+    }
+    function obj(read: ReadObjectInput): Stream;
+    function obj(opts: { objectMode?: true | undefined } & stream.ReadableOptions, read: ReadObjectInput): Stream;
 
     function ctor(opts?: Options): From2Ctor<ReadInput>;
     function ctor(opts: ObjectModeOptions): From2Ctor<ReadObjectInput>;
@@ -22,7 +21,7 @@ declare namespace from2 {
     type ObjectModeOptions = { objectMode: true } & stream.ReadableOptions;
     type Options = { objectMode?: false | undefined } & stream.ReadableOptions;
 
-    type From2Ctor<R extends ReadInput | ReadObjectInput> = new(read: R) => NodeJS.ReadableStream;
+    type From2Ctor<R extends ReadInput | ReadObjectInput> = new(read: R) => Stream;
 
     type ReadObjectInput = ReadCallback<NextObjectCallback> | any[];
     type ReadInput = ReadCallback<NextCallback> | Chunk[];

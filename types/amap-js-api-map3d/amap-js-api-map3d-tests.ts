@@ -89,7 +89,7 @@ testObject3dGroup1.add(line);
 testObject3dGroup1.add(mesh);
 // $ExoectType void
 testObject3dGroup2.add(mesh);
-// $ExpectError
+// @ts-expect-error
 testObject3dGroup2.add(line);
 
 // $ExoectType void
@@ -98,7 +98,7 @@ testObject3dGroup1.remove(line);
 testObject3dGroup1.remove(mesh);
 // $ExoectType void
 testObject3dGroup2.remove(mesh);
-// $ExpectError
+// @ts-expect-error
 testObject3dGroup2.remove(line);
 
 /**
@@ -115,7 +115,7 @@ const testObject3DLayer = new AMap.Object3DLayer({
     visible: true,
     opacity: 0.1,
     zIndex: 2,
-    zooms: [1, 2]
+    zooms: [1, 2],
 });
 
 // $ExpectType void
@@ -212,36 +212,36 @@ testVector.length();
 // $ExpectType Mesh
 const testMesh = new AMap.Object3D.Mesh();
 
-// $ExpectError
+// @ts-expect-error
 testMesh.geometry = geometry;
 
 // $ExpectType number[]
 testMesh.geometry.vertices;
-// $ExpectError
+// @ts-expect-error
 testMesh.geometry.vertices = [];
 testMesh.geometry.vertices.shift();
 
 // $ExpectType number[]
 testMesh.geometry.vertexColors;
-// $ExpectError
+// @ts-expect-error
 testMesh.geometry.vertexColors = [];
 testMesh.geometry.vertexColors.shift();
 
 // $ExpectType number[]
 testMesh.geometry.vertexUVs;
-// $ExpectError
+// @ts-expect-error
 testMesh.geometry.vertexUVs = [];
 testMesh.geometry.vertexUVs.shift();
 
 // $ExpectType number[]
 testMesh.geometry.faces;
-// $ExpectError
+// @ts-expect-error
 testMesh.geometry.faces = [];
 testMesh.geometry.faces.shift();
 
 // $ExpectType number[]
 testMesh.geometry.textureIndices;
-// $ExpectError
+// @ts-expect-error
 testMesh.geometry.textureIndices = [];
 testMesh.geometry.textureIndices.shift();
 
@@ -267,42 +267,42 @@ testMesh.reDraw();
 // $ExpectType MeshAcceptLights
 const testMeshAcceptLights = new AMap.Object3D.MeshAcceptLights();
 
-// $ExpectError
+// @ts-expect-error
 testMeshAcceptLights.geometry = geometry;
 
 // $ExpectType number[]
 testMeshAcceptLights.geometry.vertices;
-// $ExpectError
+// @ts-expect-error
 testMeshAcceptLights.geometry.vertices = [];
 testMeshAcceptLights.geometry.vertices.shift();
 
 // $ExpectType number[]
 testMeshAcceptLights.geometry.vertexColors;
-// $ExpectError
+// @ts-expect-error
 testMeshAcceptLights.geometry.vertexColors = [];
 testMeshAcceptLights.geometry.vertexColors.shift();
 
 // $ExpectType number[]
 testMeshAcceptLights.geometry.vertexUVs;
-// $ExpectError
+// @ts-expect-error
 testMeshAcceptLights.geometry.vertexUVs = [];
 testMeshAcceptLights.geometry.vertexUVs.shift();
 
 // $ExpectType number[]
 testMeshAcceptLights.geometry.faces;
-// $ExpectError
+// @ts-expect-error
 testMeshAcceptLights.geometry.faces = [];
 testMeshAcceptLights.geometry.faces.shift();
 
 // $ExpectType number[]
 testMeshAcceptLights.geometry.textureIndices;
-// $ExpectError
+// @ts-expect-error
 testMeshAcceptLights.geometry.textureIndices = [];
 testMeshAcceptLights.geometry.textureIndices.shift();
 
 // $ExpectType number[]
 testMeshAcceptLights.geometry.vertexNormals;
-// $ExpectError
+// @ts-expect-error
 testMeshAcceptLights.geometry.vertexNormals = [];
 testMeshAcceptLights.geometry.vertexNormals.shift();
 
@@ -325,86 +325,86 @@ testMeshAcceptLights.reDraw();
  * object3d/meshLine.ts
  */
 
-// $ExpectError
+// @ts-expect-error
 new AMap.Object3D.MeshLine();
-// $ExpectError
+// @ts-expect-error
 new AMap.Object3D.MeshLine({});
 // $ExpectType MeshLine
 const testMeshLine = new AMap.Object3D.MeshLine({
     path: [lnglat],
     width: 1,
     height: 1,
-    color: 'red'
+    color: "red",
 });
 // $ExpectType MeshLine
 new AMap.Object3D.MeshLine({
     path: [lnglat],
-    color: [0, 0, 1, 1]
+    color: [0, 0, 1, 1],
 });
 // $ExpectType MeshLine
 new AMap.Object3D.MeshLine({
-    path: [[1, 2]]
+    path: [[1, 2]],
 });
 // $ExpectType MeshLine
 new AMap.Object3D.MeshLine({
     path: [lnglat],
-    unit: 'meter'
+    unit: "meter",
 });
 // $ExpectType MeshLine
 new AMap.Object3D.MeshLine({
     path: [pixel],
-    unit: 'px'
+    unit: "px",
 });
-// $ExpectError
+// @ts-expect-error
 new AMap.Object3D.MeshLine({
     path: [lnglat],
-    unit: 'px'
+    unit: "px",
 });
-// $ExpectError
+// @ts-expect-error
 new AMap.Object3D.MeshLine({
     path: [pixel],
-    unit: 'meter'
+    unit: "meter",
 });
 
 // $ExpectType number[]
 testMeshLine.geometry.vertices;
-// $ExpectError
+// @ts-expect-error
 testMeshLine.geometry.vertices = [];
 testMeshLine.geometry.vertices.shift();
 
 // $ExpectType number[]
 testMeshLine.geometry.vertexUVs;
-// $ExpectError
+// @ts-expect-error
 testMeshLine.geometry.vertexUVs = [];
 testMeshLine.geometry.vertexUVs.shift();
 
 // $ExpectType number[]
 testMeshLine.geometry.vertexColors;
-// $ExpectError
+// @ts-expect-error
 testMeshLine.geometry.vertexColors = [];
 testMeshLine.geometry.vertexColors.shift();
 
 // $ExpectType number[]
 testMeshLine.geometry.vertexColors;
-// $ExpectError
+// @ts-expect-error
 testMeshLine.geometry.vertexColors = [];
 testMeshLine.geometry.vertexColors.shift();
 
 // $ExpectType number[]
 testMeshLine.geometry.vertexIndices;
-// $ExpectError
+// @ts-expect-error
 testMeshLine.geometry.vertexIndices = [];
 testMeshLine.geometry.vertexIndices.shift();
 
 // $ExpectType number[]
 testMeshLine.geometry.directions;
-// $ExpectError
+// @ts-expect-error
 testMeshLine.geometry.directions = [];
 testMeshLine.geometry.directions.shift();
 
 // $ExpectType number[]
 testMeshLine.geometry.textureIndices;
-// $ExpectError
+// @ts-expect-error
 testMeshLine.geometry.textureIndices = [];
 testMeshLine.geometry.textureIndices.shift();
 
@@ -425,65 +425,65 @@ testMeshLine.setWidth(10);
 testMeshLine.setHeight(10);
 
 // $ExpectType void
-testMeshLine.setColor('red');
+testMeshLine.setColor("red");
 
 /**
  * object3d/prism.ts
  */
 
-// $ExpectError
+// @ts-expect-error
 new AMap.Object3D.Prism();
-// $ExpectError
+// @ts-expect-error
 new AMap.Object3D.Prism({});
 // $ExpectType Prism
 new AMap.Object3D.Prism({
     path: [lnglat],
-    color: 'red'
+    color: "red",
 });
 // $ExpectType Prism
 new AMap.Object3D.Prism({
     path: [lnglat],
-    color: 'red',
+    color: "red",
     height: 1,
-    color2: 'blue'
+    color2: "blue",
 });
 // $ExpectType Prism
 new AMap.Object3D.Prism({
     path: [pixel],
-    color: 'red'
+    color: "red",
 });
 // $ExpectType Prism
 new AMap.Object3D.Prism({
     path: [lnglat],
-    color: 'red'
+    color: "red",
 });
 // $ExpectType Prism
 new AMap.Object3D.Prism({
     path: [[lnglat]],
-    color: 'red'
+    color: "red",
 });
 // $ExpectType Prism
 new AMap.Object3D.Prism({
     path: [[pixel]],
-    color: 'red'
+    color: "red",
 });
 // $ExpectType Prism
 new AMap.Object3D.Prism({
     path: [[lnglatTuple]],
-    color: 'red'
+    color: "red",
 });
 // $ExpectType Prism
 new AMap.Object3D.Prism({
     path: [lnglat],
-    color: ['red']
+    color: ["red"],
 });
 // $ExpectType Prism
 new AMap.Object3D.Prism({
     path: [lnglat],
-    color: [1, 1, 1, 1]
+    color: [1, 1, 1, 1],
 });
 // $ExpectType Prism
 new AMap.Object3D.Prism({
     path: [lnglat],
-    color: [[1, 1, 1, 1]]
+    color: [[1, 1, 1, 1]],
 });

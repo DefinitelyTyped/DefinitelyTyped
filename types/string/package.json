@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/string",
+    "version": "0.0.9999",
+    "projects": [
+        "http://stringjs.com"
+    ],
+    "devDependencies": {
+        "@types/string": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bas Pennings",
+            "githubUsername": "basp"
+        }
+    ]
+}

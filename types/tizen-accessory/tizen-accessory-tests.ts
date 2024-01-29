@@ -5,11 +5,11 @@ declare let agent: SAAgent;
 function handleSAAgent(agents: SAAgent[]): void {
     agent = agents[0];
     agent.channelIds.forEach(x => x !== -1);
-    if (agent.id === 'id') {
+    if (agent.id === "id") {
     }
-    if (agent.name === 'name') {
+    if (agent.name === "name") {
     }
-    if (agent.role === 'consumer') {
+    if (agent.role === "consumer") {
     }
 }
 function handleSAAgentError(e: Error): void {
@@ -26,14 +26,14 @@ agent.setServiceConnectionListener({
         socket.peerAgent === peer;
         socket.setDataReceiveListener((channelId: number, data: string) => {});
         socket.setSocketStatusListener((reas: string) => {});
-        socket.sendData(123, 'test');
-        socket.sendSecureData(123, 'secure test');
+        socket.sendData(123, "test");
+        socket.sendSecureData(123, "secure test");
     },
     onerror: (errorCode: string, peerAgent: SAPeerAgent) => {},
 });
 agent.authenticatePeerAgent(peer, (peer: SAPeerAgent, token: SAAuthenticationToken) => {
-    token.authenticationType === '14';
-    token.key === 'key';
+    token.authenticationType === "14";
+    token.key === "key";
 });
 agent.acceptServiceConnectionRequest(peer);
 agent.rejectServiceConnectionRequest(peer);
@@ -47,7 +47,7 @@ agent.setPeerAgentFindListener({
 const saFileTransfer = agent.getSAFileTransfer();
 saFileTransfer.setFileReceiveListener({
     onreceive: (id: string, fileName: string) => {
-        if (fileName === 'aaa') saFileTransfer.receiveFile(id, 'local path');
+        if (fileName === "aaa") saFileTransfer.receiveFile(id, "local path");
         else saFileTransfer.rejectFile(id);
         saFileTransfer.cancelFile(id);
     },
@@ -57,22 +57,22 @@ saFileTransfer.setFileSendListener({
     onprogress: (id: string, progress: number) => {},
     oncomplete: (id: string, localPath: string) => {},
 });
-const fileId: number = saFileTransfer.sendFile(peer, 'file');
+const fileId: number = saFileTransfer.sendFile(peer, "file");
 
 const saMessage: SAMessage = agent.getSAMessage();
 saMessage.setMessageReceiveListener((peer: SAPeerAgent, data: string) => {
     peer.peerAccessory.accessoryId;
-    data === 'test';
+    data === "test";
 });
-saMessage.sendData(peer, 'Hello World', {
+saMessage.sendData(peer, "Hello World", {
     onsent: (peer, id: string) => {},
 });
-saMessage.sendSecureData(peer, 'Hello Secure World', {
+saMessage.sendSecureData(peer, "Hello Secure World", {
     onsent: (peer, id: string) => {},
 });
 
 webapis.sa.setDeviceStatusListener(deviceStatusListener);
-function deviceStatusListener(type: SATransport, status: 'DETACHED' | 'ATTACHED'): void {
+function deviceStatusListener(type: SATransport, status: "DETACHED" | "ATTACHED"): void {
     switch (type) {
         case SATransport.TRANSPORT_BLE:
             break;
@@ -85,8 +85,8 @@ function deviceStatusListener(type: SATransport, status: 'DETACHED' | 'ATTACHED'
         case SATransport.TRANSPORT_WIFI:
             break;
     }
-    if (status === 'DETACHED') {
+    if (status === "DETACHED") {
     }
-    if (status === 'ATTACHED') {
+    if (status === "ATTACHED") {
     }
 }

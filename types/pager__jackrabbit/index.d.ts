@@ -1,76 +1,70 @@
-// Type definitions for @pager/jackrabbit 4.8
-// Project: https://github.com/pagerinc/jackrabbit
-// Definitions by: Benjamin Schuster-Boeckler <https://github.com/dagams>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 import * as amqplib from "amqplib";
 
 export = jackrabbit;
 declare function jackrabbit(url: string): jackrabbit.JackRabbit;
 
 declare namespace jackrabbit {
-  type Message = amqplib.Message;
+    type Message = amqplib.Message;
 
-  type ExchangeOptions = amqplib.Options.AssertExchange & {
-    noReply?: boolean | undefined;
-  };
-
-  interface JackRabbit extends NodeJS.EventEmitter {
-    default(): Exchange;
-    direct(name?: string, options?: ExchangeOptions): Exchange;
-    fanout(name?: string, options?: ExchangeOptions): Exchange;
-    topic(name?: string, options?: ExchangeOptions): Exchange;
-    close(callback?: (e: Error) => any): void;
-    getInternals: () => {
-      amqp: any;
-      connection: amqplib.Connection;
+    type ExchangeOptions = amqplib.Options.AssertExchange & {
+        noReply?: boolean | undefined;
     };
-  }
 
-  enum exchangeType {
-    direct = "direct",
-    fanout = "fanout",
-    topic = "topic"
-  }
+    interface JackRabbit extends NodeJS.EventEmitter {
+        default(): Exchange;
+        direct(name?: string, options?: ExchangeOptions): Exchange;
+        fanout(name?: string, options?: ExchangeOptions): Exchange;
+        topic(name?: string, options?: ExchangeOptions): Exchange;
+        close(callback?: (e: Error) => any): void;
+        getInternals: () => {
+            amqp: any;
+            connection: amqplib.Connection;
+        };
+    }
 
-  interface Exchange extends NodeJS.EventEmitter {
-    name: string;
-    type: exchangeType;
-    options: amqplib.Options.AssertExchange;
-    queue(options: QueueOptions): Queue;
-    connect(con: amqplib.Connection): Exchange;
-    publish(message: any, options?: PublishOptions): Exchange;
-  }
+    enum exchangeType {
+        direct = "direct",
+        fanout = "fanout",
+        topic = "topic",
+    }
 
-  type PublishOptions = amqplib.Options.Publish & {
-    key: string;
-    reply?: AckCallback | undefined;
-  };
+    interface Exchange extends NodeJS.EventEmitter {
+        name: string;
+        type: exchangeType;
+        options: amqplib.Options.AssertExchange;
+        queue(options: QueueOptions): Queue;
+        connect(con: amqplib.Connection): Exchange;
+        publish(message: any, options?: PublishOptions): Exchange;
+    }
 
-  type QueueOptions = amqplib.Options.AssertQueue & {
-    name?: string | undefined;
-    key?: string | undefined;
-    keys?: ReadonlyArray<string> | undefined;
-    prefetch?: number | undefined;
-  };
+    type PublishOptions = amqplib.Options.Publish & {
+        key: string;
+        reply?: AckCallback | undefined;
+    };
 
-  type AckCallback = (data?: any) => void;
+    type QueueOptions = amqplib.Options.AssertQueue & {
+        name?: string | undefined;
+        key?: string | undefined;
+        keys?: readonly string[] | undefined;
+        prefetch?: number | undefined;
+    };
 
-  interface Queue extends NodeJS.EventEmitter {
-    name: string;
-    options: QueueOptions;
-    connect(con: amqplib.Connection): void;
-    consume: (
-      callback: (
-        data: any,
-        ack: AckCallback,
-        nack: () => void,
-        msg: Message
-      ) => void,
-      options?: amqplib.Options.Consume
-    ) => void;
-    cancel(done: any): void;
-    purge(done: any): void;
-  }
+    type AckCallback = (data?: any) => void;
+
+    interface Queue extends NodeJS.EventEmitter {
+        name: string;
+        options: QueueOptions;
+        connect(con: amqplib.Connection): void;
+        consume: (
+            callback: (
+                data: any,
+                ack: AckCallback,
+                nack: () => void,
+                msg: Message,
+            ) => void,
+            options?: amqplib.Options.Consume,
+        ) => void;
+        cancel(done: any): void;
+        purge(done: any): void;
+    }
 }

@@ -1,9 +1,6 @@
-// Type definitions for promise-state-machine-es6 2.1
-// Project: https://github.com/faleij/promise-state-machine
-// Definitions by: Dmitry Zakablukov <https://github.com/dmitry-zakablukov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/// <reference types="node" />
 
-import * as events from 'events';
+import * as events from "events";
 
 interface DotNode<State, Transitions> {
     from: State;
@@ -26,16 +23,19 @@ interface FsmBase<State, Transitions> {
     can(state: Transitions): boolean;
     can(...args: Transitions[]): boolean;
 
-    toDOTsync(options?: { replacer: (data: DotNode<State, Transitions>) => DotNodeStringified}): string;
+    toDOTsync(options?: { replacer: (data: DotNode<State, Transitions>) => DotNodeStringified }): string;
 }
 
 declare const PromiseStateMachine: {
-    new <State, Transitions extends string>(payload: {
+    new<State, Transitions extends string>(payload: {
         initial: State;
         events: PromiseStateMachine.Events<State, Transitions>;
-    }): events.EventEmitter & FsmBase<State, Transitions> & {
-        [name in Transitions]: () => Promise<any>;
-    };
+    }):
+        & events.EventEmitter
+        & FsmBase<State, Transitions>
+        & {
+            [name in Transitions]: () => Promise<any>;
+        };
 };
 
 declare namespace PromiseStateMachine {

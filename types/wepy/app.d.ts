@@ -7,7 +7,7 @@ export interface AppConfig {
 }
 
 export interface AppConstructor {
-    new (): app;
+    new(): app;
 }
 
 /* the supported add-ons */
@@ -22,6 +22,6 @@ export default class app {
     use(addonName: AddOn, ...args: any[]): void;
     $initAPI(
         wepy: any,
-        noPromiseAPI: string[] | { [name: string]: boolean }
+        noPromiseAPI: string[] | { [name: string]: boolean },
     ): void;
 }

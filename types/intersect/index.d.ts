@@ -1,24 +1,19 @@
-// Type definitions for intersect 1.0
-// Project: https://github.com/juliangruber/intersect
-// Definitions by: Noah Overcash <https://github.com/ncovercash>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare const intersect: {
     /**
      * Find the intersection of arrays a and b.
      * The individual arrays are expected to be sets, i.e. there's no duplicate elements in them.
      */
-    <T>(a: ReadonlyArray<T>, b: ReadonlyArray<T>): T[];
+    <T>(a: readonly T[], b: readonly T[]): T[];
     /**
      * Find the intersection of all subarrays.
      * The individual arrays are expected to be sets, i.e. there's no duplicate elements in them.
      */
-    <T>(arrays: ReadonlyArray<ReadonlyArray<T>>): T[];
+    <T>(arrays: ReadonlyArray<readonly T[]>): T[];
     /**
      * Find the intersection of two large arrays.
      * May perform better than default when there are over approximately 125 elements
      */
-    big<T>(a: ReadonlyArray<T>, b: ReadonlyArray<T>): T[];
+    big<T>(a: readonly T[], b: readonly T[]): T[];
 };
 
 export = intersect;

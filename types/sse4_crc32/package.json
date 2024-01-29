@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/sse4_crc32",
+    "version": "7.0.9999",
+    "projects": [
+        "https://github.com/anandsuresh/sse4_crc32#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/sse4_crc32": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "naeemy",
+            "githubUsername": "naeemy"
+        }
+    ]
+}

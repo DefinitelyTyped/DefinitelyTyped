@@ -1,15 +1,15 @@
 import * as React from "react";
-import * as ReactNative from "react-native";
 import * as ReactDOMServer from "react-dom/server";
+import * as ReactNative from "react-native";
 
 import styled, {
     css,
     isStyledComponent,
+    ReactNativeThemedStyledComponentsModule,
+    ThemeConsumer,
     ThemeProps,
     ThemeProvider,
     withTheme,
-    ThemeConsumer,
-    ReactNativeThemedStyledComponentsModule,
 } from "styled-components/native";
 import {} from "styled-components/cssprop";
 
@@ -32,8 +32,10 @@ class MyReactNativeComponent extends React.Component {
 }
 
 const ValidProp = <StyledText adjustsFontSizeToFit />;
-const invalidProp = <StyledText randoName={2} />; // $ExpectError
-const invalidTag = styled.div``; // $ExpectError
+// @ts-expect-error
+const invalidProp = <StyledText randoName={2} />;
+// @ts-expect-error
+const invalidTag = styled.div``;
 
 interface MyTheme {
     primary: string;
@@ -72,12 +74,12 @@ async function typedThemes() {
 
     const ThemedView = styled.View`
         background: ${(props) => {
-            // $ExpectType string
-            props.theme.color;
-            // $ExpectType string | undefined
-            props.testID;
-            return props.theme.color;
-        }};
+        // $ExpectType string
+        props.theme.color;
+        // $ExpectType string | undefined
+        props.testID;
+        return props.theme.color;
+    }};
     `;
     const ThemedView2 = styled.View((props) => {
         // $ExpectType string
@@ -101,15 +103,15 @@ async function typedThemes() {
     });
     const themedCss = css`
         background: ${(props) => {
-            // $ExpectType string
-            props.theme.color;
-            // $ExpectType "theme"
-            type Keys = keyof typeof props;
-            return props.theme.color;
-        }};
+        // $ExpectType string
+        props.theme.color;
+        // $ExpectType "theme"
+        type Keys = keyof typeof props;
+        return props.theme.color;
+    }};
     `;
     //  can't use a FlattenInterpolation as the first argument, would make broken css
-    // $ExpectError
+    // @ts-expect-error
     const ThemedView4 = styled.View(themedCss);
 
     const themedCssWithNesting = css((props) => ({
@@ -175,7 +177,8 @@ async function themeAugmentation() {
         >
             <>
                 <extra.ThemeProvider
-                    theme={(base) => base} // $ExpectError
+                    // @ts-expect-error
+                    theme={(base) => base}
                 >
                     <extra.ThemeConsumer>{() => null}</extra.ThemeConsumer>
                 </extra.ThemeProvider>

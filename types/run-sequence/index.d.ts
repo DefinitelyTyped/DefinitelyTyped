@@ -1,14 +1,9 @@
-// Type definitions for run-sequence
-// Project: https://github.com/OverZealous/run-sequence
-// Definitions by: Keita Kagurazaka <https://github.com/k-kagurazaka>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import gulp = require('gulp');
+import gulp = require("gulp");
 
 interface IRunSequence {
-    (...streams: (string | string[] | gulp.TaskCallback)[]): NodeJS.ReadWriteStream;
+    (...streams: Array<string | string[] | gulp.TaskCallback>): NodeJS.ReadWriteStream;
 
     use(gulp: gulp.Gulp): IRunSequence;
 }

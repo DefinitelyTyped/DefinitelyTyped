@@ -9,7 +9,7 @@ declare class VisualizationFilterDef {
     group: string | null;
     help: string;
     label: string;
-    lookupType: any;
+    lookupType: number;
     name: string;
     options: any[][];
     order: number;

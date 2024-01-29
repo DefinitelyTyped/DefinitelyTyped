@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/react-cytoscapejs",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/plotly/react-cytoscapejs"
+    ],
+    "dependencies": {
+        "@types/cytoscape": "*",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-cytoscapejs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": " Emmanuel Counasse",
+            "githubUsername": "manuc66"
+        },
+        {
+            "name": "newraina",
+            "githubUsername": "newraina"
+        }
+    ]
+}

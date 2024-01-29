@@ -5,10 +5,10 @@ declare class DataExporter {
     private fieldIndexesByName_;
     private logger_;
     title: string;
-    dataSet: any;
-    addField(field: any): void;
-    getField(fieldIdxOrName: number | string): any;
-    formatFieldValue(field: any, showLookupKeys?: boolean): string;
+    dataSet: DataSet;
+    addField(field: DataExporterFieldDef): void;
+    getField(fieldIdxOrName: number | string): DataExporterFieldDef;
+    formatFieldValue(field: DataExporterFieldDef, showLookupKeys?: boolean): string;
     private _getLookupValue;
     orderedGroupFields(): Array<{
         fieldName: string;
@@ -16,7 +16,10 @@ declare class DataExporter {
     }>;
 }
 declare namespace DataExporter {
-    const tempExportDir: string;
-    function purgeExpiredExportedFiles(): void;
-    const exportedFileLifetime: number;
+    export { DataExporterFieldDef, DataSet, exportedFileLifetime, purgeExpiredExportedFiles, tempExportDir };
 }
+type DataSet = import("@nginstack/engine/lib/dataset/DataSet");
+declare let tempExportDir: string;
+declare function purgeExpiredExportedFiles(): void;
+declare let exportedFileLifetime: number;
+type DataExporterFieldDef = import("./DataExporterFieldDef");

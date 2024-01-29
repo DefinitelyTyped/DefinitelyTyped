@@ -145,7 +145,7 @@ export interface RadialGradientBackground {
 export type BackgroundProps = string | LinearGradientBackground | RadialGradientBackground;
 
 export interface GlobalTheme {
-    type: 'light' | 'dark' | string;
+    type: "light" | "dark" | string;
     global: Global;
     text: Text;
     picker: Picker;

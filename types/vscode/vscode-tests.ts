@@ -9,3 +9,7 @@ vscode.languages.registerCompletionItemProvider('markdown', {
         return [];
     }
 });
+
+new vscode.MarkdownString('# header').isTrusted = {
+    enabledCommands: []
+};

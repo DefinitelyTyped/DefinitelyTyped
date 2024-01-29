@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/buffer-crc32",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/brianloveswords/buffer-crc32"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/buffer-crc32": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

@@ -1,4 +1,4 @@
-import crypto = require('mz/crypto');
+import crypto = require("mz/crypto");
 
 // Promise:
 crypto.randomBytes(8).then(buf => {

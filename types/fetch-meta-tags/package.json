@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/fetch-meta-tags",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/luisivan/fetch-meta-tags#readme"
+    ],
+    "devDependencies": {
+        "@types/fetch-meta-tags": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alessandro Rabitti",
+            "githubUsername": "silversonicaxel"
+        }
+    ]
+}

@@ -1,50 +1,44 @@
-// Type definitions for trouter 3.1
-// Project: https://github.com/lukeed/trouter
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 declare namespace Trouter {
     interface FindResult<T> {
-        params: { [k: string]: string; };
+        params: { [k: string]: string };
         handlers: T[];
     }
 
     type HTTPMethod =
-        | 'ACL'
-        | 'BIND'
-        | 'CHECKOUT'
-        | 'CONNECT'
-        | 'COPY'
-        | 'DELETE'
-        | 'GET'
-        | 'HEAD'
-        | 'LINK'
-        | 'LOCK'
-        | 'M-SEARCH'
-        | 'MERGE'
-        | 'MKACTIVITY'
-        | 'MKCALENDAR'
-        | 'MKCOL'
-        | 'MOVE'
-        | 'NOTIFY'
-        | 'OPTIONS'
-        | 'PATCH'
-        | 'POST'
-        | 'PROPFIND'
-        | 'PROPPATCH'
-        | 'PURGE'
-        | 'PUT'
-        | 'REBIND'
-        | 'REPORT'
-        | 'SEARCH'
-        | 'SOURCE'
-        | 'SUBSCRIBE'
-        | 'TRACE'
-        | 'UNBIND'
-        | 'UNLINK'
-        | 'UNLOCK'
-        | 'UNSUBSCRIBE';
+        | "ACL"
+        | "BIND"
+        | "CHECKOUT"
+        | "CONNECT"
+        | "COPY"
+        | "DELETE"
+        | "GET"
+        | "HEAD"
+        | "LINK"
+        | "LOCK"
+        | "M-SEARCH"
+        | "MERGE"
+        | "MKACTIVITY"
+        | "MKCALENDAR"
+        | "MKCOL"
+        | "MOVE"
+        | "NOTIFY"
+        | "OPTIONS"
+        | "PATCH"
+        | "POST"
+        | "PROPFIND"
+        | "PROPPATCH"
+        | "PURGE"
+        | "PUT"
+        | "REBIND"
+        | "REPORT"
+        | "SEARCH"
+        | "SOURCE"
+        | "SUBSCRIBE"
+        | "TRACE"
+        | "UNBIND"
+        | "UNLINK"
+        | "UNLOCK"
+        | "UNSUBSCRIBE";
 }
 
 declare class Trouter<T = any> {

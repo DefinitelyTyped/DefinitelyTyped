@@ -1,6 +1,36 @@
 {
-  "private": true,
-  "dependencies": {
-    "chalk": "^2.4.1"
-  }
+    "private": true,
+    "name": "@types/marked-terminal",
+    "version": "6.1.9999",
+    "projects": [
+        "https://github.com/mikaelbr/marked-terminal"
+    ],
+    "type": "module",
+    "exports": {
+        "node": {
+            "import": "./index.d.ts",
+            "require": "./index.d.cts"
+        },
+        "default": "./index.d.ts"
+    },
+    "dependencies": {
+        "@types/cardinal": "^2.1",
+        "@types/node": "*",
+        "chalk": "^5.3.0",
+        "marked": ">=6.0.0 <12"
+    },
+    "devDependencies": {
+        "@types/marked-terminal": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bryan Kendall",
+            "githubUsername": "bkendall"
+        }
+    ],
+    "pnpm": {
+        "overrides": {
+            "marked": "6.0.0"
+        }
+    }
 }

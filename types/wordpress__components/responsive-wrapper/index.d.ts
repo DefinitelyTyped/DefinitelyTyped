@@ -1,8 +1,8 @@
-import { ComponentType, ReactChild } from 'react';
+import { ComponentType, ReactElement } from "react";
 
 declare namespace ResponsiveWrapper {
     interface Props {
-        children: ReactChild;
+        children: ReactElement | number | string;
         naturalHeight: number;
         naturalWidth: number;
     }

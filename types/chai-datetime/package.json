@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/chai-datetime",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/gaslight/chai-datetime.git"
+    ],
+    "dependencies": {
+        "@types/chai": "*"
+    },
+    "devDependencies": {
+        "@types/chai-datetime": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Cliff Burger",
+            "githubUsername": "cliffburger"
+        },
+        {
+            "name": "Matt Bishop",
+            "githubUsername": "mattbishop"
+        }
+    ]
+}

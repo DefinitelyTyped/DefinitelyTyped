@@ -1,10 +1,10 @@
 // See docs https://codemirror.net/doc/manual.html#addon_tern and https://codemirror.net/addon/tern/tern.js (comments in the beginning of the file)
 // Docs for tern itself might also be helpful: http://ternjs.net/doc/manual.html
 
-import * as Tern from 'tern';
-import '../../';
+import * as Tern from "tern";
+import "../../";
 
-declare module '../../' {
+declare module "../../" {
     class TernServer {
         constructor(options?: TernOptions);
 
@@ -40,10 +40,10 @@ declare module '../../' {
             callback: (error?: Error, data?: Tern.QueryResult<Q>) => void,
             pos?: Position,
         ): void;
-        request<Q extends Tern.Query['type']>(
+        request<Q extends Tern.Query["type"]>(
             cm: Doc,
             query: Q,
-            callback: (error?: Error, data?: Tern.QueryRegistry[Q]['result']) => void,
+            callback: (error?: Error, data?: Tern.QueryRegistry[Q]["result"]) => void,
             pos?: Position,
         ): void;
         destroy(): void;
@@ -51,7 +51,7 @@ declare module '../../' {
 
     interface TernOptions {
         /** An object mapping plugin names to configuration options. */
-        plugins?: Tern.ConstructorOptions['plugins'] | undefined;
+        plugins?: Tern.ConstructorOptions["plugins"] | undefined;
         /** An array of JSON definition data structures. */
         defs?: Tern.Def[] | undefined;
         /**

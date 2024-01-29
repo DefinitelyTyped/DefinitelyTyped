@@ -1,5 +1,3 @@
-export = rejseplanenProfile;
+import { Profile } from "../../index";
 
-import createClient = require('../../index');
-
-declare const rejseplanenProfile: createClient.Profile;
+export const profile: Profile;

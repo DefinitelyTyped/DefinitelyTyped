@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/google-publisher-tag",
+    "version": "1.20240122.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Google Publisher Tag",
+    "projects": [
+        "https://developers.google.com/publisher-tag/"
+    ],
+    "devDependencies": {
+        "@types/google-publisher-tag": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jonathon Imperiosi",
+            "githubUsername": "jimper"
+        },
+        {
+            "name": "Khoi Doan",
+            "githubUsername": "zombifier"
+        },
+        {
+            "name": "Taymon A. Beal",
+            "githubUsername": "taymonbeal"
+        }
+    ]
+}

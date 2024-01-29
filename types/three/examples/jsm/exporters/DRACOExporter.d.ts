@@ -1,4 +1,4 @@
-import { Mesh, Points } from '../../../src/Three';
+import { Mesh, Points } from '../../../src/Three.js';
 
 export interface DRACOExporterOptions {
     decodeSpeed?: number;
@@ -13,5 +13,5 @@ export interface DRACOExporterOptions {
 export class DRACOExporter {
     constructor();
 
-    parse(object: Mesh | Points, options: DRACOExporterOptions): Int8Array;
+    parse(object: Mesh | Points, options?: DRACOExporterOptions): Int8Array;
 }

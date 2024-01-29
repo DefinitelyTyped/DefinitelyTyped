@@ -1,6 +1,4 @@
-
-
-import lineReader = require('line-reader');
+import lineReader = require("line-reader");
 
 const eachLine = (
     filename: string | NodeJS.ReadableStream,
@@ -17,17 +15,17 @@ const eachLine = (
         });
     });
 
-eachLine('line-reader-tests.ts', {}, function(line) {
+eachLine("line-reader-tests.ts", {}, function(line) {
     console.log(line);
 })
     .then(function() {
-        console.log('done');
+        console.log("done");
     })
     .catch(function(err: Error) {
         console.error(err);
     });
 
-lineReader.open('line-reader-tests.ts', function(err: Error, reader) {
+lineReader.open("line-reader-tests.ts", function(err: Error, reader) {
     if (err) throw err;
     if (reader.hasNextLine()) {
         try {
@@ -38,23 +36,22 @@ lineReader.open('line-reader-tests.ts', function(err: Error, reader) {
         } finally {
             reader.close(function(err: Error) {
                 if (err) throw err;
-            })
+            });
         }
-    }
-    else {
+    } else {
         reader.close(function(err: Error) {
             if (err) throw err;
         });
     }
 });
 
-lineReader.eachLine('line-reader.d.ts', {encoding: 'utf8'}, function(line: string, last: boolean) {
+lineReader.eachLine("line-reader.d.ts", { encoding: "utf8" }, function(line: string, last: boolean) {
     console.log(line);
-    if (last) console.log('<EOF>');
+    if (last) console.log("<EOF>");
 });
 
 lineReader.eachLine(
-    'line-reader.d.ts',
+    "line-reader.d.ts",
     function(line: string) {
         console.log(line);
     },

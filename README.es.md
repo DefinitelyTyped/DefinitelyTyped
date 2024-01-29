@@ -2,6 +2,9 @@
 
 > El repositorio de definiciones de TypeScript de alta calidad.
 
+*You can also read this README in [English](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md), [한국어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Русский](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [简体中文](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh-Hans.md), [Português](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md), [Italiano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md)
+and [日本語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!*
+
 Vea también el sitio web [definitelytyped.org](http://definitelytyped.org), aunque la información en este README está más actualizada.
 
 ## ¿Qué son los `declaration files`?
@@ -29,14 +32,13 @@ Si aún no puedes encontrarlo, comprueba si el paquete ya [incluye](https://www.
 Esto es provisto usualmente en el campo `"types"` o `"typings"` en el `package.json`,
 o solo busca por cualquier archivo ".d.ts" en el paquete e inclúyelo manualmente con un `/// <reference path="" />`.
 
-#### Versiones más viejas de TypeScript (3.7 y anteriores)
-
-Definitely Typed solamente prueba paquetes en versiones de TypeScript que son menores a 2 años.
-Actualmente, las versiones 3.8 y posteriores están siendo probadas. Si estas usando TypeScript 2.0 a 3.7, puedes intentar instalando paquetes `@types` &mdash; la mayoría de los paquetes no usan los beneficios de Typescript más nuevos. No hay garantía de que funcionen.
-Versiones soportadas:
+### Support window
 
 <img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
 <img src="docs/support-window.svg#gh-dark-mode-only" style="width:100%">
+
+<details>
+<summary>Versiones más viejas de TypeScript</summary>
 
 Los paquetes `@types` tienen etiquetas para las versiones de Typescript que explícitamente soportan, usualmente puedes obtener versiones más viejas de los paquetes anteriores a 2 años.
 Por ejemplo, si ejecutas `npm dist-tags @types/react`, observaras que Typescript 2.5 puede usar types para react@16.0, a su vez, Typescript 2.6 y 2.7 pueden usar types para react@16.4.
@@ -59,6 +61,7 @@ Por ejemplo, si ejecutas `npm dist-tags @types/react`, observaras que Typescript
 
 Tal vez debas añadir manualmente las [referencias](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html).
 
+</details>
 
 ## ¿Cómo puedo contribuir?
 
@@ -96,7 +99,7 @@ luego sigue las instrucciones para [editar un paquete existente](#editar-un-paqu
 
 Una vez que hayas probado tu paquete, podrás compartirlo en Definitely Typed.
 
-Primero, haz un [fork](https://guides.github.com/activities/forking/) en este repositorio, instala [node](https://nodejs.org/), y luego ejecuta la `npm install`.
+Primero, [bifurca](https://docs.github.com/es/get-started/quickstart/fork-a-repo) este repositorio, instala [node](https://nodejs.org/), y luego ejecuta el comando `npm install`.
 
 
 #### Editar un paquete existente
@@ -135,7 +138,6 @@ Tu paquete debería tener esta estructura:
 | `index.d.ts` | Este contiene los typings del paquete. |
 | [`<my-package>-tests.ts`](#my-package-teststs) | Este contiene una muestra del código con el que se realiza la prueba de escritura. Este código *no* es ejecutable, pero sí es type-checked. |
 | [`tsconfig.json`](#tsconfigjson) | Este permite ejecutar `tsc` dentro del paquete. |
-| [`tslint.json`](#linter-tslintjson) | Permite linting. |
 
 Generalas ejecutando `npm install -g dts-gen` y `dts-gen --dt --name <my-package> --template module`.
 Ve todas las opciones en [dts-gen](https://github.com/Microsoft/dts-gen).
@@ -148,7 +150,7 @@ Para un buen paquete de ejemplo, vea [base64-js](https://github.com/DefinitelyTy
 
 Cuando un paquete [bundles](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) sus propios tipos, estos tipos deberán ser removidos de Definitely Typed para evitar que generen confusión.
 
-Se puede remover ejecutando `npm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]`.
+Se puede remover ejecutando `pnpm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]`.
 - `<typingsPackageName>`: Este es el nombre del directorio que tienes que eliminar.
 - `<asOfVersion>`: Un stub será publicado a `@types/<typingsPackageName>` con esta versión. Debería ser más grande que cualquier versión publicada actualmente.
 - `<libraryName>`: Un nombre descriptivo de la librería, p.ej. "Angular 2" en vez de "angular2". (Si es omitido, será idéntico a `<typingsPackageName>`.)
@@ -160,7 +162,7 @@ Si un paquete nunca estuvo en Definitely Typed, no será necesario añadirlo a `
 #### Running tests
 
 Realiza una prueba ejecutando `npm test <package to test>` donde `<package to test>` es el nombre de tu paquete.
-Este script utiliza [dtslint](https://github.com/Microsoft/dtslint).
+Este script utiliza [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint).
 
 #### Naming
 
@@ -199,7 +201,7 @@ const result = twoslash("//")
 + // Handle options param
 + const resultWithOptions = twoslash("//", { version: "3.7" })
 + // When the param is incorrect
-+ // $ExpectError
++ // @ts-expect-error
 + const resultWithOptions = twoslash("//", {  })
 ```
 
@@ -207,19 +209,19 @@ If you're wondering where to start with test code, the examples in the README of
 
 You can [validate your changes](#running-tests) with `npm test <package to test>` from the root of this repo, which takes changed files into account.
 
-Para afirmar que una expresión es de un tipo dado, utilice `$ExpectType`. Para afirmar que una expresión causa un error de compilación, utilice `$ExpectError`.
+Para afirmar que una expresión es de un tipo dado, utilice `$ExpectType`. Para afirmar que una expresión causa un error de compilación, utilice `@ts-expect-error`.
 
 ```js
 // $ExpectType void
 f(1);
 
-// $ExpectError
+// @ts-expect-error
 f("one");
 ```
 
-Para más detalles, vea el [dtslint](https://github.com/Microsoft/dtslint#write-tests) readme.
+Para más detalles, vea el [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint#write-tests) readme.
 
-#### Linter: `tslint.json`
+#### Linter: `.eslintrc.json`
 
 The linter configuration file, `tslint.json` should contain `{ "extends": "@definitelytyped/dtslint/dt.json" }`, and no additional rules.
 
@@ -262,18 +264,18 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
   Cuando es usado `any` en un tipo de unión, el tipo resultante todavía es `any`. Así que mientras la porción `string` de este tipo de anotación puede _verse_ útil, de hecho, no ofrece ningún typechecking adicional más que un simple `any`.
   Dependiendo de la intención, una alternativa aceptable puede ser `any`, `string`, o `string | object`.
 
-### Definition owners
+### Propietarios de Definiciones
 
-DT has the concept of "Definition Owners" which are people who want to maintain the quality of a particular module's types
+DT tiene el concepto de "Propietarios de Definiciones" que son personas que desean mantener la calidad de los tipos de un módulo en particular.
 
-* Adding yourself to the list will cause you to be notified (via your GitHub username) whenever someone makes a pull request or issue about the package.
-* Your PR reviews will have a higher precedence of importance to [the bot](https://github.com/DefinitelyTyped/dt-mergebot) which maintains this repo.
-* The DT maintainers are putting trust in the definition owners to ensure a stable eco-system, please don't add yourself lightly.
+* Agregarte a la lista hará que recibas notificaciones (a través de tu nombre de usuario de GitHub) cada vez que alguien haga una solicitud de extracción o informe sobre el paquete.
+* Tus revisiones de solicitudes de extracción tendrán una mayor importancia para [el bot](https://github.com/DefinitelyTyped/dt-mergebot) que mantiene este repositorio.
+* Los mantenedores de DT confían en los propietarios de las definiciones para asegurar un ecosistema estable, así que por favor, no te agregues ligeramente.
 
-To Add yourself as a Definition Owner:
+Para agregarte como Propietario de Definiciones:
 
-* Adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
-* Or if there are more people, it can be multiline
+* Agrega tu nombre al final de la línea, como en `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
+* O si hay más personas, puede ser en varias líneas
   ```typescript
   // Definitions by: Alice <https://github.com/alice>
   //                 Bob <https://github.com/bob>
@@ -281,7 +283,7 @@ To Add yourself as a Definition Owner:
   //                 John <https://github.com/john>
   ```
 
-Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/.github/CODEOWNERS) which is our source of truth.
+Una vez a la semana, los Propietarios de Definiciones se sincronizan con el archivo [.github/CODEOWNERS](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/.github/CODEOWNERS), que es nuestra fuente de verdad.
 
 ## FAQ
 
@@ -358,8 +360,8 @@ Por ejemplo [history v2 `tsconfig.json`](https://github.com/%44efinitelyTyped/De
 
 Si hay otros paquetes en Definitely Typed que son incompatibles con la nueva versión, necesitarás mapear las rutas a la versión anterior. También deberá hacer esto para los paquetes que dependen de paquetes que dependen de una version anterior.
 
-Por ejemplo, `react-router` depende de `history@2`, así que [react-router `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router/tsconfig.json) tiene una ruta mapeada a "history": `[ "history/v2" ]`;
-transitivo así mismo, `react-router-bootstrap` (que depende de `react-router`) también añade una ruta mapeada en su [tsconfig.json](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router-bootstrap/tsconfig.json).
+Por ejemplo, `browser-sync` depende de `micromatch@2`, así que [browser-sync `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/browser-sync/tsconfig.json) tiene una ruta mapeada a "micromatch": `[ "micromatch/v2" ]`;
+transitivo así mismo, `browser-sync-webpack-plugin` (que depende de `browser-sync`) también añade una ruta mapeada en su [tsconfig.json](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/browser-sync-webpack-plugin/tsconfig.json).
 
 Además, `/// <reference types=".." />` no trabajará con rutas mapeadas, así que las dependencias deberán utilizar `import`.
 
@@ -385,10 +387,6 @@ Cuando `dts-gen` es utilizado como scaffold en un paquete scoped, las propiedade
     }
 }
 ```
-
-#### El historial de archivos en GitHub parece incompleto.
-
-GitHub no le hace [support](https://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) historial de archivos para archivos renombrados. Utilice [`git log --follow`](https://www.git-scm.com/docs/git-log) en su lugar.
 
 #### Debería añadir un namespace que no exporte un módulo que utilice que utilice imports estilo ES6?
 

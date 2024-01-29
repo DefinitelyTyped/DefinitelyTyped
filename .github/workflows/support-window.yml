@@ -5,22 +5,33 @@ on:
     paths:
       - .github/workflows/support-window.yml
       - package.json
-      - scripts/support-window.ts
-      - scripts/tsconfig.json
+      - scripts/support-window.js
+      - scripts/jsconfig.json
   # Manually, when TypeScript is released
   # https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow
   workflow_dispatch:
+  schedule:
+    # Weekly at 16:00 UTC on Monday
+    - cron: '0 16 * * 1'
+permissions:
+  contents: read
+
 jobs:
   support-window:
+    permissions:
+      contents: write # for Git to git push
     if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        #with:
-        #  cache: npm
-      - run: npm install
-      - run: tsc --build scripts
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+
+      - uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # v4.0.1
+        with:
+          node-version: '20'
+      - uses: pnpm/action-setup@d882d12c64e032187b2edb46d3a0d003b7a43598 # v2.4.0
+        with:
+          run_install: |
+            - args: [--filter, ., --filter, '{./scripts}...']
       - name: Fetch TypeScript versions and release dates from npm
         run: |
           npm view --json typescript time |
@@ -34,14 +45,13 @@ jobs:
               | unique_by(.key)
               | from_entries
             ' > docs/support-window.json
+
       - name: Make SVG diagram
         run: node --experimental-json-modules scripts/support-window > docs/support-window.svg
-      - run: git add docs/support-window.json docs/support-window.svg
-      - run: git config user.name .github/workflows/support-window.yml
-      - run: git config user.email bot@typescriptlang.org
-      - run: |
-          git diff --quiet --cached ||
-          git commit \
-            --message "[README] 🤖 Update support window diagram" \
-            --message "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" \
-      - run: git push
+
+      - uses: stefanzweifel/git-auto-commit-action@8756aa072ef5b4a080af5dc8fef36c5d586e521d # v5.0.0
+        with:
+          commit_author: 'TypeScript Bot <typescriptbot@microsoft.com>'
+          commit_message: '🤖 Update support window'
+          commit_user_email: 'typescriptbot@microsoft.com'
+          commit_user_name: 'TypeScript Bot'

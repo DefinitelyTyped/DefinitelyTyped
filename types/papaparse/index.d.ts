@@ -1,20 +1,10 @@
-// Type definitions for PapaParse 5.3
-// Project: https://github.com/mholt/PapaParse
-// Definitions by: Pedro Flemming <https://github.com/torpedro>
-//                 Rain Shen <https://github.com/rainshen49>
-//                 João Loff <https://github.com/jfloff>
-//                 John Reilly <https://github.com/johnnyreilly>
-//                 Alberto Restifo <https://github.com/albertorestifo>
-//                 Janne Liuhtonen <https://github.com/jliuhtonen>
-//                 Raphaël Barbazza <https://github.com/rbarbazz>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Emmanuel Gautier <https://github.com/emmanuelgautier>
-//                 Opportunity Liu <https://github.com/OpportunityLiu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
+import { Duplex } from "stream";
+
 export as namespace Papa;
+
+export {}; // Don't export all declarations!
 
 /**
  * Parse local files
@@ -22,7 +12,7 @@ export as namespace Papa;
  * @param config a config object which contains a callback.
  * @returns Doesn't return anything. Results are provided asynchronously to a callback function.
  */
-// tslint:disable-next-line: no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function parse<T, TFile extends LocalFile = LocalFile>(file: TFile, config: ParseLocalConfig<T, TFile>): void;
 /**
  * Parse remote files
@@ -30,7 +20,7 @@ export function parse<T, TFile extends LocalFile = LocalFile>(file: TFile, confi
  * @param config a config object.
  * @returns Doesn't return anything. Results are provided asynchronously to a callback function.
  */
-// tslint:disable-next-line: no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function parse<T>(url: string, config: ParseRemoteConfig<T>): void;
 /**
  * Parse string in web worker
@@ -38,8 +28,10 @@ export function parse<T>(url: string, config: ParseRemoteConfig<T>): void;
  * @param config an optional config object.
  * @returns Doesn't return anything. Results are provided asynchronously to a callback function.
  */
-// tslint:disable-next-line: no-unnecessary-generics unified-signatures
+/* eslint-disable @definitelytyped/no-unnecessary-generics */
+// tslint:disable-next-line:unified-signatures
 export function parse<T>(csvString: string, config: ParseWorkerConfig<T> & { download?: false | undefined }): void;
+/* eslint-enable @definitelytyped/no-unnecessary-generics */
 /**
  * Parse string
  * @param csvString a string of delimited text to be parsed.
@@ -58,8 +50,9 @@ export function parse<T>(
  */
 export function parse<T>(
     source: LocalFile | string,
-    config: ParseLocalConfig<T, LocalFile> &
-        (
+    config:
+        & ParseLocalConfig<T, LocalFile>
+        & (
             | (ParseConfig<T> & { download?: false | undefined; worker?: false | undefined })
             | (ParseWorkerConfig<T> & { download?: false | undefined })
             | ParseRemoteConfig<T>
@@ -69,11 +62,11 @@ export function parse<T>(
  * Parse in a node streaming style
  * @param stream `NODE_STREAM_INPUT`
  * @param config a config object.
- * @returns a node stream.
+ * @returns a node duplex stream.
  *
  * @see https://github.com/mholt/PapaParse#papa-parse-for-node
  */
-export function parse(stream: typeof NODE_STREAM_INPUT, config?: ParseConfig): NodeJS.ReadWriteStream;
+export function parse(stream: typeof NODE_STREAM_INPUT, config?: ParseConfig): Duplex;
 
 /**
  * Unparses javascript data objects and returns a csv string
@@ -87,13 +80,13 @@ export function unparse<T>(data: T[] | UnparseObject<T>, config?: UnparseConfig)
  */
 
 /** An array of characters that are not allowed as delimiters. `\r`, `\n`, `"`, `\ufeff` */
-export const BAD_DELIMITERS: ReadonlyArray<string>;
+export const BAD_DELIMITERS: readonly string[];
 
 /** The true delimiter. Invisible. ASCII code 30. Should be doing the job we strangely rely upon commas and tabs for. */
-export const RECORD_SEP: '\x1E';
+export const RECORD_SEP: "\x1E";
 
 /** Also sometimes used as a delimiting character. ASCII code 31. */
-export const UNIT_SEP: '\x1F';
+export const UNIT_SEP: "\x1F";
 /**
  * Whether or not the browser supports HTML5 Web Workers.
  * If false, `worker: true` will have no effect.
@@ -128,7 +121,7 @@ export let RemoteChunkSize: number;
 export let DefaultDelimiter: string;
 
 /** File object */
-export type LocalFile = Blob | NodeJS.ReadableStream;
+export type LocalFile = File | NodeJS.ReadableStream;
 
 /**
  * On Papa there are actually more classes exposed
@@ -166,7 +159,7 @@ export interface ParseConfig<T = any, TInput = undefined> {
      * The newline sequence. Leave blank to auto-detect. Must be one of `\r`, `\n`, or `\r\n`.
      * @default // auto-detect
      */
-    newline?: '\r' | '\n' | '\r\n' | undefined;
+    newline?: "\r" | "\n" | "\r\n" | undefined;
     /**
      * The character used to quote fields. The quoting of all fields is not mandatory. Any field which is not quoted will correctly read.
      * @default '"'
@@ -220,7 +213,7 @@ export interface ParseConfig<T = any, TInput = undefined> {
      * If set to `'greedy'`, lines that don't have any content (those which have only whitespace after parsing) will also be skipped.
      * @default false
      */
-    skipEmptyLines?: boolean | 'greedy' | undefined;
+    skipEmptyLines?: boolean | "greedy" | undefined;
     /**
      * Fast mode speeds up parsing significantly for large inputs.
      * However, it only works when the input has no quoted fields.
@@ -259,6 +252,7 @@ export interface ParseConfig<T = any, TInput = undefined> {
      * The function receives as an argument the chunk about to be parsed, and it may return a modified chunk to parse.
      * This is useful for stripping header lines (as long as the header fits in a single chunk).
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     beforeFirstChunk?(chunk: string): string | void;
 }
 
@@ -276,7 +270,8 @@ export interface ParseWorkerConfig<T = any> extends ParseConfig<T> {
     complete(results: ParseResult<T>): void;
 }
 
-export interface ParseAsyncConfig<T = any, TInput = undefined> extends ParseConfig<T, TInput> {
+// Base interface for all async parsing
+interface ParseAsyncConfigBase<T = any, TInput = undefined> extends ParseConfig<T, TInput> {
     /**
      * Whether or not to use a worker thread.
      * Using a worker will keep your page reactive, but may be slightly slower.
@@ -299,16 +294,30 @@ export interface ParseAsyncConfig<T = any, TInput = undefined> extends ParseConf
      * The function is passed two arguments: the error and the File.
      */
     error?(error: Error, file: TInput): void;
-    /** @inheritdoc */
-    complete(results: ParseResult<T>, file: TInput): void;
 }
 
-export interface ParseLocalConfig<T = any, TInput = undefined> extends ParseAsyncConfig<T, TInput> {
+// Async parsing local file can specify encoding
+interface ParseLocalConfigBase<T = any, TInput = undefined> extends ParseAsyncConfigBase<T, TInput> {
     /** The encoding to use when opening local files. If specified, it must be a value supported by the FileReader API. */
     encoding?: string | undefined;
 }
 
-export interface ParseRemoteConfig<T = any> extends ParseAsyncConfig<T, string> {
+interface ParseLocalConfigStep<T = any, TInput = undefined> extends ParseLocalConfigBase<T, TInput> {
+    /** @inheritdoc */
+    step(results: ParseStepResult<T>, parser: Parser): void;
+}
+interface ParseLocalConfigNoStep<T = any, TInput = undefined> extends ParseLocalConfigBase<T, TInput> {
+    /** @inheritdoc */
+    complete(results: ParseResult<T>, file: TInput): void;
+}
+
+// Local parsing is async and thus must specify either `step` or `complete` (but may specify both)
+export type ParseLocalConfig<T = any, TInput = undefined> =
+    | ParseLocalConfigStep<T, TInput>
+    | ParseLocalConfigNoStep<T, TInput>;
+
+// Remote parsing has options for the backing web request
+interface ParseRemoteConfigBase<T = any> extends ParseAsyncConfigBase<T, string> {
     /**
      * This indicates that the string you passed as the first argument to `parse()`
      * is actually a URL from which to download a file and parse its contents.
@@ -331,6 +340,18 @@ export interface ParseRemoteConfig<T = any> extends ParseAsyncConfig<T, string> 
      */
     withCredentials?: boolean | undefined;
 }
+
+interface ParseRemoteConfigStep<T = any> extends ParseRemoteConfigBase<T> {
+    /** @inheritdoc */
+    step(results: ParseStepResult<T>, parser: Parser): void;
+}
+interface ParseRemoteConfigNoStep<T = any> extends ParseRemoteConfigBase<T> {
+    /** @inheritdoc */
+    complete(results: ParseResult<T>, file: string): void;
+}
+
+// Remote parsing is async and thus must specify either `step` or `complete` (but may specify both)
+export type ParseRemoteConfig<T = any> = ParseRemoteConfigStep<T> | ParseRemoteConfigNoStep<T>;
 
 export interface UnparseConfig {
     /**
@@ -377,7 +398,7 @@ export interface UnparseConfig {
      * If set to `'greedy'`, lines that don't have any content (those which have only whitespace after parsing) will also be skipped.
      * @default false
      */
-    skipEmptyLines?: boolean | 'greedy' | undefined;
+    skipEmptyLines?: boolean | "greedy" | undefined;
     /**
      * If `data` is an array of objects this option can be used to manually specify the keys (columns) you expect in the objects.
      * If not set the keys of the first objects are used as column.
@@ -401,13 +422,15 @@ export interface UnparseObject<T> {
 /** Error structure */
 export interface ParseError {
     /** A generalization of the error */
-    type: 'Quotes' | 'Delimiter' | 'FieldMismatch';
+    type: "Quotes" | "Delimiter" | "FieldMismatch";
     /** Standardized error code */
-    code: 'MissingQuotes' | 'UndetectableDelimiter' | 'TooFewFields' | 'TooManyFields';
+    code: "MissingQuotes" | "UndetectableDelimiter" | "TooFewFields" | "TooManyFields" | "InvalidQuotes";
     /** Human-readable details */
     message: string;
     /** Row index of parsed data where error is */
-    row: number;
+    row?: number | undefined;
+    /** Index within the row where error is */
+    index?: number | undefined;
 }
 
 export interface ParseMeta {

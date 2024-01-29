@@ -1,15 +1,10 @@
-// Type definitions for Plupload 2.0
-// Project: http://www.plupload.com/
-// Definitions by: Patrick Bußmann <https://github.com/patrickbussmann>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface plupload_settings {
     /** Required Options */
-    browse_button: any,
-    url: string,
+    browse_button: any;
+    url: string;
 
     /** Filters */
-    filters?: plupload_filters | undefined,
+    filters?: plupload_filters | undefined;
 
     /** Control the request */
     headers?: any;
@@ -138,25 +133,17 @@ interface plupload_error extends plupload_response {
 }
 
 declare namespace plupload {
-
     class Uploader {
-
         constructor(settings: plupload_settings);
 
         /**
          * Unique id for the Uploader instance.
-         *
-         * @property id
-         * @type String
          */
         id: string;
 
         /**
          * Current state of the total uploading progress. This one can either be plupload.STARTED or plupload.STOPPED.
          * These states are controlled by the stop/start methods. The default value is STOPPED.
-         *
-         * @property state
-         * @type Number
          */
         state: number;
 
@@ -164,42 +151,28 @@ declare namespace plupload {
          * Map of features that are available for the uploader runtime. Features will be filled
          * before the init event is called, these features can then be used to alter the UI for the end user.
          * Some of the current features that might be in this map is: dragdrop, chunks, jpgresize, pngresize.
-         *
-         * @property features
-         * @type Object
          */
         features: any;
 
         /**
          * Current runtime name.
-         *
-         * @property runtime
-         * @type String
          */
         runtime: string;
 
         /**
          * Current upload queue, an array of File instances.
          *
-         * @property files
-         * @type Array
          * @see plupload.File
          */
-        files: Array<any>;
+        files: any[];
 
         /**
          * Object with name/value settings.
-         *
-         * @property settings
-         * @type Object
          */
         settings: any;
 
         /**
          * Total progess information. How many files has been uploaded, total percent etc.
-         *
-         * @property total
-         * @type plupload.QueueProgress
          */
         total: plupload_queue_progress;
 
@@ -304,11 +277,11 @@ declare namespace plupload {
         /**
          * Dispatches the specified event name and its arguments to all listeners.
          * @method trigger
-          * @param {String} name Event name to fire.
+         * @param {String} name Event name to fire.
          * @param {Object..} Multiple arguments to pass along to the listener functions.
-        */
+         */
         trigger(name: string, Multiple: any): any;
-        
+
         hasEventListener(name: string): any;
         bind(name: string, func: any, scope?: any): any;
         unbind(name: string, func: any): any;
@@ -321,7 +294,6 @@ declare namespace plupload {
     /**
      * The state of the queue before it has started and after it has finished
      *
-     * @property STOPPED
      * @static
      * @final
      */
@@ -330,7 +302,6 @@ declare namespace plupload {
     /**
      * Upload process is running
      *
-     * @property STARTED
      * @static
      * @final
      */
@@ -339,7 +310,6 @@ declare namespace plupload {
     /**
      * File is queued for upload
      *
-     * @property QUEUED
      * @static
      * @final
      */
@@ -348,7 +318,6 @@ declare namespace plupload {
     /**
      * File is being uploaded
      *
-     * @property UPLOADING
      * @static
      * @final
      */
@@ -357,7 +326,6 @@ declare namespace plupload {
     /**
      * File has failed to be uploaded
      *
-     * @property FAILED
      * @static
      * @final
      */
@@ -366,7 +334,6 @@ declare namespace plupload {
     /**
      * File has been uploaded successfully
      *
-     * @property DONE
      * @static
      * @final
      */
@@ -375,7 +342,6 @@ declare namespace plupload {
     /**
      * Generic error for example if an exception is thrown inside Silverlight.
      *
-     * @property GENERIC_ERROR
      * @static
      * @final
      */
@@ -384,7 +350,6 @@ declare namespace plupload {
     /**
      * HTTP transport error. For example if the server produces a HTTP status other than 200.
      *
-     * @property HTTP_ERROR
      * @static
      * @final
      */
@@ -393,14 +358,12 @@ declare namespace plupload {
     /**
      * Generic I/O error. For example if it wasn't possible to open the file stream on local machine.
      *
-     * @property IO_ERROR
      * @static
      * @final
      */
     export const IO_ERROR: number;
 
     /**
-     * @property SECURITY_ERROR
      * @static
      * @final
      */
@@ -409,7 +372,6 @@ declare namespace plupload {
     /**
      * Initialization error. Will be triggered if no runtime was initialized.
      *
-     * @property INIT_ERROR
      * @static
      * @final
      */
@@ -419,7 +381,6 @@ declare namespace plupload {
      * File size error. If the user selects a file that is too large or is empty it will be blocked and
      * an error of this type will be triggered.
      *
-     * @property FILE_SIZE_ERROR
      * @static
      * @final
      */
@@ -428,7 +389,6 @@ declare namespace plupload {
     /**
      * File extension error. If the user selects a file that isn't valid according to the filters setting.
      *
-     * @property FILE_EXTENSION_ERROR
      * @static
      * @final
      */
@@ -437,7 +397,6 @@ declare namespace plupload {
     /**
      * Duplicate file error. If prevent_duplicates is set to true and user selects the same file again.
      *
-     * @property FILE_DUPLICATE_ERROR
      * @static
      * @final
      */
@@ -446,7 +405,6 @@ declare namespace plupload {
     /**
      * Runtime will try to detect if image is proper one. Otherwise will throw this error.
      *
-     * @property IMAGE_FORMAT_ERROR
      * @static
      * @final
      */
@@ -456,7 +414,6 @@ declare namespace plupload {
      * While working on files runtime may run out of memory and will throw this error.
      *
      * @since 2.1.2
-     * @property MEMORY_ERROR
      * @static
      * @final
      */
@@ -465,7 +422,6 @@ declare namespace plupload {
     /**
      * Each runtime has an upper limit on a dimension of the image it can handle. If bigger, will throw this error.
      *
-     * @property IMAGE_DIMENSIONS_ERROR
      * @static
      * @final
      */
@@ -561,7 +517,7 @@ declare namespace plupload {
      * @param {Object} obj Object with length field.
      * @return {Array} Array object containing all items.
      */
-    function toArray(obj: any): Array<any>;
+    function toArray(obj: any): any[];
 
     /**
      * Find an element in array and return its index if present, otherwise return -1.
@@ -572,7 +528,7 @@ declare namespace plupload {
      * @param {Array} array
      * @return {Int} Index of the element, or -1 if not found
      */
-    function inArray(needle: any, array: Array<any>): number;
+    function inArray(needle: any, array: any[]): number;
 
     /**
     Recieve an array of functions (usually async) to call in sequence, each  function
@@ -585,7 +541,7 @@ declare namespace plupload {
     @param {Array} queue Array of functions to call in sequence
     @param {Function} cb Main callback that is called in the end, or in case of error
     */
-    function inSeries(queue: Array<any>, callback: Function): void;
+    function inSeries(queue: any[], callback: Function): void;
 
     /**
      * Extends the language pack object with new items.
@@ -741,7 +697,6 @@ declare namespace plupload {
      */
     function parseSize(size: number | string): number;
 
-
     /**
      * A way to predict what runtime will be choosen in the current environment with the
      * specified settings.
@@ -769,6 +724,6 @@ declare namespace plupload {
     function addFileFilter(name: string, cb: Function): void;
 }
 
-declare module 'plupload' {
+declare module "plupload" {
     export = plupload;
 }

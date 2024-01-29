@@ -1,2 +1,2 @@
-import { dissoc } from '../index';
+import { dissoc } from "../index.js";
 export default dissoc;

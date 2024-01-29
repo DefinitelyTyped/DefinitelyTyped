@@ -2,12 +2,14 @@ export = Security;
 declare function Security(): void;
 declare class Security {
     createUser(userName: string, password: string, groups: number[]): number;
-    findUser(userId: string, password: any, groups: any): number | null;
+    findUser(userId: string): number | null;
     deleteUser(userKey: number): void;
     createGroup(groupName: string, groups: any[]): number;
     deleteGroup(groupKey: number): void;
     setUserStatus(userKey: number | DBKey, status: DBKey): void;
     getUserStatus(userKey: number | DBKey): DBKey;
+    setUserAccountType(userKey: number | DBKey, accountType: DBKey): void;
+    getUserAccountType(userKey: number | DBKey): DBKey;
     changePassword(userKey: number, oldPassword: string, newPassword: string): void;
     setPassword(userKey: any, password: any): void;
     authenticateUser(userId: string, password: string): number;
@@ -28,7 +30,7 @@ declare class Security {
     getPermission(
         classKeyOrVfsKey: number,
         permissionFieldName: string,
-        userKey?: number,
+        userKey: number,
         getMode?: string,
         extraFilter?: string | any[]
     ): void;
@@ -39,12 +41,14 @@ declare class Security {
     suggestPermissionApplyMode(parent: number): number | null;
     getMimeTypesWithPermissionControl(): number[];
     private userCanModifyKeyUnsafe_;
-    userCanModifyKey(key: number, classKey: number, opt_userKey?: number): boolean;
-    userCanModifyRecord(ds: any, opt_userKey?: number): boolean;
+    userCanModifyKey(key: number, classKey: number, userKey?: number): boolean;
+    userCanModifyRecord(ds: DataSet, userKey?: number): boolean;
     getUserScopes(userKey: DBKey | number): string[];
     userHasScope(userKey: DBKey | number, scope: string | DBKey | number): boolean;
 }
 declare namespace Security {
-    function getInstance(): Security;
+    export { getInstance, DataSet };
 }
 import DBKey = require('../dbkey/DBKey.js');
+declare function getInstance(): Security;
+type DataSet = import('../dataset/DataSet');

@@ -1,4 +1,4 @@
-import { Entry, Log } from 'har-format';
+import { Entry, Log } from "har-format";
 
 declare global {
     export type HARFormatEntry = Entry;

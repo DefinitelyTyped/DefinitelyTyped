@@ -1,6 +1,7 @@
-import { Camera } from './../../cameras/Camera';
-import { Material } from './../../materials/Material';
-import { WebGLProperties } from './WebGLProperties';
+import { Camera } from '../../cameras/Camera.js';
+import { Material } from '../../materials/Material.js';
+import { Plane } from '../../math/Plane.js';
+import { WebGLProperties } from './WebGLProperties.js';
 
 export class WebGLClipping {
     constructor(properties: WebGLProperties);
@@ -17,8 +18,9 @@ export class WebGLClipping {
      */
     numIntersection: number;
 
-    init(planes: any[], enableLocalClipping: boolean, camera: Camera): boolean;
+    init(planes: any[], enableLocalClipping: boolean): boolean;
     beginShadows(): void;
     endShadows(): void;
+    setGlobalState(planes: Plane[], camera: Camera): void;
     setState(material: Material, camera: Camera, useCache: boolean): void;
 }

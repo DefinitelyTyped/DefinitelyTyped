@@ -1,12 +1,5 @@
-// Type definitions for toastify-js 1.11
-// Project: https://github.com/apvarun/toastify-js#readme
-// Definitions by: adblanc <https://github.com/adblanc>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-declare namespace Toastify {
+declare namespace StartToastifyInstance {
     function reposition(): void;
-
     interface Offset {
         x: number | string;
         y: number | string;
@@ -20,8 +13,13 @@ declare namespace Toastify {
         destination?: string | undefined;
         newWindow?: boolean | undefined;
         close?: boolean | undefined;
-        gravity?: 'top' | 'bottom' | undefined;
-        position?: 'left' | 'center' | 'right' | undefined;
+        gravity?: "top" | "bottom" | undefined;
+        position?: "left" | "center" | "right" | undefined;
+        /**
+         * Announce the toast to screen readers
+         * @default 'polite'
+         */
+        ariaLive?: "off" | "polite" | "assertive" | undefined;
         /**
          * @deprecated use style.background option instead
          */
@@ -55,12 +53,27 @@ declare namespace Toastify {
         oldestFirst?: boolean | undefined;
     }
 }
-declare function Toastify(
-    options?: Toastify.Options,
-): {
+
+declare class Toastify {
+    /**
+     * The configuration object to configure Toastify
+     */
+    readonly options: StartToastifyInstance.Options;
+    /**
+     * The element that is the Toast
+     */
+    readonly toastElement: Element | null;
+    /**
+     * Display the toast
+     */
     showToast(): void;
-};
+    /**
+     * Hide the toast
+     */
+    hideToast(): void;
+}
+declare function StartToastifyInstance(options?: Toastify.Options): Toastify;
 
 export as namespace Toastify;
 
-export = Toastify;
+export = StartToastifyInstance;

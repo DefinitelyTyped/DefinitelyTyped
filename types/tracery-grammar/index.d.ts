@@ -1,8 +1,3 @@
-// Type definitions for tracery-grammar 2.7
-// Project: https://github.com/v21/tracery#readme
-// Definitions by: Sean S. LeBlanc <https://github.com/seleb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Settings {
     raw?: string | undefined;
     type?: number | undefined;
@@ -65,9 +60,11 @@ declare class TracerySymbol {
     rawRules: ConstructorParameters<typeof TraceryRuleSet>[1];
     baseRules: TraceryRuleSet;
     stack?: TraceryRuleSet[] | undefined;
-    uses?: Array<{
-        node?: TraceryNode | undefined;
-    }> | undefined;
+    uses?:
+        | Array<{
+            node?: TraceryNode | undefined;
+        }>
+        | undefined;
     isDynamic?: boolean | undefined;
     constructor(grammar: TraceryGrammar, key: string, rawRules: ConstructorParameters<typeof TraceryRuleSet>[1]);
     clearState(): void;

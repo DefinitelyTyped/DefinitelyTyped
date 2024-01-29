@@ -1,17 +1,8 @@
-// Type definitions for mysql 2.15
-// Project: https://github.com/mysqljs/mysql
-// Definitions by:  William Johnston <https://github.com/wjohnsto>
-//                 Krittanan Pingclasai <https://github.com/kpping>
-//                 James Munro <https://github.com/jdmunro>
-//                 Sanders DeNardi <https://github.com/sedenardi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
-import stream = require('stream');
-import tls = require('tls');
-import events = require('events');
+import stream = require("stream");
+import tls = require("tls");
+import events = require("events");
 
 export interface EscapeFunctions {
     /**
@@ -82,13 +73,13 @@ export function createPoolCluster(config?: PoolClusterConfig): PoolCluster;
  * @param sql
  */
 export function raw(sql: string): {
-    toSqlString: () => string
+    toSqlString: () => string;
 };
 
 export interface Connection extends EscapeFunctions, events.EventEmitter {
     config: ConnectionConfig;
 
-    state: 'connected' | 'authenticated' | 'disconnected' | 'protocol_error' | string;
+    state: "connected" | "authenticated" | "disconnected" | "protocol_error" | (string & {});
 
     threadId: number | null;
 
@@ -269,15 +260,15 @@ export interface Query {
 
     on(ev: string, callback: (...args: any[]) => void): Query;
 
-    on(ev: 'result', callback: (row: any, index: number) => void): Query;
+    on(ev: "result", callback: (row: any, index: number) => void): Query;
 
-    on(ev: 'error', callback: (err: MysqlError) => void): Query;
+    on(ev: "error", callback: (err: MysqlError) => void): Query;
 
-    on(ev: 'fields', callback: (fields: FieldInfo[], index: number) => void): Query;
+    on(ev: "fields", callback: (fields: FieldInfo[], index: number) => void): Query;
 
-    on(ev: 'packet', callback: (packet: any) => void): Query;
+    on(ev: "packet", callback: (packet: any) => void): Query;
 
-    on(ev: 'end', callback: () => void): Query;
+    on(ev: "end", callback: () => void): Query;
 }
 
 export interface GeometryType extends Array<{ x: number; y: number } | GeometryType> {
@@ -288,15 +279,15 @@ export interface GeometryType extends Array<{ x: number; y: number } | GeometryT
 export type TypeCast =
     | boolean
     | ((
-          field: UntypedFieldInfo & {
-              type: string;
-              length: number;
-              string(): null | string;
-              buffer(): null | Buffer;
-              geometry(): null | GeometryType;
-          },
-          next: () => void,
-      ) => any);
+        field: UntypedFieldInfo & {
+            type: string;
+            length: number;
+            string(): null | string;
+            buffer(): null | Buffer;
+            geometry(): null | GeometryType;
+        },
+        next: () => void,
+    ) => any);
 
 export type queryCallback = (err: MysqlError | null, results?: any, fields?: FieldInfo[]) => void;
 
@@ -474,7 +465,7 @@ export interface ConnectionConfig extends ConnectionOptions {
      * Force date types (TIMESTAMP, DATETIME, DATE) to be returned as strings rather then inflated into JavaScript
      * Date objects. Can be true/false or an array of type names to keep as strings. (Default: false)
      */
-    dateStrings?: boolean | Array<'TIMESTAMP' | 'DATETIME' | 'DATE'> | undefined;
+    dateStrings?: boolean | Array<"TIMESTAMP" | "DATETIME" | "DATE"> | undefined;
 
     /**
      * This will print all incoming and outgoing packets on stdout.

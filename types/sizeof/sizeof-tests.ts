@@ -1,11 +1,11 @@
-import { sizeof, format } from 'sizeof';
+import { format, sizeof } from "sizeof";
 
 const anyObject = {
-  key: {
-    name: 'abc',
-    age: 123,
-    active: true,
-  },
+    key: {
+        name: "abc",
+        age: 123,
+        active: true,
+    },
 };
 
 console.log(sizeof(anyObject) + 0); // 50

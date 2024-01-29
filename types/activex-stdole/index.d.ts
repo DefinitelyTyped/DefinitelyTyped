@@ -1,9 +1,3 @@
-// Type definitions for non-npm package OLE Automation - stdole 2.0
-// Project: https://msdn.microsoft.com/en-us/library/hh272953.aspx
-// Definitions by: Zev Spitz <https://github.com/zspitz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-
 /// <reference types="activex-interop" />
 
 declare namespace stdole {
@@ -61,7 +55,7 @@ declare namespace stdole {
     }
 
     class StdFont {
-        private 'stdole.StdFont_typekey': StdFont;
+        private "stdole.StdFont_typekey": StdFont;
         private constructor();
         readonly Bold: boolean;
         readonly Charset: number;
@@ -74,19 +68,35 @@ declare namespace stdole {
     }
 
     class StdPicture {
-        private 'stdole.StdPicture_typekey': StdPicture;
+        private "stdole.StdPicture_typekey": StdPicture;
         private constructor();
         readonly Handle: number;
         readonly Height: number;
         readonly hPal: number;
-        Render(hdc: number, x: number, y: number, cx: number, cy: number, xSrc: number, ySrc: number, cxSrc: number, cySrc: number, prcWBounds: undefined): void;
+        Render(
+            hdc: number,
+            x: number,
+            y: number,
+            cx: number,
+            cy: number,
+            xSrc: number,
+            ySrc: number,
+            cxSrc: number,
+            cySrc: number,
+            prcWBounds: undefined,
+        ): void;
         readonly Type: number;
         readonly Width: number;
     }
 }
 
 interface ActiveXObject {
-    on(obj: stdole.StdFont, event: 'FontChanged', argNames: ['PropertyName'], handler: (this: stdole.StdFont, parameter: {readonly PropertyName: string}) => void): void;
+    on(
+        obj: stdole.StdFont,
+        event: "FontChanged",
+        argNames: ["PropertyName"],
+        handler: (this: stdole.StdFont, parameter: { readonly PropertyName: string }) => void,
+    ): void;
 }
 
 interface ActiveXObjectNameMap {

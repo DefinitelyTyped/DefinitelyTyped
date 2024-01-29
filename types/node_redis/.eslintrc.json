@@ -1,0 +1,6 @@
+{
+    "rules": {
+        "@definitelytyped/no-useless-files": "off",
+        "@definitelytyped/npm-naming": "off"
+    }
+}

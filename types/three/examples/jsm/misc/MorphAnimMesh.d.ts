@@ -1,4 +1,4 @@
-import { AnimationAction, AnimationMixer, BufferGeometry, Material, Mesh } from '../../../src/Three';
+import { AnimationAction, AnimationMixer, BufferGeometry, Material, Mesh } from '../../../src/Three.js';
 
 export class MorphAnimMesh extends Mesh {
     constructor(geometry: BufferGeometry, material: Material);
@@ -9,5 +9,5 @@ export class MorphAnimMesh extends Mesh {
     setDirectionBackward(): void;
     playAnimation(label: string, fps: number): void;
     updateAnimation(delta: number): void;
-    copy(source: MorphAnimMesh): this;
+    copy(source: MorphAnimMesh, recursive?: boolean): this;
 }

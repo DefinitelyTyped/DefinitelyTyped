@@ -1,51 +1,68 @@
 import {
-  dasherize,
-  camelize,
-  capitalize,
-  classify,
-  decamelize,
-  loc,
-  underscore,
-  w,
-  htmlSafe,
-  isHTMLSafe,
-} from '@ember/string';
+    camelize,
+    capitalize,
+    classify,
+    dasherize,
+    decamelize,
+    htmlSafe,
+    isHTMLSafe,
+    loc,
+    underscore,
+    w,
+} from "@ember/string";
 
-dasherize(); // $ExpectError
-dasherize('blue man group'); // $ExpectType string
-dasherize('', ''); // $ExpectError
+// @ts-expect-error
+dasherize();
+dasherize("blue man group"); // $ExpectType string
+// @ts-expect-error
+dasherize("", "");
 
-camelize(); // $ExpectError
-camelize('blue man group'); // $ExpectType string
-camelize('', ''); // $ExpectError
+// @ts-expect-error
+camelize();
+camelize("blue man group"); // $ExpectType string
+// @ts-expect-error
+camelize("", "");
 
-decamelize(); // $ExpectError
-decamelize('blue man group'); // $ExpectType string
-decamelize('', ''); // $ExpectError
+// @ts-expect-error
+decamelize();
+decamelize("blue man group"); // $ExpectType string
+// @ts-expect-error
+decamelize("", "");
 
-underscore(); // $ExpectError
-underscore('blue man group'); // $ExpectType string
-underscore('', ''); // $ExpectError
+// @ts-expect-error
+underscore();
+underscore("blue man group"); // $ExpectType string
+// @ts-expect-error
+underscore("", "");
 
-w(); // $ExpectError
-w('blue man group'); // $ExpectType string[]
-w('', ''); // $ExpectError
+// @ts-expect-error
+w();
+w("blue man group"); // $ExpectType string[]
+// @ts-expect-error
+w("", "");
 
-classify(); // $ExpectError
-classify('blue man group'); // $ExpectType string
-classify('', ''); // $ExpectError
+// @ts-expect-error
+classify();
+classify("blue man group"); // $ExpectType string
+// @ts-expect-error
+classify("", "");
 
-capitalize(); // $ExpectError
-capitalize('blue man group'); // $ExpectType string
-capitalize('', ''); // $ExpectError
+// @ts-expect-error
+capitalize();
+capitalize("blue man group"); // $ExpectType string
+// @ts-expect-error
+capitalize("", "");
 
-loc(); // $ExpectError
-loc("_Hello World");  // $ExpectType string
-loc("_Hello %@ %@", ["John", "Smith"]);  // $ExpectType string
+// @ts-expect-error
+loc();
+loc("_Hello World"); // $ExpectType string
+loc("_Hello %@ %@", ["John", "Smith"]); // $ExpectType string
 
-htmlSafe(); // $ExpectError
-htmlSafe('foo'); // $ExpectType SafeString
+// @ts-expect-error
+htmlSafe();
+htmlSafe("foo"); // $ExpectType SafeString
 
-isHTMLSafe(); // $ExpectError
-isHTMLSafe('foo'); // $ExpectType boolean
-isHTMLSafe(htmlSafe('foo')); // $ExpectType boolean
+// @ts-expect-error
+isHTMLSafe();
+isHTMLSafe("foo"); // $ExpectType boolean
+isHTMLSafe(htmlSafe("foo")); // $ExpectType boolean

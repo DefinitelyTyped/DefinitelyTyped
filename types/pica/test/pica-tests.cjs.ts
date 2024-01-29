@@ -1,10 +1,10 @@
-import pica = require('pica');
+import pica = require("pica");
 
 const resizer = pica();
 const picaOptions: pica.PicaOptions = {
-    features: ['js', 'wasm', 'ww', 'cib'],
+    features: ["js", "wasm", "ww", "cib"],
     createCanvas(width: number, height: number) {
-        const canvas = document.createElement('canvas');
+        const canvas = document.createElement("canvas");
         canvas.width = width;
         canvas.height = height;
         return canvas;
@@ -12,11 +12,11 @@ const picaOptions: pica.PicaOptions = {
 };
 const resizerWithOptions: pica.Pica = pica(picaOptions);
 
-const image: HTMLImageElement = document.createElement('img');
+const image: HTMLImageElement = document.createElement("img");
 image.width = 100;
 image.height = 100;
 
-const canvas: HTMLCanvasElement = document.createElement('canvas');
+const canvas: HTMLCanvasElement = document.createElement("canvas");
 canvas.width = 100;
 canvas.height = 100;
 
@@ -35,34 +35,34 @@ const resizeOptions: pica.PicaResizeOptions = {
     quality: 1,
 };
 const resizeOptionsError: pica.PicaResizeOptions = {
-    // $ExpectError
+    // @ts-expect-error
     quality: 9,
 };
 resizer.resize(image, canvas, resizeOptions);
 resizerWithOptions.resize(image, canvas, resizeOptions);
 
 const resizeOptionsFilter: pica.PicaResizeOptions = {
-    filter: 'box',
+    filter: "box",
 };
 resizer.resize(image, canvas, resizeOptionsFilter);
 resizerWithOptions.resize(image, canvas, resizeOptionsFilter);
 
 // Blob canvas
-resizer.toBlob(canvas, 'image/png');
-resizerWithOptions.toBlob(canvas, 'image/png');
+resizer.toBlob(canvas, "image/png");
+resizerWithOptions.toBlob(canvas, "image/png");
 
 // Blob canvas with quality
-resizer.toBlob(canvas, 'image/png', 9);
-resizerWithOptions.toBlob(canvas, 'image/png', 9);
+resizer.toBlob(canvas, "image/png", 9);
+resizerWithOptions.toBlob(canvas, "image/png", 9);
 
 // Resize buffer
-const resizeBufferSrc: number[] = [21, 31];
+const resizeBufferSrc = Uint8Array.of(21, 31);
 const resizeBufferOptions: pica.PicaResizeBufferOptions = {
     src: resizeBufferSrc,
     width: 100,
     height: 100,
     toWidth: 50,
-    toHeigh: 50,
+    toHeight: 50,
 };
 resizer.resizeBuffer(resizeBufferOptions);
 resizerWithOptions.resizeBuffer(resizeBufferOptions);

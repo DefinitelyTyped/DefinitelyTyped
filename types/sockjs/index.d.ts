@@ -1,11 +1,6 @@
-// Type definitions for sockjs 0.3
-// Project: https://github.com/sockjs/sockjs-node
-// Definitions by: Phil McCloghry-Laing <https://github.com/pmccloghrylaing>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import http = require('http');
+import http = require("http");
 
 export interface ServerOptions {
     sockjs_url?: string | undefined;
@@ -23,7 +18,7 @@ export function createServer(options?: ServerOptions): Server;
 export interface Server extends NodeJS.EventEmitter {
     installHandlers(server: http.Server, options?: ServerOptions): any;
 
-    on(event: 'connection', listener: (conn: Connection) => any): this;
+    on(event: "connection", listener: (conn: Connection) => any): this;
     on(event: string, listener: Function): this;
 }
 
@@ -49,7 +44,7 @@ export interface Connection extends NodeJS.ReadWriteStream {
     close(code?: string, reason?: string): boolean;
     destroy(): void;
 
-    on(event: 'data', listener: (message: string) => any): this;
-    on(event: 'close', listener: () => void): this;
+    on(event: "data", listener: (message: string) => any): this;
+    on(event: "close", listener: () => void): this;
     on(event: string, listener: Function): this;
 }

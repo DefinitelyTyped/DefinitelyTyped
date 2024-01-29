@@ -1,9 +1,10 @@
-import { Uniform } from '../../../src/Three';
+import { IUniform } from '../../../src/Three.js';
 
 export const FreiChenShader: {
+    name: string;
     uniforms: {
-        tDiffuse: Uniform;
-        aspect: Uniform;
+        tDiffuse: IUniform;
+        aspect: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

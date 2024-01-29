@@ -1,11 +1,11 @@
-import { ComponentType, HTMLProps } from 'react';
+import { ComponentType, HTMLProps } from "react";
 
-import DropdownMenu from '../dropdown-menu';
-import ToolbarButton from '../toolbar-button';
+import DropdownMenu from "../dropdown-menu";
+import ToolbarButton from "../toolbar-button";
 
 interface ToolbarGroupProps
-    extends Omit<HTMLProps<HTMLDivElement>, 'controls' | 'label'>,
-        Partial<Pick<DropdownMenu.Props, 'icon' | 'label'>> {
+    extends Omit<HTMLProps<HTMLDivElement>, "controls" | "label">, Partial<Pick<DropdownMenu.Props, "icon" | "label">>
+{
     /**
      * ARIA label for dropdown menu if is collapsed.
      */

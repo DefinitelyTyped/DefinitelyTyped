@@ -1,9 +1,4 @@
-// Type definitions for cxs 6.2
-// Project: https://github.com/cxs-css/cxs
-// Definitions by: Daniel Eden <https://github.com/daneden>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version 3.9
-import * as CSS from 'csstype';
+import * as CSS from "csstype";
 
 declare namespace cxs {
     type CSSProperties = CSS.Properties<string | number>;

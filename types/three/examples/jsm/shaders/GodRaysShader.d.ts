@@ -1,39 +1,43 @@
-import { Uniform } from '../../../src/Three';
+import { IUniform } from '../../../src/Three.js';
 
 export const GodRaysDepthMaskShader: {
+    name: string;
     uniforms: {
-        tInput: Uniform;
+        tInput: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;
 };
 
 export const GodRaysGenerateShader: {
+    name: string;
     uniforms: {
-        tInput: Uniform;
-        fStepSize: Uniform;
-        vSunPositionScreenSpace: Uniform;
+        tInput: IUniform;
+        fStepSize: IUniform;
+        vSunPositionScreenSpace: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;
 };
 
 export const GodRaysCombineShader: {
+    name: string;
     uniforms: {
-        tColors: Uniform;
-        tGodRays: Uniform;
-        fGodRayIntensity: Uniform;
+        tColors: IUniform;
+        tGodRays: IUniform;
+        fGodRayIntensity: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;
 };
 
 export const GodRaysFakeSunShader: {
+    name: string;
     uniforms: {
-        vSunPositionScreenSpace: Uniform;
-        fAspect: Uniform;
-        sunColor: Uniform;
-        bgColor: Uniform;
+        vSunPositionScreenSpace: IUniform;
+        fAspect: IUniform;
+        sunColor: IUniform;
+        bgColor: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

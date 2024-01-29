@@ -1,17 +1,14 @@
-// Type definitions for jschannel 1.0
-// Project: https://github.com/yochannah/jschannel
-// Definitions by: Yitzchok Gottlieb <https://github.com/yitzchok>
-//                 McFlat <https://github.com/McFlat>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 export as namespace Channel;
 
 export function build(config: ChannelConfiguration): MessagingChannel;
 
 export interface MessagingChannel {
     unbind: (method: string, doNotPublish?: boolean) => boolean;
-    bind: (method: string, callback?: (transaction: MessageTransaction, params: any) => void, doNotPublish?: boolean) => MessagingChannel;
+    bind: (
+        method: string,
+        callback?: (transaction: MessageTransaction, params: any) => void,
+        doNotPublish?: boolean,
+    ) => MessagingChannel;
     call: (message: Message) => void;
     notify: (message: Message) => void;
     destroy: () => void;
@@ -35,7 +32,7 @@ export interface ChannelConfiguration {
     onReady?: ((channel: MessagingChannel) => void) | undefined;
     reconnect?: boolean | undefined;
     publish?: boolean | undefined;
-    remote?: string | ReadonlyArray<string> | undefined;
+    remote?: string | readonly string[] | undefined;
 }
 
 export interface MessageTransaction {

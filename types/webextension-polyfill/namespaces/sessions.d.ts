@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.sessions
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the <code>chrome.sessions</code> API to query and restore tabs and windows from a browsing session.
  * Permissions: "sessions"
@@ -10,9 +13,9 @@
  * Use of this source code is governed by a BSD-style license that can be
  * found in the LICENSE file.
  */
+import { Events } from "./events";
 import { Tabs } from "./tabs";
 import { Windows } from "./windows";
-import { Events } from "./events";
 
 export namespace Sessions {
     interface Filter {

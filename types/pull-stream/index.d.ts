@@ -1,9 +1,3 @@
-// Type definitions for pull-stream 3.6
-// Project: https://pull-stream.github.io
-// Definitions by: Rong Shen <https://github.com/jacobbubu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 // This definition document heavily references
 // the original declaration of Michael de Wit <https://github.com/mjwwit>
 
@@ -15,19 +9,19 @@ import {
     keys as keysImport,
     once as onceImport,
     values as valuesImport,
-} from './sources';
+} from "./sources";
 
 import {
     asyncMap as asyncMapImport,
-    filterNot as filterNotImport,
     filter as filterImport,
+    filterNot as filterNotImport,
     flatten as flattenImport,
     map as mapImport,
     nonUnique as nonUniqueImport,
     take as takeImport,
     through as throughImport,
     unique as uniqueImport,
-} from './throughs';
+} from "./throughs";
 
 import {
     collect as collectImport,
@@ -37,7 +31,7 @@ import {
     log as logImport,
     onEnd as onEndImport,
     reduce as reduceImport,
-} from './sinks';
+} from "./sinks";
 
 declare namespace pull {
     type Abort = Error | boolean | null;
@@ -238,6 +232,7 @@ declare function pull<In, P1, P2, P3, P4, Out>(
 
 declare function pull(
     ...pullStreams: ReadonlyArray<pull.PossibleSource<any> | pull.PossibleSink<any> | pull.PossibleThrough<any, any>>
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ): pull.Source<any> | pull.Sink<any> | pull.Through<any, any> | void;
 
 export = pull;

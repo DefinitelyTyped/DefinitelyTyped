@@ -1,10 +1,3 @@
-// Type definitions for object-inspect 1.8
-// Project: https://github.com/substack/object-inspect
-// Definitions by: Charles Samborski <https://github.com/demurgos>
-//                 Akuukis <https://github.com/Akuukis>
-//                 Jordan Harband <https://github.com/ljharb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace objectInspect {
     /**
      * Inspection options
@@ -17,7 +10,7 @@ declare namespace objectInspect {
         /**
          * Must be "single" or "double", if present.
          */
-        quoteStyle?: 'single' | 'double' | undefined;
+        quoteStyle?: "single" | "double" | undefined;
         /**
          * Must be 0, a positive integer, Infinity, or null, if present. Default Infinity.
          */
@@ -29,7 +22,7 @@ declare namespace objectInspect {
         /**
          * Must be "\t", null, or a positive integer. Default null.
          */
-        indent?: number | '\t' | null | undefined;
+        indent?: number | "\t" | null | undefined;
     }
 }
 

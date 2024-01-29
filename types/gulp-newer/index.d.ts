@@ -1,27 +1,39 @@
-// Type definitions for gulp-newer
-// Project: https://github.com/tschaub/gulp-newer
-// Definitions by: Thomas Corbière <https://github.com/tomc974>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
-
-interface IOptions {
+interface IDestinationOption {
     /**
      * Path to destination directory or file.
      */
     dest: string;
+}
 
+interface IExtOption {
     /**
      * Source files will be matched to destination files with the provided extension.
      */
-    ext?: string | undefined;
+    ext: string;
+}
 
+interface IMapOption {
     /**
      * Map relative source paths to relative destination paths.
      */
-    map?: ((relativePath: string) => string) | undefined;
+    map: (relativePath: string) => string;
 }
+
+interface IExtraOption {
+    /**
+     * An extra file, file glob, or list of extra files and/or globs, to check for updated time stamp(s).
+     * If any of these files are newer than the destination files, then all source files will be passed into the stream.
+     */
+    extra?: string | string[];
+}
+
+type ValidOptionPermutations =
+    | (IDestinationOption & Partial<IExtOption> & Partial<IMapOption>)
+    | (Partial<IDestinationOption> & Partial<IExtOption> & IMapOption);
+
+type IOptions = IExtraOption & ValidOptionPermutations;
 
 interface IGulpNewer {
     /**

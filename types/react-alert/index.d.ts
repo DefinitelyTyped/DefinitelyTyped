@@ -1,45 +1,40 @@
-// Type definitions for react-alert 7.0
-// Project: https://github.com/schiehll/react-alert
-// Definitions by: Yue Yang <https://github.com/g1eny0ung>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // The 7.x definition also applies to [6.x, 5.x].
 //
 // Some points to note:
 //
 // 1. `alert.removeAll()` has been added since `6.x`.
 
-import { CSSProperties, ReactNode, ComponentType, Component, Context } from 'react';
+import { Component, ComponentType, Context, CSSProperties, ReactNode } from "react";
 
 export type AlertPositionV4 =
-    | 'top left'
-    | 'top center'
-    | 'top right'
-    | 'bottom left'
-    | 'bottom center'
-    | 'bottom right';
-export type AlertPosition = AlertPositionV4 | 'middle left' | 'middle' | 'middle right';
-export type AlertType = 'info' | 'success' | 'error';
-export type AlertTransition = 'fade' | 'scale';
+    | "top left"
+    | "top center"
+    | "top right"
+    | "bottom left"
+    | "bottom center"
+    | "bottom right";
+export type AlertPosition = AlertPositionV4 | "middle left" | "middle" | "middle right";
+export type AlertType = "info" | "success" | "error";
+export type AlertTransition = "fade" | "scale";
 export interface Positions {
-    TOP_LEFT: 'top left';
-    TOP_CENTER: 'top center';
-    TOP_RIGHT: 'top right';
-    MIDDLE_LEFT: 'middle left';
-    MIDDLE: 'middle';
-    MIDDLE_RIGHT: 'middle right';
-    BOTTOM_LEFT: 'bottom left';
-    BOTTOM_CENTER: 'bottom center';
-    BOTTOM_RIGHT: 'bottom right';
+    TOP_LEFT: "top left";
+    TOP_CENTER: "top center";
+    TOP_RIGHT: "top right";
+    MIDDLE_LEFT: "middle left";
+    MIDDLE: "middle";
+    MIDDLE_RIGHT: "middle right";
+    BOTTOM_LEFT: "bottom left";
+    BOTTOM_CENTER: "bottom center";
+    BOTTOM_RIGHT: "bottom right";
 }
 export interface Types {
-    INFO: 'info';
-    SUCCESS: 'success';
-    ERROR: 'error';
+    INFO: "info";
+    SUCCESS: "success";
+    ERROR: "error";
 }
 export interface Transitions {
-    FADE: 'fade';
-    SCALE: 'scale';
+    FADE: "fade";
+    SCALE: "scale";
 }
 
 export const positions: Positions;
@@ -108,7 +103,7 @@ export interface AlertInstance {
     close: () => void;
 }
 
-export interface AlertTemplateProps extends Omit<AlertInstance, 'id'> {
+export interface AlertTemplateProps extends Omit<AlertInstance, "id"> {
     /**
      * The style contains only the margin given as offset.
      */
@@ -137,11 +132,13 @@ export interface AlertCustomOptions extends AlertOptions {
     /**
      * Callback that will be executed after this alert open.
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onOpen?: () => void | undefined;
 
     /**
      * Callback that will be executed after this alert is removed.
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onClose?: () => void | undefined;
 }
 
@@ -159,7 +156,7 @@ export interface InjectedAlertProps {
     alert: AlertContainer;
 }
 export function withAlert<P extends InjectedAlertProps = InjectedAlertProps>(
-    context?: Context<P['alert']>,
-): (c: ComponentType<P>) => ComponentType<Omit<P, 'alert'>>;
+    context?: Context<P["alert"]>,
+): (c: ComponentType<P>) => ComponentType<Omit<P, "alert">>;
 
 export function useAlert<T extends AlertContainer = AlertContainer>(context?: Context<T>): T;

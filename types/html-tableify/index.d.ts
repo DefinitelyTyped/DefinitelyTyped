@@ -1,8 +1,3 @@
-// Type definitions for html-tableify 0.0
-// Project: https://github.com/LingyuCoder/html-tableify#readme
-// Definitions by: Ciarán Ingle <https://github.com/inglec-arista>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Create a HTML table from JSON data.
  *
@@ -15,7 +10,7 @@
 declare function tableify<T extends keyof any>(data: Array<tableify.Datum<T>>, config?: tableify.Config<T>): string;
 
 declare namespace tableify {
-    type Alignment = 'center' | 'left' | 'right';
+    type Alignment = "center" | "left" | "right";
 
     /** Object of optional values for each key `T`. */
     type Datum<T extends keyof any> = {

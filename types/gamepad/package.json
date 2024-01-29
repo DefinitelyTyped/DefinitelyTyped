@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/gamepad",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/creationix/node-gamepad#readme"
+    ],
+    "devDependencies": {
+        "@types/gamepad": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Alex Van Camp",
+            "githubUsername": "Lange"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/pixrem",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/robwierzbowski/node-pixrem"
+    ],
+    "dependencies": {
+        "postcss": "^7.0.5"
+    },
+    "devDependencies": {
+        "@types/pixrem": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Thompson-Sharpe",
+            "githubUsername": "MysteryBlokHed"
+        }
+    ]
+}

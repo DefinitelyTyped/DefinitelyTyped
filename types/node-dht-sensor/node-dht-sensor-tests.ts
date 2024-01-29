@@ -1,4 +1,4 @@
-import sensor = require('node-dht-sensor');
+import sensor = require("node-dht-sensor");
 
 // normal mode
 sensor.initialize(11, 4);

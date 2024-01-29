@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/text-buffer",
+    "version": "13.0.9999",
+    "projects": [
+        "https://github.com/atom/text-buffer"
+    ],
+    "dependencies": {
+        "@types/event-kit": "*",
+        "@types/pathwatcher": "*"
+    },
+    "devDependencies": {
+        "@types/text-buffer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "GlenCFL",
+            "githubUsername": "GlenCFL"
+        }
+    ]
+}

@@ -1,4 +1,4 @@
-import { Status, Options } from '../';
+import { Options, Status } from "../";
 
 /**
  * Yields action objects used in signalling that a notice is to be created.

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/sbd",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/tessmore/sbd"
+    ],
+    "devDependencies": {
+        "@types/sbd": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Brian Cort",
+            "githubUsername": "thatcort"
+        },
+        {
+            "name": "Caroline Artz",
+            "githubUsername": "carolineartz"
+        }
+    ]
+}

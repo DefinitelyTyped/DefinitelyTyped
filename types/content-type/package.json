@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/content-type",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/jshttp/content-type"
+    ],
+    "devDependencies": {
+        "@types/content-type": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Hiroki Horiuchi",
+            "githubUsername": "horiuchi"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

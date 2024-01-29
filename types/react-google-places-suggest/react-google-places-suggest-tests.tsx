@@ -3,7 +3,7 @@ import ReactGooglePlacesSuggest from "react-google-places-suggest";
 
 const defaultProps: ReactGooglePlacesSuggest.Props = {
     googleMaps: google.maps,
-    autocompletionRequest: { input: "" }
+    autocompletionRequest: { input: "" },
 };
 
 const ReactGooglePlacesSuggestWithChildrenTest: React.FC = () => (
@@ -38,7 +38,7 @@ const ReactGooglePlacesSuggestWithCustomContainerRenderPropTest: React.FC = () =
     <ReactGooglePlacesSuggest
         {...defaultProps}
         customContainerRender={(
-            predictions: ReadonlyArray<ReactGooglePlacesSuggest.Prediction>
+            predictions: readonly ReactGooglePlacesSuggest.Prediction[],
         ) => {
             return "123";
         }}

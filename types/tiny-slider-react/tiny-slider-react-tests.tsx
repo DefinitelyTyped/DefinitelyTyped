@@ -1,5 +1,5 @@
 import * as React from "react";
-import TinySlider, { TinySliderSettings, TinySliderInfo } from "tiny-slider-react";
+import TinySlider, { TinySliderInfo, TinySliderSettings } from "tiny-slider-react";
 
 const settings: TinySliderSettings = {
     startIndex: 1,
@@ -14,15 +14,19 @@ const settings: TinySliderSettings = {
     axis: "vertical",
     responsive: {
         600: {
-          startIndex: 3,
-          gutter: 5,
-          fixedWidth: false
-        }
-    }
+            startIndex: 3,
+            gutter: 5,
+            fixedWidth: false,
+        },
+    },
 };
 
 function handleIndexChanged(info: TinySliderInfo) {
-  console.log(info.hasControls, info.slideCount);
+    console.log(info.hasControls, info.slideCount);
 }
 
-const MyComponent = <TinySlider settings={settings} onIndexChanged={handleIndexChanged} />;
+const MyComponent = (
+    <TinySlider settings={settings} onIndexChanged={handleIndexChanged}>
+        {[1, 2, 3].map(el => <div key={el}>(el)</div>)}
+    </TinySlider>
+);

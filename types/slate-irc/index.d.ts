@@ -1,10 +1,4 @@
-// Type definitions for slate-irc
-// Project: https://github.com/slate/slate-irc
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-
 
 import * as net from "net";
 
@@ -90,7 +84,7 @@ declare namespace IRC {
 
         join(channel: string, key?: string): void;
         part(channel: string, msg?: string): void;
-        names(channel: string, callback: (error: Error, names: { name: string; mode: string; }[]) => void): void;
+        names(channel: string, callback: (error: Error, names: Array<{ name: string; mode: string }>) => void): void;
 
         away(message: string): void;
         topic(channel: string, topic: string): void;

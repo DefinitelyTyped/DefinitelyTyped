@@ -1,6 +1,6 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
-() => {
+(() => {
     function square(value: number) {
         return value * value;
     }
@@ -16,13 +16,13 @@ import * as R from 'ramda';
     // $ExpectType (args_0: number, args_1: number) => number
     const squareThenAdd = R.useWith(add, [square, square]);
 
-    // $ExpectError
+    // @ts-expect-error
     const addNothing = R.useWith(add, []);
 
-    // $ExpectError
+    // @ts-expect-error
     const fnIncorrectArity = R.useWith(add, [square, square, square]);
 
-    // $ExpectError
+    // @ts-expect-error
     const fnIncorrectType = R.useWith(add, [square, R.toString]);
 
     // $ExpectType (args_0: number, args_1: number, args_2: number) => number
@@ -69,4 +69,4 @@ import * as R from 'ramda';
         square,
         square,
     ]);
-};
+});

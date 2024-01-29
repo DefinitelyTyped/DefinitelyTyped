@@ -1,9 +1,4 @@
-// Type definitions for express-requests-logger 3.0
-// Project: https://github.com/PayU/express-request-logger
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { NextFunction, Request } from 'express-serve-static-core';
+import { NextFunction, Request } from "express-serve-static-core";
 
 /**
  * Middleware for logging request/responses in Express apps
@@ -110,7 +105,7 @@ declare namespace audit {
         levels?: StatusCodeMap | undefined;
     }
 
-    type StatusCodeMap = Record<string, 'trace' | 'debug' | 'info' | 'warn' | 'error'>;
+    type StatusCodeMap = Record<string, "trace" | "debug" | "info" | "warn" | "error">;
 
     interface Logger {
         info(obj: object, ...params: any[]): void;

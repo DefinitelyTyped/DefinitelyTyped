@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/oojs-ui",
+    "version": "0.47.9999",
+    "projects": [
+        "https://www.mediawiki.org/wiki/OOUI"
+    ],
+    "dependencies": {
+        "@types/jquery": "*",
+        "@types/oojs": "*"
+    },
+    "devDependencies": {
+        "@types/oojs-ui": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "diskdance",
+            "githubUsername": "diskdance"
+        },
+        {
+            "name": "Chlod Aidan Alejandro",
+            "githubUsername": "ChlodAlejandro"
+        }
+    ]
+}

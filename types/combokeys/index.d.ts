@@ -1,11 +1,6 @@
-// Type definitions for Combokeys v2.4.6
-// Project: https://github.com/PolicyStat/combokeys
-// Definitions by: Ian Clanton-Thuon <https://github.com/iclanton>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Combokeys {
     interface CombokeysStatic {
-        new (element: Element): Combokeys;
+        new(element: Element): Combokeys;
 
         /**
          * all instances of Combokeys
@@ -36,7 +31,6 @@ declare namespace Combokeys {
          * @returns void
          */
         bind(keys: string | string[], callback: (event: KeyboardEvent) => void, action?: string): void;
-
 
         /**
          * binds multiple combinations to the same callback

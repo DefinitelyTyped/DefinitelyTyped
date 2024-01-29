@@ -1,13 +1,6 @@
-// Type definitions for oracledb 5.2
-// Project: https://github.com/oracle/node-oracledb
-// Definitions by: Connor Fitzgerald <https://github.com/connorjayfitzgerald>
-//                 Dan Beglin <https://github.com/dannyb648>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 /// <reference types="node" />
 
-import { Duplex, Readable } from 'stream';
+import { Duplex, Readable } from "stream";
 
 declare namespace OracleDB {
     /** Deprecated */
@@ -321,19 +314,6 @@ declare namespace OracleDB {
      */
     let events: boolean;
     /**
-     * Determines whether additional metadata is available for queries and for REF CURSORs returned from PL/SQL blocks.
-     *
-     * With this value, the result.metaData result.resultSet.metaData objects only include column names.
-     *
-     * If extendedMetaData is true then metaData will contain additional attributes.
-     *
-     * This property may be overridden in an execute() call.
-     *
-     * @default false
-     * @since 1.10
-     */
-    let extendedMetaData: boolean;
-    /**
      * If true, connections will be established using external authentication.
      *
      * The user and password properties should not be set when externalAuth is true.
@@ -405,6 +385,25 @@ declare namespace OracleDB {
      * maxRows limit.
      *
      * @default 0 (unlimited)
+     */
+    function fetchTypeHandler(metadata: Metadata<any>): Promise<void>;
+    /**
+     * This property is a function that allows applications to examine and modify queried column data before it is returned to the user. This function is called once for each column that is being fetched with a single object argument containing the following attributes:
+     * byteSize: The maximum size in bytes. This is only set if dbType is oracledb.DB_TYPE_VARCHAR, oracledb.DB_TYPE_CHAR, or oracledb.DB_TYPE_RAW.
+     * dbType: The database type, that is, one of the Oracle Database Type Objects.
+     * dbTypeName: The name of the database type, such as “NUMBER” or “VARCHAR2”.
+     * dbTypeClass: The class associated with the database type. This is only set if dbType is oracledb.DB_TYPE_OBJECT.
+     * name: The name of the column.
+     * nullable: Indicates whether NULL values are permitted for this column.
+     * precision: Set only when the dbType is oracledb.DB_TYPE_NUMBER.
+     * scale: Set only when the dbType is oracledb.DB_TYPE_NUMBER.
+     * By default, this property is “undefined”, that is, it is not set.
+     * The function is expected to return either nothing or an object containing:
+     * the type attribute
+     * or the converter attribute
+     * or both the type and converter attributes
+     * The converter function is a function which can be used with fetch type handlers to change the returned data. This function accepts the value that will be returned by connection.execute() for a particular row and column and returns the value that will actually be returned by connection.execute().
+     * This property can be overridden by the fetchTypeHandler option in execute().
      */
     let maxRows: number;
     /**
@@ -570,18 +569,18 @@ declare namespace OracleDB {
      */
     let errorOnConcurrentExecute: boolean;
     /**
-     * This property can be set to throw an error if concurrent operations are attempted 
+     * This property can be set to throw an error if concurrent operations are attempted
      * on a single connection.
      *
      * The default value for errorOnConcurrentExecute is false.
      *
-     * Each Oracle connection can only interact with the database for one operation at a time. 
-     * Attempting to do more than one operation concurrently may be a sign of an incorrectly coded application, 
-     * for example an await may be missing. 
+     * Each Oracle connection can only interact with the database for one operation at a time.
+     * Attempting to do more than one operation concurrently may be a sign of an incorrectly coded application,
+     * for example an await may be missing.
      * Examples of operations that cannot be executed in parallel on a single connection include connection.execute(),
      *  connection.executeMany(), connection.queryStream(), connection.getDbObjectClass(), connection.commit(),
      *  connection.close(), SODA calls, and streaming from Lobs.
-     */ 
+     */
     let queueRequests: number;
     /**
      * The number of statements that are cached in the statement cache of each connection.
@@ -594,6 +593,17 @@ declare namespace OracleDB {
      * @default 30
      */
     let stmtCacheSize: number;
+    /**
+     * This property is a boolean that determines the node-oracledb driver mode which is in use. If the value is true, it indicates that node-oracledb Thin mode is in use.
+     * If the value is false, it indicates that node-oracledb Thick mode is in use.
+     * The default value is true.
+     * Immediately after node-oracledb is imported, this property is set to true indicating that node-oracledb defaults to Thin mode. If oracledb.initOracleClient() is called,
+     * then the value of this property is set to False indicating that Thick mode is enabled. Once the first standalone connection or connection pool is created,
+     * or a call to oracledb.initOracleClient() is made, then node-oracledb’s mode is fixed and the value set in oracledb.thin will never change for the lifetime of the process.
+     * The property connection.thin can be used to check a connection’s mode and the attribute pool.thin can be used to check a pool’s mode.
+     * The value that is displayed for the connection.thin, pool.thin, and oracledb.thin attributes will be the same.
+     */
+    let thin: boolean;
     /**
      * This readonly property gives a numeric representation of the node-oracledb version.
      * For version x.y.z, this property gives the number: (10000 * x) + (100 * y) + z
@@ -1036,7 +1046,14 @@ declare namespace OracleDB {
          */
         getStatementInfo(sql: string): Promise<StatementInfo>;
         getStatementInfo(sql: string, callback: (error: DBError, info: StatementInfo) => void): void;
-
+        /**
+         * This synchronous function returns a boolean indicating the health status of a connection.
+         * Connections may become unusable in several cases, such as if the network socket is broken, if an Oracle error indicates the connection is unusable or after receiving a planned down notification from the database.
+         * This function is best used before starting a new database request on an existing standalone connection. Pooled connections internally perform this check before returning a connection to the application.
+         * If this function returns false, the connection should be closed by the application and a new connection should be established instead.
+         * This function performs a local check. To fully check a connection’s health, use connection.ping() which performs a round-trip to the database.
+         */
+        isHealthy(): boolean;
         /**
          * This method checks that a connection is currently usable and the network to the database is valid.
          * This call can be useful for system health checks. A ping only confirms that a single connection
@@ -1274,14 +1291,15 @@ declare namespace OracleDB {
          */
         queueName?: string | undefined;
         /** Array of objects specifying the queries which were affected by the Query Change notification. */
-        queries?: {
-            /** Array of objects specifying the queries which were affected by the Query Change notification. */
-            tables: SubscriptionTables;
-        }[] | undefined;
+        queries?:
+            | Array<{
+                /** Array of objects specifying the tables which were affected by the notification. */
+                tables?: SubscriptionTable[];
+            }>
+            | undefined;
         /** Indicates whether the subscription is registered with the database. */
         registered: boolean;
-        /** Array of objects specifying the tables which were affected by the notification. */
-        tables?: SubscriptionTables[] | undefined;
+
         /** Buffer containing the identifier of the transaction which spawned the notification. */
         txId: Buffer;
         /** Type of notification sent. One of the Subscribe Event Type Constants. */
@@ -1289,9 +1307,9 @@ declare namespace OracleDB {
     }
 
     /**
-     * An object specifying which tables were affected by a subscription's notification.
+     * An object specifying the table that was affected by a subscription's notification.
      */
-    interface SubscriptionTables {
+    interface SubscriptionTable {
         /** Name of the table which was modified in some way. */
         name: string;
         /**
@@ -1303,12 +1321,14 @@ declare namespace OracleDB {
          * quality of service used when creating the subscription indicated the desire for ROWIDs and no
          * summary grouping took place.
          */
-        rows?: {
-            /** One of the CQN_OPCODE_* constants. */
-            operation: number;
-            /** ROWID of the row that was affected. */
-            rowid: string;
-        }[] | undefined;
+        rows?:
+            | Array<{
+                /** One of the CQN_OPCODE_* constants. */
+                operation: number;
+                /** ROWID of the row that was affected. */
+                rowid: string;
+            }>
+            | undefined;
     }
 
     /**
@@ -1341,6 +1361,18 @@ declare namespace OracleDB {
          * @since 2.1
          */
         connectionString?: string | undefined;
+        /**
+         * Enhanced Mail (PEM)-encoded private certificate, if it is encrypted.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
+         * @since 6.0
+         */
+        walletPassword?: string | undefined;
+        /**
+         * The directory where the wallet can be found. In node-oracledb Thin mode, this must be the directory that contains the PEM-encoded wallet file.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
+         * @since 6.0
+         */
+        walletLocation?: string | undefined;
         /**
          * Sets the name used for Edition-Based Redefinition by this connection.
          * This optional property overrides the oracledb.edition property.
@@ -1386,6 +1418,19 @@ declare namespace OracleDB {
         /**
          * The password of the database user. A password is also necessary if a proxy user is specified.
          */
+        configDir?: string | undefined;
+        /**
+         * The directory in which the Optional Oracle Net Configuration Files are found.
+         * For node-oracledb Thick mode, use the oracledb.initOracleClient() option configDir instead.
+         * @since 6.0
+         */
+        sourceRoute?: string | undefined;
+        /**
+         * Enables network routing through multiple protocol addresses. The value of this property can be ON or OFF.
+         *  The default value is ON.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
+         * @since 6.0
+         */
         poolAlias?: string | undefined;
         /**
          * The privilege to use when establishing connection to the database.
@@ -1401,7 +1446,7 @@ declare namespace OracleDB {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#sharding
          * @since 4.1
          */
-        shardingKey?: (string | number | Date | Buffer)[] | undefined;
+        shardingKey?: Array<string | number | Date | Buffer> | undefined;
         /**
          * The number of statements to be cached in the statement cache of each connection.
          * This optional property may be used to override the oracledb.stmtCacheSize property.
@@ -1413,7 +1458,7 @@ declare namespace OracleDB {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#sharding
          * @since 4.1
          */
-        superShardingKey?: (string | number | Date | Buffer)[] | undefined;
+        superShardingKey?: Array<string | number | Date | Buffer> | undefined;
         /**
          * Used when getting a connection from a connection pool.
          * Indicates the tag that a connection returned from a connection pool should have.
@@ -1429,6 +1474,10 @@ declare namespace OracleDB {
     }
 
     interface DBError extends Error {
+        /**
+         * This property is a string that represents the error code, which is the error prefix followed by the error number, for example ORA-01017, DPI-1080, and NJS-500.
+         */
+        code?: string | undefined;
         /**
          * The Oracle error number. This value is undefined for non-Oracle errors and for messages prefixed with NJS or DPI.
          */
@@ -1447,6 +1496,13 @@ declare namespace OracleDB {
          * The value may be 0 in non-SQL contexts. This value is undefined for non-Oracle errors and for messages prefixed with NJS or DPI.
          */
         offset?: number | undefined;
+        /**
+         * This property is a string. When using Promises or Async/Await, the Error object includes a stack
+         *
+         * The stack trace displays only the application backtrace and not the driver’s internal frames or functions.
+         * See Increasing the Stack Trace Limit to understand how to increase the number of stack frames displayed in a trace.
+         */
+        stack?: string | undefined;
     }
 
     /**
@@ -1476,16 +1532,6 @@ declare namespace OracleDB {
          */
         dbObjectAsPojo?: boolean | undefined;
         /**
-         * Determines whether additional metadata is available for queries and for REF CURSORs returned from PL/SQL blocks.
-         *
-         * With this value, the result.metaData result.resultSet.metaData objects only include column names.
-         *
-         * If extendedMetaData is true then metaData will contain additional attributes.
-         *
-         * @default false
-         */
-        extendedMetaData?: boolean | undefined;
-        /**
          * This property sets the size of an internal buffer used for fetching query rows from Oracle Database.
          * Changing it may affect query performance but does not affect how many rows are returned to the application.
          *
@@ -1502,6 +1548,9 @@ declare namespace OracleDB {
          */
         fetchArraySize?: number | undefined;
         /**
+         * Depreciated in Version 6.0.0
+         * Use the oracledb.fetchTypeHandler method instead.
+         *
          * Defines how query column data should be represented in JavaScript. It can be used in conjunction with,
          * or instead of, the global settings fetchAsString and fetchAsBuffer.
          *
@@ -1512,12 +1561,14 @@ declare namespace OracleDB {
          *          "HIRE_DETAILS": { type: oracledb.DEFAULT }  // override fetchAsString or fetchAsBuffer
          *      }
          */
-        fetchInfo?: Record<
-            string,
-            {
-                type: number;
-            }
-        > | undefined;
+        fetchInfo?:
+            | Record<
+                string,
+                {
+                    type: number;
+                }
+            >
+            | undefined;
         /**
          * The maximum number of rows that are fetched by a query with connection.execute() when not using a ResultSet.
          * Rows beyond this limit are not fetched from the database. A value of 0 means there is no limit.
@@ -1572,6 +1623,13 @@ declare namespace OracleDB {
          * @default false
          */
         resultSet?: boolean | undefined;
+        /**
+         * When keepInStmtCache is true, and statement caching is enabled, then the statement will be added to the cache if it is not already present. This helps the performance of re-executed statements. See Statement Caching.
+         * The default value is true.
+         * New in version 5.3.
+         * In earlier versions, statements were always added to the statement cache, if caching was enabled.
+         */
+        keepInStmtCache?: boolean | undefined;
     }
 
     /**
@@ -1621,6 +1679,13 @@ declare namespace OracleDB {
          * @default false
          */
         dmlRowCounts?: boolean | undefined;
+        /**
+         * When keepInStmtCache is true, and statement caching is enabled, then the statement will be added to the cache if it is not already present. This helps the performance of re-executed statements. See Statement Caching.
+         * The default value is true.
+         * New in version 5.3.
+         * In earlier versions, statements were always added to the statement cache, if caching was enabled.
+         */
+        keepInStmtCache?: boolean | undefined;
     }
 
     /**
@@ -1758,7 +1823,7 @@ declare namespace OracleDB {
     }
 
     /**
-     * Statistics 
+     * Statistics
      */
     interface Statistics {
         gatheredDate: Date;
@@ -1790,6 +1855,10 @@ declare namespace OracleDB {
         stmtCacheSize: number;
         sodaMetaDataCache: boolean;
         threadPoolSize: number;
+    }
+
+    interface PoolStatistics {
+        logStatistics(): void;
     }
 
     /**
@@ -1964,10 +2033,10 @@ declare namespace OracleDB {
         getStatistics(): Statistics;
 
         /**
-         * Allows a subset of pool creation properties to be changed without needing to restart the pool or restart the application. 
-         * Properties such as the maximum number of connections in the pool, or the statement cache size used by connections can be changed. 
-         * Properties are optional. 
-         * Unspecified properties will leave those pool properties unchanged. The properties are processed in two stages. 
+         * Allows a subset of pool creation properties to be changed without needing to restart the pool or restart the application.
+         * Properties such as the maximum number of connections in the pool, or the statement cache size used by connections can be changed.
+         * Properties are optional.
+         * Unspecified properties will leave those pool properties unchanged. The properties are processed in two stages.
          * After any size change has been processed, reconfiguration on the other properties is done sequentially.
          * If an error such as an invalid value occurs when changing one property, then an error will be thrown but any already changed properties will retain their new values.
          */
@@ -2054,6 +2123,100 @@ declare namespace OracleDB {
          * @since 1.11
          */
         poolAlias?: string | undefined;
+        /**
+         * The directory in which the Optional Oracle Net Configuration Files are found.
+         * For node-oracledb Thick mode, use the oracledb.initOracleClient() option configDir.
+         * @since 6.0
+         */
+        configDir?: string | undefined;
+        /**
+         * Enables network routing through multiple protocol addresses. The value of this property can be ON or OFF.
+         * The default value is ON.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
+         * @since 6.0
+         */
+        sourceRoute?: string | undefined;
+        /**
+         * The distinguished name (DN) that should be matched with the server. If specified, this value is used for any verification. Otherwise, the hostname will be used.
+         * This value is ignored if the sslServerDNMatch property is not set to the value True.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
+         * @since 6.0
+         */
+        sslServerCertDN?: string | undefined;
+        /**
+         * Determines whether the server certificate DN should be matched in addition to the regular certificate verification that is performed.
+         * If the sslServerCertDN parameter is not provided, host name matching is performed instead.
+         * The default value is True.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
+         * @since 6.0
+         */
+        sslServerDNMatch?: boolean | undefined;
+        /**
+         * The name or IP address of a proxy host to use for tunneling secure connections.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
+         */
+        httpsProxy?: string | undefined;
+        /**
+         * The port to be used to communicate with the proxy host.
+         * The default value is 0.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
+         *
+         * @since 6.0
+         * @default 0
+         */
+        httpsProxyPort?: number | undefined;
+        /**
+         * The number of times that a connection attempt should be retried before the attempt is terminated.
+         * The default value is 0.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
+         *
+         * @since 6.0
+         * @default 0
+         */
+        retryCount?: number | undefined;
+        /**
+         * The number of seconds to wait before making a new connection attempt.
+         * The default value is 0.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
+         *
+         * @since 6.0
+         * @default 0
+         */
+        retryDelay?: number | undefined;
+        /**
+         * The timeout duration in seconds for an application to establish an Oracle Net connection.
+         * There is no timeout by default.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
+         * @since 6.0
+         */
+        connectTimeout?: number | undefined;
+        /**
+         * The maximum number of seconds to wait to establish a connection to the database host.
+         * The default value is 60.0.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
+         * @default 60.0
+         * @since 6.0
+         */
+        transportConnectTimeout?: number | undefined;
+        /**
+         * The number of minutes between the sending of keepalive probes. If this property is set to a value greater than zero, it enables the keepalive probes.
+         * The default value is 0.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
+         * @default 0
+         * @since 6.0
+         */
+        expireTime?: number | undefined;
+        /**
+         * The Oracle Net Session Data Unit (SDU) packet size in bytes. The database server configuration should also set this parameter.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string.
+         * @since 6.0
+         */
+        sdu?: number | undefined;
+        /**
+         * The application specific prefix parameter that is added to the connection identifier.
+         * @since 6.0
+         */
+        connectionIdPrefix?: string | undefined;
         /**
          * The number of connections that are opened whenever a connection request exceeds the number of currently open connections.
          * This optional property overrides the oracledb.poolIncrement property.
@@ -2150,7 +2313,8 @@ declare namespace OracleDB {
          */
         sessionCallback?:
             | string
-            | ((connection: Connection, requestedTag: string, callback: (error?: DBError) => void) => void) | undefined;
+            | ((connection: Connection, requestedTag: string, callback: (error?: DBError) => void) => void)
+            | undefined;
         /**
          * The number of statements to be cached in the statement cache of each connection in the pool.
          * This optional property overrides the oracledb.stmtCacheSize property.
@@ -2197,8 +2361,11 @@ declare namespace OracleDB {
          *
          * @param maxMessages Maximum number of messages to dequeue.
          */
-        deqMany(maxMessages: number): Promise<AdvancedQueueMessage<T>[]>;
-        deqMany(maxMessages: number, callback: (error: DBError, messages: AdvancedQueueMessage<T>[]) => void): void;
+        deqMany(maxMessages: number): Promise<Array<AdvancedQueueMessage<T>>>;
+        deqMany(
+            maxMessages: number,
+            callback: (error: DBError, messages: Array<AdvancedQueueMessage<T>>) => void,
+        ): void;
 
         /**
          * Dequeues a single message. Depending on the dequeue options, the message may also be returned as undefined if no message is available.
@@ -2215,8 +2382,8 @@ declare namespace OracleDB {
          *
          * @param messages Messages to enqueue.
          */
-        enqMany(messages: EnqueueMessage<T>[]): Promise<void>;
-        enqMany(messages: EnqueueMessage<T>[], callback: (error: DBError) => void): void;
+        enqMany(messages: Array<EnqueueMessage<T>>): Promise<void>;
+        enqMany(messages: Array<EnqueueMessage<T>>, callback: (error: DBError) => void): void;
 
         /**
          * Enqueues a single message.
@@ -2232,47 +2399,49 @@ declare namespace OracleDB {
         | Buffer
         | DBObject_IN<T>
         | {
-              /** Correlation that was used during enqueue. */
-              correlation: string;
-              /** Number of seconds the message was delayed before it could be dequeued. */
-              delay: number;
-              /** Name of the exception queue defined when the message was enqueued. */
-              exceptionQueue: string;
-              /** Number of seconds until expiration defined when the message was enqueued. */
-              expiration: number;
-              /** Contains the payload of the message, with type depending on the value of queue.payloadType.
-               * Note that enqueued Strings are returned as UTF-8 encoded Buffers.
-               */
-              payload: string | Buffer | DBObject_IN<T>;
-              /** Priority of the message when it was enqueued. */
-              priority: number;
-          };
+            /** Correlation that was used during enqueue. */
+            correlation: string;
+            /** Number of seconds the message was delayed before it could be dequeued. */
+            delay: number;
+            /** Name of the exception queue defined when the message was enqueued. */
+            exceptionQueue: string;
+            /** Number of seconds until expiration defined when the message was enqueued. */
+            expiration: number;
+            /** Contains the payload of the message, with type depending on the value of queue.payloadType.
+             * Note that enqueued Strings are returned as UTF-8 encoded Buffers.
+             */
+            payload: string | Buffer | DBObject_IN<T>;
+            /** Priority of the message when it was enqueued. */
+            priority: number;
+        };
 
     /**
      * @see https://oracle.github.io/node-oracledb/doc/api.html#objects
      * @since 4.0
      */
     interface DBObjectClass<T> {
-        new (data?: T): DBObject_IN<T>;
+        new(data?: T): DBObject_IN<T>;
     }
 
     /**
      * @see https://oracle.github.io/node-oracledb/doc/api.html#objects
      * @since 4.0
      */
-    type DBObject_IN<T> = {
-        [P in keyof T]: T[P];
-    } &
-        BaseDBObject<T>;
+    type DBObject_IN<T> =
+        & {
+            [P in keyof T]: T[P];
+        }
+        & BaseDBObject<T>;
 
     /**
      * @see https://oracle.github.io/node-oracledb/doc/api.html#objects
      * @since 4.0
      */
-    type DBObject_OUT<T> = {
-        [P in keyof T]: DBObject_OUT<T[P]>;
-    } &
-        BaseDBObject<T>;
+    type DBObject_OUT<T> =
+        & {
+            [P in keyof T]: DBObject_OUT<T[P]>;
+        }
+        & BaseDBObject<T>;
 
     /**
      * @see https://oracle.github.io/node-oracledb/doc/api.html#objects
@@ -2328,7 +2497,7 @@ declare namespace OracleDB {
         /**
          * Returns a JavaScript array containing the ‘index’ keys.
          */
-        getKeys(): T extends string | number ? number[] : (keyof T)[];
+        getKeys(): T extends string | number ? number[] : Array<keyof T>;
         /**
          * To obtain the last index for later use to obtain a value.
          */
@@ -2438,19 +2607,19 @@ declare namespace OracleDB {
     type QueryStream<T> = Readable & QueryStreamEvents<T>;
 
     interface QueryStreamEvents<T> {
-        addListener(event: 'metadata', listener: (metadata: Metadata<T>[]) => void): this;
+        addListener(event: "metadata", listener: (metadata: Array<Metadata<T>>) => void): this;
 
-        emit(event: 'metadata', metadata: Metadata<T>[]): boolean;
+        emit(event: "metadata", metadata: Array<Metadata<T>>): boolean;
 
-        on(event: 'metadata', listener: (metadata: Metadata<T>[]) => void): this;
+        on(event: "metadata", listener: (metadata: Array<Metadata<T>>) => void): this;
 
-        once(event: 'metadata', listener: (metadata: Metadata<T>[]) => void): this;
+        once(event: "metadata", listener: (metadata: Array<Metadata<T>>) => void): this;
 
-        prependListener(event: 'metadata', listener: (metadata: Metadata<T>[]) => void): this;
+        prependListener(event: "metadata", listener: (metadata: Array<Metadata<T>>) => void): this;
 
-        prependOnceListener(event: 'metadata', listener: (metadata: Metadata<T>[]) => void): this;
+        prependOnceListener(event: "metadata", listener: (metadata: Array<Metadata<T>>) => void): this;
 
-        removeListener(event: 'metadata', listener: (metadata: Metadata<T>[]) => void): this;
+        removeListener(event: "metadata", listener: (metadata: Array<Metadata<T>>) => void): this;
     }
 
     /**
@@ -2464,7 +2633,7 @@ declare namespace OracleDB {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#implicitresults
          * @since 4.0
          */
-        implicitResults?: (T[] | ResultSet<T>)[] | undefined;
+        implicitResults?: Array<T[] | ResultSet<T>> | undefined;
         /**
          * ROWID of a row affected by an INSERT, UPDATE, DELETE or MERGE statement. For other statements,
          * or if no row was affected, it is not set. If more than one row was affected, only the ROWID of the last row is returned.
@@ -2476,10 +2645,9 @@ declare namespace OracleDB {
          * For SELECT statements, this contains an array of objects describing details of columns for the select list.
          * For non queries, this property is undefined.
          *
-         * Each column’s name is always given. If the oracledb.extendedMetaData or execute() option extendedMetaData
-         * are true then additional information is included.
+         * Each column’s name is always given.
          */
-        metaData?: Metadata<T>[] | undefined;
+        metaData?: Array<Metadata<T>> | undefined;
         /**
          * This contains the output values of OUT and IN OUT binds. If bindParams is passed as an array,
          * then outBinds is returned as an array. If bindParams is passed as an object,
@@ -2568,10 +2736,9 @@ declare namespace OracleDB {
         /**
          * Contains an array of objects with metadata about the query or REF CURSOR columns.
          *
-         * Each column’s name is always given. If the oracledb.extendedMetaData or execute() option
-         * extendedMetaData are true then additional information is included.
+         * Each column’s name is always given.
          */
-        readonly metaData: Metadata<T>[];
+        readonly metaData: Array<Metadata<T>>;
 
         /**
          * Closes a ResultSet. Applications should always call this at the end of fetch or when no more rows are needed.
@@ -2594,7 +2761,7 @@ declare namespace OracleDB {
 
         /**
          * This call fetches numRows rows of the ResultSet as an object or an array of column values,
-         * depending on the value of outFormat. If no argument is passed, or numRows is zero, then all rows are fetched. 
+         * depending on the value of outFormat. If no argument is passed, or numRows is zero, then all rows are fetched.
          *
          * At the end of fetching, the ResultSet should be freed by calling close().
          *
@@ -2888,12 +3055,15 @@ declare namespace OracleDB {
          *
          * @since 3.0
          */
-        insertOneAndGet(newDocument: SodaDocument | Record<string, any>, options?: { hint: string }): Promise<SodaDocument>;
+        insertOneAndGet(
+            newDocument: SodaDocument | Record<string, any>,
+            options?: { hint: string },
+        ): Promise<SodaDocument>;
 
         insertOneAndGet(
             newDocument: SodaDocument | Record<string, any>,
             callback: (error: DBError, document: SodaDocument) => void,
-            options?: { hint: string }
+            options?: { hint: string },
         ): void;
 
         /**
@@ -2910,8 +3080,8 @@ declare namespace OracleDB {
          * @requires Oracle Client 18.5 or higher
          * @since 4.0
          */
-        insertMany(documents: (SodaDocument | Record<string, any>)[]): Promise<void>;
-        insertMany(documents: (SodaDocument | Record<string, any>)[], callback: (error: DBError) => void): void;
+        insertMany(documents: Array<SodaDocument | Record<string, any>>): Promise<void>;
+        insertMany(documents: Array<SodaDocument | Record<string, any>>, callback: (error: DBError) => void): void;
 
         /**
          * Similar to sodaCollection.insertMany() but also returns an array of the inserted documents so system managed properties,
@@ -2926,11 +3096,14 @@ declare namespace OracleDB {
          * @required Oracle Client 18.5 or higher
          * @since 4.0
          */
-        insertManyAndGet(documents: (SodaDocument | Record<string, any>)[], options?: { hint: string }): Promise<SodaDocument[]>;
         insertManyAndGet(
-            documents: (SodaDocument | Record<string, any>)[],
+            documents: Array<SodaDocument | Record<string, any>>,
+            options?: { hint: string },
+        ): Promise<SodaDocument[]>;
+        insertManyAndGet(
+            documents: Array<SodaDocument | Record<string, any>>,
             callback: (error: DBError, documents: SodaDocument[]) => void,
-            options?: { hint: string }
+            options?: { hint: string },
         ): void;
 
         /**
@@ -2953,7 +3126,11 @@ declare namespace OracleDB {
          * @since 5.0
          */
         saveAndGet(document: SodaDocument, options?: { hint: string }): Promise<SodaDocument>;
-        saveAndGet(document: SodaDocument, cb: (err: DBError, doc: SodaDocument) => void, options?: { hint: string }): void;
+        saveAndGet(
+            document: SodaDocument,
+            cb: (err: DBError, doc: SodaDocument) => void,
+            options?: { hint: string },
+        ): void;
 
         /**
          * This method truncates a collection, removing all documents. The collection will not be deleted.
@@ -3076,8 +3253,8 @@ declare namespace OracleDB {
          */
         filter(filterSpec: Record<string, any>): SodaOperation;
         /**
-         * The hint() value can be used to pass an Oracle hint to terminal SodaOperation Methods. 
-         * It is string in the same format as a SQL hint but without any comment characters, for example hint("MONITOR"). 
+         * The hint() value can be used to pass an Oracle hint to terminal SodaOperation Methods.
+         * It is string in the same format as a SQL hint but without any comment characters, for example hint("MONITOR").
          * Pass only the hint "MONITOR" (turn on monitoring) or "NO_MONITOR" (turn off monitoring).
          * See the Oracle Database SQL Tuning Guide documentation MONITOR and NO_MONITOR Hints and Monitoring Database Operations for more information.
          */
@@ -3708,17 +3885,17 @@ declare namespace OracleDB {
 
     type DBCredentials =
         | {
-              user: string;
-              password: string;
-              connectionString: string;
-              externalAuth?: boolean | undefined;
-          }
+            user: string;
+            password: string;
+            connectionString: string;
+            externalAuth?: boolean | undefined;
+        }
         | {
-              user: string;
-              password: string;
-              connectString: string;
-              externalAuth?: boolean | undefined;
-          };
+            user: string;
+            password: string;
+            connectString: string;
+            externalAuth?: boolean | undefined;
+        };
 
     /**
      * This is the simplified form of connection.shutdown() used for shutting down a database instance. It accepts connection

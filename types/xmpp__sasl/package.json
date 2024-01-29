@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/xmpp__sasl",
+    "version": "0.13.9999",
+    "projects": [
+        "https://github.com/xmppjs/xmpp.js/tree/main/packages/sasl"
+    ],
+    "dependencies": {
+        "@types/saslmechanisms": "*",
+        "@types/xmpp__error": "*",
+        "@types/xmpp__middleware": "*",
+        "@types/xmpp__stream-features": "*"
+    },
+    "devDependencies": {
+        "@types/sasl-anonymous": "*",
+        "@types/sasl-plain": "*",
+        "@types/sasl-scram-sha-1": "*",
+        "@types/xmpp__connection": "*",
+        "@types/xmpp__sasl": "workspace:.",
+        "@types/xmpp__xml": "*"
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

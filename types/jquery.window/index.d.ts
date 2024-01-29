@@ -1,9 +1,3 @@
-// Type definitions for Window plugin for jQuery 5.0.4
-// Project: http://fstoke.me/jquery/window/
-// Definitions by: Ryan Graham <https://github.com/ryan-codingintrigue/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 declare namespace JQueryWindow {
@@ -96,11 +90,11 @@ declare namespace JQueryWindow {
         /**
         change frame content
         **/
-        setContent(content: string|JQuery|HTMLElement): void;
+        setContent(content: string | JQuery | HTMLElement): void;
         /**
         change footer content
         **/
-        setFooterContent(content: string|JQuery|HTMLElement): void;
+        setFooterContent(content: string | JQuery | HTMLElement): void;
         /**
         get window title text
         **/
@@ -165,7 +159,7 @@ declare namespace JQueryWindow {
         /**
         return all created windows instance
         **/
-        getAll(): Array<JQueryWindow.Window>;
+        getAll(): JQueryWindow.Window[];
         /**
         get the window instance by passed window id
         **/
@@ -185,7 +179,7 @@ declare namespace JQueryWindow {
         /**
         the area which the windows will dock at
         **/
-        dockArea?: JQuery|HTMLElement | undefined;
+        dockArea?: JQuery | HTMLElement | undefined;
         /**
         the speed of animations: maximize, minimize, restore, shift, in milliseconds
         **/
@@ -225,11 +219,11 @@ declare namespace JQueryWindow {
         /**
         this attribute only works when url is null. when passing a jquery object or a element, it will clone the original one to append.
         **/
-        content?: string|JQuery|HTMLElement | undefined;
+        content?: string | JQuery | HTMLElement | undefined;
         /**
         same as content attribute, but it's put on footer panel.
         **/
-        footerContent?: string|JQuery|HTMLElement | undefined;
+        footerContent?: string | JQuery | HTMLElement | undefined;
         /**
         container extra class
         **/
@@ -341,7 +335,7 @@ declare namespace JQueryWindow {
         /**
         to describe the customized button display and callback function
         **/
-        custBtns?: Array<JQueryWindow.Button> | undefined;
+        custBtns?: JQueryWindow.Button[] | undefined;
         /**
         a callback function while container is added into body
         **/
@@ -447,7 +441,6 @@ declare namespace JQueryWindow {
         **/
         callback: (btn: JQueryWindow.Button, wnd: JQueryWindow.Window) => void;
     }
-
 }
 
 // Register with JQuery instance

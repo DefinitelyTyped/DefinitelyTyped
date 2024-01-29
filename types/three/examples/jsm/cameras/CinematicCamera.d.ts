@@ -5,9 +5,9 @@ import {
     WebGLRenderer,
     OrthographicCamera,
     WebGLRenderTarget,
-} from '../../../src/Three';
+} from '../../../src/Three.js';
 
-import { BokehShaderUniforms } from './../shaders/BokehShader2';
+import { BokehShaderUniforms } from '../shaders/BokehShader2.js';
 
 export class CinematicCamera extends PerspectiveCamera {
     constructor(fov: number, aspect: number, near: number, far: number);

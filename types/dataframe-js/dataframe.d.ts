@@ -662,4 +662,4 @@ declare class DataFrame {
 declare namespace DataFrame {
     const defaultModules: any[];
 }
-import Row from './row';
+import Row from "./row";

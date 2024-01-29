@@ -1,10 +1,5 @@
-// Type definitions for react-native-side-menu 1.1
-// Project: https://github.com/react-native-community/react-native-side-menu#readme
-// Definitions by: Jules Samuel Randolph <https://github.com/jsamr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { ReactNode, Component } from 'react';
-import { GestureResponderEvent, PanResponderGestureState, Animated, ViewStyle } from 'react-native';
+import { Component, ReactNode } from "react";
+import { Animated, GestureResponderEvent, PanResponderGestureState, ViewStyle } from "react-native";
 
 export interface ReactNativeSideMenuProps {
     /**
@@ -61,7 +56,7 @@ export interface ReactNativeSideMenuProps {
     /**
      * @default left
      */
-    menuPosition?: 'left' | 'right' | undefined;
+    menuPosition?: "left" | "right" | undefined;
     animationFunction?: ((prop: Animated.Value, value: number) => Animated.CompositeAnimation) | undefined;
     animationStyle?: ((value: number) => ViewStyle) | undefined;
     /**

@@ -1,8 +1,3 @@
-// Type definitions for isbn-utils 1.1
-// Project: https://github.com/GitbookIO/isbn-utils
-// Definitions by: Jørgen Elgaard Larsen <https://github.com/elhaard>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type IGroups = any;
 
 export class ISBNcodes {
@@ -29,6 +24,6 @@ export class ISBN {
 
 export function asIsbn10(isbn: string, hyphenate?: boolean): string;
 export function asIsbn13(isbn: string, hyphenate?: boolean): string;
-export function parse(isbn: string, groups?: IGroups): ISBN|null;
+export function parse(isbn: string, groups?: IGroups): ISBN | null;
 export function hyphenate(isbn: string): string;
 export function isValid(isbn: string, groups?: IGroups): boolean;

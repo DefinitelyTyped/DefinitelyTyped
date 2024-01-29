@@ -4,19 +4,18 @@ export interface CypherViewer {
     RETURN: string;
     WHERE: string;
     QueryElementTypes: Readonly<{
-        KEYWORD: 0
-        NODE: 1
-        SEPERATOR: 2
-        SOURCE: 3
-        LINK: 4
-        TARGET: 5
-        RETURN: 6
-        WHERE: 7
+        KEYWORD: 0;
+        NODE: 1;
+        SEPERATOR: 2;
+        SOURCE: 3;
+        LINK: 4;
+        TARGET: 5;
+        RETURN: 6;
+        WHERE: 7;
     }>;
 
     /**
      * Create the Cypher viewer area.
-     *
      */
     createQueryArea: () => void;
 
@@ -39,7 +38,7 @@ export interface CypherViewer {
      * @param links
      * @returns an array of generated data
      */
-    generateData: (links: any[]) => Array<{ id: number, type: number, node: any }>;
+    generateData: (links: any[]) => Array<{ id: number; type: number; node: any }>;
 
     mouseOverSpan: () => void;
     mouseOutSpan: () => void;

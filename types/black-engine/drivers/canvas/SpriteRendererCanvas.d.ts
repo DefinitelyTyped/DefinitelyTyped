@@ -9,6 +9,6 @@ export class SpriteRendererCanvas extends Renderer {
     renderSlice9Grid(driver: any, texture: any, grid: any): CanvasRenderTexture;
     render(driver: any, session: any): void;
 }
-import { Renderer } from '../Renderer';
-import { Texture } from '../../textures/Texture';
-import { CanvasRenderTexture } from '../../textures/CanvasRenderTexture';
+import { CanvasRenderTexture } from "../../textures/CanvasRenderTexture";
+import { Texture } from "../../textures/Texture";
+import { Renderer } from "../Renderer";

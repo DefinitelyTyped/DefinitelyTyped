@@ -1,4 +1,4 @@
-import { UnaryFunction, VariadicFunction } from '../internal/types';
+import { UnaryFunction, VariadicFunction } from "../internal/types";
 
 /**
  * unary :: ((*) -> b) -> a -> b

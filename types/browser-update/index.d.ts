@@ -1,9 +1,3 @@
-// Type definitions for browser-update 3.3
-// Project: https://github.com/browser-update/browser-update
-// Definitions by: BendingBender <https://github.com/bendingbender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
 /// <reference lib="dom" />
 
 export = browserUpdate;
@@ -238,7 +232,7 @@ declare namespace browserUpdate {
          *
          * @default 'top'
          */
-        style?: 'top' | 'bottom' | 'corner' | undefined;
+        style?: "top" | "bottom" | "corner" | undefined;
 
         /**
          * Shift down the page in order not to obscure content behind the notification bar.
@@ -250,30 +244,32 @@ declare namespace browserUpdate {
     } & BrowserWithLanguageTextOptions;
 
     type DetectedBrowsers =
-        | 'c'
-        | 'f'
-        | 'io'
-        | 'uc'
-        | 'i'
-        | 'e'
-        | 'e_a'
-        | 'v'
-        | 'o'
-        | 'o_a'
-        | 'y'
-        | 'samsung'
-        | 'silk'
-        | 'ios'
-        | 's'
-        | 'so'
-        | 'x';
+        | "c"
+        | "f"
+        | "io"
+        | "uc"
+        | "i"
+        | "e"
+        | "e_a"
+        | "v"
+        | "o"
+        | "o_a"
+        | "y"
+        | "samsung"
+        | "silk"
+        | "ios"
+        | "s"
+        | "so"
+        | "x";
 
     type BrowserWithLanguageTextOptions = {
-        [K in DetectedBrowsers as
-            | `text_for_${K}`
-            | `text_for_${K}_in_${string}`
-            | `text_in_${string}`
-            | `text_${string}`]?: TextConfig | string | undefined;
+        [
+            K in DetectedBrowsers as
+                | `text_for_${K}`
+                | `text_for_${K}_in_${string}`
+                | `text_in_${string}`
+                | `text_${string}`
+        ]?: TextConfig | string | undefined;
     };
 
     interface RequiredBrowsers {
@@ -346,33 +342,34 @@ declare namespace browserUpdate {
         bnever?: string | undefined;
     }
 
-    interface ParsedOptions
-        extends WithRequiredProperties<
+    interface ParsedOptions extends
+        WithRequiredProperties<
             Options,
-            | 'domain'
-            | 'required'
-            | 'reminder'
-            | 'reminderClosed'
-            | 'onshow'
-            | 'onclick'
-            | 'onclose'
-            | 'pageurl'
-            | 'newwindow'
-            | 'test'
-            | 'ignorecookie'
-        > {
+            | "domain"
+            | "required"
+            | "reminder"
+            | "reminderClosed"
+            | "onshow"
+            | "onclick"
+            | "onclose"
+            | "pageurl"
+            | "newwindow"
+            | "test"
+            | "ignorecookie"
+        >
+    {
         llfull: string;
         ll: string;
         apiver: number;
         jsv: string;
-        reasons: Array<'below required' | 'insecure' | 'no vendor support'>;
+        reasons: Array<"below required" | "insecure" | "no vendor support">;
         hide_reasons: Array<
             | `is other browser:${string}`
             | `is embedded browser:${string}`
-            | 'Extended support (ESR)'
-            | 'do not notify mobile'
-            | 'is latest version of the browser'
-            | 'no device update'
+            | "Extended support (ESR)"
+            | "do not notify mobile"
+            | "is latest version of the browser"
+            | "no device update"
         >;
         is_below_required: boolean;
         notified: boolean;
@@ -390,7 +387,7 @@ declare namespace browserUpdate {
         };
         discontinued: boolean;
         embedded: boolean;
-        engine?: 'ios' | 'i' | 'c' | 'e' | 'f' | 's' | 'o' | undefined;
+        engine?: "ios" | "i" | "c" | "e" | "f" | "s" | "o" | undefined;
         engine_version?: number | undefined;
         fullv: string;
         is_latest: boolean | undefined;
@@ -399,7 +396,7 @@ declare namespace browserUpdate {
         mobile: boolean;
         n: DetectedBrowsers;
         no_device_update: boolean;
-        other: 'bot' | 'TV' | 'niche browser' | 'mobile without upgrade path or landing page' | false;
+        other: "bot" | "TV" | "niche browser" | "mobile without upgrade path or landing page" | false;
         t: string;
         v: number;
         vmaj: number;
@@ -415,5 +412,6 @@ declare global {
     }
 }
 
-type WithRequiredProperties<TObj extends object, TReq extends keyof TObj> = Required<Pick<TObj, TReq>> &
-    Omit<TObj, TReq>;
+type WithRequiredProperties<TObj extends object, TReq extends keyof TObj> =
+    & Required<Pick<TObj, TReq>>
+    & Omit<TObj, TReq>;

@@ -1,9 +1,3 @@
-// Type definitions for mock-require 2.0
-// Project: https://github.com/boblauer/mock-require
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="node" />
 
 type StubFunction = (...params: any[]) => any;

@@ -1,7 +1,7 @@
-import TestSuite = require('@nginstack/jsunit/lib/TestSuite');
+import TestSuite = require("@nginstack/jsunit/lib/TestSuite");
 
-const suite = new TestSuite('fileId'); // $ExpectType TestSuite
-const any = '*';
+const suite = new TestSuite("fileId"); // $ExpectType TestSuite
+const any = "*";
 const arrAny = [any];
 
 suite.key; // $ExpectType number | null
@@ -21,7 +21,7 @@ suite.getTestByName(any); // $ExpectType any
 suite.update(); // $ExpectType void
 suite.setUp(); // $ExpectType void
 suite.tearDown(); // $ExpectType void
-suite.fail(''); // $ExpectType never
+suite.fail(""); // $ExpectType never
 suite.failEquals(any, any, any); // $ExpectType void
 suite.failNotEquals(any, any, any); // $ExpectType void
 suite.check(any, any); // $ExpectType void
@@ -29,7 +29,7 @@ suite.checkEquals(any, any, any); // $ExpectType void
 suite.checkNotEquals(any, any, any); // $ExpectType void
 suite.checkEqualNumbers(any, any, any, any); // $ExpectType void
 suite.checkNotEqualNumbers(any, any, any, any); // $ExpectType void
-suite.removeTime(any); // $ExpectType Date
+suite.removeTime(new Date()); // $ExpectType Date
 suite.checkEqualDates(any, any, any); // $ExpectType void
 suite.checkNotEqualDates(any, any, any); // $ExpectType void
 suite.checkEqualDateTimes(any, any, any); // $ExpectType void
@@ -49,7 +49,7 @@ suite.assertNotUndefined(arrAny); // $ExpectType void
 suite.assertNan(arrAny); // $ExpectType void
 suite.assertNotNan(arrAny); // $ExpectType void
 
-function testMajorVersions(prior: number, current: number): boolean {
-    return current > prior;
+function getVersion(): string {
+    return "71.0.244";
 }
-testMajorVersions(58, 59); // $ExpectType boolean
+getVersion(); // $ExpectType string

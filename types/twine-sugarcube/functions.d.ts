@@ -1,4 +1,4 @@
-import { SugarCubeTemporaryVariables, SugarCubeStoryVariables } from "./userdata";
+import { SugarCubeStoryVariables, SugarCubeTemporaryVariables } from "./userdata";
 
 declare global {
     /**
@@ -47,7 +47,7 @@ declare global {
      * // Using multiple arrays; given: $letters = ["A", "B"] & $numerals = ["1", "2"]
      * either($letters, $numerals) -> Returns a random value from the whole list (i.e. "A", "B", "1", "2")
      */
-    function either<T>(...list: ReadonlyArray<T>): T;
+    function either<T>(...list: readonly T[]): T;
 
     /**
      * Removes the specified key, and its associated value, from the story metadata store.
@@ -67,7 +67,7 @@ declare global {
      * <<if hasVisited("Bar", "Café")>>…has been to both the Bar and Café<</if>>
      * <<if not hasVisited("Bar", "Café")>>…has never been to either the Bar, Café, or both…<</if>>
      */
-    function hasVisited(...passageNames: ReadonlyArray<string>): boolean;
+    function hasVisited(...passageNames: readonly string[]): boolean;
 
     /**
      * Returns the number of turns that have passed since the last instance of the passage with the given title occurred within
@@ -82,7 +82,7 @@ declare global {
      * <<if lastVisited("Bar", "Café") is -1>>…has never been to the Bar, Café, or both…<</if>>
      * <<if lastVisited("Bar", "Café") is 2>>…has been to both the Bar and Café, most recently two turns ago…<</if>>
      */
-    function lastVisited(...passageNames: ReadonlyArray<string>): number;
+    function lastVisited(...passageNames: readonly string[]): number;
 
     /**
      * Load and integrate external JavaScript scripts.
@@ -153,7 +153,7 @@ declare global {
      *     console.log(err);
      * });
      */
-    function importScripts(...urls: ReadonlyArray<string>): Promise<void>;
+    function importScripts(...urls: readonly string[]): Promise<void>;
 
     /**
      * Load and integrate external CSS stylesheets.
@@ -209,7 +209,7 @@ declare global {
      *      console.log(err);
      * });
      */
-    function importStyles(...urls: ReadonlyArray<string>): Promise<void>;
+    function importStyles(...urls: readonly string[]): Promise<void>;
 
     /**
      * Sets the specified key and value within the story metadata store, which causes them to persist over story and browser
@@ -320,7 +320,8 @@ declare global {
     function setPageElement(
         idOrElement: string | HTMLElement,
         passages: string | string[],
-        defaultText?: string): HTMLElement | null;
+        defaultText?: string,
+    ): HTMLElement | null;
 
     /**
      * Returns a new array consisting of all of the tags of the given passages.
@@ -331,7 +332,7 @@ declare global {
      * <<if tags().includes("forest")>>…the current passage is part of the forest…<</if>>
      * <<if tags("Lonely Glade").includes("forest")>>…the Lonely Glade passage is part of the forest…<</if>>
      */
-    function tags(...passages: ReadonlyArray<string>): string[];
+    function tags(...passages: readonly string[]): string[];
 
     /**
      * Returns a reference to the current temporary variables store (equivalent to: State.temporary). This is only really useful
@@ -396,7 +397,7 @@ declare global {
      * <<if visited("Café") is 1>>…has been to the Café exactly once…<</if>>
      * <<if visited("Bar", "Café") is 4>>…has been to both the Bar and Café at least four times…<</if>>
      */
-    function visited(...passages: ReadonlyArray<string>): number;
+    function visited(...passages: readonly string[]): number;
 
     /**
      * Returns the number of passages within the story history which are tagged with all of the given tags.
@@ -407,7 +408,7 @@ declare global {
      * <<if visitedTags("forest", "haunted") is 1>>…has been to the haunted part of the forest exactly once…<</if>>
      * <<if visitedTags("forest", "burned") is 3>>…has been to the burned part of the forest three times…<</if>>
      */
-    function visitedTags(...tags: ReadonlyArray<string>): number;
+    function visitedTags(...tags: readonly string[]): number;
 }
 
 export {};

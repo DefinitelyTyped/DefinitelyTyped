@@ -1,22 +1,14 @@
 {
     "compilerOptions": {
         "module": "commonjs",
+        "target": "es6",
         "lib": [
-            "es6"
+            "es2015"
         ],
         "noImplicitAny": true,
         "noImplicitThis": false,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
-        "paths": {
-            "vinyl-fs": [
-                "vinyl-fs/v0"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

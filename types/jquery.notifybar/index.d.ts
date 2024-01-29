@@ -1,13 +1,6 @@
-// Type definitions for jQuery Notify Bar 1.4
-// Project: http://www.whoop.ee/posts/2013-04-05-the-resurrection-of-jquery-notify-bar/
-// Definitions by: Shunsuke Ohtani <https://github.com/zaneli>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 declare namespace JQueryNotifyBar {
-
     interface NotifyBarOptions {
         /**
          * What text will be inside bar. Can be HTML or just text.

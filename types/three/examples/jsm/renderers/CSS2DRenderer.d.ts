@@ -1,8 +1,9 @@
-import { Object3D, Scene, Camera } from '../../../src/Three';
+import { Object3D, Scene, Camera, Vector2 } from '../../../src/Three.js';
 
 export class CSS2DObject extends Object3D {
     constructor(element: HTMLElement);
     element: HTMLElement;
+    center: Vector2;
 
     onBeforeRender: (renderer: unknown, scene: Scene, camera: Camera) => void;
     onAfterRender: (renderer: unknown, scene: Scene, camera: Camera) => void;

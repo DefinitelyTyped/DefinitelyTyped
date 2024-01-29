@@ -1,4 +1,3 @@
-import validator from '../';
 /**
  * check if a string is a boolean.
  */

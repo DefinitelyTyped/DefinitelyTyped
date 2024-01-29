@@ -1,23 +1,7 @@
-// Type definitions for howler.js 2.2
-// Project: https://github.com/goldfire/howler.js
-// Definitions by: Pedro Casaubon <https://github.com/xperiments>
-//                 Alexander Leon <https://github.com/alien35>
-//                 Nicholas Higgins <https://github.com/nicholashza>
-//                 Carlos Urango <https://github.com/cjurango>
-//                 R.J. <https://github.com/jun-sheaf>
-//                 Hagen <https://github.com/MrGriefs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type HowlCallback = (soundId: number) => void;
 export type HowlErrorCallback = (soundId: number, error: unknown) => void;
 export type SpatialOrientation = [number, number, number];
 export type SpatialPosition = [number, number, number];
-
-export enum State {
-    Unloaded = 'unloaded',
-    Loading = 'loading',
-    Loaded = 'loaded',
-}
 
 export interface SoundSpriteDefinitions {
     [name: string]: [number, number] | [number, number, boolean];
@@ -27,15 +11,11 @@ export interface PannerAttributes {
     coneInnerAngle?: number | undefined;
     coneOuterAngle?: number | undefined;
     coneOuterGain?: number | undefined;
-    distanceModel?: 'inverse' | 'linear';
+    distanceModel?: "inverse" | "linear";
     maxDistance?: number;
-    panningModel?: 'HRTF' | 'equalpower';
+    panningModel?: "HRTF" | "equalpower";
     refDistance?: number;
     rolloffFactor?: number;
-}
-
-export interface Sound {
-    (howl: Howl): this;
 }
 
 export interface HowlListeners {
@@ -122,7 +102,7 @@ export interface HowlOptions extends HowlListeners {
      * download the entire file, for example).
      * @default true
      */
-    preload?: boolean | 'metadata' | undefined;
+    preload?: boolean | "metadata" | undefined;
 
     /**
      * Set to true to automatically start playback when sound is loaded.
@@ -173,10 +153,10 @@ export interface HowlOptions extends HowlListeners {
      */
     xhr?:
         | {
-              method?: string | undefined;
-              headers?: Record<string, string> | undefined;
-              withCredentials?: boolean | undefined;
-          }
+            method?: string | undefined;
+            headers?: Record<string, string> | undefined;
+            withCredentials?: boolean | undefined;
+        }
         | undefined;
 }
 
@@ -207,51 +187,51 @@ export class Howl {
 
     playing(id?: number): boolean;
     duration(id?: number): number;
-    state(): 'unloaded' | 'loading' | 'loaded';
+    state(): "unloaded" | "loading" | "loaded";
     load(): this;
     unload(): null;
 
-    on(event: 'load', callback: () => void, id?: number): this;
-    on(event: 'loaderror' | 'playerror', callback: HowlErrorCallback, id?: number): this;
+    on(event: "load", callback: () => void, id?: number): this;
+    on(event: "loaderror" | "playerror", callback: HowlErrorCallback, id?: number): this;
     on(
-        event: 'play' | 'end' | 'pause' | 'stop' | 'mute' | 'volume' | 'rate' | 'seek' | 'fade' | 'unlock',
+        event: "play" | "end" | "pause" | "stop" | "mute" | "volume" | "rate" | "seek" | "fade" | "unlock",
         callback: HowlCallback,
         id?: number,
     ): this;
     on(event: string, callback: HowlCallback | HowlErrorCallback, id?: number): this;
 
-    once(event: 'load', callback: () => void, id?: number): this;
-    once(event: 'loaderror' | 'playerror', callback: HowlErrorCallback, id?: number): this;
+    once(event: "load", callback: () => void, id?: number): this;
+    once(event: "loaderror" | "playerror", callback: HowlErrorCallback, id?: number): this;
     once(
-        event: 'play' | 'end' | 'pause' | 'stop' | 'mute' | 'volume' | 'rate' | 'seek' | 'fade' | 'unlock',
+        event: "play" | "end" | "pause" | "stop" | "mute" | "volume" | "rate" | "seek" | "fade" | "unlock",
         callback: HowlCallback,
         id?: number,
     ): this;
     once(event: string, callback: HowlCallback | HowlErrorCallback, id?: number): this;
 
-    off(event: 'load', callback?: () => void, id?: number): this;
-    off(event: 'loaderror' | 'playerror', callback?: HowlErrorCallback, id?: number): this;
+    off(event: "load", callback?: () => void, id?: number): this;
+    off(event: "loaderror" | "playerror", callback?: HowlErrorCallback, id?: number): this;
     off(
-        event: 'play' | 'end' | 'pause' | 'stop' | 'mute' | 'volume' | 'rate' | 'seek' | 'fade' | 'unlock',
+        event: "play" | "end" | "pause" | "stop" | "mute" | "volume" | "rate" | "seek" | "fade" | "unlock",
         callback?: HowlCallback,
         id?: number,
     ): this;
     // off() also supports passing id as second argument: internally it is type checked and treated as an id if it is a number
     off(
         event:
-            | 'load'
-            | 'loaderror'
-            | 'playerror'
-            | 'play'
-            | 'end'
-            | 'pause'
-            | 'stop'
-            | 'mute'
-            | 'volume'
-            | 'rate'
-            | 'seek'
-            | 'fade'
-            | 'unlock',
+            | "load"
+            | "loaderror"
+            | "playerror"
+            | "play"
+            | "end"
+            | "pause"
+            | "stop"
+            | "mute"
+            | "volume"
+            | "rate"
+            | "seek"
+            | "fade"
+            | "unlock",
         id: number,
     ): this;
     off(event?: string, callback?: HowlCallback | HowlErrorCallback, id?: number): this;
@@ -269,33 +249,43 @@ export class Howl {
     pannerAttr(options: PannerAttributes, id?: number): this;
 }
 
-declare global {
-    class HowlerGlobal {
-        mute(muted: boolean): this;
-        stop(): this;
+export interface HowlerGlobal {
+    mute(muted: boolean): this;
+    stop(): this;
 
-        volume(): number;
-        volume(volume: number): this;
+    volume(): number;
+    volume(volume: number): this;
 
-        codecs(ext: string): boolean;
-        unload(): this;
-        usingWebAudio: boolean;
-        html5PoolSize: number;
-        noAudio: boolean;
-        autoUnlock: boolean;
-        autoSuspend: boolean;
-        ctx: AudioContext;
-        masterGain: GainNode;
+    codecs(ext: string): boolean;
+    unload(): this;
+    usingWebAudio: boolean;
+    html5PoolSize: number;
+    noAudio: boolean;
+    autoUnlock: boolean;
+    autoSuspend: boolean;
+    ctx: AudioContext;
+    masterGain: GainNode;
 
-        stereo(pan: number): this;
+    stereo(pan: number): this;
 
-        pos(): SpatialPosition;
-        pos(x: number, y?: number, z?: number): this;
+    pos(): SpatialPosition;
+    pos(x: number, y?: number, z?: number): this;
 
-        orientation(): SpatialOrientation;
-        orientation(x: number, y?: number, z?: number, xUp?: number, yUp?: number, zUp?: number): this;
-    }
-    const Howler: HowlerGlobal;
+    orientation(): SpatialOrientation;
+    orientation(x: number, y?: number, z?: number, xUp?: number, yUp?: number, zUp?: number): this;
 }
 
-export const Howler: HowlerGlobal;
+import { Howl as _Howl, HowlerGlobal as _HowlerGlobal } from ".";
+export { Howler };
+
+declare global {
+    // tslint:disable:no-empty-interface
+    interface Howl extends _Howl {}
+    interface HowlerGlobal extends _HowlerGlobal {}
+    var Howl: typeof _Howl;
+    var HowlerGlobal: {
+        prototype: _HowlerGlobal;
+        new(): _HowlerGlobal;
+    };
+    var Howler: HowlerGlobal;
+}

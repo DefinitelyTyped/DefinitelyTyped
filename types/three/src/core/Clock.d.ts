@@ -1,64 +1,72 @@
 /**
- * Object for keeping track of time.
- *
- * see {@link https://github.com/mrdoob/three.js/blob/master/src/core/Clock.js|src/core/Clock.js}
+ * Object for keeping track of time
+ * @remarks
+ * This uses {@link https://developer.mozilla.org/en-US/docs/Web/API/Performance/now | performance.now} if it is available,
+ * otherwise it reverts to the less accurate {@link https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date/now | Date.now}.
+ * @see {@link https://threejs.org/docs/index.html#api/en/core/Clock | Official Documentation}
+ * @see {@link https://github.com/mrdoob/three.js/blob/master/src/core/Clock.js | Source}
  */
 export class Clock {
     /**
-     * @param [autoStart=true] Automatically start the clock.
+     * Create a new instance of {@link THREE.Clock | Clock}
+     * @param autoStart - Whether to automatically start the clock when {@link getDelta | .getDelta()} is called for the first time. Default `true`
      */
     constructor(autoStart?: boolean);
 
     /**
-     * If set, starts the clock automatically when the first update is called.
-     * @default true
+     * If set, starts the clock automatically when {@link getDelta | .getDelta()} is called for the first time.
+     * @defaultValue `true`
      */
     autoStart: boolean;
 
     /**
-     * When the clock is running, It holds the starttime of the clock.
-     * This counted from the number of milliseconds elapsed since 1 January 1970 00:00:00 UTC.
-     * @default 0
+     * Holds the time at which the clock's {@link start | .start()} method was last called.
+     * @defaultValue `0`
      */
     startTime: number;
 
     /**
-     * When the clock is running, It holds the previous time from a update.
-     * This counted from the number of milliseconds elapsed since 1 January 1970 00:00:00 UTC.
-     * @default 0
+     * Holds the time at which the clock's {@link start | .start()}, {@link getElapsedTime | .getElapsedTime()} or {@link getDelta | .getDelta()} methods were last called.
+     * @defaultValue `0`
      */
     oldTime: number;
 
     /**
-     * When the clock is running, It holds the time elapsed between the start of the clock to the previous update.
-     * This parameter is in seconds of three decimal places.
-     * @default 0
+     * Keeps track of the total time that the clock has been running.
+     * @defaultValue `0`
      */
     elapsedTime: number;
 
     /**
-     * This property keeps track whether the clock is running or not.
-     * @default false
+     * Whether the clock is running or not.
+     * @defaultValue `false`
      */
     running: boolean;
 
     /**
      * Starts clock.
+     * @remarks
+     * Also sets the {@link startTime | .startTime} and {@link oldTime | .oldTime} to the current time,
+     * sets {@link elapsedTime | .elapsedTime} to `0` and {@link running | .running} to `true`.
      */
     start(): void;
 
     /**
-     * Stops clock.
+     * Stops clock and sets {@link oldTime | oldTime} to the current time.
      */
     stop(): void;
 
     /**
-     * Get the seconds passed since the clock started.
+     * Get the seconds passed since the clock started and sets {@link oldTime | .oldTime} to the current time.
+     * @remarks
+     * If {@link autoStart | .autoStart} is `true` and the clock is not running, also starts the clock.
      */
     getElapsedTime(): number;
 
     /**
-     * Get the seconds passed since the last call to this method.
+     * Get the seconds passed since the time {@link oldTime | .oldTime} was set and sets {@link oldTime | .oldTime} to the current time.
+     * @remarks
+     * If {@link autoStart | .autoStart} is `true` and the clock is not running, also starts the clock.
      */
     getDelta(): number;
 }

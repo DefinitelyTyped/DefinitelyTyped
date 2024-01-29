@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/pendo-io-browser",
+    "version": "2.17.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Pendo.io Agent",
+    "projects": [
+        "https://www.pendo.io/"
+    ],
+    "devDependencies": {
+        "@types/pendo-io-browser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Aaron Beall",
+            "githubUsername": "aaronbeall"
+        }
+    ]
+}

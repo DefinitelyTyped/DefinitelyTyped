@@ -1,13 +1,13 @@
 import IOTA = require("iota.lib.js");
 
 const config = {
-   node: "https://localhost:14265",
-   address: "999999999999999999999999999999999999999999999999999999999999999999999999999999999",
-   transaction: "999999999999999999999999999999999999999999999999999999999999999999999999999999999"
+    node: "https://localhost:14265",
+    address: "999999999999999999999999999999999999999999999999999999999999999999999999999999999",
+    transaction: "999999999999999999999999999999999999999999999999999999999999999999999999999999999",
 };
 
 const iota = new IOTA({
-   provider: config.node
+    provider: config.node,
 });
 
 //
@@ -27,7 +27,7 @@ iota.api.removeNeighbors(["udp://127.0.0.2:14600"], (error, count) => {
 });
 
 iota.api.findTransactions({
-   addresses: [config.address]
+    addresses: [config.address],
 }, (error, hashes) => {
 });
 
@@ -47,7 +47,7 @@ iota.api.getTransactionsObjects([config.transaction], (err, response) => {
 });
 
 iota.api.findTransactionObjects({
-   addresses: [config.address]
+    addresses: [config.address],
 }, (err, response) => {
 });
 
@@ -85,10 +85,10 @@ iota.valid.isNum(0);
 iota.valid.isHash(config.address);
 
 const transferObj = {
-   address: config.address,
-   message: "",
-   value: 0,
-   tag: ""
+    address: config.address,
+    message: "",
+    value: 0,
+    tag: "",
 };
 
 iota.valid.isTransfersArray([transferObj]);

@@ -1,2 +1,2 @@
-import TimeString = require('../2018/TimeString');
+import TimeString = require("../2018/TimeString");
 export = TimeString;

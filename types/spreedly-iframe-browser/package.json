@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/spreedly-iframe-browser",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "spreedly-iframe-browser",
+    "projects": [
+        "http://docs.spreedly.com/reference/iframe/v1/"
+    ],
+    "devDependencies": {
+        "@types/spreedly-iframe-browser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Philippe Vezina",
+            "githubUsername": "philippevezina"
+        }
+    ]
+}

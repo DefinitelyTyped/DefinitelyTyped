@@ -1,13 +1,13 @@
-import fonts = require('google-fonts');
+import fonts = require("google-fonts");
 
 fonts({
     Roboto: true,
-    'Cantora One': ['400'],
-    Montserrat: '400',
+    "Cantora One": ["400"],
+    Montserrat: "400",
 });
 
 fonts.add({
     Roboto: true,
-    'Cantora One': ['400'],
-    Montserrat: '400',
+    "Cantora One": ["400"],
+    Montserrat: "400",
 });

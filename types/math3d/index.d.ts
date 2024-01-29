@@ -1,9 +1,3 @@
-// Type definitions for math3d 0.2
-// Project: https://github.com/adragonite/math3d
-// Definitions by: Laszlo Jakab <https://github.com/laszlojakab>
-//                 Jim Smart <https://github.com/jimsmart>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export class Vector3 {
     constructor(x?: number, y?: number, z?: number);
 
@@ -73,8 +67,8 @@ export class Quaternion {
     static identity: Quaternion;
     static zero: Quaternion;
 
-    angleAxis: { axis: Vector3, angle: number };
-    eulerAngles: { x: number, y: number, z: number };
+    angleAxis: { axis: Vector3; angle: number };
+    eulerAngles: { x: number; y: number; z: number };
     x: number;
     y: number;
     z: number;
@@ -123,7 +117,7 @@ export class Matrix4x4 {
     m43: number;
     m44: number;
     rows: number[][];
-    size: { rows: number, columns: number };
+    size: { rows: number; columns: number };
     values: number[];
 
     determinant(): number;
@@ -164,6 +158,6 @@ export class Transform {
 export namespace Transform {
     enum Space {
         Self,
-        World
+        World,
     }
 }

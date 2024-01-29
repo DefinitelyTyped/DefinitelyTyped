@@ -1,10 +1,4 @@
-// Type definitions for jackrabbit 4.3
-// Project: https://github.com/hunterloftis/jackrabbit
-// Definitions by: Elvis Adomnica <https://github.com/elvisvoer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
-import { Connection, Options, Message } from 'amqplib';
+import { Connection, Message, Options } from "amqplib";
 
 declare namespace jackrabbit {
     function jackrabbit(url: string): JackRabbit;
@@ -22,9 +16,9 @@ declare namespace jackrabbit {
     }
 
     enum exchangeType {
-        direct = 'direct',
-        fanout = 'fanout',
-        topic = 'topic',
+        direct = "direct",
+        fanout = "fanout",
+        topic = "topic",
     }
 
     interface Exchange extends NodeJS.EventEmitter {
@@ -44,7 +38,7 @@ declare namespace jackrabbit {
     type QueueOptions = Options.AssertQueue & {
         name?: string | undefined;
         key?: string | undefined;
-        keys?: ReadonlyArray<string> | undefined;
+        keys?: readonly string[] | undefined;
         prefetch?: number | undefined;
     };
 
@@ -56,7 +50,7 @@ declare namespace jackrabbit {
         connect(con: Connection): void;
         consume: (
             callback: (data: any, ack: AckCallback, nack: () => void, msg: Message) => void,
-            options?: Options.Consume
+            options?: Options.Consume,
         ) => void;
         cancel(done: any): void;
         purge(done: any): void;

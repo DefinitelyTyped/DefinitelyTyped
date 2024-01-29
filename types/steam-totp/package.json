@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/steam-totp",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/DoctorMcKay/node-steam-totp"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/steam-totp": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Max Uetrecht",
+            "githubUsername": "phenomax"
+        },
+        {
+            "name": "Dariusz Syncerek",
+            "githubUsername": "dsyncerek"
+        }
+    ]
+}

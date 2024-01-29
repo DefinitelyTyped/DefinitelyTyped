@@ -1,14 +1,16 @@
-import LinkifyIt = require('linkify-it');
+import LinkifyIt = require("linkify-it");
 
-import utils = require('./common/utils');
-import helpers = require('./helpers');
-import ParserBlock = require('./parser_block');
-import ParserCore = require('./parser_core');
-import ParserInline = require('./parser_inline');
-import Renderer = require('./renderer');
-import Token = require('./token');
+import utils = require("./common/utils");
+import helpers = require("./helpers");
+import ParserBlock = require("./parser_block");
+import ParserCore = require("./parser_core");
+import ParserInline = require("./parser_inline");
+import Renderer = require("./renderer");
+import Token = require("./token");
 
 declare namespace MarkdownIt {
+    type Token = import("./token");
+
     /**
      * MarkdownIt provides named presets as a convenience to quickly
      * enable/disable active syntax rules and options for common use cases.
@@ -22,7 +24,7 @@ declare namespace MarkdownIt {
      *   all rules disabled. Useful to quickly setup your config via `.enable()`.
      *   For example, when you need only `bold` and `italic` markup and nothing else.
      */
-    type PresetName = 'default' | 'zero' | 'commonmark';
+    type PresetName = "default" | "zero" | "commonmark";
 
     interface Options {
         /**
@@ -92,9 +94,9 @@ declare namespace MarkdownIt {
 }
 
 interface MarkdownItConstructor {
-    new (): MarkdownIt;
-    new (presetName: MarkdownIt.PresetName, options?: MarkdownIt.Options): MarkdownIt;
-    new (options: MarkdownIt.Options): MarkdownIt;
+    new(): MarkdownIt;
+    new(presetName: MarkdownIt.PresetName, options?: MarkdownIt.Options): MarkdownIt;
+    new(options: MarkdownIt.Options): MarkdownIt;
     (): MarkdownIt;
     (presetName: MarkdownIt.PresetName, options?: MarkdownIt.Options): MarkdownIt;
     (options: MarkdownIt.Options): MarkdownIt;

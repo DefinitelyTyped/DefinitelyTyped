@@ -1,14 +1,7 @@
-// Type definitions for busboy 1.5
-// Project: https://github.com/mscdex/busboy
-// Definitions by: Jacob Baskin <https://github.com/jacobbaskin>
-//                 BendingBender <https://github.com/BendingBender>
-//                 Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { IncomingHttpHeaders } from 'http';
-import { Readable, Writable } from 'stream';
+import { IncomingHttpHeaders } from "http";
+import { Readable, Writable } from "stream";
 
 declare namespace busboy {
     interface Limits {

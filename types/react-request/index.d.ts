@@ -1,13 +1,4 @@
-// Type definitions for react-request 3.1
-// Project: https://github.com/jamesplease/react-request
-// Definitions by: Danny Cochran <https://github.com/dannycochran>
-//                 Angus Fretwell <https://github.com/angusfretwell>
-//                 Jonathan Ly <https://github.com/jonathanly>
-//                 Alberto Juan <https://github.com/albertojuanl>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
-import * as React from 'react';
+import * as React from "react";
 
 export interface FetchResponse<T> {
     url: string;
@@ -31,7 +22,7 @@ export interface FetchRequestProps extends RequestInit {
     url: string;
 }
 
-export type ResponseType = 'arrayBuffer' |  'blob' | 'formData' | 'json' | 'text';
+export type ResponseType = "arrayBuffer" | "blob" | "formData" | "json" | "text";
 
 export interface FetchProps<T = any> extends FetchRequestProps {
     afterFetch?: ((args: FetchResponse<T>) => void) | undefined;
@@ -45,7 +36,7 @@ export interface DoFetchOptions extends RequestInit {
 }
 
 export type DoFetch<T = any> = (
-    options?: DoFetchOptions
+    options?: DoFetchOptions,
 ) => Promise<FetchResponse<T>>;
 
 // TODO(dannycochran) RequestKeyOptions, ProxyRequest, fetchDedupe, getRequestKey, isRequestInFlight, clearRequestCache
@@ -66,7 +57,7 @@ export interface ProxyRequest {
 export function fetchDedupe(
     input: any,
     init?: any,
-    dedupeOptions?: any
+    dedupeOptions?: any,
 ): Promise<ProxyRequest>;
 
 export function getRequestKey(keyOptions?: RequestKeyOptions): string;

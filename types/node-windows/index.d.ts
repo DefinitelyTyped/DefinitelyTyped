@@ -1,13 +1,7 @@
-// Type definitions for node-windows 0.1
-// Project: https://github.com/coreybutler/node-windows
-// Definitions by: Ken Human <https://github.com/kenhuman>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="node" />
 
-import { ExecException } from 'child_process';
-import { EventEmitter } from 'events';
+import { ExecException } from "child_process";
+import { EventEmitter } from "events";
 
 /**
  * nodewindows
@@ -43,7 +37,7 @@ export enum LogMode {
     rotate = "rotate",
     reset = "reset",
     roll = "roll",
-    append = "append"
+    append = "append",
 }
 
 export interface ServiceConfig {
@@ -99,8 +93,9 @@ export interface ServiceConfig {
     /**
      * @cfg {string} [nodeOptions='--harmony']
      * Options to be passed to the node process.
+     * Array or space separated string of node options.
      */
-    nodeOptions?: string | undefined;
+    nodeOptions?: string | string[] | undefined;
     /**
      * @cfg {Number} [maxRestarts=3]
      * The maximum number of restarts within a 60 second period before haulting the process.
@@ -414,7 +409,7 @@ export class EventLogger {
     info(
         message: string,
         code?: number,
-        callback?: (error: ExecException, stdout: Buffer, stderr: Buffer) => void
+        callback?: (error: ExecException, stdout: Buffer, stderr: Buffer) => void,
     ): void;
 
     /**
@@ -430,7 +425,7 @@ export class EventLogger {
     information(
         message: string,
         code?: number,
-        callback?: (error: ExecException, stdout: Buffer, stderr: Buffer) => void
+        callback?: (error: ExecException, stdout: Buffer, stderr: Buffer) => void,
     ): void;
 
     /**
@@ -446,7 +441,7 @@ export class EventLogger {
     error(
         message: string,
         code?: number,
-        callback?: (error: ExecException, stdout: Buffer, stderr: Buffer) => void
+        callback?: (error: ExecException, stdout: Buffer, stderr: Buffer) => void,
     ): void;
 
     /**
@@ -462,7 +457,7 @@ export class EventLogger {
     warn(
         message: string,
         code?: number,
-        callback?: (error: ExecException, stdout: Buffer, stderr: Buffer) => void
+        callback?: (error: ExecException, stdout: Buffer, stderr: Buffer) => void,
     ): void;
 
     /**
@@ -478,7 +473,7 @@ export class EventLogger {
     warning(
         message: string,
         code?: number,
-        callback?: (error: ExecException, stdout: Buffer, stderr: Buffer) => void
+        callback?: (error: ExecException, stdout: Buffer, stderr: Buffer) => void,
     ): void;
 
     /**
@@ -494,7 +489,7 @@ export class EventLogger {
     auditSuccess(
         message: string,
         code?: number,
-        callback?: (error: ExecException, stdout: Buffer, stderr: Buffer) => void
+        callback?: (error: ExecException, stdout: Buffer, stderr: Buffer) => void,
     ): void;
 
     /**
@@ -510,7 +505,7 @@ export class EventLogger {
     auditFailure(
         message: string,
         code?: number,
-        callback?: (error: ExecException, stdout: Buffer, stderr: Buffer) => void
+        callback?: (error: ExecException, stdout: Buffer, stderr: Buffer) => void,
     ): void;
 }
 

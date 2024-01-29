@@ -1,26 +1,20 @@
-// Type definitions for issue-parser 3.0
-// Project: https://github.com/pvdlg/issue-parser#readme
-// Definitions by: Leko <https://github.com/Leko>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 declare function issueParser(
     authOptions?: issueParser.Options,
-    extension?: issueParser.Overrides
+    extension?: issueParser.Overrides,
 ): issueParser.Parser;
 
 declare namespace issueParser {
     type Parser = (text: string) => Result;
     interface Overrides {
         actions?: {
-            [type: string]: ReadonlyArray<string>;
+            [type: string]: readonly string[];
         } | undefined;
-        delimiters?: string | ReadonlyArray<string> | undefined;
-        mentionsPrefixes?: string | ReadonlyArray<string> | undefined;
-        issuePrefixes?: string | ReadonlyArray<string> | undefined;
-        hosts?: string | ReadonlyArray<string> | undefined;
-        issueURLSegments?: string | ReadonlyArray<string> | undefined;
-        overrides?: string | ReadonlyArray<string> | undefined;
+        delimiters?: string | readonly string[] | undefined;
+        mentionsPrefixes?: string | readonly string[] | undefined;
+        issuePrefixes?: string | readonly string[] | undefined;
+        hosts?: string | readonly string[] | undefined;
+        issueURLSegments?: string | readonly string[] | undefined;
+        overrides?: string | readonly string[] | undefined;
     }
     type Options = "github" | "gitlab" | "bitbucket" | "waffle" | Overrides;
     interface Reference {
@@ -42,11 +36,11 @@ declare namespace issueParser {
         issue: string;
     }
     interface Actions {
-        [action: string]: ReadonlyArray<Action>;
+        [action: string]: readonly Action[];
     }
     interface Result {
-        refs: ReadonlyArray<Reference>;
-        mentions: ReadonlyArray<Mention>;
+        refs: readonly Reference[];
+        mentions: readonly Mention[];
         actions: Actions;
         allRefs: Array<Reference | Action>;
     }

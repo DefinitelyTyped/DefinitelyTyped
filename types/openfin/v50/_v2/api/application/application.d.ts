@@ -1,14 +1,14 @@
-import { EmitterBase, Base, Reply } from '../base';
-import { Identity } from '../../identity';
-import { _Window } from '../window/window';
-import { Point } from '../system/point';
-import { MonitorInfo } from '../system/monitor';
-import Transport from '../../transport/transport';
-import { Bounds } from '../../shapes';
-import { ApplicationEvents } from '../events/application';
-import { ApplicationOption } from './applicationOption';
-import { View } from '../view/view';
-export interface TrayIconClickReply extends Point, Reply<'application', 'tray-icon-clicked'> {
+import { Identity } from "../../identity";
+import { Bounds } from "../../shapes";
+import Transport from "../../transport/transport";
+import { Base, EmitterBase, Reply } from "../base";
+import { ApplicationEvents } from "../events/application";
+import { MonitorInfo } from "../system/monitor";
+import { Point } from "../system/point";
+import { View } from "../view/view";
+import { _Window } from "../window/window";
+import { ApplicationOption } from "./applicationOption";
+export interface TrayIconClickReply extends Point, Reply<"application", "tray-icon-clicked"> {
     button: number;
     monitorInfo: MonitorInfo;
 }
@@ -25,7 +25,7 @@ export interface ApplicationInfo {
 export interface LogInfo {
     logId: string;
 }
-export declare class NavigationRejectedReply extends Reply<'window-navigation-rejected', void> {
+export declare class NavigationRejectedReply extends Reply<"window-navigation-rejected", void> {
     sourceName: string;
     url: string;
 }
@@ -49,9 +49,8 @@ export interface RvmLaunchOptions {
     userAppConfigArgs?: object | undefined;
 }
 /**
- * @typedef {object} ApplicationOption
  * @summary Application creation options.
- * @desc This is the options object required by {@link Application.start Application.start}.
+ * @description This is the options object required by {@link Application.start Application.start}.
  *
  * The following options are required:
  * * `uuid` is required in the app manifest as well as by {@link Application.start Application.start}
@@ -65,36 +64,36 @@ export interface RvmLaunchOptions {
  * This object inherits all the properties of the window creation {@link Window~options options} object,
  * which will take priority over those of the same name that may be provided in `mainWindowOptions`.
  *
- * @property {boolean} [disableIabSecureLogging=false]
+ * [disableIabSecureLogging=false]
  * When set to `true` it will disable IAB secure logging for the app.
  *
- * @property {boolean} [fdc3Api=false]
+ * [fdc3Api=false]
  * A flag to enable FDC3 API.  When set to `true` the `fdc3` API object is present for all windows
  *
- * @property {string} [loadErrorMessage="There was an error loading the application."]
+ * [loadErrorMessage="There was an error loading the application."]
  * An error message to display when the application (launched via manifest) fails to load.
  * A dialog box will be launched with the error message just before the runtime exits.
  * Load fails such as failed DNS resolutions or aborted connections as well as cancellations, _e.g.,_ `window.stop()`,
  * will trigger this dialog.
  * Client response codes such as `404 Not Found` are not treated as fails as they are valid server responses.
  *
- * @property {Window~options} [mainWindowOptions]
+ * [mainWindowOptions]
  * The options of the main window of the application.
  * For a description of these options, click the link (in the Type column).
  *
- * @property {string} [name]
+ * [name]
  * The name of the application (and the application's main window).
  *
  * If provided, _must_ match `uuid`.
  *
- * @property {boolean} [nonPersistent=false]
+ * [nonPersistent=false]
  * A flag to configure the application as non-persistent.
  * Runtime exits when there are no persistent apps running.
  *
- * @property {boolean} [plugins=false]
+ * [plugins=false]
  * Enable Flash at the application level.
  *
- * @property {boolean} [spellCheck=false]
+ * [spellCheck=false]
  * Enable spell check at the application level.
  *
  * @property {string} [url="about:blank"]
@@ -131,20 +130,20 @@ export default class ApplicationModule extends Base {
     wrapSync(identity: Identity): Application;
     private _create;
     /**
-    * DEPRECATED method to create a new Application. Use {@link Application.start} instead.
-    * @param { ApplicationOption } appOptions
-    * @return {Promise.<Application>}
-    * @tutorial Application.create
-    * @ignore
-    */
+     * DEPRECATED method to create a new Application. Use {@link Application.start} instead.
+     * @param { ApplicationOption } appOptions
+     * @return {Promise.<Application>}
+     * @tutorial Application.create
+     * @ignore
+     */
     create(appOptions: ApplicationOption): Promise<Application>;
     /**
-    * Creates and starts a new Application.
-    * @param { ApplicationOption } appOptions
-    * @return {Promise.<Application>}
-    * @tutorial Application.start
-    * @static
-    */
+     * Creates and starts a new Application.
+     * @param { ApplicationOption } appOptions
+     * @return {Promise.<Application>}
+     * @tutorial Application.start
+     * @static
+     */
     start(appOptions: ApplicationOption): Promise<Application>;
     /**
      * Asynchronously starts a batch of applications given an array of application identifiers and manifestUrls.
@@ -155,7 +154,7 @@ export default class ApplicationModule extends Base {
      * @tutorial Application.startManyManifests
      * @experimental
      */
-    startManyManifests(applications: Array<ManifestInfo>): Promise<void>;
+    startManyManifests(applications: ManifestInfo[]): Promise<void>;
     /**
      * Asynchronously returns an Application object that represents the current application
      * @return {Promise.<Application>}
@@ -185,7 +184,6 @@ export default class ApplicationModule extends Base {
 /**
  * @classdesc An object representing an application. Allows the developer to create,
  * execute, show/close an application as well as listen to <a href="tutorial-Application.EventEmitter.html">application events</a>.
- * @class
  * @hideconstructor
  */
 export declare class Application extends EmitterBase<ApplicationEvents> {
@@ -293,14 +291,14 @@ export declare class Application extends EmitterBase<ApplicationEvents> {
      * @return {Promise.Array.<_Window>}
      * @tutorial Application.getChildWindows
      */
-    getChildWindows(): Promise<Array<_Window>>;
+    getChildWindows(): Promise<_Window[]>;
     /**
      * Retrieves an array of active window groups for all of the application's windows. Each group is
      * represented as an array of wrapped fin.Windows.
      * @return {Promise.Array.Array.<_Window>}
      * @tutorial Application.getGroups
      */
-    getGroups(): Promise<Array<Array<_Window>>>;
+    getGroups(): Promise<_Window[][]>;
     /**
      * Retrieves the JSON manifest that was used to create the application. Invokes the error callback
      * if the application was not created from a manifest.
@@ -322,12 +320,12 @@ export declare class Application extends EmitterBase<ApplicationEvents> {
      */
     getShortcuts(): Promise<ShortCutConfig>;
     /**
-    * Retrieves current application's views.
-    * @experimental
-    * @return {Promise.Array.<View>}
-    * @tutorial Application.getViews
-    */
-    getViews(): Promise<Array<View>>;
+     * Retrieves current application's views.
+     * @experimental
+     * @return {Promise.Array.<View>}
+     * @tutorial Application.getViews
+     */
+    getViews(): Promise<View[]>;
     /**
      * Returns the current zoom level of the application.
      * @return {Promise.<number>}
@@ -341,12 +339,12 @@ export declare class Application extends EmitterBase<ApplicationEvents> {
      */
     getWindow(): Promise<_Window>;
     /**
-    * Manually registers a user with the licensing service. The only data sent by this call is userName and appName.
-    * @param { string } userName - username to be passed to the RVM.
-    * @param { string } appName - app name to be passed to the RVM.
-    * @return {Promise.<void>}
-    * @tutorial Application.registerUser
-    */
+     * Manually registers a user with the licensing service. The only data sent by this call is userName and appName.
+     * @param { string } userName - username to be passed to the RVM.
+     * @param { string } appName - app name to be passed to the RVM.
+     * @return {Promise.<void>}
+     * @tutorial Application.registerUser
+     */
     registerUser(userName: string, appName: string): Promise<void>;
     /**
      * Removes the application’s icon from the tray.
@@ -416,7 +414,7 @@ export declare class Application extends EmitterBase<ApplicationEvents> {
     setAppLogUsername(username: string): Promise<void>;
     /**
      * @summary Retrieves information about the system tray.
-     * @desc The only information currently returned is the position and dimensions.
+     * @description The only information currently returned is the position and dimensions.
      * @return {Promise.<TrayInfo>}
      * @tutorial Application.getTrayIconInfo
      */

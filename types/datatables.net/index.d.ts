@@ -1,12 +1,3 @@
-// Type definitions for JQuery DataTables 1.10
-// Project: https://datatables.net
-// Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection>
-//                 Omid Rad <https://github.com/omidkrad>
-//                 Armin Sander <https://github.com/pragmatrix>
-//                 Craig Boland <https://github.com/CNBoland>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 // missing:
 // - Some return types are not fully working
 
@@ -49,7 +40,7 @@ declare namespace DataTables {
          */
         order: OrderMethods;
 
-        //#region "Cell/Cells"
+        // #region "Cell/Cells"
 
         /**
          * Select the cell found by a cell selector
@@ -91,9 +82,9 @@ declare namespace DataTables {
          * @param Option used to specify how the cells should be ordered, and if paging or filtering
          */
         cells(rowSelector: any, cellSelector: any, modifier?: ObjectSelectorModifier): CellsMethods;
-        //#endregion "Cell/Cells"
+        // #endregion "Cell/Cells"
 
-        //#region "Column/Columns"
+        // #region "Column/Columns"
 
         /**
          * Column Methods / object
@@ -105,9 +96,9 @@ declare namespace DataTables {
          */
         columns: ColumnsMethodsModel;
 
-        //#endregion "Column/Columns"
+        // #endregion "Column/Columns"
 
-        //#region "Row/Rows"
+        // #region "Row/Rows"
 
         /**
          * Row Methode / object
@@ -119,9 +110,9 @@ declare namespace DataTables {
          */
         rows: RowsMethodsModel;
 
-        //#endregion "Row/Rows"
+        // #endregion "Row/Rows"
 
-        //#region "Table/Tables"
+        // #region "Table/Tables"
 
         /**
          * Select a table based on a selector from the API's context
@@ -137,7 +128,7 @@ declare namespace DataTables {
          */
         tables(tableSelector?: any): TablesMethods;
 
-        //#endregion "Table/Tables"
+        // #endregion "Table/Tables"
     }
 
     interface DataTables extends CoreMethods {
@@ -169,9 +160,9 @@ declare namespace DataTables {
         page?: string | undefined;
     }
 
-    //#region "Namespaces"
+    // #region "Namespaces"
 
-    //#region "core-methods"
+    // #region "core-methods"
 
     interface CoreMethods extends UtilityMethods {
         /**
@@ -225,7 +216,7 @@ declare namespace DataTables {
          * @param event Event name to remove.
          * @param callback Specific callback function to remove if you want to unbind a single event listener.
          */
-        off(event: string, callback?: ((e: Event, ...args: any[]) => void)): Api;
+        off(event: string, callback?: (e: Event, ...args: any[]) => void): Api;
 
         /**
          * Table events listener.
@@ -233,7 +224,7 @@ declare namespace DataTables {
          * @param event Event to listen for.
          * @param callback Specific callback function to remove if you want to unbind a single event listener.
          */
-        on(event: string, callback: ((e: Event, ...args: any[]) => void)): Api;
+        on(event: string, callback: (e: Event, ...args: any[]) => void): Api;
 
         /**
          * Listen for a table event once and then remove the listener.
@@ -241,7 +232,7 @@ declare namespace DataTables {
          * @param event Event to listen for.
          * @param callback Specific callback function to remove if you want to unbind a single event listener.
          */
-        one(event: string, callback: ((e: Event, ...args: any[]) => void)): Api;
+        one(event: string, callback: (e: Event, ...args: any[]) => void): Api;
 
         /**
          * Page Methods / object
@@ -274,7 +265,7 @@ declare namespace DataTables {
         state: StateMethods;
     }
 
-    //#region "ajax-methods"
+    // #region "ajax-methods"
 
     interface AjaxMethods extends Api {
         /**
@@ -283,7 +274,7 @@ declare namespace DataTables {
          * @param callback Function which is executed when the data as been reloaded and the table fully redrawn.
          * @param resetPaging Reset (default action or true) or hold the current paging position (false).
          */
-        load(callback?: ((json: any) => void), resetPaging?: boolean): Api;
+        load(callback?: (json: any) => void, resetPaging?: boolean): Api;
     }
 
     interface AjaxMethodModel {
@@ -303,7 +294,7 @@ declare namespace DataTables {
          * @param callback Function which is executed when the data as been reloaded and the table fully redrawn.
          * @param resetPaging Reset (default action or true) or hold the current paging position (false).
          */
-        reload(callback?: ((json: any) => void), resetPaging?: boolean): Api;
+        reload(callback?: (json: any) => void, resetPaging?: boolean): Api;
 
         /**
          * Reload the table data from the Ajax data source
@@ -318,9 +309,9 @@ declare namespace DataTables {
         url(url: string): AjaxMethods;
     }
 
-    //#endregion "ajax-methods"
+    // #endregion "ajax-methods"
 
-    //#region "order-methods"
+    // #region "order-methods"
 
     interface OrderMethods {
         /**
@@ -353,11 +344,11 @@ declare namespace DataTables {
          * @param column Column index
          * @param callback Callback function
          */
-        listener(node: string | Node | JQuery, column: number, callback: (() => void)): Api;
+        listener(node: string | Node | JQuery, column: number, callback: () => void): Api;
     }
-    //#endregion "order-methods"
+    // #endregion "order-methods"
 
-    //#region "page-methods"
+    // #region "page-methods"
 
     interface PageMethods {
         /**
@@ -401,9 +392,9 @@ declare namespace DataTables {
         serverSide: boolean;
     }
 
-    //#endregion "page-methods"
+    // #endregion "page-methods"
 
-    //#region "state-methods"
+    // #region "state-methods"
 
     interface StateMethods {
         /**
@@ -441,11 +432,11 @@ declare namespace DataTables {
         visible: boolean;
     }
 
-    //#endregion "state-methods"
+    // #endregion "state-methods"
 
-    //#endregion "core-methods"
+    // #endregion "core-methods"
 
-    //#region "util-methods"
+    // #region "util-methods"
 
     interface UtilityMethods {
         /*
@@ -471,7 +462,7 @@ declare namespace DataTables {
          *
          * @param fn Callback function which is called for each item in the API instance result set. The callback is called with three parameters
          */
-        each(fn: ((value: any, index?: number, dt?: Api) => void)): Api;
+        each(fn: (value: any, index?: number, dt?: Api) => void): Api;
 
         /**
          * Reduce an Api instance to a single context and result set.
@@ -485,7 +476,7 @@ declare namespace DataTables {
          *
          * @param fn Callback function which is called for each item in the API instance result set. The callback is called with three parameters.
          */
-        filter(fn: ((value: any, index: number, dt: Api) => boolean)): Api;
+        filter(fn: (value: any, index: number, dt: Api) => boolean): Api;
 
         /**
          * Flatten a 2D array structured API instance to a 1D array structure.
@@ -523,7 +514,7 @@ declare namespace DataTables {
          *
          * @param fn Callback function which is called for each item in the API instance result set. The callback is called with three parameters.
          */
-        map(fn: ((value: any, index: number, dt: Api) => any)): Api;
+        map(fn: (value: any, index: number, dt: Api) => any): Api;
 
         /**
          * Iterate over the result set of an API instance, creating a new API instance from the values retrieved from the original elements.
@@ -550,7 +541,7 @@ declare namespace DataTables {
          * @param fn Callback function which is called for each item in the API instance result set. The callback is called with four parameters.
          * @param initialValue Value to use as the first argument of the first call to the fn callback.
          */
-        reduce(fn: ((current: number, value: any, index: number, dt: Api) => number), initialValue?: any): any;
+        reduce(fn: (current: number, value: any, index: number, dt: Api) => number, initialValue?: any): any;
 
         /**
          * Apply a callback function against and accumulator and each element in the Api's result set (right-to-left).
@@ -558,7 +549,7 @@ declare namespace DataTables {
          * @param fn Callback function which is called for each item in the API instance result set. The callback is called with four parameters.
          * @param initialValue Value to use as the first argument of the first call to the fn callback.
          */
-        reduceRight(fn: ((current: number, value: any, index: number, dt: Api) => number), initialValue?: any): any;
+        reduceRight(fn: (current: number, value: any, index: number, dt: Api) => number, initialValue?: any): any;
 
         /**
          * Reverse the result set of the API instance and return the original array.
@@ -575,7 +566,7 @@ declare namespace DataTables {
          *
          * @param fn This is a standard Javascript sort comparison function. It accepts two parameters.
          */
-        sort(fn?: ((value1: any, value2: any) => number)): Api;
+        sort(fn?: (value1: any, value2: any) => number): Api;
 
         /**
          * Modify the contents of an Api instance's result set, adding or removing items from it as required.
@@ -614,7 +605,7 @@ declare namespace DataTables {
         unshift(value_1: any, ...value_2: any[]): number;
     }
 
-    //#endregion "util-methods"
+    // #endregion "util-methods"
 
     interface CommonSubMethods {
         /**
@@ -625,7 +616,7 @@ declare namespace DataTables {
         cache(t: string): Api;
     }
 
-    //#region "cell-methods"
+    // #region "cell-methods"
 
     interface CommonCellMethods extends CommonSubMethods {
         /**
@@ -684,7 +675,15 @@ declare namespace DataTables {
          *
          * @param fn Function to execute for every cell selected.
          */
-        every(fn: (this: CellMethods, cellRowIdx: number, cellColIdx: number, tableLoop: number, cellLoop: number) => void): Api;
+        every(
+            fn: (
+                this: CellMethods,
+                cellRowIdx: number,
+                cellColIdx: number,
+                tableLoop: number,
+                cellLoop: number,
+            ) => void,
+        ): Api;
 
         /**
          * Get index information about the selected cells
@@ -696,9 +695,9 @@ declare namespace DataTables {
          */
         nodes(): Api;
     }
-    //#endregion "cell-methods"
+    // #endregion "cell-methods"
 
-    //#region "column-methods"
+    // #region "column-methods"
 
     interface CommonColumnMethod extends CommonSubMethods {
         /**
@@ -826,9 +825,9 @@ declare namespace DataTables {
          */
         nodes(): Api[][];
     }
-    //#endregion "column-methods"
+    // #endregion "column-methods"
 
-    //#region "row-methods"
+    // #region "row-methods"
 
     interface CommonRowMethod extends CommonSubMethods {
         /**
@@ -902,10 +901,10 @@ declare namespace DataTables {
         /**
          * Select a row found by a row selector
          *
-         * @param rowSelector Row selector.
+         * @param rowSelector Row selector. If undefined returns the first row in the DataTable.
          * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
          */
-        (rowSelector: any, modifier?: ObjectSelectorModifier): RowMethods;
+        (rowSelector?: any, modifier?: ObjectSelectorModifier): RowMethods;
 
         /**
          * Add a new row to the table using the given data
@@ -955,7 +954,17 @@ declare namespace DataTables {
         /**
          * Delete the selected row from the DataTable.
          */
-        remove(): Node;
+        remove(): Api;
+
+        /**
+         * Selects this row.
+         */
+        select(): Api;
+
+        /**
+         * Deselects this row.
+         */
+        deselect(): Api;
     }
 
     interface RowsMethodsModel {
@@ -969,10 +978,10 @@ declare namespace DataTables {
         /**
          * Select rows found by a row selector
          *
-         * @param cellSelector Row selector.
+         * @param cellSelector Row selector. If undefined returns every row in the DataTable.
          * @param Option used to specify how the cells should be ordered, and if paging or filtering in the table should be taken into account.
          */
-        (rowSelector: any, modifier?: ObjectSelectorModifier): RowsMethods;
+        (rowSelector?: any, modifier?: ObjectSelectorModifier): RowsMethods;
 
         /**
          * Add new rows to the table using the data given
@@ -1020,10 +1029,20 @@ declare namespace DataTables {
          * Delete the selected rows from the DataTable.
          */
         remove(): Api;
-    }
-    //#endregion "row-methods"
 
-    //#region "table-methods"
+        /**
+         * Selects the given rows.
+         */
+        select(): Api;
+
+        /**
+         * Deselects the given rows.
+         */
+        deselect(): Api;
+    }
+    // #endregion "row-methods"
+
+    // #region "table-methods"
 
     interface TableMethods extends CoreMethods {
         /**
@@ -1078,11 +1097,11 @@ declare namespace DataTables {
          */
         nodes(): Api;
     }
-    //#endregion "table-methods"
+    // #endregion "table-methods"
 
-    //#endregion "Namespaces"
+    // #endregion "Namespaces"
 
-    //#region "Static-Methods"
+    // #region "Static-Methods"
 
     interface StaticFunctions {
         /**
@@ -1137,7 +1156,7 @@ declare namespace DataTables {
          *
          * @param table Selector string for table
          */
-        Api: new (selector: string | Node | Node[] | JQuery | SettingsLegacy) => Api;
+        Api: new(selector: string | Node | Node[] | JQuery | SettingsLegacy) => Api;
 
         /**
          * Default Settings
@@ -1175,7 +1194,13 @@ declare namespace DataTables {
          * @param prefix Prefix (optional).
          * @param postfix Postfix (/suffix) (optional).
          */
-        number(thousands: string, decimal: string, precision: number, prefix?: string, postfix?: string): ObjectColumnRender;
+        number(
+            thousands: string,
+            decimal: string,
+            precision: number,
+            prefix?: string,
+            postfix?: string,
+        ): ObjectColumnRender;
         /**
          * Escape HTML to help prevent XSS attacks. It has no optional parameters.
          */
@@ -1196,7 +1221,7 @@ declare namespace DataTables {
          * @param fn Function
          * @param period ms
          */
-        throttle(fn: FunctionThrottle, period?: number): (() => void);
+        throttle(fn: FunctionThrottle, period?: number): () => void;
     }
 
     type FunctionThrottle = (data: any) => void;
@@ -1213,12 +1238,12 @@ declare namespace DataTables {
         api: boolean;
     }
 
-    //#endregion "Static-Methods"
+    // #endregion "Static-Methods"
 
-    //#region "Settings"
+    // #region "Settings"
 
     interface Settings {
-        //#region "Features"
+        // #region "Features"
 
         /**
          * Feature control DataTables' smart column width handling. Since: 1.10
@@ -1268,7 +1293,7 @@ declare namespace DataTables {
         /**
          * Vertical scrolling. Since: 1.10 Exp: "200px"
          */
-        scrollY?: string | undefined;
+        scrollY?: number | string | undefined;
 
         /**
          * Feature control search (filtering) abilities Since: 1.10
@@ -1285,9 +1310,9 @@ declare namespace DataTables {
          */
         stateSave?: boolean | undefined;
 
-        //#endregion "Features"
+        // #endregion "Features"
 
-        //#region "Data"
+        // #region "Data"
 
         /**
          * Load data for the table's content from an Ajax source. Since: 1.10
@@ -1299,9 +1324,9 @@ declare namespace DataTables {
          */
         data?: any[] | undefined;
 
-        //#endregion "Data"
+        // #endregion "Data"
 
-        //#region "Options"
+        // #region "Options"
 
         /**
          * Data to use as the display data for the table. Since: 1.10
@@ -1433,9 +1458,9 @@ declare namespace DataTables {
          */
         responsive?: boolean | object | undefined;
 
-        //#endregion "Options"
+        // #endregion "Options"
 
-        //#region "Callbacks"
+        // #region "Callbacks"
 
         /**
          * Callback for whenever a TR element is created for the table's body. Since: 1.10
@@ -1507,16 +1532,16 @@ declare namespace DataTables {
          */
         stateSaveParams?: FunctionStateSaveParams | undefined;
 
-        //#endregion "Callbacks"
+        // #endregion "Callbacks"
 
-        //#region "Language"
+        // #region "Language"
 
         language?: LanguageSettings | undefined;
 
-        //#endregion "Language"
+        // #endregion "Language"
     }
 
-    //#region "ajax-settings"
+    // #region "ajax-settings"
 
     interface AjaxDataRequest {
         draw: number;
@@ -1566,13 +1591,13 @@ declare namespace DataTables {
         dataSrc?: string | ((data: any) => any[]) | undefined;
     }
 
-    type FunctionAjax = (data: object, callback: ((data: any) => void), settings: SettingsLegacy) => void;
+    type FunctionAjax = (data: object, callback: (data: any) => void, settings: SettingsLegacy) => void;
 
     type FunctionAjaxData = (data: object, settings: Settings) => string | object;
 
-    //#endregion "ajax-settings"
+    // #endregion "ajax-settings"
 
-    //#region "colunm-settings"
+    // #region "colunm-settings"
 
     interface ColumnSettings {
         /**
@@ -1677,8 +1702,8 @@ declare namespace DataTables {
     type FunctionColumnCreatedCell = (cell: Node, cellData: any, rowData: any, row: number, col: number) => void;
 
     interface FunctionColumnData {
-        (row: any, t: 'set', s: any, meta: CellMetaSettings): void;
-        (row: any, t: 'display' | 'sort' | 'filter' | 'type', s: undefined, meta: CellMetaSettings): any;
+        (row: any, t: "set", s: any, meta: CellMetaSettings): void;
+        (row: any, t: "display" | "sort" | "filter" | "type", s: undefined, meta: CellMetaSettings): any;
     }
 
     interface ObjectColumnData {
@@ -1705,9 +1730,9 @@ declare namespace DataTables {
         settings: Settings;
     }
 
-    //#endregion "colunm-settings"
+    // #endregion "colunm-settings"
 
-    //#region "other-settings"
+    // #region "other-settings"
 
     interface RendererSettings {
         header?: string | undefined;
@@ -1741,11 +1766,11 @@ declare namespace DataTables {
         searchPlaceholder?: string | undefined;
     }
 
-    //#endregion "other-settings"
+    // #endregion "other-settings"
 
-    //#region "callback-functions"
+    // #region "callback-functions"
 
-    type FunctionCreateRow = (row: Node, data: any[] | object, dataIndex: number) => void;
+    type FunctionCreateRow = (row: Node, data: any[] | object, dataIndex: number, cells: Node[]) => void;
 
     type FunctionDrawCallback = (settings: SettingsLegacy) => void;
 
@@ -1755,7 +1780,14 @@ declare namespace DataTables {
 
     type FunctionHeaderCallback = (thead: Node, data: any[], start: number, end: number, display: any[]) => void;
 
-    type FunctionInfoCallback = (settings: SettingsLegacy, start: number, end: number, mnax: number, total: number, pre: string) => void;
+    type FunctionInfoCallback = (
+        settings: SettingsLegacy,
+        start: number,
+        end: number,
+        mnax: number,
+        total: number,
+        pre: string,
+    ) => void;
 
     type FunctionInitComplete = (settings: SettingsLegacy, json: object) => void;
 
@@ -1773,9 +1805,9 @@ declare namespace DataTables {
 
     type FunctionStateSaveParams = (settings: SettingsLegacy, data: object) => void;
 
-    //#endregion "callback-functions"
+    // #endregion "callback-functions"
 
-    //#region "language-settings"
+    // #region "language-settings"
 
     // these are all optional
     interface LanguageSettings {
@@ -1810,11 +1842,11 @@ declare namespace DataTables {
         paginate?: LanguagePaginateSettings | undefined;
     }
 
-    //#endregion "language-settings"
+    // #endregion "language-settings"
 
-    //#endregion "Settings"
+    // #endregion "Settings"
 
-    //#region "SettingsLegacy"
+    // #region "SettingsLegacy"
 
     interface ArrayStringNode {
         [index: string]: Node;
@@ -1902,7 +1934,7 @@ declare namespace DataTables {
         iTabIndex: number;
         nScrollHead: Node;
         nScrollFoot: Node;
-        rowIdFn(mSource: string | number | (() => void)): (() => void);
+        rowIdFn(mSource: string | number | (() => void)): () => void;
     }
 
     interface BrowserLegacy {
@@ -2002,9 +2034,9 @@ declare namespace DataTables {
         sNext?: string | undefined;
         sPrevious?: string | undefined;
     }
-    //#endregion "SettingsLegacy"
+    // #endregion "SettingsLegacy"
 
-    //#region "ext internal"
+    // #region "ext internal"
 
     interface ExtSettings {
         aTypes: any[];
@@ -2215,7 +2247,7 @@ declare namespace DataTables {
         sJUIHeader?: string | undefined;
         sJUIFooter?: string | undefined;
     }
-    //#endregion "ext internal"
+    // #endregion "ext internal"
 
     interface ExtTypeSettings {
         /**
@@ -2247,5 +2279,5 @@ declare namespace DataTables {
      * @param data Data from the column cell to be analysed.
      * @param DataTables settings object.
      */
-    type FunctionExtTypeSettingsDetect = (data: any, settings: Settings) => (string | null);
+    type FunctionExtTypeSettingsDetect = (data: any, settings: Settings) => string | null;
 }

@@ -1,12 +1,13 @@
 import {
     CloudFormationCustomResourceFailedResponse,
     CloudFormationCustomResourceHandler,
-    CloudFormationCustomResourceResponse, CloudFormationCustomResourceSuccessResponse,
+    CloudFormationCustomResourceResponse,
+    CloudFormationCustomResourceSuccessResponse,
 } from "aws-lambda";
 
 const handler: CloudFormationCustomResourceHandler = async (event, context, callback) => {
     switch (event.RequestType) {
-        case 'Create':
+        case "Create":
             str = event.LogicalResourceId;
             str = event.RequestId;
             anyObj = event.ResourceProperties;
@@ -16,10 +17,10 @@ const handler: CloudFormationCustomResourceHandler = async (event, context, call
             str = event.ServiceToken;
             str = event.StackId;
             break;
-        case 'Update':
+        case "Update":
             anyObj = event.OldResourceProperties;
             break;
-        case 'Delete':
+        case "Delete":
             str = event.PhysicalResourceId;
             break;
     }

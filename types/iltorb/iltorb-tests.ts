@@ -1,5 +1,5 @@
-import { createReadStream, createWriteStream } from 'fs';
-import * as br from 'iltorb';
+import { createReadStream, createWriteStream } from "fs";
+import * as br from "iltorb";
 
 const opts: br.BrotliEncodeParams = {
     disable_literal_context_modeling: false,
@@ -7,14 +7,16 @@ const opts: br.BrotliEncodeParams = {
     lgwin: 22,
     mode: 0,
     quality: 11,
-    size_hint: 0
+    size_hint: 0,
 };
 
 declare const mode: number;
 declare const quality: number;
 
-const myMode: br.BrotliMode = mode; // $ExpectError
-const myQuality: br.BrotliCompressionQuality = quality; // $ExpectError
+// @ts-expect-error
+const myMode: br.BrotliMode = mode;
+// @ts-expect-error
+const myQuality: br.BrotliCompressionQuality = quality;
 
 const onCompress = (err1: Error | null | undefined, compressed: Buffer) => {
     br.decompress(compressed, (err2: Error | null | undefined, decompressed: Buffer) => {
@@ -22,15 +24,15 @@ const onCompress = (err1: Error | null | undefined, compressed: Buffer) => {
     });
 };
 
-br.compress(Buffer.from('foo', 'utf8'), onCompress);
+br.compress(Buffer.from("foo", "utf8"), onCompress);
 
-br.compress(Buffer.from('foo', 'utf8'), opts, onCompress);
+br.compress(Buffer.from("foo", "utf8"), opts, onCompress);
 
 br
-    .compress(Buffer.from('foobar'))
+    .compress(Buffer.from("foobar"))
     .then(compressedData => {
         br.decompress(compressedData).then(data => {
-            console.log(data.equals(Buffer.from('foobar')));
+            console.log(data.equals(Buffer.from("foobar")));
         });
     });
 
@@ -39,15 +41,15 @@ stream.flush();
 
 createReadStream(__filename)
     .pipe(stream)
-    .pipe(createWriteStream('foo.ts'));
+    .pipe(createWriteStream("foo.ts"));
 
 createReadStream(__dirname)
     .pipe(br.compressStream(opts))
-    .pipe(createWriteStream('bar.ts'));
+    .pipe(createWriteStream("bar.ts"));
 
-createReadStream('bar.ts')
+createReadStream("bar.ts")
     .pipe(br.decompressStream())
-    .pipe(createWriteStream('qux.ts'));
+    .pipe(createWriteStream("qux.ts"));
 
-br.decompressSync(br.compressSync(Buffer.from('foo', 'utf8')));
-br.decompressSync(br.compressSync(Buffer.from('foo', 'utf8'), opts));
+br.decompressSync(br.compressSync(Buffer.from("foo", "utf8")));
+br.decompressSync(br.compressSync(Buffer.from("foo", "utf8"), opts));

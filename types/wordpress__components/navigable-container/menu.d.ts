@@ -1,6 +1,6 @@
-import { ComponentType } from 'react';
+import { ComponentType } from "react";
 
-import TabbableContainer from './tabbable';
+import TabbableContainer from "./tabbable";
 
 declare namespace NavigableMenu {
     interface Props extends TabbableContainer.Props {
@@ -8,7 +8,7 @@ declare namespace NavigableMenu {
          * The orientation of the menu.
          * @defaultValue "vertical"
          */
-        orientation?: 'vertical' | 'horizontal' | 'both' | undefined;
+        orientation?: "vertical" | "horizontal" | "both" | undefined;
     }
 }
 declare const NavigableMenu: ComponentType<NavigableMenu.Props>;

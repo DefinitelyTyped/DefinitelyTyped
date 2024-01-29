@@ -1,12 +1,7 @@
-// Type definitions for jws 3.2
-// Project: https://github.com/brianloveswords/node-jws
-// Definitions by: Justin Beckwith <https://github.com/JustinBeckwith>, Denis Olsem <https://github.com/dolsem>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import * as events from 'events';
-import * as stream from 'stream';
+import * as events from "events";
+import * as stream from "stream";
 
 /**
  * (Synchronous) Return a JSON Web Signature for a header
@@ -22,13 +17,13 @@ export function sign(options: SignOptions): string;
  * @param secretOrKey string or buffer containing either the secret
  * for HMAC algorithms, or the PEM encoded public key for RSA and ECDSA
  */
-export function verify(signature: string, algorithm: Algorithm, secretOrKey: string|Buffer): boolean;
+export function verify(signature: string, algorithm: Algorithm, secretOrKey: string | Buffer): boolean;
 
 /**
  * (Synchronous) Returns the decoded header, decoded payload,
  * and signature parts of the JWS Signature.
  */
-export function decode(signature: string): Signature;
+export function decode(signature: string, options?: DecodeOptions): Signature;
 
 /**
  * (Synchronous) Validates that the signature seems to be a legitimate JWS signature.
@@ -137,48 +132,64 @@ export interface SignOptions {
      */
     privateKey?: any;
 
-    encoding?: string|Buffer|stream.Readable | undefined;
+    encoding?: string | Buffer | stream.Readable | undefined;
+}
+
+export interface DecodeOptions {
+    /**
+     * Whether to force {@link JSON.parse} on the payload
+     * even if the header doesn't contain "typ":"JWT".
+     */
+    json: boolean;
 }
 
 export interface VerifyOptions {
-    signature?: string|Buffer|stream.Readable | undefined;
-    algorithm?: Algorithm|Buffer|stream.Readable | undefined;
-    key?: string|stream.Readable|Buffer | undefined;
-    secret?: string|stream.Readable|Buffer | undefined;
-    publicKey?: string|stream.Readable|Buffer | undefined;
-    encoding?: string|Buffer|stream.Readable | undefined;
+    signature?: string | Buffer | stream.Readable | undefined;
+    algorithm?: Algorithm | Buffer | stream.Readable | undefined;
+    key?: string | stream.Readable | Buffer | undefined;
+    secret?: string | stream.Readable | Buffer | undefined;
+    publicKey?: string | stream.Readable | Buffer | undefined;
+    encoding?: string | Buffer | stream.Readable | undefined;
 }
 
 export const ALGORITHMS: [
-    'HS256', 'HS384', 'HS512',
-    'RS256', 'RS384', 'RS512',
-    'PS256', 'PS384', 'PS512',
-    'ES256', 'ES384', 'ES512'
+    "HS256",
+    "HS384",
+    "HS512",
+    "RS256",
+    "RS384",
+    "RS512",
+    "PS256",
+    "PS384",
+    "PS512",
+    "ES256",
+    "ES384",
+    "ES512",
 ];
 
-export type Algorithm = typeof ALGORITHMS[number] | 'none';
+export type Algorithm = typeof ALGORITHMS[number] | "none";
 
 export interface Header extends CertificateProperties {
     alg: Algorithm;
     jwk?: JWK | undefined;
     typ?: string | undefined;
     cty?: string | undefined;
-    crit?: ReadonlyArray<string> | undefined;
+    crit?: readonly string[] | undefined;
 }
 
 export interface JWK extends CertificateProperties {
     alg?: Algorithm | undefined;
     kty: string;
     use?: string | undefined;
-    key_ops?: ReadonlyArray<string> | undefined;
+    key_ops?: readonly string[] | undefined;
 }
 
 export interface CertificateProperties extends PrivateProperties {
     kid?: string | undefined;
     x5u?: string | undefined;
-    x5c?: ReadonlyArray<string> | undefined;
+    x5c?: readonly string[] | undefined;
     x5t?: string | undefined;
-    'x5t#S256'?: string | undefined;
+    "x5t#S256"?: string | undefined;
 }
 
 export interface PrivateProperties {

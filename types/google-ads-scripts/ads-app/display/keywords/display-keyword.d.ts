@@ -79,11 +79,13 @@ declare namespace GoogleAdsScripts {
          *      }
          */
         interface DisplayKeywordSelector
-            extends Base.Selector<DisplayKeywordIterator>,
+            extends
+                Base.Selector<DisplayKeywordIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
                 Base.SelectorWithIds,
-                Base.SelectorWithLimit {}
+                Base.SelectorWithLimit
+        {}
     }
 }

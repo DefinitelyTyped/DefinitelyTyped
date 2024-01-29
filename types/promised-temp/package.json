@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/promised-temp",
+    "version": "0.1.9999",
+    "projects": [
+        "https://www.npmjs.com/package/promised-temp",
+        "https://github.com/mikaturunen/promised-temp"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/temp": "*"
+    },
+    "devDependencies": {
+        "@types/promised-temp": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Saqib Rokadia",
+            "githubUsername": "rokadias"
+        }
+    ]
+}

@@ -1,5 +1,5 @@
-import * as through2 from 'through2-concurrent';
-import { Transform } from 'stream';
+import { Transform } from "stream";
+import * as through2 from "through2-concurrent";
 
 let str: Transform;
 
@@ -9,7 +9,7 @@ function flushCb(this: Transform, cb: () => void) {
 }
 const opts = {
     allowHalfOpen: false,
-    maxConcurrency: 5
+    maxConcurrency: 5,
 };
 
 str = through2();

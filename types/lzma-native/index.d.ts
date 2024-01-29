@@ -1,8 +1,3 @@
-// Type definitions for lzma-native 4.0
-// Project: https://github.com/addaleax/lzma-native
-// Definitions by: Evan Cameron <https://github.com/leshow>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 /// <reference types="node" />
 
 import { Stream } from "stream";
@@ -16,7 +11,8 @@ export interface LzmaOptions {
         | "TELL_NO_CHECK"
         | "TELL_UNSUPPORTED_CHECK"
         | "TELL_ANY_CHECK"
-        | "CONCATENATED" | undefined;
+        | "CONCATENATED"
+        | undefined;
     threads?: number | undefined;
     blockSize?: number | undefined;
     timeout?: number | undefined;
@@ -45,7 +41,7 @@ export interface FileOptions {
     read: (
         count: number,
         offset: number,
-        cb: (err: any, buffer: Buffer) => void
+        cb: (err: any, buffer: Buffer) => void,
     ) => void;
 }
 
@@ -61,7 +57,7 @@ export interface StreamInfo {
 
 export function createStream(
     coder: Coders,
-    options?: LzmaOptions
+    options?: LzmaOptions,
 ): JSLzmaStream;
 
 export function createCompressor(options?: LzmaOptions): JSLzmaStream;
@@ -69,7 +65,7 @@ export function createDecompressor(options?: LzmaOptions): JSLzmaStream;
 export function crc32(
     input: string,
     encoding?: string,
-    previous?: number
+    previous?: number,
 ): string;
 export function isXZ(buf: Buffer | string): boolean;
 export function versionString(): string;
@@ -82,40 +78,40 @@ export function rawEncoderMemusage(preset: Preset): number;
 
 export function Compressor(
     preset?: Preset,
-    options?: LzmaOptions
+    options?: LzmaOptions,
 ): JSLzmaStream;
 export function Decompressor(options?: LzmaOptions): JSLzmaStream;
 
 export function parseFileIndex(
     options: FileOptions,
-    callback?: (err: any, info?: StreamInfo) => void
+    callback?: (err: any, info?: StreamInfo) => void,
 ): void;
 export function parseFileIndexFD(
     fileDescriptor: number,
-    callback?: (err: any, info?: StreamInfo) => void
+    callback?: (err: any, info?: StreamInfo) => void,
 ): void;
 
 export function compress(
     buf: Buffer | string,
     options?: LzmaOptions | Preset,
-    on_finish?: (result: Buffer) => void
+    on_finish?: (result: Buffer) => void,
 ): void;
 export function decompress(
     buf: Buffer | string,
     options?: LzmaOptions | Preset,
-    on_finish?: (result: Buffer) => void
+    on_finish?: (result: Buffer) => void,
 ): void;
 export function LZMA(): {
     compress(
         buf: Buffer | string,
         mode: Preset,
         on_finish: (result: Buffer) => void,
-        on_progress?: (progress: number) => void
+        on_progress?: (progress: number) => void,
     ): void;
     decompress(
         buf: Buffer | string,
         on_finish: (result: Buffer) => void,
-        on_progress?: (progress: number) => void
+        on_progress?: (progress: number) => void,
     ): void;
 };
 

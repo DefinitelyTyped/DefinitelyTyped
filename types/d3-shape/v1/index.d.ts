@@ -1,19 +1,9 @@
-// Type definitions for D3JS d3-shape module 1.3
-// Project: https://github.com/d3/d3-shape/, https://d3js.org/d3-shape
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
-//                 Alex Ford <https://github.com/gustavderdrache>
-//                 Boris Yankov <https://github.com/borisyankov>
-//                 denisname <https://github.com/denisname>
-//                 Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 // Last module patch version validated against: 1.3.7
 
-import { Path } from 'd3-path';
+import { Path } from "d3-path";
 
 declare global {
-    interface CanvasRenderingContext2D {} // tslint:disable-line no-empty-interface
+    interface CanvasRenderingContext2D {} // eslint-disable-line @typescript-eslint/no-empty-interface
 }
 
 // -----------------------------------------------------------------------------------
@@ -30,7 +20,16 @@ export interface CanvasPath_D3Shape {
     arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): void;
     bezierCurveTo(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number): void;
     closePath(): void;
-    ellipse(x: number, y: number, radiusX: number, radiusY: number, rotation: number, startAngle: number, endAngle: number, anticlockwise?: boolean): void;
+    ellipse(
+        x: number,
+        y: number,
+        radiusX: number,
+        radiusY: number,
+        rotation: number,
+        startAngle: number,
+        endAngle: number,
+        anticlockwise?: boolean,
+    ): void;
     lineTo(x: number, y: number): void;
     moveTo(x: number, y: number): void;
     quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): void;

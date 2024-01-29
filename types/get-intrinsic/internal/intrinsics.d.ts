@@ -27,6 +27,8 @@ export interface Intrinsics {
     '%AsyncIteratorPrototype%': AsyncIterable<any>;
     '%Atomics%': Atomics;
     '%BigInt%': BigIntConstructor;
+    '%BigInt64Array%': BigInt64ArrayConstructor;
+    '%BigUint64Array%': BigUint64ArrayConstructor;
     '%Boolean%': BooleanConstructor;
     '%BooleanPrototype%': typeof Boolean.prototype;
     '%DataView%': DataViewConstructor;
@@ -194,6 +196,12 @@ export interface Intrinsics {
     '%BigInt.prototype.valueOf%': typeof BigInt.prototype.valueOf;
     '%BigInt.asUintN%': typeof BigInt.asUintN;
     '%BigInt.asIntN%': typeof BigInt.asIntN;
+    '%BigInt64Array.prototype%': BigInt64Array;
+    '%BigInt64Array.prototype.BYTES_PER_ELEMENT%': typeof BigInt64Array.prototype.BYTES_PER_ELEMENT;
+    '%BigInt64Array.BYTES_PER_ELEMENT%': typeof BigInt64Array.BYTES_PER_ELEMENT;
+    '%BigUint64Array.prototype%': BigUint64Array;
+    '%BigUint64Array.prototype.BYTES_PER_ELEMENT%': typeof BigUint64Array.prototype.BYTES_PER_ELEMENT;
+    '%BigUint64Array.BYTES_PER_ELEMENT%': typeof BigUint64Array.BYTES_PER_ELEMENT;
     '%Boolean.prototype%': typeof Boolean.prototype;
     '%Boolean.prototype.toString%': typeof Boolean.prototype.toString;
     '%Boolean.prototype.valueOf%': typeof Boolean.prototype.valueOf;

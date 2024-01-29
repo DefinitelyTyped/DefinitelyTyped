@@ -3,17 +3,17 @@
 declare namespace M {
     class Range extends Component<undefined> {
         /**
-         * Get Instance
+         * Get Instance.
          */
         static getInstance(elem: Element): Range;
 
         /**
-         * Init Range
+         * Init Range.
          */
         static init(els: Element, options?: Partial<undefined>): Range;
 
         /**
-         * Init Ranges
+         * Init Ranges.
          */
         static init(els: MElements, options?: Partial<undefined>): Range[];
     }

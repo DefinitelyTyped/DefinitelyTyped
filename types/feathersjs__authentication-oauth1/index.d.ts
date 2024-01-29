@@ -1,17 +1,11 @@
-// Type definitions for @feathersjs/authentication-oauth1 1.0
-// Project: https://feathersjs.com
-// Definitions by: Jan Lohage <https://github.com/j2L4e>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+import { Application, Paginated } from "@feathersjs/feathers";
+import { Request } from "express";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import * as self from "@feathersjs/authentication-oauth1";
 
-import {
-    Application,
-    Paginated
-} from '@feathersjs/feathers';
-import { Request } from 'express';
-import * as self from '@feathersjs/authentication-oauth1';
-
-declare const feathersAuthenticationOAuth1: ((options?: FeathersAuthenticationOAuth1Options) => () => void) & typeof self;
+declare const feathersAuthenticationOAuth1:
+    & ((options?: FeathersAuthenticationOAuth1Options) => () => void)
+    & typeof self;
 export default feathersAuthenticationOAuth1;
 
 export interface FeathersAuthenticationOAuth1Options {
@@ -64,8 +58,14 @@ export interface FeathersAuthenticationOAuth1Options {
 export class OAuth1Verifier {
     constructor(app: Application, options: any);
 
-    _updateEntity(entity: any, data: { profile: any, accessToken: string, refreshToken: string }): Promise<any>; // updates an existing entity
-    _createEntity(data: { profile: any, accessToken: string, refreshToken: string }): Promise<any>; // creates an entity if they didn't exist already
+    _updateEntity(entity: any, data: { profile: any; accessToken: string; refreshToken: string }): Promise<any>; // updates an existing entity
+    _createEntity(data: { profile: any; accessToken: string; refreshToken: string }): Promise<any>; // creates an entity if they didn't exist already
     _normalizeResult<T>(results: T[] | Paginated<T>): Promise<T>; // normalizes result from service to account for pagination
-    verify(req: Request, accessToken: string, refreshToken: string, profile: any, done: (err: Error | null, user: object, info: object) => void): void;
+    verify(
+        req: Request,
+        accessToken: string,
+        refreshToken: string,
+        profile: any,
+        done: (err: Error | null, user: object, info: object) => void,
+    ): void;
 }

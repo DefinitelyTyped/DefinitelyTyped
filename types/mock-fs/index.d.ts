@@ -1,15 +1,7 @@
-// Type definitions for mock-fs 4.13
-// Project: https://github.com/tschaub/mock-fs
-// Definitions by: Wim Looman <https://github.com/Nemo157>,
-//                 Qubo <https://github.com/tkqubo>,
-//                 Porama Ruengrairatanaroj <https://github.com/Seally>,
-//                 Chris Shaw <https://github.com/cshawaus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import FileSystem = require('./lib/filesystem');
-import File = require('./lib/file');
-import Directory = require('./lib/directory');
-import SymbolicLink = require('./lib/symlink');
+import FileSystem = require("./lib/filesystem");
+import File = require("./lib/file");
+import Directory = require("./lib/directory");
+import SymbolicLink = require("./lib/symlink");
 
 export = mock;
 

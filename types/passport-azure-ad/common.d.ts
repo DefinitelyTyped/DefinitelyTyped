@@ -9,13 +9,14 @@ export interface IBaseStrategyOption {
     loggingLevel?: "info" | "warn" | "error" | undefined;
     loggingNoPII?: boolean | undefined;
     clockSkew?: number | undefined;
+    proxy?: { port: string; host: string; protocol: "http" | "https" };
 }
 
 export interface ITokenPayload {
     /** An App ID URI. Identifies the intended recipient of the token. */
     aud?: string | undefined;
     /** A security token service(STS) URI. Identifies the STS that constructs and returns the token,
-     * and the Azure AD tenant in which the user was authenticated.*/
+     * and the Azure AD tenant in which the user was authenticated. */
     iss?: string | undefined;
     /** The identity provider that authenticated the subject of the token*/
     idp?: string | undefined;
@@ -70,7 +71,7 @@ export interface ITokenPayload {
     /** An internal claim used by Azure to revalidate tokens. */
     rh?: string | undefined;
     /** Indicates the version of the access token. */
-    ver?: '1.0' | '2.0' | undefined;
+    ver?: "1.0" | "2.0" | undefined;
 
     /** v1.0 basic claims */
 

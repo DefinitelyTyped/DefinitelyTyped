@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/friendly-errors-webpack-plugin",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/geowarin/friendly-errors-webpack-plugin"
+    ],
+    "dependencies": {
+        "@types/webpack": "^4"
+    },
+    "devDependencies": {
+        "@types/friendly-errors-webpack-plugin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Arne Bahlo",
+            "githubUsername": "bahlo"
+        }
+    ]
+}

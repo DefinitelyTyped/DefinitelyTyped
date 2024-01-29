@@ -1,0 +1,13 @@
+{
+    "private": true,
+    "name": "@types/xml-escape",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/miketheprogrammer/xml-escape"
+    ],
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/xml-escape": "workspace:."
+    },
+    "owners": []
+}

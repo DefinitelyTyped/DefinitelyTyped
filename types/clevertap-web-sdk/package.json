@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/clevertap-web-sdk",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/CleverTap/clevertap-web-sdk"
+    ],
+    "devDependencies": {
+        "@types/clevertap-web-sdk": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ayush",
+            "githubUsername": "sinhaayush7"
+        },
+        {
+            "name": "Sonam",
+            "githubUsername": "KambleSonam"
+        }
+    ]
+}

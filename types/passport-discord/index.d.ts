@@ -1,31 +1,61 @@
-// Type definitions for passport-discord 0.1
-// Project: https://github.com/nicholastay/passport-discord#readme
-// Definitions by: Gonthier Renaud <https://github.com/kzay>, Daniel Gonzalez <https://github.com/dannyxt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import * as passport from 'passport';
-import * as express from 'express';
-import * as oauth2 from 'passport-oauth2';
-import { OutgoingHttpHeaders } from 'http';
+import * as express from "express";
+import { OutgoingHttpHeaders } from "http";
+import * as passport from "passport";
+import * as oauth2 from "passport-oauth2";
 
 import discord = Strategy;
 
 declare class Strategy extends oauth2.Strategy {
-    constructor(options: discord.StrategyOptions, verify: (accessToken: string, refreshToken: string, profile: discord.Profile, done: oauth2.VerifyCallback) => void);
-    // NOTE: A union of function types prevents contextual typing of arguments.
-    // tslint:disable-next-line:unified-signatures
-    constructor(options: discord.StrategyOptions, verify: (accessToken: string, refreshToken: string, params: any, profile: discord.Profile, done: oauth2.VerifyCallback) => void);
-    constructor(options: discord.StrategyOptionsWithRequest, verify: (req: express.Request, accessToken: string, refreshToken: string, profile: discord.Profile, done: oauth2.VerifyCallback) => void);
-    // NOTE: A union of function types prevents contextual typing of arguments.
-    // tslint:disable-next-line:unified-signatures max-line-length
-    constructor(options: discord.StrategyOptionsWithRequest, verify: (req: express.Request, accessToken: string, params: any, refreshToken: string, profile: discord.Profile, done: oauth2.VerifyCallback) => void);
+    constructor(
+        options: discord.StrategyOptions,
+        verify: (
+            accessToken: string,
+            refreshToken: string,
+            profile: discord.Profile,
+            done: oauth2.VerifyCallback,
+        ) => void,
+    );
+    constructor(
+        options: discord.StrategyOptions,
+        // NOTE: A union of function types prevents contextual typing of arguments.
+        // tslint:disable-next-line:unified-signatures
+        verify: (
+            accessToken: string,
+            refreshToken: string,
+            params: any,
+            profile: discord.Profile,
+            done: oauth2.VerifyCallback,
+        ) => void,
+    );
+    constructor(
+        options: discord.StrategyOptionsWithRequest,
+        verify: (
+            req: express.Request,
+            accessToken: string,
+            refreshToken: string,
+            profile: discord.Profile,
+            done: oauth2.VerifyCallback,
+        ) => void,
+    );
+    constructor(
+        options: discord.StrategyOptionsWithRequest,
+        // NOTE: A union of function types prevents contextual typing of arguments.
+        // tslint:disable-next-line:unified-signatures
+        verify: (
+            req: express.Request,
+            accessToken: string,
+            params: any,
+            refreshToken: string,
+            profile: discord.Profile,
+            done: oauth2.VerifyCallback,
+        ) => void,
+    );
     checkScope(scope: string, accessToken: string, cb: (err?: Error | null, value?: any) => void): void;
 }
 
 declare namespace Strategy {
     // NOTE: not true for `export import` statements
-    // tslint:disable-next-line:strict-export-declare-modifiers
+    // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export import Strategy = discord;
 
     interface _StrategyOptionsBase {

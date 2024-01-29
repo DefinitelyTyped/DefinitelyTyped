@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.cookies
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the <code>browser.cookies</code> API to query and modify cookies, and to be notified when they change.
  * Permissions: "cookies"
@@ -407,7 +410,7 @@ export namespace Cookies {
          *
          * @param details Details to identify the cookie being retrieved.
          */
-        get(details: GetDetailsType): Promise<Cookie>;
+        get(details: GetDetailsType): Promise<Cookie | null>;
 
         /**
          * Retrieves all cookies from a single cookie store that match the given information.  The cookies returned will be sorted,
@@ -430,7 +433,7 @@ export namespace Cookies {
          *
          * @param details Information to identify the cookie to remove.
          */
-        remove(details: RemoveDetailsType): Promise<RemoveCallbackDetailsType>;
+        remove(details: RemoveDetailsType): Promise<RemoveCallbackDetailsType | null>;
 
         /**
          * Lists all existing cookie stores.

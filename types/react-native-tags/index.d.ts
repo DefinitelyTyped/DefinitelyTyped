@@ -1,10 +1,5 @@
-// Type definitions for react-native-tags 2.2
-// Project: https://github.com/peterp/react-native-tags#readme
-// Definitions by: IdaszakDaniel <https://github.com/IdaszakDaniel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as React from 'react';
-import { ViewStyle, TextStyle } from 'react-native';
+import * as React from "react";
+import { TextStyle, ViewStyle } from "react-native";
 
 interface RenderTag {
     tag: string;

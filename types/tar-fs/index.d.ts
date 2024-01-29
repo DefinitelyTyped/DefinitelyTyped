@@ -1,15 +1,9 @@
-// Type definitions for tar-fs 2.0
-// Project: https://github.com/mafintosh/tar-fs
-// Definitions by: Umoxfo <https://github.com/Umoxfo>
-//                 Chris Wiggins <https://github.com/chriswiggins>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Imported from: https://github.com/soywiz/typescript-node-definitions/d.ts
 
 /// <reference types="node" />
 
-import { ReadStream } from 'fs';
-import * as tarStream from 'tar-stream';
+import { ReadStream } from "fs";
+import * as tarStream from "tar-stream";
 
 export function pack(cwd: string, opts?: PackOptions): tarStream.Pack;
 export function extract(cwd: string, opts?: ExtractOptions): tarStream.Extract;
@@ -48,7 +42,7 @@ export interface Headers {
     mode: number;
     mtime: Date;
     size: number;
-    type: 'file' | 'directory' | 'link' | 'symlink';
+    type: "file" | "directory" | "link" | "symlink";
     uid: number;
     gid: number;
 }

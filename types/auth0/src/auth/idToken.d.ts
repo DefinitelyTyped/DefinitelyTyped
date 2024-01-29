@@ -9,12 +9,10 @@ export interface DecodedToken {
     signature: string;
 }
 
-export function decode(
-    token: string,
-): DecodedToken;
+export function decode(token: string): DecodedToken;
 
 export interface ValidateOptions {
-    audience: string | ReadonlyArray<string>;
+    audience: string | readonly string[];
     issuer: string;
     leeway?: number | undefined;
     maxAge?: number | undefined;

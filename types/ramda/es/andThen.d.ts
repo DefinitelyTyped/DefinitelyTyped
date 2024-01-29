@@ -1,2 +1,2 @@
-import { andThen } from '../index';
+import { andThen } from "../index.js";
 export default andThen;

@@ -1,12 +1,3 @@
-// Type definitions for jsonwebtoken-promisified 1.0
-// Project: https://github.com/joepie91/node-jsonwebtoken-promisified
-// Definitions by: Maxime LUCE <https://github.com/SomaticIT>,
-//                 Daniel Heim <https://github.com/danielheim>,
-//                 Brice BERNARD <https://github.com/brikou>
-//                 Aneil Mallavarapu <https://github.com/aneilbaboo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
 
 export class JsonWebTokenError extends Error {
@@ -80,7 +71,7 @@ export interface DecodeOptions {
 
 export type VerifyCallback = (
     err: JsonWebTokenError | NotBeforeError | TokenExpiredError,
-    decoded: object | string
+    decoded: object | string,
 ) => void;
 
 export type SignCallback = (err: Error, encoded: string) => void;
@@ -129,7 +120,7 @@ export function sign(
 export function signAsync(
     payload: string | Buffer | object,
     secretOrPrivateKey: Secret,
-    options?: SignOptions
+    options?: SignOptions,
 ): Promise<string>;
 
 /**
@@ -155,13 +146,13 @@ export function verify(
 export function verify(
     token: string,
     secretOrPublicKey: string | Buffer,
-    callback?: VerifyCallback
+    callback?: VerifyCallback,
 ): void;
 export function verify(
     token: string,
     secretOrPublicKey: string | Buffer,
     options: VerifyOptions,
-    callback?: VerifyCallback
+    callback?: VerifyCallback,
 ): void;
 
 /**
@@ -173,8 +164,8 @@ export function verify(
 export function verifyAsync(
     token: string,
     secretOrPublicKey: string | Buffer,
-    options?: VerifyOptions
-): Promise<object|string>;
+    options?: VerifyOptions,
+): Promise<object | string>;
 
 /**
  * Returns the decoded payload without verifying if the signature is valid.

@@ -1,25 +1,20 @@
-// Type definitions for non-npm package mobile-messaging-cordova-plugin 1.7
-// Project: https://github.com/infobip/mobile-messaging-cordova-plugin
-// Definitions by: kostap13 <https://github.com/kostap13>,
-//                 tjuric <https://github.com/tjuric>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare namespace MobileMessagingCordova {
-    type OS = 'Android' | 'iOS';
-    type Gender = 'Male' | 'Female';
-    type Event = 'messageReceived' |
-        'notificationTapped' |
-        'tokenReceived' |
-        'registrationUpdated' |
-        'geofenceEntered' |
-        'actionTapped' |
-        'installationUpdated' |
-        'userUpdated' |
-        'personalized' |
-        'depersonalized'|
-        'deeplink';
+    type OS = "Android" | "iOS";
+    type Gender = "Male" | "Female";
+    type Event =
+        | "messageReceived"
+        | "notificationTapped"
+        | "tokenReceived"
+        | "registrationUpdated"
+        | "geofenceEntered"
+        | "actionTapped"
+        | "installationUpdated"
+        | "userUpdated"
+        | "personalized"
+        | "depersonalized"
+        | "deeplink";
 
     interface Configuration {
         /**
@@ -36,7 +31,7 @@ declare namespace MobileMessagingCordova {
         ios?: {
             notificationTypes?: string[] | undefined;
             forceCleanup?: boolean | undefined;
-            logging?: boolean | undefined
+            logging?: boolean | undefined;
         } | undefined;
         android?: {
             notificationIcon: string; // a resource name for a status bar icon (without extension), located in '/platforms/android/app/src/main/res/mipmap'
@@ -47,7 +42,7 @@ declare namespace MobileMessagingCordova {
             applicationCodePersistingDisabled?: boolean | undefined;
             userDataPersistingDisabled?: boolean | undefined;
             carrierInfoSendingDisabled?: boolean | undefined;
-            systemInfoSendingDisabled?: boolean | undefined
+            systemInfoSendingDisabled?: boolean | undefined;
         } | undefined;
         notificationCategories?: [
             {
@@ -62,9 +57,11 @@ declare namespace MobileMessagingCordova {
                         destructive?: boolean | undefined;
                         icon?: string | undefined;
                         textInputActionButtonTitle?: string | undefined;
-                        textInputPlaceholder?: string | undefined
-                    }] | undefined
-            }] | undefined;
+                        textInputPlaceholder?: string | undefined;
+                    },
+                ] | undefined;
+            },
+        ] | undefined;
     }
 
     interface UserData {
@@ -219,9 +216,7 @@ declare namespace MobileMessagingCordova {
          * @param callback will be called on result
          * @param errorCallback will be called on error, you have to handle error and do retries yourself
          */
-        submitEventImmediately(eventData: CustomEvent,
-                               callback: () => void,
-                               errorCallback: () => void): void;
+        submitEventImmediately(eventData: CustomEvent, callback: () => void, errorCallback: () => void): void;
 
         /**
          * Saves user data to the server.
@@ -230,9 +225,11 @@ declare namespace MobileMessagingCordova {
          * @param callback will be called on success
          * @param errorCallback will be called on error
          */
-        saveUser(userData: UserData,
-                 callback: (userData: UserData) => void,
-                 errorCallback: (error: MobileMessagingError) => void): void;
+        saveUser(
+            userData: UserData,
+            callback: (userData: UserData) => void,
+            errorCallback: (error: MobileMessagingError) => void,
+        ): void;
 
         /**
          * Fetch user data from the server.
@@ -257,9 +254,11 @@ declare namespace MobileMessagingCordova {
          * @param callback will be called on success
          * @param errorCallback will be called on error
          */
-        saveInstallation(installation: Installation,
-                         callback: (data: Installation) => void,
-                         errorCallback: (error: MobileMessagingError) => void): void;
+        saveInstallation(
+            installation: Installation,
+            callback: (data: Installation) => void,
+            errorCallback: (error: MobileMessagingError) => void,
+        ): void;
 
         /**
          * Fetches installation from the server.
@@ -267,7 +266,10 @@ declare namespace MobileMessagingCordova {
          * @param callback will be called on success
          * @param errorCallback will be called on error
          */
-        fetchInstallation(callback: (installation: Installation) => void, errorCallback: (error: MobileMessagingError) => void): void;
+        fetchInstallation(
+            callback: (installation: Installation) => void,
+            errorCallback: (error: MobileMessagingError) => void,
+        ): void;
 
         /**
          * Gets locally cached installation.
@@ -275,7 +277,10 @@ declare namespace MobileMessagingCordova {
          * @param callback will be called on success
          * @param errorCallback will be called on error
          */
-        getInstallation(callback: (installation: Installation) => void, errorCallback: (error: MobileMessagingError) => void): void;
+        getInstallation(
+            callback: (installation: Installation) => void,
+            errorCallback: (error: MobileMessagingError) => void,
+        ): void;
 
         /**
          * Sets any installation as primary for this user.
@@ -285,10 +290,12 @@ declare namespace MobileMessagingCordova {
          * @param callback will be called on success
          * @param errorCallback will be called on error
          */
-        setInstallationAsPrimary(pushRegistrationId: string,
-                                 primary: boolean,
-                                 callback: (installation: Installation) => void,
-                                 errorCallback: (error: MobileMessagingError) => void): void;
+        setInstallationAsPrimary(
+            pushRegistrationId: string,
+            primary: boolean,
+            callback: (installation: Installation) => void,
+            errorCallback: (error: MobileMessagingError) => void,
+        ): void;
 
         /**
          * Performs personalization of the current installation on the platform.
@@ -297,9 +304,11 @@ declare namespace MobileMessagingCordova {
          * @param callback will be called on success
          * @param errorCallback will be called on error
          */
-        personalize(context: PersonalizeContext,
-                    callback: (personalizeContext: PersonalizeContext) => void,
-                    errorCallback: (error: MobileMessagingError) => void): void;
+        personalize(
+            context: PersonalizeContext,
+            callback: (personalizeContext: PersonalizeContext) => void,
+            errorCallback: (error: MobileMessagingError) => void,
+        ): void;
 
         /**
          * Performs depersonalization of the current installation on the platform.
@@ -307,8 +316,10 @@ declare namespace MobileMessagingCordova {
          * @param callback will be called on success
          * @param errorCallback will be called on error
          */
-        depersonalize(callback: (personalizeContext: PersonalizeContext) => void,
-                      errorCallback: (error: MobileMessagingError) => void): void;
+        depersonalize(
+            callback: (personalizeContext: PersonalizeContext) => void,
+            errorCallback: (error: MobileMessagingError) => void,
+        ): void;
 
         /**
          * Performs depersonalization of the installation referenced by pushRegistrationId.
@@ -317,9 +328,11 @@ declare namespace MobileMessagingCordova {
          * @param callback will be called on success
          * @param errorCallback will be called on error
          */
-        depersonalizeInstallation(pushRegistrationId: string,
-                                  callback: (installation: Installation) => void,
-                                  errorCallback: (error: MobileMessagingError) => void): void;
+        depersonalizeInstallation(
+            pushRegistrationId: string,
+            callback: (installation: Installation) => void,
+            errorCallback: (error: MobileMessagingError) => void,
+        ): void;
 
         /**
          * Mark messages as seen
@@ -328,9 +341,11 @@ declare namespace MobileMessagingCordova {
          * @param callback will be called upon completion
          * @param errorCallback will be called on error
          */
-        markMessagesSeen(messageIds: string[],
-                         callback: (messages: Message[]) => void,
-                         errorCallback: (error: MobileMessagingError) => void): void;
+        markMessagesSeen(
+            messageIds: string[],
+            callback: (messages: Message[]) => void,
+            errorCallback: (error: MobileMessagingError) => void,
+        ): void;
 
         /**
          * Displays built-in error dialog so that user can resolve errors during sdk initialization.
@@ -339,9 +354,11 @@ declare namespace MobileMessagingCordova {
          * @param callback will be called upon completion
          * @param errorCallback will be called on error
          */
-        showDialogForError(errorCode: number,
-                           callback: () => void,
-                           errorCallback: (error: MobileMessagingError) => void): void;
+        showDialogForError(
+            errorCode: number,
+            callback: () => void,
+            errorCallback: (error: MobileMessagingError) => void,
+        ): void;
 
         defaultMessageStorage(): DefaultMessageStorage | undefined;
 

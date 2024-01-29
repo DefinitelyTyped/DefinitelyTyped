@@ -8,10 +8,10 @@ serialize(form, false); // $ExpectType string
 serialize(form); // $ExpectType string
 
 interface CustomResult {
-  foo: string;
+    foo: string;
 }
 
 // $ExpectType CustomResult
 serialize(form, {
-  serializer: (): CustomResult => ({ foo: "bar" })
+    serializer: (): CustomResult => ({ foo: "bar" }),
 });

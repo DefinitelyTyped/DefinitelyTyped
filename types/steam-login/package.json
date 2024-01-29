@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/steam-login",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/cpancake/steam-login"
+    ],
+    "dependencies": {
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/express-session": "*",
+        "@types/steam-login": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nick Winans",
+            "githubUsername": "Nicell"
+        }
+    ]
+}

@@ -1,9 +1,3 @@
-// Type definitions for to-regex 3.0
-// Project: https://github.com/jonschlinkert/to-regex
-// Definitions by: Rauli Laine <https://github.com/RauliL>
-//                 Anatoly Pitikin <https://github.com/xapdkop>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace toRegex {
     interface Options {
         /**
@@ -56,6 +50,6 @@ declare namespace toRegex {
 /**
  * Create a regular expression from the given `patterns` string.
  */
-declare function toRegex(patterns: string | ReadonlyArray<string> | RegExp, options?: toRegex.Options): RegExp;
+declare function toRegex(patterns: string | readonly string[] | RegExp, options?: toRegex.Options): RegExp;
 
 export = toRegex;

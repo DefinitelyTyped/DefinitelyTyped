@@ -1,11 +1,6 @@
-// Type definitions for fluxible 1.4
-// Project: https://fluxible.io/
-// Definitions by: xbim <https://github.com/xbim>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.5
 /// <reference types="node" />
-import { Dispatcher, DispatcherInterface, StoreClass } from 'dispatchr';
-import BaseStore = require('./addons/BaseStore');
+import { Dispatcher, DispatcherInterface, StoreClass } from "dispatchr";
+import BaseStore = require("./addons/BaseStore");
 
 export interface FluxibleConfiguration {
     /**
@@ -140,7 +135,7 @@ export class FluxibleContext {
     /**
      * Getter for store from dispatcher
      */
-    getStore<T extends BaseStore>(store: { new(dispatcher: DispatcherInterface): T; }): T;
+    getStore<T extends BaseStore>(store: { new(dispatcher: DispatcherInterface): T }): T;
 }
 
 export class ActionContext {
@@ -157,12 +152,16 @@ export class ActionContext {
      * @param payload
      * @param callback
      */
-    executeAction(action: (context: ActionContext, params: object, callback?: () => void) => void, payload?: any, callback?: any): void;
+    executeAction(
+        action: (context: ActionContext, params: object, callback?: () => void) => void,
+        payload?: any,
+        callback?: any,
+    ): void;
 
     /**
      * Getter for store from dispatcher
      */
-    getStore<T extends BaseStore>(store: { new(dispatcher: DispatcherInterface): T; }): T;
+    getStore<T extends BaseStore>(store: { new(dispatcher: DispatcherInterface): T }): T;
 
     /**
      * Data service. available only if fetch plugin is added
@@ -184,7 +183,6 @@ export class ActionContext {
          */
         create: (resource: string, params: any, body: any, callback: (error: Error, data: any) => void) => void;
         /**
-         *
          * @param resource name of resourse
          * @param params query string parameters as key-value object
          * @param body json request body
@@ -192,7 +190,6 @@ export class ActionContext {
          */
         update: (resource: string, params: any, body: any, callback: (error: Error, data: any) => void) => void;
         /**
-         *
          * @param resource name of resourse
          * @param params query string parameters as key-value object
          * @param callback
@@ -213,7 +210,7 @@ export class ComponentContext {
     /**
      * Getter for store from dispatcher
      */
-    getStore<T extends BaseStore>(store: { new(dispatcher: DispatcherInterface): T; }): T;
+    getStore<T extends BaseStore>(store: { new(dispatcher: DispatcherInterface): T }): T;
 }
 
 export class StoreContext {

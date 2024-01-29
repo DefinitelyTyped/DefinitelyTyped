@@ -1,2 +1,2 @@
-import { and } from '../index';
+import { and } from "../index.js";
 export default and;

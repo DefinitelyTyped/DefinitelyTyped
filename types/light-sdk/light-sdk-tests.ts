@@ -1,4 +1,4 @@
-import LightSDK = require('light-sdk');
+import LightSDK = require("light-sdk");
 
 interface Options {
     cid: string;

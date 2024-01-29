@@ -1,6 +1,6 @@
-import * as React from 'react';
+import * as React from "react";
 
-import ReactEmbedGist from 'react-embed-gist';
+import ReactEmbedGist from "react-embed-gist";
 
 <ReactEmbedGist gist="username/gist-id" />;
 
@@ -16,7 +16,9 @@ import ReactEmbedGist from 'react-embed-gist';
 
 <ReactEmbedGist
     gist="username/gist-id"
-    wrapperClass={1} // $ExpectError
+    // @ts-expect-error
+    wrapperClass={1}
 />;
 
-<ReactEmbedGist gist="error" />; // $ExpectError
+// @ts-expect-error
+<ReactEmbedGist gist="error" />;

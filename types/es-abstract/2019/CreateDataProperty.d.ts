@@ -1,2 +1,2 @@
-import CreateDataProperty = require('../2018/CreateDataProperty');
+import CreateDataProperty = require("../2018/CreateDataProperty");
 export = CreateDataProperty;

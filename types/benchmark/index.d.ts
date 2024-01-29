@@ -1,11 +1,3 @@
-// Type definitions for Benchmark v2.1.4
-// Project: https://benchmarkjs.com
-// Definitions by: Asana <https://asana.com>
-//                 Charlie Fish <https://github.com/fishcharlie>
-//                 Blair Zajac <https://github.com/blair>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
 declare class Benchmark {
     static filter<T>(arr: T[], callback: (value: T) => any, thisArg?: any): T[];
     static filter<T>(arr: T[], filter: string, thisArg?: any): T[];
@@ -33,7 +25,7 @@ declare class Benchmark {
     constructor(options: Benchmark.Options);
 
     id: number;
-    name: string;
+    name?: string;
     count: number;
     cycles: number;
     hz: number;
@@ -168,10 +160,12 @@ declare namespace Benchmark {
         static options: { name: string };
 
         constructor(name?: string, options?: Options);
+        constructor(options?: Options);
 
         length: number;
         aborted: boolean;
         running: boolean;
+        name?: string;
 
         abort(): Suite;
         add(name: string, fn: Function | string, options?: Options): Suite;

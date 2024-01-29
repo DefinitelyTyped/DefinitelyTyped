@@ -1,6 +1,6 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { Tiles } from '@rebass/layout';
+import { Tiles } from "@rebass/layout";
 
 export default () => (
     <>

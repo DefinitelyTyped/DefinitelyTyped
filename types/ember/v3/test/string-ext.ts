@@ -1,29 +1,36 @@
-import Ember from 'ember';
+import Ember from "ember";
 
 declare global {
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface String extends Ember.StringPrototypeExtensions {}
 }
 
-''.dasherize('foo'); // $ExpectError
-''.dasherize(); // $ExpectType string
+// @ts-expect-error
+"".dasherize("foo");
+"".dasherize(); // $ExpectType string
 
-''.camelize(); // $ExpectType string
-''.camelize('blue man group'); // $ExpectError
+"".camelize(); // $ExpectType string
+// @ts-expect-error
+"".camelize("blue man group");
 
-''.decamelize(); // $ExpectType string
-''.decamelize('blue man group'); // $ExpectError
+"".decamelize(); // $ExpectType string
+// @ts-expect-error
+"".decamelize("blue man group");
 
-''.underscore(); // $ExpectType string
-''.underscore('blue man group'); // $ExpectError
+"".underscore(); // $ExpectType string
+// @ts-expect-error
+"".underscore("blue man group");
 
-''.w(); // $ExpectType string[]
+"".w(); // $ExpectType string[]
 
-''.classify(); // $ExpectType string
-''.classify('blue man group'); // $ExpectError
+"".classify(); // $ExpectType string
+// @ts-expect-error
+"".classify("blue man group");
 
-''.capitalize(); // $ExpectType string
-''.capitalize('blue man group'); // $ExpectError
+"".capitalize(); // $ExpectType string
+// @ts-expect-error
+"".capitalize("blue man group");
 
-''.loc(); // $ExpectType string
-''.loc('_Hello World'); // $ExpectError
+"".loc(); // $ExpectType string
+// @ts-expect-error
+"".loc("_Hello World");

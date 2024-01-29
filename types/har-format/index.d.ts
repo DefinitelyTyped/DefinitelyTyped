@@ -1,9 +1,3 @@
-// Type definitions for non-npm package HAR 1.2
-// Project: https://w3c.github.io/web-performance/specs/HAR/Overview.html
-// Definitions by: Michael Mrowetz <https://github.com/micmro>
-//                 Marcell Toth <https://github.com/marcelltoth>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * HTTP Archive 1.2
  *
@@ -233,7 +227,7 @@ export interface Page {
     /** _non-standard_  */
     _score_gzip?: number | null | undefined;
     /** _non-standard_  */
-    '_score_keep-alive'?: number | null | undefined;
+    "_score_keep-alive"?: number | null | undefined;
     /** _non-standard_  */
     _score_minify?: number | null | undefined;
     /** _non-standard_  */
@@ -403,6 +397,8 @@ export interface Entry {
     /** _non-standard_  */
     _expires?: string | null | undefined;
     /** _non-standard_  */
+    _fromCache?: "memory" | "disk" | null | undefined;
+    /** _non-standard_  */
     _full_url?: string | null | undefined;
     /** _non-standard_  */
     _gzip_save?: number | string | null | undefined;
@@ -467,6 +463,33 @@ export interface Entry {
     /** _non-standard_  */
     _request_id?: number | string | null | undefined;
     /** _non-standard_  */
+    _resourceType?:
+        | "document"
+        | "stylesheet"
+        | "image"
+        | "media"
+        | "font"
+        | "script"
+        | "texttrack"
+        | "xhr"
+        | "fetch"
+        | "prefetch"
+        | "eventsource"
+        | "websocket"
+        | "webtransport"
+        | "wasm"
+        | "manifest"
+        | "signed-exchange"
+        | "ping"
+        | "csp-violation-report"
+        | "other"
+        | "preflight"
+        | "sm-script"
+        | "sm-stylesheet"
+        | "webbundle"
+        | null
+        | undefined;
+    /** _non-standard_  */
     _responseCode?: number | string | null | undefined;
     /** _non-standard_  */
     _score_cache?: number | string | null | undefined;
@@ -483,7 +506,7 @@ export interface Entry {
     /** _non-standard_  */
     _score_gzip?: number | string | null | undefined;
     /** _non-standard_  */
-    '_score_keep-alive'?: number | string | null | undefined;
+    "_score_keep-alive"?: number | string | null | undefined;
     /** _non-standard_  */
     _score_minify?: number | string | null | undefined;
     /** _non-standard_  */
@@ -518,6 +541,16 @@ export interface Entry {
     _renderBlocking?: string | null | undefined;
     /** _non-standard_  */
     _isLCP?: boolean | null | undefined;
+    /** _non-standard_  */
+    _webSocketMessages?:
+        | Array<{
+            type: "send" | "receive";
+            time: number;
+            opcode: number;
+            data: string;
+        }>
+        | null
+        | undefined;
     /**
      * _non-standard_
      *

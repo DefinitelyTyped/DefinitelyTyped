@@ -1,5 +1,5 @@
-import { GoogleLogin, GoogleLoginInfo } from "react-google-login-component";
 import * as React from "react";
+import { GoogleLogin, GoogleLoginInfo } from "react-google-login-component";
 
 const handler = (response: GoogleLoginInfo) => {
     console.log(response.getAuthResponse().access_token);

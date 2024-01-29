@@ -1,12 +1,12 @@
-import matchAll = require('string.prototype.matchall');
+import matchAll = require("string.prototype.matchall");
 
-const str = 'aabc';
-const nonRegexStr = 'ab';
+const str = "aabc";
+const nonRegexStr = "ab";
 const globalRegex = /[ac]/g;
 
-matchAll(str, nonRegexStr); // $ExpectType IterableIterator<RegExpMatchArray>
-matchAll(str, new RegExp(nonRegexStr, 'g')); // $ExpectType IterableIterator<RegExpMatchArray>
-matchAll(str, globalRegex); // $ExpectType IterableIterator<RegExpMatchArray>
+matchAll(str, nonRegexStr); // $ExpectType IterableIterator<RegExpExecArray>
+matchAll(str, new RegExp(nonRegexStr, "g")); // $ExpectType IterableIterator<RegExpExecArray>
+matchAll(str, globalRegex); // $ExpectType IterableIterator<RegExpExecArray>
 matchAll.shim(); // $ExpectType void
-str.matchAll(globalRegex); // $ExpectType IterableIterator<RegExpMatchArray>
-str.matchAll(new RegExp(nonRegexStr, 'g')); // $ExpectType IterableIterator<RegExpMatchArray>
+str.matchAll(globalRegex); // $ExpectType IterableIterator<RegExpExecArray>
+str.matchAll(new RegExp(nonRegexStr, "g")); // $ExpectType IterableIterator<RegExpExecArray>

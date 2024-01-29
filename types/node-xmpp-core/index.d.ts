@@ -1,14 +1,9 @@
-// Type definitions for node-xmpp-core 5.0
-// Project: https://github.com/node-xmpp/node-xmpp
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 /// <reference types="node" />
-import { Element } from 'ltx';
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
+import { Element } from "ltx";
 
 // fixme: not ideal
-export { createElement, Element, escapeXML, escapeXMLText } from 'ltx';
+export { createElement, Element, escapeXML, escapeXMLText } from "ltx";
 
 export class Connection extends EventEmitter {
     constructor(opts?: any);

@@ -1,4 +1,4 @@
-import * as lib from 'trusted-types/lib';
+import * as lib from "trusted-types/lib";
 
 // $ExpectType TrustedTypesWindow
 const ttWindow = window as lib.TrustedTypesWindow;
@@ -13,11 +13,11 @@ trustedHTML = libTrustedHTML;
 libTrustedHTML = trustedHTML;
 
 // Ensure that different types are not compatible
-// $ExpectError
+// @ts-expect-error
 trustedHTML = trustedScript;
-// $ExpectError
+// @ts-expect-error
 trustedHTML = libTrustedScript;
-// $ExpectError
+// @ts-expect-error
 libTrustedHTML = trustedScript;
-// $ExpectError
+// @ts-expect-error
 libTrustedHTML = libTrustedScript;

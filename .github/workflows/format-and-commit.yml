@@ -1,0 +1,55 @@
+name: Format And Commit
+
+concurrency:
+  group: ${{ github.ref }}
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch: ~
+
+jobs:
+  dprint-fmt:
+    runs-on: ubuntu-latest
+    if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          # Use the bot token so that CI triggers on pushes; we want to know if formatting broke something.
+          token: ${{ secrets.GH_DT_MERGEBOT_TOKEN }}
+      - uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # v4.0.1
+        with:
+          node-version: '20'
+
+      - uses: pnpm/action-setup@d882d12c64e032187b2edb46d3a0d003b7a43598 # v2.4.0
+        with:
+          run_install: |
+            - args: [--filter, ., --filter, '{./scripts}...']
+
+      - name: Get date
+        id: date
+        run: echo "date=$(/bin/date -u "+%Y-%m-%d")" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@13aacd865c20de90d75de3b17ebe84f7a17d57d2 # v4.0.0
+        with:
+          # dprint caches info about the files in the repo to skip formatting them.
+          # However, since package.json and .dprint.jsonc don't change very often,
+          # using them solely for the cache key would mean that the cache would be
+          # eventually outdated enough to make the cache useless. To avoid this,
+          # we also include the date in the cache key to ensure the cache is invalidated
+          # more often.
+          key: ${{ runner.os }}-dprint-${{ hashFiles('package.json', '.dprint.jsonc') }}-${{ steps.date.outputs.date }}
+          path: ~/.cache/dprint
+          restore-keys: |
+            ${{ runner.os }}-dprint-${{ hashFiles('package.json', '.dprint.jsonc') }}
+            ${{ runner.os }}-dprint-
+
+      - run: pnpm dprint fmt
+
+      - uses: stefanzweifel/git-auto-commit-action@8756aa072ef5b4a080af5dc8fef36c5d586e521d # v5.0.0
+        with:
+          commit_author: 'TypeScript Bot <typescriptbot@microsoft.com>'
+          commit_message: '🤖 dprint fmt'
+          commit_user_email: 'typescriptbot@microsoft.com'
+          commit_user_name: 'TypeScript Bot'

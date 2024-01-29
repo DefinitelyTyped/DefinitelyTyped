@@ -1,14 +1,8 @@
-// Type definitions for Loopback-boot 2.23
-// Project: https://github.com/strongloop/loopback-boot
-// Definitions by: Andres D Jimenez <https://github.com/kattsushi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /************************************************
-*                                               *
-*               LoopBack-Boot v2.x API          *
-*                                               *
-************************************************/
+ *                                               *
+ *               LoopBack-Boot v2.x API          *
+ *                                               *
+ ************************************************/
 
 import * as loopback from "loopback";
 
@@ -83,122 +77,126 @@ import * as loopback from "loopback";
  * @param options Boot options; If String, this is the application root directory; if object, has below properties.
  */
 
-declare function lb(app: loopback.LoopBackApplication, options: string|OptionsLB, callback?: (err: Error) => void): void;
+declare function lb(
+    app: loopback.LoopBackApplication,
+    options: string | OptionsLB,
+    callback?: (err: Error) => void,
+): void;
 
 interface OptionsLB {
-            /**
-             * Directory to use when loading JSON and JavaScript files.
-             * Defaults to the current directory (process.cwd()).
-             */
-            appRootDir: string;
+    /**
+     * Directory to use when loading JSON and JavaScript files.
+     * Defaults to the current directory (process.cwd()).
+     */
+    appRootDir: string;
 
-            /**
-             * Directory to use when loading config.json. Defaults to appRootDir.
-             */
-            appConfigRootDir: string;
+    /**
+     * Directory to use when loading config.json. Defaults to appRootDir.
+     */
+    appConfigRootDir: string;
 
-            /**
-             * Object containing Model configurations.
-             */
-            models: any;
+    /**
+     * Object containing Model configurations.
+     */
+    models: any;
 
-            /**
-             * List of model definitions to use. When options.modelDefinitions is provided,
-             * loopback-boot does not search filesystem and use only the models provided in this argument.
-             */
-            modelDefinitions: any[];
+    /**
+     * List of model definitions to use. When options.modelDefinitions is provided,
+     * loopback-boot does not search filesystem and use only the models provided in this argument.
+     */
+    modelDefinitions: any[];
 
-            /**
-             * Object containing DataSource definitions.
-             */
-            dataSources: any;
+    /**
+     * Object containing DataSource definitions.
+     */
+    dataSources: any;
 
-            /**
-             * Directory to use when loading model-config.json. Defaults to appRootDir.
-             */
-            modelsRootDir: string;
+    /**
+     * Directory to use when loading model-config.json. Defaults to appRootDir.
+     */
+    modelsRootDir: string;
 
-            /**
-             * Directory to use when loading datasources.json. Defaults to appRootDir.
-             */
-            dsRootDir: string;
+    /**
+     * Directory to use when loading datasources.json. Defaults to appRootDir.
+     */
+    dsRootDir: string;
 
-            /**
-             * Directory to use when loading middleware.json. Defaults to appRootDir.
-             */
-            middlewareRootDir: string;
+    /**
+     * Directory to use when loading middleware.json. Defaults to appRootDir.
+     */
+    middlewareRootDir: string;
 
-            /**
-             * Directory to use when loading component-config.json. Defaults to appRootDir.
-             */
-            componentRootDir: string;
+    /**
+     * Directory to use when loading component-config.json. Defaults to appRootDir.
+     */
+    componentRootDir: string;
 
-            /**
-             * Environment type, defaults to process.env.NODE_ENV or development.
-             * Common values are development, staging and production;
-             * however the applications are free to use any names.
-             */
-            env: string;
+    /**
+     * Environment type, defaults to process.env.NODE_ENV or development.
+     * Common values are development, staging and production;
+     * however the applications are free to use any names.
+     */
+    env: string;
 
-            /**
-             * List of directories where to look for files containing model definitions.
-             */
-            modelSources: string[];
+    /**
+     * List of directories where to look for files containing model definitions.
+     */
+    modelSources: string[];
 
-            /**
-             * Middleware configuration to use instead of {appRootDir}/middleware.json
-             */
-            middleware: any;
+    /**
+     * Middleware configuration to use instead of {appRootDir}/middleware.json
+     */
+    middleware: any;
 
-            /**
-             * Component configuration to use instead of {appRootDir}/component-config.json
-             */
-            components: any;
+    /**
+     * Component configuration to use instead of {appRootDir}/component-config.json
+     */
+    components: any;
 
-            /**
-             * List of directories where to look for files containing model mixin definitions.
-             * All files (mixins) found in these directory are loaded.
-             */
-            mixinDirs: string[];
+    /**
+     * List of directories where to look for files containing model mixin definitions.
+     * All files (mixins) found in these directory are loaded.
+     */
+    mixinDirs: string[];
 
-            /**
-             * List of directories where to look for files containing model mixin definitions.
-             *  Only mixins used by application models are loaded from these directories.
-             */
-            mixinSources: string[];
+    /**
+     * List of directories where to look for files containing model mixin definitions.
+     *  Only mixins used by application models are loaded from these directories.
+     */
+    mixinSources: string[];
 
-            /**
-             * List of directories where to look for boot scripts.
-             */
-            bootDirs: string[];
+    /**
+     * List of directories where to look for boot scripts.
+     */
+    bootDirs: string[];
 
-            /**
-             * List of script files to execute on boot.
-             */
-            bootScripts: string[];
+    /**
+     * List of script files to execute on boot.
+     */
+    bootScripts: string[];
 
-            /**
-             * Mixin normalization format: false, 'none', 'classify', 'dasherize' - defaults to 'classify'.
-             */
-            normalization: string|boolean|any;
+    /**
+     * Mixin normalization format: false, 'none', 'classify', 'dasherize' - defaults to 'classify'.
+     */
+    normalization: string | boolean | any;
 }
 
 declare namespace lb {
-      /**
-       * compileToBrowserify
-       *
-       * Compile boot instructions and add them to a browserify bundler.
-       * @param options as described in bootLoopBackApp above.
-       * @param bundler A browserify bundler created by browserify().
-       */
-      class compileToBrowserify {
-            /**
-             * Application identifier used to load the correct boot configuration when
-             * building multiple applications using browserify.
-             */
-            appId: string;
-            constructor(options: string|any, bundler: any);
-      }
+    /**
+     * compileToBrowserify
+     *
+     * Compile boot instructions and add them to a browserify bundler.
+     * @param options as described in bootLoopBackApp above.
+     * @param bundler A browserify bundler created by browserify().
+     */
+    class compileToBrowserify {
+        /**
+         * Application identifier used to load the correct boot configuration when
+         * building multiple applications using browserify.
+         */
+        appId: string;
+        constructor(options: string | any, bundler: any);
+    }
 }
 
 export = lb;

@@ -8,16 +8,13 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "fs-extra-tests.ts"
+        "test/fs-extra-tests.ts",
+        "test/fs-extra-tests-module.ts"
     ]
 }

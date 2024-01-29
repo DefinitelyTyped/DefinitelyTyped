@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/connect-history-api-fallback",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/bripkens/connect-history-api-fallback#readme"
+    ],
+    "dependencies": {
+        "@types/express-serve-static-core": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/connect-history-api-fallback": "workspace:.",
+        "@types/express": "*"
+    },
+    "owners": [
+        {
+            "name": "Douglas Duteil",
+            "githubUsername": "douglasduteil"
+        }
+    ]
+}

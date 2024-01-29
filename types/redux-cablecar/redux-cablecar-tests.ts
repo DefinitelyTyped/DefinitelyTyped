@@ -1,18 +1,18 @@
-import cablecar, { Options } from 'redux-cablecar';
-import { applyMiddleware, createStore } from 'redux';
+import { applyMiddleware, createStore } from "redux";
+import cablecar, { Options } from "redux-cablecar";
 
 const store = createStore(() => null, applyMiddleware(cablecar));
 
-cablecar.setProvider('testProvider');
+cablecar.setProvider("testProvider");
 
-const car = cablecar.connect(store, 'testChannel');
+const car = cablecar.connect(store, "testChannel");
 
 const options: Options = {
-    connected: () => { },
-    prefix: 'ASDF'
+    connected: () => {},
+    prefix: "ASDF",
 };
 
-const anotherCar = cablecar.connect(store, 'secondeTestChannel', options);
+const anotherCar = cablecar.connect(store, "secondeTestChannel", options);
 
-car.perform('activate', { data: 'something' });
-anotherCar.send('noice_action');
+car.perform("activate", { data: "something" });
+anotherCar.send("noice_action");

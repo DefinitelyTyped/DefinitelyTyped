@@ -8,18 +8,6 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
-         "paths": {
-            "tapable": [
-                "./node_modules/tapable"
-            ],
-            "webpack": [
-                "./node_modules/webpack"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

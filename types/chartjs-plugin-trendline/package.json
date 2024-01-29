@@ -1,6 +1,20 @@
 {
     "private": true,
+    "name": "@types/chartjs-plugin-trendline",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/Makanz/chartjs-plugin-trendline"
+    ],
     "dependencies": {
         "chart.js": "^3.7.1"
-    }
+    },
+    "devDependencies": {
+        "@types/chartjs-plugin-trendline": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ferotiq",
+            "githubUsername": "Ferotiq"
+        }
+    ]
 }

@@ -1,21 +1,13 @@
-/// <reference types="node" />
+import { layouts, svgArray } from "@mapbox/maki";
 
-import maki = require('@mapbox/maki');
-import { IconName, SvgContent } from '@mapbox/maki';
-import fs = require('fs');
+layouts; // $ExpectType string[]
+svgArray; // $ExpectType string[]
 
-maki.layouts; // $ExpectType string[]
-maki.svgArray; // $ExpectType string[]
-
-// api usage
-
-const files: string[] = [];
-
-files.forEach(fileName => {
-    maki.layouts.forEach((icon: IconName) => {
-        fs.readFile(`${__dirname}/icons/${icon}-11.svg`, 'utf8', (err, file) => {
-            console.log(file);
-        });
-    });
-    maki.svgArray.forEach((svg: SvgContent) => console.log(svg));
+layouts.forEach(icon => {
+    // $ExpectType string
+    icon;
+});
+svgArray.forEach(svg => {
+    // $ExpectType string
+    svg;
 });

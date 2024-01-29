@@ -1,20 +1,10 @@
-// Type definitions for js-yaml 4.0
-// Project: https://github.com/nodeca/js-yaml
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-//                 Sebastian Clausen <https://github.com/sclausen>
-//                 ExE Boss <https://github.com/ExE-Boss>
-//                 Armaan Tobaccowalla <https://github.com/ArmaanT>
-//                 Linus Unnebäck <https://github.com/LinusU>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export as namespace jsyaml;
 
 export function load(str: string, opts?: LoadOptions): unknown;
 
 export class Type {
     constructor(tag: string, opts?: TypeConstructorOptions);
-    kind: 'sequence' | 'scalar' | 'mapping' | null;
+    kind: "sequence" | "scalar" | "mapping" | null;
     resolve(data: any): boolean;
     construct(data: any, type?: string): any;
     instanceOf: object | null;
@@ -49,7 +39,7 @@ export interface LoadOptions {
     listener?(this: State, eventType: EventType, state: State): void;
 }
 
-export type EventType = 'open' | 'close';
+export type EventType = "open" | "close";
 
 export interface State {
     input: string;
@@ -96,7 +86,7 @@ export interface DumpOptions {
      */
     condenseFlow?: boolean | undefined;
     /** strings will be quoted using this quoting style. If you specify single quotes, double quotes will still be used for non-printable characters. (default: `'`) */
-    quotingType?: "'" | '"' | undefined;
+    quotingType?: "'" | "\"" | undefined;
     /** if true, all non-key strings will be quoted even if they normally don't need to. (default: false) */
     forceQuotes?: boolean | undefined;
     /** callback `function (key, value)` called recursively on each key/value in source object (see `replacer` docs for `JSON.stringify`). */
@@ -104,7 +94,7 @@ export interface DumpOptions {
 }
 
 export interface TypeConstructorOptions {
-    kind?: 'sequence' | 'scalar' | 'mapping' | undefined;
+    kind?: "sequence" | "scalar" | "mapping" | undefined;
     resolve?: ((data: any) => boolean) | undefined;
     construct?: ((data: any, type?: string) => any) | undefined;
     instanceOf?: object | undefined;

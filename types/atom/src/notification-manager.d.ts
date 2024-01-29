@@ -1,4 +1,4 @@
-import { Disposable, ErrorNotificationOptions, Notification, NotificationOptions } from '../index';
+import { Disposable, ErrorNotificationOptions, Notification, NotificationOptions } from "../index";
 
 /** A notification manager used to create Notifications to be shown to the user. */
 export interface NotificationManager {
@@ -27,7 +27,7 @@ export interface NotificationManager {
 
     // Getting Notifications
     /** Get all the notifications. */
-    getNotifications(): ReadonlyArray<Notification>;
+    getNotifications(): readonly Notification[];
 
     // Managing Notifications
     /** Clear all the notifications. */

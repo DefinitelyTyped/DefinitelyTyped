@@ -1,12 +1,12 @@
-import inquirer = require('../..');
-import Prompt = require('./base');
-import { Interface as ReadLineInterface } from 'readline';
-import Paginator = require('../utils/paginator');
+import { Interface as ReadLineInterface } from "readline";
+import inquirer, { Answers, CheckboxQuestionOptions } from "../../index.js";
+import Paginator from "../utils/paginator.js";
+import Prompt from "./base.js";
 
 /**
- * The question-options for the `ChoicePrompt<T>`.
+ * The question-options for the {@link CheckboxPrompt `CheckboxPrompt<TQuestion>`}.
  */
-type Question = inquirer.CheckboxQuestionOptions<inquirer.Answers>;
+type Question = CheckboxQuestionOptions;
 
 /**
  * Represents a prompt which provides a set of choices to check.
@@ -26,7 +26,7 @@ declare class CheckboxPrompt<TQuestion extends Question = Question> extends Prom
     protected paginator: Paginator;
 
     /**
-     * Initializes a new instance of the `CheckboxPrompt<T>` class.
+     * Initializes a new instance of the {@link CheckboxPrompt `CheckboxPrompt<TQuestion>`} class.
      *
      * @param question
      * The question to prompt the user to answer.
@@ -37,7 +37,7 @@ declare class CheckboxPrompt<TQuestion extends Question = Question> extends Prom
      * @param answers
      * The answer-object.
      */
-    constructor(question: TQuestion, readLine: ReadLineInterface, answers: inquirer.Answers);
+    constructor(question: TQuestion, readLine: ReadLineInterface, answers: Answers);
 
     /**
      * Renders the prompt.
@@ -113,4 +113,4 @@ declare class CheckboxPrompt<TQuestion extends Question = Question> extends Prom
     protected toggleChoice(index: number): void;
 }
 
-export = CheckboxPrompt;
+export default CheckboxPrompt;

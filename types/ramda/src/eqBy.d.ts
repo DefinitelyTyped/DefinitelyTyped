@@ -1,2 +1,2 @@
-import { eqBy } from '../index';
+import { eqBy } from "../index";
 export default eqBy;

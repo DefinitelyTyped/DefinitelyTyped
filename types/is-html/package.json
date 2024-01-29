@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/is-html",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/sindresorhus/is-html"
+    ],
+    "devDependencies": {
+        "@types/is-html": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Samuel Menigat",
+            "githubUsername": "smenigat"
+        }
+    ]
+}

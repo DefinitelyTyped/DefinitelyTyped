@@ -1,5 +1,3 @@
-
-
 // Don't use this as a reference. Use the examples at
 //   https://developers.google.com/google-apps/realtime/
 // To use the Realtime API effectively, I needed to read lots of the
@@ -7,10 +5,10 @@
 //   realtime-client-utils.js
 // which you can find in the tutorial section of the project's homepage.
 
-declare var $ : any;
+declare var $: any;
 interface JQuery {
     [key: string]: any;
-};
+}
 
 type CollabModel = gapi.drive.realtime.Model;
 type CollabDoc = gapi.drive.realtime.Document;
@@ -20,17 +18,12 @@ interface CollaborativeMap<T> extends gapi.drive.realtime.CollaborativeMap<T> {}
 interface IndexReference<T> extends gapi.drive.realtime.IndexReference<T> {}
 interface CollaborativeString extends gapi.drive.realtime.CollaborativeString {}
 
-type CListOfCObj = CollaborativeList<CollaborativeObject>
+type CListOfCObj = CollaborativeList<CollaborativeObject>;
 type CObjOrStr = CollaborativeObject | string;
 type CMapOfCObjOrStr = CollaborativeMap<CObjOrStr>;
 
-
 namespace GRealtime {
-
-
-
-
-    var default_loader_options : rtclient.LoaderOptions = {
+    var default_loader_options: rtclient.LoaderOptions = {
         // Your Application ID from the Google APIs Console.
         appId: "YOUR_APP_ID",
 
@@ -38,17 +31,17 @@ namespace GRealtime {
         autoCreate: false,
 
         // Client ID from the console.
-        clientId: 'YOUR_CLIENT_ID.apps.googleusercontent.com',
+        clientId: "YOUR_CLIENT_ID.apps.googleusercontent.com",
 
         // The ID of the button to click to authorize. Must be a DOM element ID.
-        authButtonElementId: 'realtime-authorize-button',
+        authButtonElementId: "realtime-authorize-button",
 
         // The MIME type of newly created Drive Files. By default the application
         // specific MIME type will be used:
         // application/vnd.google-apps.drive-sdk.
-        //newFileMimeType: 'text/json',
-        newFileMimeType: 'text',
-        //newFileMimeType: null, // default
+        // newFileMimeType: 'text/json',
+        newFileMimeType: "text",
+        // newFileMimeType: null, // default
 
         // Function to be called to initialize custom Collaborative Objects types.
         registerTypes: null, // No action
@@ -56,23 +49,22 @@ namespace GRealtime {
         defaultTitle: "Default default-doc-title",
 
         // The rest are only defaults
-        afterAuth: function() : void {
-            console.log("default afterAuth called")
+        afterAuth: function(): void {
+            console.log("default afterAuth called");
         },
 
-        initializeModel: function(rtmodel:CollabModel) : void {
+        initializeModel: function(rtmodel: CollabModel): void {
             console.log("default initializeModel called");
         },
 
-        onFileLoaded : function(rtdoc:CollabDoc) : void {
+        onFileLoaded: function(rtdoc: CollabDoc): void {
             console.log("default onFileLoaded called");
-        }
-
+        },
     };
 
     export class MyRTLoader {
-        public loader_options : rtclient.LoaderOptions = $.extend({},default_loader_options);
-        private rtloader_client : rtclient.RealtimeLoader;
+        public loader_options: rtclient.LoaderOptions = $.extend({}, default_loader_options);
+        private rtloader_client: rtclient.RealtimeLoader;
 
         // call after setting loader_options appropriately
         authorize() {
@@ -80,50 +72,47 @@ namespace GRealtime {
             this.rtloader_client.start();
         }
 
-        createNew(title:string, callback: (file:any) => void) {
+        createNew(title: string, callback: (file: any) => void) {
             rtclient.createRealtimeFile(title, null, callback);
         }
 
-        loadAfterAuth(fileid:string) {
+        loadAfterAuth(fileid: string) {
             // use this as part of your afterAuth callback
             rtclient.params.fileIds = fileid;
             this.rtloader_client.load();
         }
     }
 
-    export class MyRealtimeDoc  {
+    export class MyRealtimeDoc {
         protected rtmodel: CollabModel;
         protected rtdoc: CollabDoc;
         private readonly myRTLoader = new GRealtime.MyRTLoader();
 
-        newFile(title: string,
-                initializeModel: (x:CollabModel) => void,
-                onFileLoaded: (x:CollabDoc) => void) : void {
-
+        newFile(title: string, initializeModel: (x: CollabModel) => void, onFileLoaded: (x: CollabDoc) => void): void {
             var _afterAuth = () => {
-                this.myRTLoader.createNew(title, (file:rtclient.DriveAPIFileResource) => {
+                this.myRTLoader.createNew(title, (file: rtclient.DriveAPIFileResource) => {
                     console.log(`\n\nThis is the createNew callback. New file's id: ${file.id}\n\n`);
                     $("#file-id-text-input").val(file.id);
-                    this.myRTLoader.loadAfterAuth(file.id)
-                })
-            }
+                    this.myRTLoader.loadAfterAuth(file.id);
+                });
+            };
 
-            var _initializeModel = (model:CollabModel) => {
+            var _initializeModel = (model: CollabModel) => {
                 console.log("\n\nRTModel initialized for NEW document.\n\n");
                 this.rtmodel = model;
-                if( initializeModel ) {
+                if (initializeModel) {
                     initializeModel(model);
                 }
-            }
+            };
 
-            var _onFileLoaded = (doc:CollabDoc) => {
+            var _onFileLoaded = (doc: CollabDoc) => {
                 console.log("\n\nNEW document loaded.\n\n");
                 this.rtmodel = doc.getModel();
                 this.rtdoc = doc;
-                if( onFileLoaded ) {
+                if (onFileLoaded) {
                     onFileLoaded(doc);
                 }
-            }
+            };
 
             this.myRTLoader.loader_options.onFileLoaded = _onFileLoaded;
             this.myRTLoader.loader_options.afterAuth = _afterAuth;
@@ -131,66 +120,69 @@ namespace GRealtime {
             this.myRTLoader.authorize();
         }
 
-        loadExisting(fileid: string,
-                     onFileLoaded: (doc:CollabDoc) => void) : void {
-
+        loadExisting(fileid: string, onFileLoaded: (doc: CollabDoc) => void): void {
             rtclient.params.fileIds = fileid;
 
-            var _onFileLoaded = (doc:CollabDoc) => {
+            var _onFileLoaded = (doc: CollabDoc) => {
                 console.log("\n\nEXISTING document loaded.\n\n");
                 this.rtdoc = doc;
                 this.rtmodel = doc.getModel();
-                if( onFileLoaded ) {
+                if (onFileLoaded) {
                     onFileLoaded(doc);
                 }
             };
 
             this.myRTLoader.loader_options.onFileLoaded = _onFileLoaded;
-            //this.myRTLoader.loader_options.afterAuth = ...
+            // this.myRTLoader.loader_options.afterAuth = ...
             this.myRTLoader.authorize();
         }
 
-        createString() : CollaborativeString { return this.rtmodel.createString(""); }
-
-        createList() : CollaborativeList<CollaborativeObject> { return this.rtmodel.createList<CollaborativeObject>(); }
-
-        createMap() : CollaborativeMap<CollaborativeObject> { return this.rtmodel.createMap<CollaborativeObject>(); }
-
-        addToPersistDocRoot(x:{pdata:any}, key:string) {
-            this.rtmodel.getRoot().set(key,x.pdata);
+        createString(): CollaborativeString {
+            return this.rtmodel.createString("");
         }
 
-        bindString(istring:CollaborativeString, $textinput: JQuery) : gapi.drive.realtime.databinding.Binding {
+        createList(): CollaborativeList<CollaborativeObject> {
+            return this.rtmodel.createList<CollaborativeObject>();
+        }
+
+        createMap(): CollaborativeMap<CollaborativeObject> {
+            return this.rtmodel.createMap<CollaborativeObject>();
+        }
+
+        addToPersistDocRoot(x: { pdata: any }, key: string) {
+            this.rtmodel.getRoot().set(key, x.pdata);
+        }
+
+        bindString(istring: CollaborativeString, $textinput: JQuery): gapi.drive.realtime.databinding.Binding {
             return gapi.drive.realtime.databinding.bindString(
-                <CollaborativeString>istring,
-                <HTMLInputElement>$textinput[0] );
+                <CollaborativeString> istring,
+                <HTMLInputElement> $textinput[0],
+            );
         }
-
-
     }
 
-        // alternative to RealtimePSDoc.bindString
+    // alternative to RealtimePSDoc.bindString
     function registerLocalStringChangeListener(
-                           x: CollaborativeString,
-                           listener_or_callback:  (e:Event) => void | EventListener)  : void {
+        x: CollaborativeString,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        listener_or_callback: (e: Event) => void | EventListener,
+    ): void {
         x.addEventListener(gapi.drive.realtime.EventType.TEXT_INSERTED, listener_or_callback);
         x.addEventListener(gapi.drive.realtime.EventType.TEXT_DELETED, listener_or_callback);
     }
-
 }
-
 
 // Next example from https://developers.google.com/google-apps/realtime/model-events
 
-declare var doc : CollabDoc;
-function displayObjectChangedEvent(evt:gapi.drive.realtime.ObjectChangedEvent) {
-  var events = evt.events;
-  var eventCount = evt.events.length;
-  for (var i = 0; i < eventCount; i++) {
-    console.log('Event type: '  + events[i].type);
-    console.log('Local event: ' + events[i].isLocal);
-    console.log('User ID: '     + events[i].userId);
-    console.log('Session ID: '  + events[i].sessionId);
-  }
+declare var doc: CollabDoc;
+function displayObjectChangedEvent(evt: gapi.drive.realtime.ObjectChangedEvent) {
+    var events = evt.events;
+    var eventCount = evt.events.length;
+    for (var i = 0; i < eventCount; i++) {
+        console.log("Event type: " + events[i].type);
+        console.log("Local event: " + events[i].isLocal);
+        console.log("User ID: " + events[i].userId);
+        console.log("Session ID: " + events[i].sessionId);
+    }
 }
 doc.getModel().getRoot().addEventListener(gapi.drive.realtime.EventType.OBJECT_CHANGED, displayObjectChangedEvent);

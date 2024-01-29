@@ -1,17 +1,17 @@
-// Type definitions for @apptimize/apptimize-web-sdk 1.2
-// Project: https://www.npmjs.com/package/@apptimize/apptimize-web-sdk
-// Definitions by: Vivint Team Innovation <https://github.com/innovation-team>
-//                 Robert Baxter <https://github.com/rlbaxter>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 interface Dictionary<T> {
     [key: string]: T;
 }
 
 // Named export this interface for use in setup method parameter
 export interface ConfigAttributes {
-    log_level?: 'LOG_LEVEL_VERBOSE' | 'LOG_LEVEL_DEBUG' | 'LOG_LEVEL_INFO' | 'LOG_LEVEL_WARN' | 'LOG_LEVEL_ERROR' | 'LOG_LEVEL_NONE' | undefined;
+    log_level?:
+        | "LOG_LEVEL_VERBOSE"
+        | "LOG_LEVEL_DEBUG"
+        | "LOG_LEVEL_INFO"
+        | "LOG_LEVEL_WARN"
+        | "LOG_LEVEL_ERROR"
+        | "LOG_LEVEL_NONE"
+        | undefined;
     result_post_delay_ms?: number | undefined;
 }
 

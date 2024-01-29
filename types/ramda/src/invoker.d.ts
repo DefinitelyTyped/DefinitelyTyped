@@ -1,2 +1,2 @@
-import { invoker } from '../index';
+import { invoker } from "../index";
 export default invoker;

@@ -1,33 +1,25 @@
-// Type definitions for trusted-types 2.0
-// Project: https://github.com/WICG/trusted-types
-// Definitions by: Jakub Vrana <https://github.com/vrana>
-//                 Damien Engels <https://github.com/engelsdamien>
-//                 Emanuel Tesar <https://github.com/siegrift>
-//                 Bjarki <https://github.com/bjarkler>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
-import * as lib from './lib';
+import * as lib from "./lib";
 
 // Re-export the type definitions globally.
 declare global {
-    const TrustedHTML: typeof lib.TrustedHTML;
-    type TrustedHTML = lib.TrustedHTML;
-    const TrustedScript: typeof lib.TrustedScript;
-    type TrustedScript = lib.TrustedScript;
-    const TrustedScriptURL: typeof lib.TrustedScriptURL;
-    type TrustedScriptURL = lib.TrustedScriptURL;
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface -- interface to allow module augmentation
+    interface TrustedHTML extends lib.TrustedHTML {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface -- interface to allow module augmentation
+    interface TrustedScript extends lib.TrustedScript {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface -- interface to allow module augmentation
+    interface TrustedScriptURL extends lib.TrustedScriptURL {}
 
-    const TrustedTypePolicy: typeof lib.TrustedTypePolicy;
-    type TrustedTypePolicy = lib.TrustedTypePolicy;
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface -- interface to allow module augmentation
+    interface TrustedTypePolicy extends lib.TrustedTypePolicy {}
 
-    const TrustedTypePolicyFactory: typeof lib.TrustedTypePolicyFactory;
-    type TrustedTypePolicyFactory = lib.TrustedTypePolicyFactory;
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface -- interface to allow module augmentation
+    interface TrustedTypePolicyFactory extends lib.TrustedTypePolicyFactory {}
 
-    type TrustedTypePolicyOptions = lib.TrustedTypePolicyOptions;
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface -- interface to allow module augmentation
+    interface TrustedTypePolicyOptions extends lib.TrustedTypePolicyOptions {}
 
     // Attach the relevant Trusted Types properties to the Window object.
-    // tslint:disable-next-line no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface -- interface to allow module augmentation
     interface Window extends lib.TrustedTypesWindow {}
 }
 
@@ -58,4 +50,4 @@ declare class TrustedTypeConfig {
     );
 }
 
-export { trustedTypes, TrustedTypesEnforcer, TrustedTypeConfig, TrustedTypePolicy, TrustedTypePolicyFactory };
+export { TrustedTypeConfig, TrustedTypePolicy, TrustedTypePolicyFactory, trustedTypes, TrustedTypesEnforcer };

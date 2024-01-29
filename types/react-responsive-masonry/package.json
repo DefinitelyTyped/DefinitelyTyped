@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-responsive-masonry",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/cedricdelpoux/react-responsive-masonry#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-responsive-masonry": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "themashcodee",
+            "githubUsername": "themashcodee"
+        }
+    ]
+}

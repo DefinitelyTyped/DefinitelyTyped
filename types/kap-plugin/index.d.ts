@@ -1,14 +1,8 @@
-// Type definitions for kap-plugin 1.0
-// Project: https://github.com/wulkano/kap/blob/master/docs/plugins.md
-// Definitions by: Connor Peet <https://github.com/connor4312>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
+import * as ElectronStore from "electron-store";
+import * as got from "got";
+import { JSONSchema7 } from "json-schema";
 
-import * as got from 'got';
-import * as ElectronStore from 'electron-store';
-import { JSONSchema7 } from 'json-schema';
-
-export interface KapContext<T> {
+export interface KapContext<T extends Record<string, any>> {
     /**
      * The file format the user chose in the editor window
      */
@@ -84,15 +78,15 @@ export interface KapContext<T> {
     waitForDeepLink(): Promise<string>;
 }
 
-export type Format = 'gif' | 'mp4' | 'webm' | 'apng';
+export type Format = "gif" | "mp4" | "webm" | "apng";
 
 // TS-3.4 compatible Omit<>:
-export type ConfigSchema<TValue> = Pick<JSONSchema7, Exclude<keyof JSONSchema7, 'required' | 'default'>> & {
+export type ConfigSchema<TValue> = Pick<JSONSchema7, Exclude<keyof JSONSchema7, "required" | "default">> & {
     required?: boolean | undefined;
     default?: TValue | undefined;
 };
 
-export interface KapShareService<T = unknown> {
+export interface KapShareService<T extends Record<string, any> = Record<string, any>> {
     /**
      * The function that is run when the user clicks the menu item.
      */
@@ -108,7 +102,7 @@ export interface KapShareService<T = unknown> {
     /**
      * The file formats you support.
      */
-    formats: ReadonlyArray<Format>;
+    formats: readonly Format[];
 
     /**
      * A description displayed at the top of the configuration window. You can

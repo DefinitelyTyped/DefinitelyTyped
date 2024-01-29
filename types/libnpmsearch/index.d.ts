@@ -1,18 +1,15 @@
-// Type definitions for libnpmsearch 2.0
-// Project: https://npmjs.com/package/libnpmsearch
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="node" />
 
-import npmFetch = require('npm-registry-fetch');
+import npmFetch = require("npm-registry-fetch");
 
-declare function search(query: string | ReadonlyArray<string>, opts: search.Options & { detailed: true }): Promise<search.DetailedResult[]>;
-declare function search(query: string | ReadonlyArray<string>, opts?: search.Options): Promise<search.Result[]>;
+declare function search(
+    query: string | readonly string[],
+    opts: search.Options & { detailed: true },
+): Promise<search.DetailedResult[]>;
+declare function search(query: string | readonly string[], opts?: search.Options): Promise<search.Result[]>;
 
 declare namespace search {
-    function stream(query: string | ReadonlyArray<string>, opts?: Options): NodeJS.ReadWriteStream;
+    function stream(query: string | readonly string[], opts?: Options): NodeJS.ReadWriteStream;
 
     interface Maintainer {
         username: string;
@@ -66,7 +63,7 @@ declare namespace search {
          * Used as a shorthand to set `opts.quality`, `opts.maintenance`, and
          * `opts.popularity` with values that prioritize each one.
          */
-        sortBy?: 'optimal' | 'quality' | 'maintenance' | 'popularity' | undefined;
+        sortBy?: "optimal" | "quality" | "maintenance" | "popularity" | undefined;
         /**
          * Decimal number between `0` and `1` that defines the weight of
          * `maintenance` metrics when scoring and sorting packages.

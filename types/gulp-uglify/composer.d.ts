@@ -1,5 +1,5 @@
-import * as UglifyJS from 'uglify-js';
-import GulpUglify = require('.');
+import * as UglifyJS from "uglify-js";
+import GulpUglify = require(".");
 
 interface Composer {
     (uglify: Uglify, log: Logger): typeof GulpUglify;

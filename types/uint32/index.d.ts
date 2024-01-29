@@ -1,8 +1,3 @@
-// Type definitions for uint32 0.2
-// Project: https://www.github.com/fxa/uint32.js
-// Definitions by: Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace uint32;
 
 /**
@@ -13,7 +8,12 @@ export as namespace uint32;
  *  @param lowByte the low byte
  *  @returns highByte concat secondHighByte concat thirdHighByte concat lowByte
  */
-export function fromBytesBigEndian(highByte: number, secondHighByte: number, thirdHighByte: number, lowByte: number): number;
+export function fromBytesBigEndian(
+    highByte: number,
+    secondHighByte: number,
+    thirdHighByte: number,
+    lowByte: number,
+): number;
 
 /**
  *  Returns the byte.

@@ -1,32 +1,26 @@
-// Type definitions for ebml 3.0
-// Project: https://github.com/node-ebml/node-ebml#readme
-// Definitions by: AppLover69 <https://github.com/AppLover69>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="node"/>
 import { Transform, Writable } from "stream";
 
 export type TagType =
-    'm' /* master element (contains other EBML sub-elements of the next lower level) */ |
-    'u' /* unsigned integer. Some of these are UIDs, coded as 128-bit numbers */ |
-    'i' /* signed integer */ |
-    'f' /* IEEE-754 floating point number */ |
-    's' /* printable ASCII text string */ |
-    '8' /* printable utf-8 Unicode text string */ |
-    'd' /* a 64-bit signed timestamp, in nanoseconds after (or before) `2001-01-01T00:00UTC` */ |
-    'b' /* binary data, otherwise uninterpreted */;
+    | "m" /* master element (contains other EBML sub-elements of the next lower level) */
+    | "u" /* unsigned integer. Some of these are UIDs, coded as 128-bit numbers */
+    | "i" /* signed integer */
+    | "f" /* IEEE-754 floating point number */
+    | "s" /* printable ASCII text string */
+    | "8" /* printable utf-8 Unicode text string */
+    | "d" /* a 64-bit signed timestamp, in nanoseconds after (or before) `2001-01-01T00:00UTC` */
+    | "b" /* binary data, otherwise uninterpreted */;
 
 export namespace Tag {
     interface DataTypeToTypeMap extends Record<TagType, any> {
-        'm': undefined;
-        'u': number;
-        'i': number;
-        'f': number;
-        's': string;
-        '8': string;
-        'd': Date;
-        'b': number;
+        "m": undefined;
+        "u": number;
+        "i": number;
+        "f": number;
+        "s": string;
+        "8": string;
+        "d": Date;
+        "b": number;
     }
 }
 export interface Tag<T extends TagType> extends TagMetadata {
@@ -35,7 +29,7 @@ export interface Tag<T extends TagType> extends TagMetadata {
     value: Tag.DataTypeToTypeMap[T];
 }
 
-export interface Block extends Tag<'b'> {
+export interface Block extends Tag<"b"> {
     /** the coded information in the element */
     payload: Buffer;
     /** unsigned integer indicating the payload's track */
@@ -56,9 +50,9 @@ export interface TagMetadata {
     /** EBML ID as a hex string */
     tagStr: string;
     /** Element name */
-    name: EBMLTagSchema['name'];
+    name: EBMLTagSchema["name"];
     /** Data type */
-    type: EBMLTagSchema['type'];
+    type: EBMLTagSchema["type"];
     /** Start byte offset */
     start: number;
     /** End byte offset if known, else `-1` */
@@ -75,7 +69,7 @@ export namespace tools {
      * @param [start=0] position in buffer
      * @returns value / length object
      */
-    function readVint(buffer: Buffer, start?: number): {length: number, value: number};
+    function readVint(buffer: Buffer, start?: number): { length: number; value: number };
 
     /**
      * write variable length integer
@@ -159,8 +153,8 @@ export interface EBMLTagSchemaBase {
     minver?: number | undefined;
     webm?: boolean | undefined;
     divx?: boolean | undefined;
-    del?: ['1 - bzlib,', '2 - lzo1x'] | '1 - bzlib,' | '2 - lzo1x' | undefined;
-    strong?: 'informational' | 'Informational' | undefined;
+    del?: ["1 - bzlib,", "2 - lzo1x"] | "1 - bzlib," | "2 - lzo1x" | undefined;
+    strong?: "informational" | "Informational" | undefined;
     recursive?: boolean | undefined;
     maxver?: string | undefined;
     i?: string | undefined;
@@ -169,12 +163,12 @@ export interface EBMLDefaultableTagSchema extends EBMLTagSchemaBase {
     default?: any;
 }
 export interface EBMLNumericTagSchema extends EBMLDefaultableTagSchema {
-    type: 'u' | 'i' | 'f';
+    type: "u" | "i" | "f";
     range: string;
     br?: string | [string, string] | [string, string, string] | [string, string, string, string] | undefined;
 }
 export interface EBMLStringValueTagSchema extends EBMLDefaultableTagSchema {
-    type: 's';
+    type: "s";
 }
 export interface EBMLBinaryTagSchema extends EBMLTagSchemaBase {
     bytesize?: number | undefined;
@@ -182,9 +176,9 @@ export interface EBMLBinaryTagSchema extends EBMLTagSchemaBase {
 
 /** Type of `Decoder`'s output and `Encoder`'s input */
 export type StateAndTagData =
-    ['tag', Tag<any>] |
-    ['start', TagMetadata] |
-    ['end', TagMetadata];
+    | ["tag", Tag<any>]
+    | ["start", TagMetadata]
+    | ["end", TagMetadata];
 
 /**
  * @event 'data' `StateAndTagData`
@@ -223,7 +217,10 @@ export class Decoder extends Transform {
     once(event: string | symbol, listener: (...args: any[]) => void): this;
     prependListener<K extends keyof Decoder.EventListenerMap>(event: K, listener: Decoder.EventListenerMap[K]): this;
     prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
-    prependOnceListener<K extends keyof Decoder.EventListenerMap>(event: K, listener: Decoder.EventListenerMap[K]): this;
+    prependOnceListener<K extends keyof Decoder.EventListenerMap>(
+        event: K,
+        listener: Decoder.EventListenerMap[K],
+    ): this;
     prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     removeListener<K extends keyof Decoder.EventListenerMap>(event: K, listener: Decoder.EventListenerMap[K]): this;
     removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
@@ -243,9 +240,9 @@ export class Decoder extends Transform {
 export namespace Encoder {
     interface TagStackItem {
         data: Buffer | null;
-        id: ReturnType<typeof Encoder['getSchemaInfo']>;
-        name: TagMetadata['name'];
-        end: TagMetadata['end'];
+        id: ReturnType<typeof Encoder["getSchemaInfo"]>;
+        name: TagMetadata["name"];
+        end: TagMetadata["end"];
         children: TagStackItem[];
     }
 }
@@ -261,11 +258,11 @@ export class Encoder extends Transform {
     corked: boolean;
     stack: Encoder.TagStackItem[];
 
-    writeTag(tagName: TagMetadata['name'], tagData: Tag<any>['data']): void;
+    writeTag(tagName: TagMetadata["name"], tagData: Tag<any>["data"]): void;
     /**
      * @param tagName The name of the tag to start
      * @param info an information object with an `end` parameter
      */
-    startTag(tagName: TagMetadata['name'], info: Pick<Encoder.TagStackItem, 'end'>): void;
+    startTag(tagName: TagMetadata["name"], info: Pick<Encoder.TagStackItem, "end">): void;
     endTag(): void;
 }

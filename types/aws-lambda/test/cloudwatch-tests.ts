@@ -1,17 +1,12 @@
 /// <reference types="node" />
 
-import {
-    CloudWatchLogsDecodedData,
-    CloudWatchLogsHandler,
-    CloudWatchLogsLogEvent,
-    ScheduledHandler,
-} from "aws-lambda";
+import { CloudWatchLogsDecodedData, CloudWatchLogsHandler, CloudWatchLogsLogEvent, ScheduledHandler } from "aws-lambda";
 
 import { gunzipSync } from "zlib";
 
 const logsHandler: CloudWatchLogsHandler = async (event, context, callback) => {
     const data: CloudWatchLogsDecodedData = JSON.parse(
-        gunzipSync(Buffer.from(event.awslogs.data, "base64")).toString()
+        gunzipSync(Buffer.from(event.awslogs.data, "base64")).toString(),
     );
 
     str = data.owner;
@@ -24,7 +19,7 @@ const logsHandler: CloudWatchLogsHandler = async (event, context, callback) => {
     str = logEvent.id;
     num = logEvent.timestamp;
     str = logEvent.message;
-    strOrUndefined = logEvent.extractedFields!['example'];
+    strOrUndefined = logEvent.extractedFields!["example"];
 
     callback();
     callback(new Error());

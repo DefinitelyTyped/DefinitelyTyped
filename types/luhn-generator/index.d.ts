@@ -1,8 +1,3 @@
-// Type definitions for luhn-generator 0.5
-// Project: https://github.com/rromanovsky/luhn-generator
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace luhn;
 
 export function checksum(input: number | string): number;

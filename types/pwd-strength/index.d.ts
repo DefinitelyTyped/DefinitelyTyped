@@ -1,8 +1,3 @@
-// Type definitions for pwd-strength 1.1
-// Project: https://github.com/rapomon/pwd-strength
-// Definitions by: Dave Lunny <https://github.com/himynameisdave>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface PwdStrengthLanguageOptions {
     weak?: string | undefined;
     average?: string | undefined;

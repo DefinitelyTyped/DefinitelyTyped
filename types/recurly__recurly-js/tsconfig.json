@@ -10,24 +10,16 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "@recurly/*": [
-                "recurly__*"
-            ]
-        }
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
         "test/3d-secure.ts",
         "test/adyen.ts",
         "test/apple-pay.ts",
+        "test/google-pay.ts",
         "test/bank-account.ts",
         "test/configure.ts",
         "test/elements.ts",

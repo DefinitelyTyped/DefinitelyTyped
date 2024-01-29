@@ -1,16 +1,9 @@
-// Type definitions for get-folder-size 3.0
-// Project: https://github.com/alessioalex/get-folder-size
-// Definitions by: Mariusz Szczepańczyk <https://github.com/mszczepanczyk>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { PathLike } from "fs";
 
 declare namespace getFolderSize {
     /**
-     *
      * Returns the size of the folder. If any errors are encountered while traversing the folder, they are silently ignored.
      *
      * The returned folder size might be smaller than the real folder size. It is impossible to know for sure, since errors are ignored.
