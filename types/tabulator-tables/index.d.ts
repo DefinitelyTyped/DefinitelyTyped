@@ -2705,20 +2705,20 @@ declare class Module {
     /**
      * Reference to the table this module is in
      */
-    table: Tabulator;
+    table?: Tabulator;
 
     /**
      * Adds an option to the table constructor
      * @param propName Property name to add
      * @param defaultValue Default value of the property
      */
-    registerTableOption(propName: string, defaultValue: unknown): void;
+    registerTableOption?(propName: string, defaultValue: unknown): void;
     /**
      * Make a function available on the table object
      * @param functionName Function to add
      * @param callback Function to be called when the method is invoked on the grid
      */
-    registerTableFunction(functionName: string, callback: (...args: unknown[]) => unknown): void;
+    registerTableFunction?(functionName: string, callback: (...args: unknown[]) => unknown): void;
 
     /**
      * Subscribe to an event in the Tabulator Event bus.
@@ -2727,7 +2727,7 @@ declare class Module {
      * @param callback Function to call when subscribing
      * @param order The order for initialization. By default, it's 10000. See https://tabulator.info/docs/5.5/module-build#events-internal
      */
-    subscribe(eventName: string, callback: (...args: unknown[]) => unknown, order?: number): void;
+    subscribe?(eventName: string, callback: (...args: unknown[]) => unknown, order?: number): void;
 
     /**
      * Unsubscribe to an event in the Tabulator Event bus.
@@ -2735,7 +2735,7 @@ declare class Module {
      * @param eventName Event to subscribe to
      * @param callback Function to call when subscribing
      */
-    unsubscribe(eventName: string, callback: (...args: unknown[]) => unknown): void;
+    unsubscribe?(eventName: string, callback: (...args: unknown[]) => unknown): void;
 
     /**
      * Updates the configuration of the grid.
@@ -2744,7 +2744,7 @@ declare class Module {
      * @param key Key to update
      * @param value value to set
      */
-    setOption(key: keyof Options, value: unknown): void;
+    setOption?(key: keyof Options, value: unknown): void;
 
     /**
      * Uses the data loader to reload the data in the grid
@@ -2753,14 +2753,14 @@ declare class Module {
      * @param columnsChanged If the column configuration has changed
      * @returns a promise that resolves when the data update is competed
      */
-    reloadData(data: unknown[] | string, silent: boolean, columnsChanged: boolean): Promise<void>;
+    reloadData?(data: unknown[] | string, silent: boolean, columnsChanged: boolean): Promise<void>;
 
     /**
      * Fire an forget an event that can be consumed by external consumers
      * @param eventName Event name, must follow the `camelCase` convention
      * @param args Arguments for the event
      */
-    dispatchExternal(eventName: string, ...args: unknown[]): void;
+    dispatchExternal?(eventName: string, ...args: unknown[]): void;
 
     /**
      * Called by the table when it is ready for module integrations
