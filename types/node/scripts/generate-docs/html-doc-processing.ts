@@ -87,6 +87,9 @@ const customTranslators: TranslatorConfigObject = {
             return context.content;
         },
     }),
+    sup: {
+        prefix: '**',
+    },
 };
 
 function makeCustomTranslators(context: DocContext) {

@@ -1920,7 +1920,7 @@ declare module "crypto" {
      * Return a random integer `n` such that `min <= n < max`.  This
      * implementation avoids [modulo bias](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#Modulo_bias).
      *
-     * The range (`max - min`) must be less than 248. `min` and `max` must
+     * The range (`max - min`) must be less than 2**48. `min` and `max` must
      * be [safe integers](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isSafeInteger).
      *
      * If the `callback` function is not provided, the random integer is
@@ -4477,6 +4477,7 @@ declare module "crypto" {
     global {
         var crypto: typeof globalThis extends {
             crypto: infer T;
+            onmessage: any;
         } ? T
             : webcrypto.Crypto;
     }
