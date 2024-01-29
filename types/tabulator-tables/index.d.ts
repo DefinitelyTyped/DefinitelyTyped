@@ -2765,7 +2765,7 @@ declare class Module {
     /**
      * Called by the table when it is ready for module integrations
      */
-    initialize(): void;
+    initialize?(): void;
     
 }
 declare class AccessorModule {}
