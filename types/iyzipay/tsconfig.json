@@ -13,6 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "iyzipay-tests.ts"
     ]
 }
