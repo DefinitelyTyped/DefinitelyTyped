@@ -1,5 +1,15 @@
 name: CI
-on: pull_request
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  schedule:
+    # 12PM UTC -> 4AM Pacific
+    - cron: '0 12 * * *'
 
 permissions:
   contents: read
@@ -79,26 +89,74 @@ jobs:
           restore-keys: ${{ runner.os }}-pnpm-store-cache-
 
       - run: ./scripts/pnpm-install.sh
+        name: pnpm install (filtered)
+        if: ${{ github.event_name != 'schedule' }}
+
+      - run: pnpm install
         name: pnpm install
+        if: ${{ github.event_name == 'schedule' }}
 
       - run: pnpm ls
 
-      # Run tests
       - run: pnpm run test-all --shardCount ${{ matrix.shardCount }} --shardId ${{ matrix.shardId }}
+        if: ${{ github.event_name != 'schedule' }}
+      
+      - run: pnpm dtslint-runner --path . --selection all --onlyTestTsNext --shardCount ${{ matrix.shardCount }} --shardId ${{ matrix.shardId }}
+        if: ${{ github.event_name == 'schedule' }}
 
-      # TODO(jakebailey): export dangerbot artifacts and then run
-      # - name: 'Run Danger'
-      #   env:
-      #     # See https://github.com/danger/danger-js/issues/1042
-      #     DANGER_GITHUB_API_BASE_URL: 'https://api.github.com'
+      - name: Get suggestions dir
+        id: suggestions-dir
+        run: echo "path=$(node ./scripts/get-suggestions-dir.js)"
+        if: ${{ github.event_name == 'pull_request' }}
+        
+      - name: Upload suggestions
+        uses: actions/upload-artifact@v4
+        with:
+          name: suggestions_${{ matrix.id }}_${{ matrix.shardCount }}
+          if-no-files-found: ignore
+          path: ${{ steps.suggestions-dir.outputs.path }}
+          retention-days: 1
+        if: ${{ github.event_name == 'pull_request' }}
 
-      #   # Danger failing (for example through rate-limiting) shouldn't fail the build
-      #   run: |
-      #     # Exposing this token is safe because the user of it has no other public repositories
-      #     # and has no permission to modify this repository. See #62638 for the discussion.
-      #     TOKEN='ghp_i5wtj1l2AbpFv3OU96w6R'
-      #     TOKEN+='On3bHOkcV2AmVY6'
-      #     DANGER_GITHUB_API_TOKEN=$TOKEN pnpm danger ci || $( exit 0 )
+  dangerbot:
+    runs-on: ubuntu-latest
+    if: github.repository == 'DefinitelyTyped/DefinitelyTyped' && github.event_name == 'pull_request'
+
+    needs:
+      - test
+
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      - uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # v4.0.1
+        with:
+          node-version: '20'
+
+      - uses: pnpm/action-setup@d882d12c64e032187b2edb46d3a0d003b7a43598 # v2.4.0
+        with:
+          run_install: |
+            - args: [--filter, ., --filter, '{./scripts}...']
+
+      - name: Get suggestions dir
+        id: suggestions-dir
+        run: echo "path=$(node ./scripts/get-suggestions-dir.js)"
+
+      - uses: actions/download-artifact@v4
+        with:
+          path: ${{ steps.suggestions-dir.outputs.path }}
+          merge-multiple: true
+
+      - name: 'Run Danger'
+        env:
+          # See https://github.com/danger/danger-js/issues/1042
+          DANGER_GITHUB_API_BASE_URL: 'https://api.github.com'
+
+        # Danger failing (for example through rate-limiting) shouldn't fail the build
+        run: |
+          # Exposing this token is safe because the user of it has no other public repositories
+          # and has no permission to modify this repository. See #62638 for the discussion.
+          TOKEN='ghp_i5wtj1l2AbpFv3OU96w6R'
+          TOKEN+='On3bHOkcV2AmVY6'
+          DANGER_GITHUB_API_TOKEN=$TOKEN pnpm danger ci || $( exit 0 )
 
   scripts:
     runs-on: ubuntu-latest
