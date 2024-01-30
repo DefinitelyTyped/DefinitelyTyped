@@ -889,7 +889,7 @@ declare namespace ApplePayJS {
         deferredBilling: ApplePayLineItem;
 
         /**
-         * [ISO 8601 formatted] The time zone at the destination location of the payment.
+         * The date and time at the destination location of the payment.
          */
         freeCancellationDate?: string | undefined;
 
