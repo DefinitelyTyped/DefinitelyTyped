@@ -433,14 +433,14 @@ deck.initialize({
 
 // use await
 // $ExpectType () => Promise<void>
-async () => {
+(async () => {
     await deck.initialize({
         slideNumber: true,
         width: 20,
         height: 20,
         plugins: [RevealHighlight, RevealMarkdown, RevealSearch, RevealNotes, RevealMath, RevealZoom],
     });
-};
+});
 
 // Config can be empty (example in https://revealjs.com/markup/)
 // $ExpectType Promise<Api>
