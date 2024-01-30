@@ -143,6 +143,16 @@ export interface ImapFlowOptions {
     logger?: Logger | false;
     emitLogs?: boolean;
     verifyOnly?: boolean;
+    logRaw: boolean;
+    proxy: string;
+    qresync: boolean;
+    maxIdleTime?: number;
+    missingIdleCommand?: string;
+    disableBinary?: boolean;
+    disableAutoEnable?: boolean;
+    connectionTimeout?: number;
+    greetingTimeout?: number;
+    socketTimeout?: number;
 }
 
 export interface AppendResonseObject {
