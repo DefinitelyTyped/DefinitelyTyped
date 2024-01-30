@@ -1,8 +1,10 @@
 const testCount = Number.parseInt(process.argv[2]);
 
-let shardCount = Math.ceil(testCount / 500);
+const testsPerJob = 250;
+const maxJobs = 8;
 
-shardCount = Math.min(shardCount, 4);
+let shardCount = Math.ceil(testCount / testsPerJob);
+shardCount = Math.min(shardCount, maxJobs);
 shardCount = Math.max(shardCount, 1);
 
 const include = [];
