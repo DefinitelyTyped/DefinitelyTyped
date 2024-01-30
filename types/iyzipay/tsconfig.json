@@ -3,7 +3,7 @@
         "module": "es6",
         "target": "es6",
         "lib": [
-            "es6",
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
