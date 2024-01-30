@@ -143,9 +143,9 @@ export interface ImapFlowOptions {
     logger?: Logger | false;
     emitLogs?: boolean;
     verifyOnly?: boolean;
-    logRaw: boolean;
-    proxy: string;
-    qresync: boolean;
+    logRaw?: boolean;
+    proxy?: string;
+    qresync?: boolean;
     maxIdleTime?: number;
     missingIdleCommand?: string;
     disableBinary?: boolean;
