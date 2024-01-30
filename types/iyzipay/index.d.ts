@@ -138,14 +138,14 @@ interface PaymentCard {
     cardAlias: string;
 }
 
-interface ISavedPaymentCard {
+interface SavedPaymentCard {
     cardToken?: string;
     cardUserKey: string;
     ucsToken?: string;
     consumerToken?: string;
 }
 
-interface ISavedPaymentCardDetail {
+interface SavedPaymentCardDetail {
     cardToken: string;
     cardAlias: string;
     binNumber: string;
@@ -157,7 +157,7 @@ interface ISavedPaymentCardDetail {
     cardBankName: string;
 }
 
-interface IBuyerDetails {
+interface BuyerDetails {
     id: string;
     name: string;
     surname: string;
@@ -173,7 +173,7 @@ interface IBuyerDetails {
     zipCode?: string;
 }
 
-interface IAddressDetails {
+interface AddressDetails {
     contactName: string;
     city: string;
     country: string;
@@ -181,7 +181,7 @@ interface IAddressDetails {
     zipCode?: string;
 }
 
-interface IBasketItem {
+interface BasketItem {
     id: string;
     name: string;
     category1: string;
@@ -193,7 +193,7 @@ interface IBasketItem {
 }
 
 /* Result Parts */
-interface IConvertedPayout {
+interface ConvertedPayout {
     paidPrice: number | string;
     iyzicoCommissionRateAmount: number;
     iyzicoCommissionFee: number;
@@ -206,7 +206,7 @@ interface IConvertedPayout {
     currency: Currency;
 }
 
-interface IItemTransaction {
+interface ItemTransaction {
     itemId: string;
     paymentTransactionId: string;
     transactionStatus: number;
@@ -224,7 +224,7 @@ interface IItemTransaction {
     subMerchantPayoutRate: number;
     subMerchantPayoutAmount: number;
     merchantPayoutAmount: number;
-    convertedPayout: IConvertedPayout;
+    convertedPayout: ConvertedPayout;
 }
 
 /* REQUEST - RESULT INTERFACES */
@@ -254,13 +254,13 @@ interface ApiTestResult {
     conversationId?: string;
 }
 
-interface IBinNumberRequestData {
+interface BinNumberRequestData {
     locale?: Locale;
     conversationId?: string;
     binNumber: string;
 }
 
-interface IBinNumberResult {
+interface BinNumberResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -290,7 +290,7 @@ interface CancelPaymentResult {
     paymentId: string;
 }
 
-interface ISavePaymentCardRequestData {
+interface SavePaymentCardRequestData {
     locale?: Locale;
     conversationId?: string;
     email: string;
@@ -299,35 +299,35 @@ interface ISavePaymentCardRequestData {
     card: PaymentCard;
 }
 
-interface IListUserCardsRequestData {
+interface ListUserCardsRequestData {
     locale?: Locale;
     conversationId?: string;
     cardUserKey: string;
 }
 
-interface IDeleteUserCardRequestData {
+interface DeleteUserCardRequestData {
     locale?: Locale;
     conversationId?: string;
     cardUserKey: string;
     cardToken: string;
 }
 
-interface IListUserCardsResult {
+interface ListUserCardsResult {
     status: string;
     locale?: Locale;
     systemTime: number;
     conversationId?: string;
-    cardDetails: ISavedPaymentCardDetail[];
+    cardDetails: SavedPaymentCardDetail[];
 }
 
-interface IDeleteUserCardResult {
+interface DeleteUserCardResult {
     status: string;
     locale?: Locale;
     systemTime: number;
     conversationId?: string;
 }
 
-interface ISavePaymentCardResult {
+interface SavePaymentCardResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -348,7 +348,7 @@ interface ISavePaymentCardResult {
 
 // interface ICheckoutFormInitializeRequestData extends ThreeDSInitializePaymentRequestData { }
 
-interface ICheckoutFormInitialResult {
+interface CheckoutFormInitialResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -357,13 +357,13 @@ interface ICheckoutFormInitialResult {
     checkoutFormContent: string;
 }
 
-interface ICheckoutFormRetrieveRequestData {
+interface CheckoutFormRetrieveRequestData {
     locale?: Locale;
     conversationId?: string;
     token: string;
 }
 
-interface ICheckoutFormRetrieveResult {
+interface CheckoutFormRetrieveResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -377,12 +377,12 @@ interface ICheckoutFormRetrieveResult {
     installment: number;
     basketId: string;
     paymentId: string;
-    paymentItems: IItemTransaction[];
-    paymentCard: ISavedPaymentCardDetail;
-    buyer: IBuyerDetails;
-    shippingAddress: IAddressDetails;
-    billingAddress: IAddressDetails;
-    basketItems: IBasketItem[];
+    paymentItems: ItemTransaction[];
+    paymentCard: SavedPaymentCardDetail;
+    buyer: BuyerDetails;
+    shippingAddress: AddressDetails;
+    billingAddress: AddressDetails;
+    basketItems: BasketItem[];
 }
 
 interface UniversalCardStorageInitializeRequestData {
@@ -408,7 +408,7 @@ interface InstallmentInfoRequestData {
     binNumber: string;
 }
 
-interface IInstallmentDetail {
+interface InstallmentDetail {
     installmentNumber: number;
     totalPrice: number | string;
     installmentPrice: number | string;
@@ -422,7 +422,7 @@ interface InstallmentInfoResult {
     conversationId?: string;
     binNumber: string;
     price: number | string;
-    installmentDetails: IInstallmentDetail[];
+    installmentDetails: InstallmentDetail[];
 }
 
 interface PaymentRequestData {
@@ -435,11 +435,11 @@ interface PaymentRequestData {
     basketId?: string;
     paymentChannel?: PaymentChannel;
     paymentGroup?: PaymentGroup;
-    paymentCard: ISavedPaymentCard | PaymentCard;
-    buyer: IBuyerDetails;
-    shippingAddress: IAddressDetails;
-    billingAddress: IAddressDetails;
-    basketItems: IBasketItem[];
+    paymentCard: SavedPaymentCard | PaymentCard;
+    buyer: BuyerDetails;
+    shippingAddress: AddressDetails;
+    billingAddress: AddressDetails;
+    basketItems: BasketItem[];
 }
 
 interface PaymentResult {
@@ -465,7 +465,7 @@ interface PaymentResult {
     lastFourDigits: string;
     basketId: string;
     currency: Currency;
-    itemTransactions: IItemTransaction[];
+    itemTransactions: ItemTransaction[];
     authCode: string;
     phase: string;
     mdStatus: string;
@@ -505,7 +505,7 @@ interface PaymentItemResult {
     subMerchantPayoutRate: number;
     subMerchantPayoutAmount: number;
     merchantPayoutAmount: number;
-    convertedPayout: IConvertedPayout;
+    convertedPayout: ConvertedPayout;
 }
 
 interface PeccoInitializeRequestData {
@@ -518,10 +518,10 @@ interface PeccoInitializeRequestData {
     basketId?: string;
     paymentChannel?: PaymentChannel;
     paymentGroup?: PaymentGroup;
-    buyer: IBuyerDetails;
-    shippingAddress: IAddressDetails;
-    billingAddress: IAddressDetails;
-    basketItems: IBasketItem[];
+    buyer: BuyerDetails;
+    shippingAddress: AddressDetails;
+    billingAddress: AddressDetails;
+    basketItems: BasketItem[];
     callbackUrl: string;
 }
 
@@ -554,12 +554,12 @@ interface PeccoPaymentResult {
     installment: number;
     basketId: string;
     paymentId: string;
-    paymentItems: IItemTransaction[];
-    paymentCard: ISavedPaymentCardDetail;
-    buyer: IBuyerDetails;
-    shippingAddress: IAddressDetails;
-    billingAddress: IAddressDetails;
-    basketItems: IBasketItem[];
+    paymentItems: ItemTransaction[];
+    paymentCard: SavedPaymentCardDetail;
+    buyer: BuyerDetails;
+    shippingAddress: AddressDetails;
+    billingAddress: AddressDetails;
+    basketItems: BasketItem[];
 }
 
 interface RefundRequestData {
@@ -755,7 +755,7 @@ interface ThreeDSInitializePaymentResult {
     threeDSHtmlContent: string;
 }
 
-interface IThreeDSPaymentCompleteRequestData {
+interface ThreeDSPaymentCompleteRequestData {
     locale?: Locale;
     conversationId?: string;
     paymentId: string;
@@ -965,8 +965,8 @@ interface SubscriptionCustomerCreateRequestData {
     identityNumber: string;
     email?: string;
     gsmNumber?: string;
-    billingAddress?: IAddressDetails;
-    shippingAddress?: IAddressDetails;
+    billingAddress?: AddressDetails;
+    shippingAddress?: AddressDetails;
 }
 
 interface SubscriptionCustomerCreateResult {
@@ -980,8 +980,8 @@ interface SubscriptionCustomerCreateResult {
     identityNumber: string;
     email?: string;
     gsmNumber?: string;
-    billingAddress?: IAddressDetails;
-    shippingAddress?: IAddressDetails;
+    billingAddress?: AddressDetails;
+    shippingAddress?: AddressDetails;
 }
 
 interface SubscriptionCustomerUpdateRequestData {
@@ -992,8 +992,8 @@ interface SubscriptionCustomerUpdateRequestData {
     surname?: string;
     email?: string;
     gsmNumber?: string;
-    billingAddress?: IAddressDetails;
-    shippingAddress?: IAddressDetails;
+    billingAddress?: AddressDetails;
+    shippingAddress?: AddressDetails;
 }
 
 interface SubscriptionCustomerUpdateResult {
@@ -1007,8 +1007,8 @@ interface SubscriptionCustomerUpdateResult {
     identityNumber: string;
     email?: string;
     gsmNumber?: string;
-    billingAddress?: IAddressDetails;
-    shippingAddress?: IAddressDetails;
+    billingAddress?: AddressDetails;
+    shippingAddress?: AddressDetails;
 }
 
 interface SubscriptionCustomerRetrieveRequestData {
@@ -1028,8 +1028,8 @@ interface SubscriptionCustomerRetrieveResult {
     identityNumber: string;
     email?: string;
     gsmNumber?: string;
-    billingAddress?: IAddressDetails;
-    shippingAddress?: IAddressDetails;
+    billingAddress?: AddressDetails;
+    shippingAddress?: AddressDetails;
 }
 
 interface SubscriptionCustomerRetrieveListRequestData {
@@ -1046,8 +1046,8 @@ interface SubscriptionCustomerItem {
     identityNumber: string;
     email?: string;
     gsmNumber?: string;
-    billingAddress?: IAddressDetails;
-    shippingAddress?: IAddressDetails;
+    billingAddress?: AddressDetails;
+    shippingAddress?: AddressDetails;
 }
 
 interface SubscriptionCustomerRetrieveListResult {
@@ -1219,7 +1219,7 @@ interface SubscriptionInitializeRequestData {
     pricingPlanReferenceCode: string;
     subscriptionInitialStatus?: SubscriptionInitialStatus;
     customer: SubscriptionCustomerCreateRequestData;
-    paymentCard?: ISavedPaymentCard | PaymentCard;
+    paymentCard?: SavedPaymentCard | PaymentCard;
 }
 
 interface SubscriptionCheckoutFormInitializeRequestData {
@@ -1283,8 +1283,8 @@ interface ApiTest {
     retrieve(data: ApiTestRequestData, callback: (err: Error, result: ApiTestResult) => void): void;
 }
 
-interface IBinNumber {
-    retrieve(data: IBinNumberRequestData, callback: (err: Error, result: IBinNumberResult) => void): void;
+interface BinNumber {
+    retrieve(data: BinNumberRequestData, callback: (err: Error, result: BinNumberResult) => void): void;
 }
 
 interface Approval {
@@ -1304,8 +1304,8 @@ interface BKMInitialize {
 
 interface Ibkm {
     retrieve(
-        data: IThreeDSPaymentCompleteRequestData,
-        callback: (err: Error, result: IThreeDSPaymentCompleteRequestData) => void,
+        data: ThreeDSPaymentCompleteRequestData,
+        callback: (err: Error, result: ThreeDSPaymentCompleteRequestData) => void,
     ): void;
 }
 
@@ -1314,25 +1314,25 @@ interface Cancel {
 }
 
 interface Card {
-    create(data: ISavePaymentCardRequestData, callback: (err: Error, result: ISavePaymentCardResult) => void): void;
-    delete(data: IDeleteUserCardRequestData, callback: (err: Error, result: IDeleteUserCardResult) => void): void;
+    create(data: SavePaymentCardRequestData, callback: (err: Error, result: SavePaymentCardResult) => void): void;
+    delete(data: DeleteUserCardRequestData, callback: (err: Error, result: DeleteUserCardResult) => void): void;
 }
 
 interface CardList {
-    retreive(data: IListUserCardsRequestData, callback: (err: Error, result: IListUserCardsResult) => void): void;
+    retreive(data: ListUserCardsRequestData, callback: (err: Error, result: ListUserCardsResult) => void): void;
 }
 
 interface CheckOutFormInitialize {
     create(
         data: ThreeDSInitializePaymentRequestData,
-        callback: (err: Error, result: ICheckoutFormInitialResult) => void,
+        callback: (err: Error, result: CheckoutFormInitialResult) => void,
     ): void;
 }
 
 interface CheckOutForm {
     retrieve(
-        data: ICheckoutFormRetrieveRequestData,
-        callback: (err: Error, result: ICheckoutFormRetrieveResult) => void,
+        data: CheckoutFormRetrieveRequestData,
+        callback: (err: Error, result: CheckoutFormRetrieveResult) => void,
     ): void;
 }
 
@@ -1403,7 +1403,7 @@ interface ThreeDSInitialize {
 }
 
 interface ThreedsPayment {
-    create(data: IThreeDSPaymentCompleteRequestData, callback: (err: Error, result: PaymentResult) => void): void;
+    create(data: ThreeDSPaymentCompleteRequestData, callback: (err: Error, result: PaymentResult) => void): void;
 }
 
 interface SettlementToBalance {
@@ -1538,6 +1538,7 @@ declare class Iyzipay {
     apiTest: ApiTest;
     approval: Approval;
     disapproval: Disapproval;
+    binNumber: BinNumber;
     bkmInitialize: BKMInitialize;
     bkm: Ibkm;
     cancel: Cancel;
