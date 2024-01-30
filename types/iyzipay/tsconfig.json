@@ -13,7 +13,6 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "esModuleInterop": true,
-        "moduleResolution": "node" // Ensure module resolution is set for Node.js
     },
     "files": [
         "index.d.ts"

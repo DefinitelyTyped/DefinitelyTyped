@@ -1,10 +1,10 @@
-export type Locale = "TR" | "EN";
+type Locale = "TR" | "EN";
 
-export type PaymentGroup = "PRODUCT" | "LISTING" | "SUBSCRIPTION";
+type PaymentGroup = "PRODUCT" | "LISTING" | "SUBSCRIPTION";
 
-export type BasketItemType = "PHYSICAL" | "VIRTUAL";
+type BasketItemType = "PHYSICAL" | "VIRTUAL";
 
-export type PaymentChannel =
+type PaymentChannel =
     | "MOBILE"
     | "WEB"
     | "MOBILE_WEB"
@@ -14,42 +14,42 @@ export type PaymentChannel =
     | "MOBILE_TABLET"
     | "MOBILE_PHONE";
 
-export type SubMerchantType = "PERSONAL" | "PRIVATE_COMPANY" | "LIMITED_OR_JOINT_STOCK_COMPANY";
+type SubMerchantType = "PERSONAL" | "PRIVATE_COMPANY" | "LIMITED_OR_JOINT_STOCK_COMPANY";
 
-export type Currency = "TRY" | "EUR" | "USD" | "IRR" | "GBP" | "NOK" | "RUB" | "CHF";
+type Currency = "TRY" | "EUR" | "USD" | "IRR" | "GBP" | "NOK" | "RUB" | "CHF";
 
-export type ApmType = "SOFORT" | "IDEAL" | "QIWI" | "GIROPAY";
+type ApmType = "SOFORT" | "IDEAL" | "QIWI" | "GIROPAY";
 
-export type RefundReason = "DOUBLE_PAYMENT" | "BUYER_REQUEST" | "FRAUD" | "OTHER";
+type RefundReason = "DOUBLE_PAYMENT" | "BUYER_REQUEST" | "FRAUD" | "OTHER";
 
-export type PlanPaymentType = "RECURRING";
+type PlanPaymentType = "RECURRING";
 
-export type SubscriptionPricingPlanInterval = "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY";
+type SubscriptionPricingPlanInterval = "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY";
 
-export type SubscriptionUpgradePeriod = "NOW";
+type SubscriptionUpgradePeriod = "NOW";
 
-export type SubscriptionStatus = "EXPIRED" | "UNPAID" | "CANCELED" | "ACTIVE" | "PENDING" | "UPGRADED";
+type SubscriptionStatus = "EXPIRED" | "UNPAID" | "CANCELED" | "ACTIVE" | "PENDING" | "UPGRADED";
 
-export type SubscriptionInitialStatus = "ACTIVE" | "PENDING";
+type SubscriptionInitialStatus = "ACTIVE" | "PENDING";
 
 /* INTERFACES */
-export interface Ilocale {
+interface Ilocale {
     TR: "TR";
     EN: "EN";
 }
 
-export interface IpaymentGroup {
+interface IpaymentGroup {
     PRODUCT: "PRODUCT";
     LISTING: "LISTING";
     SUBSCRIPTION: "SUBSCRIPTION";
 }
 
-export interface IbasketItemType {
+interface IbasketItemType {
     PHYSICAL: "PHYSICAL";
     VIRTUAL: "VIRTUAL";
 }
 
-export interface IpaymentChannel {
+interface IpaymentChannel {
     MOBILE: "MOBILE";
     WEB: "WEB";
     MOBILE_WEB: "MOBILE_WEB";
@@ -60,13 +60,13 @@ export interface IpaymentChannel {
     MOBILE_PHONE: "MOBILE_PHONE";
 }
 
-export interface IsubMerchantType {
+interface IsubMerchantType {
     PERSONAL: "PERSONAL";
     PRIVATE_COMPANY: "PRIVATE_COMPANY";
     LIMITED_OR_JOINT_STOCK_COMPANY: "LIMITED_OR_JOINT_STOCK_COMPANY";
 }
 
-export interface Icurrency {
+interface Icurrency {
     TRY: "TRY";
     EUR: "EUR";
     USD: "USD";
@@ -77,36 +77,36 @@ export interface Icurrency {
     CHF: "CHF";
 }
 
-export interface IapmType {
+interface IapmType {
     SOFORT: "SOFORT";
     IDEAL: "IDEAL";
     QIWI: "QIWI";
     GIROPAY: "GIROPAY";
 }
 
-export interface IrefundReason {
+interface IrefundReason {
     DOUBLE_PAYMENT: "DOUBLE_PAYMENT";
     BUYER_REQUEST: "BUYER_REQUEST";
     FRAUD: "FRAUD";
     OTHER: "OTHER";
 }
 
-export interface IplanPaymentType {
+interface IplanPaymentType {
     RECURRING: "RECURRING";
 }
 
-export interface IsubscriptionPricingPlanInterval {
+interface IsubscriptionPricingPlanInterval {
     DAILY: "DAILY";
     WEEKLY: "WEEKLY";
     MONTHLY: "MONTHLY";
     YEARLY: "YEARLY";
 }
 
-export interface IsubscriptionUpgradePeriod {
+interface IsubscriptionUpgradePeriod {
     NOW: "NOW";
 }
 
-export interface IsubscriptionStatus {
+interface IsubscriptionStatus {
     EXPIRED: "EXPIRED";
     UNPAID: "UNPAID";
     CANCELED: "CANCELED";
@@ -115,19 +115,19 @@ export interface IsubscriptionStatus {
     UPGRADED: "UPGRADED";
 }
 
-export interface IsubscriptionInitialStatus {
+interface IsubscriptionInitialStatus {
     ACTIVE: "ACTIVE";
     PENDING: "PENDING";
 }
 
 /* GENERIC INTERFACES */
-export interface IConfigOptions {
+interface IConfigOptions {
     apiKey: string;
     secretKey: string;
     uri: string;
 }
 
-export interface IPaymentCard {
+interface IPaymentCard {
     cardHolderName: string;
     cardNumber: string;
     expireMonth: string;
@@ -138,14 +138,14 @@ export interface IPaymentCard {
     cardAlias: string;
 }
 
-export interface ISavedPaymentCard {
+interface ISavedPaymentCard {
     cardToken?: string;
     cardUserKey: string;
     ucsToken?: string;
     consumerToken?: string;
 }
 
-export interface ISavedPaymentCardDetail {
+interface ISavedPaymentCardDetail {
     cardToken: string;
     cardAlias: string;
     binNumber: string;
@@ -157,7 +157,7 @@ export interface ISavedPaymentCardDetail {
     cardBankName: string;
 }
 
-export interface IBuyerDetails {
+interface IBuyerDetails {
     id: string;
     name: string;
     surname: string;
@@ -173,7 +173,7 @@ export interface IBuyerDetails {
     zipCode?: string;
 }
 
-export interface IAddressDetails {
+interface IAddressDetails {
     contactName: string;
     city: string;
     country: string;
@@ -181,7 +181,7 @@ export interface IAddressDetails {
     zipCode?: string;
 }
 
-export interface IBasketItem {
+interface IBasketItem {
     id: string;
     name: string;
     category1: string;
@@ -193,7 +193,7 @@ export interface IBasketItem {
 }
 
 /* Result Parts */
-export interface IConvertedPayout {
+interface IConvertedPayout {
     paidPrice: number | string;
     iyzicoCommissionRateAmount: number;
     iyzicoCommissionFee: number;
@@ -206,7 +206,7 @@ export interface IConvertedPayout {
     currency: Currency;
 }
 
-export interface IItemTransaction {
+interface IItemTransaction {
     itemId: string;
     paymentTransactionId: string;
     transactionStatus: number;
@@ -228,13 +228,13 @@ export interface IItemTransaction {
 }
 
 /* REQUEST - RESULT INTERFACES */
-export interface IApprovalPaymentRequestData {
+interface IApprovalPaymentRequestData {
     locale?: Locale;
     conversationId?: string;
     paymentTransactionId: string;
 }
 
-export interface IApprovalPaymentResult {
+interface IApprovalPaymentResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -242,25 +242,25 @@ export interface IApprovalPaymentResult {
     paymentId: string;
 }
 
-export interface IApiTestRequestData {
+interface IApiTestRequestData {
     locale?: Locale;
     conversationId?: string;
 }
 
-export interface IApiTestResult {
+interface IApiTestResult {
     status: string;
     locale?: Locale;
     systemTime: number;
     conversationId?: string;
 }
 
-export interface IBinNumberRequestData {
+interface IBinNumberRequestData {
     locale?: Locale;
     conversationId?: string;
     binNumber: string;
 }
 
-export interface IBinNumberResult {
+interface IBinNumberResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -273,7 +273,7 @@ export interface IBinNumberResult {
     bankCode: number;
 }
 
-export interface ICancelPaymentRequestData {
+interface ICancelPaymentRequestData {
     locale?: Locale;
     conversationId?: string;
     paymentId: string;
@@ -282,7 +282,7 @@ export interface ICancelPaymentRequestData {
     description?: string;
 }
 
-export interface ICancelPaymentResult {
+interface ICancelPaymentResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -290,7 +290,7 @@ export interface ICancelPaymentResult {
     paymentId: string;
 }
 
-export interface ISavePaymentCardRequestData {
+interface ISavePaymentCardRequestData {
     locale?: Locale;
     conversationId?: string;
     email: string;
@@ -299,20 +299,20 @@ export interface ISavePaymentCardRequestData {
     card: IPaymentCard;
 }
 
-export interface IListUserCardsRequestData {
+interface IListUserCardsRequestData {
     locale?: Locale;
     conversationId?: string;
     cardUserKey: string;
 }
 
-export interface IDeleteUserCardRequestData {
+interface IDeleteUserCardRequestData {
     locale?: Locale;
     conversationId?: string;
     cardUserKey: string;
     cardToken: string;
 }
 
-export interface IListUserCardsResult {
+interface IListUserCardsResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -320,14 +320,14 @@ export interface IListUserCardsResult {
     cardDetails: ISavedPaymentCardDetail[];
 }
 
-export interface IDeleteUserCardResult {
+interface IDeleteUserCardResult {
     status: string;
     locale?: Locale;
     systemTime: number;
     conversationId?: string;
 }
 
-export interface ISavePaymentCardResult {
+interface ISavePaymentCardResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -346,9 +346,9 @@ export interface ISavePaymentCardResult {
     cardBankName: string;
 }
 
-// export interface ICheckoutFormInitializeRequestData extends IThreeDSInitializePaymentRequestData { }
+// interface ICheckoutFormInitializeRequestData extends IThreeDSInitializePaymentRequestData { }
 
-export interface ICheckoutFormInitialResult {
+interface ICheckoutFormInitialResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -357,13 +357,13 @@ export interface ICheckoutFormInitialResult {
     checkoutFormContent: string;
 }
 
-export interface ICheckoutFormRetrieveRequestData {
+interface ICheckoutFormRetrieveRequestData {
     locale?: Locale;
     conversationId?: string;
     token: string;
 }
 
-export interface ICheckoutFormRetrieveResult {
+interface ICheckoutFormRetrieveResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -385,14 +385,14 @@ export interface ICheckoutFormRetrieveResult {
     basketItems: IBasketItem[];
 }
 
-export interface IUniversalCardStorageInitializeRequestData {
+interface IUniversalCardStorageInitializeRequestData {
     locale?: Locale;
     conversationId?: string;
     gsmNumber: string;
     email: string;
 }
 
-export interface IUniversalCardStorageInitializeResult {
+interface IUniversalCardStorageInitializeResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -401,21 +401,21 @@ export interface IUniversalCardStorageInitializeResult {
     callbackUrl: string;
 }
 
-export interface IInstallmentInfoRequestData {
+interface IInstallmentInfoRequestData {
     locale?: Locale;
     conversationId?: string;
     price: number | string;
     binNumber: string;
 }
 
-export interface IInstallmentDetail {
+interface IInstallmentDetail {
     installmentNumber: number;
     totalPrice: number | string;
     installmentPrice: number | string;
     installmentRate: number;
 }
 
-export interface IInstallmentInfoResult {
+interface IInstallmentInfoResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -425,7 +425,7 @@ export interface IInstallmentInfoResult {
     installmentDetails: IInstallmentDetail[];
 }
 
-export interface IPaymentRequestData {
+interface IPaymentRequestData {
     locale?: Locale;
     conversationId?: string;
     price: number | string;
@@ -442,7 +442,7 @@ export interface IPaymentRequestData {
     basketItems: IBasketItem[];
 }
 
-export interface IPaymentResult {
+interface IPaymentResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -472,22 +472,22 @@ export interface IPaymentResult {
     hostReference: string;
 }
 
-export interface IPaymentRetrieveRequestData {
+interface IPaymentRetrieveRequestData {
     locale?: Locale;
     conversationId?: string;
     paymentId: string;
     paymentConversationId?: string;
 }
 
-// export interface IPaymentRetrieveResult extends IPaymentResult { }
+// interface IPaymentRetrieveResult extends IPaymentResult { }
 
-export interface IPaymentItemRequestData {
+interface IPaymentItemRequestData {
     paymentTransactionId: string;
     subMerchantKey?: string;
     subMerchantPrice?: number | string;
 }
 
-export interface IPaymentItemResult {
+interface IPaymentItemResult {
     itemId: string;
     paymentTransactionId: string;
     transactionStatus: number;
@@ -508,7 +508,7 @@ export interface IPaymentItemResult {
     convertedPayout: IConvertedPayout;
 }
 
-export interface IPeccoInitializeRequestData {
+interface IPeccoInitializeRequestData {
     locale?: Locale;
     conversationId?: string;
     price: number | string;
@@ -525,7 +525,7 @@ export interface IPeccoInitializeRequestData {
     callbackUrl: string;
 }
 
-export interface IPeccoInitializeResult {
+interface IPeccoInitializeResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -534,13 +534,13 @@ export interface IPeccoInitializeResult {
     checkoutFormContent: string;
 }
 
-export interface IPeccoPaymentRequestData {
+interface IPeccoPaymentRequestData {
     locale?: Locale;
     conversationId?: string;
     token: string;
 }
 
-export interface IPeccoPaymentResult {
+interface IPeccoPaymentResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -562,7 +562,7 @@ export interface IPeccoPaymentResult {
     basketItems: IBasketItem[];
 }
 
-export interface IRefundRequestData {
+interface IRefundRequestData {
     locale?: Locale;
     conversationId?: string;
     paymentTransactionId: string;
@@ -573,7 +573,7 @@ export interface IRefundRequestData {
     description?: string;
 }
 
-export interface IRefundResult {
+interface IRefundResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -584,14 +584,14 @@ export interface IRefundResult {
     hostReference?: string;
 }
 
-export interface IRefundToBalanceRequestData {
+interface IRefundToBalanceRequestData {
     locale?: Locale;
     conversationId?: string;
     paymentId: string;
     callbackUrl: string;
 }
 
-export interface IRefundToBalanceResult {
+interface IRefundToBalanceResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -602,7 +602,7 @@ export interface IRefundToBalanceResult {
     hostReference?: string;
 }
 
-export interface IPayoutCompletedTransactionListRetrieveRequestData {
+interface IPayoutCompletedTransactionListRetrieveRequestData {
     locale?: Locale;
     conversationId?: string;
     date: string;
@@ -610,11 +610,11 @@ export interface IPayoutCompletedTransactionListRetrieveRequestData {
     count?: number;
 }
 
-/* export interface IPayoutCompletedTransaction extends IPaymentResult {
+/* interface IPayoutCompletedTransaction extends IPaymentResult {
 
 } */
 
-export interface IPayoutCompletedTransactionListRetrieveResult {
+interface IPayoutCompletedTransactionListRetrieveResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -622,7 +622,7 @@ export interface IPayoutCompletedTransactionListRetrieveResult {
     payoutCompletedTransactionList: IPaymentResult[];
 }
 
-export interface ISubMerchantCreateRequestData {
+interface ISubMerchantCreateRequestData {
     locale?: Locale;
     conversationId?: string;
     subMerchantExternalId: string;
@@ -640,7 +640,7 @@ export interface ISubMerchantCreateRequestData {
     currency: Currency;
 }
 
-export interface ISubMerchantCreateResult {
+interface ISubMerchantCreateResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -660,7 +660,7 @@ export interface ISubMerchantCreateResult {
     currency: Currency;
 }
 
-export interface ISubMerchantUpdateRequestData {
+interface ISubMerchantUpdateRequestData {
     locale?: Locale;
     conversationId?: string;
     subMerchantKey: string;
@@ -677,7 +677,7 @@ export interface ISubMerchantUpdateRequestData {
     currency?: Currency;
 }
 
-export interface ISubMerchantUpdateResult {
+interface ISubMerchantUpdateResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -697,13 +697,13 @@ export interface ISubMerchantUpdateResult {
     currency: Currency;
 }
 
-export interface ISubMerchantRetrieveRequestData {
+interface ISubMerchantRetrieveRequestData {
     locale?: Locale;
     conversationId?: string;
     subMerchantExternalId: string;
 }
 
-export interface ISubMerchantRetrieveResult {
+interface ISubMerchantRetrieveResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -723,7 +723,7 @@ export interface ISubMerchantRetrieveResult {
     currency: Currency;
 }
 
-export interface IBouncedBackTransactionListRetrieveRequestData {
+interface IBouncedBackTransactionListRetrieveRequestData {
     locale?: Locale;
     conversationId?: string;
     date: string;
@@ -731,11 +731,11 @@ export interface IBouncedBackTransactionListRetrieveRequestData {
     count?: number;
 }
 
-/* export interface IBouncedBackTransaction extends IPaymentResult {
+/* interface IBouncedBackTransaction extends IPaymentResult {
 
 } */
 
-export interface IBouncedBackTransactionListRetrieveResult {
+interface IBouncedBackTransactionListRetrieveResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -743,11 +743,11 @@ export interface IBouncedBackTransactionListRetrieveResult {
     bouncedBackTransactionList: IPaymentResult[];
 }
 
-export interface IThreeDSInitializePaymentRequestData extends IPaymentRequestData {
+interface IThreeDSInitializePaymentRequestData extends IPaymentRequestData {
     callbackUrl: string;
 }
 
-export interface IThreeDSInitializePaymentResult {
+interface IThreeDSInitializePaymentResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -755,16 +755,16 @@ export interface IThreeDSInitializePaymentResult {
     threeDSHtmlContent: string;
 }
 
-export interface IThreeDSPaymentCompleteRequestData {
+interface IThreeDSPaymentCompleteRequestData {
     locale?: Locale;
     conversationId?: string;
     paymentId: string;
     conversationData?: string;
 }
 
-// export interface IThreeDSPaymentCompleteResult extends IPaymentResult { }
+// interface IThreeDSPaymentCompleteResult extends IPaymentResult { }
 
-export interface ISettlementToBalanceRequestData {
+interface ISettlementToBalanceRequestData {
     locale?: Locale;
     conversationId?: string;
     subMerchantKey: string;
@@ -772,7 +772,7 @@ export interface ISettlementToBalanceRequestData {
     price: number | string;
 }
 
-export interface ISettlementToBalanceResult {
+interface ISettlementToBalanceResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -783,14 +783,14 @@ export interface ISettlementToBalanceResult {
     hostReference?: string;
 }
 
-export interface ISubscriptionProductCreateRequestData {
+interface ISubscriptionProductCreateRequestData {
     locale?: Locale;
     conversationId?: string;
     name: string;
     description?: string;
 }
 
-export interface ISubscriptionProductCreateResult {
+interface ISubscriptionProductCreateResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -800,7 +800,7 @@ export interface ISubscriptionProductCreateResult {
     description: string;
 }
 
-export interface ISubscriptionProductUpdateRequestData {
+interface ISubscriptionProductUpdateRequestData {
     locale?: Locale;
     conversationId?: string;
     productReferenceCode: string;
@@ -808,7 +808,7 @@ export interface ISubscriptionProductUpdateRequestData {
     description?: string;
 }
 
-export interface ISubscriptionProductUpdateResult {
+interface ISubscriptionProductUpdateResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -818,13 +818,13 @@ export interface ISubscriptionProductUpdateResult {
     description: string;
 }
 
-export interface ISubscriptionProductRetrieveRequestData {
+interface ISubscriptionProductRetrieveRequestData {
     locale?: Locale;
     conversationId?: string;
     productReferenceCode: string;
 }
 
-export interface ISubscriptionProductRetrieveResult {
+interface ISubscriptionProductRetrieveResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -834,20 +834,20 @@ export interface ISubscriptionProductRetrieveResult {
     description: string;
 }
 
-export interface ISubscriptionProductRetrieveListRequestData {
+interface ISubscriptionProductRetrieveListRequestData {
     locale?: Locale;
     conversationId?: string;
     page?: number;
     count?: number;
 }
 
-export interface ISubscriptionProductItem {
+interface ISubscriptionProductItem {
     productReferenceCode: string;
     name: string;
     description: string;
 }
 
-export interface ISubscriptionProductRetrieveListResult {
+interface ISubscriptionProductRetrieveListResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -855,7 +855,7 @@ export interface ISubscriptionProductRetrieveListResult {
     items: ISubscriptionProductItem[];
 }
 
-export interface ISubscriptionPricingPlanCreateRequestData {
+interface ISubscriptionPricingPlanCreateRequestData {
     locale?: Locale;
     conversationId?: string;
     productReferenceCode: string;
@@ -868,7 +868,7 @@ export interface ISubscriptionPricingPlanCreateRequestData {
     planPaymentType?: PlanPaymentType;
 }
 
-export interface ISubscriptionPricingPlanCreateResult {
+interface ISubscriptionPricingPlanCreateResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -884,7 +884,7 @@ export interface ISubscriptionPricingPlanCreateResult {
     planPaymentType?: PlanPaymentType;
 }
 
-export interface ISubscriptionPricingPlanUpdateRequestData {
+interface ISubscriptionPricingPlanUpdateRequestData {
     locale?: Locale;
     conversationId?: string;
     pricingPlanReferenceCode: string;
@@ -892,7 +892,7 @@ export interface ISubscriptionPricingPlanUpdateRequestData {
     trialPeriodDays?: number;
 }
 
-export interface ISubscriptionPricingPlanUpdateResult {
+interface ISubscriptionPricingPlanUpdateResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -908,13 +908,13 @@ export interface ISubscriptionPricingPlanUpdateResult {
     planPaymentType?: PlanPaymentType;
 }
 
-export interface ISubscriptionPricingPlanRetrieveRequestData {
+interface ISubscriptionPricingPlanRetrieveRequestData {
     locale?: Locale;
     conversationId?: string;
     pricingPlanReferenceCode: string;
 }
 
-export interface ISubscriptionPricingPlanRetrieveResult {
+interface ISubscriptionPricingPlanRetrieveResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -930,7 +930,7 @@ export interface ISubscriptionPricingPlanRetrieveResult {
     planPaymentType?: PlanPaymentType;
 }
 
-export interface ISubscriptionPricingPlanRetrieveListRequestData {
+interface ISubscriptionPricingPlanRetrieveListRequestData {
     locale?: Locale;
     conversationId?: string;
     productReferenceCode: string;
@@ -938,7 +938,7 @@ export interface ISubscriptionPricingPlanRetrieveListRequestData {
     count?: number;
 }
 
-export interface ISubscriptionPricingPlanItem {
+interface ISubscriptionPricingPlanItem {
     pricingPlanReferenceCode: string;
     name: string;
     price: number | string;
@@ -949,7 +949,7 @@ export interface ISubscriptionPricingPlanItem {
     planPaymentType?: PlanPaymentType;
 }
 
-export interface ISubscriptionPricingPlanRetrieveListResult {
+interface ISubscriptionPricingPlanRetrieveListResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -957,7 +957,7 @@ export interface ISubscriptionPricingPlanRetrieveListResult {
     items: ISubscriptionPricingPlanItem[];
 }
 
-export interface ISubscriptionCustomerCreateRequestData {
+interface ISubscriptionCustomerCreateRequestData {
     locale?: Locale;
     conversationId?: string;
     name: string;
@@ -969,7 +969,7 @@ export interface ISubscriptionCustomerCreateRequestData {
     shippingAddress?: IAddressDetails;
 }
 
-export interface ISubscriptionCustomerCreateResult {
+interface ISubscriptionCustomerCreateResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -984,7 +984,7 @@ export interface ISubscriptionCustomerCreateResult {
     shippingAddress?: IAddressDetails;
 }
 
-export interface ISubscriptionCustomerUpdateRequestData {
+interface ISubscriptionCustomerUpdateRequestData {
     locale?: Locale;
     conversationId?: string;
     customerReferenceCode: string;
@@ -996,7 +996,7 @@ export interface ISubscriptionCustomerUpdateRequestData {
     shippingAddress?: IAddressDetails;
 }
 
-export interface ISubscriptionCustomerUpdateResult {
+interface ISubscriptionCustomerUpdateResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -1011,13 +1011,13 @@ export interface ISubscriptionCustomerUpdateResult {
     shippingAddress?: IAddressDetails;
 }
 
-export interface ISubscriptionCustomerRetrieveRequestData {
+interface ISubscriptionCustomerRetrieveRequestData {
     locale?: Locale;
     conversationId?: string;
     customerReferenceCode: string;
 }
 
-export interface ISubscriptionCustomerRetrieveResult {
+interface ISubscriptionCustomerRetrieveResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -1032,14 +1032,14 @@ export interface ISubscriptionCustomerRetrieveResult {
     shippingAddress?: IAddressDetails;
 }
 
-export interface ISubscriptionCustomerRetrieveListRequestData {
+interface ISubscriptionCustomerRetrieveListRequestData {
     locale?: Locale;
     conversationId?: string;
     page?: number;
     count?: number;
 }
 
-export interface ISubscriptionCustomerItem {
+interface ISubscriptionCustomerItem {
     customerReferenceCode: string;
     name: string;
     surname: string;
@@ -1050,7 +1050,7 @@ export interface ISubscriptionCustomerItem {
     shippingAddress?: IAddressDetails;
 }
 
-export interface ISubscriptionCustomerRetrieveListResult {
+interface ISubscriptionCustomerRetrieveListResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -1058,14 +1058,14 @@ export interface ISubscriptionCustomerRetrieveListResult {
     items: ISubscriptionCustomerItem[];
 }
 
-export interface ISubscriptionCardUpdateRequestData {
+interface ISubscriptionCardUpdateRequestData {
     locale?: Locale;
     conversationId?: string;
     customerReferenceCode: string;
     callbackUrl: string;
 }
 
-export interface ISubscriptionCardUpdateResult {
+interface ISubscriptionCardUpdateResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -1074,14 +1074,14 @@ export interface ISubscriptionCardUpdateResult {
     tokenExpireTime: number;
 }
 
-export interface ISubscriptionCardUpdateWithSubscriptionReferenceCodeRequestData {
+interface ISubscriptionCardUpdateWithSubscriptionReferenceCodeRequestData {
     locale?: Locale;
     conversationId?: string;
     subscriptionReferenceCode: string;
     callbackUrl: string;
 }
 
-export interface ISubscriptionCardUpdateWithSubscriptionReferenceCodeResult {
+interface ISubscriptionCardUpdateWithSubscriptionReferenceCodeResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -1090,13 +1090,13 @@ export interface ISubscriptionCardUpdateWithSubscriptionReferenceCodeResult {
     tokenExpireTime: number;
 }
 
-export interface ISubscriptionPaymentRetryRequestData {
+interface ISubscriptionPaymentRetryRequestData {
     locale?: Locale;
     conversationId?: string;
     referenceCode: string;
 }
 
-export interface ISubscriptionPaymentRetryResult {
+interface ISubscriptionPaymentRetryResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -1104,13 +1104,13 @@ export interface ISubscriptionPaymentRetryResult {
     referenceCode: string;
 }
 
-export interface ISubscriptionCancelRequestData {
+interface ISubscriptionCancelRequestData {
     locale?: Locale;
     conversationId?: string;
     subscriptionReferenceCode: string;
 }
 
-export interface ISubscriptionCancelResult {
+interface ISubscriptionCancelResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -1118,13 +1118,13 @@ export interface ISubscriptionCancelResult {
     referenceCode: string;
 }
 
-export interface ISubscriptionActivateRequestData {
+interface ISubscriptionActivateRequestData {
     locale?: Locale;
     conversationId?: string;
     subscriptionReferenceCode: string;
 }
 
-export interface ISubscriptionActivateResult {
+interface ISubscriptionActivateResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -1132,7 +1132,7 @@ export interface ISubscriptionActivateResult {
     referenceCode: string;
 }
 
-export interface ISubscriptionUpgradeRequestData {
+interface ISubscriptionUpgradeRequestData {
     locale?: Locale;
     conversationId?: string;
     subscriptionReferenceCode: string;
@@ -1141,7 +1141,7 @@ export interface ISubscriptionUpgradeRequestData {
     useTrial?: boolean;
 }
 
-export interface ISubscriptionUpgradeResult {
+interface ISubscriptionUpgradeResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -1149,13 +1149,13 @@ export interface ISubscriptionUpgradeResult {
     referenceCode: string;
 }
 
-export interface ISubscriptionRetrieveRequestData {
+interface ISubscriptionRetrieveRequestData {
     locale?: Locale;
     conversationId?: string;
     subscriptionReferenceCode: string;
 }
 
-export interface ISubscriptionRetrieveResult {
+interface ISubscriptionRetrieveResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -1175,7 +1175,7 @@ export interface ISubscriptionRetrieveResult {
     pricingPlan: ISubscriptionPricingPlanItem;
 }
 
-export interface ISubscriptionSearchRequestData {
+interface ISubscriptionSearchRequestData {
     locale?: Locale;
     conversationId?: string;
     parentReferenceCode?: string;
@@ -1188,7 +1188,7 @@ export interface ISubscriptionSearchRequestData {
     count?: number;
 }
 
-export interface ISubscriptionItem {
+interface ISubscriptionItem {
     referenceCode: string;
     parentReferenceCode: string;
     pricingPlanReferenceCode: string;
@@ -1204,7 +1204,7 @@ export interface ISubscriptionItem {
     pricingPlan: ISubscriptionPricingPlanItem;
 }
 
-export interface ISubscriptionSearchResult {
+interface ISubscriptionSearchResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -1212,7 +1212,7 @@ export interface ISubscriptionSearchResult {
     items: ISubscriptionItem[];
 }
 
-export interface ISubscriptionInitializeRequestData {
+interface ISubscriptionInitializeRequestData {
     locale?: Locale;
     conversationId?: string;
     callbackUrl: string;
@@ -1222,7 +1222,7 @@ export interface ISubscriptionInitializeRequestData {
     paymentCard?: ISavedPaymentCard | IPaymentCard;
 }
 
-export interface ISubscriptionCheckoutFormInitializeRequestData {
+interface ISubscriptionCheckoutFormInitializeRequestData {
     locale?: Locale;
     conversationId?: string;
     callbackUrl: string;
@@ -1231,7 +1231,7 @@ export interface ISubscriptionCheckoutFormInitializeRequestData {
     customer: ISubscriptionCustomerCreateRequestData;
 }
 
-export interface ISubscriptionCheckoutFormInitializeResult {
+interface ISubscriptionCheckoutFormInitializeResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -1240,13 +1240,13 @@ export interface ISubscriptionCheckoutFormInitializeResult {
     checkoutFormContent: string;
 }
 
-export interface ISubscriptionCheckoutFormRetrieveRequestData {
+interface ISubscriptionCheckoutFormRetrieveRequestData {
     locale?: Locale;
     conversationId?: string;
     token: string;
 }
 
-export interface ISubscriptionCheckoutFormRetrieveResult {
+interface ISubscriptionCheckoutFormRetrieveResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -1263,14 +1263,14 @@ export interface ISubscriptionCheckoutFormRetrieveResult {
     startDate: string;
 }
 
-export interface ISubscriptionExistingCustomerInitializeRequestData {
+interface ISubscriptionExistingCustomerInitializeRequestData {
     locale?: Locale;
     conversationId?: string;
     pricingPlanReferenceCode: string;
     customerReferenceCode: string;
 }
 
-export interface ISubscriptionExistingCustomerInitializeResult {
+interface ISubscriptionExistingCustomerInitializeResult {
     status: string;
     locale?: Locale;
     systemTime: number;
@@ -1279,114 +1279,114 @@ export interface ISubscriptionExistingCustomerInitializeResult {
 }
 
 /* NAMESPACE INTERFACES */
-export interface IApiTest {
+interface IApiTest {
     retrieve(data: IApiTestRequestData, callback: (err: Error, result: IApiTestResult) => void): void;
 }
 
-export interface IBinNumber {
+interface IBinNumber {
     retrieve(data: IBinNumberRequestData, callback: (err: Error, result: IBinNumberResult) => void): void;
 }
 
-export interface IApproval {
+interface IApproval {
     create(data: IApprovalPaymentRequestData, callback: (err: Error, result: IApprovalPaymentResult) => void): void;
 }
 
-export interface IDisapproval {
+interface IDisapproval {
     create(data: IApprovalPaymentRequestData, callback: (err: Error, result: IApprovalPaymentResult) => void): void;
 }
 
-export interface IBKMInitialize {
+interface IBKMInitialize {
     create(
         data: IThreeDSInitializePaymentRequestData,
         callback: (err: Error, result: IThreeDSInitializePaymentResult) => void,
     ): void;
 }
 
-export interface Ibkm {
+interface Ibkm {
     retrieve(
         data: IThreeDSPaymentCompleteRequestData,
         callback: (err: Error, result: IThreeDSPaymentCompleteRequestData) => void,
     ): void;
 }
 
-export interface ICancel {
+interface ICancel {
     create(data: ICancelPaymentRequestData, callback: (err: Error, result: ICancelPaymentResult) => void): void;
 }
 
-export interface ICard {
+interface ICard {
     create(data: ISavePaymentCardRequestData, callback: (err: Error, result: ISavePaymentCardResult) => void): void;
     delete(data: IDeleteUserCardRequestData, callback: (err: Error, result: IDeleteUserCardResult) => void): void;
 }
 
-export interface ICardList {
+interface ICardList {
     retreive(data: IListUserCardsRequestData, callback: (err: Error, result: IListUserCardsResult) => void): void;
 }
 
-export interface ICheckOutFormInitialize {
+interface ICheckOutFormInitialize {
     create(
         data: IThreeDSInitializePaymentRequestData,
         callback: (err: Error, result: ICheckoutFormInitialResult) => void,
     ): void;
 }
 
-export interface ICheckOutForm {
+interface ICheckOutForm {
     retrieve(
         data: ICheckoutFormRetrieveRequestData,
         callback: (err: Error, result: ICheckoutFormRetrieveResult) => void,
     ): void;
 }
 
-export interface IUniversalCardStorageInitialize {
+interface IUniversalCardStorageInitialize {
     retrieve(
         data: IUniversalCardStorageInitializeRequestData,
         callback: (err: Error, result: IUniversalCardStorageInitializeResult) => void,
     ): void;
 }
 
-export interface IInstallmentInfo {
+interface IInstallmentInfo {
     retrieve(data: IInstallmentInfoRequestData, callback: (err: Error, result: IInstallmentInfoResult) => void): void;
 }
 
-export interface IPayment {
+interface IPayment {
     create(data: IPaymentRequestData, callback: (err: Error, result: IPaymentResult) => void): void;
     retrieve(data: IPaymentRetrieveRequestData, callback: (err: Error, result: IPaymentResult) => void): void;
 }
 
-export interface IPaymentItem {
+interface IPaymentItem {
     update(data: IPaymentItemRequestData, callback: (err: Error, result: IPaymentItemResult) => void): void;
 }
 
-export interface IPeccoInitialize {
+interface IPeccoInitialize {
     create(data: IPeccoInitializeRequestData, callback: (err: Error, result: IPeccoInitializeResult) => void): void;
 }
 
-export interface IPeccoPayment {
+interface IPeccoPayment {
     create(data: IPeccoPaymentRequestData, callback: (err: Error, result: IPeccoPaymentResult) => void): void;
 }
 
-export interface IRefund {
+interface IRefund {
     create(data: IRefundRequestData, callback: (err: Error, result: IRefundResult) => void): void;
 }
 
-export interface IRefundToBalance {
+interface IRefundToBalance {
     create(data: IRefundToBalanceRequestData, callback: (err: Error, result: IRefundToBalanceResult) => void): void;
 }
 
-export interface IPayoutCompletedTransactionListRetrieve {
+interface IPayoutCompletedTransactionListRetrieve {
     retrieve(
         data: IPayoutCompletedTransactionListRetrieveRequestData,
         callback: (err: Error, result: IPayoutCompletedTransactionListRetrieveResult) => void,
     ): void;
 }
 
-export interface IBouncedBackTransactionListRetrieve {
+interface IBouncedBackTransactionListRetrieve {
     retrieve(
         data: IBouncedBackTransactionListRetrieveRequestData,
         callback: (err: Error, result: IBouncedBackTransactionListRetrieveResult) => void,
     ): void;
 }
 
-export interface ISubMerchant {
+interface ISubMerchant {
     create(data: ISubMerchantCreateRequestData, callback: (err: Error, result: ISubMerchantCreateResult) => void): void;
     update(data: ISubMerchantUpdateRequestData, callback: (err: Error, result: ISubMerchantUpdateResult) => void): void;
     retrieve(
@@ -1395,25 +1395,25 @@ export interface ISubMerchant {
     ): void;
 }
 
-export interface IThreeDSInitialize {
+interface IThreeDSInitialize {
     create(
         data: IThreeDSInitializePaymentRequestData,
         callback: (err: Error, result: IThreeDSInitializePaymentResult) => void,
     ): void;
 }
 
-export interface IThreedsPayment {
+interface IThreedsPayment {
     create(data: IThreeDSPaymentCompleteRequestData, callback: (err: Error, result: IPaymentResult) => void): void;
 }
 
-export interface ISettlementToBalance {
+interface ISettlementToBalance {
     create(
         data: ISettlementToBalanceRequestData,
         callback: (err: Error, result: ISettlementToBalanceResult) => void,
     ): void;
 }
 
-export interface ISubscriptionProduct {
+interface ISubscriptionProduct {
     create(
         data: ISubscriptionProductCreateRequestData,
         callback: (err: Error, result: ISubscriptionProductCreateResult) => void,
@@ -1432,7 +1432,7 @@ export interface ISubscriptionProduct {
     ): void;
 }
 
-export interface ISubscriptionPricingPlan {
+interface ISubscriptionPricingPlan {
     create(
         data: ISubscriptionPricingPlanCreateRequestData,
         callback: (err: Error, result: ISubscriptionPricingPlanCreateResult) => void,
@@ -1451,7 +1451,7 @@ export interface ISubscriptionPricingPlan {
     ): void;
 }
 
-export interface ISubscriptionCustomer {
+interface ISubscriptionCustomer {
     create(
         data: ISubscriptionCustomerCreateRequestData,
         callback: (err: Error, result: ISubscriptionCustomerCreateResult) => void,
@@ -1470,7 +1470,7 @@ export interface ISubscriptionCustomer {
     ): void;
 }
 
-export interface ISubscriptionCard {
+interface ISubscriptionCard {
     update(
         data: ISubscriptionCardUpdateRequestData,
         callback: (err: Error, result: ISubscriptionCardUpdateResult) => void,
@@ -1481,14 +1481,14 @@ export interface ISubscriptionCard {
     ): void;
 }
 
-export interface ISubscriptionPayment {
+interface ISubscriptionPayment {
     retry(
         data: ISubscriptionPaymentRetryRequestData,
         callback: (err: Error, result: ISubscriptionPaymentRetryResult) => void,
     ): void;
 }
 
-export interface ISubscription {
+interface ISubscription {
     cancel(
         data: ISubscriptionCancelRequestData,
         callback: (err: Error, result: ISubscriptionCancelResult) => void,
@@ -1515,7 +1515,7 @@ export interface ISubscription {
     ): void;
 }
 
-export interface ISubscriptionCheckoutForm {
+interface ISubscriptionCheckoutForm {
     initialize(
         data: ISubscriptionCheckoutFormInitializeRequestData,
         callback: (err: Error, result: ISubscriptionCheckoutFormInitializeResult) => void,
@@ -1526,14 +1526,14 @@ export interface ISubscriptionCheckoutForm {
     ): void;
 }
 
-export interface ISubscriptionExistingCustomer {
+interface ISubscriptionExistingCustomer {
     initialize(
         data: ISubscriptionExistingCustomerInitializeRequestData,
         callback: (err: Error, result: ISubscriptionExistingCustomerInitializeResult) => void,
     ): void;
 }
 
-export class Iyzipay {
+declare class Iyzipay {
     constructor(options?: IConfigOptions);
     apiTest: IApiTest;
     approval: IApproval;
@@ -1569,22 +1569,22 @@ export class Iyzipay {
     subscription: ISubscription;
     subscriptionCheckoutForm: ISubscriptionCheckoutForm;
     subscriptionExistingCustomer: ISubscriptionExistingCustomer;
+
+    //Static methods
+
+    static Locale: Ilocale;
+    static PaymentGroup: IpaymentGroup;
+    static BasketItemType: IbasketItemType;
+    static PaymentChannel: IpaymentChannel;
+    static SubMerchantType: IsubMerchantType;
+    static Currency: Icurrency;
+    static ApmType: IapmType;
+    static RefundReason: IrefundReason;
+    static PlanPaymentType: IplanPaymentType;
+    static SubscriptionPricingPlanInterval: IsubscriptionPricingPlanInterval;
+    static SubscriptionUpgradePeriod: IsubscriptionUpgradePeriod;
+    static SubscriptionStatus: IsubscriptionStatus;
+    static SubscriptionInitialStatus: IsubscriptionInitialStatus;
 }
 
-export namespace Iyzipay {
-    const Locale: Ilocale;
-    const PaymentGroup: IpaymentGroup;
-    const BasketItemType: IbasketItemType;
-    const PaymentChannel: IpaymentChannel;
-    const SubMerchantType: IsubMerchantType;
-    const Currency: Icurrency;
-    const ApmType: IapmType;
-    const RefundReason: IrefundReason;
-    const PlanPaymentType: IplanPaymentType;
-    const SubscriptionPricingPlanInterval: IsubscriptionPricingPlanInterval;
-    const SubscriptionUpgradePeriod: IsubscriptionUpgradePeriod;
-    const SubscriptionStatus: IsubscriptionStatus;
-    const SubscriptionInitialStatus: IsubscriptionInitialStatus;
-}
-
-export default Iyzipay;
+export = Iyzipay;
