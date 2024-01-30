@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "es6",
+        "module": "commonjs",
         "target": "es6",
         "lib": [
             "es6"
@@ -13,7 +13,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "esModuleInterop": true,
-        "moduleResolution": "node"
+        "moduleResolution": "node" // Ensure module resolution is set for Node.js
     },
     "files": [
         "index.d.ts"
