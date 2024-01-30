@@ -875,6 +875,46 @@ declare namespace ApplePayJS {
     }
 
     /**
+     * A dictionary that represents a request to set up a deferred payment, such as a hotel booking or a pre-order.
+     */
+    interface ApplePayDeferredPaymentRequest {
+        /**
+         * The localized billing agreement the framework displays to the user prior to payment authorization.
+         */
+        billingAgreement?: string | undefined;
+
+        /**
+         * A dictionary that contains details about the deferred payment.
+         */
+        deferredBilling: ApplePayLineItem;
+
+        /**
+         * [ISO 8601 formatted] The time zone at the destination location of the payment.
+         */
+        freeCancellationDate?: string | undefined;
+
+        /**
+         * The time zone at the destination location of the payment.
+         */
+        freeCancellationDateTimeZone?: string | undefined;
+
+        /**
+         * A URL that links to a page on your web site where the user can manage the payment method for the deferred payment, including deleting it.
+         */
+        managementURL: string;
+
+        /**
+         * A description of the deferred payment.
+         */
+        paymentDescription: string;
+
+        /**
+         * A URL to receive life-cycle notifications for the merchant-specific payment token the system issues for the request, if applicable.
+         */
+        tokenNotificationURL?: string | undefined;
+    }
+
+    /**
      * Use ApplePayPaymentTokenContext to authorize a payment amount for each payment token in a multimerchant payment request.
      * To enable multiple merchants for a transaction, use one ApplePayPaymentTokenContext object for each merchant.
      *
@@ -1087,6 +1127,11 @@ declare namespace ApplePayJS {
          * An updated request for a recurring payment.
          */
         newRecurringPaymentRequest?: ApplePayRecurringPaymentRequest;
+
+        /**
+         * An updated request for a deferred payment.
+         */
+        newDeferredPaymentRequest?: ApplePayDeferredPaymentRequest;
 
         /**
          * A list of custom errors to display on the payment sheet.
