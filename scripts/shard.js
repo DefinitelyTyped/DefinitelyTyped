@@ -9,8 +9,8 @@ const include = [];
 
 for (let i = 0; i < shardCount; i++) {
     include.push({
-        shardCount,
         shardId: i + 1,
+        shardCount,
     });
 }
 
