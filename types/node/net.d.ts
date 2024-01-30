@@ -628,7 +628,7 @@ declare module "net" {
          * Indicates whether or not the server is listening for connections.
          * @since v5.7.0
          */
-        listening: boolean;
+        readonly listening: boolean;
         /**
          * events.EventEmitter
          *   1. close

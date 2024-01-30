@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/bewithjonam/mapboxgl-spiderifier"
     ],
+    "dependencies": {
+        "@types/mapbox-gl": "*"
+    },
     "devDependencies": {
         "@types/mapboxgl-spiderifier": "workspace:."
     },

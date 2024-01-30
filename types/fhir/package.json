@@ -2,7 +2,7 @@
     "private": true,
     "name": "@types/fhir",
     "version": "0.0.9999",
-    "nonNpm": true,
+    "nonNpm": "conflict",
     "nonNpmDescription": "FHIR",
     "projects": [
         "http://hl7.org/fhir/index.html"

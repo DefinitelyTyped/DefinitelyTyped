@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/openjscad",
     "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "openjscad",
     "projects": [
         "https://github.com/joostn/OpenJsCad"
     ],

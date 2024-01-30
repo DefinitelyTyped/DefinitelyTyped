@@ -145,3 +145,32 @@ const localAddress = "1.2.3.4";
         agent: tunnelingAgent,
     });
 })();
+
+(() => {
+    const tunnelingAgent = tunnel.httpsOverHttp({
+        maxSockets: poolSize, // Defaults to http.Agent.defaultMaxSockets
+
+        proxy: { // Proxy settings
+            host: proxyHost, // Defaults to 'localhost'
+            port: proxyPort, // Defaults to 80
+            localAddress, // Local interface if necessary
+
+            // Basic authorization for proxy server if necessary
+            proxyAuth: "user:password",
+
+            // Header fields for proxy server if necessary
+            headers: {
+                "User-Agent": "Node",
+            },
+        },
+
+        // Make sure rejectUnauthorized (of AgentOptions) is available for use
+        rejectUnauthorized: false,
+    });
+
+    const req = https.request({
+        host: "example.com",
+        port: 443,
+        agent: tunnelingAgent,
+    });
+})();

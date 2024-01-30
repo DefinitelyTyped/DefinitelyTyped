@@ -3,7 +3,7 @@ import moment = require("moment");
 export = moment;
 
 declare module "moment" {
-    type IUnitOfTime = "iYear" | "iMonth";
+    type IUnitOfTime = "iYear" | "iMonth" | "iDate";
 
     function iDaysInMonth(year: number, month: number): number;
 

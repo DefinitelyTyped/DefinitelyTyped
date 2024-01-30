@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/angular.throttle",
     "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "angular.throttle",
     "projects": [
         "https://github.com/BaggersIO/angular.throttle"
     ],

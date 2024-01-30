@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/acc-wizard",
     "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "acc-wizard",
     "projects": [
         "https://github.com/sathomas/acc-wizard"
     ],

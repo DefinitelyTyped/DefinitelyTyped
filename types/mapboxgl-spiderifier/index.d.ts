@@ -5,17 +5,18 @@ export function popupOffsetForSpiderLeg(spiderLeg: SpiderLeg, offset?: number): 
 
 export interface SpiderLegOffsets {
     top: SpiderLegOffset;
-    "top-left": SpiderlegOffset;
-    "top-right": SpiderlegOffset;
-    bottom: SpiderlegOffset;
-    "bottom-left": SpiderlegOffset;
-    "bottom-right": SpiderlegOffset;
-    left: SpiderlegOffset;
-    right: SpiderlegOffset;
+    "top-left": SpiderLegOffset;
+    "top-right": SpiderLegOffset;
+    bottom: SpiderLegOffset;
+    "bottom-left": SpiderLegOffset;
+    "bottom-right": SpiderLegOffset;
+    left: SpiderLegOffset;
+    right: SpiderLegOffset;
+    [_: string]: SpiderLegOffset;
 }
 export type SpiderLegOffset = [number, number];
 
-class MapboxglSpiderifier {
+declare class MapboxglSpiderifier {
     constructor(map: Map, options: Options);
 
     each: (spiderLeg: SpiderLeg) => void;
@@ -33,6 +34,8 @@ export interface Options {
     /**
      * number of markers till which the spider will be circular and beyond this threshold,
      * it will spider in spiral.
+     *
+     * 0 -> always spiral; Infinity -> always circle
      * Default: 9
      */
     circleSpiralSwitchover?: number;
@@ -40,9 +43,6 @@ export interface Options {
     initializeLeg?: (spiderLeg: SpiderLeg) => void;
     onClick?: (event: MouseEvent, spiderLeg: SpiderLeg) => void;
     // --- <SPIDER TUNING Params>
-    // circleSpiralSwitchover: show spiral instead of circle from this marker count upwards
-    //                        0 -> always spiral; Infinity -> always circle
-    circleSpiralSwitchover?: number; // Default: 9,
     circleFootSeparation?: number; // Default: 25, // related to circumference of circle
     spiralFootSeparation?: number; // Default: 28, // related to size of spiral (experiment!)
     spiralLengthStart?: number; // Default: 15, // ditto

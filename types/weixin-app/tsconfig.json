@@ -17,8 +17,5 @@
     "files": [
         "index.d.ts",
         "weixin-app-tests.ts"
-    ],
-    "exclude": [
-        ".prettierrc"
     ]
 }

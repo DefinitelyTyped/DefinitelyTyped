@@ -58,7 +58,7 @@ class CustomExtraDb {
 
 class MyMilestoneDB extends ShareDB.MilestoneDB {}
 
-const backend = new ShareDB({
+const options: ShareDB.ShareDBOptions = {
     extraDbs: { myDb: new CustomExtraDb() },
     milestoneDb: new MyMilestoneDB(),
     suppressPublish: false,
@@ -66,7 +66,9 @@ const backend = new ShareDB({
     errorHandler: (error, context) => {
         console.log(error, context.agent.custom);
     },
-});
+};
+
+const backend = new ShareDB(options);
 console.log(backend.db);
 backend.on("error", (error) => console.error(error));
 backend.on("send", (agent, context) => console.log(agent, context));

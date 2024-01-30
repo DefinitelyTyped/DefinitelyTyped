@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/jquery.color",
     "version": "2.1.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.color",
     "projects": [
         "https://github.com/jquery/jquery-color"
     ],

@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/azure-mobile-services-client",
     "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "azure-mobile-services-client",
     "projects": [
         "http://www.windowsazure.com/en-us/develop/mobile/"
     ],
