@@ -17,8 +17,5 @@
     "files": [
         "index.d.ts",
         "ali-app-tests.ts"
-    ],
-    "exclude": [
-        ".prettierrc"
     ]
 }
