@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/gorilla-engine",
     "version": "1.1.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "gorilla-engine",
     "projects": [
         "https://gorilla-engine.com"
     ],

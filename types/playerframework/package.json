@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/playerframework",
     "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "playerframework",
     "projects": [
         "https://playerframework.codeplex.com/"
     ],

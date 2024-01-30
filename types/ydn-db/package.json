@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/ydn-db",
     "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "ydn-db",
     "projects": [
         "http://dev.yathit.com/ydn-db/index.html"
     ],

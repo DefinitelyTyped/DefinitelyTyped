@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/chrome-apps",
     "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "chrome-apps",
     "projects": [
         "http://developer.chrome.com/apps/"
     ],
