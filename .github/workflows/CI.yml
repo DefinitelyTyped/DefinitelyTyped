@@ -26,7 +26,7 @@ jobs:
     if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
 
     outputs:
-      matrix: ${{ steps.shard.outputs.matrix }}
+      matrix: ${{ steps.matrix.outputs.matrix }}
 
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
@@ -40,10 +40,10 @@ jobs:
 
       - uses: pnpm/action-setup@d882d12c64e032187b2edb46d3a0d003b7a43598 # v2.4.0
 
-      - id: shard
+      - id: matrix
         run: |
           TEST_COUNT=$(pnpm ls --depth -1 --parseable --filter '...@types/**[HEAD^1]' | wc -)
-          MATRIX=$(node ./scripts/shard.js $TEST_COUNT)
+          MATRIX=$(node ./scripts/get-ci-matrix $TEST_COUNT)
           echo $MATRIX
           echo "matrix=$MATRIX" >> "$GITHUB_OUTPUT"
 
