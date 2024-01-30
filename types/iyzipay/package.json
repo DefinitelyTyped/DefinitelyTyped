@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/iyzico/iyzipay-node"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/iyzipay": "workspace:."
     },
