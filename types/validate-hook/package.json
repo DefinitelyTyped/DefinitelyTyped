@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/validate-hook",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/jon1Santos-JS/validate-form"
+    ],
+    "devDependencies": {
+        "@types/validate-hook": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "João Paulo",
+            "githubUsername": "jon1Santos"
+        }
+    ]
+}
