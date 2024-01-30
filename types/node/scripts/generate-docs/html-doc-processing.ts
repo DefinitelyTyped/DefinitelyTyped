@@ -88,7 +88,7 @@ const customTranslators: TranslatorConfigObject = {
         },
     }),
     sup: {
-        prefix: '**',
+        prefix: "**",
     },
 };
 
