@@ -256,6 +256,22 @@ describe("ApplePaySession", () => {
         };
         const session = new ApplePaySession(version, paymentRequest);
     });
+    it("can create a new instance supporting coupon code", () => {
+        const version = 3;
+        const paymentRequest: ApplePayJS.ApplePayPaymentRequest = {
+            countryCode: "US",
+            currencyCode: "USD",
+            supportedNetworks: ["masterCard", "visa"],
+            merchantCapabilities: ["supports3DS"],
+            total: {
+                label: "My Store",
+                amount: "9.99",
+            },
+            supportsCouponCode: true,
+        };
+
+        const session = new ApplePaySession(version, paymentRequest);
+    });
     it("can call static methods", () => {
         const merchantIdentifier = "MyMerchantId";
 
@@ -409,6 +425,14 @@ describe("ApplePaySession", () => {
                 console.log(`The validation URL is '${event.validationURL}'.`);
             }
         };
+
+        session.oncouponcodechanged = (event: ApplePayJS.ApplePayCouponCodeChangedEvent) => {
+            if (event.couponCode) {
+                console.log(`The coupon code is '${event.couponCode}'.`);
+            }
+        };
+
+        session.completeCouponCodeChange({ newTotal: total });
     });
 });
 describe("ApplePayPaymentRequest", () => {
@@ -504,6 +528,8 @@ describe("ApplePayError", () => {
         new ApplePayError("shippingContactInvalid");
         new ApplePayError("shippingContactInvalid", "emailAddress");
         new ApplePayError("shippingContactInvalid", "emailAddress", "some message");
+        new ApplePayError("couponCodeExpired");
+        new ApplePayError("couponCodeInvalid");
     });
 });
 
