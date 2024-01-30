@@ -9,5 +9,9 @@
         "types": [],
         "noUnusedLocals": true,
         "noEmit": true
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "bun-tests.ts"
+    ]
 }
