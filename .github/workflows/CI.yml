@@ -5,9 +5,39 @@ permissions:
   contents: read
 
 jobs:
+  setup-matrix:
+    runs-on: ubuntu-latest
+    if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
+
+    outputs:
+      matrix: ${{ steps.shard.outputs.matrix }}
+
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          # Need this to be able to inquire about origin/master
+          filter: blob:none # https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/
+          fetch-depth: 0 # Default is 1; need to set to 0 to get the benefits of blob:none.
+      - uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # v4.0.1
+        with:
+          node-version: '20'
+
+      - uses: pnpm/action-setup@d882d12c64e032187b2edb46d3a0d003b7a43598 # v2.4.0
+
+      - id: shard
+        run: |
+          TEST_COUNT=$(pnpm ls --depth -1 --parseable --filter '...@types/**[HEAD^1]' | wc -)
+          MATRIX=$(node ./scripts/shard.js $TEST_COUNT)
+          echo $MATRIX
+          echo "matrix=$MATRIX" >> "$GITHUB_OUTPUT"
+
   test:
     runs-on: ubuntu-latest
     if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
+    needs: setup-matrix
+
+    strategy:
+      matrix: ${{ fromJson(needs.setup-matrix.outputs.matrix) }}
 
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
@@ -47,20 +77,21 @@ jobs:
       - run: pnpm ls
 
       # Run tests
-      - run: pnpm run test-all
+      - run: pnpm run test-all --shardCount ${{ matrix.shardCount }} --shardId ${{ matrix.shardId }}
 
-      - name: 'Run Danger'
-        env:
-          # See https://github.com/danger/danger-js/issues/1042
-          DANGER_GITHUB_API_BASE_URL: 'https://api.github.com'
+      # TODO(jakebailey): export dangerbot artifacts and then run
+      # - name: 'Run Danger'
+      #   env:
+      #     # See https://github.com/danger/danger-js/issues/1042
+      #     DANGER_GITHUB_API_BASE_URL: 'https://api.github.com'
 
-        # Danger failing (for example through rate-limiting) shouldn't fail the build
-        run: |
-          # Exposing this token is safe because the user of it has no other public repositories
-          # and has no permission to modify this repository. See #62638 for the discussion.
-          TOKEN='ghp_i5wtj1l2AbpFv3OU96w6R'
-          TOKEN+='On3bHOkcV2AmVY6'
-          DANGER_GITHUB_API_TOKEN=$TOKEN pnpm danger ci || $( exit 0 )
+      #   # Danger failing (for example through rate-limiting) shouldn't fail the build
+      #   run: |
+      #     # Exposing this token is safe because the user of it has no other public repositories
+      #     # and has no permission to modify this repository. See #62638 for the discussion.
+      #     TOKEN='ghp_i5wtj1l2AbpFv3OU96w6R'
+      #     TOKEN+='On3bHOkcV2AmVY6'
+      #     DANGER_GITHUB_API_TOKEN=$TOKEN pnpm danger ci || $( exit 0 )
 
   scripts:
     runs-on: ubuntu-latest
