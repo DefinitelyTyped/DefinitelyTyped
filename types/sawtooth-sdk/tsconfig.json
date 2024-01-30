@@ -16,8 +16,5 @@
         "index.d.ts",
         "test/signing-tests.ts",
         "test/processor-tests.ts"
-    ],
-    "exclude": [
-        "protobuf/index.d.ts"
     ]
 }

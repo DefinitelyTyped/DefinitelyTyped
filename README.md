@@ -221,13 +221,98 @@ This script uses [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tr
 
 Once you have all your changes ready, use `pnpm run test-all` to see how your changes affect other modules.
 
+##### @arethetypeswrong/cli (`attw`) checks
+
+dtslint includes module format and `package.json` configuration checks from [@arethetypeswrong/cli](https://github.com/arethetypeswrong/arethetypeswrong.github.io/blob/main/packages/cli). The checks run only if a SemVer-major-compatible implementation package can be found on npm to compare against the DefinitelyTyped package. (DefinitelyTyped packages marked as `"nonNpm": true` in their `package.json` are skipped.)
+
+Many packages currently fail the `attw` checks and need to be fixed. To allow us to make incremental progress, failed `attw` checks do not fail the `dtslint` run when the package is listed in `failingPackages` in [`attw.json`](./attw.json), but they will still be reported in the `pnpm test my-package` output. If you fix the package, remove it from `failingPackages` so that `attw` checks can start failing `dtslint` runs.
+
+All problems reported by `attw` have documentation linked in the output. Some rules of thumb to help avoid problems:
+
+- The `package.json` in the DefinitelyTyped package must have matching `type` and `exports` fields if the implementation package uses them in its `package.json`. For example, if an implementation `package.json` looks like:
+
+  ```json
+  {
+      "name": "my-package",
+      "version": "1.0.1",
+      "type": "module",
+      "main": "dist/cjs/index.cjs",
+      "exports": {
+          ".": {
+              "import": "./dist/esm/index.js",
+              "require": "./dist/cjs/index.cjs"
+          },
+          "./subpath": {
+              "import": "./dist/esm/subpath.js",
+              "require": "./dist/cjs/subpath.cjs"
+          }
+      }
+  }
+  ```
+
+  then the DefinitelyTyped `package.json` should look something like:
+
+  ```json5
+  {
+      "name": "@types/my-package",
+      "version": "1.0.9999",
+      "type": "module",
+      "types": "index.d.ts",
+      "exports": {
+          ".": {
+              "import": "./index.d.ts",
+              "require": "./index.d.cts"
+          },
+          "./subpath": {
+              "import": "./subpath.d.ts",
+               "require": "./subpath.d.cts"
+          }
+      }
+  }
+  ```
+
+  Notice that each `exports` subpath is reflected, and each JavaScript file has a corresponding declaration file with a matching file extension—a `.d.ts` file types a `.js` file, not a `.mjs` or `.cjs` file!
+
+- When the implementation package uses `module.exports = ...`, the DefinitelyTyped package should use `export =`, not `export default`. (Alternatively, if the `module.exports` is just an object of named properties, the DefinitelyTyped package can use a series of named exports.) The most common obstacle to correcting this problem is confusion about how to export types in addition to the primary export. For example, assume these types are incorrectly using `export default`:
+
+  ```ts
+  export interface Options {
+    // ...
+  }
+  export default function doSomething(options: Options): void;
+  ```
+
+  Changing the `export default` to an `export =` creates an error:
+
+  ```ts
+  export interface Options {
+    // ...
+  }
+  declare function doSomething(options: Options): void;
+  export = doSomething;
+  // ^^^^^^^^^^^^^^^^^
+  // Error: An export assignment cannot be used in a module with other exported elements.
+  ```
+
+  To fix this, move the types inside a namespace with the same name as the function:
+
+  ```ts
+  declare namespace doSomething {
+    export interface Options {
+      // ...
+    }
+  }
+  declare function doSomething(options: doSomething.Options): void;
+  export = doSomething;
+  ```
+
+If you need help fixing a problem, please ask in the DefinitelyTyped channel on the [TypeScript Community Discord server](https://discord.gg/typescript).
+
 #### Naming
 
 If you are adding typings for an npm package, create a directory with the same name.
-If the package you are adding typings for is not on npm, make sure the name you choose for it does not conflict with the name of a package on npm.
+If the package you are adding typings for is not on npm, set `"nonNpm": true` in the `package.json`, and make sure the name you choose for it does not conflict with the name of a package on npm.
 (You can use `npm info <my-package>` to check for the existence of the `<my-package>` package.)
-
-If a non-npm package conflicts with an existing npm package try adding -browser to the end of the name to get `<my-package>-browser`.
 
 #### `<my-package>-tests.ts`
 

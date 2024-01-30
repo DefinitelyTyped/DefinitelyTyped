@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/gapi.pagespeedonline",
     "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "gapi.pagespeedonline",
     "projects": [
         "https://developers.google.com/speed/pagespeed/"
     ],
