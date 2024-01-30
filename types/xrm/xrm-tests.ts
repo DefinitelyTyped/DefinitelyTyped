@@ -609,7 +609,6 @@ Xrm.Navigation.navigateTo({
     },
 );
 
-const optionSetControl = Xrm.Page.getControl<Xrm.Controls.OptionSetControl>("singlechoice");
 const multiSelectOptionSetControl = Xrm.Page.getControl<Xrm.Controls.MultiSelectOptionSetControl>("choices");
 
 // $ExpectType MultiSelectOptionSetAttribute
@@ -617,6 +616,8 @@ multiSelectOptionSetControl.getAttribute();
 
 // Demonstrates getWebResourceUrl
 const webResourceUrl = Xrm.Utility.getGlobalContext().getWebResourceUrl("sample_webResource1.js");
+
+const optionSetControl = Xrm.Page.getControl<Xrm.Controls.OptionSetControl>("singlechoice");
 
 // Demonstrates getOptions for Xrm.Controls.OptionSetControl
 // $ExpectType OptionSetValue[]
