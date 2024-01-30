@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/sphere-engine-browser",
-        "version": "1.5.9999",
+    "version": "1.5.9999",
     "nonNpm": true,
     "nonNpmDescription": "sphere-engine-browser",
     "projects": [
