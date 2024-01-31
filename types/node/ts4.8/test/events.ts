@@ -116,6 +116,9 @@ async function test() {
     let captureRejectionSymbol2: typeof events.EventEmitter.captureRejectionSymbol =
         events.EventEmitter.captureRejectionSymbol;
     captureRejectionSymbol2 = events.captureRejectionSymbol;
+
+    const emitter = new events.EventEmitter();
+    emitter[events.captureRejectionSymbol] = (err: Error, name: string, ...args: any[]) => {};
 }
 
 {
@@ -132,11 +135,31 @@ async function test() {
 }
 
 {
-    // Some event properties differ from DOM types
-    const evt = new Event("fake");
-    evt.cancelBubble();
-    // @ts-expect-error
-    evt.composedPath[2];
-    // $ExpectType 0 | 2
-    evt.eventPhase;
+    let disposable: Disposable | undefined;
+    try {
+        const signal = new AbortSignal();
+        signal.addEventListener("abort", (e) => e.stopImmediatePropagation());
+        disposable = events.addAbortListener(signal, (e) => {
+            console.log(e);
+        });
+    } finally {
+        disposable?.[Symbol.dispose]();
+    }
+}
+
+{
+    class MyEmitter extends events.EventEmitterAsyncResource {}
+
+    const emitter = new MyEmitter({
+        triggerAsyncId: 123,
+    });
+
+    new events.EventEmitterAsyncResource({
+        name: "test",
+    });
+
+    emitter.asyncId; // $ExpectType number
+    emitter.asyncResource; // $ExpectType EventEmitterReferencingAsyncResource
+    emitter.triggerAsyncId; // $ExpectType number
+    emitter.emitDestroy();
 }
