@@ -55,7 +55,7 @@ const secureFormsOptions = {
             src: "url(http://family2) type(\"woff2\")",
         },
     ],
-    lang: "pl" as const
+    lang: "pl" as const,
 };
 
 const secureFormsFontOptionsError = {
