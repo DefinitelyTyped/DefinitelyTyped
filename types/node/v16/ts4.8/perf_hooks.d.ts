@@ -30,7 +30,7 @@
  */
 declare module "perf_hooks" {
     import { AsyncResource } from "node:async_hooks";
-    type EntryType = "node" | "mark" | "measure" | "gc" | "function" | "http2" | "http";
+    type EntryType = "node" | "mark" | "measure" | "gc" | "function" | "http2" | "http" | "dns";
     interface NodeGCPerformanceDetail {
         /**
          * When `performanceEntry.entryType` is equal to 'gc', `the performance.kind` property identifies
