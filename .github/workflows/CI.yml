@@ -1,13 +1,60 @@
 name: CI
-on: pull_request
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  schedule:
+    # 12PM UTC -> 4AM Pacific
+    - cron: '0 12 * * *'
 
 permissions:
   contents: read
 
+concurrency:
+  # If in a PR, head_ref will be set, so we'll cancel old PR runs.
+  # Otherwise, run_id is unique so all other events will never be cancelled.
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
+  setup-matrix:
+    runs-on: ubuntu-latest
+    if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
+
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          # Need this to be able to inquire about origin/master
+          filter: blob:none # https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/
+          fetch-depth: 0 # Default is 1; need to set to 0 to get the benefits of blob:none.
+      - uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # v4.0.1
+        with:
+          node-version: '20'
+
+      - uses: pnpm/action-setup@d882d12c64e032187b2edb46d3a0d003b7a43598 # v2.4.0
+
+      - id: matrix
+        run: |
+          TEST_COUNT=$(pnpm ls --depth -1 --parseable --filter '...@types/**[HEAD^1]' | wc -)
+          MATRIX=$(node ./scripts/get-ci-matrix $TEST_COUNT)
+          echo $MATRIX
+          echo "matrix=$MATRIX" >> "$GITHUB_OUTPUT"
+
   test:
     runs-on: ubuntu-latest
     if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
+    needs: setup-matrix
+
+    strategy:
+      matrix: ${{ fromJson(needs.setup-matrix.outputs.matrix) }}
+      fail-fast: false
 
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
@@ -42,12 +89,61 @@ jobs:
           restore-keys: ${{ runner.os }}-pnpm-store-cache-
 
       - run: ./scripts/pnpm-install.sh
+        name: pnpm install (filtered)
+        if: ${{ github.event_name != 'schedule' }}
+
+      - run: pnpm install
         name: pnpm install
+        if: ${{ github.event_name == 'schedule' }}
 
       - run: pnpm ls
 
-      # Run tests
-      - run: pnpm run test-all
+      - run: pnpm run test-all --shardCount ${{ matrix.shardCount }} --shardId ${{ matrix.shardId }}
+        if: ${{ github.event_name != 'schedule' }}
+
+      - run: pnpm dtslint-runner --path . --selection all --onlyTestTsNext --shardCount ${{ matrix.shardCount }} --shardId ${{ matrix.shardId }}
+        if: ${{ github.event_name == 'schedule' }}
+
+      - name: Get suggestions dir
+        id: suggestions-dir
+        run: echo "path=$(node ./scripts/get-suggestions-dir.js)" >> "$GITHUB_OUTPUT"
+        if: ${{ github.event_name == 'pull_request' }}
+
+      - name: Upload suggestions
+        uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
+        with:
+          name: suggestions_${{ matrix.id }}_${{ matrix.shardCount }}
+          if-no-files-found: ignore
+          path: ${{ steps.suggestions-dir.outputs.path }}
+          retention-days: 1
+        if: ${{ github.event_name == 'pull_request' }}
+
+  dangerbot:
+    runs-on: ubuntu-latest
+    if: github.repository == 'DefinitelyTyped/DefinitelyTyped' && github.event_name == 'pull_request'
+
+    needs:
+      - test
+
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      - uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # v4.0.1
+        with:
+          node-version: '20'
+
+      - uses: pnpm/action-setup@d882d12c64e032187b2edb46d3a0d003b7a43598 # v2.4.0
+        with:
+          run_install: |
+            - args: [--filter, ., --filter, '{./scripts}...']
+
+      - name: Get suggestions dir
+        id: suggestions-dir
+        run: echo "path=$(node ./scripts/get-suggestions-dir.js)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/download-artifact@6b208ae046db98c579e8a3aa621ab581ff575935 # v4.1.1
+        with:
+          path: ${{ steps.suggestions-dir.outputs.path }}
+          merge-multiple: true
 
       - name: 'Run Danger'
         env:
