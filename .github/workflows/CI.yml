@@ -16,7 +16,7 @@ permissions:
 
 concurrency:
   # If in a PR, head_ref will be set, so we'll cancel old PR runs.
-  # Othewise, run_id is unique so all other events will never be cancelled.
+  # Otherwise, run_id is unique so all other events will never be cancelled.
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
