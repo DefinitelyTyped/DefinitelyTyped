@@ -110,7 +110,7 @@ jobs:
         if: ${{ github.event_name == 'pull_request' }}
 
       - name: Upload suggestions
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
         with:
           name: suggestions_${{ matrix.id }}_${{ matrix.shardCount }}
           if-no-files-found: ignore
@@ -140,7 +140,7 @@ jobs:
         id: suggestions-dir
         run: echo "path=$(node ./scripts/get-suggestions-dir.js)" >> "$GITHUB_OUTPUT"
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@6b208ae046db98c579e8a3aa621ab581ff575935 # v4.1.1
         with:
           path: ${{ steps.suggestions-dir.outputs.path }}
           merge-multiple: true
