@@ -15,9 +15,9 @@ permissions:
   contents: read
 
 concurrency:
-  # If in a PR, head_ref will be set, so we'll cancel old PR runs.
+  # If in a PR, use the ref (refs/pull/<num>) so outdated PR runs are cancelled.
   # Otherwise, run_id is unique so all other events will never be cancelled.
-  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  group: ${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.ref || github.run_id }}
   cancel-in-progress: true
 
 jobs:
