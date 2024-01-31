@@ -463,6 +463,25 @@ async function streamPipelineAsyncPromiseAbortTransform() {
     });
 }
 
+async function streamPipelineAsyncPromiseOptions() {
+    const { signal } = new AbortController();
+
+    // Empty options
+    pipelinePromise(process.stdin, process.stdout, {});
+
+    // options with signal property
+    pipelinePromise(process.stdin, process.stdout, { signal });
+
+    // options with end property
+    pipelinePromise(process.stdin, process.stdout, { end: false });
+
+    // options with both properties
+    pipelinePromise(process.stdin, process.stdout, { signal, end: false });
+
+    // options with undefined properties
+    pipelinePromise(process.stdin, process.stdout, { signal: undefined, end: undefined });
+}
+
 async function testConsumers() {
     const r = createReadStream("file.txt");
 

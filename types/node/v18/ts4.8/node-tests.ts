@@ -9,7 +9,7 @@ import "./test/crypto";
 import "./test/dgram";
 import "./test/diagnostics_channel";
 import "./test/dns";
-import "./test/dom-events";
+import "./test/dom-events"; // dom-events behaves differently under lib-dom
 import "./test/events";
 import "./test/fs";
 import "./test/globals";
