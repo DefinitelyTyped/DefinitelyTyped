@@ -5,6 +5,8 @@
  * They all inherit from the TTFFont class and have the same public API.
  */
 export interface Font {
+    type: "TTF" | "WOFF" | "WOFF2";
+
     postscriptName: string;
     fullName: string;
     familyName: string;
@@ -90,6 +92,36 @@ export interface Font {
      * stored in the glyph object.
      */
     getGlyph(glyphId: number, codePoints?: number[]): Glyph;
+
+
+    /**
+     * an array of all OpenType feature tags
+     * same to availableFeatures but can input custom script and language params
+     */
+    getAvailableFeatures(script: string | string[], language: string): string[];
+
+    /**
+     * Returns a Subset for this font.
+     */
+    createSubset(): Subset;
+
+    /**
+     * Returns a new font with the given variation settings applied.
+     * Settings can either be an instance name, or an object containing
+     * variation tags as specified by the `variationAxes` property.
+     */
+    getVariation(settings: object | string): Font;
+
+    // Standardized format plugin API
+    getFont(name: string): Font;
+
+    /**
+     * Gets a string from the font's `name` table
+     * `lang` is a BCP-47 language code.
+     */
+    getName(key: string, lang: string): string | null
+
+    setDefaultLanguage(lang: string): void
 }
 
 export interface GlyphRun {
@@ -336,23 +368,34 @@ export interface HHEA {
     numberOfMetrics: number;
 }
 
+export interface FontCollection {
+    type: "TTC"| "DFont";
+    getFont(name: string): Font | null
+    fonts: Font[]
+}
+
+export interface Subset {
+    includeGlyph(glyph: Glyph): boolean;
+    encode(): Uint8Array;
+}
+
 /**
  * Opens a font file asynchronously, returning a promise that resolves with a font object.
  * For collection fonts (such as TrueType collection files),
  * you can pass a postscriptName to get that font out of the collection instead of a collection object.
  */
-export function open(filename: string, postscriptName?: string): Promise<Font>;
+export function open(filename: string, postscriptName?: string): Promise<Font | FontCollection>;
 
 /**
  * Opens a font file synchronously, and returns a font object.
  * For collection fonts (such as TrueType collection files),
  * you can pass a postscriptName to get that font out of the collection instead of a collection object.
  */
-export function openSync(filename: string, postscriptName?: string): Font;
+export function openSync(filename: string, postscriptName?: string): Font | FontCollection;
 
 /**
  * Returns a font object for the given buffer.
  * For collection fonts (such as TrueType collection files),
  * you can pass a postscriptName to get that font out of the collection instead of a collection object.
  */
-export function create(buffer: Buffer, postscriptName?: string): Font;
+export function create(buffer: Buffer, postscriptName?: string): Font | FontCollection;
