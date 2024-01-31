@@ -1,12 +1,21 @@
 import { CoordinateSystem } from '../../../../src/Three.js';
-import Backend from '../common/Backend.js';
+import Backend, { BackendParameters } from '../common/Backend.js';
+
+export interface WebGPUBackendParameters extends BackendParameters {
+    alpha?: boolean | undefined;
+    antialias?: boolean | undefined;
+    sampleCount?: number | undefined;
+    trackTimestamp?: boolean | undefined;
+}
 
 export default class WebGPUBackend extends Backend {
-    constructor(parameters?: {
-        canvas?: HTMLCanvasElement | undefined;
-        antialias?: boolean | undefined;
-        sampleCount?: number | undefined;
-    });
+    readonly isWebGPUBackend: true;
+
+    constructor(parameters?: WebGPUBackendParameters);
 
     get coordinateSystem(): CoordinateSystem;
+
+    // utils public
+
+    getMaxAnisotropy(): number;
 }

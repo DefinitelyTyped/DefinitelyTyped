@@ -162,8 +162,8 @@ declare class BatchedMesh extends Mesh<BufferGeometry, Material> {
      */
     deleteGeometry(index: number): this;
 
-    getBoundingBoxAt(index: number, target: Box3): Box3;
-    getBoundingSphereAt(index: number, target: Sphere): Sphere;
+    getBoundingBoxAt(index: number, target: Box3): Box3 | null;
+    getBoundingSphereAt(index: number, target: Sphere): Sphere | null;
 }
 
 export { BatchedMesh };

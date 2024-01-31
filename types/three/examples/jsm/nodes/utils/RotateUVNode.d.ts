@@ -11,3 +11,9 @@ export default class RotateUVNode extends TempNode {
 }
 
 export const rotateUV: (uvNode: Node, rotationNode: Node, centerNode?: Node) => ShaderNodeObject<RotateUVNode>;
+
+declare module '../shadernode/ShaderNode.js' {
+    interface NodeElements {
+        rotateUV: typeof rotateUV;
+    }
+}

@@ -1,15 +1,51 @@
 import Node from '../core/Node.js';
-import { NodeTypeOption, SwizzleOption } from '../core/constants.js';
+import { AnyObject, NodeTypeOption, SwizzleOption } from '../core/constants.js';
 import ConstNode from '../core/ConstNode.js';
 import NodeBuilder from '../core/NodeBuilder.js';
-import SplitNode from '../utils/SplitNode.js';
 
-export interface NodeElements {}
+export interface NodeElements {
+    append: typeof append;
+
+    color: typeof color;
+    float: typeof float;
+    int: typeof int;
+    uint: typeof uint;
+    bool: typeof bool;
+    vec2: typeof vec2;
+    ivec2: typeof ivec2;
+    uvec2: typeof uvec2;
+    bvec2: typeof bvec2;
+    vec3: typeof vec3;
+    ivec3: typeof ivec3;
+    uvec3: typeof uvec3;
+    bvec3: typeof bvec3;
+    vec4: typeof vec4;
+    ivec4: typeof ivec4;
+    uvec4: typeof uvec4;
+    bvec4: typeof bvec4;
+    mat2: typeof mat2;
+    imat2: typeof imat2;
+    umat2: typeof umat2;
+    bmat2: typeof bmat2;
+    mat3: typeof mat3;
+    imat3: typeof imat3;
+    umat3: typeof umat3;
+    bmat3: typeof bmat3;
+    mat4: typeof mat4;
+    imat4: typeof imat4;
+    umat4: typeof umat4;
+    bmat4: typeof bmat4;
+    string: typeof string;
+    arrayBuffer: typeof arrayBuffer;
+
+    element: typeof element;
+    convert: typeof convert;
+}
 
 export function addNodeElement(name: string, nodeElement: unknown): void;
 
 export type Swizzable<T extends Node = Node> = T & {
-    [key in SwizzleOption | number]: ShaderNodeObject<SplitNode>;
+    [key in SwizzleOption | number]: ShaderNodeObject<Node>;
 };
 
 export type ShaderNodeObject<T extends Node> = T & {
@@ -162,6 +198,13 @@ export function nodeImmutable<T>(
     ...params: ProxiedTuple<GetConstructors<T>>
 ): ShaderNodeObject<ConstructedNode<T>>;
 
+export function tslFn<R extends Node = ShaderNodeObject<Node>>(jsFunc: () => R): () => R;
+export function tslFn<T extends AnyObject, R extends Node = ShaderNodeObject<Node>>(
+    jsFunc: (args: T) => R,
+): (args: T) => R;
+
+export function append(node: Node): Node;
+
 export const color: ConvertType;
 
 export const float: ConvertType;
@@ -184,6 +227,11 @@ export const ivec4: ConvertType;
 export const uvec4: ConvertType;
 export const bvec4: ConvertType;
 
+export const mat2: ConvertType;
+export const imat2: ConvertType;
+export const umat2: ConvertType;
+export const bmat2: ConvertType;
+
 export const mat3: ConvertType;
 export const imat3: ConvertType;
 export const umat3: ConvertType;
@@ -193,6 +241,9 @@ export const mat4: ConvertType;
 export const imat4: ConvertType;
 export const umat4: ConvertType;
 export const bmat4: ConvertType;
+
+export const string: (value?: string) => ShaderNodeObject<ConstNode<string>>;
+export const arrayBuffer: (value: ArrayBuffer) => ShaderNodeObject<ConstNode<ArrayBuffer>>;
 
 export const element: (node: NodeRepresentation, indexNode: NodeRepresentation) => ShaderNodeObject<Node>;
 export const convert: (node: NodeRepresentation, types: NodeTypeOption) => ShaderNodeObject<Node>;

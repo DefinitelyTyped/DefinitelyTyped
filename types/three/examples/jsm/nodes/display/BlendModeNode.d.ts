@@ -1,14 +1,15 @@
 import TempNode from '../core/TempNode.js';
 import Node from '../core/Node.js';
 import { NodeRepresentation, ShaderNode, ShaderNodeObject } from '../shadernode/ShaderNode.js';
+import { JoinNode } from '../Nodes.js';
 
-export const BurnNode: ShaderNode<{ base: Node; blendNode: Node }>;
+export const BurnNode: (args: { base: Node; blend: Node }) => ShaderNodeObject<JoinNode>;
 
-export const DodgeNode: ShaderNode<{ base: Node; blendNode: Node }>;
+export const DodgeNode: (args: { base: Node; blend: Node }) => ShaderNodeObject<JoinNode>;
 
-export const ScreenNode: ShaderNode<{ base: Node; blendNode: Node }>;
+export const ScreenNode: (args: { base: Node; blend: Node }) => ShaderNodeObject<JoinNode>;
 
-export const OverlayNode: ShaderNode<{ base: Node; blendNode: Node }>;
+export const OverlayNode: (args: { base: Node; blend: Node }) => ShaderNodeObject<JoinNode>;
 
 export type BlendMode =
     | typeof BlendModeNode.BURN
@@ -35,3 +36,12 @@ export const burn: (baseNode: NodeRepresentation, blendNode?: NodeRepresentation
 export const dodge: (baseNode: NodeRepresentation, blendNode?: NodeRepresentation) => ShaderNodeObject<BlendModeNode>;
 export const overlay: (baseNode: NodeRepresentation, blendNode?: NodeRepresentation) => ShaderNodeObject<BlendModeNode>;
 export const screen: (baseNode: NodeRepresentation, blendNode?: NodeRepresentation) => ShaderNodeObject<BlendModeNode>;
+
+declare module '../shadernode/ShaderNode.js' {
+    interface NodeElements {
+        burn: typeof burn;
+        dodge: typeof dodge;
+        overlay: typeof overlay;
+        screen: typeof screen;
+    }
+}

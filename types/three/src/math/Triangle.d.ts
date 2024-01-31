@@ -40,10 +40,6 @@ export class Triangle {
     getNormal(target: Vector3): Vector3;
     getPlane(target: Plane): Plane;
     getBarycoord(point: Vector3, target: Vector3): Vector3 | null;
-    /**
-     * @deprecated Triangle.getUV() has been renamed to Triangle.getInterpolation().
-     */
-    getUV(point: Vector3, uv1: Vector2, uv2: Vector2, uv3: Vector2, target: Vector2): Vector2;
     getInterpolation(point: Vector3, v1: Vector2, v2: Vector2, v3: Vector2, target: Vector2): Vector2 | null;
     getInterpolation(point: Vector3, v1: Vector3, v2: Vector3, v3: Vector3, target: Vector3): Vector3 | null;
     getInterpolation(point: Vector3, v1: Vector4, v2: Vector4, v3: Vector4, target: Vector4): Vector4 | null;
@@ -56,19 +52,6 @@ export class Triangle {
     static getNormal(a: Vector3, b: Vector3, c: Vector3, target: Vector3): Vector3;
     static getBarycoord(point: Vector3, a: Vector3, b: Vector3, c: Vector3, target: Vector3): Vector3 | null;
     static containsPoint(point: Vector3, a: Vector3, b: Vector3, c: Vector3): boolean;
-    /**
-     * @deprecated THREE.Triangle.getUV() has been renamed to THREE.Triangle.getInterpolation().
-     */
-    static getUV(
-        point: Vector3,
-        p1: Vector3,
-        p2: Vector3,
-        p3: Vector3,
-        uv1: Vector2,
-        uv2: Vector2,
-        uv3: Vector2,
-        target: Vector2,
-    ): Vector2;
     static getInterpolation(
         point: Vector3,
         p1: Vector3,

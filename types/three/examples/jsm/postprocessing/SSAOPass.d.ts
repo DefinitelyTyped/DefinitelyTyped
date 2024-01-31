@@ -27,7 +27,7 @@ export class SSAOPass extends Pass {
     scene: Scene;
     camera: Camera;
     width: number;
-    height: boolean;
+    height: number;
     clear: boolean;
     kernelRadius: number;
     kernel: Vector3[];

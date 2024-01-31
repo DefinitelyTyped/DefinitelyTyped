@@ -53,7 +53,7 @@ export class DataArrayTexture extends Texture {
      * @param height Height of the texture. Default `1`.
      * @param depth Depth of the texture. Default `1`.
      */
-    constructor(data?: BufferSource, width?: number, height?: number, depth?: number);
+    constructor(data?: BufferSource | null, width?: number, height?: number, depth?: number);
 
     /**
      * Read-only flag to check if a given object is of type {@link DataArrayTexture}.

@@ -9,5 +9,5 @@ export default class MaterialReferenceNode extends ReferenceNode<Material | null
 export const materialReference: (
     name: string,
     nodeOrType: NodeOrType,
-    material: Material,
+    material?: Material | null,
 ) => ShaderNodeObject<MaterialReferenceNode>;

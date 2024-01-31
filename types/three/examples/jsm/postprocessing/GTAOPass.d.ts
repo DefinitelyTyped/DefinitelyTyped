@@ -61,6 +61,8 @@ export class GTAOPass extends Pass {
         parameters?: { depthTexture?: DepthTexture | undefined; normalTexture?: Texture | undefined } | undefined,
     );
 
+    get gtaoMap(): Texture;
+
     setGBuffer(depthTexture?: DepthTexture | undefined, normalTexture?: Texture | undefined): void;
 
     setSceneClipBox(box: Box3): void;
@@ -108,6 +110,7 @@ export class GTAOPass extends Pass {
     generateNoise(size?: number): DataTexture;
 
     static OUTPUT: {
+        Off: -1;
         Default: 0;
         Diffuse: 1;
         Depth: 2;

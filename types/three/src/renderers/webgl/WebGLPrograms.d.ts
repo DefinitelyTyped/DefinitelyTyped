@@ -46,6 +46,7 @@ export interface WebGLProgramParameters {
 
     supportsVertexTextures: boolean;
     outputColorSpace: ColorSpace;
+    alphaToCoverage: boolean;
 
     map: boolean;
     matcap: boolean;
@@ -146,7 +147,7 @@ export interface WebGLProgramParameters {
 
     fog: boolean;
     useFog: boolean;
-    fogExp2: boolean | null; // null is possible because of a bug: ( fog && fog.isFogExp2 )
+    fogExp2: boolean;
 
     flatShading: boolean;
 
@@ -203,6 +204,7 @@ export interface WebGLProgramParameters {
     extensionDrawBuffers: boolean;
     extensionShaderTextureLOD: boolean;
     extensionClipCullDistance: boolean;
+    extensionMultiDraw: boolean;
 
     rendererExtensionFragDepth: boolean;
     rendererExtensionDrawBuffers: boolean;

@@ -1,18 +1,30 @@
-import { Camera, Material, Object3D, Renderer } from '../../../../src/Three.js';
+import { Camera, Material, Object3D, Renderer, Scene } from '../../../../src/Three.js';
 
 import Node from './Node.js';
 
 export default class NodeFrame {
     time: number;
     deltaTime: number;
+
     frameId: number;
-    startTime: null | number;
-    renderer: null | Renderer;
-    material: null | Material;
-    camera: null | Camera;
-    object: null | Object3D;
+    renderId: number;
+
+    startTime: number | null;
+
+    frameMap: WeakMap<Node, number>;
+    frameBeforeMap: WeakMap<Node, number>;
+    renderMap: WeakMap<Node, number>;
+    renderBeforeMap: WeakMap<Node, number>;
+
+    renderer: Renderer | null;
+    material: Material | null;
+    camera: Camera | null;
+    object: Object3D | null;
+    scene: Scene | null;
 
     constructor();
+
+    updateBeforeNode(node: Node): void;
 
     updateNode(node: Node): void;
     update(): void;

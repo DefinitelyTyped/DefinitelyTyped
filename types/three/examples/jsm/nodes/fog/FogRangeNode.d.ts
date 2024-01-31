@@ -11,3 +11,9 @@ export default class FogRangeNode extends FogNode {
 }
 
 export const rangeFog: (colorNode: Node, nearNode: Node, farNode: Node) => ShaderNodeObject<FogRangeNode>;
+
+declare module '../shadernode/ShaderNode.js' {
+    interface NodeElements {
+        rangeFog: typeof rangeFog;
+    }
+}

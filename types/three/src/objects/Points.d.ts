@@ -1,5 +1,5 @@
 import { Material } from '../materials/Material.js';
-import { Object3D } from '../core/Object3D.js';
+import { Object3D, Object3DEventMap } from '../core/Object3D.js';
 import { BufferGeometry, NormalOrGLBufferAttributes } from '../core/BufferGeometry.js';
 import { BufferAttribute } from '../core/BufferAttribute.js';
 import { InterleavedBufferAttribute } from '../core/InterleavedBufferAttribute.js';
@@ -15,7 +15,8 @@ import { GLBufferAttribute } from '../core/GLBufferAttribute.js';
 export class Points<
     TGeometry extends BufferGeometry<NormalOrGLBufferAttributes> = BufferGeometry,
     TMaterial extends Material | Material[] = Material | Material[],
-> extends Object3D {
+    TEventMap extends Object3DEventMap = Object3DEventMap,
+> extends Object3D<TEventMap> {
     /**
      * Create a new instance of {@link Points}
      * @param geometry An instance of {@link THREE.BufferGeometry | BufferGeometry}. Default {@link THREE.BufferGeometry | `new THREE.BufferGeometry()`}.

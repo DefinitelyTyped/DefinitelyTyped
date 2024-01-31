@@ -18,6 +18,8 @@ init().then(() => {
 });
 
 class ExamplePlugin implements GLTFLoaderPlugin {
+    name: 'example-plugin';
+
     parser: GLTFParser;
 
     constructor(parser: GLTFParser) {

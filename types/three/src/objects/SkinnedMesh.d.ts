@@ -5,6 +5,7 @@ import { Vector3 } from '../math/Vector3.js';
 import { Skeleton } from './Skeleton.js';
 import { Mesh } from './Mesh.js';
 import { BufferGeometry } from '../core/BufferGeometry.js';
+import { Object3DEventMap } from '../core/Object3D.js';
 import { Sphere } from '../math/Sphere.js';
 import { BindMode } from '../constants.js';
 
@@ -50,7 +51,8 @@ import { BindMode } from '../constants.js';
 export class SkinnedMesh<
     TGeometry extends BufferGeometry = BufferGeometry,
     TMaterial extends Material | Material[] = Material | Material[],
-> extends Mesh<TGeometry, TMaterial> {
+    TEventMap extends Object3DEventMap = Object3DEventMap,
+> extends Mesh<TGeometry, TMaterial, TEventMap> {
     /**
      * Create a new instance of {@link SkinnedMesh}
      * @param geometry An instance of {@link THREE.BufferGeometry | BufferGeometry}. Default {@link THREE.BufferGeometry | `new THREE.BufferGeometry()`}.
@@ -148,9 +150,4 @@ export class SkinnedMesh<
      * @param vector
      */
     applyBoneTransform(index: number, vector: Vector3): Vector3;
-
-    /**
-     * @deprecated {@link THREE.SkinnedMesh}: {@link boneTransform | .boneTransform()} was renamed to {@link applyBoneTransform | .applyBoneTransform()} in **r151**.
-     */
-    boneTransform(index: number, target: Vector3): Vector3;
 }
