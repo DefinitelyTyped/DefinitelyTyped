@@ -337,13 +337,23 @@ request
 
 // Test that the "Plugin" type from "use" provides a SuperAgentRequest rather than a Request,
 // which has additional properties.
-const echoPlugin = (request: request.SuperAgentRequest) => {
+let echoPlugin: request.Plugin = (request) => {
     req.url = "" + req.url;
     req.cookies = "" + req.cookies;
     if (req.method) {
         req.url = "/echo";
     }
 };
+
+if (1) {
+    echoPlugin = (request: request.SuperAgentRequest) => {
+        req.url = "" + req.url;
+        req.cookies = "" + req.cookies;
+        if (req.method) {
+            req.url = "/echo";
+        }
+    };
+}
 
 request.get("/echo").use(echoPlugin).end();
 
