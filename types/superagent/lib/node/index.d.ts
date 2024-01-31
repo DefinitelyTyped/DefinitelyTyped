@@ -10,8 +10,8 @@ import { ReadStream } from "fs";
 import { LookupFunction } from "net";
 import RequestBase = require("../request-base");
 import ResponseBase = require("./response");
-import { Request as Http2Request } from './http2wrapper';
 import { AgentOptions as SAgentOptions, CBHandler, URLType } from "../../types";
+import { Request as Http2Request } from "./http2wrapper";
 
 type HttpMethod<Req extends request.Request> =
     | ((url: URLType, callback?: CBHandler) => Req)

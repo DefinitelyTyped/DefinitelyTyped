@@ -1,4 +1,4 @@
-import { IncomingMessage, } from "http";
+import { IncomingMessage } from "http";
 import { Stream } from "stream";
 import { Request } from "./index";
 

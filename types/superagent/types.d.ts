@@ -1,5 +1,5 @@
 import Response = require("./lib/node/response");
-import {UrlObject} from "url";
+import { UrlObject } from "url";
 
 export interface AgentOptions {
     ca?: any;

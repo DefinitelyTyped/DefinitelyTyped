@@ -1,21 +1,20 @@
 /// <reference types="node" />
 
-import * as tls from "tls";
-import * as net from "net";
 import * as http2 from "http2";
+import * as net from "net";
 import { Stream } from "stream";
+import * as tls from "tls";
 
 export {};
 
 declare namespace http2wrapper {
-
     interface CreateUnixConnectionOptions extends http2.ClientSessionOptions, http2.SecureClientSessionOptions {
         socketPath: string;
     }
 
     type MappedHeaders = http2.IncomingHttpHeaders & http2.IncomingHttpStatusHeader & {
-        'set-cookie'?: string[];
-    }
+        "set-cookie"?: string[];
+    };
 
     class Request extends Stream {
         constructor(protocol: "http:" | "https:", options: Http2Options);
