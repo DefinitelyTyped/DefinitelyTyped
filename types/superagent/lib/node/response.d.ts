@@ -31,7 +31,7 @@ declare class Response extends Stream implements Pick<IncomingMessage, "setEncod
     notFound: boolean;
     ok: boolean;
     redirect: boolean;
-    request: InstanceType<typeof Request>;
+    request: Request;
     serverError: boolean;
     status: number;
     statusCode: number;
