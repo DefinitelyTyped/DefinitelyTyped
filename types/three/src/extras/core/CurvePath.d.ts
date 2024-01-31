@@ -1,6 +1,6 @@
-import { Curve } from './Curve.js';
-import { Vector2 } from '../../math/Vector2.js';
-import { Vector3 } from '../../math/Vector3.js';
+import { Vector2 } from "../../math/Vector2.js";
+import { Vector3 } from "../../math/Vector3.js";
+import { Curve } from "./Curve.js";
 
 /**
  * Curved Path - a curve path is simply a array of connected curves, but retains the api of a curve.
@@ -20,7 +20,7 @@ export class CurvePath<TVector extends Vector2 | Vector3> extends Curve<TVector>
      * @remarks Sub-classes will update this value.
      * @defaultValue `CurvePath`
      */
-    override readonly type: string | 'CurvePath';
+    override readonly type: string | "CurvePath";
 
     /**
      * The array of {@link Curve | Curves}.

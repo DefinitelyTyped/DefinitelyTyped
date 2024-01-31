@@ -1,6 +1,6 @@
-import { Camera, Object3D, RenderTarget } from '../../../../src/Three.js';
-import TextureNode from '../accessors/TextureNode.js';
-import { ShaderNodeObject } from '../shadernode/ShaderNode.js';
+import { Camera, Object3D, RenderTarget } from "../../../../src/Three.js";
+import TextureNode from "../accessors/TextureNode.js";
+import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
 
 export interface ReflectorNodeParameters {
     target?: Object3D | undefined;

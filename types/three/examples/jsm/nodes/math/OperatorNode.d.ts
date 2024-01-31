@@ -1,26 +1,26 @@
-import TempNode from '../core/TempNode.js';
-import Node from '../core/Node.js';
-import { NodeRepresentation, ShaderNodeObject } from '../shadernode/ShaderNode.js';
+import Node from "../core/Node.js";
+import TempNode from "../core/TempNode.js";
+import { NodeRepresentation, ShaderNodeObject } from "../shadernode/ShaderNode.js";
 
 export type OperatorNodeOp =
-    | '%'
-    | '&'
-    | '|'
-    | '^'
-    | '>>'
-    | '<<'
-    | '=='
-    | '&&'
-    | '||'
-    | '^^'
-    | '<'
-    | '>'
-    | '<='
-    | '>='
-    | '+'
-    | '-'
-    | '*'
-    | '/';
+    | "%"
+    | "&"
+    | "|"
+    | "^"
+    | ">>"
+    | "<<"
+    | "=="
+    | "&&"
+    | "||"
+    | "^^"
+    | "<"
+    | ">"
+    | "<="
+    | ">="
+    | "+"
+    | "-"
+    | "*"
+    | "/";
 
 export default class OperatorNode extends TempNode {
     aNode: Node;
@@ -57,7 +57,7 @@ export const bitXor: Operator;
 export const shiftLeft: Operator;
 export const shiftRight: Operator;
 
-declare module '../shadernode/ShaderNode.js' {
+declare module "../shadernode/ShaderNode.js" {
     interface NodeElements {
         add: typeof add;
         sub: typeof sub;

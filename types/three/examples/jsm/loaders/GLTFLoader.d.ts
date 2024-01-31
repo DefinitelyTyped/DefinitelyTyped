@@ -3,24 +3,24 @@ import {
     BufferAttribute,
     BufferGeometry,
     Camera,
+    FileLoader,
     Group,
+    ImageBitmapLoader,
     InterleavedBufferAttribute,
     Loader,
     LoadingManager,
+    Material,
     Mesh,
     MeshStandardMaterial,
     Object3D,
-    Material,
+    Skeleton,
     SkinnedMesh,
     Texture,
     TextureLoader,
-    FileLoader,
-    ImageBitmapLoader,
-    Skeleton,
-} from '../../../src/Three.js';
+} from "../../../src/Three.js";
 
-import { DRACOLoader } from './DRACOLoader.js';
-import { KTX2Loader } from './KTX2Loader.js';
+import { DRACOLoader } from "./DRACOLoader.js";
+import { KTX2Loader } from "./KTX2Loader.js";
 
 export interface GLTF {
     animations: AnimationClip[];
@@ -61,7 +61,7 @@ export class GLTFLoader extends Loader<GLTF> {
     parseAsync(data: ArrayBuffer | string, path: string): Promise<GLTF>;
 }
 
-export type GLTFReferenceType = 'materials' | 'nodes' | 'textures' | 'meshes';
+export type GLTFReferenceType = "materials" | "nodes" | "textures" | "meshes";
 
 export interface GLTFReference {
     materials?: number;

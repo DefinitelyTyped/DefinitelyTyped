@@ -1,5 +1,5 @@
-import Renderer from './Renderer.js';
-import { Node } from '../../nodes/Nodes.js';
+import { Node } from "../../nodes/Nodes.js";
+import Renderer from "./Renderer.js";
 
 export default class PostProcessing {
     renderer: Renderer;

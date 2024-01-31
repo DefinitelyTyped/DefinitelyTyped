@@ -1,7 +1,7 @@
-import { Material } from '../materials/Material.js';
-import { Line } from './Line.js';
-import { BufferGeometry } from '../core/BufferGeometry.js';
-import { Object3DEventMap } from '../core/Object3D.js';
+import { BufferGeometry } from "../core/BufferGeometry.js";
+import { Object3DEventMap } from "../core/Object3D.js";
+import { Material } from "../materials/Material.js";
+import { Line } from "./Line.js";
 
 /**
  * A series of lines drawn between pairs of vertices.
@@ -37,5 +37,5 @@ export class LineSegments<
      * @override
      * @defaultValue `LineSegments`
      */
-    override readonly type: string | 'LineSegments';
+    override readonly type: string | "LineSegments";
 }

@@ -4,11 +4,11 @@ import {
     BufferAttribute,
     BufferGeometry,
     InterleavedBufferAttribute,
-    TrianglesDrawModes,
-    Mesh,
     Line,
+    Mesh,
     Points,
-} from '../../../src/Three.js';
+    TrianglesDrawModes,
+} from "../../../src/Three.js";
 
 export function deepCloneAttribute(attribute: BufferAttribute): BufferAttribute;
 export function mergeGeometries(geometries: BufferGeometry[], useGroups?: boolean): BufferGeometry;

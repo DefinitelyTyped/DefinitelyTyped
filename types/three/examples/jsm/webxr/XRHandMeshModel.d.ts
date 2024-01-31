@@ -1,5 +1,5 @@
-import { Loader, Object3D } from '../../../src/Three.js';
-import { GLTF } from '../loaders/GLTFLoader.js';
+import { Loader, Object3D } from "../../../src/Three.js";
+import { GLTF } from "../loaders/GLTFLoader.js";
 
 export class XRHandMeshModel {
     controller: Object3D;

@@ -3,21 +3,21 @@
  */
 
 import {
-    Node,
+    ConstNode,
     MaterialNode,
     MathNode,
-    OscNode,
-    PropertyNode,
-    RotateUVNode,
-    OperatorNode,
+    Node,
     nodeArray,
     nodeImmutable,
     nodeProxy,
+    OperatorNode,
+    OscNode,
+    PropertyNode,
+    RotateUVNode,
     ShaderNode,
-    ConstNode,
-} from 'three/examples/jsm/nodes/Nodes';
+} from "three/examples/jsm/nodes/Nodes";
 
-import { color, ShaderNodeObject, Swizzable, tslFn, vec3 } from 'three/examples/jsm/nodes/shadernode/ShaderNode';
+import { color, ShaderNodeObject, Swizzable, tslFn, vec3 } from "three/examples/jsm/nodes/shadernode/ShaderNode";
 
 // just to type check
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
@@ -26,17 +26,17 @@ function assertSwizzable<T extends Node>(_s: Swizzable<T>) {}
 const s = color(1);
 s.xyz;
 
-const aa = nodeArray([1, 2, 'hello']);
+const aa = nodeArray([1, 2, "hello"]);
 aa[0].xy = s;
 aa[1].w = s;
-aa[2] = 'hello';
+aa[2] = "hello";
 
 export const rotateUV = nodeProxy(RotateUVNode);
 
 assertSwizzable<RotateUVNode>(rotateUV(s, s, s));
 
 const oscNode0 = nodeProxy(OscNode);
-assertSwizzable<OscNode>(oscNode0('sawtooth', s));
+assertSwizzable<OscNode>(oscNode0("sawtooth", s));
 
 const oscNode1 = nodeProxy(OscNode, OscNode.SAWTOOTH);
 assertSwizzable<OscNode>(oscNode1(s));
@@ -51,16 +51,16 @@ assertSwizzable<OscNode>(oscSine0());
 export const mix0 = nodeProxy(MathNode, MathNode.MIX, 1);
 assertSwizzable<MathNode>(mix0(s, new ConstNode(1)));
 
-export const sub = nodeProxy(OperatorNode, '-');
+export const sub = nodeProxy(OperatorNode, "-");
 assertSwizzable<OperatorNode>(sub(s, new ConstNode(1), new ConstNode(1), new ConstNode(1), new ConstNode(1)));
-export const remainder = nodeProxy(OperatorNode, '%');
+export const remainder = nodeProxy(OperatorNode, "%");
 assertSwizzable<OperatorNode>(remainder(s, new ConstNode(1), new ConstNode(1), new ConstNode(1), new ConstNode(1)));
 
 assertSwizzable<MaterialNode>(nodeImmutable(MaterialNode, MaterialNode.ROTATION));
-assertSwizzable<PropertyNode>(nodeImmutable(PropertyNode, 'vec4', 'DiffuseColor'));
-assertSwizzable<MathNode>(nodeImmutable(MathNode, 'abs', 1));
+assertSwizzable<PropertyNode>(nodeImmutable(PropertyNode, "vec4", "DiffuseColor"));
+assertSwizzable<MathNode>(nodeImmutable(MathNode, "abs", 1));
 
-export const shiftRight = nodeProxy(OperatorNode, '>>');
+export const shiftRight = nodeProxy(OperatorNode, ">>");
 assertSwizzable<OperatorNode>(shiftRight(s, s, s, s));
 
 const shader = new ShaderNode<{ a: Node; b: Node }>(params => {

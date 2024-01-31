@@ -1,6 +1,6 @@
-import Node from '../core/Node.js';
-import FogNode from './FogNode.js';
-import { ShaderNodeObject } from '../shadernode/ShaderNode.js';
+import Node from "../core/Node.js";
+import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import FogNode from "./FogNode.js";
 
 export default class FogExp2Node extends FogNode {
     isFogExp2Node: true;
@@ -11,7 +11,7 @@ export default class FogExp2Node extends FogNode {
 
 export const densityFog: (colorNode: Node, densityNode: Node) => ShaderNodeObject<FogExp2Node>;
 
-declare module '../shadernode/ShaderNode.js' {
+declare module "../shadernode/ShaderNode.js" {
     interface NodeElements {
         densityFog: typeof densityFog;
     }

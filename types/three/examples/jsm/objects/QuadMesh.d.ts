@@ -1,5 +1,5 @@
-import { Material } from '../../../src/Three.js';
-import Renderer from '../renderers/common/Renderer.js';
+import { Material } from "../../../src/Three.js";
+import Renderer from "../renderers/common/Renderer.js";
 
 export default class QuadMesh {
     constructor(material?: Material | null);

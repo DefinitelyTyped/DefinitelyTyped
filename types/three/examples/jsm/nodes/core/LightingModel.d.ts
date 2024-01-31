@@ -1,6 +1,6 @@
-import Node from './Node.js';
-import NodeBuilder from './NodeBuilder.js';
-import StackNode from './StackNode.js';
+import Node from "./Node.js";
+import NodeBuilder from "./NodeBuilder.js";
+import StackNode from "./StackNode.js";
 
 export interface LightingModelReflectedLight {
     directDiffuse: Node;

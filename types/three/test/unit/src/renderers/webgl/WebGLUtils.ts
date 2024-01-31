@@ -1,4 +1,4 @@
-import { WebGLUtils, WebGLRenderer, RGBAFormat } from 'three';
+import { RGBAFormat, WebGLRenderer, WebGLUtils } from "three";
 
 const renderer = new WebGLRenderer();
 

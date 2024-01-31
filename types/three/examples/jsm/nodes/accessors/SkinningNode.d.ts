@@ -1,6 +1,6 @@
-import { SkinnedMesh } from '../../../../src/Three.js';
-import Node from '../core/Node.js';
-import { ShaderNodeObject } from '../shadernode/ShaderNode.js';
+import { SkinnedMesh } from "../../../../src/Three.js";
+import Node from "../core/Node.js";
+import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
 
 export default class SkinningNode extends Node {
     skinIndexNode: Node;

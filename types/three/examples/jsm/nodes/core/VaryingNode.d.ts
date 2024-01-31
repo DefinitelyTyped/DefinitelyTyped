@@ -1,5 +1,5 @@
-import Node from './Node.js';
-import { NodeRepresentation, ShaderNodeObject } from '../shadernode/ShaderNode.js';
+import { NodeRepresentation, ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import Node from "./Node.js";
 
 export default class VaryingNode extends Node {
     node: Node;
@@ -10,7 +10,7 @@ export default class VaryingNode extends Node {
 
 export const varying: (node: NodeRepresentation, name?: string) => ShaderNodeObject<VaryingNode>;
 
-declare module '../shadernode/ShaderNode.js' {
+declare module "../shadernode/ShaderNode.js" {
     interface NodeElements {
         varying: typeof varying;
     }

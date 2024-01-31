@@ -1,4 +1,4 @@
-import { Object3D } from '../../../../src/Three.js';
+import { Object3D } from "../../../../src/Three.js";
 
 export default class Info {
     autoReset: boolean;

@@ -1,5 +1,5 @@
-import { LineSegments } from '../objects/LineSegments.js';
-import { ColorRepresentation } from '../math/Color.js';
+import { ColorRepresentation } from "../math/Color.js";
+import { LineSegments } from "../objects/LineSegments.js";
 
 /**
  * The {@link PolarGridHelper} is an object to define polar grids
@@ -44,7 +44,7 @@ export class PolarGridHelper extends LineSegments {
      * @override
      * @defaultValue `PolarGridHelper`
      */
-    override readonly type: string | 'PolarGridHelper';
+    override readonly type: string | "PolarGridHelper";
 
     /**
      * Frees the GPU-related resources allocated by this instance

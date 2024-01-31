@@ -1,7 +1,7 @@
-import { Texture } from '../../../../src/Three.js';
-import UniformNode from '../core/UniformNode.js';
-import Node from '../core/Node.js';
-import { NodeRepresentation, ShaderNodeObject } from '../shadernode/ShaderNode.js';
+import { Texture } from "../../../../src/Three.js";
+import Node from "../core/Node.js";
+import UniformNode from "../core/UniformNode.js";
+import { NodeRepresentation, ShaderNodeObject } from "../shadernode/ShaderNode.js";
 
 export default class TextureNode extends UniformNode<Texture> {
     isTextureNode: true;
@@ -23,7 +23,7 @@ export const texture: (
 ) => ShaderNodeObject<TextureNode>;
 export const sampler: (aTexture: Texture | TextureNode) => ShaderNodeObject<Node>;
 
-declare module '../shadernode/ShaderNode.js' {
+declare module "../shadernode/ShaderNode.js" {
     interface NodeElements {
         texture: typeof texture;
     }

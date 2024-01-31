@@ -1,6 +1,6 @@
-import { Material } from '../materials/Material.js';
-import { Object3D, Object3DEventMap } from '../core/Object3D.js';
-import { BufferGeometry } from '../core/BufferGeometry.js';
+import { BufferGeometry } from "../core/BufferGeometry.js";
+import { Object3D, Object3DEventMap } from "../core/Object3D.js";
+import { Material } from "../materials/Material.js";
 
 /**
  * A continuous line.
@@ -47,7 +47,7 @@ export class Line<
      * @override
      * @defaultValue `Line`
      */
-    override readonly type: string | 'Line';
+    override readonly type: string | "Line";
 
     /**
      * Vertices representing the {@link Line} segment(s).

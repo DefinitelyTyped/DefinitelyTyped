@@ -1,5 +1,5 @@
-import { CoordinateSystem } from '../../../../src/Three.js';
-import Backend, { BackendParameters } from '../common/Backend.js';
+import { CoordinateSystem } from "../../../../src/Three.js";
+import Backend, { BackendParameters } from "../common/Backend.js";
 
 export interface WebGPUBackendParameters extends BackendParameters {
     alpha?: boolean | undefined;

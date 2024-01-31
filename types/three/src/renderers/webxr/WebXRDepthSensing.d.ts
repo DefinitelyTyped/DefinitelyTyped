@@ -1,7 +1,7 @@
-import { Texture } from '../../textures/Texture.js';
-import { Mesh } from '../../objects/Mesh.js';
-import { WebGLRenderer } from '../WebGLRenderer.js';
-import { WebXRArrayCamera } from './WebXRManager.js';
+import { Mesh } from "../../objects/Mesh.js";
+import { Texture } from "../../textures/Texture.js";
+import { WebGLRenderer } from "../WebGLRenderer.js";
+import { WebXRArrayCamera } from "./WebXRManager.js";
 
 // FIXME Replace by XRWebGLDepthInformation when typed in @types/webxr
 interface XRWebGLDepthInformation {

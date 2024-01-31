@@ -1,17 +1,17 @@
-import { EventDispatcher, Camera, Scene, Vector3, Raycaster } from '../../../src/Three.js';
+import { Camera, EventDispatcher, Raycaster, Scene, Vector3 } from "../../../src/Three.js";
 
 export enum ArcballControlsMouseActionOperations {
-    PAN = 'PAN',
-    ROTATE = 'ROTATE',
-    ZOOM = 'ZOOM',
-    FOV = 'FOV',
+    PAN = "PAN",
+    ROTATE = "ROTATE",
+    ZOOM = "ZOOM",
+    FOV = "FOV",
 }
 
-export type ArcballControlsMouseActionMouse = 0 | 1 | 2 | 'WHEEL';
+export type ArcballControlsMouseActionMouse = 0 | 1 | 2 | "WHEEL";
 
 export enum ArcballControlsMouseActionKeys {
-    SHIFT = 'SHIFT',
-    CTRL = 'CTRL',
+    SHIFT = "SHIFT",
+    CTRL = "CTRL",
 }
 
 export interface ArcballControlsEventMap {

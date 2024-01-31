@@ -8,18 +8,18 @@ import {
     PointsMaterial,
     ShaderMaterial,
     SpriteMaterial,
-} from '../../../../src/Three.js';
-import NodeBuilder from '../core/NodeBuilder.js';
-import Node from '../core/Node.js';
-import LineBasicNodeMaterial from './LineBasicNodeMaterial.js';
-import MeshBasicNodeMaterial from './MeshBasicNodeMaterial.js';
-import MeshPhysicalNodeMaterial from './MeshPhysicalNodeMaterial.js';
-import MeshStandardNodeMaterial from './MeshStandardNodeMaterial.js';
-import PointsNodeMaterial from './PointsNodeMaterial.js';
-import SpriteNodeMaterial from './SpriteNodeMaterial.js';
-import LightsNode from '../lighting/LightsNode.js';
-import LightingModel from '../core/LightingModel.js';
-import MeshPhongNodeMaterial from './MeshPhongNodeMaterial.js';
+} from "../../../../src/Three.js";
+import LightingModel from "../core/LightingModel.js";
+import Node from "../core/Node.js";
+import NodeBuilder from "../core/NodeBuilder.js";
+import LightsNode from "../lighting/LightsNode.js";
+import LineBasicNodeMaterial from "./LineBasicNodeMaterial.js";
+import MeshBasicNodeMaterial from "./MeshBasicNodeMaterial.js";
+import MeshPhongNodeMaterial from "./MeshPhongNodeMaterial.js";
+import MeshPhysicalNodeMaterial from "./MeshPhysicalNodeMaterial.js";
+import MeshStandardNodeMaterial from "./MeshStandardNodeMaterial.js";
+import PointsNodeMaterial from "./PointsNodeMaterial.js";
+import SpriteNodeMaterial from "./SpriteNodeMaterial.js";
 
 export default class NodeMaterial extends ShaderMaterial {
     readonly isNodeMaterial: true;

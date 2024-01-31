@@ -11,9 +11,9 @@ import {
     Texture,
     WebGLRenderer,
     WebGLRenderTarget,
-} from '../../../src/Three.js';
+} from "../../../src/Three.js";
 
-import { FullScreenQuad, Pass } from './Pass.js';
+import { FullScreenQuad, Pass } from "./Pass.js";
 
 export class GTAOPass extends Pass {
     width: number;

@@ -1,4 +1,4 @@
-import { Object3D, Object3DEventMap } from '../core/Object3D.js';
+import { Object3D, Object3DEventMap } from "../core/Object3D.js";
 
 /**
  * A {@link Bone} which is part of a {@link THREE.Skeleton | Skeleton}
@@ -32,5 +32,5 @@ export class Bone<TEventMap extends Object3DEventMap = Object3DEventMap> extends
      * @override
      * @defaultValue `Bone`
      */
-    override readonly type: string | 'Bone';
+    override readonly type: string | "Bone";
 }

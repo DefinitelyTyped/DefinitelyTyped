@@ -1,8 +1,8 @@
-import NodeBuilder from '../../../nodes/core/NodeBuilder.js';
-import { Renderer, Object3D } from '../../../../../src/Three.js';
-import Node from '../../../nodes/core/Node.js';
-import SlotNode from './SlotNode.js';
-import { NodeShaderStage } from '../../../nodes/core/constants.js';
+import { Object3D, Renderer } from "../../../../../src/Three.js";
+import { NodeShaderStage } from "../../../nodes/core/constants.js";
+import Node from "../../../nodes/core/Node.js";
+import NodeBuilder from "../../../nodes/core/NodeBuilder.js";
+import SlotNode from "./SlotNode.js";
 
 export class WebGLNodeBuilder extends NodeBuilder {
     constructor(
@@ -27,7 +27,7 @@ export class WebGLNodeBuilder extends NodeBuilder {
 
     getInstanceIndex(): string;
     getFrontFacing(): string;
-    getFragCoord(): 'gl_FragCoord';
+    getFragCoord(): "gl_FragCoord";
     isFlipY(): true;
 
     buildCode(): void;

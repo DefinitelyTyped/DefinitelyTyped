@@ -1,5 +1,5 @@
-import { Camera } from './Camera.js';
-import { Vector2 } from '../math/Vector2.js';
+import { Vector2 } from "../math/Vector2.js";
+import { Camera } from "./Camera.js";
 
 /**
  * Camera that uses {@link https://en.wikipedia.org/wiki/Perspective_(graphical) | perspective projection}.
@@ -41,7 +41,7 @@ export class PerspectiveCamera extends Camera {
      * @override
      * @defaultValue `PerspectiveCamera`
      */
-    override readonly type: string | 'PerspectiveCamera';
+    override readonly type: string | "PerspectiveCamera";
 
     /**
      * Gets or sets the zoom factor of the camera.

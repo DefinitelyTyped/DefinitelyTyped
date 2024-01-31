@@ -1,6 +1,7 @@
 import {
     Camera,
     Color,
+    ColorRepresentation,
     DataTexture,
     Material,
     MeshNormalMaterial,
@@ -9,10 +10,9 @@ import {
     Vector3,
     WebGLRenderer,
     WebGLRenderTarget,
-    ColorRepresentation,
-} from '../../../src/Three.js';
+} from "../../../src/Three.js";
 
-import { Pass, FullScreenQuad } from './Pass.js';
+import { FullScreenQuad, Pass } from "./Pass.js";
 
 export enum SSAOPassOUTPUT {
     Default,

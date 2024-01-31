@@ -1,5 +1,5 @@
-import { NodeRepresentation, ShaderNodeObject } from '../shadernode/ShaderNode.js';
-import Node from '../core/Node.js';
+import Node from "../core/Node.js";
+import { NodeRepresentation, ShaderNodeObject } from "../shadernode/ShaderNode.js";
 
 export const tri: (x: NodeRepresentation) => ShaderNodeObject<Node>;
 

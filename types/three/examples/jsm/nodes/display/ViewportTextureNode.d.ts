@@ -1,8 +1,8 @@
-import { FramebufferTexture } from '../../../../src/Three.js';
-import TextureNode from '../accessors/TextureNode.js';
-import Node from '../core/Node.js';
-import { ShaderNodeObject } from '../shadernode/ShaderNode.js';
-import { NodeUpdateType } from '../core/constants.js';
+import { FramebufferTexture } from "../../../../src/Three.js";
+import TextureNode from "../accessors/TextureNode.js";
+import { NodeUpdateType } from "../core/constants.js";
+import Node from "../core/Node.js";
+import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
 
 export default class ViewportTextureNode extends TextureNode {
     generateMipmaps: boolean;
@@ -25,7 +25,7 @@ export const viewportMipTexture: (
     framebufferTexture?: FramebufferTexture | null,
 ) => ShaderNodeObject<Node>;
 
-declare module '../shadernode/ShaderNode.js' {
+declare module "../shadernode/ShaderNode.js" {
     interface NodeElements {
         viewportTexture: typeof viewportTexture;
         viewportMipTexture: typeof viewportMipTexture;

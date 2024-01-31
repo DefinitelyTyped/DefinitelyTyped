@@ -1,7 +1,7 @@
-import * as THREE from 'three';
+import * as THREE from "three";
 
-import { CinematicCamera } from 'three/examples/jsm/cameras/CinematicCamera';
-import { BokehShaderUniforms } from 'three/examples/jsm/shaders/BokehShader2';
+import { CinematicCamera } from "three/examples/jsm/cameras/CinematicCamera";
+import { BokehShaderUniforms } from "three/examples/jsm/shaders/BokehShader2";
 
 const camera = new CinematicCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
 const scene = new THREE.Scene();
@@ -44,9 +44,9 @@ function init() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    document.addEventListener('mousemove', onDocumentMouseMove);
+    document.addEventListener("mousemove", onDocumentMouseMove);
 
-    window.addEventListener('resize', onWindowResize);
+    window.addEventListener("resize", onWindowResize);
 
     const effectController: { [key: string]: any } = {
         focalLength: 15,
@@ -62,17 +62,17 @@ function init() {
             }
         }
 
-        camera.postprocessing.bokeh_uniforms['znear'].value = camera.near;
-        camera.postprocessing.bokeh_uniforms['zfar'].value = camera.far;
+        camera.postprocessing.bokeh_uniforms["znear"].value = camera.near;
+        camera.postprocessing.bokeh_uniforms["zfar"].value = camera.far;
         camera.setLens(effectController.focalLength, undefined, effectController.fstop, camera.coc);
-        effectController['focalDepth'] = camera.postprocessing.bokeh_uniforms['focalDepth'].value;
+        effectController["focalDepth"] = camera.postprocessing.bokeh_uniforms["focalDepth"].value;
     };
 
     //
 
     matChanger();
 
-    window.addEventListener('resize', onWindowResize);
+    window.addEventListener("resize", onWindowResize);
 }
 
 function onWindowResize() {

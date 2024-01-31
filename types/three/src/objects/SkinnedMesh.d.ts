@@ -1,13 +1,13 @@
-import { Material } from '../materials/Material.js';
-import { Box3 } from '../math/Box3.js';
-import { Matrix4 } from '../math/Matrix4.js';
-import { Vector3 } from '../math/Vector3.js';
-import { Skeleton } from './Skeleton.js';
-import { Mesh } from './Mesh.js';
-import { BufferGeometry } from '../core/BufferGeometry.js';
-import { Object3DEventMap } from '../core/Object3D.js';
-import { Sphere } from '../math/Sphere.js';
-import { BindMode } from '../constants.js';
+import { BindMode } from "../constants.js";
+import { BufferGeometry } from "../core/BufferGeometry.js";
+import { Object3DEventMap } from "../core/Object3D.js";
+import { Material } from "../materials/Material.js";
+import { Box3 } from "../math/Box3.js";
+import { Matrix4 } from "../math/Matrix4.js";
+import { Sphere } from "../math/Sphere.js";
+import { Vector3 } from "../math/Vector3.js";
+import { Mesh } from "./Mesh.js";
+import { Skeleton } from "./Skeleton.js";
 
 /**
  * A mesh that has a {@link THREE.Skeleton | Skeleton} with {@link Bone | bones} that can then be used to animate the vertices of the geometry.
@@ -71,7 +71,7 @@ export class SkinnedMesh<
      * @override
      * @defaultValue `SkinnedMesh`
      */
-    override readonly type: string | 'SkinnedMesh';
+    override readonly type: string | "SkinnedMesh";
 
     /**
      * Either {@link AttachedBindMode} or {@link DetachedBindMode}. {@link AttachedBindMode} means the skinned mesh

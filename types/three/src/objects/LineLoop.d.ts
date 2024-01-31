@@ -1,7 +1,7 @@
-import { Line } from './Line.js';
-import { Material } from '../materials/Material.js';
-import { BufferGeometry } from '../core/BufferGeometry.js';
-import { Object3DEventMap } from '../core/Object3D.js';
+import { BufferGeometry } from "../core/BufferGeometry.js";
+import { Object3DEventMap } from "../core/Object3D.js";
+import { Material } from "../materials/Material.js";
+import { Line } from "./Line.js";
 
 /**
  * A continuous line that connects back to the start.
@@ -36,5 +36,5 @@ export class LineLoop<
      * @override
      * @defaultValue `LineLoop`
      */
-    override readonly type: string | 'LineLoop';
+    override readonly type: string | "LineLoop";
 }

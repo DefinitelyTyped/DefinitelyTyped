@@ -1,8 +1,8 @@
-import { NodeTypeOption } from './constants.js';
-import InputNode from './InputNode.js';
-import NodeBuilder from './NodeBuilder.js';
-import Node from './Node.js';
-import { ShaderNodeObject } from '../shadernode/ShaderNode.js';
+import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import { NodeTypeOption } from "./constants.js";
+import InputNode from "./InputNode.js";
+import Node from "./Node.js";
+import NodeBuilder from "./NodeBuilder.js";
 
 export default class UniformNode<Value> extends InputNode<Value> {
     readonly isUniformNode: true;

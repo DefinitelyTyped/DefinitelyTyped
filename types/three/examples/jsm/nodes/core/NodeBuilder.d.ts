@@ -6,20 +6,20 @@ import {
     Texture,
     TextureEncoding,
     WebGLRenderTarget,
-} from '../../../../src/Three.js';
-import FogNode from '../fog/FogNode.js';
-import LightsNode from '../lighting/LightsNode.js';
-import { AnyObject, NodeShaderStage, NodeTypeOption } from './constants.js';
-import Node from './Node.js';
-import NodeAttribute from './NodeAttribute.js';
-import NodeCache from './NodeCache.js';
-import NodeParser from './NodeParser.js';
-import NodeUniform from './NodeUniform.js';
-import NodeVar from './NodeVar.js';
-import NodeVarying from './NodeVarying.js';
-import StackNode from './StackNode.js';
+} from "../../../../src/Three.js";
+import FogNode from "../fog/FogNode.js";
+import LightsNode from "../lighting/LightsNode.js";
+import { AnyObject, NodeShaderStage, NodeTypeOption } from "./constants.js";
+import Node from "./Node.js";
+import NodeAttribute from "./NodeAttribute.js";
+import NodeCache from "./NodeCache.js";
+import NodeParser from "./NodeParser.js";
+import NodeUniform from "./NodeUniform.js";
+import NodeVar from "./NodeVar.js";
+import NodeVarying from "./NodeVarying.js";
+import StackNode from "./StackNode.js";
 
-export type BuildStageOption = 'construct' | 'analyze' | 'generate';
+export type BuildStageOption = "construct" | "analyze" | "generate";
 
 export interface FlowData {
     code: string;
