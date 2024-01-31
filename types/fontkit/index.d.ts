@@ -93,7 +93,6 @@ export interface Font {
      */
     getGlyph(glyphId: number, codePoints?: number[]): Glyph;
 
-
     /**
      * an array of all OpenType feature tags
      * same to availableFeatures but can input custom script and language params
@@ -119,9 +118,9 @@ export interface Font {
      * Gets a string from the font's `name` table
      * `lang` is a BCP-47 language code.
      */
-    getName(key: string, lang: string): string | null
+    getName(key: string, lang: string): string | null;
 
-    setDefaultLanguage(lang: string): void
+    setDefaultLanguage(lang: string): void;
 }
 
 export interface GlyphRun {
@@ -369,9 +368,9 @@ export interface HHEA {
 }
 
 export interface FontCollection {
-    type: "TTC"| "DFont";
-    getFont(name: string): Font | null
-    fonts: Font[]
+    type: "TTC" | "DFont";
+    getFont(name: string): Font | null;
+    fonts: Font[];
 }
 
 export interface Subset {
