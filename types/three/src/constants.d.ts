@@ -37,12 +37,11 @@ export type ShadowMapType = typeof BasicShadowMap | typeof PCFShadowMap | typeof
 export const FrontSide: 0;
 export const BackSide: 1;
 export const DoubleSide: 2;
-export const TwoPassDoubleSide: 2;
 /**
  * Defines which side of faces will be rendered - front, back or both.
  * Default is {@link FrontSide}.
  */
-export type Side = typeof FrontSide | typeof BackSide | typeof DoubleSide | typeof TwoPassDoubleSide;
+export type Side = typeof FrontSide | typeof BackSide | typeof DoubleSide;
 
 // blending modes
 export const NoBlending: 0;

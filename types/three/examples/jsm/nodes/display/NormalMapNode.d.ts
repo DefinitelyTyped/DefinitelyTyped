@@ -16,3 +16,9 @@ export default class NormalMapNode extends TempNode {
 export const normalMap: (node: Node, scaleNode?: Node) => ShaderNodeObject<NormalMapNode>;
 
 export const TBNViewMatrix: ShaderNodeObject<MathNode>;
+
+declare module '../shadernode/ShaderNode.js' {
+    interface NodeElements {
+        normalMap: typeof normalMap;
+    }
+}

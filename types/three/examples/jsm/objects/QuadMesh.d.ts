@@ -6,8 +6,10 @@ export default class QuadMesh {
 
     dispose(): void;
 
-    render(renderer: Renderer): void;
+    renderAsync(renderer: Renderer): Promise<void>;
 
     get material(): Material;
     set material(value: Material);
+
+    get render(): (renderer: Renderer) => Promise<void>;
 }

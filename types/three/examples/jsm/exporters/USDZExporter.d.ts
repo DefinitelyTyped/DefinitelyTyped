@@ -2,6 +2,7 @@ import { Object3D } from '../../../src/Three.js';
 
 export interface USDZExporterOptions {
     quickLookCompatible?: boolean;
+    maxTextureSize?: number;
 }
 
 export class USDZExporter {

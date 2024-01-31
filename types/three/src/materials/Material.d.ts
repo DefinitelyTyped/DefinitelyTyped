@@ -91,7 +91,9 @@ export class Material extends EventDispatcher<{ dispose: {} }> {
     alphaTest: number;
 
     /**
-     * Enables alpha to coverage. Can only be used with MSAA-enabled rendering contexts.
+     * Enables alpha to coverage. Can only be used with MSAA-enabled rendering contexts (meaning when the renderer was
+     * created with *antialias* parameter set to `true`). Enabling this will smooth aliasing on clip plane edges and
+     * alphaTest-clipped edges.
      * @default false
      */
     alphaToCoverage: boolean;

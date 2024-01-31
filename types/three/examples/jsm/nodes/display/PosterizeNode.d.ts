@@ -12,3 +12,9 @@ export const posterize: (
     sourceNode: NodeRepresentation,
     stepsNode: NodeRepresentation,
 ) => ShaderNodeObject<PosterizeNode>;
+
+declare module '../shadernode/ShaderNode.js' {
+    interface NodeElements {
+        posterize: typeof posterize;
+    }
+}

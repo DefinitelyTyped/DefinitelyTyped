@@ -9,3 +9,9 @@ export default class VaryingNode extends Node {
 }
 
 export const varying: (node: NodeRepresentation, name?: string) => ShaderNodeObject<VaryingNode>;
+
+declare module '../shadernode/ShaderNode.js' {
+    interface NodeElements {
+        varying: typeof varying;
+    }
+}

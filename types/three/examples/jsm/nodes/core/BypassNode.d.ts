@@ -10,3 +10,9 @@ export default class BypassNode extends Node {
 }
 
 export const bypass: (returnNode: NodeRepresentation, callNode: NodeRepresentation) => ShaderNodeObject<BypassNode>;
+
+declare module '../shadernode/ShaderNode.js' {
+    interface NodeElements {
+        bypass: typeof bypass;
+    }
+}

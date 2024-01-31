@@ -35,13 +35,3 @@ export function deinterleaveGeometry(geometry: BufferGeometry): void;
  * @param creaseAngle The crease angle in radians.
  */
 export function toCreasedNormals(geometry: BufferGeometry, creaseAngle?: number): BufferGeometry;
-
-/**
- * @deprecated Use mergeGeometries instead.
- */
-export function mergeBufferGeometries(geometries: BufferGeometry[], useGroups?: boolean): BufferGeometry;
-
-/**
- * @deprecated Use mergeAttributes instead.
- */
-export function mergeBufferAttributes(attributes: BufferAttribute[]): BufferAttribute;

@@ -7,3 +7,9 @@ export default class CheckerNode extends TempNode {
 }
 
 export const checker: (uvNode?: NodeRepresentation) => ShaderNodeObject<CheckerNode>;
+
+declare module '../shadernode/ShaderNode.js' {
+    interface NodeElements {
+        checker: typeof checker;
+    }
+}

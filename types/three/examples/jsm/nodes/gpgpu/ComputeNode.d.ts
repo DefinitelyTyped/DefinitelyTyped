@@ -16,3 +16,9 @@ export const compute: (
     count: number,
     workgroupSize: number[],
 ) => ShaderNodeObject<ComputeNode>;
+
+declare module '../shadernode/ShaderNode.js' {
+    interface NodeElements {
+        compute: typeof compute;
+    }
+}

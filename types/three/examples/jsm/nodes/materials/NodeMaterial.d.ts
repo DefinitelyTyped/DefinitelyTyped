@@ -2,6 +2,7 @@ import {
     LineBasicMaterial,
     Material,
     MeshBasicMaterial,
+    MeshPhongMaterial,
     MeshPhysicalMaterial,
     MeshStandardMaterial,
     PointsMaterial,
@@ -10,23 +11,24 @@ import {
 } from '../../../../src/Three.js';
 import NodeBuilder from '../core/NodeBuilder.js';
 import Node from '../core/Node.js';
-import { LightingModelNode } from '../lighting/LightingContextNode.js';
 import LineBasicNodeMaterial from './LineBasicNodeMaterial.js';
 import MeshBasicNodeMaterial from './MeshBasicNodeMaterial.js';
 import MeshPhysicalNodeMaterial from './MeshPhysicalNodeMaterial.js';
 import MeshStandardNodeMaterial from './MeshStandardNodeMaterial.js';
 import PointsNodeMaterial from './PointsNodeMaterial.js';
 import SpriteNodeMaterial from './SpriteNodeMaterial.js';
+import LightsNode from '../lighting/LightsNode.js';
+import LightingModel from '../core/LightingModel.js';
+import MeshPhongNodeMaterial from './MeshPhongNodeMaterial.js';
 
 export default class NodeMaterial extends ShaderMaterial {
-    isNodeMaterial: true;
+    readonly isNodeMaterial: true;
 
-    type: string;
+    normals: boolean;
 
-    lights: true;
-    normals: true;
+    colorSpaced: boolean;
 
-    lightsNode: Node | null;
+    lightsNode: LightsNode | null;
     envNode: Node | null;
 
     colorNode: Node | null;
@@ -38,20 +40,34 @@ export default class NodeMaterial extends ShaderMaterial {
 
     positionNode: Node | null;
 
+    depthNode: Node | null;
+    shadowNode: Node | null;
+
+    outputNode: Node | null;
+
+    fragmentNode: Node | null;
+    vertexNode: Node | null;
+
     constructor();
 
     build(builder: NodeBuilder): void;
-    customProgramCacheKey(): string;
-    generatePosition(builder: NodeBuilder): void;
-    generateDiffuseColor(builder: NodeBuilder): void;
-    generateLight(
-        builder: NodeBuilder,
-        lights: { diffuseColorNode: Node; lightingModelNode: LightingModelNode; lightsNode?: Node },
-    ): void;
-    generateOutput(builder: NodeBuilder, lights: { diffuseColorNode: Node; outgoingLightNode: Node }): void;
+    setup(builder: NodeBuilder): void;
+    setupDepth(builder: NodeBuilder): void;
+    setupPosition(builder: NodeBuilder): Node;
+    setupDiffuseColor(builder: NodeBuilder): void;
+    setupVariants(builder: NodeBuilder): void;
+    setupNormal(builder: NodeBuilder): void;
+    getEnvNode(builder: NodeBuilder): Node | null;
+    setupLights(builder: NodeBuilder): LightsNode;
+    setupLightingModel(builder: NodeBuilder): LightingModel;
+    setupLighting(builder: NodeBuilder): Node;
+    setupOutput(builder: NodeBuilder, outputNode: Node): Node;
+
+    setDefaultValues(material: Material): void;
 
     static fromMaterial(material: LineBasicMaterial): LineBasicNodeMaterial;
     static fromMaterial(material: MeshBasicMaterial): MeshBasicNodeMaterial;
+    static fromMaterial(material: MeshPhongMaterial): MeshPhongNodeMaterial;
     static fromMaterial(material: MeshPhysicalMaterial): MeshPhysicalNodeMaterial;
     static fromMaterial(material: MeshStandardMaterial): MeshStandardNodeMaterial;
     static fromMaterial(material: PointsMaterial): PointsNodeMaterial;

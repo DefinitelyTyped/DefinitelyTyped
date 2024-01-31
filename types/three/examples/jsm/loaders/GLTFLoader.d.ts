@@ -131,6 +131,7 @@ export class GLTFParser {
 }
 
 export interface GLTFLoaderPlugin {
+    readonly name: string;
     beforeRoot?: (() => Promise<void> | null) | undefined;
     afterRoot?: ((result: GLTF) => Promise<void> | null) | undefined;
     loadNode?: ((nodeIndex: number) => Promise<Object3D> | null) | undefined;

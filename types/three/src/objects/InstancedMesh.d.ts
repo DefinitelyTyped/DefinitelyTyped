@@ -28,7 +28,8 @@ export interface InstancedMeshEventMap extends Object3DEventMap {
 export class InstancedMesh<
     TGeometry extends BufferGeometry = BufferGeometry,
     TMaterial extends Material | Material[] = Material | Material[],
-> extends Mesh<TGeometry, TMaterial, InstancedMeshEventMap> {
+    TEventMap extends InstancedMeshEventMap = InstancedMeshEventMap,
+> extends Mesh<TGeometry, TMaterial, TEventMap> {
     /**
      * Create a new instance of {@link InstancedMesh}
      * @param geometry An instance of {@link THREE.BufferGeometry | BufferGeometry}.

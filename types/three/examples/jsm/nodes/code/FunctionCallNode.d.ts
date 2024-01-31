@@ -17,3 +17,9 @@ export const call: <P extends FunctionNodeArguments>(
     functionNode?: FunctionNode<P>,
     parameters?: ProxiedObject<P>,
 ) => ShaderNodeObject<FunctionCallNode<P>>;
+
+declare module '../shadernode/ShaderNode.js' {
+    interface NodeElements {
+        call: typeof call;
+    }
+}

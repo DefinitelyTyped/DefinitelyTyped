@@ -11,3 +11,11 @@ export default class ContextNode extends Node {
 }
 
 export const context: (node: NodeRepresentation, context: NodeBuilderContext) => ShaderNodeObject<ContextNode>;
+export const label: (node: NodeRepresentation, label: string) => ShaderNodeObject<ContextNode>;
+
+declare module '../shadernode/ShaderNode.js' {
+    interface NodeElements {
+        context: typeof context;
+        label: typeof label;
+    }
+}

@@ -124,8 +124,10 @@ export default class MathNode extends TempNode {
 
 export const EPSILON: ShaderNodeObject<Node>;
 export const INFINITY: ShaderNodeObject<Node>;
+export const PI: ShaderNodeObject<Node>;
+export const PI2: ShaderNodeObject<Node>;
 
-export type Unary = (a: NodeRepresentation) => ShaderNodeObject<MathNode>;
+type Unary = (a: NodeRepresentation) => ShaderNodeObject<MathNode>;
 
 export const radians: Unary;
 export const degrees: Unary;
@@ -158,7 +160,7 @@ export const trunc: Unary;
 export const fwidth: Unary;
 export const bitcast: Unary;
 
-export type Binary = (a: NodeRepresentation, b: NodeRepresentation) => ShaderNodeObject<MathNode>;
+type Binary = (a: NodeRepresentation, b: NodeRepresentation) => ShaderNodeObject<MathNode>;
 
 export const atan2: Binary;
 export const min: Binary;
@@ -176,15 +178,17 @@ export const pow3: Binary;
 export const pow4: Binary;
 export const transformDirection: Binary;
 
-export type Ternary = (
-    a: NodeRepresentation,
-    b: NodeRepresentation,
-    c: NodeRepresentation,
-) => ShaderNodeObject<MathNode>;
+type Ternary = (a: NodeRepresentation, b: NodeRepresentation, c: NodeRepresentation) => ShaderNodeObject<MathNode>;
 
+export const cbrt: Unary;
+export const lengthSq: Unary;
 export const mix: Ternary;
-export const clamp: Ternary;
-export const saturate: Ternary;
+export const clamp: (
+    a: NodeRepresentation,
+    b?: NodeRepresentation,
+    c?: NodeRepresentation,
+) => ShaderNodeObject<MathNode>;
+export const saturate: Unary;
 export const refract: Ternary;
 export const smoothstep: Ternary;
 export const faceForward: Ternary;
@@ -215,6 +219,7 @@ declare module '../shadernode/ShaderNode.js' {
         abs: typeof abs;
         sign: typeof sign;
         length: typeof length;
+        lengthSq: typeof lengthSq;
         negate: typeof negate;
         oneMinus: typeof oneMinus;
         dFdx: typeof dFdx;
@@ -244,5 +249,6 @@ declare module '../shadernode/ShaderNode.js' {
         faceForward: typeof faceForward;
         difference: typeof difference;
         saturate: typeof saturate;
+        cbrt: typeof cbrt;
     }
 }

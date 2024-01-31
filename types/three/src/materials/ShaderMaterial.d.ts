@@ -92,7 +92,14 @@ export class ShaderMaterial extends Material {
     derivatives: any;
 
     /**
-     * @default { derivatives: false, fragDepth: false, drawBuffers: false, shaderTextureLOD: false, clipCullDistance: false }
+     * @default {
+     *   derivatives: false,
+     *   fragDepth: false,
+     *   drawBuffers: false,
+     *   shaderTextureLOD: false,
+     *   clipCullDistance: false,
+     *   multiDraw: false
+     * }
      */
     extensions: {
         derivatives: boolean;
@@ -100,6 +107,7 @@ export class ShaderMaterial extends Material {
         drawBuffers: boolean;
         shaderTextureLOD: boolean;
         clipCullDistance: boolean;
+        multiDraw: boolean;
     };
 
     /**

@@ -11,3 +11,9 @@ export default class FogNode extends Node {
 }
 
 export const fog: (colorNode: NodeRepresentation, factorNode: NodeRepresentation) => ShaderNodeObject<FogNode>;
+
+declare module '../shadernode/ShaderNode.js' {
+    interface NodeElements {
+        fog: typeof fog;
+    }
+}

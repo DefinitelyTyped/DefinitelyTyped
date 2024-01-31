@@ -84,13 +84,23 @@ export class InterleavedBufferAttribute {
      * Applies normal matrix {@link Matrix3 | m} to every Vector3 element of this InterleavedBufferAttribute.
      * @param m
      */
-    applyNormalMatrix(matrix: Matrix): this;
+    applyNormalMatrix(m: Matrix): this;
 
     /**
      * Applies matrix {@link Matrix4 | m} to every Vector3 element of this InterleavedBufferAttribute, interpreting the elements as a direction vectors.
      * @param m
      */
-    transformDirection(matrix: Matrix): this;
+    transformDirection(m: Matrix): this;
+
+    /**
+     * Returns the given component of the vector at the given index.
+     */
+    getComponent(index: number, component: number): number;
+
+    /**
+     * Sets the given component of the vector at the given index.
+     */
+    setComponent(index: number, component: number, value: number): this;
 
     /**
      * Returns the x component of the item at the given index.

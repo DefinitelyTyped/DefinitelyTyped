@@ -1,5 +1,5 @@
 import { Material } from '../materials/Material.js';
-import { Object3D } from '../core/Object3D.js';
+import { Object3D, Object3DEventMap } from '../core/Object3D.js';
 import { BufferGeometry } from '../core/BufferGeometry.js';
 
 /**
@@ -27,7 +27,8 @@ import { BufferGeometry } from '../core/BufferGeometry.js';
 export class Line<
     TGeometry extends BufferGeometry = BufferGeometry,
     TMaterial extends Material | Material[] = Material | Material[],
-> extends Object3D {
+    TEventMap extends Object3DEventMap = Object3DEventMap,
+> extends Object3D<TEventMap> {
     /**
      * Create a new instance of {@link Line}
      * @param geometry Vertices representing the {@link Line} segment(s). Default {@link THREE.BufferGeometry | `new THREE.BufferGeometry()`}.

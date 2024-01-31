@@ -14,3 +14,9 @@ export function cond(
     ifNode: NodeRepresentation,
     elseNode: NodeRepresentation,
 ): ShaderNodeObject<Node>;
+
+declare module '../shadernode/ShaderNode.js' {
+    interface NodeElements {
+        cond: typeof cond;
+    }
+}

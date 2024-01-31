@@ -35,3 +35,9 @@ export const triplanarTexture: (
     texture: NodeRepresentation,
     ...params: NodeRepresentation[]
 ) => ShaderNodeObject<TriplanarTexturesNode>;
+
+declare module '../shadernode/ShaderNode.js' {
+    interface NodeElements {
+        triplanarTexture: typeof triplanarTexture;
+    }
+}

@@ -17,20 +17,18 @@ import {
     ConstNode,
 } from 'three/examples/jsm/nodes/Nodes';
 
-import { ConvertType, Swizzable, ShaderNodeObject } from 'three/examples/jsm/nodes/shadernode/ShaderNode';
-import SplitNode from 'three/examples/jsm/nodes/utils/SplitNode';
+import { color, ShaderNodeObject, Swizzable, tslFn, vec3 } from 'three/examples/jsm/nodes/shadernode/ShaderNode';
 
 // just to type check
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 function assertSwizzable<T extends Node>(_s: Swizzable<T>) {}
 
-declare const color: ConvertType;
 const s = color(1);
 s.xyz;
 
 const aa = nodeArray([1, 2, 'hello']);
-aa[0].xy = s as ShaderNodeObject<SplitNode>;
-aa[1].w = s as ShaderNodeObject<SplitNode>;
+aa[0].xy = s;
+aa[1].w = s;
 aa[2] = 'hello';
 
 export const rotateUV = nodeProxy(RotateUVNode);
@@ -59,7 +57,7 @@ export const remainder = nodeProxy(OperatorNode, '%');
 assertSwizzable<OperatorNode>(remainder(s, new ConstNode(1), new ConstNode(1), new ConstNode(1), new ConstNode(1)));
 
 assertSwizzable<MaterialNode>(nodeImmutable(MaterialNode, MaterialNode.ROTATION));
-assertSwizzable<PropertyNode>(nodeImmutable(PropertyNode, 'DiffuseColor', 'vec4'));
+assertSwizzable<PropertyNode>(nodeImmutable(PropertyNode, 'vec4', 'DiffuseColor'));
 assertSwizzable<MathNode>(nodeImmutable(MathNode, 'abs', 1));
 
 export const shiftRight = nodeProxy(OperatorNode, '>>');
@@ -69,3 +67,9 @@ const shader = new ShaderNode<{ a: Node; b: Node }>(params => {
     return params.a;
 });
 assertSwizzable<Node>(shader.call({ a: s, b: new ConstNode(1) }));
+
+const fnWithoutArgs = tslFn(() => vec3(1, 2, 3));
+assertSwizzable<Node>(fnWithoutArgs());
+
+const fnWithArgs = tslFn(({ a, b }: { a: ShaderNodeObject<Node>; b: ShaderNodeObject<Node> }) => a.add(b));
+assertSwizzable<Node>(fnWithArgs({ a: color(0, 0.5, 0), b: color(1, 0.5, 0) }));
