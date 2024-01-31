@@ -1,5 +1,13 @@
-# Learn more at: https://aka.ms/yaml
+trigger:
+  - master
+
+pr: none
+
 jobs:
+  - checkout: self
+    fetchDepth: 1
+    fetchTags: false
+
   - job: npmRunTest
     pool:
       vmImage: ubuntu-latest
@@ -11,6 +19,3 @@ jobs:
       - script: |
           echo "Disabled"
         displayName: 'Do nothing'
-
-trigger:
-  - master
