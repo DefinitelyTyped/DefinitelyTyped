@@ -85,6 +85,7 @@ const query = {
     name: "get-name",
     text: "SELECT $1::text",
     values: ["brianc"],
+    rowMode: ["array"],
 };
 client.query(query, (err, res) => {
     if (err) {
