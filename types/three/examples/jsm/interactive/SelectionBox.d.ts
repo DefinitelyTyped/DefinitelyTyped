@@ -1,4 +1,4 @@
-import { Camera, Frustum, Mesh, Object3D, Scene, Vector3 } from '../../../src/Three.js';
+import { Camera, Frustum, Mesh, Object3D, Scene, Vector3 } from "../../../src/Three.js";
 
 export class SelectionBox {
     constructor(camera: Camera, scene: Scene, deep?: number);

@@ -1,7 +1,7 @@
-import { ColorSpace } from '../../../../src/Three.js';
-import TempNode from '../core/TempNode.js';
-import Node from '../core/Node.js';
-import { NodeRepresentation, ShaderNodeObject } from '../shadernode/ShaderNode.js';
+import { ColorSpace } from "../../../../src/Three.js";
+import Node from "../core/Node.js";
+import TempNode from "../core/TempNode.js";
+import { NodeRepresentation, ShaderNodeObject } from "../shadernode/ShaderNode.js";
 
 export type ColorSpaceNodeMethod =
     | typeof ColorSpaceNode.LINEAR_TO_LINEAR
@@ -9,9 +9,9 @@ export type ColorSpaceNodeMethod =
     | typeof ColorSpaceNode.sRGB_TO_LINEAR;
 
 export default class ColorSpaceNode extends TempNode {
-    static LINEAR_TO_LINEAR: 'LinearToLinear';
-    static LINEAR_TO_sRGB: 'LinearTosRGB';
-    static sRGB_TO_LINEAR: 'sRGBToLinear';
+    static LINEAR_TO_LINEAR: "LinearToLinear";
+    static LINEAR_TO_sRGB: "LinearTosRGB";
+    static sRGB_TO_LINEAR: "sRGBToLinear";
 
     method: ColorSpaceNodeMethod;
     node: Node;
@@ -25,7 +25,7 @@ export const colorSpaceToLinear: (node: NodeRepresentation, colorSpace: ColorSpa
 export const linearTosRGB: (node: NodeRepresentation) => ShaderNodeObject<ColorSpaceNode>;
 export const sRGBToLinear: (node: NodeRepresentation) => ShaderNodeObject<ColorSpaceNode>;
 
-declare module '../shadernode/ShaderNode.js' {
+declare module "../shadernode/ShaderNode.js" {
     interface NodeElements {
         linearTosRGB: typeof linearTosRGB;
         sRGBToLinear: typeof sRGBToLinear;

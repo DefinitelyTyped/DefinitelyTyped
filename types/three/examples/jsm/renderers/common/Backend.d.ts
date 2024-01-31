@@ -1,5 +1,5 @@
-import { CoordinateSystem } from '../../../../src/Three.js';
-import Renderer from './Renderer.js';
+import { CoordinateSystem } from "../../../../src/Three.js";
+import Renderer from "./Renderer.js";
 
 export interface BackendParameters {
     canvas?: HTMLCanvasElement | undefined;

@@ -1,11 +1,11 @@
-import { Vector2 } from './Vector2.js';
-import { Vector3 } from './Vector3.js';
-import { Vector4 } from './Vector4.js';
-import { Plane } from './Plane.js';
-import { Box3 } from './Box3.js';
+import { Box3 } from "./Box3.js";
+import { Plane } from "./Plane.js";
+import { Vector2 } from "./Vector2.js";
+import { Vector3 } from "./Vector3.js";
+import { Vector4 } from "./Vector4.js";
 
-import { InterleavedBufferAttribute } from '../core/InterleavedBufferAttribute.js';
-import { BufferAttribute } from '../core/BufferAttribute.js';
+import { BufferAttribute } from "../core/BufferAttribute.js";
+import { InterleavedBufferAttribute } from "../core/InterleavedBufferAttribute.js";
 
 export class Triangle {
     constructor(a?: Vector3, b?: Vector3, c?: Vector3);

@@ -1,5 +1,5 @@
-import Node from './Node.js';
-import { ShaderNodeObject } from '../shadernode/ShaderNode.js';
+import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import Node from "./Node.js";
 
 export type IndexNodeScope = typeof IndexNode.VERTEX | typeof IndexNode.INSTANCE;
 
@@ -10,8 +10,8 @@ export default class IndexNode extends Node {
 
     constructor(scope: IndexNodeScope);
 
-    static VERTEX: 'vertex';
-    static INSTANCE: 'instance';
+    static VERTEX: "vertex";
+    static INSTANCE: "instance";
 }
 
 export const vertexIndex: ShaderNodeObject<IndexNode>;

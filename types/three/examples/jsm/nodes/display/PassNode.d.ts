@@ -1,8 +1,8 @@
-import { Camera, RenderTarget, Scene, Texture } from '../../../../src/Three.js';
-import { ShaderNodeObject } from '../shadernode/ShaderNode.js';
-import TempNode from '../core/TempNode.js';
-import TextureNode from '../accessors/TextureNode.js';
-import Node from '../core/Node.js';
+import { Camera, RenderTarget, Scene, Texture } from "../../../../src/Three.js";
+import TextureNode from "../accessors/TextureNode.js";
+import Node from "../core/Node.js";
+import TempNode from "../core/TempNode.js";
+import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
 
 declare class PassTextureNode extends TextureNode {
     passNode: PassNode;
@@ -33,8 +33,8 @@ export default class PassNode extends TempNode {
 
     dispose(): void;
 
-    static COLOR: 'color';
-    static DEPTH: 'depth';
+    static COLOR: "color";
+    static DEPTH: "depth";
 }
 
 export type PassNodeScope = typeof PassNode.COLOR | typeof PassNode.DEPTH;

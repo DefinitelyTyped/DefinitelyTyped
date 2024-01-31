@@ -1,5 +1,5 @@
-import Node from '../core/Node.js';
-import { ShaderNodeObject } from '../shadernode/ShaderNode.js';
+import Node from "../core/Node.js";
+import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
 
 export type ViewportNodeScope =
     | typeof ViewportNode.COORDINATE
@@ -10,12 +10,12 @@ export type ViewportNodeScope =
     | typeof ViewportNode.BOTTOM_RIGHT;
 
 export default class ViewportNode extends Node {
-    static COORDINATE: 'coordinate';
-    static RESOLUTION: 'resolution';
-    static TOP_LEFT: 'topLeft';
-    static BOTTOM_LEFT: 'bottomLeft';
-    static TOP_RIGHT: 'topRight';
-    static BOTTOM_RIGHT: 'bottomRight';
+    static COORDINATE: "coordinate";
+    static RESOLUTION: "resolution";
+    static TOP_LEFT: "topLeft";
+    static BOTTOM_LEFT: "bottomLeft";
+    static TOP_RIGHT: "topRight";
+    static BOTTOM_RIGHT: "bottomRight";
 
     scope: ViewportNodeScope;
     isViewportNode: true;

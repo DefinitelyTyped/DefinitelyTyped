@@ -1,8 +1,8 @@
-import { Vector2 } from '../../../../src/Three.js';
-import Node from '../core/Node.js';
-import TempNode from '../core/TempNode.js';
-import TextureNode from '../accessors/TextureNode.js';
-import { NodeRepresentation, ShaderNodeObject } from '../shadernode/ShaderNode.js';
+import { Vector2 } from "../../../../src/Three.js";
+import TextureNode from "../accessors/TextureNode.js";
+import Node from "../core/Node.js";
+import TempNode from "../core/TempNode.js";
+import { NodeRepresentation, ShaderNodeObject } from "../shadernode/ShaderNode.js";
 
 export default class AnamorphicNode extends TempNode {
     textureNode: TextureNode;
@@ -25,7 +25,7 @@ export const anamorphic: (
     samples?: NodeRepresentation,
 ) => ShaderNodeObject<AnamorphicNode>;
 
-declare module '../shadernode/ShaderNode.js' {
+declare module "../shadernode/ShaderNode.js" {
     interface NodeElements {
         anamorphic: typeof anamorphic;
     }

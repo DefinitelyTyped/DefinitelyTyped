@@ -1,5 +1,5 @@
-import UniformNode from '../core/UniformNode.js';
-import { ShaderNodeObject } from '../shadernode/ShaderNode.js';
+import UniformNode from "../core/UniformNode.js";
+import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
 
 export type TimerNodeScope =
     | typeof TimerNode.LOCAL
@@ -8,10 +8,10 @@ export type TimerNodeScope =
     | typeof TimerNode.FRAME;
 
 export default class TimerNode extends UniformNode<number> {
-    static LOCAL: 'local';
-    static GLOBAL: 'global';
-    static DELTA: 'delta';
-    static FRAME: 'frame';
+    static LOCAL: "local";
+    static GLOBAL: "global";
+    static DELTA: "delta";
+    static FRAME: "frame";
 
     scope: TimerNodeScope;
     scale: number;

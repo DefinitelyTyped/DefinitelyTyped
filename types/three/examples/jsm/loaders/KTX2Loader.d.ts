@@ -1,7 +1,7 @@
-import { LoadingManager, Loader, CompressedTexture, WebGLRenderer } from '../../../src/Three.js';
-import WebGPURenderer from '../renderers/webgpu/WebGPURenderer.js';
-import Renderer from '../renderers/common/Renderer.js';
-import { WorkerPool } from '../utils/WorkerPool.js';
+import { CompressedTexture, Loader, LoadingManager, WebGLRenderer } from "../../../src/Three.js";
+import Renderer from "../renderers/common/Renderer.js";
+import WebGPURenderer from "../renderers/webgpu/WebGPURenderer.js";
+import { WorkerPool } from "../utils/WorkerPool.js";
 
 export interface KTX2LoaderWorkerConfig {
     astcSupported: boolean;

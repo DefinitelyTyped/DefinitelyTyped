@@ -1,4 +1,4 @@
-import { BufferGeometry } from '../../../src/Three.js';
+import { BufferGeometry } from "../../../src/Three.js";
 
 export class BoxLineGeometry extends BufferGeometry {
     constructor(

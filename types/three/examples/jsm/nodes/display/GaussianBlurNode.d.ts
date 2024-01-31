@@ -1,8 +1,8 @@
-import { Vector2 } from '../../../../src/Three.js';
-import TempNode from '../core/TempNode.js';
-import TextureNode from '../accessors/TextureNode.js';
-import Node from '../core/Node.js';
-import { NodeRepresentation, ShaderNodeObject } from '../shadernode/ShaderNode.js';
+import { Vector2 } from "../../../../src/Three.js";
+import TextureNode from "../accessors/TextureNode.js";
+import Node from "../core/Node.js";
+import TempNode from "../core/TempNode.js";
+import { NodeRepresentation, ShaderNodeObject } from "../shadernode/ShaderNode.js";
 
 export default class GaussianBlurNode extends TempNode {
     textureNode: TextureNode;
@@ -21,7 +21,7 @@ export default class GaussianBlurNode extends TempNode {
 
 export const gaussianBlur: (node: NodeRepresentation, sigma?: number) => ShaderNodeObject<GaussianBlurNode>;
 
-declare module '../shadernode/ShaderNode.js' {
+declare module "../shadernode/ShaderNode.js" {
     interface NodeElements {
         gaussianBlur: typeof gaussianBlur;
     }

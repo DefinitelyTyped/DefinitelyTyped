@@ -1,7 +1,7 @@
-import { Vector2 } from '../math/Vector2.js';
-import { Object3D, Object3DEventMap } from '../core/Object3D.js';
-import { SpriteMaterial } from '../materials/Materials.js';
-import { BufferGeometry } from '../core/BufferGeometry.js';
+import { BufferGeometry } from "../core/BufferGeometry.js";
+import { Object3D, Object3DEventMap } from "../core/Object3D.js";
+import { SpriteMaterial } from "../materials/Materials.js";
+import { Vector2 } from "../math/Vector2.js";
 
 /**
  * A {@link Sprite} is a plane that always faces towards the camera, generally with a partially transparent texture applied.
@@ -36,7 +36,7 @@ export class Sprite<TEventMap extends Object3DEventMap = Object3DEventMap> exten
      * @override
      * @defaultValue `Sprite`
      */
-    override readonly type: string | 'Sprite';
+    override readonly type: string | "Sprite";
 
     /**
      * Whether the object gets rendered into shadow map.

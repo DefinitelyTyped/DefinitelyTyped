@@ -1,6 +1,6 @@
-import { Usage, AttributeGPUType } from '../constants.js';
-import { Matrix3 } from '../math/Matrix3.js';
-import { Matrix4 } from '../math/Matrix4.js';
+import { AttributeGPUType, Usage } from "../constants.js";
+import { Matrix3 } from "../math/Matrix3.js";
+import { Matrix4 } from "../math/Matrix4.js";
 
 export type TypedArray =
     | Int8Array

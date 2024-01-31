@@ -1,5 +1,5 @@
-import Object3DNode, { Object3DNodeScope } from './Object3DNode.js';
-import { ShaderNodeObject } from '../shadernode/ShaderNode.js';
+import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import Object3DNode, { Object3DNodeScope } from "./Object3DNode.js";
 
 export type CameraNodeScope =
     | Object3DNodeScope
@@ -12,11 +12,11 @@ export type CameraNodeScope =
 export default class CameraNode extends Object3DNode {
     constructor(scope?: string);
 
-    static PROJECTION_MATRIX: 'projectionMatrix';
-    static PROJECTION_MATRIX_INVERSE: 'projectionMatrixInverse';
-    static NEAR: 'near';
-    static FAR: 'far';
-    static LOG_DEPTH: 'logDepth';
+    static PROJECTION_MATRIX: "projectionMatrix";
+    static PROJECTION_MATRIX_INVERSE: "projectionMatrixInverse";
+    static NEAR: "near";
+    static FAR: "far";
+    static LOG_DEPTH: "logDepth";
 }
 
 export const cameraProjectionMatrix: ShaderNodeObject<CameraNode>;

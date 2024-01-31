@@ -1,19 +1,19 @@
-import { Plane } from '../math/Plane.js';
-import { EventDispatcher } from '../core/EventDispatcher.js';
-import { WebGLProgramParametersWithUniforms } from '../renderers/webgl/WebGLPrograms.js';
-import { WebGLRenderer } from '../renderers/WebGLRenderer.js';
 import {
+    Blending,
     BlendingDstFactor,
     BlendingEquation,
-    Blending,
     BlendingSrcFactor,
     DepthModes,
+    PixelFormat,
     Side,
     StencilFunc,
     StencilOp,
-    PixelFormat,
-} from '../constants.js';
-import { Color, ColorRepresentation } from '../math/Color.js';
+} from "../constants.js";
+import { EventDispatcher } from "../core/EventDispatcher.js";
+import { Color, ColorRepresentation } from "../math/Color.js";
+import { Plane } from "../math/Plane.js";
+import { WebGLProgramParametersWithUniforms } from "../renderers/webgl/WebGLPrograms.js";
+import { WebGLRenderer } from "../renderers/WebGLRenderer.js";
 
 export interface MaterialParameters {
     alphaHash?: boolean | undefined;
@@ -41,7 +41,7 @@ export interface MaterialParameters {
     polygonOffset?: boolean | undefined;
     polygonOffsetFactor?: number | undefined;
     polygonOffsetUnits?: number | undefined;
-    precision?: 'highp' | 'mediump' | 'lowp' | null | undefined;
+    precision?: "highp" | "mediump" | "lowp" | null | undefined;
     premultipliedAlpha?: boolean | undefined;
     forceSinglePass?: boolean | undefined;
     dithering?: boolean | undefined;
@@ -306,7 +306,7 @@ export class Material extends EventDispatcher<{ dispose: {} }> {
      * Override the renderer's default precision for this material. Can be "highp", "mediump" or "lowp". Defaults is null.
      * @default null
      */
-    precision: 'highp' | 'mediump' | 'lowp' | null;
+    precision: "highp" | "mediump" | "lowp" | null;
 
     /**
      * Whether to premultiply the alpha (transparency) value. See WebGL / Materials / Transparency for an example of the difference. Default is false.

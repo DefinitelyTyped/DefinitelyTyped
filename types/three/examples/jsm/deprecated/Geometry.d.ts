@@ -1,19 +1,19 @@
 import {
-    Vector3,
-    Color,
-    Vector2,
-    Vector4,
-    Box3,
-    Sphere,
-    Matrix4,
-    BufferGeometry,
-    Matrix,
-    Mesh,
-    Bone,
     AnimationClip,
+    Bone,
+    Box3,
+    BufferGeometry,
+    Color,
     EventDispatcher,
+    Matrix,
+    Matrix4,
+    Mesh,
     Object3D,
-} from '../../../src/Three.js';
+    Sphere,
+    Vector2,
+    Vector3,
+    Vector4,
+} from "../../../src/Three.js";
 
 /**
  * @deprecated Use Face3 instead.
@@ -176,7 +176,6 @@ export class Geometry extends EventDispatcher {
     lineDistancesNeedUpdate: boolean;
 
     /**
-     *
      * @default false
      */
     groupsNeedUpdate: boolean;

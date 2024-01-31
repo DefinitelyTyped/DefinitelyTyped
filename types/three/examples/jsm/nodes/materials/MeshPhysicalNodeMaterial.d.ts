@@ -1,7 +1,7 @@
-import { ShaderMaterialParameters } from '../../../../src/Three.js';
+import { ShaderMaterialParameters } from "../../../../src/Three.js";
 
-import MeshStandardNodeMaterial from './MeshStandardNodeMaterial.js';
-import Node from '../core/Node.js';
+import Node from "../core/Node.js";
+import MeshStandardNodeMaterial from "./MeshStandardNodeMaterial.js";
 
 export default class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
     readonly isMeshPhysicalNodeMaterial: true;

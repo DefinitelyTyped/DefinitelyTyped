@@ -1,5 +1,5 @@
-import { Vector2 } from '../../math/Vector2.js';
-import { Vector3 } from '../../math/Vector3.js';
+import { Vector2 } from "../../math/Vector2.js";
+import { Vector3 } from "../../math/Vector3.js";
 
 /**
  * An abstract base class for creating a {@link Curve} object that contains methods for interpolation
@@ -33,7 +33,7 @@ export abstract class Curve<TVector extends Vector2 | Vector3> {
      * @remarks Sub-classes will update this value.
      * @defaultValue `Curve`
      */
-    readonly type: string | 'Curve';
+    readonly type: string | "Curve";
 
     /**
      * This value determines the amount of divisions when calculating the cumulative segment lengths of a {@link Curve}

@@ -1,5 +1,5 @@
-import Node from '../core/Node.js';
-import { ShaderNodeObject } from '../shadernode/ShaderNode.js';
+import Node from "../core/Node.js";
+import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
 
 export default class ViewportDepthNode extends Node {
     scope: ViewportDepthNodeScope;
@@ -9,9 +9,9 @@ export default class ViewportDepthNode extends Node {
 
     constructor(scope: ViewportDepthNodeScope, valueNode?: Node | null);
 
-    static DEPTH: 'depth';
-    static DEPTH_TEXTURE: 'depthTexture';
-    static DEPTH_PIXEL: 'depthPixel';
+    static DEPTH: "depth";
+    static DEPTH_TEXTURE: "depthTexture";
+    static DEPTH_PIXEL: "depthPixel";
 }
 
 export type ViewportDepthNodeScope =

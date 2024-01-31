@@ -1,6 +1,6 @@
-import { EventDispatcher } from './EventDispatcher.js';
-import { Uniform } from './Uniform.js';
-import { Usage } from '../constants.js';
+import { Usage } from "../constants.js";
+import { EventDispatcher } from "./EventDispatcher.js";
+import { Uniform } from "./Uniform.js";
 
 /**
  * @see Example: {@link https://threejs.org/examples/#webgl2_ubo | WebGL2 / UBO}

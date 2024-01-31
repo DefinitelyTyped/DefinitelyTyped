@@ -1,24 +1,24 @@
 import {
+    BufferGeometry,
     Camera,
+    Color,
     ColorSpace,
     CoordinateSystem,
+    FramebufferTexture,
+    Group,
+    Material,
+    Object3D,
+    RenderTarget,
     Scene,
     ToneMapping,
     Vector2,
     Vector4,
-    Color,
-    Object3D,
-    RenderTarget,
-    FramebufferTexture,
-    BufferGeometry,
-    Material,
-    Group,
-} from '../../../../src/Three.js';
-import Backend from './Backend.js';
-import Info from './Info.js';
-import Color4 from './../common/Color4.js';
-import ComputeNode from '../../nodes/gpgpu/ComputeNode.js';
-import LightsNode from '../../nodes/lighting/LightsNode.js';
+} from "../../../../src/Three.js";
+import ComputeNode from "../../nodes/gpgpu/ComputeNode.js";
+import LightsNode from "../../nodes/lighting/LightsNode.js";
+import Color4 from "./../common/Color4.js";
+import Backend from "./Backend.js";
+import Info from "./Info.js";
 
 export interface RendererParameters {
     logarithmicDepthBuffer?: boolean | undefined;

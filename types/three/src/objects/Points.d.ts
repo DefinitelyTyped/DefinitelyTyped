@@ -1,9 +1,9 @@
-import { Material } from '../materials/Material.js';
-import { Object3D, Object3DEventMap } from '../core/Object3D.js';
-import { BufferGeometry, NormalOrGLBufferAttributes } from '../core/BufferGeometry.js';
-import { BufferAttribute } from '../core/BufferAttribute.js';
-import { InterleavedBufferAttribute } from '../core/InterleavedBufferAttribute.js';
-import { GLBufferAttribute } from '../core/GLBufferAttribute.js';
+import { BufferAttribute } from "../core/BufferAttribute.js";
+import { BufferGeometry, NormalOrGLBufferAttributes } from "../core/BufferGeometry.js";
+import { GLBufferAttribute } from "../core/GLBufferAttribute.js";
+import { InterleavedBufferAttribute } from "../core/InterleavedBufferAttribute.js";
+import { Object3D, Object3DEventMap } from "../core/Object3D.js";
+import { Material } from "../materials/Material.js";
 
 /**
  * A class for displaying {@link Points}
@@ -35,7 +35,7 @@ export class Points<
      * @override
      * @defaultValue `Points`
      */
-    override readonly type: string | 'Points';
+    override readonly type: string | "Points";
 
     /**
      * An array of weights typically from `0-1` that specify how much of the morph is applied.
@@ -46,7 +46,6 @@ export class Points<
     /**
      * A dictionary of morphTargets based on the `morphTarget.name` property.
      * @defaultValue `undefined`, _but rebuilt by {@link updateMorphTargets | .updateMorphTargets()}._
-     *
      */
     morphTargetDictionary?: { [key: string]: number } | undefined;
 

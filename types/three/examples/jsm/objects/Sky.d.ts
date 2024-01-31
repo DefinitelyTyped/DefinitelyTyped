@@ -1,4 +1,4 @@
-import { BoxGeometry, Mesh, ShaderMaterial } from '../../../src/Three.js';
+import { BoxGeometry, Mesh, ShaderMaterial } from "../../../src/Three.js";
 
 export class Sky extends Mesh {
     constructor();

@@ -1,5 +1,5 @@
-import Node from './Node.js';
-import { NodeRepresentation, ShaderNodeObject } from '../shadernode/ShaderNode.js';
+import { NodeRepresentation, ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import Node from "./Node.js";
 
 export default class BypassNode extends Node {
     isBypassNode: true;
@@ -11,7 +11,7 @@ export default class BypassNode extends Node {
 
 export const bypass: (returnNode: NodeRepresentation, callNode: NodeRepresentation) => ShaderNodeObject<BypassNode>;
 
-declare module '../shadernode/ShaderNode.js' {
+declare module "../shadernode/ShaderNode.js" {
     interface NodeElements {
         bypass: typeof bypass;
     }

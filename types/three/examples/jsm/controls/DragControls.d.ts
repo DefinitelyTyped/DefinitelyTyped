@@ -1,4 +1,4 @@
-import { Camera, EventDispatcher, Object3D, Raycaster } from '../../../src/Three.js';
+import { Camera, EventDispatcher, Object3D, Raycaster } from "../../../src/Three.js";
 
 export interface DragControlsEventMap {
     hoveron: { object: Object3D };

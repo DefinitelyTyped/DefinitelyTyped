@@ -1,4 +1,4 @@
-import { BufferGeometry } from '../core/BufferGeometry.js';
+import { BufferGeometry } from "../core/BufferGeometry.js";
 
 /**
  * {@link CapsuleGeometry} is a geometry class for a capsule with given radii and height
@@ -30,7 +30,7 @@ export class CapsuleGeometry extends BufferGeometry {
      * @remarks Sub-classes will update this value.
      * @defaultValue `CapsuleGeometry`
      */
-    override readonly type: string | 'CapsuleGeometry';
+    override readonly type: string | "CapsuleGeometry";
 
     /**
      * An object with a property for each of the constructor parameters.

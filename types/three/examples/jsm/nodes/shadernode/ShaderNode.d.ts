@@ -1,7 +1,7 @@
-import Node from '../core/Node.js';
-import { AnyObject, NodeTypeOption, SwizzleOption } from '../core/constants.js';
-import ConstNode from '../core/ConstNode.js';
-import NodeBuilder from '../core/NodeBuilder.js';
+import { AnyObject, NodeTypeOption, SwizzleOption } from "../core/constants.js";
+import ConstNode from "../core/ConstNode.js";
+import Node from "../core/Node.js";
+import NodeBuilder from "../core/NodeBuilder.js";
 
 export interface NodeElements {
     append: typeof append;
@@ -44,15 +44,20 @@ export interface NodeElements {
 
 export function addNodeElement(name: string, nodeElement: unknown): void;
 
-export type Swizzable<T extends Node = Node> = T & {
-    [key in SwizzleOption | number]: ShaderNodeObject<Node>;
-};
+export type Swizzable<T extends Node = Node> =
+    & T
+    & {
+        [key in SwizzleOption | number]: ShaderNodeObject<Node>;
+    };
 
-export type ShaderNodeObject<T extends Node> = T & {
-    [Key in keyof NodeElements]: NodeElements[Key] extends (node: T, ...args: infer Args) => infer R
-        ? (...args: Args) => R
-        : never;
-} & Swizzable<T>;
+export type ShaderNodeObject<T extends Node> =
+    & T
+    & {
+        [Key in keyof NodeElements]: NodeElements[Key] extends (node: T, ...args: infer Args) => infer R
+            ? (...args: Args) => R
+            : never;
+    }
+    & Swizzable<T>;
 
 /** anything that can be passed to {@link nodeObject} and returns a proxy */
 export type NodeRepresentation<T extends Node = Node> = number | boolean | Node | ShaderNodeObject<T>;
@@ -61,10 +66,8 @@ export type NodeRepresentation<T extends Node = Node> = number | boolean | Node 
 export type NodeObjectOption = NodeRepresentation | string;
 
 // same logic as in ShaderNodeObject: number,boolean,node->ShaderNodeObject, otherwise do nothing
-export type NodeObject<T> = T extends Node
-    ? ShaderNodeObject<T>
-    : T extends number | boolean
-    ? ShaderNodeObject<ConstNode<number | boolean>>
+export type NodeObject<T> = T extends Node ? ShaderNodeObject<T>
+    : T extends number | boolean ? ShaderNodeObject<ConstNode<number | boolean>>
     : T;
 
 // opposite of NodeObject: node -> node|ShaderNodeObject|boolean|number, otherwise do nothing
@@ -99,25 +102,21 @@ interface Construtors<
  * <https://stackoverflow.com/a/52761156/1623826>
  */
 type OverloadedConstructorsOf<T> = T extends {
-    new (...args: infer A1): unknown;
-    new (...args: infer A2): unknown;
-    new (...args: infer A3): unknown;
-    new (...args: infer A4): unknown;
-}
-    ? Construtors<A1, A2, A3, A4>
+    new(...args: infer A1): unknown;
+    new(...args: infer A2): unknown;
+    new(...args: infer A3): unknown;
+    new(...args: infer A4): unknown;
+} ? Construtors<A1, A2, A3, A4>
     : T extends {
-          new (...args: infer A1): unknown;
-          new (...args: infer A2): unknown;
-          new (...args: infer A3): unknown;
-      }
-    ? Construtors<A1, A2, A3, undefined>
+        new(...args: infer A1): unknown;
+        new(...args: infer A2): unknown;
+        new(...args: infer A3): unknown;
+    } ? Construtors<A1, A2, A3, undefined>
     : T extends {
-          new (...args: infer A1): unknown;
-          new (...args: infer A2): unknown;
-      }
-    ? Construtors<A1, A2, undefined, undefined>
-    : T extends new (...args: infer A) => unknown
-    ? Construtors<A, undefined, undefined, undefined>
+        new(...args: infer A1): unknown;
+        new(...args: infer A2): unknown;
+    } ? Construtors<A1, A2, undefined, undefined>
+    : T extends new(...args: infer A) => unknown ? Construtors<A, undefined, undefined, undefined>
     : Construtors<undefined, undefined, undefined, undefined>;
 
 type AnyConstructors = Construtors<any, any, any, any>;
@@ -127,29 +126,29 @@ type AnyConstructors = Construtors<any, any, any, any>;
  */
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type FilterConstructorsByScope<T extends AnyConstructors, S> = {
-    a: S extends T['a'][0] ? T['a'] : undefined;
-    b: S extends T['b'][0] ? T['b'] : undefined;
-    c: S extends T['c'][0] ? T['c'] : undefined;
-    d: S extends T['d'][0] ? T['d'] : undefined;
+    a: S extends T["a"][0] ? T["a"] : undefined;
+    b: S extends T["b"][0] ? T["b"] : undefined;
+    c: S extends T["c"][0] ? T["c"] : undefined;
+    d: S extends T["d"][0] ? T["d"] : undefined;
 };
 /**
  * "flattens" the tuple into an union type
  */
 type ConstructorUnion<T extends AnyConstructors> =
-    | Exclude<T['a'], undefined>
-    | Exclude<T['b'], undefined>
-    | Exclude<T['c'], undefined>
-    | Exclude<T['d'], undefined>;
+    | Exclude<T["a"], undefined>
+    | Exclude<T["b"], undefined>
+    | Exclude<T["c"], undefined>
+    | Exclude<T["d"], undefined>;
 
 /**
  * Extract list of possible scopes - union of the first paramter
  * of all constructors, should it be string
  */
 type ExtractScopes<T extends AnyConstructors> =
-    | (T['a'][0] extends string ? T['a'][0] : never)
-    | (T['b'][0] extends string ? T['b'][0] : never)
-    | (T['c'][0] extends string ? T['c'][0] : never)
-    | (T['d'][0] extends string ? T['d'][0] : never);
+    | (T["a"][0] extends string ? T["a"][0] : never)
+    | (T["b"][0] extends string ? T["b"][0] : never)
+    | (T["c"][0] extends string ? T["c"][0] : never)
+    | (T["d"][0] extends string ? T["d"][0] : never);
 
 type GetConstructorsByScope<T, S> = ConstructorUnion<FilterConstructorsByScope<OverloadedConstructorsOf<T>, S>>;
 type GetConstructors<T> = ConstructorUnion<OverloadedConstructorsOf<T>>;
@@ -159,7 +158,7 @@ export type ConvertType = (...params: unknown[]) => ShaderNodeObject<Node>;
 
 type NodeArray<T extends NodeObjectOption[]> = { [index in keyof T]: NodeObject<T[index]> };
 type NodeObjects<T> = { [key in keyof T]: T[key] extends NodeObjectOption ? NodeObject<T[key]> : T[key] };
-type ConstructedNode<T> = T extends new (...args: any[]) => infer R ? (R extends Node ? R : never) : never;
+type ConstructedNode<T> = T extends new(...args: any[]) => infer R ? (R extends Node ? R : never) : never;
 
 export type NodeOrType = Node | NodeTypeOption;
 

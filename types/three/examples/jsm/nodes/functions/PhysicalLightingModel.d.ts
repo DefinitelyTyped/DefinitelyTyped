@@ -1,5 +1,5 @@
-import LightingModel from '../core/LightingModel.js';
-import Node from '../core/Node.js';
+import LightingModel from "../core/LightingModel.js";
+import Node from "../core/Node.js";
 
 export default class PhysicalLightingModel extends LightingModel {
     clearcoat: boolean;

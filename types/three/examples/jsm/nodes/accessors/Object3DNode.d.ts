@@ -1,5 +1,5 @@
-import { Object3D } from '../../../../src/Three.js';
-import Node from '../core/Node.js';
+import { Object3D } from "../../../../src/Three.js";
+import Node from "../core/Node.js";
 
 export type Object3DNodeScope =
     | typeof Object3DNode.VIEW_MATRIX
@@ -16,11 +16,11 @@ export default class Object3DNode extends Node {
 
     constructor(scope?: string, object3d?: Object3D | null);
 
-    static VIEW_MATRIX: 'viewMatrix';
-    static NORMAL_MATRIX: 'normalMatrix';
-    static WORLD_MATRIX: 'worldMatrix';
-    static POSITION: 'position';
-    static SCALE: 'scale';
-    static VIEW_POSITION: 'viewPosition';
-    static DIRECTION: 'direction';
+    static VIEW_MATRIX: "viewMatrix";
+    static NORMAL_MATRIX: "normalMatrix";
+    static WORLD_MATRIX: "worldMatrix";
+    static POSITION: "position";
+    static SCALE: "scale";
+    static VIEW_POSITION: "viewPosition";
+    static DIRECTION: "direction";
 }

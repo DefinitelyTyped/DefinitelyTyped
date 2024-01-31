@@ -1,5 +1,5 @@
-import { Object3D, Object3DEventMap } from '../core/Object3D.js';
-import { Camera } from '../cameras/Camera.js';
+import { Camera } from "../cameras/Camera.js";
+import { Object3D, Object3DEventMap } from "../core/Object3D.js";
 
 /**
  * Every level is associated with an object, and rendering can be switched between them at the distances specified
@@ -37,7 +37,7 @@ export class LOD<TEventMap extends Object3DEventMap = Object3DEventMap> extends 
      * @override
      * @defaultValue `LOD`
      */
-    override readonly type: string | 'LOD';
+    override readonly type: string | "LOD";
 
     /**
      * An array of level objects

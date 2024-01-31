@@ -1,2 +1,2 @@
-export * from '../src/Three.js';
+export * from "../src/Three.js";
 export as namespace THREE;

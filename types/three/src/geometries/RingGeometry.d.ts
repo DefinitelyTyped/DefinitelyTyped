@@ -1,4 +1,4 @@
-import { BufferGeometry } from '../core/BufferGeometry.js';
+import { BufferGeometry } from "../core/BufferGeometry.js";
 
 /**
  * A class for generating a two-dimensional ring geometry.
@@ -39,7 +39,7 @@ export class RingGeometry extends BufferGeometry {
      * @remarks Sub-classes will update this value.
      * @defaultValue `RingGeometry`
      */
-    override readonly type: string | 'RingGeometry';
+    override readonly type: string | "RingGeometry";
 
     /**
      * An object with a property for each of the constructor parameters.

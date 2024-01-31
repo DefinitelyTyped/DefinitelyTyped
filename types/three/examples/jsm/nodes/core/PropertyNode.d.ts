@@ -1,6 +1,6 @@
-import { NodeTypeOption } from './constants.js';
-import Node from './Node.js';
-import { ShaderNodeObject } from '../shadernode/ShaderNode.js';
+import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import { NodeTypeOption } from "./constants.js";
+import Node from "./Node.js";
 
 export default class PropertyNode extends Node {
     name: string | null;

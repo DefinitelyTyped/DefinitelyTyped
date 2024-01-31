@@ -1,18 +1,18 @@
-import { Vector3 } from '../math/Vector3.js';
-import { Euler } from '../math/Euler.js';
-import { Quaternion } from '../math/Quaternion.js';
-import { Matrix4 } from '../math/Matrix4.js';
-import { Matrix3 } from '../math/Matrix3.js';
-import { Layers } from './Layers.js';
-import { WebGLRenderer } from '../renderers/WebGLRenderer.js';
-import { Scene } from '../scenes/Scene.js';
-import { Camera } from '../cameras/Camera.js';
-import { Material } from '../materials/Material.js';
-import { Group } from '../objects/Group.js';
-import { Intersection, Raycaster } from './Raycaster.js';
-import { EventDispatcher } from './EventDispatcher.js';
-import { BufferGeometry } from './BufferGeometry.js';
-import { AnimationClip } from '../animation/AnimationClip.js';
+import { AnimationClip } from "../animation/AnimationClip.js";
+import { Camera } from "../cameras/Camera.js";
+import { Material } from "../materials/Material.js";
+import { Euler } from "../math/Euler.js";
+import { Matrix3 } from "../math/Matrix3.js";
+import { Matrix4 } from "../math/Matrix4.js";
+import { Quaternion } from "../math/Quaternion.js";
+import { Vector3 } from "../math/Vector3.js";
+import { Group } from "../objects/Group.js";
+import { WebGLRenderer } from "../renderers/WebGLRenderer.js";
+import { Scene } from "../scenes/Scene.js";
+import { BufferGeometry } from "./BufferGeometry.js";
+import { EventDispatcher } from "./EventDispatcher.js";
+import { Layers } from "./Layers.js";
+import { Intersection, Raycaster } from "./Raycaster.js";
 
 export interface Object3DEventMap {
     added: {};
@@ -65,7 +65,7 @@ export class Object3D<TEventMap extends Object3DEventMap = Object3DEventMap> ext
      * Sub-classes will update this value.
      * @defaultValue `Object3D`
      */
-    readonly type: string | 'Object3D';
+    readonly type: string | "Object3D";
 
     /**
      * Object's parent in the {@link https://en.wikipedia.org/wiki/Scene_graph | scene graph}.

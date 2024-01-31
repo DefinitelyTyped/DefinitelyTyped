@@ -1,6 +1,6 @@
-import { OperatorNodeOp } from '../math/OperatorNode.js';
-import Node from './Node.js';
-import { NodeRepresentation, ShaderNodeObject } from '../shadernode/ShaderNode.js';
+import { OperatorNodeOp } from "../math/OperatorNode.js";
+import { NodeRepresentation, ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import Node from "./Node.js";
 
 export default class VarNode extends Node {
     node: Node;
@@ -18,7 +18,7 @@ export default class VarNode extends Node {
 
 export const temp: (node: NodeRepresentation, name?: string | null) => ShaderNodeObject<VarNode>;
 
-declare module '../shadernode/ShaderNode.js' {
+declare module "../shadernode/ShaderNode.js" {
     interface NodeElements {
         temp: typeof temp;
         toVar: typeof temp;
