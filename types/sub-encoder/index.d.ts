@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 type JsonPrimitive = string | number | boolean | null;
 type JsonArray = JsonValue[];
 interface JsonObject {
