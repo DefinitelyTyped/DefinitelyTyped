@@ -1,6 +1,6 @@
+import { ViewProps } from "react-native";
+
 declare module 'react-native-video' {
-    import { ViewProps } from "react-native";
-    
     export interface OnLoadData {
         canPlayFastForward: boolean;
         canPlayReverse: boolean;
