@@ -23,6 +23,8 @@ const client = new Client({
     application_name: "DefinitelyTyped",
     keepAlive: true,
 });
+client.setTypeParser(20, val => Number(val));
+client.getTypeParser(20);
 
 const user: string | undefined = client.user;
 const database: string | undefined = client.database;
