@@ -253,6 +253,8 @@ export class ClientBase extends events.EventEmitter {
 
     escapeIdentifier: typeof escapeIdentifier;
     escapeLiteral: typeof escapeLiteral;
+    setTypeParser: typeof pgTypes.setTypeParser;
+    getTypeParser: typeof pgTypes.getTypeParser;
 
     on(event: "drain", listener: () => void): this;
     on(event: "error", listener: (err: Error) => void): this;
