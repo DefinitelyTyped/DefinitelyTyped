@@ -1,11 +1,11 @@
 /// <reference types="node" />
 
-export type JsonPrimitive = string | number | boolean | null;
-export type JsonArray = JsonValue[];
-export interface JsonObject {
+type JsonPrimitive = string | number | boolean | null;
+type JsonArray = JsonValue[];
+interface JsonObject {
     [key: string]: JsonValue | undefined;
 }
-export type JsonValue = JsonPrimitive | JsonArray | JsonObject;
+type JsonValue = JsonPrimitive | JsonArray | JsonObject;
 
 interface Encoding<TInput, TOutput = TInput> {
     input: TInput;
