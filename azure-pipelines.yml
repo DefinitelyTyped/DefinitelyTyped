@@ -4,10 +4,6 @@ trigger:
 pr: none
 
 jobs:
-  - checkout: self
-    fetchDepth: 1
-    fetchTags: false
-
   - job: npmRunTest
     pool:
       vmImage: ubuntu-latest
@@ -16,6 +12,10 @@ jobs:
     timeoutInMinutes: 360
 
     steps:
+      - checkout: self
+        fetchDepth: 1
+        fetchTags: false
+
       - script: |
           echo "Disabled"
         displayName: 'Do nothing'
