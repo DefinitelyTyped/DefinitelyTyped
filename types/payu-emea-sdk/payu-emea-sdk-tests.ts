@@ -24,12 +24,18 @@ const options = {
             fontWeight: "bold" as const,
         },
     },
+    label: {
+        number: "LABEL CARD NUMBER",
+        date: "LABEL EXP DATE",
+        cvv: "LABEL CVV",
+    },
     placeholder: {
         number: "CARD NUMBER",
         date: "EXP DATE",
         cvv: "CVV",
     },
     lang: "en" as const,
+    frameTitle: "TITLE",
     disabled: false,
     cardIcon: false,
 };
@@ -49,14 +55,19 @@ const secureFormsOptions = {
             src: "url(http://family2) type(\"woff2\")",
         },
     ],
+    lang: "pl" as const
 };
 
-const secureFormsOptionsError = {
+const secureFormsFontOptionsError = {
     fonts: [
         {
             family: "Family 1",
         },
     ],
+};
+
+const secureFormsLangOptionsError = {
+    lang: "XX" as const,
 };
 
 // Init SDK
@@ -89,7 +100,9 @@ payu.secureForms(secureFormsOptions);
 // @ts-expect-error
 payu.secureForms("options");
 // @ts-expect-error
-payu.secureForms(secureFormsOptionsError);
+payu.secureForms(secureFormsFontOptionsError);
+// @ts-expect-error
+payu.secureForms(secureFormsLangOptionsError);
 
 // Add Secure Forms
 const secureForm = secureForms.add();

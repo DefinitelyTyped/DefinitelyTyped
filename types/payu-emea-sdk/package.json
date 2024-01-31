@@ -5,7 +5,7 @@
     "nonNpm": true,
     "nonNpmDescription": "payu-emea-sdk",
     "projects": [
-        "https://developers.payu.com/en/card_tokenization.html#secureform"
+        "https://developers.payu.com/europe/docs/payment-solutions/cards/tokenization/#secureform"
     ],
     "devDependencies": {
         "@types/payu-emea-sdk": "workspace:."
