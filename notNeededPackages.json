@@ -6631,6 +6631,10 @@
             "libraryName": "wrap-ansi",
             "asOfVersion": "8.1.0"
         },
+        "wreck": {
+            "libraryName": "@hapi/wreck",
+            "asOfVersion": "18.0.1"
+        },
         "write-json-file": {
             "libraryName": "write-json-file",
             "asOfVersion": "3.2.0"
