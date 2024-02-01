@@ -381,15 +381,37 @@ declare namespace React {
     //
     // We don't just use ComponentType or FunctionComponent types because you are not supposed to attach statics to this
     // object, but rather to the original function.
+
+    /**
+     * An object masquerading as a component. These are created by
+     * {@link forwardRef}, {@link memo}, and {@link createContext}.
+     *
+     * In order to make TypeScript work, we pretend that they are normal
+     * components.
+     *
+     * But they are, in fact, not callable - instead, they are objects which
+     * are treated specially by the renderer.
+     *
+     * @see {@link forwardRef}
+     * @see {@link memo}
+     * @see {@link createContext}
+     */
     interface ExoticComponent<P = {}> {
-        /**
-         * **NOTE**: Exotic components are not callable.
-         */
         (props: P): ReactNode;
         readonly $$typeof: symbol;
     }
 
+    /**
+     * An {@link ExoticComponent} with a `displayName` property applied to it.
+     */
     interface NamedExoticComponent<P = {}> extends ExoticComponent<P> {
+        /**
+         * Used in debugging messages. You might want to set it
+         * explicitly if you want to display a different name for
+         * debugging purposes.
+         *
+         * @see {@link https://legacy.reactjs.org/docs/react-component.html#displayname}
+         */
         displayName?: string | undefined;
     }
 
@@ -850,6 +872,13 @@ declare namespace React {
 
     function createRef<T>(): RefObject<T>;
 
+    /**
+     * The type of the component returned from {@link forwardRef}.
+     *
+     * @typeparam P The props the component accepts, if any.
+     *
+     * @see {@link ExoticComponent}
+     */
     interface ForwardRefExoticComponent<P> extends NamedExoticComponent<P> {
         defaultProps?: Partial<P> | undefined;
         propTypes?: WeakValidationMap<P> | undefined;
@@ -865,7 +894,7 @@ declare namespace React {
      * @param render See the {@link ForwardRefRenderFunction}.
      *
      * @typeparam T The type of the DOM node.
-     * @typeparam P The type of the props of the component.
+     * @typeparam P The props the component accepts, if any.
      *
      * @example
      *
