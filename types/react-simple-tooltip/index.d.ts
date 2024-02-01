@@ -16,5 +16,5 @@ export interface SimpleTooltipProps {
     zIndex?: number; // 	1
 }
 
-const component: React.FunctionComponent<SimpleTooltipProps>;
-export default component;
+declare const _default: React.FunctionComponent<SimpleTooltipProps>;
+export default _default;
