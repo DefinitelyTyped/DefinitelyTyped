@@ -16,4 +16,4 @@ export interface SimpleTooltipProps {
     zIndex?: number; // 	1
 }
 
-export default function Tooltip(props: SimpleTooltipProps): React.JSX.Element;
+export default React.FunctionComponent<SimpleTooltipProps>
