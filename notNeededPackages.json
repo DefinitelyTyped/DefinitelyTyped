@@ -912,6 +912,10 @@
             "libraryName": "cnpj",
             "asOfVersion": "3.1.0"
         },
+        "code": {
+            "libraryName": "@hapi/code",
+            "asOfVersion": "8.0.5"
+        },
         "codegen.macro": {
             "libraryName": "codegen.macro",
             "asOfVersion": "4.1.0"
