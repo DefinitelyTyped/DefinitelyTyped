@@ -399,7 +399,7 @@ declare namespace React {
          * explicitly if you want to display a different name for
          * debugging purposes.
          *
-         * @see {@link https://legacy.reactjs.org/docs/react-component.html#displayname}
+         * @see {@link https://legacy.reactjs.org/docs/react-component.html#displayname Legacy React Docs}
          */
         displayName?: string | undefined;
     }
@@ -452,7 +452,7 @@ declare namespace React {
     const version: string;
 
     /**
-     * {@link https://react.dev/reference/react/Profiler#onrender-callback Profiler API}
+     * @see {@link https://react.dev/reference/react/Profiler#onrender-callback Profiler API React Docs}
      */
     type ProfilerOnRenderCallback = (
         id: string,
@@ -573,8 +573,8 @@ declare namespace React {
      * receive a type argument that represents the props the component
      * receives.
      *
-     * @param P - The props the component receives.
-     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components}
+     * @typeparam P - The props the component receives.
+     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components React TypeScript Cheatsheet}
      * @alias for {@link React.FunctionComponent}
      *
      * @example
@@ -604,8 +604,8 @@ declare namespace React {
      * receive a type argument that represents the props the component
      * accepts.
      *
-     * @param P - The props the component accepts.
-     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components}
+     * @typeparam P - The props the component accepts.
+     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components React TypeScript Cheatsheet}
      *
      * @example
      *
@@ -637,7 +637,7 @@ declare namespace React {
          * We recommend using TypeScript instead of checking prop
          * types at runtime.
          *
-         * @see {@link https://react.dev/reference/react/Component#static-proptypes}
+         * @see {@link https://react.dev/reference/react/Component#static-proptypes React Docs}
          */
         propTypes?: WeakValidationMap<P> | undefined;
         /**
@@ -646,14 +646,14 @@ declare namespace React {
          * Lets you specify which legacy context is consumed by
          * this component.
          *
-         * @see {@link https://legacy.reactjs.org/docs/legacy-context.html}
+         * @see {@link https://legacy.reactjs.org/docs/legacy-context.html Legacy React Docs}
          */
         contextTypes?: ValidationMap<any> | undefined;
         /**
          * Used to define default values for the props accepted by
          * the component.
          *
-         * @see {@link https://react.dev/reference/react/Component#static-defaultprops}
+         * @see {@link https://react.dev/reference/react/Component#static-defaultprops React Docs}
          *
          * @example
          *
@@ -675,7 +675,7 @@ declare namespace React {
          * explicitly if you want to display a different name for
          * debugging purposes.
          *
-         * @see {@link https://legacy.reactjs.org/docs/react-component.html#displayname}
+         * @see {@link https://legacy.reactjs.org/docs/react-component.html#displayname Legacy React Docs}
          *
          * @example
          *
@@ -721,10 +721,10 @@ declare namespace React {
     /**
      * The type of the function passed to {@link forwardRef}.
      *
-     * @param props Props passed to the component, if any.
-     * @param ref A ref forwarded to the component of type {@link ForwardedRef}.
+     * @typeparam props Props passed to the component, if any.
+     * @typeparam ref A ref forwarded to the component of type {@link ForwardedRef}.
      *
-     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/forward_and_create_ref/}
+     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/forward_and_create_ref/ React TypeScript Cheatsheet}
      * @see {@link forwardRef}
      */
     interface ForwardRefRenderFunction<T, P = {}> {
@@ -737,37 +737,82 @@ declare namespace React {
          * Will show `ForwardRef(${Component.displayName || Component.name})`
          * in devtools by default, but can be given its own specific name.
          *
-         * @see {@link https://legacy.reactjs.org/docs/react-component.html#displayname}
+         * @see {@link https://legacy.reactjs.org/docs/react-component.html#displayname Legacy React Docs}
          */
         displayName?: string | undefined;
         /**
          * defaultProps are not supported on components passed to forwardRef.
          *
-         * @see {@link https://github.com/microsoft/TypeScript/issues/36826} for context
-         * @see {@link https://react.dev/reference/react/Component#static-defaultprops}
+         * @see {@link https://github.com/microsoft/TypeScript/issues/36826 linked GitHub issue} for context
+         * @see {@link https://react.dev/reference/react/Component#static-defaultprops React Docs}
          */
         defaultProps?: never | undefined;
         /**
          * propTypes are not supported on components passed to forwardRef.
          *
-         * @see {@link https://github.com/microsoft/TypeScript/issues/36826} for context
-         * @see {@link https://react.dev/reference/react/Component#static-proptypes}
+         * @see {@link https://github.com/microsoft/TypeScript/issues/36826 linked GitHub issue} for context
+         * @see {@link https://react.dev/reference/react/Component#static-proptypes React Docs}
          */
         propTypes?: never | undefined;
     }
 
+    /**
+     * Represents a component class in React.
+     *
+     * @typeparam P The props the component accepts.
+     * @typeparam S The internal state of the component.
+     */
     interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
         new(props: P, context?: any): Component<P, S>;
+        /**
+         * Used to declare the types of the props accepted by the
+         * component. These types will be checked during rendering
+         * and in development only.
+         *
+         * We recommend using TypeScript instead of checking prop
+         * types at runtime.
+         *
+         * @see {@link https://react.dev/reference/react/Component#static-proptypes React Docs}
+         */
         propTypes?: WeakValidationMap<P> | undefined;
         contextType?: Context<any> | undefined;
+        /**
+         * @deprecated use {@link ComponentClass.contextType} instead
+         *
+         * Lets you specify which legacy context is consumed by
+         * this component.
+         *
+         * @see {@link https://legacy.reactjs.org/docs/legacy-context.html Legacy React Docs}
+         */
         contextTypes?: ValidationMap<any> | undefined;
+        /**
+         * @deprecated
+         *
+         * @see {@link https://legacy.reactjs.org/docs/legacy-context.html#how-to-use-context Legacy React Docs}
+         */
         childContextTypes?: ValidationMap<any> | undefined;
+        /**
+         * Used to define default values for the props accepted by
+         * the component.
+         *
+         * @see {@link https://react.dev/reference/react/Component#static-defaultprops React Docs}
+         */
         defaultProps?: Partial<P> | undefined;
+        /**
+         * Used in debugging messages. You might want to set it
+         * explicitly if you want to display a different name for
+         * debugging purposes.
+         *
+         * @see {@link https://legacy.reactjs.org/docs/react-component.html#displayname Legacy React Docs}
+         */
         displayName?: string | undefined;
     }
 
     /**
      * @deprecated Use `ClassicComponentClass` from `create-react-class`
+     *
+     * @see {@link https://legacy.reactjs.org/docs/react-without-es6.html Legacy React Docs}
+     * @see {@link https://www.npmjs.com/package/create-react-class `create-react-class` on npm}
      */
     interface ClassicComponentClass<P = {}> extends ComponentClass<P> {
         new(props: P, context?: any): ClassicComponent<P, ComponentState>;
@@ -775,7 +820,10 @@ declare namespace React {
     }
 
     /**
-     * We use an intersection type to infer multiple type parameters from
+     * Used in {@link createElement} and {@link createFactory} to represent
+     * a class.
+     *
+     * An intersection type is used to infer multiple type parameters from
      * a single argument, which is useful for many top-level API defs.
      * See https://github.com/Microsoft/TypeScript/issues/7234 for more info.
      */
@@ -968,7 +1016,9 @@ declare namespace React {
     }
 
     /**
-     * @deprecated https://legacy.reactjs.org/blog/2016/07/13/mixins-considered-harmful.html
+     * @deprecated
+     *
+     * @see {@link https://legacy.reactjs.org/blog/2016/07/13/mixins-considered-harmful.html Mixins Considered Harmful}
      */
     interface ComponentSpec<P, S> extends Mixin<P, S> {
         render(): ReactNode;
@@ -994,8 +1044,8 @@ declare namespace React {
      * Lets your component expose a DOM node to parent component
      * using a ref.
      *
-     * @see {@link https://react.dev/reference/react/forwardRef}
-     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/forward_and_create_ref/}
+     * @see {@link https://react.dev/reference/react/forwardRef React Docs}
+     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/forward_and_create_ref/ React TypeScript Cheatsheet}
      *
      * @param render See the {@link ForwardRefRenderFunction}.
      *
@@ -1048,7 +1098,7 @@ declare namespace React {
      * instead of this type, as they let you be explicit about whether or not to include
      * the `ref` prop.
      *
-     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/react-types/componentprops/}
+     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/react-types/componentprops/ React TypeScript Cheatsheet}
      *
      * @example
      *
@@ -1076,7 +1126,7 @@ declare namespace React {
      * passed a string, indicating a DOM element (e.g. 'div', 'span', etc.) or the
      * type of a React component.
      *
-     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/react-types/componentprops/}
+     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/react-types/componentprops/ React TypeScript Cheatsheet}
      *
      * @example
      *
@@ -1123,7 +1173,7 @@ declare namespace React {
      * passed a string, indicating a DOM element (e.g. 'div', 'span', etc.) or the
      * type of a React component.
      *
-     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/react-types/componentprops/}
+     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/react-types/componentprops/ React TypeScript Cheatsheet}
      *
      * @example
      *
