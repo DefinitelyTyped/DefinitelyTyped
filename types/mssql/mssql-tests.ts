@@ -482,5 +482,5 @@ function test_set_request_options() {
     request.arrayRowMode = true;
 
     request.query("select 'asdf' as name, 'qwerty' as other_name, 'jkl' as name");
-    request.on('recordset', recordset => console.log(recordset));
+    request.on("recordset", recordset => console.log(recordset));
 }
