@@ -151,14 +151,13 @@ We use a bot to let a large number of pull requests to DefinitelyTyped be handle
 
 You can clone the entire repository [as per usual](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository), but it's large and includes a massive directory of type packages. This will take some time to clone and may be unnecessarily unwieldy.
 
-For a more manageable clone that includes _only_ the type packages relevant to you, you can use git's [`sparse-checkout`](https://git-scm.com/docs/git-sparse-checkout), [`--filter`](https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---filterltfilter-specgt) and [`--depth`](https://git-scm.com/docs/git-clone#Documentation/git-clone.txt---depthltdepthgt) features. This will reduce clone time and improve git performance.
+For a more manageable clone that includes _only_ the type packages relevant to you, you can use git's [`sparse-checkout`](https://git-scm.com/docs/git-sparse-checkout) and [`--filter`](https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---filterltfilter-specgt) features. This will reduce clone time and improve git performance.
 
 >:warning: This requires minimum [git version 2.27.0](https://git-scm.com/downloads), which is likely newer than the default on most machines. More complicated procedures are available in older versions, but not covered by this guide.
 
-1. `git clone --sparse --filter=blob:none --depth=1 <forkedUrl>`
+1. `git clone --sparse --filter=blob:none <forkedUrl>`
     - `--sparse` initializes the sparse-checkout file so the working directory starts with only the files in the root of the repository.
-    - `--filter=blob:none` will exclude files, fetching them only as needed.
-    - `--depth=1` will further improve clone speed by truncating commit history, but it may cause issues as summarized [here](https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/).
+    - `--filter=blob:none` will including all commit history but exclude files, fetching them only as needed.
 2. `git sparse-checkout add types/<type> types/<dependency-type> ...`
 
 </details>
