@@ -372,18 +372,14 @@ declare namespace React {
     }
 
     /**
-     * An object masquerading as a component. These are created by
-     * {@link forwardRef}, {@link memo}, and {@link createContext}.
+     * An object masquerading as a component. These are created by functions
+     * like {@link forwardRef}, {@link memo}, and {@link createContext}.
      *
      * In order to make TypeScript work, we pretend that they are normal
      * components.
      *
      * But they are, in fact, not callable - instead, they are objects which
      * are treated specially by the renderer.
-     *
-     * @see {@link forwardRef}
-     * @see {@link memo}
-     * @see {@link createContext}
      */
     interface ExoticComponent<P = {}> {
         (props: P): ReactNode;
@@ -404,10 +400,27 @@ declare namespace React {
         displayName?: string | undefined;
     }
 
+    /**
+     * An {@link ExoticComponent} with a `propTypes` property applied to it.
+     */
     interface ProviderExoticComponent<P> extends ExoticComponent<P> {
         propTypes?: WeakValidationMap<P> | undefined;
     }
 
+    /**
+     * Used to retrieve the type of a context object from a {@link Context}.
+     * 
+     * @example
+     * 
+     * ```tsx
+     * import { createContext } from 'react';
+     * 
+     * const MyContext = createContext({ foo: 'bar' });
+     * 
+     * type ContextType = ContextType<typeof MyContext>;
+     * // ContextType = { foo: string }
+     * ```
+     */
     type ContextType<C extends Context<any>> = C extends Context<infer T> ? T : never;
 
     /**
@@ -461,6 +474,7 @@ declare namespace React {
      * Created from {@link createContext}
      *
      * @see {@link https://react.dev/learn/passing-data-deeply-with-context React Docs}
+     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/context/ React TypeScript Cheatsheet}
      *
      * @example
      *
@@ -491,6 +505,7 @@ declare namespace React {
      * as a "last resort" fallback.
      *
      * @see {@link https://react.dev/reference/react/createContext#reference React Docs}
+     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/context/ React TypeScript Cheatsheet}
      *
      * @example
      *
