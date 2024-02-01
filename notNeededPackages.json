@@ -2166,7 +2166,7 @@
             "asOfVersion": "9.0.0"
         },
         "hapi__catbox": {
-            "libraryName": "hapi__catbox",
+            "libraryName": "@hapi/catbox",
             "asOfVersion": "12.1.1"
         },
         "hapi__code": {
