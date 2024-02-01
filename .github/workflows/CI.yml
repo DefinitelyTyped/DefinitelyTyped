@@ -98,7 +98,7 @@ jobs:
 
       - run: pnpm ls
 
-      - run: pnpm run test-all --shardCount ${{ matrix.shardCount }} --shardId ${{ matrix.shardId }}
+      - run: pnpm run test-all --diffBase HEAD^1 --shardCount ${{ matrix.shardCount }} --shardId ${{ matrix.shardId }}
         if: ${{ github.event_name != 'schedule' }}
 
       - run: pnpm dtslint-runner --path . --selection all --onlyTestTsNext --shardCount ${{ matrix.shardCount }} --shardId ${{ matrix.shardId }}
