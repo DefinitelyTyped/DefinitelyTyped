@@ -71,9 +71,9 @@ export interface MultiDragOptions {
      */
     selectedClass?: string | undefined;
     /**
-     * The key that must be down for multiple items to be selected. 
-     * The default is null, meaning no key must be down. 
-     * For special keys, such as the CTRL key, 
+     * The key that must be down for multiple items to be selected.
+     * The default is null, meaning no key must be down.
+     * For special keys, such as the CTRL key,
      * simply specify the option as 'CTRL' (casing does not matter).
      */
     multiDragKey?: null | string;
