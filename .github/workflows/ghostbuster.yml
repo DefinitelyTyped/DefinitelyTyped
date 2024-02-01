@@ -51,7 +51,7 @@ jobs:
           fi
 
       - if: ${{ inputs.skipPR != 'true' }}
-        uses: peter-evans/create-pull-request@153407881ec5c347639a548ade7d8ad1d6740e38 # v5.0.2
+        uses: peter-evans/create-pull-request@b1ddad2c994a25fbc81a28b3ec0e368bb2021c50 # v6.0.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: 'Remove contributors with deleted accounts #no-publishing-comment'
