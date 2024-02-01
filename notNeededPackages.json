@@ -416,6 +416,10 @@
             "libraryName": "blob-util",
             "asOfVersion": "2.0.0"
         },
+        "boom": {
+            "libraryName": "@hapi/boom",
+            "asOfVersion": "10.0.1"
+        },
         "bootstrap-table": {
             "libraryName": "bootstrap-table",
             "asOfVersion": "1.12.0"
