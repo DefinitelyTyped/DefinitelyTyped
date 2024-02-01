@@ -1688,16 +1688,41 @@ declare namespace googletag {
             treatments: PrivacyTreatment[];
         }
 
+        /**
+         * Main configuration interface for slot-level settings.
+         * Allows setting multiple features with a single API call for a single slot.
+         *
+         * Only features specified in the {@link Slot.setConfig()} call are modified.
+         *
+         * @example
+         *   const slot = googletag.defineSlot("/1234567/example", [160, 600])!;
+         *   // Configure all features.
+         *   slot.setConfig({
+         *     adExpansion: { enabled: true },
+         *     componentAuction: [{ configKey: "https://testSeller.com", auctionConfig: null }],
+         *     interstitial: { triggers: { unhideWindow: true } },
+         *   });
+         *   // Update feature componentAuction and clear feature interstitial, but feature adExpansion remains set.
+         *   slot.setConfig({
+         *     componentAuction: [{ configKey: "https://testSeller2.com", auctionConfig: null }],
+         *     interstitial: null,
+         *   });
+         */
         interface SlotSettingsConfig {
+            /**
+             * Settings to control ad expansion.
+             */
+            adExpansion?: AdExpansionConfig | null;
+
             /**
              * An array of component auctions to be included in an on-device ad auction.
              */
-            componentAuction?: ComponentAuctionConfig[];
+            componentAuction?: ComponentAuctionConfig[] | null;
 
             /**
              * Settings that control interstitial ad slot behavior.
              */
-            interstitial?: InterstitialConfig;
+            interstitial?: InterstitialConfig | null;
         }
     }
 
