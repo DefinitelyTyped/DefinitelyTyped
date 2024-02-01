@@ -76,7 +76,7 @@ export interface MultiDragOptions {
      * For special keys, such as the CTRL key,
      * simply specify the option as 'CTRL' (casing does not matter).
      */
-    multiDragKey?: null | string;
+    multiDragKey?: null | undefined | string;
 
     /**
      * If you don't want to deselect items on outside click
