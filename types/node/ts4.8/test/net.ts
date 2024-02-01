@@ -380,6 +380,7 @@ import * as net from "node:net";
 
     _socket.destroy();
     _server.close();
+    _server[Symbol.asyncDispose]();
 }
 
 {

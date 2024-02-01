@@ -63,6 +63,10 @@ import EventEmitter = require("node:events");
     dest = report.writeReport(new Error());
 }
 {
+    if (process.channel) {
+        process.channel.ref();
+        process.channel.unref();
+    }
     if (process.send) {
         let r: boolean = process.send("aMessage");
         r = process.send({ msg: "foo" }, {});
@@ -175,5 +179,11 @@ process.env.TZ = "test";
     if (process.getuid) {
         // $ExpectType number
         process.getuid();
+    }
+}
+
+{
+    if (!process.sourceMapsEnabled) {
+        process.setSourceMapsEnabled(true);
     }
 }
