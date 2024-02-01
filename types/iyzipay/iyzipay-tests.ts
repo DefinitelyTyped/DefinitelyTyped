@@ -1,4 +1,4 @@
-import Iyzipay = require('iyzipay');
+import Iyzipay = require("iyzipay");
 
 const iyzipay = new Iyzipay({
     secretKey: "secretKey",
@@ -6,4 +6,4 @@ const iyzipay = new Iyzipay({
     uri: "https://sandbox-api.iyzipay.com",
 });
 
-iyzipay.apiTest.retrieve({}, (err, result) => { });
+iyzipay.apiTest.retrieve({}, (err, result) => {});
