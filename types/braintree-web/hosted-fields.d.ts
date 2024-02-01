@@ -273,8 +273,8 @@ export interface HostedFields {
         handler: (event: HostedFieldsEventTypeMap[EventType]) => void,
     ): void;
 
-    teardown(callback?: callback): void;
     teardown(): Promise<void>;
+    teardown(callback?: callback): void;
 
     /**
      * Tokenizes fields and returns a nonce payload.     * @example <caption>Tokenize a card</caption>
