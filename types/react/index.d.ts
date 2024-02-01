@@ -719,10 +719,14 @@ declare namespace React {
     type ForwardedRef<T> = ((instance: T | null) => void) | MutableRefObject<T | null> | null;
 
     /**
-     * The type of the function passed to {@link forwardRef}.
+     * The type of the function passed to {@link forwardRef}. This is considered different
+     * to a normal {@link FunctionComponent} because it receives an additional argument,
      *
-     * @typeparam props Props passed to the component, if any.
-     * @typeparam ref A ref forwarded to the component of type {@link ForwardedRef}.
+     * @param props Props passed to the component, if any.
+     * @param ref A ref forwarded to the component of type {@link ForwardedRef}.
+     *
+     * @typeparam T The type of the forwarded ref.
+     * @typeparam P The type of the props the component accepts.
      *
      * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/forward_and_create_ref/ React TypeScript Cheatsheet}
      * @see {@link forwardRef}
@@ -741,14 +745,14 @@ declare namespace React {
          */
         displayName?: string | undefined;
         /**
-         * defaultProps are not supported on components passed to forwardRef.
+         * defaultProps are not supported on render functions passed to forwardRef.
          *
          * @see {@link https://github.com/microsoft/TypeScript/issues/36826 linked GitHub issue} for context
          * @see {@link https://react.dev/reference/react/Component#static-defaultprops React Docs}
          */
         defaultProps?: never | undefined;
         /**
-         * propTypes are not supported on components passed to forwardRef.
+         * propTypes are not supported on render functions passed to forwardRef.
          *
          * @see {@link https://github.com/microsoft/TypeScript/issues/36826 linked GitHub issue} for context
          * @see {@link https://react.dev/reference/react/Component#static-proptypes React Docs}
@@ -1041,7 +1045,7 @@ declare namespace React {
     }
 
     /**
-     * Lets your component expose a DOM node to parent component
+     * Lets your component expose a DOM node to a parent component
      * using a ref.
      *
      * @see {@link https://react.dev/reference/react/forwardRef React Docs}
