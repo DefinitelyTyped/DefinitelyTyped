@@ -43,13 +43,19 @@ declare namespace Meteor {
      * record's profile field)
      */
     interface UserProfile {}
+
+    /**
+     * UserServices is left intentionally underspecified to allow overriding in your application.
+     */
+    interface UserServices {}
+
     interface User {
         _id: string;
         username?: string | undefined;
         emails?: UserEmail[] | undefined;
         createdAt?: Date | undefined;
         profile?: UserProfile;
-        services?: any;
+        services?: UserServices;
     }
 
     function user(options?: { fields?: Mongo.FieldSpecifier | undefined }): User | null;

@@ -285,7 +285,11 @@ export interface OptionsPagination {
     paginationInitialPage?: number | undefined;
 }
 
-export type GroupArg = string | string[] | ((data: any) => any);
+export type GroupArg =
+    | string
+    | string[]
+    | ((data: any) => any)
+    | Array<string | ((data: any) => any)>;
 
 export interface OptionsRowGrouping {
     /** String/function to select field to group rows by */
@@ -319,7 +323,12 @@ export interface OptionsRowGrouping {
      * Group Open Function
      * If you want to decide on a group by group basis which should start open or closed then you can pass a function to the groupStartOpen property. This should return true if the group should start open or false if the group should start closed.
      */
-    groupStartOpen?: boolean | ((value: any, count: number, data: any, group: GroupComponent) => boolean) | undefined;
+    groupStartOpen?:
+        | boolean
+        | boolean[]
+        | ((value: any, count: number, data: any, group: GroupComponent) => boolean)
+        | Array<boolean | ((value: any, count: number, data: any, group: GroupComponent) => boolean)>
+        | undefined;
 
     /**
      * By default Tabulator allows users to toggle a group open or closed by clicking on the arrow icon in the left of the group header. If you would prefer a different behavior you can use the groupToggleElement option to choose a different option:* * The option can take one of three values:
@@ -2588,7 +2597,11 @@ declare class Tabulator {
      * Note: If you use the setGroupStartOpen or setGroupHeader before you have set any groups on the table, the table will not update until the setGroupBy function is called.
      */
     setGroupStartOpen: (
-        values: boolean | ((value: any, count: number, data: any, group: GroupComponent) => boolean),
+        values:
+            | boolean
+            | boolean[]
+            | ((value: any, count: number, data: any, group: GroupComponent) => boolean)
+            | Array<boolean | ((value: any, count: number, data: any, group: GroupComponent) => boolean)>,
     ) => void;
 
     /** You can use the setGroupHeader function to change the header generation function for each group. This function has one argument and takes the same values as passed to the groupHeader setup option. */

@@ -1,11 +1,11 @@
 import {
-    Mesh,
     BufferGeometry,
     ColorRepresentation,
+    Mesh,
+    PerspectiveCamera,
     TextureEncoding,
     WebGLRenderTarget,
-    PerspectiveCamera,
-} from '../../../src/Three.js';
+} from "../../../src/Three.js";
 
 export interface ReflectorOptions {
     color?: ColorRepresentation;
@@ -18,7 +18,7 @@ export interface ReflectorOptions {
 }
 
 export class Reflector extends Mesh {
-    type: 'Reflector';
+    type: "Reflector";
     camera: PerspectiveCamera;
 
     constructor(geometry?: BufferGeometry, options?: ReflectorOptions);

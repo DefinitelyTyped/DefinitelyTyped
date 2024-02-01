@@ -1,4 +1,4 @@
-import { Camera, Matrix3, Scene, WebGLRenderer } from '../../../src/Three.js';
+import { Camera, Matrix3, Scene, WebGLRenderer } from "../../../src/Three.js";
 
 export class AnaglyphEffect {
     constructor(renderer: WebGLRenderer, width?: number, height?: number);

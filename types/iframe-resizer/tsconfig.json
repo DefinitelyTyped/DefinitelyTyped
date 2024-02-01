@@ -13,9 +13,6 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "exclude": [
-        "node_modules"
-    ],
     "files": [
         "index.d.ts",
         "iframe-resizer-tests.ts"

@@ -557,23 +557,140 @@ declare namespace React {
     // Class Interfaces
     // ----------------------------------------------------------------------
 
+    /**
+     * Represents the type of a function component. Can optionally
+     * receive a type argument that represents the props the component
+     * receives.
+     *
+     * @param P - The props the component receives.
+     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components}
+     * @alias for {@link React.FunctionComponent}
+     *
+     * @example
+     *
+     * ```tsx
+     * // With props:
+     * type Props = { name: string }
+     *
+     * const MyComponent: FC<Props> = (props) => {
+     *  return <div>{props.name}</div>
+     * }
+     * ```
+     *
+     * @example
+     *
+     * ```tsx
+     * // Without props:
+     * const MyComponentWithoutProps: FC = () => {
+     *   return <div>MyComponentWithoutProps</div>
+     * }
+     * ```
+     */
     type FC<P = {}> = FunctionComponent<P>;
 
+    /**
+     * Represents the type of a function component. Can optionally
+     * receive a type argument that represents the props the component
+     * accepts.
+     *
+     * @param P - The props the component accepts.
+     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components}
+     *
+     * @example
+     *
+     * ```tsx
+     * // With props:
+     * type Props = { name: string }
+     *
+     * const MyComponent: FunctionComponent<Props> = (props) => {
+     *  return <div>{props.name}</div>
+     * }
+     * ```
+     *
+     * @example
+     *
+     * ```tsx
+     * // Without props:
+     * const MyComponentWithoutProps: FunctionComponent = () => {
+     *   return <div>MyComponentWithoutProps</div>
+     * }
+     * ```
+     */
     interface FunctionComponent<P = {}> {
         (props: P, context?: any): ReactNode;
+        /**
+         * Used to declare the types of the props accepted by the
+         * component. These types will be checked during rendering
+         * and in development only.
+         *
+         * We recommend using TypeScript instead of checking prop
+         * types at runtime.
+         *
+         * @see {@link https://react.dev/reference/react/Component#static-proptypes}
+         */
         propTypes?: WeakValidationMap<P> | undefined;
+        /**
+         * @deprecated
+         *
+         * Lets you specify which legacy context is consumed by
+         * this component.
+         *
+         * @see {@link https://legacy.reactjs.org/docs/legacy-context.html}
+         */
         contextTypes?: ValidationMap<any> | undefined;
+        /**
+         * Used to define default values for the props accepted by
+         * the component.
+         *
+         * @see {@link https://react.dev/reference/react/Component#static-defaultprops}
+         *
+         * @example
+         *
+         * ```tsx
+         * type Props = { name?: string }
+         *
+         * const MyComponent: FC<Props> = (props) => {
+         *   return <div>{props.name}</div>
+         * }
+         *
+         * MyComponent.defaultProps = {
+         *   name: 'John Doe'
+         * }
+         * ```
+         */
         defaultProps?: Partial<P> | undefined;
+        /**
+         * Used in debugging messages. You might want to set it
+         * explicitly if you want to display a different name for
+         * debugging purposes.
+         *
+         * @see {@link https://legacy.reactjs.org/docs/react-component.html#displayname}
+         *
+         * @example
+         *
+         * ```tsx
+         *
+         * const MyComponent: FC = () => {
+         *   return <div>Hello!</div>
+         * }
+         *
+         * MyComponent.displayName = 'MyAwesomeComponent'
+         * ```
+         */
         displayName?: string | undefined;
     }
 
     /**
-     * @deprecated - Equivalent with `React.FC`.
+     * @deprecated - Equivalent to {@link React.FunctionComponent}.
+     *
+     * @see {@link React.FunctionComponent}
      */
     type VFC<P = {}> = VoidFunctionComponent<P>;
 
     /**
-     * @deprecated - Equivalent with `React.FunctionComponent`.
+     * @deprecated - Equivalent to {@link React.FunctionComponent}.
+     *
+     * @see {@link React.FunctionComponent}
      */
     interface VoidFunctionComponent<P = {}> {
         (props: P, context?: any): ReactNode;
@@ -852,28 +969,107 @@ declare namespace React {
     type PropsWithChildren<P = unknown> = P & { children?: ReactNode | undefined };
 
     /**
-     * NOTE: prefer ComponentPropsWithRef, if the ref is forwarded,
-     * or ComponentPropsWithoutRef when refs are not supported.
+     * Used to retrieve the props a component accepts. Can either be passed a string,
+     * indicating a DOM element (e.g. 'div', 'span', etc.) or the type of a React
+     * component.
+     *
+     * It's usually better to use {@link ComponentPropsWithRef} or {@link ComponentPropsWithoutRef}
+     * instead of this type, as they let you be explicit about whether or not to include
+     * the `ref` prop.
+     *
+     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/react-types/componentprops/}
+     *
+     * @example
+     *
+     * ```tsx
+     * // Retrieves the props an 'input' element accepts
+     * type InputProps = React.ComponentProps<'input'>;
+     * ```
+     *
+     * @example
+     *
+     * ```tsx
+     * const MyComponent = (props: { foo: number, bar: string }) => <div />;
+     *
+     * // Retrieves the props 'MyComponent' accepts
+     * type MyComponentProps = React.ComponentProps<typeof MyComponent>;
+     * ```
      */
     type ComponentProps<T extends keyof JSX.IntrinsicElements | JSXElementConstructor<any>> = T extends
         JSXElementConstructor<infer P> ? P
         : T extends keyof JSX.IntrinsicElements ? JSX.IntrinsicElements[T]
         : {};
+
     /**
-     * Get the props of a component that supports the `ref` prop.
+     * Used to retrieve the props a component accepts with its ref. Can either be
+     * passed a string, indicating a DOM element (e.g. 'div', 'span', etc.) or the
+     * type of a React component.
      *
-     * WARNING: Use `CustomComponentPropsWithRef` if you know that `T` is not a host component for better type-checking performance.
+     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/react-types/componentprops/}
+     *
+     * @example
+     *
+     * ```tsx
+     * // Retrieves the props an 'input' element accepts
+     * type InputProps = React.ComponentPropsWithRef<'input'>;
+     * ```
+     *
+     * @example
+     *
+     * ```tsx
+     * const MyComponent = (props: { foo: number, bar: string }) => <div />;
+     *
+     * // Retrieves the props 'MyComponent' accepts
+     * type MyComponentPropsWithRef = React.ComponentPropsWithRef<typeof MyComponent>;
+     * ```
      */
     type ComponentPropsWithRef<T extends ElementType> = T extends (new(props: infer P) => Component<any, any>)
         ? PropsWithoutRef<P> & RefAttributes<InstanceType<T>>
         : PropsWithRef<ComponentProps<T>>;
     /**
-     * Like `ComponentPropsWithRef` but without support for host components (i.e. just "custom components") to improve type-checking performance.
+     * Used to retrieve the props a custom component accepts with its ref.
+     *
+     * Unlike {@link ComponentPropsWithRef}, this only works with custom
+     * components, i.e. components you define yourself. This is to improve
+     * type-checking performance.
+     *
+     * @example
+     *
+     * ```tsx
+     * const MyComponent = (props: { foo: number, bar: string }) => <div />;
+     *
+     * // Retrieves the props 'MyComponent' accepts
+     * type MyComponentPropsWithRef = React.CustomComponentPropsWithRef<typeof MyComponent>;
+     * ```
      */
     type CustomComponentPropsWithRef<T extends ComponentType> = T extends (new(props: infer P) => Component<any, any>)
         ? (PropsWithoutRef<P> & RefAttributes<InstanceType<T>>)
         : T extends ((props: infer P, legacyContext?: any) => ReactNode) ? PropsWithRef<P>
         : never;
+
+    /**
+     * Used to retrieve the props a component accepts without its ref. Can either be
+     * passed a string, indicating a DOM element (e.g. 'div', 'span', etc.) or the
+     * type of a React component.
+     *
+     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/react-types/componentprops/}
+     *
+     * @example
+     *
+     * ```tsx
+     * // Retrieves the props an 'input' element accepts
+     * type InputProps = React.ComponentPropsWithoutRef<'input'>;
+     * ```
+     *
+     * @example
+     *
+     * ```tsx
+     * const MyComponent = (props: { foo: number, bar: string }) => <div />;
+     *
+     * // Retrieves the props 'MyComponent' accepts
+     * type MyComponentPropsWithoutRef = React.ComponentPropsWithoutRef<typeof MyComponent>;
+     * ```
+     */
     type ComponentPropsWithoutRef<T extends ElementType> = PropsWithoutRef<ComponentProps<T>>;
 
     type ComponentRef<T extends ElementType> = T extends NamedExoticComponent<

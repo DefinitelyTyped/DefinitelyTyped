@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/mapsjs",
     "version": "9.6.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "mapsjs",
     "projects": [
         "https://github.com/mapsjs"
     ],

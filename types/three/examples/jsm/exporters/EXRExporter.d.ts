@@ -5,7 +5,7 @@
  * https://www.openexr.com/documentation/openexrfilelayout.pdf
  */
 
-import { DataTexture, TextureDataType, WebGLRenderer, WebGLRenderTarget } from '../../../src/Three.js';
+import { DataTexture, TextureDataType, WebGLRenderer, WebGLRenderTarget } from "../../../src/Three.js";
 
 export const NO_COMPRESSION: 0;
 export const ZIPS_COMPRESSION: 2;

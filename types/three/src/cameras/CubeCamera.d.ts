@@ -1,7 +1,7 @@
-import { WebGLCubeRenderTarget } from '../renderers/WebGLCubeRenderTarget.js';
-import { WebGLRenderer } from '../renderers/WebGLRenderer.js';
-import { Object3D } from '../core/Object3D.js';
-import { CoordinateSystem } from '../constants.js';
+import { CoordinateSystem } from "../constants.js";
+import { Object3D } from "../core/Object3D.js";
+import { WebGLCubeRenderTarget } from "../renderers/WebGLCubeRenderTarget.js";
+import { WebGLRenderer } from "../renderers/WebGLRenderer.js";
 
 /**
  * Creates **6** {@link THREE.PerspectiveCamera | cameras} that render to a {@link THREE.WebGLCubeRenderTarget | WebGLCubeRenderTarget}.
@@ -46,7 +46,7 @@ export class CubeCamera extends Object3D {
      * @override
      * @defaultValue `CubeCamera`
      */
-    override readonly type: string | 'CubeCamera';
+    override readonly type: string | "CubeCamera";
 
     /**
      * The destination cube render target.

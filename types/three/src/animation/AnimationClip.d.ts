@@ -1,7 +1,7 @@
-import { KeyframeTrack } from './KeyframeTrack.js';
-import { Vector3 } from '../math/Vector3.js';
-import { Bone } from '../objects/Bone.js';
-import { AnimationBlendMode } from '../constants.js';
+import { AnimationBlendMode } from "../constants.js";
+import { Vector3 } from "../math/Vector3.js";
+import { Bone } from "../objects/Bone.js";
+import { KeyframeTrack } from "./KeyframeTrack.js";
 
 export interface MorphTarget {
     name: string;

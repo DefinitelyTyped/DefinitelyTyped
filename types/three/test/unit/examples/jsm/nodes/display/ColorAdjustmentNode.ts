@@ -6,24 +6,24 @@
  */
 
 import {
-    dot,
-    mix,
-    ShaderNode,
-    vec3,
-    Node,
-    div,
     add,
-    max,
-    mul,
-    sub,
-    mat3,
     atan2,
-    sqrt,
     cos,
-    sin,
-    TempNode,
+    div,
+    dot,
     float,
-} from 'three/examples/jsm/nodes/Nodes';
+    mat3,
+    max,
+    mix,
+    mul,
+    Node,
+    ShaderNode,
+    sin,
+    sqrt,
+    sub,
+    TempNode,
+    vec3,
+} from "three/examples/jsm/nodes/Nodes";
 
 const luminanceNode = new ShaderNode<{ color: Node }>(({ color }) => {
     const LUMA = vec3(0.2125, 0.7154, 0.0721);
@@ -59,15 +59,15 @@ const hueNode = new ShaderNode<{ color: Node; adjustment: Node }>(({ color, adju
 });
 
 class TestNode extends TempNode {
-    static SATURATION = 'saturation';
-    static VIBRANCE = 'vibrance';
-    static HUE = 'hue';
+    static SATURATION = "saturation";
+    static VIBRANCE = "vibrance";
+    static HUE = "hue";
     method: string;
     colorNode: Node;
     adjustmentNode: Node;
 
     constructor(method: string, colorNode: Node, adjustmentNode = float(1)) {
-        super('vec3');
+        super("vec3");
 
         this.method = method;
 

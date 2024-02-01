@@ -1,4 +1,5 @@
-import { Camera } from './Camera.js';
+import { Vector2 } from "../math/Vector2.js";
+import { Camera } from "./Camera.js";
 
 /**
  * Camera that uses {@link https://en.wikipedia.org/wiki/Perspective_(graphical) | perspective projection}.
@@ -40,7 +41,7 @@ export class PerspectiveCamera extends Camera {
      * @override
      * @defaultValue `PerspectiveCamera`
      */
-    override readonly type: string | 'PerspectiveCamera';
+    override readonly type: string | "PerspectiveCamera";
 
     /**
      * Gets or sets the zoom factor of the camera.
@@ -147,6 +148,18 @@ export class PerspectiveCamera extends Camera {
      * If {@link aspect | .aspect}. is less than or equal to one (portrait format), the result equals {@link filmGauge | .filmGauge}.
      */
     getFilmHeight(): number;
+
+    /**
+     * Computes the 2D bounds of the camera's viewable rectangle at a given distance along the viewing direction.
+     * Sets minTarget and maxTarget to the coordinates of the lower-left and upper-right corners of the view rectangle.
+     */
+    getViewBounds(distance: number, minTarget: Vector2, maxTarget: Vector2): void;
+
+    /**
+     * Computes the width and height of the camera's viewable rectangle at a given distance along the viewing direction.
+     * Copies the result into the target Vector2, where x is width and y is height.
+     */
+    getViewSize(distance: number, minTarget: Vector2, maxTarget: Vector2): void;
 
     /**
      * Sets an offset in a larger frustum.

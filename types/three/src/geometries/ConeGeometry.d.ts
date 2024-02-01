@@ -1,4 +1,4 @@
-import { CylinderGeometry } from './CylinderGeometry.js';
+import { CylinderGeometry } from "./CylinderGeometry.js";
 
 /**
  * A class for generating cone geometries.
@@ -40,7 +40,7 @@ export class ConeGeometry extends CylinderGeometry {
      * @remarks Sub-classes will update this value.
      * @defaultValue `ConeGeometry`
      */
-    override readonly type: string | 'ConeGeometry';
+    override readonly type: string | "ConeGeometry";
 
     /**
      * An object with a property for each of the constructor parameters.

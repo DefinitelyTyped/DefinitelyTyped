@@ -1,8 +1,8 @@
-import { DiscreteInterpolant } from '../math/interpolants/DiscreteInterpolant.js';
-import { LinearInterpolant } from '../math/interpolants/LinearInterpolant.js';
-import { CubicInterpolant } from '../math/interpolants/CubicInterpolant.js';
-import { Interpolant } from '../math/Interpolant.js';
-import { InterpolationModes } from '../constants.js';
+import { InterpolationModes } from "../constants.js";
+import { Interpolant } from "../math/Interpolant.js";
+import { CubicInterpolant } from "../math/interpolants/CubicInterpolant.js";
+import { DiscreteInterpolant } from "../math/interpolants/DiscreteInterpolant.js";
+import { LinearInterpolant } from "../math/interpolants/LinearInterpolant.js";
 
 export class KeyframeTrack {
     /**

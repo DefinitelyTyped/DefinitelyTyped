@@ -1530,6 +1530,26 @@ declare namespace googletag {
         type PrivacyTreatment = "disablePersonalization";
 
         /**
+         * Settings to control ad expansion.
+         */
+        interface AdExpansionConfig {
+            /**
+             * Whether ad expansion is enabled or disabled.
+             * Setting this value overrides the default configured in Google Ad Manager.
+             *
+             * @example
+             *   // Enable ad slot expansion across the entire page.
+             *   googletag.setConfig({
+             *     adExpansion: { enabled: true },
+             *   });
+             *
+             * @see [Expand ads on desktop and tablet](https://support.google.com/admanager/answer/9384852)
+             * @see [Expand ads on mobile web (partial screen)](https://support.google.com/admanager/answer/9117822)
+             */
+            enabled: boolean;
+        }
+
+        /**
          * An object representing a single component auction in a on-device ad auction.
          *
          * @see [Protected Audience API Seller guide: run ad auctions](https://developer.chrome.com/docs/privacy-sandbox/fledge-api/ad-auction/)
@@ -1541,37 +1561,37 @@ declare namespace googletag {
              * If this value is set to `null`, any existing configuration for the specified `configKey` will be deleted.
              *
              * @example
-             * const componentAuctionConfig = {
-             *   // Seller URL should be https and the same as decisionLogicUrl's origin
-             *   seller: 'https://testSeller.com',
-             *   decisionLogicUrl: 'https://testSeller.com/ssp/decision-logic.js',
-             *   interestGroupBuyers: [
-             *     'https://example-buyer.com',
-             *   ],
-             *   auctionSignals: {auction_signals: 'auction_signals'},
-             *   sellerSignals: {seller_signals: 'seller_signals'},
-             *   perBuyerSignals: {
-             *     // listed on interestGroupBuyers
-             *     'https://example-buyer.com': {
-             *       per_buyer_signals: 'per_buyer_signals',
+             *   const componentAuctionConfig = {
+             *     // Seller URL should be https and the same as decisionLogicUrl's origin
+             *     seller: 'https://testSeller.com',
+             *     decisionLogicUrl: 'https://testSeller.com/ssp/decision-logic.js',
+             *     interestGroupBuyers: [
+             *       'https://example-buyer.com',
+             *     ],
+             *     auctionSignals: {auction_signals: 'auction_signals'},
+             *     sellerSignals: {seller_signals: 'seller_signals'},
+             *     perBuyerSignals: {
+             *       // listed on interestGroupBuyers
+             *       'https://example-buyer.com': {
+             *         per_buyer_signals: 'per_buyer_signals',
+             *       },
              *     },
-             *   },
-             * };
-             * const auctionSlot = googletag.defineSlot('/1234567/example', [160, 600])!;
-             * // To add configKey to the component auction:
-             * auctionSlot.setConfig({
-             *   componentAuction: [{
-             *      configKey: 'https://testSeller.com',
-             *      auctionConfig: componentAuctionConfig
-             *   }]
-             * });
-             * // To remove configKey from the component auction:
-             * auctionSlot.setConfig({
-             *   componentAuction: [{
-             *      configKey: 'https://testSeller.com',
-             *      auctionConfig: null
-             *   }]
-             * });
+             *   };
+             *   const auctionSlot = googletag.defineSlot('/1234567/example', [160, 600])!;
+             *   // To add configKey to the component auction:
+             *   auctionSlot.setConfig({
+             *     componentAuction: [{
+             *        configKey: 'https://testSeller.com',
+             *        auctionConfig: componentAuctionConfig
+             *     }]
+             *   });
+             *   // To remove configKey from the component auction:
+             *   auctionSlot.setConfig({
+             *     componentAuction: [{
+             *        configKey: 'https://testSeller.com',
+             *        auctionConfig: null
+             *     }]
+             *   });
              *
              * @see [Protected Audience API: Initiating an On-Device Auction](https://github.com/WICG/turtledove/blob/main/FLEDGE.md#21-initiating-an-on-device-auction)
              */
@@ -1611,19 +1631,19 @@ declare namespace googletag {
              * in Google Ad Manager](https://support.google.com/admanager/answer/9840201).
              *
              * @example
-             *  // Define a GPT managed web interstitial ad slot.
-             *  const interstitialSlot = googletag.defineOutOfPageSlot("/1234567/sports",
-             *      googletag.enums.OutOfPageFormat.INTERSTITIAL)!;
-             *  // Enable optional interstitial triggers.
-             *  // Change this value to false to disable.
-             *  const enableTriggers = true;
-             *  interstitialSlot.setConfig({
-             *    interstitial: {
-             *      triggers: {
-             *        unhideWindow: enableTriggers
-             *      }
-             *    }
-             *  });
+             *   // Define a GPT managed web interstitial ad slot.
+             *   const interstitialSlot = googletag.defineOutOfPageSlot("/1234567/sports",
+             *       googletag.enums.OutOfPageFormat.INTERSTITIAL)!;
+             *   // Enable optional interstitial triggers.
+             *   // Change this value to false to disable.
+             *   const enableTriggers = true;
+             *   interstitialSlot.setConfig({
+             *     interstitial: {
+             *       triggers: {
+             *         unhideWindow: enableTriggers
+             *       }
+             *     }
+             *   });
              *
              * @see [Display a web interstitial ad](https://developers.google.com/publisher-tag/samples/display-web-interstitial-ad)
              */
@@ -1641,6 +1661,11 @@ declare namespace googletag {
          * Only features specified in the {@link googletag.setConfig()} call are modified.
          */
         interface PageSettingsConfig {
+            /**
+             * Settings to control ad expansion.
+             */
+            adExpansion?: AdExpansionConfig | null;
+
             /**
              * Settings to control publisher privacy treatments.
              */

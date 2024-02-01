@@ -1,7 +1,7 @@
-import { Color, ColorRepresentation } from '../math/Color.js';
-import { Texture } from '../textures/Texture.js';
-import { MaterialParameters, Material } from './Material.js';
-import { Combine } from '../constants.js';
+import { Combine } from "../constants.js";
+import { Color, ColorRepresentation } from "../math/Color.js";
+import { Texture } from "../textures/Texture.js";
+import { Material, MaterialParameters } from "./Material.js";
 /**
  * parameters is an object with one or more properties defining the material's appearance.
  */

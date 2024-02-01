@@ -1,5 +1,5 @@
-import { Object3D } from '../core/Object3D.js';
-import { Camera } from '../cameras/Camera.js';
+import { Camera } from "../cameras/Camera.js";
+import { Object3D, Object3DEventMap } from "../core/Object3D.js";
 
 /**
  * Every level is associated with an object, and rendering can be switched between them at the distances specified
@@ -20,7 +20,7 @@ import { Camera } from '../cameras/Camera.js';
  * @see {@link https://threejs.org/docs/index.html#api/en/objects/LOD | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/objects/LOD.js | Source}
  */
-export class LOD extends Object3D {
+export class LOD<TEventMap extends Object3DEventMap = Object3DEventMap> extends Object3D<TEventMap> {
     /**
      * Creates a new {@link LOD}.
      */
@@ -37,7 +37,7 @@ export class LOD extends Object3D {
      * @override
      * @defaultValue `LOD`
      */
-    override readonly type: string | 'LOD';
+    override readonly type: string | "LOD";
 
     /**
      * An array of level objects

@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/jquery-alertable",
     "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery-alertable",
     "projects": [
         "https://github.com/claviska/jquery-alertable"
     ],

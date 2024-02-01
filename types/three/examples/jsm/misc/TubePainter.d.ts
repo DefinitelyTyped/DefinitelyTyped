@@ -1,4 +1,4 @@
-import { Matrix4, Mesh, Vector3 } from '../../../src/Three.js';
+import { Matrix4, Mesh, Vector3 } from "../../../src/Three.js";
 
 export class TubePainter {
     constructor();

@@ -13,7 +13,7 @@
     },
     "devDependencies": {
         "@types/rdfjs__fetch": "workspace:.",
-        "@types/rdfjs__sink-map": "*"
+        "@types/rdfjs__formats": "*"
     },
     "owners": [
         {

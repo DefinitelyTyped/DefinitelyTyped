@@ -1,6 +1,6 @@
-import { Scene, Camera, ColorRepresentation, ShaderMaterial, WebGLRenderTarget } from '../../../src/Three.js';
+import { Camera, ColorRepresentation, Scene, ShaderMaterial, WebGLRenderTarget } from "../../../src/Three.js";
 
-import { Pass, FullScreenQuad } from './Pass.js';
+import { FullScreenQuad, Pass } from "./Pass.js";
 
 export class SSAARenderPass extends Pass {
     constructor(scene: Scene, camera: Camera, clearColor?: ColorRepresentation, clearAlpha?: number);

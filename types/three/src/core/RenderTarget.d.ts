@@ -1,16 +1,16 @@
-import { Vector4 } from '../math/Vector4.js';
-import { Texture } from '../textures/Texture.js';
-import { DepthTexture } from '../textures/DepthTexture.js';
-import { EventDispatcher } from './EventDispatcher.js';
 import {
-    Wrapping,
+    ColorSpace,
+    MagnificationTextureFilter,
+    MinificationTextureFilter,
+    PixelFormatGPU,
     TextureDataType,
     TextureEncoding,
-    MinificationTextureFilter,
-    MagnificationTextureFilter,
-    ColorSpace,
-    PixelFormatGPU,
-} from '../constants.js';
+    Wrapping,
+} from "../constants.js";
+import { Vector4 } from "../math/Vector4.js";
+import { DepthTexture } from "../textures/DepthTexture.js";
+import { Texture } from "../textures/Texture.js";
+import { EventDispatcher } from "./EventDispatcher.js";
 
 export interface RenderTargetOptions {
     wrapS?: Wrapping | undefined;

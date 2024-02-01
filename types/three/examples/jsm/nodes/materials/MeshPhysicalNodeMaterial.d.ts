@@ -1,9 +1,7 @@
-import { ShaderMaterialParameters } from '../../../../src/Three.js';
+import { ShaderMaterialParameters } from "../../../../src/Three.js";
 
-import MeshStandardNodeMaterial from './MeshStandardNodeMaterial.js';
-import Node from '../core/Node.js';
-import CheckerNode from '../procedural/CheckerNode.js';
-import { ShaderNodeObject } from '../shadernode/ShaderNode.js';
+import Node from "../core/Node.js";
+import MeshStandardNodeMaterial from "./MeshStandardNodeMaterial.js";
 
 export default class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
     readonly isMeshPhysicalNodeMaterial: true;
@@ -15,9 +13,9 @@ export default class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
     sheenNode: Node | null;
     sheenRoughnessNode: Node | null;
 
-    iridescenceNode: null | ShaderNodeObject<CheckerNode>;
-    iridescenceIORNode: null | ShaderNodeObject<Node>;
-    iridescenceThicknessNode: null | ShaderNodeObject<Node>;
+    iridescenceNode: Node | null;
+    iridescenceIORNode: Node | null;
+    iridescenceThicknessNode: Node | null;
 
     iorNode?: Node | null;
 
@@ -30,6 +28,4 @@ export default class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
     attenuationColorNode: Node | null;
 
     constructor(parameters?: ShaderMaterialParameters);
-
-    copy(source: MeshPhysicalNodeMaterial): this;
 }

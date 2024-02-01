@@ -2,7 +2,7 @@
     "private": true,
     "name": "@types/titanium",
     "version": "12.0.9999",
-    "nonNpm": true,
+    "nonNpm": "conflict",
     "nonNpmDescription": "Titanium",
     "projects": [
         "https://github.com/appcelerator/titanium_mobile"

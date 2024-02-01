@@ -417,7 +417,7 @@ be.transformStyles(STYLES, ".foobar");
 // Store
 // ============================================================================
 
-// $ExpectType any
+// $ExpectType BlockEditorStoreDescriptor
 be.store;
 
 // $ExpectType void
