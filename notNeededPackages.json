@@ -5511,6 +5511,10 @@
             "libraryName": "shorten-repo-url",
             "asOfVersion": "1.5.1"
         },
+        "shot": {
+            "libraryName": "@hapi/shot",
+            "asOfVersion": "5.0.3"
+        },
         "should": {
             "libraryName": "should",
             "asOfVersion": "13.0.0"
