@@ -24,6 +24,14 @@ export function Test() {
                 radius={9}
                 zIndex={2}
             />
+
+            {/* With children and React props */}
+            <Tooltip
+                content="A cool tooltip!"
+                className="works"
+            >
+                <div>Some children!</div>
+            </Tooltip>
         </div>
     );
 }
