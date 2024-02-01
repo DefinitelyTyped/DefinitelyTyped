@@ -409,14 +409,14 @@ declare namespace React {
 
     /**
      * Used to retrieve the type of a context object from a {@link Context}.
-     * 
+     *
      * @example
-     * 
+     *
      * ```tsx
      * import { createContext } from 'react';
-     * 
+     *
      * const MyContext = createContext({ foo: 'bar' });
-     * 
+     *
      * type ContextType = ContextType<typeof MyContext>;
      * // ContextType = { foo: string }
      * ```
@@ -532,9 +532,57 @@ declare namespace React {
         only<C>(children: C): C extends any[] ? never : C;
         toArray(children: ReactNode | ReactNode[]): Array<Exclude<ReactNode, boolean | null | undefined>>;
     };
+    /**
+     * Lets you group elements without a wrapper node.
+     *
+     * @see {@link https://react.dev/reference/react/Fragment React Docs}
+     *
+     * @example
+     *
+     * ```tsx
+     * import { Fragment } from 'react';
+     *
+     * <Fragment>
+     *   <td>Hello</td>
+     *   <td>World</td>
+     * </Fragment>
+     * ```
+     *
+     * @example
+     *
+     * ```tsx
+     * // Using the <></> shorthand syntax:
+     *
+     * <>
+     *   <td>Hello</td>
+     *   <td>World</td>
+     * </>
+     * ```
+     */
     const Fragment: ExoticComponent<{ children?: ReactNode | undefined }>;
+
+    /**
+     * Lets you find common bugs in your components early during development.
+     *
+     * @see {@link https://react.dev/reference/react/StrictMode React Docs}
+     *
+     * @example
+     *
+     * ```tsx
+     * import { StrictMode } from 'react';
+     *
+     * <StrictMode>
+     *   <App />
+     * </StrictMode>
+     * ```
+     */
     const StrictMode: ExoticComponent<{ children?: ReactNode | undefined }>;
 
+    /**
+     * The props accepted by {@link Suspense}.
+     *
+     * @see {@link https://react.dev/reference/react/Suspense React Docs}
+     */
     interface SuspenseProps {
         children?: ReactNode | undefined;
 
@@ -542,27 +590,105 @@ declare namespace React {
         fallback?: ReactNode;
     }
 
+    /**
+     * Lets you display a fallback until its children have finished loading.
+     *
+     * @see {@link https://react.dev/reference/react/Suspense React Docs}
+     *
+     * @example
+     *
+     * ```tsx
+     * import { Suspense } from 'react';
+     *
+     * <Suspense fallback={<Loading />}>
+     *   <ProfileDetails />
+     * </Suspense>
+     * ```
+     */
     const Suspense: ExoticComponent<SuspenseProps>;
     const version: string;
 
     /**
-     * @see {@link https://react.dev/reference/react/Profiler#onrender-callback Profiler API React Docs}
+     * The callback passed to {@link ProfilerProps.onRender}.
+     *
+     * @see {@link https://react.dev/reference/react/Profiler#onrender-callback React Docs}
      */
     type ProfilerOnRenderCallback = (
+        /**
+         * The string id prop of the {@link Profiler} tree that has just committed. This lets
+         * you identify which part of the tree was committed if you are using multiple
+         * profilers.
+         *
+         * @see {@link https://react.dev/reference/react/Profiler#onrender-callback React Docs}
+         */
         id: string,
+        /**
+         * This lets you know whether the tree has just been mounted for the first time
+         * or re-rendered due to a change in props, state, or hooks.
+         *
+         * @see {@link https://react.dev/reference/react/Profiler#onrender-callback React Docs}
+         */
         phase: "mount" | "update" | "nested-update",
+        /**
+         * The number of milliseconds spent rendering the {@link Profiler} and its descendants
+         * for the current update. This indicates how well the subtree makes use of
+         * memoization (e.g. {@link memo} and {@link useMemo}). Ideally this value should decrease
+         * significantly after the initial mount as many of the descendants will only need to
+         * re-render if their specific props change.
+         *
+         * @see {@link https://react.dev/reference/react/Profiler#onrender-callback React Docs}
+         */
         actualDuration: number,
+        /**
+         * The number of milliseconds estimating how much time it would take to re-render the entire
+         * {@link Profiler} subtree without any optimizations. It is calculated by summing up the most
+         * recent render durations of each component in the tree. This value estimates a worst-case
+         * cost of rendering (e.g. the initial mount or a tree with no memoization). Compare
+         * {@link actualDuration} against it to see if memoization is working.
+         *
+         * @see {@link https://react.dev/reference/react/Profiler#onrender-callback React Docs}
+         */
         baseDuration: number,
+        /**
+         * A numeric timestamp for when React began rendering the current update.
+         *
+         * @see {@link https://react.dev/reference/react/Profiler#onrender-callback React Docs}
+         */
         startTime: number,
+        /**
+         * A numeric timestamp for when React committed the current update. This value is shared
+         * between all profilers in a commit, enabling them to be grouped if desirable.
+         *
+         * @see {@link https://react.dev/reference/react/Profiler#onrender-callback React Docs}
+         */
         commitTime: number,
         interactions: Set<SchedulerInteraction>,
     ) => void;
+
+    /**
+     * The props accepted by {@link Profiler}.
+     *
+     * @see {@link https://react.dev/reference/react/Profiler React Docs}
+     */
     interface ProfilerProps {
         children?: ReactNode | undefined;
         id: string;
         onRender: ProfilerOnRenderCallback;
     }
 
+    /**
+     * Lets you measure rendering performance of a React tree programmatically.
+     *
+     * @see {@link https://react.dev/reference/react/Profiler#onrender-callback React Docs}
+     *
+     * @example
+     *
+     * ```tsx
+     * <Profiler id="App" onRender={onRender}>
+     *   <App />
+     * </Profiler>
+     * ```
+     */
     const Profiler: ExoticComponent<ProfilerProps>;
 
     //
