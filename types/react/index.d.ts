@@ -561,24 +561,24 @@ declare namespace React {
      * Represents the type of a function component. Can optionally
      * receive a type argument that represents the props the component
      * receives.
-     * 
+     *
      * @param P - The props the component receives.
      * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components}
      * @alias for {@link React.FunctionComponent}
-     * 
+     *
      * @example
-     * 
+     *
      * ```tsx
      * // With props:
      * type Props = { name: string }
-     * 
+     *
      * const MyComponent: FC<Props> = (props) => {
      *  return <div>{props.name}</div>
      * }
      * ```
-     * 
+     *
      * @example
-     * 
+     *
      * ```tsx
      * // Without props:
      * const MyComponentWithoutProps: FC = () => {
@@ -592,23 +592,23 @@ declare namespace React {
      * Represents the type of a function component. Can optionally
      * receive a type argument that represents the props the component
      * accepts.
-     * 
+     *
      * @param P - The props the component accepts.
      * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components}
-     * 
+     *
      * @example
-     * 
+     *
      * ```tsx
      * // With props:
      * type Props = { name: string }
-     * 
+     *
      * const MyComponent: FunctionComponent<Props> = (props) => {
      *  return <div>{props.name}</div>
      * }
      * ```
-     * 
+     *
      * @example
-     * 
+     *
      * ```tsx
      * // Without props:
      * const MyComponentWithoutProps: FunctionComponent = () => {
@@ -622,37 +622,37 @@ declare namespace React {
          * Used to declare the types of the props accepted by the
          * component. These types will be checked during rendering
          * and in development only.
-         * 
+         *
          * We recommend using TypeScript instead of checking prop
          * types at runtime.
-         * 
+         *
          * @see {@link https://react.dev/reference/react/Component#static-proptypes}
          */
         propTypes?: WeakValidationMap<P> | undefined;
         /**
          * @deprecated
-         * 
+         *
          * Lets you specify which legacy context is consumed by
          * this component.
-         * 
-         * @see {@link https://legacy.reactjs.org/docs/legacy-context.html} 
+         *
+         * @see {@link https://legacy.reactjs.org/docs/legacy-context.html}
          */
         contextTypes?: ValidationMap<any> | undefined;
         /**
          * Used to define default values for the props accepted by
          * the component.
-         * 
+         *
          * @see {@link https://react.dev/reference/react/Component#static-defaultprops}
-         * 
+         *
          * @example
-         * 
+         *
          * ```tsx
          * type Props = { name?: string }
-         * 
+         *
          * const MyComponent: FC<Props> = (props) => {
          *   return <div>{props.name}</div>
          * }
-         * 
+         *
          * MyComponent.defaultProps = {
          *   name: 'John Doe'
          * }
@@ -663,17 +663,17 @@ declare namespace React {
          * Used in debugging messages. You might want to set it
          * explicitly if you want to display a different name for
          * debugging purposes.
-         * 
+         *
          * @see {@link https://legacy.reactjs.org/docs/react-component.html#displayname}
-         * 
+         *
          * @example
-         * 
+         *
          * ```tsx
-         * 
+         *
          * const MyComponent: FC = () => {
          *   return <div>Hello!</div>
          * }
-         * 
+         *
          * MyComponent.displayName = 'MyAwesomeComponent'
          * ```
          */
@@ -682,14 +682,14 @@ declare namespace React {
 
     /**
      * @deprecated - Equivalent to {@link React.FunctionComponent}.
-     * 
+     *
      * @see {@link React.FunctionComponent}
      */
     type VFC<P = {}> = VoidFunctionComponent<P>;
 
     /**
      * @deprecated - Equivalent to {@link React.FunctionComponent}.
-     * 
+     *
      * @see {@link React.FunctionComponent}
      */
     interface VoidFunctionComponent<P = {}> {
