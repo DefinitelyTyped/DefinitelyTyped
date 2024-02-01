@@ -71,11 +71,10 @@ export interface MultiDragOptions {
      */
     selectedClass?: string | undefined;
     /**
-     * Key that must be down for items to be selected
+     * The key that must be down for multiple items to be selected. The default is null, meaning no key must be down. 
+     * For special keys, such as the CTRL key, simply specify the option as 'CTRL' (casing does not matter).
      */
-    // todo: create a type
-    // todo: check source code for type
-    multiDragKey?: null | undefined;
+    multiDragKey?: string;
 
     /**
      * If you don't want to deselect items on outside click
