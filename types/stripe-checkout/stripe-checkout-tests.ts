@@ -1,7 +1,11 @@
+import type { Source, Token } from "@stripe/stripe-js";
+import StripeCheckout = require("stripe-checkout");
+import type { StripeCheckoutOptions } from "stripe-checkout";
+
 // Test the minimum amount of configuration required.
 let handler = StripeCheckout.configure({
     key: "my-secret-key",
-    token: (token: stripe.Token) => {
+    token: (token: Token) => {
         console.log(token.id);
     },
 });
@@ -13,10 +17,10 @@ handler.close();
 // Test all configuration options.
 const options: StripeCheckoutOptions = {
     key: "my-secret-key",
-    token: (token: stripe.Token) => {
+    token: (token: Token) => {
         console.log(token.id);
     },
-    source: (src: stripe.Source) => {
+    source: (src: Source) => {
         console.log(src.id);
     },
     image: "http://placehold.it/128x128",

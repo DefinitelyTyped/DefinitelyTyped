@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/react": "*",
-        "@types/stripe-v3": "*"
+        "@types/stripe-v3": "^3.1.33"
     },
     "devDependencies": {
         "@types/react-stripe-elements": "workspace:."

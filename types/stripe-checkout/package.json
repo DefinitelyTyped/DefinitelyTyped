@@ -7,7 +7,7 @@
         "https://github.com/matthewmueller/stripe-checkout"
     ],
     "dependencies": {
-        "@types/stripe-v3": "*"
+        "@stripe/stripe-js": "^2.4.0"
     },
     "devDependencies": {
         "@types/stripe-checkout": "workspace:."
