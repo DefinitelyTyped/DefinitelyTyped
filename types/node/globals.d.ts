@@ -96,6 +96,13 @@ declare global {
             new(): AbortSignal;
             abort(reason?: any): AbortSignal;
             timeout(milliseconds: number): AbortSignal;
+            /**
+             * Returns a new `AbortSignal` which will be aborted if any of the provided signals are aborted.
+             * Its {@link AbortSignal.reason} will be set to whichever one of the `signals` caused it to be aborted.
+             * @since v20.3.0
+             * @param signals The `AbortSignal`s of which to compose a new `AbortSignal`.
+             */
+            any(signals: AbortSignal[]): AbortSignal;
         };
     // #endregion borrowed
 
