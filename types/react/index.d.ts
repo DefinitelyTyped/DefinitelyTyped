@@ -553,6 +553,9 @@ declare namespace React {
 
     /**
      * @deprecated Use `ClassicComponent` from `create-react-class`
+     *
+     * @see {@link https://legacy.reactjs.org/docs/react-without-es6.html Legacy React Docs}
+     * @see {@link https://www.npmjs.com/package/create-react-class `create-react-class` on npm}
      */
     interface ClassicComponent<P = {}, S = {}> extends Component<P, S> {
         replaceState(nextState: S, callback?: () => void): void;
