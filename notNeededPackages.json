@@ -2145,6 +2145,10 @@
             "libraryName": "gzip-size",
             "asOfVersion": "5.1.0"
         },
+        "h2o2": {
+            "libraryName": "@hapi/h2o2",
+            "asOfVersion": "10.0.0"
+        },
         "handlebars": {
             "libraryName": "handlebars",
             "asOfVersion": "4.1.0"
