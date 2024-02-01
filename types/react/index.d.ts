@@ -591,9 +591,9 @@ declare namespace React {
     /**
      * Represents the type of a function component. Can optionally
      * receive a type argument that represents the props the component
-     * receives.
+     * accepts.
      * 
-     * @param P - The props the component receives.
+     * @param P - The props the component accepts.
      * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components}
      * 
      * @example
