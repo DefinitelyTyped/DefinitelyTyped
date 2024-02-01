@@ -911,7 +911,7 @@ declare namespace React {
         : PropsWithRef<ComponentProps<T>>;
     /**
      * Used to retrieve the props a custom component accepts with its ref.
-     * 
+     *
      * Unlike {@link ComponentPropsWithRef}, this only works with custom
      * components, i.e. components you define yourself. This is to improve
      * type-checking performance.
