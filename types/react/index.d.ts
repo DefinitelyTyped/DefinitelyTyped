@@ -796,9 +796,9 @@ declare namespace React {
      * receive a type argument that represents the props the component
      * receives.
      *
-     * @typeparam P - The props the component receives.
+     * @template P The props the component accepts.
      * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components React TypeScript Cheatsheet}
-     * @alias for {@link React.FunctionComponent}
+     * @alias for {@link FunctionComponent}
      *
      * @example
      *
@@ -827,7 +827,7 @@ declare namespace React {
      * receive a type argument that represents the props the component
      * accepts.
      *
-     * @typeparam P - The props the component accepts.
+     * @template P The props the component accepts.
      * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components React TypeScript Cheatsheet}
      *
      * @example
@@ -948,8 +948,8 @@ declare namespace React {
      * @param props Props passed to the component, if any.
      * @param ref A ref forwarded to the component of type {@link ForwardedRef}.
      *
-     * @typeparam T The type of the forwarded ref.
-     * @typeparam P The type of the props the component accepts.
+     * @template T The type of the forwarded ref.
+     * @template P The type of the props the component accepts.
      *
      * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/forward_and_create_ref/ React TypeScript Cheatsheet}
      * @see {@link forwardRef}
@@ -986,8 +986,8 @@ declare namespace React {
     /**
      * Represents a component class in React.
      *
-     * @typeparam P The props the component accepts.
-     * @typeparam S The internal state of the component.
+     * @template P The props the component accepts.
+     * @template S The internal state of the component.
      */
     interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
         new(props: P, context?: any): Component<P, S>;
@@ -1052,7 +1052,8 @@ declare namespace React {
      *
      * An intersection type is used to infer multiple type parameters from
      * a single argument, which is useful for many top-level API defs.
-     * See https://github.com/Microsoft/TypeScript/issues/7234 for more info.
+     * See {@link https://github.com/Microsoft/TypeScript/issues/7234 this GitHub issue}
+     * for more info.
      */
     type ClassType<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>> =
         & C
@@ -1258,7 +1259,7 @@ declare namespace React {
     /**
      * The type of the component returned from {@link forwardRef}.
      *
-     * @typeparam P The props the component accepts, if any.
+     * @template P The props the component accepts, if any.
      *
      * @see {@link ExoticComponent}
      */
@@ -1276,8 +1277,8 @@ declare namespace React {
      *
      * @param render See the {@link ForwardRefRenderFunction}.
      *
-     * @typeparam T The type of the DOM node.
-     * @typeparam P The props the component accepts, if any.
+     * @template T The type of the DOM node.
+     * @template P The props the component accepts, if any.
      *
      * @example
      *
