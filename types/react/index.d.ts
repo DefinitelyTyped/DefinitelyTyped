@@ -8,23 +8,74 @@ import * as CSS from "csstype";
 import * as PropTypes from "prop-types";
 import { Interaction as SchedulerInteraction } from "scheduler/tracing";
 
+/**
+ * @alias {@link AnimationEvent}
+ */
 type NativeAnimationEvent = AnimationEvent;
+/**
+ * @alias {@link ClipboardEvent}
+ */
 type NativeClipboardEvent = ClipboardEvent;
+/**
+ * @alias {@link CompositionEvent}
+ */
 type NativeCompositionEvent = CompositionEvent;
+/**
+ * @alias {@link DragEvent}
+ */
 type NativeDragEvent = DragEvent;
+/**
+ * @alias {@link FocusEvent}
+ */
 type NativeFocusEvent = FocusEvent;
+/**
+ * @alias {@link KeyboardEvent}
+ */
 type NativeKeyboardEvent = KeyboardEvent;
+/**
+ * @alias {@link MouseEvent}
+ */
 type NativeMouseEvent = MouseEvent;
+/**
+ * @alias {@link TouchEvent}
+ */
 type NativeTouchEvent = TouchEvent;
+/**
+ * @alias {@link PointerEvent}
+ */
 type NativePointerEvent = PointerEvent;
+/**
+ * @alias {@link TransitionEvent}
+ */
 type NativeTransitionEvent = TransitionEvent;
+/**
+ * @alias {@link UIEvent}
+ */
 type NativeUIEvent = UIEvent;
+/**
+ * @alias {@link WheelEvent}
+ */
 type NativeWheelEvent = WheelEvent;
+
+/**
+ * Used to represent DOM API's where users can either pass
+ * true or false as a boolean or as its equivalent strings.
+ */
 type Booleanish = boolean | "true" | "false";
+
+/**
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin MDN}
+ */
 type CrossOrigin = "anonymous" | "use-credentials" | "" | undefined;
 
 declare const UNDEFINED_VOID_ONLY: unique symbol;
-// Destructors are only allowed to return void.
+
+/**
+ * The function returned from an effect passed to {@link React.useEffect useEffect},
+ * which can be used to clean up the effect when the component unmounts.
+ * 
+ * @see {@link https://react.dev/reference/react/useEffect React Docs}
+ */
 type Destructor = () => void | { [UNDEFINED_VOID_ONLY]: never };
 type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 
@@ -46,14 +97,18 @@ declare namespace React {
         | ((
             props: P,
             /**
-             * @deprecated https://legacy.reactjs.org/docs/legacy-context.html#referencing-context-in-stateless-function-components
+             * @deprecated
+             * 
+             * @see {@link https://legacy.reactjs.org/docs/legacy-context.html#referencing-context-in-stateless-function-components React Docs}
              */
             deprecatedLegacyContext?: any,
         ) => ReactNode)
         | (new(
             props: P,
             /**
-             * @deprecated https://legacy.reactjs.org/docs/legacy-context.html#referencing-context-in-lifecycle-methods
+             * @deprecated
+             * 
+             * @see {@link https://legacy.reactjs.org/docs/legacy-context.html#referencing-context-in-lifecycle-methods React Docs}
              */
             deprecatedLegacyContext?: any,
         ) => Component<any, any>);
