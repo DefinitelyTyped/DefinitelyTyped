@@ -410,18 +410,97 @@ declare namespace React {
 
     type ContextType<C extends Context<any>> = C extends Context<infer T> ? T : never;
 
-    // NOTE: only the Context object itself can get a displayName
-    // https://github.com/facebook/react-devtools/blob/e0b854e4c/backend/attachRendererFiber.js#L310-L325
+    /**
+     * Wraps your components to specify the value of this context for all components inside.
+     *
+     * @see {@link https://react.dev/reference/react/createContext#provider React Docs}
+     *
+     * @example
+     *
+     * ```tsx
+     * import { createContext } from 'react';
+     *
+     * const ThemeContext = createContext('light');
+     *
+     * function App() {
+     *   return (
+     *     <ThemeContext.Provider value="dark">
+     *       <Toolbar />
+     *     </ThemeContext.Provider>
+     *   );
+     * }
+     * ```
+     */
     type Provider<T> = ProviderExoticComponent<ProviderProps<T>>;
+
+    /**
+     * The old way to read context, before {@link useContext} existed.
+     *
+     * @see {@link https://react.dev/reference/react/createContext#consumer React Docs}
+     *
+     * @example
+     *
+     * ```tsx
+     * import { UserContext } from './user-context';
+     *
+     * function Avatar() {
+     *   return (
+     *     <UserContext.Consumer>
+     *       {user => <img src={user.profileImage} alt={user.name} />}
+     *     </UserContext.Consumer>
+     *   );
+     * }
+     * ```
+     */
     type Consumer<T> = ExoticComponent<ConsumerProps<T>>;
+
+    /**
+     * Context lets components pass information deep down without explicitly
+     * passing props.
+     *
+     * Created from {@link createContext}
+     *
+     * @see {@link https://react.dev/learn/passing-data-deeply-with-context React Docs}
+     *
+     * @example
+     *
+     * ```tsx
+     * import { createContext } from 'react';
+     *
+     * const ThemeContext = createContext('light');
+     * ```
+     */
     interface Context<T> {
         Provider: Provider<T>;
         Consumer: Consumer<T>;
+        /**
+         * Used in debugging messages. You might want to set it
+         * explicitly if you want to display a different name for
+         * debugging purposes.
+         *
+         * @see {@link https://legacy.reactjs.org/docs/react-component.html#displayname Legacy React Docs}
+         */
         displayName?: string | undefined;
     }
+
+    /**
+     * Lets you create a {@link Context} that components can provide or read.
+     *
+     * @param defaultValue The value you want the context to have when there is no matching
+     * {@link Provider} in the tree above the component reading the context. This is meant
+     * as a "last resort" fallback.
+     *
+     * @see {@link https://react.dev/reference/react/createContext#reference React Docs}
+     *
+     * @example
+     *
+     * ```tsx
+     * import { createContext } from 'react';
+     *
+     * const ThemeContext = createContext('light');
+     * ```
+     */
     function createContext<T>(
-        // If you thought this should be optional, see
-        // https://github.com/DefinitelyTyped/DefinitelyTyped/pull/24509#issuecomment-382213106
         defaultValue: T,
     ): Context<T>;
 
