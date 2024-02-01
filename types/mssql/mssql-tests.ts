@@ -474,3 +474,13 @@ function test_request_to_readable_stream() {
     // You can optionally specify ReadableOptions.
     request.toReadableStream({ highWaterMark: 10 });
 }
+
+function test_set_request_options() {
+    const request = new sql.Request();
+    request.multiple = true;
+    request.stream = true;
+    request.arrayRowMode = true;
+
+    request.query("select 'asdf' as name, 'qwerty' as other_name, 'jkl' as name");
+    request.on('recordset', recordset => console.log(recordset));
+}
