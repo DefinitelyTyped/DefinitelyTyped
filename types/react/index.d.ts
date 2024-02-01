@@ -372,18 +372,14 @@ declare namespace React {
     }
 
     /**
-     * An object masquerading as a component. These are created by
-     * {@link forwardRef}, {@link memo}, and {@link createContext}.
+     * An object masquerading as a component. These are created by functions
+     * like {@link forwardRef}, {@link memo}, and {@link createContext}.
      *
      * In order to make TypeScript work, we pretend that they are normal
      * components.
      *
      * But they are, in fact, not callable - instead, they are objects which
      * are treated specially by the renderer.
-     *
-     * @see {@link forwardRef}
-     * @see {@link memo}
-     * @see {@link createContext}
      */
     interface ExoticComponent<P = {}> {
         (props: P): ReactNode;
@@ -404,24 +400,122 @@ declare namespace React {
         displayName?: string | undefined;
     }
 
+    /**
+     * An {@link ExoticComponent} with a `propTypes` property applied to it.
+     */
     interface ProviderExoticComponent<P> extends ExoticComponent<P> {
         propTypes?: WeakValidationMap<P> | undefined;
     }
 
+    /**
+     * Used to retrieve the type of a context object from a {@link Context}.
+     *
+     * @example
+     *
+     * ```tsx
+     * import { createContext } from 'react';
+     *
+     * const MyContext = createContext({ foo: 'bar' });
+     *
+     * type ContextType = ContextType<typeof MyContext>;
+     * // ContextType = { foo: string }
+     * ```
+     */
     type ContextType<C extends Context<any>> = C extends Context<infer T> ? T : never;
 
-    // NOTE: only the Context object itself can get a displayName
-    // https://github.com/facebook/react-devtools/blob/e0b854e4c/backend/attachRendererFiber.js#L310-L325
+    /**
+     * Wraps your components to specify the value of this context for all components inside.
+     *
+     * @see {@link https://react.dev/reference/react/createContext#provider React Docs}
+     *
+     * @example
+     *
+     * ```tsx
+     * import { createContext } from 'react';
+     *
+     * const ThemeContext = createContext('light');
+     *
+     * function App() {
+     *   return (
+     *     <ThemeContext.Provider value="dark">
+     *       <Toolbar />
+     *     </ThemeContext.Provider>
+     *   );
+     * }
+     * ```
+     */
     type Provider<T> = ProviderExoticComponent<ProviderProps<T>>;
+
+    /**
+     * The old way to read context, before {@link useContext} existed.
+     *
+     * @see {@link https://react.dev/reference/react/createContext#consumer React Docs}
+     *
+     * @example
+     *
+     * ```tsx
+     * import { UserContext } from './user-context';
+     *
+     * function Avatar() {
+     *   return (
+     *     <UserContext.Consumer>
+     *       {user => <img src={user.profileImage} alt={user.name} />}
+     *     </UserContext.Consumer>
+     *   );
+     * }
+     * ```
+     */
     type Consumer<T> = ExoticComponent<ConsumerProps<T>>;
+
+    /**
+     * Context lets components pass information deep down without explicitly
+     * passing props.
+     *
+     * Created from {@link createContext}
+     *
+     * @see {@link https://react.dev/learn/passing-data-deeply-with-context React Docs}
+     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/context/ React TypeScript Cheatsheet}
+     *
+     * @example
+     *
+     * ```tsx
+     * import { createContext } from 'react';
+     *
+     * const ThemeContext = createContext('light');
+     * ```
+     */
     interface Context<T> {
         Provider: Provider<T>;
         Consumer: Consumer<T>;
+        /**
+         * Used in debugging messages. You might want to set it
+         * explicitly if you want to display a different name for
+         * debugging purposes.
+         *
+         * @see {@link https://legacy.reactjs.org/docs/react-component.html#displayname Legacy React Docs}
+         */
         displayName?: string | undefined;
     }
+
+    /**
+     * Lets you create a {@link Context} that components can provide or read.
+     *
+     * @param defaultValue The value you want the context to have when there is no matching
+     * {@link Provider} in the tree above the component reading the context. This is meant
+     * as a "last resort" fallback.
+     *
+     * @see {@link https://react.dev/reference/react/createContext#reference React Docs}
+     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/context/ React TypeScript Cheatsheet}
+     *
+     * @example
+     *
+     * ```tsx
+     * import { createContext } from 'react';
+     *
+     * const ThemeContext = createContext('light');
+     * ```
+     */
     function createContext<T>(
-        // If you thought this should be optional, see
-        // https://github.com/DefinitelyTyped/DefinitelyTyped/pull/24509#issuecomment-382213106
         defaultValue: T,
     ): Context<T>;
 
@@ -438,9 +532,57 @@ declare namespace React {
         only<C>(children: C): C extends any[] ? never : C;
         toArray(children: ReactNode | ReactNode[]): Array<Exclude<ReactNode, boolean | null | undefined>>;
     };
+    /**
+     * Lets you group elements without a wrapper node.
+     *
+     * @see {@link https://react.dev/reference/react/Fragment React Docs}
+     *
+     * @example
+     *
+     * ```tsx
+     * import { Fragment } from 'react';
+     *
+     * <Fragment>
+     *   <td>Hello</td>
+     *   <td>World</td>
+     * </Fragment>
+     * ```
+     *
+     * @example
+     *
+     * ```tsx
+     * // Using the <></> shorthand syntax:
+     *
+     * <>
+     *   <td>Hello</td>
+     *   <td>World</td>
+     * </>
+     * ```
+     */
     const Fragment: ExoticComponent<{ children?: ReactNode | undefined }>;
+
+    /**
+     * Lets you find common bugs in your components early during development.
+     *
+     * @see {@link https://react.dev/reference/react/StrictMode React Docs}
+     *
+     * @example
+     *
+     * ```tsx
+     * import { StrictMode } from 'react';
+     *
+     * <StrictMode>
+     *   <App />
+     * </StrictMode>
+     * ```
+     */
     const StrictMode: ExoticComponent<{ children?: ReactNode | undefined }>;
 
+    /**
+     * The props accepted by {@link Suspense}.
+     *
+     * @see {@link https://react.dev/reference/react/Suspense React Docs}
+     */
     interface SuspenseProps {
         children?: ReactNode | undefined;
 
@@ -448,27 +590,105 @@ declare namespace React {
         fallback?: ReactNode;
     }
 
+    /**
+     * Lets you display a fallback until its children have finished loading.
+     *
+     * @see {@link https://react.dev/reference/react/Suspense React Docs}
+     *
+     * @example
+     *
+     * ```tsx
+     * import { Suspense } from 'react';
+     *
+     * <Suspense fallback={<Loading />}>
+     *   <ProfileDetails />
+     * </Suspense>
+     * ```
+     */
     const Suspense: ExoticComponent<SuspenseProps>;
     const version: string;
 
     /**
-     * @see {@link https://react.dev/reference/react/Profiler#onrender-callback Profiler API React Docs}
+     * The callback passed to {@link ProfilerProps.onRender}.
+     *
+     * @see {@link https://react.dev/reference/react/Profiler#onrender-callback React Docs}
      */
     type ProfilerOnRenderCallback = (
+        /**
+         * The string id prop of the {@link Profiler} tree that has just committed. This lets
+         * you identify which part of the tree was committed if you are using multiple
+         * profilers.
+         *
+         * @see {@link https://react.dev/reference/react/Profiler#onrender-callback React Docs}
+         */
         id: string,
+        /**
+         * This lets you know whether the tree has just been mounted for the first time
+         * or re-rendered due to a change in props, state, or hooks.
+         *
+         * @see {@link https://react.dev/reference/react/Profiler#onrender-callback React Docs}
+         */
         phase: "mount" | "update" | "nested-update",
+        /**
+         * The number of milliseconds spent rendering the {@link Profiler} and its descendants
+         * for the current update. This indicates how well the subtree makes use of
+         * memoization (e.g. {@link memo} and {@link useMemo}). Ideally this value should decrease
+         * significantly after the initial mount as many of the descendants will only need to
+         * re-render if their specific props change.
+         *
+         * @see {@link https://react.dev/reference/react/Profiler#onrender-callback React Docs}
+         */
         actualDuration: number,
+        /**
+         * The number of milliseconds estimating how much time it would take to re-render the entire
+         * {@link Profiler} subtree without any optimizations. It is calculated by summing up the most
+         * recent render durations of each component in the tree. This value estimates a worst-case
+         * cost of rendering (e.g. the initial mount or a tree with no memoization). Compare
+         * {@link actualDuration} against it to see if memoization is working.
+         *
+         * @see {@link https://react.dev/reference/react/Profiler#onrender-callback React Docs}
+         */
         baseDuration: number,
+        /**
+         * A numeric timestamp for when React began rendering the current update.
+         *
+         * @see {@link https://react.dev/reference/react/Profiler#onrender-callback React Docs}
+         */
         startTime: number,
+        /**
+         * A numeric timestamp for when React committed the current update. This value is shared
+         * between all profilers in a commit, enabling them to be grouped if desirable.
+         *
+         * @see {@link https://react.dev/reference/react/Profiler#onrender-callback React Docs}
+         */
         commitTime: number,
         interactions: Set<SchedulerInteraction>,
     ) => void;
+
+    /**
+     * The props accepted by {@link Profiler}.
+     *
+     * @see {@link https://react.dev/reference/react/Profiler React Docs}
+     */
     interface ProfilerProps {
         children?: ReactNode | undefined;
         id: string;
         onRender: ProfilerOnRenderCallback;
     }
 
+    /**
+     * Lets you measure rendering performance of a React tree programmatically.
+     *
+     * @see {@link https://react.dev/reference/react/Profiler#onrender-callback React Docs}
+     *
+     * @example
+     *
+     * ```tsx
+     * <Profiler id="App" onRender={onRender}>
+     *   <App />
+     * </Profiler>
+     * ```
+     */
     const Profiler: ExoticComponent<ProfilerProps>;
 
     //
@@ -553,6 +773,9 @@ declare namespace React {
 
     /**
      * @deprecated Use `ClassicComponent` from `create-react-class`
+     *
+     * @see {@link https://legacy.reactjs.org/docs/react-without-es6.html Legacy React Docs}
+     * @see {@link https://www.npmjs.com/package/create-react-class `create-react-class` on npm}
      */
     interface ClassicComponent<P = {}, S = {}> extends Component<P, S> {
         replaceState(nextState: S, callback?: () => void): void;
@@ -719,10 +942,14 @@ declare namespace React {
     type ForwardedRef<T> = ((instance: T | null) => void) | MutableRefObject<T | null> | null;
 
     /**
-     * The type of the function passed to {@link forwardRef}.
+     * The type of the function passed to {@link forwardRef}. This is considered different
+     * to a normal {@link FunctionComponent} because it receives an additional argument,
      *
-     * @typeparam props Props passed to the component, if any.
-     * @typeparam ref A ref forwarded to the component of type {@link ForwardedRef}.
+     * @param props Props passed to the component, if any.
+     * @param ref A ref forwarded to the component of type {@link ForwardedRef}.
+     *
+     * @typeparam T The type of the forwarded ref.
+     * @typeparam P The type of the props the component accepts.
      *
      * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/forward_and_create_ref/ React TypeScript Cheatsheet}
      * @see {@link forwardRef}
@@ -741,14 +968,14 @@ declare namespace React {
          */
         displayName?: string | undefined;
         /**
-         * defaultProps are not supported on components passed to forwardRef.
+         * defaultProps are not supported on render functions passed to forwardRef.
          *
          * @see {@link https://github.com/microsoft/TypeScript/issues/36826 linked GitHub issue} for context
          * @see {@link https://react.dev/reference/react/Component#static-defaultprops React Docs}
          */
         defaultProps?: never | undefined;
         /**
-         * propTypes are not supported on components passed to forwardRef.
+         * propTypes are not supported on render functions passed to forwardRef.
          *
          * @see {@link https://github.com/microsoft/TypeScript/issues/36826 linked GitHub issue} for context
          * @see {@link https://react.dev/reference/react/Component#static-proptypes React Docs}
@@ -1041,7 +1268,7 @@ declare namespace React {
     }
 
     /**
-     * Lets your component expose a DOM node to parent component
+     * Lets your component expose a DOM node to a parent component
      * using a ref.
      *
      * @see {@link https://react.dev/reference/react/forwardRef React Docs}
