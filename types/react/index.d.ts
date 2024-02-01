@@ -675,6 +675,7 @@ declare namespace React {
          * }
          * 
          * MyComponent.displayName = 'MyAwesomeComponent'
+         * ```
          */
         displayName?: string | undefined;
     }
