@@ -1,5 +1,6 @@
-import { enUS } from "date-fns/locale/en-US";
+import { MiddlewareReturn, MiddlewareState } from "@floating-ui/react";
 import { enGB } from "date-fns/locale/en-GB";
+import { enUS } from "date-fns/locale/en-US";
 import * as React from "react";
 import DatePicker, {
     CalendarContainer,
@@ -7,7 +8,6 @@ import DatePicker, {
     ReactDatePickerProps,
     registerLocale,
 } from "react-datepicker";
-import { MiddlewareReturn, MiddlewareState } from "@floating-ui/react";
 
 registerLocale("en-GB", enGB);
 
