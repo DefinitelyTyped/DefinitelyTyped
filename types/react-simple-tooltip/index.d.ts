@@ -1,6 +1,6 @@
 import * as React from "react"
 
-interface SimpleTooltipProps {
+interface SimpleTooltipProps extends React.PropsWithChildren<any> {
     arrow?: number; // 8
     background?: string; // "#000"
     border?: string; // "#000"
