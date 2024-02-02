@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from "react";
 
 interface SimpleTooltipProps extends React.PropsWithChildren<any> {
     arrow?: number; // 8
@@ -19,7 +19,7 @@ interface SimpleTooltipProps extends React.PropsWithChildren<any> {
 }
 
 declare class Tooltip extends React.Component<SimpleTooltipProps> {
-    static default: typeof Tooltip
+    static default: typeof Tooltip;
 }
 
-export = Tooltip
+export = Tooltip;
