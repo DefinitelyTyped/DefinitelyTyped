@@ -1,7 +1,12 @@
-import * as Popper from "@popperjs/core";
+import { Middleware, Placement, UseFloatingOptions } from "@floating-ui/react";
 import { Locale } from "date-fns";
 import * as React from "react";
-import { Modifier, StrictModifierNames } from "react-popper";
+
+interface Modifier<CustomModifierNames extends string> extends Middleware {
+    name: CustomModifierNames;
+}
+
+type PopperProps = Partial<Omit<UseFloatingOptions, "open" | "whileElementsMounted" | "placement" | "middleware">>;
 
 export interface CalendarContainerProps {
     className?: string | undefined;
@@ -136,9 +141,9 @@ export interface ReactDatePickerProps<
     placeholderText?: string | undefined;
     popperClassName?: string | undefined;
     popperContainer?(props: { children: React.ReactNode[] }): React.ReactNode;
-    popperModifiers?: ReadonlyArray<Modifier<StrictModifierNames | CustomModifierNames>> | undefined;
-    popperPlacement?: Popper.Placement | undefined;
-    popperProps?: {} | undefined;
+    popperModifiers?: ReadonlyArray<Modifier<CustomModifierNames>> | undefined;
+    popperPlacement?: Placement | undefined;
+    popperProps?: PopperProps | undefined;
     preventOpenOnFocus?: boolean | undefined;
     previousMonthAriaLabel?: string | undefined;
     previousMonthButtonLabel?: string | React.ReactNode | undefined;
