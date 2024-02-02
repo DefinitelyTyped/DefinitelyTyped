@@ -8,53 +8,17 @@ import * as CSS from "csstype";
 import * as PropTypes from "prop-types";
 import { Interaction as SchedulerInteraction } from "scheduler/tracing";
 
-/**
- * @alias {@link AnimationEvent}
- */
 type NativeAnimationEvent = AnimationEvent;
-/**
- * @alias {@link ClipboardEvent}
- */
 type NativeClipboardEvent = ClipboardEvent;
-/**
- * @alias {@link CompositionEvent}
- */
 type NativeCompositionEvent = CompositionEvent;
-/**
- * @alias {@link DragEvent}
- */
 type NativeDragEvent = DragEvent;
-/**
- * @alias {@link FocusEvent}
- */
 type NativeFocusEvent = FocusEvent;
-/**
- * @alias {@link KeyboardEvent}
- */
 type NativeKeyboardEvent = KeyboardEvent;
-/**
- * @alias {@link MouseEvent}
- */
 type NativeMouseEvent = MouseEvent;
-/**
- * @alias {@link TouchEvent}
- */
 type NativeTouchEvent = TouchEvent;
-/**
- * @alias {@link PointerEvent}
- */
 type NativePointerEvent = PointerEvent;
-/**
- * @alias {@link TransitionEvent}
- */
 type NativeTransitionEvent = TransitionEvent;
-/**
- * @alias {@link UIEvent}
- */
 type NativeUIEvent = UIEvent;
-/**
- * @alias {@link WheelEvent}
- */
 type NativeWheelEvent = WheelEvent;
 
 /**
@@ -113,9 +77,9 @@ declare namespace React {
      * // All components
      * type AllComponents = ElementType;
      * ```
-     * 
+     *
      * @example
-     * 
+     *
      * ```tsx
      * // All custom components which match `src`, and tags which
      * // match `src`, narrowed down to just `audio` and `embed`
@@ -131,7 +95,7 @@ declare namespace React {
      * a class component.
      *
      * @template P The props the component accepts.
-     * 
+     *
      * @see {@link ComponentClass}
      * @see {@link FunctionComponent}
      */
