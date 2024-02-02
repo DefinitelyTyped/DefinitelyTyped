@@ -73,7 +73,7 @@ declare const UNDEFINED_VOID_ONLY: unique symbol;
 /**
  * The function returned from an effect passed to {@link React.useEffect useEffect},
  * which can be used to clean up the effect when the component unmounts.
- * 
+ *
  * @see {@link https://react.dev/reference/react/useEffect React Docs}
  */
 type Destructor = () => void | { [UNDEFINED_VOID_ONLY]: never };
@@ -88,9 +88,42 @@ declare namespace React {
     // React Elements
     // ----------------------------------------------------------------------
 
+    /**
+     * Used to retrieve the possible components which accept a given set of props.
+     *
+     * Can be passed no type parameters to get a union of all possible components
+     * and tags.
+     *
+     * Is a superset of {@link ComponentType}.
+     *
+     * @template P The props to match against. If not passed, defaults to any.
+     * @template Tag An optional tag to match against. If not passed, defaults to all possible tags.
+     *
+     * @example
+     *
+     * ```tsx
+     * // All components and tags (img, embed etc.)
+     * // which accept `src`
+     * type SrcComponents = ElementType<{ src: any }>;
+     * ```
+     *
+     * @example
+     *
+     * ```tsx
+     * // All components
+     * type AllComponents = ElementType;
+     * ```
+     */
     type ElementType<P = any, Tag extends keyof JSX.IntrinsicElements = keyof JSX.IntrinsicElements> =
         | { [K in Tag]: P extends JSX.IntrinsicElements[K] ? K : never }[Tag]
         | ComponentType<P>;
+
+    /**
+     * Represents any user-defined component, either as a function component or
+     * a class component.
+     *
+     * @template P The props the component accepts.
+     */
     type ComponentType<P = {}> = ComponentClass<P> | FunctionComponent<P>;
 
     type JSXElementConstructor<P> =
@@ -98,7 +131,7 @@ declare namespace React {
             props: P,
             /**
              * @deprecated
-             * 
+             *
              * @see {@link https://legacy.reactjs.org/docs/legacy-context.html#referencing-context-in-stateless-function-components React Docs}
              */
             deprecatedLegacyContext?: any,
@@ -107,18 +140,65 @@ declare namespace React {
             props: P,
             /**
              * @deprecated
-             * 
+             *
              * @see {@link https://legacy.reactjs.org/docs/legacy-context.html#referencing-context-in-lifecycle-methods React Docs}
              */
             deprecatedLegacyContext?: any,
         ) => Component<any, any>);
 
+    /**
+     * A readonly ref container where {@link current} cannot be mutated.
+     *
+     * Created by {@link createRef}, or {@link useRef} when passed `null`.
+     *
+     * @template T The type of the ref's value.
+     *
+     * @example
+     *
+     * ```tsx
+     * const ref = createRef<HTMLDivElement>();
+     *
+     * ref.current = document.createElement('div'); // Error
+     * ```
+     */
     interface RefObject<T> {
         readonly current: T | null;
     }
-    // Bivariance hack for consistent unsoundness with RefObject
+
+    /**
+     * A callback fired whenever the ref's value changes.
+     *
+     * @template T The type of the ref's value.
+     *
+     * @see {@link https://react.dev/reference/react-dom/components/common#ref-callback React Docs}
+     *
+     * @example
+     *
+     * ```tsx
+     * <div ref={(node) => console.log(node)} />
+     * ```
+     */
     type RefCallback<T> = { bivarianceHack(instance: T | null): void }["bivarianceHack"];
+
+    /**
+     * A union type of all possible shapes for React refs.
+     *
+     * @see {@link RefCallback}
+     * @see {@link RefObject}
+     */
+
     type Ref<T> = RefCallback<T> | RefObject<T> | null;
+    /**
+     * A legacy implementation of refs where you can pass a string to a ref prop.
+     *
+     * @see {@link https://react.dev/reference/react/Component#refs React Docs}
+     *
+     * @example
+     *
+     * ```tsx
+     * <div ref="myRef" />
+     * ```
+     */
     type LegacyRef<T> = string | Ref<T>;
     /**
      * Gets the instance type for a React element. The instance will be different for various component types:
@@ -154,6 +234,11 @@ declare namespace React {
 
     type ComponentState = any;
 
+    /**
+     * A value which uniquely identifies a node among items in an array.
+     *
+     * @see {@link https://react.dev/learn/rendering-lists#keeping-list-items-in-order-with-key React Docs}
+     */
     type Key = string | number | bigint;
 
     /**
@@ -167,7 +252,7 @@ declare namespace React {
         /**
          * Allows getting a ref to the component instance.
          * Once the component unmounts, React will set `ref.current` to `null` (or call the ref with `null` if you passed a callback ref).
-         * @see https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom
+         * @see {@link https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom}
          */
         ref?: Ref<T> | undefined;
     }
@@ -175,7 +260,7 @@ declare namespace React {
         /**
          * Allows getting a ref to the component instance.
          * Once the component unmounts, React will set `ref.current` to `null` (or call the ref with `null` if you passed a callback ref).
-         * @see https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom
+         * @see {@link https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom}
          */
         ref?: LegacyRef<T> | undefined;
     }
@@ -774,7 +859,7 @@ declare namespace React {
          * }
          * ```
          *
-         * @see https://react.dev/reference/react/Component#static-contexttype
+         * @see {@link https://react.dev/reference/react/Component#static-contexttype}
          */
         static contextType?: Context<any> | undefined;
 
@@ -791,14 +876,14 @@ declare namespace React {
          * declare context: React.ContextType<typeof MyContext>
          * ```
          *
-         * @see https://react.dev/reference/react/Component#context
+         * @see {@link https://react.dev/reference/react/Component#context}
          */
         context: unknown;
 
         constructor(props: Readonly<P> | P);
         /**
          * @deprecated
-         * @see https://legacy.reactjs.org/docs/legacy-context.html
+         * @see {@link https://legacy.reactjs.org/docs/legacy-context.html}
          */
         constructor(props: P, context: any);
 
@@ -1200,8 +1285,8 @@ declare namespace React {
          * prevents this from being invoked.
          *
          * @deprecated 16.3, use componentDidMount or the constructor instead; will stop working in React 17
-         * @see https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#initializing-state
-         * @see https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path
+         * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#initializing-state}
+         * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
         componentWillMount?(): void;
         /**
@@ -1214,8 +1299,8 @@ declare namespace React {
          * prevents this from being invoked.
          *
          * @deprecated 16.3, use componentDidMount or the constructor instead
-         * @see https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#initializing-state
-         * @see https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path
+         * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#initializing-state}
+         * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
         UNSAFE_componentWillMount?(): void;
         /**
@@ -1229,8 +1314,8 @@ declare namespace React {
          * prevents this from being invoked.
          *
          * @deprecated 16.3, use static getDerivedStateFromProps instead; will stop working in React 17
-         * @see https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#updating-state-based-on-props
-         * @see https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path
+         * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#updating-state-based-on-props}
+         * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
         componentWillReceiveProps?(nextProps: Readonly<P>, nextContext: any): void;
         /**
@@ -1246,8 +1331,8 @@ declare namespace React {
          * prevents this from being invoked.
          *
          * @deprecated 16.3, use static getDerivedStateFromProps instead
-         * @see https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#updating-state-based-on-props
-         * @see https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path
+         * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#updating-state-based-on-props}
+         * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
         UNSAFE_componentWillReceiveProps?(nextProps: Readonly<P>, nextContext: any): void;
         /**
@@ -1259,8 +1344,8 @@ declare namespace React {
          * prevents this from being invoked.
          *
          * @deprecated 16.3, use getSnapshotBeforeUpdate instead; will stop working in React 17
-         * @see https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#reading-dom-properties-before-an-update
-         * @see https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path
+         * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#reading-dom-properties-before-an-update}
+         * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
         componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): void;
         /**
@@ -1274,8 +1359,8 @@ declare namespace React {
          * prevents this from being invoked.
          *
          * @deprecated 16.3, use getSnapshotBeforeUpdate instead
-         * @see https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#reading-dom-properties-before-an-update
-         * @see https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path
+         * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#reading-dom-properties-before-an-update}
+         * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
         UNSAFE_componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): void;
     }
@@ -1544,14 +1629,14 @@ declare namespace React {
      * context value, as given by the nearest context provider for the given context.
      *
      * @version 16.8.0
-     * @see https://react.dev/reference/react/useContext
+     * @see {@link https://react.dev/reference/react/useContext}
      */
     function useContext<T>(context: Context<T> /*, (not public API) observedBits?: number|boolean */): T;
     /**
      * Returns a stateful value, and a function to update it.
      *
      * @version 16.8.0
-     * @see https://react.dev/reference/react/useState
+     * @see {@link https://react.dev/reference/react/useState}
      */
     function useState<S>(initialState: S | (() => S)): [S, Dispatch<SetStateAction<S>>];
     // convenience overload when first argument is omitted
@@ -1559,7 +1644,7 @@ declare namespace React {
      * Returns a stateful value, and a function to update it.
      *
      * @version 16.8.0
-     * @see https://react.dev/reference/react/useState
+     * @see {@link https://react.dev/reference/react/useState}
      */
     function useState<S = undefined>(): [S | undefined, Dispatch<SetStateAction<S | undefined>>];
     /**
@@ -1570,7 +1655,7 @@ declare namespace React {
      * updates because you can pass `dispatch` down instead of callbacks.
      *
      * @version 16.8.0
-     * @see https://react.dev/reference/react/useReducer
+     * @see {@link https://react.dev/reference/react/useReducer}
      */
     // overload where dispatch could accept 0 arguments.
     function useReducer<R extends ReducerWithoutAction<any>, I>(
@@ -1586,7 +1671,7 @@ declare namespace React {
      * updates because you can pass `dispatch` down instead of callbacks.
      *
      * @version 16.8.0
-     * @see https://react.dev/reference/react/useReducer
+     * @see {@link https://react.dev/reference/react/useReducer}
      */
     // overload where dispatch could accept 0 arguments.
     function useReducer<R extends ReducerWithoutAction<any>>(
@@ -1602,7 +1687,7 @@ declare namespace React {
      * updates because you can pass `dispatch` down instead of callbacks.
      *
      * @version 16.8.0
-     * @see https://react.dev/reference/react/useReducer
+     * @see {@link https://react.dev/reference/react/useReducer}
      */
     // overload where "I" may be a subset of ReducerState<R>; used to provide autocompletion.
     // If "I" matches ReducerState<R> exactly then the last overload will allow initializer to be omitted.
@@ -1620,7 +1705,7 @@ declare namespace React {
      * updates because you can pass `dispatch` down instead of callbacks.
      *
      * @version 16.8.0
-     * @see https://react.dev/reference/react/useReducer
+     * @see {@link https://react.dev/reference/react/useReducer}
      */
     // overload for free "I"; all goes as long as initializer converts it into "ReducerState<R>".
     function useReducer<R extends Reducer<any, any>, I>(
@@ -1636,7 +1721,7 @@ declare namespace React {
      * updates because you can pass `dispatch` down instead of callbacks.
      *
      * @version 16.8.0
-     * @see https://react.dev/reference/react/useReducer
+     * @see {@link https://react.dev/reference/react/useReducer}
      */
 
     // I'm not sure if I keep this 2-ary or if I make it (2,3)-ary; it's currently (2,3)-ary.
@@ -1661,7 +1746,7 @@ declare namespace React {
      * value around similar to how you’d use instance fields in classes.
      *
      * @version 16.8.0
-     * @see https://react.dev/reference/react/useRef
+     * @see {@link https://react.dev/reference/react/useRef}
      */
     function useRef<T>(initialValue: T): MutableRefObject<T>;
     // convenience overload for refs given as a ref prop as they typically start with a null value
@@ -1676,7 +1761,7 @@ declare namespace React {
      * of the generic argument.
      *
      * @version 16.8.0
-     * @see https://react.dev/reference/react/useRef
+     * @see {@link https://react.dev/reference/react/useRef}
      */
     function useRef<T>(initialValue: T | null): RefObject<T>;
     // convenience overload for potentially undefined initialValue / call with 0 arguments
@@ -1689,7 +1774,7 @@ declare namespace React {
      * value around similar to how you’d use instance fields in classes.
      *
      * @version 16.8.0
-     * @see https://react.dev/reference/react/useRef
+     * @see {@link https://react.dev/reference/react/useRef}
      */
     function useRef<T = undefined>(): MutableRefObject<T | undefined>;
     /**
@@ -1703,7 +1788,7 @@ declare namespace React {
      * `componentDidMount` and `componentDidUpdate`.
      *
      * @version 16.8.0
-     * @see https://react.dev/reference/react/useLayoutEffect
+     * @see {@link https://react.dev/reference/react/useLayoutEffect}
      */
     function useLayoutEffect(effect: EffectCallback, deps?: DependencyList): void;
     /**
@@ -1713,7 +1798,7 @@ declare namespace React {
      * @param deps If present, effect will only activate if the values in the list change.
      *
      * @version 16.8.0
-     * @see https://react.dev/reference/react/useEffect
+     * @see {@link https://react.dev/reference/react/useEffect}
      */
     function useEffect(effect: EffectCallback, deps?: DependencyList): void;
     // NOTE: this does not accept strings, but this will have to be fixed by removing strings from type Ref<T>
@@ -1724,7 +1809,7 @@ declare namespace React {
      * `useImperativeHandle` should be used with `React.forwardRef`.
      *
      * @version 16.8.0
-     * @see https://react.dev/reference/react/useImperativeHandle
+     * @see {@link https://react.dev/reference/react/useImperativeHandle}
      */
     function useImperativeHandle<T, R extends T>(ref: Ref<T> | undefined, init: () => R, deps?: DependencyList): void;
     // I made 'inputs' required here and in useMemo as there's no point to memoizing without the memoization key
@@ -1734,7 +1819,7 @@ declare namespace React {
      * has changed.
      *
      * @version 16.8.0
-     * @see https://react.dev/reference/react/useCallback
+     * @see {@link https://react.dev/reference/react/useCallback}
      */
     // A specific function type would not trigger implicit any.
     // See https://github.com/DefinitelyTyped/DefinitelyTyped/issues/52873#issuecomment-845806435 for a comparison between `Function` and more specific types.
@@ -1744,7 +1829,7 @@ declare namespace React {
      * `useMemo` will only recompute the memoized value when one of the `deps` has changed.
      *
      * @version 16.8.0
-     * @see https://react.dev/reference/react/useMemo
+     * @see {@link https://react.dev/reference/react/useMemo}
      */
     // allow undefined, but don't make it optional as that is very likely a mistake
     function useMemo<T>(factory: () => T, deps: DependencyList): T;
@@ -1755,7 +1840,7 @@ declare namespace React {
      * It’s most valuable for custom hooks that are part of shared libraries.
      *
      * @version 16.8.0
-     * @see https://react.dev/reference/react/useDebugValue
+     * @see {@link https://react.dev/reference/react/useDebugValue}
      */
     // the name of the custom hook is itself derived from the function name at runtime:
     // it's just the function name without the "use" prefix.
@@ -1785,7 +1870,7 @@ declare namespace React {
      *
      * @param value The value that is going to be deferred
      *
-     * @see https://react.dev/reference/react/useDeferredValue
+     * @see {@link https://react.dev/reference/react/useDeferredValue}
      */
     export function useDeferredValue<T>(value: T): T;
 
@@ -1802,7 +1887,7 @@ declare namespace React {
      *
      * **If some state update causes a component to suspend, that state update should be wrapped in a transition.**
      *
-     * @see https://react.dev/reference/react/useTransition
+     * @see {@link https://react.dev/reference/react/useTransition}
      */
     export function useTransition(): [boolean, TransitionStartFunction];
 
@@ -1819,7 +1904,7 @@ declare namespace React {
      * @param effect Imperative function that can return a cleanup function
      * @param deps If present, effect will only activate if the values in the list change.
      *
-     * @see https://github.com/facebook/react/pull/21913
+     * @see {@link https://github.com/facebook/react/pull/21913}
      */
     export function useInsertionEffect(effect: EffectCallback, deps?: DependencyList): void;
 
@@ -1827,7 +1912,7 @@ declare namespace React {
      * @param subscribe
      * @param getSnapshot
      *
-     * @see https://github.com/reactwg/react-18/discussions/86
+     * @see {@link https://github.com/reactwg/react-18/discussions/86}
      */
     // keep in sync with `useSyncExternalStore` from `use-sync-external-store`
     export function useSyncExternalStore<Snapshot>(
@@ -2620,12 +2705,12 @@ declare namespace React {
         // Living Standard
         /**
          * Hints at the type of data that might be entered by the user while editing the element or its contents
-         * @see https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute
+         * @see {@link https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute}
          */
         inputMode?: "none" | "text" | "tel" | "url" | "email" | "numeric" | "decimal" | "search" | undefined;
         /**
          * Specify that a standard HTML element should behave like a defined custom built-in element
-         * @see https://html.spec.whatwg.org/multipage/custom-elements.html#attr-is
+         * @see {@link https://html.spec.whatwg.org/multipage/custom-elements.html#attr-is}
          */
         is?: string | undefined;
     }
