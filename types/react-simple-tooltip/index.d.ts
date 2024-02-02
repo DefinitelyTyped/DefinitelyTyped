@@ -1,4 +1,6 @@
-export interface SimpleTooltipProps {
+import * as React from "react"
+
+interface SimpleTooltipProps {
     arrow?: number; // 8
     background?: string; // "#000"
     border?: string; // "#000"
@@ -16,5 +18,8 @@ export interface SimpleTooltipProps {
     zIndex?: number; // 	1
 }
 
-declare const _default: React.FunctionComponent<SimpleTooltipProps>;
-export default _default;
+declare class Tooltip extends React.Component<SimpleTooltipProps> {
+    static default: typeof Tooltip
+}
+
+export = Tooltip
