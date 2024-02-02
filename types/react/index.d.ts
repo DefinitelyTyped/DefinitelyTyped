@@ -97,7 +97,7 @@ declare namespace React {
      * Is a superset of {@link ComponentType}.
      *
      * @template P The props to match against. If not passed, defaults to any.
-     * @template Tag An optional tag to match against. If not passed, defaults to all possible tags.
+     * @template Tag An optional tag to match against. If not passed, attempts to match against all possible tags.
      *
      * @example
      *
@@ -112,6 +112,14 @@ declare namespace React {
      * ```tsx
      * // All components
      * type AllComponents = ElementType;
+     * ```
+     * 
+     * @example
+     * 
+     * ```tsx
+     * // All custom components which match `src`, and tags which
+     * // match `src`, narrowed down to just `audio` and `embed`
+     * type SrcComponents = ElementType<{ src: any }, 'audio' | 'embed'>;
      * ```
      */
     type ElementType<P = any, Tag extends keyof JSX.IntrinsicElements = keyof JSX.IntrinsicElements> =
