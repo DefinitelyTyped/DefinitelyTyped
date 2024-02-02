@@ -123,6 +123,9 @@ declare namespace React {
      * a class component.
      *
      * @template P The props the component accepts.
+     * 
+     * @see {@link ComponentClass}
+     * @see {@link FunctionComponent}
      */
     type ComponentType<P = {}> = ComponentClass<P> | FunctionComponent<P>;
 
