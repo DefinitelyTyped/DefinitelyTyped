@@ -1,11 +1,10 @@
 /// <reference types="node" />
 
 type JsonPrimitive = string | number | boolean | null;
-type JsonArray = JsonValue[];
+type JsonArray = SubEncoder.JsonValue[];
 interface JsonObject {
-    [key: string]: JsonValue | undefined;
+    [key: string]: undefined | SubEncoder.JsonValue;
 }
-type JsonValue = JsonPrimitive | JsonArray | JsonObject;
 
 interface Encoding<TInput, TOutput = TInput> {
     input: TInput;
@@ -17,8 +16,8 @@ interface EncodingLookup {
     base64: Encoding<string>;
     binary: Encoding<string | Buffer, Buffer>;
     hex: Encoding<string>;
-    json: Encoding<JsonValue>;
-    ndjson: Encoding<JsonValue>;
+    json: Encoding<SubEncoder.JsonValue>;
+    ndjson: Encoding<SubEncoder.JsonValue>;
     ucs2: Encoding<string>;
     "utf-8": Encoding<string>;
     utf16le: Encoding<string>;
@@ -41,6 +40,10 @@ declare class SubEncoder<T extends keyof EncodingLookup = "binary"> {
      * Decode a key.
      */
     decode(buf: Buffer): EncodingLookup[T]["output"];
+}
+
+declare namespace SubEncoder {
+    type JsonValue = JsonPrimitive | JsonArray | JsonObject;
 }
 
 export = SubEncoder;

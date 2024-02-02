@@ -1,6 +1,7 @@
 /// <reference types="node" />
 
 import SubEncoder = require("sub-encoder");
+import type { JsonValue } from "sub-encoder";
 
 {
     const enc = new SubEncoder();
@@ -46,10 +47,3 @@ import SubEncoder = require("sub-encoder");
         enc.decode(Buffer.alloc(0)); // $ExpectType JsonValue
     }
 }
-
-type JsonPrimitive = string | number | boolean | null;
-type JsonArray = JsonValue[];
-interface JsonObject {
-    [key: string]: JsonValue | undefined;
-}
-type JsonValue = JsonPrimitive | JsonArray | JsonObject;
