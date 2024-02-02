@@ -10,6 +10,7 @@ on:
   schedule:
     # 12PM UTC -> 4AM Pacific
     - cron: '0 12 * * *'
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -42,8 +43,12 @@ jobs:
 
       - id: matrix
         run: |
-          TEST_COUNT=$(pnpm ls --depth -1 --parseable --filter '...@types/**[HEAD^1]' | wc -)
-          MATRIX=$(node ./scripts/get-ci-matrix $TEST_COUNT)
+          if [ "${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}" == "true" ]; then
+            TESTS=all
+          else
+            TESTS=$(pnpm ls --depth -1 --parseable --filter '...@types/**[HEAD^1]' | wc -)
+          fi
+          MATRIX=$(node ./scripts/get-ci-matrix $TESTS)
           echo $MATRIX
           echo "matrix=$MATRIX" >> "$GITHUB_OUTPUT"
 
@@ -90,19 +95,19 @@ jobs:
 
       - run: ./scripts/pnpm-install.sh
         name: pnpm install (filtered)
-        if: ${{ github.event_name != 'schedule' }}
+        if: ${{ !(github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') }}
 
       - run: pnpm install
         name: pnpm install
-        if: ${{ github.event_name == 'schedule' }}
+        if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
 
       - run: pnpm ls
 
-      - run: pnpm run test-all --shardCount ${{ matrix.shardCount }} --shardId ${{ matrix.shardId }}
-        if: ${{ github.event_name != 'schedule' }}
+      - run: pnpm run test-all --diffBase HEAD^1 --shardCount ${{ matrix.shardCount }} --shardId ${{ matrix.shardId }}
+        if: ${{ !(github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') }}
 
       - run: pnpm dtslint-runner --path . --selection all --onlyTestTsNext --shardCount ${{ matrix.shardCount }} --shardId ${{ matrix.shardId }}
-        if: ${{ github.event_name == 'schedule' }}
+        if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
 
       - name: Get suggestions dir
         id: suggestions-dir
@@ -112,7 +117,7 @@ jobs:
       - name: Upload suggestions
         uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
         with:
-          name: suggestions_${{ matrix.id }}_${{ matrix.shardCount }}
+          name: suggestions_${{ matrix.shardId }}_${{ matrix.shardCount }}
           if-no-files-found: ignore
           path: ${{ steps.suggestions-dir.outputs.path }}
           retention-days: 1

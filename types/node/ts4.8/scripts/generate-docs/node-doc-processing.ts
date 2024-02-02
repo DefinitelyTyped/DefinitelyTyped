@@ -134,6 +134,17 @@ function fixupModuleStructure(node: DocRoot): void {
         node.modules.find(({ name }) => name === oldName)!.name = newName;
     }
 
+    function renameClass(module: ModuleDocNode | DocRoot, oldName: string, newName: string): void {
+        const moduleClass = getClass(module, oldName);
+        moduleClass.name = newName;
+        moduleClass.methods?.forEach((method) => {
+            method.desc = method.desc?.replaceAll(oldName, newName);
+        });
+        moduleClass.properties?.forEach((property) => {
+            property.desc = property.desc?.replaceAll(oldName, newName);
+        });
+    }
+
     function unnestSubmodule(modName: string, subs: string[][], allowMisc = false): ModuleDocNode {
         const module = getModule(node, modName);
         module.methods ??= [];
@@ -175,6 +186,21 @@ function fixupModuleStructure(node: DocRoot): void {
         a.properties = a.properties.concat(b.properties ?? []);
     }
 
+    function mergeClasses(module: ModuleDocNode | DocRoot, target: string, other: string): void {
+        const a = getClass(module, target);
+        const b = getClass(module, other);
+        a.methods ??= [];
+        a.methods = a.methods.concat(b.methods ?? []);
+        a.methods.forEach((method) => {
+            method.desc = method.desc?.replaceAll(other, target);
+        });
+        a.properties ??= [];
+        a.properties = a.properties.concat(b.properties ?? []);
+        a.properties.forEach((property) => {
+            property.desc = property.desc?.replaceAll(other, target);
+        });
+    }
+
     // un-nest dgram module
     unnestSubmodule("dgram", [["`node:dgram`_module_functions"]]);
 
@@ -184,6 +210,7 @@ function fixupModuleStructure(node: DocRoot): void {
     // yet another rename
     renameModule("performance_measurement_apis", "perf_hooks");
     renameModule("http/2", "http2");
+    renameModule("test_runner", "node:test");
     renameModule("tls_(ssl)", "tls");
     renameModule("webassembly_system_interface_(wasi)", "wasi");
     unnestModule(["fs", "promises_api"], "fs/promises");
@@ -259,6 +286,8 @@ function fixupModuleStructure(node: DocRoot): void {
     eventEmitterClass.classMethods = eventsModule.methods;
 
     unnestModule(["timers", "timers_promises_api"], "timers/promises");
+    unnestSubmodule("timers", [["scheduling_timers"], ["cancelling_timers"]]);
+
     unnestModule(["dns", "dns_promises_api"], "dns/promises");
     // unnestModule(['stream', 'types_of_streams', 'streams_promises_api'], 'stream/promises');
     unnestSubmodule("stream", [
@@ -267,6 +296,22 @@ function fixupModuleStructure(node: DocRoot): void {
         ["API for stream consumers", "duplex_and_transform_streams"],
         ["API for stream implementers", "implementing_a_transform_stream"],
     ], true);
+
+    const dnsPromises = getModule(node, "dns/promises");
+    renameClass(dnsPromises, "dnsPromises.Resolver", "Resolver");
+
+    const fs = getModule(node, "fs");
+    renameClass(fs, "fs.StatFs", "StatsFs");
+
+    unnestSubmodule("readline", [["callback_api"]]);
+    const readline = getModule(node, "readline");
+    mergeClasses(readline, "readline.Interface", "InterfaceConstructor");
+    renameClass(readline, "readline.Interface", "Interface");
+
+    unnestModule(["readline", "promises_api"], "readline/promises");
+    const readlinePromises = getModule(node, "readline/promises");
+    renameClass(readlinePromises, "readlinePromises.Interface", "Interface");
+    renameClass(readlinePromises, "readlinePromises.Readline", "Readline");
 
     // `process` is not really a class or interface but a bunch of exports in global, we declare it as an interface in types though
     const process = node.globals.find(({ name }) => name === "Process");
