@@ -1831,6 +1831,11 @@ declare namespace React {
      *
      * @see https://reactjs.org/blog/2019/02/06/react-v16.8.0.html#testing-hooks
      */
+    // NOTES
+    // - the order of these signatures matters - typescript will check the signatures in source order.
+    //   If the `() => VoidOrUndefinedOnly` signature is first, it'll erroneously match a Promise returning function for users with
+    //   `strictNullChecks: false`.
+    // - VoidOrUndefinedOnly is there to forbid any non-void return values for users with `strictNullChecks: true`
     // While act does always return Thenable, if a void function is passed, we pretend the return value is also void to not trigger dangling Promise lint rules.
     export function act(callback: () => VoidOrUndefinedOnly): void;
     export function act<T>(callback: () => T | Promise<T>): Promise<T>;
