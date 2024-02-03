@@ -184,17 +184,17 @@ declare namespace React {
 
     /**
      * Retrieves the type of the 'ref' prop for a given component type or tag name.
-     * 
+     *
      * @template C The component type.
-     * 
+     *
      * @example
-     * 
+     *
      * ```tsx
      * type MyComponentRef = React.ElementRef<typeof MyComponent>;
      * ```
-     * 
+     *
      * @example
-     * 
+     *
      * ```tsx
      * type DivRef = React.ElementRef<'div'>;
      * ```
@@ -237,7 +237,7 @@ declare namespace React {
          * Allows getting a ref to the component instance.
          * Once the component unmounts, React will set `ref.current` to `null`
          * (or call the ref with `null` if you passed a callback ref).
-         * 
+         *
          * @see {@link https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom React Docs}
          */
         ref?: Ref<T> | undefined;
@@ -251,7 +251,7 @@ declare namespace React {
          * Allows getting a ref to the component instance.
          * Once the component unmounts, React will set `ref.current` to `null`
          * (or call the ref with `null` if you passed a callback ref).
-         * 
+         *
          * @see {@link https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom React Docs}
          */
         ref?: LegacyRef<T> | undefined;
@@ -370,7 +370,7 @@ declare namespace React {
 
     /**
      * @internal
-     * 
+     *
      * Different release channels declare additional types of ReactNode this particular release channel accepts.
      * App or library types should never augment this interface.
      */
@@ -378,28 +378,28 @@ declare namespace React {
 
     /**
      * Represents all of the things React can render.
-     * 
+     *
      * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/react-types/reactnode/ React TypeScript Cheatsheet}
-     * 
+     *
      * @example
-     * 
+     *
      * ```tsx
      * // Typing children
      * type Props = { children: ReactNode }
-     * 
+     *
      * const Component = ({ children }: Props) => <div>{children}</div>
-     * 
+     *
      * <Component>hello</Component>
      * ```
-     * 
+     *
      * @example
-     * 
+     *
      * ```tsx
      * // Typing a custom element
      * type Props = { customElement: ReactNode }
-     * 
+     *
      * const Component = ({ customElement }: Props) => <div>{customElement}</div>
-     * 
+     *
      * <Component customElement={<div>hello</div>} />
      * ```
      */
@@ -524,7 +524,7 @@ declare namespace React {
 
     /**
      * Describes the props accepted by a Context {@link Provider}.
-     * 
+     *
      * @template T The type of the value the context provides.
      */
     interface ProviderProps<T> {
@@ -534,7 +534,7 @@ declare namespace React {
 
     /**
      * Describes the props accepted by a Context {@link Consumer}.
-     * 
+     *
      * @template T The type of the value the context provides.
      */
     interface ConsumerProps<T> {
@@ -937,7 +937,7 @@ declare namespace React {
         state: Readonly<S>;
         /**
          * @deprecated
-         * 
+         *
          * @see {@link https://legacy.reactjs.org/docs/refs-and-the-dom.html#legacy-api-string-refs Legacy React Docs}
          */
         refs: {
@@ -1410,7 +1410,7 @@ declare namespace React {
 
     /**
      * @deprecated
-     * 
+     *
      * @see {@link https://legacy.reactjs.org/blog/2016/07/13/mixins-considered-harmful.html Mixins Considered Harmful}
      */
     interface Mixin<P, S> extends ComponentLifecycle<P, S> {
@@ -1486,7 +1486,7 @@ declare namespace React {
 
     /**
      * Omits the 'ref' attribute from the given props object.
-     * 
+     *
      * @template P The props object type.
      */
     type PropsWithoutRef<P> =
