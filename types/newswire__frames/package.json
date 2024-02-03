@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/newswire__frames",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/rdmurphy/frames#readme"
+    ],
+    "devDependencies": {
+        "@types/newswire__frames": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Vincent",
+            "githubUsername": "DefinitelyTyped"
+        }
+    ]
+}
