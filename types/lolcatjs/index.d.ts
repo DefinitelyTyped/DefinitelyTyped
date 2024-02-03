@@ -2,22 +2,26 @@
  *~ loaded outside a module loader environment, declare that global here.
  *~ Otherwise, delete this declaration.
  */
-export as namespace myLib;
+/*~ export as namespace myLib; */
 
 /*~ If this module has methods, declare them as functions like so.
  */
-export function myMethod(a: string): string;
+export function rainbow(freq: number, i: number): {red: number, green: number, blue: number};
 export function myOtherMethod(a: number): number;
 
 /*~ You can declare types that are available via importing the module */
-export interface someType {
-  name: string;
-  length: number;
-  extras?: string[];
+export interface options {
+  animate: boolean;
+  duration: number;
+  seed: number;
+  speed: number;
+  spread: number;
+  freq: number;
+  debug: boolean;
 }
 
 /*~ You can declare properties of the module using const, let, or var */
-export const myField: number;
+export const sleep: number | null;
 
 /*~ If there are types, properties, or methods inside dotted names
  *~ of the module, declare them inside a 'namespace'.
