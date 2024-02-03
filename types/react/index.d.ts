@@ -91,8 +91,11 @@ declare namespace React {
         | ComponentType<P>;
 
     /**
-     * Represents any user-defined component, either as a function component or
-     * a class component.
+     * Represents any user-defined component, either as a function or a class.
+     * 
+     * Similar to {@link JSXElementConstructor}, but with extra properties like
+     * {@link FunctionComponent.defaultProps defaultProps } and 
+     * {@link ComponentClass.contextTypes contextTypes}.
      *
      * @template P The props the component accepts.
      *
@@ -102,7 +105,13 @@ declare namespace React {
     type ComponentType<P = {}> = ComponentClass<P> | FunctionComponent<P>;
 
     /**
-     * @internal
+     * Represents any user-defined component, either as a function or a class.
+     * 
+     * Similar to {@link ComponentType}, but without extra properties like
+     * {@link FunctionComponent.defaultProps defaultProps } and 
+     * {@link ComponentClass.contextTypes contextTypes}.
+     * 
+     * @template P The props the component accepts.
      */
     type JSXElementConstructor<P> =
         | ((
