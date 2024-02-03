@@ -239,7 +239,7 @@ interface WebApp {
      * popup is closed and the first argument will be a boolean indicating whether the user
      * pressed the 'OK' button.
      */
-    showConfirm(message: string, callback?: (ok?: boolean) => void): void;
+    showConfirm(message: string, callback?: (ok: boolean) => void): void;
     /**
      * A method that shows a native popup for scanning a QR code described by the params argument of the type ScanQrPopupParams.
      * The Web App will receive the event qrTextReceived every time the scanner catches a code with text data.
