@@ -92,9 +92,9 @@ declare namespace React {
 
     /**
      * Represents any user-defined component, either as a function or a class.
-     * 
+     *
      * Similar to {@link JSXElementConstructor}, but with extra properties like
-     * {@link FunctionComponent.defaultProps defaultProps } and 
+     * {@link FunctionComponent.defaultProps defaultProps } and
      * {@link ComponentClass.contextTypes contextTypes}.
      *
      * @template P The props the component accepts.
@@ -106,11 +106,11 @@ declare namespace React {
 
     /**
      * Represents any user-defined component, either as a function or a class.
-     * 
+     *
      * Similar to {@link ComponentType}, but without extra properties like
-     * {@link FunctionComponent.defaultProps defaultProps } and 
+     * {@link FunctionComponent.defaultProps defaultProps } and
      * {@link ComponentClass.contextTypes contextTypes}.
-     * 
+     *
      * @template P The props the component accepts.
      */
     type JSXElementConstructor<P> =
@@ -223,9 +223,6 @@ declare namespace React {
             : never
             : never;
 
-    /**
-     * @internal
-     */
     type ComponentState = any;
 
     /**
@@ -375,8 +372,6 @@ declare namespace React {
     type ReactFragment = Iterable<ReactNode>;
 
     /**
-     * @internal
-     *
      * Different release channels declare additional types of ReactNode this particular release channel accepts.
      * App or library types should never augment this interface.
      */
@@ -873,9 +868,6 @@ declare namespace React {
     // Component API
     // ----------------------------------------------------------------------
 
-    /**
-     * @internal
-     */
     type ReactInstance = Component<any> | Element;
 
     // Base component for plain JS classes
