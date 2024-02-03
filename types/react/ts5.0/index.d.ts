@@ -74,7 +74,7 @@ declare namespace React {
              * @see {@link https://legacy.reactjs.org/docs/legacy-context.html#referencing-context-in-stateless-function-components React Docs}
              */
             deprecatedLegacyContext?: any,
-        ) => ReactNode)
+        ) => ReactElement<any, any> | null)
         | (new(
             props: P,
             /**
