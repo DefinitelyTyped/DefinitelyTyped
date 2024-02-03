@@ -10,14 +10,16 @@
 /**
  * Takes a frequency and an index and returns an RGB color.
  * @param freq 
- * @param i 
+ * @param i
+ * @returns An object representing an RGB color.
  */
 export function rainbow(freq: number, i: number): Rgb;
 
 /**
  * Takes a character and an RGB color and writes it to the stdout.
  * @param char 
- * @param colors 
+ * @param colors
+ * @returns void
  */
 export function colorize(char: string, colors: Rgb): void;
 
