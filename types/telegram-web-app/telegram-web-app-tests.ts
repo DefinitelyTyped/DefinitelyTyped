@@ -69,3 +69,5 @@ app.requestWriteAccess(success => {
 });
 
 app.onEvent("writeAccessRequested", ({ status }) => {});
+
+app.SettingsButton.show();
