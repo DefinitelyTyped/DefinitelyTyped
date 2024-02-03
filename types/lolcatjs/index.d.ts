@@ -6,7 +6,19 @@
 
 /*~ If this module has methods, declare them as functions like so.
  */
+
+/**
+ * Takes a frequency and an index and returns an RGB color.
+ * @param freq 
+ * @param i 
+ */
 export function rainbow(freq: number, i: number): Rgb;
+
+/**
+ * Takes a character and an RGB color and writes it to the stdout.
+ * @param char 
+ * @param colors 
+ */
 export function colorize(char: string, colors: Rgb): void;
 
 /*~ You can declare types that are available via importing the module */
