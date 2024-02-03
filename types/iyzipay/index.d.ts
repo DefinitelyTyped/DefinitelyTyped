@@ -1573,19 +1573,19 @@ declare class Iyzipay {
 }
 
 declare namespace Iyzipay {
-    const Locale: Ilocale;
-    const PaymentGroup: IpaymentGroup;
-    const BasketItemType: IbasketItemType;
-    const PaymentChannel: IpaymentChannel;
-    const SubMerchantType: IsubMerchantType;
-    const Currency: Icurrency;
-    const ApmType: IapmType;
-    const RefundReason: IrefundReason;
-    const PlanPaymentType: IplanPaymentType;
-    const SubscriptionPricingPlanInterval: IsubscriptionPricingPlanInterval;
-    const SubscriptionUpgradePeriod: IsubscriptionUpgradePeriod;
-    const SubscriptionStatus: IsubscriptionStatus;
-    const SubscriptionInitialStatus: IsubscriptionInitialStatus;
+    const LOCALE: Ilocale;
+    const PAYMENT_GROUP: IpaymentGroup;
+    const BASKET_ITEM_TYPE: IbasketItemType;
+    const PAYMENT_CHANNEL: IpaymentChannel;
+    const SUB_MERCHANT_TYPE: IsubMerchantType;
+    const CURRENCY: Icurrency;
+    const APM_TYPE: IapmType;
+    const REFUND_REASON: IrefundReason;
+    const PLAN_PAYMENT_TYPE: IplanPaymentType;
+    const SUBSCRIPTION_PRICING_PLAN_INTERVAL: IsubscriptionPricingPlanInterval;
+    const SUBSCRIPTION_UPGRADE_PERIOD: IsubscriptionUpgradePeriod;
+    const SUBSCRIPTION_STATUS: IsubscriptionStatus;
+    const SUBSCRIPTION_INITIAL_STATUS: IsubscriptionInitialStatus;
 }
 
 export = Iyzipay;
