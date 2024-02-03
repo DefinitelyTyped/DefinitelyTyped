@@ -6,11 +6,11 @@
 
 /*~ If this module has methods, declare them as functions like so.
  */
-export function rainbow(freq: number, i: number): {red: number, green: number, blue: number};
-export function myOtherMethod(a: number): number;
+export function rainbow(freq: number, i: number): Rgb;
+export function colorize(char: string, colors: Rgb): void;
 
 /*~ You can declare types that are available via importing the module */
-export interface options {
+export interface Options {
   animate: boolean;
   duration: number;
   seed: number;
@@ -18,6 +18,12 @@ export interface options {
   spread: number;
   freq: number;
   debug: boolean;
+}
+
+export interface Rgb {
+  red: number;
+  green: number;
+  blue: number;
 }
 
 /*~ You can declare properties of the module using const, let, or var */
