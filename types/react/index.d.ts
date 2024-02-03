@@ -235,9 +235,6 @@ declare namespace React {
      */
     type Key = string | number | bigint;
 
-    /**
-     * @internal
-     */
     interface Attributes {
         key?: Key | null | undefined;
     }
