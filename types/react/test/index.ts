@@ -909,3 +909,27 @@ function propsInferenceHelpersTests() {
     // $ExpectType UnionProps & RefAttributes<HTMLDivElement>
     type UnionPropsForwardRefComponentPropsWithoutRef = React.ComponentProps<typeof UnionPropsForwardRefComponent>;
 }
+
+// act
+{
+    React.act(() => {});
+    {
+        const result = React.act(() => "value");
+        result.then(x => {});
+    }
+    {
+        // tslint:disable-next-line no-void-expression
+        const result = React.act(() => {});
+        // @ts-expect-error
+        result.then;
+    }
+    const asyncCallbacks = async () => {
+        await React.act(async () => {});
+        await React.act(async () => null);
+        await React.act(async () => "value");
+        {
+            const result = React.act(async () => {});
+            result.then(x => {});
+        }
+    };
+}
