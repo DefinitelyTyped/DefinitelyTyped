@@ -307,40 +307,40 @@ interface WebApp {
  */
 interface ThemeParams {
     /**
-     * Background color in the #RRGGBB format. Also available as the CSS variable
-     * var(--tg-theme-bg-color).
+     * Background color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-bg-color)`.
      */
-    bg_color: string;
+    bg_color?: string;
     /**
-     * Main text color in the #RRGGBB format. Also available as the CSS variable
-     * var(--tg-theme-text-color).
+     * Main text color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-text-color)`.
      */
-    text_color: string;
+    text_color?: string;
     /**
-     * Hint text color in the #RRGGBB format. Also available as the CSS variable
-     * var(--tg-theme-hint-color).
+     * Hint text color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-hint-color)`.
      */
-    hint_color: string;
+    hint_color?: string;
     /**
-     * Link color in the #RRGGBB format. Also available as the CSS variable
-     * var(--tg-theme-link-color).
+     * Link color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-link-color)`.
      */
-    link_color: string;
+    link_color?: string;
     /**
-     * Button color in the #RRGGBB format. Also available as the CSS variable
-     * var(--tg-theme-button-color).
+     * Button color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-button-color)`.
      */
-    button_color: string;
+    button_color?: string;
     /**
-     * Button text color in the #RRGGBB format. Also available as the CSS variable
-     * var(--tg-theme-button-text-color).
+     * Button text color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-button-text-color)`.
      */
-    button_text_color: string;
+    button_text_color?: string;
     /**
-     * Optional. Bot API 6.1+ Secondary background color in the #RRGGBB format.
-     * Also available as the CSS variable var(--tg-theme-secondary-bg-color).
+     * **Bot API 6.1+** Secondary background color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-secondary-bg-color)`.
      */
-    secondary_bg_color: string;
+    secondary_bg_color?: string;
     /**
      * **Bot API 7.0+** Header background color in the `#RRGGBB` format.
      * Also available as the CSS variable `var(--tg-theme-header-bg-color)`.
