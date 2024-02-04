@@ -1334,6 +1334,12 @@ declare namespace Reveal {
          */
         scrollProgress?: "auto" | boolean;
 
+        /** Viewport width that automatically activates scroll view
+         *
+         * @defaultValue `435`
+         */
+        scrollActivationWidth: number;
+
         /**
          * The maximum number of pages a single slide can expand onto when printing
          * to PDF, unlimited by default
