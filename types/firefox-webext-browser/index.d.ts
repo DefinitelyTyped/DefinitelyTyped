@@ -4314,7 +4314,7 @@ declare namespace browser.runtime {
     interface Port {
         name: string;
         disconnect: () => void;
-        postMessage: (message: object) => void;
+        postMessage: (message: any) => void;
         /** This property will **only** be present on ports passed to onConnect/onConnectExternal listeners. */
         sender?: MessageSender | undefined;
         error?: Error | undefined;
