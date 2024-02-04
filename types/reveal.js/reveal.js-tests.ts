@@ -310,7 +310,7 @@ deck.initialize({
     // - full:       Each slide is as tall as the viewport
     // - compact:    Slides are as small as possible, allowing multiple slides
     //               to be visible in parallel on tall devices
-    scrollLayout: 'full',
+    scrollLayout: "full",
 
     // Control how scroll snapping works in the scroll view.
     // - false:   	No snapping, scrolling is continuous
@@ -318,13 +318,13 @@ deck.initialize({
     // - mandatory:  Always snap to the closest slide
     //
     // Only applies to presentations in scroll view.
-    scrollSnap: 'mandatory',
+    scrollSnap: "mandatory",
 
     // Enables and configure the scroll view progress bar.
     // - 'auto':    Show the scrollbar while scrolling, hide while idle
     // - true:      Always show the scrollbar
     // - false:     Never show the scrollbar
-    scrollProgress: 'auto',
+    scrollProgress: "auto",
 
     // Automatically activate the scroll view when we the viewport falls
     // below the given width.

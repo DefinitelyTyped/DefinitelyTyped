@@ -1311,23 +1311,23 @@ declare namespace Reveal {
 
         /**
          * Use to initialize reveal.js with an alternate view
-         * 
+         *
          * @defaultValue `null`
          */
         view?: "print" | "scroll" | null;
-    
+
         /**  Height of each slide in the scroll view.
-         * 
+         *
          *  @defaultValue `full`
          */
         scrollLayout?: "full" | "compact";
-    
+
         /** Controls how scroll snapping works in the scroll view
-         * 
+         *
          * @defaultValue `mandatory`
          */
         scrollSnap?: false | "proximity" | "mandatory";
-    
+
         /** Enable and configure the scroll view progress bar.
          *
          * @defaultValue `auto`
