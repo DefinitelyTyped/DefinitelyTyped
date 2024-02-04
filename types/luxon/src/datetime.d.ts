@@ -1024,7 +1024,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * @example
      * DateTime.local(2017, 10, 30).weekdayShort //=> Mon
      */
-    get weekdayShort(): IfValid<string, null, IsValid>;
+    get weekdayShort(): IfValid<weekdayShort, null, IsValid>;
 
     /**
      * Get the human readable long weekday, such as 'Monday'.
@@ -1033,7 +1033,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * @example
      * DateTime.local(2017, 10, 30).weekdayLong //=> Monday
      */
-    get weekdayLong(): IfValid<string, null, IsValid>;
+    get weekdayLong(): IfValid<weekdayLong, null, IsValid>;
 
     /**
      * Get the UTC offset of this DateTime in minutes
