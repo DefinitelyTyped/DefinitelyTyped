@@ -2152,6 +2152,11 @@ export interface TDocumentDefinitions {
      * Dictionary of reusable pattern definitions that can be referenced by their key.
      */
     patterns?: Record<string, Pattern> | undefined;
+
+    /**
+     * Document language as BCP 47 language tag, e.g. `en-US`.
+     */
+    language?: string | undefined;
 }
 
 /**

@@ -1315,6 +1315,7 @@ const stylingInlines: TDocumentDefinitions = {
             italics: true,
         },
     },
+    language: "en-AU",
 };
 
 const stylingNamedStylesWithOverrides: TDocumentDefinitions = {
