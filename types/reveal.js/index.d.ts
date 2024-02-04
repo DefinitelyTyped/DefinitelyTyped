@@ -1338,7 +1338,7 @@ declare namespace Reveal {
          *
          * @defaultValue `435`
          */
-        scrollActivationWidth: number;
+        scrollActivationWidth?: number;
 
         /**
          * The maximum number of pages a single slide can expand onto when printing
