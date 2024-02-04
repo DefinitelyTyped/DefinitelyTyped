@@ -2,7 +2,7 @@
     "private": true,
     "name": "@types/fancybox",
     "version": "3.5.9999",
-    "nonNpm": true,
+    "nonNpm": "conflict",
     "nonNpmDescription": "fancyBox",
     "projects": [
         "https://github.com/fancyapps/fancyBox"

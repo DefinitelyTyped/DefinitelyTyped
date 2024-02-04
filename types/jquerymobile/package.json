@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/jquerymobile",
     "version": "1.4.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquerymobile",
     "projects": [
         "http://jquerymobile.com/"
     ],

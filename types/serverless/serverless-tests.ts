@@ -739,6 +739,7 @@ const awsServerless: Aws.Serverless = {
                             },
                         ],
                         functionResponseType: "ReportBatchItemFailures",
+                        parallelizationFactor: 2,
                     },
                 },
                 {

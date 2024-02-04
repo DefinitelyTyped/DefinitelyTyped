@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/jsoneditoronline",
     "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jsoneditoronline",
     "projects": [
         "https://github.com/josdejong/jsoneditoronline"
     ],

@@ -17,8 +17,10 @@ At the very least, you may want to `git clean -fdx` the repo (or `node ./scripts
 This section tracks the health of the repository and publishing process.
 It may be helpful for contributors experiencing any issues with their PRs and packages.
 
-* Most recent build [type-checked/linted](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) cleanly: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
-* All packages are type-checking/linting cleanly on typescript@next: [![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
+* Most recent build [type-checked/linted](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) cleanly: [![Build status](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml/badge.svg?branch=master&event=push)
+](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml?query=branch%3Amaster+event%3Apush)
+* All packages are type-checking/linting cleanly on typescript@next: [![Build status](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml/badge.svg?branch=master&event=schedule)
+](https://github.com/DefinitelyTyped/DefinitelyTyped/actions/workflows/CI.yml?query=branch%3Amaster+event%3Aschedule)
 * All packages are being [published to npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) in under an hour and a half: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
 * [typescript-bot](https://github.com/typescript-bot) has been active on Definitely Typed [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
 * Current [infrastructure status updates](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/44317)
@@ -149,14 +151,13 @@ We use a bot to let a large number of pull requests to DefinitelyTyped be handle
 
 You can clone the entire repository [as per usual](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository), but it's large and includes a massive directory of type packages. This will take some time to clone and may be unnecessarily unwieldy.
 
-For a more manageable clone that includes _only_ the type packages relevant to you, you can use git's [`sparse-checkout`](https://git-scm.com/docs/git-sparse-checkout), [`--filter`](https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---filterltfilter-specgt) and [`--depth`](https://git-scm.com/docs/git-clone#Documentation/git-clone.txt---depthltdepthgt) features. This will reduce clone time and improve git performance.
+For a more manageable clone that includes _only_ the type packages relevant to you, you can use git's [`sparse-checkout`](https://git-scm.com/docs/git-sparse-checkout) and [`--filter`](https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---filterltfilter-specgt) features. This will reduce clone time and improve git performance.
 
 >:warning: This requires minimum [git version 2.27.0](https://git-scm.com/downloads), which is likely newer than the default on most machines. More complicated procedures are available in older versions, but not covered by this guide.
 
-1. `git clone --sparse --filter=blob:none --depth=1 <forkedUrl>`
+1. `git clone --sparse --filter=blob:none <forkedUrl>`
     - `--sparse` initializes the sparse-checkout file so the working directory starts with only the files in the root of the repository.
-    - `--filter=blob:none` will exclude files, fetching them only as needed.
-    - `--depth=1` will further improve clone speed by truncating commit history, but it may cause issues as summarized [here](https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/).
+    - `--filter=blob:none` will including all commit history but exclude files, fetching them only as needed.
 2. `git sparse-checkout add types/<type> types/<dependency-type> ...`
 
 </details>
@@ -219,13 +220,98 @@ This script uses [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tr
 
 Once you have all your changes ready, use `pnpm run test-all` to see how your changes affect other modules.
 
+##### @arethetypeswrong/cli (`attw`) checks
+
+dtslint includes module format and `package.json` configuration checks from [@arethetypeswrong/cli](https://github.com/arethetypeswrong/arethetypeswrong.github.io/blob/main/packages/cli). The checks run only if a SemVer-major-compatible implementation package can be found on npm to compare against the DefinitelyTyped package. (DefinitelyTyped packages marked as `"nonNpm": true` in their `package.json` are skipped.)
+
+Many packages currently fail the `attw` checks and need to be fixed. To allow us to make incremental progress, failed `attw` checks do not fail the `dtslint` run when the package is listed in `failingPackages` in [`attw.json`](./attw.json), but they will still be reported in the `pnpm test my-package` output. If you fix the package, remove it from `failingPackages` so that `attw` checks can start failing `dtslint` runs.
+
+All problems reported by `attw` have documentation linked in the output. Some rules of thumb to help avoid problems:
+
+- The `package.json` in the DefinitelyTyped package must have matching `type` and `exports` fields if the implementation package uses them in its `package.json`. For example, if an implementation `package.json` looks like:
+
+  ```json
+  {
+      "name": "my-package",
+      "version": "1.0.1",
+      "type": "module",
+      "main": "dist/cjs/index.cjs",
+      "exports": {
+          ".": {
+              "import": "./dist/esm/index.js",
+              "require": "./dist/cjs/index.cjs"
+          },
+          "./subpath": {
+              "import": "./dist/esm/subpath.js",
+              "require": "./dist/cjs/subpath.cjs"
+          }
+      }
+  }
+  ```
+
+  then the DefinitelyTyped `package.json` should look something like:
+
+  ```json5
+  {
+      "name": "@types/my-package",
+      "version": "1.0.9999",
+      "type": "module",
+      "types": "index.d.ts",
+      "exports": {
+          ".": {
+              "import": "./index.d.ts",
+              "require": "./index.d.cts"
+          },
+          "./subpath": {
+              "import": "./subpath.d.ts",
+               "require": "./subpath.d.cts"
+          }
+      }
+  }
+  ```
+
+  Notice that each `exports` subpath is reflected, and each JavaScript file has a corresponding declaration file with a matching file extension—a `.d.ts` file types a `.js` file, not a `.mjs` or `.cjs` file!
+
+- When the implementation package uses `module.exports = ...`, the DefinitelyTyped package should use `export =`, not `export default`. (Alternatively, if the `module.exports` is just an object of named properties, the DefinitelyTyped package can use a series of named exports.) The most common obstacle to correcting this problem is confusion about how to export types in addition to the primary export. For example, assume these types are incorrectly using `export default`:
+
+  ```ts
+  export interface Options {
+    // ...
+  }
+  export default function doSomething(options: Options): void;
+  ```
+
+  Changing the `export default` to an `export =` creates an error:
+
+  ```ts
+  export interface Options {
+    // ...
+  }
+  declare function doSomething(options: Options): void;
+  export = doSomething;
+  // ^^^^^^^^^^^^^^^^^
+  // Error: An export assignment cannot be used in a module with other exported elements.
+  ```
+
+  To fix this, move the types inside a namespace with the same name as the function:
+
+  ```ts
+  declare namespace doSomething {
+    export interface Options {
+      // ...
+    }
+  }
+  declare function doSomething(options: doSomething.Options): void;
+  export = doSomething;
+  ```
+
+If you need help fixing a problem, please ask in the DefinitelyTyped channel on the [TypeScript Community Discord server](https://discord.gg/typescript).
+
 #### Naming
 
 If you are adding typings for an npm package, create a directory with the same name.
-If the package you are adding typings for is not on npm, make sure the name you choose for it does not conflict with the name of a package on npm.
+If the package you are adding typings for is not on npm, set `"nonNpm": true` in the `package.json`, and make sure the name you choose for it does not conflict with the name of a package on npm.
 (You can use `npm info <my-package>` to check for the existence of the `<my-package>` package.)
-
-If a non-npm package conflicts with an existing npm package try adding -browser to the end of the name to get `<my-package>-browser`.
 
 #### `<my-package>-tests.ts`
 

@@ -1,5 +1,5 @@
-import Node from '../core/Node.js';
-import { NodeRepresentation, ShaderNodeObject } from '../shadernode/ShaderNode.js';
+import Node from "../core/Node.js";
+import { NodeRepresentation, ShaderNodeObject } from "../shadernode/ShaderNode.js";
 
 export default class CondNode extends Node {
     condNode: Node;
@@ -14,3 +14,9 @@ export function cond(
     ifNode: NodeRepresentation,
     elseNode: NodeRepresentation,
 ): ShaderNodeObject<Node>;
+
+declare module "../shadernode/ShaderNode.js" {
+    interface NodeElements {
+        cond: typeof cond;
+    }
+}

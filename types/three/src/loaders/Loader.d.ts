@@ -1,4 +1,4 @@
-import { LoadingManager } from './LoadingManager.js';
+import { LoadingManager } from "./LoadingManager.js";
 
 /**
  * Base class for implementing loaders.

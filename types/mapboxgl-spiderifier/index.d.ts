@@ -12,6 +12,7 @@ export interface SpiderLegOffsets {
     "bottom-right": SpiderLegOffset;
     left: SpiderLegOffset;
     right: SpiderLegOffset;
+    [_: string]: SpiderLegOffset;
 }
 export type SpiderLegOffset = [number, number];
 

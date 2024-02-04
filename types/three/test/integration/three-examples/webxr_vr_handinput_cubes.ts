@@ -1,15 +1,15 @@
-import * as THREE from 'three';
+import * as THREE from "three";
 
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { VRButton } from 'three/examples/jsm/webxr/VRButton';
-import { XRControllerModelFactory } from 'three/examples/jsm/webxr/XRControllerModelFactory';
-import { XRHandModelFactory } from 'three/examples/jsm/webxr/XRHandModelFactory';
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { VRButton } from "three/examples/jsm/webxr/VRButton";
+import { XRControllerModelFactory } from "three/examples/jsm/webxr/XRControllerModelFactory";
+import { XRHandModelFactory } from "three/examples/jsm/webxr/XRHandModelFactory";
 
 interface Hand extends THREE.Group {
     joints: { [key: string]: any };
 }
 
-const container = document.createElement('div');
+const container = document.createElement("div");
 let camera: THREE.PerspectiveCamera;
 let scene: THREE.Scene;
 let renderer: THREE.WebGLRenderer;
@@ -99,7 +99,7 @@ function init() {
     scene.add(controller2);
 
     const controllerModelFactory = new XRControllerModelFactory();
-    const handModelFactory = new XRHandModelFactory().setPath('./models/fbx/');
+    const handModelFactory = new XRHandModelFactory().setPath("./models/fbx/");
 
     // Hand 1
     controllerGrip1 = renderer.xr.getControllerGrip(0);
@@ -107,8 +107,8 @@ function init() {
     scene.add(controllerGrip1);
 
     hand1 = renderer.xr.getHand(0) as Hand;
-    hand1.addEventListener('pinchstart', onPinchStartLeft);
-    hand1.addEventListener('pinchend', () => {
+    hand1.addEventListener("pinchstart", onPinchStartLeft);
+    hand1.addEventListener("pinchend", () => {
         scaling.active = false;
     });
     hand1.add(handModelFactory.createHandModel(hand1));
@@ -121,8 +121,8 @@ function init() {
     scene.add(controllerGrip2);
 
     hand2 = renderer.xr.getHand(1) as Hand;
-    hand2.addEventListener('pinchstart', onPinchStartRight);
-    hand2.addEventListener('pinchend', onPinchEndRight);
+    hand2.addEventListener("pinchstart", onPinchStartRight);
+    hand2.addEventListener("pinchend", onPinchEndRight);
     hand2.add(handModelFactory.createHandModel(hand2));
     scene.add(hand2);
 
@@ -134,7 +134,7 @@ function init() {
     ]);
 
     const line = new THREE.Line(geometry);
-    line.name = 'line';
+    line.name = "line";
     line.scale.z = 5;
 
     controller1.add(line.clone());
@@ -142,7 +142,7 @@ function init() {
 
     //
 
-    window.addEventListener('resize', onWindowResize);
+    window.addEventListener("resize", onWindowResize);
 }
 
 function onWindowResize() {
@@ -153,21 +153,21 @@ function onWindowResize() {
 }
 
 const SphereRadius = 0.05;
-function onPinchStartLeft(event: THREE.Event<'pinchstart', Hand>) {
+function onPinchStartLeft(event: THREE.Event<"pinchstart", Hand>) {
     const controller = event.target;
 
     if (grabbing) {
-        const indexTip = controller.joints['index-finger-tip'];
+        const indexTip = controller.joints["index-finger-tip"];
         const sphere = collideObject(indexTip);
 
         if (sphere) {
             const sphere2 = hand2.userData.selected;
-            console.log('sphere1', sphere, 'sphere2', sphere2);
+            console.log("sphere1", sphere, "sphere2", sphere2);
             if (sphere === sphere2) {
                 scaling.active = true;
                 scaling.object = sphere;
                 scaling.initialScale = sphere.scale.x;
-                scaling.initialDistance = indexTip.position.distanceTo(hand2.joints['index-finger-tip'].position);
+                scaling.initialDistance = indexTip.position.distanceTo(hand2.joints["index-finger-tip"].position);
                 return;
             }
         }
@@ -182,7 +182,7 @@ function onPinchStartLeft(event: THREE.Event<'pinchstart', Hand>) {
     const spawn = new THREE.Mesh(geometry, material);
     spawn.geometry.computeBoundingSphere();
 
-    const indexTip = controller.joints['index-finger-tip'];
+    const indexTip = controller.joints["index-finger-tip"];
     spawn.position.copy(indexTip.position);
     spawn.quaternion.copy(indexTip.quaternion);
 
@@ -203,19 +203,19 @@ function collideObject(indexTip: THREE.Group) {
     return null;
 }
 
-function onPinchStartRight(event: THREE.Event<'pinchstart', Hand>) {
+function onPinchStartRight(event: THREE.Event<"pinchstart", Hand>) {
     const controller = event.target;
-    const indexTip = controller.joints['index-finger-tip'];
+    const indexTip = controller.joints["index-finger-tip"];
     const object = collideObject(indexTip);
     if (object) {
         grabbing = true;
         indexTip.attach(object);
         controller.userData.selected = object;
-        console.log('Selected', object);
+        console.log("Selected", object);
     }
 }
 
-function onPinchEndRight(event: THREE.Event<'pinchend', Hand>) {
+function onPinchEndRight(event: THREE.Event<"pinchend", Hand>) {
     const controller = event.target;
 
     if (controller.userData.selected !== undefined) {
@@ -238,8 +238,8 @@ function animate() {
 
 function render() {
     if (scaling.active && scaling.object) {
-        const indexTip1Pos = hand1.joints['index-finger-tip'].position;
-        const indexTip2Pos = hand2.joints['index-finger-tip'].position;
+        const indexTip1Pos = hand1.joints["index-finger-tip"].position;
+        const indexTip2Pos = hand2.joints["index-finger-tip"].position;
         const distance = indexTip1Pos.distanceTo(indexTip2Pos);
         const newScale = scaling.initialScale + distance / scaling.initialDistance - 1;
         scaling.object.scale.setScalar(newScale);

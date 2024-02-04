@@ -1,13 +1,13 @@
 import {
-    DataTexture,
+    BufferGeometry,
     Curve,
+    DataTexture,
+    InstancedMesh,
     IUniform,
     Material,
-    InstancedMesh,
-    BufferGeometry,
     Mesh,
     Vector3,
-} from '../../../src/Three.js';
+} from "../../../src/Three.js";
 
 export interface SplineUniform {
     spineTexture: IUniform;

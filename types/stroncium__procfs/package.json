@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/stroncium__procfs": "workspace:."
     },
-    "owners": [
-        {
-            "name": "pauhull",
-            "githubUsername": "pauhull"
-        }
-    ]
+    "owners": []
 }

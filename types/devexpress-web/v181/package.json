@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/devexpress-web",
     "version": "181.7.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "devexpress-web",
     "projects": [
         "http://devexpress.com/"
     ],

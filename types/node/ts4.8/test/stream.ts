@@ -496,6 +496,13 @@ async function testConsumers() {
     await arrayBuffer(r);
     // $ExpectType Blob
     await blob(r);
+
+    const iterable: AsyncGenerator<Buffer> = async function*() {}();
+    await buffer(iterable);
+
+    const iterator: AsyncIterator<Buffer> = { next: () => iterable.next() };
+    // @ts-expect-error
+    await buffer(iterator);
 }
 
 // https://nodejs.org/api/stream.html#stream_readable_pipe_destination_options

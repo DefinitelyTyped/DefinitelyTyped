@@ -1,5 +1,5 @@
-import { WebGLExtensions } from './WebGLExtensions.js';
-import { WebGLCapabilities } from './WebGLCapabilities.js';
+import { WebGLCapabilities } from "./WebGLCapabilities.js";
+import { WebGLExtensions } from "./WebGLExtensions.js";
 
 export interface WebGLLightsState {
     version: number;

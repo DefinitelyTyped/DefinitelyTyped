@@ -1,4 +1,8 @@
-# Learn more at: https://aka.ms/yaml
+trigger:
+  - master
+
+pr: none
+
 jobs:
   - job: npmRunTest
     pool:
@@ -8,36 +12,10 @@ jobs:
     timeoutInMinutes: 360
 
     steps:
-      - task: UseNode@1
-        displayName: Use Node 20
-        inputs:
-          version: 20.x
-          checkLatest: true
+      - checkout: self
+        fetchDepth: 1
+        fetchTags: false
 
       - script: |
-          npm install -g $(jq -r '.packageManager' < package.json)
-          pnpm --version
-        displayName: 'Setup pnpm'
-
-      - script: ./scripts/pnpm-install.sh
-        displayName: 'pnpm install'
-
-      - script: pnpm ls
-        displayName: 'pnpm ls'
-
-      - script: |
-          if [[ $BUILD_REASON == "Schedule" ]]; then git config --global user.email "types@microsoft.com" && git config --global user.name "TypeScript Bot" && pnpm run update-codeowners; fi
-          git checkout -- .
-
-          pnpm run test-all
-
-        displayName: 'pnpm run test-all'
-
-      - task: PublishPipelineArtifact@1
-        condition: eq(variables['System.debug'], 'true')
-        inputs:
-          targetPath: '$(Pipeline.Workspace)'
-          publishLocation: 'pipeline'
-
-trigger:
-  - master
+          echo "Disabled"
+        displayName: 'Do nothing'

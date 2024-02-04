@@ -1,4 +1,3 @@
-import { Reflector } from 'three/examples/jsm/objects/Reflector';
 import {
     DirectionalLight,
     Mesh,
@@ -9,7 +8,8 @@ import {
     SphereGeometry,
     sRGBEncoding,
     WebGLRenderer,
-} from 'three';
+} from "three";
+import { Reflector } from "three/examples/jsm/objects/Reflector";
 
 const renderer = new WebGLRenderer();
 renderer.outputEncoding = sRGBEncoding;

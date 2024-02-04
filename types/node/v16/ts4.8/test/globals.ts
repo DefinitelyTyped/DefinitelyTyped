@@ -26,3 +26,16 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
         gc();
     }
 }
+
+// Array.prototype.at()
+{
+    const mutableArray = ["a"];
+    mutableArray.at(-1);
+    const readonlyArray: readonly string[] = ["b"];
+    readonlyArray.at(-1);
+}
+
+{
+    const x = new AbortController().signal;
+    x.reason; // $ExpectType any
+}

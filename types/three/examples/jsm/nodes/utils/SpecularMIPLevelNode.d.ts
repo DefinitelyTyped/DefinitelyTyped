@@ -1,6 +1,6 @@
-import Node from '../core/Node.js';
-import TextureNode from '../accessors/TextureNode.js';
-import { ShaderNodeObject } from '../shadernode/ShaderNode.js';
+import TextureNode from "../accessors/TextureNode.js";
+import Node from "../core/Node.js";
+import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
 
 export default class SpecularMIPLevelNode extends Node {
     textureNode: TextureNode;
