@@ -205,7 +205,7 @@ type weekdayShort =
     |'Sat'
     |'Sun';
 
-type weekdayLong =
+export type weekdayLong =
     |'Monday'
     |'Tuesday'
     |'Wednesday'
