@@ -196,7 +196,7 @@ export type WeekNumbers =
     | 52
     | 53;
 
-type weekdayShort =
+export type weekdayShort =
     |'Mon'
     |'Tue'
     |'Wed'
