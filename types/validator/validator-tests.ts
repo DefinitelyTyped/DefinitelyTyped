@@ -778,10 +778,10 @@ const any: any = null;
 
     result = validator.isLowercase("sample");
 
-    const isMACAddressOptions: validator.IsMACAddressOptions = {
-        no_colons: true,
-    };
-    result = validator.isMACAddress("sample", isMACAddressOptions);
+    result = validator.isMACAddress("sample", { no_separators: true, eui: 48 });
+    result = validator.isMACAddress("sample", { no_separators: true, eui: 64 });
+    result = validator.isMACAddress("sample", { no_separators: true });
+    result = validator.isMACAddress("sample", { no_colons: true });
     result = validator.isMACAddress("sample");
 
     result = validator.isMD5("sample");
