@@ -46,4 +46,9 @@ async function test() {
     await zip.walkEntries(async (entry: yauzl.Entry) => {
         console.log("foo");
     }, 1);
+
+    {
+        let entry: yauzl.Entry;
+        for await (entry of zip) {}
+    }
 }
