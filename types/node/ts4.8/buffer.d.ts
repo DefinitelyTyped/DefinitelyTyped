@@ -128,9 +128,10 @@ declare module "buffer" {
      */
     export interface BlobOptions {
         /**
-         * @default 'utf8'
+         * One of either `'transparent'` or `'native'`. When set to `'native'`, line endings in string source parts
+         * will be converted to the platform native line-ending as specified by `require('node:os').EOL`.
          */
-        encoding?: BufferEncoding | undefined;
+        endings?: "transparent" | "native";
         /**
          * The Blob content-type. The intent is for `type` to convey
          * the MIME media type of the data, however no validation of the type format
@@ -162,7 +163,7 @@ declare module "buffer" {
          *
          * String sources are also copied into the `Blob`.
          */
-        constructor(sources: Array<BinaryLike | Blob>, options?: BlobOptions);
+        constructor(sources: Array<ArrayBuffer | BinaryLike | Blob>, options?: BlobOptions);
         /**
          * Returns a promise that fulfills with an [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer) containing a copy of
          * the `Blob` data.
@@ -415,7 +416,7 @@ declare module "buffer" {
              * @return The number of bytes contained within `string`.
              */
             byteLength(
-                string: string | NodeJS.ArrayBufferView | ArrayBuffer | SharedArrayBuffer,
+                string: string | Buffer | NodeJS.ArrayBufferView | ArrayBuffer | SharedArrayBuffer,
                 encoding?: BufferEncoding,
             ): number;
             /**
@@ -470,7 +471,7 @@ declare module "buffer" {
              * ```
              * @since v19.8.0
              * @param view The {TypedArray} to copy.
-             * @param [offset=': 0'] The starting offset within `view`.
+             * @param [offset=0] The starting offset within `view`.
              * @param [length=view.length - offset] The number of elements from `view` to copy.
              */
             copyBytesFrom(view: NodeJS.TypedArray, offset?: number, length?: number): Buffer;
@@ -563,8 +564,8 @@ declare module "buffer" {
              * A `TypeError` will be thrown if `size` is not a number.
              *
              * The `Buffer` module pre-allocates an internal `Buffer` instance of
-             * size `Buffer.poolSize` that is used as a pool for the fast allocation of new`Buffer` instances created using `Buffer.allocUnsafe()`, `Buffer.from(array)`,
-             * and `Buffer.concat()` only when `size` is less than`Buffer.poolSize >>> 1` (floor of `Buffer.poolSize` divided by two).
+             * size `Buffer.poolSize` that is used as a pool for the fast allocation of new `Buffer` instances created using `Buffer.allocUnsafe()`, `Buffer.from(array)`,
+             * and `Buffer.concat()` only when `size` is less than `Buffer.poolSize >>> 1` (floor of `Buffer.poolSize` divided by two).
              *
              * Use of this pre-allocated internal memory pool is a key difference between
              * calling `Buffer.alloc(size, fill)` vs. `Buffer.allocUnsafe(size).fill(fill)`.

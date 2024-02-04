@@ -10,7 +10,7 @@
  * recommended to explicitly reference it via an import or require statement.
  *
  * ```js
- * import { Buffer } from 'buffer';
+ * import { Buffer } from 'node:buffer';
  *
  * // Creates a zero-filled Buffer of length 10.
  * const buf1 = Buffer.alloc(10);
@@ -41,7 +41,7 @@
  * // Creates a Buffer containing the Latin-1 bytes [0x74, 0xe9, 0x73, 0x74].
  * const buf7 = Buffer.from('tést', 'latin1');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/buffer.js)
+ * @see [source](https://github.com/nodejs/node/blob/v16.20.2/lib/buffer.js)
  */
 declare module "buffer" {
     import { BinaryLike } from "node:crypto";
@@ -67,7 +67,7 @@ declare module "buffer" {
      * sequence cannot be adequately represented in the target encoding. For instance:
      *
      * ```js
-     * import { Buffer, transcode } from 'buffer';
+     * import { Buffer, transcode } from 'node:buffer';
      *
      * const newBuf = transcode(Buffer.from('€'), 'utf8', 'ascii');
      * console.log(newBuf.toString('ascii'));
@@ -101,9 +101,10 @@ declare module "buffer" {
      */
     export interface BlobOptions {
         /**
-         * @default 'utf8'
+         * One of either `'transparent'` or `'native'`. When set to `'native'`, line endings in string source parts
+         * will be converted to the platform native line-ending as specified by `require('node:os').EOL`.
          */
-        encoding?: BufferEncoding | undefined;
+        endings?: "transparent" | "native";
         /**
          * The Blob content-type. The intent is for `type` to convey
          * the MIME media type of the data, however no validation of the type format
@@ -115,7 +116,6 @@ declare module "buffer" {
      * A [`Blob`](https://developer.mozilla.org/en-US/docs/Web/API/Blob) encapsulates immutable, raw data that can be safely shared across
      * multiple worker threads.
      * @since v15.7.0
-     * @experimental
      */
     export class Blob {
         /**
@@ -136,7 +136,7 @@ declare module "buffer" {
          *
          * String sources are also copied into the `Blob`.
          */
-        constructor(sources: Array<BinaryLike | Blob>, options?: BlobOptions);
+        constructor(sources: Array<ArrayBuffer | BinaryLike | Blob>, options?: BlobOptions);
         /**
          * Returns a promise that fulfills with an [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer) containing a copy of
          * the `Blob` data.
@@ -159,7 +159,7 @@ declare module "buffer" {
          */
         text(): Promise<string>;
         /**
-         * Returns a new (WHATWG) `ReadableStream` that allows the content of the `Blob` to be read.
+         * Returns a new `ReadableStream` that allows the content of the `Blob` to be read.
          * @since v16.7.0
          */
         stream(): WebReadableStream;
@@ -243,7 +243,7 @@ declare module "buffer" {
              * Array entries outside that range will be truncated to fit into it.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * // Creates a new Buffer containing the UTF-8 bytes of the string 'buffer'.
              * const buf = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]);
@@ -288,7 +288,7 @@ declare module "buffer" {
              * Returns `true` if `obj` is a `Buffer`, `false` otherwise.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * Buffer.isBuffer(Buffer.alloc(10)); // true
              * Buffer.isBuffer(Buffer.from('foo')); // true
@@ -304,7 +304,7 @@ declare module "buffer" {
              * or `false` otherwise.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * console.log(Buffer.isEncoding('utf8'));
              * // Prints: true
@@ -333,7 +333,7 @@ declare module "buffer" {
              * string.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const str = '\u00bd + \u00bc = \u00be';
              *
@@ -352,7 +352,7 @@ declare module "buffer" {
              * @return The number of bytes contained within `string`.
              */
             byteLength(
-                string: string | NodeJS.ArrayBufferView | ArrayBuffer | SharedArrayBuffer,
+                string: string | Buffer | NodeJS.ArrayBufferView | ArrayBuffer | SharedArrayBuffer,
                 encoding?: BufferEncoding,
             ): number;
             /**
@@ -368,7 +368,7 @@ declare module "buffer" {
              * truncated to `totalLength`.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * // Create a single `Buffer` from a list of three `Buffer` instances.
              *
@@ -398,7 +398,7 @@ declare module "buffer" {
              * Compares `buf1` to `buf2`, typically for the purpose of sorting arrays of`Buffer` instances. This is equivalent to calling `buf1.compare(buf2)`.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf1 = Buffer.from('1234');
              * const buf2 = Buffer.from('0123');
@@ -411,12 +411,12 @@ declare module "buffer" {
              * @since v0.11.13
              * @return Either `-1`, `0`, or `1`, depending on the result of the comparison. See `compare` for details.
              */
-            compare(buf1: Uint8Array, buf2: Uint8Array): number;
+            compare(buf1: Uint8Array, buf2: Uint8Array): -1 | 0 | 1;
             /**
              * Allocates a new `Buffer` of `size` bytes. If `fill` is `undefined`, the`Buffer` will be zero-filled.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.alloc(5);
              *
@@ -429,7 +429,7 @@ declare module "buffer" {
              * If `fill` is specified, the allocated `Buffer` will be initialized by calling `buf.fill(fill)`.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.alloc(5, 'a');
              *
@@ -441,7 +441,7 @@ declare module "buffer" {
              * initialized by calling `buf.fill(fill, encoding)`.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.alloc(11, 'aGVsbG8gd29ybGQ=', 'base64');
              *
@@ -464,10 +464,10 @@ declare module "buffer" {
              * Allocates a new `Buffer` of `size` bytes. If `size` is larger than {@link constants.MAX_LENGTH} or smaller than 0, `ERR_INVALID_ARG_VALUE` is thrown.
              *
              * The underlying memory for `Buffer` instances created in this way is _not_
-             * _initialized_. The contents of the newly created `Buffer` are unknown and_may contain sensitive data_. Use `Buffer.alloc()` instead to initialize`Buffer` instances with zeroes.
+             * _initialized_. The contents of the newly created `Buffer` are unknown and _may contain sensitive data_. Use `Buffer.alloc()` instead to initialize`Buffer` instances with zeroes.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.allocUnsafe(10);
              *
@@ -483,8 +483,8 @@ declare module "buffer" {
              * A `TypeError` will be thrown if `size` is not a number.
              *
              * The `Buffer` module pre-allocates an internal `Buffer` instance of
-             * size `Buffer.poolSize` that is used as a pool for the fast allocation of new`Buffer` instances created using `Buffer.allocUnsafe()`,`Buffer.from(array)`, `Buffer.concat()`, and the
-             * deprecated`new Buffer(size)` constructor only when `size` is less than or equal
+             * size `Buffer.poolSize` that is used as a pool for the fast allocation of new `Buffer` instances created using `Buffer.allocUnsafe()`, `Buffer.from(array)`, `Buffer.concat()`, and the
+             * deprecated `new Buffer(size)` constructor only when `size` is less than or equal
              * to `Buffer.poolSize >> 1` (floor of `Buffer.poolSize` divided by two).
              *
              * Use of this pre-allocated internal memory pool is a key difference between
@@ -498,15 +498,15 @@ declare module "buffer" {
              */
             allocUnsafe(size: number): Buffer;
             /**
-             * Allocates a new `Buffer` of `size` bytes. If `size` is larger than {@link constants.MAX_LENGTH} or smaller than 0, `ERR_INVALID_ARG_VALUE` is thrown. A zero-length `Buffer` is created
-             * if `size` is 0.
+             * Allocates a new `Buffer` of `size` bytes. If `size` is larger than {@link constants.MAX_LENGTH} or smaller than 0, `ERR_INVALID_ARG_VALUE` is thrown. A zero-length `Buffer` is created if
+             * `size` is 0.
              *
              * The underlying memory for `Buffer` instances created in this way is _not_
-             * _initialized_. The contents of the newly created `Buffer` are unknown and_may contain sensitive data_. Use `buf.fill(0)` to initialize
+             * _initialized_. The contents of the newly created `Buffer` are unknown and _may contain sensitive data_. Use `buf.fill(0)` to initialize
              * such `Buffer` instances with zeroes.
              *
              * When using `Buffer.allocUnsafe()` to allocate new `Buffer` instances,
-             * allocations under 4 KB are sliced from a single pre-allocated `Buffer`. This
+             * allocations under 4 KiB are sliced from a single pre-allocated `Buffer`. This
              * allows applications to avoid the garbage collection overhead of creating many
              * individually allocated `Buffer` instances. This approach improves both
              * performance and memory usage by eliminating the need to track and clean up as
@@ -518,7 +518,7 @@ declare module "buffer" {
              * then copying out the relevant bits.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * // Need to keep around a few small chunks of memory.
              * const store = [];
@@ -556,7 +556,7 @@ declare module "buffer" {
              * written. However, partially encoded characters will not be written.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.alloc(256);
              *
@@ -592,7 +592,7 @@ declare module "buffer" {
              * as {@link constants.MAX_STRING_LENGTH}.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf1 = Buffer.allocUnsafe(26);
              *
@@ -629,7 +629,7 @@ declare module "buffer" {
              * In particular, `Buffer.from(buf.toJSON())` works like `Buffer.from(buf)`.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.from([0x1, 0x2, 0x3, 0x4, 0x5]);
              * const json = JSON.stringify(buf);
@@ -656,7 +656,7 @@ declare module "buffer" {
              * Returns `true` if both `buf` and `otherBuffer` have exactly the same bytes,`false` otherwise. Equivalent to `buf.compare(otherBuffer) === 0`.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf1 = Buffer.from('ABC');
              * const buf2 = Buffer.from('414243', 'hex');
@@ -680,7 +680,7 @@ declare module "buffer" {
              * * `-1` is returned if `target` should come _after_`buf` when sorted.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf1 = Buffer.from('ABC');
              * const buf2 = Buffer.from('BCD');
@@ -704,7 +704,7 @@ declare module "buffer" {
              * The optional `targetStart`, `targetEnd`, `sourceStart`, and `sourceEnd`arguments can be used to limit the comparison to specific ranges within `target`and `buf` respectively.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf1 = Buffer.from([1, 2, 3, 4, 5, 6, 7, 8, 9]);
              * const buf2 = Buffer.from([5, 6, 7, 8, 9, 1, 2, 3, 4]);
@@ -731,7 +731,7 @@ declare module "buffer" {
                 targetEnd?: number,
                 sourceStart?: number,
                 sourceEnd?: number,
-            ): number;
+            ): -1 | 0 | 1;
             /**
              * Copies data from a region of `buf` to a region in `target`, even if the `target`memory region overlaps with `buf`.
              *
@@ -740,7 +740,7 @@ declare module "buffer" {
              * different function arguments.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * // Create two `Buffer` instances.
              * const buf1 = Buffer.allocUnsafe(26);
@@ -761,7 +761,7 @@ declare module "buffer" {
              * ```
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * // Create a `Buffer` and copy data from one region to an overlapping region
              * // within the same `Buffer`.
@@ -790,13 +790,11 @@ declare module "buffer" {
              * Returns a new `Buffer` that references the same memory as the original, but
              * offset and cropped by the `start` and `end` indices.
              *
-             * This is the same behavior as `buf.subarray()`.
-             *
              * This method is not compatible with the `Uint8Array.prototype.slice()`,
              * which is a superclass of `Buffer`. To copy the slice, use`Uint8Array.prototype.slice()`.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.from('buffer');
              *
@@ -807,8 +805,17 @@ declare module "buffer" {
              *
              * console.log(buf.toString());
              * // Prints: buffer
+             *
+             * // With buf.slice(), the original buffer is modified.
+             * const notReallyCopiedBuf = buf.slice();
+             * notReallyCopiedBuf[0]++;
+             * console.log(notReallyCopiedBuf.toString());
+             * // Prints: cuffer
+             * console.log(buf.toString());
+             * // Also prints: cuffer (!)
              * ```
              * @since v0.3.0
+             * @deprecated Use `subarray` instead.
              * @param [start=0] Where the new `Buffer` will start.
              * @param [end=buf.length] Where the new `Buffer` will end (not inclusive).
              */
@@ -825,7 +832,7 @@ declare module "buffer" {
              * Modifying the new `Buffer` slice will modify the memory in the original `Buffer`because the allocated memory of the two objects overlap.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * // Create a `Buffer` with the ASCII alphabet, take a slice, and modify one byte
              * // from the original `Buffer`.
@@ -852,7 +859,7 @@ declare module "buffer" {
              * end of `buf` rather than the beginning.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.from('buffer');
              *
@@ -879,7 +886,7 @@ declare module "buffer" {
              * `value` is interpreted and written as a two's complement signed integer.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.allocUnsafe(8);
              *
@@ -900,7 +907,7 @@ declare module "buffer" {
              * `value` is interpreted and written as a two's complement signed integer.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.allocUnsafe(8);
              *
@@ -921,7 +928,7 @@ declare module "buffer" {
              * This function is also available under the `writeBigUint64BE` alias.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.allocUnsafe(8);
              *
@@ -945,7 +952,7 @@ declare module "buffer" {
              * Writes `value` to `buf` at the specified `offset` as little-endian
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.allocUnsafe(8);
              *
@@ -974,7 +981,7 @@ declare module "buffer" {
              * This function is also available under the `writeUintLE` alias.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.allocUnsafe(6);
              *
@@ -1002,7 +1009,7 @@ declare module "buffer" {
              * This function is also available under the `writeUintBE` alias.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.allocUnsafe(6);
              *
@@ -1028,7 +1035,7 @@ declare module "buffer" {
              * when `value` is anything other than a signed integer.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.allocUnsafe(6);
              *
@@ -1049,7 +1056,7 @@ declare module "buffer" {
              * signed integer.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.allocUnsafe(6);
              *
@@ -1071,7 +1078,7 @@ declare module "buffer" {
              * This function is also available under the `readBigUint64BE` alias.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.from([0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff]);
              *
@@ -1093,7 +1100,7 @@ declare module "buffer" {
              * This function is also available under the `readBigUint64LE` alias.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.from([0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff]);
              *
@@ -1134,7 +1141,7 @@ declare module "buffer" {
              * This function is also available under the `readUintLE` alias.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.from([0x12, 0x34, 0x56, 0x78, 0x90, 0xab]);
              *
@@ -1158,7 +1165,7 @@ declare module "buffer" {
              * This function is also available under the `readUintBE` alias.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.from([0x12, 0x34, 0x56, 0x78, 0x90, 0xab]);
              *
@@ -1182,7 +1189,7 @@ declare module "buffer" {
              * supporting up to 48 bits of accuracy.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.from([0x12, 0x34, 0x56, 0x78, 0x90, 0xab]);
              *
@@ -1199,7 +1206,7 @@ declare module "buffer" {
              * supporting up to 48 bits of accuracy.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.from([0x12, 0x34, 0x56, 0x78, 0x90, 0xab]);
              *
@@ -1221,7 +1228,7 @@ declare module "buffer" {
              * This function is also available under the `readUint8` alias.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.from([1, -2]);
              *
@@ -1247,7 +1254,7 @@ declare module "buffer" {
              * This function is also available under the `readUint16LE` alias.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.from([0x12, 0x34, 0x56]);
              *
@@ -1273,7 +1280,7 @@ declare module "buffer" {
              * This function is also available under the `readUint16BE` alias.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.from([0x12, 0x34, 0x56]);
              *
@@ -1297,7 +1304,7 @@ declare module "buffer" {
              * This function is also available under the `readUint32LE` alias.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.from([0x12, 0x34, 0x56, 0x78]);
              *
@@ -1321,7 +1328,7 @@ declare module "buffer" {
              * This function is also available under the `readUint32BE` alias.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.from([0x12, 0x34, 0x56, 0x78]);
              *
@@ -1343,7 +1350,7 @@ declare module "buffer" {
              * Integers read from a `Buffer` are interpreted as two's complement signed values.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.from([-1, 5]);
              *
@@ -1364,7 +1371,7 @@ declare module "buffer" {
              * Integers read from a `Buffer` are interpreted as two's complement signed values.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.from([0, 5]);
              *
@@ -1383,7 +1390,7 @@ declare module "buffer" {
              * Integers read from a `Buffer` are interpreted as two's complement signed values.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.from([0, 5]);
              *
@@ -1400,7 +1407,7 @@ declare module "buffer" {
              * Integers read from a `Buffer` are interpreted as two's complement signed values.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.from([0, 0, 0, 5]);
              *
@@ -1419,7 +1426,7 @@ declare module "buffer" {
              * Integers read from a `Buffer` are interpreted as two's complement signed values.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.from([0, 0, 0, 5]);
              *
@@ -1434,7 +1441,7 @@ declare module "buffer" {
              * Reads a 32-bit, little-endian float from `buf` at the specified `offset`.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.from([1, 2, 3, 4]);
              *
@@ -1451,7 +1458,7 @@ declare module "buffer" {
              * Reads a 32-bit, big-endian float from `buf` at the specified `offset`.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.from([1, 2, 3, 4]);
              *
@@ -1466,7 +1473,7 @@ declare module "buffer" {
              * Reads a 64-bit, little-endian double from `buf` at the specified `offset`.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.from([1, 2, 3, 4, 5, 6, 7, 8]);
              *
@@ -1483,7 +1490,7 @@ declare module "buffer" {
              * Reads a 64-bit, big-endian double from `buf` at the specified `offset`.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.from([1, 2, 3, 4, 5, 6, 7, 8]);
              *
@@ -1500,7 +1507,7 @@ declare module "buffer" {
              * byte order _in-place_. Throws `ERR_INVALID_BUFFER_SIZE` if `buf.length` is not a multiple of 2.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf1 = Buffer.from([0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8]);
              *
@@ -1522,7 +1529,7 @@ declare module "buffer" {
              * between UTF-16 little-endian and UTF-16 big-endian:
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.from('This is little-endian UTF-16', 'utf16le');
              * buf.swap16(); // Convert to big-endian UTF-16 text.
@@ -1536,7 +1543,7 @@ declare module "buffer" {
              * byte order _in-place_. Throws `ERR_INVALID_BUFFER_SIZE` if `buf.length` is not a multiple of 4.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf1 = Buffer.from([0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8]);
              *
@@ -1562,7 +1569,7 @@ declare module "buffer" {
              * Throws `ERR_INVALID_BUFFER_SIZE` if `buf.length` is not a multiple of 8.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf1 = Buffer.from([0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8]);
              *
@@ -1591,7 +1598,7 @@ declare module "buffer" {
              * This function is also available under the `writeUint8` alias.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.allocUnsafe(4);
              *
@@ -1621,7 +1628,7 @@ declare module "buffer" {
              * This function is also available under the `writeUint16LE` alias.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.allocUnsafe(4);
              *
@@ -1649,7 +1656,7 @@ declare module "buffer" {
              * This function is also available under the `writeUint16BE` alias.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.allocUnsafe(4);
              *
@@ -1677,7 +1684,7 @@ declare module "buffer" {
              * This function is also available under the `writeUint32LE` alias.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.allocUnsafe(4);
              *
@@ -1704,7 +1711,7 @@ declare module "buffer" {
              * This function is also available under the `writeUint32BE` alias.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.allocUnsafe(4);
              *
@@ -1732,7 +1739,7 @@ declare module "buffer" {
              * `value` is interpreted and written as a two's complement signed integer.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.allocUnsafe(2);
              *
@@ -1755,7 +1762,7 @@ declare module "buffer" {
              * The `value` is interpreted and written as a two's complement signed integer.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.allocUnsafe(2);
              *
@@ -1777,7 +1784,7 @@ declare module "buffer" {
              * The `value` is interpreted and written as a two's complement signed integer.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.allocUnsafe(2);
              *
@@ -1799,7 +1806,7 @@ declare module "buffer" {
              * The `value` is interpreted and written as a two's complement signed integer.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.allocUnsafe(4);
              *
@@ -1821,7 +1828,7 @@ declare module "buffer" {
              * The `value` is interpreted and written as a two's complement signed integer.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.allocUnsafe(4);
              *
@@ -1841,7 +1848,7 @@ declare module "buffer" {
              * undefined when `value` is anything other than a JavaScript number.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.allocUnsafe(4);
              *
@@ -1861,7 +1868,7 @@ declare module "buffer" {
              * undefined when `value` is anything other than a JavaScript number.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.allocUnsafe(4);
              *
@@ -1881,7 +1888,7 @@ declare module "buffer" {
              * other than a JavaScript number.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.allocUnsafe(8);
              *
@@ -1901,7 +1908,7 @@ declare module "buffer" {
              * other than a JavaScript number.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.allocUnsafe(8);
              *
@@ -1921,7 +1928,7 @@ declare module "buffer" {
              * the entire `buf` will be filled:
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * // Fill a `Buffer` with the ASCII character 'h'.
              *
@@ -1939,7 +1946,7 @@ declare module "buffer" {
              * then only the bytes of that character that fit into `buf` are written:
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * // Fill a `Buffer` with character that takes up two bytes in UTF-8.
              *
@@ -1951,7 +1958,7 @@ declare module "buffer" {
              * fill data remains, an exception is thrown:
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.allocUnsafe(5);
              *
@@ -1975,12 +1982,12 @@ declare module "buffer" {
              *
              * * a string, `value` is interpreted according to the character encoding in`encoding`.
              * * a `Buffer` or [`Uint8Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array), `value` will be used in its entirety.
-             * To compare a partial `Buffer`, use `buf.slice()`.
+             * To compare a partial `Buffer`, use `buf.subarray`.
              * * a number, `value` will be interpreted as an unsigned 8-bit integer
              * value between `0` and `255`.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.from('this is a buffer');
              *
@@ -2013,7 +2020,7 @@ declare module "buffer" {
              * behavior matches [`String.prototype.indexOf()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/indexOf).
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const b = Buffer.from('abcdef');
              *
@@ -2044,7 +2051,7 @@ declare module "buffer" {
              * rather than the first occurrence.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.from('this buffer is a buffer');
              *
@@ -2079,7 +2086,7 @@ declare module "buffer" {
              * This behavior matches [`String.prototype.lastIndexOf()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/lastIndexOf).
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const b = Buffer.from('abcdef');
              *
@@ -2112,7 +2119,7 @@ declare module "buffer" {
              * of `buf`.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * // Log the entire contents of a `Buffer`.
              *
@@ -2136,7 +2143,7 @@ declare module "buffer" {
              * Equivalent to `buf.indexOf() !== -1`.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.from('this is a buffer');
              *
@@ -2166,7 +2173,7 @@ declare module "buffer" {
              * Creates and returns an [iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols) of `buf` keys (indices).
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.from('buffer');
              *
@@ -2189,7 +2196,7 @@ declare module "buffer" {
              * called automatically when a `Buffer` is used in a `for..of` statement.
              *
              * ```js
-             * import { Buffer } from 'buffer';
+             * import { Buffer } from 'node:buffer';
              *
              * const buf = Buffer.from('buffer');
              *
@@ -2231,7 +2238,7 @@ declare module "buffer" {
          * **binary data and predate the introduction of typed arrays in JavaScript.**
          * **For code running using Node.js APIs, converting between base64-encoded strings**
          * **and binary data should be performed using `Buffer.from(str, 'base64')` and`buf.toString('base64')`.**
-         * @since v15.13.0
+         * @since v15.13.0, v14.17.0
          * @legacy Use `Buffer.from(data, 'base64')` instead.
          * @param data The Base64-encoded input string.
          */
@@ -2247,7 +2254,7 @@ declare module "buffer" {
          * **binary data and predate the introduction of typed arrays in JavaScript.**
          * **For code running using Node.js APIs, converting between base64-encoded strings**
          * **and binary data should be performed using `Buffer.from(str, 'base64')` and`buf.toString('base64')`.**
-         * @since v15.13.0
+         * @since v15.13.0, v14.17.0
          * @legacy Use `buf.toString('base64')` instead.
          * @param data An ASCII (Latin1) string.
          */
