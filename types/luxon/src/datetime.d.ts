@@ -196,23 +196,23 @@ export type WeekNumbers =
     | 52
     | 53;
 
-export type weekdayShort =
-    |'Mon'
-    |'Tue'
-    |'Wed'
-    |'Thu'
-    |'Fri'
-    |'Sat'
-    |'Sun';
+export type WeekDayShort =
+    | 'Mon'
+    | 'Tue'
+    | 'Wed'
+    | 'Thu'
+    | 'Fri'
+    | 'Sat'
+    | 'Sun';
 
-export type weekdayLong =
-    |'Monday'
-    |'Tuesday'
-    |'Wednesday'
-    |'Thursday'
-    |'Friday'
-    |'Saturday'
-    |'Sunday';
+export type WeekDayLong =
+    | 'Monday'
+    | 'Tuesday'
+    | 'Wednesday'
+    | 'Thursday'
+    | 'Friday'
+    | 'Saturday'
+    | 'Sunday';
 
 export type QuarterNumbers = 1 | 2 | 3 | 4;
 
@@ -1024,7 +1024,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * @example
      * DateTime.local(2017, 10, 30).weekdayShort //=> Mon
      */
-    get weekdayShort(): IfValid<weekdayShort, null, IsValid>;
+    get weekdayShort(): IfValid<WeekDayShort, null, IsValid>;
 
     /**
      * Get the human readable long weekday, such as 'Monday'.
@@ -1033,7 +1033,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * @example
      * DateTime.local(2017, 10, 30).weekdayLong //=> Monday
      */
-    get weekdayLong(): IfValid<weekdayLong, null, IsValid>;
+    get weekdayLong(): IfValid<WeekDayLong, null, IsValid>;
 
     /**
      * Get the UTC offset of this DateTime in minutes
