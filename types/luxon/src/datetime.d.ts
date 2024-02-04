@@ -196,6 +196,24 @@ export type WeekNumbers =
     | 52
     | 53;
 
+type weekdayShort =
+    |'Mon'
+    |'Tue'
+    |'Wed'
+    |'Thu'
+    |'Fri'
+    |'Sat'
+    |'Sun';
+
+type weekdayLong =
+    |'Monday'
+    |'Tuesday'
+    |'Wednesday'
+    |'Thursday'
+    |'Friday'
+    |'Saturday'
+    |'Sunday';
+
 export type QuarterNumbers = 1 | 2 | 3 | 4;
 
 export type PossibleDaysInMonth = 28 | 29 | 30 | 31;
