@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/reveal.js",
-    "version": "4.4.9999",
+    "version": "5.0.1",
     "projects": [
         "https://github.com/hakimel/reveal.js/"
     ],
