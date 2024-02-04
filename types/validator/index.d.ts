@@ -841,7 +841,7 @@ declare namespace validator {
         /**
          * Setting `eui` allows for validation against EUI-48 or EUI-64 instead of both.
          */
-        eui?: 48 | 64 | undefined;
+        eui?: "48" | "64" | undefined;
     }
 
     /**
