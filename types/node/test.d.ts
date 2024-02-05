@@ -997,7 +997,7 @@ declare module "node:test" {
          * ```
          * @since v19.1.0, v18.13.0
          * @param implementation The function to be used as the mock's implementation for the invocation number specified by `onCall`.
-         * @param onCall The invocation number that will use `implementation`. If the specified invocation has already occurred then an exception is thrown. Default: The number of the next invocation.
+         * @param [onCall=The number of the next invocation.] The invocation number that will use `implementation`. If the specified invocation has already occurred then an exception is thrown.
          */
         mockImplementationOnce(implementation: F, onCall?: number): void;
         /**
