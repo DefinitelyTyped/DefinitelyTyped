@@ -44,7 +44,7 @@ const options: IOptions = {
     enforceHtmlBoundary: true,
     allowedScriptDomains: ["test.com"],
     allowedScriptHostnames: ["test.com"],
-    nonBooleanAttributes: ['href'],
+    nonBooleanAttributes: ["href"],
 };
 
 sanitize.defaults.allowedAttributes; // $ExpectType Record<string, AllowedAttribute[]>
