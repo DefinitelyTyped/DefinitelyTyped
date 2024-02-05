@@ -790,25 +790,28 @@ declare module "node:test" {
         method<
             MockedObject extends object,
             MethodName extends FunctionPropertyNames<MockedObject>,
-            Implementation extends Function,
+            Implementation extends MockedObject[MethodName] extends Function ? MockedObject[MethodName] : never,
         >(
             object: MockedObject,
             methodName: MethodName,
             implementation: Implementation,
             options?: MockFunctionOptions,
-        ): MockedObject[MethodName] extends Function ? Mock<MockedObject[MethodName] | Implementation>
-            : never;
+        ): Mock<Implementation>
         method<MockedObject extends object>(
             object: MockedObject,
             methodName: keyof MockedObject,
             options: MockMethodOptions,
         ): Mock<Function>;
-        method<MockedObject extends object>(
+        method<
+            MockedObject extends object,
+            MethodName extends FunctionPropertyNames<MockedObject>,
+            Implementation extends MockedObject[MethodName] extends Function ? MockedObject[MethodName] : never,
+        >(
             object: MockedObject,
             methodName: keyof MockedObject,
-            implementation: Function,
+            implementation: Implementation,
             options: MockMethodOptions,
-        ): Mock<Function>;
+        ): Mock<Implementation>;
 
         /**
          * This function is syntax sugar for `MockTracker.method` with `options.getter`set to `true`.
@@ -825,13 +828,13 @@ declare module "node:test" {
         getter<
             MockedObject extends object,
             MethodName extends keyof MockedObject,
-            Implementation extends Function,
+            Implementation extends () => MockedObject[MethodName],
         >(
             object: MockedObject,
             methodName: MethodName,
             implementation?: Implementation,
             options?: MockFunctionOptions,
-        ): Mock<(() => MockedObject[MethodName]) | Implementation>;
+        ): Mock<Implementation>;
         /**
          * This function is syntax sugar for `MockTracker.method` with `options.setter`set to `true`.
          * @since v19.3.0, v18.13.0
@@ -847,13 +850,13 @@ declare module "node:test" {
         setter<
             MockedObject extends object,
             MethodName extends keyof MockedObject,
-            Implementation extends Function,
+            Implementation extends (value: MockedObject[MethodName]) => void,
         >(
             object: MockedObject,
             methodName: MethodName,
             implementation?: Implementation,
             options?: MockFunctionOptions,
-        ): Mock<((value: MockedObject[MethodName]) => void) | Implementation>;
+        ): Mock<Implementation>;
         /**
          * This function restores the default behavior of all mocks that were previously
          * created by this `MockTracker` and disassociates the mocks from the`MockTracker` instance. Once disassociated, the mocks can still be used, but the`MockTracker` instance can no longer be
