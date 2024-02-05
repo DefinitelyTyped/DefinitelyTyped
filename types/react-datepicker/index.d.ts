@@ -184,6 +184,7 @@ export interface ReactDatePickerProps<
     timeIntervals?: number | undefined;
     title?: string | undefined;
     todayButton?: React.ReactNode | undefined;
+    toggleCalendarOnIconClick?: boolean | undefined;
     useShortMonthInDropdown?: boolean | undefined;
     useWeekdaysShort?: boolean | undefined;
     weekAriaLabelPrefix?: string | undefined;
@@ -198,7 +199,6 @@ export interface ReactDatePickerProps<
     excludeScrollbar?: boolean | undefined;
     enableTabLoop?: boolean | undefined;
     yearItemNumber?: number | undefined;
-    toggleCalendarOnIconClick?: boolean | undefined;
 }
 
 export class ReactDatePicker<
