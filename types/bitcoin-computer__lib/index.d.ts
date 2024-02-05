@@ -285,13 +285,14 @@ declare class RestClient {
     listTxs(address: string): Promise<_Transaction>;
 }
 
-type Chain = 'LTC' | 'BTC';
-type Network = 'testnet' | 'mainnet' | 'regtest';
+type Chain = "LTC" | "BTC";
+type Network = "testnet" | "mainnet" | "regtest";
 type Fee = Partial<{
     fee: number;
 }>;
-type ProgramMetaData = JObject &
-    Partial<{
+type ProgramMetaData =
+    & JObject
+    & Partial<{
         _amount: number;
         _owners: string[];
         _readers?: string[];
@@ -337,7 +338,7 @@ type ComputerOptions = Partial<{
 interface SecretOutput {
     data: string;
 }
-interface TransitionJSON  {
+interface TransitionJSON {
     exp: string;
     env: {
         [s: string]: string;
@@ -362,13 +363,13 @@ interface Encrypted {
 }
 
 type Data = ProgramMetaData;
-type Class = new (...args: any) => any;
+type Class = new(...args: any) => any;
 type Query = Partial<{
     mod: string;
     publicKey: string;
     limit: number;
     offset: number;
-    order: 'ASC' | 'DESC';
+    order: "ASC" | "DESC";
     ids: string[];
     hash: string;
 }>;
@@ -377,7 +378,7 @@ type UserQuery<T extends Class> = Partial<{
     publicKey: string;
     limit: number;
     offset: number;
-    order: 'ASC' | 'DESC';
+    order: "ASC" | "DESC";
     ids: string[];
     contract: {
         class: T;

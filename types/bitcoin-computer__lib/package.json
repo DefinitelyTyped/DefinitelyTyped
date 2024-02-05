@@ -2,17 +2,16 @@
     "name": "@types/bitcoin-computer__lib",
     "version": "0.17.9999",
     "owners": [
-      {"name": "Clemens Ley", "githubUsername": "ClemensLey"},
-      {"name": "Laura Tardivo", "githubUsername": "ltardivo"},
-      {"name": "Vivek Singh", "githubUsername": "jonty007"}
+        { "name": "Clemens Ley", "githubUsername": "ClemensLey" },
+        { "name": "Laura Tardivo", "githubUsername": "ltardivo" },
+        { "name": "Vivek Singh", "githubUsername": "jonty007" }
     ],
     "private": true,
     "projects": ["https://docs.bitcoincomputer.io", "https://www.bitcoincomputer.io"],
     "devDependencies": {
-      "@types/bitcoin-computer__lib": "workspace:."
+        "@types/bitcoin-computer__lib": "workspace:."
     },
     "dependencies": {
-      "@types/node": "*"
+        "@types/node": "*"
     }
-  }
-  
+}
