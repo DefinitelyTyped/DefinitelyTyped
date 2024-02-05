@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/is-file-esm": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Leon Si",
-            "githubUsername": "leonzalion"
-        }
-    ]
+    "owners": []
 }

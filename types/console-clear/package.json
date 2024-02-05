@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/console-clear": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Leon Si",
-            "githubUsername": "leonzalion"
-        }
-    ]
+    "owners": []
 }
