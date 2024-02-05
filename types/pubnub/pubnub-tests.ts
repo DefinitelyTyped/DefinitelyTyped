@@ -662,3 +662,10 @@ pubnub.publishFile({
     fileName: "cat_picture.jpg",
     message: { field: "value" },
 });
+
+const listener = {
+    message: (m: any) => console.log(m),
+};
+const subscription = pubnub.channel("my_channel").subscription({ receivePresenceEvents: true });
+subscription.addListener(listener);
+pubnub.channelGroup("my_channelGroup").subscription({ receivePresenceEvents: true }).subscribe();

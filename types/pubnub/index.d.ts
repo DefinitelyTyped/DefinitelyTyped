@@ -158,6 +158,12 @@ declare class Pubnub {
 
     publishFile(params: Pubnub.PublishFileParameters): Promise<Pubnub.PublishFileResponse>;
 
+    channel(params: string): Pubnub.Channel;
+    channelGroup(params: string): Pubnub.ChannelGroup;
+    channelMetadata(params: string): Pubnub.ChannelMetadataType;
+    userMetadata(params: string): Pubnub.UserMetadataType;
+    subscriptionSet(params: Pubnub.subscriptionSetParameters): Pubnub.SubscriptionSet;
+
     // objects v2
     objects: {
         // UUID metadata
@@ -1459,6 +1465,53 @@ declare namespace Pubnub {
         PNAddMessageActionOperation: string;
         PNRemoveMessageActionOperation: string;
         PNGetMessageActionsOperation: string;
+    }
+
+    interface Channel {
+        subscription(options: SubscriptionOptions): Subscription;
+    }
+
+    interface ChannelGroup {
+        subscription(options: SubscriptionOptions): Subscription;
+    }
+
+    interface ChannelMetadataType {
+        subscription(options: SubscriptionOptions): Subscription;
+    }
+
+    interface UserMetadataType {
+        subscription(options: SubscriptionOptions): Subscription;
+    }
+
+    interface Subscription extends SubscribeCapable {
+        addSubscription(subscription: Subscription): SubscriptionSet;
+    }
+
+    interface SubscriptionSet extends SubscribeCapable {
+        addSubscription(subscription: Subscription): void;
+        removeSubscription(subscription: Subscription): void;
+
+        addSubscriptionSet(subscriptionSet: SubscriptionSet): void;
+        removeSubscriptionSet(subscriptionSet: SubscriptionSet): void;
+    }
+
+    interface SubscribeCapable {
+        subscribe(): void;
+        unsubscribe(): void;
+
+        addListener(listener: any): void;
+        removeListener(listener: any): void;
+    }
+
+    interface SubscriptionOptions {
+        cursor?: { timetoken?: string; region?: number };
+        receivePresenceEvents?: boolean;
+    }
+
+    interface subscriptionSetParameters {
+        channels?: string[];
+        channelGroups?: string[];
+        subscriptionOptions?: SubscriptionOptions;
     }
 
     type RetryPolicyConfiguration = LinearRetryPolicyConfiguration | ExponentialRetryPolicyConfiguration;
