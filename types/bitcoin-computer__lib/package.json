@@ -9,7 +9,8 @@
     "private": true,
     "projects": ["https://docs.bitcoincomputer.io", "https://www.bitcoincomputer.io"],
     "devDependencies": {
-      "@types/bitcoin-computer__lib": "workspace:."
+      "@types/bitcoin-computer__lib": "workspace:.",
+      "@types/node": "*"
     },
     "dependencies": {}
   }
