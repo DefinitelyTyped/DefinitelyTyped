@@ -1463,9 +1463,9 @@ table.on("rowSelectionChanged", (_data, rows, selected, deselected) => {
 // Testing download callbacks
 table = new Tabulator("#testDownloadCallbacks", {
     downloadReady: (fileContents, blob) => {
-        return blob
+        return blob;
     },
     downloadDataFormatter: (data) => {
         return data;
-    }
+    },
 });
