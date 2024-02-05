@@ -1,13 +1,65 @@
 name: CI
-on: pull_request
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  schedule:
+    # 12PM UTC -> 4AM Pacific
+    - cron: '0 12 * * *'
+  workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  # If in a PR, use the ref (refs/pull/<num>) so outdated PR runs are cancelled.
+  # Otherwise, run_id is unique so all other events will never be cancelled.
+  group: ${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.ref || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
+  setup-matrix:
+    runs-on: ubuntu-latest
+    if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
+
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          # Need this to be able to inquire about origin/master
+          filter: blob:none # https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/
+          fetch-depth: 0 # Default is 1; need to set to 0 to get the benefits of blob:none.
+      - uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # v4.0.1
+        with:
+          node-version: '20'
+
+      - uses: pnpm/action-setup@d882d12c64e032187b2edb46d3a0d003b7a43598 # v2.4.0
+
+      - id: matrix
+        run: |
+          if [ "${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}" == "true" ]; then
+            TESTS=all
+          else
+            TESTS=$(pnpm ls --depth -1 --parseable --filter '...@types/**[HEAD^1]' | wc -)
+          fi
+          MATRIX=$(node ./scripts/get-ci-matrix $TESTS)
+          echo $MATRIX
+          echo "matrix=$MATRIX" >> "$GITHUB_OUTPUT"
+
   test:
     runs-on: ubuntu-latest
     if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
+    needs: setup-matrix
+
+    strategy:
+      matrix: ${{ fromJson(needs.setup-matrix.outputs.matrix) }}
+      fail-fast: false
 
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
@@ -35,19 +87,68 @@ jobs:
           echo "store=$(pnpm store path)" >> $GITHUB_OUTPUT
 
       - name: Restore pnpm cache
-        uses: actions/cache/restore@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
+        uses: actions/cache/restore@13aacd865c20de90d75de3b17ebe84f7a17d57d2 # v4.0.0
         with:
           path: ${{ steps.pnpm-cache.outputs.store }}
           key: ${{ runner.os }}-pnpm-store-cache-
           restore-keys: ${{ runner.os }}-pnpm-store-cache-
 
       - run: ./scripts/pnpm-install.sh
+        name: pnpm install (filtered)
+        if: ${{ !(github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') }}
+
+      - run: pnpm install
         name: pnpm install
+        if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
 
       - run: pnpm ls
 
-      # Run tests
-      - run: pnpm run test-all
+      - run: pnpm run test-all --diffBase HEAD^1 --shardCount ${{ matrix.shardCount }} --shardId ${{ matrix.shardId }}
+        if: ${{ !(github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') }}
+
+      - run: pnpm dtslint-runner --path . --selection all --onlyTestTsNext --shardCount ${{ matrix.shardCount }} --shardId ${{ matrix.shardId }}
+        if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+
+      - name: Get suggestions dir
+        id: suggestions-dir
+        run: echo "path=$(node ./scripts/get-suggestions-dir.js)" >> "$GITHUB_OUTPUT"
+        if: ${{ github.event_name == 'pull_request' }}
+
+      - name: Upload suggestions
+        uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
+        with:
+          name: suggestions_${{ matrix.shardId }}_${{ matrix.shardCount }}
+          if-no-files-found: ignore
+          path: ${{ steps.suggestions-dir.outputs.path }}
+          retention-days: 1
+        if: ${{ github.event_name == 'pull_request' }}
+
+  dangerbot:
+    runs-on: ubuntu-latest
+    if: github.repository == 'DefinitelyTyped/DefinitelyTyped' && github.event_name == 'pull_request'
+
+    needs:
+      - test
+
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      - uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # v4.0.1
+        with:
+          node-version: '20'
+
+      - uses: pnpm/action-setup@d882d12c64e032187b2edb46d3a0d003b7a43598 # v2.4.0
+        with:
+          run_install: |
+            - args: [--filter, ., --filter, '{./scripts}...']
+
+      - name: Get suggestions dir
+        id: suggestions-dir
+        run: echo "path=$(node ./scripts/get-suggestions-dir.js)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/download-artifact@6b208ae046db98c579e8a3aa621ab581ff575935 # v4.1.1
+        with:
+          path: ${{ steps.suggestions-dir.outputs.path }}
+          merge-multiple: true
 
       - name: 'Run Danger'
         env:

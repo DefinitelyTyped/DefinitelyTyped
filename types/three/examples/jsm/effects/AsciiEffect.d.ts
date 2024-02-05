@@ -1,4 +1,4 @@
-import { Camera, Scene, WebGLRenderer } from '../../../src/Three.js';
+import { Camera, Scene, WebGLRenderer } from "../../../src/Three.js";
 
 export interface AsciiEffectOptions {
     resolution?: number;

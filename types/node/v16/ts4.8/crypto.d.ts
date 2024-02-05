@@ -1205,11 +1205,13 @@ declare module "crypto" {
         format?: KeyFormat | undefined;
         type?: "pkcs1" | "pkcs8" | "sec1" | undefined;
         passphrase?: string | Buffer | undefined;
+        encoding?: string | undefined;
     }
     interface PublicKeyInput {
         key: string | Buffer;
         format?: KeyFormat | undefined;
         type?: "pkcs1" | "spki" | undefined;
+        encoding?: string | undefined;
     }
     /**
      * Asynchronously generates a new random secret key of the given `length`. The`type` will determine which validations will be performed on the `length`.
@@ -3490,12 +3492,13 @@ declare module "crypto" {
          */
         disableEntropyCache?: boolean | undefined;
     }
+    type UUID = `${string}-${string}-${string}-${string}-${string}`;
     /**
      * Generates a random [RFC 4122](https://www.rfc-editor.org/rfc/rfc4122.txt) version 4 UUID. The UUID is generated using a
      * cryptographic pseudorandom number generator.
      * @since v15.6.0
      */
-    function randomUUID(options?: RandomUUIDOptions): string;
+    function randomUUID(options?: RandomUUIDOptions): UUID;
     interface X509CheckOptions {
         /**
          * @default 'always'
@@ -3978,7 +3981,7 @@ declare module "crypto" {
              * The UUID is generated using a cryptographic pseudorandom number generator.
              * @since v16.7.0
              */
-            randomUUID(): string;
+            randomUUID(): UUID;
             CryptoKey: CryptoKeyConstructor;
         }
         // This constructor throws ILLEGAL_CONSTRUCTOR so it should not be newable.

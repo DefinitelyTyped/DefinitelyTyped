@@ -1,4 +1,4 @@
-import UniformNode from './UniformNode.js';
+import UniformNode from "./UniformNode.js";
 
 export default class NodeUniform<Value> {
     readonly isNodeUniform: true;

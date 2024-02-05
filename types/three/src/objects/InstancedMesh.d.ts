@@ -1,12 +1,12 @@
-import { BufferGeometry } from '../core/BufferGeometry.js';
-import { Material } from '../materials/Material.js';
-import { InstancedBufferAttribute } from '../core/InstancedBufferAttribute.js';
-import { Mesh } from './Mesh.js';
-import { Matrix4 } from '../math/Matrix4.js';
-import { Color } from '../math/Color.js';
-import { Object3DEventMap } from '../core/Object3D.js';
-import { Box3 } from '../math/Box3.js';
-import { Sphere } from '../math/Sphere.js';
+import { BufferGeometry } from "../core/BufferGeometry.js";
+import { InstancedBufferAttribute } from "../core/InstancedBufferAttribute.js";
+import { Object3DEventMap } from "../core/Object3D.js";
+import { Material } from "../materials/Material.js";
+import { Box3 } from "../math/Box3.js";
+import { Color } from "../math/Color.js";
+import { Matrix4 } from "../math/Matrix4.js";
+import { Sphere } from "../math/Sphere.js";
+import { Mesh } from "./Mesh.js";
 
 export interface InstancedMeshEventMap extends Object3DEventMap {
     dispose: {};
@@ -28,7 +28,8 @@ export interface InstancedMeshEventMap extends Object3DEventMap {
 export class InstancedMesh<
     TGeometry extends BufferGeometry = BufferGeometry,
     TMaterial extends Material | Material[] = Material | Material[],
-> extends Mesh<TGeometry, TMaterial, InstancedMeshEventMap> {
+    TEventMap extends InstancedMeshEventMap = InstancedMeshEventMap,
+> extends Mesh<TGeometry, TMaterial, TEventMap> {
     /**
      * Create a new instance of {@link InstancedMesh}
      * @param geometry An instance of {@link THREE.BufferGeometry | BufferGeometry}.

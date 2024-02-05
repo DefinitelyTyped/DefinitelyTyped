@@ -1,5 +1,5 @@
-import { Texture } from '../textures/Texture.js';
-import { RenderTarget, RenderTargetOptions } from '../core/RenderTarget.js';
+import { RenderTarget, RenderTargetOptions } from "../core/RenderTarget.js";
+import { Texture } from "../textures/Texture.js";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface WebGLRenderTargetOptions extends RenderTargetOptions {}

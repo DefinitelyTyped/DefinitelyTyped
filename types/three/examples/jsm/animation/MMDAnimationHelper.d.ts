@@ -1,17 +1,17 @@
 import {
     AnimationClip,
+    AnimationMixer,
     Audio,
+    Bone,
     Camera,
     Mesh,
     Object3D,
     Quaternion,
     SkinnedMesh,
-    Bone,
-    AnimationMixer,
-} from '../../../src/Three.js';
+} from "../../../src/Three.js";
 
-import { CCDIKSolver } from './CCDIKSolver.js';
-import { MMDPhysics } from './MMDPhysics.js';
+import { CCDIKSolver } from "./CCDIKSolver.js";
+import { MMDPhysics } from "./MMDPhysics.js";
 
 export interface MMDAnimationHelperParameter {
     sync?: boolean | undefined;

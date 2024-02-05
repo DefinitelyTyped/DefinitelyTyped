@@ -1,4 +1,4 @@
-import Serializer = require("@rdfjs/serializer-jsonld-ext");
+import Serializer from "@rdfjs/serializer-jsonld-ext";
 import { Sink, Stream } from "@rdfjs/types";
 import { EventEmitter } from "events";
 import { Context } from "jsonld/jsonld-spec";
@@ -15,7 +15,7 @@ const serializer3 = new Serializer({
     flatten: true,
     frame: true,
     skipContext: true,
-    skipGraphProperty: true,
+    prettyPrint: false,
 });
 const serializer4: Serializer = new Serializer({ encoding: "object" });
 
@@ -30,6 +30,6 @@ const eventEmitter3: EventEmitter = serializer1.import(stream, {
     flatten: true,
     frame: true,
     skipContext: true,
-    skipGraphProperty: true,
+    prettyPrint: false,
 });
 const eventEmitter4: EventEmitter = serializer1.import(stream, { encoding: "object" });

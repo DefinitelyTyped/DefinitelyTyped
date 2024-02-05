@@ -5394,6 +5394,86 @@ declare namespace chrome.input.ime {
     export var onReset: InputResetEvent;
 }
 
+/**
+ * Use chrome.instanceID to access the Instance ID service.
+ * Permissions: "gcm"
+ * @since Chrome 44.
+ */
+declare namespace chrome.instanceID {
+    export interface TokenRefreshEvent extends chrome.events.Event<() => void> {}
+
+    /**
+     * Resets the app instance identifier and revokes all tokens associated with it.
+     *
+     * The `deleteID()` method doesn't return any value, but can be used with a callback or asynchronously,
+     * with a Promise (MV3 only).
+     */
+    export function deleteID(): Promise<void>;
+    export function deleteID(callback: () => void): void;
+
+    interface DeleteTokenParams {
+        /**
+         * Identifies the entity that is authorized to access resources associated with this Instance ID.
+         * It can be a project ID from Google developer console.
+         */
+        authorizedEntity: string;
+        /**
+         * Identifies authorized actions that the authorized entity can take.
+         * In other words, the scope that is used to obtain the token.
+         * E.g. for sending GCM messages, `GCM` scope should be used.
+         */
+        scope: string;
+    }
+    /**
+     * Revoked a granted token.
+     *
+     * The `deleteToken()` method doesn't return any value, but can be used with a callback or
+     * asynchronously, with a Promise (MV3 only).
+     */
+    export function deleteToken(deleteTokenParams: DeleteTokenParams): Promise<void>;
+    export function deleteToken(
+        deleteTokenParams: DeleteTokenParams,
+        callback: () => void,
+    ): void;
+
+    /**
+     * Retrieves the time when the InstanceID has been generated.
+     *
+     * @return The time when the Instance ID has been generated, represented in milliseconds since the epoch.
+     * It can return via a callback or asynchronously, with a Promise (MV3 only).
+     */
+    export function getCreationTime(): Promise<number>;
+    export function getCreationTime(callback: (creationTime: number) => void): void;
+
+    /**
+     * Retrieves an identifier for the app instance.
+     * The same ID will be returned as long as the application identity has not been revoked or expired.
+     *
+     * @return An Instance ID assigned to the app instance. Can be returned by a callback or a Promise (MV3 only).
+     */
+    export function getID(): Promise<string>;
+    export function getID(callback: (instanceID: string) => void): void;
+
+    interface GetTokenParams extends DeleteTokenParams {
+        /**
+         * Allows including a small number of string key/value pairs that will be associated with the token
+         * and may be used in processing the request.
+         *
+         * @deprecated Since Chrome 89. `options` are deprecated and will be ignored.
+         */
+        options?: { [key: string]: string };
+    }
+    /**
+     * Return a token that allows the authorized entity to access the service defined by scope.
+     *
+     * @return A token assigned by the requested service. Can be returned by a callback or a Promise (MV3 only).
+     */
+    export function getToken(getTokenParams: GetTokenParams): Promise<string>;
+    export function getToken(getTokenParams: GetTokenParams, callback: (token: string) => void): void;
+
+    export var onTokenRefresh: TokenRefreshEvent;
+}
+
 ////////////////////
 // LoginState
 ////////////////////
@@ -6265,7 +6345,7 @@ declare namespace chrome.permissions {
         permissions?: string[] | undefined;
         /**
          * Optional.
-         * List of origin permissions. Anything listed here must be a subset of a host that appears in the optional_permissions list in the manifest. For example, if http://*.example.com/ or http://* appears in optional_permissions, you can request an origin of http://help.example.com/. Any path is ignored.
+         * List of origin permissions. Anything listed here must be a subset of a host that appears in the optional host permission list in the manifest (optional_permissions in MV2, optional_host_permissions in MV3). For example, if http://*.example.com/ or http://* appears in the optional permissions, you can request an origin of http://help.example.com/. Any path is ignored.
          */
         origins?: string[] | undefined;
     }
@@ -6298,12 +6378,12 @@ declare namespace chrome.permissions {
      */
     export function getAll(callback: (permissions: Permissions) => void): void;
     /**
-     * Requests access to the specified permissions. These permissions must be defined in the optional_permissions field of the manifest. If there are any problems requesting the permissions, runtime.lastError will be set.
+     * Requests access to the specified permissions. These permissions must be defined in the optional_permissions or optional_host_permissions (MV3 only) fields of the manifest. If there are any problems requesting the permissions, runtime.lastError will be set.
      * @return A Promise that resolves with boolean: True if the user granted the specified permissions.
      */
     export function request(permissions: Permissions): Promise<boolean>;
     /**
-     * Requests access to the specified permissions. These permissions must be defined in the optional_permissions field of the manifest. If there are any problems requesting the permissions, runtime.lastError will be set.
+     * Requests access to the specified permissions. These permissions must be defined in the optional_permissions or optional_host_permissions (MV3 only) fields of the manifest. If there are any problems requesting the permissions, runtime.lastError will be set.
      * Parameter granted: True if the user granted the specified permissions.
      */
     export function request(permissions: Permissions, callback?: (granted: boolean) => void): void;
@@ -6957,6 +7037,14 @@ declare namespace chrome.runtime {
     export type PlatformArch = "arm" | "arm64" | "x86-32" | "x86-64" | "mips" | "mips64";
     /** https://developer.chrome.com/docs/extensions/reference/runtime/#type-PlatformNaclArch */
     export type PlatformNaclArch = "arm" | "x86-32" | "x86-64" | "mips" | "mips64";
+    /** https://developer.chrome.com/docs/extensions/reference/api/runtime#type-ContextFilter */
+    export enum ContextType {
+        TAB = "TAB",
+        POPUP = "POPUP",
+        BACKGROUND = "BACKGROUND",
+        OFFSCREEN_DOCUMENT = "OFFSCREEN_DOCUMENT",
+        SIDE_PANEL = "SIDE_PANEL",
+    }
     /** https://developer.chrome.com/docs/extensions/reference/runtime/#type-OnInstalledReason */
     export enum OnInstalledReason {
         INSTALL = "install",
@@ -6968,6 +7056,22 @@ declare namespace chrome.runtime {
     export interface LastError {
         /** Optional. Details about the error which occurred.  */
         message?: string | undefined;
+    }
+
+    /**
+     * A filter to match against certain extension contexts. Matching contexts must match all specified filters; any filter that is not specified matches all available contexts. Thus, a filter of `{}` will match all available contexts.
+     * @since Chrome 114.
+     */
+    export interface ContextFilter {
+        contextIds?: string[] | undefined;
+        contextTypes?: ContextType[] | undefined;
+        documentIds?: string[] | undefined;
+        documentOrigins?: string[] | undefined;
+        documentUrls?: string[] | undefined;
+        frameIds?: number[] | undefined;
+        incognito?: boolean | undefined;
+        tabIds?: number[] | undefined;
+        windowIds?: number[] | undefined;
     }
 
     export interface ConnectInfo {
@@ -6991,6 +7095,40 @@ declare namespace chrome.runtime {
          * @since Chrome 29.
          */
         id?: string | undefined;
+    }
+
+    /**
+     * A context hosting extension content.
+     * @since Chrome 114.
+     */
+    export interface ExtensionContext {
+        /** A unique identifier for this context */
+        contextId: string;
+        /** The type of context this corresponds to. */
+        contextType: ContextType;
+        /**
+         * Optional.
+         * A UUID for the document associated with this context, or undefined if this context is hosted not in a document.
+         */
+        documentId?: string | undefined;
+        /**
+         * Optional.
+         * The origin of the document associated with this context, or undefined if the context is not hosted in a document.
+         */
+        documentOrigin?: string | undefined;
+        /**
+         * Optional.
+         * The URL of the document associated with this context, or undefined if the context is not hosted in a document.
+         */
+        documentUrl?: string | undefined;
+        /** The ID of the frame for this context, or -1 if this context is not hosted in a frame. */
+        frameId: number;
+        /** Whether the context is associated with an incognito profile. */
+        incognito: boolean;
+        /** The ID of the tab for this context, or -1 if this context is not hosted in a tab. */
+        tabId: number;
+        /** The ID of the window for this context, or -1 if this context is not hosted in a window. */
+        windowId: number;
     }
 
     export interface MessageOptions {
@@ -7466,6 +7604,7 @@ declare namespace chrome.runtime {
         };
         host_permissions?: string[] | undefined;
         optional_permissions?: ManifestPermissions[] | undefined;
+        optional_host_permissions?: string[] | undefined;
         permissions?: ManifestPermissions[] | undefined;
         web_accessible_resources?: Array<{ resources: string[]; matches: string[] }> | undefined;
     }
@@ -7492,6 +7631,21 @@ declare namespace chrome.runtime {
     export function connectNative(application: string): Port;
     /** Retrieves the JavaScript 'window' object for the background page running inside the current extension/app. If the background page is an event page, the system will ensure it is loaded before calling the callback. If there is no background page, an error is set. */
     export function getBackgroundPage(callback: (backgroundPage?: Window) => void): void;
+    /**
+     * Fetches information about active contexts associated with this extension
+     * @since Chrome 116 MV3.
+     * @return Provides the matching context, if any via callback or returned as a `Promise` (MV3 only).
+     * @param filter A filter to find matching contexts. A context matches if it matches all specified fields in the filter. Any unspecified field in the filter matches all contexts.
+     */
+    export function getContexts(filter: ContextFilter): Promise<ExtensionContext[]>;
+    /**
+     * Fetches information about active contexts associated with this extension
+     * @since Chrome 116 MV3.
+     * @return Provides the matching context, if any via callback or returned as a `Promise` (MV3 only).
+     * @param filter A filter to find matching contexts. A context matches if it matches all specified fields in the filter. Any unspecified field in the filter matches all contexts.
+     * @param callback Called with results
+     */
+    export function getContexts(filter: ContextFilter, callback: (contexts: ExtensionContext[]) => void): void;
     /**
      * Returns details about the app or extension from the manifest. The object returned is a serialization of the full manifest file.
      * @return The manifest details.
@@ -7725,16 +7879,29 @@ declare namespace chrome.scripting {
     /* The JavaScript world for a script to execute within. */
     export type ExecutionWorld = "ISOLATED" | "MAIN";
 
-    export interface InjectionResult<T> {
-        /* The frame associated with the injection. */
+    export interface InjectionResult<T extends any = any> {
+        /**
+         * The document associated with the injection.
+         * @since Chrome 106.
+         */
+        documentId: string;
+        /**
+         * The frame associated with the injection.
+         * @since Chrome 90.
+         */
         frameId: number;
         /* The result of the script execution. */
-        result: T;
+        result?: T | undefined;
     }
 
     export interface InjectionTarget {
         /* Whether the script should inject into all frames within the tab. Defaults to false. This must not be true if frameIds is specified. */
         allFrames?: boolean | undefined;
+        /**
+         * The IDs of specific documentIds to inject into. This must not be set if frameIds is set.
+         * @since Chrome 106.
+         */
+        documentIds?: string[] | undefined;
         /* The IDs of specific frames to inject into. */
         frameIds?: number[] | undefined;
         /* The ID of the tab into which to inject. */

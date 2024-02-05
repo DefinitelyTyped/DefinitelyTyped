@@ -1,5 +1,5 @@
 import { Socket } from "node:dgram";
-import { LookupAddress, LookupAllOptions } from "node:dns";
+import { LookupAddress, LookupOptions } from "node:dns";
 import * as net from "node:net";
 
 {
@@ -71,6 +71,30 @@ import * as net from "node:net";
 }
 
 {
+    // lookup callback can be either an array of LookupAddress or a single address and family
+    const tcpConnectLookupAllOpts: net.TcpSocketConnectOpts = {
+        lookup: (
+            _hostname: string,
+            _options: LookupOptions,
+            callback: (err: NodeJS.ErrnoException | null, addresses: LookupAddress[]) => void,
+        ): void => {
+            callback(null, [{ address: "", family: 1 }]);
+        },
+        port: 80,
+    };
+    const tcpConnectLookupOneOpts: net.TcpSocketConnectOpts = {
+        lookup: (
+            _hostname: string,
+            _options: LookupOptions,
+            callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void,
+        ): void => {
+            callback(null, "", 1);
+        },
+        port: 80,
+    };
+}
+
+{
     const constructorOpts: net.SocketConstructorOpts = {
         fd: 1,
         allowHalfOpen: false,
@@ -109,7 +133,7 @@ import * as net from "node:net";
         localPort: 1234,
         lookup: (
             _hostname: string,
-            _options: LookupAllOptions,
+            _options: LookupOptions,
             _callback: (err: NodeJS.ErrnoException | null, addresses: LookupAddress[]) => void,
         ): void => {
             // nothing
@@ -356,6 +380,7 @@ import * as net from "node:net";
 
     _socket.destroy();
     _server.close();
+    _server[Symbol.asyncDispose]();
 }
 
 {

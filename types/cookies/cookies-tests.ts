@@ -31,7 +31,13 @@ const server = http.createServer((req, res) => {
             // sameSite option
             .set("samesite", "same", { sameSite: "lax" })
             .set("samesite", "same", { sameSite: "strict" })
-            .set("samesite", "same", { sameSite: false });
+            .set("samesite", "same", { sameSite: false })
+            // priority option
+            .set("priority", "low", { priority: "low" })
+            .set("priority", "medium", { priority: "low" })
+            .set("priority", "high", { priority: "high" })
+            // partitioned option
+            .set("partitioned", "partitioned", { partitioned: true });
 
         res.writeHead(302, { Location: "/" });
         res.end("Now let's check.");

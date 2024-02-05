@@ -662,10 +662,26 @@ new lcov();
 
 describe("Mock Timers Test Suite", () => {
     it((t) => {
+        t.mock.timers.enable({ apis: ["setTimeout"] });
+        // new Date suite
+        t.mock.timers.enable({ apis: ["Date"] });
+        // immediates suite
+        t.mock.timers.enable({ apis: ["setImmediate"] });
+        t.mock.timers.enable({ apis: ["setTimeout"], now: 1000 });
+        t.mock.timers.enable({ apis: ["setTimeout"], now: new Date() });
+        t.mock.timers.enable();
+        // @ts-expect-error
         t.mock.timers.enable(["setTimeout"]);
         // @ts-expect-error
-        t.mock.timers.enable(["DOES_NOT_EXIST"]);
+        t.mock.timers.enable({ apis: ["NOT_THERE"] });
         t.mock.timers.enable();
+        t.mock.timers.setTime(1000);
+        // @ts-expect-error
+        t.mock.timers.setTime("1000");
+        // @ts-expect-error
+        t.mock.timers.setTime(new Date());
+        // @ts-expect-error
+        t.mock.timers.setTime();
         t.mock.timers.reset();
         t.mock.timers.tick(1000);
     });

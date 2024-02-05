@@ -2,7 +2,7 @@
     "private": true,
     "name": "@types/liferay",
     "version": "1.0.9999",
-    "nonNpm": true,
+    "nonNpm": "conflict",
     "nonNpmDescription": "Liferay's Global JavaScript Object",
     "projects": [
         "https://github.com/liferay/liferay-portal",

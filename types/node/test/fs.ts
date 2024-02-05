@@ -213,7 +213,7 @@ async function testPromisify() {
         console.log(event, filename);
     });
 
-    fs.watch("/tmp/foo-", {
+    const fsWatcher = fs.watch("/tmp/foo-", {
         recursive: true,
         persistent: true,
         encoding: "utf8",
@@ -221,6 +221,8 @@ async function testPromisify() {
     }, (event, filename) => {
         console.log(event, filename);
     });
+
+    fsWatcher.unref().ref().close();
 }
 
 {

@@ -4,7 +4,7 @@ import {
     PixelFormat,
     TextureDataType,
     TextureEncoding,
-} from '../../../src/Three.js';
+} from "../../../src/Three.js";
 
 export interface EXR {
     header: object;

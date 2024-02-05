@@ -307,7 +307,7 @@ export interface PackOptions {
      * Set to a Date object to force a specific mtime for everything added to
      * the archive. Overridden by noMtime.
      */
-    mtime?: number;
+    mtime?: Date;
 }
 
 /**

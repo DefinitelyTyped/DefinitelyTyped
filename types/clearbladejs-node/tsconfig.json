@@ -16,9 +16,5 @@
     "files": [
         "index.d.ts",
         "clearbladejs-node-tests.ts"
-    ],
-    "exclude": [
-        "**/clearbladejs-client/*",
-        "**/clearbladejs-server/*"
     ]
 }

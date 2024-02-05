@@ -1,13 +1,13 @@
-import { BufferAttribute } from './BufferAttribute.js';
-import { InterleavedBufferAttribute } from './InterleavedBufferAttribute.js';
-import { Box3 } from '../math/Box3.js';
-import { Sphere } from '../math/Sphere.js';
-import { Matrix4 } from '../math/Matrix4.js';
-import { Quaternion } from '../math/Quaternion.js';
-import { Vector2 } from '../math/Vector2.js';
-import { Vector3 } from '../math/Vector3.js';
-import { EventDispatcher } from './EventDispatcher.js';
-import { GLBufferAttribute } from './GLBufferAttribute.js';
+import { Box3 } from "../math/Box3.js";
+import { Matrix4 } from "../math/Matrix4.js";
+import { Quaternion } from "../math/Quaternion.js";
+import { Sphere } from "../math/Sphere.js";
+import { Vector2 } from "../math/Vector2.js";
+import { Vector3 } from "../math/Vector3.js";
+import { BufferAttribute } from "./BufferAttribute.js";
+import { EventDispatcher } from "./EventDispatcher.js";
+import { GLBufferAttribute } from "./GLBufferAttribute.js";
+import { InterleavedBufferAttribute } from "./InterleavedBufferAttribute.js";
 
 export type NormalBufferAttributes = Record<string, BufferAttribute | InterleavedBufferAttribute>;
 export type NormalOrGLBufferAttributes = Record<
@@ -104,7 +104,7 @@ export class BufferGeometry<
      * @remarks Sub-classes will update this value.
      * @defaultValue `BufferGeometry`
      */
-    readonly type: string | 'BufferGeometry';
+    readonly type: string | "BufferGeometry";
 
     /**
      * Allows for vertices to be re-used across multiple triangles; this is called using "indexed triangles".

@@ -418,6 +418,15 @@ map.addSource("some id", videoSourceObj); // add
 map.removeSource("some id"); // remove
 
 /**
+ * Raster Source
+ */
+const rasterSource = map.getSource("tile-source") as mapboxgl.RasterSourceImpl;
+// $ExpectType RasterSourceImpl
+rasterSource.setTiles(["a", "b"]);
+// $ExpectType RasterSourceImpl
+rasterSource.setUrl("https://github.com");
+
+/**
  * Vector Source
  */
 const vectorSource = map.getSource("tile-source") as mapboxgl.VectorSourceImpl;

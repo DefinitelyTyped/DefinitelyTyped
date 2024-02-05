@@ -3,6 +3,11 @@ import assert = require("node:assert");
 import { promisify } from "node:util";
 
 {
+    // crypto hash copy with outputLength
+    const copied: crypto.Hash = crypto.createHash("shake256").copy({ outputLength: 128 });
+}
+
+{
     const copied: crypto.Hash = crypto.createHash("md5").copy().copy({
         encoding: "ascii",
     });

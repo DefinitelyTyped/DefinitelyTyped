@@ -2,7 +2,7 @@
     "private": true,
     "name": "@types/ember__string",
     "version": "2.0.9999",
-    "nonNpm": true,
+    "nonNpm": "conflict",
     "nonNpmDescription": "@ember/string",
     "projects": [
         "https://www.npmjs.com/package/@ember/string"
@@ -15,20 +15,16 @@
     },
     "owners": [
         {
-            "name": "Mike North",
-            "githubUsername": "mike-north"
-        },
-        {
-            "name": "Chris Krycho",
-            "githubUsername": "chriskrycho"
-        },
-        {
             "name": "Krystan HuffMenne",
             "githubUsername": "gitKrystan"
         },
         {
             "name": "James C. Davis",
             "githubUsername": "jamescdavis"
+        },
+        {
+            "name": "Peter Wagenet",
+            "githubUsername": "wagenet"
         }
     ]
 }

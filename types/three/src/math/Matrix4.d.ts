@@ -1,8 +1,8 @@
-import { Vector3 } from './Vector3.js';
-import { Euler } from './Euler.js';
-import { Quaternion } from './Quaternion.js';
-import { Matrix, Matrix3 } from './Matrix3.js';
-import { CoordinateSystem } from '../constants.js';
+import { CoordinateSystem } from "../constants.js";
+import { Euler } from "./Euler.js";
+import { Matrix, Matrix3 } from "./Matrix3.js";
+import { Quaternion } from "./Quaternion.js";
+import { Vector3 } from "./Vector3.js";
 
 export type Matrix4Tuple = [
     number,

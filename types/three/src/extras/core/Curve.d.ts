@@ -1,5 +1,5 @@
-import { Vector } from '../../math/Vector2.js';
-import { Vector3 } from '../../math/Vector3.js';
+import { Vector2 } from "../../math/Vector2.js";
+import { Vector3 } from "../../math/Vector3.js";
 
 /**
  * An abstract base class for creating a {@link Curve} object that contains methods for interpolation
@@ -25,7 +25,7 @@ import { Vector3 } from '../../math/Vector3.js';
  * @see {@link https://threejs.org/docs/index.html#api/en/extras/core/Curve | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/extras/core/Curve.js | Source}
  */
-export abstract class Curve<T extends Vector> {
+export abstract class Curve<TVector extends Vector2 | Vector3> {
     protected constructor();
 
     /**
@@ -33,7 +33,7 @@ export abstract class Curve<T extends Vector> {
      * @remarks Sub-classes will update this value.
      * @defaultValue `Curve`
      */
-    readonly type: string | 'Curve';
+    readonly type: string | "Curve";
 
     /**
      * This value determines the amount of divisions when calculating the cumulative segment lengths of a {@link Curve}
@@ -49,26 +49,26 @@ export abstract class Curve<T extends Vector> {
      * @param t A position on the curve. Must be in the range `[ 0, 1 ]`. Expects a `Float`
      * @param optionalTarget If specified, the result will be copied into this Vector, otherwise a new Vector will be created. Default `new T`.
      */
-    getPoint(t: number, optionalTarget?: T): T;
+    getPoint(t: number, optionalTarget?: TVector): TVector;
 
     /**
      * Returns a vector for a given position on the {@link Curve} according to the arc length.
      * @param u A position on the {@link Curve} according to the arc length. Must be in the range `[ 0, 1 ]`. Expects a `Float`
      * @param optionalTarget If specified, the result will be copied into this Vector, otherwise a new Vector will be created. Default `new T`.
      */
-    getPointAt(u: number, optionalTarget?: T): T;
+    getPointAt(u: number, optionalTarget?: TVector): TVector;
 
     /**
      * Returns a set of divisions `+1` points using {@link .getPoint | getPoint(t)}.
      * @param divisions Number of pieces to divide the {@link Curve} into. Expects a `Integer`. Default `5`
      */
-    getPoints(divisions?: number): T[];
+    getPoints(divisions?: number): TVector[];
 
     /**
      * Returns a set of divisions `+1` equi-spaced points using {@link .getPointAt | getPointAt(u)}.
      * @param divisions Number of pieces to divide the {@link Curve} into. Expects a `Integer`. Default `5`
      */
-    getSpacedPoints(divisions?: number): T[];
+    getSpacedPoints(divisions?: number): TVector[];
 
     /**
      * Get total {@link Curve} arc length.
@@ -107,14 +107,14 @@ export abstract class Curve<T extends Vector> {
      * @param t A position on the curve. Must be in the range `[ 0, 1 ]`. Expects a `Float`
      * @param optionalTarget If specified, the result will be copied into this Vector, otherwise a new Vector will be created.
      */
-    getTangent(t: number, optionalTarget?: T): T;
+    getTangent(t: number, optionalTarget?: TVector): TVector;
 
     /**
      * Returns tangent at a point which is equidistant to the ends of the {@link Curve} from the point given in {@link .getTangent}.
      * @param u A position on the {@link Curve} according to the arc length. Must be in the range `[ 0, 1 ]`. Expects a `Float`
      * @param optionalTarget If specified, the result will be copied into this Vector, otherwise a new Vector will be created.
      */
-    getTangentAt(u: number, optionalTarget?: T): T;
+    getTangentAt(u: number, optionalTarget?: TVector): TVector;
 
     /**
      * Generates the Frenet Frames
@@ -141,7 +141,7 @@ export abstract class Curve<T extends Vector> {
      * Copies another {@link Curve} object to this instance.
      * @param source
      */
-    copy(source: Curve<T>): this;
+    copy(source: Curve<TVector>): this;
 
     /**
      * Returns a JSON object representation of this instance.

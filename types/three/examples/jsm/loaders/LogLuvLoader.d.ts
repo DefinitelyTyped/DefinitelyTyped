@@ -1,4 +1,4 @@
-import { DataTextureLoader, TextureDataType, LoadingManager, PixelFormat } from '../../../src/Three.js';
+import { DataTextureLoader, LoadingManager, PixelFormat, TextureDataType } from "../../../src/Three.js";
 
 export interface LogLuv {
     width: number;

@@ -1,4 +1,4 @@
-import { Camera, AnimationClip, FileLoader, Loader, LoadingManager, SkinnedMesh } from '../../../src/Three.js';
+import { AnimationClip, Camera, FileLoader, Loader, LoadingManager, SkinnedMesh } from "../../../src/Three.js";
 
 export interface MMDLoaderAnimationObject {
     animation: AnimationClip;

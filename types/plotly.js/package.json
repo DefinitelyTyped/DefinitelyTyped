@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/plotly.js",
-    "version": "2.12.9999",
+    "version": "2.29.9999",
     "projects": [
         "https://plot.ly/javascript/",
         "https://github.com/plotly/plotly.js"

@@ -1,6 +1,6 @@
-import * as THREE from 'three';
+import * as THREE from "three";
 
-import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
+import { TrackballControls } from "three/examples/jsm/controls/TrackballControls";
 
 const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 300);
 const scene = new THREE.Scene();
@@ -19,7 +19,7 @@ init();
 animate();
 
 function init() {
-    const container = document.getElementById('container');
+    const container = document.getElementById("container");
 
     // CAMERA
 
@@ -35,7 +35,7 @@ function init() {
 
     const textureLoader = new THREE.TextureLoader();
 
-    const texture = textureLoader.load('textures/disturb.jpg');
+    const texture = textureLoader.load("textures/disturb.jpg");
     texture.repeat.set(20, 10);
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
     texture.encoding = THREE.sRGBEncoding;
@@ -133,11 +133,11 @@ function init() {
 
     controls.dynamicDampingFactor = 0.15;
 
-    controls.keys = ['KeyA', 'KeyS', 'KeyD'];
+    controls.keys = ["KeyA", "KeyS", "KeyD"];
 
     //
 
-    window.addEventListener('resize', onWindowResize);
+    window.addEventListener("resize", onWindowResize);
 }
 
 function onWindowResize() {

@@ -1,6 +1,6 @@
 import { Transform, TransformCallback, TransformOptions } from "node:stream";
 import { after, afterEach, before, beforeEach, describe, it, Mock, mock, only, run, skip, test, todo } from "node:test";
-import { dot, junit, spec, tap, TestEvent } from "node:test/reporters";
+import { dot, junit, lcov, spec, tap, TestEvent } from "node:test/reporters";
 
 // run without options
 // $ExpectType TestsStream
@@ -657,13 +657,31 @@ new spec();
 junit();
 // $ExpectType AsyncGenerator<string, void, unknown>
 junit("" as any);
+// $ExpectType Lcov
+new lcov();
 
 describe("Mock Timers Test Suite", () => {
     it((t) => {
+        t.mock.timers.enable({ apis: ["setTimeout"] });
+        // new Date suite
+        t.mock.timers.enable({ apis: ["Date"] });
+        // immediates suite
+        t.mock.timers.enable({ apis: ["setImmediate"] });
+        t.mock.timers.enable({ apis: ["setTimeout"], now: 1000 });
+        t.mock.timers.enable({ apis: ["setTimeout"], now: new Date() });
+        t.mock.timers.enable();
+        // @ts-expect-error
         t.mock.timers.enable(["setTimeout"]);
         // @ts-expect-error
-        t.mock.timers.enable(["DOES_NOT_EXIST"]);
+        t.mock.timers.enable({ apis: ["NOT_THERE"] });
         t.mock.timers.enable();
+        t.mock.timers.setTime(1000);
+        // @ts-expect-error
+        t.mock.timers.setTime("1000");
+        // @ts-expect-error
+        t.mock.timers.setTime(new Date());
+        // @ts-expect-error
+        t.mock.timers.setTime();
         t.mock.timers.reset();
         t.mock.timers.tick(1000);
     });

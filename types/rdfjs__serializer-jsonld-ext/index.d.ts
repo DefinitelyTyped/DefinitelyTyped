@@ -1,23 +1,20 @@
 import { BaseQuad, Quad, Sink, Stream } from "@rdfjs/types";
 import { EventEmitter } from "events";
-import { Context } from "jsonld/jsonld-spec";
+import { Context } from "jsonld/jsonld-spec.js";
 
-declare namespace Serializer {
-    interface SerializerOptions {
-        context?: Context | undefined;
-        compact?: boolean | undefined;
-        encoding?: "string" | "object" | undefined;
-        flatten?: boolean | undefined;
-        frame?: boolean | undefined;
-        skipContext?: boolean | undefined;
-        skipGraphProperty?: boolean | undefined;
-    }
+export interface SerializerOptions {
+    baseIRI?: string | undefined;
+    context?: Context | undefined;
+    compact?: boolean | undefined;
+    encoding?: "string" | "object" | undefined;
+    flatten?: boolean | undefined;
+    frame?: boolean | undefined;
+    skipContext?: boolean | undefined;
+    prettyPrint?: boolean | undefined;
 }
 
-declare class Serializer<Q extends BaseQuad = Quad> implements Sink<Stream<Q>, EventEmitter> {
-    constructor(options?: Serializer.SerializerOptions);
+export default class Serializer<Q extends BaseQuad = Quad> implements Sink<Stream<Q>, EventEmitter> {
+    constructor(options?: SerializerOptions);
 
-    import(stream: Stream<Q>, options?: Serializer.SerializerOptions): EventEmitter;
+    import(stream: Stream<Q>, options?: SerializerOptions): EventEmitter;
 }
-
-export = Serializer;

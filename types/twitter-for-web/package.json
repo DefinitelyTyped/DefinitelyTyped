@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/twitter-for-web",
     "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "twitter-for-web",
     "projects": [
         "https://dev.twitter.com/web/"
     ],

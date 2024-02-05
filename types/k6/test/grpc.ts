@@ -38,6 +38,15 @@ const params_with_string_timeout = {
 };
 client.invoke("main.RouteGuide/UpdateFeature", req, params_with_string_timeout);
 
+const stream = new grpc.Stream(client, "main.RouteGuide/GetFeature", params);
+
+stream.on("data", data => {
+    data; // $ExpectType object | GrpcError | undefined
+});
+
+stream.write({ latitude: 410248224, longitude: -747127767 });
+stream.end();
+
 grpc.StatusOK;
 grpc.StatusCanceled;
 grpc.StatusUnknown;

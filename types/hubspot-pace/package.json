@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/hubspot-pace",
     "version": "0.7.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "hubspot-pace",
     "projects": [
         "https://github.com/HubSpot/pace"
     ],
