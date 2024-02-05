@@ -796,7 +796,7 @@ declare module "node:test" {
             methodName: MethodName,
             implementation: Implementation,
             options?: MockFunctionOptions,
-        ): Mock<Implementation>
+        ): Implementation extends Function ? Mock<Implementation> : never
         method<MockedObject extends object>(
             object: MockedObject,
             methodName: keyof MockedObject,
@@ -811,7 +811,7 @@ declare module "node:test" {
             methodName: keyof MockedObject,
             implementation: Implementation,
             options: MockMethodOptions,
-        ): Mock<Implementation>;
+        ): Implementation extends Function ? Mock<Implementation> : never;
 
         /**
          * This function is syntax sugar for `MockTracker.method` with `options.getter`set to `true`.
