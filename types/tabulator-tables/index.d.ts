@@ -851,11 +851,9 @@ export interface DownloadPDF {
 
 export interface OptionsDownload {
     /**
-     * Allows you to intercept the download file data before the users is prompted to save the file.
+     * The downloadEncoder callback allows you to intercept the download file data before the users is prompted to save the file.
      *
-     * In order for the download to proceed the downloadReady callback is expected to return a blob of file to be downloaded.
-     *
-     * If you would prefer to abort the download you can return false from this callback. This could be useful for example if you want to send the created file to a server via ajax rather than allowing the user to download the file.
+     * The first argument of the function is the file contents returned from the downloader, the second argument is the suggested mime type for the output. The function is should return a blob of the file to be downloaded.
      */
     downloadEncoder?: ((fileContents: any, mimeType: string) => Blob | false) | undefined;
 
