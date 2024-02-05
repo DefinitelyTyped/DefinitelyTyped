@@ -66,7 +66,7 @@ export type NonEmptyArray<T> = [T, ...T[]];
 
 export type Mode = Color["mode"];
 
-export type RgbGamut = Gamut["mode"];
+export type GamutMode = Gamut["mode"];
 
 export type FindColorByMode<M extends Mode, C extends Color = Color> = C extends { mode: M } ? C : never;
 
