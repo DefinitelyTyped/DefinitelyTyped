@@ -903,9 +903,14 @@ declare module "process" {
                  */
                 readonly sourceMapsEnabled: boolean;
                 /**
-                 * This function enables or disables the Source Map v3 support for stack traces.
-                 * It provides same features as launching Node.js process with commandline options --enable-source-maps.
-                 * @since v16.6.0
+                 * This function enables or disables the [Source Map v3](https://sourcemaps.info/spec.html) support for
+                 * stack traces.
+                 *
+                 * It provides same features as launching Node.js process with commandline options`--enable-source-maps`.
+                 *
+                 * Only source maps in JavaScript files that are loaded after source maps has been
+                 * enabled will be parsed and loaded.
+                 * @since v16.6.0, v14.18.0
                  * @experimental
                  */
                 setSourceMapsEnabled(value: boolean): void;
@@ -1311,6 +1316,23 @@ declare module "process" {
                  */
                 uptime(): number;
                 hrtime: HRTime;
+                /**
+                 * If the Node.js process was spawned with an IPC channel, the process.channel property is a reference to the IPC channel.
+                 * If no IPC channel exists, this property is undefined.
+                 * @since v7.1.0
+                 */
+                channel?: {
+                    /**
+                     * This method makes the IPC channel keep the event loop of the process running if .unref() has been called before.
+                     * @since v7.1.0
+                     */
+                    ref(): void;
+                    /**
+                     * This method makes the IPC channel not keep the event loop of the process running, and lets it finish even while the channel is open.
+                     * @since v7.1.0
+                     */
+                    unref(): void;
+                };
                 /**
                  * If Node.js is spawned with an IPC channel, the `process.send()` method can be
                  * used to send messages to the parent process. Messages will be received as a `'message'` event on the parent's `ChildProcess` object.

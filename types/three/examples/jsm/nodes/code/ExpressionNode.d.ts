@@ -1,6 +1,6 @@
-import { NodeTypeOption } from '../core/constants.js';
-import TempNode from '../core/TempNode.js';
-import { ShaderNodeObject } from '../shadernode/ShaderNode.js';
+import { NodeTypeOption } from "../core/constants.js";
+import TempNode from "../core/TempNode.js";
+import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
 
 export default class ExpressionNode extends TempNode {
     snipped: string; /* sic */

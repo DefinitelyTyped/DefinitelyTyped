@@ -1,5 +1,5 @@
-// Tests for Google Publisher Tag 1.20231211
-// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/e9b791a4a49d911e5e04660c08dcd2039978813c
+// Tests for Google Publisher Tag 1.20240129
+// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/eba15613f5b45d7a7b010727c9f13c651f1e983a
 
 // Test for googletag.cmd
 function test_googletag_cmd() {
@@ -626,6 +626,14 @@ function test_googletag_slot_updateTargetingFromMap() {
     slot.updateTargetingFromMap({
         "color": "red",
         "interests": ["sports", "music", "movies"],
+    });
+}
+
+// Test for googletag.config.AdExpansionConfig
+function test_googletag_config_adExpansionConfig() {
+    // Enable ad slot expansion across the entire page.
+    googletag.setConfig({
+        adExpansion: { enabled: true },
     });
 }
 

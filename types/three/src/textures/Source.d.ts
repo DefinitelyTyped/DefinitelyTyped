@@ -26,7 +26,17 @@ export class Source {
     data: any;
 
     /**
-     * Set this to `true` to trigger a data upload to the GPU next time the {@link Source} is used.
+     * This property is only relevant when {@link .needsUpdate} is set to `true` and provides more control on how
+     * texture data should be processed.
+     * When `dataReady` is set to `false`, the engine performs the memory allocation (if necessary) but does not
+     * transfer the data into the GPU memory.
+     * @default true
+     */
+    dataReady: boolean;
+
+    /**
+     * When the property is set to `true`, the engine allocates the memory for the texture (if necessary) and triggers
+     * the actual texture upload to the GPU next time the source is used.
      */
     set needsUpdate(value: boolean);
 

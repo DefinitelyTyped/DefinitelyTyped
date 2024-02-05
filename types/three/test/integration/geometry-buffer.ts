@@ -1,4 +1,4 @@
-import * as THREE from 'three';
+import * as THREE from "three";
 
 const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
 const scene = new THREE.Scene();
@@ -18,20 +18,20 @@ function init() {
         ...[1.0, -1.0, 1.0], //
         ...[0.0, 1.0, 1.0], //
     ]);
-    geometry.setAttribute('position', new THREE.BufferAttribute(verticles, 3));
-    const posAtt = geometry.getAttribute('position');
+    geometry.setAttribute("position", new THREE.BufferAttribute(verticles, 3));
+    const posAtt = geometry.getAttribute("position");
 
-    if (posAtt.name === 'position') {
-        geometry.deleteAttribute('position');
+    if (posAtt.name === "position") {
+        geometry.deleteAttribute("position");
     }
 
-    geometry.setAttribute('position', new THREE.BufferAttribute(verticles, 3));
+    geometry.setAttribute("position", new THREE.BufferAttribute(verticles, 3));
 
-    geometry.setAttribute('customAttribute', new THREE.BufferAttribute(new Float32Array([0]), 1));
-    const customAtt = geometry.getAttribute('customAttribute');
+    geometry.setAttribute("customAttribute", new THREE.BufferAttribute(new Float32Array([0]), 1));
+    const customAtt = geometry.getAttribute("customAttribute");
 
-    if (customAtt.name === 'customAttribute') {
-        geometry.deleteAttribute('customAttribute');
+    if (customAtt.name === "customAttribute") {
+        geometry.deleteAttribute("customAttribute");
     }
 
     const material = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide });
@@ -45,7 +45,7 @@ function init() {
 
     //
 
-    window.addEventListener('resize', onWindowResize);
+    window.addEventListener("resize", onWindowResize);
 }
 
 function onWindowResize() {

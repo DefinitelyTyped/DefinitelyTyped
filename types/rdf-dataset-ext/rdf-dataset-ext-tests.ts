@@ -1,4 +1,4 @@
-import { BaseQuad, DatasetCore, Quad, Stream, Term } from "rdf-js";
+import { BaseQuad, DatasetCore, Quad, Stream, Term } from "@rdfjs/types";
 import { EventEmitter, Readable } from "stream";
 import grouped = require("rdf-dataset-ext");
 import addAll = require("rdf-dataset-ext/addAll");

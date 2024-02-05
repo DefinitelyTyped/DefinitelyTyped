@@ -1,6 +1,5 @@
 {
     "rules": {
-        "@definitelytyped/npm-naming": "off",
         "@typescript-eslint/no-empty-interface": "off"
     }
 }

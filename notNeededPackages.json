@@ -312,6 +312,26 @@
             "libraryName": "badgen",
             "asOfVersion": "2.7.1"
         },
+        "barnard59": {
+            "libraryName": "barnard59",
+            "asOfVersion": "4.4.0"
+        },
+        "barnard59-base": {
+            "libraryName": "barnard59-base",
+            "asOfVersion": "2.3.0"
+        },
+        "barnard59-core": {
+            "libraryName": "barnard59-core",
+            "asOfVersion": "5.3.0"
+        },
+        "barnard59-graph-store": {
+            "libraryName": "barnard59-graph-store",
+            "asOfVersion": "5.1.0"
+        },
+        "barnard59-validate-shacl": {
+            "libraryName": "barnard59-shacl",
+            "asOfVersion": "1.3.0"
+        },
         "base-x": {
             "libraryName": "base-x",
             "asOfVersion": "3.0.6"
@@ -4586,6 +4606,10 @@
         "rdf-loaders-registry": {
             "libraryName": "rdf-loaders-registry",
             "asOfVersion": "1.0.0"
+        },
+        "rdf-validate-datatype": {
+            "libraryName": "rdf-validate-datatype",
+            "asOfVersion": "0.2.0"
         },
         "rdflib": {
             "libraryName": "rdflib",

@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/java-applet",
     "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "java-applet",
     "projects": [
         "https://www.java.com/"
     ],

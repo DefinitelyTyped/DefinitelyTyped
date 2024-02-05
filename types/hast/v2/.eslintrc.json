@@ -1,5 +1,5 @@
 {
     "rules": {
-        "@definitelytyped/npm-naming": "off"
+        "@definitelytyped/no-type-only-packages": "off"
     }
 }

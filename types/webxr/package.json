@@ -2,7 +2,7 @@
     "private": true,
     "name": "@types/webxr",
     "version": "0.5.9999",
-    "nonNpm": true,
+    "nonNpm": "conflict",
     "nonNpmDescription": "webxr",
     "projects": [
         "https://www.w3.org/TR/webxr/"

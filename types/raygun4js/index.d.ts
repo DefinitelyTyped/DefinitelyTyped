@@ -379,6 +379,7 @@ interface RaygunV2 {
             | "attach"
             | "enableCrashReporting"
             | "enablePulse"
+            | "enableRum"
             | "logContentsOfXhrCalls"
             | "noConflict"
             | "saveIfOffline",

@@ -76,6 +76,13 @@ cf.dnsRecords.browse("123", {
     content: "irrelevant",
 });
 
+cf.dnsRecords.browse("123").then((response) => {
+    if (response.result !== null) {
+        // $ExpectType string
+        response.result[0].id;
+    }
+});
+
 cf.dnsRecords.browse("123", {
     // @ts-expect-error
     invalid: "invalid",

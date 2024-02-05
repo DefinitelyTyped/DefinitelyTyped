@@ -329,6 +329,15 @@ interface XRFrame {
      * @param referenceSpace
      */
     getViewerPose(referenceSpace: XRReferenceSpace): XRViewerPose | undefined;
+
+    /**
+     * XRFrame is extended to contain detectedMeshes attribute
+     * which contains all meshes that are still tracked in the frame.
+     *
+     * The set is initially empty and will be populated by the update meshes algorithm.
+     * If this attribute is accessed when the frame is not active, the user agent MUST throw InvalidStateError.
+     */
+    readonly detectedMeshes: XRMeshSet;
 }
 
 declare abstract class XRFrame implements XRFrame {}
@@ -664,8 +673,8 @@ type XRMeshSet = Set<XRMesh>;
 interface XRMesh {
     meshSpace: XRSpace;
     vertices: Float32Array;
-    indices: Float32Array;
-    lastChangedTime: number;
+    indices: Uint32Array;
+    lastChangedTime: DOMHighResTimeStamp;
     semanticLabel?: string;
 }
 
@@ -687,7 +696,12 @@ interface XRFrame {
         | undefined;
 }
 
-// Hand Tracking
+/**
+ * The XRHand interface is pair iterator (an ordered map) with the key being the hand
+ * joints ({@link XRHandJoint}) and the value being an {@link XRJointSpace}.
+ *
+ * @see https://immersive-web.github.io/webxr-hand-input/#xrhand-interface
+ */
 type XRHandJoint =
     | "wrist"
     | "thumb-metacarpal"
@@ -715,6 +729,12 @@ type XRHandJoint =
     | "pinky-finger-phalanx-distal"
     | "pinky-finger-tip";
 
+/**
+ * The XRJointSpace interface is an {@link XRSpace} and represents the position and
+ * orientation of an {@link XRHand} joint.
+ *
+ * @see https://immersive-web.github.io/webxr-hand-input/#xrjointspace-interface
+ */
 interface XRJointSpace extends XRSpace {
     readonly jointName: XRHandJoint;
 }
@@ -727,7 +747,13 @@ interface XRJointPose extends XRPose {
 
 declare abstract class XRJointPose implements XRJointPose {}
 
-interface XRHand extends Map<number, XRJointSpace> {
+/**
+ * The XRHand interface is pair iterator (an ordered map) with the key being the hand
+ * joints ({@link XRHandJoint}) and the value being an {@link XRJointSpace}.
+ *
+ * @see https://immersive-web.github.io/webxr-hand-input/#xrhand-interface
+ */
+interface XRHand extends Map<XRHandJoint, XRJointSpace> {
     readonly WRIST: number;
 
     readonly THUMB_METACARPAL: number;

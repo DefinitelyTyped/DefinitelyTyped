@@ -1,4 +1,4 @@
-import { Loader, Scene } from '../../../src/Three.js';
+import { Loader, Scene } from "../../../src/Three.js";
 
 export interface Collada {
     kinematics: object;

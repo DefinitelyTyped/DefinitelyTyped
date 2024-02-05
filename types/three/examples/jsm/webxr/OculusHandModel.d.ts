@@ -1,5 +1,5 @@
-import { Mesh, Object3D, Texture, Vector3 } from '../../../src/Three.js';
-import { XRHandMeshModel } from './XRHandMeshModel.js';
+import { Mesh, Object3D, Texture, Vector3 } from "../../../src/Three.js";
+import { XRHandMeshModel } from "./XRHandMeshModel.js";
 
 export class OculusHandModel extends Object3D {
     controller: Object3D;

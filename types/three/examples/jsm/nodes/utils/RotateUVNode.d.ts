@@ -1,6 +1,6 @@
-import TempNode from '../core/TempNode.js';
-import Node from '../core/Node.js';
-import { ShaderNodeObject } from '../shadernode/ShaderNode.js';
+import Node from "../core/Node.js";
+import TempNode from "../core/TempNode.js";
+import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
 
 export default class RotateUVNode extends TempNode {
     uvNode: Node;
@@ -11,3 +11,9 @@ export default class RotateUVNode extends TempNode {
 }
 
 export const rotateUV: (uvNode: Node, rotationNode: Node, centerNode?: Node) => ShaderNodeObject<RotateUVNode>;
+
+declare module "../shadernode/ShaderNode.js" {
+    interface NodeElements {
+        rotateUV: typeof rotateUV;
+    }
+}

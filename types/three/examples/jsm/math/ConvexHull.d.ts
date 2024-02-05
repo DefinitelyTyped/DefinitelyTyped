@@ -1,4 +1,4 @@
-import { Object3D, Ray, Vector3 } from '../../../src/Three.js';
+import { Object3D, Ray, Vector3 } from "../../../src/Three.js";
 
 export class Face {
     constructor();

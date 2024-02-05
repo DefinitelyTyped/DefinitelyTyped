@@ -1,81 +1,60 @@
-import Gamedig = require("gamedig");
-import GameResolver = require("gamedig/lib/GameResolver");
+import gamedig = require("gamedig");
 
 // direct usage from import
-Gamedig.query(
+gamedig.GameDig.query(
     {
         type: "tf2",
         host: "127.0.0.1",
         port: 27015,
-        maxAttempts: 1,
+        maxRetries: 1,
         socketTimeout: 2000,
         attemptTimeout: 10000,
         givenPortOnly: true,
+        portCache: true,
         ipFamily: 0,
         debug: false,
         requestRules: true,
+        requestRulesRequired: true,
+        requestPlayersRequired: true,
     },
-    (error, state) => {
+    (error: any, state: gamedig.QueryResult) => {
         if (error) throw error;
 
-        const { name, map, password, maxplayers, players, bots, connect, ping } = state;
+        const { name, map, password, maxplayers, players, bots, connect, ping, queryPort, numplayers } = state;
     },
 );
 
 // usage from instance
-const gamedig = new Gamedig();
-gamedig.query(
+const gd = new gamedig.GameDig();
+gd.query(
     {
         type: "tf2",
         host: "127.0.0.1",
         port: 27015,
-        maxAttempts: 1,
+        maxRetries: 1,
         socketTimeout: 2000,
         attemptTimeout: 10000,
         givenPortOnly: true,
+        portCache: true,
         ipFamily: 0,
         debug: false,
         requestRules: true,
+        requestRulesRequired: true,
+        requestPlayersRequired: true,
     },
-    (error, state) => {
+    (error: any, state: gamedig.QueryResult) => {
         if (error) throw error;
 
-        const { name, map, password, maxplayers, players, bots, connect, ping } = state;
+        const { name, map, password, maxplayers, players, bots, connect, ping, queryPort, numplayers } = state;
     },
 );
 
-const gameResolver = new GameResolver();
+// get the list of games
+for (const type in gamedig.games) {
+    const name = `${gamedig.games[type].name} (${gamedig.games[type].release_year})`;
+}
 
-const gamesByKey: Map<
-    Gamedig.Type,
-    {
-        keys: string[];
-        pretty: string;
-        options: {
-            protocol: string;
-            port?: number;
-            port_query_offset?: number;
-            port_query?: number;
-        };
-        extra: {
-            doc_notes?: string;
-        };
-    }
-> = gameResolver.gamesByKey;
-const games: [
-    {
-        keys: string[];
-        pretty: string;
-        options: {
-            protocol: string;
-            port?: number;
-            port_query_offset?: number;
-            port_query?: number;
-        };
-        extra: {
-            doc_notes?: string;
-        };
-    },
-] = gameResolver.games;
-gameResolver.lookup("tf2");
-gameResolver.printReadme();
+// get the list of protocols
+for (const type in gamedig.protocols) {
+    const name = `protocol-${type}`;
+}

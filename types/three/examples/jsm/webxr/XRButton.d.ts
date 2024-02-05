@@ -1,4 +1,4 @@
-import { WebGLRenderer } from '../../../src/Three.js';
+import { WebGLRenderer } from "../../../src/Three.js";
 
 // tslint:disable-next-line:no-unnecessary-class
 export class XRButton {

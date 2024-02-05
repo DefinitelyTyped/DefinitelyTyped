@@ -3,20 +3,20 @@
  */
 
 import {
+    call,
     code,
     fn,
-    uv,
     func,
-    Node,
-    FunctionNode,
-    call,
-    Swizzable,
     FunctionCallNode,
-} from 'three/examples/jsm/nodes/Nodes';
+    FunctionNode,
+    Node,
+    Swizzable,
+    uv,
+} from "three/examples/jsm/nodes/Nodes";
 
-import { ProxiedObject } from 'three/examples/jsm/nodes/shadernode/ShaderNode';
+import { ProxiedObject } from "three/examples/jsm/nodes/shadernode/ShaderNode";
 
-export const mx_noise = code('whatever');
+export const mx_noise = code("whatever");
 const includes = [mx_noise];
 
 const someFunc1 = new FunctionNode<[a: Node]>();
@@ -34,23 +34,23 @@ assertSwizzable<FunctionCallNode<{ a: Node }>>(call(someFunc2, { a: 1 }));
 assertSwizzable<FunctionCallNode<{ a: Node }>>(call(someFunc2, { a: uv() }));
 assertSwizzable<FunctionCallNode<{ a: Node }>>(call(someFunc2, { a: uv().xy }));
 
-export const mx_cell_noise_float_call = func<[Node]>('float mx_cell_noise_float( vec3 p )', includes);
+export const mx_cell_noise_float_call = func<[Node]>("float mx_cell_noise_float( vec3 p )", includes);
 export const mx_worley_noise_float_call = func<[Node, Node, Node]>(
-    'float mx_worley_noise_float( vec3 p, float jitter, int metric )',
+    "float mx_worley_noise_float( vec3 p, float jitter, int metric )",
     includes,
 );
-export const ab_call = func<{ a: Node; b: Node }>('float mx_cell_noise_float( vec3 p )', includes);
+export const ab_call = func<{ a: Node; b: Node }>("float mx_cell_noise_float( vec3 p )", includes);
 
 assertSwizzable<Node>(mx_cell_noise_float_call.call(uv()));
 assertSwizzable<Node>(mx_worley_noise_float_call.call(uv(), 1, 1));
 assertSwizzable<Node>(ab_call.call({ a: 1, b: uv() }));
 
-export const mx_cell_noise_float = fn<[Node]>('float mx_cell_noise_float( vec3 p )', includes);
+export const mx_cell_noise_float = fn<[Node]>("float mx_cell_noise_float( vec3 p )", includes);
 export const mx_worley_noise_float = fn<[Node, Node, Node]>(
-    'float mx_worley_noise_float( vec3 p, float jitter, int metric )',
+    "float mx_worley_noise_float( vec3 p, float jitter, int metric )",
     includes,
 );
-export const ab = fn<{ a: Node; b: Node }>('float mx_cell_noise_float( vec3 p )', includes);
+export const ab = fn<{ a: Node; b: Node }>("float mx_cell_noise_float( vec3 p )", includes);
 
 assertSwizzable<Node>(mx_cell_noise_float(uv()));
 assertSwizzable<Node>(mx_worley_noise_float(uv(), 1, 1));

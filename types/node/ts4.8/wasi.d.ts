@@ -1,6 +1,11 @@
 /**
- * The WASI API provides an implementation of the [WebAssembly System Interface](https://wasi.dev/) specification. WASI gives sandboxed WebAssembly applications access to the
- * underlying operating system via a collection of POSIX-like functions.
+ * **The `node:wasi` module does not currently provide the**
+ * **comprehensive file system security properties provided by some WASI runtimes.**
+ * **Full support for secure file system sandboxing may or may not be implemented in**
+ * **future. In the mean time, do not rely on it to run untrusted code.**
+ *
+ * The WASI API provides an implementation of the [WebAssembly System Interface](https://wasi.dev/) specification. WASI gives WebAssembly applications access to the underlying
+ * operating system via a collection of POSIX-like functions.
  *
  * ```js
  * import { readFile } from 'node:fs/promises';
@@ -12,7 +17,7 @@
  *   args: argv,
  *   env,
  *   preopens: {
- *     '/sandbox': '/some/real/path/that/wasm/can/access',
+ *     '/local': '/some/real/path/that/wasm/can/access',
  *   },
  * });
  *
@@ -117,12 +122,28 @@ declare module "wasi" {
     /**
      * The `WASI` class provides the WASI system call API and additional convenience
      * methods for working with WASI-based applications. Each `WASI` instance
-     * represents a distinct sandbox environment. For security purposes, each `WASI`instance must have its command-line arguments, environment variables, and
-     * sandbox directory structure configured explicitly.
+     * represents a distinct environment.
      * @since v13.3.0, v12.16.0
      */
     class WASI {
         constructor(options?: WASIOptions);
+        /**
+         * Return an import object that can be passed to `WebAssembly.instantiate()` if no other WASM imports are needed beyond those provided by WASI.
+         *
+         * If version `unstable` was passed into the constructor it will return:
+         *
+         * ```js
+         * { wasi_unstable: wasi.wasiImport }
+         * ```
+         *
+         * If version `preview1` was passed into the constructor or no version was specified it will return:
+         *
+         * ```js
+         * { wasi_snapshot_preview1: wasi.wasiImport }
+         * ```
+         * @since v19.8.0
+         */
+        getImportObject(): object;
         /**
          * Attempt to begin execution of `instance` as a WASI command by invoking its`_start()` export. If `instance` does not contain a `_start()` export, or if`instance` contains an `_initialize()`
          * export, then an exception is thrown.

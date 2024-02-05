@@ -1,10 +1,10 @@
-import * as THREE from 'three';
+import * as THREE from "three";
 
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment";
 
-import { LDrawLoader } from 'three/examples/jsm/loaders/LDrawLoader';
-import { LDrawUtils } from 'three/examples/jsm/utils/LDrawUtils';
+import { LDrawLoader } from "three/examples/jsm/loaders/LDrawLoader";
+import { LDrawUtils } from "three/examples/jsm/utils/LDrawUtils";
 
 let container: HTMLDivElement;
 let progressBarDiv: HTMLDivElement;
@@ -16,32 +16,32 @@ let controls: OrbitControls;
 
 let model: THREE.Group | null;
 
-const ldrawPath = 'models/ldraw/officialLibrary/';
+const ldrawPath = "models/ldraw/officialLibrary/";
 
 const modelFileList = {
-    Car: 'models/car.ldr_Packed.mpd',
-    'Lunar Vehicle': 'models/1621-1-LunarMPVVehicle.mpd_Packed.mpd',
-    'Radar Truck': 'models/889-1-RadarTruck.mpd_Packed.mpd',
-    Trailer: 'models/4838-1-MiniVehicles.mpd_Packed.mpd',
-    Bulldozer: 'models/4915-1-MiniConstruction.mpd_Packed.mpd',
-    Helicopter: 'models/4918-1-MiniFlyers.mpd_Packed.mpd',
-    Plane: 'models/5935-1-IslandHopper.mpd_Packed.mpd',
-    Lighthouse: 'models/30023-1-Lighthouse.ldr_Packed.mpd',
-    'X-Wing mini': 'models/30051-1-X-wingFighter-Mini.mpd_Packed.mpd',
-    'AT-ST mini': 'models/30054-1-AT-ST-Mini.mpd_Packed.mpd',
-    'AT-AT mini': 'models/4489-1-AT-AT-Mini.mpd_Packed.mpd',
-    Shuttle: 'models/4494-1-Imperial Shuttle-Mini.mpd_Packed.mpd',
-    'TIE Interceptor': 'models/6965-1-TIEIntercep_4h4MXk5.mpd_Packed.mpd',
-    'Star fighter': 'models/6966-1-JediStarfighter-Mini.mpd_Packed.mpd',
-    'X-Wing': 'models/7140-1-X-wingFighter.mpd_Packed.mpd',
-    'AT-ST': 'models/10174-1-ImperialAT-ST-UCS.mpd_Packed.mpd',
+    Car: "models/car.ldr_Packed.mpd",
+    "Lunar Vehicle": "models/1621-1-LunarMPVVehicle.mpd_Packed.mpd",
+    "Radar Truck": "models/889-1-RadarTruck.mpd_Packed.mpd",
+    Trailer: "models/4838-1-MiniVehicles.mpd_Packed.mpd",
+    Bulldozer: "models/4915-1-MiniConstruction.mpd_Packed.mpd",
+    Helicopter: "models/4918-1-MiniFlyers.mpd_Packed.mpd",
+    Plane: "models/5935-1-IslandHopper.mpd_Packed.mpd",
+    Lighthouse: "models/30023-1-Lighthouse.ldr_Packed.mpd",
+    "X-Wing mini": "models/30051-1-X-wingFighter-Mini.mpd_Packed.mpd",
+    "AT-ST mini": "models/30054-1-AT-ST-Mini.mpd_Packed.mpd",
+    "AT-AT mini": "models/4489-1-AT-AT-Mini.mpd_Packed.mpd",
+    Shuttle: "models/4494-1-Imperial Shuttle-Mini.mpd_Packed.mpd",
+    "TIE Interceptor": "models/6965-1-TIEIntercep_4h4MXk5.mpd_Packed.mpd",
+    "Star fighter": "models/6966-1-JediStarfighter-Mini.mpd_Packed.mpd",
+    "X-Wing": "models/7140-1-X-wingFighter.mpd_Packed.mpd",
+    "AT-ST": "models/10174-1-ImperialAT-ST-UCS.mpd_Packed.mpd",
 };
 
 init();
 animate();
 
 function init() {
-    container = document.createElement('div');
+    container = document.createElement("div");
     document.body.appendChild(container);
 
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
@@ -67,17 +67,17 @@ function init() {
 
     //
 
-    window.addEventListener('resize', onWindowResize);
+    window.addEventListener("resize", onWindowResize);
 
-    progressBarDiv = document.createElement('div');
-    progressBarDiv.innerText = 'Loading...';
-    progressBarDiv.style.fontSize = '3em';
-    progressBarDiv.style.color = '#888';
-    progressBarDiv.style.display = 'block';
-    progressBarDiv.style.position = 'absolute';
-    progressBarDiv.style.top = '50%';
-    progressBarDiv.style.width = '100%';
-    progressBarDiv.style.textAlign = 'center';
+    progressBarDiv = document.createElement("div");
+    progressBarDiv.innerText = "Loading...";
+    progressBarDiv.style.fontSize = "3em";
+    progressBarDiv.style.color = "#888";
+    progressBarDiv.style.display = "block";
+    progressBarDiv.style.position = "absolute";
+    progressBarDiv.style.top = "50%";
+    progressBarDiv.style.width = "100%";
+    progressBarDiv.style.textAlign = "center";
 
     // load materials and then the model
 
@@ -97,7 +97,7 @@ function reloadObject(resetCamera: boolean) {
     // only smooth when not rendering with flat colors to improve processing time
     const lDrawLoader = new LDrawLoader();
     lDrawLoader.setPath(ldrawPath).load(
-        '',
+        "",
         group2 => {
             if (model) {
                 scene.remove(model);
@@ -156,7 +156,7 @@ function onProgress(xhr: ProgressEvent) {
 }
 
 function onError(error: unknown) {
-    const message = 'Error loading model';
+    const message = "Error loading model";
     progressBarDiv.innerText = message;
     console.log(message);
     console.error(error);

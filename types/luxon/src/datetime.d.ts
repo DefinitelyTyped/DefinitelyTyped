@@ -812,6 +812,13 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
     get(unit: keyof DateTime): number;
 
     /**
+     * Get those DateTimes which have the same local time as this DateTime, but a different offset from UTC in this DateTime's zone.
+     * During DST changes local time can be ambiguous, for example 2023-10-29T02:30:00 in Europe/Berlin can have offset +01:00 or +02:00.
+     * This method will return both possible DateTimes if this DateTime's local time is ambiguous.
+     */
+    getPossibleOffsets(): this[];
+
+    /**
      * Returns whether the DateTime is valid. Invalid DateTimes occur when:
      * * The DateTime was created from invalid calendar information, such as the 13th month or February 30
      * * The DateTime was created by an operation on another invalid date

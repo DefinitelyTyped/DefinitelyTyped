@@ -118,9 +118,26 @@ async function test() {
 
     const eventTarget = new EventTarget();
     events.EventEmitter.setMaxListeners(42, eventTarget);
-    // @ts-expect-error - type returned by EventTarget constuctor should not also be a constructor
+    // @ts-expect-error - ensure constructor does not return a constructor
     new eventTarget();
 
     const eventEmitter = new events.EventEmitter();
     events.EventEmitter.setMaxListeners(42, eventTarget, eventEmitter);
+}
+
+{
+    class MyEmitter extends events.EventEmitterAsyncResource {}
+
+    const emitter = new MyEmitter({
+        triggerAsyncId: 123,
+    });
+
+    new events.EventEmitterAsyncResource({
+        name: "test",
+    });
+
+    emitter.asyncId; // $ExpectType number
+    emitter.asyncResource; // $ExpectType EventEmitterReferencingAsyncResource
+    emitter.triggerAsyncId; // $ExpectType number
+    emitter.emitDestroy();
 }

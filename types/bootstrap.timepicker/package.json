@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/bootstrap.timepicker",
     "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "bootstrap.timepicker",
     "projects": [
         "https://github.com/jdewit/bootstrap-timepicker"
     ],

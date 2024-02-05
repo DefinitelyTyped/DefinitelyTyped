@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/jquery.jnotify",
     "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.jnotify",
     "projects": [
         "http://jnotify.codeplex.com"
     ],

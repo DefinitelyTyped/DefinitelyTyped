@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/ng-command",
     "version": "0.2.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "ng-command",
     "projects": [
         "https://github.com/stephenlautier/ng-command"
     ],

@@ -1,5 +1,5 @@
-import { Vector2 } from '../../math/Vector2.js';
-import { CurvePath } from './CurvePath.js';
+import { Vector2 } from "../../math/Vector2.js";
+import { CurvePath } from "./CurvePath.js";
 
 /**
  * A 2D {@link Path} representation.
@@ -37,7 +37,7 @@ export class Path extends CurvePath<Vector2> {
      * @remarks Sub-classes will update this value.
      * @defaultValue `Path`
      */
-    override readonly type: string | 'Path';
+    override readonly type: string | "Path";
 
     /**
      * The current offset of the path. Any new {@link THREE.Curve | Curve} added will start here.

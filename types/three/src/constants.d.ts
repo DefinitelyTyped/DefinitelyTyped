@@ -37,12 +37,11 @@ export type ShadowMapType = typeof BasicShadowMap | typeof PCFShadowMap | typeof
 export const FrontSide: 0;
 export const BackSide: 1;
 export const DoubleSide: 2;
-export const TwoPassDoubleSide: 2;
 /**
  * Defines which side of faces will be rendered - front, back or both.
  * Default is {@link FrontSide}.
  */
-export type Side = typeof FrontSide | typeof BackSide | typeof DoubleSide | typeof TwoPassDoubleSide;
+export type Side = typeof FrontSide | typeof BackSide | typeof DoubleSide;
 
 // blending modes
 export const NoBlending: 0;
@@ -151,8 +150,8 @@ export type ToneMapping =
     | typeof AgXToneMapping;
 
 // Bind modes
-export const AttachedBindMode: 'attached';
-export const DetachedBindMode: 'detached';
+export const AttachedBindMode: "attached";
+export const DetachedBindMode: "detached";
 export type BindMode = typeof AttachedBindMode | typeof DetachedBindMode;
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -725,11 +724,11 @@ export const TangentSpaceNormalMap: 0;
 export const ObjectSpaceNormalMap: 1;
 export type NormalMapTypes = typeof TangentSpaceNormalMap | typeof ObjectSpaceNormalMap;
 
-export const NoColorSpace: '';
-export const SRGBColorSpace: 'srgb';
-export const LinearSRGBColorSpace: 'srgb-linear';
-export const DisplayP3ColorSpace: 'display-p3';
-export const LinearDisplayP3ColorSpace = 'display-p3-linear';
+export const NoColorSpace: "";
+export const SRGBColorSpace: "srgb";
+export const LinearSRGBColorSpace: "srgb-linear";
+export const DisplayP3ColorSpace: "display-p3";
+export const LinearDisplayP3ColorSpace = "display-p3-linear";
 export type ColorSpace =
     | typeof NoColorSpace
     | typeof SRGBColorSpace
@@ -737,12 +736,12 @@ export type ColorSpace =
     | typeof DisplayP3ColorSpace
     | typeof LinearDisplayP3ColorSpace;
 
-export const LinearTransfer: 'linear';
-export const SRGBTransfer: 'srgb';
+export const LinearTransfer: "linear";
+export const SRGBTransfer: "srgb";
 export type ColorSpaceTransfer = typeof LinearTransfer | typeof SRGBTransfer;
 
-export const Rec709Primaries: 'rec709';
-export const P3Primaries: 'p3';
+export const Rec709Primaries: "rec709";
+export const P3Primaries: "p3";
 export type ColorSpacePrimaries = typeof Rec709Primaries | typeof P3Primaries;
 
 // Stencil Op types
@@ -822,8 +821,8 @@ export type Usage =
     | typeof DynamicCopyUsage
     | typeof StreamCopyUsage;
 
-export const GLSL1: '100';
-export const GLSL3: '300 es';
+export const GLSL1: "100";
+export const GLSL3: "300 es";
 export type GLSLVersion = typeof GLSL1 | typeof GLSL3;
 
 export const WebGLCoordinateSystem: 2000;
@@ -894,64 +893,64 @@ export type CoordinateSystem = typeof WebGLCoordinateSystem | typeof WebGPUCoord
  * {@link https://registry.khronos.org/OpenGL/specs/es/3.0/es_spec_3.0.pdf | OpenGL ES 3.0 Specification} For more in-depth information regarding internal formats.
  */
 export type PixelFormatGPU =
-    | 'ALPHA'
-    | 'RGB'
-    | 'RGBA'
-    | 'LUMINANCE'
-    | 'LUMINANCE_ALPHA'
-    | 'RED_INTEGER'
-    | 'R8'
-    | 'R8_SNORM'
-    | 'R8I'
-    | 'R8UI'
-    | 'R16I'
-    | 'R16UI'
-    | 'R16F'
-    | 'R32I'
-    | 'R32UI'
-    | 'R32F'
-    | 'RG8'
-    | 'RG8_SNORM'
-    | 'RG8I'
-    | 'RG8UI'
-    | 'RG16I'
-    | 'RG16UI'
-    | 'RG16F'
-    | 'RG32I'
-    | 'RG32UI'
-    | 'RG32F'
-    | 'RGB565'
-    | 'RGB8'
-    | 'RGB8_SNORM'
-    | 'RGB8I'
-    | 'RGB8UI'
-    | 'RGB16I'
-    | 'RGB16UI'
-    | 'RGB16F'
-    | 'RGB32I'
-    | 'RGB32UI'
-    | 'RGB32F'
-    | 'RGB9_E5'
-    | 'SRGB8'
-    | 'R11F_G11F_B10F'
-    | 'RGBA4'
-    | 'RGBA8'
-    | 'RGBA8_SNORM'
-    | 'RGBA8I'
-    | 'RGBA8UI'
-    | 'RGBA16I'
-    | 'RGBA16UI'
-    | 'RGBA16F'
-    | 'RGBA32I'
-    | 'RGBA32UI'
-    | 'RGBA32F'
-    | 'RGB5_A1'
-    | 'RGB10_A2'
-    | 'RGB10_A2UI'
-    | 'SRGB8_ALPHA8'
-    | 'SRGB8'
-    | 'DEPTH_COMPONENT16'
-    | 'DEPTH_COMPONENT24'
-    | 'DEPTH_COMPONENT32F'
-    | 'DEPTH24_STENCIL8'
-    | 'DEPTH32F_STENCIL8';
+    | "ALPHA"
+    | "RGB"
+    | "RGBA"
+    | "LUMINANCE"
+    | "LUMINANCE_ALPHA"
+    | "RED_INTEGER"
+    | "R8"
+    | "R8_SNORM"
+    | "R8I"
+    | "R8UI"
+    | "R16I"
+    | "R16UI"
+    | "R16F"
+    | "R32I"
+    | "R32UI"
+    | "R32F"
+    | "RG8"
+    | "RG8_SNORM"
+    | "RG8I"
+    | "RG8UI"
+    | "RG16I"
+    | "RG16UI"
+    | "RG16F"
+    | "RG32I"
+    | "RG32UI"
+    | "RG32F"
+    | "RGB565"
+    | "RGB8"
+    | "RGB8_SNORM"
+    | "RGB8I"
+    | "RGB8UI"
+    | "RGB16I"
+    | "RGB16UI"
+    | "RGB16F"
+    | "RGB32I"
+    | "RGB32UI"
+    | "RGB32F"
+    | "RGB9_E5"
+    | "SRGB8"
+    | "R11F_G11F_B10F"
+    | "RGBA4"
+    | "RGBA8"
+    | "RGBA8_SNORM"
+    | "RGBA8I"
+    | "RGBA8UI"
+    | "RGBA16I"
+    | "RGBA16UI"
+    | "RGBA16F"
+    | "RGBA32I"
+    | "RGBA32UI"
+    | "RGBA32F"
+    | "RGB5_A1"
+    | "RGB10_A2"
+    | "RGB10_A2UI"
+    | "SRGB8_ALPHA8"
+    | "SRGB8"
+    | "DEPTH_COMPONENT16"
+    | "DEPTH_COMPONENT24"
+    | "DEPTH_COMPONENT32F"
+    | "DEPTH24_STENCIL8"
+    | "DEPTH32F_STENCIL8";
