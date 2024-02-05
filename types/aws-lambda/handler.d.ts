@@ -1,3 +1,9 @@
+/// <reference types="node" />
+
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from "./trigger/api-gateway-proxy";
+
+import * as stream from "stream";
+
 /**
  * The interface that AWS Lambda will invoke your handler with.
  * There are more specialized types for many cases where AWS services
@@ -170,3 +176,36 @@ export interface ClientContextEnv {
  *   Pass `null` or `undefined` for the `error` parameter to use this parameter.
  */
 export type Callback<TResult = any> = (error?: Error | string | null, result?: TResult) => void;
+
+export type StreamHandler = (
+  event: APIGatewayProxyEvent,
+  stream: ResponseStream,
+  context: Context,
+) => Promise<void>
+
+declare var awslambda: {
+  streamifyResponse: (
+    handler: StreamHandler,
+  ) => StreamHandler
+
+  HttpResponseStream: {
+    from: (
+      stream: ResponseStream,
+      prelude: ResponseStreamPrelude,
+    ) => ResponseStream
+  }
+}
+
+export type ResponseStream = stream.Writable &
+  stream.EventEmitter & {
+    setContentType: (type: string) => void
+  }
+
+export type ResponseStreamPrelude = {
+  statusCode: number
+  headers?:
+    | {
+        [header: string]: boolean | number | string
+      }
+    | undefined
+}

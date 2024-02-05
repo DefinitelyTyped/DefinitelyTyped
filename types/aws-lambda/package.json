@@ -5,9 +5,11 @@
     "projects": [
         "http://docs.aws.amazon.com/lambda"
     ],
-    "devDependencies": {
-        "@types/aws-lambda": "workspace:.",
+    "dependencies": {
         "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/aws-lambda": "workspace:."
     },
     "owners": [
         {
