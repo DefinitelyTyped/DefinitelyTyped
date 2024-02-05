@@ -1,4 +1,6 @@
-import enUS from "date-fns/locale/en-US";
+import { detectOverflow, offset } from "@floating-ui/react";
+import { enGB } from "date-fns/locale/en-GB";
+import { enUS } from "date-fns/locale/en-US";
 import * as React from "react";
 import DatePicker, {
     CalendarContainer,
@@ -6,20 +8,8 @@ import DatePicker, {
     ReactDatePickerProps,
     registerLocale,
 } from "react-datepicker";
-import { Modifier } from "react-popper";
 
-registerLocale("en-GB", { options: { weekStartsOn: 1 } });
-
-const topLogger: Modifier<"topLogger"> = {
-    name: "topLogger",
-    enabled: true,
-    phase: "main",
-    fn({ state }) {
-        if (state.placement === "top") {
-            console.log("Popper is on the top");
-        }
-    },
-};
+registerLocale("en-GB", { ...enGB, options: { weekStartsOn: 1 } });
 
 <DatePicker
     adjustDateOnChange
@@ -109,23 +99,23 @@ const topLogger: Modifier<"topLogger"> = {
     popperClassName=""
     popperContainer={props => <div />}
     popperModifiers={[
+        offset({
+            mainAxis: 5,
+            alignmentAxis: 10,
+        }),
         {
-            name: "offset",
-            options: {
-                offset: [5, 10],
-            },
-        },
-        {
-            name: "preventOverflow",
-            options: {
-                rootBoundary: "viewport",
-                tether: false,
-                altAxis: true,
+            name: "detectOverflow",
+            async fn(state) {
+                const overflow = await detectOverflow(state);
+                return {};
             },
         },
     ]}
     popperPlacement="bottom-start"
-    popperProps={{}}
+    popperProps={{
+        nodeId: "nodeId",
+        open: true,
+    }}
     preventOpenOnFocus
     previousMonthAriaLabel=""
     previousMonthButtonLabel=""
@@ -134,7 +124,7 @@ const topLogger: Modifier<"topLogger"> = {
     readOnly
     ref={instance => {
         if (instance !== null) {
-            // $ExpectType ReactDatePicker<"offset" | "preventOverflow", true>
+            // $ExpectType ReactDatePicker<true>
             instance;
         }
     }}
@@ -231,12 +221,6 @@ function handleRef(ref: DatePicker | null) {
 const props: ReactDatePickerProps = {
     onChange: () => {},
 };
-
-<DatePicker<"topLogger">
-    onChange={() => {}}
-    popperModifiers={[{ name: "arrow", options: { padding: 5 } }, topLogger]}
-    ref={(instance: DatePicker<"topLogger"> | null) => {}}
-/>;
 
 const DatePickerCustomHeader = ({
     monthDate,
