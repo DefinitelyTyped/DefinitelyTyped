@@ -4478,7 +4478,7 @@ declare namespace _ {
     type LodashUpdateWith1x13<T> = (path: lodash.PropertyPath) => T;
     type LodashUpdateWith1x14<T> = (customizer: lodash.SetWithCustomizer<T>) => T;
     type LodashUpperCase = (string: string) => string;
-    type LodashUpperFirst = (string: string) => string;
+    type LodashUpperFirst<S extends string> = (string: S) => Capitalize<S>;
     interface LodashValues {
         <T>(object: lodash.Dictionary<T> | lodash.NumericDictionary<T> | lodash.List<T> | null | undefined): T[];
         <T extends object>(object: T | null | undefined): Array<T[keyof T]>;

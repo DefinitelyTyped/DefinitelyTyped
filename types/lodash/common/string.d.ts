@@ -744,7 +744,7 @@ declare module "../index" {
          * @param string The string to convert.
          * @return Returns the converted string.
          */
-        upperFirst(string?: string): string;
+        upperFirst<S extends string>(string?: S): Capitalize<S>;
     }
     interface LoDashImplicitWrapper<TValue> {
         /**

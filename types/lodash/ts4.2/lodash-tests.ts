@@ -6727,10 +6727,10 @@ fp.now(); // $ExpectType number
 
 // _.upperFirst
 {
-    _.upperFirst("fred, barney, &amp; pebbles"); // $ExpectType string
+    _.upperFirst("fred, barney, &amp; pebbles"); // $ExpectType "Fred, barney, &amp; pebbles"
     _("fred, barney, &amp; pebbles").upperFirst(); // $ExpectType string
     _.chain("fred, barney, &amp; pebbles").upperFirst(); // $ExpectType StringChain
-    fp.upperFirst("fred, barney, &amp; pebbles"); // $ExpectType string
+    fp.upperFirst("fred, barney, &amp; pebbles"); // $ExpectType "Fred, barney, &amp; pebbles"
 }
 
 // _.words
