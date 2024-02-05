@@ -781,12 +781,12 @@ declare module "node:test" {
         method<
             MockedObject extends object,
             MethodName extends FunctionPropertyNames<MockedObject>,
+            Implementation extends MockedObject[MethodName] extends Function ? MockedObject[MethodName] : never,
         >(
             object: MockedObject,
             methodName: MethodName,
             options?: MockFunctionOptions,
-        ): MockedObject[MethodName] extends Function ? Mock<MockedObject[MethodName]>
-            : never;
+        ): Implementation extends Function ? Mock<Implementation> : never
         method<
             MockedObject extends object,
             MethodName extends FunctionPropertyNames<MockedObject>,
@@ -797,18 +797,22 @@ declare module "node:test" {
             implementation: Implementation,
             options?: MockFunctionOptions,
         ): Implementation extends Function ? Mock<Implementation> : never
-        method<MockedObject extends object>(
-            object: MockedObject,
-            methodName: keyof MockedObject,
-            options: MockMethodOptions,
-        ): Mock<Function>;
         method<
             MockedObject extends object,
             MethodName extends FunctionPropertyNames<MockedObject>,
             Implementation extends MockedObject[MethodName] extends Function ? MockedObject[MethodName] : never,
         >(
             object: MockedObject,
-            methodName: keyof MockedObject,
+            methodName: MethodName,
+            options: MockMethodOptions,
+        ): Implementation extends Function ? Mock<Implementation> : never;
+        method<
+            MockedObject extends object,
+            MethodName extends FunctionPropertyNames<MockedObject>,
+            Implementation extends MockedObject[MethodName] extends Function ? MockedObject[MethodName] : never,
+        >(
+            object: MockedObject,
+            methodName: MethodName,
             implementation: Implementation,
             options: MockMethodOptions,
         ): Implementation extends Function ? Mock<Implementation> : never;
@@ -820,11 +824,12 @@ declare module "node:test" {
         getter<
             MockedObject extends object,
             MethodName extends keyof MockedObject,
+            Implementation extends () => MockedObject[MethodName],
         >(
             object: MockedObject,
             methodName: MethodName,
             options?: MockFunctionOptions,
-        ): Mock<() => MockedObject[MethodName]>;
+        ): Mock<Implementation>;
         getter<
             MockedObject extends object,
             MethodName extends keyof MockedObject,
@@ -842,11 +847,12 @@ declare module "node:test" {
         setter<
             MockedObject extends object,
             MethodName extends keyof MockedObject,
+            Implementation extends (value: MockedObject[MethodName]) => void,
         >(
             object: MockedObject,
             methodName: MethodName,
             options?: MockFunctionOptions,
-        ): Mock<(value: MockedObject[MethodName]) => void>;
+        ): Mock<Implementation>;
         setter<
             MockedObject extends object,
             MethodName extends keyof MockedObject,
