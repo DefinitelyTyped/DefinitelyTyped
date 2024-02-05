@@ -201,7 +201,7 @@ export type ResponseStream = stream.Writable &
     setContentType: (type: string) => void
   }
 
-export type ResponseStreamPrelude = {
+export interface ResponseStreamPrelude {
   statusCode: number
   headers?:
     | {
