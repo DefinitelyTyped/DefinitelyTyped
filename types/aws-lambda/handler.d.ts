@@ -197,7 +197,7 @@ declare var awslambda: {
 }
 
 export type ResponseStream = stream.Writable &
-  stream.EventEmitter & {
+  typeof stream.EventEmitter & {
     setContentType: (type: string) => void
   }
 
