@@ -8,7 +8,7 @@ import { Entry as BaseEntry, Options, RandomAccessReader, ZipFileOptions } from 
 
 // This class is not directly compatible with @types/yauzl 's ZipFile as this library changes the function signatures
 // Therefore, it is replaced, albeit with a significant portion
-export class ZipFile extends EventEmitter {
+export class ZipFile extends EventEmitter implements AsyncIterable<Entry> {
     // This chunk taken directly from @types/yauzl
     autoClose: boolean;
     comment: string;
@@ -41,6 +41,7 @@ export class ZipFile extends EventEmitter {
     readEntries(numEntries?: number): Promise<Entry[]>;
     walkEntries(callback: (entry: Entry) => Promise<void> | void, numEntries?: number): Promise<void>;
     openReadStream(entry: Entry, options?: ZipFileOptions): Promise<Readable>;
+    [Symbol.asyncIterator](): AsyncIterator<Entry>;
 }
 
 export class Entry extends BaseEntry {

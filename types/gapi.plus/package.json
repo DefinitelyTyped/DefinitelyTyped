@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/gapi.plus",
     "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "gapi.plus",
     "projects": [
         "https://developers.google.com/+/web/people/"
     ],

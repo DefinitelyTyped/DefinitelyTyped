@@ -1,7 +1,9 @@
 {
     "private": true,
     "name": "@types/winrt-uwp",
-    "version": "0.0.9999",
+        "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "winrt-uwp",
     "projects": [
         "http://msdn.microsoft.com/en-us/library/windows/apps/br211377.aspx"
     ],

@@ -1,4 +1,4 @@
-import { IUniform } from './UniformsLib.js';
+import { IUniform } from "./UniformsLib.js";
 
 export interface ShaderLibShader {
     uniforms: { [uniform: string]: IUniform };

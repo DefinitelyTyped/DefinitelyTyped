@@ -6,7 +6,7 @@
         "https://github.com/theaqua/redux-logger"
     ],
     "dependencies": {
-        "redux": "^4.0.0"
+        "redux": "^5.0.0"
     },
     "devDependencies": {
         "@types/redux-logger": "workspace:."

@@ -1,4 +1,4 @@
-import { Camera, Scene, WebGLRenderer } from '../../../src/Three.js';
+import { Camera, Scene, WebGLRenderer } from "../../../src/Three.js";
 
 export class ParallaxBarrierEffect {
     constructor(renderer: WebGLRenderer);

@@ -1,4 +1,4 @@
-import { Interpolant } from '../Interpolant.js';
+import { Interpolant } from "../Interpolant.js";
 
 export class CubicInterpolant extends Interpolant {
     constructor(parameterPositions: any, samplesValues: any, sampleSize: number, resultBuffer?: any);

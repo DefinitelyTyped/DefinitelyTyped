@@ -1,4 +1,4 @@
-import { PolyhedronGeometry } from './PolyhedronGeometry.js';
+import { PolyhedronGeometry } from "./PolyhedronGeometry.js";
 
 /**
  * A class for generating an icosahedron geometry.
@@ -19,7 +19,7 @@ export class IcosahedronGeometry extends PolyhedronGeometry {
      * @remarks Sub-classes will update this value.
      * @defaultValue `IcosahedronGeometry`
      */
-    override readonly type: string | 'IcosahedronGeometry';
+    override readonly type: string | "IcosahedronGeometry";
 
     /** @internal */
     static fromJSON(data: {}): IcosahedronGeometry;

@@ -1,6 +1,6 @@
-import { Texture } from './Texture.js';
-import { MagnificationTextureFilter, MinificationTextureFilter, Wrapping } from '../constants.js';
-import { Texture3DImageData } from './types.js';
+import { MagnificationTextureFilter, MinificationTextureFilter, Wrapping } from "../constants.js";
+import { Texture } from "./Texture.js";
+import { Texture3DImageData } from "./types.js";
 
 /**
  * Creates a three-dimensional texture from raw data, with parameters to divide it into width, height, and depth

@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/svgjs.resize",
     "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "svgjs.resize",
     "projects": [
         "http://www.svgjs.com/"
     ],

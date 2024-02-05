@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/zip.js",
     "version": "2.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "zip.js",
     "projects": [
         "https://github.com/gildas-lormeau/zip.js"
     ],

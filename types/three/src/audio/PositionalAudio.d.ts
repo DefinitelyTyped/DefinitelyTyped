@@ -1,5 +1,5 @@
-import { AudioListener } from './AudioListener.js';
-import { Audio } from './Audio.js';
+import { Audio } from "./Audio.js";
+import { AudioListener } from "./AudioListener.js";
 
 /**
  * Create a positional audio object.

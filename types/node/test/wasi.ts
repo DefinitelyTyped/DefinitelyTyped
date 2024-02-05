@@ -10,8 +10,7 @@ import { WASI } from "node:wasi";
             "/sandbox": "/some/real/path/that/wasm/can/access",
         },
     });
-    const importObject = { wasi_snapshot_preview1: wasi.wasiImport };
-
+    const importObject = wasi.getImportObject();
     (async () => {
         // TODO: Global WebAssembly types are not currently declared.; uncomment below when added.
 

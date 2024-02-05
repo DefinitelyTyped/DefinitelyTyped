@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/kineticjs",
     "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "kineticjs",
     "projects": [
         "http://kineticjs.com/"
     ],

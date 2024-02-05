@@ -414,11 +414,11 @@ export interface ExchangeProviderInfo {
     isActive: boolean;
     isFixedRate: boolean;
     isDex: boolean;
-    buyTickers: string[];
-    sellTickers: string[];
+    buyTickers: CryptoSymbol[];
+    sellTickers: CryptoSymbol[];
     addressFormats: StringMap; // specification of formats required by selected exchange
     statusUrl: string; // https://changenow.io/exchange/txs/{{orderId}}
-    kycUrl: string; // https://changenow.io/faq#kyc
+    kycUrl?: string; // https://changenow.io/faq#kyc
     supportUrl: string; // https://support.changenow.io
     // TODO region of operation
     kycPolicy?: string | undefined;
@@ -427,15 +427,6 @@ export interface ExchangeProviderInfo {
 
 export type ExchangeListResponse = ExchangeProviderInfo[];
 
-export interface ExchangeCoinInfo {
-    ticker: string; // BTC
-    name: string; // Bitcoin
-    category: string; // popular
-    token?: string | undefined; // platform of the token, e.g. ETH
-}
-
-export type ExchangeCoinListResponse = ExchangeCoinInfo[];
-
 export type DexApprovalType =
     | "MINIMAL" // MINIMAL (default) is the lowest necessary to swap sendStringAmount
     | "INFINITE" // approves infinite amount
@@ -443,11 +434,11 @@ export type DexApprovalType =
     | "PRESET"; // PRESET takes value from approvalStringAmount
 
 export interface ExchangeTrade {
-    send?: string | undefined; // BTC
+    send?: CryptoSymbol | undefined; // BTC
 
     sendStringAmount?: string | undefined; // "0.01"
     sendAddress?: string | undefined; // exchange address for send tx
-    receive?: string | undefined; // LTC
+    receive?: CryptoSymbol | undefined; // LTC
 
     receiveStringAmount?: string | undefined; // "0.01"
     fromAddress?: string | undefined; // user's address from which the tx is sent - used in DEX
@@ -509,8 +500,8 @@ export interface CoinExtraField {
 }
 
 export interface ExchangeTradeQuoteRequest {
-    send: string; // BTC
-    receive: string; // LTC
+    send: CryptoSymbol; // BTC
+    receive: CryptoSymbol; // LTC
     sendStringAmount?: string | undefined; // "0.01"
     dex?: "enable" | "exclusively" | undefined; // 'enable' means add dex offers, 'exclusively' means only dex offers
 }
@@ -518,7 +509,7 @@ export interface ExchangeTradeQuoteRequest {
 export type ExchangeTradeQuoteResponse = ExchangeTrade[];
 
 export interface ConfirmExchangeTradeRequest {
-    trade: ExtendedExchangeTrade;
+    trade: ExchangeTrade;
     receiveAddress: string; // address hash
     refundAddress: string; // address hash (optional because Changelly doesn't support it)
     extraField?: string | undefined; // XRP destination tag, XMR label id, ...
@@ -553,6 +544,14 @@ export interface SupportTicket {
 export interface SupportTicketResponse {
     error?: string | undefined;
     statusCode: number;
+}
+
+export type CryptoSymbolsResponse = CryptoSymbolInfo[];
+
+export interface CryptoSymbolInfo {
+    symbol: CryptoSymbol;
+    name: string;
+    category: string;
 }
 
 // sell/voucher types

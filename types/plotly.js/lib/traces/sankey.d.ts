@@ -66,6 +66,7 @@ export interface SankeyLink {
     hoverinfo: "all" | "none" | "skip";
     hoverlabel: Partial<SankeyHoverLabel>;
     hovertemplate: string | string[];
+    hovercolor: SankeyColor | SankeyColor[];
     label: Datum[];
     line: Partial<{
         color: SankeyColor;

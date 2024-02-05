@@ -1,36 +1,36 @@
-import { Scene } from '../scenes/Scene.js';
-import { Camera } from '../cameras/Camera.js';
-import { WebGLExtensions } from './webgl/WebGLExtensions.js';
-import { WebGLInfo } from './webgl/WebGLInfo.js';
-import { WebGLShadowMap } from './webgl/WebGLShadowMap.js';
-import { WebGLCapabilities } from './webgl/WebGLCapabilities.js';
-import { WebGLProperties } from './webgl/WebGLProperties.js';
-import { WebGLRenderLists } from './webgl/WebGLRenderLists.js';
-import { WebGLState } from './webgl/WebGLState.js';
-import { Vector2 } from '../math/Vector2.js';
-import { Vector4 } from '../math/Vector4.js';
-import { Color, ColorRepresentation } from '../math/Color.js';
-import { WebGLRenderTarget } from './WebGLRenderTarget.js';
-import { WebGLMultipleRenderTargets } from './WebGLMultipleRenderTargets.js';
-import { Object3D } from '../core/Object3D.js';
-import { Material } from '../materials/Material.js';
+import { Camera } from "../cameras/Camera.js";
 import {
-    ToneMapping,
-    ShadowMapType,
-    CullFace,
-    TextureEncoding,
     ColorSpace,
+    CullFace,
+    ShadowMapType,
+    TextureEncoding,
+    ToneMapping,
     WebGLCoordinateSystem,
-} from '../constants.js';
-import { WebXRManager } from './webxr/WebXRManager.js';
-import { BufferGeometry } from '../core/BufferGeometry.js';
-import { OffscreenCanvas, Texture } from '../textures/Texture.js';
-import { Data3DTexture } from '../textures/Data3DTexture.js';
-import { Vector3 } from '../math/Vector3.js';
-import { Box3 } from '../math/Box3.js';
-import { DataArrayTexture } from '../textures/DataArrayTexture.js';
-import { WebGLProgram } from './webgl/WebGLProgram.js';
-import { Plane } from '../math/Plane.js';
+} from "../constants.js";
+import { BufferGeometry } from "../core/BufferGeometry.js";
+import { Object3D } from "../core/Object3D.js";
+import { Material } from "../materials/Material.js";
+import { Box3 } from "../math/Box3.js";
+import { Color, ColorRepresentation } from "../math/Color.js";
+import { Plane } from "../math/Plane.js";
+import { Vector2 } from "../math/Vector2.js";
+import { Vector3 } from "../math/Vector3.js";
+import { Vector4 } from "../math/Vector4.js";
+import { Scene } from "../scenes/Scene.js";
+import { Data3DTexture } from "../textures/Data3DTexture.js";
+import { DataArrayTexture } from "../textures/DataArrayTexture.js";
+import { OffscreenCanvas, Texture } from "../textures/Texture.js";
+import { WebGLCapabilities } from "./webgl/WebGLCapabilities.js";
+import { WebGLExtensions } from "./webgl/WebGLExtensions.js";
+import { WebGLInfo } from "./webgl/WebGLInfo.js";
+import { WebGLProgram } from "./webgl/WebGLProgram.js";
+import { WebGLProperties } from "./webgl/WebGLProperties.js";
+import { WebGLRenderLists } from "./webgl/WebGLRenderLists.js";
+import { WebGLShadowMap } from "./webgl/WebGLShadowMap.js";
+import { WebGLState } from "./webgl/WebGLState.js";
+import { WebGLMultipleRenderTargets } from "./WebGLMultipleRenderTargets.js";
+import { WebGLRenderTarget } from "./WebGLRenderTarget.js";
+import { WebXRManager } from "./webxr/WebXRManager.js";
 
 export interface Renderer {
     domElement: HTMLCanvasElement;
@@ -117,11 +117,11 @@ export interface WebGLDebug {
      */
     onShaderError:
         | ((
-              gl: WebGLRenderingContext,
-              program: WebGLProgram,
-              glVertexShader: WebGLShader,
-              glFragmentShader: WebGLShader,
-          ) => void)
+            gl: WebGLRenderingContext,
+            program: WebGLProgram,
+            glVertexShader: WebGLShader,
+            glFragmentShader: WebGLShader,
+        ) => void)
         | null;
 }
 

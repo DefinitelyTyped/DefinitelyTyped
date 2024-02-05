@@ -1462,7 +1462,7 @@ import { promisify } from "node:util";
     let b: crypto.webcrypto.SubtleCrypto = crypto.webcrypto.subtle;
     b = crypto.subtle;
 
-    crypto.webcrypto.randomUUID(); // $ExpectType string
+    crypto.webcrypto.randomUUID(); // $ExpectType `${string}-${string}-${string}-${string}-${string}`
     crypto.webcrypto.getRandomValues(Buffer.alloc(8)); // $ExpectType Buffer
     crypto.webcrypto.getRandomValues(new BigInt64Array(4)); // $ExpectType BigInt64Array
     // @ts-expect-error

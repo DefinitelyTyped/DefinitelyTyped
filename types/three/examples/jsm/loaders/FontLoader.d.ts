@@ -1,4 +1,4 @@
-import { Shape, Loader, LoadingManager } from '../../../src/Three.js';
+import { Loader, LoadingManager, Shape } from "../../../src/Three.js";
 
 export class FontLoader extends Loader<Font> {
     constructor(manager?: LoadingManager);

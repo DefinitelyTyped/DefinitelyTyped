@@ -1,12 +1,9 @@
-import { SinkMap } from "@rdfjs/sink-map";
-import { Stream } from "@rdfjs/types";
-import { EventEmitter } from "events";
 import Formats from "./lib/Formats.js";
 
-export { default as Formats } from "./lib/Formats.js";
+export { Formats } from "./lib/Formats.js";
 
-export const parsers: SinkMap<EventEmitter, Stream>;
-export const serializers: SinkMap<Stream, EventEmitter>;
+export const parsers: Formats["parsers"];
+export const serializers: Formats["serializers"];
 
 declare const formats: Formats;
 

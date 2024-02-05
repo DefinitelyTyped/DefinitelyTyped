@@ -6,8 +6,8 @@ import {
     LinearDisplayP3ColorSpace,
     LinearSRGBColorSpace,
     SRGBColorSpace,
-} from '../constants.js';
-import { Color } from './Color.js';
+} from "../constants.js";
+import { Color } from "./Color.js";
 
 export type WorkingColorSpace = typeof LinearSRGBColorSpace | typeof LinearDisplayP3ColorSpace;
 export type DefinedColorSpace =

@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/sanitize-html",
-    "version": "2.9.9999",
+    "version": "2.11.9999",
     "projects": [
         "https://github.com/punkave/sanitize-html"
     ],
@@ -51,6 +51,10 @@
         {
             "name": "Alex Rantos",
             "githubUsername": "alex-rantos"
+        },
+        {
+            "name": "Dylan Armstrong",
+            "githubUsername": "dylanarmstrong"
         }
     ]
 }

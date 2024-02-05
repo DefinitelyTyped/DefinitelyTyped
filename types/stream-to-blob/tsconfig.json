@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "./index.d.ts",
-        "./stream-to-blob-tests.ts"
+        "index.d.ts",
+        "stream-to-blob-tests.ts"
     ]
 }

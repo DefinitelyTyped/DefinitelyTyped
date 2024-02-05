@@ -16,8 +16,5 @@
     "files": [
         "index.d.ts",
         "udp-discovery-tests.ts"
-    ],
-    "exclude": [
-        "node_modules"
     ]
 }

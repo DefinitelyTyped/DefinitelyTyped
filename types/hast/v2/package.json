@@ -2,7 +2,7 @@
     "private": true,
     "name": "@types/hast",
     "version": "2.3.9999",
-    "nonNpm": true,
+    "nonNpm": "conflict",
     "nonNpmDescription": "Hast",
     "projects": [
         "https://github.com/syntax-tree/hast"

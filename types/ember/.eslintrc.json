@@ -1,7 +1,6 @@
 {
     "rules": {
         "@definitelytyped/no-single-element-tuple-type": "off",
-        "@definitelytyped/npm-naming": "off",
         "@typescript-eslint/no-empty-interface": "off"
     }
 }
