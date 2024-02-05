@@ -668,11 +668,15 @@ declare namespace Pubnub {
         channels: string[];
         device: string;
         pushGateway: string;
+        environment?: string;
+        topic?: string;
     }
 
     interface PushDeviceParameters {
         device: string;
         pushGateway: string;
+        environment?: string;
+        topic?: string;
     }
 
     interface PushListChannelsResponse {
