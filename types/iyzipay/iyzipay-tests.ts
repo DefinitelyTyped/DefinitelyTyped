@@ -7,3 +7,5 @@ const iyzipay = new Iyzipay({
 });
 
 iyzipay.apiTest.retrieve({}, (err, result) => {});
+Iyzipay.LOCALE.TR;
+Iyzipay.PAYMENT_GROUP.PRODUCT;

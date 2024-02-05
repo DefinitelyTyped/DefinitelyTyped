@@ -132,6 +132,7 @@ const environment = new Environment({
             case "network.unsubscribe":
             case "execute.start":
             case "queryresource.fetch":
+            case "read.missing_required_field":
             default:
                 break;
         }

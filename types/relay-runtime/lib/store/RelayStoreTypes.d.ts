@@ -429,6 +429,11 @@ export interface RecordSourceSelectorProxy<T = {}> extends RecordSourceProxy {
 
 export type LogEvent =
     | Readonly<{
+        name: "read.missing_required_field";
+        owner: string;
+        fieldPath: string;
+    }>
+    | Readonly<{
         name: "suspense.fragment";
         data: unknown;
         fragment: ReaderFragment;
