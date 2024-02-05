@@ -2,7 +2,7 @@
 
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "./trigger/api-gateway-proxy";
 
-import * as stream from "stream";
+import * as stream from "node:stream";
 
 /**
  * The interface that AWS Lambda will invoke your handler with.
