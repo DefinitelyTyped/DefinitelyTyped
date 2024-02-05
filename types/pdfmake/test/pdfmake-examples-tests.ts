@@ -1045,6 +1045,15 @@ const qrCode: TDocumentDefinitions = {
             fit: 100,
             alignment: "right",
         },
+        {
+            text: "same long text with fit = 100 and padding = 1 modules in pixel",
+            style: "header",
+        },
+        {
+            qr: "The amount of data that can be stored in the QR code symbol depends on the datatype (mode, or input character set), version (1, …, 40, indicating the overall dimensions of the symbol), and error correction level. The maximum storage capacities occur for 40-L symbols (version 40, error correction level L):",
+            fit: 100,
+            padding: 1,
+        },
     ],
     styles: {
         header: {
@@ -1306,6 +1315,7 @@ const stylingInlines: TDocumentDefinitions = {
             italics: true,
         },
     },
+    language: "en-AU",
 };
 
 const stylingNamedStylesWithOverrides: TDocumentDefinitions = {
