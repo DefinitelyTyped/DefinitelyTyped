@@ -1459,3 +1459,13 @@ table.on("rowSelectionChanged", (_data, rows, selected, deselected) => {
         ?.scrollTo("bottom", false)
         .then(() => console.log(cellType, cellData));
 });
+
+// Testing download callbacks
+table = new Tabulator("#testDownloadCallbacks", {
+    downloadReady: (fileContents, blob) => {
+        return blob;
+    },
+    downloadDataFormatter: (data) => {
+        return data;
+    },
+});
