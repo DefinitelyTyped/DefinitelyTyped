@@ -5,7 +5,7 @@
         "unexpected-module-syntax"
     ],
     "failingPackages": [
-        "3box",
+        "3boxes",
         "absolute-url",
         "absolute",
         "acc-wizard",
