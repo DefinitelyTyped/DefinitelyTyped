@@ -568,6 +568,8 @@ declare namespace React {
      *
      * But they are, in fact, not callable - instead, they are objects which
      * are treated specially by the renderer.
+     * 
+     * @template P The props the component accepts.
      */
     interface ExoticComponent<P = {}> {
         (props: P): ReactNode;
@@ -576,6 +578,8 @@ declare namespace React {
 
     /**
      * An {@link ExoticComponent} with a `displayName` property applied to it.
+     * 
+     * @template P The props the component accepts.
      */
     interface NamedExoticComponent<P = {}> extends ExoticComponent<P> {
         /**
@@ -590,6 +594,8 @@ declare namespace React {
 
     /**
      * An {@link ExoticComponent} with a `propTypes` property applied to it.
+     * 
+     * @template P The props the component accepts.
      */
     interface ProviderExoticComponent<P> extends ExoticComponent<P> {
         propTypes?: WeakValidationMap<P> | undefined;
@@ -597,6 +603,8 @@ declare namespace React {
 
     /**
      * Used to retrieve the type of a context object from a {@link Context}.
+     * 
+     * @template C The context object.
      *
      * @example
      *
