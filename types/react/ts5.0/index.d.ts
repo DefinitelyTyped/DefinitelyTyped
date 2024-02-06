@@ -1704,10 +1704,32 @@ declare namespace React {
 
     // based on the code in https://github.com/facebook/react/pull/13968
 
-    // Unlike the class component setState, the updates are not allowed to be partial
+    /**
+     * The instruction passed to a {@link Dispatch} function in {@link useState}
+     * to tell React what the next value of the {@link useState} should be.
+     * 
+     * Often found wrapped in {@link Dispatch}.
+     * 
+     * @template S The type of the state.
+     * 
+     * @example
+     * 
+     * ```tsx
+     * // This return type correctly represents the type of
+     * // `setCount` in the example below.
+     * const useCustomState = (): Dispatch<SetStateAction<number>> => {
+     *   const [count, setCount] = useState(0);
+     * 
+     *   return setCount;
+     * }
+     * ```
+     */
     type SetStateAction<S> = S | ((prevState: S) => S);
-    // this technically does accept a second argument, but it's already under a deprecation warning
-    // and it's not even released so probably better to not define it.
+    
+    /**
+     * A function that can be used to update the state of a {@link useState}
+     * or {@link useReducer} hook.
+     */
     type Dispatch<A> = (value: A) => void;
     // Since action _can_ be undefined, dispatch may be called without any parameters.
     type DispatchWithoutAction = () => void;
