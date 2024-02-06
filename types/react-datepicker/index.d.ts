@@ -184,6 +184,7 @@ export interface ReactDatePickerProps<
     timeIntervals?: number | undefined;
     title?: string | undefined;
     todayButton?: React.ReactNode | undefined;
+    toggleCalendarOnIconClick?: boolean | undefined;
     useShortMonthInDropdown?: boolean | undefined;
     useWeekdaysShort?: boolean | undefined;
     weekAriaLabelPrefix?: string | undefined;
