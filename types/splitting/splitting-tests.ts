@@ -15,7 +15,7 @@ Splitting({ // $ExpectType Result[]
 // $ExpectType Result[]
 Splitting({ key: null });
 
-Splitting({ target: document.createElement("span") }) // $ExpectType Result[]
+Splitting({ target: document.createElement("span") }); // $ExpectType Result[]
 Splitting({ target: [document.createElement("span")] });  // $ExpectType Result[]
 Splitting({ target: document.querySelectorAll(".target") }); // $ExpectType Result[]
 
