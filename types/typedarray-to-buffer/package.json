@@ -11,10 +11,5 @@
     "devDependencies": {
         "@types/typedarray-to-buffer": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Leon Si",
-            "githubUsername": "leonzalion"
-        }
-    ]
+    "owners": []
 }
