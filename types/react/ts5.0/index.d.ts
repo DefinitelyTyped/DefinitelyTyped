@@ -256,6 +256,21 @@ declare namespace React {
         ref?: LegacyRef<T> | undefined;
     }
 
+    /**
+     * Represents a JSX element.
+     * 
+     * Where {@link ReactNode} represents everything that can be rendered, `ReactElement`
+     * only represents JSX.
+     * 
+     * @template P The type of the props object
+     * @template T The type of the component or tag
+     * 
+     * @example
+     * 
+     * ```tsx
+     * const element: ReactElement = <div />;
+     * ```
+     */
     interface ReactElement<
         P = any,
         T extends string | JSXElementConstructor<any> = string | JSXElementConstructor<any>,
@@ -377,6 +392,8 @@ declare namespace React {
 
     /**
      * Represents all of the things React can render.
+     * 
+     * Where {@link ReactElement} only represents JSX, `ReactNode` represents everything that can be rendered.
      *
      * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/react-types/reactnode/ React TypeScript Cheatsheet}
      *
