@@ -3,7 +3,7 @@
 export = Backbone;
 export as namespace Backbone;
 
-import _ from "underscore";
+import _ = require("underscore");
 
 declare namespace Backbone {
     type _Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
