@@ -157,4 +157,6 @@ gtag("consent", "default", {
     functionality_storage: "denied",
     personalization_storage: "granted",
     security_storage: "denied",
+    ad_personalization: "denied",
+    ad_user_data: "denied",
 });

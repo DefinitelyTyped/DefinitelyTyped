@@ -154,6 +154,8 @@ declare namespace Gtag {
      * @see {@link https://developers.google.com/tag-platform/devguides/consent consent}
      */
     interface ConsentParams {
+        ad_personalization?: "granted" | "denied" | undefined;
+        ad_user_data?: "granted" | "denied" | undefined;
         ad_storage?: "granted" | "denied" | undefined;
         analytics_storage?: "granted" | "denied" | undefined;
         functionality_storage?: "granted" | "denied" | undefined;
