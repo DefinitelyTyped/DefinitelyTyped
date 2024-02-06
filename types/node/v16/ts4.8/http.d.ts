@@ -214,9 +214,8 @@ declare module "http" {
         _defaultAgent?: Agent | undefined;
         timeout?: number | undefined;
         setHost?: boolean | undefined;
-        // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L278
         createConnection?:
-            | ((options: ClientRequestArgs, oncreate: (err: Error, socket: Socket) => void) => Socket)
+            | ((options: ClientRequestArgs, oncreate: (err: Error | null, socket: stream.Duplex) => void) => stream.Duplex | null | undefined)
             | undefined;
         lookup?: LookupFunction | undefined;
     }
