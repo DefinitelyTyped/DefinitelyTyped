@@ -1573,21 +1573,22 @@ declare class Iyzipay {
 }
 
 declare namespace Iyzipay {
-    const LOCALE: Locales;
-    const PAYMENT_GROUP: PaymentGroups;
-    const BASKET_ITEM_TYPE: BasketItemTypes;
-    const PAYMENT_CHANNEL: PaymentChannels;
-    const SUB_MERCHANT_TYPE: SubMerchantTypes;
-    const CURRENCY: Currencies;
-    const APM_TYPE: ApmTypes;
-    const REFUND_REASON: RefundReasons;
-    const PLAN_PAYMENT_TYPE: PlanPaymentTypes;
-    const SUBSCRIPTION_PRICING_PLAN_INTERVAL: SubscriptionPricingPlanIntervals;
-    const SUBSCRIPTION_UPGRADE_PERIOD: SubscriptionUpgradePeriods;
-    const SUBSCRIPTION_STATUS: SubscriptionStatuses;
-    const SUBSCRIPTION_INITIAL_STATUS: SubscriptionInitialStatuses;
+    export const LOCALE: Locales;
+    export const PAYMENT_GROUP: PaymentGroups;
+    export const BASKET_ITEM_TYPE: BasketItemTypes;
+    export const PAYMENT_CHANNEL: PaymentChannels;
+    export const SUB_MERCHANT_TYPE: SubMerchantTypes;
+    export const CURRENCY: Currencies;
+    export const APM_TYPE: ApmTypes;
+    export const REFUND_REASON: RefundReasons;
+    export const PLAN_PAYMENT_TYPE: PlanPaymentTypes;
+    export const SUBSCRIPTION_PRICING_PLAN_INTERVAL: SubscriptionPricingPlanIntervals;
+    export const SUBSCRIPTION_UPGRADE_PERIOD: SubscriptionUpgradePeriods;
+    export const SUBSCRIPTION_STATUS: SubscriptionStatuses;
+    export const SUBSCRIPTION_INITIAL_STATUS: SubscriptionInitialStatuses;
 
     export {
+        ConfigOptions,
         /* ENUM INTERFACES */
         Locales,
         PaymentGroups,
