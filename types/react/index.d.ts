@@ -1733,7 +1733,9 @@ declare namespace React {
      * or {@link useReducer} hook.
      */
     type Dispatch<A> = (value: A) => void;
-    // Since action _can_ be undefined, dispatch may be called without any parameters.
+    /**
+     * A {@link Dispatch} function can sometimes be called without any arguments.
+     */
     type DispatchWithoutAction = () => void;
     // Unlike redux, the actions _can_ be anything
     type Reducer<S, A> = (prevState: S, action: A) => S;
