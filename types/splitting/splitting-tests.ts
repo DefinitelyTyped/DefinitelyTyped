@@ -4,19 +4,20 @@ import "splitting/dist/splitting-cells.css";
 
 // Base splitting function
 
-Splitting();
-Splitting({});
-Splitting({
+Splitting(); // $ExpectType Result[]
+Splitting({}); // $ExpectType Result[]
+Splitting({ // $ExpectType Result[]
     target: ".target",
     by: "chars",
     key: "foo",
 });
 
+// $ExpectType Result[]
 Splitting({ key: null });
 
-Splitting({ target: document.createElement("span") });
-Splitting({ target: [document.createElement("span")] });
-Splitting({ target: document.querySelectorAll(".target") });
+Splitting({ target: document.createElement("span") }); // $ExpectType Result[]
+Splitting({ target: [document.createElement("span")] });  // $ExpectType Result[]
+Splitting({ target: document.querySelectorAll(".target") }); // $ExpectType Result[]
 
 // HTML function
 
