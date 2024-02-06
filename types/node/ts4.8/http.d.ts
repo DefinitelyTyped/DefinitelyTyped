@@ -198,7 +198,6 @@ declare module "http" {
         _defaultAgent?: Agent | undefined;
         agent?: Agent | boolean | undefined;
         auth?: string | null | undefined;
-        // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L278
         createConnection?:
             | ((options: ClientRequestArgs, oncreate: (err: Error | null, socket: stream.Duplex) => void) => stream.Duplex | null | undefined)
             | undefined;
