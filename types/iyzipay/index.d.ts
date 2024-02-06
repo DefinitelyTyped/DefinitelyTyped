@@ -1587,9 +1587,13 @@ declare namespace Iyzipay {
     export const SUBSCRIPTION_STATUS: SubscriptionStatuses;
     export const SUBSCRIPTION_INITIAL_STATUS: SubscriptionInitialStatuses;
 
+    /* Config Options Interface */
     export {
         ConfigOptions,
-        /* ENUM INTERFACES */
+    }
+
+    /* ENUM INTERFACES */
+    export {
         Locales,
         PaymentGroups,
         BasketItemTypes,
@@ -1603,8 +1607,10 @@ declare namespace Iyzipay {
         SubscriptionUpgradePeriods,
         SubscriptionStatuses,
         SubscriptionInitialStatuses,
+    };
 
-        /* REQUEST INTERFACES */
+    /* REQUEST INTERFACES */
+    export {
         ApiTestRequestData,
         ApiTestResult,
         BinNumberRequestData,
@@ -1706,8 +1712,10 @@ declare namespace Iyzipay {
         SubscriptionCheckoutFormRetrieveResult,
         SubscriptionExistingCustomerInitializeRequestData,
         SubscriptionExistingCustomerInitializeResult,
+    }
 
-        /* NAMESPACE MODULES' INTERFACES */
+    /* NAMESPACE MODULES' INTERFACES */
+    export {
         ApiTest,
         BinNumber,
         Approval,
@@ -1741,7 +1749,7 @@ declare namespace Iyzipay {
         Subscription,
         SubscriptionCheckoutForm,
         SubscriptionExistingCustomer
-    };
+    }
 }
 
 export = Iyzipay;
