@@ -258,15 +258,15 @@ declare namespace React {
 
     /**
      * Represents a JSX element.
-     * 
+     *
      * Where {@link ReactNode} represents everything that can be rendered, `ReactElement`
      * only represents JSX.
-     * 
+     *
      * @template P The type of the props object
      * @template T The type of the component or tag
-     * 
+     *
      * @example
-     * 
+     *
      * ```tsx
      * const element: ReactElement = <div />;
      * ```
@@ -392,7 +392,7 @@ declare namespace React {
 
     /**
      * Represents all of the things React can render.
-     * 
+     *
      * Where {@link ReactElement} only represents JSX, `ReactNode` represents everything that can be rendered.
      *
      * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/react-types/reactnode/ React TypeScript Cheatsheet}
@@ -566,7 +566,7 @@ declare namespace React {
      *
      * But they are, in fact, not callable - instead, they are objects which
      * are treated specially by the renderer.
-     * 
+     *
      * @template P The props the component accepts.
      */
     interface ExoticComponent<P = {}> {
@@ -576,7 +576,7 @@ declare namespace React {
 
     /**
      * An {@link ExoticComponent} with a `displayName` property applied to it.
-     * 
+     *
      * @template P The props the component accepts.
      */
     interface NamedExoticComponent<P = {}> extends ExoticComponent<P> {
@@ -592,7 +592,7 @@ declare namespace React {
 
     /**
      * An {@link ExoticComponent} with a `propTypes` property applied to it.
-     * 
+     *
      * @template P The props the component accepts.
      */
     interface ProviderExoticComponent<P> extends ExoticComponent<P> {
@@ -601,7 +601,7 @@ declare namespace React {
 
     /**
      * Used to retrieve the type of a context object from a {@link Context}.
-     * 
+     *
      * @template C The context object.
      *
      * @example
@@ -1643,6 +1643,24 @@ declare namespace React {
         readonly type: T;
     };
 
+    /**
+     * Lets you skip re-rendering a component when its props are unchanged.
+     *
+     * @see {@link https://react.dev/reference/react/memo React Docs}
+     *
+     * @param Component The component to memoize.
+     * @param propsAreEqual A function that will be used to determine if the props have changed.
+     *
+     * @example
+     *
+     * ```tsx
+     * import { memo } from 'react';
+     *
+     * const SomeComponent = memo(function SomeComponent(props: { foo: string }) {
+     *   // ...
+     * });
+     * ```
+     */
     function memo<P extends object>(
         Component: FunctionComponent<P>,
         propsAreEqual?: (prevProps: Readonly<P>, nextProps: Readonly<P>) => boolean,
@@ -1656,8 +1674,28 @@ declare namespace React {
         readonly _result: T;
     };
 
+    /**
+     * Lets you defer loading a component’s code until it is rendered for the first time.
+     *
+     * @see {@link https://react.dev/reference/react/lazy React Docs}
+     *
+     * @param load A function that returns a `Promise` or another thenable (a `Promise`-like object with a
+     * then method). React will not call `load` until the first time you attempt to render the returned
+     * component. After React first calls load, it will wait for it to resolve, and then render the
+     * resolved value’s `.default` as a React component. Both the returned `Promise` and the `Promise`’s
+     * resolved value will be cached, so React will not call load more than once. If the `Promise` rejects,
+     * React will throw the rejection reason for the nearest Error Boundary to handle.
+     *
+     * @example
+     *
+     * ```tsx
+     * import { lazy } from 'react';
+     *
+     * const MarkdownPreview = lazy(() => import('./MarkdownPreview.js'));
+     * ```
+     */
     function lazy<T extends ComponentType<any>>(
-        factory: () => Promise<{ default: T }>,
+        load: () => Promise<{ default: T }>,
     ): LazyExoticComponent<T>;
 
     //
