@@ -1709,25 +1709,25 @@ declare namespace React {
     /**
      * The instruction passed to a {@link Dispatch} function in {@link useState}
      * to tell React what the next value of the {@link useState} should be.
-     * 
+     *
      * Often found wrapped in {@link Dispatch}.
-     * 
+     *
      * @template S The type of the state.
-     * 
+     *
      * @example
-     * 
+     *
      * ```tsx
      * // This return type correctly represents the type of
      * // `setCount` in the example below.
      * const useCustomState = (): Dispatch<SetStateAction<number>> => {
      *   const [count, setCount] = useState(0);
-     * 
+     *
      *   return setCount;
      * }
      * ```
      */
     type SetStateAction<S> = S | ((prevState: S) => S);
-    
+
     /**
      * A function that can be used to update the state of a {@link useState}
      * or {@link useReducer} hook.
