@@ -2,7 +2,6 @@
     "ignoreRules": [
         "no-resolution",
         "cjs-only-exports-default",
-        "unexpected-module-syntax"
     ],
     "failingPackages": [
         "3box",
