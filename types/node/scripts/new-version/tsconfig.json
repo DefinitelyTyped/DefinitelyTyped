@@ -4,10 +4,14 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "module": "commonjs",
+        "module": "node16",
         "esModuleInterop": true,
         "target": "ES2021",
-        "types": ["node"]
+        "types": [
+            "node"
+        ]
     },
-    "files": ["new-version.ts"]
+    "files": [
+        "new-version.ts"
+    ]
 }

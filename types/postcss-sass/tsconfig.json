@@ -1,7 +1,10 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "lib": ["es6", "ES2018.Promise"],
+        "module": "node16",
+        "lib": [
+            "es6",
+            "ES2018.Promise"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
@@ -10,5 +13,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "postcss-sass-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "postcss-sass-tests.ts"
+    ]
 }

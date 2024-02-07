@@ -4,7 +4,7 @@
         "react-addons-linked-state-mixin-tests.ts"
     ],
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6",
             "dom"
