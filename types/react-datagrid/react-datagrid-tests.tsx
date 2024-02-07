@@ -24,7 +24,7 @@ export namespace X {
             return (
                 <ReactDataGrid
                     key={0}
-                    ref="dlgBasic"
+                    ref={React.createRef()}
                     idProperty="id"
                     dataSource={data}
                     columns={columns}
@@ -39,7 +39,7 @@ class ExampleFull extends React.Component {
         return (
             <ReactDataGrid
                 key={1}
-                ref="dlgFull"
+                ref={React.createRef()}
                 idProperty="id"
                 dataSource={data}
                 columns={columns}
