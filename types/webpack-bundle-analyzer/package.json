@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/webpack-bundle-analyzer",
-    "version": "4.6.9999",
+    "version": "4.7.9999",
     "projects": [
         "https://github.com/webpack-contrib/webpack-bundle-analyzer"
     ],
