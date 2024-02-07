@@ -713,8 +713,8 @@ csstree.parse(".a { ::: invalid css ::: }", {
     onParseError(error, fallbackNode) {
         error; // $ExpectType SyntaxParseError
         fallbackNode; // $ExpectType CssNode
-    }
-})
+    },
+});
 
 csstree.ident.decode("foo"); // $ExpectType string
 csstree.ident.encode("foo"); // $ExpectType string
