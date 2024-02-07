@@ -33,10 +33,6 @@ type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 type NativeToggleEvent = ToggleEvent;
 
 declare module "." {
-    export type Usable<T> = PromiseLike<T> | Context<T>;
-
-    export function use<T>(usable: Usable<T>): T;
-
     interface ServerContextJSONArray extends ReadonlyArray<ServerContextJSONValue> {}
     export type ServerContextJSONValue =
         | string

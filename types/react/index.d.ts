@@ -1845,6 +1845,10 @@ declare namespace React {
         getServerSnapshot?: () => Snapshot,
     ): Snapshot;
 
+    export type Usable<T> = PromiseLike<T> | Context<T>;
+
+    export function use<T>(usable: Usable<T>): T;
+
     //
     // Event System
     // ----------------------------------------------------------------------
