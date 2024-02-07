@@ -60,10 +60,8 @@ export interface PaytmTransactionBody {
     goods?: PaytmGoodsInfo[];
     shippingInfo?: Array<Partial<PaytmShippingInfo>>;
     extendInfo?: PaytmExtendInfo;
-    /* eslint-disable */
     paymentOffersApplied?: any;
     simplifiedPaymentOffers?: any;
-    /* eslint-enable */
     emiSubventionToken?: string;
     paybleAmount?: PaytmTxnAmmount;
 }
