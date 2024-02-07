@@ -1,0 +1,16 @@
+{
+    "private": true,
+    "name": "@types/remark-link-card",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/gladevise/remark-link-card"
+    ],
+    "dependencies": {
+        "@types/mdast": "^4.0.3"
+    },
+    "devDependencies": {
+        "@types/remark-link-card": "workspace:.",
+        "unified": "^11.0.4"
+    },
+    "owners": []
+}
