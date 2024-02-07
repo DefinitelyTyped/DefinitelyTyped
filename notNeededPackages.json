@@ -416,6 +416,10 @@
             "libraryName": "blob-util",
             "asOfVersion": "2.0.0"
         },
+        "boom": {
+            "libraryName": "@hapi/boom",
+            "asOfVersion": "10.0.1"
+        },
         "bootstrap-table": {
             "libraryName": "bootstrap-table",
             "asOfVersion": "1.12.0"
@@ -547,6 +551,10 @@
         "catalog": {
             "libraryName": "catalog",
             "asOfVersion": "3.5.0"
+        },
+        "catbox": {
+            "libraryName": "@hapi/catbox",
+            "asOfVersion": "12.1.1"
         },
         "catho__quantum": {
             "libraryName": "@catho/quantum",
@@ -904,6 +912,10 @@
             "libraryName": "cnpj",
             "asOfVersion": "3.1.0"
         },
+        "code": {
+            "libraryName": "@hapi/code",
+            "asOfVersion": "8.0.5"
+        },
         "codegen.macro": {
             "libraryName": "codegen.macro",
             "asOfVersion": "4.1.0"
@@ -1131,6 +1143,10 @@
         "cross-platform-terminal-characters": {
             "libraryName": "cross-platform-terminal-characters",
             "asOfVersion": "3.1.0"
+        },
+        "cryptiles": {
+            "libraryName": "@hapi/cryptiles",
+            "asOfVersion": "6.0.1"
         },
         "crypto-hash": {
             "libraryName": "crypto-hash",
@@ -2137,6 +2153,10 @@
             "libraryName": "gzip-size",
             "asOfVersion": "5.1.0"
         },
+        "h2o2": {
+            "libraryName": "@hapi/h2o2",
+            "asOfVersion": "10.0.0"
+        },
         "handlebars": {
             "libraryName": "handlebars",
             "asOfVersion": "4.1.0"
@@ -2160,6 +2180,10 @@
         "hapi__boom": {
             "libraryName": "@hapi/boom",
             "asOfVersion": "9.0.0"
+        },
+        "hapi__catbox": {
+            "libraryName": "@hapi/catbox",
+            "asOfVersion": "12.1.1"
         },
         "hapi__code": {
             "libraryName": "@hapi/code",
@@ -5495,6 +5519,10 @@
             "libraryName": "shorten-repo-url",
             "asOfVersion": "1.5.1"
         },
+        "shot": {
+            "libraryName": "@hapi/shot",
+            "asOfVersion": "5.0.3"
+        },
         "should": {
             "libraryName": "should",
             "asOfVersion": "13.0.0"
@@ -6610,6 +6638,10 @@
         "wrap-ansi": {
             "libraryName": "wrap-ansi",
             "asOfVersion": "8.1.0"
+        },
+        "wreck": {
+            "libraryName": "@hapi/wreck",
+            "asOfVersion": "18.0.1"
         },
         "write-json-file": {
             "libraryName": "write-json-file",
