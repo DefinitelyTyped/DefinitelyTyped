@@ -5,6 +5,9 @@
     "projects": [
         "https://developer.paytm.com/docs/checksum/#node"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/paytmchecksum": "workspace:."
     },

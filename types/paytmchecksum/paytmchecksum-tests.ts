@@ -1,5 +1,5 @@
 /* More Details: https://developer.paytm.com/docs/checksum/#node */
-import * as PaytmChecksum from 'paytmchecksum'
+const PaytmChecksum = require('paytmchecksum')
 
 
 PaytmChecksum.encrypt("this fn is usually not used", "YOUR_MERCHANT_KEY")
