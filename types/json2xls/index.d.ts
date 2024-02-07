@@ -9,22 +9,18 @@ interface Config {
     style?: string;
 }
 
-interface GenericBuffer<T = any> extends Buffer {
-    json: T;
-}
-
-declare function json2xls(json: any, options?: Config): GenericBuffer;
+declare function json2xls(json: any, options?: Config): Buffer;
 
 declare namespace json2xls {
-    function transform<T = Json>(json: T[], config?: Config): GenericBuffer<T[]>;
+    function transform(json: Json[], config?: Config): Buffer;
 
     function getType(obj: Json, type?: string): string;
     function getByString(object: Json, path: string): Json | undefined;
     function prepareJson<T = Json>(json: T[], config?: Config): T[];
     function middleware(
-        req: import("@types/express").Request,
-        res: import("@types/express").Response,
-        next: import("@types/express").NextFunction,
+        req: import("express").Request,
+        res: import("express").Response,
+        next: import("express").NextFunction,
     ): void;
 
     export { Config, FieldConfig, Json };
