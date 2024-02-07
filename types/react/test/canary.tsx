@@ -50,47 +50,6 @@ function useAsyncAction() {
     }
 }
 
-function formActionsTest() {
-    <form
-        action={formData => {
-            // $ExpectType FormData
-            formData;
-        }}
-    >
-        <input type="text" name="title" defaultValue="Hello" />
-        <input
-            type="submit"
-            formAction={formData => {
-                // $ExpectType FormData
-                formData;
-            }}
-            value="Save"
-        />
-        <button
-            formAction={formData => {
-                // $ExpectType FormData
-                formData;
-            }}
-        >
-            Delete
-        </button>
-    </form>;
-
-    <form
-        action={async (formData) => {
-            // $ExpectType FormData
-            formData;
-        }}
-    />;
-
-    <form
-        // @ts-expect-error -- Type 'Promise<number>' is not assignable to type 'Promise<void>'
-        action={async () => {
-            return 1;
-        }}
-    />;
-}
-
 const useOptimistic = React.useOptimistic;
 function Optimistic() {
     const savedCartSize = 0;

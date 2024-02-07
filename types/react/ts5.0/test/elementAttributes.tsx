@@ -133,7 +133,6 @@ const eventCallbacksTestCases = [
 
 function formActionsTest() {
     <form
-        // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
         action={formData => {
             // $ExpectType FormData
             formData;
@@ -142,7 +141,6 @@ function formActionsTest() {
         <input type="text" name="title" defaultValue="Hello" />
         <input
             type="submit"
-            // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
             formAction={formData => {
                 // $ExpectType FormData
                 formData;
@@ -150,7 +148,6 @@ function formActionsTest() {
             value="Save"
         />
         <button
-            // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
             formAction={formData => {
                 // $ExpectType FormData
                 formData;
@@ -159,4 +156,18 @@ function formActionsTest() {
             Delete
         </button>
     </form>;
+
+    <form
+        action={async (formData) => {
+            // $ExpectType FormData
+            formData;
+        }}
+    />;
+
+    <form
+        // @ts-expect-error -- Type 'Promise<number>' is not assignable to type 'Promise<void>'
+        action={async () => {
+            return 1;
+        }}
+    />;
 }
