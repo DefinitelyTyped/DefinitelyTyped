@@ -32,10 +32,10 @@ interface MyComponent extends React.Component<Props, State> {
     reset(): void;
 }
 
-// use any for ClassAttribute type sine we're using string refs
+// use any for ClassAttribute type since we're using refs
 const props: Props & React.ClassAttributes<any> = {
     key: 42,
-    ref: "myComponent42",
+    ref: React.createRef(),
     hello: "world",
     foo: 42,
 };
@@ -348,7 +348,10 @@ class RefComponent extends React.Component<RCProps> {
 }
 
 let componentRef: RefComponent | null = new RefComponent({});
-RefComponent.create({ ref: "componentRef" });
+RefComponent.create({
+    // @ts-expect-error -- string refs are no longer supported
+    ref: "componentRef",
+});
 // type of c should be inferred
 RefComponent.create({
     ref: c => {
@@ -476,7 +479,7 @@ const divStyle: React.CSSProperties = { // CSSProperties
 };
 const htmlAttr: React.HTMLProps<HTMLElement> = {
     key: 36,
-    ref: "htmlComponent",
+    ref: React.createRef(),
     children,
     className: "test-attr",
     style: divStyle,
