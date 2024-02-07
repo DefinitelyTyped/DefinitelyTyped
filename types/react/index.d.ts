@@ -1746,8 +1746,7 @@ declare namespace React {
     // it's just the function name without the "use" prefix.
     function useDebugValue<T>(value: T, format?: (value: T) => any): void;
 
-    // must be synchronous
-    export type TransitionFunction = () => VoidOrUndefinedOnly;
+    export type TransitionFunction = () => VoidOrUndefinedOnly | Promise<VoidOrUndefinedOnly>;
     // strange definition to allow vscode to show documentation on the invocation
     export interface TransitionStartFunction {
         /**
@@ -1755,7 +1754,7 @@ declare namespace React {
          *
          * **If some state update causes a component to suspend, that state update should be wrapped in a transition.**
          *
-         * @param callback A _synchronous_ function which causes state updates that can be deferred.
+         * @param callback A function which causes state updates that can be deferred.
          */
         (callback: TransitionFunction): void;
     }
@@ -1794,8 +1793,9 @@ declare namespace React {
     /**
      * Similar to `useTransition` but allows uses where hooks are not available.
      *
-     * @param callback A _synchronous_ function which causes state updates that can be deferred.
+     * @param callback A function which causes state updates that can be deferred.
      */
+    export function startTransition(scope: TransitionFunction): void;
     export function startTransition(scope: TransitionFunction): void;
 
     /**
@@ -1841,9 +1841,28 @@ declare namespace React {
         getServerSnapshot?: () => Snapshot,
     ): Snapshot;
 
+    export function useOptimistic<State>(
+        passthrough: State,
+    ): [State, (action: State | ((pendingState: State) => State)) => void];
+    export function useOptimistic<State, Action>(
+        passthrough: State,
+        reducer: (state: State, action: Action) => State,
+    ): [State, (action: Action) => void];
+
     export type Usable<T> = PromiseLike<T> | Context<T>;
 
     export function use<T>(usable: Usable<T>): T;
+
+    export function useActionState<State>(
+        action: (state: Awaited<State>) => State | Promise<State>,
+        initialState: Awaited<State>,
+        permalink?: string,
+    ): [state: Awaited<State>, dispatch: () => void, isPending: boolean];
+    export function useActionState<State, Payload>(
+        action: (state: Awaited<State>, payload: Payload) => State | Promise<State>,
+        initialState: Awaited<State>,
+        permalink?: string,
+    ): [state: Awaited<State>, dispatch: (payload: Payload) => void, isPending: boolean];
 
     //
     // Event System
