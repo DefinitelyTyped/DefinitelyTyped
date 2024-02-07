@@ -411,9 +411,11 @@ const badlyAuthoredRef: React.RefObject<HTMLDivElement | null | undefined> = { c
 
 <ForwardRef ref={divFnRef} />;
 <ForwardRef ref={divRef} />;
+// @ts-expect-error string refs are no longer supported
 <ForwardRef ref="string" />;
 <ForwardRef2 ref={divFnRef} />;
 <ForwardRef2 ref={divRef} />;
+// @ts-expect-error string refs are no longer supported
 <ForwardRef2 ref="string" />;
 // @ts-expect-error Undesired behavior
 <ForwardRef2 ref={badlyAuthoredRef} />;
@@ -433,10 +435,12 @@ declare const unsoundDivObjectRef: { current: HTMLDivElement };
 
 const newContextRef = React.createRef<NewContext>();
 <NewContext ref={newContextRef} />;
-<NewContext ref="string" />;
+<NewContext // @ts-expect-error string refs are no longer supported
+ ref="string" />;
 
 const ForwardNewContext = React.forwardRef((_props: {}, ref?: React.Ref<NewContext>) => <NewContext ref={ref} />);
 <ForwardNewContext ref={newContextRef} />;
+// @ts-expect-error string refs are no longer supported
 <ForwardNewContext ref="string" />;
 
 const ForwardRef3 = React.forwardRef(
@@ -495,7 +499,7 @@ imgProps.loading = "nonsense";
 // @ts-expect-error
 imgProps.decoding = "nonsense";
 type ImgPropsWithRef = React.ComponentPropsWithRef<"img">;
-// $ExpectType ((instance: HTMLImageElement | null) => void | (() => VoidOrUndefinedOnly)) | RefObject<HTMLImageElement | null> | null | undefined
+// $ExpectType Ref<HTMLImageElement> | undefined
 type ImgPropsWithRefRef = ImgPropsWithRef["ref"];
 type ImgPropsWithoutRef = React.ComponentPropsWithoutRef<"img">;
 // $ExpectType false

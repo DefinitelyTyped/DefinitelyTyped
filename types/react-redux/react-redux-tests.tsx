@@ -1729,7 +1729,7 @@ function testRef() {
     // Should be able to pass modern refs to a ForwardRefExoticComponent
     const modernRef: React.Ref<string> | undefined = undefined;
     <ConnectedForwardedFunctionalComponent ref={modernRef}></ConnectedForwardedFunctionalComponent>;
-    // Should be able to use legacy string refs
+    // @ts-expect-error String refs have been removed
     <ConnectedForwardedFunctionalComponent ref={""}></ConnectedForwardedFunctionalComponent>;
     // ref type should agree with type of the forwarded ref
     // @ts-expect-error
@@ -1742,6 +1742,7 @@ function testRef() {
     <ConnectedClassComponent ref={classLegacyRef}></ConnectedClassComponent>;
     <ConnectedClassComponent ref={React.createRef<ClassComponent>()}></ConnectedClassComponent>;
     <ConnectedClassComponent ref={(ref: ClassComponent | null) => {}}></ConnectedClassComponent>;
+    // @ts-expect-error String refs have been removed
     <ConnectedClassComponent ref={""}></ConnectedClassComponent>;
     // ref type should be the typeof the wrapped component
     // @ts-expect-error

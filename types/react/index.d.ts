@@ -173,19 +173,10 @@ declare namespace React {
 
     type Ref<T> = RefCallback<T> | RefObject<T | null> | null;
     /**
-     * A legacy implementation of refs where you can pass a string to a ref prop.
-     *
-     * @see {@link https://react.dev/reference/react/Component#refs React Docs}
-     *
-     * @example
-     *
-     * ```tsx
-     * <div ref="myRef" />
-     * ```
+     * @deprecated Use `Ref` instead. String refs are no longer supported.
+     * If you're typing a library with support for React versions with string refs, use `RefAttributes<T>['ref']` instead.
      */
-    // TODO: Remove the string ref special case from `PropsWithRef` once we remove LegacyRef
-    type LegacyRef<T> = string | Ref<T>;
-
+    type LegacyRef<T> = Ref<T>;
     /**
      * Retrieves the type of the 'ref' prop for a given component type or tag name.
      *
@@ -285,7 +276,7 @@ declare namespace React {
          *
          * @see {@link https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom React Docs}
          */
-        ref?: LegacyRef<T> | undefined;
+        ref?: Ref<T> | undefined;
     }
 
     /**
@@ -332,7 +323,7 @@ declare namespace React {
 
     type CElement<P, T extends Component<P, ComponentState>> = ComponentElement<P, T>;
     interface ComponentElement<P, T extends Component<P, ComponentState>> extends ReactElement<P, ComponentClass<P>> {
-        ref?: LegacyRef<T> | undefined;
+        ref?: Ref<T> | undefined;
     }
 
     /**
@@ -344,7 +335,7 @@ declare namespace React {
     interface DOMElement<P extends HTMLAttributes<T> | SVGAttributes<T>, T extends Element>
         extends ReactElement<P, string>
     {
-        ref: LegacyRef<T>;
+        ref: Ref<T>;
     }
 
     // ReactHTML for ReactHTMLElement
@@ -910,14 +901,6 @@ declare namespace React {
 
         readonly props: Readonly<P>;
         state: Readonly<S>;
-        /**
-         * @deprecated
-         *
-         * @see {@link https://legacy.reactjs.org/docs/refs-and-the-dom.html#legacy-api-string-refs Legacy React Docs}
-         */
-        refs: {
-            [key: string]: ReactInstance;
-        };
     }
 
     class PureComponent<P = {}, S = {}, SS = any> extends Component<P, S, SS> {}
@@ -1352,16 +1335,11 @@ declare namespace React {
         // see: https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#distributive-conditional-types
         // https://github.com/Microsoft/TypeScript/issues/28339
         P extends any ? ("ref" extends keyof P ? Omit<P, "ref"> : P) : P;
-    /** Ensures that the props do not include string ref, which cannot be forwarded */
-    type PropsWithRef<P> =
-        // Note: String refs can be forwarded. We can't fix this bug without breaking a bunch of libraries now though.
-        // Just "P extends { ref?: infer R }" looks sufficient, but R will infer as {} if P is {}.
-        "ref" extends keyof P
-            ? P extends { ref?: infer R | undefined }
-                ? string extends R ? PropsWithoutRef<P> & { ref?: Exclude<R, string> | undefined }
-                : P
-            : P
-            : P;
+    /**
+     * Ensures that the props do not include string ref, which cannot be forwarded
+     * @deprecated Use `Props` directly. `PropsWithRef<Props>` is just an alias for `Props`
+     */
+    type PropsWithRef<Props> = Props;
 
     type PropsWithChildren<P = unknown> = P & { children?: ReactNode | undefined };
 
@@ -1422,7 +1400,7 @@ declare namespace React {
      */
     type ComponentPropsWithRef<T extends ElementType> = T extends (new(props: infer P) => Component<any, any>)
         ? PropsWithoutRef<P> & RefAttributes<InstanceType<T>>
-        : PropsWithRef<ComponentProps<T>>;
+        : ComponentProps<T>;
     /**
      * Used to retrieve the props a custom component accepts with its ref.
      *
@@ -1441,7 +1419,7 @@ declare namespace React {
      */
     type CustomComponentPropsWithRef<T extends ComponentType> = T extends (new(props: infer P) => Component<any, any>)
         ? (PropsWithoutRef<P> & RefAttributes<InstanceType<T>>)
-        : T extends ((props: infer P) => ReactNode) ? PropsWithRef<P>
+        : T extends ((props: infer P) => ReactNode) ? P
         : never;
 
     /**
