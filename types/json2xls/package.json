@@ -6,9 +6,7 @@
         "https://github.com/rikkertkoppes/json2xls"
     ],
     "devDependencies": {
-        "@types/json2xls": "workspace:."
-    },
-    "peerDependencies": {
+        "@types/json2xls": "workspace:.",
         "@types/express": "^4.17.11"
     },
     "owners": [
