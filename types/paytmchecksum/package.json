@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/paytmchecksum",
+    "version": "1.5.0.9999",
+    "projects": [
+        "https://developer.paytm.com/docs/checksum/#node"
+    ],
+    "devDependencies": {
+        "@types/paytmchecksum": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adarsh Singh",
+            "githubUsername": "adarshsingh87"
+        }
+    ]
+}
