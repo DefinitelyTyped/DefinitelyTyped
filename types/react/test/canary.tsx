@@ -6,42 +6,6 @@ interface Console {
     log(...args: any[]): void;
 }
 
-function serverContextTest() {
-    const ServerContext = React.createServerContext<string>("ServerContext", "default");
-
-    function ServerContextUser() {
-        const context = React.useContext(ServerContext);
-        return <React.Fragment>{context}</React.Fragment>;
-    }
-    // @ts-expect-error Consumer pattern is not supported on server context
-    ServerContext.Consumer;
-
-    function ServerContextProivder() {
-        return (
-            <ServerContext.Provider value="provided">
-                <ServerContextUser />
-            </ServerContext.Provider>
-        );
-    }
-
-    const ClientContext = React.createContext<string>("default");
-    function ClientContextUser() {
-        const context = React.useContext(ClientContext);
-        return <React.Fragment>{context}</React.Fragment>;
-    }
-
-    // plain objects work
-    React.createServerContext("PlainObjectContext", { foo: 1 });
-    // readonly arrays work
-    React.createServerContext("ReadonlyArrayContext", ["foo", "bar"] as const);
-    // nested readonly arrays work
-    React.createServerContext("ReadonlyArrayContext", ["foo", ["bar"]] as const);
-    // @ts-expect-error Incompatible with JSON stringify+parse
-    React.createServerContext("DateContext", new Date());
-    // @ts-expect-error Incompatible with JSON stringify+parse
-    React.createServerContext("SetContext", new Set());
-}
-
 function cacheTest() {
     const getLength = React.cache((a: string) => a.length);
     const fooLength: number = getLength("foo");
