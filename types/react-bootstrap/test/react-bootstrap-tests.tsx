@@ -1315,7 +1315,7 @@ export class ReactBootstrapTest extends Component {
                             type="text"
                             value="hello"
                             placeholder="Enter text"
-                            ref="input"
+                            ref={React.createRef<FormControl>()}
                             onChange={this.callback}
                         />
                         <FormControl.Feedback />
