@@ -102,4 +102,4 @@ declare class PaytmChecksum {
     static calculateHash(params: string, salt: string): string;
     static calculateChecksum(params: string, key: string, salt: string): string;
 }
-export default PaytmChecksum
+export = PaytmChecksum;
