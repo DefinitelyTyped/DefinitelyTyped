@@ -2653,6 +2653,7 @@ declare namespace React {
         action?:
             | string
             | undefined
+            | ((formData: FormData) => void)
             | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS[
                 keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS
             ];
@@ -2687,6 +2688,7 @@ declare namespace React {
         formAction?:
             | string
             | undefined
+            | ((formData: FormData) => void)
             | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS[
                 keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS
             ];
@@ -2819,6 +2821,7 @@ declare namespace React {
         form?: string | undefined;
         formAction?:
             | string
+            | ((formData: FormData) => void)
             | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS[
                 keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS
             ]
@@ -2885,6 +2888,7 @@ declare namespace React {
         action?:
             | string
             | undefined
+            | ((formData: FormData) => void)
             | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS[
                 keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS
             ];
@@ -3041,6 +3045,7 @@ declare namespace React {
         form?: string | undefined;
         formAction?:
             | string
+            | ((formData: FormData) => void)
             | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS[
                 keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS
             ]
