@@ -47,3 +47,79 @@ export function useFormState<State, Payload>(
     initialState: Awaited<State>,
     permalink?: string,
 ): [state: Awaited<State>, dispatch: (payload: Payload) => void, isPending: boolean];
+
+export function prefetchDNS(href: string): void;
+
+export interface PreconnectOptions {
+    // Don't create a helper type.
+    // It would have to be in module scope to be inlined in TS tooltips.
+    // But then it becomes part of the public API.
+    // TODO: Upstream to microsoft/TypeScript-DOM-lib-generator -> w3c/webref
+    // since the spec has a notion of a dedicated type: https://html.spec.whatwg.org/multipage/urls-and-fetching.html#cors-settings-attribute
+    crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
+}
+export function preconnect(href: string, options?: PreconnectOptions): void;
+
+export type PreloadAs =
+    | "audio"
+    | "document"
+    | "embed"
+    | "fetch"
+    | "font"
+    | "image"
+    | "object"
+    | "track"
+    | "script"
+    | "style"
+    | "video"
+    | "worker";
+export interface PreloadOptions {
+    as: PreloadAs;
+    crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
+    fetchPriority?: "high" | "low" | "auto" | undefined;
+    // TODO: These should only be allowed with `as: 'image'` but it's not trivial to write tests against the full TS support matrix.
+    imageSizes?: string | undefined;
+    imageSrcSet?: string | undefined;
+    integrity?: string | undefined;
+    type?: string | undefined;
+    nonce?: string | undefined;
+    referrerPolicy?: ReferrerPolicy | undefined;
+}
+export function preload(href: string, options?: PreloadOptions): void;
+
+// https://html.spec.whatwg.org/multipage/links.html#link-type-modulepreload
+export type PreloadModuleAs = RequestDestination;
+export interface PreloadModuleOptions {
+    /**
+     * @default "script"
+     */
+    as: PreloadModuleAs;
+    crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
+    integrity?: string | undefined;
+    nonce?: string | undefined;
+}
+export function preloadModule(href: string, options?: PreloadModuleOptions): void;
+
+export type PreinitAs = "script" | "style";
+export interface PreinitOptions {
+    as: PreinitAs;
+    crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
+    fetchPriority?: "high" | "low" | "auto" | undefined;
+    precedence?: string | undefined;
+    integrity?: string | undefined;
+    nonce?: string | undefined;
+}
+export function preinit(href: string, options?: PreinitOptions): void;
+
+// Will be expanded to include all of https://github.com/tc39/proposal-import-attributes
+export type PreinitModuleAs = "script";
+export interface PreinitModuleOptions {
+    /**
+     * @default "script"
+     */
+    as?: PreinitModuleAs;
+    crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
+    integrity?: string | undefined;
+    nonce?: string | undefined;
+}
+export function preinitModule(href: string, options?: PreinitModuleOptions): void;
