@@ -1820,6 +1820,33 @@ declare namespace React {
         getServerSnapshot?: () => Snapshot,
     ): Snapshot;
 
+    interface ThenableImpl<T> {
+        then(onFulfill: (value: T) => unknown, onReject: (error: unknown) => unknown): void | PromiseLike<unknown>;
+    }
+    interface UntrackedThenable<T> extends ThenableImpl<T> {
+        status?: void;
+    }
+
+    export interface PendingThenable<T> extends ThenableImpl<T> {
+        status: "pending";
+    }
+
+    export interface FulfilledThenable<T> extends ThenableImpl<T> {
+        status: "fulfilled";
+        value: T;
+    }
+
+    export interface RejectedThenable<T> extends ThenableImpl<T> {
+        status: "rejected";
+        reason: unknown;
+    }
+
+    export type Thenable<T> = UntrackedThenable<T> | PendingThenable<T> | FulfilledThenable<T> | RejectedThenable<T>;
+
+    export type Usable<T> = Thenable<T> | Context<T>;
+
+    export function use<T>(usable: Usable<T>): T;
+
     //
     // Event System
     // ----------------------------------------------------------------------

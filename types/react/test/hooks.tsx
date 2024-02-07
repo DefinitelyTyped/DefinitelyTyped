@@ -123,7 +123,7 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
             const s = v;
             return s;
         },
-        { name: 'asdf' }
+        { name: "asdf" },
     );
 
     // @ts-expect-error reducer should have at most 2 arguments
@@ -462,4 +462,20 @@ function useUsers(): string[] {
         () => objectStore.getState().users,
         () => objectStore.getServerState().users,
     );
+}
+
+const contextUsers = React.createContext(["HAL"]);
+const promisedUsers = Promise.resolve(["Dave"]);
+
+function useUse() {
+    // @ts-expect-error Missing value
+    React.use();
+
+    // $ExpectType string[]
+    const users = React.use(promisedUsers);
+    // @ts-expect-error incompatible type. Mainly to potentially inspect TypeScript error message
+    React.use({});
+
+    // $ExpectType string[]
+    const contextValue = React.use(contextUsers);
 }

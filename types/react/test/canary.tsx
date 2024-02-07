@@ -6,22 +6,6 @@ interface Console {
     log(...args: any[]): void;
 }
 
-const contextUsers = React.createContext(["HAL"]);
-const promisedUsers = Promise.resolve(["Dave"]);
-
-function useUse() {
-    // @ts-expect-error Missing value
-    React.use();
-
-    // $ExpectType string[]
-    const users = React.use(promisedUsers);
-    // @ts-expect-error incompatible type. Mainly to potentially inspect TypeScript error message
-    React.use({});
-
-    // $ExpectType string[]
-    const contextValue = React.use(contextUsers);
-}
-
 function serverContextTest() {
     const ServerContext = React.createServerContext<string>("ServerContext", "default");
 
