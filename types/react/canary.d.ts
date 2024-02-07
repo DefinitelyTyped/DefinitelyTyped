@@ -36,25 +36,6 @@ declare module "." {
 
     export function unstable_useCacheRefresh(): () => void;
 
-    export interface TransitionStartFunction {
-        /**
-         * Marks all state updates inside the async function as transitions
-         *
-         * @see {https://react.dev/reference/react/useTransition#starttransition}
-         *
-         * @param callback
-         */
-        (callback: () => Promise<VoidOrUndefinedOnly>): void;
-    }
-
-    function useOptimistic<State>(
-        passthrough: State,
-    ): [State, (action: State | ((pendingState: State) => State)) => void];
-    function useOptimistic<State, Action>(
-        passthrough: State,
-        reducer: (state: State, action: Action) => State,
-    ): [State, (action: Action) => void];
-
     interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES {
         cleanup: () => VoidOrUndefinedOnly;
     }

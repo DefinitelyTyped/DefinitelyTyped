@@ -5,7 +5,16 @@
 // See https://github.com/facebook/react/blob/main/packages/react-dom/client.js to see how the exports are declared,
 
 import React = require("react");
+
+export {};
+
+declare const REACT_FORM_STATE_SIGIL: unique symbol;
+export interface ReactFormState {
+    [REACT_FORM_STATE_SIGIL]: never;
+}
+
 export interface HydrationOptions {
+    formState?: ReactFormState | null;
     /**
      * Prefix for `useId`.
      */

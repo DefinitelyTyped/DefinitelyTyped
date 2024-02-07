@@ -1757,6 +1757,14 @@ declare namespace React {
          * @param callback A _synchronous_ function which causes state updates that can be deferred.
          */
         (callback: TransitionFunction): void;
+        /**
+         * Marks all state updates inside the async function as transitions
+         *
+         * @see {https://react.dev/reference/react/useTransition#starttransition}
+         *
+         * @param callback
+         */
+        (callback: () => Promise<VoidOrUndefinedOnly>): void;
     }
 
     /**
@@ -1819,6 +1827,14 @@ declare namespace React {
         getSnapshot: () => Snapshot,
         getServerSnapshot?: () => Snapshot,
     ): Snapshot;
+
+    function useOptimistic<State>(
+        passthrough: State,
+    ): [State, (action: State | ((pendingState: State) => State)) => void];
+    function useOptimistic<State, Action>(
+        passthrough: State,
+        reducer: (state: State, action: Action) => State,
+    ): [State, (action: Action) => void];
 
     interface ThenableImpl<T> {
         then(onFulfill: (value: T) => unknown, onReject: (error: unknown) => unknown): void | PromiseLike<unknown>;

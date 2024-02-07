@@ -31,8 +31,6 @@ import ReactDOM = require(".");
 
 export {};
 
-declare const REACT_FORM_STATE_SIGIL: unique symbol;
-
 declare module "." {
     function prefetchDNS(href: string): void;
 
@@ -109,46 +107,9 @@ declare module "." {
         nonce?: string | undefined;
     }
     function preinitModule(href: string, options?: PreinitModuleOptions): void;
-
-    interface FormStatusNotPending {
-        pending: false;
-        data: null;
-        method: null;
-        action: null;
-    }
-
-    interface FormStatusPending {
-        pending: true;
-        data: FormData;
-        method: string;
-        action: string | ((formData: FormData) => void | Promise<void>);
-    }
-
-    type FormStatus = FormStatusPending | FormStatusNotPending;
-
-    function useFormStatus(): FormStatus;
-
-    function useFormState<State>(
-        action: (state: Awaited<State>) => State | Promise<State>,
-        initialState: Awaited<State>,
-        permalink?: string,
-    ): [state: Awaited<State>, dispatch: () => void, isPending: boolean];
-    function useFormState<State, Payload>(
-        action: (state: Awaited<State>, payload: Payload) => State | Promise<State>,
-        initialState: Awaited<State>,
-        permalink?: string,
-    ): [state: Awaited<State>, dispatch: (payload: Payload) => void, isPending: boolean];
 }
 
 declare module "./client" {
-    interface ReactFormState {
-        [REACT_FORM_STATE_SIGIL]: never;
-    }
-
-    interface HydrationOptions {
-        formState?: ReactFormState | null;
-    }
-
     interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_CREATE_ROOT_CONTAINERS {
         document: Document;
     }
