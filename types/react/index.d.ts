@@ -3129,6 +3129,9 @@ declare namespace React {
         sizes?: string | undefined;
         type?: string | undefined;
         charSet?: string | undefined;
+
+        // React props
+        precedence?: string | undefined;
     }
 
     interface MapHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -3263,6 +3266,10 @@ declare namespace React {
         media?: string | undefined;
         scoped?: boolean | undefined;
         type?: string | undefined;
+
+        // React props
+        href?: string | undefined;
+        precedence?: string | undefined;
     }
 
     interface TableHTMLAttributes<T> extends HTMLAttributes<T> {

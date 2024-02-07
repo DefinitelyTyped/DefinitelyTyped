@@ -92,6 +92,11 @@ const testCases = [
     </dialog>,
     <link nonce="8IBTHwOdqNKAWeKl7plt8g==" />,
     <center></center>,
+    // Float
+    <>
+        <link href="https://foo.bar" precedence="medium" rel="canonical" />
+        <style href="unique-style-hash" precedence="anything">{` p { color: red; } `}</style>
+    </>,
 ];
 
 // Needed to check these HTML elements in event callbacks.
