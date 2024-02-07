@@ -872,12 +872,15 @@ declare namespace AP {
          * @param callback Asynchronous callback (optional) if retrieving state during page load.
          */
         function getState(type: "hash" | undefined, callback: (state: string) => void): void;
-        function getState(type: "all", callback: (state: {
-            key: string;
-            hash: string;
-            title: string;
-            href: string;
-        }) => void): void;
+        function getState(
+            type: "all",
+            callback: (state: {
+                key: string;
+                hash: string;
+                title: string;
+                href: string;
+            }) => void,
+        ): void;
 
         /**
          * Updates the location's anchor with the specified value and pushes the given data onto the session history. Does not invoke popState callback.
