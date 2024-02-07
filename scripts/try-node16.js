@@ -9,6 +9,10 @@ const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 for (const tsconfigPath of tsconfigs) {
     const tsconfigString = fs.readFileSync(tsconfigPath, "utf-8");
     const tsconfig = JSON.parse(tsconfigString);
+    if (tsconfig.compilerOptions.module === "node16") {
+        continue;
+    }
+
     const newTsconfig = JSON.parse(tsconfigString);
 
     newTsconfig.compilerOptions.module = "node16";
