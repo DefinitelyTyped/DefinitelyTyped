@@ -1,4 +1,4 @@
-import { LaunchOptions, Page, ScreenshotOptions, Viewport, Request } from "puppeteer";
+import { LaunchOptions, Page, Request, ScreenshotOptions, Viewport } from "puppeteer";
 
 export interface GenerateImageOptions {
     launch?: LaunchOptions | undefined;
