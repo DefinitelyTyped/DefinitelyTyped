@@ -784,7 +784,7 @@ declare namespace Reveal {
     interface Options {
         // Presentation size
         // https://github.com/reveal/revealjs.com/blob/master/src/presentation-size.md
-        
+
         /**
          * The "normal" size of the presentation, aspect ratio will be preserved
          * when the presentation is scaled to fit different resolutions
