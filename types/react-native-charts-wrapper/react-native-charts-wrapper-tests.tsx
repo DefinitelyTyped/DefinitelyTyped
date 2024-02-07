@@ -371,7 +371,7 @@ class CandleStickChartScreen extends React.Component {
                         // zoom={{scaleX: 2, scaleY: 1, xValue:  400000, yValue: 1}}
                         zoom={{ scaleX: 15.41, scaleY: 1, xValue: 40, yValue: 916, axisDependency: "LEFT" }}
                         onSelect={this.handleSelect.bind(this)}
-                        ref="chart"
+                        ref={React.createRef()}
                         onChange={event => console.log(event.nativeEvent)}
                     />
                 </View>
