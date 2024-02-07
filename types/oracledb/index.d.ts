@@ -2511,6 +2511,10 @@ declare namespace OracleDB {
         readonly name: string;
         /** Schema owning the Oracle Database object or collection. */
         readonly schema: string;
+        /** This read-only property is a string which identifies the name of the package, if the type refers to a PL/SQL type. Otherwise, it returns undefined. 
+         * @since 6.2
+         * */
+        readonly packageName: string | undefined;
 
         /**
          * Add the given value to the end of the collection.
@@ -3173,6 +3177,15 @@ declare namespace OracleDB {
          */
         truncate(): Promise<void>;
         truncate(cb: (err: DBError) => void): void;
+
+        /**
+         * Retrieves all the indexes from a SODA collection. This method returns an array of objects that contains the index specifications.
+         * This method requires Oracle Client 21.3 or later (or Oracle Client 19 from 19.13).
+         * @since 6.2
+         */
+        listIndexes(): Promise<Array<BTreeIndex | SpatialIndex | SearchIndex>>;
+        listIndexes(cb: (err: DBError, listIndexes: Array<BTreeIndex | SpatialIndex | SearchIndex>) => void): void;
+
     }
 
     /**
@@ -3330,6 +3343,21 @@ declare namespace OracleDB {
          * @since 3.0
          */
         limit(limit: number): SodaOperation;
+        /**
+         * Locks the documents fetched from the collection.
+         *
+         * Using lock() allows for pessimistic locking, that is, only the current user that performed the lock can modify the documents in the collection. Other users can only perform operations on these documents once they are unlocked. The functionality of this method is equivalent to the SELECT FOR UPDATE clause.
+         *        
+         * The documents can be unlocked with an explicit call to commit() or rollback() on the connection. Ensure that the oracledb.autoCommit is set to false for the connection. Otherwise, the documents will be unlocked immediately after the operation is complete.
+         *
+         * This method should only be used with read operations (other than count()), and should not be used in conjunction with non-terminal methods skip() and limit().
+         *
+         * If this method is specified in conjunction with a write operation, then this method is ignored.
+         *
+         * This method requires Oracle Client 21.3 or later (or Oracle Client 19 from 19.11).
+         * @since 6.2
+         */
+        lock(): SodaOperation
         /**
          * Sets the number of documents that will be skipped before the terminal method is applied.
          * The value of n must be greater or equal to 0. The skip applies to documents that match the other
@@ -3868,6 +3896,12 @@ declare namespace OracleDB {
     function getPool(poolAlias?: string): Pool;
 
     interface InitialiseOptions {
+        /**
+         * This directory is added to the start of the default search path used by initOracleClient() to load the node-oracledb Thick mode binary module.
+         * The default search path includes node_modules/oracledb/build/Release and node_modules/oracledb/build/Debug.
+         * @since 6.2
+         */
+        binaryDir?: string | undefined;
         /**
          * This specifies the directory in which the Optional Oracle Net Configuration and Optional Oracle Client Configuration files reside. It is equivalent to setting the Oracle environment variable TNS_ADMIN to this value. Any value in that environment variable prior to the call to oracledb.initOracleClient() is ignored. If this attribute is not set, Oracle’s default configuration file search heuristics are used.
          */
