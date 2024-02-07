@@ -5,6 +5,7 @@
         "typeRoots": [
             "../../"
         ],
-        "types": []
+        "types": [],
+        "module": "node16"
     }
 }

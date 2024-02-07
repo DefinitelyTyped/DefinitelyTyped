@@ -12,7 +12,7 @@
         "test/index.test.ts"
     ],
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,

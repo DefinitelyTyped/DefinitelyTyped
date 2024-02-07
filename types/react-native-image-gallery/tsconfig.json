@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "jsx": "react-native",
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6"
         ],

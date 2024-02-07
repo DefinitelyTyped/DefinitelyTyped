@@ -108,6 +108,9 @@ const report: BundleAnalyzerPlugin.JsonReport = [
                 gzipSize: 71,
             },
         ],
+        isInitialByEntrypoint: {
+            bundle: true,
+        },
     },
 ];
 

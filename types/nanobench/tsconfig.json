@@ -1,7 +1,9 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "lib": ["es6"],
+        "module": "node16",
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
@@ -10,5 +12,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "nanobench-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "nanobench-tests.ts"
+    ]
 }
