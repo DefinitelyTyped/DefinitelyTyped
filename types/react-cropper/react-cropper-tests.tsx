@@ -7,15 +7,16 @@ import Cropper from "react-cropper";
  * initializes cropper with string reference
  */
 class Demo extends React.Component {
+    cropperRef = React.createRef<Cropper>();
     crop() {
         // image in dataUrl
-        console.log((this.refs["cropper"] as any).getCroppedCanvas().toDataURL());
+        console.log(this.cropperRef.current.getCroppedCanvas().toDataURL());
     }
 
     render() {
         return (
             <Cropper
-                ref="cropper"
+                ref={this.cropperRef}
                 src="https://fengyuanchen.github.io/cropperjs/images/picture.jpg"
                 style={{ height: 400, width: "100%" }}
                 // Cropper.js options
