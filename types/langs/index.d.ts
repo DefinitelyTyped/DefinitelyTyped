@@ -1,5 +1,5 @@
 declare namespace langs {
-    type Type = 1 | 2 | 3 | "1" | "2" | "2T" | "2B" | "3";
+    type Type = 1 | 2 | 3 | "1" | "2" | "2T" | "2B" | "3" | "name" | "local";
 
     interface Language {
         name: string;
@@ -14,7 +14,7 @@ declare namespace langs {
     interface Langs {
         all: () => Language[];
         has: (type: Type, val: string) => boolean;
-        codes: (type: Type) => string[];
+        codes: (type: Exclude<Type, "name" | "local">) => string[];
         names: (local?: boolean) => string[];
         where: (type: Type, val: string) => Language | undefined;
     }
