@@ -750,7 +750,7 @@ declare namespace OracleDB {
 
         /**
          * This read-only attribute specifies the Oracle Database instance name associated with the connection. It returns the same value as the SQL expression sys_context('userenv', 'instance_name').
-         * 
+         *
          * @since 6.1
          */
         instanceName?: string | undefined;
@@ -2409,17 +2409,23 @@ declare namespace OracleDB {
          * @param messages Messages to enqueue.
          */
         enqMany(messages: Array<EnqueueMessage<T>>): Promise<AdvancedQueueMessage<T>>;
-        enqMany(messages: Array<EnqueueMessage<T>>, callback: (error: DBError) => AdvancedQueueMessage<T>): AdvancedQueueMessage<T>;
+        enqMany(
+            messages: Array<EnqueueMessage<T>>,
+            callback: (error: DBError) => AdvancedQueueMessage<T>,
+        ): AdvancedQueueMessage<T>;
 
         /**
          * Enqueues a single message.
          *
          * Previously, aqQueue.enqOne() did not return any value. Now, this method returns an AqMessage object.
-         * 
+         *
          * @param message
          */
         enqOne(message: EnqueueMessage<T>): Promise<AdvancedQueueMessage<T>>;
-        enqOne(message: EnqueueMessage<T>, callback: (error: DBError) => AdvancedQueueMessage<T>): AdvancedQueueMessage<T>;
+        enqOne(
+            message: EnqueueMessage<T>,
+            callback: (error: DBError) => AdvancedQueueMessage<T>,
+        ): AdvancedQueueMessage<T>;
     }
 
     type EnqueueMessage<T> =
