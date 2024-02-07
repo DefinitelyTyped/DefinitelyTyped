@@ -17,7 +17,7 @@ for (const tsconfigPath of tsconfigs) {
     try {
         cp.execFileSync(
             path.join(__dirname, "node_modules/.bin/tsc"),
-            ["-p", tsconfigPath],
+            ["-p", tsconfigPath, "--noEmit"],
             { stdio: "ignore" },
         );
     } catch {
