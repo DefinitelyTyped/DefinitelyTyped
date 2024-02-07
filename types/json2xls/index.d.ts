@@ -9,10 +9,14 @@ interface Config {
     style?: string;
 }
 
-declare function json2xls(json: any, options?: Config): Buffer;
+interface GenericBuffer<T = any> extends Buffer {
+    json: T;
+}
+
+declare function json2xls(json: any, options?: Config): GenericBuffer;
 
 declare namespace json2xls {
-    function transform<T = Json>(json: T[], config?: Config): Buffer<T[]>;
+    function transform<T = Json>(json: T[], config?: Config): GenericBuffer<T[]>;
 
     function getType(obj: Json, type?: string): string;
     function getByString(object: Json, path: string): Json | undefined;
