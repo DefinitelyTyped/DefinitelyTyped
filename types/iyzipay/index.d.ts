@@ -33,23 +33,23 @@ type SubscriptionStatus = "EXPIRED" | "UNPAID" | "CANCELED" | "ACTIVE" | "PENDIN
 type SubscriptionInitialStatus = "ACTIVE" | "PENDING";
 
 /* INTERFACES */
-interface Ilocale {
+interface Locales {
     TR: "TR";
     EN: "EN";
 }
 
-interface IpaymentGroup {
+interface PaymentGroups {
     PRODUCT: "PRODUCT";
     LISTING: "LISTING";
     SUBSCRIPTION: "SUBSCRIPTION";
 }
 
-interface IbasketItemType {
+interface BasketItemTypes {
     PHYSICAL: "PHYSICAL";
     VIRTUAL: "VIRTUAL";
 }
 
-interface IpaymentChannel {
+interface PaymentChannels {
     MOBILE: "MOBILE";
     WEB: "WEB";
     MOBILE_WEB: "MOBILE_WEB";
@@ -60,13 +60,13 @@ interface IpaymentChannel {
     MOBILE_PHONE: "MOBILE_PHONE";
 }
 
-interface IsubMerchantType {
+interface SubMerchantTypes {
     PERSONAL: "PERSONAL";
     PRIVATE_COMPANY: "PRIVATE_COMPANY";
     LIMITED_OR_JOINT_STOCK_COMPANY: "LIMITED_OR_JOINT_STOCK_COMPANY";
 }
 
-interface Icurrency {
+interface Currencies {
     TRY: "TRY";
     EUR: "EUR";
     USD: "USD";
@@ -77,36 +77,36 @@ interface Icurrency {
     CHF: "CHF";
 }
 
-interface IapmType {
+interface ApmTypes {
     SOFORT: "SOFORT";
     IDEAL: "IDEAL";
     QIWI: "QIWI";
     GIROPAY: "GIROPAY";
 }
 
-interface IrefundReason {
+interface RefundReasons {
     DOUBLE_PAYMENT: "DOUBLE_PAYMENT";
     BUYER_REQUEST: "BUYER_REQUEST";
     FRAUD: "FRAUD";
     OTHER: "OTHER";
 }
 
-interface IplanPaymentType {
+interface PlanPaymentTypes {
     RECURRING: "RECURRING";
 }
 
-interface IsubscriptionPricingPlanInterval {
+interface SubscriptionPricingPlanIntervals {
     DAILY: "DAILY";
     WEEKLY: "WEEKLY";
     MONTHLY: "MONTHLY";
     YEARLY: "YEARLY";
 }
 
-interface IsubscriptionUpgradePeriod {
+interface SubscriptionUpgradePeriods {
     NOW: "NOW";
 }
 
-interface IsubscriptionStatus {
+interface SubscriptionStatuses {
     EXPIRED: "EXPIRED";
     UNPAID: "UNPAID";
     CANCELED: "CANCELED";
@@ -115,7 +115,7 @@ interface IsubscriptionStatus {
     UPGRADED: "UPGRADED";
 }
 
-interface IsubscriptionInitialStatus {
+interface SubscriptionInitialStatuses {
     ACTIVE: "ACTIVE";
     PENDING: "PENDING";
 }
@@ -162,7 +162,7 @@ interface BuyerDetails {
     name: string;
     surname: string;
     gsmNumber?: string;
-    email: string;
+    email?: string;
     identityNumber: string;
     lastLoginDate?: string;
     registrationDate?: string;
@@ -1295,14 +1295,14 @@ interface Disapproval {
     create(data: ApprovalPaymentRequestData, callback: (err: Error, result: ApprovalPaymentResult) => void): void;
 }
 
-interface BKMInitialize {
+interface BkmInitialize {
     create(
         data: ThreeDSInitializePaymentRequestData,
         callback: (err: Error, result: ThreeDSInitializePaymentResult) => void,
     ): void;
 }
 
-interface Ibkm {
+interface Bkm {
     retrieve(
         data: ThreeDSPaymentCompleteRequestData,
         callback: (err: Error, result: ThreeDSPaymentCompleteRequestData) => void,
@@ -1539,8 +1539,8 @@ declare class Iyzipay {
     approval: Approval;
     disapproval: Disapproval;
     binNumber: BinNumber;
-    bkmInitialize: BKMInitialize;
-    bkm: Ibkm;
+    bkmInitialize: BkmInitialize;
+    bkm: Bkm;
     cancel: Cancel;
     card: Card;
     cardList: CardList;
@@ -1573,19 +1573,181 @@ declare class Iyzipay {
 }
 
 declare namespace Iyzipay {
-    const LOCALE: Ilocale;
-    const PAYMENT_GROUP: IpaymentGroup;
-    const BASKET_ITEM_TYPE: IbasketItemType;
-    const PAYMENT_CHANNEL: IpaymentChannel;
-    const SUB_MERCHANT_TYPE: IsubMerchantType;
-    const CURRENCY: Icurrency;
-    const APM_TYPE: IapmType;
-    const REFUND_REASON: IrefundReason;
-    const PLAN_PAYMENT_TYPE: IplanPaymentType;
-    const SUBSCRIPTION_PRICING_PLAN_INTERVAL: IsubscriptionPricingPlanInterval;
-    const SUBSCRIPTION_UPGRADE_PERIOD: IsubscriptionUpgradePeriod;
-    const SUBSCRIPTION_STATUS: IsubscriptionStatus;
-    const SUBSCRIPTION_INITIAL_STATUS: IsubscriptionInitialStatus;
+    export const LOCALE: Locales;
+    export const PAYMENT_GROUP: PaymentGroups;
+    export const BASKET_ITEM_TYPE: BasketItemTypes;
+    export const PAYMENT_CHANNEL: PaymentChannels;
+    export const SUB_MERCHANT_TYPE: SubMerchantTypes;
+    export const CURRENCY: Currencies;
+    export const APM_TYPE: ApmTypes;
+    export const REFUND_REASON: RefundReasons;
+    export const PLAN_PAYMENT_TYPE: PlanPaymentTypes;
+    export const SUBSCRIPTION_PRICING_PLAN_INTERVAL: SubscriptionPricingPlanIntervals;
+    export const SUBSCRIPTION_UPGRADE_PERIOD: SubscriptionUpgradePeriods;
+    export const SUBSCRIPTION_STATUS: SubscriptionStatuses;
+    export const SUBSCRIPTION_INITIAL_STATUS: SubscriptionInitialStatuses;
+
+    /* Config Options Interface */
+    export { ConfigOptions };
+
+    /* ENUM INTERFACES */
+    export {
+        ApmTypes,
+        BasketItemTypes,
+        Currencies,
+        Locales,
+        PaymentChannels,
+        PaymentGroups,
+        PlanPaymentTypes,
+        RefundReasons,
+        SubMerchantTypes,
+        SubscriptionInitialStatuses,
+        SubscriptionPricingPlanIntervals,
+        SubscriptionStatuses,
+        SubscriptionUpgradePeriods,
+    };
+
+    /* REQUEST INTERFACES */
+    export {
+        ApiTestRequestData,
+        ApiTestResult,
+        ApprovalPaymentRequestData,
+        ApprovalPaymentResult,
+        BinNumberRequestData,
+        BinNumberResult,
+        BouncedBackTransactionListRetrieveRequestData,
+        BouncedBackTransactionListRetrieveResult,
+        CancelPaymentRequestData,
+        CancelPaymentResult,
+        CheckoutFormInitialResult,
+        CheckoutFormRetrieveRequestData,
+        CheckoutFormRetrieveResult,
+        DeleteUserCardRequestData,
+        DeleteUserCardResult,
+        InstallmentDetail,
+        InstallmentInfoRequestData,
+        InstallmentInfoResult,
+        ListUserCardsRequestData,
+        ListUserCardsResult,
+        PaymentItemRequestData,
+        PaymentItemResult,
+        PaymentRequestData,
+        PaymentResult,
+        PaymentRetrieveRequestData,
+        PayoutCompletedTransactionListRetrieveRequestData,
+        PayoutCompletedTransactionListRetrieveResult,
+        PeccoInitializeRequestData,
+        PeccoInitializeResult,
+        PeccoPaymentRequestData,
+        PeccoPaymentResult,
+        RefundRequestData,
+        RefundResult,
+        RefundToBalanceRequestData,
+        RefundToBalanceResult,
+        SavePaymentCardRequestData,
+        SavePaymentCardResult,
+        SettlementToBalanceRequestData,
+        SettlementToBalanceResult,
+        SubMerchantCreateRequestData,
+        SubMerchantCreateResult,
+        SubMerchantRetrieveRequestData,
+        SubMerchantRetrieveResult,
+        SubMerchantUpdateRequestData,
+        SubMerchantUpdateResult,
+        SubscriptionActivateRequestData,
+        SubscriptionActivateResult,
+        SubscriptionCancelRequestData,
+        SubscriptionCancelResult,
+        SubscriptionCardUpdateRequestData,
+        SubscriptionCardUpdateResult,
+        SubscriptionCardUpdateWithSubscriptionReferenceCodeRequestData,
+        SubscriptionCardUpdateWithSubscriptionReferenceCodeResult,
+        SubscriptionCheckoutFormInitializeRequestData,
+        SubscriptionCheckoutFormInitializeResult,
+        SubscriptionCheckoutFormRetrieveRequestData,
+        SubscriptionCheckoutFormRetrieveResult,
+        SubscriptionCustomerCreateRequestData,
+        SubscriptionCustomerCreateResult,
+        SubscriptionCustomerItem,
+        SubscriptionCustomerRetrieveListRequestData,
+        SubscriptionCustomerRetrieveListResult,
+        SubscriptionCustomerRetrieveRequestData,
+        SubscriptionCustomerRetrieveResult,
+        SubscriptionCustomerUpdateRequestData,
+        SubscriptionCustomerUpdateResult,
+        SubscriptionExistingCustomerInitializeRequestData,
+        SubscriptionExistingCustomerInitializeResult,
+        SubscriptionInitializeRequestData,
+        SubscriptionItem,
+        SubscriptionPaymentRetryRequestData,
+        SubscriptionPaymentRetryResult,
+        SubscriptionPricingPlanCreateRequestData,
+        SubscriptionPricingPlanCreateResult,
+        SubscriptionPricingPlanItem,
+        SubscriptionPricingPlanRetrieveListRequestData,
+        SubscriptionPricingPlanRetrieveListResult,
+        SubscriptionPricingPlanRetrieveRequestData,
+        SubscriptionPricingPlanRetrieveResult,
+        SubscriptionPricingPlanUpdateRequestData,
+        SubscriptionPricingPlanUpdateResult,
+        SubscriptionProductCreateRequestData,
+        SubscriptionProductCreateResult,
+        SubscriptionProductItem,
+        SubscriptionProductRetrieveListRequestData,
+        SubscriptionProductRetrieveListResult,
+        SubscriptionProductRetrieveRequestData,
+        SubscriptionProductRetrieveResult,
+        SubscriptionProductUpdateRequestData,
+        SubscriptionProductUpdateResult,
+        SubscriptionRetrieveRequestData,
+        SubscriptionRetrieveResult,
+        SubscriptionSearchRequestData,
+        SubscriptionSearchResult,
+        SubscriptionUpgradeRequestData,
+        SubscriptionUpgradeResult,
+        ThreeDSInitializePaymentRequestData,
+        ThreeDSInitializePaymentResult,
+        ThreeDSPaymentCompleteRequestData,
+        UniversalCardStorageInitializeRequestData,
+        UniversalCardStorageInitializeResult,
+    };
+
+    /* NAMESPACE MODULES' INTERFACES */
+    export {
+        ApiTest,
+        Approval,
+        BinNumber,
+        Bkm,
+        BkmInitialize,
+        BouncedBackTransactionListRetrieve,
+        Cancel,
+        Card,
+        CardList,
+        CheckOutForm,
+        CheckOutFormInitialize,
+        Disapproval,
+        InstallmentInfo,
+        Payment,
+        PaymentItem,
+        PayoutCompletedTransactionListRetrieve,
+        PeccoInitialize,
+        PeccoPayment,
+        Refund,
+        RefundToBalance,
+        SettlementToBalance,
+        SubMerchant,
+        Subscription,
+        SubscriptionCard,
+        SubscriptionCheckoutForm,
+        SubscriptionCustomer,
+        SubscriptionExistingCustomer,
+        SubscriptionPayment,
+        SubscriptionPricingPlan,
+        SubscriptionProduct,
+        ThreeDSInitialize,
+        ThreedsPayment,
+        UniversalCardStorageInitialize,
+    };
 }
 
 export = Iyzipay;
