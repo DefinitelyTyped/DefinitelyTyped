@@ -83,6 +83,16 @@ declare namespace AP {
     function resize(width: string, height: string): void;
 
     /**
+     * Undocumented: Resize the iframe according to content.
+     *
+     * Only content within an element with the class `ac-content` will be resized automatically.
+     * Content without this identifier is sized according to the `body` element, and will dynamically grow, but not shrink.
+     *
+     * Note that this method cannot be used in dialogs.
+     */
+    function resize(): void;
+
+    /**
      * Resize the iframe, so that it takes the entire page. Add-on may define to hide the footer using data-options.
      *
      * Note that this method is only available for general page modules.

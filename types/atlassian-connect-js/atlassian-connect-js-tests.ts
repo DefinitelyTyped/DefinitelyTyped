@@ -2,6 +2,7 @@ AP.defineGlobal({}); // $ExpectType void
 AP.defineModule("module", {}); // $ExpectType void
 AP.getLocation(location => console.log(location)); // $ExpectType void
 AP.resize("10px", "10px"); // $ExpectType void
+AP.resize(); // $ExpectType void
 AP.sizeToParent(true); // $ExpectType void
 AP.hideFooter(true); // $ExpectType void
 AP.addRequestMarshal(); // $ExpectType void
