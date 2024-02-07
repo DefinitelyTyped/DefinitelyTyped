@@ -749,6 +749,12 @@ declare namespace OracleDB {
         dbOp?: string | undefined;
 
         /**
+         * This read-only attribute specifies the Oracle Database instance name associated with the connection. It returns the same value as the SQL expression sys_context('userenv', 'instance_name').
+         *
+         * @since 6.1
+         */
+        instanceName?: string | undefined;
+        /**
          * The module attribute for end-to-end application tracing.
          * This is a write-only property. Displaying a Connection object will show a value of null for this attribute.
          */
@@ -1415,6 +1421,16 @@ declare namespace OracleDB {
          * Specifies which previously created pool in the connection pool cache to obtain the connection from. See Pool Alias.
          */
         password?: string | undefined;
+        /**
+         * Enables the connection to use either a weaker or more secure DN matching behavior when the sslServerDNMatch property is set.
+         * If the value is True, then the sslServerDNMatch property uses a weaker DN matching behavior which only checks the server certificate (and not the listener certificate), and allows the service name to be used for partial DN matching. The DN matching for a partial match first matches the host name that the client connected to against the common name (CN) of the database server certificate DN or the Subject Alternate Names (SAN) of the database server certificate. If this fails, then the service name is matched against the CN of the database server certificate DN.
+         * If the value is False, then the sslServerDNMatch property uses a more secure DN matching behavior which checks both the listener and server certificates, and does not allow a service name check for partial DN matching. The DN matching for a partial match matches the host name that the client connected to against the CN of the certificate DN or the SAN of the certificate. The service name is not checked in this case.
+         * The default value is False.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
+         *
+         * @since 6.1
+         */
+        sslAllowWeakDNMatch?: boolean | undefined;
         /**
          * The password of the database user. A password is also necessary if a proxy user is specified.
          */
@@ -2144,6 +2160,15 @@ declare namespace OracleDB {
          */
         sslServerCertDN?: string | undefined;
         /**
+         * Enables the connection to use either a weaker or more secure DN matching behavior when the sslServerDNMatch property is set.
+         * If the value is True, then the sslServerDNMatch property uses a weaker DN matching behavior which only checks the server certificate (and not the listener certificate), and allows the service name to be used for partial DN matching. The DN matching for a partial match first matches the host name that the client connected to against the common name (CN) of the database server certificate DN or the Subject Alternate Names (SAN) of the database server certificate. If this fails, then the service name is matched against the CN of the database server certificate DN.
+         * If the value is False, then the sslServerDNMatch property uses a more secure DN matching behavior which checks both the listener and server certificates, and does not allow a service name check for partial DN matching. The DN matching for a partial match matches the host name that the client connected to against the CN of the certificate DN or the SAN of the certificate. The service name is not checked in this case.
+         * The default value is False.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
+         * @since 6.1
+         */
+        sslAllowWeakDNMatch?: boolean | undefined;
+        /**
          * Determines whether the server certificate DN should be matched in addition to the regular certificate verification that is performed.
          * If the sslServerCertDN parameter is not provided, host name matching is performed instead.
          * The default value is True.
@@ -2345,7 +2370,7 @@ declare namespace OracleDB {
         deqOptions: DequeueOptions;
         /** Options to use when enqueuing messages. Attributes can be set before each queue.enqOne() or queue.denqMany(). */
         enqOptions: EnqueueOptions;
-        /** One of the DB_TYPE_RAW or DB_TYPE_OBJECT constants. */
+        /** One of the DB_TYPE_RAW or DB_TYPE_OBJECT or DB_TYPE_JSON constants. */
         readonly payloadType: number;
         /**
          * The DBObject Class corresponding to the payload type specified when the queue was created
@@ -2380,18 +2405,27 @@ declare namespace OracleDB {
          * Ensure that enqMany() is not run in parallel, use standalone connections, or make multiple calls to enqOne().
          * The deqMany() method is not affected.
          *
+         * Previously, aqQueue.enqMany() did not return any value. Now, this method returns an array of AqMessage objects.
          * @param messages Messages to enqueue.
          */
-        enqMany(messages: Array<EnqueueMessage<T>>): Promise<void>;
-        enqMany(messages: Array<EnqueueMessage<T>>, callback: (error: DBError) => void): void;
+        enqMany(messages: Array<EnqueueMessage<T>>): Promise<AdvancedQueueMessage<T>>;
+        enqMany(
+            messages: Array<EnqueueMessage<T>>,
+            callback: (error: DBError) => AdvancedQueueMessage<T>,
+        ): AdvancedQueueMessage<T>;
 
         /**
          * Enqueues a single message.
          *
+         * Previously, aqQueue.enqOne() did not return any value. Now, this method returns an AqMessage object.
+         *
          * @param message
          */
-        enqOne(message: EnqueueMessage<T>): Promise<void>;
-        enqOne(message: EnqueueMessage<T>, callback: (error: DBError) => void): void;
+        enqOne(message: EnqueueMessage<T>): Promise<AdvancedQueueMessage<T>>;
+        enqOne(
+            message: EnqueueMessage<T>,
+            callback: (error: DBError) => AdvancedQueueMessage<T>,
+        ): AdvancedQueueMessage<T>;
     }
 
     type EnqueueMessage<T> =
