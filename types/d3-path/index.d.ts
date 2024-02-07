@@ -1,4 +1,4 @@
-// Last module patch version validated against: 3.0.1
+// Last module patch version validated against: 3.1.0
 
 /**
  * A D3 path serializer implementing CanvasPathMethods
