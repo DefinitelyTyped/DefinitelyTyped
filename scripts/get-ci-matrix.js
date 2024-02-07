@@ -1,6 +1,6 @@
 const arg = process.argv[2];
 
-const maxJobs = 8;
+const maxJobs = 12;
 
 let shardCount;
 
@@ -8,10 +8,9 @@ if (arg === "all") {
     shardCount = maxJobs;
 } else {
     const testCount = Number.parseInt(arg);
-    const testsPerJob = 250;
+    const testsPerJob = 100;
 
-    // Attempt to spawn as many jobs as needed to have only 250 tests per job,
-    // up to 8 concurrent jobs.
+    // Attempt to spawn as many jobs as needed to have at least `testsPerJob` tests per job.
     shardCount = Math.ceil(testCount / testsPerJob);
     shardCount = Math.min(shardCount, maxJobs);
     shardCount = Math.max(shardCount, 1);
