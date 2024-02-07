@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "node16",
+        "module": "commonjs",
         "lib": [
             "es6",
             "es2021.promise",
