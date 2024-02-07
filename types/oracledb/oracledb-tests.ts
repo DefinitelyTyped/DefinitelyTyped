@@ -676,3 +676,7 @@ export const v5point1Tests = (): void => {
     console.log(defaultOracledb.DB_TYPE_JSON);
     defaultOracledb.dbObjectAsPojo = true;
 };
+
+export const v6point1Tests = (): void => {
+    console.log(defaultOracledb.connectionAttributes.sslAllowWeakDNMatch);
+}
