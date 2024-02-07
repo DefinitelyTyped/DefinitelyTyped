@@ -1,4 +1,5 @@
-import type { NextFunction, Request, Response } from "express";
+/// <reference types="../express" />
+import { Request, Response, NextFunction } from 'express';
 
 type Json = string | number | boolean | { [key: string]: Json } | Json[];
 
