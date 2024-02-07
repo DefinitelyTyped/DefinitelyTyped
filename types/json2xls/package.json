@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/json2xls",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/rikkertkoppes/json2xls"
+    ],
+    "dependencies": {
+        "express": "^4.17.1"
+    },
+    "devDependencies": {
+        "@types/json2xls": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Can Gökçeaslan",
+            "githubUsername": "cangokceaslan"
+        }
+    ]
+}
