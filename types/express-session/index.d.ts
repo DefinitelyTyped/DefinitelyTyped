@@ -222,6 +222,32 @@ declare namespace session {
          */
         maxAge?: number | undefined;
 
+        /**
+         * Specifies the `boolean` value for the [`Partitioned` `Set-Cookie`](https://tools.ietf.org/html/draft-cutler-httpbis-partitioned-cookies/)
+         * attribute. When truthy, the `Partitioned` attribute is set, otherwise it is not.
+         * By default, the `Partitioned` attribute is not set.
+         *
+         * **Note** This is an attribute that has not yet been fully standardized, and may
+         * change in the future. This also means many clients may ignore this attribute until
+         * they understand it.
+         */
+        partitioned?: boolean | undefined;
+
+        /**
+         * Specifies the `string` to be the value for the [`Priority` `Set-Cookie` attribute](https://tools.ietf.org/html/draft-west-cookie-priority-00#section-4.1).
+         *
+         * - `'low'` will set the `Priority` attribute to `Low`.
+         * - `'medium'` will set the `Priority` attribute to `Medium`, the default priority when not set.
+         * - `'high'` will set the `Priority` attribute to `High`.
+         *
+         * More information about the different priority levels can be found in
+         * [the specification](https://tools.ietf.org/html/draft-west-cookie-priority-00#section-4.1).
+         *
+         * **Note** This is an attribute that has not yet been fully standardized, and may change in the future.
+         * This also means many clients may ignore this attribute until they understand it.
+         */
+        priority?: "low" | "medium" | "heigh" | undefined;
+
         signed?: boolean | undefined;
 
         /**
@@ -307,7 +333,9 @@ declare namespace session {
 
     abstract class Store extends EventEmitter {
         regenerate(req: express.Request, callback: (err?: any) => any): void;
+
         load(sid: string, callback: (err: any, session?: SessionData) => any): void;
+
         createSession(req: express.Request, session: SessionData): Session & SessionData;
 
         /**
@@ -344,12 +372,17 @@ declare namespace session {
      */
     class MemoryStore extends Store {
         get(sid: string, callback: (err: any, session?: SessionData | null) => void): void;
+
         set(sid: string, session: SessionData, callback?: (err?: any) => void): void;
+
         destroy(sid: string, callback?: (err?: any) => void): void;
 
         all(callback: (err: any, obj?: { [sid: string]: SessionData } | null) => void): void;
+
         length(callback: (err: any, length?: number) => void): void;
+
         clear(callback?: (err?: any) => void): void;
+
         touch(sid: string, session: SessionData, callback?: () => void): void;
     }
 }

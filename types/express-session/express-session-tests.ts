@@ -37,6 +37,18 @@ app.use(
 app.use(
     session({
         secret: "keyboard cat",
+        cookie: { sameSite: "strict", partitioned: true },
+    }),
+);
+app.use(
+    session({
+        secret: "keyboard cat",
+        cookie: { sameSite: "strict", priority: "medium" },
+    }),
+);
+app.use(
+    session({
+        secret: "keyboard cat",
         name: "connect.sid",
         store: new MemoryStore(),
         cookie: { path: "/", httpOnly: true, secure: false, sameSite: true },
