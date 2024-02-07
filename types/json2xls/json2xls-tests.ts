@@ -1,12 +1,12 @@
-import json2xls = require('json2xls');
+import json2xls = require("json2xls");
 
 var json = {
-    foo: 'bar',
-    qux: 'moo',
+    foo: "bar",
+    qux: "moo",
     poo: 123,
-    stux: new Date()
-}
+    stux: new Date(),
+};
 
 var xls: Buffer = json2xls(json, {
-    fields: { 'poo': 'string' }
+    fields: { "poo": "string" },
 });
