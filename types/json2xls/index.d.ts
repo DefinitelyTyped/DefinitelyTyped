@@ -1,6 +1,3 @@
-/// <reference types="../express" />
-import { Request, Response, NextFunction } from 'express';
-
 type Json = string | number | boolean | { [key: string]: Json } | Json[];
 
 interface FieldConfig {
@@ -20,7 +17,11 @@ declare namespace json2xls {
     function getType(obj: Json, type?: string): string;
     function getByString(object: Json, path: string): Json | undefined;
     function prepareJson<T = Json>(json: T[], config?: Config): T[];
-    function middleware(req: Request, res: Response, next: NextFunction): void; // Assuming Request and Response types from Express or a similar framework
+    function middleware(
+        req: import("@types/express").Request,
+        res: import("@types/express").Response,
+        next: import("@types/express").NextFunction,
+    ): void;
 
     export { Config, FieldConfig, Json };
 
