@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "strictFunctionTypes": true,
         "lib": [
             "es6"

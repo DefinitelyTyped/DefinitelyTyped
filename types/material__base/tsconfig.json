@@ -3,7 +3,7 @@
         "index.d.ts"
     ],
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "target": "es5",
         "lib": [
             "es6",
