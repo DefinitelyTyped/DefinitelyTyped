@@ -502,6 +502,8 @@ declare namespace AP {
      * The dialog is opened over the entire window, rather than within the iframe itself.
      */
     namespace dialog {
+        type DialogSizes = "small" | "medium" | "large" | "x-large" | "maximum" | "fullscreen";
+
         interface DialogOptions {
             /**
              * The module key of a dialog, or the key of a page or web-item that you want to open as a dialog.
@@ -510,8 +512,9 @@ declare namespace AP {
 
             /**
              * Opens the dialog at a preset size: small, medium, large, x-large or fullscreen (with chrome).
+             * Sizes are defined in https://developer.atlassian.com/cloud/confluence/modules/dialog/ and replace the width and height options.
              */
-            size?: "small" | "medium" | "large" | "x-large" | "fullscreen" | undefined;
+            size?: DialogSizes | Uppercase<DialogSizes> | undefined;
 
             /**
              * if size is not set, define the width as a percentage (append a % to the number) or pixels.
