@@ -1,4 +1,4 @@
-// Last module patch version validated against: 3.0.1
+// Last module patch version validated against: 3.1.0
 
 /**
  * A D3 path serializer implementing CanvasPathMethods
@@ -99,3 +99,9 @@ export interface Path {
  * Construct a D3 Path serializer
  */
 export function path(): Path;
+
+/**
+ * Like {@link path}, except limits the digits after the decimal to the specified number of digits.
+ * Useful for reducing the size of generated SVG path data.
+ */
+export function pathRound(digits?: number): Path;
