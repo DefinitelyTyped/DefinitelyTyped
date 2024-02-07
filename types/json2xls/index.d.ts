@@ -12,7 +12,7 @@ interface Config {
 declare function json2xls(json: any, options?: Config): Buffer;
 
 declare namespace json2xls {
-    function transform<T = Json>(json: T[], config?: Config): Buffer;
+    function transform<T = Json>(json: T[], config?: Config): Buffer<T[]>;
 
     function getType(obj: Json, type?: string): string;
     function getByString(object: Json, path: string): Json | undefined;
