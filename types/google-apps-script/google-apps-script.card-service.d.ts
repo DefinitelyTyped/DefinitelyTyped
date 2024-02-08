@@ -701,6 +701,7 @@ declare namespace GoogleAppsScript {
             setOpenLink(openLink: OpenLink): TextButton;
             setText(text: string): TextButton;
             setTextButtonStyle(textButtonStyle: TextButtonStyle): TextButton;
+            setAltText(altText: string): TextButton;
         }
         /**
          * An enum that specifies the style for TextButton.
