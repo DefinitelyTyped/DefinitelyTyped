@@ -91,8 +91,11 @@ declare namespace React {
         | ComponentType<P>;
 
     /**
-     * Represents any user-defined component, either as a function component or
-     * a class component.
+     * Represents any user-defined component, either as a function or a class.
+     *
+     * Similar to {@link JSXElementConstructor}, but with extra properties like
+     * {@link FunctionComponent.defaultProps defaultProps } and
+     * {@link ComponentClass.contextTypes contextTypes}.
      *
      * @template P The props the component accepts.
      *
@@ -101,6 +104,15 @@ declare namespace React {
      */
     type ComponentType<P = {}> = ComponentClass<P> | FunctionComponent<P>;
 
+    /**
+     * Represents any user-defined component, either as a function or a class.
+     *
+     * Similar to {@link ComponentType}, but without extra properties like
+     * {@link FunctionComponent.defaultProps defaultProps } and
+     * {@link ComponentClass.contextTypes contextTypes}.
+     *
+     * @template P The props the component accepts.
+     */
     type JSXElementConstructor<P> =
         | ((
             props: P,
@@ -137,6 +149,9 @@ declare namespace React {
      * ```
      */
     interface RefObject<T> {
+        /**
+         * The current value of the ref.
+         */
         readonly current: T | null;
     }
 
@@ -175,22 +190,23 @@ declare namespace React {
      * ```
      */
     type LegacyRef<T> = string | Ref<T>;
+
     /**
-     * Gets the instance type for a React element. The instance will be different for various component types:
+     * Retrieves the type of the 'ref' prop for a given component type or tag name.
      *
-     * - React class components will be the class instance. So if you had `class Foo extends React.Component<{}> {}`
-     *   and used `React.ElementRef<typeof Foo>` then the type would be the instance of `Foo`.
-     * - React stateless functional components do not have a backing instance and so `React.ElementRef<typeof Bar>`
-     *   (when `Bar` is `function Bar() {}`) will give you the `undefined` type.
-     * - JSX intrinsics like `div` will give you their DOM instance. For `React.ElementRef<'div'>` that would be
-     *   `HTMLDivElement`. For `React.ElementRef<'input'>` that would be `HTMLInputElement`.
-     * - React stateless functional components that forward a `ref` will give you the `ElementRef` of the forwarded
-     *   to component.
+     * @template C The component type.
      *
-     * `C` must be the type _of_ a React component so you need to use typeof as in `React.ElementRef<typeof MyComponent>`.
+     * @example
      *
-     * @todo In Flow, this works a little different with forwarded refs and the `AbstractComponent` that
-     *       `React.forwardRef()` returns.
+     * ```tsx
+     * type MyComponentRef = React.ElementRef<typeof MyComponent>;
+     * ```
+     *
+     * @example
+     *
+     * ```tsx
+     * type DivRef = React.ElementRef<'div'>;
+     * ```
      */
     type ElementRef<
         C extends
@@ -216,30 +232,49 @@ declare namespace React {
      */
     type Key = string | number | bigint;
 
-    /**
-     * @internal You shouldn't need to use this type since you never see these attributes
-     * inside your component or have to validate them.
-     */
     interface Attributes {
         key?: Key | null | undefined;
     }
     interface RefAttributes<T> extends Attributes {
         /**
          * Allows getting a ref to the component instance.
-         * Once the component unmounts, React will set `ref.current` to `null` (or call the ref with `null` if you passed a callback ref).
-         * @see {@link https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom}
+         * Once the component unmounts, React will set `ref.current` to `null`
+         * (or call the ref with `null` if you passed a callback ref).
+         *
+         * @see {@link https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom React Docs}
          */
         ref?: Ref<T> | undefined;
     }
+
+    /**
+     * Represents the built-in attributes available to class components.
+     */
     interface ClassAttributes<T> extends Attributes {
         /**
          * Allows getting a ref to the component instance.
-         * Once the component unmounts, React will set `ref.current` to `null` (or call the ref with `null` if you passed a callback ref).
-         * @see {@link https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom}
+         * Once the component unmounts, React will set `ref.current` to `null`
+         * (or call the ref with `null` if you passed a callback ref).
+         *
+         * @see {@link https://react.dev/learn/referencing-values-with-refs#refs-and-the-dom React Docs}
          */
         ref?: LegacyRef<T> | undefined;
     }
 
+    /**
+     * Represents a JSX element.
+     *
+     * Where {@link ReactNode} represents everything that can be rendered, `ReactElement`
+     * only represents JSX.
+     *
+     * @template P The type of the props object
+     * @template T The type of the component or tag
+     *
+     * @example
+     *
+     * ```tsx
+     * const element: ReactElement = <div />;
+     * ```
+     */
     interface ReactElement<
         P = any,
         T extends string | JSXElementConstructor<any> = string | JSXElementConstructor<any>,
@@ -264,7 +299,7 @@ declare namespace React {
     }
 
     /**
-     * @deprecated Use `ComponentElement<P, ClassicComponent<P, any>>` instead.
+     * @deprecated Use {@link ComponentElement} instead.
      */
     type ClassicElement<P> = CElement<P, ClassicComponent<P, ComponentState>>;
 
@@ -352,11 +387,40 @@ declare namespace React {
     type ReactFragment = Iterable<ReactNode>;
 
     /**
-     * For internal usage only.
      * Different release channels declare additional types of ReactNode this particular release channel accepts.
      * App or library types should never augment this interface.
      */
     interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES {}
+
+    /**
+     * Represents all of the things React can render.
+     *
+     * Where {@link ReactElement} only represents JSX, `ReactNode` represents everything that can be rendered.
+     *
+     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/react-types/reactnode/ React TypeScript Cheatsheet}
+     *
+     * @example
+     *
+     * ```tsx
+     * // Typing children
+     * type Props = { children: ReactNode }
+     *
+     * const Component = ({ children }: Props) => <div>{children}</div>
+     *
+     * <Component>hello</Component>
+     * ```
+     *
+     * @example
+     *
+     * ```tsx
+     * // Typing a custom element
+     * type Props = { customElement: ReactNode }
+     *
+     * const Component = ({ customElement }: Props) => <div>{customElement}</div>
+     *
+     * <Component customElement={<div>hello</div>} />
+     * ```
+     */
     type ReactNode =
         | ReactElement
         | string
@@ -476,12 +540,21 @@ declare namespace React {
         ...children: ReactNode[]
     ): ReactElement<P>;
 
-    // Context via RenderProps
+    /**
+     * Describes the props accepted by a Context {@link Provider}.
+     *
+     * @template T The type of the value the context provides.
+     */
     interface ProviderProps<T> {
         value: T;
         children?: ReactNode | undefined;
     }
 
+    /**
+     * Describes the props accepted by a Context {@link Consumer}.
+     *
+     * @template T The type of the value the context provides.
+     */
     interface ConsumerProps<T> {
         children: (value: T) => ReactNode;
     }
@@ -495,6 +568,8 @@ declare namespace React {
      *
      * But they are, in fact, not callable - instead, they are objects which
      * are treated specially by the renderer.
+     *
+     * @template P The props the component accepts.
      */
     interface ExoticComponent<P = {}> {
         (props: P): ReactNode;
@@ -503,6 +578,8 @@ declare namespace React {
 
     /**
      * An {@link ExoticComponent} with a `displayName` property applied to it.
+     *
+     * @template P The props the component accepts.
      */
     interface NamedExoticComponent<P = {}> extends ExoticComponent<P> {
         /**
@@ -517,6 +594,8 @@ declare namespace React {
 
     /**
      * An {@link ExoticComponent} with a `propTypes` property applied to it.
+     *
+     * @template P The props the component accepts.
      */
     interface ProviderExoticComponent<P> extends ExoticComponent<P> {
         propTypes?: WeakValidationMap<P> | undefined;
@@ -524,6 +603,8 @@ declare namespace React {
 
     /**
      * Used to retrieve the type of a context object from a {@link Context}.
+     *
+     * @template C The context object.
      *
      * @example
      *
@@ -636,7 +717,9 @@ declare namespace React {
 
     function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
 
-    // Sync with `ReactChildren` until `ReactChildren` is removed.
+    /**
+     * Maintainer's note: Sync with {@link ReactChildren} until {@link ReactChildren} is removed.
+     */
     const Children: {
         map<T, C>(
             children: C | readonly C[],
@@ -815,11 +898,10 @@ declare namespace React {
     // Base component for plain JS classes
     interface Component<P = {}, S = {}, SS = any> extends ComponentLifecycle<P, S, SS> {}
     class Component<P, S> {
-        // tslint won't let me format the sample code in a way that vscode likes it :(
         /**
          * If set, `this.context` will be set at runtime to the current value of the given Context.
          *
-         * Usage:
+         * @example
          *
          * ```ts
          * type MyContext = number
@@ -843,6 +925,7 @@ declare namespace React {
          * `React.ContextType` of your `static contextType`.
          * Should be used with type annotation or static contextType.
          *
+         * @example
          * ```ts
          * static contextType = MyContext
          * // For TS pre-3.7:
@@ -851,14 +934,14 @@ declare namespace React {
          * declare context: React.ContextType<typeof MyContext>
          * ```
          *
-         * @see {@link https://react.dev/reference/react/Component#context}
+         * @see {@link https://react.dev/reference/react/Component#context React Docs}
          */
         context: unknown;
 
         constructor(props: Readonly<P> | P);
         /**
          * @deprecated
-         * @see {@link https://legacy.reactjs.org/docs/legacy-context.html}
+         * @see {@link https://legacy.reactjs.org/docs/legacy-context.html React Docs}
          */
         constructor(props: P, context: any);
 
@@ -877,7 +960,8 @@ declare namespace React {
         state: Readonly<S>;
         /**
          * @deprecated
-         * https://legacy.reactjs.org/docs/refs-and-the-dom.html#legacy-api-string-refs
+         *
+         * @see {@link https://legacy.reactjs.org/docs/refs-and-the-dom.html#legacy-api-string-refs Legacy React Docs}
          */
         refs: {
             [key: string]: ReactInstance;
@@ -1033,6 +1117,7 @@ declare namespace React {
      * @deprecated - Equivalent to {@link React.FunctionComponent}.
      *
      * @see {@link React.FunctionComponent}
+     * @alias {@link VoidFunctionComponent}
      */
     type VFC<P = {}> = VoidFunctionComponent<P>;
 
@@ -1193,7 +1278,7 @@ declare namespace React {
          * `PureComponent` implements a shallow comparison on props and state and returns true if any
          * props or states have changed.
          *
-         * If false is returned, `Component#render`, `componentWillUpdate`
+         * If false is returned, {@link Component.render}, `componentWillUpdate`
          * and `componentDidUpdate` will not be called.
          */
         shouldComponentUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): boolean;
@@ -1235,45 +1320,47 @@ declare namespace React {
     // This should be "infer SS" but can't use it yet
     interface NewLifecycle<P, S, SS> {
         /**
-         * Runs before React applies the result of `render` to the document, and
-         * returns an object to be given to componentDidUpdate. Useful for saving
-         * things such as scroll position before `render` causes changes to it.
+         * Runs before React applies the result of {@link Component.render render} to the document, and
+         * returns an object to be given to {@link componentDidUpdate}. Useful for saving
+         * things such as scroll position before {@link Component.render render} causes changes to it.
          *
-         * Note: the presence of getSnapshotBeforeUpdate prevents any of the deprecated
+         * Note: the presence of this method prevents any of the deprecated
          * lifecycle events from running.
          */
         getSnapshotBeforeUpdate?(prevProps: Readonly<P>, prevState: Readonly<S>): SS | null;
         /**
          * Called immediately after updating occurs. Not called for the initial render.
          *
-         * The snapshot is only present if getSnapshotBeforeUpdate is present and returns non-null.
+         * The snapshot is only present if {@link getSnapshotBeforeUpdate} is present and returns non-null.
          */
         componentDidUpdate?(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot?: SS): void;
     }
 
     interface DeprecatedLifecycle<P, S> {
         /**
-         * Called immediately before mounting occurs, and before `Component#render`.
+         * Called immediately before mounting occurs, and before {@link Component.render}.
          * Avoid introducing any side-effects or subscriptions in this method.
          *
-         * Note: the presence of getSnapshotBeforeUpdate or getDerivedStateFromProps
-         * prevents this from being invoked.
+         * Note: the presence of {@link NewLifecycle.getSnapshotBeforeUpdate getSnapshotBeforeUpdate}
+         * or {@link StaticLifecycle.getDerivedStateFromProps getDerivedStateFromProps} prevents
+         * this from being invoked.
          *
-         * @deprecated 16.3, use componentDidMount or the constructor instead; will stop working in React 17
+         * @deprecated 16.3, use {@link ComponentLifecycle.componentDidMount componentDidMount} or the constructor instead; will stop working in React 17
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#initializing-state}
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
         componentWillMount?(): void;
         /**
-         * Called immediately before mounting occurs, and before `Component#render`.
+         * Called immediately before mounting occurs, and before {@link Component.render}.
          * Avoid introducing any side-effects or subscriptions in this method.
          *
          * This method will not stop working in React 17.
          *
-         * Note: the presence of getSnapshotBeforeUpdate or getDerivedStateFromProps
-         * prevents this from being invoked.
+         * Note: the presence of {@link NewLifecycle.getSnapshotBeforeUpdate getSnapshotBeforeUpdate}
+         * or {@link StaticLifecycle.getDerivedStateFromProps getDerivedStateFromProps} prevents
+         * this from being invoked.
          *
-         * @deprecated 16.3, use componentDidMount or the constructor instead
+         * @deprecated 16.3, use {@link ComponentLifecycle.componentDidMount componentDidMount} or the constructor instead
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#initializing-state}
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
@@ -1283,12 +1370,13 @@ declare namespace React {
          * React may call this even if props have not changed, so be sure to compare new and existing
          * props if you only want to handle changes.
          *
-         * Calling `Component#setState` generally does not trigger this method.
+         * Calling {@link Component.setState} generally does not trigger this method.
          *
-         * Note: the presence of getSnapshotBeforeUpdate or getDerivedStateFromProps
-         * prevents this from being invoked.
+         * Note: the presence of {@link NewLifecycle.getSnapshotBeforeUpdate getSnapshotBeforeUpdate}
+         * or {@link StaticLifecycle.getDerivedStateFromProps getDerivedStateFromProps} prevents
+         * this from being invoked.
          *
-         * @deprecated 16.3, use static getDerivedStateFromProps instead; will stop working in React 17
+         * @deprecated 16.3, use static {@link StaticLifecycle.getDerivedStateFromProps getDerivedStateFromProps} instead; will stop working in React 17
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#updating-state-based-on-props}
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
@@ -1298,14 +1386,15 @@ declare namespace React {
          * React may call this even if props have not changed, so be sure to compare new and existing
          * props if you only want to handle changes.
          *
-         * Calling `Component#setState` generally does not trigger this method.
+         * Calling {@link Component.setState} generally does not trigger this method.
          *
          * This method will not stop working in React 17.
          *
-         * Note: the presence of getSnapshotBeforeUpdate or getDerivedStateFromProps
-         * prevents this from being invoked.
+         * Note: the presence of {@link NewLifecycle.getSnapshotBeforeUpdate getSnapshotBeforeUpdate}
+         * or {@link StaticLifecycle.getDerivedStateFromProps getDerivedStateFromProps} prevents
+         * this from being invoked.
          *
-         * @deprecated 16.3, use static getDerivedStateFromProps instead
+         * @deprecated 16.3, use static {@link StaticLifecycle.getDerivedStateFromProps getDerivedStateFromProps} instead
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#updating-state-based-on-props}
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
@@ -1313,10 +1402,11 @@ declare namespace React {
         /**
          * Called immediately before rendering when new props or state is received. Not called for the initial render.
          *
-         * Note: You cannot call `Component#setState` here.
+         * Note: You cannot call {@link Component.setState} here.
          *
-         * Note: the presence of getSnapshotBeforeUpdate or getDerivedStateFromProps
-         * prevents this from being invoked.
+         * Note: the presence of {@link NewLifecycle.getSnapshotBeforeUpdate getSnapshotBeforeUpdate}
+         * or {@link StaticLifecycle.getDerivedStateFromProps getDerivedStateFromProps} prevents
+         * this from being invoked.
          *
          * @deprecated 16.3, use getSnapshotBeforeUpdate instead; will stop working in React 17
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#reading-dom-properties-before-an-update}
@@ -1326,12 +1416,13 @@ declare namespace React {
         /**
          * Called immediately before rendering when new props or state is received. Not called for the initial render.
          *
-         * Note: You cannot call `Component#setState` here.
+         * Note: You cannot call {@link Component.setState} here.
          *
          * This method will not stop working in React 17.
          *
-         * Note: the presence of getSnapshotBeforeUpdate or getDerivedStateFromProps
-         * prevents this from being invoked.
+         * Note: the presence of {@link NewLifecycle.getSnapshotBeforeUpdate getSnapshotBeforeUpdate}
+         * or {@link StaticLifecycle.getDerivedStateFromProps getDerivedStateFromProps} prevents
+         * this from being invoked.
          *
          * @deprecated 16.3, use getSnapshotBeforeUpdate instead
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#reading-dom-properties-before-an-update}
@@ -1341,7 +1432,9 @@ declare namespace React {
     }
 
     /**
-     * @deprecated https://legacy.reactjs.org/blog/2016/07/13/mixins-considered-harmful.html
+     * @deprecated
+     *
+     * @see {@link https://legacy.reactjs.org/blog/2016/07/13/mixins-considered-harmful.html Mixins Considered Harmful}
      */
     interface Mixin<P, S> extends ComponentLifecycle<P, S> {
         mixins?: Array<Mixin<P, S>> | undefined;
@@ -1414,7 +1507,11 @@ declare namespace React {
         render: ForwardRefRenderFunction<T, P>,
     ): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
 
-    /** Ensures that the props do not include ref at all */
+    /**
+     * Omits the 'ref' attribute from the given props object.
+     *
+     * @template P The props object type.
+     */
     type PropsWithoutRef<P> =
         // Omit would not be sufficient for this. We'd like to avoid unnecessary mapping and need a distributive conditional to support unions.
         // see: https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#distributive-conditional-types
@@ -1548,6 +1645,24 @@ declare namespace React {
         readonly type: T;
     };
 
+    /**
+     * Lets you skip re-rendering a component when its props are unchanged.
+     *
+     * @see {@link https://react.dev/reference/react/memo React Docs}
+     *
+     * @param Component The component to memoize.
+     * @param propsAreEqual A function that will be used to determine if the props have changed.
+     *
+     * @example
+     *
+     * ```tsx
+     * import { memo } from 'react';
+     *
+     * const SomeComponent = memo(function SomeComponent(props: { foo: string }) {
+     *   // ...
+     * });
+     * ```
+     */
     function memo<P extends object>(
         Component: FunctionComponent<P>,
         propsAreEqual?: (prevProps: Readonly<P>, nextProps: Readonly<P>) => boolean,
@@ -1557,26 +1672,70 @@ declare namespace React {
         propsAreEqual?: (prevProps: Readonly<ComponentProps<T>>, nextProps: Readonly<ComponentProps<T>>) => boolean,
     ): MemoExoticComponent<T>;
 
-    type LazyExoticComponent<T extends ComponentType<any>> = ExoticComponent<CustomComponentPropsWithRef<T>> & {
+    interface LazyExoticComponent<T extends ComponentType<any>>
+        extends ExoticComponent<CustomComponentPropsWithRef<T>>
+    {
         readonly _result: T;
-    };
+    }
 
+    /**
+     * Lets you defer loading a component’s code until it is rendered for the first time.
+     *
+     * @see {@link https://react.dev/reference/react/lazy React Docs}
+     *
+     * @param load A function that returns a `Promise` or another thenable (a `Promise`-like object with a
+     * then method). React will not call `load` until the first time you attempt to render the returned
+     * component. After React first calls load, it will wait for it to resolve, and then render the
+     * resolved value’s `.default` as a React component. Both the returned `Promise` and the `Promise`’s
+     * resolved value will be cached, so React will not call load more than once. If the `Promise` rejects,
+     * React will throw the rejection reason for the nearest Error Boundary to handle.
+     *
+     * @example
+     *
+     * ```tsx
+     * import { lazy } from 'react';
+     *
+     * const MarkdownPreview = lazy(() => import('./MarkdownPreview.js'));
+     * ```
+     */
     function lazy<T extends ComponentType<any>>(
-        factory: () => Promise<{ default: T }>,
+        load: () => Promise<{ default: T }>,
     ): LazyExoticComponent<T>;
 
     //
     // React Hooks
     // ----------------------------------------------------------------------
 
-    // based on the code in https://github.com/facebook/react/pull/13968
-
-    // Unlike the class component setState, the updates are not allowed to be partial
+    /**
+     * The instruction passed to a {@link Dispatch} function in {@link useState}
+     * to tell React what the next value of the {@link useState} should be.
+     *
+     * Often found wrapped in {@link Dispatch}.
+     *
+     * @template S The type of the state.
+     *
+     * @example
+     *
+     * ```tsx
+     * // This return type correctly represents the type of
+     * // `setCount` in the example below.
+     * const useCustomState = (): Dispatch<SetStateAction<number>> => {
+     *   const [count, setCount] = useState(0);
+     *
+     *   return setCount;
+     * }
+     * ```
+     */
     type SetStateAction<S> = S | ((prevState: S) => S);
-    // this technically does accept a second argument, but it's already under a deprecation warning
-    // and it's not even released so probably better to not define it.
+
+    /**
+     * A function that can be used to update the state of a {@link useState}
+     * or {@link useReducer} hook.
+     */
     type Dispatch<A> = (value: A) => void;
-    // Since action _can_ be undefined, dispatch may be called without any parameters.
+    /**
+     * A {@link Dispatch} function can sometimes be called without any arguments.
+     */
     type DispatchWithoutAction = () => void;
     // Unlike redux, the actions _can_ be anything
     type Reducer<S, A> = (prevState: S, action: A) => S;
