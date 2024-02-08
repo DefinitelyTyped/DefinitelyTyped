@@ -52,10 +52,10 @@ secretKey = createSecretKey("shhhhh", "utf-8");
 token = jwt.sign(testObject, secretKey);
 
 // sign with expiresIn
-token = jwt.sign({ foo: "bar" }, "shhhhh", { expiresIn: '1d' })
-token = jwt.sign({ foo: "bar" }, "shhhhh", { expiresIn: 10 })
+token = jwt.sign({ foo: "bar" }, "shhhhh", { expiresIn: "1d" });
+token = jwt.sign({ foo: "bar" }, "shhhhh", { expiresIn: 10 });
 // @ts-expect-error
-token = jwt.sign({ foo: "bar" }, "shhhhh", { expiresIn: undefined })
+token = jwt.sign({ foo: "bar" }, "shhhhh", { expiresIn: undefined });
 
 // sign with insecure key size
 token = jwt.sign({ foo: "bar" }, "shhhhh", { algorithm: "RS256", allowInsecureKeySizes: true });
