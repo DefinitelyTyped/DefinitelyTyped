@@ -246,7 +246,7 @@ declare namespace session {
          * **Note** This is an attribute that has not yet been fully standardized, and may change in the future.
          * This also means many clients may ignore this attribute until they understand it.
          */
-        priority?: "low" | "medium" | "heigh" | undefined;
+        priority?: "low" | "medium" | "high" | undefined;
 
         signed?: boolean | undefined;
 
