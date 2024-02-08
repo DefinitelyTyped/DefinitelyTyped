@@ -21,7 +21,7 @@ export function colorize(char: string, colors: Rgb): void;
  * @param line
  * @returns void
  */
-export function printlnPlain(colorize: Function, line: string[]): void;
+export function printlnPlain(colorize: ColorizeFunction, line: string[]): void;
 
 /**
  * Takes a colorize function and a line, and prints the line with an animation if sleep is true.
@@ -29,7 +29,7 @@ export function printlnPlain(colorize: Function, line: string[]): void;
  * @param line
  * @returns void
  */
-export function printlnAnimated(colorize: Function, line: string[]): void;
+export function printlnAnimated(colorize: ColorizeFunction, line: string[]): void;
 
 /**
  * Takes a line and prints it to the stdout.
@@ -81,6 +81,9 @@ export interface Rgb {
   green: number;
   blue: number;
 }
+
+export type ColorizeFunction = (char: string, colors: Rgb) => string;
+
 
 /*~ You can declare properties of the module using const, let, or var */
 export const sleep: number | null;

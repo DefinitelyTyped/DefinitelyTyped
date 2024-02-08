@@ -1,0 +1,1 @@
+import lolcatjs = require('lolcatjs');
