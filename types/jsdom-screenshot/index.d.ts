@@ -8,6 +8,7 @@ export interface GenerateImageOptions {
     waitUntilNetworkIdle?: boolean | undefined;
     viewport?: Viewport | undefined;
     intercept?: ((request: Request) => void) | undefined;
+    targetSelector?: string;
 }
 
 export function debug(element?: Element | Document): void;
