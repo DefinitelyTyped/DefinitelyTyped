@@ -64,6 +64,7 @@ export function fromString(string: string): void;
  * @returns null
  */
 export function init(): null;
+
 /*~ You can declare types that are available via importing the module */
 export interface Options {
   animate: boolean;
@@ -83,17 +84,6 @@ export interface Rgb {
 
 /*~ You can declare properties of the module using const, let, or var */
 export const sleep: number | null;
+export const options: Options;
+export const colors: Rgb;
 
-/*~ If there are types, properties, or methods inside dotted names
- *~ of the module, declare them inside a 'namespace'.
- */
-export namespace subProp {
-  /*~ For example, given this definition, someone could write:
-   *~   import { subProp } from 'yourModule';
-   *~   subProp.foo();
-   *~ or
-   *~   import * as yourMod from 'yourModule';
-   *~   yourMod.subProp.foo();
-   */
-  function foo(): void;
-}
