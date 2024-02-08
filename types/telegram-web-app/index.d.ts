@@ -101,6 +101,11 @@ interface WebApp {
      */
     MainButton: MainButton;
     /**
+     * An object for controlling the Settings item in the context menu of the Mini App
+     * in the Telegram interface.
+     */
+    SettingsButton: SettingsButton;
+    /**
      * An object for controlling haptic feedback.
      */
     HapticFeedback: HapticFeedback;
@@ -234,7 +239,7 @@ interface WebApp {
      * popup is closed and the first argument will be a boolean indicating whether the user
      * pressed the 'OK' button.
      */
-    showConfirm(message: string, callback?: (ok?: boolean) => void): void;
+    showConfirm(message: string, callback?: (ok: boolean) => void): void;
     /**
      * A method that shows a native popup for scanning a QR code described by the params argument of the type ScanQrPopupParams.
      * The Web App will receive the event qrTextReceived every time the scanner catches a code with text data.
@@ -302,40 +307,71 @@ interface WebApp {
  */
 interface ThemeParams {
     /**
-     * Background color in the #RRGGBB format. Also available as the CSS variable
-     * var(--tg-theme-bg-color).
+     * Background color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-bg-color)`.
      */
-    bg_color: string;
+    bg_color?: string;
     /**
-     * Main text color in the #RRGGBB format. Also available as the CSS variable
-     * var(--tg-theme-text-color).
+     * Main text color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-text-color)`.
      */
-    text_color: string;
+    text_color?: string;
     /**
-     * Hint text color in the #RRGGBB format. Also available as the CSS variable
-     * var(--tg-theme-hint-color).
+     * Hint text color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-hint-color)`.
      */
-    hint_color: string;
+    hint_color?: string;
     /**
-     * Link color in the #RRGGBB format. Also available as the CSS variable
-     * var(--tg-theme-link-color).
+     * Link color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-link-color)`.
      */
-    link_color: string;
+    link_color?: string;
     /**
-     * Button color in the #RRGGBB format. Also available as the CSS variable
-     * var(--tg-theme-button-color).
+     * Button color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-button-color)`.
      */
-    button_color: string;
+    button_color?: string;
     /**
-     * Button text color in the #RRGGBB format. Also available as the CSS variable
-     * var(--tg-theme-button-text-color).
+     * Button text color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-button-text-color)`.
      */
-    button_text_color: string;
+    button_text_color?: string;
     /**
-     * Optional. Bot API 6.1+ Secondary background color in the #RRGGBB format.
-     * Also available as the CSS variable var(--tg-theme-secondary-bg-color).
+     * **Bot API 6.1+** Secondary background color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-secondary-bg-color)`.
      */
-    secondary_bg_color: string;
+    secondary_bg_color?: string;
+    /**
+     * **Bot API 7.0+** Header background color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-header-bg-color)`.
+     */
+    header_bg_color?: string;
+    /**
+     * **Bot API 7.0+** Accent text color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-accent-text-color)`.
+     */
+    accent_text_color?: string;
+    /**
+     * **Bot API 7.0+** Background color for the section in the `#RRGGBB` format. It is
+     * recommended to use this in conjunction with *secondary_bg_color*.
+     * Also available as the CSS variable `var(--tg-theme-section-bg-color)`.
+     */
+    section_bg_color?: string;
+    /**
+     * **Bot API 7.0+** Header text color for the section in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-section-header-text-color)`.
+     */
+    section_header_text_color?: `#${string}`;
+    /**
+     * **Bot API 7.0+** Subtitle text color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-subtitle-text-color)`.
+     */
+    subtitle_text_color?: string;
+    /**
+     * **Bot API 7.0+** Text color for destructive actions in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-destructive-text-color)`.
+     */
+    destructive_text_color?: string;
 }
 
 /**
@@ -494,6 +530,37 @@ interface MainButtonParams {
     is_active?: boolean;
     /** show the button */
     is_visible?: boolean;
+}
+
+/**
+ * This object controls the Settings item in the context menu of the Mini App in the
+ * Telegram interface.
+ */
+interface SettingsButton {
+    /**
+     * Shows whether the context menu item is visible. Set to false by default.
+     */
+    isVisible: boolean;
+    /**
+     * **Bot API 7.0+** A method that sets the press event handler for the Settings item in
+     * the context menu. An alias for
+     * `Telegram.WebApp.onEvent('settingsButtonClicked', callback)`
+     */
+    onClick(callback: () => void): SettingsButton;
+    /**
+     * **Bot API 7.0+** A method that removes the press event handler from the Settings item
+     * in the context menu. An alias for
+     * `Telegram.WebApp.offEvent('settingsButtonClicked', callback)`
+     */
+    offClick(callback: () => void): SettingsButton;
+    /**
+     * **Bot API 7.0+** A method to make the Settings item in the context menu visible.
+     */
+    show(): SettingsButton;
+    /**
+     * **Bot API 7.0+** A method to hide the Settings item in the context menu.
+     */
+    hide(): SettingsButton;
 }
 
 /**

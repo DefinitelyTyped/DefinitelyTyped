@@ -4,7 +4,7 @@
         "istanbul-lib-report-tests.ts"
     ],
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6"
         ],

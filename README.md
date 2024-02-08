@@ -39,6 +39,12 @@ This is the preferred method. For example:
 npm install --save-dev @types/node
 ```
 
+To install typings for a scoped module, remove the `@` and add double-underscore after the scope. For example, to install typings for `@babel/preset-env`:
+
+```sh
+npm install --save-dev @types/babel__preset-env
+```
+
 The types should then be automatically included by the compiler.
 You may need to add a `types` reference if you're not using modules:
 

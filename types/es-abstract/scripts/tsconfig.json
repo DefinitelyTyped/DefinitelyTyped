@@ -1,8 +1,10 @@
 {
     "compilerOptions": {
-        "module": "CommonJS",
+        "module": "node16",
         "target": "ESNext",
-        "lib": ["ESNext"],
+        "lib": [
+            "ESNext"
+        ],
         "types": [],
         "strict": true,
         "noEmit": true,

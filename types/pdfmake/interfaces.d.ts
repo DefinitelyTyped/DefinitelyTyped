@@ -1356,6 +1356,15 @@ export interface ContentQr extends ContentBase, ForbidOtherElementProperties<"qr
      * avoid problematic patterns in the resulting QR code.
      */
     mask?: number | undefined;
+
+    /**
+     * Padding on all sides of the QR code, specified as multiples of the size of a QR code pixel.
+     *
+     * The padding does not affect the size of the QR code itself, even if {@link fit} is specified.
+     *
+     * Defaults to `0`.
+     */
+    padding?: number | undefined;
 }
 
 /**
@@ -2143,6 +2152,11 @@ export interface TDocumentDefinitions {
      * Dictionary of reusable pattern definitions that can be referenced by their key.
      */
     patterns?: Record<string, Pattern> | undefined;
+
+    /**
+     * Document language as BCP 47 language tag, e.g. `en-US`.
+     */
+    language?: string | undefined;
 }
 
 /**
