@@ -2511,9 +2511,9 @@ declare namespace OracleDB {
         readonly name: string;
         /** Schema owning the Oracle Database object or collection. */
         readonly schema: string;
-        /** This read-only property is a string which identifies the name of the package, if the type refers to a PL/SQL type. Otherwise, it returns undefined. 
+        /** This read-only property is a string which identifies the name of the package, if the type refers to a PL/SQL type. Otherwise, it returns undefined.
          * @since 6.2
-         * */
+         */
         readonly packageName: string | undefined;
 
         /**
@@ -3185,7 +3185,6 @@ declare namespace OracleDB {
          */
         listIndexes(): Promise<Array<BTreeIndex | SpatialIndex | SearchIndex>>;
         listIndexes(cb: (err: DBError, listIndexes: Array<BTreeIndex | SpatialIndex | SearchIndex>) => void): void;
-
     }
 
     /**
@@ -3347,7 +3346,7 @@ declare namespace OracleDB {
          * Locks the documents fetched from the collection.
          *
          * Using lock() allows for pessimistic locking, that is, only the current user that performed the lock can modify the documents in the collection. Other users can only perform operations on these documents once they are unlocked. The functionality of this method is equivalent to the SELECT FOR UPDATE clause.
-         *        
+         *
          * The documents can be unlocked with an explicit call to commit() or rollback() on the connection. Ensure that the oracledb.autoCommit is set to false for the connection. Otherwise, the documents will be unlocked immediately after the operation is complete.
          *
          * This method should only be used with read operations (other than count()), and should not be used in conjunction with non-terminal methods skip() and limit().
@@ -3357,7 +3356,7 @@ declare namespace OracleDB {
          * This method requires Oracle Client 21.3 or later (or Oracle Client 19 from 19.11).
          * @since 6.2
          */
-        lock(): SodaOperation
+        lock(): SodaOperation;
         /**
          * Sets the number of documents that will be skipped before the terminal method is applied.
          * The value of n must be greater or equal to 0. The skip applies to documents that match the other
