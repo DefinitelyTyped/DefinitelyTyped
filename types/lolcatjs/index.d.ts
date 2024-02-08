@@ -1,12 +1,4 @@
-/*~ If this module is a UMD module that exposes a global variable 'myLib' when
- *~ loaded outside a module loader environment, declare that global here.
- *~ Otherwise, delete this declaration.
- */
-/*~ export as namespace myLib; */
-
-/*~ If this module has methods, declare them as functions like so.
- */
-
+// Project: lolcatjs
 /**
  * Takes a frequency and an index and returns an RGB color.
  * @param freq 
@@ -20,8 +12,26 @@ export function rainbow(freq: number, i: number): Rgb;
  * @param char 
  * @param colors
  * @returns void
- */
+*/
 export function colorize(char: string, colors: Rgb): void;
+
+/**
+ *  Takes a string and an RGB color and writes it to the stdout.
+ * @param colorize 
+ * @param line
+ * @returns void
+ */
+export function printlnPlain(colorize: Function, line: string[]): void;
+
+/**
+ * Takes a colorize function and a line, and prints the line with an animation if sleep is true.
+ * @param colorize 
+ * @param line
+ * @returns void
+ */
+export function printlnAnimated(colorize: Function, line: string[]): void;
+
+/** */
 
 /*~ You can declare types that are available via importing the module */
 export interface Options {
