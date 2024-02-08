@@ -45,6 +45,7 @@ declare namespace bricks {
         neighborhood?: string;
         federalUnit?: string;
         city?: string;
+        additionalInformation?: string;
     }
 
     type EntityType = "individual" | "association";
