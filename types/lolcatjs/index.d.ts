@@ -31,7 +31,16 @@ export function printlnPlain(colorize: Function, line: string[]): void;
  */
 export function printlnAnimated(colorize: Function, line: string[]): void;
 
-/** */
+/**
+ * Takes a line and prints it to the stdout.
+ * @param line
+ * @returns void
+ */
+export function printIn(line: string[]): void;
+
+/**
+ * 
+ */
 
 /*~ You can declare types that are available via importing the module */
 export interface Options {
