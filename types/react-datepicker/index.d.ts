@@ -110,7 +110,7 @@ export interface ReactDatePickerProps<WithRange extends boolean | undefined = un
     onCalendarOpen?(): void;
     onChange(
         date: WithRange extends false | undefined ? Date | null : [Date | null, Date | null],
-        event: React.SyntheticEvent<any> | undefined
+        event: React.SyntheticEvent<any> | undefined,
     ): void;
     onChangeRaw?(event: React.FocusEvent<HTMLInputElement>): void;
     onClickOutside?(event: React.MouseEvent<HTMLDivElement>): void;
@@ -125,7 +125,7 @@ export interface ReactDatePickerProps<WithRange extends boolean | undefined = un
     onWeekSelect?(
         firstDayOfWeek: Date,
         weekNumber: string | number,
-        event: React.SyntheticEvent<any> | undefined
+        event: React.SyntheticEvent<any> | undefined,
     ): void;
     onYearChange?(date: Date): void;
     open?: boolean | undefined;
