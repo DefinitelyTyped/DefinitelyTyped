@@ -2710,7 +2710,7 @@ export namespace campaigns {
                 /**
                  * The day of the week to send a weekly RSS Campaign. Possible values: "sunday", "monday", "tuesday", "wednesday", "thursday", "friday", or "saturday".
                  */
-                weekly_send_day?: string;
+                weekly_send_day?: "sunday" | "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday";
 
                 /**
                  * The day of the month to send a monthly RSS Campaign. Acceptable days are 0-31, where '0' is always the last day of a month. Months with fewer than the selected number of days will not have an RSS campaign sent out that day. For example, RSS Campaigns set to send on the 30th will not go out in February.
@@ -2752,7 +2752,7 @@ export namespace campaigns {
                 /**
                  * Segment match type. Possible values: "any" or "all".
                  */
-                match?: string;
+                match?: "any" | "all";
 
                 /**
                  * Segment match conditions. There are multiple possible types, see the [condition types documentation](https://mailchimp.com/developer/marketing/docs/alternative-schemas/#segment-condition-schemas).
@@ -3077,7 +3077,7 @@ export namespace campaigns {
         /**
          * The item type. Possible values: "success", "warning", or "error".
          */
-        type: string;
+        type: "success" | "warning" | "error";
 
         /**
          * The ID for the specific item.
