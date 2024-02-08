@@ -2759,7 +2759,7 @@ export namespace campaigns {
                 /**
                  * Segment match type. Possible values: "any" or "all".
                  */
-                match?: string;
+                match?: "any" | "all";
 
                 /**
                  * Segment match conditions. There are multiple possible types, see the [condition types documentation](https://mailchimp.com/developer/marketing/docs/alternative-schemas/#segment-condition-schemas).
