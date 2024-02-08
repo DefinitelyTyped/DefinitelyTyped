@@ -16,6 +16,7 @@
         "index.d.ts",
         "test/average.test.ts",
         "test/blend.test.ts",
+        "test/clamp.test.ts",
         "test/colorsNamed.test.ts",
         "test/common.test.ts",
         "test/converter.test.ts",
