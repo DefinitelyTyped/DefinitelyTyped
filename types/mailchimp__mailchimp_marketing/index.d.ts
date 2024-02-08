@@ -2978,7 +2978,7 @@ export namespace campaigns {
             /**
              * The type of encoded file. Defaults to zip. Possible values: "zip", "tar.gz", "tar.bz2", "tar", "tgz", or "tbz".
              */
-            archive_type?: string;
+            archive_type?: "zip" | "tar.gz" | "tar.bz2" | "tar" | "tgz" | "tbz";
 
             /**
              * The base64-encoded representation of the archive file.
