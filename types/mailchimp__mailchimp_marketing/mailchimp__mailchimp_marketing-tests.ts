@@ -146,7 +146,7 @@ const triggerCustomerJourneyBody: mailchimp.customerJourneys.TriggerCustomerJour
     email_address: "test@email.com",
 };
 
-// $ExpectType Promise<MembersSuccessResponse | ErrorResponse>
+// $ExpectType Promise<BatchListMembersResponse | ErrorResponse>
 mailchimp.lists.batchListMembers("test", batchListMembersBody, batchListMembersOpts);
 
 // $ExpectType Promise<MembersSuccessResponse | ErrorResponse>
