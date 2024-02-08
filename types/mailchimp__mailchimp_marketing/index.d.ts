@@ -3095,7 +3095,7 @@ export namespace campaigns {
         /**
          * The item type. Possible values: "success", "warning", or "error".
          */
-        type: string;
+        type: "success" | "warning" | "error";
 
         /**
          * The ID for the specific item.
