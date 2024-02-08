@@ -86,6 +86,12 @@ function assertNever(value: never) {
     const handle = session.requestAnimationFrame(loop);
     session.cancelAnimationFrame(handle);
 
+    if(session.initiateRoomCapture){
+        session.initiateRoomCapture().then(()=>{
+            console.log("Room capture initiated");
+        });
+    }
+
     const renderFrame = (frame: XRFrame) => {
         const tf = new XRRigidTransform(startSpot, startRot);
         space = space.getOffsetReferenceSpace(tf);
@@ -102,6 +108,28 @@ function assertNever(value: never) {
             const angularVelocity: DOMPointReadOnly | undefined = pose.angularVelocity;
             const linearVelocity: DOMPointReadOnly | undefined = pose.linearVelocity;
         }
+
+        const detectedMeshes = frame.detectedMeshes;
+        detectedMeshes?.forEach((mesh:XRMesh) => {
+            const meshPose = frame.getPose(mesh.meshSpace, space);
+            if(meshPose){
+                const transform = meshPose.transform;
+            }
+            console.log(mesh.lastChangedTime);
+            console.log(mesh.indices);
+            console.log(mesh.vertices);
+            console.log(mesh.lastChangedTime);
+            console.log(mesh.semanticLabel);
+        });
+
+        const detectedPlanes = frame.detectedPlanes;
+        detectedPlanes?.forEach((plane:XRPlane) => {
+            const planePose = frame.getPose(plane.planeSpace, space);
+            console.log(plane.lastChangedTime);
+            console.log(plane.orientation);
+            console.log(plane.polygon);
+        });
+
     };
 
     navigator.xr.addEventListener("devicechange", (e: Event) => {
