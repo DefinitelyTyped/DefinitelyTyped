@@ -1,3 +1,4 @@
+import * as THREE from "three";
 import * as itowns from "itowns";
 import { OpenSM } from "./jsonLayers";
 
