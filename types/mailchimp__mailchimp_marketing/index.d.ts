@@ -2731,7 +2731,7 @@ export namespace campaigns {
             /**
              * The frequency of the RSS Campaign. Possible values: "daily", "weekly", or "monthly".
              */
-            frequency: string;
+            frequency: "daily" | "monthly" | "weekly";
         };
 
         recipients?: {
