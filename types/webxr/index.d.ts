@@ -668,7 +668,7 @@ interface XRFrame {
      *
      * @see https://immersive-web.github.io/real-world-geometry/plane-detection.html#plane-set
      */
-    readonly detectedPlanes: XRPlaneSet;
+    readonly detectedPlanes?: XRPlaneSet;
 }
 
 declare abstract class XRPlane implements XRPlane {}
@@ -695,7 +695,7 @@ interface XRFrame {
      *
      * @see https://immersive-web.github.io/real-world-meshing/#mesh-set
      */
-    readonly detectedMeshes: XRMeshSet;
+    readonly detectedMeshes?: XRMeshSet;
 }
 
 declare abstract class XRMesh implements XRMesh {}
