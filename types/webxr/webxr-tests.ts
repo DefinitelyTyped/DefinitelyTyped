@@ -86,8 +86,8 @@ function assertNever(value: never) {
     const handle = session.requestAnimationFrame(loop);
     session.cancelAnimationFrame(handle);
 
-    if(session.initiateRoomCapture){
-        session.initiateRoomCapture().then(()=>{
+    if (session.initiateRoomCapture) {
+        session.initiateRoomCapture().then(() => {
             console.log("Room capture initiated");
         });
     }
@@ -110,9 +110,9 @@ function assertNever(value: never) {
         }
 
         const detectedMeshes = frame.detectedMeshes;
-        detectedMeshes?.forEach((mesh:XRMesh) => {
+        detectedMeshes?.forEach((mesh: XRMesh) => {
             const meshPose = frame.getPose(mesh.meshSpace, space);
-            if(meshPose){
+            if (meshPose) {
                 const transform = meshPose.transform;
             }
             console.log(mesh.lastChangedTime);
@@ -123,13 +123,12 @@ function assertNever(value: never) {
         });
 
         const detectedPlanes = frame.detectedPlanes;
-        detectedPlanes?.forEach((plane:XRPlane) => {
+        detectedPlanes?.forEach((plane: XRPlane) => {
             const planePose = frame.getPose(plane.planeSpace, space);
             console.log(plane.lastChangedTime);
             console.log(plane.orientation);
             console.log(plane.polygon);
         });
-
     };
 
     navigator.xr.addEventListener("devicechange", (e: Event) => {

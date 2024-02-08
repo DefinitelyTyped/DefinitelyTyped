@@ -654,7 +654,6 @@ interface XRPlane {
     planeSpace: XRSpace;
     polygon: DOMPointReadOnly[];
     lastChangedTime: DOMHighResTimeStamp;
-
 }
 
 interface XRFrame {
@@ -701,7 +700,7 @@ interface XRFrame {
 declare abstract class XRMesh implements XRMesh {}
 
 interface XRSession {
-     /**
+    /**
      * XRSession is extended to contain the initiateRoomCapture method which,
      * if supported, will ask the XR Compositor to capture the current room layout.
      * It is up to the XRCompositor if this will replace or augment the set of tracked planes.
@@ -711,7 +710,7 @@ interface XRSession {
      *
      * @see https://immersive-web.github.io/real-world-geometry/plane-detection.html#plane-set
      */
-     initiateRoomCapture?():Promise<undefined>;
+    initiateRoomCapture?(): Promise<undefined>;
 }
 
 /**
