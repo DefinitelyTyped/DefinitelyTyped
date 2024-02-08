@@ -9,7 +9,7 @@ import DatePicker, {
     registerLocale,
 } from "react-datepicker";
 
-registerLocale("en-GB", enGB);
+registerLocale("en-GB", { ...enGB, options: { weekStartsOn: 1 } });
 
 const topLogger = {
     name: "topLogger",
@@ -22,7 +22,7 @@ const topLogger = {
         }
         return state;
     },
-} as const;
+};
 
 <DatePicker
     adjustDateOnChange
@@ -143,7 +143,7 @@ const topLogger = {
     readOnly
     ref={(instance) => {
         if (instance !== null) {
-            // $ExpectType ReactDatePicker<"offset" | "preventOverflow", true>
+            // $ExpectType ReactDatePicker<true>
             instance;
         }
     }}
@@ -242,7 +242,7 @@ const props: ReactDatePickerProps = {
     onChange: () => {},
 };
 
-<DatePicker<"topLogger" | "arrow">
+<DatePicker
     onChange={() => {}}
     popperModifiers={[
         {
@@ -254,7 +254,7 @@ const props: ReactDatePickerProps = {
         },
         topLogger,
     ]}
-    ref={(instance: DatePicker<"topLogger"> | null) => {}}
+    ref={(instance: DatePicker | null) => {}}
 />;
 
 const DatePickerCustomHeader = ({

@@ -2,10 +2,6 @@ import { Middleware, Placement, UseFloatingOptions } from "@floating-ui/react";
 import { Locale } from "date-fns";
 import * as React from "react";
 
-interface Modifier<CustomModifierNames extends string> extends Middleware {
-    name: CustomModifierNames;
-}
-
 type PopperProps = Partial<Omit<UseFloatingOptions, "open" | "whileElementsMounted" | "placement" | "middleware">>;
 
 export interface CalendarContainerProps {
@@ -44,10 +40,7 @@ export interface ReactDatePickerCustomHeaderProps {
     nextYearButtonDisabled: boolean;
 }
 
-export interface ReactDatePickerProps<
-    CustomModifierNames extends string = never,
-    WithRange extends boolean | undefined = undefined,
-> {
+export interface ReactDatePickerProps<WithRange extends boolean | undefined = undefined> {
     adjustDateOnChange?: boolean | undefined;
     allowSameDay?: boolean | undefined;
     ariaDescribedBy?: string | undefined;
@@ -117,7 +110,7 @@ export interface ReactDatePickerProps<
     onCalendarOpen?(): void;
     onChange(
         date: WithRange extends false | undefined ? Date | null : [Date | null, Date | null],
-        event: React.SyntheticEvent<any> | undefined,
+        event: React.SyntheticEvent<any> | undefined
     ): void;
     onChangeRaw?(event: React.FocusEvent<HTMLInputElement>): void;
     onClickOutside?(event: React.MouseEvent<HTMLDivElement>): void;
@@ -132,7 +125,7 @@ export interface ReactDatePickerProps<
     onWeekSelect?(
         firstDayOfWeek: Date,
         weekNumber: string | number,
-        event: React.SyntheticEvent<any> | undefined,
+        event: React.SyntheticEvent<any> | undefined
     ): void;
     onYearChange?(date: Date): void;
     open?: boolean | undefined;
@@ -141,7 +134,7 @@ export interface ReactDatePickerProps<
     placeholderText?: string | undefined;
     popperClassName?: string | undefined;
     popperContainer?(props: { children: React.ReactNode[] }): React.ReactNode;
-    popperModifiers?: ReadonlyArray<Modifier<CustomModifierNames>> | undefined;
+    popperModifiers?: readonly Middleware[] | undefined;
     popperPlacement?: Placement | undefined;
     popperProps?: PopperProps | undefined;
     preventOpenOnFocus?: boolean | undefined;
@@ -206,10 +199,9 @@ export interface ReactDatePickerProps<
     yearItemNumber?: number | undefined;
 }
 
-export class ReactDatePicker<
-    CustomModifierNames extends string = never,
-    WithRange extends boolean | undefined = undefined,
-> extends React.Component<ReactDatePickerProps<CustomModifierNames, WithRange>> {
+export class ReactDatePicker<WithRange extends boolean | undefined = undefined> extends React.Component<
+    ReactDatePickerProps<WithRange>
+> {
     readonly setBlur: () => void;
     readonly setFocus: () => void;
     readonly setOpen: (open: boolean, skipSetBlur?: boolean) => void;
