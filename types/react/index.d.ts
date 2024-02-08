@@ -1526,7 +1526,7 @@ declare namespace React {
                 : P
             : P
             : P;
-    
+
     /**
      * Merges the Prop types with an optional children prop
      * @template P The props object type
@@ -1765,8 +1765,7 @@ declare namespace React {
     // NOTE: callbacks are _only_ allowed to return either void, or a destructor.
     type EffectCallback = () => void | Destructor;
 
-    
-     /**
+    /**
      * A mutable ref container where {@link current} can be mutated.
      *
      * @template T The type of the ref's value.
