@@ -1,4 +1,4 @@
-import Redis from "ioredis";
+import * as Redis from "ioredis";
 import Koa = require("koa");
 import rateLimit = require("koa-ratelimit");
 

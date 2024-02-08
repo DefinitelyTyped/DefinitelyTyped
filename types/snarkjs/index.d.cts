@@ -15,17 +15,21 @@ export interface CircuitSignals {
     [signal: string]: SignalValueType;
 }
 
-// Some fields for the R1CS information returned by SnarkJS.
-// Many other fields are omitted in this type.
 export interface R1CSInfoType {
-    variables: number;
-    constraints: number;
-    privateInputs: number;
-    publicInputs: number;
-    labels: number;
-    outputs: number;
+    n8: number;
+    nVars: number;
+    nConstraints: number;
+    nPrvInputs: number;
+    nPubInputs: number;
+    useCustomGates: boolean;
+    nLabels: number;
+    nOutputs: number;
     prime: bigint;
-    primeName: string;
+    curve: any;
+    F: any;
+    constraints: any;
+    customGates: any;
+    customGatesUses: any;
 }
 
 export interface Groth16Proof {

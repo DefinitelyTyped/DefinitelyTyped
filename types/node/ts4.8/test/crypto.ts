@@ -3,6 +3,11 @@ import assert = require("node:assert");
 import { promisify } from "node:util";
 
 {
+    // crypto hash copy with outputLength
+    const copied: crypto.Hash = crypto.createHash("shake256").copy({ outputLength: 128 });
+}
+
+{
     const copied: crypto.Hash = crypto.createHash("md5").copy().copy({
         encoding: "ascii",
     });
@@ -1457,7 +1462,7 @@ import { promisify } from "node:util";
     let b: crypto.webcrypto.SubtleCrypto = crypto.webcrypto.subtle;
     b = crypto.subtle;
 
-    crypto.webcrypto.randomUUID(); // $ExpectType string
+    crypto.webcrypto.randomUUID(); // $ExpectType `${string}-${string}-${string}-${string}-${string}`
     crypto.webcrypto.getRandomValues(Buffer.alloc(8)); // $ExpectType Buffer
     crypto.webcrypto.getRandomValues(new BigInt64Array(4)); // $ExpectType BigInt64Array
     // @ts-expect-error

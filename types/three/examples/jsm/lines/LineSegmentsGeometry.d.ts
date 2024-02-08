@@ -5,7 +5,7 @@ import {
     Matrix4,
     Mesh,
     WireframeGeometry,
-} from '../../../src/Three.js';
+} from "../../../src/Three.js";
 
 export class LineSegmentsGeometry extends InstancedBufferGeometry {
     constructor();

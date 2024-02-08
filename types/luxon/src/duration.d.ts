@@ -479,12 +479,12 @@ export class Duration<IsValid extends boolean = DefaultValidity> {
     /**
      * Returns an error code if this Duration became invalid, or null if the Duration is valid
      */
-    get invalidReason(): IfValid<string, null, IsValid>;
+    get invalidReason(): IfValid<null, string, IsValid>;
 
     /**
      * Returns an explanation of why this Duration became invalid, or null if the Duration is valid
      */
-    get invalidExplanation(): IfValid<string | null, null, IsValid>;
+    get invalidExplanation(): IfValid<null, string | null, IsValid>;
 
     /**
      * Equality check

@@ -1,4 +1,4 @@
-import { BaseQuad, Quad } from "rdf-js";
+import { BaseQuad, Quad } from "@rdfjs/types";
 import * as SparqlHttp from ".";
 
 interface BaseClient<TQuery extends SparqlHttp.Query, Q extends BaseQuad, TStore extends SparqlHttp.Store<Q>>

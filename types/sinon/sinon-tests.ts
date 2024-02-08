@@ -396,6 +396,7 @@ function testAssert() {
     sinon.assert.calledWithMatch(spy, "a", "b", "c");
     sinon.assert.calledWithMatch(spy.firstCall, "a", "b", "c");
     sinon.assert.calledOnceWithMatch(spy, "a", "b", "c");
+    sinon.assert.calledOnceWithMatch(spy, sinon.match("a"), "b", "c");
     sinon.assert.calledOnceWithMatch(spy.firstCall, "a", "b", "c");
     sinon.assert.alwaysCalledWithMatch(spy, "a", "b", "c");
     sinon.assert.neverCalledWithMatch(spy, "a", "b", "c");

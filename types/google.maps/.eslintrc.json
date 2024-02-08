@@ -2,6 +2,7 @@
     "rules": {
         "@definitelytyped/strict-export-declare-modifiers": "off",
         "@typescript-eslint/ban-types": "off",
-        "@typescript-eslint/consistent-type-definitions": "off"
+        "@typescript-eslint/consistent-type-definitions": "off",
+        "@typescript-eslint/array-type": "off"
     }
 }

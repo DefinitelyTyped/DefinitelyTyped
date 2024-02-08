@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/tgwf__co2",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/thegreenwebfoundation/co2.js"
+    ],
+    "devDependencies": {
+        "@types/tgwf__co2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Fershad Irani",
+            "githubUsername": "fershad"
+        },
+        {
+            "name": "Chris Adams",
+            "githubUsername": "mrchrisadams"
+        }
+    ]
+}

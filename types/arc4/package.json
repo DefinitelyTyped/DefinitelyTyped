@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/arc4",
+    "version": "3.4.9999",
+    "projects": [
+        "https://github.com/hex7c0/arc4"
+    ],
+    "devDependencies": {
+        "@types/arc4": "workspace:."
+    },
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Maximilian Hofmann",
+            "githubUsername": "hofmmaxi"
+        }
+    ]
+}

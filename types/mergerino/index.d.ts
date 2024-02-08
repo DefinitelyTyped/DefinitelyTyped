@@ -77,7 +77,6 @@ export type Merge<S extends object> = (source: S, ...patches: Array<MultipleTopL
  * You can pass multiple patches in a single merge call, array arguments will be flattened before processing.
  * Since falsy patches are ignored.
  */
-// eslint-disable-next-line @definitelytyped/npm-naming
 export default function merge<S extends object>(source: S, ...patches: Array<MultipleTopLevelPatch<S>>): S;
 // Mergerino uses "default export", but no in minified version which is checked by dtslint.
 // This line supress error: The types for mergerino specify 'export default' but the source does not mention 'default' anywhere.

@@ -2,7 +2,6 @@
     "rules": {
         "@definitelytyped/dt-header": "off",
         "@definitelytyped/strict-export-declare-modifiers": "off",
-        "@definitelytyped/npm-naming": "off",
         "@typescript-eslint/no-empty-interface": "off"
     }
 }

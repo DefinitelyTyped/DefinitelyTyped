@@ -149,7 +149,7 @@ declare class Sequence {
     static nextId(): number;
 }
 
-declare const VERSION = '21.0.0';
+declare const VERSION = "21.0.0";
 
 declare const nextId: typeof Sequence.nextId;
 declare function getAll(): Array<Tween<UnknownProps>>;
@@ -202,18 +202,18 @@ declare const exports: {
 };
 
 export {
-    Easing,
-    Group,
-    Interpolation,
-    Sequence,
-    Tween,
-    VERSION,
     add,
+    Easing,
     exports as default,
     getAll,
+    Group,
+    Interpolation,
     nextId,
     now,
     remove,
     removeAll,
+    Sequence,
+    Tween,
     update,
+    VERSION,
 };

@@ -1,7 +1,7 @@
-import { Vector3 } from './Vector3.js';
-import { Box3 } from './Box3.js';
-import { Plane } from './Plane.js';
-import { Matrix4 } from './Matrix4.js';
+import { Box3 } from "./Box3.js";
+import { Matrix4 } from "./Matrix4.js";
+import { Plane } from "./Plane.js";
+import { Vector3 } from "./Vector3.js";
 
 export class Sphere {
     constructor(center?: Vector3, radius?: number);

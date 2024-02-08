@@ -682,6 +682,16 @@ function test_googletag_Slot_updateTargetingFromMap() {
 }
 
 /**
+ * Test for {@link googletag.config.AdExpansionConfig.enabled}
+ */
+function test_googletag_config_AdExpansionConfig_enabled() {
+    // Enable ad slot expansion across the entire page.
+    googletag.setConfig({
+        adExpansion: { enabled: true },
+    });
+}
+
+/**
  * Test for {@link googletag.config.ComponentAuctionConfig.auctionConfig}
  */
 function test_googletag_config_ComponentAuctionConfig_auctionConfig() {
@@ -748,6 +758,24 @@ function test_googletag_config_PrivacyTreatmentsConfig_treatments() {
     // Disable personalization across the entire page.
     googletag.setConfig({
         privacyTreatments: { treatments: ["disablePersonalization"] },
+    });
+}
+
+/**
+ * Test for {@link googletag.config.SlotSettingsConfig}
+ */
+function test_googletag_config_SlotSettingsConfig() {
+    const slot = googletag.defineSlot("/1234567/example", [160, 600])!;
+    // Configure all features.
+    slot.setConfig({
+        adExpansion: { enabled: true },
+        componentAuction: [{ configKey: "https://testSeller.com", auctionConfig: null }],
+        interstitial: { triggers: { unhideWindow: true } },
+    });
+    // Update feature componentAuction and clear feature interstitial, but feature adExpansion remains set.
+    slot.setConfig({
+        componentAuction: [{ configKey: "https://testSeller2.com", auctionConfig: null }],
+        interstitial: null,
     });
 }
 

@@ -24,3 +24,21 @@ let fromFactory: Map<NamedNode, number> = factory.termMap();
 fromFactory = factory.termMap([
     [named, 5],
 ]);
+
+function testHas() {
+    const map = new TermMap<NamedNode, string>([
+        [named, "foo"],
+    ]);
+
+    const hasNamed: boolean = map.has(named);
+    const hasOther: boolean = map.has(blank);
+}
+
+function testGet() {
+    const map = new TermMap<NamedNode, string>([
+        [named, "foo"],
+    ]);
+
+    const gotNamed: string | undefined = map.get(named);
+    const gotOther: string | undefined = map.get(blank);
+}

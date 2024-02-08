@@ -1,5 +1,5 @@
-import { ColorRepresentation } from '../math/Color.js';
-import { Light } from './Light.js';
+import { ColorRepresentation } from "../math/Color.js";
+import { Light } from "./Light.js";
 
 /**
  * This light globally illuminates all objects in the scene equally.
@@ -32,5 +32,5 @@ export class AmbientLight extends Light<undefined> {
      * @remarks Sub-classes will update this value.
      * @defaultValue `AmbientLight`
      */
-    override readonly type: string | 'AmbientLight';
+    override readonly type: string | "AmbientLight";
 }

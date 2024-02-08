@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/jquery.colorpicker",
     "version": "1.4.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.colorpicker",
     "projects": [
         "https://github.com/vanderlee/colorpicker"
     ],

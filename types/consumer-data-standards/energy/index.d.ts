@@ -6535,15 +6535,15 @@ export interface EnergyInvoiceGasUsageCharges {
      */
     totalGenerationCredits: string;
     /**
-     * The total GST for all electricity usage charges.  If absent then zero is assumed
+     * The total GST for all gas usage charges.  If absent then zero is assumed
      */
     totalGst?: string | null;
     /**
-     * The aggregate total of any once off charges arising from electricity usage for the period covered by the invoice (exclusive of GST)
+     * The aggregate total of any once off charges arising from gas usage for the period covered by the invoice (exclusive of GST)
      */
     totalOnceOffCharges: string;
     /**
-     * The aggregate total of any once off discounts or credits arising from electricity usage for the period covered by the invoice (exclusive of GST)
+     * The aggregate total of any once off discounts or credits arising from gas usage for the period covered by the invoice (exclusive of GST)
      */
     totalOnceOffDiscounts: string;
     /**

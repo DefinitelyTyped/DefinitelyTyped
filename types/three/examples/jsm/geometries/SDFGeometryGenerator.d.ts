@@ -1,4 +1,4 @@
-import { BufferGeometry, WebGLRenderer, WebGLRenderTarget } from '../../../src/Three.js';
+import { BufferGeometry, WebGLRenderer, WebGLRenderTarget } from "../../../src/Three.js";
 
 export class SDFGeometryGenerator {
     constructor(renderer: WebGLRenderer);

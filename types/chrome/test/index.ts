@@ -540,6 +540,7 @@ function testGetManifest() {
 
         manifest.host_permissions; // $ExpectType string[] | undefined
         manifest.optional_permissions; // $ExpectType ManifestPermissions[] | undefined
+        manifest.optional_host_permissions; // $ExpectType string[] | undefined
         manifest.permissions; // $ExpectType ManifestPermissions[] | undefined
 
         manifest.web_accessible_resources = [{ matches: ["https://*/*"], resources: ["resource.js"] }];
@@ -1561,6 +1562,13 @@ function testStorageForPromise() {
     );
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/runtime#method-getContexts
+function testRunTimeGetContexts() {
+    const options = { incognito: true, tabIds: [1, 2, 3] };
+
+    chrome.runtime.getContexts(options);
+}
+
 // https://developer.chrome.com/docs/extensions/reference/runtime/#method-sendMessage
 function testRuntimeSendMessage() {
     const options = { includeTlsChannelId: true };
@@ -2208,4 +2216,24 @@ function testSidePanelAPI() {
     chrome.sidePanel.setPanelBehavior(setPanelBehavior).then(() => {
         console.log("Behavior set successfully using promise.");
     });
+}
+
+function testInstanceID() {
+    chrome.instanceID.deleteID(); // $ExpectType Promise<void>
+    chrome.instanceID.deleteID(() => void 0); // $ExpectType void
+
+    const deleteTokenParams = { authorizedEntity: "", scope: "" };
+    chrome.instanceID.deleteToken(deleteTokenParams); // $ExpectType Promise<void>
+    chrome.instanceID.deleteToken(deleteTokenParams, () => void 0); // $ExpectType void
+
+    chrome.instanceID.getCreationTime(); // $ExpectType Promise<number>
+    chrome.instanceID.getCreationTime((creationTime: number) => void 0); // $ExpectType void
+
+    chrome.instanceID.getID(); // $ExpectType Promise<string>
+    chrome.instanceID.getID((id: string) => void 0); // $ExpectType void
+
+    chrome.instanceID.getToken({ authorizedEntity: "", scope: "" }); // $ExpectType Promise<string>
+    chrome.instanceID.getToken({ authorizedEntity: "", scope: "" }, (token: string) => void 0); // $ExpectType void
+
+    chrome.instanceID.onTokenRefresh.addListener(() => void 0);
 }

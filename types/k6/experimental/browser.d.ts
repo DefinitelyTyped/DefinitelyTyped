@@ -1469,7 +1469,7 @@ export interface Frame {
      * @param options The options to use.
      * @returns `true` if the element is hidden, `false` otherwise.
      */
-    isHidden(selector: string, options?: TimeoutOptions & StrictnessOptions): boolean;
+    isHidden(selector: string, options?: StrictnessOptions): boolean;
 
     /**
      * Get whether the first element found that matches the selector is visible or not.
@@ -1477,7 +1477,7 @@ export interface Frame {
      * @param options The options to use.
      * @returns `true` if the element is visible, `false` otherwise.
      */
-    isVisible(selector: string, options?: TimeoutOptions & StrictnessOptions): boolean;
+    isVisible(selector: string, options?: StrictnessOptions): boolean;
 
     /**
      * Wait for the given function to return a truthy value.
@@ -1625,36 +1625,50 @@ export interface Keyboard {
  */
 export interface Locator {
     /**
+     * Clears text boxes and input fields of any existing values.
+     *
+     * **Usage**
+     *
+     * ```js
+     * // Clears the input field matching the selector.
+     * page.locator('input[name="login"]').clear();
+     * ```
+     *
+     * @param options Options to use.
+     */
+    clear(options?: ElementHandleOptions): void;
+
+    /**
      * Mouse click on the chosen element.
      * @param options Options to use.
      * @returns Promise which resolves when the element is successfully clicked.
      */
-    click(options?: MouseMoveOptions & MouseMultiClickOptions & StrictnessOptions): Promise<void>;
+    click(options?: MouseMoveOptions & MouseMultiClickOptions): Promise<void>;
 
     /**
      * Mouse double click on the chosen element.
      * @param options Options to use.
      */
-    dblclick(options?: MouseMoveOptions & MouseMultiClickOptions & StrictnessOptions): void;
+    dblclick(options?: MouseMoveOptions & MouseMultiClickOptions): void;
 
     /**
      * Use this method to select an `input type="checkbox"`.
      * @param options Options to use.
      */
-    check(options?: ElementClickOptions & StrictnessOptions): void;
+    check(options?: ElementClickOptions): void;
 
     /**
      * Use this method to unselect an `input type="checkbox"`.
      * @param options Options to use.
      */
-    uncheck(options?: ElementClickOptions & StrictnessOptions): void;
+    uncheck(options?: ElementClickOptions): void;
 
     /**
      * Checks to see if the `input type="checkbox"` is selected or not.
      * @param options Options to use.
      * @returns `true` if the element is checked, `false` otherwise.
      */
-    isChecked(options?: TimeoutOptions & StrictnessOptions): boolean;
+    isChecked(options?: TimeoutOptions): boolean;
 
     /**
      * Checks if the element is editable.
@@ -1668,41 +1682,39 @@ export interface Locator {
      * @param options Options to use.
      * @returns `true` if the element is enabled, `false` otherwise.
      */
-    isEnabled(options?: TimeoutOptions & StrictnessOptions): boolean;
+    isEnabled(options?: TimeoutOptions): boolean;
 
     /**
      * Checks if the element is `disabled`.
      * @param options Options to use.
      * @returns `true` if the element is disabled, `false` otherwise.
      */
-    isDisabled(options?: TimeoutOptions & StrictnessOptions): boolean;
+    isDisabled(options?: TimeoutOptions): boolean;
 
     /**
      * Checks if the element is `visible`.
-     * @param options Options to use.
      * @returns `true` if the element is visible, `false` otherwise.
      */
-    isVisible(options?: TimeoutOptions & StrictnessOptions): boolean;
+    isVisible(): boolean;
 
     /**
      * Checks if the element is `hidden`.
-     * @param options Options to use.
      * @returns `true` if the element is hidden, `false` otherwise.
      */
-    isHidden(options?: TimeoutOptions & StrictnessOptions): boolean;
+    isHidden(): boolean;
 
     /**
      * Fill an `input`, `textarea` or `contenteditable` element with the provided value.
      * @param value Value to fill for the `input` or `textarea` element.
      * @param options Options to use.
      */
-    fill(value: string, options?: ElementHandleOptions & StrictnessOptions): void;
+    fill(value: string, options?: ElementHandleOptions): void;
 
     /**
      * Focuses the element using locator's selector.
      * @param options Options to use.
      */
-    focus(options?: TimeoutOptions & StrictnessOptions): void;
+    focus(options?: TimeoutOptions): void;
 
     /**
      * Returns the element attribute value for the given attribute name.
@@ -1710,35 +1722,35 @@ export interface Locator {
      * @param options Options to use.
      * @returns Attribute value.
      */
-    getAttribute(name: string, options?: TimeoutOptions & StrictnessOptions): string | null;
+    getAttribute(name: string, options?: TimeoutOptions): string | null;
 
     /**
      * Returns the `element.innerHTML`.
      * @param options Options to use.
      * @returns Element's innerHTML.
      */
-    innerHTML(options?: TimeoutOptions & StrictnessOptions): string;
+    innerHTML(options?: TimeoutOptions): string;
 
     /**
      * Returns the `element.innerText`.
      * @param options Options to use.
      * @returns Element's innerText.
      */
-    innerText(options?: TimeoutOptions & StrictnessOptions): string;
+    innerText(options?: TimeoutOptions): string;
 
     /**
      * Returns the `element.textContent`.
      * @param options Options to use.
      * @returns Element's textContent.
      */
-    textContent(options?: TimeoutOptions & StrictnessOptions): string;
+    textContent(options?: TimeoutOptions): string;
 
     /**
      * Returns `input.value` for the selected `input`, `textarea` or `select` element.
      * @param options Options to use.
      * @returns The input value of the element.
      */
-    inputValue(options?: TimeoutOptions & StrictnessOptions): string;
+    inputValue(options?: TimeoutOptions): string;
 
     /**
      * Select one or more options which match the values. If the select has the multiple attribute, all matching options are selected,
@@ -1749,7 +1761,7 @@ export interface Locator {
      */
     selectOption(
         values: string | string[] | { value?: string; label?: string; index?: number },
-        options?: ElementHandleOptions & StrictnessOptions,
+        options?: ElementHandleOptions,
     ): string[];
 
     /**
@@ -1771,13 +1783,13 @@ export interface Locator {
      * Hover over the element.
      * @param options Options to use.
      */
-    hover(options?: MouseMoveOptions & StrictnessOptions): void;
+    hover(options?: MouseMoveOptions): void;
 
     /**
      * Tap on the chosen element.
      * @param options Options to use.
      */
-    tap(options?: MouseMoveOptions & StrictnessOptions): void;
+    tap(options?: MouseMoveOptions): void;
 
     /**
      * Dispatches HTML DOM event types e.g. `click`.
@@ -1785,13 +1797,13 @@ export interface Locator {
      * @param eventInit Event-specific properties.
      * @param options Options to use.
      */
-    dispatchEvent(type: string, eventInit?: EvaluationArgument, options?: TimeoutOptions & StrictnessOptions): void;
+    dispatchEvent(type: string, eventInit?: EvaluationArgument, options?: TimeoutOptions): void;
 
     /**
      * Wait for the element to be in a particular state e.g. `visible`.
      * @param options Wait options.
      */
-    waitFor(options?: { state?: ElementState } & TimeoutOptions & StrictnessOptions): void;
+    waitFor(options?: { state?: ElementState } & TimeoutOptions): void;
 }
 
 /**
@@ -2581,7 +2593,7 @@ export interface Page {
     ): boolean;
 
     /**
-     * **NOTE** Use locator-based locator.isHidden([options]) instead.
+     * **NOTE** Use locator-based locator.isHidden() instead.
      *
      * Returns whether the element is hidden.
      *
@@ -2589,29 +2601,10 @@ export interface Page {
      * elements satisfying the selector, the first will be used.
      * @param options
      */
-    isHidden(
-        selector: string,
-        options?: {
-            /**
-             * When `true`, the call requires selector to resolve to a single element.
-             * If given selector resolves to more than one element, the call throws
-             * an exception. Defaults to `false`.
-             */
-            strict?: boolean;
-
-            /**
-             * Maximum time in milliseconds. Defaults to `30` seconds. Default is
-             * overridden by the `setDefaultTimeout` option on `BrowserContext` or
-             * `page` methods.
-             *
-             * Setting the value to `0` will disable the timeout.
-             */
-            timeout?: number;
-        },
-    ): boolean;
+    isHidden(selector: string, options?: StrictnessOptions): boolean;
 
     /**
-     * **NOTE** Use locator-based locator.isVisible([options]) instead.
+     * **NOTE** Use locator-based locator.isVisible() instead.
      *
      * Returns whether the element is visible.
      *
@@ -2619,26 +2612,7 @@ export interface Page {
      * elements satisfying the selector, the first will be used.
      * @param options
      */
-    isVisible(
-        selector: string,
-        options?: {
-            /**
-             * When `true`, the call requires selector to resolve to a single element.
-             * If given selector resolves to more than one element, the call throws
-             * an exception. Defaults to `false`.
-             */
-            strict?: boolean;
-
-            /**
-             * Maximum time in milliseconds. Defaults to `30` seconds. Default is
-             * overridden by the `setDefaultTimeout` option on `BrowserContext` or
-             * `page` methods.
-             *
-             * Setting the value to `0` will disable the timeout.
-             */
-            timeout?: number;
-        },
-    ): boolean;
+    isVisible(selector: string, options?: StrictnessOptions): boolean;
 
     /**
      * Returns the keyboard instance to interact with a virtual keyboard on the

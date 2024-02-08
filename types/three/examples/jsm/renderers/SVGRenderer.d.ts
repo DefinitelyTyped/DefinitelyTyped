@@ -1,4 +1,4 @@
-import { Object3D, Color, Scene, Camera, ColorSpace } from '../../../src/Three.js';
+import { Camera, Color, ColorSpace, Object3D, Scene } from "../../../src/Three.js";
 
 export class SVGObject extends Object3D {
     constructor(node: SVGElement);

@@ -1,11 +1,11 @@
-import * as THREE from 'three';
+import * as THREE from "three";
 
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { OutlineEffect } from 'three/examples/jsm/effects/OutlineEffect';
-import { MMDLoader } from 'three/examples/jsm/loaders/MMDLoader';
-import { MMDAnimationHelper } from 'three/examples/jsm/animation/MMDAnimationHelper';
-import { MMDPhysicsHelper } from 'three/examples/jsm/animation/MMDPhysics';
-import { CCDIKHelper } from 'three/examples/jsm/animation/CCDIKSolver';
+import { CCDIKHelper } from "three/examples/jsm/animation/CCDIKSolver";
+import { MMDAnimationHelper } from "three/examples/jsm/animation/MMDAnimationHelper";
+import { MMDPhysicsHelper } from "three/examples/jsm/animation/MMDPhysics";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { OutlineEffect } from "three/examples/jsm/effects/OutlineEffect";
+import { MMDLoader } from "three/examples/jsm/loaders/MMDLoader";
 
 let mesh: THREE.SkinnedMesh;
 let camera: THREE.PerspectiveCamera;
@@ -19,7 +19,7 @@ let physicsHelper: MMDPhysicsHelper;
 const clock = new THREE.Clock();
 
 function init() {
-    const container = document.createElement('div');
+    const container = document.createElement("div");
     document.body.appendChild(container);
 
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
@@ -52,8 +52,8 @@ function init() {
 
     // model
 
-    const modelFile = 'models/mmd/miku/miku_v2.pmd';
-    const vmdFiles = ['models/mmd/vmds/wavefile_v2.vmd'];
+    const modelFile = "models/mmd/miku/miku_v2.pmd";
+    const vmdFiles = ["models/mmd/vmds/wavefile_v2.vmd"];
 
     helper = new MMDAnimationHelper({
         afterglow: 2.0,
@@ -87,7 +87,7 @@ function init() {
         xhr => {
             if (xhr.lengthComputable) {
                 const percentComplete = (xhr.loaded / xhr.total) * 100;
-                console.log(Math.round(percentComplete) + '% downloaded');
+                console.log(Math.round(percentComplete) + "% downloaded");
             }
         },
     );
@@ -96,7 +96,7 @@ function init() {
     controls.minDistance = 10;
     controls.maxDistance = 100;
 
-    window.addEventListener('resize', onWindowResize);
+    window.addEventListener("resize", onWindowResize);
 }
 
 function onWindowResize() {

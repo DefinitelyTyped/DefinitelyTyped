@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/gldatepicker",
     "version": "2.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "gldatepicker",
     "projects": [
         "http://glad.github.com/glDatePicker/"
     ],

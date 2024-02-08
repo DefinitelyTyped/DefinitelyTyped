@@ -13,16 +13,16 @@
     },
     "owners": [
         {
-            "name": "Dan Freeman",
-            "githubUsername": "dfreeman"
-        },
-        {
-            "name": "Chris Krycho",
-            "githubUsername": "chriskrycho"
+            "name": "Krystan HuffMenne",
+            "githubUsername": "gitKrystan"
         },
         {
             "name": "James C. Davis",
             "githubUsername": "jamescdavis"
+        },
+        {
+            "name": "Peter Wagenet",
+            "githubUsername": "wagenet"
         }
     ]
 }

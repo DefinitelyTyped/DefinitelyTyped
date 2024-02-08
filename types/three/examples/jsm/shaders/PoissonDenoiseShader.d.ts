@@ -1,4 +1,4 @@
-import { IUniform, Matrix4, Vector2 } from '../../../src/Three.js';
+import { IUniform, Matrix4, Vector2 } from "../../../src/Three.js";
 
 export const PoissonDenoiseShader: {
     name: string;

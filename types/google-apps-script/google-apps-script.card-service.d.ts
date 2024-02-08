@@ -544,6 +544,7 @@ declare namespace GoogleAppsScript {
          */
         enum OnClose {
             NOTHING,
+            RELOAD,
             RELOAD_ADD_ON,
         }
         /**

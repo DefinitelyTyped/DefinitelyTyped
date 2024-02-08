@@ -1,8 +1,8 @@
 {
     "private": true,
     "name": "@types/node",
-    "version": "20.10.9999",
-    "nonNpm": true,
+    "version": "20.11.9999",
+    "nonNpm": "conflict",
     "nonNpmDescription": "Node.js",
     "projects": [
         "https://nodejs.org/"

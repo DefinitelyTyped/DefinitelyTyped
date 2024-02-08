@@ -28,7 +28,7 @@ export class Job extends EventEmitter {
     trackInvocation(invocation: Invocation): boolean;
 
     /**
-     * removes an Invocation from this Job's tracking list. For internal use.
+     * Removes an Invocation from the tracking list of this Job. For internal use.
      * @internal
      * @return boolean whether the invocation was successful. Removing an Invocation that doesn't exist, returns false.
      */
@@ -41,19 +41,19 @@ export class Job extends EventEmitter {
     triggeredJobs(): number;
 
     /**
-     * set the number of currently running Jobs.
+     * Set the number of currently running Jobs.
      * @internal
      */
     setTriggeredJobs(triggeredJobs: number): void;
 
     /**
-     * cancel all pending Invocations of this Job.
+     * Cancel all pending Invocations of this Job.
      * @param reschedule whether to reschedule the canceled Invocations.
      */
     cancel(reschedule?: boolean): boolean;
 
     /**
-     * cancel the next Invocation of this Job.
+     * Cancel the next Invocation of this Job.
      * @param reschedule whether to reschedule the canceled Invocation.
      * @return whether cancelation was successful
      */
@@ -68,18 +68,16 @@ export class Job extends EventEmitter {
     /** The Date on which this Job will be run next. */
     nextInvocation(): Date;
 
-    /** A list of all pending Invocations */
-    pendingInvocations(): Invocation[];
+    /** A list of all pending Invocations. */
+    pendingInvocations: Invocation[];
 
-    /**
-     * run this Job immediately.
-     */
+    /** Run this Job immediately. */
     invoke(): void;
 
-    /** schedule this Job to be run on the specified date. */
+    /** Schedule this Job to be run on the specified date. */
     runOnDate(date: Date): void;
 
-    /** set scheduling information */
+    /** Set scheduling information */
     schedule(date: Date | string | number): boolean;
 }
 

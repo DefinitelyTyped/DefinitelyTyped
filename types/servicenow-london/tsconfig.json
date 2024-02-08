@@ -3,7 +3,7 @@
         "lib": [
             "es5"
         ],
-        "module": "commonjs",
+        "module": "node16",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,

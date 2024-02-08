@@ -1,9 +1,9 @@
-import { FogBase } from './Fog.js';
-import { Material } from '../materials/Material.js';
-import { Object3D } from '../core/Object3D.js';
-import { Color } from '../math/Color.js';
-import { Texture } from '../textures/Texture.js';
-import { CubeTexture } from '../Three.js';
+import { Object3D } from "../core/Object3D.js";
+import { Material } from "../materials/Material.js";
+import { Color } from "../math/Color.js";
+import { Texture } from "../textures/Texture.js";
+import { CubeTexture } from "../Three.js";
+import { FogBase } from "./Fog.js";
 
 /**
  * Scenes allow you to set up what and where is to be rendered by three.js
@@ -30,7 +30,7 @@ export class Scene extends Object3D {
     /**
      * @defaultValue `Scene`
      */
-    type: 'Scene';
+    type: "Scene";
 
     /**
      * A {@link Fog | fog} instance defining the type of fog that affects everything rendered in the scene.

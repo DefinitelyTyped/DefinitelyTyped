@@ -207,9 +207,11 @@ import * as url from "node:url";
 
     // test headers
     res.setHeader("Content-Type", "text/plain")
-        .setHeader("Return-Type", "this");
+        .setHeader("Return-Type", "this")
+        .appendHeader("Content-Type", "text/html");
     const bool: boolean = res.hasHeader("Content-Type");
     const headers: string[] = res.getHeaderNames();
+    const headerValue: string[] | undefined = incoming.headersDistinct["content-type"];
 
     // trailers
     res.addTrailers([
@@ -346,6 +348,11 @@ import * as url from "node:url";
     http.request({ agent: undefined });
     // ensure compatibility with url.parse()
     http.request(url.parse("http://www.example.org/xyz"));
+
+    // ensure extends from EventEmitter
+    agent.on("free", () => {});
+    agent.once("free", () => {});
+    agent.emit("free");
 }
 
 {
@@ -529,6 +536,7 @@ import * as url from "node:url";
     _bool = server.emit("checkExpectation", _req, _res);
     _bool = server.emit("clientError", _err, _socket);
     _bool = server.emit("connect", _req, _socket, _head);
+    _bool = server.emit("dropRequest", _req, _res);
     _bool = server.emit("request", _req, _res);
     _bool = server.emit("upgrade", _req, _socket, _head);
 
@@ -548,6 +556,10 @@ import * as url from "node:url";
         _req = req;
         _socket = socket;
         _head = head;
+    });
+    server = server.on("dropRequest", (req, socket) => {
+        _req = req;
+        _socket = socket;
     });
     server = server.on("request", (req, res) => {
         _req = req;
@@ -576,6 +588,10 @@ import * as url from "node:url";
         _socket = socket;
         _head = head;
     });
+    server = server.once("dropRequest", (req, socket) => {
+        _req = req;
+        _socket = socket;
+    });
     server = server.once("request", (req, res) => {
         _req = req;
         _res = res;
@@ -603,6 +619,10 @@ import * as url from "node:url";
         _socket = socket;
         _head = head;
     });
+    server = server.prependListener("dropRequest", (req, socket) => {
+        _req = req;
+        _socket = socket;
+    });
     server = server.prependListener("request", (req, res) => {
         _req = req;
         _res = res;
@@ -629,6 +649,10 @@ import * as url from "node:url";
         _req = req;
         _socket = socket;
         _head = head;
+    });
+    server = server.prependOnceListener("dropRequest", (req, socket) => {
+        _req = req;
+        _socket = socket;
     });
     server = server.prependOnceListener("request", (req, res) => {
         _req = req;

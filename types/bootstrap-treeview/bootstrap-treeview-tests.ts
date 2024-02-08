@@ -53,6 +53,8 @@ $("#tree").treeview({
     data,
     levels: 5,
     backColor: "green",
+    checkedIcon: "",
+    uncheckedIcon: "",
 });
 
 // Treeview functions.

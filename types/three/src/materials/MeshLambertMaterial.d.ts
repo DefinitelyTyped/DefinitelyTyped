@@ -1,8 +1,8 @@
-import { Color, ColorRepresentation } from '../math/Color.js';
-import { Texture } from '../textures/Texture.js';
-import { MaterialParameters, Material } from './Material.js';
-import { Combine, NormalMapTypes } from '../constants.js';
-import { Vector2 } from '../Three.js';
+import { Combine, NormalMapTypes } from "../constants.js";
+import { Color, ColorRepresentation } from "../math/Color.js";
+import { Texture } from "../textures/Texture.js";
+import { Vector2 } from "../Three.js";
+import { Material, MaterialParameters } from "./Material.js";
 
 export interface MeshLambertMaterialParameters extends MaterialParameters {
     bumpMap?: Texture | undefined;

@@ -578,13 +578,13 @@ declare namespace jest {
          *
          * - `table`: Array of Arrays with the arguments that are passed into the test fn for each row.
          * - `name`: String the title of the test block.
-         * - `fn`: Function the test to be ran, this is the function that will receive the parameters in each row as function arguments.
+         * - `fn`: Function the test to be run, this is the function that will receive the parameters in each row as function arguments.
          *
          * #### 2  `test.each table(name, fn)`
          *
          * - `table`: Tagged Template Literal
          * - `name`: String the title of the test, use `$variable` to inject test data into the test title from the tagged template expressions.
-         * - `fn`: Function the test to be ran, this is the function that will receive the test data object..
+         * - `fn`: Function the test to be run, this is the function that will receive the test data object.
          *
          * @example
          *

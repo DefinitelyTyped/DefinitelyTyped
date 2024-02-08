@@ -6,12 +6,12 @@ import {
     MeshPhongMaterial,
     Object3D,
     PlaneGeometry,
+    Scene,
     Texture,
     Vector3,
     WebGLRenderer,
-    Scene,
     WebGLRenderTarget,
-} from '../../../src/Three.js';
+} from "../../../src/Three.js";
 
 export interface UVBoxes {
     w: number;

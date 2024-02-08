@@ -35,11 +35,83 @@ declare namespace mp {
         is_dir: boolean;
     }
 
+    interface BaseCommandOpts {
+        args: string[];
+        playback_only?: boolean;
+        capture_size?: number;
+        detach?: boolean;
+        env?: string[];
+        stdin_data?: string;
+        passthrough_stdin?: boolean;
+    }
+
+    interface UnnamedCommandOpts extends BaseCommandOpts {
+        capture_stdout?: boolean;
+        capture_stderr?: boolean;
+    }
+
+    interface UncapturedNamedCommandOpts extends BaseCommandOpts {
+        name: string;
+        capture_stdout?: false;
+        capture_stderr?: false;
+    }
+
+    interface NamedCommandOptsWithStdout extends BaseCommandOpts {
+        name: string;
+        capture_stdout: true;
+        capture_stderr?: false;
+    }
+
+    interface NamedCommandOptsWithStderr extends BaseCommandOpts {
+        name: string;
+        capture_stderr: true;
+        capture_stdout?: false;
+    }
+
+    interface CapturedNamedOptsCommand extends BaseCommandOpts {
+        name: string;
+        capture_stdout: true;
+        capture_stderr: true;
+    }
+
+    interface UncapturedProcess {
+        status: number;
+        error_string: "" | "killed" | "init";
+        killed_by_us: boolean;
+    }
+
+    interface ProcessWithStdout extends UncapturedProcess {
+        stdout: string;
+    }
+
+    interface ProcessWithStderr extends UncapturedProcess {
+        stderr: string;
+    }
+
+    interface CapturedProcess extends UncapturedProcess {
+        stdout: string;
+        stderr: string;
+    }
+
     function command(command: string): true | undefined;
 
     function commandv(...args: readonly string[]): true | undefined;
 
-    function command_native(table: unknown, def?: unknown): unknown;
+    function command_native(table: [string, ...unknown[]]): null | undefined; // `undefined` on error
+
+    function command_native<T>(table: [string, ...unknown[]], def: T): null | T; // `T` on error
+
+    function command_native(table: UnnamedCommandOpts): undefined;
+
+    function command_native<T>(table: UnnamedCommandOpts, def: T): T;
+
+    function command_native(table: UncapturedNamedCommandOpts, def?: unknown): UncapturedProcess;
+
+    function command_native(table: NamedCommandOptsWithStdout, def?: unknown): ProcessWithStdout;
+
+    function command_native(table: NamedCommandOptsWithStderr, def?: unknown): ProcessWithStderr;
+
+    function command_native(table: CapturedNamedOptsCommand, def?: unknown): CapturedProcess;
 
     function command_native_async(
         table: unknown,

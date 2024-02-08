@@ -2,7 +2,7 @@
     "private": true,
     "name": "@types/kakao-js-sdk",
     "version": "1.39.9999",
-    "nonNpm": true,
+    "nonNpm": "conflict",
     "nonNpmDescription": "Kakao JavaScript SDK",
     "projects": [
         "https://developers.kakao.com/docs/latest/ko/sdk-download/js"

@@ -1,5 +1,5 @@
-import TempNode from '../core/TempNode.js';
-import { ShaderNodeObject } from '../shadernode/ShaderNode.js';
+import TempNode from "../core/TempNode.js";
+import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
 
 export default class MatcapUVNode extends TempNode {
     constructor();

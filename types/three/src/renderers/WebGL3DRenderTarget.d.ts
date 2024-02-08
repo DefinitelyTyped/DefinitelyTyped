@@ -1,5 +1,5 @@
-import { Data3DTexture } from '../textures/Data3DTexture.js';
-import { WebGLRenderTarget, WebGLRenderTargetOptions } from './WebGLRenderTarget.js';
+import { Data3DTexture } from "../textures/Data3DTexture.js";
+import { WebGLRenderTarget, WebGLRenderTargetOptions } from "./WebGLRenderTarget.js";
 
 /**
  * Represents a three-dimensional render target.

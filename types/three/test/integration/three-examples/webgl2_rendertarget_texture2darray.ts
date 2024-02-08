@@ -1,7 +1,7 @@
-import * as THREE from 'three';
+import * as THREE from "three";
 
-import { unzipSync } from 'three/examples/jsm/libs/fflate.module';
-import WEBGL from 'three/examples/jsm/capabilities/WebGL';
+import WEBGL from "three/examples/jsm/capabilities/WebGL";
+import { unzipSync } from "three/examples/jsm/libs/fflate.module";
 
 const vertextPostProcessingShader = /* glsl */ `
 	out vec2 vUv;
@@ -110,7 +110,7 @@ let renderer: THREE.WebGLRenderer;
 init();
 
 function init() {
-    const container = document.createElement('div');
+    const container = document.createElement("div");
     document.body.appendChild(container);
 
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 2000);
@@ -131,15 +131,15 @@ function init() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     container.appendChild(renderer.domElement);
 
-    renderer.domElement.addEventListener('mousedown', onMouseDown);
+    renderer.domElement.addEventListener("mousedown", onMouseDown);
 
-    window.addEventListener('resize', onWindowResize, false);
+    window.addEventListener("resize", onWindowResize, false);
 
     // width 256, height 256, depth 109, 8-bit, zip archived raw data
 
-    new THREE.FileLoader().setResponseType('arraybuffer').load('textures/3d/head256x256x109.zip', data => {
+    new THREE.FileLoader().setResponseType("arraybuffer").load("textures/3d/head256x256x109.zip", data => {
         const zip = unzipSync(new Uint8Array(data as ArrayBuffer));
-        const array = new Uint8Array(zip['head256x256x109'].buffer);
+        const array = new Uint8Array(zip["head256x256x109"].buffer);
 
         const texture = new THREE.DataArrayTexture(array, DIMENSIONS.width, DIMENSIONS.height, DIMENSIONS.depth);
         texture.format = THREE.RedFormat;
@@ -168,15 +168,15 @@ function init() {
 }
 
 function onMouseDown(e: MouseEvent) {
-    renderer.domElement.addEventListener('mouseup', onMouseUp);
-    renderer.domElement.addEventListener('mousemove', onMouseMove);
+    renderer.domElement.addEventListener("mouseup", onMouseUp);
+    renderer.domElement.addEventListener("mousemove", onMouseMove);
 
     App.mousePrevious.set(e.clientX, e.clientY);
 }
 
 function onMouseUp() {
-    renderer.domElement.removeEventListener('mousemove', onMouseMove);
-    renderer.domElement.removeEventListener('mouseup', onMouseUp);
+    renderer.domElement.removeEventListener("mousemove", onMouseMove);
+    renderer.domElement.removeEventListener("mouseup", onMouseUp);
 }
 
 function onMouseMove(e: MouseEvent) {
@@ -200,7 +200,7 @@ function onWindowResize() {
 function animate() {
     requestAnimationFrame(animate);
 
-    let value = (mesh.material as THREE.ShaderMaterial).uniforms['depth'].value;
+    let value = (mesh.material as THREE.ShaderMaterial).uniforms["depth"].value;
 
     value += depthStep;
 
@@ -211,7 +211,7 @@ function animate() {
         depthStep = -depthStep;
     }
 
-    (mesh.material as THREE.ShaderMaterial).uniforms['depth'].value = value;
+    (mesh.material as THREE.ShaderMaterial).uniforms["depth"].value = value;
 
     render();
 }
@@ -220,7 +220,7 @@ function animate() {
  * Renders the 2D array into the render target `renderTarget`.
  */
 function renderToArrayTexture() {
-    const layer = Math.floor((mesh.material as THREE.ShaderMaterial).uniforms['depth'].value);
+    const layer = Math.floor((mesh.material as THREE.ShaderMaterial).uniforms["depth"].value);
     postProcessMaterial.uniforms.uDepth.value = layer;
     renderer.setRenderTarget(renderTarget, layer);
     renderer.render(postProcessScene, postProcessCamera);

@@ -24,7 +24,7 @@ request
         }
     });
 
-const agent = new request.agent();
+const agent = request.agent();
 agent
     .post("/api/pet")
     .send({ name: "Manny", species: "cat" })

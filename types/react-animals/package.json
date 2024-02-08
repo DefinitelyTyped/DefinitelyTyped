@@ -6,7 +6,7 @@
         "https://github.com/arvinpoddar/react-animals"
     ],
     "dependencies": {
-        "@types/react": "*"
+        "@types/react": "^16"
     },
     "devDependencies": {
         "@types/react-animals": "workspace:."

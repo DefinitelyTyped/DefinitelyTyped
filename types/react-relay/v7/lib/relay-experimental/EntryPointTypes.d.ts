@@ -7,7 +7,7 @@ import {
     IEnvironment,
     Observable,
     OperationType,
-    RequestParameters,
+    PreloadableConcreteRequest,
     VariablesOf,
 } from "relay-runtime";
 import { GetEntryPointComponentFromEntryPoint, GetEntryPointParamsFromEntryPoint } from "./helpers";
@@ -35,14 +35,6 @@ export type LoadQueryOptions = Readonly<{
     networkCacheConfig?: CacheConfig | null | undefined;
     onQueryAstLoadTimeout?: (() => void) | null | undefined;
 }>;
-
-// Note: the phantom type parameter here helps ensures that the
-// $Parameters.js value matches the type param provided to preloadQuery.
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-export type PreloadableConcreteRequest<TQuery extends OperationType> = {
-    kind: "PreloadableConcreteRequest";
-    params: RequestParameters;
-};
 
 export type EnvironmentProviderOptions<T extends Record<string, unknown> = Record<string, unknown>> = T;
 

@@ -1,5 +1,5 @@
-import Node from '../core/Node.js';
-import { ShaderNodeObject } from '../shadernode/ShaderNode.js';
+import Node from "../core/Node.js";
+import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
 
 export default class FrontFacingNode extends Node {
     isFrontFacingNode: true;

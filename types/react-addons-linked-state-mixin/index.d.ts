@@ -1,4 +1,4 @@
-import { Mixin } from "react";
+import { Mixin } from "create-react-class";
 
 declare var LinkedStateMixin: LinkedStateMixin.LinkedStateMixin;
 type LinkedStateMixin = LinkedStateMixin.LinkedStateMixin;

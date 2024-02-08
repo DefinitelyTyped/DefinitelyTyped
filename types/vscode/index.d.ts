@@ -5,7 +5,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Visual Studio Code 1.85 Extension API
+ * Type Definition for Visual Studio Code 1.86 Extension API
  * See https://code.visualstudio.com/api for more information
  */
 
@@ -1678,12 +1678,12 @@ declare module 'vscode' {
 		 * @returns Returns a new disposable which, upon dispose, will
 		 * dispose all provided disposables.
 		 */
-		static from(...disposableLikes: Array<{
+		static from(...disposableLikes: {
 			/**
 			 * Function to clean up resources.
 			 */
 			dispose: () => any;
-		}>): Disposable;
+		}[]): Disposable;
 
 		/**
 		 * Creates a new disposable that calls the provided function
@@ -2018,10 +2018,10 @@ declare module 'vscode' {
 
 		/**
 		 * A set of file filters that are used by the dialog. Each entry is a human-readable label,
-		 * like "TypeScript", and an array of extensions, e.g.
+		 * like "TypeScript", and an array of extensions, for example:
 		 * ```ts
 		 * {
-		 * 	'Images': ['png', 'jpg']
+		 * 	'Images': ['png', 'jpg'],
 		 * 	'TypeScript': ['ts', 'tsx']
 		 * }
 		 * ```
@@ -2053,10 +2053,10 @@ declare module 'vscode' {
 
 		/**
 		 * A set of file filters that are used by the dialog. Each entry is a human-readable label,
-		 * like "TypeScript", and an array of extensions, e.g.
+		 * like "TypeScript", and an array of extensions, for example:
 		 * ```ts
 		 * {
-		 * 	'Images': ['png', 'jpg']
+		 * 	'Images': ['png', 'jpg'],
 		 * 	'TypeScript': ['ts', 'tsx']
 		 * }
 		 * ```
@@ -2695,7 +2695,7 @@ declare module 'vscode' {
 		 * We also support returning `Command` for legacy reasons, however all new extensions should return
 		 * `CodeAction` object instead.
 		 */
-		provideCodeActions(document: TextDocument, range: Range | Selection, context: CodeActionContext, token: CancellationToken): ProviderResult<Array<Command | T>>;
+		provideCodeActions(document: TextDocument, range: Range | Selection, context: CodeActionContext, token: CancellationToken): ProviderResult<(Command | T)[]>;
 
 		/**
 		 * Given a code action fill in its {@linkcode CodeAction.edit edit}-property. Changes to
@@ -3958,7 +3958,7 @@ declare module 'vscode' {
 		 * @param uri A resource identifier.
 		 * @param edits An array of edits.
 		 */
-		set(uri: Uri, edits: ReadonlyArray<[TextEdit | SnippetTextEdit, WorkspaceEditEntryMetadata]>): void;
+		set(uri: Uri, edits: ReadonlyArray<[TextEdit | SnippetTextEdit, WorkspaceEditEntryMetadata | undefined]>): void;
 
 		/**
 		 * Set (and replace) notebook edits for a resource.
@@ -3974,7 +3974,7 @@ declare module 'vscode' {
 		 * @param uri A resource identifier.
 		 * @param edits An array of edits.
 		 */
-		set(uri: Uri, edits: ReadonlyArray<[NotebookEdit, WorkspaceEditEntryMetadata]>): void;
+		set(uri: Uri, edits: ReadonlyArray<[NotebookEdit, WorkspaceEditEntryMetadata | undefined]>): void;
 
 		/**
 		 * Get the text edits for a resource.
@@ -4055,7 +4055,7 @@ declare module 'vscode' {
 		 *
 		 * @returns A shallow copy of `[Uri, TextEdit[]]`-tuples.
 		 */
-		entries(): Array<[Uri, TextEdit[]]>;
+		entries(): [Uri, TextEdit[]][];
 	}
 
 	/**
@@ -5947,7 +5947,7 @@ declare module 'vscode' {
 		/**
 		 * Tags for this item.
 		 */
-		tags?: readonly SymbolTag[];
+		tags?: ReadonlyArray<SymbolTag>;
 
 		/**
 		 * More detail for this item, e.g. the signature of a function.
@@ -6344,7 +6344,7 @@ declare module 'vscode' {
 			/**
 			 * @deprecated
 			 */
-			autoClosingPairs: Array<{
+			autoClosingPairs: {
 				/**
 				 * @deprecated
 				 */
@@ -6357,7 +6357,7 @@ declare module 'vscode' {
 				 * @deprecated
 				 */
 				notIn?: string[];
-			}>;
+			}[];
 		};
 	}
 
@@ -7703,12 +7703,12 @@ declare module 'vscode' {
 		 *
 		 * *Note* that asynchronous dispose-functions aren't awaited.
 		 */
-		readonly subscriptions: Array<{
+		readonly subscriptions: {
 			/**
 			 * Function to clean up resources.
 			 */
 			dispose(): any;
-		}>;
+		}[];
 
 		/**
 		 * A memento object that stores state in the context
@@ -8324,7 +8324,7 @@ declare module 'vscode' {
 		 * @param args The command arguments.
 		 * @param options Optional options for the started the shell.
 		 */
-		constructor(command: string | ShellQuotedString, args: Array<string | ShellQuotedString>, options?: ShellExecutionOptions);
+		constructor(command: string | ShellQuotedString, args: (string | ShellQuotedString)[], options?: ShellExecutionOptions);
 
 		/**
 		 * The shell command line. Is `undefined` if created with a command and arguments.
@@ -8339,7 +8339,7 @@ declare module 'vscode' {
 		/**
 		 * The shell args. Is `undefined` if created with a full command line.
 		 */
-		args: Array<string | ShellQuotedString>;
+		args: (string | ShellQuotedString)[];
 
 		/**
 		 * The shell options used when the command line is executed in a shell.
@@ -8932,7 +8932,7 @@ declare module 'vscode' {
 		 * @returns An array of name/type-tuples or a thenable that resolves to such.
 		 * @throws {@linkcode FileSystemError.FileNotFound FileNotFound} when `uri` doesn't exist.
 		 */
-		readDirectory(uri: Uri): Array<[string, FileType]> | Thenable<Array<[string, FileType]>>;
+		readDirectory(uri: Uri): [string, FileType][] | Thenable<[string, FileType][]>;
 
 		/**
 		 * Create a new directory (Note, that new files are created via `write`-calls).
@@ -9052,7 +9052,7 @@ declare module 'vscode' {
 		 * @param uri The uri of the folder.
 		 * @returns An array of name/type-tuples or a thenable that resolves to such.
 		 */
-		readDirectory(uri: Uri): Thenable<Array<[string, FileType]>>;
+		readDirectory(uri: Uri): Thenable<[string, FileType][]>;
 
 		/**
 		 * Create a new directory (Note, that new files are created via `write`-calls).
@@ -9604,7 +9604,7 @@ declare module 'vscode' {
 	 */
 	export interface WebviewViewProvider {
 		/**
-		 * Revolves a webview view.
+		 * Resolves a webview view.
 		 *
 		 * `resolveWebviewView` is called when a view first becomes visible. This may happen when the view is
 		 * first loaded or when the user hides and then shows a view again.
@@ -11682,7 +11682,7 @@ declare module 'vscode' {
 		 * Ranges in the label to highlight. A range is defined as a tuple of two number where the
 		 * first is the inclusive start index and the second the exclusive end index
 		 */
-		highlights?: Array<[number, number]>;
+		highlights?: [number, number][];
 	}
 
 	/**
@@ -13139,7 +13139,7 @@ declare module 'vscode' {
 		 * @returns true if the operation was successfully started and false otherwise if arguments were used that would result
 		 * in invalid workspace folder state (e.g. 2 folders with the same URI).
 		 */
-		export function updateWorkspaceFolders(start: number, deleteCount: number | undefined | null, ...workspaceFoldersToAdd: Array<{
+		export function updateWorkspaceFolders(start: number, deleteCount: number | undefined | null, ...workspaceFoldersToAdd: {
 			/**
 			 * The uri of a workspace folder that's to be added.
 			 */
@@ -13148,7 +13148,7 @@ declare module 'vscode' {
 			 * The name of a workspace folder that's to be added.
 			 */
 			readonly name?: string;
-		}>): boolean;
+		}[]): boolean;
 
 		/**
 		 * Creates a file system watcher that is notified on file events (create, change, delete)
@@ -13291,6 +13291,29 @@ declare module 'vscode' {
 		 * {@link workspace.workspaceFolders workspace folders} are opened.
 		 */
 		export function findFiles(include: GlobPattern, exclude?: GlobPattern | null, maxResults?: number, token?: CancellationToken): Thenable<Uri[]>;
+
+		/**
+		 * Saves the editor identified by the given resource and returns the resulting resource or `undefined`
+		 * if save was not successful or no editor with the given resource was found.
+		 *
+		 * **Note** that an editor with the provided resource must be opened in order to be saved.
+		 *
+		 * @param uri the associated uri for the opened editor to save.
+		 * @returns A thenable that resolves when the save operation has finished.
+		 */
+		export function save(uri: Uri): Thenable<Uri | undefined>;
+
+		/**
+		 * Saves the editor identified by the given resource to a new file name as provided by the user and
+		 * returns the resulting resource or `undefined` if save was not successful or cancelled or no editor
+		 * with the given resource was found.
+		 *
+		 * **Note** that an editor with the provided resource must be opened in order to be saved as.
+		 *
+		 * @param uri the associated uri for the opened editor to save as.
+		 * @returns A thenable that resolves when the save-as operation has finished.
+		 */
+		export function saveAs(uri: Uri): Thenable<Uri | undefined>;
 
 		/**
 		 * Save all dirty files.
@@ -13641,8 +13664,9 @@ declare module 'vscode' {
 			readonly isCaseSensitive?: boolean;
 			/**
 			 * Whether the file system provider is readonly, no modifications like write, delete, create are possible.
+			 * If a {@link MarkdownString} is given, it will be shown as the reason why the file system is readonly.
 			 */
-			readonly isReadonly?: boolean;
+			readonly isReadonly?: boolean | MarkdownString;
 		}): Disposable;
 
 		/**
@@ -13804,7 +13828,7 @@ declare module 'vscode' {
 		 *
 		 * @returns An array of uri-diagnostics tuples or an empty array.
 		 */
-		export function getDiagnostics(): Array<[Uri, Diagnostic[]]>;
+		export function getDiagnostics(): [Uri, Diagnostic[]][];
 
 		/**
 		 * Create a diagnostics collection.
@@ -16350,7 +16374,7 @@ declare module 'vscode' {
 		/**
 		 * All extensions currently known to the system.
 		 */
-		export const all: ReadonlyArray<Extension<any>>;
+		export const all: readonly Extension<any>[];
 
 		/**
 		 * An event which fires when `extensions.all` changes. This can happen when extensions are
@@ -17125,8 +17149,17 @@ declare module 'vscode' {
 		 * the generic "run all" button, then the default profile for
 		 * {@link TestRunProfileKind.Run} will be executed, although the
 		 * user can configure this.
+		 *
+		 * Changes the user makes in their default profiles will be reflected
+		 * in this property after a {@link onDidChangeDefault} event.
 		 */
 		isDefault: boolean;
+
+		/**
+		 * Fired when a user has changed whether this is a default profile. The
+		 * event contains the new value of {@link isDefault}
+		 */
+		onDidChangeDefault: Event<boolean>;
 
 		/**
 		 * Whether this profile supports continuous running of requests. If so,

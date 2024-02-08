@@ -2,6 +2,7 @@ import { Client, PrestoQueryError, PrestoRequestError } from "presto-client";
 
 const client = new Client({
     user: "test",
+    timeout: 60,
 });
 
 client.execute({
@@ -9,6 +10,7 @@ client.execute({
     catalog: "hive",
     schema: "default",
     source: "nodejs-client",
+    timeout: 60,
     state: (error, query_id, stats) => {
         // do something with query stats
     },
@@ -24,6 +26,9 @@ client.execute({
     },
     data: (error, data, columns, stats) => {
         // do something with data
+    },
+    retry: () => {
+        // do something when query retries
     },
     success: (error, stats) => {
         // do something now that query is done

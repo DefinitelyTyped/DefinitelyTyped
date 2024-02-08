@@ -1962,17 +1962,17 @@ declare namespace ComponentFramework {
             /**
              * Whether the lookup allows more than one item to be selected.
              */
-            allowMultiSelect: boolean;
+            allowMultiSelect?: boolean;
 
             /**
              * The default entity type.
              */
-            defaultEntityType: string;
+            defaultEntityType?: string;
 
             /**
              * The default view to use.
              */
-            defaultViewId: string;
+            defaultViewId?: string;
 
             /**
              * The entity types to display.
@@ -1982,7 +1982,7 @@ declare namespace ComponentFramework {
             /**
              * The views to be available in the view picker. Only System views are supported (not user views).
              */
-            viewIds: string[];
+            viewIds?: string[];
         }
     }
 

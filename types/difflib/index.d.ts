@@ -1,5 +1,5 @@
 export class SequenceMatcher<T> {
-    constructor(isjunk: (() => boolean) | null, left: T, right: T, autojunk?: boolean);
+    constructor(isjunk: ((char: string) => boolean) | null, left: T, right: T, autojunk?: boolean);
     setSeqs(left: T, right: T): ((char: string) => boolean) | undefined;
     setSeq1(left: T): null | undefined;
     setSeq2(right: T): ((char: string) => boolean) | undefined;

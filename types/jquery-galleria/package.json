@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/jquery-galleria",
     "version": "1.4.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery-galleria",
     "projects": [
         "https://github.com/aino/galleria"
     ],

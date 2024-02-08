@@ -1,6 +1,6 @@
-import Node from '../core/Node.js';
-import MathNode from '../math/MathNode.js';
-import { ShaderNodeObject } from '../shadernode/ShaderNode.js';
+import Node from "../core/Node.js";
+import MathNode from "../math/MathNode.js";
+import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
 
 export type BitangentNodeScope =
     | typeof BitangentNode.LOCAL
@@ -9,10 +9,10 @@ export type BitangentNodeScope =
     | typeof BitangentNode.GEOMETRY;
 
 export default class BitangentNode extends Node {
-    static GEOMETRY: 'geometry';
-    static LOCAL: 'local';
-    static VIEW: 'view';
-    static WORLD: 'world';
+    static GEOMETRY: "geometry";
+    static LOCAL: "local";
+    static VIEW: "view";
+    static WORLD: "world";
 
     scope: BitangentNodeScope;
 

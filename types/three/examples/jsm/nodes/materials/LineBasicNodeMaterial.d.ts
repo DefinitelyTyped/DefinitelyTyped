@@ -1,9 +1,8 @@
-import NodeMaterial from './NodeMaterial.js';
-import { ShaderMaterialParameters } from '../../../../src/Three.js';
+import { ShaderMaterialParameters } from "../../../../src/Three.js";
+import NodeMaterial from "./NodeMaterial.js";
 
 export default class LineBasicNodeMaterial extends NodeMaterial {
-    isLineBasicNodeMaterial: true;
+    readonly isLineBasicNodeMaterial: true;
 
     constructor(parameters?: ShaderMaterialParameters);
-    copy(source: LineBasicNodeMaterial): this;
 }
