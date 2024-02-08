@@ -1528,7 +1528,7 @@ declare namespace React {
             : P;
     
     /**
-     * Merges the Props with an optional children prop
+     * Merges the Prop types with an optional children prop
      * @template P The props object type
      */
     type PropsWithChildren<P = unknown> = P & { children?: ReactNode | undefined };
