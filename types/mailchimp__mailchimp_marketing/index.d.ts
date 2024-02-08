@@ -2716,7 +2716,7 @@ export namespace campaigns {
                 /**
                  * The day of the week to send a weekly RSS Campaign. Possible values: "sunday", "monday", "tuesday", "wednesday", "thursday", "friday", or "saturday".
                  */
-                weekly_send_day?: string;
+                weekly_send_day?: "sunday" | "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday";
 
                 /**
                  * The day of the month to send a monthly RSS Campaign. Acceptable days are 0-31, where '0' is always the last day of a month. Months with fewer than the selected number of days will not have an RSS campaign sent out that day. For example, RSS Campaigns set to send on the 30th will not go out in February.
