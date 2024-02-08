@@ -2965,7 +2965,7 @@ export namespace campaigns {
             /**
              * How the campaign's content is put together. The old drag and drop editor uses 'template' while the new editor uses 'multichannel'. Defaults to template. Possible values: "template" or "multichannel".
              */
-            content_type?: string;
+            content_type?: "template" | "multichannel";
         };
     }
 
