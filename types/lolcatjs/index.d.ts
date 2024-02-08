@@ -39,8 +39,11 @@ export function printlnAnimated(colorize: Function, line: string[]): void;
 export function printIn(line: string[]): void;
 
 /**
- * 
+ * Reads data from the stdin, splits it into lines, and prints each line.
+ * @returns Promise<void>
  */
+export function fromPipe(): Promise<void>;
+
 
 /*~ You can declare types that are available via importing the module */
 export interface Options {
