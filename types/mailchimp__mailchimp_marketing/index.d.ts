@@ -72,17 +72,17 @@ export interface Body {
     language?: string | undefined;
     vip?: boolean | undefined;
     location?:
-    | {
-        latitude: number;
-        longitude: number;
-    }
-    | undefined;
+        | {
+            latitude: number;
+            longitude: number;
+        }
+        | undefined;
     marketing_permissions?:
-    | Array<{
-        marketing_permission_id: string;
-        enabled: boolean;
-    }>
-    | undefined;
+        | Array<{
+            marketing_permission_id: string;
+            enabled: boolean;
+        }>
+        | undefined;
     ip_signup?: string | undefined;
     timestamp_signup?: string | undefined;
     ip_opt?: string | undefined;
@@ -1807,9 +1807,8 @@ export namespace campaignFolders {
         /**
          * A list of link types and descriptions for the API schema documents.
          */
-        _links: Link[]
+        _links: Link[];
     }
-
 
     interface CampaignFolderOptions {
         /**
@@ -1833,26 +1832,23 @@ export namespace campaignFolders {
          * Used for pagination, this is the number of records from a collection to skip. Default value is 0.
          */
         offset?: number;
-
     }
 
     interface CampaignFoldersSuccessResponse {
-
         /**
          * An array of objects representing campaign folders.
-        */
+         */
         folders: CampaignFolder[];
 
         /**
          * The total number of items matching the query regardless of pagination.
-        */
+         */
         total_items: number;
 
         /**
          * A list of link types and descriptions for the API schema documents.
          */
         _links: Link[];
-
     }
 
     /**
@@ -1875,7 +1871,7 @@ export namespace campaignFolders {
      * @param folder_id The unique id for the campaign folder.
      * @param opts Optional parameter, see {@link CampaignFolderOptions}
      * @return A {@link https://www.promisejs.org/ | Promise}, with data of type {@link CampaignFolder}
-    */
+     */
     function get(folder_id: string, opts?: CampaignFolderOptions): Promise<CampaignFolder | ErrorResponse>;
 
     /**
@@ -2653,17 +2649,15 @@ export namespace campaigns {
     }
 
     interface CreateCampaignParameters {
-
         /**
          * There are four types of campaigns you can create in Mailchimp. A/B Split campaigns have been deprecated and variate campaigns should be used instead. Possible values: "regular", "plaintext", "absplit", "rss", or "variate".
          */
-        type: 'regular' | 'plaintext' | 'absplit' | 'rss' | 'variate';
+        type: "regular" | "plaintext" | "absplit" | "rss" | "variate";
 
         /**
-        * [RSS](https://mailchimp.com/help/share-your-blog-posts-with-mailchimp/) options for a campaign.
-        */
+         * [RSS](https://mailchimp.com/help/share-your-blog-posts-with-mailchimp/) options for a campaign.
+         */
         rss_opts?: {
-
             /**
              * The schedule for sending the RSS Campaign.
              */
@@ -2738,7 +2732,6 @@ export namespace campaigns {
              * The frequency of the RSS Campaign. Possible values: "daily", "weekly", or "monthly".
              */
             frequency: string;
-
         };
 
         recipients?: {
@@ -2766,10 +2759,9 @@ export namespace campaigns {
                  */
                 conditions?: AnySegmentCondition[];
             };
-        }
+        };
 
         variate_settings?: {
-
             /**
              * The number of minutes to wait before choosing the winning campaign. The value of wait_time must be greater than 0 and in whole hours, specified in minutes.
              */
@@ -2802,9 +2794,8 @@ export namespace campaigns {
 
             /**
              * The combination that performs the best. This may be determined automatically by click rate, open rate, or total revenue -- or you may choose manually based on the reporting data you find the most valuable. For Multivariate Campaigns testing send_time, winner_criteria is ignored. For Multivariate Campaigns with 'manual' as the winner_criteria, the winner must be chosen in the Mailchimp web application. Possible values: "opens", "clicks", "manual", or "total_revenue".
-            */
+             */
             winner_criteria: string;
-
         };
 
         /**
@@ -2955,7 +2946,6 @@ export namespace campaigns {
              * The preview for the campaign, rendered by social networks like Facebook and Twitter. [Learn more](https://mailchimp.com/help/enable-and-customize-social-cards/).
              */
             social_card?: {
-
                 /**
                  * The url for the header image for the card.
                  */
@@ -2980,13 +2970,11 @@ export namespace campaigns {
     }
 
     interface SetContentParams {
-
         /**
          * Available when uploading an archive to create campaign content. The archive should include all campaign content and images.
          * [Learn more](https://mailchimp.com/help/import-a-custom-html-template/)
          */
         archive?: {
-
             /**
              * The type of encoded file. Defaults to zip. Possible values: "zip", "tar.gz", "tar.bz2", "tar", "tgz", or "tbz".
              */
@@ -2994,16 +2982,14 @@ export namespace campaigns {
 
             /**
              * The base64-encoded representation of the archive file.
-            */
+             */
             archive_content: string;
-        }
-
+        };
 
         /**
          * Use this template to generate the HTML content of the campaign
          */
         template?: {
-
             /**
              * Content for the sections of the template. Each key should be the unique [mc:edit area](https://mailchimp.com/help/create-editable-content-areas-with-mailchimps-template-language/) name from the template.
              */
@@ -3013,7 +2999,7 @@ export namespace campaigns {
              * The id of the template to use.
              */
             id: string;
-        }
+        };
 
         /**
          * The plain-text portion of the campaign. If left unspecified, we'll generate this automatically.
@@ -3034,60 +3020,56 @@ export namespace campaigns {
          * Content options for [Multivariate Campaigns](https://mailchimp.com/help/about-multivariate-campaigns/). Each content option must provide HTML content and may optionally provide plain text. For campaigns not testing content, only one object should be provided.
          */
         variate_contents?: Array<{
-
             /**
-         * Available when uploading an archive to create campaign content. The archive should include all campaign content and images.
-         * [Learn more](https://mailchimp.com/help/import-a-custom-html-template/)
-         */
-        archive?: {
-
-            /**
-             * The type of encoded file. Defaults to zip. Possible values: "zip", "tar.gz", "tar.bz2", "tar", "tgz", or "tbz".
+             * Available when uploading an archive to create campaign content. The archive should include all campaign content and images.
+             * [Learn more](https://mailchimp.com/help/import-a-custom-html-template/)
              */
-            archive_type?: string;
+            archive?: {
+                /**
+                 * The type of encoded file. Defaults to zip. Possible values: "zip", "tar.gz", "tar.bz2", "tar", "tgz", or "tbz".
+                 */
+                archive_type?: string;
+
+                /**
+                 * The base64-encoded representation of the archive file.
+                 */
+                archive_content?: string;
+            };
 
             /**
-             * The base64-encoded representation of the archive file.
-            */
-            archive_content?: string;
-        }
-
-
-        /**
-         * Use this template to generate the HTML content of the campaign
-         */
-        template?: {
-
-            /**
-             * Content for the sections of the template. Each key should be the unique [mc:edit area](https://mailchimp.com/help/create-editable-content-areas-with-mailchimps-template-language/) name from the template.
+             * Use this template to generate the HTML content of the campaign
              */
-            sections?: object;
+            template?: {
+                /**
+                 * Content for the sections of the template. Each key should be the unique [mc:edit area](https://mailchimp.com/help/create-editable-content-areas-with-mailchimps-template-language/) name from the template.
+                 */
+                sections?: object;
+
+                /**
+                 * The id of the template to use.
+                 */
+                id?: string;
+            };
 
             /**
-             * The id of the template to use.
+             * The label used to identify the content option.
              */
-            id?: string;
-        }
+            content_label?: string;
 
-        /**
-         * The label used to identify the content option.
-         */
-        content_label?: string;
+            /**
+             * The plain-text portion of the campaign. If left unspecified, we'll generate this automatically.
+             */
+            plain_text?: string;
 
-        /**
-         * The plain-text portion of the campaign. If left unspecified, we'll generate this automatically.
-         */
-        plain_text?: string;
+            /**
+             * The raw HTML for the campaign.
+             */
+            html?: string;
 
-        /**
-         * The raw HTML for the campaign.
-         */
-        html?: string;
-
-        /**
-         * When importing a campaign, the URL where the HTML lives.
-         */
-        url?: string;
+            /**
+             * When importing a campaign, the URL where the HTML lives.
+             */
+            url?: string;
         }>;
     }
 
@@ -3114,7 +3096,6 @@ export namespace campaigns {
     }
 
     interface SendChecklist {
-
         /**The ID for the specific item. */
         is_ready: boolean;
 
@@ -3123,7 +3104,6 @@ export namespace campaigns {
 
         /**A list of link types and descriptions for the API schema documents. */
         _links: Link[];
-
     }
 
     interface GetSendChecklistOptions {
@@ -3155,21 +3135,21 @@ export namespace campaigns {
         opts?: GetCampaignContentOptions,
     ): Promise<CampaignContentSuccessResponse | ErrorResponse>;
 
-
     /**
      * Create a new Mailchimp campaign.
      * @param params The paramaters to set for the campaign.
      */
     function create(params: CreateCampaignParameters): Promise<Campaigns | ErrorResponse>;
 
-
     /**
      * Set the content for a campaign.
      * @param campaign_id The unique id for the campaign.
      * @param params The parameters to set as the campaign's content.
      */
-    function setContent(campaign_id: string, params: SetContentParams): Promise<CampaignContentSuccessResponse | ErrorResponse>;
-
+    function setContent(
+        campaign_id: string,
+        params: SetContentParams,
+    ): Promise<CampaignContentSuccessResponse | ErrorResponse>;
 
     /**
      * Send a Mailchimp campaign. For RSS Campaigns, the campaign will send according to its schedule. All other campaigns will send immediately.
@@ -3182,10 +3162,11 @@ export namespace campaigns {
      * @param campaign_id The unique id for the campaign.
      * @param opts Optional parameters see {@link GetCampaignContentOptions}
      */
-    function getSendChecklist(campaign_id: string, opts?: GetSendChecklistOptions): Promise<SendChecklist | ErrorResponse>;
+    function getSendChecklist(
+        campaign_id: string,
+        opts?: GetSendChecklistOptions,
+    ): Promise<SendChecklist | ErrorResponse>;
 }
-
-
 
 /**
  * Customer Journeys API

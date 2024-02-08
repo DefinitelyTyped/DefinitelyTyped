@@ -200,16 +200,16 @@ mailchimp.customerJourneys.trigger(123, 123, triggerCustomerJourneyBody);
 mailchimp.campaignFolders.list();
 
 // $ExpectType Promise<ErrorResponse | CampaignFolder>
-mailchimp.campaignFolders.create({name: 'test'});
+mailchimp.campaignFolders.create({ name: "test" });
 
 // $ExpectType Promise<ErrorResponse | CampaignFolder>
 mailchimp.campaignFolders.get("0");
 
 // $ExpectType Promise<ErrorResponse | CampaignFolder>
-mailchimp.campaignFolders.update("0", {name: 'test'});
+mailchimp.campaignFolders.update("0", { name: "test" });
 
 // $ExpectType Promise<{} | ErrorResponse>
-mailchimp.campaignFolders.remove("0");;
+mailchimp.campaignFolders.remove("0");
 
 // $ExpectType Promise<{} | ErrorResponse>
 mailchimp.campaigns.send("0");
@@ -218,7 +218,7 @@ mailchimp.campaigns.send("0");
 mailchimp.campaigns.getSendChecklist("0");
 
 // $ExpectType Promise<CampaignContentSuccessResponse | ErrorResponse>
-mailchimp.campaigns.setContent("0", {html: "test"});
+mailchimp.campaigns.setContent("0", { html: "test" });
 
 // $ExpectType Promise<Campaigns | ErrorResponse>
-mailchimp.campaigns.create({ type: "regular"});
+mailchimp.campaigns.create({ type: "regular" });
