@@ -51,7 +51,19 @@ export function fromPipe(): Promise<void>;
  */
 export function fromFile(file: string): Promise<void>;
 
+/**
+ * Takes a string, splits it into lines, and prints each line.
+ * @param string
+ * @returns void
+ */
+export function fromString(string: string): void;
 
+/**
+ * Initializes the module, tries to require the 'sleep' module for animations.
+ * If the 'sleep' module is not available, it falls back to no animations.
+ * @returns null
+ */
+export function init(): null;
 /*~ You can declare types that are available via importing the module */
 export interface Options {
   animate: boolean;
