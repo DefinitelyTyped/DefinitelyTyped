@@ -44,6 +44,13 @@ export function printIn(line: string[]): void;
  */
 export function fromPipe(): Promise<void>;
 
+/**
+ * Reads data from a file, splits it into lines, and prints each line.
+ * @param file
+ * @returns Promise<void>
+ */
+export function fromFile(file: string): Promise<void>;
+
 
 /*~ You can declare types that are available via importing the module */
 export interface Options {
