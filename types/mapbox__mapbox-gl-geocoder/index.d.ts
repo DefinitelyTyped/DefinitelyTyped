@@ -194,6 +194,10 @@ declare namespace MapboxGeocoder {
 }
 declare class MapboxGeocoder implements mapboxgl.IControl {
     constructor(options?: MapboxGeocoder.GeocoderOptions);
+    /**
+     * The input element created by the geocoder's internal operations.
+     */
+    _inputEl?: HTMLInputElement;
     addTo(container: string | HTMLElement | mapboxgl.Map): this;
     onAdd(map: mapboxgl.Map): HTMLElement;
     /**
