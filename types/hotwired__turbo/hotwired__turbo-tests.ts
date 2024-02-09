@@ -1,4 +1,4 @@
-import { FrameElement, StreamElement } from "@hotwired/turbo";
+import { FrameElement, StreamElement, visit } from "@hotwired/turbo";
 
 const turboFrame = document.querySelector<FrameElement>("turbo-frame")!;
 
@@ -29,6 +29,18 @@ turboStream.requestId = "123";
 
 // $ExpectType Promise<void>
 turboStream.render();
+
+visit("my-location");
+visit("my-location", {});
+visit("my-location", { action: "advance" });
+visit("my-location", { action: "replace" });
+
+visit("my-location", {
+    // @ts-expect-error
+    action: "fight",
+});
+
+visit("my-location", { frame: "mine" });
 
 // $ExpectType TurboGlobal
 Turbo;

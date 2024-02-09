@@ -71,6 +71,11 @@ export interface TurboSession {
     renderStreamMessage(message: unknown): void;
 }
 
+export function visit(
+    location: string,
+    options?: { action?: "advance" | "replace"; frame?: string },
+): void;
+
 export interface TurboGlobal {
     /**
      * Sets the delay after which the {@link https://turbo.hotwired.dev/handbook/drive#displaying-progress progress bar} will appear during navigation, in milliseconds.
