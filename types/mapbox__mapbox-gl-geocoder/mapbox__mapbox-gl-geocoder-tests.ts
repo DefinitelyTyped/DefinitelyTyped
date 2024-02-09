@@ -21,6 +21,15 @@ geocoder.setLanguage("en");
 // $ExpectType string
 geocoder.getLanguage();
 
+// $ExpectType MapboxGeocoder
+geocoder.setInput("Paris");
+
+// $ExpectType MapboxGeocoder
+geocoder.setInput("Paris", false);
+
+// $ExpectType MapboxGeocoder
+geocoder.setInput("Paris", true);
+
 // $ExpectType void
 geocoder.clear();
 

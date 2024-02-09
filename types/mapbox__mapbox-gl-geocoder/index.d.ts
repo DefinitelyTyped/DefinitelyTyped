@@ -197,9 +197,10 @@ declare class MapboxGeocoder implements mapboxgl.IControl {
     query(searchInput: string): this;
     /**
      * Set input
-     * searchInput location name or other search input
+     * @param {string} searchInput location name or other search input
+     * @param {boolean} [showSuggestions=false] display suggestion on setInput call
      */
-    setInput(searchInput: string): this;
+    setInput(searchInput: string, showSuggestions?: boolean): this;
     /**
      * Set proximity The new `options.proximity` value. This is a geographical point given as an object with `latitude` and `longitude` properties.
      */
