@@ -48,9 +48,9 @@
     },
     // NOTE: if extending this list, also update settings.template.json.
     "plugins": [
-        "https://plugins.dprint.dev/typescript-0.88.8.wasm",
+        "https://plugins.dprint.dev/typescript-0.89.0.wasm",
         "https://plugins.dprint.dev/json-0.19.1.wasm",
-        "https://plugins.dprint.dev/prettier-0.32.1.json@19aa403ef0862ba8c41164e3dc6f84c0b7a66c2b11e42726b23dd25e6302ada9"
+        "https://plugins.dprint.dev/prettier-0.36.0.json@5cc11bcb86b783ba9e33d171ee5caefe413a6ee31a4f1521592ccb28363412af"
     ],
     "indentWidth": 4,
     "lineWidth": 120,
