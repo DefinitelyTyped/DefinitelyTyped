@@ -27,16 +27,16 @@ mixpanel.init("token", {
     },
 });
 mixpanel.init("token", {
-    track_pageview: true
+    track_pageview: true,
 });
 mixpanel.init("token", {
-    track_pageview: "url-with-path"
+    track_pageview: "url-with-path",
 });
 mixpanel.init("token", {
-    track_pageview: "url-with-path-and-query-string"
+    track_pageview: "url-with-path-and-query-string",
 });
 mixpanel.init("token", {
-    track_pageview: "full-url"
+    track_pageview: "full-url",
 });
 mixpanel.push(["register", { a: "b" }]);
 mixpanel.disable();

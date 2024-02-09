@@ -71,9 +71,9 @@ export interface Config {
     track_links_timeout: number;
     track_pageview:
         | boolean
-        | 'url-with-path'
-        | 'url-with-path-and-query-string'
-        | 'full-url';
+        | "url-with-path"
+        | "url-with-path-and-query-string"
+        | "full-url";
     skip_first_touch_marketing: boolean;
     cookie_expiration: number;
     upgrade: boolean;
