@@ -692,6 +692,7 @@ declare namespace GoogleAppsScript {
          *             .setUrl("https://www.google.com"));
          */
         interface TextButton {
+            setAltText(altText: string): TextButton;
             setAuthorizationAction(action: AuthorizationAction): TextButton;
             setBackgroundColor(backgroundColor: string): TextButton;
             setComposeAction(action: Action, composedEmailType: ComposedEmailType): TextButton;
@@ -701,7 +702,6 @@ declare namespace GoogleAppsScript {
             setOpenLink(openLink: OpenLink): TextButton;
             setText(text: string): TextButton;
             setTextButtonStyle(textButtonStyle: TextButtonStyle): TextButton;
-            setAltText(altText: string): TextButton;
         }
         /**
          * An enum that specifies the style for TextButton.
