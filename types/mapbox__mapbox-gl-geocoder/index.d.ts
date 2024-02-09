@@ -196,6 +196,11 @@ declare class MapboxGeocoder implements mapboxgl.IControl {
     constructor(options?: MapboxGeocoder.GeocoderOptions);
     addTo(container: string | HTMLElement | mapboxgl.Map): this;
     onAdd(map: mapboxgl.Map): HTMLElement;
+    /**
+     * Set the accessToken option used for the geocoding request endpoint.
+     * @param {String} accessToken value
+     */
+    setAccessToken(accessToken: string): MapboxGeocoder
     createIcon(name: string, path: any): SVGSVGElement;
     onRemove(): this;
     /**
