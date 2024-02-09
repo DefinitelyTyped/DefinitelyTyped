@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/react-native-dialog-input",
-    "version": "1.0.0.9999",
+    "version": "1.0.8",
     "projects": [
         "https://github.com/joseestrella89/react-native-dialog-input#readme"
     ],
