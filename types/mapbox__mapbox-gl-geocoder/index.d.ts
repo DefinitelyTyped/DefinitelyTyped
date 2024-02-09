@@ -202,9 +202,10 @@ declare class MapboxGeocoder implements mapboxgl.IControl {
      */
     setInput(searchInput: string, showSuggestions?: boolean): this;
     /**
-     * Set proximity The new `options.proximity` value. This is a geographical point given as an object with `latitude` and `longitude` properties.
+     * @param {Object|'ip'} proximity The new `options.proximity` value. This is a geographical point given as an object with `latitude` and `longitude` properties or the string 'ip'.
+     * @param {Boolean} disableTrackProximity If true, sets `trackProximity` to false. True by default to prevent `trackProximity` from unintentionally overriding an explicitly set proximity value.
      */
-    setProximity(proximity: MapboxGeocoder.LngLatLiteral): this;
+    setProximity(proximity: MapboxGeocoder.LngLatLiteral | 'ip', disableTrackProximity?: boolean): this;
     /**
      * Get the geocoder proximity
      */
