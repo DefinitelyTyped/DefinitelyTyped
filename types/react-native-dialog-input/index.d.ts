@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { TextInputProps, StyleProp, ViewStyle } from 'react-native';
 
-interface DialogInputProps {
+export interface DialogInputProps {
     isDialogVisible: boolean;
     title?: string;
     message?: string;
