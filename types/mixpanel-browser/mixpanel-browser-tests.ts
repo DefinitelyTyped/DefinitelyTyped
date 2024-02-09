@@ -26,6 +26,18 @@ mixpanel.init("token", {
         groups: "",
     },
 });
+mixpanel.init("token", {
+    track_pageview: true
+});
+mixpanel.init("token", {
+    track_pageview: 'url-with-path'
+});
+mixpanel.init("token", {
+    track_pageview: 'url-with-path-and-query-string'
+});
+mixpanel.init("token", {
+    track_pageview: 'full-url'
+});
 mixpanel.push(["register", { a: "b" }]);
 mixpanel.disable();
 mixpanel.track("Registered", { Gender: "Male", Age: 21 });
