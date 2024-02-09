@@ -126,6 +126,14 @@ declare namespace MapboxGeocoder {
          */
         enableEventLogging?: boolean | undefined;
         /**
+         * @param [options.enableGeolocation=false] If `true` enable user geolocation feature.
+         */
+        enableGeolocation?: boolean | undefined;
+        /**
+         * @param [options.addressAccuracy="street"] The accuracy for the geolocation feature with which we define the address line to fill. The browser API returns the user's position with accuracy, and sometimes we can get the neighbor's address. To prevent receiving an incorrect address, you can reduce the accuracy of the definition.
+         */
+        addressAccuracy?: 'address' | 'street' | 'place' | 'country' | undefined;
+        /**
          * If `true`, a [Marker](https://docs.mapbox.com/mapbox-gl-js/api/#marker) will be added to the map at the location of the user-selected result using a default set of Marker options.
          * If the value is an object, the marker will be constructed using these options. If `false`, no marker will be added to the map.
          * Requires that `options.mapboxgl` also be set. (optional, default true)
