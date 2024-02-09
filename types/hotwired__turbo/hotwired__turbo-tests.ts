@@ -14,7 +14,7 @@ turboFrame.loading = "lazy";
 // @ts-expect-error
 turboFrame.loading = "slow";
 
-turboFrame.reload();
+turboFrame.reload().catch(console.error);
 
 const turboStream = document.querySelector<StreamElement>("turbo-stream")!;
 

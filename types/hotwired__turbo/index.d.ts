@@ -9,7 +9,7 @@ export class FrameElement extends HTMLElement {
     readonly isActive: boolean;
     readonly isPreview: boolean;
 
-    reload(): void;
+    reload(): Promise<void>;
 }
 
 export class StreamElement extends HTMLElement {
