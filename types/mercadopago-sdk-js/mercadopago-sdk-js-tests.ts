@@ -130,6 +130,7 @@ brickBuilder.isInitialized();
                 streetNumber: "222",
                 zipCode: "1122334455",
                 complement: "apartment 3",
+                additionalInformation: "el timbre no funciona",
             },
         },
     });
