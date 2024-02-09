@@ -15,10 +15,10 @@ geocoder.setProximity({ latitude: 12, longitude: 42 });
 geocoder.setProximity({ latitude: 12, longitude: 42 }, false);
 
 // $ExpectType MapboxGeocoder
-geocoder.setProximity('ip');
+geocoder.setProximity("ip");
 
 // $ExpectType MapboxGeocoder
-geocoder.setProximity('ip', false);
+geocoder.setProximity("ip", false);
 
 // $ExpectType LngLatLiteral
 geocoder.getProximity();
