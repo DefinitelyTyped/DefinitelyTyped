@@ -10,8 +10,6 @@
         "react-native": "*"
     },
     "devDependencies": {
-              "@types/react": "*",
-              "react-native": "*",
         "@types/react-native-dialog-input": "workspace:."
     },
     "owners": [
