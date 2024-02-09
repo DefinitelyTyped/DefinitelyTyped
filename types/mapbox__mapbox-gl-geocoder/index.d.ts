@@ -50,9 +50,9 @@ declare namespace MapboxGeocoder {
          */
         flyTo?: boolean | mapboxgl.FlyToOptions | mapboxgl.FitBoundsOptions | undefined;
         /**
-         * a proximity argument: this is a geographical point given as an object with latitude and longitude properties. Search results closer to this point will be given higher priority.
+         *  * @param {Object|'ip'} [options.proximity] a geographical point given as an object with `latitude` and `longitude` properties, or the string 'ip' to use a user's IP address location. Search results closer to this point will be given higher priority.
          */
-        proximity?: LngLatLiteral | undefined;
+        proximity?: LngLatLiteral | 'ip' | undefined;
         /**
          * If `true`, the geocoder proximity will automatically update based on the map view. (optional, default true)
          */
