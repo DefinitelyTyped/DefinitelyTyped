@@ -1,5 +1,7 @@
 import * as THREE from "three";
 
+// TODO: Document public API
+
 export function unpack1K(color: any, factor: any): number;
 
 export function getMaxColorSamplerUnitsCount(): number;
