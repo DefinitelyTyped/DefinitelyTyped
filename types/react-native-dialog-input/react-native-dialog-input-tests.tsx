@@ -6,7 +6,7 @@ import DialogInput from "react-native-dialog-input";
     title={"Title"}
     message={"Message"}
     hintInput={"Hint"}
-    submitInput={() => {}
+    submitInput={() => {}}
     textInputProps={{autoCapitalize: 'characters'}}
     closeDialog={() => {}>
   </DialogInput>;
