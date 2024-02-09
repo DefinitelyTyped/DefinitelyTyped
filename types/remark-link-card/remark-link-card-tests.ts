@@ -6,7 +6,7 @@ unified().use(rlc); // $ExpectType Processor<undefined, Root, Root, undefined, u
 
 unified().use(rlc, { shortenUrl: true, cache: true }); // $ExpectType Processor<undefined, Root, Root, undefined, undefined>
 
-const options:Options = {
+const options: Options = {
     shortenUrl: false,
     cache: true,
 };
