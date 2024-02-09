@@ -25,4 +25,3 @@ declare namespace postcssEnvFunction {
 declare const postcssEnvFunction: PluginCreator<postcssEnvFunction.Options>;
 
 export = postcssEnvFunction;
-
