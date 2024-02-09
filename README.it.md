@@ -195,10 +195,10 @@ Ad esempio:
 
 ```json
 {
-      "private": true,
+    "private": true,
     "dependencies": {
-          "<nome-libreria>": "^2.6.0"
-      }
+        "<nome-libreria>": "^2.6.0"
+    }
   }
 ```
 
@@ -291,7 +291,7 @@ Riassunto: `esModuleInterop` e `allowSyntheticDefaultImports` *non sono permessi
 >
 > ```tsx
 > // component.d.ts
-> declare class Component {​​​​​}​​​​​
+> declare class Component {​​​​​}​​​​​;
 > // CJS export, modeling `module.exports = Component` in JS
 > export = Component;
 >
@@ -463,13 +463,13 @@ Ecco qui un breve esempio per iniziare:
 1. Aggiungi un file `package.json` alle definizioni dei tuoi package, con il contenuto seguente.
 
    ```json
-      {
-        "private": true,
-        "types": "index",
-        "typesVersions": {
-          "<=3.6": { "*": ["ts3.6/*"] }
-        }
-      }
+   {
+       "private": true,
+       "types": "index",
+       "typesVersions": {
+           "<=3.6": { "*": ["ts3.6/*"] }
+       }
+   }
    ```
 
 2. Crea la sottocartella menzionata dal campo `typesVersions` dentro la tua cartella dei tipi (che nel nostro esempio è `ts3.6/`).
@@ -480,12 +480,12 @@ Ecco qui un breve esempio per iniziare:
 3. Cambia le opzioni `baseUrl` e `typeRoots` in `ts3.6/tsconfig.json` per correggere i path, dovrebbe essere simile a:
 
    ```json
-    {
-        "compilerOptions": {
-            "baseUrl": "../../",
-            "typeRoots": ["../../"]
-        }
-    }
+   {
+       "compilerOptions": {
+           "baseUrl": "../../",
+           "typeRoots": ["../../"]
+       }
+   }
     ```
 
 4. Nel root del package, aggiungi le funzionalità di Typescript 3.7 che vuoi usare.
@@ -562,7 +562,6 @@ Nel momento in cui questo README è stato scritto, il [`tsconfig.json` della his
     "typeRoots": ["../../"],
     "paths": {
         "history": [ "history/v2" ]
-    }
     },
     "files": [
         "index.d.ts",
