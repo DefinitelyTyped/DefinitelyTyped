@@ -1,8 +1,7 @@
 import React from 'react';
 import { TextInputProps, StyleProp, ViewStyle } from 'react-native';
 
-declare module 'react-native-dialog-input' {
-  interface DialogInputProps {
+interface DialogInputProps {
     isDialogVisible: boolean;
     title?: string;
     message?: string;
@@ -17,9 +16,6 @@ declare module 'react-native-dialog-input' {
     dialogStyle?: StyleProp<ViewStyle>;
     closeDialog: () => void;
     submitInput: (input: string) => void;
-  }
-
-  class DialogInput extends React.PureComponent<DialogInputProps> {}
-
-  export default DialogInput;
 }
+
+export default class DialogInput extends React.PureComponent<DialogInputProps> {}
