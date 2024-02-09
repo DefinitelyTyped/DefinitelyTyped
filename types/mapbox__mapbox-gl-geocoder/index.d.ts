@@ -75,6 +75,10 @@ declare namespace MapboxGeocoder {
          */
         bbox?: Bbox | undefined;
         /**
+         * If `true`, search input coordinates for reverse geocoding is expected to be in the form `lon, lat` instead of the default `lat, lon`. (optional, default `false`)
+         */
+        flipCoordinates?: boolean | undefined;
+        /**
          * a comma seperated list of types that filter results to match those specified. See https://www.mapbox.com/developers/api/geocoding/#filter-type for available types.
          */
         types?: string | undefined;
