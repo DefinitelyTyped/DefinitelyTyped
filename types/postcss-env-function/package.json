@@ -11,6 +11,12 @@
     "devDependencies": {
         "@types/postcss-env-function": "workspace:."
     },
+    "exports": {
+        "types": {
+            "import": "./index.d.mts",
+            "default": "./index.d.ts"
+        }
+    },
     "owners": [
         {
             "name": "Adam Thompson-Sharpe",
