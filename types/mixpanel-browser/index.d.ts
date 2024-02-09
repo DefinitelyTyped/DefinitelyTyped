@@ -62,13 +62,14 @@ export interface Config {
     cookie_name: string;
     loaded: (mixpanel: Mixpanel) => void;
     store_google: boolean;
+    stop_utm_persistence: boolean;
     save_referrer: boolean;
     test: boolean;
     verbose: boolean;
     img: boolean;
     debug: boolean;
     track_links_timeout: number;
-    track_pageview: boolean;
+    track_pageview: boolean | 'url-with-path' | 'url-with-path-and-query-string' | 'full-url';
     skip_first_touch_marketing: boolean;
     cookie_expiration: number;
     upgrade: boolean;
