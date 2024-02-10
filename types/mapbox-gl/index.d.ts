@@ -356,11 +356,19 @@ declare namespace mapboxgl {
 
         setPaintProperty(layer: string, name: string, value: any, options?: FilterOptions): this;
 
+        setPaintProperty(layer: string, name: AnyPaintName, value: any, options?: FilterOptions): this;
+
         getPaintProperty(layer: string, name: string): any;
+
+        getPaintProperty(layer: string, name: AnyPaintName): any;
 
         setLayoutProperty(layer: string, name: string, value: any, options?: FilterOptions): this;
 
+        setLayoutProperty(layer: string, name: AnyLayoutName, value: any, options?: mapboxgl.FilterOptions): this;
+
         getLayoutProperty(layer: string, name: string): any;
+
+        getLayoutProperty(layer: string, name: AnyLayoutName): any;
 
         setLight(light: mapboxgl.Light, options?: FilterOptions): this;
 
@@ -2695,4 +2703,29 @@ declare namespace mapboxgl {
         center?: [number, number];
         parallels?: [number, number];
     }
+
+    export type AnyLayoutName =
+    | keyof BackgroundLayout
+    | keyof FillLayout
+    | keyof FillExtrusionLayout
+    | keyof LineLayout
+    | keyof SymbolLayout
+    | keyof RasterLayout
+    | keyof CircleLayout
+    | keyof HeatmapLayout
+    | keyof HillshadeLayout
+    | keyof SkyLayout;
+
+  export type AnyPaintName =
+    | keyof BackgroundPaint
+    | keyof FillPaint
+    | keyof FillExtrusionPaint
+    | keyof LinePaint
+    | keyof SymbolPaint
+    | keyof RasterPaint
+    | keyof CirclePaint
+    | keyof HeatmapPaint
+    | keyof HillshadePaint
+    | keyof SkyPaint;
+
 }
