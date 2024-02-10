@@ -4,7 +4,6 @@ import type { Selector, SelectorArray } from "reselect";
  * Represents an object where each property is a selector function.
  *
  * @template StateType - The type of state that all the selectors operate on.
- *
  */
 export type SelectorsObject<StateType = any> = Record<string, Selector<StateType>>;
 
