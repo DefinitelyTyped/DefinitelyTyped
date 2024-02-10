@@ -1,6 +1,6 @@
 import pragma = require("pragma");
 
-// $ExpectType object
+// $ExpectType Record<string, any>
 pragma(`
 function foo() {}
  
@@ -16,7 +16,7 @@ function bar() {}
 */
 `);
 
-// $ExpectType object
+// $ExpectType Record<string, any>
 pragma(
     `
 function foo() {}
@@ -35,7 +35,7 @@ function bar() {}
     { parseContent: (source) => source + "" },
 );
 
-// $ExpectType object
+// $ExpectType Record<string, any>
 pragma(
     `
 function foo() {}
