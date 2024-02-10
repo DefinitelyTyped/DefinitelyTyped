@@ -1,4 +1,4 @@
-import pragma = require('pragma');
+import pragma =require('pragma');
 
 // $ExpectType object
 pragma(`
