@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { TextInputProps, StyleProp, ViewStyle } from 'react-native';
+import * as React from "react";
+import { StyleProp, TextInputProps, ViewStyle } from "react-native";
 
 export interface DialogInputProps {
     isDialogVisible: boolean;
@@ -10,7 +10,7 @@ export interface DialogInputProps {
     submitText?: string;
     cancelText?: string;
     placeholderTextColor?: string;
-    animationType?: 'none' | 'slide' | 'fade';
+    animationType?: "none" | "slide" | "fade";
     textInputProps?: TextInputProps;
     modalStyle?: StyleProp<ViewStyle>;
     dialogStyle?: StyleProp<ViewStyle>;
