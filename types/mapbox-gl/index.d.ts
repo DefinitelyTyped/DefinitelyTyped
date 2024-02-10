@@ -2705,27 +2705,26 @@ declare namespace mapboxgl {
     }
 
     export type AnyLayoutName =
-    | keyof BackgroundLayout
-    | keyof FillLayout
-    | keyof FillExtrusionLayout
-    | keyof LineLayout
-    | keyof SymbolLayout
-    | keyof RasterLayout
-    | keyof CircleLayout
-    | keyof HeatmapLayout
-    | keyof HillshadeLayout
-    | keyof SkyLayout;
+        | keyof BackgroundLayout
+        | keyof FillLayout
+        | keyof FillExtrusionLayout
+        | keyof LineLayout
+        | keyof SymbolLayout
+        | keyof RasterLayout
+        | keyof CircleLayout
+        | keyof HeatmapLayout
+        | keyof HillshadeLayout
+        | keyof SkyLayout;
 
-  export type AnyPaintName =
-    | keyof BackgroundPaint
-    | keyof FillPaint
-    | keyof FillExtrusionPaint
-    | keyof LinePaint
-    | keyof SymbolPaint
-    | keyof RasterPaint
-    | keyof CirclePaint
-    | keyof HeatmapPaint
-    | keyof HillshadePaint
-    | keyof SkyPaint;
-
+    export type AnyPaintName =
+        | keyof BackgroundPaint
+        | keyof FillPaint
+        | keyof FillExtrusionPaint
+        | keyof LinePaint
+        | keyof SymbolPaint
+        | keyof RasterPaint
+        | keyof CirclePaint
+        | keyof HeatmapPaint
+        | keyof HillshadePaint
+        | keyof SkyPaint;
 }
