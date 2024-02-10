@@ -1,4 +1,4 @@
-import pragma =require('pragma');
+import pragma = require("pragma");
 
 // $ExpectType object
 pragma(`
@@ -17,7 +17,8 @@ function bar() {}
 `);
 
 // $ExpectType object
-pragma(`
+pragma(
+    `
 function foo() {}
  
 /* @babel {
@@ -31,11 +32,12 @@ function bar() {}
 }
 */
 `,
-  { parseContent: (source) => source + "" }
+    { parseContent: (source) => source + "" },
 );
 
 // $ExpectType object
-pragma(`
+pragma(
+    `
 function foo() {}
  
 /* @babel {
@@ -48,14 +50,15 @@ function bar() {}
   port: 3000
 }
 */
-`, {});
+`,
+    {},
+);
 
 // @ts-expect-error
 pragma();
 
 // @ts-expect-error
 pragma(0);
-
 
 // @ts-expect-error
 pragma();

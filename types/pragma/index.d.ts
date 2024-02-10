@@ -1,7 +1,6 @@
-
 /**
  * Parse pragma and its content from JavaScript comments
- * 
+ *
  * @param {string} input
  * @param {{parseContent?: (string) => any}} option
  * @return {object}
