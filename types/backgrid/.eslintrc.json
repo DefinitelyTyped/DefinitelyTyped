@@ -1,6 +1,5 @@
 {
     "rules": {
-        "@definitelytyped/export-just-namespace": "off",
-        "@definitelytyped/npm-naming": "off"
+        "@definitelytyped/export-just-namespace": "off"
     }
 }

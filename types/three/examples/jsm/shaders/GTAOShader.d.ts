@@ -1,4 +1,4 @@
-import { DataTexture, IUniform, Matrix4, Vector2, Vector3 } from '../../../src/Three.js';
+import { DataTexture, IUniform, Matrix4, Vector2, Vector3 } from "../../../src/Three.js";
 
 export const GTAOShader: {
     name: string;

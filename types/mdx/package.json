@@ -2,7 +2,7 @@
     "private": true,
     "name": "@types/mdx",
     "version": "2.0.9999",
-    "nonNpm": true,
+    "nonNpm": "conflict",
     "nonNpmDescription": "mdx",
     "projects": [
         "https://github.com/mdx-js/mdx"

@@ -55,6 +55,18 @@ declare namespace newrelic {
     function noticeError(error: Error | string, customAttributes?: Record<string, SimpleType>): void;
 
     /**
+     * Adds a user-defined application version string to subsequent events on the page.
+     *
+     * @param value Upon executing this function with a valid value, the browser agent appends an `application.version`
+     * attribute to all subsequent events until the attribute is manually unset or the page is unloaded. If the
+     * function is called more than once, only the most recent value provided will be sent on subsequent events.
+     * If this function is called with a value of `null`, any existing application version will cease to send on
+     * subsequent events.
+     * @see https://docs.newrelic.com/docs/browser/new-relic-browser/browser-apis/setApplicationVersion/
+     */
+    function setApplicationVersion(value: string | null): void;
+
+    /**
      * Adds a user-defined attribute name and value to subsequent events on the page.
      *
      * @param name Name of the attribute. Appears as column in the PageView event.

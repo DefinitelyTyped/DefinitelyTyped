@@ -6,7 +6,7 @@
             "es6",
             "dom"
         ],
-        "module": "commonjs",
+        "module": "node16",
         "noEmit": true,
         "types": [],
         "forceConsistentCasingInFileNames": true,

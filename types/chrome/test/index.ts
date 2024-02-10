@@ -540,6 +540,7 @@ function testGetManifest() {
 
         manifest.host_permissions; // $ExpectType string[] | undefined
         manifest.optional_permissions; // $ExpectType ManifestPermissions[] | undefined
+        manifest.optional_host_permissions; // $ExpectType string[] | undefined
         manifest.permissions; // $ExpectType ManifestPermissions[] | undefined
 
         manifest.web_accessible_resources = [{ matches: ["https://*/*"], resources: ["resource.js"] }];

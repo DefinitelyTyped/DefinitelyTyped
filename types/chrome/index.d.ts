@@ -6345,7 +6345,7 @@ declare namespace chrome.permissions {
         permissions?: string[] | undefined;
         /**
          * Optional.
-         * List of origin permissions. Anything listed here must be a subset of a host that appears in the optional_permissions list in the manifest. For example, if http://*.example.com/ or http://* appears in optional_permissions, you can request an origin of http://help.example.com/. Any path is ignored.
+         * List of origin permissions. Anything listed here must be a subset of a host that appears in the optional host permission list in the manifest (optional_permissions in MV2, optional_host_permissions in MV3). For example, if http://*.example.com/ or http://* appears in the optional permissions, you can request an origin of http://help.example.com/. Any path is ignored.
          */
         origins?: string[] | undefined;
     }
@@ -6378,12 +6378,12 @@ declare namespace chrome.permissions {
      */
     export function getAll(callback: (permissions: Permissions) => void): void;
     /**
-     * Requests access to the specified permissions. These permissions must be defined in the optional_permissions field of the manifest. If there are any problems requesting the permissions, runtime.lastError will be set.
+     * Requests access to the specified permissions. These permissions must be defined in the optional_permissions or optional_host_permissions (MV3 only) fields of the manifest. If there are any problems requesting the permissions, runtime.lastError will be set.
      * @return A Promise that resolves with boolean: True if the user granted the specified permissions.
      */
     export function request(permissions: Permissions): Promise<boolean>;
     /**
-     * Requests access to the specified permissions. These permissions must be defined in the optional_permissions field of the manifest. If there are any problems requesting the permissions, runtime.lastError will be set.
+     * Requests access to the specified permissions. These permissions must be defined in the optional_permissions or optional_host_permissions (MV3 only) fields of the manifest. If there are any problems requesting the permissions, runtime.lastError will be set.
      * Parameter granted: True if the user granted the specified permissions.
      */
     export function request(permissions: Permissions, callback?: (granted: boolean) => void): void;
@@ -7604,6 +7604,7 @@ declare namespace chrome.runtime {
         };
         host_permissions?: string[] | undefined;
         optional_permissions?: ManifestPermissions[] | undefined;
+        optional_host_permissions?: string[] | undefined;
         permissions?: ManifestPermissions[] | undefined;
         web_accessible_resources?: Array<{ resources: string[]; matches: string[] }> | undefined;
     }

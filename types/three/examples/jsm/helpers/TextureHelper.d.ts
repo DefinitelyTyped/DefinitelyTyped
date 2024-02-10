@@ -1,8 +1,8 @@
-import { Mesh, Texture } from '../../../src/Three.js';
+import { Mesh, Texture } from "../../../src/Three.js";
 
 export class TextureHelper extends Mesh {
     texture: Texture;
-    type: 'TextureHelper';
+    type: "TextureHelper";
 
     constructor(texture: Texture, width?: number, height?: number, depth?: number);
 

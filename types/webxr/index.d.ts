@@ -653,7 +653,21 @@ interface XRPlane {
     orientation: XRPlaneOrientation;
     planeSpace: XRSpace;
     polygon: DOMPointReadOnly[];
-    lastChangedTime: number;
+    lastChangedTime: DOMHighResTimeStamp;
+}
+
+interface XRFrame {
+    /**
+     * XRFrame is extended to contain detectedPlanes attribute which contains
+     * all planes that are still tracked in the frame.
+     *
+     * The set is initially empty and will be populated by the update planes
+     * algorithm. If this attribute is accessed when the frame is not active,
+     * the user agent MUST throw InvalidStateError.
+     *
+     * @see https://immersive-web.github.io/real-world-geometry/plane-detection.html#plane-set
+     */
+    readonly detectedPlanes?: XRPlaneSet;
 }
 
 declare abstract class XRPlane implements XRPlane {}
@@ -664,27 +678,39 @@ type XRMeshSet = Set<XRMesh>;
 interface XRMesh {
     meshSpace: XRSpace;
     vertices: Float32Array;
-    indices: Float32Array;
-    lastChangedTime: number;
+    indices: Uint32Array;
+    lastChangedTime: DOMHighResTimeStamp;
     semanticLabel?: string;
+}
+
+interface XRFrame {
+    /**
+     * XRFrame is extended to contain detectedMeshes attribute
+     * which contains all meshes that are still tracked in the frame.
+     *
+     * The set is initially empty and will be populated by the update meshes algorithm.
+     * If this attribute is accessed when the frame is not active, the user agent
+     * MUST throw InvalidStateError.
+     *
+     * @see https://immersive-web.github.io/real-world-meshing/#mesh-set
+     */
+    readonly detectedMeshes?: XRMeshSet;
 }
 
 declare abstract class XRMesh implements XRMesh {}
 
 interface XRSession {
-    // Legacy
-    updateWorldTrackingState?: (options: {
-        planeDetectionState?: { enabled: boolean } | undefined;
-        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    }) => void | undefined;
-}
-
-interface XRFrame {
-    worldInformation?:
-        | {
-            detectedPlanes?: XRPlaneSet | undefined;
-        }
-        | undefined;
+    /**
+     * XRSession is extended to contain the initiateRoomCapture method which,
+     * if supported, will ask the XR Compositor to capture the current room layout.
+     * It is up to the XRCompositor if this will replace or augment the set of tracked planes.
+     * The user agent MAY also ignore this call, for instance if it doesn’t support a manual room
+     * capture more or if it determines that the room is already set up.
+     * The initiateRoomCapture method MUST only be able to be called once per XRSession.
+     *
+     * @see https://immersive-web.github.io/real-world-geometry/plane-detection.html#plane-set
+     */
+    initiateRoomCapture?(): Promise<undefined>;
 }
 
 /**

@@ -88,7 +88,7 @@ const FixedSizeListTestOptionalProps: React.FC<{ testBool: boolean }> = ({
         style={{ color: "cyan" }}
         overscanCount={0}
         outerRef={anyRef}
-        ref="ref"
+        ref={React.createRef<FixedSizeList>()}
         onScroll={({
             scrollDirection,
             scrollOffset,
@@ -133,7 +133,7 @@ const VariableSizeListTestOptionalProps: React.FC<{ testBool: boolean }> = ({
         style={{ color: "cyan" }}
         overscanCount={0}
         outerRef={anyRef}
-        ref="ref"
+        ref={React.createRef<VariableSizeList>()}
         onScroll={({
             scrollDirection,
             scrollOffset,
@@ -189,7 +189,7 @@ const VariableSizeGridTestOptionalProps: React.FC<{ testBool: boolean }> = ({
         outerElementType="div"
         overscanColumnCount={5}
         overscanRowCount={5}
-        ref="ref"
+        ref={React.createRef<VariableSizeGrid>()}
         style={{ color: "red" }}
         useIsScrolling={true}
     >
@@ -375,7 +375,7 @@ const FixedSizeListTestOptionalPropsV2: React.FC<{ testBool: boolean }> = ({
         style={{ color: "cyan" }}
         overscanCount={0}
         outerRef={anyRef}
-        ref="ref"
+        ref={React.createRef<FixedSizeList>()}
         onScroll={({
             scrollDirection,
             scrollOffset,
@@ -420,7 +420,7 @@ const VariableSizeListTestOptionalPropsV2: React.FC<{ testBool: boolean }> = ({
         style={{ color: "cyan" }}
         overscanCount={0}
         outerRef={anyRef}
-        ref="ref"
+        ref={React.createRef<VariableSizeList>()}
         onScroll={({
             scrollDirection,
             scrollOffset,
@@ -476,7 +476,7 @@ const VariableSizeGridTestOptionalPropsV2: React.FC<{ testBool: boolean }> = ({
         outerElementType="div"
         overscanColumnCount={5}
         overscanRowCount={5}
-        ref="ref"
+        ref={React.createRef<VariableSizeGrid>()}
         style={{ color: "red" }}
         useIsScrolling={true}
     >

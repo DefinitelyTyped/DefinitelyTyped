@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/jquery.cycle",
     "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.cycle",
     "projects": [
         "http://jquery.malsup.com/cycle/"
     ],

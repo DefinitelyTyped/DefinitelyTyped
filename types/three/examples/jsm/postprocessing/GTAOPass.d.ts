@@ -11,9 +11,9 @@ import {
     Texture,
     WebGLRenderer,
     WebGLRenderTarget,
-} from '../../../src/Three.js';
+} from "../../../src/Three.js";
 
-import { FullScreenQuad, Pass } from './Pass.js';
+import { FullScreenQuad, Pass } from "./Pass.js";
 
 export class GTAOPass extends Pass {
     width: number;
@@ -60,6 +60,8 @@ export class GTAOPass extends Pass {
         height?: number | undefined,
         parameters?: { depthTexture?: DepthTexture | undefined; normalTexture?: Texture | undefined } | undefined,
     );
+
+    get gtaoMap(): Texture;
 
     setGBuffer(depthTexture?: DepthTexture | undefined, normalTexture?: Texture | undefined): void;
 
@@ -108,6 +110,7 @@ export class GTAOPass extends Pass {
     generateNoise(size?: number): DataTexture;
 
     static OUTPUT: {
+        Off: -1;
         Default: 0;
         Diffuse: 1;
         Depth: 2;

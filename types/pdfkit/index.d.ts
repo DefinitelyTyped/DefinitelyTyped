@@ -383,7 +383,7 @@ declare namespace PDFKit.Mixins {
         cover?: [number, number] | undefined;
         align?: "center" | "right" | undefined;
         valign?: "center" | "bottom" | undefined;
-        link?: AnnotationOption | undefined;
+        link?: string | AnnotationOption | undefined;
         goTo?: AnnotationOption | undefined;
         destination?: string | undefined;
     }

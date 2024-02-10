@@ -15,8 +15,5 @@
     "files": [
         "connect-mongodb-session-tests.ts",
         "index.d.ts"
-    ],
-    "exclude": [
-        "node_modules"
     ]
 }

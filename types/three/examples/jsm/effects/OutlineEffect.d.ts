@@ -6,7 +6,7 @@ import {
     WebGLRenderer,
     WebGLRenderTarget,
     WebGLShadowMap,
-} from '../../../src/Three.js';
+} from "../../../src/Three.js";
 
 export interface OutlineEffectParameters {
     defaultThickness?: number | undefined;

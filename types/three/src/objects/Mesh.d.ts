@@ -1,7 +1,7 @@
-import { Material } from '../materials/Material.js';
-import { Object3D, Object3DEventMap } from '../core/Object3D.js';
-import { BufferGeometry } from '../core/BufferGeometry.js';
-import { Vector3 } from '../math/Vector3.js';
+import { BufferGeometry } from "../core/BufferGeometry.js";
+import { Object3D, Object3DEventMap } from "../core/Object3D.js";
+import { Material } from "../materials/Material.js";
+import { Vector3 } from "../math/Vector3.js";
 
 /**
  * Class representing triangular {@link https://en.wikipedia.org/wiki/Polygon_mesh | polygon mesh} based objects.
@@ -42,7 +42,7 @@ export class Mesh<
      * @override
      * @defaultValue `Mesh`
      */
-    override readonly type: string | 'Mesh';
+    override readonly type: string | "Mesh";
 
     /**
      * An instance of {@link THREE.BufferGeometry | BufferGeometry} (or derived classes), defining the object's structure.
@@ -65,7 +65,6 @@ export class Mesh<
     /**
      * A dictionary of morphTargets based on the `morphTarget.name` property.
      * @defaultValue `undefined`, _but rebuilt by {@link updateMorphTargets | .updateMorphTargets()}._
-     *
      */
     morphTargetDictionary?: { [key: string]: number } | undefined;
 

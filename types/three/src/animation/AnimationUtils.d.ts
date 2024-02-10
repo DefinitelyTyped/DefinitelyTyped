@@ -1,4 +1,4 @@
-import { AnimationClip } from './AnimationClip.js';
+import { AnimationClip } from "./AnimationClip.js";
 
 export function convertArray(array: any, type: any, forceClone: boolean): any;
 export function isTypedArray(object: any): boolean;

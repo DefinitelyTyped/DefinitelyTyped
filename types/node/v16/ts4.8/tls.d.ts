@@ -11,6 +11,7 @@
 declare module "tls" {
     import { X509Certificate } from "node:crypto";
     import * as net from "node:net";
+    import * as stream from "stream";
     const CLIENT_RENEG_LIMIT: number;
     const CLIENT_RENEG_WINDOW: number;
     interface Certificate {
@@ -140,7 +141,7 @@ declare module "tls" {
         /**
          * Construct a new tls.TLSSocket object from an existing TCP socket.
          */
-        constructor(socket: net.Socket, options?: TLSSocketOptions);
+        constructor(socket: net.Socket | stream.Duplex, options?: TLSSocketOptions);
         /**
          * Returns `true` if the peer certificate was signed by one of the CAs specified
          * when creating the `tls.TLSSocket` instance, otherwise `false`.
