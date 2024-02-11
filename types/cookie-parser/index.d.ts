@@ -13,7 +13,7 @@ declare global {
             /** Parsed cookies that have not been signed */
             cookies: Record<string, any>;
             /** Parsed cookies that have been signed */
-            signedCookie: Record<string, any>;
+            signedCookies: Record<string, any>;
         }
     }
 }
