@@ -5,8 +5,10 @@
     "projects": [
         "https://github.com/elangobharathi/react-leaflet-fullscreen-plugin"
     ],
+    "dependencies": {
+        "@types/react": "*"
+    },
     "devDependencies": {
-        "@types/react": "*",
         "@types/react-leaflet-fullscreen-plugin": "workspace:."
     },
     "owners": [

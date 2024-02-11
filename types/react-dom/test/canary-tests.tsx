@@ -128,7 +128,44 @@ function formTest() {
             return state + 1;
         }
 
-        const [state, dispatch] = useFormState(action, 1);
+        const [
+            // $ExpectType number
+            state,
+            dispatch,
+        ] = useFormState(action, 1);
+
+        function actionExpectingPromiseState(state: Promise<number>) {
+            return state.then((s) => s + 1);
+        }
+
+        useFormState(
+            // @ts-expect-error
+            actionExpectingPromiseState,
+            Promise.resolve(1),
+        );
+        useFormState(
+            action,
+            // @ts-expect-error
+            Promise.resolve(1),
+        );
+        // $ExpectType number
+        useFormState<Promise<number>>(action, 1)[0];
+
+        useFormState(
+            async (
+                prevState: // only needed in TypeScript 4.9
+                    // 5.0 infers `number` whereas 4.9 infers `0`
+                    number,
+            ) => prevState + 1,
+            0,
+        )[0];
+        // $ExpectType number
+        useFormState(
+            async (prevState) => prevState + 1,
+            // @ts-expect-error
+            Promise.resolve(0),
+        )[0];
+
         return (
             <button
                 onClick={() => {
@@ -145,7 +182,11 @@ function formTest() {
             return state + 1;
         }
 
-        const [state, dispatch] = useFormState(action, 1, "/permalink");
+        const [
+            // $ExpectType number
+            state,
+            dispatch,
+        ] = useFormState(action, 1, "/permalink");
         return (
             <form action={dispatch}>
                 <span>Count: {state}</span>
@@ -154,12 +195,37 @@ function formTest() {
         );
     }
 
+    function Page3() {
+        function actionSync(state: number, type: "increment" | "decrement") {
+            return state + (type === "increment" ? 1 : -1);
+        }
+
+        const [
+            // $ExpectType number
+            state,
+            dispatch,
+        ] = useFormState(actionSync, 1, "/permalink");
+        return (
+            <button
+                onClick={() => {
+                    dispatch("decrement");
+                }}
+            >
+                count: {state}
+            </button>
+        );
+    }
+
     function Page4() {
         async function action(state: number, type: "increment" | "decrement") {
             return state + (type === "increment" ? 1 : -1);
         }
 
-        const [state, dispatch] = useFormState(action, 1, "/permalink");
+        const [
+            // $ExpectType number
+            state,
+            dispatch,
+        ] = useFormState(action, 1, "/permalink");
         return (
             <button
                 onClick={() => {

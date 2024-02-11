@@ -138,7 +138,7 @@ declare namespace sprite {
         /**
          * List of transformations / optimizations
          */
-        transform?: (string | CustomConfigurationTransform | CustomCallbackTransform)[] | undefined;
+        transform?: Array<string | CustomConfigurationTransform | CustomCallbackTransform> | undefined;
         /**
          * Path to YAML file with meta / accessibility data
          */
@@ -158,7 +158,7 @@ declare namespace sprite {
      */
     interface CustomConfigurationTransform {
         [transformationName: string]: {
-            plugins?: { [transformationName: string]: boolean }[] | undefined;
+            plugins?: Array<{ [transformationName: string]: boolean }> | undefined;
         };
     }
 

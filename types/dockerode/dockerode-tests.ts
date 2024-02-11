@@ -111,6 +111,10 @@ container.inspect((err, data) => {
     // NOOP
 });
 
+container.start({ abortSignal: new AbortController().signal }, (err, data) => {
+    // NOOP
+});
+
 container.start((err, data) => {
     // NOOP
 });
@@ -190,10 +194,9 @@ container.stats({ stream: true });
 // $ExpectType Promise<ContainerStats>
 container.stats({ stream: false });
 
-const abortController = new AbortController();
 container.wait({
     condition: "next-exit",
-    abortSignal: abortController.signal,
+    abortSignal: new AbortController().signal,
 });
 
 // $ExpectType Promise<ReadWriteStream>

@@ -9,8 +9,7 @@
         "@types/react": "*"
     },
     "devDependencies": {
-        "@types/react-beautiful-dnd": "workspace:.",
-        "@types/react-dom": "*"
+        "@types/react-beautiful-dnd": "workspace:."
     },
     "owners": [
         {

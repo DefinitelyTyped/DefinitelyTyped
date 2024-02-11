@@ -69,7 +69,7 @@ export class Frame {
     static marshall(command: string, headers?: {}, body?: string): any;
 }
 
-export function client(url: string, protocols?: string | Array<string>): Client;
+export function client(url: string, protocols?: string | string[]): Client;
 export function over(ws: WebSocket): Client;
 export function overTCP(host: string, port: number): Client;
 export function overWS(url: string): Client;

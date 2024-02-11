@@ -366,7 +366,7 @@ declare namespace SinonChrome.plugins {
         constructor(translations?: Translations);
     }
     export class CookiePlugin {
-        constructor(state?: Array<chrome.cookies.Cookie>);
+        constructor(state?: chrome.cookies.Cookie[]);
     }
 }
 

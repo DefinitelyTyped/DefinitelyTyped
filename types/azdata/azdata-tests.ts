@@ -1,6 +1,10 @@
 import * as azdata from "azdata";
 import * as vscode from "vscode";
 
+class StubDisposable {
+    public dispose(): void {}
+}
+
 azdata.dataprotocol.registerConnectionProvider({
     providerId: "MyProvider",
     connect(connectionUri: string, connectionInfo: azdata.ConnectionInfo): Thenable<boolean> {
@@ -27,14 +31,23 @@ azdata.dataprotocol.registerConnectionProvider({
     buildConnectionInfo(connectionString: string): Thenable<azdata.ConnectionInfo> {
         return Promise.resolve({ options: {} });
     },
-    registerOnConnectionComplete(handler: (connSummary: azdata.ConnectionInfoSummary) => any): void {},
-    registerOnIntelliSenseCacheComplete(handler: (connectionUri: string) => any): void {},
-    registerOnConnectionChanged(handler: (changedConnInfo: azdata.ChangedConnectionInfo) => any): void {},
+    registerOnConnectionComplete(handler: (connSummary: azdata.ConnectionInfoSummary) => any): vscode.Disposable {
+        return new StubDisposable();
+    },
+    registerOnIntelliSenseCacheComplete(handler: (connectionUri: string) => any): vscode.Disposable {
+        return new StubDisposable();
+    },
+    registerOnConnectionChanged(handler: (changedConnInfo: azdata.ChangedConnectionInfo) => any): vscode.Disposable {
+        return new StubDisposable();
+    },
 });
 
-class StubDisposable {
-    public dispose(): void {}
-}
+const connectionProvider = azdata.dataprotocol.getProvider<azdata.ConnectionProvider>(
+    "MyProvider",
+    azdata.DataProviderType.ConnectionProvider,
+);
+const onConnectionChangedDisposable = connectionProvider.registerOnConnectionChanged(params => {});
+onConnectionChangedDisposable.dispose();
 
 const testComponentBuilder: azdata.ComponentBuilder<azdata.InputBoxComponent, azdata.InputBoxProperties> = {
     component: () => <any> {},

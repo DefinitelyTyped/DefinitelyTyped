@@ -39,7 +39,7 @@ function simplified_stream_ctor_test() {
         destroy(error, cb) {
             // $ExpectType Error | null
             error;
-            // $ExpectType (error: Error | null) => void
+            // $ExpectType (error?: Error | null | undefined) => void
             cb;
         },
         signal: new AbortSignal(),
@@ -74,7 +74,7 @@ function simplified_stream_ctor_test() {
             this;
             // $ExpectType Error | null
             error;
-            // $ExpectType (error: Error | null) => void
+            // $ExpectType (error?: Error | null | undefined) => void
             cb;
         },
         final(cb) {
@@ -122,7 +122,7 @@ function simplified_stream_ctor_test() {
             this;
             // $ExpectType Error | null
             error;
-            // $ExpectType (error: Error | null) => void
+            // $ExpectType (error?: Error | null | undefined) => void
             cb;
         },
         final(cb) {
@@ -172,7 +172,7 @@ function simplified_stream_ctor_test() {
             this;
             // $ExpectType Error | null
             error;
-            // $ExpectType (error: Error | null) => void
+            // $ExpectType (error?: Error | null | undefined) => void
             cb;
         },
         final(cb) {
@@ -461,6 +461,25 @@ async function streamPipelineAsyncPromiseAbortTransform() {
         // $ExpectType void
         r;
     });
+}
+
+async function streamPipelineAsyncPromiseOptions() {
+    const { signal } = new AbortController();
+
+    // Empty options
+    pipelinePromise(process.stdin, process.stdout, {});
+
+    // options with signal property
+    pipelinePromise(process.stdin, process.stdout, { signal });
+
+    // options with end property
+    pipelinePromise(process.stdin, process.stdout, { end: false });
+
+    // options with both properties
+    pipelinePromise(process.stdin, process.stdout, { signal, end: false });
+
+    // options with undefined properties
+    pipelinePromise(process.stdin, process.stdout, { signal: undefined, end: undefined });
 }
 
 async function testConsumers() {

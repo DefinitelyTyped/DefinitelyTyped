@@ -153,14 +153,45 @@ MyTelegramBot.sendVoice(1234, "voice/path", { filename: "filename", contentType:
 MyTelegramBot.sendAnimation(1234, "animation/path", { caption: "Foo", duration: 100, width: 200, height: 300 });
 MyTelegramBot.sendChatAction(1234, "typing");
 MyTelegramBot.banChatMember(1234, 5678);
+MyTelegramBot.banChatMember(1234, 5678, {
+    until_date: Date.now() + 60000,
+    revoke_messages: true,
+});
 MyTelegramBot.unbanChatMember(1234, 5678);
 MyTelegramBot.restrictChatMember(1234, 5678, {
-    permissions: { can_add_web_page_previews: true, can_send_polls: false },
+    until_date: 12345,
+    use_independent_chat_permissions: true,
+    can_invite_users: true,
+    can_add_web_page_previews: true,
+    can_send_polls: false,
+});
+MyTelegramBot.restrictChatMember(1234, 5678, {
+    until_date: 12345,
+    use_independent_chat_permissions: true,
+    permissions: "asfasdfsdfdasf",
+});
+MyTelegramBot.restrictChatMember(1234, 5678, {
+    until_date: 12345,
+    use_independent_chat_permissions: true,
+
+    permissions: {
+        can_add_web_page_previews: true,
+    },
 });
 MyTelegramBot.promoteChatMember(1234, 5678, { can_change_info: true });
 MyTelegramBot.exportChatInviteLink(1234);
-MyTelegramBot.createChatInviteLink(1234, "Foo", 1234, 1234, true);
-MyTelegramBot.editChatInviteLink(1234, "", "", 1234, 1234, true);
+MyTelegramBot.createChatInviteLink(1234, {
+    name: "Foo",
+    expire_date: 1234,
+    member_limit: 1234,
+    creates_join_request: true,
+});
+MyTelegramBot.editChatInviteLink(1234, "", {
+    name: "Foo",
+    expire_date: 1234,
+    member_limit: 1234,
+    creates_join_request: true,
+});
 MyTelegramBot.revokeChatInviteLink(1234, "");
 MyTelegramBot.approveChatJoinRequest(1234, 5678);
 MyTelegramBot.approveChatJoinRequest(1234, 5678, {});
@@ -271,6 +302,7 @@ MyTelegramBot.answerPreCheckoutQuery("preCheckoutQueryId", true, { error_message
 MyTelegramBot.addListener("message", (message: TelegramBot.Message, { type }) => {});
 MyTelegramBot.addListener("callback_query", (query: TelegramBot.CallbackQuery) => {});
 MyTelegramBot.addListener("inline_query", (query: TelegramBot.InlineQuery) => {});
+MyTelegramBot.addListener("poll", (poll: TelegramBot.Poll) => {});
 MyTelegramBot.addListener("poll_answer", (answer: TelegramBot.PollAnswer) => {});
 MyTelegramBot.addListener("chat_member", (member: TelegramBot.ChatMemberUpdated) => {});
 MyTelegramBot.addListener("my_chat_member", (member: TelegramBot.ChatMemberUpdated) => {});
@@ -279,9 +311,11 @@ MyTelegramBot.addListener("channel_post", (message: TelegramBot.Message) => {});
 MyTelegramBot.addListener("shipping_query", (query: TelegramBot.ShippingQuery) => {});
 MyTelegramBot.addListener("pre_checkout_query", (query: TelegramBot.PreCheckoutQuery) => {});
 MyTelegramBot.addListener("polling_error", (error: Error) => {});
+MyTelegramBot.on("ready", () => {}); // listening to the custom event
 MyTelegramBot.on("message", (message: TelegramBot.Message, { type }) => {});
 MyTelegramBot.on("callback_query", (query: TelegramBot.CallbackQuery) => {});
 MyTelegramBot.on("inline_query", (query: TelegramBot.InlineQuery) => {});
+MyTelegramBot.on("poll", (poll: TelegramBot.Poll) => {});
 MyTelegramBot.on("poll_answer", (answer: TelegramBot.PollAnswer) => {});
 MyTelegramBot.on("chat_member", (member: TelegramBot.ChatMemberUpdated) => {});
 MyTelegramBot.on("my_chat_member", (member: TelegramBot.ChatMemberUpdated) => {});
@@ -294,6 +328,7 @@ MyTelegramBot.on("chat_join_request", (query: TelegramBot.ChatJoinRequest) => {}
 MyTelegramBot.once("message", (message: TelegramBot.Message, { type }) => {});
 MyTelegramBot.once("callback_query", (query: TelegramBot.CallbackQuery) => {});
 MyTelegramBot.once("inline_query", (query: TelegramBot.InlineQuery) => {});
+MyTelegramBot.once("poll", (poll: TelegramBot.Poll) => {});
 MyTelegramBot.once("poll_answer", (answer: TelegramBot.PollAnswer) => {});
 MyTelegramBot.once("chat_member", (member: TelegramBot.ChatMemberUpdated) => {});
 MyTelegramBot.once("my_chat_member", (member: TelegramBot.ChatMemberUpdated) => {});
@@ -305,6 +340,7 @@ MyTelegramBot.once("polling_error", (error: Error) => {});
 MyTelegramBot.prependListener("message", (message: TelegramBot.Message, { type }) => {});
 MyTelegramBot.prependListener("callback_query", (query: TelegramBot.CallbackQuery) => {});
 MyTelegramBot.prependListener("inline_query", (query: TelegramBot.InlineQuery) => {});
+MyTelegramBot.prependListener("poll", (poll: TelegramBot.Poll) => {});
 MyTelegramBot.prependListener("poll_answer", (answer: TelegramBot.PollAnswer) => {});
 MyTelegramBot.prependListener("chat_member", (member: TelegramBot.ChatMemberUpdated) => {});
 MyTelegramBot.prependListener("my_chat_member", (member: TelegramBot.ChatMemberUpdated) => {});
@@ -316,6 +352,7 @@ MyTelegramBot.prependListener("polling_error", (error: Error) => {});
 MyTelegramBot.prependOnceListener("message", (message: TelegramBot.Message, { type }) => {});
 MyTelegramBot.prependOnceListener("callback_query", (query: TelegramBot.CallbackQuery) => {});
 MyTelegramBot.prependOnceListener("inline_query", (query: TelegramBot.InlineQuery) => {});
+MyTelegramBot.prependOnceListener("poll", (poll: TelegramBot.Poll) => {});
 MyTelegramBot.prependOnceListener("poll_answer", (answer: TelegramBot.PollAnswer) => {});
 MyTelegramBot.prependOnceListener("chat_member", (member: TelegramBot.ChatMemberUpdated) => {});
 MyTelegramBot.prependOnceListener("my_chat_member", (member: TelegramBot.ChatMemberUpdated) => {});
@@ -327,6 +364,7 @@ MyTelegramBot.prependOnceListener("polling_error", (error: Error) => {});
 MyTelegramBot.removeListener("message", (message: TelegramBot.Message, { type }) => {});
 MyTelegramBot.removeListener("callback_query", (query: TelegramBot.CallbackQuery) => {});
 MyTelegramBot.removeListener("inline_query", (query: TelegramBot.InlineQuery) => {});
+MyTelegramBot.removeListener("poll", (poll: TelegramBot.Poll) => {});
 MyTelegramBot.removeListener("poll_answer", (answer: TelegramBot.PollAnswer) => {});
 MyTelegramBot.removeListener("chat_member", (member: TelegramBot.ChatMemberUpdated) => {});
 MyTelegramBot.removeListener("my_chat_member", (member: TelegramBot.ChatMemberUpdated) => {});
@@ -338,6 +376,7 @@ MyTelegramBot.removeListener("polling_error", (error: Error) => {});
 MyTelegramBot.off("message", (message: TelegramBot.Message, { type }) => {});
 MyTelegramBot.off("callback_query", (query: TelegramBot.CallbackQuery) => {});
 MyTelegramBot.off("inline_query", (query: TelegramBot.InlineQuery) => {});
+MyTelegramBot.off("poll", (poll: TelegramBot.Poll) => {});
 MyTelegramBot.off("poll_answer", (answer: TelegramBot.PollAnswer) => {});
 MyTelegramBot.off("chat_member", (member: TelegramBot.ChatMemberUpdated) => {});
 MyTelegramBot.off("my_chat_member", (member: TelegramBot.ChatMemberUpdated) => {});
@@ -351,6 +390,7 @@ MyTelegramBot.removeAllListeners();
 MyTelegramBot.listeners("message");
 MyTelegramBot.rawListeners("message");
 MyTelegramBot.listenerCount("message");
+MyTelegramBot.emit("ready"); // emitting a custom event
 MyTelegramBot.setChatPermissions(1234, {});
 MyTelegramBot.sendDice(1234, { disable_notification: true });
 MyTelegramBot.setChatAdministratorCustomTitle(1234, 5678, "some_custom_title");

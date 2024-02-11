@@ -5,6 +5,7 @@ clevertap.privacy.push({ useIP: false }); // Set the flag to true, if the user a
 clevertap.init("ACCOUNT_ID", "us1", "TARGET_DOMAIN"); // Replace with values applicable to you. Refer below
 clevertap.spa = true;
 clevertap.enablePersonalization = true;
+clevertap.dismissSpamControl = true;
 clevertap.raiseNotificationClicked = () => {
     // callback for notification clicked
 };
@@ -30,6 +31,7 @@ clevertap.profile.push({
         Gender: "M", // Can be either M or F
         DOB: new Date(), // Date of Birth. Javascript Date object
         Photo: "www.foobar.com/image.jpeg", // URL to the Image
+        price: 10,
 
         // optional fields. controls whether the user will be sent email, push etc.
         "MSG-email": false, // Disable email notifications
@@ -64,6 +66,7 @@ clevertap.setLogLevel(LOG_LEVEL);
 //  2: display errors and info
 //  3: display all logs
 const ctid = clevertap.getCleverTapID();
+const accountId = clevertap.getAccountID();
 clevertap.logout();
 clevertap.clear();
 clevertap.pageChanged();
@@ -114,5 +117,19 @@ clevertap.getInboxMessageForId("1687446482_1687781900740");
 clevertap.deleteInboxMessage("1687446482_1687781900740");
 // Mark Message as Read. Message id should be a String
 clevertap.markReadInboxMessage("1687446482_1687781900740");
+// Mark Messages as Read.The method takes and array fo message Ids. Message id should be a String
+clevertap.markReadInboxMessagesForIds(["1688382277_1706170861769"]);
 // Mark all messages as read
 clevertap.markReadAllInboxMessage();
+
+clevertap.setMultiValuesForKey("stuff", ["bag", "shoes"]);
+clevertap.addMultiValueForKey("stuff", "coat");
+clevertap.addMultiValuesForKey("stuff", ["cap", "belt"]);
+clevertap.removeMultiValueForKey("stuff", "belt");
+clevertap.removeMultiValuesForKey("stuff", ["bag", "cap"]);
+clevertap.removeValueForKey("stuff");
+
+clevertap.handleIncrementValue("price", 10);
+clevertap.handleDecrementValue("price", 10);
+
+clevertap.getLocation(21, 79);

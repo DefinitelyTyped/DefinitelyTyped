@@ -46,8 +46,8 @@ declare namespace Dropzone {
     }
 
     export interface DropzoneOptions {
-        url?: ((files: ReadonlyArray<DropzoneFile>) => string) | string | undefined;
-        method?: ((files: ReadonlyArray<DropzoneFile>) => string) | string | undefined;
+        url?: ((files: readonly DropzoneFile[]) => string) | string | undefined;
+        method?: ((files: readonly DropzoneFile[]) => string) | string | undefined;
         withCredentials?: boolean | undefined;
         timeout?: number | undefined;
         parallelUploads?: number | undefined;
@@ -74,7 +74,7 @@ declare namespace Dropzone {
         maxFiles?: number | undefined;
         params?: {} | undefined;
         headers?: { [key: string]: string } | undefined;
-        clickable?: boolean | string | HTMLElement | (string | HTMLElement)[] | undefined;
+        clickable?: boolean | string | HTMLElement | Array<string | HTMLElement> | undefined;
         ignoreHiddenFiles?: boolean | undefined;
         acceptedFiles?: string | undefined;
         renameFilename?(name: string): string;

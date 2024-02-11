@@ -31,7 +31,7 @@ declare module "angular" {
         }
 
         interface ITranslatePartialLoaderService extends IPartialLoader<ITranslatePartialLoaderService> {
-            getRegisteredParts(): Array<string>;
+            getRegisteredParts(): string[];
             isPartLoaded(name: string, lang: string): boolean;
         }
 

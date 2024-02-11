@@ -35,6 +35,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/events.js)
  */
 declare module "events" {
+    import { AsyncResource, AsyncResourceOptions } from "node:async_hooks";
     // NOTE: This class is in the docs but is **not actually exported** by Node.
     // If https://github.com/nodejs/node/issues/39903 gets resolved and Node
     // actually starts exporting the class, uncomment below.
@@ -107,6 +108,9 @@ declare module "events" {
      */
     class EventEmitter {
         constructor(options?: EventEmitterOptions);
+
+        [EventEmitter.captureRejectionSymbol]?(error: Error, event: string, ...args: any[]): void;
+
         /**
          * Creates a `Promise` that is fulfilled when the `EventEmitter` emits the given
          * event or that is rejected if the `EventEmitter` emits `'error'` while waiting.
@@ -378,7 +382,7 @@ declare module "events" {
          * ```
          * @since v20.5.0
          * @experimental
-         * @return that removes the `abort` listener.
+         * @return Disposable that removes the `abort` listener.
          */
         static addAbortListener(signal: AbortSignal, resource: (event: Event) => void): Disposable;
         /**
@@ -451,10 +455,89 @@ declare module "events" {
              */
             signal?: AbortSignal | undefined;
         }
+
+        export interface EventEmitterReferencingAsyncResource extends AsyncResource {
+            readonly eventEmitter: EventEmitterAsyncResource;
+        }
+
+        export interface EventEmitterAsyncResourceOptions extends AsyncResourceOptions, EventEmitterOptions {
+            /**
+             * The type of async event, this is required when instantiating `EventEmitterAsyncResource`
+             * directly rather than as a child class.
+             * @default new.target.name if instantiated as a child class.
+             */
+            name?: string;
+        }
+
+        /**
+         * Integrates `EventEmitter` with `AsyncResource` for `EventEmitter`s that
+         * require manual async tracking. Specifically, all events emitted by instances
+         * of `events.EventEmitterAsyncResource` will run within its `async context`.
+         *
+         * ```js
+         * import { EventEmitterAsyncResource, EventEmitter } from 'node:events';
+         * import { notStrictEqual, strictEqual } from 'node:assert';
+         * import { executionAsyncId, triggerAsyncId } from 'node:async_hooks';
+         *
+         * // Async tracking tooling will identify this as 'Q'.
+         * const ee1 = new EventEmitterAsyncResource({ name: 'Q' });
+         *
+         * // 'foo' listeners will run in the EventEmitters async context.
+         * ee1.on('foo', () => {
+         *   strictEqual(executionAsyncId(), ee1.asyncId);
+         *   strictEqual(triggerAsyncId(), ee1.triggerAsyncId);
+         * });
+         *
+         * const ee2 = new EventEmitter();
+         *
+         * // 'foo' listeners on ordinary EventEmitters that do not track async
+         * // context, however, run in the same async context as the emit().
+         * ee2.on('foo', () => {
+         *   notStrictEqual(executionAsyncId(), ee2.asyncId);
+         *   notStrictEqual(triggerAsyncId(), ee2.triggerAsyncId);
+         * });
+         *
+         * Promise.resolve().then(() => {
+         *   ee1.emit('foo');
+         *   ee2.emit('foo');
+         * });
+         * ```
+         *
+         * The `EventEmitterAsyncResource` class has the same methods and takes the
+         * same options as `EventEmitter` and `AsyncResource` themselves.
+         * @since v17.4.0, v16.14.0
+         */
+        export class EventEmitterAsyncResource extends EventEmitter {
+            /**
+             * @param options Only optional in child class.
+             */
+            constructor(options?: EventEmitterAsyncResourceOptions);
+            /**
+             * Call all `destroy` hooks. This should only ever be called once. An error will
+             * be thrown if it is called more than once. This **must** be manually called. If
+             * the resource is left to be collected by the GC then the `destroy` hooks will
+             * never be called.
+             */
+            emitDestroy(): void;
+            /**
+             * The unique `asyncId` assigned to the resource.
+             */
+            readonly asyncId: number;
+            /**
+             * The same triggerAsyncId that is passed to the AsyncResource constructor.
+             */
+            readonly triggerAsyncId: number;
+            /**
+             * The returned `AsyncResource` object has an additional `eventEmitter` property
+             * that provides a reference to this `EventEmitterAsyncResource`.
+             */
+            readonly asyncResource: EventEmitterReferencingAsyncResource;
+        }
     }
     global {
         namespace NodeJS {
             interface EventEmitter {
+                [EventEmitter.captureRejectionSymbol]?(error: Error, event: string, ...args: any[]): void;
                 /**
                  * Alias for `emitter.on(eventName, listener)`.
                  * @since v0.1.26

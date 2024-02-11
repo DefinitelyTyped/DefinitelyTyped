@@ -254,6 +254,7 @@ export { default as tap } from "./tap.js";
 export { default as template } from "./template.js";
 export { default as templateSettings } from "./templateSettings.js";
 export { default as throttle, ThrottleSettings } from "./throttle.js";
+export { default as thru } from "./thru.js";
 export { default as times } from "./times.js";
 export { default as toArray } from "./toArray.js";
 export { default as toFinite } from "./toFinite.js";

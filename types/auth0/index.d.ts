@@ -311,7 +311,7 @@ export interface ResourceServer {
      * The identifier of the resource server.
      */
     identifier?: string | undefined;
-    scopes?: { description: string; value: string }[] | undefined;
+    scopes?: Array<{ description: string; value: string }> | undefined;
     /**
      * The algorithm used to sign tokens.
      */
@@ -585,7 +585,7 @@ export interface Page {
 }
 
 export interface UserPage<A = AppMetadata, U = UserMetadata> extends Page {
-    users: User<A, U>[];
+    users: Array<User<A, U>>;
 }
 
 export interface GetUserRolesData extends ObjectWithId {
@@ -1668,7 +1668,7 @@ export interface AuthenticationMethod {
     enrolled_at?: string;
     last_auth_at?: string;
     preferred_authentication_method?: string;
-    authentication_methods?: { id: string; type: string }[];
+    authentication_methods?: Array<{ id: string; type: string }>;
 }
 
 export interface GuardianFactor {
@@ -1955,10 +1955,10 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
 
     getUsersInRole(params: GetRoleUsersDataPaged): Promise<UserPage<A, U>>;
     getUsersInRole(params: GetRoleUsersDataPaged, cb: (err: Error, userPage: UserPage<A, U>) => void): void;
-    getUsersInRole(params: GetRoleUsersData): Promise<User<A, U>[]>;
-    getUsersInRole(params: GetRoleUsersData, cb: (err: Error, users: User<A, U>[]) => void): void;
-    getUsersInRole(params: ObjectWithId): Promise<User<A, U>[]>;
-    getUsersInRole(params: ObjectWithId, cb: (err: Error, users: User<A, U>[]) => void): void;
+    getUsersInRole(params: GetRoleUsersData): Promise<Array<User<A, U>>>;
+    getUsersInRole(params: GetRoleUsersData, cb: (err: Error, users: Array<User<A, U>>) => void): void;
+    getUsersInRole(params: ObjectWithId): Promise<Array<User<A, U>>>;
+    getUsersInRole(params: ObjectWithId, cb: (err: Error, users: Array<User<A, U>>) => void): void;
 
     // Rules
     getRules(params: PagingOptions): Promise<Rule[]>;
@@ -1994,15 +1994,15 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     // Users
     getUsers(params: GetUsersDataPaged): Promise<UserPage<A, U>>;
     getUsers(params: GetUsersDataPaged, cb: (err: Error, userPage: UserPage<A, U>) => void): void;
-    getUsers(params?: GetUsersData): Promise<User<A, U>[]>;
-    getUsers(cb: (err: Error, users: User<A, U>[]) => void): void;
-    getUsers(params?: GetUsersData, cb?: (err: Error, users: User<A, U>[]) => void): void;
+    getUsers(params?: GetUsersData): Promise<Array<User<A, U>>>;
+    getUsers(cb: (err: Error, users: Array<User<A, U>>) => void): void;
+    getUsers(params?: GetUsersData, cb?: (err: Error, users: Array<User<A, U>>) => void): void;
 
     getUser(params: ObjectWithId): Promise<User<A, U>>;
     getUser(params: ObjectWithId, cb?: (err: Error, user: User<A, U>) => void): void;
 
-    getUsersByEmail(email: string): Promise<User<A, U>[]>;
-    getUsersByEmail(email: string, cb?: (err: Error, users: User<A, U>[]) => void): void;
+    getUsersByEmail(email: string): Promise<Array<User<A, U>>>;
+    getUsersByEmail(email: string, cb?: (err: Error, users: Array<User<A, U>>) => void): void;
 
     createUser(data: CreateUserData): Promise<User<A, U>>;
     createUser(data: CreateUserData, cb: (err: Error, user: User<A, U>) => void): void;
@@ -2033,8 +2033,8 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     linkUsers(userId: string, params: LinkAccountsParams, cb: (err: Error, data: any) => void): void;
 
     // User Logs
-    getUserLogs(params: UsersLogsQuery): Promise<Array<LogEvent>>;
-    getUserLogs(params: UsersLogsQuery, cb: (err: Error, data: Array<LogEvent>) => void): void;
+    getUserLogs(params: UsersLogsQuery): Promise<LogEvent[]>;
+    getUserLogs(params: UsersLogsQuery, cb: (err: Error, data: LogEvent[]) => void): void;
 
     // User roles
     getUserRoles(params: ObjectWithId): Promise<Role[]>;
@@ -2157,9 +2157,9 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     getLog(params: ObjectWithId): Promise<LogEvent>;
     getLog(params: ObjectWithId, cb?: (err: Error, data: LogEvent) => void): void;
 
-    getLogs(query?: LogsQuery): Promise<Array<LogEvent>>;
-    getLogs(cb?: (err: Error, data: Array<LogEvent>) => void): void;
-    getLogs(query?: LogsQuery, cb?: (err: Error, data: Array<LogEvent>) => void): void;
+    getLogs(query?: LogsQuery): Promise<LogEvent[]>;
+    getLogs(cb?: (err: Error, data: LogEvent[]) => void): void;
+    getLogs(query?: LogsQuery, cb?: (err: Error, data: LogEvent[]) => void): void;
 
     // Log streams
     getLogStreams(): Promise<LogStream[]>;

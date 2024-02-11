@@ -629,6 +629,12 @@ declare module "crypto" {
         export(options?: KeyExportOptions<"der">): Buffer;
         export(options?: JwkKeyExportOptions): JsonWebKey;
         /**
+         * Returns `true` or `false` depending on whether the keys have exactly the same type, value, and parameters.
+         * This method is not [constant time](https://en.wikipedia.org/wiki/Timing_attack).
+         * @since v16.15.0
+         */
+        equals(otherKeyObject: KeyObject): boolean;
+        /**
          * For secret keys, this property represents the size of the key in bytes. This
          * property is `undefined` for asymmetric keys.
          * @since v11.6.0
@@ -1199,11 +1205,13 @@ declare module "crypto" {
         format?: KeyFormat | undefined;
         type?: "pkcs1" | "pkcs8" | "sec1" | undefined;
         passphrase?: string | Buffer | undefined;
+        encoding?: string | undefined;
     }
     interface PublicKeyInput {
         key: string | Buffer;
         format?: KeyFormat | undefined;
         type?: "pkcs1" | "spki" | undefined;
+        encoding?: string | undefined;
     }
     /**
      * Asynchronously generates a new random secret key of the given `length`. The`type` will determine which validations will be performed on the `length`.
@@ -2452,6 +2460,10 @@ declare module "crypto" {
          * Name of the curve to use
          */
         namedCurve: string;
+        /**
+         * Must be `'named'` or `'explicit'`. Default: `'named'`.
+         */
+        paramEncoding?: "explicit" | "named" | undefined;
     }
     interface RSAKeyPairKeyObjectOptions {
         /**
@@ -2562,11 +2574,7 @@ declare module "crypto" {
             type: "pkcs8";
         };
     }
-    interface ECKeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> {
-        /**
-         * Name of the curve to use.
-         */
-        namedCurve: string;
+    interface ECKeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> extends ECKeyPairKeyObjectOptions {
         publicKeyEncoding: {
             type: "pkcs1" | "spki";
             format: PubF;
@@ -3484,12 +3492,13 @@ declare module "crypto" {
          */
         disableEntropyCache?: boolean | undefined;
     }
+    type UUID = `${string}-${string}-${string}-${string}-${string}`;
     /**
      * Generates a random [RFC 4122](https://www.rfc-editor.org/rfc/rfc4122.txt) version 4 UUID. The UUID is generated using a
      * cryptographic pseudorandom number generator.
      * @since v15.6.0
      */
-    function randomUUID(options?: RandomUUIDOptions): string;
+    function randomUUID(options?: RandomUUIDOptions): UUID;
     interface X509CheckOptions {
         /**
          * @default 'always'
@@ -3972,7 +3981,7 @@ declare module "crypto" {
              * The UUID is generated using a cryptographic pseudorandom number generator.
              * @since v16.7.0
              */
-            randomUUID(): string;
+            randomUUID(): UUID;
             CryptoKey: CryptoKeyConstructor;
         }
         // This constructor throws ILLEGAL_CONSTRUCTOR so it should not be newable.
@@ -4101,7 +4110,7 @@ declare module "crypto" {
                     | HkdfParams
                     | Pbkdf2Params,
                 extractable: boolean,
-                keyUsages: ReadonlyArray<KeyUsage>,
+                keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKey>;
             /**
              * Using the method identified by `algorithm`, `subtle.digest()` attempts to generate a digest of `data`.
@@ -4177,12 +4186,12 @@ declare module "crypto" {
             generateKey(
                 algorithm: RsaHashedKeyGenParams | EcKeyGenParams,
                 extractable: boolean,
-                keyUsages: ReadonlyArray<KeyUsage>,
+                keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKeyPair>;
             generateKey(
                 algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params,
                 extractable: boolean,
-                keyUsages: ReadonlyArray<KeyUsage>,
+                keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKey>;
             generateKey(
                 algorithm: AlgorithmIdentifier,
@@ -4209,7 +4218,7 @@ declare module "crypto" {
                     | HmacImportParams
                     | AesKeyAlgorithm,
                 extractable: boolean,
-                keyUsages: ReadonlyArray<KeyUsage>,
+                keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKey>;
             importKey(
                 format: Exclude<KeyFormat, "jwk">,

@@ -37,7 +37,7 @@ declare const fixtures: {
     int32s: readonly number[];
     integerNumbers: readonly number[];
     nonArrays: readonly unknown[];
-    bigints: ReadonlyArray<bigint>;
+    bigints: readonly bigint[];
     nonBigInts: ReadonlyArray<null | undefined | boolean | number | string | symbol | object>;
     nonBooleans: ReadonlyArray<null | undefined | number | string | symbol | object | bigint>;
     nonFunctions: readonly unknown[];

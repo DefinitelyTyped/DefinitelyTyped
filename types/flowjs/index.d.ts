@@ -7,13 +7,13 @@ declare namespace flowjs {
         files: FlowFile[];
 
         assignBrowse(
-            domNodes: ReadonlyArray<HTMLElement>,
+            domNodes: readonly HTMLElement[],
             isDirectory?: boolean,
             singleFile?: boolean,
             attributes?: object,
         ): void;
-        assignDrop(node: HTMLElement | ReadonlyArray<HTMLElement>): void;
-        unAssignDrop(node: HTMLElement | ReadonlyArray<HTMLElement>): void;
+        assignDrop(node: HTMLElement | readonly HTMLElement[]): void;
+        unAssignDrop(node: HTMLElement | readonly HTMLElement[]): void;
         on<T extends EventName>(event: T, callback: (...args: FlowEventMap[T]) => void): void;
         off(event?: EventName, callback?: () => void): void;
         upload(): void;
@@ -67,7 +67,7 @@ declare namespace flowjs {
         uniqueIdentifier: string;
         averageSpeed: number;
         currentSpeed: number;
-        chunks: ReadonlyArray<FlowChunk>;
+        chunks: readonly FlowChunk[];
         paused: boolean;
         error: boolean;
 

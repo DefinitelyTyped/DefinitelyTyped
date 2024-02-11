@@ -1,4 +1,4 @@
-import { Component, ReactNode } from "react";
+import { Component, JSX, ReactNode } from "react";
 import { StyleProp, ViewProps } from "react-native";
 import Button from "./Button.d";
 import Overlay from "./Overlay.d";

@@ -5,7 +5,7 @@ interface HueObject {
     max: number;
 }
 
-type Hue = number | HueObject | ReadonlyArray<HueObject>;
+type Hue = number | HueObject | readonly HueObject[];
 type Lightness = number | number[];
 type Saturation = number | number[];
 

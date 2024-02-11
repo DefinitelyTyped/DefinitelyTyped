@@ -121,7 +121,7 @@ interface File {
      * through `file.history[file.history.length - 1]` (current). `file.history` and its elements
      * should normally be treated as read-only and only altered indirectly by setting `file.path`.
      */
-    readonly history: ReadonlyArray<string>;
+    readonly history: readonly string[];
 
     /**
      * Gets the result of `path.relative(file.base, file.path)`.

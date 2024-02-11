@@ -1,13 +1,11 @@
-import { ReactNativeFile } from "apollo-upload-client";
-
-import createUploadLink, { UploadLinkOptions } from "apollo-upload-client/public/createUploadLink";
-import formDataAppendFile from "apollo-upload-client/public/formDataAppendFile";
-import isExtractableFile from "apollo-upload-client/public/isExtractableFile";
+import createUploadLink from "apollo-upload-client/createUploadLink.mjs";
+import formDataAppendFile from "apollo-upload-client/formDataAppendFile.mjs";
+import isExtractableFile from "apollo-upload-client/isExtractableFile.mjs";
 
 // ==============================================================================
-// UploadLinkOptions
+// createUploadLink
 // ==============================================================================
-const uploadLinkOptions: UploadLinkOptions = {
+createUploadLink({
     uri: "http://localhost",
     isExtractableFile,
     formDataAppendFile,
@@ -18,12 +16,7 @@ const uploadLinkOptions: UploadLinkOptions = {
     includeExtensions: true,
     credentials: "beepboop",
     FormData,
-};
-
-// ==============================================================================
-// createUploadLink
-// ==============================================================================
-createUploadLink(uploadLinkOptions);
+});
 
 // ==============================================================================
 // formDataAppendFile
@@ -33,15 +26,6 @@ const formData = new FormData(form);
 const fieldName = "field name";
 const file = new Blob();
 formDataAppendFile(formData, fieldName, file);
-
-// ==============================================================================
-// ReactNativeFile
-// ==============================================================================
-new ReactNativeFile({
-    name: "its coming home",
-    type: "its coming",
-    uri: "football's coming home",
-});
 
 // ==============================================================================
 // isExtractableFile

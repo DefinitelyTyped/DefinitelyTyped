@@ -12,8 +12,8 @@ export type ListProps = {
     navigation?: boolean | undefined;
     partialNavigation?: boolean | undefined;
     selectable?: boolean | undefined;
-    footer?: string | JSX.Element | undefined;
-    header?: string | JSX.Element | undefined;
+    footer?: string | React.JSX.Element | undefined;
+    header?: string | React.JSX.Element | undefined;
 } & React.HTMLAttributes<HTMLAnchorElement>;
 
 export interface ListFooterProps {

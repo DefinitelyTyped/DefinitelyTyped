@@ -1,4 +1,4 @@
-declare function asc(versions: ReadonlyArray<string>): string[];
-declare function desc(versions: ReadonlyArray<string>): string[];
+declare function asc(versions: readonly string[]): string[];
+declare function desc(versions: readonly string[]): string[];
 
 export { asc, desc };

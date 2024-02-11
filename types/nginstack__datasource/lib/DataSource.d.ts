@@ -48,13 +48,13 @@ type DataSourceDef = import("./DataSourceDef");
 import DataSourceFilters = require("./DataSourceFilters.js");
 import DataSourceColumns = require("./DataSourceColumns.js");
 import DataSet = require("@nginstack/engine/lib/dataset/DataSet.js");
-type DataSourceFilterDef = import("./DataSourceFilterDef");
-type DataSourceColumnDef = import("./DataSourceColumnDef");
 import DataSourceResult = require("./DataSourceResult.js");
 declare namespace ColumnOps {
-    const DIMENSION: string;
-    const DERIVATION: string;
+    let DIMENSION: string;
+    let DERIVATION: string;
 }
 type ColumnOps = string;
 declare function loadDefinitionFile(fileId: number | string): any;
 declare function list(): DataSet;
+type DataSourceColumnDef = import("./DataSourceColumnDef");
+type DataSourceFilterDef = import("./DataSourceFilterDef");

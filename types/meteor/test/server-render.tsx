@@ -1,7 +1,8 @@
 import { onPageLoad, ServerSink } from "meteor/server-render";
 import * as React from 'react';
 import { renderToString, renderToNodeStream } from 'react-dom/server';
-import { hydrate } from 'react-dom';
+import { flushSync } from 'react-dom';
+import { hydrateRoot } from 'react-dom/client';
 import { ServerStyleSheet } from "styled-components";
 
 // Based on https://docs.meteor.com/packages/server-render.html
@@ -15,7 +16,9 @@ onPageLoad(sink => {
 });
 
 onPageLoad(async () => {
-  hydrate(<div>Hello World</div>, document.getElementById("app"));
+    flushSync(() => {
+        hydrateRoot(document.getElementById("app")!, <div>Hello World</div>);
+    })
 });
 
 onPageLoad(sink => {

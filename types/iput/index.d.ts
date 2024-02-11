@@ -14,5 +14,5 @@ export default class IPut extends React.Component<IputProp, IputState> {
     handleChange(e: React.ChangeEvent<HTMLInputElement>, i: number): void;
     handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>, i: number): void;
     handlePaste(e: React.ClipboardEvent<HTMLInputElement>, i: number): void;
-    render(): JSX.Element;
+    render(): React.JSX.Element;
 }

@@ -144,7 +144,7 @@ declare module "maildev" {
         /**
          * Returns array of all e-mail.
          */
-        getAllEmail(done: (error: Error, emails: Array<Object>) => void): void;
+        getAllEmail(done: (error: Error, emails: Object[]) => void): void;
 
         /**
          * Starts the SMTP server.

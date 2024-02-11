@@ -200,10 +200,10 @@ declare namespace googletag {
             slot: Slot;
         }
 
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface ImpressionViewableEvent extends Event {}
 
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface SlotOnloadEvent extends Event {}
 
         interface SlotRenderEndedEvent extends Event {
@@ -217,10 +217,10 @@ declare namespace googletag {
             sourceAgnosticLineItemId?: number | undefined;
         }
 
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface SlotRequestedEvent extends Event {}
 
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface SlotResponseReceived extends Event {}
 
         interface SlotVisibilityChangedEvent extends Event {

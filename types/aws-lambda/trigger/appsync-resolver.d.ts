@@ -73,6 +73,7 @@ export interface AppSyncAuthorizerEvent {
         accountId: string;
         requestId: string;
         queryString: string;
+        operationName?: string;
         variables: { [key: string]: any };
     };
 }

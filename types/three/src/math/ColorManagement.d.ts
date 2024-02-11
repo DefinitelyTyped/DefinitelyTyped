@@ -6,8 +6,8 @@ import {
     LinearDisplayP3ColorSpace,
     LinearSRGBColorSpace,
     SRGBColorSpace,
-} from '../constants.js';
-import { Color } from './Color.js';
+} from "../constants.js";
+import { Color } from "./Color.js";
 
 export type WorkingColorSpace = typeof LinearSRGBColorSpace | typeof LinearDisplayP3ColorSpace;
 export type DefinedColorSpace =
@@ -26,7 +26,7 @@ export interface ColorManagement {
      * @default LinearSRGBColorSpace
      */
     get workingColorSpace(): WorkingColorSpace;
-    set workingSpaceColor(colorSpace: WorkingColorSpace);
+    set workingColorSpace(colorSpace: WorkingColorSpace);
 
     convert: (color: Color, sourceColorSpace: DefinedColorSpace, targetColorSpace: DefinedColorSpace) => Color;
 

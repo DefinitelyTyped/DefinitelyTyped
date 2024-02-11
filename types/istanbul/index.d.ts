@@ -48,7 +48,7 @@ declare namespace istanbul {
     interface Reporter {
         new(cfg?: Configuration, dir?: string): Reporter;
         add(fmt: string): void;
-        addAll(fmts: Array<string>): void;
+        addAll(fmts: string[]): void;
         write(collector: Collector, sync: boolean, callback: Function): void;
     }
 

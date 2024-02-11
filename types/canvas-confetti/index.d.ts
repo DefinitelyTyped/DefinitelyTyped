@@ -22,7 +22,19 @@ declare namespace confetti {
      */
     let Promise: PromiseLike<undefined> | null | undefined;
 
-    type Shape = "circle" | "square" | "star";
+    interface PathShape {
+        type: "path";
+        path: string;
+        matrix: DOMMatrix;
+    }
+
+    interface BitmapShape {
+        type: "bitmap";
+        bitmap: ImageBitmap;
+        matrix: DOMMatrix;
+    }
+
+    type Shape = PathShape | BitmapShape | "square" | "circle" | "star";
 
     interface Options {
         /**
@@ -130,22 +142,39 @@ declare namespace confetti {
     }
 
     /**
+     * This helper method lets you create a custom confetti shape using an SVG Path string.
+     */
+    function shapeFromPath({ path, matrix }: { path: string; matrix?: DOMMatrix }): Shape;
+
+    /**
+     * This is the highly anticipated feature to render emoji confetti! Use any standard unicode emoji. Or other text.
+     */
+    function shapeFromText({
+        text,
+        scalar,
+        color,
+        fontFamily,
+    }: {
+        text: string;
+        scalar?: number;
+        color?: string;
+        fontFamily?: string;
+    }): Shape;
+
+    /**
      * Stops the animation and clears all confetti, as well as immediately resolves any outstanding promises.
      */
     type Reset = () => void;
     function reset(): Reset;
 
+    /**
+     * This method creates an instance of the confetti function that uses a custom canvas.
+     */
     interface CreateTypes {
         (options?: Options): Promise<null> | null;
         reset: Reset;
     }
-    /**
-     * This method creates an instance of the confetti function that uses a custom canvas.
-     */
-    function create(
-        canvas?: HTMLCanvasElement,
-        options?: GlobalOptions,
-    ): CreateTypes;
+    function create(canvas?: HTMLCanvasElement, options?: GlobalOptions): CreateTypes;
 }
 
 export as namespace confetti;

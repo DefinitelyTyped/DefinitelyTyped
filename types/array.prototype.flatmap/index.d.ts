@@ -2,8 +2,8 @@ import flatMapImpl = require("./implementation");
 
 interface FlatMap {
     <A, B, T extends object | undefined = undefined>(
-        xs: ReadonlyArray<A>,
-        fn: (this: T, x: A, index: number, array: A[]) => ReadonlyArray<B>,
+        xs: readonly A[],
+        fn: (this: T, x: A, index: number, array: A[]) => readonly B[],
         thisArg?: T,
     ): B[];
     getPolyfill(): typeof flatMapImpl;

@@ -262,9 +262,9 @@ export interface ScaleLinear<Range, Output, Unknown = never> extends ScaleContin
  *
  * @param range Array of range values.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleLinear<Range = number, Output = Range, Unknown = never>(
     range?: Iterable<Range>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleLinear<Range, Output, Unknown>;
 /**
  * Constructs a new continuous scale with the specified domain and range, the default interpolator and clamping disabled.
@@ -283,10 +283,10 @@ export function scaleLinear<Range = number, Output = Range, Unknown = never>(
  * @param domain Array of numeric domain values.
  * @param range Array of range values.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleLinear<Range, Output = Range, Unknown = never>(
     domain: Iterable<NumberValue>,
     range: Iterable<Range>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleLinear<Range, Output, Unknown>;
 
 // -------------------------------------------------------------------------------
@@ -391,9 +391,9 @@ export interface ScalePower<Range, Output, Unknown = never> extends ScaleContinu
  *
  * @param range Array of range values.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scalePow<Range = number, Output = Range, Unknown = never>(
     range?: Iterable<Range>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScalePower<Range, Output, Unknown>;
 /**
  * Constructs a new continuous scale with the specified domain and range, the exponent 1, the default interpolator and clamping disabled.
@@ -413,10 +413,10 @@ export function scalePow<Range = number, Output = Range, Unknown = never>(
  * @param domain Array of numeric domain values.
  * @param range Array of range values.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scalePow<Range, Output = Range, Unknown = never>(
     domain: Iterable<NumberValue>,
     range: Iterable<Range>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScalePower<Range, Output, Unknown>;
 
 /**
@@ -438,9 +438,9 @@ export function scalePow<Range, Output = Range, Unknown = never>(
  *
  * @param range Array of range values.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleSqrt<Range = number, Output = Range, Unknown = never>(
     range?: Iterable<Range>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScalePower<Range, Output, Unknown>;
 /**
  * Constructs a new continuous power scale with the specified domain and range, the exponent 0.5, the default interpolator and clamping disabled.
@@ -460,10 +460,10 @@ export function scaleSqrt<Range = number, Output = Range, Unknown = never>(
  * @param domain Array of numeric domain values.
  * @param range Array of range values.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleSqrt<Range, Output = Range, Unknown = never>(
     domain: Iterable<NumberValue>,
     range: Iterable<Range>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScalePower<Range, Output, Unknown>;
 
 // -------------------------------------------------------------------------------
@@ -636,9 +636,9 @@ export interface ScaleLogarithmic<Range, Output, Unknown = never>
  *
  * @param range Array of range values.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleLog<Range = number, Output = Range, Unknown = never>(
     range?: Iterable<Range>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleLogarithmic<Range, Output, Unknown>;
 /**
  * Constructs a new continuous scale with the specified domain and range, the base 10, the default interpolator and clamping disabled.
@@ -657,10 +657,10 @@ export function scaleLog<Range = number, Output = Range, Unknown = never>(
  * @param domain Array of numeric domain values.
  * @param range Array of range values.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleLog<Range, Output = Range, Unknown = never>(
     domain: Iterable<NumberValue>,
     range: Iterable<Range>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleLogarithmic<Range, Output, Unknown>;
 
 // -------------------------------------------------------------------------------
@@ -746,9 +746,9 @@ export interface ScaleSymLog<Range, Output, Unknown = never> extends ScaleContin
  *
  * @param range Array of range values.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleSymlog<Range = number, Output = Range, Unknown = never>(
     range?: Iterable<Range>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleSymLog<Range, Output, Unknown>;
 /**
  * Constructs a new continuous scale with the specified domain and range, the constant 1, the default interpolator and clamping disabled.
@@ -767,10 +767,10 @@ export function scaleSymlog<Range = number, Output = Range, Unknown = never>(
  * @param domain Array of numeric domain values.
  * @param range Array of range values.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleSymlog<Range, Output = Range, Unknown = never>(
     domain: Iterable<NumberValue>,
     range: Iterable<Range>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleSymLog<Range, Output, Unknown>;
 
 // -------------------------------------------------------------------------------
@@ -938,9 +938,9 @@ export interface ScaleRadial<Range, Output, Unknown = never> extends ScaleContin
  *
  * @param range Iterable of range values.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleRadial<Range = number, Unknown = never>(
     range?: Iterable<Range>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleRadial<Range, Range, Unknown>;
 /**
  * Constructs a new radial scale with the specified domain and range.
@@ -953,10 +953,10 @@ export function scaleRadial<Range = number, Unknown = never>(
  * @param domain Iterable of numeric domain values.
  * @param range Iterable of range values.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleRadial<Range, Unknown = never>(
     domain: Iterable<NumberValue>,
     range: Iterable<Range>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleRadial<Range, Range, Unknown>;
 
 // -------------------------------------------------------------------------------
@@ -1223,9 +1223,9 @@ export interface ScaleTime<Range, Output, Unknown = never> {
  *
  * @param range Array of range values.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleTime<Range = number, Output = Range, Unknown = never>(
     range?: Iterable<Range>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleTime<Range, Output, Unknown>;
 /**
  * Constructs a new time scale with the specified domain and range, the default interpolator and clamping disabled.
@@ -1244,10 +1244,10 @@ export function scaleTime<Range = number, Output = Range, Unknown = never>(
  * @param domain Array of temporal domain values. Numeric values will be coerced to dates.
  * @param range Array of range values.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleTime<Range, Output = Range, Unknown = never>(
     domain: Iterable<Date | NumberValue>,
     range: Iterable<Range>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleTime<Range, Output, Unknown>;
 
 /**
@@ -1268,9 +1268,9 @@ export function scaleTime<Range, Output = Range, Unknown = never>(
  *
  * @param range Array of range values.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleUtc<Range = number, Output = Range, Unknown = never>(
     range?: Iterable<Range>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleTime<Range, Output, Unknown>;
 /**
  * Constructs a new time scale using Coordinated Universal Time (UTC) with the specified domain and range, the default interpolator and clamping disabled.
@@ -1289,10 +1289,10 @@ export function scaleUtc<Range = number, Output = Range, Unknown = never>(
  * @param domain Array of temporal domain values. Numeric values will be coerced to dates.
  * @param range Array of range values.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleUtc<Range, Output = Range, Unknown = never>(
     domain: Iterable<NumberValue>,
     range: Iterable<Range>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleTime<Range, Output, Unknown>;
 
 // -------------------------------------------------------------------------------
@@ -1416,9 +1416,9 @@ export interface ScaleSequential<Output, Unknown = never> extends ScaleSequentia
  *
  * @param interpolator The interpolator function or array to be used with the scale.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleSequential<Output = number, Unknown = never>(
     interpolator?: ((t: number) => Output) | Iterable<Output>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleSequential<Output, Unknown>;
 /**
  * Constructs a new sequential scale with the specified domain and interpolator function or array.
@@ -1432,10 +1432,10 @@ export function scaleSequential<Output = number, Unknown = never>(
  * @param domain A two-element array of numeric domain values.
  * @param interpolator The interpolator function or array to be used with the scale.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleSequential<Output, Unknown = never>(
     domain: Iterable<NumberValue>,
     interpolator: ((t: number) => Output) | Iterable<Output>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleSequential<Output, Unknown>;
 
 /**
@@ -1446,9 +1446,9 @@ export function scaleSequential<Output, Unknown = never>(
  *
  * @param interpolator The interpolator function to be used with the scale.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleSequentialLog<Output = number, Unknown = never>(
     interpolator?: (t: number) => Output,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleSequential<Output, Unknown>;
 /**
  * A sequential scale with a logarithmic transform, analogous to a log scale.
@@ -1459,10 +1459,10 @@ export function scaleSequentialLog<Output = number, Unknown = never>(
  * @param domain A two-element array of numeric domain values.
  * @param interpolator The interpolator function to be used with the scale.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleSequentialLog<Output, Unknown = never>(
     domain: Iterable<NumberValue>,
     interpolator: (t: number) => Output,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleSequential<Output, Unknown>;
 
 /**
@@ -1473,9 +1473,9 @@ export function scaleSequentialLog<Output, Unknown = never>(
  *
  * @param interpolator The interpolator function to be used with the scale.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleSequentialPow<Output = number, Unknown = never>(
     interpolator?: (t: number) => Output,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleSequential<Output, Unknown>;
 /**
  * A sequential scale with a exponential transform, analogous to a power scale.
@@ -1486,10 +1486,10 @@ export function scaleSequentialPow<Output = number, Unknown = never>(
  * @param domain A two-element array of numeric domain values.
  * @param interpolator The interpolator function to be used with the scale.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleSequentialPow<Output, Unknown = never>(
     domain: Iterable<NumberValue>,
     interpolator: (t: number) => Output,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleSequential<Output, Unknown>;
 
 /**
@@ -1500,9 +1500,9 @@ export function scaleSequentialPow<Output, Unknown = never>(
  *
  * @param interpolator The interpolator function to be used with the scale.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleSequentialSqrt<Output = number, Unknown = never>(
     interpolator?: (t: number) => Output,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleSequential<Output, Unknown>;
 /**
  * A sequential scale with a square-root transform, analogous to a d3.scaleSqrt.
@@ -1513,10 +1513,10 @@ export function scaleSequentialSqrt<Output = number, Unknown = never>(
  * @param domain A two-element array of numeric domain values.
  * @param interpolator The interpolator function to be used with the scale.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleSequentialSqrt<Output, Unknown = never>(
     domain: Iterable<NumberValue>,
     interpolator: (t: number) => Output,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleSequential<Output, Unknown>;
 
 /**
@@ -1527,9 +1527,9 @@ export function scaleSequentialSqrt<Output, Unknown = never>(
  *
  * @param interpolator The interpolator function to be used with the scale.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleSequentialSymlog<Output = number, Unknown = never>(
     interpolator?: (t: number) => Output,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleSequential<Output, Unknown>;
 /**
  * A sequential scale with a symmetric logarithmic transform, analogous to a symlog scale.
@@ -1540,10 +1540,10 @@ export function scaleSequentialSymlog<Output = number, Unknown = never>(
  * @param domain A two-element array of numeric domain values.
  * @param interpolator The interpolator function to be used with the scale.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleSequentialSymlog<Output, Unknown = never>(
     domain: Iterable<NumberValue>,
     interpolator: (t: number) => Output,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleSequential<Output, Unknown>;
 
 export interface ScaleSequentialQuantile<Output, Unknown = never> extends ScaleSequentialBase<Output, Unknown> {
@@ -1592,9 +1592,9 @@ export interface ScaleSequentialQuantile<Output, Unknown = never> extends ScaleS
  *
  * @param interpolator The interpolator function to be used with the scale.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleSequentialQuantile<Output = number, Unknown = never>(
     interpolator?: (t: number) => Output,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleSequentialQuantile<Output, Unknown>;
 /**
  * A sequential scale using a p-quantile transform, analogous to a quantile scale.
@@ -1605,10 +1605,10 @@ export function scaleSequentialQuantile<Output = number, Unknown = never>(
  * @param domain A two-element array of numeric domain values.
  * @param interpolator The interpolator function to be used with the scale.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleSequentialQuantile<Output, Unknown = never>(
     domain: Iterable<NumberValue>,
     interpolator: (t: number) => Output,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleSequentialQuantile<Output, Unknown>;
 
 // -------------------------------------------------------------------------------
@@ -1724,9 +1724,9 @@ export interface ScaleDiverging<Output, Unknown = never> {
  *
  * @param interpolator The scale’s interpolator function or array.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleDiverging<Output = number, Unknown = never>(
     interpolator?: ((t: number) => Output) | Iterable<Output>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleDiverging<Output, Unknown>;
 /**
  * Constructs a new diverging scale with the specified domain and interpolator function or array.
@@ -1741,10 +1741,10 @@ export function scaleDiverging<Output = number, Unknown = never>(
  * @param domain Array of three numeric domain values.
  * @param interpolator The scale’s interpolator function or array.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleDiverging<Output, Unknown = never>(
     domain: Iterable<NumberValue>,
     interpolator: ((t: number) => Output) | Iterable<Output>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleDiverging<Output, Unknown>;
 
 /**
@@ -1755,9 +1755,9 @@ export function scaleDiverging<Output, Unknown = never>(
  *
  * @param interpolator The scale’s interpolator.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleDivergingLog<Output = number, Unknown = never>(
     interpolator?: (t: number) => Output,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleDiverging<Output, Unknown>;
 /**
  * A diverging scale with a logarithmic transform, analogous to a log scale.
@@ -1768,10 +1768,10 @@ export function scaleDivergingLog<Output = number, Unknown = never>(
  * @param domain Array of three numeric domain values.
  * @param interpolator The scale’s interpolator.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleDivergingLog<Output, Unknown = never>(
     domain: Iterable<NumberValue>,
     interpolator: (t: number) => Output,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleDiverging<Output, Unknown>;
 
 /**
@@ -1782,9 +1782,9 @@ export function scaleDivergingLog<Output, Unknown = never>(
  *
  * @param interpolator The scale’s interpolator.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleDivergingPow<Output = number, Unknown = never>(
     interpolator?: (t: number) => Output,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleDiverging<Output, Unknown>;
 /**
  * A diverging scale with a exponential transform, analogous to a power scale.
@@ -1795,10 +1795,10 @@ export function scaleDivergingPow<Output = number, Unknown = never>(
  * @param domain Array of three numeric domain values.
  * @param interpolator The scale’s interpolator.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleDivergingPow<Output, Unknown = never>(
     domain: Iterable<NumberValue>,
     interpolator: (t: number) => Output,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleDiverging<Output, Unknown>;
 
 /**
@@ -1809,9 +1809,9 @@ export function scaleDivergingPow<Output, Unknown = never>(
  *
  * @param interpolator The scale’s interpolator.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleDivergingSqrt<Output = number, Unknown = never>(
     interpolator?: (t: number) => Output,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleDiverging<Output, Unknown>;
 /**
  * A diverging scale with a square-root transform, analogous to a d3.scaleSqrt.
@@ -1822,10 +1822,10 @@ export function scaleDivergingSqrt<Output = number, Unknown = never>(
  * @param domain Array of three numeric domain values.
  * @param interpolator The scale’s interpolator.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleDivergingSqrt<Output, Unknown = never>(
     domain: Iterable<NumberValue>,
     interpolator: (t: number) => Output,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleDiverging<Output, Unknown>;
 
 /**
@@ -1836,9 +1836,9 @@ export function scaleDivergingSqrt<Output, Unknown = never>(
  *
  * @param interpolator The scale’s interpolator.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleDivergingSymlog<Output = number, Unknown = never>(
     interpolator?: (t: number) => Output,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleDiverging<Output, Unknown>;
 /**
  * A diverging scale with a symmetric logarithmic transform, analogous to a symlog scale.
@@ -1849,10 +1849,10 @@ export function scaleDivergingSymlog<Output = number, Unknown = never>(
  * @param domain Array of three numeric domain values.
  * @param interpolator The scale’s interpolator.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleDivergingSymlog<Output, Unknown = never>(
     domain: Iterable<NumberValue>,
     interpolator: (t: number) => Output,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleDiverging<Output, Unknown>;
 
 // -------------------------------------------------------------------------------
@@ -1995,10 +1995,10 @@ export function scaleQuantize<Range = number, Unknown = never>(range?: Iterable<
  * @param domain A two-element array of numeric values defining the domain.
  * @param range Array of range values.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleQuantize<Range, Unknown = never>(
     domain: Iterable<NumberValue>,
     range: Iterable<Range>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleQuantize<Range, Unknown>;
 
 // -------------------------------------------------------------------------------
@@ -2108,10 +2108,10 @@ export function scaleQuantile<Range = number, Unknown = never>(range?: Iterable<
  * @param domain Array of domain values.
  * @param range Array of range values.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleQuantile<Range, Unknown = never>(
     domain: Iterable<NumberValue | null | undefined>,
     range: Iterable<Range>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleQuantile<Range, Unknown>;
 
 // -------------------------------------------------------------------------------
@@ -2203,9 +2203,9 @@ export interface ScaleThreshold<Domain extends number | string | Date, Range, Un
  *
  * @param range Array of range values.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleThreshold<Domain extends number | string | Date = number, Range = number, Unknown = never>(
     range?: Iterable<Range>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleThreshold<Domain, Range, Unknown>;
 /**
  * Constructs a new threshold scale with the specified domain and range.
@@ -2218,10 +2218,10 @@ export function scaleThreshold<Domain extends number | string | Date = number, R
  * @param domain Array of domain values.
  * @param range Array of range values.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleThreshold<Domain extends number | string | Date, Range, Unknown = never>(
     domain: Iterable<Domain>,
     range: Iterable<Range>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleThreshold<Domain, Range, Unknown>;
 
 // -------------------------------------------------------------------------------
@@ -2328,9 +2328,9 @@ export function scaleOrdinal<Range>(range?: Iterable<Range>): ScaleOrdinal<strin
  *
  * @param range An optional array of range values to initialize the scale with.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleOrdinal<Domain extends { toString(): string }, Range, Unknown = never>(
     range?: Iterable<Range>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleOrdinal<Domain, Range, Unknown>;
 /**
  * Constructs a new ordinal scale with the specified domain and range.
@@ -2342,10 +2342,10 @@ export function scaleOrdinal<Domain extends { toString(): string }, Range, Unkno
  * @param domain Array of domain values.
  * @param range An optional array of range values to initialize the scale with.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleOrdinal<Domain extends { toString(): string }, Range, Unknown = never>(
     domain: Iterable<Domain>,
     range: Iterable<Range>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleOrdinal<Domain, Range, Unknown>;
 
 /**
@@ -2504,9 +2504,9 @@ export interface ScaleBand<Domain extends { toString(): string }> {
  *
  * @param range A two-element array of numeric values.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleBand<Domain extends { toString(): string } = string>(
     range?: Iterable<NumberValue>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScaleBand<Domain>;
 /**
  * Constructs a new band scale with the specified domain and range, no padding, no rounding and center alignment.
@@ -2650,9 +2650,9 @@ export interface ScalePoint<Domain extends { toString(): string }> {
  *
  * @param range A two-element array of numeric values.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scalePoint<Domain extends { toString(): string } = string>(
     range?: Iterable<NumberValue>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ScalePoint<Domain>;
 /**
  * Constructs a new point scale with the specified domain and range, no padding, no rounding and center alignment.

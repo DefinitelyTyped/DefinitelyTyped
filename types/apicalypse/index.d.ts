@@ -4,15 +4,15 @@ export interface Apicalypse {
     request(url: string): Promise<AxiosResponse>;
     requestAll(url: string, options?: RequestAllConfig): Promise<any[]>;
 
-    multi(queries: ReadonlyArray<Apicalypse>): Apicalypse;
+    multi(queries: readonly Apicalypse[]): Apicalypse;
     query(endpoint: string, name: string): Apicalypse;
 
-    fields(fields: string | ReadonlyArray<string>): Apicalypse;
+    fields(fields: string | readonly string[]): Apicalypse;
     sort(field: string, direction?: SortDirection): Apicalypse;
     limit(limit: number): Apicalypse;
     offset(offset: number): Apicalypse;
     search(search: string): Apicalypse;
-    where(filters: string | ReadonlyArray<string>): Apicalypse;
+    where(filters: string | readonly string[]): Apicalypse;
 }
 
 export interface RequestAllConfig {

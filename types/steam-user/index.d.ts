@@ -327,7 +327,7 @@ declare class SteamUser extends EventEmitter {
         sinceChangenumber: number,
         callback?: (
             err: Error | null,
-            currentChangenumber: number,
+            currentChangeNumber: number,
             appChanges: AppChanges,
             packageChanges: PackageChanges,
         ) => void,
@@ -1413,7 +1413,7 @@ interface Server {
 }
 
 interface ProductChanges {
-    currentChangenumber: number;
+    currentChangeNumber: number;
     appChanges: AppChanges;
     packageChanges: PackageChanges;
 }

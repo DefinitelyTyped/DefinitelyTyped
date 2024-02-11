@@ -15,7 +15,7 @@ declare namespace kg {
     }
 
     interface RowFactory<EntityType> {
-        rowCache: Row<EntityType>[];
+        rowCache: Array<Row<EntityType>>;
     }
 
     interface SelectionService<EntityType> {
@@ -117,7 +117,7 @@ declare namespace kg {
         pagingOptions?: PagingOptions | undefined;
 
         /** Array of plugin functions to register in ng-grid */
-        plugins?: Plugin<EntityType>[] | undefined;
+        plugins?: Array<Plugin<EntityType>> | undefined;
 
         /** Row height of rows in grid. */
         rowHeight?: number | undefined;

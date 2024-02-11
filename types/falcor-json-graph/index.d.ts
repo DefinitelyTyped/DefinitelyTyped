@@ -33,12 +33,12 @@ declare namespace FalcorJsonGraph {
     /**
      * An ordered list of {@link Key}s that point to a value in a {@link JSONGraph}.
      */
-    type Path = Array<Key>;
+    type Path = Key[];
 
     /**
      * An ordered list of {@link KeySet}s that point to location(s) in the {@link JSONGraph}. It enables pointing to multiple locations in a more terse format than a set of {@link Path}s and is generally more efficient to evaluate.
      */
-    type PathSet = Array<KeySet>;
+    type PathSet = KeySet[];
 
     /**
      * A wrapper around a path and its value.
@@ -65,8 +65,8 @@ declare namespace FalcorJsonGraph {
      */
     interface JSONGraphEnvelope {
         jsonGraph: JSONGraph;
-        paths?: Array<PathSet> | undefined;
-        invalidate?: Array<PathSet> | undefined;
+        paths?: PathSet[] | undefined;
+        invalidate?: PathSet[] | undefined;
     }
 
     /**

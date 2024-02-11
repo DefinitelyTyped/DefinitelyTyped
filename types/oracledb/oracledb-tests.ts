@@ -371,7 +371,7 @@ const dbObjectTests = async () => {
         SDO_ORDINATES: oracledb.DBObject_OUT<number>;
     }
 
-    const result = await conn.execute<oracledb.DBObject_OUT<OutGeom>[]>(
+    const result = await conn.execute<Array<oracledb.DBObject_OUT<OutGeom>>>(
         `SELECT geometry FROM testgeometry WHERE id = 1`,
     );
     const o = result.rows[0][0];
@@ -391,7 +391,7 @@ const version4Tests = async () => {
     const connection = await pool.getConnection();
 
     const implicitResults = (await connection.execute<One>("SELECT 1 FROM DUAL"))
-        .implicitResults as oracledb.ResultSet<One>[];
+        .implicitResults as Array<oracledb.ResultSet<One>>;
 
     (await implicitResults[0].getRow()).one;
 

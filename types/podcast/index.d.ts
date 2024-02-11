@@ -1,7 +1,7 @@
 export = Podcast;
 
 declare class Podcast {
-    constructor(options?: Podcast.FeedOptions, items?: ReadonlyArray<Podcast.Item>);
+    constructor(options?: Podcast.FeedOptions, items?: readonly Podcast.Item[]);
 
     addItem(item: Podcast.Item): void;
     buildXml(indent?: boolean | string): string;

@@ -62,10 +62,10 @@ import { promisify } from "node:util";
     childProcess.execFile("npm", { windowsHide: true, signal: new AbortSignal() }, () => {});
     childProcess.execFile("npm", { shell: true }, () => {});
     childProcess.execFile("npm", { shell: "/bin/sh" }, () => {});
-    childProcess.execFile("npm", ["-v"] as ReadonlyArray<string>, () => {});
+    childProcess.execFile("npm", ["-v"] as readonly string[], () => {});
     childProcess.execFile(
         "npm",
-        ["-v"] as ReadonlyArray<string>,
+        ["-v"] as readonly string[],
         { windowsHide: true, encoding: "utf-8" },
         (stdout, stderr) => {
             assert(stdout instanceof String);
@@ -73,7 +73,7 @@ import { promisify } from "node:util";
     );
     childProcess.execFile(
         "npm",
-        ["-v"] as ReadonlyArray<string>,
+        ["-v"] as readonly string[],
         { windowsHide: true, encoding: "buffer" },
         (stdout, stderr) => {
             assert(stdout instanceof Buffer);
@@ -87,6 +87,19 @@ import { promisify } from "node:util";
     });
     childProcess.execFile("npm", (err) => {
         if (err && err.errno) assert(err.code === "ENOENT");
+    });
+    childProcess.execFile("npm", (err) => {
+        if (err !== null) {
+            if (typeof err.code === "string") {
+                console.log(err.code.charCodeAt(0));
+            } else if (typeof err.code === "number") {
+                console.log(err.code.toExponential());
+            } else if (err.code === null) {
+                // @ts-expect-error -- since err.code is null, this assignment has a type error
+                const x: string = err.code;
+                console.log(x);
+            }
+        }
     });
 }
 
@@ -111,7 +124,7 @@ import { promisify } from "node:util";
 }
 
 {
-    const forked = childProcess.fork("./", ["asd"] as ReadonlyArray<string>, {
+    const forked = childProcess.fork("./", ["asd"] as readonly string[], {
         windowsVerbatimArguments: true,
         silent: false,
         stdio: "inherit",
@@ -145,9 +158,9 @@ import { promisify } from "node:util";
 async function testPromisify() {
     const execFile = promisify(childProcess.execFile);
     let r: { stdout: string | Buffer; stderr: string | Buffer } = await execFile("npm");
-    r = await execFile("npm", ["-v"] as ReadonlyArray<string>);
-    r = await execFile("npm", ["-v"] as ReadonlyArray<string>, { encoding: "utf-8" });
-    r = await execFile("npm", ["-v"] as ReadonlyArray<string>, { encoding: "buffer" });
+    r = await execFile("npm", ["-v"] as readonly string[]);
+    r = await execFile("npm", ["-v"] as readonly string[], { encoding: "utf-8" });
+    r = await execFile("npm", ["-v"] as readonly string[], { encoding: "buffer" });
     r = await execFile("npm", { encoding: "utf-8" });
     r = await execFile("npm", { encoding: "buffer" });
 
@@ -408,6 +421,7 @@ async function testPromisify() {
     _boolean = cp.kill();
     _boolean = cp.kill(9);
     _boolean = cp.kill("SIGTERM");
+    cp[Symbol.dispose]();
 
     _maybeNumber = cp.exitCode;
     _maybeSignal = cp.signalCode;

@@ -12,18 +12,18 @@ declare namespace shpjs {
     interface ShpJS {
         (
             base: string | ShpJSBuffer,
-            whiteList?: ReadonlyArray<string>,
+            whiteList?: readonly string[],
         ): Promise<FeatureCollectionWithFilename | FeatureCollectionWithFilename[]>;
         parseZip(
             buffer: ShpJSBuffer,
-            whiteList?: ReadonlyArray<string>,
+            whiteList?: readonly string[],
         ): Promise<FeatureCollectionWithFilename | FeatureCollectionWithFilename[]>;
         getShapeFile(
             base: string | ShpJSBuffer,
-            whiteList?: ReadonlyArray<string>,
+            whiteList?: readonly string[],
         ): Promise<FeatureCollectionWithFilename | FeatureCollectionWithFilename[]>;
         combine(
-            arr: [ReadonlyArray<GeoJSON.Geometry>, ReadonlyArray<GeoJSON.GeoJsonProperties>],
+            arr: [readonly GeoJSON.Geometry[], readonly GeoJSON.GeoJsonProperties[]],
         ): GeoJSON.FeatureCollection;
         parseShp(shp: ShpJSBuffer, prj?: string | Buffer): GeoJSON.Geometry[];
         parseDbf(dbf: ShpJSBuffer, cpg: ShpJSBuffer): GeoJSON.GeoJsonProperties[];

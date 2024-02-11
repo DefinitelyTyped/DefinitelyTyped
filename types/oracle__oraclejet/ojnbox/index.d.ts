@@ -402,7 +402,7 @@ export interface ojNBoxSettablePropertiesLenient<K, D> extends Partial<ojNBoxSet
     [key: string]: any;
 }
 export namespace ojNBox {
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type Cell = {
         label?: string | undefined;
         column: string;
@@ -418,13 +418,13 @@ export namespace ojNBox {
         showCount?: "on" | "off" | "auto" | string | undefined;
         shortDesc?: string | undefined;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type Column = {
         id: string;
         label?: string | undefined;
         labelStyle?: object | undefined;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type CountLabelContext = {
         row: string;
         column: string;
@@ -432,13 +432,13 @@ export namespace ojNBox {
         totalNodeCount: number;
         highlightedNodeCount: number;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type Row = {
         id: string;
         label?: string | undefined;
         labelStyle?: object | undefined;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type TooltipContext<K> = {
         parentElement: Element;
         id: K;

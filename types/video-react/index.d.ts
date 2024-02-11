@@ -1,4 +1,4 @@
-import { LegacyRef } from "react";
+import { JSX, LegacyRef } from "react";
 
 export type PlayerReference = HTMLVideoElement & StaticPlayerInstanceMethods;
 

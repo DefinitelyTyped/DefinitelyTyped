@@ -37,7 +37,9 @@ export interface WrapperClass<P, C> {
     new(): WrapperInstance<P, C>;
 }
 
-export interface WrapperInstance<P, C> extends React.Component<OnClickOutProps<JSX.LibraryManagedAttributes<C, P>>> {
+export interface WrapperInstance<P, C>
+    extends React.Component<OnClickOutProps<React.JSX.LibraryManagedAttributes<C, P>>>
+{
     getInstance(): C extends typeof React.Component ? InstanceType<C> : never;
 }
 

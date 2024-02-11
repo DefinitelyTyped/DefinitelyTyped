@@ -399,7 +399,7 @@ myComponent.reset();
 // Refs
 // --------------------------------------------------------------------------
 
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface RCProps {}
 
 class RefComponent extends React.Component<RCProps> {

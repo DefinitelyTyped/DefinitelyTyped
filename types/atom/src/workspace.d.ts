@@ -277,7 +277,7 @@ export interface Workspace {
     replace(
         regex: RegExp,
         replacementText: string,
-        filePaths: ReadonlyArray<string>,
+        filePaths: readonly string[],
         iterator: (result: { filePath: string | undefined; replacements: number }) => void,
     ): Promise<void>;
 }
@@ -338,7 +338,7 @@ export interface WorkspaceOpenOptions {
 
 export interface WorkspaceScanOptions {
     /** An array of glob patterns to search within. */
-    paths?: ReadonlyArray<string> | undefined;
+    paths?: readonly string[] | undefined;
 
     /** A function to be periodically called with the number of paths searched. */
     onPathsSearched?(pathsSearched: number): void;

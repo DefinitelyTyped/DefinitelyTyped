@@ -24,12 +24,8 @@ readStream.pipe(extract);
 extract.on("entry", (entry: any) => undefined);
 
 {
-    const fixtures = path.resolve(__dirname, "fixtures");
-    const tars = path.resolve(fixtures, "tars");
-    const files = fs.readdirSync(tars);
-
     const options: tar.PackOptions = {
-        cwd: files,
+        cwd: __dirname,
         portable: true,
         // gzip: true,
         gzip: { flush: 1 },
@@ -37,7 +33,7 @@ extract.on("entry", (entry: any) => undefined);
         filter: (path, stat): boolean => {
             // $ExpectType string
             path;
-            // $ExpectType FileStat
+            // $ExpectType Stats
             stat;
 
             return true;
@@ -55,6 +51,15 @@ extract.on("entry", (entry: any) => undefined);
         noDirRecurse: true,
         follow: true,
     };
+
+    // @ts-expect-error
+    options.mtime = 1704391217691;
+
+    options.mtime = undefined;
+    options.mtime; // $ExpectType undefined
+
+    options.mtime = new Date();
+    options.mtime; // $ExpectType Date
 
     // $ExpectType Pack
     const pack = new tar.Pack(options)
@@ -142,4 +147,12 @@ fs.createReadStream("my-tarball.tgz")
 tar.list({
     file: "my-tarball.tgz",
     onentry: (entry) => entry.path.slice(1),
+    filter: (path, stat): boolean => {
+        // $ExpectType string
+        path;
+        // $ExpectType FileStat
+        stat;
+
+        return true;
+    },
 }).then(() => console.log("after listing"));

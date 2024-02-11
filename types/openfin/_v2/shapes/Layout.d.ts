@@ -9,7 +9,7 @@ export interface Layout {
     };
     content: LayoutContent;
 }
-export declare type LayoutContent = (LayoutRow | LayoutColumn | LayoutComponent)[];
+export declare type LayoutContent = Array<LayoutRow | LayoutColumn | LayoutComponent>;
 export interface LayoutRow {
     type: "row";
     content: LayoutContent;

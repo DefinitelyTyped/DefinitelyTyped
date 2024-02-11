@@ -1,8 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "new-parens": false,
-        "no-boolean-literal-compare": false,
-        "no-redundant-jsdoc-2": false
-    }
-}

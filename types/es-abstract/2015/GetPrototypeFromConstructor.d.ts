@@ -1,6 +1,6 @@
 import type { Intrinsics } from "../GetIntrinsic";
 
-// tslint:disable-next-line: ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 type TypedProto<P> = { readonly prototype?: P | undefined } & Omit<Function, "prototype">;
 
 declare function GetPrototypeFromConstructor<P, K extends keyof Intrinsics>(

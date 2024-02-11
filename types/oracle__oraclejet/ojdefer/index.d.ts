@@ -13,11 +13,11 @@ export interface ojDefer extends JetElement<ojDeferSettableProperties> {
     setProperties(properties: ojDeferSettablePropertiesLenient): void;
 }
 // These interfaces are empty but required to keep the event chain intact. Avoid lint-rule
-// tslint:disable-next-line no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ojDeferEventMap extends HTMLElementEventMap {
 }
 // These interfaces are empty but required to keep the component chain intact. Avoid lint-rule
-// tslint:disable-next-line no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ojDeferSettableProperties extends JetSettableProperties {
 }
 export interface ojDeferSettablePropertiesLenient extends Partial<ojDeferSettableProperties> {

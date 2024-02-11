@@ -1,7 +1,6 @@
 import * as React from "react";
 import { FC } from "react";
 import Collapse from "react-css-collapse";
-import { render } from "react-dom";
 
 const TestOpen: FC = () => (
     <Collapse isOpen>
@@ -10,5 +9,3 @@ const TestOpen: FC = () => (
         </div>
     </Collapse>
 );
-
-render(<TestOpen />, document.getElementById("main"));

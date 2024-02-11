@@ -5,5 +5,5 @@ declare type Props = ViewProps & {
     style?: Animated.WithAnimatedValue<StyleProp<ViewStyle>> | undefined;
     children?: React.ReactNode | undefined;
 };
-export default function HeaderBackground({ style, ...rest }: Props): JSX.Element;
+export default function HeaderBackground({ style, ...rest }: Props): React.JSX.Element;
 export {};

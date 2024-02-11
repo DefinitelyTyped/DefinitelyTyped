@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export type FrameCallbackType = (didTimeout: boolean) => FrameCallbackType | void;
 export interface CallbackNode {
     callback: FrameCallbackType;

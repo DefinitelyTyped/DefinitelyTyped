@@ -384,7 +384,7 @@ export interface CreditHistoryTransaction {
     referree: string;
 }
 
-export type CreditHistoryCallbackResponse = ReadonlyArray<CreditHistoryTransaction> | null;
+export type CreditHistoryCallbackResponse = readonly CreditHistoryTransaction[] | null;
 
 export interface AutoAppIndexData {
     androidPackageName?: string | undefined;

@@ -1,6 +1,6 @@
 // documentation taken from https://react-bootstrap-table.github.io/react-bootstrap-table2/docs/table-props.html
 
-import { Component, CSSProperties, ReactElement, SyntheticEvent } from "react";
+import { Component, CSSProperties, JSX, ReactElement, SyntheticEvent } from "react";
 
 export const ROW_SELECT_SINGLE = "radio";
 export const ROW_SELECT_MULTIPLE = "checkbox";
@@ -402,10 +402,12 @@ export interface SelectRowProps<T> {
     clickToEdit?: boolean | undefined;
     hideSelectAll?: boolean | undefined;
     selected?: Array<number | string> | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onSelect?: ((row: T, isSelected: boolean, rowIndex: number, e: SyntheticEvent) => void | boolean) | undefined;
     /**
      * This callback function will be called when select/unselect all and it only work when you configure selectRow.mode as checkbox.
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onSelectAll?: ((isSelect: boolean, rows: T[], e: React.SyntheticEvent) => void | number[]) | undefined;
     style?: ((row: T, rowIndex: number) => CSSProperties | undefined) | CSSProperties | undefined;
     classes?: ((row: T, rowIndex: number) => string | undefined) | string | undefined;
@@ -617,10 +619,12 @@ export type TableColumnFilterProps<FV = any, T extends object = any> = Partial<{
     /*
      * export filter function to allow users to access filter method externally.
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     getFilter: (filter: (value: FV) => void | T[]) => void;
 
     /**
      * Register a listener which will be called when column filter being triggered. If you return an array value, react-bootstrap-table2 will adopt this value as the final filtered result.
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onFilter: (filterValue: FV) => void | T[];
 }>;

@@ -91,7 +91,7 @@ declare namespace GoogleAppsScript {
         interface UrlFetchApp {
             fetch(url: string): HTTPResponse;
             fetch(url: string, params: URLFetchRequestOptions): HTTPResponse;
-            fetchAll(requests: (URLFetchRequest | string)[]): HTTPResponse[];
+            fetchAll(requests: Array<URLFetchRequest | string>): HTTPResponse[];
             getRequest(url: string): URLFetchRequest;
             getRequest(url: string, params: URLFetchRequestOptions): URLFetchRequest;
         }

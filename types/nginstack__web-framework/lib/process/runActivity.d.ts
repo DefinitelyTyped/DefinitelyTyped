@@ -10,5 +10,5 @@ declare function runActivity(
     validateLastActivity: any,
 ): any;
 declare namespace runActivity {
-    const processManager_: any;
+    let processManager_: any;
 }

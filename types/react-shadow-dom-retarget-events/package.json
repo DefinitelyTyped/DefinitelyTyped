@@ -6,8 +6,6 @@
         "https://github.com/weltn24/react-shadow-dom-retarget-events#readme"
     ],
     "devDependencies": {
-        "@types/react": "*",
-        "@types/react-dom": "*",
         "@types/react-shadow-dom-retarget-events": "workspace:."
     },
     "owners": [

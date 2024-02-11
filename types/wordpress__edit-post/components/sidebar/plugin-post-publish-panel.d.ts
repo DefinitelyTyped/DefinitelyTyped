@@ -1,5 +1,5 @@
 import { Slot } from "@wordpress/components";
-import { FC, ReactNode } from "react";
+import { FC, JSX, ReactNode } from "react";
 
 declare namespace PluginPostPublishPanel {
     interface Props {

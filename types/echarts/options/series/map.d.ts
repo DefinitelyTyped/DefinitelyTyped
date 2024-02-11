@@ -2118,7 +2118,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-map.data
              */
-            data?: (number | SeriesMap.DataObject)[] | undefined;
+            data?: Array<number | SeriesMap.DataObject> | undefined;
 
             /**
              * Mark point in a chart.

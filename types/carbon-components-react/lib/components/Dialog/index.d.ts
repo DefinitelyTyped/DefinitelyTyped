@@ -1,6 +1,8 @@
 import { FCReturn, ForwardRefProps, ReactComponentConstructor } from "../../../typings/shared";
 import { FocusScopeCustomComponentProps, FocusScopeDefaultProps, FocusScopeIntrinsicProps } from "../FocusScope";
 
+import { JSX } from "react";
+
 // Props used by Dialog that are not inherited from FocusScope usage
 interface DialogBaseProps {
     "aria-labelledby": string;

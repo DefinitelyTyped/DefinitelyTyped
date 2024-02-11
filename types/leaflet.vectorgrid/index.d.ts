@@ -141,7 +141,7 @@ declare module "leaflet" {
             constructor(data: geojson.GeoJSON, options?: SlicerOptions);
         }
         // Have a fetchOptions interface just in case user wants to do their own typesafety here
-        // tslint:disable-next-line no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface ProtobufFetchOptions {}
 
         interface ProtobufOptions extends VectorGridOptions {

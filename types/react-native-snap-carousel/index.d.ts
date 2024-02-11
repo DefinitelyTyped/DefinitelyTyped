@@ -27,7 +27,7 @@ export interface CarouselProps<T> {
     /**
      * Array of items to loop over
      */
-    data: ReadonlyArray<T>;
+    data: readonly T[];
     /**
      * Function that takes an item from the `data` array and returns a React
      * Element. See `react-native`'s `FlatList`

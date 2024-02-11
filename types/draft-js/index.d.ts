@@ -197,10 +197,10 @@ declare namespace Draft {
 
                 handlePastedText?(text: string, html: string | undefined, editorState: EditorState): DraftHandleValue;
 
-                handlePastedFiles?(files: Array<Blob>): DraftHandleValue;
+                handlePastedFiles?(files: Blob[]): DraftHandleValue;
 
                 /** Handle dropped files */
-                handleDroppedFiles?(selection: SelectionState, files: Array<Blob>): DraftHandleValue;
+                handleDroppedFiles?(selection: SelectionState, files: Blob[]): DraftHandleValue;
 
                 /** Handle other drops to prevent default text movement/insertion behaviour */
                 handleDrop?(
@@ -464,7 +464,7 @@ declare namespace Draft {
              */
             interface DraftDecoratorComponentProps {
                 blockKey: string;
-                children?: Array<React.ReactNode>;
+                children?: React.ReactNode[];
                 contentState: ContentState;
                 decoratedText: string;
                 dir: "ltr" | "rtl" | undefined;
@@ -530,7 +530,7 @@ declare namespace Draft {
              * preserved and the new match is discarded.
              */
             class CompositeDraftDecorator {
-                constructor(decorators: Array<DraftDecorator>);
+                constructor(decorators: DraftDecorator[]);
 
                 getDecorations(block: ContentBlock, contentState: ContentState): Immutable.List<string>;
                 getComponentForKey(key: string): Function;
@@ -588,8 +588,8 @@ declare namespace Draft {
                 type: DraftBlockType;
                 text: string;
                 depth: number;
-                inlineStyleRanges: Array<RawDraftInlineStyleRange>;
-                entityRanges: Array<RawDraftEntityRange>;
+                inlineStyleRanges: RawDraftInlineStyleRange[];
+                entityRanges: RawDraftEntityRange[];
                 data?: { [key: string]: any } | undefined;
             }
 
@@ -603,7 +603,7 @@ declare namespace Draft {
              * immutable objects.
              */
             interface RawDraftContentState {
-                blocks: Array<RawDraftContentBlock>;
+                blocks: RawDraftContentBlock[];
                 entityMap: { [key: string]: RawDraftEntity };
             }
 
@@ -611,7 +611,7 @@ declare namespace Draft {
                 html: string,
                 DOMBuilder?: Function,
                 blockRenderMap?: DraftBlockRenderMap,
-            ): { contentBlocks: Array<ContentBlock>; entityMap: any };
+            ): { contentBlocks: ContentBlock[]; entityMap: any };
             function convertFromRawToDraftState(rawState: RawDraftContentState): ContentState;
             function convertFromDraftStateToRaw(contentState: ContentState): RawDraftContentState;
         }
@@ -839,7 +839,7 @@ declare namespace Draft {
             }
 
             class ContentState extends Record {
-                static createFromBlockArray(blocks: Array<ContentBlock>, entityMap?: any): ContentState;
+                static createFromBlockArray(blocks: ContentBlock[], entityMap?: any): ContentState;
                 static createFromText(text: string, delimiter?: string): ContentState;
 
                 createEntity(type: DraftEntityType, mutability: DraftEntityMutability, data?: Object): ContentState;
@@ -861,7 +861,7 @@ declare namespace Draft {
                 getBlockAfter(key: string): ContentBlock | undefined;
                 getBlockBefore(key: string): ContentBlock | undefined;
 
-                getBlocksAsArray(): Array<ContentBlock>;
+                getBlocksAsArray(): ContentBlock[];
                 getFirstBlock(): ContentBlock;
                 getLastBlock(): ContentBlock;
                 getPlainText(delimiter?: string): string;
@@ -881,12 +881,14 @@ declare namespace Draft {
                 static createEmpty(key: string): SelectionState;
 
                 merge(
-                    ...iterables: Immutable.Iterable<
-                        keyof SelectionStateProperties,
-                        SelectionStateProperties[keyof SelectionStateProperties]
-                    >[]
+                    ...iterables: Array<
+                        Immutable.Iterable<
+                            keyof SelectionStateProperties,
+                            SelectionStateProperties[keyof SelectionStateProperties]
+                        >
+                    >
                 ): SelectionState;
-                merge(...iterables: Partial<SelectionStateProperties>[]): SelectionState;
+                merge(...iterables: Array<Partial<SelectionStateProperties>>): SelectionState;
 
                 serialize(): string;
                 getAnchorKey(): string;
@@ -949,7 +951,7 @@ declare namespace Draft {
                 | "undo";
 
             class BlockMapBuilder {
-                static createFromArray(blocks: Array<ContentBlock>): BlockMap;
+                static createFromArray(blocks: ContentBlock[]): BlockMap;
             }
 
             const DefaultDraftBlockRenderMap: Immutable.Map<any, any>;

@@ -46,7 +46,7 @@ export interface WebpackPluginServeOptions {
         | boolean
         | {
             wait?: boolean | undefined;
-            app?: string | ReadonlyArray<string> | undefined;
+            app?: string | readonly string[] | undefined;
         }
         | undefined;
     port?: number | Promise<number> | undefined;

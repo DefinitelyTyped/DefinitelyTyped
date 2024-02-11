@@ -148,11 +148,7 @@ it.skip("name", () => {}, 9001);
 it.skip("name", async () => {}, 9001);
 it.skip("name", (callback: jest.DoneCallback) => {}, 9001);
 
-it.todo("name", () => {});
-it.todo("name", async () => {});
-it.todo("name", () => {}, 9001);
-it.todo("name", async () => {}, 9001);
-it.todo("name", (callback: jest.DoneCallback) => {}, 9001);
+it.todo("name");
 
 it.concurrent("name", () => {});
 it.concurrent("name", async () => {});
@@ -186,11 +182,7 @@ fit.skip("name", () => {}, 9001);
 fit.skip("name", async () => {}, 9001);
 fit.skip("name", (callback: jest.DoneCallback) => {}, 9001);
 
-fit.todo("name", () => {});
-fit.todo("name", async () => {});
-fit.todo("name", () => {}, 9001);
-fit.todo("name", async () => {}, 9001);
-fit.todo("name", (callback: jest.DoneCallback) => {}, 9001);
+fit.todo("name");
 
 fit.concurrent("name", () => {});
 fit.concurrent("name", async () => {});
@@ -224,11 +216,7 @@ xit.skip("name", () => {}, 9001);
 xit.skip("name", async () => {}, 9001);
 xit.skip("name", (callback: jest.DoneCallback) => {}, 9001);
 
-xit.todo("name", () => {});
-xit.todo("name", async () => {});
-xit.todo("name", () => {}, 9001);
-xit.todo("name", async () => {}, 9001);
-xit.todo("name", (callback: jest.DoneCallback) => {}, 9001);
+xit.todo("name");
 
 xit.concurrent("name", () => {});
 xit.concurrent("name", async () => {});
@@ -262,11 +250,7 @@ test.skip("name", () => {}, 9001);
 test.skip("name", async () => {}, 9001);
 test.skip("name", (callback: jest.DoneCallback) => {}, 9001);
 
-test.todo("name", () => {});
-test.todo("name", async () => {});
-test.todo("name", () => {}, 9001);
-test.todo("name", async () => {}, 9001);
-test.todo("name", (callback: jest.DoneCallback) => {}, 9001);
+test.todo("name");
 
 test.concurrent("name", () => {});
 test.concurrent("name", async () => {});
@@ -300,11 +284,7 @@ xtest.skip("name", () => {}, 9001);
 xtest.skip("name", async () => {}, 9001);
 xtest.skip("name", (callback: jest.DoneCallback) => {}, 9001);
 
-xtest.todo("name", () => {});
-xtest.todo("name", async () => {});
-xtest.todo("name", () => {}, 9001);
-xtest.todo("name", async () => {}, 9001);
-xtest.todo("name", (callback: jest.DoneCallback) => {}, 9001);
+xtest.todo("name");
 
 xtest.concurrent("name", () => {});
 xtest.concurrent("name", async () => {});
@@ -1765,7 +1745,7 @@ it.each<number>([1, 2, 3])("dummy: %d", (num, done) => {
     done();
 });
 
-const casesReadonlyArray = [[1, 2, 3] as ReadonlyArray<number>] as ReadonlyArray<ReadonlyArray<number>>;
+const casesReadonlyArray = [[1, 2, 3] as readonly number[]] as ReadonlyArray<readonly number[]>;
 it.each(casesReadonlyArray)("%d", (a, b, c) => {
     expect(a + b).toBe(c);
 });
@@ -2020,3 +2000,16 @@ test("import.meta.jest replaces the global jest in ESM", () => {
 
     importMetaJest.fn();
 });
+
+// these are deprecated and will be removed in Jest v30
+expect("abc").toBeCalled();
+expect("abc").toBeCalledTimes(0);
+expect("abc").toBeCalledWith();
+expect("abc").lastCalledWith();
+expect("abc").nthCalledWith(0);
+expect("abc").toReturn();
+expect("abc").toReturnTimes(0);
+expect("abc").toReturnWith();
+expect("abc").lastReturnedWith();
+expect("abc").nthReturnedWith(0);
+expect("abc").toThrowError();

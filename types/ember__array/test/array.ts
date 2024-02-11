@@ -3,7 +3,7 @@ import MutableArray from "@ember/array/mutable";
 import EmberObject from "@ember/object";
 import { assertType } from "./lib/assert";
 
-type Person = typeof Person.prototype;
+type Person = EmberObject & { name: string; isHappy: boolean };
 const Person = EmberObject.extend({
     name: "",
     isHappy: false,
@@ -12,8 +12,8 @@ const Person = EmberObject.extend({
 const people = A([Person.create({ name: "Yehuda", isHappy: true }), Person.create({ name: "Majd", isHappy: false })]);
 
 assertType<number>(people.get("length"));
-assertType<Person>(people.get("lastObject"));
-assertType<Person>(people.get("firstObject"));
+assertType<Person | undefined>(people.get("lastObject"));
+assertType<Person | undefined>(people.get("firstObject"));
 assertType<boolean>(people.isAny("isHappy"));
 assertType<boolean>(people.isAny("isHappy", false));
 // @ts-expect-error
@@ -30,7 +30,7 @@ const persons5: Person[] = people.filter(person => person.get("name") === "Yehud
 const persons6: MutableArray<Person> = people.filter(person => person.get("name") === "Yehuda");
 
 assertType<typeof people>(people.get("[]"));
-assertType<Person>(people.get("[]").get("firstObject"));
+assertType<Person | undefined>(people.get("[]").get("firstObject"));
 
 assertType<boolean[]>(people.mapBy("isHappy"));
 assertType<unknown[]>(people.mapBy("name.length"));

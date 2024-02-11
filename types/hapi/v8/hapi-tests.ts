@@ -46,7 +46,7 @@ server.methods["sum"](4, 5, (err: any, result: any) => {
     console.log(result);
 });
 
-var addArray = function(array: Array<number>, next: (err: any, result?: any, ttl?: number) => void) {
+var addArray = function(array: number[], next: (err: any, result?: any, ttl?: number) => void) {
     var sum: number = 0;
     array.forEach((item: number) => {
         sum += item;
@@ -56,7 +56,7 @@ var addArray = function(array: Array<number>, next: (err: any, result?: any, ttl
 
 server.method("sumObj", addArray, {
     // cache: { expiresIn: 2000 },
-    generateKey: (array: Array<number>) => {
+    generateKey: (array: number[]) => {
         return array.join(",");
     },
 });

@@ -10,8 +10,7 @@
         "@types/react": "*"
     },
     "devDependencies": {
-        "@types/atlaskit__layer": "workspace:.",
-        "@types/react-dom": "*"
+        "@types/atlaskit__layer": "workspace:."
     },
     "owners": [
         {

@@ -96,6 +96,12 @@ user.getProductInfo([730], [420])
     })
     .catch(err => console.error(err));
 
+user.getProductChanges(0)
+    .then(response => {
+        void response.currentChangeNumber;
+    })
+    .catch(err => console.error(err));
+
 const owned = user.getOwnedApps();
 console.log(owned);
 

@@ -47,7 +47,7 @@ declare module "meteor/mdg:validated-method" {
     /**
      * When declaring a mixin that adds fields to ValidatedMethodOptions, augment this to add them
      */
-    // tslint:disable-next-line no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     export interface ValidatedMethodOptionsMixinFields<TRunArg, TRunReturn> {}
 
     export type NoArguments = undefined;

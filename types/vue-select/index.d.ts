@@ -71,6 +71,7 @@ export interface VueSelectProps {
         dropdownList: HTMLUListElement,
         component: VueSelectInstance,
         position: CalculatedPosition,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ) => void | UnbindPositionCallback;
 
     // in pointerScroll mixin:

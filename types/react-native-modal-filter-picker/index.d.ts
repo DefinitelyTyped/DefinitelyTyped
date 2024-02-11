@@ -21,9 +21,9 @@ export interface ModalFilterPickerProps<T extends ModalFilterPickerOption> {
     modal?: ModalProps | undefined;
     selectedOption?: string | undefined;
     flatListProps?: Partial<FlatListProps<T>> | undefined;
-    renderOption?: ((option: T, isSelected: boolean) => JSX.Element) | undefined;
-    renderList?: (() => JSX.Element) | undefined;
-    renderCancelButton?: (() => JSX.Element) | undefined;
+    renderOption?: ((option: T, isSelected: boolean) => React.JSX.Element) | undefined;
+    renderList?: (() => React.JSX.Element) | undefined;
+    renderCancelButton?: (() => React.JSX.Element) | undefined;
     keyboardShouldPersistTaps?: "never" | "always" | "handle" | undefined;
     autoFocus?: boolean | undefined;
 

@@ -454,8 +454,8 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-parallel.data
              */
             data?:
-                | (number | string | SeriesParallel.DataObject)[]
-                | (number | string | SeriesParallel.DataObject)[][]
+                | Array<number | string | SeriesParallel.DataObject>
+                | Array<Array<number | string | SeriesParallel.DataObject>>
                 | undefined;
 
             /**

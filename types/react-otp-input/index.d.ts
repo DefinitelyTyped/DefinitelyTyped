@@ -4,7 +4,7 @@ export interface OTPInputProps {
     value: number | string;
     onChange: any;
     numInputs: number;
-    separator?: JSX.Element | undefined;
+    separator?: React.JSX.Element | undefined;
     isDisabled?: boolean | undefined;
     shouldAutoFocus?: boolean | undefined;
     hasErrored?: boolean | undefined;

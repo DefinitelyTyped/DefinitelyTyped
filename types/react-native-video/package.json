@@ -8,7 +8,7 @@
     ],
     "dependencies": {
         "@types/react": "*",
-        "@types/react-native": "*"
+        "react-native": "*"
     },
     "devDependencies": {
         "@types/react-native-video": "workspace:."

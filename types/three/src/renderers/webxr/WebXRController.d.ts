@@ -1,8 +1,8 @@
-import { Group } from '../../objects/Group.js';
-import { Vector3 } from '../../math/Vector3.js';
-import { Object3DEventMap } from '../../core/Object3D.js';
+import { Object3DEventMap } from "../../core/Object3D.js";
+import { Vector3 } from "../../math/Vector3.js";
+import { Group } from "../../objects/Group.js";
 
-export type XRControllerEventType = XRSessionEventType | XRInputSourceEventType | 'disconnected' | 'connected';
+export type XRControllerEventType = XRSessionEventType | XRInputSourceEventType | "disconnected" | "connected";
 
 export class XRJointSpace extends Group {
     readonly jointRadius: number | undefined;

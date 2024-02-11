@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/private-ip": "workspace:."
     },
-    "owners": [
-        {
-            "name": "coderslagoon",
-            "githubUsername": "coderslagoon"
-        }
-    ]
+    "owners": []
 }

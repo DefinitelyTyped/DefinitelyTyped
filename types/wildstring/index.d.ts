@@ -5,7 +5,7 @@ declare const wildstring: {
 
     match: (pattern: string, string: string) => boolean;
 
-    replace: (pattern: string, strings: string | ReadonlyArray<string>) => string;
+    replace: (pattern: string, strings: string | readonly string[]) => string;
 };
 
 export {};

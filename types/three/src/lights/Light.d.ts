@@ -1,6 +1,6 @@
-import { Color, ColorRepresentation } from '../math/Color.js';
-import { LightShadow } from './LightShadow.js';
-import { Object3D } from '../core/Object3D.js';
+import { Object3D } from "../core/Object3D.js";
+import { Color, ColorRepresentation } from "../math/Color.js";
+import { LightShadow } from "./LightShadow.js";
 
 /**
  * Abstract base class for lights.
@@ -28,7 +28,7 @@ export abstract class Light<TShadowSupport extends LightShadow | undefined = Lig
      * @remarks Sub-classes will update this value.
      * @defaultValue `Light`
      */
-    override readonly type: string | 'Light';
+    override readonly type: string | "Light";
 
     /**
      * Color of the light. \
@@ -38,8 +38,7 @@ export abstract class Light<TShadowSupport extends LightShadow | undefined = Lig
 
     /**
      * The light's intensity, or strength.
-     * When {@link THREE.WebGLRenderer.useLegacyLights | legacy lighting mode} is disabled, the units of intensity depend on the type of light.
-     * @remarks Expects a `Float`
+     * The units of intensity depend on the type of light.
      * @defaultValue `1`
      */
     intensity: number;

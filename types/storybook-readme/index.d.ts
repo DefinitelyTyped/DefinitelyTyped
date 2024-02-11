@@ -1,6 +1,6 @@
 import { DecoratorFunction, StoryFn } from "@storybook/addons";
 import { StoryFnReactReturnType } from "@storybook/react/dist/ts3.9/client/preview/types";
-import { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 
 // Shared Types
 export type RenderFunction = StoryFn<StoryFnReactReturnType>;

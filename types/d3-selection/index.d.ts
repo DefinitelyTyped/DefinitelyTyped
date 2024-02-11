@@ -112,9 +112,9 @@ export interface TransitionLike<GElement extends BaseType, Datum> {
  *
  * @param selector CSS selector string
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function select<GElement extends BaseType, OldDatum>(
     selector: string,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): Selection<GElement, OldDatum, HTMLElement, any>;
 /**
  * Select the specified node element.
@@ -124,9 +124,9 @@ export function select<GElement extends BaseType, OldDatum>(
  *
  * @param node An element to be selected
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function select<GElement extends BaseType, OldDatum>(
     node: GElement,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): Selection<GElement, OldDatum, null, undefined>;
 
 /**
@@ -142,9 +142,9 @@ export function selectAll(selector?: null): Selection<null, undefined, null, und
  *
  * @param selector CSS selector string
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function selectAll<GElement extends BaseType, OldDatum>(
     selector: string,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): Selection<GElement, OldDatum, HTMLElement, any>;
 /**
  * Select the specified array, array-like, or iterable of nodes.
@@ -156,9 +156,9 @@ export function selectAll<GElement extends BaseType, OldDatum>(
  *
  * @param nodes An array, array-like, or iterable of nodes
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function selectAll<GElement extends BaseType, OldDatum>(
     nodes: GElement[] | ArrayLike<GElement> | Iterable<GElement>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): Selection<GElement, OldDatum, null, undefined>;
 
 /**
@@ -231,9 +231,9 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      *
      * @param selector CSS selector string
      */
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     selectAll<DescElement extends BaseType, OldDatum>(
         selector: string,
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     ): Selection<DescElement, OldDatum, GElement, Datum>;
     /**
      * For each selected element, selects the descendant elements returned by the selector function. The elements in the returned
@@ -250,9 +250,9 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]). It must return an array of elements
      * (or an iterable, or a pseudo-array, such as a NodeList), or the empty array if there are no matching elements.
      */
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     selectAll<DescElement extends BaseType, OldDatum>(
         selector: ValueFn<GElement, Datum, DescElement[] | ArrayLike<DescElement> | Iterable<DescElement>>,
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     ): Selection<DescElement, OldDatum, GElement, Datum>;
 
     /**
@@ -302,9 +302,9 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * the current index (i), and the current group (nodes), with this as the current DOM element (nodes[i]). This function should return true
      * for an element to be included, and false otherwise.
      */
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     filter<FilteredElement extends BaseType>(
         selector: ValueFn<GElement, Datum, boolean>,
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     ): Selection<FilteredElement, Datum, PElement, PDatum>;
 
     /**
@@ -347,9 +347,9 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * @param selector A selector function, which is evaluated for each of the children nodes, in order, being passed the child (child), the child’s index (i), and the list of children (children);
      * the method selects the first child for which the selector return truthy, if any.
      */
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     selectChild<ResultElement extends BaseType, ChildElement extends BaseType>(
         selector: (child: ChildElement, i: number, children: ChildElement[]) => boolean,
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     ): Selection<ResultElement, Datum, PElement, PDatum>;
 
     /**
@@ -361,9 +361,9 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      *
      * @param selector CSS selector string
      */
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     selectChildren<DescElement extends BaseType, OldDatum>(
         selector?: string,
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     ): Selection<DescElement, OldDatum, GElement, Datum>;
     /**
      * Returns a new selection with the children of each element of the current selection matching the selector.
@@ -375,9 +375,9 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * @param selector A selector function, which is evaluated for each of the children nodes, in order, being passed the child (child), the child’s index (i), and the list of children (children);
      * the method selects the first child for which the selector return truthy, if any.
      */
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     selectChildren<ResultElement extends BaseType, ResultDatum, ChildElement extends BaseType>(
         selector: (child: ChildElement, i: number, children: ChildElement[]) => boolean,
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     ): Selection<ResultElement, ResultDatum, GElement, Datum>;
 
     /**
@@ -755,12 +755,12 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      *
      * The "matching" logic is determined by the key function passed to `selection.data`.
      */
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     join<K extends keyof ElementTagNameMap, OldDatum = Datum>(
         enter: K,
         update?: (
             elem: Selection<GElement, Datum, PElement, PDatum>,
         ) => Selection<GElement, Datum, PElement, PDatum> | TransitionLike<GElement, Datum> | undefined,
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         exit?: (elem: Selection<GElement, OldDatum, PElement, PDatum>) => void,
     ): Selection<GElement | ElementTagNameMap[K], Datum, PElement, PDatum>;
     /**
@@ -769,6 +769,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      *
      * The "matching" logic is determined by the key function passed to `selection.data`.
      */
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     join<ChildElement extends BaseType, OldDatum = Datum>(
         enter:
             | string
@@ -778,9 +779,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
         update?: (
             elem: Selection<GElement, Datum, PElement, PDatum>,
         ) => Selection<GElement, Datum, PElement, PDatum> | TransitionLike<GElement, Datum> | undefined,
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         exit?: (elem: Selection<GElement, OldDatum, PElement, PDatum>) => void,
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     ): Selection<ChildElement | GElement, Datum, PElement, PDatum>;
 
     /**

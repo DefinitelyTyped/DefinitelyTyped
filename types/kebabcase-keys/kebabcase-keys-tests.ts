@@ -24,10 +24,10 @@ const person: Person = {
 const symbol = Symbol("foo");
 
 kebabcaseKeys({}); // $ExpectType {}
-kebabcaseKeys({ foo_bar: true }); // $ExpectType { "foo-bar": true; }
-kebabcaseKeys({ foo_bar: true, nested: { unicorn_rainbow: true } }); // $ExpectType { "foo-bar": true; nested: { unicorn_rainbow: true; }; }
-kebabcaseKeys({ foo_bar: true, nested: { unicorn_rainbow: true } }, { deep: true }); // $ExpectType { "foo-bar": true; nested: { "unicorn-rainbow": true; }; }
-// $ExpectType { "foo-bar": true; nested: { unicorn_rainbow: true; }; }
+kebabcaseKeys({ foo_bar: true }); // $ExpectType { "foo-bar": boolean; }
+kebabcaseKeys({ foo_bar: true, nested: { unicorn_rainbow: true } }); // $ExpectType { "foo-bar": boolean; nested: { unicorn_rainbow: boolean; }; }
+kebabcaseKeys({ foo_bar: true, nested: { unicorn_rainbow: true } }, { deep: true }); // $ExpectType { "foo-bar": boolean; nested: { "unicorn-rainbow": boolean; }; }
+// $ExpectType { "foo-bar": boolean; nested: { unicorn_rainbow: boolean; }; }
 kebabcaseKeys(
     { foo_bar: true, nested: { unicorn_rainbow: true } },
     { deep: true, exclude: ["unicorn_rainbow"] as const },
@@ -35,10 +35,10 @@ kebabcaseKeys(
 
 kebabcaseKeys([]); // $ExpectType never[]
 kebabcaseKeys([{}]); // $ExpectType {}[]
-kebabcaseKeys([{ foo_bar: true }]); // $ExpectType { "foo-bar": true; }[]
-kebabcaseKeys([{ foo_bar: true, nested: { unicorn_rainbow: true } }]); // $ExpectType { "foo-bar": true; nested: { unicorn_rainbow: true; }; }[]
-kebabcaseKeys([{ foo_bar: true, nested: { unicorn_rainbow: true } }], { deep: true }); // $ExpectType { "foo-bar": true; nested: { "unicorn-rainbow": true; }; }[]
-// $ExpectType { "foo-bar": true; nested: { unicorn_rainbow: true; }; }[]
+kebabcaseKeys([{ foo_bar: true }]); // $ExpectType { "foo-bar": boolean; }[]
+kebabcaseKeys([{ foo_bar: true, nested: { unicorn_rainbow: true } }]); // $ExpectType { "foo-bar": boolean; nested: { unicorn_rainbow: boolean; }; }[]
+kebabcaseKeys([{ foo_bar: true, nested: { unicorn_rainbow: true } }], { deep: true }); // $ExpectType { "foo-bar": boolean; nested: { "unicorn-rainbow": boolean; }; }[]
+// $ExpectType { "foo-bar": boolean; nested: { unicorn_rainbow: boolean; }; }[]
 kebabcaseKeys([{ foo_bar: true, nested: { unicorn_rainbow: true } }], {
     deep: true,
     exclude: ["unicorn_rainbow"] as const,
@@ -60,3 +60,8 @@ kebabcaseKeys({ person_interface: person }); // $ExpectType { "person-interface"
 
 // @ts-expect-error
 kebabcaseKeys([""]);
+
+// Test for union type
+const objectCamelcased: kebabcaseKeys.KebabCasedProperties<{ fooBar: { fooProp: string } | null }, true> =
+    kebabcaseKeys({ fooBar: { fooProp: "fooProps" } }, { deep: true });
+objectCamelcased; // $ExpectType { "foo-bar": { "foo-prop": string; } | null; }

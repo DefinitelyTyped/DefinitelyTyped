@@ -9,6 +9,7 @@ declare function tape(cb: tape.TestCase): void;
 
 declare namespace tape {
     interface TestCase {
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         (test: Test): void | Iterator<any> | PromiseLike<void>;
     }
 

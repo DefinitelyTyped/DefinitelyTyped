@@ -1575,9 +1575,6 @@ declare module "util" {
     }
 }
 declare module "util/types" {
-    export * from "util/types";
-}
-declare module "util/types" {
     import { KeyObject, webcrypto } from "node:crypto";
     /**
      * Returns `true` if the value is a built-in [`ArrayBuffer`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer) or

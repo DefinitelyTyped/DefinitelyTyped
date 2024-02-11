@@ -244,7 +244,7 @@ export namespace ojListView {
         }>
     {
     }
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ContextByNode<K> = {
         subId: string;
         key: K;
@@ -252,7 +252,7 @@ export namespace ojListView {
         parent?: Element | undefined;
         group?: boolean | undefined;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ItemContext<K, D> = {
         datasource: DataProvider<K, D>;
         index: number;
@@ -263,7 +263,7 @@ export namespace ojListView {
         parentKey?: K | undefined;
         leaf?: boolean | undefined;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ItemsDropContext = {
         item: Element;
         position: "before" | "after" | "inside";

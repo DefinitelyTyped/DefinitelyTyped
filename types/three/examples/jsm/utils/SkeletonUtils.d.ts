@@ -1,4 +1,4 @@
-import { AnimationClip, Object3D, Skeleton } from '../../../src/Three.js';
+import { AnimationClip, Object3D, Skeleton } from "../../../src/Three.js";
 
 export function clone(source: Object3D): Object3D;
 

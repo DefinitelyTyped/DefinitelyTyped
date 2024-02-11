@@ -19,6 +19,7 @@ declare class Commerce {
     products: Products;
     services: Services;
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     error: (response: any) => void | number[];
     request: (
         endpoint: string,

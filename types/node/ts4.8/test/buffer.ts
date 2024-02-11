@@ -14,6 +14,7 @@ import {
     TranscodeEncoding,
 } from "node:buffer";
 import { Readable, Writable } from "node:stream";
+import { ReadableStream } from "stream/web";
 
 const utf8Buffer = new Buffer("test");
 const base64Buffer = new Buffer("", "base64");
@@ -26,8 +27,8 @@ console.log(Buffer.isBuffer(octetBuffer));
 console.log(Buffer.isEncoding("utf8"));
 console.log(Buffer.byteLength("xyz123"));
 console.log(Buffer.byteLength("xyz123", "ascii"));
-const result1 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8Array>);
-const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8Array>, 9999999);
+const result1 = Buffer.concat([utf8Buffer, base64Buffer] as readonly Uint8Array[]);
+const result2 = Buffer.concat([utf8Buffer, base64Buffer] as readonly Uint8Array[], 9999999);
 
 // Module constants
 {
@@ -60,7 +61,7 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8A
 // Class Method: Buffer.from(data)
 {
     // Array
-    const buf1: Buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72] as ReadonlyArray<number>);
+    const buf1: Buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72] as readonly number[]);
     // Buffer
     const buf2: Buffer = Buffer.from(buf1, 1, 2);
     // String
@@ -135,6 +136,7 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8A
     const buf2: Buffer = Buffer.alloc(5, "a");
     const buf3: Buffer = Buffer.alloc(11, "aGVsbG8gd29ybGQ=", "base64");
     const buf4: Buffer = Buffer.alloc(11, "aGVsbG8gd29ybGQ", "base64url");
+    const buf5: Buffer = Buffer.alloc(2, new Uint8Array([1, 2]));
 }
 // Class Method: Buffer.allocUnsafe(size)
 {
@@ -266,6 +268,13 @@ b.fill("a").fill("b");
     const b = new ImportedBuffer("123");
     b.writeUInt8(0, 6);
     const sb = new ImportedSlowBuffer(43);
+    b.writeUInt8(0, 6);
+}
+
+// NodeJS.BufferEncoding works properly
+{
+    const encoding: NodeJS.BufferEncoding = "ascii";
+    const b = new ImportedBuffer("123", encoding);
     b.writeUInt8(0, 6);
 }
 
@@ -464,7 +473,7 @@ buff.writeDoubleBE(123.123, 0);
 
 {
     // $ExpectType Blob | undefined
-    resolveObjectURL(URL.createObjectURL(new NodeBlob([""])));
+    resolveObjectURL(URL.createObjectURL(new Blob([""])));
 }
 
 {
@@ -479,6 +488,23 @@ buff.writeDoubleBE(123.123, 0);
     const u16 = new Uint16Array([0xffff]);
     Buffer.copyBytesFrom(u16); // $ExpectType Buffer
     Buffer.copyBytesFrom(u16, 1, 5); // $ExpectType Buffer
+}
+
+declare class NodeFile implements File {
+    lastModified: number;
+    name: string;
+    webkitRelativePath: string;
+    get size(): number;
+    type: string;
+    constructor(filepath: string, type: string, slicer?: {
+        start: number;
+        end: number;
+    });
+    hi: string;
+    slice(start?: number, end?: number, type?: string): NodeBlob;
+    stream(): ReadableStream;
+    arrayBuffer(): Promise<ArrayBuffer>;
+    text(): Promise<string>;
 }
 
 {

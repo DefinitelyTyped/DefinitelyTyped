@@ -9,7 +9,7 @@
     "dependencies": {
         "@rdfjs/types": "*",
         "@types/node": "*",
-        "@types/rdfjs__formats-common": "*"
+        "@types/rdfjs__formats": "*"
     },
     "devDependencies": {
         "@types/rdfjs__environment": "*",

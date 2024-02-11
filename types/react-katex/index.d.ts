@@ -16,6 +16,6 @@ export interface MathComponentPropsWithChildren {
 
 export type MathComponentProps = MathComponentPropsWithMath | MathComponentPropsWithChildren;
 
-export function BlockMath(props: MathComponentProps): JSX.Element;
+export function BlockMath(props: MathComponentProps): React.JSX.Element;
 
-export function InlineMath(props: MathComponentProps): JSX.Element;
+export function InlineMath(props: MathComponentProps): React.JSX.Element;

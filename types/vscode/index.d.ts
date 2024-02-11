@@ -5,7 +5,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Visual Studio Code 1.83 Extension API
+ * Type Definition for Visual Studio Code 1.86 Extension API
  * See https://code.visualstudio.com/api for more information
  */
 
@@ -894,14 +894,14 @@ declare module 'vscode' {
 	}
 
 	/**
-	 * A reference to one of the workbench colors as defined in https://code.visualstudio.com/docs/getstarted/theme-color-reference.
+	 * A reference to one of the workbench colors as defined in https://code.visualstudio.com/api/references/theme-color.
 	 * Using a theme color is preferred over a custom color as it gives theme authors and users the possibility to change the color.
 	 */
 	export class ThemeColor {
 
 		/**
 		 * Creates a reference to a theme color.
-		 * @param id of the color. The available colors are listed in https://code.visualstudio.com/docs/getstarted/theme-color-reference.
+		 * @param id of the color. The available colors are listed in https://code.visualstudio.com/api/references/theme-color.
 		 */
 		constructor(id: string);
 	}
@@ -1558,7 +1558,7 @@ declare module 'vscode' {
 		 */
 		with(change: {
 			/**
-			 * The new scheme, defauls to this Uri's scheme.
+			 * The new scheme, defaults to this Uri's scheme.
 			 */
 			scheme?: string;
 			/**
@@ -2018,10 +2018,10 @@ declare module 'vscode' {
 
 		/**
 		 * A set of file filters that are used by the dialog. Each entry is a human-readable label,
-		 * like "TypeScript", and an array of extensions, e.g.
+		 * like "TypeScript", and an array of extensions, for example:
 		 * ```ts
 		 * {
-		 * 	'Images': ['png', 'jpg']
+		 * 	'Images': ['png', 'jpg'],
 		 * 	'TypeScript': ['ts', 'tsx']
 		 * }
 		 * ```
@@ -2053,10 +2053,10 @@ declare module 'vscode' {
 
 		/**
 		 * A set of file filters that are used by the dialog. Each entry is a human-readable label,
-		 * like "TypeScript", and an array of extensions, e.g.
+		 * like "TypeScript", and an array of extensions, for example:
 		 * ```ts
 		 * {
-		 * 	'Images': ['png', 'jpg']
+		 * 	'Images': ['png', 'jpg'],
 		 * 	'TypeScript': ['ts', 'tsx']
 		 * }
 		 * ```
@@ -3958,7 +3958,7 @@ declare module 'vscode' {
 		 * @param uri A resource identifier.
 		 * @param edits An array of edits.
 		 */
-		set(uri: Uri, edits: ReadonlyArray<[TextEdit | SnippetTextEdit, WorkspaceEditEntryMetadata]>): void;
+		set(uri: Uri, edits: ReadonlyArray<[TextEdit | SnippetTextEdit, WorkspaceEditEntryMetadata | undefined]>): void;
 
 		/**
 		 * Set (and replace) notebook edits for a resource.
@@ -3974,7 +3974,7 @@ declare module 'vscode' {
 		 * @param uri A resource identifier.
 		 * @param edits An array of edits.
 		 */
-		set(uri: Uri, edits: ReadonlyArray<[NotebookEdit, WorkspaceEditEntryMetadata]>): void;
+		set(uri: Uri, edits: ReadonlyArray<[NotebookEdit, WorkspaceEditEntryMetadata | undefined]>): void;
 
 		/**
 		 * Get the text edits for a resource.
@@ -4066,7 +4066,7 @@ declare module 'vscode' {
 	 * and `${3:foo}`. `$0` defines the final tab stop, it defaults to
 	 * the end of the snippet. Variables are defined with `$name` and
 	 * `${name:default value}`. Also see
-	 * [the full snippet syntax](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_creating-your-own-snippets).
+	 * [the full snippet syntax](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_create-your-own-snippets).
 	 */
 	export class SnippetString {
 
@@ -7336,11 +7336,10 @@ declare module 'vscode' {
 		 * (shell) of the terminal.
 		 *
 		 * @param text The text to send.
-		 * @param addNewLine Whether to add a new line to the text being sent, this is normally
-		 * required to run a command in the terminal. The character(s) added are \n or \r\n
-		 * depending on the platform. This defaults to `true`.
+		 * @param shouldExecute Indicates that the text being sent should be executed rather than just inserted in the terminal.
+		 * The character(s) added are \n or \r\n, depending on the platform. This defaults to `true`.
 		 */
-		sendText(text: string, addNewLine?: boolean): void;
+		sendText(text: string, shouldExecute?: boolean): void;
 
 		/**
 		 * Show the terminal panel and reveal this terminal in the UI.
@@ -9605,7 +9604,7 @@ declare module 'vscode' {
 	 */
 	export interface WebviewViewProvider {
 		/**
-		 * Revolves a webview view.
+		 * Resolves a webview view.
 		 *
 		 * `resolveWebviewView` is called when a view first becomes visible. This may happen when the view is
 		 * first loaded or when the user hides and then shows a view again.
@@ -10209,7 +10208,7 @@ declare module 'vscode' {
 	 * * palette - Use the `commands`-section in `package.json` to make a command show in
 	 * the [command palette](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette).
 	 * * keybinding - Use the `keybindings`-section in `package.json` to enable
-	 * [keybindings](https://code.visualstudio.com/docs/getstarted/keybindings#_customizing-shortcuts)
+	 * [keybindings](https://code.visualstudio.com/docs/getstarted/keybindings#_advanced-customization)
 	 * for your extension.
 	 *
 	 * Commands from other extensions and from the editor itself are accessible to an extension. However,
@@ -11326,7 +11325,7 @@ declare module 'vscode' {
 		 * tree objects in a data transfer. See the documentation for `DataTransferItem` for how best to take advantage of this.
 		 *
 		 * To add a data transfer item that can be dragged into the editor, use the application specific mime type "text/uri-list".
-		 * The data for "text/uri-list" should be a string with `toString()`ed Uris separated by newlines. To specify a cursor position in the file,
+		 * The data for "text/uri-list" should be a string with `toString()`ed Uris separated by `\r\n`. To specify a cursor position in the file,
 		 * set the Uri's fragment to `L3,5`, where 3 is the line number and 5 is the column number.
 		 *
 		 * @param source The source items for the drag and drop operation.
@@ -13294,6 +13293,29 @@ declare module 'vscode' {
 		export function findFiles(include: GlobPattern, exclude?: GlobPattern | null, maxResults?: number, token?: CancellationToken): Thenable<Uri[]>;
 
 		/**
+		 * Saves the editor identified by the given resource and returns the resulting resource or `undefined`
+		 * if save was not successful or no editor with the given resource was found.
+		 *
+		 * **Note** that an editor with the provided resource must be opened in order to be saved.
+		 *
+		 * @param uri the associated uri for the opened editor to save.
+		 * @returns A thenable that resolves when the save operation has finished.
+		 */
+		export function save(uri: Uri): Thenable<Uri | undefined>;
+
+		/**
+		 * Saves the editor identified by the given resource to a new file name as provided by the user and
+		 * returns the resulting resource or `undefined` if save was not successful or cancelled or no editor
+		 * with the given resource was found.
+		 *
+		 * **Note** that an editor with the provided resource must be opened in order to be saved as.
+		 *
+		 * @param uri the associated uri for the opened editor to save as.
+		 * @returns A thenable that resolves when the save-as operation has finished.
+		 */
+		export function saveAs(uri: Uri): Thenable<Uri | undefined>;
+
+		/**
 		 * Save all dirty files.
 		 *
 		 * @param includeUntitled Also save files that have been created during this session.
@@ -13348,13 +13370,13 @@ declare module 'vscode' {
 		export function openTextDocument(uri: Uri): Thenable<TextDocument>;
 
 		/**
-		 * A short-hand for `openTextDocument(Uri.file(fileName))`.
+		 * A short-hand for `openTextDocument(Uri.file(path))`.
 		 *
 		 * @see {@link workspace.openTextDocument}
-		 * @param fileName A name of a file on disk.
+		 * @param path A path of a file on disk.
 		 * @returns A promise that resolves to a {@link TextDocument document}.
 		 */
-		export function openTextDocument(fileName: string): Thenable<TextDocument>;
+		export function openTextDocument(path: string): Thenable<TextDocument>;
 
 		/**
 		 * Opens an untitled text document. The editor will prompt the user for a file
@@ -13642,8 +13664,9 @@ declare module 'vscode' {
 			readonly isCaseSensitive?: boolean;
 			/**
 			 * Whether the file system provider is readonly, no modifications like write, delete, create are possible.
+			 * If a {@link MarkdownString} is given, it will be shown as the reason why the file system is readonly.
 			 */
-			readonly isReadonly?: boolean;
+			readonly isReadonly?: boolean | MarkdownString;
 		}): Disposable;
 
 		/**
@@ -17126,8 +17149,17 @@ declare module 'vscode' {
 		 * the generic "run all" button, then the default profile for
 		 * {@link TestRunProfileKind.Run} will be executed, although the
 		 * user can configure this.
+		 *
+		 * Changes the user makes in their default profiles will be reflected
+		 * in this property after a {@link onDidChangeDefault} event.
 		 */
 		isDefault: boolean;
+
+		/**
+		 * Fired when a user has changed whether this is a default profile. The
+		 * event contains the new value of {@link isDefault}
+		 */
+		onDidChangeDefault: Event<boolean>;
 
 		/**
 		 * Whether this profile supports continuous running of requests. If so,
@@ -17615,6 +17647,37 @@ declare module 'vscode' {
 		 * Associated file location.
 		 */
 		location?: Location;
+
+		/**
+		 * Context value of the test item. This can be used to contribute message-
+		 * specific actions to the test peek view. The value set here can be found
+		 * in the `testMessage` property of the following `menus` contribution points:
+		 *
+		 * - `testing/message/context` - context menu for the message in the results tree
+		 * - `testing/message/content` - a prominent button overlaying editor content where
+		 *    the message is displayed.
+		 *
+		 * For example:
+		 *
+		 * ```json
+		 * "contributes": {
+		 *   "menus": {
+		 *     "testing/message/content": [
+		 *       {
+		 *         "command": "extension.deleteCommentThread",
+		 *         "when": "testMessage == canApplyRichDiff"
+		 *       }
+		 *     ]
+		 *   }
+		 * }
+		 * ```
+		 *
+		 * The command will be called with an object containing:
+		 * - `test`: the {@link TestItem} the message is associated with, *if* it
+		 *    is still present in the {@link TestController.items} collection.
+		 * - `message`: the {@link TestMessage} instance.
+		 */
+		contextValue?: string;
 
 		/**
 		 * Creates a new TestMessage that will present as a diff in the editor.

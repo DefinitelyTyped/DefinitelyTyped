@@ -185,7 +185,7 @@ export interface ResourceHeaderProps<TResource extends object = object> {
 export interface DateCellWrapperProps {
     range: Date[];
     value: Date;
-    children: JSX.Element;
+    children: React.JSX.Element;
 }
 
 export interface Components<TEvent extends object = Event, TResource extends object = object> {
@@ -253,7 +253,7 @@ export interface EventProps<TEvent extends object = Event> {
     title: string;
     continuesPrior: boolean;
     continuesAfter: boolean;
-    isAllDay: boolean;
+    isAllDay?: boolean;
     localizer: DateLocalizer;
     slotStart: Date;
     slotEnd: Date;
@@ -441,6 +441,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     onSelectEvent?: ((event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void) | undefined;
     onKeyPressEvent?: ((event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void) | undefined;
     onSelecting?: (range: { start: Date; end: Date }) => boolean | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onRangeChange?: (range: Date[] | { start: Date; end: Date }, view?: View) => void | undefined;
     showAllEvents?: boolean | undefined;
     selected?: any;
@@ -476,7 +477,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     messages?: Messages | undefined;
     dayLayoutAlgorithm?: DayLayoutAlgorithm | DayLayoutFunction<TEvent> | undefined;
     titleAccessor?: keyof TEvent | ((event: TEvent) => string) | undefined;
-    tooltipAccessor?: keyof TEvent | ((event: TEvent) => string) | undefined;
+    tooltipAccessor?: keyof TEvent | ((event: TEvent) => string) | null | undefined;
     allDayAccessor?: keyof TEvent | ((event: TEvent) => boolean) | undefined;
     startAccessor?: keyof TEvent | ((event: TEvent) => Date) | undefined;
     endAccessor?: keyof TEvent | ((event: TEvent) => Date) | undefined;

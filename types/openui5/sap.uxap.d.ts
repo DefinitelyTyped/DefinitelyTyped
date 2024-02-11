@@ -1,4 +1,4 @@
-// For Library Version: 1.119.0
+// For Library Version: 1.120.0
 
 declare module "sap/uxap/library" {
   /**

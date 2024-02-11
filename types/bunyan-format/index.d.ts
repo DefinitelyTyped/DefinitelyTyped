@@ -18,7 +18,7 @@ declare namespace BunyanFormatWritable {
 
 /** Creates a writable stream that formats bunyan records written to it. */
 interface BunyanFormatWritable extends Writable {
-    // tslint:disable-next-line no-misused-new
+    // eslint-disable-next-line @typescript-eslint/no-misused-new
     new(options: BunyanFormatWritable.Options, output?: Writable): BunyanFormatWritable;
     (options: BunyanFormatWritable.Options, output?: Writable): BunyanFormatWritable;
 }

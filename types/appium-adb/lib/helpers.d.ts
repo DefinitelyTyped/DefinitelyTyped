@@ -154,7 +154,7 @@ export function getBuildToolsDirs(sdkRoot: string): Promise<string[]>;
  */
 export function extractMatchingPermissions(
     dumpsysOutput: string,
-    groupNames: ReadonlyArray<string>,
+    groupNames: readonly string[],
     grantedState?: boolean | null,
 ): string[];
 
@@ -264,7 +264,7 @@ export function parseAapt2Strings(rawOutput: string, configMarker: string): Reco
  * @return The formatted config marker
  */
 export function formatConfigMarker(
-    configsGetter: () => ReadonlyArray<string> | Promise<ReadonlyArray<string>>,
+    configsGetter: () => readonly string[] | Promise<readonly string[]>,
     desiredMarker: string,
     defaultMarker: string,
 ): Promise<string>;

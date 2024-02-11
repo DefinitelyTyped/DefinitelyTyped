@@ -4,6 +4,7 @@ export function scheduleFrame(context: object, method: string): number;
 
 export function exec(
     target: object,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     method: () => void | string,
     args: unknown[],
     onError: (e: Error, stack: object) => void,

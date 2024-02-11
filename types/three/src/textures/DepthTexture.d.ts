@@ -1,13 +1,13 @@
-import { Texture } from './Texture.js';
 import {
-    Mapping,
-    Wrapping,
-    TextureDataType,
-    DeepTexturePixelFormat,
+    DepthTexturePixelFormat,
     MagnificationTextureFilter,
+    Mapping,
     MinificationTextureFilter,
     TextureComparisonFunction,
-} from '../constants.js';
+    TextureDataType,
+    Wrapping,
+} from "../constants.js";
+import { Texture } from "./Texture.js";
 
 /**
  * This class can be used to automatically save the depth information of a rendering into a texture
@@ -42,7 +42,7 @@ export class DepthTexture extends Texture {
         magFilter?: MagnificationTextureFilter,
         minFilter?: MinificationTextureFilter,
         anisotropy?: number,
-        format?: DeepTexturePixelFormat,
+        format?: DepthTexturePixelFormat,
     );
 
     /**
@@ -88,7 +88,7 @@ export class DepthTexture extends Texture {
      * @see {@link Texture.format | Texture.format}
      * @defaultValue {@link THREE.DepthFormat}.
      */
-    format: DeepTexturePixelFormat;
+    format: DepthTexturePixelFormat;
 
     /**
      * @override

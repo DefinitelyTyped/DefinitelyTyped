@@ -1,4 +1,4 @@
-import { ComponentType, CSSProperties } from "react";
+import { ComponentType, CSSProperties, JSX } from "react";
 
 interface WidgetProps {
     index: number;

@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
 type Stringifiable = NodeJS.Dict<
-    string | number | boolean | ReadonlyArray<string> | ReadonlyArray<number> | ReadonlyArray<boolean> | null
+    string | number | boolean | readonly string[] | readonly number[] | readonly boolean[] | null
 >;
 type Method = "GET" | "POST";
 

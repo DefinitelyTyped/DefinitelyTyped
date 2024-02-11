@@ -22,6 +22,7 @@ export interface BaseUserMigrationTriggerEvent<T extends string> extends BaseTri
         messageAction?: "RESEND" | "SUPPRESS" | undefined;
         desiredDeliveryMediums: Array<"SMS" | "EMAIL">;
         forceAliasCreation?: boolean | undefined;
+        enableSMSMFA?: boolean | undefined;
     };
 }
 

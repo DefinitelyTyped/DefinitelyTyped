@@ -11,9 +11,9 @@ import { Commit } from "conventional-commits-parser";
  *                object contains, but not limits to the following fields.
  * @param options
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 declare function conventionalChangelogWriter<TCommit extends Commit = Commit, TContext extends Context = Context>(
     context?: Partial<TContext>,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     options?: Options<TCommit, TContext>,
 ): Stream.Transform;
 
@@ -349,7 +349,7 @@ declare namespace conventionalChangelogWriter {
             export { FunctionType as Function };
         }
 
-        type Sort<T = any> = Sort.Function<T> | string | ReadonlyArray<string> | false;
+        type Sort<T = any> = Sort.Function<T> | string | readonly string[] | false;
 
         namespace Sort {
             type FunctionType<T = any> = (a: T, b: T) => number;

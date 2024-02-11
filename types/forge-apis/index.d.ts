@@ -1354,7 +1354,9 @@ export class ObjectsApi {
             useCdn?: boolean | undefined;
             minutesExpiration?: number | undefined;
             chunkSize?: number | undefined;
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onDownloadProgress?: (progressEvent: any) => void | undefined;
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onRefreshToken?: () => void | undefined;
         },
         oauth2client: AuthClient,
@@ -1403,7 +1405,9 @@ export class ObjectsApi {
             maxBatches?: number | undefined;
             useAcceleration?: boolean | undefined;
             minutesExpiration?: number | undefined;
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onUploadProgress?: (progressEvent: any) => void | undefined;
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onRefreshToken?: () => void | undefined;
         },
         oauth2client: AuthClient,
@@ -1657,6 +1661,7 @@ export namespace WebhooksApi {
         filter?: string | undefined;
         hubId: string;
         projectId?: string | undefined;
+        hookExpiry?: string | undefined;
     }
 }
 

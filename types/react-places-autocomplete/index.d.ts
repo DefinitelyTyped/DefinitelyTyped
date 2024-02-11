@@ -41,7 +41,7 @@ export interface PropTypes {
     children: (
         opts: Readonly<{
             loading: boolean;
-            suggestions: ReadonlyArray<Suggestion>;
+            suggestions: readonly Suggestion[];
             getInputProps: <InputProps extends {}>(options?: InputProps) => {
                 type: "text";
                 autoComplete: "off";

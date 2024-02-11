@@ -84,7 +84,7 @@ declare namespace HubSpotPaceInterfaces {
         /**
          * A list of regular expressions or substrings of URLS we should ignore (for both tracking and restarting)
          */
-        ignoreURLs?: (string | RegExp)[] | undefined;
+        ignoreURLs?: Array<string | RegExp> | undefined;
     }
 
     interface Pace {

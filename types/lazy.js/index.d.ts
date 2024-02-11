@@ -129,7 +129,7 @@ declare namespace LazyJS {
                 : T extends ReadonlyArray<infer U> ? Flatten<U, Shallow>
                 : never;
             1: T;
-        }[T extends Sequence<any> ? 0 : T extends any[] ? 0 : T extends ReadonlyArray<any> ? 0 : 1];
+        }[T extends Sequence<any> ? 0 : T extends any[] ? 0 : T extends readonly any[] ? 0 : 1];
 
     type PushFront<TailT extends any[], FrontT> = ((front: FrontT, ...rest: TailT) => any) extends
         ((...tuple: infer TupleT) => any) ? TupleT

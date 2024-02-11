@@ -71,6 +71,12 @@ declare namespace runtime {
         tcpMsgQueueSize?: number | undefined;
 
         /**
+         * Timeout in milliseconds for inbound WebSocket connections that do not
+         * match any configured node. Defaults to 5000
+         */
+        inboundWebSocketTimeout?: number | undefined;
+
+        /**
          * Timeout in milliseconds for HTTP request connections
          */
         httpRequestTimeout?: number | undefined;
@@ -79,6 +85,9 @@ declare namespace runtime {
          * The maximum length, in characters, of any message sent to the debug sidebar tab
          */
         debugMaxLength?: number | undefined;
+
+        /** Maximum buffer size for the exec node. Defaults to 10Mb */
+        execMaxBufferSize?: number | undefined;
 
         /**
          * The maximum number of messages nodes will buffer internally as part of their
@@ -131,6 +140,13 @@ declare namespace runtime {
         nodesDir?: string | undefined;
 
         /**
+         * The following property can be used to add a custom middleware function
+         * in front of all admin http routes. For example, to set custom http
+         * headers. It can be a single function or an array of middleware functions.
+         */
+        httpAdminMiddleware?: ((req: Request, res: Response, next: NextFunction) => void) | undefined;
+
+        /**
          * By default, the Node-RED UI is available at http://localhost:1880/
          * The following property can be used to specify a different root path.
          * If set to false, this is disabled.
@@ -140,7 +156,7 @@ declare namespace runtime {
         /**
          * Some nodes, such as HTTP In, can be used to listen for incoming http requests.
          * By default, these are served relative to '/'. The following property
-         * can be used to specifiy a different root path. If set to false, this is
+         * can be used to specify a different root path. If set to false, this is
          * disabled.
          */
         httpNodeRoot?: string | false | undefined;
@@ -153,10 +169,29 @@ declare namespace runtime {
 
         /**
          * When httpAdminRoot is used to move the UI to a different root path, the
-         * following property is used to identify a directory of static content
+         * following property can be used to identify a directory of static content
          * that should be served at http://localhost:1880/.
+         *
+         * When httpStaticRoot is set differently to httpAdminRoot, there is no need
+         * to move httpAdminRoot.
          */
-        httpStatic?: string | undefined;
+        httpStatic?:
+            | Array<{
+                path: string;
+                root?: string | undefined;
+            }>
+            | string
+            | undefined;
+
+        /**
+         * All static routes will be appended to httpStaticRoot
+         * e.g. if httpStatic = "/home/nol/docs" and  httpStaticRoot = "/static/"
+         *      then "/home/nol/docs" will be served at "/static/"
+         * e.g. if httpStatic = [{path: '/home/nol/pics/', root: "/img/"}]
+         *      and httpStaticRoot = "/static/"
+         *      then "/home/nol/pics/" will be served at "/static/img/"
+         */
+        httpStaticRoot?: string | undefined;
 
         /**
          * The maximum size of HTTP request that will be accepted by the runtime api.
@@ -183,11 +218,9 @@ declare namespace runtime {
                     password: string;
                     permissions: Permission | Permission[];
                 }>;
-                default?:
-                    | {
-                        permissions: Permission | Permission[];
-                    }
-                    | undefined;
+                default?: {
+                    permissions: Permission | Permission[];
+                } | undefined;
             }
             | {
                 type: "credentials";
@@ -267,9 +300,12 @@ declare namespace runtime {
                     req: Request;
                     secure: boolean;
                 },
-                callback: (result: boolean, code?: string, reason?: string) => void,
+                callback: (result: boolean, code?: string | undefined, reason?: string | undefined) => void,
             ) => void)
             | undefined;
+
+        /** Allow the Function node to load additional npm modules directly */
+        functionExternalModules?: boolean | undefined;
 
         /**
          * The following property can be used to seed Global Context with predefined
@@ -294,20 +330,50 @@ declare namespace runtime {
         exportGlobalContextKeys?: boolean | undefined;
 
         /**
+         * Configure how the runtime will handle external npm modules.
+         * This covers:
+         *  - whether the editor will allow new node modules to be installed
+         *  - whether nodes, such as the Function node are allowed to have their
+         * own dynamically configured dependencies.
+         * The allow/denyList options can be used to limit what modules the runtime
+         * will install/load. It can use '*' as a wildcard that matches anything.
+         */
+        externalModules?: {
+            autoInstall?:
+                | boolean
+                | undefined; /** Whether the runtime will attempt to automatically install missing modules */
+            autoInstallRetry?: number | undefined; /** Interval, in seconds, between reinstall attempts */
+            palette?: {
+                /** Configuration for the Palette Manager */
+                allowInstall?: boolean | undefined; /** Enable the Palette Manager in the editor */
+                allowUpdate?: boolean | undefined; /** Allow modules to be updated in the Palette Manager */
+                allowUpload?: boolean | undefined; /** Allow module tgz files to be uploaded and installed */
+                allowList?: string[] | undefined;
+                denyList?: string[] | undefined;
+                allowUpdateList?: string[] | undefined;
+                denyUpdateList?: string[] | undefined;
+            } | undefined;
+            modules?: {
+                /** Configuration for node-specified modules */
+                allowInstall?: boolean | undefined;
+                allowList?: string[] | undefined;
+                denyList?: string[] | undefined;
+            } | undefined;
+        } | undefined;
+
+        /**
          * Context Storage
          * The following property can be used to enable context storage. The configuration
          * provided here will enable file-based context that flushes to disk every 30 seconds.
          * Refer to the documentation for further options: https://nodered.org/docs/api/context/
          */
-        contextStorage?:
-            | {
-                [key: string]:
-                    | string
-                    | {
-                        module: string;
-                    };
-            }
-            | undefined;
+        contextStorage?: {
+            [key: string]:
+                | string
+                | {
+                    module: string;
+                };
+        } | undefined;
 
         /**
          * The following property can be used to order the categories in the editor
@@ -321,152 +387,130 @@ declare namespace runtime {
         /**
          * Configure the logging output
          */
-        logging?:
-            | {
+        logging?: {
+            /**
+             * Only console logging is currently supported
+             */
+            console?: {
                 /**
-                 * Only console logging is currently supported
+                 * Level of logging to be recorded. Options are:
+                 * fatal - only those errors which make the application unusable should be recorded
+                 * error - record errors which are deemed fatal for a particular request + fatal errors
+                 * warn - record problems which are non fatal + errors + fatal errors
+                 * info - record information about the general running of the application + warn + error + fatal errors
+                 * debug - record information which is more verbose than info + info + warn + error + fatal errors
+                 * trace - record very detailed logging + debug + info + warn + error + fatal errors
+                 * off - turn off all logging (doesn't affect metrics or audit)
                  */
-                console?:
-                    | {
-                        /**
-                         * Level of logging to be recorded. Options are:
-                         * fatal - only those errors which make the application unusable should be recorded
-                         * error - record errors which are deemed fatal for a particular request + fatal errors
-                         * warn - record problems which are non fatal + errors + fatal errors
-                         * info - record information about the general running of the application + warn + error + fatal errors
-                         * debug - record information which is more verbose than info + info + warn + error + fatal errors
-                         * trace - record very detailed logging + debug + info + warn + error + fatal errors
-                         * off - turn off all logging (doesn't affect metrics or audit)
-                         */
-                        level: "fatal" | "error" | "warn" | "info" | "debug" | "trace" | "off";
+                level: "fatal" | "error" | "warn" | "info" | "debug" | "trace" | "off";
 
-                        /**
-                         * Whether or not to include metric events in the log output
-                         */
-                        metrics: boolean;
+                /**
+                 * Whether or not to include metric events in the log output
+                 */
+                metrics: boolean;
 
-                        /**
-                         * Whether or not to include audit events in the log output
-                         */
-                        audit: boolean;
-                    }
-                    | undefined;
-            }
-            | undefined;
+                /**
+                 * Whether or not to include audit events in the log output
+                 */
+                audit: boolean;
+            } | undefined;
+        } | undefined;
 
         /**
          * Customising the editor
          */
-        editorTheme?:
-            | {
-                page?:
-                    | {
-                        /**
-                         * Page title
-                         */
-                        title?: string | undefined;
-                        /**
-                         * Absolute path to theme icon
-                         */
-                        favicon?: string | undefined;
-                        /**
-                         * Absolute path to custom css file
-                         */
-                        css?: string | undefined;
-                        /**
-                         * Absolute paths to custom script files
-                         */
-                        scripts?: string[] | undefined;
-                    }
-                    | undefined;
-                header?:
-                    | {
-                        /**
-                         * Header title
-                         */
-                        title?: string | undefined;
-                        /**
-                         * Absolute path to header image, or `null` to remove image
-                         */
-                        image?: string | null | undefined;
-                        /**
-                         * Url to make the header text/image a link to this url
-                         */
-                        url?: string | undefined;
-                    }
-                    | undefined;
-                deployButton?:
-                    | {
-                        type: "simple";
-                        /**
-                         * Deploy button label
-                         */
-                        label: string;
-                        /**
-                         * Absolute path to deploy button image or `null` to remove image
-                         */
-                        icon: string;
-                    }
-                    | undefined;
+        editorTheme?: {
+            page?: {
                 /**
-                 * Hide unwanted menu items by id
+                 * Page title
                  */
-                menu?:
-                    | {
-                        "menu-item-import-library"?: boolean | undefined;
-                        "menu-item-export-library"?: boolean | undefined;
-                        "menu-item-keyboard-shortcuts"?: boolean | undefined;
-                        "menu-item-help"?:
-                            | {
-                                /** Help Link Text */
-                                label: string;
-                                /** Help Link URL */
-                                url: string;
-                            }
-                            | undefined;
-                    }
-                    | undefined;
+                title?: string | undefined;
                 /**
-                 * Hide the user-menu even if adminAuth is enabled
+                 * Absolute path to theme icon
                  */
-                userMenu?: boolean | undefined;
-                login?:
-                    | {
-                        image?: string | undefined;
-                    }
+                favicon?: string | undefined;
+                /**
+                 * Absolute path to custom css file
+                 */
+                css?: string | undefined;
+                /**
+                 * Absolute paths to custom script files
+                 */
+                scripts?: string | undefined[];
+            } | undefined;
+            header?: {
+                /**
+                 * Header title
+                 */
+                title?: string | undefined;
+                /**
+                 * Absolute path to header image, or `null` to remove image
+                 */
+                image?: string | undefined | null;
+                /**
+                 * Url to make the header text/image a link to this url
+                 */
+                url?: string | undefined;
+            } | undefined;
+            deployButton?: {
+                type: "simple";
+                /**
+                 * Deploy button label
+                 */
+                label: string;
+                /**
+                 * Absolute path to deploy button image or `null` to remove image
+                 */
+                icon: string;
+            } | undefined;
+            /**
+             * Hide unwanted menu items by id
+             */
+            menu?: {
+                "menu-item-import-library"?: boolean | undefined;
+                "menu-item-export-library"?: boolean | undefined;
+                "menu-item-keyboard-shortcuts"?: boolean | undefined;
+                "menu-item-help"?: {
+                    /** Help Link Text */
+                    label: string;
+                    /** Help Link URL */
+                    url: string;
+                } | undefined;
+            } | undefined;
+            /**
+             * Hide the user-menu even if adminAuth is enabled
+             */
+            userMenu?: boolean | undefined;
+            login?: {
+                image?: string | undefined;
+            } | undefined;
+            palette?: {
+                /**
+                 * Enable/disable the Palette Manager
+                 */
+                editable?: boolean | undefined;
+                /**
+                 * Alternative palette manager catalogues
+                 */
+                catalogues?: string | undefined[];
+                /**
+                 * Override node colours - rules test against category/type by RegExp.
+                 */
+                theme?:
+                    | Array<{
+                        category: string;
+                        type: string;
+                        color: string;
+                    }>
                     | undefined;
-                palette?:
-                    | {
-                        /**
-                         * Enable/disable the Palette Manager
-                         */
-                        editable?: boolean | undefined;
-                        /**
-                         * Alternative palette manager catalogues
-                         */
-                        catalogues?: string[] | undefined;
-                        /**
-                         * Override node colours - rules test against category/type by RegExp.
-                         */
-                        theme?:
-                            | Array<{
-                                category: string;
-                                type: string;
-                                color: string;
-                            }>
-                            | undefined;
-                    }
-                    | undefined;
-                projects?:
-                    | {
-                        /**
-                         * To enable the Projects feature, set this value to true
-                         */
-                        enabled: boolean;
-                    }
-                    | undefined;
-            }
-            | undefined;
+            } | undefined;
+            projects?: {
+                /**
+                 * To enable the Projects feature, set this value to true
+                 */
+                enabled: boolean;
+            } | undefined;
+        } | undefined;
 
         verbose?: boolean | undefined;
         safeMode?: boolean | undefined;
@@ -1338,10 +1382,10 @@ declare namespace runtime {
         saveLibraryEntry(type: string, path: string, meta: Record<string, string>, body: string): Promise<void>;
     }
 
-    interface InternalNodesModule {} // tslint:disable-line:no-empty-interface
-    interface InternalPluginsModule {} // tslint:disable-line:no-empty-interface
-    interface InternalLibraryModule {} // tslint:disable-line:no-empty-interface
-    interface InternalExecModule {} // tslint:disable-line:no-empty-interface
+    interface InternalNodesModule {} // eslint-disable-line @typescript-eslint/no-empty-interface
+    interface InternalPluginsModule {} // eslint-disable-line @typescript-eslint/no-empty-interface
+    interface InternalLibraryModule {} // eslint-disable-line @typescript-eslint/no-empty-interface
+    interface InternalExecModule {} // eslint-disable-line @typescript-eslint/no-empty-interface
 
     interface InternalRuntimeAPI {
         version(): string;

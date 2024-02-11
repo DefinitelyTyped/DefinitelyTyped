@@ -379,12 +379,12 @@ declare global {
         seed: string;
         testId: string[];
         testTimeout?: number | null;
-        urlConfig: {
+        urlConfig: Array<{
             id?: string | undefined;
             label?: string | undefined;
             tooltip?: string | undefined;
             value?: string | string[] | { [key: string]: string } | undefined;
-        }[];
+        }>;
     }
 
     interface GlobalHooks {

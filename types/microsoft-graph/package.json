@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/microsoft-graph",
-    "version": "2.38.9999",
+    "version": "2.40.9999",
     "nonNpm": true,
     "nonNpmDescription": "microsoft-graph",
     "projects": [

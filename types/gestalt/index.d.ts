@@ -592,7 +592,7 @@ export interface DropdownItemProps {
      * Either the selected item info or an array of selected items,
      * used to determine when the "selected" icon appears on an item
      */
-    selected?: DropdownOption | ReadonlyArray<DropdownOption> | undefined;
+    selected?: DropdownOption | readonly DropdownOption[] | undefined;
 }
 
 export interface DropdownLinkProps {
@@ -1191,7 +1191,7 @@ export interface MasonryCache<K, V> {
 export interface MasonryProps<T = any> {
     columnWidth?: number | undefined;
     gutterWidth?: number | undefined;
-    items: ReadonlyArray<T>;
+    items: readonly T[];
     loadItems?: false | ((_arg?: { from: number }) => undefined | boolean | {}) | undefined;
     measurementStore?: MasonryCache<T, any>;
     layout?: "basic" | "basicCentered" | "flexible" | "serverRenderedFlexible" | "uniformRow" | undefined;
@@ -1285,7 +1285,7 @@ export interface ModuleExpandableProps {
         title: string;
         icon?: Icons | undefined;
         iconButton?: React.ReactElement<typeof IconButton> | undefined;
-        summary?: ReadonlyArray<string> | undefined;
+        summary?: readonly string[] | undefined;
         type?: "info" | "error" | undefined;
         iconAccessibilityLabel?: string | undefined;
         children?: React.ReactNode | undefined;
@@ -1431,9 +1431,10 @@ export interface PageHeaderProps {
         onClick?: (args: {
             event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>;
             dangerouslyDisableOnNavigation: () => void;
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         }) => void | undefined;
     };
-    items?: ReadonlyArray<React.ReactNode> | undefined;
+    items?: readonly React.ReactNode[] | undefined;
     dropdownAccessibilityLabel?: string | undefined;
     maxWidth?: number | string | undefined;
     primaryAction?: PageHeaderAction | undefined;

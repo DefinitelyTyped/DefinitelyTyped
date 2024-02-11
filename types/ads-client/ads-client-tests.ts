@@ -177,4 +177,7 @@ async function usage() {
     client.on("plcRuntimeStateChange", state => {
         console.log("State is now:", state);
     });
+
+    const state = await client.readPlcRuntimeState();
+    console.log(state.adsStateStr, state.adsState, state.deviceState);
 }

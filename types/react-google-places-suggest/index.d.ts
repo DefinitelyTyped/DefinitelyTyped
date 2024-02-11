@@ -1,5 +1,5 @@
 /// <reference types="google.maps" />
-import { Component, ReactNode } from "react";
+import { Component, JSX, ReactNode } from "react";
 
 export default ReactGooglePlacesSuggest;
 
@@ -17,7 +17,7 @@ declare namespace ReactGooglePlacesSuggest {
         customRender?: ((prediction?: Prediction) => JSX.Element | string) | undefined;
         customContainerRender?:
             | ((
-                predictions: ReadonlyArray<Prediction>,
+                predictions: readonly Prediction[],
             ) => JSX.Element | string)
             | undefined;
         googleMaps: typeof google.maps;

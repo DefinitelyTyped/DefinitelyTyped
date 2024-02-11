@@ -333,7 +333,7 @@ declare module "dns/promises" {
      * @since v10.6.0
      * @param servers array of `RFC 5952` formatted addresses
      */
-    function setServers(servers: ReadonlyArray<string>): void;
+    function setServers(servers: readonly string[]): void;
     /**
      * Set the default value of `verbatim` in {@link lookup}. The value could be:
      * - `ipv4first`: sets default `verbatim` `false`.

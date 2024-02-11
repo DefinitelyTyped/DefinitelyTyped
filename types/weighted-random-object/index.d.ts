@@ -4,6 +4,6 @@ interface Weighted {
     weight: number;
 }
 
-declare function weightedRandomObject<T extends Weighted>(objects: ReadonlyArray<T>): T;
+declare function weightedRandomObject<T extends Weighted>(objects: readonly T[]): T;
 
 export = weightedRandomObject;

@@ -30,10 +30,11 @@ declare namespace postcssMixins {
      * A mixin, either a function or an object
      */
     type Mixin = MixinFn | MixinObj;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type MixinFn = (mixin: Container, ...args: string[]) => MixinObj | void;
     // The Exclude here is meant to make sure that you can't assign invalid functions to MixinObj,
     // which is possible with Record<string, any>
-    // tslint:disable-next-line:ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     type MixinObj = Record<string, Exclude<Object, Function>>;
 }
 

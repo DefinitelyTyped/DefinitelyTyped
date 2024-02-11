@@ -10,7 +10,7 @@ interface Config {
 
 interface AnimatedProps {
     additional?: object | undefined;
-    children?: React.ReactNode | React.ReactNodeArray | null | undefined;
+    children?: React.ReactNode | readonly React.ReactNode[] | null | undefined;
     id: string;
 }
 
@@ -18,7 +18,7 @@ declare class Animated extends React.PureComponent<AnimatedProps> {}
 
 interface ConductorProps {
     animations: Animations;
-    children: React.ReactNode | React.ReactNodeArray;
+    children: React.ReactNode | readonly React.ReactNode[];
     config: { [K: string]: Config } | ((id: string, additional: object) => Config);
 }
 

@@ -1,14 +1,14 @@
 import * as express from "express";
 
 export function config(options: ConfigOptions): RouteCache;
-export function cacheSeconds(secondsTTL: number, cacheKey: string | CacheKeyFunc): express.RequestHandler;
+export function cacheSeconds(secondsTTL: number, cacheKey?: string | CacheKeyFunc): express.RequestHandler;
 export function removeCache(url: string): void;
 
 export const cacheStore: Store;
 
 export interface RouteCache {
     config(options: ConfigOptions): RouteCache;
-    cacheSeconds(secondsTTL: number, cacheKey: string | CacheKeyFunc): express.RequestHandler;
+    cacheSeconds(secondsTTL: number, cacheKey?: string | CacheKeyFunc): express.RequestHandler;
     removeCache(url: string): void;
     cacheStore: Store;
 }

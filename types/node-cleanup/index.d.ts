@@ -9,6 +9,7 @@ interface StderrMessages {
     uncaughtException?: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 type Handler = (exitCode: number | null, signal: string | null) => boolean | undefined | void;
 
 declare function install(cleanupHandler?: Handler, stderrMessages?: StderrMessages): void;

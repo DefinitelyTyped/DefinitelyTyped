@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/relationship.js",
+    "version": "1.2.9999",
+    "projects": [
+        "https://passer-by.com/relationship/"
+    ],
+    "devDependencies": {
+        "@types/relationship.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "whincwu",
+            "githubUsername": "whinc"
+        }
+    ]
+}

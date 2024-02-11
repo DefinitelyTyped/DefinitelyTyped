@@ -440,6 +440,12 @@ rule = {
 
         context.getScope();
 
+        if (typeof context.parserPath === "string") {
+            context.parserPath;
+        } else {
+            context.languageOptions?.parser;
+        }
+
         context.markVariableAsUsed("foo");
 
         context.report({ message: "foo", node: AST });
@@ -750,7 +756,18 @@ linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: "latest" 
 linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 6 } }], "test.js");
 linterWithFlatConfig.verify(
     SOURCE,
-    [{ languageOptions: { ecmaVersion: 6 } }],
+    [{
+        languageOptions: {
+            ecmaVersion: 6,
+            globals: {
+                true: true,
+                false: false,
+                foo: "readonly",
+                bar: "writable",
+                baz: "off",
+            },
+        },
+    }],
     "test.js",
 );
 
@@ -941,6 +958,7 @@ let eslintConfig: Linter.Config<ESLintRules>;
 eslintConfig = {
     rules: {
         "capitalized-comments": [2, "always", { ignorePattern: "const|let" }],
+        "no-promise-executor-return": [2, { allowVoid: true }],
         "sort-keys": [2, "asc", { allowLineSeparatedGroups: true }],
     },
     overrides: [{
@@ -1083,6 +1101,24 @@ ruleTester.run("simple-valid-test", rule, {
 
 // @ts-expect-error // Must be an array
 ((): Linter.FlatConfig => ({ ignores: "abc" }));
+
+((): Linter.FlatConfig => ({ linterOptions: { reportUnusedDisableDirectives: "error" } }));
+((): Linter.FlatConfig => ({ linterOptions: { reportUnusedDisableDirectives: "warn" } }));
+((): Linter.FlatConfig => ({ linterOptions: { reportUnusedDisableDirectives: "off" } }));
+((): Linter.FlatConfig => ({ linterOptions: { reportUnusedDisableDirectives: 2 } }));
+((): Linter.FlatConfig => ({ linterOptions: { reportUnusedDisableDirectives: 1 } }));
+((): Linter.FlatConfig => ({ linterOptions: { reportUnusedDisableDirectives: 0 } }));
+((): Linter.FlatConfig => ({ linterOptions: { reportUnusedDisableDirectives: true } }));
+((): Linter.FlatConfig => ({ linterOptions: { reportUnusedDisableDirectives: false } }));
+
+// @ts-expect-error
+((): Linter.FlatConfig => ({ linterOptions: { reportUnusedDisableDirectives: "on" } }));
+
+// @ts-expect-error
+((): Linter.FlatConfig => ({ linterOptions: { reportUnusedDisableDirectives: 3 } }));
+
+// @ts-expect-error
+((): Linter.FlatConfig => ({ linterOptions: { reportUnusedDisableDirectives: null } }));
 
 // The following _should_ be an error, but we can't enforce on consumers
 // as it requires exactOptionalPropertyTypes: true

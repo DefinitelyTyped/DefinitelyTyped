@@ -23,7 +23,7 @@ export function setMaxCaches(template: string, n: number): void;
 export function setCacheWhitelist(o: object): void;
 
 // mutator method to set a blacklist of templates not to cache as an array
-export function setCacheBlacklist(templateArray: ReadonlyArray<string>): void;
+export function setCacheBlacklist(templateArray: readonly string[]): void;
 
 // sets all params to their default values
 export function setDefaultParams(): void;

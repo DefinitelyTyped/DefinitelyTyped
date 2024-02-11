@@ -43,10 +43,10 @@ declare module "strftime" {
          * @interface
          */
         export interface Locale {
-            days?: Array<string> | undefined;
-            shortDays?: Array<string> | undefined;
-            months?: Array<string> | undefined;
-            shortMonths?: Array<string> | undefined;
+            days?: string[] | undefined;
+            shortDays?: string[] | undefined;
+            months?: string[] | undefined;
+            shortMonths?: string[] | undefined;
             AM?: string | undefined;
             PM?: string | undefined;
             am?: string | undefined;

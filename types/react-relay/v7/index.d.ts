@@ -133,7 +133,7 @@ export function createFragmentContainer<Props>(
 ): Container<Props>;
 
 interface ConnectionData {
-    edges?: ReadonlyArray<any> | null | undefined;
+    edges?: readonly any[] | null | undefined;
     pageInfo?: Partial<PageInfo> | null | undefined;
 }
 

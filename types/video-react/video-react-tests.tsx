@@ -11,7 +11,7 @@ import {
 
 const testProps: PlayerProps = { autoPlay: true };
 
-function TestComponent(props: PlayerProps): JSX.Element {
+function TestComponent(props: PlayerProps): React.JSX.Element {
     return (
         <Player {...testProps}>
             <ControlBar>

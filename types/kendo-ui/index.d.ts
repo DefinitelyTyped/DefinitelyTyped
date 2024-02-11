@@ -2626,7 +2626,7 @@ declare namespace kendo.ui {
         enable(enable: boolean): void;
         select(li: JQuery): void;
         select(li: number): void;
-        selectedIndices: Array<number>;
+        selectedIndices: number[];
     }
 
     interface ButtonGroupItem {
@@ -6559,7 +6559,7 @@ declare namespace kendo.ui {
         selectable?: boolean | string | undefined;
         size?: string | undefined;
         sortable?: boolean | GridSortable | undefined;
-        toolbar?: string | Function | (string | GridToolbarItem)[] | ToolBarItem[] | undefined;
+        toolbar?: string | Function | Array<string | GridToolbarItem> | ToolBarItem[] | undefined;
         width?: number | string | undefined;
         beforeEdit?(e: GridBeforeEditEvent): void;
         cancel?(e: GridCancelEvent): void;

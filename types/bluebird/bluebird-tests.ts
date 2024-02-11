@@ -302,7 +302,7 @@ fooProm.caught((error: any) => {
 });
 
 // $ExpectType Bluebird<void | Foo>
-fooProm.catch<void | Foo>((reason: any) => { // tslint:disable-line:void-return
+fooProm.catch<void | Foo>((reason: any) => { // eslint-disable-line @typescript-eslint/no-invalid-void-type
     // handle multiple valid return types simultaneously
     if (foo === null) {
         return;

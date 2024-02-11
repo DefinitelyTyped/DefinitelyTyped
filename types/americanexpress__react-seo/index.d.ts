@@ -1,3 +1,4 @@
+import { JSX } from "react";
 export interface Media {
     src: string;
     secureUrl?: string;

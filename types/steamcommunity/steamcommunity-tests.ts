@@ -2,7 +2,9 @@ import SteamCommunity = require("steamcommunity");
 
 const EResult = SteamCommunity.EResult;
 
-const community = new SteamCommunity();
+const community = new SteamCommunity({
+    timeout: 5000,
+});
 
 /* register events */
 community.on("confKeyNeeded", (tag, callback) => {

@@ -37,7 +37,7 @@ interface ControllerMixin extends ActionHandler {
 }
 
 export default class Controller extends EmberObject {}
-// tslint:disable-next-line:no-empty-interface -- used for declaration merge
+// eslint-disable-next-line @typescript-eslint/no-empty-interface -- used for declaration merge
 export default interface Controller extends ControllerMixin {}
 
 export function inject(): ComputedProperty<Controller>;
@@ -46,7 +46,7 @@ export function inject(target: object, propertyKey: string | symbol): void;
 
 // A type registry for Ember `Controller`s. Meant to be declaration-merged
 // so string lookups resolve to the correct type.
-// tslint:disable-next-line no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Registry extends Record<string, Controller | undefined> {}
 
 declare module "@ember/owner" {

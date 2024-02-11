@@ -8,6 +8,7 @@ Q(8).then((x) => console.log(x.toExponential()));
 Q().then(() => console.log("nothing"));
 
 function delay(delay: number): Q.Promise<void> {
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     const d = Q.defer<void>();
     setTimeout(d.resolve, delay);
     return d.promise;
@@ -246,6 +247,7 @@ Q.try(() => {
     .catch((error) => console.error("Couldn't sync to the cloud", error));
 
 // ensure Q.Promise is compatible with PromiseLike
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 const p7: PromiseLike<void> = Q.Promise<void>((resolve) => resolve());
 
 // thenReject, returning a Promise of the same type as the Promise it is called on

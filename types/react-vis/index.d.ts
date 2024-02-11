@@ -5,7 +5,7 @@ import {
     MouseEvent,
     MouseEventHandler,
     PureComponent,
-    ReactChild,
+    ReactElement,
     ReactNode,
     TouchEventHandler,
     WheelEventHandler,
@@ -743,7 +743,9 @@ export interface DiscreteColorLegendProps {
             strokeWidth?: number;
         }
         | string
-        | ReactChild
+        | ReactElement
+        | number
+        | string
     >;
     onItemClick?: RVMouseEventHandler | undefined;
     onItemMouseEnter?: RVItemEventHandler | undefined;
@@ -763,7 +765,9 @@ export interface SearchableDiscreteColorLegendProps {
             disabled?: boolean | undefined;
         }
         | string
-        | ReactChild
+        | ReactElement
+        | number
+        | string
     >;
     onItemClick?: RVMouseEventHandler | undefined;
     onItemMouseEnter?: RVItemEventHandler | undefined;

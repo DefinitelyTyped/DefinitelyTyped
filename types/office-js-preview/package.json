@@ -1,7 +1,9 @@
 {
     "private": true,
     "name": "@types/office-js-preview",
-    "version": "1.0.9999",
+        "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "office-js-preview",
     "projects": [
         "https://github.com/OfficeDev/office-js"
     ],

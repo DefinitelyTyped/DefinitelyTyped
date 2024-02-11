@@ -23,20 +23,18 @@ jobs:
     if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
 
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
-      - uses: actions/setup-node@v3
-
-      - uses: pnpm/action-setup@v2
-        name: Install pnpm
+      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
         with:
-          version: latest
+          node-version: '20'
+
+      - uses: pnpm/action-setup@a3252b78c470c02df07e9d59298aecedc3ccdd6d # v3.0.0
+        with:
           run_install: |
-            - args: [--filter, .]
+            - args: [--filter, ., --filter, '{./scripts}...']
 
-      - run: node ./scripts/ghostbuster.js
+      - run: node ./scripts/ghostbuster.js > ${{ runner.temp }}/comment.md
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN_API_READ }}
 
@@ -53,7 +51,7 @@ jobs:
           fi
 
       - if: ${{ inputs.skipPR != 'true' }}
-        uses: peter-evans/create-pull-request@v5.0.2
+        uses: peter-evans/create-pull-request@b1ddad2c994a25fbc81a28b3ec0e368bb2021c50 # v6.0.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: 'Remove contributors with deleted accounts #no-publishing-comment'
@@ -63,7 +61,4 @@ jobs:
           branch-suffix: short-commit-hash
           delete-branch: true
           title: Remove contributors with deleted accounts
-          body: |
-            Generated from [.github/workflows/ghostbuster.yml](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/.github/workflows/ghostbuster.yml)
-
-            Some of these users may have simply changed their usernames; you may want do a bit of searching and ping them to see if they still want to be owners.
+          body-path: ${{ runner.temp }}/comment.md

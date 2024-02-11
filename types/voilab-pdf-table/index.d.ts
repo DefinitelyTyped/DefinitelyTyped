@@ -7,7 +7,7 @@ interface VoilabPdfTableDefaultType {
 }
 
 declare class VoilabPdfTable<T = VoilabPdfTableDefaultType> {
-    // tslint:disable-next-line:no-misused-new
+    // eslint-disable-next-line @typescript-eslint/no-misused-new
     constructor(pdf: PDFKit.PDFDocument, conf?: VoilabPdfTable.VoilabPdfTableConfig<T>);
 
     /** Add action before data rows are added */

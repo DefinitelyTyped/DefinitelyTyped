@@ -5,7 +5,7 @@ import { CacheConfig, Disposable, OperationType } from "../util/RelayRuntimeType
 
 export interface GraphQLSubscriptionConfig<TSubscription extends OperationType> {
     cacheConfig?: CacheConfig | undefined;
-    configs?: ReadonlyArray<DeclarativeMutationConfig> | undefined;
+    configs?: readonly DeclarativeMutationConfig[] | undefined;
     subscription: GraphQLTaggedNode;
     variables: TSubscription["variables"];
     onCompleted?: (() => void) | undefined;
@@ -14,8 +14,8 @@ export interface GraphQLSubscriptionConfig<TSubscription extends OperationType> 
     updater?: SelectorStoreUpdater<TSubscription["response"]> | undefined;
 }
 
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function requestSubscription<TSubscription extends OperationType = OperationType>(
     environment: Environment,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     config: GraphQLSubscriptionConfig<TSubscription>,
 ): Disposable;

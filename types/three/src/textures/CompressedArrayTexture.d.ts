@@ -1,5 +1,5 @@
-import { CompressedPixelFormat, TextureDataType, Wrapping } from '../constants.js';
-import { CompressedTexture } from './CompressedTexture.js';
+import { CompressedPixelFormat, TextureDataType, Wrapping } from "../constants.js";
+import { CompressedTexture } from "./CompressedTexture.js";
 
 /**
  * Creates an texture 2D array based on data in compressed form, for example from a

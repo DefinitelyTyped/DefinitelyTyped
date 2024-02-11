@@ -502,16 +502,14 @@ pmCollection.Request.isRequest(req); // $ExpectType boolean
 // RequestAuthDefinition Tests
 
 const reqAuthDef: pmCollection.RequestAuthDefinition = {};
-// tslint:disable-next-line
-reqAuthDef.type; // $ExpectType "oauth2" | "hawk" | "noauth" | "basic" | "oauth1" | "apikey" | "digest" | "bearer" | "awsv4" | "edgegrid" | "ntlm" | undefined || "basic" | "oauth2" | "hawk" | "noauth" | "oauth1" | "apikey" | "digest" | "bearer" | "awsv4" | "edgegrid" | "ntlm" | undefined
+reqAuthDef.type; // $ExpectType "basic" | "oauth2" | "hawk" | "noauth" | "oauth1" | "apikey" | "digest" | "bearer" | "awsv4" | "edgegrid" | "ntlm" | undefined || "oauth2" | "hawk" | "noauth" | "basic" | "oauth1" | "apikey" | "digest" | "bearer" | "awsv4" | "edgegrid" | "ntlm" | undefined
 
 // RequestAuth Tests
 
 let reqAuth = new pmCollection.RequestAuth(reqAuthDef);
 reqAuth = new pmCollection.RequestAuth(reqAuthDef, collection);
 
-// tslint:disable-next-line
-reqAuth.type; // $ExpectType "oauth2" | "hawk" | "noauth" | "basic" | "oauth1" | "apikey" | "digest" | "bearer" | "awsv4" | "edgegrid" | "ntlm" | undefined || "basic" | "oauth2" | "hawk" | "noauth" | "oauth1" | "apikey" | "digest" | "bearer" | "awsv4" | "edgegrid" | "ntlm" | undefined
+reqAuth.type; // $ExpectType NonNullable<"basic" | "oauth2" | "hawk" | "noauth" | "oauth1" | "apikey" | "digest" | "bearer" | "awsv4" | "edgegrid" | "ntlm" | undefined> || NonNullable<"oauth2" | "hawk" | "noauth" | "basic" | "oauth1" | "apikey" | "digest" | "bearer" | "awsv4" | "edgegrid" | "ntlm" | undefined> || "oauth2" | "hawk" | "noauth" | "basic" | "oauth1" | "apikey" | "digest" | "bearer" | "awsv4" | "edgegrid" | "ntlm"
 
 reqAuth.update(new pmCollection.VariableList(collection, [])); // $ExpectType void
 reqAuth.update({ key: "string", value: "string" }); // $ExpectType void

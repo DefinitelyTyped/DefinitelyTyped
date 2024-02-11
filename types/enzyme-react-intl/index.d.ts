@@ -3,21 +3,21 @@ import { Component, ReactElement } from "react";
 import { IntlProvider } from "react-intl";
 
 // shallow methods
-
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function shallowWithIntl<C extends Component, P = C["props"], S = C["state"]>(
     node: ReactElement<P>,
     options?: ShallowRendererProps,
-): ShallowWrapper<P, S, C>; // eslint-disable-line @definitelytyped/no-unnecessary-generics
+): ShallowWrapper<P, S, C>;
 export function shallowWithIntl<P>(node: ReactElement<P>, options?: ShallowRendererProps): ShallowWrapper<P, any>;
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function shallowWithIntl<P, S>(node: ReactElement<P>, options?: ShallowRendererProps): ShallowWrapper<P, S>;
 
 // mount methods
-
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function mountWithIntl<C extends Component, P = C["props"], S = C["state"]>(
     node: ReactElement<P>,
     options?: MountRendererProps,
-): ReactWrapper<P, S, C>; // eslint-disable-line @definitelytyped/no-unnecessary-generics
+): ReactWrapper<P, S, C>;
 export function mountWithIntl<P>(node: ReactElement<P>, options?: MountRendererProps): ReactWrapper<P, any>;
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function mountWithIntl<P, S>(node: ReactElement<P>, options?: MountRendererProps): ReactWrapper<P, S>;

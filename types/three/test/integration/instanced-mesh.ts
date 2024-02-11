@@ -9,7 +9,7 @@ import {
     Scene,
     SphereGeometry,
     WebGLRenderer,
-} from 'three';
+} from "three";
 
 const { randFloatSpread } = MathUtils;
 

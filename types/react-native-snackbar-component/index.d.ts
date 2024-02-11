@@ -13,7 +13,7 @@ export interface SnackbarComponentProps {
     top?: number | Animated.Value | undefined;
     bottom?: number | Animated.Value | undefined;
     position?: "bottom" | "top" | undefined;
-    textMessage?: string | JSX.Element | undefined;
+    textMessage?: string | React.JSX.Element | undefined;
     autoHidingTime?: number | undefined;
     visible?: boolean | undefined;
     containerStyle?: ViewStyle | undefined;

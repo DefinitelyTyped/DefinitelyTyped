@@ -29,7 +29,7 @@ import domain = require("domain");
 import * as Boom from "boom";
 import { Schema as JoiSchema, SchemaMap as JoiSchemaMap, ValidationOptions as JoiValidationOptions } from "joi";
 // TODO check JoiValidationObject is correct for "a Joi validation object"
-type JoiValidationObject = JoiSchema | JoiSchemaMap | (JoiSchema | JoiSchemaMap)[];
+type JoiValidationObject = JoiSchema | JoiSchemaMap | Array<JoiSchema | JoiSchemaMap>;
 
 import * as Catbox from "catbox";
 import { MimosOptions } from "mimos";
@@ -605,7 +605,7 @@ export interface ServerMethod {
     /** the method must return a value (result, Error, or a promise) or throw an Error. */
     (...args: any[]): any | Error | Promise<any>;
     /** Not possible to improve this typing due to this unresolvable issue:  https://github.com/Microsoft/TypeScript/issues/15190 */
-    (...args: (any | ServerMethodNext)[]): void;
+    (...args: Array<any | ServerMethodNext>): void;
     /** When configured with caching enabled, server.methods[name].cache will be an object see ServerMethodNameCacheObject */
     cache?: ServerMethodNameCacheObject | undefined;
 }
@@ -628,7 +628,7 @@ export interface ServerMethodNameCacheObject {
      * @param callback  last argument is a callback.
      * Not possible to improve this typing due to this unresolvable issue:  https://github.com/Microsoft/TypeScript/issues/15190
      */
-    drop(...args: (any | Function)[]): void;
+    drop(...args: Array<any | Function>): void;
     /** an object with cache statistics, see stats documentation for catbox. */
     stats: Catbox.CacheStatisticsObject;
 }
@@ -1134,7 +1134,7 @@ export interface RouteConfiguration {
     /** the absolute path used to match incoming requests (must begin with '/'). Incoming requests are compared to the configured paths based on the connection router configuration option. The path can include named parameters enclosed in {} which will be matched against literal values in the request as described in Path parameters. */
     path: string;
     /** the HTTP method. Typically one of 'GET', 'POST', 'PUT', 'PATCH', 'DELETE', or 'OPTIONS'. Any HTTP method is allowed, except for 'HEAD'. Use '*' to match against any HTTP method (only when an exact match was not found, and any match with a specific method will be given a higher priority over a wildcard match). Can be assigned an array of methods which has the same result as adding the same route with different methods manually. */
-    method: HTTP_METHODS_PARTIAL | "*" | (HTTP_METHODS_PARTIAL | "*")[];
+    method: HTTP_METHODS_PARTIAL | "*" | Array<HTTP_METHODS_PARTIAL | "*">;
     /** an optional domain string or an array of domain strings for limiting the route to only requests with a matching host header field. Matching is done against the hostname part of the header only (excluding the port). Defaults to all hosts. */
     vhost?: string | undefined;
     /** the function called to generate the response after successful authentication and validation. The handler function is described in Route handler. If set to a string, the value is parsed the same way a prerequisite server method string shortcut is processed. Alternatively, handler can be assigned an object with a single key using the name of a registered handler type and value with the options passed to the registered handler. */
@@ -1348,7 +1348,9 @@ export interface Route {
  * TODO follow up on "server methods" in "special short-hand notation for registered server methods" at https://hapijs.com/api/16.1.1#servermethodname-method-options
  * TODO follow up on "request object" in "each argument is a property of the request object" at https://hapijs.com/api/16.1.1#request-object
  */
-export type RoutePrerequisitesArray = RoutePrerequisitesPart[] | (RoutePrerequisitesPart[] | RoutePrerequisitesPart)[];
+export type RoutePrerequisitesArray =
+    | RoutePrerequisitesPart[]
+    | Array<RoutePrerequisitesPart[] | RoutePrerequisitesPart>;
 export type RoutePrerequisitesPart = RoutePrerequisiteObjects | RoutePrerequisiteRequestHandler | string;
 
 /**
@@ -2772,7 +2774,7 @@ export namespace Json {
     /**
      * @see {@link https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#The_replacer_parameter}
      */
-    export type StringifyReplacer = ((key: string, value: any) => any) | (string | number)[] | undefined;
+    export type StringifyReplacer = ((key: string, value: any) => any) | Array<string | number> | undefined;
 
     /**
      * Any value greater than 10 is truncated.

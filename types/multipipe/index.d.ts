@@ -15,11 +15,11 @@ declare function multipipe(callback?: (err?: Error) => any): stream.PassThrough;
 declare function multipipe(options?: stream.DuplexOptions, callback?: (err?: Error) => any): stream.PassThrough;
 
 declare function multipipe(
-    stream: NodeJS.ReadWriteStream | ReadonlyArray<stream.Stream>,
+    stream: NodeJS.ReadWriteStream | readonly stream.Stream[],
     callback?: (err?: Error) => any,
 ): NodeJS.ReadWriteStream;
 declare function multipipe(
-    stream: NodeJS.ReadWriteStream | ReadonlyArray<stream.Stream>,
+    stream: NodeJS.ReadWriteStream | readonly stream.Stream[],
     options?: stream.DuplexOptions,
     callback?: (err?: Error) => any,
 ): NodeJS.ReadWriteStream;

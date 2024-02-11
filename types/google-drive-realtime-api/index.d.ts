@@ -134,7 +134,7 @@ declare namespace gapi.drive.realtime {
         // Returns an array containing a copy of the items in this map. Modifications to the returned array do
         // not modify this collaborative map.
         // @return non-null Array of Arrays, where the inner arrays are tupples [string, V]
-        items(): [string, V][];
+        items(): Array<[string, V]>;
 
         // Returns an array containing a copy of the keys in this map. Modifications to the returned array
         // do not modify this collaborative map.
@@ -283,6 +283,7 @@ declare namespace gapi.drive.realtime {
         // Adds an event listener to the event target.
         // The same handler can only be added once per the type. Even if you add the same handler multiple times using the
         // same type then it will only be called once when the event is dispatched.
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         addEventListener(type: string, listener: () => void | EventListener, opt_capture?: boolean): void;
 
         // Starts a compound operation. If a name is given, that name will be recorded in the mutation for use in revision
@@ -302,7 +303,7 @@ declare namespace gapi.drive.realtime {
         create(ref: string | Function, ...var_args: any[]): any;
 
         // Creates a collaborative list.
-        createList<T>(opt_initialValue?: Array<T>): CollaborativeList<T>;
+        createList<T>(opt_initialValue?: T[]): CollaborativeList<T>;
 
         // Creates a collaborative map.
         createMap<T>(opt_initialValue?: Array<[string, T]>): CollaborativeMap<T>;
@@ -327,6 +328,7 @@ declare namespace gapi.drive.realtime {
 
         // Removes an event listener from the event target. The handler must be the same object as the one added.
         // If the handler has not been added then nothing is done.
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         removeEventListener(type: string, listener: () => void | EventListener, opt_capture?: boolean): void;
 
         // The current server revision number for this model. The revision number begins at 1 (the initial empty model)

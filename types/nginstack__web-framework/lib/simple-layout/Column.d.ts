@@ -52,6 +52,8 @@ declare class Column {
     zoomOnHover: boolean;
     verticalAlign: string;
     textAlign: string;
+    labelTextAlign: string;
+    private labelTextAlign_;
     totalContent: string;
     totalLabel: string;
     hint: string;
@@ -100,18 +102,18 @@ type LongitudeFormat = typeof import("@nginstack/engine/lib/geo/LongitudeFormat"
 type AngleFormat = typeof import("@nginstack/engine/lib/geo/AngleFormat");
 import CssExtractor = require("../css/CssExtractor.js");
 declare namespace VerticalAligns {
-    const TOP: string;
-    const MIDDLE: string;
-    const BOTTOM: string;
-    const BASELINE: string;
+    let TOP: string;
+    let MIDDLE: string;
+    let BOTTOM: string;
+    let BASELINE: string;
 }
 type VerticalAligns = string;
 declare namespace TextAligns {
-    const LEFT: string;
-    const RIGHT: string;
-    const CENTER: string;
-    const JUSTIFY: string;
-    const INHERIT: string;
+    let LEFT: string;
+    let RIGHT: string;
+    let CENTER: string;
+    let JUSTIFY: string;
+    let INHERIT: string;
 }
 type TextAligns = string;
 type DateFormat = typeof DateFormat;

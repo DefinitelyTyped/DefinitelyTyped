@@ -7,9 +7,9 @@ export function getDataPath(): string;
 export function get(key: string, callback: (error: any, data: object) => void): void;
 export function get(key: string, options: DataOptions, callback: (error: any, data: object) => void): void;
 export function getSync(key: string, options?: DataOptions): object;
-export function getMany(keys: ReadonlyArray<string>, callback: (error: any, data: object) => void): void;
+export function getMany(keys: readonly string[], callback: (error: any, data: object) => void): void;
 export function getMany(
-    keys: ReadonlyArray<string>,
+    keys: readonly string[],
     options: DataOptions,
     callback: (error: any, data: object) => void,
 ): void;

@@ -25,8 +25,7 @@ datasource.getKey(); // $ExpectType number
 datasource.getUrl(); // $ExpectType string
 datasource.getResult(filterDefs, columnDefs); // $ExpectType DataSourceResult
 
-function testMajorVersions(prior: number, current: number): boolean {
-    return current > prior;
+function getVersion(): string {
+    return "71.0.87";
 }
-
-testMajorVersions(70, 71); // $ExpectType boolean
+getVersion(); // $ExpectType string

@@ -24,9 +24,9 @@ declare namespace jsonquery {
         $gte: P;
         $mod: [number, number];
         $ne: P;
-        $in: ReadonlyArray<P>;
-        $nin: ReadonlyArray<P>;
-        $all: ReadonlyArray<P>;
+        $in: readonly P[];
+        $nin: readonly P[];
+        $all: readonly P[];
         $elemMatch: Partial<P>;
     }
 

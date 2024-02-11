@@ -12,7 +12,7 @@ declare module "jsdom" {
 
 // Necessary to avoid breaking dependents because of the dependency
 // on the `ESNext.WeakRef` lib:
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface FinalizationRegistryConstructor {}
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface WeakRefConstructor {}

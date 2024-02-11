@@ -5,7 +5,7 @@ declare namespace Dropbox {
 
     interface ChooserOptions {
         // called when a user selects an item in the Chooser
-        success(files: ReadonlyArray<ChooserFile>): void;
+        success(files: readonly ChooserFile[]): void;
 
         // called when the user closes the dialog without selecting a file
         cancel?(): void;

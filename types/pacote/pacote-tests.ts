@@ -23,17 +23,13 @@ const opts: pacote.Options = {
 pacote.resolve("pacote"); // $ExpectType Promise<string>
 pacote.resolve("pacote", opts); // $ExpectType Promise<string>
 
-// tslint:disable-next-line:expect
 pacote.manifest("pacote"); // $ExpectType Promise<AbbreviatedManifest & ManifestResult>
-// tslint:disable-next-line:expect
 pacote.manifest("pacote", opts); // $ExpectType Promise<AbbreviatedManifest & ManifestResult>
 pacote.manifest("pacote", { before: new Date() }); // $ExpectType Promise<Manifest & ManifestResult>
 pacote.manifest("pacote", { fullMetadata: true }); // $ExpectType Promise<Manifest & ManifestResult>
 
-// tslint:disable-next-line:expect
-pacote.packument("pacote"); // $ExpectType Promise<AbbreviatedPackument & PackumentResult>
-// tslint:disable-next-line:expect
-pacote.packument("pacote", opts); // $ExpectType Promise<AbbreviatedPackument & PackumentResult>
+pacote.packument("pacote"); // $ExpectType Promise<AbbreviatedPackument & PackumentResult> || Promise<{ versions: Record<string, AbbreviatedManifest>; } & Pick<Packument, "name" | "dist-tags"> & PackumentResult>
+pacote.packument("pacote", opts); // $ExpectType Promise<AbbreviatedPackument & PackumentResult> || Promise<{ versions: Record<string, AbbreviatedManifest>; } & Pick<Packument, "name" | "dist-tags"> & PackumentResult>
 pacote.packument("pacote", { fullMetadata: true }); // $ExpectType Promise<Packument & PackumentResult>
 
 pacote.extract("pacote", "./"); // $ExpectType Promise<FetchResult>

@@ -1,5 +1,5 @@
 import * as capitalize from "capitalize";
-// tslint:disable-next-line:no-duplicate-imports
+// eslint-disable-next-line no-duplicate-imports
 import { words } from "capitalize";
 
 // @ts-expect-error

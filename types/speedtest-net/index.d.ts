@@ -1,4 +1,5 @@
 declare namespace exec {
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type CancelFunction = (setCancelHandler?: symbol, newHandler?: () => void) => boolean | void;
     type ProgressFunction = (event?: SpeedTestEvent) => void;
 

@@ -97,6 +97,18 @@ declare namespace GorillaEngine {
         readonly persistence: InstrumentPropertyPersistence;
     }
 
+    interface ccState {
+        cc: number;
+        path: string;
+    }
+
+    interface midiData {
+        status: string;
+        data0: string;
+        data1: string;
+        tickAbsolute: string;
+    }
+
     /**
      * Instrument
      */
@@ -265,7 +277,7 @@ declare namespace GorillaEngine {
          *
          * @returns Array of Midi Events
          */
-        getMidiDragData(): Array<{ status: any; data0: any; data1: any; tickAbsolute: any }>;
+        getMidiDragData(): midiData[];
 
         /**
          * Method used to send a `note on` MIDI event to the Gorilla Engine.
@@ -293,6 +305,51 @@ declare namespace GorillaEngine {
          * @returns `false` if the value could not be stringified or the given `value` as a `string`.
          */
         valueToStringAtPath(path: string, value: number): boolean | string;
+
+        getMIDICCstate(): ccState[];
+
+        setMIDICCstate(ccMidiSatate: ccState[]): void;
+
+        renderAudioFile(
+            renderFilePath: string,
+            key: number,
+            velocity: number,
+            renderUntilSilence: boolean,
+            minFileLength: number,
+        ): void;
+
+        renderAudioFileFromMidi(
+            renderFilePath: string,
+            midiData: midiData[],
+            renderUntilSilence: boolean,
+            minFileLength: number,
+        ): void;
+
+        setNormalizedDoubleAtPath(path: string, value: number): void;
+
+        getNormalizedDoubleAtPath(path: string): number;
+
+        getLoadingStatus(): boolean;
+
+        getLoadingProgressPercent(): number;
+
+        startRecallingParameterState(): void;
+
+        endRecallingParameterState(): boolean;
+
+        addParameter(persistence: number): InstrumentProperty;
+
+        getWaveformOverview(
+            numPoints: number,
+            zoneID: number,
+            start: number,
+            end: number,
+            vertZoom: number,
+        ): Uint8Array;
+
+        getStringAtPath(path: string): string;
+
+        getSampleMetadata(filePath: string, overviewSize: number): { metadata: string; overview: Uint8Array };
     }
 
     interface Blob {
@@ -322,13 +379,16 @@ declare namespace GorillaEngine {
      * @returns The name of the host
      */
     function getHostDescription(): string;
-    function showNativeMessageBox(options: {
+    interface MessageBoxOptions {
         title: string;
         message: string;
-        iconType: "info" | "question" | "warning";
-    }): void;
-    function calculateTextWidth(text: string, font: string, fontSize: number, fontKerning: number): number;
+        iconType: "info" | "question" | "warning" | "error";
+    }
+    function showNativeMessageBoxSync(options: MessageBoxOptions): void;
+    function showNativeMessageBox(options: MessageBoxOptions): Promise<void>;
+    function calculateTextWidth(text: string, font: string, fontSize: number, fontKerning: number): Promise<number>;
     function checkLicense(): boolean;
+    function checkBeatportRTO(): string;
     function isTrial(): boolean;
     function trialExpirationTimestamp(): number;
     function initialiseSpliceRTO(pluginName?: string): any;
@@ -355,14 +415,14 @@ declare namespace GorillaEngine {
         hint?: string;
         allowedExtensions?: string;
         defaultLocation?: string;
-    }): void;
+    }): Promise<string[]>;
     /**
      * Method to convert mp3 files to wave files
      * @param mp3Filepath The path of the mp3 file to convert
      * @param wavFilePath The path where the converted file should be stored
      * @returns `true` if the convertion was successful
      */
-    function convertMp3ToWav(mp3Filepath: string, wavFilePath: string): boolean;
+    function convertMp3ToWav(mp3Filepath: string, wavFilePath: string): Promise<boolean>;
     /**
      * Method to register opening and closing of the plugin editor
      * @param openCallback The callback when the plugin editor opens
@@ -374,5 +434,6 @@ declare namespace GorillaEngine {
     namespace UI {
         function loadUIfromYAML(ymlPath: string): void;
         function getControlById(id: string): Component;
+        function createWindow(window: Window): void;
     }
 }

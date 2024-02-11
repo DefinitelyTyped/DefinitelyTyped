@@ -3,7 +3,7 @@ import * as types from "node:util/types";
 import { createPublicKey, KeyObject, webcrypto } from "node:crypto";
 
 const object: unknown = {};
-const readonlySetOrArray: ReadonlySet<any> | ReadonlyArray<any> = new Set();
+const readonlySetOrArray: ReadonlySet<any> | readonly any[] = new Set();
 const readonlyMapOrRecord: ReadonlyMap<any, any> | Record<any, any> = new Map();
 
 if (types.isAnyArrayBuffer(object)) {

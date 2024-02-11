@@ -39,7 +39,7 @@ export interface FilterStatic<TElement = HTMLElement> {
     buildSelect(
         table: JQuery<TElement> | TElement,
         column: number,
-        options: ReadonlyArray<any> | string | JQuery,
+        options: readonly any[] | string | JQuery,
         replace: boolean,
         visibleOnly?: boolean,
     ): void;
@@ -93,6 +93,6 @@ export interface FilterStatic<TElement = HTMLElement> {
     processOptions(
         table: JQuery<TElement> | TElement,
         column: number | null | undefined,
-        options: ReadonlyArray<any>,
+        options: readonly any[],
     ): string[];
 }

@@ -20,6 +20,7 @@ export type Definition = string | ElementProperties | Element | By | RelativeBy;
 export type Awaitable<T, V> = Omit<T, "then"> & PromiseLike<V>;
 
 // tslint:disable-next-line
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 type VoidToNull<T> = T extends void ? null : T;
 
 type ExecuteScriptFunction<ArgType extends any[], ReturnValue> = (
@@ -1914,13 +1915,13 @@ export interface NightwatchAPI
     launch_url: string;
 }
 
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface NightwatchCustomCommands {}
 
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface NightwatchCustomAssertions {}
 
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface NightwatchCustomPageObjects {}
 
 export interface NightwatchBrowser
@@ -2386,6 +2387,7 @@ interface ExclusiveSuiteFunction {
 }
 
 interface PendingSuiteFunction {
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     (title: string, fn?: (this: DescribeInstance) => void): this | void;
 }
 

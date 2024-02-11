@@ -34,6 +34,6 @@ declare namespace GulpResponsiveImage {
     }
 
     interface Matchers {
-        [index: string]: ReadonlyArray<Settings>;
+        [index: string]: readonly Settings[];
     }
 }

@@ -8,8 +8,8 @@ export interface BuilderOptions {
     factory?: DataFactory | undefined;
 }
 
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export default function namespace<TermNames extends string = string>(
     baseIRI: string,
     options?: BuilderOptions,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): NamespaceBuilder<TermNames>;

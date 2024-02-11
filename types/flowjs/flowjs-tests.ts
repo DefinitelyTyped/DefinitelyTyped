@@ -61,7 +61,7 @@ num = flowFile.size;
 str = flowFile.uniqueIdentifier;
 num = flowFile.averageSpeed;
 num = flowFile.currentSpeed;
-let chunksArray: ReadonlyArray<flowjs.FlowChunk> = flowFile.chunks;
+let chunksArray: readonly flowjs.FlowChunk[] = flowFile.chunks;
 chunksArray[0].abort();
 num = chunksArray[0].chunkSize;
 num = chunksArray[0].endByte;

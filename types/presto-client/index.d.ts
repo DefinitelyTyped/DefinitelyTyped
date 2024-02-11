@@ -115,6 +115,12 @@ export interface ClientOptions {
      * @default "presto"
      */
     engine?: string;
+    /**
+     * The seconds that a query is allowed to run before it starts returning
+     * results, defaults to 60 seconds. Set to null or 0 to disable.
+     * @default 60
+     */
+    timeout?: null | number;
 }
 
 // Query is a REST call to v1/statements, the `columns` returned is set as the `columns` callback
@@ -194,7 +200,19 @@ export interface RuntimeStats {
     wallTimeMillis: number;
     cpuTimeMillis: number;
     userTimeMillis: number;
-    state: "QUEUED" | "PLANNING" | "STARTING" | "RUNNING" | "FINISHED" | "CANCELED" | "FAILED";
+    // https://github.com/prestodb/presto/blob/496e98ca25fb243ab25731d188c2fd56eba3b3e9/presto-main/src/main/java/com/facebook/presto/execution/QueryState.java
+    state:
+        | "WAITING_FOR_PREREQUISITES"
+        | "QUEUED"
+        | "WAITING_FOR_RESOURCES"
+        | "DISPATCHING"
+        | "PLANNING"
+        | "STARTING"
+        | "RUNNING"
+        | "FINISHING"
+        | "FINISHED"
+        | "CANCELED" // legacy value, see https://github.com/prestodb/presto/commit/4bf8df1484935a000619377dab6ed35778fff2ad#diff-0e3098a2bd5426fc1a01f56708912cedcdf7ce5d2e0f7adcdb70b93080c8733a
+        | "FAILED";
     scheduled: boolean;
     nodes: number;
     totalSplits: number;
@@ -263,6 +281,7 @@ export interface QueryOptions {
      * Aditional headers to be included in the request
      */
     headers?: Record<string, string>;
+    timeout?: null | number;
     /**
      * Client stops fetch of query results if this callback returns `true`
      */
@@ -280,6 +299,11 @@ export interface QueryOptions {
      */
     data?: (error: null, data: any[][], columns: Column[], stats: RuntimeStats) => void;
     /**
+     * Called if a request was retried due to server returning `502`, `503`, or
+     * `504`
+     */
+    retry?: () => void;
+    /**
      * Called once when all results are fetched
      */
     success?: (error: null, stats: RuntimeStats, info: any) => void;
@@ -288,8 +312,9 @@ export interface QueryOptions {
      */
     error?: (error: PrestoError) => void;
     /**
-     * Callback for query completion (both of success and fail). One of
-     * `callback` or `success` must be specified.
+     * Callback for query completion (both of success and fail).
+     * One of `callback` or `success` must be specified.
+     * One of `callback` or `error` must be specified.
      */
     callback?: (error: PrestoError | null, stats: RuntimeStats) => void;
 }

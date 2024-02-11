@@ -1,8 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "no-empty-interface": false,
-        "only-arrow-functions": false,
-        "unified-signatures": false
-    }
-}

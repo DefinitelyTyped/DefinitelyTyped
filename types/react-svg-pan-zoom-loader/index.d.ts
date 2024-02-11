@@ -1,7 +1,8 @@
 import * as React from "react";
 
 export interface ReactSvgPanZoomLoaderProps {
-    src: string;
+    src?: string;
+    svgXML?: string;
     render: (content: React.ReactNode) => React.ReactNode;
     proxy?: React.ReactNode | undefined;
 }

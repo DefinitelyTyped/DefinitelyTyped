@@ -331,7 +331,7 @@ export namespace ojTable {
             column: K;
         };
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ColumnsRendererContext<K, D> = {
         cellContext: {
             datasource: DataProvider<K, D> | null;
@@ -346,7 +346,7 @@ export namespace ojTable {
             [name: string]: any;
         };
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ContextStatus<K> = {
         rowIndex: number;
         rowKey: K;
@@ -359,7 +359,7 @@ export namespace ojTable {
         rowIndex?: number | undefined;
         rowKey: K;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type DragRowContext<K, D> = {
         rows: Array<{
             data: D;
@@ -367,15 +367,15 @@ export namespace ojTable {
             key: K;
         }>;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type DropColumnContext = {
         columnIndex: number;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type DropRowContext = {
         rowIndex: number;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type FooterRendererContext<K, D> = {
         columnIndex: number;
         componentElement: Element;
@@ -384,7 +384,7 @@ export namespace ojTable {
         };
         parentElement: Element;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type HeaderRendererContext<K, D> = {
         columnIndex: number;
         columnHeaderDefaultRenderer?: ((param0: object, param1: (param0: object) => void) => void) | undefined;
@@ -396,7 +396,7 @@ export namespace ojTable {
         };
         parentElement: Element;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type RowRendererContext<K, D> = {
         componentElement: Element;
         data: {

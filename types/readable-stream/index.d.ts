@@ -1,12 +1,22 @@
 /// <reference types="node" />
 
 import * as SafeBuffer from "safe-buffer";
+import type * as NodeStream from "stream";
 
 declare class StringDecoder {
     constructor(encoding?: BufferEncoding | string);
     write(buffer: Buffer): string;
     end(buffer?: Buffer): string;
 }
+
+type Is<T extends U, U> = T;
+declare var NoAsyncDispose: {
+    new(
+        ...arguments: any[]
+    ): typeof globalThis.Symbol extends { readonly asyncDispose: Is<infer S, symbol> }
+        ? symbol extends S ? {} : { [P in S]: never }
+        : {};
+};
 
 type ComposeFnParam = (source: any) => void;
 
@@ -23,9 +33,9 @@ interface _IEventEmitter {
     off(eventName: string | symbol, listener: (...args: any[]) => void): this;
     setMaxListeners(n: number): this;
     getMaxListeners(): number;
-    // tslint:disable-next-line:ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     listeners(eventName: string | symbol): Function[];
-    // tslint:disable-next-line:ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     rawListeners(eventName: string | symbol): Function[];
     listenerCount(eventName: string | symbol): number;
     eventNames(): Array<string | symbol>;
@@ -85,7 +95,7 @@ interface _IReadable extends _IEventEmitter {
     destroy(error?: Error): this;
 }
 
-declare class _Readable implements _IReadable {
+declare class _Readable extends NoAsyncDispose implements _IReadable {
     readable: boolean;
     readonly readableFlowing: boolean | null;
     readonly readableHighWaterMark: number;
@@ -198,16 +208,15 @@ declare class _Readable implements _IReadable {
     off(eventName: string | symbol, listener: (...args: any[]) => void): this;
     setMaxListeners(n: number): this;
     getMaxListeners(): number;
-    // tslint:disable-next-line:ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     listeners(eventName: string | symbol): Function[];
-    // tslint:disable-next-line:ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     rawListeners(eventName: string | symbol): Function[];
     listenerCount(eventName: string | symbol): number;
     eventNames(): Array<string | symbol>;
 
     iterator(options?: { destroyOnReturn?: boolean }): AsyncIterableIterator<any>;
     [Symbol.asyncIterator](): AsyncIterableIterator<any>;
-    [Symbol.asyncDispose](): never;
 
     // static ReadableState: _Readable.ReadableState;
     _readableState: _Readable.ReadableState;
@@ -342,7 +351,6 @@ declare namespace _Readable {
         _undestroy(): void;
         iterator(options?: { destroyOnReturn?: boolean }): AsyncIterableIterator<any>;
         [Symbol.asyncIterator](): AsyncIterableIterator<any>;
-        [Symbol.asyncDispose](): never;
         // end-Readable
 
         constructor(options?: DuplexOptions);
@@ -442,6 +450,7 @@ declare namespace _Readable {
 
     class Transform extends Duplex {
         _transformState: {
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             afterTransform: (this: Transform, er: any, data: any) => void | boolean;
             needTransform: boolean;
             transforming: boolean;
@@ -525,7 +534,7 @@ declare namespace _Readable {
             chunk: ArrayLike<{ chunk: any; encoding: BufferEncoding | string }>,
             callback: (error?: Error | null) => void,
         ): void;
-        destroy?(this: _IWritable, error: Error | null, callback: (error: Error | null) => void): void;
+        destroy?(this: _IWritable, error: Error | null, callback: (error?: Error | null) => void): void;
         final?(this: _IWritable, callback: (error?: Error | null) => void): void;
     };
 
@@ -651,6 +660,9 @@ declare namespace _Readable {
             options?: { signal: AbortSignal },
         ): T;
     }
+
+    const finished: typeof NodeStream.finished;
+    const pipeline: typeof NodeStream.pipeline;
 }
 
 export = _Readable;

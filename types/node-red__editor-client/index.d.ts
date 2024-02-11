@@ -356,7 +356,7 @@ declare namespace editorClient {
         redo(): void;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface I18n {
         lang(): string;
     }
@@ -387,9 +387,10 @@ declare namespace editorClient {
          * @param def The node definition contains all of the information about the node
          * needed by the editor.
          */
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         registerNodeType<TProps extends NodeProperties, TCreds = undefined, TInstProps extends TProps = TProps>(
             nt: string,
-            def: NodeDef<TProps, TCreds, TInstProps>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
+            def: NodeDef<TProps, TCreds, TInstProps>,
         ): void;
         removeNodeType(nt: string): void;
         getNodeType(nt: string): NodeDef<NodeProperties>;

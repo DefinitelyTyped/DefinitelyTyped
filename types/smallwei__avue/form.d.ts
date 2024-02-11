@@ -186,6 +186,7 @@ export interface AvueFormProps<T = any> {
     /** upload组件上传后的回调,done用于结束操作，loading用于中断操作 */
     "upload-after"?: (res: any, done: () => void, loading: () => void, column: AvueFormColumn<T>) => void;
     /** upload组件删除文件之前的钩子，参数为上传的文件和文件列表，若返回 false 或者返回 Promise 且被 reject，则停止删除 */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     "upload-delete"?: (file: UploadFile, column: AvueFormColumn<T>) => boolean | Promise<any> | void;
     /** upload组件查看回调 */
     "upload-preview"?: (file: UploadFile, column: AvueFormColumn<T>, done: () => void) => void;

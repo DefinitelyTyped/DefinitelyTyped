@@ -4,8 +4,8 @@ import BN = require("bn.js");
 export const utils: any;
 export const rand: any;
 
-export type BNInput = string | BN | number | Buffer | Uint8Array | ReadonlyArray<number>;
-export type SignatureInput = ec.Signature | ec.SignatureOptions | Uint8Array | ReadonlyArray<number> | string;
+export type BNInput = string | BN | number | Buffer | Uint8Array | readonly number[];
+export type SignatureInput = ec.Signature | ec.SignatureOptions | Uint8Array | readonly number[] | string;
 
 export const version: number;
 

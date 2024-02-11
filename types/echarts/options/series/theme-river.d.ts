@@ -1829,8 +1829,8 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-themeRiver.data
              */
             data?:
-                | (void | number | string | SeriesThemeRiver.DataObject)[]
-                | (void | number | string | SeriesThemeRiver.DataObject)[][]
+                | Array<void | number | string | SeriesThemeRiver.DataObject>
+                | Array<Array<void | number | string | SeriesThemeRiver.DataObject>>
                 | undefined;
 
             /**

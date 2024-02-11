@@ -215,6 +215,7 @@ export function makeTree(
 export function traverseTreeSync(
     rootPath: string,
     onFile: (file: string) => void,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onDirectory: (dir: string) => boolean | void,
 ): void;
 
@@ -224,6 +225,7 @@ export function traverseTreeSync(
 export function traverseTree(
     rootPath: string,
     onFile: (file: string) => void,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onDirectory: (dir: string) => boolean | void,
     onDone: (err: any) => void,
 ): void;

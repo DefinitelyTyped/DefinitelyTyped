@@ -24,4 +24,4 @@ interface Classes<T> {
 export type CSS = React.CSSProperties;
 export function hover<A>(component: React.ComponentClass<A> | React.FunctionComponent<A>): React.ComponentClass<A>;
 export function loop(index: number, length: number): LoopableProps;
-export default function reactCSS<T>(classes: Classes<T>, ...activations: Array<any>): T;
+export default function reactCSS<T>(classes: Classes<T>, ...activations: any[]): T;

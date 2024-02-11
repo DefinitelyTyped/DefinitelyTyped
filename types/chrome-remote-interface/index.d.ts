@@ -153,7 +153,7 @@ declare namespace CDP {
         : never;
     type DoEventPromises<D extends string> = {
         [event in GetEvent<D>]:
-            // tslint:disable-next-line: void-return
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             () => Promise<GetReturnType<D, event> extends undefined ? void : GetReturnType<D, event>>;
     };
     type DoEventListeners<D extends string> = {

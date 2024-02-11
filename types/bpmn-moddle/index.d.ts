@@ -51,7 +51,7 @@ declare namespace BPMNModdle {
         } | undefined;
     }
 
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface RootElement extends BaseElement {}
     interface Interface extends RootElement {
         name: string;
@@ -67,9 +67,9 @@ declare namespace BPMNModdle {
         implementationRef: string;
     }
 
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface EndPoint extends RootElement {}
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Auditing extends BaseElement {}
     interface CallableElement extends RootElement {
         name: string;
@@ -86,10 +86,10 @@ declare namespace BPMNModdle {
     interface GlobalTask extends CallableElement {
         resources: ResourceRole;
     }
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Monitoring extends BaseElement {}
 
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Performer extends ResourceRole {}
     interface Process extends FlowElementsContainer, CallableElement {
         processType: string;
@@ -117,19 +117,19 @@ declare namespace BPMNModdle {
         flowNodeRef: FlowNode[];
         childLaneSet: LaneSet;
     }
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface GlobalManualTask extends GlobalTask {}
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface ManualTask extends Task {}
     interface UserTask extends Task {
         renderings: Rendering[];
         implementation: string;
     }
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Rendering extends BaseElement {}
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface HumanPerformer extends Performer {}
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface PotentialOwner extends Performer {}
     interface GlobalUserTask extends GlobalTask {
         implementation: string;
@@ -158,7 +158,7 @@ declare namespace BPMNModdle {
     interface InclusiveGateway extends Gateway {
         default: SequenceFlow;
     }
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface ParallelGateway extends Gateway {}
     interface Relationship extends BaseElement {
         type: string;
@@ -201,11 +201,11 @@ declare namespace BPMNModdle {
     interface Event extends FlowNode, InteractionNode {
         properties: Property[];
     }
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface IntermediateCatchEvent extends CatchEvent {}
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface IntermediateThrowEvent extends ThrowEvent {}
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface EndEvent extends ThrowEvent {}
     interface StartEvent extends CatchEvent {
         /**
@@ -238,14 +238,14 @@ declare namespace BPMNModdle {
         attachedToRef: Activity;
     }
 
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface EventDefinition extends RootElement {}
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface CancelEventDefinition extends EventDefinition {}
     interface ErrorEventDefinition extends EventDefinition {
         errorRef: ErrorElement;
     }
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface TerminateEventDefinition extends EventDefinition {}
     interface EscalationEventDefinition extends EventDefinition {
         escalationRef: Escalation;
@@ -283,7 +283,7 @@ declare namespace BPMNModdle {
         structureRef: ItemDefinition;
         name: string;
     }
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface ImplicitThrowEvent extends ThrowEvent {}
     interface DataState extends BaseElement {
         name: string;
@@ -333,9 +333,9 @@ declare namespace BPMNModdle {
     interface Property extends ItemAwareElement {
         name: string;
     }
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface DataInputAssociation extends DataAssociation {}
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface DataOutputAssociation extends DataAssociation {}
     interface InputOutputSpecification extends BaseElement {
         dataInputs: DataInput[];
@@ -381,7 +381,7 @@ declare namespace BPMNModdle {
         calledCollaborationRef: Collaboration;
         participantAssociations: ParticipantAssociation[];
     }
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Conversation extends ConversationNode {}
     interface SubConversation extends ConversationNode {
         conversationNodes: ConversationNode[];
@@ -392,7 +392,7 @@ declare namespace BPMNModdle {
         messageFlowRefs: MessageFlow[];
         correlationKeys: CorrelationKey[];
     }
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface GlobalConversation extends Collaboration {}
     interface PartnerEntity extends RootElement {
         name: string;
@@ -556,7 +556,7 @@ declare namespace BPMNModdle {
         categoryValue: CategoryValue;
         name: string;
     }
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Artifact extends BaseElement {}
     interface CategoryValue extends BaseElement {
         categorizedFlowElements: FlowElement[];
@@ -583,7 +583,7 @@ declare namespace BPMNModdle {
         triggeredByEvent: boolean;
         artifacts: Artifact[];
     }
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface LoopCharacteristics extends BaseElement {}
     interface MultiInstanceLoopCharacteristics extends LoopCharacteristics {
         isSequential: boolean;
@@ -674,15 +674,15 @@ declare namespace BPMNModdle {
         plane: BPMNPlane;
         labelStyle: BPMNLabelStyle;
     }
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface BPMNPlane extends Plane {}
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface BPMNShape extends LabeledShape {}
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface BPMNEdge extends LabeledEdge {}
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface BPMNLabel extends Label {}
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface BPMNLabelStyle extends Style {}
     interface Font extends TypeDerived {
         name: string;
@@ -698,31 +698,31 @@ declare namespace BPMNModdle {
         width: number;
         height: number;
     }
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Bounds extends TypeDerived {}
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface DiagramElement extends TypeDerived {}
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Node extends TypeDerived {}
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Edge extends TypeDerived {}
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Diagram extends TypeDerived {}
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Shape extends TypeDerived {}
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Plane extends TypeDerived {}
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface LabeledEdge extends TypeDerived {}
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface LabeledShape extends TypeDerived {}
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Label extends TypeDerived {}
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Style extends TypeDerived {}
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface ColoredShape extends TypeDerived {}
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface ColoredEdge extends TypeDerived {}
 
     interface ElementTypes {

@@ -11,7 +11,7 @@ import { Transition } from "d3-transition";
  * The second generic corresponds to the type of the data on the selected element.
  */
 // Retained ValueMap as type as it works better with IDE support for its intended purpose. It is not meant to be extended. So type is o.k.
-// tslint:disable-next-line:interface-over-type-literal
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type ValueMap<T extends BaseType, Datum> = {
     [key: string]: number | string | boolean | null | ValueFn<T, Datum, number | string | boolean | null>;
 };

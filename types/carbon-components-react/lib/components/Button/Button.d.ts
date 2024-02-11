@@ -70,7 +70,7 @@ export interface ButtonAnchorProps extends ButtonBaseProps, Omit<ReactAnchorAttr
     href: string;
 }
 
-export type ButtonIntrinsicProps<K extends keyof JSX.IntrinsicElements> =
+export type ButtonIntrinsicProps<K extends keyof React.JSX.IntrinsicElements> =
     & ButtonBaseProps
     & SafeProps<JSXIntrinsicElementProps<K>>
     & {
@@ -101,7 +101,7 @@ export type ButtonCustomComponentProps<
 declare function Button(props: ForwardRefProps<HTMLButtonElement, ButtonDefaultProps & ButtonKindProps>): FCReturn;
 // tslint:disable:unified-signatures breaks certain usages
 declare function Button(props: ForwardRefProps<HTMLAnchorElement, ButtonAnchorProps & ButtonKindProps>): FCReturn;
-declare function Button<T extends keyof JSX.IntrinsicElements, R extends HTMLElement = HTMLElement>(
+declare function Button<T extends keyof React.JSX.IntrinsicElements, R extends HTMLElement = HTMLElement>(
     props: ForwardRefProps<R, ButtonIntrinsicProps<T> & ButtonKindProps>,
 ): FCReturn;
 declare function Button<T extends ReactComponentConstructor<never>, R = unknown>(

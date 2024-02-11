@@ -20,7 +20,7 @@ const gridConfig: SpringGridProps = {
     },
 };
 
-const gridElems: JSX.Element[] = [
+const gridElems: React.JSX.Element[] = [
     <p>A</p>,
     <p>B</p>,
     <p>C</p>,
@@ -30,13 +30,13 @@ const gridElems: JSX.Element[] = [
     <p>G</p>,
 ];
 
-const StonecutterGrid: JSX.Element = (
+const StonecutterGrid: React.JSX.Element = (
     <SpringGrid {...gridConfig}>
         {gridElems}
     </SpringGrid>
 );
 
-const StonecutterGridResponsive: JSX.Element = (
+const StonecutterGridResponsive: React.JSX.Element = (
     <ResponsiveGrid {...gridConfig}>
         {gridElems}
     </ResponsiveGrid>

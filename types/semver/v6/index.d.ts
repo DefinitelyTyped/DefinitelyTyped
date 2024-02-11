@@ -71,7 +71,7 @@ export function patch(version: string | SemVer, optionsOrLoose?: boolean | Optio
 /**
  * Returns an array of prerelease components, or null if none exist.
  */
-export function prerelease(version: string | SemVer, optionsOrLoose?: boolean | Options): ReadonlyArray<string> | null;
+export function prerelease(version: string | SemVer, optionsOrLoose?: boolean | Options): readonly string[] | null;
 
 // Comparison
 /**
@@ -184,7 +184,7 @@ export function satisfies(version: string | SemVer, range: string | Range, optio
  * Return the highest version in the list that satisfies the range, or null if none of them do.
  */
 export function maxSatisfying<T extends string | SemVer>(
-    versions: ReadonlyArray<T>,
+    versions: readonly T[],
     range: string | Range,
     optionsOrLoose?: boolean | Options,
 ): T | null;
@@ -192,7 +192,7 @@ export function maxSatisfying<T extends string | SemVer>(
  * Return the lowest version in the list that satisfies the range, or null if none of them do.
  */
 export function minSatisfying<T extends string | SemVer>(
-    versions: ReadonlyArray<T>,
+    versions: readonly T[],
     range: string | Range,
     optionsOrLoose?: boolean | Options,
 ): T | null;
@@ -236,7 +236,7 @@ export class SemVer {
     minor: number;
     patch: number;
     version: string;
-    build: ReadonlyArray<string>;
+    build: readonly string[];
     prerelease: ReadonlyArray<string | number>;
 
     /**
@@ -306,8 +306,8 @@ export class Range {
     format(): string;
     inspect(): string;
 
-    set: ReadonlyArray<ReadonlyArray<Comparator>>;
-    parseRange(range: string): ReadonlyArray<Comparator>;
+    set: ReadonlyArray<readonly Comparator[]>;
+    parseRange(range: string): readonly Comparator[];
     test(version: string | SemVer): boolean;
     intersects(range: Range, optionsOrLoose?: boolean | Options): boolean;
 }

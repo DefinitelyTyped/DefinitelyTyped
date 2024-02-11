@@ -1544,7 +1544,7 @@ declare module "util" {
         /**
          * Returns an iterator over each of the name-value pairs in the parameters.
          */
-        entries(): IterableIterator<[string, string]>;
+        entries(): IterableIterator<[name: string, value: string]>;
         /**
          * Returns the value of the first name-value pair whose name is `name`.
          * If there are no such pairs, `null` is returned.
@@ -1573,9 +1573,6 @@ declare module "util" {
          */
         [Symbol.iterator]: typeof MIMEParams.prototype.entries;
     }
-}
-declare module "util/types" {
-    export * from "util/types";
 }
 declare module "util/types" {
     import { KeyObject, webcrypto } from "node:crypto";

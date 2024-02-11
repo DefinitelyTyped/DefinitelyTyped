@@ -1,7 +1,7 @@
 class EmployeesFactory {
     static $inject = ["$rootScope", "Hub", "$timeout"];
     private readonly hub: ngSignalr.Hub;
-    public all: Array<Employee>;
+    public all: Employee[];
 
     constructor($rootScope: ng.IRootScopeService, Hub: ngSignalr.HubFactory, $timeout: ng.ITimeoutService) {
         // declaring the hub connection

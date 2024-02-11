@@ -2,7 +2,7 @@
  * This module provides a subset of the Web Crypto API. It is an interface
  * allowing a k6 script to use cryptographic primitives.
  *
- * https://k6.io/docs/javascript-api/k6-experimental/webcrypto/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-experimental/webcrypto/
  */
 
 export const crypto: Crypto;

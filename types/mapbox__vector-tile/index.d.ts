@@ -10,7 +10,7 @@ export class VectorTile {
 export class VectorTileFeature {
     static types: ["Unknown", "Point", "LineString", "Polygon"];
     extent: number;
-    type: 1 | 2 | 3;
+    type: 0 | 1 | 2 | 3;
     id: number;
     properties: { [_: string]: string | number | boolean };
     loadGeometry(): Point[][];

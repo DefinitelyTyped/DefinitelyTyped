@@ -1,4 +1,5 @@
 import { connect } from "net";
+import * as pg from "pg";
 import { Client, Connection, CustomTypesConfig, DatabaseError, defaults, Pool, QueryArrayConfig, types } from "pg";
 import TypeOverrides = require("pg/lib/type-overrides");
 import { NoticeMessage } from "pg-protocol/dist/messages";
@@ -29,6 +30,9 @@ const port: number = client.port;
 const host: string = client.host;
 const password: string | undefined = client.password;
 const ssl: boolean = client.ssl;
+
+const escapeIdentifier: (str: string) => string = pg.escapeIdentifier;
+const escapeLiteral: (str: string) => string = pg.escapeLiteral;
 
 client.on("notice", (notice: NoticeMessage) => console.warn(`${notice.severity}: ${notice.message}`));
 client.connect(err => {

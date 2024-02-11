@@ -148,19 +148,26 @@ declare module "node:test" {
     function only(name?: string, fn?: TestFn): Promise<void>;
     function only(options?: TestOptions, fn?: TestFn): Promise<void>;
     function only(fn?: TestFn): Promise<void>;
-
     /**
      * The type of a function under test. The first argument to this function is a
      * {@link TestContext} object. If the test uses callbacks, the callback function is passed as
      * the second argument.
      */
     type TestFn = (t: TestContext, done: (result?: any) => void) => any;
-
     /**
      * The type of a function under Suite.
      */
     type SuiteFn = (s: SuiteContext) => void | Promise<void>;
-
+    interface TestShard {
+        /**
+         * A positive integer between 1 and `<total>` that specifies the index of the shard to run.
+         */
+        index: number;
+        /**
+         * A positive integer that specifies the total number of shards to split the test files to.
+         */
+        total: number;
+    }
     interface RunOptions {
         /**
          * If a number is provided, then that many files would run in parallel.
@@ -170,26 +177,22 @@ declare module "node:test" {
          * @default true
          */
         concurrency?: number | boolean | undefined;
-
         /**
          * An array containing the list of files to run.
          * If unspecified, the test runner execution model will be used.
          */
         files?: readonly string[] | undefined;
-
         /**
          * Allows aborting an in-progress test execution.
          * @default undefined
          */
         signal?: AbortSignal | undefined;
-
         /**
          * A number of milliseconds the test will fail after.
          * If unspecified, subtests inherit this value from their parent.
          * @default Infinity
          */
         timeout?: number | undefined;
-
         /**
          * Sets inspector port of test child process.
          * If a nullish value is provided, each process gets its own port,
@@ -203,6 +206,11 @@ declare module "node:test" {
          */
         testNamePatterns?: string | RegExp | string[] | RegExp[];
         /**
+         * If truthy, the test context will only run tests that have the `only` option set
+         * @since v18.19.0
+         */
+        only?: boolean;
+        /**
          * A function that accepts the TestsStream instance and can be used to setup listeners before any tests are run.
          */
         setup?: (root: Test) => void | Promise<void>;
@@ -211,6 +219,12 @@ declare module "node:test" {
          * @default false
          */
         watch?: boolean | undefined;
+        /**
+         * Running tests in a specific shard.
+         * @since v18.19.0
+         * @default undefined
+         */
+        shard?: TestShard | undefined;
     }
     class Test extends AsyncResource {
         concurrency: number;
@@ -561,7 +575,6 @@ declare module "node:test" {
             implementation?: Implementation,
             options?: MockFunctionOptions,
         ): Mock<F | Implementation>;
-
         /**
          * This function is used to create a mock on an existing object method.
          * @param object The object whose method is being mocked.
@@ -600,7 +613,6 @@ declare module "node:test" {
             implementation: Function,
             options: MockMethodOptions,
         ): Mock<Function>;
-
         /**
          * This function is syntax sugar for {@link MockTracker.method} with `options.getter` set to `true`.
          */
@@ -622,7 +634,6 @@ declare module "node:test" {
             implementation?: Implementation,
             options?: MockFunctionOptions,
         ): Mock<(() => MockedObject[MethodName]) | Implementation>;
-
         /**
          * This function is syntax sugar for {@link MockTracker.method} with `options.setter` set to `true`.
          */
@@ -644,7 +655,6 @@ declare module "node:test" {
             implementation?: Implementation,
             options?: MockFunctionOptions,
         ): Mock<((value: MockedObject[MethodName]) => void) | Implementation>;
-
         /**
          * This function restores the default behavior of all mocks that were previously created by this `MockTracker`
          * and disassociates the mocks from the `MockTracker` instance. Once disassociated, the mocks can still be used,
@@ -654,12 +664,12 @@ declare module "node:test" {
          * If the global `MockTracker` is used extensively, calling this function manually is recommended.
          */
         reset(): void;
-
         /**
          * This function restores the default behavior of all mocks that were previously created by this `MockTracker`.
          * Unlike `mock.reset()`, `mock.restoreAll()` does not disassociate the mocks from the `MockTracker` instance.
          */
         restoreAll(): void;
+        timers: MockTimers;
     }
 
     const mock: MockTracker;
@@ -742,11 +752,172 @@ declare module "node:test" {
          */
         restore(): void;
     }
+    type Timer = "setInterval" | "clearInterval" | "setTimeout" | "clearTimeout";
+    /**
+     * Mocking timers is a technique commonly used in software testing to simulate and
+     * control the behavior of timers, such as `setInterval` and `setTimeout`,
+     * without actually waiting for the specified time intervals.
+     *
+     * The `MockTracker` provides a top-level `timers` export
+     * which is a `MockTimers` instance.
+     * @since v18.19.0
+     * @experimental
+     */
+    class MockTimers {
+        /**
+         * Enables timer mocking for the specified timers.
+         *
+         * **Note:** When you enable mocking for a specific timer, its associated
+         * clear function will also be implicitly mocked.
+         *
+         * Example usage:
+         *
+         * ```js
+         * import { mock } from 'node:test';
+         * mock.timers.enable(['setInterval']);
+         * ```
+         *
+         * The above example enables mocking for the `setInterval` timer and
+         * implicitly mocks the `clearInterval` function. Only the `setInterval`and `clearInterval` functions from `node:timers`,`node:timers/promises`, and`globalThis` will be mocked.
+         *
+         * Alternatively, if you call `mock.timers.enable()` without any parameters:
+         *
+         * All timers (`'setInterval'`, `'clearInterval'`, `'setTimeout'`, and `'clearTimeout'`)
+         * will be mocked. The `setInterval`, `clearInterval`, `setTimeout`, and `clearTimeout`functions from `node:timers`, `node:timers/promises`,
+         * and `globalThis` will be mocked.
+         * @since v18.19.0
+         */
+        enable(timers?: Timer[]): void;
+        /**
+         * This function restores the default behavior of all mocks that were previously
+         * created by this `MockTimers` instance and disassociates the mocks
+         * from the `MockTracker` instance.
+         *
+         * **Note:** After each test completes, this function is called on
+         * the test context's `MockTracker`.
+         *
+         * ```js
+         * import { mock } from 'node:test';
+         * mock.timers.reset();
+         * ```
+         * @since v18.19.0
+         */
+        reset(): void;
+        /**
+         * Advances time for all mocked timers.
+         *
+         * **Note:** This diverges from how `setTimeout` in Node.js behaves and accepts
+         * only positive numbers. In Node.js, `setTimeout` with negative numbers is
+         * only supported for web compatibility reasons.
+         *
+         * The following example mocks a `setTimeout` function and
+         * by using `.tick` advances in
+         * time triggering all pending timers.
+         *
+         * ```js
+         * import assert from 'node:assert';
+         * import { test } from 'node:test';
+         *
+         * test('mocks setTimeout to be executed synchronously without having to actually wait for it', (context) => {
+         *   const fn = context.mock.fn();
+         *
+         *   context.mock.timers.enable(['setTimeout']);
+         *
+         *   setTimeout(fn, 9999);
+         *
+         *   assert.strictEqual(fn.mock.callCount(), 0);
+         *
+         *   // Advance in time
+         *   context.mock.timers.tick(9999);
+         *
+         *   assert.strictEqual(fn.mock.callCount(), 1);
+         * });
+         * ```
+         *
+         * Alternativelly, the `.tick` function can be called many times
+         *
+         * ```js
+         * import assert from 'node:assert';
+         * import { test } from 'node:test';
+         *
+         * test('mocks setTimeout to be executed synchronously without having to actually wait for it', (context) => {
+         *   const fn = context.mock.fn();
+         *   context.mock.timers.enable(['setTimeout']);
+         *   const nineSecs = 9000;
+         *   setTimeout(fn, nineSecs);
+         *
+         *   const twoSeconds = 3000;
+         *   context.mock.timers.tick(twoSeconds);
+         *   context.mock.timers.tick(twoSeconds);
+         *   context.mock.timers.tick(twoSeconds);
+         *
+         *   assert.strictEqual(fn.mock.callCount(), 1);
+         * });
+         * ```
+         * @since v18.19.0
+         */
+        tick(milliseconds: number): void;
+        /**
+         * Triggers all pending mocked timers immediately.
+         *
+         * The example below triggers all pending timers immediately,
+         * causing them to execute without any delay.
+         *
+         * ```js
+         * import assert from 'node:assert';
+         * import { test } from 'node:test';
+         *
+         * test('runAll functions following the given order', (context) => {
+         *   context.mock.timers.enable(['setTimeout']);
+         *   const results = [];
+         *   setTimeout(() => results.push(1), 9999);
+         *
+         *   // Notice that if both timers have the same timeout,
+         *   // the order of execution is guaranteed
+         *   setTimeout(() => results.push(3), 8888);
+         *   setTimeout(() => results.push(2), 8888);
+         *
+         *   assert.deepStrictEqual(results, []);
+         *
+         *   context.mock.timers.runAll();
+         *
+         *   assert.deepStrictEqual(results, [3, 2, 1]);
+         * });
+         * ```
+         *
+         * **Note:** The `runAll()` function is specifically designed for
+         * triggering timers in the context of timer mocking.
+         * It does not have any effect on real-time system
+         * clocks or actual timers outside of the mocking environment.
+         * @since v18.19.0
+         */
+        runAll(): void;
+        /**
+         * Calls {@link MockTimers.reset()}.
+         */
+        [Symbol.dispose](): void;
+    }
 
     export { after, afterEach, before, beforeEach, describe, it, mock, run, test, test as default };
 }
 
-interface DiagnosticData {
+interface TestLocationInfo {
+    /**
+     * The column number where the test is defined, or
+     * `undefined` if the test was run through the REPL.
+     */
+    column?: number;
+    /**
+     * The path of the test file, `undefined` if test is not ran through a file.
+     */
+    file?: string;
+    /**
+     * The line number where the test is defined, or
+     * `undefined` if the test was run through the REPL.
+     */
+    line?: number;
+}
+interface DiagnosticData extends TestLocationInfo {
     /**
      * The diagnostic message.
      */
@@ -755,12 +926,8 @@ interface DiagnosticData {
      * The nesting level of the test.
      */
     nesting: number;
-    /**
-     * The path of the test file, undefined if test is not ran through a file.
-     */
-    file?: string;
 }
-interface TestFail {
+interface TestFail extends TestLocationInfo {
     /**
      * Additional execution metadata.
      */
@@ -799,12 +966,8 @@ interface TestFail {
      * Present if `context.skip` is called.
      */
     skip?: string | boolean;
-    /**
-     * The path of the test file, undefined if test is not ran through a file.
-     */
-    file?: string;
 }
-interface TestPass {
+interface TestPass extends TestLocationInfo {
     /**
      * Additional execution metadata.
      */
@@ -839,12 +1002,8 @@ interface TestPass {
      * Present if `context.skip` is called.
      */
     skip?: string | boolean;
-    /**
-     * The path of the test file, undefined if test is not ran through a file.
-     */
-    file?: string;
 }
-interface TestPlan {
+interface TestPlan extends TestLocationInfo {
     /**
      * The nesting level of the test.
      */
@@ -853,12 +1012,8 @@ interface TestPlan {
      * The number of subtests that have ran.
      */
     count: number;
-    /**
-     * The path of the test file, undefined if test is not ran through a file.
-     */
-    file?: string;
 }
-interface TestStart {
+interface TestStart extends TestLocationInfo {
     /**
      * The test name.
      */
@@ -867,54 +1022,34 @@ interface TestStart {
      * The nesting level of the test.
      */
     nesting: number;
-    /**
-     * The path of the test file, undefined if test is not ran through a file.
-     */
-    file?: string;
 }
-interface TestStderr {
-    /**
-     * The path of the test file, undefined if test is not ran through a file.
-     */
-    file?: string;
+interface TestStderr extends TestLocationInfo {
     /**
      * The message written to `stderr`
      */
     message: string;
 }
-interface TestStdout {
-    /**
-     * The path of the test file, undefined if test is not ran through a file.
-     */
-    file?: string;
+interface TestStdout extends TestLocationInfo {
     /**
      * The message written to `stdout`
      */
     message: string;
 }
-interface TestEnqueue {
+interface TestEnqueue extends TestLocationInfo {
     /**
      * The test name
      */
     name: string;
-    /**
-     * The path of the test file, undefined if test is not ran through a file.
-     */
-    file?: string;
     /**
      * The nesting level of the test.
      */
     nesting: number;
 }
-interface TestDequeue {
+interface TestDequeue extends TestLocationInfo {
     /**
      * The test name
      */
     name: string;
-    /**
-     * The path of the test file, undefined if test is not ran through a file.
-     */
-    file?: string;
     /**
      * The nesting level of the test.
      */
@@ -970,5 +1105,9 @@ declare module "node:test/reporters" {
     class Spec extends Transform {
         constructor();
     }
-    export { dot, Spec as spec, tap, TestEvent };
+    /**
+     * The `junit` reporter outputs test results in a jUnit XML format
+     */
+    function junit(source: TestEventGenerator): AsyncGenerator<string, void>;
+    export { dot, junit, Spec as spec, tap, TestEvent };
 }

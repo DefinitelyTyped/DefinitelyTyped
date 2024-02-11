@@ -7,7 +7,7 @@ declare namespace Sylvester {
         /**
          * Constructor function.
          */
-        create(elements: Vector | Array<number>): Vector;
+        create(elements: Vector | number[]): Vector;
 
         i: Vector;
         j: Vector;
@@ -33,7 +33,7 @@ declare namespace Sylvester {
          *
          * @param {Array<number>|Array<Array<number>>|Vector|Matrix} elements The elements.
          */
-        create(elements: Array<number> | Array<Array<number>> | Vector | Matrix): Matrix;
+        create(elements: number[] | number[][] | Vector | Matrix): Matrix;
 
         /**
          * Identity matrix of size n.
@@ -47,7 +47,7 @@ declare namespace Sylvester {
          *
          * @param {any} elements The elements.
          */
-        Diagonal(elements: Array<number> | Array<Array<number>> | Vector | Matrix): Matrix;
+        Diagonal(elements: number[] | number[][] | Vector | Matrix): Matrix;
 
         /**
          * Rotation matrix about some axis. If no axis is supplied, assume we're after a 2D transform.
@@ -85,7 +85,7 @@ declare namespace Sylvester {
          * @param Array<number>|Vector anchor The anchor vector.
          * @param Array<number>|Vector direction The direction vector.
          */
-        create(anchor: Array<number> | Vector, direction: Array<number> | Vector): Line;
+        create(anchor: number[] | Vector, direction: number[] | Vector): Line;
 
         X: Line;
         Y: Line;
@@ -95,12 +95,12 @@ declare namespace Sylvester {
         /**
          * Constructor function.
          */
-        create(anchor: Array<number> | Vector, normal: Array<number> | Vector): Plane;
+        create(anchor: number[] | Vector, normal: number[] | Vector): Plane;
 
         /**
          * Constructor function.
          */
-        create(anchor: Array<number> | Vector, v1: Array<number> | Vector, v2: Array<number> | Vector): Plane;
+        create(anchor: number[] | Vector, v1: number[] | Vector, v2: number[] | Vector): Plane;
 
         XY: Plane;
         YZ: Plane;
@@ -113,7 +113,7 @@ interface Vector {
     /**
      * Gets an array containing the vector's elements.
      */
-    elements: Array<number>;
+    elements: number[];
 
     /**
      * Returns element i of the vector.
@@ -135,7 +135,7 @@ interface Vector {
      *
      * @param {Vector|Array<number>} vector The vector to compare equality.
      */
-    eql(vector: Vector | Array<number>): boolean;
+    eql(vector: Vector | number[]): boolean;
 
     /**
      * Returns a copy of the vector.
@@ -194,14 +194,14 @@ interface Vector {
      *
      * @param {Vector|Array<number>} vector The vector.
      */
-    add(vector: Vector | Array<number>): Vector;
+    add(vector: Vector | number[]): Vector;
 
     /**
      * Returns the result of subtracting the argument from the vector.
      *
      * @param {Vector|Array<number>} vector The vector.
      */
-    subtract(vector: Vector | Array<number>): Vector;
+    subtract(vector: Vector | number[]): Vector;
 
     /**
      * Returns the result of multiplying the elements of the vector by the argument.
@@ -222,14 +222,14 @@ interface Vector {
      *
      * @param {Vector|Array<number>} vector The other vector.
      */
-    dot(vector: Vector | Array<number>): number;
+    dot(vector: Vector | number[]): number;
 
     /**
      * Returns the vector product of the vector with the argument. Both vectors must have dimensionality 3.
      *
      * @param {Vector|Array<number>} vector The other vector.
      */
-    cross(vector: Vector | Array<number>): Vector;
+    cross(vector: Vector | number[]): Vector;
 
     /**
      * Returns the (absolute) largest element of the vector.
@@ -313,14 +313,14 @@ interface Vector {
      *
      * @param {Vector|Array<number>} els The elements.
      */
-    setElements(els: Vector | Array<number>): Vector;
+    setElements(els: Vector | number[]): Vector;
 }
 
 interface Matrix {
     /**
      * Gets a nested array containing the matrix's elements.
      */
-    elements: Array<Array<number>>;
+    elements: number[][];
     /**
      * Returns element (i,j) of the matrix.
      *
@@ -538,7 +538,7 @@ interface Matrix {
      *
      * @param {Array<number>|Array<Array<number>>|Vector|Matrix} matrix The elements.
      */
-    setElements(matrix: Array<number> | Array<Array<number>> | Vector | Matrix): Matrix;
+    setElements(matrix: number[] | number[][] | Vector | Matrix): Matrix;
 }
 
 interface Line {
@@ -569,7 +569,7 @@ interface Line {
      *
      * @param {Vector|Array<number>} vector The translation vector.
      */
-    translate(vector: Vector | Array<number>): Line;
+    translate(vector: Vector | number[]): Line;
 
     /**
      * Returns true if the line is parallel to the argument. Here, 'parallel to' means that the argument's
@@ -646,7 +646,7 @@ interface Line {
      * @param {Array<number>|Vector} anchor The anchor vector.
      * @param {Array<number>|Vector} direction The direction vector.
      */
-    setVectors(anchor: Array<number> | Vector, direction: Array<number> | Vector): Line;
+    setVectors(anchor: number[] | Vector, direction: number[] | Vector): Line;
 }
 
 interface Plane {
@@ -677,7 +677,7 @@ interface Plane {
      *
      * @param {Array<number>|Vector} vector The translation vector.
      */
-    translate(vector: Array<number> | Vector): Plane;
+    translate(vector: number[] | Vector): Plane;
 
     /**
      * Returns true if the plane is parallel to the argument. Will return true if the planes are equal,
@@ -757,7 +757,7 @@ interface Plane {
      * @param {Array<number>|Vector} anchor The anchor vector.
      * @param {Array<number>|Vector} normal The normal vector.
      */
-    setVectors(anchor: Array<number> | Vector, normal: Array<number> | Vector): Plane;
+    setVectors(anchor: number[] | Vector, normal: number[] | Vector): Plane;
 
     /**
      * Sets the anchor point and normal to the plane. The normal is calculated by assuming the three points
@@ -767,7 +767,7 @@ interface Plane {
      * @param {Array<number>|Vector} v1 The first direction vector.
      * @param {Array<number>|Vector} v2 The second direction vector.
      */
-    setVectors(anchor: Array<number> | Vector, v1: Array<number> | Vector, v2: Array<number> | Vector): Plane;
+    setVectors(anchor: number[] | Vector, v1: number[] | Vector, v2: number[] | Vector): Plane;
 }
 
 declare namespace Sylvester {
@@ -785,14 +785,14 @@ declare var Plane: Sylvester.PlaneStatic;
  *
  * @param {Vector|Array<number} elements The elements.
  */
-declare function $V(elements: Vector | Array<number>): Vector;
+declare function $V(elements: Vector | number[]): Vector;
 
 /**
  * Constructor function.
  *
  * @param {Array<number>|Array<Array<number>>|Vector|Matrix} elements The elements.
  */
-declare function $M(elements: Array<number> | Array<Array<number>> | Vector | Matrix): Matrix;
+declare function $M(elements: number[] | number[][] | Vector | Matrix): Matrix;
 
 /**
  * Constructor function.
@@ -800,7 +800,7 @@ declare function $M(elements: Array<number> | Array<Array<number>> | Vector | Ma
  * @param Array<number>|Vector anchor The anchor vector.
  * @param Array<number>|Vector direction The direction vector.
  */
-declare function $L(anchor: Array<number> | Vector, direction: Array<number> | Vector): Line;
+declare function $L(anchor: number[] | Vector, direction: number[] | Vector): Line;
 
 /**
  * Constructor function.
@@ -808,7 +808,7 @@ declare function $L(anchor: Array<number> | Vector, direction: Array<number> | V
  * @param {Array<number>|Vector} anchor The anchor vector.
  * @param {Array<number>|Vector} normal The normal vector.
  */
-declare function $P(anchor: Array<number> | Vector, normal: Array<number> | Vector): Plane;
+declare function $P(anchor: number[] | Vector, normal: number[] | Vector): Plane;
 
 /**
  * Constructor function.
@@ -817,4 +817,4 @@ declare function $P(anchor: Array<number> | Vector, normal: Array<number> | Vect
  * @param {Array<number>|Vector} v1 The first direction vector.
  * @param {Array<number>|Vecotr} v2 The second direction vector.
  */
-declare function $P(anchor: Array<number> | Vector, v1: Array<number> | Vector, v2: Array<number> | Vector): Plane;
+declare function $P(anchor: number[] | Vector, v1: number[] | Vector, v2: number[] | Vector): Plane;

@@ -21,7 +21,7 @@ declare namespace sanitize {
 
     type DisallowedTagsModes = "discard" | "escape" | "recursiveEscape";
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IDefaults {
         allowedAttributes: Record<string, AllowedAttribute[]>;
         allowedSchemes: string[];
@@ -32,9 +32,10 @@ declare namespace sanitize {
         disallowedTagsMode: DisallowedTagsModes;
         enforceHtmlBoundary: boolean;
         selfClosing: string[];
+        nonBooleanAttributes: string[];
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IFrame {
         tag: string;
         attribs: { [index: string]: string };
@@ -43,7 +44,7 @@ declare namespace sanitize {
         mediaChildren: string[];
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IOptions {
         allowedAttributes?: Record<string, AllowedAttribute[]> | false | undefined;
         allowedStyles?: { [index: string]: { [index: string]: RegExp[] } } | undefined;
@@ -76,6 +77,7 @@ declare namespace sanitize {
          * @default true
          */
         enforceHtmlBoundary?: boolean | undefined;
+        nonBooleanAttributes?: string[];
     }
 
     const defaults: IDefaults;

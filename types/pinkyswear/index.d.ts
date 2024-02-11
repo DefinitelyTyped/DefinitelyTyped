@@ -31,6 +31,7 @@ declare namespace PinkySwear {
          * @returns PinkySwear.Promise
          */
         then(
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onFulfilled?: (...values: any[]) => Promise | void | any,
             onRejected?: (...values: any[]) => void,
         ): Promise;

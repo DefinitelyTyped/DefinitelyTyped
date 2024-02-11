@@ -223,6 +223,25 @@ app.route("/").post<never, { foo: string }, { bar: number }>((req, res) => {
 });
 
 // Cookies
+app.get("setCookie", (req, res) => {
+    res.cookie("key", "value", {
+        maxAge: 86400,
+        signed: true,
+        httpOnly: false,
+        secure: true,
+        domain: "example.com",
+        sameSite: "lax",
+        priority: "high",
+    });
+    res.cookie("key", "value", {
+        // @ts-expect-error
+        priority: "random",
+    });
+    res.cookie("key", "value", {
+        // @ts-expect-error
+        sameSite: "whatever",
+    });
+});
 app.get("/clearcookie", (req, res) => {
     res.clearCookie("auth"); // $ExpectType Response<any, Record<string, any>, number>
     res.clearCookie("auth", {
@@ -271,4 +290,9 @@ app.get("/file2.txt", (req, res) => {
     res.sendFile("/some/path/to/file2.txt", { maxAge: 3_600_000 });
     // @ts-expect-error
     res.sendFile("/some/path/to/file2.txt", { "max-age": 3_600_000 });
+});
+
+// IP address may be undefined
+app.get("/:foo", req => {
+    req.ip; // $ExpectType string | undefined
 });

@@ -1,5 +1,5 @@
+import { DataFactory, NamedNode, Sink, Stream } from "@rdfjs/types";
 import { EventEmitter } from "events";
-import { DataFactory, NamedNode, Sink, Stream } from "rdf-js";
 import TripleToQuadTransform from "rdf-transform-triple-to-quad";
 import { Readable } from "stream";
 

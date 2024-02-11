@@ -162,7 +162,7 @@ export interface ExecuteAnonymousResult {
 export type ConnectionEvent = "refresh";
 
 export interface SearchResult<T> {
-    searchRecords: Record<T>[];
+    searchRecords: Array<Record<T>>;
 }
 
 /**

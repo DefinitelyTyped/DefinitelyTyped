@@ -24,10 +24,22 @@ myBuffer.poke(1, 5, [0.1, 0.2, 0.3]);
 myBuffer.send("sizeinsamps", 44100);
 
 // Dict usage example
-const myDict = new Dict("test_dict");
-myDict.set("color", ["red"]);
-const colorValue = myDict.get("color");
-const keys = myDict.getkeys();
+const d = new Dict("test_dict");
+d.set("salami", "7.99");
+d.set("bologna", 1.99);
+d.set("drink::hot::coffee::sizes", "small", "medium", "large");
+d.replace("salami", "6.99");
+d.replace("drink::hot::coffee::type", "espresso");
+d.replace("drink::hot::coffee::with", "milk", "sugar");
+d.getsize("drink::hot::coffee::with");
+d.parse(JSON.stringify({ color: "blue" }));
+d.setparse("myobj", JSON.stringify(["a", "b"]));
+d.replace("myobj", JSON.stringify(["c", "d"]));
+d.remove("color");
+d.clear();
+d.freepeer();
+const colorValue = d.get("color");
+const keys = d.getkeys();
 
 // File usage example
 let file = new File("test.txt", "write", "TEXT");

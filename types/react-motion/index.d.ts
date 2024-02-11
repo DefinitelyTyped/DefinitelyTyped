@@ -1,4 +1,4 @@
-import { Component, ReactElement } from "react";
+import { Component, JSX, ReactElement } from "react";
 
 // your typical style object given in props. Maps to a number or a spring config
 export type Style = { [key: string]: number | OpaqueConfig };
@@ -89,7 +89,7 @@ interface TransitionPlainStyle {
     // same as TransitionStyle, passed as argument to style/children function
     style: PlainStyle;
 }
-type InterpolateFunction = (previousInterpolatedStyles?: Array<TransitionPlainStyle>) => Array<TransitionStyle>;
+type InterpolateFunction = (previousInterpolatedStyles?: TransitionPlainStyle[]) => TransitionStyle[];
 /**
  * Transition properties
  */
@@ -97,13 +97,13 @@ interface TransitionProps {
     /**
      * Default styles on first render
      */
-    defaultStyles?: Array<TransitionPlainStyle> | undefined;
+    defaultStyles?: TransitionPlainStyle[] | undefined;
     /**
      * Styles to interpolate. Accepts array of TransitionStyle objects or interpolated function similar as for
      * <StaggeredMotion/>
      */
-    styles: Array<TransitionStyle> | InterpolateFunction;
-    children?: ((interpolatedStyles: Array<TransitionPlainStyle>) => JSX.Element) | undefined;
+    styles: TransitionStyle[] | InterpolateFunction;
+    children?: ((interpolatedStyles: TransitionPlainStyle[]) => JSX.Element) | undefined;
     /**
      * Triggers when a new element will appear
      * @param styleThatEntered
@@ -113,6 +113,7 @@ interface TransitionProps {
      * Triggers when an element will disappear
      * @param styleThatLeft
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     willLeave?: ((styleThatLeft: TransitionStyle) => Style | void) | undefined;
     /**
      * Triggers when an element has disappeared
@@ -127,12 +128,12 @@ interface StaggeredMotionProps {
     /**
      * Default styles
      */
-    defaultStyles?: Array<PlainStyle> | undefined;
+    defaultStyles?: PlainStyle[] | undefined;
     /**
      * Styles to interpolate
      * @param previousInterpolatedStyles The previously interpolating (array of) styles (undefined at first render, unless defaultStyles is provided).
      */
-    styles: (previousInterpolatedStyles?: Array<PlainStyle>) => Array<Style>;
+    styles: (previousInterpolatedStyles?: PlainStyle[]) => Style[];
 }
 export declare class StaggeredMotion extends Component<StaggeredMotionProps> {}
 

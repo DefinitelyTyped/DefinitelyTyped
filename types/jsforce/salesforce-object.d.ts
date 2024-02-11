@@ -98,8 +98,8 @@ export class SObject<T> {
     count(conditions?: object | string, callback?: Callback<number>): Query<number>;
     create(record: T, options?: RestApiOptions, callback?: Callback<RecordResult>): Promise<RecordResult>;
     create(record: T, callback?: Callback<RecordResult>): Promise<RecordResult>;
-    create(record: Array<T>, options?: RestApiOptions, callback?: Callback<RecordResult[]>): Promise<RecordResult[]>;
-    create(record: Array<T>, callback?: Callback<RecordResult[]>): Promise<RecordResult[]>;
+    create(record: T[], options?: RestApiOptions, callback?: Callback<RecordResult[]>): Promise<RecordResult[]>;
+    create(record: T[], callback?: Callback<RecordResult[]>): Promise<RecordResult[]>;
     createBulk(input?: Array<Record<T>> | stream.Stream | string, callback?: Callback<RecordResult[]>): Batch;
     del(id: string, callback?: Callback<RecordResult>): Promise<RecordResult>;
     del(ids: string[], callback?: Callback<RecordResult[]>): Promise<RecordResult[]>;

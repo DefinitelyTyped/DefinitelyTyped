@@ -3,7 +3,7 @@ declare function linePolygon(
     y1: number,
     x2: number,
     y2: number,
-    points: ReadonlyArray<number>,
+    points: readonly number[],
     tolerance: number,
 ): boolean;
 

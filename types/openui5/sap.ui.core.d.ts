@@ -280,7 +280,7 @@ declare namespace sap {
   }
 }
 
-// For Library Version: 1.119.0
+// For Library Version: 1.120.0
 
 declare module "sap/base/assert" {
   /**
@@ -302,6 +302,1007 @@ declare module "sap/base/assert" {
      */
     vMessage: string | (() => any)
   ): void;
+}
+
+declare module "sap/base/i18n/date/CalendarType" {
+  /**
+   * @since 1.120
+   *
+   * The types of `Calendar`.
+   */
+  enum CalendarType {
+    /**
+     * The Thai buddhist calendar
+     */
+    Buddhist = "Buddhist",
+    /**
+     * The Gregorian calendar
+     */
+    Gregorian = "Gregorian",
+    /**
+     * The Islamic calendar
+     */
+    Islamic = "Islamic",
+    /**
+     * The Japanese emperor calendar
+     */
+    Japanese = "Japanese",
+    /**
+     * The Persian Jalali calendar
+     */
+    Persian = "Persian",
+  }
+  export default CalendarType;
+}
+
+declare module "sap/base/i18n/date/CalendarWeekNumbering" {
+  /**
+   * @since 1.120
+   *
+   * The `CalendarWeekNumbering` enum defines how to calculate calendar weeks. Each value defines:
+   * 	 - The first day of the week,
+   * 	 - the first week of the year.
+   */
+  enum CalendarWeekNumbering {
+    /**
+     * The default calendar week numbering:
+     *
+     * The framework determines the week numbering scheme; currently it is derived from the active format locale.
+     * Future versions of UI5 might select a different week numbering scheme.
+     */
+    Default = "Default",
+    /**
+     * Official calendar week numbering in most of Europe (ISO 8601 standard):
+     * 	Monday is first day of the week, the week containing January 4th is first week of the year.
+     */
+    ISO_8601 = "ISO_8601",
+    /**
+     * Official calendar week numbering in much of the Middle East (Middle Eastern calendar):
+     * 	Saturday is first day of the week, the week containing January 1st is first week of the year.
+     */
+    MiddleEastern = "MiddleEastern",
+    /**
+     * Official calendar week numbering in the United States, Canada, Brazil, Israel, Japan, and other countries
+     * (Western traditional calendar):
+     * 	Sunday is first day of the week, the week containing January 1st is first week of the year.
+     */
+    WesternTraditional = "WesternTraditional",
+  }
+  export default CalendarWeekNumbering;
+}
+
+declare module "sap/base/i18n/Formatting" {
+  import CalendarType from "sap/base/i18n/date/CalendarType";
+
+  import CalendarWeekNumbering from "sap/base/i18n/date/CalendarWeekNumbering";
+
+  import LanguageTag from "sap/base/i18n/LanguageTag";
+
+  /**
+   * @since 1.120
+   *
+   * Configuration for formatting specific parameters
+   */
+  interface Formatting {
+    /**
+     * @since 1.120
+     *
+     * Adds custom currencies to the existing entries. E.g. ` { "KWD": {"digits": 3}, "TND" : {"digits": 3 }
+     * } `
+     * See:
+     * 	{@link module:sap/base/i18n/Formatting.setCustomCurrencies}
+     */
+    addCustomCurrencies(
+      /**
+       * adds to the currency map
+       */
+      mCurrencies: object
+    ): void;
+    /**
+     * @since 1.120
+     *
+     * Attaches the `fnFunction` event handler to the {@link #event:change change} event of `module:sap/base/i18n/Formatting`.
+     */
+    attachChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Formatting$ChangeEvent) => void
+    ): void;
+    /**
+     * @since 1.120
+     *
+     * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `module:sap/base/i18n/Formatting`.
+     */
+    detachChange(
+      /**
+       * Function to be called when the event occurs
+       */
+      fnFunction: (p1: Formatting$ChangeEvent) => void
+    ): void;
+    /**
+     * @since 1.120
+     *
+     * Returns the currently set ABAP date format (its id) or undefined if none has been set.
+     *
+     * @returns ID of the ABAP date format, if not set or set to `""`, `undefined` will be returned
+     */
+    getABAPDateFormat():
+      | "1"
+      | "2"
+      | "3"
+      | "4"
+      | "5"
+      | "6"
+      | "7"
+      | "8"
+      | "9"
+      | "A"
+      | "B"
+      | "C"
+      | undefined;
+    /**
+     * @since 1.120
+     *
+     * Returns the currently set ABAP number format (its id) or undefined if none has been set.
+     *
+     * @returns ID of the ABAP number format, if not set or set to `""`, `undefined` will be returned
+     */
+    getABAPNumberFormat(): " " | "X" | "Y" | undefined;
+    /**
+     * @since 1.120
+     *
+     * Returns the currently set ABAP time format (its id) or undefined if none has been set.
+     *
+     * @returns ID of the ABAP date format, if not set or set to `""`, `undefined` will be returned
+     */
+    getABAPTimeFormat(): "0" | "1" | "2" | "3" | "4" | undefined;
+    /**
+     * @since 1.120
+     *
+     * Returns the calendar type which is being used in locale dependent functionality.
+     *
+     * When it's explicitly set by calling `setCalendarType`, the set calendar type is returned. Otherwise,
+     * the calendar type is determined by checking the format settings and current locale.
+     *
+     * @returns the current calendar type, e.g. `Gregorian`
+     */
+    getCalendarType(): CalendarType | keyof typeof CalendarType;
+    /**
+     * @since 1.120
+     *
+     * Returns the calendar week numbering algorithm used to determine the first day of the week and the first
+     * calendar week of the year, see {@link module:sap/base/i18n/data/CalendarWeekNumbering}.
+     *
+     * @returns The calendar week numbering algorithm
+     */
+    getCalendarWeekNumbering():
+      | CalendarWeekNumbering
+      | keyof typeof CalendarWeekNumbering;
+    /**
+     * @since 1.120
+     *
+     * Retrieves the custom currencies. E.g. ` { "KWD": {"digits": 3}, "TND" : {"digits": 3} } `
+     * See:
+     * 	{@link module:sap/base/i18n/Formatting.setCustomCurrencies}
+     * 	{@link module:sap/base/i18n/Formatting.addCustomCurrencies}
+     *
+     * @returns the mapping between custom currencies and its digits
+     */
+    getCustomCurrencies(): object;
+    /**
+     * @since 1.120
+     *
+     * Returns the currently set date pattern or undefined if no pattern has been defined.
+     *
+     * @returns The resulting date pattern
+     */
+    getDatePattern(
+      /**
+       * The date style (short, medium, long or full)
+       */
+      sStyle: "short" | "medium" | "long" | "full"
+    ): string;
+    /**
+     * @since 1.120
+     *
+     * Returns the LanguageTag to be used for formatting.
+     *
+     * If no such LanguageTag has been defined, this method falls back to the language, see {@link module:sap/base/i18n/Localization.getLanguage Localization.getLanguage()}.
+     *
+     * If any user preferences for date, time or number formatting have been set, and if no format LanguageTag
+     * has been specified, then a special private use subtag is added to the LanguageTag, indicating to the
+     * framework that these user preferences should be applied.
+     *
+     * @returns the format LanguageTag
+     */
+    getLanguageTag(): LanguageTag;
+    /**
+     * @since 1.120
+     *
+     * Returns the currently set customizing data for Islamic calendar support
+     *
+     * @returns Returns an array contains the customizing data. Each element in the array has properties: dateFormat,
+     * islamicMonthStart, gregDate. For details, please see {@link #setLegacyDateCalendarCustomizing}
+     */
+    getLegacyDateCalendarCustomizing(): object[] | undefined;
+    /**
+     * @since 1.120
+     *
+     * Returns the currently set number symbol of the given type or undefined if no symbol has been defined.
+     *
+     * @returns A non-numerical symbol used as part of a number for the given type, e.g. for locale de_DE:
+     *
+     * 	 - "group": "." (grouping separator)
+     * 	 - "decimal": "," (decimal separator)
+     * 	 - "plusSign": "+" (plus sign)
+     * 	 - "minusSign": "-" (minus sign)
+     */
+    getNumberSymbol(
+      /**
+       * the type of symbol
+       */
+      sType: "group" | "decimal" | "plusSign" | "minusSign"
+    ): string;
+    /**
+     * @since 1.120
+     *
+     * Returns the currently set time pattern or undefined if no pattern has been defined.
+     *
+     * @returns The resulting time pattern
+     */
+    getTimePattern(
+      /**
+       * The time style (short, medium, long or full)
+       */
+      sStyle: "short" | "medium" | "long" | "full"
+    ): string;
+    /**
+     * @since 1.120
+     *
+     * Returns current trailingCurrencyCode configuration for new NumberFormatter instances
+     *
+     * @returns Whether currency codes shall always be placed after the numeric value
+     */
+    getTrailingCurrencyCode(): boolean;
+    /**
+     * @since 1.120
+     *
+     * Allows to specify one of the ABAP date formats.
+     *
+     * This method modifies the date patterns for 'short' and 'medium' style with the corresponding ABAP format.
+     * When called with a null or undefined format id, any previously applied format will be removed.
+     *
+     * After changing the date format, the framework tries to update localization specific parts of the UI.
+     * See the documentation of {@link module:sap/base/i18n/Localization.setLanguage Localization.setLanguage() }
+     * for details and restrictions.
+     */
+    setABAPDateFormat(
+      /**
+       * ID of the ABAP date format, `""` will reset the date patterns for 'short' and 'medium' style to the locale-specific
+       * ones.
+       */
+      sFormatId?:
+        | ""
+        | "1"
+        | "2"
+        | "3"
+        | "4"
+        | "5"
+        | "6"
+        | "7"
+        | "8"
+        | "9"
+        | "A"
+        | "B"
+        | "C"
+    ): void;
+    /**
+     * @since 1.120
+     *
+     * Allows to specify one of the ABAP number format.
+     *
+     * This method will modify the 'group' and 'decimal' symbols. When called with a null or undefined format
+     * id, any previously applied format will be removed.
+     *
+     * After changing the number format, the framework tries to update localization specific parts of the UI.
+     * See the documentation of {@link module:sap/base/i18n/Localization.setLanguage Localization.setLanguage() }
+     * for details and restrictions.
+     */
+    setABAPNumberFormat(
+      /**
+       * ID of the ABAP number format set, `""` will reset the 'group' and 'decimal' symbols to the locale-specific
+       * ones.
+       */
+      sFormatId?: "" | " " | "X" | "Y"
+    ): void;
+    /**
+     * @since 1.120
+     *
+     * Allows to specify one of the ABAP time formats.
+     *
+     * This method sets the time patterns for 'short' and 'medium' style to the corresponding ABAP formats and
+     * sets the day period texts to "AM"/"PM" or "am"/"pm" respectively. When called with a null or undefined
+     * format id, any previously applied format will be removed.
+     *
+     * After changing the time format, the framework tries to update localization specific parts of the UI.
+     * See the documentation of {@link module:sap/base/i18n/Localization.setLanguage Localization.setLanguage() }
+     * for details and restrictions.
+     */
+    setABAPTimeFormat(
+      /**
+       * ID of the ABAP time format, `""` will reset the time patterns for 'short' and 'medium' style and the
+       * day period texts to the locale-specific ones.
+       */
+      sFormatId?: "" | "0" | "1" | "2" | "3" | "4"
+    ): void;
+    /**
+     * @since 1.120
+     *
+     * Sets the new calendar type to be used from now on in locale dependent functionality (for example, formatting,
+     * translation texts, etc.).
+     */
+    setCalendarType(
+      /**
+       * the new calendar type. Set it with null to clear the calendar type and the calendar type is calculated
+       * based on the format settings and current locale.
+       */
+      sCalendarType: (CalendarType | keyof typeof CalendarType) | null
+    ): void;
+    /**
+     * @since 1.120
+     *
+     * Sets the calendar week numbering algorithm which is used to determine the first day of the week and the
+     * first calendar week of the year, see {@link module:sap/base/i18n/date/CalendarWeekNumbering}.
+     */
+    setCalendarWeekNumbering(
+      /**
+       * The calendar week numbering algorithm
+       */
+      sCalendarWeekNumbering:
+        | CalendarWeekNumbering
+        | keyof typeof CalendarWeekNumbering
+    ): void;
+    /**
+     * @since 1.120
+     *
+     * Sets custom currencies and replaces existing entries.
+     *
+     * There is a special currency code named "DEFAULT" that is optional. In case it is set it will be used
+     * for all currencies not contained in the list, otherwise currency digits as defined by the CLDR will be
+     * used as a fallback.
+     *
+     * Example: To use CLDR, but override single currencies ` { "KWD": {"digits": 3}, "TND" : {"digits": 3 }
+     * } `
+     *
+     * To replace the CLDR currency digits completely ` { "DEFAULT": {"digits": 2}, "ADP": {"digits": 0}, ...
+     * "XPF": {"digits": 0} } `
+     *
+     * Note: To unset the custom currencies: call with `undefined` Custom currencies must not only consist of
+     * digits but contain at least one non-digit character, e.g. "a", so that the measure part can be distinguished
+     * from the number part.
+     * See:
+     * 	{@link module:sap/base/i18n/Formatting.addCustomCurrencies}
+     */
+    setCustomCurrencies(
+      /**
+       * currency map which is set
+       */
+      mCurrencies: object
+    ): void;
+    /**
+     * @since 1.120
+     *
+     * Defines the preferred format pattern for the given date format style.
+     *
+     * Calling this method with a null or undefined pattern removes a previously set pattern.
+     *
+     * If a pattern is defined, it will be preferred over patterns derived from the current locale.
+     *
+     * See class {@link sap.ui.core.format.DateFormat} for details about the pattern syntax.
+     *
+     * After changing the date pattern, the framework tries to update localization specific parts of the UI.
+     * See the documentation of {@link module:sap/base/i18n/Localization.setLanguage Localization.setLanguage() }
+     * for details and restrictions.
+     */
+    setDatePattern(
+      /**
+       * must be one of short, medium, long or full.
+       */
+      sStyle: "short" | "medium" | "long" | "full",
+      /**
+       * the format pattern to be used in LDML syntax.
+       */
+      sPattern: string
+    ): void;
+    /**
+     * @since 1.120
+     *
+     * Sets a new language tag to be used from now on for retrieving language specific formatters. Modifying
+     * this setting does not have an impact on the retrieval of translated texts!
+     *
+     * Can either be set to a concrete value (a BCP47 or Java locale compliant language tag) or to `null`. When
+     * set to `null` (default value) then locale specific formatters are retrieved for the current language.
+     *
+     * After changing the format locale, the framework tries to update localization specific parts of the UI.
+     * See the documentation of {@link module:sap/base/i18n/Localization.setLanguage Localization.setLanguage() }
+     * for details and restrictions.
+     *
+     * **Note**: When a language tag is set, it has higher priority than a number, date or time format defined
+     * with a call to `setABAPNumberFormat`, `setABAPDateFormat` or `setABAPTimeFormat`.
+     *
+     * **Note**: See documentation of {@link module:sap/base/i18n/Localization.setLanguage Localization.setLanguage() }
+     * for restrictions.
+     */
+    setLanguageTag(
+      /**
+       * the new BCP47 compliant language tag; case doesn't matter and underscores can be used instead of dashes
+       * to separate components (compatibility with Java Locale IDs)
+       */
+      vLanguageTag: string | LanguageTag | null
+    ): void;
+    /**
+     * @since 1.120
+     *
+     * Allows to specify the customizing data for Islamic calendar support
+     */
+    setLegacyDateCalendarCustomizing(
+      /**
+       * contains the customizing data for the support of Islamic calendar.
+       */
+      aMappings: Array<{
+        /**
+         * The date format
+         */
+        dateFormat: string;
+        /**
+         * The Islamic date
+         */
+        islamicMonthStart: string;
+        /**
+         * The corresponding Gregorian date
+         */
+        gregDate: string;
+      }>
+    ): void;
+    /**
+     * @since 1.120
+     *
+     * Defines the string to be used for the given number symbol.
+     *
+     * Calling this method with a null or undefined symbol removes a previously set symbol string. Note that
+     * an empty string is explicitly allowed.
+     *
+     * If a symbol is defined, it will be preferred over symbols derived from the current locale.
+     *
+     * See class {@link sap.ui.core.format.NumberFormat} for details about the symbols.
+     *
+     * After changing the number symbol, the framework tries to update localization specific parts of the UI.
+     * See the documentation of {@link module:sap/base/i18n/Localization.setLanguage Localization.setLanguage() }
+     * for details and restrictions.
+     */
+    setNumberSymbol(
+      /**
+       * the type of symbol
+       */
+      sType: "group" | "decimal" | "plusSign" | "minusSign",
+      /**
+       * will be used to represent the given symbol type
+       */
+      sSymbol: string
+    ): void;
+    /**
+     * @since 1.120
+     *
+     * Defines the preferred format pattern for the given time format style.
+     *
+     * Calling this method with a null or undefined pattern removes a previously set pattern.
+     *
+     * If a pattern is defined, it will be preferred over patterns derived from the current locale.
+     *
+     * See class {@link sap.ui.core.format.DateFormat} for details about the pattern syntax.
+     *
+     * After changing the time pattern, the framework tries to update localization specific parts of the UI.
+     * See the documentation of {@link module:sap/base/i18n/Localization.setLanguage Localization.setLanguage() }
+     * for details and restrictions.
+     */
+    setTimePattern(
+      /**
+       * must be one of short, medium, long or full.
+       */
+      sStyle: "short" | "medium" | "long" | "full",
+      /**
+       * the format pattern to be used in LDML syntax.
+       */
+      sPattern: string
+    ): void;
+    /**
+     * @since 1.120
+     *
+     * Define whether the NumberFormatter shall always place the currency code after the numeric value, with
+     * the only exception of right-to-left locales, where the currency code shall be placed before the numeric
+     * value. Default configuration setting is `true`.
+     *
+     * When set to `false` the placement of the currency code is done dynamically, depending on the configured
+     * locale using data provided by the Unicode Common Locale Data Repository (CLDR).
+     *
+     * Each currency instance ({@link sap.ui.core.format.NumberFormat.getCurrencyInstance}) will be created
+     * with this setting unless overwritten on instance level.
+     */
+    setTrailingCurrencyCode(
+      /**
+       * Whether currency codes shall always be placed after the numeric value
+       */
+      bTrailingCurrencyCode: boolean
+    ): void;
+  }
+  const Formatting: Formatting;
+  export default Formatting;
+
+  /**
+   * @since 1.120
+   *
+   * The formatting change event. Contains only the parameters which were changed.
+   *
+   * The list below shows the possible combinations of parameters available as part of the change event.
+   *
+   *
+   * 	 - {@link module:sap/base/i18n/Formatting.setLanguageTag Formatting.setLanguageTag}:
+   * 	`languageTag`
+   * 	 - {@link module:sap/base/i18n/Formatting.setLegacyDateCalendarCustomizing Formatting.setLegacyDateCalendarCustomizing}:
+   *
+   * 	`legacyDateCalendarCustomizing`
+   * 	 - {@link module:sap/base/i18n/Formatting.setCalendarWeekNumbering Formatting.setCalendarWeekNumbering}:
+   *
+   * 	`calendarWeekNumbering`
+   * 	 - {@link module:sap/base/i18n/Formatting.setCalendarType Formatting.setCalendarType}:
+   * 	`calendarType`
+   * 	 - {@link module:sap/base/i18n/Formatting.addCustomCurrencies Formatting.addCustomCurrencies} / {@link module:sap/base/i18n/Formatting.setCustomCurrencies Formatting.setCustomCurrencies}:
+   *
+   * 	`currency`
+   * 	 - {@link module:sap/base/i18n/Formatting.setABAPDateFormat Formatting.setABAPDateFormat} (all parameters
+   *     listed below):
+   * 	`ABAPDateFormat`
+   * 	 - `"dateFormats-short"`
+   * 	 - `"dateFormats-medium"`
+   * 	 - {@link module:sap/base/i18n/Formatting.setABAPTimeFormat Formatting.setABAPTimeFormat} (all parameters
+   *     listed below):
+   * 	`ABAPTimeFormat`
+   * 	 - `"timeFormats-short"`
+   * 	 - `"timeFormats-medium"`
+   * 	 - `"dayPeriods-format-abbreviated"`
+   * 	 - {@link module:sap/base/i18n/Formatting.setABAPNumberFormat Formatting.setABAPNumberFormat} (all parameters
+   *     listed below):
+   * 	`ABAPNumberFormat`
+   * 	 - `"symbols-latn-group"`
+   * 	 - `"symbols-latn-decimal"`
+   * 	 - {@link module:sap/base/i18n/Formatting.setDatePattern Formatting.setDatePattern} (one of the parameters
+   *     listed below):
+   * 	`"dateFormats-short"`
+   * 	 - `"dateFormats-medium"`
+   * 	 - `"dateFormats-long"`
+   * 	 - `"dateFormats-full"`
+   * 	 - {@link module:sap/base/i18n/Formatting.setTimePattern Formatting.setTimePattern} (one of the parameters
+   *     listed below):
+   * 	`"timeFormats-short"`
+   * 	 - `"timeFormats-medium"`
+   * 	 - `"timeFormats-long"`
+   * 	 - `"timeFormats-full"`
+   * 	 - {@link module:sap/base/i18n/Formatting.setNumberSymbol Formatting.setNumberSymbol} (one of the parameters
+   *     listed below):
+   * 	`"symbols-latn-group"`
+   * 	 - `"symbols-latn-decimal"`
+   * 	 - `"symbols-latn-plusSign"`
+   * 	 - `"symbols-latn-minusSign"`
+   */
+  export type Formatting$ChangeEvent = {
+    /**
+     * The formatting language tag.
+     */
+    languageTag?: string;
+    /**
+     * The ABAP date format.
+     */
+    ABAPDateFormat?: string;
+    /**
+     * The ABAP time format.
+     */
+    ABAPTimeFormat?: string;
+    /**
+     * The ABAP number format.
+     */
+    ABAPNumberFormat?: string;
+    /**
+     * The legacy date calendar customizing.
+     */
+    legacyDateCalendarCustomizing?: object[];
+    /**
+     * The calendar week numbering.
+     */
+    calendarWeekNumbering?: object;
+    /**
+     * The calendar type.
+     */
+    calendarType?: object;
+    /**
+     * The short date format.
+     */
+    "dateFormats-short"?: string;
+    /**
+     * The medium date format.
+     */
+    "dateFormats-medium"?: string;
+    /**
+     * The long date format.
+     */
+    "dateFormats-long"?: string;
+    /**
+     * The full date format.
+     */
+    "dateFormats-full"?: string;
+    /**
+     * The short time format.
+     */
+    "timeFormats-short"?: string;
+    /**
+     * The medium time format.
+     */
+    "timeFormats-medium"?: string;
+    /**
+     * The long time format.
+     */
+    "timeFormats-long"?: string;
+    /**
+     * The full time format.
+     */
+    "timeFormats-full"?: string;
+    /**
+     * The latin symbols group.
+     */
+    "symbols-latn-group"?: string;
+    /**
+     * The latin symbols decimal.
+     */
+    "symbols-latn-decimal"?: string;
+    /**
+     * The latin symbols plusSign.
+     */
+    "symbols-latn-plusSign"?: string;
+    /**
+     * The latin symbols minusSign.
+     */
+    "symbols-latn-minusSign"?: string;
+    /**
+     * The currency.
+     */
+    currency?: Record<string, string>;
+    /**
+     * The abbreviated day periods format.
+     */
+    "dayPeriods-format-abbreviated"?: string[];
+  };
+}
+
+declare module "sap/base/i18n/LanguageTag" {
+  /**
+   * Creates an LanguageTag instance. LanguageTag represents a BCP-47 language tag, consisting of a language,
+   * script, region, variants, extensions and private use section.
+   */
+  export default class LanguageTag {
+    constructor(
+      /**
+       * the language tag identifier, in format en-US or en_US.
+       */
+      sLanguageTag: string
+    );
+    /**
+     * Get the extension as a single string or `null`.
+     *
+     * The extension always consists of a singleton character (not 'x'), a dash '-' and one or more extension
+     * token, each separated again with a dash.
+     */
+    extension: string | null;
+
+    /**
+     * Get the extensions as an array of tokens.
+     *
+     * The leading singleton and the separating dashes are not part of the result. If there is no extensions
+     * section in the language tag, an empty array is returned.
+     */
+    extensionSubtags: string[];
+
+    /**
+     * Get the language.
+     *
+     * Note that the case might differ from the original script tag (Lower case is enforced as recommended by
+     * BCP47/ISO639).
+     */
+    language: string;
+
+    /**
+     * Get the region or `null` if none was specified.
+     *
+     * Note that the case might differ from the original script tag (Upper case is enforced as recommended by
+     * BCP47/ISO3166-1).
+     */
+    region: string;
+
+    /**
+     * Get the script or `null` if none was specified.
+     *
+     * Note that the case might differ from the original language tag (Upper case first letter and lower case
+     * reminder enforced as recommended by BCP47/ISO15924)
+     */
+    script: string | null;
+
+    /**
+     * Get the variants as a single string or `null`.
+     *
+     * Multiple variants are separated by a dash '-'.
+     */
+    variant: string | null;
+
+    /**
+     * Get the variants as an array of individual variants.
+     *
+     * The separating dashes are not part of the result. If there is no variant section in the language tag,
+     * an empty array is returned.
+     */
+    variantSubtags: string[];
+  }
+}
+
+declare module "sap/base/i18n/Localization" {
+  import LanguageTag from "sap/base/i18n/LanguageTag";
+
+  /**
+   * @since 1.118
+   *
+   * Configuration for localization specific parameters
+   */
+  interface Localization {
+    /**
+     * @since 1.120.0
+     *
+     * Attaches the `fnFunction` event handler to the {@link #event:change change} event of `module:sap/base/i18n/Localization`.
+     */
+    attachChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Localization$ChangeEvent) => void
+    ): void;
+    /**
+     * @since 1.120.0
+     *
+     * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `module:sap/base/i18n/Localization`.
+     */
+    detachChange(
+      /**
+       * Function to be called when the event occurs
+       */
+      fnFunction: (p1: Localization$ChangeEvent) => void
+    ): void;
+    /**
+     * @since 1.119.0
+     *
+     * Returns the list of active terminologies defined via the Configuration.
+     *
+     * @returns if no active terminologies are set, the default value `undefined` is returned.
+     */
+    getActiveTerminologies(): string[] | undefined;
+    /**
+     * @since 1.120.0
+     *
+     * Returns a string that identifies the current language.
+     *
+     * The value returned by config method in most cases corresponds to the exact value that has been configured
+     * by the user or application or that has been determined from the user agent settings. It has not been
+     * normalized, but has been validated against a relaxed version of {@link http://www.ietf.org/rfc/bcp/bcp47.txt BCP47},
+     * allowing underscores ('_') instead of the suggested dashes ('-') and not taking the case of letters into
+     * account.
+     *
+     * The exceptions mentioned above affect languages that have been specified via the URL parameter `sap-language`.
+     * That parameter by definition represents an SAP logon language code ('ABAP language'). Most but not all
+     * of these language codes are valid ISO639 two-letter languages and as such are valid BCP47 language tags.
+     * For better BCP47 compliance, the framework maps the following non-BCP47 SAP logon codes to a BCP47 substitute:
+     *
+     * ```javascript
+     *
+     *    "ZH"  -->  "zh-Hans"         // script 'Hans' added to distinguish it from zh-Hant
+     *    "ZF"  -->  "zh-Hant"         // ZF is not a valid ISO639 code, use the compliant language + script 'Hant'
+     *    "1Q"  -->  "en-US-x-saptrc"  // special language code for supportability (tracing),
+     *                                    represented as en-US with a private extension
+     *    "2Q"  -->  "en-US-x-sappsd"  // special language code for supportability (pseudo translation),
+     *                                    represented as en-US with a private extension
+     *    "3Q"  -->  "en-US-x-saprigi" // special language code for the Rigi pseudo language,
+     *                                    represented as en-US with a private extension
+     * ```
+     *
+     *
+     * Call {@link moduel:sap/base/i18n/Localization.getLanguageTag getLanguageTag} to get a {@link module:sap/base/i18n/LanguageTag LanguageTag }
+     * object matching the language. For a normalized BCP47 tag, call {@link module:sap/base/i18n/LanguageTag.toString toString() }
+     * on the returned `LanguageTag`
+     *
+     * @returns Language string as configured
+     */
+    getLanguage(): string;
+    /**
+     * @since 1.120.0
+     *
+     * Returns a LanguageTag object for the current language.
+     *
+     * The LanguageTag is derived from {@link modue:sap/base/i18n/Localization.getLanguage Localization.getLanguage}.
+     *
+     * @returns The LanguageTag
+     */
+    getLanguageTag(): LanguageTag;
+    /**
+     * @since 1.120.0
+     *
+     * Returns whether the page uses the RTL text direction.
+     *
+     * If no mode has been explicitly set (neither `true` nor `false`), the mode is derived from the current
+     * language setting.
+     *
+     * @returns whether the page uses the RTL text direction
+     */
+    getRTL(): boolean;
+    /**
+     * @since 1.120.0
+     *
+     * Returns an SAP logon language for the current language.
+     *
+     * It will be returned in uppercase. e.g. "EN", "DE"
+     *
+     * @returns The SAP logon language code for the current language
+     */
+    getSAPLogonLanguage(): string;
+    /**
+     * @since 1.120.0
+     *
+     * Retrieves the configured IANA timezone ID.
+     *
+     * @returns The configured IANA timezone ID, e.g. "America/New_York"
+     */
+    getTimezone(): string;
+    /**
+     * @since 1.120.0
+     *
+     * Sets a new language to be used from now on for language/region dependent functionality (e.g. formatting,
+     * data types, translated texts, ...).
+     *
+     * When the language can't be interpreted as a BCP47 language (using the relaxed syntax described in {@link #getLanguage},
+     * an error will be thrown.
+     *
+     * When the language has changed, the Localization will fire its {@link module:sap/base/i18n/Localization.change change }
+     * event.
+     *
+     * Restrictions:
+     *
+     * The framework **does not** guarantee that already created, language dependent objects will be updated
+     * by config call. It therefore remains best practice for applications to switch the language early, e.g.
+     * before any language dependent objects are created. Applications that need to support more dynamic changes
+     * of the language should listen to the `localizationChanged` event and adapt all language dependent objects
+     * that they use (e.g. by rebuilding their UI).
+     *
+     * Currently, the framework notifies the following objects about a change of the localization settings before
+     * it fires the `localizationChanged` event:
+     *
+     *
+     * 	 - date and number data types that are used in property bindings or composite bindings in existing Elements,
+     *     Controls, UIAreas or Components
+     * 	 - ResourceModels currently assigned to the Core, a UIArea, Component, Element or Control
+     * 	 - Elements or Controls that implement the `onlocalizationChanged` hook (note the lowercase 'l' in onlocalizationChanged)
+     *
+     *
+     * It furthermore derives the RTL mode from the new language, if no explicit RTL mode has been set. If the
+     * RTL mode changes, the following additional actions will be taken:
+     *
+     *
+     * 	 - the URLs of already loaded library theme files will be changed
+     * 	 - the `dir` attribute of the page will be changed to reflect the new mode.
+     * 	 - all UIAreas will be invalidated (which results in a rendering of the whole UI5 UI)
+     *
+     * config method does not accept SAP language codes for `sLanguage`. Instead, a second parameter `sSAPLogonLanguage`
+     * can be provided with an SAP language code corresponding to the given language. A given value will be
+     * returned by the {@link module:sap/base/i18n/Localization.getSAPLogonLanguage getSAPLogonLanguage} method.
+     * It is up to the caller to provide a consistent pair of BCP47 language and SAP language code. The SAP
+     * language code is only checked to be of length 2 and must consist of letters or digits only.
+     *
+     * **Note**: When using config method please take note of and respect the above mentioned restrictions.
+     * See:
+     * 	http://scn.sap.com/docs/DOC-14377
+     */
+    setLanguage(
+      /**
+       * the new language as a BCP47 compliant language tag; case doesn't matter and underscores can be used instead
+       * of dashes to separate components (compatibility with Java Locale IDs)
+       */
+      sLanguage: string,
+      /**
+       * SAP language code that corresponds to the `sLanguage`; if a value is specified, future calls to `getSAPLogonLanguage`
+       * will return that value; if no value is specified, the framework will use the ISO639 language part of
+       * `sLanguage` as SAP Logon language.
+       */
+      sSAPLogonLanguage?: string
+    ): void;
+    /**
+     * @since 1.120.0
+     *
+     * Sets the character orientation mode to be used from now on.
+     *
+     * Can either be set to a concrete value (true meaning right-to-left, false meaning left-to-right) or to
+     * `null` which means that the character orientation mode should be derived from the current language (incl.
+     * region) setting.
+     *
+     * After changing the character orientation mode, the framework tries to update localization specific parts
+     * of the UI. See the documentation of {@link module:sap/base/i18n/Localization.setLanguage setLanguage }
+     * for details and restrictions.
+     *
+     * **Note**: See documentation of {@link module:sap/base/i18n/Localization.setLanguage setLanguage} for
+     * restrictions.
+     */
+    setRTL(
+      /**
+       * new character orientation mode or `null`
+       */
+      bRTL: boolean | null
+    ): void;
+    /**
+     * @since 1.120.0
+     *
+     * Sets the timezone such that all date and time based calculations use config timezone.
+     *
+     * **Important:** It is strongly recommended to only use config API at the earliest point of time while
+     * initializing a UI5 app. A later adjustment of the time zone should be avoided. It can lead to unexpected
+     * data inconsistencies in a running application, because date objects could still be related to a previously
+     * configured time zone. Instead, the app should be completely restarted with the new time zone. For more
+     * information, see {@link https://ui5.sap.com/#/topic/6c9e61dc157a40c19460660ece8368bc Dates, Times, Timestamps, and Time Zones}.
+     *
+     * When the timezone has changed, the Localization will fire its {@link #event:change change} event.
+     */
+    setTimezone(
+      /**
+       * IANA timezone ID, e.g. "America/New_York". Use `null` to reset the timezone to the browser's local timezone.
+       * An invalid IANA timezone ID will fall back to the browser's timezone.
+       */
+      sTimezone?: string | null
+    ): void;
+  }
+  const Localization: Localization;
+  export default Localization;
+
+  /**
+   * @since 1.120.0
+   *
+   * The localization change event. Contains only the parameters which were changed.
+   *
+   * The list below shows the possible combinations of parameters available as part of the change event.
+   *
+   *
+   * 	 - {@link module:sap/base/i18n/Localization.setLanguage Localization.setLanguage}:
+   * 	`language`
+   * 	 - `rtl?` (only if language change also changed RTL)
+   * 	 - {@link module:sap/base/i18n/Localization.setRTL Localization.setRTL}:
+   * 	`rtl`
+   * 	 - {@link module:sap/base/i18n/Localization.setTimezone Localization.setTimezone}:
+   * 	`timezone`
+   */
+  export type Localization$ChangeEvent = {
+    /**
+     * The newly set language.
+     */
+    language?: string;
+    /**
+     * Whether the page uses the RTL text direction.
+     */
+    rtl?: boolean;
+    /**
+     * The newly set timezone.
+     */
+    timezone?: string;
+  };
 }
 
 declare module "sap/base/i18n/ResourceBundle" {
@@ -2554,6 +3555,37 @@ declare module "sap/ui/util/XMLHelper" {
   export default XMLHelper;
 }
 
+declare module "sap/ui/core/AnimationMode" {
+  /**
+   * @since 1.120
+   *
+   * Enumerable list with available animation modes.
+   *
+   * This enumerable is used to validate the animation mode. Animation modes allow to specify different animation
+   * scenarios or levels. The implementation of the Control (JavaScript or CSS) has to be done differently
+   * for each animation mode.
+   */
+  enum AnimationMode {
+    /**
+     * `basic` can be used for a reduced, more light-weight set of animations.
+     */
+    basic = "basic",
+    /**
+     * `full` represents a mode with unrestricted animation capabilities.
+     */
+    full = "full",
+    /**
+     * `minimal` includes animations of fundamental functionality.
+     */
+    minimal = "minimal",
+    /**
+     * `none` deactivates the animation completely.
+     */
+    none = "none",
+  }
+  export default AnimationMode;
+}
+
 declare module "sap/ui/core/ComponentSupport" {
   /**
    * @since 1.58.0
@@ -2637,6 +3669,52 @@ declare module "sap/ui/core/ComponentSupport" {
   }
   const ComponentSupport: ComponentSupport;
   export default ComponentSupport;
+}
+
+declare module "sap/ui/core/ControlBehavior" {
+  import AnimationMode from "sap/ui/core/AnimationMode";
+
+  /**
+   * @since 1.120
+   *
+   * Provides control behavior relevant configuration options
+   */
+  interface ControlBehavior {
+    /**
+     * @since 1.120
+     *
+     * Returns the current animation mode.
+     *
+     * @returns The current animationMode
+     */
+    getAnimationMode(): AnimationMode | keyof typeof AnimationMode;
+    /**
+     * @since 1.120
+     *
+     * Returns whether the accessibility mode is enabled or not.
+     *
+     * @returns whether the accessibility mode is enabled or not
+     */
+    isAccessibilityEnabled(): boolean;
+    /**
+     * @since 1.120
+     *
+     * Sets the current animation mode.
+     *
+     * Expects an animation mode as string and validates it. If a wrong animation mode was set, an error is
+     * thrown. If the mode is valid it is set, then the attributes `data-sap-ui-animation` and `data-sap-ui-animation-mode`
+     * of the HTML document root element are also updated. If the `animationMode` is `AnimationMode.none` the
+     * old `animation` property is set to `false`, otherwise it is set to `true`.
+     */
+    setAnimationMode(
+      /**
+       * A valid animation mode
+       */
+      sAnimationMode: AnimationMode | keyof typeof AnimationMode
+    ): void;
+  }
+  const ControlBehavior: ControlBehavior;
+  export default ControlBehavior;
 }
 
 declare module "sap/ui/core/date/CalendarUtils" {
@@ -3578,6 +4656,8 @@ declare module "sap/ui/core/Theming" {
    */
   interface Theming {
     /**
+     * @since 1.118.0
+     *
      * Attaches event handler `fnFunction` to the {@link #event:applied applied} event.
      *
      * The given handler is called when the the applied event is fired. If the theme is already applied the
@@ -3588,9 +4668,11 @@ declare module "sap/ui/core/Theming" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function
+      fnFunction: (p1: Theming$AppliedEvent) => void
     ): void;
     /**
+     * @since 1.118.0
+     *
      * Detaches event handler `fnFunction` from the {@link #event:applied applied} event
      *
      * The passed function must match the one used for event registration.
@@ -3599,32 +4681,48 @@ declare module "sap/ui/core/Theming" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: Function
+      fnFunction: (p1: Theming$AppliedEvent) => void
     ): void;
     /**
+     * @since 1.118
+     *
      * Returns the theme name
      *
      * @returns the theme name
      */
     getTheme(): string;
     /**
+     * @since 1.118.0
+     *
      * Notify content density changes
      */
     notifyContentDensityChanged(): void;
     /**
-     * Allows setting the theme name
+     * @since 1.118
      *
-     * @returns `this` to allow method chaining
+     * Allows setting the theme name
      */
     setTheme(
       /**
        * the theme name
        */
       sTheme: string
-    ): this;
+    ): void;
   }
   const Theming: Theming;
   export default Theming;
+
+  /**
+   * @since 1.118.0
+   *
+   * The theme applied Event.
+   */
+  export type Theming$AppliedEvent = {
+    /**
+     * The newly set language.
+     */
+    theme: string;
+  };
 }
 
 declare module "sap/ui/dom/containsOrEquals" {
@@ -3798,6 +4896,7 @@ declare module "sap/ui/dom/includeScript" {
      * callback function to get notified once the script loading failed
      */
     fnErrorCallback?: (p1: Event) => void
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
   ): void | Promise<Event>;
 }
 
@@ -3850,6 +4949,7 @@ declare module "sap/ui/dom/includeStylesheet" {
      * callback function to get notified once the stylesheet loading failed.
      */
     fnErrorCallback?: (p1: Event) => void
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
   ): void | Promise<Event>;
 }
 
@@ -4715,6 +5815,59 @@ declare module "sap/ui/performance/trace/Interaction" {
      */
     timing: PerformanceResourceTiming;
   };
+}
+
+declare module "sap/ui/security/Security" {
+  import { URI } from "sap/ui/core/library";
+
+  /**
+   * @since 1.120.0
+   *
+   * Provides security related API
+   */
+  interface Security {
+    /**
+     * @since 1.120.0
+     *
+     * URL of the allowlist service.
+     *
+     * @returns allowlist service URL
+     */
+    getAllowlistService(): string;
+    /**
+     * @since 1.120.0
+     *
+     * frameOptions mode (allow/deny/trusted).
+     *
+     * @returns frameOptions mode
+     */
+    getFrameOptions(): string;
+    /**
+     * @since 1.120.0
+     *
+     * Returns the security token handlers of an OData V4 model.
+     * See:
+     * 	#setSecurityTokenHandlers
+     *
+     * @returns the security token handlers (an empty array if there are none)
+     */
+    getSecurityTokenHandlers(): Array<(p1: URI) => Promise<any>>;
+    /**
+     * @since 1.120.0
+     *
+     * Sets the security token handlers for an OData V4 model. See chapter {@link https://ui5.sap.com/#/topic/9613f1f2d88747cab21896f7216afdac/section_STH Security Token Handling}.
+     * See:
+     * 	#getSecurityTokenHandlers
+     */
+    setSecurityTokenHandlers(
+      /**
+       * The security token handlers
+       */
+      aSecurityTokenHandlers: Array<(p1: URI) => Promise<any>>
+    ): void;
+  }
+  const Security: Security;
+  export default Security;
 }
 
 declare module "sap/ui/test/opaQunit" {
@@ -5622,6 +6775,33 @@ declare module "sap/ui/base/DataType" {
       sTypeName: string
     ): DataType | undefined;
     /**
+     * @since 1.120.0
+     *
+     * Registers an enum under the given name. With version 2.0, registering an enum becomes mandatory when
+     * said enum is to be used in properties of a {@link sap.ui.base.ManagedObject ManagedObject} subclass.
+     *
+     * Example:
+     *
+     * ```javascript
+     *
+     *    DataType.registerEnum("my.enums.Sample", {
+     *       "A": "A",
+     *       "B": "B",
+     *       ...
+     *    });
+     * ```
+     */
+    static registerEnum(
+      /**
+       * the type name in dot syntax, e.g. sap.ui.my.EnumType
+       */
+      sTypeName: string,
+      /**
+       * the enum content
+       */
+      mContent: object
+    ): void;
+    /**
      * The base type of this type or undefined if this is a primitive type.
      *
      * @returns Base type or `undefined`
@@ -6192,6 +7372,8 @@ declare module "sap/ui/base/ManagedObject" {
 
   import BindingMode from "sap/ui/model/BindingMode";
 
+  import { ID } from "sap/ui/core/library";
+
   /**
    * Base Class that introduces some basic concepts, such as, state management and data binding.
    *
@@ -6312,9 +7494,11 @@ declare module "sap/ui/base/ManagedObject" {
      * The possible values for a setting depend on its kind:
      * 	 - for simple properties, the value has to match the documented type of the property (no type conversion
      *     occurs)
-     * 	 - for 0..1 aggregations, the value has to be an instance of the aggregated type
-     * 	 - for 0..n aggregations, the value has to be an array of instances of the aggregated type or a single
-     *     instance
+     * 	 - for 0..1 aggregations, the value has to be an instance of the aggregated type, or an object literal
+     *     from which, the default class of the aggregation (or the corresponding aggregation type as fallback)
+     *     will be instantiated.
+     * 	 - for 0..n aggregations, the value has to be an array of instances of the aggregated type, a single
+     *     instance or an object literal from which the default class will be instantiated.
      * 	 - for 0..1 associations, an instance of the associated type or an id (string) is accepted
      * 	 - for 0..n associations, an array of instances of the associated type or of IDs is accepted
      * 	 - for events, either a function (event handler) is accepted or an array of length 2 where the first
@@ -6360,6 +7544,12 @@ declare module "sap/ui/base/ManagedObject" {
      *
      * Note that when setting string values, any curly braces in those values need to be escaped, so they are
      * not interpreted as binding expressions. Use {@link #escapeSettingsValue} to do so.
+     *
+     * **Note:** As of version 1.120, providing aggregation content via an object literal is deprecated, in
+     * case the object's type is given via the property 'Type' as a string, or is derived via the defined type
+     * of the aggregation. Additionally, as of version 1.120, a ManagedObject subclass can specify a `defaultClass`,
+     * e.g. for cases where only a single class is valid. Please refer to the {@link sap.ui.base.ManagedObject.MetadataOptions.Aggregation Aggregation }
+     * documentation for more details on the `defaultClass`.
      *
      * Besides the settings documented below, ManagedObject itself supports the following special settings:
      *
@@ -6426,9 +7616,11 @@ declare module "sap/ui/base/ManagedObject" {
      * The possible values for a setting depend on its kind:
      * 	 - for simple properties, the value has to match the documented type of the property (no type conversion
      *     occurs)
-     * 	 - for 0..1 aggregations, the value has to be an instance of the aggregated type
-     * 	 - for 0..n aggregations, the value has to be an array of instances of the aggregated type or a single
-     *     instance
+     * 	 - for 0..1 aggregations, the value has to be an instance of the aggregated type, or an object literal
+     *     from which, the default class of the aggregation (or the corresponding aggregation type as fallback)
+     *     will be instantiated.
+     * 	 - for 0..n aggregations, the value has to be an array of instances of the aggregated type, a single
+     *     instance or an object literal from which the default class will be instantiated.
      * 	 - for 0..1 associations, an instance of the associated type or an id (string) is accepted
      * 	 - for 0..n associations, an array of instances of the associated type or of IDs is accepted
      * 	 - for events, either a function (event handler) is accepted or an array of length 2 where the first
@@ -6474,6 +7666,12 @@ declare module "sap/ui/base/ManagedObject" {
      *
      * Note that when setting string values, any curly braces in those values need to be escaped, so they are
      * not interpreted as binding expressions. Use {@link #escapeSettingsValue} to do so.
+     *
+     * **Note:** As of version 1.120, providing aggregation content via an object literal is deprecated, in
+     * case the object's type is given via the property 'Type' as a string, or is derived via the defined type
+     * of the aggregation. Additionally, as of version 1.120, a ManagedObject subclass can specify a `defaultClass`,
+     * e.g. for cases where only a single class is valid. Please refer to the {@link sap.ui.base.ManagedObject.MetadataOptions.Aggregation Aggregation }
+     * documentation for more details on the `defaultClass`.
      *
      * Besides the settings documented below, ManagedObject itself supports the following special settings:
      *
@@ -8719,6 +9917,38 @@ declare module "sap/ui/base/ManagedObject" {
 
   export interface $ManagedObjectSettings {
     /**
+     * Unique ID of this instance. If not given, a so called autoID will be generated by the framework. AutoIDs
+     * use a unique prefix that must not be used for Ids that the application (or other code) creates. It can
+     * be configured option 'autoIDPrefix', see {@link sap.ui.core.Configuration}.
+     */
+    id?: ID;
+
+    /**
+     * A map of model instances to which the object should be attached. The models are keyed by their model
+     * name. For the default model, String(undefined) is expected.
+     */
+    models?: object;
+
+    /**
+     * A map of model instances to which the object should be attached. The models are keyed by their model
+     * name. For the default model, String(undefined) is expected.
+     */
+    bindingContexts?: object;
+
+    /**
+     * A map of model instances to which the object should be attached. The models are keyed by their model
+     * name. For the default model, String(undefined) is expected.
+     */
+    objectBindings?: object;
+
+    /**
+     * A map of model instances to which the object should be attached. The models are keyed by their model
+     * name. For the default model, String(undefined) is expected. The special setting is only for internal
+     * use.
+     */
+    metadataContexts?: object;
+
+    /**
      * Fired after a new value for a bound property has been propagated to the model. Only fired, when the binding
      * uses a data type.
      */
@@ -8908,6 +10138,11 @@ declare module "sap/ui/base/ManagedObject" {
        * (in dot notation, e.g. 'sap.m.Button').
        */
       type?: string;
+      /**
+       * The default class for the aggregation. If aggregation content is created from a plain object and no explicit
+       * 'Type' is given (capital 'T'), the default class will be instantiated.
+       */
+      defaultClass?: Function;
       /**
        * Whether the aggregation is a 0..1 (false) or a 0..n aggregation (true), defaults to true
        */
@@ -9839,12 +11074,12 @@ declare module "sap/ui/base/Metadata" {
      */
     getName(): string;
     /**
-     * Returns the metadata object of the base class of the described class or null if the class has no (documented)
-     * base class.
+     * Returns the metadata object of the base class of the described class or undefined if the class has no
+     * (documented) base class.
      *
      * @returns metadata of the base class
      */
-    getParent(): Metadata;
+    getParent(): Metadata | undefined;
     /**
      * @deprecated (since 1.58) - this method should not be used for productive code. The accuracy of the returned
      * information highly depends on the concrete class and is not actively monitored. There might be more public
@@ -10028,6 +11263,7 @@ declare module "sap/ui/base/Object" {
     ): Function;
     /**
      * @since 1.56
+     * @deprecated (since 1.120) - please use {@link sap.ui.base.Object.isObjectA}.
      *
      * Checks whether the given object is an instance of the named type. This function is a short-hand convenience
      * for {@link sap.ui.base.Object#isA}.
@@ -10046,6 +11282,26 @@ declare module "sap/ui/base/Object" {
        */
       vTypeName: string | string[]
     ): oObject is T;
+    /**
+     * @since 1.120
+     *
+     * Checks whether the given object is an instance of the named type. This function is a short-hand convenience
+     * for {@link sap.ui.base.Object#isA}.
+     *
+     * Please see the API documentation of {@link sap.ui.base.Object#isA} for more details.
+     *
+     * @returns Whether the given object is an instance of the given type or of any of the given types
+     */
+    static isObjectA(
+      /**
+       * Object which will be checked whether it is an instance of the given type
+       */
+      oObject: any,
+      /**
+       * Type or types to check for
+       */
+      vTypeName: string | string[]
+    ): boolean;
     /**
      * Destructor method for objects.
      */
@@ -11200,6 +12456,78 @@ declare module "sap/ui/core/library" {
      * Indication Color 8
      */
     Indication08 = "Indication08",
+    /**
+     * @since 1.120
+     *
+     * Indication Color 9
+     */
+    Indication09 = "Indication09",
+    /**
+     * @since 1.120
+     *
+     * Indication Color 10
+     */
+    Indication10 = "Indication10",
+    /**
+     * @since 1.120
+     *
+     * Indication Color 11
+     */
+    Indication11 = "Indication11",
+    /**
+     * @since 1.120
+     *
+     * Indication Color 12
+     */
+    Indication12 = "Indication12",
+    /**
+     * @since 1.120
+     *
+     * Indication Color 13
+     */
+    Indication13 = "Indication13",
+    /**
+     * @since 1.120
+     *
+     * Indication Color 14
+     */
+    Indication14 = "Indication14",
+    /**
+     * @since 1.120
+     *
+     * Indication Color 15
+     */
+    Indication15 = "Indication15",
+    /**
+     * @since 1.120
+     *
+     * Indication Color 16
+     */
+    Indication16 = "Indication16",
+    /**
+     * @since 1.120
+     *
+     * Indication Color 17
+     */
+    Indication17 = "Indication17",
+    /**
+     * @since 1.120
+     *
+     * Indication Color 18
+     */
+    Indication18 = "Indication18",
+    /**
+     * @since 1.120
+     *
+     * Indication Color 19
+     */
+    Indication19 = "Indication19",
+    /**
+     * @since 1.120
+     *
+     * Indication Color 20
+     */
+    Indication20 = "Indication20",
   }
   /**
    * @since 1.78
@@ -12050,6 +13378,8 @@ declare module "sap/ui/core/BusyIndicator" {
 
 declare module "sap/ui/core/CalendarType" {
   /**
+   * @deprecated (since 1.120) - Please use {@link module:sap/base/18n/date/CalendarType} instead.
+   *
    * The types of `Calendar`.
    */
   enum CalendarType {
@@ -13192,7 +14522,9 @@ declare module "sap/ui/core/Component" {
   }
   export const registry: registry;
 
-  export interface $ComponentSettings extends $ManagedObjectSettings {}
+  export interface $ComponentSettings extends $ManagedObjectSettings {
+    componentData?: any;
+  }
 }
 
 declare module "sap/ui/core/ComponentContainer" {
@@ -14222,6 +15554,8 @@ declare module "sap/ui/core/ComponentMetadata" {
 }
 
 declare module "sap/ui/core/Configuration" {
+  import CalendarType from "sap/ui/core/CalendarType";
+
   import CalendarWeekNumbering from "sap/ui/core/date/CalendarWeekNumbering";
 
   import Version from "sap/base/util/Version";
@@ -14232,11 +15566,11 @@ declare module "sap/ui/core/Configuration" {
 
   import { URI } from "sap/ui/core/library";
 
-  import CalendarType from "sap/ui/core/CalendarType";
-
   import BaseObject from "sap/ui/base/Object";
 
   /**
+   * @deprecated (since 1.120)
+   *
    * Collects and stores the configuration of the current environment.
    *
    * The Configuration is initialized once when the {@link sap.ui.core.Core} is created. There are different
@@ -14263,6 +15597,7 @@ declare module "sap/ui/core/Configuration" {
   interface Configuration {
     /**
      * @since 1.50.0
+     * @deprecated (since 1.120) - Please use {@link module:sap/ui/core/AnimationMode} instead.
      *
      * Enumerable list with available animation modes.
      *
@@ -14274,6 +15609,7 @@ declare module "sap/ui/core/Configuration" {
 
     /**
      * @since 1.38.6
+     * @deprecated (since 1.120)
      *
      * Applies multiple changes to the configuration at once.
      *
@@ -14318,6 +15654,10 @@ declare module "sap/ui/core/Configuration" {
       FNMetaImpl?: Function
     ): Function;
     /**
+     * @since 1.20
+     * @deprecated (since 1.120) - Please use {@link module:sap/ui/core/ControlBehavior.isAccessibilityEnabled }
+     * instead.
+     *
      * Returns whether the accessibility mode is enabled or not.
      *
      * @returns whether the accessibility mode is enabled or not
@@ -14334,13 +15674,15 @@ declare module "sap/ui/core/Configuration" {
      */
     getActiveTerminologies(): string[] | undefined;
     /**
+     * @deprecated (since 1.120) - Please use {@link module:sap/ui/security/Security.getAllowlistService} instead.
+     *
      * URL of the allowlist service.
      *
      * @returns allowlist service URL
      */
     getAllowlistService(): string;
     /**
-     * @deprecated (since 1.50.0) - replaced by {@link sap.ui.core.Configuration#getAnimationMode}
+     * @deprecated (since 1.50) - Please use {@link sap.ui.core.Configuration#getAnimationMode} instead.
      *
      * Returns whether the animations are globally used.
      *
@@ -14349,6 +15691,7 @@ declare module "sap/ui/core/Configuration" {
     getAnimation(): boolean;
     /**
      * @since 1.50.0
+     * @deprecated (since 1.120) - Please use {@link module:sap/ui/core/ControlBehavior.getAnimationMode} instead.
      *
      * Returns the current animation mode.
      *
@@ -14356,15 +15699,19 @@ declare module "sap/ui/core/Configuration" {
      */
     getAnimationMode(): AnimationMode;
     /**
+     * @deprecated (since 1.120)
+     *
      * Base URLs to AppCacheBuster ETag-Index files.
      *
      * @returns array of base URLs
      */
     getAppCacheBuster(): string[];
     /**
+     * @deprecated (since 1.120)
+     *
      * The loading mode (sync|async|batch) of the AppCacheBuster (sync is default)
      *
-     * @returns "sync" | "async"
+     * @returns "sync" | "async" | "batch"
      */
     getAppCacheBusterMode(): string;
     /**
@@ -14378,6 +15725,7 @@ declare module "sap/ui/core/Configuration" {
     getApplication(): string;
     /**
      * @since 1.27.0
+     * @deprecated (since 1.120)
      *
      * Returns whether the framework automatically adds the ARIA role 'application' to the HTML body or not.
      *
@@ -14385,7 +15733,21 @@ declare module "sap/ui/core/Configuration" {
      */
     getAutoAriaBodyRole(): boolean;
     /**
+     * @since 1.28.6
+     * @deprecated (since 1.120) - Please use {@link module:sap/base/i18n/Formatting.getCalendarType} instead.
+     *
+     * Returns the calendar type which is being used in locale dependent functionality.
+     *
+     * When it's explicitly set by calling `setCalendar`, the set calendar type is returned. Otherwise, the
+     * calendar type is determined by checking the format settings and current locale.
+     *
+     * @returns the current calendar type, e.g. `Gregorian`
+     */
+    getCalendarType(): CalendarType;
+    /**
      * @since 1.113.0
+     * @deprecated (since 1.120) - Please use {@link module:sap/base/i18n/Formatting.getCalendarWeekNumbering }
+     * instead.
      *
      * Returns the calendar week numbering algorithm used to determine the first day of the week and the first
      * calendar week of the year, see {@link sap.ui.core.date.CalendarWeekNumbering}.
@@ -14407,6 +15769,8 @@ declare module "sap/ui/core/Configuration" {
       sFeature: string
     ): Version;
     /**
+     * @deprecated (since 1.120)
+     *
      * Returns whether the page runs in full debug mode.
      *
      * @returns Whether the page runs in full debug mode
@@ -14414,6 +15778,7 @@ declare module "sap/ui/core/Configuration" {
     getDebug(): boolean;
     /**
      * @since 1.102
+     * @deprecated (since 1.120)
      *
      * Name (ID) of a UI5 module that implements file share support.
      *
@@ -14425,6 +15790,8 @@ declare module "sap/ui/core/Configuration" {
      */
     getFileShareSupport(): string | undefined;
     /**
+     * @deprecated (since 1.120)
+     *
      * Returns whether the Fiori2Adaptation is on.
      *
      * @returns false - no adaptation, true - full adaptation, comma-separated list - partial adaptation Possible
@@ -14433,6 +15800,7 @@ declare module "sap/ui/core/Configuration" {
     getFiori2Adaptation(): boolean | string;
     /**
      * @since 1.60.0
+     * @deprecated (since 1.120)
      *
      * Returns the URL from where the UI5 flexibility services are called; if empty, the flexibility services
      * are not called.
@@ -14441,6 +15809,8 @@ declare module "sap/ui/core/Configuration" {
      */
     getFlexibilityServices(): object[];
     /**
+     * @deprecated (since 1.120) - Please use {@link module:sap/base/i18n/Formatting.getLanguageTag} instead.
+     *
      * Returns the format locale string with language and region code. Falls back to language configuration,
      * in case it has not been explicitly defined.
      *
@@ -14448,18 +15818,24 @@ declare module "sap/ui/core/Configuration" {
      */
     getFormatLocale(): string;
     /**
+     * @deprecated (since 1.120) - Please use {@link module:sap/base/i18n/Formatting} instead.
+     *
      * Returns a configuration object that bundles the format settings of UI5.
      *
      * @returns A FormatSettings object.
      */
     getFormatSettings(): FormatSettings;
     /**
+     * @deprecated (since 1.120) - Please use {@link module:sap/ui/security/Security.getFrameOptions} instead.
+     *
      * frameOptions mode (allow/deny/trusted).
      *
      * @returns frameOptions mode
      */
     getFrameOptions(): string;
     /**
+     * @deprecated (since 1.120)
+     *
      * Returns whether the UI5 control inspe ctor is displayed. Has only an effect when the sap-ui-debug module
      * has been loaded
      *
@@ -14467,6 +15843,8 @@ declare module "sap/ui/core/Configuration" {
      */
     getInspect(): boolean;
     /**
+     * @deprecated (since 1.119) - Please use {@link module:sap/base/i18n/Localization.getLanguage} instead.
+     *
      * Returns a string that identifies the current language.
      *
      * The value returned by config method in most cases corresponds to the exact value that has been configured
@@ -14500,6 +15878,8 @@ declare module "sap/ui/core/Configuration" {
      */
     getLanguage(): string;
     /**
+     * @deprecated (since 1.119) - Please use {@link module:sap/base/i18n/Localization.getLanguageTag} instead.
+     *
      * Returns a BCP47-compliant language tag for the current language.
      *
      * The return value of config method is especially useful for an HTTP `Accept-Language` header.
@@ -14510,6 +15890,8 @@ declare module "sap/ui/core/Configuration" {
      */
     getLanguageTag(): string;
     /**
+     * @deprecated (since 1.119) - Please use {@link module:sap/base/i18n/Localization.getLanguageTag} instead.
+     *
      * Returns a Locale object for the current language.
      *
      * The Locale is derived from the {@link #getLanguage language} property.
@@ -14519,6 +15901,8 @@ declare module "sap/ui/core/Configuration" {
     getLocale(): Locale;
     /**
      * @since 1.33.0
+     * @deprecated (since 1.120) - 'manifest-first' is the default for the {@link sap.ui.core.Component.create }
+     * factory.
      *
      * Flag whether a Component should load the manifest first.
      *
@@ -14532,12 +15916,16 @@ declare module "sap/ui/core/Configuration" {
      */
     getMetadata(): Metadata;
     /**
+     * @deprecated (since 1.120)
+     *
      * Returns whether there should be an exception on any duplicate element IDs.
      *
      * @returns whether there should be an exception on any duplicate element IDs
      */
     getNoDuplicateIds(): boolean;
     /**
+     * @deprecated (since 1.120)
+     *
      * Returns whether the text origin information is collected.
      *
      * @returns whether the text info is collected
@@ -14552,6 +15940,8 @@ declare module "sap/ui/core/Configuration" {
      */
     getRootComponent(): string;
     /**
+     * @deprecated (since 1.119) - Please use {@link module:sap/base/i18n/Localization.getRTL} instead.
+     *
      * Returns whether the page uses the RTL text direction.
      *
      * If no mode has been explicitly set (neither `true` nor `false`), the mode is derived from the current
@@ -14561,6 +15951,9 @@ declare module "sap/ui/core/Configuration" {
      */
     getRTL(): boolean;
     /**
+     * @deprecated (since 1.119) - Please use {@link module:sap/base/i18n/Localization.getSAPLogonLanguage }
+     * instead.
+     *
      * Returns an SAP logon language for the current language.
      *
      * It will be returned in uppercase. e.g. "EN", "DE"
@@ -14569,7 +15962,8 @@ declare module "sap/ui/core/Configuration" {
      */
     getSAPLogonLanguage(): string;
     /**
-     * @since 1.95.0
+     * @deprecated (since 1.120) - Please use {@link module:sap/ui/security/Security.getSecurityTokenHandlers }
+     * instead.
      *
      * Returns the security token handlers of an OData V4 model.
      * See:
@@ -14580,6 +15974,7 @@ declare module "sap/ui/core/Configuration" {
     getSecurityTokenHandlers(): Array<(p1: URI) => Promise<any>>;
     /**
      * @since 1.106.0
+     * @deprecated (since 1.120)
      *
      * Flag if statistics are requested.
      *
@@ -14590,19 +15985,23 @@ declare module "sap/ui/core/Configuration" {
      */
     getStatisticsEnabled(): boolean;
     /**
+     * @deprecated (since 1.119) - Please use {@link module:sap/ui/core/Theming.getTheme} instead.
+     *
      * Returns the theme name
      *
      * @returns the theme name
      */
     getTheme(): string;
     /**
+     * @deprecated (since 1.119) - Please use {@link module:sap/base/i18n/Localization.getTimezone} instead.
+     *
      * Retrieves the configured IANA timezone ID.
      *
      * @returns The configured IANA timezone ID, e.g. "America/New_York"
      */
     getTimezone(): string;
     /**
-     * @deprecated (since 1.119.0) - Please use {@link sap.ui.base.ManagedObjectMetadata.getUIDPrefix ManagedObjectMetadata.getUIDPrefix }
+     * @deprecated (since 1.119) - Please use {@link sap.ui.base.ManagedObjectMetadata.getUIDPrefix ManagedObjectMetadata.getUIDPrefix }
      * instead.
      *
      * Prefix to be used for automatically generated control IDs. Default is a double underscore "__".
@@ -14611,6 +16010,8 @@ declare module "sap/ui/core/Configuration" {
      */
     getUIDPrefix(): string;
     /**
+     * @deprecated (since 1.120) - Please use {@link module:sap/ui/VersionInfo.load} instead.
+     *
      * Returns the version of the framework.
      *
      * Similar to `sap.ui.version`.
@@ -14619,9 +16020,9 @@ declare module "sap/ui/core/Configuration" {
      */
     getVersion(): Version;
     /**
-     * @deprecated (since 1.85.0) - Use {@link sap.ui.core.Configuration#getAllowlistService} instead. SAP strives
-     * to replace insensitive terms with inclusive language. Since APIs cannot be renamed or immediately removed
-     * for compatibility reasons, this API has been deprecated.
+     * @deprecated (since 1.85) - Use {@link module:sap/ui/security/Security.getAllowlistService} instead. SAP
+     * strives to replace insensitive terms with inclusive language. Since APIs cannot be renamed or immediately
+     * removed for compatibility reasons, this API has been deprecated.
      *
      * URL of the whitelist service.
      *
@@ -14630,6 +16031,7 @@ declare module "sap/ui/core/Configuration" {
     getWhitelistService(): string;
     /**
      * @since 1.50.0
+     * @deprecated (since 1.120) - Please use {@link module:sap/ui/core/ControlBehavior.setAnimationMode} instead.
      *
      * Sets the current animation mode.
      *
@@ -14646,6 +16048,7 @@ declare module "sap/ui/core/Configuration" {
     ): void;
     /**
      * @since 1.28.6
+     * @deprecated (since 1.120) - Please use {@link module:sap/base/i18n/Formatting.setCalendarType} instead.
      *
      * Sets the new calendar type to be used from now on in locale dependent functionality (for example, formatting,
      * translation texts, etc.).
@@ -14661,6 +16064,8 @@ declare module "sap/ui/core/Configuration" {
     ): this;
     /**
      * @since 1.113.0
+     * @deprecated (since 1.120) - Please use {@link module:sap/base/i18n/Formatting.setCalendarWeekNumbering }
+     * instead.
      *
      * Sets the calendar week numbering algorithm which is used to determine the first day of the week and the
      * first calendar week of the year, see {@link sap.ui.core.date.CalendarWeekNumbering}.
@@ -14674,6 +16079,8 @@ declare module "sap/ui/core/Configuration" {
       sCalendarWeekNumbering: CalendarWeekNumbering
     ): this;
     /**
+     * @deprecated (since 1.120) - Please use {@link module:sap/base/i18n/Formatting.setLanguageTag} instead.
+     *
      * Sets a new format locale to be used from now on for retrieving locale specific formatters. Modifying
      * this setting does not have an impact on the retrieval of translated texts!
      *
@@ -14698,6 +16105,8 @@ declare module "sap/ui/core/Configuration" {
       sFormatLocale: string | null
     ): this;
     /**
+     * @deprecated (since 1.119) - Please use {@link module:sap/base/i18n/Localization.setLanguage} instead.
+     *
      * Sets a new language to be used from now on for language/region dependent functionality (e.g. formatting,
      * data types, translated texts, ...).
      *
@@ -14742,6 +16151,8 @@ declare module "sap/ui/core/Configuration" {
      * **Note**: When using config method please take note of and respect the above mentioned restrictions.
      * See:
      * 	http://scn.sap.com/docs/DOC-14377
+     *
+     * @returns `this` to allow method chaining
      */
     setLanguage(
       /**
@@ -14755,8 +16166,10 @@ declare module "sap/ui/core/Configuration" {
        * `sLanguage` as SAP Logon language.
        */
       sSAPLogonLanguage?: string
-    ): void;
+    ): this;
     /**
+     * @deprecated (since 1.119) - Please use {@link module:sap/base/i18n/Localization.setRTL} instead.
+     *
      * Sets the character orientation mode to be used from now on.
      *
      * Can either be set to a concrete value (true meaning right-to-left, false meaning left-to-right) or to
@@ -14777,7 +16190,8 @@ declare module "sap/ui/core/Configuration" {
       bRTL: boolean | null
     ): this;
     /**
-     * @since 1.95.0
+     * @deprecated (since 1.120) - Please use {@link module:sap/ui/security/Security.setSecurityTokenHandlers }
+     * instead.
      *
      * Sets the security token handlers for an OData V4 model. See chapter {@link https://ui5.sap.com/#/topic/9613f1f2d88747cab21896f7216afdac/section_STH Security Token Handling}.
      * See:
@@ -14790,6 +16204,8 @@ declare module "sap/ui/core/Configuration" {
       aSecurityTokenHandlers: Array<(p1: URI) => Promise<any>>
     ): void;
     /**
+     * @deprecated (since 1.119) - Please use {@link module:sap/ui/core/Theming.setTheme} instead.
+     *
      * Allows setting the theme name
      *
      * @returns `this` to allow method chaining
@@ -14802,6 +16218,7 @@ declare module "sap/ui/core/Configuration" {
     ): this;
     /**
      * @since 1.99.0
+     * @deprecated (since 1.119) - Please use {@link module:sap/base/i18n/Localization.setTimezone} instead.
      *
      * Sets the timezone such that all date and time based calculations use config timezone.
      *
@@ -14829,6 +16246,7 @@ declare module "sap/ui/core/Configuration" {
 
   /**
    * @since 1.50.0
+   * @deprecated (since 1.120) - Please use {@link module:sap/ui/core/AnimationMode} instead.
    *
    * Enumerable list with available animation modes.
    *
@@ -14855,6 +16273,8 @@ declare module "sap/ui/core/Configuration" {
     none = "undefined",
   }
   /**
+   * @deprecated (since 1.120) - Please use {@link module:sap/base/i18n/Formatting} instead.
+   *
    * Encapsulates configuration settings that are related to data formatting/parsing.
    *
    * **Note:** When format configuration settings are modified through this class, UI5 only ensures that formatter
@@ -14894,26 +16314,33 @@ declare module "sap/ui/core/Configuration" {
      */
     static getMetadata(): Metadata;
     /**
+     * @since 1.120
+     *
      * Adds custom currencies to the existing entries. E.g. ` { "KWD": {"digits": 3}, "TND" : {"digits": 3 }
      * } `
      * See:
-     * 	#setCustomCurrencies
-     *
-     * @returns Returns `this` to allow method chaining
+     * 	{@link module:sap/base/i18n/Formatting.setCustomCurrencies}
      */
     addCustomCurrencies(
       /**
        * adds to the currency map
        */
       mCurrencies: object
-    ): this;
+    ): void;
     /**
+     * @since 1.120
+     *
      * Retrieves the custom currencies. E.g. ` { "KWD": {"digits": 3}, "TND" : {"digits": 3} } `
+     * See:
+     * 	{@link module:sap/base/i18n/Formatting.setCustomCurrencies}
+     * 	{@link module:sap/base/i18n/Formatting.addCustomCurrencies}
      *
      * @returns the mapping between custom currencies and its digits
      */
     getCustomCurrencies(): object;
     /**
+     * @since 1.120
+     *
      * Returns the currently set date pattern or undefined if no pattern has been defined.
      *
      * @returns The resulting date pattern
@@ -14925,6 +16352,8 @@ declare module "sap/ui/core/Configuration" {
       sStyle: "short" | "medium" | "long" | "full"
     ): string;
     /**
+     * @deprecated (since 1.120) - Please use {@link module:sap/base/i18n/Formatting.getLanguageTag} instead.
+     *
      * Returns the locale to be used for formatting.
      *
      * If no such locale has been defined, this method falls back to the language, see {@link sap.ui.core.Configuration#getLanguage Configuration.getLanguage()}.
@@ -14937,44 +16366,17 @@ declare module "sap/ui/core/Configuration" {
      */
     getFormatLocale(): Locale;
     /**
+     * @since 1.120
+     *
      * Returns the currently set customizing data for Islamic calendar support
      *
      * @returns Returns an array contains the customizing data. Each element in the array has properties: dateFormat,
      * islamicMonthStart, gregDate. For details, please see {@link #setLegacyDateCalendarCustomizing}
      */
-    getLegacyDateCalendarCustomizing(): object[];
+    getLegacyDateCalendarCustomizing(): object[] | undefined;
     /**
-     * Returns the currently set legacy ABAP date format (its id) or undefined if none has been set.
+     * @since 1.120
      *
-     * @returns ID of the ABAP date format, if not set or set to `""`, `undefined` will be returned
-     */
-    getLegacyDateFormat():
-      | "1"
-      | "2"
-      | "3"
-      | "4"
-      | "5"
-      | "6"
-      | "7"
-      | "8"
-      | "9"
-      | "A"
-      | "B"
-      | "C"
-      | undefined;
-    /**
-     * Returns the currently set legacy ABAP number format (its id) or undefined if none has been set.
-     *
-     * @returns ID of the ABAP number format, if not set or set to `""`, `undefined` will be returned
-     */
-    getLegacyNumberFormat(): " " | "X" | "Y" | undefined;
-    /**
-     * Returns the currently set legacy ABAP time format (its id) or undefined if none has been set.
-     *
-     * @returns ID of the ABAP date format, if not set or set to `""`, `undefined` will be returned
-     */
-    getLegacyTimeFormat(): "0" | "1" | "2" | "3" | "4" | undefined;
-    /**
      * Returns the currently set number symbol of the given type or undefined if no symbol has been defined.
      *
      * @returns A non-numerical symbol used as part of a number for the given type, e.g. for locale de_DE:
@@ -14991,6 +16393,8 @@ declare module "sap/ui/core/Configuration" {
       sType: "group" | "decimal" | "plusSign" | "minusSign"
     ): string;
     /**
+     * @since 1.120
+     *
      * Returns the currently set time pattern or undefined if no pattern has been defined.
      *
      * @returns The resulting time pattern
@@ -15002,7 +16406,7 @@ declare module "sap/ui/core/Configuration" {
       sStyle: "short" | "medium" | "long" | "full"
     ): string;
     /**
-     * @since 1.75.0
+     * @since 1.120
      *
      * Returns current trailingCurrencyCode configuration for new NumberFormatter instances
      *
@@ -15010,6 +16414,8 @@ declare module "sap/ui/core/Configuration" {
      */
     getTrailingCurrencyCode(): boolean;
     /**
+     * @since 1.120
+     *
      * Sets custom currencies and replaces existing entries.
      *
      * There is a special currency code named "DEFAULT" that is optional. In case it is set it will be used
@@ -15025,15 +16431,15 @@ declare module "sap/ui/core/Configuration" {
      * Note: To unset the custom currencies: call with `undefined` Custom currencies must not only consist of
      * digits but contain at least one non-digit character, e.g. "a", so that the measure part can be distinguished
      * from the number part.
-     *
-     * @returns Returns `this` to allow method chaining
+     * See:
+     * 	{@link module:sap/base/i18n/Formatting.addCustomCurrencies}
      */
     setCustomCurrencies(
       /**
        * currency map which is set
        */
       mCurrencies: object
-    ): this;
+    ): void;
     /**
      * Defines the preferred format pattern for the given date format style.
      *
@@ -15059,7 +16465,7 @@ declare module "sap/ui/core/Configuration" {
       sPattern: string
     ): this;
     /**
-     * @deprecated (since 1.113.0) - Use {@link sap.ui.core.Configuration.FormatSettings#setCalendarWeekNumbering }
+     * @deprecated (since 1.113) - Use {@link sap.ui.core.Configuration.FormatSettings#setCalendarWeekNumbering }
      * instead.
      *
      * Defines the day used as the first day of the week.
@@ -15084,9 +16490,9 @@ declare module "sap/ui/core/Configuration" {
       iValue: int
     ): this;
     /**
-     * Allows to specify the customizing data for Islamic calendar support
+     * @since 1.120
      *
-     * @returns Returns `this` to allow method chaining
+     * Allows to specify the customizing data for Islamic calendar support
      */
     setLegacyDateCalendarCustomizing(
       /**
@@ -15106,7 +16512,7 @@ declare module "sap/ui/core/Configuration" {
          */
         gregDate: string;
       }>
-    ): this;
+    ): void;
     /**
      * Allows to specify one of the legacy ABAP date formats.
      *
@@ -15225,7 +16631,7 @@ declare module "sap/ui/core/Configuration" {
       sPattern: string
     ): this;
     /**
-     * @since 1.75.0
+     * @since 1.120
      *
      * Define whether the NumberFormatter shall always place the currency code after the numeric value, with
      * the only exception of right-to-left locales, where the currency code shall be placed before the numeric
@@ -15236,15 +16642,13 @@ declare module "sap/ui/core/Configuration" {
      *
      * Each currency instance ({@link sap.ui.core.format.NumberFormat.getCurrencyInstance}) will be created
      * with this setting unless overwritten on instance level.
-     *
-     * @returns Returns `this` to allow method chaining
      */
     setTrailingCurrencyCode(
       /**
        * Whether currency codes shall always be placed after the numeric value
        */
       bTrailingCurrencyCode: boolean
-    ): this;
+    ): void;
   }
 }
 
@@ -17089,6 +18493,9 @@ declare module "sap/ui/core/Core" {
      */
     getComponent(sId: string): Component;
     /**
+     * @deprecated (since 1.120) - Please see {@link sap.ui.core.Configuration Configuration} for the corrsponding
+     * replacements.
+     *
      * Returns the Configuration of the Core.
      *
      * @returns the Configuration of the current Core.
@@ -18120,6 +19527,7 @@ declare module "sap/ui/core/CustomData" {
 declare module "sap/ui/core/date/CalendarWeekNumbering" {
   /**
    * @since 1.108.0
+   * @deprecated (since 1.120) - Please use {@link module:sap/base/18n/date/CalendarWeekNumbering} instead.
    *
    * The `CalendarWeekNumbering` enum defines how to calculate calendar weeks. Each value defines:
    * 	 - The first day of the week,
@@ -18158,6 +19566,8 @@ declare module "sap/ui/core/DeclarativeSupport" {
 
   /**
    * @since 1.7.0
+   * @deprecated (since 1.120) - Please consider using {@link sap.ui.core.mvc.XMLView XMLViews} or {@link topic:e6bb33d076dc4f23be50c082c271b9f0 Typed Views }
+   * instead. For more information, see the documentation on {@link topic:91f27e3e6f4d1014b6dd926db0e91070 View types}.
    *
    * Static class for enabling declarative UI support.
    */
@@ -23988,6 +25398,10 @@ declare module "sap/ui/core/Fragment" {
 
   export interface $FragmentSettings extends $ManagedObjectSettings {
     type?: string | PropertyBindingInfo;
+
+    fragmentName?: string;
+
+    fragmentContent?: any;
   }
 }
 
@@ -26682,7 +28096,7 @@ declare module "sap/ui/core/Lib" {
      * Provides information about a library.
      *
      * This method is intended to be called exactly once while the main module of a library (its `library.js`
-     * module) is executing, typically at its begin. The single parameter `oLibInfo` is an info object that
+     * module) is executing, typically at its begin. The single parameter `mSettings` is an info object that
      * describes the content of the library.
      *
      * When the `mSettings` has been processed, a normalized version will be set on the library instance Finally,
@@ -26696,10 +28110,10 @@ declare module "sap/ui/core/Lib" {
      * 	 - If the object contains a list of `interfaces`, they will be registered with the {@link sap.ui.base.DataType }
      *     class to make them available as aggregation types in managed objects.
      *
+     * If the object contains a list of `controls` or `elements`, {@link sap.ui.lazyRequire lazy stubs }
+     * will be created for their constructor as well as for their static `extend` and `getMetadata` methods.
      *
-     * 	 - If the object contains a list of `controls` or `elements`, {@link sap.ui.lazyRequire lazy stubs }
-     *     will be created for their constructor as well as for their static `extend` and `getMetadata` methods.
-     *  **Note:** Future versions might abandon the concept of lazy stubs as it requires synchronous XMLHttpRequests
+     * **Note:** Future versions of UI5 will abandon the concept of lazy stubs as it requires synchronous XMLHttpRequests
      * which have been deprecated (see {@link http://xhr.spec.whatwg.org}). To be on the safe side, productive
      * applications should always require any modules that they directly depend on.
      *
@@ -26711,31 +28125,36 @@ declare module "sap/ui/core/Lib" {
      *     is e.g. useful when an application merges the CSS for multiple libraries and already loaded the resulting
      *     stylesheet.
      *
+     * If a list of library `dependencies` is specified in the info object, those libraries will be loaded
+     * synchronously if they haven't been loaded yet.
      *
-     * 	 - If a list of library `dependencies` is specified in the info object, those libraries will be loaded
-     *     synchronously.
-     *  **Note:** Dependencies between libraries don't have to be modeled as AMD dependencies. Only when enums
-     * or types from an additional library are used in the coding of the `library.js` module, the library should
-     * be additionally listed in the AMD dependencies.
+     * **Note:** Dependencies between libraries have to be modeled consistently in several places:
+     * 	 - Both eager and lazy dependencies have to be modelled in the `.library` file.
+     * 	 - By default, UI5 Tooling generates a `manifest.json` file from the content of the `.library` file.
+     *     However, if the `manifest.json` file for the library is not generated but maintained manually, it must
+     *     be kept consistent with the `.library` file, especially regarding its listed library dependencies.
+     * 	 - All eager library dependencies must be declared as AMD dependencies of the `library.js` module by
+     *     referring to the corresponding `"some/lib/namespace/library"` module of each library dependency.
+     *
+     * 	 - All eager dependencies must be listed in the `dependencies` property of the info object.
+     * 	 - All lazy dependencies **must not** be listed as AMD dependencies or in the `dependencies` property
+     *     of the info object.
      *
      * Last but not least, higher layer frameworks might want to include their own metadata for libraries. The
      * property `extensions` might contain such additional metadata. Its structure is not defined by the framework,
      * but it is strongly suggested that each extension only occupies a single property in the `extensions`
      * object and that the name of that property contains some namespace information (e.g. library name that
      * introduces the feature) to avoid conflicts with other extensions. The framework won't touch the content
-     * of `extensions` but will make it available in the library info objects returned by {@link #.getInitializedLibraries}.
+     * of `extensions` but will make it available in the library info objects provided by {@link #.load}.
      *
      * Relationship to Descriptor for Libraries (manifest.json):
      *
      * The information contained in `mSettings` is partially redundant to the content of the descriptor for
-     * the same library (its `manifest.json` file). Future versions of UI5 might ignore the information provided
-     * in `oLibInfo` and might evaluate the descriptor file instead. Library developers therefore should keep
-     * the information in both files in sync.
+     * the same library (its `manifest.json` file). Future versions of UI5 will ignore the information provided
+     * in `mSettings` and will evaluate the descriptor file instead. Library developers therefore must keep
+     * the information in both files in sync if the `manifest.json` file is maintained manually.
      *
-     * When the `manifest.json` is generated from the `.library` file (which is the default for UI5 libraries
-     * built with Maven), then the content of the `.library` and `library.js` files must be kept in sync.
-     *
-     * @returns As of version 1.101; returns the library namespace, based on the given library name.
+     * @returns Returns the library namespace, based on the given library name.
      */
     static init(
       /**
@@ -26845,13 +28264,11 @@ declare module "sap/ui/core/Lib" {
      * library:
      * ```javascript
      *
-     *   Lib.load({name: "heavy.charting"})
-     *     .then(function() {
-     *       View.create({
-     *         name: "myapp.views.HeavyChartingView",
-     *         type: ViewType.XML
-     *       });
-     *     });
+     *   await Library.load({name: "heavy.charting"});
+     *   await View.create({
+     *       name: "myapp.views.HeavyChartingView",
+     *       type: ViewType.XML
+     *   });
      * ```
      *
      *
@@ -27784,9 +29201,28 @@ declare module "sap/ui/core/LocaleData" {
       sCalendarType?: CalendarType
     ): string;
     /**
-     * Get locale specific language names.
+     * Gets the locale-specific language name for the given language tag.
      *
-     * @returns map of locale specific language names
+     * The languages returned by {@link #getLanguages} from the CLDR raw data do not contain the language names
+     * if they can be derived from the language and the script or the territory. If the map of languages contains
+     * no entry for the given language tag, derive the language name from the used script or region.
+     *
+     * @returns The language name, or `undefined` if the name cannot be determined
+     */
+    getLanguageName(
+      /**
+       * The language tag, for example "en", "en-US", "en_US", "zh-Hant", or "zh_Hant"
+       */
+      sLanguageTag: string
+    ): string | undefined;
+    /**
+     * Gets locale-specific language names, as available in the CLDR raw data.
+     *
+     * To avoid redundancies, with CLDR version 43 only language names are contained which cannot be derived
+     * from the language and the script or the territory. If a language tag is not contained in the map, use
+     * {@link #getLanguageName} to get the derived locale-specific language name for that language tag.
+     *
+     * @returns Maps a language tag to the locale-specific language name
      */
     getLanguages(): Record<string, string>;
     /**
@@ -28169,15 +29605,22 @@ declare module "sap/ui/core/LocaleData" {
       sUnit: string
     ): object;
     /**
-     * Get locale specific script names.
+     * Gets locale-specific script names, as available in the CLDR raw data.
      *
-     * @returns map of locale specific script names
+     * To avoid redundancies, with CLDR version 43 only scripts are contained for which the language-specific
+     * name is different from the script key. If a script key is not contained in the map, use the script key
+     * as script name.
+     *
+     * @returns Maps a script key to the locale-specific script name
      */
     getScripts(): Record<string, string>;
     /**
-     * Get locale specific territory names.
+     * Gets locale-specific territory names, as available in the CLDR raw data.
      *
-     * @returns map of locale specific territory names
+     * To avoid redundancies, with CLDR version 43 only territories are contained for which the language-specific
+     * name is different from the territory key.
+     *
+     * @returns Maps a territory key to the locale-specific territory name
      */
     getTerritories(): Record<string, string>;
     /**
@@ -29984,7 +31427,7 @@ declare module "sap/ui/core/mvc/HTMLView" {
    * as syntax does not bring any advantages over XML. The HTML necessary for the `HTMLView` is not re-used
    * for the HTML of the controls, but is fully replaced.
    *
-   * Consider using {@link sap.ui.core.mvx.XMLView XMLViews} or "typed views" (view classes written in JavaScript)
+   * Consider using {@link sap.ui.core.mvc.XMLView XMLViews} or "typed views" (view classes written in JavaScript)
    * instead. For more information, see the documentation on {@link topic:91f27e3e6f4d1014b6dd926db0e91070 View types}.
    *
    * A view defined/constructed by declarative HTML.
@@ -30116,6 +31559,9 @@ declare module "sap/ui/core/mvc/JSONView" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
+   * @deprecated (since 1.120) - please consider using {@link sap.ui.core.mvc.XMLView XMLViews} or "typed
+   * views" (view classes written in JavaScript) instead. For more information, see the documentation on {@link topic:91f27e3e6f4d1014b6dd926db0e91070 View types}.
+   *
    * A View defined using JSON.
    */
   export default class JSONView extends View {
@@ -30496,7 +31942,7 @@ declare module "sap/ui/core/mvc/View" {
 
   import Controller from "sap/ui/core/mvc/Controller";
 
-  import { CSSSize } from "sap/ui/core/library";
+  import { CSSSize, URI } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -31014,10 +32460,10 @@ declare module "sap/ui/core/mvc/View" {
     /**
      * A method to be implemented by typed `View`s, returning the view UI.
      *
-     * While for declarative view types like `XMLView` or `JSONView` the user interface definition is declared
-     * in a separate file, `View`s programmatically constructs the UI. This happens in the `createContent` method,
-     * which every `View` needs to implement. The view implementation can construct the complete UI in this
-     * method, or only return the root control and create the remainder of the UI lazily later on.
+     * While for declarative view types like `XMLView` or `JSONView` (deprecated) the user interface definition
+     * is declared in a separate file, `View`s programmatically constructs the UI. This happens in the `createContent`
+     * method, which every `View` needs to implement. The view implementation can construct the complete UI
+     * in this method, or only return the root control and create the remainder of the UI lazily later on.
      *
      * @returns A control or array of controls representing the view user interface or a Promise resolving with
      * a control or an array of controls.
@@ -31539,6 +32985,70 @@ declare module "sap/ui/core/mvc/View" {
     displayBlock?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
+     * Controller instance to use for this view.
+     */
+    controller?: Controller;
+
+    /**
+     * Name of the controller class to use for this view. If given, it overrides the same information in the
+     * view definition (XML, HTML).
+     */
+    controllerName?: string;
+
+    /**
+     * Preprocessors that the view can use before constructing the view.
+     */
+    preprocessors?: Object;
+
+    /**
+     * (module) Name of a resource bundle that should be loaded for this view
+     */
+    resourceBundleName?: string;
+
+    /**
+     * URL of a resource bundle that should be loaded for this view
+     */
+    resourceBundleUrl?: URI;
+
+    /**
+     * Locale that should be used to load a resource bundle for this view
+     */
+    resourceBundleLocale?: string;
+
+    /**
+     * Model name under which the resource bundle should be stored.
+     */
+    resourceBundleAlias?: string;
+
+    /**
+     * Type of the view
+     */
+    type?: string;
+
+    /**
+     * A view definition
+     */
+    definition?: any;
+
+    /**
+     * Deprecated as of 1.56: Use `definition` instead.
+     */
+    viewContent?: any;
+
+    /**
+     * Additional configuration data that should be given to the view at construction time and which will be
+     * available early, even before model data or other constructor settings are applied.
+     */
+    viewData?: any;
+
+    /**
+     * @since 1.30
+     *
+     * Determines initialization mode of the view
+     */
+    async?: boolean;
+
+    /**
      * Child Controls of the view
      */
     content?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
@@ -31638,6 +33148,9 @@ declare module "sap/ui/core/mvc/ViewType" {
      */
     JS = "JS",
     /**
+     * @deprecated (since 1.120) - please consider using {@link sap.ui.core.mvc.XMLView XMLViews} or "typed
+     * views" (view classes written in JavaScript) instead.
+     *
      * JSON View
      */
     JSON = "JSON",
@@ -31965,7 +33478,23 @@ declare module "sap/ui/core/mvc/XMLView" {
     XML = "xml",
   }
 
-  export interface $XMLViewSettings extends $ViewSettings {}
+  export interface $XMLViewSettings extends $ViewSettings {
+    /**
+     * Configuration for the XMLView caching.
+     */
+    cache?: Object;
+
+    /**
+     * legacy-relevant:
+     *
+     * A map containing references to modules loaded via a 'core:require' statement in an XMLView.
+     *
+     * Only used for HTML embedded in an XMLView. This kind of HTML is processed synchronously only and needs
+     * access to 'core:require' modules from outside. Normally 'core:require' modules are NOT passed into nested
+     * Views and Fragments.
+     */
+    requireContext?: Object;
+  }
 }
 
 declare module "sap/ui/core/Popup" {
@@ -35608,7 +37137,7 @@ declare module "sap/ui/core/routing/Router" {
     /**
      * The route data
      */
-    arguments: Record<string, string>;
+    arguments: Record<string, string | Record<string, string>>;
   };
 
   export default class Router extends EventProvider {
@@ -40896,9 +42425,6 @@ declare module "sap/ui/core/UIArea" {
      * First, all old content controls (if any) will be detached from this UIArea (e.g. their parent relationship
      * to this UIArea will be cut off). Then the parent relationship for the new content control (if not empty)
      * will be set to this UIArea and finally, the UIArea will be marked for re-rendering.
-     *
-     * The real re-rendering happens whenever the re-rendering is called. Either implicitly at the end of any
-     * control event or by calling sap.ui.getCore().applyChanges().
      */
     setRootControl(
       /**
@@ -50723,6 +52249,15 @@ declare module "sap/ui/model/Filter" {
        */
       vValue2?: any
     );
+    /**
+     * @since 1.120.0
+     *
+     * A filter instance that is never fulfilled. When used to filter a list, no back-end request is sent and
+     * only transient entries remain.
+     *
+     * **Note:** Not all model implementations support this filter.
+     */
+    static NONE: Filter;
 
     /**
      * Compares two values
@@ -53011,19 +54546,23 @@ declare module "sap/ui/model/odata/AnnotationHelper" {
      * `"{@i18n>...}"` to the hard-coded model name "@i18n" with arbitrary path are not turned into a fixed
      * text, but kept as a data binding expression; this allows local annotation files to refer to a resource
      * bundle for internationalization.  the dynamic "14.5.1 Comparison and Logical Operators": These are
-     * turned into expression bindings to perform the operations at run-time.  the dynamic "14.5.3 Expression
-     * edm:Apply":
+     * turned into expression bindings to perform the operations at run-time. It's strongly recommended to require
+     * the `sap.ui.model.odata.v4.ODataUtils` module in advance to avoid synchronous loading of this module.
+     *  the dynamic "14.5.3 Expression edm:Apply":
      * 	 "14.5.3.1.1 Function odata.concat": This is turned into a data binding expression relative to an entity.
      *  "14.5.3.1.2 Function odata.fillUriTemplate": This is turned into an expression binding to fill the
-     * template at run-time.  "14.5.3.1.3 Function odata.uriEncode": This is turned into an expression binding
-     * to encode the parameter at run-time.  Apply functions may be nested arbitrarily.   the dynamic
-     * "14.5.6 Expression edm:If": This is turned into an expression binding to be evaluated at run-time. The
-     * expression is a conditional expression like `"{=condition ? expression1 : expression2}"`.  the dynamic
-     * "14.5.10 Expression edm:Null": This is turned into a `null` value. In `odata.concat` it is ignored.
-     * the dynamic "14.5.12 Expression edm:Path" and "14.5.13 Expression edm:PropertyPath": This is turned into
-     * a data binding relative to an entity, including type information and constraints as available from metadata,
-     * e.g. `"{path : 'Name', type : 'sap.ui.model.odata.type.String', constraints : {'maxLength':'255'}}"`.
-     * Depending on the used type, some additional constraints of this type are set:
+     * template at run-time. It's strongly recommended to require the `sap.ui.thirdparty.URITemplate` module
+     * in advance to avoid synchronous loading of this module.  "14.5.3.1.3 Function odata.uriEncode": This
+     * is turned into an expression binding to encode the parameter at run-time. It's strongly recommended to
+     * require the `sap.ui.model.odata.ODataUtils` module in advance to avoid synchronous loading of this module.
+     *  Apply functions may be nested arbitrarily.   the dynamic "14.5.6 Expression edm:If": This
+     * is turned into an expression binding to be evaluated at run-time. The expression is a conditional expression
+     * like `"{=condition ? expression1 : expression2}"`.  the dynamic "14.5.10 Expression edm:Null": This
+     * is turned into a `null` value. In `odata.concat` it is ignored.  the dynamic "14.5.12 Expression
+     * edm:Path" and "14.5.13 Expression edm:PropertyPath": This is turned into a data binding relative to an
+     * entity, including type information and constraints as available from metadata, e.g. `"{path : 'Name',
+     * type : 'sap.ui.model.odata.type.String', constraints : {'maxLength':'255'}}"`. Depending on the used
+     * type, some additional constraints of this type are set:
      * 	Edm.DateTime: The "displayFormat" constraint is set to the value of the "sap:display-format" annotation
      * of the referenced property. Edm.Decimal: The "precision" and "scale" constraints are set to the values
      * of the corresponding attributes of the referenced property. The "minimum", "maximum", "minimumExclusive"
@@ -61562,14 +63101,14 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
      *
      * Get a download URL with the specified format considering the sort/filter/custom parameters.
      *
-     * @returns URL which can be used for downloading
+     * @returns URL which can be used for downloading; `null` if this binding uses {@link sap.ui.model.Filter.NONE}
      */
     getDownloadUrl(
       /**
        * Value for the $format Parameter
        */
       sFormat: string
-    ): string;
+    ): string | null;
     /**
      * Return the length of the list.
      *
@@ -61642,8 +63181,10 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
      * in its constructor or in its {@link #filter} method; add filters which you want to keep with the "and"
      * conjunction to the resulting filter before calling {@link #filter}.
      *
-     * @returns A Promise that resolves with a {@link sap.ui.model.Filter} representing the entries with messages;
-     * it resolves with `null` if the binding is not resolved or if there is no message for any entry
+     * @returns A Promise that resolves with an {@link sap.ui.model.Filter} representing the entries with messages,
+     * except in the following cases:
+     * 	 If only transient entries have messages, it resolves with {@link sap.ui.model.Filter.NONE}  If
+     * the binding is not resolved or if there is no message for any entry, it resolves with `null`
      */
     requestFilterForMessages(
       /**
@@ -62492,6 +64033,13 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
        * Map of binding parameters
        */
       mParameters?: {
+        /**
+         * Whether the tree binding only requests transition messages from the back end. If messages for entities
+         * of this collection need to be updated, use {@link sap.ui.model.odata.v2.ODataModel#read} on the parent
+         * entity corresponding to the tree binding's context, with the parameter `updateAggregatedMessages` set
+         * to `true`.
+         */
+        transitionMessagesOnly?: boolean;
         /**
          * The mapping between data properties and the hierarchy used to visualize the tree, if not provided by
          * the service's metadata. For the correct metadata annotations, check the "SAP Annotations for OData Version
@@ -65491,10 +67039,10 @@ declare module "sap/ui/model/odata/v4/Context" {
      * depending on this context become unresolved, but no attempt is made to restore these bindings in case
      * of reset or failure.
      *
-     * Deleting a child node is supported (@experimental as of version 1.118.0) in a recursive hierarchy (see
-     * {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation}). As a precondition, `oAggregation.expandTo`
-     * must be equal to one, and the context must not be {@link #setKeepAlive kept-alive} and hidden (for example
-     * due to a filter).
+     * Deleting a node in a recursive hierarchy (see {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation})
+     * is supported (@experimental as of version 1.118.0). As a precondition, the context must not be {@link #setKeepAlive kept-alive }
+     * and hidden (for example due to a filter), and the group ID must not have {@link sap.ui.model.odata.v4.SubmitMode.API}.
+     * Such a deletion is not a pending change.
      * See:
      * 	#hasPendingChanges
      * 	#resetChanges
@@ -65620,6 +67168,17 @@ declare module "sap/ui/model/odata/v4/Context" {
       sPath?: string
     ): any;
     /**
+     * @experimental (since 1.120.0)
+     *
+     * Returns the parent node (in case of a recursive hierarchy, see {@link #setAggregation}, where `oAggregation.expandTo`
+     * must be equal to one).
+     * See:
+     * 	#requestParent
+     *
+     * @returns The parent node, or `null` if this node is a root node and thus has no parent
+     */
+    getParent(): Context | null;
+    /**
      * @since 1.39.0
      *
      * Returns the property value for the given path relative to this context. The path is expected to point
@@ -65665,6 +67224,20 @@ declare module "sap/ui/model/odata/v4/Context" {
      * @returns Whether there are pending changes
      */
     hasPendingChanges(): boolean;
+    /**
+     * @since 1.120.0
+     *
+     * Tells whether this node is an ancestor of (or the same as) the given node (in case of a recursive hierarchy,
+     * see {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation}).
+     *
+     * @returns Whether the assumed ancestor relation holds
+     */
+    isAncestorOf(
+      /**
+       * Some node which may be a descendant
+       */
+      oNode: Context
+    ): boolean;
     /**
      * @since 1.105.0
      *
@@ -65747,8 +67320,8 @@ declare module "sap/ui/model/odata/v4/Context" {
     /**
      * @experimental (since 1.119.0)
      *
-     * Moves this node to the given parent (in case of a recursive hierarchy, see {@link #setAggregation}, where
-     * `oAggregation.expandTo` must be one). No other {@link sap.ui.model.odata.v4.ODataListBinding#create creation},
+     * Moves this node to the given parent (in case of a recursive hierarchy, see {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation},
+     * where `oAggregation.expandTo` must be one). No other {@link sap.ui.model.odata.v4.ODataListBinding#create creation},
      * {@link #delete deletion}, or move must be pending, and no other modification (including collapse of some
      * ancestor node) must happen while this move is pending!
      *
@@ -65845,6 +67418,20 @@ declare module "sap/ui/model/odata/v4/Context" {
        */
       sPath?: string
     ): Promise<any>;
+    /**
+     * @experimental (since 1.120.0)
+     *
+     * Requests the parent node (in case of a recursive hierarchy, see {@link #setAggregation}, where `oAggregation.expandTo`
+     * must be equal to one).
+     * See:
+     * 	#getParent
+     *
+     * @returns A promise which:
+     * 	 -  Resolves if successful with either the parent node or `null` for a root node that has no parent
+     *
+     * 	 -  Rejects with an `Error` instance otherwise
+     */
+    requestParent(): Promise<Context | null>;
     /**
      * @since 1.39.0
      *
@@ -66934,11 +68521,12 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      *
      * Creating a new child beneath an existing and visible parent node (which must either be a leaf or expanded,
      * but not collapsed) is supported (@experimental as of version 1.117.0) in case of a recursive hierarchy
-     * (see {@link #setAggregation}). The parent node must be identified via a {@link sap.ui.model.odata.v4.Context }
-     * instance given as `oInitialData["@$ui5.node.parent"]`. `oAggregation.expandTo` (see {@link #setAggregation})
-     * must be one, `bSkipRefresh` must be set, but both `bAtEnd` and `bInactive` must not be set. No other
-     * creation or {@link sap.ui.model.odata.v4.Context#move move} must be pending, and no other modification
-     * (including collapse of some ancestor node) must happen while this creation is pending!
+     * (see {@link #setAggregation}). The parent node must be identified via an {@link sap.ui.model.odata.v4.Context }
+     * instance given as `oInitialData["@$ui5.node.parent"]` (which is immediately removed from the new child's
+     * data). It can be `null` or absent when creating a new root node (@experimental as of version 1.120.0).
+     * `bSkipRefresh` must be set, but both `bAtEnd` and `bInactive` must not be set. No other creation or {@link sap.ui.model.odata.v4.Context#move move }
+     * must be pending, and no other modification (including collapse of some ancestor node) must happen while
+     * this creation is pending!
      *
      * @returns The context object for the created entity; its method {@link sap.ui.model.odata.v4.Context#created }
      * returns a promise that is resolved when the creation is finished
@@ -67601,7 +69189,8 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
          * The number (as a positive integer) of different levels initially available without calling {@link sap.ui.model.odata.v4.Context#expand }
          * (@experimental as of version 1.105.0; available for read-only hierarchies since 1.117.0), supported only
          * if a `hierarchyQualifier` is given. Root nodes are on the first level. By default, only root nodes are
-         * available; they are not yet expanded.
+         * available; they are not yet expanded. Since 1.120.0, `Number.MAX_SAFE_INTEGER` can be used to expand
+         * all levels.
          */
         expandTo?: number;
         /**
@@ -68850,7 +70439,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
         updateGroupId?: string;
         /**
          * Whether the XMLHttpRequest is called with `withCredentials`, so that user credentials are included in
-         * cross-origin requests by the browser (@experimental as of Version 1.117.0)
+         * cross-origin requests by the browser (since 1.120.0)
          */
         withCredentials?: boolean;
       }
@@ -71346,6 +72935,7 @@ declare module "sap/ui/model/SimpleType" {
        * The value to be validated
        */
       vValue: any
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | Promise<undefined>;
   }
 }
@@ -79717,6 +81307,7 @@ declare namespace sap {
        * Decides whether the controller gets loaded asynchronously or not
        */
       bAsync?: boolean
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | import("sap/ui/core/mvc/Controller").default | Promise<any>;
     /**
      * @since 1.27.0
@@ -82365,7 +83956,11 @@ declare namespace sap {
 
     "sap/base/assert": undefined;
 
+    "sap/base/config": undefined;
+
     "sap/base/Event": undefined;
+
+    "sap/base/Eventing": undefined;
 
     "sap/base/i18n/date/CalendarType": undefined;
 
@@ -82470,6 +84065,8 @@ declare namespace sap {
     "sap/ui/base/BindingInfo": undefined;
 
     "sap/ui/base/DataType": undefined;
+
+    "sap/ui/base/DesignTime": undefined;
 
     "sap/ui/base/Event": undefined;
 
@@ -82665,6 +84262,8 @@ declare namespace sap {
 
     "sap/ui/core/Renderer": undefined;
 
+    "sap/ui/core/Rendering": undefined;
+
     "sap/ui/core/RenderManager": undefined;
 
     "sap/ui/core/ResizeHandler": undefined;
@@ -82708,6 +84307,8 @@ declare namespace sap {
     "sap/ui/core/support/RuleEngineOpaExtension": undefined;
 
     "sap/ui/core/support/usage/EventBroadcaster": undefined;
+
+    "sap/ui/core/Supportability": undefined;
 
     "sap/ui/core/syncStyleClass": undefined;
 
@@ -83115,6 +84716,8 @@ declare namespace sap {
 
     "sap/ui/security/FrameOptions": undefined;
 
+    "sap/ui/security/Security": undefined;
+
     "sap/ui/test/actions/Action": undefined;
 
     "sap/ui/test/actions/Drag": undefined;
@@ -83198,6 +84801,8 @@ declare namespace sap {
     "sap/ui/util/XMLHelper": undefined;
 
     "sap/ui/VersionInfo": undefined;
+
+    "ui5loader-autoconfig": undefined;
   }
 
   type ClassInfo<T, C> = T & Partial<C> & ThisType<T & C>;

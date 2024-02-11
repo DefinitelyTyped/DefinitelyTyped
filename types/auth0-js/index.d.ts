@@ -880,6 +880,7 @@ export interface CrossOriginLoginOptions {
     nonce?: string | undefined;
     scope?: string | undefined;
     audience?: string | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onRedirecting?: (done: () => void) => void | undefined;
 }
 
@@ -1019,6 +1020,8 @@ export interface AuthorizeOptions {
     approvalPrompt?: string | undefined;
     appState?: any;
     connection_scope?: string | string[] | undefined;
+    organization?: string | undefined;
+    invitation?: string | undefined;
 }
 
 export type SsoDataResult = SsoSessionFoundResult | SsoSessionNotFoundResult;

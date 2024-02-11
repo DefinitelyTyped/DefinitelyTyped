@@ -65,7 +65,7 @@ function testNextInvocation() {
 
 function testPendingInvocations() {
     const job: nodeSchedule.Job = new nodeSchedule.Job(() => {});
-    const pendingInvocations: nodeSchedule.Invocation[] = job.pendingInvocations();
+    const pendingInvocations: nodeSchedule.Invocation[] = job.pendingInvocations;
 }
 
 function testInvoke() {
@@ -112,6 +112,8 @@ function testRecurrenceRule() {
     rule2.hour = 5;
     rule2.minute = new nodeSchedule.Range(4, 6);
     rule2.second = new nodeSchedule.Range(8, 12, 2);
+
+    const valid: boolean = rule3.isValid();
 }
 
 /**
@@ -127,7 +129,7 @@ function testInvocation() {
 }
 
 /**
- * Test for {@link scheduleJob} class.
+ * Test for {@link scheduleJob} function.
  */
 function testScheduleJob() {
     const callback: nodeSchedule.JobCallback = null;

@@ -10,8 +10,7 @@
         "immutable": "~3.7.4"
     },
     "devDependencies": {
-        "@types/draft-js": "workspace:.",
-        "@types/react-dom": "*"
+        "@types/draft-js": "workspace:."
     },
     "owners": [
         {

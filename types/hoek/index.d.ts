@@ -160,6 +160,7 @@ export function escapeRegex(regexString: string): string;
 /**
  * Print message or throw error if condition fails.
  */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export function assert(condition: boolean, message: string | Error): void | Error;
 
 /**

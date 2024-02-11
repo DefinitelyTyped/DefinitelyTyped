@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/react": "*",
-        "@types/react-native": "*",
+        "react-native": "*",
         "@types/react-native-video": "*"
     },
     "devDependencies": {

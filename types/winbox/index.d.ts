@@ -32,6 +32,7 @@ interface WinBox {
     minimize(state?: boolean): WinBox;
     maximize(state?: boolean): WinBox;
     fullscreen(state?: boolean): WinBox;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     close(force?: boolean): boolean | void;
     move(x?: string | number, y?: string | number, skipUpdate?: boolean): WinBox;
     resize(w?: string | number, h?: string | number, skipUpdate?: boolean): WinBox;

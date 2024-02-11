@@ -24,6 +24,7 @@ import * as net from "node:net";
         sendBufferSize: 1000,
         lookup: dns.lookup,
     });
+    ds[Symbol.asyncDispose]();
 }
 
 {
@@ -162,6 +163,8 @@ sock.dropMembership("233.252.0.0");
 sock.dropMembership("233.252.0.0", "192.0.2.1");
 sock.getRecvBufferSize(); // $ExpectType number
 sock.getSendBufferSize(); // $ExpectType number
+sock.getSendQueueSize(); // $ExpectType number
+sock.getSendQueueCount(); // $ExpectType number
 sock = sock.ref();
 sock.remoteAddress().address; // $ExpectType string
 sock.remoteAddress().family; // $ExpectType string

@@ -4,7 +4,7 @@
         "lib": [
             "es6"
         ],
-        "module": "commonjs",
+        "module": "node16",
         "noEmit": true,
         "noImplicitAny": true,
         "noImplicitThis": true,

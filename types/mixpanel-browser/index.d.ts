@@ -44,6 +44,11 @@ export interface RegisterOptions {
 
 export interface Config {
     api_host: string;
+    api_routes: {
+        track?: string;
+        engage?: string;
+        groups?: string;
+    };
     api_method: string;
     api_transport: string;
     app_host: string;
@@ -57,13 +62,18 @@ export interface Config {
     cookie_name: string;
     loaded: (mixpanel: Mixpanel) => void;
     store_google: boolean;
+    stop_utm_persistence: boolean;
     save_referrer: boolean;
     test: boolean;
     verbose: boolean;
     img: boolean;
     debug: boolean;
     track_links_timeout: number;
-    track_pageview: boolean;
+    track_pageview:
+        | boolean
+        | "url-with-path"
+        | "url-with-path-and-query-string"
+        | "full-url";
     skip_first_touch_marketing: boolean;
     cookie_expiration: number;
     upgrade: boolean;
@@ -169,7 +179,7 @@ export interface Mixpanel {
     ): void;
     track_forms(query: Query, event_name: string, properties?: Dict | (() => void)): void;
     track_links(query: Query, event_name: string, properties?: Dict | (() => void)): void;
-    track_pageview(properties?: Dict): void;
+    track_pageview(properties?: Dict, options?: { event_name?: string | undefined }): void;
     track_with_groups(event_name: string, properties: Dict, groups: Dict, callback?: Callback): void;
     unregister(property: string, options?: Partial<RegisterOptions>): void;
     people: People;

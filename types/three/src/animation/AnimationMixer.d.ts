@@ -1,9 +1,9 @@
-import { AnimationClip } from './AnimationClip.js';
-import { AnimationAction } from './AnimationAction.js';
-import { AnimationBlendMode } from '../constants.js';
-import { EventDispatcher } from './../core/EventDispatcher.js';
-import { Object3D } from '../core/Object3D.js';
-import { AnimationObjectGroup } from './AnimationObjectGroup.js';
+import { AnimationBlendMode } from "../constants.js";
+import { EventDispatcher } from "../core/EventDispatcher.js";
+import { Object3D } from "../core/Object3D.js";
+import { AnimationAction } from "./AnimationAction.js";
+import { AnimationClip } from "./AnimationClip.js";
+import { AnimationObjectGroup } from "./AnimationObjectGroup.js";
 
 export interface AnimationMixerEventMap {
     loop: { action: AnimationAction; loopDelta: number };

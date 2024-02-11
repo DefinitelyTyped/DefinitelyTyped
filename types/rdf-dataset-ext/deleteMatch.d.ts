@@ -1,4 +1,4 @@
-import { BaseQuad, DatasetCore, Term } from "rdf-js";
+import { BaseQuad, DatasetCore, Term } from "@rdfjs/types";
 
 /**
  * Deletes all quads in the given dataset which match the given subject, predicate, object, graph pattern.

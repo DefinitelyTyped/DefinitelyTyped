@@ -176,7 +176,7 @@ map.on("load", function() {
         },
     });
 
-    var layers: [number, string][] = [
+    var layers: Array<[number, string]> = [
         [150, "#f28cb1"],
         [20, "#f1f075"],
         [0, "#51bbd6"],
@@ -416,6 +416,15 @@ var videoSourceObj = new mapboxgl.VideoSource({
 });
 map.addSource("some id", videoSourceObj); // add
 map.removeSource("some id"); // remove
+
+/**
+ * Raster Source
+ */
+const rasterSource = map.getSource("tile-source") as mapboxgl.RasterSourceImpl;
+// $ExpectType RasterSourceImpl
+rasterSource.setTiles(["a", "b"]);
+// $ExpectType RasterSourceImpl
+rasterSource.setUrl("https://github.com");
 
 /**
  * Vector Source

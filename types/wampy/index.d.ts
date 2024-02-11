@@ -9,6 +9,7 @@ declare namespace wampy {
 
     type SuccessCallback = (args: DataArgs) => void;
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type RPCCallback = (args: DataArgs) => RPCResult | void;
 
     type ChallengeCallback = (auth_method: string, extra: Dict) => string;

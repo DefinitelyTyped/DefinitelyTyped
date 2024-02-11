@@ -2,7 +2,7 @@
 
 declare module "react-user-tour" {
     // Import React
-    import { ComponentClass, HTMLAttributes } from "react";
+    import { ComponentClass, HTMLAttributes, JSX } from "react";
 
     interface TourStep {
         /**

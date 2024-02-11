@@ -66,7 +66,7 @@ export type GraphQLSingularResponse =
     | GraphQLResponseWithExtensionsOnly
     | GraphQLResponseWithoutData;
 
-export type GraphQLResponse = GraphQLSingularResponse | ReadonlyArray<GraphQLSingularResponse>;
+export type GraphQLResponse = GraphQLSingularResponse | readonly GraphQLSingularResponse[];
 
 /**
  * A function that returns an Observable representing the response of executing

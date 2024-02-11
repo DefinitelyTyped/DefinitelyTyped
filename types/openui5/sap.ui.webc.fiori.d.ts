@@ -1,4 +1,4 @@
-// For Library Version: 1.119.0
+// For Library Version: 1.120.0
 
 declare module "sap/ui/webc/fiori/library" {
   /**
@@ -1053,14 +1053,6 @@ declare module "sap/ui/webc/fiori/Bar" {
      *
      * Defines the component's design.
      *
-     *
-     *
-     *  **Note:** Available options are:
-     * 	 - `Header`
-     * 	 - `Subheader`
-     * 	 - `Footer`
-     * 	 - `FloatingFooter`
-     *
      * Default value is `Header`.
      *
      * @returns Value of property `design`
@@ -1069,19 +1061,19 @@ declare module "sap/ui/webc/fiori/Bar" {
     /**
      * Gets content of aggregation {@link #getEndContent endContent}.
      *
-     * Defines the content at the end of the bar
+     * Defines the content at the end of the bar.
      */
     getEndContent(): Control[];
     /**
      * Gets content of aggregation {@link #getMiddleContent middleContent}.
      *
-     * Defines the content in the middle of the bar
+     * Defines the content in the middle of the bar.
      */
     getMiddleContent(): Control[];
     /**
      * Gets content of aggregation {@link #getStartContent startContent}.
      *
-     * Defines the content at the start of the bar
+     * Defines the content at the start of the bar.
      */
     getStartContent(): Control[];
     /**
@@ -1241,14 +1233,6 @@ declare module "sap/ui/webc/fiori/Bar" {
      *
      * Defines the component's design.
      *
-     *
-     *
-     *  **Note:** Available options are:
-     * 	 - `Header`
-     * 	 - `Subheader`
-     * 	 - `Footer`
-     * 	 - `FloatingFooter`
-     *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Header`.
@@ -1281,14 +1265,6 @@ declare module "sap/ui/webc/fiori/Bar" {
   export interface $BarSettings extends $WebComponentSettings {
     /**
      * Defines the component's design.
-     *
-     *
-     *
-     *  **Note:** Available options are:
-     * 	 - `Header`
-     * 	 - `Subheader`
-     * 	 - `Footer`
-     * 	 - `FloatingFooter`
      */
     design?:
       | (BarDesign | keyof typeof BarDesign)
@@ -1301,12 +1277,12 @@ declare module "sap/ui/webc/fiori/Bar" {
     width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Defines the content at the end of the bar
+     * Defines the content at the end of the bar.
      */
     endContent?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
-     * Defines the content in the middle of the bar
+     * Defines the content in the middle of the bar.
      */
     middleContent?:
       | Control[]
@@ -1315,7 +1291,7 @@ declare module "sap/ui/webc/fiori/Bar" {
       | `{${string}}`;
 
     /**
-     * Defines the content at the start of the bar
+     * Defines the content at the start of the bar.
      */
     startContent?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
   }
@@ -4987,15 +4963,6 @@ declare module "sap/ui/webc/fiori/NotificationAction" {
      *
      * Defines the action design.
      *
-     *
-     *
-     *  **Note:**
-     * 	 - `Default`
-     * 	 - `Emphasized`
-     * 	 - `Positive`
-     * 	 - `Negative`
-     * 	 - `Transparent`
-     *
      * Default value is `Transparent`.
      *
      * @returns Value of property `design`
@@ -5039,15 +5006,6 @@ declare module "sap/ui/webc/fiori/NotificationAction" {
      * Sets a new value for property {@link #getDesign design}.
      *
      * Defines the action design.
-     *
-     *
-     *
-     *  **Note:**
-     * 	 - `Default`
-     * 	 - `Emphasized`
-     * 	 - `Positive`
-     * 	 - `Negative`
-     * 	 - `Transparent`
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -5121,15 +5079,6 @@ declare module "sap/ui/webc/fiori/NotificationAction" {
   export interface $NotificationActionSettings extends $WebComponentSettings {
     /**
      * Defines the action design.
-     *
-     *
-     *
-     *  **Note:**
-     * 	 - `Default`
-     * 	 - `Emphasized`
-     * 	 - `Positive`
-     * 	 - `Negative`
-     * 	 - `Transparent`
      */
     design?:
       | (ButtonDesign | keyof typeof ButtonDesign)
@@ -5520,11 +5469,7 @@ declare module "sap/ui/webc/fiori/NotificationListGroupItem" {
     /**
      * Gets current value of property {@link #getPriority priority}.
      *
-     * Defines the `priority` of the item. Available options are:
-     * 	 - `None`
-     * 	 - `Low`
-     * 	 - `Medium`
-     * 	 - `High`
+     * Defines the `priority` of the item.
      *
      * Default value is `None`.
      *
@@ -5543,6 +5488,16 @@ declare module "sap/ui/webc/fiori/NotificationListGroupItem" {
      * @returns Value of property `read`
      */
     getRead(): boolean;
+    /**
+     * Gets current value of property {@link #getSelected selected}.
+     *
+     * Defines the selected state of the `ListItem`.
+     *
+     * Default value is `false`.
+     *
+     * @returns Value of property `selected`
+     */
+    getSelected(): boolean;
     /**
      * Gets current value of property {@link #getShowClose showClose}.
      *
@@ -5723,11 +5678,7 @@ declare module "sap/ui/webc/fiori/NotificationListGroupItem" {
     /**
      * Sets a new value for property {@link #getPriority priority}.
      *
-     * Defines the `priority` of the item. Available options are:
-     * 	 - `None`
-     * 	 - `Low`
-     * 	 - `Medium`
-     * 	 - `High`
+     * Defines the `priority` of the item.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -5759,6 +5710,23 @@ declare module "sap/ui/webc/fiori/NotificationListGroupItem" {
        * New value for property `read`
        */
       bRead?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getSelected selected}.
+     *
+     * Defines the selected state of the `ListItem`.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setSelected(
+      /**
+       * New value for property `selected`
+       */
+      bSelected?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getShowClose showClose}.
@@ -5831,11 +5799,7 @@ declare module "sap/ui/webc/fiori/NotificationListGroupItem" {
     collapsed?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Defines the `priority` of the item. Available options are:
-     * 	 - `None`
-     * 	 - `Low`
-     * 	 - `Medium`
-     * 	 - `High`
+     * Defines the `priority` of the item.
      */
     priority?:
       | (Priority | keyof typeof Priority)
@@ -5848,6 +5812,11 @@ declare module "sap/ui/webc/fiori/NotificationListGroupItem" {
      *  **Note:** if set to `false` the `titleText` has bold font, if set to true - it has a normal font.
      */
     read?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the selected state of the `ListItem`.
+     */
+    selected?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines if the `close` button would be displayed.
@@ -6214,11 +6183,7 @@ declare module "sap/ui/webc/fiori/NotificationListItem" {
     /**
      * Gets current value of property {@link #getPriority priority}.
      *
-     * Defines the `priority` of the item. Available options are:
-     * 	 - `None`
-     * 	 - `Low`
-     * 	 - `Medium`
-     * 	 - `High`
+     * Defines the `priority` of the item.
      *
      * Default value is `None`.
      *
@@ -6237,6 +6202,16 @@ declare module "sap/ui/webc/fiori/NotificationListItem" {
      * @returns Value of property `read`
      */
     getRead(): boolean;
+    /**
+     * Gets current value of property {@link #getSelected selected}.
+     *
+     * Defines the selected state of the `ListItem`.
+     *
+     * Default value is `false`.
+     *
+     * @returns Value of property `selected`
+     */
+    getSelected(): boolean;
     /**
      * Gets current value of property {@link #getShowClose showClose}.
      *
@@ -6432,11 +6407,7 @@ declare module "sap/ui/webc/fiori/NotificationListItem" {
     /**
      * Sets a new value for property {@link #getPriority priority}.
      *
-     * Defines the `priority` of the item. Available options are:
-     * 	 - `None`
-     * 	 - `Low`
-     * 	 - `Medium`
-     * 	 - `High`
+     * Defines the `priority` of the item.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -6468,6 +6439,23 @@ declare module "sap/ui/webc/fiori/NotificationListItem" {
        * New value for property `read`
        */
       bRead?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getSelected selected}.
+     *
+     * Defines the selected state of the `ListItem`.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setSelected(
+      /**
+       * New value for property `selected`
+       */
+      bSelected?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getShowClose showClose}.
@@ -6543,11 +6531,7 @@ declare module "sap/ui/webc/fiori/NotificationListItem" {
     description?: string | PropertyBindingInfo;
 
     /**
-     * Defines the `priority` of the item. Available options are:
-     * 	 - `None`
-     * 	 - `Low`
-     * 	 - `Medium`
-     * 	 - `High`
+     * Defines the `priority` of the item.
      */
     priority?:
       | (Priority | keyof typeof Priority)
@@ -6560,6 +6544,11 @@ declare module "sap/ui/webc/fiori/NotificationListItem" {
      *  **Note:** if set to `false` the `titleText` has bold font, if set to true - it has a normal font.
      */
     read?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the selected state of the `ListItem`.
+     */
+    selected?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines if the `close` button would be displayed.
@@ -6667,6 +6656,13 @@ declare module "sap/ui/webc/fiori/Page" {
    * the intended design you have to make sure that there is enough space for the `sap.ui.webc.fiori.Page`
    * to be rendered. **Note:** In order for the `sap.ui.webc.fiori.Page` to be displayed, the parent element
    * should have fixed height.
+   *
+   * CSS Shadow Parts:
+   *
+   * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/::part CSS Shadow Parts} allow developers to
+   * style elements inside the Shadow DOM.
+   *  The `sap.ui.webc.fiori.Page` exposes the following CSS Shadow Parts:
+   * 	 - content - Used to style the content section of the component
    */
   export default class Page extends WebComponent {
     /**
@@ -6766,10 +6762,7 @@ declare module "sap/ui/webc/fiori/Page" {
      *  **Note:** When a ui5-list is placed inside the page, we recommend using “List” to ensure better color
      * contrast.
      *
-     *  Available options are:
-     * 	 - `Solid` (default)
-     * 	 - `Transparent`
-     * 	 - `List`
+     *
      *
      * Default value is `Solid`.
      *
@@ -6901,10 +6894,7 @@ declare module "sap/ui/webc/fiori/Page" {
      *  **Note:** When a ui5-list is placed inside the page, we recommend using “List” to ensure better color
      * contrast.
      *
-     *  Available options are:
-     * 	 - `Solid` (default)
-     * 	 - `Transparent`
-     * 	 - `List`
+     *
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -7034,11 +7024,6 @@ declare module "sap/ui/webc/fiori/Page" {
      *
      *  **Note:** When a ui5-list is placed inside the page, we recommend using “List” to ensure better color
      * contrast.
-     *
-     *  Available options are:
-     * 	 - `Solid` (default)
-     * 	 - `Transparent`
-     * 	 - `List`
      */
     backgroundDesign?:
       | (PageBackgroundDesign | keyof typeof PageBackgroundDesign)
@@ -9264,6 +9249,8 @@ declare module "sap/ui/webc/fiori/ShellBarItem" {
      *
      * Defines the item text.
      *
+     *  **Note:** The text is only displayed inside the overflow popover list view.
+     *
      * Default value is `empty string`.
      *
      * @returns Value of property `text`
@@ -9308,6 +9295,8 @@ declare module "sap/ui/webc/fiori/ShellBarItem" {
      *
      * Defines the item text.
      *
+     *  **Note:** The text is only displayed inside the overflow popover list view.
+     *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
@@ -9335,6 +9324,8 @@ declare module "sap/ui/webc/fiori/ShellBarItem" {
 
     /**
      * Defines the item text.
+     *
+     *  **Note:** The text is only displayed inside the overflow popover list view.
      */
     text?: string | PropertyBindingInfo;
 
@@ -11676,10 +11667,7 @@ declare module "sap/ui/webc/fiori/UploadCollection" {
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.ui.webc.fiori.UploadCollection` itself.
      *
-     * Fired when the Delete button of any item is pressed.
-     *
-     *  **Note:** A Delete button is displayed on each item, when the `sap.ui.webc.fiori.UploadCollection` `mode`
-     * property is set to `Delete`.
+     * Fired when the delete button of any item is pressed.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -11705,10 +11693,7 @@ declare module "sap/ui/webc/fiori/UploadCollection" {
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.ui.webc.fiori.UploadCollection` itself.
      *
-     * Fired when the Delete button of any item is pressed.
-     *
-     *  **Note:** A Delete button is displayed on each item, when the `sap.ui.webc.fiori.UploadCollection` `mode`
-     * property is set to `Delete`.
+     * Fired when the delete button of any item is pressed.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -11929,12 +11914,8 @@ declare module "sap/ui/webc/fiori/UploadCollection" {
      * Defines the mode of the `sap.ui.webc.fiori.UploadCollection`.
      *
      *
-     *
-     *  **Note:**
-     * 	 - `None`
-     * 	 - `SingleSelect`
-     * 	 - `MultiSelect`
-     * 	 - `Delete`
+     *  **Note:** Mode "Delete" has no effect. The delete button is controlled by the `hideDeleteButton` property
+     * of UploadCollectionItem
      *
      * Default value is `None`.
      *
@@ -12124,12 +12105,8 @@ declare module "sap/ui/webc/fiori/UploadCollection" {
      * Defines the mode of the `sap.ui.webc.fiori.UploadCollection`.
      *
      *
-     *
-     *  **Note:**
-     * 	 - `None`
-     * 	 - `SingleSelect`
-     * 	 - `MultiSelect`
-     * 	 - `Delete`
+     *  **Note:** Mode "Delete" has no effect. The delete button is controlled by the `hideDeleteButton` property
+     * of UploadCollectionItem
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -12218,12 +12195,8 @@ declare module "sap/ui/webc/fiori/UploadCollection" {
      * Defines the mode of the `sap.ui.webc.fiori.UploadCollection`.
      *
      *
-     *
-     *  **Note:**
-     * 	 - `None`
-     * 	 - `SingleSelect`
-     * 	 - `MultiSelect`
-     * 	 - `Delete`
+     *  **Note:** Mode "Delete" has no effect. The delete button is controlled by the `hideDeleteButton` property
+     * of UploadCollectionItem
      */
     mode?:
       | (ListMode | keyof typeof ListMode)
@@ -12272,10 +12245,7 @@ declare module "sap/ui/webc/fiori/UploadCollection" {
     drop?: (oEvent: UploadCollection$DropEvent) => void;
 
     /**
-     * Fired when the Delete button of any item is pressed.
-     *
-     *  **Note:** A Delete button is displayed on each item, when the `sap.ui.webc.fiori.UploadCollection` `mode`
-     * property is set to `Delete`.
+     * Fired when the delete button of any item is pressed.
      */
     itemDelete?: (oEvent: UploadCollection$ItemDeleteEvent) => void;
 
@@ -12299,7 +12269,7 @@ declare module "sap/ui/webc/fiori/UploadCollection" {
 
   export interface UploadCollection$ItemDeleteEventParameters {
     /**
-     * The `sap.ui.webc.fiori.UploadCollectionItem` which was renamed.
+     * The `sap.ui.webc.fiori.UploadCollectionItem` which was deleted.
      */
     item?: HTMLElement;
   }
@@ -12336,6 +12306,8 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
   import Control from "sap/ui/core/Control";
 
   import Event from "sap/ui/base/Event";
+
+  import { IButton, ListItemType } from "sap/ui/webc/main/library";
 
   import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
@@ -12424,6 +12396,53 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
        * The content to add; if empty, nothing is inserted
        */
       oContent: Control
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:detailClick detailClick} event of this `sap.ui.webc.fiori.UploadCollectionItem`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.webc.fiori.UploadCollectionItem` itself.
+     *
+     * Fired when the user clicks on the detail button when type is `Detail`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachDetailClick(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.webc.fiori.UploadCollectionItem`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:detailClick detailClick} event of this `sap.ui.webc.fiori.UploadCollectionItem`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.webc.fiori.UploadCollectionItem` itself.
+     *
+     * Fired when the user clicks on the detail button when type is `Detail`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachDetailClick(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.webc.fiori.UploadCollectionItem`
+       * itself
+       */
+      oListener?: object
     ): this;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:fileNameClick fileNameClick} event of this `sap.ui.webc.fiori.UploadCollectionItem`.
@@ -12638,11 +12657,34 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
      */
     destroyContent(): this;
     /**
+     * Destroys the deleteButton in the aggregation {@link #getDeleteButton deleteButton}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyDeleteButton(): this;
+    /**
      * Destroys the thumbnail in the aggregation {@link #getThumbnail thumbnail}.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyThumbnail(): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:detailClick detailClick} event of this `sap.ui.webc.fiori.UploadCollectionItem`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachDetailClick(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:fileNameClick fileNameClick} event of this
      * `sap.ui.webc.fiori.UploadCollectionItem`.
@@ -12715,6 +12757,19 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
     /**
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
+     * Fires event {@link #event:detailClick detailClick} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireDetailClick(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: object
+    ): this;
+    /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:fileNameClick fileNameClick} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -12765,11 +12820,41 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
       mParameters?: object
     ): this;
     /**
+     * Gets current value of property {@link #getAccessibilityAttributes accessibilityAttributes}.
+     *
+     * An object of strings that defines several additional accessibility attribute values for customization
+     * depending on the use case.
+     *
+     * It supports the following fields:
+     *
+     *
+     * 	 - `ariaSetsize`: Defines the number of items in the current set of listitems or treeitems when not
+     *     all items in the set are present in the DOM. The value of each `aria-setsize` is an integer reflecting
+     *     number of items in the complete set. **Note: ** If the size of the entire set is unknown, set `aria-setsize="-1"`.
+     *
+     * 	 - `ariaPosinset`: Defines an element's number or position in the current set of listitems or treeitems
+     *     when not all items are present in the DOM. The value of each `aria-posinset` is an integer greater than
+     *     or equal to 1, and less than or equal to the size of the set when that size is known.
+     *
+     * Default value is `{}`.
+     *
+     * @returns Value of property `accessibilityAttributes`
+     */
+    getAccessibilityAttributes(): object;
+    /**
      * Gets content of aggregation {@link #getContent content}.
      *
      * Hold the description of the `sap.ui.webc.fiori.UploadCollectionItem`. Will be shown below the file name.
      */
     getContent(): Control[];
+    /**
+     * Gets content of aggregation {@link #getDeleteButton deleteButton}.
+     *
+     * Defines the delete button, displayed in "Delete" mode. **Note:** While the slot allows custom buttons,
+     * to match design guidelines, please use the `sap.ui.webc.main.Button` component. **Note:** When the slot
+     * is not present, a built-in delete button will be displayed.
+     */
+    getDeleteButton(): IButton;
     /**
      * Gets current value of property {@link #getDisableDeleteButton disableDeleteButton}.
      *
@@ -12809,6 +12894,17 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
      */
     getFileNameClickable(): boolean;
     /**
+     * Gets current value of property {@link #getHideDeleteButton hideDeleteButton}.
+     *
+     * By default, the delete button will always be shown, regardless of the `sap.ui.webc.fiori.UploadCollection`'s
+     * property `mode`. Setting this property to `true` will hide the delete button.
+     *
+     * Default value is `false`.
+     *
+     * @returns Value of property `hideDeleteButton`
+     */
+    getHideDeleteButton(): boolean;
+    /**
      * Gets current value of property {@link #getHideRetryButton hideRetryButton}.
      *
      * Hides the retry button when `uploadState` property is `Error`.
@@ -12829,6 +12925,15 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
      */
     getHideTerminateButton(): boolean;
     /**
+     * Gets current value of property {@link #getNavigated navigated}.
+     *
+     * The navigated state of the list item. If set to `true`, a navigation indicator is displayed at the end
+     * of the list item.
+     *
+     * @returns Value of property `navigated`
+     */
+    getNavigated(): boolean;
+    /**
      * Gets current value of property {@link #getProgress progress}.
      *
      * The upload progress in percentage.
@@ -12841,6 +12946,16 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
      */
     getProgress(): int;
     /**
+     * Gets current value of property {@link #getSelected selected}.
+     *
+     * Defines the selected state of the `ListItem`.
+     *
+     * Default value is `false`.
+     *
+     * @returns Value of property `selected`
+     */
+    getSelected(): boolean;
+    /**
      * Gets content of aggregation {@link #getThumbnail thumbnail}.
      *
      * A thumbnail, which will be shown in the beginning of the `sap.ui.webc.fiori.UploadCollectionItem`.
@@ -12848,6 +12963,20 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
      *  **Note:** Use `sap.ui.webc.main.Icon` or `img` for the intended design.
      */
     getThumbnail(): Control;
+    /**
+     * Gets current value of property {@link #getType type}.
+     *
+     * Defines the visual indication and behavior of the list items. Available options are `Active` (by default),
+     * `Inactive`, `Detail` and `Navigation`.
+     *
+     *  **Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and
+     * hover, while with type `Inactive` and `Detail` - will not.
+     *
+     * Default value is `Active`.
+     *
+     * @returns Value of property `type`
+     */
+    getType(): ListItemType | keyof typeof ListItemType;
     /**
      * Gets current value of property {@link #getUploadState uploadState}.
      *
@@ -12908,6 +13037,46 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
        */
       vContent: int | string | Control
     ): Control | null;
+    /**
+     * Sets a new value for property {@link #getAccessibilityAttributes accessibilityAttributes}.
+     *
+     * An object of strings that defines several additional accessibility attribute values for customization
+     * depending on the use case.
+     *
+     * It supports the following fields:
+     *
+     *
+     * 	 - `ariaSetsize`: Defines the number of items in the current set of listitems or treeitems when not
+     *     all items in the set are present in the DOM. The value of each `aria-setsize` is an integer reflecting
+     *     number of items in the complete set. **Note: ** If the size of the entire set is unknown, set `aria-setsize="-1"`.
+     *
+     * 	 - `ariaPosinset`: Defines an element's number or position in the current set of listitems or treeitems
+     *     when not all items are present in the DOM. The value of each `aria-posinset` is an integer greater than
+     *     or equal to 1, and less than or equal to the size of the set when that size is known.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `{}`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setAccessibilityAttributes(
+      /**
+       * New value for property `accessibilityAttributes`
+       */
+      oAccessibilityAttributes?: object
+    ): this;
+    /**
+     * Sets the aggregated {@link #getDeleteButton deleteButton}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDeleteButton(
+      /**
+       * The deleteButton to set
+       */
+      oDeleteButton: IButton
+    ): this;
     /**
      * Sets a new value for property {@link #getDisableDeleteButton disableDeleteButton}.
      *
@@ -12975,6 +13144,24 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
       bFileNameClickable?: boolean
     ): this;
     /**
+     * Sets a new value for property {@link #getHideDeleteButton hideDeleteButton}.
+     *
+     * By default, the delete button will always be shown, regardless of the `sap.ui.webc.fiori.UploadCollection`'s
+     * property `mode`. Setting this property to `true` will hide the delete button.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setHideDeleteButton(
+      /**
+       * New value for property `hideDeleteButton`
+       */
+      bHideDeleteButton?: boolean
+    ): this;
+    /**
      * Sets a new value for property {@link #getHideRetryButton hideRetryButton}.
      *
      * Hides the retry button when `uploadState` property is `Error`.
@@ -13009,6 +13196,22 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
       bHideTerminateButton?: boolean
     ): this;
     /**
+     * Sets a new value for property {@link #getNavigated navigated}.
+     *
+     * The navigated state of the list item. If set to `true`, a navigation indicator is displayed at the end
+     * of the list item.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setNavigated(
+      /**
+       * New value for property `navigated`
+       */
+      bNavigated: boolean
+    ): this;
+    /**
      * Sets a new value for property {@link #getProgress progress}.
      *
      * The upload progress in percentage.
@@ -13028,6 +13231,23 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
       iProgress?: int
     ): this;
     /**
+     * Sets a new value for property {@link #getSelected selected}.
+     *
+     * Defines the selected state of the `ListItem`.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setSelected(
+      /**
+       * New value for property `selected`
+       */
+      bSelected?: boolean
+    ): this;
+    /**
      * Sets the aggregated {@link #getThumbnail thumbnail}.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -13037,6 +13257,27 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
        * The thumbnail to set
        */
       oThumbnail: Control
+    ): this;
+    /**
+     * Sets a new value for property {@link #getType type}.
+     *
+     * Defines the visual indication and behavior of the list items. Available options are `Active` (by default),
+     * `Inactive`, `Detail` and `Navigation`.
+     *
+     *  **Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and
+     * hover, while with type `Inactive` and `Detail` - will not.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Active`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setType(
+      /**
+       * New value for property `type`
+       */
+      sType?: ListItemType | keyof typeof ListItemType
     ): this;
     /**
      * Sets a new value for property {@link #getUploadState uploadState}.
@@ -13061,6 +13302,23 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
 
   export interface $UploadCollectionItemSettings extends $WebComponentSettings {
     /**
+     * An object of strings that defines several additional accessibility attribute values for customization
+     * depending on the use case.
+     *
+     * It supports the following fields:
+     *
+     *
+     * 	 - `ariaSetsize`: Defines the number of items in the current set of listitems or treeitems when not
+     *     all items in the set are present in the DOM. The value of each `aria-setsize` is an integer reflecting
+     *     number of items in the complete set. **Note: ** If the size of the entire set is unknown, set `aria-setsize="-1"`.
+     *
+     * 	 - `ariaPosinset`: Defines an element's number or position in the current set of listitems or treeitems
+     *     when not all items are present in the DOM. The value of each `aria-posinset` is an integer greater than
+     *     or equal to 1, and less than or equal to the size of the set when that size is known.
+     */
+    accessibilityAttributes?: object | PropertyBindingInfo | `{${string}}`;
+
+    /**
      * Disables the delete button.
      */
     disableDeleteButton?: boolean | PropertyBindingInfo | `{${string}}`;
@@ -13081,6 +13339,12 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
     fileNameClickable?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
+     * By default, the delete button will always be shown, regardless of the `sap.ui.webc.fiori.UploadCollection`'s
+     * property `mode`. Setting this property to `true` will hide the delete button.
+     */
+    hideDeleteButton?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
      * Hides the retry button when `uploadState` property is `Error`.
      */
     hideRetryButton?: boolean | PropertyBindingInfo | `{${string}}`;
@@ -13091,11 +13355,34 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
     hideTerminateButton?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
+     * The navigated state of the list item. If set to `true`, a navigation indicator is displayed at the end
+     * of the list item.
+     */
+    navigated?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
      * The upload progress in percentage.
      *
      *  **Note:** Expected values are in the interval [0, 100].
      */
     progress?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the selected state of the `ListItem`.
+     */
+    selected?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the visual indication and behavior of the list items. Available options are `Active` (by default),
+     * `Inactive`, `Detail` and `Navigation`.
+     *
+     *  **Note:** When set to `Active` or `Navigation`, the item will provide visual response upon press and
+     * hover, while with type `Inactive` and `Detail` - will not.
+     */
+    type?:
+      | (ListItemType | keyof typeof ListItemType)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * If set to `Uploading` or `Error`, a progress indicator showing the `progress` is displayed. Also if set
@@ -13113,11 +13400,23 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
     content?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
+     * Defines the delete button, displayed in "Delete" mode. **Note:** While the slot allows custom buttons,
+     * to match design guidelines, please use the `sap.ui.webc.main.Button` component. **Note:** When the slot
+     * is not present, a built-in delete button will be displayed.
+     */
+    deleteButton?: IButton;
+
+    /**
      * A thumbnail, which will be shown in the beginning of the `sap.ui.webc.fiori.UploadCollectionItem`.
      *
      *  **Note:** Use `sap.ui.webc.main.Icon` or `img` for the intended design.
      */
     thumbnail?: Control;
+
+    /**
+     * Fired when the user clicks on the detail button when type is `Detail`.
+     */
+    detailClick?: (oEvent: Event) => void;
 
     /**
      * Fired when the file name is clicked.
@@ -13148,6 +13447,13 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
      */
     terminate?: (oEvent: Event) => void;
   }
+
+  export interface UploadCollectionItem$DetailClickEventParameters {}
+
+  export type UploadCollectionItem$DetailClickEvent = Event<
+    UploadCollectionItem$DetailClickEventParameters,
+    UploadCollectionItem
+  >;
 
   export interface UploadCollectionItem$FileNameClickEventParameters {}
 
@@ -13655,10 +13961,22 @@ declare module "sap/ui/webc/fiori/ViewSettingsDialog" {
     ): ISortItem | null;
     /**
      * Sets a JavaScript object, as settings to the `sap.ui.webc.fiori.ViewSettingsDialog`. This method can
-     * be used after the dialog is initially open, as the dialog need to set its initial settings. The `sap.ui.webc.fiori.ViewSettingsDialog`
-     * throws an event called "before-open", this can be used as trigger point. The object should have the following
-     * format: ` {sortOrder: "Ascending", sortBy: "Name", filters: [{"Filter 1": ["Some filter 1", "Some filter
-     * 2"]}, {"Filter 2": ["Some filter 4"]}]} `
+     * be used after the dialog is initially open, as the dialog needs to set its initial settings.
+     *  The `sap.ui.webc.fiori.ViewSettingsDialog` throws an event called "before-open", which can be used as
+     * a trigger point.
+     *  The object should have the following format:
+     *
+     * ```javascript
+     *
+     * {
+     * 	sortOrder: "Ascending",
+     * 	sortBy: "Name",
+     * 	filters: [
+     * 		{"Filter 1": ["Some filter 1", "Some filter 2"]},
+     * 		{"Filter 2": ["Some filter 4"]},
+     * 	]
+     * }
+     * ```
      */
     setConfirmedSettings(
       /**

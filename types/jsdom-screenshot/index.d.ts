@@ -3,7 +3,7 @@ import { LaunchOptions, Page, ScreenshotOptions, Viewport } from "puppeteer";
 export interface GenerateImageOptions {
     launch?: LaunchOptions | undefined;
     screenshot?: ScreenshotOptions | undefined;
-    serve?: ReadonlyArray<string> | undefined;
+    serve?: readonly string[] | undefined;
     debug?: boolean | undefined;
     waitUntilNetworkIdle?: boolean | undefined;
     viewport?: Viewport | undefined;

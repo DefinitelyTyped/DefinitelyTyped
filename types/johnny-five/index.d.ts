@@ -72,8 +72,181 @@ export class Altimeter {
     on(event: "data", cb: (data: any) => void): this;
 }
 
+export type EasingFnVariant =
+    | "linear"
+    | "inQuad"
+    | "outQuad"
+    | "inOutQuad"
+    | "inCube"
+    | "outCube"
+    | "inOutCube"
+    | "inQuart"
+    | "outQuart"
+    | "inOutQuart"
+    | "inQuint"
+    | "outQuint"
+    | "inOutQuint"
+    | "inSine"
+    | "outSine"
+    | "inOutSine"
+    | "inExpo"
+    | "outExpo"
+    | "inOutExpo"
+    | "inCirc"
+    | "outCirc"
+    | "inOutCirc"
+    | "inBack"
+    | "outBack"
+    | "inOutBack"
+    | "inBounce"
+    | "outBounce"
+    | "inOutBounce";
+export type WithEasing<T> = T & {
+    /**
+     * An easing function from ease-component to apply to the tweened value of the previous and next keyFrames.
+     * See the {@link https://www.npmjs.com/package/ease-component ease-component documentation} for a list of available easing functions (default: "linear")
+     */
+    easing?: EasingFnVariant;
+};
+
+/**
+ * If a single device is being animated, keyFrames may be a single dimensional array.
+ *
+ * If more than one device is being animated it must be 2-dimensional (an array of arrays).
+ * We call this a "keyFrame set". The index of each device in the target maps to the same index in a keyFrame set so the length of the two should be identical.
+ * Each keyFrame array should have an element that maps to each cue point in the cuePoints array.
+ * keyFrames[0][0] for example represents the position of the first device in your animation target at the first cuePoint.
+ *
+ * These may or may not be the same length. If there are fewer elements in a keyFrame array than in the cuePoints array, then the keyFrame array will be right padded with null values.
+ *
+ * Elements in a keyFrame array represent a device's position at the corresponding cuePoint. Positions can be described in a number of ways:
+ */
+export type KeyframeValue =
+    | number
+    | {
+        /**
+         * A number between 0 and 255
+         */
+        brightness: number;
+    }
+    | {
+        /** A number between 0% and 100% */
+        intensity: number;
+    }
+    | null
+    | false
+    | WithEasing<{
+        /** A step in degrees from the previous cuePoint position. */ step: number;
+    }>
+    | WithEasing<{
+        /** The servo position in degrees. (Not relative to the previous cuePoint position) */ degrees: number;
+    }>
+    | WithEasing<{
+        /** An index from this keyFrames array from which we copy the calculated or explicitly set degrees value. */ copyDegrees:
+            number;
+    }>
+    | WithEasing<{
+        /** An index from this keyFrames array from which we copy all of the properties. */ copyFrame: number;
+    }>
+    | WithEasing<{
+        /**  A two or three tuple defining a coordinate in 2d or 3d space. */ position:
+            | [number, number]
+            | [number, number, number];
+    }>;
+
+export interface AnimationSegment {
+    /**
+     * @see {@link KeyframeValue}
+     */
+    keyFrames: KeyframeValue[] | KeyframeValue[][];
+
+    /**
+     * Overrides the target passed when the Animation was created
+     */
+    target?: unknown;
+
+    /**
+     * Duration of the segment in milliseconds.
+     * @default 1000
+     */
+    duration?: number;
+
+    /**
+     * Array of values from 0.0 to 1.0 representing the beginning and end of the animation respectively.
+     * @default [0, 1]
+     */
+    cuePoints?: number[];
+
+    /**
+     * An easing function from ease-component to apply to the playback head on the timeline. See the ease-component docs for a list of available easing functions.
+     * @default "linear"
+     */
+    easing?: EasingFnVariant;
+
+    /**
+     * When true, segment will loop until animation.next() or animation.stop() is called.
+     * @default false
+     */
+    loop?: boolean;
+
+    /**
+     * The cuePoint that the animation will loop back to. If the animation is playing in reverse, this is the point at which the animation will "loop back" to 1.0
+     * @default 0.0
+     */
+    loopback?: number;
+
+    /**
+     * Will play to cuePoint[1] then play in reverse to cuePoint[0]. If the segment is set to loop then the animation will play back and forth until `next()`, `pause()` or `stop()` are called.
+     * @default false
+     */
+    metronomic?: boolean;
+
+    /**
+     * The starting point for the playback head.
+     * @default 0.0
+     */
+    progress?: number;
+
+    /**
+     * Controls the speed of the playback head and scales the calculated duration of this and all subsequent segments until it is changed by another segment or a call to the speed() method.
+     * @default 1.0
+     */
+    currentSpeed?: number;
+
+    /**
+     * The maximum frames per second for the segment.
+     * @default 60
+     */
+    fps?: number;
+
+    /**
+     *  function to execute when segment is started.
+     */
+    onstart?: () => void;
+
+    /**
+     *  function to execute when segment is paused.
+     */
+    onpause?: () => void;
+
+    /**
+     * function to execute when animation is stopped.
+     */
+    onstop?: () => void;
+
+    /**
+     * function to execute when segment is completed.
+     */
+    oncomplete?: () => void;
+
+    /**
+     * function to execute when segment loops.
+     */
+    onloop?: () => void;
+}
+
 export class Animation {
-    constructor(option: Servo | Servo[]);
+    constructor(option: Servo | Servos);
 
     target: number;
     duration: number;
@@ -87,7 +260,7 @@ export class Animation {
     currentSpeed: number;
     fps: number;
 
-    enqueue(segment: any): void;
+    enqueue(segment: AnimationSegment): void;
     play(): void;
     pause(): void;
     stop(): void;
@@ -404,13 +577,13 @@ export class Hygrometer {
     on(event: "data", cb: (data: unknown) => void): this;
 }
 
-// tslint:disable-next-line:interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IMUGeneralOption {
     controller?: string | undefined;
     freq?: number | undefined;
 }
 
-// tslint:disable-next-line:interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IMUMPU6050Option extends IMUGeneralOption {
     address: number;
 }
@@ -536,23 +709,32 @@ export interface LedOption {
 export class Led {
     constructor(option: LedOption["pin"] | LedOption);
 
-    animation: Animation;
-    id: string;
-    isOn: boolean;
-    isRunning: boolean;
-    mode: Pin["mode"];
-    pin: number;
-    value: number;
+    readonly animation: Animation;
+    readonly id: string;
+    readonly isOn: boolean;
+    readonly isRunning: boolean;
+    readonly mode: Pin["mode"];
+    readonly pin: number;
+    readonly value: number;
 
     blink(ms?: number, callback?: () => void): this;
     blink(callback?: () => void): this;
+    /**
+     * A value between 0 and 255 representing the brightness of the led.
+     */
     brightness(val: number): this;
+    /**
+     * @param percentage A value between 0 and 100 representing the brightness of the led in percentage.
+     */
+    intensity(percentage: number): this;
     fade(brightness: number, ms?: number, callback?: () => void): this;
+    fade(animation: AnimationSegment): this;
     fadeIn(ms?: number, callback?: () => void): this;
     fadeOut(ms?: number, callback?: () => void): this;
     off(): this;
     on(): this;
     pulse(ms?: number, callback?: () => void): this;
+    pulse(animation: AnimationSegment): this;
     stop(): this;
     strobe(ms?: number, callback?: () => void): this;
     strobe(callback?: () => void): this;
@@ -749,11 +931,13 @@ export class Piezo {
     readonly mode: number;
     readonly isPlaying: boolean;
 
-    frequency(frequency: number, duration: number): void;
-    play(tune: PiezoTune, cb?: () => void): void;
-    tone(tone: number, duration: number): void;
-    noTone(): void;
-    off(): void;
+    frequency(frequency: number, duration: number): this;
+    note(note: string, duration: number): this;
+    play(tune: PiezoTune, cb?: () => void): this;
+    tone(tone: number, duration: number): this;
+    noTone(): this;
+    off(): this;
+    stop(): this;
 }
 
 export interface PinOption {
@@ -854,7 +1038,7 @@ export class Proximity {
 
 export interface RelayOption {
     pin: number | string;
-    board?: Board;
+    board?: Board | undefined;
     /**
      * @default 'NO'
      */
@@ -907,15 +1091,15 @@ export class Relays {
     [index: number]: Relay;
 
     /**
-     * Open the circuit.
+     * Open the circuits.
      */
     open(): void;
     /**
-     * Close the circuit.
+     * Close the circuits.
      */
     close(): void;
     /**
-     * Toggle the circuit open/close.
+     * Toggle the circuits open/close.
      */
     toggle(): void;
 }
@@ -938,6 +1122,7 @@ export class Sensor {
 
     id: string;
     pin: number | string;
+    freq: number;
     threshold: number;
     readonly boolean: boolean;
     readonly raw: number;
@@ -957,7 +1142,7 @@ export class Sensor {
 
 export interface ServoGeneralOption {
     pin: number | string;
-    board?: Board;
+    board?: Board | undefined;
     range?: number[];
     type?: string;
     startAt?: number;
@@ -971,12 +1156,71 @@ export interface ServoPCA9685Option extends ServoGeneralOption {
 }
 
 export interface ServoSweepOpts {
-    range: number[];
+    range?: [low: number, high: number] | undefined;
     interval?: number | undefined;
     step?: number | undefined;
 }
 
-export class Servo {
+export class ServoMethods {
+    /**
+     * Move a servo horn to specified position in degrees, 0-180 (or whatever the current valid range is).
+     *
+     * If ms is specified, the servo will take that amount of time to move to the position.
+     * If rate is specified, the angle change will be split into distance/rate steps for the ms option.
+     * If the specified angle is the same as the current angle, no commands are sent.
+     */
+    to(degrees: number, ms?: number, rate?: number): void;
+    /**
+     * Set Servo to minimum degrees. Defaults to 0deg, respects explicit range in constructor.
+     */
+    min(): void;
+    /**
+     * Set Servo to maximum degrees. Defaults to 180deg, respects explicit range in constructor.
+     */
+    max(): void;
+    /**
+     * Set Servo to center point.
+     * Defaults to 90deg, respects explicit range.
+     * If ms is specified, the servo will take that amount of time to move to the position. If rate is specified, the angle change will be split into distance/rate steps for the ms option. If the specified angle is the same as the current angle, no commands are sent.
+     */
+    center(ms?: number, rate?: number): void;
+    /**
+     * Set Servo to it's `startAt` position defined in constructor.
+     */
+    home(): void;
+    /**
+     * Sweep the servo between default min and max, repeatedly.
+     */
+    sweep(): void;
+    /**
+     * Sweep the servo between an explicit range, repeatedly.
+     */
+    // tslint:disable-next-line:unified-signatures
+    sweep(range: [low: number, high: number]): void;
+    /**
+     * Sweep the servo between an (optional) explicit range, within an (optional) explicit interval, and (optional) explicit steps (in degrees), repeatedly.
+     */
+    // tslint:disable-next-line:unified-signatures
+    sweep(sweepOpts: ServoSweepOpts): void;
+    /**
+     * Stop a moving servo.
+     */
+    stop(): void;
+    /**
+     * (Continuous only) Move a continuous servo clockwise at speed, 0-1
+     */
+    cw(speed: number): void;
+    /**
+     * (Continuous only) Move a continuous servo counter clockwise at speed, 0-1
+     */
+    ccw(speed: number): void;
+    /**
+     * This is emitted when a timed move is completed. The event won't fire unless a time argument has been passed to the `servo.to` method.
+     */
+    on(event: "move:complete", cb: () => void): this;
+}
+export class Servo extends ServoMethods {
+    static Collection: typeof Servos;
     constructor(option: number | string | ServoGeneralOption);
 
     id: string;
@@ -990,17 +1234,41 @@ export class Servo {
     readonly position: number;
     value: number;
     startAt: number;
+}
 
-    to(degrees: number, ms?: number, rage?: number): void;
-    min(): void;
-    max(): void;
-    center(): void;
-    home(): void;
-    sweep(arg?: number[] | ServoSweepOpts): void;
-    stop(): void;
-    cw(speed: number): void;
-    ccw(speed: number): void;
-    on(event: "move:complete", cb: () => void): this;
+export class Servos extends ServoMethods {
+    /**
+     * An array of pins
+     */
+    // tslint:disable-next-line:unified-signatures
+    constructor(options: Array<Servo["pin"]>);
+
+    /**
+     * Using servo constructor options
+     */
+    // tslint:disable-next-line:unified-signatures
+    constructor(options: ServoGeneralOption[]);
+
+    /**
+     * Using an array of existing servos to join them into a single interface.
+     */
+    // tslint:disable-next-line:unified-signatures
+    constructor(options: Servo[]);
+
+    [index: number]: Servo;
+
+    /**
+     * Open the circuits.
+     */
+    open(): void;
+    /**
+     * Close the circuits.
+     */
+    close(): void;
+    /**
+     * Toggle the circuits open/close.
+     */
+    toggle(): void;
 }
 
 export interface ShiftRegisterOption {

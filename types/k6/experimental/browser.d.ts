@@ -20,6 +20,40 @@ export type Unboxed<Arg> = Arg extends [infer A0, infer A1] ? [Unboxed<A0>, Unbo
     : Arg extends object ? { [Key in keyof Arg]: Unboxed<Arg[Key]> }
     : Arg;
 
+/*
+ * CPUProfile is the mandatory input to be passed into {@link Page}'s
+ * `throttleCPU` method.
+ */
+export interface CPUProfile {
+    /*
+     * rate as a slowdown factor (1 is no throttle, 2 is 2x slowdown, etc).
+     */
+    rate: number;
+}
+
+/*
+ * NetworkProfile is the mandatory input to be passed into {@link Page}'s
+ * `throttleNetwork` method.
+ */
+export interface NetworkProfile {
+    /*
+     * Minimum latency from request sent to response headers received (ms).
+     */
+    latency: number;
+
+    /*
+     * Maximal aggregated download throughput (bytes/sec). -1 disables download
+     * throttling.
+     */
+    download: number;
+
+    /*
+     * Maximal aggregated upload throughput (bytes/sec). -1 disables upload
+     * throttling.
+     */
+    upload: number;
+}
+
 export interface SelectOptionsObject {
     /**
      * Matches by `option.value`.
@@ -546,6 +580,12 @@ export const browser: Browser;
  */
 export interface Browser {
     /**
+     * Closes the current `BrowserContext`. If there is no active
+     * `BrowserContext`, this method will throw an error.
+     */
+    closeContext(): void;
+
+    /**
      * Returns the current `BrowserContext`. There is a 1-to-1 mapping between
      * `Browser` and `BrowserContext`. If no `BrowserContext` has been
      * initialized, it will return null.
@@ -650,7 +690,10 @@ export interface BrowserContext {
     cookies(...urls: string[]): Cookie[];
 
     /**
-     * Clears all permission overrides for the `BrowserContext`.
+     * Clears all permission overrides for the {@link BrowserContext}.
+     * ```js
+     * context.clearPermissions();
+     * ```
      */
     clearPermissions(): void;
 
@@ -660,7 +703,10 @@ export interface BrowserContext {
     close(): void;
 
     /**
-     * Grants specified permissions to the `BrowserContext`.
+     * Grants specified permissions to the {@link BrowserContext}.
+     * ```js
+     * context.grantPermissions(['geolocation']);
+     * ```
      */
     grantPermissions(
         /**
@@ -741,40 +787,55 @@ export interface BrowserContext {
 
     /**
      * Waits for the event to fire and passes its value into the predicate
-     * function.
+     * function. Currently the only supported event is 'page' which when used will
+     * return the new {@link Page} that was created after `waitForEvent` was called.
+     *
+     * @example
+     * ```js
+     * // Call waitForEvent with a predicate which will return true once at least
+     * // one page has been created.
+     * const promise = context.waitForEvent("page", { predicate: page => {
+     *   if (++counter >= 1) {
+     *     return true
+     *   }
+     *   return false
+     * } })
+     *
+     * // Now we create a page.
+     * const page = context.newPage()
+     *
+     * // Wait for the predicate to pass.
+     * await promise
+     * ```
      */
     waitForEvent(
         /**
-         * Name of event to wait for.
-         *
-         * NOTE: Currently this argument is disregarded, and waitForEvent will
-         * always wait for 'close' or 'page' events.
+         * Name of event to wait for. The only supported event is 'page'. If any
+         * other value is used an error will be thrown.
          */
-        event: string,
+        event: "page",
         /**
-         * The `Page` or null event data will be passed to it and it must
-         * return true to continue.
+         * This is an optional argument. It can either be a predicate function or
+         * an options object.
          */
-        optionsOrPredicate: {
+        optionsOrPredicate?: {
             /**
-             * Function that will be called when the 'Page' event is emitted.
-             * The event data will be passed to it and it must return true
+             * Optional function that will be called when the {@link Page} event is
+             * emitted. The event data will be passed to it and it must return true
              * to continue.
              *
-             * If `Page` is passed to predicate, this signals that a new page
+             * If {@link Page} is passed to predicate, this signals that a new page
              * has been created.
-             * If null is passed to predicate, this signals that the page is
-             * closing.
              */
-            predicate: (page: Page | null) => boolean;
+            predicate?: (page: Page) => boolean;
 
             /**
-             * Maximum time to wait in milliseconds. Pass 0 to disable timeout.
-             * Defaults to 30000 milliseconds.
+             * Maximum time to wait in milliseconds. Defaults to 30000 milliseconds or
+             * the timeout set by setDefaultTimeout on the {@link BrowserContext}.
              */
             timeout?: number;
-        },
-    ): Page | null;
+        } | ((page: Page) => boolean),
+    ): Promise<Page>;
 }
 
 /**
@@ -1408,7 +1469,7 @@ export interface Frame {
      * @param options The options to use.
      * @returns `true` if the element is hidden, `false` otherwise.
      */
-    isHidden(selector: string, options?: TimeoutOptions & StrictnessOptions): boolean;
+    isHidden(selector: string, options?: StrictnessOptions): boolean;
 
     /**
      * Get whether the first element found that matches the selector is visible or not.
@@ -1416,7 +1477,7 @@ export interface Frame {
      * @param options The options to use.
      * @returns `true` if the element is visible, `false` otherwise.
      */
-    isVisible(selector: string, options?: TimeoutOptions & StrictnessOptions): boolean;
+    isVisible(selector: string, options?: StrictnessOptions): boolean;
 
     /**
      * Wait for the given function to return a truthy value.
@@ -1564,36 +1625,50 @@ export interface Keyboard {
  */
 export interface Locator {
     /**
+     * Clears text boxes and input fields of any existing values.
+     *
+     * **Usage**
+     *
+     * ```js
+     * // Clears the input field matching the selector.
+     * page.locator('input[name="login"]').clear();
+     * ```
+     *
+     * @param options Options to use.
+     */
+    clear(options?: ElementHandleOptions): void;
+
+    /**
      * Mouse click on the chosen element.
      * @param options Options to use.
      * @returns Promise which resolves when the element is successfully clicked.
      */
-    click(options?: MouseMoveOptions & MouseMultiClickOptions & StrictnessOptions): Promise<void>;
+    click(options?: MouseMoveOptions & MouseMultiClickOptions): Promise<void>;
 
     /**
      * Mouse double click on the chosen element.
      * @param options Options to use.
      */
-    dblclick(options?: MouseMoveOptions & MouseMultiClickOptions & StrictnessOptions): void;
+    dblclick(options?: MouseMoveOptions & MouseMultiClickOptions): void;
 
     /**
      * Use this method to select an `input type="checkbox"`.
      * @param options Options to use.
      */
-    check(options?: ElementClickOptions & StrictnessOptions): void;
+    check(options?: ElementClickOptions): void;
 
     /**
      * Use this method to unselect an `input type="checkbox"`.
      * @param options Options to use.
      */
-    uncheck(options?: ElementClickOptions & StrictnessOptions): void;
+    uncheck(options?: ElementClickOptions): void;
 
     /**
      * Checks to see if the `input type="checkbox"` is selected or not.
      * @param options Options to use.
      * @returns `true` if the element is checked, `false` otherwise.
      */
-    isChecked(options?: TimeoutOptions & StrictnessOptions): boolean;
+    isChecked(options?: TimeoutOptions): boolean;
 
     /**
      * Checks if the element is editable.
@@ -1607,41 +1682,39 @@ export interface Locator {
      * @param options Options to use.
      * @returns `true` if the element is enabled, `false` otherwise.
      */
-    isEnabled(options?: TimeoutOptions & StrictnessOptions): boolean;
+    isEnabled(options?: TimeoutOptions): boolean;
 
     /**
      * Checks if the element is `disabled`.
      * @param options Options to use.
      * @returns `true` if the element is disabled, `false` otherwise.
      */
-    isDisabled(options?: TimeoutOptions & StrictnessOptions): boolean;
+    isDisabled(options?: TimeoutOptions): boolean;
 
     /**
      * Checks if the element is `visible`.
-     * @param options Options to use.
      * @returns `true` if the element is visible, `false` otherwise.
      */
-    isVisible(options?: TimeoutOptions & StrictnessOptions): boolean;
+    isVisible(): boolean;
 
     /**
      * Checks if the element is `hidden`.
-     * @param options Options to use.
      * @returns `true` if the element is hidden, `false` otherwise.
      */
-    isHidden(options?: TimeoutOptions & StrictnessOptions): boolean;
+    isHidden(): boolean;
 
     /**
      * Fill an `input`, `textarea` or `contenteditable` element with the provided value.
      * @param value Value to fill for the `input` or `textarea` element.
      * @param options Options to use.
      */
-    fill(value: string, options?: ElementHandleOptions & StrictnessOptions): void;
+    fill(value: string, options?: ElementHandleOptions): void;
 
     /**
      * Focuses the element using locator's selector.
      * @param options Options to use.
      */
-    focus(options?: TimeoutOptions & StrictnessOptions): void;
+    focus(options?: TimeoutOptions): void;
 
     /**
      * Returns the element attribute value for the given attribute name.
@@ -1649,35 +1722,35 @@ export interface Locator {
      * @param options Options to use.
      * @returns Attribute value.
      */
-    getAttribute(name: string, options?: TimeoutOptions & StrictnessOptions): string | null;
+    getAttribute(name: string, options?: TimeoutOptions): string | null;
 
     /**
      * Returns the `element.innerHTML`.
      * @param options Options to use.
      * @returns Element's innerHTML.
      */
-    innerHTML(options?: TimeoutOptions & StrictnessOptions): string;
+    innerHTML(options?: TimeoutOptions): string;
 
     /**
      * Returns the `element.innerText`.
      * @param options Options to use.
      * @returns Element's innerText.
      */
-    innerText(options?: TimeoutOptions & StrictnessOptions): string;
+    innerText(options?: TimeoutOptions): string;
 
     /**
      * Returns the `element.textContent`.
      * @param options Options to use.
      * @returns Element's textContent.
      */
-    textContent(options?: TimeoutOptions & StrictnessOptions): string;
+    textContent(options?: TimeoutOptions): string;
 
     /**
      * Returns `input.value` for the selected `input`, `textarea` or `select` element.
      * @param options Options to use.
      * @returns The input value of the element.
      */
-    inputValue(options?: TimeoutOptions & StrictnessOptions): string;
+    inputValue(options?: TimeoutOptions): string;
 
     /**
      * Select one or more options which match the values. If the select has the multiple attribute, all matching options are selected,
@@ -1688,7 +1761,7 @@ export interface Locator {
      */
     selectOption(
         values: string | string[] | { value?: string; label?: string; index?: number },
-        options?: ElementHandleOptions & StrictnessOptions,
+        options?: ElementHandleOptions,
     ): string[];
 
     /**
@@ -1710,13 +1783,13 @@ export interface Locator {
      * Hover over the element.
      * @param options Options to use.
      */
-    hover(options?: MouseMoveOptions & StrictnessOptions): void;
+    hover(options?: MouseMoveOptions): void;
 
     /**
      * Tap on the chosen element.
      * @param options Options to use.
      */
-    tap(options?: MouseMoveOptions & StrictnessOptions): void;
+    tap(options?: MouseMoveOptions): void;
 
     /**
      * Dispatches HTML DOM event types e.g. `click`.
@@ -1724,13 +1797,13 @@ export interface Locator {
      * @param eventInit Event-specific properties.
      * @param options Options to use.
      */
-    dispatchEvent(type: string, eventInit?: EvaluationArgument, options?: TimeoutOptions & StrictnessOptions): void;
+    dispatchEvent(type: string, eventInit?: EvaluationArgument, options?: TimeoutOptions): void;
 
     /**
      * Wait for the element to be in a particular state e.g. `visible`.
      * @param options Wait options.
      */
-    waitFor(options?: { state?: ElementState } & TimeoutOptions & StrictnessOptions): void;
+    waitFor(options?: { state?: ElementState } & TimeoutOptions): void;
 }
 
 /**
@@ -2520,7 +2593,7 @@ export interface Page {
     ): boolean;
 
     /**
-     * **NOTE** Use locator-based locator.isHidden([options]) instead.
+     * **NOTE** Use locator-based locator.isHidden() instead.
      *
      * Returns whether the element is hidden.
      *
@@ -2528,29 +2601,10 @@ export interface Page {
      * elements satisfying the selector, the first will be used.
      * @param options
      */
-    isHidden(
-        selector: string,
-        options?: {
-            /**
-             * When `true`, the call requires selector to resolve to a single element.
-             * If given selector resolves to more than one element, the call throws
-             * an exception. Defaults to `false`.
-             */
-            strict?: boolean;
-
-            /**
-             * Maximum time in milliseconds. Defaults to `30` seconds. Default is
-             * overridden by the `setDefaultTimeout` option on `BrowserContext` or
-             * `page` methods.
-             *
-             * Setting the value to `0` will disable the timeout.
-             */
-            timeout?: number;
-        },
-    ): boolean;
+    isHidden(selector: string, options?: StrictnessOptions): boolean;
 
     /**
-     * **NOTE** Use locator-based locator.isVisible([options]) instead.
+     * **NOTE** Use locator-based locator.isVisible() instead.
      *
      * Returns whether the element is visible.
      *
@@ -2558,26 +2612,7 @@ export interface Page {
      * elements satisfying the selector, the first will be used.
      * @param options
      */
-    isVisible(
-        selector: string,
-        options?: {
-            /**
-             * When `true`, the call requires selector to resolve to a single element.
-             * If given selector resolves to more than one element, the call throws
-             * an exception. Defaults to `false`.
-             */
-            strict?: boolean;
-
-            /**
-             * Maximum time in milliseconds. Defaults to `30` seconds. Default is
-             * overridden by the `setDefaultTimeout` option on `BrowserContext` or
-             * `page` methods.
-             *
-             * Setting the value to `0` will disable the timeout.
-             */
-            timeout?: number;
-        },
-    ): boolean;
+    isVisible(selector: string, options?: StrictnessOptions): boolean;
 
     /**
      * Returns the keyboard instance to interact with a virtual keyboard on the
@@ -2991,6 +3026,55 @@ export interface Page {
             timeout?: number;
         },
     ): string;
+
+    /**
+     * Throttles the CPU in Chrome/Chromium to slow it down by the specified
+     * `rate` in {@link CPUProfile}. {@link CPUProfile} is a mandatory
+     * input argument. The default `rate` is `1`.
+     *
+     * **Usage**
+     *
+     * ```js
+     * page.throttleCPU({ rate: 4 });
+     * ```
+     */
+    throttleCPU(profile: CPUProfile): void;
+
+    /**
+     * Throttles the network in Chrome/Chromium to slow it down by the specified
+     * fields in {@link NetworkProfile}. {@link NetworkProfile} is a mandatory
+     * input argument.
+     *
+     * **Usage**
+     *
+     * ```js
+     * page.throttleNetwork({
+     *   latency: 750,
+     *   download: 250,
+     *   upload: 250,
+     * });
+     * ```
+     *
+     * To work with the most commonly tested network profiles, import `networkProfiles`
+     * from the browser module. There are three profiles available:
+     * - `'No Throttling'` (default)
+     * - `'Fast 3G'`
+     * - `'Slow 3G'`
+     *
+     * **Usage**
+     *
+     * ```js
+     * import { browser, networkProfiles } from 'k6/experimental/browser';
+     * ... // redacted
+     *   const context = browser.newContext();
+     *   const page = context.newPage();
+     *
+     *   try {
+     *     page.throttleNetwork(networkProfiles['Slow 3G']);
+     * ... // redacted
+     * ```
+     */
+    throttleNetwork(profile: NetworkProfile): void;
 
     /**
      * Returns the page's title.

@@ -1602,7 +1602,7 @@ declare module "util" {
          * Each item of the iterator is a JavaScript `Array`. The first item of the array
          * is the `name`, the second item of the array is the `value`.
          */
-        entries(): IterableIterator<[string, string]>;
+        entries(): IterableIterator<[name: string, value: string]>;
         /**
          * Returns the value of the first name-value pair whose name is `name`. If there
          * are no such pairs, `null` is returned.
@@ -1653,9 +1653,6 @@ declare module "util" {
          */
         [Symbol.iterator]: typeof MIMEParams.prototype.entries;
     }
-}
-declare module "util/types" {
-    export * from "util/types";
 }
 declare module "util/types" {
     import { KeyObject, webcrypto } from "node:crypto";

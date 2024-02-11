@@ -418,11 +418,11 @@ async function testPromisify() {
 {
     fs.writev(
         1,
-        [Buffer.from("123")] as ReadonlyArray<NodeJS.ArrayBufferView>,
+        [Buffer.from("123")] as readonly NodeJS.ArrayBufferView[],
         (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => {
         },
     );
-    const bytesWritten = fs.writevSync(1, [Buffer.from("123")] as ReadonlyArray<NodeJS.ArrayBufferView>);
+    const bytesWritten = fs.writevSync(1, [Buffer.from("123")] as readonly NodeJS.ArrayBufferView[]);
 }
 
 (async () => {
@@ -538,6 +538,7 @@ async function testPromisify() {
     fs.createWriteStream("./index.d.ts", { encoding: "utf8" });
     // @ts-expect-error
     fs.createWriteStream("./index.d.ts", { encoding: "invalid encoding" });
+    fs.createWriteStream("./index.d.ts", { fs: { write: fs.write } });
 
     fs.createReadStream("./index.d.ts");
     fs.createReadStream("./index.d.ts", "utf8");
@@ -546,6 +547,7 @@ async function testPromisify() {
     fs.createReadStream("./index.d.ts", { encoding: "utf8" });
     // @ts-expect-error
     fs.createReadStream("./index.d.ts", { encoding: "invalid encoding" });
+    fs.createReadStream("./index.d.ts", { fs: { read: fs.read } });
 }
 
 (async () => {
@@ -570,10 +572,10 @@ async function testPromisify() {
 }
 
 {
-    fs.readvSync(123, [Buffer.from("wut")] as ReadonlyArray<NodeJS.ArrayBufferView>);
+    fs.readvSync(123, [Buffer.from("wut")] as readonly NodeJS.ArrayBufferView[]);
     fs.readv(
         123,
-        [Buffer.from("wut")] as ReadonlyArray<NodeJS.ArrayBufferView>,
+        [Buffer.from("wut")] as readonly NodeJS.ArrayBufferView[],
         123,
         (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => {
         },
@@ -754,6 +756,57 @@ async function testStat(
 const bigStats: fs.BigIntStats = fs.statSync(".", { bigint: true });
 const bigIntStat: bigint = bigStats.atimeNs;
 const anyStats: fs.Stats | fs.BigIntStats = fs.statSync(".", { bigint: Math.random() > 0.5 });
+
+async function testStatfs(
+    path: fs.PathLike,
+    opts: fs.StatFsOptions,
+    bigintMaybeFalse: fs.StatFsOptions & { bigint: false } | undefined,
+    bigintMaybeTrue: fs.StatFsOptions & { bigint: true } | undefined,
+) {
+    // Callback mode
+    fs.statfs(path, (err, st: fs.StatsFs) => {});
+    fs.statfs(path, undefined, (err, st: fs.StatsFs) => {});
+    fs.statfs(path, {}, (err, st: fs.StatsFs) => {});
+    fs.statfs(path, { bigint: true }, (err, st: fs.BigIntStatsFs) => {});
+    fs.statfs(path, { bigint: false }, (err, st: fs.StatsFs) => {});
+    fs.statfs(path, bigintMaybeTrue, (err, st) => {
+        st; // $ExpectType StatsFs | BigIntStatsFs
+    });
+    fs.statfs(path, bigintMaybeFalse, (err, st) => {
+        st; // $ExpectType StatsFs
+    });
+
+    // Sync mode
+    fs.statfsSync(path); // $ExpectType StatsFs
+    fs.statfsSync(path, undefined); // $ExpectType StatsFs
+    fs.statfsSync(path, {}); // $ExpectType StatsFs
+    fs.statfsSync(path, bigintMaybeTrue); // $ExpectType StatsFs | BigIntStatsFs
+    fs.statfsSync(path, bigintMaybeFalse); // $ExpectType StatsFs
+    fs.statfsSync(path, { bigint: true }); // $ExpectType BigIntStatsFs
+    fs.statfsSync(path, { bigint: false }); // $ExpectType StatsFs
+
+    // Promisify mode
+    util.promisify(fs.statfs)(path); // $ExpectType Promise<StatsFs>
+    util.promisify(fs.statfs)(path, undefined); // $ExpectType Promise<StatsFs>
+    util.promisify(fs.statfs)(path, {}); // $ExpectType Promise<StatsFs>
+    util.promisify(fs.statfs)(path, { bigint: true }); // $ExpectType Promise<BigIntStatsFs>
+    util.promisify(fs.statfs)(path, { bigint: false }); // $ExpectType Promise<StatsFs>
+    util.promisify(fs.statfs)(path, bigintMaybeTrue); // $ExpectType Promise<StatsFs | BigIntStatsFs>
+    util.promisify(fs.statfs)(path, bigintMaybeFalse); // $ExpectType Promise<StatsFs>
+
+    // fs.promises mode
+    fs.promises.statfs(path); // $ExpectType Promise<StatsFs>
+    fs.promises.statfs(path, undefined); // $ExpectType Promise<StatsFs>
+    fs.promises.statfs(path, {}); // $ExpectType Promise<StatsFs>
+    fs.promises.statfs(path, { bigint: false }); // $ExpectType Promise<StatsFs>
+    fs.promises.statfs(path, { bigint: true }); // $ExpectType Promise<BigIntStatsFs>
+    fs.promises.statfs(path, bigintMaybeTrue); // $ExpectType Promise<StatsFs | BigIntStatsFs>
+    fs.promises.statfs(path, bigintMaybeFalse); // $ExpectType Promise<StatsFs>
+}
+
+const bigStatFs: fs.BigIntStatsFs = fs.statfsSync(".", { bigint: true });
+const bigIntStatFs: bigint = bigStatFs.bfree;
+const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Math.random() > 0.5 });
 
 {
     watchAsync("y33t"); // $ExpectType AsyncIterable<FileChangeInfo<string>>

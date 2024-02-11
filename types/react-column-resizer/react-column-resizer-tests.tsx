@@ -1,6 +1,5 @@
 import * as React from "react";
 import ColumnResizer from "react-column-resizer";
-import { render } from "react-dom";
 
 class TableComponent extends React.Component {
     render() {
@@ -26,4 +25,4 @@ class TableComponent extends React.Component {
     }
 }
 
-render(<TableComponent />, document.getElementById("main"));
+<TableComponent />;

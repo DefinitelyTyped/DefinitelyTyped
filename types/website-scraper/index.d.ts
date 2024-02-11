@@ -23,7 +23,7 @@ declare namespace websiteScraper {
     }
 
     interface Options {
-        urls: (string | Url)[];
+        urls: Array<string | Url>;
         directory: string;
         urlFilter?: ((url: string) => boolean) | undefined;
         filenameGenerator?: string | undefined;

@@ -141,12 +141,14 @@ export interface Renderer {
         element: React.ReactElement<P>,
         container: Element | null,
         callback?: () => void,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): React.Component<P, React.ComponentState> | Element | void;
 
     (
         element: React.ReactElement[],
         container: Element | null,
         callback?: () => void,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): React.Component<any, React.ComponentState> | Element | void;
 
     (

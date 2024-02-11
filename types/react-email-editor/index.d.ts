@@ -131,6 +131,15 @@ export interface UnlayerOptions {
     readonly features?: Features | undefined;
     readonly translations?: Translations | undefined;
     readonly displayConditions?: DisplayCondition[] | undefined;
+    readonly tabs?: {
+        [tabName: string]: {
+            enabled?: boolean;
+            type?: string;
+            position?: number;
+            icon?: string;
+            active?: boolean;
+        };
+    };
 }
 
 export interface EmailEditorProps {
@@ -196,7 +205,7 @@ export default class Component extends ReactComponent<EmailEditorProps> {
     loadDesign(design: Design): void;
     saveDesign(callback: SaveDesignCallback): void;
     exportHtml(callback: ExportHtmlCallback, type?: HtmlOptions): void;
-    setMergeTags(mergeTags: ReadonlyArray<MergeTag>): void;
+    setMergeTags(mergeTags: readonly MergeTag[]): void;
 }
 
 export {};

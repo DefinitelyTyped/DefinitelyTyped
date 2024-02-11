@@ -28,7 +28,6 @@ declare module "os" {
     }
     interface NetworkInterfaceInfoIPv4 extends NetworkInterfaceBase {
         family: "IPv4";
-        scopeid?: undefined;
     }
     interface NetworkInterfaceInfoIPv6 extends NetworkInterfaceBase {
         family: "IPv6";

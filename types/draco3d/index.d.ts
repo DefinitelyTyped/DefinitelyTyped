@@ -136,19 +136,19 @@ export interface DracoArray {
     GetValue: (index: number) => number;
 }
 
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DracoFloat32Array extends DracoArray {}
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DracoInt8Array extends DracoArray {}
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DracoInt16Array extends DracoArray {}
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DracoInt32Array extends DracoArray {}
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DracoUInt8Array extends DracoArray {}
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DracoUInt16Array extends DracoArray {}
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DracoUInt32Array extends DracoArray {}
 
 export interface Status {
@@ -160,13 +160,13 @@ export interface Attribute {
     num_components: () => number;
 }
 
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export enum GeometryType {}
 
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export enum GeometryAttributeType {}
 
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export enum DataType {}
 
 export interface PointCloud {

@@ -12,7 +12,7 @@ type Flattened<R> = {
     value: R;
     stream: R extends Highland.Stream<infer U> ? Flattened<U> : never;
     array: R extends Array<infer U> ? Flattened<U> : never;
-}[R extends Array<any> ? "array" : R extends Highland.Stream<any> ? "stream" : "value"];
+}[R extends any[] ? "array" : R extends Highland.Stream<any> ? "stream" : "value"];
 
 // Describes a constructor for a particular promise library
 interface PConstructor<T, P extends PromiseLike<T>> {
@@ -141,6 +141,22 @@ interface HighlandStatic {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     /**
+     * Creates a stream that sends a single error then ends.
+     *
+     * @id fromError
+     * @section Utils
+     * @name _.fromError(err)
+     * @param error - the error to send
+     * @returns Stream
+     * @api public
+     *
+     * _.fromError(new Error('Single Error')).toCallback(function (err, result) {
+     *     // err contains Error('Single Error') object
+     * }
+     */
+    fromError<R>(error: unknown): Highland.Stream<R>;
+
+    /**
      * Returns true if `x` is the end of stream marker.
      *
      * @id isNil
@@ -189,6 +205,20 @@ interface HighlandStatic {
      * @api public
      */
     nil: Highland.Nil;
+
+    /**
+     * Creates a stream that sends a single value then ends.
+     *
+     * @id of
+     * @section Utils
+     * @name _.of(x)
+     * @param x - the value to send
+     * @returns Stream
+     * @api public
+     *
+     * _.of(1).toArray(_.log); // => [1]
+     */
+    of<R>(x: R): Highland.Stream<R>;
 
     /**
      * Wraps a node-style async function which accepts a callback, transforming
@@ -601,7 +631,7 @@ declare namespace Highland {
          * @name Stream.compact()
          * @api public
          */
-        compact(): Stream<R>;
+        compact(): Stream<NonNullable<R>>;
 
         /**
          * Consumes values from a Stream (once resumed) and returns a new Stream for
@@ -1616,6 +1646,7 @@ declare namespace Highland {
         onDestroy?: Function | undefined;
         continueOnError?: boolean | undefined;
     }
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type OnFinished = (r: NodeJS.ReadableStream, cb: (...args: any[]) => void) => void | Function | CleanupObject;
 }
 

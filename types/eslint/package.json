@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/eslint",
-    "version": "8.44.9999",
+    "version": "8.56.9999",
     "projects": [
         "https://eslint.org"
     ],

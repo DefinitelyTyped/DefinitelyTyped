@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/snowpack-env",
     "version": "2.3.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "snowpack-env",
     "projects": [
         "https://github.com/pikapkg/snowpack#readme"
     ],

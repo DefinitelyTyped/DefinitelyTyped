@@ -1,4 +1,4 @@
-import { Matrix4, Vector3 } from '../../../src/Three.js';
+import { Matrix4, Vector3 } from "../../../src/Three.js";
 
 export interface CSMFrustumVerticies {
     near: Vector3[];

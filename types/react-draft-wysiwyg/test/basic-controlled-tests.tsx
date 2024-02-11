@@ -1,7 +1,6 @@
 // From https://github.com/jpuri/react-draft-wysiwyg/blob/master/stories/
 
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import { Editor, EditorState } from "react-draft-wysiwyg";
 
 class BasicControlled extends React.Component<{}, { editorState: EditorState }> {
@@ -28,5 +27,3 @@ class BasicControlled extends React.Component<{}, { editorState: EditorState }> 
         this.setState({ editorState });
     }
 }
-
-ReactDOM.render(<BasicControlled />, document.getElementById("target"));

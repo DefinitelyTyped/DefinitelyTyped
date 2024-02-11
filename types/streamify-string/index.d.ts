@@ -2,7 +2,7 @@
 
 import { Readable } from "stream";
 
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Streamify extends Readable {}
 interface StreamifyConstructor {
     new(str: string, options?: any): Streamify;

@@ -10,7 +10,7 @@ let diff: semver.ReleaseType | null;
 const op: semver.Operator = "";
 declare const arr: any[];
 declare const exp: RegExp;
-let strArr: ReadonlyArray<string> | null;
+let strArr: readonly string[] | null;
 let strNumArr: ReadonlyArray<string | number>;
 declare const numArr: string[];
 let comparatorResult: -1 | 0 | 1;
@@ -144,8 +144,8 @@ bool = range.test(ver);
 bool = range.intersects(new semver.Range(""));
 bool = range.intersects(new semver.Range(""), bool);
 
-let sets: ReadonlyArray<ReadonlyArray<semver.Comparator>>;
+let sets: ReadonlyArray<readonly semver.Comparator[]>;
 sets = range.set;
 
-let lims: ReadonlyArray<semver.Comparator>;
+let lims: readonly semver.Comparator[];
 lims = range.parseRange(str);

@@ -356,6 +356,21 @@ export interface PossibleErrors extends Linter.RulesRecord {
     "no-obj-calls": Linter.RuleEntry<[]>;
 
     /**
+     * Rule to disallow returning values from Promise executor functions.
+     *
+     * @since 7.3.0
+     * @see https://eslint.org/docs/rules/no-promise-executor-return
+     */
+    "no-promise-executor-return": Linter.RuleEntry<[
+        {
+            /**
+             * @default false
+             */
+            allowVoid?: boolean;
+        },
+    ]>;
+
+    /**
      * Rule to disallow use of `Object.prototypes` builtins directly.
      *
      * @remarks

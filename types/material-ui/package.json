@@ -13,7 +13,6 @@
     "devDependencies": {
         "@types/material-ui": "workspace:.",
         "@types/prop-types": "*",
-        "@types/react-dom": "*",
         "@types/react-tap-event-plugin": "*"
     },
     "owners": [

@@ -79,7 +79,7 @@ export function raw(sql: string): {
 export interface Connection extends EscapeFunctions, events.EventEmitter {
     config: ConnectionConfig;
 
-    state: "connected" | "authenticated" | "disconnected" | "protocol_error" | string;
+    state: "connected" | "authenticated" | "disconnected" | "protocol_error" | (string & {});
 
     threadId: number | null;
 

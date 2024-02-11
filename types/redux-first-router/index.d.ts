@@ -322,6 +322,7 @@ export function isLocationAction(action: any): boolean;
 
 export function next(): void;
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export function nextPath(): string | void;
 
 export function pathToAction<TKeys = {}, TState = any>(
@@ -330,6 +331,7 @@ export function pathToAction<TKeys = {}, TState = any>(
     querySerializer?: QuerySerializer,
 ): ReceivedAction;
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export function prevPath(): string | void;
 
 export function push(pathname: string): void;
@@ -338,6 +340,7 @@ export function redirect(action: Action): Action;
 
 export function replace(pathname: string): void;
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export function scrollBehavior(): ScrollBehavior | void;
 
 export function setKind(action: Action, kind: string): Action;

@@ -23,7 +23,7 @@ export interface LogcatOpts {
      * If not specified on the commandline, filterspec is set from ANDROID_LOG_TAGS.
      * If no filterspec is found, filter defaults to '*:I'
      */
-    filterSpecs?: string | ReadonlyArray<string>;
+    filterSpecs?: string | readonly string[];
 }
 
 export interface Log {

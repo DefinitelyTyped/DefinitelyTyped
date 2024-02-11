@@ -1,7 +1,7 @@
-import { ColorRepresentation } from '../math/Color.js';
-import { LineSegments } from './../objects/LineSegments.js';
-import { BufferGeometry } from '../core/BufferGeometry.js';
-import { LineBasicMaterial } from '../materials/LineBasicMaterial.js';
+import { BufferGeometry } from "../core/BufferGeometry.js";
+import { LineBasicMaterial } from "../materials/LineBasicMaterial.js";
+import { ColorRepresentation } from "../math/Color.js";
+import { LineSegments } from "../objects/LineSegments.js";
 
 /**
  * The {@link GridHelper} is an object to define grids
@@ -36,7 +36,7 @@ export class GridHelper extends LineSegments<BufferGeometry, LineBasicMaterial> 
      * @override
      * @defaultValue `GridHelper`
      */
-    override readonly type: string | 'GridHelper';
+    override readonly type: string | "GridHelper";
 
     /**
      * Frees the GPU-related resources allocated by this instance

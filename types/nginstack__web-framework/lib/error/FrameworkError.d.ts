@@ -5,5 +5,5 @@ declare class FrameworkError {
     private _name;
 }
 declare namespace FrameworkError {
-    const TIMEOUT: number;
+    let TIMEOUT: number;
 }

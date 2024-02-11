@@ -42,8 +42,8 @@ declare module "epub" {
         metadata: Object;
         manifest: Object;
         spine: Object;
-        flow: Array<Object>;
-        toc: Array<TocElement>;
+        flow: Object[];
+        toc: TocElement[];
 
         parse(): void;
 

@@ -13,6 +13,7 @@ declare namespace SQLitePlugin {
     type TransactionStatementSuccessCallback = (tx: Transaction, results: Results) => void;
 
     type ErrorCallback = (err: Error) => void;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type TransactionStatementErrorCallback = (tx: Transaction, err: Error) => boolean | void;
 
     interface OpenArgs {

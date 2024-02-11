@@ -57,8 +57,10 @@ declare class RabbitMQSchema {
 
     validateMessage<T>(exchangeName: string, routingPattern: string, message: T): T;
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     getQueueByName(name: string): Queue | void;
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     getExchangeByName(name: string): Exchange | void;
 }
 

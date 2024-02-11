@@ -723,6 +723,7 @@ export class Formatter implements Formatter {
 }
 
 export interface Shortcuts {
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     add(pattern: string, desc: string, cmdFunc: () => void | string, scope?: {}): boolean;
 
     remove(pattern: string): boolean;

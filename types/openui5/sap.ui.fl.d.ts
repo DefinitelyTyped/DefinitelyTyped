@@ -1,4 +1,4 @@
-// For Library Version: 1.119.0
+// For Library Version: 1.120.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -1276,6 +1276,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
 }
 
 declare module "sap/ui/fl/write/_internal/fieldExtensibility/ABAPExtensibilityVariant" {
+  import BaseObject from "sap/ui/base/Object";
+
   import Metadata from "sap/ui/base/Metadata";
 
   /**
@@ -1284,7 +1286,7 @@ declare module "sap/ui/fl/write/_internal/fieldExtensibility/ABAPExtensibilityVa
    * Abstraction providing an API to handle an ABAP extension variant. Serves also as base class and dummy
    * implementation.
    */
-  interface ABAPExtensibilityVariant {
+  interface ABAPExtensibilityVariant extends BaseObject {
     /**
      * Creates a new subclass of class sap.ui.fl.write._internal.fieldExtensibility.ABAPExtensibilityVariant
      * with name `sClassName` and enriches it with the information contained in `oClassInfo`.
@@ -1320,6 +1322,8 @@ declare module "sap/ui/fl/write/_internal/fieldExtensibility/ABAPExtensibilityVa
 }
 
 declare module "sap/ui/fl/write/_internal/fieldExtensibility/MultiTenantABAPExtensibilityVariant" {
+  import ABAPExtensibilityVariant from "sap/ui/fl/write/_internal/fieldExtensibility/ABAPExtensibilityVariant";
+
   import Metadata from "sap/ui/base/Metadata";
 
   /**
@@ -1327,7 +1331,8 @@ declare module "sap/ui/fl/write/_internal/fieldExtensibility/MultiTenantABAPExte
    *
    * Extension variant for ABAP multi tenant environments (via so called Predefined Fields)
    */
-  interface MultiTenantABAPExtensibilityVariant {
+  interface MultiTenantABAPExtensibilityVariant
+    extends ABAPExtensibilityVariant {
     /**
      * Creates a new subclass of class sap.ui.fl.write._internal.fieldExtensibility.MultiTenantABAPExtensibilityVariant
      * with name `sClassName` and enriches it with the information contained in `oClassInfo`.
@@ -1363,6 +1368,8 @@ declare module "sap/ui/fl/write/_internal/fieldExtensibility/MultiTenantABAPExte
 }
 
 declare module "sap/ui/fl/write/_internal/fieldExtensibility/SingleTenantABAPExtensibilityVariant" {
+  import ABAPExtensibilityVariant from "sap/ui/fl/write/_internal/fieldExtensibility/ABAPExtensibilityVariant";
+
   import Metadata from "sap/ui/base/Metadata";
 
   /**
@@ -1370,7 +1377,8 @@ declare module "sap/ui/fl/write/_internal/fieldExtensibility/SingleTenantABAPExt
    *
    * Extension variant for ABAP single tenant environnments (via so called Custom Fields)
    */
-  interface SingleTenantABAPExtensibilityVariant {
+  interface SingleTenantABAPExtensibilityVariant
+    extends ABAPExtensibilityVariant {
     /**
      * Creates a new subclass of class sap.ui.fl.write._internal.fieldExtensibility.SingleTenantABAPExtensibilityVariant
      * with name `sClassName` and enriches it with the information contained in `oClassInfo`.
@@ -1622,6 +1630,8 @@ declare namespace sap {
     "sap/ui/fl/write/_internal/flexState/compVariants/CompVariantState": undefined;
 
     "sap/ui/fl/write/_internal/flexState/FlexObjectState": undefined;
+
+    "sap/ui/fl/write/_internal/flexState/UI2Personalization/UI2PersonalizationState": undefined;
 
     "sap/ui/fl/write/_internal/Storage": undefined;
 

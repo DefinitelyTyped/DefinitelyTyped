@@ -1,1 +1,1 @@
-export function chunkArray<T>(original: ReadonlyArray<T>, limit: number): T[][];
+export function chunkArray<T>(original: readonly T[], limit: number): T[][];

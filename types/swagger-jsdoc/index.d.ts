@@ -40,7 +40,7 @@ declare namespace swaggerJSDoc {
      * Open API Specification (OAS) version 3.0 options
      */
     interface OAS3Options {
-        apis?: ReadonlyArray<string> | undefined;
+        apis?: readonly string[] | undefined;
         definition?: OAS3Definition | undefined;
         swaggerDefinition?: OAS3Definition | undefined;
         [key: string]: any;
@@ -52,11 +52,11 @@ declare namespace swaggerJSDoc {
     interface OAS3Definition {
         openapi: string;
         info: Information;
-        servers?: ReadonlyArray<Server> | undefined;
+        servers?: readonly Server[] | undefined;
         paths?: Paths | undefined;
         components?: Components | undefined;
-        security?: ReadonlyArray<SecurityRequirement> | undefined;
-        tags?: ReadonlyArray<Tag> | undefined;
+        security?: readonly SecurityRequirement[] | undefined;
+        tags?: readonly Tag[] | undefined;
         externalDocs?: ExternalDocumentation | undefined;
         [key: string]: any;
     }
@@ -92,7 +92,7 @@ declare namespace swaggerJSDoc {
     }
 
     interface ServerVariable {
-        enum?: ReadonlyArray<string> | undefined;
+        enum?: readonly string[] | undefined;
         default: string;
         description?: string | undefined;
         [key: string]: any;
@@ -114,7 +114,7 @@ declare namespace swaggerJSDoc {
         head?: Operation | undefined;
         patch?: Operation | undefined;
         trace?: Operation | undefined;
-        servers?: ReadonlyArray<Server> | undefined;
+        servers?: readonly Server[] | undefined;
         parameters?: Parameter | Reference | undefined;
         [key: string]: any;
     }
@@ -130,8 +130,8 @@ declare namespace swaggerJSDoc {
         responses?: Responses | undefined;
         callbacks?: { [key: string]: Callback | Reference } | undefined;
         deprecated?: boolean | undefined;
-        security?: ReadonlyArray<SecurityRequirement> | undefined;
-        servers?: ReadonlyArray<Server> | undefined;
+        security?: readonly SecurityRequirement[] | undefined;
+        servers?: readonly Server[] | undefined;
         [key: string]: any;
     }
 
@@ -235,7 +235,7 @@ declare namespace swaggerJSDoc {
     }
 
     interface SecurityRequirement {
-        [key: string]: ReadonlyArray<string>;
+        [key: string]: readonly string[];
     }
 
     interface Components {
@@ -296,7 +296,7 @@ declare namespace swaggerJSDoc {
      * Open API Specification (OAS) version 2.0 options (fka Swagger specification)
      */
     interface Options {
-        apis?: ReadonlyArray<string> | undefined;
+        apis?: readonly string[] | undefined;
         definition?: SwaggerDefinition | undefined;
         swaggerDefinition?: SwaggerDefinition | undefined;
         [key: string]: any;
@@ -310,10 +310,10 @@ declare namespace swaggerJSDoc {
         info: Information;
         host?: string | undefined;
         basePath?: string | undefined;
-        schemes?: ReadonlyArray<string> | undefined;
-        consumes?: ReadonlyArray<string> | undefined;
-        produces?: ReadonlyArray<string> | undefined;
-        tags?: ReadonlyArray<Tag> | undefined;
+        schemes?: readonly string[] | undefined;
+        consumes?: readonly string[] | undefined;
+        produces?: readonly string[] | undefined;
+        tags?: readonly Tag[] | undefined;
         externalDocs?: ExternalDocumentation | undefined;
         [key: string]: any;
     }

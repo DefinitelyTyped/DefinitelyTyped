@@ -13,9 +13,19 @@ import * as R from "ramda";
     R.path(["a", "b", "c", "d", "e"], { a: { b: { c: { d: { e: 1 } } } } });
     // $ExpectType number
     R.path(["a", "b", "c", "d", "e", "f"], { a: { b: { c: { d: { e: { f: 1 } } } } } });
+    // $ExpectType number
+    R.path(["a", "b", "c", "d", "e", "f", "g"], { a: { b: { c: { d: { e: { f: { g: 1 } } } } } } });
+    // $ExpectType number
+    R.path(["a", "b", "c", "d", "e", "f", "g", "h"], { a: { b: { c: { d: { e: { f: { g: { h: 1 } } } } } } } });
+    // $ExpectType number
+    R.path(["a", "b", "c", "d", "e", "f", "g", "h", "i"], {
+        a: { b: { c: { d: { e: { f: { g: { h: { i: 1 } } } } } } } },
+    });
 
     // $ExpectType unknown
-    R.path(["a", "b", "c", "d", "e", "f", "g"], { a: { b: { c: { d: { e: { f: { g: 1 } } } } } } });
+    R.path(["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"], {
+        a: { b: { c: { d: { e: { f: { g: { h: { i: { j: 1 } } } } } } } } },
+    });
 });
 
 (() => {

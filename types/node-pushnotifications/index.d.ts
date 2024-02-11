@@ -185,6 +185,7 @@ declare namespace PushNotifications {
         /** ADM */
         consolidationKey?: string | undefined;
     }
+    type MethodValue = "apn" | "gcm" | "adm" | "wns" | "webPush" | "unknown" | "none";
     interface Message {
         regId: string;
         originalRegId?: string | undefined;
@@ -193,12 +194,12 @@ declare namespace PushNotifications {
         errorMsg?: string | undefined;
     }
     interface Result {
-        method: string;
+        method: MethodValue;
         success: number;
         failure: number;
         message: Message[];
     }
     type PushMethod = (regIds: string[], data: Data, settings: Settings) => void;
-    type Callback = (err: any, result: any) => void;
+    type Callback = (err: any, result: Result[]) => void;
     type RegistrationId = string | webPush.PushSubscription;
 }

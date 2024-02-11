@@ -1,10 +1,11 @@
+import DataFactory from "@rdfjs/data-model/Factory.js";
 import DatasetFactory from "@rdfjs/dataset/Factory.js";
 import Environment from "@rdfjs/environment/Environment.js";
+import { BlankNode, Dataset, DatasetCore, Literal, NamedNode, Quad_Graph, Term, Variable } from "@rdfjs/types";
 import clownface, { AnyContext, AnyPointer, GraphPointer, MultiPointer } from "clownface";
 import ClownfaceFactory from "clownface/Factory.js";
 import filters from "clownface/filter.js";
 import Context from "clownface/lib/Context.js";
-import { BlankNode, Dataset, DatasetCore, Literal, NamedNode, Quad_Graph, Term, Variable } from "rdf-js";
 
 const node: NamedNode = <any> {};
 const blankNode: BlankNode = <any> {};
@@ -196,6 +197,18 @@ function testFactory() {
 
     const namedNodeContext: AnyPointer<NamedNode, Dataset> = <any> {};
     const deriveContextFromOtherNamedNodeContext: AnyPointer<NamedNode, Dataset> = clownface(namedNodeContext);
+
+    const factory = new Environment([
+        DatasetFactory,
+        DataFactory,
+    ]);
+    const withFactory = clownface({ dataset, factory });
+
+    const incompatibleFactory = new Environment([
+        DataFactory,
+    ]);
+    // @ts-expect-error
+    const withIncompatibleFactory = clownface({ dataset, factory: incompatibleFactory });
 }
 
 function testFilter() {

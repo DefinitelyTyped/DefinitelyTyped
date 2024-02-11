@@ -60,7 +60,7 @@ declare namespace Device {
         metadataType: 0;
         title?: string;
         subtitle?: string;
-        images?: ReadonlyArray<Image>;
+        images?: readonly Image[];
         releaseDate?: string; /* ISO 8601 */
     }
 
@@ -69,7 +69,7 @@ declare namespace Device {
         title?: string;
         subtitle?: string;
         studio?: string;
-        images?: ReadonlyArray<Image>;
+        images?: readonly Image[];
         releaseDate?: string; /* ISO 8601 */
     }
 
@@ -79,7 +79,7 @@ declare namespace Device {
         subtitle?: string;
         season?: number;
         episode?: number;
-        images?: ReadonlyArray<Image>;
+        images?: readonly Image[];
         originalAirDate?: string; /* ISO 8601 */
     }
 
@@ -92,7 +92,7 @@ declare namespace Device {
         composer?: string;
         trackNumber?: number;
         discNumber?: number;
-        images?: ReadonlyArray<Image>;
+        images?: readonly Image[];
         releaseDate?: string; /* ISO 8601 */
     }
 

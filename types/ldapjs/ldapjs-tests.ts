@@ -19,6 +19,10 @@ clientWithMultipleURLs.on("connect", socket => {
     clientWithMultipleURLs.secure;
 });
 
+if (!client.connecting) {
+    client.connect();
+}
+
 client.bind("cn=root", "secret", (err: Error): void => {
     // nothing
 });

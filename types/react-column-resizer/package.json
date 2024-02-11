@@ -9,8 +9,7 @@
         "@types/react": "*"
     },
     "devDependencies": {
-        "@types/react-column-resizer": "workspace:.",
-        "@types/react-dom": "*"
+        "@types/react-column-resizer": "workspace:."
     },
     "owners": [
         {

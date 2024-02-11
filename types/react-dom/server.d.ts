@@ -1,27 +1,27 @@
 // forward declarations
 declare global {
     namespace NodeJS {
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface ReadableStream {}
 
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface WritableStream {}
     }
 
     /**
      * Stub for https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal
      */
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface AbortSignal {}
 
     /**
      * Stub for https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream
      */
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface ReadableStream {}
 }
 
-import { ReactElement, ReactNode } from "react";
+import { ReactNode } from "react";
 import { ErrorInfo } from "./client";
 
 export interface RenderToPipeableStreamOptions {
@@ -41,6 +41,10 @@ export interface RenderToPipeableStreamOptions {
 export interface PipeableStream {
     abort: (reason?: unknown) => void;
     pipe: <Writable extends NodeJS.WritableStream>(destination: Writable) => Writable;
+}
+
+export interface ServerOptions {
+    identifierPrefix?: string;
 }
 
 /**
@@ -63,7 +67,7 @@ export function renderToPipeableStream(children: ReactNode, options?: RenderToPi
  * React will preserve it and only attach event handlers, allowing you
  * to have a very performant first-load experience.
  */
-export function renderToString(element: ReactElement): string;
+export function renderToString(element: ReactNode, options?: ServerOptions): string;
 
 /**
  * Render a React element to its initial HTML. Returns a Readable stream that outputs
@@ -72,7 +76,7 @@ export function renderToString(element: ReactElement): string;
  *
  * @deprecated
  */
-export function renderToNodeStream(element: ReactElement): NodeJS.ReadableStream;
+export function renderToNodeStream(element: ReactNode, options?: ServerOptions): NodeJS.ReadableStream;
 
 /**
  * Similar to `renderToString`, except this doesn't create extra DOM attributes
@@ -80,14 +84,14 @@ export function renderToNodeStream(element: ReactElement): NodeJS.ReadableStream
  * to use React as a simple static page generator, as stripping away the extra
  * attributes can save lots of bytes.
  */
-export function renderToStaticMarkup(element: ReactElement): string;
+export function renderToStaticMarkup(element: ReactNode, options?: ServerOptions): string;
 
 /**
  * Similar to `renderToNodeStream`, except this doesn't create extra DOM attributes
  * such as `data-reactid`, that React uses internally. The HTML output by this stream
  * is exactly equal to what `ReactDOMServer.renderToStaticMarkup()` would return.
  */
-export function renderToStaticNodeStream(element: ReactElement): NodeJS.ReadableStream;
+export function renderToStaticNodeStream(element: ReactNode, options?: ServerOptions): NodeJS.ReadableStream;
 
 export interface RenderToReadableStreamOptions {
     identifierPrefix?: string;

@@ -23,7 +23,7 @@ export interface DatePickerProps {
     date?: string | Date | moment.Moment | undefined;
     format?: string | undefined;
     iconSource?: ImageURISource | undefined;
-    iconComponent?: JSX.Element | undefined;
+    iconComponent?: React.JSX.Element | undefined;
     hideText?: boolean | undefined;
     minDate?: string | Date | undefined;
     maxDate?: string | Date | undefined;

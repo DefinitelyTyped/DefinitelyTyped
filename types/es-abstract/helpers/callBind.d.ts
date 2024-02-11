@@ -44,7 +44,7 @@ declare function callBind<T, AX, R>(
     ...args: AX[]
 ): (...args: AX[]) => R;
 
-// tslint:disable-next-line: ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 declare function callBind<F extends Function>(
     target: F,
 ): (
@@ -52,13 +52,13 @@ declare function callBind<F extends Function>(
     ...args: F extends (...args: infer A) => any ? A : unknown[]
 ) => F extends (...args: any) => infer R ? R : any;
 
-// tslint:disable-next-line: ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 declare function callBind<F extends Function>(
     target: F,
     thisArg: ThisParameterType<F>,
 ): (...args: F extends (...args: infer A) => any ? A : unknown[]) => F extends (...args: any) => infer R ? R : any;
 
-// tslint:disable-next-line: ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 declare function callBind<F extends Function>(
     target: F,
     thisArg: ThisParameterType<F>,
@@ -108,7 +108,7 @@ declare namespace callBind {
     ): (args: Readonly<A>) => R;
     function apply<T, AX, R>(target: (this: T, ...args: AX[]) => R, thisArg: T, ...args: AX[]): (args: AX[]) => R;
 
-    // tslint:disable-next-line: ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     function apply<F extends Function>(
         target: F,
     ): (
@@ -116,7 +116,7 @@ declare namespace callBind {
         args: F extends (...args: infer A) => any ? Readonly<A> : readonly unknown[],
     ) => F extends (...args: any) => infer R ? R : any;
 
-    // tslint:disable-next-line: ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     function apply<F extends Function>(
         target: F,
         thisArg: ThisParameterType<F>,
@@ -124,7 +124,7 @@ declare namespace callBind {
         args: F extends (...args: infer A) => any ? Readonly<A> : readonly unknown[],
     ) => F extends (...args: any) => infer R ? R : any;
 
-    // tslint:disable-next-line: ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     function apply<F extends Function>(
         target: F,
         thisArg: ThisParameterType<F>,

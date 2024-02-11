@@ -122,9 +122,7 @@ declare namespace Popover {
         inserted = "inserted.bs.popover",
     }
 
-    type PopperConfigFunction = (defaultBsPopperConfig: Options) => Partial<Options>;
-
-    interface Options extends Omit<Tooltip.Options, "popperConfig"> {
+    interface Options extends Tooltip.Options {
         /**
          * Default content value if data-content attribute isn't present.
          *
@@ -134,20 +132,6 @@ declare namespace Popover {
          * @default ''
          */
         content: string | Element | JQuery | ((this: HTMLElement) => string | Element | JQuery);
-
-        /**
-         * To change Bootstrap's default Popper.js config
-         *
-         * When a function is used to create the Popper configuration, it's
-         * called with an object that contains the Bootstrap's default Popper
-         * configuration. It helps you use and merge the default with your own
-         * configuration. The function must return a configuration object for
-         * Popper.
-         *
-         * @see {@link https://popper.js.org/docs/v2}
-         * @default null
-         */
-        popperConfig: Partial<Options> | PopperConfigFunction | null;
     }
 
     type jQueryInterface = (

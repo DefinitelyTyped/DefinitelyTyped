@@ -14,8 +14,8 @@ declare namespace PhoneGapNfc {
     }
 
     interface Tag {
-        id: Array<number>;
-        techTypes: Array<string>;
+        id: number[];
+        techTypes: string[];
         type: string;
         date: string;
     }
@@ -28,22 +28,22 @@ declare namespace PhoneGapNfc {
         /**
          * byte array, containing zero to 255 bytes, must not be null
          */
-        type: Array<number>;
+        type: number[];
         /**
          * byte array, containing zero to 255 bytes, must not be null
          */
-        id: Array<number>;
+        id: number[];
         /**
          * byte array, containing zero to (2 ** 32 - 1) bytes, must not be null
          */
-        payload: Array<number>;
+        payload: number[];
     }
 
     interface NdefTag extends Tag {
         canMakeReadOnly: boolean;
         isWritable: boolean;
         maxSize: number;
-        ndefMessage: Array<NdefRecord>;
+        ndefMessage: NdefRecord[];
     }
 
     interface TagEvent extends Event {
@@ -59,7 +59,7 @@ declare namespace PhoneGapNfc {
          * URI identifier codes from URI Record Type Definition NFCForum-TS-RTD_URI_1.0 2006-07-24
          * index in array matches code in the spec
          */
-        protocols: Array<string>;
+        protocols: string[];
 
         /**
          * Decode a URI payload bytes
@@ -71,7 +71,7 @@ declare namespace PhoneGapNfc {
          * shorten a URI with standard prefix
          * @param uri
          */
-        encodePayload(uri: string): Array<number>;
+        encodePayload(uri: string): number[];
     }
 
     interface TextHelper {
@@ -87,7 +87,7 @@ declare namespace PhoneGapNfc {
          * @param lang
          * @param encoding
          */
-        encodePayload(text: string, lang: string, encoding: string): Array<number>;
+        encodePayload(text: string, lang: string, encoding: string): number[];
     }
 
     /**
@@ -103,13 +103,13 @@ declare namespace PhoneGapNfc {
         TNF_UNCHANGED: number;
         TNF_RESERVED: number;
 
-        RTD_TEXT: Array<number>; // "T"
-        RTD_URI: Array<number>; // "U"
-        RTD_SMART_POSTER: Array<number>; // "Sp"
-        RTD_ALTERNATIVE_CARRIER: Array<number>; // "ac"
-        RTD_HANDOVER_CARRIER: Array<number>; // "Hc"
-        RTD_HANDOVER_REQUEST: Array<number>; // "Hr"
-        RTD_HANDOVER_SELECT: Array<number>; // "Hs"
+        RTD_TEXT: number[]; // "T"
+        RTD_URI: number[]; // "U"
+        RTD_SMART_POSTER: number[]; // "Sp"
+        RTD_ALTERNATIVE_CARRIER: number[]; // "ac"
+        RTD_HANDOVER_CARRIER: number[]; // "Hc"
+        RTD_HANDOVER_REQUEST: number[]; // "Hr"
+        RTD_HANDOVER_SELECT: number[]; // "Hs"
 
         uriHelper: UriHelper;
         textHelper: TextHelper;
@@ -125,7 +125,7 @@ declare namespace PhoneGapNfc {
          *
          * @see Ndef.textRecord, Ndef.uriRecord and Ndef.mimeMediaRecord for examples
          */
-        record(tnf: number, type: Array<number>, id: Array<number>, payload: Array<number>): NdefRecord;
+        record(tnf: number, type: number[], id: number[], payload: number[]): NdefRecord;
 
         /**
          * Helper that creates an NdefRecord containing plain text.
@@ -136,7 +136,7 @@ declare namespace PhoneGapNfc {
          *
          * @return NdefRecord
          */
-        textRecord(text: string, languageCode: string, id: Array<number>): NdefRecord;
+        textRecord(text: string, languageCode: string, id: number[]): NdefRecord;
 
         /**
          * Helper that creates a NdefRecord containing a URI.
@@ -146,7 +146,7 @@ declare namespace PhoneGapNfc {
          *
          * @return NdefRecord
          */
-        uriRecord(uri: string, id: Array<number>): NdefRecord;
+        uriRecord(uri: string, id: number[]): NdefRecord;
 
         /**
          * Helper that creates a NdefRecord containing an absolute URI.
@@ -173,7 +173,7 @@ declare namespace PhoneGapNfc {
          *
          * @return NdefRecord
          */
-        absoluteUriRecord(uri: string, payload: Array<number>, id: Array<number>): NdefRecord;
+        absoluteUriRecord(uri: string, payload: number[], id: number[]): NdefRecord;
 
         /**
          * Helper that creates a NdefRecordcontaining an mimeMediaRecord.
@@ -182,7 +182,7 @@ declare namespace PhoneGapNfc {
          * @param payload byte[]
          * @param id byte[] (optional)
          */
-        mimeMediaRecord(mimeType: string, payload: Array<number>, id: Array<number>): NdefRecord;
+        mimeMediaRecord(mimeType: string, payload: number[], id: number[]): NdefRecord;
 
         /**
          * Helper that creates an NDEF record containing an Smart Poster.
@@ -192,7 +192,7 @@ declare namespace PhoneGapNfc {
          *
          * @return NdefRecord
          */
-        smartPoster(ndefRecords: Array<NdefRecord>, id: Array<number>): NdefRecord;
+        smartPoster(ndefRecords: NdefRecord[], id: number[]): NdefRecord;
 
         /**
          * Helper that creates an empty NdefRecord.
@@ -215,7 +215,7 @@ declare namespace PhoneGapNfc {
          *
          * @see NFC Data Exchange Format (NDEF) http://www.nfc-forum.org/specs/spec_list/
          */
-        encodeMessage(ndefRecords: Array<NdefRecord>): Array<number>;
+        encodeMessage(ndefRecords: NdefRecord[]): number[];
 
         /**
          * Decodes an array bytes into an NDEF Message
@@ -226,7 +226,7 @@ declare namespace PhoneGapNfc {
          *
          * @see NFC Data Exchange Format (NDEF) http://www.nfc-forum.org/specs/spec_list/
          */
-        decodeMessage(bytes: Array<number>): Array<NdefRecord>;
+        decodeMessage(bytes: number[]): NdefRecord[];
 
         /**
          * Decode the bit flags from a TNF Byte.
@@ -259,19 +259,19 @@ declare namespace PhoneGapNfc {
          * Convert bytes to string
          * @param bytes
          */
-        bytesToString(bytes: Array<number>): string;
+        bytesToString(bytes: number[]): string;
 
         /**
          * Convert string to bytes
          * @param string
          */
-        stringToBytes(string: string): Array<number>;
+        stringToBytes(string: string): number[];
 
         /**
          * Convert bytes to hexadecimal string
          * @param bytes
          */
-        bytesToHexString(bytes: Array<number>): string;
+        bytesToHexString(bytes: number[]): string;
     }
 
     /**
@@ -330,7 +330,7 @@ declare namespace PhoneGapNfc {
          * @param win The callback that is called when the tag is written.
          * @param fail The callback that is called if there was an error.
          */
-        write(ndefMessage: Array<NdefRecord>, win?: () => void, fail?: () => void): void;
+        write(ndefMessage: NdefRecord[], win?: () => void, fail?: () => void): void;
 
         /**
          * Function nfc.makeReadOnly make a NFC tag read only.
@@ -348,7 +348,7 @@ declare namespace PhoneGapNfc {
          * @param win The callback that is called when the message is pushed.
          * @param fail The callback that is called if there was an error.
          */
-        share(ndefMessage: Array<NdefRecord>, win?: () => void, fail?: () => void): void;
+        share(ndefMessage: NdefRecord[], win?: () => void, fail?: () => void): void;
 
         /**
          * Function nfc.unshare stops sharing data via peer-to-peer.
@@ -366,7 +366,7 @@ declare namespace PhoneGapNfc {
          * @param win The callback that is called when the message is pushed.
          * @param fail The callback that is called if there was an error.
          */
-        handover(uris: string | Array<string>, win?: () => void, fail?: () => void): void;
+        handover(uris: string | string[], win?: () => void, fail?: () => void): void;
 
         /**
          * Function nfc.stopHandover stops sharing data via peer-to-peer.

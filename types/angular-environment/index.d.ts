@@ -43,7 +43,7 @@ declare namespace angular.environment {
         /**
          * Map of domains to their environments
          */
-        domains: { [environment: string]: Array<string> };
+        domains: { [environment: string]: string[] };
         /**
          * List of variables split by environment
          */

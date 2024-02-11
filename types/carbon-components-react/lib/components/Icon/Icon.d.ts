@@ -3,7 +3,7 @@ import * as React from "react";
 export function findIcon<T extends { name?: string | undefined }>(name: string, iconsObj?: readonly T[]): false | T;
 export function setIconsList<T extends { name?: string | undefined }>(list: readonly T[]): void;
 export function getSvgData<R = unknown>(iconName: string): R;
-export function svgShapes<D = unknown>(svgData: D): Array<React.ReactNode | React.ReactNodeArray>;
+export function svgShapes<D = unknown>(svgData: D): Array<React.ReactNode | readonly React.ReactNode[]>;
 export function isPrefixed(name: string): boolean;
 
 export interface IconData {

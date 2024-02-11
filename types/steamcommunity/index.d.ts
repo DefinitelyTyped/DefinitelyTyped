@@ -376,22 +376,22 @@ declare namespace SteamCommunity {
          * An instance of {@link https://www.npmjs.com/package/request|request} v2.x.x which will be used by `SteamCommunity` for its HTTP requests.
          * SteamCommunity` will create its own if omitted.
          */
-        request: Request;
+        request?: Request | undefined;
 
         /**
          * The time in milliseconds that `SteamCommunity` will wait for HTTP requests to complete.
          * Defaults to `50000` (50 seconds). Overrides any `timeout` option that was set on the passed-in `request` object.
          */
-        timeout: number;
+        timeout?: number | undefined;
 
         /**
          * The user-agent value that `SteamCommunity` will use for its HTTP requests. Defaults to Chrome v47's user-agent.
          * Overrides any `headers['User-Agent']` option that was set on the passed-in `request` object.
          */
-        userAgent: string;
+        userAgent?: string | undefined;
 
         /** The local IP address that `SteamCommunity` will use for its HTTP requests. Overrides an `localAddress` option that was set on the passed-in `request` object. */
-        localAddress: string;
+        localAddress?: string | undefined;
     }
 
     interface TokenDetails {

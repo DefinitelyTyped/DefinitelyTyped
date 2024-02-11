@@ -198,7 +198,7 @@ class Foo {}
 // readonly array
 {
     // typescript@3.3
-    const a: ReadonlyArray<number> = [1];
+    const a: readonly number[] = [1];
 
     // typescript@3.4
     // const a: readonly number[] = [1];

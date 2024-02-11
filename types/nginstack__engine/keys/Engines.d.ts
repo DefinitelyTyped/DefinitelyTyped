@@ -1,1 +1,1 @@
-export const LOCALHOST: number;
+export let LOCALHOST: number;

@@ -367,6 +367,8 @@ deck.initialize({
         tokenizer: { key: "value" },
         walkTokens: () => {},
         xhtml: true,
+        separator: "^\r?\\n---\r?\n$",
+        verticalSeparator: "^\r?\n--\r?\n$",
     },
 
     // katex.
@@ -475,7 +477,7 @@ deck.sync();
 // $ExpectType void
 deck.syncSlide(el);
 
-// $ExpectType Element[]
+// $ExpectType HTMLElement[]
 deck.syncFragments(el);
 
 // ------------------ //
@@ -688,7 +690,7 @@ deck.dispatchEvent({ type: "resize", data: {} });
 
 // Facility for persisting and restoring the presentation state
 
-// $ExpectType { indexh: number; indexv: number; indexf: number; paused: boolean; overview: boolean; }
+// $ExpectType RevealState
 deck.getState();
 
 // $ExpectType void
@@ -723,6 +725,9 @@ deck.getTotalSlides();
 // Returns the slide element at the specified index
 
 // $ExpectType HTMLElement
+deck.getSlide(1);
+
+// $ExpectType HTMLElement
 deck.getSlide(1, 2);
 
 // Returns the previous slide element, may be null
@@ -738,7 +743,10 @@ deck.getCurrentSlide();
 // Returns the slide background element at the specified index
 
 // $ExpectType HTMLElement | undefined
-deck.getSlideBackground(el, 2);
+deck.getSlideBackground(el);
+
+// $ExpectType HTMLElement | undefined
+deck.getSlideBackground(1);
 
 // $ExpectType HTMLElement | undefined
 deck.getSlideBackground(1, 2);
@@ -750,15 +758,15 @@ deck.getSlideNotes(el);
 
 // Returns an Array of all slides
 
-// $ExpectType Element[]
+// $ExpectType HTMLElement[]
 deck.getSlides();
 
 // Returns an array with all horizontal/vertical slides in the deck
 
-// $ExpectType Element[]
+// $ExpectType HTMLElement[]
 deck.getHorizontalSlides();
 
-// $ExpectType Element[]
+// $ExpectType HTMLElement[]
 deck.getVerticalSlides();
 
 // Checks if the presentation contains two or more horizontal
@@ -824,10 +832,10 @@ deck.getSlidePath(el);
 
 // Returns reveal.js DOM elements
 
-// $ExpectType Element | null
+// $ExpectType HTMLElement | null
 deck.getRevealElement();
 
-// $ExpectType Element | null
+// $ExpectType HTMLElement | null
 deck.getSlidesElement();
 
 // $ExpectType HTMLElement | null
@@ -845,7 +853,7 @@ deck.registerPlugin(RevealMarkdown());
 deck.hasPlugin("markdown");
 
 // $ExpectType Plugin
-deck.getPlugin("markdwon");
+deck.getPlugin("markdown");
 
 // $ExpectType { [id: string]: Plugin; }
 deck.getPlugins();

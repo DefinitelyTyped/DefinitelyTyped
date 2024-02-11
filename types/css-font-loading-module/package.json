@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/css-font-loading-module",
     "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "css-font-loading-module",
     "projects": [
         "https://drafts.csswg.org/css-font-loading/"
     ],

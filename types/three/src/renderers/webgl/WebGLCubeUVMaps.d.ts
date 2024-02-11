@@ -1,4 +1,4 @@
-import { WebGLRenderer, Texture } from '../../Three.js';
+import { Texture, WebGLRenderer } from "../../Three.js";
 
 export class WebGLCubeUVMaps {
     constructor(renderer: WebGLRenderer);

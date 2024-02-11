@@ -160,7 +160,7 @@ export interface CollectionResponse<T> extends ResponseBase {
         status: number;
         statusText: string;
     };
-    body(): ResponseBody<T>[];
+    body(): Array<ResponseBody<T>>;
 }
 
 export interface ResponseBase {

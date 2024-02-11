@@ -1317,7 +1317,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#yAxis.boundaryGap
                  */
-                boundaryGap?: boolean | (string | number)[] | undefined;
+                boundaryGap?: boolean | Array<string | number> | undefined;
 
                 /**
                  * The minimun value of axis.
@@ -1524,7 +1524,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#yAxis.data
                  */
-                data?: (string | number | CartesianAxis.DataObject)[] | undefined;
+                data?: Array<string | number | CartesianAxis.DataObject> | undefined;
 
                 /**
                  * axisPointer settings on the axis.

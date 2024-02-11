@@ -65,6 +65,6 @@ declare namespace klawSync {
 declare function klawSync(
     root: string,
     options?: klawSync.Options,
-): ReadonlyArray<klawSync.Item>;
+): readonly klawSync.Item[];
 
 export = klawSync;

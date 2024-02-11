@@ -4,7 +4,7 @@ export interface ScrollspyProps {
     children?: React.ReactNode;
 
     // Array of target element IDs
-    items: ReadonlyArray<string>;
+    items: readonly string[];
 
     // Class name that apply to the navigation element paired with the content element in viewport
     currentClassName: string;

@@ -8,7 +8,7 @@ declare class Client extends EventEmitter {
     /**
      * An array of all devices found by the client.
      */
-    devices: ReadonlyArray<Device>;
+    devices: readonly Device[];
 
     /**
      * The device event is emitted each time a new device has been found.

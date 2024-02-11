@@ -304,7 +304,7 @@ import {
 }
 
 {
-    const r00ts: ReadonlyArray<string> = rootCertificates;
+    const r00ts: readonly string[] = rootCertificates;
 }
 
 {

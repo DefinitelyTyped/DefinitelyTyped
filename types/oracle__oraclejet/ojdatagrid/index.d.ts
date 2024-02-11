@@ -346,7 +346,7 @@ export namespace ojDataGrid {
         }>
     {
     }
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type CellContext<K, D> = {
         componentElement: Element;
         parentElement: Element;
@@ -367,7 +367,7 @@ export namespace ojDataGrid {
         };
         mode: "edit" | "navigation";
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type CurrentCell<K> = {
         type: "cell" | "header" | "label";
         axis?: "column" | "columnEnd" | "row" | "rowEnd" | undefined;
@@ -383,7 +383,7 @@ export namespace ojDataGrid {
             column: K;
         } | undefined;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type HeaderContext<K, D> = {
         componentElement: Element;
         parentElement: Element;
@@ -396,7 +396,7 @@ export namespace ojDataGrid {
         extent: number;
         depth: number;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type LabelContext<K, D> = {
         componentElement: Element;
         parentElement: Element;
@@ -405,7 +405,7 @@ export namespace ojDataGrid {
         key: K;
         level: number;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type Selection<K> = {
         startIndex?: {
             row: number;

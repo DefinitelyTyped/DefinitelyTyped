@@ -455,6 +455,14 @@ export interface Layout {
     legend: Partial<Legend>;
     font: Partial<Font>;
     scene: Partial<Scene>;
+    scene2: Partial<Scene>;
+    scene3: Partial<Scene>;
+    scene4: Partial<Scene>;
+    scene5: Partial<Scene>;
+    scene6: Partial<Scene>;
+    scene7: Partial<Scene>;
+    scene8: Partial<Scene>;
+    scene9: Partial<Scene>;
     barmode: "stack" | "group" | "overlay" | "relative";
     barnorm: "" | "fraction" | "percent";
     bargap: number;

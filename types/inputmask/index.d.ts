@@ -523,6 +523,18 @@ declare namespace Inputmask {
          */
         inputFormat?: string | undefined;
         /**
+         * Strip leading zeroes
+         *
+         * @default true
+         */
+        stripLeadingZeroes?: boolean | undefined;
+        /**
+         * Substitude the radixpoint to allow , for . and vice versa
+         *
+         * @default true
+         */
+        substituteRadixPoint?: boolean | undefined;
+        /**
          * Format of the unmasked value. This is only effective when used with the datetime alias.
          */
         outputFormat?: string | undefined;

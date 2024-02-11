@@ -8,6 +8,11 @@
     "types": "index",
     "minimumTypeScriptVersion": "4.9",
     "typesVersions": {
+        "<=5.3": {
+            "*": [
+                "ts5.3/*"
+            ]
+        },
         "<=5.0": {
             "*": [
                 "ts5.0/*"

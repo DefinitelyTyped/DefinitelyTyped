@@ -32,7 +32,9 @@ export default interface AsyncVDOMBuilder extends Async {
     ): this;
     ee(): void;
     comment(comment: any): this;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     t(text: any): this | string | void;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     text(text: any): this | string | void;
     element(
         tagName: string,

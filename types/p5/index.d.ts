@@ -183,11 +183,11 @@ declare class p5 {
     disableFriendlyErrors: boolean;
 }
 
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface p5 extends p5.p5InstanceExtensions {}
 
 declare namespace p5 {
     type UNKNOWN_P5_CONSTANT = any;
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface p5InstanceExtensions {}
 }
