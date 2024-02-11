@@ -3,47 +3,52 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace AWN {
+    type AwnPosition = "bottom-right" | "bottom-left" | "top-left" | "top-right";
 
-     type AwnPosition = 'bottom-right' | 'bottom-left' | 'top-left' | 'top-right';
+    type AwnToastType = "global" | "tip" | "info" | "success" | "warning" | "alert";
+    type AwnAsyncType = "async" | "async-block";
+    type AwnConfirmType = "confirm" | "confirmOk" | "confirmCancel";
 
-     type AwnToastType = 'global' | 'tip' | 'info' | 'success' | 'warning' | 'alert';
-     type AwnAsyncType = 'async' | 'async-block';
-     type AwnConfirmType = 'confirm' | 'confirmOk' | 'confirmCancel';
-
-     type AwnToastOptions<T = string> = {
+    type AwnToastOptions<T = string> = {
         [key in AwnToastType]?: T;
     };
 
-     type AwnAsyncOptions<T = string> = {
+    type AwnAsyncOptions<T = string> = {
         [key in AwnAsyncType]?: T;
     };
 
-     type AwnConfirmOptions<T = string> = {
+    type AwnConfirmOptions<T = string> = {
         [key in AwnConfirmType]?: T;
     };
 
-     type AwnIconOptions = Omit<AwnToastOptions<string>, 'global'> &
-        Omit<AwnAsyncOptions<string>, 'async-block'> & { enabled?: boolean };
+    type AwnIconOptions =
+        & Omit<AwnToastOptions<string>, "global">
+        & Omit<AwnAsyncOptions<string>, "async-block">
+        & { enabled?: boolean };
 
-     type AwnLabelOptions = Omit<AwnToastOptions<string>, 'global'> &
-        Omit<AwnAsyncOptions<string>, 'async-block'> &
-        AwnConfirmOptions<string>;
+    type AwnLabelOptions =
+        & Omit<AwnToastOptions<string>, "global">
+        & Omit<AwnAsyncOptions<string>, "async-block">
+        & AwnConfirmOptions<string>;
 
-     type AwnMessageOptions = Omit<AwnToastOptions<string>, 'global'> &
-        AwnAsyncOptions<string> &
-        Omit<AwnConfirmOptions<string>, 'confirmOk' | 'confirmCancel'>;
+    type AwnMessageOptions =
+        & Omit<AwnToastOptions<string>, "global">
+        & AwnAsyncOptions<string>
+        & Omit<AwnConfirmOptions<string>, "confirmOk" | "confirmCancel">;
 
-     type AwnReplacementOptions = Omit<AwnToastOptions<string>, 'global'> &
-        AwnAsyncOptions<string> &
-        Omit<AwnConfirmOptions<string>, 'confirmOk' | 'confirmCancel'> & {
+    type AwnReplacementOptions =
+        & Omit<AwnToastOptions<string>, "global">
+        & AwnAsyncOptions<string>
+        & Omit<AwnConfirmOptions<string>, "confirmOk" | "confirmCancel">
+        & {
             modal?: string;
             general?: {
-                '<script>'?: string;
-                '</script>'?: string;
+                "<script>"?: string;
+                "</script>"?: string;
             };
         };
 
-     interface AwnOptions<E = Error> {
+    interface AwnOptions<E = Error> {
         /**
          * Defines position of the toast. Can be ‘bottom-right’, ‘bottom-left’, ‘top-left’, ‘top-right’.
          *
@@ -216,8 +221,6 @@ declare class AWN<E = Error> {
     ): Promise<T>;
 
     /**
-     *
-     *
      * @param  message   Defines message of the modal window. Can be any valid HTML or text string.
      * @param  className Defines modal window DOM element class name, it will be concatenated with default prefix ‘awn-popup-‘
      * @param  options   Instance of `AwnOptions`, which will override globals for this call
@@ -240,7 +243,12 @@ declare class AWN<E = Error> {
      * @param  options  Instance of `AwnOptions`, which will override globals for this call
      * @return          A new `HTMLDivElement` instance
      */
-    confirm(message: string, onOk?: () => void, onCancel?: (() =>void) | false, options?: AWN.AwnOptions): HTMLDivElement;
+    confirm(
+        message: string,
+        onOk?: () => void,
+        onCancel?: (() => void) | false,
+        options?: AWN.AwnOptions,
+    ): HTMLDivElement;
 }
 
 export = AWN;
