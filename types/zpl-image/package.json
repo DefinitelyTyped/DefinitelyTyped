@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/metafloor/zpl-image"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/zpl-image": "workspace:."
     },
