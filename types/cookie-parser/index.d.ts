@@ -9,7 +9,11 @@ declare global {
              * Optionally set by cookie-parser if secret(s) are provided.  Can be used by other middleware.
              * [Declaration merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) can be used to add your own properties.
              */
-            secret?: string;
+            secret?: string | undefined;
+            /** Parsed cookies that have not been signed */
+            cookies: Record<string, any>;
+            /** Parsed cookies that have been signed */
+            signedCookie: Record<string, any>;
         }
     }
 }
