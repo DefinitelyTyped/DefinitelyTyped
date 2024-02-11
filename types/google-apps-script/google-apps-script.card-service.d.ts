@@ -18,6 +18,7 @@ declare namespace GoogleAppsScript {
             setLoadIndicator(loadIndicator: LoadIndicator): Action;
             setParameters(parameters: { [key: string]: string }): Action;
             /** @deprecated DO NOT USE */ setMethodName(functionName: string): Action;
+            setPersistValues(persistValues: boolean): Action;
         }
         /**
          * The response object that may be returned from a callback function (e.g., a form response handler)

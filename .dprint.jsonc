@@ -35,7 +35,9 @@
         // Machine-generated files.
         "./docs/support-window.json",
         "./notNeededPackages.json",
-        "**/package-lock.json"
+        "**/package-lock.json",
+
+        "./types/**/*.md"
     ],
     "prettier": {
         "associations": [
@@ -50,6 +52,7 @@
     "plugins": [
         "https://plugins.dprint.dev/typescript-0.89.0.wasm",
         "https://plugins.dprint.dev/json-0.19.1.wasm",
+        "https://plugins.dprint.dev/markdown-0.16.3.wasm",
         "https://plugins.dprint.dev/prettier-0.36.0.json@5cc11bcb86b783ba9e33d171ee5caefe413a6ee31a4f1521592ccb28363412af"
     ],
     "indentWidth": 4,
