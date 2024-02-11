@@ -8,7 +8,6 @@ import * as CSS from "csstype";
 import * as PropTypes from "prop-types";
 import { Interaction as SchedulerInteraction } from "scheduler/tracing";
 
-
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;
 type NativeCompositionEvent = CompositionEvent;
@@ -3180,16 +3179,65 @@ declare namespace React {
 
     type AutoFillAddressKind = "billing" | "shipping";
     type AutoFillBase = "" | "off" | "on";
-    type AutoFillContactField = "email" | "tel" | "tel-area-code" | "tel-country-code" | "tel-extension" | "tel-local" | "tel-local-prefix" | "tel-local-suffix" | "tel-national";
+    type AutoFillContactField =
+        | "email"
+        | "tel"
+        | "tel-area-code"
+        | "tel-country-code"
+        | "tel-extension"
+        | "tel-local"
+        | "tel-local-prefix"
+        | "tel-local-suffix"
+        | "tel-national";
     type AutoFillContactKind = "home" | "mobile" | "work";
     type AutoFillCredentialField = "webauthn";
-    type AutoFillNormalField = "additional-name" | "address-level1" | "address-level2" | "address-level3" | "address-level4" | "address-line1" | "address-line2" | "address-line3" | "bday-day" | "bday-month" | "bday-year" | "cc-csc" | "cc-exp" | "cc-exp-month" | "cc-exp-year" | "cc-family-name" | "cc-given-name" | "cc-name" | "cc-number" | "cc-type" | "country" | "country-name" | "current-password" | "family-name" | "given-name" | "honorific-prefix" | "honorific-suffix" | "name" | "new-password" | "one-time-code" | "organization" | "postal-code" | "street-address" | "transaction-amount" | "transaction-currency" | "username";
+    type AutoFillNormalField =
+        | "additional-name"
+        | "address-level1"
+        | "address-level2"
+        | "address-level3"
+        | "address-level4"
+        | "address-line1"
+        | "address-line2"
+        | "address-line3"
+        | "bday-day"
+        | "bday-month"
+        | "bday-year"
+        | "cc-csc"
+        | "cc-exp"
+        | "cc-exp-month"
+        | "cc-exp-year"
+        | "cc-family-name"
+        | "cc-given-name"
+        | "cc-name"
+        | "cc-number"
+        | "cc-type"
+        | "country"
+        | "country-name"
+        | "current-password"
+        | "family-name"
+        | "given-name"
+        | "honorific-prefix"
+        | "honorific-suffix"
+        | "name"
+        | "new-password"
+        | "one-time-code"
+        | "organization"
+        | "postal-code"
+        | "street-address"
+        | "transaction-amount"
+        | "transaction-currency"
+        | "username";
     type OptionalPrefixToken<T extends string> = `${T} ` | "";
     type OptionalPostfixToken<T extends string> = ` ${T}` | "";
     type AutoFillField = AutoFillNormalField | `${OptionalPrefixToken<AutoFillContactKind>}${AutoFillContactField}`;
     type AutoFillSection = `section-${string}`;
-    type AutoFill = AutoFillBase | `${OptionalPrefixToken<AutoFillSection>}${OptionalPrefixToken<AutoFillAddressKind>}${AutoFillField}${OptionalPostfixToken<AutoFillCredentialField>}`;
-    type HTMLInputAutoCompleteAttribute  = AutoFill | (string & {})
+    type AutoFill =
+        | AutoFillBase
+        | `${OptionalPrefixToken<AutoFillSection>}${OptionalPrefixToken<
+            AutoFillAddressKind
+        >}${AutoFillField}${OptionalPostfixToken<AutoFillCredentialField>}`;
+    type HTMLInputAutoCompleteAttribute = AutoFill | (string & {});
 
     interface InputHTMLAttributes<T> extends HTMLAttributes<T> {
         accept?: string | undefined;
