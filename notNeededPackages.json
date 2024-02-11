@@ -906,7 +906,7 @@
         },
         "cobe": {
             "libraryName": "cobe",
-            "asOfVersion": "0.4.2"
+            "asOfVersion": "0.4.4"
         },
         "codegen.macro": {
             "libraryName": "codegen.macro",
