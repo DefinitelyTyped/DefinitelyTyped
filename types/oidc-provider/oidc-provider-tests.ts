@@ -438,7 +438,7 @@ const provider = new Provider("https://op.example.com", {
                 if (oneOf) {
                     return oneOf[0];
                 }
-                return '';
+                return "";
             },
         },
         requestObjects: {
