@@ -119,6 +119,9 @@
     // $ExpectType Rectangle
     OO.ui.getViewportSpacing();
 
+    // $ExpectType HTMLElement
+    OO.ui.getTeleportTarget();
+
     // $ExpectType JQuery<HTMLDivElement>
     OO.ui.getDefaultOverlay();
 
