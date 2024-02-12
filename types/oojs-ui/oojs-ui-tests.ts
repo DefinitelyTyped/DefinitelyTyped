@@ -126,29 +126,29 @@
     OO.ui.getDefaultOverlay();
 
     {
-        OO.ui.alert("Server crashed!").then(() => { });
+        OO.ui.alert("Server crashed!").then(() => {});
 
         OO.ui
             .alert("Server crashed!", {
                 title: "Error",
                 size: "full",
             })
-            .then(() => { });
+            .then(() => {});
     }
 
     {
-        OO.ui.confirm("Server crashed!").then(() => { });
+        OO.ui.confirm("Server crashed!").then(() => {});
 
         OO.ui
             .confirm("Server crashed!", {
                 title: "Error",
                 size: "full",
             })
-            .then(() => { });
+            .then(() => {});
     }
 
     {
-        OO.ui.prompt("Input sth").then(() => { });
+        OO.ui.prompt("Input sth").then(() => {});
 
         OO.ui
             .prompt("Input sth", {
@@ -158,7 +158,7 @@
                     placeholder: "Placeholder",
                 },
             })
-            .then(() => { });
+            .then(() => {});
     }
 }
 
@@ -845,7 +845,7 @@
             },
         );
 
-        instance.forEach(null, () => { });
+        instance.forEach(null, () => {});
     }
 
     // $ExpectType ActionSet
@@ -858,7 +858,7 @@
         added; // $ExpectType ActionWidget[]
     }).on;
 
-    instance.on("change", () => { });
+    instance.on("change", () => {});
 
     instance.on("click", action => {
         action; // $ExpectType ActionWidget
@@ -1019,7 +1019,7 @@
 
     instance.setValue("value"); // $ExpectType ButtonInputWidget
 
-    instance.on("labelChange", () => { });
+    instance.on("labelChange", () => {});
 }
 // #endregion
 
@@ -1062,7 +1062,7 @@
         label: "Select",
     });
 
-    instance.on("labelChange", () => { });
+    instance.on("labelChange", () => {});
 }
 // #endregion
 
@@ -1150,7 +1150,7 @@
     instance.setRel(["canonical", "nofollow"]);
 
     // $ExpectType ButtonWidget
-    instance.on("click", () => { });
+    instance.on("click", () => {});
 
     instance.on("disable", disabled => {
         disabled; // $ExpectType boolean
@@ -1160,7 +1160,7 @@
         changes; // $ExpectType Record<string, boolean>
     });
 
-    instance.on("labelChange", () => { });
+    instance.on("labelChange", () => {});
 
     instance.on("toggle", visible => {
         visible; // $ExpectType boolean
@@ -1402,7 +1402,7 @@
     });
 
     instance.executeAction("continue").then(
-        () => { },
+        () => {},
         err => {
             err; // $ExpectType [] | [Error]
         },
@@ -1619,7 +1619,7 @@
                     scrollContainer: el,
                 },
             )
-            .then(function () { });
+            .then(function() {});
     }
 
     {
@@ -1700,7 +1700,7 @@
                     padding: { top: 0, right: 0, bottom: 0, left: 0 },
                     scrollContainer: el,
                 })
-                .then(function () { });
+                .then(function() {});
         }
     }
 
@@ -1784,7 +1784,7 @@
     // $ExpectType FieldLayout<ButtonWidget>
     instance.setNotices(["Text 1", new OO.ui.HtmlSnippet("<div>Text 2</div>")]);
 
-    instance.on("labelChange", () => { });
+    instance.on("labelChange", () => {});
 
     // @ts-expect-error
     OO.ui.FieldLayout.prototype.$field;
@@ -1845,8 +1845,8 @@
         .on("change", items => {
             items; // $ExpectType Element[]
         })
-        .on("clear", () => { })
-        .on("labelChange", () => { })
+        .on("clear", () => {})
+        .on("labelChange", () => {})
         .on("move", (item, index, oldIndex) => {
             item; // $ExpectType EventEmitter
             index; // $ExpectType number
@@ -1891,7 +1891,7 @@
         enctype: "application/x-www-form-urlencoded",
     });
 
-    instance.on("submit", () => { });
+    instance.on("submit", () => {});
 }
 // #endregion
 
@@ -2010,7 +2010,7 @@
         indicator: "required",
     });
 
-    instance.on("labelChange", () => { });
+    instance.on("labelChange", () => {});
 }
 // #endregion
 
@@ -2071,7 +2071,7 @@
         label: $("<a>").attr("href", "default.html").text("jQuery label"),
     });
 
-    instance.on("labelChange", () => { });
+    instance.on("labelChange", () => {});
 }
 // #endregion
 
@@ -2239,7 +2239,7 @@
     // $ExpectType void
     instance.scrollToTop();
 
-    instance.on("ready", () => { });
+    instance.on("ready", () => {});
 
     // @ts-expect-error
     OO.ui.MenuSelectWidget.prototype.$input;
@@ -2377,7 +2377,7 @@
 
     instance.onCloseButtonClick(); // $ExpectType void
 
-    instance.on("close", () => { });
+    instance.on("close", () => {});
 }
 // #endregion
 
@@ -2401,7 +2401,7 @@
 
     instance.isAutosizing(); // $ExpectType boolean
 
-    instance.on("resize", () => { });
+    instance.on("resize", () => {});
 }
 // #endregion
 
@@ -2480,7 +2480,7 @@
 
     instance.clearSelection(); // $ExpectType MultiselectWidget
 
-    instance.on("select", () => { });
+    instance.on("select", () => {});
 }
 // #endregion
 
@@ -2609,7 +2609,7 @@
         .on("move", places => {
             places; // $ExpectType number
         })
-        .on("remove", () => { })
+        .on("remove", () => {})
         .on("change", items => {
             items; // $ExpectType Element[]
         })
@@ -2620,7 +2620,7 @@
         .off("change", items => {
             items; // $ExpectType Element[]
         })
-        .off("clear", () => { });
+        .off("clear", () => {});
 
     // @ts-expect-error
     OO.ui.OutlineControlsWidget.prototype.$movers;
@@ -2808,7 +2808,7 @@
 
     instance.setActive(true); // $ExpectType void
 
-    instance.on("labelChange", () => { });
+    instance.on("labelChange", () => {});
 
     // @ts-expect-error
     OO.ui.PopupToolGroup.prototype.$handle;
@@ -2877,11 +2877,11 @@
     // $ExpectType string
     instance.getBodyId();
 
-    instance.on("ready", () => { });
+    instance.on("ready", () => {});
 
-    instance.on("closing", () => { });
+    instance.on("closing", () => {});
 
-    instance.on("labelChange", () => { });
+    instance.on("labelChange", () => {});
 
     instance.on("disable", disabled => {
         disabled; // $ExpectType boolean
@@ -2909,27 +2909,27 @@
 {
     const instance = new OO.ui.Process(1);
     const instance1 = new OO.ui.Process($.Deferred().promise());
-    const instance2 = new OO.ui.Process(function () {
+    const instance2 = new OO.ui.Process(function() {
         this; // $ExpectType number
         return 1;
     }, 1);
-    const instance3 = new OO.ui.Process(function () {
+    const instance3 = new OO.ui.Process(function() {
         this; // $ExpectType number
         return false;
     }, 1);
-    const instance4 = new OO.ui.Process(function () {
+    const instance4 = new OO.ui.Process(function() {
         this; // $ExpectType number
         return $.Deferred().promise();
     }, 1);
-    const instance5 = new OO.ui.Process(function () {
+    const instance5 = new OO.ui.Process(function() {
         this; // $ExpectType number
         return error;
     }, 1);
-    const instance6 = new OO.ui.Process(function () {
+    const instance6 = new OO.ui.Process(function() {
         this; // $ExpectType number
         return [error];
     }, 1);
-    const instance7 = new OO.ui.Process(function () {
+    const instance7 = new OO.ui.Process(function() {
         this; // $ExpectType number
     }, 1);
 
@@ -2946,63 +2946,63 @@
 
     {
         // $ExpectType Process
-        instance.first(function () {
+        instance.first(function() {
             this; // $ExpectType number
             return false;
         }, 1);
 
-        instance.first(function () {
+        instance.first(function() {
             this; // $ExpectType number
             return $.Deferred().promise();
         }, 1);
 
-        instance.first(function () {
+        instance.first(function() {
             this; // $ExpectType number
             return 1000;
         }, 1);
 
-        instance.first(function () {
+        instance.first(function() {
             this; // $ExpectType number
             return error;
         }, 1);
 
-        instance.first(function () {
+        instance.first(function() {
             this; // $ExpectType number
             return [error];
         }, 1);
 
-        instance.first(function () {
+        instance.first(function() {
             this; // $ExpectType number
         }, 1);
     }
 
     {
-        instance.next(function () {
+        instance.next(function() {
             this; // $ExpectType number
             return false;
         }, 1);
 
-        instance.next(function () {
+        instance.next(function() {
             this; // $ExpectType number
             return $.Deferred().promise();
         }, 1);
 
-        instance.next(function () {
+        instance.next(function() {
             this; // $ExpectType number
             return 1000;
         }, 1);
 
-        instance.next(function () {
+        instance.next(function() {
             this; // $ExpectType number
             return error;
         }, 1);
 
-        instance.next(function () {
+        instance.next(function() {
             this; // $ExpectType number
             return [error];
         }, 1);
 
-        instance.next(function () {
+        instance.next(function() {
             this; // $ExpectType number
         }, 1);
     }
@@ -3341,7 +3341,7 @@
         .off("change", items => {
             items; // $ExpectType Element[]
         })
-        .off("clear", () => { })
+        .off("clear", () => {})
         .off("move", (item, index, oldIndex) => {
             item; // $ExpectType EventEmitter
             index; // $ExpectType number
@@ -3485,11 +3485,11 @@
     instance.isValid(); // $ExpectType boolean
 
     instance
-        .on("remove", () => { })
+        .on("remove", () => {})
         .on("navigate", direction => {
             direction; // $ExpectType Direction
         })
-        .on("select", () => { })
+        .on("select", () => {})
         .on("valid", isValid => {
             isValid; // $ExpectType boolean
         })
@@ -3688,7 +3688,7 @@
     instance.updatePosition();
 
     // $ExpectType TextInputWidget
-    instance.on("enter", () => { });
+    instance.on("enter", () => {});
 }
 // #endregion
 
@@ -3920,7 +3920,7 @@
         .on("active", hasActive => {
             hasActive; // $ExpectType boolean
         })
-        .off("resize", () => { });
+        .off("resize", () => {});
 
     // @ts-expect-error
     OO.ui.Toolbar.prototype.$bar;
@@ -3986,7 +3986,7 @@
     instance.destroy(); // $ExpectType void
 
     instance
-        .on("update", () => { })
+        .on("update", () => {})
         .once("active", visible => {
             visible; // $ExpectType boolean
         });
@@ -4060,11 +4060,11 @@
     // $ExpectType Element
     new OO.ui.Widget.super();
 
-    instance.on("disable", function (disabled) {
+    instance.on("disable", function(disabled) {
         disabled; // $ExpectType boolean
     });
 
-    instance.on("toggle", function (visible) {
+    instance.on("toggle", function(visible) {
         visible; // $ExpectType boolean
     });
 }
@@ -4355,9 +4355,9 @@
         instance.addWindows({ a: window, b: window, c: window });
     }
 
-    instance.removeWindows(["window1", "window2"]).then(() => { });
+    instance.removeWindows(["window1", "window2"]).then(() => {});
 
-    instance.clearWindows().then(() => { });
+    instance.clearWindows().then(() => {});
 
     // $ExpectType WindowManager
     instance.updateWindowSize(window);
@@ -4365,7 +4365,7 @@
     // $ExpectType void
     instance.destroy();
 
-    instance.once("opening", function (win, opened, data) {
+    instance.once("opening", function(win, opened, data) {
         win; // $ExpectType Window
         // $ExpectType Promise2<Promise<void, any, any>, Error | undefined, WindowOpeningState, unknown, never, never>
         opened;
@@ -4373,14 +4373,14 @@
         this; // $ExpectType null
     });
 
-    instance.on("closing", function (win, closed, data) {
+    instance.on("closing", function(win, closed, data) {
         win; // $ExpectType Window
         closed; // $ExpectType Promise<unknown, Error, WindowClosingState>
         data; // $ExpectType unknown
         this; // $ExpectType null
     });
 
-    instance.off("resize", function (win) {
+    instance.off("resize", function(win) {
         win; // $ExpectType Window
         this; // $ExpectType null
     });

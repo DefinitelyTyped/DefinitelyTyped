@@ -19,24 +19,26 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.ButtonInputWidget
      */
-    interface ButtonInputWidget extends ButtonInputWidget.Props, ButtonInputWidget.Prototype { }
+    interface ButtonInputWidget extends ButtonInputWidget.Props, ButtonInputWidget.Prototype {}
 
     namespace ButtonInputWidget {
         interface EventMap
             extends
-            InputWidget.EventMap,
-            mixin.ButtonElement.EventMap,
-            mixin.LabelElement.EventMap,
-            mixin.FlaggedElement.EventMap { }
+                InputWidget.EventMap,
+                mixin.ButtonElement.EventMap,
+                mixin.LabelElement.EventMap,
+                mixin.FlaggedElement.EventMap
+        {}
 
         interface ConfigOptions
             extends
-            InputWidget.ConfigOptions,
-            mixin.ButtonElement.ConfigOptions,
-            mixin.IconElement.ConfigOptions,
-            mixin.IndicatorElement.ConfigOptions,
-            mixin.LabelElement.ConfigOptions,
-            mixin.FlaggedElement.ConfigOptions {
+                InputWidget.ConfigOptions,
+                mixin.ButtonElement.ConfigOptions,
+                mixin.IconElement.ConfigOptions,
+                mixin.IndicatorElement.ConfigOptions,
+                mixin.LabelElement.ConfigOptions,
+                mixin.FlaggedElement.ConfigOptions
+        {
             /** The value of the HTML `'type'` attribute: 'button', 'submit' or 'reset'. */
             type?: "button" | "submit" | "reset";
 
@@ -57,30 +59,33 @@ declare namespace OO.ui {
 
         interface Static
             extends
-            InputWidget.Static,
-            mixin.ButtonElement.Static,
-            mixin.IconElement.Static,
-            mixin.IndicatorElement.Static,
-            mixin.LabelElement.Static,
-            mixin.FlaggedElement.Static { }
+                InputWidget.Static,
+                mixin.ButtonElement.Static,
+                mixin.IconElement.Static,
+                mixin.IndicatorElement.Static,
+                mixin.LabelElement.Static,
+                mixin.FlaggedElement.Static
+        {}
 
         interface Props
             extends
-            InputWidget.Props,
-            mixin.ButtonElement.Props,
-            mixin.IconElement.Props,
-            mixin.IndicatorElement.Props,
-            mixin.LabelElement.Props,
-            mixin.FlaggedElement.Props { }
+                InputWidget.Props,
+                mixin.ButtonElement.Props,
+                mixin.IconElement.Props,
+                mixin.IndicatorElement.Props,
+                mixin.LabelElement.Props,
+                mixin.FlaggedElement.Props
+        {}
 
         interface Prototype
             extends
-            InputWidget.Prototype,
-            mixin.ButtonElement.Prototype,
-            mixin.IconElement.Prototype,
-            mixin.IndicatorElement.Prototype,
-            mixin.LabelElement.Prototype,
-            mixin.FlaggedElement.Prototype {
+                InputWidget.Prototype,
+                mixin.ButtonElement.Prototype,
+                mixin.IconElement.Prototype,
+                mixin.IndicatorElement.Prototype,
+                mixin.LabelElement.Prototype,
+                mixin.FlaggedElement.Prototype
+        {
             /**
              * Set label value.
              *

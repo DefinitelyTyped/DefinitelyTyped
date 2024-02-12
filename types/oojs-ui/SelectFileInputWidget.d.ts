@@ -16,10 +16,10 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.SelectFileInputWidget
      */
-    interface SelectFileInputWidget extends SelectFileInputWidget.Props, SelectFileInputWidget.Prototype { }
+    interface SelectFileInputWidget extends SelectFileInputWidget.Props, SelectFileInputWidget.Prototype {}
 
     namespace SelectFileInputWidget {
-        interface EventMap extends Omit<InputWidget.EventMap, 'change'> {
+        interface EventMap extends Omit<InputWidget.EventMap, "change"> {
             change: [currentFiles: File[]];
         }
 
@@ -46,9 +46,13 @@ declare namespace OO.ui {
 
         type Static = InputWidget.Static;
 
-        interface Props extends InputWidget.Props, mixin.RequiredElement.Props { }
+        interface Props extends InputWidget.Props, mixin.RequiredElement.Props {}
 
-        interface Prototype extends Omit<InputWidget.Prototype, "getValue" | "setValue" | "on" | "once" | "off" | "connect" | "disconnect">, mixin.RequiredElement.Prototype {
+        interface Prototype
+            extends
+                Omit<InputWidget.Prototype, "getValue" | "setValue" | "on" | "once" | "off" | "connect" | "disconnect">,
+                mixin.RequiredElement.Prototype
+        {
             /**
              * Get the current value of the field
              * For single file widgets returns a File or null.
@@ -67,10 +71,10 @@ declare namespace OO.ui {
             setValue(files: File[] | null): this;
 
             /**
-            * Get the filename of the currently selected file.
-            *
-            * @return Filename
-            */
+             * Get the filename of the currently selected file.
+             *
+             * @return Filename
+             */
             getFilename(): string;
 
             /**

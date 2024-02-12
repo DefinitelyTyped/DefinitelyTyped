@@ -9,7 +9,7 @@ declare namespace OO.ui.mixin {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin.LabelElement
      */
-    interface LabelElement extends LabelElement.Props, LabelElement.Prototype { }
+    interface LabelElement extends LabelElement.Props, LabelElement.Prototype {}
 
     namespace LabelElement {
         interface EventMap {
