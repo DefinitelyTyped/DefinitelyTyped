@@ -1,14 +1,14 @@
 import {
-    Material,
+    BufferGeometry,
+    Loader,
     LoadingManager,
     Mapping,
-    Loader,
-    BufferGeometry,
+    Material,
     Side,
     Texture,
     Vector2,
     Wrapping,
-} from '../../../src/Three.js';
+} from "../../../src/Three.js";
 
 export interface MaterialCreatorOptions {
     /**

@@ -16,6 +16,7 @@ import {
     graphql,
     isPromise,
     Network,
+    PreloadableConcreteRequest,
     QueryResponseCache,
     ReaderFragment,
     ReaderInlineDataFragment,
@@ -131,6 +132,7 @@ const environment = new Environment({
             case "network.unsubscribe":
             case "execute.start":
             case "queryresource.fetch":
+            case "read.missing_required_field":
             default:
                 break;
         }
@@ -297,6 +299,33 @@ commitLocalUpdate(environment, store => {
     const root = store.get(ROOT_ID);
     root!.setValue("foo", "localKey");
 });
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~
+// PreloadableConcreteRequest
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+type FooQuery$variables = Record<PropertyKey, never>;
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type FooQuery$data = {
+    readonly foo: string | null | undefined;
+};
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type FooQuery = {
+    response: FooQuery$data;
+    variables: FooQuery$variables;
+};
+
+const preloadableNode: PreloadableConcreteRequest<FooQuery> = {
+    kind: "PreloadableConcreteRequest",
+    params: {
+        operationKind: "query",
+        name: "FooQuery",
+        id: null,
+        cacheID: "2e5967148a8303de3c58059c0eaa87c6",
+        text: "query FooQuery {\n  foo\n}\n",
+        metadata: {},
+    },
+};
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // ConcreteRequest

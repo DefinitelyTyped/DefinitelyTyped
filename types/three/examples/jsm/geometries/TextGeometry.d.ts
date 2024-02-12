@@ -1,6 +1,6 @@
-import { ExtrudeGeometry, ExtrudeGeometryOptions, Shape } from '../../../src/Three.js';
+import { ExtrudeGeometry, ExtrudeGeometryOptions, Shape } from "../../../src/Three.js";
 
-import { Font } from '../loaders/FontLoader.js';
+import { Font } from "../loaders/FontLoader.js";
 
 export interface TextGeometryParameters extends ExtrudeGeometryOptions {
     font: Font;
@@ -100,7 +100,7 @@ export class TextGeometry extends ExtrudeGeometry {
      * @remarks Sub-classes will update this value.
      * @defaultValue `TextGeometry`
      */
-    override readonly type: string | 'TextGeometry';
+    override readonly type: string | "TextGeometry";
 
     /**
      * An object with a property for each of the constructor parameters.

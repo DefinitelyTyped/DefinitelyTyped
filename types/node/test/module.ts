@@ -52,6 +52,8 @@ const entry: Module.SourceMapping = smap.findEntry(1, 1);
 // global
 {
     const importmeta: ImportMeta = {} as any; // Fake because we cannot really access the true `import.meta` with the current build target
+    importmeta.dirname; // $ExpectType string
+    importmeta.filename; // $ExpectType string
     importmeta.url; // $ExpectType string
     importmeta.resolve("local"); // $ExpectType string
     importmeta.resolve("local", "/parent"); // $ExpectType string

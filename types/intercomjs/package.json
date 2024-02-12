@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/intercomjs",
     "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "intercomjs",
     "projects": [
         "https://github.com/diy/intercom.js"
     ],

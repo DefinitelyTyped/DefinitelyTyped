@@ -1,6 +1,6 @@
 import { SinkMap } from "@rdfjs/sink-map";
+import { Stream } from "@rdfjs/types";
 import { EventEmitter } from "events";
-import { Stream } from "rdf-js";
 
 export const parsers: SinkMap<EventEmitter, Stream>;
 export const serializers: SinkMap<Stream, EventEmitter>;

@@ -59,7 +59,7 @@ declare class AGServer extends AsyncStreamEmitter<any> {
     };
     pendingClientsCount: number;
 
-    wsServer: WebSocket.Server;
+    wsServer: WebSocket.WebSocketServer;
 
     constructor(options?: AGServer.AGServerOptions);
 
@@ -169,7 +169,7 @@ declare namespace AGServer {
 
         // This can be the name of an npm module or a path to a
         // Node.js module to use as the WebSocket server engine.
-        wsEngine?: string | { Server: WebSocket.Server };
+        wsEngine?: string | { Server: WebSocket.WebSocketServer };
 
         // Custom options to pass to the wsEngine when it is being
         // instantiated.

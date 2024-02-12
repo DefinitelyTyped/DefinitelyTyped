@@ -1,8 +1,8 @@
-import { Color, ColorRepresentation } from '../math/Color.js';
-import { Texture } from '../textures/Texture.js';
-import { Vector2 } from '../math/Vector2.js';
-import { MaterialParameters, Material } from './Material.js';
-import { Combine, NormalMapTypes } from '../constants.js';
+import { Combine, NormalMapTypes } from "../constants.js";
+import { Color, ColorRepresentation } from "../math/Color.js";
+import { Vector2 } from "../math/Vector2.js";
+import { Texture } from "../textures/Texture.js";
+import { Material, MaterialParameters } from "./Material.js";
 
 export interface MeshPhongMaterialParameters extends MaterialParameters {
     /** geometry color in hexadecimal. Default is 0xffffff. */
@@ -42,6 +42,13 @@ export interface MeshPhongMaterialParameters extends MaterialParameters {
 
 export class MeshPhongMaterial extends Material {
     constructor(parameters?: MeshPhongMaterialParameters);
+
+    /**
+     * Read-only flag to check if a given object is of type {@link MeshPhongMaterial}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isMeshPhongMaterial: true;
 
     /**
      * @default 'MeshNormalMaterial'

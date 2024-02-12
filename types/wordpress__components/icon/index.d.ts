@@ -1,4 +1,4 @@
-import { ComponentType, JSX, ReactComponentElement, ReactDOM, SVGProps } from "react";
+import { ComponentType, JSX, SVGProps } from "react";
 
 import Dashicon from "../dashicon";
 

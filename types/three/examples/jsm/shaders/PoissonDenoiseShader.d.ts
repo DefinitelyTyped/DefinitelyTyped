@@ -1,4 +1,4 @@
-import { IUniform, Matrix4, Vector2 } from '../../../src/Three.js';
+import { IUniform, Matrix4, Vector2 } from "../../../src/Three.js";
 
 export const PoissonDenoiseShader: {
     name: string;
@@ -25,4 +25,4 @@ export const PoissonDenoiseShader: {
     fragmentShader: string;
 };
 
-export function generatePdSamplePointInitializer(samples: number, rings: number): string;
+export function generatePdSamplePointInitializer(samples: number, rings: number, radiusExponent: number): string;

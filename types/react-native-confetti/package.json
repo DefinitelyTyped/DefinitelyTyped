@@ -9,7 +9,7 @@
         "@types/react": "*"
     },
     "devDependencies": {
-        "@types/react-native": "*",
+        "react-native": "*",
         "@types/react-native-confetti": "workspace:."
     },
     "owners": [

@@ -1,6 +1,6 @@
 import datasetFactory = require("rdf-dataset-indexed");
+import { BaseQuad, DataFactory, DatasetCore, DatasetCoreFactory, Quad, Stream, Term } from "@rdfjs/types";
 import { DatasetIndexed } from "rdf-dataset-indexed/dataset";
-import { BaseQuad, DataFactory, DatasetCore, DatasetCoreFactory, Quad, Stream, Term } from "rdf-js";
 
 interface QuadBnode extends BaseQuad {
     subject: Term;

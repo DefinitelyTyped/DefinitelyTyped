@@ -32,6 +32,7 @@ declare namespace sanitize {
         disallowedTagsMode: DisallowedTagsModes;
         enforceHtmlBoundary: boolean;
         selfClosing: string[];
+        nonBooleanAttributes: string[];
     }
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -76,6 +77,7 @@ declare namespace sanitize {
          * @default true
          */
         enforceHtmlBoundary?: boolean | undefined;
+        nonBooleanAttributes?: string[];
     }
 
     const defaults: IDefaults;

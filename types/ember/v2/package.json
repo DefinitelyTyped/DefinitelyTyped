@@ -15,32 +15,16 @@
     },
     "owners": [
         {
-            "name": "bttf",
-            "githubUsername": "bttf"
+            "name": "Krystan HuffMenne",
+            "githubUsername": "gitKrystan"
         },
         {
-            "name": "Derek Wickern",
-            "githubUsername": "dwickern"
+            "name": "James C. Davis",
+            "githubUsername": "jamescdavis"
         },
         {
-            "name": "Chris Krycho",
-            "githubUsername": "chriskrycho"
-        },
-        {
-            "name": "Theron Cross",
-            "githubUsername": "theroncross"
-        },
-        {
-            "name": "Martin Feckie",
-            "githubUsername": "mfeckie"
-        },
-        {
-            "name": "Alex LaFroscia",
-            "githubUsername": "alexlafroscia"
-        },
-        {
-            "name": "Mike North",
-            "githubUsername": "mike-north"
+            "name": "Peter Wagenet",
+            "githubUsername": "wagenet"
         }
     ]
 }

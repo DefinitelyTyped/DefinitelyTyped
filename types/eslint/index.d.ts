@@ -753,7 +753,8 @@ export namespace Rule {
         id: string;
         options: any[];
         settings: { [name: string]: any };
-        parserPath: string;
+        parserPath: string | undefined;
+        languageOptions: Linter.FlatConfig["languageOptions"];
         parserOptions: Linter.ParserOptions;
         parserServices: SourceCode.ParserServices;
         cwd: string;
@@ -1270,10 +1271,10 @@ export namespace Linter {
             noInlineConfig?: boolean;
 
             /**
-             * A boolean value indicating if unused disable directives should be
+             * A severity value indicating if and how unused disable directives should be
              * tracked and reported.
              */
-            reportUnusedDisableDirectives?: boolean;
+            reportUnusedDisableDirectives?: Severity | StringSeverity | boolean;
         };
 
         /**

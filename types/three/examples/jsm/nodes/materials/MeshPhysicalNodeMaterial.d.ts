@@ -1,12 +1,23 @@
-import { ShaderMaterialParameters } from '../../../../src/Three.js';
-import { Swizzable, CheckerNode, Node } from '../Nodes.js';
+import { ShaderMaterialParameters } from "../../../../src/Three.js";
 
-import MeshStandardNodeMaterial from './MeshStandardNodeMaterial.js';
+import Node from "../core/Node.js";
+import MeshStandardNodeMaterial from "./MeshStandardNodeMaterial.js";
 
 export default class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
-    iridescenceNode: null | Swizzable<CheckerNode>;
-    iridescenceIORNode: null | Swizzable;
-    iridescenceThicknessNode: null | Swizzable;
+    readonly isMeshPhysicalNodeMaterial: true;
+
+    clearcoatNode: Node | null;
+    clearcoatRoughnessNode: Node | null;
+    clearcoatNormalNode: Node | null;
+
+    sheenNode: Node | null;
+    sheenRoughnessNode: Node | null;
+
+    iridescenceNode: Node | null;
+    iridescenceIORNode: Node | null;
+    iridescenceThicknessNode: Node | null;
+
+    iorNode?: Node | null;
 
     specularIntensityNode: Node | null;
     specularColorNode: Node | null;
@@ -16,7 +27,5 @@ export default class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
     attenuationDistanceNode: Node | null;
     attenuationColorNode: Node | null;
 
-    constructor(parameters: ShaderMaterialParameters);
-
-    copy(source: MeshPhysicalNodeMaterial): this;
+    constructor(parameters?: ShaderMaterialParameters);
 }

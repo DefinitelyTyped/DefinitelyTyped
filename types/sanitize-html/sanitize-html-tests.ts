@@ -44,6 +44,7 @@ const options: IOptions = {
     enforceHtmlBoundary: true,
     allowedScriptDomains: ["test.com"],
     allowedScriptHostnames: ["test.com"],
+    nonBooleanAttributes: ["href"],
 };
 
 sanitize.defaults.allowedAttributes; // $ExpectType Record<string, AllowedAttribute[]>
@@ -55,6 +56,7 @@ sanitize.defaults.allowProtocolRelative; // $ExpectType boolean
 sanitize.defaults.disallowedTagsMode; // $ExpectType DisallowedTagsModes
 sanitize.defaults.enforceHtmlBoundary; // $ExpectType boolean
 sanitize.defaults.selfClosing; // $ExpectType string[]
+sanitize.defaults.nonBooleanAttributes; // $ExpectType string[]
 
 sanitize.options.allowedClasses; // $ExpectType { [index: string]: boolean | (string | RegExp)[]; } | undefined
 

@@ -3,6 +3,11 @@ import assert = require("node:assert");
 import { promisify } from "node:util";
 
 {
+    // crypto hash copy with outputLength
+    const copied: crypto.Hash = crypto.createHash("shake256").copy({ outputLength: 128 });
+}
+
+{
     const copied: crypto.Hash = crypto.createHash("md5").copy().copy({
         encoding: "ascii",
     });
@@ -627,6 +632,22 @@ import { promisify } from "node:util";
             type: "pkcs8",
         },
     });
+
+    const ecExplicit: {
+        publicKey: string;
+        privateKey: string;
+    } = crypto.generateKeyPairSync("ec", {
+        namedCurve: "curve",
+        paramEncoding: "explicit",
+        publicKeyEncoding: {
+            format: "pem",
+            type: "pkcs1",
+        },
+        privateKeyEncoding: {
+            format: "pem",
+            type: "pkcs8",
+        },
+    });
 }
 
 {
@@ -689,6 +710,25 @@ import { promisify } from "node:util";
         "ec",
         {
             namedCurve: "curve",
+            publicKeyEncoding: {
+                format: "pem",
+                type: "pkcs1",
+            },
+            privateKeyEncoding: {
+                cipher: "some-cipher",
+                format: "pem",
+                passphrase: "secret",
+                type: "pkcs8",
+            },
+        },
+        (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: string) => {},
+    );
+
+    crypto.generateKeyPair(
+        "ec",
+        {
+            namedCurve: "curve",
+            paramEncoding: "explicit",
             publicKeyEncoding: {
                 format: "pem",
                 type: "pkcs1",
@@ -870,6 +910,14 @@ import { promisify } from "node:util";
     assert.equal(keyObject.symmetricKeySize, 4);
     assert.equal(keyObject.type, "secret");
     crypto.createSecretKey("ascii", "ascii");
+}
+
+{
+    const { privateKey, publicKey } = crypto.generateKeyPairSync("ed25519");
+    privateKey; // $ExpectType KeyObject
+    publicKey; // $ExpectType KeyObject
+    privateKey.equals(publicKey); // $ExpectType boolean
+    publicKey.equals(privateKey); // $ExpectType boolean
 }
 
 {
@@ -1414,7 +1462,7 @@ import { promisify } from "node:util";
     let b: crypto.webcrypto.SubtleCrypto = crypto.webcrypto.subtle;
     b = crypto.subtle;
 
-    crypto.webcrypto.randomUUID(); // $ExpectType string
+    crypto.webcrypto.randomUUID(); // $ExpectType `${string}-${string}-${string}-${string}-${string}`
     crypto.webcrypto.getRandomValues(Buffer.alloc(8)); // $ExpectType Buffer
     crypto.webcrypto.getRandomValues(new BigInt64Array(4)); // $ExpectType BigInt64Array
     // @ts-expect-error

@@ -113,10 +113,10 @@ brickBuilder.isInitialized();
             onClickEditShippingData: () => {
                 console.log("edit shipping clicked");
             },
-            onRenderNextStep: currentStep => {
+            onRenderNextStep: (currentStep) => {
                 console.log("next step rendered", currentStep);
             },
-            onRenderPreviousStep: currentStep => {
+            onRenderPreviousStep: (currentStep) => {
                 console.log("previous step rendered", currentStep);
             },
         },
@@ -130,6 +130,7 @@ brickBuilder.isInitialized();
                 streetNumber: "222",
                 zipCode: "1122334455",
                 complement: "apartment 3",
+                additionalInformation: "el timbre no funciona",
             },
         },
     });
@@ -160,6 +161,8 @@ brickBuilder.create("wallet", "containerWallet", {
         },
     },
 });
+
+brickBuilder.create("brand", "containerBrand");
 
 const fieldInstance = mpInstance.fields.create("cardNumber", {});
 fieldInstance.mount("containerId");

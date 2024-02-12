@@ -3,6 +3,7 @@ import { MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
 import { MapiResponse } from "@mapbox/mapbox-sdk/lib/classes/mapi-response";
 import Directions, { DirectionsResponse, DirectionsService } from "@mapbox/mapbox-sdk/services/directions";
 import Geocoding, { GeocodeService } from "@mapbox/mapbox-sdk/services/geocoding";
+import GeocodingV6, { GeocodeService as GeocodeServiceV6 } from "@mapbox/mapbox-sdk/services/geocoding-v6";
 import MapMatching, { MapMatchingResponse, MapMatchingService } from "@mapbox/mapbox-sdk/services/map-matching";
 import Optimization, { OptimizationService } from "@mapbox/mapbox-sdk/services/optimization";
 import StaticMap, { StaticMapService } from "@mapbox/mapbox-sdk/services/static";
@@ -212,6 +213,32 @@ geocodeService
     .then(({ body }) => {
         body.features.forEach(feature => {
             const shortCode = feature.short_code;
+        });
+    });
+
+const geocodeServiceV6: GeocodeServiceV6 = GeocodingV6(config);
+geocodeServiceV6
+    .forwardGeocode({
+        bbox: [1, 2, 3, 4],
+        query: "Paris, France",
+        mode: "standard",
+    })
+    .send()
+    .then(({ body }) => {
+        body.features.forEach(feature => {
+            const shortCode = feature.properties.context.place?.short_code;
+        });
+    });
+
+geocodeServiceV6
+    .forwardGeocode({
+        postcode: "75013",
+        mode: "structured",
+    })
+    .send()
+    .then(({ body }) => {
+        body.features.forEach(feature => {
+            const shortCode = feature.properties.context.place?.short_code;
         });
     });
 

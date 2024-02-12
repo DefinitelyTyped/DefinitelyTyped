@@ -1,4 +1,24 @@
-import * as React from "react";
+import {
+    AnchorHTMLAttributes,
+    ButtonHTMLAttributes,
+    ComponentType,
+    CSSProperties,
+    Dispatch,
+    HTMLAttributes,
+    ImgHTMLAttributes,
+    InputHTMLAttributes,
+    JSX,
+    MouseEvent,
+    MouseEventHandler,
+    OptionHTMLAttributes,
+    PropsWithChildren,
+    ReactNode,
+    RefAttributes,
+    RefObject,
+    SelectHTMLAttributes,
+    SetStateAction,
+    TextareaHTMLAttributes,
+} from "react";
 
 // Things to work on
 // - add better typing than unknown for `children` render functions.
@@ -7,146 +27,165 @@ import * as React from "react";
 export {};
 
 export const colorStyle: { dark: ThemeColorStyle; light: ThemeColorStyle };
-export function Accordion(props: AccordionProps): React.JSX.Element;
-export function AccordionBody(props: TonicProps): React.JSX.Element;
-export function AccordionCollapse(props: TonicProps): React.JSX.Element;
-export function AccordionHeader(props: AccordionHeaderProps): React.JSX.Element;
-export function AccordionItem(props: AccordionItemProps): React.JSX.Element;
-export function AccordionToggle(props: AccordionToggleProps): React.JSX.Element;
-export function AccordionToggleIcon(props: AccordionToggleIconProps): React.JSX.Element;
-export function Alert(props: AlertProps): React.JSX.Element;
-export function AlertCloseButton(props: ButtonProps): React.JSX.Element;
-export function AnimatePresence(): any;
-export function Badge(props: BadgeProps): React.JSX.Element;
-export function Box(props: TonicProps): React.JSX.Element;
-export function Button(props: ButtonProps): React.JSX.Element;
-export function ButtonBase(props: ButtonProps): React.JSX.Element;
-export function ButtonGroup(props: ButtonGroupProps): React.JSX.Element;
-export function ButtonLink(props: ButtonLinkProps): React.JSX.Element;
-export function Checkbox(props: CheckboxProps): React.JSX.Element;
-export function CheckboxGroup(props: CheckboxGroupProps<Array<string | number | undefined>>): React.JSX.Element;
-export function Collapse(props: TransitionProps): React.JSX.Element;
-export function ControlBox(props: ControlBoxProps): React.JSX.Element;
-export function DarkMode(props: React.PropsWithChildren<{}>): React.JSX.Element;
-export function Divider(props: DividerProps): React.JSX.Element;
-export function Drawer(props: DrawerProps): React.JSX.Element;
-export function DrawerBody(props: TonicProps): React.JSX.Element;
-export function DrawerCloseButton(props: ButtonProps): React.JSX.Element;
-export function DrawerContent(props: DrawerContentProps): React.JSX.Element;
-export function DrawerFooter(props: TonicProps): React.JSX.Element;
-export function DrawerHeader(props: TonicProps): React.JSX.Element;
-export function DrawerOverlay(props: DrawerOverlayProps): React.JSX.Element;
-export function Fade(props: TransitionProps): React.JSX.Element;
-export function Flex(props: FlexProps): React.JSX.Element;
-export function Grid(props: GridProps): React.JSX.Element;
-export function Grow(props: TransitionProps): React.JSX.Element;
-export function Icon(props: IconProps): React.JSX.Element;
-export function Image(props: ImageProps): React.JSX.Element;
-export function Input(props: InputProps): React.JSX.Element;
-export function InputAdornment(props: TonicProps): React.JSX.Element;
-export function InputBase(props: InputProps): React.JSX.Element;
-export function InputControl(props: InputControlProps): React.JSX.Element;
-export function InputGroup(props: InputGroupProps): React.JSX.Element;
-export function InputGroupAddon(props: InputGroupAddonProps): React.JSX.Element;
-export function InputGroupAppend(props: TonicProps): React.JSX.Element;
-export function InputGroupPrepend(props: TonicProps): React.JSX.Element;
-export function LightMode(props: React.PropsWithChildren<{}>): React.JSX.Element;
-export function LinearProgress(props: LinearProgressProps): React.JSX.Element;
-export function Link(props: LinkProps): React.JSX.Element;
-export function LinkButton(props: ButtonProps): React.JSX.Element;
-export function Menu(props: MenuProps): React.JSX.Element;
-export function MenuButton(props: ButtonProps): React.JSX.Element;
-export function MenuContent(props: MenuContentProps): React.JSX.Element;
-export function MenuDivider(props: TonicProps): React.JSX.Element;
-export function MenuGroup(props: MenuGroupProps): React.JSX.Element;
-export function MenuItem(props: MenuItemProps): React.JSX.Element;
-export function MenuList(props: TonicProps): React.JSX.Element;
-export function MenuToggle(props: MenuToggleProps): React.JSX.Element;
-export function MenuToggleIcon(props: MenuToggleIconProps): React.JSX.Element;
-export function Modal(props: ModalProps): React.JSX.Element;
-export function ModalBody(props: TonicProps): React.JSX.Element;
-export function ModalCloseButton(props: ButtonProps): React.JSX.Element;
-export function ModalContent(props: ModalContentProps): React.JSX.Element;
-export function ModalFooter(props: TonicProps): React.JSX.Element;
-export function ModalHeader(props: TonicProps): React.JSX.Element;
-export function ModalOverlay(props: ModalOverlayProps): React.JSX.Element;
-export function Option(props: React.OptionHTMLAttributes<HTMLOptionElement>): React.JSX.Element;
-export function OptionGroup(props: TonicProps): React.JSX.Element;
-export function Pagination(props: PaginationProps): React.JSX.Element;
-export function PaginationItem(props: PaginationItemProps): React.JSX.Element;
-export function Popover(props: PopoverProps): React.JSX.Element;
-export function PopoverBody(props: TonicProps): React.JSX.Element;
-export function PopoverContent(props: PopoverContentProps): React.JSX.Element;
-export function PopoverFooter(props: TonicProps): React.JSX.Element;
-export function PopoverHeader(props: TonicProps): React.JSX.Element;
-export function PopoverTrigger(props: PopoverTriggerProps): React.JSX.Element;
-export function Portal(props: PortalProps): React.JSX.Element;
-export function PortalManager(props: React.PropsWithChildren<{}>): React.JSX.Element;
-export function Radio(props: InputProps): React.JSX.Element;
-export function RadioGroup(props: RadioGroupProps<string | number | undefined>): React.JSX.Element;
-export function SVGIcon(props: TonicProps): React.JSX.Element;
-export function Scale(props: TransitionScaleProps): React.JSX.Element;
-export function Scrollbar(props: ScrollbarProps): React.JSX.Element;
-export function SearchInput(props: SearchInputProps): React.JSX.Element;
-export function Select(props: SelectProps): React.JSX.Element;
-export function Skeleton(props: SkeletonProps): React.JSX.Element;
-export function Slide(props: TransitionSlideProps): React.JSX.Element;
-export function Space(props: TonicProps): React.JSX.Element;
-export function Spinner(props: SpinnerProps): React.JSX.Element;
-export function Stack(props: StackProps): React.JSX.Element;
-export function Submenu(props: SubmenuProps): React.JSX.Element;
-export function SubmenuList(props: TonicProps): React.JSX.Element;
-export function SubmenuToggle(props: SubmenuToggleProps): React.JSX.Element;
-export function Switch(props: CheckboxProps): React.JSX.Element;
-export function Tab(props: TabProps<string | number | undefined>): React.JSX.Element;
-export function TabList(props: TonicProps): React.JSX.Element;
-export function TabPanel(props: TabPanelProps<number | string | undefined>): React.JSX.Element;
-export function TabPanels(props: TonicProps): React.JSX.Element;
-export function Table(props: TableProps): React.JSX.Element;
-export function TableBody(props: TonicProps): React.JSX.Element;
-export function TableCell(props: TonicProps): React.JSX.Element;
-export function TableHeader(props: TonicProps): React.JSX.Element;
-export function TableHeaderCell(props: TonicProps): React.JSX.Element;
-export function TableHeaderRow(props: TonicProps): React.JSX.Element;
-export function TableRow(props: TonicProps): React.JSX.Element;
-export function Tabs(props: TabsProps<string | number | undefined>): React.JSX.Element;
-export function Tag(props: TagProps): React.JSX.Element;
-export function TagCloseButton(props: ButtonProps): React.JSX.Element;
-export function Text(props: TextProps): React.JSX.Element;
-export function TextLabel(props: TextLabelProps): React.JSX.Element;
-export function Textarea(props: TextareaProps): React.JSX.Element;
+export function Accordion(props: AccordionProps): JSX.Element;
+export function AccordionBody(props: TonicProps): JSX.Element;
+export function AccordionCollapse(props: TonicProps): JSX.Element;
+export function AccordionHeader(props: AccordionHeaderProps): JSX.Element;
+export function AccordionItem(props: AccordionItemProps): JSX.Element;
+export function AccordionToggle(props: AccordionToggleProps): JSX.Element;
+export function AccordionToggleIcon(props: AccordionToggleIconProps): JSX.Element;
+export function Alert(props: AlertProps): JSX.Element;
+export function AlertCloseButton(props: ButtonProps): JSX.Element;
+export const AnimatePresence: any;
+export function Badge(props: BadgeProps): JSX.Element;
+export function Box(props: TonicProps): JSX.Element;
+export function Button(props: ButtonProps): JSX.Element;
+export function ButtonBase(props: ButtonProps): JSX.Element;
+export function ButtonGroup(props: ButtonGroupProps): JSX.Element;
+export function ButtonLink(props: ButtonLinkProps): JSX.Element;
+export function Checkbox(props: CheckboxProps): JSX.Element;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+export function CheckboxGroup<T extends string | number | undefined = number>(
+    props: CheckboxGroupProps<T[]>,
+): JSX.Element;
+export function Collapse(props: TransitionProps): JSX.Element;
+export function ControlBox(props: ControlBoxProps): JSX.Element;
+export function DarkMode(props: PropsWithChildren<{}>): JSX.Element;
+export function Divider(props: DividerProps): JSX.Element;
+export function Drawer(props: DrawerProps): JSX.Element;
+export function DrawerBody(props: TonicProps): JSX.Element;
+export function DrawerCloseButton(props: ButtonProps): JSX.Element;
+export function DrawerContent(props: DrawerContentProps): JSX.Element;
+export function DrawerFooter(props: TonicProps): JSX.Element;
+export function DrawerHeader(props: TonicProps): JSX.Element;
+export function DrawerOverlay(props: DrawerOverlayProps): JSX.Element;
+export function Fade(props: TransitionProps): JSX.Element;
+export function Flex(props: FlexProps): JSX.Element;
+export function Grid(props: GridProps): JSX.Element;
+export function Grow(props: TransitionProps): JSX.Element;
+export function Icon(props: IconProps): JSX.Element;
+export function Image(props: ImageProps): JSX.Element;
+export function Input(props: InputProps): JSX.Element;
+export function InputAdornment(props: TonicProps): JSX.Element;
+export function InputBase(props: InputProps): JSX.Element;
+export function InputControl(props: InputControlProps): JSX.Element;
+export function InputGroup(props: InputGroupProps): JSX.Element;
+export function InputGroupAddon(props: InputGroupAddonProps): JSX.Element;
+export function InputGroupAppend(props: TonicProps): JSX.Element;
+export function InputGroupPrepend(props: TonicProps): JSX.Element;
+export function LightMode(props: PropsWithChildren<{}>): JSX.Element;
+export function LinearProgress(props: LinearProgressProps): JSX.Element;
+export function Link(props: LinkProps): JSX.Element;
+export function LinkButton(props: ButtonProps): JSX.Element;
+export function Menu(props: MenuProps): JSX.Element;
+export function MenuButton(props: ButtonProps): JSX.Element;
+export function MenuContent(props: MenuContentProps): JSX.Element;
+export function MenuDivider(props: TonicProps): JSX.Element;
+export function MenuGroup(props: MenuGroupProps): JSX.Element;
+export function MenuItem(props: MenuItemProps): JSX.Element;
+export function MenuList(props: TonicProps): JSX.Element;
+export function MenuToggle(props: MenuToggleProps): JSX.Element;
+export function MenuToggleIcon(props: MenuToggleIconProps): JSX.Element;
+export function Modal(props: ModalProps): JSX.Element;
+export function ModalBody(props: TonicProps): JSX.Element;
+export function ModalCloseButton(props: ButtonProps): JSX.Element;
+export function ModalContent(props: ModalContentProps): JSX.Element;
+export function ModalFooter(props: TonicProps): JSX.Element;
+export function ModalHeader(props: TonicProps): JSX.Element;
+export function ModalOverlay(props: ModalOverlayProps): JSX.Element;
+export function Option(props: OptionHTMLAttributes<HTMLOptionElement>): JSX.Element;
+export function OptionGroup(props: TonicProps): JSX.Element;
+export function OverflowTooltip(props: OverflowTooltipProps): JSX.Element;
+export function Pagination(props: PaginationProps): JSX.Element;
+export function PaginationItem(props: PaginationItemProps): JSX.Element;
+export function Popover(props: PopoverProps): JSX.Element;
+export function PopoverBody(props: TonicProps): JSX.Element;
+export function PopoverContent(props: PopoverContentProps): JSX.Element;
+export function PopoverFooter(props: TonicProps): JSX.Element;
+export function PopoverHeader(props: TonicProps): JSX.Element;
+export function PopoverTrigger(props: PopoverTriggerProps): JSX.Element;
+export function Portal(props: PortalProps): JSX.Element;
+export function PortalManager(props: PropsWithChildren<{}>): JSX.Element;
+export function Radio(props: InputProps): JSX.Element;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+export function RadioGroup<T extends string | number | undefined = number>(props: RadioGroupProps<T>): JSX.Element;
+export function ResizeHandle(props: PropsWithChildren<ResizeHandleProps>): JSX.Element;
+export function SVGIcon(props: TonicProps): JSX.Element;
+export function Scale(props: TransitionScaleProps): JSX.Element;
+export function Scrollbar(props: ScrollbarProps): JSX.Element;
+export function SearchInput(props: SearchInputProps): JSX.Element;
+export function Select(props: SelectProps): JSX.Element;
+export function Skeleton(props: SkeletonProps): JSX.Element;
+export function Slide(props: TransitionSlideProps): JSX.Element;
+export function Space(props: TonicProps): JSX.Element;
+export function Spinner(props: SpinnerProps): JSX.Element;
+export function Stack(props: StackProps): JSX.Element;
+export function Submenu(props: SubmenuProps): JSX.Element;
+export function SubmenuList(props: TonicProps): JSX.Element;
+export function SubmenuToggle(props: SubmenuToggleProps): JSX.Element;
+export function Switch(props: CheckboxProps): JSX.Element;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+export function Tab<T extends string | number | undefined = number>(props: TabProps<T>): JSX.Element;
+export function TabList(props: TonicProps): JSX.Element;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+export function TabPanel<T extends string | number | undefined = number>(props: TabPanelProps<T>): JSX.Element;
+export function TabPanels(props: TonicProps): JSX.Element;
+export function Table(props: TableProps): JSX.Element;
+export function TableBody(props: TonicProps): JSX.Element;
+export function TableCell(props: TonicProps): JSX.Element;
+export function TableHeader(props: TonicProps): JSX.Element;
+export function TableHeaderCell(props: TonicProps): JSX.Element;
+export function TableHeaderRow(props: TonicProps): JSX.Element;
+export function TableRow(props: TonicProps): JSX.Element;
+export function TableScrollbar(props: ScrollbarProps): JSX.Element;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+export function Tabs<T extends string | number | undefined = number>(props: TabsProps<T>): JSX.Element;
+export function Tag(props: TagProps): JSX.Element;
+export function TagCloseButton(props: ButtonProps): JSX.Element;
+export function Text(props: TextProps): JSX.Element;
+export function TextLabel(props: TextLabelProps): JSX.Element;
+export function Textarea(props: TextareaProps): JSX.Element;
 export const theme: TonicProviderTheme;
-export function Toast(props: ToastProps): React.JSX.Element;
-export function ToastCloseButton(props: ButtonProps): React.JSX.Element;
-export function ToastController(props: ToastControllerProps): React.JSX.Element;
-export function ToastProvider(props: ToastProviderProps): React.JSX.Element;
-export function ToastTransition(props: ToastTransitionProps): React.JSX.Element;
-export function TonicProvider(props: React.PropsWithChildren<TonicProviderProps>): React.JSX.Element;
-export function Tooltip(props: TooltipProps): React.JSX.Element;
-export function Truncate(prop: TonicProps): React.JSX.Element;
-export function VisuallyHidden(props: TonicProps): React.JSX.Element;
-export function Zoom(props: TransitionProps): React.JSX.Element;
+export function Toast(props: ToastProps): JSX.Element;
+export function ToastCloseButton(props: ButtonProps): JSX.Element;
+export function ToastController(props: ToastControllerProps): JSX.Element;
+export function ToastManager(props: ToastManagerProps): JSX.Element;
+export function ToastProvider(props: ToastProviderProps): JSX.Element;
+export function ToastTransition(props: ToastTransitionProps): JSX.Element;
+export function TonicProvider(props: PropsWithChildren<TonicProviderProps>): JSX.Element;
+export function Tooltip(props: TooltipProps): JSX.Element;
+export function Tree(props: TreeProps): JSX.Element;
+export function TreeItem(props: TreeItemProps): JSX.Element;
+export function TreeItemContent(props: TonicProps): JSX.Element;
+export function TreeItemToggle(props: TonicProps): JSX.Element;
+export function TreeItemToggleIcon(props: TonicProps): JSX.Element;
+export function Truncate(prop: TonicProps): JSX.Element;
+export function VisuallyHidden(props: TonicProps): JSX.Element;
+export function Zoom(props: TransitionProps): JSX.Element;
 export const useAccordion: any;
 export const useAccordionItem: any;
 export const useAnimatePresence: any;
 export const useButtonGroup: any;
 export const useCheckboxGroup: any;
-export function useColorMode(): [colorMode: ThemeColorModes, setColorMode: React.Dispatch<ThemeColorModes>];
-export function useColorStyle<ThemeColorStyle>(config: {
+export function useColorMode(): [colorMode: ThemeColorModes, setColorMode: Dispatch<ThemeColorModes>];
+export function useColorStyle(config: {
     colorMode: ThemeColorModes;
-}): [colorStyle: ThemeColorStyle, setColorStyle: React.Dispatch<ThemeColorStyle>];
-export function useDrawer(): any;
-export function useInputGroup(): any;
-export function useMenu(): any;
-export function useModal(): any;
-export function usePagination(): any;
-export function usePopover(): any;
-export function usePortalManager(): PortalObject;
-export function useRadioGroup(): any;
-export function useSubmenu(): any;
-export function useTabs(): any;
-export function useTheme(): any;
-export function useToast(): any;
+}): [colorStyle: ThemeColorStyle, setColorStyle: Dispatch<ThemeColorStyle>];
+export const useDrawer: any;
+export const useInputGroup: any;
+export const useMenu: any;
+export const useModal: any;
+export const usePagination: any;
+export const usePopover: any;
+export function usePortalManager(): UsePortalManagerHook["add"] & UsePortalManagerHook;
+export const useRadioGroup: any;
+export const useSubmenu: any;
+export const useTabs: any;
+export const useTheme: any;
+export const useToast: any;
+export function useToastManager(): UseToastManagerHook["notify"] & UseToastManagerHook;
+export const useTree: any;
+export const useTreeItem: any;
 
 export type Breakpoints = "sm" | "md" | "lg" | "xl" | "2xl" | "_";
 type ThemeColorModes = "light" | "dark";
@@ -161,7 +200,7 @@ interface AccordionItemContext {
 }
 
 export interface AccordionProps extends Omit<TonicProps, "children"> {
-    children: React.ReactNode | ((context: unknown) => React.ReactNode);
+    children: ReactNode | ((context: unknown) => ReactNode);
 }
 
 export interface AccordionHeaderProps extends TonicProps {
@@ -174,9 +213,7 @@ export interface AccordionToggleProps extends TonicProps {
 
 export interface AccordionToggleIconProps extends Omit<TonicProps, "children"> {
     appear?: boolean;
-    children:
-        | React.ReactNode
-        | ((state: unknown, props: { ref: any; style: _ExtendedCSSProperties }) => React.ReactNode);
+    children: ReactNode | ((state: unknown, props: { ref: any; style: _ExtendedCSSProperties }) => ReactNode);
     disabled?: boolean;
     easing?: string | { enter?: string; exit?: string };
     in?: boolean;
@@ -186,7 +223,7 @@ export interface AccordionToggleIconProps extends Omit<TonicProps, "children"> {
 }
 
 export interface AccordionItemProps extends Omit<TonicProps, "children"> {
-    children?: React.ReactNode | ((context: AccordionItemContext) => React.ReactNode);
+    children?: ReactNode | ((context: AccordionItemContext) => ReactNode);
     disabled?: boolean;
     isExpanded?: boolean;
     defaultIsExpanded?: boolean;
@@ -196,13 +233,13 @@ export interface AccordionItemProps extends Omit<TonicProps, "children"> {
 export interface AlertProps extends TonicProps {
     severity: "warning" | "error" | "success" | "info" | undefined;
     variant?: "solid" | "outline";
-    icon?: string | React.ReactNode | false;
+    icon?: string | ReactNode | false;
     isClosable?: boolean;
-    onClose?: (evt?: React.MouseEvent<HTMLElement>) => void;
+    onClose?: (evt?: MouseEvent<HTMLElement>) => void;
 }
 
 export interface BadgeProps extends TonicProps {
-    badgeContent?: React.ReactNode;
+    badgeContent?: ReactNode;
     isInvisible?: boolean;
     placement?: "top-left" | "top-right" | "bottom-left" | "bottom-right";
     variant?: "solid" | "dot";
@@ -216,7 +253,7 @@ export interface ButtonProps extends TonicHTMLButtonProps {
 }
 
 export interface ButtonGroupProps extends Omit<TonicProps, "children"> {
-    children: React.ReactNode | ((context: unknown) => React.ReactNode);
+    children: ReactNode | ((context: unknown) => ReactNode);
     orientation?: "horizontal" | "vertical";
     size?: "sm" | "md" | "lg" | number;
     variant?: "emphasis" | "primary" | "default" | "secondary" | "ghost";
@@ -226,8 +263,8 @@ export interface ButtonLinkProps extends ButtonProps {
     href?: string;
 }
 
-export interface CheckboxProps extends TonicHTMLInputProps<HTMLInputElement> {
-    children?: React.ReactNode;
+export interface CheckboxProps extends TonicHTMLInputProps {
+    children?: ReactNode;
     variantColor?: string;
     indeterminate?: boolean;
 }
@@ -235,7 +272,7 @@ export interface CheckboxProps extends TonicHTMLInputProps<HTMLInputElement> {
 export interface CheckboxGroupProps<T extends Array<string | number | undefined>>
     extends Omit<TonicProps, "onChange" | "children">
 {
-    children: React.ReactNode | ((context: unknown) => React.ReactNode);
+    children: ReactNode | ((context: unknown) => ReactNode);
     defaultValue?: T;
     disabled?: boolean;
     name: string;
@@ -267,12 +304,12 @@ export interface DividerProps extends TonicProps {
 export interface DrawerProps extends Omit<TonicProps, "children"> {
     autoFocus?: boolean;
     backdrop?: boolean;
-    children: React.ReactNode | ((context: unknown) => React.ReactNode);
+    children: ReactNode | ((context: unknown) => ReactNode);
     closeOnEsc?: boolean;
     closeOnOutsideClick?: boolean;
     ensureFocus?: boolean;
-    finalFocusRef?: React.RefObject<HTMLElement>;
-    initialFocusRef?: React.RefObject<HTMLElement>;
+    finalFocusRef?: RefObject<HTMLElement>;
+    initialFocusRef?: RefObject<HTMLElement>;
     isClosable?: boolean;
     isOpen?: boolean;
     onClose?: () => void;
@@ -281,35 +318,35 @@ export interface DrawerProps extends Omit<TonicProps, "children"> {
 }
 
 export interface DrawerContentProps extends TonicProps {
-    TransitionComponent?: React.ComponentType;
+    TransitionComponent?: ComponentType;
     TransitionProps?: { appear: boolean };
 }
 
 export interface DrawerOverlayProps extends TonicProps {
-    TransitionComponent?: React.ComponentType;
+    TransitionComponent?: ComponentType;
     TransitionProps?: { appear: boolean };
 }
 
 export interface FlexProps extends TonicProps {
-    align?: React.CSSProperties["alignItems"];
-    direction?: React.CSSProperties["flexDirection"];
-    wrap?: React.CSSProperties["flexWrap"];
-    justify?: React.CSSProperties["justifyContent"];
+    align?: CSSProperties["alignItems"];
+    direction?: CSSProperties["flexDirection"];
+    wrap?: CSSProperties["flexWrap"];
+    justify?: CSSProperties["justifyContent"];
 }
 
 export interface GridProps extends TonicProps {
-    gap?: React.CSSProperties["gridGap"];
-    rowGap?: React.CSSProperties["gridRowGap"];
-    columnGap?: React.CSSProperties["gridColumnGap"];
-    row?: React.CSSProperties["gridRow"];
-    column?: React.CSSProperties["gridColumn"];
-    area?: React.CSSProperties["gridArea"];
-    autoFlow?: React.CSSProperties["gridAutoFlow"];
-    autoRows?: React.CSSProperties["gridAutoRows"];
-    autoColumns?: React.CSSProperties["gridAutoColumns"];
-    templateRows?: React.CSSProperties["gridTemplateRows"];
-    templateColumns?: React.CSSProperties["gridTemplateColumns"];
-    templateAreas?: React.CSSProperties["gridTemplateAreas"];
+    gap?: CSSProperties["gap"];
+    rowGap?: CSSProperties["rowGap"];
+    columnGap?: CSSProperties["columnGap"];
+    row?: CSSProperties["gridRow"];
+    column?: CSSProperties["gridColumn"];
+    area?: CSSProperties["gridArea"];
+    autoFlow?: CSSProperties["gridAutoFlow"];
+    autoRows?: CSSProperties["gridAutoRows"];
+    autoColumns?: CSSProperties["gridAutoColumns"];
+    templateRows?: CSSProperties["gridTemplateRows"];
+    templateColumns?: CSSProperties["gridTemplateColumns"];
+    templateAreas?: CSSProperties["gridTemplateAreas"];
 }
 
 export interface IconProps extends TonicProps {
@@ -318,25 +355,25 @@ export interface IconProps extends TonicProps {
     spin?: boolean | "cw" | "ccw";
 }
 
-export interface InputProps extends TonicHTMLInputProps<HTMLInputElement> {
+export interface InputProps extends TonicHTMLInputProps {
     inputProps?: InputProps;
     error?: boolean;
     variant?: "outline" | "filled" | "unstyled";
 }
 
-export interface InputControlProps extends TonicHTMLInputProps<HTMLInputElement> {
+export interface InputControlProps extends TonicHTMLInputProps {
     error?: boolean;
-    endAdornment?: React.ReactNode;
-    inputComponent?: React.ComponentType;
+    endAdornment?: ReactNode;
+    inputComponent?: ComponentType;
     inputProps?: InputProps;
-    inputRef?: React.RefObject<HTMLElement>;
+    inputRef?: RefObject<HTMLElement>;
     size?: "sm" | "md" | "lg" | number;
     variant?: "outline" | "filled" | "unstyled";
-    startAdornment?: React.ReactNode;
+    startAdornment?: ReactNode;
 }
 
 export interface InputGroupProps extends Omit<TonicProps, "children"> {
-    children: React.ReactNode | ((context: unknown) => React.ReactNode);
+    children: ReactNode | ((context: unknown) => ReactNode);
     size?: "sm" | "md" | "lg" | number;
     variant?: "outline" | "filled" | "unstyled";
 }
@@ -362,7 +399,7 @@ export interface LinkProps extends TonicHTMLAnchorProps {
 export interface MenuProps extends Omit<TonicProps, "children"> {
     anchorEl?: HTMLElement;
     autoSelect?: boolean;
-    children: React.ReactNode | ((context: unknown) => React.ReactNode);
+    children: ReactNode | ((context: unknown) => ReactNode);
     closeOnBlur?: boolean;
     closeOnSelect?: boolean;
     defaultActiveIndex?: number;
@@ -375,9 +412,9 @@ export interface MenuProps extends Omit<TonicProps, "children"> {
 }
 
 export interface MenuContentProps extends TonicProps {
-    PopperComponent: React.ComponentType;
+    PopperComponent: ComponentType;
     PopperProps: Record<string, unknown>;
-    TransitionComponent?: React.ComponentType;
+    TransitionComponent?: ComponentType;
     TransitionProps?: { appear: boolean };
 }
 
@@ -391,16 +428,13 @@ export interface MenuItemProps extends TonicProps {
 
 export interface MenuToggleProps extends Omit<TonicProps, "children"> {
     children?:
-        | React.ReactNode
-        | ((
-            state: { getMenuToggleProps: () => _ExtendedCSSProperties },
-            props: _ExtendedCSSProperties,
-        ) => React.ReactNode);
+        | ReactNode
+        | ((state: { getMenuToggleProps: () => _ExtendedCSSProperties }, props: _ExtendedCSSProperties) => ReactNode);
 }
 
 export interface MenuToggleIconProps extends Omit<TonicProps, "children"> {
     appear?: boolean;
-    children?: React.ReactNode | ((state: unknown, props: _ExtendedCSSProperties) => React.ReactNode);
+    children?: ReactNode | ((state: unknown, props: _ExtendedCSSProperties) => ReactNode);
     disabled?: boolean;
     easing?: string | { enter?: string; exit?: string };
     in?: boolean;
@@ -411,27 +445,66 @@ export interface MenuToggleIconProps extends Omit<TonicProps, "children"> {
 
 export interface ModalProps extends Omit<TonicProps, "children"> {
     autoFocus?: boolean;
-    children: React.ReactNode | ((context: unknown) => React.ReactNode);
+    children: ReactNode | ((context: unknown) => ReactNode);
     closeOnEsc?: boolean;
     closeOnOutsideClick?: boolean;
     ensureFocus?: boolean;
-    finalFocusRef?: React.RefObject<HTMLElement>;
-    initialFocusRef?: React.RefObject<HTMLElement>;
+    finalFocusRef?: RefObject<HTMLElement>;
+    initialFocusRef?: RefObject<HTMLElement>;
     isClosable?: boolean;
     isOpen?: boolean;
-    onClose?: React.MouseEventHandler;
+    onClose?: MouseEventHandler;
     size?: "auto" | "xs" | "sm" | "md" | "lg" | "xl" | "full" | number;
     scrollBehavior?: "inside" | "outside";
 }
 
 export interface ModalContentProps extends TonicProps {
-    TransitionComponent?: React.ComponentType;
+    TransitionComponent?: ComponentType;
     TransitionProps?: { appear: boolean };
 }
 
 export interface ModalOverlayProps extends TonicProps {
-    TransitionComponent?: React.ComponentType;
+    TransitionComponent?: ComponentType;
     TransitionProps?: { appear: boolean };
+}
+
+export interface OverflowTooltipProps extends Omit<TonicProps, "children"> {
+    PopperComponent?: ComponentType;
+    PopperProps?: Record<string, unknown>;
+    TooltipArrowComponent?: ComponentType;
+    TooltipArrowProps?: Record<string, unknown>;
+    TransitionComponent?: ComponentType;
+    TransitionProps?: { appear: boolean };
+    arrow?: boolean;
+    children: ReactNode | ((context: unknown) => ReactNode);
+    closeOnClick?: boolean;
+    closeOnEsc?: boolean;
+    closeOnPointerDown?: boolean;
+    defaultIsOpen?: boolean;
+    disabled?: boolean;
+    enterDelay?: number;
+    followCursor?: boolean;
+    isOpen?: boolean;
+    label?: string | ReactNode;
+    leaveDelay?: number;
+    nextToCursor?: boolean;
+    offset?: [number, number];
+    onClose?: () => void;
+    onOpen?: () => void;
+    placement?:
+        | "top"
+        | "bottom"
+        | "right"
+        | "left"
+        | "top-start"
+        | "top-end"
+        | "bottom-start"
+        | "bottom-end"
+        | "right-start"
+        | "right-end"
+        | "left-start"
+        | "left-end";
+    shouldWrapChildren?: boolean;
 }
 
 export interface PaginationProps extends Omit<TonicProps, "onChange" | "page"> {
@@ -439,21 +512,21 @@ export interface PaginationProps extends Omit<TonicProps, "onChange" | "page"> {
     count?: number;
     defaultPage?: number;
     disabled?: boolean;
-    onChange?: (event: React.MouseEvent, page: number) => void;
+    onChange?: (event: MouseEvent, page: number) => void;
     page?: number;
-    renderItem?: (props: PaginationItemProps) => React.ReactNode;
+    renderItem?: (props: PaginationItemProps) => ReactNode;
     siblingCount?: number;
     slot?: { first?: boolean; last?: boolean; previous?: boolean; next?: boolean };
 }
 
 export interface PaginationItemProps extends TonicProps {
     type: "start-ellipsis" | "end-ellipsis" | "first-page" | "last-page" | "previous-page" | "next-page";
-    slot: { previous: React.JSX.Element; next: React.JSX.Element };
+    slot: { previous: JSX.Element; next: JSX.Element };
 }
 
 export interface PopoverProps extends Omit<TonicProps, "children"> {
     arrowAt?: "left" | "right" | "top" | "bottom";
-    children: React.ReactNode | ((context: unknown) => React.ReactNode);
+    children: ReactNode | ((context: unknown) => ReactNode);
     closeOnBlur?: boolean;
     closeOnEsc?: boolean;
     defaultIsOpen?: boolean;
@@ -461,7 +534,7 @@ export interface PopoverProps extends Omit<TonicProps, "children"> {
     followCursor?: boolean;
     hideArrow?: boolean;
     id?: string;
-    initialFocusRef?: React.RefObject<HTMLElement>;
+    initialFocusRef?: RefObject<HTMLElement>;
     isOpen?: boolean;
     leaveDelay?: number;
     nextToCursor?: boolean;
@@ -486,35 +559,27 @@ export interface PopoverProps extends Omit<TonicProps, "children"> {
 }
 
 export interface PopoverContentProps extends TonicProps {
-    PopperComponent?: React.ComponentType;
+    PopperComponent?: ComponentType;
     PopperProps?: object;
-    PopperArrowComponent?: React.ComponentType;
+    PopperArrowComponent?: ComponentType;
     PopperArrowProps?: object;
-    TransitionComponent?: React.ComponentType;
+    TransitionComponent?: ComponentType;
     TransitionProps?: object;
 }
 
 export interface PopoverTriggerProps extends Omit<TonicProps, "children"> {
-    children: React.ReactNode | ((args: { getPopoverTriggerProps: () => TonicProps }) => React.ReactNode);
-}
-
-export interface PortalObject {
-    (
-        render: (close: () => void) => React.ReactNode,
-        options?: { id?: string; appendToParentPortal?: boolean; containerRef?: Element | null },
-    ): string;
-    remove(id: string): void;
+    children: ReactNode | ((args: { getPopoverTriggerProps: () => TonicProps }) => ReactNode);
 }
 
 export interface PortalProps {
     appendToParentPortal?: boolean;
-    containerRef?: React.RefObject<HTMLElement>;
+    containerRef?: RefObject<HTMLElement>;
 }
 
 export interface RadioGroupProps<T extends string | number | undefined>
-    extends Omit<TonicHTMLInputProps<HTMLInputElement>, "onChange" | "children">
+    extends Omit<TonicHTMLInputProps, "onChange" | "children">
 {
-    children: React.ReactNode | ((context: unknown) => React.ReactNode);
+    children: ReactNode | ((context: unknown) => ReactNode);
     defaultValue?: T;
     disabled?: boolean;
     name: string;
@@ -524,16 +589,34 @@ export interface RadioGroupProps<T extends string | number | undefined>
     variantColor?: string;
 }
 
+export interface ResizeHandleProps extends Omit<TonicProps, "onResize"> {
+    onResize: (values: { clientX: number; clientY: number }) => void;
+    onResizeEnd: (values: { clientX: number; clientY: number }) => void;
+    onResizeStart: (values: { clientX: number; clientY: number }) => void;
+}
+
 export interface SearchInputProps extends InputProps {
     isLoading?: boolean;
-    onClearInput: React.MouseEventHandler;
+    onClearInput: MouseEventHandler;
 }
 
 export interface ScrollbarProps extends Omit<TonicProps, "children"> {
-    children: React.ReactNode | ((context: unknown) => React.ReactNode);
-    minThumbWidth?: number;
-    minThumbHeight?: number;
-    onUpdate: (args: { values: { scrollTop: number; scrollHeight: number; clientHeight: number } }) => void;
+    children: ReactNode | ((context: unknown) => ReactNode);
+    minThumbWidth?: number | string;
+    minThumbHeight?: number | string;
+    onUpdate?: (args: {
+        left: number;
+        top: number;
+        scrollLeft: number;
+        scrollTop: number;
+        scrollWidth: number;
+        scrollHeight: number;
+        clientWidth: number;
+        clientHeight: number;
+    }) => void;
+    scrollLeft?: number | string;
+    scrollTop?: number | string;
+    scrollViewRef?: RefObject<any>;
 }
 
 export interface SelectProps extends TonicHTMLSelectProps {
@@ -556,8 +639,8 @@ export interface SpinnerProps extends TonicProps {
 }
 
 export interface StackProps extends TonicProps {
-    align?: React.CSSProperties["alignItems"];
-    direction?: React.CSSProperties["flexDirection"];
+    align?: CSSProperties["alignItems"];
+    direction?: CSSProperties["flexDirection"];
     gap?: number | string;
     shouldWrapChildren?: boolean;
     spacing?: number | string;
@@ -577,31 +660,27 @@ export interface SubmenuToggleProps extends TonicProps {
 
 export interface TabProps<T extends string | number | undefined> extends Omit<TonicProps, "children"> {
     children:
-        | React.ReactNode
-        | ((args: {
-            getTabProps: () => TonicProps;
-            disabled: boolean;
-            index: T;
-            isSelected: boolean;
-        }) => React.ReactNode);
+        | ReactNode
+        | ((args: { getTabProps: () => TonicProps; disabled: boolean; index: T; isSelected: boolean }) => ReactNode);
     disabled?: boolean;
     index?: T;
 }
 
 export interface TabPanelProps<T extends number | string | undefined> extends Omit<TonicProps, "children"> {
     children:
-        | React.ReactNode
-        | ((args: { getTabPanelProps: () => TonicProps; index: number; isSelected: boolean }) => React.ReactNode);
+        | ReactNode
+        | ((args: { getTabPanelProps: () => TonicProps; index: number; isSelected: boolean }) => ReactNode);
     index?: T;
 }
 
 export interface TableProps extends TonicProps {
     size?: "sm" | "md" | "lg" | number;
     variant?: "default" | "outline";
+    layout?: "flexbox" | "table";
 }
 
 export interface TabsProps<T extends number | string | undefined> extends Omit<TonicProps, "children" | "onChange"> {
-    children: React.ReactNode | ((context: unknown) => React.ReactNode);
+    children: ReactNode | ((context: unknown) => ReactNode);
     defaultIndex?: T;
     disabled?: boolean;
     index?: T;
@@ -625,13 +704,14 @@ export interface TextProps extends TonicProps {
 
 export interface TextLabelProps extends TonicProps<HTMLLabelElement> {
     size?: "4xl" | "3xl" | "2xl" | "xl" | "lg" | "md" | "sm" | "xs" | number;
+    htmlFor?: string;
 }
 
 export interface ToastProps extends Omit<TonicProps, "appearance"> {
     isClosable?: boolean;
     onClose?: () => void;
     appearance?: "none" | "success" | "info" | "warning" | "error";
-    icon?: React.ReactNode;
+    icon?: ReactNode;
 }
 
 export interface ToastControllerProps extends TonicProps {
@@ -639,8 +719,14 @@ export interface ToastControllerProps extends TonicProps {
     onClose?: () => void;
 }
 
+interface ToastManagerProps {
+    children: ReactNode | ((context: unknown) => ReactNode);
+    containerRef?: RefObject<any>;
+    placement?: "top" | "top-right" | "top-left" | "bottom" | "bottom-left" | "bottom-right";
+}
+
 export interface ToastProviderProps extends Omit<TonicProps, "children"> {
-    children: React.ReactNode | ((context: unknown) => React.ReactNode);
+    children: ReactNode | ((context: unknown) => ReactNode);
     container?: any;
     placement?: "top" | "top-right" | "top-left" | "bottom" | "bottom-left" | "bottom-right";
 }
@@ -648,8 +734,8 @@ export interface ToastProviderProps extends Omit<TonicProps, "children"> {
 export interface ToastTransitionProps extends Omit<TonicProps, "children"> {
     appear?: boolean;
     children:
-        | React.ReactNode
-        | ((state: "entering" | "entered" | "exiting" | "exited", props: _ExtendedCSSProperties) => React.ReactNode);
+        | ReactNode
+        | ((state: "entering" | "entered" | "exiting" | "exited", props: _ExtendedCSSProperties) => ReactNode);
     easing?: string | { enter?: string; exit?: string };
     in?: boolean;
     mountOnEnter?: boolean;
@@ -672,26 +758,34 @@ export interface TonicProviderProps {
 type TonicProviderTheme = Record<string, unknown>;
 
 export interface TooltipProps extends Omit<TonicProps, "children"> {
-    PopperComponent?: React.ComponentType;
+    PopperComponent?: ComponentType;
     PopperProps?: object;
-    PopperArrowComponent?: React.ComponentType;
+    PopperArrowComponent?: ComponentType;
     PopperArrowProps?: object;
-    TransitionComponent?: React.ComponentType;
+    TransitionComponent?: ComponentType;
     TransitionProps?: { appear?: boolean };
-    arrowAt?: "left" | "right" | "top" | "bottom";
-    children: React.ReactNode | ((context: { getTooltipTriggerProps: () => TonicProps }) => React.ReactNode);
+    TooltipArrowComponent?: ComponentType;
+    TooltipArrowProps?: object;
+    arrow?: boolean;
+    // arrowAt?: "left" | "right" | "top" | "bottom"; // deprecated
+    children: ReactNode | ((context: unknown) => ReactNode);
     closeOnClick?: boolean;
     closeOnEsc?: boolean;
-    closeOnMouseDown?: boolean;
+    // closeOnMouseDown?: boolean; // deprecated
+    closeOnPointerDown?: boolean;
     defaultIsOpen?: boolean;
     disabled?: boolean;
     enterDelay?: number;
-    hideArrow?: boolean;
+    followCursor?: boolean;
+    // hideArrow?: boolean; // deprecated
     isOpen?: boolean;
-    label?: React.ReactNode;
+    label?: ReactNode;
     leaveDelay?: number;
+    nextToCursor?: boolean;
+    offset?: [skidding: number, distance: number];
     onClose?: () => void;
     onOpen?: () => void;
+    openOnFocus?: boolean;
     placement?:
         | "top"
         | "bottom"
@@ -708,9 +802,43 @@ export interface TooltipProps extends Omit<TonicProps, "children"> {
     shouldWrapChildren?: boolean;
 }
 
+export interface TreeProps extends TonicProps {
+    defaultExpanded?: string[];
+    defaultSelected?: string[];
+    expanded?: string[];
+    id?: string;
+    isSelectable?: boolean;
+    isUnselectable?: boolean;
+    multiSelect?: boolean;
+    onNodeFocus?: (nodeId: string) => void;
+    onNodeSelect?: (nodeIds: string[]) => void;
+    onNodeToggle?: (nodeIds: string[]) => void;
+    selected?: string[];
+}
+
+export interface TreeItemProps extends TonicProps {
+    TransitionComponent?: ComponentType<any>;
+    TransitionProps?: Record<string, unknown>;
+    disabled?: boolean;
+    nodeId: string;
+    render: (context: {
+        nodeDepth: number;
+        nodeId: string;
+        isDisabled: boolean;
+        isExpandable: boolean;
+        isExpanded: boolean;
+        isFocused: boolean;
+        isSelected: boolean;
+        select: () => void;
+        selectRange: () => void;
+        toggleExpansion: () => void;
+        toggleSelection: () => void;
+    }) => ReactNode;
+}
+
 export interface TransitionProps extends Omit<TonicProps, "children"> {
     appear?: boolean;
-    children: React.ReactNode | ((state: unknown, props: _ExtendedCSSProperties) => React.ReactNode);
+    children: ReactNode | ((state: unknown, props: _ExtendedCSSProperties) => ReactNode);
     easing?: string | { enter?: string; exit?: string };
     in?: boolean;
     mountOnEnter?: boolean;
@@ -726,79 +854,94 @@ export interface TransitionSlideProps extends TransitionProps {
     direction?: "up" | "down" | "left" | "right";
 }
 
+export interface ThemeColorStyleBackground {
+    primary: string;
+    secondary: string;
+    tertiary: string;
+    inverse: string;
+    selected: string;
+}
+
+export interface ThemeColorStyleColor {
+    emphasis: string;
+    primary: string;
+    secondary: string;
+    tertiary: string;
+    disabled: string;
+    success: string;
+    info: string;
+    warning: string;
+    error: string;
+}
+
+export interface ThemeColorStyleText {
+    selection: string;
+    highlight: string;
+}
+
+export interface ThemeColorStyleShadow {
+    thin: string;
+    medium: string;
+    thick: string;
+}
+
+export interface ThemeColorStyleSeverity {
+    critical: string;
+    high: string;
+    medium: string;
+    low: string;
+    safe: string;
+    info: string;
+    unknown: string;
+}
+
+export interface ThemeColorStyleChartClassic {
+    colors: string[];
+}
+
+export interface ThemeColorStyleChart {
+    classic: ThemeColorStyleChartClassic;
+}
+
 /**
  * Found by printing the object return from `useColorStyle` hook.
  * These are light mode values. Dark mode will have the same keys, but different values. Kept the light mode strings as a reference
  */
 export interface ThemeColorStyle {
-    background: {
-        primary: string;
-        secondary: string;
-        tertiary: string;
-        inverse: string;
-    };
-    color: {
-        emphasis: string;
-        primary: string;
-        secondary: string;
-        tertiary: string;
-        disabled: string;
-        success: string;
-        info: string;
-        warning: string;
-        error: string;
-    };
+    background: ThemeColorStyleBackground;
+    color: ThemeColorStyleColor;
     divider: string;
-    text: {
-        selection: string;
-        highlight: string;
-    };
-    shadow: {
-        thin: string;
-        medium: string;
-        thick: string;
-    };
-    severity: {
-        critical: string;
-        high: string;
-        medium: string;
-        low: string;
-        safe: string;
-        info: string;
-        unknown: string;
-    };
-    chart: {
-        classic: {
-            colors: string[];
-        };
-    };
+    text: ThemeColorStyleText;
+    shadow: ThemeColorStyleShadow;
+    severity: ThemeColorStyleSeverity;
+    chart: ThemeColorStyleChart;
 }
 
 // Extends CSS properties to remove those that conflict with Tonic and add some shorthands/helpers
-type _ExtendedCSSProperties = Omit<React.CSSProperties, "direction" | "scrollBehavior" | "offset"> & {
+type _ExtendedCSSProperties = Omit<CSSProperties, "direction" | "scrollBehavior" | "offset"> & {
     tabIndex?: string | number | undefined; // tabIndex is defined in HTMLAttributes as just a number. Redefining to be less annoying to work with
 
     paddingX?: string | number | undefined;
     paddingY?: string | number | undefined;
     px?: string | number | undefined;
     py?: string | number | undefined;
-    p?: React.CSSProperties["padding"];
-    pt?: React.CSSProperties["paddingTop"];
-    pr?: React.CSSProperties["paddingRight"];
-    pb?: React.CSSProperties["paddingBottom"];
-    pl?: React.CSSProperties["paddingLeft"];
+    p?: CSSProperties["padding"];
+    pt?: CSSProperties["paddingTop"];
+    pr?: CSSProperties["paddingRight"];
+    pb?: CSSProperties["paddingBottom"];
+    pl?: CSSProperties["paddingLeft"];
 
     marginX?: string | number | undefined;
     marginY?: string | number | undefined;
     mx?: string | number | undefined;
     my?: string | number | undefined;
-    m?: React.CSSProperties["margin"];
-    mt?: React.CSSProperties["marginTop"];
-    mr?: React.CSSProperties["marginRight"];
-    mb?: React.CSSProperties["marginBottom"];
-    ml?: React.CSSProperties["marginLeft"];
+    m?: CSSProperties["margin"];
+    mt?: CSSProperties["marginTop"];
+    mr?: CSSProperties["marginRight"];
+    mb?: CSSProperties["marginBottom"];
+    ml?: CSSProperties["marginLeft"];
 
-    bg?: React.CSSProperties["background"];
+    bg?: CSSProperties["background"];
 };
 
 /**
@@ -821,8 +964,8 @@ type _ResponsiveCSSProperties = {
 };
 
 /** Helper type that contains all CSS related props that can be augmented with remaining React props like ref/children/etc  */
-type _CSSPropsWithHTML<Element, Attributes> =
-    & React.RefAttributes<Element>
+type _CSSPropsWithHTML<Attributes> =
+    & RefAttributes<any>
     & Attributes
     & _ResponsiveCSSProperties
     & {
@@ -830,32 +973,33 @@ type _CSSPropsWithHTML<Element, Attributes> =
 
         // Protip, avoid using this if it can be handled with regular CSS props
         css?: Record<string, unknown>;
+        sx?: Record<string, unknown>;
 
-        _active?: _ExtendedCSSProperties;
-        _checked?: _ExtendedCSSProperties;
-        _selected?: _ExtendedCSSProperties;
-        _disabled?: _ExtendedCSSProperties;
-        _empty?: _ExtendedCSSProperties;
-        _enabled?: _ExtendedCSSProperties;
-        _fullscreen?: _ExtendedCSSProperties;
-        _focus?: _ExtendedCSSProperties;
-        _focusActive?: _ExtendedCSSProperties;
-        _focusHover?: _ExtendedCSSProperties;
-        _focusWithin?: _ExtendedCSSProperties;
-        _focusSelected?: _ExtendedCSSProperties;
-        _hover?: _ExtendedCSSProperties;
-        _indeterminate?: _ExtendedCSSProperties;
-        _valid?: _ExtendedCSSProperties;
-        _invalid?: _ExtendedCSSProperties;
-        _readOnly?: _ExtendedCSSProperties;
-        _visited?: _ExtendedCSSProperties;
+        _active?: _ExtendedCSSProperties | string;
+        _checked?: _ExtendedCSSProperties | string;
+        _selected?: _ExtendedCSSProperties | string;
+        _disabled?: _ExtendedCSSProperties | string;
+        _empty?: _ExtendedCSSProperties | string;
+        _enabled?: _ExtendedCSSProperties | string;
+        _fullscreen?: _ExtendedCSSProperties | string;
+        _focus?: _ExtendedCSSProperties | string;
+        _focusActive?: _ExtendedCSSProperties | string;
+        _focusHover?: _ExtendedCSSProperties | string;
+        _focusWithin?: _ExtendedCSSProperties | string;
+        _focusSelected?: _ExtendedCSSProperties | string;
+        _hover?: _ExtendedCSSProperties | string;
+        _indeterminate?: _ExtendedCSSProperties | string;
+        _valid?: _ExtendedCSSProperties | string;
+        _invalid?: _ExtendedCSSProperties | string;
+        _readOnly?: _ExtendedCSSProperties | string;
+        _visited?: _ExtendedCSSProperties | string;
+        _firstChild?: _ExtendedCSSProperties | string;
+        _firstOfType?: _ExtendedCSSProperties | string;
+        _notFirstOfType?: _ExtendedCSSProperties | string;
+        _lastChild?: _ExtendedCSSProperties | string;
+        _lastOfType?: _ExtendedCSSProperties | string;
+        _nthOfType?: _ExtendedCSSProperties | string;
 
-        _firstChild?: _ExtendedCSSProperties;
-        _firstOfType?: _ExtendedCSSProperties;
-        _notFirstOfType?: _ExtendedCSSProperties;
-        _lastChild?: _ExtendedCSSProperties;
-        _lastOfType?: _ExtendedCSSProperties;
-        _nthOfType?: _ExtendedCSSProperties;
         __after?: _ExtendedCSSProperties;
         __backdrop?: _ExtendedCSSProperties;
         __before?: _ExtendedCSSProperties;
@@ -873,25 +1017,19 @@ type _CSSPropsWithHTML<Element, Attributes> =
 
 export interface ImageProps extends
     _CSSPropsWithHTML<
-        HTMLImageElement,
-        Omit<
-            React.ImgHTMLAttributes<HTMLImageElement>,
-            "color" | "translate" | "slot" | "defaultValue" | "height" | "width"
-        >
+        Omit<ImgHTMLAttributes<HTMLImageElement>, "color" | "translate" | "slot" | "defaultValue" | "height" | "width">
     >
 {}
 
 interface TonicHTMLAnchorProps extends
     _CSSPropsWithHTML<
-        HTMLAnchorElement,
-        Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "tabIndex" | "color" | "translate">
+        Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "tabIndex" | "color" | "translate">
     >
 {}
 
 interface TonicHTMLSelectProps extends
     _CSSPropsWithHTML<
-        HTMLSelectElement,
-        Omit<React.SelectHTMLAttributes<HTMLSelectElement>, "tabIndex" | "color" | "translate" | "size">
+        Omit<SelectHTMLAttributes<HTMLSelectElement>, "tabIndex" | "color" | "translate" | "size">
     >
 {
     size?: "sm" | "md" | "lg" | number;
@@ -899,39 +1037,65 @@ interface TonicHTMLSelectProps extends
 
 export interface TextareaProps extends
     _CSSPropsWithHTML<
-        HTMLTextAreaElement,
-        Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, "tabIndex" | "color" | "translate">
+        Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "tabIndex" | "color" | "translate">
     >
 {
     size?: "sm" | "md" | "lg" | number;
 }
 
-interface TonicHTMLInputProps<Element> extends
+interface TonicHTMLInputProps extends
     _CSSPropsWithHTML<
-        Element,
         Omit<
-            React.InputHTMLAttributes<Element>,
+            InputHTMLAttributes<Element>,
             "children" | "color" | "defaultValue" | "height" | "size" | "slot" | "tabIndex" | "translate" | "width"
         >
     >
 {
-    children?: React.ReactNode;
+    children?: ReactNode;
     size?: "sm" | "md" | "lg" | number;
 }
 
 interface TonicHTMLButtonProps extends
     _CSSPropsWithHTML<
-        HTMLButtonElement,
-        Omit<
-            React.ButtonHTMLAttributes<HTMLButtonElement>,
-            "color" | "tabIndex" | "translate" | "slot" | "defaultValue"
-        >
+        Omit<ButtonHTMLAttributes<HTMLButtonElement>, "color" | "tabIndex" | "translate" | "slot" | "defaultValue">
     >
 {}
 
 export interface TonicProps<Element = HTMLDivElement> extends
     _CSSPropsWithHTML<
-        Element,
-        Omit<React.HTMLAttributes<Element>, "color" | "tabIndex" | "translate" | "slot" | "defaultValue">
+        Omit<HTMLAttributes<Element>, "color" | "tabIndex" | "translate" | "slot" | "defaultValue">
     >
 {}
+
+export interface UsePortalManagerHook {
+    add: (
+        render: (close: () => void) => ReactNode,
+        options?: { id?: string; appendToParentPortal?: boolean; containerRef?: RefObject<any> },
+    ) => string;
+    remove: (id: string) => void;
+}
+
+export interface UseToastManagerHook {
+    notify: (
+        message: string | UseToastRenderFn,
+        options?: {
+            data?: any;
+            duration?: number | null | undefined;
+            id?: string;
+            placement?: string;
+        },
+    ) => string;
+    close: (id: string) => void;
+    closeAll: (options?: {
+        placements?: Array<"top" | "top-left" | "top-right" | "bottom" | "bottom-left" | "bottom-right">;
+    }) => void;
+    findIndex: (id: string) => number;
+    update: (
+        id: string,
+        options?: { duration?: number | null | undefined; message?: (() => string) | string },
+    ) => boolean;
+    placement: string;
+    setState: (state: SetStateAction<Record<string, any>>) => void;
+}
+
+export type UseToastRenderFn = (options: { onClose: () => void; placement: string }) => ReactNode;

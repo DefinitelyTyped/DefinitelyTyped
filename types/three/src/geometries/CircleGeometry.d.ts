@@ -1,4 +1,4 @@
-import { BufferGeometry } from '../core/BufferGeometry.js';
+import { BufferGeometry } from "../core/BufferGeometry.js";
 
 /**
  * {@link CircleGeometry} is a simple shape of Euclidean geometry
@@ -33,7 +33,7 @@ export class CircleGeometry extends BufferGeometry {
      * @remarks Sub-classes will update this value.
      * @defaultValue `CircleGeometry`
      */
-    override readonly type: string | 'CircleGeometry';
+    override readonly type: string | "CircleGeometry";
 
     /**
      * An object with a property for each of the constructor parameters.

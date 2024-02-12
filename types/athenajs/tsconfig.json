@@ -12,7 +12,7 @@
             "es2015.iterable",
             "dom"
         ],
-        "module": "commonjs",
+        "module": "node16",
         "forceConsistentCasingInFileNames": true
     },
     "files": [

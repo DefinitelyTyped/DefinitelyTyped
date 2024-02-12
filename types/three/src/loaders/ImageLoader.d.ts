@@ -1,5 +1,5 @@
-import { Loader } from './Loader.js';
-import { LoadingManager } from './LoadingManager.js';
+import { Loader } from "./Loader.js";
+import { LoadingManager } from "./LoadingManager.js";
 
 /**
  * A loader for loading an image.

@@ -9,7 +9,6 @@
         "@types/react": "*"
     },
     "devDependencies": {
-        "@types/react-dom": "*",
         "@types/redux-infinite-scroll": "workspace:."
     },
     "owners": [

@@ -176,6 +176,7 @@ const topLogger: Modifier<"topLogger"> = {
     showTwoColumnMonthYearPicker
     showFourColumnMonthYearPicker
     showWeekNumbers
+    showWeekPicker
     showYearDropdown
     showYearPicker
     startDate={new Date()}
@@ -187,6 +188,7 @@ const topLogger: Modifier<"topLogger"> = {
     timeIntervals={1}
     title=""
     showIcon
+    toggleCalendarOnIconClick
     todayButton={<div />}
     useShortMonthInDropdown
     useWeekdaysShort

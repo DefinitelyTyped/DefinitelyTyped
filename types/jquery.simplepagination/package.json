@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/jquery.simplepagination",
     "version": "1.4.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.simplepagination",
     "projects": [
         "https://github.com/flaviusmatis/simplePagination.js"
     ],

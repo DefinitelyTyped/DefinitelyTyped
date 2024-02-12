@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/k6",
-    "version": "0.48.9999",
+    "version": "0.49.9999",
     "projects": [
         "https://grafana.com/docs/k6/latest/"
     ],

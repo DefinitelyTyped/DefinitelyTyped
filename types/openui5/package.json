@@ -1,7 +1,9 @@
 {
     "private": true,
     "name": "@types/openui5",
-    "version": "1.120.9999",
+        "version": "1.120.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "openui5",
     "projects": [
         "https://github.com/SAP/openui5"
     ],

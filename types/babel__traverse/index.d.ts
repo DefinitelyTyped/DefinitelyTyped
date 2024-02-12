@@ -392,8 +392,8 @@ export class NodePath<T = Node> {
 
     buildCodeFrameError(msg: string, Error?: ErrorConstructor): Error;
 
-    traverse<T>(visitor: Visitor<T>, state: T): void;
-    traverse(visitor: Visitor): void;
+    traverse<T>(visitor: TraverseOptions<T>, state: T): void;
+    traverse(visitor: TraverseOptions): void;
 
     set(key: string, node: any): void;
 

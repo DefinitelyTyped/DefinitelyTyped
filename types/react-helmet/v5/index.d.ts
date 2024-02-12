@@ -37,7 +37,7 @@ export interface HelmetProps {
     script?: any[] | undefined;
     style?: any[] | undefined;
     title?: string | undefined;
-    titleAttributes?: Object | undefined;
+    titleAttributes?: object | undefined;
     titleTemplate?: string | undefined;
 }
 

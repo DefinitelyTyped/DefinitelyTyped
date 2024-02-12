@@ -1,190 +1,619 @@
+import { TransformOptions as BabelCompilerOptions } from "@babel/core";
+import { Options as CSCompilerOptions } from "coffeescript";
+import { Application, Express } from "express";
+import { CompilerOptions as TSCompilerOptions } from "typescript";
+
+/**
+ * Typings for a Wallaby config file.
+ *
+ * @see {@link https://wallabyjs.com/docs}
+ */
 declare module "wallabyjs" {
     /**
      * Wallaby configuration settings.
      *
-     * @interface
+     * Specify the type arg `T` if you need to configure your test framework
+     * within {@link IWallabyConfig.bootstrap}.
      *
-     * compilers - File patterns as keys and compiler functions as values.
-     * debug - Flag if debug messages written to Wallaby console (default=false).
-     * env - Specify a different test runner or change the runner settings.
-     * files - Specifies an array of source files or file name patterns to copy
-     *                                                        to the local cache.
-     * postprocessor - Function that runs for every batch of file changes after all compilers and preprocessors.
-     * preprocessors - Function that runs for every batch of file changes after all compilers.
-     * testFramework - Specifies the name and version of the testing framework you are using for your tests.
-     * tests - Specifies an array of test files or test file name patterns to copy
-     *                                                        to the local cache.
-     * workers - Degree of parallelism used to run your tests and controls the way wallaby re-uses workers.
-     *
+     * @template T - Test framework instance
      * @see {@link https://wallabyjs.com/docs/config/overview.html} for details.
      */
-    export interface IWallabyConfig {
+    export interface IWallabyConfig<T = any> {
+        /**
+         * File patterns as keys and compiler functions as values.
+         */
         compilers?: IWallabyCompilers | undefined;
+
+        /**
+         * If `true`, Wallaby will write debug messages to its console.
+         */
         debug?: boolean | undefined;
+
+        /**
+         * Specify a different test runner or change the runner settings.
+         */
         env?: IWallabyEnvironment | undefined;
-        files: string[] | IWallabyFilePattern[];
-        postprocessor?: IWallabyProcessor | undefined;
-        preprocessors?: IWallabyProcessor | undefined;
+
+        /**
+         * Specifies an array of source files or file name patterns to copy to
+         * the local cache.
+         *
+         * @see {@link https://wallabyjs.com/docs/config/files.html} for details
+         */
+        files: Array<string | IWallabyFilePattern>;
+
+        /**
+         * Function that runs for every batch of file changes after all
+         * compilers and preprocessors.
+         *
+         * @see {@link https://wallabyjs.com/docs/config/postprocessor.html} for
+         * details
+         */
+        postprocessor?: IWallabyProcessors | undefined;
+
+        /**
+         * Function that runs for every batch of file changes after all compilers.
+         *
+         * @see {@link https://wallabyjs.com/docs/config/preprocessors.html} for details
+         */
+        preprocessors?: IWallabyProcessors | undefined;
+
+        /**
+         * Specifies the name and version of the testing framework you are using
+         * for your tests.
+         */
         testFramework?: string | undefined;
-        tests: string[] | IWallabyFilePattern[];
+
+        /**
+         * Specifies an array of test files or test file name patterns to copy
+         * to the local cache.
+         *
+         * @see {@link https://wallabyjs.com/docs/config/files.html} for details
+         */
+        tests: Array<string | IWallabyFilePattern>;
+
+        /**
+         * Degree of parallelism used to run your tests and controls the way
+         * Wallaby re-uses workers.
+         *
+         * @see {@link https://wallabyjs.com/docs/config/workers.html} for
+         * details
+         */
         workers?: IWallabyWorkers | undefined;
+
+        /**
+         * Bootstrap function
+         *
+         * Alias of {@link bootstrap}
+         *
+         * @see {@link https://wallabyjs.com/docs/config/bootstrap.html} for details
+         */
+        setup?: IWallabySetup<T>;
+
+        /**
+         * Bootstrap function
+         *
+         * Alias of {@link setup}
+         *
+         * @see {@link https://wallabyjs.com/docs/config/bootstrap.html} for details
+         */
+        bootstrap?: IWallabySetup<T>;
+
+        /**
+         * Teardown function
+         *
+         * Node.js only
+         *
+         * @see {@link https://wallabyjs.com/docs/config/bootstrap.html} for details
+         */
+        teardown?: IWallabyTeardown<T>;
+
+        /**
+         * How long to wait (in milliseconds) for the {@link teardown} function to complete.
+         *
+         * Node.js only
+         *
+         * @see {@link https://wallabyjs.com/docs/config/bootstrap.html} for details
+         */
+        globalSetupTeardownTimeout?: number;
+
+        /**
+         * Inject custom middleware into the Wallaby web server.
+         *
+         * @see {@link https://wallabyjs.com/docs/config/middleware.html} for details
+         */
+        middleware?: ((app: Application, express: Express) => void) | undefined;
+
+        /**
+         * Files matching this path or glob pattern will be excluded from code
+         * coverage calculation.
+         *
+         * @see {@link https://wallabyjs.com/docs/config/coverage.html} for
+         * details
+         */
+        filesWithNoCoverageCalculated?: string[] | undefined;
+
+        /**
+         * Override how Wallaby interprets inline comments.
+         *
+         * @see {@link https://wallabyjs.com/docs/config/coverage.html} for details
+         */
+        hints?: IWallabyHints | undefined;
+
+        /**
+         * Configure Wallaby's "Smart Start" mode.
+         *
+         * - `open`: Start running tests when the file is opened
+         * - `edit`: Start running tests after the file has been edited
+         * - `always`: Start running tests immediately on start
+         * - `never`: Never automatically run tests
+         *
+         * @defaultValue `'open'`
+         * @see {@link https://wallabyjs.com/docs/config/smart-start.html} for details
+         */
+        startMode?: "open" | "edit" | "always" | "never" | undefined;
+
+        /**
+         * Glob pattern that determines which test files {@link startMode} applies to.
+         *
+         * @see {@link https://wallabyjs.com/docs/config/smart-start.html} for details
+         */
+        pattern?: string | undefined;
+
+        /**
+         * Controls autodetection of files and tests
+         *
+         * If an array, the order in which frameworks are tried
+         */
+
+        autoDetect?: boolean | ReadonlyArray<"angular" | "jest" | "vitest"> | undefined;
+
+        /**
+         * How much time Wallaby should wait before running tests
+         */
+        delays?: IWallabyDelays | undefined;
+
+        /**
+         * Alias for {@link debug}
+         */
+        trace?: boolean | undefined;
+
+        /**
+         * If `true`, preserve comments in instrumented code
+         */
+        preserveComments?: boolean | undefined;
+
+        /**
+         * If `true`, usage of {@link console.error} will report a test as failed
+         */
+        reportConsoleErrorAsError?: boolean | undefined;
+
+        /**
+         * Maximum count console messages each test can print
+         *
+         * @defaultValue `100`
+         */
+        maxConsoleMessagesPerTest?: number | undefined;
+
+        /**
+         * How long a test can take before it's considered "slow" (in ms)
+         *
+         * @defaultValue `75`
+         */
+        slowTestThreshold?: number | undefined;
+
+        /**
+         * Whether to run Wallaby as you type (`automatic`) or only upon file
+         * save (`onsave`).
+         *
+         * @defaultValue `'automatic'`
+         */
+        runMode?: "onsave" | "automatic" | undefined;
+
+        /**
+         * Percentage of coverage a file must have _not_ to be considered as
+         * having "low coverage"
+         *
+         * @defaultValue `80`
+         */
+        lowCoverageThreshold?: number | undefined;
+
+        /**
+         * Project name
+         *
+         * Affects Wallaby web app only
+         */
+        name?: string | undefined;
+
+        /**
+         * If `false`, do not reporter unhandled `Promise` rejections as errors.
+         *
+         * Node.js only
+         *
+         * @defaultValue `true`
+         */
+        reportUnhandledPromises?: boolean | undefined;
+
+        /**
+         * Run _all_ tests in files affected by the most recent file change.
+         *
+         * @defaultValue `false`
+         */
+        runAllTestsInAffectedTestFile?: boolean | undefined;
+
+        /**
+         * Run _all_ tests regardless of whether Wallaby thinks they are
+         * affected by the most recent file change.
+         *
+         * @defaultValue `false`
+         */
+        runAllTestsWhenNoAffectedTests?: boolean | undefined;
+
+        /**
+         * If `true`, only reload the files a test file directly depends on.
+         *
+         * @defaultValue `false`
+         */
+        ignoreFileLoadingDependencyTracking?: boolean | undefined;
+
+        /**
+         * Maximum length of a single log entry
+         *
+         * @defaultValue `16384`
+         */
+        maxLogEntrySize?: number | undefined;
+
+        /**
+         * Limit the number of trace steps during a debug session
+         *
+         * @defaultValue `999999`
+         */
+        maxTraceSteps?: number | undefined;
+
+        /**
+         * Take a screenshot of the last test run by Wallaby
+         *
+         * Chrome/PhantomJS only
+         *
+         * @defaultValue `false`
+         */
+        screenshot?: number | undefined;
+
+        /**
+         * If `true`, any stack traces printed by `console.log` will be remapped
+         * to their original sources
+         */
+        mapConsoleMessagesStackTrace?: boolean | undefined;
+
+        /**
+         * If `true`, automatically resolve getters in value & output explorers
+         */
+        resolveGetters?: boolean | undefined;
+
+        /**
+         * If `false`, do not capture `console.log()` output
+         */
+        captureConsoleLog?: boolean | undefined;
+
+        /**
+         * Configure logged value limits
+         */
+        logLimits?: IWallabyLogLimits | undefined;
+
+        /**
+         * If `true`, Wallaby will not rewrite absolute filepaths so that they
+         * appear within the project root
+         *
+         * @defaultValue `false`
+         */
+        preservePaths?: boolean | undefined;
     }
 
     /**
-     * Wallaby compilers.
+     * Log limits for Wallaby's value & output explorers.
+     */
+    export interface IWallabyLogLimits {
+        /**
+         * Limits for inline values
+         */
+        inline?: IWallabyLogLimitsConfig | undefined;
+
+        /**
+         * Limits for non-inline values
+         */
+        values?: IWallabyLogLimitsValues | undefined;
+    }
+
+    /**
+     * Log limit configuration
+     */
+    export interface IWallabyLogLimitsConfig {
+        /**
+         * Depth at which to log values
+         */
+        depth?: number | undefined;
+        /**
+         * Maximum number of elements to log
+         */
+        elements?: number | undefined;
+        /**
+         * Maximum length of a string to log
+         */
+        stringLength?: number | undefined;
+    }
+
+    /**
+     * Log limits for non-inline values
+     */
+    export interface IWallabyLogLimitsValues {
+        /**
+         * Default log limits
+         */
+        default?: IWallabyLogLimitsConfig | undefined;
+
+        /**
+         * Log limits for auto-expanding values
+         */
+        autoExpand?: IWallabyLogLimitsConfig | undefined;
+    }
+
+    /**
+     * Delay config
+     */
+    export interface IWallabyDelays {
+        /**
+         * Number of milliseconds to wait before letting Wallaby run
+         */
+        run?: number | undefined;
+    }
+
+    /**
+     * Override how Wallaby interprets inline comments.
      *
-     * @export
-     * @interface IWallabyCompiler
+     * @see {@link https://wallabyjs.com/docs/config/coverage.html} for details
+     */
+    export interface IWallabyHints {
+        /**
+         * String or `RegExp` to match a comment which will tell Wallaby to ignore coverage on a file
+         */
+        ignoreCoverageForFile?: string | RegExp | undefined;
+
+        /**
+         * String or `RegExp` to match a comment which will tell Wallaby to ignore coverage on a line
+         */
+        ignoreCoverage?: string | RegExp | undefined;
+    }
+
+    /**
+     * Bootstrap function to run at Wallaby start
+     *
+     * @template T - Test framework instance
+     * @see {@link https://wallabyjs.com/docs/config/bootstrap.html} for details
+     */
+    export type IWallabySetup<T = any> = (wallaby: IWallabyTestRunnerContext<T>) => void | Promise<void>;
+
+    /**
+     * Teardown function to run after Wallaby has completed
+     *
+     * @template T - Test framework instance
+     * @see {@link https://wallabyjs.com/docs/config/bootstrap.html} for details
+     */
+
+    export type IWallabyTeardown<T = any> = (wallaby: IWallabyTestRunnerContext<T>) => void | Promise<void>;
+
+    /**
+     * Wallaby compiler configuration
      *
      * @see {@link https://wallabyjs.com/docs/config/compilers.html} for details.
      */
-    export interface IWallabyCompilers {
-        [pattern: string]: any;
-    }
+    export type IWallabyCompilers = Record<string, IWallabyCompiler>;
 
     /**
-     * Wallaby built in compiler options. These are name-value pairs passed into each compiler.
-     *
-     * @export
-     * @interface IWallabyCompilerOptions
-     *
-     * @see {@link https://wallabyjs.com/docs/config/compilers.html} for details.
-     */
-    export interface IWallabyBuiltInCompilerOptions {
-        [option: string]: string;
-    }
-
-    /**
-     * Wallaby build in compilers.
-     *
-     * @export
-     * @interface IWallabyBuiltInCompilers
+     * Wallaby's built-in compilers.
      *
      * @see {@link https://wallabyjs.com/docs/config/compilers.html} for details.
      */
     export interface IWallabyBuiltInCompilers {
-        babel(compilerOptions?: IWallabyBuiltInCompilerOptions): IWallabyCompilerResult;
-        coffeeScript(compilerOptions?: IWallabyBuiltInCompilerOptions): IWallabyCompilerResult;
-        typeScript(compilerOptions?: IWallabyBuiltInCompilerOptions): IWallabyCompilerResult;
+        /**
+         * Built-in Babel compiler options
+         *
+         * @see {@link https://babeljs.io/} for details.
+         */
+        babel: (options?: BabelCompilerOptions) => IWallabyCompiler;
+
+        /**
+         * Built-in CoffeeScript compiler options
+         *
+         * @see {@link https://coffeescript.org/} for details.
+         */
+        coffeeScript: (options?: CSCompilerOptions) => IWallabyCompiler;
+
+        /**
+         * Built-in TypeScript compiler options
+         *
+         * @see {@link https://www.typescriptlang.org/} for details.
+         */
+        typeScript: (options?: TSCompilerOptions) => IWallabyCompiler;
     }
 
     /**
      * Wallaby compiler result entity.
      *
-     * @export
-     * @interface IWallabyCompilerResult
-     *
-     * map - Source map.
-     * code - Code transformed to JavaScript.
-     * ranges - All converable ranges of the original file.
-     *
      * @see {@link https://wallabyjs.com/docs/config/compilers.html} for details.
      */
     export interface IWallabyCompilerResult {
+        /**
+         * Source map.
+         */
         map: string;
+        /**
+         * Code transformed to JavaScript.
+         */
         code: string;
-        ranges: any;
+        /**
+         * All converable ranges of the original file.
+         */
+        ranges: number[][];
     }
 
     /**
-     * Wallaby processor used in pre & post processors.
+     * Wallaby processors
      *
-     * @interface IWallabyProcessor
-     *
-     * @see {@link https://wallabyjs.com/docs/config/preprocessors.html} for details.
+     * @see {@link https://wallabyjs.com/docs/config/preprocessors.html}
+     * @see {@link https://wallabyjs.com/docs/config/postprocessors.html}
      */
-    export interface IWallabyProcessor {
-        [pattern: string]: (file: IWallabyFile) => void;
-    }
+    export type IWallabyProcessors = Record<string, IWallabyProcessor>;
 
     /**
-     * Wallaby file object passed to pre & post processors.
+     * A pre- or post-processor function
      *
-     * @interface IWallabyFile
+     * @see {@link https://wallabyjs.com/docs/config/preprocessors.html}
+     * @see {@link https://wallabyjs.com/docs/config/postprocessors.html}
+     */
+    export type IWallabyProcessor = (file: IWallabyFile) => void;
+
+    /**
+     * A compiler result
      *
-     * content - The current content of the file.
-     * path - The current path to the file.
-     * @function rename - Allows you to rename/move the file to newPath.
-     * @function changeExt - Shortcut for the rename function allowing you to change the file extension.
-     *
-     * @see {@link https://wallabyjs.com/docs/config/preprocessors.html} for details.
+     * @see {@link https://wallabyjs.com/docs/config/compilers.html}
+     */
+    export type IWallabyCompiler = (file: IWallabyFile) => IWallabyCompilerResult;
+
+    /**
+     * Wallaby file object passed to pre-/post-processors and compilers.
      */
     export interface IWallabyFile {
+        /**
+         * The current content of the file.
+         */
         content?: string | undefined;
+
+        /**
+         * The current path to the file.
+         */
         path?: string | undefined;
+        /**
+         * Rename or move the file to `newPath`.
+         *
+         * @param newPath - The new path to the file.
+         */
         rename(newPath: string): void;
+
+        /**
+         * Change the file extension.
+         * @param newExt - The new extension for the file.
+         */
         changeExt(newExt: string): void;
     }
 
     /**
      * Wallaby file pattern.
      *
-     * @interface IWallabyFilePattern
-     *
-     * pattern - File name or file pattern.
-     * ignore - Used to completely exclude the file from Wallaby (default=false).
-     * instrument - Determines if file is instrumented (default=true).
-     * load - Determines if the file is loaded to sandbox HTML via script tag .(default=true).
-     *
      * @see {@link https://wallabyjs.com/docs/config/files.html} for details.
      */
     export interface IWallabyFilePattern {
+        /**
+         * File name or glob pattern.
+         */
         pattern: string;
+
+        /**
+         * Determines if file is ignored by Wallaby.
+         *
+         * @defaultValue `false`
+         */
         ignore?: boolean | undefined;
+
+        /**
+         * Determines if file is instrumented.
+         *
+         * @defaultValue `true`
+         */
         instrument?: boolean | undefined;
+
+        /**
+         * Determines if file is loaded to sandbox HTML via script tag.
+         *
+         * @defaultValue `true`
+         */
         load?: boolean | undefined;
     }
 
     /**
      * Wallaby environment configuration.
      *
-     * @interface IWallabyEnvironment
-     *
-     * params - set parameters on environment.
-     * runner - Path of local Node / PhantomJs / Electron.
-     * type - Specify a different test runner or change the runner settings.
-     *
      * @see {@link https://wallabyjs.com/docs/config/runner.html} for details.
      */
     export interface IWallabyEnvironment {
+        /**
+         * Set parameters on environment.
+         */
         params?: IWallabyEnvironmentParameters | undefined;
+
+        /**
+         * Test runner executable (e.g., `node`, `phantomjs`, `electron`) or path to it
+         */
         runner?: string | undefined;
-        type?: string | undefined;
+
+        /**
+         * To use Node.js, set `node`; `browser` for others
+         *
+         * @defaultValue `'browser'`
+         */
+        type?: "node" | "browser";
+
+        /**
+         * For headless browser viewport size
+         *
+         * @defaultValue `{width: 800, height: 600}`
+         */
         viewportSize?: IWallabyEnvironmentViewportSize | undefined;
+
+        /**
+         * Report 404 server hits as errors to the Wallaby console
+         */
+        report404AsError?: boolean | undefined;
+
+        /**
+         * If {@link type} is `browser`, specifies the browser to use
+         *
+         * @defaultValue `'chrome'`
+         */
+        kind?: "chrome" | "electron" | "phantomjs";
     }
 
     /**
      * Wallaby environment parameters.
      *
-     * @interface IWallabyEnvironmentParameters
-     *
-     * env - Semicolon-separated spawed runner process env variables.
-     * runner - Space-separated spawed runner process flags.
-     *
      * @see {@link https://wallabyjs.com/docs/config/runner.html} for details.
      */
     export interface IWallabyEnvironmentParameters {
+        /**
+         * Semicolon-separated spawed runner process env variables.
+         */
         env?: string | undefined;
+        /**
+         * Space-separated spawed runner process flags.
+         */
         runner?: string | undefined;
     }
 
     /**
-     * Wallaby viewport settings for testing.
-     *
-     * @interface IWallabyEnvironmentViewportSize
-     *
-     * width - Width in pixels for the viewport size in PhantomJs/Electron.
-     * height - height in pixels for the viewport size in PhantomJs/Electron.
+     * Wallaby viewport settings for headless browsers & Electron.
      */
     export interface IWallabyEnvironmentViewportSize {
+        /**
+         * Width in pixels for the viewport size in PhantomJs/Electron.
+         */
         width?: number | undefined;
+        /**
+         * Height in pixels for the viewport size in PhantomJs/Electron.
+         */
         height?: number | undefined;
     }
 
     /**
      * Wallaby worker configuration.
-     *
-     * @interface IWallabyWorkers
      *
      * recycle - Specifies the degree of parallelism used to run your tests and
      *                                  controls the way wallaby re-uses workers.
@@ -198,19 +627,39 @@ declare module "wallabyjs" {
     /**
      * Wallaby object passed into config.
      *
-     * @interface IWallaby
-     *
-     * localProjectDir - String property which returns the project local folder.
-     * projectCacheDir - String property which returns the project cache folder.
-     * compilers - Property which allows you to access the built-in TypeScript, CoffeeScript and Babel compilers.
-     * defaults - Property which allows you to set the default values for file object properties.
-     *
      * @see {@link https://wallabyjs.com/docs/config/overview.html} for details.
      */
     export interface IWallaby {
-        localProjectDir?: string | undefined;
-        projectCacheDir?: string | undefined;
-        compilers?: IWallabyBuiltInCompilers | undefined;
+        /**
+         * String property which returns the project local folder.
+         */
+        localProjectDir: string;
+        /**
+         * String property which returns the project cache folder.
+         */
+        projectCacheDir: string;
+        /**
+         * Property which allows you to access the built-in TypeScript, CoffeeScript and Babel compilers.
+         */
+        compilers: IWallabyBuiltInCompilers;
+        /**
+         * Property which allows you to set the default values for file object properties.
+         */
         defaults?: any;
+    }
+
+    /**
+     * The `wallaby` object as passed to {@link bootstrap} and {@link teardown}.
+     *
+     * @template T - Test framework instance
+     */
+    export interface IWallabyTestRunnerContext<T = any> extends IWallaby {
+        testFramework: T;
+
+        tests: string[];
+
+        workerId?: number;
+
+        sessionId?: string;
     }
 }

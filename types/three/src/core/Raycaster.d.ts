@@ -1,9 +1,9 @@
-import { Vector3 } from '../math/Vector3.js';
-import { Object3D } from './Object3D.js';
-import { Vector2 } from '../math/Vector2.js';
-import { Ray } from '../math/Ray.js';
-import { Camera } from '../cameras/Camera.js';
-import { Layers } from './Layers.js';
+import { Camera } from "../cameras/Camera.js";
+import { Ray } from "../math/Ray.js";
+import { Vector2 } from "../math/Vector2.js";
+import { Vector3 } from "../math/Vector3.js";
+import { Layers } from "./Layers.js";
+import { Object3D } from "./Object3D.js";
 
 export interface Face {
     a: number;

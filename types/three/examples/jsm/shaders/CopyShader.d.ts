@@ -1,4 +1,4 @@
-import { IUniform } from '../../../src/Three.js';
+import { IUniform } from "../../../src/Three.js";
 
 export const CopyShader: {
     uniforms: {

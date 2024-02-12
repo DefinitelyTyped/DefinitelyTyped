@@ -5,7 +5,7 @@
             "dom",
             "es6"
         ],
-        "module": "commonjs",
+        "module": "node16",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "noEmit": true,

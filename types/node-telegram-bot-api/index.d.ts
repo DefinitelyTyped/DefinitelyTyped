@@ -133,6 +133,7 @@ declare namespace TelegramBot {
         certificate?: string | Stream | undefined;
         max_connections?: number | undefined;
         allowed_updates?: string[] | undefined;
+        secret_token?: string | undefined;
     }
 
     interface GetUpdatesOptions {

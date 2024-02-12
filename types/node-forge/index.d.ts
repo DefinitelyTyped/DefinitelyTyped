@@ -525,7 +525,21 @@ declare module "node-forge" {
             verifySubjectKeyIdentifier(): boolean;
         }
 
-        interface CertificateRequest extends Certificate {
+        interface CertificateSigningRequest {
+            version: number;
+            signatureOid: string | null;
+            signature: any;
+            siginfo: {
+                algorithmOid: string | null;
+            };
+            subject: {
+                getField(sn: string | CertificateFieldOptions): any;
+                addField(attr: CertificateField): void;
+                attributes: CertificateField[];
+                hash: any;
+            };
+            publicKey: PublicKey | null;
+            attributes: CertificateField[];
             /**
              * Gets an issuer or subject attribute from its name, type, or short name.
              *
@@ -536,7 +550,34 @@ declare module "node-forge" {
              *
              * @return the attribute.
              */
-            getAttribute(opts: string | GetAttributeOpts): Attribute | null;
+            getAttribute(sn: string | GetAttributeOpts): Attribute | null;
+            addAttribute(attr: CertificateField): void;
+            md: md.MessageDigest | null;
+            signatureParameters: any;
+            certificationRequestInfo: asn1.Asn1 | null;
+
+            /**
+             * Sets the subject of this csr.
+             *
+             * @param attrs the array of subject attributes to use.
+             * @param uniqueId an optional a unique ID to use.
+             */
+            setSubject(attrs: CertificateField[]): void;
+            setAttributes(attrs: CertificateField[]): void;
+            /**
+             * Signs this csr using the given private key.
+             *
+             * @param key the private key to sign with.
+             * @param md the message digest object to use (defaults to forge.md.sha1).
+             */
+            sign(key: pki.PrivateKey, md?: md.MessageDigest): void;
+            /**
+             * Attempts verify the signature on this csr using this
+             * csr's public key.
+             *
+             * @return true if verified, false if not.
+             */
+            verify(): boolean;
         }
 
         /**
@@ -595,21 +636,25 @@ declare module "node-forge" {
 
         function certificateFromAsn1(obj: asn1.Asn1, computeHash?: boolean): Certificate;
 
-        function certificationRequestFromAsn1(obj: asn1.Asn1, computeHash?: boolean): Certificate;
+        function certificationRequestFromAsn1(obj: asn1.Asn1, computeHash?: boolean): CertificateSigningRequest;
 
         function certificateToAsn1(cert: Certificate): asn1.Asn1;
 
-        function certificationRequestToAsn1(cert: Certificate): asn1.Asn1;
+        function certificationRequestToAsn1(cert: CertificateSigningRequest): asn1.Asn1;
 
         function decryptRsaPrivateKey(pem: PEM, passphrase?: string): rsa.PrivateKey;
 
         function createCertificate(): Certificate;
 
-        function certificationRequestToPem(cert: Certificate, maxline?: number): PEM;
+        function certificationRequestToPem(csr: CertificateSigningRequest, maxline?: number): PEM;
 
-        function certificationRequestFromPem(pem: PEM, computeHash?: boolean, strict?: boolean): Certificate;
+        function certificationRequestFromPem(
+            pem: PEM,
+            computeHash?: boolean,
+            strict?: boolean,
+        ): CertificateSigningRequest;
 
-        function createCertificationRequest(): CertificateRequest;
+        function createCertificationRequest(): CertificateSigningRequest;
 
         function certificateToPem(cert: Certificate, maxline?: number): PEM;
 

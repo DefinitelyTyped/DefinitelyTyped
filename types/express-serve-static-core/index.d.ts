@@ -327,16 +327,37 @@ export interface IRoute<Route extends string = string> {
 
 export interface Router extends IRouter {}
 
+/**
+ * Options passed down into `res.cookie`
+ * @link https://expressjs.com/en/api.html#res.cookie
+ */
 export interface CookieOptions {
+    /** Convenient option for setting the expiry time relative to the current time in **milliseconds**. */
     maxAge?: number | undefined;
+    /** Indicates if the cookie should be signed. */
     signed?: boolean | undefined;
+    /** Expiry date of the cookie in GMT. If not specified or set to 0, creates a session cookie. */
     expires?: Date | undefined;
+    /** Flags the cookie to be accessible only by the web server. */
     httpOnly?: boolean | undefined;
+    /** Path for the cookie. Defaults to “/”. */
     path?: string | undefined;
+    /** Domain name for the cookie. Defaults to the domain name of the app. */
     domain?: string | undefined;
+    /** Marks the cookie to be used with HTTPS only. */
     secure?: boolean | undefined;
+    /** A synchronous function used for cookie value encoding. Defaults to encodeURIComponent. */
     encode?: ((val: string) => string) | undefined;
+    /**
+     * Value of the “SameSite” Set-Cookie attribute.
+     * @link https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site-00#section-4.1.1.
+     */
     sameSite?: boolean | "lax" | "strict" | "none" | undefined;
+    /**
+     * Value of the “Priority” Set-Cookie attribute.
+     * @link https://datatracker.ietf.org/doc/html/draft-west-cookie-priority-00#section-4.3
+     */
+    priority?: "low" | "medium" | "high";
 }
 
 export interface ByteRange {
@@ -423,7 +444,7 @@ export interface Request<
      *     // Accept: text/*, application/json
      *     req.accepts('image/png');
      *     req.accepts('png');
-     *     // => undefined
+     *     // => false
      *
      *     // Accept: text/*;q=.5, application/json
      *     req.accepts(['html', 'json']);

@@ -1,5 +1,5 @@
 import metascraper = require("metascraper");
 
-declare function getData(): metascraper.RuleSet;
+declare function getData(): metascraper.Rules;
 
 export = getData;

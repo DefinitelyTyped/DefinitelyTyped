@@ -1,5 +1,6 @@
 /// <reference types="react" />
 
+import { Mixin } from "create-react-class";
 import * as React from "react";
 
 declare namespace reactMixin {
@@ -9,9 +10,9 @@ declare namespace reactMixin {
     }
 
     interface ReactMixin {
-        decorate(mixin: React.Mixin<any, any>): ClassDecorator;
-        onClass<S>(clazz: any, mixin: React.Mixin<any, any>): React.ComponentClass<S>;
-        <S>(clazz: any, mixin: React.Mixin<any, any>): React.ComponentClass<S>;
+        decorate(mixin: Mixin<any, any>): ClassDecorator;
+        onClass<S>(clazz: any, mixin: Mixin<any, any>): React.ComponentClass<S>;
+        <S>(clazz: any, mixin: Mixin<any, any>): React.ComponentClass<S>;
     }
 }
 

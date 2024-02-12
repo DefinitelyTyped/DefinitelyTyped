@@ -465,7 +465,7 @@ buff.writeDoubleBE(123.123, 0);
 
 {
     // $ExpectType Blob | undefined
-    resolveObjectURL(URL.createObjectURL(new NodeBlob([""])));
+    resolveObjectURL(URL.createObjectURL(new Blob([""])));
 }
 
 {

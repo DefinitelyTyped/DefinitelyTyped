@@ -38,6 +38,7 @@ declare namespace QueryString {
         allowDots?: boolean | undefined;
         plainObjects?: boolean | undefined;
         allowPrototypes?: boolean | undefined;
+        allowSparse?: boolean | undefined;
         parameterLimit?: number | undefined;
         strictNullHandling?: boolean | undefined;
         ignoreQueryPrefix?: boolean | undefined;

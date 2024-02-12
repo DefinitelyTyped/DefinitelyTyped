@@ -12,7 +12,6 @@
         "@types/material-ui": "*",
         "@types/material-ui-pagination": "workspace:.",
         "@types/prop-types": "*",
-        "@types/react-dom": "*",
         "@types/react-tap-event-plugin": "*"
     },
     "owners": [

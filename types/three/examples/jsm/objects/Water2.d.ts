@@ -6,7 +6,7 @@ import {
     Texture,
     TextureEncoding,
     Vector2,
-} from '../../../src/Three.js';
+} from "../../../src/Three.js";
 
 export interface Water2Options {
     color?: ColorRepresentation;

@@ -1,4 +1,4 @@
-import * as RDF from "rdf-js";
+import * as RDF from "@rdfjs/types";
 import toNT = require("@rdfjs/to-ntriples");
 import blankNode = require("@rdfjs/to-ntriples/lib/blankNode");
 import defaultGraph = require("@rdfjs/to-ntriples/lib/defaultGraph");

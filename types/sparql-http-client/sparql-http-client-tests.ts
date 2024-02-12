@@ -3,7 +3,7 @@ import Endpoint = require("sparql-http-client/Endpoint");
 import SimpleClient = require("sparql-http-client/SimpleClient");
 import ParsingClient = require("sparql-http-client/ParsingClient");
 import RawQuery = require("sparql-http-client/RawQuery");
-import { DataFactory, NamedNode, Quad, Stream, Term } from "rdf-js";
+import { DataFactory, NamedNode, Quad, Stream, Term } from "@rdfjs/types";
 import { Client } from "sparql-http-client";
 import { Readable } from "stream";
 
@@ -52,6 +52,7 @@ async function streamingClient() {
         user,
         storeUrl,
         updateUrl,
+        maxQuadsPerRequest: 10,
     });
 
     let endpoint: Endpoint = fullOptions.query.endpoint;

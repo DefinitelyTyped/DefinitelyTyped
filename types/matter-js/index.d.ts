@@ -4003,7 +4003,7 @@ declare namespace Matter {
          * @param {pairs} [Pairs] Optionally reuse collision records from existing pairs.
          * @returns {collision|null} A collision record if detected, otherwise null
          */
-        static collides(bodyA: Body, bodyB: Body, pairs: Pairs): Collision | null;
+        static collides(bodyA: Body, bodyB: Body, pairs?: Pairs): Collision | null;
 
         /**
          * A reference to the pair using this collision record, if there is one.

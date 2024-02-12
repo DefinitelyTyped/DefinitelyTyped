@@ -1,7 +1,7 @@
-import { Texture } from '../textures/Texture.js';
-import { Vector2 } from '../math/Vector2.js';
-import { MeshStandardMaterialParameters, MeshStandardMaterial } from './MeshStandardMaterial.js';
-import { Color, ColorRepresentation } from '../math/Color.js';
+import { Color, ColorRepresentation } from "../math/Color.js";
+import { Vector2 } from "../math/Vector2.js";
+import { Texture } from "../textures/Texture.js";
+import { MeshStandardMaterial, MeshStandardMaterialParameters } from "./MeshStandardMaterial.js";
 
 export interface MeshPhysicalMaterialParameters extends MeshStandardMaterialParameters {
     clearcoat?: number | undefined;
@@ -48,7 +48,12 @@ export interface MeshPhysicalMaterialParameters extends MeshStandardMaterialPara
 export class MeshPhysicalMaterial extends MeshStandardMaterial {
     constructor(parameters?: MeshPhysicalMaterialParameters);
 
-    isMeshPhysicalMaterial: boolean;
+    /**
+     * Read-only flag to check if a given object is of type {@link MeshPhysicalMaterial}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isMeshPhysicalMaterial: true;
 
     /**
      * @default 'MeshPhysicalMaterial'

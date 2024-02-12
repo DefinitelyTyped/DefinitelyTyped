@@ -37,7 +37,7 @@ export interface SankeyNode {
     groups: SankeyNode[];
     hoverinfo: "all" | "none" | "skip";
     hoverlabel: Partial<SankeyHoverLabel>;
-    hovertemplate: string[];
+    hovertemplate: string | string[];
     label: Datum[];
     line: Partial<{
         color: SankeyColor;
@@ -66,6 +66,7 @@ export interface SankeyLink {
     hoverinfo: "all" | "none" | "skip";
     hoverlabel: Partial<SankeyHoverLabel>;
     hovertemplate: string | string[];
+    hovercolor: SankeyColor | SankeyColor[];
     label: Datum[];
     line: Partial<{
         color: SankeyColor;

@@ -1045,7 +1045,7 @@ export namespace Poool {
          * @param eventName - the event name
          * @param data - the event datas
          * @param options - the event options
-         * @returns the Audit instance
+         * @returns A Promise that fullfills with a boolean value indicating if the event has been correctly sent or not.
          *
          * More infos: https://poool.dev/docs/access/javascript/audit/methods
          */
@@ -1059,7 +1059,7 @@ export namespace Poool {
                 beacons?: boolean;
                 [key: string]: any;
             },
-        ): Audit;
+        ): Promise<boolean>;
         config: AuditConfig;
         /**
          * Allows to set a callback to be called when a specific event is triggered

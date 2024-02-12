@@ -52,6 +52,15 @@ extract.on("entry", (entry: any) => undefined);
         follow: true,
     };
 
+    // @ts-expect-error
+    options.mtime = 1704391217691;
+
+    options.mtime = undefined;
+    options.mtime; // $ExpectType undefined
+
+    options.mtime = new Date();
+    options.mtime; // $ExpectType Date
+
     // $ExpectType Pack
     const pack = new tar.Pack(options)
         .add("dir")

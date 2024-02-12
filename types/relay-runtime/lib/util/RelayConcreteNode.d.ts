@@ -1,5 +1,6 @@
 import { NormalizationOperation, NormalizationSplitOperation } from "./NormalizationNode";
 import { ReaderFragment, ReaderInlineDataFragment } from "./ReaderNode";
+import { OperationType } from "./RelayRuntimeTypes";
 
 /**
  * Represents a common GraphQL request that can be executed, an `operation`
@@ -11,6 +12,17 @@ export interface ConcreteRequest {
     readonly kind: string; // 'Request';
     readonly fragment: ReaderFragment;
     readonly operation: NormalizationOperation;
+    readonly params: RequestParameters;
+}
+
+/**
+ * Represents the minimal information necessary to identify and execute
+ * a particular GraphQL request.
+ */
+// Note: the phantom type parameter here helps ensures that the
+// $Parameters.js value matches the type param provided to preloadQuery.
+export interface PreloadableConcreteRequest<TQuery extends OperationType> {
+    readonly kind: string; // 'PreloadableConcreteRequest';
     readonly params: RequestParameters;
 }
 

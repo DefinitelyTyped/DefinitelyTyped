@@ -9,6 +9,8 @@
         "@types/react": "*"
     },
     "devDependencies": {
+        "@types/create-react-class": "*",
+        "@types/react-dom-factories": "*",
         "@types/react-addons-pure-render-mixin": "workspace:."
     },
     "owners": [

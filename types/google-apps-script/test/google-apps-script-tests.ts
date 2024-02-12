@@ -363,6 +363,15 @@ CardService.newTimePicker().setTitle(""); // $ExpectType TimePicker
 CardService.DisplayStyle.PEEK;
 CardService.DisplayStyle.REPLACE;
 
+CardService.OnClose.NOTHING;
+CardService.OnClose.RELOAD;
+CardService.OnClose.RELOAD_ADD_ON;
+
+CardService.newOpenLink(); // $ExpectType OpenLink
+CardService.newOpenLink().setOnClose(CardService.OnClose.NOTHING); // $ExpectType OpenLink
+CardService.newOpenLink().setOnClose(CardService.OnClose.RELOAD); // $ExpectType OpenLink
+CardService.newOpenLink().setOnClose(CardService.OnClose.RELOAD_ADD_ON); // $ExpectType OpenLink
+
 DriveApp.createShortcut("").getTargetId();
 DriveApp.createFile("", "").moveTo(DriveApp.getFolderById(""));
 

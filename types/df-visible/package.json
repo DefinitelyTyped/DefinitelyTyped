@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/df-visible",
     "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "df-visible",
     "projects": [
         "https://github.com/customd/jquery-visible"
     ],

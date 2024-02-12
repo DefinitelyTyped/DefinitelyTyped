@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/dir-resolve": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Andy Hanson",
-            "githubUsername": "andy-ms"
-        }
-    ]
+    "owners": []
 }

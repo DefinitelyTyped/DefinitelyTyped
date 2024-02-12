@@ -134,7 +134,7 @@ conn.on("ready", () => {
     console.log("Client :: ready");
     conn.sftp((err: Error, sftp: ssh2.SFTPWrapper) => {
         if (err) throw err;
-        sftp.readdir("foo", (err: Error | undefined, list: ssh2.FileEntry[]) => {
+        sftp.readdir("foo", (err, list) => {
             if (err) throw err;
             console.dir(list);
             for (const item of list) {

@@ -656,6 +656,12 @@ declare module "crypto" {
         export(options?: KeyExportOptions<"der">): Buffer;
         export(options?: JwkKeyExportOptions): JsonWebKey;
         /**
+         * Returns `true` or `false` depending on whether the keys have exactly the same type, value, and parameters.
+         * This method is not [constant time](https://en.wikipedia.org/wiki/Timing_attack).
+         * @since v16.15.0
+         */
+        equals(otherKeyObject: KeyObject): boolean;
+        /**
          * For secret keys, this property represents the size of the key in bytes. This
          * property is `undefined` for asymmetric keys.
          * @since v11.6.0
@@ -2493,6 +2499,10 @@ declare module "crypto" {
          * Name of the curve to use
          */
         namedCurve: string;
+        /**
+         * Must be `'named'` or `'explicit'`. Default: `'named'`.
+         */
+        paramEncoding?: "explicit" | "named" | undefined;
     }
     interface RSAKeyPairKeyObjectOptions {
         /**
@@ -2603,11 +2613,7 @@ declare module "crypto" {
             type: "pkcs8";
         };
     }
-    interface ECKeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> {
-        /**
-         * Name of the curve to use.
-         */
-        namedCurve: string;
+    interface ECKeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> extends ECKeyPairKeyObjectOptions {
         publicKeyEncoding: {
             type: "pkcs1" | "spki";
             format: PubF;
@@ -3525,12 +3531,13 @@ declare module "crypto" {
          */
         disableEntropyCache?: boolean | undefined;
     }
+    type UUID = `${string}-${string}-${string}-${string}-${string}`;
     /**
      * Generates a random [RFC 4122](https://www.rfc-editor.org/rfc/rfc4122.txt) version 4 UUID. The UUID is generated using a
      * cryptographic pseudorandom number generator.
      * @since v15.6.0, v14.17.0
      */
-    function randomUUID(options?: RandomUUIDOptions): string;
+    function randomUUID(options?: RandomUUIDOptions): UUID;
     interface X509CheckOptions {
         /**
          * @default 'always'
@@ -4066,7 +4073,7 @@ declare module "crypto" {
              * The UUID is generated using a cryptographic pseudorandom number generator.
              * @since v16.7.0
              */
-            randomUUID(): string;
+            randomUUID(): UUID;
             CryptoKey: CryptoKeyConstructor;
         }
         // This constructor throws ILLEGAL_CONSTRUCTOR so it should not be newable.

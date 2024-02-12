@@ -40,7 +40,7 @@ declare namespace RCTooltip {
             | React.ReactElement
             | number
             | string
-            | React.ReactFragment
+            | Iterable<React.ReactNode>
             | React.ReactPortal;
         arrowContent?: React.ReactNode | undefined;
         getTooltipContainer?: (() => Element) | undefined;
