@@ -7,33 +7,33 @@ export function TestEditableLabel() {
 
     return (
         <>
-            <EditableLabel initialValue="test" save={handleSave} />;
-            <EditableLabel initialValue="test" save={handleSave} disableKeys={true} />;
-            <EditableLabel initialValue="test" save={handleSave} disableKeys={true} inputClass={"test-class"} />;
+            <EditableLabel initialValue="test" save={handleSave} />
+            <EditableLabel initialValue="test" save={handleSave} disableKeys={true} />
+            <EditableLabel initialValue="test" save={handleSave} disableKeys={true} inputClass="test-class" />
             <EditableLabel
                 initialValue="test"
                 save={handleSave}
                 disableKeys={true}
-                inputClass={"test-class"}
-                labelClass={"test-label-class"}
-            />;
+                inputClass="test-class"
+                labelClass="test-label-class"
+            />
             <EditableLabel
                 initialValue="test"
                 save={handleSave}
                 disableKeys={true}
-                inputClass={"test-class"}
-                labelClass={"test-label-class"}
-                inputName={"test-input"}
-            />;
+                inputClass="test-class"
+                labelClass="test-label-class"
+                inputName="test-input"
+            />
             <EditableLabel
                 initialValue="test"
                 save={handleSave}
                 disableKeys={true}
-                inputClass={"test-class"}
-                labelClass={"test-label-class"}
-                inputName={"test-input"}
-                inputId={"test-id"}
-            />;
+                inputClass="test-class"
+                labelClass="test-label-class"
+                inputName="test-input"
+                inputId="test-id"
+            />
         </>
     );
 }
