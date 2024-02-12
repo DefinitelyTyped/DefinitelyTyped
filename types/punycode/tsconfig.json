@@ -14,7 +14,7 @@
     },
     "files": [
         "index.d.ts",
-        "punycode.js.d.ts",
+        "punycode.d.ts",
         "punycode-tests.ts"
     ]
 }
