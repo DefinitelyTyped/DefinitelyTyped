@@ -709,6 +709,13 @@ csstree.parse(".selector { /* comment */ }", {
     },
 });
 
+csstree.parse(".a { ::: invalid css ::: }", {
+    onParseError(error, fallbackNode) {
+        error; // $ExpectType SyntaxParseError
+        fallbackNode; // $ExpectType CssNode
+    },
+});
+
 csstree.ident.decode("foo"); // $ExpectType string
 csstree.ident.encode("foo"); // $ExpectType string
 csstree.string.decode("foo"); // $ExpectType string

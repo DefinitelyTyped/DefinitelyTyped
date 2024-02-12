@@ -492,6 +492,7 @@ export interface SyntaxParseError extends SyntaxError {
     input: string;
     offset: number;
     rawMessage: string;
+    formattedMessage: string;
 }
 
 export interface ParseOptions {
