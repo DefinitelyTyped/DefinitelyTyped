@@ -50,7 +50,7 @@ declare namespace AWN {
 
     interface AwnOptions<E = Error> {
         /**
-         * Defines position of the toast. Can be ‘bottom-right’, ‘bottom-left’, ‘top-left’, ‘top-right’.
+         * Defines position of the toast. Can be 'bottom-right', 'bottom-left', 'top-left', 'top-right'.
          *
          * @default 'bottom-right'
          */
