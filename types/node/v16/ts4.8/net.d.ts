@@ -687,7 +687,7 @@ declare module "net" {
          * The list of rules added to the blocklist.
          * @since v15.0.0, v14.18.0
          */
-        rules: string[];
+        rules: readonly string[];
     }
     interface TcpNetConnectOpts extends TcpSocketConnectOpts, SocketConstructorOpts {
         timeout?: number | undefined;
