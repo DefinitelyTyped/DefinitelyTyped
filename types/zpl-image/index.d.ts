@@ -2,11 +2,11 @@
 
 export interface Options {
     /** @default 50 */
-    black?: number;
+    black?: number | undefined;
     /** @default N */
-    rotate?: "R" | "B" | "L" | "I" | "N";
+    rotate?: "R" | "B" | "L" | "I" | "N" | undefined;
     /** @default true */
-    notrim?: boolean;
+    notrim?: boolean | undefined;
 }
 
 export interface AcsImage {
