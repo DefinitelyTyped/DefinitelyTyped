@@ -583,7 +583,7 @@
     // $ExpectType LabelElement
     instance.setLabel("foo baz");
 
-    // $ExpectType void
+    // $ExpectType LabelElement
     instance.setLabelElement($("<span>"));
 
     // $ExpectType LabelElement

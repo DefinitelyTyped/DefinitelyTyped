@@ -9,7 +9,7 @@ declare namespace OO.ui.mixin {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin.LabelElement
      */
-    interface LabelElement extends LabelElement.Props, LabelElement.Prototype {}
+    interface LabelElement extends LabelElement.Props, LabelElement.Prototype { }
 
     namespace LabelElement {
         interface EventMap {
@@ -76,8 +76,9 @@ declare namespace OO.ui.mixin {
              * If an element is already set, it will be cleaned up before setting up the new element.
              *
              * @param $label Element to use as label
+             * @return The element, for chaining
              */
-            setLabelElement($label: JQuery): void;
+            setLabelElement($label: JQuery): this;
 
             /**
              * Set the 'id' attribute of the label element.
