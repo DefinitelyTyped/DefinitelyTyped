@@ -20,4 +20,4 @@ randomstring.generate({
     capitalization: "uppercase",
 });
 
-randomstring.generate({ charset: 'abcdef' })
+randomstring.generate({ charset: "abcdef" });
