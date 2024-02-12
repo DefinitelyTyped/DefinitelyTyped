@@ -1,7 +1,7 @@
 // Project: lolcatjs
 /**
  * Takes a frequency and an index and returns an RGB color.
- * @param freq 
+ * @param freq
  * @param i
  * @returns An object representing an RGB color.
  */
@@ -9,15 +9,15 @@ export function rainbow(freq: number, i: number): Rgb;
 
 /**
  * Takes a character and an RGB color and writes it to the stdout.
- * @param char 
+ * @param char
  * @param colors
  * @returns void
-*/
+ */
 export function colorize(char: string, colors: Rgb): void;
 
 /**
  *  Takes a string and an RGB color and writes it to the stdout.
- * @param colorize 
+ * @param colorize
  * @param line
  * @returns void
  */
@@ -25,7 +25,7 @@ export function printlnPlain(colorize: ColorizeFunction, line: string[]): void;
 
 /**
  * Takes a colorize function and a line, and prints the line with an animation if sleep is true.
- * @param colorize 
+ * @param colorize
  * @param line
  * @returns void
  */
@@ -67,26 +67,24 @@ export function init(): null;
 
 /*~ You can declare types that are available via importing the module */
 export interface Options {
-  animate: boolean;
-  duration: number;
-  seed: number;
-  speed: number;
-  spread: number;
-  freq: number;
-  debug: boolean;
+    animate: boolean;
+    duration: number;
+    seed: number;
+    speed: number;
+    spread: number;
+    freq: number;
+    debug: boolean;
 }
 
 export interface Rgb {
-  red: number;
-  green: number;
-  blue: number;
+    red: number;
+    green: number;
+    blue: number;
 }
 
 export type ColorizeFunction = (char: string, colors: Rgb) => string;
-
 
 /*~ You can declare properties of the module using const, let, or var */
 export const sleep: number | null;
 export const options: Options;
 export const colors: Rgb;
-
