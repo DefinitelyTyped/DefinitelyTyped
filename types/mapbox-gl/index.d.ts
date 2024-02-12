@@ -1357,6 +1357,11 @@ declare namespace mapboxgl {
 
     interface RasterSourceImpl extends RasterSource {
         /**
+         * Reloads the source data and re-renders the map.
+         */
+        reload(): void;
+
+        /**
          * Sets the source `tiles` property and re-renders the map.
          *
          * @param {string[]} tiles An array of one or more tile source URLs, as in the TileJSON spec.
@@ -1374,6 +1379,11 @@ declare namespace mapboxgl {
     }
 
     interface VectorSourceImpl extends VectorSource {
+        /**
+         * Reloads the source data and re-renders the map.
+         */
+        reload(): void;
+
         /**
          * Sets the source `tiles` property and re-renders the map.
          *
