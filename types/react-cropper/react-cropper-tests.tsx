@@ -3,9 +3,6 @@ import Cropper from "react-cropper";
 // If you choose not to use import, you need to assign Cropper to default
 // var Cropper = require('react-cropper').default
 
-/**
- * initializes cropper with string reference
- */
 class Demo extends React.Component {
     cropperRef = React.createRef<Cropper>();
     crop() {
