@@ -1,7 +1,12 @@
 {
     "private": true,
     "name": "@types/ysdk",
-    "version": "1.0.0.9999",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "TypeScript type definitions for Yandex.Games SDK",
+    "projects": [
+        "https://yandex.ru/dev/games/doc/en/"
+    ],
     "devDependencies": {
         "@types/ysdk": "workspace:."
     },
