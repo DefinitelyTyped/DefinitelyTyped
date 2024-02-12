@@ -1003,6 +1003,7 @@
     const instance = new OO.ui.ButtonInputWidget({
         type: "submit",
         useInputTag: false,
+        formNoValidate: false,
     });
 
     instance.setLabel("123"); // $ExpectType ButtonInputWidget
