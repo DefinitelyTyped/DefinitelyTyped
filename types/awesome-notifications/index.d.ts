@@ -241,7 +241,7 @@ declare class AWN<E = Error> {
      * @param  onCancel Defines Function, which will be executed on click to ‘Cancel’ button.
      *                  If false was passed, ‘Cancel’ button will be hidden.
      * @param  options  Instance of `AwnOptions`, which will override globals for this call
-     * @return          A new `HTMLDivElement` instance
+     * @return          A new HTMLDivElement instance
      */
     confirm(
         message: string,
