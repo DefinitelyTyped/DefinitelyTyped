@@ -231,7 +231,7 @@ function handleRef(ref: DatePicker | null) {
     }
 }
 
-<CalendarContainer arrowProps={{ someProp: "someValue" }} className="" showPopperArrow>
+<CalendarContainer className="">
     <div />
     <span />
 </CalendarContainer>;
@@ -275,7 +275,11 @@ const DatePickerCustomHeader = ({
 
 <DatePicker onChange={() => {}} renderCustomHeader={(props) => <DatePickerCustomHeader {...props} />} />;
 
-<DatePicker selectsRange onChange={([start]) => start?.getHours()} />;
+<DatePicker
+    excludeDates={[{ date: new Date(), message: "Exclude today" }]}
+    selectsRange
+    onChange={([start]) => start?.getHours()}
+/>;
 
 <DatePicker onChange={(date) => date?.toISOString()} />;
 
