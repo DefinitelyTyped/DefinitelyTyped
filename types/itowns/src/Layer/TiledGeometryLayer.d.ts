@@ -4,6 +4,7 @@ import Layer from "./Layer";
 
 export type TiledGeometryLayerOptions = any;
 
+// TODO: Define public API
 declare class TiledGeometryLayer extends GeometryLayer {
     static hasEnoughTexturesToSubdivide(
         context: any,
