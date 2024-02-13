@@ -1469,3 +1469,11 @@ table = new Tabulator("#testDownloadCallbacks", {
         return data;
     },
 });
+
+// Test groupClickMenu parameter type
+table = new Tabulator("#TestGroupClickMenu", {
+    groupClickMenu(e, component) {
+        component.toggle();
+        return false;
+    },
+});
