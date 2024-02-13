@@ -6,7 +6,7 @@ import {
     Side,
     Texture,
     Vector3,
-} from '../../../src/Three.js';
+} from "../../../src/Three.js";
 
 export interface WaterOptions {
     textureWidth?: number;

@@ -826,8 +826,22 @@ declare namespace validator {
          * e.g. `01 02 03 04 05 ab` or `01-02-03-04-05-ab`.
          *
          * @default false
+         * @deprecated use no_separators instead
          */
         no_colons?: boolean | undefined;
+        /**
+         * If `no_separators` is `true`, the validator will allow MAC addresses without the colons.
+         * Also, it allows the use of hyphens or spaces.
+         *
+         * e.g. `01 02 03 04 05 ab` or `01-02-03-04-05-ab`.
+         *
+         * @default false
+         */
+        no_separators?: boolean | undefined;
+        /**
+         * Setting `eui` allows for validation against EUI-48 or EUI-64 instead of both.
+         */
+        eui?: "48" | "64" | undefined;
     }
 
     /**

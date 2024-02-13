@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/commangular",
     "version": "0.9.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "commangular",
     "projects": [
         "http://commangular.org"
     ],

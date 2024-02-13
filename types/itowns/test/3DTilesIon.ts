@@ -22,7 +22,7 @@ const view = new itowns.GlobeView(viewerDiv, placement, viewOptions);
 
 // Add one imagery layer to the scene. This layer's properties are defined in a json file, but it could be
 // defined as a plain js object. See `Layer` documentation for more info.
-itowns.Fetcher.json("./layers/JSONLayers/OPENSM.json").then(function _(json) {
+itowns.Fetcher.json("./layers/JSONLayers/OPENSM.json").then(function _(json: any) {
     const config = {
         ...json as OpenSM,
         source: new itowns.TMSSource((json as OpenSM).source),
@@ -45,9 +45,9 @@ function addElevationLayerFromConfig(json: WorldDTM | IgnMNTHighres) {
     );
 }
 itowns.Fetcher.json("./layers/JSONLayers/IGN_MNT_HIGHRES.json")
-    .then((json) => addElevationLayerFromConfig(json as IgnMNTHighres));
+    .then((json: any) => addElevationLayerFromConfig(json as IgnMNTHighres));
 itowns.Fetcher.json("./layers/JSONLayers/WORLD_DTM.json")
-    .then((json) => addElevationLayerFromConfig(json as WorldDTM));
+    .then((json: any) => addElevationLayerFromConfig(json as WorldDTM));
 
 // ---------- ADD 3D TILES MODEL FROM CESIUM ION SERVER : ----------
 

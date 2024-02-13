@@ -33,4 +33,4 @@ declare function QuadraticBezier(t: number, p0: number, p1: number, p2: number):
  */
 declare function CubicBezier(t: number, p0: number, p1: number, p2: number, p3: number): number;
 
-export { CatmullRom, QuadraticBezier, CubicBezier };
+export { CatmullRom, CubicBezier, QuadraticBezier };

@@ -1355,7 +1355,35 @@ declare namespace mapboxgl {
         | RasterDemSource
         | CustomSourceInterface<HTMLImageElement | ImageData | ImageBitmap>;
 
+    interface RasterSourceImpl extends RasterSource {
+        /**
+         * Reloads the source data and re-renders the map.
+         */
+        reload(): void;
+
+        /**
+         * Sets the source `tiles` property and re-renders the map.
+         *
+         * @param {string[]} tiles An array of one or more tile source URLs, as in the TileJSON spec.
+         * @returns {RasterTileSource} this
+         */
+        setTiles(tiles: readonly string[]): RasterSourceImpl;
+
+        /**
+         * Sets the source `url` property and re-renders the map.
+         *
+         * @param {string} url A URL to a TileJSON resource. Supported protocols are `http:`, `https:`, and `mapbox://<Tileset ID>`.
+         * @returns {RasterTileSource} this
+         */
+        setUrl(url: string): RasterSourceImpl;
+    }
+
     interface VectorSourceImpl extends VectorSource {
+        /**
+         * Reloads the source data and re-renders the map.
+         */
+        reload(): void;
+
         /**
          * Sets the source `tiles` property and re-renders the map.
          *
@@ -1379,7 +1407,7 @@ declare namespace mapboxgl {
         | ImageSource
         | CanvasSource
         | VectorSourceImpl
-        | RasterSource
+        | RasterSourceImpl
         | RasterDemSource
         | CustomSource<HTMLImageElement | ImageData | ImageBitmap>;
 

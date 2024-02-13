@@ -1,4 +1,4 @@
-import { EllipseCurve } from './EllipseCurve.js';
+import { EllipseCurve } from "./EllipseCurve.js";
 
 /**
  * Alias for {@link THREE.EllipseCurve | EllipseCurve}.
@@ -37,5 +37,5 @@ export class ArcCurve extends EllipseCurve {
      * @remarks Sub-classes will update this value.
      * @defaultValue `ArcCurve`
      */
-    override readonly type: string | 'ArcCurve';
+    override readonly type: string | "ArcCurve";
 }

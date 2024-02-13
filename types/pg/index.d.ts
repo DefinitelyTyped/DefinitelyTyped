@@ -133,6 +133,10 @@ export interface MessageConfig {
     name?: string | undefined;
 }
 
+export function escapeIdentifier(str: string): string;
+
+export function escapeLiteral(str: string): string;
+
 export class Connection extends events.EventEmitter {
     readonly stream: stream.Duplex;
 
@@ -247,8 +251,8 @@ export class ClientBase extends events.EventEmitter {
     pauseDrain(): void;
     resumeDrain(): void;
 
-    escapeIdentifier(str: string): string;
-    escapeLiteral(str: string): string;
+    escapeIdentifier: typeof escapeIdentifier;
+    escapeLiteral: typeof escapeLiteral;
 
     on(event: "drain", listener: () => void): this;
     on(event: "error", listener: (err: Error) => void): this;

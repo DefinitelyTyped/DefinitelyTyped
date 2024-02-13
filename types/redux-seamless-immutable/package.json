@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/seamless-immutable": "*",
-        "redux": "^4.0.1"
+        "redux": "^5.0.0"
     },
     "devDependencies": {
         "@types/redux-logger": "*",

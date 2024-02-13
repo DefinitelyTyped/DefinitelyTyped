@@ -89,6 +89,12 @@ export interface Params {
     timeout?: string | number;
 }
 
+export interface GrpcError {
+    code: number;
+    details: string[] | object[];
+    message: string;
+}
+
 /**
  * This module provides a gRPC client for Remote Procedure Calls over HTTP/2.
  * https://grafana.com/docs/k6/latest/javascript-api/k6-net-grpc/
@@ -117,6 +123,58 @@ declare namespace grpc {
 
         /** Close the connection. */
         close(): void;
+    }
+
+    /**
+     * StreamEvent describes the possible events that can be emitted
+     * by a gRPC stream.
+     */
+    type StreamEvent =
+        /**
+         * Event fired when data has been received from the server.
+         */
+        | "data"
+        /**
+         * Event fired when a stream has been closed due to an error.
+         */
+        | "error"
+        /**
+         * Event fired when the stream closes.
+         */
+        | "end";
+
+    /**
+     * Stream allows you to use streaming RPCs.
+     */
+    class Stream {
+        /**
+         * The gRPC stream constructor, representing a single gRPC stream.
+         *
+         * @param client - the gRPC client to use, it must be connected.
+         * @param url - the RPC method to call.
+         * @param params - the parameters to use for the RPC call.
+         */
+        constructor(client: Client, url: string, params?: Params);
+
+        /**
+         * Set up handler functions for various events on the gRPC stream.
+         *
+         * @param event - the event to listen for
+         * @param listener - the callback to invoke when the event is emitted
+         */
+        on(event: StreamEvent, listener: (data: object | GrpcError | undefined) => void): void;
+
+        /**
+         * Writes a request to the stream.
+         *
+         * @param request - the request (message) to send to the server
+         */
+        write(request: object): void;
+
+        /**
+         * Signals to the server that the client has finished sending messages.
+         */
+        end(): void;
     }
 
     const StatusOK: number;

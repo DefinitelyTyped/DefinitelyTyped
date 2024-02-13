@@ -4,7 +4,7 @@
             "ES5",
             "DOM"
         ],
-        "module": "commonjs",
+        "module": "node16",
         "noEmit": true,
         "types": [],
         "noImplicitAny": true,

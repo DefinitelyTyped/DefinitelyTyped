@@ -4,6 +4,8 @@ import Coordinates from "./Geographic/Coordinates";
 import Extent from "./Geographic/Extent";
 import Style from "./Style";
 
+// TODO: Document public API
+
 export enum FEATURE_TYPES {
     POINT = 0,
     LINE = 1,
@@ -35,24 +37,24 @@ export class FeatureGeometry { // TODO
     //     max: number;
     // };
 
-    startSubGeometry(count: number, feature: Feature): void;
+    // startSubGeometry(count: number, feature: Feature): void;
 
-    closeSubGeometry(count: number, feature: Feature): void;
+    // closeSubGeometry(count: number, feature: Feature): void;
 
     // getLastSubGeometry(): any;
 
     // baseAltitude(feature: any, coordinates: any): any;
 
-    pushCoordinates(coordIn: Coordinates, feature: Feature): void;
+    // pushCoordinates(coordIn: Coordinates, feature: Feature): void;
 
-    pushCoordinatesValues(
-        feature: Feature,
-        long: number,
-        lat: number,
-        normal?: THREE.Vector3,
-    ): void;
+    // pushCoordinatesValues(
+    //     feature: Feature,
+    //     long: number,
+    //     lat: number,
+    //     normal?: THREE.Vector3,
+    // ): void;
 
-    updateExtent(): void;
+    // updateExtent(): void;
 }
 
 declare class Feature { // TODO
@@ -77,9 +79,9 @@ declare class Feature { // TODO
     //     max: number;
     // };
 
-    bindNewGeometry(): FeatureGeometry;
+    // bindNewGeometry(): FeatureGeometry;
 
-    updateExtent(geometry: FeatureGeometry): void;
+    // updateExtent(geometry: FeatureGeometry): void;
 
     get geometryCount(): number;
 }
@@ -89,7 +91,7 @@ export default Feature;
 export class FeatureCollection extends THREE.Object3D { // TODO
     constructor(options: FeatureBuildingOptions | Layer);
 
-    readonly isFeatureCollection: boolean;
+    readonly isFeatureCollection: true;
 
     features: Feature[];
     extent: Extent;
@@ -107,23 +109,23 @@ export class FeatureCollection extends THREE.Object3D { // TODO
     //     max: number;
     // };
 
-    transformToLocalSystem(coordinates: Coordinates): Coordinates;
+    // transformToLocalSystem(coordinates: Coordinates): Coordinates;
 
-    updateExtent(extent: Extent): void;
+    // updateExtent(extent: Extent): void;
 
-    updateMatrixWorld(force: boolean): void;
+    // updateMatrixWorld(force: boolean): void;
 
-    removeEmptyFeature(): void;
+    // removeEmptyFeature(): void;
 
-    pushFeature(feature: Feature): void;
+    // pushFeature(feature: Feature): void;
 
     // requestFeature(type: FeatureType, callback: any): any;
 
-    requestFeatureByType(type: string): Feature;
+    // requestFeatureByType(type: string): Feature;
 
-    requestFeatureById(id: string, type: FeatureType): Feature;
+    // requestFeatureById(id: string, type: FeatureType): Feature;
 
-    newFeatureByReference(feature: Feature): Feature;
+    // newFeatureByReference(feature: Feature): Feature;
 
     // setParentStyle(style: any): void;
 }

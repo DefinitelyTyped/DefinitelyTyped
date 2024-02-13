@@ -285,7 +285,11 @@ export interface OptionsPagination {
     paginationInitialPage?: number | undefined;
 }
 
-export type GroupArg = string | string[] | ((data: any) => any);
+export type GroupArg =
+    | string
+    | string[]
+    | ((data: any) => any)
+    | Array<string | ((data: any) => any)>;
 
 export interface OptionsRowGrouping {
     /** String/function to select field to group rows by */
@@ -319,7 +323,12 @@ export interface OptionsRowGrouping {
      * Group Open Function
      * If you want to decide on a group by group basis which should start open or closed then you can pass a function to the groupStartOpen property. This should return true if the group should start open or false if the group should start closed.
      */
-    groupStartOpen?: boolean | ((value: any, count: number, data: any, group: GroupComponent) => boolean) | undefined;
+    groupStartOpen?:
+        | boolean
+        | boolean[]
+        | ((value: any, count: number, data: any, group: GroupComponent) => boolean)
+        | Array<boolean | ((value: any, count: number, data: any, group: GroupComponent) => boolean)>
+        | undefined;
 
     /**
      * By default Tabulator allows users to toggle a group open or closed by clicking on the arrow icon in the left of the group header. If you would prefer a different behavior you can use the groupToggleElement option to choose a different option:* * The option can take one of three values:
@@ -842,11 +851,9 @@ export interface DownloadPDF {
 
 export interface OptionsDownload {
     /**
-     * Allows you to intercept the download file data before the users is prompted to save the file.
+     * The downloadEncoder callback allows you to intercept the download file data before the users is prompted to save the file.
      *
-     * In order for the download to proceed the downloadReady callback is expected to return a blob of file to be downloaded.
-     *
-     * If you would prefer to abort the download you can return false from this callback. This could be useful for example if you want to send the created file to a server via ajax rather than allowing the user to download the file.
+     * The first argument of the function is the file contents returned from the downloader, the second argument is the suggested mime type for the output. The function is should return a blob of the file to be downloaded.
      */
     downloadEncoder?: ((fileContents: any, mimeType: string) => Blob | false) | undefined;
 
@@ -859,6 +866,18 @@ export interface OptionsDownload {
 
     /** By default, only the active rows (rows that have passed filtering) will be included in the download the downloadRowRange option takes a Row Range Lookup value and allows you to choose which rows are included in the download output. */
     downloadRowRange?: RowRangeLookup | undefined;
+
+    /** If you want to make any changes to the table data before it is parsed into the download file you can pass a mutator function to the downloadDataFormatter callback. */
+    downloadDataFormatter?: (data: any) => any;
+
+    /**
+     * The downloadReady callback allows you to intercept the download file data before the users is prompted to save the file.
+     *
+     * In order for the download to proceed the downloadReady callback is expected to return a blob of file to be downloaded.
+     *
+     * If you would prefer to abort the download you can return false from this callback. This could be useful for example if you want to send the created file to a server via ajax rather than allowing the user to download the file.
+     */
+    downloadReady?: (fileContents: any, blob: Blob) => Blob | false;
 }
 
 export interface OptionsHTML {
@@ -2588,7 +2607,11 @@ declare class Tabulator {
      * Note: If you use the setGroupStartOpen or setGroupHeader before you have set any groups on the table, the table will not update until the setGroupBy function is called.
      */
     setGroupStartOpen: (
-        values: boolean | ((value: any, count: number, data: any, group: GroupComponent) => boolean),
+        values:
+            | boolean
+            | boolean[]
+            | ((value: any, count: number, data: any, group: GroupComponent) => boolean)
+            | Array<boolean | ((value: any, count: number, data: any, group: GroupComponent) => boolean)>,
     ) => void;
 
     /** You can use the setGroupHeader function to change the header generation function for each group. This function has one argument and takes the same values as passed to the groupHeader setup option. */

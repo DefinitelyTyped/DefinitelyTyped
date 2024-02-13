@@ -1,7 +1,10 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6", "dom"],
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
@@ -26,8 +29,6 @@
         "test/integration/three-examples/webgl_loader_ldraw.ts",
         "test/integration/three-examples/webgl_loader_mmd.ts",
         "test/integration/three-examples/webgl_materials_channels.ts",
-        "test/integration/three-examples/webgl_nodes_loader_gltf_iridescence.ts",
-        "test/integration/three-examples/webgl_nodes_materials_instance_uniform.ts",
         "test/integration/three-examples/webxr_vr_handinput_cubes.ts",
         "test/integration/webxr-cube.ts",
         "test/unit/examples/jsm/exporters/PLYExporter.ts",

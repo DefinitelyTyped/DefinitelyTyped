@@ -1,6 +1,6 @@
-import { Camera, Vector3, DirectionalLight, Material, Vector2, Object3D } from '../../../src/Three.js';
+import { Camera, DirectionalLight, Material, Object3D, Vector2, Vector3 } from "../../../src/Three.js";
 
-export type CSMMode = 'uniform' | 'logarithmic' | 'practical' | 'custom';
+export type CSMMode = "uniform" | "logarithmic" | "practical" | "custom";
 
 export interface CSMParameters {
     camera?: Camera;
@@ -53,4 +53,4 @@ export class CSM {
     dispose(): void;
 }
 
-import CSMFrustrum from './CSMFrustum.js';
+import CSMFrustrum from "./CSMFrustum.js";

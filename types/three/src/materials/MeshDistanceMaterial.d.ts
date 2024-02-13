@@ -1,6 +1,6 @@
-import { MaterialParameters, Material } from './Material.js';
-import { Vector3 } from '../math/Vector3.js';
-import { Texture } from '../textures/Texture.js';
+import { Vector3 } from "../math/Vector3.js";
+import { Texture } from "../textures/Texture.js";
+import { Material, MaterialParameters } from "./Material.js";
 
 export interface MeshDistanceMaterialParameters extends MaterialParameters {
     map?: Texture | null | undefined;

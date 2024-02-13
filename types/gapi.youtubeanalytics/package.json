@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/gapi.youtubeanalytics",
     "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "gapi.youtubeanalytics",
     "projects": [
         "https://developers.google.com/youtube/analytics/"
     ],

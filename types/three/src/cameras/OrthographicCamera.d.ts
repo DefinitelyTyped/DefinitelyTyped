@@ -1,4 +1,4 @@
-import { Camera } from './Camera.js';
+import { Camera } from "./Camera.js";
 
 /**
  * Camera that uses {@link https://en.wikipedia.org/wiki/Orthographic_projection | orthographic projection}.
@@ -45,7 +45,7 @@ export class OrthographicCamera extends Camera {
      * @override
      * @defaultValue `OrthographicCamera`
      */
-    override readonly type: string | 'OrthographicCamera';
+    override readonly type: string | "OrthographicCamera";
 
     /**
      * Gets or sets the zoom factor of the camera.

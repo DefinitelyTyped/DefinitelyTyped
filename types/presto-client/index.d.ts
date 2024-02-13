@@ -200,7 +200,19 @@ export interface RuntimeStats {
     wallTimeMillis: number;
     cpuTimeMillis: number;
     userTimeMillis: number;
-    state: "QUEUED" | "PLANNING" | "STARTING" | "RUNNING" | "FINISHED" | "CANCELED" | "FAILED";
+    // https://github.com/prestodb/presto/blob/496e98ca25fb243ab25731d188c2fd56eba3b3e9/presto-main/src/main/java/com/facebook/presto/execution/QueryState.java
+    state:
+        | "WAITING_FOR_PREREQUISITES"
+        | "QUEUED"
+        | "WAITING_FOR_RESOURCES"
+        | "DISPATCHING"
+        | "PLANNING"
+        | "STARTING"
+        | "RUNNING"
+        | "FINISHING"
+        | "FINISHED"
+        | "CANCELED" // legacy value, see https://github.com/prestodb/presto/commit/4bf8df1484935a000619377dab6ed35778fff2ad#diff-0e3098a2bd5426fc1a01f56708912cedcdf7ce5d2e0f7adcdb70b93080c8733a
+        | "FAILED";
     scheduled: boolean;
     nodes: number;
     totalSplits: number;

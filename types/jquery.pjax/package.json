@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/jquery.pjax",
     "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.pjax",
     "projects": [
         "https://github.com/defunkt/jquery-pjax"
     ],

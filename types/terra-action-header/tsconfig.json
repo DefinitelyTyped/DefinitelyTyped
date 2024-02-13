@@ -6,7 +6,7 @@
             "ES6"
         ],
         "jsx": "react",
-        "module": "commonjs",
+        "module": "node16",
         "noEmit": true,
         "noImplicitAny": true,
         "noImplicitThis": true,

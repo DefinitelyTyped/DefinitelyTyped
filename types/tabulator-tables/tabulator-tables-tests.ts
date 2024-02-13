@@ -66,7 +66,25 @@ table
 
 table.setGroupBy("gender");
 table.setGroupBy(["gender", "age"]);
+table.setGroupBy((data) => {
+    return "";
+});
+table.setGroupBy(["gender", "age", (data) => {
+    return "";
+}, (data) => {
+    return "";
+}]);
+
 table.setGroupStartOpen(true);
+table.setGroupStartOpen([true, false]);
+table.setGroupStartOpen((value: any, count: number, data: any, group: GroupComponent) => {
+    return true;
+});
+table.setGroupStartOpen([true, false, (value: any, count: number, data: any, group: GroupComponent) => {
+    return true;
+}, (value: any, count: number, data: any, group: GroupComponent) => {
+    return true;
+}]);
 
 table.setGroupHeader((value, count, data, group) => {
     return "";
@@ -1440,4 +1458,14 @@ table.on("rowSelectionChanged", (_data, rows, selected, deselected) => {
         ?.getGroup()
         ?.scrollTo("bottom", false)
         .then(() => console.log(cellType, cellData));
+});
+
+// Testing download callbacks
+table = new Tabulator("#testDownloadCallbacks", {
+    downloadReady: (fileContents, blob) => {
+        return blob;
+    },
+    downloadDataFormatter: (data) => {
+        return data;
+    },
 });

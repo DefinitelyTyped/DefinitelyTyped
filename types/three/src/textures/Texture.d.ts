@@ -1,20 +1,20 @@
-import { Vector2 } from '../math/Vector2.js';
-import { Matrix3 } from '../math/Matrix3.js';
-import { Source } from './Source.js';
-import { EventDispatcher } from '../core/EventDispatcher.js';
 import {
+    AnyMapping,
+    AnyPixelFormat,
+    ColorSpace,
+    MagnificationTextureFilter,
     Mapping,
-    Wrapping,
+    MinificationTextureFilter,
     PixelFormat,
     PixelFormatGPU,
     TextureDataType,
     TextureEncoding,
-    MagnificationTextureFilter,
-    MinificationTextureFilter,
-    AnyPixelFormat,
-    AnyMapping,
-    ColorSpace,
-} from '../constants.js';
+    Wrapping,
+} from "../constants.js";
+import { EventDispatcher } from "../core/EventDispatcher.js";
+import { Matrix3 } from "../math/Matrix3.js";
+import { Vector2 } from "../math/Vector2.js";
+import { Source } from "./Source.js";
 
 /** Shim for OffscreenCanvas. */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

@@ -1,6 +1,5 @@
 {
     "rules": {
-        "@definitelytyped/strict-export-declare-modifiers": "off",
-        "@definitelytyped/npm-naming": "off"
+        "@definitelytyped/strict-export-declare-modifiers": "off"
     }
 }

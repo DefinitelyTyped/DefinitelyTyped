@@ -1,4 +1,4 @@
-import C3DTilesTypes from "./C3DTilesTypes";
+import { C3DTilesTypes } from "./C3DTilesEnums";
 
 declare class C3DTBatchTable {
     constructor(

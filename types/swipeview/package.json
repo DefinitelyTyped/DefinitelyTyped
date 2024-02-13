@@ -2,6 +2,8 @@
     "private": true,
     "name": "@types/swipeview",
     "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "swipeview",
     "projects": [
         "http://cubiq.org/swipeview"
     ],

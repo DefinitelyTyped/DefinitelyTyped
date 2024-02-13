@@ -8,3 +8,5 @@ export import version = uuid.version;
 export import validate = uuid.validate;
 export import stringify = uuid.stringify;
 export import parse = uuid.parse;
+export import V1Options = uuid.V1Options;
+export import V4Options = uuid.V4Options;

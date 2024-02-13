@@ -1,6 +1,6 @@
-import { Scene, Camera, Material, Color } from '../../../src/Three.js';
+import { Camera, Color, Material, Scene } from "../../../src/Three.js";
 
-import { Pass } from './Pass.js';
+import { Pass } from "./Pass.js";
 
 export class RenderPass extends Pass {
     constructor(

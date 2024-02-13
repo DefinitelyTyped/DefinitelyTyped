@@ -1,4 +1,4 @@
-import Stats from '../libs/stats.module.js';
+import Stats from "../libs/stats.module.js";
 
 export class GPUStatsPanel extends Stats.Panel {
     context: WebGLRenderingContext | WebGL2RenderingContext;

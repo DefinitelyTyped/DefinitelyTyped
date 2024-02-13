@@ -145,7 +145,7 @@ declare namespace request {
 
         Request: typeof SARequest;
         Response: typeof ResponseBase;
-        agent: typeof SAgent;
+        agent: typeof SAgent & ((options?: SAgentOptions) => InstanceType<typeof SAgent>);
         protocols: {
             "http:": typeof http;
             "https:": typeof https;

@@ -1404,7 +1404,7 @@ export interface PlotData {
     locations: Datum[];
     reversescale: boolean;
     colorbar: Partial<ColorBar>;
-    offset: number;
+    offset: number | number[];
     contours: Partial<{
         coloring: "fill" | "heatmap" | "lines" | "none";
         end: number;

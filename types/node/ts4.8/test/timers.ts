@@ -41,7 +41,7 @@ import { promisify } from "node:util";
     }) {
         const setTimeout = promisify(timers.setTimeout);
         // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        let v: void = await setTimeout(100); // tslint:disable-line no-void-expression void-return
+        let v: void = await setTimeout(100);
         let s: string = await setTimeout(100, "");
 
         const setImmediate = promisify(timers.setImmediate);
@@ -97,9 +97,12 @@ import { promisify } from "node:util";
     function waitFor(options?: { timeout: number }) {
         const timerId = options && setTimeout(() => {}, options.timeout);
         clearTimeout(timerId);
+        timerId?.[Symbol.dispose]();
         const intervalId = options && setTimeout(() => {}, options.timeout);
         clearInterval(intervalId);
+        intervalId?.[Symbol.dispose]();
         const immediateId = options && setImmediate(() => {});
         clearImmediate(immediateId);
+        immediateId?.[Symbol.dispose]();
     }
 }

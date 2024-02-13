@@ -49,7 +49,7 @@ const mapSource = new itowns.VectorTilesSource({
     style: "https://wxs.ign.fr/essentiels/static/vectorTiles/styles/PLAN.IGN/standard.json",
     // We don't display mountains and parcels related data to ease visualisation. Also, we don't display
     // buildings related data as it will be displayed in another Layer.
-    filter: (layer) => {
+    filter: (layer: any) => {
         return !layer["source-layer"].includes("bati_surf")
             && !layer["source-layer"].includes("oro_")
             && !layer["source-layer"].includes("routier_ponc")
@@ -63,14 +63,14 @@ const mapLayer = new itowns.ColorLayer("MVT", {
     effect_type: itowns.colorLayerEffects.removeLightColor,
     effect_parameter: 2.5,
     addLabelLayer: { performance: true },
-    style: new itowns.Style({
+    style: {
         text: {
             color: "#000000",
             haloColor: "#ffffff",
             haloWidth: 3,
             haloBlur: 2,
         },
-    }),
+    },
 });
 
 // Add the ColorLayer to the scene and to the debug menu.
@@ -93,7 +93,7 @@ const ortho = itowns.Fetcher.json("./layers/JSONLayers/Ortho.json").then(functio
 const buildingsSource = new itowns.VectorTilesSource({
     style: "https://wxs.ign.fr/essentiels/static/vectorTiles/styles/PLAN.IGN/standard.json",
     // We only want to display buildings related data.
-    filter: (layer) => {
+    filter: (layer: any) => {
         return layer["source-layer"].includes("bati_surf")
             && layer.paint["fill-color"];
     },
@@ -104,12 +104,12 @@ const buildingsLayer = new itowns.FeatureGeometryLayer("VTBuilding", {
     source: buildingsSource,
     zoom: { min: 15 },
     accurate: false,
-    style: new itowns.Style({
+    style: {
         fill: {
             base_altitude: (p: BDAltiProp) => p.alti_sol || 0,
             extrusion_height: (p: BDAltiProp) => p.hauteur || 0,
         },
-    }),
+    },
 });
 
 // Add the FeatureGeometryLayer to the scene and to the debug menu.

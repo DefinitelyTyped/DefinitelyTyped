@@ -1,4 +1,4 @@
-import { Color } from '../../../src/Three.js';
+import { Color } from "../../../src/Three.js";
 
 export interface HSL {
     h: number;

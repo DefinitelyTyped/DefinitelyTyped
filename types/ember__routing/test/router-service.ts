@@ -79,13 +79,13 @@ transition.promise;
 // @ts-expect-error
 transition.promise = "promise";
 
-// $ExpectType RouteInfo | RouteInfoWithAttributes
+// $ExpectType RouteInfo | RouteInfoWithAttributes | null
 transition.to;
 // @ts-expect-error
 transition.to = "to";
 
 // $ExpectType unknown
-transition.to.metadata;
+transition.to?.metadata;
 // @ts-expect-error
 transition.to.metadata = "foo";
 
