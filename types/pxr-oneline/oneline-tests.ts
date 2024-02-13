@@ -1,4 +1,4 @@
-import * as OneLine from "oneline";
+import * as OneLine from "pxr-oneline";
 const ndmOne: OneLine.OneLine = {
     event: {
       o: {},
