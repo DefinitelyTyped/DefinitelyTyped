@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "name": "@types/oneline",
+  "version": "1.0.0",
+  "projects": [
+      "https://github.com/diogopxrnextday/pxr-advertising"
+  ],
+  "devDependencies": {
+    "@types/oneline": "workspace:."
+},
+  "owners": [
+      {
+          "name": "PXR Advertising",
+          "githubUsername": "diogopxrnextday"
+      }
+  ]
+}
