@@ -629,7 +629,7 @@ declare namespace React {
      * const ThemeContext = createContext('light');
      * ```
      */
-    interface Context<T> {
+    interface Context<T> extends Provider<T> {
         Provider: Provider<T>;
         Consumer: Consumer<T>;
         /**
@@ -658,6 +658,13 @@ declare namespace React {
      * import { createContext } from 'react';
      *
      * const ThemeContext = createContext('light');
+     * function App() {
+     *   return (
+     *     <ThemeContext value="dark">
+     *       <Toolbar />
+     *     </ThemeContext>
+     *   );
+     * }
      * ```
      */
     function createContext<T>(

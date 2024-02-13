@@ -134,6 +134,11 @@ const FunctionComponentWithoutProps: React.FunctionComponent = props => {
 // React.createContext
 const ContextWithRenderProps = React.createContext("defaultValue");
 
+<ContextWithRenderProps.Provider value="provided value">
+</ContextWithRenderProps.Provider>;
+<ContextWithRenderProps value="provided value">
+</ContextWithRenderProps>;
+
 // unstable APIs should not be part of the typings
 // @ts-expect-error
 const ContextUsingUnstableObservedBits = React.createContext(undefined, (previous, next) => 7);
