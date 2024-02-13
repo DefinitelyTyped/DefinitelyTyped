@@ -1,8 +1,8 @@
 import Extent from "../Geographic/Extent";
 import View, { ViewOptions } from "../View";
 
-import Layer from "../../Layer/Layer";
 import PlanarControls, { PlanarControlsOptions } from "../../Controls/PlanarControls";
+import Layer from "../../Layer/Layer";
 import CameraUtils from "../../Utils/CameraUtils";
 
 export interface PlanarViewOptions extends ViewOptions {

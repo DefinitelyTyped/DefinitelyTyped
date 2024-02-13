@@ -12,7 +12,7 @@ export type StyleParameter<T> = T | ((prop?: any, ctx?: StyleContext) => T);
 
 export interface ImagePattern {
     source: HTMLImageElement | string;
-    cropValues: { x: number, y: number, width: number, height: number };
+    cropValues: { x: number; y: number; width: number; height: number };
 }
 
 export interface ColorPattern {

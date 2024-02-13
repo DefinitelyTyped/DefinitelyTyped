@@ -14,7 +14,7 @@ export interface ParsingOptions {
 } // TODO
 
 // TODO: same type as openlayers
-type AttributionLike = any /* string | string[]; */
+type AttributionLike = any; /* string | string[]; */
 
 export interface SourceOptions {
     crs?: string;

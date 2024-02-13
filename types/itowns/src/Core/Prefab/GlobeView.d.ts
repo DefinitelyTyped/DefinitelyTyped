@@ -1,11 +1,11 @@
 import * as THREE from "three";
 
-import Layer from "../../Layer/Layer";
-import GlobeLayer from "./Globe/GlobeLayer";
-import Extent from "../Geographic/Extent";
-import View, { ViewOptions, VIEW_EVENTS } from "../View";
 import GlobeControls, { GlobeControlsOptions } from "../../Controls/GlobeControls";
+import Layer from "../../Layer/Layer";
 import CameraUtils from "../../Utils/CameraUtils";
+import Extent from "../Geographic/Extent";
+import View, { VIEW_EVENTS, ViewOptions } from "../View";
+import GlobeLayer from "./Globe/GlobeLayer";
 
 export enum GLOBE_VIEW_EVENTS {
     GLOBE_INITIALIZED = "initialized",
