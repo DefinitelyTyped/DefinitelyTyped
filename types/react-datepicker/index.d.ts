@@ -7,8 +7,6 @@ type PopperProps = Partial<Omit<UseFloatingOptions, "open" | "whileElementsMount
 export interface CalendarContainerProps {
     className?: string | undefined;
     children?: React.ReactNode | React.ReactNode[] | undefined;
-    showPopperArrow?: boolean | undefined;
-    arrowProps?: { [propName: string]: any } | undefined;
 }
 export function registerLocale(localeName: string, localeData: Locale): void;
 export function setDefaultLocale(localeName: string): void;
@@ -74,7 +72,7 @@ export interface ReactDatePickerProps<WithRange extends boolean | undefined = un
     disabledKeyboardNavigation?: boolean | undefined;
     dropdownMode?: "scroll" | "select" | undefined;
     endDate?: Date | null | undefined;
-    excludeDates?: Date[] | undefined;
+    excludeDates?: Date[] | Array<{ date: Date; message: string }> | undefined;
     excludeDateIntervals?: Array<{ start: Date; end: Date }> | undefined;
     excludeTimes?: Date[] | undefined;
     filterDate?(date: Date): boolean;
