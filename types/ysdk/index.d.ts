@@ -259,7 +259,6 @@ export type StickyAdvError = "ADV_IS_NOT_CONNECTED" | "UNKNOWN";
 
 export type SdkEventName = "EXIT" | "HISTORY_BACK";
 
-/* prettier-ignore */
 export type ISO_639_1 =
     | "af"
     | "am"
@@ -332,7 +331,6 @@ export type ISO_639_1 =
     | "zh"
     | "zu";
 
-/* prettier-ignore */
 export type TopLevelDomain =
     | "az"
     | "by"
