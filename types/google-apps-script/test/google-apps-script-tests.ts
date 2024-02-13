@@ -334,6 +334,8 @@ function timeDriven(e: GoogleAppsScript.Events.TimeDriven) {
     }
 }
 
+CardService.newTextButton().setAltText("alt text"); // $ExpectType TextButton
+
 CardService.newDecoratedText(); // $ExpectType DecoratedText
 CardService.newDecoratedText().setAuthorizationAction(CardService.newAuthorizationAction()); // $ExpectType DecoratedText
 CardService.newDecoratedText().setBottomLabel(""); // $ExpectType DecoratedText
