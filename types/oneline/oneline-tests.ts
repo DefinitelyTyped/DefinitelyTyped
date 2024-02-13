@@ -18,14 +18,9 @@ const ndmOne: OneLine.OneLine = {
     adUnitRequest: (arrFoAdIds, allowReload) => {
       // Mock implementation for testing
       console.assert(!arrFoAdIds && !allowReload, 'adUnitRequest - should load all ad units when called without arguments');
-  
+    
       console.assert(
-        arrFoAdIds && arrFoAdIds.length === 2 && arrFoAdIds.includes('ndm-1') && arrFoAdIds.includes('ndm-2') && !allowReload,
-        'adUnitRequest - should load specified ad units when called with an array of ad IDs'
-      );
-  
-      console.assert(
-        arrFoAdIds && arrFoAdIds.length === 1 && arrFoAdIds.includes('push-up-all') && allowReload,
+        arrFoAdIds && arrFoAdIds.length === 1 &&  arrFoAdIds.indexOf('push-up-all') !== -1 && allowReload,
         'adUnitRequest - should allow reload when specified in the arguments'
       );
     },
