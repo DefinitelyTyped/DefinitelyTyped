@@ -149,6 +149,11 @@ const UndefinedContext = React.createContext(undefined);
 <UndefinedContext.Provider />;
 <UndefinedContext.Provider value={undefined} />;
 
+<Context.Provider value="provided value">
+</Context.Provider>;
+<Context value="provided value">
+</Context>;
+
 // unstable APIs should not be part of the typings
 // @ts-expect-error
 const ContextUsingUnstableObservedBits = React.createContext(undefined, (previous, next) => 7);
