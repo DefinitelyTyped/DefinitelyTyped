@@ -1,13 +1,12 @@
-import * as Popper from "@popperjs/core";
+import { Middleware, Placement, UseFloatingOptions } from "@floating-ui/react";
 import { Locale } from "date-fns";
 import * as React from "react";
-import { Modifier, StrictModifierNames } from "react-popper";
+
+type PopperProps = Partial<Omit<UseFloatingOptions, "open" | "whileElementsMounted" | "placement" | "middleware">>;
 
 export interface CalendarContainerProps {
     className?: string | undefined;
     children?: React.ReactNode | React.ReactNode[] | undefined;
-    showPopperArrow?: boolean | undefined;
-    arrowProps?: { [propName: string]: any } | undefined;
 }
 export function registerLocale(localeName: string, localeData: Locale): void;
 export function setDefaultLocale(localeName: string): void;
@@ -39,10 +38,7 @@ export interface ReactDatePickerCustomHeaderProps {
     nextYearButtonDisabled: boolean;
 }
 
-export interface ReactDatePickerProps<
-    CustomModifierNames extends string = never,
-    WithRange extends boolean | undefined = undefined,
-> {
+export interface ReactDatePickerProps<WithRange extends boolean | undefined = undefined> {
     adjustDateOnChange?: boolean | undefined;
     allowSameDay?: boolean | undefined;
     ariaDescribedBy?: string | undefined;
@@ -76,7 +72,7 @@ export interface ReactDatePickerProps<
     disabledKeyboardNavigation?: boolean | undefined;
     dropdownMode?: "scroll" | "select" | undefined;
     endDate?: Date | null | undefined;
-    excludeDates?: Date[] | undefined;
+    excludeDates?: Date[] | Array<{ date: Date; message: string }> | undefined;
     excludeDateIntervals?: Array<{ start: Date; end: Date }> | undefined;
     excludeTimes?: Date[] | undefined;
     filterDate?(date: Date): boolean;
@@ -136,9 +132,9 @@ export interface ReactDatePickerProps<
     placeholderText?: string | undefined;
     popperClassName?: string | undefined;
     popperContainer?(props: { children: React.ReactNode[] }): React.ReactNode;
-    popperModifiers?: ReadonlyArray<Modifier<StrictModifierNames | CustomModifierNames>> | undefined;
-    popperPlacement?: Popper.Placement | undefined;
-    popperProps?: {} | undefined;
+    popperModifiers?: readonly Middleware[] | undefined;
+    popperPlacement?: Placement | undefined;
+    popperProps?: PopperProps | undefined;
     preventOpenOnFocus?: boolean | undefined;
     previousMonthAriaLabel?: string | undefined;
     previousMonthButtonLabel?: string | React.ReactNode | undefined;
@@ -201,10 +197,9 @@ export interface ReactDatePickerProps<
     yearItemNumber?: number | undefined;
 }
 
-export class ReactDatePicker<
-    CustomModifierNames extends string = never,
-    WithRange extends boolean | undefined = undefined,
-> extends React.Component<ReactDatePickerProps<CustomModifierNames, WithRange>> {
+export class ReactDatePicker<WithRange extends boolean | undefined = undefined> extends React.Component<
+    ReactDatePickerProps<WithRange>
+> {
     readonly setBlur: () => void;
     readonly setFocus: () => void;
     readonly setOpen: (open: boolean, skipSetBlur?: boolean) => void;
