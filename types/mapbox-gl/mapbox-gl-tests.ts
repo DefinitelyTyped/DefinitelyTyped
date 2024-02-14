@@ -75,7 +75,6 @@ let map = new mapboxgl.Map({
         "FullscreenControl.Enter": "Розгорнути на весь екран",
         "FullscreenControl.Exit": "Вийти з повоноеранного режиму",
     },
-    optimizeForTerrain: false,
 });
 
 /**
@@ -2053,3 +2052,16 @@ map.setProjection({ name: "globe" });
 
 // get projections
 expectType<mapboxgl.Projection>(map.getProjection());
+
+
+/**
+ * v3
+ */
+
+// set config property
+map.setConfigProperty('basemap', 'lightPreset', 'dusk');
+map.setConfigProperty('basemap', 'showPointOfInterestLabels', false);
+
+// get config property
+map.getConfigProperty('basemap', 'lightPreset');
+map.getConfigProperty('basemap', 'showPointOfInterestLabels');
