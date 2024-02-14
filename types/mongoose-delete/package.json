@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/node": "*",
-        "mongoose": "^5.11 || ^6 || ^7"
+        "mongoose": "^5.11 || ^6 || ^7 || ^8"
     },
     "devDependencies": {
         "@types/mongoose-delete": "workspace:."
