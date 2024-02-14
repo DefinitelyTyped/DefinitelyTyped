@@ -81,6 +81,7 @@ export interface QueryResult {
     connect: string;
     ping: number;
     queryPort: number;
+    version: string;
     raw?: object;
 }
 

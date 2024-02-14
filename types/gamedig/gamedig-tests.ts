@@ -22,7 +22,7 @@ gamedig.GameDig.query(
     (error: any, state: gamedig.QueryResult) => {
         if (error) throw error;
 
-        const { name, map, password, maxplayers, players, bots, connect, ping, queryPort, numplayers } = state;
+        const { name, map, password, maxplayers, players, bots, connect, ping, queryPort, numplayers, version } = state;
     },
 );
 
@@ -49,7 +49,7 @@ gd.query(
     (error: any, state: gamedig.QueryResult) => {
         if (error) throw error;
 
-        const { name, map, password, maxplayers, players, bots, connect, ping, queryPort, numplayers } = state;
+        const { name, map, password, maxplayers, players, bots, connect, ping, queryPort, numplayers, version } = state;
     },
 );
 
