@@ -1,7 +1,7 @@
 import * as React from "react";
+import { PlotParams } from "react-plotly.js";
 import { TableRenderers } from "./TableRenderers";
 import { Pivot, PivotData } from "./Utilities";
-import { PlotParams } from "react-plotly.js";
 export interface PivotTableProps extends Pivot {
     // maybe some generic can be implemented for the last two.
     renderers?: TableRenderers;
