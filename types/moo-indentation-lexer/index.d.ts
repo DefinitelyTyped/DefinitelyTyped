@@ -1,7 +1,37 @@
-import { Token, Lexer, LexerState } from 'moo';
+import { Lexer, LexerState, Token } from "moo";
 
 export class IndentationLexer implements Lexer {
-		constructor({lexer, indentationType, newlineType, commentType, indentName, dedentName, enclosingPunctuations, separators, state, enclosures, indentations, queuedTokens, queuedLines, lastToken}:{lexer: Lexer, indentationType?:string, newlineType?:string, commentType?:string, indentName?:string, dedentName?:string, enclosingPunctuations?:object, separators?:string[], state?:string, enclosures?:Array<{opening:string, indentationLevel:string}>, indentations?:string[], queuedTokens?:Token[], queuedLines?:Token[][], lastToken?:Token}) ;
+    constructor({
+        lexer,
+        indentationType,
+        newlineType,
+        commentType,
+        indentName,
+        dedentName,
+        enclosingPunctuations,
+        separators,
+        state,
+        enclosures,
+        indentations,
+        queuedTokens,
+        queuedLines,
+        lastToken,
+    }: {
+        lexer: Lexer;
+        indentationType?: string;
+        newlineType?: string;
+        commentType?: string;
+        indentName?: string;
+        dedentName?: string;
+        enclosingPunctuations?: object;
+        separators?: string[];
+        state?: string;
+        enclosures?: Array<{ opening: string; indentationLevel: string }>;
+        indentations?: string[];
+        queuedTokens?: Token[];
+        queuedLines?: Token[][];
+        lastToken?: Token;
+    });
 
     reset(chunk?: string, state?: LexerState): this;
 
@@ -23,5 +53,3 @@ export class IndentationLexer implements Lexer {
 
     has(tokenType: string): boolean;
 }
-
-

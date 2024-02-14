@@ -5,7 +5,7 @@
     "projects": [
         "https://github.com/aliclark/moo-indentation-lexer"
     ],
-		"dependencies": {
+    "dependencies": {
         "@types/moo": "*"
     },
     "devDependencies": {
