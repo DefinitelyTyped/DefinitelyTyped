@@ -362,6 +362,29 @@ declare namespace mapboxgl {
 
         getLayoutProperty(layer: string, name: string): any;
 
+        /**
+         * Returns the value of a configuration property in the imported style.
+         *
+         * @param {string} importId The name of the imported style to set the config for (e.g. `basemap`).
+         * @param {string} configName The name of the configuration property from the style.
+         * @returns {*} Returns the value of the configuration property.
+         * @example
+         * map.getConfigProperty('basemap', 'showLabels');
+         */
+        getConfigProperty(importId: string, configName: string): any
+        
+        /**
+         * Sets the value of a configuration property in the currently set style.
+         *
+         * @param {string} importId The name of the imported style to set the config for (e.g. `basemap`).
+         * @param {string} configName The name of the configuration property from the style.
+         * @param {*} value The value of the configuration property. Must be of a type appropriate for the property, as defined by the style configuration schema.
+         * @returns {Map} Returns itself to allow for method chaining.
+         * @example
+         * map.setConfigProperty('basemap', 'showLabels', false);
+         */
+        setConfigProperty(importId: string, configName: string, value: any): this
+
         setLight(light: mapboxgl.Light, options?: FilterOptions): this;
 
         getLight(): mapboxgl.Light;
@@ -749,14 +772,6 @@ declare namespace mapboxgl {
 
         /** Minimum zoom of the map. */
         minZoom?: number | undefined;
-
-        /**
-         * If true, map will prioritize rendering for performance by reordering layers
-         * If false, layers will always be drawn in the specified order
-         *
-         * @default true
-         */
-        optimizeForTerrain?: boolean | undefined;
 
         /** If true, The maps canvas can be exported to a PNG using map.getCanvas().toDataURL();. This is false by default as a performance optimization. */
         preserveDrawingBuffer?: boolean | undefined;
