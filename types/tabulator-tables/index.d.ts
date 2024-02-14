@@ -798,7 +798,7 @@ export type RowContextMenuSignature =
 
 export type GroupContextMenuSignature =
     | Array<MenuObject<GroupComponent> | MenuSeparator>
-    | ((component: GroupComponent, e: MouseEvent) => MenuObject<GroupComponent> | false | any[]);
+    | ((e: MouseEvent, component: GroupComponent) => MenuObject<GroupComponent> | false | any[]);
 
 export interface MenuObject<T extends RowComponent | CellComponent | ColumnComponent | GroupComponent> {
     label: string | HTMLElement | ((component: T) => string | HTMLElement);
