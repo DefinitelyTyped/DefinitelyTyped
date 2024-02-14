@@ -891,7 +891,7 @@ declare namespace ApplePayJS {
         /**
          * The date and time at the destination location of the payment.
          */
-        freeCancellationDate?: string | undefined;
+        freeCancellationDate?: Date | undefined;
 
         /**
          * The time zone at the destination location of the payment.
