@@ -18,7 +18,7 @@ declare namespace Saturn {
                 email: string;
                 name?: string;
                 identifierHash?: string;
-            }
+            },
         ) => void;
         trackEvent: (eventName: string, eventData: Record<string, string>) => void;
         trackAttr: (name: string, value: string) => void;

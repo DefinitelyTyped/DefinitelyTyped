@@ -1,19 +1,19 @@
 window.saturnSDK.run({
-  integrationId: "test",
+    integrationId: "test",
 });
 
 // Setting user without identifierHash
 window.$saturn.setUser("uid", {
-  email: "uid@email.com",
-  name: "user",
-})
+    email: "uid@email.com",
+    name: "user",
+});
 
 // Setting user without identifierHash
 window.$saturn.setUser("uid", {
-  email: "uid@email.com",
-  name: "user",
-  identifierHash: "hash",
-})
+    email: "uid@email.com",
+    name: "user",
+    identifierHash: "hash",
+});
 
 // Tracking
 window.$saturn.trackEvent("event", { key: "value" });
