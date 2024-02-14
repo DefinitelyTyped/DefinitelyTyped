@@ -16,6 +16,8 @@ gamedig.GameDig.query(
         requestRules: true,
         requestRulesRequired: true,
         requestPlayersRequired: true,
+        checkOldIDs: true,
+        checkAlias: true,
     },
     (error: any, state: gamedig.QueryResult) => {
         if (error) throw error;
@@ -41,6 +43,8 @@ gd.query(
         requestRules: true,
         requestRulesRequired: true,
         requestPlayersRequired: true,
+        checkOldIDs: true,
+        checkAlias: true,
     },
     (error: any, state: gamedig.QueryResult) => {
         if (error) throw error;
