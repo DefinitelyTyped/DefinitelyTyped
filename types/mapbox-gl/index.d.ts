@@ -2200,6 +2200,8 @@ declare namespace mapboxgl {
         styledataloading: MapStyleDataEvent;
         sourcedata: MapSourceDataEvent;
         styledata: MapStyleDataEvent;
+        'style.load': MapboxEvent;
+        'style.import.load': MapboxEvent;
 
         boxzoomcancel: MapBoxZoomEvent;
         boxzoomstart: MapBoxZoomEvent;
