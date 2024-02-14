@@ -97,6 +97,7 @@ declare namespace mapboxgl {
         | "index-of"
         | "length"
         | "slice"
+        | "config"
         // Decision
         | "!"
         | "!="
@@ -126,6 +127,8 @@ declare namespace mapboxgl {
         | "resolved-locale"
         | "upcase"
         // Color
+        | "hsl"
+        | "hsla"
         | "rgb"
         | "rgba"
         | "to-rgba"
@@ -142,6 +145,7 @@ declare namespace mapboxgl {
         | "atan"
         | "ceil"
         | "cos"
+        | "distance"
         | "e"
         | "floor"
         | "ln"
@@ -151,12 +155,19 @@ declare namespace mapboxgl {
         | "max"
         | "min"
         | "pi"
+        | "random"
         | "round"
         | "sin"
         | "sqrt"
         | "tan"
-        // Zoom, Heatmap
+        // Camera
+        | "distance-from-center"
+        | "pitch"
         | "zoom"
+        | "raster-value"
+        // Lights
+        | "measure-light"
+        // Heatmap
         | "heatmap-density";
 
     type Expression = [ExpressionName, ...any[]];
@@ -2474,6 +2485,7 @@ declare namespace mapboxgl {
         "background-pattern-transition"?: Transition | undefined;
         "background-opacity"?: number | Expression | undefined;
         "background-opacity-transition"?: Transition | undefined;
+        "background-emissive-strength"?: number | Expression | undefined;
     }
 
     export interface FillLayout extends Layout {
@@ -2493,6 +2505,16 @@ declare namespace mapboxgl {
         "fill-translate-anchor"?: "map" | "viewport" | undefined;
         "fill-pattern"?: string | Expression | undefined;
         "fill-pattern-transition"?: Transition | undefined;
+        "fill-emissive-strength"?: number | Expression | undefined;
+        "fill-extrusion-ambient-occlusion-ground-attenuation"?: number | Expression | undefined;
+        "fill-extrusion-ambient-occlusion-ground-radius"?: number | Expression | undefined;
+        "fill-extrusion-ambient-occlusion-wall-radius"?: number | Expression | undefined;
+        "fill-extrusion-flood-light-color"?: string | StyleFunction | Expression | undefined;
+        "fill-extrusion-flood-light-ground-attenuation"?: number | Expression | undefined;
+        "fill-extrusion-flood-light-ground-radius"?: number | Expression | undefined;
+        "fill-extrusion-flood-light-intensity"?: number | Expression | undefined;
+        "fill-extrusion-flood-light-wall-radius"?: number | Expression | undefined;
+        "fill-extrusion-vertical-scale"?: number | Expression | undefined;
     }
 
     export interface FillExtrusionLayout extends Layout {}
@@ -2543,6 +2565,7 @@ declare namespace mapboxgl {
         "line-pattern"?: string | Expression | undefined;
         "line-pattern-transition"?: Transition | undefined;
         "line-gradient"?: Expression | undefined;
+        "line-emissive-strength"?: number | Expression | undefined;
     }
 
     export interface SymbolLayout extends Layout {
@@ -2603,6 +2626,8 @@ declare namespace mapboxgl {
         "icon-translate"?: number[] | Expression | undefined;
         "icon-translate-transition"?: Transition | undefined;
         "icon-translate-anchor"?: "map" | "viewport" | undefined;
+        "icon-emissive-strength"? : number | StyleFunction | Expression | undefined;
+        "icon-image-cross-fade"? : number | StyleFunction | Expression | undefined;
         "text-opacity"?: number | StyleFunction | Expression | undefined;
         "text-opacity-transition"?: Transition | undefined;
         "text-color"?: string | StyleFunction | Expression | undefined;
@@ -2616,6 +2641,7 @@ declare namespace mapboxgl {
         "text-translate"?: number[] | Expression | undefined;
         "text-translate-transition"?: Transition | undefined;
         "text-translate-anchor"?: "map" | "viewport" | undefined;
+        "text-emissive-strength"? : number | StyleFunction | Expression | undefined;
     }
 
     export interface RasterLayout extends Layout {}
@@ -2635,6 +2661,9 @@ declare namespace mapboxgl {
         "raster-contrast-transition"?: Transition | undefined;
         "raster-fade-duration"?: number | Expression | undefined;
         "raster-resampling"?: "linear" | "nearest" | undefined;
+        "raster-color"?: string | Expression | undefined,
+        "raster-color-mix"?: [number, number, number, number] | Expression | undefined,
+        "raster-color-range"?: [number, number] | Expression | undefined,
     }
 
     export interface CircleLayout extends Layout {
@@ -2661,6 +2690,7 @@ declare namespace mapboxgl {
         "circle-stroke-color-transition"?: Transition | undefined;
         "circle-stroke-opacity"?: number | StyleFunction | Expression | undefined;
         "circle-stroke-opacity-transition"?: Transition | undefined;
+        "circle-emissive-strength"?: number | StyleFunction | Expression | undefined;
     }
 
     export interface HeatmapLayout extends Layout {}
