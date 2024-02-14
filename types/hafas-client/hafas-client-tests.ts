@@ -144,7 +144,7 @@ if (client.journeysFromTrip) {
 if (client.trip) {
     client.trip("x", {})
         .then(trip => {
-			if (trip.trip && trip.trip.currentLocation) { /* ... */ }
-		})
+            if (trip.trip && trip.trip.currentLocation) { /* ... */ }
+        })
         .catch(() => {/* ... */});
 }
