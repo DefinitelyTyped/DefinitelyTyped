@@ -1,8 +1,9 @@
 {
     "private": true,
     "name": "@types/saturn-web",
-    "version": "0.0.1",
+    "version": "0.0.9999",
     "nonNpm": true,
+    "nonNpmDescription": "Saturn SDK",
     "projects": [
         "https://saturnhq.io"
     ],
