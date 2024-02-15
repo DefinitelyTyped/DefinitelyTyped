@@ -42,6 +42,7 @@ declare class Compose {
     /* @async */
     down(options?: DockerodeCompose.ComposeDownOptions): Promise<DockerodeCompose.ComposeDownOutput>;
 
+    /* @async */
     up(options?: DockerodeCompose.ComposeUpOptions): Promise<DockerodeCompose.ComposeUpOutput>;
 
     pull(serviceN?: string, options?: DockerodeCompose.ComposePullOptions): Promise<any[]>;
