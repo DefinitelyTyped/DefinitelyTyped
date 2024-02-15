@@ -2,6 +2,7 @@
     "private": true,
     "name": "@types/help-center",
     "nonNpm": true,
+    "nonNpmDescription": "This package is not published on npm, but it is used as a dependency in the Fatture in cloud - Help Center project",
     "version": "1.0.9999",
     "projects": [
         "Fatture in cloud - Help Center interlal project loaded through a cdn need to be typed"
