@@ -144,6 +144,7 @@ export interface ReactDatePickerProps<WithRange extends boolean | undefined = un
     renderCustomHeader?(params: ReactDatePickerCustomHeaderProps): React.ReactNode;
     renderDayContents?(dayOfMonth: number, date?: Date): React.ReactNode;
     renderMonthContent?(monthIndex: number, shortMonthText: string, fullMonthText: string): React.ReactNode;
+    renderYearContent?(year: number): React.ReactNode;
     required?: boolean | undefined;
     scrollableMonthYearDropdown?: boolean | undefined;
     scrollableYearDropdown?: boolean | undefined;
