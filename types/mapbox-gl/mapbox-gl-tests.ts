@@ -1565,7 +1565,7 @@ expectType<mapboxgl.Expression>([
     ["random", 200, 300, ["id"]],
     80,
     ["random", 70, 100, ["+", 2, ["id"]]],
-    1.0
+    1.0,
 ]);
 const expression = expectType<mapboxgl.Expression>(["coalesce", ["get", "property"], ["get", "property"]]);
 
@@ -2079,15 +2079,14 @@ map.setProjection({ name: "globe" });
 // get projections
 expectType<mapboxgl.Projection>(map.getProjection());
 
-
 /**
  * v3
  */
 
 // set config property
-map.setConfigProperty('basemap', 'lightPreset', 'dusk');
-map.setConfigProperty('basemap', 'showPointOfInterestLabels', false);
+map.setConfigProperty("basemap", "lightPreset", "dusk");
+map.setConfigProperty("basemap", "showPointOfInterestLabels", false);
 
 // get config property
-map.getConfigProperty('basemap', 'lightPreset');
-map.getConfigProperty('basemap', 'showPointOfInterestLabels');
+map.getConfigProperty("basemap", "lightPreset");
+map.getConfigProperty("basemap", "showPointOfInterestLabels");

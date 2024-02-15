@@ -382,8 +382,8 @@ declare namespace mapboxgl {
          * @example
          * map.getConfigProperty('basemap', 'showLabels');
          */
-        getConfigProperty(importId: string, configName: string): any
-        
+        getConfigProperty(importId: string, configName: string): any;
+
         /**
          * Sets the value of a configuration property in the currently set style.
          *
@@ -394,7 +394,7 @@ declare namespace mapboxgl {
          * @example
          * map.setConfigProperty('basemap', 'showLabels', false);
          */
-        setConfigProperty(importId: string, configName: string, value: any): this
+        setConfigProperty(importId: string, configName: string, value: any): this;
 
         setLight(light: mapboxgl.Light, options?: FilterOptions): this;
 
@@ -2211,8 +2211,8 @@ declare namespace mapboxgl {
         styledataloading: MapStyleDataEvent;
         sourcedata: MapSourceDataEvent;
         styledata: MapStyleDataEvent;
-        'style.load': MapboxEvent;
-        'style.import.load': MapboxEvent;
+        "style.load": MapboxEvent;
+        "style.import.load": MapboxEvent;
 
         boxzoomcancel: MapBoxZoomEvent;
         boxzoomstart: MapBoxZoomEvent;
@@ -2626,8 +2626,8 @@ declare namespace mapboxgl {
         "icon-translate"?: number[] | Expression | undefined;
         "icon-translate-transition"?: Transition | undefined;
         "icon-translate-anchor"?: "map" | "viewport" | undefined;
-        "icon-emissive-strength"? : number | StyleFunction | Expression | undefined;
-        "icon-image-cross-fade"? : number | StyleFunction | Expression | undefined;
+        "icon-emissive-strength"?: number | StyleFunction | Expression | undefined;
+        "icon-image-cross-fade"?: number | StyleFunction | Expression | undefined;
         "text-opacity"?: number | StyleFunction | Expression | undefined;
         "text-opacity-transition"?: Transition | undefined;
         "text-color"?: string | StyleFunction | Expression | undefined;
@@ -2641,7 +2641,7 @@ declare namespace mapboxgl {
         "text-translate"?: number[] | Expression | undefined;
         "text-translate-transition"?: Transition | undefined;
         "text-translate-anchor"?: "map" | "viewport" | undefined;
-        "text-emissive-strength"? : number | StyleFunction | Expression | undefined;
+        "text-emissive-strength"?: number | StyleFunction | Expression | undefined;
     }
 
     export interface RasterLayout extends Layout {}
@@ -2661,9 +2661,9 @@ declare namespace mapboxgl {
         "raster-contrast-transition"?: Transition | undefined;
         "raster-fade-duration"?: number | Expression | undefined;
         "raster-resampling"?: "linear" | "nearest" | undefined;
-        "raster-color"?: string | Expression | undefined,
-        "raster-color-mix"?: [number, number, number, number] | Expression | undefined,
-        "raster-color-range"?: [number, number] | Expression | undefined,
+        "raster-color"?: string | Expression | undefined;
+        "raster-color-mix"?: [number, number, number, number] | Expression | undefined;
+        "raster-color-range"?: [number, number] | Expression | undefined;
     }
 
     export interface CircleLayout extends Layout {
