@@ -2,7 +2,7 @@
     "private": true,
     "name": "@types/help-center",
     "nonNpm": true,
-    "version": "0.0.1",
+    "version": "1.0.9999",
     "projects": [
         "Fatture in cloud - Help Center interlal project loaded through a cdn need to be typed"
     ],
