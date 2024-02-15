@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import { Transaction as bTransaction, Psbt, TxInput, TxOutput } from '@bitcoin-computer/nakamotojs';
+import { Psbt, Transaction as bTransaction, TxInput, TxOutput } from "@bitcoin-computer/nakamotojs";
 
 type Json = JBasic | JObject | JArray;
 type JBasic = undefined | null | boolean | number | string | symbol | bigint;
@@ -82,7 +82,7 @@ declare class Transaction {
         hex?: string | undefined;
         restClient?: RestClient | undefined;
     }): Promise<Transaction>;
-    static fromTxId({ txId, restClient, }: {
+    static fromTxId({ txId, restClient }: {
         txId?: string | undefined;
         restClient?: RestClient | undefined;
     }): Promise<Transaction>;
@@ -348,7 +348,11 @@ declare class Contract {
 declare class Computer {
     wallet: Wallet;
     constructor(params?: ComputerOptions);
-    new<T extends Class>(constructor: T, args?: ConstructorParameters<T>, mod?: string): Promise<InstanceType<T> & Location>;
+    new<T extends Class>(
+        constructor: T,
+        args?: ConstructorParameters<T>,
+        mod?: string,
+    ): Promise<InstanceType<T> & Location>;
     lockdown(opts?: any): void;
     delete(inRevs: string[]): Promise<string>;
     decode(transaction: bTransaction): Promise<TransitionJSON>;
@@ -356,7 +360,7 @@ declare class Computer {
         tx?: bTransaction;
         effect: Effect;
     }>;
-    encodeNew<T extends Class>({ constructor, args, mod, }: {
+    encodeNew<T extends Class>({ constructor, args, mod }: {
         constructor: T;
         args: ConstructorParameters<T>;
         mod?: string;
@@ -366,7 +370,7 @@ declare class Computer {
         effect: Effect;
     }>;
     getUtxos(address?: string): Promise<string[]>;
-    encodeCall<T extends Class, K extends keyof InstanceType<T>>({ target, property, args, mod, }: {
+    encodeCall<T extends Class, K extends keyof InstanceType<T>>({ target, property, args, mod }: {
         target: InstanceType<T> & Location;
         property: string;
         args: Parameters<InstanceType<T>[K]>;
