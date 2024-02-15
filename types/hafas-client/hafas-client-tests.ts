@@ -140,3 +140,11 @@ if (client.journeysFromTrip) {
         .then(journeys => {/* ... */})
         .catch(() => {/* ... */});
 }
+
+if (client.trip) {
+    client.trip("x", {})
+        .then(trip => {
+            if (trip.trip && trip.trip.currentLocation) { /* ... */ }
+        })
+        .catch(() => {/* ... */});
+}
