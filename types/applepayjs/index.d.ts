@@ -40,6 +40,11 @@ declare class ApplePaySession extends EventTarget {
     onvalidatemerchant: (event: ApplePayJS.ApplePayValidateMerchantEvent) => void;
 
     /**
+     * An event handler called by the system when the user enters or updates a coupon code.
+     */
+    oncouponcodechanged: (event: ApplePayJS.ApplePayCouponCodeChangedEvent) => void;
+
+    /**
      * Indicates whether the device supports Apple Pay.
      * @returns true if the device supports making payments with Apple Pay; otherwise, false.
      */
@@ -142,6 +147,12 @@ declare class ApplePaySession extends EventTarget {
      * @param update - The updated shipping method.
      */
     completeShippingMethodSelection(update: ApplePayJS.ApplePayShippingMethodUpdate): void;
+
+    /**
+     * Completes the entry of a coupon code with an update.
+     * @param update - The updated coupon code.
+     */
+    completeCouponCodeChange(update: ApplePayJS.ApplePayCouponCodeUpdate): void;
 
     /**
      * The requested action succeeded.
@@ -259,6 +270,14 @@ declare namespace ApplePayJS {
          * The merchant cannot provide service to the shipping address (for example, can't deliver to a P.O. Box).
          */
         | "addressUnserviceable"
+        /**
+         * The code that indicates an invalid coupon.
+         */
+        | "couponCodeInvalid"
+        /**
+         * The code that indicates an expired coupon.
+         */
+        | "couponCodeExpired"
         /**
          * An unknown but nonfatal error occurred during payment processing. The user can attempt authorization again.
          */
@@ -773,6 +792,11 @@ declare namespace ApplePayJS {
          * An array of payment token contexts that requests multiple payment tokens to support a multimerchant payment.
          */
         multiTokenContexts?: ApplePayPaymentTokenContext[];
+
+        /**
+         * A Boolean value that determines whether the payment sheet displays the coupon code field.
+         */
+        supportsCouponCode?: boolean | undefined;
     }
 
     /**
@@ -848,6 +872,46 @@ declare namespace ApplePayJS {
          * A URL you provide to receive life-cycle notifications from the Apple Pay servers about the Apple Pay merchant token for the recurring payment.
          */
         tokenNotificationURL?: string;
+    }
+
+    /**
+     * A dictionary that represents a request to set up a deferred payment, such as a hotel booking or a pre-order.
+     */
+    interface ApplePayDeferredPaymentRequest {
+        /**
+         * The localized billing agreement the framework displays to the user prior to payment authorization.
+         */
+        billingAgreement?: string | undefined;
+
+        /**
+         * A dictionary that contains details about the deferred payment.
+         */
+        deferredBilling: ApplePayLineItem;
+
+        /**
+         * The date and time at the destination location of the payment.
+         */
+        freeCancellationDate?: Date | undefined;
+
+        /**
+         * The time zone at the destination location of the payment.
+         */
+        freeCancellationDateTimeZone?: string | undefined;
+
+        /**
+         * A URL that links to a page on your web site where the user can manage the payment method for the deferred payment, including deleting it.
+         */
+        managementURL: string;
+
+        /**
+         * A description of the deferred payment.
+         */
+        paymentDescription: string;
+
+        /**
+         * A URL to receive life-cycle notifications for the merchant-specific payment token the system issues for the request, if applicable.
+         */
+        tokenNotificationURL?: string | undefined;
     }
 
     /**
@@ -1036,6 +1100,51 @@ declare namespace ApplePayJS {
     }
 
     /**
+     * The attributes contained by the oncouponcodechanged callback function.
+     */
+    abstract class ApplePayCouponCodeUpdate {
+        /**
+         * An optional list of line items.
+         */
+        newLineItems?: ApplePayLineItem[] | undefined;
+
+        /**
+         * The new total resulting from a change in the payment method.
+         */
+        newTotal: ApplePayLineItem;
+
+        /**
+         * An array of updated multitoken contexts for a multimerchant payment request.
+         */
+        newMultiTokenContexts?: ApplePayPaymentTokenContext[];
+
+        /**
+         * An updated request for an automatic reload payment.
+         */
+        newAutomaticReloadPaymentRequest?: ApplePayAutomaticReloadPaymentRequest;
+
+        /**
+         * An updated request for a recurring payment.
+         */
+        newRecurringPaymentRequest?: ApplePayRecurringPaymentRequest;
+
+        /**
+         * An updated request for a deferred payment.
+         */
+        newDeferredPaymentRequest?: ApplePayDeferredPaymentRequest;
+
+        /**
+         * A list of custom errors to display on the payment sheet.
+         */
+        errors?: ApplePayError[];
+
+        /**
+         * The updated list of available shipping methods that results from the user's change to the payment method.
+         */
+        newShippingMethods?: ApplePayShippingMethod[];
+    }
+
+    /**
      * A type that indicates how purchased items are to be shipped.
      */
     type ApplePayShippingType = "shipping" | "delivery" | "storePickup" | "servicePickup";
@@ -1048,6 +1157,16 @@ declare namespace ApplePayJS {
          * The URL your server must use to validate itself and obtain a merchant session object.
          */
         readonly validationURL: string;
+    }
+
+    /**
+     * The attributes contained by the oncouponcodechanged callback function.
+     */
+    abstract class ApplePayCouponCodeChangedEvent extends Event {
+        /**
+         * The updated coupon code from the payment sheet.
+         */
+        readonly couponCode: string;
     }
 
     abstract class Event {
