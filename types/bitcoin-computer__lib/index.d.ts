@@ -365,7 +365,7 @@ declare class Computer {
     getLatestRev(id: string): Promise<string>;
     idsToRevs(ids: string[]): Promise<string[]>;
     faucet(amount: number, address?: string): Promise<_Unspent>;
-    toScriptPubKey(publicKeys: string[]): Buffer;
+    toScriptPubKey(publicKeys?: string[]): Buffer;
 }
 
 export { Computer, Contract, Mock };
