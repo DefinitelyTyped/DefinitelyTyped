@@ -39,6 +39,7 @@ declare namespace DockerodeCompose {
 declare class Compose {
     constructor(dockerode: Dockerode, file: string, projectName: string);
 
+    /* @async */
     down(options?: DockerodeCompose.ComposeDownOptions): Promise<DockerodeCompose.ComposeDownOutput>;
 
     up(options?: DockerodeCompose.ComposeUpOptions): Promise<DockerodeCompose.ComposeUpOutput>;
