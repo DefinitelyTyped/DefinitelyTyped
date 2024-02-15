@@ -1,5 +1,5 @@
-// Tests for Google Publisher Tag 1.20240129
-// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/eba15613f5b45d7a7b010727c9f13c651f1e983a
+// Tests for Google Publisher Tag 1.20240212
+// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/50cd99457219d62a34352b28f7d9100e20be3b94
 
 // Test for googletag.cmd
 function test_googletag_cmd() {
@@ -642,6 +642,22 @@ function test_googletag_config_privacyTreatmentsConfig_treatments() {
     // Disable personalization across the entire page.
     googletag.setConfig({
         privacyTreatments: { treatments: ["disablePersonalization"] },
+    });
+}
+
+// Test for googletag.config.PublisherProvidedSignalsConfig
+function test_googletag_config_publisherProvidedSignalsConfig() {
+    googletag.setConfig({
+        pps: {
+            taxonomies: {
+                "IAB_AUDIENCE_1_1": { values: ["6", "626"] },
+                // '6' = 'Demographic | Age Range | 18-20'
+                // '626' = 'Interest | Sports | Darts'
+                "IAB_CONTENT_2_2": { values: ["48", "127"] },
+                // '48' = 'Books and Literature | Fiction'
+                // '127' = 'Careers | Job Search'
+            },
+        },
     });
 }
 
