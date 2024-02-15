@@ -8,7 +8,29 @@ torchlight.config("host", 0);
 
 torchlight.config("host", "https://api.torchlight.dev/");
 
-torchlight.init({}, false);
+torchlight.init(
+    {
+        token: "asdfasdf",
+        host: "https://",
+        options: {},
+        theme: "dracula",
+    },
+    false,
+);
+
+// @ts-expect-error
+torchlight.init({});
+
+torchlight.init(
+    {
+        // @ts-expect-error
+        theme: "asdf",
+    },
+    false,
+);
+
+// @ts-expect-error
+torchlight.init();
 
 new Block({
     language: "javascript",
