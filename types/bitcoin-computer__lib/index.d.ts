@@ -14,9 +14,9 @@ interface SJObject {
     _id: string;
     _rev: string;
     _root: string;
-    _owners: string[];
+    _owners: Array<string>;
     _amount: number;
-    _readers?: string[];
+    _readers?: Array<string>;
     _url?: string;
 }
 
@@ -25,7 +25,7 @@ declare class Mock {
     _rev: string;
     _root: string;
     _amount: number;
-    _owners: string[];
+    _owners: Array<string>;
     constructor({
         _id,
         _rev,
@@ -42,30 +42,30 @@ declare class Transaction {
     outData: Data[];
     constructor(tx?: bTransaction);
     get txId(): string;
-    get inputs(): string[];
+    get inputs(): Array<string>;
     get encoding(): {
-        ioDescriptor: number[];
+        ioDescriptor: Array<number>;
         dataPrefix: string;
-        ioMap: number[];
+        ioMap: Array<number>;
     };
-    get ioDescriptor(): number[];
-    get ioMap(): number[];
+    get ioDescriptor(): Array<number>;
+    get ioMap(): Array<number>;
     get dataPrefix(): string;
     get inputsLength(): number;
     get outputsLength(): number;
     get maxDataIndex(): number;
     get ownerInputs(): TxInput[];
     get ownerOutputs(): TxOutput[];
-    get inRevs(): string[];
-    get outRevs(): string[];
-    get zip(): string[][];
+    get inRevs(): Array<string>;
+    get outRevs(): Array<string>;
+    get zip(): Array<string>[];
     isBcTx(chain: Chain, network: Network): boolean;
     getOwnerOutputs(): TxOutput[];
     getDataOutputs(): TxOutput[];
     getOutData(restClient: RestClient): Promise<Data[]>;
     getOwners(): string[][];
-    getAmounts(): number[];
-    spendFromData(inputRevs: string[]): void;
+    getAmounts(): Array<number>;
+    spendFromData(inputRevs: Array<string>): void;
     inputIndexesToRevs(env: {
         [s: string]: number;
     }): {
@@ -76,7 +76,7 @@ declare class Transaction {
     }): {
         [s: string]: number;
     };
-    createDataOuts(objects: Partial<ProgramMetaData>[], wallet: Wallet, ioMap?: number[]): void;
+    createDataOuts(objects: Partial<ProgramMetaData>[], wallet: Wallet, ioMap?: Array<number>): void;
     static fromTransaction(tx: bTransaction, restClient?: RestClient): Promise<Transaction>;
     static fromTxHex({ hex, restClient }: {
         hex?: string | undefined;
@@ -86,7 +86,7 @@ declare class Transaction {
         txId?: string | undefined;
         restClient?: RestClient | undefined;
     }): Promise<Transaction>;
-    static getUtxosFromTx(tx: bTransaction): string[];
+    static getUtxosFromTx(tx: bTransaction): Array<string>;
 }
 
 declare class Wallet {
@@ -157,12 +157,12 @@ declare class RestClient {
     get privateKey(): Buffer;
     get keyPair(): any;
     getBalance(address: string): Promise<number>;
-    getTransactions(txIds: string[]): Promise<_Transaction[]>;
-    getRawTxs(txIds: string[]): Promise<string[]>;
+    getTransactions(txIds: Array<string>): Promise<_Transaction[]>;
+    getRawTxs(txIds: Array<string>): Promise<Array<string>>;
     get RANDOM_ADDRESS(): string;
     getUtxosByAddress(address: string): Promise<_Unspent[]>;
-    query({ publicKey, hash, limit, offset, order, ids, mod }: Partial<Query>): Promise<string[]>;
-    idsToRevs(outIds: string[]): Promise<string[]>;
+    query({ publicKey, hash, limit, offset, order, ids, mod }: Partial<Query>): Promise<Array<string>>;
+    idsToRevs(outIds: Array<string>): Promise<Array<string>>;
     revToId(rev: string): Promise<string>;
     rpc(method: string, params: string): Promise<any>;
     static getSecretOutput({ _url, keyPair }: { _url: string; keyPair: any }): Promise<{
@@ -182,7 +182,7 @@ declare class RestClient {
     get url(): string;
     broadcast(txHex: string): Promise<string>;
     fetch(txId: string): Promise<_Transaction>;
-    fetchAll(txIds: string[]): Promise<_Transaction[]>;
+    fetchAll(txIds: Array<string>): Promise<_Transaction[]>;
     unspents(address: string): Promise<_Unspent[]>;
     faucet(address: string, value: number): Promise<_Unspent>;
     faucetComplex(output: Buffer, value: number): Promise<_Unspent>;
@@ -201,15 +201,15 @@ type ProgramMetaData =
     & JObject
     & Partial<{
         _amount: number;
-        _owners: string[];
-        _readers?: string[];
+        _owners: Array<string>;
+        _readers?: Array<string>;
         _url?: string;
     }>;
 
 interface FundOptions {
     fund?: boolean;
-    include?: string[];
-    exclude?: string[];
+    include?: Array<string>;
+    exclude?: Array<string>;
 }
 interface SigOptions {
     sign?: boolean;
@@ -227,8 +227,8 @@ type InscriptionOptions = Partial<{
     commitFee: number;
     revealAmount: number;
     revealFee: number;
-    include: string[];
-    exclude: string[];
+    include: Array<string>;
+    exclude: Array<string>;
 }>;
 type ComputerOptions = Partial<{
     chain: Chain;
@@ -259,14 +259,14 @@ interface Location {
     _rev: string;
     _root: string;
     _id: string;
-    _owners: string[];
+    _owners: Array<string>;
     _amount: number;
-    _readers?: string[];
+    _readers?: Array<string>;
     _url?: string;
 }
 interface Encrypted {
     __cypher: string;
-    __secrets: string[];
+    __secrets: Array<string>;
 }
 
 type Data = ProgramMetaData;
@@ -277,7 +277,7 @@ type Query = Partial<{
     limit: number;
     offset: number;
     order: "ASC" | "DESC";
-    ids: string[];
+    ids: Array<string>;
     hash: string;
 }>;
 type UserQuery<T extends Class> = Partial<{
@@ -286,7 +286,7 @@ type UserQuery<T extends Class> = Partial<{
     limit: number;
     offset: number;
     order: "ASC" | "DESC";
-    ids: string[];
+    ids: Array<string>;
     contract: {
         class: T;
         args?: ConstructorParameters<T>;
@@ -309,7 +309,7 @@ interface _Input {
     vout: number;
     script: string;
     sequence: string;
-    witness: string[];
+    witness: Array<string>;
 }
 interface _Output {
     value: number;
@@ -341,7 +341,7 @@ declare class Contract {
     _rev: string;
     _root: string;
     _amount: number;
-    _owners: string[];
+    _owners: Array<string>;
     constructor(opts?: {});
 }
 
@@ -350,7 +350,7 @@ declare class Computer {
     constructor(params?: ComputerOptions);
     new<T extends Class>(constructor: T, args?: ConstructorParameters<T>, mod?: string): Promise<InstanceType<T> & Location>;
     lockdown(opts?: any): void;
-    delete(inRevs: string[]): Promise<string>;
+    delete(inRevs: Array<string>): Promise<string>;
     decode(transaction: bTransaction): Promise<TransitionJSON>;
     encode(json: Partial<TransitionJSON & FundOptions & SigOptions & MockOptions>): Promise<{
         tx?: bTransaction;
@@ -365,7 +365,7 @@ declare class Computer {
         tx?: bTransaction;
         effect: Effect;
     }>;
-    getUtxos(address?: string): Promise<string[]>;
+    getUtxos(address?: string): Promise<Array<string>>;
     encodeCall<T extends Class, K extends keyof InstanceType<T>>({ target, property, args, mod, }: {
         target: InstanceType<T> & Location;
         property: string;
@@ -375,7 +375,7 @@ declare class Computer {
         tx?: bTransaction;
         effect: Effect;
     }>;
-    query<T extends Class>(q: UserQuery<T>): Promise<string[]>;
+    query<T extends Class>(q: UserQuery<T>): Promise<Array<string>>;
     deploy(module: string, opts?: Partial<InscriptionOptions>): Promise<string>;
     load(rev: string): Promise<any>;
     getChain(): Chain;
@@ -406,14 +406,14 @@ declare class Computer {
     listTxs(address?: string): Promise<_Transaction>;
     export(module: string, opts?: Partial<InscriptionOptions>): Promise<string>;
     import(rev: string): Promise<any>;
-    queryRevs(q: Query): Promise<string[]>;
-    getOwnedRevs(publicKey?: Buffer): Promise<string[]>;
-    getRevs(publicKey?: Buffer): Promise<string[]>;
-    getLatestRevs(ids: string[]): Promise<string[]>;
+    queryRevs(q: Query): Promise<Array<string>>;
+    getOwnedRevs(publicKey?: Buffer): Promise<Array<string>>;
+    getRevs(publicKey?: Buffer): Promise<Array<string>>;
+    getLatestRevs(ids: Array<string>): Promise<Array<string>>;
     getLatestRev(id: string): Promise<string>;
-    idsToRevs(ids: string[]): Promise<string[]>;
+    idsToRevs(ids: Array<string>): Promise<Array<string>>;
     faucet(amount: number, address?: string): Promise<_Unspent>;
-    toScriptPubKey(publicKeys: string[]): Buffer;
+    toScriptPubKey(publicKeys: Array<string>): Buffer;
 }
 
 export { Computer, Contract, Mock };
