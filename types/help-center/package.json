@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/help-center",
+    "nonNpm": true,
+    "version": "0.0.1",
+    "projects": [
+        "Fatture in cloud - Help Center interlal project loaded through a cdn need to be typed"
+    ],
+    "devDependencies": {
+        "@types/help-center": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Fabio Angeloni",
+            "githubUsername": "PaperBackPear3"
+        }
+    ]
+}
