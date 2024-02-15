@@ -345,67 +345,6 @@ declare class Contract {
     constructor(opts?: {});
 }
 
-type StringOrArray<T> = string | Array<StringOrArray<T>>
-
-declare class Memory {
-    private static instance;
-    private cells;
-    txs: {
-        [s: string]: {
-            res?: string;
-            env?: {
-                [s: string]: string;
-            };
-        };
-    };
-    main: boolean;
-    constructor(singleton?: boolean);
-    getCell: (rev: string) => any;
-    getCells: () => {
-        [s: string]: any;
-    };
-    getTxs: () => {
-        [s: string]: {
-            res?: string | undefined;
-            env?: {
-                [s: string]: string;
-            } | undefined;
-        };
-    };
-    getBasic: (_rev: string) => any;
-    getReachable: (visited?: string[]) => (rev: string) => string[];
-    handleArrays: (index: {
-        [s: string]: Json;
-    }) => (pointerRev: StringOrArray<string>) => any;
-    getRev: (rev: StringOrArray<string>) => {
-        val: Json;
-    };
-    revToId: (rev: string) => string;
-    idToRevs: (id: string) => string[];
-    idToLatestRev: (id: string) => string;
-    putCell: (rev: string, cell: any) => void;
-    static renovatePointers: (zip: [string, string][]) => (revs: StringOrArray<string>) => StringOrArray<string>;
-    static renovate: (zip: [string, string][]) => (oldCell: any) => any;
-    update: (zip: [string, string][], effect: Effect, txId: string) => void;
-    getTxId: (txId: string) => {
-        env: {
-            [k: string]: any;
-        };
-        res: Json;
-    };
-    getRevs: () => string[];
-    getTxIds: () => string[];
-    getIds: () => string[];
-    hasRev: (rev: string) => boolean;
-    hasTx: (txId: string) => boolean;
-    clear: () => void;
-    deleteCell: (rev: string) => void;
-    deleteMocks: () => void;
-    exploreBackPointers: (revs: string[]) => Set<string>;
-    static fromMemories: (memories: Memory[]) => Memory;
-    merge: (memory: Memory) => Memory;
-}
-
 declare class Computer {
     wallet: Wallet;
     constructor(params?: ComputerOptions);
@@ -477,4 +416,4 @@ declare class Computer {
     toScriptPubKey(publicKeys: string[]): Buffer;
 }
 
-export { Computer, Contract, Mock, Memory };
+export { Computer, Contract, Mock };
