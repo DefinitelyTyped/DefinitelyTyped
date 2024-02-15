@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import { Psbt, Transaction as bTransaction, TxInput, TxOutput } from "@bitcoin-computer/nakamotojs";
+import { Psbt, Transaction, TxInput, TxOutput } from "@bitcoin-computer/nakamotojs";
 
 type Json = JBasic | JObject | JArray;
 type JBasic = undefined | null | boolean | number | string | symbol | bigint;
@@ -37,58 +37,6 @@ declare class Mock {
     });
 }
 
-declare class Transaction {
-    tx: bTransaction;
-    outData: Data[];
-    constructor(tx?: bTransaction);
-    get txId(): string;
-    get inputs(): string[];
-    get encoding(): {
-        ioDescriptor: number[];
-        dataPrefix: string;
-        ioMap: number[];
-    };
-    get ioDescriptor(): number[];
-    get ioMap(): number[];
-    get dataPrefix(): string;
-    get inputsLength(): number;
-    get outputsLength(): number;
-    get maxDataIndex(): number;
-    get ownerInputs(): TxInput[];
-    get ownerOutputs(): TxOutput[];
-    get inRevs(): string[];
-    get outRevs(): string[];
-    get zip(): string[][];
-    isBcTx(chain: Chain, network: Network): boolean;
-    getOwnerOutputs(): TxOutput[];
-    getDataOutputs(): TxOutput[];
-    getOutData(restClient: RestClient): Promise<Data[]>;
-    getOwners(): string[][];
-    getAmounts(): number[];
-    spendFromData(inputRevs: string[]): void;
-    inputIndexesToRevs(env: {
-        [s: string]: number;
-    }): {
-        [s: string]: string;
-    };
-    revsToInputIndexes(env: {
-        [s: string]: string;
-    }): {
-        [s: string]: number;
-    };
-    createDataOuts(objects: Array<Partial<ProgramMetaData>>, wallet: Wallet, ioMap?: number[]): void;
-    static fromTransaction(tx: bTransaction, restClient?: RestClient): Promise<Transaction>;
-    static fromTxHex({ hex, restClient }: {
-        hex?: string | undefined;
-        restClient?: RestClient | undefined;
-    }): Promise<Transaction>;
-    static fromTxId({ txId, restClient }: {
-        txId?: string | undefined;
-        restClient?: RestClient | undefined;
-    }): Promise<Transaction>;
-    static getUtxosFromTx(tx: bTransaction): string[];
-}
-
 declare class Wallet {
     readonly restClient: RestClient;
     constructor(params?: ComputerOptions);
@@ -101,19 +49,19 @@ declare class Wallet {
     fetchUtxo: (utxo: _Unspent) => Promise<Utxo>;
     checkFee(fee: number, size: number): void;
     getSigOpCount(script: Buffer): number;
-    getLegacySigOpCount(tx: bTransaction): Promise<number>;
-    getTransactionSigOpCost(tx: bTransaction): Promise<number>;
+    getLegacySigOpCount(tx: Transaction): Promise<number>;
+    getTransactionSigOpCost(tx: Transaction): Promise<number>;
     getTxSize(txSize: any, nSigOpCost: any, bytesPerSigOp: any): number;
     estimatePsbtSize(tx: Psbt): number;
     fundPsbt(tx: Psbt, opts?: FundOptions): Promise<void>;
     getOutputSpent: (input: TxInput) => Promise<TxOutput>;
-    getInputAmount: (tx: bTransaction) => Promise<number>;
-    getOutputAmount: (tx: bTransaction) => number;
+    getInputAmount: (tx: Transaction) => Promise<number>;
+    getOutputAmount: (tx: Transaction) => number;
     estimateSize(tx: any): Promise<number>;
     estimateFee(tx: any): Promise<number>;
-    fund(tx: bTransaction, opts?: FundOptions): Promise<void>;
-    sign(transaction: bTransaction, { inputIndex, sighashType, inputScript }?: SigOptions): Promise<void>;
-    broadcast(tx: bTransaction): Promise<string>;
+    fund(tx: Transaction, opts?: FundOptions): Promise<void>;
+    sign(transaction: Transaction, { inputIndex, sighashType, inputScript }?: SigOptions): Promise<void>;
+    broadcast(tx: Transaction): Promise<string>;
     send(satoshis: number, address: string): Promise<string>;
     get hdPrivateKey(): any;
     get privateKey(): Buffer;
@@ -355,9 +303,9 @@ declare class Computer {
     ): Promise<InstanceType<T> & Location>;
     lockdown(opts?: any): void;
     delete(inRevs: string[]): Promise<string>;
-    decode(transaction: bTransaction): Promise<TransitionJSON>;
+    decode(transaction: Transaction): Promise<TransitionJSON>;
     encode(json: Partial<TransitionJSON & FundOptions & SigOptions & MockOptions>): Promise<{
-        tx?: bTransaction;
+        tx?: Transaction;
         effect: Effect;
     }>;
     encodeNew<T extends Class>({ constructor, args, mod }: {
@@ -366,7 +314,7 @@ declare class Computer {
         mod?: string;
         root?: string;
     }): Promise<{
-        tx?: bTransaction;
+        tx?: Transaction;
         effect: Effect;
     }>;
     getUtxos(address?: string): Promise<string[]>;
@@ -376,7 +324,7 @@ declare class Computer {
         args: Parameters<InstanceType<T>[K]>;
         mod?: string;
     }): Promise<{
-        tx?: bTransaction;
+        tx?: Transaction;
         effect: Effect;
     }>;
     query<T extends Class>(q: UserQuery<T>): Promise<string[]>;
@@ -394,15 +342,15 @@ declare class Computer {
     setFee(fee: number): void;
     getFee(): number;
     getBalance(): Promise<number>;
-    sign(transaction: bTransaction, opts?: SigOptions): Promise<void>;
-    fund(tx: bTransaction, opts?: Fee & FundOptions): Promise<void>;
-    broadcast(tx: bTransaction): Promise<string>;
+    sign(transaction: Transaction, opts?: SigOptions): Promise<void>;
+    fund(tx: Transaction, opts?: Fee & FundOptions): Promise<void>;
+    broadcast(tx: Transaction): Promise<string>;
     sync(rev: string): Promise<unknown>;
     send(satoshis: number, address: string): Promise<string>;
     rpcCall(method: string, params: string): Promise<any>;
     txFromHex({ hex }: {
         hex?: string | undefined;
-    }): Promise<Transaction>;
+    }): Promise<any>;
     getInscription(rawTx: string, index: number): {
         contentType: string;
         body: string;
