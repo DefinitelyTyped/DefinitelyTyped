@@ -1,6 +1,4 @@
-import { HelpCenter, HelpCenterActionsType, HelpCenterConfigProps, Realms } from './Help-center';
-import { GlobalParams, ChatGlobal } from './Globals';
-import { CustomerlySettingsType, Attributes, Company, Custormerly, RecursivePartial } from './CustomerlySettings';
+import { Attributes, ChatGlobal, Company, CustomerlySettingsType, Custormerly, GlobalParams, HelpCenter, HelpCenterActionsType, HelpCenterConfigProps, Realms, RecursivePartial } from 'Help-center';
 
 /**Tests for Help Center */
 
@@ -127,8 +125,8 @@ const custormerly: Custormerly = {
   close: () => { },
   hide: () => { },
   show: () => { },
-  load: (recursivePartial) => { },
-  update: (recursivePartial) => { },
+  load: (recursivePartial: RecursivePartial<CustomerlySettingsType>) => { },
+  update: (recursivePartial: RecursivePartial<CustomerlySettingsType>) => { },
   initialized: false,
   event: (name: string): void => { },
   attribute: (name: string, value: string): void => { }
