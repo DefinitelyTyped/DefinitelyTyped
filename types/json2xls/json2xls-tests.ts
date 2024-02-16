@@ -1,12 +1,14 @@
 import json2xls = require("json2xls");
-
-var json = {
+import express = require("express");
+const json = {
     foo: "bar",
     qux: "moo",
     poo: 123,
     stux: new Date(),
 };
-
-var xls: Buffer = json2xls(json, {
+// @ExpectType Buffer
+json2xls(json, {
     fields: { "poo": "string" },
 });
+const app = express();
+app.use(json2xls.middleware);
