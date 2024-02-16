@@ -2,13 +2,12 @@ declare const turnstile: Turnstile.Turnstile;
 
 declare namespace Turnstile {
     interface Turnstile {
-
         /**
          * Registers a callback to be invoked when the turnstile is ready.
          * @param callback A callback function to be executed when the turnstile is ready. Use this callback to perform actions upon turnstile readiness.
          */
         ready(callback: () => void): void;
-        
+
         /**
          * Invokes a Turnstile widget and returns the ID of the newly created widget.
          * @param container The HTML element to render the Turnstile widget into. Specify either the ID of HTML element (string), or the DOM element itself.
