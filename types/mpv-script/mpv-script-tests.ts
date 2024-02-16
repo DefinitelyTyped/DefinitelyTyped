@@ -110,6 +110,70 @@ mp.observe_property("test", "none", (name, value) => {});
 // @ts-expect-error
 mp.observe_property("test", undefined, (name, value) => {});
 
+// The test is not completed because there are about 2*2*2*3*((1/3)*1+(2/3)*(1+1*3))=72 cases
+// Choice 1 (Forced): 2 cases (forced or not forced)
+// Choice 2 (Key): 2 cases (`string` or `undefined`)
+// Choice 3 (Name): 2 cases (specified or not specified)
+// Choice 4 (Complex): 3 cases (`true`, `false`, or not specified)
+// Choice 5 (Flags): 2 cases (specified or not specified)
+// Choice 6 (Repeatable): 3 cases (`true`, `false`, or not specified), but only exist when the flags is specified
+// $ExpectType void
+mp.add_key_binding(
+    "Ctrl+a",
+    "uncomplex_repeatable",
+    () => {
+        dump("uncomplex, repeatable");
+    },
+    { repeatable: true },
+);
+
+// $ExpectType void
+mp.add_key_binding(
+    "Ctrl+b",
+    "uncomplex_non_repeatable0",
+    () => {
+        dump("uncomplex, non-repeatable0");
+    },
+    { repeatable: false },
+);
+
+// $ExpectType void
+mp.add_key_binding(
+    "Ctrl+c",
+    "uncomplex_non_repeatable1",
+    () => {
+        dump("uncomplex, non-repeatable1");
+    },
+    {},
+);
+
+// $ExpectType void
+mp.add_key_binding("Ctrl+d", "uncomplex_non_repeatable2", () => {
+    dump("uncomplex, non-repeatable2");
+});
+
+// $ExpectType void
+mp.add_key_binding(
+    "Ctrl+e",
+    "complex",
+    (table: mp.UserInputCommand) => {
+        dump("complex");
+        dump("   ", table);
+    },
+    { complex: true },
+);
+
+// @ts-expect-error
+mp.add_key_binding(
+    "Ctrl+f",
+    "complex_nonsence",
+    (table: mp.UserInputCommand) => {
+        dump("complex, nonsense");
+        dump("   ", table);
+    },
+    { complex: true, repeatable: true }, // see also the comment for `ComplexKeyBindingFlags`
+);
+
 // $ExpectType OSDSize | undefined
 const osd_size = mp.get_osd_size();
 if (osd_size) {
