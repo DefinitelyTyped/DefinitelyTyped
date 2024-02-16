@@ -5,14 +5,14 @@ import { Attributes, ChatGlobal, Company, CustomerlySettingsType, Custormerly, G
 const helpCenter: HelpCenter = {
   initialized: true,
   dispatchQueue: [],
-  dispatch: (action, data) => { },
+  dispatch: (action: HelpCenterActionsType, data: HelpCenterConfigProps) => { },
   dequeueAll: () => { },
-  configure: (config) => { },
+  configure: (config: HelpCenterConfigProps) => { },
   hide: () => { },
   show: () => { },
   open: () => { },
   logout: () => { },
-  login: (config) => { }
+  login: (config: HelpCenterConfigProps) => { }
 };
 
 
