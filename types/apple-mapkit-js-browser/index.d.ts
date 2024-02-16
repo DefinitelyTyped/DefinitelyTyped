@@ -59,7 +59,14 @@ declare namespace mapkit {
          * An ID that indicates the preferred language in which to display map
          * labels, controls, directions, and other text.
          */
+
         language?: string | undefined;
+
+
+        /**
+         * An array of strings specifying the MapKit JS libraries to load at initialization. 
+         */
+        libraries?: string[] | undefined;
     }
 
     /**
@@ -576,6 +583,18 @@ declare namespace mapkit {
          * A Boolean value that determines whether the user location control is visible.
          */
         showsUserLocationControl?: boolean | undefined;
+
+        /**
+         * A value used to control how MapKit JS prioritizes loading map features. This
+         * can be used to optimize the user's initial map loading experience.
+         * 
+         * Valid values include:
+         *  * `mapkit.Map.LoadPriorities.LandCover`: Prioritizes map tiles, land cover, and borders.
+         *  * `mapkit.Map.LoadPriorities.PointsOfInterest`: Prioritizes points of interest (POIs).
+         *  * `mapkit.Map.LoadPriorities.None`: No special prioritization.
+         *
+         */
+        loadPriority?: string | null;
     }
 
     /**
