@@ -975,7 +975,7 @@ declare namespace ApplePayJS {
         /**
          * The user can edit the shipping contact on the payment sheet.
          * @deprecated Use ApplePayShippingContactEditingMode.available instead.
-        */
+         */
         | "enabled";
 
     /**

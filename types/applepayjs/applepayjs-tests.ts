@@ -31,7 +31,7 @@ describe("ApplePaySession", () => {
                 label: "My Store",
                 amount: "9.99",
             },
-            shippingContactEditingMode: "available"
+            shippingContactEditingMode: "available",
         };
 
         const session = new ApplePaySession(version, paymentRequest);
@@ -190,8 +190,9 @@ describe("ApplePaySession", () => {
                     amount: "1.99",
                 },
                 managementURL: "https://applepaydemo.apple.com",
-                paymentDescription: "A description of the deferred payment to display to the user in the payment sheet.",
-            }
+                paymentDescription:
+                    "A description of the deferred payment to display to the user in the payment sheet.",
+            },
         };
         const session = new ApplePaySession(version, paymentRequest);
     });
@@ -277,7 +278,7 @@ describe("ApplePaySession", () => {
                 amount: "9.99",
             },
             supportsCouponCode: true,
-            couponCode: "20%"
+            couponCode: "20%",
         };
 
         const session = new ApplePaySession(version, paymentRequest);
