@@ -1,24 +1,27 @@
-import { Attributes, ChatGlobal, Company, CustomerlySettingsType, Custormerly, GlobalParams, HelpCenter, HelpCenterActionsType, HelpCenterConfigProps, Realms, RecursivePartial } from 'Help-center';
+//import { Attributes, ChatGlobal, Company, CustomerlySettingsType, Custormerly, GlobalParams, HelpCenter, HelpCenterActionsType, HelpCenterConfigProps, Realms, RecursivePartial } from 'Help-center';
+
+import HelpCenter = require("help-center");
+
 
 /**Tests for Help Center */
 
-const helpCenter: HelpCenter = {
+const helpCenter: HelpCenter.HelpCenter = {
   initialized: true,
   dispatchQueue: [],
-  dispatch: (action: HelpCenterActionsType, data: HelpCenterConfigProps) => { },
+  dispatch: (action: HelpCenter.HelpCenterActionsType, data: HelpCenter.HelpCenterConfigProps) => { },
   dequeueAll: () => { },
-  configure: (config: HelpCenterConfigProps) => { },
+  configure: (config: HelpCenter.HelpCenterConfigProps) => { },
   hide: () => { },
   show: () => { },
   open: () => { },
   logout: () => { },
-  login: (config: HelpCenterConfigProps) => { }
+  login: (config: HelpCenter.HelpCenterConfigProps) => { }
 };
 
 
-const helpCenterActionsType: HelpCenterActionsType = HelpCenterActionsType.INIT;
+const helpCenterActionsType: HelpCenter.HelpCenterActionsType = HelpCenter.HelpCenterActionsType.INIT;
 
-const helpCenterConfigProps: HelpCenterConfigProps = {
+const helpCenterConfigProps: HelpCenter.HelpCenterConfigProps = {
   config: {
     backColor: 'red',
     companyHash: 'hash',
@@ -26,20 +29,20 @@ const helpCenterConfigProps: HelpCenterConfigProps = {
     language: 'en',
     isSupport: true,
     left: true,
-    realm: Realms.FIC
+    realm: HelpCenter.Realms.FIC
   }
 }
 
 /**Tests for Globals */
 
-const chatGlobal: ChatGlobal = {
+const chatGlobal: HelpCenter.ChatGlobal = {
   global_visible: true,
   help_visible: true,
   instantiate: true,
   single_conversation: true
 }
 
-const globalParams: GlobalParams = {
+const globalParams: HelpCenter.GlobalParams = {
   access_token: 'token',
   adminAccountId: 1,
   api_host: 'host',
@@ -59,7 +62,7 @@ const globalParams: GlobalParams = {
 
 /**Tests for Customery */
 
-const attributes: Attributes = {
+const attributes: HelpCenter.Attributes = {
   is_admin: false,
   is_subuser: true,
   is_employee: false,
@@ -74,7 +77,7 @@ const attributes: Attributes = {
   privacy_third: 'string'
 }
 
-const company: Company = {
+const company: HelpCenter.Company = {
   company_id: '1',
   link: 'link',
   name: 'name',
@@ -90,7 +93,7 @@ const company: Company = {
   dic_license_expire: true
 }
 
-const customerlySettingsType: CustomerlySettingsType = {
+const customerlySettingsType: HelpCenter.CustomerlySettingsType = {
   widget_hide_mobile: true,
   app_id: '1',
   singleConversation: true,
@@ -105,7 +108,7 @@ const customerlySettingsType: CustomerlySettingsType = {
   attributes: attributes
 }
 
-const recursivePartial: RecursivePartial<CustomerlySettingsType> = {
+const recursivePartial: HelpCenter.RecursivePartial<HelpCenter.CustomerlySettingsType> = {
   widget_hide_mobile: true,
   app_id: '1',
   singleConversation: true,
@@ -120,13 +123,13 @@ const recursivePartial: RecursivePartial<CustomerlySettingsType> = {
   attributes: attributes
 }
 
-const custormerly: Custormerly = {
+const custormerly: HelpCenter.Custormerly = {
   open: () => { },
   close: () => { },
   hide: () => { },
   show: () => { },
-  load: (recursivePartial: RecursivePartial<CustomerlySettingsType>) => { },
-  update: (recursivePartial: RecursivePartial<CustomerlySettingsType>) => { },
+  load: (recursivePartial: HelpCenter.RecursivePartial<HelpCenter.CustomerlySettingsType>) => { },
+  update: (recursivePartial: HelpCenter.RecursivePartial<HelpCenter.CustomerlySettingsType>) => { },
   initialized: false,
   event: (name: string): void => { },
   attribute: (name: string, value: string): void => { }
