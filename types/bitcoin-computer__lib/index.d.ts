@@ -1,96 +1,5 @@
 /// <reference types="node" />
-
-interface Signer {
-    publicKey: Buffer;
-    network?: any;
-    sign(hash: Buffer, lowR?: boolean): Buffer;
-    signSchnorr?(hash: Buffer): Buffer;
-    getPublicKey?(): Buffer;
-}
-
-interface Output {
-    script: Buffer;
-    value: number;
-}
-interface Input {
-    hash: Buffer;
-    index: number;
-    script: Buffer;
-    sequence: number;
-    witness: Buffer[];
-}
-
-declare class BTransaction {
-    static readonly DEFAULT_SEQUENCE = 4294967295;
-    static readonly SIGHASH_DEFAULT = 0;
-    static readonly SIGHASH_ALL = 1;
-    static readonly SIGHASH_NONE = 2;
-    static readonly SIGHASH_SINGLE = 3;
-    static readonly SIGHASH_ANYONECANPAY = 128;
-    static readonly SIGHASH_OUTPUT_MASK = 3;
-    static readonly SIGHASH_INPUT_MASK = 128;
-    static readonly ADVANCED_TRANSACTION_MARKER = 0;
-    static readonly ADVANCED_TRANSACTION_FLAG = 1;
-    static fromBuffer(buffer: Buffer, _NO_STRICT?: boolean): Transaction;
-    static fromHex(hex: string): Transaction;
-    static isCoinbaseHash(buffer: Buffer): boolean;
-    version: number;
-    locktime: number;
-    ins: Input[];
-    outs: Output[];
-    isCoinbase(): boolean;
-    addInput(hash: Buffer, index: number, sequence?: number, scriptSig?: Buffer): number;
-    updateInput(
-        inputIndex: number,
-        opts: {
-            hash?: Buffer;
-            txId?: string;
-            index?: number;
-            sequence?: number;
-            scriptSig?: Buffer;
-            witness?: Buffer;
-        },
-    ): void;
-    addOutput(scriptPubKey: Buffer, value: number): number;
-    updateOutput(
-        outputIndex: number,
-        opts: {
-            scriptPubKey?: Buffer;
-            value?: number;
-        },
-    ): void;
-    hasWitnesses(): boolean;
-    weight(): number;
-    virtualSize(): number;
-    byteLength(_ALLOW_WITNESS?: boolean): number;
-    clone(): Transaction;
-    sign(inIndex: number, keyPair: Signer, sighashType: number, prevOutScript: Buffer): this;
-    /**
-     * Hash transaction for signing a specific input.
-     *
-     * Bitcoin uses a different hash for each signed transaction input.
-     * This method copies the transaction, makes the necessary changes based on the
-     * hashType, and then hashes the result.
-     * This hash can then be used to sign the provided transaction input.
-     */
-    hashForSignature(inIndex: number, prevOutScript: Buffer, hashType: number): Buffer;
-    hashForWitnessV1(
-        inIndex: number,
-        prevOutScripts: Buffer[],
-        values: number[],
-        hashType: number,
-        leafHash?: Buffer,
-        annex?: Buffer,
-    ): Buffer;
-    hashForWitnessV0(inIndex: number, prevOutScript: Buffer, value: number, hashType: number): Buffer;
-    getHash(forWitness?: boolean): Buffer;
-    getId(): string;
-    toBuffer(buffer?: Buffer, initialOffset?: number): Buffer;
-    toHex(): string;
-    setInputScript(index: number, scriptSig: Buffer): void;
-    setWitness(index: number, witness: Buffer[]): void;
-    private __toBuffer;
-}
+import { Psbt, Transaction, TxInput, TxOutput } from "@bitcoin-computer/nakamotojs";
 
 type Json = JBasic | JObject | JArray;
 type JBasic = undefined | null | boolean | number | string | symbol | bigint;
@@ -128,60 +37,6 @@ declare class Mock {
     });
 }
 
-declare class Transaction {
-    tx: BTransaction;
-    outData: Data[];
-    constructor(tx?: any);
-    get txId(): string;
-    get inputs(): string[];
-    get encoding(): {
-        ioDescriptor: number[];
-        dataPrefix: string;
-        ioMap: number[];
-    };
-    get ioDescriptor(): number[];
-    get ioMap(): number[];
-    get dataPrefix(): string;
-    get inputsLength(): number;
-    get outputsLength(): number;
-    get maxDataIndex(): number;
-    get ownerInputs(): Input[];
-    get ownerOutputs(): Output[];
-    get inRevs(): string[];
-    get outRevs(): string[];
-    get zip(): string[][];
-    isBcTx(chain: Chain, network: Network): boolean;
-    getOwnerOutputs(): any;
-    getDataOutputs(): any;
-    getOutData(restClient: RestClient): Promise<Data[]>;
-    getOwners(): string[][];
-    getAmounts(): number[];
-    spendFromData(inputRevs: string[]): void;
-    inputIndexesToRevs(env: { [s: string]: number }): {
-        [s: string]: string;
-    };
-    revsToInputIndexes(env: { [s: string]: string }): {
-        [s: string]: number;
-    };
-    createDataOuts(objects: Array<Partial<ProgramMetaData>>, wallet: Wallet, ioMap?: number[]): void;
-    static fromTransaction(tx: BTransaction, restClient?: RestClient): Promise<Transaction>;
-    static fromTxHex({
-        hex,
-        restClient,
-    }: {
-        hex?: string | undefined;
-        restClient?: RestClient | undefined;
-    }): Promise<Transaction>;
-    static fromTxId({
-        txId,
-        restClient,
-    }: {
-        txId?: string | undefined;
-        restClient?: RestClient | undefined;
-    }): Promise<Transaction>;
-    static getUtxosFromTx(tx: BTransaction): string[];
-}
-
 declare class Wallet {
     readonly restClient: RestClient;
     constructor(params?: ComputerOptions);
@@ -194,19 +49,19 @@ declare class Wallet {
     fetchUtxo: (utxo: _Unspent) => Promise<Utxo>;
     checkFee(fee: number, size: number): void;
     getSigOpCount(script: Buffer): number;
-    getLegacySigOpCount(tx: BTransaction): Promise<number>;
-    getTransactionSigOpCost(tx: BTransaction): Promise<number>;
+    getLegacySigOpCount(tx: Transaction): Promise<number>;
+    getTransactionSigOpCost(tx: Transaction): Promise<number>;
     getTxSize(txSize: any, nSigOpCost: any, bytesPerSigOp: any): number;
-    estimatePsbtSize(tx: any): number;
-    fundPsbt(tx: any, opts?: FundOptions): Promise<void>;
-    getOutputSpent: (input: Input) => Promise<Output>;
-    getInputAmount: (tx: BTransaction) => Promise<number>;
-    getOutputAmount: (tx: BTransaction) => number;
+    estimatePsbtSize(tx: Psbt): number;
+    fundPsbt(tx: Psbt, opts?: FundOptions): Promise<void>;
+    getOutputSpent: (input: TxInput) => Promise<TxOutput>;
+    getInputAmount: (tx: Transaction) => Promise<number>;
+    getOutputAmount: (tx: Transaction) => number;
     estimateSize(tx: any): Promise<number>;
     estimateFee(tx: any): Promise<number>;
-    fund(tx: BTransaction, opts?: FundOptions): Promise<void>;
-    sign(transaction: BTransaction, { inputIndex, sighashType, inputScript }?: SigOptions): Promise<void>;
-    broadcast(tx: BTransaction): Promise<string>;
+    fund(tx: Transaction, opts?: FundOptions): Promise<void>;
+    sign(transaction: Transaction, { inputIndex, sighashType, inputScript }?: SigOptions): Promise<void>;
+    broadcast(tx: Transaction): Promise<string>;
     send(satoshis: number, address: string): Promise<string>;
     get hdPrivateKey(): any;
     get privateKey(): Buffer;
@@ -429,6 +284,15 @@ interface Effect {
     env: JObject;
 }
 
+declare class Contract {
+    _id: string;
+    _rev: string;
+    _root: string;
+    _amount: number;
+    _owners: string[];
+    constructor(opts?: {});
+}
+
 declare class Computer {
     wallet: Wallet;
     constructor(params?: ComputerOptions);
@@ -439,37 +303,28 @@ declare class Computer {
     ): Promise<InstanceType<T> & Location>;
     lockdown(opts?: any): void;
     delete(inRevs: string[]): Promise<string>;
-    decode(transaction: BTransaction): Promise<TransitionJSON>;
+    decode(transaction: Transaction): Promise<TransitionJSON>;
     encode(json: Partial<TransitionJSON & FundOptions & SigOptions & MockOptions>): Promise<{
-        tx: BTransaction;
+        tx?: Transaction;
         effect: Effect;
     }>;
-    encodeNew<T extends Class>({
-        constructor,
-        args,
-        mod,
-    }: {
+    encodeNew<T extends Class>({ constructor, args, mod }: {
         constructor: T;
         args: ConstructorParameters<T>;
         mod?: string;
         root?: string;
     }): Promise<{
-        tx: BTransaction;
+        tx?: Transaction;
         effect: Effect;
     }>;
     getUtxos(address?: string): Promise<string[]>;
-    encodeCall<T extends Class, K extends keyof InstanceType<T>>({
-        target,
-        property,
-        args,
-        mod,
-    }: {
+    encodeCall<T extends Class, K extends keyof InstanceType<T>>({ target, property, args, mod }: {
         target: InstanceType<T> & Location;
         property: string;
         args: Parameters<InstanceType<T>[K]>;
         mod?: string;
     }): Promise<{
-        tx: BTransaction;
+        tx?: Transaction;
         effect: Effect;
     }>;
     query<T extends Class>(q: UserQuery<T>): Promise<string[]>;
@@ -487,17 +342,16 @@ declare class Computer {
     setFee(fee: number): void;
     getFee(): number;
     getBalance(): Promise<number>;
-    sign(transaction: BTransaction, opts?: SigOptions): Promise<void>;
-    fund(tx: BTransaction, opts?: Fee & FundOptions): Promise<void>;
-    broadcast(tx: BTransaction): Promise<string>;
+    sign(transaction: Transaction, opts?: SigOptions): Promise<void>;
+    fund(tx: Transaction, opts?: Fee & FundOptions): Promise<void>;
+    broadcast(tx: Transaction): Promise<string>;
     sync(rev: string): Promise<unknown>;
     send(satoshis: number, address: string): Promise<string>;
     rpcCall(method: string, params: string): Promise<any>;
-    txFromHex({ hex }: { hex?: string | undefined }): Promise<Transaction>;
-    getInscription(
-        rawTx: string,
-        index: number,
-    ): {
+    txFromHex({ hex }: {
+        hex?: string | undefined;
+    }): Promise<any>;
+    getInscription(rawTx: string, index: number): {
         contentType: string;
         body: string;
     };
@@ -511,7 +365,7 @@ declare class Computer {
     getLatestRev(id: string): Promise<string>;
     idsToRevs(ids: string[]): Promise<string[]>;
     faucet(amount: number, address?: string): Promise<_Unspent>;
-    toScriptPubKey(publicKeys: string[]): Buffer;
+    toScriptPubKey(publicKeys?: string[]): Buffer;
 }
 
-export { Computer };
+export { Computer, Contract, Mock };
