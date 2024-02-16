@@ -50,7 +50,7 @@ mp.command_native({ name: "echo", args: ["echo", "test"], capture_stdout: true, 
 // @ts-expect-error
 mp.command_native({});
 
-// command_native 13: wrong options with `def`
+// command_native 14: wrong options with `def`
 // @ts-expect-error
 mp.command_native({}, "def");
 
