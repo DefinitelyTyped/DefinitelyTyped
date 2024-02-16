@@ -637,7 +637,7 @@ declare namespace ApplePayJS {
         newTotal: ApplePayLineItem;
 
         /**
-         * An optional list of line items.
+         * An optional list of updated line items for the payment request that results from the user’s change to the payment method.
          */
         newLineItems?: ApplePayLineItem[] | undefined;
 
@@ -733,7 +733,7 @@ declare namespace ApplePayJS {
      */
     interface ApplePayPaymentRequest {
         /**
-         * The payment capabilities supported by the merchant.
+         * An array of the payment capabilities that the merchant supports, such as credit or debit.
          * The value must at least contain ApplePayMerchantCapability.supports3DS.
          */
         merchantCapabilities: ApplePayMerchantCapability[];
@@ -971,7 +971,12 @@ declare namespace ApplePayJS {
         /**
          * The user can’t edit the shipping contact on the payment sheet.
          */
-        | "storePickup";
+        | "storePickup"
+        /**
+         * The user can edit the shipping contact on the payment sheet.
+         * @deprecated use ApplePayShippingContactEditingMode.availables
+        */
+        | "enabled";
 
     /**
      * Use ApplePayPaymentTokenContext to authorize a payment amount for each payment token in a multimerchant payment request.
