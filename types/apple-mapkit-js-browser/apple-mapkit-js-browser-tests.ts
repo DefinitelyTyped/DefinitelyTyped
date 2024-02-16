@@ -6,7 +6,6 @@ mapkit.init({
 });
 
 
-
 const map: mapkit.Map = new mapkit.Map(document.querySelector<HTMLElement>(".test"), {
     isZoomEnabled: true,
     isRotationEnabled: false,

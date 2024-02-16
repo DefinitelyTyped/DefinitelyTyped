@@ -59,9 +59,7 @@ declare namespace mapkit {
          * An ID that indicates the preferred language in which to display map
          * labels, controls, directions, and other text.
          */
-
         language?: string | undefined;
-
 
         /**
          * An array of strings specifying the MapKit JS libraries to load at initialization. 
