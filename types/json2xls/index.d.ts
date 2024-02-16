@@ -23,9 +23,8 @@ declare namespace json2xls {
         next: import("express").NextFunction,
     ): void;
 
-    export { Config, FieldConfig, Json };
 
-    export { getByString, getType, middleware, prepareJson, transform };
+    export { middleware };
 }
 
 // Export the main transform function as the default export
