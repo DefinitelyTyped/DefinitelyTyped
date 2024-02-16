@@ -1,5 +1,6 @@
 export type TextDirectionType = "ltr" | "rtl" | "auto";
 export type DisplayModeType = "fullscreen" | "standalone" | "minimal-ui" | "browser";
+export type LaunchHandlerClientModeType = "auto" | "focus-existing" | "navigate-existing" | "navigate-new";
 
 /**
  * Each `ImageResource` represents an image that is used as part of a web application, suitable to use in
@@ -149,6 +150,20 @@ export interface ShortcutItem {
      * @see https://w3c.github.io/manifest/#icons-member-0
      */
     icons?: ImageResource[] | undefined;
+}
+
+/**
+ * The `LaunchHandler` is a dictionary containing configurations for how web app launches should behave.
+ *
+ * @see https://wicg.github.io/web-app-launch/#launch_handler-member
+ */
+export interface LaunchHandler {
+    /**
+     * The `client_mode` member of the `LaunchHandler` is a `string` or list of `strings` that specify one or more client mode targets.
+     *
+     * @see https://wicg.github.io/web-app-launch/#client_mode-member
+     */
+    client_mode: LaunchHandlerClientModeType | LaunchHandlerClientModeType[];
 }
 
 /**
@@ -311,4 +326,11 @@ export interface WebAppManifest {
      * @see https://w3c.github.io/manifest/#shortcuts-member
      */
     shortcuts?: ShortcutItem[] | undefined;
+
+    /**
+     * The `launch_handler` member is a `LaunchHandler` which defines values that control the launch of a web application.
+     *
+     * @see https://w3c.github.io/manifest/#launching-a-web-application
+     */
+    launch_handler?: LaunchHandler | undefined;
 }
