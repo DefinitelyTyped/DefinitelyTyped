@@ -75,16 +75,16 @@ declare global {
 /**
  * Represents the global parameters used in the application.
  */
-export type GlobalParams = {
+export interface GlobalParams {
   access_token: string
   adminAccountId: number
   api_host: string
   chat: ChatGlobal
   compute_host: string
-  functions: { [key: string]: string }[]
+  functions: Array<{ [key: string]: string }>
   isSupport: boolean
   peid: number
-  permissions: { [key: string]: string }[]
+  permissions: Array<{ [key: string]: string }>
   person_hash: string
   plan: number
   secure_host: string
@@ -95,7 +95,7 @@ export type GlobalParams = {
 /**
  * Represents the global configuration for the chat feature.
  */
-export type ChatGlobal = {
+export interface ChatGlobal {
   /**
    * Indicates whether the chat is visible globally.
    */

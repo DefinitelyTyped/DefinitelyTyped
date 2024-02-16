@@ -1,7 +1,7 @@
 /**
  * Represents the HelpCenter object.
  */
-export type HelpCenter = {
+export interface HelpCenter {
   initialized: boolean;
   dispatchQueue: never[];
 
@@ -57,7 +57,7 @@ export enum HelpCenterActionsType {
   DEQUEUE_ALL = 'dequeueAll'
 }
 
-export type HelpCenterConfigProps = {
+export interface HelpCenterConfigProps {
   config: {
     backColor?: string
     companyId?: number

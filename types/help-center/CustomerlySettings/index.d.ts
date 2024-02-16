@@ -1,7 +1,7 @@
 /**
  * Represents the Customerly object with various methods and properties.
  */
-export type Custormerly = {
+export interface Custormerly {
   /**
    * Indicates whether the Customerly object has been initialized.
    */
@@ -49,14 +49,14 @@ export type Custormerly = {
 }
 
 export type RecursivePartial<T> = {
-  [P in keyof T]?: T[P] extends (infer U)[]
-  ? RecursivePartial<U>[]
+  [P in keyof T]?: T[P] extends Array<infer U>
+  ? Array<RecursivePartial<U>>
   : T[P] extends Record<string, unknown>
   ? RecursivePartial<T[P]>
   : T[P]
 }
 
-export type CustomerlySettingsType = {
+export interface CustomerlySettingsType {
   widget_hide_mobile: boolean
   accentColor?: string
   app_id: string
@@ -71,7 +71,7 @@ export type CustomerlySettingsType = {
   attributes?: Attributes
 }
 
-export type Company = {
+export interface Company {
   company_id: string
   link: string
   name: string
@@ -87,7 +87,7 @@ export type Company = {
   dic_license_expire: boolean
 }
 
-export type Attributes = {
+export interface Attributes {
   is_admin: boolean
   is_subuser: boolean
   is_employee: boolean
