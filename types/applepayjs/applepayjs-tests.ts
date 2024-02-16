@@ -31,6 +31,7 @@ describe("ApplePaySession", () => {
                 label: "My Store",
                 amount: "9.99",
             },
+            shippingContactEditingMode: "available"
         };
 
         const session = new ApplePaySession(version, paymentRequest);
@@ -47,13 +48,13 @@ describe("ApplePaySession", () => {
                     label: "7 Day Trial",
                     amount: "0.00",
                     paymentTiming: "recurring",
-                    recurringPaymentEndDate: "2023-04-11T18:02:42.722Z",
+                    recurringPaymentEndDate: new Date("2023-04-11T18:02:42.722Z"),
                 },
                 {
                     label: "Recurring",
                     amount: "4.99",
                     paymentTiming: "recurring",
-                    recurringPaymentStartDate: "2023-04-11T18:02:42.722Z",
+                    recurringPaymentStartDate: new Date("2023-04-11T18:02:42.722Z"),
                 },
             ],
             recurringPaymentRequest: {
@@ -63,13 +64,13 @@ describe("ApplePaySession", () => {
                     label: "Recurring",
                     amount: "4.99",
                     paymentTiming: "recurring",
-                    recurringPaymentStartDate: "2023-04-11T18:02:42.722Z",
+                    recurringPaymentStartDate: new Date("2023-04-11T18:02:42.722Z"),
                 },
                 trialBilling: {
                     label: "7 Day Trial",
                     amount: "0.00",
                     paymentTiming: "recurring",
-                    recurringPaymentEndDate: "2023-04-11T18:02:42.722Z",
+                    recurringPaymentEndDate: new Date("2023-04-11T18:02:42.722Z"),
                 },
                 billingAgreement:
                     "A localized billing agreement displayed to the user in the payment sheet prior to the payment authorization.",
@@ -176,13 +177,21 @@ describe("ApplePaySession", () => {
                     label: "Pay for Later",
                     amount: "1.99",
                     paymentTiming: "deferred",
-                    deferredPaymentDate: "2023-04-11T18:02:42.722Z",
+                    deferredPaymentDate: new Date("2023-04-11T18:02:42.722Z"),
                 },
             ],
             total: {
                 label: "Deferred Demo (Card is not charged)",
                 amount: "1.99",
             },
+            deferredPaymentRequest: {
+                deferredBilling: {
+                    label: "Pay for Later",
+                    amount: "1.99",
+                },
+                managementURL: "https://applepaydemo.apple.com",
+                paymentDescription: "A description of the deferred payment to display to the user in the payment sheet.",
+            }
         };
         const session = new ApplePaySession(version, paymentRequest);
     });
@@ -268,6 +277,7 @@ describe("ApplePaySession", () => {
                 amount: "9.99",
             },
             supportsCouponCode: true,
+            couponCode: "20%"
         };
 
         const session = new ApplePaySession(version, paymentRequest);
