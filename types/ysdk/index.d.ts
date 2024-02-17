@@ -31,7 +31,7 @@ export interface SDK {
         fullscreen: {
             STATUS_ON: "on";
             STATUS_OFF: "off";
-            status: string;
+            status: "on" | "off";
             request(): Promise<void>;
             exit(): Promise<void>;
         };
@@ -43,7 +43,7 @@ export interface SDK {
         openAuthDialog(): Promise<void>;
     };
 
-    getPlayer<TSigned extends boolean = false>(opts: {
+    getPlayer<TSigned extends boolean = false>(opts?: {
         signed?: TSigned;
     }): Promise<TSigned extends true ? Signed<Player> : Player>;
 
@@ -76,7 +76,7 @@ export interface SDK {
 
         showBannerAdv(): Promise<{ reason?: StickyAdvError }>;
 
-        hideBannerAdv(): void;
+        hideBannerAdv(): Promise<{ stickyAdvIsShowing: boolean }>;
 
         getBannerAdvStatus(): Promise<{
             stickyAdvIsShowing: boolean;
@@ -102,13 +102,9 @@ export interface SDK {
 
     getLeaderboards(): Promise<Leaderboards>;
 
-    getFlags(params?: GetFlagsParams): Promise<Flags>;
+    getFlags(params?: GetFlagsParams): Promise<Record<string, string>>;
 
     isAvailableMethod(methodName: string): Promise<boolean>;
-}
-
-interface Flags {
-    [key: string]: string;
 }
 
 interface ClientFeature {
@@ -117,7 +113,7 @@ interface ClientFeature {
 }
 
 interface GetFlagsParams {
-    defaultFlags?: Flags;
+    defaultFlags?: Record<string, string>;
     clientFeatures?: ClientFeature[];
 }
 
@@ -153,11 +149,18 @@ export interface Player {
     getPhoto(size: "small" | "medium" | "large"): string;
     getIDsPerGame(): Promise<Array<{ appID: number; userID: string }>>;
     getMode(): "lite" | "";
-    getData<TData>(keys?: Array<keyof TData>): Promise<Partial<TData>>;
-    setData(data: Partial<any>, flush?: boolean): Promise<void>;
-    getStats<TStats>(keys?: Array<keyof TStats>): Promise<Partial<TStats>>;
-    setStats(stats: Partial<Record<string, number>>): Promise<void>;
-    incrementStats<TStats extends Record<string, number>>(stats: Partial<TStats>): Promise<Partial<TStats>>;
+    getData<T extends string>(keys?: Readonly<T[]>): Promise<Partial<Record<T, Serializable>>>;
+    setData(data: any, flush?: boolean): Promise<void>;
+    getStats<T extends string>(keys?: Readonly<T[]>): Promise<Partial<Record<T, number>>>;
+    setStats(stats: Record<string | number, number>): Promise<void>;
+    incrementStats<T extends Record<string | number, number>>(
+        stats: T,
+    ): Promise<IncrementedStats<T>>;
+}
+
+interface IncrementedStats<TStats extends Record<string, number>> {
+    stats: Record<keyof TStats, number> & Record<string | number, number>;
+    newKeys: string[];
 }
 
 export interface Purchase {
@@ -248,9 +251,7 @@ export interface LeaderboardDescription {
         type: "numberic" | "time";
     };
     name: string;
-    title: {
-        [lang: string]: string;
-    };
+    title: Record<string, string>;
 }
 
 export type FeedbackError = "NO_AUTH" | "GAME_RATED" | "REVIEW_ALREADY_REQUESTED" | "UNKNOWN";
@@ -351,6 +352,8 @@ export type TopLevelDomain =
     | "tm"
     | "ua"
     | "uz";
+
+type Serializable = string | number | boolean | null | Serializable[] | { [key: string]: Serializable };
 
 // Disabled automatic exporting
 export {};
