@@ -4322,6 +4322,7 @@ declare global {
             polyline: React.SVGProps<SVGPolylineElement>;
             radialGradient: React.SVGProps<SVGRadialGradientElement>;
             rect: React.SVGProps<SVGRectElement>;
+            set: React.SVGProps<SVGSetElement>;
             stop: React.SVGProps<SVGStopElement>;
             switch: React.SVGProps<SVGSwitchElement>;
             symbol: React.SVGProps<SVGSymbolElement>;
