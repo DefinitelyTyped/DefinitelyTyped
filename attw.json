@@ -134,7 +134,6 @@
         "auth0.widget",
         "awesome-notifications",
         "aws-cloudfront-function",
-        "aws-lambda",
         "aws-sdk2-types",
         "aws-synthetics-puppeteer",
         "axios-cancel",
