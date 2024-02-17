@@ -121,8 +121,8 @@ declare class Torchlight {
 }
 
 interface BlockOptions {
-    id?: string;
-    theme?: TorchlightTheme;
+    id?: string | undefined;
+    theme?: TorchlightTheme | undefined;
     code: string;
     language: string;
 }

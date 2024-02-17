@@ -8,8 +8,7 @@
         "strictNullChecks": true,
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "exactOptionalPropertyTypes": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": ["index.d.ts", "torchlight-api__torchlight-cli-tests.ts"]
 }
