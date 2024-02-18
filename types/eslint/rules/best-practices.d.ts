@@ -35,6 +35,14 @@ export interface BestPractices extends Linter.RulesRecord {
                  * @default false
                  */
                 allowImplicit: boolean;
+                /**
+                 * @default false
+                 */
+                checkForEach: boolean;
+                /**
+                 * @default false
+                 */
+                allowVoid: boolean;
             }>,
         ]
     >;
@@ -348,6 +356,10 @@ export interface BestPractices extends Linter.RulesRecord {
                  * @default 'falls?\s?through'
                  */
                 commentPattern: string;
+                /**
+                 * @default false
+                 */
+                allowEmptyCase: boolean;
             }>,
         ]
     >;
