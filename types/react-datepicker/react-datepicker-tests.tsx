@@ -163,6 +163,7 @@ const topLogger = {
         nextYearButtonDisabled,
     }) => <div />}
     renderDayContents={(dayOfMonth, date) => <div />}
+    renderQuarterContent={(quarter, shortQuarter) => <div />}
     renderMonthContent={(monthIndex, shortMonth, longMonth) => <div />}
     renderYearContent={(year) => <div />}
     required
