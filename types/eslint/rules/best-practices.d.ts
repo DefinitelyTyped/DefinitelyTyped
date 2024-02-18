@@ -18,6 +18,10 @@ export interface BestPractices extends Linter.RulesRecord {
                  * @default false
                  */
                 getWithoutSet: boolean;
+                /**
+                 * @default true
+                 */
+                enforceForClassMembers : boolean;
             }>,
         ]
     >;
