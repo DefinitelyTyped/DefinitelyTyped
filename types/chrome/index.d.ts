@@ -7864,17 +7864,17 @@ declare namespace chrome.runtime {
     export var onBrowserUpdateAvailable: RuntimeEvent;
 
     /**
-     * @since chrome 115+ 
+     * @since chrome 115+
      * @requires MV3+
      * Listens for connections made from user scripts associated with this extension.
-    */
+     */
     export var onUserScriptConnect: ExtensionConnectEvent;
 
-   /**
-     * @since chrome 115+ 
+    /**
+     * @since chrome 115+
      * @requires MV3+
      * Listens for messages sent from user scripts associated with this extension.
-    */
+     */
     export var onUserScriptMessage: ExtensionMessageEvent;
 }
 
