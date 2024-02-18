@@ -1332,8 +1332,6 @@ function sameDeepMembers() {
     assert.sameDeepMembers([{ id: 5 }, { id: 4 }], [{ id: 4 }, { id: 5 }]);
 }
 
-
-
 function orderedMembers() {
     expect([1, 2]).to.have.ordered.members([1, 2]).but.not.have.ordered.members([2, 1]);
     expect([1, 2, 3]).to.include.ordered.members([1, 2]).but.not.include.ordered.members([2, 3]);
@@ -2073,10 +2071,14 @@ suite("assert", () => {
 
     test("changesBy", () => {
         const obj = { value: 10 };
-        const fn = function() { obj.value += 5 }
-        const getterFn = function() { return obj.value }
+        const fn = function() {
+            obj.value += 5;
+        };
+        const getterFn = function() {
+            return obj.value;
+        };
 
-        assert.changesBy(fn, obj, 'value', 5);
+        assert.changesBy(fn, obj, "value", 5);
         assert.changesBy(fn, getterFn, 5);
     });
 
@@ -2118,10 +2120,14 @@ suite("assert", () => {
 
     test("increasesBy", () => {
         const obj = { value: 10 };
-        const incFn = function() { obj.value += 5 }
-        const getterFn = function() { return obj.value }
+        const incFn = function() {
+            obj.value += 5;
+        };
+        const getterFn = function() {
+            return obj.value;
+        };
 
-        assert.increasesBy(incFn, obj, 'value', 5);
+        assert.increasesBy(incFn, obj, "value", 5);
         assert.increasesBy(incFn, getterFn, 5);
     });
 
@@ -2144,11 +2150,15 @@ suite("assert", () => {
     });
 
     test("increasesButNotBy", () => {
-        const obj = { value: 10 }
-        const incFn = function() { obj.value += 5 }
-        const getterFn = function() { return obj.value }
+        const obj = { value: 10 };
+        const incFn = function() {
+            obj.value += 5;
+        };
+        const getterFn = function() {
+            return obj.value;
+        };
 
-        assert.increasesButNotBy(incFn, obj, 'value', 1);
+        assert.increasesButNotBy(incFn, obj, "value", 1);
         assert.increasesButNotBy(incFn, getterFn, 1);
     });
 
@@ -2171,11 +2181,15 @@ suite("assert", () => {
     });
 
     test("decreasesBy", () => {
-        const obj = { value: 10 }
-        const decFn = function() { obj.value -= 5 }
-        const getterFn = function() { return obj.value }
+        const obj = { value: 10 };
+        const decFn = function() {
+            obj.value -= 5;
+        };
+        const getterFn = function() {
+            return obj.value;
+        };
 
-        assert.decreasesBy(decFn, obj, 'value', 5);
+        assert.decreasesBy(decFn, obj, "value", 5);
         assert.decreasesBy(decFn, getterFn, 5);
     });
 
@@ -2199,19 +2213,27 @@ suite("assert", () => {
 
     test("doesNotDecreaseBy", () => {
         const obj = { value: 10 };
-        const decFn = function() { obj.value -= 5 }
-        const getterFn = function() { return obj.value }
+        const decFn = function() {
+            obj.value -= 5;
+        };
+        const getterFn = function() {
+            return obj.value;
+        };
 
-        assert.doesNotDecreaseBy(decFn, obj, 'val', 1);
+        assert.doesNotDecreaseBy(decFn, obj, "val", 1);
         assert.doesNotDecreaseBy(decFn, getterFn, 1);
     });
 
     test("decreasesButNotBy", () => {
         const obj = { value: 10 };
-        const decFn = function() { obj.value -= 5 };
-        const getterFn = function() { return obj.value }
+        const decFn = function() {
+            obj.value -= 5;
+        };
+        const getterFn = function() {
+            return obj.value;
+        };
 
-        assert.decreasesButNotBy(decFn, obj, 'val', 1);
+        assert.decreasesButNotBy(decFn, obj, "val", 1);
         assert.decreasesButNotBy(decFn, getterFn, 1);
     });
 
