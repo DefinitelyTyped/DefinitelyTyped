@@ -7036,7 +7036,7 @@ declare namespace chrome.runtime {
     export var id: string;
 
     /** https://developer.chrome.com/docs/extensions/reference/runtime/#type-PlatformOs */
-    export type PlatformOs = "mac" | "win" | "android" | "cros" | "linux" | "openbsd";
+    export type PlatformOs = "mac" | "win" | "android" | "cros" | "linux" | "openbsd" | "fuchsia";
     /** https://developer.chrome.com/docs/extensions/reference/runtime/#type-PlatformArch */
     export type PlatformArch = "arm" | "arm64" | "x86-32" | "x86-64" | "mips" | "mips64";
     /** https://developer.chrome.com/docs/extensions/reference/runtime/#type-PlatformNaclArch */
