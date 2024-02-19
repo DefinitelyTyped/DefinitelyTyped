@@ -982,11 +982,17 @@ const sheetRange = () => {
     const dataSource = {} as unknown as GoogleAppsScript.Spreadsheet.DataSource;
 
     // methods
-    const color = range.getBackgroundObject();
+    let color = range.getBackgroundObject();
     range.setBackgroundObject(color);
 
-    const colors = range.getBackgroundObjects();
+    color = range.getFontColorObject();
+    range.setFontColorObject(color);
+
+    let colors = range.getBackgroundObjects();
     range.setBackgroundObjects(colors);
+
+    colors = range.getFontColorObjects();
+    range.setFontColorObjects(colors);
 
     range.getDataSourceFormula();
     range.getDataSourceFormulas();

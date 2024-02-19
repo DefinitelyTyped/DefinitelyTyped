@@ -1747,8 +1747,8 @@ declare namespace GoogleAppsScript {
             getDisplayValue(): string;
             getDisplayValues(): string[][];
             getFilter(): Filter | null;
-            getFontColor(): string;
-            getFontColors(): string[][];
+            getFontColorObject(): Color;
+            getFontColorObjects(): Color[][];
             getFontFamilies(): string[][];
             getFontFamily(): string;
             getFontLine(): FontLine;
