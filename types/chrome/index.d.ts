@@ -7035,13 +7035,13 @@ declare namespace chrome.runtime {
     /** The ID of the extension/app. */
     export var id: string;
 
-    /** https://developer.chrome.com/docs/extensions/reference/runtime/#type-PlatformOs */
+    /** https://developer.chrome.com/docs/extensions/reference/api/runtime#type-PlatformOs */
     export type PlatformOs = "mac" | "win" | "android" | "cros" | "linux" | "openbsd" | "fuchsia";
-    /** https://developer.chrome.com/docs/extensions/reference/runtime/#type-PlatformArch */
+    /** https://developer.chrome.com/docs/extensions/reference/api/runtime#type-PlatformArch */
     export type PlatformArch = "arm" | "arm64" | "x86-32" | "x86-64" | "mips" | "mips64";
-    /** https://developer.chrome.com/docs/extensions/reference/runtime/#type-PlatformNaclArch */
+    /** https://developer.chrome.com/docs/extensions/reference/api/runtime#type-PlatformNaclArch */
     export type PlatformNaclArch = "arm" | "x86-32" | "x86-64" | "mips" | "mips64";
-    /** https://developer.chrome.com/docs/extensions/reference/api/runtime#type-ContextFilter */
+    /** https://developer.chrome.com/docs/extensions/reference/api/runtime#type-ContextType */
     export enum ContextType {
         TAB = "TAB",
         POPUP = "POPUP",
@@ -7049,7 +7049,7 @@ declare namespace chrome.runtime {
         OFFSCREEN_DOCUMENT = "OFFSCREEN_DOCUMENT",
         SIDE_PANEL = "SIDE_PANEL",
     }
-    /** https://developer.chrome.com/docs/extensions/reference/runtime/#type-OnInstalledReason */
+    /** https://developer.chrome.com/docs/extensions/reference/api/runtime#type-OnInstalledReason */
     export enum OnInstalledReason {
         INSTALL = "install",
         UPDATE = "update",
@@ -12784,7 +12784,7 @@ declare namespace chrome.declarativeNetRequest {
 ////////////////////
 /**
  * Availability: @since Chrome 114. Manifest v3.
- * https://developer.chrome.com/docs/extensions/reference/sidePanel/
+ * https://developer.chrome.com/docs/extensions/reference/api/sidePanel
  * Permissions: "sidePanel"
  */
 declare namespace chrome.sidePanel {
