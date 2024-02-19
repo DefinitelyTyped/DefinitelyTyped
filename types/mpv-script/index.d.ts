@@ -1,15 +1,6 @@
 declare namespace mp {
     type LogLevel = "fatal" | "error" | "warn" | "info" | "v" | "debug" | "trace";
 
-    interface AddKeyBindingFlags {
-        repeatable?: boolean | undefined;
-        complex?: boolean | undefined;
-        event?: "down" | "repeat" | "up" | "press" | undefined;
-        is_mouse?: boolean | undefined;
-        key_name?: string | undefined;
-        key_text?: string | undefined;
-    }
-
     interface OSDOverlay {
         data: string;
         res_x: number;
@@ -93,6 +84,25 @@ declare namespace mp {
         stderr: string;
     }
 
+    interface UncomplexKeyBindingFlags {
+        repeatable?: boolean;
+        complex?: false;
+    }
+
+    interface ComplexKeyBindingFlags {
+        // Setting `repeatable` to `true` when `complex` is `true` doesn't make sense
+        // See also: https://github.com/mpv-player/mpv/pull/13452
+        repeatable?: false;
+        complex: true;
+    }
+
+    interface UserInputCommand {
+        event: "down" | "repeat" | "up" | "press";
+        is_mouse: boolean;
+        key_name?: string | undefined;
+        key_text?: string | undefined;
+    }
+
     function command(command: string): true | undefined;
 
     function commandv(...args: readonly string[]): true | undefined;
@@ -143,9 +153,61 @@ declare namespace mp {
 
     function get_time(): number;
 
-    function add_key_binding(key: string, name?: string, fn?: () => void, flags?: AddKeyBindingFlags): void;
+    /**
+     * @deprecated Passing the `fn` argument in place of the `name` is not recommended and is handled for compatibility only
+     */
+    function add_key_binding(key: string | undefined, fn: () => void, flags?: UncomplexKeyBindingFlags): void;
 
-    function add_forced_key_binding(key: string, name?: string, fn?: () => void, flags?: AddKeyBindingFlags): void;
+    /**
+     * @deprecated Passing the `fn` argument in place of the `name` is not recommended and is handled for compatibility only
+     */
+    function add_key_binding(
+        key: string | undefined,
+        fn: (table: UserInputCommand) => void,
+        flags: ComplexKeyBindingFlags,
+    ): void;
+
+    function add_key_binding(
+        key: string | undefined,
+        name: string | undefined,
+        fn: () => void,
+        flags?: UncomplexKeyBindingFlags,
+    ): void;
+
+    function add_key_binding(
+        key: string | undefined,
+        name: string | undefined,
+        fn: (table: UserInputCommand) => void,
+        flags: ComplexKeyBindingFlags,
+    ): void;
+
+    /**
+     * @deprecated Passing the `fn` argument in place of the `name` is not recommended and is handled for compatibility only
+     */
+    function add_forced_key_binding(key: string | undefined, fn: () => void, flags?: UncomplexKeyBindingFlags): void;
+
+    /**
+     * @deprecated Passing the `fn` argument in place of the `name` is not recommended and is handled for compatibility only
+     */
+    function add_forced_key_binding(
+        key: string | undefined,
+        fn: (table: UserInputCommand) => void,
+        flags: ComplexKeyBindingFlags,
+    ): void;
+
+    function add_forced_key_binding(
+        key: string | undefined,
+        name: string | undefined,
+        fn: () => void,
+        flags?: UncomplexKeyBindingFlags,
+    ): void;
+
+    function add_forced_key_binding(
+        key: string | undefined,
+        name: string | undefined,
+        fn: (table: UserInputCommand) => void,
+        flags: ComplexKeyBindingFlags,
+    ): void;
 
     function remove_key_binding(name: string): void;
 
