@@ -1353,8 +1353,6 @@ declare namespace Chai {
         sameDeepMembers<T>(set1: T[], set2: T[], message?: string): void;
 
         /**
-         * ### .notSameDeepMembers(set1, set2, [message])
-         *
          * Asserts that `set1` and `set2` don't have the same members in any order.
          * Uses a deep equality check.
          *
@@ -1507,8 +1505,6 @@ declare namespace Chai {
         changes<T>(modifier: Function, object: T, property: string, /* keyof T */ message?: string): void;
 
         /**
-         * ### .changesBy(function, object, property, delta, [message])
-         *
          * Asserts that a function changes the value of a property by an amount (delta).
          *
          * @param modifier function
@@ -1549,8 +1545,6 @@ declare namespace Chai {
         increases<T>(modifier: Function, object: T, property: string, /* keyof T */ message?: string): void;
 
         /**
-         * ### .increasesBy(function, object, property, delta, [message])
-         *
          * Asserts that a function increases a numeric object property or a function's return value by an amount (delta).
          *
          * T   Type of object or function.
@@ -1581,8 +1575,6 @@ declare namespace Chai {
         doesNotIncrease<T>(modifier: Function, object: T, property: string, /* keyof T */ message?: string): void;
 
         /**
-         * ### .increasesButNotBy(function, object, property, delta, [message])
-         *
          * Asserts that a function does not increase a numeric object property or function's return value by an amount (delta).
          *
          * T   Type of object or function.
@@ -1614,8 +1606,6 @@ declare namespace Chai {
         decreases<T>(modifier: Function, object: T, property: string, /* keyof T */ message?: string): void;
 
         /**
-         * ### .decreasesBy(function, object, property, delta, [message])
-         *
          * Asserts that a function decreases a numeric object property or a function's return value by an amount (delta)
          *
          * T   Type of object or function.
@@ -1647,8 +1637,6 @@ declare namespace Chai {
         doesNotDecrease<T>(modifier: Function, object: T, property: string, /* keyof T */ message?: string): void;
 
         /**
-         * ### .doesNotDecreaseBy(function, object, property, delta, [message])
-         *
          * Asserts that a function does not decreases a numeric object property or a function's return value by an amount (delta)
          *
          * T   Type of object or function.
@@ -1669,8 +1657,6 @@ declare namespace Chai {
         doesNotDecreaseBy<T>(modifier: Function, object: T, change: number, message?: string): void;
 
         /**
-         * ### .decreasesButNotBy(function, object, property, delta, [message])
-         *
          * Asserts that a function does not decreases a numeric object property or a function's return value by an amount (delta)
          *
          * T   Type of object or function.
