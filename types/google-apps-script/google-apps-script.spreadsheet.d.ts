@@ -365,7 +365,7 @@ declare namespace GoogleAppsScript {
             getStatus(): DataExecutionStatus;
             refreshData(): DataSourceFormula;
             setFormula(formula: string): DataSourceFormula;
-            waitForCompletion(timeoutInSeconds: Integer): DataExecutionStatus;
+            waitForCompletion(timeoutInSeconds: number): DataExecutionStatus;
         }
         /**
          * Access existing data source parameters.
