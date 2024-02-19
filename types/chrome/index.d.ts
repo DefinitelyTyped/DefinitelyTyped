@@ -7821,6 +7821,13 @@ declare namespace chrome.runtime {
      * Open your Extension's options page, if possible.
      * The precise behavior may depend on your manifest's options_ui or options_page key, or what Chrome happens to support at the time. For example, the page may be opened in a new tab, within chrome://extensions, within an App, or it may just focus an open options page. It will never cause the caller page to reload.
      * If your Extension does not declare an options page, or Chrome failed to create one for some other reason, the callback will set lastError.
+     * @since MV3
+     */
+    export function openOptionsPage(): Promise<void>;
+    /**
+     * Open your Extension's options page, if possible.
+     * The precise behavior may depend on your manifest's options_ui or options_page key, or what Chrome happens to support at the time. For example, the page may be opened in a new tab, within chrome://extensions, within an App, or it may just focus an open options page. It will never cause the caller page to reload.
+     * If your Extension does not declare an options page, or Chrome failed to create one for some other reason, the callback will set lastError.
      * @since Chrome 42.
      */
     export function openOptionsPage(callback?: () => void): void;
