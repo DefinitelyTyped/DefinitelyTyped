@@ -1821,8 +1821,8 @@ declare namespace GoogleAppsScript {
             removeDuplicates(): Range;
             removeDuplicates(columnsToCompare: Integer[]): Range;
             setBackground(color: string | null): Range;
-            setBackgroundObject(color: Color): Range;
-            setBackgroundObjects(color: Color[][]): Range;
+            setBackgroundObject(color: Color | null): Range;
+            setBackgroundObjects(color: Color[][] | null): Range;
             setBackgroundRGB(red: Integer, green: Integer, blue: Integer): Range;
             setBackgrounds(color: Array<Array<string | null>>): Range;
             setBorder(
