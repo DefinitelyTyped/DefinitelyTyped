@@ -365,7 +365,7 @@ declare namespace GoogleAppsScript {
             getStatus(): DataExecutionStatus;
             refreshData(): DataSourceFormula;
             setFormula(formula: string): DataSourceFormula;
-            waitForCompletion(timeoutInSeconds: Integer): DataExecutionStatus;
+            waitForCompletion(timeoutInSeconds: number): DataExecutionStatus;
         }
         /**
          * Access existing data source parameters.
@@ -396,7 +396,7 @@ declare namespace GoogleAppsScript {
             getDataSource(): DataSource;
             getStatus(): DataExecutionStatus;
             refreshData(): DataSourcePivotTable;
-            waitForCompletion(timeoutInSeconds: Integer): DataExecutionStatus;
+            waitForCompletion(timeoutInSeconds: number): DataExecutionStatus;
         }
         /**
          * Access and modify existing data source sheet. To create a new data source sheet, use Spreadsheet.insertDataSourceSheet(spec).
@@ -1821,8 +1821,8 @@ declare namespace GoogleAppsScript {
             removeDuplicates(): Range;
             removeDuplicates(columnsToCompare: Integer[]): Range;
             setBackground(color: string | null): Range;
-            setBackgroundObject(color: Color): Range;
-            setBackgroundObjects(color: Color[][]): Range;
+            setBackgroundObject(color: Color | null): Range;
+            setBackgroundObjects(color: Color[][] | null): Range;
             setBackgroundRGB(red: Integer, green: Integer, blue: Integer): Range;
             setBackgrounds(color: Array<Array<string | null>>): Range;
             setBorder(
