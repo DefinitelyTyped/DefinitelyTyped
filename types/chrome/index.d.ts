@@ -12312,7 +12312,7 @@ declare namespace chrome.declarativeNetRequest {
 
         /**
          * Whether the urlFilter or regexFilter (whichever is specified) is case sensitive.
-         * Default is true.
+         * @default false Before Chrome 118 the default was true.
          */
         isUrlFilterCaseSensitive?: boolean | undefined;
 
