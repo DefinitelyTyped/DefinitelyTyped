@@ -360,8 +360,8 @@ declare namespace GoogleAppsScript {
       forceRefreshData(): DataSourceFormula;
       getAnchorCell(): Range;
       getDataSource(): DataSource;
-      getDisplayValue(): String;
-      getFormula(): String;
+      getDisplayValue(): string;
+      getFormula(): string;
       getStatus(): DataExecutionStatus;
       refreshData(): DataSourceFormula;
       setFormula(formula: string): DataSourceFormula;
