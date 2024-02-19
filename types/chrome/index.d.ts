@@ -6096,6 +6096,10 @@ declare namespace chrome.offscreen {
         LOCAL_STORAGE = "LOCAL_STORAGE",
         /** Specifies that the offscreen document needs to spawn workers. */
         WORKERS = "WORKERS",
+        /** Specifies that the offscreen document needs to use navigator.getBattery. */
+        BATTERY_STATUS = "BATTERY_STATUS",
+        /** Specifies that the offscreen document needs to use window.matchMedia. */
+        MATCH_MEDIA = "MATCH_MEDIA",
         /** Specifies that the offscreen document needs to use navigator.geolocation. */
         GEOLOCATION = "GEOLOCATION",
     }
