@@ -7633,6 +7633,11 @@ declare namespace chrome.runtime {
      * @param application The name of the registered application to connect to.
      */
     export function connectNative(application: string): Port;
+    /**
+     * Retrieves the JavaScript 'window' object for the background page running inside the current extension/app. If the background page is an event page, the system will ensure it is loaded before calling the callback. If there is no background page, an error is set.
+     * @since MV3
+     */
+    export function getBackgroundPage(): Promise<Window>;
     /** Retrieves the JavaScript 'window' object for the background page running inside the current extension/app. If the background page is an event page, the system will ensure it is loaded before calling the callback. If there is no background page, an error is set. */
     export function getBackgroundPage(callback: (backgroundPage?: Window) => void): void;
     /**
