@@ -492,6 +492,7 @@ declare namespace chrome.alarms {
 /**
  * Use the chrome.browser API to interact with the Chrome browser associated with
  * the current application and Chrome profile.
+ * @deprecated Part of the deprecated Chrome Apps platform
  */
 declare namespace chrome.browser {
     export interface Options {
@@ -6768,6 +6769,7 @@ declare namespace chrome.search {
  * Permissions:  "enterprise.serial"
  * Since: Chrome 29
  * Important: This API works only on Chrome OS.
+ * @deprecated Part of the deprecated Chrome Apps platform
  */
 declare namespace chrome.serial {
     export const DataBits: {
@@ -8438,6 +8440,9 @@ declare namespace chrome.storage {
 ////////////////////
 // Socket
 ////////////////////
+/**
+ * @deprecated Part of the deprecated Chrome Apps platform
+ */
 declare namespace chrome.socket {
     export interface CreateInfo {
         socketId: number;
