@@ -9412,6 +9412,11 @@ declare namespace chrome.tabs {
          * @since Chrome 88
          */
         groupId: number;
+        /**
+         * The last time the tab was accessed as the number of milliseconds since epoch.
+         * @since Chrome 121
+         */
+        lastAccessed?: number | undefined;
     }
 
     /**
