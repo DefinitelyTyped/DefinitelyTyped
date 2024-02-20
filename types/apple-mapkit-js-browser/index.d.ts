@@ -64,7 +64,7 @@ declare namespace mapkit {
         /**
          * An array of strings specifying the MapKit JS libraries to load at initialization. 
          */
-        libraries?: string[] | undefined;
+        libraries?: readonly string[] | undefined;
     }
 
     /**
