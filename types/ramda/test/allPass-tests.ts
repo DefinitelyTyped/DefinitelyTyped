@@ -1,8 +1,6 @@
 import * as R from "ramda";
 
 (() => {
-    type Predicate = (x: number) => boolean;
-
     function gt10(x: number) {
         return x > 10;
     }
@@ -11,7 +9,7 @@ import * as R from "ramda";
         return x % 2 === 0;
     }
 
-    // $ExpectType (x: number) => boolean
+    // $ExpectType (a: number) => boolean
     const f = R.allPass([gt10, even]);
 
     // $ExpectType boolean

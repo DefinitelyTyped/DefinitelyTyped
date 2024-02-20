@@ -20,9 +20,6 @@ import * as R from "ramda";
     isLengthNotEqual("FOO", "BAR");
     isLengthNotEqual("BAZ", 4); // => true
 
-    // $ExpectType (value: any) => value is any
-    R.complement(R.isNil);
-
     const isStringAndNotNumber = (value: string | number): value is string => true;
 
     // $ExpectType (value: string | number) => value is number

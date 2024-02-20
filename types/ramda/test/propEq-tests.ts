@@ -10,7 +10,7 @@ import * as R from "ramda";
     const func1: (obj: Record<"foo", "bar">) => boolean = R.propEq("bar", "foo");
 
     const func2: (obj: Record<"baz", number>) => boolean = R.propEq(5, "baz");
-
+    // @ts-expect-error - key `5` not found on obj
     const func3: (obj: Record<number, string>) => boolean = R.propEq("qwerty", 5);
 
     const func4: {
@@ -40,7 +40,6 @@ interface Obj {
     };
     const value = "";
 
-    // @ts-expect-error
     R.propEq(value, "foo")(obj);
 
     // @ts-expect-error
