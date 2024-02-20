@@ -697,7 +697,6 @@ interface RecordDataItems {
     DescriptionHash?: DescriptionHash | undefined;
     CheckHash?: CheckHash | undefined;
     AttachmentsHash?: AttachmentsHash | undefined;
-
 }
 
 // #region APIの呼び出しに失敗した時のデータ型
