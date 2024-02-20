@@ -1747,6 +1747,8 @@ declare namespace GoogleAppsScript {
             getDisplayValue(): string;
             getDisplayValues(): string[][];
             getFilter(): Filter | null;
+            /** @deprecated Deprecated, use getFontColorObject */ getFontColor(): string;
+            /** @deprecated Deprecated, use getFontColorObjects */ getFontColors(): string[][];
             getFontColorObject(): Color;
             getFontColorObjects(): Color[][];
             getFontFamilies(): string[][];
