@@ -1041,6 +1041,8 @@ export interface TextareaProps extends
     >
 {
     size?: "sm" | "md" | "lg" | number;
+    error?: boolean;
+    variant?: "outline" | "filled" | "unstyled";
 }
 
 interface TonicHTMLInputProps extends
