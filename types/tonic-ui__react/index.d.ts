@@ -394,6 +394,7 @@ export interface LinearProgressProps extends Omit<TonicProps, "color"> {
 
 export interface LinkProps extends TonicHTMLAnchorProps {
     href?: string;
+    disabled?: boolean;
 }
 
 export interface MenuProps extends Omit<TonicProps, "children"> {
