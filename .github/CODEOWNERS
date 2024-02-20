@@ -1561,6 +1561,7 @@
 /types/docker-events/                                     @ciffelia
 /types/docker-modem/                                      @bacali95
 /types/dockerode/                                         @seikho @nlaplante @isac322 @lazarusx @meisenzahl @thegecko @CameronDiver @p4sca1 @stuartthomson @userlerueda
+/types/dockerode-compose/                                 @Sharknoon
 /types/docopt/                                            @giggio
 /types/doctrine/                                          @rictic
 /types/document-ready/                                    @Jack-Works
@@ -4646,6 +4647,7 @@
 /types/logrotate-stream/                                  @rogierschouten
 /types/logstub/                                           @forivall
 /types/lokijs/                                            @TeamworkGuy2 @thomasconner
+/types/lolcatjs/                                          @Younis-Ahmed
 /types/lolex/                                             @Nemo157 @rogierschouten @zyishai
 /types/long-timeout/                                      @MatthiasKunnen
 /types/loopback/                                          @kattsushi @enko @sequoia @drmikecrowe @karimsa
@@ -5449,6 +5451,7 @@
 /types/object-merge/                                      @OpenByteDev
 /types/object-path/                                       @pocesar @BendingBender
 /types/object-refs/                                       @3fd
+/types/object.assign/                                     @ljharb
 /types/object.entries/                                    @ljharb
 /types/object.fromentries/                                @ariofrio
 /types/object.getownpropertydescriptors/                  @VitorLuizC @ljharb @ExE-Boss
@@ -6905,6 +6908,7 @@
 /types/ref-struct-di/                                     @keerthi16 @KiranNiranjan
 /types/ref-union/                                         @loyd
 /types/ref-union-di/                                      @keerthi16 @KiranNiranjan
+/types/reflect.ownkeys/                                   @ljharb
 /types/reflexbox/                                         @iamkd @antonvasin @vittorio @akameco
 /types/reflux/                                            @mauricedb @LiangZugeng
 /types/reflux/v0/                                         @mauricedb

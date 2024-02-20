@@ -10,6 +10,7 @@ declare namespace GorillaEngine.UI {
         rowClickedAction?: string;
     }
 
+    // tslint:disable-next-line:no-empty-interface
     interface ListBox extends ListBoxProps {}
     class ListBox extends Component {
         constructor(options: Partial<ListBoxProps>);

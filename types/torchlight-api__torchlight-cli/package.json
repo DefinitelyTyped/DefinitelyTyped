@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/torchlight-api__torchlight-cli",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/torchlight-api/torchlight-cli",
+        "https://torchlight.dev/docs/clients/cli"
+    ],
+    "devDependencies": {
+        "@types/torchlight-api__torchlight-cli": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dominic Carrington",
+            "githubUsername": "dominiccarrington"
+        }
+    ]
+}
