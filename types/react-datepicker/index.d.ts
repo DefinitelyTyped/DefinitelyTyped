@@ -198,7 +198,7 @@ export interface ReactDatePickerProps<WithRange extends boolean | undefined = un
     yearItemNumber?: number | undefined;
 }
 
-export class ReactDatePicker<WithRange extends boolean | undefined = undefined> extends React.Component<
+declare class ReactDatePicker<WithRange extends boolean | undefined = undefined> extends React.Component<
     ReactDatePickerProps<WithRange>
 > {
     readonly setBlur: () => void;
