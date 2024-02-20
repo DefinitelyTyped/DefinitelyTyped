@@ -125,7 +125,7 @@ declare namespace GorillaEngine {
          * Does not trigger for meter parameters.
          * @param paramName the instrument parameter name
          * @param handler the callback
-         * @returns `1` when the handler was successfully attached 
+         * @returns `1` when the handler was successfully attached
          */
         on(paramName: string, handler: (normValue: number) => void): number;
         /**

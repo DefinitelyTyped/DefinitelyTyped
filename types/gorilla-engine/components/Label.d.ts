@@ -13,5 +13,6 @@ declare namespace GorillaEngine.UI {
     class Label extends Component {
         constructor(options: Partial<LabelProps>);
     }
+    // tslint:disable-next-line:no-empty-interface
     interface Label extends LabelProps {}
 }

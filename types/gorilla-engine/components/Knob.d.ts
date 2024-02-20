@@ -13,6 +13,7 @@ declare namespace GorillaEngine.UI {
         maxRotation: number;
     }
 
+    // tslint:disable-next-line:no-empty-interface
     interface Knob extends KnobProps {}
     class Knob extends Component {
         constructor(options: Partial<KnobProps>);

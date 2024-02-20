@@ -10,5 +10,6 @@ declare namespace GorillaEngine.UI {
     class TagEditor extends Component {
         constructor(options: Partial<TagEditorProps>);
     }
+    // tslint:disable-next-line:no-empty-interface
     interface TagEditor extends TagEditorProps {}
 }

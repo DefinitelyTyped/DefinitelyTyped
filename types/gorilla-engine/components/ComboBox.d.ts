@@ -57,6 +57,7 @@ declare namespace GorillaEngine.UI {
         subPopup: Partial<ComboBoxPopupStyles>;
     }
 
+    // tslint:disable-next-line:no-empty-interface
     interface ComboBox extends ComboBoxProps {}
     class ComboBox extends Component {
         onChange?: (value: number) => void;
