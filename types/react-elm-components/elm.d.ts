@@ -1,5 +1,5 @@
-import { Elm18Node, Elm19Node } from "./elm-types";
+import ElmTypes = require("./elm-types");
 
-declare const Elm: { [x: string]: Elm18Node | Elm19Node };
+declare const Elm: { [x: string]: ElmTypes.Elm18Node | ElmTypes.Elm19Node };
 
 export { Elm };

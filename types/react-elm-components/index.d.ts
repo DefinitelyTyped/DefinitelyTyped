@@ -1,10 +1,16 @@
-import { Component } from "react";
-import { Elm18Node, Elm19Node } from "./elm-types";
+import React = require("react");
+import ElmTypes = require("./elm-types");
 
-declare class Elm extends Component<{
-    src: Elm18Node | Elm19Node;
-    flags?: any;
-    ports?: (ports: any) => any;
+type SenderPort = (data: any) => void;
+type ReceiverPort = (callback: (value: any) => void) => void;
+interface Ports {
+    [x: string]: SenderPort | ReceiverPort;
+}
+
+declare class Elm extends React.Component<{
+    src: ElmTypes.Elm18Node | ElmTypes.Elm19Node;
+    flags?: Record<string, any>;
+    ports?: (ports: Ports) => any;
 }> {}
 
 export = Elm;
