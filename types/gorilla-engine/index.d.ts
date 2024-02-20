@@ -113,7 +113,23 @@ declare namespace GorillaEngine {
      * Instrument
      */
     interface Instrument {
-        on(propName: string, handler: (normValue: number) => void): void;
+        /**
+         * Attach an event listener to an instrument parameter. Whenever the instrument parameter
+         * changes the callback will be called with the current normalized value of the parameter.
+         * Does not trigger for meter parameters.
+         * @param paramName the instrument parameter name
+         * @param handler the callback
+         * @returns `1` when the handler was successfully attached 
+         */
+        on(paramName: string, handler: (normValue: number) => void): number;
+        /**
+         * Dettach one or multiple event listeners for an instrument parameter. Pass in a reference
+         * to the callback to remove a specific listener. If no callback is passed then all listeners
+         * for that parameter are removed
+         * @param paramName
+         * @returns the number of removed listeners
+         */
+        off(paramName: string, handler?: (normValue: number) => void): number;
         /**
          * Method used to retrieve a serialised module from the Gorilla Engine.
          *
