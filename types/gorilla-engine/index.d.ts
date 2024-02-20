@@ -98,7 +98,13 @@ declare namespace GorillaEngine {
     }
 
     interface ccState {
+        /**
+         * MIDI CC number in the range of 1-119
+         */
         cc: number;
+        /**
+         * Path in the instrument, e.g. `Scripts/0/Volume`
+         */
         path: string;
     }
 
@@ -272,21 +278,21 @@ declare namespace GorillaEngine {
         removeModuleAtPath(path: string): boolean;
 
         /**
-         * Method used to set a normalised double at a ceterain path in the Gorilla Engine.
+         * Method used to set a normalized double at a ceterain path in the Gorilla Engine.
          *
          * @param path The path to the normalised double that should be set.
          * @param value The normalised double that should be set at the given `path`.
          * @returns `true` if the value has been set succcessfully or `false` otherwise.
          */
-        setNormalisedDoubleAtPath(path: string, value: number): boolean;
+        setNormalizedDoubleAtPath(path: string, value: number): boolean;
 
         /**
-         * Method used to retrieve a normalised double from the Gorilla Engine.
+         * Method used to retrieve a normalized double from the Gorilla Engine.
          *
-         * @param path The path to the normalised double should be retrieved.
+         * @param path The path to the normalised double that should be retrieved.
          * @returns The normalised double found at the given `path` or `false` if nothing was found.
          */
-        getNormalisedDoubleAtPath(): number | boolean;
+        getNormalizedDoubleAtPath(): number | boolean;
 
         /**
          * Method used to retrieve MIDI data from the first instrument script that implements `on midi_drag`
@@ -322,8 +328,23 @@ declare namespace GorillaEngine {
          */
         valueToStringAtPath(path: string, value: number): boolean | string;
 
+        /**
+         * Method used to retrieve a string from the Gorilla Engine.
+         * @param path The path to the string that should be retrieved.
+         * @returns the string found at the given `path` or `false` if nothing was found.
+         */
+        getStringAtPath(path: string): string;
+
+        /**
+         * Get the current MIDI CC state
+         * @returns an array of MIDI CC to instrument path mappings
+         */
         getMIDICCstate(): ccState[];
 
+        /**
+         * Set the MIDI CC state
+         * @param ccMidiSatate an array of MIDI CC to instrument path mappings
+         */
         setMIDICCstate(ccMidiSatate: ccState[]): void;
 
         renderAudioFile(
@@ -341,10 +362,6 @@ declare namespace GorillaEngine {
             minFileLength: number,
         ): void;
 
-        setNormalizedDoubleAtPath(path: string, value: number): void;
-
-        getNormalizedDoubleAtPath(path: string): number;
-
         getLoadingStatus(): boolean;
 
         getLoadingProgressPercent(): number;
@@ -353,6 +370,15 @@ declare namespace GorillaEngine {
 
         endRecallingParameterState(): boolean;
 
+        /**
+         * Add an unconnected dynamic parameter.
+         * Persistence flags:
+         * Private       = 0x000
+         * ShowInHost    = 0x001
+         * SaveInSession = 0x002
+         * SaveInPreset  = 0x004
+         * @param persistence the or'd persistence flags of the parameter
+         */
         addParameter(persistence: number): InstrumentProperty;
 
         getWaveformOverview(
@@ -363,13 +389,18 @@ declare namespace GorillaEngine {
             vertZoom: number,
         ): Uint8Array;
 
-        getStringAtPath(path: string): string;
-
         getSampleMetadata(filePath: string, overviewSize: number): { metadata: string; overview: Uint8Array };
     }
 
     interface Blob {
+        /**
+         * Load the specified instrument
+         * @param name the name of the instrument to load
+         */
         loadInstrument(name: string): Instrument;
+        /**
+         * List all instrument names contained in this blob
+         */
         getInstrumentNames(): string[];
     }
 
@@ -378,12 +409,22 @@ declare namespace GorillaEngine {
     }
 
     function registerUncaughtUIExceptionCallback(handler: (err: Error) => void): void;
+    /**
+     * Get the platform specific path where all the resources (assets, blobs, etc.) have
+     * been installed to.
+     * @returns the resource path
+     */
     function getResourcePath(): string;
     function getPluginName(): string;
     function getPluginType(): string;
     function getPluginPath(): string;
-    function quitApplication(): void;
     function getManufacturerName(): string;
+    function quitApplication(): void;
+    /**
+     * Load blob at the specified path
+     * @param blobPath the load blob
+     * @throws if the blob could not be loaded e.g. it is not there or decryption failed
+     */
     function loadBlob(blobPath: string): Blob;
     function getPluginNRTB(enable: boolean): void;
     /**
@@ -403,19 +444,52 @@ declare namespace GorillaEngine {
     function showNativeMessageBoxSync(options: MessageBoxOptions): void;
     function showNativeMessageBox(options: MessageBoxOptions): Promise<void>;
     function calculateTextWidth(text: string, font: string, fontSize: number, fontKerning: number): Promise<number>;
+    /**
+     * If Codemeter is enabled this will check if a valid license is available. If it is
+     * then the MIDI and Audio will automatically be enabled if they were disabled.
+     * @returns `true` if a valid license has been found *or* codemeter is not enabled, `false` otherwise
+     */
     function checkLicense(): boolean;
-    function checkBeatportRTO(): string;
+    /**
+     * If Codemeter is enabled this will indicate if the license checked with {@link checkLicense} is
+     * a trial license
+     * @retuns `true` if it is a trial license, `false` if it isn't *or* codemeter is not enabled
+     */
     function isTrial(): boolean;
+    /**
+     * If Codemeter is enabled this can be used to query the expiration timestamp of the running trial
+     * @returns the timestamp when the trial expires. If there is no trial or codemeter is not enabled
+     * this will return `0`
+     */
     function trialExpirationTimestamp(): number;
+    function checkBeatportRTO(): string;
     function initialiseSpliceRTO(pluginName?: string): any;
     function disposeInstrument(instrument: Instrument): void;
+    /**
+     * Activates an instrument, i.e. route MIDI to the instrument and send Audio from the isntrument to
+     * the DAW. Currently only one instrument can be active. If there was
+     * another instrument active before, it will get deativated.
+     * @param instrument the instrument activate
+     */
     function setActiveInstrument(instrument: Instrument): void;
+    /**
+     * Create an empty dummy instrument. It can be modified with e.g. {@link Instrument.setModuleAtPath}
+     * @returns the empty instrument.
+     */
     function createEmptyInstrument(): Instrument;
     function setSessionSaveCallback(callback: (state: string) => string, instance: any): void;
     function setSessionLoadCallback(callback: (state: string) => string, instance: any): void;
     function setParametersDirty(dirty: boolean): void;
     function areParametersDirty(): boolean;
+    /**
+     * Set this flag to indicate that {@link signalReady} will be called once the plugin
+     * initialization has completed.
+     */
     function shouldWaitForReadySignal(): void;
+    /**
+     * Signal that the initialization is done. If this is not called although {@link shouldWaitForReadySignal}
+     * has been called, then this will cause all sorts of problmes like hanging or half working DAWs
+     */
     function signalReady(): void;
     function setParametersDirtyCallback(callback: any): void;
     function getBuildInformation(): any;
@@ -448,8 +522,26 @@ declare namespace GorillaEngine {
     let sessionSaveLoadCallbackTimeoutMs: number;
 
     namespace UI {
+        /**
+         * Load a UI laid out in a yaml file
+         * @param ymlPath The path to yaml layout file
+         */
         function loadUIfromYAML(ymlPath: string): void;
+        /**
+         * Auto generate a generic UI based on the activate blob. Useful for prototyping
+         */
+        function autoGenerate(): void;
+        /**
+         * Get the control with the given id.
+         * @param id The id of the control
+         * @returns the control
+         * @throws when there is no control with the specified id
+         */
         function getControlById(id: string): Component;
+        /**
+         * Creates the window based on the passed in window control {@link GorillaEngine.UI.Window}.
+         * @param window the window to show
+         */
         function createWindow(window: Window): void;
     }
 }
