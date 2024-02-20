@@ -1,4 +1,4 @@
-import { Custormerly } from "../CustomerlySettings";
+import { Custormerly } from "../HelpCenterCustomerlySettings";
 
 /**
  * Global interface declaration for the window object.

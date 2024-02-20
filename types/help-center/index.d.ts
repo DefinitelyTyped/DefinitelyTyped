@@ -1,5 +1,5 @@
-export * from "./CustomerlySettings";
+export * from "./HelpCenterCustomerlySettings";
 export * from "./Globals";
-export * from "./Help-center";
+export * from "./HelpCenter";
 
 export as namespace HelpCenter;
