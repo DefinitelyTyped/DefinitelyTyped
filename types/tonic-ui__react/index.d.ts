@@ -1049,7 +1049,7 @@ export interface TextareaProps extends
 interface TonicHTMLInputProps extends
     _CSSPropsWithHTML<
         Omit<
-            InputHTMLAttributes<Element>,
+            InputHTMLAttributes<HTMLInputElement>,
             "children" | "color" | "defaultValue" | "height" | "size" | "slot" | "tabIndex" | "translate" | "width"
         >
     >
