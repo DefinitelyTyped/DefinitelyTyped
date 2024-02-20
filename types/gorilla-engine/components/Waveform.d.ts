@@ -52,6 +52,7 @@ declare namespace GorillaEngine.UI {
         markers: Partial<WaveformMarker>;
     }
 
+    // tslint:disable-next-line:no-empty-interface
     interface Waveform extends WaveformProps {}
     class Waveform extends Component {
         constructor(options: Partial<WaveformProps>);
