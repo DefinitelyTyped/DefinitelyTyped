@@ -188,9 +188,9 @@ export const useTree: any;
 export const useTreeItem: any;
 
 export type Breakpoints = "sm" | "md" | "lg" | "xl" | "2xl" | "_";
-type ThemeColorModes = "light" | "dark";
+export type ThemeColorModes = "light" | "dark";
 
-interface AccordionItemContext {
+export interface AccordionItemContext {
     bodyId: string;
     disabled?: boolean;
     headerId: string;
@@ -756,7 +756,7 @@ export interface TonicProviderProps {
     theme?: TonicProviderTheme;
 }
 
-type TonicProviderTheme = Record<string, unknown>;
+export type TonicProviderTheme = Record<string, unknown>;
 
 export interface TooltipProps extends Omit<TonicProps, "children"> {
     PopperComponent?: ComponentType;
