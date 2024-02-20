@@ -453,7 +453,7 @@ declare namespace GorillaEngine {
     /**
      * If Codemeter is enabled this will indicate if the license checked with {@link checkLicense} is
      * a trial license
-     * @retuns `true` if it is a trial license, `false` if it isn't *or* codemeter is not enabled
+     * @returns `true` if it is a trial license, `false` if it isn't *or* codemeter is not enabled
      */
     function isTrial(): boolean;
     /**
