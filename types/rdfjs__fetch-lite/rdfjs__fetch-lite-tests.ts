@@ -63,7 +63,7 @@ async function environmentRawFetch(): Promise<Stream> {
 interface TestDataset extends DatasetCore {
     foo: "bar";
 }
-async function environmentDatasetFetch(): Promise<DatasetCore> {
+async function environmentDatasetFetch(): Promise<TestDataset> {
     class DatasetFactory {
         dataset(): TestDataset {
             return <any> {};

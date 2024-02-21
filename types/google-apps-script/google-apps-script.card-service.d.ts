@@ -693,6 +693,7 @@ declare namespace GoogleAppsScript {
          *             .setUrl("https://www.google.com"));
          */
         interface TextButton {
+            setAltText(altText: string): TextButton;
             setAuthorizationAction(action: AuthorizationAction): TextButton;
             setBackgroundColor(backgroundColor: string): TextButton;
             setComposeAction(action: Action, composedEmailType: ComposedEmailType): TextButton;

@@ -798,7 +798,7 @@ export type RowContextMenuSignature =
 
 export type GroupContextMenuSignature =
     | Array<MenuObject<GroupComponent> | MenuSeparator>
-    | ((component: GroupComponent, e: MouseEvent) => MenuObject<GroupComponent> | false | any[]);
+    | ((e: MouseEvent, component: GroupComponent) => MenuObject<GroupComponent> | false | any[]);
 
 export interface MenuObject<T extends RowComponent | CellComponent | ColumnComponent | GroupComponent> {
     label: string | HTMLElement | ((component: T) => string | HTMLElement);
@@ -1715,7 +1715,7 @@ export type ColumnSorterParamLookupFunction = (column: ColumnComponent, dir: Sor
 
 export type ColumnLookup = ColumnComponent | ColumnDefinition | HTMLElement | string;
 
-export type RowLookup = RowComponent | HTMLElement | string | number | number[] | string[];
+export type RowLookup = RowComponent | HTMLElement | string | number;
 
 export type RowRangeLookup = "visible" | "active" | "selected" | "all";
 
@@ -2541,8 +2541,8 @@ declare class Tabulator {
      *
      * To select a specific row you can pass the any of the standard row component look up options into the first argument of the function. If you leave the argument blank you will select all rows (if you have set the selectable option to a numeric value, it will be ignored when selecting all rows). If lookup value is true you will selected all current filtered rows.
      */
-    selectRow: (lookup?: RowLookup[] | RowRangeLookup | true) => void;
-    deselectRow: (row?: RowLookup) => void;
+    selectRow: (lookup?: RowLookup[] | RowLookup | RowRangeLookup | true) => void;
+    deselectRow: (row?: RowLookup[] | RowLookup) => void;
     toggleSelectRow: (row?: RowLookup) => void;
 
     /**

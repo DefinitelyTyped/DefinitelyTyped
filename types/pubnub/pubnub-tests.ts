@@ -337,6 +337,8 @@ pubnub.push.addChannels(
         channels: ["a", "b"],
         device: "niceDevice",
         pushGateway: "apns",
+        environment: "production",
+        topic: "com.example.bundle_id",
     },
     (status) => console.log(status),
 );
@@ -346,6 +348,8 @@ pubnub.push
         channels: ["a", "b"],
         device: "niceDevice",
         pushGateway: "apns",
+        environment: "production",
+        topic: "com.example.bundle_id",
     })
     .then();
 
@@ -384,6 +388,8 @@ pubnub.push.deleteDevice(
     {
         device: "niceDevice",
         pushGateway: "apns", // apns, gcm, mpns
+        environment: "production",
+        topic: "com.example.bundle_id",
     },
     (status) => console.log(status),
 );
@@ -392,6 +398,8 @@ pubnub.push
     .deleteDevice({
         device: "niceDevice",
         pushGateway: "apns", // apns, gcm, mpns
+        environment: "production",
+        topic: "com.example.bundle_id",
     })
     .then();
 
