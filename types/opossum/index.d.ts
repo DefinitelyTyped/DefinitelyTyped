@@ -2,9 +2,9 @@
 import { EventEmitter } from "events";
 
 declare class CircuitBreaker<
-  T extends (...args: readonly never[]) => Promise<unknown> = (
-    ...args: readonly unknown[]
-  ) => Promise<unknown>,
+    T extends (...args: readonly never[]) => Promise<unknown> = (
+        ...args: readonly unknown[]
+    ) => Promise<unknown>,
 > extends EventEmitter {
     static isOurError(error: any): boolean;
 
@@ -74,10 +74,10 @@ declare class CircuitBreaker<
      * It will always be preceded by a `failure` event, and `breaker.fire` returns a rejected Promise.
      */
     fallback(
-      func:
-        | T
-        | ((...args: Parameters<T>) => Awaited<ReturnType<T>>)
-        | CircuitBreaker<T>,
+        func:
+            | T
+            | ((...args: Parameters<T>) => Awaited<ReturnType<T>>)
+            | CircuitBreaker<T>,
     ): this;
 
     /**
@@ -114,15 +114,15 @@ declare class CircuitBreaker<
     on(event: "reject", listener: (err: Error) => void): this;
     on(event: "timeout", listener: (err: Error) => void): this;
     on(
-      event: "success",
-      listener: (result: Awaited<ReturnType<T>>, latencyMs: number) => void,
+        event: "success",
+        listener: (result: Awaited<ReturnType<T>>, latencyMs: number) => void,
     ): this;
     on(event: "semaphoreLocked", listener: (err: Error) => void): this;
     on(event: "healthCheckFailed", listener: (err: Error) => void): this;
     on(event: "fallback", listener: (result: unknown, err: Error) => void): this;
     on(
-      event: "failure",
-      listener: (err: Error, latencyMs: number, args: Parameters<T>) => void,
+        event: "failure",
+        listener: (err: Error, latencyMs: number, args: Parameters<T>) => void,
     ): this;
     /* tslint:enable:unified-signatures */
 }

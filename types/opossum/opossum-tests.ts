@@ -125,7 +125,7 @@ const readFile = promisify(fs.readFile);
         .then(console.log)
         .catch(console.error);
 }
-() => {
+(() => {
     const breaker = new CircuitBreaker(readFile, {});
 
     // Creates a 1 second window consisting of ten time slices,
@@ -161,4 +161,4 @@ const readFile = promisify(fs.readFile);
         result.args; // $ExpectType number[]
         result.thisArg; // $ExpectType "test"
     });
-}
+});
