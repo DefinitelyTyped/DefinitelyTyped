@@ -3,7 +3,7 @@ export as namespace Instafeed;
 export = Instafeed;
 
 declare class Instafeed<T = Instafeed.InstafeedDefaultItem> {
-    constructor(options?: Instafeed.InstafeedOptions<T>);
+    constructor(options: Instafeed.InstafeedOptions<T>);
 
     run(): boolean;
     hasNext(): boolean;
@@ -43,7 +43,6 @@ declare namespace Instafeed {
         type: string;
         username: string;
     }
-
 
     interface InstagramDataItem {
         caption: string;
