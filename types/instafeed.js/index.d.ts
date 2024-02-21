@@ -44,13 +44,6 @@ declare namespace Instafeed {
         username: string;
     }
 
-    interface InstafeedState<T> {
-        node: Element;
-        paging: Instafeed.InstagramPaging[];
-        pool: T[];
-        running: boolean;
-        token: string;
-    }
 
     interface InstagramDataItem {
         caption: string;
