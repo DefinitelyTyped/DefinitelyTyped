@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@types/open-location-code",
-  "version": "1.0",
+  "version": "1.0.0",
   "projects": [
     "https://github.com/google/open-location-code/tree/main/js"
   ],
