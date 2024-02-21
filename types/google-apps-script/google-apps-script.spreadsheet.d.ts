@@ -354,6 +354,20 @@ declare namespace GoogleAppsScript {
             setName(name: string): DataSourceColumn;
         }
         /**
+         * Access and modify existing data source formulas.
+         */
+        interface DataSourceFormula {
+            forceRefreshData(): DataSourceFormula;
+            getAnchorCell(): Range;
+            getDataSource(): DataSource;
+            getDisplayValue(): string;
+            getFormula(): string;
+            getStatus(): DataExecutionStatus;
+            refreshData(): DataSourceFormula;
+            setFormula(formula: string): DataSourceFormula;
+            waitForCompletion(timeoutInSeconds: number): DataExecutionStatus;
+        }
+        /**
          * Access existing data source parameters.
          */
         interface DataSourceParameter {
@@ -367,6 +381,22 @@ declare namespace GoogleAppsScript {
         enum DataSourceParameterType {
             DATA_SOURCE_PARAMETER_TYPE_UNSUPPORTED,
             CELL,
+        }
+        /**
+         * Access and modify existing data source pivot table.
+         * Only use this class with data that's connected to a database
+         */
+        interface DataSourcePivotTable {
+            addColumnGroup(columnName: string): PivotGroup;
+            addFilter(columnName: string, filterCriteria: FilterCriteria): PivotFilter;
+            addPivotValue(columnName: string, summarizeFunction: PivotTableSummarizeFunction): PivotValue;
+            addRowGroup(columnName: string): PivotGroup;
+            asPivotTable(): PivotTable;
+            forceRefreshData(): DataSourcePivotTable;
+            getDataSource(): DataSource;
+            getStatus(): DataExecutionStatus;
+            refreshData(): DataSourcePivotTable;
+            waitForCompletion(timeoutInSeconds: number): DataExecutionStatus;
         }
         /**
          * Access and modify existing data source sheet. To create a new data source sheet, use Spreadsheet.insertDataSourceSheet(spec).
@@ -1686,6 +1716,8 @@ declare namespace GoogleAppsScript {
                 rowEnd: Integer,
             ): void;
             copyValuesToRange(sheet: Sheet, column: Integer, columnEnd: Integer, row: Integer, rowEnd: Integer): void;
+            createDataSourcePivotTable(dataSource: DataSource): DataSourcePivotTable;
+            createDataSourceTable(dataSource: DataSource): DataSourceTable;
             createDeveloperMetadataFinder(): DeveloperMetadataFinder;
             createFilter(): Filter;
             createPivotTable(sourceData: Range): PivotTable;
@@ -1694,12 +1726,17 @@ declare namespace GoogleAppsScript {
             expandGroups(): Range;
             getA1Notation(): string;
             getBackground(): string;
+            getBackgroundObject(): Color;
+            getBackgroundObjects(): Color[][];
             getBackgrounds(): string[][];
             getBandings(): Banding[];
             getCell(row: Integer, column: Integer): Range;
             getColumn(): Integer;
             getDataRegion(): Range;
             getDataRegion(dimension: Dimension): Range;
+            getDataSourceFormula(): DataSourceFormula;
+            getDataSourceFormulas(): DataSourceFormula[];
+            getDataSourcePivotTables(): DataSourcePivotTable[];
             getDataSourceTables(): DataSourceTable[];
             getDataSourceUrl(): string;
             getDataTable(): Charts.DataTable;
@@ -1710,8 +1747,10 @@ declare namespace GoogleAppsScript {
             getDisplayValue(): string;
             getDisplayValues(): string[][];
             getFilter(): Filter | null;
-            getFontColor(): string;
-            getFontColors(): string[][];
+            /** @deprecated Deprecated, use getFontColorObject */ getFontColor(): string;
+            /** @deprecated Deprecated, use getFontColorObjects */ getFontColors(): string[][];
+            getFontColorObject(): Color;
+            getFontColorObjects(): Color[][];
             getFontFamilies(): string[][];
             getFontFamily(): string;
             getFontLine(): FontLine;
@@ -1784,6 +1823,8 @@ declare namespace GoogleAppsScript {
             removeDuplicates(): Range;
             removeDuplicates(columnsToCompare: Integer[]): Range;
             setBackground(color: string | null): Range;
+            setBackgroundObject(color: Color | null): Range;
+            setBackgroundObjects(color: Color[][] | null): Range;
             setBackgroundRGB(red: Integer, green: Integer, blue: Integer): Range;
             setBackgrounds(color: Array<Array<string | null>>): Range;
             setBorder(

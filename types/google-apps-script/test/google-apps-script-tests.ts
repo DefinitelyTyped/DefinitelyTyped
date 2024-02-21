@@ -934,3 +934,70 @@ const driveActivity = () => {
         }
     }
 };
+
+// DataSourceFormula test
+const sheetDataSourceFormula = () => {
+    const sheet = SpreadsheetApp.getActiveSheet();
+    const range = sheet.getRange("A1");
+    const dataSourceFormula = range.getDataSourceFormula();
+
+    // methods
+    dataSourceFormula.forceRefreshData();
+    dataSourceFormula.getAnchorCell();
+    dataSourceFormula.getDataSource();
+    dataSourceFormula.getDisplayValue();
+    dataSourceFormula.getFormula();
+    dataSourceFormula.getStatus();
+    dataSourceFormula.refreshData();
+    dataSourceFormula.setFormula("formula");
+    dataSourceFormula.waitForCompletion(100);
+};
+
+// DataSourcePivotTable test
+const sheetDataSourcePivotTable = () => {
+    const sheet = SpreadsheetApp.getActiveSheet();
+    const range = sheet.getRange("A1");
+    const dataSourcePivotTables = range.getDataSourcePivotTables();
+
+    // methods
+    dataSourcePivotTables[0].addColumnGroup("column");
+    dataSourcePivotTables[0].addFilter("column1", {} as unknown as GoogleAppsScript.Spreadsheet.FilterCriteria);
+    dataSourcePivotTables[0].addPivotValue(
+        "column1",
+        {} as unknown as GoogleAppsScript.Spreadsheet.PivotTableSummarizeFunction,
+    );
+    dataSourcePivotTables[0].addRowGroup("column1");
+    dataSourcePivotTables[0].asPivotTable();
+    dataSourcePivotTables[0].forceRefreshData();
+    dataSourcePivotTables[0].getDataSource();
+    dataSourcePivotTables[0].getStatus();
+    dataSourcePivotTables[0].refreshData();
+    dataSourcePivotTables[0].waitForCompletion(100);
+};
+
+// Range test
+const sheetRange = () => {
+    const sheet = SpreadsheetApp.getActiveSheet();
+    const range = sheet.getRange("A1");
+    const dataSource = {} as unknown as GoogleAppsScript.Spreadsheet.DataSource;
+
+    // methods
+    let color = range.getBackgroundObject();
+    range.setBackgroundObject(color);
+
+    color = range.getFontColorObject();
+    range.setFontColorObject(color);
+
+    let colors = range.getBackgroundObjects();
+    range.setBackgroundObjects(colors);
+
+    colors = range.getFontColorObjects();
+    range.setFontColorObjects(colors);
+
+    range.getDataSourceFormula();
+    range.getDataSourceFormulas();
+
+    const dataSourcePivotTables = range.getDataSourcePivotTables();
+    range.createDataSourcePivotTable(dataSource);
+    range.createDataSourceTable(dataSource);
+};
