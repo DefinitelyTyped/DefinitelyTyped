@@ -1,10 +1,14 @@
 /// <reference types="node"/>
 import { EventEmitter } from "events";
 
-declare class CircuitBreaker<TI extends unknown[] = unknown[], TR = unknown> extends EventEmitter {
+declare class CircuitBreaker<
+  T extends (...args: readonly never[]) => Promise<unknown> = (
+    ...args: readonly unknown[]
+  ) => Promise<unknown>,
+> extends EventEmitter {
     static isOurError(error: any): boolean;
 
-    constructor(action: (...args: TI) => Promise<TR>, options?: CircuitBreaker.Options);
+    constructor(action: T, options?: CircuitBreaker.Options);
 
     readonly name: string;
     readonly group: string;
@@ -22,7 +26,7 @@ declare class CircuitBreaker<TI extends unknown[] = unknown[], TR = unknown> ext
     /**
      * Execute the action for this circuit with a provided this argument
      */
-    call(context: any, ...args: TI): Promise<TR>;
+    call(context: ThisParameterType<T>, ...args: Parameters<T>): ReturnType<T>;
 
     /**
      * Returns the current state of the circuit
@@ -69,7 +73,12 @@ declare class CircuitBreaker<TI extends unknown[] = unknown[], TR = unknown> ext
      * This function will be executed when the circuit is fired and fails.
      * It will always be preceded by a `failure` event, and `breaker.fire` returns a rejected Promise.
      */
-    fallback(func: ((...args: any[]) => any) | CircuitBreaker): this;
+    fallback(
+      func:
+        | T
+        | ((...args: Parameters<T>) => Awaited<ReturnType<T>>)
+        | CircuitBreaker<T>,
+    ): this;
 
     /**
      * Execute the action for this circuit.
@@ -77,7 +86,7 @@ declare class CircuitBreaker<TI extends unknown[] = unknown[], TR = unknown> ext
      * If the action succeeds, the promise will resolve with the resolved value from action.
      * If a fallback function was provided, it will be invoked in the event of any failure or timeout.
      */
-    fire(...args: TI): Promise<TR>;
+    fire(...args: Parameters<T>): ReturnType<T>;
 
     /**
      * Provide a health check function to be called periodically.
@@ -99,16 +108,22 @@ declare class CircuitBreaker<TI extends unknown[] = unknown[], TR = unknown> ext
     on(event: "close", listener: () => void): this;
     on(event: "open", listener: () => void): this;
     on(event: "shutdown", listener: () => void): this;
-    on(event: "fire", listener: (args: TI) => void): this;
+    on(event: "fire", listener: (args: Parameters<T>) => void): this;
     on(event: "cacheHit", listener: () => void): this;
     on(event: "cacheMiss", listener: () => void): this;
     on(event: "reject", listener: (err: Error) => void): this;
     on(event: "timeout", listener: (err: Error) => void): this;
-    on(event: "success", listener: (result: TR, latencyMs: number) => void): this;
+    on(
+      event: "success",
+      listener: (result: Awaited<ReturnType<T>>, latencyMs: number) => void,
+    ): this;
     on(event: "semaphoreLocked", listener: (err: Error) => void): this;
     on(event: "healthCheckFailed", listener: (err: Error) => void): this;
     on(event: "fallback", listener: (result: unknown, err: Error) => void): this;
-    on(event: "failure", listener: (err: Error, latencyMs: number, args: TI) => void): this;
+    on(
+      event: "failure",
+      listener: (err: Error, latencyMs: number, args: Parameters<T>) => void,
+    ): this;
     /* tslint:enable:unified-signatures */
 }
 
