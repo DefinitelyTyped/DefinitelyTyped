@@ -5,27 +5,9 @@ export = Instafeed;
 declare class Instafeed<T = Instafeed.InstafeedDefaultItem> {
     constructor(options?: Instafeed.InstafeedOptions<T>);
 
-    _options: Instafeed.InstafeedOptions<T>;
-    _state: Instafeed.InstafeedState<T>;
-
     run(): boolean;
     hasNext(): boolean;
     next(): void;
-    _showNext(callback: (err: string | null) => void): void;
-    _processData(data: Instafeed.InstagramResponseData): { items: T[]; unused: T[] };
-    _extractTags(str: string): string[];
-    _getItemData(data: Instafeed.InstagramDataItem): Instafeed.InstafeedDefaultItem;
-    _renderData(items: Instafeed.InstafeedDefaultItem[]): void;
-    _basicRender(data: T): string;
-    _valueForKeyPath(keyPath: string, data: unknown): string;
-    _fail(err: unknown): void;
-    _start(): void;
-    _finish(): void;
-    _success(data: Instafeed.InstagramResponseData): void;
-    _makeApiRequest(url: string, callback: (err: unknown, data: Instafeed.InstagramResponseData) => void): void;
-    _getAccessToken(callback: (err: unknown, token: string) => void): void;
-    _debug(): void;
-    _runHook(hookname: string, data: unknown): boolean;
 }
 
 declare namespace Instafeed {
