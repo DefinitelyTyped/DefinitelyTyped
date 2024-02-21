@@ -1,5 +1,5 @@
-declare namespace OneLine {
-    interface OneLine {
+declare namespace oneLine {
+    interface oneLine {
         event: EventObject;
         adUnitRequest(arrFoAdIds?: string[], allowReload?: boolean): void;
         buildVideoUrl(bidder: BidderConfig[], placementID: string): void;
@@ -34,5 +34,5 @@ declare namespace OneLine {
     type ParamFunction = (arg: any) => void;
 }
 
-declare const OneLine: OneLine.OneLine;
-export = OneLine;
+declare const oneLine: oneLine.oneLine;
+export = oneLine;
