@@ -148,6 +148,10 @@ type.styleAliases;
 yaml.load(str);
 // $ExpectType unknown
 yaml.load(str, loadOpts);
+// $ExpectType Record<string, unknown>
+yaml.load<Record<string, unknown>>(str);
+// $ExpectType Record<string, unknown>
+yaml.load<Record<string, unknown>>(str, loadOpts);
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
@@ -157,6 +161,12 @@ value = yaml.loadAll(str);
 value = yaml.loadAll(str, null, loadOpts);
 // $ExpectType unknown[]
 value = yaml.loadAll(str, undefined, loadOpts);
+// $ExpectType Record<string, unknown>[]
+value = yaml.loadAll<Record<string, unknown>>(str);
+// $ExpectType Record<string, unknown>[]
+value = yaml.loadAll<Record<string, unknown>>(str, null, loadOpts);
+// $ExpectType Record<string, unknown>[]
+value = yaml.loadAll<Record<string, unknown>>(str, undefined, loadOpts);
 
 // $ExpectType void
 yaml.loadAll(str, doc => {

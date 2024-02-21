@@ -1,6 +1,6 @@
 export as namespace jsyaml;
 
-export function load(str: string, opts?: LoadOptions): unknown;
+export function load<T = unknown>(str: string, opts?: LoadOptions): T;
 
 export class Type {
     constructor(tag: string, opts?: TypeConstructorOptions);
@@ -21,7 +21,7 @@ export class Schema {
     extend(types: SchemaDefinition | Type[] | Type): Schema;
 }
 
-export function loadAll(str: string, iterator?: null, opts?: LoadOptions): unknown[];
+export function loadAll<T extends unknown[] = unknown[]>(str: string, iterator?: null, opts?: LoadOptions): T;
 export function loadAll(str: string, iterator: (doc: unknown) => void, opts?: LoadOptions): void;
 
 export function dump(obj: any, opts?: DumpOptions): string;
