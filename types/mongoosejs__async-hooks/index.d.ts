@@ -1,3 +1,5 @@
+// Minimum TypeScript Version: 5.0
+
 import { Schema } from "mongoose";
 declare namespace wrapCallback {
     interface Options {
@@ -7,5 +9,3 @@ declare namespace wrapCallback {
 declare function wrapCallback(schema: Schema, options?: wrapCallback.Options): void;
 
 export = wrapCallback;
-
-// Minimum TypeScript Version: 5.0
