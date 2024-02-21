@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/mokapi",
+    "version": "0.9.7",
+    "noNpm": true,
+    "projects": [
+        "https://github.com/marle3003/mokapi"
+    ],
+    "devDependencies": {
+        "@types/mokapi": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Marcel Lehmann",
+            "githubUsername": "marle3003"
+        }
+    ]
+}
