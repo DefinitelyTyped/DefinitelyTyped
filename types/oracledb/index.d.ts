@@ -673,7 +673,7 @@ declare namespace OracleDB {
          * With IN or IN OUT binds the type can be explicitly set with type or it will default to the type
          * of the input data value. With OUT binds, the type defaults to oracledb.STRING whenever type is not specified.
          */
-        type?: number | string | undefined;
+        type?: DbType | number | string | undefined;
         /**
          * The input value or variable to be used for an IN or IN OUT bind variable.
          */
@@ -896,8 +896,8 @@ declare namespace OracleDB {
          * @see https://oracle.github.io/node-oracledb/doc/api.html#lobhandling
          * @see https://oracle.github.io/node-oracledb/doc/api.html#lobbinds
          */
-        createLob(type: number): Promise<Lob>;
-        createLob(type: number, callback: (error: DBError, lob: Lob) => void): void;
+        createLob(type: DbType): Promise<Lob>;
+        createLob(type: DbType, callback: (error: DBError, lob: Lob) => void): void;
 
         /**
          * This call executes a single SQL or PL/SQL statement.
