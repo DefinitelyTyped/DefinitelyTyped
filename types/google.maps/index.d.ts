@@ -1,7 +1,7 @@
 // To report an issue with these types, please open a support ticket at:
 // https://issuetracker.google.com/savedsearches/558438
 
-// Google Maps JS API Version: 3.55
+// Google Maps JS API Version: 3.56
 // tslint:disable:enforce-name-casing
 // tslint:disable:no-any
 // tslint:disable:interface-over-type-literal
@@ -5122,6 +5122,8 @@ declare namespace google.maps {
     OpeningHours: typeof google.maps.places.OpeningHours;
     OpeningHoursPeriod: typeof google.maps.places.OpeningHoursPeriod;
     OpeningHoursPoint: typeof google.maps.places.OpeningHoursPoint;
+    ParkingOptions: typeof google.maps.places.ParkingOptions;
+    PaymentOptions: typeof google.maps.places.PaymentOptions;
     Photo: typeof google.maps.places.Photo;
     Place: typeof google.maps.places.Place;
     PlacesService: typeof google.maps.places.PlacesService;
@@ -12798,6 +12800,87 @@ declare namespace google.maps.places {
     minute: number;
   }
   /**
+   * Access by calling `const {ParkingOptions} = await
+   * google.maps.importLibrary("places")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class ParkingOptions {
+    /**
+     * Whether a place offers free garage parking. Returns &#39;true&#39; or
+     * &#39;false&#39; if the value is known. Returns &#39;null&#39; if the
+     * value is unknown.
+     */
+    hasFreeGarageParking: boolean | null;
+    /**
+     * Whether a place offers free parking lots. Returns &#39;true&#39; or
+     * &#39;false&#39; if the value is known. Returns &#39;null&#39; if the
+     * value is unknown.
+     */
+    hasFreeParkingLot: boolean | null;
+    /**
+     * Whether a place offers free street parking. Returns &#39;true&#39; or
+     * &#39;false&#39; if the value is known. Returns &#39;null&#39; if the
+     * value is unknown.
+     */
+    hasFreeStreetParking: boolean | null;
+    /**
+     * Whether a place offers paid garage parking. Returns &#39;true&#39; or
+     * &#39;false&#39; if the value is known. Returns &#39;null&#39; if the
+     * value is unknown.
+     */
+    hasPaidGarageParking: boolean | null;
+    /**
+     * Whether a place offers paid parking lots. Returns &#39;true&#39; or
+     * &#39;false&#39; if the value is known. Returns &#39;null&#39; if the
+     * value is unknown.
+     */
+    hasPaidParkingLot: boolean | null;
+    /**
+     * Whether a place offers paid street parking. Returns &#39;true&#39; or
+     * &#39;false&#39; if the value is known. Returns &#39;null&#39; if the
+     * value is unknown.
+     */
+    hasPaidStreetParking: boolean | null;
+    /**
+     * Whether a place offers valet parking. Returns &#39;true&#39; or
+     * &#39;false&#39; if the value is known. Returns &#39;null&#39; if the
+     * value is unknown.
+     */
+    hasValetParking: boolean | null;
+  }
+  /**
+   * Access by calling `const {PaymentOptions} = await
+   * google.maps.importLibrary("places")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class PaymentOptions {
+    /**
+     * Whether a place only accepts payment via cash. Returns &#39;true&#39; or
+     * &#39;false&#39; if the value is known. Returns &#39;null&#39; if the
+     * value is unknown.
+     */
+    acceptsCashOnly: boolean | null;
+    /**
+     * Whether a place accepts payment via credit card. Returns &#39;true&#39;
+     * or
+     * &#39;false&#39; if the value is known. Returns &#39;null&#39; if the
+     * value is unknown.
+     */
+    acceptsCreditCards: boolean | null;
+    /**
+     * Whether a place accepts payment via debit card. Returns &#39;true&#39; or
+     * &#39;false&#39; if the value is known. Returns &#39;null&#39; if the
+     * value is unknown.
+     */
+    acceptsDebitCards: boolean | null;
+    /**
+     * Whether a place accepts payment via NFC. Returns &#39;true&#39; or
+     * &#39;false&#39; if the value is known. Returns &#39;null&#39; if the
+     * value is unknown.
+     */
+    acceptsNFC: boolean | null;
+  }
+  /**
    * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    *
    *
@@ -12864,6 +12947,7 @@ declare namespace google.maps.places {
      * href="http://microformats.org/wiki/adr">adr microformat</a>.
      */
     adrFormatAddress?: string | null;
+    allowsDogs?: boolean | null;
     /**
      * Attribution text to be displayed for this Place result.
      */
@@ -12932,6 +13016,10 @@ declare namespace google.maps.places {
      * &#39;undefined&#39; if this field has not yet been requested.
      */
     hasDineIn?: boolean | null;
+    hasLiveMusic?: boolean | null;
+    hasMenuForChildren?: boolean | null;
+    hasOutdoorSeating?: boolean | null;
+    hasRestroom?: boolean | null;
     /**
      * Whether a place has takeout. Returns &#39;true&#39; or &#39;false&#39; if
      * the value is known. Returns &#39;null&#39; if the value is unknown.
@@ -12939,6 +13027,7 @@ declare namespace google.maps.places {
      * &#39;undefined&#39; if this field has not yet been requested.
      */
     hasTakeout?: boolean | null;
+    hasWiFi?: boolean | null;
     /**
      * The default HEX color code for the place&#39;s category.
      */
@@ -12952,6 +13041,9 @@ declare namespace google.maps.places {
      * includes the country code, and is prefixed with the plus (+) sign.
      */
     internationalPhoneNumber?: string | null;
+    isGoodForChildren?: boolean | null;
+    isGoodForGroups?: boolean | null;
+    isGoodForWatchingSports?: boolean | null;
     /**
      * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      * Check if the place is open at the given datetime. Resolves with
@@ -12982,6 +13074,16 @@ declare namespace google.maps.places {
      *     instead.
      */
     openingHours?: google.maps.places.OpeningHours | null;
+    /**
+     * Options of parking provided by the place. <code>undefined</code> if the
+     * parking options data have not been called for from the server.
+     */
+    parkingOptions?: google.maps.places.ParkingOptions | null;
+    /**
+     * Payment options provided by the place. <code>undefined</code> if the
+     * payment options data have not been called for from the server.
+     */
+    paymentOptions?: google.maps.places.PaymentOptions | null;
     /**
      * Photos of this Place. The collection will contain up to ten {@link
      * google.maps.places.Photo} objects.
@@ -13034,6 +13136,9 @@ declare namespace google.maps.places {
      * &#39;undefined&#39; if this field has not yet been requested.
      */
     servesBrunch?: boolean | null;
+    servesCocktails?: boolean | null;
+    servesCoffee?: boolean | null;
+    servesDessert?: boolean | null;
     /**
      * Whether a place serves dinner. Returns &#39;true&#39; or &#39;false&#39;
      * if the value is known. Returns &#39;null&#39; if the value is unknown.
@@ -13269,7 +13374,7 @@ declare namespace google.maps.places {
     types?: string[] | null;
   }
   /**
-   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    *
    * This event is created after the user selects a place with the Place
    * Autocomplete Element. Access the selection with <code>event.place</code>.
@@ -13280,7 +13385,7 @@ declare namespace google.maps.places {
    */
   export class PlaceAutocompletePlaceSelectEvent extends Event {
     /**
-     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      *
      * This event is created after the user selects a place with the Place
      * Autocomplete Element. Access the selection with <code>event.place</code>.
@@ -13291,12 +13396,12 @@ declare namespace google.maps.places {
      */
     constructor();
     /**
-     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      */
     place: google.maps.places.Place;
   }
   /**
-   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    *
    * This event is emitted by the PlaceAutocompleteElement when there is an
    * issue with the network request.
@@ -13307,7 +13412,7 @@ declare namespace google.maps.places {
    */
   export class PlaceAutocompleteRequestErrorEvent extends Event {
     /**
-     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      *
      * This event is emitted by the PlaceAutocompleteElement when there is an
      * issue with the network request.
@@ -14283,7 +14388,7 @@ declare namespace google.maps.places {
     /**
      * Fields to be included in the response, <a
      * href="https://developers.google.com/maps/billing/understanding-cost-of-use#places-product">which
-     * will be billed for</a>. If <code>[&#39;ALL&#39;]</code> is passed in, all
+     * will be billed for</a>. If <code>[&#39;*&#39;]</code> is passed in, all
      * available fields will be returned and billed for (this is not recommended
      * for production deployments). For a list of fields see {@link
      * google.maps.places.PlaceResult}. Nested fields can be specified with
