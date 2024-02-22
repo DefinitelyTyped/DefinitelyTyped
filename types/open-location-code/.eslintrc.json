@@ -1,6 +1,0 @@
-{
-    "rules": {
-        // disable the rule for all files
-        "@typescript-eslint/explicit-member-accessibility": "off"
-    }
-}

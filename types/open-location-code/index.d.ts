@@ -48,16 +48,16 @@ export default class OpenLocationCode {
     /**
      * Provides a normal precision code, approximately 14x14 meters.
      */
-    public static readonly CODE_PRECISION_NORMAL: number;
+    static readonly CODE_PRECISION_NORMAL: number;
 
     /**
      * Provides an extra precision code, approximately 2x3 meters.
      */
-    public static readonly CODE_PRECISION_EXTRA: number;
+    static readonly CODE_PRECISION_EXTRA: number;
 
     /**
-    @returns Returns the OLC alphabet.
-   */
+     *@returns Returns the OLC alphabet.
+     */
     static getAlphabet(): string;
 
     /**
