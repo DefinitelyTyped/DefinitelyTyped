@@ -1,50 +1,52 @@
-/**
- * Coordinates of a decoded Open Location Code.
- *
- * The coordinates include the latitude and longitude of the lower left and
- * upper right corners and the center of the bounding box for the area the
- * code represents.
- *
- * {@label CodeArea}
- */
-export interface CodeArea {
+declare namespace OpenLocationCode {
     /**
-     * The latitude of the SW corner.
+     * Coordinates of a decoded Open Location Code.
+     *
+     * The coordinates include the latitude and longitude of the lower left and
+     * upper right corners and the center of the bounding box for the area the
+     * code represents.
+     *
+     * {@label CodeArea}
      */
-    latitudeLo: number;
+    interface CodeArea {
+        /**
+         * The latitude of the SW corner.
+         */
+        latitudeLo: number;
 
-    /**
-     * The longitude of the SW corner in degrees.
-     */
-    longitudeLo: number;
+        /**
+         * The longitude of the SW corner in degrees.
+         */
+        longitudeLo: number;
 
-    /**
-     * The latitude of the NE corner in degrees.
-     */
-    latitudeHi: number;
+        /**
+         * The latitude of the NE corner in degrees.
+         */
+        latitudeHi: number;
 
-    /**
-     * The longitude of the NE corner in degrees.
-     */
-    longitudeHi: number;
+        /**
+         * The longitude of the NE corner in degrees.
+         */
+        longitudeHi: number;
 
-    /**
-     * The number of digits in the code.
-     */
-    codeLength: number;
+        /**
+         * The number of digits in the code.
+         */
+        codeLength: number;
 
-    /**
-     * The latitude of the center in degrees.
-     */
-    latitudeCenter: number;
+        /**
+         * The latitude of the center in degrees.
+         */
+        latitudeCenter: number;
 
-    /**
-     * The longitude of the center in degrees.
-     */
-    longitudeCenter: number;
+        /**
+         * The longitude of the center in degrees.
+         */
+        longitudeCenter: number;
+    }
 }
 
-export default class OpenLocationCode {
+declare class OpenLocationCode {
     /**
      * Provides a normal precision code, approximately 14x14 meters.
      */
@@ -116,7 +118,7 @@ export default class OpenLocationCode {
      *     area of the code.
      * @throws {@link Exception} If the code is not valid.
      */
-    static decode(code: string): CodeArea;
+    static decode(code: string): OpenLocationCode.CodeArea;
 
     /**
      * Recover the nearest matching code to a specified location.
@@ -153,3 +155,5 @@ export default class OpenLocationCode {
      */
     static shorten(code: string, latitude: number, longitude: number): string;
 }
+
+export = OpenLocationCode;
