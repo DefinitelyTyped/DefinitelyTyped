@@ -13,4 +13,3 @@ const knob = new GorillaEngine.UI.Knob({ id: "myknob" });
 const label = new GorillaEngine.UI.Label({ margin: 5 });
 
 const slider = new GorillaEngine.UI.Slider({ id: "slider" });
-
