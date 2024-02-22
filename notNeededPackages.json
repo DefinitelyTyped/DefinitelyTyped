@@ -932,6 +932,10 @@
             "libraryName": "compare-versions",
             "asOfVersion": "3.3.0"
         },
+        "complex.js": {
+            "libraryName": "complex.js",
+            "asOfVersion": "2.0.14"
+        },
         "composer-concerto": {
             "libraryName": "composer-concerto",
             "asOfVersion": "0.71.1"
